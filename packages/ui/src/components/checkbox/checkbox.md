@@ -3,36 +3,37 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/checkbox
+- Chakra UI: https://chakra-ui.com/docs/components/checkbox
 
 ## Purpose
 
-`Checkbox` is the moduix wrapper around Ark UI Checkbox for standalone selection and grouped
-multi-select state.
-
-The wrapper keeps Ark state, hidden input behavior, and keyboard accessibility intact while adding
-moduix default styles, CSS variables, stable `data-slot` hooks, and one DX prop: `size` on
-`Checkbox.Root`.
+`Checkbox` is the moduix wrapper around Ark UI Checkbox for standalone boolean or indeterminate
+selection and grouped multi-select state.
 
 ## Upstream model to preserve
 
-- Use Ark parts directly: `Root`, `Control`, `Indicator`, `Label`, `HiddenInput`, and `Group`.
-- Keep Ark callback shapes unchanged:
+- Use Ark React primitives from `@ark-ui/react/checkbox`.
+- Preserve Ark namespace parts: `Root`, `RootProvider`, `Control`, `Indicator`, `HiddenInput`,
+  `Label`, `Context`, `Group`, and `GroupProvider`.
+- Preserve Ark hooks and state access exports: `useCheckbox`, `useCheckboxContext`,
+  `useCheckboxGroup`, and `useCheckboxGroupContext`.
+- Preserve Ark callback shapes:
   - `Checkbox.Root` uses `onCheckedChange(details)` and `details.checked`
   - `Checkbox.Group` uses `onValueChange(value)`
-- Keep grouped selection on `Checkbox.Group` instead of inventing a second public component.
-- Keep checked and indeterminate indicator composition explicit.
+- Preserve Ark `HiddenInput` for form submission, native validation, and form reset.
+- Preserve Ark `asChild` behavior. `Checkbox.Root` renders a `label`; an `asChild` replacement must
+  also be a direct semantic `label`.
 
 ## Current behavior contract
 
-- `Checkbox.Root` is the primary export surface and forwards Ark root behavior plus `size`.
-- `Checkbox.Control` is the visual control surface and owns state styling.
-- `Checkbox.Indicator` renders a default moduix icon when `children` is omitted:
-  - checked indicator: `CheckIcon`
-  - indeterminate indicator: `IndeterminateIcon` when `indeterminate` is set
-- `Checkbox.HiddenInput` forwards the Ark hidden input for form integration.
-- `Checkbox.Label` is the styled Ark label part.
-- `Checkbox.Group` is the Ark group root with moduix layout styling.
-- `size` defaults to `md` and writes `data-size` on `Checkbox.Root`.
+- `Checkbox` is `Checkbox.Root` with namespace parts attached.
+- `Checkbox.Root` accepts Ark root props plus the moduix-only `size` prop.
+- `Checkbox.RootProvider` accepts Ark provider props plus the same moduix-only `size` prop.
+- `Checkbox.Control`, `Checkbox.HiddenInput`, `Checkbox.Label`, `Checkbox.Group`, and
+  `Checkbox.GroupProvider` are thin styled Ark part wrappers.
+- `Checkbox.Indicator` renders default moduix icons when `children` is omitted.
+- `Checkbox.Context` is the direct Ark render-prop context part.
+- `size` defaults to `md` and writes `data-size` on `Root` and `RootProvider`.
 
 ## Anatomy and exported parts
 
@@ -41,9 +42,18 @@ Standalone checkbox:
 ```text
 Checkbox.Root
 ├─ Checkbox.Control
-│  └─ Checkbox.Indicator
+│  ├─ Checkbox.Indicator
+│  └─ Checkbox.Indicator[indeterminate] (optional)
 ├─ Checkbox.Label
-└─ Checkbox.HiddenInput
+├─ Checkbox.HiddenInput
+└─ Checkbox.Context (optional)
+```
+
+External checkbox state:
+
+```text
+Checkbox.RootProvider[value]
+└─ same child parts connected to useCheckbox()
 ```
 
 Grouped checkboxes:
@@ -56,16 +66,26 @@ Checkbox.Group
    └─ Checkbox.HiddenInput
 ```
 
-| Part                   | `data-slot`                             | Notes                                                |
-| ---------------------- | --------------------------------------- | ---------------------------------------------------- |
-| `Checkbox.Root`        | `checkbox-root`                         | Styled Ark root. Accepts Ark root props plus `size`. |
-| `Checkbox.Control`     | `checkbox-control`                      | Styled Ark control with state styles.                |
-| `Checkbox.Indicator`   | `checkbox-indicator`                    | Defaults to moduix icons when children are omitted.  |
-| checked icon           | `checkbox-indicator-checked-icon`       | Default check icon wrapper.                          |
-| indeterminate icon     | `checkbox-indicator-indeterminate-icon` | Default indeterminate icon wrapper.                  |
-| `Checkbox.Label`       | `checkbox-label`                        | Styled Ark label.                                    |
-| `Checkbox.HiddenInput` | `checkbox-hidden-input`                 | Ark hidden input for forms.                          |
-| `Checkbox.Group`       | `checkbox-group`                        | Styled Ark group root for shared value state.        |
+External group state:
+
+```text
+Checkbox.GroupProvider[value]
+└─ Checkbox.Root[value] items connected to useCheckboxGroup()
+```
+
+| Part                     | `data-slot`                             | Notes                                                |
+| ------------------------ | --------------------------------------- | ---------------------------------------------------- |
+| `Checkbox.Root`          | `checkbox-root`                         | Styled Ark root. Accepts Ark root props plus `size`. |
+| `Checkbox.RootProvider`  | `checkbox-root-provider`                | Styled Ark provider. Accepts `size`.                 |
+| `Checkbox.Control`       | `checkbox-control`                      | Styled Ark control with state styles.                |
+| `Checkbox.Indicator`     | `checkbox-indicator`                    | Defaults to moduix icons when children are omitted.  |
+| checked icon             | `checkbox-indicator-checked-icon`       | Default check icon wrapper.                          |
+| indeterminate icon       | `checkbox-indicator-indeterminate-icon` | Default indeterminate icon wrapper.                  |
+| `Checkbox.Label`         | `checkbox-label`                        | Styled Ark label.                                    |
+| `Checkbox.HiddenInput`   | `checkbox-hidden-input`                 | Ark hidden input for forms.                          |
+| `Checkbox.Context`       | none                                    | Ark render-prop state reader; no DOM part.           |
+| `Checkbox.Group`         | `checkbox-group`                        | Styled Ark group root for shared value state.        |
+| `Checkbox.GroupProvider` | `checkbox-group-provider`               | Styled Ark group provider.                           |
 
 ## Composition
 
@@ -115,130 +135,96 @@ export function CheckboxGroupDemo() {
 }
 ```
 
-Indeterminate checkbox:
+Provider state:
 
 ```tsx
-<Checkbox.Root checked="indeterminate">
-  <Checkbox.Control>
-    <Checkbox.Indicator />
-    <Checkbox.Indicator indeterminate />
-  </Checkbox.Control>
-  <Checkbox.Label>Select all</Checkbox.Label>
-  <Checkbox.HiddenInput />
-</Checkbox.Root>
+import { Checkbox, useCheckbox } from 'moduix';
+
+export function CheckboxProviderDemo() {
+  const checkbox = useCheckbox({ defaultChecked: true });
+
+  return (
+    <Checkbox.RootProvider value={checkbox}>
+      <Checkbox.Control>
+        <Checkbox.Indicator />
+      </Checkbox.Control>
+      <Checkbox.Label>Managed outside the tree</Checkbox.Label>
+      <Checkbox.HiddenInput />
+    </Checkbox.RootProvider>
+  );
+}
 ```
 
-## Public props
+## Upstream feature coverage
 
-`Checkbox.Root` accepts Ark checkbox root props plus:
+- Basic/default checked: supported through Ark `Root`, `Control`, `Indicator`, `Label`, and
+  `HiddenInput`.
+- Controlled standalone state: supported with `checked` and `onCheckedChange(details)`.
+- Root provider: supported with `useCheckbox` and `Checkbox.RootProvider`.
+- Disabled/read-only/invalid/required state: passed through to Ark and styled through Ark data
+  attributes.
+- Indeterminate state: supported with `checked="indeterminate"` and an explicit
+  `Checkbox.Indicator indeterminate` part.
+- Field/form integration: supported with `HiddenInput`; examples use moduix `Field`/`Fieldset`
+  wrappers until those wrappers migrate from Base UI.
+- Context access: supported with `Checkbox.Context` and `useCheckboxContext`.
+- Group state: supported with `Checkbox.Group`, controlled `value`, `onValueChange(value)`,
+  `maxSelectedValues`, invalid state, native form submission, and `Fieldset` composition.
+- Group provider: supported with `useCheckboxGroup` and `Checkbox.GroupProvider`.
+- Select-all composition: regular controlled composition; no custom local select-all prop remains.
+- Ark `asChild` and `ids`: passed through unchanged by the wrapped parts.
 
-| Prop   | Type                                   | Default | Notes                                                           |
-| ------ | -------------------------------------- | ------- | --------------------------------------------------------------- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `md`    | Scales the control and default indicator through CSS variables. |
+## Accessibility and state
 
-Common `Checkbox.Root` props:
+- Ark owns keyboard interaction, label semantics, hidden input synchronization, form reset, form
+  submission, and state data attributes.
+- Forwarded refs target the underlying Ark DOM part for every wrapped part.
+- `Checkbox.Root` and `Checkbox.RootProvider` render a `label` by default.
+- `Checkbox.HiddenInput` renders the input that participates in native forms. Keep it in examples
+  and production usage when form behavior matters.
+- State attributes exposed by Ark include `data-active`, `data-focus`, `data-focus-visible`,
+  `data-hover`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, and
+  `data-state="checked" | "indeterminate" | "unchecked"` on the relevant root/control/indicator/label
+  parts.
+- `Checkbox.Group` propagates group state to nested checkbox roots through Ark group context.
 
-| Prop              | Notes                                                              |
-| ----------------- | ------------------------------------------------------------------ |
-| `checked`         | Controlled checked state. Use `boolean` or `'indeterminate'`.      |
-| `defaultChecked`  | Initial uncontrolled checked state.                                |
-| `onCheckedChange` | Ark callback. Read the next state from `details.checked`.          |
-| `disabled`        | Prevents interaction and applies disabled state attributes/styles. |
-| `readOnly`        | Keeps the value visible while preventing user changes.             |
-| `invalid`         | Applies invalid state attributes/styles.                           |
-| `required`        | Participates in native validation.                                 |
-| `name`, `value`   | Hidden input form submission props.                                |
-| `form`            | Associates the hidden input with a specific form.                  |
-| `ids`             | Ark element id overrides for composition.                          |
-| `asChild`         | Ark polymorphic ownership escape hatch.                            |
+## Defaults and styling
 
-`Checkbox.Group` accepts Ark group props. Common public props:
-
-| Prop                | Notes                                                            |
-| ------------------- | ---------------------------------------------------------------- |
-| `value`             | Controlled selected values.                                      |
-| `defaultValue`      | Initial uncontrolled selected values.                            |
-| `onValueChange`     | Ark callback. Receives the next `string[]` directly.             |
-| `disabled`          | Disables all checkboxes in the group.                            |
-| `readOnly`          | Makes the group read-only.                                       |
-| `invalid`           | Marks the group invalid.                                         |
-| `maxSelectedValues` | Limits how many values can be selected.                          |
-| `name`              | Name used by hidden inputs inside the group for form submission. |
-
-## Styling API
-
-Ark state attributes come from the real Ark parts. The component styles rely on:
-
-- `Checkbox.Root`: `data-size`, `data-disabled`, `data-readonly`, `data-invalid`
-- `Checkbox.Control`: `data-state="checked" | "indeterminate" | "unchecked"`,
-  `data-disabled`, `data-readonly`, `data-invalid`, `data-focus-visible`
-- `Checkbox.Label`: Ark label state attributes
-- `Checkbox.Group`: Ark group state attributes when present
-
-Public CSS variables:
-
-| Variable                          | Default fallback                  | Purpose                                 |
-| --------------------------------- | --------------------------------- | --------------------------------------- |
-| `--checkbox-bg`                   | `var(--color-background)`         | Unchecked background.                   |
-| `--checkbox-bg-checked`           | `var(--color-primary)`            | Checked and indeterminate background.   |
-| `--checkbox-bg-hover`             | `var(--color-accent)`             | Unchecked hover background.             |
-| `--checkbox-bg-invalid`           | `var(--color-destructive)`        | Checked invalid background.             |
-| `--checkbox-border-color`         | `var(--color-border)`             | Unchecked border color.                 |
-| `--checkbox-border-color-checked` | `var(--color-primary)`            | Checked and indeterminate border color. |
-| `--checkbox-border-color-invalid` | `var(--color-destructive)`        | Invalid border and focus ring color.    |
-| `--checkbox-border-width`         | `var(--border-width-sm)`          | Control border width.                   |
-| `--checkbox-color`                | `var(--color-primary-foreground)` | Built-in indicator icon color.          |
-| `--checkbox-color-invalid`        | `var(--color-primary-foreground)` | Checked invalid indicator icon color.   |
-| `--checkbox-disabled-opacity`     | `var(--opacity-disabled)`         | Disabled opacity.                       |
-| `--checkbox-focus-ring-color`     | `var(--color-ring)`               | Focus ring color.                       |
-| `--checkbox-focus-ring-offset`    | `var(--border-width-sm)`          | Focus ring offset.                      |
-| `--checkbox-focus-ring-width`     | `var(--border-width-sm)`          | Focus ring width.                       |
-| `--checkbox-gap`                  | `var(--spacing-2)`                | Gap between control and label.          |
-| `--checkbox-group-color`          | `var(--color-foreground)`         | Text color for grouped content.         |
-| `--checkbox-group-gap`            | `var(--spacing-2)`                | Gap between checkbox rows in a group.   |
-| `--checkbox-icon-size-xs`         | `0.5rem`                          | Default icon size for `size="xs"`.      |
-| `--checkbox-icon-size-sm`         | `0.625rem`                        | Default icon size for `size="sm"`.      |
-| `--checkbox-icon-size-md`         | `0.75rem`                         | Default icon size for `size="md"`.      |
-| `--checkbox-icon-size-lg`         | `0.875rem`                        | Default icon size for `size="lg"`.      |
-| `--checkbox-icon-size-xl`         | `1rem`                            | Default icon size for `size="xl"`.      |
-| `--checkbox-label-color`          | `var(--color-foreground)`         | Label text color.                       |
-| `--checkbox-label-font-size`      | `var(--text-sm)`                  | Label font size.                        |
-| `--checkbox-label-font-weight`    | `var(--weight-medium)`            | Label font weight.                      |
-| `--checkbox-label-line-height`    | `var(--line-height-text-sm)`      | Label line height.                      |
-| `--checkbox-radius`               | `var(--radius-xs)`                | Control border radius.                  |
-| `--checkbox-size-xs`              | `0.875rem`                        | Control size for `size="xs"`.           |
-| `--checkbox-size-sm`              | `1rem`                            | Control size for `size="sm"`.           |
-| `--checkbox-size-md`              | `1.25rem`                         | Control size for `size="md"`.           |
-| `--checkbox-size-lg`              | `1.5rem`                          | Control size for `size="lg"`.           |
-| `--checkbox-size-xl`              | `1.75rem`                         | Control size for `size="xl"`.           |
-| `--checkbox-transition`           | `var(--transition-default)`       | State transition timing.                |
+- moduix ships styled defaults; Ark is unstyled.
+- Public CSS variables are declared in `packages/ui/src/styles/theme.css` and documented in
+  `apps/docs/content/docs/checkbox.mdx`.
+- Styling uses local classes plus Ark state data attributes. No Base UI state selectors are used in
+  `Checkbox.module.css`.
+- `Checkbox.Control` owns visual state styles for checked, indeterminate, invalid, disabled, hover,
+  and focus-visible states.
+- `Checkbox.Root` and `Checkbox.RootProvider` write `data-size` so size tokens can scale the control
+  and default icon.
+- `Checkbox.Indicator` default icon wrappers expose stable checked/indeterminate `data-slot` values.
 
 ## Intentional sugar and differences from upstream
 
-- moduix ships pre-styled defaults; Ark is intentionally unstyled.
-- `Checkbox.Root` accepts a moduix-only `size` prop.
-- `Checkbox.Indicator` renders default icons when `children` are omitted.
-
-## Breaking changes from the Base UI surface
-
-- Removed flat exports such as `CheckboxIndicator`, `CheckboxField`, and `CheckboxLabel`.
-- Removed the separate `CheckboxGroup` component and its helper parts. Use `Checkbox.Group`.
-- Removed Base UI-only escape hatches and props that no longer match Ark, including `render`,
-  `nativeButton`, `uncheckedValue`, `inputRef`, `allValues`, and `parent`.
-- Group select-all is now regular controlled composition instead of a custom group prop pair.
+- `Checkbox.Root` and `Checkbox.RootProvider` add `size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'`.
+- `Checkbox.Indicator` renders `CheckIcon` or `IndeterminateIcon` when no children are provided.
+- The wrapper adds stable `data-slot` hooks for moduix styling.
+- Removed legacy Base UI API and compatibility props: flat `CheckboxIndicator`, `CheckboxField`,
+  `CheckboxLabel`, separate `CheckboxGroup`, `render`, `nativeButton`, `uncheckedValue`, `inputRef`,
+  `allValues`, and `parent`.
 
 ## Agent notes
 
-- Keep `Checkbox` Ark-shaped. Do not reintroduce a second `CheckboxGroup` wrapper.
+- Keep `Checkbox` Ark-shaped. Do not reintroduce a second public group component.
 - Keep checked and indeterminate indicators explicit in docs/examples.
-- Keep Ark callback/state shapes unchanged.
-- If `data-slot` names or CSS variables change, update docs, stories, theme tokens, and registry in
-  the same task.
+- Keep provider/context/hooks exported from both `Checkbox.tsx` and `index.ts`.
+- If data-slot names, CSS variables, or provider support changes, update stories, docs, local markdown,
+  theme tokens, and registry artifacts in the same task.
 
 ## Local changelog
 
+- 2026-06-18: Completed Ark parity audit by exposing `RootProvider`, `GroupProvider`, `Context`,
+  `useCheckbox`, `useCheckboxContext`, `useCheckboxGroup`, `useCheckboxGroupContext`, and related
+  types from the public checkbox barrel.
+- 2026-06-18: Expanded docs and stories to cover Ark standalone, provider, context, form, field,
+  group, group provider, max-selected, select-all, invalid, and fieldset patterns.
 - 2026-06-18: Migrated `Checkbox` from Base UI to Ark UI, adopted the Ark namespace API
   (`Checkbox.Root`, `Checkbox.Control`, `Checkbox.Indicator`, `Checkbox.Label`,
   `Checkbox.HiddenInput`, `Checkbox.Group`), and removed the standalone `CheckboxGroup` component.
-- 2026-06-18: Rewrote local docs and examples around the Ark mental model, including grouped
-  selection, fieldset composition, and explicit indeterminate/select-all composition.

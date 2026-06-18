@@ -17,6 +17,18 @@
   max-width: min(20rem, 100%);
 }
 
+.field {
+  --field-width: fit-content;
+  --field-max-width: min(20rem, 100%);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
 .groupHeading {
   color: var(--checkbox-label-color, var(--color-foreground));
   font-size: var(--checkbox-label-font-size, var(--text-sm));
@@ -28,6 +40,16 @@
   color: var(--color-muted-foreground);
   font-size: var(--text-xs);
   line-height: var(--line-height-text-xs);
+}
+
+.submit {
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
 }
 
 .customGroup,

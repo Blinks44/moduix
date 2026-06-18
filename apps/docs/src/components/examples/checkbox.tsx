@@ -1,4 +1,13 @@
-import { Checkbox, Fieldset, FieldsetLegend } from 'moduix';
+import {
+  Checkbox,
+  Field,
+  FieldDescription,
+  FieldError,
+  Fieldset,
+  FieldsetLegend,
+  useCheckbox,
+  useCheckboxGroup,
+} from 'moduix';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -16,6 +25,8 @@ const frameworkOptions = [
   { value: 'vue', label: 'Vue' },
 ];
 
+const frameworkOptionsWithSvelte = [...frameworkOptions, { value: 'svelte', label: 'Svelte' }];
+
 const sizeOptions = [
   { value: 'xs', label: 'Extra-small' },
   { value: 'sm', label: 'Small' },
@@ -23,6 +34,106 @@ const sizeOptions = [
   { value: 'lg', label: 'Large' },
   { value: 'xl', label: 'Extra-large' },
 ] as const;
+
+export const checkboxExampleCss = `
+  .checkbox-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+  }
+
+  .checkbox-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+  }
+
+  .checkbox-state,
+  .checkbox-result {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-text-xs);
+  }
+
+  .checkbox-fieldset {
+    width: fit-content;
+    max-width: min(20rem, 100%);
+  }
+
+  .checkbox-field {
+    --field-width: fit-content;
+    --field-max-width: min(20rem, 100%);
+  }
+
+  .checkbox-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+  }
+
+  .checkbox-submit {
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-2) var(--spacing-3);
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+`;
+
+export const checkboxCustomStylingCss = `
+  .checkbox-custom-group,
+  .checkbox-custom-root {
+    gap: var(--spacing-3);
+  }
+
+  .checkbox-custom-control {
+    border-color: var(--color-primary);
+  }
+
+  .checkbox-custom-control[data-state='checked'],
+  .checkbox-custom-control[data-state='indeterminate'] {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+  }
+
+  .checkbox-custom-label {
+    color: var(--color-primary);
+  }
+
+  .checkbox-custom-icon {
+    transform: rotate(-8deg);
+  }
+`;
+
+export const notificationOptionsData = `const options = [
+  { value: 'email', label: 'Email updates' },
+  { value: 'push', label: 'Push notifications' },
+  { value: 'sms', label: 'SMS alerts' },
+];`;
+
+export const frameworkOptionsData = `const options = [
+  { value: 'react', label: 'React' },
+  { value: 'solid', label: 'Solid' },
+  { value: 'vue', label: 'Vue' },
+];`;
+
+export const frameworkOptionsWithSvelteData = `const options = [
+  { value: 'react', label: 'React' },
+  { value: 'solid', label: 'Solid' },
+  { value: 'vue', label: 'Vue' },
+  { value: 'svelte', label: 'Svelte' },
+];`;
+
+export const checkboxLabelsData = `const labels = {
+  basic: 'Enable notifications',
+  disabled: 'Receive weekly summary',
+  readOnly: 'Keep current selection',
+};`;
 
 export const checkboxOverrideCssProperties: CssPropertyInput[] = [
   ['--checkbox-bg', 'var(--color-background)', 'Controls unchecked background color.'],
@@ -136,7 +247,25 @@ function CheckboxItem({
   );
 }
 
+function FrameworkCheckboxes({
+  options = frameworkOptions,
+  indicator,
+}: {
+  options?: typeof frameworkOptions;
+  indicator?: 'default' | 'dual';
+}) {
+  return options.map((option) => (
+    <CheckboxItem key={option.value} value={option.value} indicator={indicator}>
+      {option.label}
+    </CheckboxItem>
+  ));
+}
+
 export function CheckboxExample() {
+  return <CheckboxItem>Enable notifications</CheckboxItem>;
+}
+
+export function CheckboxDefaultCheckedExample() {
   return <CheckboxItem defaultChecked>Enable notifications</CheckboxItem>;
 }
 
@@ -198,6 +327,83 @@ export function ControlledCheckboxExample() {
   );
 }
 
+export function CheckboxRootProviderExample() {
+  const checkbox = useCheckbox({ defaultChecked: true });
+
+  return (
+    <div className={styles.stack}>
+      <Checkbox.RootProvider value={checkbox}>
+        <Checkbox.Control>
+          <Checkbox.Indicator />
+        </Checkbox.Control>
+        <Checkbox.Label>Managed outside the tree</Checkbox.Label>
+        <Checkbox.HiddenInput />
+      </Checkbox.RootProvider>
+      <button
+        type="button"
+        className={styles.submit}
+        onClick={() => checkbox.setChecked(!checkbox.checked)}
+      >
+        {checkbox.checked ? 'Uncheck' : 'Check'}
+      </button>
+    </div>
+  );
+}
+
+export function CheckboxContextExample() {
+  return (
+    <Checkbox.Root defaultChecked>
+      <Checkbox.Control>
+        <Checkbox.Indicator />
+      </Checkbox.Control>
+      <Checkbox.Label>Context reader</Checkbox.Label>
+      <Checkbox.HiddenInput />
+      <Checkbox.Context>
+        {(checkbox) => <span className={styles.hint}>Checked: {String(checkbox.checked)}</span>}
+      </Checkbox.Context>
+    </Checkbox.Root>
+  );
+}
+
+export function CheckboxWithFieldExample() {
+  return (
+    <Field validationMode="onBlur" className={styles.field}>
+      <Checkbox.Root required name="terms">
+        <Checkbox.Control>
+          <Checkbox.Indicator />
+        </Checkbox.Control>
+        <Checkbox.Label>Accept terms</Checkbox.Label>
+        <Checkbox.HiddenInput />
+      </Checkbox.Root>
+      <FieldDescription>Required to continue.</FieldDescription>
+      <FieldError match="valueMissing">Please accept the terms.</FieldError>
+    </Field>
+  );
+}
+
+export function CheckboxWithFormExample() {
+  const [result, setResult] = useState('terms: none');
+
+  return (
+    <form
+      className={styles.form}
+      onSubmit={(event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        setResult(`terms: ${formData.get('terms') ?? 'none'}`);
+      }}
+    >
+      <CheckboxItem name="terms" value="accepted">
+        I agree to the terms and conditions
+      </CheckboxItem>
+      <button type="submit" className={styles.submit}>
+        Submit
+      </button>
+      <span className={styles.hint}>{result}</span>
+    </form>
+  );
+}
+
 export function CustomIndicatorCheckboxExample() {
   return (
     <CheckboxItem defaultChecked indicator="custom">
@@ -239,18 +445,13 @@ export function ControlledCheckboxGroupExample() {
   );
 }
 
-export function CheckboxGroupFieldsetExample() {
+export function CheckboxGroupProviderExample() {
+  const group = useCheckboxGroup({ defaultValue: ['react'], name: 'framework' });
+
   return (
-    <Fieldset className={styles.fieldset}>
-      <FieldsetLegend>Frameworks</FieldsetLegend>
-      <Checkbox.Group defaultValue={['react']} name="frameworks">
-        {frameworkOptions.map((option) => (
-          <CheckboxItem key={option.value} value={option.value}>
-            {option.label}
-          </CheckboxItem>
-        ))}
-      </Checkbox.Group>
-    </Fieldset>
+    <Checkbox.GroupProvider value={group}>
+      <FrameworkCheckboxes />
+    </Checkbox.GroupProvider>
   );
 }
 
@@ -270,6 +471,14 @@ export function CheckboxGroupInvalidExample() {
   );
 }
 
+export function CheckboxGroupMaxSelectedExample() {
+  return (
+    <Checkbox.Group defaultValue={['react', 'solid']} maxSelectedValues={2} name="frameworks">
+      <FrameworkCheckboxes options={frameworkOptionsWithSvelte} />
+    </Checkbox.Group>
+  );
+}
+
 export function CheckboxGroupSelectAllExample() {
   const [value, setValue] = useState<string[]>(['react']);
   const allValues = frameworkOptions.map((option) => option.value);
@@ -286,13 +495,44 @@ export function CheckboxGroupSelectAllExample() {
         Select all
       </CheckboxItem>
       <Checkbox.Group value={value} onValueChange={setValue} name="frameworks">
-        {frameworkOptions.map((option) => (
-          <CheckboxItem key={option.value} value={option.value}>
-            {option.label}
-          </CheckboxItem>
-        ))}
+        <FrameworkCheckboxes />
       </Checkbox.Group>
+      <span className={styles.hint}>Selected: {JSON.stringify(value)}</span>
     </div>
+  );
+}
+
+export function CheckboxGroupWithFormExample() {
+  const [result, setResult] = useState('framework: []');
+
+  return (
+    <form
+      className={styles.form}
+      onSubmit={(event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        setResult(`framework: ${JSON.stringify(formData.getAll('framework'))}`);
+      }}
+    >
+      <Checkbox.Group defaultValue={['react']} name="framework">
+        <FrameworkCheckboxes />
+      </Checkbox.Group>
+      <button type="submit" className={styles.submit}>
+        Submit
+      </button>
+      <span className={styles.hint}>{result}</span>
+    </form>
+  );
+}
+
+export function CheckboxGroupFieldsetExample() {
+  return (
+    <Fieldset className={styles.fieldset}>
+      <FieldsetLegend>Frameworks</FieldsetLegend>
+      <Checkbox.Group defaultValue={['react']} name="frameworks">
+        <FrameworkCheckboxes />
+      </Checkbox.Group>
+    </Fieldset>
   );
 }
 

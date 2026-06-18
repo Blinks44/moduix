@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ComponentProps } from 'react';
 import { Fieldset, FieldsetLegend } from '../fieldset';
-import { Checkbox } from './Checkbox';
+import { Checkbox, useCheckbox, useCheckboxGroup } from './Checkbox';
 import styles from './Checkbox.stories.module.css';
 
 const meta = {
@@ -36,6 +36,8 @@ const frameworkOptions = [
   { value: 'solid', label: 'Solid' },
   { value: 'vue', label: 'Vue' },
 ];
+
+const extendedFrameworkOptions = [...frameworkOptions, { value: 'svelte', label: 'Svelte' }];
 
 function CustomPlusIcon(props: ComponentProps<'svg'>) {
   return (
@@ -101,6 +103,46 @@ export const Controlled: Story = {
       </div>
     );
   },
+};
+
+export const RootProvider: Story = {
+  render: () => {
+    const checkbox = useCheckbox({ defaultChecked: true });
+
+    return (
+      <div className={styles.stack}>
+        <Checkbox.RootProvider value={checkbox}>
+          <Checkbox.Control>
+            <Checkbox.Indicator />
+          </Checkbox.Control>
+          <Checkbox.Label>Managed outside the tree</Checkbox.Label>
+          <Checkbox.HiddenInput />
+        </Checkbox.RootProvider>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => checkbox.setChecked(!checkbox.checked)}
+        >
+          {checkbox.checked ? 'Uncheck' : 'Check'}
+        </button>
+      </div>
+    );
+  },
+};
+
+export const Context: Story = {
+  render: () => (
+    <Checkbox.Root defaultChecked>
+      <Checkbox.Control>
+        <Checkbox.Indicator />
+      </Checkbox.Control>
+      <Checkbox.Label>Context reader</Checkbox.Label>
+      <Checkbox.HiddenInput />
+      <Checkbox.Context>
+        {(checkbox) => <span className={styles.hint}>Checked: {String(checkbox.checked)}</span>}
+      </Checkbox.Context>
+    </Checkbox.Root>
+  ),
 };
 
 export const Indeterminate: Story = {
@@ -188,6 +230,22 @@ export const GroupControlled: Story = {
   },
 };
 
+export const GroupProvider: Story = {
+  render: () => {
+    const group = useCheckboxGroup({ defaultValue: ['react'], name: 'frameworks' });
+
+    return (
+      <Checkbox.GroupProvider value={group}>
+        {frameworkOptions.map((option) => (
+          <CheckboxItem key={option.value} value={option.value}>
+            {option.label}
+          </CheckboxItem>
+        ))}
+      </Checkbox.GroupProvider>
+    );
+  },
+};
+
 export const GroupWithFieldset: Story = {
   render: () => (
     <Fieldset>
@@ -201,6 +259,48 @@ export const GroupWithFieldset: Story = {
       </Checkbox.Group>
     </Fieldset>
   ),
+};
+
+export const GroupWithMaxSelected: Story = {
+  render: () => (
+    <Checkbox.Group defaultValue={['react', 'solid']} maxSelectedValues={2} name="frameworks">
+      {extendedFrameworkOptions.map((option) => (
+        <CheckboxItem key={option.value} value={option.value}>
+          {option.label}
+        </CheckboxItem>
+      ))}
+    </Checkbox.Group>
+  ),
+};
+
+export const GroupWithForm: Story = {
+  render: () => {
+    const [result, setResult] = useState('frameworks: []');
+
+    return (
+      <form
+        className={styles.stack}
+        onSubmit={(event) => {
+          event.preventDefault();
+          setResult(
+            `frameworks: ${JSON.stringify(new FormData(event.currentTarget).getAll('frameworks'))}`,
+          );
+        }}
+      >
+        <Checkbox.Group defaultValue={['react']} name="frameworks">
+          {frameworkOptions.map((option) => (
+            <CheckboxItem key={option.value} value={option.value}>
+              {option.label}
+            </CheckboxItem>
+          ))}
+        </Checkbox.Group>
+        <button type="submit" className={styles.button}>
+          Submit
+        </button>
+        <span className={styles.hint}>{result}</span>
+      </form>
+    );
+  },
 };
 
 export const GroupWithSelectAll: Story = {

@@ -1,1 +1,25 @@
-export { Checkbox } from './Checkbox';
+export {
+  Checkbox,
+  useCheckbox,
+  useCheckboxContext,
+  useCheckboxGroup,
+  useCheckboxGroupContext,
+} from './Checkbox';
+export type {
+  CheckboxCheckedChangeDetails,
+  CheckboxCheckedState,
+  CheckboxContextProps,
+  CheckboxGroupProps,
+  CheckboxGroupProviderBaseProps,
+  CheckboxGroupProviderProps,
+  CheckboxRootProps,
+  CheckboxRootProviderBaseProps,
+  CheckboxRootProviderProps,
+  CheckboxSize,
+  UseCheckboxContext,
+  UseCheckboxGroupContext,
+  UseCheckboxGroupProps,
+  UseCheckboxGroupReturn,
+  UseCheckboxProps,
+  UseCheckboxReturn,
+} from './Checkbox';

@@ -1,5 +1,11 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Checkbox as CheckboxPrimitive } from '@ark-ui/react/checkbox';
+import {
+  Checkbox as CheckboxPrimitive,
+  useCheckbox,
+  useCheckboxContext,
+  useCheckboxGroup,
+  useCheckboxGroupContext,
+} from '@ark-ui/react/checkbox';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
@@ -22,6 +28,21 @@ const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Che
     );
   },
 );
+
+const CheckboxRootProvider = forwardRef<
+  ComponentRef<typeof CheckboxPrimitive.RootProvider>,
+  ComponentProps<typeof CheckboxPrimitive.RootProvider> & { size?: CheckboxSize }
+>(function CheckboxRootProvider({ className, size = 'md', ...props }, ref) {
+  return (
+    <CheckboxPrimitive.RootProvider
+      ref={ref}
+      data-slot="checkbox-root-provider"
+      data-size={size}
+      className={clsx(styles.root, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
 
 const CheckboxControl = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.Control>,
@@ -97,13 +118,49 @@ const CheckboxGroup = forwardRef<
   );
 });
 
+const CheckboxGroupProvider = forwardRef<
+  ComponentRef<typeof CheckboxPrimitive.GroupProvider>,
+  ComponentProps<typeof CheckboxPrimitive.GroupProvider>
+>(function CheckboxGroupProvider({ className, ...props }, ref) {
+  return (
+    <CheckboxPrimitive.GroupProvider
+      ref={ref}
+      data-slot="checkbox-group-provider"
+      className={clsx(styles.group, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const CheckboxContext = CheckboxPrimitive.Context;
+
 const Checkbox = Object.assign(CheckboxRoot, {
   Root: CheckboxRoot,
+  RootProvider: CheckboxRootProvider,
   Control: CheckboxControl,
   Indicator: CheckboxIndicator,
   HiddenInput: CheckboxHiddenInput,
   Label: CheckboxLabel,
   Group: CheckboxGroup,
+  GroupProvider: CheckboxGroupProvider,
+  Context: CheckboxContext,
 });
 
-export { Checkbox };
+export { Checkbox, useCheckbox, useCheckboxContext, useCheckboxGroup, useCheckboxGroupContext };
+export type {
+  CheckboxCheckedChangeDetails,
+  CheckboxCheckedState,
+  CheckboxContextProps,
+  CheckboxGroupProviderBaseProps,
+  CheckboxGroupProviderProps,
+  CheckboxGroupProps,
+  CheckboxRootProviderBaseProps,
+  CheckboxRootProviderProps,
+  UseCheckboxContext,
+  UseCheckboxGroupContext,
+  UseCheckboxGroupProps,
+  UseCheckboxGroupReturn,
+  UseCheckboxProps,
+  UseCheckboxReturn,
+} from '@ark-ui/react/checkbox';
+export type { CheckboxRootProps, CheckboxSize };
