@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { AngleSlider } from './AngleSlider';
+import { AngleSlider, useAngleSlider } from './AngleSlider';
 import styles from './AngleSlider.stories.module.css';
 
 const markerValues = Array.from({ length: 8 }, (_, index) => index * 45);
@@ -101,6 +101,74 @@ export const ReadOnly: Story = {
       </AngleSlider.Root>
     );
   },
+};
+
+export const Disabled: Story = {
+  render: () => {
+    return (
+      <AngleSlider.Root
+        defaultValue={45}
+        disabled
+        aria-label="Disabled rotation"
+        className={styles.demoRoot}
+      >
+        <AngleSlider.Label>Rotation</AngleSlider.Label>
+        <AngleSlider.Control>
+          <MarkerRing />
+          <AngleSlider.Thumb />
+        </AngleSlider.Control>
+        <AngleSlider.ValueText />
+        <AngleSlider.HiddenInput />
+      </AngleSlider.Root>
+    );
+  },
+};
+
+export const Context: Story = {
+  render: () => {
+    return (
+      <AngleSlider.Root defaultValue={90} aria-label="Rotation" className={styles.demoRoot}>
+        <AngleSlider.Context>
+          {(context) => <AngleSlider.Label>{context.value} degrees</AngleSlider.Label>}
+        </AngleSlider.Context>
+        <AngleSlider.Control>
+          <MarkerRing />
+          <AngleSlider.Thumb />
+        </AngleSlider.Control>
+        <AngleSlider.ValueText />
+        <AngleSlider.HiddenInput />
+      </AngleSlider.Root>
+    );
+  },
+};
+
+function RootProviderStory() {
+  const angleSlider = useAngleSlider({ defaultValue: 45, 'aria-label': 'Rotation' });
+
+  return (
+    <div className={styles.providerLayout}>
+      <AngleSlider.RootProvider value={angleSlider} className={styles.demoRoot}>
+        <AngleSlider.Label>Rotation</AngleSlider.Label>
+        <AngleSlider.Control>
+          <MarkerRing />
+          <AngleSlider.Thumb />
+        </AngleSlider.Control>
+        <AngleSlider.ValueText />
+        <AngleSlider.HiddenInput />
+      </AngleSlider.RootProvider>
+      <button
+        type="button"
+        className={styles.providerButton}
+        onClick={() => angleSlider.setValue(90)}
+      >
+        Set to 90°
+      </button>
+    </div>
+  );
+}
+
+export const RootProvider: Story = {
+  render: () => <RootProviderStory />,
 };
 
 export const WithMarkers: Story = {

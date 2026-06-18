@@ -1,5 +1,9 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { AngleSlider as AngleSliderPrimitive } from '@ark-ui/react/angle-slider';
+import {
+  AngleSlider as AngleSliderPrimitive,
+  useAngleSlider,
+  useAngleSliderContext,
+} from '@ark-ui/react/angle-slider';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -28,6 +32,20 @@ const AngleSliderLabel = forwardRef<
       ref={ref}
       data-slot="angle-slider-label"
       className={clsx(styles.label, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const AngleSliderRootProvider = forwardRef<
+  ComponentRef<typeof AngleSliderPrimitive.RootProvider>,
+  ComponentProps<typeof AngleSliderPrimitive.RootProvider>
+>(function AngleSliderRootProvider({ className, ...props }, ref) {
+  return (
+    <AngleSliderPrimitive.RootProvider
+      ref={ref}
+      data-slot="angle-slider-root-provider"
+      className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
   );
@@ -117,8 +135,11 @@ const AngleSliderHiddenInput = forwardRef<
   );
 });
 
+const AngleSliderContext = AngleSliderPrimitive.Context;
+
 const AngleSlider = Object.assign(AngleSliderRoot, {
   Root: AngleSliderRoot,
+  RootProvider: AngleSliderRootProvider,
   Label: AngleSliderLabel,
   Control: AngleSliderControl,
   Thumb: AngleSliderThumb,
@@ -126,6 +147,13 @@ const AngleSlider = Object.assign(AngleSliderRoot, {
   Marker: AngleSliderMarker,
   ValueText: AngleSliderValueText,
   HiddenInput: AngleSliderHiddenInput,
+  Context: AngleSliderContext,
 });
 
-export { AngleSlider };
+export { AngleSlider, useAngleSlider, useAngleSliderContext };
+export type {
+  AngleSliderContextProps,
+  UseAngleSliderContext,
+  UseAngleSliderProps,
+  UseAngleSliderReturn,
+} from '@ark-ui/react/angle-slider';

@@ -1,19 +1,27 @@
 ---
 title: Angle Slider
-description: A circular angle selector built from Ark-style dial parts.
+description: A circular control for selecting an angle from 0 to 360 degrees.
 icon: Component
 ---
 
 import {
   AngleSliderCssPropertiesPanel,
   AngleSliderExample,
+  ContextAngleSliderExample,
   ControlledAngleSliderExample,
   CustomStylingAngleSliderExample,
-  MarkerAngleSliderExample,
+  DisabledAngleSliderExample,
   ReadOnlyAngleSliderExample,
+  RootProviderAngleSliderExample,
   SteppedAngleSliderExample,
+  angleSliderBasicCss,
+  angleSliderContextCss,
+  angleSliderControlledCss,
   angleSliderCustomStylingCss,
-  angleSliderMarkerCss,
+  angleSliderDisabledCss,
+  angleSliderReadOnlyCss,
+  angleSliderRootProviderCss,
+  angleSliderStepCss,
 } from '@/components/examples/angle-slider';
 
 ## API Reference
@@ -22,17 +30,16 @@ import {
 
 ## Choosing the right component
 
-Use `AngleSlider` when users should set a single angular value on a circular dial.
+Use `AngleSlider` when users should manipulate a direction or rotation directly on a circular dial.
 
-- Choose **`AngleSlider`** for rotation, heading, spotlight direction, or any other 0-360 degree
-  input.
-- Choose **`Slider`** when the same value should be read as a linear range.
+- Choose **`AngleSlider`** for rotation, heading, spotlight direction, or other angular values.
+- Choose **`Slider`** when the value is better understood on a linear range.
 - Choose **`NumberField`** when exact typed degree entry matters more than direct manipulation.
 
 ## Basic
 
-Use Ark-style parts: `AngleSlider.Root`, `AngleSlider.Label`, `AngleSlider.Control`,
-`AngleSlider.Thumb`, `AngleSlider.ValueText`, and `AngleSlider.HiddenInput`.
+Compose the Ark parts explicitly. Markers provide reference points, `Thumb` owns keyboard focus and
+the active angle indicator, and `HiddenInput` enables native form submission.
 
 <Preview>
   <AngleSliderExample />
@@ -43,9 +50,18 @@ Use Ark-style parts: `AngleSlider.Root`, `AngleSlider.Label`, `AngleSlider.Contr
 
       export function AngleSliderDemo() {
         return (
-          <AngleSlider.Root defaultValue={135} aria-label="Rotation">
+          <AngleSlider.Root
+            defaultValue={135}
+            aria-label="Rotation"
+            className="docs-angle-slider-basic"
+          >
             <AngleSlider.Label>Rotation</AngleSlider.Label>
             <AngleSlider.Control>
+              <AngleSlider.MarkerGroup>
+                {markerValues.map((value) => (
+                  <AngleSlider.Marker key={value} value={value} />
+                ))}
+              </AngleSlider.MarkerGroup>
               <AngleSlider.Thumb />
             </AngleSlider.Control>
             <AngleSlider.ValueText />
@@ -56,12 +72,21 @@ Use Ark-style parts: `AngleSlider.Root`, `AngleSlider.Label`, `AngleSlider.Contr
     `}
 
   </Preview.Code>
+
+<Preview.CSS>{angleSliderBasicCss}</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
 
-If you want `AngleSlider` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
+If you want `AngleSlider` in your project source instead of `node_modules`, install it from the
+moduix GitHub registry:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
@@ -101,78 +126,74 @@ aubx shadcn@latest add Blinks44/moduix/angle-slider
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `AngleSlider` depends on,
-such as styles, icons, and small utilities.
-
 ## Anatomy
 
 ```text
 AngleSlider.Root
 ├─ AngleSlider.Label
 ├─ AngleSlider.Control
+│  ├─ AngleSlider.MarkerGroup
+│  │  └─ AngleSlider.Marker[value]
 │  └─ AngleSlider.Thumb
 ├─ AngleSlider.ValueText
 └─ AngleSlider.HiddenInput
 ```
 
-Optional dial markers:
-
-```text
-AngleSlider.Control
-├─ AngleSlider.MarkerGroup
-│  └─ AngleSlider.Marker[value]
-└─ AngleSlider.Thumb
-```
-
-| Part                      | Role                                                                  |
-| ------------------------- | --------------------------------------------------------------------- |
-| `AngleSlider.Root`        | Owns the current value, Ark interaction state, and form integration.  |
-| `AngleSlider.Label`       | Visible label associated with the slider thumb.                       |
-| `AngleSlider.Control`     | Circular interaction surface for pointer and keyboard input.          |
-| `AngleSlider.Thumb`       | Rotating active indicator and handle.                                 |
-| `AngleSlider.MarkerGroup` | Optional container for static value markers around the dial.          |
-| `AngleSlider.Marker`      | Optional marker positioned by its numeric `value`.                    |
-| `AngleSlider.ValueText`   | Visible formatted value output. Defaults to Ark `valueAsDegree`.      |
-| `AngleSlider.HiddenInput` | Hidden form field for submission. Keep it when the value must submit. |
+| Part                       | Role                                                                  |
+| -------------------------- | --------------------------------------------------------------------- |
+| `AngleSlider.Root`         | Owns uncontrolled or controlled slider state.                         |
+| `AngleSlider.RootProvider` | Connects externally owned state from `useAngleSlider`.                |
+| `AngleSlider.Context`      | Exposes `value`, `valueAsDegree`, `setValue`, and `dragging`.         |
+| `AngleSlider.Label`        | Associates a visible label with the slider thumb.                     |
+| `AngleSlider.Control`      | Circular pointer interaction surface.                                 |
+| `AngleSlider.MarkerGroup`  | Contains optional reference markers.                                  |
+| `AngleSlider.Marker`       | Positions a numeric marker and exposes its relation to current value. |
+| `AngleSlider.Thumb`        | Focusable slider handle and rotating angle indicator.                 |
+| `AngleSlider.ValueText`    | Renders the current value as degree text.                             |
+| `AngleSlider.HiddenInput`  | Participates in native form submission and reset.                     |
 
 ## Composition
 
 ### Recommended composition
 
-Stay with `AngleSlider.Root`, `AngleSlider.Label`, `AngleSlider.Control`, `AngleSlider.Thumb`,
-`AngleSlider.ValueText`, and `AngleSlider.HiddenInput` for the standard Ark dial composition.
+Use the full part tree shown above. `MarkerGroup` is optional, but `Label`, `Thumb`, and
+`HiddenInput` should remain when their accessibility and form behavior are needed.
 
 ### When to go custom
 
-Add `AngleSlider.MarkerGroup` and `AngleSlider.Marker` only when visible reference ticks help the
-interaction model. Use `asChild` on the exported parts when another element must own the DOM node.
+Use `AngleSlider.Context` for inline state-dependent rendering. Use `useAngleSlider` with
+`AngleSlider.RootProvider` when state must be controlled outside the rendered slider subtree.
+Do not render `Root` and `RootProvider` for the same state instance.
 
-Use the Ark `RootProvider` and context model when the slider state must be owned outside the
-rendered subtree or read from surrounding composition.
+Every DOM part supports Ark `asChild`. Supply one semantic child that can preserve the part's
+keyboard, focus, ARIA, and pointer behavior. Use `ids` on `Root` when composed elements need stable
+shared IDs. Refs are forwarded to the DOM element rendered by each wrapped Ark part.
 
 ### Default props
 
-- `defaultValue`: `0`
-- `step`: `1`
-- `disabled`: `false`
-- `readOnly`: `false`
-- `invalid`: `false`
-
-`onValueChange` and `onValueChangeEnd` follow Ark shape and receive `details`
-(`details.value` and `details.valueAsDegree`).
+| Prop           | Default | Notes                                      |
+| -------------- | ------- | ------------------------------------------ |
+| `defaultValue` | `0`     | Initial uncontrolled angle                 |
+| `step`         | `1`     | Keyboard and pointer value increment       |
+| `disabled`     | `false` | Prevents focus and interaction             |
+| `readOnly`     | `false` | Keeps the value visible but non-editable   |
+| `invalid`      | `false` | Exposes invalid state for ARIA and styling |
 
 ### Behavioral notes
 
-- `AngleSlider` manages a single numeric value only.
-- `AngleSlider.ValueText` renders the current angle text automatically when no children are passed.
-- `AngleSlider.HiddenInput` is opt-in, so form participation stays explicit in composition.
-- Marker ticks are optional. The default moduix recommendation is a clean dial without them.
+- `value` is a single number; `onValueChange(details)` and `onValueChangeEnd(details)` preserve Ark
+  callback objects with `details.value` and `details.valueAsDegree`.
+- The thumb supports Ark slider keyboard behavior and pointer dragging around the circular control.
+- Set `name` and render `HiddenInput` for native form submission and reset synchronization.
+- `ValueText` renders Ark's degree string when no custom children are provided.
+- `data-disabled`, `data-invalid`, `data-readonly`, `data-focus`, marker `data-state`, `--value`,
+  `--angle`, `--marker-value`, and `--marker-display-value` remain available for styling.
 
 ## Examples
 
 ### Controlled
 
-Use controlled state when the angle must stay in sync with other UI or derived application state.
+Use controlled state when the angle must stay synchronized with application state.
 
 <Preview>
   <ControlledAngleSliderExample />
@@ -183,16 +204,22 @@ Use controlled state when the angle must stay in sync with other UI or derived a
       import { useState } from "react";
 
       export function ControlledAngleSliderDemo() {
-        const [value, setValue] = useState(210);
+        const [value, setValue] = useState(initialValue);
 
         return (
           <AngleSlider.Root
             value={value}
             aria-label="Heading"
+            className="docs-angle-slider-controlled"
             onValueChange={(details) => setValue(details.value)}
           >
             <AngleSlider.Label>Heading</AngleSlider.Label>
             <AngleSlider.Control>
+              <AngleSlider.MarkerGroup>
+                {markerValues.map((markerValue) => (
+                  <AngleSlider.Marker key={markerValue} value={markerValue} />
+                ))}
+              </AngleSlider.MarkerGroup>
               <AngleSlider.Thumb />
             </AngleSlider.Control>
             <AngleSlider.ValueText />
@@ -203,11 +230,21 @@ Use controlled state when the angle must stay in sync with other UI or derived a
     `}
 
   </Preview.Code>
+
+<Preview.CSS>{angleSliderControlledCss}</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const initialValue = 210;
+      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Steps
 
-Use `step` when the dial should snap to a discrete angular increment.
+Use `step` to snap pointer and keyboard interaction to a discrete angular increment.
 
 <Preview>
   <SteppedAngleSliderExample />
@@ -218,70 +255,13 @@ Use `step` when the dial should snap to a discrete angular increment.
 
       export function SteppedAngleSliderDemo() {
         return (
-          <AngleSlider.Root defaultValue={60} step={15} aria-label="Snap angle">
-            <AngleSlider.Label>15 Step</AngleSlider.Label>
-            <AngleSlider.Control>
-              <AngleSlider.Thumb />
-            </AngleSlider.Control>
-            <AngleSlider.ValueText />
-            <AngleSlider.HiddenInput />
-          </AngleSlider.Root>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Read Only
-
-Use `readOnly` to preserve the current angle while keeping the dial visible and non-editable.
-
-<Preview>
-  <ReadOnlyAngleSliderExample />
-
-  <Preview.Code>
-    {`
-      import { AngleSlider } from "moduix";
-
-      export function ReadOnlyAngleSliderDemo() {
-        return (
-          <AngleSlider.Root defaultValue={300} readOnly aria-label="Locked angle">
-            <AngleSlider.Label>Locked angle</AngleSlider.Label>
-            <AngleSlider.Control>
-              <AngleSlider.Thumb />
-            </AngleSlider.Control>
-            <AngleSlider.ValueText />
-            <AngleSlider.HiddenInput />
-          </AngleSlider.Root>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Optional Markers
-
-Add `AngleSlider.MarkerGroup` and `AngleSlider.Marker` when the dial needs visible reference ticks.
-
-<Preview>
-  <MarkerAngleSliderExample />
-
-  <Preview.Code>
-    {`
-      import { AngleSlider } from "moduix";
-
-      const markerValues = Array.from({ length: 8 }, (_, index) => index * 45);
-
-      export function MarkerAngleSliderDemo() {
-        return (
           <AngleSlider.Root
-            defaultValue={45}
-            aria-label="Compass heading"
-            className="docs-angle-slider-markers"
+            defaultValue={initialValue}
+            step={step}
+            aria-label="Snap angle"
+            className="docs-angle-slider-step"
           >
-            <AngleSlider.Label>Compass</AngleSlider.Label>
+            <AngleSlider.Label>15 Step</AngleSlider.Label>
             <AngleSlider.Control>
               <AngleSlider.MarkerGroup>
                 {markerValues.map((value) => (
@@ -299,30 +279,44 @@ Add `AngleSlider.MarkerGroup` and `AngleSlider.Marker` when the dial needs visib
 
   </Preview.Code>
 
-  <Preview.CSS>{angleSliderMarkerCss}</Preview.CSS>
+<Preview.CSS>{angleSliderStepCss}</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const initialValue = 60;
+      const step = 15;
+      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
+    `}
+
+  </Preview.Data>
 </Preview>
 
-### Custom Styling
+### Disabled
 
-Use CSS variables and `className` on the exported parts when the dial should match a product-specific
-visual language.
+Use `disabled` when the control must be unavailable and excluded from interaction.
 
 <Preview>
-  <CustomStylingAngleSliderExample />
+  <DisabledAngleSliderExample />
 
   <Preview.Code>
     {`
       import { AngleSlider } from "moduix";
 
-      export function AngleSliderStylingDemo() {
+      export function DisabledAngleSliderDemo() {
         return (
           <AngleSlider.Root
-            defaultValue={315}
-            aria-label="Spotlight direction"
-            className="docs-angle-slider-spotlight"
+            defaultValue={initialValue}
+            disabled
+            aria-label="Disabled rotation"
+            className="docs-angle-slider-disabled"
           >
-            <AngleSlider.Label>Spotlight</AngleSlider.Label>
+            <AngleSlider.Label>Rotation</AngleSlider.Label>
             <AngleSlider.Control>
+              <AngleSlider.MarkerGroup>
+                {markerValues.map((value) => (
+                  <AngleSlider.Marker key={value} value={value} />
+                ))}
+              </AngleSlider.MarkerGroup>
               <AngleSlider.Thumb />
             </AngleSlider.Control>
             <AngleSlider.ValueText />
@@ -334,13 +328,231 @@ visual language.
 
   </Preview.Code>
 
-  <Preview.CSS>{angleSliderCustomStylingCss}</Preview.CSS>
+<Preview.CSS>{angleSliderDisabledCss}</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const initialValue = 45;
+      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Context
+
+Use `AngleSlider.Context` for inline rendering that depends on the current Ark state.
+
+<Preview>
+  <ContextAngleSliderExample />
+
+  <Preview.Code>
+    {`
+      import { AngleSlider } from "moduix";
+
+      export function ContextAngleSliderDemo() {
+        return (
+          <AngleSlider.Root
+            defaultValue={initialValue}
+            aria-label="Rotation"
+            className="docs-angle-slider-context"
+          >
+            <AngleSlider.Context>
+              {(context) => (
+                <AngleSlider.Label>{context.value} degrees</AngleSlider.Label>
+              )}
+            </AngleSlider.Context>
+            <AngleSlider.Control>
+              <AngleSlider.MarkerGroup>
+                {markerValues.map((value) => (
+                  <AngleSlider.Marker key={value} value={value} />
+                ))}
+              </AngleSlider.MarkerGroup>
+              <AngleSlider.Thumb />
+            </AngleSlider.Control>
+            <AngleSlider.ValueText />
+            <AngleSlider.HiddenInput />
+          </AngleSlider.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>{angleSliderContextCss}</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const initialValue = 90;
+      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Root Provider
+
+Use `useAngleSlider` and `RootProvider` when another control needs direct access to the same state
+machine.
+
+<Preview>
+  <RootProviderAngleSliderExample />
+
+  <Preview.Code>
+    {`
+      import { AngleSlider, useAngleSlider } from "moduix";
+
+      export function RootProviderAngleSliderDemo() {
+        const angleSlider = useAngleSlider({
+          defaultValue: initialValue,
+          "aria-label": "Rotation",
+        });
+
+        return (
+          <div className="docs-angle-slider-provider-layout">
+            <AngleSlider.RootProvider
+              value={angleSlider}
+              className="docs-angle-slider-provider"
+            >
+              <AngleSlider.Label>Rotation</AngleSlider.Label>
+              <AngleSlider.Control>
+                <AngleSlider.MarkerGroup>
+                  {markerValues.map((value) => (
+                    <AngleSlider.Marker key={value} value={value} />
+                  ))}
+                </AngleSlider.MarkerGroup>
+                <AngleSlider.Thumb />
+              </AngleSlider.Control>
+              <AngleSlider.ValueText />
+              <AngleSlider.HiddenInput />
+            </AngleSlider.RootProvider>
+            <button
+              type="button"
+              className="docs-angle-slider-provider-button"
+              onClick={() => angleSlider.setValue(targetValue)}
+            >
+              Set to 90°
+            </button>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>{angleSliderRootProviderCss}</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const initialValue = 45;
+      const targetValue = 90;
+      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Read Only
+
+Use `readOnly` when the current value should remain focusable and visible without allowing edits.
+
+<Preview>
+  <ReadOnlyAngleSliderExample />
+
+  <Preview.Code>
+    {`
+      import { AngleSlider } from "moduix";
+
+      export function ReadOnlyAngleSliderDemo() {
+        return (
+          <AngleSlider.Root
+            defaultValue={initialValue}
+            readOnly
+            aria-label="Locked angle"
+            className="docs-angle-slider-readonly"
+          >
+            <AngleSlider.Label>Locked angle</AngleSlider.Label>
+            <AngleSlider.Control>
+              <AngleSlider.MarkerGroup>
+                {markerValues.map((value) => (
+                  <AngleSlider.Marker key={value} value={value} />
+                ))}
+              </AngleSlider.MarkerGroup>
+              <AngleSlider.Thumb />
+            </AngleSlider.Control>
+            <AngleSlider.ValueText />
+            <AngleSlider.HiddenInput />
+          </AngleSlider.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>{angleSliderReadOnlyCss}</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const initialValue = 300;
+      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Custom Styling
+
+Override public CSS variables to change the visual treatment without changing Ark composition or
+state behavior.
+
+<Preview>
+  <CustomStylingAngleSliderExample />
+
+  <Preview.Code>
+    {`
+      import { AngleSlider } from "moduix";
+
+      export function AngleSliderStylingDemo() {
+        return (
+          <AngleSlider.Root
+            defaultValue={initialValue}
+            aria-label="Spotlight direction"
+            className="docs-angle-slider-spotlight"
+          >
+            <AngleSlider.Label>Spotlight</AngleSlider.Label>
+            <AngleSlider.Control>
+              <AngleSlider.MarkerGroup>
+                {markerValues.map((value) => (
+                  <AngleSlider.Marker key={value} value={value} />
+                ))}
+              </AngleSlider.MarkerGroup>
+              <AngleSlider.Thumb />
+            </AngleSlider.Control>
+            <AngleSlider.ValueText />
+            <AngleSlider.HiddenInput />
+          </AngleSlider.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>{angleSliderCustomStylingCss}</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const initialValue = 315;
+      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Styling
 
-Style `AngleSlider` through `className`, stable `data-slot="angle-slider-*"` hooks, and the public
-`--angle-slider-*` CSS variables shown below.
+Style the component through `className`, stable `data-slot="angle-slider-*"` hooks, Ark
+`data-scope="angle-slider"` / `data-part` attributes, state attributes, and the public CSS
+variables below.
 
 ### CSS Properties
 
@@ -354,12 +566,11 @@ Style `AngleSlider` through `className`, stable `data-slot="angle-slider-*"` hoo
 
 ### Styling hooks
 
-- `data-slot="angle-slider-root"` owns shared dial layout and text color.
-- `data-slot="angle-slider-label"` and `data-slot="angle-slider-value-text"` own typography.
-- `data-slot="angle-slider-control"` owns the outer ring, inner disc, and center dot.
-- `data-slot="angle-slider-thumb"` owns the rotating thumb and active line.
-- `data-slot="angle-slider-marker-group"` and `data-slot="angle-slider-marker"` are stable hooks
-  for optional dial ticks.
-- Ark also exposes `data-scope="angle-slider"` with `data-part` on every rendered part.
-- `data-disabled`, `data-invalid`, and `data-readonly` are available on the interactive parts.
-- Root CSS variables `--value` and `--angle` remain available for custom visual treatments.
+- `data-slot="angle-slider-root"` and `data-slot="angle-slider-root-provider"` own shared layout.
+- `data-slot="angle-slider-control"` owns the dial and receives `data-focus`, `data-disabled`,
+  `data-invalid`, and `data-readonly`.
+- `data-slot="angle-slider-thumb"` owns the focusable rotating indicator.
+- `data-slot="angle-slider-marker"` exposes `data-value` and
+  `data-state="under-value | at-value | over-value"`.
+- Ark root variables `--value` and `--angle` and marker variables `--marker-value` and
+  `--marker-display-value` are preserved.

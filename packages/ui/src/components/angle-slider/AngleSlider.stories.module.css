@@ -20,3 +20,29 @@
   --angle-slider-thumb-size: 1.125rem;
   --angle-slider-track-bg: color-mix(in oklab, var(--color-chart-4) 16%, var(--color-muted));
 }
+
+.providerLayout {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.providerButton {
+  min-height: 2.5rem;
+  padding-inline: 1rem;
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font: inherit;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-muted);
+  }
+
+  &:focus-visible {
+    outline: var(--border-width-md) solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}

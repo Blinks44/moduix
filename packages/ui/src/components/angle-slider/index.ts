@@ -1,1 +1,1 @@
-export { AngleSlider } from './AngleSlider';
+export * from './AngleSlider';

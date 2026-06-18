@@ -117,6 +117,7 @@
   --angle-slider-control-border-width: initial; /* var(--border-width-sm) */
   --angle-slider-disabled-opacity: initial; /* var(--opacity-disabled) */
   --angle-slider-focus-ring-color: initial; /* var(--color-ring) */
+  --angle-slider-focus-ring-width: initial; /* 0.1875rem */
   --angle-slider-gap: initial; /* 0.75rem */
   --angle-slider-indicator-bg: initial; /* var(--color-primary) */
   --angle-slider-invalid-color: initial; /* var(--color-destructive) */
