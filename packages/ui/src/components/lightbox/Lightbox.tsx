@@ -161,7 +161,7 @@ function LightboxCloseButton({
   return (
     <DialogPrimitive.Close
       data-slot="lightbox-close-button"
-      render={render ?? <CloseButton aria-label={ariaLabel}>{children}</CloseButton>}
+      render={render ?? <CloseButton.Root aria-label={ariaLabel}>{children}</CloseButton.Root>}
       className={mergeClassName(className, styles.closeButton)}
       {...props}
     />

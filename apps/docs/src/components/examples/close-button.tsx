@@ -54,28 +54,38 @@ export function CloseButtonCssPlaygroundPanel({
   );
 }
 
-export function CloseButtonExample(props: ComponentProps<typeof CloseButton>) {
+export function CloseButtonExample(props: ComponentProps<typeof CloseButton.Root>) {
   return (
     <div className={styles.surface}>
       <div className={styles.content}>
         <p className={styles.title}>Draft saved</p>
         <p className={styles.description}>The notification can be dismissed.</p>
       </div>
-      <CloseButton aria-label="Dismiss notification" {...props} />
+      <CloseButton.Root aria-label="Dismiss notification" {...props} />
     </div>
   );
 }
 
 export function CloseButtonCustomChildrenExample() {
   return (
-    <CloseButton className={styles.customChildrenButton} aria-label="Close panel">
+    <CloseButton.Root className={styles.customChildrenButton} aria-label="Close panel">
       <CircleXIcon />
-    </CloseButton>
+    </CloseButton.Root>
+  );
+}
+
+export function CloseButtonAsChildExample() {
+  return (
+    <CloseButton.Root asChild aria-label="Close composed panel">
+      <button>
+        <CircleXIcon />
+      </button>
+    </CloseButton.Root>
   );
 }
 
 export function CloseButtonCustomStylingExample() {
-  return <CloseButton className={styles.customButton} aria-label="Close message" />;
+  return <CloseButton.Root className={styles.customButton} aria-label="Close message" />;
 }
 
 function CircleXIcon(props: ComponentProps<'svg'>) {

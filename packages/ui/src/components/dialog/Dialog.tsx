@@ -108,7 +108,7 @@ function DialogCloseIcon({
   return (
     <DialogPrimitive.Close
       data-slot="dialog-close-icon"
-      render={render ?? <CloseButton aria-label={ariaLabel}>{children}</CloseButton>}
+      render={render ?? <CloseButton.Root aria-label={ariaLabel}>{children}</CloseButton.Root>}
       className={mergeClassName(className, styles.closeIcon)}
       {...props}
     />

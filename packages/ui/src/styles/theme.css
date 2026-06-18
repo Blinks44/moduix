@@ -417,7 +417,7 @@
   --clipboard-value-text-line-height: initial; /* inherit */
   --clipboard-transition: initial; /* var(--transition-default) */
 
-  /* CloseButton */
+  /* CloseButton.Root */
   --close-button-bg: initial; /* transparent */
   --close-button-bg-hover: initial; /* var(--color-muted) */
   --close-button-color: initial; /* var(--color-muted-foreground) */

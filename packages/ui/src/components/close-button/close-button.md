@@ -1,100 +1,101 @@
 # CloseButton
 
-Upstream primitive docs: https://base-ui.com/react/components/button.md
+Upstream docs:
+
+- Ark UI Composition: https://ark-ui.com/docs/guides/composition
+- Ark UI Styling: https://ark-ui.com/docs/guides/styling
+- Chakra UI: https://chakra-ui.com/docs/components/close-button
 
 ## Purpose
 
-`CloseButton` is the moduix icon-only dismiss control for closeable surfaces: dialogs,
-lightboxes, notifications, cards, and similar UI. It is a styled wrapper around Base UI `Button`
-with one visual root and a default close icon.
+`CloseButton` is the moduix icon-only dismiss control for dialogs, notifications, cards,
+lightboxes, and similar closeable surfaces.
 
-Use it when the control itself performs a close or dismiss action. It does not close anything by
-itself; wire `onClick`, compose it through an overlay close primitive, or use a component-specific
-close part such as `DialogCloseIcon` or `LightboxCloseButton`.
+## Upstream model to preserve
+
+Ark UI does not ship a dedicated close-button primitive. The component follows the Ark factory
+model through `@ark-ui/react/factory`:
+
+- one explicit `CloseButton.Root` part;
+- native button props and ref forwarding;
+- DOM ownership composition through `asChild`;
+- Ark-style `data-scope`, `data-part`, and state hooks.
 
 ## Current behavior contract
+
+- `CloseButton.Root` is the only public part.
+- The default DOM node is `button`.
+- `type` defaults to `button` for the native root.
+- Omitting `children` renders the moduix `CloseIcon`.
+- Omitting an accessible name on the default-icon path adds `aria-label="Close"`.
+- `disabled` and `aria-disabled="true"` expose `data-disabled`.
+- Base UI `render`, `nativeButton`, and `focusableWhenDisabled` are not supported.
+- `CloseButton` is a namespace object, not a callable alias.
+
+## Anatomy and exported parts
+
+```text
+CloseButton.Root
+└─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
+   └─ CloseIcon (default) | custom children
+```
+
+| Part               | `data-slot`         | Notes                                 |
+| ------------------ | ------------------- | ------------------------------------- |
+| `CloseButton.Root` | `close-button-root` | Single icon-only interactive surface. |
+
+## Composition
 
 ```tsx
 import { CloseButton } from 'moduix';
 
-export function Example() {
-  return <CloseButton aria-label="Dismiss notification" />;
+export function DismissNotification() {
+  return <CloseButton.Root aria-label="Dismiss notification" />;
 }
 ```
 
-The wrapper adds these defaults on top of Base UI `Button`:
-
-| Prop / behavior | Default                                                                           |
-| --------------- | --------------------------------------------------------------------------------- |
-| `type`          | `button`, still overrideable through props                                        |
-| `children`      | internal `CloseIcon` when omitted                                                 |
-| `aria-label`    | `Close` only when `children`, `aria-label`, and `aria-labelledby` are all omitted |
-| `data-slot`     | `close-button`                                                                    |
-
-All other Base UI `Button` props pass through, including `disabled`, `focusableWhenDisabled`,
-`nativeButton`, `render`, event handlers, and native button attributes.
-
-The forwarded ref points to the Base UI `Button` element. Keep `forwardRef`; consumers and overlay
-parts can use it for focus management.
-
-## Composition
-
-`CloseButton` exposes a single public part:
-
-```text
-CloseButton[data-slot="close-button"]
-└─ CloseIcon (default) or custom children
-```
-
-There are no exported subparts, `classNames`, slot prop bags, or variants. Use `className` on the
-root and CSS variables for styling.
-
-Custom icon content is supported through `children`:
+Use `asChild` when another button component must own the DOM node. The child must provide its own
+icon content because the single child is the composed root:
 
 ```tsx
-<CloseButton aria-label="Close panel">
-  <MyCloseIcon aria-hidden="true" focusable="false" />
-</CloseButton>
+<CloseButton.Root asChild aria-label="Close panel">
+  <button>
+    <MyCloseIcon aria-hidden="true" />
+  </button>
+</CloseButton.Root>
 ```
 
-When replacing the default icon, provide an accessible name with `aria-label` or
-`aria-labelledby`. The automatic `Close` label is intentionally limited to the default icon path so
-custom text-like children are not mislabeled.
+## Upstream feature coverage
 
-For overlay components, prefer the overlay's close primitive when it exists:
+- `Ark factory`: used for the root element and its prop/ref contract.
+- `asChild`: supported with the Ark single-child constraint.
+- `data-scope` / `data-part`: exposed for Ark-style styling.
+- `Dedicated primitive state or callbacks`: not applicable because Ark has no close-button
+  primitive.
+- `Chakra close-button recipe`: reflected through the single-part anatomy and replaceable icon
+  children.
 
-```tsx
-<DialogCloseIcon aria-label="Close settings" />
-```
+## Accessibility and state
 
-Use a standalone `CloseButton` only when you control the close behavior directly:
-
-```tsx
-<CloseButton aria-label="Dismiss notification" onClick={dismissNotification} />
-```
-
-## Public props
-
-`CloseButton` intentionally does not export a custom props type. Its public props are Base UI
-`Button.Props` plus the wrapper defaults above.
-
-Commonly used props:
-
-| Prop                             | Notes                                                                                                                            |
-| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `className`                      | Merged with the component root class.                                                                                            |
-| `children`                       | Replaces the default `CloseIcon`; keep it icon-sized.                                                                            |
-| `aria-label` / `aria-labelledby` | Required for custom icon-only content; recommended even when the default fallback is acceptable.                                 |
-| `disabled`                       | Disables interaction and applies the disabled visual state.                                                                      |
-| `focusableWhenDisabled`          | Keeps the disabled button focusable when Base UI disabled focus behavior is needed.                                              |
-| `render` / `nativeButton`        | Base UI composition escape hatches; use only when button semantics are still correct. Do not render links through `CloseButton`. |
-| `type`                           | Defaults to `button`; override only for a real form workflow.                                                                    |
+- The default icon path receives `aria-label="Close"` only when neither `aria-label` nor
+  `aria-labelledby` is provided.
+- Custom icon content should be decorative and requires an accessible name on the root.
+- Native `disabled` and `aria-disabled="true"` map to `data-disabled` for styling.
+- `aria-disabled` on an `asChild` element is presentational; application code must prevent custom
+  activation behavior when needed.
+- The component does not manage overlay state, escape handling, focus return, or dismissal
+  callbacks.
 
 ## Defaults and styling
 
-The root has `data-slot="close-button"` and uses the CSS module class `root`.
+| Entry       | Default     | Notes                                      |
+| ----------- | ----------- | ------------------------------------------ |
+| `type`      | `button`    | Applied only to the native root            |
+| `children`  | `CloseIcon` | Replaced when custom children are provided |
+| `asChild`   | `false`     | Ark factory composition                    |
+| `className` | -           | Applied to the root                        |
 
-Public styling contract:
+Public CSS variables:
 
 | CSS variable                       | Default                         |
 | ---------------------------------- | ------------------------------- |
@@ -111,56 +112,22 @@ Public styling contract:
 | `--close-button-size`              | `28px`                          |
 | `--close-button-transition`        | `var(--transition-default)`     |
 
-The component styles:
+## Intentional sugar and differences from upstream
 
-- reset native button margin, appearance, inherited font, and user selection;
-- keep the root square via `--close-button-size`;
-- size direct nested SVG icons via `--close-button-icon-size`;
-- expose hover, focus-visible, and disabled states;
-- disable pointer interaction for disabled buttons through `:disabled` and `[data-disabled]`.
-
-Overlay components can map their own variables into the `--close-button-*` contract, as Dialog and
-Lightbox do for their close controls.
-
-## Accessibility and UX
-
-- The default `type="button"` prevents accidental form submission.
-- The default icon path receives `aria-label="Close"` only when no label is provided elsewhere.
-- Prefer specific labels such as `Dismiss notification`, `Close dialog`, or `Close preview` when
-  multiple close controls can appear on a page.
-- Custom icon children should be decorative (`aria-hidden`, `focusable="false"`) unless they
-  provide the accessible name intentionally.
-- Do not use `CloseButton` for navigation links. If a link needs close-button styling, style the
-  anchor directly instead of using Base UI button semantics.
-- The component provides the control visuals and button semantics only; it does not manage overlay
-  state, focus return, escape key handling, or dismissal lifecycle.
-
-## Intentional differences from Base UI
-
-- moduix ships styling, CSS variables, `data-slot="close-button"`, and a default close glyph.
-- The wrapper defaults `type` to `button`; Base UI `Button` requires submit behavior to be opted in.
-- The wrapper does not expose Base UI documentation as local API. Only props that pass through the
-  wrapper and the documented moduix styling hooks are part of this component contract.
-- There are no `variant`, `size`, `classNames`, `slotProps`, or close-specific state props. Reuse
-  CSS variables or compose with the relevant overlay part instead.
+- moduix adds the default close glyph, accessible-name fallback, visual tokens, and square
+  icon-button styling.
+- The component exposes only `CloseButton.Root`; no callable alias or extra wrapper is retained.
+- The root defaults to safe non-submit behavior without forwarding that default through `asChild`.
 
 ## Agent notes
 
-- Keep the component as a thin icon button wrapper. Do not add feature flags for icon selection,
-  overlay closing, placement, labels, variants, or slot maps.
-- Preserve `data-slot="close-button"` and the `--close-button-*` CSS variable contract; Dialog,
-  Lightbox, docs, and stories depend on it.
-- If the default icon, accessible-name fallback, or CSS variables change, update stories,
-  `apps/docs/content/docs/close-button.mdx`, and
-  `apps/docs/src/components/examples/close-button.tsx` in the same task.
-- New sugar should only be accepted if it removes repeated production boilerplate without hiding the
-  composition model. No such sugar is currently needed.
+- Keep this as a thin Ark factory wrapper with one part.
+- Preserve the shared `--close-button-*` contract because Dialog, Drawer, and Lightbox map their
+  close-control tokens into it.
+- Do not reintroduce Base UI render props or a callable `CloseButton` alias.
 
 ## Local changelog
 
-- Clarified the local documentation so it describes the moduix wrapper contract instead of Base UI
-  behavior in general.
-- Tightened the accessibility contract: the default `Close` label is only applied when the default
-  icon is used and no `aria-labelledby` is present.
-- Aligned the root CSS reset and disabled pointer behavior with the project's button styling
-  patterns.
+- 2026-06-18: Migrated to `@ark-ui/react/factory`, introduced the explicit
+  `CloseButton.Root` part and Ark data hooks, added `asChild`, and removed the Base UI button
+  contract and callable alias.

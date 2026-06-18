@@ -1,28 +1,52 @@
-import { Button as ButtonPrimitive } from '@base-ui/react/button';
-import { forwardRef, type ComponentRef } from 'react';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
+import { ark } from '@ark-ui/react/factory';
+import { clsx } from 'clsx';
+import { forwardRef } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './CloseButton.module.css';
 
-const CloseButton = forwardRef<ComponentRef<typeof ButtonPrimitive>, ButtonPrimitive.Props>(
-  function CloseButton(
-    { className, children, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, ...props },
+const CloseButtonRoot = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
+  function CloseButtonRoot(
+    {
+      asChild,
+      className,
+      children,
+      disabled,
+      type,
+      'aria-disabled': ariaDisabled,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledBy,
+      ...props
+    },
     ref,
   ) {
+    const isDisabled = disabled || ariaDisabled === true || ariaDisabled === 'true';
+
     return (
-      <ButtonPrimitive
+      <ark.button
         ref={ref}
-        type="button"
-        data-slot="close-button"
-        className={mergeClassName(className, styles.root)}
+        asChild={asChild}
+        type={asChild ? type : (type ?? 'button')}
+        disabled={disabled}
+        data-scope="close-button"
+        data-part="root"
+        data-slot="close-button-root"
+        data-disabled={isDisabled ? '' : undefined}
+        className={clsx(styles.root, normalizeClassName(className))}
+        aria-disabled={ariaDisabled}
         aria-label={ariaLabel ?? (children == null && ariaLabelledBy == null ? 'Close' : undefined)}
         aria-labelledby={ariaLabelledBy}
         {...props}
       >
         {children ?? <CloseIcon />}
-      </ButtonPrimitive>
+      </ark.button>
     );
   },
 );
+
+const CloseButton = {
+  Root: CloseButtonRoot,
+};
 
 export { CloseButton };

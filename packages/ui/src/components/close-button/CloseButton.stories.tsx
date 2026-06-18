@@ -5,7 +5,7 @@ import styles from './CloseButton.stories.module.css';
 
 const meta = {
   title: 'Components/CloseButton',
-  component: CloseButton,
+  component: CloseButton.Root,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
@@ -13,7 +13,7 @@ const meta = {
   args: {
     'aria-label': 'Close',
   },
-} satisfies Meta<typeof CloseButton>;
+} satisfies Meta<typeof CloseButton.Root>;
 
 export default meta;
 
@@ -27,6 +27,16 @@ export const CustomChildren: Story = {
     'aria-label': 'Close panel',
     children: <CircleXIcon />,
   },
+};
+
+export const AsChild: Story = {
+  render: (args) => (
+    <CloseButton.Root asChild {...args}>
+      <button>
+        <CircleXIcon />
+      </button>
+    </CloseButton.Root>
+  ),
 };
 
 export const Styled: Story = {
