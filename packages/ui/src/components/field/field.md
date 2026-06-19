@@ -87,6 +87,8 @@ Covered Ark examples:
 - native textarea via `Field.Textarea`
 - textarea autoresize via `Field.Textarea autoresize`
 - native select via `Field.Select`
+- checkbox composition via `Field` + `Checkbox`
+- radio group composition via `Field` + `RadioGroup`
 - root provider via `useField` and `Field.RootProvider`
 - custom control via `useFieldContext`
 - item-target label wiring via `Field.Item value` and root `target`
@@ -134,3 +136,5 @@ their own `HiddenInput`; Field itself has no hidden input.
 - 2026-06-19: Migrated `Field` from Base UI to Ark UI, replaced Base UI validation API with Ark
   field context, renamed public parts to Ark names, exposed provider/context hooks, and updated
   styling hooks.
+- 2026-06-19: Replaced legacy `type="radio"` field examples with Ark-style `Checkbox` and
+  `RadioGroup` compositions in stories and docs.

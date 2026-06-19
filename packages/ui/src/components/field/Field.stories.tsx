@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
+import { Checkbox } from '../checkbox';
+import { RadioGroup } from '../radio-group';
 import { Field, useField } from './Field';
 import storyStyles from './Field.stories.module.css';
 
@@ -119,20 +121,42 @@ export const ReadOnly: Story = {
   },
 };
 
-export const WithItems: Story = {
+export const WithCheckbox: Story = {
   render: () => {
     return (
-      <Field target="team">
+      <Field required>
+        <Checkbox.Root>
+          <Checkbox.HiddenInput />
+          <Checkbox.Control>
+            <Checkbox.Indicator />
+          </Checkbox.Control>
+          <Checkbox.Label>Accept support access</Checkbox.Label>
+        </Checkbox.Root>
+        <Field.HelperText>Required before the team can inspect workspace data.</Field.HelperText>
+        <Field.ErrorText>Support access must be enabled.</Field.ErrorText>
+      </Field>
+    );
+  },
+};
+
+export const WithRadioGroup: Story = {
+  render: () => {
+    return (
+      <Field>
         <Field.Label>Account type</Field.Label>
-        <Field.Item value="personal">
-          <Field.Input type="radio" value="personal" />
-          <Field.Label>Personal account</Field.Label>
-        </Field.Item>
-        <Field.Item value="team">
-          <Field.Input type="radio" value="team" defaultChecked />
-          <Field.Label>Team account</Field.Label>
-        </Field.Item>
-        <Field.HelperText>The root label points to the targeted item.</Field.HelperText>
+        <RadioGroup defaultValue="team" aria-label="Account type">
+          <RadioGroup.Item value="personal">
+            <RadioGroup.ItemHiddenInput />
+            <RadioGroup.ItemControl />
+            <RadioGroup.ItemText>Personal account</RadioGroup.ItemText>
+          </RadioGroup.Item>
+          <RadioGroup.Item value="team">
+            <RadioGroup.ItemHiddenInput />
+            <RadioGroup.ItemControl />
+            <RadioGroup.ItemText>Team account</RadioGroup.ItemText>
+          </RadioGroup.Item>
+        </RadioGroup>
+        <Field.HelperText>Choose the default account context for new projects.</Field.HelperText>
       </Field>
     );
   },

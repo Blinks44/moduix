@@ -5,6 +5,7 @@ icon: Component
 ---
 
 import {
+  FieldCheckboxExample,
   FieldControlledInvalidExample,
   FieldCssPropertiesPanel,
   FieldCustomControlExample,
@@ -12,7 +13,7 @@ import {
   FieldDisabledExample,
   FieldExample,
   FieldInvalidExample,
-  FieldItemsExample,
+  FieldRadioGroupExample,
   FieldRootProviderExample,
   FieldSelectExample,
   FieldTextareaAutoresizeExample,
@@ -306,31 +307,32 @@ Use `Field.Select` for native select controls that should receive field ids and 
   </Preview.Data>
 </Preview>
 
-### Items
+### Checkbox
 
-Use `Field.Item` when a group needs item-level label and control ids. The root `target` points the
-root label at a specific item value.
+Use `Field` with `Checkbox` when the field owns shared helper text, error text, or required state
+around a single checkbox control.
 
 <Preview>
-  <FieldItemsExample />
+  <FieldCheckboxExample />
 
   <Preview.Code>
     {`
-      import { Field } from "moduix";
+      import { Checkbox, Field } from "moduix";
 
-      export function ItemsFieldDemo() {
+      export function CheckboxFieldDemo() {
         return (
-          <Field target="team">
-            <Field.Label>Account type</Field.Label>
-            <Field.Item value="personal">
-              <Field.Input type="radio" name="account-type" value="personal" />
-              <Field.Label>Personal account</Field.Label>
-            </Field.Item>
-            <Field.Item value="team">
-              <Field.Input type="radio" name="account-type" value="team" defaultChecked />
-              <Field.Label>Team account</Field.Label>
-            </Field.Item>
-            <Field.HelperText>The root label points to the targeted item.</Field.HelperText>
+          <Field required>
+            <Checkbox.Root>
+              <Checkbox.HiddenInput />
+              <Checkbox.Control>
+                <Checkbox.Indicator />
+              </Checkbox.Control>
+              <Checkbox.Label>Accept support access</Checkbox.Label>
+            </Checkbox.Root>
+            <Field.HelperText>
+              Required before the team can inspect workspace data.
+            </Field.HelperText>
+            <Field.ErrorText>Support access must be enabled.</Field.ErrorText>
           </Field>
         );
       }
@@ -339,7 +341,49 @@ root label at a specific item value.
   </Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>{`const target = "team";`}</Preview.Data>
+  <Preview.Data>{`const required = true;`}</Preview.Data>
+</Preview>
+
+### RadioGroup
+
+Use `Field` with `RadioGroup` when one field label, helper text, or error message should describe
+the whole choice set instead of individual native radio inputs.
+
+<Preview>
+  <FieldRadioGroupExample />
+
+  <Preview.Code>
+    {`
+      import { Field, RadioGroup } from "moduix";
+
+      export function RadioGroupFieldDemo() {
+        return (
+          <Field>
+            <Field.Label>Account type</Field.Label>
+            <RadioGroup defaultValue="team" aria-label="Account type">
+              <RadioGroup.Item value="personal">
+                <RadioGroup.ItemHiddenInput />
+                <RadioGroup.ItemControl />
+                <RadioGroup.ItemText>Personal account</RadioGroup.ItemText>
+              </RadioGroup.Item>
+              <RadioGroup.Item value="team">
+                <RadioGroup.ItemHiddenInput />
+                <RadioGroup.ItemControl />
+                <RadioGroup.ItemText>Team account</RadioGroup.ItemText>
+              </RadioGroup.Item>
+            </RadioGroup>
+            <Field.HelperText>
+              Choose the default account context for new projects.
+            </Field.HelperText>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
+  <Preview.Data>{`const defaultValue = "team";`}</Preview.Data>
 </Preview>
 
 ### Custom Control

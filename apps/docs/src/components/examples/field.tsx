@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Field, useField, useFieldContext } from 'moduix';
+import { Checkbox, Field, RadioGroup, useField, useFieldContext } from 'moduix';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -200,19 +200,39 @@ export function FieldSelectExample() {
   );
 }
 
-export function FieldItemsExample() {
+export function FieldCheckboxExample() {
   return (
-    <Field target="team" className={styles.field}>
+    <Field required className={styles.field}>
+      <Checkbox.Root>
+        <Checkbox.HiddenInput />
+        <Checkbox.Control>
+          <Checkbox.Indicator />
+        </Checkbox.Control>
+        <Checkbox.Label>Accept support access</Checkbox.Label>
+      </Checkbox.Root>
+      <Field.HelperText>Required before the team can inspect workspace data.</Field.HelperText>
+      <Field.ErrorText>Support access must be enabled.</Field.ErrorText>
+    </Field>
+  );
+}
+
+export function FieldRadioGroupExample() {
+  return (
+    <Field className={styles.field}>
       <Field.Label>Account type</Field.Label>
-      <Field.Item value="personal">
-        <Field.Input type="radio" name="account-type" value="personal" />
-        <Field.Label>Personal account</Field.Label>
-      </Field.Item>
-      <Field.Item value="team">
-        <Field.Input type="radio" name="account-type" value="team" defaultChecked />
-        <Field.Label>Team account</Field.Label>
-      </Field.Item>
-      <Field.HelperText>The root label points to the targeted item.</Field.HelperText>
+      <RadioGroup defaultValue="team" aria-label="Account type">
+        <RadioGroup.Item value="personal">
+          <RadioGroup.ItemHiddenInput />
+          <RadioGroup.ItemControl />
+          <RadioGroup.ItemText>Personal account</RadioGroup.ItemText>
+        </RadioGroup.Item>
+        <RadioGroup.Item value="team">
+          <RadioGroup.ItemHiddenInput />
+          <RadioGroup.ItemControl />
+          <RadioGroup.ItemText>Team account</RadioGroup.ItemText>
+        </RadioGroup.Item>
+      </RadioGroup>
+      <Field.HelperText>Choose the default account context for new projects.</Field.HelperText>
     </Field>
   );
 }
