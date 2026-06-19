@@ -1560,6 +1560,9 @@
   --radio-group-label-font-size: initial; /* var(--text-sm) */
   --radio-group-label-font-weight: initial; /* var(--weight-semibold) */
   --radio-group-label-line-height: initial; /* var(--line-height-text-sm) */
+  --left: initial; /* Ark radio-group indicator x offset */
+  --top: initial; /* Ark radio-group indicator y offset */
+  --transition-property: initial; /* Ark radio-group indicator transition property */
 
   /* Rating */
   --rating-active-color: initial; /* var(--color-primary) */
