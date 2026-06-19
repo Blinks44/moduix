@@ -14,7 +14,7 @@ import {
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/scroll-area" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/scroll-area" />
 
 ## Basic
 
@@ -181,13 +181,13 @@ ScrollArea
 ### When to stay high-level
 
 Stay with `ScrollArea` for most panels, drawers, settings sections, and dialog bodies. It keeps
-the Base UI root contract intact and adds two narrow conveniences on top:
+the underlying primitive root contract intact and adds two narrow conveniences on top:
 
 - `scrollbars` controls which default scrollbars are rendered
 - `fade` adds the root `data-fade` contract that drives the bundled edge-mask styles
 
 Use `className` on `ScrollArea` for the outer size, border, and local CSS variables. Root props
-such as `overflowEdgeThreshold`, `dir`, `render`, and other Base UI root behavior are forwarded
+such as `overflowEdgeThreshold`, `dir`, `render`, and other primitive root behavior are forwarded
 unchanged.
 
 ### When to go custom
@@ -480,5 +480,5 @@ surface styling needs to change without replacing the structure.
   this automatically, or you can set it manually on `ScrollAreaRoot`.
 - `data-orientation="vertical"` and `data-orientation="horizontal"` are exposed on scrollbars and
   thumbs for per-axis styling.
-- Base UI state attributes such as `data-scrolling` and `data-hovering` are available on the
+- Primitive state attributes such as `data-scrolling` and `data-hovering` are available on the
   relevant parts for interaction styling.

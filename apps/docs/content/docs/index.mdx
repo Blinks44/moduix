@@ -7,8 +7,9 @@ icon: BookOpen
 # moduix
 
 Moduix is a React component library for product interfaces. It keeps the interaction layer close to
-[Base UI](https://base-ui.com/), ships ready-made CSS and tokens, and favors explicit React parts
-over large configuration surfaces.
+[Ark UI](https://ark-ui.com/), ships ready-made CSS and tokens, and favors explicit React parts
+over large configuration surfaces. Transitional compatibility remains only where the migration is
+not finished yet.
 
 The library supports two workflows:
 
@@ -48,7 +49,7 @@ delivery paths, the current `shadcn` preparation steps, and the required stylesh
       <div className="grid gap-2 sm:grid-cols-3">
         <div className="rounded-md border bg-fd-background p-3">
           <p className="text-xs text-fd-muted-foreground">{'Behavior'}</p>
-          <p className="mt-1 text-sm font-medium text-fd-foreground">{'Base UI'}</p>
+          <p className="mt-1 text-sm font-medium text-fd-foreground">{'Ark UI'}</p>
         </div>
         <div className="rounded-md border bg-fd-background p-3">
           <p className="text-xs text-fd-muted-foreground">{'Styling'}</p>
@@ -61,7 +62,7 @@ delivery paths, the current `shadcn` preparation steps, and the required stylesh
       </div>
       <p className="text-xs leading-5 text-fd-muted-foreground">
         {
-          'Base UI owns the hard accessibility and interaction primitives; moduix keeps the product surface, defaults, tokens, and examples close to your application code.'
+          'Ark UI defines the target primitive model for accessibility and interaction; moduix keeps the product surface, defaults, tokens, and examples close to your application code.'
         }
       </p>
     </div>
@@ -70,7 +71,7 @@ delivery paths, the current `shadcn` preparation steps, and the required stylesh
 
 moduix is not trying to replace [shadcn/ui](https://ui.shadcn.com/). shadcn/ui is a strong
 inspiration for the composition-first API and the idea that components should stay easy to read,
-own, and customize. moduix explores that model with Base UI primitives and a plain CSS styling
+own, and customize. moduix explores that model with Ark UI primitives and a plain CSS styling
 layer.
 
 ## Start Here
@@ -84,11 +85,11 @@ layer.
 
 ## What You Get
 
-- React components built on accessible Base UI primitives.
+- React components built on accessible Ark UI primitives.
 - Default styles that work immediately, without owning your application reset.
 - CSS variables for fast theming and focused per-component customization.
 - A composition-first API with named parts instead of one large configuration surface.
-- A dependency-light design centered on Base UI as the primitive foundation.
+- A dependency-light design centered on Ark UI as the primary primitive foundation.
 - A path for both package-managed usage and copy-owned component code.
 - Documentation examples that show practical usage and customization patterns.
 - A CSS playground in component previews, so you can test style changes live.
@@ -97,7 +98,7 @@ layer.
 
 This project could not exist without the work of these teams and communities:
 
-- [Base UI](https://base-ui.com/) for the accessible React primitives that power the components.
+- [Ark UI](https://ark-ui.com/) for the accessible React primitives that anchor the library direction.
 - [shadcn/ui](https://ui.shadcn.com/) for the API inspiration and the culture of practical,
   readable component composition.
 - [Tailwind CSS](https://tailwindcss.com/) for the reset.css implementation.

@@ -14,7 +14,7 @@ import {
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/dialog" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/dialog" />
 
 ## Choosing the right component
 
@@ -160,7 +160,7 @@ button, so most usage stays at `Lightbox`, `LightboxImage`, and `LightboxContent
 
 Stay with `Lightbox`, `LightboxImage`, and `LightboxContent` for most preview flows.
 
-`Lightbox` keeps the Base UI dialog root contract intact, so pass `open`, `defaultOpen`,
+`Lightbox` keeps the underlying dialog root contract intact, so pass `open`, `defaultOpen`,
 `onOpenChange`, `onOpenChangeComplete`, `modal`, and `handle` directly to it.
 
 `LightboxImage` is the narrow helper for one trigger image opening one preview image. It stores the
@@ -199,7 +199,7 @@ behavior, or popup layout.
   children.
 - `LightboxGallery` supports keyboard activation only when the matched element is already
   keyboard-focusable.
-- For detached or programmatic open flows, pass a Base UI `handle` to `Lightbox` or use the
+- For detached or programmatic open flows, pass a dialog `handle` to `Lightbox` or use the
   exported `createLightboxHandle()`.
 
 ## Examples
@@ -461,6 +461,6 @@ change.
 - `data-slot="lightbox-trigger"`, `lightbox-portal`, `lightbox-backdrop`, `lightbox-viewport`,
   `lightbox-popup`, `lightbox-close`, `lightbox-close-button`, `lightbox-frame`, `lightbox-image`,
   and `lightbox-content-image` are stable selectors on the exported parts.
-- Base UI also adds state attributes such as `data-open`, `data-closed`, `data-popup-open`,
+- The primitive also adds state attributes such as `data-open`, `data-closed`, `data-popup-open`,
   `data-nested`, `data-nested-dialog-open`, `data-starting-style`, and `data-ending-style` on the
   relevant overlay parts.

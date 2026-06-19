@@ -21,7 +21,7 @@ import {
 
 ## API Reference
 
-<BaseUIReference href="https://ark-ui.com/docs/components/fieldset" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/fieldset" />
 
 ## Choosing the right component
 
@@ -150,12 +150,12 @@ wrap a provider in `Fieldset.Root` for the same state instance.
 
 ### Behavioral notes
 
-- `Fieldset.Legend` renders a native `legend`, unlike the removed Base UI wrapper.
+- `Fieldset.Legend` renders a native `legend`, unlike the removed legacy wrapper.
 - Native controls inside a disabled fieldset are disabled by the browser.
 - Ark-aware form controls can consume the shared fieldset context.
 - `Fieldset.ErrorText` is absent from the DOM until `invalid` is true.
 - Fieldset owns no value, keyboard navigation, callback, or `HiddenInput`.
-- Base UI `render` and flat exports such as `FieldsetLegend` are not supported; use `asChild` and the
+- Legacy `render` and flat exports such as `FieldsetLegend` are not supported; use `asChild` and the
   namespace parts.
 
 ## Examples

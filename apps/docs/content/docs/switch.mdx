@@ -21,7 +21,7 @@ import {
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/switch" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/switch" />
 
 ## Choosing the right component
 
@@ -133,7 +133,7 @@ Use `SwitchField` when the switch and label can live inside one wrapping `<label
 Stay with `Switch`, `SwitchField`, and `SwitchLabel` for most settings panels and boolean
 preferences.
 
-`Switch` keeps Base UI root behavior intact. Use it for `checked`, `defaultChecked`,
+`Switch` keeps the underlying primitive root behavior intact. Use it for `checked`, `defaultChecked`,
 `onCheckedChange`, `name`, `value`, `uncheckedValue`, `required`, `disabled`, `readOnly`, `form`,
 `inputRef`, `nativeButton`, and `render`.
 
@@ -155,15 +155,15 @@ Render the root as a native button when the layout needs separate switch and lab
 ```
 
 Use the `render` callback when a native-button switch must still stay inside a wrapping label, so
-Base UI can keep the hidden input outside the label.
+The primitive can keep the hidden input outside the label.
 
 ### Default props
 
-| Prop        | Default     | Values / Notes                             |
-| ----------- | ----------- | ------------------------------------------ |
-| `size`      | `md`        | `xs`, `sm`, `md`, `lg`, `xl`               |
-| `className` | `undefined` | Root class name or Base UI state callback  |
-| `children`  | auto thumb  | Compose `SwitchThumb` manually when needed |
+| Prop        | Default     | Values / Notes                              |
+| ----------- | ----------- | ------------------------------------------- |
+| `size`      | `md`        | `xs`, `sm`, `md`, `lg`, `xl`                |
+| `className` | `undefined` | Root class name or primitive state callback |
+| `children`  | auto thumb  | Compose `SwitchThumb` manually when needed  |
 
 ### Behavioral notes
 
@@ -546,7 +546,7 @@ Use the render callback when a native-button switch must stay inside a wrapping 
 
 ## Styling
 
-Style `Switch` through `className`, the public `data-slot` hooks, Base UI state attributes, and
+Style `Switch` through `className`, the public `data-slot` hooks, primitive state attributes, and
 the public `--switch-*` CSS variables shown below.
 
 ### CSS Properties
@@ -562,7 +562,7 @@ the public `--switch-*` CSS variables shown below.
 ### Styling hooks
 
 - `Switch` exposes `data-slot="switch-root"` and writes `data-size` for the `size` presets.
-- `SwitchThumb` exposes `data-slot="switch-thumb"` and receives Base UI state attributes such as
+- `SwitchThumb` exposes `data-slot="switch-thumb"` and receives primitive state attributes such as
   `data-checked`, `data-unchecked`, `data-disabled`, and `data-readonly`.
 - `SwitchField` and `SwitchLabel` expose `data-slot="switch-field"` and `data-slot="switch-label"`
   for layout and typography overrides.

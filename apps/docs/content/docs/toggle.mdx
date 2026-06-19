@@ -18,7 +18,7 @@ import {
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/toggle" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/toggle" />
 
 ## Choosing the right component
 
@@ -32,7 +32,7 @@ Use `Toggle` when the control is still a button that exposes a pressed state.
 ## Basic
 
 Start with `Toggle` alone. This is the recommended path for standalone two-state actions that only
-need child content plus pressed-state props from Base UI.
+need child content plus pressed-state props from the primitive.
 
 <Preview>
   <ToggleExample />
@@ -113,7 +113,7 @@ Toggle
 | -------- | ----------------------------------------------------------------------- |
 | `Toggle` | Two-state button root that handles pressed, focus, and disabled states. |
 
-The root exposes `data-slot="toggle-root"`, `data-variant`, `data-size`, and Base UI state
+The root exposes `data-slot="toggle-root"`, `data-variant`, `data-size`, and primitive state
 attributes such as `data-pressed` and `data-disabled`.
 
 ## Composition
@@ -122,7 +122,7 @@ attributes such as `data-pressed` and `data-disabled`.
 
 Stay with `Toggle` for most saved states, toolbar actions, and formatting buttons.
 
-`Toggle` keeps Base UI pressed-state behavior intact. Use it for `pressed`, `defaultPressed`,
+`Toggle` keeps primitive pressed-state behavior intact. Use it for `pressed`, `defaultPressed`,
 `onPressedChange`, `disabled`, `render`, `nativeButton`, and regular button attributes.
 
 moduix adds two visual props on top of the primitive:
@@ -489,5 +489,5 @@ focus ring, spacing, and icon sizing.
 - `data-variant` reflects the current visual variant.
 - `data-size` reflects the current size, including `icon-sm`, `icon-md`, and `icon-lg`.
 - `data-pressed` is present when the toggle is pressed.
-- Base UI `data-disabled` and the native `[disabled]` attribute both drive the disabled styles.
+- Primitive `data-disabled` and the native `[disabled]` attribute both drive the disabled styles.
 - Direct child `svg` elements are sized through `--toggle-icon-size`.

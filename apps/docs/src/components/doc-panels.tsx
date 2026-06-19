@@ -3,8 +3,8 @@ import styles from './doc-panels.module.css';
 const quickStartSteps = [
   {
     title: 'Install',
-    body: 'Add moduix and the Base UI peer dependency to the application.',
-    code: 'npm install moduix @base-ui/react',
+    body: 'Add moduix and the current primitive peer dependencies to the application.',
+    code: 'npm install moduix @ark-ui/react @base-ui/react',
   },
   {
     title: 'Connect CSS',

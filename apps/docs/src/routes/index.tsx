@@ -57,7 +57,7 @@ function Home() {
           <div className={styles.content}>
             <div className={styles.badge}>
               <Sparkles size={14} aria-hidden="true" />
-              Base UI powered components
+              Ark UI powered components
             </div>
             <h1 id="home-title" className={styles.title}>
               moduix

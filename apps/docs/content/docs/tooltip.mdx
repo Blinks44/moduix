@@ -16,7 +16,7 @@ import {
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/tooltip" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/tooltip" />
 
 ## Choosing the right component
 
@@ -167,7 +167,7 @@ needs to change.
 | `TooltipPositioner` | Floating layout and positioning layer.                                                                   |
 | `TooltipPopup`      | Visible tooltip surface.                                                                                 |
 | `TooltipArrow`      | Optional default arrow part.                                                                             |
-| `TooltipViewport`   | Inner content wrapper that preserves Base UI transition behavior between triggers.                       |
+| `TooltipViewport`   | Inner content wrapper that preserves primitive transition behavior between triggers.                     |
 
 ## Composition
 
@@ -176,7 +176,7 @@ needs to change.
 Stay with `Tooltip`, `TooltipTrigger`, and `TooltipContent` for most icon buttons, compact labels,
 and settings controls.
 
-`Tooltip` keeps the Base UI root behavior intact. Use it for `open`, `defaultOpen`,
+`Tooltip` keeps the underlying primitive root behavior intact. Use it for `open`, `defaultOpen`,
 `onOpenChange`, `disableHoverablePopup`, `trackCursorAxis`, and shared-handle flows.
 
 `TooltipContent` is the high-level popup wrapper. It accepts popup `className`, supports the shared
@@ -195,11 +195,11 @@ common positioner props such as `anchor`, `disableAnchorTracking`, `sticky`, or
 
 ### Default props
 
-| Prop           | Default | Values / Notes                            |
-| -------------- | ------- | ----------------------------------------- |
-| `showArrow`    | `false` | Enables the built-in arrow                |
-| `sideOffset`   | `8`     | Any number accepted by Base UI positioner |
-| `closeOnClick` | `true`  | Default `TooltipTrigger` click behavior   |
+| Prop           | Default | Values / Notes                                  |
+| -------------- | ------- | ----------------------------------------------- |
+| `showArrow`    | `false` | Enables the built-in arrow                      |
+| `sideOffset`   | `8`     | Any number accepted by the primitive positioner |
+| `closeOnClick` | `true`  | Default `TooltipTrigger` click behavior         |
 
 ### Behavioral notes
 
@@ -649,6 +649,6 @@ Use the part that owns the visual concern:
 The main public hooks include `data-slot="tooltip-trigger"`, `tooltip-positioner`,
 `tooltip-popup`, `tooltip-arrow`, and `tooltip-viewport`.
 
-Base UI also adds state attributes such as `data-popup-open`, `data-trigger-disabled`,
+The primitive also adds state attributes such as `data-popup-open`, `data-trigger-disabled`,
 `data-starting-style`, `data-ending-style`, `data-instant`, `data-side`, `data-align`,
 `data-current`, `data-previous`, and `data-transitioning` on the relevant parts.

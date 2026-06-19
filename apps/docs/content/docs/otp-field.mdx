@@ -19,7 +19,7 @@ import {
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/otp-field" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/pin-input" />
 
 ## Choosing the right component
 
@@ -128,7 +128,7 @@ OTPField[length]
 
 Stay with `OTPField` alone when every slot shares the same structure and styling.
 
-Pass Base UI root props such as `value`, `defaultValue`, `onValueChange`, `onValueComplete`,
+Pass primitive root props such as `value`, `defaultValue`, `onValueChange`, `onValueComplete`,
 `validationType`, `normalizeValue`, `mask`, `autoSubmit`, `required`, `disabled`, and `readOnly`
 directly to `OTPField`.
 
@@ -150,7 +150,7 @@ label still names the control, and give later slots labels such as `"Character 2
 | `validationType` | `numeric` | `numeric`, `alphanumeric`, `none`     |
 | `mask`           | `false`   | Masks visible characters              |
 | `autoSubmit`     | `false`   | Submits the owning form on completion |
-| `className`      | -         | `string` or Base UI state callback    |
+| `className`      | -         | `string` or primitive state callback  |
 
 ### Behavioral notes
 
@@ -605,6 +605,6 @@ you need CSS selectors.
 | `OTPFieldInput`     | `otp-field-input`     | `data-filled`, `data-invalid`, `data-complete`     |
 | `OTPFieldSeparator` | `otp-field-separator` | No component-specific state; decorative by default |
 
-Base UI also exposes field-state attributes such as `data-focused`, `data-valid`, `data-touched`,
+The primitive also exposes field-state attributes such as `data-focused`, `data-valid`, `data-touched`,
 and `data-dirty` on relevant parts. moduix only styles a subset by default, but the attributes stay
 available for consumer CSS.

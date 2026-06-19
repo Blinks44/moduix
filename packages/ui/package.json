@@ -1,7 +1,7 @@
 {
   "name": "moduix",
   "version": "1.0.5",
-  "description": "Composable React UI components built on Base UI primitives.",
+  "description": "Composable React UI components built on Ark UI primitives with transitional support for not-yet-migrated components.",
   "keywords": [
     "accessible",
     "base-ui",

@@ -18,7 +18,7 @@ import {
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/number-field" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/number-input" />
 
 ## Choosing the right component
 
@@ -137,7 +137,7 @@ Field
 ### When to stay high-level
 
 Stay with `NumberField` for most numeric form controls. It already renders the default
-decrement/input/increment group and keeps the Base UI root behavior intact for `value`,
+decrement/input/increment group and keeps the underlying primitive root behavior intact for `value`,
 `defaultValue`, `onValueChange`, `min`, `max`, `step`, `required`, `disabled`, `readOnly`, and
 `format`.
 
@@ -421,7 +421,7 @@ change.
 
 ## Styling
 
-Style `NumberField` through `className`, public `data-slot` hooks, Base UI state attributes, and
+Style `NumberField` through `className`, public `data-slot` hooks, primitive state attributes, and
 the public `--number-field-*` variables defined in `theme.css`.
 
 ### CSS Properties
@@ -442,4 +442,4 @@ The useful public hooks are:
 - `data-slot="number-field-root"`, `number-field-scrub-area`, `number-field-scrub-area-cursor`, `number-field-group`, `number-field-decrement`, `number-field-input`, and `number-field-increment`
 - `data-disabled` and `data-readonly` on the scrub area, input, and step buttons
 - `data-invalid` on the input and step buttons
-- additional Base UI field-state attributes such as `data-valid`, `data-dirty`, `data-touched`, `data-filled`, and `data-focused` when consumer styling needs them
+- additional primitive field-state attributes such as `data-valid`, `data-dirty`, `data-touched`, `data-filled`, and `data-focused` when consumer styling needs them

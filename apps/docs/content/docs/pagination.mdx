@@ -1,6 +1,6 @@
 ---
 title: Pagination
-description: Composable page navigation built on the Base UI toolbar primitive.
+description: Composable page navigation built on an explicit Ark-style pagination composition.
 icon: Component
 ---
 
@@ -14,7 +14,7 @@ import {
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/toolbar" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/pagination" />
 
 ## Basic
 
@@ -151,15 +151,15 @@ Pagination
       └─ PaginationNext
 ```
 
-| Part                 | Role                                                               |
-| -------------------- | ------------------------------------------------------------------ |
-| `Pagination`         | Navigation landmark.                                               |
-| `PaginationContent`  | Base UI toolbar root for keyboard navigation and item arrangement. |
-| `PaginationItem`     | Lightweight layout wrapper for one pagination element.             |
-| `PaginationLink`     | Page control with active styling via `isActive`.                   |
-| `PaginationPrevious` | Previous-page shortcut with an icon-only default control.          |
-| `PaginationNext`     | Next-page shortcut with an icon-only default control.              |
-| `PaginationEllipsis` | Non-interactive collapsed-range marker.                            |
+| Part                 | Role                                                            |
+| -------------------- | --------------------------------------------------------------- |
+| `Pagination`         | Navigation landmark.                                            |
+| `PaginationContent`  | Toolbar-like root for keyboard navigation and item arrangement. |
+| `PaginationItem`     | Lightweight layout wrapper for one pagination element.          |
+| `PaginationLink`     | Page control with active styling via `isActive`.                |
+| `PaginationPrevious` | Previous-page shortcut with an icon-only default control.       |
+| `PaginationNext`     | Next-page shortcut with an icon-only default control.           |
+| `PaginationEllipsis` | Non-interactive collapsed-range marker.                         |
 
 ## Composition
 
@@ -196,8 +196,7 @@ router-specific link component.
 
 ### Behavioral notes
 
-- `PaginationContent` uses the Base UI toolbar primitive, so roving keyboard focus comes from the
-  toolbar contract.
+- `PaginationContent` uses a roving-focus toolbar-style contract for keyboard navigation.
 - `PaginationPrevious` and `PaginationNext` add accessible labels automatically when they stay
   icon-only.
 - Disabled styling applies through `[aria-disabled='true']`, `[data-disabled]`, and `[disabled]`.

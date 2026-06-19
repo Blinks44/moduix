@@ -27,13 +27,10 @@ function PrimitiveReference({ href, label = 'Ark UI API' }: { href: string; labe
   );
 }
 
-const BaseUIReference = PrimitiveReference;
-
 export function getMDXComponents(components?: MDXComponents) {
   return {
     ...defaultMdxComponents,
     ...TabsComponents,
-    BaseUIReference,
     PrimitiveReference,
     Preview,
     ...components,
