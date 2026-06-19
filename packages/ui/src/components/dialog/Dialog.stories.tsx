@@ -163,14 +163,22 @@ export const ScrollableBody: Story = {
             </Dialog.Header>
             <Dialog.Body className={storyStyles.scrollBody}>
               <ScrollArea className={storyStyles.scrollArea}>
-                <div className={storyStyles.scrollContent}>
-                  {insideScrollSections.map((item) => (
-                    <section key={item.title}>
-                      <h3>{item.title}</h3>
-                      <p>{item.body}</p>
-                    </section>
-                  ))}
-                </div>
+                <ScrollArea.Viewport>
+                  <ScrollArea.Content>
+                    <div className={storyStyles.scrollContent}>
+                      {insideScrollSections.map((item) => (
+                        <section key={item.title}>
+                          <h3>{item.title}</h3>
+                          <p>{item.body}</p>
+                        </section>
+                      ))}
+                    </div>
+                  </ScrollArea.Content>
+                </ScrollArea.Viewport>
+                <ScrollArea.Scrollbar>
+                  <ScrollArea.Thumb />
+                </ScrollArea.Scrollbar>
+                <ScrollArea.Corner />
               </ScrollArea>
             </Dialog.Body>
           </Dialog.Content>

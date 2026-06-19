@@ -5,7 +5,7 @@ import { Button } from '../button';
 import { Drawer, useDrawer } from './Drawer';
 import storyStyles from './Drawer.stories.module.css';
 
-const DEFAULT_DEMO_SNAP_POINT = 0.18;
+const DEFAULT_DEMO_SNAP_POINT = 0.3;
 const DEFAULT_DEMO_SNAP_POINTS = [DEFAULT_DEMO_SNAP_POINT, 1];
 
 const meta = {

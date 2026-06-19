@@ -14,6 +14,8 @@
     border-radius: var(--scroll-area-radius, var(--radius-md));
     background-color: var(--scroll-area-bg, transparent);
     outline: 0;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
     --_scroll-area-block-fade-mask: linear-gradient(
       to bottom,
       transparent 0,
@@ -32,50 +34,13 @@
         ),
       transparent 100%
     );
-    --_scroll-area-inline-fade-direction: to right;
-    --_scroll-area-inline-fade-mask: linear-gradient(
-      var(--_scroll-area-inline-fade-direction),
-      transparent 0,
-      black
-        min(
-          var(
-            --scroll-area-fade-inline-start-size,
-            var(--scroll-area-fade-size, var(--spacing-10))
-          ),
-          var(--scroll-area-overflow-x-start, 0px)
-        ),
-      black
-        calc(
-          100% -
-            min(
-              var(
-                --scroll-area-fade-inline-end-size,
-                var(--scroll-area-fade-size, var(--spacing-10))
-              ),
-              var(--scroll-area-overflow-x-end, 0px)
-            )
-        ),
-      transparent 100%
-    );
 
-    .root:dir(rtl)[data-fade='horizontal'] &,
-    .root:dir(rtl)[data-fade='both'] & {
-      --_scroll-area-inline-fade-direction: to left;
+    &::-webkit-scrollbar {
+      display: none;
     }
 
-    .root[data-fade='vertical'] & {
+    .root[data-fade] & {
       mask-image: var(--_scroll-area-block-fade-mask);
-      mask-repeat: no-repeat;
-    }
-
-    .root[data-fade='horizontal'] & {
-      mask-image: var(--_scroll-area-inline-fade-mask);
-      mask-repeat: no-repeat;
-    }
-
-    .root[data-fade='both'] & {
-      mask-image: var(--_scroll-area-block-fade-mask), var(--_scroll-area-inline-fade-mask);
-      mask-composite: intersect;
       mask-repeat: no-repeat;
     }
 
@@ -120,7 +85,7 @@
     &[data-orientation='vertical'] {
       top: 0;
       inset-inline-end: 0;
-      bottom: var(--scroll-area-corner-height, 0px);
+      bottom: var(--corner-height, 0px);
       width: var(--scroll-area-scrollbar-size, 0.375rem);
       margin-block: var(--_scroll-area-scrollbar-margin);
       margin-inline-end: var(--_scroll-area-scrollbar-margin);
@@ -131,11 +96,15 @@
         left: 50%;
         transform: translateX(-50%);
       }
+
+      &:not([data-overflow-y]) {
+        display: none;
+      }
     }
 
     &[data-orientation='horizontal'] {
       inset-inline-start: 0;
-      inset-inline-end: var(--scroll-area-corner-width, 0px);
+      inset-inline-end: var(--corner-width, 0px);
       bottom: 0;
       height: var(--scroll-area-scrollbar-size, 0.375rem);
       flex-direction: column;
@@ -150,9 +119,13 @@
         bottom: 50%;
         transform: translateY(50%);
       }
+
+      &:not([data-overflow-x]) {
+        display: none;
+      }
     }
 
-    &[data-hovering],
+    &[data-hover],
     &[data-scrolling] {
       opacity: var(--scroll-area-scrollbar-visible-opacity, 1);
       pointer-events: auto;
@@ -169,12 +142,12 @@
     background-color: var(--scroll-area-thumb-bg, var(--color-border));
 
     &[data-orientation='vertical'] {
-      width: var(--scroll-area-thumb-width, 100%);
+      width: var(--thumb-width, 100%);
       min-height: var(--scroll-area-thumb-min-size, 1.5rem);
     }
 
     &[data-orientation='horizontal'] {
-      height: var(--scroll-area-thumb-height, 100%);
+      height: var(--thumb-height, 100%);
       min-width: var(--scroll-area-thumb-min-size, 1.5rem);
     }
   }

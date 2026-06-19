@@ -1,14 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import {
-  ScrollArea,
-  ScrollAreaContent,
-  ScrollAreaCorner,
-  ScrollAreaRoot,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-  ScrollAreaViewport,
-} from './ScrollArea';
+import { Button } from '../button';
+import { ScrollArea, useScrollArea } from './ScrollArea';
 import styles from './ScrollArea.stories.module.css';
 
 const meta = {
@@ -24,80 +17,174 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+function VerticalScrollArea() {
+  return (
+    <ScrollArea className={styles.root}>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <div className={styles.textContent}>
+            {insideScrollSections.map((item) => (
+              <section key={item.title}>
+                <h3>{item.title}</h3>
+                <p className={styles.paragraph}>{item.body}</p>
+              </section>
+            ))}
+          </div>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
+    </ScrollArea>
+  );
+}
+
+function RootProviderStory() {
+  const scrollArea = useScrollArea();
+
+  return (
+    <div className={styles.providerStack}>
+      <div className={styles.actions}>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => scrollArea.scrollToEdge({ edge: 'top' })}
+        >
+          Top
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => scrollArea.scrollToEdge({ edge: 'bottom' })}
+        >
+          Bottom
+        </Button>
+      </div>
+      <ScrollArea.RootProvider value={scrollArea} className={styles.root}>
+        <ScrollArea.Viewport>
+          <ScrollArea.Content>
+            <div className={styles.textContent}>
+              {insideScrollSections.map((item) => (
+                <section key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p className={styles.paragraph}>{item.body}</p>
+                </section>
+              ))}
+            </div>
+          </ScrollArea.Content>
+        </ScrollArea.Viewport>
+        <ScrollArea.Scrollbar>
+          <ScrollArea.Thumb />
+        </ScrollArea.Scrollbar>
+        <ScrollArea.Corner />
+      </ScrollArea.RootProvider>
+    </div>
+  );
+}
+
 export const Basic: Story = {
+  render: () => <VerticalScrollArea />,
+};
+
+export const Fade: Story = {
+  render: () => (
+    <ScrollArea className={styles.root} fade>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <div className={styles.textContent}>
+            {insideScrollSections.map((item) => (
+              <section key={item.title}>
+                <h3>{item.title}</h3>
+                <p className={styles.paragraph}>{item.body}</p>
+              </section>
+            ))}
+          </div>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
+    </ScrollArea>
+  ),
+};
+
+export const Horizontal: Story = {
+  render: () => {
+    return (
+      <ScrollArea className={styles.horizontalRoot}>
+        <ScrollArea.Viewport>
+          <ScrollArea.Content>
+            <p className={styles.wideParagraph}>{insideScrollSections[0]?.body}</p>
+          </ScrollArea.Content>
+        </ScrollArea.Viewport>
+        <ScrollArea.Scrollbar orientation="horizontal">
+          <ScrollArea.Thumb />
+        </ScrollArea.Scrollbar>
+        <ScrollArea.Corner />
+      </ScrollArea>
+    );
+  },
+};
+
+export const BothDirections: Story = {
+  name: 'Both Directions',
   render: () => {
     return (
       <ScrollArea className={styles.root}>
-        <div className={styles.textContent}>
-          {insideScrollSections.map((item) => (
-            <section key={item.title}>
-              <h3>{item.title}</h3>
-              <p className={styles.paragraph}>{item.body}</p>
-            </section>
-          ))}
-        </div>
-      </ScrollArea>
-    );
-  },
-};
-
-export const BothScrollbars: Story = {
-  name: 'Both Scrollbars',
-  render: () => {
-    return (
-      <ScrollArea scrollbars="both" className={styles.root}>
-        <div className={styles.gridContent}>
-          {Array.from({ length: 96 }, (_, index) => (
-            <div key={index} className={styles.cell}>
-              {index + 1}
+        <ScrollArea.Viewport>
+          <ScrollArea.Content>
+            <div className={styles.gridContent}>
+              {Array.from({ length: 96 }, (_, index) => (
+                <div key={index} className={styles.cell}>
+                  {index + 1}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </ScrollArea.Content>
+        </ScrollArea.Viewport>
+        <ScrollArea.Scrollbar>
+          <ScrollArea.Thumb />
+        </ScrollArea.Scrollbar>
+        <ScrollArea.Scrollbar orientation="horizontal">
+          <ScrollArea.Thumb />
+        </ScrollArea.Scrollbar>
+        <ScrollArea.Corner />
       </ScrollArea>
     );
   },
 };
 
-export const EdgeFade: Story = {
-  name: 'Edge Fade',
+export const Nested: Story = {
   render: () => {
     return (
-      <ScrollArea fade className={styles.root}>
-        <div className={styles.textContent}>
-          {insideScrollSections.map((item) => (
-            <section key={item.title}>
-              <h3>{item.title}</h3>
-              <p className={styles.paragraph}>{item.body}</p>
-            </section>
-          ))}
-        </div>
+      <ScrollArea className={styles.root}>
+        <ScrollArea.Viewport>
+          <ScrollArea.Content>
+            <div className={styles.textContent}>
+              <section>
+                <h3>Outer release notes</h3>
+                <p className={styles.paragraph}>{insideScrollSections[0]?.body}</p>
+              </section>
+              <VerticalScrollArea />
+              <section>
+                <h3>Follow-up items</h3>
+                <p className={styles.paragraph}>{insideScrollSections[1]?.body}</p>
+              </section>
+            </div>
+          </ScrollArea.Content>
+        </ScrollArea.Viewport>
+        <ScrollArea.Scrollbar>
+          <ScrollArea.Thumb />
+        </ScrollArea.Scrollbar>
+        <ScrollArea.Corner />
       </ScrollArea>
     );
   },
 };
 
-export const CustomComposition: Story = {
-  name: 'Custom Composition',
-  render: () => {
-    return (
-      <ScrollAreaRoot className={styles.customRoot} data-fade="both" overflowEdgeThreshold={28}>
-        <ScrollAreaViewport className={styles.customViewport}>
-          <ScrollAreaContent className={styles.customContent}>
-            {Array.from({ length: 80 }, (_, index) => (
-              <div key={index} className={styles.customCell}>
-                {index + 1}
-              </div>
-            ))}
-          </ScrollAreaContent>
-        </ScrollAreaViewport>
-        <ScrollAreaScrollbar className={styles.customVerticalScrollbar} keepMounted>
-          <ScrollAreaThumb className={styles.customVerticalThumb} />
-        </ScrollAreaScrollbar>
-        <ScrollAreaScrollbar orientation="horizontal" className={styles.customHorizontalScrollbar}>
-          <ScrollAreaThumb className={styles.customHorizontalThumb} />
-        </ScrollAreaScrollbar>
-        <ScrollAreaCorner className={styles.customCorner} />
-      </ScrollAreaRoot>
-    );
-  },
+export const RootProvider: Story = {
+  name: 'Root Provider',
+  render: () => <RootProviderStory />,
 };

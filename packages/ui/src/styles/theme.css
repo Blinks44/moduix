@@ -48,14 +48,14 @@
   --positioner-width: initial;
   --reference-height: initial;
   --reference-width: initial;
-  --scroll-area-corner-height: initial;
-  --scroll-area-corner-width: initial;
   --scroll-area-overflow-x-end: initial;
   --scroll-area-overflow-x-start: initial;
   --scroll-area-overflow-y-end: initial;
   --scroll-area-overflow-y-start: initial;
-  --scroll-area-thumb-height: initial;
-  --scroll-area-thumb-width: initial;
+  --corner-height: initial;
+  --corner-width: initial;
+  --thumb-height: initial;
+  --thumb-width: initial;
   --toast-frontmost-height: initial;
   --toast-height: initial;
   --toast-index: initial;
@@ -1572,8 +1572,6 @@
   --scroll-area-content-padding: initial; /* 0 */
   --scroll-area-corner-bg: initial; /* var(--scroll-area-scrollbar-bg, transparent) */
   --scroll-area-fade-end-size: initial; /* var(--scroll-area-fade-size, var(--spacing-10)) */
-  --scroll-area-fade-inline-end-size: initial; /* var(--scroll-area-fade-size, var(--spacing-10)) */
-  --scroll-area-fade-inline-start-size: initial; /* var(--scroll-area-fade-size, var(--spacing-10)) */
   --scroll-area-fade-size: initial; /* var(--spacing-10) */
   --scroll-area-fade-start-size: initial; /* var(--scroll-area-fade-size, var(--spacing-10)) */
   --scroll-area-focus-ring-color: initial; /* var(--color-ring) */

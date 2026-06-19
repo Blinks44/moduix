@@ -5,7 +5,7 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './drawer.module.css';
 
-const DEFAULT_DEMO_SNAP_POINT = 0.18;
+const DEFAULT_DEMO_SNAP_POINT = 0.3;
 const DEFAULT_DEMO_SNAP_POINTS = [DEFAULT_DEMO_SNAP_POINT, 1];
 
 export const drawerOverrideCssProperties: CssPropertyInput[] = [

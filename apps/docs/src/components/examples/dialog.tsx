@@ -401,14 +401,22 @@ export function ScrollableDialogExample() {
             </Dialog.Description>
           </Dialog.Header>
           <ScrollArea className="dialog-scroll-area">
-            <div className="dialog-scroll-content">
-              {insideScrollSections.map((item) => (
-                <section key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </section>
-              ))}
-            </div>
+            <ScrollArea.Viewport>
+              <ScrollArea.Content>
+                <div className="dialog-scroll-content">
+                  {insideScrollSections.map((item) => (
+                    <section key={item.title}>
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
+                    </section>
+                  ))}
+                </div>
+              </ScrollArea.Content>
+            </ScrollArea.Viewport>
+            <ScrollArea.Scrollbar>
+              <ScrollArea.Thumb />
+            </ScrollArea.Scrollbar>
+            <ScrollArea.Corner />
           </ScrollArea>
         </DialogSurface>
       </Dialog.Root>

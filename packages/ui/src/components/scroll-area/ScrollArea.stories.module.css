@@ -1,11 +1,15 @@
 @layer ui.stories {
   .root,
-  .customRoot {
+  .horizontalRoot {
     width: 24rem;
     max-width: calc(100vw - 2rem);
     height: 13rem;
     border: var(--border-width-sm) solid var(--color-border);
     border-radius: var(--radius-lg);
+  }
+
+  .horizontalRoot {
+    height: auto;
   }
 
   .textContent {
@@ -15,11 +19,18 @@
     padding-right: var(--spacing-6);
   }
 
-  .paragraph {
+  .paragraph,
+  .wideParagraph {
     margin: 0;
     color: var(--color-foreground);
     font-size: var(--text-sm);
     line-height: var(--line-height-text-sm);
+  }
+
+  .wideParagraph {
+    width: 50rem;
+    padding: var(--spacing-3);
+    padding-bottom: var(--spacing-6);
   }
 
   .gridContent {
@@ -41,62 +52,14 @@
     font-weight: var(--weight-medium);
   }
 
-  .customRoot {
-    --scroll-area-scrollbar-size: 0.625rem;
-    --scroll-area-scrollbar-margin: var(--spacing-1);
-    --scroll-area-scrollbar-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
-    --scroll-area-thumb-bg: var(--color-primary);
-    --scroll-area-corner-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
-  }
-
-  .customViewport {
-    border-radius: var(--radius-lg);
-    outline: var(--border-width-sm) solid var(--color-border);
-    outline-offset: calc(var(--border-width-sm) * -1);
-
-    &[data-scrolling] {
-      outline-color: var(--color-primary);
-    }
-  }
-
-  .customContent {
+  .providerStack {
     display: grid;
-    grid-template-columns: repeat(10, 5rem);
-    grid-template-rows: repeat(8, 4rem);
-    width: max-content;
+    gap: var(--spacing-3);
+  }
+
+  .actions {
+    display: flex;
     gap: var(--spacing-2);
-    padding: var(--spacing-3);
-  }
-
-  .customVerticalScrollbar {
-    background-color: color-mix(in srgb, var(--color-primary) 12%, transparent);
-  }
-
-  .customHorizontalScrollbar {
-    background-color: color-mix(in srgb, var(--color-chart-3) 18%, transparent);
-  }
-
-  .customVerticalThumb {
-    background-color: var(--color-primary);
-  }
-
-  .customHorizontalThumb {
-    background-color: var(--color-chart-3);
-  }
-
-  .customCorner {
-    border-radius: var(--radius-sm);
-    background-color: color-mix(in srgb, var(--color-foreground) 10%, transparent);
-  }
-
-  .customCell {
-    display: grid;
-    place-items: center;
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-sm);
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
+    justify-content: flex-end;
   }
 }

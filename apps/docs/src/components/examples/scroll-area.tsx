@@ -1,13 +1,5 @@
 import type { ComponentProps } from 'react';
-import {
-  ScrollArea,
-  ScrollAreaContent,
-  ScrollAreaCorner,
-  ScrollAreaRoot,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-  ScrollAreaViewport,
-} from 'moduix';
+import { Button, ScrollArea, useScrollArea } from 'moduix';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -25,23 +17,17 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   [
     '--scroll-area-fade-end-size',
     'var(--scroll-area-fade-size, var(--spacing-10))',
-    'Controls vertical end fade.',
+    'Controls the bottom fade depth when `fade` is enabled.',
   ],
   [
-    '--scroll-area-fade-inline-end-size',
-    'var(--scroll-area-fade-size, var(--spacing-10))',
-    'Controls horizontal end fade.',
+    '--scroll-area-fade-size',
+    'var(--spacing-10)',
+    'Controls the default top and bottom fade depth when `fade` is enabled.',
   ],
-  [
-    '--scroll-area-fade-inline-start-size',
-    'var(--scroll-area-fade-size, var(--spacing-10))',
-    'Controls horizontal start fade.',
-  ],
-  ['--scroll-area-fade-size', 'var(--spacing-10)', 'Controls the default fade size.'],
   [
     '--scroll-area-fade-start-size',
     'var(--scroll-area-fade-size, var(--spacing-10))',
-    'Controls vertical start fade.',
+    'Controls the top fade depth when `fade` is enabled.',
   ],
   [
     '--scroll-area-focus-ring-color',
@@ -97,69 +83,169 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
+function TextContent() {
+  return (
+    <div className={styles.textContent}>
+      {insideScrollSections.map((item) => (
+        <section key={item.title}>
+          <h3>{item.title}</h3>
+          <p className={styles.paragraph}>{item.body}</p>
+        </section>
+      ))}
+    </div>
+  );
+}
+
 export function ScrollAreaExample(props: ComponentProps<typeof ScrollArea>) {
   return (
     <ScrollArea {...props} className={styles.root}>
-      <div className={styles.textContent}>
-        {insideScrollSections.map((item) => (
-          <section key={item.title}>
-            <h3>{item.title}</h3>
-            <p className={styles.paragraph}>{item.body}</p>
-          </section>
-        ))}
-      </div>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <TextContent />
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
     </ScrollArea>
   );
 }
 
-export function BothScrollbarsScrollAreaExample() {
+export function HorizontalScrollAreaExample() {
   return (
-    <ScrollArea scrollbars="both" className={styles.sizedRoot}>
-      <div className={styles.gridContent}>
-        {Array.from({ length: 96 }, (_, index) => (
-          <div key={index} className={styles.cell}>
-            {index + 1}
+    <ScrollArea className={styles.horizontalRoot}>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <p className={styles.wideParagraph}>{insideScrollSections[0]?.body}</p>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar orientation="horizontal">
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
+    </ScrollArea>
+  );
+}
+
+export function FadeScrollAreaExample() {
+  return <ScrollAreaExample fade />;
+}
+
+export function BothDirectionsScrollAreaExample() {
+  return (
+    <ScrollArea className={styles.root}>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <div className={styles.gridContent}>
+            {Array.from({ length: 96 }, (_, index) => (
+              <div key={index} className={styles.cell}>
+                {index + 1}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Scrollbar orientation="horizontal">
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
     </ScrollArea>
   );
 }
 
-export function GradientFadeScrollAreaExample() {
+export function NestedScrollAreaExample() {
   return (
-    <ScrollArea fade className={styles.sizedRoot}>
-      <div className={styles.textContent}>
-        {insideScrollSections.map((item) => (
-          <section key={item.title}>
-            <h3>{item.title}</h3>
-            <p className={styles.paragraph}>{item.body}</p>
-          </section>
-        ))}
-      </div>
+    <ScrollArea className={styles.root}>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <div className={styles.textContent}>
+            <section>
+              <h3>Outer release notes</h3>
+              <p className={styles.paragraph}>{insideScrollSections[0]?.body}</p>
+            </section>
+            <ScrollArea className={styles.nestedRoot}>
+              <ScrollArea.Viewport>
+                <ScrollArea.Content>
+                  <TextContent />
+                </ScrollArea.Content>
+              </ScrollArea.Viewport>
+              <ScrollArea.Scrollbar>
+                <ScrollArea.Thumb />
+              </ScrollArea.Scrollbar>
+              <ScrollArea.Corner />
+            </ScrollArea>
+          </div>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
     </ScrollArea>
   );
 }
 
-export function CustomCompositionScrollAreaExample() {
+export function RootProviderScrollAreaExample() {
+  const scrollArea = useScrollArea();
+
   return (
-    <ScrollAreaRoot className={styles.customRoot} data-fade="both" overflowEdgeThreshold={28}>
-      <ScrollAreaViewport className={styles.customViewport}>
-        <ScrollAreaContent className={styles.customContent}>
-          {Array.from({ length: 80 }, (_, index) => (
-            <div key={index} className={styles.customCell}>
-              {index + 1}
-            </div>
-          ))}
-        </ScrollAreaContent>
-      </ScrollAreaViewport>
-      <ScrollAreaScrollbar className={styles.customVerticalScrollbar} keepMounted>
-        <ScrollAreaThumb className={styles.customVerticalThumb} />
-      </ScrollAreaScrollbar>
-      <ScrollAreaScrollbar orientation="horizontal" className={styles.customHorizontalScrollbar}>
-        <ScrollAreaThumb className={styles.customHorizontalThumb} />
-      </ScrollAreaScrollbar>
-      <ScrollAreaCorner className={styles.customCorner} />
-    </ScrollAreaRoot>
+    <div className={styles.providerStack}>
+      <div className={styles.actions}>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => scrollArea.scrollToEdge({ edge: 'top' })}
+        >
+          Top
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => scrollArea.scrollToEdge({ edge: 'bottom' })}
+        >
+          Bottom
+        </Button>
+      </div>
+      <ScrollArea.RootProvider value={scrollArea} className={styles.root}>
+        <ScrollArea.Viewport>
+          <ScrollArea.Content>
+            <TextContent />
+          </ScrollArea.Content>
+        </ScrollArea.Viewport>
+        <ScrollArea.Scrollbar>
+          <ScrollArea.Thumb />
+        </ScrollArea.Scrollbar>
+        <ScrollArea.Corner />
+      </ScrollArea.RootProvider>
+    </div>
+  );
+}
+
+export function CustomStylingScrollAreaExample() {
+  return (
+    <ScrollArea className={styles.customRoot}>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <div className={styles.gridContent}>
+            {Array.from({ length: 96 }, (_, index) => (
+              <div key={index} className={styles.cell}>
+                {index + 1}
+              </div>
+            ))}
+          </div>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar className={styles.primaryScrollbar}>
+        <ScrollArea.Thumb className={styles.primaryThumb} />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Scrollbar orientation="horizontal" className={styles.accentScrollbar}>
+        <ScrollArea.Thumb className={styles.accentThumb} />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner className={styles.customCorner} />
+    </ScrollArea>
   );
 }

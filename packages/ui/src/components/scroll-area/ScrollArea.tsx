@@ -1,131 +1,158 @@
-import { ScrollArea as ScrollAreaPrimitive } from '@base-ui/react/scroll-area';
-import { forwardRef, type ComponentRef, type ForwardedRef } from 'react';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import type { ComponentProps, ComponentRef } from 'react';
+import {
+  ScrollArea as ScrollAreaPrimitive,
+  useScrollArea,
+  useScrollAreaContext,
+} from '@ark-ui/react/scroll-area';
+import { clsx } from 'clsx';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './ScrollArea.module.css';
 
-type ScrollAreaProps = ScrollAreaPrimitive.Root.Props & {
-  fade?: boolean | 'vertical' | 'horizontal' | 'both';
-  scrollbars?: 'vertical' | 'horizontal' | 'both' | false;
+type ModuixScrollAreaRootProps = ComponentProps<typeof ScrollAreaPrimitive.Root> & {
+  fade?: boolean;
+};
+type ModuixScrollAreaRootProviderProps = ComponentProps<typeof ScrollAreaPrimitive.RootProvider> & {
+  fade?: boolean;
 };
 
-const ScrollAreaRoot = forwardRef(function ScrollAreaRoot(
-  { className, ...props }: ScrollAreaPrimitive.Root.Props,
-  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Root>>,
-) {
+const ScrollAreaRoot = forwardRef<
+  ComponentRef<typeof ScrollAreaPrimitive.Root>,
+  ModuixScrollAreaRootProps
+>(function ScrollAreaRoot({ className, fade, ...props }, ref) {
   return (
     <ScrollAreaPrimitive.Root
       ref={ref}
       data-slot="scroll-area-root"
-      className={mergeClassName(className, styles.root)}
+      data-fade={fade ? '' : undefined}
+      className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-const ScrollAreaViewport = forwardRef(function ScrollAreaViewport(
-  { className, ...props }: ScrollAreaPrimitive.Viewport.Props,
-  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Viewport>>,
-) {
+const ScrollAreaRootProvider = forwardRef<
+  ComponentRef<typeof ScrollAreaPrimitive.RootProvider>,
+  ModuixScrollAreaRootProviderProps
+>(function ScrollAreaRootProvider({ className, fade, ...props }, ref) {
+  return (
+    <ScrollAreaPrimitive.RootProvider
+      ref={ref}
+      data-slot="scroll-area-root-provider"
+      data-fade={fade ? '' : undefined}
+      className={clsx(styles.root, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const ScrollAreaViewport = forwardRef<
+  ComponentRef<typeof ScrollAreaPrimitive.Viewport>,
+  ComponentProps<typeof ScrollAreaPrimitive.Viewport>
+>(function ScrollAreaViewport({ className, ...props }, ref) {
   return (
     <ScrollAreaPrimitive.Viewport
       ref={ref}
       data-slot="scroll-area-viewport"
-      className={mergeClassName(className, styles.viewport)}
+      className={clsx(styles.viewport, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-const ScrollAreaContent = forwardRef(function ScrollAreaContent(
-  { className, ...props }: ScrollAreaPrimitive.Content.Props,
-  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Content>>,
-) {
+const ScrollAreaContent = forwardRef<
+  ComponentRef<typeof ScrollAreaPrimitive.Content>,
+  ComponentProps<typeof ScrollAreaPrimitive.Content>
+>(function ScrollAreaContent({ className, ...props }, ref) {
   return (
     <ScrollAreaPrimitive.Content
       ref={ref}
       data-slot="scroll-area-content"
-      className={mergeClassName(className, styles.content)}
+      className={clsx(styles.content, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-const ScrollAreaScrollbar = forwardRef(function ScrollAreaScrollbar(
-  { className, ...props }: ScrollAreaPrimitive.Scrollbar.Props,
-  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Scrollbar>>,
-) {
+const ScrollAreaScrollbar = forwardRef<
+  ComponentRef<typeof ScrollAreaPrimitive.Scrollbar>,
+  ComponentProps<typeof ScrollAreaPrimitive.Scrollbar>
+>(function ScrollAreaScrollbar({ className, ...props }, ref) {
   return (
     <ScrollAreaPrimitive.Scrollbar
       ref={ref}
       data-slot="scroll-area-scrollbar"
-      className={mergeClassName(className, styles.scrollbar)}
+      className={clsx(styles.scrollbar, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-const ScrollAreaThumb = forwardRef(function ScrollAreaThumb(
-  { className, ...props }: ScrollAreaPrimitive.Thumb.Props,
-  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Thumb>>,
-) {
+const ScrollAreaThumb = forwardRef<
+  ComponentRef<typeof ScrollAreaPrimitive.Thumb>,
+  ComponentProps<typeof ScrollAreaPrimitive.Thumb>
+>(function ScrollAreaThumb({ className, ...props }, ref) {
   return (
     <ScrollAreaPrimitive.Thumb
       ref={ref}
       data-slot="scroll-area-thumb"
-      className={mergeClassName(className, styles.thumb)}
+      className={clsx(styles.thumb, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-const ScrollAreaCorner = forwardRef(function ScrollAreaCorner(
-  { className, ...props }: ScrollAreaPrimitive.Corner.Props,
-  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Corner>>,
-) {
+const ScrollAreaCorner = forwardRef<
+  ComponentRef<typeof ScrollAreaPrimitive.Corner>,
+  ComponentProps<typeof ScrollAreaPrimitive.Corner>
+>(function ScrollAreaCorner({ className, ...props }, ref) {
   return (
     <ScrollAreaPrimitive.Corner
       ref={ref}
       data-slot="scroll-area-corner"
-      className={mergeClassName(className, styles.corner)}
+      className={clsx(styles.corner, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-const ScrollArea = forwardRef(function ScrollArea(
-  { className, children, fade = false, scrollbars = 'vertical', ...props }: ScrollAreaProps,
-  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Root>>,
-) {
-  const resolvedFade = fade === true ? 'vertical' : fade || undefined;
-  const showVerticalScrollbar = scrollbars === 'vertical' || scrollbars === 'both';
-  const showHorizontalScrollbar = scrollbars === 'horizontal' || scrollbars === 'both';
+const ScrollAreaContext = ScrollAreaPrimitive.Context;
 
-  return (
-    <ScrollAreaRoot ref={ref} className={className} {...props} data-fade={resolvedFade}>
-      <ScrollAreaViewport>
-        <ScrollAreaContent>{children}</ScrollAreaContent>
-      </ScrollAreaViewport>
-      {showVerticalScrollbar ? (
-        <ScrollAreaScrollbar>
-          <ScrollAreaThumb />
-        </ScrollAreaScrollbar>
-      ) : null}
-      {showHorizontalScrollbar ? (
-        <ScrollAreaScrollbar orientation="horizontal">
-          <ScrollAreaThumb />
-        </ScrollAreaScrollbar>
-      ) : null}
-      {showVerticalScrollbar && showHorizontalScrollbar ? <ScrollAreaCorner /> : null}
-    </ScrollAreaRoot>
-  );
+const ScrollArea = Object.assign(ScrollAreaRoot, {
+  Root: ScrollAreaRoot,
+  RootProvider: ScrollAreaRootProvider,
+  Viewport: ScrollAreaViewport,
+  Content: ScrollAreaContent,
+  Scrollbar: ScrollAreaScrollbar,
+  Thumb: ScrollAreaThumb,
+  Corner: ScrollAreaCorner,
+  Context: ScrollAreaContext,
 });
 
-export {
-  ScrollArea,
-  ScrollAreaRoot,
-  ScrollAreaViewport,
-  ScrollAreaContent,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-  ScrollAreaCorner,
-};
+export { ScrollArea, useScrollArea, useScrollAreaContext };
+export type {
+  ScrollAreaContentBaseProps,
+  ScrollAreaContentProps,
+  ScrollAreaContextProps,
+  ScrollAreaCornerBaseProps,
+  ScrollAreaCornerProps,
+  ScrollAreaElementIds,
+  ScrollAreaRootBaseProps,
+  ScrollAreaRootProps,
+  ScrollAreaRootProviderBaseProps,
+  ScrollAreaRootProviderProps,
+  ScrollAreaScrollbarBaseProps,
+  ScrollAreaScrollbarProps,
+  ScrollAreaScrollbarState,
+  ScrollAreaScrollToDetails,
+  ScrollAreaScrollToEdge,
+  ScrollAreaScrollToEdgeDetails,
+  ScrollAreaThumbBaseProps,
+  ScrollAreaThumbProps,
+  ScrollAreaViewportBaseProps,
+  ScrollAreaViewportProps,
+  UseScrollAreaContext,
+  UseScrollAreaProps,
+  UseScrollAreaReturn,
+} from '@ark-ui/react/scroll-area';
+export type { ModuixScrollAreaRootProps, ModuixScrollAreaRootProviderProps };
