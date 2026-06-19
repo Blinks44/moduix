@@ -32,7 +32,7 @@ export * from './components/kbd';
 export * from './components/lightbox';
 export * from './components/list';
 export * from './components/menu';
-export * from './components/number-field';
+export * from './components/number-input';
 export * from './components/otp-field';
 export * from './components/pagination';
 export * from './components/password-input';

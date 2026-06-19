@@ -884,26 +884,26 @@
       ]
     },
     {
-      "name": "number-field",
+      "name": "number-input",
       "type": "registry:item",
-      "title": "NumberField",
-      "description": "moduix NumberField component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "title": "NumberInput",
+      "description": "moduix NumberInput component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
-          "path": "packages/ui/src/components/number-field/NumberField.tsx",
-          "target": "@components/moduix/number-field/NumberField.tsx",
+          "path": "packages/ui/src/components/number-input/NumberInput.tsx",
+          "target": "@components/moduix/number-input/NumberInput.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/ui/src/components/number-field/NumberField.module.css",
-          "target": "@components/moduix/number-field/NumberField.module.css",
+          "path": "packages/ui/src/components/number-input/NumberInput.module.css",
+          "target": "@components/moduix/number-input/NumberInput.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/ui/src/components/number-field/index.ts",
-          "target": "@components/moduix/number-field/index.ts",
+          "path": "packages/ui/src/components/number-input/index.ts",
+          "target": "@components/moduix/number-input/index.ts",
           "type": "registry:component"
         }
       ]

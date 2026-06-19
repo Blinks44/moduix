@@ -11,12 +11,12 @@
 }
 
 .customButton {
-  --number-field-button-bg: var(--color-muted);
-  --number-field-button-bg-hover: var(--color-accent);
-  --number-field-icon-size: 1rem;
+  --number-input-button-bg: var(--color-muted);
+  --number-input-button-bg-hover: var(--color-accent);
+  --number-input-icon-size: 1rem;
 }
 
 .customInput {
-  --number-field-input-width: 7rem;
-  --number-field-input-font-size: var(--text-lg);
+  --number-input-input-width: 7rem;
+  --number-input-input-font-size: var(--text-lg);
 }

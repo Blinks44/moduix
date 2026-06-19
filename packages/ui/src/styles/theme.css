@@ -1304,34 +1304,40 @@
   --menu-trigger-padding-y: initial; /* 0.5rem */
   --menu-trigger-radius: initial; /* var(--radius-md) */
 
-  /* NumberField */
-  --number-field-border-color: initial; /* var(--color-border) */
-  --number-field-border-color-invalid: initial; /* var(--color-destructive) */
-  --number-field-border-style: initial; /* solid */
-  --number-field-border-width: initial; /* var(--border-width-sm) */
-  --number-field-button-bg: initial; /* var(--color-background) */
-  --number-field-button-bg-active: initial; /* var(--number-field-button-bg-hover) */
-  --number-field-button-bg-hover: initial; /* var(--color-accent) */
-  --number-field-button-color: initial; /* var(--color-foreground) */
-  --number-field-control-height: initial; /* var(--size-lg) */
-  --number-field-disabled-opacity: initial; /* var(--opacity-disabled) */
-  --number-field-focus-ring-color: initial; /* var(--color-ring) */
-  --number-field-focus-ring-width: initial; /* var(--number-field-border-width, var(--border-width-sm)) */
-  --number-field-gap: initial; /* var(--spacing-1) */
-  --number-field-icon-size: initial; /* 0.875rem */
-  --number-field-input-bg: initial; /* var(--color-background) */
-  --number-field-input-color: initial; /* var(--color-foreground) */
-  --number-field-input-font-size: initial; /* var(--text-md) */
-  --number-field-input-line-height: initial; /* var(--line-height-text-md) */
-  --number-field-input-padding-x: initial; /* 0.75rem */
-  --number-field-input-padding-y: initial; /* 0.5rem */
-  --number-field-input-width: initial; /* 6rem */
-  --number-field-max-width: initial; /* none */
-  --number-field-radius: initial; /* var(--radius-md) */
-  --number-field-scrub-area-cursor-size: initial; /* 1.5rem */
-  --number-field-scrub-area-color: initial; /* var(--color-foreground) */
-  --number-field-scrub-area-gap: initial; /* var(--spacing-2) */
-  --number-field-width: initial; /* auto */
+  /* NumberInput */
+  --number-input-border-color: initial; /* var(--color-border) */
+  --number-input-border-color-invalid: initial; /* var(--color-destructive) */
+  --number-input-border-style: initial; /* solid */
+  --number-input-border-width: initial; /* var(--border-width-sm) */
+  --number-input-button-bg: initial; /* var(--color-background) */
+  --number-input-button-bg-active: initial; /* var(--number-input-button-bg-hover) */
+  --number-input-button-bg-hover: initial; /* var(--color-accent) */
+  --number-input-button-color: initial; /* var(--color-foreground) */
+  --number-input-control-height: initial; /* var(--size-lg) */
+  --number-input-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --number-input-focus-ring-color: initial; /* var(--color-ring) */
+  --number-input-focus-ring-width: initial; /* var(--number-input-border-width, var(--border-width-sm)) */
+  --number-input-gap: initial; /* var(--spacing-1) */
+  --number-input-icon-size: initial; /* 0.875rem */
+  --number-input-input-bg: initial; /* var(--color-background) */
+  --number-input-input-color: initial; /* var(--color-foreground) */
+  --number-input-input-font-size: initial; /* var(--text-md) */
+  --number-input-input-line-height: initial; /* var(--line-height-text-md) */
+  --number-input-input-padding-x: initial; /* 0.75rem */
+  --number-input-input-padding-y: initial; /* 0.5rem */
+  --number-input-input-width: initial; /* 6rem */
+  --number-input-label-color: initial; /* var(--color-foreground) */
+  --number-input-label-font-size: initial; /* var(--text-sm) */
+  --number-input-label-font-weight: initial; /* var(--font-weight-medium) */
+  --number-input-label-line-height: initial; /* var(--line-height-text-sm) */
+  --number-input-max-width: initial; /* none */
+  --number-input-radius: initial; /* var(--radius-md) */
+  --number-input-scrubber-color: initial; /* var(--color-foreground) */
+  --number-input-scrubber-gap: initial; /* var(--spacing-2) */
+  --number-input-value-text-color: initial; /* var(--color-muted-foreground) */
+  --number-input-value-text-font-size: initial; /* var(--text-sm) */
+  --number-input-value-text-line-height: initial; /* var(--line-height-text-sm) */
+  --number-input-width: initial; /* auto */
 
   /* OTPField */
   --otp-field-bg: initial; /* var(--color-background) */
