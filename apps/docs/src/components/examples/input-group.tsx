@@ -1,7 +1,5 @@
 import {
   Field,
-  FieldError,
-  FieldLabel,
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
@@ -164,7 +162,7 @@ const normalizeCssProperty = (property: CssPropertyInput) =>
 export function InputGroupExample(props: ComponentProps<typeof InputGroup>) {
   return (
     <Field className="input-group-demo-field">
-      <FieldLabel>Workspace</FieldLabel>
+      <Field.Label>Workspace</Field.Label>
       <InputGroup {...props}>
         <InputGroupAddon>@</InputGroupAddon>
         <InputGroupInput placeholder="maps" />
@@ -178,7 +176,7 @@ export function InputGroupWithActionExample() {
 
   return (
     <Field className="input-group-demo-field">
-      <FieldLabel>Invite by email</FieldLabel>
+      <Field.Label>Invite by email</Field.Label>
       <InputGroup>
         <InputGroupInput
           value={value}
@@ -221,7 +219,7 @@ export function InputGroupInlineEditingExample() {
 
   return (
     <Field className="input-group-demo-field">
-      <FieldLabel>Display name</FieldLabel>
+      <Field.Label>Display name</Field.Label>
       <InputGroup>
         <InputGroupInput
           aria-label="Display name"
@@ -252,7 +250,7 @@ export function InputGroupInlineEditingExample() {
 export function InputGroupPrefixSuffixExample() {
   return (
     <Field className="input-group-demo-field">
-      <FieldLabel>Monthly budget</FieldLabel>
+      <Field.Label>Monthly budget</Field.Label>
       <InputGroup>
         <InputGroupAddon className="input-group-demo-currency">$</InputGroupAddon>
         <InputGroupInput inputMode="decimal" placeholder="2500" />
@@ -301,13 +299,13 @@ export function DisabledInputGroupExample() {
 
 export function InputGroupFieldValidationExample() {
   return (
-    <Field className="input-group-demo-field" validationMode="onBlur">
-      <FieldLabel>Domain</FieldLabel>
+    <Field className="input-group-demo-field">
+      <Field.Label>Domain</Field.Label>
       <InputGroup>
         <InputGroupInput required placeholder="company" />
         <InputGroupText>.test.com</InputGroupText>
       </InputGroup>
-      <FieldError match="valueMissing">Please enter a domain.</FieldError>
+      <Field.ErrorText>Please enter a domain.</Field.ErrorText>
     </Field>
   );
 }

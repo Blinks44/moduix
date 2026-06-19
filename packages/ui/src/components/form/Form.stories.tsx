@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useActionState, useRef, useState } from 'react';
 import { Button } from '../button';
-import { Field, FieldError, FieldLabel } from '../field';
+import { Field } from '../field';
 import { Input } from '../input';
 import { Spinner } from '../spinner';
 import { Form } from './Form';
@@ -89,7 +89,6 @@ export const Basic: Story = {
     return (
       <Form
         errors={errors}
-        validationMode="onBlur"
         className={storyStyles.form}
         onFormSubmit={async (values) => {
           setSubmitting(true);
@@ -98,8 +97,8 @@ export const Basic: Story = {
           setSubmitting(false);
         }}
       >
-        <Field name="homepage">
-          <FieldLabel>Homepage</FieldLabel>
+        <Field>
+          <Field.Label>Homepage</Field.Label>
           <Input
             type="url"
             required
@@ -107,9 +106,9 @@ export const Basic: Story = {
             placeholder="https://example.com"
             pattern="https?://.*"
           />
-          <FieldError match="valueMissing">Please enter a homepage URL.</FieldError>
-          <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
-          <FieldError />
+          <Field.ErrorText>Please enter a homepage URL.</Field.ErrorText>
+          <Field.ErrorText>Please start with http:// or https://.</Field.ErrorText>
+          <Field.ErrorText />
         </Field>
         <Button type="submit" disabled={submitting} aria-busy={submitting || undefined}>
           {submitting ? (
@@ -146,8 +145,8 @@ export const WithNativeSubmit: Story = {
           setSubmitting(false);
         }}
       >
-        <Field name="homepage" validationMode="onBlur">
-          <FieldLabel>Homepage</FieldLabel>
+        <Field>
+          <Field.Label>Homepage</Field.Label>
           <Input
             type="url"
             required
@@ -155,9 +154,9 @@ export const WithNativeSubmit: Story = {
             placeholder="https://example.com"
             pattern="https?://.*"
           />
-          <FieldError match="valueMissing">Please enter a homepage URL.</FieldError>
-          <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
-          <FieldError />
+          <Field.ErrorText>Please enter a homepage URL.</Field.ErrorText>
+          <Field.ErrorText>Please start with http:// or https://.</Field.ErrorText>
+          <Field.ErrorText />
         </Field>
         <Button type="submit" disabled={submitting} aria-busy={submitting || undefined}>
           {submitting ? (
@@ -183,7 +182,6 @@ export const WithActionsRef: Story = {
       <Form
         actionsRef={actionsRef}
         errors={errors}
-        validationMode="onSubmit"
         className={storyStyles.form}
         onFormSubmit={(values) => {
           const nextErrors: Record<string, string> = {};
@@ -198,10 +196,10 @@ export const WithActionsRef: Story = {
           setErrors(nextErrors);
         }}
       >
-        <Field name="email">
-          <FieldLabel>Work Email</FieldLabel>
+        <Field>
+          <Field.Label>Work Email</Field.Label>
           <Input type="email" required placeholder="name@test.com" />
-          <FieldError />
+          <Field.ErrorText />
         </Field>
         <Button
           type="button"
@@ -223,16 +221,11 @@ export const WithActionState: Story = {
     const [state, formAction, loading] = useActionState<ActionState, FormData>(submitUsername, {});
 
     return (
-      <Form
-        action={formAction}
-        errors={state.serverErrors}
-        validationMode="onBlur"
-        className={storyStyles.form}
-      >
-        <Field name="username">
-          <FieldLabel>Username</FieldLabel>
+      <Form action={formAction} errors={state.serverErrors} className={storyStyles.form}>
+        <Field>
+          <Field.Label>Username</Field.Label>
           <Input required defaultValue="admin" placeholder="e.g. alice132" />
-          <FieldError />
+          <Field.ErrorText />
         </Field>
         <Button type="submit" disabled={loading} aria-busy={loading || undefined}>
           {loading ? (

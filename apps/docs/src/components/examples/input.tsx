@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Field, FieldDescription, FieldError, FieldLabel, Input } from 'moduix';
+import { Field, Input } from 'moduix';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -102,8 +102,8 @@ const normalizeCssProperty = (property: CssPropertyInput) =>
 export function InputExample(props: ComponentProps<typeof Input>) {
   return (
     <Field className="input-demo-field">
-      <FieldLabel>Name</FieldLabel>
-      <FieldDescription>Used in your public workspace profile.</FieldDescription>
+      <Field.Label>Name</Field.Label>
+      <Field.HelperText>Used in your public workspace profile.</Field.HelperText>
       <Input placeholder="Enter your name" {...props} />
     </Field>
   );
@@ -114,7 +114,7 @@ export function ControlledInputExample() {
 
   return (
     <Field className="input-demo-field">
-      <FieldLabel>Username</FieldLabel>
+      <Field.Label>Username</Field.Label>
       <Input value={value} onValueChange={setValue} placeholder="Type to control value" />
     </Field>
   );
@@ -135,7 +135,7 @@ export function InputSizesExample() {
 export function InputNativeAttributesExample() {
   return (
     <Field className="input-demo-field">
-      <FieldLabel>Security code</FieldLabel>
+      <Field.Label>Security code</Field.Label>
       <Input
         htmlSize={8}
         inputMode="numeric"
@@ -160,11 +160,11 @@ export function DisabledAndReadOnlyInputExample() {
 
 export function InputFieldValidationExample() {
   return (
-    <Field className="input-demo-field" validationMode="onBlur">
-      <FieldLabel>Email</FieldLabel>
+    <Field className="input-demo-field">
+      <Field.Label>Email</Field.Label>
       <Input required type="email" placeholder="name@example.com" />
-      <FieldError match="valueMissing">Please enter your email.</FieldError>
-      <FieldError match="typeMismatch">Enter a valid email address.</FieldError>
+      <Field.ErrorText>Please enter your email.</Field.ErrorText>
+      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
     </Field>
   );
 }
@@ -172,7 +172,7 @@ export function InputFieldValidationExample() {
 export function CustomStylesInputExample() {
   return (
     <Field className="input-demo-field">
-      <FieldLabel>Project key</FieldLabel>
+      <Field.Label>Project key</Field.Label>
       <Input placeholder="MAPS" className="input-demo-custom-input" />
     </Field>
   );

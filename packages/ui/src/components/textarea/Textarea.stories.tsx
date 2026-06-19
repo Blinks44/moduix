@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useRef, useState } from 'react';
 import { CheckIcon, CloseIcon, PencilIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
-import { Field, FieldDescription, FieldError, FieldLabel } from '../field';
+import { Field } from '../field';
 import { Textarea } from './Textarea';
 import storyStyles from './Textarea.stories.module.css';
 
@@ -23,10 +23,10 @@ export const DefaultPath: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Comment</FieldLabel>
-        <FieldDescription>
+        <Field.Label>Comment</Field.Label>
+        <Field.HelperText>
           Included in the issue summary visible to the whole team.
-        </FieldDescription>
+        </Field.HelperText>
         <Textarea placeholder="Write a short comment" />
       </Field>
     );
@@ -39,7 +39,7 @@ export const Controlled: Story = {
 
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Feedback</FieldLabel>
+        <Field.Label>Feedback</Field.Label>
         <Textarea placeholder="Type to control value" value={value} onValueChange={setValue} />
       </Field>
     );
@@ -50,7 +50,7 @@ export const NativeAttributes: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Notes</FieldLabel>
+        <Field.Label>Notes</Field.Label>
         <Textarea
           name="notes"
           rows={6}
@@ -67,7 +67,7 @@ export const AutoResize: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Issue description</FieldLabel>
+        <Field.Label>Issue description</Field.Label>
         <Textarea
           autoResize
           placeholder="Start typing a longer description. Height grows with content."
@@ -120,10 +120,10 @@ export const ReadOnlyEditing: Story = {
 
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Team note</FieldLabel>
-        <FieldDescription>
+        <Field.Label>Team note</Field.Label>
+        <Field.HelperText>
           The textarea stays mounted and only switches between read-only and editable modes.
-        </FieldDescription>
+        </Field.HelperText>
         <Textarea
           autoResize
           ref={textareaRef}
@@ -161,14 +161,14 @@ export const ReadOnlyEditing: Story = {
 export const FieldValidation: Story = {
   render: () => {
     return (
-      <Field className={storyStyles.field} validationMode="onBlur">
-        <FieldLabel>Details</FieldLabel>
+      <Field className={storyStyles.field}>
+        <Field.Label>Details</Field.Label>
         <Textarea required minLength={10} placeholder="Add at least 10 characters" />
-        <FieldDescription>
+        <Field.HelperText>
           Include enough detail for the team to reproduce the issue.
-        </FieldDescription>
-        <FieldError match="valueMissing">Please provide details.</FieldError>
-        <FieldError match="tooShort">Enter at least 10 characters.</FieldError>
+        </Field.HelperText>
+        <Field.ErrorText>Please provide details.</Field.ErrorText>
+        <Field.ErrorText>Enter at least 10 characters.</Field.ErrorText>
       </Field>
     );
   },
@@ -178,7 +178,7 @@ export const CustomStyles: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Notes</FieldLabel>
+        <Field.Label>Notes</Field.Label>
         <Textarea className={storyStyles.customTextarea} placeholder="Styled textarea" />
       </Field>
     );

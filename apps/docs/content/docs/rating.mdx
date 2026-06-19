@@ -37,20 +37,15 @@ Start with `Rating` inside `Field` when the score needs a label, description, an
 
   <Preview.Code>
     {`
-      import {
-        Field,
-        FieldDescription,
-        FieldLabel,
-        Rating,
-      } from "moduix";
+      import { Field, Rating } from "moduix";
 
       export function RatingDemo() {
         return (
           <Field className="field">
-            <FieldLabel>Overall satisfaction</FieldLabel>
-            <FieldDescription>
+            <Field.Label>Overall satisfaction</Field.Label>
+            <Field.HelperText>
               Choose the score that best matches your experience.
-            </FieldDescription>
+            </Field.HelperText>
             <Rating aria-label="Overall satisfaction" defaultValue={4} />
           </Field>
         );
@@ -186,7 +181,7 @@ Use controlled mode when the selected score drives surrounding UI or must be res
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, Rating } from "moduix";
+      import { Field, Rating } from "moduix";
       import { useState } from "react";
 
       export function ControlledRatingDemo() {
@@ -195,7 +190,7 @@ Use controlled mode when the selected score drives surrounding UI or must be res
         return (
           <div className="stack">
             <Field className="field">
-              <FieldLabel>Support quality</FieldLabel>
+              <Field.Label>Support quality</Field.Label>
               <Rating
                 aria-label="Support quality"
                 value={value}
@@ -315,13 +310,13 @@ Because `Rating` is radio-group-based, it can participate in forms and required 
 
   <Preview.Code>
     {`
-      import { Field, FieldDescription, FieldLabel, Rating } from "moduix";
+      import { Field, Rating } from "moduix";
 
       export function RatingFormDemo() {
         return (
-          <Field className="field" name="experienceScore">
-            <FieldLabel>Experience score</FieldLabel>
-            <FieldDescription>Required discrete score from 1 to 5.</FieldDescription>
+          <Field className="field" >
+            <Field.Label>Experience score</Field.Label>
+            <Field.HelperText>Required discrete score from 1 to 5.</Field.HelperText>
             <Rating
               defaultValue={4}
               required

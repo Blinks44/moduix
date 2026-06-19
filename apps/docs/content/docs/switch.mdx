@@ -424,15 +424,15 @@ Use `Field` when the switch participates in form labeling, validation, or submis
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, Switch, SwitchLabel } from "moduix";
+      import { Field, Switch, SwitchLabel } from "moduix";
 
       export function SwitchFormDemo() {
         return (
-          <Field name="notifications">
-            <FieldLabel>
+          <Field>
+            <Field.Label>
               <Switch defaultChecked />
               <SwitchLabel>Notifications</SwitchLabel>
-            </FieldLabel>
+            </Field.Label>
           </Field>
         );
       }

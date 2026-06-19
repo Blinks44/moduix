@@ -1,103 +1,79 @@
 import type { ComponentProps } from 'react';
-import {
-  Checkbox,
-  Field,
-  FieldControl,
-  FieldDescription,
-  FieldError,
-  FieldItem,
-  FieldLabel,
-  FieldValidity,
-  Input,
-  NumberField,
-  Radio,
-  RadioField,
-  RadioGroup,
-  RadioLabel,
-  Select,
-  SelectContent,
-  SelectIcon,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
-  SelectList,
-  SelectTrigger,
-  SelectValue,
-  Switch,
-  SwitchLabel,
-} from 'moduix';
-import { useId } from 'react';
+import { Field, useField, useFieldContext } from 'moduix';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './field.module.css';
 
 export const fieldOverrideCssProperties: CssPropertyInput[] = [
   ['--field-color', 'var(--color-foreground)', 'Controls inherited field text color.'],
-  ['--field-control-bg', 'var(--color-background)', 'Controls `FieldControl` background.'],
-  ['--field-control-border-color', 'var(--color-border)', 'Controls `FieldControl` border color.'],
+  ['--field-control-bg', 'var(--color-background)', 'Controls field control background.'],
+  ['--field-control-border-color', 'var(--color-border)', 'Controls field control border color.'],
   [
     '--field-control-border-color-invalid',
     'var(--color-destructive)',
-    'Controls invalid `FieldControl` border and focus ring color.',
+    'Controls invalid field control border and focus ring color.',
   ],
-  ['--field-control-border-style', 'solid', 'Controls `FieldControl` border style.'],
+  ['--field-control-border-style', 'solid', 'Controls field control border style.'],
   [
     '--field-control-border-width',
     'var(--border-width-sm)',
-    'Controls `FieldControl` border width.',
+    'Controls field control border width.',
   ],
-  ['--field-control-color', 'var(--color-foreground)', 'Controls `FieldControl` text color.'],
-  ['--field-control-font-size', 'var(--text-md)', 'Controls `FieldControl` font size.'],
-  ['--field-control-height', 'var(--size-lg)', 'Controls `FieldControl` minimum height.'],
+  ['--field-control-color', 'var(--color-foreground)', 'Controls field control text color.'],
+  ['--field-control-font-size', 'var(--text-md)', 'Controls field control font size.'],
+  ['--field-control-height', 'var(--size-lg)', 'Controls field control minimum height.'],
   [
     '--field-control-line-height',
     'var(--line-height-text-md)',
-    'Controls `FieldControl` line height.',
+    'Controls field control line height.',
   ],
-  ['--field-control-padding-x', '0.875rem', 'Controls `FieldControl` horizontal padding.'],
-  ['--field-control-padding-y', '0.5rem', 'Controls `FieldControl` vertical padding.'],
+  ['--field-control-padding-x', '0.875rem', 'Controls field control horizontal padding.'],
+  ['--field-control-padding-y', '0.5rem', 'Controls field control vertical padding.'],
   [
     '--field-control-placeholder-color',
     'var(--color-muted-foreground)',
-    'Controls `FieldControl` placeholder color.',
+    'Controls field control placeholder color.',
   ],
-  ['--field-control-radius', 'var(--radius-md)', 'Controls `FieldControl` corner radius.'],
+  ['--field-control-radius', 'var(--radius-md)', 'Controls field control corner radius.'],
   [
     '--field-control-transition',
     'var(--transition-default)',
-    'Controls `FieldControl` state transition timing.',
+    'Controls field control state transition timing.',
   ],
-  ['--field-control-width', '100%', 'Controls `FieldControl` width.'],
-  [
-    '--field-description-color',
-    'var(--color-muted-foreground)',
-    'Controls description text color.',
-  ],
-  ['--field-description-font-size', 'var(--text-sm)', 'Controls description font size.'],
+  ['--field-control-width', '100%', 'Controls field control width.'],
+  ['--field-description-color', 'var(--color-muted-foreground)', 'Controls helper text color.'],
+  ['--field-description-font-size', 'var(--text-sm)', 'Controls helper text font size.'],
   [
     '--field-description-line-height',
     'var(--line-height-text-sm)',
-    'Controls description line height.',
+    'Controls helper text line height.',
   ],
-  ['--field-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled slot opacity.'],
+  ['--field-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled field opacity.'],
   ['--field-error-color', 'var(--color-destructive)', 'Controls error text color.'],
-  ['--field-error-font-size', 'var(--text-sm)', 'Controls error font size.'],
-  ['--field-error-line-height', 'var(--line-height-text-sm)', 'Controls error line height.'],
-  ['--field-focus-ring-color', 'var(--color-ring)', 'Controls `FieldControl` focus ring color.'],
-  ['--field-focus-ring-offset', '-1px', 'Controls `FieldControl` focus ring offset.'],
+  ['--field-error-font-size', 'var(--text-sm)', 'Controls error text font size.'],
+  ['--field-error-line-height', 'var(--line-height-text-sm)', 'Controls error text line height.'],
+  ['--field-focus-ring-color', 'var(--color-ring)', 'Controls field control focus ring color.'],
+  ['--field-focus-ring-offset', '-1px', 'Controls field control focus ring offset.'],
   [
     '--field-focus-ring-width',
     'var(--border-width-sm)',
-    'Controls `FieldControl` focus ring width.',
+    'Controls field control focus ring width.',
   ],
   ['--field-gap', 'var(--spacing-1)', 'Controls spacing between field parts.'],
-  ['--field-item-gap', 'var(--spacing-1)', 'Controls spacing inside `FieldItem`.'],
+  ['--field-item-gap', 'var(--spacing-1)', 'Controls spacing inside `Field.Item`.'],
   ['--field-label-color', 'var(--color-foreground)', 'Controls label text color.'],
   ['--field-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
   ['--field-label-font-weight', 'var(--weight-medium)', 'Controls label font weight.'],
-  ['--field-label-gap', 'var(--spacing-2)', 'Controls spacing inside `FieldLabel`.'],
+  ['--field-label-gap', 'var(--spacing-2)', 'Controls spacing inside `Field.Label`.'],
   ['--field-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
   ['--field-max-width', 'none', 'Controls the root field max width.'],
+  [
+    '--field-required-indicator-color',
+    'var(--color-destructive)',
+    'Controls required indicator color.',
+  ],
+  ['--field-textarea-min-height', '5rem', 'Controls `Field.Textarea` minimum height.'],
   ['--field-width', '100%', 'Controls the root field width.'],
 ];
 export const fieldPlaygroundCssProperties: CssPropertyInput[] = [
@@ -105,7 +81,7 @@ export const fieldPlaygroundCssProperties: CssPropertyInput[] = [
   ['--field-control-border-color', 'var(--color-border)', 'Controls control border color.'],
   ['--field-control-color', 'var(--color-foreground)', 'Controls control text color.'],
   ['--field-control-radius', 'var(--radius-md)', 'Controls control radius.'],
-  ['--field-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
+  ['--field-description-color', 'var(--color-muted-foreground)', 'Controls helper text color.'],
   ['--field-error-color', 'var(--color-destructive)', 'Controls error text color.'],
   ['--field-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   ['--field-gap', 'var(--spacing-1)', 'Controls spacing between field parts.'],
@@ -137,193 +113,162 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
+export const fieldPriorityOptions = [
+  { label: 'Low', value: 'low' },
+  { label: 'Normal', value: 'normal' },
+  { label: 'High', value: 'high' },
+];
+
 export function FieldExample(props: ComponentProps<typeof Field>) {
   return (
-    <Field validationMode="onBlur" className={styles.field} {...props}>
-      <FieldLabel>Name</FieldLabel>
-      <FieldControl required placeholder="Enter your name" />
-      <FieldError match="valueMissing">Please enter your name.</FieldError>
-      <FieldDescription>Visible on your public profile.</FieldDescription>
+    <Field required className={styles.field} {...props}>
+      <Field.Label>
+        Name
+        <Field.RequiredIndicator />
+      </Field.Label>
+      <Field.Input placeholder="Enter your name" />
+      <Field.HelperText>Visible on your public profile.</Field.HelperText>
     </Field>
   );
 }
 
-export function FieldValidationMessageExample() {
+export function FieldInvalidExample() {
   return (
-    <Field
-      validationMode="onBlur"
-      validate={(value) => {
-        if (typeof value !== 'string' || value.length < 3) {
-          return 'Username must be at least 3 characters.';
-        }
-
-        return null;
-      }}
-      className={styles.field}
-    >
-      <FieldLabel>Username</FieldLabel>
-      <FieldControl placeholder="e.g. vinny" />
-      <FieldDescription>Use at least 3 characters.</FieldDescription>
-      <FieldError />
+    <Field invalid required className={styles.field}>
+      <Field.Label>Email</Field.Label>
+      <Field.Input type="email" placeholder="name@example.com" />
+      <Field.HelperText>Use your work email.</Field.HelperText>
+      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
     </Field>
   );
 }
 
-export function FieldValidityExample() {
-  return (
-    <Field
-      validationMode="onChange"
-      validate={(value) => {
-        if (typeof value !== 'string' || value.length < 3) {
-          return 'Username must be at least 3 characters.';
-        }
+export function FieldControlledInvalidExample() {
+  const [value, setValue] = useState('');
+  const invalid = value.length > 0 && value.length < 3;
 
-        return null;
-      }}
-      className={styles.field}
-    >
-      <FieldLabel>Username</FieldLabel>
-      <FieldControl placeholder="e.g. vinny" />
-      <FieldError match="customError" />
-      <FieldValidity>
-        {(state) => (
-          <p className={styles.helper}>
-            {state.validity.valid ? 'Looks good.' : 'Waiting for valid value.'}
-          </p>
-        )}
-      </FieldValidity>
+  return (
+    <Field invalid={invalid} className={styles.field}>
+      <Field.Label>Username</Field.Label>
+      <Field.Input
+        value={value}
+        onChange={(event) => setValue(event.currentTarget.value)}
+        placeholder="e.g. vinny"
+      />
+      <Field.HelperText>Use at least 3 characters.</Field.HelperText>
+      <Field.ErrorText>Username must be at least 3 characters.</Field.ErrorText>
     </Field>
+  );
+}
+
+export function FieldTextareaExample() {
+  return (
+    <Field className={styles.field}>
+      <Field.Label>Summary</Field.Label>
+      <Field.Textarea placeholder="Describe the request" />
+      <Field.HelperText>Use a short operational summary.</Field.HelperText>
+    </Field>
+  );
+}
+
+export function FieldTextareaAutoresizeExample() {
+  return (
+    <Field className={styles.field}>
+      <Field.Label>Details</Field.Label>
+      <Field.Textarea autoresize placeholder="Add extra context" />
+      <Field.HelperText>The textarea grows as the user types.</Field.HelperText>
+    </Field>
+  );
+}
+
+export function FieldSelectExample() {
+  return (
+    <Field required className={styles.field}>
+      <Field.Label>Priority</Field.Label>
+      <Field.Select defaultValue="">
+        <option value="" disabled>
+          Select priority
+        </option>
+        {fieldPriorityOptions.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </Field.Select>
+      <Field.HelperText>Used for triage queues.</Field.HelperText>
+    </Field>
+  );
+}
+
+export function FieldItemsExample() {
+  return (
+    <Field target="team" className={styles.field}>
+      <Field.Label>Account type</Field.Label>
+      <Field.Item value="personal">
+        <Field.Input type="radio" name="account-type" value="personal" />
+        <Field.Label>Personal account</Field.Label>
+      </Field.Item>
+      <Field.Item value="team">
+        <Field.Input type="radio" name="account-type" value="team" defaultChecked />
+        <Field.Label>Team account</Field.Label>
+      </Field.Item>
+      <Field.HelperText>The root label points to the targeted item.</Field.HelperText>
+    </Field>
+  );
+}
+
+function CustomControl() {
+  const field = useFieldContext();
+
+  return (
+    <input
+      type="button"
+      className={styles.customControl}
+      value={field.invalid ? 'Resolve status' : 'Set status'}
+      {...field.getInputProps()}
+    />
+  );
+}
+
+export function FieldCustomControlExample() {
+  return (
+    <Field invalid className={styles.field}>
+      <Field.Label>Status</Field.Label>
+      <CustomControl />
+      <Field.ErrorText>Status needs a resolution.</Field.ErrorText>
+    </Field>
+  );
+}
+
+export function FieldRootProviderExample() {
+  const field = useField({ id: 'root-provider-field', required: true });
+
+  return (
+    <Field.RootProvider value={field} className={styles.field}>
+      <Field.Label>Project key</Field.Label>
+      <Field.Input placeholder="MAPS" />
+      <Field.HelperText>The field state is created outside the rendered tree.</Field.HelperText>
+    </Field.RootProvider>
   );
 }
 
 export function FieldDisabledExample() {
   return (
     <Field disabled className={styles.field}>
-      <FieldLabel>Organization</FieldLabel>
-      <FieldControl placeholder="Acme Inc." />
-      <FieldDescription>This field is currently managed by your workspace.</FieldDescription>
-    </Field>
-  );
-}
-
-export function FieldCheckboxExample() {
-  return (
-    <Field validationMode="onBlur" className={styles.field}>
-      <Checkbox.Root required name="terms">
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
-        <Checkbox.Label>I agree to the terms</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox.Root>
-      <FieldError match="valueMissing">Please accept the terms.</FieldError>
-      <FieldDescription>Required to continue.</FieldDescription>
-    </Field>
-  );
-}
-
-export function FieldRadioExample() {
-  return (
-    <Field name="account-type" validationMode="onBlur" className={styles.field}>
-      <FieldLabel>Account type</FieldLabel>
-      <RadioGroup>
-        <FieldItem>
-          <RadioField>
-            <Radio value="personal" required />
-            <RadioLabel>Personal account</RadioLabel>
-          </RadioField>
-        </FieldItem>
-        <FieldItem>
-          <RadioField>
-            <Radio value="team" />
-            <RadioLabel>Team account</RadioLabel>
-          </RadioField>
-        </FieldItem>
-      </RadioGroup>
-      <FieldError match="valueMissing">Please choose an account type.</FieldError>
-    </Field>
-  );
-}
-
-export function FieldSwitchExample() {
-  return (
-    <Field name="newsletter" className={styles.field}>
-      <FieldLabel>
-        <Switch />
-        <SwitchLabel>Subscribe to newsletter</SwitchLabel>
-      </FieldLabel>
-      <FieldDescription>We send updates once per week.</FieldDescription>
-    </Field>
-  );
-}
-
-export function FieldInputExample() {
-  return (
-    <Field validationMode="onBlur" className={styles.field}>
-      <FieldLabel>Email</FieldLabel>
-      <Input required type="email" placeholder="name@example.com" />
-      <FieldError match="valueMissing">Please enter your email.</FieldError>
-      <FieldError match="typeMismatch">Enter a valid email address.</FieldError>
-    </Field>
-  );
-}
-
-export function FieldNumberFieldExample() {
-  const id = useId();
-
-  return (
-    <Field name="quantity" validationMode="onBlur" className={styles.field}>
-      <FieldLabel htmlFor={id}>Items</FieldLabel>
-      <NumberField id={id} min={1} max={10} required />
-      <FieldError match="valueMissing">Please provide a number.</FieldError>
-      <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
-      <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
-    </Field>
-  );
-}
-
-const assignees = [
-  { label: 'Alice', value: 'alice' },
-  { label: 'Bob', value: 'bob' },
-];
-
-export function FieldTriggerControlsExample() {
-  return (
-    <Field validationMode="onBlur" className={styles.field}>
-      <FieldLabel nativeLabel={false} render={<div />}>
-        Assignee
-      </FieldLabel>
-      <Select items={assignees} required>
-        <SelectTrigger>
-          <SelectValue placeholder="Choose assignee" />
-          <SelectIcon />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectList>
-            {assignees.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
-                <SelectItemIndicator />
-                <SelectItemText>{item.label}</SelectItemText>
-              </SelectItem>
-            ))}
-          </SelectList>
-        </SelectContent>
-      </Select>
-      <FieldDescription>Used for review requests.</FieldDescription>
-      <FieldError match="valueMissing">Choose an assignee.</FieldError>
+      <Field.Label>Organization</Field.Label>
+      <Field.Input placeholder="Acme Inc." />
+      <Field.HelperText>This field is currently managed by your workspace.</Field.HelperText>
     </Field>
   );
 }
 
 export function FieldCustomStylesExample() {
   return (
-    <Field validationMode="onBlur" className={styles.customField}>
-      <FieldLabel className={styles.customLabel}>Project key</FieldLabel>
-      <FieldControl required placeholder="MAPS" className={styles.customControl} />
-      <FieldDescription>Use three to five uppercase letters.</FieldDescription>
-      <FieldError className={styles.customError} match="valueMissing">
-        Please enter a project key.
-      </FieldError>
+    <Field invalid className={styles.customField}>
+      <Field.Label className={styles.customLabel}>Project key</Field.Label>
+      <Field.Input required placeholder="MAPS" className={styles.customControl} />
+      <Field.HelperText>Use three to five uppercase letters.</Field.HelperText>
+      <Field.ErrorText className={styles.customError}>Please enter a project key.</Field.ErrorText>
     </Field>
   );
 }

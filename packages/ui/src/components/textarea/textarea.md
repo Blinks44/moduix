@@ -16,7 +16,7 @@ Use it for notes, comments, descriptions, and other long-form text. For single-l
 
 - Renders one native `<textarea>` element and forwards its ref to that element.
 - Accepts native `<textarea>` props plus one moduix wrapper prop: `autoResize`.
-- Works standalone or inside `Field`. When used with `Field`, skip `FieldControl`; `Textarea`
+- Works standalone or inside `Field`. When used with `Field`, skip `Field.Input`; `Textarea`
   registers with field context directly and receives field state data attributes from Base UI.
 - Controlled usage uses `value` + `onValueChange`. Uncontrolled usage uses `defaultValue`.
 - `autoResize` is progressive CSS sugar. In browsers that support `field-sizing: content`, the
@@ -47,18 +47,18 @@ export function SummaryField() {
 With `Field` validation:
 
 ```tsx
-import { Field, FieldDescription, FieldError, FieldLabel, Textarea } from 'moduix';
+import { Field, Textarea } from 'moduix';
 
 export function IssueDetailsField() {
   return (
-    <Field validationMode="onBlur">
-      <FieldLabel>Details</FieldLabel>
-      <FieldDescription>
+    <Field>
+      <Field.Label>Details</Field.Label>
+      <Field.HelperText>
         Include enough context for the team to reproduce the issue.
-      </FieldDescription>
+      </Field.HelperText>
       <Textarea required minLength={10} placeholder="Add at least 10 characters" />
-      <FieldError match="valueMissing">Please provide details.</FieldError>
-      <FieldError match="tooShort">Enter at least 10 characters.</FieldError>
+      <Field.ErrorText>Please provide details.</Field.ErrorText>
+      <Field.ErrorText>Enter at least 10 characters.</Field.ErrorText>
     </Field>
   );
 }
@@ -67,12 +67,12 @@ export function IssueDetailsField() {
 Auto-resizing textarea:
 
 ```tsx
-import { Field, FieldLabel, Textarea } from 'moduix';
+import { Field, Textarea } from 'moduix';
 
 export function DescriptionField() {
   return (
     <Field>
-      <FieldLabel>Issue description</FieldLabel>
+      <Field.Label>Issue description</Field.Label>
       <Textarea
         autoResize
         name="description"
@@ -159,14 +159,14 @@ Example:
 
 ## UX and accessibility
 
-- Every textarea needs an accessible name. Use a real `<label>`, `FieldLabel`, or `aria-label` for
+- Every textarea needs an accessible name. Use a real `<label>`, `Field.Label`, or `aria-label` for
   compact standalone cases.
 - Placeholder text is not a label and should not carry required instructions on its own.
 - `disabled` removes the textarea from interaction and form submission. `readOnly` keeps it focusable
   and submittable while preventing edits.
 - Prefer native attributes such as `rows`, `maxLength`, `spellCheck`, `autoComplete`, and
   `enterKeyHint` over custom wrapper props when the browser already supports the behavior.
-- Use `Field`, `FieldDescription`, and `FieldError` for accessible help text and validation
+- Use `Field`, `Field.HelperText`, and `Field.ErrorText` for accessible help text and validation
   messaging.
 - Do not combine `autoResize` with custom `resize` styles on the same instance. When auto-resize is
   active in supported browsers, moduix intentionally disables the resize handle.

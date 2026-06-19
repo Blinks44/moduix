@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Field, FieldDescription, FieldError, FieldLabel } from '../field';
+import { Field } from '../field';
 import { Input } from './Input';
 import storyStyles from './Input.stories.module.css';
 
@@ -21,8 +21,8 @@ export const Basic: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Name</FieldLabel>
-        <FieldDescription>Used in your public workspace profile.</FieldDescription>
+        <Field.Label>Name</Field.Label>
+        <Field.HelperText>Used in your public workspace profile.</Field.HelperText>
         <Input placeholder="Enter your name" />
       </Field>
     );
@@ -35,7 +35,7 @@ export const Controlled: Story = {
 
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Username</FieldLabel>
+        <Field.Label>Username</Field.Label>
         <Input value={value} onValueChange={setValue} placeholder="Type to control value" />
       </Field>
     );
@@ -60,7 +60,7 @@ export const NativeAttributes: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Security code</FieldLabel>
+        <Field.Label>Security code</Field.Label>
         <Input
           htmlSize={8}
           inputMode="numeric"
@@ -89,11 +89,11 @@ export const DisabledAndReadOnly: Story = {
 export const WithFieldValidation: Story = {
   render: () => {
     return (
-      <Field className={storyStyles.field} validationMode="onBlur">
-        <FieldLabel>Email</FieldLabel>
+      <Field className={storyStyles.field}>
+        <Field.Label>Email</Field.Label>
         <Input required type="email" placeholder="name@example.com" />
-        <FieldError match="valueMissing">Please enter your email.</FieldError>
-        <FieldError match="typeMismatch">Enter a valid email address.</FieldError>
+        <Field.ErrorText>Please enter your email.</Field.ErrorText>
+        <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
       </Field>
     );
   },
@@ -103,7 +103,7 @@ export const CustomStyles: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Project key</FieldLabel>
+        <Field.Label>Project key</Field.Label>
         <Input placeholder="MAPS" className={storyStyles.customInput} />
       </Field>
     );

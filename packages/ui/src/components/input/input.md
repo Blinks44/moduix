@@ -17,7 +17,7 @@ and steppers use `NumberField`.
 - Renders one styled native `<input>` element and forwards its ref to that element.
 - Accepts Base UI `Input` props except the primitive `size` prop name is reserved for moduix visual
   sizing. The native HTML `size` attribute is available as `htmlSize`.
-- Works standalone or inside `Field`. When used with `Field`, skip `FieldControl`; `Input`
+- Works standalone or inside `Field`. When used with `Field`, skip `Field.Input`; `Input`
   registers with field context directly and receives Base UI validation state attributes.
 - Controlled and uncontrolled usage stay unchanged: use `value` + `onValueChange` for controlled
   input, or `defaultValue` for uncontrolled input.
@@ -46,16 +46,16 @@ export function WorkspaceNameField() {
 With `Field` validation:
 
 ```tsx
-import { Field, FieldDescription, FieldError, FieldLabel, Input } from 'moduix';
+import { Field, Input } from 'moduix';
 
 export function EmailField() {
   return (
-    <Field validationMode="onBlur">
-      <FieldLabel>Email</FieldLabel>
-      <FieldDescription>We use this for account updates.</FieldDescription>
+    <Field>
+      <Field.Label>Email</Field.Label>
+      <Field.HelperText>We use this for account updates.</Field.HelperText>
       <Input required type="email" placeholder="name@example.com" />
-      <FieldError match="valueMissing">Please enter your email.</FieldError>
-      <FieldError match="typeMismatch">Enter a valid email address.</FieldError>
+      <Field.ErrorText>Please enter your email.</Field.ErrorText>
+      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
     </Field>
   );
 }
@@ -153,14 +153,14 @@ Example:
 
 ## UX and accessibility
 
-- Every input needs an accessible name. Use a real `<label>`, `FieldLabel`, or `aria-label` for
+- Every input needs an accessible name. Use a real `<label>`, `Field.Label`, or `aria-label` for
   compact cases such as icon-only or demo-only layouts.
 - Placeholder text is not a label and should not carry essential instructions on its own.
 - `disabled` removes the field from interaction and form submission; `readOnly` keeps it focusable
   and submittable while preventing edits.
 - Prefer semantic native attributes (`type`, `autoComplete`, `inputMode`, `enterKeyHint`) over
   custom logic whenever the browser already supports the behavior.
-- Use `validationMode="onBlur"` on `Field` for most text inputs; reserve on-change validation for
+- Use ``on`Field` for most text inputs; reserve on-change validation for
   cases where immediate feedback materially helps the user.
 
 ## Intentional differences from Base UI

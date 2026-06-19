@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useRef, useState } from 'react';
 import { CheckIcon, CloseIcon, PencilIcon } from '@/lib/moduix/icons/ui';
-import { Field, FieldError, FieldLabel } from '../field';
+import { Field } from '../field';
 import {
   InputGroup,
   InputGroupAddon,
@@ -28,7 +28,7 @@ export const Default: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Workspace</FieldLabel>
+        <Field.Label>Workspace</Field.Label>
         <InputGroup>
           <InputGroupAddon>@</InputGroupAddon>
           <InputGroupInput placeholder="maps" />
@@ -44,7 +44,7 @@ export const WithAction: Story = {
 
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Invite by email</FieldLabel>
+        <Field.Label>Invite by email</Field.Label>
         <InputGroup>
           <InputGroupInput
             value={value}
@@ -63,7 +63,7 @@ export const PrefixSuffix: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Monthly budget</FieldLabel>
+        <Field.Label>Monthly budget</Field.Label>
         <InputGroup>
           <InputGroupAddon className={storyStyles.currency}>$</InputGroupAddon>
           <InputGroupInput inputMode="decimal" placeholder="2500" />
@@ -145,7 +145,7 @@ export const InlineEditing: Story = {
 
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Display name</FieldLabel>
+        <Field.Label>Display name</Field.Label>
         <InputGroup>
           <InputGroupInput
             aria-label="Display name"
@@ -177,13 +177,13 @@ export const InlineEditing: Story = {
 export const WithFieldValidation: Story = {
   render: () => {
     return (
-      <Field className={storyStyles.field} validationMode="onBlur">
-        <FieldLabel>Domain</FieldLabel>
+      <Field className={storyStyles.field}>
+        <Field.Label>Domain</Field.Label>
         <InputGroup>
           <InputGroupInput required placeholder="company" />
           <InputGroupText>.test.com</InputGroupText>
         </InputGroup>
-        <FieldError match="valueMissing">Please enter a domain.</FieldError>
+        <Field.ErrorText>Please enter a domain.</Field.ErrorText>
       </Field>
     );
   },

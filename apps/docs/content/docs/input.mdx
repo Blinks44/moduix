@@ -39,13 +39,13 @@ Start with `Input` inside `Field` when the value needs a label, description, and
 
   <Preview.Code>
     {`
-      import { Field, FieldDescription, FieldLabel, Input } from "moduix";
+      import { Field, Input } from "moduix";
 
       export function InputDemo() {
         return (
           <Field className="input-demo-field">
-            <FieldLabel>Name</FieldLabel>
-            <FieldDescription>Used in your public workspace profile.</FieldDescription>
+            <Field.Label>Name</Field.Label>
+            <Field.HelperText>Used in your public workspace profile.</Field.HelperText>
             <Input placeholder="Enter your name" />
           </Field>
         );
@@ -162,7 +162,7 @@ validation wiring. In that case, keep the accessible name explicit with a real `
 - Use `value` with `onValueChange` for controlled inputs, or `defaultValue` for uncontrolled ones.
 - `disabled` removes the field from interaction and form submission; `readOnly` keeps it focusable
   and submittable.
-- `Input` works directly with `Field`, so you do not need `FieldControl` for this component.
+- `Input` works directly with `Field`, so you do not need `Field.Input` for this component.
 - Prefer semantic native attributes such as `type`, `autoComplete`, `inputMode`, and `name` before
   adding custom input logic.
 
@@ -177,7 +177,7 @@ Use `value` and `onValueChange` when the input value should stay in React state.
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, Input } from "moduix";
+      import { Field, Input } from "moduix";
       import { useState } from "react";
 
       function ControlledInput() {
@@ -185,7 +185,7 @@ Use `value` and `onValueChange` when the input value should stay in React state.
 
         return (
           <Field className="input-demo-field">
-            <FieldLabel>Username</FieldLabel>
+            <Field.Label>Username</Field.Label>
             <Input
               value={value}
               onValueChange={setValue}
@@ -256,12 +256,12 @@ Use native input attributes for keyboard, autocomplete, validation, and form beh
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, Input } from "moduix";
+      import { Field, Input } from "moduix";
 
       export function NativeInputAttributesDemo() {
         return (
           <Field className="input-demo-field">
-            <FieldLabel>Security code</FieldLabel>
+            <Field.Label>Security code</Field.Label>
             <Input
               htmlSize={8}
               inputMode="numeric"
@@ -333,15 +333,15 @@ Use `Field` when the input needs labels, errors, native validity, and Base UI va
 
   <Preview.Code>
     {`
-      import { Field, FieldError, FieldLabel, Input } from "moduix";
+      import { Field, Input } from "moduix";
 
       export function InputFieldValidationDemo() {
         return (
-          <Field className="input-demo-field" validationMode="onBlur">
-            <FieldLabel>Email</FieldLabel>
+          <Field className="input-demo-field" >
+            <Field.Label>Email</Field.Label>
             <Input required type="email" placeholder="name@example.com" />
-            <FieldError match="valueMissing">Please enter your email.</FieldError>
-            <FieldError match="typeMismatch">Enter a valid email address.</FieldError>
+            <Field.ErrorText>Please enter your email.</Field.ErrorText>
+            <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
           </Field>
         );
       }
@@ -402,12 +402,12 @@ surface.
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, Input } from "moduix";
+      import { Field, Input } from "moduix";
 
       export function CustomInputDemo() {
         return (
           <Field className="input-demo-field">
-            <FieldLabel>Project key</FieldLabel>
+            <Field.Label>Project key</Field.Label>
             <Input placeholder="MAPS" className="input-demo-custom-input" />
           </Field>
         );

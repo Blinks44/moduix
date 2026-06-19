@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useId, useState, type ComponentProps } from 'react';
-import { Field, FieldLabel } from '../field';
+import { Field } from '../field';
 import { Switch, SwitchField, SwitchLabel, SwitchThumb } from './Switch';
 import styles from './Switch.stories.module.css';
 
@@ -172,11 +172,11 @@ export const NativeButtonRenderCallback: Story = {
 export const FormIntegration: Story = {
   render: () => {
     return (
-      <Field name="notifications">
-        <FieldLabel>
+      <Field>
+        <Field.Label>
           <Switch defaultChecked />
           <SwitchLabel>Notifications</SwitchLabel>
-        </FieldLabel>
+        </Field.Label>
       </Field>
     );
   },

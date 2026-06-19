@@ -38,13 +38,13 @@ visible labels, use `RadioGroup`.
 Basic usage:
 
 ```tsx
-import { Field, FieldDescription, FieldLabel, Rating } from 'moduix';
+import { Field, Rating } from 'moduix';
 
 export function SatisfactionField() {
   return (
     <Field>
-      <FieldLabel>Overall satisfaction</FieldLabel>
-      <FieldDescription>Choose the score that best matches your experience.</FieldDescription>
+      <Field.Label>Overall satisfaction</Field.Label>
+      <Field.HelperText>Choose the score that best matches your experience.</Field.HelperText>
       <Rating aria-label="Overall satisfaction" defaultValue={4} />
     </Field>
   );
@@ -67,15 +67,15 @@ export function ControlledRating() {
 Form integration:
 
 ```tsx
-import { Field, FieldItem, Fieldset, FieldsetLegend, Rating } from 'moduix';
+import { Field, Fieldset, FieldsetLegend, Rating } from 'moduix';
 
 export function ReviewScoreField() {
   return (
-    <Field name="reviewScore">
+    <Field>
       <Fieldset render={<Rating required aria-label="Review score" />}>
         <FieldsetLegend>Review score</FieldsetLegend>
-        <FieldItem>Choose one score from 1 to 5.</FieldItem>
       </Fieldset>
+      <Field.HelperText>Choose one score from 1 to 5.</Field.HelperText>
     </Field>
   );
 }

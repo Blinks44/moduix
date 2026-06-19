@@ -21,7 +21,7 @@ composition only when you need grouped layouts, separators, or per-slot native i
 - `length` is required. It drives value clamping, completion, generated ids, and the default slot
   rendering path.
 - When `children` is omitted, `OTPField` renders exactly `length` `OTPFieldInput` parts for you.
-- In the default path, the first slot stays unlabeled so `id` + `label htmlFor` / `FieldLabel htmlFor`
+- In the default path, the first slot stays unlabeled so `id` + `label htmlFor` / `Field.Label htmlFor`
   can name the field. Generated slots `2..N` receive `aria-label="Character X of N"`.
 - When `children` is provided, moduix renders it as-is. You are responsible for rendering exactly
   `length` inputs and for adding position-aware `aria-label` values to slots after the first one.
@@ -36,7 +36,7 @@ composition only when you need grouped layouts, separators, or per-slot native i
 Default composition:
 
 ```tsx
-import { Field, FieldLabel, OTPField } from 'moduix';
+import { Field, OTPField } from 'moduix';
 import { useId } from 'react';
 
 export function VerificationCodeField() {
@@ -44,7 +44,7 @@ export function VerificationCodeField() {
 
   return (
     <Field>
-      <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+      <Field.Label htmlFor={id}>Verification code</Field.Label>
       <OTPField id={id} length={6} />
     </Field>
   );
@@ -54,14 +54,7 @@ export function VerificationCodeField() {
 Manual grouped composition:
 
 ```tsx
-import {
-  Field,
-  FieldLabel,
-  OTPField,
-  OTPFieldInput,
-  OTPFieldSeparator,
-  SeparatorMarkIcon,
-} from 'moduix';
+import { Field, OTPField, OTPFieldInput, OTPFieldSeparator, SeparatorMarkIcon } from 'moduix';
 import { useId } from 'react';
 
 export function GroupedVerificationCodeField() {
@@ -69,7 +62,7 @@ export function GroupedVerificationCodeField() {
 
   return (
     <Field>
-      <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+      <Field.Label htmlFor={id}>Verification code</Field.Label>
       <OTPField id={id} length={6}>
         <div className="otp-group">
           <OTPFieldInput />
@@ -187,7 +180,7 @@ part with `className` or override the public CSS variables.
 
 ## UX and accessibility
 
-- Every OTP field needs an accessible name. Use `FieldLabel htmlFor={id}`, a native `<label>`, or
+- Every OTP field needs an accessible name. Use `Field.Label htmlFor={id}`, a native `<label>`, or
   `aria-label` for compact cases.
 - In manual composition, keep the first slot unlabeled so the shared field label names the control.
   Add position-aware labels such as `"Character 2 of 6"` to later slots.

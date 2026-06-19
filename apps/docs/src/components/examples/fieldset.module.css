@@ -3,6 +3,7 @@
 .choiceGroup {
   width: fit-content;
   max-width: min(20rem, 100%);
+  margin-inline: auto;
 }
 
 .customFieldset {
@@ -40,6 +41,7 @@
 }
 
 .choiceRow {
+  display: inline-flex;
   align-items: center;
   gap: var(--spacing-3);
 }

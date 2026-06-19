@@ -1,13 +1,4 @@
-import {
-  Button,
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-  Form,
-  Input,
-  Spinner,
-} from 'moduix';
+import { Button, Field, Form, Input, Spinner } from 'moduix';
 import { useActionState, useRef, useState } from 'react';
 import { CSSPropertiesReferenceTable } from '../preview';
 
@@ -107,7 +98,6 @@ export function FormExample() {
   return (
     <Form
       errors={errors}
-      validationMode="onBlur"
       className="form"
       onFormSubmit={async (values) => {
         setSubmitting(true);
@@ -116,8 +106,8 @@ export function FormExample() {
         setSubmitting(false);
       }}
     >
-      <Field name="homepage">
-        <FieldLabel>Homepage</FieldLabel>
+      <Field>
+        <Field.Label>Homepage</Field.Label>
         <Input
           type="url"
           required
@@ -125,9 +115,9 @@ export function FormExample() {
           placeholder="https://example.com"
           pattern="https?://.*"
         />
-        <FieldError match="valueMissing">Please enter a homepage URL.</FieldError>
-        <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
-        <FieldError />
+        <Field.ErrorText>Please enter a homepage URL.</Field.ErrorText>
+        <Field.ErrorText>Please start with http:// or https://.</Field.ErrorText>
+        <Field.ErrorText />
       </Field>
       <Button type="submit" disabled={submitting} aria-busy={submitting || undefined}>
         {submitting ? (
@@ -162,8 +152,8 @@ export function FormNativeSubmitExample() {
         setSubmitting(false);
       }}
     >
-      <Field name="homepage" validationMode="onBlur">
-        <FieldLabel>Homepage</FieldLabel>
+      <Field>
+        <Field.Label>Homepage</Field.Label>
         <Input
           type="url"
           required
@@ -171,9 +161,9 @@ export function FormNativeSubmitExample() {
           placeholder="https://example.com"
           pattern="https?://.*"
         />
-        <FieldError match="valueMissing">Please enter a homepage URL.</FieldError>
-        <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
-        <FieldError />
+        <Field.ErrorText>Please enter a homepage URL.</Field.ErrorText>
+        <Field.ErrorText>Please start with http:// or https://.</Field.ErrorText>
+        <Field.ErrorText />
       </Field>
       <Button type="submit" disabled={submitting} aria-busy={submitting || undefined}>
         {submitting ? (
@@ -196,7 +186,6 @@ export function FormOnFormSubmitExample() {
   return (
     <Form
       errors={errors}
-      validationMode="onBlur"
       className="form"
       onFormSubmit={(values) => {
         setSubmitting(true);
@@ -218,15 +207,15 @@ export function FormOnFormSubmitExample() {
         setSubmitting(false);
       }}
     >
-      <Field name="name">
-        <FieldLabel>Name</FieldLabel>
+      <Field>
+        <Field.Label>Name</Field.Label>
         <Input placeholder="Enter your name" />
-        <FieldError />
+        <Field.ErrorText />
       </Field>
-      <Field name="age">
-        <FieldLabel>Age</FieldLabel>
+      <Field>
+        <Field.Label>Age</Field.Label>
         <Input type="number" placeholder="18" />
-        <FieldError />
+        <Field.ErrorText />
       </Field>
       <Button type="submit" disabled={submitting} aria-busy={submitting || undefined}>
         {submitting ? (
@@ -250,7 +239,6 @@ export function FormActionsRefExample() {
     <Form
       actionsRef={actionsRef}
       errors={errors}
-      validationMode="onSubmit"
       className="form"
       onFormSubmit={(values) => {
         const nextErrors: Record<string, string> = {};
@@ -265,10 +253,10 @@ export function FormActionsRefExample() {
         setErrors(nextErrors);
       }}
     >
-      <Field name="email">
-        <FieldLabel>Work Email</FieldLabel>
+      <Field>
+        <Field.Label>Work Email</Field.Label>
         <Input type="email" required placeholder="name@test.com" />
-        <FieldError />
+        <Field.ErrorText />
       </Field>
       <Button
         type="button"
@@ -288,11 +276,11 @@ export function FormActionStateExample() {
   const [state, formAction, loading] = useActionState<ActionState, FormData>(submitUsername, {});
 
   return (
-    <Form action={formAction} errors={state.serverErrors} validationMode="onBlur" className="form">
-      <Field name="username">
-        <FieldLabel>Username</FieldLabel>
+    <Form action={formAction} errors={state.serverErrors} className="form">
+      <Field>
+        <Field.Label>Username</Field.Label>
         <Input required defaultValue="admin" placeholder="e.g. alice132" />
-        <FieldError />
+        <Field.ErrorText />
       </Field>
       <Button type="submit" disabled={loading} aria-busy={loading || undefined}>
         {loading ? (
@@ -311,16 +299,14 @@ export function FormActionStateExample() {
 
 export function CustomStylingFormExample() {
   return (
-    <Form validationMode="onBlur" className="custom-form">
-      <Field name="project" className="custom-field">
-        <FieldLabel className="custom-label">Project</FieldLabel>
+    <Form className="custom-form">
+      <Field className="custom-field">
+        <Field.Label className="custom-label">Project</Field.Label>
         <Input required placeholder="Maps Platform" className="custom-input" />
-        <FieldDescription className="custom-description">
+        <Field.HelperText className="custom-description">
           Use the public project name.
-        </FieldDescription>
-        <FieldError className="custom-error" match="valueMissing">
-          Please enter a project name.
-        </FieldError>
+        </Field.HelperText>
+        <Field.ErrorText className="custom-error">Please enter a project name.</Field.ErrorText>
       </Field>
       <Button type="submit" variant="outline" className="custom-button">
         Submit

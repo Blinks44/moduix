@@ -34,23 +34,23 @@ Use it when several controls belong to one question or section:
 Basic grouped fields:
 
 ```tsx
-import { Field, FieldControl, FieldError, FieldLabel, Fieldset, FieldsetLegend } from 'moduix';
+import { Field, Fieldset, FieldsetLegend } from 'moduix';
 
 export function BillingDetailsFieldset() {
   return (
     <Fieldset>
       <FieldsetLegend>Billing details</FieldsetLegend>
 
-      <Field validationMode="onBlur">
-        <FieldLabel>Company</FieldLabel>
-        <FieldControl required placeholder="Enter company name" />
-        <FieldError match="valueMissing">Please enter company name.</FieldError>
+      <Field>
+        <Field.Label>Company</Field.Label>
+        <Field.Input required placeholder="Enter company name" />
+        <Field.ErrorText>Please enter company name.</Field.ErrorText>
       </Field>
 
-      <Field validationMode="onBlur">
-        <FieldLabel>Tax ID</FieldLabel>
-        <FieldControl required placeholder="Enter tax ID" />
-        <FieldError match="valueMissing">Please enter tax ID.</FieldError>
+      <Field>
+        <Field.Label>Tax ID</Field.Label>
+        <Field.Input required placeholder="Enter tax ID" />
+        <Field.ErrorText>Please enter tax ID.</Field.ErrorText>
       </Field>
     </Fieldset>
   );
@@ -60,7 +60,7 @@ export function BillingDetailsFieldset() {
 Disabled section:
 
 ```tsx
-import { Field, FieldControl, FieldLabel, Fieldset, FieldsetLegend } from 'moduix';
+import { Field, Fieldset, FieldsetLegend } from 'moduix';
 
 export function DisabledAccountFieldset() {
   return (
@@ -68,13 +68,13 @@ export function DisabledAccountFieldset() {
       <FieldsetLegend>Disabled account details</FieldsetLegend>
 
       <Field>
-        <FieldLabel>Email</FieldLabel>
-        <FieldControl defaultValue="team@example.com" />
+        <Field.Label>Email</Field.Label>
+        <Field.Input defaultValue="team@example.com" />
       </Field>
 
       <Field>
-        <FieldLabel>Phone</FieldLabel>
-        <FieldControl defaultValue="+1 (555) 123-45-67" />
+        <Field.Label>Phone</Field.Label>
+        <Field.Input defaultValue="+1 (555) 123-45-67" />
       </Field>
     </Fieldset>
   );
@@ -84,36 +84,29 @@ export function DisabledAccountFieldset() {
 Form integration with `RadioGroup` via `render`:
 
 ```tsx
-import {
-  Field,
-  FieldItem,
-  FieldLabel,
-  Fieldset,
-  FieldsetLegend,
-  Radio,
-  RadioGroup,
-  RadioLabel,
-} from 'moduix';
+import { Field, Fieldset, FieldsetLegend, RadioGroup } from 'moduix';
 
 export function StorageTypeFieldset() {
   return (
-    <Field name="storageType">
+    <Field>
       <Fieldset render={<RadioGroup defaultValue="ssd" />}>
         <FieldsetLegend>Storage type</FieldsetLegend>
 
-        <FieldItem>
-          <FieldLabel>
-            <Radio value="ssd" />
-            <RadioLabel>SSD</RadioLabel>
-          </FieldLabel>
-        </FieldItem>
+        <Field.Item value="ssd">
+          <RadioGroup.Item value="ssd">
+            <RadioGroup.ItemControl />
+            <RadioGroup.ItemText>SSD</RadioGroup.ItemText>
+            <RadioGroup.ItemHiddenInput />
+          </RadioGroup.Item>
+        </Field.Item>
 
-        <FieldItem>
-          <FieldLabel>
-            <Radio value="hdd" />
-            <RadioLabel>HDD</RadioLabel>
-          </FieldLabel>
-        </FieldItem>
+        <Field.Item value="hdd">
+          <RadioGroup.Item value="hdd">
+            <RadioGroup.ItemControl />
+            <RadioGroup.ItemText>HDD</RadioGroup.ItemText>
+            <RadioGroup.ItemHiddenInput />
+          </RadioGroup.Item>
+        </Field.Item>
       </Fieldset>
     </Field>
   );
@@ -123,7 +116,7 @@ export function StorageTypeFieldset() {
 Custom styling:
 
 ```tsx
-import { Field, FieldControl, FieldError, FieldLabel, Fieldset, FieldsetLegend } from 'moduix';
+import { Field, Fieldset, FieldsetLegend } from 'moduix';
 import styles from './fieldset.module.css';
 
 export function StyledFieldset() {
@@ -131,12 +124,12 @@ export function StyledFieldset() {
     <Fieldset className={styles.customFieldset}>
       <FieldsetLegend className={styles.customLegend}>Styled fieldset</FieldsetLegend>
 
-      <Field validationMode="onBlur" className={styles.customField}>
-        <FieldLabel className={styles.customLabel}>Project name</FieldLabel>
-        <FieldControl required placeholder="Maps Platform" className={styles.customControl} />
-        <FieldError className={styles.customError} match="valueMissing">
+      <Field className={styles.customField}>
+        <Field.Label className={styles.customLabel}>Project name</Field.Label>
+        <Field.Input required placeholder="Maps Platform" className={styles.customControl} />
+        <Field.ErrorText className={styles.customError}>
           Please enter a project name.
-        </FieldError>
+        </Field.ErrorText>
       </Field>
     </Fieldset>
   );
@@ -251,7 +244,7 @@ state attributes, and the `--fieldset-*` variables.
 
 - Always render one visible `FieldsetLegend` so the grouped controls have a shared accessible label.
 - Prefer the default native `<fieldset>` root for standard grouped forms. Use `render` only when the
-  root must also be a Base UI selection group such as `RadioGroup` or `Checkbox.Group`.
+  root must also be a selection group such as Ark `RadioGroup` or the checkbox group wrapper.
 - `disabled` is the right way to disable the whole section. Do not manually dim nested controls one
   by one unless the group is intentionally mixed-state.
 - Because the legend is a `<div>`, do not rely on native `<legend>` layout quirks. The accessibility

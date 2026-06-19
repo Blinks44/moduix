@@ -2,8 +2,6 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
   Field,
-  FieldError,
-  FieldLabel,
   NumberField,
   NumberFieldDecrement,
   NumberFieldGroup,
@@ -232,7 +230,7 @@ export function NumberFieldExample(props: ComponentProps<typeof NumberField>) {
   return (
     <div style={centeredExampleStyle}>
       <Field>
-        <FieldLabel htmlFor={id}>Amount</FieldLabel>
+        <Field.Label htmlFor={id}>Amount</Field.Label>
         <NumberField id={id} defaultValue={100} {...props} />
       </Field>
     </div>
@@ -246,7 +244,7 @@ export function ControlledNumberFieldExample() {
   return (
     <div>
       <Field>
-        <FieldLabel htmlFor={id}>Controlled value</FieldLabel>
+        <Field.Label htmlFor={id}>Controlled value</Field.Label>
         <NumberField id={id} value={value} onValueChange={setValue} />
       </Field>
       <span>Current value: {value ?? 'empty'}</span>
@@ -260,7 +258,7 @@ export function MinMaxStepNumberFieldExample() {
   return (
     <div style={centeredExampleStyle}>
       <Field>
-        <FieldLabel htmlFor={id}>Quantity (0-20, step 2)</FieldLabel>
+        <Field.Label htmlFor={id}>Quantity (0-20, step 2)</Field.Label>
         <NumberField id={id} defaultValue={10} min={0} max={20} step={2} />
       </Field>
     </div>
@@ -275,7 +273,7 @@ export function NumberFieldScrubAreaExample() {
       <Field>
         <NumberField id={id} defaultValue={250}>
           <NumberFieldScrubArea>
-            <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
+            <Field.Label htmlFor={id}>Drag to scrub</Field.Label>
             <NumberFieldScrubAreaCursor />
           </NumberFieldScrubArea>
         </NumberField>
@@ -290,7 +288,7 @@ export function FormattedNumberFieldExample() {
   return (
     <div style={centeredExampleStyle}>
       <Field>
-        <FieldLabel htmlFor={id}>Price</FieldLabel>
+        <Field.Label htmlFor={id}>Price</Field.Label>
         <NumberField
           id={id}
           defaultValue={1250}
@@ -308,12 +306,12 @@ export function NumberFieldValidationExample() {
 
   return (
     <div style={centeredExampleStyle}>
-      <Field name="quantity" validationMode="onBlur">
-        <FieldLabel htmlFor={id}>Items</FieldLabel>
+      <Field>
+        <Field.Label htmlFor={id}>Items</Field.Label>
         <NumberField id={id} min={1} max={10} required />
-        <FieldError match="valueMissing">Please provide a number.</FieldError>
-        <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
-        <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
+        <Field.ErrorText>Please provide a number.</Field.ErrorText>
+        <Field.ErrorText>Value should be at least 1.</Field.ErrorText>
+        <Field.ErrorText>Value should be at most 10.</Field.ErrorText>
       </Field>
     </div>
   );
@@ -325,7 +323,7 @@ export function LocalizedLabelsNumberFieldExample() {
   return (
     <div style={centeredExampleStyle}>
       <Field>
-        <FieldLabel htmlFor={id}>Seats</FieldLabel>
+        <Field.Label htmlFor={id}>Seats</Field.Label>
         <NumberField
           id={id}
           defaultValue={2}
@@ -343,7 +341,7 @@ export function CustomIconsNumberFieldExample() {
   return (
     <div style={centeredExampleStyle}>
       <Field>
-        <FieldLabel htmlFor={id}>Floors</FieldLabel>
+        <Field.Label htmlFor={id}>Floors</Field.Label>
         <NumberFieldRoot id={id} defaultValue={8}>
           <NumberFieldGroup>
             <NumberFieldDecrement className="customButton">

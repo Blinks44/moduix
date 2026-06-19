@@ -659,7 +659,7 @@
       "type": "registry:item",
       "title": "Field",
       "description": "moduix Field component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
@@ -1088,26 +1088,26 @@
       ]
     },
     {
-      "name": "radio",
+      "name": "radio-group",
       "type": "registry:item",
-      "title": "Radio",
-      "description": "moduix Radio component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "title": "Radio Group",
+      "description": "moduix RadioGroup component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
-          "path": "packages/ui/src/components/radio/Radio.tsx",
-          "target": "@components/moduix/radio/Radio.tsx",
+          "path": "packages/ui/src/components/radio-group/RadioGroup.tsx",
+          "target": "@components/moduix/radio-group/RadioGroup.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/ui/src/components/radio/Radio.module.css",
-          "target": "@components/moduix/radio/Radio.module.css",
+          "path": "packages/ui/src/components/radio-group/RadioGroup.module.css",
+          "target": "@components/moduix/radio-group/RadioGroup.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/ui/src/components/radio/index.ts",
-          "target": "@components/moduix/radio/index.ts",
+          "path": "packages/ui/src/components/radio-group/index.ts",
+          "target": "@components/moduix/radio-group/index.ts",
           "type": "registry:component"
         }
       ]

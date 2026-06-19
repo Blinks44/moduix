@@ -1,13 +1,4 @@
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-  OTPField,
-  OTPFieldInput,
-  OTPFieldSeparator,
-  SeparatorMarkIcon,
-} from 'moduix';
+import { Field, OTPField, OTPFieldInput, OTPFieldSeparator, SeparatorMarkIcon } from 'moduix';
 import { useId, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -125,7 +116,7 @@ export function OTPFieldExample() {
 
   return (
     <Field className={styles.field}>
-      <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+      <Field.Label htmlFor={id}>Verification code</Field.Label>
       <OTPField id={id} length={OTP_LENGTH} />
     </Field>
   );
@@ -138,10 +129,10 @@ export function OTPFieldAlphanumericExample() {
   return (
     <div className={styles.stack}>
       <Field className={styles.field}>
-        <FieldLabel htmlFor={id}>Recovery code</FieldLabel>
-        <FieldDescription>
+        <Field.Label htmlFor={id}>Recovery code</Field.Label>
+        <Field.HelperText>
           Letters and numbers are allowed, for example <code>A7C9XZ</code>.
-        </FieldDescription>
+        </Field.HelperText>
         <OTPField
           id={id}
           length={OTP_LENGTH}
@@ -160,7 +151,7 @@ export function OTPFieldGroupedLayoutExample() {
 
   return (
     <Field className={styles.field}>
-      <FieldLabel htmlFor={id}>Auth code</FieldLabel>
+      <Field.Label htmlFor={id}>Auth code</Field.Label>
       <OTPField id={id} length={OTP_LENGTH}>
         <div className={styles.group}>{renderOTPInputs(3, { total: OTP_LENGTH })}</div>
         <OTPFieldSeparator>
@@ -177,10 +168,10 @@ export function OTPFieldPlaceholderHintsExample() {
 
   return (
     <Field className={styles.field}>
-      <FieldLabel htmlFor={id}>Verification code</FieldLabel>
-      <FieldDescription>
+      <Field.Label htmlFor={id}>Verification code</Field.Label>
+      <Field.HelperText>
         Placeholder hints stay visible until the active slot is focused.
-      </FieldDescription>
+      </Field.HelperText>
       <OTPField id={id} length={OTP_LENGTH}>
         {renderOTPInputs(OTP_LENGTH, {
           className: styles.placeholderInput,
@@ -196,7 +187,7 @@ export function OTPFieldMaskedExample() {
 
   return (
     <Field className={styles.field}>
-      <FieldLabel htmlFor={id}>PIN</FieldLabel>
+      <Field.Label htmlFor={id}>PIN</Field.Label>
       <OTPField id={id} length={4} mask />
     </Field>
   );
@@ -206,10 +197,10 @@ export function OTPFieldValidationExample() {
   const id = useId();
 
   return (
-    <Field name="verificationCode" validationMode="onBlur" className={styles.field}>
-      <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+    <Field className={styles.field}>
+      <Field.Label htmlFor={id}>Verification code</Field.Label>
       <OTPField id={id} length={OTP_LENGTH} required />
-      <FieldError match="valueMissing">Please enter the verification code.</FieldError>
+      <Field.ErrorText>Please enter the verification code.</Field.ErrorText>
     </Field>
   );
 }
@@ -229,8 +220,8 @@ export function OTPFieldAutoSubmitExample() {
       }}
     >
       <Field>
-        <FieldLabel htmlFor={id}>Verification code</FieldLabel>
-        <FieldDescription>Form submits automatically when all slots are filled.</FieldDescription>
+        <Field.Label htmlFor={id}>Verification code</Field.Label>
+        <Field.HelperText>Form submits automatically when all slots are filled.</Field.HelperText>
         <OTPField
           id={id}
           name="verificationCode"
@@ -253,10 +244,10 @@ export function OTPFieldCustomSanitizationExample() {
   return (
     <div className={styles.stack}>
       <Field className={styles.field}>
-        <FieldLabel htmlFor={id}>Invite code</FieldLabel>
-        <FieldDescription>
+        <Field.Label htmlFor={id}>Invite code</Field.Label>
+        <Field.HelperText>
           <code>validationType=&quot;none&quot;</code> with custom sanitization.
-        </FieldDescription>
+        </Field.HelperText>
         <OTPField
           id={id}
           length={OTP_LENGTH}
@@ -278,7 +269,7 @@ export function OTPFieldCustomSeparatorExample() {
 
   return (
     <Field className={styles.field}>
-      <FieldLabel htmlFor={id}>Styled code</FieldLabel>
+      <Field.Label htmlFor={id}>Styled code</Field.Label>
       <OTPField id={id} length={OTP_LENGTH} className={styles.customRoot}>
         <div className={styles.group}>
           {renderOTPInputs(3, {

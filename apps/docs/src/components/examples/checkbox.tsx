@@ -1,13 +1,4 @@
-import {
-  Checkbox,
-  Field,
-  FieldDescription,
-  FieldError,
-  Fieldset,
-  FieldsetLegend,
-  useCheckbox,
-  useCheckboxGroup,
-} from 'moduix';
+import { Checkbox, Field, Fieldset, FieldsetLegend, useCheckbox, useCheckboxGroup } from 'moduix';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -367,16 +358,16 @@ export function CheckboxContextExample() {
 
 export function CheckboxWithFieldExample() {
   return (
-    <Field validationMode="onBlur" className={styles.field}>
-      <Checkbox.Root required name="terms">
+    <Field className={styles.field}>
+      <Checkbox.Root required>
         <Checkbox.Control>
           <Checkbox.Indicator />
         </Checkbox.Control>
         <Checkbox.Label>Accept terms</Checkbox.Label>
         <Checkbox.HiddenInput />
       </Checkbox.Root>
-      <FieldDescription>Required to continue.</FieldDescription>
-      <FieldError match="valueMissing">Please accept the terms.</FieldError>
+      <Field.HelperText>Required to continue.</Field.HelperText>
+      <Field.ErrorText>Please accept the terms.</Field.ErrorText>
     </Field>
   );
 }
@@ -393,9 +384,7 @@ export function CheckboxWithFormExample() {
         setResult(`terms: ${formData.get('terms') ?? 'none'}`);
       }}
     >
-      <CheckboxItem name="terms" value="accepted">
-        I agree to the terms and conditions
-      </CheckboxItem>
+      <CheckboxItem value="accepted">I agree to the terms and conditions</CheckboxItem>
       <button type="submit" className={styles.submit}>
         Submit
       </button>
@@ -416,7 +405,7 @@ export function CheckboxGroupExample(props: ComponentProps<typeof Checkbox.Group
   return (
     <div className={styles.wrapper}>
       <div className={styles.groupHeading}>Notification Channels</div>
-      <Checkbox.Group defaultValue={['email']} name="notifications" {...props}>
+      <Checkbox.Group defaultValue={['email']} {...props}>
         {notificationOptions.map((option) => (
           <CheckboxItem key={option.value} value={option.value}>
             {option.label}
@@ -433,7 +422,7 @@ export function ControlledCheckboxGroupExample() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.groupHeading}>Active Alerts</div>
-      <Checkbox.Group value={value} onValueChange={setValue} name="alerts">
+      <Checkbox.Group value={value} onValueChange={setValue}>
         {notificationOptions.map((option) => (
           <CheckboxItem key={option.value} value={option.value}>
             {option.label}
@@ -459,7 +448,7 @@ export function CheckboxGroupInvalidExample() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.groupHeading}>Notification Channels</div>
-      <Checkbox.Group invalid defaultValue={['email']} name="channels">
+      <Checkbox.Group invalid defaultValue={['email']}>
         {notificationOptions.map((option) => (
           <CheckboxItem key={option.value} value={option.value}>
             {option.label}
@@ -473,7 +462,7 @@ export function CheckboxGroupInvalidExample() {
 
 export function CheckboxGroupMaxSelectedExample() {
   return (
-    <Checkbox.Group defaultValue={['react', 'solid']} maxSelectedValues={2} name="frameworks">
+    <Checkbox.Group defaultValue={['react', 'solid']} maxSelectedValues={2}>
       <FrameworkCheckboxes options={frameworkOptionsWithSvelte} />
     </Checkbox.Group>
   );
@@ -494,7 +483,7 @@ export function CheckboxGroupSelectAllExample() {
       >
         Select all
       </CheckboxItem>
-      <Checkbox.Group value={value} onValueChange={setValue} name="frameworks">
+      <Checkbox.Group value={value} onValueChange={setValue}>
         <FrameworkCheckboxes />
       </Checkbox.Group>
       <span className={styles.hint}>Selected: {JSON.stringify(value)}</span>
@@ -514,7 +503,7 @@ export function CheckboxGroupWithFormExample() {
         setResult(`framework: ${JSON.stringify(formData.getAll('framework'))}`);
       }}
     >
-      <Checkbox.Group defaultValue={['react']} name="framework">
+      <Checkbox.Group defaultValue={['react']}>
         <FrameworkCheckboxes />
       </Checkbox.Group>
       <button type="submit" className={styles.submit}>
@@ -529,7 +518,7 @@ export function CheckboxGroupFieldsetExample() {
   return (
     <Fieldset className={styles.fieldset}>
       <FieldsetLegend>Frameworks</FieldsetLegend>
-      <Checkbox.Group defaultValue={['react']} name="frameworks">
+      <Checkbox.Group defaultValue={['react']}>
         <FrameworkCheckboxes />
       </Checkbox.Group>
     </Fieldset>

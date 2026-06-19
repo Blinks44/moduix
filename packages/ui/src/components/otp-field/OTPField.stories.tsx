@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useId, useState } from 'react';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
-import { Field, FieldDescription, FieldError, FieldLabel } from '../field';
+import { Field } from '../field';
 import { OTPField, OTPFieldInput, OTPFieldSeparator } from './OTPField';
 import storyStyles from './OTPField.stories.module.css';
 
@@ -56,7 +56,7 @@ export const Basic: Story = {
 
     return (
       <Field>
-        <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+        <Field.Label htmlFor={id}>Verification code</Field.Label>
         <OTPField id={id} length={OTP_LENGTH} />
       </Field>
     );
@@ -71,10 +71,10 @@ export const Alphanumeric: Story = {
     return (
       <div className={storyStyles.stack}>
         <Field>
-          <FieldLabel htmlFor={id}>Recovery code</FieldLabel>
-          <FieldDescription>
+          <Field.Label htmlFor={id}>Recovery code</Field.Label>
+          <Field.HelperText>
             Letters and numbers are allowed, for example <code>A7C9XZ</code>.
-          </FieldDescription>
+          </Field.HelperText>
           <OTPField
             id={id}
             length={OTP_LENGTH}
@@ -95,7 +95,7 @@ export const GroupedLayout: Story = {
 
     return (
       <Field>
-        <FieldLabel htmlFor={id}>Auth code</FieldLabel>
+        <Field.Label htmlFor={id}>Auth code</Field.Label>
         <OTPField id={id} length={OTP_LENGTH}>
           <div className={storyStyles.group}>
             {renderOTPInputs({ count: 3, total: OTP_LENGTH })}
@@ -118,7 +118,7 @@ export const CustomSeparator: Story = {
 
     return (
       <Field>
-        <FieldLabel htmlFor={id}>Styled code</FieldLabel>
+        <Field.Label htmlFor={id}>Styled code</Field.Label>
         <OTPField id={id} length={OTP_LENGTH} className={storyStyles.customRoot}>
           <div className={storyStyles.group}>
             {renderOTPInputs({
@@ -150,10 +150,10 @@ export const PlaceholderHints: Story = {
 
     return (
       <Field>
-        <FieldLabel htmlFor={id}>Verification code</FieldLabel>
-        <FieldDescription>
+        <Field.Label htmlFor={id}>Verification code</Field.Label>
+        <Field.HelperText>
           Placeholder hints stay visible until the active slot is focused.
-        </FieldDescription>
+        </Field.HelperText>
         <OTPField id={id} length={OTP_LENGTH}>
           {renderOTPInputs({
             count: OTP_LENGTH,
@@ -172,7 +172,7 @@ export const Masked: Story = {
 
     return (
       <Field>
-        <FieldLabel htmlFor={id}>PIN</FieldLabel>
+        <Field.Label htmlFor={id}>PIN</Field.Label>
         <OTPField id={id} length={4} mask />
       </Field>
     );
@@ -184,10 +184,10 @@ export const WithFieldValidation: Story = {
     const id = useId();
 
     return (
-      <Field name="verificationCode" validationMode="onBlur">
-        <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+      <Field>
+        <Field.Label htmlFor={id}>Verification code</Field.Label>
         <OTPField id={id} length={OTP_LENGTH} required />
-        <FieldError match="valueMissing">Please enter the verification code.</FieldError>
+        <Field.ErrorText>Please enter the verification code.</Field.ErrorText>
       </Field>
     );
   },
@@ -209,8 +209,8 @@ export const AutoSubmit: Story = {
         }}
       >
         <Field>
-          <FieldLabel htmlFor={id}>Verification code</FieldLabel>
-          <FieldDescription>Form submits automatically when all slots are filled.</FieldDescription>
+          <Field.Label htmlFor={id}>Verification code</Field.Label>
+          <Field.HelperText>Form submits automatically when all slots are filled.</Field.HelperText>
           <OTPField
             id={id}
             name="verificationCode"
@@ -237,11 +237,11 @@ export const CustomSanitization: Story = {
     return (
       <div className={storyStyles.stack}>
         <Field>
-          <FieldLabel htmlFor={id}>Invite code</FieldLabel>
-          <FieldDescription>
+          <Field.Label htmlFor={id}>Invite code</Field.Label>
+          <Field.HelperText>
             <code>validationType=&quot;none&quot;</code> with custom sanitization (uppercase letters
             and digits only).
-          </FieldDescription>
+          </Field.HelperText>
           <OTPField
             id={id}
             length={OTP_LENGTH}

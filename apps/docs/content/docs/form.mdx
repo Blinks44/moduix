@@ -27,15 +27,7 @@ object-shaped values are easier to work with than raw `FormData`.
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        Field,
-        FieldError,
-        FieldLabel,
-        Form,
-        Input,
-        Spinner,
-      } from "moduix";
+      import { Button, Field, Form, Input, Spinner } from "moduix";
       import { useState } from "react";
 
       async function validateHomepage(homepage: string) {
@@ -67,8 +59,7 @@ object-shaped values are easier to work with than raw `FormData`.
         return (
           <Form
             errors={errors}
-            validationMode="onBlur"
-            className="form"
+                        className="form"
             onFormSubmit={async (values) => {
               setSubmitting(true);
               const nextErrors = await validateHomepage(String(values.homepage ?? ""));
@@ -76,8 +67,8 @@ object-shaped values are easier to work with than raw `FormData`.
               setSubmitting(false);
             }}
           >
-            <Field name="homepage">
-              <FieldLabel>Homepage</FieldLabel>
+            <Field >
+              <Field.Label>Homepage</Field.Label>
               <Input
                 type="url"
                 required
@@ -85,11 +76,11 @@ object-shaped values are easier to work with than raw `FormData`.
                 placeholder="https://example.com"
                 pattern="https?://.*"
               />
-              <FieldError match="valueMissing">Please enter a homepage URL.</FieldError>
-              <FieldError match="patternMismatch">
+              <Field.ErrorText>Please enter a homepage URL.</Field.ErrorText>
+              <Field.ErrorText>
                 Please start with http:// or https://.
-              </FieldError>
-              <FieldError />
+              </Field.ErrorText>
+              <Field.ErrorText />
             </Field>
             <Button
               type="submit"
@@ -175,9 +166,9 @@ The high-level path is intentionally short:
 ```text
 Form
 ├─ Field
-│  ├─ FieldLabel
-│  ├─ control (Input, FieldControl, Textarea, Select, ...)
-│  └─ FieldDescription / FieldError
+│  ├─ Field.Label
+│  ├─ control (Input, Field.Input, Textarea, Select, ...)
+│  └─ Field.HelperText / Field.ErrorText
 └─ submit actions
 ```
 
@@ -201,7 +192,7 @@ Drop to native `onSubmit` when you need the real submit event, `event.currentTar
 `FormData`, or submitter-specific logic.
 
 Use `action` with React `useActionState` or server actions when the submit flow should stay native
-and action results need to feed back into `FieldError`.
+and action results need to feed back into `Field.ErrorText`.
 
 Use `actionsRef` as the narrow imperative escape hatch when another control needs to validate one
 field or the whole form before the next user step.
@@ -215,7 +206,7 @@ field or the whole form before the next user step.
 
 ### Behavioral notes
 
-- `errors` keys should match the nested `Field name` values so `FieldError` can render them.
+- `errors` keys should match the nested `Field name` values so `Field.ErrorText` can render them.
 - `onFormSubmit` is the convenience path for object-shaped values; Base UI prevents the native
   submit event default before this callback runs.
 - Native `action` and native `onSubmit` still work when you need lower-level form orchestration.
@@ -233,15 +224,7 @@ yourself.
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        Field,
-        FieldError,
-        FieldLabel,
-        Form,
-        Input,
-        Spinner,
-      } from "moduix";
+      import { Button, Field, Form, Input, Spinner } from "moduix";
       import { useState } from "react";
 
       async function validateHomepage(homepage: string) {
@@ -285,8 +268,8 @@ yourself.
               setSubmitting(false);
             }}
           >
-            <Field name="homepage" validationMode="onBlur">
-              <FieldLabel>Homepage</FieldLabel>
+            <Field  >
+              <Field.Label>Homepage</Field.Label>
               <Input
                 type="url"
                 required
@@ -294,11 +277,11 @@ yourself.
                 placeholder="https://example.com"
                 pattern="https?://.*"
               />
-              <FieldError match="valueMissing">Please enter a homepage URL.</FieldError>
-              <FieldError match="patternMismatch">
+              <Field.ErrorText>Please enter a homepage URL.</Field.ErrorText>
+              <Field.ErrorText>
                 Please start with http:// or https://.
-              </FieldError>
-              <FieldError />
+              </Field.ErrorText>
+              <Field.ErrorText />
             </Field>
             <Button
               type="submit"
@@ -341,15 +324,7 @@ errors.
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        Field,
-        FieldError,
-        FieldLabel,
-        Form,
-        Input,
-        Spinner,
-      } from "moduix";
+      import { Button, Field, Form, Input, Spinner } from "moduix";
       import { useActionState } from "react";
 
       interface ActionState {
@@ -399,13 +374,12 @@ errors.
           <Form
             action={formAction}
             errors={state.serverErrors}
-            validationMode="onBlur"
-            className="form"
+                        className="form"
           >
-            <Field name="username">
-              <FieldLabel>Username</FieldLabel>
+            <Field >
+              <Field.Label>Username</Field.Label>
               <Input required defaultValue="admin" placeholder="e.g. alice132" />
-              <FieldError />
+              <Field.ErrorText />
             </Field>
             <Button
               type="submit"
@@ -455,14 +429,7 @@ Pass `actionsRef` when another control needs to trigger validation for one field
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        Field,
-        FieldError,
-        FieldLabel,
-        Form,
-        Input,
-      } from "moduix";
+      import { Button, Field, Form, Input } from "moduix";
       import { useRef, useState } from "react";
 
       export function ActionsRefForm() {
@@ -475,8 +442,7 @@ Pass `actionsRef` when another control needs to trigger validation for one field
           <Form
             actionsRef={actionsRef}
             errors={errors}
-            validationMode="onSubmit"
-            className="form"
+                        className="form"
             onFormSubmit={(values) => {
               const nextErrors: Record<string, string> = {};
               const email = String(values.email ?? "");
@@ -490,10 +456,10 @@ Pass `actionsRef` when another control needs to trigger validation for one field
               setErrors(nextErrors);
             }}
           >
-            <Field name="email">
-              <FieldLabel>Work Email</FieldLabel>
+            <Field >
+              <Field.Label>Work Email</Field.Label>
               <Input type="email" required placeholder="name@test.com" />
-              <FieldError />
+              <Field.ErrorText />
             </Field>
             <Button
               type="button"
@@ -532,32 +498,24 @@ overrides.
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        Field,
-        FieldDescription,
-        FieldError,
-        FieldLabel,
-        Form,
-        Input,
-      } from "moduix";
+      import { Button, Field, Form, Input } from "moduix";
 
       export function CustomStylingFormDemo() {
         return (
-          <Form validationMode="onBlur" className="custom-form">
-            <Field name="project" className="custom-field">
-              <FieldLabel className="custom-label">Project</FieldLabel>
+          <Form className="custom-form">
+            <Field  className="custom-field">
+              <Field.Label className="custom-label">Project</Field.Label>
               <Input
                 required
                 placeholder="Maps Platform"
                 className="custom-input"
               />
-              <FieldDescription className="custom-description">
+              <Field.HelperText className="custom-description">
                 Use the public project name.
-              </FieldDescription>
-              <FieldError className="custom-error" match="valueMissing">
+              </Field.HelperText>
+              <Field.ErrorText className="custom-error">
                 Please enter a project name.
-              </FieldError>
+              </Field.ErrorText>
             </Field>
             <Button
               type="submit"

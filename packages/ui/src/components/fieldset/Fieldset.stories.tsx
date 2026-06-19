@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Field, FieldControl, FieldError, FieldItem, FieldLabel } from '../field';
-import { Radio, RadioGroup, RadioLabel } from '../radio';
+import { Field } from '../field';
+import { RadioGroup } from '../radio-group';
 import { Fieldset, FieldsetLegend } from './Fieldset';
 import styles from './Fieldset.stories.module.css';
 
@@ -23,16 +23,16 @@ export const Default: Story = {
       <Fieldset>
         <FieldsetLegend>Billing details</FieldsetLegend>
 
-        <Field validationMode="onBlur">
-          <FieldLabel>Company</FieldLabel>
-          <FieldControl required placeholder="Enter company name" />
-          <FieldError match="valueMissing">Please enter company name.</FieldError>
+        <Field>
+          <Field.Label>Company</Field.Label>
+          <Field.Input required placeholder="Enter company name" />
+          <Field.ErrorText>Please enter company name.</Field.ErrorText>
         </Field>
 
-        <Field validationMode="onBlur">
-          <FieldLabel>Tax ID</FieldLabel>
-          <FieldControl required placeholder="Enter tax ID" />
-          <FieldError match="valueMissing">Please enter tax ID.</FieldError>
+        <Field>
+          <Field.Label>Tax ID</Field.Label>
+          <Field.Input required placeholder="Enter tax ID" />
+          <Field.ErrorText>Please enter tax ID.</Field.ErrorText>
         </Field>
       </Fieldset>
     );
@@ -46,13 +46,13 @@ export const Disabled: Story = {
         <FieldsetLegend>Disabled account details</FieldsetLegend>
 
         <Field>
-          <FieldLabel>Email</FieldLabel>
-          <FieldControl defaultValue="team@example.com" />
+          <Field.Label>Email</Field.Label>
+          <Field.Input defaultValue="team@example.com" />
         </Field>
 
         <Field>
-          <FieldLabel>Phone</FieldLabel>
-          <FieldControl defaultValue="+1 (555) 123-45-67" />
+          <Field.Label>Phone</Field.Label>
+          <Field.Input defaultValue="+1 (555) 123-45-67" />
         </Field>
       </Fieldset>
     );
@@ -62,23 +62,25 @@ export const Disabled: Story = {
 export const FormIntegration: Story = {
   render: () => {
     return (
-      <Field name="storageType">
+      <Field>
         <Fieldset render={<RadioGroup defaultValue="ssd" />}>
           <FieldsetLegend>Storage type</FieldsetLegend>
 
-          <FieldItem>
-            <FieldLabel>
-              <Radio value="ssd" />
-              <RadioLabel>SSD</RadioLabel>
-            </FieldLabel>
-          </FieldItem>
+          <Field.Item value="ssd">
+            <RadioGroup.Item value="ssd">
+              <RadioGroup.ItemControl />
+              <RadioGroup.ItemText>SSD</RadioGroup.ItemText>
+              <RadioGroup.ItemHiddenInput />
+            </RadioGroup.Item>
+          </Field.Item>
 
-          <FieldItem>
-            <FieldLabel>
-              <Radio value="hdd" />
-              <RadioLabel>HDD</RadioLabel>
-            </FieldLabel>
-          </FieldItem>
+          <Field.Item value="hdd">
+            <RadioGroup.Item value="hdd">
+              <RadioGroup.ItemControl />
+              <RadioGroup.ItemText>HDD</RadioGroup.ItemText>
+              <RadioGroup.ItemHiddenInput />
+            </RadioGroup.Item>
+          </Field.Item>
         </Fieldset>
       </Field>
     );
@@ -91,12 +93,12 @@ export const CustomStyles: Story = {
       <Fieldset className={styles.customFieldset}>
         <FieldsetLegend className={styles.customLegend}>Styled fieldset</FieldsetLegend>
 
-        <Field validationMode="onBlur" className={styles.customField}>
-          <FieldLabel className={styles.customLabel}>Project name</FieldLabel>
-          <FieldControl required placeholder="Maps Platform" className={styles.customControl} />
-          <FieldError className={styles.customError} match="valueMissing">
+        <Field className={styles.customField}>
+          <Field.Label className={styles.customLabel}>Project name</Field.Label>
+          <Field.Input required placeholder="Maps Platform" className={styles.customControl} />
+          <Field.ErrorText className={styles.customError}>
             Please enter a project name.
-          </FieldError>
+          </Field.ErrorText>
         </Field>
       </Fieldset>
     );

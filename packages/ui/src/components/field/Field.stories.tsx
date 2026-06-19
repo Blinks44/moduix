@@ -1,19 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useId } from 'react';
-import { Checkbox } from '../checkbox';
-import { Input } from '../input';
-import { NumberField } from '../number-field';
-import { Radio, RadioField, RadioGroup, RadioLabel } from '../radio';
-import { Switch, SwitchLabel } from '../switch';
-import {
-  Field,
-  FieldControl,
-  FieldDescription,
-  FieldError,
-  FieldItem,
-  FieldLabel,
-  FieldValidity,
-} from './Field';
+import { useState } from 'react';
+import { Field, useField } from './Field';
 import storyStyles from './Field.stories.module.css';
 
 const meta = {
@@ -32,61 +19,77 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => {
     return (
-      <Field validationMode="onBlur">
-        <FieldLabel>Name</FieldLabel>
-        <FieldControl required placeholder="Enter your name" />
-        <FieldError match="valueMissing">Please enter your name.</FieldError>
-        <FieldDescription>Visible on your public profile.</FieldDescription>
+      <Field required>
+        <Field.Label>
+          Name
+          <Field.RequiredIndicator />
+        </Field.Label>
+        <Field.Input placeholder="Enter your name" />
+        <Field.HelperText>Visible on your public profile.</Field.HelperText>
       </Field>
     );
   },
 };
 
-export const WithValidationMessage: Story = {
+export const Invalid: Story = {
   render: () => {
     return (
-      <Field
-        validationMode="onBlur"
-        validate={(value) => {
-          if (typeof value !== 'string' || value.length < 3) {
-            return 'Username must be at least 3 characters.';
-          }
-
-          return null;
-        }}
-      >
-        <FieldLabel>Username</FieldLabel>
-        <FieldControl placeholder="e.g. vinny" />
-        <FieldDescription>Use at least 3 characters.</FieldDescription>
-        <FieldError />
+      <Field invalid required>
+        <Field.Label>Email</Field.Label>
+        <Field.Input type="email" placeholder="name@example.com" />
+        <Field.HelperText>Use your work email.</Field.HelperText>
+        <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
       </Field>
     );
   },
 };
 
-export const WithValidityState: Story = {
+export const ControlledInvalid: Story = {
+  render: () => {
+    const [value, setValue] = useState('');
+    const invalid = value.length > 0 && value.length < 3;
+
+    return (
+      <Field invalid={invalid}>
+        <Field.Label>Username</Field.Label>
+        <Field.Input
+          value={value}
+          onChange={(event) => setValue(event.currentTarget.value)}
+          placeholder="e.g. vinny"
+        />
+        <Field.HelperText>Use at least 3 characters.</Field.HelperText>
+        <Field.ErrorText>Username must be at least 3 characters.</Field.ErrorText>
+      </Field>
+    );
+  },
+};
+
+export const Textarea: Story = {
   render: () => {
     return (
-      <Field
-        validationMode="onChange"
-        validate={(value) => {
-          if (typeof value !== 'string' || value.length < 3) {
-            return 'Username must be at least 3 characters.';
-          }
+      <Field>
+        <Field.Label>Summary</Field.Label>
+        <Field.Textarea placeholder="Describe the request" autoresize />
+        <Field.HelperText>The textarea can autoresize as the user types.</Field.HelperText>
+      </Field>
+    );
+  },
+};
 
-          return null;
-        }}
-      >
-        <FieldLabel>Username</FieldLabel>
-        <FieldControl placeholder="e.g. vinny" />
-        <FieldError match="customError" />
-        <FieldValidity>
-          {(state) => (
-            <p className={storyStyles.helper}>
-              {state.validity.valid ? 'Looks good.' : 'Waiting for valid value.'}
-            </p>
-          )}
-        </FieldValidity>
+export const Select: Story = {
+  render: () => {
+    return (
+      <Field required>
+        <Field.Label>Priority</Field.Label>
+        <Field.Select defaultValue="">
+          <option value="" disabled>
+            Select priority
+          </option>
+          <option value="low">Low</option>
+          <option value="normal">Normal</option>
+          <option value="high">High</option>
+        </Field.Select>
+        <Field.HelperText>Used for triage queues.</Field.HelperText>
       </Field>
     );
   },
@@ -96,96 +99,74 @@ export const Disabled: Story = {
   render: () => {
     return (
       <Field disabled>
-        <FieldLabel>Organization</FieldLabel>
-        <FieldControl placeholder="Acme Inc." />
-        <FieldDescription>This field is currently managed by your workspace.</FieldDescription>
+        <Field.Label>Organization</Field.Label>
+        <Field.Input placeholder="Acme Inc." />
+        <Field.HelperText>This field is currently managed by your workspace.</Field.HelperText>
       </Field>
     );
   },
 };
 
-export const WithCheckbox: Story = {
+export const ReadOnly: Story = {
   render: () => {
     return (
-      <Field validationMode="onBlur">
-        <Checkbox.Root required name="terms">
-          <Checkbox.Control>
-            <Checkbox.Indicator />
-          </Checkbox.Control>
-          <Checkbox.Label>I agree to the terms</Checkbox.Label>
-          <Checkbox.HiddenInput />
-        </Checkbox.Root>
-        <FieldError match="valueMissing">Please accept the terms.</FieldError>
-        <FieldDescription>Required to continue.</FieldDescription>
+      <Field readOnly>
+        <Field.Label>Workspace key</Field.Label>
+        <Field.Input defaultValue="MAPS" />
+        <Field.HelperText>Read-only state is propagated to the input.</Field.HelperText>
       </Field>
     );
   },
 };
 
-export const WithRadio: Story = {
+export const WithItems: Story = {
   render: () => {
     return (
-      <Field name="account-type" validationMode="onBlur">
-        <FieldLabel>Account type</FieldLabel>
-        <RadioGroup>
-          <FieldItem>
-            <RadioField>
-              <Radio value="personal" required />
-              <RadioLabel>Personal account</RadioLabel>
-            </RadioField>
-          </FieldItem>
-          <FieldItem>
-            <RadioField>
-              <Radio value="team" />
-              <RadioLabel>Team account</RadioLabel>
-            </RadioField>
-          </FieldItem>
-        </RadioGroup>
-        <FieldError match="valueMissing">Please choose an account type.</FieldError>
+      <Field target="team">
+        <Field.Label>Account type</Field.Label>
+        <Field.Item value="personal">
+          <Field.Input type="radio" value="personal" />
+          <Field.Label>Personal account</Field.Label>
+        </Field.Item>
+        <Field.Item value="team">
+          <Field.Input type="radio" value="team" defaultChecked />
+          <Field.Label>Team account</Field.Label>
+        </Field.Item>
+        <Field.HelperText>The root label points to the targeted item.</Field.HelperText>
       </Field>
     );
   },
 };
 
-export const WithSwitch: Story = {
+export const Context: Story = {
   render: () => {
     return (
-      <Field name="newsletter">
-        <FieldLabel>
-          <Switch />
-          <SwitchLabel>Subscribe to newsletter</SwitchLabel>
-        </FieldLabel>
-        <FieldDescription>We send updates once per week.</FieldDescription>
+      <Field invalid required>
+        <Field.Label>Status</Field.Label>
+        <Field.Input placeholder="Status" />
+        <Field.Context>
+          {(field) => (
+            <p className={storyStyles.helper}>
+              {field.invalid ? 'The field is invalid.' : 'The field is valid.'}
+            </p>
+          )}
+        </Field.Context>
+        <Field.ErrorText>Status is required.</Field.ErrorText>
       </Field>
     );
   },
 };
 
-export const WithInput: Story = {
+export const RootProvider: Story = {
   render: () => {
-    return (
-      <Field validationMode="onBlur">
-        <FieldLabel>Email</FieldLabel>
-        <Input required type="email" placeholder="name@example.com" />
-        <FieldError match="valueMissing">Please enter your email.</FieldError>
-        <FieldError match="typeMismatch">Enter a valid email address.</FieldError>
-      </Field>
-    );
-  },
-};
-
-export const WithNumberField: Story = {
-  render: () => {
-    const id = useId();
+    const field = useField({ id: 'root-provider-field', required: true });
 
     return (
-      <Field name="quantity" validationMode="onBlur">
-        <FieldLabel htmlFor={id}>Items</FieldLabel>
-        <NumberField id={id} min={1} max={10} required />
-        <FieldError match="valueMissing">Please provide a number.</FieldError>
-        <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
-        <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
-      </Field>
+      <Field.RootProvider value={field}>
+        <Field.Label>Project key</Field.Label>
+        <Field.Input placeholder="MAPS" />
+        <Field.HelperText>The field state is created outside the rendered tree.</Field.HelperText>
+      </Field.RootProvider>
     );
   },
 };

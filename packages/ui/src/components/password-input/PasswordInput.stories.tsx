@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Field, FieldError, FieldLabel } from '../field';
+import { Field } from '../field';
 import { PasswordInput } from './PasswordInput';
 import storyStyles from './PasswordInput.stories.module.css';
 
@@ -21,7 +21,7 @@ export const Basic: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Password</FieldLabel>
+        <Field.Label>Password</Field.Label>
         <PasswordInput autoComplete="current-password" placeholder="Enter your password" />
       </Field>
     );
@@ -34,7 +34,7 @@ export const ControlledValue: Story = {
 
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Team password</FieldLabel>
+        <Field.Label>Team password</Field.Label>
         <PasswordInput
           autoComplete="new-password"
           onValueChange={setValue}
@@ -50,7 +50,7 @@ export const DefaultVisible: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Temporary password</FieldLabel>
+        <Field.Label>Temporary password</Field.Label>
         <PasswordInput defaultVisible defaultValue="S3cur3!" />
       </Field>
     );
@@ -97,10 +97,10 @@ export const DisabledAndReadOnly: Story = {
 export const WithFieldValidation: Story = {
   render: () => {
     return (
-      <Field className={storyStyles.field} validationMode="onBlur">
-        <FieldLabel>Password</FieldLabel>
+      <Field className={storyStyles.field}>
+        <Field.Label>Password</Field.Label>
         <PasswordInput required autoComplete="new-password" placeholder="Create a password" />
-        <FieldError match="valueMissing">Please enter a password.</FieldError>
+        <Field.ErrorText>Please enter a password.</Field.ErrorText>
       </Field>
     );
   },
@@ -110,7 +110,7 @@ export const CustomStyles: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Workspace password</FieldLabel>
+        <Field.Label>Workspace password</Field.Label>
         <PasswordInput
           className={storyStyles.customPasswordInput}
           placeholder="Custom password input"

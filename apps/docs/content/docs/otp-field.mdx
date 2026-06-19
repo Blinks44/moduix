@@ -40,7 +40,7 @@ per character in `length`.
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, OTPField } from "moduix";
+      import { Field, OTPField } from "moduix";
       import { useId } from "react";
 
       export function OTPFieldDemo() {
@@ -48,7 +48,7 @@ per character in `length`.
 
         return (
           <Field>
-            <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+            <Field.Label htmlFor={id}>Verification code</Field.Label>
             <OTPField id={id} length={6} />
           </Field>
         );
@@ -171,12 +171,7 @@ Use `validationType="alphanumeric"` for recovery, backup, or invite codes.
 
   <Preview.Code>
     {`
-      import {
-        Field,
-        FieldDescription,
-        FieldLabel,
-        OTPField,
-      } from "moduix";
+      import { Field, OTPField } from "moduix";
       import { useId, useState } from "react";
 
       export function AlphanumericOTPField() {
@@ -185,10 +180,10 @@ Use `validationType="alphanumeric"` for recovery, backup, or invite codes.
 
         return (
           <Field>
-            <FieldLabel htmlFor={id}>Recovery code</FieldLabel>
-            <FieldDescription>
+            <Field.Label htmlFor={id}>Recovery code</Field.Label>
+            <Field.HelperText>
               Letters and numbers are allowed, for example <code>A7C9XZ</code>.
-            </FieldDescription>
+            </Field.HelperText>
             <OTPField
               id={id}
               length={6}
@@ -213,7 +208,7 @@ Use `mask` when the code should stay obscured while it is being typed.
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, OTPField } from "moduix";
+      import { Field, OTPField } from "moduix";
       import { useId } from "react";
 
       export function MaskedOTPField() {
@@ -221,7 +216,7 @@ Use `mask` when the code should stay obscured while it is being typed.
 
         return (
           <Field>
-            <FieldLabel htmlFor={id}>PIN</FieldLabel>
+            <Field.Label htmlFor={id}>PIN</Field.Label>
             <OTPField id={id} length={4} mask />
           </Field>
         );
@@ -241,22 +236,17 @@ flow.
 
   <Preview.Code>
     {`
-      import {
-        Field,
-        FieldError,
-        FieldLabel,
-        OTPField,
-      } from "moduix";
+      import { Field, OTPField } from "moduix";
       import { useId } from "react";
 
       export function ValidatedOTPField() {
         const id = useId();
 
         return (
-          <Field name="verificationCode" validationMode="onBlur">
-            <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+          <Field  >
+            <Field.Label htmlFor={id}>Verification code</Field.Label>
             <OTPField id={id} length={6} required />
-            <FieldError match="valueMissing">Please enter the verification code.</FieldError>
+            <Field.ErrorText>Please enter the verification code.</Field.ErrorText>
           </Field>
         );
       }
@@ -274,7 +264,7 @@ Use `autoSubmit` when a complete code should submit its owning form immediately.
 
   <Preview.Code>
     {`
-      import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
+      import { Field, OTPField } from "moduix";
       import { useId, useState } from "react";
 
       export function AutoSubmitOTPField() {
@@ -292,10 +282,10 @@ Use `autoSubmit` when a complete code should submit its owning form immediately.
             }}
           >
             <Field>
-              <FieldLabel htmlFor={id}>Verification code</FieldLabel>
-              <FieldDescription>
+              <Field.Label htmlFor={id}>Verification code</Field.Label>
+              <Field.HelperText>
                 Form submits automatically when all slots are filled.
-              </FieldDescription>
+              </Field.HelperText>
               <OTPField
                 id={id}
                 name="verificationCode"
@@ -344,7 +334,7 @@ sanitization.
 
   <Preview.Code>
     {`
-      import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
+      import { Field, OTPField } from "moduix";
       import { useId, useState } from "react";
 
       export function CustomSanitizationOTPField() {
@@ -355,10 +345,10 @@ sanitization.
         return (
           <div className="stack">
             <Field className="field">
-              <FieldLabel htmlFor={id}>Invite code</FieldLabel>
-              <FieldDescription>
+              <Field.Label htmlFor={id}>Invite code</Field.Label>
+              <Field.HelperText>
                 <code>validationType=&quot;none&quot;</code> with custom sanitization.
-              </FieldDescription>
+              </Field.HelperText>
               <OTPField
                 id={id}
                 length={6}
@@ -411,14 +401,7 @@ Use manual composition when the code should be split into visual groups.
 
   <Preview.Code>
     {`
-      import {
-        Field,
-        FieldLabel,
-        OTPField,
-        OTPFieldInput,
-        OTPFieldSeparator,
-        SeparatorMarkIcon,
-      } from "moduix";
+      import { Field, OTPField, OTPFieldInput, OTPFieldSeparator, SeparatorMarkIcon } from "moduix";
       import { useId } from "react";
 
       export function GroupedOTPField() {
@@ -426,7 +409,7 @@ Use manual composition when the code should be split into visual groups.
 
         return (
           <Field>
-            <FieldLabel htmlFor={id}>Auth code</FieldLabel>
+            <Field.Label htmlFor={id}>Auth code</Field.Label>
             <OTPField id={id} length={6}>
               <div className="group">
                 <OTPFieldInput />
@@ -469,13 +452,7 @@ Use manual composition when the code should be split into visual groups.
 
   <Preview.Code>
     {`
-      import {
-        Field,
-        FieldDescription,
-        FieldLabel,
-        OTPField,
-        OTPFieldInput,
-      } from "moduix";
+      import { Field, OTPField, OTPFieldInput } from "moduix";
       import { useId } from "react";
 
       export function PlaceholderOTPField() {
@@ -483,10 +460,10 @@ Use manual composition when the code should be split into visual groups.
 
         return (
           <Field>
-            <FieldLabel htmlFor={id}>Verification code</FieldLabel>
-            <FieldDescription>
+            <Field.Label htmlFor={id}>Verification code</Field.Label>
+            <Field.HelperText>
               Placeholder hints stay visible until the active slot is focused.
-            </FieldDescription>
+            </Field.HelperText>
             <OTPField id={id} length={6}>
               <OTPFieldInput className="placeholderInput" placeholder="•" />
               <OTPFieldInput
@@ -548,14 +525,7 @@ separator need different visual treatment.
 
   <Preview.Code>
     {`
-      import {
-        Field,
-        FieldLabel,
-        OTPField,
-        OTPFieldInput,
-        OTPFieldSeparator,
-        SeparatorMarkIcon,
-      } from "moduix";
+      import { Field, OTPField, OTPFieldInput, OTPFieldSeparator, SeparatorMarkIcon } from "moduix";
       import { useId } from "react";
 
       export function StyledOTPField() {
@@ -563,7 +533,7 @@ separator need different visual treatment.
 
         return (
           <Field>
-            <FieldLabel htmlFor={id}>Styled code</FieldLabel>
+            <Field.Label htmlFor={id}>Styled code</Field.Label>
             <OTPField id={id} length={6} className="customRoot">
               <div className="group">
                 <OTPFieldInput className="customInput" />

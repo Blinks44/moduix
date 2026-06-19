@@ -84,6 +84,10 @@ informs the public contract.
   `use*Context`, or related exported types, expose the matching surface from the moduix wrapper and package barrel
   unless there is an intentional, documented reason not to. Verify docs imports from `moduix` compile against the
   public barrel, not just the component file.
+- Prefer namespace-first exports for multipart Ark components. When the public wrapper is `Component` with
+  attached parts such as `Component.Root`, `Component.Item`, `Component.Label`, do not also export flat aliases like
+  `ComponentRoot`, `ComponentItem`, or `ComponentLabel` unless there is an intentional, documented exception.
+  Hooks and public types may still be exported separately.
 - When using `RootProvider`, do not also render the matching `Root` for the same state instance.
 - Use `asChild` for custom host elements and keep the child single, semantic, and capable of the required
   interaction behavior.

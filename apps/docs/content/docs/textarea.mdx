@@ -40,15 +40,15 @@ and issue or note entry.
 
   <Preview.Code>
     {`
-      import { Field, FieldDescription, FieldLabel, Textarea } from "moduix";
+      import { Field, Textarea } from "moduix";
 
       export function TextareaDemo() {
         return (
           <Field className={styles.field}>
-            <FieldLabel>Comment</FieldLabel>
-            <FieldDescription>
+            <Field.Label>Comment</Field.Label>
+            <Field.HelperText>
               Included in the issue summary visible to the whole team.
-            </FieldDescription>
+            </Field.HelperText>
             <Textarea placeholder="Write a short comment" />
           </Field>
         );
@@ -137,7 +137,7 @@ Stay with `Textarea` for normal multi-line text entry.
 Use `Textarea` directly for native props such as `rows`, `name`, `placeholder`, `maxLength`,
 `readOnly`, `disabled`, `required`, `value`, and `defaultValue`.
 
-Wrap it with `Field`, `FieldLabel`, `FieldDescription`, and `FieldError` when the input should
+Wrap it with `Field`, `Field.Label`, `Field.HelperText`, and `Field.ErrorText` when the input should
 share declarative labels, helper text, and validation messaging.
 
 ### When to go custom
@@ -166,7 +166,7 @@ Use `value` and `onValueChange` when content should stay in React state.
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, Textarea } from "moduix";
+      import { Field, Textarea } from "moduix";
       import { useState } from "react";
 
       function ControlledTextarea() {
@@ -174,7 +174,7 @@ Use `value` and `onValueChange` when content should stay in React state.
 
         return (
           <Field className={styles.field}>
-            <FieldLabel>Feedback</FieldLabel>
+            <Field.Label>Feedback</Field.Label>
             <Textarea
               value={value}
               onValueChange={setValue}
@@ -206,12 +206,12 @@ Use native textarea props for sizing, browser behavior, and form submission.
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, Textarea } from "moduix";
+      import { Field, Textarea } from "moduix";
 
       export function TextareaNativeAttributesDemo() {
         return (
           <Field className={styles.field}>
-            <FieldLabel>Notes</FieldLabel>
+            <Field.Label>Notes</Field.Label>
             <Textarea
               name="notes"
               rows={6}
@@ -245,12 +245,12 @@ Use `autoResize` when the textarea should grow with its content.
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, Textarea } from "moduix";
+      import { Field, Textarea } from "moduix";
 
       export function AutoResizeTextareaDemo() {
         return (
           <Field className={styles.field}>
-            <FieldLabel>Issue description</FieldLabel>
+            <Field.Label>Issue description</Field.Label>
             <Textarea
               autoResize
               placeholder="Start typing a longer description. Height grows with content."
@@ -274,25 +274,25 @@ Use `autoResize` when the textarea should grow with its content.
 
 ### Field Validation
 
-Use `Field` with `FieldError` for native validity and accessible error messaging.
+Use `Field` with `Field.ErrorText` for native validity and accessible error messaging.
 
 <Preview>
   <FieldValidationTextareaExample />
 
   <Preview.Code>
     {`
-      import { Field, FieldDescription, FieldError, FieldLabel, Textarea } from "moduix";
+      import { Field, Textarea } from "moduix";
 
       export function TextareaFieldValidationDemo() {
         return (
-          <Field className={styles.field} validationMode="onBlur">
-            <FieldLabel>Details</FieldLabel>
+          <Field className={styles.field} >
+            <Field.Label>Details</Field.Label>
             <Textarea required minLength={10} placeholder="Add at least 10 characters" />
-            <FieldDescription>
+            <Field.HelperText>
               Include enough detail for the team to reproduce the issue.
-            </FieldDescription>
-            <FieldError match="valueMissing">Please provide details.</FieldError>
-            <FieldError match="tooShort">Enter at least 10 characters.</FieldError>
+            </Field.HelperText>
+            <Field.ErrorText>Please provide details.</Field.ErrorText>
+            <Field.ErrorText>Enter at least 10 characters.</Field.ErrorText>
           </Field>
         );
       }
@@ -356,16 +356,7 @@ edit mode starts.
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        CheckIcon,
-        CloseIcon,
-        Field,
-        FieldDescription,
-        FieldLabel,
-        PencilIcon,
-        Textarea,
-      } from "moduix";
+      import { Button, CheckIcon, CloseIcon, Field, PencilIcon, Textarea } from "moduix";
       import { useEffect, useRef, useState } from "react";
 
       export function ReadonlyEditingTextareaDemo() {
@@ -399,10 +390,10 @@ edit mode starts.
 
         return (
           <Field className={styles.field}>
-            <FieldLabel>Team note</FieldLabel>
-            <FieldDescription>
+            <Field.Label>Team note</Field.Label>
+            <Field.HelperText>
               The textarea stays mounted and only switches between read-only and editable modes.
-            </FieldDescription>
+            </Field.HelperText>
             <Textarea
               ref={textareaRef}
               autoResize
@@ -459,12 +450,12 @@ Pass `className` when the textarea root needs local styling overrides.
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, Textarea } from "moduix";
+      import { Field, Textarea } from "moduix";
 
       export function CustomTextareaDemo() {
         return (
           <Field className={styles.field}>
-            <FieldLabel>Notes</FieldLabel>
+            <Field.Label>Notes</Field.Label>
             <Textarea className={styles.customTextarea} placeholder="Styled textarea" />
           </Field>
         );

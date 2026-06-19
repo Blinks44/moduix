@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useId, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
-import { Field, FieldError, FieldLabel } from '../field';
+import { Field } from '../field';
 import {
   NumberField,
   NumberFieldDecrement,
@@ -33,7 +33,7 @@ export const Basic: Story = {
 
     return (
       <Field>
-        <FieldLabel htmlFor={id}>Amount</FieldLabel>
+        <Field.Label htmlFor={id}>Amount</Field.Label>
         <NumberField id={id} defaultValue={100} />
       </Field>
     );
@@ -48,7 +48,7 @@ export const Controlled: Story = {
     return (
       <div className={storyStyles.stack}>
         <Field>
-          <FieldLabel htmlFor={id}>Controlled Value</FieldLabel>
+          <Field.Label htmlFor={id}>Controlled Value</Field.Label>
           <NumberField id={id} value={value} onValueChange={setValue} />
         </Field>
         <span className={storyStyles.hint}>Current value: {value ?? 'empty'}</span>
@@ -63,7 +63,7 @@ export const MinMaxAndStep: Story = {
 
     return (
       <Field>
-        <FieldLabel htmlFor={id}>Quantity (0-20, step 2)</FieldLabel>
+        <Field.Label htmlFor={id}>Quantity (0-20, step 2)</Field.Label>
         <NumberField id={id} defaultValue={10} min={0} max={20} step={2} />
       </Field>
     );
@@ -76,7 +76,7 @@ export const Formatted: Story = {
 
     return (
       <Field>
-        <FieldLabel htmlFor={id}>Price</FieldLabel>
+        <Field.Label htmlFor={id}>Price</Field.Label>
         <NumberField
           id={id}
           defaultValue={1250}
@@ -94,10 +94,10 @@ export const WithScrubArea: Story = {
     const id = useId();
 
     return (
-      <Field name="quantity">
+      <Field>
         <NumberField defaultValue={250} id={id}>
           <NumberFieldScrubArea>
-            <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
+            <Field.Label htmlFor={id}>Drag to scrub</Field.Label>
             <NumberFieldScrubAreaCursor />
           </NumberFieldScrubArea>
         </NumberField>
@@ -111,12 +111,12 @@ export const WithFieldValidation: Story = {
     const id = useId();
 
     return (
-      <Field name="quantity" validationMode="onBlur">
-        <FieldLabel htmlFor={id}>Items</FieldLabel>
+      <Field>
+        <Field.Label htmlFor={id}>Items</Field.Label>
         <NumberField id={id} min={1} max={10} required />
-        <FieldError match="valueMissing">Please provide a number.</FieldError>
-        <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
-        <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
+        <Field.ErrorText>Please provide a number.</Field.ErrorText>
+        <Field.ErrorText>Value should be at least 1.</Field.ErrorText>
+        <Field.ErrorText>Value should be at most 10.</Field.ErrorText>
       </Field>
     );
   },
@@ -128,7 +128,7 @@ export const CustomIcons: Story = {
 
     return (
       <Field>
-        <FieldLabel htmlFor={id}>Floors</FieldLabel>
+        <Field.Label htmlFor={id}>Floors</Field.Label>
         <NumberFieldRoot id={id} defaultValue={8}>
           <NumberFieldGroup>
             <NumberFieldDecrement className={storyStyles.customButton}>
@@ -151,7 +151,7 @@ export const CustomButtonLabels: Story = {
 
     return (
       <Field>
-        <FieldLabel htmlFor={id}>Seats</FieldLabel>
+        <Field.Label htmlFor={id}>Seats</Field.Label>
         <NumberField
           id={id}
           defaultValue={2}

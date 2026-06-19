@@ -1,13 +1,4 @@
-import {
-  ColorPicker,
-  Dialog,
-  Field,
-  FieldDescription,
-  FieldError,
-  Portal,
-  parseColor,
-  useColorPicker,
-} from 'moduix';
+import { ColorPicker, Dialog, Field, Portal, parseColor, useColorPicker } from 'moduix';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -445,7 +436,7 @@ export function FormUsageColorPickerExample() {
         setSubmitted(String(new FormData(event.currentTarget).get('accent') ?? ''));
       }}
     >
-      <ColorPicker.Root name="accent" defaultValue={parseColor('#eb5e41')}>
+      <ColorPicker.Root defaultValue={parseColor('#eb5e41')}>
         <PickerField />
       </ColorPicker.Root>
       <button className={styles.submitButton} type="submit">
@@ -650,8 +641,8 @@ export function CustomStylingColorPickerExample() {
 
 export function FieldStateColorPickerExample() {
   return (
-    <Field validationMode="onBlur" className={styles.field}>
-      <ColorPicker.Root required invalid name="accent" defaultValue={parseColor('#eb5e41')}>
+    <Field className={styles.field}>
+      <ColorPicker.Root required invalid defaultValue={parseColor('#eb5e41')}>
         <ColorPicker.Label>Accent color</ColorPicker.Label>
         <ColorPicker.Control>
           <ColorPicker.ChannelInput channel="hex" />
@@ -663,8 +654,8 @@ export function FieldStateColorPickerExample() {
         </ColorPicker.Control>
         <ColorPicker.HiddenInput />
       </ColorPicker.Root>
-      <FieldDescription>Used for generated charts and callouts.</FieldDescription>
-      <FieldError match="valueMissing">Choose an accent color.</FieldError>
+      <Field.HelperText>Used for generated charts and callouts.</Field.HelperText>
+      <Field.ErrorText>Choose an accent color.</Field.ErrorText>
     </Field>
   );
 }

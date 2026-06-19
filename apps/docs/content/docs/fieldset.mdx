@@ -35,30 +35,23 @@ for grouped form sections such as billing details or profile settings.
 
   <Preview.Code>
     {`
-      import {
-        Field,
-        FieldControl,
-        FieldError,
-        FieldLabel,
-        Fieldset,
-        FieldsetLegend,
-      } from "moduix";
+      import { Field, Fieldset, FieldsetLegend } from "moduix";
 
       export function FieldsetDemo() {
         return (
           <Fieldset>
             <FieldsetLegend>Billing details</FieldsetLegend>
 
-            <Field validationMode="onBlur">
-              <FieldLabel>Company</FieldLabel>
-              <FieldControl required placeholder="Enter company name" />
-              <FieldError match="valueMissing">Please enter company name.</FieldError>
+            <Field >
+              <Field.Label>Company</Field.Label>
+              <Field.Input required placeholder="Enter company name" />
+              <Field.ErrorText>Please enter company name.</Field.ErrorText>
             </Field>
 
-            <Field validationMode="onBlur">
-              <FieldLabel>Tax ID</FieldLabel>
-              <FieldControl required placeholder="Enter tax ID" />
-              <FieldError match="valueMissing">Please enter tax ID.</FieldError>
+            <Field >
+              <Field.Label>Tax ID</Field.Label>
+              <Field.Input required placeholder="Enter tax ID" />
+              <Field.ErrorText>Please enter tax ID.</Field.ErrorText>
             </Field>
           </Fieldset>
         );
@@ -124,10 +117,10 @@ Fieldset
 ├─ FieldsetLegend
 └─ grouped content
    ├─ Field
-   │  ├─ FieldLabel
-   │  ├─ FieldControl
-   │  └─ FieldError
-   └─ Field / FieldItem rows (optional)
+   │  ├─ Field.Label
+   │  ├─ Field.Input
+   │  └─ Field.ErrorText
+   └─ Field / Field.Item rows (optional)
 ```
 
 | Part             | Role                                                                                                  |
@@ -182,13 +175,7 @@ Use `disabled` on `Fieldset` to prevent interaction with every native control in
 
   <Preview.Code>
     {`
-      import {
-        Field,
-        FieldControl,
-        FieldLabel,
-        Fieldset,
-        FieldsetLegend,
-      } from "moduix";
+      import { Field, Fieldset, FieldsetLegend } from "moduix";
 
       export function DisabledFieldsetDemo() {
         return (
@@ -196,13 +183,13 @@ Use `disabled` on `Fieldset` to prevent interaction with every native control in
             <FieldsetLegend>Disabled account details</FieldsetLegend>
 
             <Field>
-              <FieldLabel>Email</FieldLabel>
-              <FieldControl defaultValue="team@example.com" />
+              <Field.Label>Email</Field.Label>
+              <Field.Input defaultValue="team@example.com" />
             </Field>
 
             <Field>
-              <FieldLabel>Phone</FieldLabel>
-              <FieldControl defaultValue="+1 (555) 123-45-67" />
+              <Field.Label>Phone</Field.Label>
+              <Field.Input defaultValue="+1 (555) 123-45-67" />
             </Field>
           </Fieldset>
         );
@@ -214,7 +201,7 @@ Use `disabled` on `Fieldset` to prevent interaction with every native control in
 
 ### Custom Composition
 
-Use `render` when the semantic fieldset also needs to be another Base UI root. This is the main
+Use `render` when the semantic fieldset also needs to be another selection-group root. This is the
 advanced composition path for radio groups and checkbox groups inside forms.
 
 <Preview>
@@ -222,36 +209,29 @@ advanced composition path for radio groups and checkbox groups inside forms.
 
   <Preview.Code>
     {`
-      import {
-        Field,
-        FieldItem,
-        FieldLabel,
-        Fieldset,
-        FieldsetLegend,
-        Radio,
-        RadioGroup,
-        RadioLabel,
-      } from "moduix";
+      import { Field, Fieldset, FieldsetLegend, RadioGroup } from "moduix";
 
       export function StorageTypeFieldset() {
         return (
-          <Field name="storageType">
+          <Field >
             <Fieldset render={<RadioGroup defaultValue="ssd" />}>
               <FieldsetLegend>Storage type</FieldsetLegend>
 
-              <FieldItem>
-                <FieldLabel>
-                  <Radio value="ssd" />
-                  <RadioLabel>SSD</RadioLabel>
-                </FieldLabel>
-              </FieldItem>
+              <Field.Item value="ssd">
+                <RadioGroup.Item value="ssd">
+                  <RadioGroup.ItemControl />
+                  <RadioGroup.ItemText>SSD</RadioGroup.ItemText>
+                  <RadioGroup.ItemHiddenInput />
+                </RadioGroup.Item>
+              </Field.Item>
 
-              <FieldItem>
-                <FieldLabel>
-                  <Radio value="hdd" />
-                  <RadioLabel>HDD</RadioLabel>
-                </FieldLabel>
-              </FieldItem>
+              <Field.Item value="hdd">
+                <RadioGroup.Item value="hdd">
+                  <RadioGroup.ItemControl />
+                  <RadioGroup.ItemText>HDD</RadioGroup.ItemText>
+                  <RadioGroup.ItemHiddenInput />
+                </RadioGroup.Item>
+              </Field.Item>
             </Fieldset>
           </Field>
         );
@@ -271,14 +251,7 @@ Modules.
 
   <Preview.Code>
     {`
-      import {
-        Field,
-        FieldControl,
-        FieldError,
-        FieldLabel,
-        Fieldset,
-        FieldsetLegend,
-      } from "moduix";
+      import { Field, Fieldset, FieldsetLegend } from "moduix";
 
       export function StyledFieldsetDemo() {
         return (
@@ -287,16 +260,16 @@ Modules.
               Styled fieldset
             </FieldsetLegend>
 
-            <Field validationMode="onBlur" className="customField">
-              <FieldLabel className="customLabel">Project name</FieldLabel>
-              <FieldControl
+            <Field className="customField">
+              <Field.Label className="customLabel">Project name</Field.Label>
+              <Field.Input
                 required
                 placeholder="Maps Platform"
                 className="customControl"
               />
-              <FieldError className="customError" match="valueMissing">
+              <Field.ErrorText className="customError">
                 Please enter a project name.
-              </FieldError>
+              </Field.ErrorText>
             </Field>
           </Fieldset>
         );

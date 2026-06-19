@@ -1,0 +1,531 @@
+---
+title: Radio Group
+description: Ark UI radio-group composition for selecting one value from a visible set.
+icon: Component
+---
+
+import {
+  ControlledRadioGroupExample,
+  DisabledRadioGroupExample,
+  RadioGroupAsChildExample,
+  RadioGroupCssPropertiesPanel,
+  RadioGroupCustomStylingExample,
+  RadioGroupExample,
+  RadioGroupFieldsetExample,
+  RadioGroupIndicatorExample,
+  RadioGroupInitialValueExample,
+  RadioGroupOrientationExample,
+  RadioGroupRootProviderExample,
+  RadioGroupSizesExample,
+  radioGroupAsChildCss,
+  radioGroupCustomStylingCss,
+  radioGroupExampleCss,
+  radioGroupFrameworksData,
+  radioGroupIndicatorCss,
+} from '@/components/examples/radio-group';
+
+## API Reference
+
+<BaseUIReference href="https://ark-ui.com/docs/components/radio-group" />
+
+## Basic
+
+Use Ark-style parts: `RadioGroup.Root`, `RadioGroup.Label`, `RadioGroup.Item`,
+`RadioGroup.ItemControl`, `RadioGroup.ItemText`, and `RadioGroup.ItemHiddenInput`.
+
+<Preview>
+  <RadioGroupExample />
+
+  <Preview.Code>
+    {`
+      import { RadioGroup } from "moduix";
+
+      export function RadioGroupDemo() {
+        return (
+          <RadioGroup.Root defaultValue="React">
+            <RadioGroup.Label>Framework</RadioGroup.Label>
+            {frameworks.map((framework) => (
+              <RadioGroup.Item key={framework} value={framework}>
+                <RadioGroup.ItemControl />
+                <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
+                <RadioGroup.ItemHiddenInput />
+              </RadioGroup.Item>
+            ))}
+          </RadioGroup.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `RadioGroup` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/radio-group
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/radio-group
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/radio-group
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/radio-group
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/radio-group
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+RadioGroup.Root
+├─ RadioGroup.Label
+├─ RadioGroup.Indicator (optional)
+└─ RadioGroup.Item[value]
+   ├─ RadioGroup.ItemControl
+   ├─ RadioGroup.ItemText
+   └─ RadioGroup.ItemHiddenInput
+
+RadioGroup.RootProvider
+└─ same item tree connected to a useRadioGroup() store
+```
+
+| Part                         | Role                                                       |
+| ---------------------------- | ---------------------------------------------------------- |
+| `RadioGroup` / `.Root`       | Owns value state, keyboard navigation, orientation, forms. |
+| `RadioGroup.RootProvider`    | Connects parts to state created with `useRadioGroup()`.    |
+| `RadioGroup.Label`           | Accessible label for the group.                            |
+| `RadioGroup.Item`            | One selectable option; renders a `label` by default.       |
+| `RadioGroup.ItemControl`     | Visual radio control; supports the moduix `size` prop.     |
+| `RadioGroup.ItemText`        | Visible option text.                                       |
+| `RadioGroup.ItemHiddenInput` | Native input for form submission, validation, and reset.   |
+| `RadioGroup.Indicator`       | Optional active-item indicator using Ark measurement vars. |
+| `RadioGroup.Context`         | Reads root state through an Ark render prop.               |
+| `RadioGroup.ItemContext`     | Reads item state through an Ark render prop.               |
+
+## Composition
+
+`RadioGroup.Root` accepts Ark props such as `value`, `defaultValue`,
+`onValueChange(details)`, `name`, `form`, `orientation`, `disabled`, `invalid`, `readOnly`,
+`required`, `ids`, and `asChild`.
+
+Use `RadioGroup` as the short form for `RadioGroup.Root`. Use `RadioGroup.RootProvider` with
+`useRadioGroup()` when state must be created outside the rendered group tree.
+
+`RadioGroup.ItemHiddenInput` should stay in each item that participates in native forms. When using
+`RadioGroup.Item asChild`, the direct child must still be a semantic `label`.
+
+## Examples
+
+### Initial Value
+
+Set `defaultValue` when the initial checked item is known but the group can manage later updates.
+
+<Preview>
+  <RadioGroupInitialValueExample />
+
+  <Preview.Code>
+    {`
+      import { RadioGroup } from "moduix";
+
+      export function InitialValueDemo() {
+        return (
+          <RadioGroup.Root defaultValue="Solid">
+            <RadioGroup.Label>Framework</RadioGroup.Label>
+            {frameworks.map((framework) => (
+              <RadioGroup.Item key={framework} value={framework}>
+                <RadioGroup.ItemControl />
+                <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
+                <RadioGroup.ItemHiddenInput />
+              </RadioGroup.Item>
+            ))}
+          </RadioGroup.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+</Preview>
+
+### Controlled
+
+Use `value` with `onValueChange(details)` when selected value is owned by surrounding UI.
+
+<Preview>
+  <ControlledRadioGroupExample />
+
+  <Preview.Code>
+    {`
+      import { RadioGroup } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledRadioGroupDemo() {
+        const [value, setValue] = useState(null as string | null);
+
+        return (
+          <RadioGroup.Root value={value} onValueChange={(details) => setValue(details.value)}>
+            <RadioGroup.Label>Framework</RadioGroup.Label>
+            {frameworks.map((framework) => (
+              <RadioGroup.Item key={framework} value={framework}>
+                <RadioGroup.ItemControl />
+                <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
+                <RadioGroup.ItemHiddenInput />
+              </RadioGroup.Item>
+            ))}
+          </RadioGroup.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+</Preview>
+
+### Root Provider
+
+Use `RootProvider` when a `useRadioGroup()` store needs to be shared with controls outside the
+radio tree.
+
+<Preview>
+  <RadioGroupRootProviderExample />
+
+  <Preview.Code>
+    {`
+      import { RadioGroup, useRadioGroup } from "moduix";
+
+      export function RadioGroupRootProviderDemo() {
+        const radioGroup = useRadioGroup({ defaultValue: "React" });
+
+        return (
+          <div className="radio-stack">
+            <RadioGroup.RootProvider value={radioGroup}>
+              <RadioGroup.Label>Framework</RadioGroup.Label>
+              {frameworks.map((framework) => (
+                <RadioGroup.Item key={framework} value={framework}>
+                  <RadioGroup.ItemControl />
+                  <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
+                  <RadioGroup.ItemHiddenInput />
+                </RadioGroup.Item>
+              ))}
+            </RadioGroup.RootProvider>
+            <button className="radio-button" type="button" onClick={() => radioGroup.setValue("Solid")}>
+              Set to Solid
+            </button>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+</Preview>
+
+### Disabled
+
+Set `disabled` on the root to make every item unavailable while keeping the selected value visible.
+
+<Preview>
+  <DisabledRadioGroupExample />
+
+  <Preview.Code>
+    {`
+      import { RadioGroup } from "moduix";
+
+      export function DisabledRadioGroupDemo() {
+        return (
+          <RadioGroup.Root defaultValue="React" disabled>
+            <RadioGroup.Label>Framework</RadioGroup.Label>
+            {frameworks.map((framework) => (
+              <RadioGroup.Item key={framework} value={framework}>
+                <RadioGroup.ItemControl />
+                <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
+                <RadioGroup.ItemHiddenInput />
+              </RadioGroup.Item>
+            ))}
+          </RadioGroup.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+</Preview>
+
+### Orientation
+
+Set `orientation="horizontal"` when arrow-key behavior and layout should follow a horizontal group.
+
+<Preview>
+  <RadioGroupOrientationExample />
+
+  <Preview.Code>
+    {`
+      import { RadioGroup } from "moduix";
+
+      export function RadioGroupOrientationDemo() {
+        return (
+          <RadioGroup.Root orientation="horizontal" defaultValue="React">
+            <RadioGroup.Label>Framework</RadioGroup.Label>
+            <div className="radio-inline-items">
+              {frameworks.map((framework) => (
+                <RadioGroup.Item key={framework} value={framework}>
+                  <RadioGroup.ItemControl />
+                  <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
+                  <RadioGroup.ItemHiddenInput />
+                </RadioGroup.Item>
+              ))}
+            </div>
+          </RadioGroup.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+</Preview>
+
+### With Fieldset
+
+Wrap the group in `Fieldset` when several radio items share a form section legend.
+
+<Preview>
+  <RadioGroupFieldsetExample />
+
+  <Preview.Code>
+    {`
+      import { Fieldset, FieldsetLegend, RadioGroup } from "moduix";
+
+      export function RadioGroupFieldsetDemo() {
+        return (
+          <Fieldset>
+            <FieldsetLegend>Select a framework</FieldsetLegend>
+            <RadioGroup.Root defaultValue="React">
+              {frameworks.map((framework) => (
+                <RadioGroup.Item key={framework} value={framework}>
+                  <RadioGroup.ItemControl />
+                  <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
+                  <RadioGroup.ItemHiddenInput />
+                </RadioGroup.Item>
+              ))}
+            </RadioGroup.Root>
+          </Fieldset>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+</Preview>
+
+### Sizes
+
+Use the moduix `size` prop on `ItemControl` when the radio control needs a different diameter.
+
+<Preview>
+  <RadioGroupSizesExample />
+
+  <Preview.Code>
+    {`
+      import { RadioGroup } from "moduix";
+
+      export function RadioGroupSizesDemo() {
+        return (
+          <RadioGroup.Root defaultValue="md">
+            <RadioGroup.Label>Control Size</RadioGroup.Label>
+            {["xs", "sm", "md", "lg", "xl"].map((size) => (
+              <RadioGroup.Item key={size} value={size}>
+                <RadioGroup.ItemControl size={size} />
+                <RadioGroup.ItemText>{size.toUpperCase()}</RadioGroup.ItemText>
+                <RadioGroup.ItemHiddenInput />
+              </RadioGroup.Item>
+            ))}
+          </RadioGroup.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
+  <Preview.Data>
+    {`
+      const sizes = ["xs", "sm", "md", "lg", "xl"];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### asChild
+
+Use `RadioGroup.Item asChild` when a custom label layout should own the item DOM node.
+
+<Preview>
+  <RadioGroupAsChildExample />
+
+  <Preview.Code>
+    {`
+      import { RadioGroup } from "moduix";
+
+      export function RadioGroupAsChildDemo() {
+        return (
+          <RadioGroup.Root defaultValue="React">
+            <RadioGroup.Label>Framework</RadioGroup.Label>
+            {frameworks.map((framework) => (
+              <RadioGroup.Item key={framework} value={framework} asChild>
+                <label className="radio-card-item">
+                  <RadioGroup.ItemControl />
+                  <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
+                  <RadioGroup.ItemHiddenInput />
+                </label>
+              </RadioGroup.Item>
+            ))}
+          </RadioGroup.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{radioGroupAsChildCss}</Preview.CSS>
+  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+</Preview>
+
+### Custom Styling
+
+Pass `className` to the Ark part that owns the visual concern and style Ark state attributes.
+
+<Preview>
+  <RadioGroupCustomStylingExample />
+
+  <Preview.Code>
+    {`
+      import { RadioGroup } from "moduix";
+
+      export function StyledRadioGroupDemo() {
+        return (
+          <RadioGroup.Root defaultValue="React" className="radio-custom-root">
+            <RadioGroup.Label className="radio-custom-label">Styled Framework</RadioGroup.Label>
+            {frameworks.map((framework) => (
+              <RadioGroup.Item key={framework} value={framework} className="radio-custom-item">
+                <RadioGroup.ItemControl className="radio-custom-control" />
+                <RadioGroup.ItemText className="radio-custom-text">{framework}</RadioGroup.ItemText>
+                <RadioGroup.ItemHiddenInput />
+              </RadioGroup.Item>
+            ))}
+          </RadioGroup.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{radioGroupCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+</Preview>
+
+### Indicator
+
+Render `RadioGroup.Indicator` when the active item needs an additional measured group highlight.
+Keep non-item content outside the same positioning context so the indicator tracks item geometry
+exactly.
+
+<Preview>
+  <RadioGroupIndicatorExample />
+
+  <Preview.Code>
+    {`
+      import { RadioGroup } from "moduix";
+
+      export function RadioGroupIndicatorDemo() {
+        return (
+          <div className="radio-indicator-stack">
+            <div>Framework</div>
+            <RadioGroup.Root aria-label="Framework" defaultValue="React" className="radio-indicator-root">
+              <RadioGroup.Indicator className="radio-group-indicator" />
+              {frameworks.map((framework) => (
+                <RadioGroup.Item key={framework} value={framework}>
+                  <RadioGroup.ItemControl />
+                  <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
+                  <RadioGroup.ItemHiddenInput />
+                </RadioGroup.Item>
+              ))}
+            </RadioGroup.Root>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{radioGroupIndicatorCss}</Preview.CSS>
+  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+</Preview>
+
+## Styling
+
+Style `RadioGroup` through `className`, stable `data-slot="radio-group-*"` hooks, Ark
+`data-scope`, `data-part`, `data-state`, and the public `--radio-*` CSS variables below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <RadioGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- Ark anatomy hooks: `data-scope="radio-group"` and `data-part` on root, label, item,
+  item-control, item-text, item-hidden-input, and indicator.
+- Ark state hooks: `data-state="checked|unchecked"`, `data-disabled`, `data-invalid`,
+  `data-required`, `data-focus-visible`, and `data-orientation`.
+- Ark indicator variables: `--transition-property`, `--left`, `--top`, `--width`, and `--height`.
+- Moduix hooks: `data-slot="radio-group-root"`, `radio-group-label`,
+  `radio-group-item`, `radio-group-item-control`, `radio-group-item-text`,
+  `radio-group-item-hidden-input`, and `radio-group-indicator`.

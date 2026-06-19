@@ -16,6 +16,7 @@ const uiPrimitiveOptimizeDeps = [
   '@ark-ui/react/carousel',
   '@ark-ui/react/checkbox',
   '@ark-ui/react/collapsible',
+  '@ark-ui/react/radio-group',
   '@base-ui/react/alert-dialog',
   '@base-ui/react/autocomplete',
   '@base-ui/react/combobox',

@@ -40,7 +40,7 @@ default decrement/input/increment composition.
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, NumberField } from "moduix";
+      import { Field, NumberField } from "moduix";
       import { useId } from "react";
 
       export function NumberFieldDemo() {
@@ -48,7 +48,7 @@ default decrement/input/increment composition.
 
         return (
           <Field>
-            <FieldLabel htmlFor={id}>Amount</FieldLabel>
+            <Field.Label htmlFor={id}>Amount</Field.Label>
             <NumberField id={id} defaultValue={100} />
           </Field>
         );
@@ -110,7 +110,7 @@ The normal consumer path is short:
 
 ```text
 Field
-├─ FieldLabel
+├─ Field.Label
 └─ NumberField
    ├─ NumberFieldScrubArea (optional)
    │  ├─ scrub label or helper text
@@ -169,7 +169,7 @@ Use custom composition for cases such as:
 
 ### Behavioral notes
 
-- `id` on `NumberField` or `NumberFieldRoot` becomes the managed input id, so `FieldLabel htmlFor={id}` works as expected.
+- `id` on `NumberField` or `NumberFieldRoot` becomes the managed input id, so `Field.Label htmlFor={id}` works as expected.
 - Use `value` with `onValueChange` for controlled numeric state, or `defaultValue` for uncontrolled usage.
 - The empty state is `null`, not an empty string.
 - `inputRef` belongs on the root when external code needs imperative access to the real input element.
@@ -186,7 +186,7 @@ Use a controlled value when adjacent UI should react to the current number immed
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, NumberField } from "moduix";
+      import { Field, NumberField } from "moduix";
       import { useId, useState } from "react";
 
       export function ControlledNumberFieldDemo() {
@@ -196,7 +196,7 @@ Use a controlled value when adjacent UI should react to the current number immed
         return (
           <div>
             <Field>
-              <FieldLabel htmlFor={id}>Controlled value</FieldLabel>
+              <Field.Label htmlFor={id}>Controlled value</Field.Label>
               <NumberField id={id} value={value} onValueChange={setValue} />
             </Field>
             <span>Current value: {value ?? "empty"}</span>
@@ -218,7 +218,7 @@ real numeric range.
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, NumberField } from "moduix";
+      import { Field, NumberField } from "moduix";
       import { useId } from "react";
 
       export function MinMaxStepNumberFieldDemo() {
@@ -226,7 +226,7 @@ real numeric range.
 
         return (
           <Field>
-            <FieldLabel htmlFor={id}>Quantity (0-20, step 2)</FieldLabel>
+            <Field.Label htmlFor={id}>Quantity (0-20, step 2)</Field.Label>
             <NumberField id={id} defaultValue={10} min={0} max={20} step={2} />
           </Field>
         );
@@ -245,7 +245,7 @@ Use `format` for localized display while keeping the underlying value numeric.
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, NumberField } from "moduix";
+      import { Field, NumberField } from "moduix";
       import { useId } from "react";
 
       export function FormattedNumberFieldDemo() {
@@ -253,7 +253,7 @@ Use `format` for localized display while keeping the underlying value numeric.
 
         return (
           <Field>
-            <FieldLabel htmlFor={id}>Price</FieldLabel>
+            <Field.Label htmlFor={id}>Price</Field.Label>
             <NumberField
               id={id}
               defaultValue={1250}
@@ -279,7 +279,7 @@ screen-reader text.
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, NumberField } from "moduix";
+      import { Field, NumberField } from "moduix";
       import { useId } from "react";
 
       export function NumberFieldLabelsDemo() {
@@ -287,7 +287,7 @@ screen-reader text.
 
         return (
           <Field>
-            <FieldLabel htmlFor={id}>Seats</FieldLabel>
+            <Field.Label htmlFor={id}>Seats</Field.Label>
             <NumberField
               id={id}
               defaultValue={2}
@@ -312,13 +312,7 @@ interaction above the built-in stepper.
 
   <Preview.Code>
     {`
-      import {
-        Field,
-        FieldLabel,
-        NumberField,
-        NumberFieldScrubArea,
-        NumberFieldScrubAreaCursor,
-      } from "moduix";
+      import { Field, NumberField, NumberFieldScrubArea, NumberFieldScrubAreaCursor } from "moduix";
       import { useId } from "react";
 
       export function ScrubAreaNumberFieldDemo() {
@@ -328,7 +322,7 @@ interaction above the built-in stepper.
           <Field>
             <NumberField id={id} defaultValue={250}>
               <NumberFieldScrubArea>
-                <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
+                <Field.Label htmlFor={id}>Drag to scrub</Field.Label>
                 <NumberFieldScrubAreaCursor />
               </NumberFieldScrubArea>
             </NumberField>
@@ -350,19 +344,19 @@ declarative error messages.
 
   <Preview.Code>
     {`
-      import { Field, FieldError, FieldLabel, NumberField } from "moduix";
+      import { Field, NumberField } from "moduix";
       import { useId } from "react";
 
       export function NumberFieldValidationDemo() {
         const id = useId();
 
         return (
-          <Field name="quantity" validationMode="onBlur">
-            <FieldLabel htmlFor={id}>Items</FieldLabel>
+          <Field  >
+            <Field.Label htmlFor={id}>Items</Field.Label>
             <NumberField id={id} min={1} max={10} required />
-            <FieldError match="valueMissing">Please provide a number.</FieldError>
-            <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
-            <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
+            <Field.ErrorText>Please provide a number.</Field.ErrorText>
+            <Field.ErrorText>Value should be at least 1.</Field.ErrorText>
+            <Field.ErrorText>Value should be at most 10.</Field.ErrorText>
           </Field>
         );
       }
@@ -381,17 +375,7 @@ change.
 
   <Preview.Code>
     {`
-      import {
-        ChevronDownIcon,
-        ChevronUpIcon,
-        Field,
-        FieldLabel,
-        NumberFieldDecrement,
-        NumberFieldGroup,
-        NumberFieldIncrement,
-        NumberFieldInput,
-        NumberFieldRoot,
-      } from "moduix";
+      import { ChevronDownIcon, ChevronUpIcon, Field, NumberFieldDecrement, NumberFieldGroup, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot } from "moduix";
       import { useId } from "react";
 
       export function CustomIconsNumberFieldDemo() {
@@ -399,7 +383,7 @@ change.
 
         return (
           <Field>
-            <FieldLabel htmlFor={id}>Floors</FieldLabel>
+            <Field.Label htmlFor={id}>Floors</Field.Label>
             <NumberFieldRoot id={id} defaultValue={8}>
               <NumberFieldGroup>
                 <NumberFieldDecrement className="customButton">

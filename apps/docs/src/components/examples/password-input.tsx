@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Field, FieldDescription, FieldError, FieldLabel, PasswordInput } from 'moduix';
+import { Field, PasswordInput } from 'moduix';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -28,8 +28,8 @@ function normalizeCssProperty(property: CssPropertyInput) {
 export function PasswordInputExample(props: ComponentProps<typeof PasswordInput>) {
   return (
     <Field className="password-input-demo-field">
-      <FieldLabel>Password</FieldLabel>
-      <FieldDescription>Use at least 8 characters for production accounts.</FieldDescription>
+      <Field.Label>Password</Field.Label>
+      <Field.HelperText>Use at least 8 characters for production accounts.</Field.HelperText>
       <PasswordInput autoComplete="current-password" placeholder="Enter your password" {...props} />
     </Field>
   );
@@ -40,7 +40,7 @@ export function ControlledPasswordInputExample() {
 
   return (
     <Field className="password-input-demo-field">
-      <FieldLabel>Workspace password</FieldLabel>
+      <Field.Label>Workspace password</Field.Label>
       <PasswordInput
         autoComplete="new-password"
         onValueChange={setValue}
@@ -54,7 +54,7 @@ export function ControlledPasswordInputExample() {
 export function PasswordInputDefaultVisibleExample() {
   return (
     <Field className="password-input-demo-field">
-      <FieldLabel>Temporary password</FieldLabel>
+      <Field.Label>Temporary password</Field.Label>
       <PasswordInput
         defaultValue="S3cur3!"
         defaultVisible
@@ -94,10 +94,10 @@ export function DisabledAndReadOnlyPasswordInputExample() {
 
 export function PasswordInputFieldValidationExample() {
   return (
-    <Field className="password-input-demo-field" validationMode="onBlur">
-      <FieldLabel>Password</FieldLabel>
+    <Field className="password-input-demo-field">
+      <Field.Label>Password</Field.Label>
       <PasswordInput required autoComplete="new-password" placeholder="Create a password" />
-      <FieldError match="valueMissing">Please enter a password.</FieldError>
+      <Field.ErrorText>Please enter a password.</Field.ErrorText>
     </Field>
   );
 }
@@ -105,7 +105,7 @@ export function PasswordInputFieldValidationExample() {
 export function CustomStylesPasswordInputExample() {
   return (
     <Field className="password-input-demo-field">
-      <FieldLabel>Workspace password</FieldLabel>
+      <Field.Label>Workspace password</Field.Label>
       <PasswordInput
         className="password-input-demo-custom-password-input"
         placeholder="Custom password input"

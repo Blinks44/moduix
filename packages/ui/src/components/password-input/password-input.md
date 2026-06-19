@@ -39,14 +39,14 @@ request. For plain text-like fields use `Input`. For richer inline affordances u
 Basic field usage:
 
 ```tsx
-import { Field, FieldError, FieldLabel, PasswordInput } from 'moduix';
+import { Field, PasswordInput } from 'moduix';
 
 export function SignInPasswordField() {
   return (
-    <Field validationMode="onBlur">
-      <FieldLabel>Password</FieldLabel>
+    <Field>
+      <Field.Label>Password</Field.Label>
       <PasswordInput required autoComplete="current-password" placeholder="Enter your password" />
-      <FieldError match="valueMissing">Please enter your password.</FieldError>
+      <Field.ErrorText>Please enter your password.</Field.ErrorText>
     </Field>
   );
 }
@@ -115,7 +115,7 @@ Additional state hooks:
 
 ## UX and accessibility
 
-- Use a real label, `FieldLabel`, or `aria-label` so the input has an accessible name.
+- Use a real label, `Field.Label`, or `aria-label` so the input has an accessible name.
 - Prefer semantic password autofill hints such as `autoComplete="current-password"` or
   `autoComplete="new-password"`.
 - The toggle button is separate from the input semantics, so the input still behaves like a normal

@@ -948,6 +948,8 @@
   --field-label-gap: initial; /* var(--spacing-2) */
   --field-label-line-height: initial; /* var(--line-height-text-sm) */
   --field-max-width: initial; /* none */
+  --field-required-indicator-color: initial; /* var(--color-destructive) */
+  --field-textarea-min-height: initial; /* 5rem */
   --field-width: initial; /* 100% */
 
   /* Fieldset */
@@ -1553,11 +1555,11 @@
   /* RadioGroup */
   --radio-group-color: initial; /* var(--color-foreground) */
   --radio-group-gap: initial; /* var(--spacing-2) */
+  --radio-group-indicator-opacity: initial; /* 0.12 */
   --radio-group-label-color: initial; /* var(--radio-group-color, var(--color-foreground)) */
   --radio-group-label-font-size: initial; /* var(--text-sm) */
   --radio-group-label-font-weight: initial; /* var(--weight-semibold) */
   --radio-group-label-line-height: initial; /* var(--line-height-text-sm) */
-  --radio-group-list-gap: initial; /* var(--spacing-2) */
 
   /* Rating */
   --rating-active-color: initial; /* var(--color-primary) */

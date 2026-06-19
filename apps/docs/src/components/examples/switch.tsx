@@ -1,4 +1,4 @@
-import { Field, FieldLabel, Switch, SwitchField, SwitchLabel, SwitchThumb } from 'moduix';
+import { Field, Switch, SwitchField, SwitchLabel, SwitchThumb } from 'moduix';
 import { useId, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -262,11 +262,11 @@ export function SwitchNativeButtonRenderCallbackExample() {
 
 export function SwitchFormIntegrationExample() {
   return (
-    <Field name="notifications" className={styles.formField}>
-      <FieldLabel>
+    <Field className={styles.formField}>
+      <Field.Label>
         <Switch defaultChecked />
         <SwitchLabel>Notifications</SwitchLabel>
-      </FieldLabel>
+      </Field.Label>
     </Field>
   );
 }

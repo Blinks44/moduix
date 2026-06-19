@@ -1,14 +1,4 @@
-import {
-  Button,
-  CheckIcon,
-  CloseIcon,
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-  PencilIcon,
-  Textarea,
-} from 'moduix';
+import { Button, CheckIcon, CloseIcon, Field, PencilIcon, Textarea } from 'moduix';
 import { useEffect, useRef, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -104,8 +94,8 @@ function normalizeCssProperty(property: CssPropertyInput) {
 export function TextareaExample(props: ComponentProps<typeof Textarea>) {
   return (
     <Field className={styles.field}>
-      <FieldLabel>Comment</FieldLabel>
-      <FieldDescription>Included in the issue summary visible to the whole team.</FieldDescription>
+      <Field.Label>Comment</Field.Label>
+      <Field.HelperText>Included in the issue summary visible to the whole team.</Field.HelperText>
       <Textarea placeholder="Write a short comment" {...props} />
     </Field>
   );
@@ -116,7 +106,7 @@ export function ControlledTextareaExample() {
 
   return (
     <Field className={styles.field}>
-      <FieldLabel>Feedback</FieldLabel>
+      <Field.Label>Feedback</Field.Label>
       <Textarea value={value} onValueChange={setValue} placeholder="Type to control value" />
     </Field>
   );
@@ -162,10 +152,10 @@ export function TextareaReadOnlyEditingExample() {
 
   return (
     <Field className={styles.field}>
-      <FieldLabel>Team note</FieldLabel>
-      <FieldDescription>
+      <Field.Label>Team note</Field.Label>
+      <Field.HelperText>
         The textarea stays mounted and only switches between read-only and editable modes.
-      </FieldDescription>
+      </Field.HelperText>
       <Textarea
         autoResize
         ref={textareaRef}
@@ -202,7 +192,7 @@ export function TextareaReadOnlyEditingExample() {
 export function NativeAttributesTextareaExample() {
   return (
     <Field className={styles.field}>
-      <FieldLabel>Notes</FieldLabel>
+      <Field.Label>Notes</Field.Label>
       <Textarea
         name="notes"
         rows={6}
@@ -217,7 +207,7 @@ export function NativeAttributesTextareaExample() {
 export function AutoResizeTextareaExample() {
   return (
     <Field className={styles.field}>
-      <FieldLabel>Issue description</FieldLabel>
+      <Field.Label>Issue description</Field.Label>
       <Textarea
         autoResize
         placeholder="Start typing a longer description. Height grows with content."
@@ -228,14 +218,14 @@ export function AutoResizeTextareaExample() {
 
 export function FieldValidationTextareaExample() {
   return (
-    <Field className={styles.field} validationMode="onBlur">
-      <FieldLabel>Details</FieldLabel>
+    <Field className={styles.field}>
+      <Field.Label>Details</Field.Label>
       <Textarea required minLength={10} placeholder="Add at least 10 characters" />
-      <FieldDescription>
+      <Field.HelperText>
         Include enough detail for the team to reproduce the issue.
-      </FieldDescription>
-      <FieldError match="valueMissing">Please provide details.</FieldError>
-      <FieldError match="tooShort">Enter at least 10 characters.</FieldError>
+      </Field.HelperText>
+      <Field.ErrorText>Please provide details.</Field.ErrorText>
+      <Field.ErrorText>Enter at least 10 characters.</Field.ErrorText>
     </Field>
   );
 }
@@ -243,7 +233,7 @@ export function FieldValidationTextareaExample() {
 export function CustomStylesTextareaExample() {
   return (
     <Field className={styles.field}>
-      <FieldLabel>Notes</FieldLabel>
+      <Field.Label>Notes</Field.Label>
       <Textarea className={styles.customTextarea} placeholder="Styled textarea" />
     </Field>
   );

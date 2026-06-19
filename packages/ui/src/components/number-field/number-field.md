@@ -21,7 +21,7 @@ Use `Input` when the value is not truly numeric or when you need free-form text.
   `NumberFieldGroup > NumberFieldDecrement + NumberFieldInput + NumberFieldIncrement` composition.
 - `children` passed to `NumberField` render **before** that default group. In practice this is mainly
   for `NumberFieldScrubArea` or extra visible content above the control.
-- `id` on `NumberField` or `NumberFieldRoot` becomes the **input id**, so `FieldLabel htmlFor={id}`
+- `id` on `NumberField` or `NumberFieldRoot` becomes the **input id**, so `Field.Label htmlFor={id}`
   works with the wrapped input.
 - `decrementLabel` and `incrementLabel` only affect the built-in icon buttons rendered by
   `NumberField`. They do not affect manually composed `NumberFieldDecrement` or
@@ -39,7 +39,7 @@ Recommended default composition:
 
 ```text
 Field
-├─ FieldLabel
+├─ Field.Label
 └─ NumberField
    ├─ NumberFieldScrubArea (optional)
    │  ├─ label or helper text
@@ -53,7 +53,7 @@ Field
 Default usage:
 
 ```tsx
-import { Field, FieldLabel, NumberField } from 'moduix';
+import { Field, NumberField } from 'moduix';
 import { useId } from 'react';
 
 export function QuantityField() {
@@ -61,7 +61,7 @@ export function QuantityField() {
 
   return (
     <Field>
-      <FieldLabel htmlFor={id}>Amount</FieldLabel>
+      <Field.Label htmlFor={id}>Amount</Field.Label>
       <NumberField id={id} defaultValue={100} min={0} />
     </Field>
   );
@@ -73,7 +73,6 @@ Custom composition when you need custom icons or layout control:
 ```tsx
 import {
   Field,
-  FieldLabel,
   NumberFieldDecrement,
   NumberFieldGroup,
   NumberFieldIncrement,
@@ -88,7 +87,7 @@ export function FloorsField() {
 
   return (
     <Field>
-      <FieldLabel htmlFor={id}>Floors</FieldLabel>
+      <Field.Label htmlFor={id}>Floors</Field.Label>
       <NumberFieldRoot id={id} defaultValue={8}>
         <NumberFieldGroup>
           <NumberFieldDecrement aria-label="Decrease floor count">
@@ -108,13 +107,7 @@ export function FloorsField() {
 Scrub area composition:
 
 ```tsx
-import {
-  Field,
-  FieldLabel,
-  NumberField,
-  NumberFieldScrubArea,
-  NumberFieldScrubAreaCursor,
-} from 'moduix';
+import { Field, NumberField, NumberFieldScrubArea, NumberFieldScrubAreaCursor } from 'moduix';
 import { useId } from 'react';
 
 export function ScrubAmountField() {
@@ -124,7 +117,7 @@ export function ScrubAmountField() {
     <Field>
       <NumberField id={id} defaultValue={250}>
         <NumberFieldScrubArea>
-          <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
+          <Field.Label htmlFor={id}>Drag to scrub</Field.Label>
           <NumberFieldScrubAreaCursor />
         </NumberFieldScrubArea>
       </NumberField>
@@ -168,7 +161,7 @@ them to the root:
 
 | Prop                                 | Type                          | Default        | Notes                                                                                                          |
 | ------------------------------------ | ----------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------- |
-| `id`                                 | `string`                      | —              | Sets the input id used by labels such as `FieldLabel htmlFor={id}`.                                            |
+| `id`                                 | `string`                      | —              | Sets the input id used by labels such as `Field.Label htmlFor={id}`.                                           |
 | `value` / `defaultValue`             | `number \| null`              | —              | Controlled or uncontrolled numeric value. Empty state is `null`.                                               |
 | `onValueChange`                      | `(value, details) => void`    | —              | Fires for typing, buttons, keyboard, wheel scrub, and drag scrub changes.                                      |
 | `onValueCommitted`                   | `(value, details) => void`    | —              | Fires when the value is committed, e.g. after blur or pointer release. Prefer this for expensive side effects. |
@@ -254,7 +247,7 @@ part directly with `className` or override the public CSS variables.
 
 ## UX and accessibility
 
-- Every number field needs an accessible name. Use `FieldLabel htmlFor={id}`, a native `<label>`, or
+- Every number field needs an accessible name. Use `Field.Label htmlFor={id}`, a native `<label>`, or
   `aria-label` for compact demo-only layouts.
 - `decrementLabel` and `incrementLabel` exist primarily for localization and clearer screen-reader
   text on the built-in icon buttons.

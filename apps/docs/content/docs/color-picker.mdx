@@ -360,7 +360,7 @@ with native form data.
       export function FormUsageColorPickerDemo() {
         return (
           <form className="color-picker-form">
-            <ColorPicker.Root name="accent" defaultValue={parseColor("#eb5e41")}>
+            <ColorPicker.Root  defaultValue={parseColor("#eb5e41")}>
               <ColorPicker.Label>Color</ColorPicker.Label>
               <ColorPicker.Control>
                 <ColorPicker.ChannelInput channel="hex" />
@@ -395,18 +395,12 @@ field container and should expose the same state through Ark data attributes.
 
   <Preview.Code>
     {`
-      import {
-        ColorPicker,
-        Field,
-        FieldDescription,
-        FieldError,
-        parseColor,
-      } from "moduix";
+      import { ColorPicker, Field, parseColor } from "moduix";
 
       export function FieldStateColorPickerDemo() {
         return (
-          <Field validationMode="onBlur" className="color-picker-field">
-            <ColorPicker.Root required invalid name="accent" defaultValue={parseColor("#eb5e41")}>
+          <Field className="color-picker-field">
+            <ColorPicker.Root required invalid  defaultValue={parseColor("#eb5e41")}>
               <ColorPicker.Label>Accent color</ColorPicker.Label>
               <ColorPicker.Control>
                 <ColorPicker.ChannelInput channel="hex" />
@@ -418,8 +412,8 @@ field container and should expose the same state through Ark data attributes.
               </ColorPicker.Control>
               <ColorPicker.HiddenInput />
             </ColorPicker.Root>
-            <FieldDescription>Used for generated charts and callouts.</FieldDescription>
-            <FieldError match="valueMissing">Choose an accent color.</FieldError>
+            <Field.HelperText>Used for generated charts and callouts.</Field.HelperText>
+            <Field.ErrorText>Choose an accent color.</Field.ErrorText>
           </Field>
         );
       }
@@ -838,12 +832,7 @@ layer above the dialog content.
 
   <Preview.Code>
     {`
-      import {
-        ColorPicker,
-        Dialog,
-        Portal,
-        parseColor,
-      } from "moduix";
+      import { ColorPicker, Dialog, Portal, parseColor } from "moduix";
 
       export function InsideDialogColorPickerDemo() {
         return (

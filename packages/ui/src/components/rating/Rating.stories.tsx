@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Field, FieldDescription, FieldLabel } from '../field';
+import { Field } from '../field';
 import { Rating } from './Rating';
 import storyStyles from './Rating.stories.module.css';
 
@@ -21,8 +21,8 @@ export const Basic: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <FieldLabel>Overall satisfaction</FieldLabel>
-        <FieldDescription>Choose the score that best matches your experience.</FieldDescription>
+        <Field.Label>Overall satisfaction</Field.Label>
+        <Field.HelperText>Choose the score that best matches your experience.</Field.HelperText>
         <Rating aria-label="Overall satisfaction" defaultValue={4} />
       </Field>
     );
@@ -36,7 +36,7 @@ export const Controlled: Story = {
     return (
       <div className={storyStyles.stack}>
         <Field className={storyStyles.field}>
-          <FieldLabel>Support quality</FieldLabel>
+          <Field.Label>Support quality</Field.Label>
           <Rating aria-label="Support quality" onValueChange={setValue} value={value} />
         </Field>
         <span className={storyStyles.hint}>Current value: {value}</span>
@@ -73,9 +73,9 @@ export const DisabledAndReadOnly: Story = {
 export const FormIntegration: Story = {
   render: () => {
     return (
-      <Field className={storyStyles.field} name="experienceScore">
-        <FieldLabel>Experience score</FieldLabel>
-        <FieldDescription>Required discrete score from 1 to 5.</FieldDescription>
+      <Field className={storyStyles.field}>
+        <Field.Label>Experience score</Field.Label>
+        <Field.HelperText>Required discrete score from 1 to 5.</Field.HelperText>
         <Rating required aria-label="Experience score" defaultValue={4} />
       </Field>
     );

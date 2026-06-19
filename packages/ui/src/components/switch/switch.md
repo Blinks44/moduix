@@ -119,16 +119,16 @@ export function SiblingLabelSwitchDemo() {
 Field integration:
 
 ```tsx
-import { Field, FieldDescription, FieldLabel, Switch, SwitchLabel } from 'moduix';
+import { Field, Switch, SwitchLabel } from 'moduix';
 
 export function NewsletterField() {
   return (
-    <Field name="newsletter">
-      <FieldLabel>
+    <Field>
+      <Field.Label>
         <Switch />
         <SwitchLabel>Subscribe to newsletter</SwitchLabel>
-      </FieldLabel>
-      <FieldDescription>We send updates once per week.</FieldDescription>
+      </Field.Label>
+      <Field.HelperText>We send updates once per week.</Field.HelperText>
     </Field>
   );
 }

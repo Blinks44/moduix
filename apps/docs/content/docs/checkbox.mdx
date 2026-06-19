@@ -340,20 +340,20 @@ Use `Field` around one checkbox when it needs helper text, validation text, or s
 
   <Preview.Code>
     {`
-      import { Checkbox, Field, FieldDescription, FieldError } from "moduix";
+      import { Checkbox, Field } from "moduix";
 
       export function CheckboxFieldDemo() {
         return (
-          <Field validationMode="onBlur" className="checkbox-field">
-            <Checkbox.Root required name="terms">
+          <Field className="checkbox-field">
+            <Checkbox.Root required >
               <Checkbox.Control>
                 <Checkbox.Indicator />
               </Checkbox.Control>
               <Checkbox.Label>Accept terms</Checkbox.Label>
               <Checkbox.HiddenInput />
             </Checkbox.Root>
-            <FieldDescription>Required to continue.</FieldDescription>
-            <FieldError match="valueMissing">Please accept the terms.</FieldError>
+            <Field.HelperText>Required to continue.</Field.HelperText>
+            <Field.ErrorText>Please accept the terms.</Field.ErrorText>
           </Field>
         );
       }
@@ -378,7 +378,7 @@ Pass `name` and `value` to `Checkbox.Root` so the hidden input submits with nati
         const formData = new FormData(event.currentTarget);
         console.log(formData.get("terms"));
       }}>
-        <Checkbox.Root name="terms" value="accepted">
+        <Checkbox.Root  value="accepted">
           <Checkbox.Control>
             <Checkbox.Indicator />
           </Checkbox.Control>
@@ -473,7 +473,7 @@ Use `Checkbox.Group` when several options belong to one shared array of selected
 
   <Preview.Code>
     {`
-      <Checkbox.Group defaultValue={["email"]} name="notifications">
+      <Checkbox.Group defaultValue={["email"]} >
         {options.map((option) => (
           <Checkbox.Root key={option.value} value={option.value}>
             <Checkbox.Control>
@@ -501,7 +501,7 @@ Control the group value from React state when selected options need to drive fil
     {`
       const [value, setValue] = useState(["push"] as string[]);
 
-      <Checkbox.Group value={value} onValueChange={setValue} name="alerts">
+      <Checkbox.Group value={value} onValueChange={setValue} >
         {options.map((option) => (
           <Checkbox.Root key={option.value} value={option.value}>
             <Checkbox.Control>
@@ -563,7 +563,7 @@ Mark the group invalid when the whole set participates in validation and require
 
   <Preview.Code>
     {`
-      <Checkbox.Group invalid defaultValue={["email"]} name="channels">
+      <Checkbox.Group invalid defaultValue={["email"]} >
         {options.map((option) => (
           <Checkbox.Root key={option.value} value={option.value}>
             <Checkbox.Control>
@@ -589,7 +589,7 @@ Use `maxSelectedValues` when only a fixed number of options can be selected.
 
   <Preview.Code>
     {`
-      <Checkbox.Group defaultValue={["react", "solid"]} maxSelectedValues={2} name="frameworks">
+      <Checkbox.Group defaultValue={["react", "solid"]} maxSelectedValues={2} >
         {options.map((option) => (
           <Checkbox.Root key={option.value} value={option.value}>
             <Checkbox.Control>
@@ -651,7 +651,7 @@ Use `Checkbox.Group` inside a form and read selected values with `FormData.getAl
         event.preventDefault();
         console.log(new FormData(event.currentTarget).getAll("framework"));
       }}>
-        <Checkbox.Group defaultValue={["react"]} name="framework">
+        <Checkbox.Group defaultValue={["react"]} >
           {options.map((option) => (
             <Checkbox.Root key={option.value} value={option.value}>
               <Checkbox.Control>
@@ -685,7 +685,7 @@ Wrap the group in `Fieldset` when the checkbox set is one semantic form field wi
         return (
           <Fieldset className="checkbox-fieldset">
             <FieldsetLegend>Frameworks</FieldsetLegend>
-            <Checkbox.Group defaultValue={["react"]} name="frameworks">
+            <Checkbox.Group defaultValue={["react"]} >
               {options.map((option) => (
                 <Checkbox.Root key={option.value} value={option.value}>
                   <Checkbox.Control>
@@ -715,7 +715,7 @@ Use local classes and CSS variables when the checkbox visuals need a custom tone
 
   <Preview.Code>
     {`
-      <Checkbox.Group defaultValue={["email"]} className="checkbox-custom-group" name="styled-channels">
+      <Checkbox.Group defaultValue={["email"]} className="checkbox-custom-group" >
         {options.map((option) => (
           <Checkbox.Root key={option.value} value={option.value} className="checkbox-custom-root">
             <Checkbox.Control className="checkbox-custom-control">

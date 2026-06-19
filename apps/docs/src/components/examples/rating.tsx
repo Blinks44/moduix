@@ -1,4 +1,4 @@
-import { Field, FieldDescription, FieldLabel, Rating } from 'moduix';
+import { Field, Rating } from 'moduix';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -121,8 +121,8 @@ export function RatingCssPlaygroundPanel({
 export function RatingExample(props: ComponentProps<typeof Rating>) {
   return (
     <Field className="field">
-      <FieldLabel>Overall satisfaction</FieldLabel>
-      <FieldDescription>Choose the score that best matches your experience.</FieldDescription>
+      <Field.Label>Overall satisfaction</Field.Label>
+      <Field.HelperText>Choose the score that best matches your experience.</Field.HelperText>
       <Rating aria-label="Overall satisfaction" defaultValue={4} {...props} />
     </Field>
   );
@@ -134,7 +134,7 @@ export function ControlledRatingExample() {
   return (
     <div className="stack">
       <Field className="field">
-        <FieldLabel>Support quality</FieldLabel>
+        <Field.Label>Support quality</Field.Label>
         <Rating aria-label="Support quality" onValueChange={setValue} value={value} />
       </Field>
       <span className="hint">Current value: {value}</span>
@@ -165,9 +165,9 @@ export function DisabledAndReadOnlyRatingExample() {
 
 export function RatingFormIntegrationExample() {
   return (
-    <Field className="field" name="experienceScore">
-      <FieldLabel>Experience score</FieldLabel>
-      <FieldDescription>Required discrete score from 1 to 5.</FieldDescription>
+    <Field className="field">
+      <Field.Label>Experience score</Field.Label>
+      <Field.HelperText>Required discrete score from 1 to 5.</Field.HelperText>
       <Rating defaultValue={4} required aria-label="Experience score" />
     </Field>
   );

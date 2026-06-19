@@ -23,7 +23,7 @@ and the rest of the form controls.
 - `validationMode` sets the default validation timing for nested fields. A nested `Field` can still
   override that timing with its own `validationMode`.
 - `errors` is the bridge for server or action validation. Keys must match the `name` of the nested
-  `Field`, and the values are surfaced through that field's `FieldError`.
+  `Field`, and the values are surfaced through that field's `Field.ErrorText`.
 - `onFormSubmit` is the convenience submit path for object-shaped form values. Base UI calls
   `preventDefault()` on the native submit event before invoking this handler.
 - Native `onSubmit` remains available for lower-level flows where you need the real submit event,
@@ -37,7 +37,7 @@ and the rest of the form controls.
 Basic submit flow with object-shaped values:
 
 ```tsx
-import { Button, Field, FieldError, FieldLabel, Form, Input, Spinner } from 'moduix';
+import { Button, Field, Form, Input, Spinner } from 'moduix';
 import { useState } from 'react';
 
 async function validateHomepage(homepage: string) {
@@ -69,7 +69,6 @@ export function HomepageForm() {
   return (
     <Form
       errors={errors}
-      validationMode="onBlur"
       onFormSubmit={async (values) => {
         setSubmitting(true);
         const nextErrors = await validateHomepage(String(values.homepage ?? ''));
@@ -77,8 +76,8 @@ export function HomepageForm() {
         setSubmitting(false);
       }}
     >
-      <Field name="homepage">
-        <FieldLabel>Homepage</FieldLabel>
+      <Field>
+        <Field.Label>Homepage</Field.Label>
         <Input
           type="url"
           required
@@ -86,9 +85,9 @@ export function HomepageForm() {
           placeholder="https://example.com"
           pattern="https?://.*"
         />
-        <FieldError match="valueMissing">Please enter a homepage URL.</FieldError>
-        <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
-        <FieldError />
+        <Field.ErrorText>Please enter a homepage URL.</Field.ErrorText>
+        <Field.ErrorText>Please start with http:// or https://.</Field.ErrorText>
+        <Field.ErrorText />
       </Field>
 
       <Button type="submit" disabled={submitting} aria-busy={submitting || undefined}>
@@ -109,7 +108,7 @@ export function HomepageForm() {
 Native submit event with explicit `FormData`:
 
 ```tsx
-import { Button, Field, FieldError, FieldLabel, Form, Input } from 'moduix';
+import { Button, Field, Form, Input } from 'moduix';
 import { useState } from 'react';
 
 export function NativeSubmitForm() {
@@ -129,10 +128,10 @@ export function NativeSubmitForm() {
         );
       }}
     >
-      <Field name="homepage" validationMode="onBlur">
-        <FieldLabel>Homepage</FieldLabel>
+      <Field>
+        <Field.Label>Homepage</Field.Label>
         <Input type="url" required placeholder="https://example.com" />
-        <FieldError />
+        <Field.ErrorText />
       </Field>
 
       <Button type="submit">Submit</Button>
@@ -144,7 +143,7 @@ export function NativeSubmitForm() {
 React `useActionState` with server-side errors:
 
 ```tsx
-import { Button, Field, FieldError, FieldLabel, Form, Input } from 'moduix';
+import { Button, Field, Form, Input } from 'moduix';
 import { useActionState } from 'react';
 
 interface ActionState {
@@ -184,11 +183,11 @@ export function ActionStateForm() {
   const [state, formAction, loading] = useActionState<ActionState, FormData>(submitUsername, {});
 
   return (
-    <Form action={formAction} errors={state.serverErrors} validationMode="onBlur">
-      <Field name="username">
-        <FieldLabel>Username</FieldLabel>
+    <Form action={formAction} errors={state.serverErrors}>
+      <Field>
+        <Field.Label>Username</Field.Label>
         <Input required defaultValue="admin" placeholder="e.g. alice132" />
-        <FieldError />
+        <Field.ErrorText />
       </Field>
 
       <Button type="submit" disabled={loading} aria-busy={loading || undefined}>
@@ -202,7 +201,7 @@ export function ActionStateForm() {
 Imperative validation:
 
 ```tsx
-import { Button, Field, FieldError, FieldLabel, Form, Input } from 'moduix';
+import { Button, Field, Form, Input } from 'moduix';
 import { useRef, useState } from 'react';
 
 export function ActionsRefForm() {
@@ -213,7 +212,6 @@ export function ActionsRefForm() {
     <Form
       actionsRef={actionsRef}
       errors={errors}
-      validationMode="onSubmit"
       onFormSubmit={(values) => {
         const email = String(values.email ?? '');
 
@@ -226,10 +224,10 @@ export function ActionsRefForm() {
         );
       }}
     >
-      <Field name="email">
-        <FieldLabel>Work Email</FieldLabel>
+      <Field>
+        <Field.Label>Work Email</Field.Label>
         <Input type="email" required placeholder="name@test.com" />
-        <FieldError />
+        <Field.ErrorText />
       </Field>
 
       <Button
@@ -251,21 +249,19 @@ export function ActionsRefForm() {
 Custom styling:
 
 ```tsx
-import { Button, Field, FieldDescription, FieldError, FieldLabel, Form, Input } from 'moduix';
+import { Button, Field, Form, Input } from 'moduix';
 import styles from './form.module.css';
 
 export function StyledForm() {
   return (
-    <Form validationMode="onBlur" className={styles.form}>
-      <Field name="project" className={styles.field}>
-        <FieldLabel className={styles.label}>Project</FieldLabel>
+    <Form className={styles.form}>
+      <Field className={styles.field}>
+        <Field.Label className={styles.label}>Project</Field.Label>
         <Input required placeholder="Maps Platform" className={styles.input} />
-        <FieldDescription className={styles.description}>
+        <Field.HelperText className={styles.description}>
           Use the public project name.
-        </FieldDescription>
-        <FieldError className={styles.error} match="valueMissing">
-          Please enter a project name.
-        </FieldError>
+        </Field.HelperText>
+        <Field.ErrorText className={styles.error}>Please enter a project name.</Field.ErrorText>
       </Field>
 
       <Button type="submit" variant="outline" className={styles.button}>
@@ -357,9 +353,9 @@ through `className`, `data-slot="form-root"`, and the `--form-*` CSS variables.
 
 - `Form` only owns the form root. Labels, descriptions, field-level errors, and control semantics come
   from `Field`, `Fieldset`, and the composed control components.
-- Every control still needs an accessible name. In practice that means using `FieldLabel`, or another
+- Every control still needs an accessible name. In practice that means using `Field.Label`, or another
   explicit label strategy when composing advanced controls.
-- Prefer `validationMode="onBlur"` for text-entry forms where immediate submit blocking is helpful but
+- Prefer `` for text-entry forms where immediate submit blocking is helpful but
   per-keystroke validation would be noisy.
 - Prefer `onSubmit` over `onFormSubmit` when you need submitter inspection, custom `FormData`
   processing, or other native event details.

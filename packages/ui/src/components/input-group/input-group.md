@@ -42,12 +42,12 @@ Use it when the affordance belongs to the same row as the input value. For plain
 Basic field usage:
 
 ```tsx
-import { Field, FieldLabel, InputGroup, InputGroupAddon, InputGroupInput } from 'moduix';
+import { Field, InputGroup, InputGroupAddon, InputGroupInput } from 'moduix';
 
 export function WorkspaceField() {
   return (
     <Field>
-      <FieldLabel>Workspace</FieldLabel>
+      <Field.Label>Workspace</Field.Label>
       <InputGroup>
         <InputGroupAddon>@</InputGroupAddon>
         <InputGroupInput placeholder="maps" />
@@ -177,7 +177,7 @@ owns the visible border and surface.
 
 ## UX and accessibility
 
-- Prefer `Field` + `FieldLabel` for normal form fields. That gives the nested input its accessible
+- Prefer `Field` + `Field.Label` for normal form fields. That gives the nested input its accessible
   name and lets the group stay purely visual.
 - For standalone widgets that combine an input and action into one logical control, pass
   `role="group"` plus `aria-label` or `aria-labelledby` to `InputGroup` yourself.

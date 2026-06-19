@@ -42,12 +42,12 @@ Start with `InputGroup`, one `InputGroupInput`, and only the inline parts the fi
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, InputGroup, InputGroupAddon, InputGroupInput } from "moduix";
+      import { Field, InputGroup, InputGroupAddon, InputGroupInput } from "moduix";
 
       export function InputGroupDemo() {
         return (
           <Field className="input-group-demo-field">
-            <FieldLabel>Workspace</FieldLabel>
+            <Field.Label>Workspace</Field.Label>
             <InputGroup>
               <InputGroupAddon>@</InputGroupAddon>
               <InputGroupInput placeholder="maps" />
@@ -164,7 +164,7 @@ Switch away from `InputGroup` when the control stops being one input with inline
 
 Use `role="group"` with `aria-label` or `aria-labelledby` only for standalone widgets where the
 group itself needs an explicit grouped semantic. When the control lives inside `Field`, prefer
-`FieldLabel` and keep `InputGroup` purely visual.
+`Field.Label` and keep `InputGroup` purely visual.
 
 ### Default props
 
@@ -197,7 +197,7 @@ Use `InputGroupButton` for compact inline actions tied to the current field valu
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, InputGroup, InputGroupButton, InputGroupInput } from "moduix";
+      import { Field, InputGroup, InputGroupButton, InputGroupInput } from "moduix";
       import { useState } from "react";
 
       export function InputGroupWithActionDemo() {
@@ -205,7 +205,7 @@ Use `InputGroupButton` for compact inline actions tied to the current field valu
 
         return (
           <Field className="input-group-demo-field">
-            <FieldLabel>Invite by email</FieldLabel>
+            <Field.Label>Invite by email</Field.Label>
             <InputGroup>
               <InputGroupInput
                 value={value}
@@ -244,16 +244,7 @@ nested input.
 
   <Preview.Code>
     {`
-      import {
-        CheckIcon,
-        CloseIcon,
-        Field,
-        FieldLabel,
-        InputGroup,
-        InputGroupButton,
-        InputGroupInput,
-        PencilIcon,
-      } from "moduix";
+      import { CheckIcon, CloseIcon, Field, InputGroup, InputGroupButton, InputGroupInput, PencilIcon } from "moduix";
       import { useEffect, useRef, useState } from "react";
 
       export function InlineEditingInputGroupDemo() {
@@ -285,7 +276,7 @@ nested input.
 
         return (
           <Field className="input-group-demo-field">
-            <FieldLabel>Display name</FieldLabel>
+            <Field.Label>Display name</Field.Label>
             <InputGroup>
               <InputGroupInput
                 ref={inputRef}
@@ -336,19 +327,12 @@ read as helper text.
 
   <Preview.Code>
     {`
-      import {
-        Field,
-        FieldLabel,
-        InputGroup,
-        InputGroupAddon,
-        InputGroupInput,
-        InputGroupText,
-      } from "moduix";
+      import { Field, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "moduix";
 
       export function PrefixSuffixInputGroupDemo() {
         return (
           <Field className="input-group-demo-field">
-            <FieldLabel>Monthly budget</FieldLabel>
+            <Field.Label>Monthly budget</Field.Label>
             <InputGroup>
               <InputGroupAddon className="input-group-demo-currency">$</InputGroupAddon>
               <InputGroupInput inputMode="decimal" placeholder="2500" />
@@ -386,17 +370,17 @@ invalid.
 
   <Preview.Code>
     {`
-      import { Field, FieldError, FieldLabel, InputGroup, InputGroupInput, InputGroupText } from "moduix";
+      import { Field, InputGroup, InputGroupInput, InputGroupText } from "moduix";
 
       export function InputGroupFieldValidationDemo() {
         return (
-          <Field className="input-group-demo-field" validationMode="onBlur">
-            <FieldLabel>Domain</FieldLabel>
+          <Field className="input-group-demo-field" >
+            <Field.Label>Domain</Field.Label>
             <InputGroup>
               <InputGroupInput required placeholder="company" />
               <InputGroupText>.test.com</InputGroupText>
             </InputGroup>
-            <FieldError match="valueMissing">Please enter a domain.</FieldError>
+            <Field.ErrorText>Please enter a domain.</Field.ErrorText>
           </Field>
         );
       }
