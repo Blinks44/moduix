@@ -1149,41 +1149,32 @@
   --lightbox-backdrop-starting-blur: initial; /* none */
   --lightbox-backdrop-starting-opacity: initial; /* 0 */
   --lightbox-backdrop-transition: initial; /* var(--transition-default) */
-  --lightbox-close-bg: initial; /* var(--color-background) */
-  --lightbox-close-bg-hover: initial; /* var(--color-muted) */
-  --lightbox-close-color: initial; /* var(--color-foreground) */
-  --lightbox-close-color-hover: initial; /* var(--color-foreground) */
-  --lightbox-close-icon-size: initial; /* 0.875rem */
-  --lightbox-close-offset-right: initial; /* var(--spacing-4) */
-  --lightbox-close-offset-top: initial; /* var(--spacing-4) */
-  --lightbox-close-radius: initial; /* var(--radius-sm) */
-  --lightbox-close-size: initial; /* 2rem */
-  --lightbox-close-button-ending-opacity: initial; /* 0 */
-  --lightbox-close-button-starting-opacity: initial; /* 0 */
-  --lightbox-focus-ring-color: initial; /* var(--color-ring) */
-  --lightbox-height: initial; /* 80dvh */
-  --lightbox-image-enter-duration: initial; /* 240ms */
-  --lightbox-image-enter-opacity: initial; /* 0.35 */
-  --lightbox-image-enter-scale: initial; /* 0.9 */
-  --lightbox-image-enter-translate-x: initial; /* 0 */
-  --lightbox-image-enter-translate-y: initial; /* 0 */
-  --lightbox-image-max-height: initial; /* 80dvh */
-  --lightbox-image-max-width: initial; /* 80vw */
-  --lightbox-image-radius: initial; /* var(--radius-md) */
-  --lightbox-image-shadow: initial; /* var(--shadow-lg) */
-  --lightbox-max-height: initial; /* 80dvh */
-  --lightbox-max-width: initial; /* 80vw */
-  --lightbox-popup-ending-opacity: initial; /* 0 */
-  --lightbox-popup-ending-scale: initial; /* 0.82 */
-  --lightbox-popup-ending-translate-x: initial; /* 0 */
-  --lightbox-popup-ending-translate-y: initial; /* 0 */
-  --lightbox-popup-starting-opacity: initial; /* 0 */
-  --lightbox-popup-starting-scale: initial; /* 0.82 */
-  --lightbox-popup-starting-translate-x: initial; /* 0 */
-  --lightbox-popup-starting-translate-y: initial; /* 0 */
+  --lightbox-close-icon-bg: initial; /* var(--color-background) */
+  --lightbox-close-icon-bg-hover: initial; /* var(--color-muted) */
+  --lightbox-close-icon-color: initial; /* var(--color-foreground) */
+  --lightbox-close-icon-color-hover: initial; /* var(--color-foreground) */
+  --lightbox-close-icon-focus-ring-color: initial; /* var(--color-ring) */
+  --lightbox-close-icon-glyph-size: initial; /* 0.875rem */
+  --lightbox-close-icon-inset-block-start: initial; /* var(--spacing-4) */
+  --lightbox-close-icon-inset-inline-end: initial; /* var(--spacing-4) */
+  --lightbox-close-icon-radius: initial; /* var(--radius-sm) */
+  --lightbox-close-icon-size: initial; /* 2rem */
+  --lightbox-content-ending-opacity: initial; /* 0 */
+  --lightbox-content-ending-scale: initial; /* 0.82 */
+  --lightbox-content-ending-translate-x: initial; /* 0 */
+  --lightbox-content-ending-translate-y: initial; /* 0 */
+  --lightbox-content-max-height: initial; /* 80dvh */
+  --lightbox-content-max-width: initial; /* 80vw */
+  --lightbox-content-starting-opacity: initial; /* 0 */
+  --lightbox-content-starting-scale: initial; /* 0.82 */
+  --lightbox-content-starting-translate-x: initial; /* 0 */
+  --lightbox-content-starting-translate-y: initial; /* 0 */
+  --lightbox-media-max-height: initial; /* 80dvh */
+  --lightbox-media-max-width: initial; /* 80vw */
+  --lightbox-media-radius: initial; /* var(--radius-md) */
+  --lightbox-media-shadow: initial; /* var(--shadow-lg) */
+  --lightbox-positioner-padding: initial; /* var(--spacing-4) */
   --lightbox-transition: initial; /* 220ms ease */
-  --lightbox-viewport-padding: initial; /* var(--spacing-4) */
-  --lightbox-width: initial; /* 80vw */
 
   /* List */
   --list-color: initial; /* var(--list-default-color, var(--color-foreground)) */

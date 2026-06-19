@@ -1,61 +1,87 @@
 @layer ui.components {
-  .previewImage {
+  .stack {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .imageTrigger,
+  .galleryTrigger {
     display: block;
-    width: 17.5rem;
-    aspect-ratio: 16 / 10;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: zoom-in;
+
+    img {
+      display: block;
+      object-fit: cover;
+    }
+  }
+
+  .imageTrigger {
     border-radius: var(--radius-md);
-    object-fit: cover;
+
+    img {
+      width: 17.5rem;
+      aspect-ratio: 16 / 10;
+      border-radius: inherit;
+    }
   }
 
-  .contentImage {
-    display: block;
-    width: auto;
-    max-width: min(80vw, 100%);
-    height: auto;
-  }
-
-  .triggerButton {
+  .textTrigger {
     border: 0;
     border-radius: var(--radius-md);
     background: var(--color-muted);
     padding: var(--spacing-3) var(--spacing-4);
     color: var(--color-foreground);
-    cursor: zoom-in;
     font: inherit;
   }
 
-  .customBackdrop {
-    background-color: rgb(15 23 42 / 0.62);
-  }
-
-  .customPopup {
-    --lightbox-width: 72vw;
-    --lightbox-height: 72dvh;
-  }
-
-  .galleryRoot {
+  .gallery {
     display: grid;
-    width: 28.75rem;
+    width: min(30rem, calc(100vw - var(--spacing-8)));
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--spacing-3);
   }
 
-  .galleryItem {
-    display: block;
+  .galleryTrigger {
     width: 100%;
-    margin: 0;
-    border: 0;
     border-radius: var(--radius-sm);
-    padding: 0;
-    background: transparent;
-    cursor: zoom-in;
+
+    img {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: inherit;
+    }
   }
 
-  .galleryImage {
-    display: block;
-    width: 100%;
-    aspect-ratio: 1 / 1;
+  .status {
+    position: absolute;
+    inset-block-end: var(--spacing-3);
+    inset-inline-start: 50%;
+    translate: -50% 0;
     border-radius: var(--radius-sm);
-    object-fit: cover;
+    background: rgb(0 0 0 / 0.65);
+    padding: var(--spacing-1) var(--spacing-2);
+    color: white;
+    font-size: var(--text-sm);
+  }
+
+  .customBackdrop {
+    --lightbox-backdrop-bg: rgb(15 23 42 / 0.72);
+  }
+
+  .customContent {
+    --lightbox-content-max-width: 72vw;
+    --lightbox-content-max-height: 72dvh;
+    --lightbox-media-radius: var(--radius-lg);
+  }
+
+  .customCloseIcon {
+    --lightbox-close-icon-bg: var(--color-muted);
+    --lightbox-close-icon-bg-hover: var(--color-accent);
+    --lightbox-close-icon-radius: var(--radius-md);
   }
 }

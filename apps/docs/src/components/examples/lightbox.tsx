@@ -1,156 +1,168 @@
-import {
-  Lightbox,
-  LightboxBackdrop,
-  LightboxClose,
-  LightboxCloseButton,
-  LightboxContent,
-  LightboxFrame,
-  LightboxGallery,
-  LightboxImage,
-  LightboxPopup,
-  LightboxPortal,
-  LightboxTrigger,
-  LightboxViewport,
-} from 'moduix';
-import { type CSSProperties, useRef } from 'react';
+import { Lightbox, Portal, useLightbox } from 'moduix';
+import { useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 
-const images = {
-  mountainSmall:
-    'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80',
-  mountainLarge:
-    'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90',
-  sea: 'https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=900&q=80',
-  forest:
-    'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80',
-  road: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=80',
-};
-
-const previewImageStyle = {
-  display: 'block',
-  width: '18rem',
-  maxWidth: 'min(18rem, calc(100vw - var(--spacing-10)))',
-  aspectRatio: '16 / 10',
-  borderRadius: 'var(--radius-md)',
-  objectFit: 'cover',
-} satisfies CSSProperties;
-
-const triggerButtonStyle = {
-  border: 0,
-  borderRadius: 'var(--radius-md)',
-  background: 'var(--color-muted)',
-  padding: 'var(--spacing-3) var(--spacing-4)',
-  color: 'var(--color-foreground)',
-  cursor: 'zoom-in',
-  font: 'inherit',
-} satisfies CSSProperties;
-
-const dynamicRootStyle = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-  gap: 'var(--spacing-3)',
-  width: 'min(36rem, calc(100vw - var(--spacing-10)))',
-} satisfies CSSProperties;
-
-const dynamicItemStyle = {
-  display: 'block',
-  width: '100%',
-  margin: 0,
-  border: 0,
-  borderRadius: 'var(--radius-sm)',
-  padding: 0,
-  background: 'transparent',
-  cursor: 'zoom-in',
-} satisfies CSSProperties;
-
-const dynamicImageStyle = {
-  display: 'block',
-  width: '100%',
-  aspectRatio: '1 / 1',
-  objectFit: 'cover',
-  borderRadius: 'var(--radius-sm)',
-} satisfies CSSProperties;
-
-const customBackdropStyle = {
-  backgroundColor: 'rgb(15 23 42 / 0.62)',
-} satisfies CSSProperties;
-
-const customPopupStyle = {
-  '--lightbox-width': '72vw',
-  '--lightbox-height': '72dvh',
-} as CSSProperties;
-
-const customCloseStyle = {
-  '--lightbox-close-bg': 'var(--color-muted)',
-  '--lightbox-close-bg-hover': 'var(--color-accent)',
-  '--lightbox-close-radius': 'var(--radius-md)',
-} as CSSProperties;
-
-export const lightboxOverrideCssProperties: CssPropertyInput[] = [
-  ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop fill.'],
-  ['--lightbox-backdrop-blur', '4px', 'Controls backdrop blur.'],
-  ['--lightbox-backdrop-transition', 'var(--transition-default)', 'Controls backdrop transition.'],
-  ['--lightbox-close-bg', 'var(--color-background)', 'Controls close button background.'],
-  ['--lightbox-close-bg-hover', 'var(--color-muted)', 'Controls close button hover background.'],
-  ['--lightbox-close-color', 'var(--color-foreground)', 'Controls close icon color.'],
-  ['--lightbox-close-color-hover', 'var(--color-foreground)', 'Controls close icon hover color.'],
-  ['--lightbox-close-icon-size', '0.875rem', 'Controls close icon size.'],
-  ['--lightbox-close-offset-right', 'var(--spacing-4)', 'Controls close button right offset.'],
-  ['--lightbox-close-offset-top', 'var(--spacing-4)', 'Controls close button top offset.'],
-  ['--lightbox-close-radius', 'var(--radius-sm)', 'Controls close button radius.'],
-  ['--lightbox-close-size', '2rem', 'Controls close button size.'],
-  ['--lightbox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--lightbox-height', '80dvh', 'Controls the popup height limit.'],
-  [
-    '--lightbox-image-enter-duration',
-    'var(--duration-normal)',
-    'Controls image enter animation duration.',
-  ],
-  ['--lightbox-image-enter-scale', '0.9', 'Controls image enter animation scale.'],
-  ['--lightbox-image-max-height', '80dvh', 'Controls max image height.'],
-  ['--lightbox-image-max-width', '80vw', 'Controls max image width.'],
-  ['--lightbox-image-radius', 'var(--radius-md)', 'Controls image corner radius in modal.'],
-  ['--lightbox-image-shadow', 'var(--shadow-lg)', 'Controls image shadow in modal.'],
-  ['--lightbox-max-height', '80dvh', 'Controls max popup height.'],
-  ['--lightbox-max-width', '80vw', 'Controls max popup width.'],
-  [
-    '--lightbox-transition',
-    'var(--duration-normal) var(--ease-standard)',
-    'Controls popup transition.',
-  ],
-  ['--lightbox-viewport-padding', 'var(--spacing-4)', 'Controls viewport padding.'],
-  ['--lightbox-width', '80vw', 'Controls the popup width limit.'],
+const images = [
+  {
+    id: 'mountain',
+    thumbnail:
+      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
+    src: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90',
+    alt: 'Mountain ridge at sunset',
+  },
+  {
+    id: 'sea',
+    thumbnail:
+      'https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=800&q=80',
+    src: 'https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1800&q=90',
+    alt: 'Sea cliffs under a cloudy sky',
+  },
+  {
+    id: 'forest',
+    thumbnail:
+      'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80',
+    src: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=90',
+    alt: 'Road through a green forest',
+  },
 ];
 
-export const lightboxPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop fill.'],
-  ['--lightbox-backdrop-blur', '4px', 'Controls backdrop blur.'],
-  ['--lightbox-close-bg', 'var(--color-background)', 'Controls close button background.'],
-  ['--lightbox-height', '80dvh', 'Controls popup height.'],
-  ['--lightbox-image-radius', 'var(--radius-md)', 'Controls image corner radius.'],
-  ['--lightbox-width', '80vw', 'Controls popup width.'],
+export const lightboxExampleCss = `
+  .lightbox-trigger,
+  .lightbox-gallery-trigger {
+    display: block;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: zoom-in;
+  }
+
+  .lightbox-trigger {
+    border-radius: var(--radius-md);
+  }
+
+  .lightbox-trigger img {
+    display: block;
+    width: 18rem;
+    max-width: min(18rem, calc(100vw - var(--spacing-10)));
+    aspect-ratio: 16 / 10;
+    border-radius: inherit;
+    object-fit: cover;
+  }
+
+  .lightbox-stack {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .lightbox-button {
+    border: 0;
+    border-radius: var(--radius-md);
+    background: var(--color-muted);
+    padding: var(--spacing-3) var(--spacing-4);
+    color: var(--color-foreground);
+    font: inherit;
+  }
+
+  .lightbox-gallery {
+    display: grid;
+    width: min(36rem, calc(100vw - var(--spacing-10)));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-3);
+  }
+
+  .lightbox-gallery-trigger {
+    width: 100%;
+    border-radius: var(--radius-sm);
+  }
+
+  .lightbox-gallery-trigger img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: inherit;
+    object-fit: cover;
+  }
+
+  .lightbox-status {
+    position: absolute;
+    inset-block-end: var(--spacing-3);
+    inset-inline-start: 50%;
+    translate: -50% 0;
+    border-radius: var(--radius-sm);
+    background: rgb(0 0 0 / 0.65);
+    padding: var(--spacing-1) var(--spacing-2);
+    color: white;
+    font-size: var(--text-sm);
+  }
+
+  .lightbox-custom-backdrop {
+    --lightbox-backdrop-bg: rgb(15 23 42 / 0.72);
+  }
+
+  .lightbox-custom-content {
+    --lightbox-content-max-width: 72vw;
+    --lightbox-content-max-height: 72dvh;
+    --lightbox-media-radius: var(--radius-lg);
+  }
+
+  .lightbox-custom-close {
+    --lightbox-close-icon-bg: var(--color-muted);
+    --lightbox-close-icon-bg-hover: var(--color-accent);
+    --lightbox-close-icon-radius: var(--radius-md);
+  }
+`;
+
+export const lightboxImagesData = `
+  const images = [
+    {
+      id: "mountain",
+      thumbnail: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+      src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90",
+      alt: "Mountain ridge at sunset",
+    },
+    {
+      id: "sea",
+      thumbnail: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=800&q=80",
+      src: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1800&q=90",
+      alt: "Sea cliffs under a cloudy sky",
+    },
+    {
+      id: "forest",
+      thumbnail: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80",
+      src: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=90",
+      alt: "Road through a green forest",
+    },
+  ];
+`;
+
+export const lightboxEmptyData = '// No additional data is required.';
+
+export const lightboxOverrideCssProperties: CssPropertyInput[] = [
+  ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Backdrop fill.'],
+  ['--lightbox-backdrop-blur', '4px', 'Backdrop blur radius.'],
+  ['--lightbox-backdrop-transition', 'var(--transition-default)', 'Backdrop motion timing.'],
+  ['--lightbox-positioner-padding', 'var(--spacing-4)', 'Viewport edge padding.'],
+  ['--lightbox-content-max-width', '80vw', 'Maximum content width.'],
+  ['--lightbox-content-max-height', '80dvh', 'Maximum content height.'],
+  ['--lightbox-transition', '220ms ease', 'Content motion timing.'],
+  ['--lightbox-media-max-width', '80vw', 'Maximum media width.'],
+  ['--lightbox-media-max-height', '80dvh', 'Maximum media height.'],
+  ['--lightbox-media-radius', 'var(--radius-md)', 'Media corner radius.'],
+  ['--lightbox-media-shadow', 'var(--shadow-lg)', 'Media shadow.'],
+  ['--lightbox-close-icon-size', '2rem', 'Close control size.'],
+  ['--lightbox-close-icon-glyph-size', '0.875rem', 'Close glyph size.'],
+  ['--lightbox-close-icon-radius', 'var(--radius-sm)', 'Close control radius.'],
+  ['--lightbox-close-icon-bg', 'var(--color-background)', 'Close control background.'],
+  ['--lightbox-close-icon-bg-hover', 'var(--color-muted)', 'Close control hover background.'],
 ];
 
 export function LightboxCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
       properties={lightboxOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function LightboxCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={lightboxPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }
@@ -163,84 +175,182 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
+function LightboxSurface({
+  src,
+  alt,
+  closeOnMediaClick = false,
+}: {
+  src: string;
+  alt: string;
+  closeOnMediaClick?: boolean;
+}) {
+  return (
+    <Portal>
+      <Lightbox.Backdrop />
+      <Lightbox.Positioner>
+        <Lightbox.CloseIcon />
+        <Lightbox.Content aria-label={alt}>
+          <Lightbox.Frame closeOnClick={closeOnMediaClick}>
+            <img src={src} alt={alt} />
+          </Lightbox.Frame>
+        </Lightbox.Content>
+      </Lightbox.Positioner>
+    </Portal>
+  );
+}
+
 export function LightboxExample() {
   return (
-    <Lightbox>
-      <LightboxImage
-        src={images.mountainSmall}
-        fullSrc={images.mountainLarge}
-        alt="Mountain ridge at sunset"
-        style={previewImageStyle}
-      />
-      <LightboxContent />
-    </Lightbox>
+    <>
+      <style>{lightboxExampleCss}</style>
+      <Lightbox>
+        <Lightbox.Trigger asChild>
+          <button type="button" className="lightbox-trigger">
+            <img src={images[0].thumbnail} alt={images[0].alt} />
+          </button>
+        </Lightbox.Trigger>
+        <LightboxSurface src={images[0].src} alt={images[0].alt} />
+      </Lightbox>
+    </>
   );
 }
 
-export function TriggerLightboxExample() {
+export function ControlledLightboxExample() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Lightbox>
-      <LightboxTrigger style={triggerButtonStyle}>Open image</LightboxTrigger>
-      <LightboxContent>
-        <img src={images.road} alt="Road through forest" />
-      </LightboxContent>
-    </Lightbox>
+    <div className="lightbox-stack">
+      <style>{lightboxExampleCss}</style>
+      <span>{open ? 'Open' : 'Closed'}</span>
+      <Lightbox open={open} onOpenChange={(details) => setOpen(details.open)}>
+        <Lightbox.Trigger className="lightbox-button">Open controlled lightbox</Lightbox.Trigger>
+        <LightboxSurface src={images[1].src} alt={images[1].alt} />
+      </Lightbox>
+    </div>
   );
 }
 
-export function DynamicLightboxGalleryExample() {
+export function ClickToCloseLightboxExample() {
+  return (
+    <>
+      <style>{lightboxExampleCss}</style>
+      <Lightbox>
+        <Lightbox.Trigger className="lightbox-button">
+          Open click-to-close lightbox
+        </Lightbox.Trigger>
+        <LightboxSurface src={images[1].src} alt={images[1].alt} closeOnMediaClick />
+      </Lightbox>
+    </>
+  );
+}
+
+export function GalleryLightboxExample() {
+  const [activeImage, setActiveImage] = useState(images[0]);
+
+  return (
+    <>
+      <style>{lightboxExampleCss}</style>
+      <Lightbox
+        onTriggerValueChange={(details) => {
+          setActiveImage(images.find((image) => image.id === details.value) ?? images[0]);
+        }}
+      >
+        <div className="lightbox-gallery">
+          {images.map((image) => (
+            <Lightbox.Trigger key={image.id} value={image.id} asChild>
+              <button type="button" className="lightbox-gallery-trigger">
+                <img src={image.thumbnail} alt={image.alt} />
+              </button>
+            </Lightbox.Trigger>
+          ))}
+        </div>
+        <LightboxSurface src={activeImage.src} alt={activeImage.alt} />
+      </Lightbox>
+    </>
+  );
+}
+
+export function DelegatedLightboxExample() {
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <>
-      <div ref={rootRef} style={dynamicRootStyle}>
-        <button type="button" style={dynamicItemStyle}>
-          <img
-            src={images.mountainSmall}
-            data-lightbox-src={images.mountainLarge}
-            alt="Mountain landscape"
-            style={dynamicImageStyle}
-          />
-        </button>
-        <button type="button" style={dynamicItemStyle}>
-          <img
-            src={images.sea}
-            data-lightbox-src="https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1800&q=90"
-            alt="Sea at sunset"
-            style={dynamicImageStyle}
-          />
-        </button>
-        <button type="button" style={dynamicItemStyle}>
-          <img
-            src={images.forest}
-            data-lightbox-src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=90"
-            alt="Forest and mountain road"
-            style={dynamicImageStyle}
-          />
-        </button>
+      <style>{lightboxExampleCss}</style>
+      <div ref={rootRef} className="lightbox-gallery">
+        {images.map((image) => (
+          <button key={image.id} type="button" className="lightbox-gallery-trigger">
+            <img src={image.thumbnail} data-lightbox-src={image.src} alt={image.alt} />
+          </button>
+        ))}
       </div>
-      <LightboxGallery rootRef={rootRef} selector="button" />
+      <Lightbox.Gallery rootRef={rootRef} selector="button" />
+    </>
+  );
+}
+
+export function RootProviderLightboxExample() {
+  const lightbox = useLightbox();
+
+  return (
+    <div className="lightbox-stack">
+      <style>{lightboxExampleCss}</style>
+      <button type="button" className="lightbox-button" onClick={() => lightbox.setOpen(true)}>
+        Lightbox is {lightbox.open ? 'open' : 'closed'}
+      </button>
+      <Lightbox.RootProvider value={lightbox}>
+        <Portal>
+          <Lightbox.Backdrop />
+          <Lightbox.Positioner>
+            <Lightbox.CloseIcon />
+            <Lightbox.Content aria-label={images[2].alt}>
+              <Lightbox.Frame>
+                <img src={images[2].src} alt={images[2].alt} />
+              </Lightbox.Frame>
+              <Lightbox.Context>
+                {(state) => (
+                  <span className="lightbox-status">
+                    Preview is {state.open ? 'open' : 'closed'}
+                  </span>
+                )}
+              </Lightbox.Context>
+            </Lightbox.Content>
+          </Lightbox.Positioner>
+        </Portal>
+      </Lightbox.RootProvider>
+    </div>
+  );
+}
+
+export function LazyMountLightboxExample() {
+  return (
+    <>
+      <style>{lightboxExampleCss}</style>
+      <Lightbox lazyMount unmountOnExit>
+        <Lightbox.Trigger className="lightbox-button">Open lazy lightbox</Lightbox.Trigger>
+        <LightboxSurface src={images[0].src} alt={images[0].alt} />
+      </Lightbox>
     </>
   );
 }
 
 export function CustomizedLightboxExample() {
   return (
-    <Lightbox>
-      <LightboxImage src={images.road} alt="Road through forest" style={previewImageStyle} />
-      <LightboxPortal>
-        <LightboxBackdrop style={customBackdropStyle} />
-        <LightboxViewport>
-          <LightboxCloseButton style={customCloseStyle} aria-label="Close preview" />
-          <LightboxPopup style={customPopupStyle}>
-            <LightboxFrame>
-              <LightboxClose nativeButton={false} render={<div />}>
-                <img src={images.road} alt="Road through forest" />
-              </LightboxClose>
-            </LightboxFrame>
-          </LightboxPopup>
-        </LightboxViewport>
-      </LightboxPortal>
-    </Lightbox>
+    <>
+      <style>{lightboxExampleCss}</style>
+      <Lightbox>
+        <Lightbox.Trigger className="lightbox-button">Open styled lightbox</Lightbox.Trigger>
+        <Portal>
+          <Lightbox.Backdrop className="lightbox-custom-backdrop" />
+          <Lightbox.Positioner>
+            <Lightbox.CloseIcon className="lightbox-custom-close" />
+            <Lightbox.Content className="lightbox-custom-content" aria-label={images[1].alt}>
+              <Lightbox.Frame>
+                <img src={images[1].src} alt={images[1].alt} />
+              </Lightbox.Frame>
+            </Lightbox.Content>
+          </Lightbox.Positioner>
+        </Portal>
+      </Lightbox>
+    </>
   );
 }

@@ -1,56 +1,36 @@
-import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
+import type { ComponentProps, ComponentRef, RefObject } from 'react';
+import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
+import { Portal as PortalPrimitive } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ComponentProps,
-  type RefObject,
-} from 'react';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { forwardRef, useEffect, useState } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
 import styles from './Lightbox.module.css';
 
 const DEFAULT_CLOSE_LABEL = 'Close image';
-const createLightboxHandle = DialogPrimitive.createHandle;
-const preloadedImageSources = new Set<string>();
+const DEFAULT_PREVIEW_LABEL = 'Image preview';
 
 type LightboxImageData = {
   alt?: string;
-  fullSrc?: string;
   src: string;
 };
 
-type LightboxContextValue = {
-  image: LightboxImageData | null;
-  setImage: (image: LightboxImageData | null) => void;
-};
-
-type LightboxImageProps = ComponentProps<'img'> & {
-  fullSrc?: string;
-  src: string;
-};
-
-type LightboxContentProps = DialogPrimitive.Popup.Props & {
-  showCloseButton?: boolean;
-  closeLabel?: string;
-  closeOnContentClick?: boolean;
+type LightboxFrameProps = ComponentProps<'div'> & {
+  closeOnClick?: boolean;
 };
 
 type LightboxGalleryProps = {
   selector?: string;
   rootRef?: RefObject<HTMLElement | null>;
   rootSelector?: string;
-  className?: DialogPrimitive.Popup.Props['className'];
+  closeOnClick?: boolean;
+  className?: ComponentProps<typeof DialogPrimitive.Content>['className'];
   closeLabel?: string;
-  showCloseButton?: boolean;
-  closeOnContentClick?: boolean;
 };
 
-const LightboxContext = createContext<LightboxContextValue | null>(null);
+const preloadedImageSources = new Set<string>();
 
-const preloadImage = (src?: string) => {
+function preloadImage(src?: string) {
   if (!src || typeof Image === 'undefined' || preloadedImageSources.has(src)) {
     return;
   }
@@ -58,12 +38,9 @@ const preloadImage = (src?: string) => {
   preloadedImageSources.add(src);
   const image = new Image();
   image.src = src;
-};
+}
 
-const getGalleryImage = (
-  target: EventTarget | null,
-  selector: string,
-): { src: string; alt?: string } | null => {
+function getGalleryImage(target: EventTarget | null, selector: string): LightboxImageData | null {
   if (!(target instanceof Element)) {
     return null;
   }
@@ -86,199 +63,176 @@ const getGalleryImage = (
 
   return {
     src: source,
-    alt: imageNode.alt,
+    alt: imageNode.alt || undefined,
   };
-};
-
-function Lightbox<Payload = unknown>(props: DialogPrimitive.Root.Props<Payload>) {
-  const [image, setImage] = useState<LightboxImageData | null>(null);
-
-  return (
-    <LightboxContext.Provider value={{ image, setImage }}>
-      <DialogPrimitive.Root {...props} />
-    </LightboxContext.Provider>
-  );
 }
 
-function LightboxTrigger({ className, render, ...props }: DialogPrimitive.Trigger.Props) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
+function LightboxRoot(props: ComponentProps<typeof DialogPrimitive.Root>) {
+  return <DialogPrimitive.Root {...props} />;
+}
 
+function LightboxRootProvider(props: ComponentProps<typeof DialogPrimitive.RootProvider>) {
+  return <DialogPrimitive.RootProvider {...props} />;
+}
+
+const LightboxTrigger = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Trigger>,
+  ComponentProps<typeof DialogPrimitive.Trigger>
+>(function LightboxTrigger({ className, ...props }, ref) {
   return (
     <DialogPrimitive.Trigger
+      ref={ref}
       data-slot="lightbox-trigger"
-      className={triggerClassName}
-      render={render}
+      className={clsx(styles.trigger, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function LightboxPortal({ className, ...props }: DialogPrimitive.Portal.Props) {
-  return <DialogPrimitive.Portal data-slot="lightbox-portal" className={className} {...props} />;
-}
-
-function LightboxBackdrop({ className, ...props }: DialogPrimitive.Backdrop.Props) {
+const LightboxBackdrop = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Backdrop>,
+  ComponentProps<typeof DialogPrimitive.Backdrop>
+>(function LightboxBackdrop({ className, ...props }, ref) {
   return (
     <DialogPrimitive.Backdrop
+      ref={ref}
       data-slot="lightbox-backdrop"
-      className={mergeClassName(className, styles.backdrop)}
+      className={clsx(styles.backdrop, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function LightboxViewport({ className, ...props }: DialogPrimitive.Viewport.Props) {
+const LightboxPositioner = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Positioner>,
+  ComponentProps<typeof DialogPrimitive.Positioner>
+>(function LightboxPositioner({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Viewport
-      data-slot="lightbox-viewport"
-      className={mergeClassName(className, styles.viewport)}
+    <DialogPrimitive.Positioner
+      ref={ref}
+      data-slot="lightbox-positioner"
+      className={clsx(styles.positioner, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function LightboxPopup({ className, ...props }: DialogPrimitive.Popup.Props) {
+const LightboxContent = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Content>,
+  ComponentProps<typeof DialogPrimitive.Content>
+>(function LightboxContent({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Popup
-      data-slot="lightbox-popup"
-      className={mergeClassName(className, styles.popup)}
+    <DialogPrimitive.Content
+      ref={ref}
+      data-slot="lightbox-content"
+      className={clsx(styles.content, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function LightboxClose({ className, ...props }: DialogPrimitive.Close.Props) {
-  return <DialogPrimitive.Close data-slot="lightbox-close" className={className} {...props} />;
-}
-
-function LightboxCloseButton({
-  className,
-  children,
-  'aria-label': ariaLabel = DEFAULT_CLOSE_LABEL,
-  render,
-  ...props
-}: DialogPrimitive.Close.Props) {
+const LightboxTitle = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Title>,
+  ComponentProps<typeof DialogPrimitive.Title>
+>(function LightboxTitle({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Close
-      data-slot="lightbox-close-button"
-      render={render ?? <CloseButton.Root aria-label={ariaLabel}>{children}</CloseButton.Root>}
-      className={mergeClassName(className, styles.closeButton)}
+    <DialogPrimitive.Title
+      ref={ref}
+      data-slot="lightbox-title"
+      className={normalizeClassName(className)}
       {...props}
     />
   );
-}
+});
 
-function LightboxFrame({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="lightbox-frame" className={clsx(styles.frame, className)} {...props} />;
-}
-
-function LightboxImage({
-  src,
-  fullSrc,
-  alt,
-  className,
-  onClick,
-  onFocus,
-  onPointerEnter,
-  ...props
-}: LightboxImageProps) {
-  const lightbox = useContext(LightboxContext);
-
+const LightboxDescription = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Description>,
+  ComponentProps<typeof DialogPrimitive.Description>
+>(function LightboxDescription({ className, ...props }, ref) {
   return (
-    <LightboxTrigger
-      nativeButton={false}
-      render={
-        <img
-          data-slot="lightbox-image"
-          src={src}
-          alt={alt}
-          className={clsx(styles.trigger, className)}
-          data-lightbox-src={fullSrc}
-          onPointerEnter={(event) => {
-            onPointerEnter?.(event);
-
-            if (!event.defaultPrevented) {
-              preloadImage(fullSrc);
-            }
-          }}
-          onFocus={(event) => {
-            onFocus?.(event);
-
-            if (!event.defaultPrevented) {
-              preloadImage(fullSrc);
-            }
-          }}
-          onClick={(event) => {
-            onClick?.(event);
-
-            if (!event.defaultPrevented) {
-              lightbox?.setImage({ src, fullSrc, alt });
-            }
-          }}
-          {...props}
-        />
-      }
+    <DialogPrimitive.Description
+      ref={ref}
+      data-slot="lightbox-description"
+      className={normalizeClassName(className)}
+      {...props}
     />
   );
-}
+});
 
-function LightboxContent({
-  className,
-  showCloseButton = true,
-  closeOnContentClick = true,
-  closeLabel = DEFAULT_CLOSE_LABEL,
-  children,
-  ...props
-}: LightboxContentProps) {
-  const lightbox = useContext(LightboxContext);
-  let content = children;
+const LightboxCloseTrigger = forwardRef<
+  ComponentRef<typeof DialogPrimitive.CloseTrigger>,
+  ComponentProps<typeof DialogPrimitive.CloseTrigger>
+>(function LightboxCloseTrigger({ className, ...props }, ref) {
+  return (
+    <DialogPrimitive.CloseTrigger
+      ref={ref}
+      data-slot="lightbox-close-trigger"
+      className={normalizeClassName(className)}
+      {...props}
+    />
+  );
+});
 
-  if (!content && lightbox?.image) {
-    content = (
-      <img
-        data-slot="lightbox-content-image"
-        src={lightbox.image.fullSrc ?? lightbox.image.src}
-        alt={lightbox.image.alt ?? ''}
-      />
-    );
+const LightboxCloseIcon = forwardRef<
+  ComponentRef<typeof CloseButton.Root>,
+  Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>
+>(function LightboxCloseIcon(
+  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_LABEL, ...props },
+  ref,
+) {
+  const dialog = useDialogContext();
+
+  return (
+    <DialogPrimitive.CloseTrigger asChild {...props}>
+      <CloseButton.Root
+        ref={ref}
+        data-slot="lightbox-close-icon"
+        data-state={dialog.open ? 'open' : 'closed'}
+        aria-label={ariaLabel}
+        className={clsx(styles.closeIcon, normalizeClassName(className))}
+      >
+        {children}
+      </CloseButton.Root>
+    </DialogPrimitive.CloseTrigger>
+  );
+});
+
+const LightboxFrame = forwardRef<ComponentRef<'div'>, LightboxFrameProps>(function LightboxFrame(
+  { className, closeOnClick = false, onClick, ...props },
+  ref,
+) {
+  const frame = (
+    <div
+      ref={ref}
+      data-slot="lightbox-frame"
+      data-close-on-click={closeOnClick ? '' : undefined}
+      className={clsx(styles.frame, className)}
+      onClick={onClick}
+      {...props}
+    />
+  );
+
+  if (!closeOnClick) {
+    return frame;
   }
 
-  if (closeOnContentClick && content) {
-    content = (
-      <LightboxClose className={styles.contentClose} nativeButton={false} render={<div />}>
-        {content}
-      </LightboxClose>
-    );
-  }
-
-  return (
-    <LightboxPortal>
-      <LightboxBackdrop />
-      <LightboxViewport>
-        {showCloseButton ? <LightboxCloseButton aria-label={closeLabel} /> : null}
-        <LightboxPopup className={className} {...props}>
-          <LightboxFrame>{content}</LightboxFrame>
-        </LightboxPopup>
-      </LightboxViewport>
-    </LightboxPortal>
-  );
-}
+  return <DialogPrimitive.CloseTrigger asChild>{frame}</DialogPrimitive.CloseTrigger>;
+});
 
 function LightboxGallery({
   selector = 'img',
   rootRef,
   rootSelector,
+  closeOnClick = false,
   className,
-  closeLabel,
-  showCloseButton,
-  closeOnContentClick,
+  closeLabel = DEFAULT_CLOSE_LABEL,
 }: LightboxGalleryProps) {
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState<LightboxImageData | null>(null);
 
   useEffect(() => {
     const rootNode =
-      rootRef?.current ?? (rootSelector ? document.querySelector(rootSelector) : null);
+      rootRef?.current ?? (rootSelector ? document.querySelector<HTMLElement>(rootSelector) : null);
     if (!rootNode) {
       return;
     }
@@ -335,6 +289,7 @@ function LightboxGallery({
     rootNode.addEventListener('pointerenter', handlePointerEnter, true);
     rootNode.addEventListener('focusin', handleFocusIn);
     rootNode.addEventListener('keydown', handleKeyDown);
+
     return () => {
       rootNode.removeEventListener('click', handleClick);
       rootNode.removeEventListener('pointerenter', handlePointerEnter, true);
@@ -344,41 +299,68 @@ function LightboxGallery({
   }, [rootRef, rootSelector, selector]);
 
   return (
-    <Lightbox
+    <DialogPrimitive.Root
       open={open}
-      onOpenChange={setOpen}
-      onOpenChangeComplete={(nextOpen) => {
-        if (!nextOpen) {
+      onOpenChange={(details) => {
+        setOpen(details.open);
+      }}
+      onExitComplete={() => {
+        if (!open) {
           setImage(null);
         }
       }}
+      lazyMount
+      unmountOnExit
     >
-      <LightboxContent
-        className={className}
-        closeLabel={closeLabel}
-        showCloseButton={showCloseButton}
-        closeOnContentClick={closeOnContentClick}
-      >
-        {image ? (
-          <img data-slot="lightbox-content-image" src={image.src} alt={image.alt ?? ''} />
-        ) : null}
-      </LightboxContent>
-    </Lightbox>
+      <PortalPrimitive>
+        <LightboxBackdrop />
+        <LightboxPositioner>
+          <LightboxCloseIcon aria-label={closeLabel} />
+          <LightboxContent aria-label={image?.alt ?? DEFAULT_PREVIEW_LABEL} className={className}>
+            {image ? (
+              <LightboxFrame closeOnClick={closeOnClick}>
+                <img src={image.src} alt={image.alt ?? ''} />
+              </LightboxFrame>
+            ) : null}
+          </LightboxContent>
+        </LightboxPositioner>
+      </PortalPrimitive>
+    </DialogPrimitive.Root>
   );
 }
 
+const LightboxContext = DialogPrimitive.Context;
+
+const Lightbox = Object.assign(LightboxRoot, {
+  Root: LightboxRoot,
+  RootProvider: LightboxRootProvider,
+  Trigger: LightboxTrigger,
+  Backdrop: LightboxBackdrop,
+  Positioner: LightboxPositioner,
+  Content: LightboxContent,
+  Title: LightboxTitle,
+  Description: LightboxDescription,
+  CloseTrigger: LightboxCloseTrigger,
+  CloseIcon: LightboxCloseIcon,
+  Frame: LightboxFrame,
+  Gallery: LightboxGallery,
+  Context: LightboxContext,
+});
+
 export {
   Lightbox,
-  createLightboxHandle,
-  LightboxTrigger,
-  LightboxPortal,
-  LightboxBackdrop,
-  LightboxViewport,
-  LightboxPopup,
-  LightboxContent,
-  LightboxClose,
-  LightboxCloseButton,
-  LightboxFrame,
-  LightboxImage,
   LightboxGallery,
+  useDialog as useLightbox,
+  useDialogContext as useLightboxContext,
 };
+export type { LightboxGalleryProps };
+export type {
+  DialogFocusOutsideEvent as LightboxFocusOutsideEvent,
+  DialogInteractOutsideEvent as LightboxInteractOutsideEvent,
+  DialogOpenChangeDetails as LightboxOpenChangeDetails,
+  DialogPointerDownOutsideEvent as LightboxPointerDownOutsideEvent,
+  DialogTriggerValueChangeDetails as LightboxTriggerValueChangeDetails,
+  UseDialogContext as UseLightboxContext,
+  UseDialogProps as UseLightboxProps,
+  UseDialogReturn as UseLightboxReturn,
+} from '@ark-ui/react/dialog';
