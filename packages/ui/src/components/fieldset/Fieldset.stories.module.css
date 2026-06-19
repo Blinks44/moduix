@@ -1,5 +1,5 @@
 .customFieldset {
-  max-width: 20rem;
+  max-width: 16rem;
   gap: var(--spacing-3);
   padding: var(--spacing-4);
   border: var(--border-width-sm) solid color-mix(in srgb, var(--color-primary) 30%, transparent);
@@ -7,8 +7,9 @@
 }
 
 .customLegend {
-  border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
   color: var(--color-primary);
+  margin-inline-start: var(--spacing-2);
+  padding-inline: var(--spacing-2);
 }
 
 .customField {
@@ -16,7 +17,7 @@
 }
 
 .customLabel,
-.customError {
+.customHelper {
   color: var(--color-primary);
 }
 

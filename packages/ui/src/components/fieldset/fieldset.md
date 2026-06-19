@@ -1,283 +1,115 @@
 # Fieldset
 
-Upstream primitive docs: https://base-ui.com/react/components/fieldset
+Upstream docs:
+
+- Ark UI: https://ark-ui.com/docs/components/fieldset
+- Chakra UI: https://chakra-ui.com/docs/components/fieldset
 
 ## Purpose
 
-`Fieldset` is the moduix wrapper for grouping related form controls under one shared visible label.
-It keeps the Base UI fieldset behavior, adds moduix styling hooks, and exposes only two public parts:
-`Fieldset` and `FieldsetLegend`.
+`Fieldset` groups related form controls under one accessible legend and provides shared disabled and
+invalid state.
 
-Use it when several controls belong to one question or section:
+## Upstream model to preserve
 
-- a cluster of text fields such as billing details
-- a radio or checkbox group that should share one accessible legend
-- a disabled form section that should dim and disable together
+- Preserve Ark UI `Root`, `RootProvider`, `Legend`, `HelperText`, `ErrorText`, and `Context`.
+- Preserve `useFieldset`, `useFieldsetContext`, Ark IDs, refs, and context state without remapping.
+- Keep the native `fieldset` and `legend` semantics.
 
 ## Current behavior contract
 
-- `Fieldset` renders a native `<fieldset>` by default and forwards `FieldsetPrimitive.Root.Props`
-  directly to Base UI.
-- `FieldsetLegend` renders a Base UI legend part that is a `<div>` by default, not a native
-  `<legend>`. Base UI associates it to the root with a generated `id` + `aria-labelledby`.
-- `disabled` is the only wrapper-level state. It is available to Base UI state callbacks and exposed
-  as `data-disabled` for styling.
-- `className` on both parts is merged with the moduix CSS Module class via `mergeClassName`, so
-  callback class names such as `className={(state) => ...}` keep working.
-- `render` stays available on both parts. The main advanced use case is composing `Fieldset` with
-  `RadioGroup` or `Checkbox.Group` while preserving the shared legend and disabled state.
-- The wrapper does not add variants, slot prop bags, helper props, or extra structure beyond the two
-  visible parts.
+- `Fieldset` and `Fieldset.Root` are the same styled Ark root.
+- `disabled`, `invalid`, and `id` pass directly to Ark.
+- `Fieldset.ErrorText` renders only while the root is invalid.
+- `Fieldset.HelperText` and active error text are connected through `aria-describedby`.
+- Base UI `render`, callback class names, flat part aliases, and compatibility adapters are removed.
+
+## Anatomy and exported parts
+
+```text
+Fieldset.Root | Fieldset.RootProvider
+├─ Fieldset.Legend
+├─ grouped controls
+├─ Fieldset.HelperText (optional)
+├─ Fieldset.ErrorText (optional)
+└─ Fieldset.Context (optional state reader)
+```
+
+| Part                    | `data-slot`              | Element/role                       |
+| ----------------------- | ------------------------ | ---------------------------------- |
+| `Fieldset.Root`         | `fieldset-root`          | Native `fieldset`; owns state.     |
+| `Fieldset.RootProvider` | `fieldset-root-provider` | Native `fieldset`; external state. |
+| `Fieldset.Legend`       | `fieldset-legend`        | Native `legend`.                   |
+| `Fieldset.HelperText`   | `fieldset-helper-text`   | Descriptive `span`.                |
+| `Fieldset.ErrorText`    | `fieldset-error-text`    | Conditional polite-live `span`.    |
+| `Fieldset.Context`      | none                     | Inline Ark context render prop.    |
+
+The package barrel also exports `useFieldset`, `useFieldsetContext`, and the Ark fieldset types.
 
 ## Composition
 
-Basic grouped fields:
-
 ```tsx
-import { Field, Fieldset, FieldsetLegend } from 'moduix';
+import { Field, Fieldset } from 'moduix';
 
-export function BillingDetailsFieldset() {
+export function ContactDetails() {
   return (
     <Fieldset>
-      <FieldsetLegend>Billing details</FieldsetLegend>
-
-      <Field>
-        <Field.Label>Company</Field.Label>
-        <Field.Input required placeholder="Enter company name" />
-        <Field.ErrorText>Please enter company name.</Field.ErrorText>
-      </Field>
-
-      <Field>
-        <Field.Label>Tax ID</Field.Label>
-        <Field.Input required placeholder="Enter tax ID" />
-        <Field.ErrorText>Please enter tax ID.</Field.ErrorText>
-      </Field>
-    </Fieldset>
-  );
-}
-```
-
-Disabled section:
-
-```tsx
-import { Field, Fieldset, FieldsetLegend } from 'moduix';
-
-export function DisabledAccountFieldset() {
-  return (
-    <Fieldset disabled>
-      <FieldsetLegend>Disabled account details</FieldsetLegend>
-
-      <Field>
+      <Fieldset.Legend>Contact details</Fieldset.Legend>
+      <Field.Root>
         <Field.Label>Email</Field.Label>
-        <Field.Input defaultValue="team@example.com" />
-      </Field>
-
-      <Field>
-        <Field.Label>Phone</Field.Label>
-        <Field.Input defaultValue="+1 (555) 123-45-67" />
-      </Field>
+        <Field.Input type="email" />
+      </Field.Root>
+      <Fieldset.HelperText>Use an address you check regularly.</Fieldset.HelperText>
     </Fieldset>
   );
 }
 ```
 
-Form integration with `RadioGroup` via `render`:
+Use `asChild` with one semantic child when replacing a part's host. Use `useFieldset` with
+`Fieldset.RootProvider`; do not render `Fieldset.Root` around the same state instance.
 
-```tsx
-import { Field, Fieldset, FieldsetLegend, RadioGroup } from 'moduix';
+## Upstream feature coverage
 
-export function StorageTypeFieldset() {
-  return (
-    <Field>
-      <Fieldset render={<RadioGroup defaultValue="ssd" />}>
-        <FieldsetLegend>Storage type</FieldsetLegend>
+- Basic grouped fields and native controls are supported.
+- Ark `Field`, checkbox, radio-group, and input/select compositions work as nested controls.
+- Root Provider is exposed through `useFieldset` and `Fieldset.RootProvider`.
+- Context state is exposed through `Fieldset.Context` and `useFieldsetContext`.
+- `id`, `disabled`, `invalid`, refs, and `asChild` are passed through unchanged.
 
-        <Field.Item value="ssd">
-          <RadioGroup.Item value="ssd">
-            <RadioGroup.ItemControl />
-            <RadioGroup.ItemText>SSD</RadioGroup.ItemText>
-            <RadioGroup.ItemHiddenInput />
-          </RadioGroup.Item>
-        </Field.Item>
+## Accessibility and state
 
-        <Field.Item value="hdd">
-          <RadioGroup.Item value="hdd">
-            <RadioGroup.ItemControl />
-            <RadioGroup.ItemText>HDD</RadioGroup.ItemText>
-            <RadioGroup.ItemHiddenInput />
-          </RadioGroup.Item>
-        </Field.Item>
-      </Fieldset>
-    </Field>
-  );
-}
-```
+- `Legend` is a native `legend` and Ark links it with `aria-labelledby`.
+- Ark links mounted helper text and active error text with `aria-describedby`.
+- `ErrorText` has `aria-live="polite"` and is absent when `invalid` is false.
+- Root/provider refs target `HTMLFieldSetElement`; legend refs target `HTMLLegendElement`.
+- Ark state hooks are `data-scope="fieldset"`, `data-part="root" | "legend" | "helper-text" |
+"error-text"`, `data-disabled`, and `data-invalid`.
+- Native fieldset disabled behavior applies to descendant native controls. Ark controls nested inside
+  the fieldset also consume Ark fieldset context where supported.
+- Fieldset has no value and therefore no `HiddenInput`, controlled value, callback, or keyboard
+  navigation contract of its own.
 
-Custom styling:
+## Defaults and styling
 
-```tsx
-import { Field, Fieldset, FieldsetLegend } from 'moduix';
-import styles from './fieldset.module.css';
+All DOM parts accept `className`; wrappers add stable `data-slot` hooks. Root and provider share the
+same visual defaults. Public variables cover root layout/borders, legend spacing and typography,
+disabled and invalid state, and helper/error text typography and color.
 
-export function StyledFieldset() {
-  return (
-    <Fieldset className={styles.customFieldset}>
-      <FieldsetLegend className={styles.customLegend}>Styled fieldset</FieldsetLegend>
+## Intentional sugar and differences from upstream
 
-      <Field className={styles.customField}>
-        <Field.Label className={styles.customLabel}>Project name</Field.Label>
-        <Field.Input required placeholder="Maps Platform" className={styles.customControl} />
-        <Field.ErrorText className={styles.customError}>
-          Please enter a project name.
-        </Field.ErrorText>
-      </Field>
-    </Fieldset>
-  );
-}
-```
-
-```css
-.customFieldset {
-  max-width: 20rem;
-  gap: var(--spacing-3);
-  padding: var(--spacing-4);
-  border: var(--border-width-sm) solid color-mix(in srgb, var(--color-primary) 30%, transparent);
-  border-radius: var(--radius-lg);
-}
-
-.customLegend {
-  border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-  color: var(--color-primary);
-}
-
-.customField {
-  gap: var(--spacing-2);
-}
-
-.customLabel,
-.customError {
-  color: var(--color-primary);
-}
-
-.customControl {
-  border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-}
-
-.customControl:focus-visible {
-  outline-color: var(--color-primary);
-}
-```
-
-## Exported parts
-
-| Part             | Element/primitive          | Purpose                                                                                        |
-| ---------------- | -------------------------- | ---------------------------------------------------------------------------------------------- |
-| `Fieldset`       | `FieldsetPrimitive.Root`   | Root group. Native `<fieldset>` by default; can be composed with another root via `render`.    |
-| `FieldsetLegend` | `FieldsetPrimitive.Legend` | Visible group label. Renders a `<div>` by default and is associated through `aria-labelledby`. |
-
-## Public props
-
-`Fieldset` accepts `FieldsetPrimitive.Root.Props`. Key props:
-
-| Prop        | Type                                                                       | Default    | Notes                                                       |
-| ----------- | -------------------------------------------------------------------------- | ---------- | ----------------------------------------------------------- |
-| `disabled`  | `boolean`                                                                  | `false`    | Disables the grouped controls and exposes `data-disabled`.  |
-| `render`    | `ReactElement \| ((props, state) => ReactElement)`                         | `fieldset` | Advanced composition escape hatch for another root element. |
-| `className` | `string \| ((state: FieldsetPrimitive.Root.State) => string \| undefined)` | —          | Merged with the moduix root class.                          |
-| `style`     | `React.CSSProperties \| ((state) => React.CSSProperties \| undefined)`     | —          | Forwarded directly to Base UI.                              |
-
-`FieldsetLegend` accepts `FieldsetPrimitive.Legend.Props`. Key props:
-
-| Prop        | Type                                                                         | Default | Notes                                                             |
-| ----------- | ---------------------------------------------------------------------------- | ------- | ----------------------------------------------------------------- |
-| `id`        | `string`                                                                     | auto    | Overrides the generated label id that Base UI wires to the root.  |
-| `render`    | `ReactElement \| ((props, state) => ReactElement)`                           | `div`   | Replaces the default legend element when composition requires it. |
-| `className` | `string \| ((state: FieldsetPrimitive.Legend.State) => string \| undefined)` | —       | Merged with the moduix legend class.                              |
-| `style`     | `React.CSSProperties \| ((state) => React.CSSProperties \| undefined)`       | —       | Forwarded directly to Base UI.                                    |
-
-All other native fieldset or div props supported by Base UI pass through unchanged.
-
-## Styling API
-
-Public `data-slot` values:
-
-| Part             | `data-slot`       |
-| ---------------- | ----------------- |
-| `Fieldset`       | `fieldset-root`   |
-| `FieldsetLegend` | `fieldset-legend` |
-
-Relevant state attributes:
-
-| Part             | Attributes      |
-| ---------------- | --------------- |
-| `Fieldset`       | `data-disabled` |
-| `FieldsetLegend` | `data-disabled` |
-
-Public CSS variables:
-
-| Variable                         | Default fallback             | Purpose                       |
-| -------------------------------- | ---------------------------- | ----------------------------- |
-| `--fieldset-gap`                 | `var(--spacing-4)`           | Gap between grouped children. |
-| `--fieldset-width`               | `100%`                       | Root width.                   |
-| `--fieldset-max-width`           | `none`                       | Root max width.               |
-| `--fieldset-margin`              | `0`                          | Root margin.                  |
-| `--fieldset-padding`             | `0`                          | Root padding.                 |
-| `--fieldset-border-width`        | `0`                          | Root border width.            |
-| `--fieldset-border-style`        | `solid`                      | Root border style.            |
-| `--fieldset-border-color`        | `transparent`                | Root border color.            |
-| `--fieldset-radius`              | `var(--radius-none)`         | Root border radius.           |
-| `--fieldset-disabled-opacity`    | `var(--opacity-disabled)`    | Disabled root opacity.        |
-| `--fieldset-legend-margin`       | `0`                          | Legend margin.                |
-| `--fieldset-legend-padding`      | `0 0 var(--spacing-3)`       | Legend padding.               |
-| `--fieldset-legend-border-width` | `var(--border-width-sm)`     | Legend bottom border width.   |
-| `--fieldset-legend-border-style` | `solid`                      | Legend bottom border style.   |
-| `--fieldset-legend-border-color` | `var(--color-border)`        | Legend bottom border color.   |
-| `--fieldset-legend-color`        | `var(--color-foreground)`    | Legend text color.            |
-| `--fieldset-legend-font-size`    | `var(--text-lg)`             | Legend font size.             |
-| `--fieldset-legend-font-weight`  | `var(--weight-semibold)`     | Legend font weight.           |
-| `--fieldset-legend-line-height`  | `var(--line-height-text-lg)` | Legend line height.           |
-
-There are no built-in visual variants. Customize appearance through `className`, `data-slot`,
-state attributes, and the `--fieldset-*` variables.
-
-## UX and accessibility
-
-- Always render one visible `FieldsetLegend` so the grouped controls have a shared accessible label.
-- Prefer the default native `<fieldset>` root for standard grouped forms. Use `render` only when the
-  root must also be a selection group such as Ark `RadioGroup` or the checkbox group wrapper.
-- `disabled` is the right way to disable the whole section. Do not manually dim nested controls one
-  by one unless the group is intentionally mixed-state.
-- Because the legend is a `<div>`, do not rely on native `<legend>` layout quirks. The accessibility
-  relationship comes from Base UI's generated `id` and `aria-labelledby`.
-- Keyboard navigation, form participation, group labelling for composed radio/checkbox controls, and
-  disabled propagation are owned by Base UI and should not be reimplemented in the wrapper.
-
-## Intentional differences from Base UI
-
-- moduix exports flat parts (`Fieldset`, `FieldsetLegend`) instead of teaching the namespaced
-  `Fieldset.Root` / `Fieldset.Legend` API in local docs.
-- The component is styled by default through CSS Modules, `data-slot`, and `--fieldset-*` variables.
-- Local docs document only the moduix wrapper contract and the library's recommended composition
-  patterns, not the full upstream primitive reference.
+- moduix supplies CSS Module defaults, design-token fallbacks, CSS variables, and `data-slot`.
+- The short `<Fieldset>` form is equivalent to `<Fieldset.Root>`.
+- No Chakra-only content wrapper or Base UI flat aliases are added.
 
 ## Agent notes
 
-- Keep `Fieldset` thin. Do not add convenience props that duplicate Base UI primitive props under
-  different names.
-- Do not introduce slot prop bags, class-name maps, or wrapper-owned layout helpers. The public API
-  should stay the current two-part composition.
-- Preserve the current `render` escape hatch because it is the established integration path for
-  `RadioGroup` and `Checkbox.Group` inside `Field`.
-- If `data-slot` values, CSS variables, or example composition change, update stories, docs/examples,
-  and this file in the same task.
-- Keep `Field`, `Fieldset`, and `Form` aligned as the library's form-structure primitives: `Form`
-  owns the form element, `Fieldset` owns grouped section semantics, and `Field` owns per-control
-  validation and descriptions.
+- Keep all Ark parts, provider/context hooks, and public types exported.
+- Keep `ErrorText` conditional; do not duplicate its visibility logic.
+- Do not restore `render`; Ark composition uses `asChild`.
+- Keep docs examples on the namespace API.
 
 ## Local changelog
 
-- Rewrote the local documentation to describe the shipped moduix `Fieldset` wrapper, including the
-  real two-part API, styling contract, `render` composition path, and the important detail that
-  `FieldsetLegend` renders a `<div>` associated through `aria-labelledby`.
-- Simplified the grouped radio examples and docs snippets by inlining the two option rows instead of
-  routing them through a temporary array and `map`.
+- 2026-06-19: Migrated from Base UI to Ark UI 5.37.2; added the complete anatomy, provider/context
+  surface, invalid/helper/error semantics, Ark state styling, and namespace-first exports; removed
+  legacy flat aliases and `render`.

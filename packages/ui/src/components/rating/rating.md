@@ -67,16 +67,15 @@ export function ControlledRating() {
 Form integration:
 
 ```tsx
-import { Field, Fieldset, FieldsetLegend, Rating } from 'moduix';
+import { Fieldset, Rating } from 'moduix';
 
 export function ReviewScoreField() {
   return (
-    <Field>
-      <Fieldset render={<Rating required aria-label="Review score" />}>
-        <FieldsetLegend>Review score</FieldsetLegend>
-      </Fieldset>
-      <Field.HelperText>Choose one score from 1 to 5.</Field.HelperText>
-    </Field>
+    <Fieldset>
+      <Fieldset.Legend>Review score</Fieldset.Legend>
+      <Rating required aria-label="Review score" />
+      <Fieldset.HelperText>Choose one score from 1 to 5.</Fieldset.HelperText>
+    </Fieldset>
   );
 }
 ```
@@ -148,7 +147,7 @@ Public CSS variables:
 ## UX and accessibility
 
 - Always give the group an accessible name with `aria-label`, `aria-labelledby`, or a surrounding
-  labeled field pattern such as `FieldsetLegend`.
+  labeled field pattern such as `Fieldset.Legend`.
 - Each star receives an internal label:
   - interactive: `Rate N out of max`
   - read-only: `N out of max`

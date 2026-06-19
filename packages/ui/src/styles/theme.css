@@ -954,13 +954,13 @@
 
   /* Fieldset */
   --fieldset-border-color: initial; /* transparent */
+  --fieldset-border-color-invalid: initial; /* var(--color-destructive) */
   --fieldset-border-style: initial; /* solid */
   --fieldset-border-width: initial; /* 0 */
   --fieldset-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --fieldset-error-text-color: initial; /* var(--color-destructive) */
   --fieldset-gap: initial; /* var(--spacing-4) */
-  --fieldset-legend-border-color: initial; /* var(--color-border) */
-  --fieldset-legend-border-style: initial; /* solid */
-  --fieldset-legend-border-width: initial; /* var(--border-width-sm) */
+  --fieldset-helper-text-color: initial; /* var(--color-muted-foreground) */
   --fieldset-legend-color: initial; /* var(--color-foreground) */
   --fieldset-legend-font-size: initial; /* var(--text-lg) */
   --fieldset-legend-font-weight: initial; /* var(--weight-semibold) */
@@ -969,6 +969,8 @@
   --fieldset-legend-padding: initial; /* 0 0 var(--spacing-3) */
   --fieldset-margin: initial; /* 0 */
   --fieldset-max-width: initial; /* none */
+  --fieldset-message-font-size: initial; /* var(--text-sm) */
+  --fieldset-message-line-height: initial; /* var(--line-height-text-sm) */
   --fieldset-padding: initial; /* 0 */
   --fieldset-radius: initial; /* var(--radius-none) */
   --fieldset-width: initial; /* 100% */

@@ -334,12 +334,12 @@ Wrap the group in `Fieldset` when several radio items share a form section legen
 
   <Preview.Code>
     {`
-      import { Fieldset, FieldsetLegend, RadioGroup } from "moduix";
+      import { Fieldset, RadioGroup } from "moduix";
 
       export function RadioGroupFieldsetDemo() {
         return (
           <Fieldset>
-            <FieldsetLegend>Select a framework</FieldsetLegend>
+            <Fieldset.Legend>Select a framework</Fieldset.Legend>
             <RadioGroup.Root defaultValue="React">
               {frameworks.map((framework) => (
                 <RadioGroup.Item key={framework} value={framework}>

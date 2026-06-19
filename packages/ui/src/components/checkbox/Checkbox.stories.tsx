@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ComponentProps } from 'react';
-import { Fieldset, FieldsetLegend } from '../fieldset';
+import { Fieldset } from '../fieldset';
 import { Checkbox, useCheckbox, useCheckboxGroup } from './Checkbox';
 import styles from './Checkbox.stories.module.css';
 
@@ -249,7 +249,7 @@ export const GroupProvider: Story = {
 export const GroupWithFieldset: Story = {
   render: () => (
     <Fieldset>
-      <FieldsetLegend>Frameworks</FieldsetLegend>
+      <Fieldset.Legend>Frameworks</Fieldset.Legend>
       <Checkbox.Group defaultValue={['react']} name="frameworks">
         {frameworkOptions.map((option) => (
           <CheckboxItem key={option.value} value={option.value}>

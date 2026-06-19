@@ -684,7 +684,7 @@
       "type": "registry:item",
       "title": "Fieldset",
       "description": "moduix Fieldset component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

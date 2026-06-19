@@ -679,12 +679,12 @@ Wrap the group in `Fieldset` when the checkbox set is one semantic form field wi
 
   <Preview.Code>
     {`
-      import { Checkbox, Fieldset, FieldsetLegend } from "moduix";
+      import { Checkbox, Fieldset } from "moduix";
 
       export function CheckboxGroupFieldsetDemo() {
         return (
           <Fieldset className="checkbox-fieldset">
-            <FieldsetLegend>Frameworks</FieldsetLegend>
+            <Fieldset.Legend>Frameworks</Fieldset.Legend>
             <Checkbox.Group defaultValue={["react"]} >
               {options.map((option) => (
                 <Checkbox.Root key={option.value} value={option.value}>

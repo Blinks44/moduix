@@ -1,4 +1,4 @@
-import { Fieldset, FieldsetLegend, RadioGroup, useRadioGroup } from 'moduix';
+import { Fieldset, RadioGroup, useRadioGroup } from 'moduix';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -271,7 +271,7 @@ export function RadioGroupOrientationExample() {
 export function RadioGroupFieldsetExample() {
   return (
     <Fieldset className="radio-fieldset">
-      <FieldsetLegend>Select a framework</FieldsetLegend>
+      <Fieldset.Legend>Select a framework</Fieldset.Legend>
       <RadioGroup defaultValue="React">
         <FrameworkItems />
       </RadioGroup>

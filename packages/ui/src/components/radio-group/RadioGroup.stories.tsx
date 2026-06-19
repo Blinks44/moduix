@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Fieldset, FieldsetLegend } from '../fieldset';
+import { Fieldset } from '../fieldset';
 import { RadioGroup, useRadioGroup } from './RadioGroup';
 import styles from './RadioGroup.stories.module.css';
 
@@ -180,7 +180,7 @@ export const WithIndicator: Story = {
 export const WithFieldset: Story = {
   render: () => (
     <Fieldset className={styles.fieldset}>
-      <FieldsetLegend>Select a framework</FieldsetLegend>
+      <Fieldset.Legend>Select a framework</Fieldset.Legend>
       <RadioGroup defaultValue="React">
         <RadioItems />
       </RadioGroup>

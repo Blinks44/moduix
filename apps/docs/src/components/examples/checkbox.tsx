@@ -1,4 +1,4 @@
-import { Checkbox, Field, Fieldset, FieldsetLegend, useCheckbox, useCheckboxGroup } from 'moduix';
+import { Checkbox, Field, Fieldset, useCheckbox, useCheckboxGroup } from 'moduix';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -517,7 +517,7 @@ export function CheckboxGroupWithFormExample() {
 export function CheckboxGroupFieldsetExample() {
   return (
     <Fieldset className={styles.fieldset}>
-      <FieldsetLegend>Frameworks</FieldsetLegend>
+      <Fieldset.Legend>Frameworks</Fieldset.Legend>
       <Checkbox.Group defaultValue={['react']}>
         <FrameworkCheckboxes />
       </Checkbox.Group>
