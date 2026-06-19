@@ -53,7 +53,7 @@ Create an Ark `ListCollection`, pass it to `Combobox.Root`, and keep the popup s
         });
 
         return (
-          <Combobox.Root
+          <Combobox
             collection={collection}
             onInputValueChange={(details) => filter(details.inputValue)}
           >
@@ -78,7 +78,7 @@ Create an Ark `ListCollection`, pass it to `Combobox.Root`, and keep the popup s
                 </Combobox.Content>
               </Combobox.Positioner>
             </Portal>
-          </Combobox.Root>
+          </Combobox>
         );
       }
     `}
@@ -163,6 +163,20 @@ Combobox.Root[collection]
             └─ Combobox.Item
 ```
 
+| Part                         | Role                                                               |
+| ---------------------------- | ------------------------------------------------------------------ |
+| `Combobox` / `Combobox.Root` | Owns combobox state, filtering, highlighting, and selected values. |
+| `Combobox.Control`           | Wrapper for input and trigger controls.                            |
+| `Combobox.Input`             | Text input that drives search and selection.                       |
+| `Combobox.Trigger`           | Opens and closes the popup list.                                   |
+| `Combobox.ClearTrigger`      | Clears current value and/or input.                                 |
+| `Combobox.Positioner`        | Floating positioner for popup content.                             |
+| `Combobox.Content`           | Popup content container.                                           |
+| `Combobox.List`              | Option list wrapper.                                               |
+| `Combobox.Item`              | Selectable option row.                                             |
+| `Combobox.ItemText`          | Text label slot inside an item.                                    |
+| `Combobox.ItemIndicator`     | Selected/highlight indicator slot for an item.                     |
+
 `Combobox.RootProvider`, `Combobox.Context`, and `Combobox.ItemContext` expose the corresponding
 Ark provider and context paths.
 
@@ -190,10 +204,13 @@ combobox `Status` part.
 
 ### Default props
 
-- `Combobox.Trigger`, `Combobox.ClearTrigger`, and `Combobox.ItemIndicator` render moduix icons when
-  children are omitted.
-- The styled root defaults to `16rem` wide and remains constrained by `100%`.
-- The popup uses Ark `--reference-width`, `--available-height`, and `--transform-origin`.
+| Surface                            | Default               | Notes                                                                 |
+| ---------------------------------- | --------------------- | --------------------------------------------------------------------- |
+| `Combobox.Trigger`                 | moduix chevron icon   | Used when children are omitted.                                       |
+| `Combobox.ClearTrigger`            | moduix close icon     | Used when children are omitted.                                       |
+| `Combobox.ItemIndicator`           | moduix check icon     | Used when children are omitted.                                       |
+| `Combobox` / `Combobox.Root` width | `16rem` (max `100%`)  | Styled root width defaults.                                           |
+| `Combobox.Positioner` variables    | Ark runtime variables | Uses `--reference-width`, `--available-height`, `--transform-origin`. |
 
 ### Behavioral notes
 
@@ -232,7 +249,7 @@ Enter can select it without an extra arrow-key press.
         });
 
         return (
-          <Combobox.Root
+          <Combobox
             collection={collection}
             inputBehavior="autohighlight"
             onInputValueChange={(details) => filter(details.inputValue)}
@@ -258,7 +275,7 @@ Enter can select it without an extra arrow-key press.
                 </Combobox.Content>
               </Combobox.Positioner>
             </Portal>
-          </Combobox.Root>
+          </Combobox>
         );
       }
     `}
@@ -302,7 +319,7 @@ first matching item while preserving Ark keyboard navigation.
         });
 
         return (
-          <Combobox.Root
+          <Combobox
             collection={collection}
             inputBehavior="autocomplete"
             onInputValueChange={(details) => filter(details.inputValue)}
@@ -328,7 +345,7 @@ first matching item while preserving Ark keyboard navigation.
                 </Combobox.Content>
               </Combobox.Positioner>
             </Portal>
-          </Combobox.Root>
+          </Combobox>
         );
       }
     `}
@@ -372,7 +389,7 @@ as a native link. `selectionBehavior="preserve"` keeps the search text visible d
         });
 
         return (
-          <Combobox.Root
+          <Combobox
             collection={collection}
             selectionBehavior="preserve"
             onInputValueChange={(details) => filter(details.inputValue)}
@@ -398,7 +415,7 @@ as a native link. `selectionBehavior="preserve"` keeps the search text visible d
                 </Combobox.Content>
               </Combobox.Positioner>
             </Portal>
-          </Combobox.Root>
+          </Combobox>
         );
       }
     `}
@@ -451,7 +468,7 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
         });
 
         return (
-          <Combobox.Root
+          <Combobox
             collection={collection}
             onInputValueChange={(details) => {
               if (details.reason !== "input-change") {
@@ -485,7 +502,7 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
                 </Combobox.Content>
               </Combobox.Positioner>
             </Portal>
-          </Combobox.Root>
+          </Combobox>
         );
       }
     `}
@@ -529,7 +546,7 @@ replace that sentinel value with the user-entered value after selection.
         const [value, setValue] = useState([] as string[]);
 
         return (
-          <Combobox.Root
+          <Combobox
             collection={collection}
             inputValue={inputValue}
             value={value}
@@ -606,7 +623,7 @@ replace that sentinel value with the user-entered value after selection.
                 </Combobox.Content>
               </Combobox.Positioner>
             </Portal>
-          </Combobox.Root>
+          </Combobox>
         );
       }
     `}
@@ -653,7 +670,7 @@ popup harder to scan. Filtering still runs against the complete initial collecti
         });
 
         return (
-          <Combobox.Root
+          <Combobox
             collection={collection}
             onInputValueChange={(details) => filter(details.inputValue)}
           >
@@ -677,7 +694,7 @@ popup harder to scan. Filtering still runs against the complete initial collecti
                 </Combobox.Content>
               </Combobox.Positioner>
             </Portal>
-          </Combobox.Root>
+          </Combobox>
         );
       }
     `}
@@ -739,7 +756,7 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
         });
 
         return (
-          <Combobox.Root
+          <Combobox
             collection={collection}
             onInputValueChange={(details) => filter(details.inputValue)}
             scrollToIndexFn={(details) => {
@@ -788,7 +805,7 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
                 </Combobox.Content>
               </Combobox.Positioner>
             </Portal>
-          </Combobox.Root>
+          </Combobox>
         );
       }
     `}
@@ -851,7 +868,7 @@ Control the selected string array and read the next value from `details.value`.
 
         return (
           <div>
-            <Combobox.Root
+            <Combobox
               collection={collection}
               value={value}
               onInputValueChange={(details) => filter(details.inputValue)}
@@ -878,7 +895,7 @@ Control the selected string array and read the next value from `details.value`.
                   </Combobox.Content>
                 </Combobox.Positioner>
               </Portal>
-            </Combobox.Root>
+            </Combobox>
             <span>Selected: {value[0] ?? "none"}</span>
           </div>
         );
@@ -925,7 +942,7 @@ Map object labels and values on the collection, then render Ark item groups from
         });
 
         return (
-          <Combobox.Root
+          <Combobox
             collection={collection}
             onInputValueChange={(details) => filter(details.inputValue)}
           >
@@ -957,7 +974,7 @@ Map object labels and values on the collection, then render Ark item groups from
                 </Combobox.Content>
               </Combobox.Positioner>
             </Portal>
-          </Combobox.Root>
+          </Combobox>
         );
       }
     `}
@@ -1006,7 +1023,7 @@ separate state owner.
         });
 
         return (
-          <Combobox.Root
+          <Combobox
             collection={collection}
             onInputValueChange={(details) => filter(details.inputValue)}
           >
@@ -1035,7 +1052,7 @@ separate state owner.
                 </Combobox.Content>
               </Combobox.Positioner>
             </Portal>
-          </Combobox.Root>
+          </Combobox>
         );
       }
     `}
@@ -1078,7 +1095,7 @@ composition rather than combobox parts.
         });
 
         return (
-          <Combobox.Root
+          <Combobox
             collection={collection}
             onInputValueChange={(details) => filter(details.inputValue)}
             multiple
@@ -1117,7 +1134,7 @@ composition rather than combobox parts.
                 </Combobox.Content>
               </Combobox.Positioner>
             </Portal>
-          </Combobox.Root>
+          </Combobox>
         );
       }
     `}
@@ -1207,7 +1224,7 @@ from machine-driven input updates.
         );
 
         return (
-          <Combobox.Root
+          <Combobox
             collection={collection}
             inputValue={query}
             onInputValueChange={(details) => {
@@ -1243,7 +1260,7 @@ from machine-driven input updates.
                 </Combobox.Content>
               </Combobox.Positioner>
             </Portal>
-          </Combobox.Root>
+          </Combobox>
         );
       }
     `}
@@ -1323,7 +1340,7 @@ selected object.
         }, [set]);
 
         return (
-          <Combobox.RootProvider value={combobox}>
+          <ComboboxProvider value={combobox}>
             <Combobox.Label>Character</Combobox.Label>
             <RehydrateComboboxValue />
             <Combobox.Control>
@@ -1395,7 +1412,7 @@ state before the root renders.
             <button type="button" onClick={() => combobox.focus()}>
               Focus
             </button>
-            <Combobox.RootProvider value={combobox}>
+            <ComboboxProvider value={combobox}>
               <Combobox.Label>Job title</Combobox.Label>
               <Combobox.Control>
                 <Combobox.Input />

@@ -37,7 +37,7 @@ Use the Ark-shaped `Root`, `Trigger`, `Indicator`, and `Content` parts for one i
 
       export function CollapsibleDemo() {
         return (
-          <Collapsible.Root>
+          <Collapsible>
             <Collapsible.Trigger>
               Recovery keys
               <Collapsible.Indicator />
@@ -51,7 +51,7 @@ Use the Ark-shaped `Root`, `Trigger`, `Indicator`, and `Content` parts for one i
                 </ul>
               </div>
             </Collapsible.Content>
-          </Collapsible.Root>
+          </Collapsible>
         );
       }
     `}
@@ -115,14 +115,14 @@ Collapsible.Root
    └─ content
 ```
 
-| Part                       | Role                                                                |
-| -------------------------- | ------------------------------------------------------------------- |
-| `Collapsible.Root`         | Owns controlled or uncontrolled open state.                         |
-| `Collapsible.RootProvider` | Connects parts to state created with `useCollapsible`.              |
-| `Collapsible.Trigger`      | Accessible button that toggles the content.                         |
-| `Collapsible.Indicator`    | Optional state cue with a default moduix chevron.                   |
-| `Collapsible.Content`      | Collapsible region measured through Ark CSS variables.              |
-| `Collapsible.Context`      | Exposes Ark state to a render function without another state layer. |
+| Part                               | Role                                                                |
+| ---------------------------------- | ------------------------------------------------------------------- |
+| `Collapsible` / `Collapsible.Root` | Owns controlled or uncontrolled open state.                         |
+| `Collapsible.RootProvider`         | Connects parts to state created with `useCollapsible`.              |
+| `Collapsible.Trigger`              | Accessible button that toggles the content.                         |
+| `Collapsible.Indicator`            | Optional state cue with a default moduix chevron.                   |
+| `Collapsible.Content`              | Collapsible region measured through Ark CSS variables.              |
+| `Collapsible.Context`              | Exposes Ark state to a render function without another state layer. |
 
 ## Composition
 
@@ -176,7 +176,7 @@ Set `defaultOpen` for an uncontrolled disclosure that starts expanded.
 
   <Preview.Code>
     {`
-      <Collapsible.Root defaultOpen>
+      <Collapsible defaultOpen>
         <Collapsible.Trigger>
           Recovery keys
           <Collapsible.Indicator />
@@ -190,7 +190,7 @@ Set `defaultOpen` for an uncontrolled disclosure that starts expanded.
             </ul>
           </div>
         </Collapsible.Content>
-      </Collapsible.Root>
+      </Collapsible>
     `}
 
   </Preview.Code>
@@ -215,7 +215,7 @@ Use `open` with the Ark `onOpenChange(details)` callback when surrounding UI own
         const [open, setOpen] = useState(false);
 
         return (
-          <Collapsible.Root
+          <Collapsible
             open={open}
             onOpenChange={(details) => setOpen(details.open)}
           >
@@ -233,7 +233,7 @@ Use `open` with the Ark `onOpenChange(details)` callback when surrounding UI own
               </div>
             </Collapsible.Content>
             <span className="collapsible-state">Current state: {open ? "open" : "closed"}</span>
-          </Collapsible.Root>
+          </Collapsible>
         );
       }
     `}
@@ -253,7 +253,7 @@ Set `disabled` on the root to keep the disclosure visible but unavailable.
 
   <Preview.Code>
     {`
-      <Collapsible.Root disabled>
+      <Collapsible disabled>
         <Collapsible.Trigger>
           Recovery keys
           <Collapsible.Indicator />
@@ -267,7 +267,7 @@ Set `disabled` on the root to keep the disclosure visible but unavailable.
             </ul>
           </div>
         </Collapsible.Content>
-      </Collapsible.Root>
+      </Collapsible>
     `}
 
   </Preview.Code>
@@ -285,7 +285,7 @@ Combine `lazyMount` and `unmountOnExit` when closed content should not remain in
 
   <Preview.Code>
     {`
-      <Collapsible.Root lazyMount unmountOnExit>
+      <Collapsible lazyMount unmountOnExit>
         <Collapsible.Trigger>
           Recovery keys
           <Collapsible.Indicator />
@@ -299,7 +299,7 @@ Combine `lazyMount` and `unmountOnExit` when closed content should not remain in
             </ul>
           </div>
         </Collapsible.Content>
-      </Collapsible.Root>
+      </Collapsible>
     `}
 
   </Preview.Code>
@@ -317,7 +317,7 @@ Use `collapsedHeight` or `collapsedWidth` to leave part of the content visible w
 
   <Preview.Code>
     {`
-      <Collapsible.Root collapsedHeight="3rem">
+      <Collapsible collapsedHeight="3rem">
         <Collapsible.Trigger>
           Read more
           <Collapsible.Indicator />
@@ -329,7 +329,7 @@ Use `collapsedHeight` or `collapsedWidth` to leave part of the content visible w
             ))}
           </div>
         </Collapsible.Content>
-      </Collapsible.Root>
+      </Collapsible>
     `}
 
   </Preview.Code>
@@ -347,7 +347,7 @@ Nest independent roots when a disclosed section contains another optional detail
 
   <Preview.Code>
     {`
-      <Collapsible.Root>
+      <Collapsible>
         <Collapsible.Trigger>
           Account security
           <Collapsible.Indicator />
@@ -355,7 +355,7 @@ Nest independent roots when a disclosed section contains another optional detail
         <Collapsible.Content>
           <div className="collapsible-nested-content">
             <p>Security options for this account.</p>
-            <Collapsible.Root className="collapsible-nested-root">
+            <Collapsible className="collapsible-nested-root">
               <Collapsible.Trigger>
                 Recovery keys
                 <Collapsible.Indicator />
@@ -369,10 +369,10 @@ Nest independent roots when a disclosed section contains another optional detail
                   </ul>
                 </div>
               </Collapsible.Content>
-            </Collapsible.Root>
+            </Collapsible>
           </div>
         </Collapsible.Content>
-      </Collapsible.Root>
+      </Collapsible>
     `}
 
   </Preview.Code>
@@ -400,7 +400,7 @@ Create the state machine with `useCollapsible` when code outside the rendered ro
             <output>
               open: {String(collapsible.open)}, visible: {String(collapsible.visible)}
             </output>
-            <Collapsible.RootProvider value={collapsible}>
+            <CollapsibleProvider value={collapsible}>
               <Collapsible.Trigger>
                 Recovery keys
                 <Collapsible.Indicator />
@@ -439,7 +439,7 @@ Use `asChild` to compose the trigger behavior onto a consumer-owned button.
 
       export function CustomCompositionCollapsibleDemo() {
         return (
-          <Collapsible.Root>
+          <Collapsible>
             <Collapsible.Trigger asChild>
               <button type="button" className="collapsible-custom-trigger">
                 Styled recovery keys
@@ -457,7 +457,7 @@ Use `asChild` to compose the trigger behavior onto a consumer-owned button.
                 </ul>
               </div>
             </Collapsible.Content>
-          </Collapsible.Root>
+          </Collapsible>
         );
       }
     `}

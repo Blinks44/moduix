@@ -110,10 +110,10 @@ Button.Root
    └─ children
 ```
 
-| Part          | Role                                          |
-| ------------- | --------------------------------------------- |
-| `Button.Root` | Root interactive surface with moduix styling. |
-| `Button`      | Callable alias of `Button.Root`.              |
+| Part                     | Role                                          |
+| ------------------------ | --------------------------------------------- |
+| `Button` / `Button.Root` | Root interactive surface with moduix styling. |
+| `Button`                 | Callable alias of `Button.Root`.              |
 
 ## Composition
 
@@ -121,6 +121,8 @@ Button.Root
 
 Use a native root for actions. It defaults to `type="button"` to avoid accidental form submission;
 set `type="submit"` explicitly for a submit action.
+
+### Default props
 
 | Prop      | Default   | Values                                                                                   |
 | --------- | --------- | ---------------------------------------------------------------------------------------- |

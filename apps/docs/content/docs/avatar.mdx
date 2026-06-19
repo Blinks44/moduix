@@ -39,10 +39,10 @@ can switch between it and the image as loading state changes.
 
       export function AvatarDemo() {
         return (
-          <Avatar.Root>
+          <Avatar>
             <Avatar.Fallback>LT</Avatar.Fallback>
             <Avatar.Image src={avatarImage} alt="Alex T." />
-          </Avatar.Root>
+          </Avatar>
         );
       }
     `}
@@ -105,13 +105,13 @@ Avatar.Root | Avatar.RootProvider
 └─ Avatar.Context (optional state reader)
 ```
 
-| Part                  | Role                                                              |
-| --------------------- | ----------------------------------------------------------------- |
-| `Avatar.Root`         | Creates and owns the Ark UI avatar state.                         |
-| `Avatar.RootProvider` | Renders an avatar from state created with `useAvatar`.            |
-| `Avatar.Fallback`     | Shows initials, an icon, or custom content until the image loads. |
-| `Avatar.Image`        | Shows the native image after a successful load.                   |
-| `Avatar.Context`      | Exposes `loaded` and image state methods through a render prop.   |
+| Part                     | Role                                                              |
+| ------------------------ | ----------------------------------------------------------------- |
+| `Avatar` / `Avatar.Root` | Creates and owns the Ark UI avatar state.                         |
+| `Avatar.RootProvider`    | Renders an avatar from state created with `useAvatar`.            |
+| `Avatar.Fallback`        | Shows initials, an icon, or custom content until the image loads. |
+| `Avatar.Image`           | Shows the native image after a successful load.                   |
+| `Avatar.Context`         | Exposes `loaded` and image state methods through a render prop.   |
 
 ## Composition
 
@@ -170,10 +170,10 @@ Use `onStatusChange(details)` when surrounding UI needs to react to the image li
 
         return (
           <div className="docs-avatar-status">
-            <Avatar.Root onStatusChange={(details) => setStatus(details.status)}>
+            <Avatar onStatusChange={(details) => setStatus(details.status)}>
               <Avatar.Fallback>LT</Avatar.Fallback>
               <Avatar.Image src={avatarImage} alt="Alex T." />
-            </Avatar.Root>
+            </Avatar>
             <output>Status: {status}</output>
           </div>
         );
@@ -199,14 +199,14 @@ Use `Avatar.Context` for a render-prop state read that stays inside the current 
 
       export function AvatarContextDemo() {
         return (
-          <Avatar.Root>
+          <Avatar>
             <Avatar.Context>
               {(avatar) => (
                 <Avatar.Fallback>{avatar.loaded ? "LT" : "Loading"}</Avatar.Fallback>
               )}
             </Avatar.Context>
             <Avatar.Image src={avatarImage} alt="Alex T." />
-          </Avatar.Root>
+          </Avatar>
         );
       }
     `}
@@ -243,7 +243,7 @@ render `Avatar.RootProvider` instead of `Avatar.Root`.
             >
               Change avatar
             </button>
-            <Avatar.RootProvider value={avatar}>
+            <AvatarProvider value={avatar}>
               <Avatar.Fallback>LT</Avatar.Fallback>
               <Avatar.Image src={\`\${avatarImage}&seed=\${count}\`} alt="Alex T." />
             </Avatar.RootProvider>
@@ -274,9 +274,9 @@ avatar is valid when no image source exists.
         return (
           <div className="docs-avatar-row">
             {avatarSizes.map((size) => (
-              <Avatar.Root key={size} size={size}>
+              <Avatar key={size} size={size}>
                 <Avatar.Fallback>{size.toUpperCase()}</Avatar.Fallback>
-              </Avatar.Root>
+              </Avatar>
             ))}
           </div>
         );
@@ -308,12 +308,12 @@ its link or button semantics and accessible name.
 
       export function AvatarLinkDemo() {
         return (
-          <Avatar.Root asChild size="xl" className="docs-avatar-link">
+          <Avatar asChild size="xl" className="docs-avatar-link">
             <a href="mailto:alex@example.com" aria-label="Email Alex T.">
               <Avatar.Fallback className="docs-avatar-link-fallback">LT</Avatar.Fallback>
               <Avatar.Image className="docs-avatar-link-image" src={avatarImage} alt="" />
             </a>
-          </Avatar.Root>
+          </Avatar>
         );
       }
     `}
@@ -338,14 +338,14 @@ treatment without replacing the loading behavior.
 
       export function AvatarStylingDemo() {
         return (
-          <Avatar.Root size="lg" className="docs-avatar-ring">
+          <Avatar size="lg" className="docs-avatar-ring">
             <Avatar.Fallback className="docs-avatar-uppercase">LT</Avatar.Fallback>
             <Avatar.Image
               className="docs-avatar-saturated-image"
               src={avatarImage}
               alt="Alex T."
             />
-          </Avatar.Root>
+          </Avatar>
         );
       }
     `}
@@ -370,11 +370,11 @@ the fallback itself conveys information that is not available in nearby text.
 
       export function AvatarIconFallbackDemo() {
         return (
-          <Avatar.Root size="lg" className="docs-avatar-icon">
+          <Avatar size="lg" className="docs-avatar-icon">
             <Avatar.Fallback role="img" aria-label={fallbackLabel}>
               <ComputerIcon className="docs-avatar-icon-glyph" />
             </Avatar.Fallback>
-          </Avatar.Root>
+          </Avatar>
         );
       }
     `}

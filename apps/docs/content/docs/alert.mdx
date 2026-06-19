@@ -51,12 +51,12 @@ Start with `Alert.Root`, `Alert.Content`, `Alert.Title`, and `Alert.Description`
 
       export function AlertDemo() {
         return (
-          <Alert.Root className="alert-demo">
+          <Alert className="alert-demo">
             <Alert.Content>
               <Alert.Title>{alert.title}</Alert.Title>
               <Alert.Description>{alert.description}</Alert.Description>
             </Alert.Content>
-          </Alert.Root>
+          </Alert>
         );
       }
     `}
@@ -122,13 +122,13 @@ Alert.Root
    └─ Alert.Description
 ```
 
-| Part                | Role                                                         |
-| ------------------- | ------------------------------------------------------------ |
-| `Alert.Root`        | Root slot. Applies status styles and semantics.              |
-| `Alert.Indicator`   | Optional indicator slot. Sizes child SVG icons consistently. |
-| `Alert.Content`     | Text content wrapper for title and description.              |
-| `Alert.Title`       | Alert heading slot. Renders `h3` by default.                 |
-| `Alert.Description` | Supporting message slot.                                     |
+| Part                   | Role                                                         |
+| ---------------------- | ------------------------------------------------------------ |
+| `Alert` / `Alert.Root` | Root slot. Applies status styles and semantics.              |
+| `Alert.Indicator`      | Optional indicator slot. Sizes child SVG icons consistently. |
+| `Alert.Content`        | Text content wrapper for title and description.              |
+| `Alert.Title`          | Alert heading slot. Renders `h3` by default.                 |
+| `Alert.Description`    | Supporting message slot.                                     |
 
 ## Composition
 
@@ -186,7 +186,7 @@ Place a moduix icon or custom SVG inside `Alert.Indicator`.
 
       export function AlertWithIconDemo() {
         return (
-          <Alert.Root status="info" className="alert-demo">
+          <Alert status="info" className="alert-demo">
             <Alert.Indicator>
               <InfoIcon />
             </Alert.Indicator>
@@ -194,7 +194,7 @@ Place a moduix icon or custom SVG inside `Alert.Indicator`.
               <Alert.Title>{alert.title}</Alert.Title>
               <Alert.Description>{alert.description}</Alert.Description>
             </Alert.Content>
-          </Alert.Root>
+          </Alert>
         );
       }
     `}
@@ -219,7 +219,7 @@ Use statuses for neutral, informational, success, warning, and error states.
         return (
           <div className="alert-stack">
             {statuses.map((status) => (
-              <Alert.Root key={status} status={status}>
+              <Alert key={status} status={status}>
                 <Alert.Indicator>
                   {status === "success" ? <CheckIcon /> : <InfoIcon />}
                 </Alert.Indicator>
@@ -227,7 +227,7 @@ Use statuses for neutral, informational, success, warning, and error states.
                   <Alert.Title>{status}</Alert.Title>
                   <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
                 </Alert.Content>
-              </Alert.Root>
+              </Alert>
             ))}
           </div>
         );
@@ -253,7 +253,7 @@ emphasis.
 
       export function AlertErrorDemo() {
         return (
-          <Alert.Root status="error" className="alert-demo">
+          <Alert status="error" className="alert-demo">
             <Alert.Indicator>
               <InfoIcon />
             </Alert.Indicator>
@@ -261,7 +261,7 @@ emphasis.
               <Alert.Title>{alert.title}</Alert.Title>
               <Alert.Description>{alert.description}</Alert.Description>
             </Alert.Content>
-          </Alert.Root>
+          </Alert>
         );
       }
     `}
@@ -290,7 +290,7 @@ action. Keep dismiss state in the consuming component when a local alert should 
         if (!visible) return null;
 
         return (
-          <Alert.Root status="warning" className="alert-custom">
+          <Alert status="warning" className="alert-custom">
             <Alert.Indicator>
               <InfoIcon />
             </Alert.Indicator>
@@ -304,7 +304,7 @@ action. Keep dismiss state in the consuming component when a local alert should 
                 </Button>
               </div>
             </Alert.Content>
-          </Alert.Root>
+          </Alert>
         );
       }
     `}
@@ -327,14 +327,14 @@ Use `asChild` on `Alert.Title` when the alert should participate in a specific d
 
       export function AlertHeadingDemo() {
         return (
-          <Alert.Root status="info" className="alert-demo">
+          <Alert status="info" className="alert-demo">
             <Alert.Content>
               <Alert.Title asChild>
                 <h2>{alert.title}</h2>
               </Alert.Title>
               <Alert.Description>{alert.description}</Alert.Description>
             </Alert.Content>
-          </Alert.Root>
+          </Alert>
         );
       }
     `}

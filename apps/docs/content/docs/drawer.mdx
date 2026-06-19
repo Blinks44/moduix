@@ -42,7 +42,7 @@ Compose the Ark structural parts explicitly. `Drawer.Content` is the real intera
 
       export function DrawerDemo() {
         return (
-          <Drawer.Root snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
+          <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
             <Drawer.Trigger asChild>
               <Button>{copy.trigger}</Button>
             </Drawer.Trigger>
@@ -65,7 +65,7 @@ Compose the Ark structural parts explicitly. `Drawer.Content` is the real intera
                 </Drawer.Footer>
               </Drawer.Content>
             </Drawer.Positioner>
-          </Drawer.Root>
+          </Drawer>
         );
       }
     `}
@@ -151,6 +151,19 @@ Drawer.Root
       └─ Drawer.CloseTrigger
 ```
 
+| Part                      | Role                                                |
+| ------------------------- | --------------------------------------------------- |
+| `Drawer` / `Drawer.Root`  | Owns drawer state, snap points, and swipe behavior. |
+| `Drawer.Trigger`          | Opens the drawer.                                   |
+| `Drawer.Backdrop`         | Modal backdrop layer.                               |
+| `Drawer.Positioner`       | Floating positioner for drawer content.             |
+| `Drawer.Content`          | Drawer surface container.                           |
+| `Drawer.Grabber`          | Drag handle container for swipe interactions.       |
+| `Drawer.GrabberIndicator` | Visual indicator inside the grabber handle.         |
+| `Drawer.CloseTrigger`     | Closes the drawer.                                  |
+| `Drawer.RootProvider`     | Connects parts to state created with `useDrawer()`. |
+| `Drawer.Context`          | Inline render-prop access to drawer state.          |
+
 `Drawer.Header`, `Drawer.Body`, `Drawer.Footer`, and `Drawer.CloseIcon` are optional moduix layout
 and visual helpers. They do not replace or hide Ark structural parts.
 
@@ -223,7 +236,7 @@ Use logical `start` and `end` values for side drawers so the same code works in 
 
       export function SwipeDirectionDrawerDemo() {
         return (
-          <Drawer.Root swipeDirection={direction}>
+          <Drawer swipeDirection={direction}>
             <Drawer.Trigger asChild>
               <Button>Open right drawer</Button>
             </Drawer.Trigger>
@@ -239,7 +252,7 @@ Use logical `start` and `end` values for side drawers so the same code works in 
                 </Drawer.Header>
               </Drawer.Content>
             </Drawer.Positioner>
-          </Drawer.Root>
+          </Drawer>
         );
       }
     `}
@@ -269,7 +282,7 @@ Define intermediate positions on the root and choose the initial position with `
 
       export function SnapPointsDrawerDemo() {
         return (
-          <Drawer.Root snapPoints={snapPoints} defaultSnapPoint={snapPoints[1]}>
+          <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[1]}>
             <Drawer.Trigger asChild>
               <Button>Open with snap points</Button>
             </Drawer.Trigger>
@@ -288,7 +301,7 @@ Define intermediate positions on the root and choose the initial position with `
                 </Drawer.Header>
               </Drawer.Content>
             </Drawer.Positioner>
-          </Drawer.Root>
+          </Drawer>
         );
       }
     `}
@@ -311,7 +324,7 @@ Set `modal={false}` when the page must remain interactive while the drawer is op
 
       export function NonModalDrawerDemo() {
         return (
-          <Drawer.Root modal={modal} snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
+          <Drawer modal={modal} snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
             <Drawer.Trigger asChild>
               <Button>Open non-modal drawer</Button>
             </Drawer.Trigger>
@@ -326,7 +339,7 @@ Set `modal={false}` when the page must remain interactive while the drawer is op
                 </Drawer.Header>
               </Drawer.Content>
             </Drawer.Positioner>
-          </Drawer.Root>
+          </Drawer>
         );
       }
     `}
@@ -362,7 +375,7 @@ Read `details.open` from the Ark callback instead of expecting a boolean callbac
             <Button type="button" onClick={() => setOpen((value) => !value)}>
               {open ? "Close" : "Open"} drawer
             </Button>
-            <Drawer.Root
+            <Drawer
               open={open}
               snapPoints={snapPoints}
               defaultSnapPoint={snapPoints[0]}
@@ -378,7 +391,7 @@ Read `details.open` from the Ark callback instead of expecting a boolean callbac
                   </Drawer.Header>
                 </Drawer.Content>
               </Drawer.Positioner>
-            </Drawer.Root>
+            </Drawer>
           </>
         );
       }
@@ -409,7 +422,7 @@ grabber.
 
       export function ScrollableDrawerDemo() {
         return (
-          <Drawer.Root snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
+          <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
             <Drawer.Trigger asChild>
               <Button>Open scrollable drawer</Button>
             </Drawer.Trigger>
@@ -433,7 +446,7 @@ grabber.
                 </Drawer.Body>
               </Drawer.Content>
             </Drawer.Positioner>
-          </Drawer.Root>
+          </Drawer>
         );
       }
     `}
@@ -475,7 +488,7 @@ specific interactive regions must never start a drag.
 
       export function DragControlsDrawerDemo() {
         return (
-          <Drawer.Root snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
+          <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
             <Drawer.Trigger asChild>
               <Button>Open drawer</Button>
             </Drawer.Trigger>
@@ -499,7 +512,7 @@ specific interactive regions must never start a drag.
                 </Drawer.Body>
               </Drawer.Content>
             </Drawer.Positioner>
-          </Drawer.Root>
+          </Drawer>
         );
       }
     `}
@@ -544,7 +557,7 @@ trigger is current.
         };
 
         return (
-          <Drawer.Root swipeDirection="end" onTriggerValueChange={handleTriggerValueChange}>
+          <Drawer swipeDirection="end" onTriggerValueChange={handleTriggerValueChange}>
             <div className="trigger-group">
               {users.map((user) => (
                 <Drawer.Trigger key={user.id} value={user.id} asChild>
@@ -563,7 +576,7 @@ trigger is current.
                 {activeUser ? <Drawer.Body>Selected: {activeUser.name}</Drawer.Body> : null}
               </Drawer.Content>
             </Drawer.Positioner>
-          </Drawer.Root>
+          </Drawer>
         );
       }
     `}
@@ -608,7 +621,7 @@ points.
                 Set 100%
               </Button>
             </div>
-            <Drawer.RootProvider value={drawer}>
+            <DrawerProvider value={drawer}>
               <Drawer.Backdrop />
               <Drawer.Positioner>
                 <Drawer.Content>
@@ -662,7 +675,7 @@ progress.
           <Drawer.Stack>
             <div className="indent-stage">
               <Drawer.IndentBackground />
-              <Drawer.Root modal={false} snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
+              <Drawer modal={false} snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
                 <Drawer.Indent className="indent-surface">
                   <Drawer.Trigger asChild>
                     <Button>{copy.trigger}</Button>
@@ -679,7 +692,7 @@ progress.
                     </Drawer.Header>
                   </Drawer.Content>
                 </Drawer.Positioner>
-              </Drawer.Root>
+              </Drawer>
             </div>
           </Drawer.Stack>
         );

@@ -45,7 +45,7 @@ only when the status needs a grouped indicator.
       export function BadgeDemo() {
         return (
           <div className="badge-demo-basic">
-            <Badge.Root>{badge.label}</Badge.Root>
+            <Badge>{badge.label}</Badge>
           </div>
         );
       }
@@ -127,10 +127,10 @@ Badge.Root
 └─ svg icon (optional)
 ```
 
-| Part         | Role                                                                                 |
-| ------------ | ------------------------------------------------------------------------------------ |
-| `Badge.Root` | Root slot. Applies variant, border, spacing, and text truncation.                    |
-| `Badge.Dot`  | Optional indicator slot. Renders a circular marker that inherits current text color. |
+| Part                   | Role                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------ |
+| `Badge` / `Badge.Root` | Root slot. Applies variant, border, spacing, and text truncation.                    |
+| `Badge.Dot`            | Optional indicator slot. Renders a circular marker that inherits current text color. |
 
 ## Composition
 
@@ -188,9 +188,9 @@ Use the built-in variants for the common visual tones.
         return (
           <div className="badge-demo-row">
             {variants.map((variant) => (
-              <Badge.Root key={variant} variant={variant}>
+              <Badge key={variant} variant={variant}>
                 {variant}
-              </Badge.Root>
+              </Badge>
             ))}
           </div>
         );
@@ -234,10 +234,10 @@ Add `Badge.Dot` when label and status indicator should stay visually grouped.
         return (
           <div className="badge-demo-row">
             {statuses.map((status) => (
-              <Badge.Root key={status.label} variant={status.variant}>
+              <Badge key={status.label} variant={status.variant}>
                 <Badge.Dot />
                 {status.label}
-              </Badge.Root>
+              </Badge>
             ))}
           </div>
         );
@@ -284,18 +284,18 @@ Place an inline icon next to the label when the metadata needs a second visual c
       export function BadgeWithIconDemo() {
         return (
           <div className="badge-demo-row">
-            <Badge.Root variant="default">
+            <Badge variant="default">
               {labels.release}
               <ChevronRightIcon />
-            </Badge.Root>
-            <Badge.Root variant="secondary">
+            </Badge>
+            <Badge variant="secondary">
               {labels.details}
               <ChevronRightIcon />
-            </Badge.Root>
-            <Badge.Root variant="outline">
+            </Badge>
+            <Badge variant="outline">
               {labels.more}
               <ChevronRightIcon />
-            </Badge.Root>
+            </Badge>
           </div>
         );
       }
@@ -341,11 +341,11 @@ interaction behavior and provide visible hover and keyboard-focus states.
 
       export function BadgeAsChildDemo() {
         return (
-          <Badge.Root asChild variant="outline">
+          <Badge asChild variant="outline">
             <a className="badge-demo-link" href={link.href}>
               {link.label}
             </a>
-          </Badge.Root>
+          </Badge>
         );
       }
     `}
@@ -393,12 +393,12 @@ Badges truncate long labels by default. Add `title` when the full text should st
 
       export function BadgeTruncatedDemo() {
         return (
-          <Badge.Root
+          <Badge
             className="badge-demo-constrained"
             title={label}
           >
             {label}
-          </Badge.Root>
+          </Badge>
         );
       }
     `}
@@ -436,13 +436,13 @@ Use local CSS variables when a surface needs custom sizing or a different tone.
       export function CustomBadgeDemo() {
         return (
           <div className="badge-demo-row">
-            <Badge.Root className="badge-demo-small">{labels.small}</Badge.Root>
-            <Badge.Root>{labels.default}</Badge.Root>
-            <Badge.Root className="badge-demo-large">{labels.large}</Badge.Root>
-            <Badge.Root className="badge-demo-custom">
+            <Badge className="badge-demo-small">{labels.small}</Badge>
+            <Badge>{labels.default}</Badge>
+            <Badge className="badge-demo-large">{labels.large}</Badge>
+            <Badge className="badge-demo-custom">
               <Badge.Dot />
               {labels.custom}
-            </Badge.Root>
+            </Badge>
           </div>
         );
       }

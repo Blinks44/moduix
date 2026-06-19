@@ -48,7 +48,7 @@ Compose the explicit Ark UI structure: `Dialog.Root`, `Portal`, `Dialog.Backdrop
 
       export function DialogDemo() {
         return (
-          <Dialog.Root>
+          <Dialog>
             <Dialog.Trigger asChild>
               <Button>View notifications</Button>
             </Dialog.Trigger>
@@ -71,7 +71,7 @@ Compose the explicit Ark UI structure: `Dialog.Root`, `Portal`, `Dialog.Backdrop
                 </Dialog.Content>
               </Dialog.Positioner>
             </Portal>
-          </Dialog.Root>
+          </Dialog>
         );
       }
     `}
@@ -141,6 +141,19 @@ Dialog.RootProvider
 └─ the same portal and content tree connected to useDialog()
 ```
 
+| Part                     | Role                                                             |
+| ------------------------ | ---------------------------------------------------------------- |
+| `Dialog` / `Dialog.Root` | Owns dialog open state, focus lifecycle, and dismissal behavior. |
+| `Dialog.Trigger`         | Opens the dialog.                                                |
+| `Dialog.Backdrop`        | Optional modal backdrop layer.                                   |
+| `Dialog.Positioner`      | Floating positioner for content placement.                       |
+| `Dialog.Content`         | Dialog surface container.                                        |
+| `Dialog.Title`           | Accessible dialog title.                                         |
+| `Dialog.Description`     | Accessible supporting description.                               |
+| `Dialog.CloseTrigger`    | Closes the dialog.                                               |
+| `Dialog.RootProvider`    | Connects parts to state created with `useDialog()`.              |
+| `Dialog.Context`         | Inline render-prop access to dialog state.                       |
+
 `Dialog.Context` exposes inline state. `useDialogContext()` exposes the same state to reusable
 child components.
 
@@ -168,6 +181,12 @@ destructive or critical confirmation flows.
 
 Use `lazyMount` and `unmountOnExit` instead of conditionally rendering the root. Use `present` only
 when JavaScript-driven exit animation needs to control mounted state.
+
+### Default props
+
+| Surface                  | Default | Notes                                                  |
+| ------------------------ | ------- | ------------------------------------------------------ |
+| `Dialog` / `Dialog.Root` | —       | No additional behavioral defaults; Ark defaults apply. |
 
 ### Behavioral notes
 
@@ -198,7 +217,7 @@ Use the Ark detail object when synchronizing dialog state with React.
         const [open, setOpen] = useState(false);
 
         return (
-          <Dialog.Root open={open} onOpenChange={(details) => setOpen(details.open)}>
+          <Dialog open={open} onOpenChange={(details) => setOpen(details.open)}>
             <Dialog.Trigger asChild>
               <Button>Open controlled dialog</Button>
             </Dialog.Trigger>
@@ -211,7 +230,7 @@ Use the Ark detail object when synchronizing dialog state with React.
                 </Dialog.Content>
               </Dialog.Positioner>
             </Portal>
-          </Dialog.Root>
+          </Dialog>
         );
       }
     `}
@@ -244,7 +263,7 @@ Create state with `useDialog()` when controls live outside the dialog, and read 
             <Button onClick={() => dialog.setOpen(true)}>
               Dialog is {dialog.open ? "open" : "closed"}
             </Button>
-            <Dialog.RootProvider value={dialog}>
+            <DialogProvider value={dialog}>
               <Portal>
                 <Dialog.Backdrop />
                 <Dialog.Positioner>
@@ -283,7 +302,7 @@ trigger.
 
       export function DeleteAccountDialog() {
         return (
-          <Dialog.Root role="alertdialog">
+          <Dialog role="alertdialog">
             <Dialog.Trigger asChild>
               <Button>Delete account</Button>
             </Dialog.Trigger>
@@ -302,7 +321,7 @@ trigger.
                 </Dialog.Content>
               </Dialog.Positioner>
             </Portal>
-          </Dialog.Root>
+          </Dialog>
         );
       }
     `}
@@ -335,7 +354,7 @@ Ark UI supports lazy mounting and explicit initial and final focus targets throu
         return (
           <>
             <Button ref={finalFocusRef}>Final focus target</Button>
-            <Dialog.Root
+            <Dialog
               lazyMount
               unmountOnExit
               initialFocusEl={() => inputRef.current}
@@ -354,7 +373,7 @@ Ark UI supports lazy mounting and explicit initial and final focus targets throu
                   </Dialog.Content>
                 </Dialog.Positioner>
               </Portal>
-            </Dialog.Root>
+            </Dialog>
           </>
         );
       }
@@ -377,7 +396,7 @@ Set `modal={false}` and omit the backdrop when outside interaction should remain
 
       export function NonModalDialogDemo() {
         return (
-          <Dialog.Root modal={false}>
+          <Dialog modal={false}>
             <Dialog.Trigger asChild>
               <Button>Open non-modal dialog</Button>
             </Dialog.Trigger>
@@ -390,7 +409,7 @@ Set `modal={false}` and omit the backdrop when outside interaction should remain
                 </Dialog.Content>
               </Dialog.Positioner>
             </Portal>
-          </Dialog.Root>
+          </Dialog>
         );
       }
     `}
@@ -417,7 +436,7 @@ extend beyond the viewport.
 
       export function DialogScrollDemo() {
         return (
-          <Dialog.Root>
+          <Dialog>
             <Dialog.Trigger asChild>
               <Button>Open terms</Button>
             </Dialog.Trigger>
@@ -439,7 +458,7 @@ extend beyond the viewport.
                 </Dialog.Content>
               </Dialog.Positioner>
             </Portal>
-          </Dialog.Root>
+          </Dialog>
         );
       }
     `}
@@ -467,7 +486,7 @@ variables to the parent content.
         return (
           <>
             <Button onClick={() => parent.setOpen(true)}>Open parent</Button>
-            <Dialog.RootProvider value={parent}>
+            <DialogProvider value={parent}>
               <Portal>
                 <Dialog.Backdrop />
                 <Dialog.Positioner>
@@ -478,7 +497,7 @@ variables to the parent content.
                 </Dialog.Positioner>
               </Portal>
             </Dialog.RootProvider>
-            <Dialog.RootProvider value={child}>
+            <DialogProvider value={child}>
               <Portal>
                 <Dialog.Backdrop />
                 <Dialog.Positioner>
@@ -515,7 +534,7 @@ different records.
         const [activeUser, setActiveUser] = useState(null as (typeof users)[number] | null);
 
         return (
-          <Dialog.Root
+          <Dialog
             onTriggerValueChange={(details) => {
               setActiveUser(users.find((user) => user.id === details.value) ?? null);
             }}
@@ -535,7 +554,7 @@ different records.
                 </Dialog.Content>
               </Dialog.Positioner>
             </Portal>
-          </Dialog.Root>
+          </Dialog>
         );
       }
     `}

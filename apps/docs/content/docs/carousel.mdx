@@ -44,7 +44,7 @@ Use the Ark composition directly: `Carousel.Root`, `Carousel.Control`, `Carousel
 
       export function TravelCarousel() {
         return (
-          <Carousel.Root slideCount={slides.length}>
+          <Carousel slideCount={slides.length}>
             <Carousel.Control>
               <Carousel.PrevTrigger />
               <Carousel.ItemGroup aria-label="Travel gallery">
@@ -64,7 +64,7 @@ Use the Ark composition directly: `Carousel.Root`, `Carousel.Control`, `Carousel
             </Carousel.IndicatorGroup>
 
             <Carousel.ProgressText />
-          </Carousel.Root>
+          </Carousel>
         );
       }
     `}
@@ -132,6 +132,18 @@ Carousel.Root
 └─ Carousel.ProgressText
 ```
 
+| Part                         | Role                                                           |
+| ---------------------------- | -------------------------------------------------------------- |
+| `Carousel` / `Carousel.Root` | Owns carousel state, navigation behavior, and item collection. |
+| `Carousel.Control`           | Layout wrapper for triggers and item group.                    |
+| `Carousel.ItemGroup`         | Slide track that owns `Carousel.Item` parts.                   |
+| `Carousel.Item`              | Individual slide at a stable `index`.                          |
+| `Carousel.PrevTrigger`       | Previous-page trigger.                                         |
+| `Carousel.NextTrigger`       | Next-page trigger.                                             |
+| `Carousel.IndicatorGroup`    | Group wrapper for page indicators.                             |
+| `Carousel.Indicator`         | Page indicator trigger for a specific slide/page index.        |
+| `Carousel.ProgressText`      | Current page and total progress text.                          |
+
 Additional Ark parts stay available for advanced flows:
 
 - `Carousel.AutoplayTrigger`
@@ -165,7 +177,9 @@ part of the visible UI instead of only a root prop.
 
 ### Default props
 
-- `slideCount` is required on `Carousel.Root`.
+| Prop         | Default | Notes                                     |
+| ------------ | ------- | ----------------------------------------- |
+| `slideCount` | —       | Required on `Carousel` / `Carousel.Root`. |
 
 ### Behavioral notes
 
@@ -193,7 +207,7 @@ Control the current page when carousel state must stay in sync with external nav
         const [page, setPage] = useState(1);
 
         return (
-          <Carousel.Root
+          <Carousel
             slideCount={slides.length}
             page={page}
             onPageChange={(details) => setPage(details.page)}
@@ -214,7 +228,7 @@ Control the current page when carousel state must stay in sync with external nav
                 <Carousel.Indicator key={index} index={index} />
               ))}
             </Carousel.IndicatorGroup>
-          </Carousel.Root>
+          </Carousel>
         );
       }
     `}
@@ -244,7 +258,7 @@ Update `slideCount` alongside the rendered items when slides can be added or rem
 
         return (
           <>
-            <Carousel.Root
+            <Carousel
               slideCount={visibleSlides.length}
               page={page}
               onPageChange={(details) => setPage(details.page)}
@@ -265,7 +279,7 @@ Update `slideCount` alongside the rendered items when slides can be added or rem
                 </Carousel.IndicatorGroup>
                 <Carousel.NextTrigger />
               </Carousel.Control>
-            </Carousel.Root>
+            </Carousel>
 
             <Button
               variant="outline"
@@ -298,7 +312,7 @@ Pause autoplay on pointer hover when readers need time to inspect slide content 
 
       export function PauseOnHoverCarousel() {
         return (
-          <Carousel.Root autoplay loop slideCount={slides.length}>
+          <Carousel autoplay loop slideCount={slides.length}>
             <Carousel.Context>
               {({ isPlaying }) => <p>Autoplay: {isPlaying ? "playing" : "paused"}</p>}
             </Carousel.Context>
@@ -324,7 +338,7 @@ Pause autoplay on pointer hover when readers need time to inspect slide content 
                 <Carousel.Indicator key={index} index={index} />
               ))}
             </Carousel.IndicatorGroup>
-          </Carousel.Root>
+          </Carousel>
         );
       }
     `}
@@ -350,7 +364,7 @@ Use `Carousel.RootProvider` when the carousel store should be created outside th
         const carousel = useCarousel({ slideCount: slides.length });
 
         return (
-          <Carousel.RootProvider value={carousel}>
+          <CarouselProvider value={carousel}>
             <Carousel.Control>
               <Carousel.PrevTrigger />
               <Carousel.ItemGroup aria-label="Root provider gallery">
@@ -391,7 +405,7 @@ Call the carousel API from context when another control should jump directly to 
 
       export function ScrollToCarousel() {
         return (
-          <Carousel.Root slideCount={slides.length}>
+          <Carousel slideCount={slides.length}>
             <Carousel.Context>
               {(api) => (
                 <Button variant="outline" onClick={() => api.scrollToIndex(3)}>
@@ -412,7 +426,7 @@ Call the carousel API from context when another control should jump directly to 
               <Carousel.PrevTrigger />
               <Carousel.NextTrigger />
             </Carousel.Control>
-          </Carousel.Root>
+          </Carousel>
         );
       }
     `}
@@ -436,7 +450,7 @@ Increase `slidesPerPage` when the layout should preview multiple items at once i
 
       export function SlidesPerPageCarousel() {
         return (
-          <Carousel.Root slideCount={slides.length} slidesPerPage={2} spacing="var(--spacing-3)">
+          <Carousel slideCount={slides.length} slidesPerPage={2} spacing="var(--spacing-3)">
             <Carousel.Control>
               <Carousel.PrevTrigger />
               <Carousel.NextTrigger />
@@ -459,7 +473,7 @@ Increase `slidesPerPage` when the layout should preview multiple items at once i
                 </Carousel.IndicatorGroup>
               )}
             </Carousel.Context>
-          </Carousel.Root>
+          </Carousel>
         );
       }
     `}
@@ -483,7 +497,7 @@ Tune `spacing` when adjacent slides need more separation for editorial layouts, 
 
       export function SpacingCarousel() {
         return (
-          <Carousel.Root slideCount={slides.length} slidesPerPage={1.4} spacing="3rem">
+          <Carousel slideCount={slides.length} slidesPerPage={1.4} spacing="3rem">
             <Carousel.ItemGroup aria-label="Spaced gallery">
               {slides.map((slide, index) => (
                 <Carousel.Item key={slide.id} index={index}>
@@ -505,7 +519,7 @@ Tune `spacing` when adjacent slides need more separation for editorial layouts, 
               </Carousel.Context>
               <Carousel.NextTrigger />
             </Carousel.Control>
-          </Carousel.Root>
+          </Carousel>
         );
       }
     `}
@@ -529,7 +543,7 @@ Render custom indicator content when the pager itself should preview the slides 
 
       export function ThumbnailIndicatorCarousel() {
         return (
-          <Carousel.Root slideCount={slides.length}>
+          <Carousel slideCount={slides.length}>
             <Carousel.Control>
               <Carousel.PrevTrigger />
               <Carousel.ItemGroup aria-label="Gallery with thumbnails">
@@ -549,7 +563,7 @@ Render custom indicator content when the pager itself should preview the slides 
                 </Carousel.Indicator>
               ))}
             </Carousel.IndicatorGroup>
-          </Carousel.Root>
+          </Carousel>
         );
       }
     `}
@@ -573,7 +587,7 @@ Enable `autoSize` when slide widths should follow their content rather than a fi
 
       export function VariableSizeCarousel() {
         return (
-          <Carousel.Root
+          <Carousel
             autoSize
             slideCount={slides.length}
             spacing="var(--spacing-3)"
@@ -601,7 +615,7 @@ Enable `autoSize` when slide widths should follow their content rather than a fi
                 </Carousel.IndicatorGroup>
               )}
             </Carousel.Context>
-          </Carousel.Root>
+          </Carousel>
         );
       }
     `}
@@ -625,7 +639,7 @@ Use autoplay for passive galleries and pair it with visible controls so users ca
 
       export function AutoplayCarousel() {
         return (
-          <Carousel.Root autoplay={{ delay: 3500 }} loop slideCount={slides.length}>
+          <Carousel autoplay={{ delay: 3500 }} loop slideCount={slides.length}>
             <Carousel.ItemGroup aria-label="Autoplay gallery">
               {slides.map((slide, index) => (
                 <Carousel.Item key={slide.id} index={index}>
@@ -641,7 +655,7 @@ Use autoplay for passive galleries and pair it with visible controls so users ca
               </Carousel.AutoplayTrigger>
               <Carousel.NextTrigger />
             </Carousel.Control>
-          </Carousel.Root>
+          </Carousel>
         );
       }
     `}
@@ -665,7 +679,7 @@ Turn on `loop` when the carousel should wrap seamlessly from the last slide back
 
       export function LoopCarousel() {
         return (
-          <Carousel.Root loop slideCount={slides.length}>
+          <Carousel loop slideCount={slides.length}>
             <Carousel.Control>
               <Carousel.PrevTrigger />
               <Carousel.ItemGroup aria-label="Loop gallery">
@@ -685,7 +699,7 @@ Turn on `loop` when the carousel should wrap seamlessly from the last slide back
             </Carousel.IndicatorGroup>
 
             <Carousel.ProgressText />
-          </Carousel.Root>
+          </Carousel>
         );
       }
     `}
@@ -709,7 +723,7 @@ Allow mouse drag when desktop users should be able to scrub through slides with 
 
       export function MouseDragCarousel() {
         return (
-          <Carousel.Root allowMouseDrag slideCount={slides.length}>
+          <Carousel allowMouseDrag slideCount={slides.length}>
             <Carousel.Control>
               <Carousel.PrevTrigger />
               <Carousel.ItemGroup aria-label="Mouse draggable gallery">
@@ -729,7 +743,7 @@ Allow mouse drag when desktop users should be able to scrub through slides with 
             </Carousel.IndicatorGroup>
 
             <Carousel.ProgressText />
-          </Carousel.Root>
+          </Carousel>
         );
       }
     `}
@@ -753,7 +767,7 @@ Switch to a vertical orientation when the carousel should stack movement and con
 
       export function VerticalCarousel() {
         return (
-          <Carousel.Root orientation="vertical" slideCount={slides.length}>
+          <Carousel orientation="vertical" slideCount={slides.length}>
             <Carousel.ItemGroup aria-label="Vertical gallery">
               {slides.map((slide, index) => (
                 <Carousel.Item key={slide.id} index={index}>
@@ -771,7 +785,7 @@ Switch to a vertical orientation when the carousel should stack movement and con
               </Carousel.IndicatorGroup>
               <Carousel.NextTrigger />
             </Carousel.Control>
-          </Carousel.Root>
+          </Carousel>
         );
       }
     `}

@@ -44,7 +44,7 @@ Use the Ark composition path directly: `Clipboard.Root`, `Clipboard.Label`, `Cli
 
       export function ClipboardDemo() {
         return (
-          <Clipboard.Root defaultValue="https://moduix.dev/docs/clipboard">
+          <Clipboard defaultValue="https://moduix.dev/docs/clipboard">
             <Clipboard.Label>Copy this link</Clipboard.Label>
             <Clipboard.Control>
               <Clipboard.Input readOnly />
@@ -52,7 +52,7 @@ Use the Ark composition path directly: `Clipboard.Root`, `Clipboard.Label`, `Cli
                 <Clipboard.Indicator />
               </Clipboard.Trigger>
             </Clipboard.Control>
-          </Clipboard.Root>
+          </Clipboard>
         );
       }
     `}
@@ -121,16 +121,16 @@ Clipboard.Root | Clipboard.RootProvider
 └─ Clipboard.Context (optional render-prop access)
 ```
 
-| Part                     | Role                                                            |
-| ------------------------ | --------------------------------------------------------------- |
-| `Clipboard.Root`         | Owns clipboard state, copied lifecycle, and controlled value.   |
-| `Clipboard.RootProvider` | Injects a `useClipboard()` store created outside the subtree.   |
-| `Clipboard.Label`        | Accessible label for the clipboard value.                       |
-| `Clipboard.Control`      | Layout row for value surface and trigger.                       |
-| `Clipboard.Input`        | Editable or read-only text field for the current value.         |
-| `Clipboard.Trigger`      | Button that copies the current value.                           |
-| `Clipboard.Indicator`    | Copy-state icon slot. moduix defaults to copy and check icons.  |
-| `Clipboard.ValueText`    | Text-only value surface when an input is not the right control. |
+| Part                           | Role                                                            |
+| ------------------------------ | --------------------------------------------------------------- |
+| `Clipboard` / `Clipboard.Root` | Owns clipboard state, copied lifecycle, and controlled value.   |
+| `Clipboard.RootProvider`       | Injects a `useClipboard()` store created outside the subtree.   |
+| `Clipboard.Label`              | Accessible label for the clipboard value.                       |
+| `Clipboard.Control`            | Layout row for value surface and trigger.                       |
+| `Clipboard.Input`              | Editable or read-only text field for the current value.         |
+| `Clipboard.Trigger`            | Button that copies the current value.                           |
+| `Clipboard.Indicator`          | Copy-state icon slot. moduix defaults to copy and check icons.  |
+| `Clipboard.ValueText`          | Text-only value surface when an input is not the right control. |
 
 ## Composition
 
@@ -196,7 +196,7 @@ Control the value when the text field should stay in sync with surrounding UI or
         const [value, setValue] = useState("https://ark-ui.com");
 
         return (
-          <Clipboard.Root
+          <Clipboard
             value={value}
             onValueChange={(details) => setValue(details.value)}
           >
@@ -207,7 +207,7 @@ Control the value when the text field should stay in sync with surrounding UI or
                 <Clipboard.Indicator />
               </Clipboard.Trigger>
             </Clipboard.Control>
-          </Clipboard.Root>
+          </Clipboard>
         );
       }
     `}
@@ -235,7 +235,7 @@ introducing a separate clipboard abstraction.
         const [copyCount, setCopyCount] = useState(0);
 
         return (
-          <Clipboard.Root
+          <Clipboard
             defaultValue="maps-platform-token"
             onStatusChange={(details) => {
               if (details.copied) {
@@ -250,7 +250,7 @@ introducing a separate clipboard abstraction.
               </Clipboard.Trigger>
             </Clipboard.Control>
             <p>Copied {copyCount} times</p>
-          </Clipboard.Root>
+          </Clipboard>
         );
       }
     `}
@@ -274,7 +274,7 @@ Set `timeout` when copied state should remain visible for longer than the Ark de
 
       export function TimeoutClipboardDemo() {
         return (
-          <Clipboard.Root defaultValue="workspace-secret" timeout={5000}>
+          <Clipboard defaultValue="workspace-secret" timeout={5000}>
             <Clipboard.Label>Five second copied state</Clipboard.Label>
             <Clipboard.Control>
               <Clipboard.Input readOnly />
@@ -282,7 +282,7 @@ Set `timeout` when copied state should remain visible for longer than the Ark de
                 <Clipboard.Indicator />
               </Clipboard.Trigger>
             </Clipboard.Control>
-          </Clipboard.Root>
+          </Clipboard>
         );
       }
     `}
@@ -307,7 +307,7 @@ introducing another React state layer.
 
       export function ContextClipboardDemo() {
         return (
-          <Clipboard.Root defaultValue="maps-platform-token">
+          <Clipboard defaultValue="maps-platform-token">
             <Clipboard.Control>
               <Clipboard.Trigger aria-label="Copy API token">
                 <Clipboard.Indicator />
@@ -316,7 +316,7 @@ introducing another React state layer.
                 </Clipboard.Context>
               </Clipboard.Trigger>
             </Clipboard.Control>
-          </Clipboard.Root>
+          </Clipboard>
         );
       }
     `}
@@ -340,14 +340,14 @@ Use `Clipboard.ValueText` when the copied value should read like inline content 
 
       export function ValueTextClipboardDemo() {
         return (
-          <Clipboard.Root defaultValue="moduix/clipboard">
+          <Clipboard defaultValue="moduix/clipboard">
             <Clipboard.Control>
               <Clipboard.ValueText />
               <Clipboard.Trigger aria-label="Copy package name">
                 <Clipboard.Indicator />
               </Clipboard.Trigger>
             </Clipboard.Control>
-          </Clipboard.Root>
+          </Clipboard>
         );
       }
     `}
@@ -376,7 +376,7 @@ tree but the visible parts should stay Ark-shaped.
         });
 
         return (
-          <Clipboard.RootProvider value={clipboard}>
+          <ClipboardProvider value={clipboard}>
             <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
             <Clipboard.Control>
               <Clipboard.Input readOnly />
@@ -409,7 +409,7 @@ feedback. The default moduix styling does not darken the input or trigger after 
 
       export function StyledClipboardDemo() {
         return (
-          <Clipboard.Root defaultValue="workspace-secret">
+          <Clipboard defaultValue="workspace-secret">
             <Clipboard.Label>Styled copied state</Clipboard.Label>
             <Clipboard.Control>
               <Clipboard.Input readOnly className="clipboard-custom-input" />
@@ -420,7 +420,7 @@ feedback. The default moduix styling does not darken the input or trigger after 
                 <Clipboard.Indicator />
               </Clipboard.Trigger>
             </Clipboard.Control>
-          </Clipboard.Root>
+          </Clipboard>
         );
       }
     `}

@@ -65,7 +65,7 @@ forms.
 
       export function ColorPickerDemo() {
         return (
-          <ColorPicker.Root defaultValue={parseColor("#eb5e41")}>
+          <ColorPicker defaultValue={parseColor("#eb5e41")}>
             <ColorPicker.Label>Color</ColorPicker.Label>
             <ColorPicker.Control>
               <ColorPicker.ChannelInput channel="hex" />
@@ -109,7 +109,7 @@ forms.
               </ColorPicker.Positioner>
             </Portal>
             <ColorPicker.HiddenInput />
-          </ColorPicker.Root>
+          </ColorPicker>
         );
       }
     `}
@@ -195,18 +195,18 @@ ColorPicker.Root
 └─ ColorPicker.HiddenInput
 ```
 
-| Part                        | Role                                                               |
-| --------------------------- | ------------------------------------------------------------------ |
-| `ColorPicker.Root`          | Owns color value, format, popup state, and form integration.       |
-| `ColorPicker.Control`       | Groups visible inputs and trigger.                                 |
-| `ColorPicker.Trigger`       | Button that opens the popup and commonly renders the value swatch. |
-| `ColorPicker.Content`       | Actual Ark popup content part. It does not create a portal.        |
-| `ColorPicker.Area`          | Two-dimensional color interaction surface.                         |
-| `ColorPicker.ChannelSlider` | One-dimensional channel control for hue, alpha, or other channels. |
-| `ColorPicker.ChannelInput`  | Text or numeric input for a specific color channel.                |
-| `ColorPicker.SwatchTrigger` | Selectable preset color button.                                    |
-| `ColorPicker.ValueSwatch`   | Visual swatch for the current value.                               |
-| `ColorPicker.HiddenInput`   | Hidden form field for native submission and reset synchronization. |
+| Part                               | Role                                                               |
+| ---------------------------------- | ------------------------------------------------------------------ |
+| `ColorPicker` / `ColorPicker.Root` | Owns color value, format, popup state, and form integration.       |
+| `ColorPicker.Control`              | Groups visible inputs and trigger.                                 |
+| `ColorPicker.Trigger`              | Button that opens the popup and commonly renders the value swatch. |
+| `ColorPicker.Content`              | Actual Ark popup content part. It does not create a portal.        |
+| `ColorPicker.Area`                 | Two-dimensional color interaction surface.                         |
+| `ColorPicker.ChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels. |
+| `ColorPicker.ChannelInput`         | Text or numeric input for a specific color channel.                |
+| `ColorPicker.SwatchTrigger`        | Selectable preset color button.                                    |
+| `ColorPicker.ValueSwatch`          | Visual swatch for the current value.                               |
+| `ColorPicker.HiddenInput`          | Hidden form field for native submission and reset synchronization. |
 
 `ColorPicker.RootProvider`, `ColorPicker.Context`, `parseColor`, `useColorPicker`, and
 `useColorPickerContext` expose the corresponding Ark state paths.
@@ -236,11 +236,14 @@ must stay a single element and preserve the required focus and interaction behav
 
 ### Default props
 
-- Ark defaults to `defaultValue={parseColor("#000000")}` and `defaultFormat="rgba"`.
-- `ColorPicker.Content` defaults to `16rem` wide so it does not collapse to the trigger swatch width.
-- `ColorPicker.EyeDropperTrigger` renders a moduix pipette icon when children are omitted.
-- `ColorPicker.SwatchIndicator` renders a moduix check icon when children are omitted.
-- The styled root defaults to `16rem` wide and remains constrained by `100%`.
+| Surface / Prop                           | Default                 | Notes                                      |
+| ---------------------------------------- | ----------------------- | ------------------------------------------ |
+| `defaultValue`                           | `parseColor("#000000")` | Ark default color value.                   |
+| `defaultFormat`                          | `"rgba"`                | Ark default format.                        |
+| `ColorPicker.Content` width              | `16rem`                 | Prevents collapse to trigger swatch width. |
+| `ColorPicker.EyeDropperTrigger`          | moduix pipette icon     | Used when children are omitted.            |
+| `ColorPicker.SwatchIndicator`            | moduix check icon       | Used when children are omitted.            |
+| `ColorPicker` / `ColorPicker.Root` width | `16rem` (max `100%`)    | Styled root width defaults.                |
 
 ### Behavioral notes
 
@@ -270,7 +273,7 @@ Use controlled state when the selected color must stay in sync with application 
         const [value, setValue] = useState(() => parseColor("#16a34a"));
 
         return (
-          <ColorPicker.Root value={value} onValueChange={(details) => setValue(details.value)}>
+          <ColorPicker value={value} onValueChange={(details) => setValue(details.value)}>
             <ColorPicker.Label>Color</ColorPicker.Label>
             <ColorPicker.Control>
               <ColorPicker.ChannelInput channel="hex" />
@@ -300,7 +303,7 @@ Use controlled state when the selected color must stay in sync with application 
               </ColorPicker.Positioner>
             </Portal>
             <ColorPicker.HiddenInput />
-          </ColorPicker.Root>
+          </ColorPicker>
         );
       }
     `}
@@ -324,7 +327,7 @@ the current color visible.
 
       export function DisabledColorPickerDemo() {
         return (
-          <ColorPicker.Root disabled defaultValue={parseColor("#64748b")}>
+          <ColorPicker disabled defaultValue={parseColor("#64748b")}>
             <ColorPicker.Label>Color</ColorPicker.Label>
             <ColorPicker.Control>
               <ColorPicker.ChannelInput channel="hex" />
@@ -335,7 +338,7 @@ the current color visible.
               </ColorPicker.Trigger>
             </ColorPicker.Control>
             <ColorPicker.HiddenInput />
-          </ColorPicker.Root>
+          </ColorPicker>
         );
       }
     `}
@@ -360,7 +363,7 @@ with native form data.
       export function FormUsageColorPickerDemo() {
         return (
           <form className="color-picker-form">
-            <ColorPicker.Root  defaultValue={parseColor("#eb5e41")}>
+            <ColorPicker  defaultValue={parseColor("#eb5e41")}>
               <ColorPicker.Label>Color</ColorPicker.Label>
               <ColorPicker.Control>
                 <ColorPicker.ChannelInput channel="hex" />
@@ -371,7 +374,7 @@ with native form data.
                 </ColorPicker.Trigger>
               </ColorPicker.Control>
               <ColorPicker.HiddenInput />
-            </ColorPicker.Root>
+            </ColorPicker>
             <button className="color-picker-submit" type="submit">
               Submit
             </button>
@@ -400,7 +403,7 @@ field container and should expose the same state through Ark data attributes.
       export function FieldStateColorPickerDemo() {
         return (
           <Field className="color-picker-field">
-            <ColorPicker.Root required invalid  defaultValue={parseColor("#eb5e41")}>
+            <ColorPicker required invalid  defaultValue={parseColor("#eb5e41")}>
               <ColorPicker.Label>Accent color</ColorPicker.Label>
               <ColorPicker.Control>
                 <ColorPicker.ChannelInput channel="hex" />
@@ -411,7 +414,7 @@ field container and should expose the same state through Ark data attributes.
                 </ColorPicker.Trigger>
               </ColorPicker.Control>
               <ColorPicker.HiddenInput />
-            </ColorPicker.Root>
+            </ColorPicker>
             <Field.HelperText>Used for generated charts and callouts.</Field.HelperText>
             <Field.ErrorText>Choose an accent color.</Field.ErrorText>
           </Field>
@@ -438,14 +441,14 @@ heavy for the interface.
 
       export function InputOnlyColorPickerDemo() {
         return (
-          <ColorPicker.Root defaultValue={parseColor("#0f172a")}>
+          <ColorPicker defaultValue={parseColor("#0f172a")}>
             <ColorPicker.Label>Hex color</ColorPicker.Label>
             <ColorPicker.Control>
               <ColorPicker.ChannelInput channel="hex" />
               <ColorPicker.ChannelInput channel="alpha" />
             </ColorPicker.Control>
             <ColorPicker.HiddenInput />
-          </ColorPicker.Root>
+          </ColorPicker>
         );
       }
     `}
@@ -468,7 +471,7 @@ Use slider-only composition when direct manipulation matters but typed channel i
 
       export function SliderOnlyColorPickerDemo() {
         return (
-          <ColorPicker.Root inline defaultValue={parseColor("#2563eb")}>
+          <ColorPicker inline defaultValue={parseColor("#2563eb")}>
             <ColorPicker.Label>Channels</ColorPicker.Label>
             <ColorPicker.Area>
               <ColorPicker.AreaBackground />
@@ -483,7 +486,7 @@ Use slider-only composition when direct manipulation matters but typed channel i
               <ColorPicker.ChannelSliderTrack />
               <ColorPicker.ChannelSliderThumb />
             </ColorPicker.ChannelSlider>
-          </ColorPicker.Root>
+          </ColorPicker>
         );
       }
     `}
@@ -509,7 +512,7 @@ be unnecessary.
 
       export function SwatchOnlyColorPickerDemo() {
         return (
-          <ColorPicker.Root inline defaultValue={parseColor("#f97316")}>
+          <ColorPicker inline defaultValue={parseColor("#f97316")}>
             <ColorPicker.Label>Brand color</ColorPicker.Label>
             <ColorPicker.SwatchGroup>
               {swatches.map((color) => (
@@ -521,7 +524,7 @@ be unnecessary.
               ))}
             </ColorPicker.SwatchGroup>
             <ColorPicker.HiddenInput />
-          </ColorPicker.Root>
+          </ColorPicker>
         );
       }
     `}
@@ -547,7 +550,7 @@ editing. `closeOnSelect` follows Ark behavior and closes the popup after a swatc
 
       export function SwatchesColorPickerDemo() {
         return (
-          <ColorPicker.Root defaultValue={parseColor("#f97316")} closeOnSelect>
+          <ColorPicker defaultValue={parseColor("#f97316")} closeOnSelect>
             <ColorPicker.Label>Color</ColorPicker.Label>
             <ColorPicker.Control>
               <ColorPicker.ChannelInput channel="hex" />
@@ -577,7 +580,7 @@ editing. `closeOnSelect` follows Ark behavior and closes the popup after a swatc
               </ColorPicker.Positioner>
             </Portal>
             <ColorPicker.HiddenInput />
-          </ColorPicker.Root>
+          </ColorPicker>
         );
       }
     `}
@@ -601,14 +604,14 @@ the full picker.
 
       export function ValueSwatchColorPickerDemo() {
         return (
-          <ColorPicker.Root defaultValue={parseColor("#dc2626")}>
+          <ColorPicker defaultValue={parseColor("#dc2626")}>
             <ColorPicker.Label>Current color</ColorPicker.Label>
             <div className="color-picker-value-swatch">
               <ColorPicker.TransparencyGrid />
               <ColorPicker.ValueSwatch />
             </div>
             <ColorPicker.ValueText format="hex" />
-          </ColorPicker.Root>
+          </ColorPicker>
         );
       }
     `}
@@ -634,7 +637,7 @@ Use `inline` for settings panels where the color tools should stay visible witho
 
       export function InlineColorPickerDemo() {
         return (
-          <ColorPicker.Root inline defaultValue={parseColor("#2563eb")}>
+          <ColorPicker inline defaultValue={parseColor("#2563eb")}>
             <div className="color-picker-value-row">
               <ColorPicker.Label>Inline color</ColorPicker.Label>
               <ColorPicker.ValueText format="hex" />
@@ -659,7 +662,7 @@ Use `inline` for settings panels where the color tools should stay visible witho
               </div>
             </ColorPicker.View>
             <ColorPicker.HiddenInput />
-          </ColorPicker.Root>
+          </ColorPicker>
         );
       }
     `}
@@ -688,7 +691,7 @@ Use controlled `open` state when another control or workflow owns whether the po
         const [open, setOpen] = useState(false);
 
         return (
-          <ColorPicker.Root
+          <ColorPicker
             defaultValue={parseColor("#14b8a6")}
             open={open}
             onOpenChange={(details) => setOpen(details.open)}
@@ -714,7 +717,7 @@ Use controlled `open` state when another control or workflow owns whether the po
             <button type="button" onClick={() => setOpen((current) => !current)}>
               {open ? "Close" : "Open"}
             </button>
-          </ColorPicker.Root>
+          </ColorPicker>
         );
       }
     `}
@@ -740,7 +743,7 @@ rendered tree and shared with nearby controls.
         const colorPicker = useColorPicker({ defaultValue: parseColor("#9333ea") });
 
         return (
-          <ColorPicker.RootProvider value={colorPicker}>
+          <ColorPickerProvider value={colorPicker}>
             <ColorPicker.Context>
               {(context) => <span>Color: {context.valueAsString}</span>}
             </ColorPicker.Context>
@@ -781,7 +784,7 @@ channel input groups without changing the picker structure.
         const [format, setFormat] = useState("rgba");
 
         return (
-          <ColorPicker.Root
+          <ColorPicker
             inline
             defaultValue={parseColor("#9333ea")}
             format={format}
@@ -812,7 +815,7 @@ channel input groups without changing the picker structure.
               </div>
             </ColorPicker.View>
             <ColorPicker.HiddenInput />
-          </ColorPicker.Root>
+          </ColorPicker>
         );
       }
     `}
@@ -848,7 +851,7 @@ layer above the dialog content.
                     Wrap the color picker positioner in a portal so its popover layers correctly.
                   </Dialog.Description>
                   <div className="color-picker-dialog-body">
-                    <ColorPicker.Root defaultValue={parseColor("#eb5e41")}>
+                    <ColorPicker defaultValue={parseColor("#eb5e41")}>
                       <ColorPicker.Label>Color</ColorPicker.Label>
                       <ColorPicker.Control>
                         <ColorPicker.ChannelInput channel="hex" />
@@ -869,7 +872,7 @@ layer above the dialog content.
                         </ColorPicker.Positioner>
                       </Portal>
                       <ColorPicker.HiddenInput />
-                    </ColorPicker.Root>
+                    </ColorPicker>
                   </div>
                 </Dialog.Content>
               </Dialog.Positioner>
@@ -899,7 +902,7 @@ Use CSS variables on the root for color, sizing, focus ring, popup shadow, and s
 
       export function CustomColorPickerDemo() {
         return (
-          <ColorPicker.Root
+          <ColorPicker
             className="docs-color-picker-custom"
             defaultValue={parseColor("#0ea5e9")}
           >
@@ -932,7 +935,7 @@ Use CSS variables on the root for color, sizing, focus ring, popup shadow, and s
               </ColorPicker.Positioner>
             </Portal>
             <ColorPicker.HiddenInput />
-          </ColorPicker.Root>
+          </ColorPicker>
         );
       }
     `}

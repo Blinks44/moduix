@@ -53,13 +53,13 @@ Use the Ark part tree directly: `Checkbox.Root`, `Checkbox.Control`, `Checkbox.I
 
       export function CheckboxDemo() {
         return (
-          <Checkbox.Root>
+          <Checkbox>
             <Checkbox.Control>
               <Checkbox.Indicator />
             </Checkbox.Control>
             <Checkbox.Label>Enable notifications</Checkbox.Label>
             <Checkbox.HiddenInput />
-          </Checkbox.Root>
+          </Checkbox>
         );
       }
     `}
@@ -136,17 +136,17 @@ Checkbox.GroupProvider
 └─ same grouped item tree connected to useCheckboxGroup()
 ```
 
-| Part                     | Role                                                                  |
-| ------------------------ | --------------------------------------------------------------------- |
-| `Checkbox.Root`          | Owns one checkbox state and renders the wrapping label element.       |
-| `Checkbox.RootProvider`  | Connects parts to state created with `useCheckbox()`.                 |
-| `Checkbox.Control`       | Visual control surface. Styles checked, indeterminate, invalid state. |
-| `Checkbox.Indicator`     | Checked or indeterminate icon slot. Use `indeterminate` when needed.  |
-| `Checkbox.Label`         | Visible label text inside the root.                                   |
-| `Checkbox.HiddenInput`   | Native input for forms, validation, form reset, and submission.       |
-| `Checkbox.Context`       | Reads checkbox state through an Ark render prop.                      |
-| `Checkbox.Group`         | Shares value state across multiple checkbox roots.                    |
-| `Checkbox.GroupProvider` | Connects grouped items to state created with `useCheckboxGroup()`.    |
+| Part                         | Role                                                                  |
+| ---------------------------- | --------------------------------------------------------------------- |
+| `Checkbox` / `Checkbox.Root` | Owns one checkbox state and renders the wrapping label element.       |
+| `Checkbox.RootProvider`      | Connects parts to state created with `useCheckbox()`.                 |
+| `Checkbox.Control`           | Visual control surface. Styles checked, indeterminate, invalid state. |
+| `Checkbox.Indicator`         | Checked or indeterminate icon slot. Use `indeterminate` when needed.  |
+| `Checkbox.Label`             | Visible label text inside the root.                                   |
+| `Checkbox.HiddenInput`       | Native input for forms, validation, form reset, and submission.       |
+| `Checkbox.Context`           | Reads checkbox state through an Ark render prop.                      |
+| `Checkbox.Group`             | Shares value state across multiple checkbox roots.                    |
+| `Checkbox.GroupProvider`     | Connects grouped items to state created with `useCheckboxGroup()`.    |
 
 ## Composition
 
@@ -172,6 +172,12 @@ pass `name` to `Checkbox.Group` and `value` to every `Checkbox.Root`.
 Ark `Checkbox.Root` renders a `label`. If you use `asChild`, the direct child must also be a
 semantic `label`, otherwise the checkbox no longer has valid form-control labelling.
 
+### Default props
+
+| Surface                      | Default | Notes                                                  |
+| ---------------------------- | ------- | ------------------------------------------------------ |
+| `Checkbox` / `Checkbox.Root` | —       | No additional behavioral defaults; Ark defaults apply. |
+
 ## Examples
 
 ### Default Checked
@@ -183,13 +189,13 @@ Use `defaultChecked` when the checkbox should start checked and then manage its 
 
   <Preview.Code>
     {`
-      <Checkbox.Root defaultChecked>
+      <Checkbox defaultChecked>
         <Checkbox.Control>
           <Checkbox.Indicator />
         </Checkbox.Control>
         <Checkbox.Label>Enable notifications</Checkbox.Label>
         <Checkbox.HiddenInput />
-      </Checkbox.Root>
+      </Checkbox>
     `}
   </Preview.Code>
   <Preview.CSS>{checkboxExampleCss}</Preview.CSS>
@@ -212,13 +218,13 @@ Control `checked` from React state when the checkbox should coordinate with othe
         const [checked, setChecked] = useState(true);
 
         return (
-          <Checkbox.Root checked={checked} onCheckedChange={(details) => setChecked(details.checked === true)}>
+          <Checkbox checked={checked} onCheckedChange={(details) => setChecked(details.checked === true)}>
             <Checkbox.Control>
               <Checkbox.Indicator />
             </Checkbox.Control>
             <Checkbox.Label>{checked ? "Enabled" : "Disabled"}</Checkbox.Label>
             <Checkbox.HiddenInput />
-          </Checkbox.Root>
+          </Checkbox>
         );
       }
     `}
@@ -244,7 +250,7 @@ Use `useCheckbox()` with `Checkbox.RootProvider` when checkbox state needs to li
 
         return (
           <>
-            <Checkbox.RootProvider value={checkbox}>
+            <CheckboxProvider value={checkbox}>
               <Checkbox.Control>
                 <Checkbox.Indicator />
               </Checkbox.Control>
@@ -273,13 +279,13 @@ Use `disabled` when the option is unavailable and should not accept focus or inp
 
   <Preview.Code>
     {`
-      <Checkbox.Root disabled>
+      <Checkbox disabled>
         <Checkbox.Control>
           <Checkbox.Indicator />
         </Checkbox.Control>
         <Checkbox.Label>Receive weekly summary</Checkbox.Label>
         <Checkbox.HiddenInput />
-      </Checkbox.Root>
+      </Checkbox>
     `}
   </Preview.Code>
   <Preview.CSS>{checkboxExampleCss}</Preview.CSS>
@@ -295,13 +301,13 @@ Use `readOnly` when the value should remain visible but user interaction should 
 
   <Preview.Code>
     {`
-      <Checkbox.Root readOnly defaultChecked>
+      <Checkbox readOnly defaultChecked>
         <Checkbox.Control>
           <Checkbox.Indicator />
         </Checkbox.Control>
         <Checkbox.Label>Preserve existing setting</Checkbox.Label>
         <Checkbox.HiddenInput />
-      </Checkbox.Root>
+      </Checkbox>
     `}
   </Preview.Code>
   <Preview.CSS>{checkboxExampleCss}</Preview.CSS>
@@ -317,14 +323,14 @@ Use the indeterminate state when one checkbox reflects a partial selection inste
 
   <Preview.Code>
     {`
-      <Checkbox.Root checked="indeterminate">
+      <Checkbox checked="indeterminate">
         <Checkbox.Control>
           <Checkbox.Indicator />
           <Checkbox.Indicator indeterminate />
         </Checkbox.Control>
         <Checkbox.Label>Select all team members</Checkbox.Label>
         <Checkbox.HiddenInput />
-      </Checkbox.Root>
+      </Checkbox>
     `}
   </Preview.Code>
   <Preview.CSS>{checkboxExampleCss}</Preview.CSS>
@@ -345,13 +351,13 @@ Use `Field` around one checkbox when it needs helper text, validation text, or s
       export function CheckboxFieldDemo() {
         return (
           <Field className="checkbox-field">
-            <Checkbox.Root required >
+            <Checkbox required >
               <Checkbox.Control>
                 <Checkbox.Indicator />
               </Checkbox.Control>
               <Checkbox.Label>Accept terms</Checkbox.Label>
               <Checkbox.HiddenInput />
-            </Checkbox.Root>
+            </Checkbox>
             <Field.HelperText>Required to continue.</Field.HelperText>
             <Field.ErrorText>Please accept the terms.</Field.ErrorText>
           </Field>
@@ -378,13 +384,13 @@ Pass `name` and `value` to `Checkbox.Root` so the hidden input submits with nati
         const formData = new FormData(event.currentTarget);
         console.log(formData.get("terms"));
       }}>
-        <Checkbox.Root  value="accepted">
+        <Checkbox  value="accepted">
           <Checkbox.Control>
             <Checkbox.Indicator />
           </Checkbox.Control>
           <Checkbox.Label>I agree to the terms and conditions</Checkbox.Label>
           <Checkbox.HiddenInput />
-        </Checkbox.Root>
+        </Checkbox>
         <button type="submit">Submit</button>
       </form>
     `}
@@ -402,7 +408,7 @@ Read Ark checkbox state with `Checkbox.Context` when nearby UI needs the current
 
   <Preview.Code>
     {`
-      <Checkbox.Root defaultChecked>
+      <Checkbox defaultChecked>
         <Checkbox.Control>
           <Checkbox.Indicator />
         </Checkbox.Control>
@@ -411,7 +417,7 @@ Read Ark checkbox state with `Checkbox.Context` when nearby UI needs the current
         <Checkbox.Context>
           {(checkbox) => <span>Checked: {String(checkbox.checked)}</span>}
         </Checkbox.Context>
-      </Checkbox.Root>
+      </Checkbox>
     `}
   </Preview.Code>
   <Preview.CSS>{checkboxExampleCss}</Preview.CSS>
@@ -427,13 +433,13 @@ Apply moduix `size` to match checkbox density to the surrounding form or setting
 
   <Preview.Code>
     {`
-      <Checkbox.Root size="lg" defaultChecked>
+      <Checkbox size="lg" defaultChecked>
         <Checkbox.Control>
           <Checkbox.Indicator />
         </Checkbox.Control>
         <Checkbox.Label>Large</Checkbox.Label>
         <Checkbox.HiddenInput />
-      </Checkbox.Root>
+      </Checkbox>
     `}
   </Preview.Code>
   <Preview.CSS>{checkboxExampleCss}</Preview.CSS>
@@ -449,7 +455,7 @@ Replace the default checkmark when the product needs a different icon treatment 
 
   <Preview.Code>
     {`
-      <Checkbox.Root defaultChecked>
+      <Checkbox defaultChecked>
         <Checkbox.Control>
           <Checkbox.Indicator>
             <CustomPlusIcon />
@@ -457,7 +463,7 @@ Replace the default checkmark when the product needs a different icon treatment 
         </Checkbox.Control>
         <Checkbox.Label>Use a custom indicator icon</Checkbox.Label>
         <Checkbox.HiddenInput />
-      </Checkbox.Root>
+      </Checkbox>
     `}
   </Preview.Code>
   <Preview.CSS>{checkboxCustomStylingCss}</Preview.CSS>
@@ -475,13 +481,13 @@ Use `Checkbox.Group` when several options belong to one shared array of selected
     {`
       <Checkbox.Group defaultValue={["email"]} >
         {options.map((option) => (
-          <Checkbox.Root key={option.value} value={option.value}>
+          <Checkbox key={option.value} value={option.value}>
             <Checkbox.Control>
               <Checkbox.Indicator />
             </Checkbox.Control>
             <Checkbox.Label>{option.label}</Checkbox.Label>
             <Checkbox.HiddenInput />
-          </Checkbox.Root>
+          </Checkbox>
         ))}
       </Checkbox.Group>
     `}
@@ -503,13 +509,13 @@ Control the group value from React state when selected options need to drive fil
 
       <Checkbox.Group value={value} onValueChange={setValue} >
         {options.map((option) => (
-          <Checkbox.Root key={option.value} value={option.value}>
+          <Checkbox key={option.value} value={option.value}>
             <Checkbox.Control>
               <Checkbox.Indicator />
             </Checkbox.Control>
             <Checkbox.Label>{option.label}</Checkbox.Label>
             <Checkbox.HiddenInput />
-          </Checkbox.Root>
+          </Checkbox>
         ))}
       </Checkbox.Group>
     `}
@@ -536,13 +542,13 @@ Use `useCheckboxGroup()` with `Checkbox.GroupProvider` when group state is creat
         return (
           <Checkbox.GroupProvider value={group}>
             {options.map((option) => (
-              <Checkbox.Root key={option.value} value={option.value}>
+              <Checkbox key={option.value} value={option.value}>
                 <Checkbox.Control>
                   <Checkbox.Indicator />
                 </Checkbox.Control>
                 <Checkbox.Label>{option.label}</Checkbox.Label>
                 <Checkbox.HiddenInput />
-              </Checkbox.Root>
+              </Checkbox>
             ))}
           </Checkbox.GroupProvider>
         );
@@ -565,13 +571,13 @@ Mark the group invalid when the whole set participates in validation and require
     {`
       <Checkbox.Group invalid defaultValue={["email"]} >
         {options.map((option) => (
-          <Checkbox.Root key={option.value} value={option.value}>
+          <Checkbox key={option.value} value={option.value}>
             <Checkbox.Control>
               <Checkbox.Indicator />
             </Checkbox.Control>
             <Checkbox.Label>{option.label}</Checkbox.Label>
             <Checkbox.HiddenInput />
-          </Checkbox.Root>
+          </Checkbox>
         ))}
       </Checkbox.Group>
     `}
@@ -591,13 +597,13 @@ Use `maxSelectedValues` when only a fixed number of options can be selected.
     {`
       <Checkbox.Group defaultValue={["react", "solid"]} maxSelectedValues={2} >
         {options.map((option) => (
-          <Checkbox.Root key={option.value} value={option.value}>
+          <Checkbox key={option.value} value={option.value}>
             <Checkbox.Control>
               <Checkbox.Indicator />
             </Checkbox.Control>
             <Checkbox.Label>{option.label}</Checkbox.Label>
             <Checkbox.HiddenInput />
-          </Checkbox.Root>
+          </Checkbox>
         ))}
       </Checkbox.Group>
     `}
@@ -620,7 +626,7 @@ Compose a parent checkbox and a controlled group when one control should toggle 
       const allSelected = value.length === allValues.length;
       const indeterminate = value.length > 0 && value.length < allValues.length;
 
-      <Checkbox.Root
+      <Checkbox
         checked={indeterminate ? "indeterminate" : allSelected}
         onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}
       >
@@ -630,7 +636,7 @@ Compose a parent checkbox and a controlled group when one control should toggle 
         </Checkbox.Control>
         <Checkbox.Label>Select all</Checkbox.Label>
         <Checkbox.HiddenInput />
-      </Checkbox.Root>
+      </Checkbox>
     `}
 
   </Preview.Code>
@@ -653,13 +659,13 @@ Use `Checkbox.Group` inside a form and read selected values with `FormData.getAl
       }}>
         <Checkbox.Group defaultValue={["react"]} >
           {options.map((option) => (
-            <Checkbox.Root key={option.value} value={option.value}>
+            <Checkbox key={option.value} value={option.value}>
               <Checkbox.Control>
                 <Checkbox.Indicator />
               </Checkbox.Control>
               <Checkbox.Label>{option.label}</Checkbox.Label>
               <Checkbox.HiddenInput />
-            </Checkbox.Root>
+            </Checkbox>
           ))}
         </Checkbox.Group>
         <button type="submit">Submit</button>
@@ -687,13 +693,13 @@ Wrap the group in `Fieldset` when the checkbox set is one semantic form field wi
             <Fieldset.Legend>Frameworks</Fieldset.Legend>
             <Checkbox.Group defaultValue={["react"]} >
               {options.map((option) => (
-                <Checkbox.Root key={option.value} value={option.value}>
+                <Checkbox key={option.value} value={option.value}>
                   <Checkbox.Control>
                     <Checkbox.Indicator />
                   </Checkbox.Control>
                   <Checkbox.Label>{option.label}</Checkbox.Label>
                   <Checkbox.HiddenInput />
-                </Checkbox.Root>
+                </Checkbox>
               ))}
             </Checkbox.Group>
           </Fieldset>
@@ -717,7 +723,7 @@ Use local classes and CSS variables when the checkbox visuals need a custom tone
     {`
       <Checkbox.Group defaultValue={["email"]} className="checkbox-custom-group" >
         {options.map((option) => (
-          <Checkbox.Root key={option.value} value={option.value} className="checkbox-custom-root">
+          <Checkbox key={option.value} value={option.value} className="checkbox-custom-root">
             <Checkbox.Control className="checkbox-custom-control">
               <Checkbox.Indicator>
                 <CustomPlusIcon className="checkbox-custom-icon" />
@@ -725,7 +731,7 @@ Use local classes and CSS variables when the checkbox visuals need a custom tone
             </Checkbox.Control>
             <Checkbox.Label className="checkbox-custom-label">{option.label}</Checkbox.Label>
             <Checkbox.HiddenInput />
-          </Checkbox.Root>
+          </Checkbox>
         ))}
       </Checkbox.Group>
     `}

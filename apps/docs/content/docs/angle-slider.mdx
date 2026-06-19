@@ -50,7 +50,7 @@ the active angle indicator, and `HiddenInput` enables native form submission.
 
       export function AngleSliderDemo() {
         return (
-          <AngleSlider.Root
+          <AngleSlider
             defaultValue={135}
             aria-label="Rotation"
             className="docs-angle-slider-basic"
@@ -66,7 +66,7 @@ the active angle indicator, and `HiddenInput` enables native form submission.
             </AngleSlider.Control>
             <AngleSlider.ValueText />
             <AngleSlider.HiddenInput />
-          </AngleSlider.Root>
+          </AngleSlider>
         );
       }
     `}
@@ -139,18 +139,18 @@ AngleSlider.Root
 └─ AngleSlider.HiddenInput
 ```
 
-| Part                       | Role                                                                  |
-| -------------------------- | --------------------------------------------------------------------- |
-| `AngleSlider.Root`         | Owns uncontrolled or controlled slider state.                         |
-| `AngleSlider.RootProvider` | Connects externally owned state from `useAngleSlider`.                |
-| `AngleSlider.Context`      | Exposes `value`, `valueAsDegree`, `setValue`, and `dragging`.         |
-| `AngleSlider.Label`        | Associates a visible label with the slider thumb.                     |
-| `AngleSlider.Control`      | Circular pointer interaction surface.                                 |
-| `AngleSlider.MarkerGroup`  | Contains optional reference markers.                                  |
-| `AngleSlider.Marker`       | Positions a numeric marker and exposes its relation to current value. |
-| `AngleSlider.Thumb`        | Focusable slider handle and rotating angle indicator.                 |
-| `AngleSlider.ValueText`    | Renders the current value as degree text.                             |
-| `AngleSlider.HiddenInput`  | Participates in native form submission and reset.                     |
+| Part                               | Role                                                                  |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| `AngleSlider` / `AngleSlider.Root` | Owns uncontrolled or controlled slider state.                         |
+| `AngleSlider.RootProvider`         | Connects externally owned state from `useAngleSlider`.                |
+| `AngleSlider.Context`              | Exposes `value`, `valueAsDegree`, `setValue`, and `dragging`.         |
+| `AngleSlider.Label`                | Associates a visible label with the slider thumb.                     |
+| `AngleSlider.Control`              | Circular pointer interaction surface.                                 |
+| `AngleSlider.MarkerGroup`          | Contains optional reference markers.                                  |
+| `AngleSlider.Marker`               | Positions a numeric marker and exposes its relation to current value. |
+| `AngleSlider.Thumb`                | Focusable slider handle and rotating angle indicator.                 |
+| `AngleSlider.ValueText`            | Renders the current value as degree text.                             |
+| `AngleSlider.HiddenInput`          | Participates in native form submission and reset.                     |
 
 ## Composition
 
@@ -207,7 +207,7 @@ Use controlled state when the angle must stay synchronized with application stat
         const [value, setValue] = useState(initialValue);
 
         return (
-          <AngleSlider.Root
+          <AngleSlider
             value={value}
             aria-label="Heading"
             className="docs-angle-slider-controlled"
@@ -224,7 +224,7 @@ Use controlled state when the angle must stay synchronized with application stat
             </AngleSlider.Control>
             <AngleSlider.ValueText />
             <AngleSlider.HiddenInput />
-          </AngleSlider.Root>
+          </AngleSlider>
         );
       }
     `}
@@ -255,7 +255,7 @@ Use `step` to snap pointer and keyboard interaction to a discrete angular increm
 
       export function SteppedAngleSliderDemo() {
         return (
-          <AngleSlider.Root
+          <AngleSlider
             defaultValue={initialValue}
             step={step}
             aria-label="Snap angle"
@@ -272,7 +272,7 @@ Use `step` to snap pointer and keyboard interaction to a discrete angular increm
             </AngleSlider.Control>
             <AngleSlider.ValueText />
             <AngleSlider.HiddenInput />
-          </AngleSlider.Root>
+          </AngleSlider>
         );
       }
     `}
@@ -304,7 +304,7 @@ Use `disabled` when the control must be unavailable and excluded from interactio
 
       export function DisabledAngleSliderDemo() {
         return (
-          <AngleSlider.Root
+          <AngleSlider
             defaultValue={initialValue}
             disabled
             aria-label="Disabled rotation"
@@ -321,7 +321,7 @@ Use `disabled` when the control must be unavailable and excluded from interactio
             </AngleSlider.Control>
             <AngleSlider.ValueText />
             <AngleSlider.HiddenInput />
-          </AngleSlider.Root>
+          </AngleSlider>
         );
       }
     `}
@@ -352,7 +352,7 @@ Use `AngleSlider.Context` for inline rendering that depends on the current Ark s
 
       export function ContextAngleSliderDemo() {
         return (
-          <AngleSlider.Root
+          <AngleSlider
             defaultValue={initialValue}
             aria-label="Rotation"
             className="docs-angle-slider-context"
@@ -372,7 +372,7 @@ Use `AngleSlider.Context` for inline rendering that depends on the current Ark s
             </AngleSlider.Control>
             <AngleSlider.ValueText />
             <AngleSlider.HiddenInput />
-          </AngleSlider.Root>
+          </AngleSlider>
         );
       }
     `}
@@ -410,7 +410,7 @@ machine.
 
         return (
           <div className="docs-angle-slider-provider-layout">
-            <AngleSlider.RootProvider
+            <AngleSliderProvider
               value={angleSlider}
               className="docs-angle-slider-provider"
             >
@@ -465,7 +465,7 @@ Use `readOnly` when the current value should remain focusable and visible withou
 
       export function ReadOnlyAngleSliderDemo() {
         return (
-          <AngleSlider.Root
+          <AngleSlider
             defaultValue={initialValue}
             readOnly
             aria-label="Locked angle"
@@ -482,7 +482,7 @@ Use `readOnly` when the current value should remain focusable and visible withou
             </AngleSlider.Control>
             <AngleSlider.ValueText />
             <AngleSlider.HiddenInput />
-          </AngleSlider.Root>
+          </AngleSlider>
         );
       }
     `}
@@ -514,7 +514,7 @@ state behavior.
 
       export function AngleSliderStylingDemo() {
         return (
-          <AngleSlider.Root
+          <AngleSlider
             defaultValue={initialValue}
             aria-label="Spotlight direction"
             className="docs-angle-slider-spotlight"
@@ -530,7 +530,7 @@ state behavior.
             </AngleSlider.Control>
             <AngleSlider.ValueText />
             <AngleSlider.HiddenInput />
-          </AngleSlider.Root>
+          </AngleSlider>
         );
       }
     `}

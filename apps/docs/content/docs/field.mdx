@@ -134,6 +134,12 @@ Field
 | `Field.Item`              | Item-scoped field context for grouped controls via `value`.     |
 | `Field.Context`           | Render-prop access to the current field context.                |
 
+## Default props
+
+| Surface                | Default | Notes                                                  |
+| ---------------------- | ------- | ------------------------------------------------------ |
+| `Field` / `Field.Root` | —       | No additional behavioral defaults; Ark defaults apply. |
+
 ## Examples
 
 ### Invalid
@@ -449,7 +455,7 @@ tree.
         const field = useField({ id: "root-provider-field", required: true });
 
         return (
-          <Field.RootProvider value={field}>
+          <FieldProvider value={field}>
             <Field.Label>Project key</Field.Label>
             <Field.Input placeholder="MAPS" />
             <Field.HelperText>

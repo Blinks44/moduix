@@ -40,7 +40,7 @@ Use Ark-style parts: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`
 
       export function AccordionDemo() {
         return (
-          <Accordion.Root defaultValue={["what-is-ark-ui"]}>
+          <Accordion defaultValue={["what-is-ark-ui"]}>
             {items.map((item) => (
               <Accordion.Item key={item.value} value={item.value}>
                 <Accordion.ItemTrigger>
@@ -52,7 +52,7 @@ Use Ark-style parts: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`
                 </Accordion.ItemContent>
               </Accordion.Item>
             ))}
-          </Accordion.Root>
+          </Accordion>
         );
       }
     `}
@@ -123,16 +123,16 @@ Accordion.RootProvider
 └─ same item tree connected to a useAccordion() store
 ```
 
-| Part                      | Role                                                                                      |
-| ------------------------- | ----------------------------------------------------------------------------------------- |
-| `Accordion.Root`          | Controls accordion state and keyboard behavior.                                           |
-| `Accordion.RootProvider`  | Connects parts to state created with `useAccordion()`.                                    |
-| `Accordion.Item`          | One collapsible item with a required `value`.                                             |
-| `Accordion.ItemTrigger`   | Interactive button that opens or closes the item.                                         |
-| `Accordion.ItemIndicator` | Visual open/close cue. Defaults to the moduix plus icon when no children are provided.    |
-| `Accordion.ItemContent`   | Collapsible content region. Keep spacing wrappers inside for clean `--height` animations. |
-| `Accordion.Context`       | Reads root state through an Ark render prop.                                              |
-| `Accordion.ItemContext`   | Reads item state through an Ark render prop.                                              |
+| Part                           | Role                                                                                      |
+| ------------------------------ | ----------------------------------------------------------------------------------------- |
+| `Accordion` / `Accordion.Root` | Controls accordion state and keyboard behavior.                                           |
+| `Accordion.RootProvider`       | Connects parts to state created with `useAccordion()`.                                    |
+| `Accordion.Item`               | One collapsible item with a required `value`.                                             |
+| `Accordion.ItemTrigger`        | Interactive button that opens or closes the item.                                         |
+| `Accordion.ItemIndicator`      | Visual open/close cue. Defaults to the moduix plus icon when no children are provided.    |
+| `Accordion.ItemContent`        | Collapsible content region. Keep spacing wrappers inside for clean `--height` animations. |
+| `Accordion.Context`            | Reads root state through an Ark render prop.                                              |
+| `Accordion.ItemContext`        | Reads item state through an Ark render prop.                                              |
 
 ## Composition
 
@@ -166,6 +166,12 @@ are provided, but you can replace the indicator content entirely.
 Use `asChild` only when another element must own the rendered node. Keep the Ark part tree visible
 instead of hiding it behind convenience wrappers.
 
+### Default props
+
+| Surface                        | Default | Notes                                                  |
+| ------------------------------ | ------- | ------------------------------------------------------ |
+| `Accordion` / `Accordion.Root` | —       | No additional behavioral defaults; Ark defaults apply. |
+
 ### Behavioral notes
 
 Keep spacing wrappers inside `Accordion.ItemContent` instead of on the content part itself. The Ark
@@ -189,7 +195,7 @@ Set `defaultValue` to specify which item should be expanded when the accordion f
 
       export function DefaultValueAccordionDemo() {
         return (
-          <Accordion.Root defaultValue={["what-is-ark-ui"]}>
+          <Accordion defaultValue={["what-is-ark-ui"]}>
             {items.map((item) => (
               <Accordion.Item key={item.value} value={item.value}>
                 <Accordion.ItemTrigger>
@@ -201,7 +207,7 @@ Set `defaultValue` to specify which item should be expanded when the accordion f
                 </Accordion.ItemContent>
               </Accordion.Item>
             ))}
-          </Accordion.Root>
+          </Accordion>
         );
       }
     `}
@@ -224,7 +230,7 @@ Use `multiple` when several sections should stay open at the same time instead o
 
       export function MultipleAccordionDemo() {
         return (
-          <Accordion.Root multiple defaultValue={["what-is-ark-ui", "can-i-use-it"]}>
+          <Accordion multiple defaultValue={["what-is-ark-ui", "can-i-use-it"]}>
             {items.map((item) => (
               <Accordion.Item key={item.value} value={item.value}>
                 <Accordion.ItemTrigger>
@@ -236,7 +242,7 @@ Use `multiple` when several sections should stay open at the same time instead o
                 </Accordion.ItemContent>
               </Accordion.Item>
             ))}
-          </Accordion.Root>
+          </Accordion>
         );
       }
     `}
@@ -261,7 +267,7 @@ Control `value` from React state when the open items need to stay in sync with r
         const [value, setValue] = useState(["getting-started"] as string[]);
 
         return (
-          <Accordion.Root value={value} onValueChange={(details) => setValue(details.value)}>
+          <Accordion value={value} onValueChange={(details) => setValue(details.value)}>
             {items.map((item) => (
               <Accordion.Item key={item.value} value={item.value}>
                 <Accordion.ItemTrigger>
@@ -273,7 +279,7 @@ Control `value` from React state when the open items need to stay in sync with r
                 </Accordion.ItemContent>
               </Accordion.Item>
             ))}
-          </Accordion.Root>
+          </Accordion>
         );
       }
     `}
@@ -298,7 +304,7 @@ the rendered accordion tree. Do not render `Accordion.Root` for the same store.
         const accordion = useAccordion({ defaultValue: ["what-is-ark-ui"] });
 
         return (
-          <Accordion.RootProvider value={accordion}>
+          <AccordionProvider value={accordion}>
             {items.map((item) => (
               <Accordion.Item key={item.value} value={item.value}>
                 <Accordion.ItemTrigger>
@@ -332,7 +338,7 @@ Add `collapsible` when the currently open item should be allowed to close withou
 
       export function CollapsibleAccordionDemo() {
         return (
-          <Accordion.Root collapsible defaultValue={["what-is-ark-ui"]}>
+          <Accordion collapsible defaultValue={["what-is-ark-ui"]}>
             {items.map((item) => (
               <Accordion.Item key={item.value} value={item.value}>
                 <Accordion.ItemTrigger>
@@ -344,7 +350,7 @@ Add `collapsible` when the currently open item should be allowed to close withou
                 </Accordion.ItemContent>
               </Accordion.Item>
             ))}
-          </Accordion.Root>
+          </Accordion>
         );
       }
     `}
@@ -366,7 +372,7 @@ Switch to `orientation="horizontal"` when the accordion should follow a horizont
 
       export function HorizontalAccordionDemo() {
         return (
-          <Accordion.Root orientation="horizontal" defaultValue={["what-is-ark-ui"]}>
+          <Accordion orientation="horizontal" defaultValue={["what-is-ark-ui"]}>
             {items.map((item) => (
               <Accordion.Item key={item.value} value={item.value}>
                 <Accordion.ItemTrigger>
@@ -378,7 +384,7 @@ Switch to `orientation="horizontal"` when the accordion should follow a horizont
                 </Accordion.ItemContent>
               </Accordion.Item>
             ))}
-          </Accordion.Root>
+          </Accordion>
         );
       }
     `}
@@ -400,7 +406,7 @@ Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and s
 
       export function LazyMountAccordionDemo() {
         return (
-          <Accordion.Root lazyMount unmountOnExit>
+          <Accordion lazyMount unmountOnExit>
             {items.map((item) => (
               <Accordion.Item key={item.value} value={item.value}>
                 <Accordion.ItemTrigger>
@@ -412,7 +418,7 @@ Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and s
                 </Accordion.ItemContent>
               </Accordion.Item>
             ))}
-          </Accordion.Root>
+          </Accordion>
         );
       }
     `}
@@ -435,7 +441,7 @@ state in React.
 
       export function ContextAccordionDemo() {
         return (
-          <Accordion.Root defaultValue={["what-is-ark-ui"]}>
+          <Accordion defaultValue={["what-is-ark-ui"]}>
             {items.map((item) => (
               <Accordion.Item key={item.value} value={item.value}>
                 <Accordion.ItemTrigger>
@@ -452,7 +458,7 @@ state in React.
                 <div className="accordion-state">Open sections: {accordion.value.join(", ")}</div>
               )}
             </Accordion.Context>
-          </Accordion.Root>
+          </Accordion>
         );
       }
     `}
@@ -474,7 +480,7 @@ Use `Accordion.ItemContext` when a custom child part needs the current item stat
 
       export function ItemStateAccordionDemo() {
         return (
-          <Accordion.Root defaultValue={["what-is-ark-ui"]}>
+          <Accordion defaultValue={["what-is-ark-ui"]}>
             {items.map((item) => (
               <Accordion.Item key={item.value} value={item.value}>
                 <Accordion.ItemTrigger>
@@ -493,7 +499,7 @@ Use `Accordion.ItemContext` when a custom child part needs the current item stat
                 </Accordion.ItemContent>
               </Accordion.Item>
             ))}
-          </Accordion.Root>
+          </Accordion>
         );
       }
     `}
@@ -515,7 +521,7 @@ Set `disabled` on an item when it should stay visible in the list but remain una
 
       export function DisabledItemAccordionDemo() {
         return (
-          <Accordion.Root defaultValue={["what-is-ark-ui"]}>
+          <Accordion defaultValue={["what-is-ark-ui"]}>
             {items.map((item) => (
               <Accordion.Item
                 key={item.value}
@@ -531,7 +537,7 @@ Set `disabled` on an item when it should stay visible in the list but remain una
                 </Accordion.ItemContent>
               </Accordion.Item>
             ))}
-          </Accordion.Root>
+          </Accordion>
         );
       }
     `}
@@ -554,7 +560,7 @@ Override the indicator content or local CSS variables when the accordion should 
 
       export function CustomStylingAccordionDemo() {
         return (
-          <Accordion.Root defaultValue={["what-is-ark-ui"]}>
+          <Accordion defaultValue={["what-is-ark-ui"]}>
             {items.map((item) => (
               <Accordion.Item key={item.value} value={item.value}>
                 <Accordion.ItemTrigger>
@@ -568,7 +574,7 @@ Override the indicator content or local CSS variables when the accordion should 
                 </Accordion.ItemContent>
               </Accordion.Item>
             ))}
-          </Accordion.Root>
+          </Accordion>
         );
       }
     `}

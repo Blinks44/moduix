@@ -31,7 +31,7 @@ own label, description, and validation message.
 ## Basic
 
 Compose `Fieldset.Root`, `Fieldset.Legend`, optional helper or error text, and the related controls.
-The short `<Fieldset>` form is equivalent to `<Fieldset.Root>`.
+The short `<Fieldset>` form is equivalent to `<Fieldset>`.
 
 <Preview>
   <FieldsetExample />
@@ -116,14 +116,14 @@ Fieldset.Root | Fieldset.RootProvider
 └─ Fieldset.Context (optional)
 ```
 
-| Part                    | Role                                                                  |
-| ----------------------- | --------------------------------------------------------------------- |
-| `Fieldset.Root`         | Creates state and renders a native `fieldset`.                        |
-| `Fieldset.RootProvider` | Renders externally created `useFieldset` state.                       |
-| `Fieldset.Legend`       | Native `legend` and accessible group name.                            |
-| `Fieldset.HelperText`   | Description linked to the root through `aria-describedby`.            |
-| `Fieldset.ErrorText`    | Polite-live validation message rendered only while `invalid` is true. |
-| `Fieldset.Context`      | Inline access to IDs, state, refs, and prop getters.                  |
+| Part                         | Role                                                                  |
+| ---------------------------- | --------------------------------------------------------------------- |
+| `Fieldset` / `Fieldset.Root` | Creates state and renders a native `fieldset`.                        |
+| `Fieldset.RootProvider`      | Renders externally created `useFieldset` state.                       |
+| `Fieldset.Legend`            | Native `legend` and accessible group name.                            |
+| `Fieldset.HelperText`        | Description linked to the root through `aria-describedby`.            |
+| `Fieldset.ErrorText`         | Polite-live validation message rendered only while `invalid` is true. |
+| `Fieldset.Context`           | Inline access to IDs, state, refs, and prop getters.                  |
 
 ## Composition
 
@@ -245,7 +245,7 @@ to coordinate with it.
         const fieldset = useFieldset({ invalid: true });
 
         return (
-          <Fieldset.RootProvider value={fieldset}>
+          <FieldsetProvider value={fieldset}>
             <Fieldset.Legend>Contact details</Fieldset.Legend>
             <Field.Root>
               <Field.Label>Email</Field.Label>
