@@ -1,13 +1,11 @@
-.backdrop {
-  --select-backdrop-bg: var(--color-overlay);
-  --select-backdrop-blur: 4px;
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
 }
 
-.customTrigger {
-  position: relative;
-  z-index: calc(var(--z-popup) + 1);
-}
-
-.arrow {
-  --select-arrow-stroke-color: var(--select-popup-border-color);
+.state {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
 }

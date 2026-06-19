@@ -156,7 +156,7 @@ nesting interactive elements.
 That is the main escape hatch for:
 
 - `Toggle` inside a toolbar item
-- popup triggers such as `SelectTrigger`
+- popup triggers such as `Select.Trigger`
 - other trigger-like primitives that should keep their own semantics and state
 
 ### Default props
@@ -333,8 +333,8 @@ toolbar interaction model.
 
 ### Select Trigger Composition
 
-Use `render` to turn a toolbar button into a popup trigger while keeping popup composition on the
-popup primitive itself.
+Use `asChild` on the popup primitive trigger to turn a toolbar button into the trigger while keeping
+popup composition on the popup primitive itself.
 
 <Preview>
   <ToolbarSelectTriggerExample />
@@ -344,41 +344,44 @@ popup primitive itself.
       import {
         BellIcon,
         ChevronUpDownIcon,
+        Portal,
         Select,
-        SelectContent,
-        SelectIcon,
-        SelectItem,
-        SelectItemIndicator,
-        SelectItemText,
-        SelectList,
-        SelectTrigger,
-        SelectValue,
         Toolbar,
         ToolbarButton,
         ToolbarLink,
         ToolbarSeparator,
+        createListCollection,
       } from "moduix";
+
+      const fontCollection = createListCollection({
+        items: fonts.map((font) => ({ label: font, value: font })),
+      });
 
       export function ToolbarSelectTriggerDemo() {
         return (
           <Toolbar aria-label="Text properties">
-            <Select defaultValue="Inter">
-              <ToolbarButton render={<SelectTrigger />} aria-label="Font family">
-                <SelectValue />
-                <SelectIcon>
-                  <ChevronUpDownIcon />
-                </SelectIcon>
-              </ToolbarButton>
-              <SelectContent>
-                <SelectList>
-                  {fonts.map((font) => (
-                    <SelectItem key={font} value={font}>
-                      <SelectItemIndicator />
-                      <SelectItemText>{font}</SelectItemText>
-                    </SelectItem>
+            <Select collection={fontCollection} defaultValue={["Inter"]}>
+              <Select.Trigger asChild>
+                <ToolbarButton aria-label="Font family">
+                  <Select.ValueText />
+                  <Select.Indicator>
+                    <ChevronUpDownIcon />
+                  </Select.Indicator>
+                </ToolbarButton>
+              </Select.Trigger>
+              <Portal>
+                <Select.Positioner>
+                  <Select.Content>
+                    {fontCollection.items.map((font) => (
+                      <Select.Item key={font.value} item={font}>
+                        <Select.ItemText>{font.label}</Select.ItemText>
+                        <Select.ItemIndicator />
+                      </Select.Item>
                   ))}
-                </SelectList>
-              </SelectContent>
+                  </Select.Content>
+                </Select.Positioner>
+              </Portal>
+              <Select.HiddenSelect />
             </Select>
 
             <ToolbarSeparator />

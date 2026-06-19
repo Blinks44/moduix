@@ -490,6 +490,8 @@
   --combobox-border-color: initial; /* var(--color-border) */
   --combobox-border-width: initial; /* var(--border-width-sm) */
   --combobox-color: initial; /* var(--color-foreground) */
+  --combobox-bg-active: initial; /* var(--color-muted) */
+  --combobox-bg-hover: initial; /* var(--color-accent) */
   --combobox-content-bg: initial; /* var(--color-popover) */
   --combobox-content-border-color: initial; /* var(--color-border) */
   --combobox-content-border-width: initial; /* var(--border-width-sm) */
@@ -509,8 +511,8 @@
   --combobox-focus-ring-color: initial; /* var(--color-ring) */
   --combobox-focus-ring-offset: initial; /* var(--border-width-sm) */
   --combobox-focus-ring-width: initial; /* var(--border-width-sm) */
-  --combobox-highlight-bg: initial; /* var(--color-foreground) */
-  --combobox-highlight-color: initial; /* var(--color-background) */
+  --combobox-highlight-bg: initial; /* var(--color-accent) */
+  --combobox-highlight-color: initial; /* var(--color-accent-foreground) */
   --combobox-icon-color: initial; /* var(--color-muted-foreground) */
   --combobox-icon-size: initial; /* 1rem */
   --combobox-input-padding-x-end: initial; /* 4.25rem */
@@ -527,7 +529,9 @@
   --combobox-item-bg: initial; /* transparent */
   --combobox-item-border-color: initial; /* transparent */
   --combobox-item-border-width: initial; /* 0 */
+  --combobox-item-checked-color: initial; /* var(--combobox-item-color) */
   --combobox-item-color: initial; /* var(--color-foreground) */
+  --combobox-item-disabled-color: initial; /* var(--color-muted-foreground) */
   --combobox-item-font-size: initial; /* var(--text-sm) */
   --combobox-item-gap: initial; /* var(--spacing-2) */
   --combobox-item-inset-x: initial; /* var(--spacing-2) */
@@ -1607,94 +1611,74 @@
   --separator-thickness: initial; /* 1px */
 
   /* Select */
-  --select-arrow-height: initial; /* 0.625rem */
-  --select-arrow-inline-offset: initial; /* 0.8125rem */
-  --select-arrow-size: initial; /* 0.5rem */
-  --select-arrow-stroke-color: initial; /* var(--select-popup-border-color) */
-  --select-arrow-width: initial; /* 1.25rem */
-  --select-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
-  --select-backdrop-blur: initial; /* 4px */
-  --select-backdrop-ending-blur: initial; /* none */
-  --select-backdrop-ending-opacity: initial; /* 0 */
-  --select-backdrop-starting-blur: initial; /* none */
-  --select-backdrop-starting-opacity: initial; /* 0 */
-  --select-backdrop-transition: initial; /* var(--transition-default) */
+  --select-action-bg: initial; /* transparent */
+  --select-action-bg-hover: initial; /* var(--color-muted) */
+  --select-action-color-hover: initial; /* var(--color-foreground) */
+  --select-action-gap: initial; /* 0.125rem */
+  --select-action-offset-right: initial; /* 0.5rem */
+  --select-action-radius: initial; /* var(--radius-sm) */
+  --select-action-size: initial; /* 1.5rem */
   --select-bg: initial; /* var(--color-background) */
   --select-bg-active: initial; /* var(--color-muted) */
   --select-bg-hover: initial; /* var(--color-accent) */
   --select-border-color: initial; /* var(--color-border) */
   --select-border-width: initial; /* var(--border-width-sm) */
   --select-color: initial; /* var(--color-foreground) */
+  --select-content-bg: initial; /* var(--color-popover) */
+  --select-content-border-color: initial; /* var(--color-border) */
+  --select-content-border-width: initial; /* var(--border-width-sm) */
+  --select-content-closed-opacity: initial; /* 0 */
+  --select-content-closed-scale: initial; /* var(--scale-popup) */
+  --select-content-color: initial; /* var(--color-popover-foreground) */
+  --select-content-max-height: initial; /* 24rem */
+  --select-content-padding-y: initial; /* var(--spacing-1) */
+  --select-content-shadow: initial; /* var(--shadow-lg) */
   --select-control-height: initial; /* var(--size-lg) */
   --select-disabled-opacity: initial; /* var(--opacity-disabled) */
-  --select-field-gap: initial; /* 0.375rem */
   --select-focus-ring-color: initial; /* var(--color-ring) */
-  --select-focus-ring-offset: initial; /* calc(var(--select-focus-ring-width, var(--select-border-width, var(--border-width-sm))) * -1) */
-  --select-focus-ring-width: initial; /* var(--select-border-width, var(--border-width-sm)) */
-  --select-group-label-bg: initial; /* var(--select-popup-bg) */
-  --select-group-label-color: initial; /* var(--color-muted-foreground) */
-  --select-group-label-font-size: initial; /* var(--popup-group-label-font-size, var(--text-xs)) */
-  --select-group-label-font-weight: initial; /* var(--weight-semibold) */
-  --select-group-label-line-height: initial; /* var(--popup-group-label-line-height, var(--line-height-text-xs)) */
-  --select-group-label-padding-bottom: initial; /* 0.35rem */
-  --select-group-label-padding-top: initial; /* 0.35rem */
-  --select-group-label-padding-x: initial; /* 0.625rem */
-  --select-group-padding-bottom: initial; /* var(--spacing-1) */
-  --select-highlight-bg: initial; /* var(--color-foreground) */
-  --select-highlight-color: initial; /* var(--color-background) */
-  --select-highlight-inset-x: initial; /* var(--popup-highlight-inset-x, var(--spacing-1)) */
-  --select-highlight-radius: initial; /* var(--popup-highlight-radius, var(--radius-sm)) */
+  --select-focus-ring-width: initial; /* var(--border-width-sm) */
+  --select-highlight-bg: initial; /* var(--color-accent) */
+  --select-highlight-color: initial; /* var(--color-accent-foreground) */
   --select-icon-color: initial; /* var(--color-muted-foreground) */
-  --select-icon-size: initial; /* 0.875rem */
-  --select-icon-svg-size: initial; /* 1rem */
-  --select-check-padding-x-start: initial; /* var(--popup-check-padding-x-start, 0.625rem) */
+  --select-icon-size: initial; /* 1rem */
+  --select-invalid-color: initial; /* var(--color-destructive) */
+  --select-item-border-color: initial; /* transparent */
+  --select-item-border-width: initial; /* 0 */
+  --select-item-checked-color: initial; /* var(--select-item-color) */
   --select-item-color: initial; /* var(--color-foreground) */
-  --select-item-font-size: initial; /* var(--popup-item-font-size, var(--text-sm)) */
-  --select-item-gap: initial; /* var(--popup-check-gap, 0.5rem) */
+  --select-item-disabled-color: initial; /* var(--color-muted-foreground) */
+  --select-item-font-size: initial; /* var(--text-sm) */
+  --select-item-gap: initial; /* var(--spacing-2) */
+  --select-item-group-gap: initial; /* var(--spacing-2) */
+  --select-item-group-label-color: initial; /* var(--color-muted-foreground) */
+  --select-item-group-label-font-size: initial; /* var(--text-xs) */
+  --select-item-group-label-font-weight: initial; /* var(--weight-semibold) */
+  --select-item-group-label-line-height: initial; /* var(--line-height-text-xs) */
+  --select-item-group-label-padding-x: initial; /* 0.625rem */
+  --select-item-group-label-padding-y: initial; /* 0.35rem */
+  --select-item-indicator-color: initial; /* currentColor */
   --select-item-indicator-icon-size: initial; /* 0.75rem */
-  --select-item-indicator-size: initial; /* var(--popup-check-indicator-size, 0.75rem) */
-  --select-item-line-height: initial; /* var(--popup-item-line-height, var(--line-height-text-sm)) */
-  --select-item-min-height: initial; /* var(--popup-item-min-height, 2rem) */
-  --select-item-radius: initial; /* 0 */
-  --select-item-padding-x-end: initial; /* var(--popup-item-padding-x-end, 1rem) */
-  --select-item-padding-x-start: initial; /* var(--popup-item-padding-x-start, 1rem) */
-  --select-item-padding-y: initial; /* var(--popup-item-padding-y, 0.5rem) */
+  --select-item-indicator-size: initial; /* 0.875rem */
+  --select-item-inset-x: initial; /* var(--spacing-2) */
+  --select-item-line-height: initial; /* var(--line-height-text-sm) */
+  --select-item-min-height: initial; /* 2rem */
+  --select-item-padding-x: initial; /* 0.625rem */
+  --select-item-padding-y: initial; /* var(--spacing-2) */
+  --select-item-radius: initial; /* var(--radius-sm) */
   --select-item-text-content-gap: initial; /* var(--spacing-2) */
   --select-item-text-icon-color: initial; /* currentColor */
   --select-item-text-icon-size: initial; /* 1rem */
+  --select-label-color: initial; /* var(--select-color) */
   --select-label-font-size: initial; /* var(--text-sm) */
   --select-label-font-weight: initial; /* var(--weight-medium) */
   --select-label-line-height: initial; /* var(--line-height-text-sm) */
-  --select-list-max-height: initial; /* var(--select-popup-max-height) */
-  --select-list-padding-y: initial; /* var(--popup-list-padding-y, 0.25rem) */
-  --select-list-scroll-padding-y: initial; /* var(--popup-list-padding-y, 0.25rem) */
-  --select-overlap-offset: initial; /* 1rem */
+  --select-max-width: initial; /* 100% */
   --select-placeholder-color: initial; /* var(--color-muted-foreground) */
-  --select-popup-bg: initial; /* var(--color-popover) */
-  --select-popup-border-color: initial; /* var(--color-border) */
-  --select-popup-border-width: initial; /* var(--border-width-sm) */
-  --select-popup-ending-opacity: initial; /* 0 */
-  --select-popup-ending-scale: initial; /* var(--scale-popup) */
-  --select-popup-ending-translate-x: initial; /* 0 */
-  --select-popup-ending-translate-y: initial; /* 0 */
-  --select-popup-max-height: initial; /* 24rem */
-  --select-popup-starting-opacity: initial; /* 0 */
-  --select-popup-starting-scale: initial; /* var(--scale-popup) */
-  --select-popup-starting-translate-x: initial; /* 0 */
-  --select-popup-starting-translate-y: initial; /* 0 */
-  --select-popup-transition: initial; /* var(--transition-default) */
   --select-radius: initial; /* var(--radius-md) */
-  --select-scroll-arrow-color: initial; /* var(--select-color, var(--color-foreground)) */
-  --select-scroll-arrow-height: initial; /* 1rem */
-  --select-scroll-arrow-icon-size: initial; /* 0.875rem */
-  --select-scroll-arrow-z-index: initial; /* 1 */
-  --select-separator-color: initial; /* var(--select-border-color, var(--color-border)) */
-  --select-separator-margin-x: initial; /* var(--popup-separator-margin-x-start, 1rem) */
-  --select-separator-margin-y: initial; /* var(--popup-separator-margin-y, 0.375rem) */
-  --select-separator-thickness: initial; /* var(--border-width-sm) */
-  --select-shadow: initial; /* var(--shadow-lg) */
-  --select-trigger-gap: initial; /* 0.75rem */
-  --select-trigger-padding-x: initial; /* 0.875rem */
+  --select-root-gap: initial; /* 0.375rem */
+  --select-transition: initial; /* var(--transition-default) */
+  --select-trigger-padding-x-end: initial; /* 4.25rem */
+  --select-trigger-padding-x-start: initial; /* 0.875rem */
   --select-width: initial; /* 14rem */
 
   /* Slider */

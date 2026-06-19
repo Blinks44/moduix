@@ -164,6 +164,9 @@ export function ComboboxExample() {
 
 ## Local changelog
 
+- 2026-06-19: Aligned Combobox interactive styling with Select by moving item highlight to accent
+  tokens, adding open and hover surface states on the control, and matching checked/disabled item
+  colors to the Select visual contract.
 - 2026-06-18: Registered Ark `--layer-index` and `--z-index` in the shared theme runtime-variable
   declarations.
 - 2026-06-18: Added the missing Ark context hooks to the public barrel, aligned popup layering with

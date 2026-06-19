@@ -1142,7 +1142,7 @@
       "type": "registry:item",
       "title": "Select",
       "description": "moduix Select component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

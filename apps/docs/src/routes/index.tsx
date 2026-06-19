@@ -9,16 +9,6 @@ import {
   ProgressLabel,
   ProgressValue,
   Select,
-  SelectContent,
-  SelectField,
-  SelectIcon,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
-  SelectLabel,
-  SelectList,
-  SelectTrigger,
-  SelectValue,
   Switch,
   SwitchField,
   SwitchLabel,
@@ -26,6 +16,7 @@ import {
   TabsList,
   TabsPanel,
   TabsTab,
+  createListCollection,
 } from 'moduix';
 import { useState } from 'react';
 import { baseOptions } from '@/lib/layout.shared';
@@ -55,6 +46,7 @@ const workspaceOptions = [
   { label: 'Checkout flow', value: 'checkout-flow' },
   { label: 'Maps widgets', value: 'maps-widgets' },
 ];
+const workspaceCollection = createListCollection({ items: workspaceOptions });
 
 function Home() {
   return (
@@ -131,10 +123,10 @@ function Home() {
 function HomeShowcase() {
   const [automationEnabled, setAutomationEnabled] = useState(true);
   const [progressValue, setProgressValue] = useState(72);
-  const [workspaceValue, setWorkspaceValue] = useState<string | null>('design-system');
+  const [workspaceValue, setWorkspaceValue] = useState<string[]>(['design-system']);
 
   const workspaceLabel =
-    workspaceOptions.find((item) => item.value === workspaceValue)?.label ?? 'Select workspace';
+    workspaceOptions.find((item) => item.value === workspaceValue[0])?.label ?? 'Select workspace';
 
   const handleAutomationChange = (checked: boolean) => {
     setAutomationEnabled(checked);
@@ -268,28 +260,31 @@ function HomeShowcase() {
           </div>
           <div className={styles.heroSelect}>
             <Select
+              collection={workspaceCollection}
               value={workspaceValue}
-              onValueChange={setWorkspaceValue}
-              items={workspaceOptions}
+              onValueChange={(details) => setWorkspaceValue(details.value)}
             >
-              <SelectField>
-                <SelectLabel>Active workspace</SelectLabel>
-                <SelectTrigger className={styles.heroSelectTrigger}>
-                  <SelectValue placeholder="Select workspace" />
-                  <SelectIcon />
-                </SelectTrigger>
-              </SelectField>
+              <Select.Label>Active workspace</Select.Label>
+              <Select.Control>
+                <Select.Trigger className={styles.heroSelectTrigger}>
+                  <Select.ValueText placeholder="Select workspace" />
+                  <Select.Indicator />
+                </Select.Trigger>
+              </Select.Control>
 
-              <SelectContent alignItemWithTrigger={false}>
-                <SelectList>
-                  {workspaceOptions.map((item) => (
-                    <SelectItem key={item.value} value={item.value}>
-                      <SelectItemIndicator />
-                      <SelectItemText>{item.label}</SelectItemText>
-                    </SelectItem>
-                  ))}
-                </SelectList>
-              </SelectContent>
+              <Portal>
+                <Select.Positioner>
+                  <Select.Content>
+                    {workspaceCollection.items.map((item) => (
+                      <Select.Item key={item.value} item={item}>
+                        <Select.ItemText>{item.label}</Select.ItemText>
+                        <Select.ItemIndicator />
+                      </Select.Item>
+                    ))}
+                  </Select.Content>
+                </Select.Positioner>
+              </Portal>
+              <Select.HiddenSelect />
             </Select>
           </div>
           <div className={styles.miniStats}>

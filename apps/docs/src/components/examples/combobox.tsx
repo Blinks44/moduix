@@ -746,8 +746,8 @@ export const comboboxExampleCss = `
 }
 
 [data-slot='combobox-item'][data-highlighted] {
-  background: var(--combobox-highlight-bg, var(--color-foreground));
-  color: var(--combobox-highlight-color, var(--color-background));
+  background: var(--combobox-highlight-bg, var(--color-accent));
+  color: var(--combobox-highlight-color, var(--color-accent-foreground));
 }
 `;
 
@@ -760,6 +760,8 @@ export const comboboxOverrideCssProperties: CssPropertyInput[] = [
   ['--combobox-action-radius', 'var(--radius-sm)', 'Controls action radius.'],
   ['--combobox-action-size', '1.5rem', 'Controls action size.'],
   ['--combobox-bg', 'var(--color-background)', 'Controls control background.'],
+  ['--combobox-bg-active', 'var(--color-muted)', 'Controls control background when open.'],
+  ['--combobox-bg-hover', 'var(--color-accent)', 'Controls control background on hover.'],
   ['--combobox-border-color', 'var(--color-border)', 'Controls control border color.'],
   ['--combobox-border-width', 'var(--border-width-sm)', 'Controls control border width.'],
   ['--combobox-color', 'var(--color-foreground)', 'Controls root text color.'],
@@ -782,8 +784,12 @@ export const comboboxOverrideCssProperties: CssPropertyInput[] = [
   ['--combobox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   ['--combobox-focus-ring-offset', 'var(--border-width-sm)', 'Controls focus ring offset.'],
   ['--combobox-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
-  ['--combobox-highlight-bg', 'var(--color-foreground)', 'Controls highlighted item background.'],
-  ['--combobox-highlight-color', 'var(--color-background)', 'Controls highlighted item color.'],
+  ['--combobox-highlight-bg', 'var(--color-accent)', 'Controls highlighted item background.'],
+  [
+    '--combobox-highlight-color',
+    'var(--color-accent-foreground)',
+    'Controls highlighted item color.',
+  ],
   ['--combobox-icon-color', 'var(--color-muted-foreground)', 'Controls action icon color.'],
   ['--combobox-icon-size', '1rem', 'Controls action icon size.'],
   ['--combobox-input-padding-x-end', '4.25rem', 'Controls input trailing padding.'],
@@ -816,7 +822,13 @@ export const comboboxOverrideCssProperties: CssPropertyInput[] = [
   ['--combobox-item-bg', 'transparent', 'Controls item background.'],
   ['--combobox-item-border-color', 'transparent', 'Controls item border color.'],
   ['--combobox-item-border-width', '0', 'Controls item border width.'],
+  ['--combobox-item-checked-color', 'var(--combobox-item-color)', 'Controls selected item color.'],
   ['--combobox-item-color', 'var(--color-foreground)', 'Controls item text color.'],
+  [
+    '--combobox-item-disabled-color',
+    'var(--color-muted-foreground)',
+    'Controls disabled item color.',
+  ],
   ['--combobox-item-font-size', 'var(--text-sm)', 'Controls item font size.'],
   ['--combobox-item-gap', 'var(--spacing-2)', 'Controls item content gap.'],
   ['--combobox-item-indicator-size', '0.75rem', 'Controls item indicator size.'],

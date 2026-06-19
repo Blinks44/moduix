@@ -2,17 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Fragment } from 'react';
 import { BellIcon, StarIcon } from '@/icons/demo';
 import { ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
-import {
-  Select,
-  SelectContent,
-  SelectIcon,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
-  SelectList,
-  SelectTrigger,
-  SelectValue,
-} from '../select';
+import { Select, Portal, createListCollection } from '../select';
 import { Toggle } from '../toggle';
 import { ToggleGroup } from '../toggle-group';
 import {
@@ -57,6 +47,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const fonts = ['Inter', 'Arial', 'Helvetica', 'Georgia'];
+const fontCollection = createListCollection({
+  items: fonts.map((font) => ({ label: font, value: font })),
+});
 
 export const Default: Story = {};
 
@@ -114,27 +107,28 @@ export const WithSelectTrigger: Story = {
   render: () => {
     return (
       <Toolbar aria-label="Text properties">
-        <Select defaultValue="Inter">
-          <ToolbarButton
-            render={<SelectTrigger />}
-            aria-label="Font family"
-            className={storyStyles.toolbarSelect}
-          >
-            <SelectValue />
-            <SelectIcon>
-              <ChevronUpDownIcon />
-            </SelectIcon>
-          </ToolbarButton>
-          <SelectContent>
-            <SelectList>
-              {fonts.map((font) => (
-                <SelectItem key={font} value={font}>
-                  <SelectItemIndicator />
-                  <SelectItemText>{font}</SelectItemText>
-                </SelectItem>
-              ))}
-            </SelectList>
-          </SelectContent>
+        <Select collection={fontCollection} defaultValue={['Inter']}>
+          <Select.Trigger asChild>
+            <ToolbarButton aria-label="Font family" className={storyStyles.toolbarSelect}>
+              <Select.ValueText />
+              <Select.Indicator>
+                <ChevronUpDownIcon />
+              </Select.Indicator>
+            </ToolbarButton>
+          </Select.Trigger>
+          <Portal>
+            <Select.Positioner>
+              <Select.Content>
+                {fontCollection.items.map((font) => (
+                  <Select.Item key={font.value} item={font}>
+                    <Select.ItemText>{font.label}</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Positioner>
+          </Portal>
+          <Select.HiddenSelect />
         </Select>
 
         <ToolbarSeparator />

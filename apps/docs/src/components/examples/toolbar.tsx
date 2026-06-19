@@ -2,15 +2,9 @@ import type { ComponentProps } from 'react';
 import {
   BellIcon,
   ChevronUpDownIcon,
+  Portal,
   Select,
-  SelectContent,
-  SelectIcon,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
-  SelectList,
-  SelectTrigger,
-  SelectValue,
+  createListCollection,
   StarIcon,
   Toggle,
   ToggleGroup,
@@ -26,6 +20,9 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './toolbar.module.css';
 
 const fonts = ['Inter', 'Arial', 'Helvetica', 'Georgia'];
+const fontCollection = createListCollection({
+  items: fonts.map((font) => ({ label: font, value: font })),
+});
 
 export const toolbarOverrideCssProperties: CssPropertyInput[] = [
   ['--toolbar-bg', 'var(--color-muted)', 'Controls toolbar background color.'],
@@ -236,23 +233,28 @@ export function ToolbarToggleGroupExample() {
 export function ToolbarSelectTriggerExample() {
   return (
     <Toolbar aria-label="Text properties">
-      <Select defaultValue="Inter">
-        <ToolbarButton render={<SelectTrigger />} aria-label="Font family">
-          <SelectValue />
-          <SelectIcon>
-            <ChevronUpDownIcon />
-          </SelectIcon>
-        </ToolbarButton>
-        <SelectContent>
-          <SelectList>
-            {fonts.map((font) => (
-              <SelectItem key={font} value={font}>
-                <SelectItemIndicator />
-                <SelectItemText>{font}</SelectItemText>
-              </SelectItem>
-            ))}
-          </SelectList>
-        </SelectContent>
+      <Select collection={fontCollection} defaultValue={['Inter']}>
+        <Select.Trigger asChild>
+          <ToolbarButton aria-label="Font family">
+            <Select.ValueText />
+            <Select.Indicator>
+              <ChevronUpDownIcon />
+            </Select.Indicator>
+          </ToolbarButton>
+        </Select.Trigger>
+        <Portal>
+          <Select.Positioner>
+            <Select.Content>
+              {fontCollection.items.map((font) => (
+                <Select.Item key={font.value} item={font}>
+                  <Select.ItemText>{font.label}</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Positioner>
+        </Portal>
+        <Select.HiddenSelect />
       </Select>
 
       <ToolbarSeparator />

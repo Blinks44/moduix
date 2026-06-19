@@ -33,8 +33,8 @@ Prefer:
   propagation, and `render`-based composition.
 - `ToolbarButton` stays intentionally generic:
   - plain action button by default
-  - composition surface for `Toggle`, `SelectTrigger`, and similar trigger-like primitives via
-    `render`
+  - composition surface for `Toggle`, `Select.Trigger`, and similar trigger-like primitives via
+    the composed primitive's `asChild` or the toolbar `render` prop where appropriate
 - `ToolbarInput` only wraps the primitive styling contract. It does not add search logic,
   debouncing, clear buttons, or helper props.
 - `ToolbarSeparator` keeps the Base UI separator behavior, including its toolbar-aware default
@@ -153,17 +153,17 @@ aliases.
 
 ### Button, link, input, and separator
 
-| Part               | Prop                    | Type                         | Default       | Notes                                                                               |
-| ------------------ | ----------------------- | ---------------------------- | ------------- | ----------------------------------------------------------------------------------- |
-| `ToolbarButton`    | `disabled`              | `boolean`                    | `false`       | Disables one item.                                                                  |
-| `ToolbarButton`    | `focusableWhenDisabled` | `boolean`                    | `true`        | Keeps the item in roving focus even while disabled.                                 |
-| `ToolbarButton`    | `render`                | Base UI render prop          | -             | Use for `Toggle`, `SelectTrigger`, and similar trigger composition.                 |
-| `ToolbarButton`    | native button props     | native button props          | -             | Includes `type`, `onClick`, `aria-*`, and any primitive props supported by Base UI. |
-| `ToolbarLink`      | anchor props            | native anchor props          | -             | Includes `href`, `target`, `rel`, `download`, and Base UI `render` / styling props. |
-| `ToolbarInput`     | `disabled`              | `boolean`                    | `false`       | Disables the input.                                                                 |
-| `ToolbarInput`     | `focusableWhenDisabled` | `boolean`                    | `true`        | Keeps the input in roving focus even while disabled.                                |
-| `ToolbarInput`     | input props             | native input props           | -             | Includes `value`, `defaultValue`, `placeholder`, and normal input event handlers.   |
-| `ToolbarSeparator` | `orientation`           | `'horizontal' \| 'vertical'` | auto-opposite | Defaults to the opposite orientation of the surrounding toolbar.                    |
+| Part               | Prop                    | Type                         | Default       | Notes                                                                                  |
+| ------------------ | ----------------------- | ---------------------------- | ------------- | -------------------------------------------------------------------------------------- |
+| `ToolbarButton`    | `disabled`              | `boolean`                    | `false`       | Disables one item.                                                                     |
+| `ToolbarButton`    | `focusableWhenDisabled` | `boolean`                    | `true`        | Keeps the item in roving focus even while disabled.                                    |
+| `ToolbarButton`    | `render`                | Base UI render prop          | -             | Use for `Toggle` and similar trigger composition; Ark triggers can also use `asChild`. |
+| `ToolbarButton`    | native button props     | native button props          | -             | Includes `type`, `onClick`, `aria-*`, and any primitive props supported by Base UI.    |
+| `ToolbarLink`      | anchor props            | native anchor props          | -             | Includes `href`, `target`, `rel`, `download`, and Base UI `render` / styling props.    |
+| `ToolbarInput`     | `disabled`              | `boolean`                    | `false`       | Disables the input.                                                                    |
+| `ToolbarInput`     | `focusableWhenDisabled` | `boolean`                    | `true`        | Keeps the input in roving focus even while disabled.                                   |
+| `ToolbarInput`     | input props             | native input props           | -             | Includes `value`, `defaultValue`, `placeholder`, and normal input event handlers.      |
+| `ToolbarSeparator` | `orientation`           | `'horizontal' \| 'vertical'` | auto-opposite | Defaults to the opposite orientation of the surrounding toolbar.                       |
 
 Notes:
 

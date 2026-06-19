@@ -1,251 +1,284 @@
-import type { ComponentProps } from 'react';
-import { Select as SelectPrimitive } from '@base-ui/react/select';
-import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
+import { Portal } from '@ark-ui/react/portal';
 import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpDownIcon,
-  ChevronUpIcon,
-  PopupArrowIcon,
-} from '@/lib/moduix/icons/ui';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+  Select as SelectPrimitive,
+  type CollectionItem,
+  type SelectRootComponent,
+  type SelectRootProps,
+  type SelectRootProviderComponent,
+  type SelectRootProviderProps,
+  createListCollection,
+  useListCollection,
+  useSelect,
+  useSelectContext,
+  useSelectItemContext,
+} from '@ark-ui/react/select';
+import { clsx } from 'clsx';
+import { forwardRef } from 'react';
+import { CheckIcon, ChevronUpDownIcon, CloseIcon } from '@/lib/moduix/icons/ui';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Select.module.css';
 
-type IndicatorPosition = 'start' | 'end' | 'none';
+const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
+  { className, ...props }: SelectRootProps<T>,
+  ref: ForwardedRef<HTMLDivElement>,
+) {
+  return (
+    <SelectPrimitive.Root
+      ref={ref}
+      data-slot="select-root"
+      className={clsx(styles.root, normalizeClassName(className))}
+      {...props}
+    />
+  );
+}) as SelectRootComponent;
 
-type SelectContentProps = SelectPrimitive.Popup.Props & {
-  align?: SelectPrimitive.Positioner.Props['align'];
-  alignItemWithTrigger?: SelectPrimitive.Positioner.Props['alignItemWithTrigger'];
-  alignOffset?: SelectPrimitive.Positioner.Props['alignOffset'];
-  arrowPadding?: SelectPrimitive.Positioner.Props['arrowPadding'];
-  collisionAvoidance?: SelectPrimitive.Positioner.Props['collisionAvoidance'];
-  collisionBoundary?: SelectPrimitive.Positioner.Props['collisionBoundary'];
-  collisionPadding?: SelectPrimitive.Positioner.Props['collisionPadding'];
-  side?: SelectPrimitive.Positioner.Props['side'];
-  sideOffset?: SelectPrimitive.Positioner.Props['sideOffset'];
-  showArrow?: boolean;
-};
+const SelectRootProvider = forwardRef(function SelectRootProvider<T extends CollectionItem>(
+  { className, ...props }: SelectRootProviderProps<T>,
+  ref: ForwardedRef<HTMLDivElement>,
+) {
+  return (
+    <SelectPrimitive.RootProvider
+      ref={ref}
+      data-slot="select-root-provider"
+      className={clsx(styles.root, normalizeClassName(className))}
+      {...props}
+    />
+  );
+}) as SelectRootProviderComponent;
 
-const SELECT_CONTENT_SIDE_OFFSET = 8;
-const Select = SelectPrimitive.Root;
-
-function SelectField({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="select-field" className={clsx(styles.field, className)} {...props} />;
-}
-
-function SelectLabel({ className, ...props }: SelectPrimitive.Label.Props) {
+const SelectLabel = forwardRef<
+  ComponentRef<typeof SelectPrimitive.Label>,
+  ComponentProps<typeof SelectPrimitive.Label>
+>(function SelectLabel({ className, ...props }, ref) {
   return (
     <SelectPrimitive.Label
+      ref={ref}
       data-slot="select-label"
-      className={mergeClassName(className, styles.label)}
+      className={clsx(styles.label, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function SelectTrigger({ className, ...props }: SelectPrimitive.Trigger.Props) {
+const SelectControl = forwardRef<
+  ComponentRef<typeof SelectPrimitive.Control>,
+  ComponentProps<typeof SelectPrimitive.Control>
+>(function SelectControl({ className, ...props }, ref) {
+  return (
+    <SelectPrimitive.Control
+      ref={ref}
+      data-slot="select-control"
+      className={clsx(styles.control, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const SelectTrigger = forwardRef<
+  ComponentRef<typeof SelectPrimitive.Trigger>,
+  ComponentProps<typeof SelectPrimitive.Trigger>
+>(function SelectTrigger({ asChild, className, ...props }, ref) {
   return (
     <SelectPrimitive.Trigger
+      ref={ref}
       data-slot="select-trigger"
-      className={mergeClassName(className, styles.trigger)}
+      asChild={asChild}
+      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
+const SelectValueText = forwardRef<
+  ComponentRef<typeof SelectPrimitive.ValueText>,
+  ComponentProps<typeof SelectPrimitive.ValueText>
+>(function SelectValueText({ className, ...props }, ref) {
   return (
-    <SelectPrimitive.Value
-      data-slot="select-value"
-      className={mergeClassName(className, styles.value)}
+    <SelectPrimitive.ValueText
+      ref={ref}
+      data-slot="select-value-text"
+      className={clsx(styles.valueText, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function SelectIcon({ className, children, ...props }: SelectPrimitive.Icon.Props) {
+const SelectClearTrigger = forwardRef<
+  ComponentRef<typeof SelectPrimitive.ClearTrigger>,
+  ComponentProps<typeof SelectPrimitive.ClearTrigger>
+>(function SelectClearTrigger({ className, children, ...props }, ref) {
   return (
-    <SelectPrimitive.Icon
-      data-slot="select-icon"
-      className={mergeClassName(className, styles.icon)}
+    <SelectPrimitive.ClearTrigger
+      ref={ref}
+      data-slot="select-clear-trigger"
+      className={clsx(styles.clearTrigger, normalizeClassName(className))}
       {...props}
     >
-      {children ?? <ChevronUpDownIcon className={styles.iconSvg} />}
-    </SelectPrimitive.Icon>
+      {children ?? <CloseIcon />}
+    </SelectPrimitive.ClearTrigger>
   );
-}
+});
 
-function SelectPortal(props: SelectPrimitive.Portal.Props) {
-  return <SelectPrimitive.Portal data-slot="select-portal" {...props} />;
-}
-
-function SelectBackdrop({ className, ...props }: SelectPrimitive.Backdrop.Props) {
+const SelectIndicator = forwardRef<
+  ComponentRef<typeof SelectPrimitive.Indicator>,
+  ComponentProps<typeof SelectPrimitive.Indicator>
+>(function SelectIndicator({ className, children, ...props }, ref) {
   return (
-    <SelectPrimitive.Backdrop
-      data-slot="select-backdrop"
-      className={mergeClassName(className, styles.backdrop)}
+    <SelectPrimitive.Indicator
+      ref={ref}
+      data-slot="select-indicator"
+      className={clsx(styles.indicator, normalizeClassName(className))}
+      {...props}
+    >
+      {children ?? <ChevronUpDownIcon />}
+    </SelectPrimitive.Indicator>
+  );
+});
+
+function SelectIndicators({ className, ...props }: ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="select-indicators"
+      className={clsx(styles.indicators, normalizeClassName(className))}
       {...props}
     />
   );
 }
 
-function SelectPositioner({ className, ...props }: SelectPrimitive.Positioner.Props) {
+const SelectPositioner = forwardRef<
+  ComponentRef<typeof SelectPrimitive.Positioner>,
+  ComponentProps<typeof SelectPrimitive.Positioner>
+>(function SelectPositioner({ className, ...props }, ref) {
   return (
     <SelectPrimitive.Positioner
+      ref={ref}
       data-slot="select-positioner"
-      className={mergeClassName(className, styles.positioner)}
+      className={clsx(styles.positioner, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function SelectPopup({ className, ...props }: SelectPrimitive.Popup.Props) {
+const SelectContent = forwardRef<
+  ComponentRef<typeof SelectPrimitive.Content>,
+  ComponentProps<typeof SelectPrimitive.Content>
+>(function SelectContent({ className, ...props }, ref) {
   return (
-    <SelectPrimitive.Popup
-      data-slot="select-popup"
-      className={mergeClassName(className, styles.popup)}
+    <SelectPrimitive.Content
+      ref={ref}
+      data-slot="select-content"
+      className={clsx(styles.content, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function SelectArrow({ className, children, ...props }: SelectPrimitive.Arrow.Props) {
-  return (
-    <SelectPrimitive.Arrow
-      data-slot="select-arrow"
-      className={mergeClassName(className, styles.arrow)}
-      {...props}
-    >
-      {children ?? <ArrowSvg className={styles.arrowSvg} />}
-    </SelectPrimitive.Arrow>
-  );
-}
-
-function SelectContent({
-  className,
-  children,
-  showArrow = false,
-  alignItemWithTrigger,
-  side,
-  sideOffset = SELECT_CONTENT_SIDE_OFFSET,
-  align,
-  alignOffset,
-  arrowPadding,
-  collisionAvoidance,
-  collisionBoundary,
-  collisionPadding,
-  ...popupProps
-}: SelectContentProps) {
-  return (
-    <SelectPortal>
-      <SelectPositioner
-        alignItemWithTrigger={alignItemWithTrigger}
-        side={side}
-        sideOffset={sideOffset}
-        align={align}
-        alignOffset={alignOffset}
-        arrowPadding={arrowPadding}
-        collisionAvoidance={collisionAvoidance}
-        collisionBoundary={collisionBoundary}
-        collisionPadding={collisionPadding}
-      >
-        <SelectPopup className={className} {...popupProps}>
-          {showArrow ? <SelectArrow /> : null}
-          {children}
-        </SelectPopup>
-      </SelectPositioner>
-    </SelectPortal>
-  );
-}
-
-function SelectScrollUpArrow({
-  className,
-  children,
-  ...props
-}: SelectPrimitive.ScrollUpArrow.Props) {
-  return (
-    <SelectPrimitive.ScrollUpArrow
-      data-slot="select-scroll-up-arrow"
-      className={mergeClassName(className, styles.scrollArrow)}
-      {...props}
-    >
-      {children ?? <ChevronUpIcon className={styles.scrollArrowIcon} />}
-    </SelectPrimitive.ScrollUpArrow>
-  );
-}
-
-function SelectScrollDownArrow({
-  className,
-  children,
-  ...props
-}: SelectPrimitive.ScrollDownArrow.Props) {
-  return (
-    <SelectPrimitive.ScrollDownArrow
-      data-slot="select-scroll-down-arrow"
-      className={mergeClassName(className, styles.scrollArrow)}
-      {...props}
-    >
-      {children ?? <ChevronDownIcon className={styles.scrollArrowIcon} />}
-    </SelectPrimitive.ScrollDownArrow>
-  );
-}
-
-function SelectList({ className, ...props }: SelectPrimitive.List.Props) {
+const SelectList = forwardRef<
+  ComponentRef<typeof SelectPrimitive.List>,
+  ComponentProps<typeof SelectPrimitive.List>
+>(function SelectList({ className, ...props }, ref) {
   return (
     <SelectPrimitive.List
+      ref={ref}
       data-slot="select-list"
-      className={mergeClassName(className, styles.list)}
+      className={clsx(styles.list, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function SelectItem({
-  className,
-  indicator,
-  ...props
-}: SelectPrimitive.Item.Props & { indicator?: IndicatorPosition }) {
+const SelectItemGroup = forwardRef<
+  ComponentRef<typeof SelectPrimitive.ItemGroup>,
+  ComponentProps<typeof SelectPrimitive.ItemGroup>
+>(function SelectItemGroup({ className, ...props }, ref) {
+  return (
+    <SelectPrimitive.ItemGroup
+      ref={ref}
+      data-slot="select-item-group"
+      className={clsx(styles.itemGroup, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const SelectItemGroupLabel = forwardRef<
+  ComponentRef<typeof SelectPrimitive.ItemGroupLabel>,
+  ComponentProps<typeof SelectPrimitive.ItemGroupLabel>
+>(function SelectItemGroupLabel({ className, ...props }, ref) {
+  return (
+    <SelectPrimitive.ItemGroupLabel
+      ref={ref}
+      data-slot="select-item-group-label"
+      className={clsx(styles.itemGroupLabel, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const SelectItem = forwardRef<
+  ComponentRef<typeof SelectPrimitive.Item>,
+  ComponentProps<typeof SelectPrimitive.Item>
+>(function SelectItem({ className, ...props }, ref) {
   return (
     <SelectPrimitive.Item
+      ref={ref}
       data-slot="select-item"
-      data-indicator-position={indicator}
-      className={mergeClassName(className, styles.item)}
+      className={clsx(styles.item, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function SelectItemIndicator({
-  className,
-  children,
-  ...props
-}: SelectPrimitive.ItemIndicator.Props) {
-  return (
-    <SelectPrimitive.ItemIndicator
-      data-slot="select-item-indicator"
-      className={mergeClassName(className, styles.itemIndicator)}
-      {...props}
-    >
-      {children ?? <CheckIcon className={styles.itemIndicatorIcon} />}
-    </SelectPrimitive.ItemIndicator>
-  );
-}
-
-function SelectItemText({ className, ...props }: SelectPrimitive.ItemText.Props) {
+const SelectItemText = forwardRef<
+  ComponentRef<typeof SelectPrimitive.ItemText>,
+  ComponentProps<typeof SelectPrimitive.ItemText>
+>(function SelectItemText({ className, ...props }, ref) {
   return (
     <SelectPrimitive.ItemText
+      ref={ref}
       data-slot="select-item-text"
-      className={mergeClassName(className, styles.itemText)}
+      className={clsx(styles.itemText, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
+
+const SelectItemIndicator = forwardRef<
+  ComponentRef<typeof SelectPrimitive.ItemIndicator>,
+  ComponentProps<typeof SelectPrimitive.ItemIndicator>
+>(function SelectItemIndicator({ className, children, ...props }, ref) {
+  return (
+    <SelectPrimitive.ItemIndicator
+      ref={ref}
+      data-slot="select-item-indicator"
+      className={clsx(styles.itemIndicator, normalizeClassName(className))}
+      {...props}
+    >
+      {children ?? <CheckIcon />}
+    </SelectPrimitive.ItemIndicator>
+  );
+});
+
+const SelectHiddenSelect = forwardRef<
+  ComponentRef<typeof SelectPrimitive.HiddenSelect>,
+  ComponentProps<typeof SelectPrimitive.HiddenSelect>
+>(function SelectHiddenSelect({ className, ...props }, ref) {
+  return (
+    <SelectPrimitive.HiddenSelect
+      ref={ref}
+      data-slot="select-hidden-select"
+      className={normalizeClassName(className)}
+      {...props}
+    />
+  );
+});
 
 function SelectItemTextContent({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="select-item-text-content"
-      className={clsx(styles.itemTextContent, className)}
+      className={clsx(styles.itemTextContent, normalizeClassName(className))}
       {...props}
     />
   );
@@ -255,7 +288,7 @@ function SelectItemTextIcon({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="select-item-text-icon"
-      className={clsx(styles.itemTextIcon, className)}
+      className={clsx(styles.itemTextIcon, normalizeClassName(className))}
       {...props}
     />
   );
@@ -265,76 +298,66 @@ function SelectItemTextLabel({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="select-item-text-label"
-      className={clsx(styles.itemTextLabel, className)}
+      className={clsx(styles.itemTextLabel, normalizeClassName(className))}
       {...props}
     />
   );
 }
 
-function SelectSeparator({ className, ...props }: SelectPrimitive.Separator.Props) {
-  return (
-    <SelectPrimitive.Separator
-      data-slot="select-separator"
-      className={mergeClassName(className, styles.separator)}
-      {...props}
-    />
-  );
-}
+const SelectContext = SelectPrimitive.Context;
+const SelectItemContext = SelectPrimitive.ItemContext;
 
-function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
-  return (
-    <SelectPrimitive.Group
-      data-slot="select-group"
-      className={mergeClassName(className, styles.group)}
-      {...props}
-    />
-  );
-}
-
-function SelectGroupLabel({ className, ...props }: SelectPrimitive.GroupLabel.Props) {
-  return (
-    <SelectPrimitive.GroupLabel
-      data-slot="select-group-label"
-      className={mergeClassName(className, styles.groupLabel)}
-      {...props}
-    />
-  );
-}
-
-function ArrowSvg(props: ComponentProps<'svg'>) {
-  return (
-    <PopupArrowIcon
-      fillClassName={styles.arrowFill}
-      outerStrokeClassName={styles.arrowOuterStroke}
-      innerStrokeClassName={styles.arrowInnerStroke}
-      {...props}
-    />
-  );
-}
+const Select = Object.assign(SelectRoot, {
+  Root: SelectRoot,
+  RootProvider: SelectRootProvider,
+  Label: SelectLabel,
+  Control: SelectControl,
+  Trigger: SelectTrigger,
+  ValueText: SelectValueText,
+  ClearTrigger: SelectClearTrigger,
+  Indicator: SelectIndicator,
+  Indicators: SelectIndicators,
+  Positioner: SelectPositioner,
+  Content: SelectContent,
+  List: SelectList,
+  ItemGroup: SelectItemGroup,
+  ItemGroupLabel: SelectItemGroupLabel,
+  Item: SelectItem,
+  ItemText: SelectItemText,
+  ItemIndicator: SelectItemIndicator,
+  HiddenSelect: SelectHiddenSelect,
+  ItemTextContent: SelectItemTextContent,
+  ItemTextIcon: SelectItemTextIcon,
+  ItemTextLabel: SelectItemTextLabel,
+  Context: SelectContext,
+  ItemContext: SelectItemContext,
+});
 
 export {
   Select,
-  SelectField,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-  SelectIcon,
-  SelectPortal,
-  SelectBackdrop,
-  SelectPositioner,
-  SelectPopup,
-  SelectArrow,
-  SelectContent,
-  SelectScrollUpArrow,
-  SelectScrollDownArrow,
-  SelectList,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
-  SelectSeparator,
-  SelectGroup,
-  SelectGroupLabel,
+  Portal,
+  createListCollection,
+  useListCollection,
+  useSelect,
+  useSelectContext,
+  useSelectItemContext,
 };
+export type {
+  CollectionItem,
+  ListCollection,
+  SelectFocusOutsideEvent,
+  SelectHighlightChangeDetails,
+  SelectInteractOutsideEvent,
+  SelectOpenChangeDetails,
+  SelectPointerDownOutsideEvent,
+  SelectRootComponent,
+  SelectRootProps,
+  SelectRootProviderComponent,
+  SelectRootProviderProps,
+  SelectValueChangeDetails,
+  UseListCollectionProps,
+  UseSelectContext,
+  UseSelectItemContext,
+  UseSelectProps,
+  UseSelectReturn,
+} from '@ark-ui/react/select';

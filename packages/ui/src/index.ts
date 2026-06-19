@@ -44,6 +44,8 @@ export * from './components/rating';
 export * from './components/scroll-area';
 export * from './components/separator';
 export * from './components/select';
+export { createListCollection, useListCollection } from './components/select';
+export type { CollectionItem, ListCollection, UseListCollectionProps } from './components/select';
 export * from './components/slider';
 export * from './components/carousel';
 export * from './components/skeleton';
