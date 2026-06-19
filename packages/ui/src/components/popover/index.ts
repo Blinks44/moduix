@@ -1,18 +1,11 @@
-export {
-  Popover,
-  createPopoverHandle,
-  PopoverTrigger,
-  PopoverPortal,
-  PopoverBackdrop,
-  PopoverPositioner,
-  PopoverPopup,
-  PopoverViewport,
-  PopoverArrow,
-  PopoverTitle,
-  PopoverDescription,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverClose,
-  PopoverContent,
+export { Popover, usePopover, usePopoverContext } from './Popover';
+export type {
+  PopoverFocusOutsideEvent,
+  PopoverInteractOutsideEvent,
+  PopoverOpenChangeDetails,
+  PopoverPointerDownOutsideEvent,
+  PopoverTriggerValueChangeDetails,
+  UsePopoverContext,
+  UsePopoverProps,
+  UsePopoverReturn,
 } from './Popover';

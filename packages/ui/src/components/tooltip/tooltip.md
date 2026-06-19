@@ -35,9 +35,9 @@ surface that users are expected to move the pointer into.
 - `TooltipContent className` styles `TooltipPopup`, not the portal, positioner, or viewport.
 - `TooltipTrigger` applies the moduix trigger class only when `render` is **not** provided. If you
   replace the element with `render`, trigger styling is delegated to the rendered element.
-- Unlike `PopoverContent`, `TooltipContent` always wraps children in `TooltipViewport`. This is an
-  intentional part of the local contract because tooltips support payload-driven content switching
-  and viewport transition hooks by default.
+- Unlike Ark-backed `Popover.Content`, `TooltipContent` still wraps children in
+  `TooltipViewport`. This is an intentional part of the local Base UI contract because tooltips
+  support payload-driven content switching and viewport transition hooks by default.
 - `TooltipViewport` is not a generic scroll container. It is the inner wrapper used for tooltip
   content and transition state.
 

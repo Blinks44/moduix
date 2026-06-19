@@ -1,119 +1,166 @@
-import type { ComponentProps } from 'react';
-import { Popover as PopoverPrimitive } from '@base-ui/react/popover';
+import type { ComponentProps, ComponentRef } from 'react';
+import { Popover as PopoverPrimitive, usePopover, usePopoverContext } from '@ark-ui/react/popover';
+import { Portal } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
-import { PopupArrowIcon } from '@/lib/moduix/icons/ui';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Popover.module.css';
 
-type PopoverContentProps = PopoverPrimitive.Popup.Props & {
-  showArrow?: boolean;
-  side?: PopoverPrimitive.Positioner.Props['side'];
-  sideOffset?: PopoverPrimitive.Positioner.Props['sideOffset'];
-  align?: PopoverPrimitive.Positioner.Props['align'];
-  alignOffset?: PopoverPrimitive.Positioner.Props['alignOffset'];
-  arrowPadding?: PopoverPrimitive.Positioner.Props['arrowPadding'];
-  collisionAvoidance?: PopoverPrimitive.Positioner.Props['collisionAvoidance'];
-  collisionBoundary?: PopoverPrimitive.Positioner.Props['collisionBoundary'];
-  collisionPadding?: PopoverPrimitive.Positioner.Props['collisionPadding'];
-};
+function PopoverRoot(props: ComponentProps<typeof PopoverPrimitive.Root>) {
+  return <PopoverPrimitive.Root {...props} />;
+}
 
-const POPOVER_CONTENT_SIDE_OFFSET = 8;
-const Popover = PopoverPrimitive.Root;
-const createPopoverHandle = PopoverPrimitive.createHandle;
+function PopoverRootProvider(props: ComponentProps<typeof PopoverPrimitive.RootProvider>) {
+  return <PopoverPrimitive.RootProvider {...props} />;
+}
 
-function PopoverTrigger({ className, render, ...props }: PopoverPrimitive.Trigger.Props) {
+function PopoverPortal(props: ComponentProps<typeof Portal>) {
+  return <Portal {...props} />;
+}
+
+const PopoverAnchor = forwardRef<
+  ComponentRef<typeof PopoverPrimitive.Anchor>,
+  ComponentProps<typeof PopoverPrimitive.Anchor>
+>(function PopoverAnchor({ className, ...props }, ref) {
+  return (
+    <PopoverPrimitive.Anchor
+      ref={ref}
+      data-slot="popover-anchor"
+      className={normalizeClassName(className)}
+      {...props}
+    />
+  );
+});
+
+const PopoverTrigger = forwardRef<
+  ComponentRef<typeof PopoverPrimitive.Trigger>,
+  ComponentProps<typeof PopoverPrimitive.Trigger>
+>(function PopoverTrigger({ asChild, className, ...props }, ref) {
   return (
     <PopoverPrimitive.Trigger
+      ref={ref}
       data-slot="popover-trigger"
-      render={render}
-      className={render ? className : mergeClassName(className, styles.trigger)}
+      asChild={asChild}
+      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function PopoverPortal({ className, ...props }: PopoverPrimitive.Portal.Props) {
-  return <PopoverPrimitive.Portal data-slot="popover-portal" className={className} {...props} />;
-}
-
-function PopoverBackdrop({ className, ...props }: PopoverPrimitive.Backdrop.Props) {
+const PopoverIndicator = forwardRef<
+  ComponentRef<typeof PopoverPrimitive.Indicator>,
+  ComponentProps<typeof PopoverPrimitive.Indicator>
+>(function PopoverIndicator({ className, ...props }, ref) {
   return (
-    <PopoverPrimitive.Backdrop
-      data-slot="popover-backdrop"
-      className={mergeClassName(className, styles.backdrop)}
+    <PopoverPrimitive.Indicator
+      ref={ref}
+      data-slot="popover-indicator"
+      className={normalizeClassName(className)}
       {...props}
     />
   );
-}
+});
 
-function PopoverPositioner({ className, ...props }: PopoverPrimitive.Positioner.Props) {
+const PopoverPositioner = forwardRef<
+  ComponentRef<typeof PopoverPrimitive.Positioner>,
+  ComponentProps<typeof PopoverPrimitive.Positioner>
+>(function PopoverPositioner({ className, ...props }, ref) {
   return (
     <PopoverPrimitive.Positioner
+      ref={ref}
       data-slot="popover-positioner"
-      className={mergeClassName(className, styles.positioner)}
+      className={clsx(styles.positioner, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function PopoverPopup({ className, ...props }: PopoverPrimitive.Popup.Props) {
+const PopoverContent = forwardRef<
+  ComponentRef<typeof PopoverPrimitive.Content>,
+  ComponentProps<typeof PopoverPrimitive.Content>
+>(function PopoverContent({ className, ...props }, ref) {
   return (
-    <PopoverPrimitive.Popup
-      data-slot="popover-popup"
-      className={mergeClassName(className, styles.popup)}
+    <PopoverPrimitive.Content
+      ref={ref}
+      data-slot="popover-content"
+      className={clsx(styles.content, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function PopoverViewport({ className, ...props }: PopoverPrimitive.Viewport.Props) {
-  return (
-    <PopoverPrimitive.Viewport
-      data-slot="popover-viewport"
-      className={mergeClassName(className, styles.viewport)}
-      {...props}
-    />
-  );
-}
-
-function PopoverArrow({ className, children, ...props }: PopoverPrimitive.Arrow.Props) {
+const PopoverArrow = forwardRef<
+  ComponentRef<typeof PopoverPrimitive.Arrow>,
+  ComponentProps<typeof PopoverPrimitive.Arrow>
+>(function PopoverArrow({ className, children, ...props }, ref) {
   return (
     <PopoverPrimitive.Arrow
+      ref={ref}
       data-slot="popover-arrow"
-      className={mergeClassName(className, styles.arrow)}
+      className={clsx(styles.arrow, normalizeClassName(className))}
       {...props}
     >
-      {children ?? (
-        <PopupArrowIcon
-          className={styles.arrowSvg}
-          fillClassName={styles.arrowFill}
-          outerStrokeClassName={styles.arrowOuterStroke}
-          innerStrokeClassName={styles.arrowInnerStroke}
-        />
-      )}
+      {children ?? <PopoverArrowTip />}
     </PopoverPrimitive.Arrow>
   );
-}
+});
 
-function PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {
+const PopoverArrowTip = forwardRef<
+  ComponentRef<typeof PopoverPrimitive.ArrowTip>,
+  ComponentProps<typeof PopoverPrimitive.ArrowTip>
+>(function PopoverArrowTip({ className, ...props }, ref) {
+  return (
+    <PopoverPrimitive.ArrowTip
+      ref={ref}
+      data-slot="popover-arrow-tip"
+      className={clsx(styles.arrowTip, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const PopoverTitle = forwardRef<
+  ComponentRef<typeof PopoverPrimitive.Title>,
+  ComponentProps<typeof PopoverPrimitive.Title>
+>(function PopoverTitle({ className, ...props }, ref) {
   return (
     <PopoverPrimitive.Title
+      ref={ref}
       data-slot="popover-title"
-      className={mergeClassName(className, styles.title)}
+      className={clsx(styles.title, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function PopoverDescription({ className, ...props }: PopoverPrimitive.Description.Props) {
+const PopoverDescription = forwardRef<
+  ComponentRef<typeof PopoverPrimitive.Description>,
+  ComponentProps<typeof PopoverPrimitive.Description>
+>(function PopoverDescription({ className, ...props }, ref) {
   return (
     <PopoverPrimitive.Description
+      ref={ref}
       data-slot="popover-description"
-      className={mergeClassName(className, styles.description)}
+      className={clsx(styles.description, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
+
+const PopoverCloseTrigger = forwardRef<
+  ComponentRef<typeof PopoverPrimitive.CloseTrigger>,
+  ComponentProps<typeof PopoverPrimitive.CloseTrigger>
+>(function PopoverCloseTrigger({ asChild, className, ...props }, ref) {
+  return (
+    <PopoverPrimitive.CloseTrigger
+      ref={ref}
+      data-slot="popover-close-trigger"
+      asChild={asChild}
+      className={clsx(!asChild && styles.closeTrigger, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
 
 function PopoverHeader({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="popover-header" className={clsx(styles.header, className)} {...props} />;
@@ -127,66 +174,36 @@ function PopoverFooter({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="popover-footer" className={clsx(styles.footer, className)} {...props} />;
 }
 
-function PopoverClose({ className, ...props }: PopoverPrimitive.Close.Props) {
-  return (
-    <PopoverPrimitive.Close
-      data-slot="popover-close"
-      className={mergeClassName(className, styles.close)}
-      {...props}
-    />
-  );
-}
+const PopoverContext = PopoverPrimitive.Context;
 
-function PopoverContent({
-  className,
-  children,
-  showArrow = false,
-  side,
-  sideOffset = POPOVER_CONTENT_SIDE_OFFSET,
-  align,
-  alignOffset,
-  arrowPadding,
-  collisionAvoidance,
-  collisionBoundary,
-  collisionPadding,
-  ...popupProps
-}: PopoverContentProps) {
-  return (
-    <PopoverPortal>
-      <PopoverPositioner
-        side={side}
-        sideOffset={sideOffset}
-        align={align}
-        alignOffset={alignOffset}
-        arrowPadding={arrowPadding}
-        collisionAvoidance={collisionAvoidance}
-        collisionBoundary={collisionBoundary}
-        collisionPadding={collisionPadding}
-      >
-        <PopoverPopup className={className} {...popupProps}>
-          {showArrow ? <PopoverArrow /> : null}
-          {children}
-        </PopoverPopup>
-      </PopoverPositioner>
-    </PopoverPortal>
-  );
-}
+const Popover = Object.assign(PopoverRoot, {
+  Root: PopoverRoot,
+  RootProvider: PopoverRootProvider,
+  Portal: PopoverPortal,
+  Anchor: PopoverAnchor,
+  Trigger: PopoverTrigger,
+  Indicator: PopoverIndicator,
+  Positioner: PopoverPositioner,
+  Content: PopoverContent,
+  Arrow: PopoverArrow,
+  ArrowTip: PopoverArrowTip,
+  Title: PopoverTitle,
+  Description: PopoverDescription,
+  CloseTrigger: PopoverCloseTrigger,
+  Header: PopoverHeader,
+  Body: PopoverBody,
+  Footer: PopoverFooter,
+  Context: PopoverContext,
+});
 
-export {
-  Popover,
-  createPopoverHandle,
-  PopoverTrigger,
-  PopoverPortal,
-  PopoverBackdrop,
-  PopoverPositioner,
-  PopoverPopup,
-  PopoverViewport,
-  PopoverArrow,
-  PopoverTitle,
-  PopoverDescription,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverClose,
-  PopoverContent,
-};
+export { Popover, usePopover, usePopoverContext };
+export type {
+  PopoverFocusOutsideEvent,
+  PopoverInteractOutsideEvent,
+  PopoverOpenChangeDetails,
+  PopoverPointerDownOutsideEvent,
+  PopoverTriggerValueChangeDetails,
+  UsePopoverContext,
+  UsePopoverProps,
+  UsePopoverReturn,
+} from '@ark-ui/react/popover';

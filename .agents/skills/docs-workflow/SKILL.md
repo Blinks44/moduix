@@ -69,6 +69,12 @@ Use this skill for work in `apps/docs`.
 - For root-only components where the public export is the same root component with `.Root` attached, teach the
   short `<Component />` form in consumer docs and snippets. Mention `<Component.Root />` only as the equivalent
   Ark-aligned namespace form when that helps explain anatomy or consistency with multi-part components.
+- In `## Anatomy`, always include a markdown table with `Part` and `Role` columns after the structure tree.
+- In that anatomy table, always put the root entry first and format it as `` `Component` / `Component.Root` `` so
+  docs teach the short root consumer form while preserving Ark namespace equivalence.
+- In `### Default props`, use a markdown table (for example `Prop | Default | Notes`) instead of prose-only defaults.
+- In docs previews and snippets (`Preview`, `Preview.Code`, and similar runnable examples), always use the short root
+  form (`<Component>`) instead of `<Component.Root>`. Keep other parts namespaced (for example `<Accordion.Item>`).
 
 ## Registry Docs
 

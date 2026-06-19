@@ -72,84 +72,79 @@
 }
 
 .fadePopup {
-  --popover-popup-starting-opacity: 0;
-  --popover-popup-ending-opacity: 0;
-  --popover-popup-starting-scale: 1;
-  --popover-popup-ending-scale: 1;
-  --popover-popup-starting-translate-y: 0;
-  --popover-popup-ending-translate-y: 0;
+  --popover-content-starting-opacity: 0;
+  --popover-content-ending-opacity: 0;
+  --popover-content-starting-scale: 1;
+  --popover-content-ending-scale: 1;
+  --popover-content-starting-translate-y: 0;
+  --popover-content-ending-translate-y: 0;
 }
 
 .slideUpPopup {
-  --popover-popup-starting-opacity: 0;
-  --popover-popup-ending-opacity: 0;
-  --popover-popup-starting-scale: 1;
-  --popover-popup-ending-scale: 1;
-  --popover-popup-starting-translate-y: 0.75rem;
-  --popover-popup-ending-translate-y: 0.75rem;
+  --popover-content-starting-opacity: 0;
+  --popover-content-ending-opacity: 0;
+  --popover-content-starting-scale: 1;
+  --popover-content-ending-scale: 1;
+  --popover-content-starting-translate-y: 0.75rem;
+  --popover-content-ending-translate-y: 0.75rem;
 }
 
 .slideDownPopup {
-  --popover-popup-starting-opacity: 0;
-  --popover-popup-ending-opacity: 0;
-  --popover-popup-starting-scale: 1;
-  --popover-popup-ending-scale: 1;
-  --popover-popup-starting-translate-y: -0.75rem;
-  --popover-popup-ending-translate-y: -0.75rem;
+  --popover-content-starting-opacity: 0;
+  --popover-content-ending-opacity: 0;
+  --popover-content-starting-scale: 1;
+  --popover-content-ending-scale: 1;
+  --popover-content-starting-translate-y: -0.75rem;
+  --popover-content-ending-translate-y: -0.75rem;
 }
 
 .slideLeftPopup {
-  --popover-popup-starting-opacity: 0;
-  --popover-popup-ending-opacity: 0;
-  --popover-popup-starting-scale: 1;
-  --popover-popup-ending-scale: 1;
-  --popover-popup-starting-translate-x: 0.75rem;
-  --popover-popup-ending-translate-x: 0.75rem;
-  --popover-popup-starting-translate-y: 0;
-  --popover-popup-ending-translate-y: 0;
+  --popover-content-starting-opacity: 0;
+  --popover-content-ending-opacity: 0;
+  --popover-content-starting-scale: 1;
+  --popover-content-ending-scale: 1;
+  --popover-content-starting-translate-x: 0.75rem;
+  --popover-content-ending-translate-x: 0.75rem;
+  --popover-content-starting-translate-y: 0;
+  --popover-content-ending-translate-y: 0;
 }
 
 .slideRightPopup {
-  --popover-popup-starting-opacity: 0;
-  --popover-popup-ending-opacity: 0;
-  --popover-popup-starting-scale: 1;
-  --popover-popup-ending-scale: 1;
-  --popover-popup-starting-translate-x: -0.75rem;
-  --popover-popup-ending-translate-x: -0.75rem;
-  --popover-popup-starting-translate-y: 0;
-  --popover-popup-ending-translate-y: 0;
+  --popover-content-starting-opacity: 0;
+  --popover-content-ending-opacity: 0;
+  --popover-content-starting-scale: 1;
+  --popover-content-ending-scale: 1;
+  --popover-content-starting-translate-x: -0.75rem;
+  --popover-content-ending-translate-x: -0.75rem;
+  --popover-content-starting-translate-y: 0;
+  --popover-content-ending-translate-y: 0;
 }
 
 .zoomPopup {
-  --popover-popup-starting-opacity: 0;
-  --popover-popup-ending-opacity: 0;
-  --popover-popup-starting-scale: 0.94;
-  --popover-popup-ending-scale: 0.94;
-  --popover-popup-starting-translate-y: 0;
-  --popover-popup-ending-translate-y: 0;
+  --popover-content-starting-opacity: 0;
+  --popover-content-ending-opacity: 0;
+  --popover-content-starting-scale: 0.94;
+  --popover-content-ending-scale: 0.94;
+  --popover-content-starting-translate-y: 0;
+  --popover-content-ending-translate-y: 0;
 }
 
 .liftPopup {
-  --popover-popup-starting-opacity: 0;
-  --popover-popup-ending-opacity: 0;
-  --popover-popup-starting-scale: 0.96;
-  --popover-popup-ending-scale: 0.96;
-  --popover-popup-starting-translate-y: 0.5rem;
-  --popover-popup-ending-translate-y: 0.5rem;
+  --popover-content-starting-opacity: 0;
+  --popover-content-ending-opacity: 0;
+  --popover-content-starting-scale: 0.96;
+  --popover-content-ending-scale: 0.96;
+  --popover-content-starting-translate-y: 0.5rem;
+  --popover-content-ending-translate-y: 0.5rem;
 }
 
 .dropInPopup {
-  --popover-popup-starting-opacity: 0;
-  --popover-popup-ending-opacity: 0;
-  --popover-popup-starting-scale: 0.98;
-  --popover-popup-ending-scale: 0.98;
-  --popover-popup-starting-translate-y: -0.5rem;
-  --popover-popup-ending-translate-y: -0.5rem;
-}
-
-.playgroundBackdrop {
-  background:
-    radial-gradient(circle at top, rgb(56 189 248 / 0.18), transparent 40%), rgb(15 23 42 / 0.44);
+  --popover-content-starting-opacity: 0;
+  --popover-content-ending-opacity: 0;
+  --popover-content-starting-scale: 0.98;
+  --popover-content-ending-scale: 0.98;
+  --popover-content-starting-translate-y: -0.5rem;
+  --popover-content-ending-translate-y: -0.5rem;
 }
 
 .playgroundTrigger {

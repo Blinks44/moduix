@@ -44,6 +44,8 @@ Inside `## Styling`, always use:
     `<Component />` form in runnable snippets.
 - `Install with shadcn`: comes immediately after `Basic`.
 - `Anatomy`: structure only. Keep it short: ASCII tree plus concise part roles.
+  - Always include a markdown table with `Part` and `Role` columns.
+  - The first anatomy row must be `` `Component` / `Component.Root` `` for the root entry.
 - `Composition`: public contract, recommended part tree, escape hatches, defaults, and behavioral constraints.
   - Document preserved Ark callback shapes, `ref` targets, form context, `HiddenInput`, provider/context patterns,
     `asChild`, `ids`, and moduix sugar here when relevant.
@@ -71,6 +73,8 @@ Inside `## Styling`, always use:
 - Put arrays, mock payloads, and other setup data in `Preview.Data`.
 - Keep snippets self-contained and consumer-facing.
 - Do not repeat global setup imports.
+- In runnable examples (`Preview` and `Preview.Code`), use the short root form (`<Component>`) instead of
+  `<Component.Root>`, while keeping child parts namespaced (for example `<Component.Item>`).
 - Do not attach `Preview.CSSProperties` or `Preview.CSSPlayground` to the `Basic` example.
 - Prefer removing `Playground` from component pages unless a task explicitly needs interactive token editing.
 - Do not add a preview canvas inside `Styling`.
@@ -114,6 +118,7 @@ Inside `## Styling`, always use:
 - If a root-only component exposes both `<Component />` and `<Component.Root />` as the same root, document
   `<Component />` as the default consumer path. Use `<Component.Root />` only when explaining the Ark-aligned
   namespace or when matching a multi-part component anatomy.
+- `### Default props` must be documented as a markdown table (for example `Prop | Default | Notes`), not prose.
 
 Popup-like components:
 

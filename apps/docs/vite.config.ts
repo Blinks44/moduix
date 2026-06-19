@@ -29,7 +29,6 @@ const uiPrimitiveOptimizeDeps = [
   '@base-ui/react/merge-props',
   '@base-ui/react/number-field',
   '@base-ui/react/otp-field',
-  '@base-ui/react/popover',
   '@base-ui/react/preview-card',
   '@base-ui/react/progress',
   '@base-ui/react/radio',

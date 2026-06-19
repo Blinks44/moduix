@@ -56,6 +56,14 @@ informs the public contract.
 - Treat old Base UI-oriented docs as disposable migration input, not as the target structure.
 - Public docs and local component markdown should show the Ark UI mental model first: parts, composition, state
   shapes, callback signatures, and structural requirements.
+- In migrated docs `## Anatomy`, always include a markdown `Part | Role` table after the tree.
+- In that anatomy table, always list the root first as `` `Component` / `Component.Root` `` so the docs default to
+  the short root form while keeping the Ark namespace mapping explicit.
+- In migrated docs `### Default props`, always use a markdown table (for example `Prop | Default | Notes`) instead of
+  prose-only defaults.
+- In migrated docs runnable examples (`Preview`, `Preview.Code`, and equivalent snippets), always use the short root
+  form (`<Component>`) instead of `<Component.Root>`, while keeping child parts namespaced (for example
+  `<Accordion.Item>`).
 - In docs `### CSS Properties`, use the same moduix docs wrapper as `accordion`: `not-prose` container, docs `Tabs`
   with a `CSS Variables` tab, and a bounded scroll area around the reference table.
 - In migrated component docs, every `<Preview>` example should expose `Code`, `Styles`, and `Data` tabs. Put shared

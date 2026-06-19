@@ -1,26 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { BellIcon } from '@/icons/demo';
-import { CheckIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
-import {
-  Popover,
-  createPopoverHandle,
-  PopoverArrow,
-  PopoverBackdrop,
-  PopoverTrigger,
-  PopoverPortal,
-  PopoverPositioner,
-  PopoverPopup,
-  PopoverViewport,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverClose,
-  PopoverContent,
-  PopoverDescription,
-  PopoverTitle,
-} from './Popover';
+import { Popover, usePopover } from './Popover';
 import storyStyles from './Popover.stories.module.css';
 
 const meta = {
@@ -35,95 +17,47 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const SIDES = ['top', 'right', 'bottom', 'left'] as const;
-type PopoverSide = (typeof SIDES)[number];
+function PopoverSurface({
+  title,
+  description,
+  arrow = false,
+}: {
+  title: string;
+  description: string;
+  arrow?: boolean;
+}) {
+  return (
+    <Popover.Portal>
+      <Popover.Positioner>
+        <Popover.Content>
+          {arrow ? <Popover.Arrow /> : null}
+          <Popover.Header>
+            <Popover.Title>{title}</Popover.Title>
+            <Popover.Description>{description}</Popover.Description>
+          </Popover.Header>
+          <Popover.Footer>
+            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+          </Popover.Footer>
+        </Popover.Content>
+      </Popover.Positioner>
+    </Popover.Portal>
+  );
+}
 
 export const Basic: Story = {
-  render: () => {
-    return (
-      <Popover>
-        <PopoverTrigger render={<Button />}>
+  render: () => (
+    <Popover positioning={{ gutter: 8 }}>
+      <Popover.Trigger asChild>
+        <Button>
           <span className={storyStyles.triggerContent}>
             <BellIcon className={storyStyles.icon} />
             Notifications
           </span>
-        </PopoverTrigger>
-        <PopoverContent>
-          <PopoverHeader>
-            <PopoverTitle>Notifications</PopoverTitle>
-            <PopoverDescription>You are all caught up. Good job!</PopoverDescription>
-          </PopoverHeader>
-        </PopoverContent>
-      </Popover>
-    );
-  },
-};
-
-export const WithCloseAction: Story = {
-  render: () => {
-    return (
-      <Popover>
-        <PopoverTrigger render={<Button />}>Project status</PopoverTrigger>
-        <PopoverContent>
-          <PopoverHeader>
-            <PopoverTitle>Sprint 19</PopoverTitle>
-            <PopoverDescription>
-              9 tasks completed, 2 in progress. Everything is on schedule.
-            </PopoverDescription>
-          </PopoverHeader>
-          <PopoverFooter>
-            <PopoverClose>Close</PopoverClose>
-          </PopoverFooter>
-        </PopoverContent>
-      </Popover>
-    );
-  },
-};
-
-export const WithBackdrop: Story = {
-  name: 'With Backdrop',
-  render: () => {
-    return (
-      <Popover>
-        <PopoverTrigger className={storyStyles.backdropTrigger} render={<Button />}>
-          Open with backdrop
-        </PopoverTrigger>
-        <PopoverPortal>
-          <PopoverBackdrop className={storyStyles.backdrop} />
-          <PopoverPositioner sideOffset={8}>
-            <PopoverPopup>
-              <PopoverHeader>
-                <PopoverTitle>Backdrop</PopoverTitle>
-                <PopoverDescription>
-                  The backdrop is composed explicitly when you need it.
-                </PopoverDescription>
-              </PopoverHeader>
-            </PopoverPopup>
-          </PopoverPositioner>
-        </PopoverPortal>
-      </Popover>
-    );
-  },
-};
-
-export const OpenOnHover: Story = {
-  render: () => {
-    return (
-      <Popover>
-        <PopoverTrigger openOnHover delay={150} closeDelay={120} render={<Button />}>
-          Open on hover
-        </PopoverTrigger>
-        <PopoverContent>
-          <PopoverHeader>
-            <PopoverTitle>Hover mode</PopoverTitle>
-            <PopoverDescription>
-              This popover uses delayed hover opening for quick preview interactions.
-            </PopoverDescription>
-          </PopoverHeader>
-        </PopoverContent>
-      </Popover>
-    );
-  },
+        </Button>
+      </Popover.Trigger>
+      <PopoverSurface title="Notifications" description="You are all caught up. Good job!" />
+    </Popover>
+  ),
 };
 
 export const Controlled: Story = {
@@ -132,154 +66,189 @@ export const Controlled: Story = {
 
     return (
       <div className={storyStyles.stack}>
-        <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger render={<Button />}>Open controlled popover</PopoverTrigger>
-          <PopoverContent>
-            <PopoverHeader>
-              <PopoverTitle>Publish changes?</PopoverTitle>
-              <PopoverDescription>
-                This action will make your latest updates visible to all users.
-              </PopoverDescription>
-            </PopoverHeader>
-            <PopoverFooter>
-              <PopoverClose>Back to editing</PopoverClose>
-            </PopoverFooter>
-          </PopoverContent>
+        <span>Popover is {open ? 'open' : 'closed'}</span>
+        <Popover open={open} onOpenChange={(details) => setOpen(details.open)}>
+          <Popover.Trigger asChild>
+            <Button>Open controlled popover</Button>
+          </Popover.Trigger>
+          <PopoverSurface
+            title="Publish changes?"
+            description="This action will make your latest updates visible to all users."
+          />
         </Popover>
       </div>
     );
   },
 };
 
-export const DetachedTrigger: Story = {
-  name: 'Detached Trigger',
+export const RootProvider: Story = {
+  name: 'Root Provider',
   render: () => {
-    const popoverHandle = React.useMemo(() => createPopoverHandle(), []);
-
-    return (
-      <div className={storyStyles.row}>
-        <PopoverTrigger handle={popoverHandle} render={<Button />}>
-          Open details
-        </PopoverTrigger>
-        <Popover handle={popoverHandle}>
-          <PopoverContent>
-            <PopoverHeader>
-              <PopoverTitle>Detached trigger</PopoverTitle>
-              <PopoverDescription>
-                Trigger and popup are linked with createPopoverHandle().
-              </PopoverDescription>
-            </PopoverHeader>
-          </PopoverContent>
-        </Popover>
-      </div>
-    );
-  },
-};
-
-export const SideControl: Story = {
-  name: 'Side Control',
-  render: () => {
-    const [side, setSide] = React.useState<PopoverSide>('bottom');
+    const popover = usePopover({ positioning: { placement: 'bottom-start', gutter: 8 } });
 
     return (
       <div className={storyStyles.stack}>
-        <div className={storyStyles.sideButtons}>
-          {SIDES.map((item) => (
-            <button
-              key={item}
-              type="button"
-              className={storyStyles.sideButton}
-              data-active={item === side || undefined}
-              onClick={() => setSide(item)}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-
-        <Popover>
-          <PopoverTrigger render={<Button />}>Open with side: {side}</PopoverTrigger>
-          <PopoverContent side={side} className={storyStyles.narrowPopup}>
-            <PopoverHeader>
-              <PopoverTitle>Placement</PopoverTitle>
-              <PopoverDescription>
-                Current side is <strong>{side}</strong>. You can switch it with the buttons above.
-              </PopoverDescription>
-            </PopoverHeader>
-          </PopoverContent>
-        </Popover>
+        <span>Popover is {popover.open ? 'open' : 'closed'}</span>
+        <Button variant="outline" onClick={() => popover.setOpen(!popover.open)}>
+          Toggle externally
+        </Button>
+        <Popover.RootProvider value={popover}>
+          <Popover.Trigger asChild>
+            <Button>Open from trigger</Button>
+          </Popover.Trigger>
+          <PopoverSurface
+            title="External state"
+            description="The usePopover hook owns this popover state."
+          />
+        </Popover.RootProvider>
       </div>
-    );
-  },
-};
-
-export const ImageOnlyContent: Story = {
-  name: 'Image Only Content',
-  render: () => {
-    return (
-      <Popover>
-        <PopoverTrigger render={<Button />}>Open image popover</PopoverTrigger>
-        <PopoverContent className={storyStyles.imagePopup}>
-          <PopoverBody>
-            <img
-              className={storyStyles.image}
-              alt="Abstract geometric composition"
-              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 420'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%230b1220' offset='0'/%3E%3Cstop stop-color='%231d3557' offset='0.52'/%3E%3Cstop stop-color='%23004e64' offset='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent1' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop stop-color='%23ffd166'/%3E%3Cstop stop-color='%23fca311'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent2' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop stop-color='%2306d6a0'/%3E%3Cstop stop-color='%23118ab2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='720' height='420' fill='url(%23bg)'/%3E%3Ccircle cx='120' cy='90' r='70' fill='%23ffffff22'/%3E%3Ccircle cx='620' cy='330' r='120' fill='%23ffffff18'/%3E%3Crect x='70' y='240' width='320' height='110' rx='22' fill='url(%23accent1)' opacity='0.88' transform='rotate(-8 230 295)'/%3E%3Crect x='320' y='90' width='300' height='120' rx='24' fill='url(%23accent2)' opacity='0.92' transform='rotate(10 470 150)'/%3E%3Cpath d='M40 370 C160 260, 270 360, 390 280 C510 200, 610 280, 720 210 L720 420 L40 420 Z' fill='%23ffffff22'/%3E%3C/svg%3E"
-            />
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
     );
   },
 };
 
 export const WithArrow: Story = {
   name: 'With Arrow',
-  render: () => {
-    return (
-      <Popover>
-        <PopoverTrigger render={<Button />}>Open with arrow</PopoverTrigger>
-        <PopoverContent showArrow>
-          <PopoverHeader>
-            <PopoverTitle>With arrow</PopoverTitle>
-            <PopoverDescription>
-              Enable showArrow when the popup should visually point to its trigger.
-            </PopoverDescription>
-          </PopoverHeader>
-        </PopoverContent>
-      </Popover>
-    );
-  },
+  render: () => (
+    <Popover positioning={{ gutter: 8 }}>
+      <Popover.Trigger asChild>
+        <Button>Open with arrow</Button>
+      </Popover.Trigger>
+      <PopoverSurface
+        arrow
+        title="With arrow"
+        description="Arrow and ArrowTip use Ark positioning variables."
+      />
+    </Popover>
+  ),
 };
 
-export const CustomComposition: Story = {
-  name: 'Custom Composition',
-  render: () => {
-    return (
-      <Popover>
-        <PopoverTrigger className={storyStyles.customTrigger} render={<Button />}>
-          Open custom composition
-        </PopoverTrigger>
-        <PopoverPortal>
-          <PopoverBackdrop className={storyStyles.customBackdrop} />
-          <PopoverPositioner sideOffset={8} className={storyStyles.customPositioner}>
-            <PopoverPopup className={storyStyles.customPopup}>
-              <PopoverArrow className={storyStyles.customArrowSlot}>
-                <CheckIcon className={storyStyles.customArrowIcon} />
-              </PopoverArrow>
-              <PopoverViewport className={storyStyles.customViewport}>
-                <PopoverHeader>
-                  <PopoverTitle>Custom composition</PopoverTitle>
-                  <PopoverDescription>
-                    Portal, backdrop, popup, arrow, and viewport stay available as explicit building
-                    blocks.
-                  </PopoverDescription>
-                </PopoverHeader>
-              </PopoverViewport>
-            </PopoverPopup>
-          </PopoverPositioner>
-        </PopoverPortal>
-      </Popover>
-    );
-  },
+export const Positioning: Story = {
+  render: () => (
+    <Popover positioning={{ placement: 'left', gutter: 12 }}>
+      <Popover.Trigger asChild>
+        <Button>Open on the left</Button>
+      </Popover.Trigger>
+      <PopoverSurface
+        title="Left placement"
+        description="Placement and offsets belong to Root.positioning."
+      />
+    </Popover>
+  ),
+};
+
+export const CloseBehavior: Story = {
+  name: 'Close Behavior',
+  render: () => (
+    <Popover closeOnEscape={false} closeOnInteractOutside={false}>
+      <Popover.Trigger asChild>
+        <Button>Open persistent popover</Button>
+      </Popover.Trigger>
+      <PopoverSurface
+        title="Explicit close"
+        description="Escape and outside interactions do not dismiss this popover."
+      />
+    </Popover>
+  ),
+};
+
+export const Modal: Story = {
+  render: () => (
+    <Popover modal initialFocusEl={() => document.querySelector('#popover-email')}>
+      <Popover.Trigger asChild>
+        <Button>Invite teammates</Button>
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Positioner>
+          <Popover.Content>
+            <Popover.Header>
+              <Popover.Title>Invite teammates</Popover.Title>
+              <Popover.Description>
+                Focus is trapped inside this modal popover until dismissed.
+              </Popover.Description>
+            </Popover.Header>
+            <Popover.Body>
+              <label className={storyStyles.field}>
+                <span>Email</span>
+                <input id="popover-email" className={storyStyles.input} />
+              </label>
+            </Popover.Body>
+            <Popover.Footer>
+              <Popover.CloseTrigger>Done</Popover.CloseTrigger>
+            </Popover.Footer>
+          </Popover.Content>
+        </Popover.Positioner>
+      </Popover.Portal>
+    </Popover>
+  ),
+};
+
+export const Anchor: Story = {
+  render: () => (
+    <Popover positioning={{ gutter: 8 }}>
+      <div className={storyStyles.stack}>
+        <Popover.Anchor asChild>
+          <input className={storyStyles.input} placeholder="Popover anchor" />
+        </Popover.Anchor>
+        <Popover.Trigger asChild>
+          <Button>Open below the input</Button>
+        </Popover.Trigger>
+      </div>
+      <PopoverSurface
+        title="Custom anchor"
+        description="The popup is positioned relative to the input instead of the trigger."
+      />
+    </Popover>
+  ),
+};
+
+export const SameWidth: Story = {
+  name: 'Same Width',
+  render: () => (
+    <Popover positioning={{ sameWidth: true, gutter: 8 }}>
+      <Popover.Trigger asChild>
+        <Button className={storyStyles.wideTrigger}>Match this trigger width</Button>
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Positioner>
+          <Popover.Content className={storyStyles.sameWidthContent}>
+            <Popover.Title>Matched width</Popover.Title>
+            <Popover.Description>
+              The content uses Ark&apos;s reference width measurement.
+            </Popover.Description>
+          </Popover.Content>
+        </Popover.Positioner>
+      </Popover.Portal>
+    </Popover>
+  ),
+};
+
+export const Nested: Story = {
+  render: () => (
+    <Popover positioning={{ gutter: 8 }}>
+      <Popover.Trigger asChild>
+        <Button>Open settings</Button>
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Positioner>
+          <Popover.Content>
+            <Popover.Header>
+              <Popover.Title>Settings</Popover.Title>
+              <Popover.Description>Nested popovers keep independent state.</Popover.Description>
+            </Popover.Header>
+            <Popover.Body className={storyStyles.nestedBody}>
+              <Popover positioning={{ placement: 'right', gutter: 8 }}>
+                <Popover.Trigger asChild>
+                  <Button variant="outline">Advanced</Button>
+                </Popover.Trigger>
+                <PopoverSurface
+                  title="Advanced settings"
+                  description="This content belongs to the nested popover."
+                />
+              </Popover>
+            </Popover.Body>
+          </Popover.Content>
+        </Popover.Positioner>
+      </Popover.Portal>
+    </Popover>
+  ),
 };

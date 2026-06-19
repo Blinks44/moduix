@@ -1,6 +1,6 @@
 @layer ui.components {
   .trigger,
-  .close {
+  .closeTrigger {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -31,7 +31,7 @@
     }
 
     &:active,
-    &[data-popup-open] {
+    &[data-state='open'] {
       background-color: var(
         --popover-control-bg-active,
         var(--popover-control-bg-hover, var(--color-accent))
@@ -60,40 +60,18 @@
     }
   }
 
-  .backdrop {
-    position: fixed;
-    z-index: var(--z-backdrop);
-    inset: 0;
-    min-height: 100dvh;
-    background-color: var(--popover-backdrop-bg, var(--backdrop-bg, var(--color-overlay)));
-    backdrop-filter: var(--backdrop-filter, blur(var(--popover-backdrop-blur, 4px)));
-    transition:
-      opacity var(--popover-backdrop-transition, var(--transition-default)),
-      backdrop-filter var(--popover-backdrop-transition, var(--transition-default));
-
-    &[data-starting-style] {
-      opacity: var(--popover-backdrop-starting-opacity, 0);
-      backdrop-filter: var(--popover-backdrop-starting-blur, none);
-    }
-
-    &[data-ending-style] {
-      opacity: var(--popover-backdrop-ending-opacity, 0);
-      backdrop-filter: var(--popover-backdrop-ending-blur, none);
-    }
-  }
-
   .positioner {
-    z-index: var(--z-popup);
-    width: var(--positioner-width);
-    height: var(--positioner-height);
+    z-index: var(--z-index, var(--z-popup));
     max-width: var(--available-width);
     outline: 0;
   }
 
-  .popup {
+  .content {
+    position: relative;
+    z-index: calc(var(--z-popup) + var(--layer-index, 0));
     box-sizing: border-box;
-    width: var(--popup-width, var(--popover-width, auto));
-    height: var(--popup-height, var(--popover-height, auto));
+    width: var(--popover-width, auto);
+    height: var(--popover-height, auto);
     min-width: min(var(--popover-min-width, 16rem), var(--available-width));
     max-width: min(var(--popover-max-width, 28rem), var(--available-width));
     max-height: min(var(--popover-max-height, 24rem), var(--available-height, 100dvh));
@@ -107,103 +85,26 @@
       var(--popover-border-color, var(--color-border));
     box-shadow: var(--popover-shadow, var(--shadow-lg));
     transform-origin: var(--transform-origin);
-    transition:
-      transform var(--popover-transition, var(--duration-fast)),
-      opacity var(--popover-transition, var(--duration-fast)),
-      translate var(--popover-transition, var(--duration-fast));
 
-    &[data-starting-style] {
-      opacity: var(--popover-popup-starting-opacity, 0);
-      translate: var(--popover-popup-starting-translate-x, 0)
-        var(--popover-popup-starting-translate-y, 0);
-      transform: scale(var(--popover-popup-starting-scale, var(--scale-popup)));
+    &[data-state='open'] {
+      animation: popover-enter var(--popover-transition, var(--duration-fast)) both;
     }
 
-    &[data-ending-style] {
-      opacity: var(--popover-popup-ending-opacity, 0);
-      translate: var(--popover-popup-ending-translate-x, 0)
-        var(--popover-popup-ending-translate-y, 0);
-      transform: scale(var(--popover-popup-ending-scale, var(--scale-popup)));
-    }
-  }
-
-  .viewport {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: clip;
-
-    & > [data-current],
-    & > [data-previous] {
-      width: var(--popup-width, auto);
-      transition:
-        translate var(--popover-viewport-transition, var(--duration-normal)),
-        opacity var(--popover-viewport-transition, var(--duration-normal));
-    }
-
-    & > [data-current] {
-      opacity: 1;
-      translate: 0;
-    }
-
-    &[data-activation-direction~='left'] {
-      & > [data-current][data-starting-style],
-      & > [data-previous][data-ending-style] {
-        opacity: 0;
-        translate: calc(var(--popover-viewport-offset, 1rem) * -1) 0;
-      }
-    }
-
-    &[data-activation-direction~='right'] {
-      & > [data-current][data-starting-style],
-      & > [data-previous][data-ending-style] {
-        opacity: 0;
-        translate: var(--popover-viewport-offset, 1rem) 0;
-      }
+    &[data-state='closed'] {
+      animation: popover-exit var(--popover-transition, var(--duration-fast)) both;
     }
   }
 
   .arrow {
-    display: flex;
-    color: var(--popover-bg, var(--color-popover));
-
-    &[data-side='top'] {
-      bottom: calc(var(--popover-arrow-size, 8px) * -1);
-      rotate: 180deg;
-    }
-
-    &[data-side='bottom'] {
-      top: calc(var(--popover-arrow-size, 8px) * -1);
-    }
-
-    &[data-side='left'] {
-      right: calc(var(--popover-arrow-inline-offset, 13px) * -1);
-      rotate: 90deg;
-    }
-
-    &[data-side='right'] {
-      left: calc(var(--popover-arrow-inline-offset, 13px) * -1);
-      rotate: -90deg;
-    }
+    --arrow-size: var(--popover-arrow-size, 0.625rem);
+    --arrow-background: var(--popover-bg, var(--color-popover));
   }
 
-  .arrowSvg {
-    display: block;
-    width: var(--popover-arrow-width, 1.25rem);
-    height: var(--popover-arrow-height, 0.625rem);
-    overflow: visible;
-  }
-
-  .arrowFill {
-    fill: currentColor;
-  }
-
-  .arrowOuterStroke {
-    fill: var(--popover-arrow-stroke-color, var(--popover-border-color, var(--color-border)));
-  }
-
-  .arrowInnerStroke {
-    fill: var(--popover-bg, var(--color-popover));
+  .arrowTip {
+    border-top: var(--popover-border-width, var(--border-width-sm)) solid
+      var(--popover-arrow-stroke-color, var(--popover-border-color, var(--color-border)));
+    border-left: var(--popover-border-width, var(--border-width-sm)) solid
+      var(--popover-arrow-stroke-color, var(--popover-border-color, var(--color-border)));
   }
 
   .title {
@@ -236,5 +137,23 @@
     justify-content: var(--popover-footer-justify, flex-end);
     gap: var(--popover-footer-gap, var(--spacing-2));
     margin: var(--popover-footer-margin, var(--spacing-3) 0 0);
+  }
+
+  @keyframes popover-enter {
+    from {
+      opacity: var(--popover-content-starting-opacity, 0);
+      translate: var(--popover-content-starting-translate-x, 0)
+        var(--popover-content-starting-translate-y, 0);
+      scale: var(--popover-content-starting-scale, var(--scale-popup));
+    }
+  }
+
+  @keyframes popover-exit {
+    to {
+      opacity: var(--popover-content-ending-opacity, 0);
+      translate: var(--popover-content-ending-translate-x, 0)
+        var(--popover-content-ending-translate-y, 0);
+      scale: var(--popover-content-ending-scale, var(--scale-popup));
+    }
   }
 }
