@@ -1,39 +1,38 @@
-import type { ComponentPropsWithoutRef } from 'react';
-import clsx from 'clsx';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
+import { ark } from '@ark-ui/react/factory';
+import { clsx } from 'clsx';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Heading.module.css';
 
-type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
+export type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 
-const defaultSizeByElement = {
-  h1: '2xl',
-  h2: 'xl',
-  h3: 'lg',
-  h4: 'md',
-  h5: 'sm',
-  h6: 'xs',
-} as const;
-
-type HeadingProps = ComponentPropsWithoutRef<'h1'> & {
-  as?: HeadingLevel;
+export type HeadingRootProps = HTMLArkProps<'h1'> & {
   size?: HeadingSize;
   weight?: HeadingWeight;
 };
 
-function Heading({ as = 'h1', size, weight = 'semibold', className, ...props }: HeadingProps) {
-  const Tag = as;
-
+const HeadingRoot = forwardRef<HTMLHeadingElement, HeadingRootProps>(function HeadingRoot(
+  { size, weight = 'semibold', className, ...props },
+  ref,
+) {
   return (
-    <Tag
+    <ark.h1
+      ref={ref}
+      data-scope="heading"
+      data-part="root"
       data-slot="heading-root"
-      data-size={size ?? defaultSizeByElement[as]}
+      data-size={size}
       data-weight={weight}
-      className={clsx(styles.root, className)}
+      className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
+
+const Heading = Object.assign(HeadingRoot, {
+  Root: HeadingRoot,
+});
 
 export { Heading };
-export type { HeadingLevel, HeadingProps, HeadingSize, HeadingWeight };

@@ -14,29 +14,39 @@
     text-wrap: var(--heading-text-wrap, balance);
     overflow-wrap: break-word;
 
+    &:is(h6):not([data-size]),
     &[data-size='xs'] {
       --_heading-font-size: var(--heading-font-size-xs, var(--text-sm));
       --_heading-line-height: var(--heading-line-height-xs, var(--line-height-text-sm));
     }
 
+    &:is(h5):not([data-size]),
     &[data-size='sm'] {
       --_heading-font-size: var(--heading-font-size-sm, var(--text-md));
       --_heading-line-height: var(--heading-line-height-sm, var(--line-height-text-md));
     }
 
+    &:is(h4):not([data-size]),
     &[data-size='md'] {
       --_heading-font-size: var(--heading-font-size-md, var(--text-lg));
       --_heading-line-height: var(--heading-line-height-md, var(--line-height-text-lg));
     }
 
+    &:is(h3):not([data-size]),
     &[data-size='lg'] {
       --_heading-font-size: var(--heading-font-size-lg, var(--text-xl));
       --_heading-line-height: var(--heading-line-height-lg, var(--line-height-text-xl));
     }
 
+    &:is(h2):not([data-size]),
     &[data-size='xl'] {
       --_heading-font-size: var(--heading-font-size-xl, var(--text-2xl));
       --_heading-line-height: var(--heading-line-height-xl, var(--line-height-text-2xl));
+    }
+
+    &[data-size='2xl'] {
+      --_heading-font-size: var(--heading-font-size-2xl, var(--text-3xl));
+      --_heading-line-height: var(--heading-line-height-2xl, var(--line-height-text-3xl));
     }
 
     &[data-weight='regular'] {

@@ -65,9 +65,7 @@ export function Example() {
   return (
     <Container asChild className={styles.container}>
       <main>
-        <Heading as="h1" size="xl">
-          Pricing
-        </Heading>
+        <Heading size="xl">Pricing</Heading>
         <Text tone="muted">
           The main text column stays constrained while gutters adapt to viewport width.
         </Text>

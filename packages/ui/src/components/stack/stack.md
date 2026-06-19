@@ -53,8 +53,8 @@ import { Heading, Stack, Text } from 'moduix';
 export function Example() {
   return (
     <Stack as="section" gap={12}>
-      <Heading as="h2" size="md">
-        Project updates
+      <Heading asChild size="md">
+        <h2>Project updates</h2>
       </Heading>
       <Text tone="muted">Use Stack when flex direction and spacing are the main layout needs.</Text>
       <Text tone="muted">Keep more specific layout rules in local CSS.</Text>

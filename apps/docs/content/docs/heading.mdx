@@ -1,6 +1,6 @@
 ---
 title: Heading
-description: A typography primitive for semantic headings with library sizing and weight tokens.
+description: A semantic heading primitive with Ark factory composition and moduix typography tokens.
 icon: Component
 ---
 
@@ -14,10 +14,15 @@ import {
   HeadingWeightsExample,
 } from '@/components/examples/heading';
 
+## API Reference
+
+Ark UI has no dedicated heading primitive. `Heading` follows the
+[Ark composition and factory model](https://ark-ui.com/docs/guides/composition).
+
 ## Basic
 
-Use `Heading` for semantic page and section titles. Keep `as` tied to the document outline, then
-use `size` and `weight` when the visual hierarchy needs to differ from the heading level.
+`Heading` renders an `h1` by default. Use it for page titles and keep the semantic heading level
+tied to the document outline.
 
 <Preview>
   <HeadingExample />
@@ -25,19 +30,35 @@ use `size` and `weight` when the visual hierarchy needs to differ from the headi
   <Preview.Code>
     {`
       import { Heading } from "moduix";
+      import styles from "./heading.module.css";
 
       export function HeadingDemo() {
-        return <Heading>Build reliable interfaces</Heading>;
+        return <Heading className={styles.demo}>{headingText}</Heading>;
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .demo {
+        max-width: 28rem;
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const headingText = "Build reliable interfaces";
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
 
-If you want `Heading` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
+Install the source component from the moduix registry:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
@@ -77,59 +98,64 @@ aubx shadcn@latest add Blinks44/moduix/heading
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Heading` depends on, such
-as styles, icons, and small utilities.
-
 ## Anatomy
 
-`Heading` renders a single styled heading element.
+`Heading` is a root-only component. `Heading.Root` is the equivalent Ark-aligned namespace form.
 
 ```text
-Heading
+Heading / Heading.Root
 └─ text or inline content
 ```
 
-| Part      | Role                                                     |
-| --------- | -------------------------------------------------------- |
-| `Heading` | Semantic heading root with design-system heading styles. |
+| Part                       | Role                                                    |
+| -------------------------- | ------------------------------------------------------- |
+| `Heading` / `Heading.Root` | Native semantic heading with moduix typography styling. |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with `Heading` for normal page titles, section titles, and other document-outline headings.
-The component already exposes the full public surface on one native `h1`-`h6` element.
+Use `<Heading>` for an `h1`. For another semantic level, use Ark factory `asChild` with exactly one
+native heading child:
 
-Use `as` for semantics, `size` for visual scale, and `weight` for the built-in emphasis presets.
+```tsx
+<Heading asChild size="2xl">
+  <h2>Page title rendered as h2</h2>
+</Heading>
+```
+
+The child owns the DOM node while receiving the component props, class name, data attributes, and
+forwarded ref.
 
 ### When to go custom
 
-There is no lower-level composition path here. The escape hatch is direct root styling through
-`className` and the documented `--heading-*` CSS variables.
-
-If you need body copy, inline copy, or a more general typography wrapper, use `Text` instead.
+Use `className` and the public `--heading-*` variables for visual overrides. Use `Text` instead when
+the content is body copy or general typography rather than a document heading.
 
 ### Default props
 
-| Prop     | Default    | Values                                  |
-| -------- | ---------- | --------------------------------------- |
-| `as`     | `h1`       | `h1`, `h2`, `h3`, `h4`, `h5`, `h6`      |
-| `size`   | by `as`    | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
-| `weight` | `semibold` | `regular`, `medium`, `semibold`, `bold` |
+| Entry     | Default             | Values / Notes                          |
+| --------- | ------------------- | --------------------------------------- |
+| element   | `h1`                | Use `asChild` for `h2` through `h6`     |
+| `size`    | by rendered element | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
+| `weight`  | `semibold`          | `regular`, `medium`, `semibold`, `bold` |
+| `asChild` | `false`             | Ark factory composition                 |
 
 ### Behavioral notes
 
-- Default size mapping follows the semantic level: `h1 -> 2xl`, `h2 -> xl`, `h3 -> lg`, `h4 -> md`,
-  `h5 -> sm`, `h6 -> xs`.
-- `Heading` keeps native `h1`-`h6` semantics and does not need extra ARIA by default.
-- Use `size` for appearance changes instead of changing the semantic level for visual reasons.
-- The root uses `text-wrap: balance` and `overflow-wrap: break-word` by default.
+- Default visual sizes follow the rendered element: `h1 -> 2xl`, `h2 -> xl`, `h3 -> lg`,
+  `h4 -> md`, `h5 -> sm`, and `h6 -> xs`.
+- An explicit `size` overrides the element-based default without changing semantics.
+- The root forwards its ref to the rendered heading element.
+- Native headings need no additional ARIA. Do not use a non-heading child with `asChild`.
+- `Heading` is stateless and has no callbacks, keyboard behavior, providers, or context hooks.
 
 ## Examples
 
 ### Semantic Level and Visual Size
 
-Keep document structure and visual emphasis independent by combining `as` and `size`.
+Keep document structure and visual emphasis independent by composing a semantic child and applying
+an explicit visual size.
 
 <Preview>
   <HeadingSemanticLevelExample />
@@ -137,22 +163,39 @@ Keep document structure and visual emphasis independent by combining `as` and `s
   <Preview.Code>
     {`
       import { Heading } from "moduix";
+      import styles from "./heading.module.css";
 
       export function SemanticHeadingDemo() {
         return (
-          <Heading as="h2" size="2xl">
-            Page title rendered as h2
+          <Heading asChild size="2xl" className={styles.demo}>
+            <h2>{headingText}</h2>
           </Heading>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .demo {
+        max-width: 28rem;
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const headingText = "Page title rendered as h2";
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Heading Levels
 
-Use `as` to pick the semantic level. Each level maps to a sensible default visual size.
+Use `asChild` for `h2` through `h6`. The default visual scale follows the actual heading element.
 
 <Preview>
   <HeadingElementsExample />
@@ -160,16 +203,17 @@ Use `as` to pick the semantic level. Each level maps to a sensible default visua
   <Preview.Code>
     {`
       import { Heading } from "moduix";
+      import styles from "./heading.module.css";
 
       export function HeadingLevelsDemo() {
         return (
-          <div className="heading-stack">
-            <Heading as="h1">Heading level 1</Heading>
-            <Heading as="h2">Heading level 2</Heading>
-            <Heading as="h3">Heading level 3</Heading>
-            <Heading as="h4">Heading level 4</Heading>
-            <Heading as="h5">Heading level 5</Heading>
-            <Heading as="h6">Heading level 6</Heading>
+          <div className={styles.stack}>
+            <Heading>{headingLevels[0].label}</Heading>
+            <Heading asChild><h2>{headingLevels[1].label}</h2></Heading>
+            <Heading asChild><h3>{headingLevels[2].label}</h3></Heading>
+            <Heading asChild><h4>{headingLevels[3].label}</h4></Heading>
+            <Heading asChild><h5>{headingLevels[4].label}</h5></Heading>
+            <Heading asChild><h6>{headingLevels[5].label}</h6></Heading>
           </div>
         );
       }
@@ -179,7 +223,7 @@ Use `as` to pick the semantic level. Each level maps to a sensible default visua
 
   <Preview.CSS>
     {`
-      .heading-stack {
+      .stack {
         display: flex;
         width: fit-content;
         max-width: min(32rem, calc(100vw - var(--spacing-8)));
@@ -189,11 +233,25 @@ Use `as` to pick the semantic level. Each level maps to a sensible default visua
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const headingLevels = [
+        { level: 1, label: "Heading level 1" },
+        { level: 2, label: "Heading level 2" },
+        { level: 3, label: "Heading level 3" },
+        { level: 4, label: "Heading level 4" },
+        { level: 5, label: "Heading level 5" },
+        { level: 6, label: "Heading level 6" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Visual Sizes
 
-Use `size` when the same semantic level needs different visual density across layouts.
+Use `size` when multiple headings share one semantic level but need different visual emphasis.
 
 <Preview>
   <HeadingSizesExample />
@@ -201,16 +259,16 @@ Use `size` when the same semantic level needs different visual density across la
   <Preview.Code>
     {`
       import { Heading } from "moduix";
+      import styles from "./heading.module.css";
 
       export function HeadingSizesDemo() {
         return (
-          <div className="heading-stack">
-            <Heading as="h2" size="2xl">Extra-large heading</Heading>
-            <Heading as="h2" size="xl">Large heading</Heading>
-            <Heading as="h2" size="lg">Medium-large heading</Heading>
-            <Heading as="h2" size="md">Medium heading</Heading>
-            <Heading as="h2" size="sm">Small heading</Heading>
-            <Heading as="h2" size="xs">Extra-small heading</Heading>
+          <div className={styles.stack}>
+            {headingSizes.map((item) => (
+              <Heading key={item.size} asChild size={item.size}>
+                <h2>{item.label}</h2>
+              </Heading>
+            ))}
           </div>
         );
       }
@@ -220,7 +278,7 @@ Use `size` when the same semantic level needs different visual density across la
 
   <Preview.CSS>
     {`
-      .heading-stack {
+      .stack {
         display: flex;
         width: fit-content;
         max-width: min(32rem, calc(100vw - var(--spacing-8)));
@@ -230,11 +288,25 @@ Use `size` when the same semantic level needs different visual density across la
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const headingSizes = [
+        { size: "2xl", label: "Extra-large heading" },
+        { size: "xl", label: "Large heading" },
+        { size: "lg", label: "Medium-large heading" },
+        { size: "md", label: "Medium heading" },
+        { size: "sm", label: "Small heading" },
+        { size: "xs", label: "Extra-small heading" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Weights
 
-Use `weight` for the common emphasis presets without writing custom CSS.
+Use `weight` for the built-in typography emphasis presets.
 
 <Preview>
   <HeadingWeightsExample />
@@ -242,14 +314,16 @@ Use `weight` for the common emphasis presets without writing custom CSS.
   <Preview.Code>
     {`
       import { Heading } from "moduix";
+      import styles from "./heading.module.css";
 
       export function HeadingWeightsDemo() {
         return (
-          <div className="heading-stack">
-            <Heading as="h2" weight="regular">Regular weight</Heading>
-            <Heading as="h2" weight="medium">Medium weight</Heading>
-            <Heading as="h2" weight="semibold">Semibold weight</Heading>
-            <Heading as="h2" weight="bold">Bold weight</Heading>
+          <div className={styles.stack}>
+            {headingWeights.map((item) => (
+              <Heading key={item.weight} asChild weight={item.weight}>
+                <h2>{item.label}</h2>
+              </Heading>
+            ))}
           </div>
         );
       }
@@ -259,7 +333,7 @@ Use `weight` for the common emphasis presets without writing custom CSS.
 
   <Preview.CSS>
     {`
-      .heading-stack {
+      .stack {
         display: flex;
         width: fit-content;
         max-width: min(32rem, calc(100vw - var(--spacing-8)));
@@ -269,12 +343,23 @@ Use `weight` for the common emphasis presets without writing custom CSS.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const headingWeights = [
+        { weight: "regular", label: "Regular weight" },
+        { weight: "medium", label: "Medium weight" },
+        { weight: "semibold", label: "Semibold weight" },
+        { weight: "bold", label: "Bold weight" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Styling
 
-Pass `className` when one heading needs scoped visual overrides on top of the shared typography
-contract.
+Pass `className` to override public typography variables on one heading.
 
 <Preview>
   <CustomStylingHeadingExample />
@@ -282,11 +367,12 @@ contract.
   <Preview.Code>
     {`
       import { Heading } from "moduix";
+      import styles from "./heading.module.css";
 
       export function CustomHeadingDemo() {
         return (
-          <Heading as="h2" className="heading-custom">
-            Customized heading
+          <Heading asChild className={styles.custom}>
+            <h2>{headingText}</h2>
           </Heading>
         );
       }
@@ -296,7 +382,7 @@ contract.
 
   <Preview.CSS>
     {`
-      .heading-custom {
+      .custom {
         --heading-color: var(--color-primary);
         --heading-font-size-xl: var(--text-3xl);
         --heading-line-height-xl: var(--line-height-text-3xl);
@@ -305,12 +391,16 @@ contract.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const headingText = "Customized heading";
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Styling
-
-Style `Heading` through `className`, root data attributes, and the public `--heading-*` CSS
-variables defined in [`theme.css`](/Users/sergejvrenev/Desktop/dev/2gis/moduix/packages/ui/src/styles/theme.css:1140).
 
 ### CSS Properties
 
@@ -324,8 +414,9 @@ variables defined in [`theme.css`](/Users/sergejvrenev/Desktop/dev/2gis/moduix/p
 
 ### Styling hooks
 
-- `data-slot="heading-root"` is the stable selector on the exported root.
-- `data-size` reflects the resolved visual size: `xs`, `sm`, `md`, `lg`, `xl`, or `2xl`.
-- `data-weight` reflects the resolved weight preset: `regular`, `medium`, `semibold`, or `bold`.
-- Use `className` and `--heading-*` variables for color, typography scale, wrapping, and one-off
-  presentation overrides.
+- `data-scope="heading"` identifies the Ark-aligned component scope.
+- `data-part="root"` identifies the single root part.
+- `data-slot="heading-root"` is the stable moduix selector.
+- `data-size` is present when `size` is explicitly set.
+- `data-weight` reflects `regular`, `medium`, `semibold`, or `bold`.
+- Use `className` and `--heading-*` variables for scoped visual overrides.

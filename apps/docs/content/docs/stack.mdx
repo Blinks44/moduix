@@ -34,7 +34,7 @@ common alignment.
       export function StackDemo() {
         return (
           <Stack gap={12} className={styles.panel}>
-            <Heading as="h3" size="md">Project updates</Heading>
+            <Heading asChild size="md"><h3>Project updates</h3></Heading>
             <Text tone="muted">
               Use Stack when the layout intent is just flex direction, spacing, and alignment.
             </Text>
@@ -341,7 +341,7 @@ Use `as` when the layout wrapper should also describe document structure.
       export function StackSemanticDemo() {
         return (
           <Stack as="section" gap={12} className={styles.panel}>
-            <Heading as="h3" size="md">Rendered as section</Heading>
+            <Heading asChild size="md"><h3>Rendered as section</h3></Heading>
             <Text tone="muted">
               Use as when the layout wrapper should also carry document semantics.
             </Text>

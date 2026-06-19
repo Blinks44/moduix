@@ -1,197 +1,142 @@
 # Heading
 
-`Heading` is a native typography wrapper for semantic section titles and page titles.
+Upstream docs:
 
-There is no Base UI heading primitive behind this component. The contract is intentionally small:
-it renders exactly one `h1`-`h6` element, adds library typography styles, and exposes a few styling
-hooks for size and weight.
+- Ark UI composition guide: https://ark-ui.com/docs/guides/composition
+- Ark UI factory: https://ark-ui.com/docs/guides/composition#factory
 
 ## Purpose
 
-Use `Heading` when you need:
+`Heading` provides semantic document headings with moduix typography sizes, weights, and styling
+tokens.
 
-- native heading semantics for the document outline;
-- design-system heading tokens without writing custom CSS;
-- visual size overrides that stay independent from semantic level.
+## Upstream model to preserve
 
-Use `Text` for body copy, inline copy, and muted/supporting text.
+Ark UI does not ship a dedicated heading primitive. moduix implements `Heading` as a thin
+`@ark-ui/react/factory` wrapper.
+
+Preserve the Ark composition model: one root part, native `h1` output by default, semantic element
+replacement through `asChild`, and no Base UI `render` or legacy `as` contract.
 
 ## Current behavior contract
 
-`Heading` renders a single heading root with:
+- `Heading` is the primary root component.
+- `Heading.Root` is the same component exposed for Ark-style namespace consistency.
+- The root renders `h1` by default and accepts Ark factory heading props, including `asChild`.
+- `size` controls visual scale independently from semantic level.
+- `weight` defaults to `semibold`.
+- Without an explicit `size`, native `h1` through `h6` elements map to `2xl` through `xs`.
+- The component has no managed state, callbacks, keyboard behavior, or ARIA abstraction.
 
-- `data-slot="heading-root"`;
-- `data-size` for the resolved size variant;
-- `data-weight` for the resolved weight variant.
+## Anatomy and exported parts
 
-The component does **not** expose slots, subcomponents, `render`, or structural composition helpers.
-`className` and CSS variables are the supported escape hatches.
-
-Default behavior:
-
-| Prop     | Default    | Values                                  |
-| -------- | ---------- | --------------------------------------- |
-| `as`     | `h1`       | `h1`, `h2`, `h3`, `h4`, `h5`, `h6`      |
-| `size`   | by `as`    | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
-| `weight` | `semibold` | `regular`, `medium`, `semibold`, `bold` |
-
-Default size mapping:
-
-- `h1 -> 2xl`
-- `h2 -> xl`
-- `h3 -> lg`
-- `h4 -> md`
-- `h5 -> sm`
-- `h6 -> xs`
-
-## Basic usage
-
-```tsx
-import { Heading } from 'moduix';
-
-export function Example() {
-  return <Heading>Build reliable interfaces</Heading>;
-}
+```text
+Heading / Heading.Root
+└─ text or inline content
 ```
+
+| Part                       | Stable hooks                                                           |
+| -------------------------- | ---------------------------------------------------------------------- |
+| `Heading` / `Heading.Root` | `data-scope="heading"`, `data-part="root"`, `data-slot="heading-root"` |
+
+The root also exposes `data-size` when `size` is explicit and `data-weight` for the resolved weight
+preset.
 
 ## Composition
 
-Keep semantics and presentation separate:
-
 ```tsx
 import { Heading } from 'moduix';
 
 export function Example() {
   return (
-    <>
-      <Heading as="h1">Page title</Heading>
-      <Heading as="h2" size="2xl">
-        Hero title rendered as h2
-      </Heading>
-    </>
-  );
-}
-```
-
-Recommended usage:
-
-- use `as` for document structure;
-- use `size` only when visual hierarchy should differ from semantic level;
-- use `weight` for the built-in emphasis presets;
-- use `className` or CSS variables for one-off styling changes.
-
-The children should stay simple: text and inline content are the intended path. `Heading` does not
-manage spacing, layout, truncation, or focus behavior for nested interactive content.
-
-## Public API
-
-`Heading` accepts native heading attributes plus these wrapper props:
-
-| Prop        | Type                                    | Description                                           |
-| ----------- | --------------------------------------- | ----------------------------------------------------- |
-| `as`        | `h1 \| h2 \| h3 \| h4 \| h5 \| h6`      | Chooses the semantic heading element.                 |
-| `size`      | `xs \| sm \| md \| lg \| xl \| 2xl`     | Overrides the visual size without changing semantics. |
-| `weight`    | `regular \| medium \| semibold \| bold` | Controls the font-weight preset.                      |
-| `className` | `string`                                | Adds classes to the root heading element.             |
-
-Exported types:
-
-- `HeadingProps`
-- `HeadingLevel`
-- `HeadingSize`
-- `HeadingWeight`
-
-## Styling API
-
-Root hooks:
-
-- `data-slot="heading-root"`
-- `data-size="xs" | "sm" | "md" | "lg" | "xl" | "2xl"`
-- `data-weight="regular" | "medium" | "semibold" | "bold"`
-
-Public CSS variables:
-
-| Variable                         | Default                       |
-| -------------------------------- | ----------------------------- |
-| `--heading-color`                | `var(--color-foreground)`     |
-| `--heading-font-family`          | `var(--font-sans)`            |
-| `--heading-font-size`            | size-dependent fallback       |
-| `--heading-font-size-xs`         | `var(--text-sm)`              |
-| `--heading-font-size-sm`         | `var(--text-md)`              |
-| `--heading-font-size-md`         | `var(--text-lg)`              |
-| `--heading-font-size-lg`         | `var(--text-xl)`              |
-| `--heading-font-size-xl`         | `var(--text-2xl)`             |
-| `--heading-font-size-2xl`        | `var(--text-3xl)`             |
-| `--heading-font-weight`          | `var(--weight-semibold)`      |
-| `--heading-font-weight-bold`     | `var(--weight-bold)`          |
-| `--heading-font-weight-medium`   | `var(--weight-medium)`        |
-| `--heading-font-weight-regular`  | `var(--weight-regular)`       |
-| `--heading-font-weight-semibold` | `var(--weight-semibold)`      |
-| `--heading-letter-spacing`       | `0`                           |
-| `--heading-line-height`          | size-dependent fallback       |
-| `--heading-line-height-xs`       | `var(--line-height-text-sm)`  |
-| `--heading-line-height-sm`       | `var(--line-height-text-md)`  |
-| `--heading-line-height-md`       | `var(--line-height-text-lg)`  |
-| `--heading-line-height-lg`       | `var(--line-height-text-xl)`  |
-| `--heading-line-height-xl`       | `var(--line-height-text-2xl)` |
-| `--heading-line-height-2xl`      | `var(--line-height-text-3xl)` |
-| `--heading-text-wrap`            | `balance`                     |
-
-Example override:
-
-```tsx
-import { Heading } from 'moduix';
-import styles from './example.module.css';
-
-export function Example() {
-  return (
-    <Heading as="h2" className={styles.customHeading}>
-      Customized heading
+    <Heading asChild size="2xl">
+      <h2>Page title rendered as h2</h2>
     </Heading>
   );
 }
 ```
 
-```css
-.customHeading {
-  --heading-color: var(--color-primary);
-  --heading-font-size-xl: var(--text-3xl);
-  --heading-line-height-xl: var(--line-height-text-3xl);
-  --heading-font-weight-semibold: var(--weight-bold);
-}
-```
+Use the short `<Heading>` form for an `h1`. Use the equivalent `<Heading.Root>` form when namespace
+consistency is useful. `asChild` requires one semantic child that accepts merged props and the
+forwarded heading ref.
 
-## UX and accessibility notes
+## Upstream feature coverage
 
-- `Heading` keeps native `h1`-`h6` semantics, so it does not need extra ARIA by default.
-- Do not change heading level for appearance alone; keep the outline correct and use `size` for visual overrides.
-- The component has no interactive, disabled, read-only, focus, or keyboard-management states.
-- Because the root uses `text-wrap: balance` by default, long titles wrap more evenly. Override
-  `--heading-text-wrap` if a layout needs a different wrapping strategy.
+- Ark factory composition is supported through `asChild`.
+- Native heading attributes and refs are forwarded to the rendered element.
+- Dedicated Ark anatomy, state, callbacks, providers, context hooks, and CSS variables are not
+  applicable because Ark has no heading primitive.
+- The relevant upstream example surface is semantic host composition; moduix documents default
+  `h1`, all native heading levels, visual sizes, weights, and custom styling.
 
-## Limitations and recommendations
+## Accessibility and state
 
-- `Heading` is not a general polymorphic typography component. If you need arbitrary tags or custom
-  rendered elements, use `Text` or compose your own wrapper.
-- There is no built-in tone, alignment, truncation, or spacing API. Keep those concerns in layout
-  or component-specific styles.
-- Keep headings concise. Large blocks of copy should move to `Text`.
+- The rendered `h1` through `h6` element provides native heading semantics without additional ARIA.
+- Choose heading levels from the document outline. Use `size` for visual hierarchy changes.
+- `asChild` must receive exactly one `h1` through `h6` child. Using a non-heading host would discard
+  the component's intended accessibility contract.
+- The forwarded ref targets the rendered heading element.
+- There is no controlled or uncontrolled state, keyboard navigation, form context, hidden input, or
+  callback contract.
 
-## Intentional differences from Base UI
+## Defaults and styling
 
-- no Base UI primitive wrapper;
-- no stateful behavior or interaction layer;
-- no parts API beyond the root element;
-- no helper props beyond semantic level, visual size, and weight.
+| Entry       | Default             | Values / Notes                          |
+| ----------- | ------------------- | --------------------------------------- |
+| element     | `h1`                | Use `asChild` for `h2` through `h6`     |
+| `size`      | by rendered element | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
+| `weight`    | `semibold`          | `regular`, `medium`, `semibold`, `bold` |
+| `asChild`   | `false`             | Ark factory composition                 |
+| `className` | -                   | Applied to the rendered heading root    |
+
+Default semantic size mapping:
+
+| Element | Size  |
+| ------- | ----- |
+| `h1`    | `2xl` |
+| `h2`    | `xl`  |
+| `h3`    | `lg`  |
+| `h4`    | `md`  |
+| `h5`    | `sm`  |
+| `h6`    | `xs`  |
+
+Public CSS variables:
+
+| Variable                         | Default                               |
+| -------------------------------- | ------------------------------------- |
+| `--heading-color`                | `var(--color-foreground)`             |
+| `--heading-font-family`          | inherited                             |
+| `--heading-font-size`            | size-dependent fallback               |
+| `--heading-font-size-{size}`     | matching `--text-*` token             |
+| `--heading-font-weight`          | selected weight fallback              |
+| `--heading-font-weight-{weight}` | matching `--weight-*` token           |
+| `--heading-letter-spacing`       | `0`                                   |
+| `--heading-line-height`          | size-dependent fallback               |
+| `--heading-line-height-{size}`   | matching `--line-height-text-*` token |
+| `--heading-text-wrap`            | `balance`                             |
+
+The root also uses `overflow-wrap: break-word`.
+
+## Intentional sugar and differences from upstream
+
+- moduix adds visual `size` and `weight` props and the `--heading-*` token contract.
+- moduix adds `Heading.Root` as an Ark-style namespace alias.
+- moduix adds `data-scope`, `data-part`, and stable `data-slot` hooks.
+- The removed Base-style `as` prop and `HeadingLevel` type are intentionally not preserved.
+- `data-size` represents an explicit size override. When omitted, CSS derives the visual size from
+  the actual heading element.
 
 ## Agent notes
 
-- Preserve the default semantic-to-size mapping unless the public typography scale changes.
-- Preserve `data-slot`, `data-size`, `data-weight`, and the documented `--heading-*` variable contract.
-- Do not add polymorphic or slot-based APIs unless there is a repeated consumer need strong enough to
-  justify the extra surface area.
+- Keep this component root-only and stateless.
+- Preserve the native `h1` default, `asChild` composition, heading-only semantic constraint, and ref
+  forwarding.
+- Keep explicit `size` selectors stronger than the implicit element-based size mapping.
+- Preserve the public `data-*` and `--heading-*` styling contracts.
 
 ## Local changelog
 
-- 2026-06-02: Rewrote the local documentation around the shipped `Heading` wrapper contract and
-  documented the exported `Heading*` TypeScript types.
+- 2026-06-19: Migrated `Heading` from the legacy `as` contract to an Ark factory root with
+  `asChild`, `Heading.Root`, ref forwarding, Ark-style part hooks, semantic element-based default
+  sizing, and synchronized stories and documentation.
+- 2026-06-02: Documented the previous native wrapper contract and exported typography types.

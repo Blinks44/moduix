@@ -2,6 +2,32 @@ import type { ComponentProps } from 'react';
 import { Heading } from 'moduix';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
+import styles from './heading.module.css';
+
+export const headingLevels = [
+  { level: 1, label: 'Heading level 1' },
+  { level: 2, label: 'Heading level 2' },
+  { level: 3, label: 'Heading level 3' },
+  { level: 4, label: 'Heading level 4' },
+  { level: 5, label: 'Heading level 5' },
+  { level: 6, label: 'Heading level 6' },
+] as const;
+
+export const headingSizes = [
+  { size: '2xl', label: 'Extra-large heading' },
+  { size: 'xl', label: 'Large heading' },
+  { size: 'lg', label: 'Medium-large heading' },
+  { size: 'md', label: 'Medium heading' },
+  { size: 'sm', label: 'Small heading' },
+  { size: 'xs', label: 'Extra-small heading' },
+] as const;
+
+export const headingWeights = [
+  { weight: 'regular', label: 'Regular weight' },
+  { weight: 'medium', label: 'Medium weight' },
+  { weight: 'semibold', label: 'Semibold weight' },
+  { weight: 'bold', label: 'Bold weight' },
+] as const;
 
 export const headingOverrideCssProperties = [
   {
@@ -126,78 +152,72 @@ export function HeadingCssPropertiesPanel() {
 }
 
 export function HeadingExample(props: ComponentProps<typeof Heading>) {
-  return <Heading {...props}>Build reliable interfaces</Heading>;
+  return (
+    <Heading className={styles.demo} {...props}>
+      Build reliable interfaces
+    </Heading>
+  );
 }
 
 export function HeadingElementsExample() {
   return (
-    <div className="heading-stack">
-      <Heading as="h1">Heading level 1</Heading>
-      <Heading as="h2">Heading level 2</Heading>
-      <Heading as="h3">Heading level 3</Heading>
-      <Heading as="h4">Heading level 4</Heading>
-      <Heading as="h5">Heading level 5</Heading>
-      <Heading as="h6">Heading level 6</Heading>
+    <div className={styles.stack}>
+      <Heading>{headingLevels[0].label}</Heading>
+      <Heading asChild>
+        <h2>{headingLevels[1].label}</h2>
+      </Heading>
+      <Heading asChild>
+        <h3>{headingLevels[2].label}</h3>
+      </Heading>
+      <Heading asChild>
+        <h4>{headingLevels[3].label}</h4>
+      </Heading>
+      <Heading asChild>
+        <h5>{headingLevels[4].label}</h5>
+      </Heading>
+      <Heading asChild>
+        <h6>{headingLevels[5].label}</h6>
+      </Heading>
     </div>
   );
 }
 
 export function HeadingSizesExample() {
   return (
-    <div className="heading-stack">
-      <Heading as="h2" size="2xl">
-        Extra-large heading
-      </Heading>
-      <Heading as="h2" size="xl">
-        Large heading
-      </Heading>
-      <Heading as="h2" size="lg">
-        Medium-large heading
-      </Heading>
-      <Heading as="h2" size="md">
-        Medium heading
-      </Heading>
-      <Heading as="h2" size="sm">
-        Small heading
-      </Heading>
-      <Heading as="h2" size="xs">
-        Extra-small heading
-      </Heading>
+    <div className={styles.stack}>
+      {headingSizes.map((item) => (
+        <Heading key={item.size} asChild size={item.size}>
+          <h2>{item.label}</h2>
+        </Heading>
+      ))}
     </div>
   );
 }
 
 export function HeadingWeightsExample() {
   return (
-    <div className="heading-stack">
-      <Heading as="h2" weight="regular">
-        Regular weight
-      </Heading>
-      <Heading as="h2" weight="medium">
-        Medium weight
-      </Heading>
-      <Heading as="h2" weight="semibold">
-        Semibold weight
-      </Heading>
-      <Heading as="h2" weight="bold">
-        Bold weight
-      </Heading>
+    <div className={styles.stack}>
+      {headingWeights.map((item) => (
+        <Heading key={item.weight} asChild weight={item.weight}>
+          <h2>{item.label}</h2>
+        </Heading>
+      ))}
     </div>
   );
 }
 
 export function HeadingSemanticLevelExample() {
   return (
-    <Heading as="h2" size="2xl">
-      Page title rendered as h2
+    <Heading asChild size="2xl" className={styles.demo}>
+      <h2>Page title rendered as h2</h2>
     </Heading>
   );
 }
 
 export function CustomStylingHeadingExample() {
   return (
-    <Heading as="h2" className="heading-custom">
-      Customized heading
+    <Heading asChild className={styles.custom}>
+      <h2>Customized heading</h2>
     </Heading>
   );
 }
