@@ -1,14 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ComputerIcon, MapIcon } from '@/icons/demo';
 import { Button } from '../button';
-import {
-  Empty,
-  EmptyActions,
-  EmptyContent,
-  EmptyDescription,
-  EmptyIcon,
-  EmptyTitle,
-} from './Empty';
+import { Empty } from './Empty';
 import styles from './Empty.stories.module.css';
 
 const meta = {
@@ -27,19 +20,19 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <Empty className={styles.empty}>
-      <EmptyIcon>
+      <Empty.Icon>
         <ComputerIcon />
-      </EmptyIcon>
-      <EmptyContent>
-        <EmptyTitle>No deployments yet</EmptyTitle>
-        <EmptyDescription>
+      </Empty.Icon>
+      <Empty.Content>
+        <Empty.Title>No deployments yet</Empty.Title>
+        <Empty.Description>
           Connect a repository to start tracking release status and deployment history.
-        </EmptyDescription>
-      </EmptyContent>
-      <EmptyActions>
+        </Empty.Description>
+      </Empty.Content>
+      <Empty.Actions>
         <Button>Connect repository</Button>
         <Button variant="outline">Read setup guide</Button>
-      </EmptyActions>
+      </Empty.Actions>
     </Empty>
   ),
 };
@@ -47,15 +40,15 @@ export const Basic: Story = {
 export const WithoutActions: Story = {
   render: () => (
     <Empty className={styles.empty}>
-      <EmptyIcon>
+      <Empty.Icon>
         <MapIcon />
-      </EmptyIcon>
-      <EmptyContent>
-        <EmptyTitle>No saved places</EmptyTitle>
-        <EmptyDescription>
+      </Empty.Icon>
+      <Empty.Content>
+        <Empty.Title>No saved places</Empty.Title>
+        <Empty.Description>
           Save frequently used destinations to keep them close to your workspace.
-        </EmptyDescription>
-      </EmptyContent>
+        </Empty.Description>
+      </Empty.Content>
     </Empty>
   ),
 };
@@ -63,15 +56,15 @@ export const WithoutActions: Story = {
 export const WithoutIcon: Story = {
   render: () => (
     <Empty className={styles.empty}>
-      <EmptyContent>
-        <EmptyTitle>No results found</EmptyTitle>
-        <EmptyDescription>
+      <Empty.Content>
+        <Empty.Title>No results found</Empty.Title>
+        <Empty.Description>
           Try changing the search query or clearing one of the active filters.
-        </EmptyDescription>
-      </EmptyContent>
-      <EmptyActions>
+        </Empty.Description>
+      </Empty.Content>
+      <Empty.Actions>
         <Button variant="outline">Clear filters</Button>
-      </EmptyActions>
+      </Empty.Actions>
     </Empty>
   ),
 };
@@ -79,18 +72,18 @@ export const WithoutIcon: Story = {
 export const CustomStyles: Story = {
   render: () => (
     <Empty className={styles.customEmpty}>
-      <EmptyIcon className={styles.customIcon}>
+      <Empty.Icon className={styles.customIcon}>
         <ComputerIcon />
-      </EmptyIcon>
-      <EmptyContent>
-        <EmptyTitle>Invite your team</EmptyTitle>
-        <EmptyDescription>
+      </Empty.Icon>
+      <Empty.Content>
+        <Empty.Title>Invite your team</Empty.Title>
+        <Empty.Description>
           Shared projects, comments, and approvals appear here after the first teammate joins.
-        </EmptyDescription>
-      </EmptyContent>
-      <EmptyActions>
+        </Empty.Description>
+      </Empty.Content>
+      <Empty.Actions>
         <Button>Send invite</Button>
-      </EmptyActions>
+      </Empty.Actions>
     </Empty>
   ),
 };

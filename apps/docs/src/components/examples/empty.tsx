@@ -1,18 +1,57 @@
 import type { ComponentProps } from 'react';
-import {
-  Button,
-  ComputerIcon,
-  Empty,
-  EmptyActions,
-  EmptyContent,
-  EmptyDescription,
-  EmptyIcon,
-  EmptyTitle,
-  MapIcon,
-} from 'moduix';
+import { Button, ComputerIcon, Empty, MapIcon } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './empty.module.css';
+
+const deploymentEmpty = {
+  title: 'No deployments yet',
+  description: 'Connect a repository to start tracking release status and deployment history.',
+  primaryAction: 'Connect repository',
+  secondaryAction: 'Read setup guide',
+};
+
+const savedPlacesEmpty = {
+  title: 'No saved places',
+  description: 'Save frequently used destinations to keep them close to your workspace.',
+};
+
+const searchResultsEmpty = {
+  title: 'No results found',
+  description: 'Try changing the search query or clearing one of the active filters.',
+  action: 'Clear filters',
+};
+
+const teamInviteEmpty = {
+  title: 'Invite your team',
+  description:
+    'Shared projects, comments, and approvals appear here after the first teammate joins.',
+  action: 'Send invite',
+};
+
+export const emptyDeploymentData = `const emptyState = {
+  title: 'No deployments yet',
+  description: 'Connect a repository to start tracking release status and deployment history.',
+  primaryAction: 'Connect repository',
+  secondaryAction: 'Read setup guide',
+};`;
+
+export const emptySavedPlacesData = `const emptyState = {
+  title: 'No saved places',
+  description: 'Save frequently used destinations to keep them close to your workspace.',
+};`;
+
+export const emptySearchResultsData = `const emptyState = {
+  title: 'No results found',
+  description: 'Try changing the search query or clearing one of the active filters.',
+  action: 'Clear filters',
+};`;
+
+export const emptyTeamInviteData = `const emptyState = {
+  title: 'Invite your team',
+  description: 'Shared projects, comments, and approvals appear here after the first teammate joins.',
+  action: 'Send invite',
+};`;
 
 export const emptyOverrideCssProperties = [
   {
@@ -130,19 +169,17 @@ export function EmptyCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
 export function EmptyExample(props: ComponentProps<typeof Empty>) {
   return (
     <Empty className={styles.empty} {...props}>
-      <EmptyIcon>
+      <Empty.Icon>
         <ComputerIcon />
-      </EmptyIcon>
-      <EmptyContent>
-        <EmptyTitle>No deployments yet</EmptyTitle>
-        <EmptyDescription>
-          Connect a repository to start tracking release status and deployment history.
-        </EmptyDescription>
-      </EmptyContent>
-      <EmptyActions>
-        <Button>Connect repository</Button>
-        <Button variant="outline">Read setup guide</Button>
-      </EmptyActions>
+      </Empty.Icon>
+      <Empty.Content>
+        <Empty.Title>{deploymentEmpty.title}</Empty.Title>
+        <Empty.Description>{deploymentEmpty.description}</Empty.Description>
+      </Empty.Content>
+      <Empty.Actions>
+        <Button>{deploymentEmpty.primaryAction}</Button>
+        <Button variant="outline">{deploymentEmpty.secondaryAction}</Button>
+      </Empty.Actions>
     </Empty>
   );
 }
@@ -150,15 +187,13 @@ export function EmptyExample(props: ComponentProps<typeof Empty>) {
 export function EmptyWithoutActionsExample() {
   return (
     <Empty className={styles.empty}>
-      <EmptyIcon>
+      <Empty.Icon>
         <MapIcon />
-      </EmptyIcon>
-      <EmptyContent>
-        <EmptyTitle>No saved places</EmptyTitle>
-        <EmptyDescription>
-          Save frequently used destinations to keep them close to your workspace.
-        </EmptyDescription>
-      </EmptyContent>
+      </Empty.Icon>
+      <Empty.Content>
+        <Empty.Title>{savedPlacesEmpty.title}</Empty.Title>
+        <Empty.Description>{savedPlacesEmpty.description}</Empty.Description>
+      </Empty.Content>
     </Empty>
   );
 }
@@ -166,15 +201,13 @@ export function EmptyWithoutActionsExample() {
 export function EmptyWithoutIconExample() {
   return (
     <Empty className={styles.empty}>
-      <EmptyContent>
-        <EmptyTitle>No results found</EmptyTitle>
-        <EmptyDescription>
-          Try changing the search query or clearing one of the active filters.
-        </EmptyDescription>
-      </EmptyContent>
-      <EmptyActions>
-        <Button variant="outline">Clear filters</Button>
-      </EmptyActions>
+      <Empty.Content>
+        <Empty.Title>{searchResultsEmpty.title}</Empty.Title>
+        <Empty.Description>{searchResultsEmpty.description}</Empty.Description>
+      </Empty.Content>
+      <Empty.Actions>
+        <Button variant="outline">{searchResultsEmpty.action}</Button>
+      </Empty.Actions>
     </Empty>
   );
 }
@@ -182,18 +215,16 @@ export function EmptyWithoutIconExample() {
 export function EmptyCustomStylesExample() {
   return (
     <Empty className={styles.customEmpty}>
-      <EmptyIcon className={styles.customIcon}>
+      <Empty.Icon className={styles.customIcon}>
         <ComputerIcon />
-      </EmptyIcon>
-      <EmptyContent>
-        <EmptyTitle>Invite your team</EmptyTitle>
-        <EmptyDescription>
-          Shared projects, comments, and approvals appear here after the first teammate joins.
-        </EmptyDescription>
-      </EmptyContent>
-      <EmptyActions>
-        <Button>Send invite</Button>
-      </EmptyActions>
+      </Empty.Icon>
+      <Empty.Content>
+        <Empty.Title>{teamInviteEmpty.title}</Empty.Title>
+        <Empty.Description>{teamInviteEmpty.description}</Empty.Description>
+      </Empty.Content>
+      <Empty.Actions>
+        <Button>{teamInviteEmpty.action}</Button>
+      </Empty.Actions>
     </Empty>
   );
 }

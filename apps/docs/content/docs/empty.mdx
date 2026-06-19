@@ -10,17 +10,23 @@ import {
   EmptyExample,
   EmptyWithoutActionsExample,
   EmptyWithoutIconExample,
+  emptyDeploymentData,
+  emptySavedPlacesData,
+  emptySearchResultsData,
+  emptyTeamInviteData,
 } from '@/components/examples/empty';
 
 ## API Reference
 
-`Empty` does not wrap a Base UI primitive. It is a standalone moduix presentational component built for
-empty-state layouts.
+Ark UI does not ship a dedicated Empty primitive. `Empty` follows the
+[Ark factory and `asChild` composition model](https://ark-ui.com/docs/guides/composition) and the
+[Ark data-attribute styling model](https://ark-ui.com/docs/guides/styling) as a moduix-owned
+empty-state layout component.
 
 ## Basic
 
-Start with `Empty`, `EmptyContent`, `EmptyTitle`, and `EmptyDescription`. Add `EmptyIcon` and
-`EmptyActions` only when the state needs a visual cue or an explicit next step.
+Start with the callable `<Empty />` root and namespaced parts. Add `Empty.Icon` and
+`Empty.Actions` only when the state needs a visual cue or an explicit next step.
 
 <Preview>
   <EmptyExample />
@@ -31,30 +37,22 @@ Start with `Empty`, `EmptyContent`, `EmptyTitle`, and `EmptyDescription`. Add `E
         Button,
         ComputerIcon,
         Empty,
-        EmptyActions,
-        EmptyContent,
-        EmptyDescription,
-        EmptyIcon,
-        EmptyTitle,
       } from "moduix";
 
       export function EmptyDemo() {
         return (
           <Empty className="empty">
-            <EmptyIcon>
+            <Empty.Icon>
               <ComputerIcon />
-            </EmptyIcon>
-            <EmptyContent>
-              <EmptyTitle>No deployments yet</EmptyTitle>
-              <EmptyDescription>
-                Connect a repository to start tracking release status and
-                deployment history.
-              </EmptyDescription>
-            </EmptyContent>
-            <EmptyActions>
-              <Button>Connect repository</Button>
-              <Button variant="outline">Read setup guide</Button>
-            </EmptyActions>
+            </Empty.Icon>
+            <Empty.Content>
+              <Empty.Title>{emptyState.title}</Empty.Title>
+              <Empty.Description>{emptyState.description}</Empty.Description>
+            </Empty.Content>
+            <Empty.Actions>
+              <Button>{emptyState.primaryAction}</Button>
+              <Button variant="outline">{emptyState.secondaryAction}</Button>
+            </Empty.Actions>
           </Empty>
         );
       }
@@ -70,6 +68,8 @@ Start with `Empty`, `EmptyContent`, `EmptyTitle`, and `EmptyDescription`. Add `E
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>{emptyDeploymentData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -115,43 +115,44 @@ aubx shadcn@latest add Blinks44/moduix/empty
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Empty` depends on, such
-as styles, icons, and small utilities.
+This install path also pulls in the shared moduix foundation files that `Empty` depends on, such as
+styles and small utilities.
 
-`Empty` gives missing-data states a consistent surface, optional icon slot, and wrapping actions row
-without locking consumers into workflow props like `title`, `description`, or `primaryAction`.
+`Empty` gives missing-data states a consistent Ark-style factory surface, optional icon slot, and
+wrapping actions row without locking consumers into workflow props like `title`, `description`, or
+`primaryAction`.
 
 ## Anatomy
 
 ```text
 Empty
-├─ EmptyIcon (optional)
-├─ EmptyContent
-│  ├─ EmptyTitle
-│  └─ EmptyDescription
-└─ EmptyActions (optional)
+├─ Empty.Icon (optional)
+├─ Empty.Content
+│  ├─ Empty.Title
+│  └─ Empty.Description
+└─ Empty.Actions (optional)
 ```
 
-| Part               | Role                                                               |
-| ------------------ | ------------------------------------------------------------------ |
-| `Empty`            | Root surface that owns padding, border, background, and alignment. |
-| `EmptyIcon`        | Optional icon or small visual affordance container.                |
-| `EmptyContent`     | Groups text content with tighter inner spacing.                    |
-| `EmptyTitle`       | Main empty-state heading.                                          |
-| `EmptyDescription` | Supporting description block for one or more text nodes.           |
-| `EmptyActions`     | Optional wrapping row for actions.                                 |
+| Part                   | Role                                                               |
+| ---------------------- | ------------------------------------------------------------------ |
+| `Empty` / `Empty.Root` | Root surface that owns padding, border, background, and alignment. |
+| `Empty.Icon`           | Optional icon or small visual affordance container.                |
+| `Empty.Content`        | Groups text content with tighter inner spacing.                    |
+| `Empty.Title`          | Main empty-state heading.                                          |
+| `Empty.Description`    | Supporting description block for one or more text nodes.           |
+| `Empty.Actions`        | Optional wrapping row for actions.                                 |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
 Stay with the exported parts for most empty states:
 
 - `Empty` for the surface and centered layout
-- `EmptyContent` for the text stack
-- `EmptyTitle` for the heading
-- `EmptyDescription` for supporting copy
-- `EmptyIcon` and `EmptyActions` only when they add value
+- `Empty.Content` for the text stack
+- `Empty.Title` for the heading
+- `Empty.Description` for supporting copy
+- `Empty.Icon` and `Empty.Actions` only when they add value
 
 This keeps the common path explicit and leaves room for richer descriptions, links, or custom
 buttons without introducing a configuration API.
@@ -161,22 +162,27 @@ buttons without introducing a configuration API.
 `Empty` does not hide a lower-level primitive layer. Customization usually means changing structure
 with normal React composition:
 
-- omit `EmptyIcon` or `EmptyActions`
-- add richer markup inside `EmptyDescription`
-- change the heading level with `EmptyTitle as`
+- omit `Empty.Icon` or `Empty.Actions`
+- add richer markup inside `Empty.Description`
+- change the heading level with `Empty.Title asChild`
 - apply `className` and `--empty-*` variables on the parts that own the visual concern
 
 ### Behavioral notes
 
-- `EmptyTitle` renders `h3` by default and accepts `as` for document outline control.
-- `EmptyDescription` renders a `div`, not a `p`, so it can safely contain block content.
-- `EmptyActions` centers and wraps its children, so paired actions stay readable in narrow layouts.
+- `Empty.Title` renders `h3` by default and accepts Ark factory `asChild` for document outline
+  control.
+- `Empty.Description` renders a `div`, not a `p`, so it can safely contain block content.
+- Every part forwards its ref to the rendered DOM element and accepts Ark factory `asChild` with a
+  single semantic child.
+- Parts render `data-scope="empty"` and matching `data-part` attributes for Ark-style styling,
+  plus stable `data-slot="empty-*"` hooks for moduix overrides.
+- `Empty.Actions` centers and wraps its children, so paired actions stay readable in narrow layouts.
 
 ## Examples
 
 ### Without Actions
 
-Omit `EmptyActions` when the state is only informational.
+Omit `Empty.Actions` when the state is only informational.
 
 <Preview>
   <EmptyWithoutActionsExample />
@@ -185,26 +191,19 @@ Omit `EmptyActions` when the state is only informational.
     {`
       import {
         Empty,
-        EmptyContent,
-        EmptyDescription,
-        EmptyIcon,
-        EmptyTitle,
         MapIcon,
       } from "moduix";
 
       export function SavedPlacesEmptyState() {
         return (
           <Empty className="empty">
-            <EmptyIcon>
+            <Empty.Icon>
               <MapIcon />
-            </EmptyIcon>
-            <EmptyContent>
-              <EmptyTitle>No saved places</EmptyTitle>
-              <EmptyDescription>
-                Save frequently used destinations to keep them close to your
-                workspace.
-              </EmptyDescription>
-            </EmptyContent>
+            </Empty.Icon>
+            <Empty.Content>
+              <Empty.Title>{emptyState.title}</Empty.Title>
+              <Empty.Description>{emptyState.description}</Empty.Description>
+            </Empty.Content>
           </Empty>
         );
       }
@@ -220,6 +219,8 @@ Omit `EmptyActions` when the state is only informational.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>{emptySavedPlacesData}</Preview.Data>
 </Preview>
 
 ### Without Icon
@@ -234,25 +235,18 @@ The visual slot is optional, so plain text-only empty states stay simple.
       import {
         Button,
         Empty,
-        EmptyActions,
-        EmptyContent,
-        EmptyDescription,
-        EmptyTitle,
       } from "moduix";
 
       export function SearchResultsEmptyState() {
         return (
           <Empty className="empty">
-            <EmptyContent>
-              <EmptyTitle>No results found</EmptyTitle>
-              <EmptyDescription>
-                Try changing the search query or clearing one of the active
-                filters.
-              </EmptyDescription>
-            </EmptyContent>
-            <EmptyActions>
-              <Button variant="outline">Clear filters</Button>
-            </EmptyActions>
+            <Empty.Content>
+              <Empty.Title>{emptyState.title}</Empty.Title>
+              <Empty.Description>{emptyState.description}</Empty.Description>
+            </Empty.Content>
+            <Empty.Actions>
+              <Button variant="outline">{emptyState.action}</Button>
+            </Empty.Actions>
           </Empty>
         );
       }
@@ -268,6 +262,8 @@ The visual slot is optional, so plain text-only empty states stay simple.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>{emptySearchResultsData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -284,29 +280,21 @@ screen tone.
         Button,
         ComputerIcon,
         Empty,
-        EmptyActions,
-        EmptyContent,
-        EmptyDescription,
-        EmptyIcon,
-        EmptyTitle,
       } from "moduix";
 
       export function TeamInviteEmptyState() {
         return (
           <Empty className="custom-empty">
-            <EmptyIcon className="custom-icon">
+            <Empty.Icon className="custom-icon">
               <ComputerIcon />
-            </EmptyIcon>
-            <EmptyContent>
-              <EmptyTitle>Invite your team</EmptyTitle>
-              <EmptyDescription>
-                Shared projects, comments, and approvals appear here after the
-                first teammate joins.
-              </EmptyDescription>
-            </EmptyContent>
-            <EmptyActions>
-              <Button>Send invite</Button>
-            </EmptyActions>
+            </Empty.Icon>
+            <Empty.Content>
+              <Empty.Title>{emptyState.title}</Empty.Title>
+              <Empty.Description>{emptyState.description}</Empty.Description>
+            </Empty.Content>
+            <Empty.Actions>
+              <Button>{emptyState.action}</Button>
+            </Empty.Actions>
           </Empty>
         );
       }
@@ -343,12 +331,14 @@ screen tone.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>{emptyTeamInviteData}</Preview.Data>
 </Preview>
 
 ## Styling
 
-Style `Empty` through `className`, stable `data-slot="empty-*"` hooks, and the public `--empty-*`
-CSS variables shown below.
+Style `Empty` through `className`, Ark `data-scope="empty"` / `data-part` selectors, stable
+`data-slot="empty-*"` hooks, and the public `--empty-*` CSS variables shown below.
 
 ### CSS Properties
 
@@ -364,8 +354,13 @@ CSS variables shown below.
 
 Target the part that owns the visual concern:
 
-- `data-slot="empty-root"` for surface layout, border, background, and shadow overrides
-- `data-slot="empty-icon"` for icon container sizing, padding, and colors
-- `data-slot="empty-content"` for text stack width and spacing
-- `data-slot="empty-title"` and `data-slot="empty-description"` for typography
-- `data-slot="empty-actions"` for action row spacing and alignment
+- `[data-scope="empty"][data-part="root"]` / `data-slot="empty-root"` for surface layout, border,
+  background, and shadow overrides
+- `[data-scope="empty"][data-part="icon"]` / `data-slot="empty-icon"` for icon container sizing,
+  padding, and colors
+- `[data-scope="empty"][data-part="content"]` / `data-slot="empty-content"` for text stack width
+  and spacing
+- `[data-scope="empty"][data-part="title"]` and
+  `[data-scope="empty"][data-part="description"]` for typography
+- `[data-scope="empty"][data-part="actions"]` / `data-slot="empty-actions"` for action row spacing
+  and alignment

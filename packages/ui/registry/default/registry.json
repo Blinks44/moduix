@@ -634,7 +634,7 @@
       "type": "registry:item",
       "title": "Empty",
       "description": "moduix Empty component.",
-      "dependencies": ["clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
