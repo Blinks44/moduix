@@ -1,6 +1,28 @@
-import { Kbd, KbdGroup } from 'moduix';
+import { Kbd } from 'moduix';
+import { Fragment } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
+
+const kbdBasicData = {
+  label: 'Command K',
+  keys: ['Cmd', 'K'],
+};
+
+const kbdSingleKeyData = 'Esc';
+const kbdAsChildData = { label: 'Esc', title: 'Escape' };
+
+const kbdShortcutListData = [
+  { label: 'Command K', keys: ['Cmd', 'K'], description: 'Open command menu' },
+  {
+    label: 'Shift question mark',
+    keys: ['Shift', '?'],
+    description: 'Show shortcuts',
+  },
+  { label: 'Escape', keys: ['Esc'], description: 'Close overlay' },
+];
+
+const kbdDenseData = ['Esc', 'Ctrl', '/'];
+const kbdCustomData = { label: 'Command K', keys: ['Cmd', 'K'] };
 
 export const kbdOverrideCssProperties: CssPropertyInput[] = [
   ['--kbd-bg', 'var(--color-muted)', 'Controls key background color.'],
@@ -14,7 +36,7 @@ export const kbdOverrideCssProperties: CssPropertyInput[] = [
   [
     '--kbd-group-separator-color',
     'var(--color-muted-foreground)',
-    'Controls text separator color inside KbdGroup.',
+    'Controls text separator color inside Kbd.Group.',
   ],
   ['--kbd-height', '1.5rem', 'Controls key height.'],
   ['--kbd-line-height', 'var(--line-height-text-xs)', 'Controls key line-height.'],
@@ -43,35 +65,37 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 export function KbdExample() {
   return (
-    <KbdGroup aria-label="Command K">
-      <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-    </KbdGroup>
+    <Kbd.Group aria-label={kbdBasicData.label}>
+      {kbdBasicData.keys.map((key, index) => (
+        <Fragment key={key}>
+          {index > 0 && '+'}
+          <Kbd>{key}</Kbd>
+        </Fragment>
+      ))}
+    </Kbd.Group>
   );
 }
 
 export function KbdSingleKeyExample() {
-  return <Kbd>Esc</Kbd>;
+  return <Kbd>{kbdSingleKeyData}</Kbd>;
 }
 
 export function KbdShortcutListExample() {
   return (
     <div className="kbd-demo-shortcut-list">
-      <div className="kbd-demo-shortcut-row">
-        <KbdGroup aria-label="Command K">
-          <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-        </KbdGroup>
-        Open command menu
-      </div>
-      <div className="kbd-demo-shortcut-row">
-        <KbdGroup aria-label="Shift question mark">
-          <Kbd>Shift</Kbd>+<Kbd>?</Kbd>
-        </KbdGroup>
-        Show shortcuts
-      </div>
-      <div className="kbd-demo-shortcut-row">
-        <Kbd>Esc</Kbd>
-        Close overlay
-      </div>
+      {kbdShortcutListData.map((shortcut) => (
+        <div key={shortcut.label} className="kbd-demo-shortcut-row">
+          <Kbd.Group aria-label={shortcut.label}>
+            {shortcut.keys.map((key, index) => (
+              <Fragment key={key}>
+                {index > 0 && '+'}
+                <Kbd>{key}</Kbd>
+              </Fragment>
+            ))}
+          </Kbd.Group>
+          {shortcut.description}
+        </div>
+      ))}
     </div>
   );
 }
@@ -79,17 +103,32 @@ export function KbdShortcutListExample() {
 export function KbdDenseExample() {
   return (
     <div className="kbd-demo-row">
-      <Kbd className="kbd-demo-dense">Esc</Kbd>
-      <Kbd className="kbd-demo-dense">Ctrl</Kbd>
-      <Kbd className="kbd-demo-dense">/</Kbd>
+      {kbdDenseData.map((key) => (
+        <Kbd key={key} className="kbd-demo-dense">
+          {key}
+        </Kbd>
+      ))}
     </div>
   );
 }
 
 export function CustomStylingKbdExample() {
   return (
-    <KbdGroup aria-label="Command K" className="kbd-demo-custom-group">
-      <Kbd className="kbd-demo-custom-key">Cmd</Kbd>+<Kbd className="kbd-demo-custom-key">K</Kbd>
-    </KbdGroup>
+    <Kbd.Group aria-label={kbdCustomData.label} className="kbd-demo-custom-group">
+      {kbdCustomData.keys.map((key, index) => (
+        <Fragment key={key}>
+          {index > 0 && '+'}
+          <Kbd className="kbd-demo-custom-key">{key}</Kbd>
+        </Fragment>
+      ))}
+    </Kbd.Group>
+  );
+}
+
+export function KbdAsChildExample() {
+  return (
+    <Kbd asChild>
+      <kbd title={kbdAsChildData.title}>{kbdAsChildData.label}</kbd>
+    </Kbd>
   );
 }

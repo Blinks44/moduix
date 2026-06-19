@@ -1,139 +1,142 @@
 # Kbd
 
-Upstream primitive docs: none. `Kbd` is a standalone moduix wrapper over native HTML `kbd` elements.
+## Upstream docs
+
+Ark UI has no dedicated Kbd primitive. This component follows the
+[Ark composition and factory model](https://ark-ui.com/docs/guides/composition).
 
 ## Purpose
 
-`Kbd` renders compact keycaps for keyboard shortcuts, command hints, and inline key labels.
-Use `Kbd` for a single key and `KbdGroup` when several keys should read as one shortcut.
+`Kbd` renders static keycaps for keyboard shortcuts, command hints, and inline key labels.
+
+## Upstream model to preserve
+
+The component uses `@ark-ui/react/factory` rather than a state machine:
+
+- each part is an `ark.kbd` element;
+- `HTMLArkProps<'kbd'>` provides native props and `asChild`;
+- refs target the rendered host element;
+- `data-scope` and `data-part` describe the local anatomy.
+
+There are no callbacks, controlled state, context, CSS runtime variables, or keyboard navigation
+because the component is static.
 
 ## Current behavior contract
 
-- `Kbd` renders a native `<kbd>` with `data-slot="kbd-root"`.
-- `KbdGroup` renders a native `<kbd>` with `data-slot="kbd-group"` so grouped shortcuts keep HTML
-  keyboard semantics instead of being only a visual wrapper.
-- `KbdGroup` is still layout-light: it only aligns keys and separators; it does not inject separators
-  or extra structure.
-- Separators such as `+`, `/`, or `then` stay in composition as plain text.
-- The public API is intentionally small: no variants, no size props, no slot prop bags, no stateful
-  or controlled behavior.
-- Styling is driven by `className`, stable `data-slot` hooks, and the public `--kbd-*` CSS variables
-  declared in `src/styles/theme.css`.
+- `Kbd` is the root shorthand and renders a native `<kbd>` by default.
+- `Kbd.Root` exposes the same root part explicitly.
+- `Kbd.Group` renders a semantic `<kbd>` wrapper for grouped shortcuts.
+- Separators remain plain composition; the component does not inject text or extra elements.
+- Every part supports `className`, native attributes, `asChild`, and a forwarded ref.
+- Styling uses Ark anatomy attributes, stable `data-slot` hooks, and public `--kbd-*` variables.
 
-## Composition
+## Anatomy and exported parts
 
-Recommended shortcut composition:
-
-```tsx
-import { Kbd, KbdGroup } from 'moduix';
-
-export function ShortcutHint() {
-  return (
-    <KbdGroup aria-label="Command K">
-      <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-    </KbdGroup>
-  );
-}
+```text
+Kbd.Group
+├─ Kbd / Kbd.Root
+├─ separator text
+└─ Kbd / Kbd.Root
 ```
 
-Single key:
+| Part               | Default element | Data attributes                                                  |
+| ------------------ | --------------- | ---------------------------------------------------------------- |
+| `Kbd` / `Kbd.Root` | `kbd`           | `data-scope="kbd"`, `data-part="root"`, `data-slot="kbd-root"`   |
+| `Kbd.Group`        | `kbd`           | `data-scope="kbd"`, `data-part="group"`, `data-slot="kbd-group"` |
+
+Exported prop types:
+
+- `KbdRootProps`
+- `KbdGroupProps`
+
+## Composition
 
 ```tsx
 import { Kbd } from 'moduix';
 
-export function EscapeHint() {
-  return <Kbd>Esc</Kbd>;
+export function ShortcutHint() {
+  return (
+    <Kbd.Group aria-label="Command K">
+      <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
+    </Kbd.Group>
+  );
 }
 ```
 
-## Parts
+Use `asChild` only with one semantic child:
 
-| Part       | Element | Data attributes         | Purpose                                         |
-| ---------- | ------- | ----------------------- | ----------------------------------------------- |
-| `Kbd`      | `kbd`   | `data-slot="kbd-root"`  | Styled keycap for one key label.                |
-| `KbdGroup` | `kbd`   | `data-slot="kbd-group"` | Semantic inline wrapper for grouped key combos. |
+```tsx
+<Kbd asChild>
+  <kbd title="Escape">Esc</kbd>
+</Kbd>
+```
 
-There is no exported separator part. Keep separators in normal text composition.
+## Upstream feature coverage
 
-## Public props
+There is no Ark Kbd examples section to mirror. The relevant factory features are fully exposed:
 
-`Kbd` accepts standard native `kbd` props, including `className`, `title`, and ARIA attributes.
+- intrinsic `kbd` rendering;
+- native HTML and ARIA props;
+- `asChild` prop merging;
+- forwarded host refs;
+- Ark-style anatomy attributes.
 
-`KbdGroup` also accepts standard native `kbd` props, including `className` and ARIA attributes for
-describing the full shortcut when the visible keys use abbreviations or symbols.
+State machines, callbacks, provider/context APIs, `ids`, `present`, `HiddenInput`, and
+`Field`/`Fieldset` integration do not apply.
 
-## Styling API
+## Accessibility and state
 
-Use `className` on `Kbd` or `KbdGroup` for local overrides. Stable selectors:
+- `<kbd>` preserves native semantics for user-input labels.
+- `Kbd.Group` remains a `<kbd>` by default so the full shortcut is semantically grouped.
+- Add `aria-label` to a group when abbreviations or symbols need a clearer spoken form.
+- `asChild` consumers must preserve `<kbd>` semantics and provide exactly one child.
+- The component has no focus, disabled, invalid, open/closed, or controlled/uncontrolled state.
 
-- `data-slot="kbd-root"`
-- `data-slot="kbd-group"`
+## Defaults and styling
 
-There are no variant attributes and no interactive state attributes.
+Stable styling hooks:
+
+- `[data-scope="kbd"][data-part="root"]`
+- `[data-scope="kbd"][data-part="group"]`
+- `[data-slot="kbd-root"]`
+- `[data-slot="kbd-group"]`
 
 Public CSS variables:
 
-| Variable                      | Default                                                                        | Applies to |
-| ----------------------------- | ------------------------------------------------------------------------------ | ---------- |
-| `--kbd-bg`                    | `var(--color-muted)`                                                           | `Kbd`      |
-| `--kbd-border-color`          | `var(--color-border)`                                                          | `Kbd`      |
-| `--kbd-border-width`          | `var(--border-width-sm)`                                                       | `Kbd`      |
-| `--kbd-color`                 | `var(--color-foreground)`                                                      | `Kbd`      |
-| `--kbd-font-family`           | `var(--font-mono)`                                                             | `Kbd`      |
-| `--kbd-font-size`             | `var(--text-xs)`                                                               | `Kbd`      |
-| `--kbd-font-weight`           | `var(--weight-medium)`                                                         | `Kbd`      |
-| `--kbd-group-gap`             | `0.25rem`                                                                      | `KbdGroup` |
-| `--kbd-group-separator-color` | `var(--color-muted-foreground)`                                                | `KbdGroup` |
-| `--kbd-height`                | `1.5rem`                                                                       | `Kbd`      |
-| `--kbd-line-height`           | `var(--line-height-text-xs)`                                                   | `Kbd`      |
-| `--kbd-min-width`             | `var(--kbd-height, 1.5rem)`                                                    | `Kbd`      |
-| `--kbd-padding-x`             | `0.4375rem`                                                                    | `Kbd`      |
-| `--kbd-padding-y`             | `0`                                                                            | `Kbd`      |
-| `--kbd-radius`                | `var(--radius-sm)`                                                             | `Kbd`      |
-| `--kbd-shadow`                | `inset 0 -1px 0 color-mix(in oklab, var(--color-foreground) 12%, transparent)` | `Kbd`      |
+| Variable                      | Default                                                                        | Part  |
+| ----------------------------- | ------------------------------------------------------------------------------ | ----- |
+| `--kbd-bg`                    | `var(--color-muted)`                                                           | Root  |
+| `--kbd-border-color`          | `var(--color-border)`                                                          | Root  |
+| `--kbd-border-width`          | `var(--border-width-sm)`                                                       | Root  |
+| `--kbd-color`                 | `var(--color-foreground)`                                                      | Root  |
+| `--kbd-font-family`           | `var(--font-mono)`                                                             | Root  |
+| `--kbd-font-size`             | `var(--text-xs)`                                                               | Root  |
+| `--kbd-font-weight`           | `var(--weight-medium)`                                                         | Root  |
+| `--kbd-group-gap`             | `0.25rem`                                                                      | Group |
+| `--kbd-group-separator-color` | `var(--color-muted-foreground)`                                                | Group |
+| `--kbd-height`                | `1.5rem`                                                                       | Root  |
+| `--kbd-line-height`           | `var(--line-height-text-xs)`                                                   | Root  |
+| `--kbd-min-width`             | `var(--kbd-height, 1.5rem)`                                                    | Root  |
+| `--kbd-padding-x`             | `0.4375rem`                                                                    | Root  |
+| `--kbd-padding-y`             | `0`                                                                            | Root  |
+| `--kbd-radius`                | `var(--radius-sm)`                                                             | Root  |
+| `--kbd-shadow`                | `inset 0 -1px 0 color-mix(in oklab, var(--color-foreground) 12%, transparent)` | Root  |
 
-Example override:
+## Intentional sugar and differences from upstream
 
-```css
-.shortcutGroup {
-  --kbd-group-gap: 0.375rem;
-}
-
-.shortcutKey {
-  --kbd-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
-  --kbd-border-color: color-mix(in oklab, var(--color-primary) 32%, transparent);
-  --kbd-color: var(--color-primary);
-  --kbd-height: 1.625rem;
-  --kbd-min-width: 1.625rem;
-  --kbd-radius: var(--radius-md);
-  --kbd-shadow: inset 0 -1px 0 color-mix(in oklab, var(--color-primary) 22%, transparent);
-}
-```
-
-## UX and accessibility
-
-- `Kbd` and `KbdGroup` are presentational shortcut labels, not interactive controls.
-- Prefer short visible key labels (`Esc`, `Cmd`, `Shift`) and add `aria-label` to `KbdGroup` when
-  abbreviations or symbols need a clearer spoken form.
-- Do not rely on separator color alone to communicate meaning.
-- There is no keyboard navigation, focus management, disabled state, or controlled/uncontrolled API
-  because the component only renders static HTML semantics.
-
-## Intentional differences from Base UI
-
-- There is no Base UI `Kbd` primitive in this component family.
-- moduix does not emulate Base UI slot props, state attributes, or part registries here.
-- The component stays native and composition-first instead of adding shortcut-specific helper props.
+- moduix defines the `Root` and `Group` anatomy because Ark UI has no Kbd primitive.
+- `Kbd` remains a root shorthand in addition to `Kbd.Root`.
+- moduix adds visual defaults, public CSS variables, and stable `data-slot` hooks.
+- The removed `KbdGroup` export is not retained as an alias; use `Kbd.Group`.
 
 ## Agent notes
 
-- Keep this component thin and native. Do not add variants, separator props, or slot prop bags unless
-  a repeated library-wide need clearly appears.
-- Preserve the `data-slot` hooks and the public `--kbd-*` CSS variable contract.
-- If the semantic wrapper changes, update `Kbd`, `KbdGroup`, stories, docs examples, and this file in
-  the same task.
+- Keep the implementation factory-based and stateless.
+- Do not add shortcut parsing, separator injection, or interactive behavior.
+- Keep source, stories, docs, and registry dependencies synchronized.
 
 ## Local changelog
 
-- 2026-06-02: Rewrote the local docs around the real moduix API, documented the full styling contract,
-  and aligned `KbdGroup` semantics with native `<kbd>` shortcut grouping.
+- 2026-06-19: Migrated the component to Ark factory primitives, added `Root`/`Group` anatomy,
+  `asChild`, forwarded refs, Ark data attributes, and removed the standalone `KbdGroup` export.
+- 2026-06-02: Documented the native Kbd behavior and public styling contract.

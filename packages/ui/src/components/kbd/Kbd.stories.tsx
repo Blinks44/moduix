@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Kbd, KbdGroup } from './Kbd';
+import { Kbd } from './Kbd';
 import styles from './Kbd.stories.module.css';
 
 const meta = {
@@ -20,27 +20,39 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   render: () => (
-    <KbdGroup aria-label="Command K">
+    <Kbd.Group aria-label="Command K">
       <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-    </KbdGroup>
+    </Kbd.Group>
   ),
 };
 
 export const SingleKey: Story = {};
 
+export const RootPart: Story = {
+  render: () => <Kbd.Root>Enter</Kbd.Root>,
+};
+
+export const AsChild: Story = {
+  render: () => (
+    <Kbd asChild>
+      <kbd title="Escape">Esc</kbd>
+    </Kbd>
+  ),
+};
+
 export const ShortcutList: Story = {
   render: () => (
     <div className={styles.column}>
       <div className={styles.shortcutRow}>
-        <KbdGroup aria-label="Command K">
+        <Kbd.Group aria-label="Command K">
           <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-        </KbdGroup>
+        </Kbd.Group>
         Open command menu
       </div>
       <div className={styles.shortcutRow}>
-        <KbdGroup aria-label="Shift question mark">
+        <Kbd.Group aria-label="Shift question mark">
           <Kbd>Shift</Kbd>+<Kbd>?</Kbd>
-        </KbdGroup>
+        </Kbd.Group>
         Show shortcuts
       </div>
       <div className={styles.shortcutRow}>
@@ -63,8 +75,8 @@ export const Dense: Story = {
 
 export const CustomStyling: Story = {
   render: () => (
-    <KbdGroup aria-label="Command K" className={styles.customGroup}>
+    <Kbd.Group aria-label="Command K" className={styles.customGroup}>
       <Kbd className={styles.customKbd}>Cmd</Kbd>+<Kbd className={styles.customKbd}>K</Kbd>
-    </KbdGroup>
+    </Kbd.Group>
   ),
 };

@@ -1,5 +1,5 @@
 @layer ui.components {
-  .root {
+  .root[data-scope='kbd'][data-part='root'] {
     box-sizing: border-box;
     display: inline-flex;
     flex: none;
@@ -30,7 +30,7 @@
     user-select: none;
   }
 
-  .group {
+  .group[data-scope='kbd'][data-part='group'] {
     box-sizing: border-box;
     display: inline-flex;
     max-width: 100%;
