@@ -24,12 +24,12 @@ The reset stays optional in both paths. Import `moduix/reset.css` or
 Some variables intentionally sit above individual components. Changing them updates multiple
 components at once until a component-specific `--<component>-*` variable overrides the fallback.
 
-| Variable group                                                                           | What it changes                       | Common consumers                                                                                                |
-| ---------------------------------------------------------------------------------------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| <code>--backdrop-bg</code><br /><code>--backdrop-filter</code>                           | Default backdrop color and blur       | Combobox, CommandPalette, Dialog, Drawer, Lightbox, Menu, Menubar, NavigationMenu, Popover, PreviewCard, Select |
-| <code>--duration-\*</code><br /><code>--ease-\*</code><br /><code>--transition-\*</code> | Shared motion timing and easing       | Controls, overlays, tabs, accordions, inputs, toasts                                                            |
-| <code>--scale-popup</code><br /><code>--scale-dropdown</code>                            | Default popup open/close scale        | Dialog, Popover, Tooltip, Menu, Toast, NavigationMenu, Select, Combobox                                         |
-| <code>--popup-\*</code>                                                                  | Shared popup list density and spacing | Menu, Menubar, Select, Combobox, CommandPalette                                                                 |
+| Variable group                                                                           | What it changes                       | Common consumers                                                                                       |
+| ---------------------------------------------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| <code>--backdrop-bg</code><br /><code>--backdrop-filter</code>                           | Default backdrop color and blur       | Combobox, CommandPalette, Dialog, Drawer, Lightbox, Menu, NavigationMenu, Popover, PreviewCard, Select |
+| <code>--duration-\*</code><br /><code>--ease-\*</code><br /><code>--transition-\*</code> | Shared motion timing and easing       | Controls, overlays, tabs, accordions, inputs, toasts                                                   |
+| <code>--scale-popup</code><br /><code>--scale-dropdown</code>                            | Default popup open/close scale        | Dialog, Popover, Tooltip, Menu, Toast, NavigationMenu, Select, Combobox                                |
+| <code>--popup-\*</code>                                                                  | Shared popup list density and spacing | Menu, Select, Combobox, CommandPalette                                                                 |
 
 Use these tokens when you want a broad visual shift across the system. Use component-specific
 tokens like `--dialog-backdrop-bg` or `--popover-transition` when a single component should opt out.

@@ -299,7 +299,7 @@ Example:
   thumbs stay explicit.
 - Keep the direct-child thumb collection behavior documented. If it ever changes, update stories,
   docs, and this file in the same task.
-- Keep the `Slider`, `Meter`, and `Progress` root-part ref behavior aligned.
+- Keep the `Slider` and `Progress` root-part ref behavior aligned.
 - If `--slider-*` variables or public `data-slot` names change, update `theme.css`, docs examples,
   Storybook usage, and this file in the same task.
 

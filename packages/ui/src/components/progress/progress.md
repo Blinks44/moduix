@@ -9,8 +9,8 @@ value yet. It is a thin styled wrapper over Base UI `Progress` with the same roo
 small DX shortcut: the high-level `Progress` component auto-renders the default track and indicator.
 
 Use `Progress` when the value can be indeterminate (`value={null}`) or when you want a standard
-label + value + bar layout with moduix styling. If the value is always known and represents a
-measurement rather than ongoing work, prefer `Meter`.
+label + value + bar layout with moduix styling, including display-only bounded values like quota or
+health states.
 
 ## Current behavior contract
 
@@ -191,8 +191,8 @@ Example:
 
 ## Limitations and recommendations
 
-- Use `Meter` when the value is always known and represents a bounded measurement instead of ongoing
-  task progress.
+- Use `Progress` for both ongoing task progress and known display-only values when the same bar
+  structure is sufficient.
 - Do not add helper props for labels, thresholds, status colors, tooltips, or alternate layouts. Use
   composition or adjacent UI when those concerns are needed.
 - Use `ProgressRoot` instead of `Progress` when you need custom track placement or want to omit the
@@ -213,7 +213,8 @@ Example:
 
 - Preserve the high-level `Progress` sugar that auto-renders the track and indicator after
   `children`.
-- Keep the ref behavior of all exported parts aligned with `Meter`.
+- Keep the ref behavior of all exported parts aligned with other range-display components such as
+  `Slider`.
 - Preserve the indeterminate contract: `value={null}` is supported and the indicator remains visibly
   active without requiring additional props.
 - Keep stories, docs examples, and this file synchronized when root props, data attributes, or

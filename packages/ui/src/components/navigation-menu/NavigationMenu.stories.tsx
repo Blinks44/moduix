@@ -77,7 +77,7 @@ export const Basic: Story = {
                 <li>
                   <a href="#" className={styles.linkCard}>
                     <p className={styles.contentTitle}>Navigation</p>
-                    <p className={styles.contentDescription}>Menu, Menubar and nested popups.</p>
+                    <p className={styles.contentDescription}>Menu and nested popups.</p>
                   </a>
                 </li>
               </ul>

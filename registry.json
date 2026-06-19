@@ -909,56 +909,6 @@
       ]
     },
     {
-      "name": "menubar",
-      "type": "registry:item",
-      "title": "Menubar",
-      "description": "moduix Menubar component.",
-      "dependencies": ["@base-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/core"],
-      "files": [
-        {
-          "path": "packages/ui/src/components/menubar/Menubar.tsx",
-          "target": "@components/moduix/menubar/Menubar.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "packages/ui/src/components/menubar/Menubar.module.css",
-          "target": "@components/moduix/menubar/Menubar.module.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/ui/src/components/menubar/index.ts",
-          "target": "@components/moduix/menubar/index.ts",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "meter",
-      "type": "registry:item",
-      "title": "Meter",
-      "description": "moduix Meter component.",
-      "dependencies": ["@base-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/core"],
-      "files": [
-        {
-          "path": "packages/ui/src/components/meter/Meter.tsx",
-          "target": "@components/moduix/meter/Meter.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "packages/ui/src/components/meter/Meter.module.css",
-          "target": "@components/moduix/meter/Meter.module.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/ui/src/components/meter/index.ts",
-          "target": "@components/moduix/meter/index.ts",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "navigation-menu",
       "type": "registry:item",
       "title": "NavigationMenu",
