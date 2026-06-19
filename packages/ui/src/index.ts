@@ -33,7 +33,7 @@ export * from './components/lightbox';
 export * from './components/list';
 export * from './components/menu';
 export * from './components/number-input';
-export * from './components/otp-field';
+export * from './components/pin-input';
 export * from './components/pagination';
 export * from './components/password-input';
 export * from './components/popover';

@@ -1339,36 +1339,40 @@
   --number-input-value-text-line-height: initial; /* var(--line-height-text-sm) */
   --number-input-width: initial; /* auto */
 
-  /* OTPField */
-  --otp-field-bg: initial; /* var(--color-background) */
-  --otp-field-bg-filled: initial; /* var(--otp-field-bg, var(--color-background)) */
-  --otp-field-border-color: initial; /* var(--color-border) */
-  --otp-field-border-color-complete: initial; /* var(--otp-field-border-color, var(--color-border)) */
-  --otp-field-border-color-invalid: initial; /* var(--color-destructive) */
-  --otp-field-border-width: initial; /* var(--border-width-sm) */
-  --otp-field-color: initial; /* var(--color-foreground) */
-  --otp-field-disabled-opacity: initial; /* var(--opacity-disabled) */
-  --otp-field-focus-ring-color: initial; /* var(--color-ring) */
-  --otp-field-focus-ring-offset: initial; /* -1px */
-  --otp-field-focus-ring-width: initial; /* var(--otp-field-border-width, var(--border-width-sm)) */
-  --otp-field-font-size: initial; /* var(--text-lg) */
-  --otp-field-font-weight: initial; /* var(--weight-medium) */
-  --otp-field-gap: initial; /* var(--spacing-2) */
-  --otp-field-input-height: initial; /* var(--otp-field-input-size, 2.5rem) */
-  --otp-field-input-padding-x: initial; /* 0 */
-  --otp-field-input-padding-y: initial; /* 0 */
-  --otp-field-input-size: initial; /* 2.5rem */
-  --otp-field-input-width: initial; /* var(--otp-field-input-size, 2.5rem) */
-  --otp-field-line-height: initial; /* var(--line-height-text-lg) */
-  --otp-field-max-width: initial; /* none */
-  --otp-field-placeholder-color: initial; /* var(--color-muted-foreground) */
-  --otp-field-radius: initial; /* var(--radius-md) */
-  --otp-field-separator-color: initial; /* var(--color-muted-foreground) */
-  --otp-field-separator-height: initial; /* var(--otp-field-separator-size, 1rem) */
-  --otp-field-separator-size: initial; /* 1rem */
-  --otp-field-separator-width: initial; /* var(--otp-field-separator-size, 1rem) */
-  --otp-field-transition: initial; /* var(--transition-default) */
-  --otp-field-width: initial; /* auto */
+  /* PinInput */
+  --pin-input-bg: initial; /* var(--color-background) */
+  --pin-input-border-color: initial; /* var(--color-border) */
+  --pin-input-border-color-complete: initial; /* var(--pin-input-border-color, var(--color-border)) */
+  --pin-input-border-color-invalid: initial; /* var(--color-destructive) */
+  --pin-input-border-width: initial; /* var(--border-width-sm) */
+  --pin-input-color: initial; /* var(--color-foreground) */
+  --pin-input-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --pin-input-focus-ring-color: initial; /* var(--color-ring) */
+  --pin-input-focus-ring-offset: initial; /* -1px */
+  --pin-input-focus-ring-width: initial; /* var(--pin-input-border-width, var(--border-width-sm)) */
+  --pin-input-font-size: initial; /* var(--text-lg) */
+  --pin-input-font-weight: initial; /* var(--weight-medium) */
+  --pin-input-gap: initial; /* var(--spacing-2) */
+  --pin-input-input-height: initial; /* var(--pin-input-input-size, 2.5rem) */
+  --pin-input-input-padding-x: initial; /* 0 */
+  --pin-input-input-padding-y: initial; /* 0 */
+  --pin-input-input-size: initial; /* 2.5rem */
+  --pin-input-input-width: initial; /* var(--pin-input-input-size, 2.5rem) */
+  --pin-input-label-color: initial; /* var(--color-foreground) */
+  --pin-input-label-font-size: initial; /* var(--text-sm) */
+  --pin-input-label-font-weight: initial; /* var(--weight-medium) */
+  --pin-input-label-line-height: initial; /* var(--line-height-text-sm) */
+  --pin-input-line-height: initial; /* var(--line-height-text-lg) */
+  --pin-input-max-width: initial; /* none */
+  --pin-input-placeholder-color: initial; /* var(--color-muted-foreground) */
+  --pin-input-radius: initial; /* var(--radius-md) */
+  --pin-input-root-gap: initial; /* var(--spacing-2) */
+  --pin-input-separator-color: initial; /* var(--color-muted-foreground) */
+  --pin-input-separator-height: initial; /* var(--pin-input-separator-size, 1rem) */
+  --pin-input-separator-size: initial; /* 1rem */
+  --pin-input-separator-width: initial; /* var(--pin-input-separator-size, 1rem) */
+  --pin-input-transition: initial; /* var(--transition-default) */
+  --pin-input-width: initial; /* auto */
 
   /* Pagination */
   --pagination-disabled-opacity: initial; /* var(--opacity-disabled) */

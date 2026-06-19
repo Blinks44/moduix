@@ -1,0 +1,33 @@
+@layer ui.storybook {
+  .stack {
+    display: grid;
+    gap: var(--spacing-3);
+    align-items: flex-start;
+  }
+
+  .hint {
+    margin: 0;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-text-xs);
+  }
+
+  .form {
+    display: grid;
+    gap: var(--spacing-3);
+    align-items: flex-start;
+    width: 20rem;
+  }
+
+  .customRoot {
+    --pin-input-separator-size: 1.5rem;
+    --pin-input-separator-color: var(--color-primary);
+  }
+
+  .customInput {
+    --pin-input-input-width: 3rem;
+    --pin-input-input-height: 3rem;
+    --pin-input-font-size: var(--text-xl);
+    --pin-input-bg: var(--color-muted);
+  }
+}

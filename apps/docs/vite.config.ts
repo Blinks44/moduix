@@ -27,7 +27,6 @@ const uiPrimitiveOptimizeDeps = [
   '@base-ui/react/input',
   '@base-ui/react/menu',
   '@base-ui/react/merge-props',
-  '@base-ui/react/otp-field',
   '@base-ui/react/preview-card',
   '@base-ui/react/progress',
   '@base-ui/react/radio',

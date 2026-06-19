@@ -909,26 +909,26 @@
       ]
     },
     {
-      "name": "otp-field",
+      "name": "pin-input",
       "type": "registry:item",
-      "title": "OTPField",
-      "description": "moduix OTPField component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "title": "PinInput",
+      "description": "moduix PinInput component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
-          "path": "packages/ui/src/components/otp-field/OTPField.tsx",
-          "target": "@components/moduix/otp-field/OTPField.tsx",
+          "path": "packages/ui/src/components/pin-input/PinInput.tsx",
+          "target": "@components/moduix/pin-input/PinInput.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/ui/src/components/otp-field/OTPField.module.css",
-          "target": "@components/moduix/otp-field/OTPField.module.css",
+          "path": "packages/ui/src/components/pin-input/PinInput.module.css",
+          "target": "@components/moduix/pin-input/PinInput.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/ui/src/components/otp-field/index.ts",
-          "target": "@components/moduix/otp-field/index.ts",
+          "path": "packages/ui/src/components/pin-input/index.ts",
+          "target": "@components/moduix/pin-input/index.ts",
           "type": "registry:component"
         }
       ]
