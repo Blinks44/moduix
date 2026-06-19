@@ -175,6 +175,8 @@ exported from `packages/ui/src/components/menu/index.ts` and the root package ba
 
 ## Local changelog
 
+- 2026-06-19: Aligned popup item highlight defaults with `Select` and `Combobox` by switching
+  menu highlighted-row fallback tokens from foreground/background to accent/accent-foreground.
 - 2026-06-19: `Menu.Trigger` now skips the internal `.trigger` class when `asChild` is enabled, so
   consumer host components (for example, `Button`) keep their own background styles in
   hover/active/open states.

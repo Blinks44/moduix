@@ -1243,8 +1243,8 @@
   --menu-group-label-padding-x-start: initial; /* 0.625rem */
   --menu-group-label-padding-y: initial; /* 0.35rem */
   --menu-group-padding-y: initial; /* 0 */
-  --menu-highlight-bg: initial; /* var(--color-foreground) */
-  --menu-highlight-color: initial; /* var(--color-background) */
+  --menu-highlight-bg: initial; /* var(--color-accent) */
+  --menu-highlight-color: initial; /* var(--color-accent-foreground) */
   --menu-highlight-inset-x: initial; /* var(--spacing-1) */
   --menu-highlight-radius: initial; /* var(--radius-sm) */
   --menu-item-bg: initial; /* transparent */
@@ -1642,6 +1642,7 @@
   --select-icon-color: initial; /* var(--color-muted-foreground) */
   --select-icon-size: initial; /* 1rem */
   --select-invalid-color: initial; /* var(--color-destructive) */
+  --select-item-bg: initial; /* transparent */
   --select-item-border-color: initial; /* transparent */
   --select-item-border-width: initial; /* 0 */
   --select-item-checked-color: initial; /* var(--select-item-color) */

@@ -159,7 +159,7 @@
 
     &[data-highlighted] {
       z-index: 0;
-      color: var(--menu-highlight-color, var(--color-background));
+      color: var(--menu-highlight-color, var(--color-accent-foreground));
 
       &::before {
         content: '';
@@ -174,7 +174,7 @@
           --menu-highlight-radius,
           var(--popup-highlight-radius, var(--radius-sm))
         );
-        background-color: var(--menu-highlight-bg, var(--color-foreground));
+        background-color: var(--menu-highlight-bg, var(--color-accent));
       }
     }
 
@@ -197,7 +197,7 @@
     }
 
     &[data-highlighted][data-state='open']::before {
-      background-color: var(--menu-highlight-bg, var(--color-foreground));
+      background-color: var(--menu-highlight-bg, var(--color-accent));
     }
 
     &[data-disabled] {

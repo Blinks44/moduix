@@ -128,19 +128,6 @@
     &[data-state='closed'] {
       animation: dialog-content-out var(--dialog-transition, var(--transition-default));
     }
-
-    &:has(
-      > [data-slot='dialog-close-icon'],
-      > [data-slot='dialog-header'] > [data-slot='dialog-close-icon']
-    ) {
-      padding-inline-end: max(
-        var(--dialog-padding, var(--spacing-6)),
-        calc(
-          var(--dialog-close-icon-inset-inline-end, var(--spacing-4)) +
-            var(--dialog-close-icon-size, 1.75rem) + var(--spacing-2)
-        )
-      );
-    }
   }
 
   .header {

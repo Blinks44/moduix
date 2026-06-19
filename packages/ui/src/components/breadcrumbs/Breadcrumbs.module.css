@@ -86,7 +86,7 @@
     justify-content: center;
     min-width: var(--breadcrumbs-ellipsis-size, 1rem);
     min-height: var(--breadcrumbs-ellipsis-size, 1rem);
-    padding-inline: var(--breadcrumbs-item-padding-x, 0.25rem);
+    padding-inline: var(--breadcrumbs-item-padding-x, 0.4rem);
     color: var(--breadcrumbs-ellipsis-color, var(--color-muted-foreground));
     border-radius: var(--breadcrumbs-ellipsis-radius, var(--radius-sm));
     transition: background-color var(--transition-default);
