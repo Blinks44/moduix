@@ -48,7 +48,7 @@ export const WithAction: Story = {
         <InputGroup>
           <InputGroupInput
             value={value}
-            onValueChange={setValue}
+            onChange={(event) => setValue(event.currentTarget.value)}
             type="email"
             placeholder="name@example.com"
           />
@@ -68,6 +68,22 @@ export const PrefixSuffix: Story = {
           <InputGroupAddon className={storyStyles.currency}>$</InputGroupAddon>
           <InputGroupInput inputMode="decimal" placeholder="2500" />
           <InputGroupText>USD</InputGroupText>
+        </InputGroup>
+      </Field>
+    );
+  },
+};
+
+export const AsChild: Story = {
+  render: () => {
+    return (
+      <Field className={storyStyles.field}>
+        <Field.Label>Workspace</Field.Label>
+        <InputGroup asChild>
+          <section>
+            <InputGroupAddon>@</InputGroupAddon>
+            <InputGroupInput placeholder="maps" />
+          </section>
         </InputGroup>
       </Field>
     );
@@ -152,7 +168,7 @@ export const InlineEditing: Story = {
             ref={inputRef}
             readOnly={!editing}
             value={editing ? draft : value}
-            onValueChange={setDraft}
+            onChange={(event) => setDraft(event.currentTarget.value)}
           />
           {editing ? (
             <>
@@ -177,10 +193,10 @@ export const InlineEditing: Story = {
 export const WithFieldValidation: Story = {
   render: () => {
     return (
-      <Field className={storyStyles.field}>
+      <Field className={storyStyles.field} invalid>
         <Field.Label>Domain</Field.Label>
         <InputGroup>
-          <InputGroupInput required placeholder="company" />
+          <InputGroupInput placeholder="company" />
           <InputGroupText>.test.com</InputGroupText>
         </InputGroup>
         <Field.ErrorText>Please enter a domain.</Field.ErrorText>

@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentRef, MouseEvent } from 'react';
+import type { ChangeEvent, ComponentProps, ComponentRef, MouseEvent } from 'react';
 import { clsx } from 'clsx';
 import { forwardRef, useState } from 'react';
 import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui';
@@ -15,6 +15,7 @@ type PasswordInputProps = InputProps & {
   type?: never;
   className?: ComponentProps<'div'>['className'];
   defaultVisible?: boolean;
+  onValueChange?: (value: string) => void;
   onVisibleChange?: (visible: boolean) => void;
   visibilityToggleLabels?: {
     show: string;
@@ -28,7 +29,9 @@ const PasswordInput = forwardRef<ComponentRef<typeof Input>, PasswordInputProps>
       className,
       defaultVisible = false,
       disabled,
+      onChange,
       onVisibleChange,
+      onValueChange,
       readOnly,
       size = 'md',
       visibilityToggleLabels = DEFAULT_VISIBILITY_TOGGLE_LABELS,
@@ -50,6 +53,11 @@ const PasswordInput = forwardRef<ComponentRef<typeof Input>, PasswordInputProps>
       });
     };
 
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+      onChange?.(event);
+      onValueChange?.(event.currentTarget.value);
+    };
+
     return (
       <InputGroup
         data-slot="password-input-root"
@@ -60,6 +68,7 @@ const PasswordInput = forwardRef<ComponentRef<typeof Input>, PasswordInputProps>
           ref={ref}
           {...props}
           disabled={disabled}
+          onChange={handleChange}
           readOnly={readOnly}
           size={size}
           type={visible ? 'text' : 'password'}

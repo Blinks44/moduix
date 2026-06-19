@@ -36,7 +36,11 @@ export const Controlled: Story = {
     return (
       <Field className={storyStyles.field}>
         <Field.Label>Username</Field.Label>
-        <Input value={value} onValueChange={setValue} placeholder="Type to control value" />
+        <Input
+          value={value}
+          onChange={(event) => setValue(event.currentTarget.value)}
+          placeholder="Type to control value"
+        />
       </Field>
     );
   },
@@ -75,6 +79,19 @@ export const NativeAttributes: Story = {
   },
 };
 
+export const AsChild: Story = {
+  render: () => {
+    return (
+      <Field className={storyStyles.field}>
+        <Field.Label>Repository</Field.Label>
+        <Input asChild>
+          <input name="repository" placeholder="owner/project" />
+        </Input>
+      </Field>
+    );
+  },
+};
+
 export const DisabledAndReadOnly: Story = {
   render: () => {
     return (
@@ -89,9 +106,9 @@ export const DisabledAndReadOnly: Story = {
 export const WithFieldValidation: Story = {
   render: () => {
     return (
-      <Field className={storyStyles.field}>
+      <Field className={storyStyles.field} invalid>
         <Field.Label>Email</Field.Label>
-        <Input required type="email" placeholder="name@example.com" />
+        <Input type="email" placeholder="name@example.com" />
         <Field.ErrorText>Please enter your email.</Field.ErrorText>
         <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
       </Field>

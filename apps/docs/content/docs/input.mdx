@@ -1,6 +1,6 @@
 ---
 title: Input
-description: A native input element that works with Field labels, validation, and Base UI state.
+description: An Ark Field input wrapper with native events, form semantics, and moduix styling.
 icon: Component
 ---
 
@@ -8,6 +8,7 @@ import {
   ControlledInputExample,
   CustomStylesInputExample,
   DisabledAndReadOnlyInputExample,
+  InputAsChildExample,
   InputCssPropertiesPanel,
   InputExample,
   InputFieldValidationExample,
@@ -18,21 +19,21 @@ import {
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/input" />
+Ark UI has no standalone Input component. moduix `Input` wraps
+[Ark Field.Input](https://ark-ui.com/docs/components/field) and follows the
+[Ark composition model](https://ark-ui.com/docs/guides/composition).
 
 ## Choosing the right component
 
-Use `Input` for plain single-line text-like values when one styled native input is enough.
-
-- Choose **`Input`** for standard text, email, search, or code fields.
-- Choose **`InputGroup`** when the control needs inline addons or action buttons in the same shell.
-- Choose **`PasswordInput`** when the field needs a built-in visibility toggle.
-- Choose **`NumberField`** when the value is numeric and needs parsing, stepping, or formatting.
-- Choose **`Textarea`** when the content can span multiple lines.
+- Choose **`Input`** for a plain single-line native input.
+- Choose **`InputGroup`** for inline addons, text, or actions.
+- Choose **`PasswordInput`** for the existing visibility-toggle wrapper.
+- Choose **`NumberField`** for numeric parsing and stepping.
+- Choose **`Textarea`** for multi-line content.
 
 ## Basic
 
-Start with `Input` inside `Field` when the value needs a label, description, and validation.
+Use `Input` inside `Field` so Ark can connect the label, helper text, ids, and form state.
 
 <Preview>
   <InputExample />
@@ -46,7 +47,7 @@ Start with `Input` inside `Field` when the value needs a label, description, and
           <Field className="input-demo-field">
             <Field.Label>Name</Field.Label>
             <Field.HelperText>Used in your public workspace profile.</Field.HelperText>
-            <Input placeholder="Enter your name" />
+            <Input name="name" placeholder="Enter your name" />
           </Field>
         );
       }
@@ -54,20 +55,25 @@ Start with `Input` inside `Field` when the value needs a label, description, and
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .input-demo-field {
         width: min(14rem, 100%);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const profileField = {
+        name: "name",
+        placeholder: "Enter your name",
+      };
+    `}
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
-
-If you want `Input` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
@@ -107,70 +113,56 @@ aubx shadcn@latest add Blinks44/moduix/input
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Input` depends on, such
-as styles, icons, and small utilities.
-
 ## Anatomy
 
-The public shape is intentionally small:
-
 ```text
-Field (optional wrapper)
+Field.Root (optional)
 └─ Input
 ```
 
-| Part    | Role                                                                     |
-| ------- | ------------------------------------------------------------------------ |
-| `Input` | Native input element with Base UI state integration and style variables. |
+| Part    | Role                                                                  |
+| ------- | --------------------------------------------------------------------- |
+| `Input` | Styled Ark `Field.Input` that renders the native single-line control. |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with `Input` for most plain text-like fields. The moduix wrapper keeps the Base UI input
-contract intact and adds the shared visual sizing surface.
+Render `Input` inside `Field` for labels, helper/error text, ids, and shared `disabled`, `invalid`,
+`required`, or `readOnly` state. `Fieldset` can provide disabled state to nested fields.
 
-Pass Base UI props such as `value`, `defaultValue`, `onValueChange`, `render`, function
-`className`, and function `style` directly to `Input`.
-
-Use `size` for visual density. Use `htmlSize` only when you need the native HTML `size` attribute
-without giving up the design-system `size` prop.
+Use native input props and events. Controlled inputs use `value` and `onChange(event)`;
+uncontrolled inputs use `defaultValue`.
 
 ### When to go custom
 
-There is no lower-level moduix `Input` composition tree to drop into. When the field needs more
-structure, switch to the component that owns that behavior:
+Use `asChild` when one semantic input element must own the rendered node. Ark merges the wrapper
+props, field props, class, and ref into that single child.
 
-- `InputGroup` for inline prefixes, suffixes, or action buttons
-- `PasswordInput` for a visibility toggle
-- `NumberField` for numeric parsing and step controls
-
-Use standalone `Input` outside `Field` when another form abstraction already provides the label and
-validation wiring. In that case, keep the accessible name explicit with a real `label`,
-`aria-label`, or `aria-labelledby`.
+For a control that is not input-compatible, use `Field.Context` and `context.getInputProps()`
+instead of forcing it through `Input`.
 
 ### Default props
 
-| Prop        | Default | Values                                 |
-| ----------- | ------- | -------------------------------------- |
-| `size`      | `md`    | `xs`, `sm`, `md`, `lg`, `xl`           |
-| `htmlSize`  | -       | Any valid native `input` `size` number |
-| `className` | -       | `string` or Base UI state callback     |
+| Prop       | Default | Notes                                                  |
+| ---------- | ------- | ------------------------------------------------------ |
+| `size`     | `md`    | Visual size: `xs`, `sm`, `md`, `lg`, or `xl`.          |
+| `htmlSize` | —       | Writes the native character-based `input[size]` value. |
+| `asChild`  | `false` | Merges props into one semantic child through Ark Slot. |
 
 ### Behavioral notes
 
-- Use `value` with `onValueChange` for controlled inputs, or `defaultValue` for uncontrolled ones.
-- `disabled` removes the field from interaction and form submission; `readOnly` keeps it focusable
-  and submittable.
-- `Input` works directly with `Field`, so you do not need `Field.Input` for this component.
-- Prefer semantic native attributes such as `type`, `autoComplete`, `inputMode`, and `name` before
-  adding custom input logic.
+- The ref points to the real `HTMLInputElement`.
+- No `HiddenInput` is needed because `Input` is the native form control.
+- Ark `Field` supplies `aria-describedby`, `aria-invalid`, ids, and state props.
+- `Input` does not manage value, validity, focus, or keyboard navigation.
+- Base UI `onValueChange`, `render`, callback `className`, and callback `style` are not supported.
 
 ## Examples
 
 ### Controlled
 
-Use `value` and `onValueChange` when the input value should stay in React state.
+Use the native change event when React owns the current value.
 
 <Preview>
   <ControlledInputExample />
@@ -180,7 +172,7 @@ Use `value` and `onValueChange` when the input value should stay in React state.
       import { Field, Input } from "moduix";
       import { useState } from "react";
 
-      function ControlledInput() {
+      export function ControlledInputDemo() {
         const [value, setValue] = useState("");
 
         return (
@@ -188,7 +180,7 @@ Use `value` and `onValueChange` when the input value should stay in React state.
             <Field.Label>Username</Field.Label>
             <Input
               value={value}
-              onValueChange={setValue}
+              onChange={(event) => setValue(event.currentTarget.value)}
               placeholder="Type to control value"
             />
           </Field>
@@ -198,79 +190,39 @@ Use `value` and `onValueChange` when the input value should stay in React state.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .input-demo-field {
         width: min(14rem, 100%);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const initialValue = "";
+    `}
+  </Preview.Data>
 </Preview>
 
-### Sizes
+### Field State
 
-Use `size` to change the visual height, padding, and typography.
-
-<Preview>
-  <InputSizesExample />
-
-  <Preview.Code>
-    {`
-      import { Input } from "moduix";
-
-      export function InputSizesDemo() {
-        return (
-          <div className="input-demo-stack">
-            <Input size="xs" placeholder="Extra-small input" />
-            <Input size="sm" placeholder="Small input" />
-            <Input size="md" placeholder="Medium input" />
-            <Input size="lg" placeholder="Large input" />
-            <Input size="xl" placeholder="Extra-large input" />
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .input-demo-stack {
-        display: grid;
-        gap: var(--spacing-3);
-        width: min(14rem, 100%);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Native Attributes
-
-Use native input attributes for keyboard, autocomplete, validation, and form behavior. Reach for
-`htmlSize` only when the native `size` attribute matters.
+Put invalid state on `Field`; Ark applies `aria-invalid` and `data-invalid` to the input and
+connects the error text.
 
 <Preview>
-  <InputNativeAttributesExample />
+  <InputFieldValidationExample />
 
   <Preview.Code>
     {`
       import { Field, Input } from "moduix";
 
-      export function NativeInputAttributesDemo() {
+      export function InvalidInputDemo() {
         return (
-          <Field className="input-demo-field">
-            <Field.Label>Security code</Field.Label>
-            <Input
-              htmlSize={8}
-              inputMode="numeric"
-              maxLength={6}
-              name="security-code"
-              placeholder="000000"
-              type="text"
-              autoComplete="one-time-code"
-            />
+          <Field className="input-demo-field" invalid>
+            <Field.Label>Email</Field.Label>
+            <Input type="email" placeholder="name@example.com" />
+            <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
           </Field>
         );
       }
@@ -278,20 +230,24 @@ Use native input attributes for keyboard, autocomplete, validation, and form beh
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .input-demo-field {
         width: min(14rem, 100%);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const invalidEmail = "not-an-email";
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Disabled and Readonly
 
-Use `disabled` when the field must not participate in interaction or form submission. Use
-`readOnly` when the value should stay selectable and focusable.
+Use native props directly or place them on `Field.Root` when the full field should share state.
 
 <Preview>
   <DisabledAndReadOnlyInputExample />
@@ -300,7 +256,7 @@ Use `disabled` when the field must not participate in interaction or form submis
     {`
       import { Input } from "moduix";
 
-      export function DisabledInputDemo() {
+      export function InputStatesDemo() {
         return (
           <div className="input-demo-stack">
             <Input disabled placeholder="Disabled input" />
@@ -312,36 +268,47 @@ Use `disabled` when the field must not participate in interaction or form submis
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .input-demo-stack {
         display: grid;
         gap: var(--spacing-3);
         width: min(14rem, 100%);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const assignedWorkspace = "Assigned workspace";
+    `}
+  </Preview.Data>
 </Preview>
 
-### Field Validation
+### Native Attributes
 
-Use `Field` when the input needs labels, errors, native validity, and Base UI validation state.
+Native attributes continue to control browser validation, keyboard, autocomplete, and form
+submission. Use `htmlSize` only for character-based width.
 
 <Preview>
-  <InputFieldValidationExample />
+  <InputNativeAttributesExample />
 
   <Preview.Code>
     {`
       import { Field, Input } from "moduix";
 
-      export function InputFieldValidationDemo() {
+      export function SecurityCodeDemo() {
         return (
-          <Field className="input-demo-field" >
-            <Field.Label>Email</Field.Label>
-            <Input required type="email" placeholder="name@example.com" />
-            <Field.ErrorText>Please enter your email.</Field.ErrorText>
-            <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+          <Field className="input-demo-field">
+            <Field.Label>Security code</Field.Label>
+            <Input
+              htmlSize={8}
+              inputMode="numeric"
+              maxLength={6}
+              name="security-code"
+              autoComplete="one-time-code"
+              placeholder="000000"
+            />
           </Field>
         );
       }
@@ -349,20 +316,108 @@ Use `Field` when the input needs labels, errors, native validity, and Base UI va
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .input-demo-field {
         width: min(14rem, 100%);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const securityCodeLength = 6;
+    `}
+  </Preview.Data>
+</Preview>
+
+### As Child
+
+Use `asChild` for a custom input host while preserving one semantic, focusable input element.
+
+<Preview>
+  <InputAsChildExample />
+
+  <Preview.Code>
+    {`
+      import { Field, Input } from "moduix";
+
+      export function InputAsChildDemo() {
+        return (
+          <Field className="input-demo-field">
+            <Field.Label>Repository</Field.Label>
+            <Input asChild>
+              <input name="repository" placeholder="owner/project" />
+            </Input>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .input-demo-field {
+        width: min(14rem, 100%);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const repositoryPlaceholder = "owner/project";
+    `}
+  </Preview.Data>
+</Preview>
+
+### Sizes
+
+The moduix `size` prop changes visual density without replacing the native `size` attribute.
+
+<Preview>
+  <InputSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Input } from "moduix";
+
+      export function InputSizesDemo() {
+        return (
+          <div className="input-demo-stack">
+            <Input size="xs" aria-label="Extra-small input" />
+            <Input size="sm" aria-label="Small input" />
+            <Input size="md" aria-label="Medium input" />
+            <Input size="lg" aria-label="Large input" />
+            <Input size="xl" aria-label="Extra-large input" />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .input-demo-stack {
+        display: grid;
+        gap: var(--spacing-3);
+        width: min(14rem, 100%);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const inputSizes = ["xs", "sm", "md", "lg", "xl"] as const;
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Standalone Input
 
-Render `Input` outside `Field` when another form abstraction already owns labeling and validation.
-Keep the accessible name explicit.
+Outside `Field`, provide an accessible name explicitly. Native state props still work, but there is
+no field context to supply ids or helper/error relationships.
 
 <Preview>
   <StandaloneInputExample />
@@ -372,30 +427,30 @@ Keep the accessible name explicit.
       import { Input } from "moduix";
 
       export function StandaloneInputDemo() {
-        return (
-          <div className="input-demo-field">
-            <Input aria-label="Search projects" placeholder="Search projects" />
-          </div>
-        );
+        return <Input aria-label="Search projects" placeholder="Search projects" />;
       }
     `}
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
-      .input-demo-field {
-        width: min(14rem, 100%);
+<Preview.CSS>
+  {`
+      [data-slot="input-root"] {
+        max-width: 14rem;
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const accessibleName = "Search projects";
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Custom Styling
 
-Pass `className` directly to `Input` when one field needs local styling on top of the shared
-surface.
+Use `className`, public CSS variables, Ark anatomy attributes, and native state selectors.
 
 <Preview>
   <CustomStylesInputExample />
@@ -418,34 +473,26 @@ surface.
 
   <Preview.CSS>
     {`
-      .input-demo-field {
-        width: min(14rem, 100%);
-      }
-
       .input-demo-custom-input {
-        border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-        background-color: color-mix(in srgb, var(--color-primary) 5%, transparent);
+        --input-border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+        --input-bg: color-mix(in srgb, var(--color-primary) 5%, transparent);
+        --input-focus-ring-color: var(--color-primary);
+
         color: var(--color-primary);
         text-transform: uppercase;
-        letter-spacing: 0;
-
-        &::placeholder {
-          text-transform: none;
-        }
-
-        &:focus-visible {
-          outline-color: var(--color-primary);
-        }
       }
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const projectKey = "MAPS";
+    `}
+  </Preview.Data>
 </Preview>
 
 ## Styling
-
-Style `Input` through `className`, the root `data-slot`, Base UI state attributes, and the public
-`--input-*` CSS variables shown below.
 
 ### CSS Properties
 
@@ -459,10 +506,8 @@ Style `Input` through `className`, the root `data-slot`, Base UI state attribute
 
 ### Styling hooks
 
-`Input` exposes a single styled root, so the useful public hooks stay simple:
-
-- `data-slot="input-root"` for direct element targeting
-- `data-size="xs" | "sm" | "md" | "lg" | "xl"` for size-specific styling
-- Base UI state attributes such as `data-disabled`, `data-invalid`, `data-valid`, `data-filled`,
-  `data-focused`, `data-dirty`, and `data-touched`
-- native `:read-only` and `[data-readonly]` matching when the field is readonly
+- `data-slot="input-root"`
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"`
+- `data-scope="field"` and `data-part="input"`
+- Ark `data-invalid`, `data-required`, and `data-readonly` inside `Field`
+- native `:disabled`, `:read-only`, `:focus-visible`, and `[aria-invalid="true"]`

@@ -115,7 +115,11 @@ export function ControlledInputExample() {
   return (
     <Field className="input-demo-field">
       <Field.Label>Username</Field.Label>
-      <Input value={value} onValueChange={setValue} placeholder="Type to control value" />
+      <Input
+        value={value}
+        onChange={(event) => setValue(event.currentTarget.value)}
+        placeholder="Type to control value"
+      />
     </Field>
   );
 }
@@ -160,9 +164,9 @@ export function DisabledAndReadOnlyInputExample() {
 
 export function InputFieldValidationExample() {
   return (
-    <Field className="input-demo-field">
+    <Field className="input-demo-field" invalid>
       <Field.Label>Email</Field.Label>
-      <Input required type="email" placeholder="name@example.com" />
+      <Input type="email" placeholder="name@example.com" />
       <Field.ErrorText>Please enter your email.</Field.ErrorText>
       <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
     </Field>
@@ -183,5 +187,16 @@ export function StandaloneInputExample() {
     <div className="input-demo-field">
       <Input aria-label="Search projects" placeholder="Search projects" />
     </div>
+  );
+}
+
+export function InputAsChildExample() {
+  return (
+    <Field className="input-demo-field">
+      <Field.Label>Repository</Field.Label>
+      <Input asChild>
+        <input name="repository" placeholder="owner/project" />
+      </Input>
+    </Field>
   );
 }

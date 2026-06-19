@@ -1,3 +1,4 @@
+import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import {
   createContext,
@@ -7,19 +8,18 @@ import {
   type ComponentRef,
   type MouseEvent,
 } from 'react';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { Button, type ButtonRootProps } from '../button';
 import { Input, type InputProps, type InputSize } from '../input';
 import styles from './InputGroup.module.css';
 
-type InputGroupProps = ComponentProps<'div'> & {
+type InputGroupProps = ComponentProps<typeof ark.div> & {
   size?: InputSize;
 };
 
 const InputGroupSizeContext = createContext<InputSize>('md');
 
-const InputGroup = forwardRef<ComponentRef<'div'>, InputGroupProps>(function InputGroup(
+const InputGroup = forwardRef<ComponentRef<typeof ark.div>, InputGroupProps>(function InputGroup(
   { children, className, onMouseDown, size = 'md', ...props },
   ref,
 ) {
@@ -54,7 +54,7 @@ const InputGroup = forwardRef<ComponentRef<'div'>, InputGroupProps>(function Inp
 
   return (
     <InputGroupSizeContext.Provider value={size}>
-      <div
+      <ark.div
         ref={ref}
         data-slot="input-group-root"
         data-size={size}
@@ -63,7 +63,7 @@ const InputGroup = forwardRef<ComponentRef<'div'>, InputGroupProps>(function Inp
         {...props}
       >
         {children}
-      </div>
+      </ark.div>
     </InputGroupSizeContext.Provider>
   );
 });
@@ -78,17 +78,17 @@ const InputGroupInput = forwardRef<ComponentRef<typeof Input>, InputProps>(funct
     <Input
       ref={ref}
       data-slot="input-group-input"
-      className={mergeClassName(className, styles.input)}
+      className={clsx(styles.input, className)}
       size={size ?? groupSize}
       {...props}
     />
   );
 });
 
-const InputGroupAddon = forwardRef<ComponentRef<'span'>, ComponentProps<'span'>>(
+const InputGroupAddon = forwardRef<ComponentRef<typeof ark.span>, ComponentProps<typeof ark.span>>(
   function InputGroupAddon({ className, ...props }, ref) {
     return (
-      <span
+      <ark.span
         ref={ref}
         data-slot="input-group-addon"
         className={clsx(styles.addon, className)}
@@ -98,10 +98,10 @@ const InputGroupAddon = forwardRef<ComponentRef<'span'>, ComponentProps<'span'>>
   },
 );
 
-const InputGroupText = forwardRef<ComponentRef<'span'>, ComponentProps<'span'>>(
+const InputGroupText = forwardRef<ComponentRef<typeof ark.span>, ComponentProps<typeof ark.span>>(
   function InputGroupText({ className, ...props }, ref) {
     return (
-      <span
+      <ark.span
         ref={ref}
         data-slot="input-group-text"
         className={clsx(styles.text, className)}

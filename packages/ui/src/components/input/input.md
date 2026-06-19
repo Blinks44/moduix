@@ -1,188 +1,111 @@
 # Input
 
-Upstream primitive docs: https://base-ui.com/react/components/input.md
+Upstream docs:
+
+- Ark UI Field: https://ark-ui.com/docs/components/field
+- Ark UI composition: https://ark-ui.com/docs/guides/composition
+- Chakra UI Input: https://chakra-ui.com/docs/components/input
+
+Ark UI has no standalone `Input` component page. The wrapper uses Ark `Field.Input` as its
+behavioral and accessibility model.
 
 ## Purpose
 
-`Input` is the default single-line text control in moduix. It is a thin styled wrapper over Base UI
-`Input` that keeps the native `<input>` contract, adds moduix size tokens, and exposes stable
-styling hooks through `data-slot="input-root"` and `data-size`.
+`Input` is the default styled single-line input for moduix. It keeps native input semantics, works
+standalone, and inherits `disabled`, `invalid`, `readOnly`, `required`, ids, labels, helper text,
+and error text when rendered inside `Field`.
 
-Use it for plain text-like fields that do not need prefix/suffix layout or specialized formatting.
-For grouped affordances use `InputGroup`; for multi-line content use `Textarea`; for numeric parsing
-and steppers use `NumberField`.
+## Upstream model to preserve
+
+- Render `Field.Input` from `@ark-ui/react/field`.
+- Preserve Ark `asChild` composition and native input props.
+- Preserve `Field.Root` and `Fieldset.Root` state propagation.
+- Keep `data-scope="field"` and `data-part="input"` on the rendered control.
+- Use native `onChange(event)`, not a remapped value callback.
 
 ## Current behavior contract
 
-- Renders one styled native `<input>` element and forwards its ref to that element.
-- Accepts Base UI `Input` props except the primitive `size` prop name is reserved for moduix visual
-  sizing. The native HTML `size` attribute is available as `htmlSize`.
-- Works standalone or inside `Field`. When used with `Field`, skip `Field.Input`; `Input`
-  registers with field context directly and receives Base UI validation state attributes.
-- Controlled and uncontrolled usage stay unchanged: use `value` + `onValueChange` for controlled
-  input, or `defaultValue` for uncontrolled input.
-- `readOnly` keeps the input focusable and submittable and now has dedicated visual tokens for
-  compact preview/edit compositions built from the same mounted control.
-- The wrapper is intentionally small: no built-in label, clear button, prefix/suffix props, loading
-  state, masking, or validation UI.
+- Renders one `Field.Input` and forwards the ref to its `HTMLInputElement`.
+- Accepts Ark `Field.Input` props except native `size`, which is renamed to `htmlSize`.
+- Adds visual `size="xs" | "sm" | "md" | "lg" | "xl"` with `md` as the default.
+- Supports `asChild` with one semantic input-like child.
+- Adds no value state, validation state, label, clear trigger, mask, or prefix/suffix API.
 
-## Basic usage
+## Anatomy and exported parts
 
-Standalone input with an explicit label:
-
-```tsx
-import { Input } from 'moduix';
-
-export function WorkspaceNameField() {
-  return (
-    <label>
-      Name
-      <Input name="workspaceName" placeholder="Acme Maps" />
-    </label>
-  );
-}
+```text
+Field.Root (optional)
+└─ Input
 ```
 
-With `Field` validation:
+- `Input` -> `data-slot="input-root"`, `data-scope="field"`, `data-part="input"`
+- Exported types: `InputProps`, `InputSize`
+
+## Composition
 
 ```tsx
 import { Field, Input } from 'moduix';
 
 export function EmailField() {
   return (
-    <Field>
+    <Field required>
       <Field.Label>Email</Field.Label>
-      <Field.HelperText>We use this for account updates.</Field.HelperText>
-      <Input required type="email" placeholder="name@example.com" />
-      <Field.ErrorText>Please enter your email.</Field.ErrorText>
-      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+      <Input name="email" type="email" />
+      <Field.HelperText>Used for account notifications.</Field.HelperText>
     </Field>
   );
 }
 ```
 
-With grouped affordances:
+`asChild` follows Ark composition rules: provide exactly one child and preserve input semantics,
+focusability, refs, and forwarded props.
 
-```tsx
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from 'moduix';
+## Upstream feature coverage
 
-export function UsernameField() {
-  return (
-    <InputGroup>
-      <InputGroupAddon>@</InputGroupAddon>
-      <InputGroupInput aria-label="Username" placeholder="workspace" />
-      <InputGroupButton>Check</InputGroupButton>
-    </InputGroup>
-  );
-}
-```
+- Field input: supported through `Field.Input`.
+- Disabled, invalid, read-only, and required state: inherited from `Field.Root`; disabled also
+  inherits from `Fieldset.Root`.
+- Native controlled/uncontrolled input: supported with `value`, `defaultValue`, and
+  `onChange(event)`.
+- Custom control: supported through `asChild`; use `Field.Context` directly for more specialized
+  controls that need `getInputProps()`.
+- Root provider, context, ids, helper/error text, and required indicator belong to `Field`, not
+  `Input`.
+- No `HiddenInput` is needed because `Input` is the native form control.
 
-## Parts
+## Accessibility and state
 
-| Part    | Element/primitive | Purpose                                                              |
-| ------- | ----------------- | -------------------------------------------------------------------- |
-| `Input` | `InputPrimitive`  | Styled input root with moduix size tokens and Base UI field support. |
+- The ref targets the real input and is suitable for form-library invalid focus.
+- `Field` supplies ids, `aria-describedby`, `aria-invalid`, native state props, and
+  `data-invalid`, `data-required`, and `data-readonly`.
+- Standalone `disabled`, `readOnly`, `required`, and `aria-invalid` remain native props.
+- Every input requires an accessible name from a label, `aria-label`, or `aria-labelledby`.
+- There is no component-managed keyboard navigation; native input behavior is preserved.
 
-`Input` exposes one public part. It does not provide `slotProps`, icon props, prefix/suffix props,
-or extra wrapper elements.
+## Defaults and styling
 
-## Public props
+- `size` defaults to `md`; native character width uses `htmlSize`.
+- `className` is merged with the moduix CSS module class.
+- Stable hooks are `data-slot`, `data-size`, `data-scope`, `data-part`, Ark field state attributes,
+  native state selectors, and the public `--input-*` variables in `theme.css`.
+- The component exposes no Ark runtime CSS variables.
 
-`Input` accepts Base UI `Input` props plus the moduix wrapper props below.
+## Intentional sugar and differences from upstream
 
-| Prop        | Type                                   | Default | Notes                                                                           |
-| ----------- | -------------------------------------- | ------- | ------------------------------------------------------------------------------- |
-| `size`      | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`  | Visual density only. Sets `data-size` and the size-specific CSS variables.      |
-| `htmlSize`  | native `<input size>` value            | —       | Writes the HTML `size` attribute. Use this when you need character-based width. |
-| `className` | Base UI `className` prop               | —       | Merged with the moduix root class; callback form from Base UI still works.      |
-
-Exported helper types:
-
-- `InputProps`
-- `InputSize`
-
-Important passthrough props remain available from Base UI and the native element, including:
-
-- `value`, `defaultValue`, and `onValueChange`
-- native attributes such as `type`, `name`, `placeholder`, `autoComplete`, `inputMode`, `readOnly`,
-  `disabled`, `required`, `minLength`, `maxLength`, and `pattern`
-- `style` and `render`
-
-Use `render` only when you still preserve input semantics and forward the received props to the
-actual input-like element.
-
-## Styling API
-
-Stable root hooks:
-
-| Hook            | When it exists                                                                 |
-| --------------- | ------------------------------------------------------------------------------ |
-| `data-slot`     | Direct usage writes `data-slot="input-root"`.                                  |
-| `data-size`     | Always present with the current moduix visual size.                            |
-| `data-disabled` | Present when disabled.                                                         |
-| `data-valid`    | Present inside `Field` when the current field state is valid.                  |
-| `data-invalid`  | Present inside `Field` when the current field state is invalid.                |
-| `data-dirty`    | Present inside `Field` after the value changes from its initial state.         |
-| `data-touched`  | Present inside `Field` after interaction.                                      |
-| `data-filled`   | Present inside `Field` when the input currently has a value.                   |
-| `data-focused`  | Present while focused; useful for composed controls such as field-like shells. |
-| `readonly`      | Native `readonly` attribute from input props.                                  |
-
-Use `className` for local styling and `--input-*` variables for token-level customization. Public
-variables from `theme.css`:
-
-| Variable group | Variables                                                                                                                                                                                                                                                                                            |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Layout         | `--input-width`, `--input-max-width`, `--input-height`, `--input-height-xs`, `--input-height-sm`, `--input-height-md`, `--input-height-lg`, `--input-height-xl`                                                                                                                                      |
-| Spacing        | `--input-padding-x`, `--input-padding-y`, `--input-padding-x-xs`, `--input-padding-y-xs`, `--input-padding-x-sm`, `--input-padding-y-sm`, `--input-padding-x-md`, `--input-padding-y-md`, `--input-padding-x-lg`, `--input-padding-y-lg`, `--input-padding-x-xl`, `--input-padding-y-xl`             |
-| Typography     | `--input-font-size`, `--input-line-height`, `--input-font-size-xs`, `--input-line-height-xs`, `--input-font-size-sm`, `--input-line-height-sm`, `--input-font-size-md`, `--input-line-height-md`, `--input-font-size-lg`, `--input-line-height-lg`, `--input-font-size-xl`, `--input-line-height-xl` |
-| Surface        | `--input-bg`, `--input-color`, `--input-placeholder-color`, `--input-radius`, `--input-readonly-bg`, `--input-readonly-color`                                                                                                                                                                        |
-| Border/focus   | `--input-border-width`, `--input-border-style`, `--input-border-color`, `--input-border-color-invalid`, `--input-focus-ring-width`, `--input-focus-ring-offset`, `--input-focus-ring-color`, `--input-transition`                                                                                    |
-| Disabled       | `--input-disabled-opacity`                                                                                                                                                                                                                                                                           |
-
-Example:
-
-```css
-.workspaceInput {
-  --input-border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-  --input-bg: color-mix(in srgb, var(--color-primary) 5%, transparent);
-  --input-focus-ring-color: var(--color-primary);
-  --input-radius: var(--radius-full);
-}
-```
-
-## UX and accessibility
-
-- Every input needs an accessible name. Use a real `<label>`, `Field.Label`, or `aria-label` for
-  compact cases such as icon-only or demo-only layouts.
-- Placeholder text is not a label and should not carry essential instructions on its own.
-- `disabled` removes the field from interaction and form submission; `readOnly` keeps it focusable
-  and submittable while preventing edits.
-- Prefer semantic native attributes (`type`, `autoComplete`, `inputMode`, `enterKeyHint`) over
-  custom logic whenever the browser already supports the behavior.
-- Use ``on`Field` for most text inputs; reserve on-change validation for
-  cases where immediate feedback materially helps the user.
-
-## Intentional differences from Base UI
-
-- Import from `moduix`, not `@base-ui/react/input`, when you want the library styling contract.
-- The wrapper is styled by default and writes `data-slot="input-root"` plus moduix `data-size`.
-- moduix `size` is visual only. Native `<input size>` is renamed to `htmlSize`.
-- The local docs intentionally describe the moduix wrapper instead of re-documenting the entire Base
-  UI primitive API.
+- moduix adds visual sizes, `htmlSize`, design tokens, and `data-slot`.
+- `Input` is exported as a standalone wrapper even though its upstream implementation is
+  `Field.Input`.
+- Base UI `onValueChange`, `render`, callback `className`, callback `style`, and Base UI field-state
+  attributes are intentionally removed.
 
 ## Agent notes
 
-- Preserve the single-root wrapper shape unless a real composition requirement appears.
-- Keep `size`, `htmlSize`, CSS variables, stories, and this file synchronized.
-- Do not add icon, prefix, suffix, clear, or loading props to `Input`; use `InputGroup` or explicit
-  composition instead.
-- If new public `--input-*` variables are added, register them in `theme.css` and update this file.
+- Keep the wrapper as one Ark `Field.Input`; do not add local value or validation state.
+- Keep controlled examples on native `onChange(event)`.
+- Use `InputGroup` for inline decoration and actions.
+- Do not migrate `PasswordInput` to Ark Password Input as part of `Input` changes.
 
 ## Local changelog
 
-- Rewrote the local documentation to describe the shipped moduix `Input` API, styling hooks,
-  examples, and constraints instead of Base UI reference content.
-- Exported `InputProps` and `InputSize` for wrapper authors and consumer-side typing.
-- Added readonly styling tokens so compact preview/edit compositions can keep one mounted input
-  instead of swapping between text and field markup.
+- 2026-06-19: Migrated from Base UI Input to Ark UI `Field.Input`; added `asChild` and Ark field
+  anatomy/state hooks; removed Base UI callback, render, and state contracts.

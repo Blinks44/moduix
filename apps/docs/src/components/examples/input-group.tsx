@@ -180,7 +180,7 @@ export function InputGroupWithActionExample() {
       <InputGroup>
         <InputGroupInput
           value={value}
-          onValueChange={setValue}
+          onChange={(event) => setValue(event.currentTarget.value)}
           type="email"
           placeholder="name@example.com"
         />
@@ -226,7 +226,7 @@ export function InputGroupInlineEditingExample() {
           ref={inputRef}
           readOnly={!editing}
           value={editing ? draft : value}
-          onValueChange={setDraft}
+          onChange={(event) => setDraft(event.currentTarget.value)}
         />
         {editing ? (
           <>
@@ -299,10 +299,10 @@ export function DisabledInputGroupExample() {
 
 export function InputGroupFieldValidationExample() {
   return (
-    <Field className="input-group-demo-field">
+    <Field className="input-group-demo-field" invalid>
       <Field.Label>Domain</Field.Label>
       <InputGroup>
-        <InputGroupInput required placeholder="company" />
+        <InputGroupInput placeholder="company" />
         <InputGroupText>.test.com</InputGroupText>
       </InputGroup>
       <Field.ErrorText>Please enter a domain.</Field.ErrorText>

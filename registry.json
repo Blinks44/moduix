@@ -734,7 +734,7 @@
       "type": "registry:item",
       "title": "Input",
       "description": "moduix Input component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
@@ -759,7 +759,7 @@
       "type": "registry:item",
       "title": "InputGroup",
       "description": "moduix InputGroup component.",
-      "dependencies": ["clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
         "Blinks44/moduix/core",
         "Blinks44/moduix/button",

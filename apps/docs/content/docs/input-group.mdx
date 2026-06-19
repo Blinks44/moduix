@@ -1,6 +1,6 @@
 ---
 title: Input Group
-description: A composable field shell for inline prefixes, suffixes, helper text, and compact actions.
+description: An Ark-style composition for one input with inline addons, text, and actions.
 icon: Component
 ---
 
@@ -18,24 +18,22 @@ import {
 
 ## API Reference
 
-`InputGroup` does not wrap a dedicated Base UI primitive. It is a moduix composition helper built
-from the local `Input` and `Button` components, so the public API lives on these exported parts:
-`InputGroup`, `InputGroupInput`, `InputGroupAddon`, `InputGroupText`, and `InputGroupButton`.
+Ark UI has no Input Group primitive. moduix builds this composition with the
+[Ark factory and `asChild` model](https://ark-ui.com/docs/guides/composition), the Ark-backed local
+`Input`, and the local `Button`. Chakra's
+[Input composition examples](https://chakra-ui.com/docs/components/input) inform the addon and
+action patterns.
 
 ## Choosing the right component
 
-Use `InputGroup` when one single-line input and its inline affordances should read as one merged
-control.
-
-- Choose **`Input`** when the field only needs a plain input.
-- Choose **`InputGroup`** when the field needs inline prefixes, suffixes, helper text, or actions.
-- Choose **`PasswordInput`** when the grouped action is specifically a built-in visibility toggle.
-- Choose **`NumberField`** when the value is numeric and needs parsing, stepping, or formatting.
-- Choose **`Textarea`** when the content can span multiple lines.
+- Choose **`Input`** for a plain single-line field.
+- Choose **`InputGroup`** for inline prefixes, suffixes, text, or actions.
+- Choose **`PasswordInput`** for the existing password visibility composition.
+- Choose **`NumberField`** when numeric behavior matters.
 
 ## Basic
 
-Start with `InputGroup`, one `InputGroupInput`, and only the inline parts the field actually needs.
+Compose one grouped input with only the presentational parts the field needs.
 
 <Preview>
   <InputGroupExample />
@@ -50,7 +48,7 @@ Start with `InputGroup`, one `InputGroupInput`, and only the inline parts the fi
             <Field.Label>Workspace</Field.Label>
             <InputGroup>
               <InputGroupAddon>@</InputGroupAddon>
-              <InputGroupInput placeholder="maps" />
+              <InputGroupInput name="workspace" placeholder="maps" />
             </InputGroup>
           </Field>
         );
@@ -59,20 +57,22 @@ Start with `InputGroup`, one `InputGroupInput`, and only the inline parts the fi
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .input-group-demo-field {
         width: min(16rem, 100%);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const workspacePrefix = "@";
+    `}
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
-
-If you want `Input Group` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
@@ -112,12 +112,7 @@ aubx shadcn@latest add Blinks44/moduix/input-group
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Input Group` depends on,
-such as styles, icons, and small utilities.
-
 ## Anatomy
-
-The normal consumer path is short:
 
 ```text
 InputGroup
@@ -127,70 +122,58 @@ InputGroup
 └─ InputGroupButton (optional)
 ```
 
-| Part               | Role                                                     |
-| ------------------ | -------------------------------------------------------- |
-| `InputGroup`       | Shared shell for border, radius, focus ring, and sizing. |
-| `InputGroupInput`  | The `Input` rendered inside the shell.                   |
-| `InputGroupAddon`  | Filled prefix or suffix surface with a separator.        |
-| `InputGroupText`   | Plain inline text without the filled addon background.   |
-| `InputGroupButton` | Inline action based on `Button`.                         |
+| Part               | Role                                                         |
+| ------------------ | ------------------------------------------------------------ |
+| `InputGroup`       | Ark factory root for shared layout, border, focus, and size. |
+| `InputGroupInput`  | Ark-backed native input and form value owner.                |
+| `InputGroupAddon`  | Filled presentational prefix or suffix.                      |
+| `InputGroupText`   | Unfilled inline presentational text.                         |
+| `InputGroupButton` | Native button action with grouped visual defaults.           |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with one `InputGroupInput` per group, then add addons, helper text, or buttons before or
-after it as needed.
+Use exactly one `InputGroupInput`. Place addons, text, or buttons before or after it. Put the
+composition inside `Field` when it needs a label, helper text, error text, ids, or shared state.
 
-Set `size` on `InputGroup` to keep the whole row aligned. `InputGroupInput` and
-`InputGroupButton` inherit that size automatically, so the default path stays short.
-
-`InputGroupInput` accepts the same props as `Input`, including controlled values, native input
-attributes, and Base UI field validation state.
-
-`InputGroupButton` defaults to `variant="ghost"` and `type="button"`, so inline actions work
-inside forms without submitting them accidentally.
+`InputGroupInput` uses native input events. Controlled values use `value` and `onChange(event)`.
+The root `size` is inherited by the input and button.
 
 ### When to go custom
 
-`InputGroup` is already the low-level moduix composition path for merged field shells. There is no
-deeper namespaced primitive tree below it.
+`InputGroup`, `InputGroupAddon`, and `InputGroupText` support Ark `asChild`. The root child must
+remain a container; addon and text children should remain presentational and accept forwarded props
+and refs.
 
-Switch away from `InputGroup` when the control stops being one input with inline decoration:
-
-- use `Input` for plain fields without extra inline parts
-- use `PasswordInput` when the grouped action is just a visibility toggle
-- use `NumberField` when the input needs numeric behavior instead of visual grouping
-
-Use `role="group"` with `aria-label` or `aria-labelledby` only for standalone widgets where the
-group itself needs an explicit grouped semantic. When the control lives inside `Field`, prefer
-`Field.Label` and keep `InputGroup` purely visual.
+Use `InputGroupButton` for actions instead of making an addon interactive. Use `role="group"` with
+an accessible name only when the standalone composition itself needs grouped semantics.
 
 ### Default props
 
-| Part / Prop                | Default              | Notes                                                     |
-| -------------------------- | -------------------- | --------------------------------------------------------- |
-| `InputGroup.size`          | `md`                 | Supports `xs`, `sm`, `md`, `lg`, and `xl`.                |
-| `InputGroupInput.size`     | inherited from group | Override only when one input should intentionally differ. |
-| `InputGroupButton.variant` | `ghost`              | Accepts the same variants as `Button`.                    |
-| `InputGroupButton.size`    | inherited from group | Override for icon or mixed-density actions.               |
-| `InputGroupButton.type`    | `button`             | Use `submit` or `reset` when the action should do that.   |
+| Part / prop                | Default             |
+| -------------------------- | ------------------- |
+| `InputGroup.size`          | `md`                |
+| `InputGroupInput.size`     | inherited from root |
+| `InputGroupButton.size`    | inherited from root |
+| `InputGroupButton.variant` | `ghost`             |
+| `InputGroupButton.type`    | `button`            |
 
 ### Behavioral notes
 
-- The shell click-to-focus behavior targets the first grouped input, so multiple grouped inputs are
-  not a supported composition.
-- Shell clicks focus the input for plain primary-button clicks, but skip interactive descendants and
-  do nothing when the grouped input is `disabled` or `readOnly`.
-- Invalid, disabled, and readonly shell styling is derived from the nested input state.
-- For inline edit flows, keep one mounted `InputGroupInput`, switch it between `readOnly` and
-  editable modes, and swap only the trailing actions.
+- The input ref targets the real `HTMLInputElement`.
+- The root does not own value, validation, ARIA ids, context hooks, or a `HiddenInput`.
+- A plain primary press on non-interactive shell space focuses the first editable grouped input.
+- Focus redirection skips buttons, links, inputs, selects, textareas, modified clicks, disabled
+  inputs, and read-only inputs.
+- Root invalid, disabled, and read-only visuals derive from the nested input state.
+- Base UI `onValueChange`, `render`, and callback styling props are not supported.
 
 ## Examples
 
 ### With Action
 
-Use `InputGroupButton` for compact inline actions tied to the current field value.
+Use a grouped button for an action tied to the native input value.
 
 <Preview>
   <InputGroupWithActionExample />
@@ -209,7 +192,7 @@ Use `InputGroupButton` for compact inline actions tied to the current field valu
             <InputGroup>
               <InputGroupInput
                 value={value}
-                onValueChange={setValue}
+                onChange={(event) => setValue(event.currentTarget.value)}
                 type="email"
                 placeholder="name@example.com"
               />
@@ -222,57 +205,175 @@ Use `InputGroupButton` for compact inline actions tied to the current field valu
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .input-group-demo-field {
         width: min(16rem, 100%);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const initialInviteEmail = "";
+    `}
+  </Preview.Data>
+</Preview>
+
+### Prefix and Suffix
+
+Mix a filled addon with plain text when the two sides have different visual weight.
+
+<Preview>
+  <InputGroupPrefixSuffixExample />
+
+  <Preview.Code>
+    {`
+      import { Field, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "moduix";
+
+      export function BudgetInputGroupDemo() {
+        return (
+          <Field className="input-group-demo-field">
+            <Field.Label>Monthly budget</Field.Label>
+            <InputGroup>
+              <InputGroupAddon>$</InputGroupAddon>
+              <InputGroupInput inputMode="decimal" placeholder="2500" />
+              <InputGroupText>USD</InputGroupText>
+            </InputGroup>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .input-group-demo-field {
+        width: min(16rem, 100%);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const currency = { symbol: "$", code: "USD" };
+    `}
+  </Preview.Data>
+</Preview>
+
+### Field State
+
+Set invalid state on `Field`; Ark applies the state and ARIA contract to `InputGroupInput`, and the
+shell reacts to that input state.
+
+<Preview>
+  <InputGroupFieldValidationExample />
+
+  <Preview.Code>
+    {`
+      import { Field, InputGroup, InputGroupInput, InputGroupText } from "moduix";
+
+      export function InvalidDomainDemo() {
+        return (
+          <Field className="input-group-demo-field" invalid>
+            <Field.Label>Domain</Field.Label>
+            <InputGroup>
+              <InputGroupInput placeholder="company" />
+              <InputGroupText>.test.com</InputGroupText>
+            </InputGroup>
+            <Field.ErrorText>Please enter a valid domain.</Field.ErrorText>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .input-group-demo-field {
+        width: min(16rem, 100%);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const domainSuffix = ".test.com";
+    `}
+  </Preview.Data>
+</Preview>
+
+### Disabled
+
+Disabled state remains on the native input. Disable related actions explicitly when they should
+also become unavailable.
+
+<Preview>
+  <DisabledInputGroupExample />
+
+  <Preview.Code>
+    {`
+      import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "moduix";
+
+      export function DisabledInputGroupDemo() {
+        return (
+          <InputGroup role="group" aria-label="Workspace handle">
+            <InputGroupAddon>@</InputGroupAddon>
+            <InputGroupInput disabled value="maps" />
+            <InputGroupButton disabled>Copy</InputGroupButton>
+          </InputGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      [data-slot="input-group-root"] {
+        width: min(16rem, 100%);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const workspaceHandle = "maps";
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Inline Editing
 
-For single-line inline editing, keep one mounted `InputGroupInput`, switch it between `readOnly`
-and editable modes, and swap only the action buttons. If the readonly state should look flatter or
-more text-like, override the `--input-group-readonly-*` shell variables instead of styling only the
-nested input.
+Keep one mounted input, toggle `readOnly`, and swap only the trailing actions.
 
 <Preview>
   <InputGroupInlineEditingExample />
 
   <Preview.Code>
     {`
-      import { CheckIcon, CloseIcon, Field, InputGroup, InputGroupButton, InputGroupInput, PencilIcon } from "moduix";
+      import {
+        CheckIcon,
+        CloseIcon,
+        Field,
+        InputGroup,
+        InputGroupButton,
+        InputGroupInput,
+        PencilIcon,
+      } from "moduix";
       import { useEffect, useRef, useState } from "react";
 
-      export function InlineEditingInputGroupDemo() {
+      export function InlineEditingDemo() {
         const [editing, setEditing] = useState(false);
         const [value, setValue] = useState("Workspace display name");
         const [draft, setDraft] = useState(value);
         const inputRef = useRef(null as HTMLInputElement | null);
 
         useEffect(() => {
-          if (editing) {
-            inputRef.current?.focus();
-          }
+          if (editing) inputRef.current?.focus();
         }, [editing]);
-
-        const handleEdit = () => {
-          setDraft(value);
-          setEditing(true);
-        };
-
-        const handleCancel = () => {
-          setDraft(value);
-          setEditing(false);
-        };
-
-        const handleSave = () => {
-          setValue(draft);
-          setEditing(false);
-        };
 
         return (
           <Field className="input-group-demo-field">
@@ -280,22 +381,39 @@ nested input.
             <InputGroup>
               <InputGroupInput
                 ref={inputRef}
-                aria-label="Display name"
                 readOnly={!editing}
                 value={editing ? draft : value}
-                onValueChange={setDraft}
+                onChange={(event) => setDraft(event.currentTarget.value)}
               />
               {editing ? (
                 <>
-                  <InputGroupButton aria-label="Cancel editing" size="icon-md" onClick={handleCancel}>
+                  <InputGroupButton
+                    aria-label="Cancel editing"
+                    size="icon-md"
+                    onClick={() => {
+                      setDraft(value);
+                      setEditing(false);
+                    }}
+                  >
                     <CloseIcon />
                   </InputGroupButton>
-                  <InputGroupButton aria-label="Save changes" size="icon-md" onClick={handleSave}>
+                  <InputGroupButton
+                    aria-label="Save changes"
+                    size="icon-md"
+                    onClick={() => {
+                      setValue(draft);
+                      setEditing(false);
+                    }}
+                  >
                     <CheckIcon />
                   </InputGroupButton>
                 </>
               ) : (
-                <InputGroupButton aria-label="Edit display name" size="icon-md" onClick={handleEdit}>
+                <InputGroupButton
+                  aria-label="Edit display name"
+                  size="icon-md"
+                  onClick={() => setEditing(true)}
+                >
                   <PencilIcon />
                 </InputGroupButton>
               )}
@@ -307,134 +425,24 @@ nested input.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .input-group-demo-field {
         width: min(16rem, 100%);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
-</Preview>
-
-### Prefix and Suffix
-
-Mix `InputGroupAddon` and `InputGroupText` when one side should feel fixed and the other should
-read as helper text.
-
-<Preview>
-  <InputGroupPrefixSuffixExample />
-
-  <Preview.Code>
+  <Preview.Data>
     {`
-      import { Field, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "moduix";
-
-      export function PrefixSuffixInputGroupDemo() {
-        return (
-          <Field className="input-group-demo-field">
-            <Field.Label>Monthly budget</Field.Label>
-            <InputGroup>
-              <InputGroupAddon className="input-group-demo-currency">$</InputGroupAddon>
-              <InputGroupInput inputMode="decimal" placeholder="2500" />
-              <InputGroupText>USD</InputGroupText>
-            </InputGroup>
-          </Field>
-        );
-      }
+      const initialDisplayName = "Workspace display name";
     `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .input-group-demo-field {
-        width: min(16rem, 100%);
-      }
-
-      .input-group-demo-currency {
-        color: var(--color-foreground);
-        font-weight: var(--weight-medium);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Field Validation
-
-`InputGroupInput` keeps the Base UI input state, so `Field` validation can style the whole group as
-invalid.
-
-<Preview>
-  <InputGroupFieldValidationExample />
-
-  <Preview.Code>
-    {`
-      import { Field, InputGroup, InputGroupInput, InputGroupText } from "moduix";
-
-      export function InputGroupFieldValidationDemo() {
-        return (
-          <Field className="input-group-demo-field" >
-            <Field.Label>Domain</Field.Label>
-            <InputGroup>
-              <InputGroupInput required placeholder="company" />
-              <InputGroupText>.test.com</InputGroupText>
-            </InputGroup>
-            <Field.ErrorText>Please enter a domain.</Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .input-group-demo-field {
-        width: min(16rem, 100%);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Disabled
-
-When the grouped input is disabled, the shell dims with it.
-
-<Preview>
-  <DisabledInputGroupExample />
-
-  <Preview.Code>
-    {`
-      import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "moduix";
-
-      export function DisabledInputGroupDemo() {
-        return (
-          <InputGroup className="input-group-demo-group" role="group" aria-label="Workspace handle">
-            <InputGroupAddon>@</InputGroupAddon>
-            <InputGroupInput disabled value="maps" />
-            <InputGroupButton disabled>Copy</InputGroupButton>
-          </InputGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .input-group-demo-group {
-        width: min(16rem, 100%);
-      }
-    `}
-
-  </Preview.CSS>
+  </Preview.Data>
 </Preview>
 
 ### Sizes
 
-Set `size` on the group instead of wiring the same size into each child.
+Set size once on the root so the input, addon, text, and button stay aligned.
 
 <Preview>
   <InputGroupSizesExample />
@@ -446,26 +454,12 @@ Set `size` on the group instead of wiring the same size into each child.
       export function InputGroupSizesDemo() {
         return (
           <div className="input-group-demo-stack">
-            <InputGroup size="xs">
-              <InputGroupAddon>@</InputGroupAddon>
-              <InputGroupInput placeholder="Extra-small group" />
-            </InputGroup>
-            <InputGroup size="sm">
-              <InputGroupAddon>@</InputGroupAddon>
-              <InputGroupInput placeholder="Small group" />
-            </InputGroup>
-            <InputGroup size="md">
-              <InputGroupAddon>@</InputGroupAddon>
-              <InputGroupInput placeholder="Medium group" />
-            </InputGroup>
-            <InputGroup size="lg">
-              <InputGroupAddon>@</InputGroupAddon>
-              <InputGroupInput placeholder="Large group" />
-            </InputGroup>
-            <InputGroup size="xl">
-              <InputGroupAddon>@</InputGroupAddon>
-              <InputGroupInput placeholder="Extra-large group" />
-            </InputGroup>
+            {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
+              <InputGroup key={size} size={size}>
+                <InputGroupAddon>@</InputGroupAddon>
+                <InputGroupInput aria-label={size + " workspace"} />
+              </InputGroup>
+            ))}
           </div>
         );
       }
@@ -473,21 +467,26 @@ Set `size` on the group instead of wiring the same size into each child.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .input-group-demo-stack {
         display: grid;
         gap: var(--spacing-3);
         width: min(16rem, 100%);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const inputGroupSizes = ["xs", "sm", "md", "lg", "xl"] as const;
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Custom Styling
 
-Use root CSS variables for shell-level changes and part-level `className` props for local styling.
+Use root variables for the merged shell and part classes for local addon or button styling.
 
 <Preview>
   <CustomStylesInputGroupExample />
@@ -512,41 +511,29 @@ Use root CSS variables for shell-level changes and part-level `className` props 
   <Preview.CSS>
     {`
       .input-group-demo-custom-group {
-        --input-group-bg: var(--color-background);
         --input-group-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
-        --input-group-focus-ring-color: color-mix(in oklab, var(--color-primary) 50%, transparent);
+        --input-group-focus-ring-color: var(--color-primary);
         --input-group-radius: var(--radius-lg);
 
         width: min(24rem, 100%);
       }
 
-      .input-group-demo-custom-addon {
-        --input-group-addon-bg: color-mix(in oklab, var(--color-primary) 14%, var(--color-background));
-        --input-group-addon-color: var(--color-primary);
-
-        font-weight: var(--weight-semibold);
-      }
-
+      .input-group-demo-custom-addon,
       .input-group-demo-custom-button {
-        --button-ghost-bg-hover: color-mix(in oklab, var(--color-primary) 18%, var(--color-background));
-        --input-group-button-color: var(--color-primary);
-
-        margin: var(--spacing-1);
-        border: var(--border-width-sm) solid
-          color-mix(in oklab, var(--color-primary) 28%, transparent);
-        border-radius: var(--radius-sm);
-        background-color: color-mix(in oklab, var(--color-primary) 10%, var(--color-background));
-        font-weight: var(--weight-semibold);
+        color: var(--color-primary);
       }
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const customHandle = "custom-group";
+    `}
+  </Preview.Data>
 </Preview>
 
 ## Styling
-
-Style `InputGroup` through `className`, the exported part hooks, and the public `--input-group-*`
-CSS variables shown below.
 
 ### CSS Properties
 
@@ -560,18 +547,9 @@ CSS variables shown below.
 
 ### Styling hooks
 
-Use the part that owns the visual concern:
-
-- `InputGroup` for the visible shell, radius, border, and focus ring
-- `InputGroupInput` for text alignment and input-specific local tweaks
-- `InputGroupAddon` for filled prefix and suffix surfaces
-- `InputGroupText` for plain inline helper text
-- `InputGroupButton` for grouped actions
-
-The main public hooks are `data-slot="input-group-root"`, `data-slot="input-group-input"`,
-`data-slot="input-group-addon"`, `data-slot="input-group-text"`, and
-`data-slot="input-group-button"`.
-
-The shell does not mirror child state with its own `data-invalid`, `data-disabled`, or
-`data-readonly` attributes. Root invalid, disabled, and readonly styling is derived from the nested
-input state.
+- `data-slot="input-group-root"` and `data-size`
+- `data-slot="input-group-input"` plus Ark Field anatomy/state attributes
+- `data-slot="input-group-addon"`
+- `data-slot="input-group-text"`
+- `data-slot="input-group-button"`
+- nested `data-invalid`, `aria-invalid`, `disabled`, and `readOnly` state through root `:has(...)`

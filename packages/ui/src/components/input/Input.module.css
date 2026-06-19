@@ -34,7 +34,7 @@
       outline-color: var(--input-focus-ring-color, var(--color-ring));
     }
 
-    &[data-invalid] {
+    &:is([data-invalid], [aria-invalid='true']) {
       border-color: var(--input-border-color-invalid, var(--color-destructive));
 
       &:focus-visible {
@@ -42,7 +42,7 @@
       }
     }
 
-    &[data-disabled] {
+    &:is([data-disabled], :disabled) {
       pointer-events: none;
       opacity: var(--input-disabled-opacity, var(--opacity-disabled));
     }
