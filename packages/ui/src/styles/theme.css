@@ -975,11 +975,6 @@
   --fieldset-radius: initial; /* var(--radius-none) */
   --fieldset-width: initial; /* 100% */
 
-  /* Form */
-  --form-gap: initial; /* var(--spacing-4) */
-  --form-max-width: initial; /* none */
-  --form-width: initial; /* 100% */
-
   /* Heading */
   --heading-color: initial; /* var(--color-foreground) */
   --heading-font-family: initial; /* var(--font-sans) */

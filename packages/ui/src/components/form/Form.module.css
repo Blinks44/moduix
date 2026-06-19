@@ -1,9 +1,0 @@
-@layer ui.components {
-  .root {
-    display: flex;
-    flex-direction: column;
-    gap: var(--form-gap, var(--spacing-4));
-    width: var(--form-width, 100%);
-    max-width: var(--form-max-width, none);
-  }
-}

@@ -705,31 +705,6 @@
       ]
     },
     {
-      "name": "form",
-      "type": "registry:item",
-      "title": "Form",
-      "description": "moduix Form component.",
-      "dependencies": ["@base-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/core"],
-      "files": [
-        {
-          "path": "packages/ui/src/components/form/Form.tsx",
-          "target": "@components/moduix/form/Form.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "packages/ui/src/components/form/Form.module.css",
-          "target": "@components/moduix/form/Form.module.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/ui/src/components/form/index.ts",
-          "target": "@components/moduix/form/index.ts",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "heading",
       "type": "registry:item",
       "title": "Heading",
