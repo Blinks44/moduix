@@ -31,40 +31,40 @@ Breaking Base UI-era APIs were removed:
 
 - no `render` prop contract; use Ark `asChild`
 - no `closeOnClick`; use Ark `closeOnSelect` or item/root defaults
-- no `MenuSubmenu`; nested menus are regular `Menu` roots opened by `MenuTriggerItem`
-- no `MenuLinkItem`; use `MenuItem asChild` with an anchor
-- no high-level `MenuContent` wrapper that hides `Portal` or `Positioner`
+- no `MenuSubmenu`; nested menus are regular `Menu` roots opened by `Menu.TriggerItem`
+- no `MenuLinkItem`; use `Menu.Item asChild` with an anchor
+- no high-level `Menu.Content` wrapper that hides `Portal` or `Positioner`
 - no `createMenuHandle`, `MenuPopup`, `MenuViewport`, `MenuBackdrop`, or `MenuPortal` aliases
 
 ## Anatomy and exported parts
 
 ```tsx
 <Menu>
-  <MenuTrigger />
+  <Menu.Trigger />
   <Portal>
-    <MenuPositioner>
-      <MenuContent>
-        <MenuArrow>
-          <MenuArrowTip />
-        </MenuArrow>
-        <MenuItem value="edit" />
-        <MenuCheckboxItem value="toolbar" checked={checked}>
-          <MenuItemIndicator />
-          <MenuItemText />
-        </MenuCheckboxItem>
-        <MenuRadioItemGroup value={value}>
-          <MenuRadioItem value="date" />
-        </MenuRadioItemGroup>
+    <Menu.Positioner>
+      <Menu.Content>
+        <Menu.Arrow>
+          <Menu.ArrowTip />
+        </Menu.Arrow>
+        <Menu.Item value="edit" />
+        <Menu.CheckboxItem value="toolbar" checked={checked}>
+          <Menu.ItemIndicator />
+          <Menu.ItemText />
+        </Menu.CheckboxItem>
+        <Menu.RadioItemGroup value={value}>
+          <Menu.RadioItem value="date" />
+        </Menu.RadioItemGroup>
         <Menu>
-          <MenuTriggerItem />
+          <Menu.TriggerItem />
           <Portal>
-            <MenuPositioner>
-              <MenuContent />
-            </MenuPositioner>
+            <Menu.Positioner>
+              <Menu.Content />
+            </Menu.Positioner>
           </Portal>
         </Menu>
-      </MenuContent>
-    </MenuPositioner>
+      </Menu.Content>
+    </Menu.Positioner>
   </Portal>
 </Menu>
 ```
@@ -82,21 +82,21 @@ Stable slots:
 ## Composition
 
 ```tsx
-import { Button, Menu, MenuContent, MenuItem, MenuPositioner, MenuTrigger, Portal } from 'moduix';
+import { Button, Menu, Portal } from 'moduix';
 
 export function Example() {
   return (
     <Menu positioning={{ placement: 'bottom-start', gutter: 8 }}>
-      <MenuTrigger asChild>
+      <Menu.Trigger asChild>
         <Button>Actions</Button>
-      </MenuTrigger>
+      </Menu.Trigger>
       <Portal>
-        <MenuPositioner>
-          <MenuContent>
-            <MenuItem value="edit">Edit</MenuItem>
-            <MenuItem value="duplicate">Duplicate</MenuItem>
-          </MenuContent>
-        </MenuPositioner>
+        <Menu.Positioner>
+          <Menu.Content>
+            <Menu.Item value="edit">Edit</Menu.Item>
+            <Menu.Item value="duplicate">Duplicate</Menu.Item>
+          </Menu.Content>
+        </Menu.Positioner>
       </Portal>
     </Menu>
   );
@@ -114,7 +114,7 @@ Supported Ark examples and guides:
 - controlled `open` state and `onOpenChange(details)`
 - `RootProvider` and `useMenu`
 - item grouping and labels
-- link items through `MenuItem asChild`
+- link items through `Menu.Item asChild`
 - checkbox items and `onCheckedChange(checked)`
 - radio item groups and `onValueChange(details)`
 - context menus through `ContextTrigger`
@@ -132,8 +132,8 @@ right-click context behavior, long-press context behavior, and nested menu keybo
 Use `value` for item identity. Do not set arbitrary item `id` values because Ark uses generated
 IDs internally for item lookup.
 
-Refs forward to the corresponding Ark DOM part. `MenuTrigger` targets the trigger button,
-`MenuContent` targets the menu content element, and item refs target their item elements.
+Refs forward to the corresponding Ark DOM part. `Menu.Trigger` targets the trigger button,
+`Menu.Content` targets the menu content element, and item refs target their item elements.
 
 ## Defaults and styling
 
@@ -154,19 +154,19 @@ Public `--menu-*` variables are declared in `packages/ui/src/styles/theme.css`.
 
 moduix adds leaf-level styling helpers only:
 
-- `MenuTriggerIcon` defaults to `ChevronDownIcon`
-- `MenuTriggerItemIcon` defaults to `ChevronRightIcon`
-- `MenuItemIndicator` defaults to `CheckIcon`
-- `MenuItemShortcut`, `MenuItemTextContent`, `MenuItemTextIcon`, and `MenuItemTextLabel` support
+- `Menu.TriggerIcon` defaults to `ChevronDownIcon`
+- `Menu.TriggerItemIcon` defaults to `ChevronRightIcon`
+- `Menu.ItemIndicator` defaults to `CheckIcon`
+- `Menu.ItemShortcut`, `Menu.ItemTextContent`, `Menu.ItemTextIcon`, and `Menu.ItemTextLabel` support
   common row layouts
-- `tone="destructive"` on `MenuItem`
+- `tone="destructive"` on `Menu.Item`
 - `indicator="start" | "end" | "none"` on checkbox and radio item wrappers
 
 These helpers must not hide the Ark part tree or remap Ark callback detail objects.
 
 ## Agent notes
 
-Keep `MenuContent` as the real Ark content part. Do not reintroduce a wrapper that renders
+Keep `Menu.Content` as the real Ark content part. Do not reintroduce a wrapper that renders
 `Portal`, `Positioner`, or `Arrow` internally. Use the public `Portal` export from `moduix` for
 popup composition.
 
@@ -175,19 +175,19 @@ exported from `packages/ui/src/components/menu/index.ts` and the root package ba
 
 ## Local changelog
 
-- 2026-06-19: `MenuTrigger` now skips the internal `.trigger` class when `asChild` is enabled, so
+- 2026-06-19: `Menu.Trigger` now skips the internal `.trigger` class when `asChild` is enabled, so
   consumer host components (for example, `Button`) keep their own background styles in
   hover/active/open states.
-- 2026-06-19: Removed hardcoded hover/open fallback colors on `MenuTrigger`. Hover/open background
+- 2026-06-19: Removed hardcoded hover/open fallback colors on `Menu.Trigger`. Hover/open background
   now applies only when `--menu-trigger-bg-hover` and/or `--menu-trigger-bg-active` are explicitly
-  set, so `MenuTrigger asChild` does not override consumer button styling.
-- 2026-06-19: Changed `MenuTrigger` open-state background fallback to `--menu-trigger-bg` so
+  set, so `Menu.Trigger asChild` does not override consumer button styling.
+- 2026-06-19: Changed `Menu.Trigger` open-state background fallback to `--menu-trigger-bg` so
   opening a popup no longer forces the hover accent color unless `--menu-trigger-bg-active` is set.
 - 2026-06-18: Migrated `Menu` from Base UI to Ark UI React. Removed Base UI compatibility exports
   and rewrote the public contract around Ark parts, `asChild`, `value` items, `RootProvider`,
   `ContextTrigger`, `TriggerItem`, Ark state attributes, and Ark positioning variables.
-- 2026-06-16: Added `tone="destructive"` to `MenuItem` and `MenuLinkItem`, plus dedicated
-  destructive highlight tokens for softer destructive hover backgrounds.
+- 2026-06-16: Added `tone="destructive"` and dedicated destructive highlight tokens for softer
+  destructive hover backgrounds.
 - 2026-06-14: Added `indicator="none"` for checkbox and radio rows so menus can opt out of the
   reserved indicator column without causing selection-time layout shift.
 - 2026-06-10: Added phase-specific backdrop and popup motion tokens for menu enter/exit motion.

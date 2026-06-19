@@ -1,12 +1,12 @@
 @layer ui.components {
-  .root {
+  .root[data-scope='breadcrumbs'][data-part='root'] {
     max-width: var(--breadcrumbs-max-width, 100%);
     color: var(--breadcrumbs-color, var(--color-muted-foreground));
     font-size: var(--breadcrumbs-font-size, var(--text-sm));
     line-height: var(--breadcrumbs-line-height, var(--line-height-text-sm));
   }
 
-  .list {
+  .list[data-scope='breadcrumbs'][data-part='list'] {
     display: flex;
     min-width: 0;
     align-items: center;
@@ -22,15 +22,15 @@
     }
   }
 
-  .item {
+  .item[data-scope='breadcrumbs'][data-part='item'] {
     display: inline-flex;
     min-width: 0;
     flex: 0 0 auto;
     align-items: center;
   }
 
-  .link,
-  .page {
+  .link[data-scope='breadcrumbs'][data-part='link'],
+  .page[data-scope='breadcrumbs'][data-part='page'] {
     display: block;
     min-width: 0;
     max-width: 100%;
@@ -38,14 +38,14 @@
     white-space: nowrap;
   }
 
-  .link,
-  .page,
-  .ellipsis {
+  .link[data-scope='breadcrumbs'][data-part='link'],
+  .page[data-scope='breadcrumbs'][data-part='page'],
+  .ellipsis[data-scope='breadcrumbs'][data-part='ellipsis'] {
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .link {
+  .link[data-scope='breadcrumbs'][data-part='link'] {
     color: var(--breadcrumbs-link-color, var(--color-muted-foreground));
     text-decoration: var(--breadcrumbs-link-text-decoration, none);
     text-underline-offset: var(--breadcrumbs-link-underline-offset, 0.2em);
@@ -66,12 +66,12 @@
     }
   }
 
-  .page {
+  .page[data-scope='breadcrumbs'][data-part='page'] {
     color: var(--breadcrumbs-page-color, var(--color-foreground));
     font-weight: var(--breadcrumbs-page-font-weight, var(--weight-medium));
   }
 
-  .separator {
+  .separator[data-scope='breadcrumbs'][data-part='separator'] {
     display: inline-flex;
     align-items: center;
     color: var(--breadcrumbs-separator-color, var(--color-muted-foreground));
@@ -80,7 +80,7 @@
     user-select: none;
   }
 
-  .ellipsis {
+  .ellipsis[data-scope='breadcrumbs'][data-part='ellipsis'] {
     display: inline-flex;
     align-items: center;
     justify-content: center;

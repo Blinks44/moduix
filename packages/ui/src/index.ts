@@ -33,7 +33,6 @@ export * from './components/kbd';
 export * from './components/lightbox';
 export * from './components/list';
 export * from './components/menu';
-export * from './components/navigation-menu';
 export * from './components/number-field';
 export * from './components/otp-field';
 export * from './components/pagination';

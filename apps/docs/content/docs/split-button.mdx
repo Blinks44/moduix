@@ -31,8 +31,6 @@ dropdown.
   <Preview.Code>
     {`
       import {
-        MenuItem,
-        MenuSeparator,
         SplitButton,
         SplitButtonAction,
         SplitButtonContent,
@@ -45,10 +43,10 @@ dropdown.
             <SplitButtonAction>Save Changes</SplitButtonAction>
             <SplitButtonTrigger />
             <SplitButtonContent>
-              <MenuItem value="action">Save as Draft</MenuItem>
-              <MenuItem value="action">Duplicate</MenuItem>
-              <MenuSeparator />
-              <MenuItem value="action">Publish Now</MenuItem>
+              <Menu.Item value="action">Save as Draft</Menu.Item>
+              <Menu.Item value="action">Duplicate</Menu.Item>
+              <Menu.Separator />
+              <Menu.Item value="action">Publish Now</Menu.Item>
             </SplitButtonContent>
           </SplitButton>
         );
@@ -113,8 +111,8 @@ SplitButton
 ├─ SplitButtonAction
 ├─ SplitButtonTrigger
 └─ SplitButtonContent
-   ├─ MenuItem
-   ├─ MenuSeparator
+   ├─ Menu.Item
+   ├─ Menu.Separator
    └─ other shared Menu parts
 ```
 
@@ -123,7 +121,7 @@ SplitButton
 | `SplitButton`        | Menu root behavior plus grouped visual wrapper.                       |
 | `SplitButtonAction`  | Primary action button. Inherits root `variant` and `size` by default. |
 | `SplitButtonTrigger` | Secondary trigger button. Defaults to a chevron icon.                 |
-| `SplitButtonContent` | Default popup wrapper around `MenuContent`.                           |
+| `SplitButtonContent` | Default popup wrapper around `Menu.Content`.                          |
 
 ## Composition
 
@@ -133,8 +131,8 @@ Stay with `SplitButtonAction`, `SplitButtonTrigger`, and `SplitButtonContent` fo
 action menus.
 
 - Keep the primary action explicit on `SplitButtonAction`.
-- Keep alternate actions on shared menu parts such as `MenuItem`, `MenuSeparator`, `MenuItemGroup`, and
-  `MenuCheckboxItem`.
+- Keep alternate actions on shared menu parts such as `Menu.Item`, `Menu.Separator`, `Menu.ItemGroup`, and
+  `Menu.CheckboxItem`.
 - Let the root `variant` and `size` flow to both grouped buttons unless one side needs an override.
 
 ### When to go custom
@@ -167,7 +165,7 @@ composition:
   not form a coherent control.
 - The root `size` excludes icon-only button sizes because the default path expects a visible label on
   the primary action.
-- `SplitButtonContent` is a small wrapper over `Portal`, `MenuPositioner`, and `MenuContent`; the menu rows still come from the
+- `SplitButtonContent` is a small wrapper over `Portal`, `Menu.Positioner`, and `Menu.Content`; the menu rows still come from the
   shared `Menu*` API.
 
 ## Examples
@@ -182,7 +180,6 @@ Use the root `variant` when both grouped buttons should share the same visual to
   <Preview.Code>
     {`
       import {
-        MenuItem,
         SplitButton,
         SplitButtonAction,
         SplitButtonContent,
@@ -196,7 +193,7 @@ Use the root `variant` when both grouped buttons should share the same visual to
               <SplitButtonAction>Default</SplitButtonAction>
               <SplitButtonTrigger />
               <SplitButtonContent>
-                <MenuItem value="action">Edit</MenuItem>
+                <Menu.Item value="action">Edit</Menu.Item>
               </SplitButtonContent>
             </SplitButton>
 
@@ -204,7 +201,7 @@ Use the root `variant` when both grouped buttons should share the same visual to
               <SplitButtonAction>Outline</SplitButtonAction>
               <SplitButtonTrigger />
               <SplitButtonContent>
-                <MenuItem value="action">Edit</MenuItem>
+                <Menu.Item value="action">Edit</Menu.Item>
               </SplitButtonContent>
             </SplitButton>
           </>
@@ -225,7 +222,6 @@ Use the root `size` when both sides should scale together.
   <Preview.Code>
     {`
       import {
-        MenuItem,
         SplitButton,
         SplitButtonAction,
         SplitButtonContent,
@@ -239,7 +235,7 @@ Use the root `size` when both sides should scale together.
               <SplitButtonAction>Extra-small</SplitButtonAction>
               <SplitButtonTrigger />
               <SplitButtonContent>
-                <MenuItem value="action">Create</MenuItem>
+                <Menu.Item value="action">Create</Menu.Item>
               </SplitButtonContent>
             </SplitButton>
 
@@ -247,7 +243,7 @@ Use the root `size` when both sides should scale together.
               <SplitButtonAction>Large</SplitButtonAction>
               <SplitButtonTrigger />
               <SplitButtonContent>
-                <MenuItem value="action">Create</MenuItem>
+                <Menu.Item value="action">Create</Menu.Item>
               </SplitButtonContent>
             </SplitButton>
           </>
@@ -268,8 +264,6 @@ Add icons on the primary side when they clarify the default action without repla
   <Preview.Code>
     {`
       import {
-        MenuItem,
-        MenuSeparator,
         PlusIcon,
         SplitButton,
         SplitButtonAction,
@@ -286,10 +280,10 @@ Add icons on the primary side when they clarify the default action without repla
             </SplitButtonAction>
             <SplitButtonTrigger aria-label="More create actions" />
             <SplitButtonContent>
-              <MenuItem value="action">Create Blank</MenuItem>
-              <MenuItem value="action">Create From Template</MenuItem>
-              <MenuSeparator />
-              <MenuItem value="action">Import Existing</MenuItem>
+              <Menu.Item value="action">Create Blank</Menu.Item>
+              <Menu.Item value="action">Create From Template</Menu.Item>
+              <Menu.Separator />
+              <Menu.Item value="action">Import Existing</Menu.Item>
             </SplitButtonContent>
           </SplitButton>
         );
@@ -309,8 +303,6 @@ Use the same controlled open-state contract as `Menu` when outside state should 
   <Preview.Code>
     {`
       import {
-        MenuItem,
-        MenuSeparator,
         SplitButton,
         SplitButtonAction,
         SplitButtonContent,
@@ -326,12 +318,12 @@ Use the same controlled open-state contract as `Menu` when outside state should 
             <SplitButtonAction>Share</SplitButtonAction>
             <SplitButtonTrigger aria-label="More share actions" />
             <SplitButtonContent>
-              <MenuItem value="action">Copy Link</MenuItem>
-              <MenuItem value="action">Invite by Email</MenuItem>
-              <MenuSeparator />
-              <MenuItem value="close-menu" onSelect={() => setOpen(false)}>
+              <Menu.Item value="action">Copy Link</Menu.Item>
+              <Menu.Item value="action">Invite by Email</Menu.Item>
+              <Menu.Separator />
+              <Menu.Item value="close-menu" onSelect={() => setOpen(false)}>
                 Close Menu
-              </MenuItem>
+              </Menu.Item>
             </SplitButtonContent>
           </SplitButton>
         );
@@ -351,7 +343,6 @@ Use root `className` and the stable `data-slot` hooks when the grouped control n
   <Preview.Code>
     {`
       import {
-        MenuItem,
         SplitButton,
         SplitButtonAction,
         SplitButtonContent,
@@ -365,8 +356,8 @@ Use root `className` and the stable `data-slot` hooks when the grouped control n
             <SplitButtonAction>Review</SplitButtonAction>
             <SplitButtonTrigger aria-label="More review actions" />
             <SplitButtonContent>
-              <MenuItem value="action">Approve</MenuItem>
-              <MenuItem value="action">Request Changes</MenuItem>
+              <Menu.Item value="action">Approve</Menu.Item>
+              <Menu.Item value="action">Request Changes</Menu.Item>
             </SplitButtonContent>
           </SplitButton>
         );
@@ -404,7 +395,6 @@ The primary action still uses the shared `Button.Root` API, so `asChild` is the 
     {`
       import {
         ArrowUpRightIcon,
-        MenuItem,
         SplitButton,
         SplitButtonAction,
         SplitButtonContent,
@@ -422,8 +412,8 @@ The primary action still uses the shared `Button.Root` API, so `asChild` is the 
             </SplitButtonAction>
             <SplitButtonTrigger aria-label="More docs actions" />
             <SplitButtonContent>
-              <MenuItem value="action">Copy Link</MenuItem>
-              <MenuItem value="action">Open in New Tab</MenuItem>
+              <Menu.Item value="action">Copy Link</Menu.Item>
+              <Menu.Item value="action">Open in New Tab</Menu.Item>
             </SplitButtonContent>
           </SplitButton>
         );

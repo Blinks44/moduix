@@ -35,23 +35,16 @@ moduix adds:
 - shared `variant` and `size` defaults for the primary action and trigger.
 - `SplitButtonAction` as the primary button part.
 - `SplitButtonTrigger` as a menu trigger that renders a `Button.Root` by default.
-- `SplitButtonContent` as the default `Portal -> MenuPositioner -> MenuContent` popup wrapper.
+- `SplitButtonContent` as the default `Portal -> Menu.Positioner -> Menu.Content` popup wrapper.
 - stable `data-slot` hooks for the grouped root, action, and trigger.
 
-The dropdown rows themselves stay on the shared menu API. Use `MenuItem`, `MenuSeparator`,
-`MenuItemGroup`, and other menu parts inside `SplitButtonContent`.
+The dropdown rows themselves stay on the shared menu API. Use `Menu.Item`, `Menu.Separator`,
+`Menu.ItemGroup`, and other menu parts inside `SplitButtonContent`.
 
 ## Recommended composition
 
 ```tsx
-import {
-  MenuItem,
-  MenuSeparator,
-  SplitButton,
-  SplitButtonAction,
-  SplitButtonContent,
-  SplitButtonTrigger,
-} from 'moduix';
+import { SplitButton, SplitButtonAction, SplitButtonContent, SplitButtonTrigger } from 'moduix';
 
 export function Example() {
   return (
@@ -59,10 +52,10 @@ export function Example() {
       <SplitButtonAction>Save Changes</SplitButtonAction>
       <SplitButtonTrigger />
       <SplitButtonContent>
-        <MenuItem value="save-draft">Save as Draft</MenuItem>
-        <MenuItem value="duplicate">Duplicate</MenuItem>
-        <MenuSeparator />
-        <MenuItem value="publish">Publish Now</MenuItem>
+        <Menu.Item value="save-draft">Save as Draft</Menu.Item>
+        <Menu.Item value="duplicate">Duplicate</Menu.Item>
+        <Menu.Separator />
+        <Menu.Item value="publish">Publish Now</Menu.Item>
       </SplitButtonContent>
     </SplitButton>
   );
@@ -79,7 +72,7 @@ Keep the primary action explicit on `SplitButtonAction`. Put only secondary or a
 | `SplitButton`        | Root menu state plus grouped visual wrapper.                           |
 | `SplitButtonAction`  | Primary action button. Inherits root `variant` and `size` by default.  |
 | `SplitButtonTrigger` | Secondary trigger button for the dropdown. Defaults to a chevron icon. |
-| `SplitButtonContent` | Recommended popup wrapper around `MenuContent`.                        |
+| `SplitButtonContent` | Recommended popup wrapper around `Menu.Content`.                       |
 
 ## Public props
 
@@ -157,5 +150,5 @@ shared `--button-*` variables.
 - 2026-06-17: Updated the primary action contract from Base button composition props to Ark-style
   `asChild` through the shared `Button.Root` surface.
 - 2026-06-18: Synced SplitButton with Ark-backed `Menu`: root positioning moved to `SplitButton`
-  through `positioning`, `SplitButtonTrigger` uses `MenuTrigger asChild`, and snippets now use
-  Ark `MenuItem value`.
+  through `positioning`, `SplitButtonTrigger` uses `Menu.Trigger asChild`, and snippets now use
+  Ark `Menu.Item value`.

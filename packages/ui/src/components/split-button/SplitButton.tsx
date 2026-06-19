@@ -4,15 +4,7 @@ import { forwardRef, createContext, useContext, type ComponentRef, type ReactNod
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { Button, type ButtonRootProps, type ButtonSize, type ButtonVariant } from '../button';
-import {
-  Menu,
-  MenuContent,
-  MenuPositioner,
-  MenuTrigger,
-  type MenuContentProps,
-  type MenuRootProps,
-  type MenuTriggerProps,
-} from '../menu';
+import { Menu, type MenuContentProps, type MenuRootProps, type MenuTriggerProps } from '../menu';
 import styles from './SplitButton.module.css';
 
 type SplitButtonVariant = Exclude<ButtonVariant, 'link'>;
@@ -102,7 +94,7 @@ function SplitButtonTrigger({
   const resolvedChildren = children ?? <ChevronDownIcon />;
 
   return (
-    <MenuTrigger
+    <Menu.Trigger
       asChild
       data-slot="split-button-trigger"
       aria-label={children ? ariaLabel : (ariaLabel ?? 'More actions')}
@@ -112,16 +104,16 @@ function SplitButtonTrigger({
       <Button size={size ?? context.size} variant={variant ?? context.variant}>
         {resolvedChildren}
       </Button>
-    </MenuTrigger>
+    </Menu.Trigger>
   );
 }
 
 function SplitButtonContent(props: SplitButtonContentProps) {
   return (
     <Portal>
-      <MenuPositioner>
-        <MenuContent {...props} />
-      </MenuPositioner>
+      <Menu.Positioner>
+        <Menu.Content {...props} />
+      </Menu.Positioner>
     </Portal>
   );
 }

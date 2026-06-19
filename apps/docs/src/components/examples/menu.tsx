@@ -6,27 +6,6 @@ import {
   InfoIcon,
   MapIcon,
   Menu,
-  MenuArrow,
-  MenuCheckboxItem,
-  MenuContent,
-  MenuContextTrigger,
-  MenuItem,
-  MenuItemGroup,
-  MenuItemGroupLabel,
-  MenuItemIndicator,
-  MenuItemShortcut,
-  MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
-  MenuPositioner,
-  MenuRadioItem,
-  MenuRadioItemGroup,
-  MenuSeparator,
-  MenuTrigger,
-  MenuTriggerIcon,
-  MenuTriggerItem,
-  MenuTriggerItemIcon,
   Portal,
   useMenu,
 } from 'moduix';
@@ -238,20 +217,20 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function MenuButtonTrigger(props: ComponentProps<typeof MenuTrigger>) {
+function MenuButtonTrigger(props: ComponentProps<typeof Menu.Trigger>) {
   return (
-    <MenuTrigger asChild {...props}>
+    <Menu.Trigger asChild {...props}>
       <Button>{props.children}</Button>
-    </MenuTrigger>
+    </Menu.Trigger>
   );
 }
 
 function PositionedContent({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <Portal>
-      <MenuPositioner>
-        <MenuContent className={className}>{children}</MenuContent>
-      </MenuPositioner>
+      <Menu.Positioner>
+        <Menu.Content className={className}>{children}</Menu.Content>
+      </Menu.Positioner>
     </Portal>
   );
 }
@@ -261,14 +240,14 @@ export function MenuExample() {
     <Menu>
       <MenuButtonTrigger>
         File
-        <MenuTriggerIcon />
+        <Menu.TriggerIcon />
       </MenuButtonTrigger>
       <PositionedContent>
-        <MenuArrow />
+        <Menu.Arrow />
         {fileItems.map((item) => (
-          <MenuItem key={item.value} value={item.value}>
+          <Menu.Item key={item.value} value={item.value}>
             {item.label}
-          </MenuItem>
+          </Menu.Item>
         ))}
       </PositionedContent>
     </Menu>
@@ -283,15 +262,15 @@ export function ControlledMenuExample() {
       <Button onClick={() => setOpen((value) => !value)}>Toggle</Button>
       <MenuButtonTrigger>
         Actions
-        <MenuTriggerIcon />
+        <Menu.TriggerIcon />
       </MenuButtonTrigger>
       <PositionedContent>
-        <MenuItem value="edit">Edit</MenuItem>
-        <MenuItem value="duplicate">Duplicate</MenuItem>
-        <MenuItem value="archive">Archive</MenuItem>
-        <MenuItem value="delete" tone="destructive">
+        <Menu.Item value="edit">Edit</Menu.Item>
+        <Menu.Item value="duplicate">Duplicate</Menu.Item>
+        <Menu.Item value="archive">Archive</Menu.Item>
+        <Menu.Item value="delete" tone="destructive">
           Delete
-        </MenuItem>
+        </Menu.Item>
       </PositionedContent>
     </Menu>
   );
@@ -305,15 +284,15 @@ export function RootProviderMenuExample() {
       <Button onClick={() => menu.api.setHighlightedValue('copy')}>Highlight Copy</Button>
       <MenuButtonTrigger>
         Edit
-        <MenuTriggerIcon />
+        <Menu.TriggerIcon />
       </MenuButtonTrigger>
       <PositionedContent>
-        <MenuItem value="cut">Cut</MenuItem>
-        <MenuItem value="copy">Copy</MenuItem>
-        <MenuItem value="paste">Paste</MenuItem>
-        <MenuItem value="delete" tone="destructive">
+        <Menu.Item value="cut">Cut</Menu.Item>
+        <Menu.Item value="copy">Copy</Menu.Item>
+        <Menu.Item value="paste">Paste</Menu.Item>
+        <Menu.Item value="delete" tone="destructive">
           Delete
-        </MenuItem>
+        </Menu.Item>
       </PositionedContent>
     </Menu.RootProvider>
   );
@@ -324,21 +303,21 @@ export function GroupMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         Edit
-        <MenuTriggerIcon />
+        <Menu.TriggerIcon />
       </MenuButtonTrigger>
       <PositionedContent>
-        <MenuItemGroup>
-          <MenuItemGroupLabel>Clipboard</MenuItemGroupLabel>
-          <MenuItem value="cut">Cut</MenuItem>
-          <MenuItem value="copy">Copy</MenuItem>
-          <MenuItem value="paste">Paste</MenuItem>
-        </MenuItemGroup>
-        <MenuSeparator />
-        <MenuItemGroup>
-          <MenuItemGroupLabel>Selection</MenuItemGroupLabel>
-          <MenuItem value="select-all">Select All</MenuItem>
-          <MenuItem value="deselect">Deselect</MenuItem>
-        </MenuItemGroup>
+        <Menu.ItemGroup>
+          <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
+          <Menu.Item value="cut">Cut</Menu.Item>
+          <Menu.Item value="copy">Copy</Menu.Item>
+          <Menu.Item value="paste">Paste</Menu.Item>
+        </Menu.ItemGroup>
+        <Menu.Separator />
+        <Menu.ItemGroup>
+          <Menu.ItemGroupLabel>Selection</Menu.ItemGroupLabel>
+          <Menu.Item value="select-all">Select All</Menu.Item>
+          <Menu.Item value="deselect">Deselect</Menu.Item>
+        </Menu.ItemGroup>
       </PositionedContent>
     </Menu>
   );
@@ -349,18 +328,18 @@ export function LinkItemsMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         Help
-        <MenuTriggerIcon />
+        <Menu.TriggerIcon />
       </MenuButtonTrigger>
       <PositionedContent>
-        <MenuItem value="docs" asChild>
+        <Menu.Item value="docs" asChild>
           <a href="#menu-docs">Documentation</a>
-        </MenuItem>
-        <MenuItem value="github" asChild>
+        </Menu.Item>
+        <Menu.Item value="github" asChild>
           <a href="https://github.com/Blinks44/moduix">GitHub</a>
-        </MenuItem>
-        <MenuItem value="changelog" asChild>
+        </Menu.Item>
+        <Menu.Item value="changelog" asChild>
           <a href="#menu-changelog">Changelog</a>
-        </MenuItem>
+        </Menu.Item>
       </PositionedContent>
     </Menu>
   );
@@ -374,21 +353,21 @@ export function CheckboxItemsMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         View
-        <MenuTriggerIcon />
+        <Menu.TriggerIcon />
       </MenuButtonTrigger>
       <PositionedContent>
-        <MenuCheckboxItem checked={showToolbar} value="toolbar" onCheckedChange={setShowToolbar}>
-          <MenuItemIndicator />
-          <MenuItemText>Show Toolbar</MenuItemText>
-        </MenuCheckboxItem>
-        <MenuCheckboxItem
+        <Menu.CheckboxItem checked={showToolbar} value="toolbar" onCheckedChange={setShowToolbar}>
+          <Menu.ItemIndicator />
+          <Menu.ItemText>Show Toolbar</Menu.ItemText>
+        </Menu.CheckboxItem>
+        <Menu.CheckboxItem
           checked={showStatusBar}
           value="statusbar"
           onCheckedChange={setShowStatusBar}
         >
-          <MenuItemIndicator />
-          <MenuItemText>Show Status Bar</MenuItemText>
-        </MenuCheckboxItem>
+          <Menu.ItemIndicator />
+          <Menu.ItemText>Show Status Bar</Menu.ItemText>
+        </Menu.CheckboxItem>
       </PositionedContent>
     </Menu>
   );
@@ -401,30 +380,30 @@ export function RadioItemsMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         Sort
-        <MenuTriggerIcon />
+        <Menu.TriggerIcon />
       </MenuButtonTrigger>
       <PositionedContent>
-        <MenuItemGroup>
-          <MenuItemGroupLabel>Sort By</MenuItemGroupLabel>
-          <MenuRadioItemGroup value={sortBy} onValueChange={(details) => setSortBy(details.value)}>
-            <MenuRadioItem value="name">
-              <MenuItemIndicator />
-              <MenuItemText>Name</MenuItemText>
-            </MenuRadioItem>
-            <MenuRadioItem value="date">
-              <MenuItemIndicator />
-              <MenuItemText>Date Modified</MenuItemText>
-            </MenuRadioItem>
-            <MenuRadioItem value="size">
-              <MenuItemIndicator />
-              <MenuItemText>Size</MenuItemText>
-            </MenuRadioItem>
-            <MenuRadioItem value="type">
-              <MenuItemIndicator />
-              <MenuItemText>Type</MenuItemText>
-            </MenuRadioItem>
-          </MenuRadioItemGroup>
-        </MenuItemGroup>
+        <Menu.ItemGroup>
+          <Menu.ItemGroupLabel>Sort By</Menu.ItemGroupLabel>
+          <Menu.RadioItemGroup value={sortBy} onValueChange={(details) => setSortBy(details.value)}>
+            <Menu.RadioItem value="name">
+              <Menu.ItemIndicator />
+              <Menu.ItemText>Name</Menu.ItemText>
+            </Menu.RadioItem>
+            <Menu.RadioItem value="date">
+              <Menu.ItemIndicator />
+              <Menu.ItemText>Date Modified</Menu.ItemText>
+            </Menu.RadioItem>
+            <Menu.RadioItem value="size">
+              <Menu.ItemIndicator />
+              <Menu.ItemText>Size</Menu.ItemText>
+            </Menu.RadioItem>
+            <Menu.RadioItem value="type">
+              <Menu.ItemIndicator />
+              <Menu.ItemText>Type</Menu.ItemText>
+            </Menu.RadioItem>
+          </Menu.RadioItemGroup>
+        </Menu.ItemGroup>
       </PositionedContent>
     </Menu>
   );
@@ -433,14 +412,32 @@ export function RadioItemsMenuExample() {
 export function ContextMenuExample() {
   return (
     <Menu>
-      <MenuContextTrigger className={styles.contextTrigger}>Right click here</MenuContextTrigger>
+      <Menu.ContextTrigger className={styles.contextTrigger}>Right click here</Menu.ContextTrigger>
       <PositionedContent>
-        <MenuItem value="cut">Cut</MenuItem>
-        <MenuItem value="copy">Copy</MenuItem>
-        <MenuItem value="paste">Paste</MenuItem>
-        <MenuItem value="delete" tone="destructive">
+        <Menu.Item value="cut">Cut</Menu.Item>
+        <Menu.Item value="copy">Copy</Menu.Item>
+        <Menu.Item value="paste">Paste</Menu.Item>
+        <Menu.Item value="delete" tone="destructive">
           Delete
-        </MenuItem>
+        </Menu.Item>
+      </PositionedContent>
+    </Menu>
+  );
+}
+
+export function ContextLazyMountMenuExample() {
+  return (
+    <Menu lazyMount unmountOnExit>
+      <Menu.ContextTrigger className={styles.contextTrigger}>
+        Right click lazy mounted content
+      </Menu.ContextTrigger>
+      <PositionedContent>
+        <Menu.Item value="cut">Cut</Menu.Item>
+        <Menu.Item value="copy">Copy</Menu.Item>
+        <Menu.Item value="paste">Paste</Menu.Item>
+        <Menu.Item value="delete" tone="destructive">
+          Delete
+        </Menu.Item>
       </PositionedContent>
     </Menu>
   );
@@ -451,35 +448,35 @@ export function NestedMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         File
-        <MenuTriggerIcon />
+        <Menu.TriggerIcon />
       </MenuButtonTrigger>
       <PositionedContent>
-        <MenuItem value="new-file">New File</MenuItem>
-        <MenuItem value="open">Open...</MenuItem>
+        <Menu.Item value="new-file">New File</Menu.Item>
+        <Menu.Item value="open">Open...</Menu.Item>
         <Menu>
-          <MenuTriggerItem>
+          <Menu.TriggerItem>
             Share
-            <MenuTriggerItemIcon />
-          </MenuTriggerItem>
+            <Menu.TriggerItemIcon />
+          </Menu.TriggerItem>
           <PositionedContent>
-            <MenuItem value="email">Email</MenuItem>
-            <MenuItem value="message">Message</MenuItem>
-            <MenuItem value="airdrop">AirDrop</MenuItem>
+            <Menu.Item value="email">Email</Menu.Item>
+            <Menu.Item value="message">Message</Menu.Item>
+            <Menu.Item value="airdrop">AirDrop</Menu.Item>
           </PositionedContent>
         </Menu>
         <Menu>
-          <MenuTriggerItem>
+          <Menu.TriggerItem>
             Export
-            <MenuTriggerItemIcon />
-          </MenuTriggerItem>
+            <Menu.TriggerItemIcon />
+          </Menu.TriggerItem>
           <PositionedContent>
-            <MenuItem value="pdf">PDF</MenuItem>
-            <MenuItem value="png">PNG</MenuItem>
-            <MenuItem value="svg">SVG</MenuItem>
+            <Menu.Item value="pdf">PDF</Menu.Item>
+            <Menu.Item value="png">PNG</Menu.Item>
+            <Menu.Item value="svg">SVG</Menu.Item>
           </PositionedContent>
         </Menu>
-        <MenuSeparator />
-        <MenuItem value="print">Print...</MenuItem>
+        <Menu.Separator />
+        <Menu.Item value="print">Print...</Menu.Item>
       </PositionedContent>
     </Menu>
   );
@@ -495,19 +492,23 @@ export function MultipleTriggersMenuExample() {
               <div className={styles.messageSender}>{message.sender}</div>
               <div className={styles.messagePreview}>{message.preview}</div>
             </div>
-            <MenuTrigger value={message.id} className={styles.messageAction} aria-label="Open menu">
+            <Menu.Trigger
+              value={message.id}
+              className={styles.messageAction}
+              aria-label="Open menu"
+            >
               <MapIcon />
-            </MenuTrigger>
+            </Menu.Trigger>
           </div>
         ))}
       </div>
       <PositionedContent>
-        <MenuItem value="reply">Reply</MenuItem>
-        <MenuItem value="forward">Forward</MenuItem>
-        <MenuItem value="archive">Archive</MenuItem>
-        <MenuItem value="delete" tone="destructive">
+        <Menu.Item value="reply">Reply</Menu.Item>
+        <Menu.Item value="forward">Forward</Menu.Item>
+        <Menu.Item value="archive">Archive</Menu.Item>
+        <Menu.Item value="delete" tone="destructive">
           Delete
-        </MenuItem>
+        </Menu.Item>
       </PositionedContent>
     </Menu>
   );
@@ -521,12 +522,12 @@ export function SelectEventMenuExample() {
       <Menu onSelect={(details) => setSelected(details.value)}>
         <MenuButtonTrigger>
           Actions
-          <MenuTriggerIcon />
+          <Menu.TriggerIcon />
         </MenuButtonTrigger>
         <PositionedContent>
-          <MenuItem value="edit">Edit</MenuItem>
-          <MenuItem value="duplicate">Duplicate</MenuItem>
-          <MenuItem value="archive">Archive</MenuItem>
+          <Menu.Item value="edit">Edit</Menu.Item>
+          <Menu.Item value="duplicate">Duplicate</Menu.Item>
+          <Menu.Item value="archive">Archive</Menu.Item>
         </PositionedContent>
       </Menu>
       <span>{selected}</span>
@@ -539,10 +540,10 @@ export function ItemContextMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         Settings
-        <MenuTriggerIcon />
+        <Menu.TriggerIcon />
       </MenuButtonTrigger>
       <PositionedContent>
-        <MenuItem value="profile">
+        <Menu.Item value="profile">
           <Menu.ItemContext>
             {(item) => (
               <span style={{ fontWeight: item.highlighted ? 'var(--weight-semibold)' : undefined }}>
@@ -550,11 +551,11 @@ export function ItemContextMenuExample() {
               </span>
             )}
           </Menu.ItemContext>
-        </MenuItem>
-        <MenuItem value="preferences">Preferences</MenuItem>
-        <MenuItem value="notifications">Notifications</MenuItem>
-        <MenuSeparator />
-        <MenuItem value="logout">Log Out</MenuItem>
+        </Menu.Item>
+        <Menu.Item value="preferences">Preferences</Menu.Item>
+        <Menu.Item value="notifications">Notifications</Menu.Item>
+        <Menu.Separator />
+        <Menu.Item value="logout">Log Out</Menu.Item>
       </PositionedContent>
     </Menu>
   );
@@ -568,41 +569,41 @@ export function IndicatorRightMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         View
-        <MenuTriggerIcon />
+        <Menu.TriggerIcon />
       </MenuButtonTrigger>
       <PositionedContent>
-        <MenuCheckboxItem
+        <Menu.CheckboxItem
           checked={showMinimap}
           value="minimap"
           onCheckedChange={setShowMinimap}
           indicator="end"
         >
-          <MenuItemText>
-            <MenuItemTextContent>
-              <MenuItemTextIcon>
+          <Menu.ItemText>
+            <Menu.ItemTextContent>
+              <Menu.ItemTextIcon>
                 <InfoIcon />
-              </MenuItemTextIcon>
-              <MenuItemTextLabel>Minimap</MenuItemTextLabel>
-            </MenuItemTextContent>
-          </MenuItemText>
-          <MenuItemIndicator />
-        </MenuCheckboxItem>
-        <MenuCheckboxItem
+              </Menu.ItemTextIcon>
+              <Menu.ItemTextLabel>Minimap</Menu.ItemTextLabel>
+            </Menu.ItemTextContent>
+          </Menu.ItemText>
+          <Menu.ItemIndicator />
+        </Menu.CheckboxItem>
+        <Menu.CheckboxItem
           checked={showSearch}
           value="search"
           onCheckedChange={setShowSearch}
           indicator="end"
         >
-          <MenuItemText>
-            <MenuItemTextContent>
-              <MenuItemTextIcon>
+          <Menu.ItemText>
+            <Menu.ItemTextContent>
+              <Menu.ItemTextIcon>
                 <MapIcon />
-              </MenuItemTextIcon>
-              <MenuItemTextLabel>Search</MenuItemTextLabel>
-            </MenuItemTextContent>
-          </MenuItemText>
-          <MenuItemIndicator />
-        </MenuCheckboxItem>
+              </Menu.ItemTextIcon>
+              <Menu.ItemTextLabel>Search</Menu.ItemTextLabel>
+            </Menu.ItemTextContent>
+          </Menu.ItemText>
+          <Menu.ItemIndicator />
+        </Menu.CheckboxItem>
       </PositionedContent>
     </Menu>
   );
@@ -613,22 +614,22 @@ export function CustomStylingMenuExample() {
     <Menu positioning={{ placement: 'right-start', gutter: 12 }}>
       <MenuButtonTrigger>
         Export
-        <MenuTriggerIcon />
+        <Menu.TriggerIcon />
       </MenuButtonTrigger>
       <PositionedContent className={styles.customContent}>
-        <MenuArrow />
-        <MenuItem value="png">
+        <Menu.Arrow />
+        <Menu.Item value="png">
           <CheckIcon />
           Export PNG
-          <MenuItemShortcut>Shift+P</MenuItemShortcut>
-        </MenuItem>
-        <MenuItem value="pdf">
+          <Menu.ItemShortcut>Shift+P</Menu.ItemShortcut>
+        </Menu.Item>
+        <Menu.Item value="pdf">
           <ChevronDownIcon />
           Export PDF
-          <MenuItemShortcut>Shift+D</MenuItemShortcut>
-        </MenuItem>
-        <MenuSeparator />
-        <MenuItem value="copy-link">Copy share link</MenuItem>
+          <Menu.ItemShortcut>Shift+D</Menu.ItemShortcut>
+        </Menu.Item>
+        <Menu.Separator />
+        <Menu.Item value="copy-link">Copy share link</Menu.Item>
       </PositionedContent>
     </Menu>
   );

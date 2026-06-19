@@ -412,7 +412,6 @@ const sharedBackdropTokens = [
   ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Lightbox'],
   ['--select-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Select'],
   ['--menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Menu'],
-  ['--navigation-menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'NavigationMenu'],
   ['--popover-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Popover'],
   ['--preview-card-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'PreviewCard'],
 ];

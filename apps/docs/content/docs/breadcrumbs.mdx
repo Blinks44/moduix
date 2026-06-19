@@ -1,6 +1,6 @@
 ---
 title: Breadcrumbs
-description: Composition-first path navigation built from small semantic parts.
+description: Ark-native semantic path navigation built from small composition parts.
 icon: Component
 ---
 
@@ -15,50 +15,64 @@ import {
 
 ## API Reference
 
-`Breadcrumbs` is a standalone moduix component set and does not wrap a Base UI primitive.
+Ark UI does not currently ship a dedicated Breadcrumb primitive. Moduix implements Breadcrumbs with
+`@ark-ui/react/factory`, native breadcrumb semantics, and Ark `asChild` composition.
 
 ## Basic
 
-Start with `Breadcrumbs`, `BreadcrumbsList`, `BreadcrumbsItem`, `BreadcrumbsLink`,
-`BreadcrumbsSeparator`, and `BreadcrumbsPage`. This is the recommended path for semantic trail
-navigation where the app already knows the visible segments.
+Start with explicit semantic parts when the application already knows the visible path. Use links
+for navigable ancestors and `Breadcrumbs.Page` for the current page.
 
 <Preview>
   <BreadcrumbsExample />
 
   <Preview.Code>
     {`
+      import { Fragment } from "react";
       import {
         Breadcrumbs,
-        BreadcrumbsItem,
-        BreadcrumbsLink,
-        BreadcrumbsList,
-        BreadcrumbsPage,
-        BreadcrumbsSeparator,
       } from "moduix";
 
       export function BreadcrumbsDemo() {
         return (
-          <Breadcrumbs>
-            <BreadcrumbsList>
-              <BreadcrumbsItem>
-                <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
-              </BreadcrumbsItem>
-              <BreadcrumbsSeparator />
-              <BreadcrumbsItem>
-                <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
-              </BreadcrumbsItem>
-              <BreadcrumbsSeparator />
-              <BreadcrumbsItem>
-                <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
-              </BreadcrumbsItem>
-            </BreadcrumbsList>
+          <Breadcrumbs className="breadcrumbs-preview">
+            <Breadcrumbs.List>
+              {pathItems.map((item) => (
+                <Fragment key={item.href}>
+                  <Breadcrumbs.Item>
+                    <Breadcrumbs.Link href={item.href}>{item.label}</Breadcrumbs.Link>
+                  </Breadcrumbs.Item>
+                  <Breadcrumbs.Separator />
+                </Fragment>
+              ))}
+              <Breadcrumbs.Item>
+                <Breadcrumbs.Page>{currentPage}</Breadcrumbs.Page>
+              </Breadcrumbs.Item>
+            </Breadcrumbs.List>
           </Breadcrumbs>
         );
       }
     `}
 
   </Preview.Code>
+  <Preview.CSS>
+    {`
+      .breadcrumbs-preview {
+        max-width: min(34rem, 100%);
+      }
+    `}
+  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const pathItems = [
+        { href: "/", label: "Home" },
+        { href: "/vacancies", label: "Vacancies" },
+      ] as const;
+
+      const currentPage = "Go Developer";
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -109,58 +123,58 @@ such as styles, icons, and small utilities.
 
 ## Anatomy
 
-`Breadcrumbs` is a small set of semantic building blocks.
+`Breadcrumbs` exposes Ark-aligned namespace parts.
 
 ```text
-Breadcrumbs
-└─ nav[data-slot="breadcrumbs-root"]
-   └─ BreadcrumbsList
-      ├─ BreadcrumbsItem
-      │  └─ BreadcrumbsLink
-      ├─ BreadcrumbsSeparator
-      └─ BreadcrumbsItem
-         └─ BreadcrumbsPage
+Breadcrumbs / Breadcrumbs.Root
+└─ Breadcrumbs.List
+   ├─ Breadcrumbs.Item
+   │  └─ Breadcrumbs.Link
+   ├─ Breadcrumbs.Separator
+   └─ Breadcrumbs.Item
+      └─ Breadcrumbs.Page
 ```
 
-| Part                   | Role                                     |
-| ---------------------- | ---------------------------------------- |
-| `Breadcrumbs`          | Root navigation region.                  |
-| `BreadcrumbsList`      | Ordered list of breadcrumb segments.     |
-| `BreadcrumbsItem`      | List item wrapper for a segment.         |
-| `BreadcrumbsLink`      | Styled link for navigable segments.      |
-| `BreadcrumbsPage`      | Current page text with `aria-current`.   |
-| `BreadcrumbsSeparator` | Visual delimiter between visible items.  |
-| `BreadcrumbsEllipsis`  | Minimal collapsed marker for menu usage. |
+| Part                               | Role                                                      |
+| ---------------------------------- | --------------------------------------------------------- |
+| `Breadcrumbs` / `Breadcrumbs.Root` | Root navigation region with default `aria-label`.         |
+| `Breadcrumbs.List`                 | Ordered list of breadcrumb segments.                      |
+| `Breadcrumbs.Item`                 | List item wrapper for a segment.                          |
+| `Breadcrumbs.Link`                 | Styled anchor for navigable segments; supports `asChild`. |
+| `Breadcrumbs.Page`                 | Current page text with `aria-current="page"`.             |
+| `Breadcrumbs.Separator`            | Visual delimiter hidden from assistive technology.        |
+| `Breadcrumbs.Ellipsis`             | Minimal collapsed marker for menu triggers.               |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with the exported breadcrumb parts when the application already knows the visible path and
-just needs semantic navigation markup with library styling.
-
-Use `BreadcrumbsLink` for navigable ancestors and `BreadcrumbsPage` for the current page.
+Render the path explicitly. Breadcrumbs does not calculate path items, insert separators, or own
+collapsed state.
 
 ### When to go custom
 
-Use `render={<Link />}` when the app standardizes on a framework router component, and compose
-`Breadcrumbs` with `Menu` when collapsed middle segments need disclosure behavior.
+Use Ark `asChild` for framework router links. The child must be a single semantic link that keeps
+the expected `href`, focus, and keyboard behavior.
+
+Compose with `Menu` when middle segments need to collapse behind an ellipsis trigger. Keep the Menu
+structure explicit: `Portal`, `Menu.Positioner`, `Menu.Content`, and `Menu.Item asChild`.
 
 ### Behavioral notes
 
 - `Breadcrumbs` renders a `nav` landmark and defaults `aria-label` to `"Breadcrumb"`.
-- `BreadcrumbsList` owns the ordered-list structure and horizontal layout.
-- `BreadcrumbsSeparator` and `BreadcrumbsEllipsis` are explicit JSX parts and are hidden from
-  assistive technology.
-- `Breadcrumbs` does not calculate paths, inject separators, or manage collapsed state.
-- The last visible item can shrink and truncates with ellipsis through
-  `--breadcrumbs-item-max-width`.
+- `Breadcrumbs.Separator` and `Breadcrumbs.Ellipsis` are hidden from assistive technology.
+- The accessible label for a collapsed path belongs on the `Menu.Trigger`.
+- The last visible item can shrink and truncates with `--breadcrumbs-item-max-width`.
+- There are no controlled props, callbacks, context hooks, `RootProvider`, ids, `HiddenInput`, or
+  form-state integrations because Breadcrumbs owns no interactive or form state.
 
 ## Examples
 
 ### Custom Separator
 
-Replace the default slash with your own icon or symbol.
+Replace the default slash with an icon or symbol while keeping separators as explicit hidden list
+items.
 
 <Preview>
   <BreadcrumbsCustomSeparatorExample />
@@ -169,34 +183,29 @@ Replace the default slash with your own icon or symbol.
     {`
       import {
         Breadcrumbs,
-        BreadcrumbsItem,
-        BreadcrumbsLink,
-        BreadcrumbsList,
-        BreadcrumbsPage,
-        BreadcrumbsSeparator,
         SeparatorMarkIcon,
       } from "moduix";
 
       export function BreadcrumbsSeparatorDemo() {
         return (
           <Breadcrumbs>
-            <BreadcrumbsList>
-              <BreadcrumbsItem>
-                <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
-              </BreadcrumbsItem>
-              <BreadcrumbsSeparator>
-                <SeparatorMarkIcon className="separator-icon" />
-              </BreadcrumbsSeparator>
-              <BreadcrumbsItem>
-                <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
-              </BreadcrumbsItem>
-              <BreadcrumbsSeparator>
-                <SeparatorMarkIcon className="separator-icon" />
-              </BreadcrumbsSeparator>
-              <BreadcrumbsItem>
-                <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
-              </BreadcrumbsItem>
-            </BreadcrumbsList>
+            <Breadcrumbs.List>
+              <Breadcrumbs.Item>
+                <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
+              </Breadcrumbs.Item>
+              <Breadcrumbs.Separator>
+                <SeparatorMarkIcon className="separator-icon" style={separatorIconStyle} />
+              </Breadcrumbs.Separator>
+              <Breadcrumbs.Item>
+                <Breadcrumbs.Link href="/vacancies">Vacancies</Breadcrumbs.Link>
+              </Breadcrumbs.Item>
+              <Breadcrumbs.Separator>
+                <SeparatorMarkIcon className="separator-icon" style={separatorIconStyle} />
+              </Breadcrumbs.Separator>
+              <Breadcrumbs.Item>
+                <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
+              </Breadcrumbs.Item>
+            </Breadcrumbs.List>
           </Breadcrumbs>
         );
       }
@@ -206,16 +215,23 @@ Replace the default slash with your own icon or symbol.
   <Preview.CSS>
     {`
       .separator-icon {
-        width: 0.75rem;
-        height: 0.25rem;
+        color: currentColor;
       }
     `}
   </Preview.CSS>
+  <Preview.Data>
+    {`
+      const separatorIconStyle = {
+        width: "0.75rem",
+        height: "0.25rem",
+      };
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Collapsed Path
 
-Compose `Breadcrumbs` with `Menu` when you need a collapsed middle segment.
+Compose with the migrated Ark `Menu` parts when hidden middle segments need disclosure behavior.
 
 <Preview>
   <BreadcrumbsCollapsedExample />
@@ -224,49 +240,45 @@ Compose `Breadcrumbs` with `Menu` when you need a collapsed middle segment.
     {`
       import {
         Breadcrumbs,
-        BreadcrumbsEllipsis,
-        BreadcrumbsItem,
-        BreadcrumbsLink,
-        BreadcrumbsList,
-        BreadcrumbsPage,
-        BreadcrumbsSeparator,
         Menu,
-        MenuContent,
-        MenuLinkItem,
-        MenuTrigger,
+        Portal,
       } from "moduix";
 
       export function BreadcrumbsCollapsedDemo() {
         return (
           <Breadcrumbs>
-            <BreadcrumbsList>
-              <BreadcrumbsItem>
-                <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
-              </BreadcrumbsItem>
-              <BreadcrumbsSeparator />
-              <BreadcrumbsItem>
-                <Menu>
-                  <MenuTrigger aria-label="Show hidden path items" className="collapsed-menu-trigger">
-                    <BreadcrumbsEllipsis />
-                  </MenuTrigger>
-                  <MenuContent align="start" className="collapsed-menu-content">
-                    {collapsedItems.map((item) => (
-                      <MenuLinkItem key={item.href} closeOnClick href={item.href}>
-                        {item.label}
-                      </MenuLinkItem>
-                    ))}
-                  </MenuContent>
+            <Breadcrumbs.List>
+              <Breadcrumbs.Item>
+                <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
+              </Breadcrumbs.Item>
+              <Breadcrumbs.Separator />
+              <Breadcrumbs.Item>
+                <Menu positioning={{ placement: "bottom-start" }}>
+                  <Menu.Trigger aria-label="Show hidden path items" className="collapsed-menu-trigger">
+                    <Breadcrumbs.Ellipsis />
+                  </Menu.Trigger>
+                  <Portal>
+                    <Menu.Positioner>
+                      <Menu.Content className="collapsed-menu-content">
+                        {collapsedItems.map((item) => (
+                          <Menu.Item key={item.href} value={item.href} asChild>
+                            <a href={item.href}>{item.label}</a>
+                          </Menu.Item>
+                        ))}
+                      </Menu.Content>
+                    </Menu.Positioner>
+                  </Portal>
                 </Menu>
-              </BreadcrumbsItem>
-              <BreadcrumbsSeparator />
-              <BreadcrumbsItem>
-                <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
-              </BreadcrumbsItem>
-              <BreadcrumbsSeparator />
-              <BreadcrumbsItem>
-                <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
-              </BreadcrumbsItem>
-            </BreadcrumbsList>
+              </Breadcrumbs.Item>
+              <Breadcrumbs.Separator />
+              <Breadcrumbs.Item>
+                <Breadcrumbs.Link href="/vacancies">Vacancies</Breadcrumbs.Link>
+              </Breadcrumbs.Item>
+              <Breadcrumbs.Separator />
+              <Breadcrumbs.Item>
+                <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
+              </Breadcrumbs.Item>
+            </Breadcrumbs.List>
           </Breadcrumbs>
         );
       }
@@ -316,44 +328,54 @@ Wrap the current page content with your own element when you need extra attribut
     {`
       import {
         Breadcrumbs,
-        BreadcrumbsItem,
-        BreadcrumbsLink,
-        BreadcrumbsList,
-        BreadcrumbsPage,
-        BreadcrumbsSeparator,
       } from "moduix";
 
       export function BreadcrumbsLongLabelDemo() {
         return (
           <Breadcrumbs>
-            <BreadcrumbsList>
-              <BreadcrumbsItem>
-                <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
-              </BreadcrumbsItem>
-              <BreadcrumbsSeparator />
-              <BreadcrumbsItem>
-                <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
-              </BreadcrumbsItem>
-              <BreadcrumbsSeparator />
-              <BreadcrumbsItem>
-                <BreadcrumbsPage>
-                  <span title="Go lang developer to production team with cross-functional ownership and platform support">
-                    Go lang developer to production team with cross-functional ownership and platform support
+            <Breadcrumbs.List>
+              <Breadcrumbs.Item>
+                <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
+              </Breadcrumbs.Item>
+              <Breadcrumbs.Separator />
+              <Breadcrumbs.Item>
+                <Breadcrumbs.Link href="/vacancies">Vacancies</Breadcrumbs.Link>
+              </Breadcrumbs.Item>
+              <Breadcrumbs.Separator />
+              <Breadcrumbs.Item>
+                <Breadcrumbs.Page>
+                  <span title={currentPage}>
+                    {currentPage}
                   </span>
-                </BreadcrumbsPage>
-              </BreadcrumbsItem>
-            </BreadcrumbsList>
+                </Breadcrumbs.Page>
+              </Breadcrumbs.Item>
+            </Breadcrumbs.List>
           </Breadcrumbs>
         );
       }
     `}
 
   </Preview.Code>
+  <Preview.CSS>
+    {`
+      [data-slot="breadcrumbs-page"] span {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    `}
+  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const currentPage =
+        "Go lang developer to production team with cross-functional ownership and platform support";
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Framework Link
 
-Use `render={<Link />}` when the app standardizes on framework links.
+Use Ark `asChild` when the app standardizes on framework links.
 
 <Preview>
   <BreadcrumbsFrameworkLinkExample />
@@ -361,53 +383,58 @@ Use `render={<Link />}` when the app standardizes on framework links.
   <Preview.Code>
     {`
       import Link from "next/link";
+      import { Fragment } from "react";
       import {
         Breadcrumbs,
-        BreadcrumbsItem,
-        BreadcrumbsLink,
-        BreadcrumbsList,
-        BreadcrumbsPage,
-        BreadcrumbsSeparator,
       } from "moduix";
 
       export function BreadcrumbsWithNextLinkDemo() {
         return (
           <Breadcrumbs>
-            <BreadcrumbsList>
-              <BreadcrumbsItem>
-                <BreadcrumbsLink render={<Link href="/" />}>
-                  Home
-                </BreadcrumbsLink>
-              </BreadcrumbsItem>
-              <BreadcrumbsSeparator />
-              <BreadcrumbsItem>
-                <BreadcrumbsLink render={<Link href="/engineering" />}>
-                  Engineering
-                </BreadcrumbsLink>
-              </BreadcrumbsItem>
-              <BreadcrumbsSeparator />
-              <BreadcrumbsItem>
-                <BreadcrumbsLink render={<Link href="/vacancies" />}>
-                  Vacancies
-                </BreadcrumbsLink>
-              </BreadcrumbsItem>
-              <BreadcrumbsSeparator />
-              <BreadcrumbsItem>
-                <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
-              </BreadcrumbsItem>
-            </BreadcrumbsList>
+            <Breadcrumbs.List>
+              {pathItems.map((item) => (
+                <Fragment key={item.href}>
+                  <Breadcrumbs.Item>
+                    <Breadcrumbs.Link asChild>
+                      <Link href={item.href}>{item.label}</Link>
+                    </Breadcrumbs.Link>
+                  </Breadcrumbs.Item>
+                  <Breadcrumbs.Separator />
+                </Fragment>
+              ))}
+              <Breadcrumbs.Item>
+                <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
+              </Breadcrumbs.Item>
+            </Breadcrumbs.List>
           </Breadcrumbs>
         );
       }
     `}
 
   </Preview.Code>
+  <Preview.CSS>
+    {`
+      [data-framework-link] {
+        text-decoration: none;
+      }
+    `}
+  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const pathItems = [
+        { href: "/", label: "Home" },
+        { href: "/engineering", label: "Engineering" },
+        { href: "/vacancies", label: "Vacancies" },
+      ] as const;
+    `}
+  </Preview.Data>
 </Preview>
 
 ## Styling
 
-Each exported part has a stable `data-slot`, and the public `--breadcrumbs-*` variables cover the
-layout, text treatment, focus ring, separators, and ellipsis sizing used by the component.
+Each exported part has Ark-style `data-scope="breadcrumbs"` and `data-part` attributes plus stable
+Moduix `data-slot` hooks. Public `--breadcrumbs-*` variables cover layout, text treatment, focus
+ring, separators, and ellipsis sizing.
 
 ### CSS Properties
 
@@ -421,10 +448,13 @@ layout, text treatment, focus ring, separators, and ellipsis sizing used by the 
 
 ### Styling hooks
 
+- `data-scope="breadcrumbs"` is present on every exported part.
+- `data-part="root"`, `list`, `item`, `link`, `page`, `separator`, and `ellipsis` follow the
+  Ark factory contract used by this component.
 - `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`,
-  `breadcrumbs-page`, `breadcrumbs-separator`, and `breadcrumbs-ellipsis` are stable selectors on
-  the exported parts.
-- `BreadcrumbsLink`, `BreadcrumbsPage`, and `BreadcrumbsEllipsis` share the inline padding from
+  `breadcrumbs-page`, `breadcrumbs-separator`, and `breadcrumbs-ellipsis` remain stable Moduix
+  selectors.
+- `Breadcrumbs.Link`, `Breadcrumbs.Page`, and `Breadcrumbs.Ellipsis` share the inline padding from
   `--breadcrumbs-item-padding-x`.
-- The last visible `BreadcrumbsItem` is the truncation target and uses
+- The last visible `Breadcrumbs.Item` is the truncation target and uses
   `--breadcrumbs-item-max-width`.

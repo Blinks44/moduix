@@ -309,7 +309,7 @@
       "type": "registry:item",
       "title": "Breadcrumbs",
       "description": "moduix Breadcrumbs component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
@@ -904,31 +904,6 @@
         {
           "path": "packages/ui/src/components/menu/index.ts",
           "target": "@components/moduix/menu/index.ts",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "navigation-menu",
-      "type": "registry:item",
-      "title": "NavigationMenu",
-      "description": "moduix NavigationMenu component.",
-      "dependencies": ["@base-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/core"],
-      "files": [
-        {
-          "path": "packages/ui/src/components/navigation-menu/NavigationMenu.tsx",
-          "target": "@components/moduix/navigation-menu/NavigationMenu.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "packages/ui/src/components/navigation-menu/NavigationMenu.module.css",
-          "target": "@components/moduix/navigation-menu/NavigationMenu.module.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/ui/src/components/navigation-menu/index.ts",
-          "target": "@components/moduix/navigation-menu/index.ts",
           "type": "registry:component"
         }
       ]

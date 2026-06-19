@@ -372,37 +372,7 @@ const Menu = Object.assign(MenuRoot, {
   ItemContext: MenuItemContext,
 });
 
-export {
-  Menu,
-  MenuRoot,
-  MenuRootProvider,
-  MenuTrigger,
-  MenuTriggerIcon,
-  MenuIndicator,
-  MenuContextTrigger,
-  MenuPositioner,
-  MenuContent,
-  MenuArrow,
-  MenuArrowTip,
-  MenuItem,
-  MenuTriggerItem,
-  MenuTriggerItemIcon,
-  MenuSeparator,
-  MenuItemGroup,
-  MenuItemGroupLabel,
-  MenuRadioItemGroup,
-  MenuRadioItem,
-  MenuCheckboxItem,
-  MenuItemIndicator,
-  MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
-  MenuItemShortcut,
-  useMenu,
-  useMenuContext,
-  useMenuItemContext,
-};
+export { Menu, useMenu, useMenuContext, useMenuItemContext };
 
 export type {
   MenuArrowProps,

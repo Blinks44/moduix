@@ -1,158 +1,117 @@
 # Breadcrumbs
 
-Upstream primitive docs: none. Base UI does not provide a dedicated breadcrumbs primitive.
+Upstream docs:
+
+- Ark UI: https://ark-ui.com/docs/guides/composition and https://ark-ui.com/docs/guides/styling (no dedicated Breadcrumb primitive found in current Ark docs or `@ark-ui/react`)
+- Chakra UI: https://chakra-ui.com/docs/components/breadcrumb
 
 ## Purpose
 
-`Breadcrumbs` renders path navigation from small semantic parts. It does not own routing, path
-calculation, collapsing, or menu state. Consumers build the exact trail in JSX and compose other
-components, such as `Menu`, when they need a collapsed middle segment.
+`Breadcrumbs` renders semantic path navigation from small composition parts.
+
+## Upstream model to preserve
+
+Ark UI does not currently expose a Breadcrumb primitive in React. Preserve Ark-native composition by using the
+`@ark-ui/react/factory` `ark.*` elements, `HTMLArkProps`, and `asChild` for custom hosts instead of legacy `render`
+composition.
+
+The semantic model is `nav` + `ol` + `li`, with links for navigable ancestors, a non-link current page, and visual
+separators hidden from assistive technology. Collapsed paths are composed explicitly with `Menu`.
 
 ## Current behavior contract
 
-Basic usage:
+- `Breadcrumbs` renders an Ark factory `nav` with default `aria-label="Breadcrumb"`.
+- `Breadcrumbs.List` renders an ordered list and owns the horizontal layout.
+- `Breadcrumbs.Item` renders a list item for a visible segment.
+- `Breadcrumbs.Link` renders an anchor by default and supports Ark `asChild` for router links.
+- `Breadcrumbs.Page` renders a `span` with `aria-current="page"`.
+- `Breadcrumbs.Separator` renders an `aria-hidden` list item and defaults to `/`.
+- `Breadcrumbs.Ellipsis` renders an `aria-hidden` span and defaults to `...`.
+- The root is also exposed as `Breadcrumbs.Root`, with namespace-only parts for Ark-aligned
+  composition.
+
+## Anatomy and exported parts
+
+```text
+Breadcrumbs / Breadcrumbs.Root
+`- Breadcrumbs.List
+   |- Breadcrumbs.Item
+   |  `- Breadcrumbs.Link
+   |- Breadcrumbs.Separator
+   `- Breadcrumbs.Item
+      `- Breadcrumbs.Page
+```
+
+| Part        | Public namespace                  | `data-slot`             | Notes                                     |
+| ----------- | --------------------------------- | ----------------------- | ----------------------------------------- |
+| `Root`      | `Breadcrumbs`, `Breadcrumbs.Root` | `breadcrumbs-root`      | `nav`, default landmark label.            |
+| `List`      | `Breadcrumbs.List`                | `breadcrumbs-list`      | `ol`, horizontal flex layout.             |
+| `Item`      | `Breadcrumbs.Item`                | `breadcrumbs-item`      | `li`, segment wrapper.                    |
+| `Link`      | `Breadcrumbs.Link`                | `breadcrumbs-link`      | `a`, supports `asChild`.                  |
+| `Page`      | `Breadcrumbs.Page`                | `breadcrumbs-page`      | `span`, sets `aria-current="page"`.       |
+| `Separator` | `Breadcrumbs.Separator`           | `breadcrumbs-separator` | `li`, `aria-hidden`, defaults to `/`.     |
+| `Ellipsis`  | `Breadcrumbs.Ellipsis`            | `breadcrumbs-ellipsis`  | `span`, `aria-hidden`, defaults to `...`. |
+
+## Composition
 
 ```tsx
-import {
-  Breadcrumbs,
-  BreadcrumbsItem,
-  BreadcrumbsLink,
-  BreadcrumbsList,
-  BreadcrumbsPage,
-  BreadcrumbsSeparator,
-} from 'moduix';
+import { Breadcrumbs } from 'moduix';
 
 export function Example() {
   return (
     <Breadcrumbs>
-      <BreadcrumbsList>
-        <BreadcrumbsItem>
-          <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
-        </BreadcrumbsItem>
-        <BreadcrumbsSeparator />
-        <BreadcrumbsItem>
-          <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
-        </BreadcrumbsItem>
-        <BreadcrumbsSeparator />
-        <BreadcrumbsItem>
-          <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
-        </BreadcrumbsItem>
-        <BreadcrumbsSeparator />
-        <BreadcrumbsItem>
-          <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
-        </BreadcrumbsItem>
-      </BreadcrumbsList>
+      <Breadcrumbs.List>
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Separator />
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link href="/vacancies">Vacancies</Breadcrumbs.Link>
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Separator />
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
+        </Breadcrumbs.Item>
+      </Breadcrumbs.List>
     </Breadcrumbs>
   );
 }
 ```
 
-- `Breadcrumbs` renders a `nav` landmark with default `aria-label="Breadcrumb"`.
-- `BreadcrumbsList` renders an ordered list and owns the horizontal layout.
-- `BreadcrumbsItem` renders a list item for each visible segment.
-- `BreadcrumbsLink` renders an anchor by default and supports Base UI `useRender` for router links:
-  `render={<Link href="/path" />}`.
-- `BreadcrumbsPage` renders a `span` with `aria-current="page"`.
-- `BreadcrumbsSeparator` renders an `aria-hidden` list item and defaults to `/` when no children are
-  provided.
-- `BreadcrumbsEllipsis` renders an `aria-hidden` `span` and defaults to `...` when no children are
-  provided. By default it also gets a subtle accent background on hover so collapsed menu triggers do
-  not feel visually inert.
-
-## Composition
-
-The public parts are:
-
-```text
-Breadcrumbs
-`- BreadcrumbsList
-   |- BreadcrumbsItem
-   |  `- BreadcrumbsLink
-   |- BreadcrumbsSeparator
-   `- BreadcrumbsItem
-      `- BreadcrumbsPage
-```
-
-Collapsed paths stay explicit:
+Use framework links through Ark `asChild`:
 
 ```tsx
-import {
-  Breadcrumbs,
-  BreadcrumbsEllipsis,
-  BreadcrumbsItem,
-  BreadcrumbsLink,
-  BreadcrumbsList,
-  BreadcrumbsPage,
-  BreadcrumbsSeparator,
-  Menu,
-  MenuContent,
-  MenuLinkItem,
-  MenuTrigger,
-} from 'moduix';
-
-export function CollapsedExample() {
-  return (
-    <Breadcrumbs>
-      <BreadcrumbsList>
-        <BreadcrumbsItem>
-          <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
-        </BreadcrumbsItem>
-        <BreadcrumbsSeparator />
-        <BreadcrumbsItem>
-          <Menu>
-            <MenuTrigger aria-label="Show hidden path items">
-              <BreadcrumbsEllipsis />
-            </MenuTrigger>
-            <MenuContent align="start">
-              <MenuLinkItem closeOnClick href="/engineering">
-                Engineering
-              </MenuLinkItem>
-              <MenuLinkItem closeOnClick href="/engineering/backend">
-                Backend
-              </MenuLinkItem>
-            </MenuContent>
-          </Menu>
-        </BreadcrumbsItem>
-        <BreadcrumbsSeparator />
-        <BreadcrumbsItem>
-          <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
-        </BreadcrumbsItem>
-      </BreadcrumbsList>
-    </Breadcrumbs>
-  );
-}
+<Breadcrumbs.Link asChild>
+  <Link href="/vacancies">Vacancies</Link>
+</Breadcrumbs.Link>
 ```
 
-## Props
+## Upstream feature coverage
 
-All parts forward the props of their rendered element unless noted:
+- Dedicated Ark Breadcrumb docs and React primitive: not present in the current Ark component list, package exports, or
+  `https://ark-ui.com/docs/components/breadcrumb.mdx`.
+- Ark factory composition: covered by every part using `ark.*` and `HTMLArkProps`.
+- Ark `asChild`: supported on all parts through `HTMLArkProps`; documented for `Breadcrumbs.Link`.
+- Ark Menu composition for collapsed paths: supported through explicit `Menu`, `Portal`, `Menu.Positioner`,
+  `Menu.Content`, and `Menu.Item asChild`.
+- Controlled/uncontrolled state, callbacks, context, `RootProvider`, ids, `HiddenInput`, and Field/Fieldset state do not
+  apply because breadcrumbs do not own interactive state or form state.
 
-| Part                   | Props                                                                                                     |
-| ---------------------- | --------------------------------------------------------------------------------------------------------- |
-| `Breadcrumbs`          | `ComponentProps<'nav'>`; defaults `aria-label` to `"Breadcrumb"` and accepts `className`.                 |
-| `BreadcrumbsList`      | `ComponentProps<'ol'>` and `className`.                                                                   |
-| `BreadcrumbsItem`      | `ComponentProps<'li'>` and `className`.                                                                   |
-| `BreadcrumbsLink`      | `useRender.ComponentProps<'a'>`; accepts `href`, `target`, `render`, `className`, and other anchor props. |
-| `BreadcrumbsPage`      | `ComponentProps<'span'>`; sets `aria-current="page"`.                                                     |
-| `BreadcrumbsSeparator` | `ComponentProps<'li'>`; sets `aria-hidden="true"` and defaults children to `/`.                           |
-| `BreadcrumbsEllipsis`  | `ComponentProps<'span'>`; sets `aria-hidden="true"` and defaults children to `...`.                       |
+## Accessibility and state
 
-No prop types are exported because the component only forwards native/useRender props and keeps the
-public type surface small.
+Refs forward to the rendered Ark factory element for each part. `Breadcrumbs.Link` forwards to the anchor by default; with
+`asChild`, the child must be a single semantic link component that preserves link behavior and focusability.
+
+`Breadcrumbs.Page` sets `aria-current="page"`. `Breadcrumbs.Separator` and `Breadcrumbs.Ellipsis` are hidden from assistive
+technology. When ellipsis opens a menu, the accessible label belongs on `Menu.Trigger`, for example
+`aria-label="Show hidden path items"`.
+
+Every part exposes `data-scope="breadcrumbs"` and an Ark-style `data-part`. There is no component-owned state, callback,
+keyboard navigation, or CSS runtime variable.
 
 ## Defaults and styling
 
-Every part accepts `className` on its visual root and exposes a stable `data-slot`:
-
-| Part                   | `data-slot`             |
-| ---------------------- | ----------------------- |
-| `Breadcrumbs`          | `breadcrumbs-root`      |
-| `BreadcrumbsList`      | `breadcrumbs-list`      |
-| `BreadcrumbsItem`      | `breadcrumbs-item`      |
-| `BreadcrumbsLink`      | `breadcrumbs-link`      |
-| `BreadcrumbsPage`      | `breadcrumbs-page`      |
-| `BreadcrumbsSeparator` | `breadcrumbs-separator` |
-| `BreadcrumbsEllipsis`  | `breadcrumbs-ellipsis`  |
+Every part accepts `className` and exposes both Ark-style data attributes and stable Moduix `data-slot` hooks.
 
 Public CSS variables:
 
@@ -182,49 +141,26 @@ Public CSS variables:
 | `--breadcrumbs-separator-color`            | `var(--color-muted-foreground)` |
 | `--breadcrumbs-separator-font-size`        | `0.875em`                       |
 
-The last `BreadcrumbsItem` can shrink and is capped by `--breadcrumbs-item-max-width`; links, page
-text, and ellipsis use `text-overflow: ellipsis`.
+The last item can shrink and is capped by `--breadcrumbs-item-max-width`; link, page, and ellipsis text uses
+`text-overflow: ellipsis`.
 
-Links, current page text, and `BreadcrumbsEllipsis` get a small shared inline padding by default via
-`--breadcrumbs-item-padding-x` so the trail reads less cramped.
+## Intentional sugar and differences from upstream
 
-`BreadcrumbsEllipsis` keeps its compact size, rounded corners, muted text color, and default hover
-background with `var(--color-accent)`.
-
-## Intentional differences from Base UI
-
-- There is no upstream `Breadcrumbs` primitive and no Base UI state machine involved.
-- The component is composition-first and does not generate items from data.
-- Collapsing is not built in; use `Menu` or another disclosure component explicitly.
-- Separators are explicit JSX parts instead of being inserted automatically.
-
-## Accessibility and UX notes
-
-- Keep the `nav` landmark label meaningful when there is more than one navigation landmark on a
-  page.
-- Use links only for navigable ancestors and `BreadcrumbsPage` for the current page.
-- `BreadcrumbsSeparator` and `BreadcrumbsEllipsis` are hidden from assistive technology. When
-  ellipsis opens a menu, put the accessible label on the trigger, for example
-  `aria-label="Show hidden path items"`.
-- Keyboard behavior comes from native anchors and any composed interactive component, such as
-  `MenuTrigger`.
+- Moduix provides the Breadcrumb part family because Ark UI does not currently provide a dedicated primitive.
+- The legacy Base UI `render` prop was removed. Use Ark `asChild`.
+- Separators are explicit JSX parts instead of generated automatically.
+- Collapsing is not built in; compose `Menu` explicitly for hidden path items.
+- `Breadcrumbs.Ellipsis` has compact sizing and a subtle hover background for collapsed menu triggers.
 
 ## Agent notes
 
-- Preserve the semantic `nav` + `ol`/`li` structure.
-- Do not add a data-driven item API unless a user explicitly asks for it; explicit composition is the
-  current contract.
-- Keep `BreadcrumbsLink` compatible with framework links through `render`.
-- Keep stories, docs examples, and local markdown synchronized when changing slots, CSS variables,
-  or defaults.
+- Do not reintroduce a `render` prop compatibility layer.
+- Keep router-link composition on `asChild`.
+- Keep collapsed examples on the migrated Ark Menu contract: `Portal` + `Menu.Positioner` + `Menu.Content` +
+  `Menu.Item asChild`.
+- Keep docs, stories, registry output, and CSS variable tables synchronized when changing parts or tokens.
 
 ## Local changelog
 
-- Rewrote the local contract to describe the shipped semantic wrapper, its composition model, props,
-  slots, CSS variables, and accessibility notes instead of generic Base UI behavior.
-- Added a default accent hover background to `BreadcrumbsEllipsis` so collapsed breadcrumb triggers
-  have clearer interactive feedback.
-- Added a shared small horizontal padding for links, current page text, and ellipsis so breadcrumb
-  items feel less compressed by default.
-- Synced the docs page structure with the current component-doc format and confirmed the public
-  `--breadcrumbs-*` variables against `src/styles/theme.css`.
+- 2026-06-19: Migrated the component to Ark factory elements, added Ark-style `data-scope`/`data-part` hooks,
+  namespace parts, prop type exports, and replaced `render` with `asChild`.

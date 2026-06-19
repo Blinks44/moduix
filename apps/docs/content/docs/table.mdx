@@ -594,10 +594,7 @@ Use the last column for row-specific actions when the dataset needs lightweight 
       import {
         Button,
         Menu,
-        MenuContent,
-        MenuItem,
-        MenuSeparator,
-        MenuTrigger,
+        Portal,
         Table,
         TableBody,
         TableCell,
@@ -609,27 +606,29 @@ Use the last column for row-specific actions when the dataset needs lightweight 
 
       function RowActionsMenu({ itemName }) {
         return (
-          <Menu>
-            <MenuTrigger
-              render={
+          <Menu positioning={{ placement: "bottom-end" }}>
+            <Menu.Trigger asChild>
                 <Button
                   variant="ghost"
                   size="icon-md"
                   aria-label={\`Open actions for \${itemName}\`}
-                />
-              }
-            >
-              <span aria-hidden>...</span>
-            </MenuTrigger>
-            <MenuContent align="end">
-              <MenuItem closeOnClick>Open project</MenuItem>
-              <MenuItem closeOnClick>Copy link</MenuItem>
-              <MenuItem closeOnClick>Duplicate</MenuItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick tone="destructive">
-                Archive
-              </MenuItem>
-            </MenuContent>
+                >
+                  <span aria-hidden>...</span>
+                </Button>
+            </Menu.Trigger>
+            <Portal>
+              <Menu.Positioner>
+                <Menu.Content>
+                  <Menu.Item value="open">Open project</Menu.Item>
+                  <Menu.Item value="copy-link">Copy link</Menu.Item>
+                  <Menu.Item value="duplicate">Duplicate</Menu.Item>
+                  <Menu.Separator />
+                  <Menu.Item value="archive" tone="destructive">
+                    Archive
+                  </Menu.Item>
+                </Menu.Content>
+              </Menu.Positioner>
+            </Portal>
           </Menu>
         );
       }
