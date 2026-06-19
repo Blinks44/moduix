@@ -1,54 +1,63 @@
 ---
 title: List
-description: A typography primitive for ordered and unordered lists with design-system spacing, markers, and text styles.
+description: A semantic list wrapper built with Ark-style composition, moduix spacing tokens, and native marker styling.
 icon: Component
 ---
 
 import {
-  CustomStylesListExample,
+  CustomCompositionListExample,
+  customStyleItemsData,
   ListCssPropertiesPanel,
+  listCustomStylingCss,
   ListExample,
+  listItemsData,
+  listNoopCss,
+  listToneExampleCss,
   MarkerlessListExample,
+  markerlessListItemsData,
   NativeItemsListExample,
+  nativeListItemsData,
   OrderedListExample,
+  orderedListItemsData,
   ToneListExample,
+  toneListItemsData,
 } from '@/components/examples/list';
 
 ## API Reference
 
-`List` is a moduix-native wrapper over semantic `ul`, `ol`, and `li` elements, so the shipped API
-surface is documented on this page.
+Ark UI does not ship a dedicated `List` primitive or component page. The moduix `List` contract is anchored to the Ark guides for [Composition](https://ark-ui.com/docs/guides/composition), [Styling](https://ark-ui.com/docs/guides/styling), and [Refs](https://ark-ui.com/docs/guides/ref), then specialized for semantic `ul`, `ol`, and `li` markup.
 
 ## Basic
 
-Start with `List` and `ListItem`. This is the recommended path when you want native list semantics
-with moduix spacing, typography, and marker tokens.
+Start with `List` and `List.Item`. This is the recommended path when you want native list semantics with moduix spacing, typography, and marker tokens.
 
 <Preview>
   <ListExample />
 
   <Preview.Code>
     {`
-      import { List, ListItem } from "moduix";
+      import { List } from "moduix";
 
       export function ListDemo() {
         return (
           <List>
-            <ListItem>Use semantic list markup for grouped content.</ListItem>
-            <ListItem>Keep spacing and typography on the library scale.</ListItem>
-            <ListItem>Style markers with CSS variables or native ::marker selectors.</ListItem>
+            <List.Item>Use semantic list markup for grouped content.</List.Item>
+            <List.Item>Keep spacing and typography on the library scale.</List.Item>
+            <List.Item>Style markers with CSS variables or native ::marker selectors.</List.Item>
           </List>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{listNoopCss}</Preview.CSS>
+  <Preview.Data>{listItemsData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
 
-If you want `List` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
+If you want `List` to become part of your own project source instead of staying in `node_modules`, install it from the moduix GitHub registry:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
@@ -88,88 +97,80 @@ aubx shadcn@latest add Blinks44/moduix/list
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `List` depends on, such as
-styles and small utilities.
+This install path also pulls in the shared moduix foundation files that `List` depends on, such as styles and small utilities.
 
 ## Anatomy
 
 The normal consumer path is short:
 
 ```text
-List (ul | ol)
-└─ li | ListItem
+List / List.Root
+└─ List.Item | li
 ```
 
-| Part       | Role                                                                |
-| ---------- | ------------------------------------------------------------------- |
-| `List`     | Semantic list root that controls marker, spacing, size, and tone.   |
-| `ListItem` | Optional thin wrapper around a native `li` with a stable item slot. |
+| Part                 | Role                                                               |
+| -------------------- | ------------------------------------------------------------------ |
+| `List` / `List.Root` | Semantic list root that controls marker, spacing, size, and tone.  |
+| `List.Item`          | Optional Ark-style item part for a stable `li` slot and `asChild`. |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with `List` and `ListItem` for most content blocks, settings summaries, and ordered step
-lists.
-
-Use `as` to choose list semantics, `marker` for the common marker presets, and `gap`, `size`, plus
-`tone` for the design-system presentation layer.
+Stay with `<List>` for unordered content and switch the host element with `asChild` when you need ordered semantics. This keeps the contract aligned with Ark composition instead of adding a second host-switching prop API.
 
 ### When to go custom
 
-`List` does not expose a lower-level subtree or marker render API. When you need something more
-custom, keep the semantic root and switch to plain `li` elements, wrapper layout outside the list,
-or native CSS such as `li::marker`.
+`List` does not expose an internal state machine, nested structure helpers, or a marker render API. When you need a custom host element or per-item markup, use `asChild`, plain `li` children, and native CSS such as `li::marker`.
 
-Keep items as direct `li` children. The built-in spacing and marker styling apply only to direct
-list items.
+Keep items as direct `li` descendants. The built-in spacing and marker styling apply only to direct list items.
 
 ### Default props
 
-| Prop     | Default   | Values                                                 |
-| -------- | --------- | ------------------------------------------------------ |
-| `as`     | `ul`      | `ul`, `ol`                                             |
-| `marker` | by `as`   | `disc`, `decimal`, `none`                              |
-| `gap`    | `sm`      | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`                    |
-| `size`   | `md`      | `xs`, `sm`, `md`, `lg`, `xl`                           |
-| `tone`   | `default` | `default`, `muted`, `subtle`, `primary`, `destructive` |
+| Prop      | Default         | Notes                                                                |
+| --------- | --------------- | -------------------------------------------------------------------- |
+| `gap`     | `sm`            | Spacing between direct list items.                                   |
+| `size`    | `md`            | Typography size token.                                               |
+| `tone`    | `default`       | Semantic color path for text and markers.                            |
+| `marker`  | semantic `auto` | `disc` on `ul`, browser-provided ordered markers on `ol`, or `none`. |
+| `asChild` | `false`         | Replaces the semantic host with a single caller-owned child element. |
 
 ### Behavioral notes
 
-- Ordered-list props such as `start`, `reversed`, and `type` continue to pass through when
-  `as="ol"` is used.
-- Leave `marker` on its default ordered path when you want browser-provided marker styles such as
-  `type="A"` or `type="i"`.
-- Use `marker="none"` to hide markers while keeping list semantics. `List` adds `role="list"` on
-  that path unless you explicitly override `role`.
-- `ListItem` is optional. Use plain `li` elements when the exported item slot adds no value.
+- Ordered-list props such as `start`, `reversed`, and `type` live on the child `<ol>` when `asChild` is used.
+- Use `marker="none"` to hide markers while keeping list semantics. `List` adds `role="list"` on that path unless you explicitly override `role`.
+- `List.Item` is optional. Use plain `li` elements when the exported item slot adds no value.
 
 ## Examples
 
-### Ordered Start
+### Ordered AsChild
 
-Use `as="ol"` for ordered steps. Native ordered-list props still work, so `start={3}` continues
-numbering from the underlying `ol`.
+Use `asChild` to render an ordered list while keeping the moduix root styling contract. Native ordered-list props stay on the semantic `<ol>`.
 
 <Preview>
   <OrderedListExample />
 
   <Preview.Code>
     {`
-      import { List, ListItem } from "moduix";
+      import { List } from "moduix";
 
-      export function OrderedStartListDemo() {
+      export function OrderedListDemo() {
         return (
-          <List as="ol" start={3}>
-            <ListItem>Prepare the release notes.</ListItem>
-            <ListItem>Publish the package.</ListItem>
-            <ListItem>Announce the release.</ListItem>
+          <List asChild>
+            <ol start={3}>
+              <List.Item>Prepare the release notes.</List.Item>
+              <List.Item>Publish the package.</List.Item>
+              <List.Item>Announce the release.</List.Item>
+            </ol>
           </List>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{listNoopCss}</Preview.CSS>
+  <Preview.Data>{orderedListItemsData}</Preview.Data>
 </Preview>
 
 ### Markerless
@@ -181,25 +182,28 @@ Use `marker="none"` when you need list semantics without visible markers.
 
   <Preview.Code>
     {`
-      import { List, ListItem } from "moduix";
+      import { List } from "moduix";
 
       export function MarkerlessListDemo() {
         return (
           <List marker="none">
-            <ListItem>Semantics stay intact without visible markers.</ListItem>
-            <ListItem>Useful for grouped metadata or key-value blocks.</ListItem>
-            <ListItem>Spacing and text tokens still come from the root.</ListItem>
+            <List.Item>Semantics stay intact without visible markers.</List.Item>
+            <List.Item>Useful for grouped metadata or key-value blocks.</List.Item>
+            <List.Item>Spacing and text tokens still come from the root.</List.Item>
           </List>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{listNoopCss}</Preview.CSS>
+  <Preview.Data>{markerlessListItemsData}</Preview.Data>
 </Preview>
 
 ### Native Items
 
-Use native `li` elements when you do not need the exported `ListItem` slot.
+Use native `li` elements when you do not need the exported `List.Item` slot.
 
 <Preview>
   <NativeItemsListExample />
@@ -213,13 +217,16 @@ Use native `li` elements when you do not need the exported `ListItem` slot.
           <List>
             <li>Use native li elements when a wrapper component is unnecessary.</li>
             <li>The root still controls spacing, marker style, size, and tone.</li>
-            <li>Reach for ListItem when you want the stable item slot.</li>
+            <li>Reach for List.Item when you want the stable item slot.</li>
           </List>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{listNoopCss}</Preview.CSS>
+  <Preview.Data>{nativeListItemsData}</Preview.Data>
 </Preview>
 
 ### Tone
@@ -231,25 +238,25 @@ Use `tone` when the list should inherit a semantic text color.
 
   <Preview.Code>
     {`
-      import { List, ListItem } from "moduix";
+      import { List } from "moduix";
 
       export function ListToneDemo() {
         return (
           <div className="list-demo-tones">
             <List tone="default">
-              <ListItem>Default list tone</ListItem>
+              <List.Item>Default list tone</List.Item>
             </List>
             <List tone="muted">
-              <ListItem>Muted list tone</ListItem>
+              <List.Item>Muted list tone</List.Item>
             </List>
             <List tone="subtle">
-              <ListItem>Subtle list tone</ListItem>
+              <List.Item>Subtle list tone</List.Item>
             </List>
             <List tone="primary">
-              <ListItem>Primary list tone</ListItem>
+              <List.Item>Primary list tone</List.Item>
             </List>
             <List tone="destructive">
-              <ListItem>Destructive list tone</ListItem>
+              <List.Item>Destructive list tone</List.Item>
             </List>
           </div>
         );
@@ -258,38 +265,33 @@ Use `tone` when the list should inherit a semantic text color.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
-      .list-demo-tones {
-        display: grid;
-        gap: var(--spacing-4) var(--spacing-6);
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        width: fit-content;
-        max-width: min(32rem, calc(100vw - var(--spacing-8)));
-      }
-    `}
-
-  </Preview.CSS>
+  <Preview.CSS>{listToneExampleCss}</Preview.CSS>
+  <Preview.Data>{toneListItemsData}</Preview.Data>
 </Preview>
 
-### Custom Styling
+### Custom Composition
 
-Use native marker styling when you need per-item marker customization without changing the rendered
-structure.
+Use `List.Item asChild` when the item slot should stay public but the caller needs to own the rendered `li`.
 
 <Preview>
-  <CustomStylesListExample />
+  <CustomCompositionListExample />
 
   <Preview.Code>
     {`
-      import { List, ListItem } from "moduix";
+      import { List } from "moduix";
 
-      export function CustomStylesListDemo() {
+      export function CustomCompositionListDemo() {
         return (
           <List className="list-demo-accent">
-            <ListItem className="list-demo-accent-item">Native markers stay available for per-item styling.</ListItem>
-            <ListItem className="list-demo-accent-item">Root CSS variables still control spacing and indentation.</ListItem>
-            <ListItem className="list-demo-accent-item">No extra marker or content API is required.</ListItem>
+            <List.Item asChild>
+              <li className="list-demo-accent-item">Native markers stay available for per-item styling.</li>
+            </List.Item>
+            <List.Item asChild>
+              <li className="list-demo-accent-item">Root CSS variables still control spacing and indentation.</li>
+            </List.Item>
+            <List.Item asChild>
+              <li className="list-demo-accent-item">asChild keeps the slot contract while handing markup to the caller.</li>
+            </List.Item>
           </List>
         );
       }
@@ -297,27 +299,13 @@ structure.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
-      .list-demo-accent {
-        max-width: min(32rem, calc(100vw - var(--spacing-8)));
-        --list-padding-x: var(--spacing-6);
-      }
-
-      .list-demo-accent-item::marker {
-        color: var(--color-chart-2);
-        font-weight: var(--weight-semibold);
-      }
-    `}
-
-  </Preview.CSS>
+  <Preview.CSS>{listCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{customStyleItemsData}</Preview.Data>
 </Preview>
 
 ## Styling
 
-Style `List` through `className`, the exported `data-*` hooks, native `li::marker`, and the public
-`--list-*` CSS variables shown below. The variable list here was checked against
-`packages/ui/src/styles/theme.css`.
+Style `List` through `className`, the exported Ark-style `data-*` hooks, native `li::marker`, and the public `--list-*` CSS variables shown below. The variable list here was checked against `packages/ui/src/styles/theme.css`.
 
 ### CSS Properties
 
@@ -333,12 +321,10 @@ Style `List` through `className`, the exported `data-*` hooks, native `li::marke
 
 `List` exposes a small public styling surface:
 
-- `data-slot="list-root"` on the semantic root
-- `data-slot="list-item"` on `ListItem`
+- root: `data-scope="list"`, `data-part="root"`, `data-slot="list-root"`
+- item: `data-scope="list"`, `data-part="item"`, `data-slot="list-item"`
 - `data-gap="xs" | "sm" | "md" | "lg" | "xl" | "2xl"` for spacing-specific styling
-- `data-marker="disc" | "decimal" | "none"` for marker-specific styling
-- `data-marker-mode="auto" | "explicit"` when marker behavior depends on the root element or an
-  explicit override
+- `data-marker="auto" | "disc" | "decimal" | "none"` for marker-specific styling
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` for typography size styling
 - `data-tone="default" | "muted" | "subtle" | "primary" | "destructive"` for semantic color paths
 - native `li::marker` targeting for marker-specific color or weight overrides

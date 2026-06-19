@@ -1,253 +1,138 @@
 # List
 
-There is no Base UI primitive behind `List`. It is a small native wrapper over `ul`, `ol`, and `li`
-that keeps browser list semantics and adds moduix typography and spacing tokens.
+Upstream docs:
+
+- Ark UI: no dedicated `List` component. Use the Composition, Styling, and Ref guides:
+  - https://ark-ui.com/docs/guides/composition
+  - https://ark-ui.com/docs/guides/styling
+  - https://ark-ui.com/docs/guides/ref
 
 ## Purpose
 
-Use `List` when you need:
+`List` is a moduix-owned semantic list wrapper that uses Ark factory composition to style unordered and ordered lists with the moduix spacing, typography, and marker token contract.
 
-- native list semantics with design-system spacing and typography;
-- a small marker API for the common `disc`, `decimal`, and markerless cases;
-- stable styling hooks for the root and optional item wrapper without inventing a custom parts system.
+## Upstream model to preserve
 
-Use plain HTML lists when you do not need the design-system styling contract. Use `Text` or `Heading`
-for non-list typography.
+There is no dedicated Ark `List` primitive or component page. The wrapper should stay aligned with Ark's factory-based composition model:
+
+- `List` is a thin `ark.ul` wrapper with `asChild` support for host-element replacement.
+- `List.Item` is a thin `ark.li` wrapper with the same `asChild` composition path.
+- Styling is driven through Ark-style `data-scope`, `data-part`, state-like data attributes, and public CSS variables.
+- Ref behavior targets the rendered semantic root/item element, with the standard Ark `asChild` constraint of a single semantic child.
 
 ## Current behavior contract
 
-`List` renders exactly one semantic root:
+- `List` defaults to a semantic `<ul>`.
+- Ordered lists now use Ark-style composition: render `<List asChild><ol ... /></List>` instead of `as="ol"`.
+- `List.Item` is the public item part. The flat `ListItem` export was removed during the Ark migration.
+- `marker="none"` still applies `role="list"` by default for markerless semantics unless the caller passes a custom `role`.
+- Native list props remain available on the rendered host element:
+  - plain `<List>` accepts `ul` props;
+  - ordered-list props such as `start`, `reversed`, and `type` belong on the child `<ol>` when `asChild` is used.
+- Visual behavior stays token-driven through `gap`, `size`, `tone`, native `::marker`, and the `--list-*` CSS variable contract.
 
-- `ul` by default;
-- `ol` when `as="ol"` is passed.
+## Anatomy and exported parts
 
-The root always receives:
-
-- `data-slot="list-root"`;
-- `data-gap`;
-- `data-marker`;
-- `data-marker-mode="auto" | "explicit"`;
-- `data-size`;
-- `data-tone`.
-
-`ListItem` renders a plain `li` with `data-slot="list-item"`.
-
-Important behavior details:
-
-- the root styles **direct `li` children only**;
-- `ListItem` is optional and exists mainly for the stable item slot;
-- when `marker="none"`, the component adds `role="list"` unless the caller already passed `role`;
-- ordered-list props like `start`, `reversed`, and `type` still pass through to the underlying `ol`;
-- native ordered-list `type` markers are preserved when `marker` is left on the default ordered path;
-- explicitly setting `marker="decimal"` forces decimal markers even if `type` is also present.
-
-Default behavior:
-
-| Prop     | Default   | Values                                                 |
-| -------- | --------- | ------------------------------------------------------ |
-| `as`     | `ul`      | `ul`, `ol`                                             |
-| `marker` | by `as`   | `disc`, `decimal`, `none`                              |
-| `gap`    | `sm`      | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`                    |
-| `size`   | `md`      | `xs`, `sm`, `md`, `lg`, `xl`                           |
-| `tone`   | `default` | `default`, `muted`, `subtle`, `primary`, `destructive` |
-
-## Basic usage
-
-```tsx
-import { List, ListItem } from 'moduix';
-
-export function Example() {
-  return (
-    <List>
-      <ListItem>Use semantic list markup for grouped content.</ListItem>
-      <ListItem>Keep spacing and typography on the library scale.</ListItem>
-      <ListItem>Style markers with CSS variables or native ::marker selectors.</ListItem>
-    </List>
-  );
-}
+```text
+List / List.Root
+└─ List.Item | li
 ```
+
+| Part                 | Stable hooks                                                     | Notes                                                                  |
+| -------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `List` / `List.Root` | `data-scope="list"`, `data-part="root"`, `data-slot="list-root"` | Semantic list root with marker, spacing, size, and tone styling hooks. |
+| `List.Item`          | `data-scope="list"`, `data-part="item"`, `data-slot="list-item"` | Thin semantic item wrapper with optional `asChild` composition.        |
 
 ## Composition
 
-```text
-List (ul | ol)
-└─ li | ListItem
-```
-
-Recommended usage:
-
-- use `as` to choose unordered vs ordered semantics;
-- use `marker` only for the common marker presets or to hide markers;
-- use `ListItem` when a stable item slot is useful for styling or testing;
-- use plain `li` elements when an extra wrapper component adds no value;
-- keep the children as direct `li` descendants so root spacing and markers keep working.
-
-`List` does not expose slot prop bags, marker render props, nested structure helpers, or stateful
-behavior. Layout around the list stays outside the component.
-
-### Ordered lists
+Canonical unordered usage:
 
 ```tsx
-import { List, ListItem } from 'moduix';
+import { List } from 'moduix';
 
-export function OrderedExample() {
+export function ListDemo() {
   return (
-    <List as="ol" type="A">
-      <ListItem>Draft the rollout checklist.</ListItem>
-      <ListItem>Coordinate the release window.</ListItem>
-      <ListItem>Confirm the post-release review.</ListItem>
+    <List>
+      <List.Item>Use semantic list markup for grouped content.</List.Item>
+      <List.Item>Keep spacing and typography on the library scale.</List.Item>
+      <List.Item>Style markers with CSS variables or native ::marker selectors.</List.Item>
     </List>
   );
 }
 ```
 
-Leave `marker` unset when you want browser-provided ordered marker styles like `type="A"` or
-`type="i"`. Set `marker="decimal"` only when decimal numbering should win regardless of the native
-`type` attribute.
-
-## Public API
-
-`List` accepts native `ul` or `ol` attributes plus these wrapper props:
-
-| Prop        | Type         | Description                                                           |
-| ----------- | ------------ | --------------------------------------------------------------------- |
-| `as`        | `ListAs`     | Chooses the semantic root element.                                    |
-| `marker`    | `ListMarker` | Controls marker visibility/style: `disc`, `decimal`, or `none`.       |
-| `gap`       | `ListGap`    | Controls spacing between direct list items.                           |
-| `size`      | `ListSize`   | Controls typography size.                                             |
-| `tone`      | `ListTone`   | Controls text and marker tone through color tokens.                   |
-| `className` | `string`     | Adds classes to the root list element.                                |
-| `role`      | native       | Optional override; otherwise `marker="none"` resolves to `role=list`. |
-
-`ListItem` accepts native `li` props plus `className`.
-
-Exported types:
-
-- `ListAs`
-- `ListGap`
-- `ListItemProps`
-- `ListMarker`
-- `ListProps`
-- `ListSize`
-- `ListTone`
-
-## Styling API
-
-Root hooks:
-
-- `data-slot="list-root"`
-- `data-gap="xs" | "sm" | "md" | "lg" | "xl" | "2xl"`
-- `data-marker="disc" | "decimal" | "none"`
-- `data-marker-mode="auto" | "explicit"`
-- `data-size="xs" | "sm" | "md" | "lg" | "xl"`
-- `data-tone="default" | "muted" | "subtle" | "primary" | "destructive"`
-
-Item hook:
-
-- `data-slot="list-item"`
-
-Public CSS variables:
-
-| Variable                    | Default                                                  |
-| --------------------------- | -------------------------------------------------------- |
-| `--list-color`              | `var(--list-default-color, var(--color-foreground))`     |
-| `--list-default-color`      | `var(--color-foreground)`                                |
-| `--list-destructive-color`  | `var(--color-destructive)`                               |
-| `--list-font-family`        | `var(--font-sans)`                                       |
-| `--list-font-size`          | `var(--list-font-size-md, var(--text-md))`               |
-| `--list-font-size-xs`       | `var(--text-xs)`                                         |
-| `--list-font-size-sm`       | `var(--text-sm)`                                         |
-| `--list-font-size-md`       | `var(--text-md)`                                         |
-| `--list-font-size-lg`       | `var(--text-lg)`                                         |
-| `--list-font-size-xl`       | `var(--text-xl)`                                         |
-| `--list-font-weight`        | `var(--weight-regular)`                                  |
-| `--list-gap`                | `var(--list-gap-sm, var(--spacing-2))`                   |
-| `--list-gap-xs`             | `var(--spacing-1)`                                       |
-| `--list-gap-sm`             | `var(--spacing-2)`                                       |
-| `--list-gap-md`             | `var(--spacing-3)`                                       |
-| `--list-gap-lg`             | `var(--spacing-4)`                                       |
-| `--list-gap-xl`             | `var(--spacing-5)`                                       |
-| `--list-gap-2xl`            | `var(--spacing-6)`                                       |
-| `--list-letter-spacing`     | `0`                                                      |
-| `--list-line-height`        | `var(--list-line-height-md, var(--line-height-text-md))` |
-| `--list-line-height-xs`     | `var(--line-height-text-xs)`                             |
-| `--list-line-height-sm`     | `var(--line-height-text-sm)`                             |
-| `--list-line-height-md`     | `var(--line-height-text-md)`                             |
-| `--list-line-height-lg`     | `var(--line-height-text-lg)`                             |
-| `--list-line-height-xl`     | `var(--line-height-text-xl)`                             |
-| `--list-marker-color`       | `currentColor`                                           |
-| `--list-marker-font-weight` | `inherit`                                                |
-| `--list-muted-color`        | `var(--color-muted-foreground)`                          |
-| `--list-padding-x`          | `var(--spacing-5)`                                       |
-| `--list-primary-color`      | `var(--color-primary)`                                   |
-| `--list-subtle-color`       | `var(--color-secondary-foreground)`                      |
-
-Example override:
+Canonical ordered usage:
 
 ```tsx
-import { List, ListItem } from 'moduix';
-import styles from './example.module.css';
+import { List } from 'moduix';
 
-export function Example() {
+export function OrderedListDemo() {
   return (
-    <List className={styles.accentList}>
-      <ListItem className={styles.accentItem}>Customized markers</ListItem>
-      <ListItem className={styles.accentItem}>Spacing still comes from the root</ListItem>
+    <List asChild>
+      <ol start={3}>
+        <List.Item>Prepare the release notes.</List.Item>
+        <List.Item>Publish the package.</List.Item>
+        <List.Item>Announce the release.</List.Item>
+      </ol>
     </List>
   );
 }
 ```
 
-```css
-.accentList {
-  --list-padding-x: var(--spacing-6);
-}
+## Upstream feature coverage
 
-.accentItem::marker {
-  color: var(--color-primary);
-  font-weight: var(--weight-semibold);
-}
-```
+- Ark Composition guide:
+  - supported: `asChild` on the root and item parts;
+  - supported: semantic child replacement with a single host element;
+  - unsupported by design: there is no upstream state machine, context API, `RootProvider`, or callback detail object because no Ark primitive exists.
+- Ark Styling guide:
+  - supported: styling through `data-scope`, `data-part`, data attributes, `className`, and CSS variables;
+  - supported: native marker styling with `li::marker`.
+- Ark Ref guide:
+  - supported: refs forwarded to the rendered root/item DOM element;
+  - preserve the semantic-host requirement when using `asChild`.
 
-## UX and accessibility notes
+## Accessibility and state
 
-- Native `ul` and `ol` semantics are preserved by default.
-- `marker="none"` hides markers visually but keeps list semantics by default through `role="list"`.
-- There is no custom keyboard navigation, focus management, disabled state, or read-only state because
-  the component is not interactive.
-- Screen-reader and numbering behavior come from native list markup, so avoid replacing direct `li`
-  children with non-list elements.
-- `overflow-wrap: break-word` is applied on the root to keep long content from breaking layouts.
+- Accessibility comes from native list semantics (`ul`, `ol`, `li`) rather than an Ark state machine.
+- `marker="none"` hides markers visually and keeps list semantics via the default `role="list"` fallback.
+- Keep direct `li` descendants under the rendered root. Root spacing and marker styling assume direct list items.
+- There are no Ark callbacks, controlled/uncontrolled modes, `HiddenInput`, `Field.Root`/`Fieldset.Root` context, or provider/context exports for this component.
+- Public styling hooks:
+  - root: `data-gap`, `data-marker`, `data-size`, `data-tone`
+  - item: `data-slot="list-item"` plus `data-scope` / `data-part`
 
-## Limitations and recommendations
+## Defaults and styling
 
-- `List` is intentionally small. It does not provide custom marker renderers, nested slot APIs, or
-  item layout helpers.
-- Root spacing applies only to direct `li` children. Wrapper elements between `List` and `li` break the
-  built-in spacing contract.
-- `ListItem` is a convenience wrapper, not a separate visual part with its own variants.
-- If you need uncommon marker styles, prefer native ordered-list attributes or CSS `list-style-type`
-  overrides before expanding the component API.
+- `List` accepts `className` on the root and `List.Item` accepts `className` on the item.
+- Defaults:
+  - root host: `ul`
+  - `gap`: `sm`
+  - `size`: `md`
+  - `tone`: `default`
+  - `marker`: semantic auto mode (`disc` on `ul`, browser default ordered markers on `ol`)
+- Public CSS variables remain:
+  - color: `--list-color`, `--list-default-color`, `--list-muted-color`, `--list-subtle-color`, `--list-primary-color`, `--list-destructive-color`
+  - typography: `--list-font-family`, `--list-font-size`, `--list-font-size-*`, `--list-font-weight`, `--list-line-height`, `--list-line-height-*`, `--list-letter-spacing`
+  - spacing/markers: `--list-gap`, `--list-gap-*`, `--list-padding-x`, `--list-marker-color`, `--list-marker-font-weight`
+- The CSS module relies on the Ark-style root hooks and native `li::marker`; keep those selectors aligned with the implementation.
 
-## Intentional differences from Base UI
+## Intentional sugar and differences from upstream
 
-- no Base UI primitive wrapper;
-- no headless state, interaction, or render-prop behavior;
-- no slot bag or marker-content API;
-- no abstraction over nested list structure beyond the optional `ListItem` wrapper.
+- `List` is still a moduix-owned component because Ark UI does not ship a dedicated list primitive.
+- The moduix wrapper adds design-system props (`gap`, `size`, `tone`, `marker`) and a stable `List.Item` slot.
+- The Ark migration intentionally removed:
+  - `as="ol"` in favor of `asChild`;
+  - the flat `ListItem` export in favor of `List.Item`;
+  - the old `ListAs` / union host-prop contract.
 
 ## Agent notes
 
-- Preserve the direct-child `li` contract unless the component API is intentionally widened.
-- Preserve `data-slot`, `data-gap`, `data-marker`, `data-marker-mode`, `data-size`, `data-tone`, and the
-  documented `--list-*` variable contract.
-- Keep `marker="none"` accessible; do not remove the fallback `role="list"` behavior as a cleanup.
-- Keep ordered-list native `type` support working on the default ordered path.
+- Do not add a fake Ark part tree, context API, or state callbacks to mimic other Ark primitives.
+- Keep the wrapper thin: Ark factory composition, semantic DOM, styling hooks, and token mapping only.
+- If future work needs more custom ordered-list behavior, prefer `asChild` + native `ol` props or CSS over new wrapper props.
 
 ## Local changelog
 
-- 2026-06-15: Restored ordered-list markers on the default `as="ol"` path after the global reset,
-  while preserving native `type`-driven marker styles and explicit `marker="decimal"` overrides.
-- 2026-06-02: Rewrote the local documentation around the shipped moduix wrapper contract, documented
-  styling hooks and CSS variables, and recorded the markerless accessibility + ordered-list marker
-  behavior.
+- 2026-06-19: Migrated `List` to an Ark-style factory wrapper, replaced `as="ol"` with `asChild`, removed the flat `ListItem` export in favor of `List.Item`, and rewrote the local contract around Ark composition/styling guides.
+- 2026-06-15: Restored ordered-list markers on the default `as="ol"` path after the global reset, documented `ListItem`, formalized public styling hooks and CSS variables, and recorded the markerless accessibility + ordered-list marker preservation notes.

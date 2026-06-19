@@ -1,5 +1,5 @@
 @layer ui.components {
-  .root {
+  .root[data-scope='list'][data-part='root'] {
     --_list-color: var(--list-color, var(--list-default-color, var(--color-foreground)));
     --_list-font-size: var(--list-font-size, var(--list-font-size-md, var(--text-md)));
     --_list-gap: var(--list-gap, var(--list-gap-sm, var(--spacing-2)));
@@ -58,21 +58,23 @@
       list-style: none;
     }
 
+    &:is(ul, ol)[data-marker='auto'],
     &[data-marker='disc'],
     &[data-marker='decimal'] {
       padding-inline-start: var(--list-padding-x, var(--spacing-5));
     }
 
+    &:is(ul)[data-marker='auto'],
     &[data-marker='disc'] {
       list-style-type: disc;
     }
 
-    &:is(ol)[data-marker='decimal'][data-marker-mode='auto'] {
+    &:is(ol)[data-marker='auto'] {
       list-style-type: revert;
     }
 
     &:is(ul)[data-marker='decimal'],
-    &[data-marker='decimal'][data-marker-mode='explicit'] {
+    &:is(ol)[data-marker='decimal'] {
       list-style-type: decimal;
     }
 

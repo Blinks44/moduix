@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { List, ListItem } from 'moduix';
+import { List } from 'moduix';
 import { CSSPropertiesReferenceTable } from '../preview';
 
 const basicItems = [
@@ -23,13 +23,13 @@ const markerlessItems = [
 const nativeItems = [
   'Use native li elements when a wrapper component is unnecessary.',
   'The root still controls spacing, marker style, size, and tone.',
-  'Reach for ListItem when you want the stable item slot.',
+  'Reach for List.Item when you want the stable item slot.',
 ];
 
 const customStyleItems = [
   'Native markers stay available for per-item styling.',
   'Root CSS variables still control spacing and indentation.',
-  'No extra marker/content API is required.',
+  'asChild keeps the slot contract while handing markup to the caller.',
 ];
 
 const toneItems = [
@@ -39,6 +39,68 @@ const toneItems = [
   { tone: 'primary', label: 'Primary list tone' },
   { tone: 'destructive', label: 'Destructive list tone' },
 ] as const;
+
+export const listItemsData = `const items = [
+  'Use semantic list markup for grouped content.',
+  'Keep spacing and typography on the library scale.',
+  'Style markers with CSS variables or native ::marker selectors.',
+];`;
+
+export const orderedListItemsData = `const items = [
+  'Prepare the release notes.',
+  'Publish the package.',
+  'Announce the release.',
+];`;
+
+export const markerlessListItemsData = `const items = [
+  'Semantics stay intact without visible markers.',
+  'Useful for grouped metadata or key-value blocks.',
+  'Spacing and text tokens still come from the root.',
+];`;
+
+export const nativeListItemsData = `const items = [
+  'Use native li elements when a wrapper component is unnecessary.',
+  'The root still controls spacing, marker style, size, and tone.',
+  'Reach for List.Item when you want the stable item slot.',
+];`;
+
+export const customStyleItemsData = `const items = [
+  'Native markers stay available for per-item styling.',
+  'Root CSS variables still control spacing and indentation.',
+  'asChild keeps the slot contract while handing markup to the caller.',
+];`;
+
+export const toneListItemsData = `const toneItems = [
+  { tone: 'default', label: 'Default list tone' },
+  { tone: 'muted', label: 'Muted list tone' },
+  { tone: 'subtle', label: 'Subtle list tone' },
+  { tone: 'primary', label: 'Primary list tone' },
+  { tone: 'destructive', label: 'Destructive list tone' },
+] as const;`;
+
+export const listNoopCss = '';
+
+export const listToneExampleCss = `
+  .list-demo-tones {
+    display: grid;
+    gap: var(--spacing-4) var(--spacing-6);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: fit-content;
+    max-width: min(32rem, calc(100vw - var(--spacing-8)));
+  }
+`;
+
+export const listCustomStylingCss = `
+  .list-demo-accent {
+    max-width: min(32rem, calc(100vw - var(--spacing-8)));
+    --list-padding-x: var(--spacing-6);
+  }
+
+  .list-demo-accent-item::marker {
+    color: var(--color-chart-2);
+    font-weight: var(--weight-semibold);
+  }
+`;
 
 export const listOverrideCssProperties = [
   {
@@ -210,7 +272,7 @@ export function ListExample(props: ComponentProps<typeof List>) {
   return (
     <List {...props}>
       {basicItems.map((item) => (
-        <ListItem key={item}>{item}</ListItem>
+        <List.Item key={item}>{item}</List.Item>
       ))}
     </List>
   );
@@ -218,10 +280,12 @@ export function ListExample(props: ComponentProps<typeof List>) {
 
 export function OrderedListExample() {
   return (
-    <List as="ol" start={3}>
-      {orderedItems.map((item) => (
-        <ListItem key={item}>{item}</ListItem>
-      ))}
+    <List asChild>
+      <ol start={3}>
+        {orderedItems.map((item) => (
+          <List.Item key={item}>{item}</List.Item>
+        ))}
+      </ol>
     </List>
   );
 }
@@ -230,7 +294,7 @@ export function MarkerlessListExample() {
   return (
     <List marker="none">
       {markerlessItems.map((item) => (
-        <ListItem key={item}>{item}</ListItem>
+        <List.Item key={item}>{item}</List.Item>
       ))}
     </List>
   );
@@ -246,13 +310,13 @@ export function NativeItemsListExample() {
   );
 }
 
-export function CustomStylesListExample() {
+export function CustomCompositionListExample() {
   return (
     <List className="list-demo-accent">
       {customStyleItems.map((item) => (
-        <ListItem key={item} className="list-demo-accent-item">
-          {item}
-        </ListItem>
+        <List.Item key={item} asChild>
+          <li className="list-demo-accent-item">{item}</li>
+        </List.Item>
       ))}
     </List>
   );
@@ -263,7 +327,7 @@ export function ToneListExample() {
     <div className="list-demo-tones">
       {toneItems.map((item) => (
         <List key={item.tone} tone={item.tone}>
-          <ListItem>{item.label}</ListItem>
+          <List.Item>{item.label}</List.Item>
         </List>
       ))}
     </div>

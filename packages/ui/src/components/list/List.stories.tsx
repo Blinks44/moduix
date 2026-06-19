@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { List, ListItem } from './List';
+import { List } from './List';
 import storyStyles from './List.stories.module.css';
 
 const defaultItems = [
@@ -30,19 +30,21 @@ export const Basic: Story = {
   render: (args) => (
     <List className={storyStyles.list} {...args}>
       {defaultItems.map((item) => (
-        <ListItem key={item}>{item}</ListItem>
+        <List.Item key={item}>{item}</List.Item>
       ))}
     </List>
   ),
 };
 
-export const OrderedStart: Story = {
-  name: 'Ordered Start',
+export const OrderedAsChild: Story = {
+  name: 'Ordered AsChild',
   render: () => (
-    <List as="ol" start={3} className={storyStyles.list}>
-      <ListItem>Prepare the release notes.</ListItem>
-      <ListItem>Publish the package.</ListItem>
-      <ListItem>Announce the release.</ListItem>
+    <List asChild className={storyStyles.list}>
+      <ol start={3}>
+        <List.Item>Prepare the release notes.</List.Item>
+        <List.Item>Publish the package.</List.Item>
+        <List.Item>Announce the release.</List.Item>
+      </ol>
     </List>
   ),
 };
@@ -50,10 +52,12 @@ export const OrderedStart: Story = {
 export const OrderedType: Story = {
   name: 'Ordered Type',
   render: () => (
-    <List as="ol" type="A" className={storyStyles.list}>
-      <ListItem>Draft the rollout checklist.</ListItem>
-      <ListItem>Coordinate the release window.</ListItem>
-      <ListItem>Confirm the post-release review.</ListItem>
+    <List asChild className={storyStyles.list}>
+      <ol type="A">
+        <List.Item>Draft the rollout checklist.</List.Item>
+        <List.Item>Coordinate the release window.</List.Item>
+        <List.Item>Confirm the post-release review.</List.Item>
+      </ol>
     </List>
   ),
 };
@@ -61,9 +65,9 @@ export const OrderedType: Story = {
 export const Markerless: Story = {
   render: () => (
     <List marker="none" className={storyStyles.list}>
-      <ListItem>Semantics stay intact without visible markers.</ListItem>
-      <ListItem>Useful for grouped metadata or key-value blocks.</ListItem>
-      <ListItem>Spacing and text tokens still come from the root.</ListItem>
+      <List.Item>Semantics stay intact without visible markers.</List.Item>
+      <List.Item>Useful for grouped metadata or key-value blocks.</List.Item>
+      <List.Item>Spacing and text tokens still come from the root.</List.Item>
     </List>
   ),
 };
@@ -72,13 +76,13 @@ export const Tones: Story = {
   render: () => (
     <div className={storyStyles.stack}>
       <List tone="muted">
-        <ListItem>Muted list tone</ListItem>
+        <List.Item>Muted list tone</List.Item>
       </List>
       <List tone="primary">
-        <ListItem>Primary list tone</ListItem>
+        <List.Item>Primary list tone</List.Item>
       </List>
       <List tone="destructive">
-        <ListItem>Destructive list tone</ListItem>
+        <List.Item>Destructive list tone</List.Item>
       </List>
     </div>
   ),
@@ -90,24 +94,30 @@ export const NativeItems: Story = {
     <List className={storyStyles.list}>
       <li>Use native li elements when a wrapper component is unnecessary.</li>
       <li>The root still controls spacing, marker style, size, and tone.</li>
-      <li>Reach for ListItem when you want the stable item slot.</li>
+      <li>Reach for List.Item when you want the stable item slot.</li>
     </List>
   ),
 };
 
-export const CustomStyles: Story = {
-  name: 'Custom Styles',
+export const CustomItemComposition: Story = {
+  name: 'Custom Item Composition',
   render: () => (
     <List className={storyStyles.accentList}>
-      <ListItem className={storyStyles.accentItem}>
-        Native markers stay available for per-item styling.
-      </ListItem>
-      <ListItem className={storyStyles.accentItem}>
-        Root CSS variables still control spacing and indentation.
-      </ListItem>
-      <ListItem className={storyStyles.accentItem}>
-        No extra marker/content API is required.
-      </ListItem>
+      <List.Item asChild>
+        <li className={storyStyles.accentItem}>
+          Native markers stay available for per-item styling.
+        </li>
+      </List.Item>
+      <List.Item asChild>
+        <li className={storyStyles.accentItem}>
+          Root CSS variables still control spacing and indentation.
+        </li>
+      </List.Item>
+      <List.Item asChild>
+        <li className={storyStyles.accentItem}>
+          asChild keeps the slot contract while handing markup to the caller.
+        </li>
+      </List.Item>
     </List>
   ),
 };
