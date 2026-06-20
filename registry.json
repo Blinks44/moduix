@@ -938,7 +938,7 @@
       "type": "registry:item",
       "title": "Pagination",
       "description": "moduix Pagination component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

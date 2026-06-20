@@ -1,198 +1,183 @@
-import { Toolbar as ToolbarPrimitive } from '@base-ui/react/toolbar';
+import type { ComponentProps, ComponentRef } from 'react';
+import {
+  Pagination as PaginationPrimitive,
+  usePagination,
+  usePaginationContext,
+} from '@ark-ui/react/pagination';
 import { clsx } from 'clsx';
-import { type ComponentProps } from 'react';
+import { forwardRef } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Pagination.module.css';
 
-type PaginationItemType = number | 'ellipsis-start' | 'ellipsis-end';
-
-function clampPage(page: number, count: number) {
-  return Math.min(Math.max(page, 1), count);
-}
-
-function range(start: number, end: number) {
-  return Array.from({ length: end - start + 1 }, (_, index) => start + index);
-}
-
-function getPaginationItems(
-  count: number,
-  page: number,
-  siblingCount: number,
-  boundaryCount: number,
-): PaginationItemType[] {
-  if (count === 0) {
-    return [];
-  }
-
-  const totalPageNumbers = siblingCount * 2 + 3 + boundaryCount * 2;
-
-  if (count <= totalPageNumbers) {
-    return range(1, count);
-  }
-
-  const startPages = range(1, boundaryCount);
-  const endPages = range(count - boundaryCount + 1, count);
-
-  const siblingsStart = Math.max(
-    Math.min(page - siblingCount, count - boundaryCount - siblingCount * 2 - 1),
-    boundaryCount + 2,
-  );
-
-  const siblingsEnd = Math.min(
-    Math.max(page + siblingCount, boundaryCount + siblingCount * 2 + 2),
-    endPages[0] - 2,
-  );
-
-  const hasStartEllipsis = siblingsStart > boundaryCount + 2;
-  const hasEndEllipsis = siblingsEnd < count - boundaryCount - 1;
-
-  return [
-    ...startPages,
-    ...(hasStartEllipsis
-      ? (['ellipsis-start'] as const)
-      : boundaryCount + 1 < count - boundaryCount
-        ? [boundaryCount + 1]
-        : []),
-    ...range(siblingsStart, siblingsEnd),
-    ...(hasEndEllipsis
-      ? (['ellipsis-end'] as const)
-      : count - boundaryCount > boundaryCount
-        ? [count - boundaryCount]
-        : []),
-    ...endPages,
-  ];
-}
-
-function usePagination({
-  count,
-  page,
-  siblingCount = 1,
-  boundaryCount = 1,
-}: {
-  count: number;
-  page: number;
-  siblingCount?: number;
-  boundaryCount?: number;
-}) {
-  const safeCount = Math.max(0, Math.floor(count));
-  const safePage = safeCount === 0 ? 0 : clampPage(Math.floor(page), safeCount);
-  const safeSiblingCount = Math.max(0, Math.floor(siblingCount));
-  const safeBoundaryCount = Math.max(0, Math.floor(boundaryCount));
-  const items = getPaginationItems(safeCount, safePage, safeSiblingCount, safeBoundaryCount);
-
-  return {
-    items,
-    page: safePage,
-    canNextPage: safeCount > 0 && safePage < safeCount,
-    canPreviousPage: safePage > 1,
-    nextPage: safeCount === 0 ? 0 : Math.min(safePage + 1, safeCount),
-    previousPage: safePage <= 1 ? safePage : safePage - 1,
-  };
-}
-
-function Pagination({
-  'aria-label': ariaLabel = 'Pagination',
-  className,
-  ...props
-}: ComponentProps<'nav'>) {
+const PaginationRoot = forwardRef<
+  ComponentRef<typeof PaginationPrimitive.Root>,
+  ComponentProps<typeof PaginationPrimitive.Root>
+>(function PaginationRoot({ 'aria-label': ariaLabel = 'Pagination', className, ...props }, ref) {
   return (
-    <nav
+    <PaginationPrimitive.Root
+      ref={ref}
       data-slot="pagination-root"
       aria-label={ariaLabel}
-      className={clsx(styles.root, className)}
+      className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function PaginationContent({ className, ...props }: ToolbarPrimitive.Root.Props) {
+const PaginationRootProvider = forwardRef<
+  ComponentRef<typeof PaginationPrimitive.RootProvider>,
+  ComponentProps<typeof PaginationPrimitive.RootProvider>
+>(function PaginationRootProvider(
+  { 'aria-label': ariaLabel = 'Pagination', className, ...props },
+  ref,
+) {
   return (
-    <ToolbarPrimitive.Root
-      data-slot="pagination-content"
-      className={mergeClassName(className, styles.content)}
+    <PaginationPrimitive.RootProvider
+      ref={ref}
+      data-slot="pagination-root-provider"
+      aria-label={ariaLabel}
+      className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function PaginationItem({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="pagination-item" className={clsx(styles.item, className)} {...props} />;
-}
-
-function PaginationLink({
-  className,
-  isActive,
-  render,
-  ...props
-}: ToolbarPrimitive.Link.Props & {
-  isActive?: boolean;
-}) {
+const PaginationItem = forwardRef<
+  ComponentRef<typeof PaginationPrimitive.Item>,
+  ComponentProps<typeof PaginationPrimitive.Item>
+>(function PaginationItem({ className, ...props }, ref) {
   return (
-    <ToolbarPrimitive.Link
-      data-slot="pagination-link"
-      aria-current={isActive ? 'page' : undefined}
-      className={mergeClassName(className, styles.link)}
-      render={render ?? (props.href == null ? <button type="button" /> : undefined)}
+    <PaginationPrimitive.Item
+      ref={ref}
+      data-slot="pagination-item"
+      className={clsx(styles.item, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function PaginationPrevious({
-  children,
-  className,
-  render,
-  'aria-label': ariaLabel,
-  ...props
-}: ToolbarPrimitive.Link.Props) {
+const PaginationEllipsis = forwardRef<
+  ComponentRef<typeof PaginationPrimitive.Ellipsis>,
+  ComponentProps<typeof PaginationPrimitive.Ellipsis>
+>(function PaginationEllipsis({ className, children, ...props }, ref) {
   return (
-    <PaginationLink
-      aria-label={children ? ariaLabel : (ariaLabel ?? 'Go to previous page')}
-      className={mergeClassName(className, styles.previous, !children && styles.iconOnly)}
-      render={render}
+    <PaginationPrimitive.Ellipsis
+      ref={ref}
+      data-slot="pagination-ellipsis"
+      className={clsx(styles.ellipsis, normalizeClassName(className))}
       {...props}
     >
-      {children ?? <ChevronLeftIcon />}
-    </PaginationLink>
+      {children ?? '...'}
+    </PaginationPrimitive.Ellipsis>
   );
-}
+});
 
-function PaginationNext({
-  children,
-  className,
-  render,
-  'aria-label': ariaLabel,
-  ...props
-}: ToolbarPrimitive.Link.Props) {
-  return (
-    <PaginationLink
-      aria-label={children ? ariaLabel : (ariaLabel ?? 'Go to next page')}
-      className={mergeClassName(className, styles.next, !children && styles.iconOnly)}
-      render={render}
-      {...props}
-    >
-      {children ?? <ChevronRightIcon />}
-    </PaginationLink>
-  );
-}
+function EdgeIcon({ side }: { side: 'left' | 'right' }) {
+  const Icon = side === 'left' ? ChevronLeftIcon : ChevronRightIcon;
 
-function PaginationEllipsis({ className, ...props }: ComponentProps<'span'>) {
   return (
-    <span data-slot="pagination-ellipsis" className={clsx(styles.ellipsis, className)} {...props}>
-      <span aria-hidden>...</span>
-      <span className={styles.visuallyHidden}>More pages</span>
+    <span className={styles.edgeIcon} aria-hidden>
+      <Icon />
+      <Icon />
     </span>
   );
 }
 
-export {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationPrevious,
-  PaginationNext,
-  PaginationEllipsis,
-  usePagination,
-};
+const PaginationPrevTrigger = forwardRef<
+  ComponentRef<typeof PaginationPrimitive.PrevTrigger>,
+  ComponentProps<typeof PaginationPrimitive.PrevTrigger>
+>(function PaginationPrevTrigger({ className, children, ...props }, ref) {
+  return (
+    <PaginationPrimitive.PrevTrigger
+      ref={ref}
+      data-slot="pagination-prev-trigger"
+      className={clsx(styles.trigger, normalizeClassName(className))}
+      {...props}
+    >
+      {children ?? <ChevronLeftIcon />}
+    </PaginationPrimitive.PrevTrigger>
+  );
+});
+
+const PaginationNextTrigger = forwardRef<
+  ComponentRef<typeof PaginationPrimitive.NextTrigger>,
+  ComponentProps<typeof PaginationPrimitive.NextTrigger>
+>(function PaginationNextTrigger({ className, children, ...props }, ref) {
+  return (
+    <PaginationPrimitive.NextTrigger
+      ref={ref}
+      data-slot="pagination-next-trigger"
+      className={clsx(styles.trigger, normalizeClassName(className))}
+      {...props}
+    >
+      {children ?? <ChevronRightIcon />}
+    </PaginationPrimitive.NextTrigger>
+  );
+});
+
+const PaginationFirstTrigger = forwardRef<
+  ComponentRef<typeof PaginationPrimitive.FirstTrigger>,
+  ComponentProps<typeof PaginationPrimitive.FirstTrigger>
+>(function PaginationFirstTrigger({ className, children, ...props }, ref) {
+  return (
+    <PaginationPrimitive.FirstTrigger
+      ref={ref}
+      data-slot="pagination-first-trigger"
+      className={clsx(styles.trigger, normalizeClassName(className))}
+      {...props}
+    >
+      {children ?? <EdgeIcon side="left" />}
+    </PaginationPrimitive.FirstTrigger>
+  );
+});
+
+const PaginationLastTrigger = forwardRef<
+  ComponentRef<typeof PaginationPrimitive.LastTrigger>,
+  ComponentProps<typeof PaginationPrimitive.LastTrigger>
+>(function PaginationLastTrigger({ className, children, ...props }, ref) {
+  return (
+    <PaginationPrimitive.LastTrigger
+      ref={ref}
+      data-slot="pagination-last-trigger"
+      className={clsx(styles.trigger, normalizeClassName(className))}
+      {...props}
+    >
+      {children ?? <EdgeIcon side="right" />}
+    </PaginationPrimitive.LastTrigger>
+  );
+});
+
+const PaginationContext = PaginationPrimitive.Context;
+
+const Pagination = Object.assign(PaginationRoot, {
+  Root: PaginationRoot,
+  RootProvider: PaginationRootProvider,
+  Item: PaginationItem,
+  Ellipsis: PaginationEllipsis,
+  PrevTrigger: PaginationPrevTrigger,
+  NextTrigger: PaginationNextTrigger,
+  FirstTrigger: PaginationFirstTrigger,
+  LastTrigger: PaginationLastTrigger,
+  Context: PaginationContext,
+});
+
+export { Pagination, usePagination, usePaginationContext };
+export type {
+  PaginationContextProps,
+  PaginationEllipsisProps,
+  PaginationFirstTriggerProps,
+  PaginationItemLabelDetails,
+  PaginationItemProps,
+  PaginationLastTriggerProps,
+  PaginationNextTriggerProps,
+  PaginationPageChangeDetails,
+  PaginationPageSizeChangeDetails,
+  PaginationPageUrlDetails,
+  PaginationPrevTriggerProps,
+  PaginationRootProps,
+  PaginationRootProviderProps,
+  UsePaginationContext,
+  UsePaginationProps,
+  UsePaginationReturn,
+} from '@ark-ui/react/pagination';

@@ -26,6 +26,8 @@ explicit popup composition, `HiddenSelect`, and `RootProvider` / context hooks.
   when children are omitted.
 - `Select.Indicators` is a moduix layout helper that matches Ark's recommended plain wrapper
   around `ClearTrigger` and `Indicator`.
+- When `Select.ClearTrigger` is omitted or hidden, the trigger automatically reduces its end
+  padding so it only reserves space for the indicator.
 - `Portal`, `createListCollection`, `useListCollection`, `useSelect`, `useSelectContext`, and
   `useSelectItemContext` are exported from the package barrel.
 - `Select.ItemTextContent`, `Select.ItemTextIcon`, and `Select.ItemTextLabel` are moduix span
@@ -178,6 +180,8 @@ export function SelectDemo() {
 
 ## Local changelog
 
+- 2026-06-20: Reduced trigger end padding automatically when no clear trigger is rendered, so
+  indicator-only selects no longer reserve empty clear-button space.
 - 2026-06-19: Made closed popup content inert for stacked docs previews, removed sticky group
   labels, and tightened trigger action icon alignment.
 - 2026-06-19: Realigned trigger/control styling with Ark anatomy, added `Select.Indicators` for

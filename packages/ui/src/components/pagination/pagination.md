@@ -1,307 +1,213 @@
 # Pagination
 
-Upstream primitive docs: https://base-ui.com/react/components/toolbar.md
+Upstream docs:
+
+- Ark UI: https://ark-ui.com/docs/components/pagination
+- Chakra UI: https://chakra-ui.com/docs/components/pagination
 
 ## Purpose
 
-`Pagination` is a composition-first page navigation pattern built from the Base UI `Toolbar`
-primitive. moduix does not ship a single data-driven paginator component. Instead, it exposes styled
-parts plus a small headless `usePagination` helper for the common "page window with ellipses"
-calculation.
+`Pagination` provides accessible page navigation for lists, tables, search results, and other
+paginated data views.
 
-Use it when users need to move between result pages, article pages, or other numbered views. The
-component does not own routing, fetching, URL state, or table state.
+## Upstream model to preserve
+
+The wrapper follows Ark UI `@ark-ui/react/pagination`. Preserve the Ark parts, state shape,
+callbacks, `Context`, `RootProvider`, `usePagination()`, `usePaginationContext()`, `type="link"`,
+`getPageUrl(details)`, `ids`, and translations contract.
+
+Ark `count` means total data items, not total pages. `pageSize` or `defaultPageSize` controls how
+many items map to one page.
 
 ## Current behavior contract
 
-Basic usage with local state:
+Use the short root form for `Pagination.Root`:
 
 ```tsx
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-  usePagination,
-} from 'moduix';
-import { useState } from 'react';
+import { Pagination } from 'moduix';
 
 export function Example() {
-  const [page, setPage] = useState(5);
-  const pagination = usePagination({ count: 10, page });
-
   return (
-    <Pagination aria-label="Search results pages">
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious
-            aria-disabled={!pagination.canPreviousPage || undefined}
-            onClick={() => {
-              if (pagination.canPreviousPage) {
-                setPage(pagination.previousPage);
-              }
-            }}
-          />
-        </PaginationItem>
-        {pagination.items.map((item, index) => (
-          <PaginationItem key={`${item}-${index}`}>
-            {typeof item !== 'number' ? (
-              <PaginationEllipsis />
+    <Pagination count={5000} pageSize={10} siblingCount={2}>
+      <Pagination.PrevTrigger />
+      <Pagination.Context>
+        {(pagination) =>
+          pagination.pages.map((page, index) =>
+            page.type === 'page' ? (
+              <Pagination.Item key={index} {...page}>
+                {page.value}
+              </Pagination.Item>
             ) : (
-              <PaginationLink isActive={item === pagination.page} onClick={() => setPage(item)}>
-                {item}
-              </PaginationLink>
-            )}
-          </PaginationItem>
-        ))}
-        <PaginationItem>
-          <PaginationNext
-            aria-disabled={!pagination.canNextPage || undefined}
-            onClick={() => {
-              if (pagination.canNextPage) {
-                setPage(pagination.nextPage);
-              }
-            }}
-          />
-        </PaginationItem>
-      </PaginationContent>
+              <Pagination.Ellipsis key={index} index={index} />
+            ),
+          )
+        }
+      </Pagination.Context>
+      <Pagination.NextTrigger />
     </Pagination>
   );
 }
 ```
 
-Link-based pagination is also supported:
+The old Base UI Toolbar-backed `PaginationContent`, `PaginationLink`, `PaginationPrevious`,
+`PaginationNext`, `PaginationItem` layout wrapper, and custom moduix range-math `usePagination`
+contract were removed. The public API is now Ark-shaped.
 
-```tsx
-<Pagination>
-  <PaginationContent>
-    <PaginationItem>
-      <PaginationPrevious href="/articles?page=4" />
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink href="/articles?page=5" isActive>
-        5
-      </PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationNext href="/articles?page=6" />
-    </PaginationItem>
-  </PaginationContent>
-</Pagination>
+## Anatomy and exported parts
+
+```text
+Pagination.Root
+├─ Pagination.FirstTrigger (optional)
+├─ Pagination.PrevTrigger
+├─ Pagination.Context (optional render-prop access)
+│  ├─ Pagination.Item
+│  └─ Pagination.Ellipsis
+├─ Pagination.NextTrigger
+└─ Pagination.LastTrigger (optional)
+
+Pagination.RootProvider
+└─ same trigger, item, ellipsis, and context tree connected to usePagination()
 ```
 
-- `Pagination` renders the navigation landmark and defaults `aria-label` to `"Pagination"`.
-- `PaginationContent` renders a Base UI toolbar root, so keyboard roving/focus behavior comes from
-  the toolbar primitive.
-- `PaginationLink` renders an anchor when `href` is provided, keeps custom link composition through
-  `render`, and falls back to a native `<button type="button">` when neither is provided.
-- `PaginationPrevious` and `PaginationNext` are thin wrappers around `PaginationLink` with chevron
-  icons and default accessible labels when they stay icon-only.
-- `usePagination` is optional. You can compose the parts manually for compact or route-driven cases.
+| Export                           | `data-slot`                | Notes                                                       |
+| -------------------------------- | -------------------------- | ----------------------------------------------------------- |
+| `Pagination` / `Pagination.Root` | `pagination-root`          | Ark root with default `aria-label="Pagination"`.            |
+| `Pagination.RootProvider`        | `pagination-root-provider` | Ark root provider with default `aria-label="Pagination"`.   |
+| `Pagination.Context`             | Ark render prop            | Reads page state, helpers, pages, ranges, and slice helper. |
+| `Pagination.Item`                | `pagination-item`          | Ark page item; pass `{...page}` from `pagination.pages`.    |
+| `Pagination.Ellipsis`            | `pagination-ellipsis`      | Ark ellipsis; `index` is required.                          |
+| `Pagination.PrevTrigger`         | `pagination-prev-trigger`  | Ark previous trigger with default Moduix chevron.           |
+| `Pagination.NextTrigger`         | `pagination-next-trigger`  | Ark next trigger with default Moduix chevron.               |
+| `Pagination.FirstTrigger`        | `pagination-first-trigger` | Ark first trigger with default double-chevron visual.       |
+| `Pagination.LastTrigger`         | `pagination-last-trigger`  | Ark last trigger with default double-chevron visual.        |
+| `usePagination`                  | -                          | Ark state hook re-export.                                   |
+| `usePaginationContext`           | -                          | Ark context hook re-export.                                 |
+
+The package barrel exports matching Ark pagination public types, including page/page-size/url detail
+types and `UsePagination*` types.
 
 ## Composition
 
-Public parts:
-
-```text
-Pagination
-`- PaginationContent
-   |- PaginationItem
-   |  `- PaginationPrevious
-   |- PaginationItem
-   |  `- PaginationLink
-   |- PaginationItem
-   |  `- PaginationEllipsis
-   `- PaginationItem
-      `- PaginationNext
-```
-
-`PaginationItem` is only a layout wrapper around a `div`. It does not add list semantics or focus
-behavior. If you need list markup for surrounding layout or announcements, own that structure in
-application code instead of expecting the component to render `ul`/`li`.
-
-Compact manual composition without the hook:
+Use `Pagination.Context` for normal item rendering:
 
 ```tsx
-<Pagination>
-  <PaginationContent>
-    <PaginationItem>
-      <PaginationPrevious
-        aria-disabled={page === 1 || undefined}
-        onClick={() => setPage(page - 1)}
-      />
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink onClick={() => setPage(4)}>4</PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink isActive onClick={() => setPage(5)}>
-        5
-      </PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink onClick={() => setPage(6)}>6</PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationNext aria-disabled={page === 10 || undefined} onClick={() => setPage(page + 1)} />
-    </PaginationItem>
-  </PaginationContent>
-</Pagination>
+<Pagination.Context>
+  {(pagination) =>
+    pagination.pages.map((page, index) =>
+      page.type === 'page' ? (
+        <Pagination.Item key={index} {...page}>
+          {page.value}
+        </Pagination.Item>
+      ) : (
+        <Pagination.Ellipsis key={index} index={index} />
+      ),
+    )
+  }
+</Pagination.Context>
 ```
 
-## Props
+Use `type="link"` with `getPageUrl(details)` for anchor navigation. Use
+`usePagination()` plus `Pagination.RootProvider` when pagination state must be created outside the
+rendered root. Do not render `Pagination.Root` and `Pagination.RootProvider` for the same state
+instance.
 
-All visual parts accept `className` on their rendered root. The wrappers intentionally keep the
-public type surface small and forward primitive/native props instead of exporting separate prop
-aliases.
+## Upstream feature coverage
 
-### Parts
+Supported Ark docs coverage:
 
-| Part                 | Rendered element / primitive | Props and behavior                                                                                               |
-| -------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `Pagination`         | `nav`                        | `ComponentProps<'nav'>`; defaults `aria-label` to `"Pagination"`.                                                |
-| `PaginationContent`  | `Toolbar.Root`               | Base UI `Toolbar.Root.Props`; owns roving toolbar behavior.                                                      |
-| `PaginationItem`     | `div`                        | `ComponentProps<'div'>`; layout wrapper only.                                                                    |
-| `PaginationLink`     | `Toolbar.Link`               | Base UI `Toolbar.Link.Props` plus `isActive?: boolean`; `isActive` sets `aria-current="page"` and active styles. |
-| `PaginationPrevious` | `PaginationLink`             | Same props as `PaginationLink`; defaults to a left chevron and adds `"Go to previous page"` when icon-only.      |
-| `PaginationNext`     | `PaginationLink`             | Same props as `PaginationLink`; defaults to a right chevron and adds `"Go to next page"` when icon-only.         |
-| `PaginationEllipsis` | `span`                       | `ComponentProps<'span'>`; renders visual `...` plus hidden `"More pages"` text.                                  |
+- Basic page rendering through `Pagination.Context` and `pagination.pages`.
+- Controlled page state through `page` and `onPageChange(details)`.
+- Custom translations through `translations`.
+- Context helper methods such as `goToFirstPage`, `goToPrevPage`, `goToNextPage`, and
+  `goToLastPage`.
+- Client-side data slicing with `pagination.slice(data)`.
+- Link mode with `type="link"` and `getPageUrl(details)`.
+- Page range display through `pagination.pageRange`.
+- Page-size control through `defaultPageSize`, `pageSize`, `onPageSizeChange(details)`, and
+  `pagination.setPageSize()`.
+- Root provider composition with `usePagination()` and `Pagination.RootProvider`.
+- Edge navigation with `Pagination.FirstTrigger` and `Pagination.LastTrigger`.
 
-### `usePagination`
+## Accessibility and state
 
-`usePagination` is the only moduix-specific helper API:
+Ark owns keyboard behavior, selected page semantics, trigger disabled state, item labels,
+translations, and page navigation state. The wrapper preserves Ark callback detail objects:
 
-```ts
-const pagination = usePagination({
-  count,
-  page,
-  siblingCount,
-  boundaryCount,
-});
-```
+- `onPageChange(details)` exposes `details.page`.
+- `onPageSizeChange(details)` exposes `details.pageSize`.
+- `getPageUrl(details)` receives the Ark page URL details object.
 
-Input behavior:
+State and attributes to preserve:
 
-| Option          | Type     | Default | Behavior                                                                            |
-| --------------- | -------- | ------- | ----------------------------------------------------------------------------------- |
-| `count`         | `number` | -       | Total number of pages. Floored to a non-negative integer.                           |
-| `page`          | `number` | -       | Current page. Floored and clamped into `1..count`; becomes `0` when `count` is `0`. |
-| `siblingCount`  | `number` | `1`     | Pages shown on each side of the current page. Floored to a non-negative integer.    |
-| `boundaryCount` | `number` | `1`     | Always-visible pages at the start and end. Floored to a non-negative integer.       |
-
-Returned shape:
-
-| Field             | Type                                                  | Meaning                                  |
-| ----------------- | ----------------------------------------------------- | ---------------------------------------- |
-| `items`           | `Array<number \| 'ellipsis-start' \| 'ellipsis-end'>` | Visible page items in render order.      |
-| `page`            | `number`                                              | Safe current page after clamping.        |
-| `canPreviousPage` | `boolean`                                             | `true` when moving backward is possible. |
-| `canNextPage`     | `boolean`                                             | `true` when moving forward is possible.  |
-| `previousPage`    | `number`                                              | Previous safe page number.               |
-| `nextPage`        | `number`                                              | Next safe page number.                   |
-
-The hook is pure range math. It does not update state, URLs, or side effects for you.
+- `data-scope="pagination"` and `data-part` are emitted by Ark parts.
+- `data-selected` marks the active `Pagination.Item`.
+- `data-disabled` marks unavailable triggers.
+- `ids` can provide stable IDs for root, item, ellipsis, and trigger parts.
+- All exported parts preserve Ark `asChild`.
 
 ## Defaults and styling
 
-Stable `data-slot` hooks:
+Moduix adds visual defaults only:
 
-| Part                 | `data-slot`           |
-| -------------------- | --------------------- |
-| `Pagination`         | `pagination-root`     |
-| `PaginationContent`  | `pagination-content`  |
-| `PaginationItem`     | `pagination-item`     |
-| `PaginationLink`     | `pagination-link`     |
-| `PaginationPrevious` | `pagination-link`     |
-| `PaginationNext`     | `pagination-link`     |
-| `PaginationEllipsis` | `pagination-ellipsis` |
-
-Important state/style hooks:
-
-- Active page styling applies when `PaginationLink` receives `isActive` **or** when
-  `aria-current="page"` is present.
-- Disabled visual styling applies to `[aria-disabled='true']`, `[data-disabled]`, and `[disabled]`.
-- Previous/next icon-only mode is automatic when no `children` are provided.
+- default chevrons for previous/next triggers;
+- default double-chevron visuals for first/last triggers;
+- default `...` text for ellipsis;
+- default `aria-label="Pagination"` on root and root provider.
 
 Public CSS variables:
 
-| Variable                                | Default                         |
-| --------------------------------------- | ------------------------------- |
-| `--pagination-disabled-opacity`         | `var(--opacity-disabled)`       |
-| `--pagination-ellipsis-color`           | `var(--color-muted-foreground)` |
-| `--pagination-font-size`                | `var(--text-sm)`                |
-| `--pagination-font-weight`              | `var(--weight-medium)`          |
-| `--pagination-gap`                      | `var(--spacing-1)`              |
-| `--pagination-icon-size`                | `1rem`                          |
-| `--pagination-item-bg`                  | `var(--color-background)`       |
-| `--pagination-item-bg-active`           | `var(--color-foreground)`       |
-| `--pagination-item-bg-hover`            | `var(--color-accent)`           |
-| `--pagination-item-border-color`        | `var(--color-border)`           |
-| `--pagination-item-border-color-active` | `var(--color-foreground)`       |
-| `--pagination-item-color`               | `var(--color-foreground)`       |
-| `--pagination-item-color-active`        | `var(--color-background)`       |
-| `--pagination-item-padding-inline`      | `0.75rem`                       |
-| `--pagination-item-radius`              | `var(--radius-md)`              |
-| `--pagination-item-size`                | `var(--size-lg)`                |
-| `--pagination-line-height`              | `var(--line-height-text-sm)`    |
+| Variable                                  | Default                         |
+| ----------------------------------------- | ------------------------------- |
+| `--pagination-color`                      | `var(--color-foreground)`       |
+| `--pagination-disabled-opacity`           | `var(--opacity-disabled)`       |
+| `--pagination-ellipsis-color`             | `var(--color-muted-foreground)` |
+| `--pagination-focus-ring-color`           | `var(--color-ring)`             |
+| `--pagination-focus-ring-offset`          | `-1px`                          |
+| `--pagination-focus-ring-width`           | `var(--border-width-md)`        |
+| `--pagination-font-size`                  | `var(--text-sm)`                |
+| `--pagination-font-weight`                | `var(--weight-medium)`          |
+| `--pagination-gap`                        | `var(--spacing-1)`              |
+| `--pagination-icon-size`                  | `1rem`                          |
+| `--pagination-item-bg`                    | `var(--color-background)`       |
+| `--pagination-item-bg-hover`              | `var(--color-accent)`           |
+| `--pagination-item-bg-selected`           | `var(--color-foreground)`       |
+| `--pagination-item-border-color`          | `var(--color-border)`           |
+| `--pagination-item-border-color-selected` | `var(--color-foreground)`       |
+| `--pagination-item-border-width`          | `var(--border-width-sm)`        |
+| `--pagination-item-color`                 | `var(--color-foreground)`       |
+| `--pagination-item-color-selected`        | `var(--color-background)`       |
+| `--pagination-item-padding-inline`        | `0.75rem`                       |
+| `--pagination-item-radius`                | `var(--radius-md)`              |
+| `--pagination-item-size`                  | `var(--size-lg)`                |
+| `--pagination-line-height`                | `var(--line-height-text-sm)`    |
+| `--pagination-transition`                 | `var(--transition-default)`     |
+| `--pagination-trigger-gap`                | `var(--spacing-2)`              |
 
-Example override:
+## Intentional sugar and differences from upstream
 
-```css
-.marketingPagination {
-  --pagination-item-bg-active: var(--color-primary);
-  --pagination-item-border-color-active: var(--color-primary);
-  --pagination-item-color-active: var(--color-primary-foreground);
-  --pagination-item-radius: var(--radius-sm);
-}
-```
+The wrapper keeps Ark API names and does not expose legacy flat aliases. Moduix sugar is limited to
+default icons, default ellipsis text, root label default, `data-slot` hooks, and styling tokens.
 
-## Accessibility and UX notes
+Breaking removals from the previous custom/Base UI contract:
 
-- Give each pagination landmark a distinct `aria-label` when more than one paginator appears on the
-  same page, for example top and bottom table navigation.
-- `PaginationContent` keeps toolbar keyboard behavior, so arrow keys move focus across interactive
-  items inside the pagination control.
-- `PaginationPrevious` and `PaginationNext` are accessible out of the box only in the default
-  icon-only mode. If you replace the icon with custom visual content that has no visible text, keep
-  an accessible name with `aria-label`.
-- `aria-disabled` only changes semantics and styling. When using button-mode pagination, keep the
-  click handler guarded so disabled controls do not change state.
-- Prefer `href` or router `render` composition for real navigation. Prefer button mode for local
-  state changes.
-- `PaginationEllipsis` is non-interactive. If users need a jump menu or page picker, compose another
-  control explicitly instead of making the ellipsis clickable.
-
-## Intentional differences from Base UI
-
-- moduix does not expose Base UI `Toolbar` as a fake dedicated pagination primitive. Pagination is a
-  styled composition built on top of toolbar behavior.
-- There is no high-level `items`, `pageCount`, `onPageChange`, `variant`, or `size` prop on
-  `Pagination`. Build the visible structure in JSX.
-- `usePagination` is the only DX sugar. It helps with page-window math but leaves rendering and
-  state ownership to the consumer.
-- The wrapper defaults to a native button render when `PaginationLink` has neither `href` nor
-  `render`, so local-state pagination does not need extra boilerplate.
+- `PaginationContent`
+- `PaginationLink`
+- `PaginationPrevious`
+- `PaginationNext`
+- old layout-only `PaginationItem`
+- old `PaginationEllipsis` without required `index`
+- old custom `usePagination({ count: pageCount, page })` return shape
+- Base UI `render` prop patterns
 
 ## Agent notes
 
-- Preserve the composition-first contract. Do not replace it with a large configuration API unless a
-  user explicitly asks for that change.
-- Keep the `usePagination` helper synchronized with stories, docs examples, and the local markdown
-  whenever its range logic or return shape changes.
-- Keep the `PaginationLink` render fallback behavior: defined `href` means link mode, custom
-  `render` stays supported, and missing both falls back to `<button type="button">`.
-- If styling hooks or CSS variables change, update `Pagination.module.css`, `theme.css`, stories,
-  docs examples, and this file in the same task.
+Keep the wrapper thin. Do not reintroduce range math, toolbar semantics, flat aliases, or a high-level
+configuration API. Future examples should render page items from Ark `pagination.pages` and should
+pass page objects directly into `Pagination.Item`.
 
 ## Local changelog
 
-- Rewrote the local documentation to describe the shipped moduix Pagination contract instead of a
-  generic Base UI summary.
-- Documented the real composition model, `usePagination` helper contract, styling hooks, CSS
-  variables, accessibility expectations, and limitations.
-- Preserved `isActive` as the small DX sugar for page links while aligning active styling with the
-  standard `aria-current="page"` state.
+- 2026-06-20: Migrated Pagination from a custom Base UI Toolbar composition to Ark UI
+  `@ark-ui/react/pagination`; replaced flat aliases with namespace parts, re-exported Ark hooks and
+  types, updated styling hooks, docs, stories, registry dependencies, and documented breaking API
+  removals.

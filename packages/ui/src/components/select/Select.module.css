@@ -74,7 +74,10 @@
       var(--select-border-color, var(--color-border));
     border-radius: var(--select-radius, var(--radius-md));
     padding-inline: var(--select-trigger-padding-x-start, 0.875rem)
-      var(--select-trigger-padding-x-end, 4.25rem);
+      calc(
+        var(--select-action-offset-right, 0.5rem) + var(--select-action-size, 1.5rem) +
+          var(--select-trigger-padding-x-start, 0.875rem)
+      );
     background-color: var(--select-bg, var(--color-background));
     color: inherit;
     font: inherit;
@@ -118,6 +121,10 @@
         }
       }
     }
+  }
+
+  .control:has(.clearTrigger:not([hidden])) .trigger {
+    padding-inline-end: var(--select-trigger-padding-x-end, 4.25rem);
   }
 
   .valueText {

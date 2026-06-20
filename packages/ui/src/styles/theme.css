@@ -1375,23 +1375,30 @@
   --pin-input-width: initial; /* auto */
 
   /* Pagination */
+  --pagination-color: initial; /* var(--color-foreground) */
   --pagination-disabled-opacity: initial; /* var(--opacity-disabled) */
   --pagination-ellipsis-color: initial; /* var(--color-muted-foreground) */
+  --pagination-focus-ring-color: initial; /* var(--color-ring) */
+  --pagination-focus-ring-offset: initial; /* -1px */
+  --pagination-focus-ring-width: initial; /* var(--border-width-md) */
   --pagination-font-size: initial; /* var(--text-sm) */
   --pagination-font-weight: initial; /* var(--weight-medium) */
   --pagination-gap: initial; /* var(--spacing-1) */
   --pagination-icon-size: initial; /* 1rem */
   --pagination-item-bg: initial; /* var(--color-background) */
-  --pagination-item-bg-active: initial; /* var(--color-foreground) */
   --pagination-item-bg-hover: initial; /* var(--color-accent) */
+  --pagination-item-bg-selected: initial; /* var(--color-foreground) */
   --pagination-item-border-color: initial; /* var(--color-border) */
-  --pagination-item-border-color-active: initial; /* var(--color-foreground) */
+  --pagination-item-border-color-selected: initial; /* var(--color-foreground) */
+  --pagination-item-border-width: initial; /* var(--border-width-sm) */
   --pagination-item-color: initial; /* var(--color-foreground) */
-  --pagination-item-color-active: initial; /* var(--color-background) */
+  --pagination-item-color-selected: initial; /* var(--color-background) */
   --pagination-item-padding-inline: initial; /* 0.75rem */
   --pagination-item-radius: initial; /* var(--radius-md) */
   --pagination-item-size: initial; /* var(--size-lg) */
   --pagination-line-height: initial; /* var(--line-height-text-sm) */
+  --pagination-transition: initial; /* var(--transition-default) */
+  --pagination-trigger-gap: initial; /* var(--spacing-2) */
 
   /* Popover */
   --popover-arrow-size: initial; /* 0.625rem */
