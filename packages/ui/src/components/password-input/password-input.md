@@ -1,146 +1,115 @@
 # PasswordInput
 
-Upstream primitive docs: there is no dedicated Base UI `PasswordInput` primitive. moduix
-`PasswordInput` composes the local `Input`, `InputGroup`, and `Button` wrappers, which in turn use
-Base UI primitives.
+Upstream docs:
+
+- Ark UI: https://ark-ui.com/docs/components/password-input
+- Chakra UI: https://chakra-ui.com/docs/components/password-input
 
 ## Purpose
 
-`PasswordInput` is the default moduix password field with a built-in visibility toggle. It keeps the
-native single-line password input contract, forwards its ref to the actual input element, and wraps
-the common show/hide-password affordance into one field-ready component.
+PasswordInput renders a secure text input whose value can be revealed or hidden with an accessible
+visibility trigger.
 
-Use it when the field value is a password or secret that should start masked but remain revealable on
-request. For plain text-like fields use `Input`. For richer inline affordances use explicit
-`InputGroup` composition.
+## Upstream model to preserve
+
+The wrapper follows Ark UI `PasswordInput` exactly: `Root`, `RootProvider`, `Label`, `Control`,
+`Input`, `VisibilityTrigger`, `Indicator`, `Context`, `usePasswordInput`, and
+`usePasswordInputContext`. Visibility state belongs to the Ark root and uses `defaultVisible`,
+`visible`, and `onVisibilityChange(details)`.
 
 ## Current behavior contract
 
-- Renders one `InputGroup` shell with a real native `<input>` plus an inline toggle button.
-- Forwards its ref to the actual input element, not the toggle button.
-- The input `type` is always controlled internally and switches between `password` and `text`.
-  Consumer-provided `type` is intentionally not accepted.
-- Reuses the local `Input` API for value, validation, native attributes, `size`, and `htmlSize`.
-- Visibility state is uncontrolled only:
-  - `defaultVisible` sets the initial reveal state;
-  - `onVisibleChange` notifies when the reveal state changes.
-- The toggle button:
-  - defaults to `type="button"` through `InputGroupButton`;
-  - uses `aria-label` text from `visibilityToggleLabels`;
-  - writes `aria-pressed` with the current reveal state;
-  - keeps the input focused on pointer interaction by preventing default on mouse down.
-- When `disabled`, both the input and toggle button are disabled.
-- When `readOnly`, the value stays non-editable but the visibility toggle still works.
-- The grouped input keeps `data-slot="input-group-input"` intentionally so `InputGroup` shell click
-  focus and grouped invalid/disabled styling keep working.
+`PasswordInput` is the styled root and is equivalent to `PasswordInput.Root`. Consumers compose the
+input from Ark parts and put native input props such as `value`, `defaultValue`, `placeholder`, and
+`onChange` on `PasswordInput.Input`. Root props include Ark's `autoComplete`, `name`, `required`,
+`disabled`, `readOnly`, `invalid`, `ids`, `translations`, and `ignorePasswordManagers`.
+
+## Anatomy and exported parts
+
+```tsx
+<PasswordInput>
+  <PasswordInput.Label />
+  <PasswordInput.Control>
+    <PasswordInput.Input />
+    <PasswordInput.VisibilityTrigger>
+      <PasswordInput.Indicator />
+    </PasswordInput.VisibilityTrigger>
+  </PasswordInput.Control>
+</PasswordInput>
+```
+
+| Part                                   | Hook                                            | Notes                         |
+| -------------------------------------- | ----------------------------------------------- | ----------------------------- |
+| `PasswordInput` / `PasswordInput.Root` | `data-slot="password-input-root"`               | Ark root.                     |
+| `PasswordInput.RootProvider`           | `data-slot="password-input-root-provider"`      | Use with `usePasswordInput`.  |
+| `PasswordInput.Label`                  | `data-slot="password-input-label"`              | Ark label.                    |
+| `PasswordInput.Control`                | `data-slot="password-input-control"`            | Positions input and trigger.  |
+| `PasswordInput.Input`                  | `data-slot="password-input-input"`              | Native input part.            |
+| `PasswordInput.VisibilityTrigger`      | `data-slot="password-input-visibility-trigger"` | Toggle button.                |
+| `PasswordInput.Indicator`              | `data-slot="password-input-indicator"`          | Defaults to moduix eye icons. |
+| `PasswordInput.Context`                | -                                               | Ark render-prop state access. |
 
 ## Composition
 
-Basic field usage:
-
 ```tsx
-import { Field, PasswordInput } from 'moduix';
-
-export function SignInPasswordField() {
-  return (
-    <Field>
-      <Field.Label>Password</Field.Label>
-      <PasswordInput required autoComplete="current-password" placeholder="Enter your password" />
-      <Field.ErrorText>Please enter your password.</Field.ErrorText>
-    </Field>
-  );
-}
+<PasswordInput autoComplete="current-password">
+  <PasswordInput.Label>Password</PasswordInput.Label>
+  <PasswordInput.Control>
+    <PasswordInput.Input placeholder="Enter your password" />
+    <PasswordInput.VisibilityTrigger>
+      <PasswordInput.Indicator />
+    </PasswordInput.VisibilityTrigger>
+  </PasswordInput.Control>
+</PasswordInput>
 ```
 
-With a custom default visibility and toggle labels:
+## Upstream feature coverage
 
-```tsx
-import { PasswordInput } from 'moduix';
+The wrapper supports all relevant Ark examples: basic composition, `autoComplete`, controlled
+visibility, `ignorePasswordManagers`, `RootProvider`, strength meter composition, `Field`
+integration, and validation through `invalid`. No Base UI prop aliases are preserved.
 
-export function TemporaryPasswordField() {
-  return (
-    <PasswordInput
-      defaultVisible
-      defaultValue="S3cur3!"
-      visibilityToggleLabels={{
-        show: 'Reveal temporary password',
-        hide: 'Mask temporary password',
-      }}
-    />
-  );
-}
-```
+## Accessibility and state
 
-## Public props
+Ark owns the input `type`, visibility trigger labels, ARIA wiring, and visibility state. Use
+`translations.visibilityTrigger` for localized trigger labels. `PasswordInput.Input` is the part form
+libraries should target for value refs. `Field.Root` and `Fieldset.Root` state is inherited through
+Ark context for `disabled`, `invalid`, `required`, and `readOnly`. There is no `HiddenInput` part for
+this primitive.
 
-`PasswordInput` accepts the local `Input` props except `type` and `className`, plus the wrapper props
-below.
+Ark data attributes to preserve include `data-scope="password-input"`, `data-part`, `data-state` on
+`Input`, `VisibilityTrigger`, and `Indicator`, plus `data-disabled`, `data-invalid`, `data-readonly`,
+and `data-required` where upstream provides them.
 
-| Prop                     | Type                            | Default | Notes                                                                   |
-| ------------------------ | ------------------------------- | ------- | ----------------------------------------------------------------------- |
-| `className`              | native `div` `className`        | —       | Merged with the grouped shell root, not the nested input element.       |
-| `defaultVisible`         | `boolean`                       | `false` | Sets the initial reveal state for the password value.                   |
-| `onVisibleChange`        | `(visible: boolean) => void`    | —       | Called after the visibility toggle changes.                             |
-| `visibilityToggleLabels` | `{ show: string; hide: string}` | —       | Accessible labels for the toggle button. Defaults to English show/hide. |
+## Defaults and styling
 
-Important passthrough props from `Input` remain available, including:
+The wrapper adds moduix classes, `data-slot` hooks, default visibility icons, and
+`--password-input-*` CSS variables for visual customization. Ark does not expose component-specific
+runtime CSS variables for this primitive. Styling should target Ark attributes or stable moduix
+`data-slot` hooks. The `Input` part must stay visually in sync with `Input` and `Field.Input`: the
+same padding, typography, invalid state, disabled opacity, and readonly surface all flow from the
+shared `--input-*` tokens unless a password-specific override is intentional. The bordered field
+shell now lives on `PasswordInput.Control`, so the input text area stops before the visibility
+trigger instead of extending underneath it.
 
-- `value`, `defaultValue`, and `onValueChange`
-- native attributes such as `name`, `placeholder`, `autoComplete`, `readOnly`, `disabled`,
-  `required`, `minLength`, `maxLength`, and `pattern`
-- `size`, `htmlSize`, `style`, and `render`
+## Intentional sugar and differences from upstream
 
-## Styling API
-
-Stable wrapper hooks:
-
-| Part          | Hook                                |
-| ------------- | ----------------------------------- |
-| shell root    | `data-slot="password-input-root"`   |
-| nested input  | `data-slot="input-group-input"`     |
-| toggle button | `data-slot="password-input-toggle"` |
-
-Additional state hooks:
-
-- root always writes `data-size` through `InputGroup`
-- nested input still receives Base UI / moduix field state attributes such as `data-invalid`,
-  `data-valid`, `data-disabled`, `data-focused`, and `data-filled`
-- toggle button writes `aria-pressed="true"` when the value is currently revealed
-
-`PasswordInput` does not add public `--password-input-*` variables. Style it through:
-
-- `className` on the root shell
-- existing `--input-group-*`, `--input-*`, and `--button-*` variables
-- descendant selectors targeting `data-slot="input-group-input"` or `data-slot="password-input-toggle"`
-
-## UX and accessibility
-
-- Use a real label, `Field.Label`, or `aria-label` so the input has an accessible name.
-- Prefer semantic password autofill hints such as `autoComplete="current-password"` or
-  `autoComplete="new-password"`.
-- The toggle button is separate from the input semantics, so the input still behaves like a normal
-  text/password field for forms and validation.
-- `disabled` removes both the input and toggle from interaction; `readOnly` keeps reveal/hide
-  available while preventing edits.
-
-## Intentional differences from Base UI
-
-- There is no upstream `PasswordInput` primitive; this is a moduix composition wrapper.
-- Unlike standalone `Input`, this component intentionally includes one narrow piece of DX sugar: a
-  built-in visibility toggle for the common password-field path.
-- The wrapper exposes a grouped visual root, so `className` styles the shell rather than the nested
-  input element.
+`PasswordInput.Indicator` defaults to `EyeClosedIcon` for the hidden fallback and `EyeIcon` for the
+visible state. Consumers can pass `fallback` and children to replace both icons. Legacy single-node
+props from the previous custom implementation were removed: `onValueChange`, `onVisibleChange`,
+`visibilityToggleLabels`, `size`, and root-level input props such as `placeholder` now belong to
+Ark's root/input parts as appropriate.
 
 ## Agent notes
 
-- Keep the nested input on `data-slot="input-group-input"` unless `InputGroup` shell behavior is
-  redesigned too.
-- Do not reintroduce a generic `type` prop; `PasswordInput` should remain password-specific.
-- Keep the toggle accessible with both a stateful `aria-pressed` value and an action-oriented
-  `aria-label`.
+Keep the wrapper thin and namespace-first. Do not rebuild local visibility state or reintroduce
+`InputGroup` as the implementation. If Ark adds new password-input parts, mirror them through the
+component and barrel exports in the same migration style.
 
 ## Local changelog
 
-- Added `PasswordInput` as a dedicated grouped password field with built-in show/hide behavior,
-  preserving the thin standalone `Input` contract.
-- Added `EyeIcon` and `EyeClosedIcon` to the shared UI icon set for password visibility toggles.
+- 2026-06-20: Moved the shared field shell styling to `PasswordInput.Control` so the input area
+  ends before the visibility trigger instead of rendering underneath the eye button.
+- 2026-06-20: Migrated PasswordInput from the custom InputGroup implementation to Ark UI
+  `@ark-ui/react/password-input`; replaced the legacy single-node API with Ark parts, state details,
+  provider/context hooks, Ark data attributes, and moduix CSS variables.

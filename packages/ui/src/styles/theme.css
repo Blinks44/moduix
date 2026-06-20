@@ -1374,6 +1374,41 @@
   --pin-input-transition: initial; /* var(--transition-default) */
   --pin-input-width: initial; /* auto */
 
+  /* PasswordInput */
+  --password-input-bg: initial; /* var(--input-bg, var(--color-background)) */
+  --password-input-border-color: initial; /* var(--input-border-color, var(--color-border)) */
+  --password-input-color: initial; /* var(--input-color, var(--color-foreground)) */
+  --password-input-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --password-input-end-padding: initial; /* calc(var(--password-input-trigger-inset, calc(var(--password-input-padding-x, var(--input-padding-x, var(--input-padding-x-md, 0.875rem))) - var(--password-input-trigger-visual-padding, var(--spacing-1)))) + max(var(--password-input-trigger-size, var(--button-height-sm)), calc(var(--password-input-trigger-visual-padding, var(--spacing-1)) * 2 + var(--password-input-icon-size, var(--button-icon-size-sm))))) */
+  --password-input-focus-border-color: initial; /* var(--input-focus-border-color) */
+  --password-input-focus-ring-color: initial; /* var(--input-focus-ring-color) */
+  --password-input-font-size: initial; /* var(--input-font-size-md) */
+  --password-input-gap: initial; /* var(--spacing-1-5) */
+  --password-input-height: initial; /* var(--input-height-md) */
+  --password-input-icon-size: initial; /* var(--button-icon-size-sm) */
+  --password-input-invalid-border-color: initial; /* var(--input-invalid-border-color) */
+  --password-input-invalid-focus-ring-color: initial; /* var(--input-invalid-focus-ring-color) */
+  --password-input-label-color: initial; /* var(--color-foreground) */
+  --password-input-label-font-size: initial; /* var(--font-size-sm) */
+  --password-input-label-font-weight: initial; /* var(--font-weight-medium) */
+  --password-input-label-line-height: initial; /* var(--line-height-text-sm) */
+  --password-input-line-height: initial; /* var(--input-line-height-md) */
+  --password-input-max-width: initial; /* 20rem */
+  --password-input-padding-x: initial; /* var(--input-padding-x-md) */
+  --password-input-padding-y: initial; /* var(--input-padding-y-md) */
+  --password-input-placeholder-color: initial; /* var(--input-placeholder-color) */
+  --password-input-radius: initial; /* var(--input-radius, var(--radius-md)) */
+  --password-input-readonly-bg: initial; /* var(--input-readonly-bg) */
+  --password-input-trigger-bg: initial; /* transparent */
+  --password-input-trigger-color: initial; /* var(--color-muted-foreground) */
+  --password-input-trigger-hover-bg: initial; /* var(--color-muted) */
+  --password-input-trigger-hover-color: initial; /* var(--color-foreground) */
+  --password-input-trigger-inset: initial; /* calc(var(--password-input-padding-x, var(--input-padding-x, var(--input-padding-x-md, 0.875rem))) - var(--password-input-trigger-visual-padding, var(--spacing-1))) */
+  --password-input-trigger-radius: initial; /* var(--radius-sm) */
+  --password-input-trigger-size: initial; /* var(--button-height-sm) */
+  --password-input-trigger-visual-padding: initial; /* var(--spacing-1) */
+  --password-input-width: initial; /* 100% */
+
   /* Pagination */
   --pagination-color: initial; /* var(--color-foreground) */
   --pagination-disabled-opacity: initial; /* var(--opacity-disabled) */

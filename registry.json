@@ -963,12 +963,8 @@
       "type": "registry:item",
       "title": "PasswordInput",
       "description": "moduix PasswordInput component.",
-      "dependencies": ["clsx"],
-      "registryDependencies": [
-        "Blinks44/moduix/core",
-        "Blinks44/moduix/input",
-        "Blinks44/moduix/input-group"
-      ],
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
           "path": "packages/ui/src/components/password-input/PasswordInput.tsx",

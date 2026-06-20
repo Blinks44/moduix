@@ -1,115 +1,245 @@
 import type { ComponentProps } from 'react';
-import { Field, PasswordInput } from 'moduix';
-import { useState } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
-import { inputGroupOverrideCssProperties } from './input-group';
+import { Field, PasswordInput, usePasswordInput } from 'moduix';
+import { useMemo, useState } from 'react';
+import { CSSPropertiesReferenceTable, type CssProperty } from '../preview';
+
+export const passwordInputOverrideCssProperties: CssProperty[] = [
+  {
+    name: '--password-input-width',
+    defaultValue: '100%',
+    description: 'Width of the root password input stack.',
+  },
+  {
+    name: '--password-input-max-width',
+    defaultValue: '20rem',
+    description: 'Maximum width of the root password input stack.',
+  },
+  {
+    name: '--password-input-gap',
+    defaultValue: 'var(--field-gap, var(--spacing-1))',
+    description: 'Gap between password input parts; falls back to the shared Field spacing.',
+  },
+  {
+    name: '--password-input-height',
+    defaultValue: 'var(--input-height-md)',
+    description: 'Height of the password input field.',
+  },
+  {
+    name: '--password-input-padding-x',
+    defaultValue: 'var(--input-padding-x-md)',
+    description: 'Horizontal padding used by the text input inside the shared control shell.',
+  },
+  {
+    name: '--password-input-border-color',
+    defaultValue: 'var(--input-border-color)',
+    description: 'Password-specific border override layered on top of the shared Input contract.',
+  },
+  {
+    name: '--password-input-focus-ring-color',
+    defaultValue: 'var(--input-focus-ring-color)',
+    description:
+      'Password-specific focus ring override layered on top of the shared Input contract.',
+  },
+  {
+    name: '--password-input-trigger-size',
+    defaultValue: 'var(--button-height-sm)',
+    description: 'Square size of the visibility trigger button.',
+  },
+  {
+    name: '--password-input-trigger-inset',
+    defaultValue:
+      'calc(var(--password-input-padding-x, var(--input-padding-x, var(--input-padding-x-md, 0.875rem))) - var(--password-input-trigger-visual-padding, var(--spacing-1)))',
+    description:
+      'Inline-end padding on the control shell so the trigger stays inset from the border.',
+  },
+  {
+    name: '--password-input-trigger-visual-padding',
+    defaultValue: 'var(--spacing-1)',
+    description: 'Inner visual padding around the eye icon hover/focus background.',
+  },
+  {
+    name: '--password-input-icon-size',
+    defaultValue: 'var(--button-icon-size-sm)',
+    description: 'Icon size inside the visibility indicator.',
+  },
+];
 
 export function PasswordInputCssPropertiesPanel() {
-  return (
-    <>
-      <p>
-        `PasswordInput` does not add dedicated `--password-input-*` variables. Style it through the
-        inherited grouped-field variables below.
-      </p>
-      <CSSPropertiesReferenceTable
-        properties={inputGroupOverrideCssProperties.map(normalizeCssProperty)}
-      />
-    </>
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
+  return <CSSPropertiesReferenceTable properties={passwordInputOverrideCssProperties} />;
 }
 
 export function PasswordInputExample(props: ComponentProps<typeof PasswordInput>) {
   return (
-    <Field className="password-input-demo-field">
-      <Field.Label>Password</Field.Label>
-      <Field.HelperText>Use at least 8 characters for production accounts.</Field.HelperText>
-      <PasswordInput autoComplete="current-password" placeholder="Enter your password" {...props} />
-    </Field>
+    <PasswordInput autoComplete="current-password" {...props}>
+      <PasswordInput.Label>Password</PasswordInput.Label>
+      <PasswordInput.Control>
+        <PasswordInput.Input placeholder="Enter your password" />
+        <PasswordInput.VisibilityTrigger>
+          <PasswordInput.Indicator />
+        </PasswordInput.VisibilityTrigger>
+      </PasswordInput.Control>
+    </PasswordInput>
   );
 }
 
-export function ControlledPasswordInputExample() {
-  const [value, setValue] = useState('');
+export function PasswordInputAutocompleteExample() {
+  return (
+    <PasswordInput autoComplete="new-password" name="new-password">
+      <PasswordInput.Label>New password</PasswordInput.Label>
+      <PasswordInput.Control>
+        <PasswordInput.Input placeholder="Create a password" />
+        <PasswordInput.VisibilityTrigger>
+          <PasswordInput.Indicator />
+        </PasswordInput.VisibilityTrigger>
+      </PasswordInput.Control>
+    </PasswordInput>
+  );
+}
+
+export function ControlledPasswordInputVisibilityExample() {
+  const [visible, setVisible] = useState(false);
 
   return (
-    <Field className="password-input-demo-field">
-      <Field.Label>Workspace password</Field.Label>
-      <PasswordInput
-        autoComplete="new-password"
-        onValueChange={setValue}
-        placeholder="Type to control value"
-        value={value}
-      />
-    </Field>
+    <PasswordInput visible={visible} onVisibilityChange={(details) => setVisible(details.visible)}>
+      <PasswordInput.Label>Password is {visible ? 'visible' : 'hidden'}</PasswordInput.Label>
+      <PasswordInput.Control>
+        <PasswordInput.Input placeholder="Toggle visibility" />
+        <PasswordInput.VisibilityTrigger>
+          <PasswordInput.Indicator />
+        </PasswordInput.VisibilityTrigger>
+      </PasswordInput.Control>
+    </PasswordInput>
   );
 }
 
-export function PasswordInputDefaultVisibleExample() {
+export function PasswordInputIgnorePasswordManagerExample() {
   return (
-    <Field className="password-input-demo-field">
-      <Field.Label>Temporary password</Field.Label>
-      <PasswordInput
-        defaultValue="S3cur3!"
-        defaultVisible
-        visibilityToggleLabels={{
-          show: 'Reveal temporary password',
-          hide: 'Mask temporary password',
-        }}
-      />
-    </Field>
+    <PasswordInput ignorePasswordManagers>
+      <PasswordInput.Label>API key</PasswordInput.Label>
+      <PasswordInput.Control>
+        <PasswordInput.Input defaultValue="spd_1234567890" />
+        <PasswordInput.VisibilityTrigger>
+          <PasswordInput.Indicator />
+        </PasswordInput.VisibilityTrigger>
+      </PasswordInput.Control>
+    </PasswordInput>
   );
 }
 
-export function PasswordInputSizesExample() {
+export function PasswordInputRootProviderExample() {
+  const passwordInput = usePasswordInput();
+
   return (
     <div className="password-input-demo-stack">
-      <PasswordInput size="xs" aria-label="Extra-small password input" placeholder="Extra-small" />
-      <PasswordInput size="sm" aria-label="Small password input" placeholder="Small" />
-      <PasswordInput size="md" aria-label="Medium password input" placeholder="Medium" />
-      <PasswordInput size="lg" aria-label="Large password input" placeholder="Large" />
-      <PasswordInput size="xl" aria-label="Extra-large password input" placeholder="Extra-large" />
+      <output className="password-input-demo-output">
+        password input is {passwordInput.visible ? 'visible' : 'hidden'}
+      </output>
+      <PasswordInput.RootProvider value={passwordInput}>
+        <PasswordInput.Label>Password</PasswordInput.Label>
+        <PasswordInput.Control>
+          <PasswordInput.Input placeholder="Managed outside the tree" />
+          <PasswordInput.VisibilityTrigger>
+            <PasswordInput.Indicator />
+          </PasswordInput.VisibilityTrigger>
+        </PasswordInput.Control>
+      </PasswordInput.RootProvider>
     </div>
   );
 }
 
-export function DisabledAndReadOnlyPasswordInputExample() {
+export function PasswordInputStrengthMeterExample() {
+  const [password, setPassword] = useState('asdfasdf');
+  const strength = useMemo(() => getPasswordStrength(password), [password]);
+
   return (
-    <div className="password-input-demo-stack">
-      <PasswordInput disabled aria-label="Disabled password input" defaultValue="secret-value" />
-      <PasswordInput
-        readOnly
-        aria-label="Read-only password input"
-        defaultValue="readonly-secret"
-      />
-    </div>
+    <PasswordInput>
+      <PasswordInput.Label>Password</PasswordInput.Label>
+      <PasswordInput.Control>
+        <PasswordInput.Input
+          value={password}
+          onChange={(event) => setPassword(event.currentTarget.value)}
+          placeholder="Enter your password"
+        />
+        <PasswordInput.VisibilityTrigger>
+          <PasswordInput.Indicator />
+        </PasswordInput.VisibilityTrigger>
+      </PasswordInput.Control>
+      {strength ? (
+        <div className="password-input-demo-strength-meter">
+          <div className="password-input-demo-strength-bar">
+            <div className="password-input-demo-strength-fill" data-strength={strength} />
+          </div>
+          <div className="password-input-demo-strength-label">{strength} password</div>
+        </div>
+      ) : null}
+    </PasswordInput>
   );
 }
 
-export function PasswordInputFieldValidationExample() {
+export function PasswordInputWithFieldExample() {
   return (
     <Field className="password-input-demo-field">
-      <Field.Label>Password</Field.Label>
-      <PasswordInput required autoComplete="new-password" placeholder="Create a password" />
-      <Field.ErrorText>Please enter a password.</Field.ErrorText>
+      <PasswordInput required>
+        <PasswordInput.Label>Password</PasswordInput.Label>
+        <PasswordInput.Control>
+          <PasswordInput.Input placeholder="Enter your password" />
+          <PasswordInput.VisibilityTrigger>
+            <PasswordInput.Indicator />
+          </PasswordInput.VisibilityTrigger>
+        </PasswordInput.Control>
+      </PasswordInput>
+      <Field.HelperText>Enter your password.</Field.HelperText>
+      <Field.ErrorText>Password is required.</Field.ErrorText>
     </Field>
   );
 }
 
-export function CustomStylesPasswordInputExample() {
+export function PasswordInputValidationExample() {
+  const [password, setPassword] = useState('');
+  const isValid = useMemo(() => password.length >= 8, [password]);
+  const invalid = !isValid && password.length > 0;
+
   return (
-    <Field className="password-input-demo-field">
-      <Field.Label>Workspace password</Field.Label>
-      <PasswordInput
-        className="password-input-demo-custom-password-input"
-        placeholder="Custom password input"
-      />
-    </Field>
+    <PasswordInput invalid={invalid}>
+      <PasswordInput.Label>Password (min 8 characters)</PasswordInput.Label>
+      <PasswordInput.Control>
+        <PasswordInput.Input
+          value={password}
+          onChange={(event) => setPassword(event.currentTarget.value)}
+          placeholder="Enter your password"
+        />
+        <PasswordInput.VisibilityTrigger>
+          <PasswordInput.Indicator />
+        </PasswordInput.VisibilityTrigger>
+      </PasswordInput.Control>
+      {password.length > 0 ? (
+        <p className="password-input-demo-validation-message" data-valid={isValid}>
+          {isValid ? 'Password is valid.' : 'Password must be at least 8 characters.'}
+        </p>
+      ) : null}
+    </PasswordInput>
   );
+}
+
+export function PasswordInputCustomStylingExample() {
+  return (
+    <PasswordInput className="password-input-demo-custom">
+      <PasswordInput.Label>Workspace secret</PasswordInput.Label>
+      <PasswordInput.Control>
+        <PasswordInput.Input defaultValue="readonly-secret" readOnly />
+        <PasswordInput.VisibilityTrigger>
+          <PasswordInput.Indicator />
+        </PasswordInput.VisibilityTrigger>
+      </PasswordInput.Control>
+    </PasswordInput>
+  );
+}
+
+function getPasswordStrength(password: string) {
+  if (!password) return null;
+  if (password.length >= 10 && /[0-9]/.test(password) && /[^a-zA-Z0-9]/.test(password)) {
+    return 'strong';
+  }
+  if (password.length >= 6) return 'medium';
+  return 'weak';
 }
