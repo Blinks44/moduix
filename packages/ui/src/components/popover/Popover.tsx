@@ -1,6 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
 import { Popover as PopoverPrimitive, usePopover, usePopoverContext } from '@ark-ui/react/popover';
-import { Portal } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -12,10 +11,6 @@ function PopoverRoot(props: ComponentProps<typeof PopoverPrimitive.Root>) {
 
 function PopoverRootProvider(props: ComponentProps<typeof PopoverPrimitive.RootProvider>) {
   return <PopoverPrimitive.RootProvider {...props} />;
-}
-
-function PopoverPortal(props: ComponentProps<typeof Portal>) {
-  return <Portal {...props} />;
 }
 
 const PopoverAnchor = forwardRef<
@@ -179,7 +174,6 @@ const PopoverContext = PopoverPrimitive.Context;
 const Popover = Object.assign(PopoverRoot, {
   Root: PopoverRoot,
   RootProvider: PopoverRootProvider,
-  Portal: PopoverPortal,
   Anchor: PopoverAnchor,
   Trigger: PopoverTrigger,
   Indicator: PopoverIndicator,

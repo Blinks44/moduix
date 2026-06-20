@@ -1,4 +1,4 @@
-import { BellIcon, Button, Popover, usePopover } from 'moduix';
+import { BellIcon, Button, Popover, Portal, usePopover } from 'moduix';
 import * as React from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -89,7 +89,7 @@ function PopoverSurface({
   className?: string;
 }) {
   return (
-    <Popover.Portal>
+    <Portal>
       <Popover.Positioner>
         <Popover.Content className={className}>
           {arrow ? <Popover.Arrow /> : null}
@@ -102,7 +102,7 @@ function PopoverSurface({
           </Popover.Footer>
         </Popover.Content>
       </Popover.Positioner>
-    </Popover.Portal>
+    </Portal>
   );
 }
 
@@ -211,7 +211,7 @@ export function ModalPopoverExample() {
       <Popover.Trigger asChild>
         <Button>Invite teammates</Button>
       </Popover.Trigger>
-      <Popover.Portal>
+      <Portal>
         <Popover.Positioner>
           <Popover.Content>
             <Popover.Header>
@@ -231,7 +231,7 @@ export function ModalPopoverExample() {
             </Popover.Footer>
           </Popover.Content>
         </Popover.Positioner>
-      </Popover.Portal>
+      </Portal>
     </Popover>
   );
 }
@@ -261,7 +261,7 @@ export function SameWidthPopoverExample() {
       <Popover.Trigger asChild>
         <Button className={styles.wideTrigger}>Match this trigger width</Button>
       </Popover.Trigger>
-      <Popover.Portal>
+      <Portal>
         <Popover.Positioner>
           <Popover.Content className={styles.sameWidthContent}>
             <Popover.Title>Matched width</Popover.Title>
@@ -270,7 +270,7 @@ export function SameWidthPopoverExample() {
             </Popover.Description>
           </Popover.Content>
         </Popover.Positioner>
-      </Popover.Portal>
+      </Portal>
     </Popover>
   );
 }
@@ -281,7 +281,7 @@ export function NestedPopoverExample() {
       <Popover.Trigger asChild>
         <Button>Open settings</Button>
       </Popover.Trigger>
-      <Popover.Portal>
+      <Portal>
         <Popover.Positioner>
           <Popover.Content>
             <Popover.Header>
@@ -301,7 +301,7 @@ export function NestedPopoverExample() {
             </Popover.Body>
           </Popover.Content>
         </Popover.Positioner>
-      </Popover.Portal>
+      </Portal>
     </Popover>
   );
 }

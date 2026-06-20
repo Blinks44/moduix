@@ -1,4 +1,4 @@
-import { Button, Popover } from 'moduix';
+import { Button, Popover, Portal } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './animations.module.css';
@@ -79,7 +79,7 @@ function RecipeCard({ title, description, popupClassName }: RecipeCardProps) {
         <Popover.Trigger asChild>
           <Button variant="outline">Preview</Button>
         </Popover.Trigger>
-        <Popover.Portal>
+        <Portal>
           <Popover.Positioner>
             <Popover.Content className={`${styles.popup} ${popupClassName}`}>
               <div className={styles.popupHeader}>
@@ -88,7 +88,7 @@ function RecipeCard({ title, description, popupClassName }: RecipeCardProps) {
               </div>
             </Popover.Content>
           </Popover.Positioner>
-        </Popover.Portal>
+        </Portal>
       </Popover>
     </div>
   );
@@ -150,7 +150,7 @@ export function MotionPlaygroundExample() {
             <Button>Open motion playground</Button>
           </Popover.Trigger>
         </div>
-        <Popover.Portal>
+        <Portal>
           <Popover.Positioner>
             <Popover.Content className={styles.playgroundPopup}>
               <div className={styles.playgroundHeader}>
@@ -163,7 +163,7 @@ export function MotionPlaygroundExample() {
               </div>
             </Popover.Content>
           </Popover.Positioner>
-        </Popover.Portal>
+        </Portal>
       </Popover>
     </div>
   );

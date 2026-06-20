@@ -34,7 +34,7 @@ Popover.Root
 ├─ Popover.Anchor (optional)
 ├─ Popover.Trigger
 │  └─ Popover.Indicator (optional)
-└─ Popover.Portal
+└─ Portal
    └─ Popover.Positioner
       └─ Popover.Content
          ├─ Popover.Arrow
@@ -54,7 +54,7 @@ and `usePopoverContext`. Every rendered wrapper has a matching `data-slot` in ke
 ## Composition
 
 ```tsx
-import { Button, Popover } from 'moduix';
+import { Button, Popover, Portal } from 'moduix';
 
 export function PopoverDemo() {
   return (
@@ -62,7 +62,7 @@ export function PopoverDemo() {
       <Popover.Trigger asChild>
         <Button>Open</Button>
       </Popover.Trigger>
-      <Popover.Portal>
+      <Portal>
         <Popover.Positioner>
           <Popover.Content>
             <Popover.Arrow />
@@ -75,7 +75,7 @@ export function PopoverDemo() {
             </Popover.Footer>
           </Popover.Content>
         </Popover.Positioner>
-      </Popover.Portal>
+      </Portal>
     </Popover>
   );
 }
@@ -127,8 +127,8 @@ runtime available-size and reference-size variables rather than duplicate measur
 
 ## Intentional sugar and differences from upstream
 
-- `Popover.Portal` wraps Ark's portal helper so the recommended structural tree is available from
-  one namespace.
+- The recommended popup composition uses the shared `Portal` export plus `Popover.Positioner` and
+  `Popover.Content` so overlay structure matches other popup components across the library.
 - `Popover.Arrow` supplies `Popover.ArrowTip` when children are omitted.
 - `Popover.Header`, `Popover.Body`, and `Popover.Footer` provide only moduix layout and slots.
 - Trigger and close-trigger default visuals are omitted with `asChild`, leaving the composed child
@@ -138,7 +138,7 @@ runtime available-size and reference-size variables rather than duplicate measur
 
 ## Agent notes
 
-- Keep `Portal`, `Positioner`, and `Content` explicit in public examples.
+- Keep `Portal`, `Popover.Positioner`, and `Popover.Content` explicit in public examples.
 - Keep positioning options on `Root`/`usePopover`.
 - Do not add `Backdrop`, `Popup`, `Viewport`, `openOnHover`, `render`, `handle`, or `showArrow`.
 - Mirror any future Ark provider, context, hook, part, or public type additions through the package
@@ -146,6 +146,10 @@ runtime available-size and reference-size variables rather than duplicate measur
 
 ## Local changelog
 
+- 2026-06-20: Removed the `Popover.Portal` alias from the public API. Popover now follows the same
+  shared `Portal -> Popover.Positioner -> Popover.Content` composition as other popup components.
+- 2026-06-20: Switched the recommended docs and examples from `Popover.Portal` to the shared
+  `Portal` export so Popover composition matches Menu, Select, Combobox, and other popup families.
 - 2026-06-19: Updated layering to keep Ark `--z-index` on `Popover.Positioner` and apply
   `calc(var(--z-popup) + var(--layer-index))` on `Popover.Content` so nested popovers render above parent layers.
 - 2026-06-19: Replaced the Base UI implementation and legacy API with the full Ark UI React

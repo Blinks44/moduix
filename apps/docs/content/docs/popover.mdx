@@ -37,7 +37,7 @@ hosts use `asChild`.
   <PopoverExample />
   <Preview.Code>
     {`
-      import { BellIcon, Button, Popover } from "moduix";
+      import { BellIcon, Button, Popover, Portal } from "moduix";
 
       export function PopoverDemo() {
         return (
@@ -50,7 +50,7 @@ hosts use `asChild`.
                 </span>
               </Button>
             </Popover.Trigger>
-            <Popover.Portal>
+            <Portal>
               <Popover.Positioner>
                 <Popover.Content>
                   <Popover.Header>
@@ -62,7 +62,7 @@ hosts use `asChild`.
                   </Popover.Footer>
                 </Popover.Content>
               </Popover.Positioner>
-            </Popover.Portal>
+            </Portal>
           </Popover>
         );
       }
@@ -134,7 +134,7 @@ Popover.Root
 ├─ Popover.Anchor (optional)
 ├─ Popover.Trigger
 │  └─ Popover.Indicator (optional)
-└─ Popover.Portal
+└─ Portal
    └─ Popover.Positioner
       └─ Popover.Content
          ├─ Popover.Arrow
@@ -154,8 +154,9 @@ external-state and context surfaces. `Header`, `Body`, and `Footer` are layout-o
 
 ### Recommended composition
 
-Keep `Portal`, `Positioner`, and `Content` explicit. `Popover` is equivalent to `Popover.Root`.
-Configure placement, collision behavior, offsets, and same-width behavior through `positioning`.
+Keep `Portal`, `Popover.Positioner`, and `Popover.Content` explicit. `Popover` is equivalent to
+`Popover.Root`. Configure placement, collision behavior, offsets, and same-width behavior through
+`positioning`.
 
 ### When to go custom
 
@@ -191,7 +192,7 @@ Use Ark's details object when synchronizing open state with surrounding UI.
   <ControlledPopoverExample />
   <Preview.Code>
     {`
-      import { Button, Popover } from "moduix";
+      import { Button, Popover, Portal } from "moduix";
       import { useState } from "react";
 
       export function ControlledPopoverDemo() {
@@ -200,14 +201,14 @@ Use Ark's details object when synchronizing open state with surrounding UI.
         return (
           <Popover open={open} onOpenChange={(details) => setOpen(details.open)}>
             <Popover.Trigger asChild><Button>Open</Button></Popover.Trigger>
-            <Popover.Portal>
+            <Portal>
               <Popover.Positioner>
                 <Popover.Content>
                   <Popover.Title>Controlled popover</Popover.Title>
                   <Popover.CloseTrigger>Close</Popover.CloseTrigger>
                 </Popover.Content>
               </Popover.Positioner>
-            </Popover.Portal>
+            </Portal>
           </Popover>
         );
       }
@@ -239,13 +240,13 @@ or methods.
             <Button onClick={() => popover.setOpen(!popover.open)}>Toggle externally</Button>
             <Popover.RootProvider value={popover}>
               <Popover.Trigger asChild><Button>Open from trigger</Button></Popover.Trigger>
-              <Popover.Portal>
+              <Portal>
                 <Popover.Positioner>
                   <Popover.Content>
                     <Popover.Title>External state</Popover.Title>
                   </Popover.Content>
                 </Popover.Positioner>
-              </Popover.Portal>
+              </Portal>
             </Popover.RootProvider>
           </>
         );
@@ -267,14 +268,14 @@ Render `Arrow` to get the default Moduix-styled `ArrowTip`.
     {`
       <Popover positioning={{ gutter: 8 }}>
         <Popover.Trigger asChild><Button>Open with arrow</Button></Popover.Trigger>
-        <Popover.Portal>
+        <Portal>
           <Popover.Positioner>
             <Popover.Content>
               <Popover.Arrow />
               <Popover.Title>Notifications</Popover.Title>
             </Popover.Content>
           </Popover.Positioner>
-        </Popover.Portal>
+        </Portal>
       </Popover>
     `}
   </Preview.Code>
@@ -292,11 +293,11 @@ Set placement and offsets through Ark's `positioning` object.
     {`
       <Popover positioning={{ placement: "left", gutter: 12 }}>
         <Popover.Trigger asChild><Button>Open on the left</Button></Popover.Trigger>
-        <Popover.Portal>
+        <Portal>
           <Popover.Positioner>
             <Popover.Content><Popover.Title>Left placement</Popover.Title></Popover.Content>
           </Popover.Positioner>
-        </Popover.Portal>
+        </Portal>
       </Popover>
     `}
   </Preview.Code>
@@ -314,14 +315,14 @@ Disable outside or Escape dismissal only when the workflow provides an explicit 
     {`
       <Popover closeOnEscape={false} closeOnInteractOutside={false}>
         <Popover.Trigger asChild><Button>Open persistent popover</Button></Popover.Trigger>
-        <Popover.Portal>
+        <Portal>
           <Popover.Positioner>
             <Popover.Content>
               <Popover.Title>Explicit close</Popover.Title>
               <Popover.CloseTrigger>Close</Popover.CloseTrigger>
             </Popover.Content>
           </Popover.Positioner>
-        </Popover.Portal>
+        </Portal>
       </Popover>
     `}
   </Preview.Code>
@@ -346,7 +347,7 @@ focus target.
         return (
           <Popover modal initialFocusEl={() => inputRef.current}>
             <Popover.Trigger asChild><Button>Invite teammates</Button></Popover.Trigger>
-            <Popover.Portal>
+            <Portal>
               <Popover.Positioner>
                 <Popover.Content>
                   <Popover.Title>Invite teammates</Popover.Title>
@@ -354,7 +355,7 @@ focus target.
                   <Popover.CloseTrigger>Done</Popover.CloseTrigger>
                 </Popover.Content>
               </Popover.Positioner>
-            </Popover.Portal>
+            </Portal>
           </Popover>
         );
       }
@@ -386,11 +387,11 @@ Use `Anchor` when a different element should provide the positioning reference.
           <input className="input" placeholder="Popover anchor" />
         </Popover.Anchor>
         <Popover.Trigger asChild><Button>Open below the input</Button></Popover.Trigger>
-        <Popover.Portal>
+        <Portal>
           <Popover.Positioner>
             <Popover.Content><Popover.Title>Custom anchor</Popover.Title></Popover.Content>
           </Popover.Positioner>
-        </Popover.Portal>
+        </Portal>
       </Popover>
     `}
   </Preview.Code>
@@ -418,13 +419,13 @@ Enable `positioning.sameWidth` and use Ark's `--reference-width` variable on the
         <Popover.Trigger asChild>
           <Button className="wideTrigger">Match this trigger width</Button>
         </Popover.Trigger>
-        <Popover.Portal>
+        <Portal>
           <Popover.Positioner>
             <Popover.Content className="sameWidthContent">
               <Popover.Title>Matched width</Popover.Title>
             </Popover.Content>
           </Popover.Positioner>
-        </Popover.Portal>
+        </Portal>
       </Popover>
     `}
   </Preview.Code>
@@ -447,23 +448,23 @@ Nested popovers keep independent state and expose Ark's nested-layer data attrib
     {`
       <Popover>
         <Popover.Trigger asChild><Button>Open settings</Button></Popover.Trigger>
-        <Popover.Portal>
+        <Portal>
           <Popover.Positioner>
             <Popover.Content>
               <Popover.Title>Settings</Popover.Title>
               <Popover positioning={{ placement: "right", gutter: 8 }}>
                 <Popover.Trigger asChild><Button>Advanced</Button></Popover.Trigger>
-                <Popover.Portal>
+                <Portal>
                   <Popover.Positioner>
                     <Popover.Content>
                       <Popover.Title>Advanced settings</Popover.Title>
                     </Popover.Content>
                   </Popover.Positioner>
-                </Popover.Portal>
+                </Portal>
               </Popover>
             </Popover.Content>
           </Popover.Positioner>
-        </Popover.Portal>
+        </Portal>
       </Popover>
     `}
   </Preview.Code>
@@ -481,14 +482,14 @@ Override the public Moduix variables without changing the Ark composition.
     {`
       <Popover positioning={{ gutter: 8 }}>
         <Popover.Trigger asChild><Button>Open styled popover</Button></Popover.Trigger>
-        <Popover.Portal>
+        <Portal>
           <Popover.Positioner>
             <Popover.Content className="customContent">
               <Popover.Arrow />
               <Popover.Title>Custom styling</Popover.Title>
             </Popover.Content>
           </Popover.Positioner>
-        </Popover.Portal>
+        </Portal>
       </Popover>
     `}
   </Preview.Code>

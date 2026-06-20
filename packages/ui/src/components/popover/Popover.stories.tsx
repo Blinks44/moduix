@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Portal } from '@ark-ui/react/portal';
 import * as React from 'react';
 import { BellIcon } from '@/icons/demo';
 import { Button } from '../button';
@@ -27,7 +28,7 @@ function PopoverSurface({
   arrow?: boolean;
 }) {
   return (
-    <Popover.Portal>
+    <Portal>
       <Popover.Positioner>
         <Popover.Content>
           {arrow ? <Popover.Arrow /> : null}
@@ -40,7 +41,7 @@ function PopoverSurface({
           </Popover.Footer>
         </Popover.Content>
       </Popover.Positioner>
-    </Popover.Portal>
+    </Portal>
   );
 }
 
@@ -157,7 +158,7 @@ export const Modal: Story = {
       <Popover.Trigger asChild>
         <Button>Invite teammates</Button>
       </Popover.Trigger>
-      <Popover.Portal>
+      <Portal>
         <Popover.Positioner>
           <Popover.Content>
             <Popover.Header>
@@ -177,7 +178,7 @@ export const Modal: Story = {
             </Popover.Footer>
           </Popover.Content>
         </Popover.Positioner>
-      </Popover.Portal>
+      </Portal>
     </Popover>
   ),
 };
@@ -208,7 +209,7 @@ export const SameWidth: Story = {
       <Popover.Trigger asChild>
         <Button className={storyStyles.wideTrigger}>Match this trigger width</Button>
       </Popover.Trigger>
-      <Popover.Portal>
+      <Portal>
         <Popover.Positioner>
           <Popover.Content className={storyStyles.sameWidthContent}>
             <Popover.Title>Matched width</Popover.Title>
@@ -217,7 +218,7 @@ export const SameWidth: Story = {
             </Popover.Description>
           </Popover.Content>
         </Popover.Positioner>
-      </Popover.Portal>
+      </Portal>
     </Popover>
   ),
 };
@@ -228,7 +229,7 @@ export const Nested: Story = {
       <Popover.Trigger asChild>
         <Button>Open settings</Button>
       </Popover.Trigger>
-      <Popover.Portal>
+      <Portal>
         <Popover.Positioner>
           <Popover.Content>
             <Popover.Header>
@@ -248,7 +249,7 @@ export const Nested: Story = {
             </Popover.Body>
           </Popover.Content>
         </Popover.Positioner>
-      </Popover.Portal>
+      </Portal>
     </Popover>
   ),
 };
