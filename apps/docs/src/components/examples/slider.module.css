@@ -3,7 +3,44 @@
   gap: var(--spacing-4);
 }
 
-.range {
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+}
+
+.value,
+.status {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+}
+
+.controlledSlider {
+  --slider-width: 12rem;
+}
+
+.controlledSlider [data-slot='slider-range'] {
+  --slider-range-bg: var(--color-chart-2);
+}
+
+.controlledSlider [data-slot='slider-thumb'] {
+  --slider-thumb-bg: var(--color-chart-2);
+  --slider-thumb-border-color: var(--color-background);
+}
+
+.controlledSlider [data-slot='slider-track'] {
+  --slider-track-bg: color-mix(in oklab, var(--color-chart-2) 18%, var(--color-muted));
+}
+
+.secondaryControlLabel {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.secondaryControl {
   width: 12rem;
 }
 
@@ -17,8 +54,12 @@
   --slider-height: 12rem;
 }
 
+.customSlider {
+  --slider-width: 16rem;
+}
+
 .customControl {
-  --slider-control-padding-y: var(--spacing-3);
+  --slider-control-size: 1.5rem;
 }
 
 .customTrack {
@@ -27,8 +68,8 @@
   --slider-track-border-color: transparent;
 }
 
-.customIndicator {
-  --slider-indicator-bg: var(--color-chart-4);
+.customRange {
+  --slider-range-bg: var(--color-chart-4);
 }
 
 .customThumb {

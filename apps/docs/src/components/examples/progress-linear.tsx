@@ -1,5 +1,5 @@
-import { ProgressLinear, useProgressLinear } from 'moduix';
-import { useState, type ComponentProps, type CSSProperties } from 'react';
+import { ProgressLinear, Slider, useProgressLinear } from 'moduix';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 
@@ -9,64 +9,8 @@ export const progressLinearExampleCss = `
     gap: var(--spacing-4);
   }
 
-  .progress-linear-range-input {
-    --progress-demo-range-percent: 0%;
-    --progress-demo-range-thumb-bg: var(--color-background);
-    --progress-demo-range-thumb-border: var(--color-foreground);
-    --progress-demo-range-track: var(--color-muted);
-
-    appearance: none;
+  .progress-linear-slider {
     width: 12rem;
-    height: 0.375rem;
-    border-radius: var(--radius-full);
-    accent-color: var(--color-foreground);
-    background: linear-gradient(
-      90deg,
-      var(--color-foreground) 0%,
-      var(--color-foreground) var(--progress-demo-range-percent, 0%),
-      var(--progress-demo-range-track) var(--progress-demo-range-percent, 0%),
-      var(--progress-demo-range-track) 100%
-    );
-    cursor: pointer;
-  }
-
-  .progress-linear-range-input::-webkit-slider-runnable-track {
-    height: 0.375rem;
-    border-radius: var(--radius-full);
-    background: transparent;
-  }
-
-  .progress-linear-range-input::-webkit-slider-thumb {
-    appearance: none;
-    width: 1rem;
-    height: 1rem;
-    margin-top: calc((0.375rem - 1rem) / 2);
-    border: var(--border-width-sm) solid var(--progress-demo-range-thumb-border);
-    border-radius: var(--radius-full);
-    background: var(--progress-demo-range-thumb-bg);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .progress-linear-range-input::-moz-range-track {
-    height: 0.375rem;
-    border: 0;
-    border-radius: var(--radius-full);
-    background: var(--progress-demo-range-track);
-  }
-
-  .progress-linear-range-input::-moz-range-progress {
-    height: 0.375rem;
-    border-radius: var(--radius-full);
-    background: var(--color-foreground);
-  }
-
-  .progress-linear-range-input::-moz-range-thumb {
-    width: 1rem;
-    height: 1rem;
-    border: var(--border-width-sm) solid var(--progress-demo-range-thumb-border);
-    border-radius: var(--radius-full);
-    background: var(--progress-demo-range-thumb-bg);
-    box-shadow: var(--shadow-sm);
   }
 `;
 
@@ -174,15 +118,6 @@ function ProgressLinearParts() {
   );
 }
 
-function getProgressDemoRangeStyle(value: number | null, min = 0, max = 100): CSSProperties {
-  const safeValue = value ?? min;
-  const percent = ((safeValue - min) / (max - min)) * 100;
-
-  return {
-    '--progress-demo-range-percent': `${Math.max(0, Math.min(100, percent))}%`,
-  } as CSSProperties;
-}
-
 export function ProgressLinearExample(props: ComponentProps<typeof ProgressLinear.Root>) {
   return (
     <ProgressLinear defaultValue={24} {...props}>
@@ -201,17 +136,26 @@ export function ControlledProgressLinearExample() {
         <ProgressLinear.Label>Upload status</ProgressLinear.Label>
         <ProgressLinearParts />
       </ProgressLinear>
-      <input
-        className="progress-linear-range-input"
-        type="range"
+      <Slider
+        className="progress-linear-slider"
         min={0}
         max={100}
-        value={value ?? 0}
-        style={getProgressDemoRangeStyle(value)}
-        onChange={(event) => {
-          setValue(Number(event.target.value));
+        value={[value ?? 0]}
+        onValueChange={(details) => {
+          setValue(details.value[0] ?? 0);
         }}
-      />
+      >
+        <Slider.Label>Progress value</Slider.Label>
+        <Slider.ValueText />
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumb index={0} aria-label="Progress value">
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+        </Slider.Control>
+      </Slider>
     </div>
   );
 }

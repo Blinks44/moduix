@@ -1,5 +1,5 @@
-import { ProgressCircular, useProgressCircular } from 'moduix';
-import { useState, type ComponentProps, type CSSProperties } from 'react';
+import { ProgressCircular, Slider, useProgressCircular } from 'moduix';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 
@@ -10,64 +10,8 @@ export const progressCircularExampleCss = `
     gap: var(--spacing-4);
   }
 
-  .progress-circular-range-input {
-    --progress-demo-range-percent: 0%;
-    --progress-demo-range-thumb-bg: var(--color-background);
-    --progress-demo-range-thumb-border: var(--color-foreground);
-    --progress-demo-range-track: var(--color-muted);
-
-    appearance: none;
+  .progress-circular-slider {
     width: 12rem;
-    height: 0.375rem;
-    border-radius: var(--radius-full);
-    accent-color: var(--color-foreground);
-    background: linear-gradient(
-      90deg,
-      var(--color-foreground) 0%,
-      var(--color-foreground) var(--progress-demo-range-percent, 0%),
-      var(--progress-demo-range-track) var(--progress-demo-range-percent, 0%),
-      var(--progress-demo-range-track) 100%
-    );
-    cursor: pointer;
-  }
-
-  .progress-circular-range-input::-webkit-slider-runnable-track {
-    height: 0.375rem;
-    border-radius: var(--radius-full);
-    background: transparent;
-  }
-
-  .progress-circular-range-input::-webkit-slider-thumb {
-    appearance: none;
-    width: 1rem;
-    height: 1rem;
-    margin-top: calc((0.375rem - 1rem) / 2);
-    border: var(--border-width-sm) solid var(--progress-demo-range-thumb-border);
-    border-radius: var(--radius-full);
-    background: var(--progress-demo-range-thumb-bg);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .progress-circular-range-input::-moz-range-track {
-    height: 0.375rem;
-    border: 0;
-    border-radius: var(--radius-full);
-    background: var(--progress-demo-range-track);
-  }
-
-  .progress-circular-range-input::-moz-range-progress {
-    height: 0.375rem;
-    border-radius: var(--radius-full);
-    background: var(--color-foreground);
-  }
-
-  .progress-circular-range-input::-moz-range-thumb {
-    width: 1rem;
-    height: 1rem;
-    border: var(--border-width-sm) solid var(--progress-demo-range-thumb-border);
-    border-radius: var(--radius-full);
-    background: var(--progress-demo-range-thumb-bg);
-    box-shadow: var(--shadow-sm);
   }
 
   .progress-circular-circle-container {
@@ -185,15 +129,6 @@ function ProgressCircularParts() {
   );
 }
 
-function getProgressDemoRangeStyle(value: number | null, min = 0, max = 100): CSSProperties {
-  const safeValue = value ?? min;
-  const percent = ((safeValue - min) / (max - min)) * 100;
-
-  return {
-    '--progress-demo-range-percent': `${Math.max(0, Math.min(100, percent))}%`,
-  } as CSSProperties;
-}
-
 export function ProgressCircularExample(props: ComponentProps<typeof ProgressCircular.Root>) {
   return (
     <ProgressCircular defaultValue={42} {...props}>
@@ -212,17 +147,26 @@ export function ControlledProgressCircularExample() {
         <ProgressCircular.Label>Upload status</ProgressCircular.Label>
         <ProgressCircularParts />
       </ProgressCircular>
-      <input
-        className="progress-circular-range-input"
-        type="range"
+      <Slider
+        className="progress-circular-slider"
         min={0}
         max={100}
-        value={value ?? 0}
-        style={getProgressDemoRangeStyle(value)}
-        onChange={(event) => {
-          setValue(Number(event.target.value));
+        value={[value ?? 0]}
+        onValueChange={(details) => {
+          setValue(details.value[0] ?? 0);
         }}
-      />
+      >
+        <Slider.Label>Progress value</Slider.Label>
+        <Slider.ValueText />
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumb index={0} aria-label="Progress value">
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+        </Slider.Control>
+      </Slider>
     </div>
   );
 }

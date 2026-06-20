@@ -189,7 +189,7 @@ Keep `value` in React state when circular progress mirrors another control or ex
 
   <Preview.Code>
     {`
-      import { ProgressCircular } from "moduix";
+      import { ProgressCircular, Slider } from "moduix";
       import { useState } from "react";
 
       export function ControlledProgressCircularDemo() {
@@ -207,14 +207,24 @@ Keep `value` in React state when circular progress mirrors another control or ex
                 <ProgressCircular.ValueText />
               </div>
             </ProgressCircular>
-            <input
-              className="progress-circular-range-input"
-              type="range"
+            <Slider
+              className="progress-circular-slider"
               min={0}
               max={100}
-              value={value}
-              onChange={(event) => setValue(Number(event.target.value))}
-            />
+              value={[value]}
+              onValueChange={(details) => setValue(details.value[0] ?? 0)}
+            >
+              <Slider.Label>Progress value</Slider.Label>
+              <Slider.ValueText />
+              <Slider.Control>
+                <Slider.Track>
+                  <Slider.Range />
+                </Slider.Track>
+                <Slider.Thumb index={0} aria-label="Progress value">
+                  <Slider.HiddenInput />
+                </Slider.Thumb>
+              </Slider.Control>
+            </Slider>
           </div>
         );
       }

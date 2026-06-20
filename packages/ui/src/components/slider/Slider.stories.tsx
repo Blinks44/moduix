@@ -1,15 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import {
-  Slider,
-  SliderControl,
-  SliderIndicator,
-  SliderLabel,
-  SliderRoot,
-  SliderThumb,
-  SliderTrack,
-  SliderValue,
-} from './Slider';
+import { Button } from '../button';
+import { Slider, useSlider } from './Slider';
 import styles from './Slider.stories.module.css';
 
 const meta = {
@@ -28,10 +20,19 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => {
     return (
-      <Slider defaultValue={40}>
-        <SliderLabel>Volume</SliderLabel>
-        <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-        <SliderThumb aria-label="Volume" />
+      <Slider defaultValue={[40]}>
+        <div className={styles.header}>
+          <Slider.Label>Volume</Slider.Label>
+          <Slider.ValueText />
+        </div>
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumb index={0} aria-label="Volume">
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+        </Slider.Control>
       </Slider>
     );
   },
@@ -39,13 +40,22 @@ export const Basic: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = useState(24);
+    const [value, setValue] = useState([24]);
 
     return (
-      <Slider value={value} onValueChange={setValue}>
-        <SliderLabel>Brightness</SliderLabel>
-        <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-        <SliderThumb aria-label="Brightness" />
+      <Slider value={value} onValueChange={(details) => setValue(details.value)}>
+        <div className={styles.header}>
+          <Slider.Label>Brightness</Slider.Label>
+          <Slider.ValueText />
+        </div>
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumb index={0} aria-label="Brightness">
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+        </Slider.Control>
       </Slider>
     );
   },
@@ -53,14 +63,23 @@ export const Controlled: Story = {
 
 export const Range: Story = {
   render: () => {
-    const [value, setValue] = useState([20, 70] as readonly number[]);
+    const [value, setValue] = useState([20, 70]);
 
     return (
-      <Slider value={value} min={0} max={100} onValueChange={setValue}>
-        <SliderLabel>Price range</SliderLabel>
-        <SliderValue>{([minValue, maxValue]) => `${minValue} - ${maxValue}`}</SliderValue>
-        <SliderThumb index={0} aria-label="Minimum price" />
-        <SliderThumb index={1} aria-label="Maximum price" />
+      <Slider value={value} min={0} max={100} onValueChange={(details) => setValue(details.value)}>
+        <Slider.Label>Price range</Slider.Label>
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumb index={0} aria-label="Minimum price">
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+          <Slider.Thumb index={1} aria-label="Maximum price">
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+        </Slider.Control>
+        <Slider.ValueText />
       </Slider>
     );
   },
@@ -68,28 +87,78 @@ export const Range: Story = {
 
 export const StepsAndConstraints: Story = {
   render: () => {
-    const [value, setValue] = useState([250, 750] as readonly number[]);
-
     return (
       <Slider
-        value={value}
+        defaultValue={[250, 750]}
         min={0}
         max={1000}
         step={50}
-        largeStep={200}
-        minStepsBetweenValues={2}
-        thumbCollisionBehavior="none"
-        format={{
-          style: 'currency',
-          currency: 'USD',
-          maximumFractionDigits: 0,
-        }}
-        onValueChange={setValue}
+        minStepsBetweenThumbs={2}
+        thumbCollisionBehavior="push"
+        getAriaValueText={(details) => `$${details.value}`}
       >
-        <SliderLabel>Budget</SliderLabel>
-        <SliderValue>{([minValue, maxValue]) => `${minValue} - ${maxValue}`}</SliderValue>
-        <SliderThumb index={0} aria-label="Minimum budget" />
-        <SliderThumb index={1} aria-label="Maximum budget" />
+        <div className={styles.header}>
+          <Slider.Label>Budget</Slider.Label>
+          <Slider.ValueText />
+        </div>
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumb index={0} aria-label="Minimum budget">
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+          <Slider.Thumb index={1} aria-label="Maximum budget">
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+        </Slider.Control>
+      </Slider>
+    );
+  },
+};
+
+export const Marks: Story = {
+  render: () => {
+    return (
+      <Slider defaultValue={[50]}>
+        <div className={styles.header}>
+          <Slider.Label>Progress</Slider.Label>
+          <Slider.ValueText />
+        </div>
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumb index={0} aria-label="Progress">
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+        </Slider.Control>
+        <Slider.MarkerGroup>
+          {[0, 25, 50, 75, 100].map((value) => (
+            <Slider.Marker key={value} value={value}>
+              {value}
+            </Slider.Marker>
+          ))}
+        </Slider.MarkerGroup>
+      </Slider>
+    );
+  },
+};
+
+export const DraggingIndicator: Story = {
+  render: () => {
+    return (
+      <Slider defaultValue={[40]}>
+        <Slider.Label>Gain</Slider.Label>
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumb index={0} aria-label="Gain">
+            <Slider.DraggingIndicator />
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+        </Slider.Control>
       </Slider>
     );
   },
@@ -98,14 +167,19 @@ export const StepsAndConstraints: Story = {
 export const Vertical: Story = {
   render: () => {
     return (
-      <div className={styles.stack}>
-        <div className={styles.verticalContainer}>
-          <Slider orientation="vertical" defaultValue={60} className={styles.verticalSlider}>
-            <SliderLabel>Output</SliderLabel>
-            <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-            <SliderThumb aria-label="Output" />
-          </Slider>
-        </div>
+      <div className={styles.verticalContainer}>
+        <Slider orientation="vertical" defaultValue={[60]} className={styles.verticalSlider}>
+          <Slider.Label>Output</Slider.Label>
+          <Slider.ValueText />
+          <Slider.Control>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumb index={0} aria-label="Output">
+              <Slider.HiddenInput />
+            </Slider.Thumb>
+          </Slider.Control>
+        </Slider>
       </div>
     );
   },
@@ -114,28 +188,88 @@ export const Vertical: Story = {
 export const Disabled: Story = {
   render: () => {
     return (
-      <Slider defaultValue={32} disabled>
-        <SliderLabel>Notifications</SliderLabel>
-        <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-        <SliderThumb aria-label="Notifications" />
+      <Slider defaultValue={[32]} disabled>
+        <div className={styles.header}>
+          <Slider.Label>Notifications</Slider.Label>
+          <Slider.ValueText />
+        </div>
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumb index={0} aria-label="Notifications">
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+        </Slider.Control>
       </Slider>
     );
   },
 };
 
-export const CustomComposition: Story = {
+export const Context: Story = {
   render: () => {
     return (
-      <SliderRoot defaultValue={56}>
-        <SliderLabel>Temperature</SliderLabel>
-        <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-        <SliderControl className={styles.customControl}>
-          <SliderTrack className={styles.customTrack}>
-            <SliderIndicator className={styles.customIndicator} />
-            <SliderThumb aria-label="Temperature" className={styles.customThumb} />
-          </SliderTrack>
-        </SliderControl>
-      </SliderRoot>
+      <Slider defaultValue={[40]}>
+        <Slider.Context>
+          {(context) => (
+            <div className={styles.header}>
+              <Slider.Label>Dragging: {String(context.dragging)}</Slider.Label>
+              <span className={styles.value}>{context.value.join(', ')}</span>
+            </div>
+          )}
+        </Slider.Context>
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumb index={0} aria-label="Context value">
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+        </Slider.Control>
+      </Slider>
+    );
+  },
+};
+
+export const RootProvider: Story = {
+  render: () => {
+    const slider = useSlider({ defaultValue: [40] });
+
+    return (
+      <div className={styles.stack}>
+        <Button onClick={() => slider.focus()}>Focus</Button>
+        <Slider.RootProvider value={slider}>
+          <Slider.Label>Volume</Slider.Label>
+          <Slider.ValueText />
+          <Slider.Control>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumb index={0} aria-label="Volume">
+              <Slider.HiddenInput />
+            </Slider.Thumb>
+          </Slider.Control>
+        </Slider.RootProvider>
+      </div>
+    );
+  },
+};
+
+export const CustomStyling: Story = {
+  render: () => {
+    return (
+      <Slider defaultValue={[56]} className={styles.customSlider}>
+        <Slider.Label>Temperature</Slider.Label>
+        <Slider.ValueText />
+        <Slider.Control className={styles.customControl}>
+          <Slider.Track className={styles.customTrack}>
+            <Slider.Range className={styles.customRange} />
+          </Slider.Track>
+          <Slider.Thumb index={0} aria-label="Temperature" className={styles.customThumb}>
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+        </Slider.Control>
+      </Slider>
     );
   },
 };

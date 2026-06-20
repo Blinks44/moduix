@@ -1,18 +1,55 @@
 ---
 title: Slider
-description: A range input for selecting one value or a range of values.
+description: A control for selecting one value or a range of values.
 icon: Component
 ---
 
 import {
+  CenterOriginSliderExample,
+  ContextSliderExample,
   ControlledSliderExample,
-  CustomCompositionSliderExample,
+  CustomStylingSliderExample,
   DisabledSliderExample,
+  DraggingIndicatorSliderExample,
+  EventsSliderExample,
+  MarksSliderExample,
+  MinMaxSliderExample,
   RangeSliderExample,
+  RootProviderSliderExample,
   SliderCssPropertiesPanel,
   SliderExample,
-  SteppedRangeSliderExample,
+  StepSliderExample,
+  ThumbAlignmentSliderExample,
+  ThumbCollisionSliderExample,
+  ThumbOverlapSliderExample,
   VerticalSliderExample,
+  sliderBasicCode,
+  sliderCenterOriginCode,
+  sliderContextCode,
+  sliderContextCss,
+  sliderControlledCode,
+  sliderControlledCss,
+  sliderCustomStylingCode,
+  sliderCustomStylingCss,
+  sliderDisabledCode,
+  sliderDraggingIndicatorCode,
+  sliderEventsCode,
+  sliderEventsCss,
+  sliderHeaderCss,
+  sliderMarksCode,
+  sliderMarksData,
+  sliderMinMaxCode,
+  sliderNoCss,
+  sliderNoData,
+  sliderRangeCode,
+  sliderRootProviderCode,
+  sliderStackCss,
+  sliderStepCode,
+  sliderThumbAlignmentCode,
+  sliderThumbCollisionCode,
+  sliderThumbOverlapCode,
+  sliderVerticalCode,
+  sliderVerticalCss,
 } from '@/components/examples/slider';
 
 ## API Reference
@@ -24,40 +61,21 @@ import {
 Use `Slider` when users should adjust a bounded numeric value directly with pointer or keyboard
 input.
 
-- Choose **`Slider`** for interactive values such as volume, brightness, budgets, and thresholds.
+- Choose **`Slider`** for volume, brightness, budgets, thresholds, and multi-thumb ranges.
 - Choose **`Input`** or **`NumberInput`** when exact typed entry matters more than scrubbing.
-- Choose **`ProgressLinear`** or **`ProgressCircular`** when the value is display-only and should
-  not be adjusted by the user.
+- Choose **`ProgressLinear`** or **`ProgressCircular`** when the value is display-only.
 
 ## Basic
 
-Start with `Slider`, `SliderLabel`, `SliderValue`, and `SliderThumb`. This is the recommended path
-when the default control, track, and indicator structure already fits.
+`Slider` is the styled Ark root. Compose the Ark parts explicitly and keep a `Slider.HiddenInput`
+inside each thumb when the value should participate in forms and resets.
 
 <Preview>
   <SliderExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Slider,
-        SliderLabel,
-        SliderThumb,
-        SliderValue,
-      } from "moduix";
-
-      export function SliderDemo() {
-        return (
-          <Slider defaultValue={40}>
-            <SliderLabel>Volume</SliderLabel>
-            <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
-            <SliderThumb aria-label="Volume" />
-          </Slider>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.Code>{sliderBasicCode}</Preview.Code>
+  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -103,403 +121,266 @@ aubx shadcn@latest add Blinks44/moduix/slider
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Slider` depends on, such
-as styles, icons, and small utilities.
-
 ## Anatomy
 
-The normal consumer path is short:
-
 ```text
-Slider
-├─ SliderLabel
-├─ SliderValue
-└─ SliderThumb[index]
+Slider / Slider.Root
+├─ Slider.Label
+├─ Slider.ValueText
+├─ Slider.Control
+│  ├─ Slider.Track
+│  │  └─ Slider.Range
+│  └─ Slider.Thumb[index]
+│     ├─ Slider.DraggingIndicator
+│     └─ Slider.HiddenInput
+└─ Slider.MarkerGroup
+   └─ Slider.Marker[value]
 ```
 
-`Slider` then renders the default interactive structure for you:
-
-```text
-SliderRoot
-├─ SliderLabel
-├─ SliderValue
-└─ SliderControl
-   └─ SliderTrack
-      ├─ SliderIndicator
-      └─ SliderThumb[index]
-```
-
-| Part              | Role                                                                |
-| ----------------- | ------------------------------------------------------------------- |
-| `Slider`          | High-level wrapper with the default control, track, and indicator.  |
-| `SliderRoot`      | Low-level root for explicit composition and custom track placement. |
-| `SliderLabel`     | Visible label for the slider group.                                 |
-| `SliderValue`     | Optional formatted value output.                                    |
-| `SliderControl`   | Interaction area for pointer and keyboard input.                    |
-| `SliderTrack`     | Visual track that contains the indicator and thumbs.                |
-| `SliderIndicator` | Filled portion of the track.                                        |
-| `SliderThumb`     | Interactive handle. Render one thumb per selected value.            |
+| Part                                   | Role                                                        |
+| -------------------------------------- | ----------------------------------------------------------- |
+| `Slider` / `Slider.Root`               | Styled Ark root for controlled and uncontrolled state.      |
+| `Slider.RootProvider`                  | Root that receives an externally owned `useSlider` machine. |
+| `Slider.Label`                         | Visible label for the slider group.                         |
+| `Slider.ValueText`                     | Current value text generated by Ark.                        |
+| `Slider.Control`                       | Pointer interaction area.                                   |
+| `Slider.Track`                         | Full visual rail.                                           |
+| `Slider.Range`                         | Filled portion from the configured origin to the value.     |
+| `Slider.Thumb`                         | Focusable slider handle.                                    |
+| `Slider.HiddenInput`                   | Native input for form submission and reset behavior.        |
+| `Slider.MarkerGroup` / `Slider.Marker` | Optional tick mark group and individual mark.               |
+| `Slider.DraggingIndicator`             | Optional value bubble while dragging.                       |
+| `Slider.Context`                       | Render-prop access to Ark slider state.                     |
 
 ## Composition
 
-### When to stay high-level
-
-Stay with `Slider` for most settings panels and forms. It preserves the underlying primitive root behavior and
-automatically renders `SliderControl`, `SliderTrack`, and `SliderIndicator` after the visible
-content.
-
-Use `Slider` or `SliderRoot` for the public root props:
-
-- `value` and `defaultValue`
-- `onValueChange` and `onValueCommitted`
-- `min`, `max`, `step`, and `largeStep`
-- `minStepsBetweenValues`
-- `orientation`
-- `thumbAlignment`
-- `thumbCollisionBehavior`
-- `name`, `form`, `locale`, and `format`
-
-`Slider` does not render a thumb automatically. Render one `SliderThumb` per selected value so each
-thumb can keep its own accessible name.
-
-### When to go custom
-
-Switch to `SliderRoot`, `SliderControl`, `SliderTrack`, and `SliderIndicator` when the track needs
-its own layout position, separate part-level selectors, or styling that should not depend on the
-default wrapper structure.
-
 ### Default props
 
-| Prop                     | Default      | Values                               |
-| ------------------------ | ------------ | ------------------------------------ |
-| `orientation`            | `horizontal` | `horizontal`, `vertical`             |
-| `min`                    | `0`          | Any `number`                         |
-| `max`                    | `100`        | Any `number`                         |
-| `step`                   | `1`          | Any `number`                         |
-| `largeStep`              | `10`         | Any `number`                         |
-| `minStepsBetweenValues`  | `0`          | Any `number`                         |
-| `thumbAlignment`         | `center`     | `center`, `edge`, `edge-client-only` |
-| `thumbCollisionBehavior` | `push`       | `push`, `swap`, `none`               |
+| Prop                     | Default      | Notes                                      |
+| ------------------------ | ------------ | ------------------------------------------ |
+| `defaultValue`           | `[50]`       | Ark stores slider values as `number[]`.    |
+| `orientation`            | `horizontal` | Use `vertical` for vertical keyboard axis. |
+| `min`                    | `0`          | Lower bound.                               |
+| `max`                    | `100`        | Upper bound.                               |
+| `step`                   | `1`          | Pointer and keyboard increment.            |
+| `minStepsBetweenThumbs`  | `0`          | Minimum gap between range thumbs.          |
+| `origin`                 | `start`      | Fill start for single-value ranges.        |
+| `thumbAlignment`         | `contain`    | Use `center` to let the thumb overflow.    |
+| `thumbCollisionBehavior` | `none`       | Use `push` or `swap` for range dragging.   |
 
-### Behavioral notes
-
-- For range sliders, pass an array value and render the same number of `SliderThumb` elements.
-- For SSR-safe multi-thumb sliders, set `index` on each thumb to match the value array index.
-- Prefer `SliderLabel` for the shared visible label. Add `aria-label` on each thumb when there is
-  no visible label or when range thumbs need distinct names.
-- Pass `name` on `Slider` when the current value should submit with a form.
-- For multi-thumb form controls, `Fieldset` can own the shared visible label while each
-  `SliderThumb` keeps a distinct `aria-label`.
-- `SliderValue` render functions always receive arrays: `(formattedValues, values)`.
+`value`, `defaultValue`, `onValueChange(details)`, and `onValueChangeEnd(details)` use Ark detail
+objects. Use `details.value` to read the array.
 
 ## Examples
 
 ### Range
 
-Pass an array value and render one `SliderThumb` for each selected value.
+Pass an array with one value per thumb and render matching `Slider.Thumb` parts.
 
 <Preview>
   <RangeSliderExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Slider,
-        SliderLabel,
-        SliderThumb,
-        SliderValue,
-      } from "moduix";
-      import { useState } from "react";
-
-      export function RangeSliderDemo() {
-        const [value, setValue] = useState([20, 70] as readonly number[]);
-
-        return (
-          <Slider value={value} min={0} max={100} onValueChange={setValue}>
-            <SliderLabel>Price range</SliderLabel>
-            <SliderValue>{([minValue, maxValue]) => \`\${minValue} - \${maxValue}\`}</SliderValue>
-            <SliderThumb index={0} aria-label="Minimum price" />
-            <SliderThumb index={1} aria-label="Maximum price" />
-          </Slider>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.Code>{sliderRangeCode}</Preview.Code>
+  <Preview.CSS>{sliderNoCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
 </Preview>
 
-### Steps and Constraints
+### Min and Max
 
-Use `step`, `largeStep`, `minStepsBetweenValues`, and `thumbCollisionBehavior` when the slider
-represents a constrained numeric domain.
+Use `min` and `max` for domains that do not start at `0` or end at `100`.
 
 <Preview>
-  <SteppedRangeSliderExample />
+  <MinMaxSliderExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Slider,
-        SliderLabel,
-        SliderThumb,
-        SliderValue,
-      } from "moduix";
-      import { useState } from "react";
+  <Preview.Code>{sliderMinMaxCode}</Preview.Code>
+  <Preview.CSS>{sliderNoCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
+</Preview>
 
-      export function SteppedRangeSliderDemo() {
-        const [value, setValue] = useState([250, 750] as readonly number[]);
+### Step
 
-        return (
-          <Slider
-            value={value}
-            min={0}
-            max={1000}
-            step={50}
-            largeStep={200}
-            minStepsBetweenValues={2}
-            thumbCollisionBehavior="none"
-            format={{
-              style: "currency",
-              currency: "USD",
-              maximumFractionDigits: 0,
-            }}
-            onValueChange={setValue}
-          >
-            <SliderLabel>Budget</SliderLabel>
-            <SliderValue>
-              {(_, [minValue, maxValue]) =>
-                \`\${priceFormatter.format(minValue)} - \${priceFormatter.format(maxValue)}\`
-              }
-            </SliderValue>
-            <SliderThumb index={0} aria-label="Minimum budget" />
-            <SliderThumb index={1} aria-label="Maximum budget" />
-          </Slider>
-        );
-      }
-    `}
+Use `step` for fractional or constrained increments.
 
-  </Preview.Code>
+<Preview>
+  <StepSliderExample />
 
-  <Preview.Data>
-    {`
-      const priceFormatter = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        maximumFractionDigits: 0,
-      });
-    `}
-
-  </Preview.Data>
+  <Preview.Code>{sliderStepCode}</Preview.Code>
+  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
 </Preview>
 
 ### Controlled
 
-Control the value from React state when the slider must stay in sync with another input or derived
-UI.
+Control the value from React state by storing Ark's `details.value` array.
 
 <Preview>
   <ControlledSliderExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Slider,
-        SliderLabel,
-        SliderThumb,
-        SliderValue,
-      } from "moduix";
-      import { useState } from "react";
-      import styles from "./slider.module.css";
+  <Preview.Code>{sliderControlledCode}</Preview.Code>
+  <Preview.CSS>{sliderControlledCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
+</Preview>
 
-      export function ControlledSliderDemo() {
-        const [value, setValue] = useState(24);
+### Change Events
 
-        return (
-          <div className={styles.stack}>
-            <Slider value={value} onValueChange={setValue}>
-              <SliderLabel>Brightness</SliderLabel>
-              <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
-              <SliderThumb aria-label="Brightness" />
-            </Slider>
-            <input
-              className={styles.range}
-              type="range"
-              min={0}
-              max={100}
-              value={value}
-              onChange={(event) => {
-                setValue(Number(event.target.value));
-              }}
-            />
-          </div>
-        );
-      }
-    `}
+Use `onValueChange` for live updates and `onValueChangeEnd` when a drag or keyboard interaction is
+committed.
 
-  </Preview.Code>
+<Preview>
+  <EventsSliderExample />
 
-  <Preview.CSS>
-    {`
-      .stack {
-        display: grid;
-        gap: var(--spacing-4);
-      }
-
-      .range {
-        width: 12rem;
-      }
-    `}
-
-  </Preview.CSS>
+  <Preview.Code>{sliderEventsCode}</Preview.Code>
+  <Preview.CSS>{sliderEventsCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
 </Preview>
 
 ### Vertical
 
-Set `orientation="vertical"` and size the wrapper with the public CSS custom properties.
+Set `orientation="vertical"` and give the root a stable height.
 
 <Preview>
   <VerticalSliderExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Slider,
-        SliderLabel,
-        SliderThumb,
-        SliderValue,
-      } from "moduix";
-      import styles from "./slider.module.css";
+  <Preview.Code>{sliderVerticalCode}</Preview.Code>
+  <Preview.CSS>{sliderVerticalCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
+</Preview>
 
-      export function VerticalSliderDemo() {
-        return (
-          <div className={styles.verticalContainer}>
-            <Slider orientation="vertical" defaultValue={60} className={styles.verticalSlider}>
-              <SliderLabel>Output</SliderLabel>
-              <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
-              <SliderThumb aria-label="Output" />
-            </Slider>
-          </div>
-        );
-      }
-    `}
+### Center Origin
 
-  </Preview.Code>
+Set `origin="center"` when the selected value represents a positive or negative offset.
 
-  <Preview.CSS>
-    {`
-      .verticalContainer {
-        display: flex;
-        height: 14rem;
-      }
+<Preview>
+  <CenterOriginSliderExample />
 
-      .verticalSlider {
-        --slider-height: 12rem;
-        --slider-width-vertical: auto;
-      }
-    `}
+  <Preview.Code>{sliderCenterOriginCode}</Preview.Code>
+  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
+</Preview>
 
-  </Preview.CSS>
+### Marks
+
+Use `Slider.MarkerGroup` and `Slider.Marker` to render tick marks. Ark marks expose
+`data-state="under-value | at-value | over-value"` for styling.
+
+<Preview>
+  <MarksSliderExample />
+
+  <Preview.Code>{sliderMarksCode}</Preview.Code>
+  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
+  <Preview.Data>{sliderMarksData}</Preview.Data>
+</Preview>
+
+### Dragging Indicator
+
+Place `Slider.DraggingIndicator` inside a thumb to show the active value while dragging.
+
+<Preview>
+  <DraggingIndicatorSliderExample />
+
+  <Preview.Code>{sliderDraggingIndicatorCode}</Preview.Code>
+  <Preview.CSS>{sliderNoCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
+</Preview>
+
+### Thumb Alignment
+
+Use `thumbAlignment="center"` when the thumb should extend beyond the track edges.
+
+<Preview>
+  <ThumbAlignmentSliderExample />
+
+  <Preview.Code>{sliderThumbAlignmentCode}</Preview.Code>
+  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
+</Preview>
+
+### Thumb Collision
+
+Use `thumbCollisionBehavior="push"` or `"swap"` to change how range thumbs behave when they meet.
+
+<Preview>
+  <ThumbCollisionSliderExample />
+
+  <Preview.Code>{sliderThumbCollisionCode}</Preview.Code>
+  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
+</Preview>
+
+### Thumb Overlap
+
+Use `minStepsBetweenThumbs` to keep a minimum gap between range thumbs.
+
+<Preview>
+  <ThumbOverlapSliderExample />
+
+  <Preview.Code>{sliderThumbOverlapCode}</Preview.Code>
+  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
 </Preview>
 
 ### Disabled
 
-Use `disabled` to preserve the current value while preventing interaction.
+Use `disabled` to keep the value visible while preventing interaction.
 
 <Preview>
   <DisabledSliderExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Slider,
-        SliderLabel,
-        SliderThumb,
-        SliderValue,
-      } from "moduix";
-
-      export function DisabledSliderDemo() {
-        return (
-          <Slider defaultValue={32} disabled>
-            <SliderLabel>Notifications</SliderLabel>
-            <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
-            <SliderThumb aria-label="Notifications" />
-          </Slider>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.Code>{sliderDisabledCode}</Preview.Code>
+  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
 </Preview>
 
-### Custom Composition
+### Context
 
-Use `SliderRoot` when the default wrapper is still the right behavior model, but the visible track
-structure needs direct control.
+Use `Slider.Context` for inline reads of Ark state such as `value`, `dragging`, and focus state.
 
 <Preview>
-  <CustomCompositionSliderExample />
+  <ContextSliderExample />
 
-  <Preview.Code>
-    {`
-      import {
-        SliderControl,
-        SliderIndicator,
-        SliderLabel,
-        SliderRoot,
-        SliderThumb,
-        SliderTrack,
-        SliderValue,
-      } from "moduix";
-      import styles from "./slider.module.css";
-
-      export function CustomCompositionSliderDemo() {
-        return (
-          <SliderRoot defaultValue={56}>
-            <SliderLabel>Temperature</SliderLabel>
-            <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
-            <SliderControl className={styles.customControl}>
-              <SliderTrack className={styles.customTrack}>
-                <SliderIndicator className={styles.customIndicator} />
-                <SliderThumb aria-label="Temperature" className={styles.customThumb} />
-              </SliderTrack>
-            </SliderControl>
-          </SliderRoot>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customControl {
-        --slider-control-padding-y: var(--spacing-3);
-      }
-
-      .customTrack {
-        --slider-track-bg: color-mix(in oklab, var(--color-chart-4) 18%, var(--color-muted));
-        --slider-track-border-color: transparent;
-        --slider-track-size: 0.625rem;
-      }
-
-      .customIndicator {
-        --slider-indicator-bg: var(--color-chart-4);
-      }
-
-      .customThumb {
-        --slider-thumb-bg: var(--color-chart-4);
-        --slider-thumb-border-color: var(--color-background);
-        --slider-thumb-size: 1.25rem;
-      }
-    `}
-
-  </Preview.CSS>
+  <Preview.Code>{sliderContextCode}</Preview.Code>
+  <Preview.CSS>{sliderContextCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
 </Preview>
+
+### Root Provider
+
+Use `useSlider` with `Slider.RootProvider` when state must be owned outside the rendered tree.
+
+<Preview>
+  <RootProviderSliderExample />
+
+  <Preview.Code>{sliderRootProviderCode}</Preview.Code>
+  <Preview.CSS>{sliderStackCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
+</Preview>
+
+### Custom Styling
+
+Customize visuals with CSS variables, `className`, `data-slot` hooks, and Ark state attributes.
+
+<Preview>
+  <CustomStylingSliderExample />
+
+  <Preview.Code>{sliderCustomStylingCode}</Preview.Code>
+  <Preview.CSS>{sliderCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{sliderNoData}</Preview.Data>
+</Preview>
+
+## Accessibility
+
+`Slider` follows the Ark UI implementation of the WAI-ARIA slider pattern. Each thumb needs an
+accessible name through `Slider.Label`, `aria-label`, or `aria-labelledby`. Horizontal sliders use
+left/right arrow keys; vertical sliders use up/down arrow keys. Home and End move to bounds.
+
+Keep `Slider.HiddenInput` inside every `Slider.Thumb` when native form submission, form association,
+or form reset synchronization matters. `disabled`, `invalid`, `readOnly`, `name`, `form`, `ids`,
+`aria-label`, `aria-labelledby`, and `getAriaValueText(details)` pass through to Ark.
 
 ## Styling
 
-Style `Slider` through `className`, stable `data-slot="slider-*"` hooks, and the public
-`--slider-*` CSS variables shown below.
+Style `Slider` through `className`, Ark attributes, stable `data-slot="slider-*"` hooks, Ark CSS
+variables, and the public Moduix CSS variables below.
 
 ### CSS Properties
 
@@ -513,15 +394,13 @@ Style `Slider` through `className`, stable `data-slot="slider-*"` hooks, and the
 
 ### Styling hooks
 
-Use the part that owns the visual concern:
+Ark writes `data-scope="slider"` and `data-part` to all rendered parts. Moduix also writes
+`data-slot` values: `slider-root`, `slider-root-provider`, `slider-label`, `slider-value-text`,
+`slider-control`, `slider-track`, `slider-range`, `slider-thumb`, `slider-hidden-input`,
+`slider-marker-group`, `slider-marker`, and `slider-dragging-indicator`.
 
-- `Slider` or `SliderRoot` for width, gap, shared text color, and vertical layout width
-- `SliderLabel` and `SliderValue` for typography
-- `SliderControl` for the interactive hit area and orientation-specific padding
-- `SliderTrack` for rail thickness, radius, background, and border treatment
-- `SliderIndicator` for the filled range color
-- `SliderThumb` for handle size, border, shadow, and focus-ring treatment
-
-The main public hooks are `data-slot="slider-root"`, `data-slot="slider-label"`,
-`data-slot="slider-value"`, `data-slot="slider-control"`, `data-slot="slider-track"`,
-`data-slot="slider-indicator"`, and `data-slot="slider-thumb"`.
+Important Ark state hooks include `data-orientation`, `data-disabled`, `data-invalid`,
+`data-focus`, `data-dragging`, marker `data-state`, and dragging-indicator
+`data-state="open | closed"`. Ark runtime CSS variables include `--slider-thumb-width`,
+`--slider-thumb-height`, `--slider-thumb-transform`, `--slider-range-start`,
+`--slider-range-end`, `--translate-x`, and `--translate-y`.

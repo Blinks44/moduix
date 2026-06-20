@@ -1238,7 +1238,7 @@
       "type": "registry:item",
       "title": "Slider",
       "description": "moduix Slider component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
