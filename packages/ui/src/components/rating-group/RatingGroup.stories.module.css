@@ -24,8 +24,18 @@
   .customIcon {
     color: var(--rating-group-active-color, var(--color-primary));
 
+    & > svg {
+      fill: currentColor;
+      stroke: currentColor;
+    }
+
     &:not([data-highlighted]) {
       color: var(--rating-group-color, var(--color-muted-foreground));
+
+      & > svg {
+        fill: transparent;
+        stroke: currentColor;
+      }
     }
   }
 }

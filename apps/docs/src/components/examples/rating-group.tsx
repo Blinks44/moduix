@@ -36,10 +36,20 @@ export const ratingGroupCustomStylingCss = `
 export const ratingGroupCustomIconCss = `
   .rating-group-custom-icon {
     color: var(--rating-group-active-color, var(--color-primary));
+
+    & > svg {
+      fill: currentColor;
+      stroke: currentColor;
+    }
   }
 
   .rating-group-custom-icon:not([data-highlighted]) {
     color: var(--rating-group-color, var(--color-muted-foreground));
+
+    & > svg {
+      fill: transparent;
+      stroke: currentColor;
+    }
   }
 `;
 
@@ -81,9 +91,9 @@ export const ratingGroupOverrideCssProperties: CssPropertyInput[] = [
     'var(--opacity-disabled)',
     'Controls disabled label and control opacity.',
   ],
-  ['--rating-group-focus-ring-color', 'var(--color-ring)', 'Controls item focus ring color.'],
+  ['--rating-group-focus-ring-color', 'transparent', 'Controls item focus ring color.'],
   ['--rating-group-focus-ring-offset', '0.125rem', 'Controls item focus ring offset.'],
-  ['--rating-group-focus-ring-width', 'var(--border-width-sm)', 'Controls item focus ring width.'],
+  ['--rating-group-focus-ring-width', '0', 'Controls item focus ring width.'],
   ['--rating-group-gap', 'var(--spacing-1)', 'Controls gap between rating items.'],
   ['--rating-group-root-gap', 'var(--spacing-1)', 'Controls gap between label and control.'],
   ['--rating-group-icon-size-xs', '0.875rem', 'Controls icon size for `xs`.'],
@@ -105,7 +115,7 @@ export const ratingGroupOverrideCssProperties: CssPropertyInput[] = [
 export const ratingGroupPlaygroundCssProperties: CssPropertyInput[] = [
   ['--rating-group-active-color', 'var(--color-primary)', 'Controls highlighted star color.'],
   ['--rating-group-color', 'var(--color-muted-foreground)', 'Controls empty star color.'],
-  ['--rating-group-focus-ring-color', 'var(--color-ring)', 'Controls item focus ring color.'],
+  ['--rating-group-focus-ring-color', 'transparent', 'Controls item focus ring color.'],
   ['--rating-group-gap', 'var(--spacing-1)', 'Controls gap between rating items.'],
   ['--rating-group-icon-size-md', '1.25rem', 'Controls medium icon size.'],
   ['--rating-group-root-gap', 'var(--spacing-1)', 'Controls gap between label and control.'],

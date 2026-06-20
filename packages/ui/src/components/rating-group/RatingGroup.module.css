@@ -81,8 +81,8 @@
     }
 
     &:focus-visible {
-      outline: var(--rating-group-focus-ring-width, var(--border-width-sm)) solid
-        var(--rating-group-focus-ring-color, var(--color-ring));
+      outline: var(--rating-group-focus-ring-width, 0) solid
+        var(--rating-group-focus-ring-color, transparent);
       outline-offset: var(--rating-group-focus-ring-offset, 0.125rem);
     }
   }

@@ -131,9 +131,9 @@ Public CSS variables:
 | `--rating-group-active-color`      | `var(--color-primary)`          |
 | `--rating-group-color`             | `var(--color-muted-foreground)` |
 | `--rating-group-disabled-opacity`  | `var(--opacity-disabled)`       |
-| `--rating-group-focus-ring-color`  | `var(--color-ring)`             |
+| `--rating-group-focus-ring-color`  | `transparent`                   |
 | `--rating-group-focus-ring-offset` | `0.125rem`                      |
-| `--rating-group-focus-ring-width`  | `var(--border-width-sm)`        |
+| `--rating-group-focus-ring-width`  | `0`                             |
 | `--rating-group-gap`               | `var(--spacing-1)`              |
 | `--rating-group-root-gap`          | `var(--spacing-1)`              |
 | `--rating-group-icon-size-xs`      | `0.875rem`                      |

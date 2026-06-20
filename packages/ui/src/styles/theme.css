@@ -1620,9 +1620,9 @@
   --rating-group-active-color: initial; /* var(--color-primary) */
   --rating-group-color: initial; /* var(--color-muted-foreground) */
   --rating-group-disabled-opacity: initial; /* var(--opacity-disabled) */
-  --rating-group-focus-ring-color: initial; /* var(--color-ring) */
+  --rating-group-focus-ring-color: initial; /* transparent */
   --rating-group-focus-ring-offset: initial; /* 0.125rem */
-  --rating-group-focus-ring-width: initial; /* var(--border-width-sm) */
+  --rating-group-focus-ring-width: initial; /* 0 */
   --rating-group-gap: initial; /* var(--spacing-1) */
   --rating-group-root-gap: initial; /* var(--spacing-1) */
   --rating-group-icon-size-xs: initial; /* 0.875rem */
