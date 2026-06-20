@@ -30,6 +30,11 @@ export const passwordInputOverrideCssProperties: CssProperty[] = [
     description: 'Horizontal padding used by the text input inside the shared control shell.',
   },
   {
+    name: '--password-input-label-gap',
+    defaultValue: 'var(--field-label-gap, var(--spacing-1))',
+    description: 'Gap between label content and any composed label adornments.',
+  },
+  {
     name: '--password-input-border-color',
     defaultValue: 'var(--input-border-color)',
     description: 'Password-specific border override layered on top of the shared Input contract.',
@@ -42,13 +47,12 @@ export const passwordInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--password-input-trigger-size',
-    defaultValue: 'var(--button-height-sm)',
+    defaultValue: 'var(--button-size-sm)',
     description: 'Square size of the visibility trigger button.',
   },
   {
     name: '--password-input-trigger-inset',
-    defaultValue:
-      'calc(var(--password-input-padding-x, var(--input-padding-x, var(--input-padding-x-md, 0.875rem))) - var(--password-input-trigger-visual-padding, var(--spacing-1)))',
+    defaultValue: 'var(--spacing-2)',
     description:
       'Inline-end padding on the control shell so the trigger stays inset from the border.',
   },
@@ -59,8 +63,13 @@ export const passwordInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--password-input-icon-size',
-    defaultValue: 'var(--button-icon-size-sm)',
+    defaultValue: 'var(--button-icon-size)',
     description: 'Icon size inside the visibility indicator.',
+  },
+  {
+    name: '--password-input-readonly-color',
+    defaultValue: 'var(--input-readonly-color)',
+    description: 'Text color for the readonly control shell and nested input.',
   },
 ];
 

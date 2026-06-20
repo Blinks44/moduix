@@ -1,0 +1,118 @@
+@layer ui.components {
+  .trigger {
+    --hover-card-trigger-current-color: var(--hover-card-trigger-color, var(--color-primary));
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--hover-card-trigger-gap, 0.25rem);
+    outline: 0;
+    color: var(--hover-card-trigger-current-color);
+    font: inherit;
+    text-decoration-line: underline;
+    text-decoration-thickness: var(--hover-card-trigger-decoration-thickness, 1px);
+    text-decoration-color: var(
+      --hover-card-trigger-decoration-color,
+      color-mix(in oklab, var(--hover-card-trigger-current-color), transparent 40%)
+    );
+    text-underline-offset: var(--hover-card-trigger-underline-offset, 2px);
+    cursor: pointer;
+    transition:
+      color var(--hover-card-transition, var(--duration-fast)),
+      text-decoration-color var(--hover-card-transition, var(--duration-fast));
+
+    @media (hover: hover) {
+      &:hover {
+        text-decoration-color: var(
+          --hover-card-trigger-decoration-color-hover,
+          var(--hover-card-trigger-current-color)
+        );
+      }
+    }
+
+    &[data-state='open'] {
+      text-decoration-color: var(
+        --hover-card-trigger-decoration-color-open,
+        var(--hover-card-trigger-current-color)
+      );
+    }
+
+    &:focus-visible {
+      border-radius: var(--hover-card-trigger-focus-radius, var(--radius-xs));
+      outline: var(--hover-card-focus-ring-width, var(--border-width-sm)) solid
+        var(--hover-card-focus-ring-color, var(--color-ring));
+      outline-offset: var(--hover-card-trigger-focus-offset, 1px);
+      text-decoration-line: none;
+    }
+
+    &:is([data-disabled], [disabled]) {
+      pointer-events: none;
+      opacity: var(--hover-card-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .positioner {
+    z-index: var(--z-index, var(--z-popup));
+    max-width: var(--available-width);
+    outline: 0;
+  }
+
+  .content {
+    position: relative;
+    z-index: calc(var(--z-popup) + var(--layer-index, 0));
+    box-sizing: border-box;
+    width: var(--hover-card-width, auto);
+    height: var(--hover-card-height, auto);
+    min-width: min(var(--hover-card-min-width, 14rem), var(--available-width));
+    max-width: min(var(--hover-card-max-width, 24rem), var(--available-width));
+    max-height: min(var(--hover-card-max-height, 24rem), var(--available-height, 100dvh));
+    overflow: visible;
+    padding: var(--hover-card-padding-y, var(--spacing-2))
+      var(--hover-card-padding-x, var(--spacing-2));
+    border: 0;
+    border-radius: var(--hover-card-radius, var(--radius-lg));
+    background-color: var(--hover-card-bg, var(--color-popover));
+    color: var(--hover-card-color, var(--color-popover-foreground));
+    outline: var(--hover-card-border-width, var(--border-width-sm)) solid
+      var(--hover-card-border-color, var(--color-border));
+    box-shadow: var(--hover-card-shadow, var(--shadow-lg));
+    transform-origin: var(--transform-origin);
+
+    &[data-state='open'] {
+      animation: hover-card-enter var(--hover-card-transition, var(--duration-fast)) both;
+    }
+
+    &[data-state='closed'] {
+      animation: hover-card-exit var(--hover-card-transition, var(--duration-fast)) both;
+    }
+  }
+
+  .arrow {
+    --arrow-size: var(--hover-card-arrow-size, 0.625rem);
+    --arrow-background: var(--hover-card-bg, var(--color-popover));
+  }
+
+  .arrowTip {
+    border-top: var(--hover-card-border-width, var(--border-width-sm)) solid
+      var(--hover-card-arrow-stroke-color, var(--hover-card-border-color, var(--color-border)));
+    border-left: var(--hover-card-border-width, var(--border-width-sm)) solid
+      var(--hover-card-arrow-stroke-color, var(--hover-card-border-color, var(--color-border)));
+  }
+
+  @keyframes hover-card-enter {
+    from {
+      opacity: var(--hover-card-content-starting-opacity, 0);
+      translate: var(--hover-card-content-starting-translate-x, 0)
+        var(--hover-card-content-starting-translate-y, 0);
+      scale: var(--hover-card-content-starting-scale, var(--scale-popup));
+    }
+  }
+
+  @keyframes hover-card-exit {
+    to {
+      opacity: var(--hover-card-content-ending-opacity, 0);
+      translate: var(--hover-card-content-ending-translate-x, 0)
+        var(--hover-card-content-ending-translate-y, 0);
+      scale: var(--hover-card-content-ending-scale, var(--scale-popup));
+    }
+  }
+}

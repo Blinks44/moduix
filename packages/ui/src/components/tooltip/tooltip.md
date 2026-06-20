@@ -8,7 +8,7 @@ Upstream primitive docs: https://base-ui.com/react/components/tooltip.md
 visual labels, compact explanations, and quick contextual hints that should appear on hover or
 focus.
 
-Use `Popover` or `PreviewCard` instead when the popup needs interactive content, rich layout, or a
+Use `Popover` or `HoverCard` instead when the popup needs interactive content, rich layout, or a
 surface that users are expected to move the pointer into.
 
 ## Current behavior contract
@@ -347,7 +347,7 @@ Do not treat them as public theming hooks.
 - Tooltips are a visual enhancement for sighted hover/focus users. Do not rely on them as the only
   label or instruction for an action.
 - Prefer short, plain text content. If the popup needs links, buttons, forms, or long-form
-  explanation, use `Popover` or `PreviewCard` instead.
+  explanation, use `Popover` or `HoverCard` instead.
 - Keep icon-only triggers accessible with `aria-label` or an equivalent accessible name that closely
   matches the tooltip text.
 - `TooltipTrigger disabled` only disables tooltip behavior. If the rendered control itself should be

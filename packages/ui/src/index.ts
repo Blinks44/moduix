@@ -37,7 +37,7 @@ export * from './components/pin-input';
 export * from './components/pagination';
 export * from './components/password-input';
 export * from './components/popover';
-export * from './components/preview-card';
+export * from './components/hover-card';
 export * from './components/progress';
 export * from './components/radio-group';
 export * from './components/rating';

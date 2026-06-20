@@ -3,7 +3,7 @@
   "name": "accordion",
   "title": "Accordion",
   "description": "moduix Accordion component.",
-  "dependencies": ["@base-ui/react", "clsx"],
+  "dependencies": ["@ark-ui/react", "clsx"],
   "registryDependencies": ["Blinks44/moduix/core"],
   "files": [
     {

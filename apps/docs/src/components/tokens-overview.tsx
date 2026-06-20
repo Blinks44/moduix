@@ -385,7 +385,7 @@ const shadowTokens = [
 ];
 
 const transformTokens = [
-  ['--scale-popup', '0.9', 'Dialog, popover, tooltip, menu, preview card, toast, nav menu'],
+  ['--scale-popup', '0.9', 'Dialog, popover, tooltip, menu, hover card, toast, nav menu'],
   ['--scale-dropdown', '0.95', 'Select, combobox, autocomplete'],
 ];
 
@@ -412,7 +412,6 @@ const sharedBackdropTokens = [
   ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Lightbox'],
   ['--select-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Select'],
   ['--menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Menu'],
-  ['--preview-card-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'PreviewCard'],
 ];
 
 const sharedPopupTokens = [

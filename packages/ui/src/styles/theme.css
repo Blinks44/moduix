@@ -1379,18 +1379,18 @@
   --password-input-border-color: initial; /* var(--input-border-color, var(--color-border)) */
   --password-input-color: initial; /* var(--input-color, var(--color-foreground)) */
   --password-input-disabled-opacity: initial; /* var(--opacity-disabled) */
-  --password-input-end-padding: initial; /* calc(var(--password-input-trigger-inset, calc(var(--password-input-padding-x, var(--input-padding-x, var(--input-padding-x-md, 0.875rem))) - var(--password-input-trigger-visual-padding, var(--spacing-1)))) + max(var(--password-input-trigger-size, var(--button-height-sm)), calc(var(--password-input-trigger-visual-padding, var(--spacing-1)) * 2 + var(--password-input-icon-size, var(--button-icon-size-sm))))) */
   --password-input-focus-border-color: initial; /* var(--input-focus-border-color) */
   --password-input-focus-ring-color: initial; /* var(--input-focus-ring-color) */
   --password-input-font-size: initial; /* var(--input-font-size-md) */
   --password-input-gap: initial; /* var(--spacing-1-5) */
   --password-input-height: initial; /* var(--input-height-md) */
-  --password-input-icon-size: initial; /* var(--button-icon-size-sm) */
+  --password-input-icon-size: initial; /* var(--button-icon-size, 1rem) */
   --password-input-invalid-border-color: initial; /* var(--input-invalid-border-color) */
   --password-input-invalid-focus-ring-color: initial; /* var(--input-invalid-focus-ring-color) */
   --password-input-label-color: initial; /* var(--color-foreground) */
-  --password-input-label-font-size: initial; /* var(--font-size-sm) */
+  --password-input-label-font-size: initial; /* var(--text-sm) */
   --password-input-label-font-weight: initial; /* var(--font-weight-medium) */
+  --password-input-label-gap: initial; /* var(--field-label-gap, var(--spacing-1)) */
   --password-input-label-line-height: initial; /* var(--line-height-text-sm) */
   --password-input-line-height: initial; /* var(--input-line-height-md) */
   --password-input-max-width: initial; /* 20rem */
@@ -1399,13 +1399,14 @@
   --password-input-placeholder-color: initial; /* var(--input-placeholder-color) */
   --password-input-radius: initial; /* var(--input-radius, var(--radius-md)) */
   --password-input-readonly-bg: initial; /* var(--input-readonly-bg) */
+  --password-input-readonly-color: initial; /* var(--input-readonly-color, var(--color-foreground)) */
   --password-input-trigger-bg: initial; /* transparent */
   --password-input-trigger-color: initial; /* var(--color-muted-foreground) */
   --password-input-trigger-hover-bg: initial; /* var(--color-muted) */
   --password-input-trigger-hover-color: initial; /* var(--color-foreground) */
-  --password-input-trigger-inset: initial; /* calc(var(--password-input-padding-x, var(--input-padding-x, var(--input-padding-x-md, 0.875rem))) - var(--password-input-trigger-visual-padding, var(--spacing-1))) */
+  --password-input-trigger-inset: initial; /* var(--spacing-2) */
   --password-input-trigger-radius: initial; /* var(--radius-sm) */
-  --password-input-trigger-size: initial; /* var(--button-height-sm) */
+  --password-input-trigger-size: initial; /* var(--button-size-sm, var(--size-sm)) */
   --password-input-trigger-visual-padding: initial; /* var(--spacing-1) */
   --password-input-width: initial; /* 100% */
 
@@ -1489,52 +1490,43 @@
   --popover-transition: initial; /* var(--duration-fast) */
   --popover-width: initial; /* auto */
 
-  /* PreviewCard */
-  --preview-card-arrow-height: initial; /* 0.625rem */
-  --preview-card-arrow-inline-offset: initial; /* 0.8125rem */
-  --preview-card-arrow-size: initial; /* 0.5rem */
-  --preview-card-arrow-stroke-color: initial; /* var(--preview-card-border-color, var(--color-border)) */
-  --preview-card-arrow-width: initial; /* 1.25rem */
-  --preview-card-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
-  --preview-card-backdrop-blur: initial; /* 4px */
-  --preview-card-backdrop-ending-blur: initial; /* none */
-  --preview-card-backdrop-ending-opacity: initial; /* 0 */
-  --preview-card-backdrop-starting-blur: initial; /* none */
-  --preview-card-backdrop-starting-opacity: initial; /* 0 */
-  --preview-card-backdrop-transition: initial; /* var(--transition-default) */
-  --preview-card-bg: initial; /* var(--color-popover) */
-  --preview-card-border-color: initial; /* var(--color-border) */
-  --preview-card-border-width: initial; /* var(--border-width-sm) */
-  --preview-card-color: initial; /* var(--color-popover-foreground) */
-  --preview-card-disabled-opacity: initial; /* var(--opacity-disabled) */
-  --preview-card-focus-ring-color: initial; /* var(--color-ring) */
-  --preview-card-focus-ring-width: initial; /* var(--border-width-sm) */
-  --preview-card-height: initial; /* auto */
-  --preview-card-max-height: initial; /* 24rem */
-  --preview-card-max-width: initial; /* 24rem */
-  --preview-card-min-width: initial; /* 14rem */
-  --preview-card-padding-x: initial; /* var(--spacing-2) */
-  --preview-card-padding-y: initial; /* var(--spacing-2) */
-  --preview-card-popup-ending-opacity: initial; /* 0 */
-  --preview-card-popup-ending-scale: initial; /* var(--scale-popup) */
-  --preview-card-popup-ending-translate-x: initial; /* 0 */
-  --preview-card-popup-ending-translate-y: initial; /* 0 */
-  --preview-card-popup-starting-opacity: initial; /* 0 */
-  --preview-card-popup-starting-scale: initial; /* var(--scale-popup) */
-  --preview-card-popup-starting-translate-x: initial; /* 0 */
-  --preview-card-popup-starting-translate-y: initial; /* 0 */
-  --preview-card-radius: initial; /* var(--radius-lg) */
-  --preview-card-shadow: initial; /* var(--shadow-lg) */
-  --preview-card-transition: initial; /* var(--transition-default) */
-  --preview-card-trigger-color: initial; /* var(--color-primary) */
-  --preview-card-trigger-decoration-color: initial; /* color-mix(in oklab, var(--preview-card-trigger-color, var(--color-primary)), transparent 40%) */
-  --preview-card-trigger-decoration-color-hover: initial; /* var(--preview-card-trigger-color, var(--color-primary)) */
-  --preview-card-trigger-decoration-color-open: initial; /* var(--preview-card-trigger-color, var(--color-primary)) */
-  --preview-card-trigger-decoration-thickness: initial; /* 1px */
-  --preview-card-trigger-focus-offset: initial; /* 1px */
-  --preview-card-trigger-focus-radius: initial; /* var(--radius-xs) */
-  --preview-card-trigger-underline-offset: initial; /* 2px */
-  --preview-card-width: initial; /* auto */
+  /* HoverCard */
+  --hover-card-arrow-size: initial; /* 0.625rem */
+  --hover-card-arrow-stroke-color: initial; /* var(--hover-card-border-color, var(--color-border)) */
+  --hover-card-bg: initial; /* var(--color-popover) */
+  --hover-card-border-color: initial; /* var(--color-border) */
+  --hover-card-border-width: initial; /* var(--border-width-sm) */
+  --hover-card-color: initial; /* var(--color-popover-foreground) */
+  --hover-card-content-ending-opacity: initial; /* 0 */
+  --hover-card-content-ending-scale: initial; /* var(--scale-popup) */
+  --hover-card-content-ending-translate-x: initial; /* 0 */
+  --hover-card-content-ending-translate-y: initial; /* 0 */
+  --hover-card-content-starting-opacity: initial; /* 0 */
+  --hover-card-content-starting-scale: initial; /* var(--scale-popup) */
+  --hover-card-content-starting-translate-x: initial; /* 0 */
+  --hover-card-content-starting-translate-y: initial; /* 0 */
+  --hover-card-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --hover-card-focus-ring-color: initial; /* var(--color-ring) */
+  --hover-card-focus-ring-width: initial; /* var(--border-width-sm) */
+  --hover-card-height: initial; /* auto */
+  --hover-card-max-height: initial; /* 24rem */
+  --hover-card-max-width: initial; /* 24rem */
+  --hover-card-min-width: initial; /* 14rem */
+  --hover-card-padding-x: initial; /* var(--spacing-2) */
+  --hover-card-padding-y: initial; /* var(--spacing-2) */
+  --hover-card-radius: initial; /* var(--radius-lg) */
+  --hover-card-shadow: initial; /* var(--shadow-lg) */
+  --hover-card-transition: initial; /* var(--duration-fast) */
+  --hover-card-trigger-color: initial; /* var(--color-primary) */
+  --hover-card-trigger-decoration-color: initial; /* color-mix(in oklab, var(--hover-card-trigger-color, var(--color-primary)), transparent 40%) */
+  --hover-card-trigger-decoration-color-hover: initial; /* var(--hover-card-trigger-color, var(--color-primary)) */
+  --hover-card-trigger-decoration-color-open: initial; /* var(--hover-card-trigger-color, var(--color-primary)) */
+  --hover-card-trigger-decoration-thickness: initial; /* 1px */
+  --hover-card-trigger-focus-offset: initial; /* 1px */
+  --hover-card-trigger-focus-radius: initial; /* var(--radius-xs) */
+  --hover-card-trigger-gap: initial; /* 0.25rem */
+  --hover-card-trigger-underline-offset: initial; /* 2px */
+  --hover-card-width: initial; /* auto */
 
   /* Progress */
   --progress-color: initial; /* var(--color-foreground) */

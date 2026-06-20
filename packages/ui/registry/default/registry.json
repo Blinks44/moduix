@@ -134,7 +134,7 @@
       "type": "registry:item",
       "title": "Accordion",
       "description": "moduix Accordion component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
@@ -1009,26 +1009,26 @@
       ]
     },
     {
-      "name": "preview-card",
+      "name": "hover-card",
       "type": "registry:item",
-      "title": "PreviewCard",
-      "description": "moduix PreviewCard component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "title": "HoverCard",
+      "description": "moduix HoverCard component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
-          "path": "packages/ui/src/components/preview-card/PreviewCard.tsx",
-          "target": "@components/moduix/preview-card/PreviewCard.tsx",
+          "path": "packages/ui/src/components/hover-card/HoverCard.tsx",
+          "target": "@components/moduix/hover-card/HoverCard.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/ui/src/components/preview-card/PreviewCard.module.css",
-          "target": "@components/moduix/preview-card/PreviewCard.module.css",
+          "path": "packages/ui/src/components/hover-card/HoverCard.module.css",
+          "target": "@components/moduix/hover-card/HoverCard.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/ui/src/components/preview-card/index.ts",
-          "target": "@components/moduix/preview-card/index.ts",
+          "path": "packages/ui/src/components/hover-card/index.ts",
+          "target": "@components/moduix/hover-card/index.ts",
           "type": "registry:component"
         }
       ]

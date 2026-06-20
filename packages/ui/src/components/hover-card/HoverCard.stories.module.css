@@ -1,0 +1,80 @@
+@layer ui.stories {
+  .paragraph {
+    max-width: 33rem;
+    margin: 0;
+    color: var(--color-foreground);
+    font-size: var(--text-md);
+    line-height: var(--line-height-text-md);
+
+    & a {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-1);
+    }
+
+    & svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  .stack {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .button {
+    min-height: var(--size-lg);
+    padding: 0 var(--spacing-4);
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    cursor: pointer;
+    transition:
+      background-color var(--transition-default),
+      border-color var(--transition-default);
+
+    @media (hover: hover) {
+      &:hover {
+        background: var(--color-accent);
+      }
+    }
+  }
+
+  .card {
+    display: grid;
+    gap: var(--spacing-2);
+    width: min(14rem, calc(100vw - 4rem));
+  }
+
+  .image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 14 / 8;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  .name,
+  .bio {
+    margin: 0;
+  }
+
+  .name {
+    color: var(--color-popover-foreground);
+    font-size: var(--text-md);
+    font-weight: var(--weight-bold);
+    line-height: var(--line-height-text-md);
+  }
+
+  .bio {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+}

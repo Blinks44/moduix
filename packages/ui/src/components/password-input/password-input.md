@@ -108,6 +108,8 @@ component and barrel exports in the same migration style.
 
 ## Local changelog
 
+- 2026-06-20: Added missing public password-input styling variables and aligned trigger/icon
+  defaults with the shared Button tokens.
 - 2026-06-20: Moved the shared field shell styling to `PasswordInput.Control` so the input area
   ends before the visibility trigger instead of rendering underneath the eye button.
 - 2026-06-20: Migrated PasswordInput from the custom InputGroup implementation to Ark UI

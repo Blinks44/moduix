@@ -1,0 +1,469 @@
+---
+title: Hover Card
+description: Ark UI hover card composition for rich previews shown from hover or focus triggers.
+icon: Component
+---
+
+import {
+  ContextHoverCardExample,
+  ControlledHoverCardExample,
+  CustomStylingHoverCardExample,
+  DelayHoverCardExample,
+  HoverCardCssPropertiesPanel,
+  HoverCardExample,
+  MultipleTriggersHoverCardExample,
+  PositioningHoverCardExample,
+  RootProviderHoverCardExample,
+} from '@/components/examples/hover-card';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/hover-card" />
+
+## Basic
+
+Use the Ark part tree directly: render `HoverCard.Trigger` near the hovered content, then portal
+`HoverCard.Positioner` and `HoverCard.Content`. `HoverCard.Arrow` renders the moduix default
+`ArrowTip` when no children are passed.
+
+<Preview>
+  <HoverCardExample />
+
+  <Preview.Code>
+    {`
+      import { HoverCard } from "moduix";
+
+      export function HoverCardDemo() {
+        return (
+          <HoverCard>
+            <p>
+              Liked by{" "}
+              <HoverCard.Trigger asChild>
+                <a href="#profile">@sarah_chen</a>
+              </HoverCard.Trigger>{" "}
+              and 3 others
+            </p>
+            <HoverCard.Portal>
+              <HoverCard.Positioner>
+                <HoverCard.Content>
+                  <HoverCard.Arrow />
+                  <ProfileCard profile={profiles[0]} />
+                </HoverCard.Content>
+              </HoverCard.Positioner>
+            </HoverCard.Portal>
+          </HoverCard>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`[data-slot="hover-card-content"] { transform-origin: var(--transform-origin); }`}</Preview.CSS>
+  <Preview.Data>{`const profiles = hoverCardProfiles;`}</Preview.Data>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `Hover Card` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/hover-card
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/hover-card
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/hover-card
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/hover-card
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/hover-card
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+HoverCard / HoverCard.Root
+├─ HoverCard.Context (optional render-prop access)
+├─ HoverCard.Trigger
+└─ HoverCard.Portal
+   └─ HoverCard.Positioner
+      └─ HoverCard.Content
+         └─ HoverCard.Arrow
+            └─ HoverCard.ArrowTip
+
+HoverCard.RootProvider
+└─ same part tree connected to a useHoverCard() store
+```
+
+| Part                           | Role                                                                     |
+| ------------------------------ | ------------------------------------------------------------------------ |
+| `HoverCard` / `HoverCard.Root` | Root state, delays, positioning, ids, presence, and outside interaction. |
+| `HoverCard.RootProvider`       | Renders a hover card tree from state returned by `useHoverCard`.         |
+| `HoverCard.Trigger`            | Hover and focus target. Use `asChild` for links or custom hosts.         |
+| `HoverCard.Portal`             | Portal exported by moduix for popup mounting.                            |
+| `HoverCard.Positioner`         | Floating layer that exposes Ark positioning CSS variables.               |
+| `HoverCard.Content`            | Visible popup surface and dismissable layer.                             |
+| `HoverCard.Arrow`              | Positioned arrow wrapper. Defaults to `HoverCard.ArrowTip`.              |
+| `HoverCard.ArrowTip`           | Arrow tip element styled through Ark arrow variables.                    |
+| `HoverCard.Context`            | Inline access to open state and other Ark context data.                  |
+
+## Composition
+
+### Recommended composition
+
+Keep the popup structure explicit. Configure placement, gutters, collision behavior, delays, ids,
+controlled state, lazy mounting, and presence on `HoverCard`; style and animate the surface on
+`HoverCard.Content`.
+
+### When to go custom
+
+Use `asChild` on `HoverCard.Trigger` when the trigger should be a real link or your own semantic
+button. Use `HoverCard.ArrowTip` directly when the default arrow tip needs custom markup. Use
+`HoverCard.RootProvider` only when state created with `useHoverCard()` must be shared outside the
+rendered tree.
+
+### Default props
+
+| Prop                   | Default | Notes                                                              |
+| ---------------------- | ------- | ------------------------------------------------------------------ |
+| `closeDelay`           | `300`   | Time in ms from pointer leaving trigger/content until close.       |
+| `openDelay`            | `600`   | Time in ms from pointer entering trigger until open.               |
+| `lazyMount`            | `false` | Defers content mounting until first open.                          |
+| `unmountOnExit`        | `false` | Removes content after close when enabled.                          |
+| `skipAnimationOnMount` | `false` | Allows initial presence animation by default.                      |
+| `positioning`          | -       | Ark floating positioning options such as `placement` and `gutter`. |
+
+### Behavioral notes
+
+`onOpenChange` receives Ark detail objects such as `{ open }`; use `details.open` instead of the
+old boolean callback shape. Multiple triggers use `Trigger value` plus `onTriggerValueChange`.
+`ids` can pin trigger, content, positioner, and arrow IDs for composed accessibility. Animations are
+tied to `data-state='open' | 'closed'`; `present` is available for externally controlled presence.
+
+## Examples
+
+### Controlled
+
+Control the open state with `open` and `onOpenChange(details)`.
+
+<Preview>
+  <ControlledHoverCardExample />
+
+  <Preview.Code>
+    {`
+      import { HoverCard } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledHoverCard() {
+        const [open, setOpen] = useState(false);
+
+        return (
+          <HoverCard open={open} onOpenChange={(details) => setOpen(details.open)}>
+            <HoverCard.Trigger asChild>
+              <a href="#profile">@sarah_chen</a>
+            </HoverCard.Trigger>
+            <HoverCard.Portal>
+              <HoverCard.Positioner>
+                <HoverCard.Content>
+                  <HoverCard.Arrow />
+                  <ProfileCard profile={profiles[0]} />
+                </HoverCard.Content>
+              </HoverCard.Positioner>
+            </HoverCard.Portal>
+          </HoverCard>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="hover-card-trigger"][data-state="open"] { text-decoration-color: currentColor; }`}</Preview.CSS>
+  <Preview.Data>{`const initialOpen = false;`}</Preview.Data>
+</Preview>
+
+### Root Provider
+
+Create the machine state with `useHoverCard()` when external controls need to read or update it.
+
+<Preview>
+  <RootProviderHoverCardExample />
+
+  <Preview.Code>
+    {`
+      import { HoverCard, useHoverCard } from "moduix";
+
+      export function RootProviderHoverCard() {
+        const hoverCard = useHoverCard();
+
+        return (
+          <HoverCard.RootProvider value={hoverCard}>
+            <HoverCard.Trigger asChild>
+              <a href="#profile">@sarah_chen</a>
+            </HoverCard.Trigger>
+            <HoverCard.Portal>
+              <HoverCard.Positioner>
+                <HoverCard.Content>
+                  <HoverCard.Arrow />
+                  <ProfileCard profile={profiles[0]} />
+                </HoverCard.Content>
+              </HoverCard.Positioner>
+            </HoverCard.Portal>
+          </HoverCard.RootProvider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="hover-card-root-provider"] { --hover-card-max-width: 18rem; }`}</Preview.CSS>
+  <Preview.Data>{`const hoverCard = useHoverCard();`}</Preview.Data>
+</Preview>
+
+### Delay
+
+Tune hover timing with `openDelay` and `closeDelay` on the root.
+
+<Preview>
+  <DelayHoverCardExample />
+
+  <Preview.Code>
+    {`
+      import { HoverCard } from "moduix";
+
+      export function DelayHoverCard() {
+        return (
+          <HoverCard openDelay={200} closeDelay={500}>
+            <HoverCard.Trigger asChild>
+              <a href="#profile">@sarah_chen</a>
+            </HoverCard.Trigger>
+            <HoverCard.Portal>
+              <HoverCard.Positioner>
+                <HoverCard.Content>
+                  <HoverCard.Arrow />
+                  <ProfileCard profile={profiles[0]} />
+                </HoverCard.Content>
+              </HoverCard.Positioner>
+            </HoverCard.Portal>
+          </HoverCard>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`/* Timing is configured by Root props, not CSS. */`}</Preview.CSS>
+  <Preview.Data>{`const timing = { openDelay: 200, closeDelay: 500 };`}</Preview.Data>
+</Preview>
+
+### Positioning
+
+Pass Ark positioning options through the `positioning` prop.
+
+<Preview>
+  <PositioningHoverCardExample />
+
+  <Preview.Code>
+    {`
+      import { HoverCard } from "moduix";
+
+      export function PositioningHoverCard() {
+        return (
+          <HoverCard positioning={{ placement: "right", gutter: 12 }}>
+            <HoverCard.Trigger asChild>
+              <a href="#profile">@sarah_chen</a>
+            </HoverCard.Trigger>
+            <HoverCard.Portal>
+              <HoverCard.Positioner>
+                <HoverCard.Content>
+                  <HoverCard.Arrow />
+                  <ProfileCard profile={profiles[0]} />
+                </HoverCard.Content>
+              </HoverCard.Positioner>
+            </HoverCard.Portal>
+          </HoverCard>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="hover-card-positioner"] { max-width: var(--available-width); }`}</Preview.CSS>
+  <Preview.Data>{`const positioning = { placement: "right", gutter: 12 };`}</Preview.Data>
+</Preview>
+
+### Context
+
+Use `HoverCard.Context` for inline state reads, such as changing trigger icons while open.
+
+<Preview>
+  <ContextHoverCardExample />
+
+  <Preview.Code>
+    {`
+      import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+      import { HoverCard } from "moduix";
+
+      export function ContextHoverCard() {
+        return (
+          <HoverCard>
+            <HoverCard.Context>
+              {(context) => (
+                <HoverCard.Trigger asChild>
+                  <a href="#profile">
+                    @sarah_chen {context.open ? <ChevronUpIcon /> : <ChevronDownIcon />}
+                  </a>
+                </HoverCard.Trigger>
+              )}
+            </HoverCard.Context>
+            <HoverCard.Portal>
+              <HoverCard.Positioner>
+                <HoverCard.Content>
+                  <HoverCard.Arrow />
+                  <ProfileCard profile={profiles[0]} />
+                </HoverCard.Content>
+              </HoverCard.Positioner>
+            </HoverCard.Portal>
+          </HoverCard>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="hover-card-trigger"] svg { width: 1em; height: 1em; }`}</Preview.CSS>
+  <Preview.Data>{`const icon = context.open ? "up" : "down";`}</Preview.Data>
+</Preview>
+
+### Multiple Triggers
+
+Share one content surface across trigger values with `Trigger value` and
+`onTriggerValueChange(details)`.
+
+<Preview>
+  <MultipleTriggersHoverCardExample />
+
+  <Preview.Code>
+    {`
+      import { HoverCard } from "moduix";
+      import { useState } from "react";
+
+      export function MultipleTriggersHoverCard() {
+        const [activeProfile, setActiveProfile] = useState(profiles[0]);
+
+        return (
+          <HoverCard
+            onTriggerValueChange={(details) => {
+              setActiveProfile(profiles.find((profile) => profile.id === details.value) ?? null);
+            }}
+          >
+            {profiles.map((profile) => (
+              <HoverCard.Trigger key={profile.id} value={profile.id} asChild>
+                <a href={"#" + profile.id}>{profile.username}</a>
+              </HoverCard.Trigger>
+            ))}
+            <HoverCard.Portal>
+              <HoverCard.Positioner>
+                <HoverCard.Content>
+                  <HoverCard.Arrow />
+                  {activeProfile ? <ProfileCard profile={activeProfile} /> : null}
+                </HoverCard.Content>
+              </HoverCard.Positioner>
+            </HoverCard.Portal>
+          </HoverCard>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="hover-card-trigger"][data-current] { font-weight: var(--weight-semibold); }`}</Preview.CSS>
+  <Preview.Data>{`const profiles = hoverCardProfiles;`}</Preview.Data>
+</Preview>
+
+### Custom Styling
+
+Override moduix CSS variables and target stable `data-slot` hooks without changing the Ark tree.
+
+<Preview>
+  <CustomStylingHoverCardExample />
+
+  <Preview.Code>
+    {`
+      import { HoverCard } from "moduix";
+
+      export function CustomStylingHoverCard() {
+        return (
+          <HoverCard positioning={{ placement: "bottom-start", gutter: 10 }}>
+            <HoverCard.Trigger className="custom-trigger" asChild>
+              <a href="#profile">@sarah_chen</a>
+            </HoverCard.Trigger>
+            <HoverCard.Portal>
+              <HoverCard.Positioner>
+                <HoverCard.Content className="custom-content">
+                  <HoverCard.Arrow />
+                  <ProfileCard profile={profiles[0]} />
+                </HoverCard.Content>
+              </HoverCard.Positioner>
+            </HoverCard.Portal>
+          </HoverCard>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .custom-content {
+        --hover-card-bg: var(--color-foreground);
+        --hover-card-color: var(--color-background);
+        --hover-card-max-width: 17rem;
+      }
+    `}
+
+  </Preview.CSS>
+  <Preview.Data>{`const profile = hoverCardProfiles[0];`}</Preview.Data>
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']}>
+    <Tab value="CSS Variables">
+      <div style={{ maxHeight: '24rem', overflow: 'auto' }}>
+        <HoverCardCssPropertiesPanel />
+      </div>
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use `data-slot="hover-card-trigger"`, `data-slot="hover-card-positioner"`,
+`data-slot="hover-card-content"`, `data-slot="hover-card-arrow"`, and
+`data-slot="hover-card-arrow-tip"`. Ark also exposes `data-scope="hover-card"`,
+`data-part`, `data-state`, `data-placement`, `data-side`, `data-value`, and `data-current`.
+Positioning and animation styles can use Ark variables including `--available-width`,
+`--available-height`, `--reference-width`, `--reference-height`, `--transform-origin`,
+`--layer-index`, `--arrow-size`, `--arrow-background`, and `--arrow-offset`.
