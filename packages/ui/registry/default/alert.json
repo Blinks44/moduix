@@ -3,7 +3,7 @@
   "name": "alert",
   "title": "Alert",
   "description": "moduix Alert component.",
-  "dependencies": ["clsx"],
+  "dependencies": ["@ark-ui/react", "clsx"],
   "registryDependencies": ["Blinks44/moduix/core"],
   "files": [
     {

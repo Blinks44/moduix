@@ -1,8 +1,58 @@
-import type { ComponentProps } from 'react';
-import { Spinner } from 'moduix';
+import { Spinner, type SpinnerRootProps } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './spinner.module.css';
+
+export const spinnerInlineCss = `
+  .inline {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  .muted {
+    color: var(--color-muted-foreground);
+  }
+`;
+
+export const spinnerRowCss = `
+  .row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+  }
+`;
+
+export const spinnerStylingCss = `
+  .brandSpinner {
+    --spinner-color: var(--color-primary);
+    --spinner-ring-border-width: 0.1875rem;
+    --spinner-ring-track-color: color-mix(
+      in oklab,
+      var(--color-primary) 22%,
+      transparent 40%
+    );
+  }
+`;
+
+export const spinnerAsChildCss = `
+  .customSpinnerHost {
+    color: var(--color-primary);
+  }
+
+  .customSpinnerIndicator {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: var(--spinner-ring-border-width, 0.125rem) solid
+      var(--spinner-ring-track-color, color-mix(in oklab, currentColor 22%, transparent));
+    border-block-start-color: var(--spinner-color, currentColor);
+    border-radius: var(--spinner-radius, var(--radius-full));
+    animation: var(--spinner-animation, var(--animation-spin));
+  }
+`;
+
+export const spinnerSizeData = `const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;`;
 
 export const spinnerOverrideCssProperties: CssPropertyInput[] = [
   ['--spinner-animation', 'var(--animation-spin)', 'Controls indicator rotation animation.'],
@@ -36,7 +86,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function SpinnerExample(props: ComponentProps<typeof Spinner>) {
+export function SpinnerExample(props: SpinnerRootProps) {
   return <Spinner {...props} />;
 }
 
@@ -50,13 +100,13 @@ export function SpinnerInlineExample() {
 }
 
 export function SpinnerSizesExample() {
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
   return (
     <div className={styles.row}>
-      <Spinner size="xs" />
-      <Spinner size="sm" />
-      <Spinner size="md" />
-      <Spinner size="lg" />
-      <Spinner size="xl" />
+      {sizes.map((size) => (
+        <Spinner key={size} decorative size={size} />
+      ))}
     </div>
   );
 }
@@ -78,4 +128,18 @@ export function SpinnerCustomIndicatorExample() {
 
 export function SpinnerStylingExample() {
   return <Spinner decorative size="lg" className={styles.brandSpinner} />;
+}
+
+export function SpinnerAsChildExample() {
+  return (
+    <Spinner asChild size="lg" aria-label="Loading report">
+      <span className={styles.customSpinnerHost}>
+        <span
+          data-scope="spinner"
+          data-part="indicator"
+          className={styles.customSpinnerIndicator}
+        />
+      </span>
+    </Spinner>
+  );
 }

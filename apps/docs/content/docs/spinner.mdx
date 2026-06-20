@@ -5,17 +5,26 @@ icon: Component
 ---
 
 import {
+  SpinnerAsChildExample,
   SpinnerCssPropertiesPanel,
   SpinnerCustomIndicatorExample,
   SpinnerExample,
   SpinnerInlineExample,
   SpinnerSizesExample,
   SpinnerStylingExample,
+  spinnerAsChildCss,
+  spinnerInlineCss,
+  spinnerRowCss,
+  spinnerSizeData,
+  spinnerStylingCss,
 } from '@/components/examples/spinner';
 
 ## API Reference
 
-`Spinner` is a local moduix component. There is no dedicated Ark UI spinner primitive for this API.
+There is no dedicated Ark UI `Spinner` primitive. moduix implements `Spinner` as a root-only
+Ark-style component with `@ark-ui/react/factory`, `asChild`, and Ark `data-scope` / `data-part`
+styling hooks. Chakra UI's spinner contract informs the size, track color, custom color, thickness,
+speed, label, and overlay composition examples.
 
 ## Basic
 
@@ -36,6 +45,9 @@ states. The default path announces loading automatically with `role="status"` an
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{`/* No extra styles required. */`}</Preview.CSS>
+  <Preview.Data>{`// No setup data required.`}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -89,20 +101,20 @@ as styles, icons, and small utilities.
 The normal consumer path is short:
 
 ```text
-Spinner
+Spinner / Spinner.Root
 └─ spinner-indicator
    └─ spinner-ring (default indicator only)
 ```
 
-| Part                | Role                                                                       |
-| ------------------- | -------------------------------------------------------------------------- |
-| `Spinner`           | Root status element. Supports `size`, `decorative`, and native span props. |
-| `spinner-indicator` | Inner rotating wrapper that keeps sizing and spin behavior.                |
-| `spinner-ring`      | Default ring indicator. Renders only when custom `children` are absent.    |
+| Part                       | Role                                                                                  |
+| -------------------------- | ------------------------------------------------------------------------------------- |
+| `Spinner` / `Spinner.Root` | Root status element. Supports `size`, `decorative`, `asChild`, and native span props. |
+| `spinner-indicator`        | Inner rotating wrapper that keeps sizing and spin behavior.                           |
+| `spinner-ring`             | Default ring indicator. Renders only when custom `children` are absent.               |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
 Stay with the default ring when a compact loading indicator is enough.
 
@@ -113,8 +125,11 @@ Stay with the default ring when a compact loading indicator is enough.
 
 ### When to go custom
 
-`Spinner` does not expose a lower-level parts API. The custom path is `children`, which replaces the
-default ring inside the same rotating wrapper.
+`Spinner` is a root-only component. Use `children` to replace the default ring while keeping the
+default root, sizing, and rotating indicator wrapper.
+
+Use `asChild` when the root element itself must be provided by the consumer. In that mode, Ark merges
+root props into the single child, so the child owns its visual contents.
 
 ### Default props
 
@@ -122,15 +137,21 @@ default ring inside the same rotating wrapper.
 | ------------ | ----------- | -------------------------------------------------------- |
 | `size`       | `'md'`      | Accepts `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`.          |
 | `decorative` | `false`     | Switches the root from status semantics to presentation. |
+| `asChild`    | `false`     | Merges root props into the single child element.         |
 | `aria-label` | `'Loading'` | Applied by default when the spinner is not decorative.   |
 
 ### Behavioral notes
 
-- The root always renders as a `span` with `data-slot="spinner-root"` and `data-size`.
+- `Spinner` and `Spinner.Root` are the same root component.
+- The default root renders as a `span` with `data-scope="spinner"`, `data-part="root"`,
+  `data-slot="spinner-root"`, and `data-size`.
 - Non-decorative spinners render with `role="status"`.
 - `decorative={true}` switches the root to `role="presentation"` and `aria-hidden="true"`.
-- The rotating wrapper is always `data-slot="spinner-indicator"`.
+- The rotating wrapper is `data-scope="spinner"`, `data-part="indicator"`, and
+  `data-slot="spinner-indicator"`.
 - Custom `children` replace only the default ring. The wrapper still owns sizing and rotation.
+- With `asChild`, the consumer-provided child becomes the root and must provide any visual indicator
+  content it needs.
 - Spinner motion is disabled automatically under `prefers-reduced-motion`.
 
 ## Examples
@@ -158,6 +179,9 @@ Use `decorative` when visible text next to the spinner already says what is happ
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{spinnerInlineCss}</Preview.CSS>
+  <Preview.Data>{`// No setup data required.`}</Preview.Data>
 </Preview>
 
 ### Sizes
@@ -185,6 +209,9 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{spinnerRowCss}</Preview.CSS>
+  <Preview.Data>{spinnerSizeData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -206,20 +233,42 @@ Use `className` and `--spinner-*` variables for one-off color and ring overrides
 
   </Preview.Code>
 
-  <Preview.CSS>
+  <Preview.CSS>{spinnerStylingCss}</Preview.CSS>
+  <Preview.Data>{`// No setup data required.`}</Preview.Data>
+</Preview>
+
+### As Child
+
+Use `asChild` when another semantic element needs to become the spinner root. The child receives the
+root attributes and class name, so it must render the visual indicator itself.
+
+<Preview>
+  <SpinnerAsChildExample />
+
+  <Preview.Code>
     {`
-      .brandSpinner {
-        --spinner-color: var(--color-primary);
-        --spinner-ring-border-width: 0.1875rem;
-        --spinner-ring-track-color: color-mix(
-          in oklab,
-          var(--color-primary) 22%,
-          transparent 40%
+      import { Spinner } from "moduix";
+      import styles from "./spinner.module.css";
+
+      export function SpinnerAsChildDemo() {
+        return (
+          <Spinner asChild size="lg" aria-label="Loading report">
+            <span className={styles.customSpinnerHost}>
+              <span
+                data-scope="spinner"
+                data-part="indicator"
+                className={styles.customSpinnerIndicator}
+              />
+            </span>
+          </Spinner>
         );
       }
     `}
 
-  </Preview.CSS>
+  </Preview.Code>
+
+  <Preview.CSS>{spinnerAsChildCss}</Preview.CSS>
+  <Preview.Data>{`// No setup data required.`}</Preview.Data>
 </Preview>
 
 ### Custom Indicator
@@ -251,12 +300,15 @@ should stay the same.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{`/* No extra styles required. */`}</Preview.CSS>
+  <Preview.Data>{`// No setup data required.`}</Preview.Data>
 </Preview>
 
 ## Styling
 
-Style `Spinner` through `className`, the stable `data-slot` hooks, `data-size`, and the public
-`--spinner-*` variables from `theme.css`.
+Style `Spinner` through `className`, Ark `data-scope` / `data-part` selectors, stable `data-slot`
+hooks, `data-size`, and the public `--spinner-*` variables from `theme.css`.
 
 ### CSS Properties
 
@@ -270,8 +322,11 @@ Style `Spinner` through `className`, the stable `data-slot` hooks, `data-size`, 
 
 ### Styling hooks
 
-- `data-slot="spinner-root"` is the stable selector for the exported root.
-- `data-slot="spinner-indicator"` is the rotating inner wrapper.
+- `[data-scope="spinner"][data-part="root"]` targets the Ark-style root.
+- `[data-scope="spinner"][data-part="indicator"]` targets the rotating inner wrapper.
+- `[data-scope="spinner"][data-part="ring"]` targets the default ring only.
+- `data-slot="spinner-root"` is the stable moduix selector for the exported root.
+- `data-slot="spinner-indicator"` is the stable moduix selector for the rotating inner wrapper.
 - `data-slot="spinner-ring"` targets the default ring only.
 - `Spinner` writes `data-size="xs" | "sm" | "md" | "lg" | "xl"` on the root.
 - `className` applies only to the root. Target the indicator or ring with descendant selectors from

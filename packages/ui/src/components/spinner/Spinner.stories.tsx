@@ -63,6 +63,18 @@ export const CustomIndicator: Story = {
   },
 };
 
+export const AsChild: Story = {
+  render: () => {
+    return (
+      <Spinner asChild size="lg" aria-label="Loading report">
+        <span>
+          <span data-scope="spinner" data-part="indicator" className={styles.customIndicator} />
+        </span>
+      </Spinner>
+    );
+  },
+};
+
 export const Styling: Story = {
   render: () => {
     const style = {

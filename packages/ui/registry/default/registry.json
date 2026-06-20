@@ -184,7 +184,7 @@
       "type": "registry:item",
       "title": "Alert",
       "description": "moduix Alert component.",
-      "dependencies": ["clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
@@ -1288,7 +1288,7 @@
       "type": "registry:item",
       "title": "Spinner",
       "description": "moduix Spinner component.",
-      "dependencies": ["clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

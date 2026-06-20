@@ -10,6 +10,7 @@
     &[data-orientation='vertical'] {
       width: var(--slider-width-vertical, max-content);
       height: var(--slider-height, 12rem);
+      align-items: center;
     }
 
     &[data-disabled] {
