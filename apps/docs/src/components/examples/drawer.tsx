@@ -1,4 +1,10 @@
-import { Button, Drawer, type DrawerTriggerValueChangeDetails, useDrawer } from 'moduix';
+import {
+  Button,
+  Drawer,
+  ScrollArea,
+  type DrawerTriggerValueChangeDetails,
+  useDrawer,
+} from 'moduix';
 import { useState, type ReactNode } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -207,13 +213,23 @@ export function ScrollableDrawerExample() {
         <Button>Open scrollable drawer</Button>
       </Drawer.Trigger>
       <DrawerSurface title="Scrollable drawer">
-        <Drawer.Body className={styles.scrollBody}>
-          {insideScrollSections.map((item) => (
-            <section key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </section>
-          ))}
+        <Drawer.Body className={styles.scrollRegion}>
+          <ScrollArea className={styles.scrollArea}>
+            <ScrollArea.Viewport className={styles.scrollViewport}>
+              <ScrollArea.Content className={styles.scrollBody}>
+                {insideScrollSections.map((item) => (
+                  <section key={item.title}>
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
+                  </section>
+                ))}
+              </ScrollArea.Content>
+            </ScrollArea.Viewport>
+            <ScrollArea.Scrollbar>
+              <ScrollArea.Thumb />
+            </ScrollArea.Scrollbar>
+            <ScrollArea.Corner />
+          </ScrollArea>
         </Drawer.Body>
       </DrawerSurface>
     </Drawer.Root>

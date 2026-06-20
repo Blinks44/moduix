@@ -1,7 +1,22 @@
+.scrollRegion {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.scrollArea {
+  height: 100%;
+  min-height: 0;
+}
+
+.scrollViewport {
+  height: 100%;
+  padding-inline-end: var(--spacing-2);
+}
+
 .scrollBody {
   display: grid;
   gap: var(--spacing-4);
-  max-height: 50dvh;
 }
 
 .noDragArea {

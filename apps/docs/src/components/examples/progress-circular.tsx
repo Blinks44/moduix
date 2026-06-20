@@ -11,6 +11,7 @@ export const progressCircularExampleCss = `
   }
 
   .progress-circular-range-input {
+    --progress-demo-range-percent: 0%;
     --progress-demo-range-thumb-bg: var(--color-background);
     --progress-demo-range-thumb-border: var(--color-foreground);
     --progress-demo-range-track: var(--color-muted);

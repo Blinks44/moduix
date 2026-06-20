@@ -410,15 +410,15 @@ Read `details.open` from the Ark callback instead of expecting a boolean callbac
 
 ### Scrollable
 
-Keep long content in `Drawer.Body`; its default overflow behavior preserves a stable header and
-grabber.
+Keep long content in `Drawer.Body`, and use `ScrollArea` when the drawer should own a dedicated
+scroll container while the grabber and header stay fixed.
 
 <Preview>
   <ScrollableDrawerExample />
 
   <Preview.Code>
     {`
-      import { Button, Drawer } from "moduix";
+      import { Button, Drawer, ScrollArea } from "moduix";
 
       export function ScrollableDrawerDemo() {
         return (
@@ -436,13 +436,23 @@ grabber.
                   <Drawer.Title>Scrollable drawer</Drawer.Title>
                   <Drawer.CloseIcon />
                 </Drawer.Header>
-                <Drawer.Body className="scroll-body">
-                  {sections.map((section) => (
-                    <section key={section.title}>
-                      <h3>{section.title}</h3>
-                      <p>{section.body}</p>
-                    </section>
-                  ))}
+                <Drawer.Body className="scroll-region">
+                  <ScrollArea className="scroll-area">
+                    <ScrollArea.Viewport className="scroll-viewport">
+                      <ScrollArea.Content className="scroll-body">
+                        {sections.map((section) => (
+                          <section key={section.title}>
+                            <h3>{section.title}</h3>
+                            <p>{section.body}</p>
+                          </section>
+                        ))}
+                      </ScrollArea.Content>
+                    </ScrollArea.Viewport>
+                    <ScrollArea.Scrollbar>
+                      <ScrollArea.Thumb />
+                    </ScrollArea.Scrollbar>
+                    <ScrollArea.Corner />
+                  </ScrollArea>
                 </Drawer.Body>
               </Drawer.Content>
             </Drawer.Positioner>
@@ -454,10 +464,25 @@ grabber.
   </Preview.Code>
   <Preview.CSS>
     {`
+      .scroll-region {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .scroll-area {
+        height: 100%;
+        min-height: 0;
+      }
+
+      .scroll-viewport {
+        height: 100%;
+        padding-inline-end: var(--spacing-2);
+      }
+
       .scroll-body {
         display: grid;
         gap: 1rem;
-        max-height: 50dvh;
       }
     `}
 
