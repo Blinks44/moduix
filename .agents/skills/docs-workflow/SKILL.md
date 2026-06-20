@@ -52,6 +52,9 @@ Use this skill for work in `apps/docs`.
 - If a component has no dedicated Ark UI primitive page, do not apply the 80% Ark example rule mechanically. State
   that no Ark primitive exists, then document the shipped moduix API, accessibility semantics, styling hooks, and any
   Ark factory/composition guidance that actually applies.
+- If a component has no dedicated Ark UI primitive page, write `API Reference` as one compact paragraph with inline
+  links to the relevant Ark guide or primitive page plus any Chakra recipe reference. Do not use a bullet list of
+  upstream links in that section.
 - moduix additions must be documented as a second layer on top of Ark behavior. Do not replace the Ark mental
   model with a local-only narrative.
 - For form components, show Ark `Field` / `Fieldset` context integration and include `HiddenInput` wherever the

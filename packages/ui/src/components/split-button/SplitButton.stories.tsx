@@ -3,12 +3,7 @@ import { useState } from 'react';
 import { ArrowUpRightIcon } from '@/icons/demo';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 import { Menu } from '../menu';
-import {
-  SplitButton,
-  SplitButtonAction,
-  SplitButtonContent,
-  SplitButtonTrigger,
-} from './SplitButton';
+import { SplitButton } from './SplitButton';
 import styles from './SplitButton.stories.module.css';
 
 const meta = {
@@ -36,14 +31,18 @@ const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 export const Basic: Story = {
   render: () => (
     <SplitButton>
-      <SplitButtonAction onClick={() => undefined}>Save Changes</SplitButtonAction>
-      <SplitButtonTrigger />
-      <SplitButtonContent>
-        <Menu.Item value="save-draft">Save as Draft</Menu.Item>
-        <Menu.Item value="duplicate">Duplicate</Menu.Item>
-        <Menu.Separator />
-        <Menu.Item value="publish">Publish Now</Menu.Item>
-      </SplitButtonContent>
+      <SplitButton.Action onClick={() => undefined}>Save Changes</SplitButton.Action>
+      <SplitButton.Trigger />
+      <SplitButton.Portal>
+        <SplitButton.Positioner>
+          <SplitButton.Content>
+            <Menu.Item value="save-draft">Save as Draft</Menu.Item>
+            <Menu.Item value="duplicate">Duplicate</Menu.Item>
+            <Menu.Separator />
+            <Menu.Item value="publish">Publish Now</Menu.Item>
+          </SplitButton.Content>
+        </SplitButton.Positioner>
+      </SplitButton.Portal>
     </SplitButton>
   ),
 };
@@ -53,12 +52,16 @@ export const Variants: Story = {
     <div className={styles.row}>
       {variants.map((variant) => (
         <SplitButton key={variant} variant={variant}>
-          <SplitButtonAction>{variant}</SplitButtonAction>
-          <SplitButtonTrigger />
-          <SplitButtonContent>
-            <Menu.Item value={`${variant}-edit`}>Edit</Menu.Item>
-            <Menu.Item value={`${variant}-duplicate`}>Duplicate</Menu.Item>
-          </SplitButtonContent>
+          <SplitButton.Action>{variant}</SplitButton.Action>
+          <SplitButton.Trigger />
+          <SplitButton.Portal>
+            <SplitButton.Positioner>
+              <SplitButton.Content>
+                <Menu.Item value={`${variant}-edit`}>Edit</Menu.Item>
+                <Menu.Item value={`${variant}-duplicate`}>Duplicate</Menu.Item>
+              </SplitButton.Content>
+            </SplitButton.Positioner>
+          </SplitButton.Portal>
         </SplitButton>
       ))}
     </div>
@@ -70,12 +73,16 @@ export const Sizes: Story = {
     <div className={styles.row}>
       {sizes.map((size) => (
         <SplitButton key={size} size={size} variant="outline">
-          <SplitButtonAction>{size}</SplitButtonAction>
-          <SplitButtonTrigger />
-          <SplitButtonContent>
-            <Menu.Item value={`${size}-create`}>Create</Menu.Item>
-            <Menu.Item value={`${size}-create-open`}>Create and Open</Menu.Item>
-          </SplitButtonContent>
+          <SplitButton.Action>{size}</SplitButton.Action>
+          <SplitButton.Trigger />
+          <SplitButton.Portal>
+            <SplitButton.Positioner>
+              <SplitButton.Content>
+                <Menu.Item value={`${size}-create`}>Create</Menu.Item>
+                <Menu.Item value={`${size}-create-open`}>Create and Open</Menu.Item>
+              </SplitButton.Content>
+            </SplitButton.Positioner>
+          </SplitButton.Portal>
         </SplitButton>
       ))}
     </div>
@@ -85,17 +92,21 @@ export const Sizes: Story = {
 export const WithIcons: Story = {
   render: () => (
     <SplitButton>
-      <SplitButtonAction>
+      <SplitButton.Action>
         <PlusIcon />
         Create Item
-      </SplitButtonAction>
-      <SplitButtonTrigger aria-label="More create actions" />
-      <SplitButtonContent>
-        <Menu.Item value="create-blank">Create Blank</Menu.Item>
-        <Menu.Item value="create-template">Create From Template</Menu.Item>
-        <Menu.Separator />
-        <Menu.Item value="import-existing">Import Existing</Menu.Item>
-      </SplitButtonContent>
+      </SplitButton.Action>
+      <SplitButton.Trigger aria-label="More create actions" />
+      <SplitButton.Portal>
+        <SplitButton.Positioner>
+          <SplitButton.Content>
+            <Menu.Item value="create-blank">Create Blank</Menu.Item>
+            <Menu.Item value="create-template">Create From Template</Menu.Item>
+            <Menu.Separator />
+            <Menu.Item value="import-existing">Import Existing</Menu.Item>
+          </SplitButton.Content>
+        </SplitButton.Positioner>
+      </SplitButton.Portal>
     </SplitButton>
   ),
 };
@@ -106,16 +117,20 @@ export const ControlledMenu: Story = {
 
     return (
       <SplitButton open={open} onOpenChange={(details) => setOpen(details.open)} variant="outline">
-        <SplitButtonAction>Share</SplitButtonAction>
-        <SplitButtonTrigger aria-label="More share actions" />
-        <SplitButtonContent>
-          <Menu.Item value="copy-link">Copy Link</Menu.Item>
-          <Menu.Item value="invite-email">Invite by Email</Menu.Item>
-          <Menu.Separator />
-          <Menu.Item value="close-menu" onSelect={() => setOpen(false)}>
-            Close Menu
-          </Menu.Item>
-        </SplitButtonContent>
+        <SplitButton.Action>Share</SplitButton.Action>
+        <SplitButton.Trigger aria-label="More share actions" />
+        <SplitButton.Portal>
+          <SplitButton.Positioner>
+            <SplitButton.Content>
+              <Menu.Item value="copy-link">Copy Link</Menu.Item>
+              <Menu.Item value="invite-email">Invite by Email</Menu.Item>
+              <Menu.Separator />
+              <Menu.Item value="close-menu" onSelect={() => setOpen(false)}>
+                Close Menu
+              </Menu.Item>
+            </SplitButton.Content>
+          </SplitButton.Positioner>
+        </SplitButton.Portal>
       </SplitButton>
     );
   },
@@ -124,17 +139,21 @@ export const ControlledMenu: Story = {
 export const LinkAction: Story = {
   render: () => (
     <SplitButton variant="outline">
-      <SplitButtonAction asChild>
+      <SplitButton.Action asChild>
         <a href="#split-button">
           Open Docs
           <ArrowUpRightIcon />
         </a>
-      </SplitButtonAction>
-      <SplitButtonTrigger aria-label="More docs actions" />
-      <SplitButtonContent>
-        <Menu.Item value="copy-link">Copy Link</Menu.Item>
-        <Menu.Item value="open-new-tab">Open in New Tab</Menu.Item>
-      </SplitButtonContent>
+      </SplitButton.Action>
+      <SplitButton.Trigger aria-label="More docs actions" />
+      <SplitButton.Portal>
+        <SplitButton.Positioner>
+          <SplitButton.Content>
+            <Menu.Item value="copy-link">Copy Link</Menu.Item>
+            <Menu.Item value="open-new-tab">Open in New Tab</Menu.Item>
+          </SplitButton.Content>
+        </SplitButton.Positioner>
+      </SplitButton.Portal>
     </SplitButton>
   ),
 };

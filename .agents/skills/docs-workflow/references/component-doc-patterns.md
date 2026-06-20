@@ -37,6 +37,8 @@ Inside `## Styling`, always use:
   - For Ark-backed components, point to the dedicated Ark page.
   - For local-only components, explicitly say there is no dedicated Ark primitive and name the Ark
     guide/factory model and Chakra contract if Chakra informs the public API.
+  - For local-only components, keep that reference block to one compact paragraph with inline links.
+    Do not render a bullet list of upstream references in `API Reference`.
 - `Choosing the right component`: only for components with close alternatives.
 - `Basic`: the recommended happy path and the first runnable example.
   - This is the Ark-first default path plus any moduix sugar that is part of the normal public surface.

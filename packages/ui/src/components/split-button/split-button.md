@@ -1,147 +1,153 @@
----
-title: SplitButton
-subtitle: Primary action plus a related dropdown built from the moduix Button and Menu wrappers.
-description: moduix split button composition with shared size and variant defaults, a ready-made Ark menu trigger, and a default popup content wrapper.
----
-
 # SplitButton
 
-Upstream primitive docs:
+Upstream docs:
 
-- https://ark-ui.com/docs/guides/composition
-- https://ark-ui.com/docs/components/menu
-
-`SplitButton` combines a primary `Button.Root` action with a secondary menu trigger. It keeps
-Button and Menu behavior intact, but adds the grouped visual treatment and a small composition
-contract for the common split-action case.
+- Ark UI: no dedicated Split Button primitive; use https://ark-ui.com/docs/components/menu and
+  https://ark-ui.com/docs/guides/composition
+- Chakra UI: https://chakra-ui.com/docs/components/button#split-menu
 
 ## Purpose
 
-Use `SplitButton` when one action is the default path, but nearby alternate actions belong in a
-small dropdown.
+`SplitButton` combines one primary action with an adjacent Ark Menu trigger for related alternate
+actions.
 
-Common examples:
+## Upstream model to preserve
 
-- save vs save as draft
-- publish now vs publish later
-- create vs create from template
-- share vs other share actions
+- There is no Ark Split Button state machine or anatomy to mirror directly.
+- The menu popup behavior, keyboard navigation, focus lifecycle, controlled open state, callbacks,
+  positioning, ids, lazy mounting, and typeahead come from the shared Ark-backed `Menu` wrapper.
+- The primary action and trigger are moduix `Button` surfaces grouped with a Chakra-style attached
+  visual treatment.
+- Ark composition stays visible: popup structure is `Portal -> Positioner -> Content`, not a hidden
+  `Content` convenience wrapper.
 
-## What is specific to moduix
+## Current behavior contract
 
-moduix adds:
+- Public API is namespace-first: `SplitButton`, `SplitButton.Root`, `SplitButton.Action`,
+  `SplitButton.Trigger`, `SplitButton.Portal`, `SplitButton.Positioner`, and `SplitButton.Content`.
+- `SplitButton` is the short root form and is equivalent to `SplitButton.Root`.
+- Root props forward `Menu.Root` behavior props, including `open`, `defaultOpen`,
+  `onOpenChange(details)`, `onSelect(details)`, `closeOnSelect`, `positioning`, `ids`, `lazyMount`,
+  `unmountOnExit`, and `typeahead`.
+- Root `variant` and `size` provide shared defaults for `Action` and `Trigger`.
+- `Action` forwards the shared `Button` API except root-provided `size` and `variant` become the
+  default values.
+- `Trigger` renders an Ark `Menu.Trigger asChild` around a moduix `Button` and defaults to a chevron
+  icon with `aria-label="More actions"` when no children are provided.
+- `Portal`, `Positioner`, and `Content` expose the real popup structure. Consumers place shared
+  `Menu.*` rows inside `SplitButton.Content`.
 
-- `SplitButton` root that hosts `Menu` state and the grouped visual wrapper.
-- shared `variant` and `size` defaults for the primary action and trigger.
-- `SplitButtonAction` as the primary button part.
-- `SplitButtonTrigger` as a menu trigger that renders a `Button.Root` by default.
-- `SplitButtonContent` as the default `Portal -> Menu.Positioner -> Menu.Content` popup wrapper.
-- stable `data-slot` hooks for the grouped root, action, and trigger.
+## Anatomy and exported parts
 
-The dropdown rows themselves stay on the shared menu API. Use `Menu.Item`, `Menu.Separator`,
-`Menu.ItemGroup`, and other menu parts inside `SplitButtonContent`.
+```text
+SplitButton.Root
+├─ SplitButton.Action
+├─ SplitButton.Trigger
+└─ SplitButton.Portal
+   └─ SplitButton.Positioner
+      └─ SplitButton.Content
+         ├─ Menu.Item
+         ├─ Menu.Separator
+         └─ other shared Menu parts
+```
 
-## Recommended composition
+Every exported DOM part accepts `className` and receives stable styling hooks:
+
+| Part                     | `data-slot`               | Notes                                           |
+| ------------------------ | ------------------------- | ----------------------------------------------- |
+| `SplitButton.Root`       | `split-button-root`       | Grouped visual wrapper around the two buttons.  |
+| `SplitButton.Action`     | `split-button-action`     | Primary Button action.                          |
+| `SplitButton.Trigger`    | `split-button-trigger`    | Ark Menu trigger rendered through Button.       |
+| `SplitButton.Portal`     | none                      | Ark Portal utility; no DOM styling hook.        |
+| `SplitButton.Positioner` | `split-button-positioner` | Ark Menu positioner with runtime CSS variables. |
+| `SplitButton.Content`    | `split-button-content`    | Ark Menu content surface with menu state attrs. |
+
+## Composition
 
 ```tsx
-import { SplitButton, SplitButtonAction, SplitButtonContent, SplitButtonTrigger } from 'moduix';
+import { Menu, SplitButton } from 'moduix';
 
-export function Example() {
+export function SplitButtonExample() {
   return (
     <SplitButton>
-      <SplitButtonAction>Save Changes</SplitButtonAction>
-      <SplitButtonTrigger />
-      <SplitButtonContent>
-        <Menu.Item value="save-draft">Save as Draft</Menu.Item>
-        <Menu.Item value="duplicate">Duplicate</Menu.Item>
-        <Menu.Separator />
-        <Menu.Item value="publish">Publish Now</Menu.Item>
-      </SplitButtonContent>
+      <SplitButton.Action>Save Changes</SplitButton.Action>
+      <SplitButton.Trigger />
+      <SplitButton.Portal>
+        <SplitButton.Positioner>
+          <SplitButton.Content>
+            <Menu.Item value="save-draft">Save as Draft</Menu.Item>
+            <Menu.Item value="duplicate">Duplicate</Menu.Item>
+            <Menu.Separator />
+            <Menu.Item value="publish">Publish Now</Menu.Item>
+          </SplitButton.Content>
+        </SplitButton.Positioner>
+      </SplitButton.Portal>
     </SplitButton>
   );
 }
 ```
 
-Keep the primary action explicit on `SplitButtonAction`. Put only secondary or alternate actions in
-`SplitButtonContent`.
+## Upstream feature coverage
 
-## Parts
+- Ark Menu anatomy is preserved for the popup path through `Portal`, `Positioner`, `Content`, and
+  shared `Menu.Item`/group/checkbox/radio/separator rows.
+- Ark Menu controlled and uncontrolled open state is preserved through root props and
+  `onOpenChange(details)`.
+- Ark Menu selection callbacks are preserved through root `onSelect(details)` and item-level
+  `onSelect`.
+- Ark Menu positioning, custom ids, lazy mounting, unmount-on-exit, typeahead, highlighted item
+  state, disabled rows, links via `Menu.Item asChild`, grouped rows, checkbox rows, and radio rows are
+  available through the shared `Menu` parts inside `SplitButton.Content`.
+- Ark Menu `RootProvider`, `Context`, item context, and hooks are intentionally not re-exported under
+  `SplitButton` because Ark has no split-button primitive. Use the shared `Menu` API directly when
+  external menu state or context reads are required.
+- Chakra's split-menu recipe is covered by the attached Button + Menu grouping, but Chakra visual
+  tokens are not copied.
 
-| Export               | Role                                                                   |
-| -------------------- | ---------------------------------------------------------------------- |
-| `SplitButton`        | Root menu state plus grouped visual wrapper.                           |
-| `SplitButtonAction`  | Primary action button. Inherits root `variant` and `size` by default.  |
-| `SplitButtonTrigger` | Secondary trigger button for the dropdown. Defaults to a chevron icon. |
-| `SplitButtonContent` | Recommended popup wrapper around `Menu.Content`.                       |
+## Accessibility and state
 
-## Public props
+- The primary action is a real button by default and can use `asChild` for a single compatible custom
+  child, such as a link.
+- The trigger is Ark `Menu.Trigger`; it receives menu keyboard behavior, `aria-expanded`,
+  `aria-controls`, and state attributes from Ark.
+- `SplitButton.Trigger` `asChild` is forwarded to the inner Button. Use it only with one semantic
+  child that can receive button and menu trigger props.
+- Root callbacks keep Ark detail objects, including `onOpenChange(details)`.
+- `SplitButton.Positioner` preserves Ark Menu positioning variables: `--reference-width`,
+  `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`, `--z-index`, and
+  `--transform-origin`.
+- `SplitButton.Content` preserves Ark Menu content state attributes such as `data-state`,
+  `data-placement`, `data-side`, `data-nested`, and `data-has-nested`.
 
-### `SplitButton`
+## Defaults and styling
 
-`SplitButton` forwards Ark menu root props such as `open`, `defaultOpen`,
-`onOpenChange(details)`, `closeOnSelect`, `positioning`, and `ids`.
+- Root `variant` defaults to `'default'`.
+- Root `size` defaults to `'md'`.
+- Root `positioning` defaults to `{ placement: 'bottom-end', gutter: 4 }`.
+- `Trigger` defaults to `ChevronDownIcon` and `aria-label="More actions"` when icon-only.
+- Root `variant` excludes `Button`'s `link` variant.
+- Root `size` excludes icon-only button sizes.
+- The component does not define public `--split-button-*` theme variables. It relies on shared
+  Button and Menu variables, plus component CSS for border radius and separator treatment.
 
-| Prop        | Type                                                                                         | Default     | Notes                                                            |
-| ----------- | -------------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------- |
-| `variant`   | `'default' \| 'outline' \| 'secondary' \| 'destructive' \| 'destructive-outline' \| 'ghost'` | `'default'` | Shared default for `SplitButtonAction` and `SplitButtonTrigger`. |
-| `size`      | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                       | `'md'`      | Shared default for `SplitButtonAction` and `SplitButtonTrigger`. |
-| `className` | `string`                                                                                     | -           | Applied to the grouped wrapper element.                          |
+## Intentional sugar and differences from upstream
 
-### `SplitButtonAction`
-
-`SplitButtonAction` forwards `Button.Root` props except that the default `variant` and `size` come from
-`SplitButton` unless you override them on the action itself.
-
-### `SplitButtonTrigger`
-
-`SplitButtonTrigger` forwards Ark menu trigger props such as `disabled` and `asChild`, but it
-intentionally owns the default rendered button.
-
-| Prop         | Type                          | Default           | Notes                                                             |
-| ------------ | ----------------------------- | ----------------- | ----------------------------------------------------------------- |
-| `variant`    | same as `SplitButton.variant` | root value        | Overrides the shared visual variant for the trigger only.         |
-| `size`       | same as `SplitButton.size`    | root value        | Overrides the shared size for the trigger only.                   |
-| `aria-label` | `string`                      | `'More actions'`  | Applied automatically when the trigger has only the default icon. |
-| `children`   | `ReactNode`                   | `ChevronDownIcon` | Replace when the trigger should render custom content.            |
-
-### `SplitButtonContent`
-
-`SplitButtonContent` exports the same type as `MenuContentProps` and renders Ark popup structure
-for the common path. Configure popup placement on `SplitButton` through the Ark `positioning` root
-prop. The root default is `{ placement: 'bottom-end', gutter: 4 }`.
-
-## Styling and slots
-
-The grouped parts expose:
-
-- `data-slot="split-button-root"`
-- `data-slot="split-button-action"`
-- `data-slot="split-button-trigger"`
-
-`SplitButton` does not add dedicated `--split-button-*` theme variables. It relies on the existing
-`Button.Root` styling contract, so color, sizing, radius, border, and focus styling still come from the
-shared `--button-*` variables.
-
-## Intentional differences from Button and Menu
-
-- `SplitButtonTrigger` no longer exposes the Base UI `render` prop; use Ark `asChild` only when a
-  custom host is required.
-- `SplitButtonAction` follows the Ark-style `Button.Root` surface, so `asChild` replaces Base
-  `render` / `nativeButton` for link-like primary actions.
-- Dropdown content stays on the shared menu building blocks instead of duplicating menu items under a
-  separate split-button namespace.
-- The root `variant` excludes the `link` button variant because grouped link-style split buttons do
-  not form a coherent control.
-- The root `size` excludes icon-only button sizes because the primary action is expected to keep a
-  visible label in the default path.
+- `SplitButton` is a moduix-owned composition, not an Ark primitive wrapper.
+- Shared root `variant` and `size` defaults are local sugar over Button.
+- The default chevron trigger is local sugar over Menu Trigger.
+- Flat named exports (`SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonContent`) are removed;
+  use `SplitButton.Action`, `SplitButton.Trigger`, and explicit popup parts.
+- `SplitButton.Content` is the actual menu content part. It no longer renders `Portal` and
+  `Positioner` internally.
 
 ## Agent notes
 
-- Preserve the grouped visual contract by keeping radii and border overlap coordinated between the
-  action and trigger.
-- Keep menu rows on the shared `Menu*` API unless there is a strong user-facing reason to fork them.
-- If dedicated split-button CSS variables are added later, register them in `theme.css` and document
-  them here and in docs.
+- Do not add a fake split-button provider/context API. Use `Menu` state helpers directly for advanced
+  menu state patterns.
+- Keep popup structure explicit. Do not reintroduce a wrapper that hides `Portal` or `Positioner`.
+- Preserve the grouped visual contract by keeping action and trigger radii and border overlap
+  coordinated.
+- Keep alternate actions on shared `Menu.*` rows rather than adding split-button-specific item parts.
 
 ## Local changelog
 
@@ -150,5 +156,8 @@ shared `--button-*` variables.
 - 2026-06-17: Updated the primary action contract from Base button composition props to Ark-style
   `asChild` through the shared `Button.Root` surface.
 - 2026-06-18: Synced SplitButton with Ark-backed `Menu`: root positioning moved to `SplitButton`
-  through `positioning`, `SplitButtonTrigger` uses `Menu.Trigger asChild`, and snippets now use
-  Ark `Menu.Item value`.
+  through `positioning`, `SplitButtonTrigger` uses `Menu.Trigger asChild`, and snippets now use Ark
+  `Menu.Item value`.
+- 2026-06-21: Completed Ark-style migration for the no-primitive split-button composition: removed
+  flat part exports, adopted namespace-first `SplitButton.*` parts, exposed explicit
+  `Portal -> Positioner -> Content` popup structure, and documented Ark Menu as the behavior source.

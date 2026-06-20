@@ -1,10 +1,23 @@
 import { Portal } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
-import { forwardRef, createContext, useContext, type ComponentRef, type ReactNode } from 'react';
+import {
+  createContext,
+  forwardRef,
+  useContext,
+  type ComponentProps,
+  type ComponentRef,
+  type ReactNode,
+} from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { Button, type ButtonRootProps, type ButtonSize, type ButtonVariant } from '../button';
-import { Menu, type MenuContentProps, type MenuRootProps, type MenuTriggerProps } from '../menu';
+import {
+  Menu,
+  type MenuContentProps,
+  type MenuPositionerProps,
+  type MenuRootProps,
+  type MenuTriggerProps,
+} from '../menu';
 import styles from './SplitButton.module.css';
 
 type SplitButtonVariant = Exclude<ButtonVariant, 'link'>;
@@ -15,7 +28,7 @@ type SplitButtonContextValue = {
   variant: SplitButtonVariant;
 };
 
-type SplitButtonProps = Omit<MenuRootProps, 'children'> & {
+type SplitButtonRootProps = Omit<MenuRootProps, 'children'> & {
   children?: ReactNode;
   className?: string;
   size?: SplitButtonSize;
@@ -33,6 +46,8 @@ type SplitButtonTriggerProps = MenuTriggerProps & {
 };
 
 type SplitButtonContentProps = MenuContentProps;
+type SplitButtonPositionerProps = MenuPositionerProps;
+type SplitButtonPortalProps = ComponentProps<typeof Portal>;
 
 const SplitButtonContext = createContext<SplitButtonContextValue | null>(null);
 
@@ -40,34 +55,36 @@ function useSplitButtonContext(componentName: string) {
   const context = useContext(SplitButtonContext);
 
   if (!context) {
-    throw new Error(`${componentName} must be used within SplitButton.`);
+    throw new Error(`${componentName} must be used within SplitButton.Root.`);
   }
 
   return context;
 }
 
-function SplitButton({
-  children,
-  className,
-  positioning,
-  size = 'md',
-  variant = 'default',
-  ...props
-}: SplitButtonProps) {
+const SplitButtonRoot = forwardRef<HTMLDivElement, SplitButtonRootProps>(function SplitButtonRoot(
+  { children, className, positioning, size = 'md', variant = 'default', ...props },
+  ref,
+) {
   return (
     <SplitButtonContext.Provider value={{ size, variant }}>
-      <Menu positioning={{ placement: 'bottom-end', gutter: 4, ...positioning }} {...props}>
-        <div data-slot="split-button-root" className={clsx(styles.root, className)}>
+      <Menu.Root positioning={{ placement: 'bottom-end', gutter: 4, ...positioning }} {...props}>
+        <div
+          ref={ref}
+          data-scope="split-button"
+          data-part="root"
+          data-slot="split-button-root"
+          className={clsx(styles.root, normalizeClassName(className))}
+        >
           {children}
         </div>
-      </Menu>
+      </Menu.Root>
     </SplitButtonContext.Provider>
   );
-}
+});
 
 const SplitButtonAction = forwardRef<ComponentRef<typeof Button>, SplitButtonActionProps>(
   function SplitButtonAction({ className, size, variant, ...props }, ref) {
-    const context = useSplitButtonContext('SplitButtonAction');
+    const context = useSplitButtonContext('SplitButton.Action');
 
     return (
       <Button
@@ -82,47 +99,78 @@ const SplitButtonAction = forwardRef<ComponentRef<typeof Button>, SplitButtonAct
   },
 );
 
-function SplitButtonTrigger({
-  children,
-  className,
-  size,
-  variant,
-  'aria-label': ariaLabel,
-  ...props
-}: SplitButtonTriggerProps) {
-  const context = useSplitButtonContext('SplitButtonTrigger');
-  const resolvedChildren = children ?? <ChevronDownIcon />;
+const SplitButtonTrigger = forwardRef<ComponentRef<typeof Menu.Trigger>, SplitButtonTriggerProps>(
+  function SplitButtonTrigger(
+    { asChild, children, className, size, variant, 'aria-label': ariaLabel, ...props },
+    ref,
+  ) {
+    const context = useSplitButtonContext('SplitButton.Trigger');
+    const resolvedChildren = children ?? <ChevronDownIcon />;
 
+    return (
+      <Menu.Trigger
+        ref={ref}
+        asChild
+        data-slot="split-button-trigger"
+        aria-label={children ? ariaLabel : (ariaLabel ?? 'More actions')}
+        className={clsx(styles.trigger, normalizeClassName(className))}
+        {...props}
+      >
+        <Button asChild={asChild} size={size ?? context.size} variant={variant ?? context.variant}>
+          {resolvedChildren}
+        </Button>
+      </Menu.Trigger>
+    );
+  },
+);
+
+function SplitButtonPortal(props: SplitButtonPortalProps) {
+  return <Portal {...props} />;
+}
+
+const SplitButtonPositioner = forwardRef<
+  ComponentRef<typeof Menu.Positioner>,
+  SplitButtonPositionerProps
+>(function SplitButtonPositioner({ className, ...props }, ref) {
   return (
-    <Menu.Trigger
-      asChild
-      data-slot="split-button-trigger"
-      aria-label={children ? ariaLabel : (ariaLabel ?? 'More actions')}
-      className={clsx(styles.trigger, normalizeClassName(className))}
+    <Menu.Positioner
+      ref={ref}
+      data-slot="split-button-positioner"
+      className={normalizeClassName(className)}
       {...props}
-    >
-      <Button size={size ?? context.size} variant={variant ?? context.variant}>
-        {resolvedChildren}
-      </Button>
-    </Menu.Trigger>
+    />
   );
-}
+});
 
-function SplitButtonContent(props: SplitButtonContentProps) {
-  return (
-    <Portal>
-      <Menu.Positioner>
-        <Menu.Content {...props} />
-      </Menu.Positioner>
-    </Portal>
-  );
-}
+const SplitButtonContent = forwardRef<ComponentRef<typeof Menu.Content>, SplitButtonContentProps>(
+  function SplitButtonContent({ className, ...props }, ref) {
+    return (
+      <Menu.Content
+        ref={ref}
+        data-slot="split-button-content"
+        className={normalizeClassName(className)}
+        {...props}
+      />
+    );
+  },
+);
 
-export { SplitButton, SplitButtonAction, SplitButtonTrigger, SplitButtonContent };
+const SplitButton = Object.assign(SplitButtonRoot, {
+  Root: SplitButtonRoot,
+  Action: SplitButtonAction,
+  Trigger: SplitButtonTrigger,
+  Portal: SplitButtonPortal,
+  Positioner: SplitButtonPositioner,
+  Content: SplitButtonContent,
+});
+
+export { SplitButton };
 export type {
   SplitButtonActionProps,
   SplitButtonContentProps,
-  SplitButtonProps,
+  SplitButtonPortalProps,
+  SplitButtonPositionerProps,
+  SplitButtonRootProps,
   SplitButtonSize,
   SplitButtonTriggerProps,
   SplitButtonVariant,

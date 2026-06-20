@@ -56,6 +56,9 @@ informs the public contract.
 - Treat old Base UI-oriented docs as disposable migration input, not as the target structure.
 - Public docs and local component markdown should show the Ark UI mental model first: parts, composition, state
   shapes, callback signatures, and structural requirements.
+- For migrated components with no dedicated Ark primitive, `API Reference` should be one compact paragraph with inline
+  links to the relevant Ark guide or primitive page and any Chakra recipe reference. Do not format those upstream
+  references as a bullet list.
 - In migrated docs `## Anatomy`, always include a markdown `Part | Role` table after the tree.
 - In that anatomy table, always list the root first as `` `Component` / `Component.Root` `` so the docs default to
   the short root form while keeping the Ark namespace mapping explicit.
