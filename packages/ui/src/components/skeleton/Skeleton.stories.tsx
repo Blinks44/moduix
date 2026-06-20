@@ -32,7 +32,7 @@ export const Card: Story = {
   render: () => {
     return (
       <Stack gap={16} className={styles.card}>
-        <Skeleton height={148} radius="var(--radius-lg)" />
+        <Skeleton height={148} borderRadius="var(--radius-lg)" />
         <Stack gap={12}>
           <Skeleton width="70%" height={20} />
           <Skeleton height={14} />
@@ -47,7 +47,7 @@ export const MediaObject: Story = {
   render: () => {
     return (
       <Stack direction="row" align="center" gap={12} className={styles.mediaObject}>
-        <Skeleton size={48} shape="circle" />
+        <Skeleton boxSize={48} borderRadius="var(--radius-full)" />
         <Stack gap={8} fill>
           <Skeleton width="46%" height={16} />
           <Skeleton height={14} />
@@ -83,7 +83,45 @@ export const Composition: Story = {
 
 export const Static: Story = {
   render: () => {
-    return <Skeleton width={320} height={72} animated={false} />;
+    return <Skeleton width={320} height={72} variant="none" />;
+  },
+};
+
+export const Variants: Story = {
+  render: () => {
+    return (
+      <Stack gap={12} className={styles.stack}>
+        <Skeleton height={18} variant="pulse" />
+        <Skeleton height={18} variant="none" />
+      </Stack>
+    );
+  },
+};
+
+export const LoadedContent: Story = {
+  render: () => {
+    return (
+      <Stack gap={12}>
+        <Skeleton loading className={styles.loadedContent}>
+          <strong>Loaded content</strong>
+          <span>Placeholder state</span>
+        </Skeleton>
+        <Skeleton loading={false} className={styles.loadedContent}>
+          <strong>Loaded content</strong>
+          <span>Content state</span>
+        </Skeleton>
+      </Stack>
+    );
+  },
+};
+
+export const AsChild: Story = {
+  render: () => {
+    return (
+      <Skeleton asChild height={72} borderRadius="var(--radius-lg)" className={styles.asChild}>
+        <section aria-label="Loading summary" />
+      </Skeleton>
+    );
   },
 };
 

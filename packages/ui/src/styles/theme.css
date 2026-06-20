@@ -1849,8 +1849,8 @@
 
   /* Skeleton */
   --skeleton-animation: initial; /* var(--animation-pulse) */
+  --skeleton-border-radius: initial; /* var(--radius-md) */
   --skeleton-bg: initial; /* color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background)) */
-  --skeleton-radius: initial; /* var(--radius-md) */
 
   /* Spinner */
   --spinner-animation: initial; /* var(--animation-spin) */

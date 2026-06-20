@@ -1,5 +1,8 @@
-import type { ComponentProps } from 'react';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
+import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Skeleton.module.css';
 
 function toCssValue(value: number | string | undefined) {
@@ -10,39 +13,58 @@ function toCssValue(value: number | string | undefined) {
   return value;
 }
 
-function Skeleton({
-  className,
-  animated = true,
-  style,
-  width,
-  height,
-  radius,
-  size,
-  shape,
-  ...props
-}: ComponentProps<'div'> & {
-  animated?: boolean;
+export type SkeletonVariant = 'pulse' | 'none';
+
+export type SkeletonRootProps = HTMLArkProps<'div'> & {
+  loading?: boolean;
+  variant?: SkeletonVariant;
   width?: number | string;
   height?: number | string;
-  radius?: number | string;
-  size?: number | string;
-  shape?: 'rect' | 'circle';
-}) {
+  boxSize?: number | string;
+  borderRadius?: number | string;
+};
+
+const SkeletonRoot = forwardRef<HTMLDivElement, SkeletonRootProps>(function SkeletonRoot(
+  {
+    'aria-hidden': ariaHidden,
+    asChild,
+    borderRadius,
+    boxSize,
+    className,
+    height,
+    loading = true,
+    style,
+    variant = 'pulse',
+    width,
+    ...props
+  },
+  ref,
+) {
   return (
-    <div
+    <ark.div
+      ref={ref}
+      asChild={asChild}
+      data-scope="skeleton"
+      data-part="root"
       data-slot="skeleton-root"
-      data-animated={animated ? '' : undefined}
-      aria-hidden="true"
-      className={clsx(styles.root, className)}
+      data-state={loading ? 'loading' : 'loaded'}
+      data-loading={loading ? '' : undefined}
+      data-variant={variant}
+      aria-hidden={ariaHidden ?? (loading ? true : undefined)}
+      className={clsx(styles.root, normalizeClassName(className))}
       style={{
-        width: toCssValue(width ?? size),
-        height: toCssValue(height ?? size),
-        borderRadius: toCssValue(radius ?? (shape === 'circle' ? '50%' : undefined)),
+        width: toCssValue(width ?? boxSize),
+        height: toCssValue(height ?? boxSize),
+        borderRadius: toCssValue(borderRadius),
         ...style,
       }}
       {...props}
     />
   );
-}
+});
+
+const Skeleton = Object.assign(SkeletonRoot, {
+  Root: SkeletonRoot,
+});
 
 export { Skeleton };

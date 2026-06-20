@@ -1213,7 +1213,7 @@
       "type": "registry:item",
       "title": "Skeleton",
       "description": "moduix Skeleton component.",
-      "dependencies": ["clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

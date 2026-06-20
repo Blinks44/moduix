@@ -5,18 +5,32 @@ icon: Component
 ---
 
 import {
+  SkeletonAsChildExample,
   SkeletonCardExample,
   SkeletonClassNameExample,
   SkeletonCompositionExample,
   SkeletonCssPropertiesPanel,
   SkeletonExample,
+  SkeletonLoadedExample,
   SkeletonMediaObjectExample,
   SkeletonStaticExample,
+  SkeletonVariantsExample,
+  skeletonAsChildData,
+  skeletonCardData,
+  skeletonCompositionData,
+  skeletonCustomStylingCss,
+  skeletonExampleData,
+  skeletonLoadedData,
+  skeletonMediaObjectData,
+  skeletonStaticData,
+  skeletonVariantsData,
 } from '@/components/examples/skeleton';
 
 ## API Reference
 
-`Skeleton` is a standalone moduix component and does not wrap a dedicated Ark UI primitive.
+Ark UI does not ship a dedicated `Skeleton` primitive. moduix implements `Skeleton` as an Ark-style
+factory wrapper over a native element with `asChild`, `data-scope`, `data-part`, `data-state`, and
+`data-variant` hooks. Chakra UI's `loading` and `variant` model informs the public API.
 
 ## Basic
 
@@ -31,16 +45,26 @@ Use a few line skeletons for the common text-loading case.
 
       export function SkeletonDemo() {
         return (
-          <Stack gap={10}>
-            <Skeleton height={18} />
-            <Skeleton width="86%" height={18} />
-            <Skeleton width="64%" height={18} />
+          <Stack gap={10} className="skeleton-stack">
+            {lines.map((line) => (
+              <Skeleton key={line.width} width={line.width} height={line.height} />
+            ))}
           </Stack>
         );
       }
     `}
 
   </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .skeleton-stack {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>{skeletonExampleData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -86,64 +110,55 @@ aubx shadcn@latest add Blinks44/moduix/skeleton
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Skeleton` depends on, such
-as styles, icons, and small utilities.
-
-Use `Skeleton` as a thin styled loading surface, then compose real placeholder layouts with `Stack`
-or your own markup. The root stays decorative with `aria-hidden="true"`.
-
 ## Anatomy
 
-`Skeleton` is a single visual block. Layout stays in the surrounding markup.
+`Skeleton` is a single visual part. Layout stays in the surrounding markup.
 
 ```text
-Stack
-├─ Skeleton
-├─ Skeleton
-└─ Skeleton
+Skeleton.Root
+└─ children (optional, revealed when loading={false})
 ```
 
-| Part       | Role                                                                                                            |
-| ---------- | --------------------------------------------------------------------------------------------------------------- |
-| `Skeleton` | Placeholder surface. Use size props for the common case, then override with `className` or `style` when needed. |
+| Part                         | Role                                                                                        |
+| ---------------------------- | ------------------------------------------------------------------------------------------- |
+| `Skeleton` / `Skeleton.Root` | Placeholder surface. Renders an Ark factory element and accepts `asChild` for custom hosts. |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with `Skeleton` for most loading placeholders. The component is just one decorative block with
-size props and a small styling surface.
+Use `Skeleton` directly for text lines, cards, avatars, and media placeholders. It renders one
+decorative block while `loading` is true and reveals children when `loading` is false.
 
-Use `width` and `height` for text lines and rectangular surfaces. Use `size` with `shape="circle"`
-for avatar-style placeholders. Use `radius` when the placeholder should match a card, media frame,
-or another rounded surface.
+`variant="pulse"` is the default. Use `variant="none"` when motion should stay quiet.
+Reduced-motion users always get a static surface.
 
 ### When to go custom
 
-There is no lower-level moduix composition tree for this component. Keep layout, responsive
-behavior, and loading structure in the surrounding markup, and let each `Skeleton` instance stay a
-single visual block.
+Use `asChild` when another semantic element must own the rendered node. Keep the child single and
+semantic, matching Ark's composition guidance.
+
+Use `width`, `height`, `boxSize`, and `borderRadius` for common dimensions. For more specialized
+surfaces, apply `className`, `style`, or the public CSS variables.
 
 ### Default props
 
-| Prop       | Default | Values                             |
-| ---------- | ------- | ---------------------------------- |
-| `height`   | `1rem`  | CSS length (`number` = `px`)       |
-| `width`    | -       | CSS length (`number` = `px`)       |
-| `radius`   | -       | CSS length (`number` = `px`)       |
-| `size`     | -       | Sets `width` and `height` together |
-| `shape`    | `rect`  | `rect`, `circle`                   |
-| `animated` | `true`  | `true`, `false`                    |
+| Prop           | Default                         | Notes                                                                          |
+| -------------- | ------------------------------- | ------------------------------------------------------------------------------ |
+| `loading`      | `true`                          | Controls whether placeholder styles are active or children are shown normally. |
+| `variant`      | `pulse`                         | Supports `pulse` and `none`.                                                   |
+| `height`       | `1rem`                          | CSS sets the default root height. Numeric prop values become `px`.             |
+| `width`        | `100%`                          | CSS sets the default root width. Numeric prop values become `px`.              |
+| `boxSize`      | -                               | Sets width and height together when that axis is not provided.                 |
+| `borderRadius` | `var(--skeleton-border-radius)` | Numeric prop values become `px`; style overrides still win.                    |
 
 ### Behavioral notes
 
-- Numeric `width`, `height`, `radius`, and `size` values are converted to `px`.
-- `size` fills both dimensions, but explicit `width` or `height` still wins on its own axis.
-- `shape="circle"` only sets `border-radius: 50%` when `radius` is not provided. It does not force
-  equal width and height.
-- `animated={false}` removes the `data-animated` hook and disables the pulse animation for that
-  instance.
-- Reduced-motion users still get a static skeleton even when `animated` stays `true`.
+- `Skeleton.Root` is the same component as `Skeleton`, provided for namespace consistency.
+- `loading={true}` sets `aria-hidden`, `data-state="loading"`, and `data-loading`.
+- `loading={false}` sets `data-state="loaded"` and removes placeholder-only pointer and color styles.
+- `variant` is styling-only; no internal timers or state management are added.
+- `asChild` comes from Ark factory composition and replaces legacy render-prop composition.
 
 ## Examples
 
@@ -162,11 +177,11 @@ Use a larger block plus shorter text lines to reserve card layout while content 
       export function SkeletonCardDemo() {
         return (
           <Stack gap={16} className={styles.card}>
-            <Skeleton height={148} radius="var(--radius-lg)" />
+            <Skeleton height={cardSkeleton.mediaHeight} borderRadius="var(--radius-lg)" />
             <Stack gap={12}>
-              <Skeleton width="70%" height={20} />
+              <Skeleton width={cardSkeleton.titleWidth} height={20} />
               <Skeleton height={14} />
-              <Skeleton width="82%" height={14} />
+              <Skeleton width={cardSkeleton.bodyWidth} height={14} />
             </Stack>
           </Stack>
         );
@@ -175,19 +190,20 @@ Use a larger block plus shorter text lines to reserve card layout while content 
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .card {
         width: min(20rem, calc(100vw - var(--spacing-8)));
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>{skeletonCardData}</Preview.Data>
 </Preview>
 
 ### Media Object
 
-Use `size` with `shape="circle"` for avatar placeholders, then compose text lines beside it.
+Use `boxSize` with a full radius for avatar placeholders, then compose text lines beside it.
 
 <Preview>
   <SkeletonMediaObjectExample />
@@ -200,11 +216,11 @@ Use `size` with `shape="circle"` for avatar placeholders, then compose text line
       export function SkeletonMediaObjectDemo() {
         return (
           <Stack direction="row" align="center" gap={12} className={styles.mediaObject}>
-            <Skeleton size={48} shape="circle" />
+            <Skeleton boxSize={userRowSkeleton.avatarSize} borderRadius="var(--radius-full)" />
             <Stack gap={8} fill>
-              <Skeleton width="46%" height={16} />
+              <Skeleton width={userRowSkeleton.titleWidth} height={16} />
               <Skeleton height={14} />
-              <Skeleton width="72%" height={14} />
+              <Skeleton width={userRowSkeleton.bodyWidth} height={14} />
             </Stack>
           </Stack>
         );
@@ -213,19 +229,20 @@ Use `size` with `shape="circle"` for avatar placeholders, then compose text line
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .mediaObject {
         width: min(24rem, calc(100vw - var(--spacing-8)));
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>{skeletonMediaObjectData}</Preview.Data>
 </Preview>
 
 ### Responsive Layout
 
-Keep responsive layout logic in your wrapper markup while `Skeleton` stays a visual building block.
+Keep responsive layout logic in wrapper markup while each `Skeleton` stays a visual building block.
 
 <Preview>
   <SkeletonCompositionExample />
@@ -238,20 +255,15 @@ Keep responsive layout logic in your wrapper markup while `Skeleton` stays a vis
       export function SkeletonCompositionDemo() {
         return (
           <Stack gap={12} className={styles.layoutExample}>
-            <Stack direction={{ mobile: "column", desktop: "row" }} gap={12}>
-              <Skeleton width={72} height={48} />
-              <Stack gap={8} fill>
-                <Skeleton width="62%" height={14} />
-                <Skeleton height={14} />
+            {announcements.map((item) => (
+              <Stack key={item.titleWidth} direction={{ mobile: "column", desktop: "row" }} gap={12}>
+                <Skeleton width={72} height={48} />
+                <Stack gap={8} fill>
+                  <Skeleton width={item.titleWidth} height={14} />
+                  <Skeleton height={14} />
+                </Stack>
               </Stack>
-            </Stack>
-            <Stack direction={{ mobile: "column", desktop: "row" }} gap={12}>
-              <Skeleton width={72} height={48} />
-              <Stack gap={8} fill>
-                <Skeleton width="48%" height={14} />
-                <Skeleton height={14} />
-              </Stack>
-            </Stack>
+            ))}
           </Stack>
         );
       }
@@ -259,20 +271,57 @@ Keep responsive layout logic in your wrapper markup while `Skeleton` stays a vis
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .layoutExample {
         width: min(24rem, calc(100vw - var(--spacing-8)));
         padding-block: 4px;
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>{skeletonCompositionData}</Preview.Data>
+</Preview>
+
+### Variants
+
+Use `variant` to choose between pulse and static placeholder rendering.
+
+<Preview>
+  <SkeletonVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Skeleton, Stack } from "moduix";
+      import styles from "./skeleton-variants-demo.module.css";
+
+      export function SkeletonVariantsDemo() {
+        return (
+          <Stack gap={12} className={styles.stack}>
+            {variants.map((variant) => (
+              <Skeleton key={variant} height={18} variant={variant} />
+            ))}
+          </Stack>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .stack {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>{skeletonVariantsData}</Preview.Data>
 </Preview>
 
 ### Static
 
-Pass `animated={false}` when the loading state is dense or motion should stay quieter.
+Pass `variant="none"` when the loading state is dense or motion should stay quieter.
 
 <Preview>
   <SkeletonStaticExample />
@@ -280,13 +329,117 @@ Pass `animated={false}` when the loading state is dense or motion should stay qu
   <Preview.Code>
     {`
       import { Skeleton } from "moduix";
+      import styles from "./static-skeleton-demo.module.css";
 
       export function StaticSkeletonDemo() {
-        return <Skeleton width={320} height={72} animated={false} />;
+        return (
+          <Skeleton
+            width={staticSkeleton.width}
+            height={staticSkeleton.height}
+            variant={staticSkeleton.variant}
+            className={styles.staticSkeleton}
+          />
+        );
       }
     `}
 
   </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .staticSkeleton {
+        max-width: calc(100vw - var(--spacing-8));
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>{skeletonStaticData}</Preview.Data>
+</Preview>
+
+### Loaded Content
+
+Use `loading` to keep the same host in place while switching from placeholder to real content.
+
+<Preview>
+  <SkeletonLoadedExample />
+
+  <Preview.Code>
+    {`
+      import { Skeleton } from "moduix";
+      import styles from "./loaded-skeleton-demo.module.css";
+
+      export function LoadedSkeletonDemo() {
+        return (
+          <div className={styles.loadedGrid}>
+            <Skeleton loading={states.loading} className={styles.loadedContent}>
+              <strong>{profile.name}</strong>
+              <span>{profile.role}</span>
+            </Skeleton>
+            <Skeleton loading={states.loaded} className={styles.loadedContent}>
+              <strong>{profile.name}</strong>
+              <span>{profile.role}</span>
+            </Skeleton>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .loadedContent {
+        display: grid;
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        min-height: 4.25rem;
+        gap: var(--spacing-1);
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+      }
+
+      .loadedGrid {
+        display: grid;
+        gap: var(--spacing-3);
+      }
+    `}
+
+</Preview.CSS>
+
+  <Preview.Data>{skeletonLoadedData}</Preview.Data>
+</Preview>
+
+### Custom Host
+
+Use `asChild` when a semantic element such as `section` should own the DOM node.
+
+<Preview>
+  <SkeletonAsChildExample />
+
+  <Preview.Code>
+    {`
+      import { Skeleton } from "moduix";
+      import styles from "./skeleton-as-child-demo.module.css";
+
+      export function SkeletonAsChildDemo() {
+        return (
+          <Skeleton asChild height={72} borderRadius="var(--radius-lg)" className={styles.asChild}>
+            <section aria-label={loadingRegion.label} />
+          </Skeleton>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .asChild {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>{skeletonAsChildData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -314,27 +467,15 @@ Use `className` and the public CSS variables when the surface needs local stylin
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
-      .customBlock {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
-        --skeleton-bg: var(--color-primary);
-        --skeleton-radius: var(--radius-full);
-        --skeleton-animation: none;
-      }
+<Preview.CSS>{skeletonCustomStylingCss}</Preview.CSS>
 
-      .customSkeleton {
-        opacity: 0.28;
-      }
-    `}
-
-  </Preview.CSS>
+  <Preview.Data>{skeletonExampleData}</Preview.Data>
 </Preview>
 
 ## Styling
 
-`Skeleton` exposes one stable root selector, an optional animation hook, and three public
-`--skeleton-*` variables for color, radius, and motion.
+`Skeleton` exposes Ark-style part and state hooks plus public `--skeleton-*` variables for color,
+radius, and motion.
 
 ### CSS Properties
 
@@ -348,6 +489,8 @@ Use `className` and the public CSS variables when the surface needs local stylin
 
 ### Styling hooks
 
-- `data-slot="skeleton-root"` is the stable selector for the exported root.
-- `[data-animated]` is present only when animation is enabled for that instance.
-- `className` and `style` are applied directly to the root skeleton element.
+- `[data-scope="skeleton"][data-part="root"]` targets the exported root.
+- `data-slot="skeleton-root"` is the stable moduix selector for the root.
+- `data-state="loading"` and `data-state="loaded"` reflect the `loading` prop.
+- `data-variant="pulse"` and `data-variant="none"` reflect the variant.
+- `data-loading` is present only while placeholder styles are active.

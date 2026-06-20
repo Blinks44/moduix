@@ -5,19 +5,73 @@ import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './skeleton.module.css';
 
 const skeletonCssProperties: CssPropertyInput[] = [
-  [
-    '--skeleton-animation',
-    'var(--animation-pulse)',
-    'Controls skeleton loading animation (`moduix-pulse 2s ease-in-out infinite` by default).',
-  ],
+  ['--skeleton-animation', 'var(--animation-pulse)', 'Controls the pulse loading animation.'],
+  ['--skeleton-border-radius', 'var(--radius-md)', 'Controls default skeleton border radius.'],
   [
     '--skeleton-bg',
     'color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))',
     'Controls skeleton background color.',
   ],
-  ['--skeleton-radius', 'var(--radius-md)', 'Controls default skeleton border radius.'],
 ];
 export const skeletonOverrideCssProperties = skeletonCssProperties;
+
+export const skeletonExampleData = `const lines = [
+  { width: '100%', height: 18 },
+  { width: '86%', height: 18 },
+  { width: '64%', height: 18 },
+];`;
+
+export const skeletonCardData = `const cardSkeleton = {
+  mediaHeight: 148,
+  titleWidth: '70%',
+  bodyWidth: '82%',
+};`;
+
+export const skeletonMediaObjectData = `const userRowSkeleton = {
+  avatarSize: 48,
+  titleWidth: '46%',
+  bodyWidth: '72%',
+};`;
+
+export const skeletonCompositionData = `const announcements = [
+  { titleWidth: '62%' },
+  { titleWidth: '48%' },
+];`;
+
+export const skeletonVariantsData = `const variants = ['pulse', 'none'] as const;`;
+
+export const skeletonStaticData = `const staticSkeleton = {
+  width: 320,
+  height: 72,
+  variant: 'none',
+} as const;`;
+
+export const skeletonAsChildData = `const loadingRegion = {
+  label: 'Loading summary',
+};`;
+
+export const skeletonLoadedData = `const profile = {
+  name: 'Ada Lovelace',
+  role: 'Analytical engine notes',
+};
+
+const states = {
+  loading: true,
+  loaded: false,
+};`;
+
+export const skeletonCustomStylingCss = `
+  .customBlock {
+    width: min(20rem, calc(100vw - var(--spacing-8)));
+    --skeleton-bg: var(--color-primary);
+    --skeleton-border-radius: var(--radius-full);
+    --skeleton-animation: none;
+  }
+
+  .customSkeleton {
+    opacity: 0.28;
+  }
+`;
 
 export function SkeletonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
@@ -46,7 +100,7 @@ export function SkeletonExample(props: ComponentProps<typeof Skeleton>) {
 export function SkeletonCardExample() {
   return (
     <Stack gap={16} className={styles.card}>
-      <Skeleton height={148} radius="var(--radius-lg)" />
+      <Skeleton height={148} borderRadius="var(--radius-lg)" />
       <Stack gap={12}>
         <Skeleton width="70%" height={20} />
         <Skeleton height={14} />
@@ -59,7 +113,7 @@ export function SkeletonCardExample() {
 export function SkeletonMediaObjectExample() {
   return (
     <Stack direction="row" align="center" gap={12} className={styles.mediaObject}>
-      <Skeleton size={48} shape="circle" />
+      <Skeleton boxSize={48} borderRadius="var(--radius-full)" />
       <Stack gap={8} fill>
         <Skeleton width="46%" height={16} />
         <Skeleton height={14} />
@@ -91,7 +145,39 @@ export function SkeletonCompositionExample() {
 }
 
 export function SkeletonStaticExample() {
-  return <Skeleton width={320} height={72} animated={false} />;
+  return <Skeleton width={320} height={72} variant="none" className={styles.staticSkeleton} />;
+}
+
+export function SkeletonVariantsExample() {
+  return (
+    <Stack gap={12} className={styles.stack}>
+      <Skeleton height={18} variant="pulse" />
+      <Skeleton height={18} variant="none" />
+    </Stack>
+  );
+}
+
+export function SkeletonAsChildExample() {
+  return (
+    <Skeleton asChild height={72} borderRadius="var(--radius-lg)" className={styles.asChild}>
+      <section aria-label="Loading summary" />
+    </Skeleton>
+  );
+}
+
+export function SkeletonLoadedExample() {
+  return (
+    <div className={styles.loadedGrid}>
+      <Skeleton loading className={styles.loadedContent}>
+        <strong>Ada Lovelace</strong>
+        <span>Analytical engine notes</span>
+      </Skeleton>
+      <Skeleton loading={false} className={styles.loadedContent}>
+        <strong>Ada Lovelace</strong>
+        <span>Analytical engine notes</span>
+      </Skeleton>
+    </div>
+  );
 }
 
 export function SkeletonClassNameExample() {
