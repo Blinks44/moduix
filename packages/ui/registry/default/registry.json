@@ -1034,26 +1034,51 @@
       ]
     },
     {
-      "name": "progress",
+      "name": "progress-circular",
       "type": "registry:item",
-      "title": "Progress",
-      "description": "moduix Progress component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "title": "ProgressCircular",
+      "description": "moduix ProgressCircular component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
-          "path": "packages/ui/src/components/progress/Progress.tsx",
-          "target": "@components/moduix/progress/Progress.tsx",
+          "path": "packages/ui/src/components/progress-circular/ProgressCircular.tsx",
+          "target": "@components/moduix/progress-circular/ProgressCircular.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/ui/src/components/progress/Progress.module.css",
-          "target": "@components/moduix/progress/Progress.module.css",
+          "path": "packages/ui/src/components/progress-circular/ProgressCircular.module.css",
+          "target": "@components/moduix/progress-circular/ProgressCircular.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/ui/src/components/progress/index.ts",
-          "target": "@components/moduix/progress/index.ts",
+          "path": "packages/ui/src/components/progress-circular/index.ts",
+          "target": "@components/moduix/progress-circular/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "progress-linear",
+      "type": "registry:item",
+      "title": "ProgressLinear",
+      "description": "moduix ProgressLinear component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/core"],
+      "files": [
+        {
+          "path": "packages/ui/src/components/progress-linear/ProgressLinear.tsx",
+          "target": "@components/moduix/progress-linear/ProgressLinear.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/ui/src/components/progress-linear/ProgressLinear.module.css",
+          "target": "@components/moduix/progress-linear/ProgressLinear.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/ui/src/components/progress-linear/index.ts",
+          "target": "@components/moduix/progress-linear/index.ts",
           "type": "registry:component"
         }
       ]

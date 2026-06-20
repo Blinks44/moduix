@@ -1,0 +1,532 @@
+---
+title: Progress Circular
+description: A circular progressbar for determinate or indeterminate progress.
+icon: Component
+---
+
+import {
+  ContextProgressCircularExample,
+  ControlledProgressCircularExample,
+  CustomStylingProgressCircularExample,
+  IndeterminateProgressCircularExample,
+  InitialValueProgressCircularExample,
+  MinMaxProgressCircularExample,
+  ProgressCircularCssPropertiesPanel,
+  ProgressCircularExample,
+  RootProviderProgressCircularExample,
+  ValueTextProgressCircularExample,
+  progressCircularCustomStylingCss,
+  progressCircularData,
+  progressCircularExampleCss,
+} from '@/components/examples/progress-circular';
+import { ProgressCircular } from 'moduix';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/progress-circular" />
+
+## Choosing the right component
+
+Choose `ProgressCircular` for compact inline status, cards, toolbar badges, and small dashboards.
+Choose `ProgressLinear` when horizontal comparison against a full track matters.
+
+## Basic
+
+Use Ark-style parts: `ProgressCircular.Root`, `ProgressCircular.Circle`,
+`ProgressCircular.CircleTrack`, `ProgressCircular.CircleRange`, and `ProgressCircular.ValueText`.
+
+<Preview>
+  <ProgressCircularExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressCircular } from "moduix";
+
+      export function ProgressCircularDemo() {
+        return (
+          <ProgressCircular defaultValue={42}>
+            <ProgressCircular.Label>Export data</ProgressCircular.Label>
+            <div className="progress-circular-circle-container">
+              <ProgressCircular.Circle>
+                <ProgressCircular.CircleTrack />
+                <ProgressCircular.CircleRange />
+              </ProgressCircular.Circle>
+              <ProgressCircular.ValueText />
+            </div>
+          </ProgressCircular>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
+  <Preview.Data>{progressCircularData}</Preview.Data>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `ProgressCircular` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/progress-circular
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/progress-circular
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/progress-circular
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/progress-circular
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/progress-circular
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+ProgressCircular.Root
+├─ ProgressCircular.Label
+├─ ProgressCircular.Circle
+│  ├─ ProgressCircular.CircleTrack
+│  └─ ProgressCircular.CircleRange
+└─ ProgressCircular.ValueText
+
+ProgressCircular.RootProvider
+└─ same part tree connected to useProgressCircular()
+```
+
+| Part                                         | Role                                                            |
+| -------------------------------------------- | --------------------------------------------------------------- |
+| `ProgressCircular` / `ProgressCircular.Root` | Owns progress state, formatting, and ids.                       |
+| `ProgressCircular.RootProvider`              | Connects parts to state created with `useProgressCircular()`.   |
+| `ProgressCircular.Label`                     | Accessible label for the progressbar.                           |
+| `ProgressCircular.Circle`                    | SVG progressbar surface with ARIA value.                        |
+| `ProgressCircular.CircleTrack`               | Background circle.                                              |
+| `ProgressCircular.CircleRange`               | Foreground circle that reflects the current percent/state.      |
+| `ProgressCircular.ValueText`                 | Visible value text generated from Ark translations.             |
+| `ProgressCircular.View`                      | Conditional view for `indeterminate`, `loading`, or `complete`. |
+| `ProgressCircular.Context`                   | Render-prop access to the Ark progress API.                     |
+
+## Composition
+
+### Recommended composition
+
+`ProgressCircular` is the short root form. It is equivalent to `ProgressCircular.Root`, and the SVG
+circle parts stay explicit so the rendered anatomy matches Ark UI.
+
+Use `defaultValue` for uncontrolled progress, `value` with `onValueChange(details)` for controlled
+progress, and `defaultValue={null}` or `value={null}` for indeterminate progress.
+
+### When to go custom
+
+Use `ProgressCircular.RootProvider` with `useProgressCircular()` when progress state must be
+created outside the rendered subtree. Use `ProgressCircular.Context` or
+`useProgressCircularContext()` when nearby UI needs access to `value`, `valueAsString`, `percent`,
+`setValue()`, or `indeterminate`.
+
+Use `translations.value(details)` for custom visible and accessible value text. Wrap the circle and
+value text in your own layout element when the number should sit in the center.
+
+Use `ids` when the label, circle, or surrounding layout need stable explicit IDs across a more
+custom tree. Use `ProgressCircular.View` when supporting UI should switch with the Ark progress
+state instead of duplicating state checks outside the component.
+
+### Default props
+
+| Prop            | Default                | Notes                                   |
+| --------------- | ---------------------- | --------------------------------------- |
+| `defaultValue`  | `50`                   | Initial uncontrolled value.             |
+| `min`           | `0`                    | Lower bound for percent and ARIA value. |
+| `max`           | `100`                  | Upper bound for percent and ARIA value. |
+| `formatOptions` | `{ style: 'percent' }` | Controls `ValueText` formatting.        |
+| `locale`        | `'en-US'`              | Locale used by `Intl.NumberFormat`.     |
+
+### Behavioral notes
+
+`ProgressCircular.Circle` receives the progressbar role and ARIA value attributes from Ark. Ark
+also owns the SVG variables for radius, circumference, percent, and stroke offset.
+
+All exported parts support `asChild` through Ark polymorphic composition. Keep replacement children
+semantic and preserve the progressbar semantics on the circle.
+
+`ProgressCircular.ValueText` announces changes with `aria-live="polite"`. Keep the visible label in
+the tree, or provide `aria-label`/`aria-labelledby` when composing without `ProgressCircular.Label`.
+
+## Examples
+
+### Controlled
+
+Keep `value` in React state when circular progress mirrors another control or external task state.
+
+<Preview>
+  <ControlledProgressCircularExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressCircular } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledProgressCircularDemo() {
+        const [value, setValue] = useState(42);
+
+        return (
+          <div className="progress-circular-stack">
+            <ProgressCircular value={value} onValueChange={(details) => setValue(details.value)}>
+              <ProgressCircular.Label>Upload status</ProgressCircular.Label>
+              <div className="progress-circular-circle-container">
+                <ProgressCircular.Circle>
+                  <ProgressCircular.CircleTrack />
+                  <ProgressCircular.CircleRange />
+                </ProgressCircular.Circle>
+                <ProgressCircular.ValueText />
+              </div>
+            </ProgressCircular>
+            <input
+              className="progress-circular-range-input"
+              type="range"
+              min={0}
+              max={100}
+              value={value}
+              onChange={(event) => setValue(Number(event.target.value))}
+            />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
+  <Preview.Data>{progressCircularData}</Preview.Data>
+</Preview>
+
+### Initial Value
+
+Use `defaultValue` to set the initial uncontrolled progress value.
+
+<Preview>
+  <InitialValueProgressCircularExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressCircular } from "moduix";
+
+      export function InitialValueProgressCircularDemo() {
+        return (
+          <ProgressCircular defaultValue={70}>
+            <ProgressCircular.Label>Import data</ProgressCircular.Label>
+            <ProgressCircular.Circle>
+              <ProgressCircular.CircleTrack />
+              <ProgressCircular.CircleRange />
+            </ProgressCircular.Circle>
+            <ProgressCircular.ValueText />
+          </ProgressCircular>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
+  <Preview.Data>{progressCircularData}</Preview.Data>
+</Preview>
+
+### Min Max
+
+Use `min` and `max` when the value does not use the default `0` to `100` range.
+
+<Preview>
+  <MinMaxProgressCircularExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressCircular } from "moduix";
+
+      export function MinMaxProgressCircularDemo() {
+        return (
+          <ProgressCircular defaultValue={420} min={200} max={800}>
+            <ProgressCircular.Label>Requests per minute</ProgressCircular.Label>
+            <ProgressCircular.Circle>
+              <ProgressCircular.CircleTrack />
+              <ProgressCircular.CircleRange />
+            </ProgressCircular.Circle>
+            <ProgressCircular.ValueText />
+          </ProgressCircular>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
+  <Preview.Data>{progressCircularData}</Preview.Data>
+</Preview>
+
+### Indeterminate
+
+Pass `defaultValue={null}` or `value={null}` when progress is running but completion is unknown.
+
+<Preview>
+  <IndeterminateProgressCircularExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressCircular } from "moduix";
+
+      export function IndeterminateProgressCircularDemo() {
+        return (
+          <ProgressCircular defaultValue={null}>
+            <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
+            <ProgressCircular.Circle>
+              <ProgressCircular.CircleTrack />
+              <ProgressCircular.CircleRange />
+            </ProgressCircular.Circle>
+            <ProgressCircular.ValueText />
+          </ProgressCircular>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
+  <Preview.Data>{progressCircularData}</Preview.Data>
+</Preview>
+
+### Value Text
+
+Use `translations.value(details)` when the formatted percent is not the wording users need.
+
+<Preview>
+  <ValueTextProgressCircularExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressCircular } from "moduix";
+
+      export function ValueTextProgressCircularDemo() {
+        return (
+          <ProgressCircular
+            translations={{
+              value({ value, max }) {
+                if (value === null) return "Loading...";
+                return \`\${value} of \${max}\`;
+              },
+            }}
+          >
+            <ProgressCircular.Label>Migration</ProgressCircular.Label>
+            <ProgressCircular.Circle>
+              <ProgressCircular.CircleTrack />
+              <ProgressCircular.CircleRange />
+            </ProgressCircular.Circle>
+            <ProgressCircular.ValueText />
+          </ProgressCircular>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
+  <Preview.Data>{progressCircularData}</Preview.Data>
+</Preview>
+
+### Root Provider
+
+Create the Ark progress store outside the rendered tree when another component needs to own state.
+
+<Preview>
+  <RootProviderProgressCircularExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressCircular, useProgressCircular } from "moduix";
+
+      export function RootProviderProgressCircularDemo() {
+        const progress = useProgressCircular({ defaultValue: 58 });
+
+        return (
+          <ProgressCircular.RootProvider value={progress}>
+            <ProgressCircular.Label>Team rollout</ProgressCircular.Label>
+            <ProgressCircular.Circle>
+              <ProgressCircular.CircleTrack />
+              <ProgressCircular.CircleRange />
+            </ProgressCircular.Circle>
+            <ProgressCircular.ValueText />
+          </ProgressCircular.RootProvider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
+  <Preview.Data>{progressCircularData}</Preview.Data>
+</Preview>
+
+### Context
+
+Read Ark state inline with `ProgressCircular.Context` when surrounding UI needs live progress data.
+
+<Preview>
+  <ContextProgressCircularExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressCircular } from "moduix";
+
+      export function ContextProgressCircularDemo() {
+        return (
+          <ProgressCircular defaultValue={64}>
+            <ProgressCircular.Label>Migration</ProgressCircular.Label>
+            <ProgressCircular.Circle>
+              <ProgressCircular.CircleTrack />
+              <ProgressCircular.CircleRange />
+            </ProgressCircular.Circle>
+            <ProgressCircular.ValueText />
+            <ProgressCircular.Context>
+              {(progress) => (
+                <span className="progress-circular-context">
+                  Current percent: {progress.percent}%
+                </span>
+              )}
+            </ProgressCircular.Context>
+          </ProgressCircular>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
+  <Preview.Data>{progressCircularData}</Preview.Data>
+</Preview>
+
+### State Views
+
+Use `ProgressCircular.View` when supporting text or UI should switch with the Ark progress state
+instead of duplicating state checks outside the component.
+
+<Preview>
+  <ProgressCircular defaultValue={null}>
+    <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
+    <ProgressCircular.Circle>
+      <ProgressCircular.CircleTrack />
+      <ProgressCircular.CircleRange />
+    </ProgressCircular.Circle>
+    <ProgressCircular.ValueText />
+    <ProgressCircular.View state="indeterminate">Waiting for source data</ProgressCircular.View>
+    <ProgressCircular.View state="loading">Transfer in progress</ProgressCircular.View>
+    <ProgressCircular.View state="complete">Export complete</ProgressCircular.View>
+  </ProgressCircular>
+
+  <Preview.Code>
+    {`
+      import { ProgressCircular } from "moduix";
+
+      export function StateViewsProgressCircularDemo() {
+        return (
+          <ProgressCircular defaultValue={null}>
+            <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
+            <ProgressCircular.Circle>
+              <ProgressCircular.CircleTrack />
+              <ProgressCircular.CircleRange />
+            </ProgressCircular.Circle>
+            <ProgressCircular.ValueText />
+            <ProgressCircular.View state="indeterminate">
+              Waiting for source data
+            </ProgressCircular.View>
+            <ProgressCircular.View state="loading">Transfer in progress</ProgressCircular.View>
+            <ProgressCircular.View state="complete">Export complete</ProgressCircular.View>
+          </ProgressCircular>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
+  <Preview.Data>{progressCircularData}</Preview.Data>
+</Preview>
+
+### Custom Styling
+
+Override public CSS variables and target SVG `data-slot` hooks when only the visuals need to change.
+
+<Preview>
+  <CustomStylingProgressCircularExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressCircular } from "moduix";
+
+      export function CustomStylingProgressCircularDemo() {
+        return (
+          <ProgressCircular defaultValue={72} className="progress-circular-custom">
+            <ProgressCircular.Label>Monthly quota</ProgressCircular.Label>
+            <ProgressCircular.Circle>
+              <ProgressCircular.CircleTrack />
+              <ProgressCircular.CircleRange />
+            </ProgressCircular.Circle>
+            <ProgressCircular.ValueText />
+          </ProgressCircular>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressCircularCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{progressCircularData}</Preview.Data>
+</Preview>
+
+## Styling
+
+Use `className` on exported parts for structural styling changes. For state styling, prefer Ark
+data attributes, Ark SVG variables, and moduix `data-slot` hooks.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ProgressCircularCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="progress-circular-root"`, `progress-circular-root-provider`,
+  `progress-circular-label`, `progress-circular-circle`, `progress-circular-circle-track`,
+  `progress-circular-circle-range`, `progress-circular-value-text`, and `progress-circular-view`.
+- Ark hooks: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
+  `data-orientation`, `data-value`, and `data-max`.
+- Ark circle variables: `--size`, `--thickness`, `--radius`, `--circumference`, `--percent`, and
+  stroke offset values generated by Ark.

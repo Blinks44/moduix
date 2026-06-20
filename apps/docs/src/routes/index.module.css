@@ -463,9 +463,9 @@
 
 .heroProgress {
   width: 100%;
-  --progress-width: 100%;
+  --progress-linear-width: 100%;
 
-  :global([data-slot='progress-indicator']) {
+  :global([data-slot='progress-linear-range']) {
     background: linear-gradient(90deg, var(--color-fd-primary), var(--moduix-home-brand));
   }
 }

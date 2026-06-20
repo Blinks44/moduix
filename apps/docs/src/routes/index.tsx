@@ -5,9 +5,7 @@ import {
   Button,
   Dialog,
   Portal,
-  Progress,
-  ProgressLabel,
-  ProgressValue,
+  ProgressLinear,
   Select,
   Switch,
   SwitchField,
@@ -182,10 +180,13 @@ function HomeShowcase() {
                 <Switch checked={automationEnabled} onCheckedChange={handleAutomationChange} />
                 <SwitchLabel>Auto-review before release</SwitchLabel>
               </SwitchField>
-              <Progress value={progressValue} className={styles.heroProgress}>
-                <ProgressLabel>Release readiness</ProgressLabel>
-                <ProgressValue />
-              </Progress>
+              <ProgressLinear value={progressValue} className={styles.heroProgress}>
+                <ProgressLinear.Label>Release readiness</ProgressLinear.Label>
+                <ProgressLinear.ValueText />
+                <ProgressLinear.Track>
+                  <ProgressLinear.Range />
+                </ProgressLinear.Track>
+              </ProgressLinear>
               <div className={styles.statusRow}>
                 <span>{automationEnabled ? 'Checks enabled' : 'Manual review only'}</span>
                 <Button

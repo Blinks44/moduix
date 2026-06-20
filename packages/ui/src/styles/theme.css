@@ -1528,28 +1528,49 @@
   --hover-card-trigger-underline-offset: initial; /* 2px */
   --hover-card-width: initial; /* auto */
 
-  /* Progress */
-  --progress-color: initial; /* var(--color-foreground) */
-  --progress-gap: initial; /* 0.5rem */
-  --progress-indicator-bg: initial; /* var(--color-primary) */
-  --progress-indicator-radius: initial; /* inherit */
-  --progress-indicator-indeterminate-animation: initial; /* progress-indeterminate 1.5s ease-in-out infinite */
-  --progress-indicator-indeterminate-width: initial; /* 35% */
-  --progress-indicator-transition: initial; /* var(--transition-default) */
-  --progress-label-color: initial; /* var(--progress-color) */
-  --progress-label-font-size: initial; /* var(--text-sm) */
-  --progress-label-font-weight: initial; /* var(--weight-regular) */
-  --progress-label-line-height: initial; /* var(--line-height-text-sm) */
-  --progress-track-bg: initial; /* var(--color-muted) */
-  --progress-track-border-color: initial; /* var(--color-border) */
-  --progress-track-border-width: initial; /* var(--border-width-sm) */
-  --progress-track-height: initial; /* 0.5rem */
-  --progress-track-radius: initial; /* var(--radius-full) */
-  --progress-value-color: initial; /* var(--progress-color) */
-  --progress-value-font-size: initial; /* var(--text-sm) */
-  --progress-value-font-weight: initial; /* var(--weight-regular) */
-  --progress-value-line-height: initial; /* var(--line-height-text-sm) */
-  --progress-width: initial; /* 12rem */
+  /* ProgressCircular */
+  --progress-circular-color: initial; /* var(--color-foreground) */
+  --progress-circular-gap: initial; /* 0.5rem */
+  --progress-circular-label-color: initial; /* currentColor */
+  --progress-circular-label-font-size: initial; /* var(--text-sm) */
+  --progress-circular-label-font-weight: initial; /* var(--weight-regular) */
+  --progress-circular-label-line-height: initial; /* var(--line-height-text-sm) */
+  --progress-circular-range-bg: initial; /* var(--color-primary) */
+  --progress-circular-range-indeterminate-animation: initial; /* progress-circular-indeterminate 1.4s linear infinite */
+  --progress-circular-range-indeterminate-dasharray: initial; /* 1 200 */
+  --progress-circular-range-linecap: initial; /* round */
+  --progress-circular-range-transition: initial; /* var(--transition-default) */
+  --progress-circular-root-width: initial; /* max-content */
+  --progress-circular-size: initial; /* 3rem */
+  --progress-circular-thickness: initial; /* 0.375rem */
+  --progress-circular-track-bg: initial; /* var(--color-muted) */
+  --progress-circular-value-text-color: initial; /* currentColor */
+  --progress-circular-value-text-font-size: initial; /* var(--text-sm) */
+  --progress-circular-value-text-font-weight: initial; /* var(--weight-medium) */
+  --progress-circular-value-text-line-height: initial; /* var(--line-height-text-sm) */
+
+  /* ProgressLinear */
+  --progress-linear-color: initial; /* var(--color-foreground) */
+  --progress-linear-gap: initial; /* 0.5rem */
+  --progress-linear-label-color: initial; /* currentColor */
+  --progress-linear-label-font-size: initial; /* var(--text-sm) */
+  --progress-linear-label-font-weight: initial; /* var(--weight-regular) */
+  --progress-linear-label-line-height: initial; /* var(--line-height-text-sm) */
+  --progress-linear-range-bg: initial; /* var(--color-primary) */
+  --progress-linear-range-indeterminate-animation: initial; /* progress-linear-indeterminate 1.5s ease-in-out infinite */
+  --progress-linear-range-indeterminate-width: initial; /* 35% */
+  --progress-linear-range-radius: initial; /* inherit */
+  --progress-linear-range-transition: initial; /* var(--transition-default) */
+  --progress-linear-track-bg: initial; /* var(--color-muted) */
+  --progress-linear-track-border-color: initial; /* var(--color-border) */
+  --progress-linear-track-border-width: initial; /* var(--border-width-sm) */
+  --progress-linear-track-height: initial; /* 0.5rem */
+  --progress-linear-track-radius: initial; /* var(--radius-full) */
+  --progress-linear-value-text-color: initial; /* currentColor */
+  --progress-linear-value-text-font-size: initial; /* var(--text-sm) */
+  --progress-linear-value-text-font-weight: initial; /* var(--weight-regular) */
+  --progress-linear-value-text-line-height: initial; /* var(--line-height-text-sm) */
+  --progress-linear-width: initial; /* 12rem */
 
   /* Radio */
   --radio-bg: initial; /* var(--color-background) */

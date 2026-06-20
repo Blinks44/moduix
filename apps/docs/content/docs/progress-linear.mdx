@@ -1,0 +1,513 @@
+---
+title: Progress Linear
+description: A horizontal progressbar for determinate or indeterminate progress.
+icon: Component
+---
+
+import {
+  ContextProgressLinearExample,
+  ControlledProgressLinearExample,
+  CustomStylingProgressLinearExample,
+  IndeterminateProgressLinearExample,
+  InitialValueProgressLinearExample,
+  MinMaxProgressLinearExample,
+  ProgressLinearCssPropertiesPanel,
+  ProgressLinearExample,
+  RootProviderProgressLinearExample,
+  ValueTextProgressLinearExample,
+  progressLinearCustomStylingCss,
+  progressLinearData,
+  progressLinearExampleCss,
+} from '@/components/examples/progress-linear';
+import { ProgressLinear } from 'moduix';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/progress-linear" />
+
+## Choosing the right component
+
+Choose `ProgressLinear` when horizontal space is available and the user should compare progress
+against a clear track. Choose `ProgressCircular` for compact inline status surfaces.
+
+## Basic
+
+Use Ark-style parts: `ProgressLinear.Root`, `ProgressLinear.Label`,
+`ProgressLinear.ValueText`, `ProgressLinear.Track`, and `ProgressLinear.Range`.
+
+<Preview>
+  <ProgressLinearExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressLinear } from "moduix";
+
+      export function ProgressLinearDemo() {
+        return (
+          <ProgressLinear defaultValue={24}>
+            <ProgressLinear.Label>Export data</ProgressLinear.Label>
+            <ProgressLinear.ValueText />
+            <ProgressLinear.Track>
+              <ProgressLinear.Range />
+            </ProgressLinear.Track>
+          </ProgressLinear>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
+  <Preview.Data>{progressLinearData}</Preview.Data>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `ProgressLinear` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/progress-linear
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/progress-linear
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/progress-linear
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/progress-linear
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/progress-linear
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+ProgressLinear.Root
+├─ ProgressLinear.Label
+├─ ProgressLinear.ValueText
+└─ ProgressLinear.Track
+   └─ ProgressLinear.Range
+
+ProgressLinear.RootProvider
+└─ same part tree connected to useProgressLinear()
+```
+
+| Part                                     | Role                                                            |
+| ---------------------------------------- | --------------------------------------------------------------- |
+| `ProgressLinear` / `ProgressLinear.Root` | Owns progress state, formatting, and ids.                       |
+| `ProgressLinear.RootProvider`            | Connects parts to state created with `useProgressLinear()`.     |
+| `ProgressLinear.Label`                   | Accessible label for the progressbar.                           |
+| `ProgressLinear.ValueText`               | Visible value text generated from Ark translations.             |
+| `ProgressLinear.Track`                   | Linear rail with progressbar semantics and ARIA value.          |
+| `ProgressLinear.Range`                   | Filled range that reflects the current percent.                 |
+| `ProgressLinear.View`                    | Conditional view for `indeterminate`, `loading`, or `complete`. |
+| `ProgressLinear.Context`                 | Render-prop access to the Ark progress API.                     |
+
+## Composition
+
+### Recommended composition
+
+`ProgressLinear` is the short root form. It is equivalent to `ProgressLinear.Root`, and the child
+parts stay explicit so the rendered anatomy matches Ark UI.
+
+Use `defaultValue` for uncontrolled progress, `value` with `onValueChange(details)` for controlled
+progress, and `defaultValue={null}` or `value={null}` for indeterminate progress.
+
+### When to go custom
+
+Use `ProgressLinear.RootProvider` with `useProgressLinear()` when progress state must be created
+outside the rendered subtree. Use `ProgressLinear.Context` or `useProgressLinearContext()` when
+nearby UI needs access to `value`, `valueAsString`, `percent`, `setValue()`, or `indeterminate`.
+
+Use `translations.value(details)` for custom visible and accessible value text. This replaces the
+old Base UI `getAriaValueText` and child render function pattern.
+
+Use `ids` when the label, track, or surrounding layout need stable explicit IDs across a more
+custom tree. Use `ProgressLinear.View` when supporting UI should switch with the Ark progress state
+instead of duplicating state checks outside the component.
+
+### Default props
+
+| Prop            | Default                | Notes                                   |
+| --------------- | ---------------------- | --------------------------------------- |
+| `defaultValue`  | `50`                   | Initial uncontrolled value.             |
+| `min`           | `0`                    | Lower bound for percent and ARIA value. |
+| `max`           | `100`                  | Upper bound for percent and ARIA value. |
+| `formatOptions` | `{ style: 'percent' }` | Controls `ValueText` formatting.        |
+| `locale`        | `'en-US'`              | Locale used by `Intl.NumberFormat`.     |
+| `orientation`   | `'horizontal'`         | Ark orientation.                        |
+
+### Behavioral notes
+
+`ProgressLinear.Track` receives the progressbar role and ARIA value attributes from Ark. The root
+stores progress state and exposes `data-state="indeterminate|loading|complete"`.
+
+All exported parts support `asChild` through Ark polymorphic composition. Keep replacement children
+semantic and preserve the progressbar semantics on the track.
+
+`ProgressLinear.ValueText` announces changes with `aria-live="polite"`. Keep the visible label in
+the tree, or provide `aria-label`/`aria-labelledby` when composing without `ProgressLinear.Label`.
+
+## Examples
+
+### Controlled
+
+Keep `value` in React state when progress mirrors another control or external task state.
+
+<Preview>
+  <ControlledProgressLinearExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressLinear } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledProgressLinearDemo() {
+        const [value, setValue] = useState(45);
+
+        return (
+          <div className="progress-linear-stack">
+            <ProgressLinear value={value} onValueChange={(details) => setValue(details.value)}>
+              <ProgressLinear.Label>Upload status</ProgressLinear.Label>
+              <ProgressLinear.ValueText />
+              <ProgressLinear.Track>
+                <ProgressLinear.Range />
+              </ProgressLinear.Track>
+            </ProgressLinear>
+            <input
+              className="progress-linear-range-input"
+              type="range"
+              min={0}
+              max={100}
+              value={value}
+              onChange={(event) => setValue(Number(event.target.value))}
+            />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
+  <Preview.Data>{progressLinearData}</Preview.Data>
+</Preview>
+
+### Initial Value
+
+Use `defaultValue` to set the initial uncontrolled progress value.
+
+<Preview>
+  <InitialValueProgressLinearExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressLinear } from "moduix";
+
+      export function InitialValueProgressLinearDemo() {
+        return (
+          <ProgressLinear defaultValue={70}>
+            <ProgressLinear.Label>Import data</ProgressLinear.Label>
+            <ProgressLinear.ValueText />
+            <ProgressLinear.Track>
+              <ProgressLinear.Range />
+            </ProgressLinear.Track>
+          </ProgressLinear>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
+  <Preview.Data>{progressLinearData}</Preview.Data>
+</Preview>
+
+### Min Max
+
+Use `min` and `max` when the value does not use the default `0` to `100` range.
+
+<Preview>
+  <MinMaxProgressLinearExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressLinear } from "moduix";
+
+      export function MinMaxProgressLinearDemo() {
+        return (
+          <ProgressLinear defaultValue={420} min={200} max={800}>
+            <ProgressLinear.Label>Requests per minute</ProgressLinear.Label>
+            <ProgressLinear.ValueText />
+            <ProgressLinear.Track>
+              <ProgressLinear.Range />
+            </ProgressLinear.Track>
+          </ProgressLinear>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
+  <Preview.Data>{progressLinearData}</Preview.Data>
+</Preview>
+
+### Indeterminate
+
+Pass `defaultValue={null}` or `value={null}` when progress is running but completion is unknown.
+
+<Preview>
+  <IndeterminateProgressLinearExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressLinear } from "moduix";
+
+      export function IndeterminateProgressLinearDemo() {
+        return (
+          <ProgressLinear defaultValue={null}>
+            <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
+            <ProgressLinear.ValueText />
+            <ProgressLinear.Track>
+              <ProgressLinear.Range />
+            </ProgressLinear.Track>
+          </ProgressLinear>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
+  <Preview.Data>{progressLinearData}</Preview.Data>
+</Preview>
+
+### Value Text
+
+Use `translations.value(details)` when the formatted percent is not the wording users need.
+
+<Preview>
+  <ValueTextProgressLinearExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressLinear } from "moduix";
+
+      export function ValueTextProgressLinearDemo() {
+        return (
+          <ProgressLinear
+            translations={{
+              value({ value, max }) {
+                if (value === null) return "Loading...";
+                return \`\${value} of \${max} items loaded\`;
+              },
+            }}
+          >
+            <ProgressLinear.Label>Migration</ProgressLinear.Label>
+            <ProgressLinear.ValueText />
+            <ProgressLinear.Track>
+              <ProgressLinear.Range />
+            </ProgressLinear.Track>
+          </ProgressLinear>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
+  <Preview.Data>{progressLinearData}</Preview.Data>
+</Preview>
+
+### Root Provider
+
+Create the Ark progress store outside the rendered tree when another component needs to own state.
+
+<Preview>
+  <RootProviderProgressLinearExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressLinear, useProgressLinear } from "moduix";
+
+      export function RootProviderProgressLinearDemo() {
+        const progress = useProgressLinear({ defaultValue: 58 });
+
+        return (
+          <ProgressLinear.RootProvider value={progress}>
+            <ProgressLinear.Label>Team rollout</ProgressLinear.Label>
+            <ProgressLinear.ValueText />
+            <ProgressLinear.Track>
+              <ProgressLinear.Range />
+            </ProgressLinear.Track>
+          </ProgressLinear.RootProvider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
+  <Preview.Data>{progressLinearData}</Preview.Data>
+</Preview>
+
+### Context
+
+Read Ark state inline with `ProgressLinear.Context` when surrounding UI needs live progress data.
+
+<Preview>
+  <ContextProgressLinearExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressLinear } from "moduix";
+
+      export function ContextProgressLinearDemo() {
+        return (
+          <ProgressLinear defaultValue={64}>
+            <ProgressLinear.Label>Migration</ProgressLinear.Label>
+            <ProgressLinear.ValueText />
+            <ProgressLinear.Track>
+              <ProgressLinear.Range />
+            </ProgressLinear.Track>
+            <ProgressLinear.Context>
+              {(progress) => (
+                <span className="progress-linear-context">
+                  Current percent: {progress.percent}%
+                </span>
+              )}
+            </ProgressLinear.Context>
+          </ProgressLinear>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
+  <Preview.Data>{progressLinearData}</Preview.Data>
+</Preview>
+
+### State Views
+
+Use `ProgressLinear.View` when supporting text or UI should switch with the Ark progress state
+instead of duplicating state checks outside the component.
+
+<Preview>
+  <ProgressLinear defaultValue={null}>
+    <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
+    <ProgressLinear.ValueText />
+    <ProgressLinear.Track>
+      <ProgressLinear.Range />
+    </ProgressLinear.Track>
+    <ProgressLinear.View state="indeterminate">Waiting for source data</ProgressLinear.View>
+    <ProgressLinear.View state="loading">Transfer in progress</ProgressLinear.View>
+    <ProgressLinear.View state="complete">Export complete</ProgressLinear.View>
+  </ProgressLinear>
+
+  <Preview.Code>
+    {`
+      import { ProgressLinear } from "moduix";
+
+      export function StateViewsProgressLinearDemo() {
+        return (
+          <ProgressLinear defaultValue={null}>
+            <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
+            <ProgressLinear.ValueText />
+            <ProgressLinear.Track>
+              <ProgressLinear.Range />
+            </ProgressLinear.Track>
+            <ProgressLinear.View state="indeterminate">
+              Waiting for source data
+            </ProgressLinear.View>
+            <ProgressLinear.View state="loading">Transfer in progress</ProgressLinear.View>
+            <ProgressLinear.View state="complete">Export complete</ProgressLinear.View>
+          </ProgressLinear>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
+  <Preview.Data>{progressLinearData}</Preview.Data>
+</Preview>
+
+### Custom Styling
+
+Override public CSS variables and target `data-slot` hooks when only the visuals need to change.
+
+<Preview>
+  <CustomStylingProgressLinearExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressLinear } from "moduix";
+
+      export function CustomStylingProgressLinearDemo() {
+        return (
+          <ProgressLinear defaultValue={72} className="progress-linear-custom">
+            <ProgressLinear.Label>Monthly quota</ProgressLinear.Label>
+            <ProgressLinear.ValueText />
+            <ProgressLinear.Track>
+              <ProgressLinear.Range />
+            </ProgressLinear.Track>
+          </ProgressLinear>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressLinearCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{progressLinearData}</Preview.Data>
+</Preview>
+
+## Styling
+
+Use `className` on exported parts for structural styling changes. For state styling, prefer Ark
+data attributes and moduix `data-slot` hooks.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ProgressLinearCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="progress-linear-root"`, `progress-linear-root-provider`,
+  `progress-linear-label`, `progress-linear-value-text`, `progress-linear-track`,
+  `progress-linear-range`, and `progress-linear-view`.
+- Ark hooks: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
+  `data-orientation`, `data-value`, and `data-max`.
