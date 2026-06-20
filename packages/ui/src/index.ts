@@ -41,7 +41,7 @@ export * from './components/hover-card';
 export * from './components/progress-circular';
 export * from './components/progress-linear';
 export * from './components/radio-group';
-export * from './components/rating';
+export * from './components/rating-group';
 export * from './components/scroll-area';
 export * from './components/separator';
 export * from './components/select';

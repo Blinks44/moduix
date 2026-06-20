@@ -1616,20 +1616,25 @@
   --top: initial; /* Ark radio-group indicator y offset */
   --transition-property: initial; /* Ark radio-group indicator transition property */
 
-  /* Rating */
-  --rating-active-color: initial; /* var(--color-primary) */
-  --rating-color: initial; /* var(--color-muted-foreground) */
-  --rating-disabled-opacity: initial; /* var(--opacity-disabled) */
-  --rating-focus-ring-color: initial; /* var(--color-ring) */
-  --rating-focus-ring-offset: initial; /* 0.125rem */
-  --rating-focus-ring-width: initial; /* var(--border-width-sm) */
-  --rating-gap: initial; /* var(--spacing-1) */
-  --rating-icon-size-xs: initial; /* 0.875rem */
-  --rating-icon-size-sm: initial; /* 1rem */
-  --rating-icon-size-md: initial; /* 1.25rem */
-  --rating-icon-size-lg: initial; /* 1.5rem */
-  --rating-icon-size-xl: initial; /* 1.75rem */
-  --rating-transition: initial; /* var(--transition-default) */
+  /* RatingGroup */
+  --rating-group-active-color: initial; /* var(--color-primary) */
+  --rating-group-color: initial; /* var(--color-muted-foreground) */
+  --rating-group-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --rating-group-focus-ring-color: initial; /* var(--color-ring) */
+  --rating-group-focus-ring-offset: initial; /* 0.125rem */
+  --rating-group-focus-ring-width: initial; /* var(--border-width-sm) */
+  --rating-group-gap: initial; /* var(--spacing-1) */
+  --rating-group-root-gap: initial; /* var(--spacing-1) */
+  --rating-group-icon-size-xs: initial; /* 0.875rem */
+  --rating-group-icon-size-sm: initial; /* 1rem */
+  --rating-group-icon-size-md: initial; /* 1.25rem */
+  --rating-group-icon-size-lg: initial; /* 1.5rem */
+  --rating-group-icon-size-xl: initial; /* 1.75rem */
+  --rating-group-label-color: initial; /* var(--color-foreground) */
+  --rating-group-label-font-size: initial; /* var(--text-sm) */
+  --rating-group-label-font-weight: initial; /* var(--weight-semibold) */
+  --rating-group-label-line-height: initial; /* var(--line-height-text-sm) */
+  --rating-group-transition: initial; /* var(--transition-default) */
 
   /* ScrollArea */
   --scroll-area-bg: initial; /* transparent */

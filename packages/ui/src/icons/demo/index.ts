@@ -3,6 +3,7 @@ export {
   BellIcon,
   ComputerIcon,
   HandshakeIcon,
+  HeartIcon,
   InfoIcon,
   MapIcon,
   PresentIcon,

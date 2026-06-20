@@ -1,0 +1,519 @@
+---
+title: Rating Group
+description: A star rating control built on Ark UI rating-group.
+icon: Component
+---
+
+import {
+  ControlledRatingGroupExample,
+  CustomIconRatingGroupExample,
+  CustomStylesRatingGroupExample,
+  DisabledRatingGroupExample,
+  FormRatingGroupExample,
+  HalfRatingGroupExample,
+  RatingGroupCssPropertiesPanel,
+  RatingGroupExample,
+  RatingGroupSizesExample,
+  RootProviderRatingGroupExample,
+  WithFieldRatingGroupExample,
+  ratingGroupCustomStylingCss,
+  ratingGroupCustomIconCss,
+  ratingGroupCustomIconData,
+  ratingGroupExampleCss,
+  ratingGroupItemsData,
+} from '@/components/examples/rating-group';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/rating-group" />
+
+## Basic
+
+Use Ark-style parts: `RatingGroup.Root`, `RatingGroup.Label`, `RatingGroup.Control`,
+`RatingGroup.Context`, `RatingGroup.Item`, `RatingGroup.ItemIndicator`, and
+`RatingGroup.HiddenInput`.
+
+<Preview>
+  <RatingGroupExample />
+
+  <Preview.Code>
+    {`
+      import { RatingGroup } from "moduix";
+
+      export function RatingGroupDemo() {
+        return (
+          <RatingGroup defaultValue={4}>
+            <RatingGroup.Label>Overall satisfaction</RatingGroup.Label>
+            <RatingGroup.Control>
+              <RatingGroupItems />
+              <RatingGroup.HiddenInput />
+            </RatingGroup.Control>
+          </RatingGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{ratingGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{ratingGroupItemsData}</Preview.Data>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `RatingGroup` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/rating-group
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/rating-group
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/rating-group
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/rating-group
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/rating-group
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+RatingGroup.Root
+├─ RatingGroup.Label
+└─ RatingGroup.Control
+   ├─ RatingGroup.Context
+   │  └─ RatingGroup.Item[index]
+   │     ├─ RatingGroup.ItemContext (optional)
+   │     └─ RatingGroup.ItemIndicator
+   └─ RatingGroup.HiddenInput
+
+RatingGroup.RootProvider
+└─ same part tree connected to a useRatingGroup() store
+```
+
+| Part                               | Role                                                      |
+| ---------------------------------- | --------------------------------------------------------- |
+| `RatingGroup` / `RatingGroup.Root` | Controls rating value, keyboard behavior, and form state. |
+| `RatingGroup.RootProvider`         | Connects parts to state created with `useRatingGroup()`.  |
+| `RatingGroup.Label`                | Accessible label for the rating group.                    |
+| `RatingGroup.Control`              | Groups the interactive rating items.                      |
+| `RatingGroup.Context`              | Reads root state and exposes generated item indexes.      |
+| `RatingGroup.Item`                 | One selectable rating item; requires an `index`.          |
+| `RatingGroup.ItemContext`          | Reads checked, highlighted, and half state for one item.  |
+| `RatingGroup.ItemIndicator`        | Moduix star visual that follows Ark item context.         |
+| `RatingGroup.HiddenInput`          | Native form input synchronized with the rating value.     |
+
+## Composition
+
+### Recommended composition
+
+`RatingGroup` is the short root form. It owns Ark value state, hover state, focus movement, labels,
+form integration, and keyboard behavior. Use `RatingGroup.Context` to map Ark-generated item
+indexes into `RatingGroup.Item`.
+
+Render `RatingGroup.HiddenInput` inside the control whenever the rating should submit with a
+native form or reset with the form.
+
+### When to go custom
+
+Use `RatingGroup.ItemContext` or `useRatingGroupItemContext()` when custom item visuals need
+`highlighted`, `checked`, or `half` state. Use `RatingGroup.RootProvider` with `useRatingGroup()`
+when rating state must be created outside the rendered subtree.
+
+All Ark parts support `asChild`. Keep the child a single semantic element that can preserve the
+part's focus and interaction behavior.
+
+### Default props
+
+| Prop                        | Default | Notes                                                 |
+| --------------------------- | ------- | ----------------------------------------------------- |
+| `count`                     | `5`     | Ark item count.                                       |
+| `size`                      | `md`    | Moduix styling size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `RatingGroup.ItemIndicator` | star    | Renders moduix star foreground/background by default. |
+
+### Behavioral notes
+
+- `value` and `defaultValue` are numbers.
+- `onValueChange` receives Ark details; read the value from `details.value`.
+- `onHoverChange` receives Ark hover details.
+- `allowHalf` enables half-step pointer selection and half-star rendering.
+- `name`, `form`, and `required` work with `RatingGroup.HiddenInput`.
+- `disabled` and `readOnly` are handled by Ark and reflected through data attributes.
+
+## Examples
+
+### Controlled
+
+Use controlled mode when the selected score drives surrounding UI or must be reset by the parent.
+
+<Preview>
+  <ControlledRatingGroupExample />
+
+  <Preview.Code>
+    {`
+      import { RatingGroup } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledRatingGroupDemo() {
+        const [value, setValue] = useState(3);
+
+        return (
+          <div className="rating-group-stack">
+            <RatingGroup
+              value={value}
+              onValueChange={(details) => setValue(details.value)}
+            >
+              <RatingGroup.Label>Support quality</RatingGroup.Label>
+              <RatingGroup.Control>
+                <RatingGroupItems />
+                <RatingGroup.HiddenInput />
+              </RatingGroup.Control>
+            </RatingGroup>
+            <span className="rating-group-hint">Current value: {value}</span>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{ratingGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{ratingGroupItemsData}</Preview.Data>
+</Preview>
+
+### Root Provider
+
+Create rating state with `useRatingGroup()` when other UI needs direct access to the same Ark store.
+
+<Preview>
+  <RootProviderRatingGroupExample />
+
+  <Preview.Code>
+    {`
+      import { RatingGroup, useRatingGroup } from "moduix";
+
+      export function RootProviderRatingGroupDemo() {
+        const ratingGroup = useRatingGroup({ count: 5, defaultValue: 3 });
+
+        return (
+          <div className="rating-group-stack">
+            <output className="rating-group-hint">
+              Current value: {ratingGroup.value}
+            </output>
+            <RatingGroup.RootProvider value={ratingGroup}>
+              <RatingGroup.Label>Product quality</RatingGroup.Label>
+              <RatingGroup.Control>
+                <RatingGroupItems />
+                <RatingGroup.HiddenInput />
+              </RatingGroup.Control>
+            </RatingGroup.RootProvider>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{ratingGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{ratingGroupItemsData}</Preview.Data>
+</Preview>
+
+### Field
+
+Use `Field` around the rating group when helper text, error text, required, disabled, or invalid
+state should be shared with form copy.
+
+<Preview>
+  <WithFieldRatingGroupExample />
+
+  <Preview.Code>
+    {`
+      import { Field, RatingGroup } from "moduix";
+
+      export function FieldRatingGroupDemo() {
+        return (
+          <Field className="rating-group-field">
+            <RatingGroup defaultValue={4} required>
+              <RatingGroup.Label>Experience score</RatingGroup.Label>
+              <RatingGroup.Control>
+                <RatingGroupItems />
+                <RatingGroup.HiddenInput />
+              </RatingGroup.Control>
+            </RatingGroup>
+            <Field.HelperText>Required score from 1 to 5.</Field.HelperText>
+            <Field.ErrorText>Choose a score before continuing.</Field.ErrorText>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{ratingGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{ratingGroupItemsData}</Preview.Data>
+</Preview>
+
+### Half Rating
+
+Set `allowHalf` when the rating should support half-step selection and display.
+
+<Preview>
+  <HalfRatingGroupExample />
+
+  <Preview.Code>
+    {`
+      import { RatingGroup } from "moduix";
+
+      export function HalfRatingGroupDemo() {
+        return (
+          <RatingGroup allowHalf defaultValue={3.5}>
+            <RatingGroup.Label>Average delivery score</RatingGroup.Label>
+            <RatingGroup.Control>
+              <RatingGroupItems />
+              <RatingGroup.HiddenInput />
+            </RatingGroup.Control>
+          </RatingGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{ratingGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{ratingGroupItemsData}</Preview.Data>
+</Preview>
+
+### Forms
+
+Pass `name` and render `RatingGroup.HiddenInput` when the selected value should be included in
+`FormData`.
+
+<Preview>
+  <FormRatingGroupExample />
+
+  <Preview.Code>
+    {`
+      import { Button, RatingGroup } from "moduix";
+
+      export function FormRatingGroupDemo() {
+        return (
+          <form
+            className="rating-group-stack"
+            onSubmit={(event) => {
+              event.preventDefault();
+            }}
+          >
+            <RatingGroup name="review" defaultValue={4} required>
+              <RatingGroup.Label>Review score</RatingGroup.Label>
+              <RatingGroup.Control>
+                <RatingGroupItems />
+                <RatingGroup.HiddenInput />
+              </RatingGroup.Control>
+            </RatingGroup>
+            <Button type="submit">Submit</Button>
+          </form>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{ratingGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{ratingGroupItemsData}</Preview.Data>
+</Preview>
+
+### Disabled and Readonly
+
+Use `disabled` to remove interaction. Use `readOnly` to keep the score visible while preventing
+changes.
+
+<Preview>
+  <DisabledRatingGroupExample />
+
+  <Preview.Code>
+    {`
+      import { RatingGroup } from "moduix";
+
+      export function DisabledRatingGroupDemo() {
+        return (
+          <div className="rating-group-stack">
+            <RatingGroup defaultValue={4} disabled>
+              <RatingGroup.Label>Disabled rating</RatingGroup.Label>
+              <RatingGroup.Control>
+                <RatingGroupItems />
+                <RatingGroup.HiddenInput />
+              </RatingGroup.Control>
+            </RatingGroup>
+            <RatingGroup defaultValue={2} readOnly>
+              <RatingGroup.Label>Read-only rating</RatingGroup.Label>
+              <RatingGroup.Control>
+                <RatingGroupItems />
+                <RatingGroup.HiddenInput />
+              </RatingGroup.Control>
+            </RatingGroup>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{ratingGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{ratingGroupItemsData}</Preview.Data>
+</Preview>
+
+### Sizes
+
+Use the moduix `size` prop when the same Ark rating behavior needs to fit a different UI density.
+
+<Preview>
+  <RatingGroupSizesExample />
+
+  <Preview.Code>
+    {`
+      import { RatingGroup } from "moduix";
+
+      export function RatingGroupSizesDemo() {
+        return (
+          <div className="rating-group-stack">
+            <RatingGroup size="xs" defaultValue={3} aria-label="Extra-small rating">
+              <RatingGroup.Control>
+                <RatingGroupItems />
+              </RatingGroup.Control>
+            </RatingGroup>
+            <RatingGroup size="sm" defaultValue={3} aria-label="Small rating">
+              <RatingGroup.Control>
+                <RatingGroupItems />
+              </RatingGroup.Control>
+            </RatingGroup>
+            <RatingGroup size="md" defaultValue={3} aria-label="Medium rating">
+              <RatingGroup.Control>
+                <RatingGroupItems />
+              </RatingGroup.Control>
+            </RatingGroup>
+            <RatingGroup size="lg" defaultValue={3} aria-label="Large rating">
+              <RatingGroup.Control>
+                <RatingGroupItems />
+              </RatingGroup.Control>
+            </RatingGroup>
+            <RatingGroup size="xl" defaultValue={3} aria-label="Extra-large rating">
+              <RatingGroup.Control>
+                <RatingGroupItems />
+              </RatingGroup.Control>
+            </RatingGroup>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{ratingGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{ratingGroupItemsData}</Preview.Data>
+</Preview>
+
+### Custom Styling
+
+Override the `--rating-group-*` variables when the default star color or spacing needs to match a
+specific surface.
+
+<Preview>
+  <CustomStylesRatingGroupExample />
+
+  <Preview.Code>
+    {`
+      import { RatingGroup } from "moduix";
+
+      export function CustomRatingGroupDemo() {
+        return (
+          <RatingGroup className="rating-group-custom" defaultValue={5}>
+            <RatingGroup.Label>Styled rating</RatingGroup.Label>
+            <RatingGroup.Control>
+              <RatingGroupItems />
+              <RatingGroup.HiddenInput />
+            </RatingGroup.Control>
+          </RatingGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{ratingGroupCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{ratingGroupItemsData}</Preview.Data>
+</Preview>
+
+### Custom Icon
+
+Pass children to `RatingGroup.ItemIndicator` when each rating item should use a different icon. The
+indicator still receives Ark-driven `data-highlighted` and `data-half` attributes for styling.
+
+<Preview>
+  <CustomIconRatingGroupExample />
+
+  <Preview.Code>
+    {`
+      import { HeartIcon, RatingGroup } from "moduix";
+
+      export function CustomIconRatingGroupDemo() {
+        return (
+          <RatingGroup defaultValue={3}>
+            <RatingGroup.Label>Checklist score</RatingGroup.Label>
+            <RatingGroup.Control>
+              <RatingGroupHeartItems />
+              <RatingGroup.HiddenInput />
+            </RatingGroup.Control>
+          </RatingGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{ratingGroupCustomIconCss}</Preview.CSS>
+  <Preview.Data>{ratingGroupCustomIconData}</Preview.Data>
+</Preview>
+
+## Styling
+
+Style `RatingGroup` through `className`, Ark `data-scope="rating-group"` / `data-part`
+attributes, Ark state attributes, moduix `data-slot` hooks, and the registered
+`--rating-group-*` CSS variables.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <RatingGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="rating-group-root"` and `data-slot="rating-group-root-provider"`
+- `data-slot="rating-group-label"`
+- `data-slot="rating-group-control"`
+- `data-slot="rating-group-item"`
+- `data-slot="rating-group-item-indicator"`
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"` on the root or root provider
+- Ark item attributes: `data-checked`, `data-highlighted`, `data-half`, `data-disabled`, and
+  `data-readonly`

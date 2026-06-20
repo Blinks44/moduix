@@ -1109,26 +1109,26 @@
       ]
     },
     {
-      "name": "rating",
+      "name": "rating-group",
       "type": "registry:item",
-      "title": "Rating",
-      "description": "moduix Rating component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "title": "RatingGroup",
+      "description": "moduix RatingGroup component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
-          "path": "packages/ui/src/components/rating/Rating.tsx",
-          "target": "@components/moduix/rating/Rating.tsx",
+          "path": "packages/ui/src/components/rating-group/RatingGroup.tsx",
+          "target": "@components/moduix/rating-group/RatingGroup.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/ui/src/components/rating/Rating.module.css",
-          "target": "@components/moduix/rating/Rating.module.css",
+          "path": "packages/ui/src/components/rating-group/RatingGroup.module.css",
+          "target": "@components/moduix/rating-group/RatingGroup.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/ui/src/components/rating/index.ts",
-          "target": "@components/moduix/rating/index.ts",
+          "path": "packages/ui/src/components/rating-group/index.ts",
+          "target": "@components/moduix/rating-group/index.ts",
           "type": "registry:component"
         }
       ]
