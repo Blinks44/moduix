@@ -5,17 +5,24 @@ icon: Component
 ---
 
 import {
+  SeparatorAsChildExample,
   SeparatorCssPropertiesPanel,
   SeparatorExample,
+  SeparatorSizesExample,
+  SeparatorVariantsExample,
   StyledSeparatorExample,
   VerticalSeparatorExample,
 } from '@/components/examples/separator';
 
 ## API Reference
 
+Ark UI does not ship a dedicated separator primitive. moduix implements `Separator` as an
+Ark-style factory wrapper over one semantic root element, with Chakra-inspired orientation,
+variant, and size props.
+
 ## Basic
 
-Use `Separator` directly when the line itself communicates structure between related content.
+Use `Separator` when the line itself communicates structure between related content.
 
 <Preview>
   <SeparatorExample />
@@ -62,6 +69,12 @@ Use `Separator` directly when the line itself communicates structure between rel
     `}
 
   </Preview.CSS>
+  <Preview.Data>
+    {`
+      const sections = ["Account settings", "Billing details"];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -107,64 +120,59 @@ aubx shadcn@latest add Blinks44/moduix/separator
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Separator` depends on, such
-as styles, icons, and small utilities.
-
-Use `Separator` for semantic horizontal or vertical division. Do not use it as a spacing helper
-when empty layout space already expresses the relationship.
+This install path also pulls in the shared moduix foundation files that `Separator` depends on.
 
 ## Anatomy
 
 `Separator` exposes one root part.
 
 ```text
-Separator
-└─ root[data-slot="separator-root"][data-orientation]
+Separator / Separator.Root
+└─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
 ```
 
 ```tsx
 <Separator orientation="horizontal" />
 ```
 
-| Part        | Role                                                                                                   |
-| ----------- | ------------------------------------------------------------------------------------------------------ |
-| `Separator` | Root divider element. Controls `orientation`, accessibility attributes, styling, and element override. |
+| Part                           | Role                                                                                   |
+| ------------------------------ | -------------------------------------------------------------------------------------- |
+| `Separator` / `Separator.Root` | Root divider element. Controls orientation, accessibility metadata, and visual recipe. |
 
-Style the root directly with `className` or the `--separator-*` CSS properties.
+Style the root directly with `className`, `asChild`, or the `--separator-*` CSS properties.
 
 ## Composition
 
 ### When to stay high-level
 
-Stay with `Separator` for most divider cases. The moduix wrapper keeps the underlying separator primitive
-contract intact and adds the shared styling hooks and CSS variables.
-
-Pass primitive props such as `orientation`, `className`, `style`, `render`, and ARIA attributes
-directly to `Separator`.
+Use the short `<Separator />` form for most dividers. It is equivalent to
+`<Separator.Root />` and keeps the public root form consistent with multipart Ark-style
+components.
 
 ### When to go custom
 
-There is no lower-level moduix composition tree for this component. When the divider needs custom
-semantics or more surrounding structure, compose that structure outside `Separator` and keep the
-separator itself focused on visual separation.
+Use `asChild` when the host must be a semantic element such as `hr`. The child must be one element
+that can receive the merged role, ARIA, data attributes, class name, and ref.
 
 ### Default props
 
-| Prop          | Default      | Values                                 |
+| Prop          | Default      | Notes                                  |
 | ------------- | ------------ | -------------------------------------- |
 | `orientation` | `horizontal` | `horizontal`, `vertical`               |
-| `className`   | `undefined`  | `string` or state-based class function |
-| `style`       | `undefined`  | style object or state-based style fn   |
+| `variant`     | `solid`      | `solid`, `dashed`, `dotted`            |
+| `size`        | `sm`         | `xs`, `sm`, `md`, `lg`                 |
+| `asChild`     | `false`      | Ark factory single-child composition   |
+| `role`        | `separator`  | Pass `presentation` for decorative use |
 
 ### Behavioral notes
 
+- `Separator` writes `aria-orientation` when its role is `separator`.
 - Horizontal separators fill the available width by default.
 - Vertical separators default to `1em` height so they align naturally with inline text and compact
   action rows.
-- `Separator` is not interactive and does not expose disabled, pressed, or focus-management
-  behavior.
-- Use `orientation="vertical"` only inside layouts that already control cross-axis alignment, such
-  as `flex` or `inline-flex` rows.
+- `Separator` is not interactive and does not expose state, callbacks, disabled behavior, or focus
+  management.
+- Use layout primitives or spacing tokens for whitespace-only gaps.
 
 ## Examples
 
@@ -180,18 +188,19 @@ Use `orientation="vertical"` for inline groups such as navigation actions.
       import { Separator } from "moduix";
       import styles from "./separator-demo.module.css";
 
+      const navigationItems = ["Home", "Pricing", "Sign in"];
+
       export function VerticalSeparatorDemo() {
         return (
           <nav className={styles.nav} aria-label="Main navigation">
-            <a href="#" className={styles.link}>
-              Home
-            </a>
-            <a href="#" className={styles.link}>
-              Pricing
-            </a>
+            {navigationItems.slice(0, 2).map((item) => (
+              <a key={item} href="#" className={styles.link}>
+                {item}
+              </a>
+            ))}
             <Separator orientation="vertical" />
             <a href="#" className={styles.link}>
-              Sign in
+              {navigationItems[2]}
             </a>
           </nav>
         );
@@ -217,6 +226,185 @@ Use `orientation="vertical"` for inline groups such as navigation actions.
     `}
 
   </Preview.CSS>
+  <Preview.Data>
+    {`
+      const navigationItems = ["Home", "Pricing", "Sign in"];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Variants
+
+Use `variant` when the separator needs a solid, dashed, or dotted stroke.
+
+<Preview>
+  <SeparatorVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Separator, type SeparatorVariant } from "moduix";
+      import styles from "./separator-demo.module.css";
+
+      const variants: SeparatorVariant[] = ["solid", "dashed", "dotted"];
+
+      export function SeparatorVariantsDemo() {
+        return (
+          <div className={styles.section}>
+            {variants.map((variant) => (
+              <div key={variant} className={styles.exampleRow}>
+                <span className={styles.text}>{variant}</span>
+                <Separator variant={variant} />
+              </div>
+            ))}
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .section {
+        display: grid;
+        gap: var(--spacing-2);
+      }
+
+      .exampleRow {
+        display: grid;
+        width: min(16rem, 100%);
+        grid-template-columns: 4rem minmax(6rem, 1fr);
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+
+      .text {
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const variants = ["solid", "dashed", "dotted"] as const;
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Sizes
+
+Use `size` to select the recipe thickness before applying any custom CSS variable overrides.
+
+<Preview>
+  <SeparatorSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Separator, type SeparatorSize } from "moduix";
+      import styles from "./separator-demo.module.css";
+
+      const sizes: SeparatorSize[] = ["xs", "sm", "md", "lg"];
+
+      export function SeparatorSizesDemo() {
+        return (
+          <div className={styles.section}>
+            {sizes.map((size) => (
+              <div key={size} className={styles.exampleRow}>
+                <span className={styles.text}>{size}</span>
+                <Separator size={size} />
+              </div>
+            ))}
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .section {
+        display: grid;
+        gap: var(--spacing-2);
+      }
+
+      .exampleRow {
+        display: grid;
+        width: min(16rem, 100%);
+        grid-template-columns: 4rem minmax(6rem, 1fr);
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+
+      .text {
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const sizes = ["xs", "sm", "md", "lg"] as const;
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### As Child
+
+Use `asChild` to render a native host while keeping the moduix separator styling hooks.
+
+<Preview>
+  <SeparatorAsChildExample />
+
+  <Preview.Code>
+    {`
+      import { Separator } from "moduix";
+      import styles from "./separator-demo.module.css";
+
+      export function SeparatorAsChildDemo() {
+        return (
+          <div className={styles.section}>
+            <span className={styles.text}>Before native rule</span>
+            <Separator asChild>
+              <hr className={styles.nativeRule} />
+            </Separator>
+            <span className={styles.text}>After native rule</span>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .section {
+        display: grid;
+        gap: var(--spacing-2);
+      }
+
+      .text {
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+
+      .nativeRule {
+        margin: 0;
+      }
+    `}
+
+  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const labels = ["Before native rule", "After native rule"];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -244,7 +432,6 @@ or a fixed length.
     `}
 
   </Preview.Code>
-
   <Preview.CSS>
     {`
       .section {
@@ -266,12 +453,18 @@ or a fixed length.
     `}
 
   </Preview.CSS>
+  <Preview.Data>
+    {`
+      const steps = ["Completed profile", "Next step: billing details"];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Styling
 
-`Separator` exposes one stable root selector and a small `--separator-*` CSS contract for color,
-thickness, and orientation-specific length.
+`Separator` exposes Ark-style part selectors and a small `--separator-*` CSS contract for color,
+border style, thickness, and orientation-specific length.
 
 ### CSS Properties
 
@@ -285,7 +478,8 @@ thickness, and orientation-specific length.
 
 ### Styling hooks
 
-- `data-slot="separator-root"` is the stable selector for the exported root.
-- `data-orientation="horizontal"` and `data-orientation="vertical"` let you target axis-specific
-  styling.
+- `data-scope="separator"` and `data-part="root"` identify the Ark-style root part.
+- `data-slot="separator-root"` is the stable moduix selector.
+- `data-orientation="horizontal"` and `data-orientation="vertical"` target axis-specific styling.
+- `data-size="xs|sm|md|lg"` and `data-variant="solid|dashed|dotted"` expose the visual recipe.
 - `className` and `style` are applied directly to the root separator element.

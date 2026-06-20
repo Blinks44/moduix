@@ -1188,7 +1188,7 @@
       "type": "registry:item",
       "title": "Separator",
       "description": "moduix Separator component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

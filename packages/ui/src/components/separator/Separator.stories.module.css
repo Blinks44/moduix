@@ -36,4 +36,8 @@
     --separator-thickness: 2px;
     --separator-length-horizontal: 8rem;
   }
+
+  .nativeRule {
+    margin: 0;
+  }
 }

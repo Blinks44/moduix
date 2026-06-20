@@ -31,8 +31,20 @@
   gap: var(--spacing-2);
 }
 
+.exampleRow {
+  display: grid;
+  width: min(16rem, 100%);
+  grid-template-columns: 4rem minmax(6rem, 1fr);
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
 .customSeparator {
   --separator-color: var(--color-primary);
   --separator-thickness: 2px;
   --separator-length-horizontal: 8rem;
+}
+
+.nativeRule {
+  margin: 0;
 }

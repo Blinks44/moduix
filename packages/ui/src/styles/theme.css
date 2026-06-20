@@ -1664,10 +1664,12 @@
   --scroll-area-width: initial; /* 100% */
 
   /* Separator */
+  --separator-border-style: initial; /* solid */
   --separator-color: initial; /* var(--color-border) */
   --separator-length-horizontal: initial; /* 100% */
   --separator-length-vertical: initial; /* 1em */
-  --separator-thickness: initial; /* 1px */
+  --separator-size-thickness: initial; /* 1px */
+  --separator-thickness: initial; /* var(--separator-size-thickness, 1px) */
 
   /* Select */
   --select-action-bg: initial; /* transparent */

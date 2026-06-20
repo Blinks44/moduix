@@ -48,6 +48,50 @@ export const Vertical: Story = {
   },
 };
 
+export const Variants: Story = {
+  render: () => {
+    return (
+      <div className={styles.section}>
+        <span className={styles.link}>Solid</span>
+        <Separator />
+        <span className={styles.link}>Dashed</span>
+        <Separator variant="dashed" />
+        <span className={styles.link}>Dotted</span>
+        <Separator variant="dotted" />
+      </div>
+    );
+  },
+};
+
+export const Sizes: Story = {
+  render: () => {
+    return (
+      <div className={styles.section}>
+        <span className={styles.link}>Small</span>
+        <Separator size="sm" />
+        <span className={styles.link}>Medium</span>
+        <Separator size="md" />
+        <span className={styles.link}>Large</span>
+        <Separator size="lg" />
+      </div>
+    );
+  },
+};
+
+export const AsChild: Story = {
+  render: () => {
+    return (
+      <div className={styles.section}>
+        <span className={styles.link}>Native host</span>
+        <Separator asChild>
+          <hr className={styles.nativeRule} />
+        </Separator>
+        <span className={styles.link}>Still styled by moduix hooks</span>
+      </div>
+    );
+  },
+};
+
 export const Styling: Story = {
   render: () => {
     return (
