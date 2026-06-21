@@ -27,3 +27,7 @@
   --toggle-outline-border-color-pressed: var(--color-primary);
   --toggle-outline-color-pressed: var(--color-primary-foreground);
 }
+
+.customButton {
+  border-style: dashed;
+}

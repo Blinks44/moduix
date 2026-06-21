@@ -66,6 +66,7 @@
       background-color: var(--toggle-bg-active-current);
     }
 
+    &[data-state='on'],
     &[data-pressed] {
       border-color: var(--toggle-border-color-pressed-current);
       background-color: var(--toggle-bg-pressed-current);
@@ -73,8 +74,8 @@
     }
 
     &[data-variant='default'] {
-      --toggle-border-color-current: var(--toggle-default-border-color, transparent);
-      --toggle-bg-current: var(--toggle-default-bg, transparent);
+      --toggle-border-color-current: var(--toggle-default-border-color, var(--color-border));
+      --toggle-bg-current: var(--toggle-default-bg, var(--color-background));
       --toggle-bg-hover-current: var(--toggle-default-bg-hover, var(--color-accent));
       --toggle-bg-active-current: var(--toggle-default-bg-active, var(--color-accent));
       --toggle-bg-pressed-current: var(--toggle-default-bg-pressed, var(--color-primary));
@@ -168,5 +169,12 @@
       width: var(--toggle-size-icon-lg, var(--size-xl));
       height: var(--toggle-size-icon-lg, var(--size-xl));
     }
+  }
+
+  .indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
   }
 }

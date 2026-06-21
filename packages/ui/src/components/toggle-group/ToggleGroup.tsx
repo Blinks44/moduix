@@ -1,3 +1,4 @@
+import { Toggle as TogglePrimitive } from '@base-ui/react/toggle';
 import { ToggleGroup as ToggleGroupPrimitive } from '@base-ui/react/toggle-group';
 import {
   createContext,
@@ -8,11 +9,11 @@ import {
   type ComponentRef,
 } from 'react';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
-import { Toggle } from '../toggle';
+import toggleStyles from '../toggle/Toggle.module.css';
 import styles from './ToggleGroup.module.css';
 
-type ToggleVariant = ComponentProps<typeof Toggle>['variant'];
-type ToggleSize = ComponentProps<typeof Toggle>['size'];
+type ToggleVariant = 'default' | 'outline' | 'ghost';
+type ToggleSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
 
 const ToggleGroupContext = createContext<{
   variant: ToggleVariant;
@@ -45,21 +46,25 @@ const ToggleGroup = forwardRef<
   );
 });
 
-const ToggleGroupItem = forwardRef<ComponentRef<typeof Toggle>, ComponentProps<typeof Toggle>>(
-  function ToggleGroupItem({ className, variant, size, ...props }, ref) {
-    const inherited = useContext(ToggleGroupContext);
+const ToggleGroupItem = forwardRef<
+  ComponentRef<typeof TogglePrimitive>,
+  ComponentProps<typeof TogglePrimitive> & {
+    variant?: ToggleVariant;
+    size?: ToggleSize;
+  }
+>(function ToggleGroupItem({ className, variant, size, ...props }, ref) {
+  const inherited = useContext(ToggleGroupContext);
 
-    return (
-      <Toggle
-        ref={ref}
-        data-slot="toggle-group-item"
-        variant={variant ?? inherited.variant}
-        size={size ?? inherited.size}
-        className={mergeClassName(className, styles.item)}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <TogglePrimitive
+      ref={ref}
+      data-slot="toggle-group-item"
+      data-variant={variant ?? inherited.variant}
+      data-size={size ?? inherited.size}
+      className={mergeClassName(className, toggleStyles.root, styles.item)}
+      {...props}
+    />
+  );
+});
 
 export { ToggleGroup, ToggleGroupItem };

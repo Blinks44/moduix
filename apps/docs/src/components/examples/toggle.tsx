@@ -4,15 +4,69 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './toggle.module.css';
 
+export const toggleBasicCss = `
+.favoriteToggle {
+  --toggle-content-gap: var(--spacing-2);
+}
+`;
+
+export const toggleRowCss = `
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+}
+`;
+
+export const toggleStackCss = `
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.hint {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+`;
+
+export const toggleCustomCss = `
+.customToggle {
+  --toggle-outline-bg: color-mix(in oklab, var(--color-primary) 8%, transparent);
+  --toggle-outline-bg-hover: color-mix(in oklab, var(--color-primary) 14%, transparent);
+  --toggle-outline-bg-active: color-mix(in oklab, var(--color-primary) 18%, transparent);
+  --toggle-outline-border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
+  --toggle-outline-color: var(--color-primary);
+  --toggle-outline-bg-pressed: var(--color-primary);
+  --toggle-outline-border-color-pressed: var(--color-primary);
+  --toggle-outline-color-pressed: var(--color-primary-foreground);
+}
+`;
+
+export const toggleAsChildCss = `
+.customButton {
+  border-style: dashed;
+}
+`;
+
 export const toggleOverrideCssProperties: CssPropertyInput[] = [
   ['--toggle-border-width', 'var(--border-width-sm)', 'Controls toggle border width.'],
   ['--toggle-color', 'var(--color-foreground)', 'Controls base toggle text and icon color.'],
   ['--toggle-content-gap', 'var(--spacing-2)', 'Controls spacing between text and icons.'],
-  ['--toggle-default-bg', 'transparent', 'Controls default variant background.'],
+  ['--toggle-default-bg', 'var(--color-background)', 'Controls default variant background.'],
   ['--toggle-default-bg-active', 'var(--color-accent)', 'Controls default active background.'],
   ['--toggle-default-bg-hover', 'var(--color-accent)', 'Controls default hover background.'],
   ['--toggle-default-bg-pressed', 'var(--color-primary)', 'Controls pressed background.'],
-  ['--toggle-default-border-color', 'transparent', 'Controls default variant border color.'],
+  [
+    '--toggle-default-border-color',
+    'var(--color-border)',
+    'Controls default variant border color.',
+  ],
   [
     '--toggle-default-border-color-pressed',
     'var(--color-primary)',
@@ -82,7 +136,7 @@ export const toggleOverrideCssProperties: CssPropertyInput[] = [
   ['--toggle-transition', 'var(--transition-default)', 'Controls state transition timing.'],
 ];
 export const togglePlaygroundCssProperties: CssPropertyInput[] = [
-  ['--toggle-default-bg', 'transparent', 'Controls default variant background.'],
+  ['--toggle-default-bg', 'var(--color-background)', 'Controls default variant background.'],
   [
     '--toggle-default-bg-hover',
     'var(--color-accent)',
@@ -128,27 +182,6 @@ function normalizeCssProperty(property: CssPropertyInput) {
   }
 
   return property;
-}
-
-function BookmarkIcon(props: ComponentProps<'svg'>) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
-      <path
-        d="M4.5 2.75h7v10.5L8 11l-3.5 2.25V2.75Z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function BookmarkFilledIcon(props: ComponentProps<'svg'>) {
-  return (
-    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false" {...props}>
-      <path d="M4 2.75A.75.75 0 0 1 4.75 2h6.5a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-1.16.63L8 12.03l-2.84 1.85A.75.75 0 0 1 4 13.25V2.75Z" />
-    </svg>
-  );
 }
 
 export function ToggleExample(props: ComponentProps<typeof Toggle>) {
@@ -224,22 +257,33 @@ export function ControlledToggleExample() {
   );
 }
 
-export function ToggleRenderCallbackExample() {
+export function ToggleIndicatorExample() {
   return (
-    <Toggle
-      aria-label="Save article"
-      size="icon-md"
-      variant="outline"
-      render={(buttonProps, state) => (
-        <button type="button" {...buttonProps}>
-          {state.pressed ? (
-            <BookmarkFilledIcon className={styles.customIcon} />
-          ) : (
-            <BookmarkIcon className={styles.customIcon} />
-          )}
-        </button>
-      )}
-    />
+    <Toggle aria-label="Favorite" size="icon-md" variant="outline">
+      <Toggle.Indicator fallback={<StarIcon />}>
+        <CheckIcon />
+      </Toggle.Indicator>
+    </Toggle>
+  );
+}
+
+export function ToggleContextExample() {
+  return (
+    <Toggle variant="outline">
+      <StarIcon />
+      <Toggle.Context>{(context) => (context.pressed ? 'Saved' : 'Save')}</Toggle.Context>
+    </Toggle>
+  );
+}
+
+export function ToggleAsChildExample() {
+  return (
+    <Toggle asChild variant="outline" defaultPressed>
+      <button type="button" className={styles.customButton}>
+        <CheckIcon />
+        Custom button
+      </button>
+    </Toggle>
   );
 }
 

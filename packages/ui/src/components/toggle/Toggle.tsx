@@ -1,28 +1,62 @@
-import { Toggle as TogglePrimitive } from '@base-ui/react/toggle';
-import { forwardRef, type ComponentRef } from 'react';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import type { ComponentProps, ComponentRef } from 'react';
+import { Toggle as TogglePrimitive, useToggle, useToggleContext } from '@ark-ui/react/toggle';
+import { clsx } from 'clsx';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Toggle.module.css';
 
 type ToggleVariant = 'default' | 'outline' | 'ghost';
 type ToggleSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
 
-const Toggle = forwardRef<
-  ComponentRef<typeof TogglePrimitive>,
-  TogglePrimitive.Props & {
+const ToggleRoot = forwardRef<
+  ComponentRef<typeof TogglePrimitive.Root>,
+  ComponentProps<typeof TogglePrimitive.Root> & {
     variant?: ToggleVariant;
     size?: ToggleSize;
   }
->(function Toggle({ className, variant = 'default', size = 'md', ...props }, ref) {
+>(function ToggleRoot({ className, variant = 'default', size = 'md', ...props }, ref) {
   return (
-    <TogglePrimitive
+    <TogglePrimitive.Root
       ref={ref}
       data-slot="toggle-root"
       data-variant={variant}
       data-size={size}
-      className={mergeClassName(className, styles.root)}
+      className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-export { Toggle };
+const ToggleIndicator = forwardRef<
+  ComponentRef<typeof TogglePrimitive.Indicator>,
+  ComponentProps<typeof TogglePrimitive.Indicator>
+>(function ToggleIndicator({ className, ...props }, ref) {
+  return (
+    <TogglePrimitive.Indicator
+      ref={ref}
+      data-slot="toggle-indicator"
+      className={clsx(styles.indicator, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const ToggleContext = TogglePrimitive.Context;
+
+const Toggle = Object.assign(ToggleRoot, {
+  Root: ToggleRoot,
+  Indicator: ToggleIndicator,
+  Context: ToggleContext,
+});
+
+export { Toggle, useToggle, useToggleContext };
+export type {
+  ToggleContextProps,
+  ToggleIndicatorBaseProps,
+  ToggleIndicatorProps,
+  ToggleRootBaseProps,
+  ToggleRootProps,
+  UseToggleContext,
+  UseToggleProps,
+  UseToggleReturn,
+} from '@ark-ui/react/toggle';

@@ -108,20 +108,39 @@ export const Controlled: Story = {
   },
 };
 
-export const RenderCallback: Story = {
-  name: 'Render Callback',
+export const Indicator: Story = {
   render: () => {
     return (
-      <Toggle
-        aria-label="Favorites"
-        size="icon-md"
-        variant="outline"
-        render={(buttonProps, state) => (
-          <button type="button" {...buttonProps}>
-            {state.pressed ? <CheckIcon /> : <StarIcon />}
-          </button>
-        )}
-      />
+      <Toggle aria-label="Favorite" size="icon-md" variant="outline">
+        <Toggle.Indicator fallback={<StarIcon />}>
+          <CheckIcon />
+        </Toggle.Indicator>
+      </Toggle>
+    );
+  },
+};
+
+export const Context: Story = {
+  render: () => {
+    return (
+      <Toggle variant="outline">
+        <StarIcon />
+        <Toggle.Context>{(context) => (context.pressed ? 'Saved' : 'Save')}</Toggle.Context>
+      </Toggle>
+    );
+  },
+};
+
+export const AsChild: Story = {
+  name: 'asChild',
+  render: () => {
+    return (
+      <Toggle asChild variant="outline" defaultPressed>
+        <button type="button" className={storyStyles.customButton}>
+          <CheckIcon />
+          Custom button
+        </button>
+      </Toggle>
     );
   },
 };
