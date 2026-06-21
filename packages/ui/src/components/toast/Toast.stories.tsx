@@ -1,25 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Portal } from '@ark-ui/react/portal';
 import { useRef, useState } from 'react';
 import { InfoIcon } from '@/icons/demo';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
-import {
-  type ToastPlacement,
-  type ToastStackBehavior,
-  ToastAnchoredRegion,
-  ToastClose,
-  ToastContent,
-  ToastDescription,
-  ToastPortal,
-  ToastProvider,
-  ToastRegion,
-  ToastRoot,
-  ToastTitle,
-  ToastViewport,
-  createToastManager,
-  useAnchoredToastManager,
-  useToastManager,
-} from './Toast';
+import { Toast, Toaster, createToaster, type ToastOptions, type ToastPlacement } from './Toast';
 import styles from './Toast.stories.module.css';
 
 const meta = {
@@ -33,388 +18,394 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
+type ToastToaster = ReturnType<typeof createToaster>;
+type ToastType = Extract<ToastOptions['type'], 'success' | 'error' | 'warning' | 'info'>;
 
-const globalToastManager = createToastManager();
+const basicToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
+const actionToaster = createToaster({ placement: 'bottom-end', gap: 24 });
+const durationToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
+const expandedToaster = createToaster({
+  placement: 'bottom-end',
+  overlap: false,
+  gap: 16,
+});
+const maxToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16, max: 3 });
+const promiseToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
+const typeToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
+const updateToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
+const varyingHeightToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
+const customToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
+const placements = ['top-start', 'top', 'top-end', 'bottom-start', 'bottom', 'bottom-end'] as const;
+const placementToasters: Record<ToastPlacement, ToastToaster> = {
+  'top-start': createToaster({ placement: 'top-start', overlap: true, gap: 16 }),
+  top: createToaster({ placement: 'top', overlap: true, gap: 16 }),
+  'top-end': createToaster({ placement: 'top-end', overlap: true, gap: 16 }),
+  'bottom-start': createToaster({ placement: 'bottom-start', overlap: true, gap: 16 }),
+  bottom: createToaster({ placement: 'bottom', overlap: true, gap: 16 }),
+  'bottom-end': createToaster({ placement: 'bottom-end', overlap: true, gap: 16 }),
+};
 
-export const Default: Story = {
+export const Basic: Story = {
   render: () => (
-    <ToastProvider>
-      <CreateToastButton />
-      <ToastRegion />
-    </ToastProvider>
+    <>
+      <Button
+        onClick={() =>
+          basicToaster.create({
+            title: 'Scheduled for tomorrow',
+            description: 'Your meeting has been scheduled for tomorrow at 10am.',
+            type: 'info',
+          })
+        }
+      >
+        Schedule meeting
+      </Button>
+      <ToastRenderer toaster={basicToaster} />
+    </>
   ),
 };
 
 export const Action: Story = {
   render: () => (
-    <ToastProvider>
-      <ActionToastButton />
-      <ToastRegion />
-    </ToastProvider>
+    <>
+      <Button
+        onClick={() =>
+          actionToaster.create({
+            title: 'Event has been created',
+            description: 'We have sent you an email with the event details.',
+            type: 'info',
+            action: {
+              label: 'Undo',
+              onClick: () => actionToaster.info({ description: 'Event restored to draft.' }),
+            },
+          })
+        }
+      >
+        Create event
+      </Button>
+      <ToastRenderer toaster={actionToaster} />
+    </>
   ),
 };
 
-export const Variants: Story = {
-  name: 'Variants',
+export const Duration: Story = {
   render: () => (
-    <ToastProvider>
-      <ToastVariantButtons />
-      <ToastRegion />
-    </ToastProvider>
-  ),
-};
-
-export const Placement: Story = {
-  render: () => (
-    <ToastProvider>
-      <PlacementDemo />
-    </ToastProvider>
+    <>
+      <div className={styles.typedActions}>
+        {[
+          { label: '1s', value: 1000 },
+          { label: '3s', value: 3000 },
+          { label: '5s', value: 5000 },
+          { label: 'Permanent', value: Infinity },
+        ].map((duration) => (
+          <Button
+            key={duration.label}
+            onClick={() =>
+              durationToaster.create({
+                title: 'Reminder set',
+                description:
+                  duration.value === Infinity
+                    ? 'This notification will stay until dismissed.'
+                    : `This notification will disappear in ${duration.label}.`,
+                type: 'info',
+                duration: duration.value,
+              })
+            }
+          >
+            {duration.label}
+          </Button>
+        ))}
+      </div>
+      <ToastRenderer toaster={durationToaster} />
+    </>
   ),
 };
 
 export const AlwaysExpanded: Story = {
   name: 'Always Expanded',
   render: () => (
-    <ToastProvider>
-      <StackedToastButton stackBehavior="expanded" />
-      <ToastRegion placement="bottom-right" stackBehavior="expanded" />
-    </ToastProvider>
-  ),
-};
-
-export const GlobalManager: Story = {
-  name: 'Global Manager',
-  render: () => (
-    <ToastProvider toastManager={globalToastManager}>
+    <>
       <Button
         onClick={() =>
-          globalToastManager.add({
-            title: 'Global toast',
-            description: 'Created via createToastManager()',
+          expandedToaster.info({
+            title: 'Expanded toast',
+            description: 'Create several notifications to compare the always-expanded stack.',
           })
         }
       >
-        Create global toast
+        Create expanded toast
       </Button>
-      <ToastRegion />
-    </ToastProvider>
+      <ToastRenderer toaster={expandedToaster} />
+    </>
   ),
+};
+
+export const MaxToasts: Story = {
+  name: 'Max Toasts',
+  render: () => (
+    <>
+      <div className={styles.typedActions}>
+        <Button
+          onClick={() =>
+            maxToaster.info({
+              title: 'New notification',
+              description: 'You have a new message in your inbox.',
+            })
+          }
+        >
+          Add notification
+        </Button>
+        <Button
+          onClick={() => {
+            [
+              'John liked your post',
+              'Sarah commented on your photo',
+              'New follower: @designpro',
+              'Your post was shared 10 times',
+              'Meeting reminder in 15 minutes',
+            ].forEach((description) => {
+              maxToaster.info({ title: 'Notification', description });
+            });
+          }}
+        >
+          Add 5 notifications
+        </Button>
+      </div>
+      <ToastRenderer toaster={maxToaster} />
+    </>
+  ),
+};
+
+export const Placement: Story = {
+  render: () => <PlacementStory />,
+};
+
+export const PromiseToast: Story = {
+  name: 'Promise Toast',
+  render: () => <PromiseToastStory />,
+};
+
+export const Types: Story = {
+  render: () => (
+    <>
+      <div className={styles.typedActions}>
+        {(['success', 'error', 'warning', 'info'] as ToastType[]).map((type) => (
+          <Button
+            key={type}
+            onClick={() =>
+              typeToaster[type]({
+                title: type === 'info' ? 'Update available' : `${type} toast`,
+                description: `This notification uses the ${type} status style.`,
+              })
+            }
+          >
+            {type}
+          </Button>
+        ))}
+      </div>
+      <ToastRenderer toaster={typeToaster} />
+    </>
+  ),
+};
+
+export const Update: Story = {
+  render: () => <UpdateStory />,
+};
+
+export const VaryingHeight: Story = {
+  name: 'Varying Height',
+  render: () => <VaryingHeightStory />,
 };
 
 export const CustomComposition: Story = {
   name: 'Custom Composition',
   render: () => (
-    <ToastProvider>
-      <CustomToastTrigger />
-      <ToastRegion
-        renderToast={(toast) => (
-          <ToastRoot key={toast.id} toast={toast} className={styles.customToast}>
-            <ToastContent className={styles.customContent}>
-              <InfoIcon className={styles.customIcon} />
-              <ToastTitle />
-              <ToastDescription />
-              <ToastClose aria-label="Close toast">
+    <>
+      <Button
+        onClick={() =>
+          customToaster.success({
+            title: 'Workspace synced',
+            description: 'Map edits are available to everyone.',
+          })
+        }
+      >
+        Create custom toast
+      </Button>
+      <Portal>
+        <Toaster toaster={customToaster}>
+          {(toast) => (
+            <Toast.Root key={toast.id} className={styles.customToast}>
+              <div className={styles.customContent}>
+                <InfoIcon className={styles.customIcon} />
+                <Toast.Title />
+                <Toast.Description />
+              </div>
+              <Toast.CloseTrigger>
                 <CloseIcon className={styles.closeIcon} />
-              </ToastClose>
-            </ToastContent>
-          </ToastRoot>
+              </Toast.CloseTrigger>
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
+    </>
+  ),
+};
+
+function ToastRenderer({ toaster }: { toaster: ToastToaster }) {
+  return (
+    <Portal>
+      <Toaster toaster={toaster}>
+        {(toast) => (
+          <Toast.Root key={toast.id}>
+            <Toast.Title />
+            <Toast.Description />
+            {toast.action ? <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger> : null}
+            {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+          </Toast.Root>
         )}
-      />
-    </ToastProvider>
-  ),
-};
+      </Toaster>
+    </Portal>
+  );
+}
 
-export const ManualViewportComposition: Story = {
-  name: 'Manual Viewport Composition',
-  render: () => (
-    <ToastProvider>
-      <ManualToastTrigger />
-      <ManualToastRegion />
-    </ToastProvider>
-  ),
-};
-
-export const AnchoredToast: Story = {
-  name: 'Anchored Toast',
-  render: () => (
-    <ToastProvider>
-      <AnchoredToastButtons />
-      <ToastAnchoredRegion />
-    </ToastProvider>
-  ),
-};
-
-export const ToastAndAnchoredToast: Story = {
-  name: 'Toast and Anchored Toast',
-  render: () => (
-    <ToastProvider>
-      <div className={styles.stack}>
-        <CreateToastButton />
-        <AnchoredToastButtons />
-      </div>
-      <ToastRegion />
-      <ToastAnchoredRegion />
-    </ToastProvider>
-  ),
-};
-
-function PlacementDemo() {
-  const [placement, setPlacement] = useState<ToastPlacement>('bottom-right');
+function PlacementStory() {
+  const [placement, setPlacement] = useState<ToastPlacement>('bottom-end');
+  const toaster = placementToasters[placement];
 
   return (
     <>
       <div className={styles.stack}>
         <div className={styles.segmented}>
-          {[
-            'top-left',
-            'top-center',
-            'top-right',
-            'bottom-left',
-            'bottom-center',
-            'bottom-right',
-          ].map((item) => (
+          {placements.map((item) => (
             <button
               key={item}
               type="button"
               className={styles.segment}
               data-active={item === placement || undefined}
-              onClick={() => setPlacement(item as ToastPlacement)}
+              onClick={() => setPlacement(item)}
             >
               {item}
             </button>
           ))}
         </div>
-        <PlacementToastButton placement={placement} />
+        <Button
+          onClick={() =>
+            toaster.info({
+              title: 'Notification',
+              description: `This toast appears at ${placement}.`,
+            })
+          }
+        >
+          Show {placement}
+        </Button>
       </div>
-      <ToastRegion placement={placement} />
+      {placements.map((item) => (
+        <ToastRenderer key={item} toaster={placementToasters[item]} />
+      ))}
     </>
   );
 }
 
-function CreateToastButton() {
-  const toastManager = useToastManager();
+function PromiseToastStory() {
+  const handleUpload = () => {
+    promiseToaster.promise(uploadFile, {
+      loading: {
+        title: 'Uploading file...',
+        description: 'Please wait while we upload your document.',
+      },
+      success: {
+        title: 'Upload complete',
+        description: 'Your file has been uploaded successfully.',
+      },
+      error: {
+        title: 'Upload failed',
+        description: 'Could not upload the file. Please try again.',
+      },
+    });
+  };
+
+  return (
+    <>
+      <Button onClick={handleUpload}>Upload file</Button>
+      <ToastRenderer toaster={promiseToaster} />
+    </>
+  );
+}
+
+function UpdateStory() {
+  const idRef = useRef<string | undefined>(undefined);
+
+  return (
+    <>
+      <div className={styles.typedActions}>
+        <Button
+          onClick={() => {
+            idRef.current = updateToaster.create({
+              title: 'Sending message...',
+              description: 'Please wait while we deliver your message.',
+              type: 'loading',
+            });
+          }}
+        >
+          Send message
+        </Button>
+        <Button
+          onClick={() => {
+            if (!idRef.current) {
+              return;
+            }
+
+            updateToaster.update(idRef.current, {
+              title: 'Message sent',
+              description: 'Your message has been delivered successfully.',
+              type: 'success',
+            });
+          }}
+        >
+          Mark as sent
+        </Button>
+      </div>
+      <ToastRenderer toaster={updateToaster} />
+    </>
+  );
+}
+
+function VaryingHeightStory() {
   const [count, setCount] = useState(0);
 
-  const handleCreateToast = () => {
-    const next = count + 1;
-    setCount(next);
-    toastManager.add({
-      title: `Toast ${next}`,
-      description: 'This notification is rendered in the shared toast region.',
-    });
-  };
-
-  return <Button onClick={handleCreateToast}>Create toast</Button>;
-}
-
-function ActionToastButton() {
-  const toastManager = useToastManager();
-
   return (
-    <Button
-      onClick={() =>
-        toastManager.add({
-          title: 'File uploaded',
-          description: 'The file is ready to share.',
-          actionProps: {
-            children: 'Undo',
-            onClick: () => toastManager.add({ description: 'Upload reverted.' }),
-          },
-        })
-      }
-    >
-      Create action toast
-    </Button>
-  );
-}
-
-function PlacementToastButton({ placement }: { placement: ToastPlacement }) {
-  const toastManager = useToastManager();
-
-  return (
-    <Button
-      onClick={() =>
-        toastManager.add({
-          title: 'Placement',
-          description: `Current placement: ${placement}`,
-        })
-      }
-    >
-      Show {placement}
-    </Button>
-  );
-}
-
-function ToastVariantButtons() {
-  const toastManager = useToastManager();
-
-  return (
-    <div className={styles.typedActions}>
+    <>
       <Button
-        onClick={() =>
-          toastManager.add({
-            type: 'info',
-            title: 'Heads up',
-            description: 'New teammates can see the shared workspace now.',
-          })
-        }
-      >
-        Info toast
-      </Button>
-      <Button
-        onClick={() =>
-          toastManager.add({
-            type: 'success',
-            title: 'Saved',
-            description: 'The document is available to everyone with access.',
-          })
-        }
-      >
-        Success toast
-      </Button>
-      <Button
-        variant="outline"
-        onClick={() =>
-          toastManager.add({
-            type: 'warning',
-            title: 'Storage almost full',
-            description: 'Archive old uploads before the next sync.',
-          })
-        }
-      >
-        Warning toast
-      </Button>
-      <Button
-        variant="outline"
-        onClick={() =>
-          toastManager.add({
-            type: 'destructive',
-            title: 'Publish failed',
-            description: 'Review the required fields and try again.',
-          })
-        }
-      >
-        Destructive toast
-      </Button>
-    </div>
-  );
-}
-
-function StackedToastButton({ stackBehavior }: { stackBehavior: ToastStackBehavior }) {
-  const toastManager = useToastManager();
-  const [count, setCount] = useState(0);
-
-  const handleCreateToast = () => {
-    const next = count + 1;
-    setCount(next);
-    toastManager.add({
-      title: `Stacked toast ${next}`,
-      description: 'Create several notifications to compare the expanded stack behavior.',
-    });
-  };
-
-  return <Button onClick={handleCreateToast}>Create {stackBehavior} toast</Button>;
-}
-
-function CustomToastTrigger() {
-  const toastManager = useToastManager();
-
-  return (
-    <Button
-      onClick={() =>
-        toastManager.add({
-          title: 'Custom composition',
-          description: 'ToastRoot and friends are enough when the default layout is not enough.',
-        })
-      }
-    >
-      Create custom toast
-    </Button>
-  );
-}
-
-function ManualToastTrigger() {
-  const toastManager = useToastManager();
-
-  return (
-    <Button
-      onClick={() =>
-        toastManager.add({
-          title: 'Manual viewport',
-          description: 'This stack is rendered from ToastPortal and ToastViewport directly.',
-        })
-      }
-    >
-      Create manual toast
-    </Button>
-  );
-}
-
-function ManualToastRegion() {
-  const { toasts } = useToastManager();
-
-  return (
-    <ToastPortal>
-      <ToastViewport placement="bottom-left">
-        {toasts.map((toast) => (
-          <ToastRoot key={toast.id} toast={toast} className={styles.customToast}>
-            <ToastContent className={styles.customContent}>
-              <InfoIcon className={styles.customIcon} />
-              <ToastTitle />
-              <ToastDescription />
-              <ToastClose aria-label="Close toast">
-                <CloseIcon className={styles.closeIcon} />
-              </ToastClose>
-            </ToastContent>
-          </ToastRoot>
-        ))}
-      </ToastViewport>
-    </ToastPortal>
-  );
-}
-
-function AnchoredToastButtons() {
-  const copyRef = useRef<HTMLButtonElement | null>(null);
-  const saveRef = useRef<HTMLButtonElement | null>(null);
-  const anchoredToast = useAnchoredToastManager();
-  const [copyCount, setCopyCount] = useState(0);
-  const [saveCount, setSaveCount] = useState(0);
-
-  const showAnchored = (anchor: HTMLButtonElement | null, label: string, count: number) => {
-    if (!anchor) {
-      return;
-    }
-
-    anchoredToast.show({
-      anchor,
-      description: `${label}: ${count}`,
-      timeout: 1800,
-    });
-  };
-
-  return (
-    <div className={styles.anchoredActions}>
-      <Button
-        ref={copyRef}
         onClick={() => {
-          const next = copyCount + 1;
-          setCopyCount(next);
-          showAnchored(copyRef.current, 'Copied', next);
+          const next = count + 1;
+          const description = descriptions[Math.floor(Math.random() * descriptions.length)];
+          setCount(next);
+          varyingHeightToaster.info({
+            title: `Notification ${next}`,
+            description,
+          });
         }}
       >
-        Copy
+        Create toast
       </Button>
-      <Button
-        ref={saveRef}
-        variant="outline"
-        onClick={() => {
-          const next = saveCount + 1;
-          setSaveCount(next);
-          showAnchored(saveRef.current, 'Saved', next);
-        }}
-      >
-        Save
-      </Button>
-    </div>
+      <ToastRenderer toaster={varyingHeightToaster} />
+    </>
   );
 }
+
+const uploadFile = () =>
+  new Promise<void>((resolve, reject) => {
+    window.setTimeout(() => {
+      if (Math.random() > 0.5) {
+        resolve();
+      } else {
+        reject(new Error('Upload failed'));
+      }
+    }, 2000);
+  });
+
+const descriptions = [
+  'Your changes have been saved.',
+  'File uploaded successfully. You can view it in your documents folder.',
+  'Your meeting has been scheduled for tomorrow at 10:00 AM. We have sent a calendar invite to all participants.',
+  'We noticed unusual activity on your account. Please verify your identity using the link sent to your email address.',
+];

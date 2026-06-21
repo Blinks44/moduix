@@ -6,79 +6,80 @@ icon: Component
 
 import {
   ActionToastExample,
-  AnchoredToastExample,
-  CustomAnchoredToastExample,
   CustomToastExample,
+  DurationToastExample,
   ExpandedToastExample,
-  GlobalManagerToastExample,
-  ManualToastCompositionExample,
+  MaxToastsToastExample,
   PlacementToastExample,
-  ToastAndAnchoredToastExample,
+  PromiseToastExample,
   ToastCssPropertiesPanel,
   ToastExample,
-  ToastVariantsExample,
+  ToastTypesExample,
+  UpdateToastExample,
+  VaryingHeightToastExample,
+  toastBasicData,
+  toastDurationData,
+  toastExampleCss,
+  toastExpandedData,
+  toastMaxData,
+  toastPlacementData,
+  toastPromiseData,
+  toastTypesData,
+  toastVaryingHeightData,
 } from '@/components/examples/toast';
 
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
 
-## Choosing the right component
-
-Use `Toast` for transient feedback that should appear without shifting the page layout.
-
-- Choose **`Alert`** when the message should stay visible in the document flow until the user deals
-  with it.
-- Choose **`ToastRegion`** for page-level notifications such as saved, uploaded, synced, or failed
-  actions.
-- Choose **`ToastAnchoredRegion`** for short contextual confirmations near the control that
-  triggered them.
-
 ## Basic
 
-Start with `ToastProvider`, one trigger that uses `useToastManager()`, and `ToastRegion`. This is
-the recommended path for ordinary stacked notifications.
+Create a toaster store with `createToaster()`, enqueue messages through that store, and render the
+store with `Toaster`.
 
 <Preview>
   <ToastExample />
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        ToastProvider,
-        ToastRegion,
-        useToastManager,
-      } from "moduix";
+      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+
+      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 24 });
 
       export function App() {
         return (
-          <ToastProvider>
-            <SaveButton />
-            <ToastRegion />
-          </ToastProvider>
-        );
-      }
-
-      function SaveButton() {
-        const toastManager = useToastManager();
-
-        return (
-          <Button
-            onClick={() =>
-              toastManager.add({
-                title: "Saved",
-                description: "Changes were saved successfully.",
-              })
-            }
-          >
-            Save changes
-          </Button>
+          <>
+            <Button
+              onClick={() =>
+                toaster.create({
+                  title: "Scheduled for tomorrow",
+                  description: "Your meeting has been scheduled for tomorrow at 10am.",
+                  type: "info",
+                })
+              }
+            >
+              Schedule meeting
+            </Button>
+            <Portal>
+              <Toaster toaster={toaster}>
+                {(toast) => (
+                  <Toast key={toast.id}>
+                    <Toast.Title />
+                    <Toast.Description />
+                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                  </Toast>
+                )}
+              </Toaster>
+            </Portal>
+          </>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{toastExampleCss}</Preview.CSS>
+  <Preview.Data>{toastBasicData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -124,613 +125,657 @@ aubx shadcn@latest add Blinks44/moduix/toast
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Toast` depends on, such
-as styles, icons, and small utilities.
-
 ## Anatomy
 
-The normal consumer path is provider plus one or both regions:
-
 ```text
-ToastProvider
-├─ app content
-├─ ToastRegion
-│  └─ ToastRoot
-│     └─ ToastContent
-│        ├─ ToastTitle
-│        ├─ ToastDescription
-│        ├─ ToastAction
-│        └─ ToastClose
-└─ ToastAnchoredRegion
-   └─ ToastPositioner
-      └─ ToastRoot
-         ├─ ToastArrow
-         └─ ToastContent
-            └─ ToastDescription
+createToaster()
+└─ Portal
+   └─ Toaster
+      └─ Toast.Root
+         ├─ Toast.Context (optional render-prop access)
+         ├─ Toast.Title
+         ├─ Toast.Description
+         ├─ Toast.ActionTrigger
+         └─ Toast.CloseTrigger
 ```
 
-| Part                  | Role                                                             |
-| --------------------- | ---------------------------------------------------------------- |
-| `ToastProvider`       | Provides the stacked manager and anchored helper manager.        |
-| `ToastRegion`         | Default stacked region with built-in portal and viewport.        |
-| `ToastAnchoredRegion` | Default anchored region with built-in positioner flow.           |
-| `ToastRoot`           | Visible toast surface.                                           |
-| `ToastContent`        | Visible body layout wrapper.                                     |
-| `ToastAction`         | Action button for stacked toasts when `actionProps` are present. |
-| `ToastClose`          | Dismiss button for stacked toasts.                               |
-| `ToastArrow`          | Default arrow for anchored toasts.                               |
+| Part                        | Role                                                                                 |
+| --------------------------- | ------------------------------------------------------------------------------------ |
+| `Toast` / `Toast.Root`      | Visible toast surface connected to the current Ark toast context.                    |
+| `Toaster` / `Toast.Toaster` | Renders a toaster store and owns the Ark toast group.                                |
+| `Portal`                    | Shared portal primitive for rendering the toaster group outside local layout.        |
+| `Toast.Title`               | Title part. Defaults to the current toast `title` when no children are passed.       |
+| `Toast.Description`         | Description part. Defaults to the current toast `description`.                       |
+| `Toast.ActionTrigger`       | Action button wired to `toast.action.onClick`. Pass `toast.action.label` as content. |
+| `Toast.CloseTrigger`        | Dismiss button. Renders `CloseButton.Root` by default.                               |
+| `Toast.Context`             | Reads Ark toast state through a render prop.                                         |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with `ToastProvider`, `ToastRegion`, `ToastAnchoredRegion`, `useToastManager()`, and
-`useAnchoredToastManager()` for most applications.
+Create a stable toaster store with `createToaster(options)`, then render it once with `Toaster`.
+The store controls placement, overlap, gap, max queue size, duration, remove delay, idle pausing,
+and the `Alt+T` focus hotkey.
 
-Use `ToastRegion` for stacked page-level notifications and `ToastAnchoredRegion` for brief
-contextual feedback near a trigger. `ToastRegion` already owns `ToastPortal` and `ToastViewport`.
-`ToastAnchoredRegion` already owns the anchored viewport and `ToastPositioner`.
+Import `Portal` separately from `moduix` and wrap `Toaster` with it when the group should render at
+the document body level. Toast does not expose a toast-specific portal alias.
 
-Use `renderToast` when the region wiring is correct but the visible markup needs to change.
+Use `Toast` as the short root form in application code. It is equivalent to `Toast.Root` and keeps
+the Ark namespace available for the child parts.
 
 ### When to go custom
 
-Drop to `ToastPortal`, `ToastViewport`, `ToastPositioner`, `ToastRoot`, and the other low-level
-parts only when consumer code must own the viewport structure or render pipeline itself.
+Use the `Toaster` render prop when each toast needs custom layout, icons, or conditional controls.
+Keep `Toast.Root` as the outer item so Ark can preserve stacking, height measurement, dismiss
+lifecycle, pausing, keyboard focus, and type/state attributes.
 
-That is mainly useful when:
+Use `Toast.Context` or `useToastContext()` inside custom child parts when the rendered content needs
+access to `type`, `placement`, `visible`, `paused`, `dismiss()`, `pause()`, or `resume()`.
 
-- stacked toasts need a custom viewport setup
-- anchored toasts need richer content than the default description-only layout
-- a shared app-level service outside React needs to enqueue toasts with `createToastManager()`
+All exported Ark parts support `asChild`; custom children must remain semantic and preserve button
+behavior for `ActionTrigger` and `CloseTrigger`.
 
 ### Default props
 
-| Surface               | Prop            | Default        | Values                                                                                |
-| --------------------- | --------------- | -------------- | ------------------------------------------------------------------------------------- |
-| `ToastRegion`         | `placement`     | `bottom-right` | `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right` |
-| `ToastRegion`         | `stackBehavior` | `stacked`      | `stacked`, `expanded`                                                                 |
-| `ToastAnchoredRegion` | `renderToast`   | default markup | `(toast, index) => ReactNode`                                                         |
+| Prop                        | Default              | Notes                                                                                      |
+| --------------------------- | -------------------- | ------------------------------------------------------------------------------------------ |
+| `createToaster.gap`         | `16`                 | Gap between toast items.                                                                   |
+| `createToaster.max`         | `24`                 | New toasts are queued after the visible stack reaches this limit.                          |
+| `createToaster.hotkey`      | `["altKey", "KeyT"]` | Moves focus to the toast group.                                                            |
+| `createToaster.offsets`     | `"1rem"`             | Safe-edge offset for the toast group.                                                      |
+| `createToaster.overlap`     | `false`              | Ark stack mode. Use `true` for overlapped stacks.                                          |
+| `createToaster.placement`   | `"bottom"`           | Use Ark placements: `top-start`, `top`, `top-end`, `bottom-start`, `bottom`, `bottom-end`. |
+| `createToaster.removeDelay` | `200`                | Keeps closed toasts mounted long enough for exit transitions.                              |
 
 ### Behavioral notes
 
-- Mount `ToastProvider` once around the part of the app that needs toast managers.
-- `useToastManager()` drives stacked toasts rendered by `ToastRegion`.
-- `useAnchoredToastManager().show()` requires an `anchor` element and reuses one toast per anchor.
-- The default anchored renderer shows only `description`. Use `renderToast` for titles, icons, or
-  additional controls.
-- Built-in variant styling is available for `type="info"`, `success`, `warning`, and
-  `destructive`. Other `type` values still pass through to `ToastRoot[data-type]`.
+- Use `toaster.create()`, `success()`, `error()`, `warning()`, `info()`, `loading()`,
+  `promise()`, `update()`, `dismiss()`, `remove()`, and `dismissByPlacement()` directly from the
+  Ark toaster store.
+- `toast.action` uses `{ label, onClick }`, rendered by `Toast.ActionTrigger`.
+- `toast.duration` controls one toast; `createToaster({ duration })` controls the default.
+- `toast.onStatusChange(details)` receives Ark status changes for `visible`, `dismissing`, and
+  `unmounted`.
+- `Toast.Root` exposes Ark state attributes such as `data-state`, `data-type`, `data-placement`,
+  `data-side`, `data-mounted`, `data-paused`, `data-first`, `data-sibling`, `data-stack`, and
+  `data-overlap`.
 
 ## Examples
 
-### Anchored Toast
-
-Use `ToastAnchoredRegion` and `useAnchoredToastManager()` for short contextual confirmations.
-
-<Preview>
-  <AnchoredToastExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        ToastAnchoredRegion,
-        ToastProvider,
-        useAnchoredToastManager,
-      } from "moduix";
-      import { useRef } from "react";
-
-      export function App() {
-        return (
-          <ToastProvider>
-            <CopyButton />
-            <ToastAnchoredRegion />
-          </ToastProvider>
-        );
-      }
-
-      function CopyButton() {
-        const buttonRef = useRef(null as HTMLButtonElement | null);
-        const anchoredToast = useAnchoredToastManager();
-
-        return (
-          <Button
-            ref={buttonRef}
-            onClick={() => {
-              if (!buttonRef.current) {
-                return;
-              }
-
-              anchoredToast.show({
-                anchor: buttonRef.current,
-                description: "Copied",
-                timeout: 1800,
-              });
-            }}
-          >
-            Copy
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
 ### Action
 
-Use `actionProps` when the toast should expose one direct follow-up action.
+Use `action: { label, onClick }` when the toast should expose one direct follow-up action.
 
 <Preview>
   <ActionToastExample />
 
   <Preview.Code>
     {`
-      import { Button, ToastProvider, ToastRegion, useToastManager } from "moduix";
+      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+
+      const toaster = createToaster({ placement: "bottom-end", gap: 24 });
 
       export function App() {
-        return (
-          <ToastProvider>
-            <UploadButton />
-            <ToastRegion />
-          </ToastProvider>
-        );
-      }
-
-      function UploadButton() {
-        const toastManager = useToastManager();
-
-        return (
-          <Button
-            onClick={() =>
-              toastManager.add({
-                title: "File uploaded",
-                description: "The file is ready to share.",
-                actionProps: {
-                  children: "Undo",
-                  onClick: () => toastManager.add({ description: "Upload reverted." }),
-                },
-              })
-            }
-          >
-            Create action toast
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Variants
-
-Pass `type` when creating the toast. moduix styles `info`, `success`, `warning`, and
-`destructive` out of the box.
-
-<Preview>
-  <ToastVariantsExample />
-
-  <Preview.Code>
-    {`
-      import { Button, ToastProvider, ToastRegion, useToastManager } from "moduix";
-
-      export function App() {
-        return (
-          <ToastProvider>
-            <ToastVariantButtons />
-            <ToastRegion />
-          </ToastProvider>
-        );
-      }
-
-      function ToastVariantButtons() {
-        const toastManager = useToastManager();
-
         return (
           <>
             <Button
               onClick={() =>
-                toastManager.add({
+                toaster.create({
+                  title: "Event has been created",
+                  description: "We have sent you an email with the event details.",
                   type: "info",
-                  title: "Heads up",
-                  description: "New teammates can see the shared workspace now.",
+                  action: {
+                    label: "Undo",
+                    onClick: () => toaster.info({ description: "Event restored to draft." }),
+                  },
                 })
               }
             >
-              Info toast
+              Create event
             </Button>
-            <Button
-              onClick={() =>
-                toastManager.add({
-                  type: "success",
-                  title: "Saved",
-                  description: "The document is available to everyone with access.",
-                })
-              }
-            >
-              Success toast
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() =>
-                toastManager.add({
-                  type: "warning",
-                  title: "Storage almost full",
-                  description: "Archive old uploads before the next sync.",
-                })
-              }
-            >
-              Warning toast
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() =>
-                toastManager.add({
-                  type: "destructive",
-                  title: "Publish failed",
-                  description: "Review the required fields and try again.",
-                })
-              }
-            >
-              Destructive toast
-            </Button>
+            <Portal>
+              <Toaster toaster={toaster}>
+                {(toast) => (
+                  <Toast key={toast.id}>
+                    <Toast.Title />
+                    <Toast.Description />
+                    {toast.action ? (
+                      <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger>
+                    ) : null}
+                  </Toast>
+                )}
+              </Toaster>
+            </Portal>
           </>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{toastExampleCss}</Preview.CSS>
+  <Preview.Data>{toastBasicData}</Preview.Data>
 </Preview>
 
-### Placement
+### Duration
 
-Pass `placement` to `ToastRegion` to choose the viewport corner or center edge.
+Set `duration` per toast when a notification should dismiss faster, slower, or only after manual
+dismissal.
 
 <Preview>
-  <PlacementToastExample />
+  <DurationToastExample />
+
+  <Preview.Code>
+    {`
+      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+
+      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
+
+      export function App() {
+        return (
+          <>
+            {durations.map((duration) => (
+              <Button
+                key={duration.label}
+                onClick={() =>
+                  toaster.info({
+                    title: "Reminder set",
+                    description:
+                      duration.value === Infinity
+                        ? "This notification will stay until dismissed."
+                        : \`This notification will disappear in \${duration.label}.\`,
+                    duration: duration.value,
+                  })
+                }
+              >
+                {duration.label}
+              </Button>
+            ))}
+            <Portal>
+              <Toaster toaster={toaster}>
+                {(toast) => (
+                  <Toast key={toast.id}>
+                    <Toast.Title />
+                    <Toast.Description />
+                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                  </Toast>
+                )}
+              </Toaster>
+            </Portal>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{toastExampleCss}</Preview.CSS>
+  <Preview.Data>{toastDurationData}</Preview.Data>
+</Preview>
+
+### Max Toasts
+
+Set `max` on the toaster store when bursts should queue instead of filling the screen.
+
+<Preview>
+  <MaxToastsToastExample />
+
+  <Preview.Code>
+    {`
+      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+
+      const toaster = createToaster({ max: 3, overlap: true, placement: "bottom-end", gap: 16 });
+
+      export function App() {
+        return (
+          <>
+            <Button
+              onClick={() =>
+                toaster.info({
+                  title: "New notification",
+                  description: "You have a new message in your inbox.",
+                })
+              }
+            >
+              Add notification
+            </Button>
+            <Button
+              onClick={() => {
+                messages.forEach((description) => {
+                  toaster.info({ title: "Notification", description });
+                });
+              }}
+            >
+              Add 5 notifications
+            </Button>
+            <Portal>
+              <Toaster toaster={toaster}>
+                {(toast) => (
+                  <Toast key={toast.id}>
+                    <Toast.Title />
+                    <Toast.Description />
+                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                  </Toast>
+                )}
+              </Toaster>
+            </Portal>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{toastExampleCss}</Preview.CSS>
+  <Preview.Data>{toastMaxData}</Preview.Data>
 </Preview>
 
 ### Always Expanded
 
-Pass `stackBehavior="expanded"` when the stacked viewport should stay fully readable.
+Use Ark's `overlap: false` option when stacked toasts should stay fully readable instead of
+overlapping until hover or focus.
 
 <Preview>
   <ExpandedToastExample />
 
   <Preview.Code>
     {`
-      import { Button, ToastProvider, ToastRegion, useToastManager } from "moduix";
-      import { useState } from "react";
+      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+
+      const toaster = createToaster({
+        placement: "bottom-end",
+        overlap: false,
+        gap: 16,
+      });
 
       export function App() {
-        return (
-          <ToastProvider>
-            <ExpandedToastButton />
-            <ToastRegion placement="bottom-right" stackBehavior="expanded" />
-          </ToastProvider>
-        );
-      }
-
-      function ExpandedToastButton() {
-        const toastManager = useToastManager();
-        const [count, setCount] = useState(0);
-
-        return (
-          <Button
-            onClick={() => {
-              const next = count + 1;
-              setCount(next);
-              toastManager.add({
-                title: \`Stacked toast \${next}\`,
-                description: "Create several notifications to compare the expanded stack behavior.",
-              });
-            }}
-          >
-            Create expanded toast
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Global Manager
-
-Use `createToastManager()` when non-React code or a shared app service needs to enqueue stacked
-toasts.
-
-<Preview>
-  <GlobalManagerToastExample />
-
-  <Preview.Code>
-    {`
-      import { Button, ToastProvider, ToastRegion, createToastManager } from "moduix";
-
-      export function App() {
-        return (
-          <ToastProvider toastManager={toastManager}>
-            <Button
-              onClick={() =>
-                toastManager.add({
-                  title: "Global toast",
-                  description: "Created with createToastManager().",
-                })
-              }
-            >
-              Create global toast
-            </Button>
-            <ToastRegion />
-          </ToastProvider>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`      const toastManager = createToastManager();`}
-
-  </Preview.Data>
-</Preview>
-
-### Stacked and Anchored Together
-
-Mount both regions when the app uses both notification flows.
-
-<Preview>
-  <ToastAndAnchoredToastExample />
-</Preview>
-
-### Custom Composition
-
-Use `renderToast` when the region stays the same but the visible layout should change.
-
-<Preview>
-  <CustomToastExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        CloseIcon,
-        InfoIcon,
-        ToastClose,
-        ToastContent,
-        ToastDescription,
-        ToastProvider,
-        ToastRegion,
-        ToastRoot,
-        ToastTitle,
-        useToastManager,
-      } from "moduix";
-      import styles from "./toast.module.css";
-
-      export function App() {
-        return (
-          <ToastProvider>
-            <CustomToastButton />
-            <ToastRegion
-              renderToast={(toast) => (
-                <ToastRoot key={toast.id} toast={toast} className={styles.customToast}>
-                  <ToastContent className={styles.customContent}>
-                    <InfoIcon className={styles.customIcon} />
-                    <ToastTitle />
-                    <ToastDescription />
-                    <ToastClose aria-label="Close toast">
-                      <CloseIcon className={styles.closeIcon} />
-                    </ToastClose>
-                  </ToastContent>
-                </ToastRoot>
-              )}
-            />
-          </ToastProvider>
-        );
-      }
-
-      function CustomToastButton() {
-        const toastManager = useToastManager();
-
-        return (
-          <Button
-            onClick={() =>
-              toastManager.add({
-                title: "Custom composition",
-                description: "Every important part stays composable without slot prop APIs.",
-              })
-            }
-          >
-            Create custom toast
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Custom Anchored Composition
-
-Use `renderToast` on `ToastAnchoredRegion` when anchored feedback needs richer content than the
-default description-only layout.
-
-<Preview>
-  <CustomAnchoredToastExample />
-
-  <Preview.Code>
-    {`
-      import {
-        type AnchoredToastOptions,
-        Button,
-        InfoIcon,
-        ToastAnchoredRegion,
-        ToastArrow,
-        ToastContent,
-        ToastDescription,
-        ToastProvider,
-        ToastRoot,
-        useAnchoredToastManager,
-      } from "moduix";
-      import { useRef } from "react";
-      import styles from "./toast.module.css";
-
-      export function App() {
-        return (
-          <ToastProvider>
-            <AnchoredToastActions />
-            <ToastAnchoredRegion
-              renderToast={(toast) => (
-                <ToastRoot key={toast.id} toast={toast} className={styles.customToast}>
-                  <ToastArrow />
-                  <ToastContent className={styles.customAnchoredContent}>
-                    <InfoIcon className={styles.customAnchoredIcon} />
-                    <ToastDescription />
-                  </ToastContent>
-                </ToastRoot>
-              )}
-            />
-          </ToastProvider>
-        );
-      }
-
-      function AnchoredToastActions() {
-        const copyRef = useRef<HTMLButtonElement | null>(null);
-        const saveRef = useRef<HTMLButtonElement | null>(null);
-        const shareRef = useRef<HTMLButtonElement | null>(null);
-        const anchoredToast = useAnchoredToastManager();
-
-        const showAnchored = (
-          anchor: HTMLButtonElement | null,
-          description: string,
-          positionerProps?: AnchoredToastOptions["positionerProps"],
-        ) => {
-          if (!anchor) {
-            return;
-          }
-
-          anchoredToast.show({
-            anchor,
-            description,
-            timeout: 1800,
-            positionerProps,
-          });
-        };
-
         return (
           <>
-            <Button ref={copyRef} onClick={() => showAnchored(copyRef.current, "Copied")}>
-              Copy
-            </Button>
             <Button
-              ref={saveRef}
-              variant="outline"
-              onClick={() => showAnchored(saveRef.current, "Saved")}
-            >
-              Save
-            </Button>
-            <Button
-              ref={shareRef}
-              variant="secondary"
               onClick={() =>
-                showAnchored(shareRef.current, "Shared", {
-                  side: "bottom",
+                toaster.info({
+                  title: "Expanded toast",
+                  description: "Create several notifications to compare the always-expanded stack.",
                 })
               }
             >
-              Share (bottom)
+              Create expanded toast
             </Button>
+            <Portal>
+              <Toaster toaster={toaster}>
+                {(toast) => (
+                  <Toast key={toast.id}>
+                    <Toast.Title />
+                    <Toast.Description />
+                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                  </Toast>
+                )}
+              </Toaster>
+            </Portal>
           </>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{toastExampleCss}</Preview.CSS>
+  <Preview.Data>{toastExpandedData}</Preview.Data>
 </Preview>
 
-### Manual Stacked Region
+### Placement
 
-Most applications should stay on `ToastRegion`, but the stacked viewport can still be assembled
-manually when consumer code must own it.
+Choose one of Ark's six placements when the toast group needs to appear on a specific viewport edge.
 
 <Preview>
-  <ManualToastCompositionExample />
+  <PlacementToastExample />
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        CloseIcon,
-        InfoIcon,
-        ToastClose,
-        ToastContent,
-        ToastDescription,
-        ToastPortal,
-        ToastProvider,
-        ToastRoot,
-        ToastTitle,
-        ToastViewport,
-        useToastManager,
-      } from "moduix";
-      import styles from "./toast.module.css";
+      import { Button, Portal, Toast, Toaster, createToaster, type ToastPlacement } from "moduix";
+      import { useState } from "react";
+
+      const toasters = {
+        "top-start": createToaster({ placement: "top-start", overlap: true, gap: 16 }),
+        top: createToaster({ placement: "top", overlap: true, gap: 16 }),
+        "top-end": createToaster({ placement: "top-end", overlap: true, gap: 16 }),
+        "bottom-start": createToaster({ placement: "bottom-start", overlap: true, gap: 16 }),
+        bottom: createToaster({ placement: "bottom", overlap: true, gap: 16 }),
+        "bottom-end": createToaster({ placement: "bottom-end", overlap: true, gap: 16 }),
+      };
 
       export function App() {
-        return (
-          <ToastProvider>
-            <ManualToastButton />
-            <ManualToastRegion />
-          </ToastProvider>
-        );
-      }
-
-      function ManualToastButton() {
-        const toastManager = useToastManager();
+        const [placement, setPlacement] = useState("bottom-end" as ToastPlacement);
+        const toaster = toasters[placement];
 
         return (
-          <Button
-            onClick={() =>
-              toastManager.add({
-                title: "Manual viewport",
-                description: "This stack is assembled from ToastPortal and ToastViewport.",
-              })
-            }
-          >
-            Create manual toast
-          </Button>
-        );
-      }
-
-      function ManualToastRegion() {
-        const { toasts } = useToastManager();
-
-        return (
-          <ToastPortal>
-            <ToastViewport placement="bottom-left">
-              {toasts.map((toast) => (
-                <ToastRoot key={toast.id} toast={toast} className={styles.customToast}>
-                  <ToastContent className={styles.customContent}>
-                    <InfoIcon className={styles.customIcon} />
-                    <ToastTitle />
-                    <ToastDescription />
-                    <ToastClose aria-label="Close toast">
-                      <CloseIcon className={styles.closeIcon} />
-                    </ToastClose>
-                  </ToastContent>
-                </ToastRoot>
-              ))}
-            </ToastViewport>
-          </ToastPortal>
+          <>
+            {placements.map((item) => (
+              <Button key={item} onClick={() => setPlacement(item)}>
+                {item}
+              </Button>
+            ))}
+            <Button
+              onClick={() =>
+                toaster.info({
+                  title: "Notification",
+                  description: \`This toast appears at \${placement}.\`,
+                })
+              }
+            >
+              Show {placement}
+            </Button>
+            {placements.map((item) => (
+              <Portal key={item}>
+                <Toaster toaster={toasters[item]}>
+                  {(toast) => (
+                    <Toast key={toast.id}>
+                      <Toast.Title />
+                      <Toast.Description />
+                      {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                    </Toast>
+                  )}
+                </Toaster>
+              </Portal>
+            ))}
+          </>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{toastExampleCss}</Preview.CSS>
+  <Preview.Data>{toastPlacementData}</Preview.Data>
+</Preview>
+
+### Promise Toast
+
+Use `toaster.promise()` to transition one toast from loading to success or error.
+
+<Preview>
+  <PromiseToastExample />
+
+  <Preview.Code>
+    {`
+      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+
+      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
+
+      export function App() {
+        return (
+          <>
+            <Button
+              onClick={() =>
+                toaster.promise(uploadFile, {
+                  loading: {
+                    title: "Uploading file...",
+                    description: "Please wait while we upload your document.",
+                  },
+                  success: {
+                    title: "Upload complete",
+                    description: "Your file has been uploaded successfully.",
+                  },
+                  error: {
+                    title: "Upload failed",
+                    description: "Could not upload the file. Please try again.",
+                  },
+                })
+              }
+            >
+              Upload file
+            </Button>
+            <Portal>
+              <Toaster toaster={toaster}>
+                {(toast) => (
+                  <Toast key={toast.id}>
+                    <Toast.Title />
+                    <Toast.Description />
+                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                  </Toast>
+                )}
+              </Toaster>
+            </Portal>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{toastExampleCss}</Preview.CSS>
+  <Preview.Data>{toastPromiseData}</Preview.Data>
+</Preview>
+
+### Types
+
+Use the typed toaster helpers for status-specific variants. moduix styles `info`, `success`,
+`warning`, `error`, and `destructive` through `data-type`.
+
+<Preview>
+  <ToastTypesExample />
+
+  <Preview.Code>
+    {`
+      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+
+      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
+
+      export function App() {
+        return (
+          <>
+            {types.map((type) => (
+              <Button
+                key={type}
+                onClick={() =>
+                  toaster[type]({
+                    title: type === "info" ? "Update available" : \`\${type} toast\`,
+                    description: \`This notification uses the \${type} status style.\`,
+                  })
+                }
+              >
+                {type}
+              </Button>
+            ))}
+            <Portal>
+              <Toaster toaster={toaster}>
+                {(toast) => (
+                  <Toast key={toast.id}>
+                    <Toast.Title />
+                    <Toast.Description />
+                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                  </Toast>
+                )}
+              </Toaster>
+            </Portal>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{toastExampleCss}</Preview.CSS>
+  <Preview.Data>{toastTypesData}</Preview.Data>
+</Preview>
+
+### Update
+
+Keep the created toast id and pass it to `toaster.update()` when an existing notification should
+change in place.
+
+<Preview>
+  <UpdateToastExample />
+
+  <Preview.Code>
+    {`
+      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+      import { useRef } from "react";
+
+      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 24 });
+
+      export function App() {
+        const idRef = useRef<string | undefined>(undefined);
+
+        return (
+          <>
+            <Button
+              onClick={() => {
+                idRef.current = toaster.create({
+                  title: "Sending message...",
+                  description: "Please wait while we deliver your message.",
+                  type: "loading",
+                });
+              }}
+            >
+              Send message
+            </Button>
+            <Button
+              onClick={() => {
+                if (idRef.current) {
+                  toaster.update(idRef.current, {
+                    title: "Message sent",
+                    description: "Your message has been delivered successfully.",
+                    type: "success",
+                  });
+                }
+              }}
+            >
+              Mark as sent
+            </Button>
+            <Portal>
+              <Toaster toaster={toaster}>
+                {(toast) => (
+                  <Toast key={toast.id}>
+                    <Toast.Title />
+                    <Toast.Description />
+                  </Toast>
+                )}
+              </Toaster>
+            </Portal>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{toastExampleCss}</Preview.CSS>
+  <Preview.Data>{toastBasicData}</Preview.Data>
+</Preview>
+
+### Varying Height
+
+Ark measures each toast and exposes `--height`, so stacks with mixed description lengths animate
+without manual sizing.
+
+<Preview>
+  <VaryingHeightToastExample />
+
+  <Preview.Code>
+    {`
+      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+      import { useState } from "react";
+
+      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
+
+      export function App() {
+        const [count, setCount] = useState(0);
+
+        return (
+          <>
+            <Button
+              onClick={() => {
+                const next = count + 1;
+                const description = descriptions[Math.floor(Math.random() * descriptions.length)];
+                setCount(next);
+                toaster.info({ title: \`Notification \${next}\`, description });
+              }}
+            >
+              Create toast
+            </Button>
+            <Portal>
+              <Toaster toaster={toaster}>
+                {(toast) => (
+                  <Toast key={toast.id}>
+                    <Toast.Title />
+                    <Toast.Description />
+                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                  </Toast>
+                )}
+              </Toaster>
+            </Portal>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{toastExampleCss}</Preview.CSS>
+  <Preview.Data>{toastVaryingHeightData}</Preview.Data>
+</Preview>
+
+### Custom Composition
+
+Customize the render prop when the toast surface needs icons, a different internal layout, or
+component-specific CSS variables.
+
+<Preview>
+  <CustomToastExample />
+
+  <Preview.Code>
+    {`
+      import { Button, CloseIcon, InfoIcon, Portal, Toast, Toaster, createToaster } from "moduix";
+      import styles from "./toast.module.css";
+
+      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 24 });
+
+      export function App() {
+        return (
+          <>
+            <Button
+              onClick={() =>
+                toaster.success({
+                  title: "Workspace synced",
+                  description: "Map edits are available to everyone.",
+                })
+              }
+            >
+              Create custom toast
+            </Button>
+            <Portal>
+              <Toaster toaster={toaster}>
+                {(toast) => (
+                  <Toast key={toast.id} className={styles.customToast}>
+                    <div className={styles.customContent}>
+                      <InfoIcon className={styles.customIcon} />
+                      <Toast.Title />
+                      <Toast.Description />
+                    </div>
+                    <Toast.CloseTrigger>
+                      <CloseIcon className={styles.closeIcon} />
+                    </Toast.CloseTrigger>
+                  </Toast>
+                )}
+              </Toaster>
+            </Portal>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{toastExampleCss}</Preview.CSS>
+  <Preview.Data>{toastBasicData}</Preview.Data>
 </Preview>
 
 ## Styling
 
-Style `Toast` through `className`, the exported visual parts, `data-slot` hooks, and the public
-`--toast-*` variables from `theme.css`.
+Style `Toast` through Ark part attributes, `data-slot` hooks, and the public `--toast-*` variables
+from `theme.css`.
 
 ### CSS Properties
 
@@ -744,25 +789,19 @@ Style `Toast` through `className`, the exported visual parts, `data-slot` hooks,
 
 ### Styling hooks
 
-Use the part that owns the visual concern:
+Use `Toast.Root` for surface, border, motion, type-based variants, and Ark runtime variables.
+Use `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger`, and `Toast.CloseTrigger` for inner
+typography and controls.
 
-- `ToastRegion` and `ToastViewport` for viewport placement, width, and stack layout
-- `ToastRoot` for surface, border, motion, and type-based variants
-- `ToastContent`, `ToastTitle`, and `ToastDescription` for inner layout and typography
-- `ToastAction` and `ToastClose` for interactive controls
-- `ToastPositioner` and `ToastArrow` for anchored placement and arrow styling
+Important Ark hooks:
 
-The main public hooks include `data-slot="toast-portal"`, `toast-viewport`,
-`toast-anchored-viewport`, `toast-root`, `toast-anchored-root`, `toast-content`,
-`toast-anchored-content`, `toast-title`, `toast-description`, `toast-anchored-description`,
-`toast-action`, `toast-close`, `toast-positioner`, and `toast-anchored-arrow`.
+- `[data-scope='toast'][data-part='group']` on `Toaster`
+- `[data-scope='toast'][data-part='root']` on `Toast.Root`
+- `[data-scope='toast'][data-part='title']` on `Toast.Title`
+- `[data-scope='toast'][data-part='description']` on `Toast.Description`
+- `[data-scope='toast'][data-part='actionTrigger']` on `Toast.ActionTrigger`
+- `[data-scope='toast'][data-part='closeTrigger']` on `Toast.CloseTrigger`
+- `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity`, and `--gap` on `Toast.Root`
 
-Useful state and variant hooks include:
-
-- `data-placement` on `ToastViewport` and `ToastRoot`
-- `data-stack-behavior` on `ToastViewport`, `ToastRoot`, and stacked `ToastContent`
-- `data-type` on `ToastRoot`
-- stacked-state attributes such as `data-expanded`, `data-starting-style`, `data-ending-style`,
-  `data-limited`, and `data-swipe-direction`
-- `data-behind` and `data-expanded` on stacked `ToastContent`
-- `data-side` on `ToastArrow`
+moduix also adds stable hooks: `data-slot="toast-toaster"`, `toast-root`, `toast-title`,
+`toast-description`, `toast-action-trigger`, and `toast-close-trigger`.

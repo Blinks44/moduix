@@ -1,107 +1,67 @@
 @layer ui.components {
-  .portal {
+  .toaster {
     z-index: var(--toast-z-index, var(--z-toast));
   }
 
-  .viewport {
-    position: fixed;
-    z-index: var(--toast-z-index, var(--z-toast));
-    width: var(--toast-viewport-width, 20rem);
+  .root {
+    --toast-trigger-bg-default: transparent;
+    --toast-trigger-bg-hover-default: var(--color-accent);
+    --toast-trigger-border-color-default: var(--color-border);
+    --toast-trigger-color-default: var(--color-foreground);
+    --toast-trigger-focus-ring-color-default: var(--color-ring);
+    box-sizing: border-box;
+    display: grid;
+    width: var(--toast-width, 20rem);
     max-width: calc(100vw - (var(--toast-viewport-inset, 1rem) * 2));
-    min-height: 1px;
-    margin: 0 auto;
+    min-height: var(--toast-min-height, 0);
+    align-items: start;
+    gap: var(--toast-content-gap, 0.25rem);
+    border: var(--toast-border-width, var(--border-width-sm)) solid
+      var(--toast-border-color, var(--toast-border-color-default, var(--color-border)));
+    border-radius: var(--toast-radius, var(--radius-lg));
+    background-color: var(--toast-bg, var(--toast-bg-default, var(--color-popover)));
+    color: var(--toast-color, var(--toast-color-default, var(--color-popover-foreground)));
+    background-clip: padding-box;
+    box-shadow: var(--toast-shadow, var(--shadow-lg));
+    padding: var(--toast-padding, 1rem);
+    padding-inline-end: calc(var(--toast-padding, 1rem) + var(--toast-close-size, 28px));
+    pointer-events: auto;
+    user-select: none;
+    translate: var(--x) var(--y);
+    scale: var(--scale);
+    z-index: var(--z-index);
+    height: var(--height);
+    opacity: var(--opacity);
+    will-change: translate, opacity, scale;
+    transition:
+      translate var(--toast-transition, var(--duration-slow)),
+      scale var(--toast-transition, var(--duration-slow)),
+      opacity var(--toast-transition, var(--duration-slow)),
+      height var(--toast-transition, var(--duration-slow)),
+      box-shadow var(--transition-fast);
+    transition-timing-function: cubic-bezier(0.21, 1.02, 0.73, 1);
 
     &[data-placement^='top'] {
-      top: var(--toast-viewport-inset, 1rem);
-      bottom: auto;
+      box-shadow:
+        0 -0.25rem 0.75rem rgb(0 0 0 / 10%),
+        0 0 0.0625rem rgb(0 0 0 / 20%);
     }
 
     &[data-placement^='bottom'] {
-      top: auto;
-      bottom: var(--toast-viewport-inset, 1rem);
+      box-shadow: var(--toast-shadow, var(--shadow-lg));
     }
 
-    &[data-placement$='left'] {
-      left: var(--toast-viewport-inset, 1rem);
-      right: auto;
-    }
-
-    &[data-placement$='center'] {
-      left: 50%;
-      right: auto;
-      translate: -50% 0;
-    }
-
-    &[data-placement$='right'] {
-      left: auto;
-      right: var(--toast-viewport-inset, 1rem);
-    }
-  }
-
-  .anchoredViewport {
-    outline: 0;
-  }
-
-  .anchoredPositioner {
-    z-index: calc(var(--toast-z-index, var(--z-toast)) - var(--toast-index));
-  }
-
-  .anchoredRoot {
-    position: relative;
-    box-sizing: border-box;
-    display: flex;
-    width: max-content;
-    max-width: min(
-      var(--toast-anchored-max-width, 20rem),
-      calc(100vw - (var(--toast-viewport-inset, 1rem) * 2))
-    );
-    flex-direction: column;
-    border-radius: var(--toast-radius, var(--radius-md));
-    background-color: var(--toast-bg, var(--toast-bg-default, var(--color-popover)));
-    color: var(--toast-color, var(--toast-color-default, var(--color-popover-foreground)));
-    padding: var(--toast-anchored-padding-y, 0.25rem) var(--toast-anchored-padding-x, 0.5rem);
-    font-size: var(--toast-anchored-font-size, var(--text-sm));
-    line-height: var(--toast-anchored-line-height, var(--line-height-text-sm));
-    box-shadow: var(--toast-shadow, var(--shadow-lg));
-    outline: var(--toast-border-width, var(--border-width-sm)) solid
-      var(--toast-border-color, var(--toast-border-color-default, var(--color-border)));
-    pointer-events: auto;
-    transform-origin: var(--transform-origin);
-    transition:
-      transform var(--toast-anchored-transition, var(--transition-fast)),
-      opacity var(--toast-anchored-transition, var(--transition-fast));
-
-    &[data-starting-style],
-    &[data-ending-style] {
-      opacity: 0;
-      transform: scale(var(--toast-anchored-scale, 0.9));
-    }
-
-    &:focus-visible {
-      outline: var(--toast-focus-ring-width, var(--toast-border-width, var(--border-width-sm)))
-        solid var(--toast-focus-ring-color, var(--color-ring));
-      outline-offset: var(--toast-focus-ring-offset, 0);
-    }
-  }
-
-  .root,
-  .anchoredRoot {
-    &[data-type='info'] {
-      --toast-bg-default: color-mix(in oklab, var(--color-primary) 4%, var(--color-background));
-      --toast-border-color-default: color-mix(in oklab, var(--color-primary) 32%, transparent);
-      --toast-close-bg-hover-default: color-mix(in oklab, var(--color-primary) 10%, transparent);
-      --toast-close-color-default: var(--color-primary);
-      --toast-close-color-hover-default: var(--color-primary);
-      --toast-color-default: var(--color-foreground);
-      --toast-description-color-default: var(--color-muted-foreground);
+    &[data-state='closed'] {
+      transition:
+        translate var(--toast-transition-out, var(--duration-slow)),
+        scale var(--toast-transition-out, var(--duration-slow)),
+        opacity var(--toast-opacity-transition-out, var(--duration-normal));
+      transition-timing-function: cubic-bezier(0.06, 0.71, 0.55, 1);
     }
 
     &[data-type='success'] {
       --toast-bg-default: color-mix(in oklab, var(--color-success) 10%, var(--color-background));
       --toast-border-color-default: color-mix(in oklab, var(--color-success) 34%, transparent);
-      --toast-close-bg-hover-default: color-mix(in oklab, var(--color-success) 12%, transparent);
-      --toast-close-color-default: var(--color-success);
-      --toast-close-color-hover-default: var(--color-success);
       --toast-color-default: var(--color-foreground);
       --toast-description-color-default: var(--color-muted-foreground);
     }
@@ -109,9 +69,6 @@
     &[data-type='warning'] {
       --toast-bg-default: color-mix(in oklab, var(--color-warning) 13%, var(--color-background));
       --toast-border-color-default: color-mix(in oklab, var(--color-warning) 38%, transparent);
-      --toast-close-bg-hover-default: color-mix(in oklab, var(--color-warning) 14%, transparent);
-      --toast-close-color-default: var(--color-warning);
-      --toast-close-color-hover-default: var(--color-warning);
       --toast-color-default: var(--color-foreground);
       --toast-description-color-default: var(--color-muted-foreground);
     }
@@ -120,228 +77,15 @@
     &[data-type='error'] {
       --toast-bg-default: color-mix(in oklab, var(--color-destructive) 9%, var(--color-background));
       --toast-border-color-default: color-mix(in oklab, var(--color-destructive) 35%, transparent);
-      --toast-close-bg-hover-default: color-mix(
-        in oklab,
-        var(--color-destructive) 10%,
-        transparent
-      );
-      --toast-close-color-default: var(--color-destructive);
-      --toast-close-color-hover-default: var(--color-destructive);
       --toast-color-default: var(--color-foreground);
       --toast-description-color-default: var(--color-muted-foreground);
     }
   }
 
-  .anchoredArrow {
-    display: flex;
-    color: var(--toast-bg, var(--toast-bg-default, var(--color-popover)));
-
-    &[data-side='top'] {
-      bottom: var(--toast-anchored-arrow-offset-y, -8px);
-      rotate: 180deg;
-    }
-
-    &[data-side='bottom'] {
-      top: var(--toast-anchored-arrow-offset-y, -8px);
-      rotate: 0deg;
-    }
-
-    &[data-side='left'] {
-      right: var(--toast-anchored-arrow-offset-x, -13px);
-      rotate: 90deg;
-    }
-
-    &[data-side='right'] {
-      left: var(--toast-anchored-arrow-offset-x, -13px);
-      rotate: -90deg;
-    }
-  }
-
-  .anchoredArrowSvg {
-    display: block;
-    width: var(--toast-anchored-arrow-width, 1.25rem);
-    height: var(--toast-anchored-arrow-height, 0.625rem);
-    shape-rendering: geometricPrecision;
-  }
-
-  .anchoredArrowFill {
-    fill: currentColor;
-  }
-
-  .anchoredArrowOuterStroke {
-    fill: var(--toast-border-color, var(--toast-border-color-default, var(--color-border)));
-  }
-
-  .anchoredArrowInnerStroke {
-    fill: var(--toast-bg, var(--toast-bg-default, var(--color-popover)));
-  }
-
-  .anchoredContent {
-    display: grid;
-    align-items: center;
-    gap: var(--toast-content-gap, 0.25rem);
-  }
-
-  .anchoredDescription {
-    margin: 0;
-    color: inherit;
-  }
-
-  .root {
-    --gap: var(--toast-stack-gap, 0.75rem);
-    --peek: var(--toast-stack-peek, 0.75rem);
-    --scale: calc(max(0, 1 - (var(--toast-index) * 0.1)));
-    --shrink: calc(1 - var(--scale));
-    --height: var(--toast-frontmost-height, var(--toast-height));
-    --offset-y: calc(
-      var(--toast-offset-y) * -1 + (var(--toast-index) * var(--gap) * -1) +
-        var(--toast-swipe-movement-y)
-    );
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: auto;
-    margin-right: 0;
-    box-sizing: border-box;
-    width: 100%;
-    border: var(--toast-border-width, var(--border-width-sm)) solid
-      var(--toast-border-color, var(--toast-border-color-default, var(--color-border)));
-    border-radius: var(--toast-radius, var(--radius-lg));
-    background-color: var(--toast-bg, var(--toast-bg-default, var(--color-popover)));
-    color: var(--toast-color, var(--toast-color-default, var(--color-popover-foreground)));
-    box-shadow: var(--toast-shadow, var(--shadow-lg));
-    background-clip: padding-box;
-    padding: var(--toast-padding, 1rem);
-    user-select: none;
-    pointer-events: auto;
-    transition:
-      transform var(--toast-transition, var(--transition-emphasized)),
-      opacity var(--toast-transition, var(--transition-emphasized)),
-      height var(--transition-fast);
-    z-index: calc(var(--toast-z-index, var(--z-toast)) - var(--toast-index));
-    height: var(--height);
-    transform: translateX(var(--toast-swipe-movement-x))
-      translateY(
-        calc(
-          var(--toast-swipe-movement-y) - (var(--toast-index) * var(--peek)) -
-            (var(--shrink) * var(--height))
-        )
-      )
-      scale(var(--scale));
-    transform-origin: bottom center;
-
-    &[data-placement^='top'] {
-      --offset-y: calc(
-        var(--toast-offset-y) + (var(--toast-index) * var(--gap)) + var(--toast-swipe-movement-y)
-      );
-      top: 0;
-      right: 0;
-      bottom: auto;
-      left: 0;
-      margin-right: auto;
-      margin-left: auto;
-      transform: translateX(var(--toast-swipe-movement-x))
-        translateY(
-          calc(
-            var(--toast-swipe-movement-y) + (var(--toast-index) * var(--peek)) +
-              (var(--shrink) * var(--height))
-          )
-        )
-        scale(var(--scale));
-      transform-origin: top center;
-    }
-
-    &[data-expanded] {
-      transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--offset-y));
-      height: var(--toast-height);
-    }
-
-    &[data-stack-behavior='expanded']:not([data-starting-style]):not([data-ending-style]) {
-      transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--offset-y));
-      height: var(--toast-height);
-    }
-
-    &[data-starting-style] {
-      transform: translateY(150%);
-
-      &[data-placement^='top'] {
-        transform: translateY(-150%);
-      }
-    }
-
-    &[data-limited] {
-      opacity: 0;
-    }
-
-    &[data-ending-style] {
-      opacity: 0;
-
-      &:not([data-limited]):not([data-swipe-direction]) {
-        transform: translateY(150%);
-
-        &[data-placement^='top'] {
-          transform: translateY(-150%);
-        }
-      }
-
-      &[data-swipe-direction='up'] {
-        transform: translateY(calc(var(--toast-swipe-movement-y) - 150%));
-      }
-
-      &[data-swipe-direction='left'] {
-        transform: translateX(calc(var(--toast-swipe-movement-x) - 150%))
-          translateY(var(--offset-y));
-      }
-
-      &[data-swipe-direction='right'] {
-        transform: translateX(calc(var(--toast-swipe-movement-x) + 150%))
-          translateY(var(--offset-y));
-      }
-
-      &[data-swipe-direction='down'] {
-        transform: translateY(calc(var(--toast-swipe-movement-y) + 150%));
-      }
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      height: calc(var(--gap) + var(--toast-border-width, var(--border-width-sm)));
-    }
-
-    &[data-placement^='top'] {
-      &::after {
-        top: auto;
-        bottom: 100%;
-      }
-    }
-  }
-
-  .content {
-    display: grid;
-    gap: var(--toast-content-gap, 0.25rem);
-    overflow: hidden;
-    padding-inline-end: calc(
-      var(--toast-close-offset-right, 0.5rem) + var(--toast-close-size, 1.25rem) + var(--spacing-2)
-    );
-    transition: opacity var(--transition-default);
-
-    &[data-behind] {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    &[data-expanded],
-    &[data-stack-behavior='expanded'] {
-      opacity: 1;
-      pointer-events: auto;
-    }
-  }
-
   .title {
+    display: flex;
+    align-items: center;
+    gap: var(--toast-title-gap, 0.5rem);
     margin: 0;
     color: inherit;
     font-size: var(--toast-title-font-size, var(--text-sm));
@@ -359,85 +103,57 @@
     line-height: var(--toast-description-line-height, var(--line-height-text-sm));
   }
 
-  .action {
-    margin-top: var(--toast-action-margin-top, 0.5rem);
-    border: var(--toast-action-border-width, var(--toast-border-width, var(--border-width-sm)))
-      solid var(--toast-action-border-color, var(--color-border));
-    border-radius: var(--toast-action-radius, var(--radius-sm));
-    background: var(--toast-action-bg, var(--color-background));
-    color: var(--toast-action-color, var(--color-foreground));
-    padding: var(--toast-action-padding-y, 0.25rem) var(--toast-action-padding-x, 0.5rem);
-    font-size: var(--toast-action-font-size, var(--text-xs));
-    line-height: var(--toast-action-line-height, var(--line-height-text-xs));
-    font-weight: var(--toast-action-font-weight, var(--weight-medium));
-    cursor: pointer;
-
-    &:focus-visible {
-      outline: var(--toast-focus-ring-width, var(--toast-border-width, var(--border-width-sm)))
-        solid var(--toast-focus-ring-color, var(--color-ring));
-      outline-offset: calc(
-        var(--toast-focus-ring-width, var(--toast-border-width, var(--border-width-sm))) * -1
-      );
-    }
-
-    &:disabled,
-    &[data-disabled] {
-      cursor: default;
-      opacity: var(--opacity-disabled);
-    }
-
-    @media (hover: hover) {
-      &:hover:not(:disabled):not([data-disabled]) {
-        background-color: var(--toast-action-bg-hover, var(--color-accent));
-      }
-    }
-  }
-
-  .close {
-    position: absolute;
-    top: var(--toast-close-offset-top, 0.5rem);
-    right: var(--toast-close-offset-right, 0.5rem);
+  .actionTrigger {
     display: inline-flex;
+    width: max-content;
     align-items: center;
     justify-content: center;
-    width: var(--toast-close-size, 1.25rem);
-    height: var(--toast-close-size, 1.25rem);
-    border: none;
-    border-radius: var(--toast-close-radius, var(--radius-sm));
-    background: var(--toast-close-bg, transparent);
-    color: var(
-      --toast-close-color,
-      var(--toast-close-color-default, var(--color-muted-foreground))
-    );
-    padding: var(--toast-close-padding, 0);
+    gap: var(--toast-action-gap, 0.375rem);
+    min-height: var(--toast-action-min-height, 1.625rem);
+    margin-top: var(--toast-action-margin-top, 0.5rem);
+    border: var(--toast-action-border-width, var(--toast-border-width, var(--border-width-sm)))
+      solid var(--toast-action-border-color, var(--toast-trigger-border-color-default));
+    border-radius: var(--toast-action-radius, var(--radius-sm));
+    background: var(--toast-action-bg, var(--toast-trigger-bg-default));
+    color: var(--toast-action-color, var(--toast-trigger-color-default));
+    padding: var(--toast-action-padding-y, 0.25rem) var(--toast-action-padding-x, 0.5rem);
+    font: inherit;
+    font-size: var(--toast-action-font-size, var(--text-xs));
+    font-weight: var(--toast-action-font-weight, var(--weight-medium));
+    line-height: var(--toast-action-line-height, var(--line-height-text-xs));
     cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    transition:
+      background var(--transition-fast),
+      border-color var(--transition-fast),
+      color var(--transition-fast);
 
-    @media (hover: hover) {
-      &:hover {
-        background-color: var(
-          --toast-close-bg-hover,
-          var(--toast-close-bg-hover-default, var(--color-accent))
-        );
-        color: var(
-          --toast-close-color-hover,
-          var(--toast-close-color-hover-default, var(--color-foreground))
-        );
-      }
+    &:hover {
+      background: var(--toast-action-bg-hover, var(--toast-trigger-bg-hover-default));
     }
 
     &:focus-visible {
-      outline: var(--toast-focus-ring-width, var(--toast-border-width, var(--border-width-sm)))
-        solid var(--toast-focus-ring-color, var(--color-ring));
-      outline-offset: var(--toast-close-focus-ring-offset, 0);
+      outline: var(--toast-focus-ring-width, var(--border-width-sm)) solid
+        var(--toast-focus-ring-color, var(--toast-trigger-focus-ring-color-default));
+      outline-offset: var(--toast-focus-ring-offset, 0);
     }
   }
 
-  .closeIcon {
-    width: var(--toast-close-icon-size, 1rem);
-    height: var(--toast-close-icon-size, 1rem);
-  }
-
-  .positioner {
-    pointer-events: none;
+  .closeTrigger {
+    position: absolute;
+    inset-block-start: var(--toast-close-offset-top, 0.5rem);
+    inset-inline-end: var(--toast-close-offset-right, 0.5rem);
+    --close-button-size: var(--toast-close-size, 28px);
+    --close-button-icon-size: var(--toast-close-icon-size, 12px);
+    --close-button-radius: var(--toast-close-radius, var(--radius-sm));
+    --close-button-bg: var(--toast-close-bg, transparent);
+    --close-button-bg-hover: var(--toast-close-bg-hover, var(--color-muted));
+    --close-button-color: var(--toast-close-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(--toast-close-color-hover, var(--color-foreground));
+    --close-button-focus-ring-color: var(--toast-focus-ring-color, var(--color-ring));
+    --close-button-focus-ring-offset: var(--toast-close-focus-ring-offset, 2px);
+    --close-button-focus-ring-width: var(--toast-close-focus-ring-width, var(--border-width-md));
+    --close-button-transition: var(--toast-close-transition, var(--transition-default));
   }
 }

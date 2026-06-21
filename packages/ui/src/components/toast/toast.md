@@ -1,405 +1,217 @@
 # Toast
 
-Upstream primitive docs: https://base-ui.com/react/components/toast
+Upstream docs:
+
+- Ark UI: https://ark-ui.com/docs/components/toast
 
 ## Purpose
 
-`Toast` is a moduix wrapper around Base UI `Toast` with two opinionated notification flows:
+`Toast` is the moduix wrapper around Ark UI Toast for transient feedback, status changes, queued
+notifications, and direct toast actions.
 
-- **stacked toasts** for page-level transient notifications (`ToastRegion`)
-- **anchored toasts** for short feedback next to the control that triggered it (`ToastAnchoredRegion`)
+The wrapper keeps Ark's toaster store and render-prop composition intact while adding moduix
+default styles, stable `data-slot` hooks, small leaf-level defaults for title and description, and
+the library `CloseButton` as the default close trigger surface.
 
-The recommended API is provider + region composition. Low-level parts stay exported for custom
-markup, but the wrapper contract is centered on `ToastProvider`, `ToastRegion`,
-`ToastAnchoredRegion`, `useToastManager()`, and `useAnchoredToastManager()`.
+## Upstream model to preserve
+
+- Uses `@ark-ui/react/toast` directly.
+- Keeps Ark's store-first model: `createToaster(options)` creates the store, and `Toaster` renders
+  that store with a render prop.
+- Keeps Ark anatomy centered on `Toaster`, `Root`, `Title`, `Description`, `ActionTrigger`,
+  `CloseTrigger`, and `Context`.
+- Keeps Ark store methods and option names unchanged, including `create`, `success`, `error`,
+  `warning`, `info`, `loading`, `promise`, `update`, `dismiss`, `remove`, placement, overlap, gap,
+  max, duration, remove delay, hotkey, offsets, and `onStatusChange(details)`.
+- Keeps Ark runtime layout variables on `Toast.Root`: `--x`, `--y`, `--scale`, `--z-index`,
+  `--height`, `--opacity`, and `--gap`.
 
 ## Current behavior contract
 
-- `ToastProvider` creates two managers by default:
-  - the normal stacked manager used by `useToastManager()`
-  - a separate anchored manager used by `useAnchoredToastManager()`
-- `ToastRegion` renders only non-anchored toasts from the stacked manager.
-- `ToastAnchoredRegion` renders only anchored toasts from the anchored manager.
-- `useAnchoredToastManager().show()` requires an `anchor` element and reuses one toast per anchor.
-- Anchored toasts default `positionerProps.sideOffset` to `8`.
-- Base UI `toast.type` passes through unchanged and is exposed as `data-type` on `ToastRoot`.
-- moduix styles `info`, `success`, `warning`, and `destructive` out of the box so `Toast` stays in
-  sync with `Alert`.
-- Other `type` strings remain valid and can be styled through `[data-type]` plus `--toast-*`
-  overrides.
-- Default stacked markup is:
+- Public API is namespace-first: `Toast` is the short root form and also exposes `Toast.Root`,
+  `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger`, `Toast.CloseTrigger`, `Toast.Context`,
+  and `Toast.Toaster`.
+- `Toaster`, `createToaster`, and `useToastContext` are also exported as standalone names for
+  ergonomic imports.
+- `Toast.Title` renders `toast.title` from Ark context when no children are passed.
+- `Toast.Description` renders `toast.description` from Ark context when no children are passed.
+- `Toast.CloseTrigger` renders `CloseButton.Root` by default and defaults its accessible label to
+  `"Close toast"` when `aria-label` is omitted.
+- All Ark callback details and store method signatures pass through unchanged.
+- The old Base UI region/provider layer is intentionally removed: no `ToastProvider`, `ToastRegion`,
+  `ToastViewport`, `ToastRoot`, `ToastAction`, `ToastClose`, `createToastManager`,
+  `useToastManager`, `ToastAnchoredRegion`, or anchored manager helpers remain.
 
-  ```text
-  ToastRoot
-  └─ ToastContent
-     ├─ ToastTitle
-     ├─ ToastDescription
-     ├─ ToastAction (only when toast.actionProps exists)
-     └─ ToastClose
-  ```
+## Anatomy and exported parts
 
-- Default anchored markup is:
+```text
+createToaster()
+└─ Portal
+   └─ Toast.Toaster / Toaster
+      └─ Toast.Root / Toast
+         ├─ Toast.Context (optional)
+         ├─ Toast.Title
+         ├─ Toast.Description
+         ├─ Toast.ActionTrigger
+         └─ Toast.CloseTrigger
+```
 
-  ```text
-  ToastRoot
-  ├─ ToastArrow
-  └─ ToastContent
-     └─ ToastDescription
-  ```
+Every visual exported part accepts `className` and receives a stable `data-slot`:
 
-- The default anchored renderer intentionally **does not** show `toast.title` or
-  `toast.actionProps`. Use `renderToast` for richer anchored composition.
-- `ToastRegion` already includes `ToastPortal` + `ToastViewport`.
-- `ToastAnchoredRegion` already includes `ToastPortal` + anchored viewport + `ToastPositioner`.
-- `ToastClose` renders a default `CloseIcon` when no children are passed.
-- `ToastArrow` renders the default popup arrow SVG when no children are passed.
+| Part                        | `data-slot`            | Notes                                                         |
+| --------------------------- | ---------------------- | ------------------------------------------------------------- |
+| `Toast` / `Toast.Root`      | `toast-root`           | Styled Ark root and short consumer form.                      |
+| `Toaster` / `Toast.Toaster` | `toast-toaster`        | Styled Ark group renderer for a `createToaster()` store.      |
+| `Toast.Title`               | `toast-title`          | Defaults to the current toast title.                          |
+| `Toast.Description`         | `toast-description`    | Defaults to the current toast description.                    |
+| `Toast.ActionTrigger`       | `toast-action-trigger` | Styled Ark action button for the current toast action.        |
+| `Toast.CloseTrigger`        | `toast-close-trigger`  | Defaults to `CloseButton.Root` and the `"Close toast"` label. |
+| `Toast.Context`             | none                   | Ark render-prop state access.                                 |
+| `Portal`                    | none                   | General moduix Portal, imported separately from Toast.        |
 
 ## Composition
 
-Recommended root setup:
-
 ```tsx
-import { ToastAnchoredRegion, ToastProvider, ToastRegion } from 'moduix';
+import { Button, Portal, Toast, Toaster, createToaster } from 'moduix';
 
-export function App() {
+const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
+
+export function ToastExample() {
   return (
-    <ToastProvider>
-      <AppShell />
-      <ToastRegion />
-      <ToastAnchoredRegion />
-    </ToastProvider>
-  );
-}
-```
-
-Typical stacked toast trigger:
-
-```tsx
-import { Button, ToastProvider, ToastRegion, useToastManager } from 'moduix';
-
-export function SaveToast() {
-  return (
-    <ToastProvider>
-      <SaveButton />
-      <ToastRegion />
-    </ToastProvider>
-  );
-}
-
-function SaveButton() {
-  const toastManager = useToastManager();
-
-  return (
-    <Button
-      onClick={() =>
-        toastManager.add({
-          title: 'Saved',
-          description: 'Changes were saved successfully.',
-        })
-      }
-    >
-      Save changes
-    </Button>
-  );
-}
-```
-
-Typical anchored toast trigger:
-
-```tsx
-import { Button, ToastAnchoredRegion, ToastProvider, useAnchoredToastManager } from 'moduix';
-import { useRef } from 'react';
-
-export function CopyToast() {
-  return (
-    <ToastProvider>
-      <CopyButton />
-      <ToastAnchoredRegion />
-    </ToastProvider>
-  );
-}
-
-function CopyButton() {
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const anchoredToast = useAnchoredToastManager();
-
-  return (
-    <Button
-      ref={buttonRef}
-      onClick={() => {
-        if (!buttonRef.current) {
-          return;
+    <>
+      <Button
+        onClick={() =>
+          toaster.create({
+            title: 'Scheduled for tomorrow',
+            description: 'Your meeting has been scheduled for tomorrow at 10am.',
+            type: 'info',
+          })
         }
-
-        anchoredToast.show({
-          anchor: buttonRef.current,
-          description: 'Copied',
-          timeout: 1800,
-        });
-      }}
-    >
-      Copy
-    </Button>
+      >
+        Schedule meeting
+      </Button>
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast key={toast.id}>
+              <Toast.Title />
+              <Toast.Description />
+              {toast.action ? (
+                <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger>
+              ) : null}
+              {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+            </Toast>
+          )}
+        </Toaster>
+      </Portal>
+    </>
   );
 }
 ```
 
-### Parts
+## Upstream feature coverage
 
-| Part                  | Slot / data-slot                                    | Purpose                                                         |
-| --------------------- | --------------------------------------------------- | --------------------------------------------------------------- |
-| `ToastProvider`       | -                                                   | Provides the stacked manager and the anchored helper manager.   |
-| `ToastRegion`         | wraps `toast-portal` + `toast-viewport`             | Default stacked region with built-in portal + viewport.         |
-| `ToastAnchoredRegion` | wraps `toast-portal` + `toast-anchored-viewport`    | Default anchored region with built-in portal + positioner flow. |
-| `ToastPortal`         | `toast-portal`                                      | Portal root.                                                    |
-| `ToastViewport`       | `toast-viewport`                                    | Stacked viewport.                                               |
-| `ToastPositioner`     | `toast-positioner`                                  | Anchored toast positioner.                                      |
-| `ToastRoot`           | `toast-root` or `toast-anchored-root`               | Visible toast surface.                                          |
-| `ToastContent`        | `toast-content` or `toast-anchored-content`         | Visible body layout wrapper.                                    |
-| `ToastTitle`          | `toast-title`                                       | Renders `toast.title`.                                          |
-| `ToastDescription`    | `toast-description` or `toast-anchored-description` | Renders `toast.description`.                                    |
-| `ToastAction`         | `toast-action`                                      | Renders `toast.actionProps`.                                    |
-| `ToastClose`          | `toast-close`                                       | Dismiss button.                                                 |
-| `ToastArrow`          | `toast-anchored-arrow`                              | Default anchored arrow.                                         |
+- `Anatomy`: preserved through Ark-shaped parts and the required `Toaster` render prop.
+- `Setup`: preserved through `createToaster(options)`.
+- `Basic`: supported through `toaster.create(options)`.
+- `Action`: supported through `toast.action` and `Toast.ActionTrigger`.
+- `Duration`: supported through per-toast `duration` and store-level `duration`.
+- `Max Toasts`: supported through `createToaster({ max })`.
+- `Always Expanded`: supported through Ark `createToaster({ overlap: false })`.
+- `Placement`: supported through Ark placements `top-start`, `top`, `top-end`, `bottom-start`,
+  `bottom`, and `bottom-end`.
+- `Promise Toast`: supported through `toaster.promise()`.
+- `Types`: supported through typed helpers and `data-type`.
+- `Update`: supported through `toaster.update(id, options)`.
+- `Varying Height`: supported through Ark runtime measurement and `--height`.
+- `Context`: exposed through `Toast.Context` and `useToastContext()`.
 
-### Public wrapper props
+## Accessibility and state
 
-The low-level parts forward the matching Base UI primitive props. The wrapper adds these moduix
-props and conventions:
-
-#### `ToastProvider`
-
-Extends `ToastPrimitive.Provider.Props`.
-
-| Prop                   | Type               | Default          | Purpose                              |
-| ---------------------- | ------------------ | ---------------- | ------------------------------------ |
-| `toastManager`         | `BaseToastManager` | internal manager | Replaces the stacked toast manager.  |
-| `anchoredToastManager` | `BaseToastManager` | internal manager | Replaces the anchored toast manager. |
-
-#### `ToastRegion`
-
-Extends `ToastPrimitive.Viewport.Props` except `children`.
-
-| Prop            | Type                                       | Default                |
-| --------------- | ------------------------------------------ | ---------------------- |
-| `placement`     | `ToastPlacement`                           | `'bottom-right'`       |
-| `stackBehavior` | `ToastStackBehavior`                       | `'stacked'`            |
-| `container`     | `ToastPrimitive.Portal.Props['container']` | `document.body`        |
-| `renderToast`   | `(toast, index) => ReactNode`              | default stacked markup |
-
-#### `ToastAnchoredRegion`
-
-Extends `ToastPrimitive.Viewport.Props` except `children`.
-
-| Prop          | Type                                       | Default                 |
-| ------------- | ------------------------------------------ | ----------------------- |
-| `container`   | `ToastPrimitive.Portal.Props['container']` | `document.body`         |
-| `renderToast` | `(toast, index) => ReactNode`              | default anchored markup |
-
-#### `ToastViewport`
-
-Extends `ToastPrimitive.Viewport.Props`.
-
-| Prop            | Type                 | Default          |
-| --------------- | -------------------- | ---------------- |
-| `placement`     | `ToastPlacement`     | `'bottom-right'` |
-| `stackBehavior` | `ToastStackBehavior` | `'stacked'`      |
-
-#### `ToastRoot`
-
-Extends `ToastPrimitive.Root.Props`.
-
-| Prop        | Type             | Default                        | Purpose                                                                         |
-| ----------- | ---------------- | ------------------------------ | ------------------------------------------------------------------------------- |
-| `placement` | `ToastPlacement` | inherited from `ToastViewport` | Overrides the swipe-direction + placement data attribute for one stacked toast. |
-
-### Exported helper types
-
-- `ToastPlacement`
-- `ToastStackBehavior`
-- `AnchoredToastOptions`
-
-Use them instead of deriving literal unions from component props.
+- Ark live-region behavior, grouping, pausing, focus hotkey, dismiss lifecycle, and status changes
+  remain intact.
+- The default Ark hotkey is `["altKey", "KeyT"]`; configure it through `createToaster({ hotkey })`.
+- Use the `label` group prop on `Toaster` when the toast group needs a custom accessible label.
+- `Toast.CloseTrigger` remains a button and receives a default accessible label. If `asChild` is
+  used, the custom child must keep an accessible name and button semantics.
+- `Toast.ActionTrigger` remains a button wired to `toast.action.onClick`. If `asChild` is used, the
+  custom child must keep button semantics.
+- Ark state/data attributes remain available:
+  - `data-scope="toast"` and `data-part` on Ark parts
+  - `data-state="open" | "closed"` on `Toast.Root`
+  - `data-type`, `data-placement`, `data-align`, `data-side`, `data-mounted`, `data-paused`,
+    `data-first`, `data-sibling`, `data-stack`, and `data-overlap` on `Toast.Root`
+- Ark runtime variables remain available on the root and group, including `--x`, `--y`, `--scale`,
+  `--z-index`, `--height`, `--opacity`, `--gap`, `--first-height`, and viewport offset variables.
 
 ## Defaults and styling
 
-### `className`
+Primary CSS variables:
 
-These parts accept `className` and merge it with moduix defaults:
+| Variable                         | Default                           |
+| -------------------------------- | --------------------------------- |
+| `--toast-width`                  | `20rem`                           |
+| `--toast-viewport-inset`         | `1rem`                            |
+| `--toast-bg`                     | `var(--color-popover)`            |
+| `--toast-color`                  | `var(--color-popover-foreground)` |
+| `--toast-border-color`           | `var(--color-border)`             |
+| `--toast-border-width`           | `var(--border-width-sm)`          |
+| `--toast-radius`                 | `var(--radius-lg)`                |
+| `--toast-shadow`                 | `var(--shadow-lg)`                |
+| `--toast-padding`                | `1rem`                            |
+| `--toast-content-gap`            | `0.25rem`                         |
+| `--toast-title-font-size`        | `var(--text-sm)`                  |
+| `--toast-title-font-weight`      | `var(--weight-semibold)`          |
+| `--toast-description-color`      | `var(--color-muted-foreground)`   |
+| `--toast-action-bg-hover`        | `var(--color-accent)`             |
+| `--toast-close-bg-hover`         | `var(--color-muted)`              |
+| `--toast-close-focus-ring-width` | `var(--border-width-md)`          |
+| `--toast-close-size`             | `28px`                            |
+| `--toast-close-icon-size`        | `12px`                            |
+| `--toast-transition`             | `400ms`                           |
+| `--toast-transition-out`         | `400ms`                           |
+| `--toast-opacity-transition-out` | `200ms`                           |
+| `--toast-z-index`                | `var(--z-toast)`                  |
 
-- `ToastPortal`
-- `ToastViewport`
-- `ToastRoot`
-- `ToastContent`
-- `ToastTitle`
-- `ToastDescription`
-- `ToastAction`
-- `ToastClose`
-- `ToastPositioner`
-- `ToastArrow`
-- `ToastRegion` / `ToastAnchoredRegion` (applied to the internal viewport)
+The CSS targets Ark state through `[data-scope='toast'][data-part='root']`, root `data-state`, root
+`data-type`, and Ark runtime variables. Moduix `data-slot` hooks are layered on top for stable
+consumer selectors.
 
-### Data attributes
+## Intentional sugar and differences from upstream
 
-Moduix-specific hooks:
-
-- `data-slot` on every exported visual part listed above
-- `data-placement` on `ToastViewport` and `ToastRoot`
-- `data-stack-behavior` on `ToastViewport`, `ToastRoot`, and stacked `ToastContent`
-
-Base UI state hooks that moduix styles rely on:
-
-- stacked root: `data-expanded`, `data-starting-style`, `data-ending-style`, `data-limited`,
-  `data-swipe-direction`
-- stacked content: `data-behind`, `data-expanded`
-- anchored arrow: `data-side`
-
-Variant hook:
-
-- `data-type` on `ToastRoot`, mirroring Base UI `toast.type`
-
-### CSS variables
-
-Public `--toast-*` overrides used by this wrapper:
-
-#### Shared surface and layout
-
-- `--toast-bg`
-- `--toast-border-color`
-- `--toast-border-width`
-- `--toast-color`
-- `--toast-padding`
-- `--toast-radius`
-- `--toast-shadow`
-- `--toast-z-index`
-
-#### Viewport and stacked motion
-
-- `--toast-stack-gap`
-- `--toast-stack-peek`
-- `--toast-transition`
-- `--toast-viewport-inset`
-- `--toast-viewport-width`
-
-#### Title, description, and content
-
-- `--toast-content-gap`
-- `--toast-description-color`
-- `--toast-description-font-size`
-- `--toast-description-line-height`
-- `--toast-title-font-size`
-- `--toast-title-font-weight`
-- `--toast-title-line-height`
-
-#### Action button
-
-- `--toast-action-bg`
-- `--toast-action-bg-hover`
-- `--toast-action-border-color`
-- `--toast-action-border-width`
-- `--toast-action-color`
-- `--toast-action-font-size`
-- `--toast-action-font-weight`
-- `--toast-action-line-height`
-- `--toast-action-margin-top`
-- `--toast-action-padding-x`
-- `--toast-action-padding-y`
-- `--toast-action-radius`
-
-#### Close button and focus ring
-
-- `--toast-close-bg`
-- `--toast-close-bg-hover`
-- `--toast-close-color`
-- `--toast-close-color-hover`
-- `--toast-close-focus-ring-offset`
-- `--toast-close-icon-size`
-- `--toast-close-offset-right`
-- `--toast-close-offset-top`
-- `--toast-close-padding`
-- `--toast-close-radius`
-- `--toast-close-size`
-- `--toast-focus-ring-color`
-- `--toast-focus-ring-offset`
-- `--toast-focus-ring-width`
-
-#### Anchored-only
-
-- `--toast-anchored-arrow-height`
-- `--toast-anchored-arrow-offset-x`
-- `--toast-anchored-arrow-offset-y`
-- `--toast-anchored-arrow-width`
-- `--toast-anchored-font-size`
-- `--toast-anchored-line-height`
-- `--toast-anchored-max-width`
-- `--toast-anchored-padding-x`
-- `--toast-anchored-padding-y`
-- `--toast-anchored-scale`
-- `--toast-anchored-transition`
-
-Base UI runtime variables like `--toast-index`, `--toast-height`, `--toast-offset-y`,
-`--toast-swipe-movement-x`, `--toast-swipe-movement-y`, and `--toast-frontmost-height` are also
-used internally by the CSS. Treat them as runtime inputs, not part of the moduix styling API.
-
-## UX and accessibility
-
-- Live-region behavior, swipe dismissal, timing, and keyboard interaction come from Base UI.
-- Default stacked toasts include a close button with `aria-label="Close toast"`.
-- If you replace the default close content, keep an accessible name on `ToastClose`.
-- Use `toast.type="info" | "success" | "warning" | "destructive"` for the built-in moduix
-  variants.
-- Use selectors such as `[data-slot='toast-root'][data-type='syncing']` plus `--toast-*` overrides
-  when one region needs app-specific variants; do not mount separate regions just for styling.
-- Anchored toasts are best for brief confirmations such as copy/save/share feedback.
-- The default anchored renderer has no close button or action button; keep timeouts short unless a
-  custom `renderToast` adds explicit controls.
-- Action buttons inherit disabled styling from the primitive props/state.
-- Focus-visible styles exist for anchored roots, action buttons, and close buttons.
-
-## Intentional differences from Base UI
-
-- moduix exposes two explicit region components instead of teaching raw viewport composition first.
-- anchored toasts use a separate manager and region so they do not mix into the stacked viewport.
-- moduix adds `placement` and `stackBehavior` sugar to `ToastViewport` and `ToastRegion`.
-- moduix adds normalized `data-slot` hooks to all exported parts.
-- moduix adds built-in `Alert`-aligned styles for `toast.type="info" | "success" | "warning" |
-"destructive"`.
-- moduix mirrors Base UI `toast.type` to a `data-type` hook on `ToastRoot` for CSS-driven custom
-  variants without extra regions.
-- default anchored toasts are intentionally description-only, with a built-in arrow.
-- `ToastClose` and `ToastArrow` provide default visuals out of the box.
-
-## Limitations and recommendations
-
-- Mount only the region(s) the app actually uses.
-- Use `ToastRegion` for the common path; drop to `ToastPortal` + `ToastViewport` only when the
-  viewport structure itself must be owned manually.
-- Use `renderToast` when the region wiring is correct but the visible markup needs to change.
-- Keep `ToastRoot` as the outer rendered item inside `renderToast`; the primitive relies on it for
-  lifecycle and gesture behavior.
-- Do not assume anchored toasts will show `title` or `actionProps` unless custom composition renders
-  them.
-- `closeByAnchor()` only works with the same live anchor element instance that was passed to
-  `show()`.
+- moduix ships pre-styled defaults; Ark is intentionally unstyled.
+- `Toast.Title` and `Toast.Description` can render the current toast context values without
+  repeating children in every render prop.
+- `Toast.CloseTrigger` uses the moduix `CloseButton.Root` by default and keeps the default
+  accessible label. Its default sizing, hover, icon, focus ring, and transition values match
+  `CloseButton`; toast-specific `--toast-close-*` variables only override that shared baseline.
+- `Toast.Toaster` is attached to the `Toast` namespace even though Ark exports `Toaster` as a
+  standalone component.
+- `Portal` is intentionally imported separately. Toast does not expose a `ToastPortal` alias or
+  `Toast.Portal` namespace member because portal behavior is shared across components.
+- Base UI compatibility exports and anchored toast helpers were removed as a breaking migration.
 
 ## Agent notes
 
-- Preserve the split between stacked and anchored managers. Do not merge them as “cleanup”.
-- Preserve the default anchored description-only contract unless the requested behavior changes.
-- Preserve the existing `data-slot` names; docs, stories, tests, and consumer selectors can rely on
-  them.
-- Preserve the built-in `Alert`-aligned toast variants and the `data-type` passthrough from Base UI
-  `toast.type`; together they provide the simple path and the custom escape hatch.
-- Preserve the public `--toast-*` variable names in `theme.css` and `Toast.module.css`.
-- Keep `ToastObject<any>` internal typing unless Base UI changes its generic constraint; `unknown`
-  is not a drop-in replacement there.
+- Do not reintroduce a provider/region manager layer. Ark's `createToaster` store is the public
+  state model.
+- Keep `Toast.Root` as the outer node inside `Toaster` render props; Ark relies on it for layout,
+  measurement, and dismiss lifecycle.
+- Preserve Ark placement values. Do not map them back to legacy `bottom-right` style names.
+- Preserve Ark `action` instead of legacy `actionProps`.
+- Preserve Ark runtime CSS variables and the required translate/scale/opacity/height styles on
+  `Toast.Root`.
 
 ## Local changelog
 
-- 2026-06-10: Moved stacked and anchored toast motion defaults onto shared transition tokens and kept
-  the property-specific `transition` shape in CSS so docs previews resolve the same motion as
-  Storybook.
-- 2026-06: Rewrote the local docs around the actual moduix wrapper, documented the split stacked vs
-  anchored contract, and recorded the public styling hooks and exported helper types.
-- 2026-06: Added built-in `Alert`-aligned toast variants for `info`, `success`, `warning`, and
-  `destructive`, while keeping `toast.type` on `ToastRoot[data-type]` for app-specific styling.
+- 2026-06-21: Migrated Toast from Base UI to Ark UI, replacing provider/region/manager APIs with
+  `createToaster`, `Toaster`, and Ark namespace parts. Removed anchored toast helpers and Base UI
+  compatibility exports.
+- 2026-06-21: Updated styling to Ark `data-scope`, `data-part`, `data-state`, `data-type`, and
+  runtime variables (`--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity`).
+- 2026-06-21: Restored white default/info toast styling, aligned transitions with Ark's root
+  guidance, and fixed placement examples by keeping all placement stores mounted.
+- 2026-06-21: Removed the `ToastPortal` / `Toast.Portal` alias. Use the shared `Portal` export
+  separately around `Toaster`.
+- 2026-06-21: Aligned default `Toast.CloseTrigger` styling with `CloseButton.Root` while preserving
+  toast-scoped close override variables.

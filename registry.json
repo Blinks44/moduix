@@ -1542,8 +1542,8 @@
       "type": "registry:item",
       "title": "Toast",
       "description": "moduix Toast component.",
-      "dependencies": ["@base-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/core"],
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/core", "Blinks44/moduix/close-button"],
       "files": [
         {
           "path": "packages/ui/src/components/toast/Toast.tsx",

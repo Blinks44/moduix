@@ -49,9 +49,9 @@
   }
 
   .customContent {
+    display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     column-gap: var(--spacing-3);
-    padding-right: 1.75rem;
   }
 
   .customIcon {
@@ -62,15 +62,8 @@
   }
 
   .closeIcon {
-    inline-size: var(--toast-close-icon-size, 1rem);
-    block-size: var(--toast-close-icon-size, 1rem);
+    inline-size: var(--toast-close-icon-size, 12px);
+    block-size: var(--toast-close-icon-size, 12px);
     flex: none;
-  }
-
-  .anchoredActions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--spacing-2);
   }
 }

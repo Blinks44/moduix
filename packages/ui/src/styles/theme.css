@@ -39,9 +39,13 @@
   --drawer-translate: initial;
   --drawer-translate-x: initial;
   --drawer-translate-y: initial;
+  --first-height: initial;
+  --gap: initial;
+  --height: initial;
   --layer-index: initial;
   --nested-drawers: initial;
   --nested-layer-count: initial;
+  --opacity: initial;
   --popup-height: initial;
   --popup-width: initial;
   --positioner-height: initial;
@@ -56,13 +60,12 @@
   --corner-width: initial;
   --thumb-height: initial;
   --thumb-width: initial;
-  --toast-frontmost-height: initial;
-  --toast-height: initial;
-  --toast-index: initial;
-  --toast-offset-y: initial;
-  --toast-swipe-movement-x: initial;
-  --toast-swipe-movement-y: initial;
   --transform-origin: initial;
+  --scale: initial;
+  --viewport-offset-bottom: initial;
+  --viewport-offset-left: initial;
+  --viewport-offset-right: initial;
+  --viewport-offset-top: initial;
   --width: initial;
   --x: initial;
   --y: initial;
@@ -2130,36 +2133,28 @@
   --toast-action-color: initial; /* var(--color-foreground) */
   --toast-action-font-size: initial; /* var(--text-xs) */
   --toast-action-font-weight: initial; /* var(--weight-medium) */
+  --toast-action-gap: initial; /* 0.375rem */
   --toast-action-line-height: initial; /* var(--line-height-text-xs) */
   --toast-action-margin-top: initial; /* 0.5rem */
+  --toast-action-min-height: initial; /* 1.625rem */
   --toast-action-padding-x: initial; /* 0.5rem */
   --toast-action-padding-y: initial; /* 0.25rem */
   --toast-action-radius: initial; /* var(--radius-sm) */
-  --toast-anchored-arrow-height: initial; /* 0.625rem */
-  --toast-anchored-arrow-offset-x: initial; /* -13px */
-  --toast-anchored-arrow-offset-y: initial; /* -8px */
-  --toast-anchored-arrow-width: initial; /* 1.25rem */
-  --toast-anchored-font-size: initial; /* var(--text-sm) */
-  --toast-anchored-line-height: initial; /* var(--line-height-text-sm) */
-  --toast-anchored-max-width: initial; /* 20rem */
-  --toast-anchored-padding-x: initial; /* 0.5rem */
-  --toast-anchored-padding-y: initial; /* 0.25rem */
-  --toast-anchored-scale: initial; /* 0.9 */
-  --toast-anchored-transition: initial; /* var(--transition-fast) */
   --toast-bg: initial; /* var(--color-popover) */
   --toast-border-color: initial; /* var(--color-border) */
   --toast-border-width: initial; /* var(--border-width-sm) */
   --toast-close-bg: initial; /* transparent */
-  --toast-close-bg-hover: initial; /* var(--color-accent) */
+  --toast-close-bg-hover: initial; /* var(--color-muted) */
   --toast-close-color: initial; /* var(--color-muted-foreground) */
   --toast-close-color-hover: initial; /* var(--color-foreground) */
-  --toast-close-focus-ring-offset: initial; /* 0 */
-  --toast-close-icon-size: initial; /* 1rem */
+  --toast-close-focus-ring-offset: initial; /* 2px */
+  --toast-close-focus-ring-width: initial; /* var(--border-width-md) */
+  --toast-close-icon-size: initial; /* 12px */
   --toast-close-offset-right: initial; /* 0.5rem */
   --toast-close-offset-top: initial; /* 0.5rem */
-  --toast-close-padding: initial; /* 0 */
   --toast-close-radius: initial; /* var(--radius-sm) */
-  --toast-close-size: initial; /* 1.25rem */
+  --toast-close-size: initial; /* 28px */
+  --toast-close-transition: initial; /* var(--transition-default) */
   --toast-color: initial; /* var(--color-popover-foreground) */
   --toast-content-gap: initial; /* 0.25rem */
   --toast-description-color: initial; /* var(--color-muted-foreground) */
@@ -2168,17 +2163,19 @@
   --toast-focus-ring-color: initial; /* var(--color-ring) */
   --toast-focus-ring-offset: initial; /* 0 */
   --toast-focus-ring-width: initial; /* var(--toast-border-width, var(--border-width-sm)) */
+  --toast-min-height: initial; /* 0 */
   --toast-padding: initial; /* 1rem */
   --toast-radius: initial; /* var(--radius-lg) */
   --toast-shadow: initial; /* var(--shadow-lg) */
-  --toast-stack-gap: initial; /* 0.75rem */
-  --toast-stack-peek: initial; /* 0.75rem */
   --toast-title-font-size: initial; /* var(--text-sm) */
+  --toast-title-gap: initial; /* 0.5rem */
   --toast-title-font-weight: initial; /* var(--weight-semibold) */
   --toast-title-line-height: initial; /* var(--line-height-text-sm) */
-  --toast-transition: initial; /* var(--transition-emphasized) */
+  --toast-transition: initial; /* 400ms */
+  --toast-transition-out: initial; /* 400ms */
+  --toast-opacity-transition-out: initial; /* 200ms */
   --toast-viewport-inset: initial; /* 1rem */
-  --toast-viewport-width: initial; /* 20rem */
+  --toast-width: initial; /* 20rem */
   --toast-z-index: initial; /* var(--z-toast) */
 
   /* Toolbar */
