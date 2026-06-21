@@ -53,11 +53,7 @@
     color: var(--textarea-readonly-color, var(--textarea-color, var(--color-foreground)));
   }
 
-  @supports (field-sizing: content) {
-    .root[data-auto-resize] {
-      field-sizing: content;
-      overflow-y: hidden;
-      resize: none;
-    }
+  .root[data-autoresize] {
+    overflow-y: hidden;
   }
 }

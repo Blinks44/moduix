@@ -40,7 +40,11 @@ export const Controlled: Story = {
     return (
       <Field className={storyStyles.field}>
         <Field.Label>Feedback</Field.Label>
-        <Textarea placeholder="Type to control value" value={value} onValueChange={setValue} />
+        <Textarea
+          placeholder="Type to control value"
+          value={value}
+          onChange={(event) => setValue(event.currentTarget.value)}
+        />
       </Field>
     );
   },
@@ -69,7 +73,7 @@ export const AutoResize: Story = {
       <Field className={storyStyles.field}>
         <Field.Label>Issue description</Field.Label>
         <Textarea
-          autoResize
+          autoresize
           placeholder="Start typing a longer description. Height grows with content."
         />
       </Field>
@@ -125,12 +129,12 @@ export const ReadOnlyEditing: Story = {
           The textarea stays mounted and only switches between read-only and editable modes.
         </Field.HelperText>
         <Textarea
-          autoResize
+          autoresize
           ref={textareaRef}
           readOnly={!editing}
           rows={3}
           value={editing ? draft : value}
-          onValueChange={setDraft}
+          onChange={(event) => setDraft(event.currentTarget.value)}
         />
         <div className={storyStyles.actions}>
           {editing ? (

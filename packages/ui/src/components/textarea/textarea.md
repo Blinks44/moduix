@@ -1,199 +1,112 @@
 # Textarea
 
-Upstream primitive docs: https://base-ui.com/react/components/field.md
+Upstream docs:
+
+- Ark UI: no dedicated Textarea primitive; follows https://ark-ui.com/docs/components/field and `Field.Textarea`
+- Chakra UI: https://chakra-ui.com/docs/components/textarea
 
 ## Purpose
 
-`Textarea` is the default moduix control for multi-line plain text input. It is a thin styled wrapper
-over Base UI `Field.Control` that renders one native `<textarea>`, keeps the browser textarea API
-intact, and adds stable styling hooks through `data-slot="textarea-root"` plus moduix
-`--textarea-*` CSS variables.
+`Textarea` is the moduix multi-line plain text control: a styled Ark `Field.Textarea` root that keeps the native `<textarea>` API.
 
-Use it for notes, comments, descriptions, and other long-form text. For single-line text input use
-`Input`; for labels, descriptions, and validation UI compose it with `Field`.
+## Upstream model to preserve
+
+Ark exposes textarea behavior through `@ark-ui/react/field`, not through a standalone textarea primitive. Preserve the `Field.Textarea` contract: native textarea props, `autoresize`, ref forwarding to `HTMLTextAreaElement`, `asChild` from Ark polymorphic props, and inherited `Field.Root` / `Fieldset.Root` state.
+
+Chakra's Textarea recipe informs the public examples for helper text, error text, `resize`, `autoresize`, Hook Form-style refs, and direct native textarea usage.
 
 ## Current behavior contract
 
-- Renders one native `<textarea>` element and forwards its ref to that element.
-- Accepts native `<textarea>` props plus one moduix wrapper prop: `autoResize`.
-- Works standalone or inside `Field`. When used with `Field`, skip `Field.Input`; `Textarea`
-  registers with field context directly and receives field state data attributes from Base UI.
-- Controlled usage uses `value` + `onValueChange`. Uncontrolled usage uses `defaultValue`.
-- `autoResize` is progressive CSS sugar. In browsers that support `field-sizing: content`, the
-  textarea grows with content and the native resize handle is disabled. In browsers without that
-  support, the textarea keeps normal sizing behavior.
-- For inline edit/read-only compositions, prefer keeping the same mounted `Textarea` and toggling
-  `readOnly` instead of swapping between paragraph markup and a separate textarea shell.
-- The wrapper stays intentionally small: no label prop, no character counter, no resize presets, no
-  clear button, and no custom `render` escape hatch.
+- Renders one Ark `Field.Textarea`, which renders one native `<textarea>`.
+- Accepts `ComponentProps<typeof FieldPrimitive.Textarea>` from Ark, including native textarea props and `autoresize`.
+- Uses native `onChange` for controlled usage; no `onValueChange` compatibility layer is provided.
+- Works standalone when consumers provide an accessible name, or inside moduix `Field` for labels, helper text, error text, and state inheritance.
+- Adds moduix visual defaults, `data-slot="textarea-root"`, and public `--textarea-*` CSS variables.
 
-## Basic usage
+## Anatomy and exported parts
 
-Standalone textarea with an explicit label:
-
-```tsx
-import { Textarea } from 'moduix';
-
-export function SummaryField() {
-  return (
-    <label>
-      Summary
-      <Textarea name="summary" rows={4} placeholder="Add a short release summary" />
-    </label>
-  );
-}
+```text
+Field (optional)
+└─ Textarea
 ```
 
-With `Field` validation:
+| Part       | Element / Ark model  | `data-slot`     | Notes                                      |
+| ---------- | -------------------- | --------------- | ------------------------------------------ |
+| `Textarea` | Ark `Field.Textarea` | `textarea-root` | Styled textarea root and only public part. |
+
+No `Textarea.Root`, provider, context hook, hidden input, wrapper shell, label prop, counter, or slot bag is exported for this component.
+
+## Composition
 
 ```tsx
 import { Field, Textarea } from 'moduix';
 
-export function IssueDetailsField() {
+export function CommentField() {
   return (
     <Field>
-      <Field.Label>Details</Field.Label>
-      <Field.HelperText>
-        Include enough context for the team to reproduce the issue.
-      </Field.HelperText>
-      <Textarea required minLength={10} placeholder="Add at least 10 characters" />
-      <Field.ErrorText>Please provide details.</Field.ErrorText>
-      <Field.ErrorText>Enter at least 10 characters.</Field.ErrorText>
+      <Field.Label>Comment</Field.Label>
+      <Field.HelperText>Visible to the whole team.</Field.HelperText>
+      <Textarea name="comment" placeholder="Write a short comment" />
     </Field>
   );
 }
 ```
 
-Auto-resizing textarea:
+Use `Field.Root` / `Field` for accessible labels, descriptions, required state, invalid state, and read-only/disabled inheritance. Use native textarea props such as `rows`, `maxLength`, `resize` styling, `value`, `defaultValue`, and `onChange` for browser behavior.
 
-```tsx
-import { Field, Textarea } from 'moduix';
+## Upstream feature coverage
 
-export function DescriptionField() {
-  return (
-    <Field>
-      <Field.Label>Issue description</Field.Label>
-      <Textarea
-        autoResize
-        name="description"
-        placeholder="Start typing a longer description. Height grows with content."
-      />
-    </Field>
-  );
-}
-```
+- Ark Field anatomy: covered through the optional `Field` wrapper plus `Textarea` as the control.
+- Ark Field examples: textarea, textarea autoresize, custom control state, and root/provider behavior remain available through the `Field` component; `Textarea` itself intentionally stays root-only.
+- Ark Forms guide: accessible labels, helper text, error text, required state, invalid state, `readOnly`, `disabled`, and `Fieldset` inheritance are preserved by Ark.
+- Chakra Textarea examples: basic usage, Field composition, helper/error text, native resizing, autoresize, refs, and form-library integration are supported.
+- Chakra size and variant props are not supported; moduix uses CSS variables and `className` instead.
 
-## Parts
+## Accessibility and state
 
-| Part       | Element/primitive   | Purpose                                              |
-| ---------- | ------------------- | ---------------------------------------------------- |
-| `Textarea` | native `<textarea>` | Styled textarea root with Base UI field integration. |
+- The forwarded ref targets the native `HTMLTextAreaElement`, which is the correct target for invalid focus and form-library registration.
+- The textarea needs an accessible name from `Field.Label`, a native `<label>`, or `aria-label`.
+- Ark links `Field.Label`, `Field.HelperText`, and `Field.ErrorText` to the textarea through IDs and `aria-describedby`.
+- Ark applies `required`, `disabled`, `readOnly`, `aria-invalid`, `data-required`, `data-disabled`, `data-readonly`, and `data-invalid` from field context.
+- No `HiddenInput` is needed because native `<textarea>` already participates in form submission and form reset.
+- `asChild` is inherited from Ark polymorphic props; if used, the child must be a single semantic textarea-compatible element.
 
-`Textarea` exposes one public part. It does not provide wrapper shells, sub-parts, `slotProps`, or
-extra composition helpers.
+## Defaults and styling
 
-## Public props
+`Textarea` merges consumer `className` with `Textarea.module.css` and exposes these stable hooks:
 
-`Textarea` accepts all native `<textarea>` props plus the moduix wrapper prop below.
+- `data-scope="field"`
+- `data-part="textarea"`
+- `data-slot="textarea-root"`
+- `data-autoresize` when `autoresize` is true
+- native `[disabled]`, `[readonly]`, `:read-only`, and Ark `data-disabled`, `data-readonly`, `data-invalid`
 
-| Prop            | Type                      | Default | Notes                                                               |
-| --------------- | ------------------------- | ------- | ------------------------------------------------------------------- |
-| `autoResize`    | `boolean`                 | `false` | Enables CSS auto-resize where `field-sizing: content` is supported. |
-| `onValueChange` | `(value: string) => void` | —       | Called with the next textarea value on change.                      |
-| `className`     | native `className`        | —       | Merged with the moduix root class.                                  |
+Public CSS variables from `theme.css`:
 
-Exported helper types:
+| Group        | Variables                                                                                                                                                                                                                                 |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Layout       | `--textarea-width`, `--textarea-max-width`, `--textarea-min-height`                                                                                                                                                                       |
+| Spacing      | `--textarea-padding-x`, `--textarea-padding-y`                                                                                                                                                                                            |
+| Typography   | `--textarea-font-size`, `--textarea-line-height`                                                                                                                                                                                          |
+| Surface      | `--textarea-bg`, `--textarea-color`, `--textarea-placeholder-color`, `--textarea-radius`, `--textarea-readonly-bg`, `--textarea-readonly-color`                                                                                           |
+| Border/focus | `--textarea-border-width`, `--textarea-border-style`, `--textarea-border-color`, `--textarea-border-color-invalid`, `--textarea-focus-ring-width`, `--textarea-focus-ring-offset`, `--textarea-focus-ring-color`, `--textarea-transition` |
+| Interaction  | `--textarea-resize`, `--textarea-disabled-opacity`                                                                                                                                                                                        |
 
-- `TextareaProps`
+## Intentional sugar and differences from upstream
 
-Important native passthrough props remain available, including:
-
-- `value`, `defaultValue`, and `onValueChange`
-- `name`, `rows`, `cols`, `placeholder`, `maxLength`, `minLength`, `readOnly`, `disabled`,
-  `required`, `spellCheck`, `autoComplete`, `inputMode`, and `enterKeyHint`
-- `style`
-
-Unlike moduix `Input`, `Textarea` does **not** expose `htmlSize` or a consumer `render` prop. Treat
-it like a styled native `<textarea>` with one small DX addition: `onValueChange`.
-
-## Styling API
-
-Stable root hooks:
-
-| Hook               | When it exists                                                         | Default moduix CSS   |
-| ------------------ | ---------------------------------------------------------------------- | -------------------- |
-| `data-slot`        | Always present as `textarea-root`.                                     | Yes                  |
-| `data-auto-resize` | Present when `autoResize` is `true`.                                   | Yes                  |
-| `disabled`         | Native attribute from the textarea props.                              | Yes                  |
-| `readonly`         | Native `readonly` attribute from the textarea props.                   | Yes via `:read-only` |
-| `data-disabled`    | Present when disabled through Base UI field state.                     | Yes                  |
-| `data-readonly`    | Present when readonly state is reflected through field state.          | Yes                  |
-| `data-invalid`     | Present inside `Field` when the current field state is invalid.        | Yes                  |
-| `data-valid`       | Present inside `Field` when the current field state is valid.          | No                   |
-| `data-dirty`       | Present inside `Field` after the value changes from its initial state. | No                   |
-| `data-touched`     | Present inside `Field` after interaction.                              | No                   |
-| `data-filled`      | Present inside `Field` when the textarea currently has a value.        | No                   |
-| `data-focused`     | Present while focused.                                                 | No                   |
-
-Use `className` for local styling and `--textarea-*` variables for token-level customization. Public
-variables from `theme.css`:
-
-| Variable group | Variables                                                                                                                                                                                                                                 |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Layout         | `--textarea-width`, `--textarea-max-width`, `--textarea-min-height`                                                                                                                                                                       |
-| Spacing        | `--textarea-padding-x`, `--textarea-padding-y`                                                                                                                                                                                            |
-| Typography     | `--textarea-font-size`, `--textarea-line-height`                                                                                                                                                                                          |
-| Surface        | `--textarea-bg`, `--textarea-color`, `--textarea-placeholder-color`, `--textarea-radius`, `--textarea-readonly-bg`, `--textarea-readonly-color`                                                                                           |
-| Border/focus   | `--textarea-border-width`, `--textarea-border-style`, `--textarea-border-color`, `--textarea-border-color-invalid`, `--textarea-focus-ring-width`, `--textarea-focus-ring-offset`, `--textarea-focus-ring-color`, `--textarea-transition` |
-| Interaction    | `--textarea-resize`, `--textarea-disabled-opacity`                                                                                                                                                                                        |
-
-Example:
-
-```css
-.notesTextarea {
-  --textarea-border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-  --textarea-bg: color-mix(in srgb, var(--color-primary) 5%, transparent);
-  --textarea-focus-ring-color: var(--color-primary);
-}
-```
-
-## UX and accessibility
-
-- Every textarea needs an accessible name. Use a real `<label>`, `Field.Label`, or `aria-label` for
-  compact standalone cases.
-- Placeholder text is not a label and should not carry required instructions on its own.
-- `disabled` removes the textarea from interaction and form submission. `readOnly` keeps it focusable
-  and submittable while preventing edits.
-- Prefer native attributes such as `rows`, `maxLength`, `spellCheck`, `autoComplete`, and
-  `enterKeyHint` over custom wrapper props when the browser already supports the behavior.
-- Use `Field`, `Field.HelperText`, and `Field.ErrorText` for accessible help text and validation
-  messaging.
-- Do not combine `autoResize` with custom `resize` styles on the same instance. When auto-resize is
-  active in supported browsers, moduix intentionally disables the resize handle.
-
-## Intentional differences from Base UI
-
-- Import from `moduix`, not `@base-ui/react/field`, when you want the library styling contract.
-- `Textarea` is a styled native `<textarea>` wrapper, not a re-export of the full Base UI primitive
-  surface.
-- The local docs intentionally describe the shipped moduix contract instead of re-documenting all
-  Base UI `Field` behavior.
+- moduix provides visual defaults and theme variables; Ark remains the behavior source.
+- The old `autoResize` prop was removed in favor of Ark `autoresize`.
+- The old `onValueChange(value)` callback was removed in favor of native `onChange(event)`.
+- `data-autoresize` is a moduix styling hook layered over Ark's `autoresize` behavior.
+- Chakra `variant`, `size`, and style-prop APIs are intentionally not mirrored.
 
 ## Agent notes
 
-- Preserve the single-root wrapper shape unless a real composition requirement appears.
-- Keep `autoResize`, `TextareaProps`, stories, docs examples, and this file synchronized.
-- Do not add helper props for counters, autoresize strategies, labels, or validation UI; compose with
-  `Field` and adjacent UI instead.
-- If new public `--textarea-*` variables are added, register them in `theme.css` and update this
-  file.
+- Do not reintroduce the legacy `Field.Control`, `render`, `mergeProps`, `autoResize`, or `onValueChange` adapter contract.
+- Keep `Textarea` aligned with Ark `Field.Textarea`; use `Field.Textarea` as the local implementation reference.
+- Keep stories, docs examples, `theme.css`, registry output, and this file synchronized when the public contract changes.
 
 ## Local changelog
 
-- Rewrote the local documentation to describe the shipped moduix `Textarea` API, styling hooks,
-  examples, state attributes, and constraints instead of the older Base UI-oriented summary.
-- Exported `TextareaProps` for consumer-side typing consistency with adjacent form controls.
-- Documented the recommended inline-editing composition: keep one mounted textarea and toggle
-  `readOnly` instead of swapping in a separate edit shell.
-- Added `onValueChange` and removed the legacy `onChange` controlled path so `Textarea` now aligns
-  with `Input`.
+- 2026-06-21: Migrated implementation to Ark `Field.Textarea`; replaced `autoResize` with `autoresize` and removed `onValueChange`.
+- 2026-06-21: Rewrote the local contract around Ark Field, Chakra Textarea examples, native textarea behavior, and moduix styling hooks.

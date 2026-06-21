@@ -107,7 +107,11 @@ export function ControlledTextareaExample() {
   return (
     <Field className={styles.field}>
       <Field.Label>Feedback</Field.Label>
-      <Textarea value={value} onValueChange={setValue} placeholder="Type to control value" />
+      <Textarea
+        value={value}
+        onChange={(event) => setValue(event.currentTarget.value)}
+        placeholder="Type to control value"
+      />
     </Field>
   );
 }
@@ -157,12 +161,12 @@ export function TextareaReadOnlyEditingExample() {
         The textarea stays mounted and only switches between read-only and editable modes.
       </Field.HelperText>
       <Textarea
-        autoResize
+        autoresize
         ref={textareaRef}
         readOnly={!editing}
         rows={3}
         value={editing ? draft : value}
-        onValueChange={setDraft}
+        onChange={(event) => setDraft(event.currentTarget.value)}
       />
       <div className={styles.actions}>
         {editing ? (
@@ -209,7 +213,7 @@ export function AutoResizeTextareaExample() {
     <Field className={styles.field}>
       <Field.Label>Issue description</Field.Label>
       <Textarea
-        autoResize
+        autoresize
         placeholder="Start typing a longer description. Height grows with content."
       />
     </Field>
