@@ -3,7 +3,6 @@ import { Fragment } from 'react';
 import { BellIcon, StarIcon } from '@/icons/demo';
 import { ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
 import { Select, Portal, createListCollection } from '../select';
-import { Toggle } from '../toggle';
 import { ToggleGroup } from '../toggle-group';
 import {
   Toolbar,
@@ -58,19 +57,15 @@ export const WithToggleGroup: Story = {
     return (
       <Toolbar aria-label="Editor formatting">
         <ToggleGroup multiple defaultValue={['bold']} aria-label="Text formatting" variant="ghost">
-          <ToolbarButton render={<Toggle variant="ghost" />} value="bold" aria-label="Bold">
+          <ToggleGroup.Item value="bold" aria-label="Bold" variant="ghost">
             <strong>B</strong>
-          </ToolbarButton>
-          <ToolbarButton render={<Toggle variant="ghost" />} value="italic" aria-label="Italic">
+          </ToggleGroup.Item>
+          <ToggleGroup.Item value="italic" aria-label="Italic" variant="ghost">
             <em>I</em>
-          </ToolbarButton>
-          <ToolbarButton
-            render={<Toggle variant="ghost" />}
-            value="underline"
-            aria-label="Underline"
-          >
+          </ToggleGroup.Item>
+          <ToggleGroup.Item value="underline" aria-label="Underline" variant="ghost">
             <span className={storyStyles.underline}>U</span>
-          </ToolbarButton>
+          </ToggleGroup.Item>
         </ToggleGroup>
 
         <ToolbarSeparator />

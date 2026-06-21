@@ -6,7 +6,6 @@ import {
   Select,
   createListCollection,
   StarIcon,
-  Toggle,
   ToggleGroup,
   Toolbar,
   ToolbarButton,
@@ -205,15 +204,15 @@ export function ToolbarToggleGroupExample() {
   return (
     <Toolbar aria-label="Editor formatting">
       <ToggleGroup multiple defaultValue={['bold']} aria-label="Text formatting" variant="ghost">
-        <ToolbarButton render={<Toggle variant="ghost" />} value="bold" aria-label="Bold">
+        <ToggleGroup.Item value="bold" aria-label="Bold" variant="ghost">
           <strong>B</strong>
-        </ToolbarButton>
-        <ToolbarButton render={<Toggle variant="ghost" />} value="italic" aria-label="Italic">
+        </ToggleGroup.Item>
+        <ToggleGroup.Item value="italic" aria-label="Italic" variant="ghost">
           <em>I</em>
-        </ToolbarButton>
-        <ToolbarButton render={<Toggle variant="ghost" />} value="underline" aria-label="Underline">
+        </ToggleGroup.Item>
+        <ToggleGroup.Item value="underline" aria-label="Underline" variant="ghost">
           <u>U</u>
-        </ToolbarButton>
+        </ToggleGroup.Item>
       </ToggleGroup>
 
       <ToolbarSeparator />

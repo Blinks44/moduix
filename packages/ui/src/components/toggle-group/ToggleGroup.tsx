@@ -1,14 +1,12 @@
-import { Toggle as TogglePrimitive } from '@base-ui/react/toggle';
-import { ToggleGroup as ToggleGroupPrimitive } from '@base-ui/react/toggle-group';
+import type { ComponentProps, ComponentRef } from 'react';
 import {
-  createContext,
-  forwardRef,
-  useContext,
-  useMemo,
-  type ComponentProps,
-  type ComponentRef,
-} from 'react';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+  ToggleGroup as ToggleGroupPrimitive,
+  useToggleGroup,
+  useToggleGroupContext,
+} from '@ark-ui/react/toggle-group';
+import { clsx } from 'clsx';
+import { createContext, forwardRef, useContext, useMemo } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import toggleStyles from '../toggle/Toggle.module.css';
 import styles from './ToggleGroup.module.css';
 
@@ -23,23 +21,55 @@ const ToggleGroupContext = createContext<{
   size: 'md',
 });
 
-const ToggleGroup = forwardRef<
-  ComponentRef<typeof ToggleGroupPrimitive>,
-  ToggleGroupPrimitive.Props & {
-    variant?: ToggleVariant;
-    size?: ToggleSize;
-  }
->(function ToggleGroup({ className, variant = 'default', size = 'md', ...props }, ref) {
+type ToggleGroupRootProps = ComponentProps<typeof ToggleGroupPrimitive.Root> & {
+  variant?: ToggleVariant;
+  size?: ToggleSize;
+};
+
+type ToggleGroupRootProviderProps = ComponentProps<typeof ToggleGroupPrimitive.RootProvider> & {
+  variant?: ToggleVariant;
+  size?: ToggleSize;
+};
+
+type ToggleGroupItemProps = ComponentProps<typeof ToggleGroupPrimitive.Item> & {
+  variant?: ToggleVariant;
+  size?: ToggleSize;
+};
+
+const ToggleGroupRoot = forwardRef<
+  ComponentRef<typeof ToggleGroupPrimitive.Root>,
+  ToggleGroupRootProps
+>(function ToggleGroupRoot({ className, variant = 'default', size = 'md', ...props }, ref) {
   const contextValue = useMemo(() => ({ variant, size }), [size, variant]);
 
   return (
     <ToggleGroupContext.Provider value={contextValue}>
-      <ToggleGroupPrimitive
+      <ToggleGroupPrimitive.Root
         ref={ref}
         data-slot="toggle-group-root"
         data-variant={variant}
         data-size={size}
-        className={mergeClassName(className, styles.root)}
+        className={clsx(styles.root, normalizeClassName(className))}
+        {...props}
+      />
+    </ToggleGroupContext.Provider>
+  );
+});
+
+const ToggleGroupRootProvider = forwardRef<
+  ComponentRef<typeof ToggleGroupPrimitive.RootProvider>,
+  ToggleGroupRootProviderProps
+>(function ToggleGroupRootProvider({ className, variant = 'default', size = 'md', ...props }, ref) {
+  const contextValue = useMemo(() => ({ variant, size }), [size, variant]);
+
+  return (
+    <ToggleGroupContext.Provider value={contextValue}>
+      <ToggleGroupPrimitive.RootProvider
+        ref={ref}
+        data-slot="toggle-group-root-provider"
+        data-variant={variant}
+        data-size={size}
+        className={clsx(styles.root, normalizeClassName(className))}
         {...props}
       />
     </ToggleGroupContext.Provider>
@@ -47,24 +77,47 @@ const ToggleGroup = forwardRef<
 });
 
 const ToggleGroupItem = forwardRef<
-  ComponentRef<typeof TogglePrimitive>,
-  ComponentProps<typeof TogglePrimitive> & {
-    variant?: ToggleVariant;
-    size?: ToggleSize;
-  }
+  ComponentRef<typeof ToggleGroupPrimitive.Item>,
+  ToggleGroupItemProps
 >(function ToggleGroupItem({ className, variant, size, ...props }, ref) {
   const inherited = useContext(ToggleGroupContext);
 
   return (
-    <TogglePrimitive
+    <ToggleGroupPrimitive.Item
       ref={ref}
       data-slot="toggle-group-item"
       data-variant={variant ?? inherited.variant}
       data-size={size ?? inherited.size}
-      className={mergeClassName(className, toggleStyles.root, styles.item)}
+      className={clsx(toggleStyles.root, styles.item, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-export { ToggleGroup, ToggleGroupItem };
+const ToggleGroupContextPart = ToggleGroupPrimitive.Context;
+
+const ToggleGroup = Object.assign(ToggleGroupRoot, {
+  Root: ToggleGroupRoot,
+  RootProvider: ToggleGroupRootProvider,
+  Item: ToggleGroupItem,
+  Context: ToggleGroupContextPart,
+});
+
+export { ToggleGroup, useToggleGroup, useToggleGroupContext };
+export type {
+  ToggleGroupItemProps,
+  ToggleGroupRootProps,
+  ToggleGroupRootProviderProps,
+  ToggleSize,
+  ToggleVariant,
+};
+export type {
+  ToggleGroupContextProps,
+  ToggleGroupItemBaseProps,
+  ToggleGroupRootBaseProps,
+  ToggleGroupRootProviderBaseProps,
+  ToggleGroupValueChangeDetails,
+  UseToggleGroupContext,
+  UseToggleGroupProps,
+  UseToggleGroupReturn,
+} from '@ark-ui/react/toggle-group';

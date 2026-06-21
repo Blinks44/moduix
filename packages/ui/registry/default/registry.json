@@ -1567,7 +1567,7 @@
       "type": "registry:item",
       "title": "Toggle",
       "description": "moduix Toggle component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
@@ -1592,7 +1592,7 @@
       "type": "registry:item",
       "title": "ToggleGroup",
       "description": "moduix ToggleGroup component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core", "Blinks44/moduix/toggle"],
       "files": [
         {

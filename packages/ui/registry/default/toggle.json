@@ -3,7 +3,7 @@
   "name": "toggle",
   "title": "Toggle",
   "description": "moduix Toggle component.",
-  "dependencies": ["@base-ui/react", "clsx"],
+  "dependencies": ["@ark-ui/react", "clsx"],
   "registryDependencies": ["Blinks44/moduix/core"],
   "files": [
     {

@@ -1,8 +1,32 @@
-import { BellIcon, CheckIcon, StarIcon, ToggleGroup, ToggleGroupItem } from 'moduix';
+import { BellIcon, CheckIcon, StarIcon, ToggleGroup, useToggleGroup } from 'moduix';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './toggle-group.module.css';
+
+const alignmentItems = [
+  { value: 'left', label: 'Left' },
+  { value: 'center', label: 'Center' },
+  { value: 'right', label: 'Right' },
+];
+
+const variantItems = [
+  { value: 'one', label: 'One' },
+  { value: 'two', label: 'Two' },
+  { value: 'three', label: 'Three' },
+];
+
+const formattingItems = [
+  { value: 'bold', label: 'B', ariaLabel: 'Bold' },
+  { value: 'italic', label: 'I', ariaLabel: 'Italic' },
+  { value: 'underline', label: 'U', ariaLabel: 'Underline' },
+];
+
+const viewItems = [
+  { value: 'list', label: 'List' },
+  { value: 'grid', label: 'Grid' },
+  { value: 'map', label: 'Map' },
+];
 
 export const toggleGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--toggle-group-bg', 'var(--color-muted)', 'Controls group background color.'],
@@ -108,9 +132,11 @@ function AlignRightIcon(props: ComponentProps<'svg'>) {
 export function ToggleGroupExample(props: ComponentProps<typeof ToggleGroup>) {
   return (
     <ToggleGroup defaultValue={['left']} aria-label="Text alignment" {...props}>
-      <ToggleGroupItem value="left">Left</ToggleGroupItem>
-      <ToggleGroupItem value="center">Center</ToggleGroupItem>
-      <ToggleGroupItem value="right">Right</ToggleGroupItem>
+      {alignmentItems.map((item) => (
+        <ToggleGroup.Item key={item.value} value={item.value}>
+          {item.label}
+        </ToggleGroup.Item>
+      ))}
     </ToggleGroup>
   );
 }
@@ -119,19 +145,25 @@ export function ToggleGroupVariantsExample() {
   return (
     <div className={styles.stack}>
       <ToggleGroup defaultValue={['one']} aria-label="Default variant">
-        <ToggleGroupItem value="one">One</ToggleGroupItem>
-        <ToggleGroupItem value="two">Two</ToggleGroupItem>
-        <ToggleGroupItem value="three">Three</ToggleGroupItem>
+        {variantItems.map((item) => (
+          <ToggleGroup.Item key={item.value} value={item.value}>
+            {item.label}
+          </ToggleGroup.Item>
+        ))}
       </ToggleGroup>
       <ToggleGroup defaultValue={['one']} aria-label="Outline variant" variant="outline">
-        <ToggleGroupItem value="one">One</ToggleGroupItem>
-        <ToggleGroupItem value="two">Two</ToggleGroupItem>
-        <ToggleGroupItem value="three">Three</ToggleGroupItem>
+        {variantItems.map((item) => (
+          <ToggleGroup.Item key={item.value} value={item.value}>
+            {item.label}
+          </ToggleGroup.Item>
+        ))}
       </ToggleGroup>
       <ToggleGroup defaultValue={['one']} aria-label="Ghost variant" variant="ghost">
-        <ToggleGroupItem value="one">One</ToggleGroupItem>
-        <ToggleGroupItem value="two">Two</ToggleGroupItem>
-        <ToggleGroupItem value="three">Three</ToggleGroupItem>
+        {variantItems.map((item) => (
+          <ToggleGroup.Item key={item.value} value={item.value}>
+            {item.label}
+          </ToggleGroup.Item>
+        ))}
       </ToggleGroup>
     </div>
   );
@@ -145,15 +177,13 @@ export function ToggleGroupMultipleExample() {
       aria-label="Text formatting"
       size="icon-md"
     >
-      <ToggleGroupItem value="bold" aria-label="Bold">
-        <strong>B</strong>
-      </ToggleGroupItem>
-      <ToggleGroupItem value="italic" aria-label="Italic">
-        <em>I</em>
-      </ToggleGroupItem>
-      <ToggleGroupItem value="underline" aria-label="Underline">
-        <span className={styles.underline}>U</span>
-      </ToggleGroupItem>
+      {formattingItems.map((item) => (
+        <ToggleGroup.Item key={item.value} value={item.value} aria-label={item.ariaLabel}>
+          {item.value === 'bold' && <strong>{item.label}</strong>}
+          {item.value === 'italic' && <em>{item.label}</em>}
+          {item.value === 'underline' && <span className={styles.underline}>{item.label}</span>}
+        </ToggleGroup.Item>
+      ))}
     </ToggleGroup>
   );
 }
@@ -163,15 +193,20 @@ export function ControlledToggleGroupExample() {
 
   return (
     <div className={styles.stack}>
-      <ToggleGroup value={value} onValueChange={setValue} aria-label="Controlled options" multiple>
-        <ToggleGroupItem value="favorites">
+      <ToggleGroup
+        value={value}
+        onValueChange={(details) => setValue(details.value)}
+        aria-label="Controlled options"
+        multiple
+      >
+        <ToggleGroup.Item value="favorites">
           {value.includes('favorites') ? <CheckIcon /> : <StarIcon />}
           Favorites
-        </ToggleGroupItem>
-        <ToggleGroupItem value="alerts">
+        </ToggleGroup.Item>
+        <ToggleGroup.Item value="alerts">
           <BellIcon />
           Alerts
-        </ToggleGroupItem>
+        </ToggleGroup.Item>
       </ToggleGroup>
       <span className={styles.hint}>Current value: {value.join(', ') || 'empty'}</span>
     </div>
@@ -181,15 +216,15 @@ export function ControlledToggleGroupExample() {
 export function ToggleGroupIconExample() {
   return (
     <ToggleGroup defaultValue={['left']} aria-label="Text alignment" size="icon-md">
-      <ToggleGroupItem value="left" aria-label="Align left">
+      <ToggleGroup.Item value="left" aria-label="Align left">
         <AlignLeftIcon className={styles.customIcon} />
-      </ToggleGroupItem>
-      <ToggleGroupItem value="center" aria-label="Align center">
+      </ToggleGroup.Item>
+      <ToggleGroup.Item value="center" aria-label="Align center">
         <AlignCenterIcon className={styles.customIcon} />
-      </ToggleGroupItem>
-      <ToggleGroupItem value="right" aria-label="Align right">
+      </ToggleGroup.Item>
+      <ToggleGroup.Item value="right" aria-label="Align right">
         <AlignRightIcon className={styles.customIcon} />
-      </ToggleGroupItem>
+      </ToggleGroup.Item>
     </ToggleGroup>
   );
 }
@@ -202,10 +237,29 @@ export function ToggleGroupVerticalExample() {
       aria-label="View mode"
       variant="outline"
     >
-      <ToggleGroupItem value="list">List</ToggleGroupItem>
-      <ToggleGroupItem value="grid">Grid</ToggleGroupItem>
-      <ToggleGroupItem value="map">Map</ToggleGroupItem>
+      {viewItems.map((item) => (
+        <ToggleGroup.Item key={item.value} value={item.value}>
+          {item.label}
+        </ToggleGroup.Item>
+      ))}
     </ToggleGroup>
+  );
+}
+
+export function ToggleGroupRootProviderExample() {
+  const toggleGroup = useToggleGroup({ defaultValue: ['left'] });
+
+  return (
+    <div className={styles.stack}>
+      <span className={styles.hint}>Current value: {toggleGroup.value.join(', ') || 'empty'}</span>
+      <ToggleGroup.RootProvider value={toggleGroup} aria-label="Text alignment">
+        {alignmentItems.map((item) => (
+          <ToggleGroup.Item key={item.value} value={item.value}>
+            {item.label}
+          </ToggleGroup.Item>
+        ))}
+      </ToggleGroup.RootProvider>
+    </div>
   );
 }
 
@@ -213,14 +267,14 @@ export function ToggleGroupDisabledExample() {
   return (
     <div className={styles.row}>
       <ToggleGroup defaultValue={['one']} aria-label="Disabled group" disabled>
-        <ToggleGroupItem value="one">One</ToggleGroupItem>
-        <ToggleGroupItem value="two">Two</ToggleGroupItem>
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
       </ToggleGroup>
       <ToggleGroup defaultValue={['one']} aria-label="Disabled item">
-        <ToggleGroupItem value="one">One</ToggleGroupItem>
-        <ToggleGroupItem value="two" disabled>
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two" disabled>
           Two
-        </ToggleGroupItem>
+        </ToggleGroup.Item>
       </ToggleGroup>
     </div>
   );
@@ -233,15 +287,15 @@ export function CustomCompositionToggleGroupExample() {
       aria-label="Schedule density"
       className={styles.customGroup}
     >
-      <ToggleGroupItem value="day" className={styles.customItem}>
+      <ToggleGroup.Item value="day" className={styles.customItem}>
         Day
-      </ToggleGroupItem>
-      <ToggleGroupItem value="week" className={styles.customItem}>
+      </ToggleGroup.Item>
+      <ToggleGroup.Item value="week" className={styles.customItem}>
         Week
-      </ToggleGroupItem>
-      <ToggleGroupItem value="month" className={styles.customItem}>
+      </ToggleGroup.Item>
+      <ToggleGroup.Item value="month" className={styles.customItem}>
         Month
-      </ToggleGroupItem>
+      </ToggleGroup.Item>
     </ToggleGroup>
   );
 }
