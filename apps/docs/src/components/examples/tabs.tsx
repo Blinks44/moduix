@@ -1,5 +1,5 @@
+import { HandshakeIcon, MapIcon, PresentIcon, Tabs, useTabs } from '@moduix/react';
 import { clsx } from 'clsx';
-import { HandshakeIcon, MapIcon, PresentIcon, Tabs, useTabs } from 'moduix';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

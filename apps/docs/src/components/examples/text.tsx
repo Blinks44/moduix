@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentPropsWithoutRef } from 'react';
-import { Text } from 'moduix';
+import { Text } from '@moduix/react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './text.module.css';

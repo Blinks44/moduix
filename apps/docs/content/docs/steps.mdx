@@ -36,7 +36,7 @@ Use `Steps` with a `count`, a `Steps.List` of zero-based `Steps.Item index={...}
 
   <Preview.Code>
     {`
-      import { Steps } from "moduix";
+      import { Steps } from "@moduix/react";
 
       export function StepsDemo() {
         return (
@@ -89,35 +89,35 @@ If you want `Steps` to become part of your own project source instead of staying
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/steps
+npx shadcn@latest add Blinks44/moduix/react-steps
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/steps
+pnpm dlx shadcn@latest add Blinks44/moduix/react-steps
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/steps
+bunx shadcn@latest add Blinks44/moduix/react-steps
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/steps
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-steps
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/steps
+aubx shadcn@latest add Blinks44/moduix/react-steps
 ```
 
   </Tab>
@@ -203,7 +203,7 @@ Control `step` from React state when the active step must stay synchronized with
 
   <Preview.Code>
     {`
-      import { Steps } from "moduix";
+      import { Steps } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledStepsDemo() {
@@ -262,7 +262,7 @@ Use `useSteps()` with `Steps.RootProvider` when controls outside the rendered tr
 
   <Preview.Code>
     {`
-      import { Steps, useSteps } from "moduix";
+      import { Steps, useSteps } from "@moduix/react";
 
       export function RootProviderStepsDemo() {
         const steps = useSteps({ count: items.length });

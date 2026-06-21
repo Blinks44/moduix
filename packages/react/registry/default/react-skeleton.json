@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "react-skeleton",
+  "title": "Skeleton",
+  "description": "moduix React Skeleton component.",
+  "dependencies": ["@ark-ui/react", "clsx"],
+  "registryDependencies": ["Blinks44/moduix/react-core"],
+  "files": [
+    {
+      "path": "packages/react/src/components/skeleton/Skeleton.tsx",
+      "content": "import type { HTMLArkProps } from '@ark-ui/react/factory';\nimport { ark } from '@ark-ui/react/factory';\nimport { clsx } from 'clsx';\nimport { forwardRef } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './Skeleton.module.css';\n\nfunction toCssValue(value: number | string | undefined) {\n  if (typeof value === 'number') {\n    return `${value}px`;\n  }\n\n  return value;\n}\n\nexport type SkeletonVariant = 'pulse' | 'none';\n\nexport type SkeletonRootProps = HTMLArkProps<'div'> & {\n  loading?: boolean;\n  variant?: SkeletonVariant;\n  width?: number | string;\n  height?: number | string;\n  boxSize?: number | string;\n  borderRadius?: number | string;\n};\n\nconst SkeletonRoot = forwardRef<HTMLDivElement, SkeletonRootProps>(function SkeletonRoot(\n  {\n    'aria-hidden': ariaHidden,\n    asChild,\n    borderRadius,\n    boxSize,\n    className,\n    height,\n    loading = true,\n    style,\n    variant = 'pulse',\n    width,\n    ...props\n  },\n  ref,\n) {\n  return (\n    <ark.div\n      ref={ref}\n      asChild={asChild}\n      data-scope=\"skeleton\"\n      data-part=\"root\"\n      data-slot=\"skeleton-root\"\n      data-state={loading ? 'loading' : 'loaded'}\n      data-loading={loading ? '' : undefined}\n      data-variant={variant}\n      aria-hidden={ariaHidden ?? (loading ? true : undefined)}\n      className={clsx(styles.root, normalizeClassName(className))}\n      style={{\n        width: toCssValue(width ?? boxSize),\n        height: toCssValue(height ?? boxSize),\n        borderRadius: toCssValue(borderRadius),\n        ...style,\n      }}\n      {...props}\n    />\n  );\n});\n\nconst Skeleton = Object.assign(SkeletonRoot, {\n  Root: SkeletonRoot,\n});\n\nexport { Skeleton };",
+      "type": "registry:component",
+      "target": "@components/moduix/skeleton/Skeleton.tsx"
+    },
+    {
+      "path": "packages/react/src/components/skeleton/Skeleton.module.css",
+      "content": "@layer ui.components {\n  .root {\n    display: block;\n    width: 100%;\n    height: 1rem;\n    overflow: hidden;\n    border-radius: var(--skeleton-border-radius, var(--radius-md));\n\n    &[data-state='loading'] {\n      animation: var(--skeleton-animation, var(--animation-pulse));\n      background: var(\n        --skeleton-bg,\n        color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))\n      );\n      color: transparent;\n      pointer-events: none;\n      user-select: none;\n\n      & > * {\n        visibility: hidden;\n      }\n    }\n\n    &[data-state='loaded'],\n    &[data-variant='none'] {\n      animation: none;\n    }\n\n    &[data-state='loaded'] {\n      background: transparent;\n      color: inherit;\n      pointer-events: auto;\n      user-select: auto;\n    }\n\n    @media (prefers-reduced-motion: reduce) {\n      animation: none;\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/moduix/skeleton/Skeleton.module.css"
+    },
+    {
+      "path": "packages/react/src/components/skeleton/index.ts",
+      "content": "export * from './Skeleton';",
+      "type": "registry:component",
+      "target": "@components/moduix/skeleton/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

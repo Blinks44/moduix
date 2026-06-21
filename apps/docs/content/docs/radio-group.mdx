@@ -38,7 +38,7 @@ Use Ark-style parts: `RadioGroup.Root`, `RadioGroup.Label`, `RadioGroup.Item`,
 
   <Preview.Code>
     {`
-      import { RadioGroup } from "moduix";
+      import { RadioGroup } from "@moduix/react";
 
       export function RadioGroupDemo() {
         return (
@@ -71,35 +71,35 @@ If you want `RadioGroup` to become part of your own project source instead of st
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/radio-group
+npx shadcn@latest add Blinks44/moduix/react-radio-group
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/radio-group
+pnpm dlx shadcn@latest add Blinks44/moduix/react-radio-group
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/radio-group
+bunx shadcn@latest add Blinks44/moduix/react-radio-group
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/radio-group
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-radio-group
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/radio-group
+aubx shadcn@latest add Blinks44/moduix/react-radio-group
 ```
 
   </Tab>
@@ -156,7 +156,7 @@ Set `defaultValue` when the initial checked item is known but the group can mana
 
   <Preview.Code>
     {`
-      import { RadioGroup } from "moduix";
+      import { RadioGroup } from "@moduix/react";
 
       export function InitialValueDemo() {
         return (
@@ -189,7 +189,7 @@ Use `value` with `onValueChange(details)` when selected value is owned by surrou
 
   <Preview.Code>
     {`
-      import { RadioGroup } from "moduix";
+      import { RadioGroup } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledRadioGroupDemo() {
@@ -226,7 +226,7 @@ radio tree.
 
   <Preview.Code>
     {`
-      import { RadioGroup, useRadioGroup } from "moduix";
+      import { RadioGroup, useRadioGroup } from "@moduix/react";
 
       export function RadioGroupRootProviderDemo() {
         const radioGroup = useRadioGroup({ defaultValue: "React" });
@@ -266,7 +266,7 @@ Set `disabled` on the root to make every item unavailable while keeping the sele
 
   <Preview.Code>
     {`
-      import { RadioGroup } from "moduix";
+      import { RadioGroup } from "@moduix/react";
 
       export function DisabledRadioGroupDemo() {
         return (
@@ -299,7 +299,7 @@ Set `orientation="horizontal"` when arrow-key behavior and layout should follow 
 
   <Preview.Code>
     {`
-      import { RadioGroup } from "moduix";
+      import { RadioGroup } from "@moduix/react";
 
       export function RadioGroupOrientationDemo() {
         return (
@@ -334,7 +334,7 @@ Wrap the group in `Fieldset` when several radio items share a form section legen
 
   <Preview.Code>
     {`
-      import { Fieldset, RadioGroup } from "moduix";
+      import { Fieldset, RadioGroup } from "@moduix/react";
 
       export function RadioGroupFieldsetDemo() {
         return (
@@ -369,7 +369,7 @@ Use the moduix `size` prop on `ItemControl` when the radio control needs a diffe
 
   <Preview.Code>
     {`
-      import { RadioGroup } from "moduix";
+      import { RadioGroup } from "@moduix/react";
 
       export function RadioGroupSizesDemo() {
         return (
@@ -407,7 +407,7 @@ Use `RadioGroup.Item asChild` when a custom label layout should own the item DOM
 
   <Preview.Code>
     {`
-      import { RadioGroup } from "moduix";
+      import { RadioGroup } from "@moduix/react";
 
       export function RadioGroupAsChildDemo() {
         return (
@@ -442,7 +442,7 @@ Pass `className` to the Ark part that owns the visual concern and style Ark stat
 
   <Preview.Code>
     {`
-      import { RadioGroup } from "moduix";
+      import { RadioGroup } from "@moduix/react";
 
       export function StyledRadioGroupDemo() {
         return (
@@ -477,7 +477,7 @@ exactly.
 
   <Preview.Code>
     {`
-      import { RadioGroup } from "moduix";
+      import { RadioGroup } from "@moduix/react";
 
       export function RadioGroupIndicatorDemo() {
         return (

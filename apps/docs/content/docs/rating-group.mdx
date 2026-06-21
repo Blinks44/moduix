@@ -38,7 +38,7 @@ Use Ark-style parts: `RatingGroup.Root`, `RatingGroup.Label`, `RatingGroup.Contr
 
   <Preview.Code>
     {`
-      import { RatingGroup } from "moduix";
+      import { RatingGroup } from "@moduix/react";
 
       export function RatingGroupDemo() {
         return (
@@ -67,35 +67,35 @@ If you want `RatingGroup` to become part of your own project source instead of s
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/rating-group
+npx shadcn@latest add Blinks44/moduix/react-rating-group
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/rating-group
+pnpm dlx shadcn@latest add Blinks44/moduix/react-rating-group
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/rating-group
+bunx shadcn@latest add Blinks44/moduix/react-rating-group
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/rating-group
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-rating-group
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/rating-group
+aubx shadcn@latest add Blinks44/moduix/react-rating-group
 ```
 
   </Tab>
@@ -177,7 +177,7 @@ Use controlled mode when the selected score drives surrounding UI or must be res
 
   <Preview.Code>
     {`
-      import { RatingGroup } from "moduix";
+      import { RatingGroup } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledRatingGroupDemo() {
@@ -215,7 +215,7 @@ Create rating state with `useRatingGroup()` when other UI needs direct access to
 
   <Preview.Code>
     {`
-      import { RatingGroup, useRatingGroup } from "moduix";
+      import { RatingGroup, useRatingGroup } from "@moduix/react";
 
       export function RootProviderRatingGroupDemo() {
         const ratingGroup = useRatingGroup({ count: 5, defaultValue: 3 });
@@ -252,7 +252,7 @@ state should be shared with form copy.
 
   <Preview.Code>
     {`
-      import { Field, RatingGroup } from "moduix";
+      import { Field, RatingGroup } from "@moduix/react";
 
       export function FieldRatingGroupDemo() {
         return (
@@ -285,7 +285,7 @@ Set `allowHalf` when the rating should support half-step selection and display.
 
   <Preview.Code>
     {`
-      import { RatingGroup } from "moduix";
+      import { RatingGroup } from "@moduix/react";
 
       export function HalfRatingGroupDemo() {
         return (
@@ -315,7 +315,7 @@ Pass `name` and render `RatingGroup.HiddenInput` when the selected value should 
 
   <Preview.Code>
     {`
-      import { Button, RatingGroup } from "moduix";
+      import { Button, RatingGroup } from "@moduix/react";
 
       export function FormRatingGroupDemo() {
         return (
@@ -353,7 +353,7 @@ changes.
 
   <Preview.Code>
     {`
-      import { RatingGroup } from "moduix";
+      import { RatingGroup } from "@moduix/react";
 
       export function DisabledRatingGroupDemo() {
         return (
@@ -391,7 +391,7 @@ Use the moduix `size` prop when the same Ark rating behavior needs to fit a diff
 
   <Preview.Code>
     {`
-      import { RatingGroup } from "moduix";
+      import { RatingGroup } from "@moduix/react";
 
       export function RatingGroupSizesDemo() {
         return (
@@ -441,7 +441,7 @@ specific surface.
 
   <Preview.Code>
     {`
-      import { RatingGroup } from "moduix";
+      import { RatingGroup } from "@moduix/react";
 
       export function CustomRatingGroupDemo() {
         return (
@@ -471,7 +471,7 @@ indicator still receives Ark-driven `data-highlighted` and `data-half` attribute
 
   <Preview.Code>
     {`
-      import { HeartIcon, RatingGroup } from "moduix";
+      import { HeartIcon, RatingGroup } from "@moduix/react";
 
       export function CustomIconRatingGroupDemo() {
         return (

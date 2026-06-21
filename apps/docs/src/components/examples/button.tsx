@@ -1,4 +1,4 @@
-import { ArrowUpRightIcon, Button, PlusIcon, Spinner, StarIcon } from 'moduix';
+import { ArrowUpRightIcon, Button, PlusIcon, Spinner, StarIcon } from '@moduix/react';
 import { useRef, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

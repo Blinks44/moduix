@@ -1,6 +1,6 @@
-import type { TagVariant } from 'moduix';
+import type { TagVariant } from '@moduix/react';
 import type { ComponentProps } from 'react';
-import { CheckIcon, Tag } from 'moduix';
+import { CheckIcon, Tag } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './tag.module.css';

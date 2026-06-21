@@ -47,7 +47,7 @@ semantic trigger element.
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "moduix";
+      import { Lightbox, Portal } from "@moduix/react";
 
       export function LightboxDemo() {
         return (
@@ -84,35 +84,35 @@ semantic trigger element.
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/lightbox
+npx shadcn@latest add Blinks44/moduix/react-lightbox
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/lightbox
+pnpm dlx shadcn@latest add Blinks44/moduix/react-lightbox
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/lightbox
+bunx shadcn@latest add Blinks44/moduix/react-lightbox
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/lightbox
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-lightbox
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/lightbox
+aubx shadcn@latest add Blinks44/moduix/react-lightbox
 ```
 
   </Tab>
@@ -204,7 +204,7 @@ Use the Ark `onOpenChange(details)` callback when synchronizing lightbox state w
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "moduix";
+      import { Lightbox, Portal } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledLightboxDemo() {
@@ -246,7 +246,7 @@ not maintain a hidden image registry.
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "moduix";
+      import { Lightbox, Portal } from "@moduix/react";
       import { useState } from "react";
 
       export function GalleryLightboxDemo() {
@@ -299,7 +299,7 @@ choose a `selector`, and it will read `data-lightbox-src`, then `currentSrc`, th
 
   <Preview.Code>
     {`
-      import { Lightbox } from "moduix";
+      import { Lightbox } from "@moduix/react";
       import { useRef } from "react";
 
       export function CmsLightboxDemo() {
@@ -336,7 +336,7 @@ Create state with `useLightbox()` when the opener is outside the root. Read inli
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal, useLightbox } from "moduix";
+      import { Lightbox, Portal, useLightbox } from "@moduix/react";
 
       export function LightboxStateDemo() {
         const lightbox = useLightbox();
@@ -382,7 +382,7 @@ Use Ark presence props for heavy media. `lazyMount` delays rendering until the f
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "moduix";
+      import { Lightbox, Portal } from "@moduix/react";
 
       export function LazyLightboxDemo() {
         return (
@@ -419,7 +419,7 @@ close icon remains available and keeps the same Ark close semantics.
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "moduix";
+      import { Lightbox, Portal } from "@moduix/react";
 
       export function ClickToCloseLightboxDemo() {
         return (
@@ -458,7 +458,7 @@ Customize the backdrop, content sizing, media radius, and close icon through cla
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "moduix";
+      import { Lightbox, Portal } from "@moduix/react";
 
       export function StyledLightboxDemo() {
         return (

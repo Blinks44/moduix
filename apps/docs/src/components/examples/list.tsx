@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { List } from 'moduix';
+import { List } from '@moduix/react';
 import { CSSPropertiesReferenceTable } from '../preview';
 
 const basicItems = [

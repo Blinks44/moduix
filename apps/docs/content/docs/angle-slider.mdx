@@ -46,7 +46,7 @@ the active angle indicator, and `HiddenInput` enables native form submission.
 
   <Preview.Code>
     {`
-      import { AngleSlider } from "moduix";
+      import { AngleSlider } from "@moduix/react";
 
       export function AngleSliderDemo() {
         return (
@@ -92,35 +92,35 @@ moduix GitHub registry:
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/angle-slider
+npx shadcn@latest add Blinks44/moduix/react-angle-slider
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/angle-slider
+pnpm dlx shadcn@latest add Blinks44/moduix/react-angle-slider
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/angle-slider
+bunx shadcn@latest add Blinks44/moduix/react-angle-slider
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/angle-slider
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-angle-slider
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/angle-slider
+aubx shadcn@latest add Blinks44/moduix/react-angle-slider
 ```
 
   </Tab>
@@ -200,7 +200,7 @@ Use controlled state when the angle must stay synchronized with application stat
 
   <Preview.Code>
     {`
-      import { AngleSlider } from "moduix";
+      import { AngleSlider } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledAngleSliderDemo() {
@@ -251,7 +251,7 @@ Use `step` to snap pointer and keyboard interaction to a discrete angular increm
 
   <Preview.Code>
     {`
-      import { AngleSlider } from "moduix";
+      import { AngleSlider } from "@moduix/react";
 
       export function SteppedAngleSliderDemo() {
         return (
@@ -300,7 +300,7 @@ Use `disabled` when the control must be unavailable and excluded from interactio
 
   <Preview.Code>
     {`
-      import { AngleSlider } from "moduix";
+      import { AngleSlider } from "@moduix/react";
 
       export function DisabledAngleSliderDemo() {
         return (
@@ -348,7 +348,7 @@ Use `AngleSlider.Context` for inline rendering that depends on the current Ark s
 
   <Preview.Code>
     {`
-      import { AngleSlider } from "moduix";
+      import { AngleSlider } from "@moduix/react";
 
       export function ContextAngleSliderDemo() {
         return (
@@ -400,7 +400,7 @@ machine.
 
   <Preview.Code>
     {`
-      import { AngleSlider, useAngleSlider } from "moduix";
+      import { AngleSlider, useAngleSlider } from "@moduix/react";
 
       export function RootProviderAngleSliderDemo() {
         const angleSlider = useAngleSlider({
@@ -461,7 +461,7 @@ Use `readOnly` when the current value should remain focusable and visible withou
 
   <Preview.Code>
     {`
-      import { AngleSlider } from "moduix";
+      import { AngleSlider } from "@moduix/react";
 
       export function ReadOnlyAngleSliderDemo() {
         return (
@@ -510,7 +510,7 @@ state behavior.
 
   <Preview.Code>
     {`
-      import { AngleSlider } from "moduix";
+      import { AngleSlider } from "@moduix/react";
 
       export function AngleSliderStylingDemo() {
         return (

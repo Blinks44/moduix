@@ -1,6 +1,6 @@
 # moduix docs
 
-`apps/docs` is the documentation site for the `moduix` UI component library from `packages/ui`.
+`apps/docs` is the documentation site for the `moduix` UI component library from `packages/react`.
 
 It contains user-facing guides, component pages, usage examples, and API references.
 

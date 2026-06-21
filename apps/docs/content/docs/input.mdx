@@ -40,7 +40,7 @@ Use `Input` inside `Field` so Ark can connect the label, helper text, ids, and f
 
   <Preview.Code>
     {`
-      import { Field, Input } from "moduix";
+      import { Field, Input } from "@moduix/react";
 
       export function InputDemo() {
         return (
@@ -79,35 +79,35 @@ Use `Input` inside `Field` so Ark can connect the label, helper text, ids, and f
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/input
+npx shadcn@latest add Blinks44/moduix/react-input
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/input
+pnpm dlx shadcn@latest add Blinks44/moduix/react-input
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/input
+bunx shadcn@latest add Blinks44/moduix/react-input
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/input
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-input
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/input
+aubx shadcn@latest add Blinks44/moduix/react-input
 ```
 
   </Tab>
@@ -169,7 +169,7 @@ Use the native change event when React owns the current value.
 
   <Preview.Code>
     {`
-      import { Field, Input } from "moduix";
+      import { Field, Input } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledInputDemo() {
@@ -215,7 +215,7 @@ connects the error text.
 
   <Preview.Code>
     {`
-      import { Field, Input } from "moduix";
+      import { Field, Input } from "@moduix/react";
 
       export function InvalidInputDemo() {
         return (
@@ -254,7 +254,7 @@ Use native props directly or place them on `Field.Root` when the full field shou
 
   <Preview.Code>
     {`
-      import { Input } from "moduix";
+      import { Input } from "@moduix/react";
 
       export function InputStatesDemo() {
         return (
@@ -295,7 +295,7 @@ submission. Use `htmlSize` only for character-based width.
 
   <Preview.Code>
     {`
-      import { Field, Input } from "moduix";
+      import { Field, Input } from "@moduix/react";
 
       export function SecurityCodeDemo() {
         return (
@@ -340,7 +340,7 @@ Use `asChild` for a custom input host while preserving one semantic, focusable i
 
   <Preview.Code>
     {`
-      import { Field, Input } from "moduix";
+      import { Field, Input } from "@moduix/react";
 
       export function InputAsChildDemo() {
         return (
@@ -380,7 +380,7 @@ The moduix `size` prop changes visual density without replacing the native `size
 
   <Preview.Code>
     {`
-      import { Input } from "moduix";
+      import { Input } from "@moduix/react";
 
       export function InputSizesDemo() {
         return (
@@ -424,7 +424,7 @@ no field context to supply ids or helper/error relationships.
 
   <Preview.Code>
     {`
-      import { Input } from "moduix";
+      import { Input } from "@moduix/react";
 
       export function StandaloneInputDemo() {
         return <Input aria-label="Search projects" placeholder="Search projects" />;
@@ -457,7 +457,7 @@ Use `className`, public CSS variables, Ark anatomy attributes, and native state 
 
   <Preview.Code>
     {`
-      import { Field, Input } from "moduix";
+      import { Field, Input } from "@moduix/react";
 
       export function CustomInputDemo() {
         return (

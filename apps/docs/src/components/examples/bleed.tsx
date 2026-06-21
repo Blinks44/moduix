@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Bleed, Text } from 'moduix';
+import { Bleed, Text } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 

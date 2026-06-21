@@ -40,7 +40,7 @@ Compose one grouped input with only the presentational parts the field needs.
 
   <Preview.Code>
     {`
-      import { Field, InputGroup, InputGroupAddon, InputGroupInput } from "moduix";
+      import { Field, InputGroup, InputGroupAddon, InputGroupInput } from "@moduix/react";
 
       export function InputGroupDemo() {
         return (
@@ -78,35 +78,35 @@ Compose one grouped input with only the presentational parts the field needs.
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/input-group
+npx shadcn@latest add Blinks44/moduix/react-input-group
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/input-group
+pnpm dlx shadcn@latest add Blinks44/moduix/react-input-group
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/input-group
+bunx shadcn@latest add Blinks44/moduix/react-input-group
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/input-group
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-input-group
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/input-group
+aubx shadcn@latest add Blinks44/moduix/react-input-group
 ```
 
   </Tab>
@@ -180,7 +180,7 @@ Use a grouped button for an action tied to the native input value.
 
   <Preview.Code>
     {`
-      import { Field, InputGroup, InputGroupButton, InputGroupInput } from "moduix";
+      import { Field, InputGroup, InputGroupButton, InputGroupInput } from "@moduix/react";
       import { useState } from "react";
 
       export function InputGroupWithActionDemo() {
@@ -229,7 +229,7 @@ Mix a filled addon with plain text when the two sides have different visual weig
 
   <Preview.Code>
     {`
-      import { Field, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "moduix";
+      import { Field, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "@moduix/react";
 
       export function BudgetInputGroupDemo() {
         return (
@@ -272,7 +272,7 @@ shell reacts to that input state.
 
   <Preview.Code>
     {`
-      import { Field, InputGroup, InputGroupInput, InputGroupText } from "moduix";
+      import { Field, InputGroup, InputGroupInput, InputGroupText } from "@moduix/react";
 
       export function InvalidDomainDemo() {
         return (
@@ -315,7 +315,7 @@ also become unavailable.
 
   <Preview.Code>
     {`
-      import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "moduix";
+      import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@moduix/react";
 
       export function DisabledInputGroupDemo() {
         return (
@@ -362,7 +362,7 @@ Keep one mounted input, toggle `readOnly`, and swap only the trailing actions.
         InputGroupButton,
         InputGroupInput,
         PencilIcon,
-      } from "moduix";
+      } from "@moduix/react";
       import { useEffect, useRef, useState } from "react";
 
       export function InlineEditingDemo() {
@@ -449,7 +449,7 @@ Set size once on the root so the input, addon, text, and button stay aligned.
 
   <Preview.Code>
     {`
-      import { InputGroup, InputGroupAddon, InputGroupInput } from "moduix";
+      import { InputGroup, InputGroupAddon, InputGroupInput } from "@moduix/react";
 
       export function InputGroupSizesDemo() {
         return (
@@ -493,7 +493,7 @@ Use root variables for the merged shell and part classes for local addon or butt
 
   <Preview.Code>
     {`
-      import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "moduix";
+      import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@moduix/react";
 
       export function CustomInputGroupDemo() {
         return (

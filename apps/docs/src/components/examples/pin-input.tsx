@@ -1,4 +1,4 @@
-import { Field, PinInput, type PinInputValueChangeDetails, usePinInput } from 'moduix';
+import { Field, PinInput, type PinInputValueChangeDetails, usePinInput } from '@moduix/react';
 import { useId, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

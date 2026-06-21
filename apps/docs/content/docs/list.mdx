@@ -36,7 +36,7 @@ Start with `List` and `List.Item`. This is the recommended path when you want na
 
   <Preview.Code>
     {`
-      import { List } from "moduix";
+      import { List } from "@moduix/react";
 
       export function ListDemo() {
         return (
@@ -63,35 +63,35 @@ If you want `List` to become part of your own project source instead of staying 
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/list
+npx shadcn@latest add Blinks44/moduix/react-list
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/list
+pnpm dlx shadcn@latest add Blinks44/moduix/react-list
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/list
+bunx shadcn@latest add Blinks44/moduix/react-list
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/list
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-list
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/list
+aubx shadcn@latest add Blinks44/moduix/react-list
 ```
 
   </Tab>
@@ -152,7 +152,7 @@ Use `asChild` to render an ordered list while keeping the moduix root styling co
 
   <Preview.Code>
     {`
-      import { List } from "moduix";
+      import { List } from "@moduix/react";
 
       export function OrderedListDemo() {
         return (
@@ -182,7 +182,7 @@ Use `marker="none"` when you need list semantics without visible markers.
 
   <Preview.Code>
     {`
-      import { List } from "moduix";
+      import { List } from "@moduix/react";
 
       export function MarkerlessListDemo() {
         return (
@@ -210,7 +210,7 @@ Use native `li` elements when you do not need the exported `List.Item` slot.
 
   <Preview.Code>
     {`
-      import { List } from "moduix";
+      import { List } from "@moduix/react";
 
       export function NativeItemsListDemo() {
         return (
@@ -238,7 +238,7 @@ Use `tone` when the list should inherit a semantic text color.
 
   <Preview.Code>
     {`
-      import { List } from "moduix";
+      import { List } from "@moduix/react";
 
       export function ListToneDemo() {
         return (
@@ -278,7 +278,7 @@ Use `List.Item asChild` when the item slot should stay public but the caller nee
 
   <Preview.Code>
     {`
-      import { List } from "moduix";
+      import { List } from "@moduix/react";
 
       export function CustomCompositionListDemo() {
         return (
@@ -305,7 +305,7 @@ Use `List.Item asChild` when the item slot should stay public but the caller nee
 
 ## Styling
 
-Style `List` through `className`, the exported Ark-style `data-*` hooks, native `li::marker`, and the public `--list-*` CSS variables shown below. The variable list here was checked against `packages/ui/src/styles/theme.css`.
+Style `List` through `className`, the exported Ark-style `data-*` hooks, native `li::marker`, and the public `--list-*` CSS variables shown below. The variable list here was checked against `packages/react/src/core/styles/theme.css`.
 
 ### CSS Properties
 

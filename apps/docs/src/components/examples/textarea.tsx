@@ -1,4 +1,4 @@
-import { Button, CheckIcon, CloseIcon, Field, PencilIcon, Textarea } from 'moduix';
+import { Button, CheckIcon, CloseIcon, Field, PencilIcon, Textarea } from '@moduix/react';
 import { useEffect, useRef, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

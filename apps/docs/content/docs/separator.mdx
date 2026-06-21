@@ -29,7 +29,7 @@ Use `Separator` when the line itself communicates structure between related cont
 
   <Preview.Code>
     {`
-      import { Separator } from "moduix";
+      import { Separator } from "@moduix/react";
       import styles from "./separator-demo.module.css";
 
       export function SeparatorDemo() {
@@ -86,35 +86,35 @@ If you want `Separator` to become part of your own project source instead of sta
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/separator
+npx shadcn@latest add Blinks44/moduix/react-separator
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/separator
+pnpm dlx shadcn@latest add Blinks44/moduix/react-separator
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/separator
+bunx shadcn@latest add Blinks44/moduix/react-separator
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/separator
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-separator
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/separator
+aubx shadcn@latest add Blinks44/moduix/react-separator
 ```
 
   </Tab>
@@ -185,7 +185,7 @@ Use `orientation="vertical"` for inline groups such as navigation actions.
 
   <Preview.Code>
     {`
-      import { Separator } from "moduix";
+      import { Separator } from "@moduix/react";
       import styles from "./separator-demo.module.css";
 
       const navigationItems = ["Home", "Pricing", "Sign in"];
@@ -243,7 +243,7 @@ Use `variant` when the separator needs a solid, dashed, or dotted stroke.
 
   <Preview.Code>
     {`
-      import { Separator, type SeparatorVariant } from "moduix";
+      import { Separator, type SeparatorVariant } from "@moduix/react";
       import styles from "./separator-demo.module.css";
 
       const variants: SeparatorVariant[] = ["solid", "dashed", "dotted"];
@@ -303,7 +303,7 @@ Use `size` to select the recipe thickness before applying any custom CSS variabl
 
   <Preview.Code>
     {`
-      import { Separator, type SeparatorSize } from "moduix";
+      import { Separator, type SeparatorSize } from "@moduix/react";
       import styles from "./separator-demo.module.css";
 
       const sizes: SeparatorSize[] = ["xs", "sm", "md", "lg"];
@@ -363,7 +363,7 @@ Use `asChild` to render a native host while keeping the moduix separator styling
 
   <Preview.Code>
     {`
-      import { Separator } from "moduix";
+      import { Separator } from "@moduix/react";
       import styles from "./separator-demo.module.css";
 
       export function SeparatorAsChildDemo() {
@@ -417,7 +417,7 @@ or a fixed length.
 
   <Preview.Code>
     {`
-      import { Separator } from "moduix";
+      import { Separator } from "@moduix/react";
       import styles from "./separator-demo.module.css";
 
       export function CustomSeparatorDemo() {

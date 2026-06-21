@@ -33,7 +33,7 @@ Use the Ark-shaped `Root`, `Trigger`, `Indicator`, and `Content` parts for one i
 
   <Preview.Code>
     {`
-      import { Collapsible } from "moduix";
+      import { Collapsible } from "@moduix/react";
 
       export function CollapsibleDemo() {
         return (
@@ -70,35 +70,35 @@ Install the component source from the moduix GitHub registry:
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/collapsible
+npx shadcn@latest add Blinks44/moduix/react-collapsible
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/collapsible
+pnpm dlx shadcn@latest add Blinks44/moduix/react-collapsible
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/collapsible
+bunx shadcn@latest add Blinks44/moduix/react-collapsible
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/collapsible
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-collapsible
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/collapsible
+aubx shadcn@latest add Blinks44/moduix/react-collapsible
 ```
 
   </Tab>
@@ -208,7 +208,7 @@ Use `open` with the Ark `onOpenChange(details)` callback when surrounding UI own
 
   <Preview.Code>
     {`
-      import { Collapsible } from "moduix";
+      import { Collapsible } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledCollapsibleDemo() {
@@ -390,7 +390,7 @@ Create the state machine with `useCollapsible` when code outside the rendered ro
 
   <Preview.Code>
     {`
-      import { Collapsible, useCollapsible } from "moduix";
+      import { Collapsible, useCollapsible } from "@moduix/react";
 
       export function RootProviderCollapsibleDemo() {
         const collapsible = useCollapsible();
@@ -435,7 +435,7 @@ Use `asChild` to compose the trigger behavior onto a consumer-owned button.
 
   <Preview.Code>
     {`
-      import { ChevronDownIcon, Collapsible } from "moduix";
+      import { ChevronDownIcon, Collapsible } from "@moduix/react";
 
       export function CustomCompositionCollapsibleDemo() {
         return (

@@ -43,7 +43,7 @@ and issue or note entry.
 
   <Preview.Code>
     {`
-      import { Field, Textarea } from "moduix";
+      import { Field, Textarea } from "@moduix/react";
 
       export function TextareaDemo() {
         return (
@@ -81,35 +81,35 @@ If you want `Textarea` to become part of your own project source instead of stay
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/textarea
+npx shadcn@latest add Blinks44/moduix/react-textarea
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/textarea
+pnpm dlx shadcn@latest add Blinks44/moduix/react-textarea
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/textarea
+bunx shadcn@latest add Blinks44/moduix/react-textarea
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/textarea
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-textarea
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/textarea
+aubx shadcn@latest add Blinks44/moduix/react-textarea
 ```
 
   </Tab>
@@ -177,7 +177,7 @@ Use `value` and native `onChange` when content should stay in React state.
 
   <Preview.Code>
     {`
-      import { Field, Textarea } from "moduix";
+      import { Field, Textarea } from "@moduix/react";
       import { useState } from "react";
 
       function ControlledTextarea() {
@@ -219,7 +219,7 @@ Use native textarea props for sizing, browser behavior, and form submission.
 
   <Preview.Code>
     {`
-      import { Field, Textarea } from "moduix";
+      import { Field, Textarea } from "@moduix/react";
 
       export function TextareaNativeAttributesDemo() {
         return (
@@ -269,7 +269,7 @@ Use Ark `autoresize` when the textarea should grow with its content.
 
   <Preview.Code>
     {`
-      import { Field, Textarea } from "moduix";
+      import { Field, Textarea } from "@moduix/react";
 
       export function AutoResizeTextareaDemo() {
         return (
@@ -307,7 +307,7 @@ Use `Field` with `Field.ErrorText` for native validity and accessible error mess
 
   <Preview.Code>
     {`
-      import { Field, Textarea } from "moduix";
+      import { Field, Textarea } from "@moduix/react";
 
       export function TextareaFieldValidationDemo() {
         return (
@@ -354,7 +354,7 @@ Set `disabled` or `readOnly` based on interaction requirements.
 
   <Preview.Code>
     {`
-      import { Textarea } from "moduix";
+      import { Textarea } from "@moduix/react";
 
       export function DisabledAndReadonlyTextareaDemo() {
         return (
@@ -400,7 +400,7 @@ edit mode starts.
 
   <Preview.Code>
     {`
-      import { Button, CheckIcon, CloseIcon, Field, PencilIcon, Textarea } from "moduix";
+      import { Button, CheckIcon, CloseIcon, Field, PencilIcon, Textarea } from "@moduix/react";
       import { useEffect, useRef, useState } from "react";
 
       export function ReadonlyEditingTextareaDemo() {
@@ -501,7 +501,7 @@ Pass `className` when the textarea root needs local styling overrides.
 
   <Preview.Code>
     {`
-      import { Field, Textarea } from "moduix";
+      import { Field, Textarea } from "@moduix/react";
 
       export function CustomTextareaDemo() {
         return (

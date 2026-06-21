@@ -31,7 +31,7 @@ Use the Ark part tree directly: render `HoverCard.Trigger` near the hovered cont
 
   <Preview.Code>
     {`
-      import { HoverCard } from "moduix";
+      import { HoverCard } from "@moduix/react";
 
       export function HoverCardDemo() {
         return (
@@ -71,35 +71,35 @@ If you want `Hover Card` to become part of your own project source instead of st
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/hover-card
+npx shadcn@latest add Blinks44/moduix/react-hover-card
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/hover-card
+pnpm dlx shadcn@latest add Blinks44/moduix/react-hover-card
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/hover-card
+bunx shadcn@latest add Blinks44/moduix/react-hover-card
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/hover-card
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-hover-card
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/hover-card
+aubx shadcn@latest add Blinks44/moduix/react-hover-card
 ```
 
   </Tab>
@@ -177,7 +177,7 @@ Control the open state with `open` and `onOpenChange(details)`.
 
   <Preview.Code>
     {`
-      import { HoverCard } from "moduix";
+      import { HoverCard } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledHoverCard() {
@@ -215,7 +215,7 @@ Create the machine state with `useHoverCard()` when external controls need to re
 
   <Preview.Code>
     {`
-      import { HoverCard, useHoverCard } from "moduix";
+      import { HoverCard, useHoverCard } from "@moduix/react";
 
       export function RootProviderHoverCard() {
         const hoverCard = useHoverCard();
@@ -252,7 +252,7 @@ Tune hover timing with `openDelay` and `closeDelay` on the root.
 
   <Preview.Code>
     {`
-      import { HoverCard } from "moduix";
+      import { HoverCard } from "@moduix/react";
 
       export function DelayHoverCard() {
         return (
@@ -287,7 +287,7 @@ Pass Ark positioning options through the `positioning` prop.
 
   <Preview.Code>
     {`
-      import { HoverCard } from "moduix";
+      import { HoverCard } from "@moduix/react";
 
       export function PositioningHoverCard() {
         return (
@@ -323,7 +323,7 @@ Use `HoverCard.Context` for inline state reads, such as changing trigger icons w
   <Preview.Code>
     {`
       import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-      import { HoverCard } from "moduix";
+      import { HoverCard } from "@moduix/react";
 
       export function ContextHoverCard() {
         return (
@@ -365,7 +365,7 @@ Share one content surface across trigger values with `Trigger value` and
 
   <Preview.Code>
     {`
-      import { HoverCard } from "moduix";
+      import { HoverCard } from "@moduix/react";
       import { useState } from "react";
 
       export function MultipleTriggersHoverCard() {
@@ -409,7 +409,7 @@ Override moduix CSS variables and target stable `data-slot` hooks without changi
 
   <Preview.Code>
     {`
-      import { HoverCard } from "moduix";
+      import { HoverCard } from "@moduix/react";
 
       export function CustomStylingHoverCard() {
         return (

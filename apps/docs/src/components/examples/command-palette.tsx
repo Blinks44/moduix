@@ -7,7 +7,7 @@ import {
   StarIcon,
   useFilter,
   useListCollection,
-} from 'moduix';
+} from '@moduix/react';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

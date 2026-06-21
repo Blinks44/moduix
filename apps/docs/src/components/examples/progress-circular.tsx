@@ -1,4 +1,4 @@
-import { ProgressCircular, Slider, useProgressCircular } from 'moduix';
+import { ProgressCircular, Slider, useProgressCircular } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

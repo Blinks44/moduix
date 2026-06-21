@@ -30,7 +30,7 @@ button semantics and a default close glyph, but it does not manage overlay state
 
   <Preview.Code>
     {`
-      import { CloseButton } from "moduix";
+      import { CloseButton } from "@moduix/react";
 
       export function CloseButtonDemo() {
         return (
@@ -108,35 +108,35 @@ If you want `Close Button` to become part of your own project source instead of 
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/close-button
+npx shadcn@latest add Blinks44/moduix/react-close-button
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/close-button
+pnpm dlx shadcn@latest add Blinks44/moduix/react-close-button
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/close-button
+bunx shadcn@latest add Blinks44/moduix/react-close-button
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/close-button
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-close-button
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/close-button
+aubx shadcn@latest add Blinks44/moduix/react-close-button
 ```
 
   </Tab>
@@ -204,7 +204,7 @@ Replace the default glyph through `children` while keeping the root button and s
 
   <Preview.Code>
     {`
-      import { CloseButton } from "moduix";
+      import { CloseButton } from "@moduix/react";
 
       function CircleXIcon() {
         return (
@@ -258,7 +258,7 @@ Close Button styling and data hooks.
 
   <Preview.Code>
     {`
-      import { CloseButton } from "moduix";
+      import { CloseButton } from "@moduix/react";
 
       function CircleXIcon() {
         return (
@@ -312,7 +312,7 @@ Style the root through `className` and the public `--close-button-*` variables.
 
   <Preview.Code>
     {`
-      import { CloseButton } from "moduix";
+      import { CloseButton } from "@moduix/react";
 
       export function CloseButtonCustomStylingDemo() {
         return <CloseButton className="customButton" aria-label="Close message" />;
@@ -360,7 +360,7 @@ discoverable while refusing activation.
 
   <Preview.Code>
     {`
-      import { CloseButton } from "moduix";
+      import { CloseButton } from "@moduix/react";
 
       export function CloseButtonDisabledDemo() {
         return <CloseButton aria-disabled="true" aria-label="Close unavailable message" />;

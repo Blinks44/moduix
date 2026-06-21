@@ -53,7 +53,7 @@ Items use stable `value` identifiers for selection and typeahead.
         Button,
         Menu,
         Portal,
-      } from "moduix";
+      } from "@moduix/react";
 
       const fileItems = [
         { value: "new-file", label: "New File" },
@@ -99,35 +99,35 @@ Items use stable `value` identifiers for selection and typeahead.
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/menu
+npx shadcn@latest add Blinks44/moduix/react-menu
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/menu
+pnpm dlx shadcn@latest add Blinks44/moduix/react-menu
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/menu
+bunx shadcn@latest add Blinks44/moduix/react-menu
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/menu
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-menu
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/menu
+aubx shadcn@latest add Blinks44/moduix/react-menu
 ```
 
   </Tab>
@@ -231,7 +231,7 @@ Control `open` with `onOpenChange(details)` when another control needs to drive 
   <ControlledMenuExample />
   <Preview.Code>
     {`
-      import { Button, Menu, Portal } from "moduix";
+      import { Button, Menu, Portal } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledMenuDemo() {
@@ -274,7 +274,7 @@ API.
   <RootProviderMenuExample />
   <Preview.Code>
     {`
-      import { Button, Menu, Portal, useMenu } from "moduix";
+      import { Button, Menu, Portal, useMenu } from "@moduix/react";
 
       export function RootProviderMenuDemo() {
         const menu = useMenu();
@@ -319,7 +319,7 @@ Use `Menu.ItemGroup` and `Menu.ItemGroupLabel` to organize related menu rows.
         Button,
         Menu,
         Portal,
-      } from "moduix";
+      } from "@moduix/react";
 
       export function GroupingMenuDemo() {
         return (
@@ -364,7 +364,7 @@ Use `Menu.Item asChild` for anchors so the link itself receives menu semantics.
   <LinkItemsMenuExample />
   <Preview.Code>
     {`
-      import { Button, Menu, Portal } from "moduix";
+      import { Button, Menu, Portal } from "@moduix/react";
 
       export function LinkItemsMenuDemo() {
         return (
@@ -409,7 +409,7 @@ Checkbox items keep boolean state while preserving menu navigation and typeahead
         Button,
         Menu,
         Portal,
-      } from "moduix";
+      } from "@moduix/react";
       import { useState } from "react";
 
       export function CheckboxItemsMenuDemo() {
@@ -455,7 +455,7 @@ Use `Menu.RadioItemGroup` for one selected value inside a menu.
         Button,
         Menu,
         Portal,
-      } from "moduix";
+      } from "@moduix/react";
       import { useState } from "react";
 
       export function RadioItemsMenuDemo() {
@@ -506,7 +506,7 @@ Use `Menu.ContextTrigger` for right-click and long-press context menus.
   <ContextMenuExample />
   <Preview.Code>
     {`
-      import { Menu, Portal } from "moduix";
+      import { Menu, Portal } from "@moduix/react";
 
       export function ContextMenuDemo() {
         return (
@@ -540,7 +540,7 @@ is present.
   <ContextLazyMountMenuExample />
   <Preview.Code>
     {`
-      import { Menu, Portal } from "moduix";
+      import { Menu, Portal } from "@moduix/react";
 
       export function ContextLazyMountMenuDemo() {
         return (
@@ -582,7 +582,7 @@ Render a nested `Menu` and open it from `Menu.TriggerItem`.
         Button,
         Menu,
         Portal,
-      } from "moduix";
+      } from "@moduix/react";
 
       export function NestedMenuDemo() {
         return (
@@ -632,7 +632,7 @@ Pass a `value` to each `Menu.Trigger` when one menu is shared across multiple tr
   <MultipleTriggersMenuExample />
   <Preview.Code>
     {`
-      import { MapIcon, Menu, Portal } from "moduix";
+      import { MapIcon, Menu, Portal } from "@moduix/react";
 
       const messages = [
         { id: "1", sender: "Alice Johnson", preview: "Hey, can you review the latest PR?" },
@@ -673,7 +673,7 @@ Use root `onSelect(details)` when the menu should react to any item selection.
   <SelectEventMenuExample />
   <Preview.Code>
     {`
-      import { Button, Menu, Portal } from "moduix";
+      import { Button, Menu, Portal } from "@moduix/react";
       import { useState } from "react";
 
       export function SelectEventMenuDemo() {
@@ -716,7 +716,7 @@ Use `Menu.ItemContext` for inline access to item state such as `highlighted`.
   <ItemContextMenuExample />
   <Preview.Code>
     {`
-      import { Button, Menu, Portal } from "moduix";
+      import { Button, Menu, Portal } from "@moduix/react";
 
       export function ItemContextMenuDemo() {
         return (
@@ -765,7 +765,7 @@ moduix adds `indicator="start" | "end" | "none"` on checkbox and radio rows for 
         MapIcon,
         Menu,
         Portal,
-      } from "moduix";
+      } from "@moduix/react";
       import { useState } from "react";
 
       export function IndicatorRightMenuDemo() {
@@ -815,7 +815,7 @@ variables without changing the Ark part tree.
   <CustomStylingMenuExample />
   <Preview.Code>
     {`
-      import { Button, Menu, Portal } from "moduix";
+      import { Button, Menu, Portal } from "@moduix/react";
       import styles from "./menu.module.css";
 
       export function CustomStylingMenuDemo() {

@@ -1,4 +1,4 @@
-import { Clipboard, useClipboard } from 'moduix';
+import { Clipboard, useClipboard } from '@moduix/react';
 import { useState, type ComponentProps, type ReactNode } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

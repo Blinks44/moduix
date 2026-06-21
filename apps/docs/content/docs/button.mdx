@@ -35,7 +35,7 @@ form.
 
   <Preview.Code>
     {`
-      import { Button } from "moduix";
+      import { Button } from "@moduix/react";
 
       export function ButtonDemo() {
         return <Button>{labels.save}</Button>;
@@ -66,35 +66,35 @@ form.
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/button
+npx shadcn@latest add Blinks44/moduix/react-button
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/button
+pnpm dlx shadcn@latest add Blinks44/moduix/react-button
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/button
+bunx shadcn@latest add Blinks44/moduix/react-button
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/button
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-button
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/button
+aubx shadcn@latest add Blinks44/moduix/react-button
 ```
 
   </Tab>
@@ -160,7 +160,7 @@ Use variants to communicate action priority and intent.
 
   <Preview.Code>
     {`
-      import { Button } from "moduix";
+      import { Button } from "@moduix/react";
 
       export function ButtonVariantsDemo() {
         return (
@@ -212,7 +212,7 @@ Text and icon-only sizes share the same root API.
 
   <Preview.Code>
     {`
-      import { Button, StarIcon } from "moduix";
+      import { Button, StarIcon } from "@moduix/react";
 
       export function ButtonSizesDemo() {
         return (
@@ -272,7 +272,7 @@ name.
 
   <Preview.Code>
     {`
-      import { ArrowUpRightIcon, Button, PlusIcon, StarIcon } from "moduix";
+      import { ArrowUpRightIcon, Button, PlusIcon, StarIcon } from "@moduix/react";
 
       export function ButtonIconsDemo() {
         return (
@@ -327,7 +327,7 @@ activation prevention.
 
   <Preview.Code>
     {`
-      import { Button } from "moduix";
+      import { Button } from "@moduix/react";
 
       export function ButtonDisabledDemo() {
         return (
@@ -376,7 +376,7 @@ lifecycle.
 
   <Preview.Code>
     {`
-      import { Button, Spinner } from "moduix";
+      import { Button, Spinner } from "@moduix/react";
       import { useState } from "react";
 
       export function PendingButton() {
@@ -434,7 +434,7 @@ Use `asChild` for navigation so the anchor retains link semantics while receivin
 
   <Preview.Code>
     {`
-      import { Button } from "moduix";
+      import { Button } from "@moduix/react";
 
       export function ButtonLinkDemo() {
         return (
@@ -474,7 +474,7 @@ The forwarded ref points at the rendered root and can be used for imperative foc
 
   <Preview.Code>
     {`
-      import { Button } from "moduix";
+      import { Button } from "@moduix/react";
       import { useRef } from "react";
 
       export function ButtonRefDemo() {
@@ -523,7 +523,7 @@ Use `className`, CSS variables, and stable data hooks for local visual changes.
 
   <Preview.Code>
     {`
-      import { Button, Spinner } from "moduix";
+      import { Button, Spinner } from "@moduix/react";
 
       export function CustomStylingButtonDemo() {
         return (

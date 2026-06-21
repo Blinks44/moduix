@@ -43,7 +43,7 @@ Create an Ark `ListCollection`, pass it to `Combobox.Root`, and keep the popup s
 
   <Preview.Code>
     {`
-      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import { Combobox, Portal, useFilter, useListCollection } from "@moduix/react";
 
       export function ComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -107,35 +107,35 @@ Install the registry source when the component should live in your application:
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/combobox
+npx shadcn@latest add Blinks44/moduix/react-combobox
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/combobox
+pnpm dlx shadcn@latest add Blinks44/moduix/react-combobox
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/combobox
+bunx shadcn@latest add Blinks44/moduix/react-combobox
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/combobox
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-combobox
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/combobox
+aubx shadcn@latest add Blinks44/moduix/react-combobox
 ```
 
   </Tab>
@@ -239,7 +239,7 @@ Enter can select it without an extra arrow-key press.
 
   <Preview.Code>
     {`
-      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import { Combobox, Portal, useFilter, useListCollection } from "@moduix/react";
 
       export function AutoHighlightComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -309,7 +309,7 @@ first matching item while preserving Ark keyboard navigation.
 
   <Preview.Code>
     {`
-      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import { Combobox, Portal, useFilter, useListCollection } from "@moduix/react";
 
       export function InlineAutocompleteComboboxDemo() {
         const { startsWith } = useFilter({ sensitivity: "base" });
@@ -379,7 +379,7 @@ as a native link. `selectionBehavior="preserve"` keeps the search text visible d
 
   <Preview.Code>
     {`
-      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import { Combobox, Portal, useFilter, useListCollection } from "@moduix/react";
 
       export function LinksComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -460,7 +460,7 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
 
   <Preview.Code>
     {`
-      import { Combobox, Portal, useListCollection } from "moduix";
+      import { Combobox, Portal, useListCollection } from "@moduix/react";
 
       export function DynamicComboboxDemo() {
         const { collection, set } = useListCollection({
@@ -529,7 +529,7 @@ replace that sentinel value with the user-entered value after selection.
 
   <Preview.Code>
     {`
-      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import { Combobox, Portal, useFilter, useListCollection } from "@moduix/react";
       import { useState } from "react";
       import { flushSync } from "react-dom";
 
@@ -659,7 +659,7 @@ popup harder to scan. Filtering still runs against the complete initial collecti
 
   <Preview.Code>
     {`
-      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import { Combobox, Portal, useFilter, useListCollection } from "@moduix/react";
 
       export function LimitComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -738,7 +738,7 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
   <Preview.Code>
     {`
       import { useVirtualizer } from "@tanstack/react-virtual";
-      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import { Combobox, Portal, useFilter, useListCollection } from "@moduix/react";
       import { useRef } from "react";
 
       export function VirtualizedComboboxDemo() {
@@ -855,7 +855,7 @@ Control the selected string array and read the next value from `details.value`.
 
   <Preview.Code>
     {`
-      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import { Combobox, Portal, useFilter, useListCollection } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledComboboxDemo() {
@@ -929,7 +929,7 @@ Map object labels and values on the collection, then render Ark item groups from
 
   <Preview.Code>
     {`
-      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import { Combobox, Portal, useFilter, useListCollection } from "@moduix/react";
 
       export function GroupedComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -1012,8 +1012,8 @@ separate state owner.
 
   <Preview.Code>
     {`
-      import type { UseComboboxContext } from "moduix";
-      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import type { UseComboboxContext } from "@moduix/react";
+      import { Combobox, Portal, useFilter, useListCollection } from "@moduix/react";
 
       export function ContextComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -1084,8 +1084,8 @@ composition rather than combobox parts.
 
   <Preview.Code>
     {`
-      import type { UseComboboxContext } from "moduix";
-      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import type { UseComboboxContext } from "@moduix/react";
+      import { Combobox, Portal, useFilter, useListCollection } from "@moduix/react";
 
       export function MultipleComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -1190,7 +1190,7 @@ from machine-driven input updates.
 
   <Preview.Code>
     {`
-      import { Combobox, Portal, createListCollection } from "moduix";
+      import { Combobox, Portal, createListCollection } from "@moduix/react";
       import { useEffect, useMemo, useState } from "react";
 
       export function AsyncSearchComboboxDemo() {
@@ -1301,7 +1301,7 @@ selected object.
         useCombobox,
         useComboboxContext,
         useListCollection,
-      } from "moduix";
+      } from "@moduix/react";
       import { useEffect, useRef } from "react";
 
       function RehydrateComboboxValue() {
@@ -1400,7 +1400,7 @@ state before the root renders.
         Portal,
         createListCollection,
         useCombobox,
-      } from "moduix";
+      } from "@moduix/react";
 
       const collection = createListCollection({ items: jobTitles });
 

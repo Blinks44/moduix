@@ -35,7 +35,7 @@ can switch between it and the image as loading state changes.
 
   <Preview.Code>
     {`
-      import { Avatar } from "moduix";
+      import { Avatar } from "@moduix/react";
 
       export function AvatarDemo() {
         return (
@@ -62,35 +62,35 @@ GitHub registry:
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/avatar
+npx shadcn@latest add Blinks44/moduix/react-avatar
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/avatar
+pnpm dlx shadcn@latest add Blinks44/moduix/react-avatar
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/avatar
+bunx shadcn@latest add Blinks44/moduix/react-avatar
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/avatar
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-avatar
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/avatar
+aubx shadcn@latest add Blinks44/moduix/react-avatar
 ```
 
   </Tab>
@@ -162,7 +162,7 @@ Use `onStatusChange(details)` when surrounding UI needs to react to the image li
 
   <Preview.Code>
     {`
-      import { Avatar } from "moduix";
+      import { Avatar } from "@moduix/react";
       import { useState } from "react";
 
       export function AvatarStatusDemo() {
@@ -195,7 +195,7 @@ Use `Avatar.Context` for a render-prop state read that stays inside the current 
 
   <Preview.Code>
     {`
-      import { Avatar } from "moduix";
+      import { Avatar } from "@moduix/react";
 
       export function AvatarContextDemo() {
         return (
@@ -227,7 +227,7 @@ render `Avatar.RootProvider` instead of `Avatar.Root`.
 
   <Preview.Code>
     {`
-      import { Avatar, useAvatar } from "moduix";
+      import { Avatar, useAvatar } from "@moduix/react";
       import { useState } from "react";
 
       export function AvatarRootProviderDemo() {
@@ -268,7 +268,7 @@ avatar is valid when no image source exists.
 
   <Preview.Code>
     {`
-      import { Avatar } from "moduix";
+      import { Avatar } from "@moduix/react";
 
       export function AvatarSizesDemo() {
         return (
@@ -304,7 +304,7 @@ its link or button semantics and accessible name.
 
   <Preview.Code>
     {`
-      import { Avatar } from "moduix";
+      import { Avatar } from "@moduix/react";
 
       export function AvatarLinkDemo() {
         return (
@@ -334,7 +334,7 @@ treatment without replacing the loading behavior.
 
   <Preview.Code>
     {`
-      import { Avatar } from "moduix";
+      import { Avatar } from "@moduix/react";
 
       export function AvatarStylingDemo() {
         return (
@@ -366,7 +366,7 @@ the fallback itself conveys information that is not available in nearby text.
 
   <Preview.Code>
     {`
-      import { Avatar, ComputerIcon } from "moduix";
+      import { Avatar, ComputerIcon } from "@moduix/react";
 
       export function AvatarIconFallbackDemo() {
         return (

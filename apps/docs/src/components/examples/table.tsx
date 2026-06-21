@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactNode } from 'react';
-import { Badge, Button, Card, Menu, Portal, Table } from 'moduix';
+import { Badge, Button, Card, Menu, Portal, Table } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './table.module.css';

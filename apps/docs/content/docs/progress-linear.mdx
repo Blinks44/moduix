@@ -19,7 +19,7 @@ import {
   progressLinearData,
   progressLinearExampleCss,
 } from '@/components/examples/progress-linear';
-import { ProgressLinear } from 'moduix';
+import { ProgressLinear } from '@moduix/react';
 
 ## API Reference
 
@@ -40,7 +40,7 @@ Use Ark-style parts: `ProgressLinear.Root`, `ProgressLinear.Label`,
 
   <Preview.Code>
     {`
-      import { ProgressLinear } from "moduix";
+      import { ProgressLinear } from "@moduix/react";
 
       export function ProgressLinearDemo() {
         return (
@@ -70,35 +70,35 @@ If you want `ProgressLinear` to become part of your own project source instead o
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/progress-linear
+npx shadcn@latest add Blinks44/moduix/react-progress-linear
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/progress-linear
+pnpm dlx shadcn@latest add Blinks44/moduix/react-progress-linear
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/progress-linear
+bunx shadcn@latest add Blinks44/moduix/react-progress-linear
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/progress-linear
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-progress-linear
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/progress-linear
+aubx shadcn@latest add Blinks44/moduix/react-progress-linear
 ```
 
   </Tab>
@@ -184,7 +184,7 @@ Keep `value` in React state when progress mirrors another control or external ta
 
   <Preview.Code>
     {`
-      import { ProgressLinear, Slider } from "moduix";
+      import { ProgressLinear, Slider } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledProgressLinearDemo() {
@@ -237,7 +237,7 @@ Use `defaultValue` to set the initial uncontrolled progress value.
 
   <Preview.Code>
     {`
-      import { ProgressLinear } from "moduix";
+      import { ProgressLinear } from "@moduix/react";
 
       export function InitialValueProgressLinearDemo() {
         return (
@@ -267,7 +267,7 @@ Use `min` and `max` when the value does not use the default `0` to `100` range.
 
   <Preview.Code>
     {`
-      import { ProgressLinear } from "moduix";
+      import { ProgressLinear } from "@moduix/react";
 
       export function MinMaxProgressLinearDemo() {
         return (
@@ -297,7 +297,7 @@ Pass `defaultValue={null}` or `value={null}` when progress is running but comple
 
   <Preview.Code>
     {`
-      import { ProgressLinear } from "moduix";
+      import { ProgressLinear } from "@moduix/react";
 
       export function IndeterminateProgressLinearDemo() {
         return (
@@ -327,7 +327,7 @@ Use `translations.value(details)` when the formatted percent is not the wording 
 
   <Preview.Code>
     {`
-      import { ProgressLinear } from "moduix";
+      import { ProgressLinear } from "@moduix/react";
 
       export function ValueTextProgressLinearDemo() {
         return (
@@ -364,7 +364,7 @@ Create the Ark progress store outside the rendered tree when another component n
 
   <Preview.Code>
     {`
-      import { ProgressLinear, useProgressLinear } from "moduix";
+      import { ProgressLinear, useProgressLinear } from "@moduix/react";
 
       export function RootProviderProgressLinearDemo() {
         const progress = useProgressLinear({ defaultValue: 58 });
@@ -396,7 +396,7 @@ Read Ark state inline with `ProgressLinear.Context` when surrounding UI needs li
 
   <Preview.Code>
     {`
-      import { ProgressLinear } from "moduix";
+      import { ProgressLinear } from "@moduix/react";
 
       export function ContextProgressLinearDemo() {
         return (
@@ -443,7 +443,7 @@ instead of duplicating state checks outside the component.
 
   <Preview.Code>
     {`
-      import { ProgressLinear } from "moduix";
+      import { ProgressLinear } from "@moduix/react";
 
       export function StateViewsProgressLinearDemo() {
         return (
@@ -478,7 +478,7 @@ Override public CSS variables and target `data-slot` hooks when only the visuals
 
   <Preview.Code>
     {`
-      import { ProgressLinear } from "moduix";
+      import { ProgressLinear } from "@moduix/react";
 
       export function CustomStylingProgressLinearDemo() {
         return (

@@ -36,7 +36,7 @@ Use Ark-style parts: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`
 
   <Preview.Code>
     {`
-      import { Accordion } from "moduix";
+      import { Accordion } from "@moduix/react";
 
       export function AccordionDemo() {
         return (
@@ -72,35 +72,35 @@ If you want `Accordion` to become part of your own project source instead of sta
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/accordion
+npx shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/accordion
+pnpm dlx shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/accordion
+bunx shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/accordion
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/accordion
+aubx shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
@@ -191,7 +191,7 @@ Set `defaultValue` to specify which item should be expanded when the accordion f
 
   <Preview.Code>
     {`
-      import { Accordion } from "moduix";
+      import { Accordion } from "@moduix/react";
 
       export function DefaultValueAccordionDemo() {
         return (
@@ -226,7 +226,7 @@ Use `multiple` when several sections should stay open at the same time instead o
   <MultipleAccordionExample />
   <Preview.Code>
     {`
-      import { Accordion } from "moduix";
+      import { Accordion } from "@moduix/react";
 
       export function MultipleAccordionDemo() {
         return (
@@ -260,7 +260,7 @@ Control `value` from React state when the open items need to stay in sync with r
   <ControlledAccordionExample />
   <Preview.Code>
     {`
-      import { Accordion } from "moduix";
+      import { Accordion } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledAccordionDemo() {
@@ -298,7 +298,7 @@ the rendered accordion tree. Do not render `Accordion.Root` for the same store.
   <RootProviderAccordionExample />
   <Preview.Code>
     {`
-      import { Accordion, useAccordion } from "moduix";
+      import { Accordion, useAccordion } from "@moduix/react";
 
       export function RootProviderAccordionDemo() {
         const accordion = useAccordion({ defaultValue: ["what-is-ark-ui"] });
@@ -334,7 +334,7 @@ Add `collapsible` when the currently open item should be allowed to close withou
   <CollapsibleAccordionExample />
   <Preview.Code>
     {`
-      import { Accordion } from "moduix";
+      import { Accordion } from "@moduix/react";
 
       export function CollapsibleAccordionDemo() {
         return (
@@ -368,7 +368,7 @@ Switch to `orientation="horizontal"` when the accordion should follow a horizont
   <HorizontalAccordionExample />
   <Preview.Code>
     {`
-      import { Accordion } from "moduix";
+      import { Accordion } from "@moduix/react";
 
       export function HorizontalAccordionDemo() {
         return (
@@ -402,7 +402,7 @@ Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and s
   <LazyMountAccordionExample />
   <Preview.Code>
     {`
-      import { Accordion } from "moduix";
+      import { Accordion } from "@moduix/react";
 
       export function LazyMountAccordionDemo() {
         return (
@@ -437,7 +437,7 @@ state in React.
   <ContextAccordionExample />
   <Preview.Code>
     {`
-      import { Accordion } from "moduix";
+      import { Accordion } from "@moduix/react";
 
       export function ContextAccordionDemo() {
         return (
@@ -476,7 +476,7 @@ Use `Accordion.ItemContext` when a custom child part needs the current item stat
   <ItemStateAccordionExample />
   <Preview.Code>
     {`
-      import { Accordion } from "moduix";
+      import { Accordion } from "@moduix/react";
 
       export function ItemStateAccordionDemo() {
         return (
@@ -517,7 +517,7 @@ Set `disabled` on an item when it should stay visible in the list but remain una
   <DisabledItemAccordionExample />
   <Preview.Code>
     {`
-      import { Accordion } from "moduix";
+      import { Accordion } from "@moduix/react";
 
       export function DisabledItemAccordionDemo() {
         return (
@@ -556,7 +556,7 @@ Override the indicator content or local CSS variables when the accordion should 
 
   <Preview.Code>
     {`
-      import { Accordion, ChevronDownIcon } from "moduix";
+      import { Accordion, ChevronDownIcon } from "@moduix/react";
 
       export function CustomStylingAccordionDemo() {
         return (

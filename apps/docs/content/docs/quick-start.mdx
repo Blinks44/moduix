@@ -12,10 +12,10 @@ moduix supports two installation paths:
 - Install components into your own project with `shadcn` when you want direct ownership over the
   source.
 
-| Choose this path            | When it fits best                                                                                                          |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| npm package                 | You want the fastest setup, updates through package management, imports from `moduix`, and styles from `moduix/style.css`. |
-| `shadcn` copy-owned install | You want generated source files inside your app, direct local customization, and imports from `@/components/moduix/*`.     |
+| Choose this path            | When it fits best                                                                                                                        |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| npm package                 | You want the fastest setup, updates through package management, imports from `@moduix/react`, and styles from `@moduix/react/style.css`. |
+| `shadcn` copy-owned install | You want generated source files inside your app, direct local customization, and imports from `@/components/moduix/*`.                   |
 
 ## Install As A Package
 
@@ -30,35 +30,35 @@ The components, CSS, and design tokens are shipped together. Ark UI is the primi
   <Tab value="npm">
 
 ```bash
-npm install moduix @ark-ui/react
+npm install @moduix/react @ark-ui/react
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm add moduix @ark-ui/react
+pnpm add @moduix/react @ark-ui/react
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bun add moduix @ark-ui/react
+bun add @moduix/react @ark-ui/react
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno add moduix @ark-ui/react
+deno add @moduix/react @ark-ui/react
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aube add moduix @ark-ui/react
+aube add @moduix/react @ark-ui/react
 ```
 
   </Tab>
@@ -71,7 +71,7 @@ aube add moduix @ark-ui/react
 Import the required foundation stylesheet once in your application entry point:
 
 ```tsx
-import 'moduix/style.css';
+import '@moduix/react/style.css';
 ```
 
 This stylesheet is required. It provides the shared design tokens and base layer styles that
@@ -80,8 +80,8 @@ component CSS depends on. Component styles are still loaded alongside the compon
 If you want the optional reset, import it explicitly before the main stylesheet:
 
 ```tsx
-import 'moduix/reset.css';
-import 'moduix/style.css';
+import '@moduix/react/reset.css';
+import '@moduix/react/style.css';
 ```
 
 That keeps `style.css` focused on the global foundation, while unused component CSS can stay out of
@@ -89,10 +89,10 @@ the consuming bundle.
 
 ### 3. Use components
 
-Import the components and parts you need from `moduix`:
+Import the components and parts you need from `@moduix/react`:
 
 ```tsx
-import { Button, Dialog, Portal } from 'moduix';
+import { Button, Dialog, Portal } from '@moduix/react';
 
 export function Example() {
   return (
@@ -240,40 +240,40 @@ Install registry items from the moduix GitHub registry:
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/button
-npx shadcn@latest add Blinks44/moduix/accordion
+npx shadcn@latest add Blinks44/moduix/react-button
+npx shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/button
-pnpm dlx shadcn@latest add Blinks44/moduix/accordion
+pnpm dlx shadcn@latest add Blinks44/moduix/react-button
+pnpm dlx shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/button
-bunx shadcn@latest add Blinks44/moduix/accordion
+bunx shadcn@latest add Blinks44/moduix/react-button
+bunx shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/button
-deno x -A npm:shadcn@latest add Blinks44/moduix/accordion
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-button
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/button
-aubx shadcn@latest add Blinks44/moduix/accordion
+aubx shadcn@latest add Blinks44/moduix/react-button
+aubx shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>

@@ -1,4 +1,4 @@
-import { ColorPicker, Dialog, Field, Portal, parseColor, useColorPicker } from 'moduix';
+import { ColorPicker, Dialog, Field, Portal, parseColor, useColorPicker } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

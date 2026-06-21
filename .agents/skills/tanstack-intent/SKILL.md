@@ -14,7 +14,7 @@ Use this skill when work in `apps/docs` depends on TanStack Start, TanStack Rout
 - server functions, server routes, middleware, SSR, and route generation
 - loading version-matched TanStack skills through `@tanstack/intent`
 
-TanStack Start is used only by `apps/docs`. Do not apply this skill to `packages/ui` unless the task also touches docs integration.
+TanStack Start is used only by `apps/docs`. Do not apply this skill to `packages/react` unless the task also touches docs integration.
 
 ## Relationship to Local Skills
 

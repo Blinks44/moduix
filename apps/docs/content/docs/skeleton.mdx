@@ -41,7 +41,7 @@ Use a few line skeletons for the common text-loading case.
 
   <Preview.Code>
     {`
-      import { Skeleton, Stack } from "moduix";
+      import { Skeleton, Stack } from "@moduix/react";
 
       export function SkeletonDemo() {
         return (
@@ -76,35 +76,35 @@ If you want `Skeleton` to become part of your own project source instead of stay
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/skeleton
+npx shadcn@latest add Blinks44/moduix/react-skeleton
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/skeleton
+pnpm dlx shadcn@latest add Blinks44/moduix/react-skeleton
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/skeleton
+bunx shadcn@latest add Blinks44/moduix/react-skeleton
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/skeleton
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-skeleton
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/skeleton
+aubx shadcn@latest add Blinks44/moduix/react-skeleton
 ```
 
   </Tab>
@@ -171,7 +171,7 @@ Use a larger block plus shorter text lines to reserve card layout while content 
 
   <Preview.Code>
     {`
-      import { Skeleton, Stack } from "moduix";
+      import { Skeleton, Stack } from "@moduix/react";
       import styles from "./skeleton-card-demo.module.css";
 
       export function SkeletonCardDemo() {
@@ -210,7 +210,7 @@ Use `boxSize` with a full radius for avatar placeholders, then compose text line
 
   <Preview.Code>
     {`
-      import { Skeleton, Stack } from "moduix";
+      import { Skeleton, Stack } from "@moduix/react";
       import styles from "./skeleton-media-object-demo.module.css";
 
       export function SkeletonMediaObjectDemo() {
@@ -249,7 +249,7 @@ Keep responsive layout logic in wrapper markup while each `Skeleton` stays a vis
 
   <Preview.Code>
     {`
-      import { Skeleton, Stack } from "moduix";
+      import { Skeleton, Stack } from "@moduix/react";
       import styles from "./skeleton-layout-demo.module.css";
 
       export function SkeletonCompositionDemo() {
@@ -292,7 +292,7 @@ Use `variant` to choose between pulse and static placeholder rendering.
 
   <Preview.Code>
     {`
-      import { Skeleton, Stack } from "moduix";
+      import { Skeleton, Stack } from "@moduix/react";
       import styles from "./skeleton-variants-demo.module.css";
 
       export function SkeletonVariantsDemo() {
@@ -328,7 +328,7 @@ Pass `variant="none"` when the loading state is dense or motion should stay quie
 
   <Preview.Code>
     {`
-      import { Skeleton } from "moduix";
+      import { Skeleton } from "@moduix/react";
       import styles from "./static-skeleton-demo.module.css";
 
       export function StaticSkeletonDemo() {
@@ -365,7 +365,7 @@ Use `loading` to keep the same host in place while switching from placeholder to
 
   <Preview.Code>
     {`
-      import { Skeleton } from "moduix";
+      import { Skeleton } from "@moduix/react";
       import styles from "./loaded-skeleton-demo.module.css";
 
       export function LoadedSkeletonDemo() {
@@ -417,7 +417,7 @@ Use `asChild` when a semantic element such as `section` should own the DOM node.
 
   <Preview.Code>
     {`
-      import { Skeleton } from "moduix";
+      import { Skeleton } from "@moduix/react";
       import styles from "./skeleton-as-child-demo.module.css";
 
       export function SkeletonAsChildDemo() {
@@ -451,7 +451,7 @@ Use `className` and the public CSS variables when the surface needs local stylin
 
   <Preview.Code>
     {`
-      import { Skeleton, Stack } from "moduix";
+      import { Skeleton, Stack } from "@moduix/react";
       import styles from "./custom-skeleton-demo.module.css";
 
       export function CustomSkeletonDemo() {

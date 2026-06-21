@@ -1,4 +1,4 @@
-import { Checkbox, Field, Fieldset, useCheckbox, useCheckboxGroup } from 'moduix';
+import { Checkbox, Field, Fieldset, useCheckbox, useCheckboxGroup } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

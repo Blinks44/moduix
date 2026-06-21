@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Heading, Separator, Skeleton, Stack, Text } from 'moduix';
+import { Heading, Separator, Skeleton, Stack, Text } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './stack.module.css';

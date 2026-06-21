@@ -42,7 +42,7 @@ Start with Ark parts: `Field`, `Field.Label`, one control part, and optional hel
 
   <Preview.Code>
     {`
-      import { Field } from "moduix";
+      import { Field } from "@moduix/react";
 
       export function FieldDemo() {
         return (
@@ -73,35 +73,35 @@ If you want `Field` to become part of your own project source instead of staying
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/field
+npx shadcn@latest add Blinks44/moduix/react-field
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/field
+pnpm dlx shadcn@latest add Blinks44/moduix/react-field
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/field
+bunx shadcn@latest add Blinks44/moduix/react-field
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/field
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-field
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/field
+aubx shadcn@latest add Blinks44/moduix/react-field
 ```
 
   </Tab>
@@ -151,7 +151,7 @@ Set `invalid` on the root when validation is owned by application state or a for
 
   <Preview.Code>
     {`
-      import { Field } from "moduix";
+      import { Field } from "@moduix/react";
 
       export function InvalidFieldDemo() {
         return (
@@ -180,7 +180,7 @@ Derive `invalid` from local state when the field should update as the user types
 
   <Preview.Code>
     {`
-      import { Field } from "moduix";
+      import { Field } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledInvalidFieldDemo() {
@@ -217,7 +217,7 @@ Use `Field.Textarea` when the field owns a multiline native textarea.
 
   <Preview.Code>
     {`
-      import { Field } from "moduix";
+      import { Field } from "@moduix/react";
 
       export function TextareaFieldDemo() {
         return (
@@ -245,7 +245,7 @@ Pass `autoresize` to let Ark keep the textarea height in sync with its content.
 
   <Preview.Code>
     {`
-      import { Field } from "moduix";
+      import { Field } from "@moduix/react";
 
       export function TextareaAutoresizeFieldDemo() {
         return (
@@ -273,7 +273,7 @@ Use `Field.Select` for native select controls that should receive field ids and 
 
   <Preview.Code>
     {`
-      import { Field } from "moduix";
+      import { Field } from "@moduix/react";
 
       const priorityOptions = [
         { label: "Low", value: "low" },
@@ -323,7 +323,7 @@ around a single checkbox control.
 
   <Preview.Code>
     {`
-      import { Checkbox, Field } from "moduix";
+      import { Checkbox, Field } from "@moduix/react";
 
       export function CheckboxFieldDemo() {
         return (
@@ -360,7 +360,7 @@ the whole choice set instead of individual native radio inputs.
 
   <Preview.Code>
     {`
-      import { Field, RadioGroup } from "moduix";
+      import { Field, RadioGroup } from "@moduix/react";
 
       export function RadioGroupFieldDemo() {
         return (
@@ -401,7 +401,7 @@ Use `useFieldContext` when a custom control must receive Ark's control props dir
 
   <Preview.Code>
     {`
-      import { Field, useFieldContext } from "moduix";
+      import { Field, useFieldContext } from "@moduix/react";
 
       function CustomControl() {
         const field = useFieldContext();
@@ -449,7 +449,7 @@ tree.
 
   <Preview.Code>
     {`
-      import { Field, useField } from "moduix";
+      import { Field, useField } from "@moduix/react";
 
       export function RootProviderFieldDemo() {
         const field = useField({ id: "root-provider-field", required: true });
@@ -481,7 +481,7 @@ Set `disabled` on the root to propagate disabled state to Ark field parts.
 
   <Preview.Code>
     {`
-      import { Field } from "moduix";
+      import { Field } from "@moduix/react";
 
       export function DisabledFieldDemo() {
         return (
@@ -512,7 +512,7 @@ Pass `className` to the parts that need overrides and keep state styling on Ark 
 
   <Preview.Code>
     {`
-      import { Field } from "moduix";
+      import { Field } from "@moduix/react";
 
       export function CustomStylesFieldDemo() {
         return (

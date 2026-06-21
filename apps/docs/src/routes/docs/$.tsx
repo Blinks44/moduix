@@ -55,13 +55,9 @@ const clientLoader = browserCollections.docs.createClientLoader({
       path: string;
     },
   ) {
-    const componentDir = path
-      .replace(/\.[^/.]+$/, '')
-      .split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join('');
+    const componentDir = path.replace(/\.[^/.]+$/, '');
 
-    const githubUrl = `https://github.com/${gitConfig.user}/${gitConfig.repo}/tree/main/packages/ui/src/components/${componentDir}`;
+    const githubUrl = `https://github.com/${gitConfig.user}/${gitConfig.repo}/tree/main/packages/react/src/components/${componentDir}`;
 
     return (
       <DocsPage toc={toc}>

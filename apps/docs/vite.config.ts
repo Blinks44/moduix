@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-const uiPackageDir = path.resolve(dirname, '../../packages/ui');
+const uiPackageDir = path.resolve(dirname, '../../packages/react');
 
 const uiPrimitiveOptimizeDeps = [
   '@ark-ui/react/accordion',
@@ -73,9 +73,14 @@ export default defineConfig({
   ],
   resolve: {
     alias: [
-      { find: 'moduix/style.css', replacement: path.resolve(uiPackageDir, 'src/style.ts') },
-      { find: 'moduix/reset.css', replacement: path.resolve(uiPackageDir, 'src/reset.ts') },
-      { find: 'moduix', replacement: path.resolve(uiPackageDir, 'src/index.ts') },
+      { find: '@moduix/react/style.css', replacement: path.resolve(uiPackageDir, 'src/style.ts') },
+      { find: '@moduix/react/reset.css', replacement: path.resolve(uiPackageDir, 'src/reset.ts') },
+      { find: '@moduix/react', replacement: path.resolve(uiPackageDir, 'src/index.ts') },
+      {
+        find: '@/lib/moduix/icons/ui',
+        replacement: path.resolve(uiPackageDir, 'src/icons/ui'),
+      },
+      { find: '@/lib/moduix', replacement: path.resolve(uiPackageDir, 'src/core/lib/moduix') },
     ],
     tsconfigPaths: true,
     dedupe: ['react', 'react-dom'],

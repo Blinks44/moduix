@@ -1,4 +1,4 @@
-import { BellIcon, Button, Popover, Portal, usePopover } from 'moduix';
+import { BellIcon, Button, Popover, Portal, usePopover } from '@moduix/react';
 import * as React from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { AspectRatio, Card } from 'moduix';
+import { AspectRatio, Card } from '@moduix/react';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './aspect-ratio.module.css';
 

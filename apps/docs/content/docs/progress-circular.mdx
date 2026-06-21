@@ -19,7 +19,7 @@ import {
   progressCircularData,
   progressCircularExampleCss,
 } from '@/components/examples/progress-circular';
-import { ProgressCircular } from 'moduix';
+import { ProgressCircular } from '@moduix/react';
 
 ## API Reference
 
@@ -40,7 +40,7 @@ Use Ark-style parts: `ProgressCircular.Root`, `ProgressCircular.Circle`,
 
   <Preview.Code>
     {`
-      import { ProgressCircular } from "moduix";
+      import { ProgressCircular } from "@moduix/react";
 
       export function ProgressCircularDemo() {
         return (
@@ -73,35 +73,35 @@ If you want `ProgressCircular` to become part of your own project source instead
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/progress-circular
+npx shadcn@latest add Blinks44/moduix/react-progress-circular
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/progress-circular
+pnpm dlx shadcn@latest add Blinks44/moduix/react-progress-circular
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/progress-circular
+bunx shadcn@latest add Blinks44/moduix/react-progress-circular
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/progress-circular
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-progress-circular
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/progress-circular
+aubx shadcn@latest add Blinks44/moduix/react-progress-circular
 ```
 
   </Tab>
@@ -189,7 +189,7 @@ Keep `value` in React state when circular progress mirrors another control or ex
 
   <Preview.Code>
     {`
-      import { ProgressCircular, Slider } from "moduix";
+      import { ProgressCircular, Slider } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledProgressCircularDemo() {
@@ -245,7 +245,7 @@ Use `defaultValue` to set the initial uncontrolled progress value.
 
   <Preview.Code>
     {`
-      import { ProgressCircular } from "moduix";
+      import { ProgressCircular } from "@moduix/react";
 
       export function InitialValueProgressCircularDemo() {
         return (
@@ -276,7 +276,7 @@ Use `min` and `max` when the value does not use the default `0` to `100` range.
 
   <Preview.Code>
     {`
-      import { ProgressCircular } from "moduix";
+      import { ProgressCircular } from "@moduix/react";
 
       export function MinMaxProgressCircularDemo() {
         return (
@@ -307,7 +307,7 @@ Pass `defaultValue={null}` or `value={null}` when progress is running but comple
 
   <Preview.Code>
     {`
-      import { ProgressCircular } from "moduix";
+      import { ProgressCircular } from "@moduix/react";
 
       export function IndeterminateProgressCircularDemo() {
         return (
@@ -338,7 +338,7 @@ Use `translations.value(details)` when the formatted percent is not the wording 
 
   <Preview.Code>
     {`
-      import { ProgressCircular } from "moduix";
+      import { ProgressCircular } from "@moduix/react";
 
       export function ValueTextProgressCircularDemo() {
         return (
@@ -376,7 +376,7 @@ Create the Ark progress store outside the rendered tree when another component n
 
   <Preview.Code>
     {`
-      import { ProgressCircular, useProgressCircular } from "moduix";
+      import { ProgressCircular, useProgressCircular } from "@moduix/react";
 
       export function RootProviderProgressCircularDemo() {
         const progress = useProgressCircular({ defaultValue: 58 });
@@ -409,7 +409,7 @@ Read Ark state inline with `ProgressCircular.Context` when surrounding UI needs 
 
   <Preview.Code>
     {`
-      import { ProgressCircular } from "moduix";
+      import { ProgressCircular } from "@moduix/react";
 
       export function ContextProgressCircularDemo() {
         return (
@@ -458,7 +458,7 @@ instead of duplicating state checks outside the component.
 
   <Preview.Code>
     {`
-      import { ProgressCircular } from "moduix";
+      import { ProgressCircular } from "@moduix/react";
 
       export function StateViewsProgressCircularDemo() {
         return (
@@ -494,7 +494,7 @@ Override public CSS variables and target SVG `data-slot` hooks when only the vis
 
   <Preview.Code>
     {`
-      import { ProgressCircular } from "moduix";
+      import { ProgressCircular } from "@moduix/react";
 
       export function CustomStylingProgressCircularDemo() {
         return (

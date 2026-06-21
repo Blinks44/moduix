@@ -38,7 +38,7 @@ The short `<Fieldset>` form is equivalent to `<Fieldset>`.
 
   <Preview.Code>
     {`
-      import { Field, Fieldset } from "moduix";
+      import { Field, Fieldset } from "@moduix/react";
 
       export function ContactDetails() {
         return (
@@ -71,35 +71,35 @@ The short `<Fieldset>` form is equivalent to `<Fieldset>`.
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/fieldset
+npx shadcn@latest add Blinks44/moduix/react-fieldset
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/fieldset
+pnpm dlx shadcn@latest add Blinks44/moduix/react-fieldset
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/fieldset
+bunx shadcn@latest add Blinks44/moduix/react-fieldset
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/fieldset
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-fieldset
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/fieldset
+aubx shadcn@latest add Blinks44/moduix/react-fieldset
 ```
 
   </Tab>
@@ -169,7 +169,7 @@ Nest `Field` components when each control also needs an individual label or desc
 
   <Preview.Code>
     {`
-      import { Field, Fieldset } from "moduix";
+      import { Field, Fieldset } from "@moduix/react";
 
       export function PersonalInformation() {
         return (
@@ -204,7 +204,7 @@ Use the fieldset legend as the shared name for a related set of Ark checkbox con
 
   <Preview.Code>
     {`
-      import { Checkbox, Fieldset } from "moduix";
+      import { Checkbox, Fieldset } from "@moduix/react";
 
       export function EmailPreferences() {
         return (
@@ -239,7 +239,7 @@ to coordinate with it.
 
   <Preview.Code>
     {`
-      import { Field, Fieldset, useFieldset } from "moduix";
+      import { Field, Fieldset, useFieldset } from "@moduix/react";
 
       export function ExternalFieldsetState() {
         const fieldset = useFieldset({ invalid: true });
@@ -275,7 +275,7 @@ logical value.
 
   <Preview.Code>
     {`
-      import { Field, Fieldset } from "moduix";
+      import { Field, Fieldset } from "@moduix/react";
 
       export function PhoneInput() {
         return (
@@ -314,7 +314,7 @@ Override the public CSS variables or target Ark `data-scope`, `data-part`, `data
 
   <Preview.Code>
     {`
-      import { Field, Fieldset } from "moduix";
+      import { Field, Fieldset } from "@moduix/react";
 
       export function StyledFieldset() {
         return (

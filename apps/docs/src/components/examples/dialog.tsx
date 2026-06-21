@@ -1,4 +1,4 @@
-import { Button, Dialog, Portal, ScrollArea, useDialog } from 'moduix';
+import { Button, Dialog, Portal, ScrollArea, useDialog } from '@moduix/react';
 import { useRef, useState, type ReactNode } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';

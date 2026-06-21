@@ -8,7 +8,7 @@ import {
   createToaster,
   type ToastOptions,
   type ToastPlacement,
-} from 'moduix';
+} from '@moduix/react';
 import { useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

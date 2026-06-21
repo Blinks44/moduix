@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
+import { Button, Carousel, PlusIcon, useCarousel } from '@moduix/react';
 import { clsx } from 'clsx';
-import { Button, Carousel, PlusIcon, useCarousel } from 'moduix';
 import { useMemo, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

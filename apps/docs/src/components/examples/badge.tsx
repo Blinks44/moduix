@@ -1,6 +1,6 @@
-import type { BadgeVariant } from 'moduix';
+import type { BadgeVariant } from '@moduix/react';
 import type { ComponentProps } from 'react';
-import { Badge, ChevronRightIcon } from 'moduix';
+import { Badge, ChevronRightIcon } from '@moduix/react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './badge.module.css';

@@ -42,7 +42,7 @@ store with `Toaster`.
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 24 });
 
@@ -91,35 +91,35 @@ If you want `Toast` to become part of your own project source instead of staying
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/toast
+npx shadcn@latest add Blinks44/moduix/react-toast
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/toast
+pnpm dlx shadcn@latest add Blinks44/moduix/react-toast
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/toast
+bunx shadcn@latest add Blinks44/moduix/react-toast
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/toast
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-toast
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/toast
+aubx shadcn@latest add Blinks44/moduix/react-toast
 ```
 
   </Tab>
@@ -212,7 +212,7 @@ Use `action: { label, onClick }` when the toast should expose one direct follow-
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({ placement: "bottom-end", gap: 24 });
 
@@ -268,7 +268,7 @@ dismissal.
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
 
@@ -323,7 +323,7 @@ Set `max` on the toaster store when bursts should queue instead of filling the s
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({ max: 3, overlap: true, placement: "bottom-end", gap: 16 });
 
@@ -381,7 +381,7 @@ overlapping until hover or focus.
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({
         placement: "bottom-end",
@@ -433,7 +433,7 @@ Choose one of Ark's six placements when the toast group needs to appear on a spe
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster, type ToastPlacement } from "moduix";
+      import { Button, Portal, Toast, Toaster, createToaster, type ToastPlacement } from "@moduix/react";
       import { useState } from "react";
 
       const toasters = {
@@ -499,7 +499,7 @@ Use `toaster.promise()` to transition one toast from loading to success or error
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
 
@@ -558,7 +558,7 @@ Use the typed toaster helpers for status-specific variants. moduix styles `info`
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
 
@@ -610,7 +610,7 @@ change in place.
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
       import { useRef } from "react";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 24 });
@@ -675,7 +675,7 @@ without manual sizing.
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "moduix";
+      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
       import { useState } from "react";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
@@ -727,7 +727,7 @@ component-specific CSS variables.
 
   <Preview.Code>
     {`
-      import { Button, CloseIcon, InfoIcon, Portal, Toast, Toaster, createToaster } from "moduix";
+      import { Button, CloseIcon, InfoIcon, Portal, Toast, Toaster, createToaster } from "@moduix/react";
       import styles from "./toast.module.css";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 24 });

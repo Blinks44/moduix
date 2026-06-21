@@ -38,7 +38,7 @@ break out of a constrained container while staying in normal document flow.
 
   <Preview.Code>
     {`
-      import { Bleed, Text } from "moduix";
+      import { Bleed, Text } from "@moduix/react";
 
       export function BleedDemo() {
         return (
@@ -93,35 +93,35 @@ If you want `Bleed` to become part of your own project source instead of staying
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/bleed
+npx shadcn@latest add Blinks44/moduix/react-bleed
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/bleed
+pnpm dlx shadcn@latest add Blinks44/moduix/react-bleed
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/bleed
+bunx shadcn@latest add Blinks44/moduix/react-bleed
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/bleed
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-bleed
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/bleed
+aubx shadcn@latest add Blinks44/moduix/react-bleed
 ```
 
   </Tab>
@@ -197,7 +197,7 @@ Use `inline` to choose how far content escapes the container on the inline axis.
 
   <Preview.Code>
     {`
-      import { Bleed, Text } from "moduix";
+      import { Bleed, Text } from "@moduix/react";
 
       export function BleedInlineAmountsDemo() {
         return (
@@ -252,7 +252,7 @@ Use `block` when a surface should also escape vertical container padding.
 
   <Preview.Code>
     {`
-      import { Bleed, Text } from "moduix";
+      import { Bleed, Text } from "@moduix/react";
 
       export function BleedBlockDemo() {
         return (
@@ -303,7 +303,7 @@ Use `asChild` when the escaping content has a more specific semantic role.
 
   <Preview.Code>
     {`
-      import { Bleed, Text } from "moduix";
+      import { Bleed, Text } from "@moduix/react";
 
       export function BleedSemanticDemo() {
         return (
@@ -367,7 +367,7 @@ and inset layouts that do not align with the viewport.
 
   <Preview.Code>
     {`
-      import { Bleed, Text } from "moduix";
+      import { Bleed, Text } from "@moduix/react";
 
       export function CustomStylingBleedDemo() {
         return (

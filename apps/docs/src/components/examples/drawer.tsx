@@ -4,7 +4,7 @@ import {
   ScrollArea,
   type DrawerTriggerValueChangeDetails,
   useDrawer,
-} from 'moduix';
+} from '@moduix/react';
 import { useState, type ReactNode } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';

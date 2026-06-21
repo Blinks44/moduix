@@ -40,7 +40,7 @@ Use the Ark composition directly: `Carousel.Root`, `Carousel.Control`, `Carousel
 
   <Preview.Code>
     {`
-      import { Carousel } from "moduix";
+      import { Carousel } from "@moduix/react";
 
       export function TravelCarousel() {
         return (
@@ -84,35 +84,35 @@ If you want `Carousel` to become part of your own project source instead of stay
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/carousel
+npx shadcn@latest add Blinks44/moduix/react-carousel
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/carousel
+pnpm dlx shadcn@latest add Blinks44/moduix/react-carousel
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/carousel
+bunx shadcn@latest add Blinks44/moduix/react-carousel
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/carousel
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-carousel
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/carousel
+aubx shadcn@latest add Blinks44/moduix/react-carousel
 ```
 
   </Tab>
@@ -200,7 +200,7 @@ Control the current page when carousel state must stay in sync with external nav
 
   <Preview.Code>
     {`
-      import { Carousel } from "moduix";
+      import { Carousel } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledCarousel() {
@@ -248,7 +248,7 @@ Update `slideCount` alongside the rendered items when slides can be added or rem
 
   <Preview.Code>
     {`
-      import { Button, Carousel, PlusIcon } from "moduix";
+      import { Button, Carousel, PlusIcon } from "@moduix/react";
       import { useMemo, useState } from "react";
 
       export function DynamicSlidesCarousel() {
@@ -308,7 +308,7 @@ Pause autoplay on pointer hover when readers need time to inspect slide content 
 
   <Preview.Code>
     {`
-      import { Carousel } from "moduix";
+      import { Carousel } from "@moduix/react";
 
       export function PauseOnHoverCarousel() {
         return (
@@ -358,7 +358,7 @@ Use `Carousel.RootProvider` when the carousel store should be created outside th
 
   <Preview.Code>
     {`
-      import { Carousel, useCarousel } from "moduix";
+      import { Carousel, useCarousel } from "@moduix/react";
 
       export function RootProviderCarousel() {
         const carousel = useCarousel({ slideCount: slides.length });
@@ -401,7 +401,7 @@ Call the carousel API from context when another control should jump directly to 
 
   <Preview.Code>
     {`
-      import { Button, Carousel } from "moduix";
+      import { Button, Carousel } from "@moduix/react";
 
       export function ScrollToCarousel() {
         return (
@@ -446,7 +446,7 @@ Increase `slidesPerPage` when the layout should preview multiple items at once i
 
   <Preview.Code>
     {`
-      import { Carousel } from "moduix";
+      import { Carousel } from "@moduix/react";
 
       export function SlidesPerPageCarousel() {
         return (
@@ -493,7 +493,7 @@ Tune `spacing` when adjacent slides need more separation for editorial layouts, 
 
   <Preview.Code>
     {`
-      import { Carousel } from "moduix";
+      import { Carousel } from "@moduix/react";
 
       export function SpacingCarousel() {
         return (
@@ -539,7 +539,7 @@ Render custom indicator content when the pager itself should preview the slides 
 
   <Preview.Code>
     {`
-      import { Carousel } from "moduix";
+      import { Carousel } from "@moduix/react";
 
       export function ThumbnailIndicatorCarousel() {
         return (
@@ -583,7 +583,7 @@ Enable `autoSize` when slide widths should follow their content rather than a fi
 
   <Preview.Code>
     {`
-      import { Carousel } from "moduix";
+      import { Carousel } from "@moduix/react";
 
       export function VariableSizeCarousel() {
         return (
@@ -635,7 +635,7 @@ Use autoplay for passive galleries and pair it with visible controls so users ca
 
   <Preview.Code>
     {`
-      import { Carousel } from "moduix";
+      import { Carousel } from "@moduix/react";
 
       export function AutoplayCarousel() {
         return (
@@ -675,7 +675,7 @@ Turn on `loop` when the carousel should wrap seamlessly from the last slide back
 
   <Preview.Code>
     {`
-      import { Carousel } from "moduix";
+      import { Carousel } from "@moduix/react";
 
       export function LoopCarousel() {
         return (
@@ -719,7 +719,7 @@ Allow mouse drag when desktop users should be able to scrub through slides with 
 
   <Preview.Code>
     {`
-      import { Carousel } from "moduix";
+      import { Carousel } from "@moduix/react";
 
       export function MouseDragCarousel() {
         return (
@@ -763,7 +763,7 @@ Switch to a vertical orientation when the carousel should stack movement and con
 
   <Preview.Code>
     {`
-      import { Carousel } from "moduix";
+      import { Carousel } from "@moduix/react";
 
       export function VerticalCarousel() {
         return (

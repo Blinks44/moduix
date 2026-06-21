@@ -8,7 +8,7 @@ import {
   CheckIcon,
   CloseIcon,
   PencilIcon,
-} from 'moduix';
+} from '@moduix/react';
 import { useEffect, useRef, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

@@ -31,7 +31,7 @@ top and bottom mask to the viewport using Ark overflow measurements.
 
   <Preview.Code>
     {`
-      import { ScrollArea } from "moduix";
+      import { ScrollArea } from "@moduix/react";
 
       export function ScrollAreaDemo() {
         return (
@@ -120,35 +120,35 @@ If you want `Scroll Area` to become part of your own project source instead of s
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/scroll-area
+npx shadcn@latest add Blinks44/moduix/react-scroll-area
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/scroll-area
+pnpm dlx shadcn@latest add Blinks44/moduix/react-scroll-area
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/scroll-area
+bunx shadcn@latest add Blinks44/moduix/react-scroll-area
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/scroll-area
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-scroll-area
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/scroll-area
+aubx shadcn@latest add Blinks44/moduix/react-scroll-area
 ```
 
   </Tab>
@@ -220,7 +220,7 @@ Use a horizontal scrollbar when the content is intentionally wider than the fram
 
   <Preview.Code>
     {`
-      import { ScrollArea } from "moduix";
+      import { ScrollArea } from "@moduix/react";
 
       export function HorizontalScrollAreaDemo() {
         return (
@@ -281,7 +281,7 @@ current viewport without introducing another wrapper.
 
   <Preview.Code>
     {`
-      import { ScrollArea } from "moduix";
+      import { ScrollArea } from "@moduix/react";
 
       export function FadeScrollAreaDemo() {
         return (
@@ -351,7 +351,7 @@ Render vertical and horizontal scrollbars when content can overflow on both axes
 
   <Preview.Code>
     {`
-      import { ScrollArea } from "moduix";
+      import { ScrollArea } from "@moduix/react";
 
       export function BothDirectionsScrollAreaDemo() {
         return (
@@ -421,7 +421,7 @@ complete so Ark can measure each area independently.
 
   <Preview.Code>
     {`
-      import { ScrollArea } from "moduix";
+      import { ScrollArea } from "@moduix/react";
 
       export function NestedScrollAreaDemo() {
         return (
@@ -506,7 +506,7 @@ scrolling API.
 
   <Preview.Code>
     {`
-      import { Button, ScrollArea, useScrollArea } from "moduix";
+      import { Button, ScrollArea, useScrollArea } from "@moduix/react";
 
       export function RootProviderScrollAreaDemo() {
         const scrollArea = useScrollArea();
@@ -583,7 +583,7 @@ composition and state attributes intact.
 
   <Preview.Code>
     {`
-      import { ScrollArea } from "moduix";
+      import { ScrollArea } from "@moduix/react";
 
       export function CustomStylingScrollAreaDemo() {
         return (

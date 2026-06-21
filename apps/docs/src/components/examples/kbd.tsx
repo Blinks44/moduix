@@ -1,4 +1,4 @@
-import { Kbd } from 'moduix';
+import { Kbd } from '@moduix/react';
 import { Fragment } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

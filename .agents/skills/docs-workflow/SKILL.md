@@ -19,7 +19,7 @@ Use this skill for work in `apps/docs`.
 1. `AGENTS.md`
 2. `references/component-doc-patterns.md` for component-page structure, preview rules, and CSS-variable sections
 3. `apps/docs/content/docs/select.mdx` as the current reference implementation for standardized component pages
-4. `packages/ui` output and local component docs when docs depend on changed UI behavior
+4. `packages/react` output and local component docs when docs depend on changed UI behavior
 
 ## Core Rules
 
@@ -87,11 +87,11 @@ Use this skill for work in `apps/docs`.
 - Keep the full shadcn/GitHub registry setup flow in `quick-start.mdx`, not on every component page.
 - On component pages, put `Install with shadcn` immediately after `Basic` and show only the `add` commands.
 - Keep `index.mdx`, `quick-start.mdx`, `composition-patterns.mdx`, and `tokens.mdx` aligned when install flow, token entrypoints, or ownership guidance changes.
-- Treat `registry.json` as the source of truth. `npm run build:registry` generates JSON artifacts into `packages/ui/registry/default`.
+- Treat `registry.json` as the source of truth. `npm run build:registry` generates JSON artifacts into `packages/react/registry/default`.
 
 ## Validation
 
 Run the required checks from `AGENTS.md` after changes.
 
-If docs validation depends on changed `packages/ui` output, wait for `npm run build:ui` to finish
+If docs validation depends on changed `packages/react` output, wait for `npm run build:ui` to finish
 successfully before starting `npm run tsc:check`. Do not run those commands in parallel.

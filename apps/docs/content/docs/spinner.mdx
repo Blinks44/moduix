@@ -37,7 +37,7 @@ states. The default path announces loading automatically with `role="status"` an
 
   <Preview.Code>
     {`
-      import { Spinner } from "moduix";
+      import { Spinner } from "@moduix/react";
 
       export function SpinnerDemo() {
         return <Spinner />;
@@ -59,35 +59,35 @@ If you want `Spinner` to become part of your own project source instead of stayi
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/spinner
+npx shadcn@latest add Blinks44/moduix/react-spinner
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/spinner
+pnpm dlx shadcn@latest add Blinks44/moduix/react-spinner
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/spinner
+bunx shadcn@latest add Blinks44/moduix/react-spinner
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/spinner
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-spinner
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/spinner
+aubx shadcn@latest add Blinks44/moduix/react-spinner
 ```
 
   </Tab>
@@ -165,7 +165,7 @@ Use `decorative` when visible text next to the spinner already says what is happ
 
   <Preview.Code>
     {`
-      import { Spinner } from "moduix";
+      import { Spinner } from "@moduix/react";
       import styles from "./spinner.module.css";
 
       export function SpinnerInlineDemo() {
@@ -193,7 +193,7 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
 
   <Preview.Code>
     {`
-      import { Spinner } from "moduix";
+      import { Spinner } from "@moduix/react";
 
       export function SpinnerSizesDemo() {
         return (
@@ -223,7 +223,7 @@ Use `className` and `--spinner-*` variables for one-off color and ring overrides
 
   <Preview.Code>
     {`
-      import { Spinner } from "moduix";
+      import { Spinner } from "@moduix/react";
       import styles from "./spinner.module.css";
 
       export function SpinnerStylingDemo() {
@@ -247,7 +247,7 @@ root attributes and class name, so it must render the visual indicator itself.
 
   <Preview.Code>
     {`
-      import { Spinner } from "moduix";
+      import { Spinner } from "@moduix/react";
       import styles from "./spinner.module.css";
 
       export function SpinnerAsChildDemo() {
@@ -281,7 +281,7 @@ should stay the same.
 
   <Preview.Code>
     {`
-      import { Spinner } from "moduix";
+      import { Spinner } from "@moduix/react";
 
       export function SpinnerCustomIndicatorDemo() {
         return (

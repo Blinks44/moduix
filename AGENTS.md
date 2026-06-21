@@ -23,10 +23,10 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 - For JS/TS work, apply `.agents/skills/js-react-conventions/SKILL.md`.
 - For TanStack Start, TanStack Router, or TanStack Intent work in `apps/docs`, apply `.agents/skills/tanstack-intent/SKILL.md`.
 - For Ark UI or shadcn reference material, apply `.agents/skills/upstream-library-docs/SKILL.md`.
-- For component work in `packages/ui`, apply `.agents/skills/ui-component-workflow/SKILL.md`.
-- For local component markdown in `packages/ui/src/components`, apply `.agents/skills/local-component-docs/SKILL.md`.
+- For component work in `packages/react`, apply `.agents/skills/ui-component-workflow/SKILL.md`.
+- For local component markdown in `packages/react/src/components`, apply `.agents/skills/local-component-docs/SKILL.md`.
 - For docs work in `apps/docs`, apply `.agents/skills/docs-workflow/SKILL.md`.
-- For tasks that touch both `packages/ui` and `apps/docs`, also apply `.agents/skills/cross-package-sync/SKILL.md`.
+- For tasks that touch both `packages/react` and `apps/docs`, also apply `.agents/skills/cross-package-sync/SKILL.md`.
 
 `engineering-principles` is the immutable baseline skill. Keep project-specific rules in dedicated skills.
 
@@ -47,15 +47,15 @@ If a task spans UI and docs, apply skills in this order:
 - Formatting uses `oxfmt` from `packages/oxfmt-config`.
 - Do not start dev servers manually; use the already running project server.
 - Before docs validation or docs changes that depend on UI output, run `npm run build:ui` from repo root.
-- After changes in `packages/ui`, run `npm run build:ui` before `npm run tsc:check` so consumers do not read stale declarations.
+- After changes in `packages/react`, run `npm run build:ui` before `npm run tsc:check` so consumers do not read stale declarations.
 - Never run `npm run build:ui` and `npm run tsc:check` in parallel. Wait for `build:ui` to finish successfully before starting `tsc:check`.
-- After changes to component or shared registry-shipped source code in `packages/ui`, run `npm run build:registry` after validation so the generated shadcn registry artifacts stay in sync.
-- After changes to a component in `packages/ui`, update that component's local `.md` file in `packages/ui/src/components` with the current functionality and a concise changelog entry when behavior, API, styling contract, or recommended usage changed.
-- `packages/ui/src/components` uses `kebab-case` directories. Keep component implementation files inside those directories in their existing names, for example `packages/ui/src/components/password-input/PasswordInput.tsx`.
-- Use relative imports for component-to-component dependencies inside `packages/ui/src/components`, and use `@/lib/moduix/*` for shared registry-safe utilities, icons, and styles.
-- The root `registry.json` is the source of truth for the shadcn/GitHub registry. Source files in registry items point directly at `packages/ui/src/...`.
-- `npm run build:registry` uses `shadcn build registry.json --output packages/ui/registry/default`.
-- `packages/ui/registry/default` contains generated registry JSON artifacts, not copied source files.
+- After changes to component or shared registry-shipped source code in `packages/react`, run `npm run build:registry` after validation so the generated shadcn registry artifacts stay in sync.
+- After changes to a component in `packages/react`, update that component's local `.md` file in `packages/react/src/components` with the current functionality and a concise changelog entry when behavior, API, styling contract, or recommended usage changed.
+- `packages/react/src/components` uses `kebab-case` directories. Keep component implementation files inside those directories in their existing names, for example `packages/react/src/components/password-input/PasswordInput.tsx`.
+- Use relative imports for component-to-component dependencies inside `packages/react/src/components`, and use `@/lib/moduix/*` for shared registry-safe utilities, icons, and styles.
+- The root `registry.json` is the source of truth for the shadcn/GitHub registry. Source files in registry items point directly at `packages/react/src/...`.
+- `npm run build:registry` uses `shadcn build registry.json --output packages/react/registry/default`.
+- `packages/react/registry/default` contains generated registry JSON artifacts, not copied source files.
 - Consumer registry targets remain namespaced under `@components/moduix/*` and `@lib/moduix/*`.
 - Read Ark UI and shadcn references online through `.agents/skills/upstream-library-docs/SKILL.md`; do not rely on local snapshots.
 - In MDX snippets, prefer `as T` over `useState<T>()`; MDX can parse `<T>` as JSX.
@@ -67,6 +67,6 @@ After code changes, run from repo root:
 
 - `npm run fmt:fix`
 - `npm run lint:check`
-- `npm run build:ui` before `npm run tsc:check` when `packages/ui` changed
+- `npm run build:ui` before `npm run tsc:check` when `packages/react` changed
 - `npm run tsc:check` only after `npm run build:ui` has completed successfully; do not run them in parallel
-- `npm run build:registry` after validation when registry-shipped source code in `packages/ui` changed
+- `npm run build:registry` after validation when registry-shipped source code in `packages/react` changed

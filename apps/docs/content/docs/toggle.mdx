@@ -45,7 +45,7 @@ Start with `Toggle` alone. It is the short form for `Toggle.Root` and keeps Ark 
 
   <Preview.Code>
     {`
-      import { StarIcon, Toggle } from "moduix";
+      import { StarIcon, Toggle } from "@moduix/react";
 
       export function ToggleDemo() {
         return (
@@ -72,35 +72,35 @@ If you want `Toggle` to become part of your own project source instead of stayin
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/toggle
+npx shadcn@latest add Blinks44/moduix/react-toggle
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/toggle
+pnpm dlx shadcn@latest add Blinks44/moduix/react-toggle
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/toggle
+bunx shadcn@latest add Blinks44/moduix/react-toggle
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/toggle
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-toggle
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/toggle
+aubx shadcn@latest add Blinks44/moduix/react-toggle
 ```
 
   </Tab>
@@ -170,7 +170,7 @@ Control `pressed` from React state when the toggle participates in app state or 
 
   <Preview.Code>
     {`
-      import { BellIcon, Toggle } from "moduix";
+      import { BellIcon, Toggle } from "@moduix/react";
       import { useState } from "react";
       import styles from "./toggle.module.css";
 
@@ -204,7 +204,7 @@ Use `disabled` to freeze interaction while preserving the current pressed state.
 
   <Preview.Code>
     {`
-      import { Toggle } from "moduix";
+      import { Toggle } from "@moduix/react";
       import styles from "./toggle.module.css";
 
       export function DisabledToggleDemo() {
@@ -234,7 +234,7 @@ Use `Toggle.Indicator` when pressed and unpressed states need different inline c
 
   <Preview.Code>
     {`
-      import { CheckIcon, StarIcon, Toggle } from "moduix";
+      import { CheckIcon, StarIcon, Toggle } from "@moduix/react";
 
       export function IndicatorToggleDemo() {
         return (
@@ -262,7 +262,7 @@ Use `Toggle.Context` for inline state reads without mirroring the pressed state 
 
   <Preview.Code>
     {`
-      import { StarIcon, Toggle } from "moduix";
+      import { StarIcon, Toggle } from "@moduix/react";
 
       export function ContextToggleDemo() {
         return (
@@ -289,7 +289,7 @@ Use `variant` to match surrounding UI density and emphasis.
 
   <Preview.Code>
     {`
-      import { Toggle } from "moduix";
+      import { Toggle } from "@moduix/react";
       import styles from "./toggle.module.css";
 
       export function ToggleVariantsDemo() {
@@ -319,7 +319,7 @@ Use text sizes for labeled toggles and icon sizes for denser action rows.
 
   <Preview.Code>
     {`
-      import { Toggle } from "moduix";
+      import { Toggle } from "@moduix/react";
       import styles from "./toggle.module.css";
 
       export function ToggleSizesDemo() {
@@ -349,7 +349,7 @@ Pass icons as regular children. Use icon-only sizes for compact actions.
 
   <Preview.Code>
     {`
-      import { BellIcon, CheckIcon, StarIcon, Toggle } from "moduix";
+      import { BellIcon, CheckIcon, StarIcon, Toggle } from "@moduix/react";
       import styles from "./toggle.module.css";
 
       export function ToggleIconsDemo() {
@@ -385,7 +385,7 @@ Use `asChild` when another semantic button should receive the Ark toggle behavio
 
   <Preview.Code>
     {`
-      import { CheckIcon, Toggle } from "moduix";
+      import { CheckIcon, Toggle } from "@moduix/react";
       import styles from "./toggle.module.css";
 
       export function AsChildToggleDemo() {
@@ -415,7 +415,7 @@ Layer custom visuals through `className` and `--toggle-*` variables when the str
 
   <Preview.Code>
     {`
-      import { CheckIcon, Toggle } from "moduix";
+      import { CheckIcon, Toggle } from "@moduix/react";
       import styles from "./toggle.module.css";
 
       export function CustomStylesToggleDemo() {

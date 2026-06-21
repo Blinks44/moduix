@@ -1,6 +1,6 @@
 # Component Family Contracts
 
-Load this file when work in `packages/ui` touches popup-like or dialog-like component families.
+Load this file when work in `packages/react` touches popup-like or dialog-like component families.
 
 ## Popup-like Components
 

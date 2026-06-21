@@ -1,4 +1,4 @@
-import { Button, Field, HeartIcon, RatingGroup, useRatingGroup } from 'moduix';
+import { Button, Field, HeartIcon, RatingGroup, useRatingGroup } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

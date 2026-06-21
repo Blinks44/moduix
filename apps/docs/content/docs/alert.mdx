@@ -47,7 +47,7 @@ Start with `Alert.Root`, `Alert.Content`, `Alert.Title`, and `Alert.Description`
 
   <Preview.Code>
     {`
-      import { Alert } from "moduix";
+      import { Alert } from "@moduix/react";
 
       export function AlertDemo() {
         return (
@@ -75,35 +75,35 @@ If you want `Alert` to become part of your own project source instead of staying
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/alert
+npx shadcn@latest add Blinks44/moduix/react-alert
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/alert
+pnpm dlx shadcn@latest add Blinks44/moduix/react-alert
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/alert
+bunx shadcn@latest add Blinks44/moduix/react-alert
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/alert
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-alert
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/alert
+aubx shadcn@latest add Blinks44/moduix/react-alert
 ```
 
   </Tab>
@@ -182,7 +182,7 @@ Place a moduix icon or custom SVG inside `Alert.Indicator`.
 
   <Preview.Code>
     {`
-      import { Alert, InfoIcon } from "moduix";
+      import { Alert, InfoIcon } from "@moduix/react";
 
       export function AlertWithIconDemo() {
         return (
@@ -213,7 +213,7 @@ Use statuses for neutral, informational, success, warning, and error states.
 
   <Preview.Code>
     {`
-      import { Alert, CheckIcon, InfoIcon } from "moduix";
+      import { Alert, CheckIcon, InfoIcon } from "@moduix/react";
 
       export function AlertStatusesDemo() {
         return (
@@ -249,7 +249,7 @@ emphasis.
 
   <Preview.Code>
     {`
-      import { Alert, InfoIcon } from "moduix";
+      import { Alert, InfoIcon } from "@moduix/react";
 
       export function AlertErrorDemo() {
         return (
@@ -281,7 +281,7 @@ action. Keep dismiss state in the consuming component when a local alert should 
 
   <Preview.Code>
     {`
-      import { Alert, Button, InfoIcon } from "moduix";
+      import { Alert, Button, InfoIcon } from "@moduix/react";
       import { useState } from "react";
 
       export function AlertActionsDemo() {
@@ -323,7 +323,7 @@ Use `asChild` on `Alert.Title` when the alert should participate in a specific d
 
   <Preview.Code>
     {`
-      import { Alert } from "moduix";
+      import { Alert } from "@moduix/react";
 
       export function AlertHeadingDemo() {
         return (

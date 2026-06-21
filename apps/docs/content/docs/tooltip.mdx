@@ -41,7 +41,7 @@ tooltips do not replace `aria-label` or visible text.
 
   <Preview.Code>
     {`
-      import { BellIcon, Button, Tooltip } from "moduix";
+      import { BellIcon, Button, Tooltip } from "@moduix/react";
       import styles from "./tooltip-demo.module.css";
 
       export function TooltipDemo() {
@@ -98,35 +98,35 @@ If you want `Tooltip` to become part of your own project source instead of stayi
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/tooltip
+npx shadcn@latest add Blinks44/moduix/react-tooltip
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/tooltip
+pnpm dlx shadcn@latest add Blinks44/moduix/react-tooltip
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/tooltip
+bunx shadcn@latest add Blinks44/moduix/react-tooltip
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/tooltip
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-tooltip
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/tooltip
+aubx shadcn@latest add Blinks44/moduix/react-tooltip
 ```
 
   </Tab>
@@ -232,7 +232,7 @@ The wrapper renders `Tooltip.ArrowTip` for the default arrow shape.
 
   <Preview.Code>
     {`
-      import { Tooltip } from "moduix";
+      import { Tooltip } from "@moduix/react";
 
       export function ArrowTooltipDemo() {
         return (
@@ -273,7 +273,7 @@ Use `openDelay` and `closeDelay` on the root to tune hover and focus timing.
 
   <Preview.Code>
     {`
-      import { Tooltip } from "moduix";
+      import { Tooltip } from "@moduix/react";
 
       export function DelayTooltipDemo() {
         return (
@@ -311,7 +311,7 @@ Pass Ark positioning options to `Tooltip`, including placement and offset values
 
   <Preview.Code>
     {`
-      import { Button, Tooltip } from "moduix";
+      import { Button, Tooltip } from "@moduix/react";
       import { useState } from "react";
       import styles from "./tooltip-demo.module.css";
 
@@ -412,7 +412,7 @@ Control open state with `open` and `onOpenChange(details)`.
 
   <Preview.Code>
     {`
-      import { Button, Tooltip } from "moduix";
+      import { Button, Tooltip } from "@moduix/react";
       import { useState } from "react";
       import styles from "./tooltip-demo.module.css";
 
@@ -466,7 +466,7 @@ Use `Tooltip.Context` when content needs inline access to the current tooltip st
 
   <Preview.Code>
     {`
-      import { Tooltip } from "moduix";
+      import { Tooltip } from "@moduix/react";
 
       export function ContextTooltipDemo() {
         return (
@@ -511,7 +511,7 @@ rendered tooltip subtree.
 
   <Preview.Code>
     {`
-      import { Tooltip, useTooltip } from "moduix";
+      import { Tooltip, useTooltip } from "@moduix/react";
       import styles from "./tooltip-demo.module.css";
 
       export function RootProviderTooltipDemo() {
@@ -569,7 +569,7 @@ triggers.
 
   <Preview.Code>
     {`
-      import { Button, InfoIcon, PlusIcon, ShareIcon, Tooltip } from "moduix";
+      import { Button, InfoIcon, PlusIcon, ShareIcon, Tooltip } from "@moduix/react";
       import { useState } from "react";
       import styles from "./tooltip-demo.module.css";
 
@@ -665,7 +665,7 @@ Set `positioning.strategy` to `"fixed"` when the tooltip is anchored inside fixe
 
   <Preview.Code>
     {`
-      import { Tooltip } from "moduix";
+      import { Tooltip } from "@moduix/react";
       import styles from "./tooltip-demo.module.css";
 
       export function WithinFixedTooltipDemo() {
@@ -717,7 +717,7 @@ Ark state attributes without changing the part tree.
 
   <Preview.Code>
     {`
-      import { Tooltip } from "moduix";
+      import { Tooltip } from "@moduix/react";
       import styles from "./tooltip-demo.module.css";
 
       export function CustomStylingTooltipDemo() {

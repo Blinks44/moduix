@@ -1,6 +1,3 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { HomeLayout } from 'fumadocs-ui/layouts/home';
-import { ArrowRight, Code2, Component, Layers3, PackageCheck, Sparkles } from 'lucide-react';
 import {
   Button,
   Dialog,
@@ -10,7 +7,10 @@ import {
   Switch,
   Tabs,
   createListCollection,
-} from 'moduix';
+} from '@moduix/react';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { HomeLayout } from 'fumadocs-ui/layouts/home';
+import { ArrowRight, Code2, Component, Layers3, PackageCheck, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { baseOptions } from '@/lib/layout.shared';
 import styles from './index.module.css';

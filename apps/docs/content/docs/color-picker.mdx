@@ -59,7 +59,7 @@ forms.
 
   <Preview.Code>
     {`
-      import { ColorPicker, Portal, parseColor } from "moduix";
+      import { ColorPicker, Portal, parseColor } from "@moduix/react";
 
       const swatches = ["#0f172a", "#2563eb", "#16a34a", "#f97316"];
 
@@ -128,35 +128,35 @@ Install the registry source when the component should live in your application:
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/color-picker
+npx shadcn@latest add Blinks44/moduix/react-color-picker
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/color-picker
+pnpm dlx shadcn@latest add Blinks44/moduix/react-color-picker
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/color-picker
+bunx shadcn@latest add Blinks44/moduix/react-color-picker
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/color-picker
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-color-picker
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/color-picker
+aubx shadcn@latest add Blinks44/moduix/react-color-picker
 ```
 
   </Tab>
@@ -266,7 +266,7 @@ Use controlled state when the selected color must stay in sync with application 
 
   <Preview.Code>
     {`
-      import { ColorPicker, Portal, parseColor } from "moduix";
+      import { ColorPicker, Portal, parseColor } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledColorPickerDemo() {
@@ -323,7 +323,7 @@ the current color visible.
 
   <Preview.Code>
     {`
-      import { ColorPicker, parseColor } from "moduix";
+      import { ColorPicker, parseColor } from "@moduix/react";
 
       export function DisabledColorPickerDemo() {
         return (
@@ -358,7 +358,7 @@ with native form data.
 
   <Preview.Code>
     {`
-      import { ColorPicker, parseColor } from "moduix";
+      import { ColorPicker, parseColor } from "@moduix/react";
 
       export function FormUsageColorPickerDemo() {
         return (
@@ -398,7 +398,7 @@ field container and should expose the same state through Ark data attributes.
 
   <Preview.Code>
     {`
-      import { ColorPicker, Field, parseColor } from "moduix";
+      import { ColorPicker, Field, parseColor } from "@moduix/react";
 
       export function FieldStateColorPickerDemo() {
         return (
@@ -437,7 +437,7 @@ heavy for the interface.
 
   <Preview.Code>
     {`
-      import { ColorPicker, parseColor } from "moduix";
+      import { ColorPicker, parseColor } from "@moduix/react";
 
       export function InputOnlyColorPickerDemo() {
         return (
@@ -467,7 +467,7 @@ Use slider-only composition when direct manipulation matters but typed channel i
 
   <Preview.Code>
     {`
-      import { ColorPicker, parseColor } from "moduix";
+      import { ColorPicker, parseColor } from "@moduix/react";
 
       export function SliderOnlyColorPickerDemo() {
         return (
@@ -506,7 +506,7 @@ be unnecessary.
 
   <Preview.Code>
     {`
-      import { ColorPicker, parseColor } from "moduix";
+      import { ColorPicker, parseColor } from "@moduix/react";
 
       const swatches = ["#0f172a", "#2563eb", "#16a34a", "#f97316"];
 
@@ -544,7 +544,7 @@ editing. `closeOnSelect` follows Ark behavior and closes the popup after a swatc
 
   <Preview.Code>
     {`
-      import { ColorPicker, Portal, parseColor } from "moduix";
+      import { ColorPicker, Portal, parseColor } from "@moduix/react";
 
       const swatches = ["#0f172a", "#2563eb", "#16a34a", "#f97316"];
 
@@ -600,7 +600,7 @@ the full picker.
 
   <Preview.Code>
     {`
-      import { ColorPicker, parseColor } from "moduix";
+      import { ColorPicker, parseColor } from "@moduix/react";
 
       export function ValueSwatchColorPickerDemo() {
         return (
@@ -633,7 +633,7 @@ Use `inline` for settings panels where the color tools should stay visible witho
 
   <Preview.Code>
     {`
-      import { ColorPicker, parseColor } from "moduix";
+      import { ColorPicker, parseColor } from "@moduix/react";
 
       export function InlineColorPickerDemo() {
         return (
@@ -684,7 +684,7 @@ Use controlled `open` state when another control or workflow owns whether the po
 
   <Preview.Code>
     {`
-      import { ColorPicker, Portal, parseColor } from "moduix";
+      import { ColorPicker, Portal, parseColor } from "@moduix/react";
       import { useState } from "react";
 
       export function OpenControlledColorPickerDemo() {
@@ -737,7 +737,7 @@ rendered tree and shared with nearby controls.
 
   <Preview.Code>
     {`
-      import { ColorPicker, parseColor, useColorPicker } from "moduix";
+      import { ColorPicker, parseColor, useColorPicker } from "@moduix/react";
 
       export function RootProviderColorPickerDemo() {
         const colorPicker = useColorPicker({ defaultValue: parseColor("#9333ea") });
@@ -777,7 +777,7 @@ channel input groups without changing the picker structure.
 
   <Preview.Code>
     {`
-      import { ColorPicker, parseColor } from "moduix";
+      import { ColorPicker, parseColor } from "@moduix/react";
       import { useState } from "react";
 
       export function FormatColorPickerDemo() {
@@ -835,7 +835,7 @@ layer above the dialog content.
 
   <Preview.Code>
     {`
-      import { ColorPicker, Dialog, Portal, parseColor } from "moduix";
+      import { ColorPicker, Dialog, Portal, parseColor } from "@moduix/react";
 
       export function InsideDialogColorPickerDemo() {
         return (
@@ -896,7 +896,7 @@ Use CSS variables on the root for color, sizing, focus ring, popup shadow, and s
 
   <Preview.Code>
     {`
-      import { ColorPicker, Portal, parseColor } from "moduix";
+      import { ColorPicker, Portal, parseColor } from "@moduix/react";
 
       const swatches = ["#0ea5e9", "#14b8a6", "#84cc16", "#f59e0b"];
 

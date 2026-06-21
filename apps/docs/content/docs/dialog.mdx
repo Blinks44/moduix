@@ -44,7 +44,7 @@ Compose the explicit Ark UI structure: `Dialog.Root`, `Portal`, `Dialog.Backdrop
 
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal } from "moduix";
+      import { Button, Dialog, Portal } from "@moduix/react";
 
       export function DialogDemo() {
         return (
@@ -87,35 +87,35 @@ Compose the explicit Ark UI structure: `Dialog.Root`, `Portal`, `Dialog.Backdrop
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/dialog
+npx shadcn@latest add Blinks44/moduix/react-dialog
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/dialog
+pnpm dlx shadcn@latest add Blinks44/moduix/react-dialog
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/dialog
+bunx shadcn@latest add Blinks44/moduix/react-dialog
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/dialog
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-dialog
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/dialog
+aubx shadcn@latest add Blinks44/moduix/react-dialog
 ```
 
   </Tab>
@@ -210,7 +210,7 @@ Use the Ark detail object when synchronizing dialog state with React.
   <ControlledDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal } from "moduix";
+      import { Button, Dialog, Portal } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledDialogDemo() {
@@ -253,7 +253,7 @@ Create state with `useDialog()` when controls live outside the dialog, and read 
 
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal, useDialog } from "moduix";
+      import { Button, Dialog, Portal, useDialog } from "@moduix/react";
 
       export function DialogStateDemo() {
         const dialog = useDialog();
@@ -298,7 +298,7 @@ trigger.
   <AlertDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal } from "moduix";
+      import { Button, Dialog, Portal } from "@moduix/react";
 
       export function DeleteAccountDialog() {
         return (
@@ -344,7 +344,7 @@ Ark UI supports lazy mounting and explicit initial and final focus targets throu
 
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal } from "moduix";
+      import { Button, Dialog, Portal } from "@moduix/react";
       import { useRef } from "react";
 
       export function DialogLifecycleDemo() {
@@ -392,7 +392,7 @@ Set `modal={false}` and omit the backdrop when outside interaction should remain
   <NonModalDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal } from "moduix";
+      import { Button, Dialog, Portal } from "@moduix/react";
 
       export function NonModalDialogDemo() {
         return (
@@ -432,7 +432,7 @@ extend beyond the viewport.
 
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal, ScrollArea } from "moduix";
+      import { Button, Dialog, Portal, ScrollArea } from "@moduix/react";
 
       export function DialogScrollDemo() {
         return (
@@ -485,7 +485,7 @@ variables to the parent content.
   <NestedDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal, useDialog } from "moduix";
+      import { Button, Dialog, Portal, useDialog } from "@moduix/react";
 
       export function NestedDialogDemo() {
         const parent = useDialog();
@@ -535,7 +535,7 @@ different records.
   <MultipleTriggersDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal } from "moduix";
+      import { Button, Dialog, Portal } from "@moduix/react";
       import { useState } from "react";
 
       export function MultipleTriggersDialogDemo() {

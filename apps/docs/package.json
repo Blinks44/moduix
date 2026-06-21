@@ -14,6 +14,7 @@
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
+    "@moduix/react": "*",
     "@tanstack/react-router": "^1.170.15",
     "@tanstack/react-router-devtools": "^1.167.0",
     "@tanstack/react-start": "^1.168.25",
@@ -22,7 +23,6 @@
     "fumadocs-mdx": "^15.0.12",
     "fumadocs-ui": "^16.10.2",
     "lucide-react": "^1.18.0",
-    "moduix": "*",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "tailwind-merge": "^3.6.0",

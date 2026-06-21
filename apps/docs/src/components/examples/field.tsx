@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Checkbox, Field, RadioGroup, useField, useFieldContext } from 'moduix';
+import { Checkbox, Field, RadioGroup, useField, useFieldContext } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

@@ -36,7 +36,7 @@ Use `Pagination` as the short root form for Ark `Pagination.Root`. Render page b
 
   <Preview.Code>
     {`
-      import { Pagination } from "moduix";
+      import { Pagination } from "@moduix/react";
 
       export function PaginationDemo() {
         return (
@@ -81,35 +81,35 @@ If you want `Pagination` to become part of your own project source instead of st
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/pagination
+npx shadcn@latest add Blinks44/moduix/react-pagination
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/pagination
+pnpm dlx shadcn@latest add Blinks44/moduix/react-pagination
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/pagination
+bunx shadcn@latest add Blinks44/moduix/react-pagination
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/pagination
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-pagination
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/pagination
+aubx shadcn@latest add Blinks44/moduix/react-pagination
 ```
 
   </Tab>
@@ -192,7 +192,7 @@ Control the active page with Ark's `page` and `onPageChange(details)` props.
 
   <Preview.Code>
     {`
-      import { Pagination } from "moduix";
+      import { Pagination } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledPaginationDemo() {
@@ -535,7 +535,7 @@ rendered root.
 
   <Preview.Code>
     {`
-      import { Pagination, usePagination } from "moduix";
+      import { Pagination, usePagination } from "@moduix/react";
 
       export function RootProviderPaginationDemo() {
         const pagination = usePagination({ count: 200, pageSize: 10, siblingCount: 2 });

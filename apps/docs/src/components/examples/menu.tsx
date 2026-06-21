@@ -8,7 +8,7 @@ import {
   Menu,
   Portal,
   useMenu,
-} from 'moduix';
+} from '@moduix/react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

@@ -1,4 +1,4 @@
-import { ProgressLinear, Slider, useProgressLinear } from 'moduix';
+import { ProgressLinear, Slider, useProgressLinear } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

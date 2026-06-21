@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { CloseButton } from 'moduix';
+import { CloseButton } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './close-button.module.css';

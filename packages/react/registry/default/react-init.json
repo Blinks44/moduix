@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "extends": "none",
+  "name": "react-init",
+  "title": "moduix React init",
+  "description": "Initialize shadcn for moduix React and install the shared foundation files.",
+  "dependencies": ["@ark-ui/react", "clsx"],
+  "registryDependencies": ["Blinks44/moduix/react-core"],
+  "type": "registry:base",
+  "config": {
+    "style": "new-york",
+    "rsc": false,
+    "tsx": true,
+    "aliases": {
+      "components": "@/components",
+      "utils": "@/lib/utils",
+      "ui": "@/components/ui",
+      "lib": "@/lib",
+      "hooks": "@/hooks"
+    }
+  }
+}

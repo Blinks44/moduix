@@ -1,4 +1,4 @@
-import { Steps, useSteps } from 'moduix';
+import { Steps, useSteps } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

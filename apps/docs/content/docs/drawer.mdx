@@ -38,7 +38,7 @@ Compose the Ark structural parts explicitly. `Drawer.Content` is the real intera
 
   <Preview.Code>
     {`
-      import { Button, Drawer } from "moduix";
+      import { Button, Drawer } from "@moduix/react";
 
       export function DrawerDemo() {
         return (
@@ -101,35 +101,35 @@ Compose the Ark structural parts explicitly. `Drawer.Content` is the real intera
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/drawer
+npx shadcn@latest add Blinks44/moduix/react-drawer
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/drawer
+pnpm dlx shadcn@latest add Blinks44/moduix/react-drawer
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/drawer
+bunx shadcn@latest add Blinks44/moduix/react-drawer
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/drawer
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-drawer
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/drawer
+aubx shadcn@latest add Blinks44/moduix/react-drawer
 ```
 
   </Tab>
@@ -232,7 +232,7 @@ Use logical `start` and `end` values for side drawers so the same code works in 
 
   <Preview.Code>
     {`
-      import { Button, Drawer } from "moduix";
+      import { Button, Drawer } from "@moduix/react";
 
       export function SwipeDirectionDrawerDemo() {
         return (
@@ -278,7 +278,7 @@ Define intermediate positions on the root and choose the initial position with `
 
   <Preview.Code>
     {`
-      import { Button, Drawer } from "moduix";
+      import { Button, Drawer } from "@moduix/react";
 
       export function SnapPointsDrawerDemo() {
         return (
@@ -320,7 +320,7 @@ Set `modal={false}` when the page must remain interactive while the drawer is op
 
   <Preview.Code>
     {`
-      import { Button, Drawer } from "moduix";
+      import { Button, Drawer } from "@moduix/react";
 
       export function NonModalDrawerDemo() {
         return (
@@ -364,7 +364,7 @@ Read `details.open` from the Ark callback instead of expecting a boolean callbac
 
   <Preview.Code>
     {`
-      import { Button, Drawer } from "moduix";
+      import { Button, Drawer } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledDrawerDemo() {
@@ -418,7 +418,7 @@ scroll container while the grabber and header stay fixed.
 
   <Preview.Code>
     {`
-      import { Button, Drawer, ScrollArea } from "moduix";
+      import { Button, Drawer, ScrollArea } from "@moduix/react";
 
       export function ScrollableDrawerDemo() {
         return (
@@ -509,7 +509,7 @@ specific interactive regions must never start a drag.
 
   <Preview.Code>
     {`
-      import { Button, Drawer } from "moduix";
+      import { Button, Drawer } from "@moduix/react";
 
       export function DragControlsDrawerDemo() {
         return (
@@ -572,7 +572,7 @@ trigger is current.
 
   <Preview.Code>
     {`
-      import { Button, Drawer, type DrawerTriggerValueChangeDetails } from "moduix";
+      import { Button, Drawer, type DrawerTriggerValueChangeDetails } from "@moduix/react";
       import { useState } from "react";
 
       export function MultipleTriggersDrawerDemo() {
@@ -630,7 +630,7 @@ points.
 
   <Preview.Code>
     {`
-      import { Button, Drawer, useDrawer } from "moduix";
+      import { Button, Drawer, useDrawer } from "@moduix/react";
 
       export function RootProviderDrawerDemo() {
         const drawer = useDrawer({
@@ -693,7 +693,7 @@ progress.
 
   <Preview.Code>
     {`
-      import { Button, Drawer } from "moduix";
+      import { Button, Drawer } from "@moduix/react";
 
       export function IndentDrawerDemo() {
         return (

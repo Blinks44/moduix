@@ -1,4 +1,4 @@
-import { BellIcon, CheckIcon, StarIcon, ToggleGroup, useToggleGroup } from 'moduix';
+import { BellIcon, CheckIcon, StarIcon, ToggleGroup, useToggleGroup } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

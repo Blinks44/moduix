@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Breadcrumbs, Menu, Portal, SeparatorMarkIcon } from 'moduix';
+import { Breadcrumbs, Menu, Portal, SeparatorMarkIcon } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 

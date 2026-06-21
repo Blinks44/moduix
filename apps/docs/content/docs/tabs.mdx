@@ -45,7 +45,7 @@ Use Ark-style parts: `Tabs.Root`, `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator`,
 
   <Preview.Code>
     {`
-      import { Tabs } from "moduix";
+      import { Tabs } from "@moduix/react";
 
       export function TabsDemo() {
         return (
@@ -84,35 +84,35 @@ If you want `Tabs` to become part of your own project source instead of staying 
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/tabs
+npx shadcn@latest add Blinks44/moduix/react-tabs
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/tabs
+pnpm dlx shadcn@latest add Blinks44/moduix/react-tabs
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/tabs
+bunx shadcn@latest add Blinks44/moduix/react-tabs
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/tabs
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-tabs
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/tabs
+aubx shadcn@latest add Blinks44/moduix/react-tabs
 ```
 
   </Tab>
@@ -194,7 +194,7 @@ Control the selected tab from React state when the active panel coordinates with
 
   <Preview.Code>
     {`
-      import { Tabs } from "moduix";
+      import { Tabs } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledTabsDemo() {
@@ -236,7 +236,7 @@ Disable triggers that are visible but not available yet.
 
   <Preview.Code>
     {`
-      import { Tabs } from "moduix";
+      import { Tabs } from "@moduix/react";
 
       export function DisabledTabTabsDemo() {
         return (
@@ -274,7 +274,7 @@ Add `Tabs.Indicator` inside `Tabs.List` when you want an animated active-trigger
 
   <Preview.Code>
     {`
-      import { Tabs } from "moduix";
+      import { Tabs } from "@moduix/react";
 
       export function IndicatorTabsDemo() {
         return (
@@ -313,7 +313,7 @@ Use `lazyMount` and `unmountOnExit` when inactive content should not stay in the
 
   <Preview.Code>
     {`
-      import { Tabs } from "moduix";
+      import { Tabs } from "@moduix/react";
 
       export function LazyMountTabsDemo() {
         return (
@@ -352,7 +352,7 @@ Use `asChild` when triggers should render anchors or router links.
 
   <Preview.Code>
     {`
-      import { Tabs } from "moduix";
+      import { Tabs } from "@moduix/react";
 
       export function LinkTabsDemo() {
         return (
@@ -391,7 +391,7 @@ Enter, or Space.
 
   <Preview.Code>
     {`
-      import { Tabs } from "moduix";
+      import { Tabs } from "@moduix/react";
 
       export function ManualActivationTabsDemo() {
         return (
@@ -429,7 +429,7 @@ Create state with `useTabs()` when the selected value must be read before render
 
   <Preview.Code>
     {`
-      import { Tabs, useTabs } from "moduix";
+      import { Tabs, useTabs } from "@moduix/react";
 
       export function RootProviderTabsDemo() {
         const tabs = useTabs({ defaultValue: "overview" });
@@ -472,7 +472,7 @@ Use `orientation="vertical"` when the trigger list should sit beside the active 
 
   <Preview.Code>
     {`
-      import { Tabs } from "moduix";
+      import { Tabs } from "@moduix/react";
 
       export function VerticalTabsDemo() {
         return (
@@ -511,7 +511,7 @@ trigger.
 
   <Preview.Code>
     {`
-      import { Tabs } from "moduix";
+      import { Tabs } from "@moduix/react";
 
       export function LineTabsDemo() {
         return (
@@ -550,7 +550,7 @@ Compose icons and labels directly inside `Tabs.Trigger`.
 
   <Preview.Code>
     {`
-      import { HandshakeIcon, MapIcon, PresentIcon, Tabs } from "moduix";
+      import { HandshakeIcon, MapIcon, PresentIcon, Tabs } from "@moduix/react";
 
       export function IconTabsDemo() {
         return (
@@ -596,7 +596,7 @@ lighter inline layout.
 
   <Preview.Code>
     {`
-      import { Tabs } from "moduix";
+      import { Tabs } from "@moduix/react";
       import styles from "./custom-styling-tabs-demo.module.css";
 
       export function CustomStylingTabsDemo() {

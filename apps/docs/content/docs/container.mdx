@@ -30,7 +30,7 @@ applies responsive inline gutters, and stays out of vertical spacing decisions.
 
   <Preview.Code>
     {`
-      import { Container, Heading, Text } from "moduix";
+      import { Container, Heading, Text } from "@moduix/react";
 
       export function ContainerDemo() {
         return (
@@ -81,35 +81,35 @@ If you want `Container` to become part of your own project source instead of sta
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/container
+npx shadcn@latest add Blinks44/moduix/react-container
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/container
+pnpm dlx shadcn@latest add Blinks44/moduix/react-container
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/container
+bunx shadcn@latest add Blinks44/moduix/react-container
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/container
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-container
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/container
+aubx shadcn@latest add Blinks44/moduix/react-container
 ```
 
   </Tab>
@@ -183,7 +183,7 @@ preserving the selected gutter.
 
   <Preview.Code>
     {`
-      import { Container, Text } from "moduix";
+      import { Container, Text } from "@moduix/react";
 
       export function ContainerSizesDemo() {
         return (
@@ -242,7 +242,7 @@ Use `gutter` to control responsive inline padding.
 
   <Preview.Code>
     {`
-      import { Container, Text } from "moduix";
+      import { Container, Text } from "@moduix/react";
 
       export function ContainerGuttersDemo() {
         return (
@@ -299,7 +299,7 @@ Use `asChild` when the layout wrapper should also describe document structure.
 
   <Preview.Code>
     {`
-      import { Container, Heading, Text } from "moduix";
+      import { Container, Heading, Text } from "@moduix/react";
 
       export function ContainerSemanticDemo() {
         return (
@@ -350,7 +350,7 @@ Keep the text column constrained and let only the wider child opt out.
 
   <Preview.Code>
     {`
-      import { Bleed, Container, Heading, Text } from "moduix";
+      import { Bleed, Container, Heading, Text } from "@moduix/react";
 
       export function ContainerBleedDemo() {
         return (
@@ -410,7 +410,7 @@ Pass `className` when styling the root or overriding container variables locally
 
   <Preview.Code>
     {`
-      import { Container, Text } from "moduix";
+      import { Container, Text } from "@moduix/react";
 
       export function CustomStyledContainerDemo() {
         return (

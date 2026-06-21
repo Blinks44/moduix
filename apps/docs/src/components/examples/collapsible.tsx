@@ -1,4 +1,4 @@
-import { ChevronDownIcon, Collapsible, useCollapsible } from 'moduix';
+import { ChevronDownIcon, Collapsible, useCollapsible } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

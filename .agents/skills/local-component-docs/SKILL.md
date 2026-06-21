@@ -1,15 +1,15 @@
 ---
 name: local-component-docs
-description: Use when creating or updating component-local markdown in packages/ui/src/components, including wrapper contracts and concise changelog entries.
+description: Use when creating or updating component-local markdown in packages/react/src/components, including wrapper contracts and concise changelog entries.
 ---
 
 # Skill: local-component-docs
 
-Use this skill for markdown files in `packages/ui/src/components`.
+Use this skill for markdown files in `packages/react/src/components`.
 
 ## Scope
 
-- `packages/ui/src/components/<component-name>/<component-name>.md`
+- `packages/react/src/components/<component-name>/<component-name>.md`
 - wrapper behavior contracts
 - component-specific preservation notes
 - component-level changelog entries
@@ -57,7 +57,7 @@ When the wrapper exposes the relevant behavior, document these Ark guide concept
 
 ## Required Structure
 
-Every `packages/ui/src/components/<component-name>/<component-name>.md` file must use this section order:
+Every `packages/react/src/components/<component-name>/<component-name>.md` file must use this section order:
 
 ```md
 # ComponentName

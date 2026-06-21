@@ -1,4 +1,4 @@
-import { Button, Slider, useSlider } from 'moduix';
+import { Button, Slider, useSlider } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -220,7 +220,7 @@ export const sliderCustomStylingCss = `
 `;
 
 export const sliderBasicCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function SliderDemo() {
   return (
@@ -243,7 +243,7 @@ export function SliderDemo() {
 `;
 
 export const sliderRangeCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function RangeSliderDemo() {
   return (
@@ -267,7 +267,7 @@ export function RangeSliderDemo() {
 `;
 
 export const sliderMinMaxCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function MinMaxSliderDemo() {
   return (
@@ -288,7 +288,7 @@ export function MinMaxSliderDemo() {
 `;
 
 export const sliderStepCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function StepSliderDemo() {
   return (
@@ -311,7 +311,7 @@ export function StepSliderDemo() {
 `;
 
 export const sliderControlledCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 import { useState } from "react";
 
 export function ControlledSliderDemo() {
@@ -358,7 +358,7 @@ export function ControlledSliderDemo() {
 `;
 
 export const sliderEventsCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 import { useState } from "react";
 
 export function EventsSliderDemo() {
@@ -394,7 +394,7 @@ export function EventsSliderDemo() {
 `;
 
 export const sliderVerticalCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function VerticalSliderDemo() {
   return (
@@ -415,7 +415,7 @@ export function VerticalSliderDemo() {
 `;
 
 export const sliderCenterOriginCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function CenterOriginSliderDemo() {
   return (
@@ -438,7 +438,7 @@ export function CenterOriginSliderDemo() {
 `;
 
 export const sliderMarksCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function MarksSliderDemo() {
   return (
@@ -468,7 +468,7 @@ export function MarksSliderDemo() {
 `;
 
 export const sliderDraggingIndicatorCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function DraggingIndicatorSliderDemo() {
   return (
@@ -489,7 +489,7 @@ export function DraggingIndicatorSliderDemo() {
 `;
 
 export const sliderThumbAlignmentCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function ThumbAlignmentSliderDemo() {
   return (
@@ -512,7 +512,7 @@ export function ThumbAlignmentSliderDemo() {
 `;
 
 export const sliderThumbCollisionCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function ThumbCollisionSliderDemo() {
   return (
@@ -538,7 +538,7 @@ export function ThumbCollisionSliderDemo() {
 `;
 
 export const sliderThumbOverlapCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function ThumbOverlapSliderDemo() {
   return (
@@ -564,7 +564,7 @@ export function ThumbOverlapSliderDemo() {
 `;
 
 export const sliderDisabledCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function DisabledSliderDemo() {
   return (
@@ -587,7 +587,7 @@ export function DisabledSliderDemo() {
 `;
 
 export const sliderContextCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function ContextSliderDemo() {
   return (
@@ -614,7 +614,7 @@ export function ContextSliderDemo() {
 `;
 
 export const sliderRootProviderCode = `
-import { Button, Slider, useSlider } from "moduix";
+import { Button, Slider, useSlider } from "@moduix/react";
 
 export function RootProviderSliderDemo() {
   const slider = useSlider({ defaultValue: [40] });
@@ -640,7 +640,7 @@ export function RootProviderSliderDemo() {
 `;
 
 export const sliderCustomStylingCode = `
-import { Slider } from "moduix";
+import { Slider } from "@moduix/react";
 
 export function CustomStylingSliderDemo() {
   return (

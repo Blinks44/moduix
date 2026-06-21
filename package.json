@@ -9,11 +9,11 @@
   "scripts": {
     "build": "turbo run build",
     "build:docs": "turbo run build -F moduix-docs",
-    "build:registry": "rm -rf packages/ui/registry/default && npx shadcn@latest build registry.json --output packages/ui/registry/default && oxfmt",
-    "build:ui": "turbo run build -F moduix",
+    "build:registry": "rm -rf packages/react/registry/default && npx shadcn@latest build registry.json --output packages/react/registry/default && oxfmt",
+    "build:ui": "turbo run build -F @moduix/react",
     "changeset": "changeset",
     "changeset:version": "changeset version",
-    "changeset:release": "turbo run build -F moduix && changeset publish",
+    "changeset:release": "turbo run build -F @moduix/react && changeset publish",
     "deploy:docs": "turbo run deploy -F moduix-docs",
     "dev": "turbo run dev",
     "fmt:check": "oxfmt --check",
@@ -21,7 +21,7 @@
     "lint:check": "oxlint",
     "lint:fix": "oxlint --fix",
     "prepare": "husky",
-    "publish:ui": "npm publish -w moduix",
+    "publish:ui": "npm publish -w @moduix/react",
     "tsc:check": "turbo run tsc:check"
   },
   "dependencies": {},

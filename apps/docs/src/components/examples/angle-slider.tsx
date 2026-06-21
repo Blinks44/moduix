@@ -1,4 +1,4 @@
-import { AngleSlider, useAngleSlider } from 'moduix';
+import { AngleSlider, useAngleSlider } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

@@ -39,7 +39,7 @@ parts. This is the recommended path for invoices, summaries, and admin-style rea
       import {
         Badge,
         Table,
-      } from "moduix";
+      } from "@moduix/react";
 
       export function TableDemo() {
         return (
@@ -110,35 +110,35 @@ If you want `Table` to become part of your own project source instead of staying
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/table
+npx shadcn@latest add Blinks44/moduix/react-table
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/table
+pnpm dlx shadcn@latest add Blinks44/moduix/react-table
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/table
+bunx shadcn@latest add Blinks44/moduix/react-table
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/table
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-table
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/table
+aubx shadcn@latest add Blinks44/moduix/react-table
 ```
 
   </Tab>
@@ -245,7 +245,7 @@ totals or summaries.
     {`
       import {
         Table,
-      } from "moduix";
+      } from "@moduix/react";
 
       <Table.ScrollArea className={styles.shell}>
         <Table className={styles.table}>
@@ -319,7 +319,7 @@ Use `numeric` on both the header and the cells for the common aligned-metrics ca
     {`
       import {
         Table,
-      } from "moduix";
+      } from "@moduix/react";
 
       <Table.ScrollArea className={styles.shell}>
         <Table className={styles.table}>
@@ -384,7 +384,7 @@ opinionated table abstraction.
     {`
       import {
         Table,
-      } from "moduix";
+      } from "@moduix/react";
 
       <Table.ScrollArea className={styles.shell}>
         <Table striped interactive className={styles.table}>
@@ -447,7 +447,7 @@ native root instead of adding extra state.
 
   <Preview.Code>
     {`
-      import { Table } from "moduix";
+      import { Table } from "@moduix/react";
 
       {(["sm", "md", "lg"] as const).map((size) => (
         <Table.ScrollArea key={size} className={styles.shell}>
@@ -506,7 +506,7 @@ column separation needs to be visible.
 
   <Preview.Code>
     {`
-      import { Table } from "moduix";
+      import { Table } from "@moduix/react";
 
       <Table.ScrollArea className={styles.shell}>
         <Table showColumnBorder className={styles.table}>
@@ -572,7 +572,7 @@ vertically scrolling table needs persistent context.
 
   <Preview.Code>
     {`
-      import { Table } from "moduix";
+      import { Table } from "@moduix/react";
 
       <Table.ScrollArea className={styles.stickyShell}>
         <Table stickyHeader interactive className={styles.wideTable}>
@@ -639,7 +639,7 @@ Use `Table.Empty` when a body would otherwise render no rows.
     {`
       import {
         Table,
-      } from "moduix";
+      } from "@moduix/react";
 
       export function EmptyStateTableDemo() {
         return (
@@ -699,7 +699,7 @@ Use `Table.Empty` when a body would otherwise render no rows.
 
   <Preview.Code>
     {`
-      import { Card, Table } from "moduix";
+      import { Card, Table } from "@moduix/react";
 
       <Card>
         <Card.Header>
@@ -779,7 +779,7 @@ Use the last column for row-specific actions when the dataset needs lightweight 
         Menu,
         Portal,
         Table,
-      } from "moduix";
+      } from "@moduix/react";
 
       function RowActionsMenu({ itemName }) {
         return (
@@ -902,7 +902,7 @@ Skip `Table.ScrollArea` when the surrounding layout already owns the shell or sc
     {`
       import {
         Table,
-      } from "moduix";
+      } from "@moduix/react";
 
       <div className={styles.shell}>
         <Table className={styles.table}>

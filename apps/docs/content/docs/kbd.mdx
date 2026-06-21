@@ -29,7 +29,7 @@ Start with `Kbd` for one key and `Kbd.Group` when several keys form one shortcut
 
   <Preview.Code>
     {`
-      import { Kbd } from "moduix";
+      import { Kbd } from "@moduix/react";
       import { Fragment } from "react";
 
       export function KbdDemo() {
@@ -77,35 +77,35 @@ If you want `Kbd` to become part of your own project source instead of staying i
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/kbd
+npx shadcn@latest add Blinks44/moduix/react-kbd
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/kbd
+pnpm dlx shadcn@latest add Blinks44/moduix/react-kbd
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/kbd
+bunx shadcn@latest add Blinks44/moduix/react-kbd
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/kbd
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-kbd
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/kbd
+aubx shadcn@latest add Blinks44/moduix/react-kbd
 ```
 
   </Tab>
@@ -162,7 +162,7 @@ Use `Kbd` directly when the UI refers to one key.
 
   <Preview.Code>
     {`
-      import { Kbd } from "moduix";
+      import { Kbd } from "@moduix/react";
 
       export function KbdSingleKeyDemo() {
         return <Kbd>{key}</Kbd>;
@@ -197,7 +197,7 @@ Use `asChild` to merge Kbd props into one semantic child when another layer owns
 
   <Preview.Code>
     {`
-      import { Kbd } from "moduix";
+      import { Kbd } from "@moduix/react";
 
       export function KbdAsChildDemo() {
         return (
@@ -239,7 +239,7 @@ Use plain composition when shortcuts need to sit next to surrounding copy.
 
   <Preview.Code>
     {`
-      import { Kbd } from "moduix";
+      import { Kbd } from "@moduix/react";
       import { Fragment } from "react";
 
       export function KbdShortcutListDemo() {
@@ -318,7 +318,7 @@ Use local CSS variables for one-off density or tone changes instead of extra com
 
   <Preview.Code>
     {`
-      import { Kbd } from "moduix";
+      import { Kbd } from "@moduix/react";
 
       export function KbdDenseDemo() {
         return (
@@ -372,7 +372,7 @@ Use `className` and CSS variables when the default keycap needs to match product
 
   <Preview.Code>
     {`
-      import { Kbd } from "moduix";
+      import { Kbd } from "@moduix/react";
       import { Fragment } from "react";
 
       export function CustomKbdDemo() {

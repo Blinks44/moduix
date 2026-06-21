@@ -1,4 +1,4 @@
-import { Accordion, ChevronDownIcon, useAccordion } from 'moduix';
+import { Accordion, ChevronDownIcon, useAccordion } from '@moduix/react';
 import { useState, type ComponentProps, type ReactNode } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

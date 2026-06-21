@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Checkbox, Field, Fieldset, useFieldset } from 'moduix';
+import { Checkbox, Field, Fieldset, useFieldset } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './fieldset.module.css';

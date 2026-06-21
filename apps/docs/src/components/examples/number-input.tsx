@@ -1,4 +1,4 @@
-import { ChevronDownIcon, ChevronUpIcon, Field, NumberInput, useNumberInput } from 'moduix';
+import { ChevronDownIcon, ChevronUpIcon, Field, NumberInput, useNumberInput } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

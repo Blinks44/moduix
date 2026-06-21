@@ -40,7 +40,7 @@ Use the Ark composition path directly: `Clipboard.Root`, `Clipboard.Label`, `Cli
 
   <Preview.Code>
     {`
-      import { Clipboard } from "moduix";
+      import { Clipboard } from "@moduix/react";
 
       export function ClipboardDemo() {
         return (
@@ -72,35 +72,35 @@ If you want `Clipboard` to become part of your own project source instead of sta
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/clipboard
+npx shadcn@latest add Blinks44/moduix/react-clipboard
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/clipboard
+pnpm dlx shadcn@latest add Blinks44/moduix/react-clipboard
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/clipboard
+bunx shadcn@latest add Blinks44/moduix/react-clipboard
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/clipboard
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-clipboard
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/clipboard
+aubx shadcn@latest add Blinks44/moduix/react-clipboard
 ```
 
   </Tab>
@@ -189,7 +189,7 @@ Control the value when the text field should stay in sync with surrounding UI or
 
   <Preview.Code>
     {`
-      import { Clipboard } from "moduix";
+      import { Clipboard } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledClipboardDemo() {
@@ -228,7 +228,7 @@ introducing a separate clipboard abstraction.
 
   <Preview.Code>
     {`
-      import { Clipboard } from "moduix";
+      import { Clipboard } from "@moduix/react";
       import { useState } from "react";
 
       export function ClipboardStatusDemo() {
@@ -270,7 +270,7 @@ Set `timeout` when copied state should remain visible for longer than the Ark de
 
   <Preview.Code>
     {`
-      import { Clipboard } from "moduix";
+      import { Clipboard } from "@moduix/react";
 
       export function TimeoutClipboardDemo() {
         return (
@@ -303,7 +303,7 @@ introducing another React state layer.
 
   <Preview.Code>
     {`
-      import { Clipboard } from "moduix";
+      import { Clipboard } from "@moduix/react";
 
       export function ContextClipboardDemo() {
         return (
@@ -336,7 +336,7 @@ Use `Clipboard.ValueText` when the copied value should read like inline content 
 
   <Preview.Code>
     {`
-      import { Clipboard } from "moduix";
+      import { Clipboard } from "@moduix/react";
 
       export function ValueTextClipboardDemo() {
         return (
@@ -368,7 +368,7 @@ tree but the visible parts should stay Ark-shaped.
 
   <Preview.Code>
     {`
-      import { Clipboard, useClipboard } from "moduix";
+      import { Clipboard, useClipboard } from "@moduix/react";
 
       export function RootProviderClipboardDemo() {
         const clipboard = useClipboard({
@@ -405,7 +405,7 @@ feedback. The default moduix styling does not darken the input or trigger after 
 
   <Preview.Code>
     {`
-      import { Clipboard } from "moduix";
+      import { Clipboard } from "@moduix/react";
 
       export function StyledClipboardDemo() {
         return (

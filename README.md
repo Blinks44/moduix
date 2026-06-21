@@ -1,6 +1,6 @@
 ![moduix banner](apps/docs/public/banner.png)
 
-[![npm](https://img.shields.io/npm/v/moduix?logo=npm&label=npm)](https://www.npmjs.com/package/moduix)
+[![npm](https://img.shields.io/npm/v/@moduix/react?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/react)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Turborepo](https://img.shields.io/badge/Monorepo-Turborepo-EF4444)](https://turbo.build/)
@@ -48,15 +48,15 @@ moduix supports two installation paths:
 - Install the library as a regular npm package when you want package-managed updates.
 - Install component source into your own project with `shadcn` when you want direct ownership.
 
-| Choose this path            | When it fits best                                                                                                      |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| npm package                 | You want the fastest setup, package-managed updates, imports from `moduix`, and styles from `moduix/style.css`.        |
-| `shadcn` copy-owned install | You want generated source files inside your app, direct local customization, and imports from `@/components/moduix/*`. |
+| Choose this path            | When it fits best                                                                                                             |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| npm package                 | You want the fastest setup, package-managed updates, imports from `@moduix/react`, and styles from `@moduix/react/style.css`. |
+| `shadcn` copy-owned install | You want generated source files inside your app, direct local customization, and imports from `@/components/moduix/*`.        |
 
 ### npm package
 
 ```bash
-npm install moduix @ark-ui/react
+npm install @moduix/react @ark-ui/react
 ```
 
 `react`, `react-dom`, and `@ark-ui/react` are peer dependencies. They stay in your application
@@ -100,8 +100,8 @@ base init still fails for this setup:
 ```
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/button
-npx shadcn@latest add Blinks44/moduix/accordion
+npx shadcn@latest add Blinks44/moduix/react-button
+npx shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
 The registry install also pulls in the shared moduix foundation files those components need, such as
@@ -128,20 +128,20 @@ With the aliases above, generated files land in `src/components/moduix/*` and `s
 Import the library styles once in your application entry point:
 
 ```tsx
-import 'moduix/style.css';
+import '@moduix/react/style.css';
 ```
 
 If you want the optional reset, import it explicitly before the main stylesheet:
 
 ```tsx
-import 'moduix/reset.css';
-import 'moduix/style.css';
+import '@moduix/react/reset.css';
+import '@moduix/react/style.css';
 ```
 
 Then import and compose the components you need:
 
 ```tsx
-import { Button, Dialog, DialogContent, DialogTitle, DialogTrigger } from 'moduix';
+import { Button, Dialog, DialogContent, DialogTitle, DialogTrigger } from '@moduix/react';
 
 export function Example() {
   return (
@@ -188,8 +188,8 @@ Select, Tabs, Toast, Tooltip, and supporting primitives.
 ## Documentation
 
 - Documentation: https://moduix.blinks44.workers.dev/
-- npm package: https://www.npmjs.com/package/moduix
-- UI package README: `packages/ui/README.md`
+- npm package: https://www.npmjs.com/package/@moduix/react
+- UI package README: `packages/react/README.md`
 - Docs app README: `apps/docs/README.md`
 
 ## Repository Quick Start
@@ -227,7 +227,7 @@ Before opening a pull request:
    npm install
    ```
 
-2. Build the UI package when your change affects `packages/ui` or documentation examples:
+2. Build the UI package when your change affects `packages/react` or documentation examples:
 
    ```bash
    npm run build:ui

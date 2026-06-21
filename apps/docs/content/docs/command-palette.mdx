@@ -30,7 +30,7 @@ Use the explicit dialog structure and place `CommandPalette.Combobox` inside `Co
         CommandPalette,
         useFilter,
         useListCollection,
-      } from "moduix";
+      } from "@moduix/react";
 
       export function CommandPaletteDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -152,35 +152,35 @@ If you want `Command Palette` to become part of your own project source instead 
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/command-palette
+npx shadcn@latest add Blinks44/moduix/react-command-palette
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/command-palette
+pnpm dlx shadcn@latest add Blinks44/moduix/react-command-palette
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/command-palette
+bunx shadcn@latest add Blinks44/moduix/react-command-palette
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/command-palette
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-command-palette
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/command-palette
+aubx shadcn@latest add Blinks44/moduix/react-command-palette
 ```
 
   </Tab>
@@ -274,7 +274,7 @@ Attach execution behavior to items and let `CommandPalette.Combobox` close the d
         CommandPalette,
         useFilter,
         useListCollection,
-      } from "moduix";
+      } from "@moduix/react";
       import { useState } from "react";
 
       export function CommandPaletteActionsDemo() {
@@ -398,7 +398,7 @@ Control `open` from React state when the palette must coordinate with surroundin
         CommandPalette,
         useFilter,
         useListCollection,
-      } from "moduix";
+      } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledCommandPalette() {

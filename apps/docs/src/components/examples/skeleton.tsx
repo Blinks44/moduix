@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Skeleton, Stack } from 'moduix';
+import { Skeleton, Stack } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './skeleton.module.css';

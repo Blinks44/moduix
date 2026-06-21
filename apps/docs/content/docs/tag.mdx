@@ -38,7 +38,7 @@ an inline close action.
 
   <Preview.Code>
     {`
-      import { Tag } from "moduix";
+      import { Tag } from "@moduix/react";
 
       export function TagDemo() {
         return (
@@ -71,35 +71,35 @@ install it from the moduix GitHub registry:
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/tag
+npx shadcn@latest add Blinks44/moduix/react-tag
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/tag
+pnpm dlx shadcn@latest add Blinks44/moduix/react-tag
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/tag
+bunx shadcn@latest add Blinks44/moduix/react-tag
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/tag
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-tag
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/tag
+aubx shadcn@latest add Blinks44/moduix/react-tag
 ```
 
   </Tab>
@@ -170,7 +170,7 @@ Use the built-in variants for common moduix tones while keeping the same part st
 
   <Preview.Code>
     {`
-      import { Tag } from "moduix";
+      import { Tag } from "@moduix/react";
       import styles from "./tag-demo.module.css";
 
       const variants = ["default", "secondary", "outline", "ghost", "destructive"] as const;
@@ -217,7 +217,7 @@ Use `size="sm"` for dense token rows and keep the default `md` size for standalo
 
   <Preview.Code>
     {`
-      import { Tag } from "moduix";
+      import { Tag } from "@moduix/react";
       import styles from "./tag-demo.module.css";
 
       const sizes = [
@@ -273,7 +273,7 @@ state and click handling.
 
   <Preview.Code>
     {`
-      import { Tag } from "moduix";
+      import { Tag } from "@moduix/react";
       import styles from "./tag-demo.module.css";
 
       const tags = [
@@ -334,7 +334,7 @@ independent.
 
   <Preview.Code>
     {`
-      import { CheckIcon, Tag } from "moduix";
+      import { CheckIcon, Tag } from "@moduix/react";
       import styles from "./tag-demo.module.css";
 
       const tags = [
@@ -398,7 +398,7 @@ remain discoverable.
 
   <Preview.Code>
     {`
-      import { Tag } from "moduix";
+      import { Tag } from "@moduix/react";
       import styles from "./tag-demo.module.css";
 
       const label = "Ready for stakeholder review after legal approval";
@@ -442,7 +442,7 @@ keyboard and click behavior.
 
   <Preview.Code>
     {`
-      import { Tag } from "moduix";
+      import { Tag } from "@moduix/react";
       import styles from "./tag-demo.module.css";
 
       export function TagAsChildDemo() {
@@ -483,7 +483,7 @@ Use local CSS variables when a token needs custom tone or spacing without changi
 
   <Preview.Code>
     {`
-      import { CheckIcon, Tag } from "moduix";
+      import { CheckIcon, Tag } from "@moduix/react";
       import styles from "./tag-demo.module.css";
 
       export function CustomTagDemo() {

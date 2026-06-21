@@ -1,4 +1,4 @@
-import { Lightbox, Portal, useLightbox } from 'moduix';
+import { Lightbox, Portal, useLightbox } from '@moduix/react';
 import { useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

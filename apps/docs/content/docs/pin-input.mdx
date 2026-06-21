@@ -42,7 +42,7 @@ form submission and reset synchronization.
 
   <Preview.Code>
     {`
-      import { PinInput } from "moduix";
+      import { PinInput } from "@moduix/react";
 
       export function PinInputDemo() {
         return (
@@ -86,35 +86,35 @@ If you want `PinInput` to become part of your own project source instead of stay
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/pin-input
+npx shadcn@latest add Blinks44/moduix/react-pin-input
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/pin-input
+pnpm dlx shadcn@latest add Blinks44/moduix/react-pin-input
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/pin-input
+bunx shadcn@latest add Blinks44/moduix/react-pin-input
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/pin-input
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-pin-input
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/pin-input
+aubx shadcn@latest add Blinks44/moduix/react-pin-input
 ```
 
   </Tab>
@@ -198,7 +198,7 @@ default placeholder empty.
 
   <Preview.Code>
     {`
-      import { PinInput } from "moduix";
+      import { PinInput } from "@moduix/react";
 
       export function PlaceholderPinInput() {
         return (
@@ -237,7 +237,7 @@ Set `blurOnComplete` when focus should leave the final input after all slots are
 
   <Preview.Code>
     {`
-      import { PinInput } from "moduix";
+      import { PinInput } from "@moduix/react";
       import { useState } from "react";
 
       export function BlurOnCompletePinInput() {
@@ -278,7 +278,7 @@ Set `otp` to let Ark apply one-time-code autocomplete behavior for mobile OTP su
 
   <Preview.Code>
     {`
-      import { PinInput } from "moduix";
+      import { PinInput } from "@moduix/react";
 
       export function OtpModePinInput() {
         return (
@@ -310,7 +310,7 @@ Use `mask` when the entered value is sensitive and should be visually obscured.
 
   <Preview.Code>
     {`
-      import { PinInput } from "moduix";
+      import { PinInput } from "@moduix/react";
 
       export function MaskedPinInput() {
         return (
@@ -342,7 +342,7 @@ Control the value array from React state and read the Ark callback detail object
 
   <Preview.Code>
     {`
-      import { PinInput, type PinInputValueChangeDetails } from "moduix";
+      import { PinInput, type PinInputValueChangeDetails } from "@moduix/react";
       import { useState } from "react";
 
       export function ChangeEventsPinInput() {
@@ -392,7 +392,7 @@ form accessibility wiring.
 
   <Preview.Code>
     {`
-      import { Field, PinInput } from "moduix";
+      import { Field, PinInput } from "@moduix/react";
 
       export function FieldPinInput() {
         return (
@@ -429,7 +429,7 @@ rendered pin input tree.
 
   <Preview.Code>
     {`
-      import { PinInput, usePinInput } from "moduix";
+      import { PinInput, usePinInput } from "@moduix/react";
       import { useId } from "react";
 
       export function RootProviderPinInput() {
@@ -471,7 +471,7 @@ When `children` are omitted and `count` is provided, moduix renders a styled `Co
 
   <Preview.Code>
     {`
-      import { PinInput } from "moduix";
+      import { PinInput } from "@moduix/react";
 
       export function DefaultPinInput() {
         return <PinInput count={6} aria-label="Verification code" name="verificationCode" />;
@@ -493,7 +493,7 @@ Use the Moduix `Separator` helper for grouped codes while keeping Ark `Input` in
 
   <Preview.Code>
     {`
-      import { PinInput } from "moduix";
+      import { PinInput } from "@moduix/react";
 
       export function GroupedPinInput() {
         return (
@@ -537,7 +537,7 @@ Use `autoSubmit` with `name` and `HiddenInput` when a complete code should submi
 
   <Preview.Code>
     {`
-      import { PinInput } from "moduix";
+      import { PinInput } from "@moduix/react";
       import { useState } from "react";
 
       export function AutoSubmitPinInput() {

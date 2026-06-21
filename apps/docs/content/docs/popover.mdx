@@ -37,7 +37,7 @@ hosts use `asChild`.
   <PopoverExample />
   <Preview.Code>
     {`
-      import { BellIcon, Button, Popover, Portal } from "moduix";
+      import { BellIcon, Button, Popover, Portal } from "@moduix/react";
 
       export function PopoverDemo() {
         return (
@@ -93,35 +93,35 @@ hosts use `asChild`.
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/popover
+npx shadcn@latest add Blinks44/moduix/react-popover
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/popover
+pnpm dlx shadcn@latest add Blinks44/moduix/react-popover
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/popover
+bunx shadcn@latest add Blinks44/moduix/react-popover
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/popover
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-popover
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/popover
+aubx shadcn@latest add Blinks44/moduix/react-popover
 ```
 
   </Tab>
@@ -192,7 +192,7 @@ Use Ark's details object when synchronizing open state with surrounding UI.
   <ControlledPopoverExample />
   <Preview.Code>
     {`
-      import { Button, Popover, Portal } from "moduix";
+      import { Button, Popover, Portal } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledPopoverDemo() {
@@ -228,7 +228,7 @@ or methods.
   <RootProviderPopoverExample />
   <Preview.Code>
     {`
-      import { Button, Popover, usePopover } from "moduix";
+      import { Button, Popover, usePopover } from "@moduix/react";
 
       export function RootProviderDemo() {
         const popover = usePopover({

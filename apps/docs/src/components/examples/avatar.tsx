@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Avatar, ComputerIcon, useAvatar } from 'moduix';
+import { Avatar, ComputerIcon, useAvatar } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

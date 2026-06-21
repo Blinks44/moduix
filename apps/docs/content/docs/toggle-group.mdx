@@ -39,7 +39,7 @@ Start with the short root form `<ToggleGroup>` and add Ark-aligned `ToggleGroup.
 
   <Preview.Code>
     {`
-      import { ToggleGroup } from "moduix";
+      import { ToggleGroup } from "@moduix/react";
 
       const alignmentItems = [
         { value: "left", label: "Left" },
@@ -90,35 +90,35 @@ If you want `Toggle Group` to become part of your own project source instead of 
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/toggle-group
+npx shadcn@latest add Blinks44/moduix/react-toggle-group
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/toggle-group
+pnpm dlx shadcn@latest add Blinks44/moduix/react-toggle-group
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/toggle-group
+bunx shadcn@latest add Blinks44/moduix/react-toggle-group
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/toggle-group
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-toggle-group
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/toggle-group
+aubx shadcn@latest add Blinks44/moduix/react-toggle-group
 ```
 
   </Tab>
@@ -201,7 +201,7 @@ Use `multiple` when several options can stay pressed at the same time.
 
   <Preview.Code>
     {`
-      import { ToggleGroup } from "moduix";
+      import { ToggleGroup } from "@moduix/react";
       import styles from "./toggle-group.module.css";
 
       const formattingItems = [
@@ -255,7 +255,7 @@ Control `value` from React state when the group needs to stay in sync with surro
 
   <Preview.Code>
     {`
-      import { BellIcon, CheckIcon, StarIcon, ToggleGroup } from "moduix";
+      import { BellIcon, CheckIcon, StarIcon, ToggleGroup } from "@moduix/react";
       import { useState } from "react";
       import styles from "./toggle-group.module.css";
 
@@ -318,7 +318,7 @@ the root is rendered.
 
   <Preview.Code>
     {`
-      import { ToggleGroup, useToggleGroup } from "moduix";
+      import { ToggleGroup, useToggleGroup } from "@moduix/react";
       import styles from "./toggle-group.module.css";
 
       const alignmentItems = [
@@ -383,7 +383,7 @@ Set `variant` on the group when every item should share the same visual treatmen
 
   <Preview.Code>
     {`
-      import { ToggleGroup } from "moduix";
+      import { ToggleGroup } from "@moduix/react";
       import styles from "./toggle-group.module.css";
 
       const items = [
@@ -442,7 +442,7 @@ Pass icons as regular children. Icon-only items should always include an accessi
 
   <Preview.Code>
     {`
-      import { ToggleGroup } from "moduix";
+      import { ToggleGroup } from "@moduix/react";
       import styles from "./toggle-group.module.css";
 
       export function IconToggleGroupDemo() {
@@ -485,7 +485,7 @@ Set `orientation="vertical"` when the choices should stack in a column.
 
   <Preview.Code>
     {`
-      import { ToggleGroup } from "moduix";
+      import { ToggleGroup } from "@moduix/react";
 
       const viewItems = [
         { value: "list", label: "List" },
@@ -536,7 +536,7 @@ Use `disabled` on the group or on a specific item to prevent interaction.
 
   <Preview.Code>
     {`
-      import { ToggleGroup } from "moduix";
+      import { ToggleGroup } from "@moduix/react";
       import styles from "./toggle-group.module.css";
 
       export function DisabledToggleGroupDemo() {
@@ -589,7 +589,7 @@ structure is right but the surface styling needs to change.
 
   <Preview.Code>
     {`
-      import { ToggleGroup } from "moduix";
+      import { ToggleGroup } from "@moduix/react";
       import styles from "./toggle-group.module.css";
 
       export function CustomStylingToggleGroupDemo() {

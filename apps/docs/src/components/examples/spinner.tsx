@@ -1,4 +1,4 @@
-import { Spinner, type SpinnerRootProps } from 'moduix';
+import { Spinner, type SpinnerRootProps } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './spinner.module.css';

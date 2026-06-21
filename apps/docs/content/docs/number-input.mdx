@@ -34,7 +34,7 @@ Use Ark-style parts: `NumberInput.Root`, `NumberInput.Label`, `NumberInput.Contr
 
   <Preview.Code>
     {`
-      import { NumberInput } from "moduix";
+      import { NumberInput } from "@moduix/react";
 
       export function NumberInputDemo() {
         return (
@@ -65,35 +65,35 @@ If you want `Number Input` to become part of your own project source instead of 
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/number-input
+npx shadcn@latest add Blinks44/moduix/react-number-input
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/number-input
+pnpm dlx shadcn@latest add Blinks44/moduix/react-number-input
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/number-input
+bunx shadcn@latest add Blinks44/moduix/react-number-input
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/number-input
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-number-input
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/number-input
+aubx shadcn@latest add Blinks44/moduix/react-number-input
 ```
 
   </Tab>
@@ -170,7 +170,7 @@ Keep controlled state as a string and read `details.value` in `onValueChange`.
 
   <Preview.Code>
     {`
-      import { NumberInput } from "moduix";
+      import { NumberInput } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledNumberInputDemo() {
@@ -207,7 +207,7 @@ Use `min`, `max`, and `step` to constrain typing, keyboard, trigger, and scrub i
 
   <Preview.Code>
     {`
-      import { NumberInput } from "moduix";
+      import { NumberInput } from "@moduix/react";
 
       export function MinMaxNumberInputDemo() {
         return (
@@ -239,7 +239,7 @@ fraction digits.
 
   <Preview.Code>
     {`
-      import { NumberInput } from "moduix";
+      import { NumberInput } from "@moduix/react";
 
       export function FractionDigitsNumberInputDemo() {
         return (
@@ -274,7 +274,7 @@ Render `NumberInput.Scrubber` when pointer dragging should change the value.
 
   <Preview.Code>
     {`
-      import { NumberInput } from "moduix";
+      import { NumberInput } from "@moduix/react";
 
       export function NumberInputScrubberDemo() {
         return (
@@ -307,7 +307,7 @@ Set `allowMouseWheel` when wheel-based value changes are intentional for the wor
 
   <Preview.Code>
     {`
-      import { NumberInput } from "moduix";
+      import { NumberInput } from "@moduix/react";
 
       export function MouseWheelNumberInputDemo() {
         return (
@@ -338,7 +338,7 @@ Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
 
   <Preview.Code>
     {`
-      import { NumberInput } from "moduix";
+      import { NumberInput } from "@moduix/react";
 
       export function FormattedNumberInputDemo() {
         return (
@@ -374,7 +374,7 @@ Compose with `Field` when form state, error text, and accessibility metadata sho
 
   <Preview.Code>
     {`
-      import { Field, NumberInput } from "moduix";
+      import { Field, NumberInput } from "@moduix/react";
 
       export function NumberInputFieldDemo() {
         return (
@@ -409,7 +409,7 @@ rendered part tree.
 
   <Preview.Code>
     {`
-      import { NumberInput, useNumberInput } from "moduix";
+      import { NumberInput, useNumberInput } from "@moduix/react";
 
       export function RootProviderNumberInputDemo() {
         const numberInput = useNumberInput({ defaultValue: "3", min: 1, max: 10 });
@@ -452,7 +452,7 @@ The trigger parts render moduix plus and minus icons by default. Provide childre
 
   <Preview.Code>
     {`
-      import { ChevronDownIcon, ChevronUpIcon, NumberInput } from "moduix";
+      import { ChevronDownIcon, ChevronUpIcon, NumberInput } from "@moduix/react";
 
       export function CustomIconsNumberInputDemo() {
         return (

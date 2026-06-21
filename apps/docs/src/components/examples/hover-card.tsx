@@ -1,5 +1,5 @@
+import { HoverCard, useHoverCard } from '@moduix/react';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
-import { HoverCard, useHoverCard } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

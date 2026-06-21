@@ -1,5 +1,4 @@
-import type { UseComboboxContext } from 'moduix';
-import { useVirtualizer } from '@tanstack/react-virtual';
+import type { UseComboboxContext } from '@moduix/react';
 import {
   Combobox,
   Portal,
@@ -8,7 +7,8 @@ import {
   useComboboxContext,
   useFilter,
   useListCollection,
-} from 'moduix';
+} from '@moduix/react';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';

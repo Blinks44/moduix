@@ -38,7 +38,7 @@ Use `SplitButton` as the short root form, then keep the Ark-style structure visi
 
   <Preview.Code>
     {`
-      import { Menu, SplitButton } from "moduix";
+      import { Menu, SplitButton } from "@moduix/react";
 
       export function SplitButtonDemo() {
         return (
@@ -78,35 +78,35 @@ If you want `Split Button` to become part of your own project source instead of 
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/split-button
+npx shadcn@latest add Blinks44/moduix/react-split-button
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/split-button
+pnpm dlx shadcn@latest add Blinks44/moduix/react-split-button
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/split-button
+bunx shadcn@latest add Blinks44/moduix/react-split-button
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/split-button
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-split-button
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/split-button
+aubx shadcn@latest add Blinks44/moduix/react-split-button
 ```
 
   </Tab>
@@ -196,7 +196,7 @@ Use the root `variant` when both grouped buttons should share the same visual to
 
   <Preview.Code>
     {`
-      import { Menu, SplitButton } from "moduix";
+      import { Menu, SplitButton } from "@moduix/react";
 
       export function SplitButtonVariantsDemo() {
         return (
@@ -235,7 +235,7 @@ Use the root `size` when both sides should scale together.
 
   <Preview.Code>
     {`
-      import { Menu, SplitButton } from "moduix";
+      import { Menu, SplitButton } from "@moduix/react";
 
       export function SplitButtonSizesDemo() {
         return (
@@ -275,7 +275,7 @@ label.
 
   <Preview.Code>
     {`
-      import { Menu, PlusIcon, SplitButton } from "moduix";
+      import { Menu, PlusIcon, SplitButton } from "@moduix/react";
 
       export function SplitButtonIconsDemo() {
         return (
@@ -315,7 +315,7 @@ Use the same controlled open-state contract as Ark Menu when outside state shoul
 
   <Preview.Code>
     {`
-      import { Menu, SplitButton } from "moduix";
+      import { Menu, SplitButton } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledSplitButton() {
@@ -358,7 +358,7 @@ parts explicit.
 
   <Preview.Code>
     {`
-      import { Menu, SplitButton } from "moduix";
+      import { Menu, SplitButton } from "@moduix/react";
 
       export function SplitButtonPositioningDemo() {
         return (
@@ -393,7 +393,7 @@ Use root `className` and stable `data-slot` hooks when the grouped control needs
 
   <Preview.Code>
     {`
-      import { Menu, SplitButton } from "moduix";
+      import { Menu, SplitButton } from "@moduix/react";
       import styles from "./split-button.module.css";
 
       export function SplitButtonStylingDemo() {
@@ -429,7 +429,7 @@ Use `asChild` on `SplitButton.Action` when the primary action should render as a
 
   <Preview.Code>
     {`
-      import { ArrowUpRightIcon, Menu, SplitButton } from "moduix";
+      import { ArrowUpRightIcon, Menu, SplitButton } from "@moduix/react";
 
       export function SplitButtonLinkActionDemo() {
         return (

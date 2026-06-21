@@ -1,4 +1,4 @@
-import { Button, Popover, Portal } from 'moduix';
+import { Button, Popover, Portal } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './animations.module.css';

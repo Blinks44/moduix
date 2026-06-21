@@ -1,4 +1,4 @@
-import { Pagination, Portal, Select, createListCollection, usePagination } from 'moduix';
+import { Pagination, Portal, Select, createListCollection, usePagination } from '@moduix/react';
 import { useState, type CSSProperties } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

@@ -9,7 +9,7 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 
 ## Scope
 
-- component CSS Modules in `packages/ui`
+- component CSS Modules in `packages/react`
 - docs example CSS Modules in `apps/docs`
 - selector structure
 - state styling
@@ -21,7 +21,7 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 - Keep CSS readable, local, and predictable.
 - Prefer flat, understandable styling over clever selector tricks.
 - Use design tokens and public CSS variables instead of hardcoded one-off values when a token already exists.
-- Keep component CSS and demo CSS separate. Library styling belongs in `packages/ui`; demo-only layout belongs in stories or docs example CSS.
+- Keep component CSS and demo CSS separate. Library styling belongs in `packages/react`; demo-only layout belongs in stories or docs example CSS.
 
 ## Ark Styling
 

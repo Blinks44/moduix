@@ -46,7 +46,7 @@ short `<Switch>` export is the same root part as `Switch.Root`.
 
   <Preview.Code>
     {`
-      import { Switch } from "moduix";
+      import { Switch } from "@moduix/react";
 
       export function SwitchDemo() {
         return (
@@ -88,35 +88,35 @@ If you want `Switch` to become part of your own project source instead of stayin
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/switch
+npx shadcn@latest add Blinks44/moduix/react-switch
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/switch
+pnpm dlx shadcn@latest add Blinks44/moduix/react-switch
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/switch
+bunx shadcn@latest add Blinks44/moduix/react-switch
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/switch
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-switch
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/switch
+aubx shadcn@latest add Blinks44/moduix/react-switch
 ```
 
   </Tab>
@@ -179,7 +179,7 @@ afterward.
 
   <Preview.Code>
     {`
-      import { Switch } from "moduix";
+      import { Switch } from "@moduix/react";
 
       export function InitialCheckedSwitchDemo() {
         return (
@@ -218,7 +218,7 @@ Use controlled mode when the switch needs to coordinate with surrounding UI.
 
   <Preview.Code>
     {`
-      import { Switch } from "moduix";
+      import { Switch } from "@moduix/react";
       import { useState } from "react";
       import styles from "./switch-demo.module.css";
 
@@ -274,7 +274,7 @@ Use `disabled` to prevent interaction while preserving the current visual state.
 
   <Preview.Code>
     {`
-      import { Switch } from "moduix";
+      import { Switch } from "@moduix/react";
       import styles from "./switch-demo.module.css";
 
       export function DisabledSwitchDemo() {
@@ -327,7 +327,7 @@ Use `readOnly` when the current state should stay visible but should not be chan
 
   <Preview.Code>
     {`
-      import { Switch } from "moduix";
+      import { Switch } from "@moduix/react";
       import styles from "./switch-demo.module.css";
 
       export function ReadOnlySwitchDemo() {
@@ -380,7 +380,7 @@ Use `Switch.Context` when a nearby label or supporting element should read the l
 
   <Preview.Code>
     {`
-      import { Switch } from "moduix";
+      import { Switch } from "@moduix/react";
 
       export function SwitchContextDemo() {
         return (
@@ -424,7 +424,7 @@ Use `useSwitch` with `Switch.RootProvider` when state must be owned outside the 
 
   <Preview.Code>
     {`
-      import { Button, Switch, useSwitch } from "moduix";
+      import { Button, Switch, useSwitch } from "@moduix/react";
       import styles from "./switch-demo.module.css";
 
       export function SwitchRootProviderDemo() {
@@ -476,7 +476,7 @@ submission.
 
   <Preview.Code>
     {`
-      import { Field, Switch } from "moduix";
+      import { Field, Switch } from "@moduix/react";
       import styles from "./switch-demo.module.css";
 
       export function SwitchFormDemo() {
@@ -526,7 +526,7 @@ Use moduix `size` to match different form densities without changing the Ark par
 
   <Preview.Code>
     {`
-      import { Switch } from "moduix";
+      import { Switch } from "@moduix/react";
       import styles from "./switch-demo.module.css";
 
       const sizes = [
@@ -578,7 +578,7 @@ Compose `Switch.Thumb` when the thumb needs custom content or separate styling h
 
   <Preview.Code>
     {`
-      import { Switch } from "moduix";
+      import { Switch } from "@moduix/react";
       import type { ComponentProps } from "react";
       import styles from "./switch-demo.module.css";
 
@@ -642,7 +642,7 @@ behavior.
 
   <Preview.Code>
     {`
-      import { Switch } from "moduix";
+      import { Switch } from "@moduix/react";
       import styles from "./switch-demo.module.css";
 
       export function AsChildSwitchDemo() {

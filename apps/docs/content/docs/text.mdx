@@ -45,7 +45,7 @@ same text styling contract stays in place.
 
   <Preview.Code>
     {`
-      import { Text } from "moduix";
+      import { Text } from "@moduix/react";
 
       export function TextDemo() {
         return (
@@ -91,35 +91,35 @@ If you want `Text` to become part of your own project source instead of staying 
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/text
+npx shadcn@latest add Blinks44/moduix/react-text
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/text
+pnpm dlx shadcn@latest add Blinks44/moduix/react-text
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/text
+bunx shadcn@latest add Blinks44/moduix/react-text
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/text
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-text
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/text
+aubx shadcn@latest add Blinks44/moduix/react-text
 ```
 
   </Tab>
@@ -168,7 +168,7 @@ Use `as` for common semantic tags without leaving the typography scale.
 
   <Preview.Code>
     {`
-      import { Text } from "moduix";
+      import { Text } from "@moduix/react";
 
       export function TextSemanticsDemo() {
         return (
@@ -216,7 +216,7 @@ Use `tone` to match the role of the copy without local color classes.
 
   <Preview.Code>
     {`
-      import { Text } from "moduix";
+      import { Text } from "@moduix/react";
 
       export function TextTonesDemo() {
         return (
@@ -262,7 +262,7 @@ component.
 
   <Preview.Code>
     {`
-      import { Text } from "moduix";
+      import { Text } from "@moduix/react";
 
       export function TextSizesDemo() {
         return (
@@ -307,7 +307,7 @@ Use `weight` when the emphasis should stay within the same semantic element.
 
   <Preview.Code>
     {`
-      import { Text } from "moduix";
+      import { Text } from "@moduix/react";
 
       export function TextWeightsDemo() {
         return (
@@ -351,7 +351,7 @@ Use `align` when alignment belongs to the text itself instead of the surrounding
 
   <Preview.Code>
     {`
-      import { Text } from "moduix";
+      import { Text } from "@moduix/react";
 
       export function TextAlignDemo() {
         return (
@@ -395,7 +395,7 @@ surrounding layout owns expansion or disclosure.
 
   <Preview.Code>
     {`
-      import { Text } from "moduix";
+      import { Text } from "@moduix/react";
 
       export function TextTruncationDemo() {
         return (
@@ -442,7 +442,7 @@ values. The child must be a single element that can accept the forwarded props a
 
   <Preview.Code>
     {`
-      import { Text } from "moduix";
+      import { Text } from "@moduix/react";
       import type { ComponentPropsWithoutRef } from "react";
 
       type InlineLinkProps = ComponentPropsWithoutRef<"a">;
@@ -493,7 +493,7 @@ Pass `className` when styling the root with local CSS variables.
 
   <Preview.Code>
     {`
-      import { Text } from "moduix";
+      import { Text } from "@moduix/react";
 
       export function TextClassNameDemo() {
         return (
@@ -527,7 +527,7 @@ Pass `className` when styling the root with local CSS variables.
 ## Styling
 
 Style `Text` through `className`, Ark-style root data attributes, and the public `--text-*` CSS
-variables defined in [`theme.css`](/Users/sergejvrenev/Desktop/dev/2gis/moduix/packages/ui/src/styles/theme.css:2076).
+variables defined in [`theme.css`](/Users/sergejvrenev/Desktop/dev/2gis/moduix/packages/react/src/core/styles/theme.css:2076).
 
 ### CSS Properties
 

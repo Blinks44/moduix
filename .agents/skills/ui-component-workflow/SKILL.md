@@ -1,11 +1,11 @@
 ---
 name: ui-component-workflow
-description: Use for work in packages/ui, including component implementation, API changes, stories, exports, and local component docs.
+description: Use for work in packages/react, including component implementation, API changes, stories, exports, and local component docs.
 ---
 
 # Skill: ui-component-workflow
 
-Use this skill for work in `packages/ui`.
+Use this skill for work in `packages/react`.
 
 ## Scope
 
@@ -16,7 +16,7 @@ Use this skill for work in `packages/ui`.
 ## Read First
 
 1. `AGENTS.md`
-2. `packages/ui/src/components/<component-name>/<component-name>.md`
+2. `packages/react/src/components/<component-name>/<component-name>.md`
 3. `.agents/skills/js-react-conventions/SKILL.md`
 4. `.agents/skills/upstream-library-docs/SKILL.md` when Ark, Chakra, or shadcn behavior matters
 5. `.agents/skills/local-component-docs/SKILL.md` when component markdown changes
@@ -101,8 +101,8 @@ If the answer is weak, simplify or remove it.
 
 ## Styling and Sync
 
-- Use tokens from `src/styles/*`.
-- Add public styling tokens to `src/styles/theme.css` with `initial` and a nearby default-value comment.
+- Use tokens from `src/core/styles/*`.
+- Add public styling tokens to `src/core/styles/theme.css` with `initial` and a nearby default-value comment.
 - Preserve Ark `data-scope`, `data-part`, `data-state`, and component-specific state attributes on styled parts.
 - Keep `data-slot` hooks as moduix-facing stable selectors layered on top of Ark attributes.
 - Use Ark runtime CSS variables such as positioning, sizing, transform-origin, and measured height variables when the
@@ -125,7 +125,7 @@ If the answer is weak, simplify or remove it.
 
 Run the required checks from `AGENTS.md` after changes.
 
-When `packages/ui` changed, treat `npm run build:ui` and `npm run tsc:check` as a strict sequence:
+When `packages/react` changed, treat `npm run build:ui` and `npm run tsc:check` as a strict sequence:
 
 1. run `npm run build:ui`
 2. wait for it to complete successfully

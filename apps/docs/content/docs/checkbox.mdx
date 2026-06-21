@@ -49,7 +49,7 @@ Use the Ark part tree directly: `Checkbox.Root`, `Checkbox.Control`, `Checkbox.I
 
   <Preview.Code>
     {`
-      import { Checkbox } from "moduix";
+      import { Checkbox } from "@moduix/react";
 
       export function CheckboxDemo() {
         return (
@@ -78,35 +78,35 @@ If you want `Checkbox` to become part of your own project source instead of stay
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/checkbox
+npx shadcn@latest add Blinks44/moduix/react-checkbox
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/checkbox
+pnpm dlx shadcn@latest add Blinks44/moduix/react-checkbox
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/checkbox
+bunx shadcn@latest add Blinks44/moduix/react-checkbox
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/checkbox
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-checkbox
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/checkbox
+aubx shadcn@latest add Blinks44/moduix/react-checkbox
 ```
 
   </Tab>
@@ -211,7 +211,7 @@ Control `checked` from React state when the checkbox should coordinate with othe
 
   <Preview.Code>
     {`
-      import { Checkbox } from "moduix";
+      import { Checkbox } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledCheckboxDemo() {
@@ -243,7 +243,7 @@ Use `useCheckbox()` with `Checkbox.RootProvider` when checkbox state needs to li
 
   <Preview.Code>
     {`
-      import { Checkbox, useCheckbox } from "moduix";
+      import { Checkbox, useCheckbox } from "@moduix/react";
 
       export function RootProviderCheckboxDemo() {
         const checkbox = useCheckbox({ defaultChecked: true });
@@ -346,7 +346,7 @@ Use `Field` around one checkbox when it needs helper text, validation text, or s
 
   <Preview.Code>
     {`
-      import { Checkbox, Field } from "moduix";
+      import { Checkbox, Field } from "@moduix/react";
 
       export function CheckboxFieldDemo() {
         return (
@@ -534,7 +534,7 @@ Use `useCheckboxGroup()` with `Checkbox.GroupProvider` when group state is creat
 
   <Preview.Code>
     {`
-      import { Checkbox, useCheckboxGroup } from "moduix";
+      import { Checkbox, useCheckboxGroup } from "@moduix/react";
 
       export function CheckboxGroupProviderDemo() {
         const group = useCheckboxGroup({ defaultValue: ["react"], name: "framework" });
@@ -685,7 +685,7 @@ Wrap the group in `Fieldset` when the checkbox set is one semantic form field wi
 
   <Preview.Code>
     {`
-      import { Checkbox, Fieldset } from "moduix";
+      import { Checkbox, Fieldset } from "@moduix/react";
 
       export function CheckboxGroupFieldsetDemo() {
         return (

@@ -31,7 +31,7 @@ for navigable ancestors and `Breadcrumbs.Page` for the current page.
       import { Fragment } from "react";
       import {
         Breadcrumbs,
-      } from "moduix";
+      } from "@moduix/react";
 
       export function BreadcrumbsDemo() {
         return (
@@ -84,35 +84,35 @@ If you want `Breadcrumbs` to become part of your own project source instead of s
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/breadcrumbs
+npx shadcn@latest add Blinks44/moduix/react-breadcrumbs
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/breadcrumbs
+pnpm dlx shadcn@latest add Blinks44/moduix/react-breadcrumbs
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/breadcrumbs
+bunx shadcn@latest add Blinks44/moduix/react-breadcrumbs
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/breadcrumbs
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-breadcrumbs
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/breadcrumbs
+aubx shadcn@latest add Blinks44/moduix/react-breadcrumbs
 ```
 
   </Tab>
@@ -190,7 +190,7 @@ items.
       import {
         Breadcrumbs,
         SeparatorMarkIcon,
-      } from "moduix";
+      } from "@moduix/react";
 
       export function BreadcrumbsSeparatorDemo() {
         return (
@@ -248,7 +248,7 @@ Compose with the migrated Ark `Menu` parts when hidden middle segments need disc
         Breadcrumbs,
         Menu,
         Portal,
-      } from "moduix";
+      } from "@moduix/react";
 
       export function BreadcrumbsCollapsedDemo() {
         return (
@@ -334,7 +334,7 @@ Wrap the current page content with your own element when you need extra attribut
     {`
       import {
         Breadcrumbs,
-      } from "moduix";
+      } from "@moduix/react";
 
       export function BreadcrumbsLongLabelDemo() {
         return (
@@ -392,7 +392,7 @@ Use Ark `asChild` when the app standardizes on framework links.
       import { Fragment } from "react";
       import {
         Breadcrumbs,
-      } from "moduix";
+      } from "@moduix/react";
 
       export function BreadcrumbsWithNextLinkDemo() {
         return (
