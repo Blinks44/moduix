@@ -1,150 +1,115 @@
-import type { ComponentProps } from 'react';
-import { Tooltip as TooltipPrimitive } from '@base-ui/react/tooltip';
-import { PopupArrowIcon } from '@/lib/moduix/icons/ui';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import type { ComponentProps, ComponentRef } from 'react';
+import { Portal } from '@ark-ui/react/portal';
+import { Tooltip as TooltipPrimitive, useTooltip, useTooltipContext } from '@ark-ui/react/tooltip';
+import { clsx } from 'clsx';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Tooltip.module.css';
 
-type TooltipPositionerProps = Pick<
-  TooltipPrimitive.Positioner.Props,
-  | 'side'
-  | 'sideOffset'
-  | 'align'
-  | 'alignOffset'
-  | 'arrowPadding'
-  | 'collisionAvoidance'
-  | 'collisionBoundary'
-  | 'collisionPadding'
->;
+function TooltipRoot(props: ComponentProps<typeof TooltipPrimitive.Root>) {
+  return <TooltipPrimitive.Root {...props} />;
+}
 
-type TooltipContentProps = TooltipPrimitive.Popup.Props &
-  TooltipPositionerProps & {
-    showArrow?: boolean;
-  };
+function TooltipRootProvider(props: ComponentProps<typeof TooltipPrimitive.RootProvider>) {
+  return <TooltipPrimitive.RootProvider {...props} />;
+}
 
-const TOOLTIP_CONTENT_SIDE_OFFSET = 8;
+function TooltipPortal(props: ComponentProps<typeof Portal>) {
+  return <Portal {...props} />;
+}
 
-const Tooltip = TooltipPrimitive.Root;
-const TooltipProvider = TooltipPrimitive.Provider;
-const createTooltipHandle = TooltipPrimitive.createHandle;
-
-function TooltipTrigger<Payload = unknown>({
-  className,
-  render,
-  ...props
-}: TooltipPrimitive.Trigger.Props<Payload>) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
-
+const TooltipTrigger = forwardRef<
+  ComponentRef<typeof TooltipPrimitive.Trigger>,
+  ComponentProps<typeof TooltipPrimitive.Trigger>
+>(function TooltipTrigger({ asChild, className, ...props }, ref) {
   return (
     <TooltipPrimitive.Trigger
+      ref={ref}
       data-slot="tooltip-trigger"
-      render={render}
-      className={triggerClassName}
+      asChild={asChild}
+      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function TooltipPortal({ className, ...props }: TooltipPrimitive.Portal.Props) {
-  return <TooltipPrimitive.Portal data-slot="tooltip-portal" className={className} {...props} />;
-}
-
-function TooltipPositioner({ className, ...props }: TooltipPrimitive.Positioner.Props) {
+const TooltipPositioner = forwardRef<
+  ComponentRef<typeof TooltipPrimitive.Positioner>,
+  ComponentProps<typeof TooltipPrimitive.Positioner>
+>(function TooltipPositioner({ className, ...props }, ref) {
   return (
     <TooltipPrimitive.Positioner
+      ref={ref}
       data-slot="tooltip-positioner"
-      className={mergeClassName(className, styles.positioner)}
+      className={clsx(styles.positioner, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function TooltipPopup({ className, ...props }: TooltipPrimitive.Popup.Props) {
+const TooltipContent = forwardRef<
+  ComponentRef<typeof TooltipPrimitive.Content>,
+  ComponentProps<typeof TooltipPrimitive.Content>
+>(function TooltipContent({ className, ...props }, ref) {
   return (
-    <TooltipPrimitive.Popup
-      data-slot="tooltip-popup"
-      className={mergeClassName(className, styles.popup)}
+    <TooltipPrimitive.Content
+      ref={ref}
+      data-slot="tooltip-content"
+      className={clsx(styles.content, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function TooltipArrow({ className, children, ...props }: TooltipPrimitive.Arrow.Props) {
+const TooltipArrow = forwardRef<
+  ComponentRef<typeof TooltipPrimitive.Arrow>,
+  ComponentProps<typeof TooltipPrimitive.Arrow>
+>(function TooltipArrow({ className, children, ...props }, ref) {
   return (
     <TooltipPrimitive.Arrow
+      ref={ref}
       data-slot="tooltip-arrow"
-      className={mergeClassName(className, styles.arrow)}
+      className={clsx(styles.arrow, normalizeClassName(className))}
       {...props}
     >
-      {children ?? <ArrowSvg className={styles.arrowSvg} />}
+      {children ?? <TooltipArrowTip />}
     </TooltipPrimitive.Arrow>
   );
-}
+});
 
-function TooltipViewport({ className, ...props }: TooltipPrimitive.Viewport.Props) {
+const TooltipArrowTip = forwardRef<
+  ComponentRef<typeof TooltipPrimitive.ArrowTip>,
+  ComponentProps<typeof TooltipPrimitive.ArrowTip>
+>(function TooltipArrowTip({ className, ...props }, ref) {
   return (
-    <TooltipPrimitive.Viewport
-      data-slot="tooltip-viewport"
-      className={mergeClassName(className, styles.viewport)}
+    <TooltipPrimitive.ArrowTip
+      ref={ref}
+      data-slot="tooltip-arrow-tip"
+      className={clsx(styles.arrowTip, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function TooltipContent({
-  className,
-  showArrow = false,
-  side,
-  sideOffset = TOOLTIP_CONTENT_SIDE_OFFSET,
-  align,
-  alignOffset,
-  arrowPadding,
-  collisionAvoidance,
-  collisionBoundary,
-  collisionPadding,
-  children,
-  ...popupProps
-}: TooltipContentProps) {
-  return (
-    <TooltipPortal>
-      <TooltipPositioner
-        side={side}
-        sideOffset={sideOffset}
-        align={align}
-        alignOffset={alignOffset}
-        arrowPadding={arrowPadding}
-        collisionAvoidance={collisionAvoidance}
-        collisionBoundary={collisionBoundary}
-        collisionPadding={collisionPadding}
-      >
-        <TooltipPopup className={className} {...popupProps}>
-          {showArrow ? <TooltipArrow /> : null}
-          <TooltipViewport>{children}</TooltipViewport>
-        </TooltipPopup>
-      </TooltipPositioner>
-    </TooltipPortal>
-  );
-}
+const TooltipContext = TooltipPrimitive.Context;
 
-function ArrowSvg(props: ComponentProps<'svg'>) {
-  return (
-    <PopupArrowIcon
-      fillClassName={styles.arrowFill}
-      outerStrokeClassName={styles.arrowOuterStroke}
-      innerStrokeClassName={styles.arrowInnerStroke}
-      {...props}
-    />
-  );
-}
+const Tooltip = Object.assign(TooltipRoot, {
+  Root: TooltipRoot,
+  RootProvider: TooltipRootProvider,
+  Portal: TooltipPortal,
+  Trigger: TooltipTrigger,
+  Positioner: TooltipPositioner,
+  Content: TooltipContent,
+  Arrow: TooltipArrow,
+  ArrowTip: TooltipArrowTip,
+  Context: TooltipContext,
+});
 
-export {
-  Tooltip,
-  TooltipProvider,
-  createTooltipHandle,
-  TooltipTrigger,
-  TooltipPortal,
-  TooltipPositioner,
-  TooltipPopup,
-  TooltipArrow,
-  TooltipViewport,
-  TooltipContent,
-};
+export { Tooltip, useTooltip, useTooltipContext };
+export type {
+  TooltipOpenChangeDetails,
+  TooltipTriggerValueChangeDetails,
+  UseTooltipContext,
+  UseTooltipProps,
+  UseTooltipReturn,
+} from '@ark-ui/react/tooltip';

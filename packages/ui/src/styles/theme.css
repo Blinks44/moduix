@@ -2179,16 +2179,13 @@
   --toast-z-index: initial; /* var(--z-toast) */
 
   /* Tooltip */
-  --tooltip-arrow-height: initial; /* 0.625rem */
-  --tooltip-arrow-inline-offset: initial; /* 13px */
-  --tooltip-arrow-size: initial; /* 8px */
+  --tooltip-arrow-background: initial; /* var(--tooltip-bg, var(--color-popover)) */
+  --tooltip-arrow-size: initial; /* 0.625rem */
   --tooltip-arrow-stroke-color: initial; /* var(--tooltip-border-color, var(--color-border)) */
-  --tooltip-arrow-width: initial; /* 1.25rem */
   --tooltip-bg: initial; /* var(--color-popover) */
   --tooltip-border-color: initial; /* var(--color-border) */
   --tooltip-border-width: initial; /* var(--border-width-sm) */
   --tooltip-color: initial; /* var(--color-popover-foreground) */
-  --tooltip-content-transition: initial; /* 150ms */
   --tooltip-disabled-opacity: initial; /* var(--opacity-disabled) */
   --tooltip-focus-ring-color: initial; /* var(--color-ring) */
   --tooltip-focus-ring-offset: initial; /* -1px */
@@ -2222,7 +2219,7 @@
   --tooltip-trigger-padding-x: initial; /* 0.875rem */
   --tooltip-trigger-padding-y: initial; /* 0.5rem */
   --tooltip-trigger-radius: initial; /* var(--radius-md) */
-  --tooltip-width: initial; /* max-content */
+  --tooltip-z-index: initial; /* var(--z-popup) */
 
   /* Toggle */
   --toggle-border-width: initial; /* var(--border-width-sm) */

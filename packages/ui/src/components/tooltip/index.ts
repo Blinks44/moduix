@@ -1,12 +1,8 @@
-export {
-  Tooltip,
-  TooltipProvider,
-  createTooltipHandle,
-  TooltipTrigger,
-  TooltipPortal,
-  TooltipPositioner,
-  TooltipPopup,
-  TooltipArrow,
-  TooltipViewport,
-  TooltipContent,
+export { Tooltip, useTooltip, useTooltipContext } from './Tooltip';
+export type {
+  TooltipOpenChangeDetails,
+  TooltipTriggerValueChangeDetails,
+  UseTooltipContext,
+  UseTooltipProps,
+  UseTooltipReturn,
 } from './Tooltip';

@@ -30,7 +30,7 @@
     }
 
     &:active,
-    &[data-popup-open] {
+    &[data-state='open'] {
       background-color: var(
         --tooltip-trigger-bg-active,
         var(--tooltip-trigger-bg-hover, var(--color-accent))
@@ -43,7 +43,7 @@
       outline-offset: var(--tooltip-focus-ring-offset, -1px);
     }
 
-    &[data-trigger-disabled],
+    &[data-disabled],
     &[disabled] {
       pointer-events: none;
       opacity: var(--tooltip-disabled-opacity, var(--opacity-disabled));
@@ -51,124 +51,85 @@
   }
 
   .positioner {
-    z-index: var(--z-popup);
-    width: var(--positioner-width);
-    height: var(--positioner-height);
+    z-index: var(--z-index, var(--z-popup));
     max-width: var(--available-width);
+    max-height: var(--available-height);
     outline: 0;
   }
 
-  .popup {
+  .content {
+    --arrow-background: var(--tooltip-arrow-background, var(--tooltip-bg, var(--color-popover)));
+    --arrow-size: var(--tooltip-arrow-size, 0.625rem);
+
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    width: var(--popup-width, var(--tooltip-width, max-content));
-    height: var(--popup-height, auto);
+    position: relative;
+    z-index: var(--tooltip-z-index, var(--z-popup));
     max-width: min(var(--tooltip-max-width, 20rem), var(--available-width));
     max-height: min(var(--tooltip-max-height, 24rem), var(--available-height, 100dvh));
-    overflow: visible;
     padding: var(--tooltip-padding-y, 0.25rem) var(--tooltip-padding-x, 0.5rem);
-    border: 0;
+    border: var(--tooltip-border-width, var(--border-width-sm)) solid
+      var(--tooltip-border-color, var(--color-border));
     border-radius: var(--tooltip-radius, var(--radius-md));
     background-color: var(--tooltip-bg, var(--color-popover));
     color: var(--tooltip-color, var(--color-popover-foreground));
-    outline: var(--tooltip-border-width, var(--border-width-sm)) solid
-      var(--tooltip-border-color, var(--color-border));
     box-shadow: var(--tooltip-shadow, var(--shadow-lg));
     font-size: var(--tooltip-font-size, var(--text-sm));
     line-height: var(--tooltip-line-height, var(--line-height-text-sm));
     text-align: center;
     transform-origin: var(--transform-origin);
-    transition:
-      transform var(--tooltip-transition, var(--duration-fast)),
-      opacity var(--tooltip-transition, var(--duration-fast)),
-      translate var(--tooltip-transition, var(--duration-fast));
 
-    &[data-starting-style] {
+    &[data-state='open'] {
+      animation: tooltip-content-in var(--tooltip-transition, var(--duration-fast)) ease-out;
+    }
+
+    &[data-state='closed'] {
+      animation: tooltip-content-out var(--tooltip-transition, var(--duration-fast)) ease-in;
+    }
+
+    &[data-instant] {
+      animation-duration: 0s;
+    }
+  }
+
+  .arrow {
+    --arrow-background: var(--tooltip-arrow-background, var(--tooltip-bg, var(--color-popover)));
+    --arrow-size: var(--tooltip-arrow-size, 0.625rem);
+  }
+
+  .arrowTip {
+    border-top: var(--tooltip-border-width, var(--border-width-sm)) solid
+      var(--tooltip-arrow-stroke-color, var(--tooltip-border-color, var(--color-border)));
+    border-left: var(--tooltip-border-width, var(--border-width-sm)) solid
+      var(--tooltip-arrow-stroke-color, var(--tooltip-border-color, var(--color-border)));
+  }
+
+  @keyframes tooltip-content-in {
+    from {
       opacity: var(--tooltip-popup-starting-opacity, 0);
       translate: var(--tooltip-popup-starting-translate-x, 0)
         var(--tooltip-popup-starting-translate-y, 0);
       transform: scale(var(--tooltip-popup-starting-scale, var(--scale-popup)));
     }
 
-    &[data-ending-style] {
+    to {
+      opacity: 1;
+      translate: 0 0;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes tooltip-content-out {
+    from {
+      opacity: 1;
+      translate: 0 0;
+      transform: scale(1);
+    }
+
+    to {
       opacity: var(--tooltip-popup-ending-opacity, 0);
       translate: var(--tooltip-popup-ending-translate-x, 0)
         var(--tooltip-popup-ending-translate-y, 0);
       transform: scale(var(--tooltip-popup-ending-scale, var(--scale-popup)));
-    }
-
-    &[data-instant] {
-      transition: none;
-    }
-  }
-
-  .arrow {
-    display: flex;
-    color: var(--tooltip-bg, var(--color-popover));
-
-    &[data-side='top'] {
-      bottom: calc(var(--tooltip-arrow-size, 8px) * -1);
-      rotate: 180deg;
-    }
-
-    &[data-side='bottom'] {
-      top: calc(var(--tooltip-arrow-size, 8px) * -1);
-    }
-
-    &[data-side='left'] {
-      right: calc(var(--tooltip-arrow-inline-offset, 13px) * -1);
-      rotate: 90deg;
-    }
-
-    &[data-side='right'] {
-      left: calc(var(--tooltip-arrow-inline-offset, 13px) * -1);
-      rotate: -90deg;
-    }
-  }
-
-  .arrowSvg {
-    display: block;
-    width: var(--tooltip-arrow-width, 1.25rem);
-    height: var(--tooltip-arrow-height, 0.625rem);
-    overflow: visible;
-  }
-
-  .arrowFill {
-    fill: currentColor;
-  }
-
-  .arrowOuterStroke {
-    fill: var(--tooltip-arrow-stroke-color, var(--tooltip-border-color, var(--color-border)));
-  }
-
-  .arrowInnerStroke {
-    fill: var(--tooltip-bg, var(--color-popover));
-  }
-
-  .viewport {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-
-    &[data-transitioning] {
-      min-width: var(--popup-width);
-      min-height: var(--popup-height);
-    }
-
-    & > [data-current],
-    & > [data-previous] {
-      transition:
-        transform var(--tooltip-content-transition, var(--duration-fast)),
-        opacity var(--tooltip-content-transition, var(--duration-fast));
-    }
-
-    & > [data-previous] {
-      position: absolute;
-      inset: 0;
-      width: var(--popup-width);
-      opacity: 0;
     }
   }
 }
