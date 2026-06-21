@@ -486,12 +486,8 @@
 
 .heroSelect {
   width: 100%;
-  max-width: 16rem;
+  max-width: calc(16rem - 50px);
   --select-width: 100%;
-}
-
-.heroSelectTrigger {
-  min-width: 150px;
 }
 
 .floatPanel {

@@ -132,6 +132,7 @@ function HomeShowcase() {
         <Tabs.Trigger value="button">Button</Tabs.Trigger>
         <Tabs.Trigger value="dialog">Dialog</Tabs.Trigger>
         <Tabs.Trigger value="select">Select</Tabs.Trigger>
+        <Tabs.Indicator />
       </Tabs.List>
 
       <Tabs.Content value="button" className={styles.showcasePanel}>
@@ -139,6 +140,7 @@ function HomeShowcase() {
           <Tabs.List className={styles.nestedTabsList}>
             <Tabs.Trigger value="actions">Actions</Tabs.Trigger>
             <Tabs.Trigger value="status">Status</Tabs.Trigger>
+            <Tabs.Indicator />
           </Tabs.List>
 
           <Tabs.Content value="actions" className={styles.nestedPanel}>
@@ -267,10 +269,12 @@ function HomeShowcase() {
             >
               <Select.Label>Active workspace</Select.Label>
               <Select.Control>
-                <Select.Trigger className={styles.heroSelectTrigger}>
+                <Select.Trigger>
                   <Select.ValueText placeholder="Select workspace" />
-                  <Select.Indicator />
                 </Select.Trigger>
+                <Select.Indicators>
+                  <Select.Indicator />
+                </Select.Indicators>
               </Select.Control>
 
               <Portal>

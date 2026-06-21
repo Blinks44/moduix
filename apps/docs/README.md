@@ -27,10 +27,10 @@ apps/docs/
 
 ## Development
 
-Before working on docs, build the UI package from the monorepo root so docs use fresh library output:
+Before working on docs, build the React package from the monorepo root so docs use fresh library output:
 
 ```bash
-npm run build:ui
+npm run build:react
 ```
 
 Then run docs:

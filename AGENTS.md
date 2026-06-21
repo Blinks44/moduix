@@ -46,9 +46,10 @@ If a task spans UI and docs, apply skills in this order:
 - Linting uses `oxlint` from `packages/oxlint-config`.
 - Formatting uses `oxfmt` from `packages/oxfmt-config`.
 - Do not start dev servers manually; use the already running project server.
-- Before docs validation or docs changes that depend on UI output, run `npm run build:ui` from repo root.
-- After changes in `packages/react`, run `npm run build:ui` before `npm run tsc:check` so consumers do not read stale declarations.
-- Never run `npm run build:ui` and `npm run tsc:check` in parallel. Wait for `build:ui` to finish successfully before starting `tsc:check`.
+- Do not open, launch, or automate a browser unless the user explicitly asks for browser testing or visual inspection.
+- Before docs validation or docs changes that depend on React output, run `npm run build:react` from repo root.
+- After changes in `packages/react`, run `npm run build:react` before `npm run tsc:check` so consumers do not read stale declarations.
+- Never run `npm run build:react` and `npm run tsc:check` in parallel. Wait for `build:react` to finish successfully before starting `tsc:check`.
 - After changes to component or shared registry-shipped source code in `packages/react`, run `npm run build:registry` after validation so the generated shadcn registry artifacts stay in sync.
 - After changes to a component in `packages/react`, update that component's local `.md` file in `packages/react/src/components` with the current functionality and a concise changelog entry when behavior, API, styling contract, or recommended usage changed.
 - `packages/react/src/components` uses `kebab-case` directories. Keep component implementation files inside those directories in their existing names, for example `packages/react/src/components/password-input/PasswordInput.tsx`.
@@ -67,6 +68,6 @@ After code changes, run from repo root:
 
 - `npm run fmt:fix`
 - `npm run lint:check`
-- `npm run build:ui` before `npm run tsc:check` when `packages/react` changed
-- `npm run tsc:check` only after `npm run build:ui` has completed successfully; do not run them in parallel
+- `npm run build:react` before `npm run tsc:check` when `packages/react` changed
+- `npm run tsc:check` only after `npm run build:react` has completed successfully; do not run them in parallel
 - `npm run build:registry` after validation when registry-shipped source code in `packages/react` changed

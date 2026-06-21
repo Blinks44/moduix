@@ -8,48 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-const uiPackageDir = path.resolve(dirname, '../../packages/react');
-
-const uiPrimitiveOptimizeDeps = [
-  '@ark-ui/react/accordion',
-  '@ark-ui/react/angle-slider',
-  '@ark-ui/react/avatar',
-  '@ark-ui/react/carousel',
-  '@ark-ui/react/checkbox',
-  '@ark-ui/react/clipboard',
-  '@ark-ui/react/collapsible',
-  '@ark-ui/react/color-picker',
-  '@ark-ui/react/combobox',
-  '@ark-ui/react/dialog',
-  '@ark-ui/react/drawer',
-  '@ark-ui/react/factory',
-  '@ark-ui/react/field',
-  '@ark-ui/react/fieldset',
-  '@ark-ui/react/hover-card',
-  '@ark-ui/react/locale',
-  '@ark-ui/react/menu',
-  '@ark-ui/react/number-input',
-  '@ark-ui/react/pagination',
-  '@ark-ui/react/password-input',
-  '@ark-ui/react/pin-input',
-  '@ark-ui/react/popover',
-  '@ark-ui/react/portal',
-  '@ark-ui/react/progress',
-  '@ark-ui/react/radio-group',
-  '@ark-ui/react/rating-group',
-  '@ark-ui/react/scroll-area',
-  '@ark-ui/react/select',
-  '@ark-ui/react/slider',
-  '@ark-ui/react/steps',
-  '@ark-ui/react/switch',
-  '@ark-ui/react/tabs',
-  '@ark-ui/react/toast',
-  '@ark-ui/react/toggle',
-  '@ark-ui/react/toggle-group',
-  '@ark-ui/react/tooltip',
-  'clsx',
-  'tslib/tslib.es6.js',
-];
+const reactPackageDir = path.resolve(dirname, '../../packages/react');
 
 export default defineConfig({
   server: {
@@ -73,24 +32,22 @@ export default defineConfig({
   ],
   resolve: {
     alias: [
-      { find: '@moduix/react/style.css', replacement: path.resolve(uiPackageDir, 'src/style.ts') },
-      { find: '@moduix/react/reset.css', replacement: path.resolve(uiPackageDir, 'src/reset.ts') },
-      { find: '@moduix/react', replacement: path.resolve(uiPackageDir, 'src/index.ts') },
+      {
+        find: '@moduix/react/style.css',
+        replacement: path.resolve(reactPackageDir, 'src/style.ts'),
+      },
+      {
+        find: '@moduix/react/reset.css',
+        replacement: path.resolve(reactPackageDir, 'src/reset.ts'),
+      },
+      { find: '@moduix/react', replacement: path.resolve(reactPackageDir, 'src/index.ts') },
       {
         find: '@/lib/moduix/icons/ui',
-        replacement: path.resolve(uiPackageDir, 'src/icons/ui'),
+        replacement: path.resolve(reactPackageDir, 'src/icons/ui'),
       },
-      { find: '@/lib/moduix', replacement: path.resolve(uiPackageDir, 'src/core/lib/moduix') },
+      { find: '@/lib/moduix', replacement: path.resolve(reactPackageDir, 'src/core/lib/moduix') },
     ],
     tsconfigPaths: true,
     dedupe: ['react', 'react-dom'],
-  },
-  optimizeDeps: {
-    include: uiPrimitiveOptimizeDeps,
-  },
-  ssr: {
-    optimizeDeps: {
-      include: uiPrimitiveOptimizeDeps,
-    },
   },
 });

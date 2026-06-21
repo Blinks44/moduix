@@ -17,7 +17,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Blinks44/moduix",
+    "url": "git+https://github.com/Blinks44/moduix.git",
     "directory": "packages/react"
   },
   "files": [

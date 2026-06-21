@@ -198,7 +198,7 @@ Select, Tabs, Toast, Tooltip, and supporting primitives.
 
 - Documentation: https://moduix.blinks44.workers.dev/
 - npm package: https://www.npmjs.com/package/@moduix/react
-- UI package README: `packages/react/README.md`
+- React package README: `packages/react/README.md`
 - Docs app README: `apps/docs/README.md`
 
 ## Repository Quick Start
@@ -207,7 +207,7 @@ From the monorepo root:
 
 ```bash
 npm install
-npm run build:ui
+npm run build:react
 npm run dev
 ```
 
@@ -236,10 +236,10 @@ Before opening a pull request:
    npm install
    ```
 
-2. Build the UI package when your change affects `packages/react` or documentation examples:
+2. Build the React package when your change affects `packages/react` or documentation examples:
 
    ```bash
-   npm run build:ui
+   npm run build:react
    ```
 
 3. Run the required checks:

@@ -125,9 +125,9 @@ If the answer is weak, simplify or remove it.
 
 Run the required checks from `AGENTS.md` after changes.
 
-When `packages/react` changed, treat `npm run build:ui` and `npm run tsc:check` as a strict sequence:
+When `packages/react` changed, treat `npm run build:react` and `npm run tsc:check` as a strict sequence:
 
-1. run `npm run build:ui`
+1. run `npm run build:react`
 2. wait for it to complete successfully
 3. only then run `npm run tsc:check`
 

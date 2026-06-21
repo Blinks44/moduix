@@ -55,11 +55,11 @@ jobs:
         run: |
           set -euo pipefail
 
-          package_version="$(node -p "require('./packages/ui/package.json').version")"
+          package_version="$(node -p "require('./packages/react/package.json').version")"
           tag_version="${GITHUB_REF_NAME#v}"
 
           if [[ "${tag_version}" != "${package_version}" ]]; then
-            echo "::error::Tag ${GITHUB_REF_NAME} does not match packages/ui version ${package_version}."
+            echo "::error::Tag ${GITHUB_REF_NAME} does not match packages/react version ${package_version}."
             exit 1
           fi
 
@@ -69,8 +69,8 @@ jobs:
       - name: Check lint
         run: npm run lint:check
 
-      - name: Build UI
-        run: npm run build:ui
+      - name: Build React
+        run: npm run build:react
 
       - name: Check TypeScript
         run: npm run tsc:check
@@ -81,8 +81,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          package_name="$(node -p "require('./packages/ui/package.json').name")"
-          package_version="$(node -p "require('./packages/ui/package.json').version")"
+          package_name="$(node -p "require('./packages/react/package.json').name")"
+          package_version="$(node -p "require('./packages/react/package.json').version")"
 
           echo "package_name=${package_name}" >> "$GITHUB_OUTPUT"
           echo "package_version=${package_version}" >> "$GITHUB_OUTPUT"

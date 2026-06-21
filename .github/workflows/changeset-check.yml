@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   changeset-check:
-    name: Require changeset for releasable UI changes
+    name: Require changeset for releasable React changes
     runs-on: ubuntu-latest
 
     steps:
@@ -41,17 +41,17 @@ jobs:
 
           releasable_files="$(
             printf '%s\n' "${changed_files}" \
-              | grep -E '^(packages/ui/package\.json|packages/ui/tsdown\.config\.ts|packages/ui/tsconfig\.app\.json|packages/ui/tsconfig\.json|packages/ui/src/)' \
-              | grep -Ev '(^packages/ui/src/.*\.stories\.(ts|tsx|css)$|^packages/ui/src/components/.+/[^/]+\.md$)' \
+              | grep -E '^(packages/react/package\.json|packages/react/tsdown\.config\.ts|packages/react/tsconfig\.app\.json|packages/react/tsconfig\.json|packages/react/src/)' \
+              | grep -Ev '(^packages/react/src/.*\.stories\.(ts|tsx|css)$|^packages/react/src/components/.+/[^/]+\.md$)' \
               || true
           )"
 
           if [[ -z "${releasable_files}" ]]; then
-            echo "No releasable UI changes detected. Skipping changeset requirement."
+            echo "No releasable React changes detected. Skipping changeset requirement."
             exit 0
           fi
 
-          echo "Releasable UI files:"
+          echo "Releasable React files:"
           echo "${releasable_files}"
 
           if grep -Eq '^\.changeset/[^/]+\.md$' <<< "${changed_files}"; then
@@ -59,6 +59,6 @@ jobs:
             exit 0
           fi
 
-          echo "::error::This PR changes releasable files in packages/ui but does not include a changeset file in .changeset/*.md"
+          echo "::error::This PR changes releasable files in packages/react but does not include a changeset file in .changeset/*.md"
           echo "Run 'npm run changeset' and commit the generated file."
           exit 1
