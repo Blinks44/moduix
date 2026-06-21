@@ -180,6 +180,8 @@ scrollbar when its matching Ark overflow attribute is absent.
   directions, nested, and root provider.
 - Preserve required viewport native-scrollbar hiding styles.
 - Keep `fade` vertical-only. Do not expand it back to horizontal or multi-value modes.
+- Keep root and viewport `min-width: 0` / `min-height: 0`; scroll areas are commonly nested in
+  flex and grid regions that need shrinkable scroll containers.
 
 ## Local changelog
 
@@ -188,3 +190,5 @@ scrollbar when its matching Ark overflow attribute is absent.
   Ark public types, and updated styling hooks to Ark data attributes and CSS variables.
 - 2026-06-19: Restored the narrow `fade?: boolean` Moduix sugar for top and bottom viewport masks
   without bringing back the old Base UI convenience surface.
+- 2026-06-21: Added defensive min-size reset on root and viewport so ScrollArea can shrink
+  correctly inside flex/grid layouts.

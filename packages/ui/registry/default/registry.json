@@ -21,7 +21,7 @@
           "utils": "@/lib/utils"
         }
       },
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"]
     },
     {
@@ -29,7 +29,7 @@
       "type": "registry:item",
       "title": "moduix core",
       "description": "Shared styles, utilities, and icons for moduix registry components.",
-      "dependencies": ["clsx", "@base-ui/react"],
+      "dependencies": ["clsx"],
       "docs": "Import '@/lib/moduix/styles/style.css' once in your app entry. Optionally import '@/lib/moduix/styles/reset.css' before it.",
       "files": [
         {
@@ -509,8 +509,12 @@
       "type": "registry:item",
       "title": "CommandPalette",
       "description": "moduix CommandPalette component.",
-      "dependencies": ["@base-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/core"],
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": [
+        "Blinks44/moduix/core",
+        "Blinks44/moduix/kbd",
+        "Blinks44/moduix/scroll-area"
+      ],
       "files": [
         {
           "path": "packages/ui/src/components/command-palette/CommandPalette.tsx",

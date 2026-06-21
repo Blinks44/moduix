@@ -4,6 +4,8 @@
     box-sizing: border-box;
     width: var(--scroll-area-width, 100%);
     height: var(--scroll-area-height, 100%);
+    min-width: 0;
+    min-height: 0;
     color: var(--scroll-area-color, var(--color-foreground));
   }
 
@@ -11,6 +13,8 @@
     box-sizing: border-box;
     width: 100%;
     height: 100%;
+    min-width: 0;
+    min-height: 0;
     border-radius: var(--scroll-area-radius, var(--radius-md));
     background-color: var(--scroll-area-bg, transparent);
     outline: 0;

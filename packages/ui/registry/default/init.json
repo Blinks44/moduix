@@ -4,7 +4,7 @@
   "name": "init",
   "title": "moduix init",
   "description": "Initialize shadcn for moduix and install the shared foundation files.",
-  "dependencies": ["@base-ui/react", "clsx"],
+  "dependencies": ["@ark-ui/react", "clsx"],
   "registryDependencies": ["Blinks44/moduix/core"],
   "type": "registry:base",
   "config": {

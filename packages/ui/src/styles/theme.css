@@ -654,7 +654,18 @@
   --command-palette-clear-bg-hover: initial; /* var(--color-accent) */
   --command-palette-clear-radius: initial; /* var(--radius-md) */
   --command-palette-clear-size: initial; /* 1.75rem */
+  --command-palette-close-offset: initial; /* var(--spacing-3) */
   --command-palette-color: initial; /* var(--color-popover-foreground) */
+  --command-palette-content-ending-opacity: initial; /* 0 */
+  --command-palette-content-ending-scale: initial; /* var(--scale-popup) */
+  --command-palette-content-ending-translate-x: initial; /* 0 */
+  --command-palette-content-ending-translate-y: initial; /* -0.75rem */
+  --command-palette-content-starting-opacity: initial; /* 0 */
+  --command-palette-content-starting-scale: initial; /* var(--scale-popup) */
+  --command-palette-content-starting-translate-x: initial; /* 0 */
+  --command-palette-content-starting-translate-y: initial; /* -0.75rem */
+  --command-palette-control-padding-x: initial; /* var(--spacing-4) */
+  --command-palette-control-padding-y: initial; /* var(--spacing-3) */
   --command-palette-divider-color: initial; /* var(--color-border) */
   --command-palette-divider-width: initial; /* var(--border-width-sm) */
   --command-palette-empty-font-size: initial; /* var(--text-sm) */
@@ -685,8 +696,6 @@
   --command-palette-input-height: initial; /* 4rem */
   --command-palette-input-line-height: initial; /* var(--line-height-text-lg) */
   --command-palette-input-placeholder-color: initial; /* var(--color-muted-foreground) */
-  --command-palette-input-wrap-padding-x: initial; /* var(--spacing-4) */
-  --command-palette-input-wrap-padding-y: initial; /* var(--spacing-3) */
   --command-palette-item-color: initial; /* var(--command-palette-color) */
   --command-palette-item-description-font-size: initial; /* var(--text-xs) */
   --command-palette-item-description-line-height: initial; /* var(--line-height-text-xs) */
@@ -725,22 +734,15 @@
   --command-palette-max-height: initial; /* 34rem */
   --command-palette-max-width: initial; /* calc(100vw - var(--spacing-8)) */
   --command-palette-muted-color: initial; /* var(--color-muted-foreground) */
-  --command-palette-popup-ending-opacity: initial; /* 0 */
-  --command-palette-popup-ending-scale: initial; /* var(--scale-popup) */
-  --command-palette-popup-ending-translate-x: initial; /* 0 */
-  --command-palette-popup-ending-translate-y: initial; /* 0 */
-  --command-palette-popup-starting-opacity: initial; /* 0 */
-  --command-palette-popup-starting-scale: initial; /* var(--scale-popup) */
-  --command-palette-popup-starting-translate-x: initial; /* 0 */
-  --command-palette-popup-starting-translate-y: initial; /* 0 */
+  --command-palette-positioner-padding: initial; /* 10dvh var(--spacing-4) var(--spacing-4) */
   --command-palette-radius: initial; /* var(--radius-lg) */
+  --command-palette-scrollbar-margin: initial; /* var(--spacing-1) */
+  --command-palette-scrollbar-size: initial; /* 0.375rem */
+  --command-palette-scrollbar-thumb-bg: initial; /* var(--color-border) */
+  --command-palette-selected-color: initial; /* var(--command-palette-highlight-color) */
   --command-palette-separator-margin-x: initial; /* var(--spacing-2) */
   --command-palette-separator-margin-y: initial; /* var(--spacing-2) */
   --command-palette-shadow: initial; /* var(--shadow-lg) */
-  --command-palette-status-font-size: initial; /* var(--text-xs) */
-  --command-palette-status-line-height: initial; /* var(--line-height-text-xs) */
-  --command-palette-status-padding-x: initial; /* var(--spacing-4) */
-  --command-palette-status-padding-y: initial; /* 0.25rem */
   --command-palette-top-bg: initial; /* color-mix(in oklab, var(--color-popover) 96%, white 4%) */
   --command-palette-transition: initial; /* var(--transition-default) */
   --command-palette-trigger-bg: initial; /* var(--color-background) */
@@ -755,7 +757,6 @@
   --command-palette-trigger-padding-x: initial; /* 0.875rem */
   --command-palette-trigger-padding-y: initial; /* 0.5rem */
   --command-palette-trigger-radius: initial; /* var(--radius-md) */
-  --command-palette-viewport-padding: initial; /* 10dvh var(--spacing-4) var(--spacing-4) */
   --command-palette-width: initial; /* 37.5rem */
 
   /* Container */

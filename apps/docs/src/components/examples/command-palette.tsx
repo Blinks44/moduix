@@ -3,26 +3,10 @@ import {
   BellIcon,
   Button,
   CommandPalette,
-  CommandPaletteClear,
-  CommandPaletteCollection,
-  CommandPaletteContent,
-  CommandPaletteEmpty,
-  CommandPaletteFooter,
-  CommandPaletteGroup,
-  CommandPaletteGroupLabel,
-  CommandPaletteInput,
-  CommandPaletteInputWrap,
-  CommandPaletteItem,
-  CommandPaletteItemDescription,
-  CommandPaletteItemIcon,
-  CommandPaletteItemLabel,
-  CommandPaletteItemMeta,
-  CommandPaletteItemText,
-  CommandPaletteKbd,
-  CommandPaletteList,
-  CommandPaletteTrigger,
   PlusIcon,
   StarIcon,
+  useFilter,
+  useListCollection,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -41,91 +25,66 @@ type CommandActionItem = CommandItem & {
   onSelect: () => void;
 };
 
-type CommandGroup = {
-  value: string;
-  items: CommandItem[];
-};
-
-type CommandActionGroup = {
-  value: string;
-  items: CommandActionItem[];
-};
-
-const commandGroups: CommandGroup[] = [
+const commandItems: CommandItem[] = [
   {
-    value: 'Create',
-    items: [
-      {
-        id: 'new-project',
-        section: 'Create',
-        label: 'New project',
-        description: 'Start a blank workspace',
-        shortcut: 'N',
-        icon: <PlusIcon />,
-      },
-      {
-        id: 'invite-team',
-        section: 'Create',
-        label: 'Invite teammates',
-        description: 'Send access to the current organization',
-        shortcut: 'I',
-        icon: <PlusIcon />,
-      },
-    ],
+    id: 'new-project',
+    section: 'Create',
+    label: 'New project',
+    description: 'Start a blank workspace',
+    shortcut: 'N',
+    icon: <PlusIcon />,
   },
   {
-    value: 'Navigate',
-    items: [
-      {
-        id: 'recent',
-        section: 'Navigate',
-        label: 'Open recent work',
-        description: 'Jump back to a recently edited file',
-        shortcut: 'R',
-        icon: <ArrowUpRightIcon />,
-      },
-      {
-        id: 'favorites',
-        section: 'Navigate',
-        label: 'View favorites',
-        description: 'Show pinned dashboards and docs',
-        shortcut: 'F',
-        icon: <StarIcon />,
-      },
-    ],
+    id: 'invite-team',
+    section: 'Create',
+    label: 'Invite teammates',
+    description: 'Send access to the current organization',
+    shortcut: 'I',
+    icon: <PlusIcon />,
   },
   {
-    value: 'System',
-    items: [
-      {
-        id: 'notifications',
-        section: 'System',
-        label: 'Notification settings',
-        description: 'Tune email and product alerts',
-        icon: <BellIcon />,
-      },
-      {
-        id: 'release-notes',
-        section: 'System',
-        label: 'Release notes',
-        description: 'Read the latest product changes',
-        icon: <ArrowUpRightIcon />,
-      },
-      {
-        id: 'api-tokens',
-        section: 'System',
-        label: 'API tokens',
-        description: 'Manage personal access tokens',
-        icon: <StarIcon />,
-      },
-      {
-        id: 'workspace-audit-log',
-        section: 'System',
-        label: 'Workspace audit log',
-        description: 'Inspect recent security events',
-        icon: <BellIcon />,
-      },
-    ],
+    id: 'recent',
+    section: 'Navigate',
+    label: 'Open recent work',
+    description: 'Jump back to a recently edited file',
+    shortcut: 'R',
+    icon: <ArrowUpRightIcon />,
+  },
+  {
+    id: 'favorites',
+    section: 'Navigate',
+    label: 'View favorites',
+    description: 'Show pinned dashboards and docs',
+    shortcut: 'F',
+    icon: <StarIcon />,
+  },
+  {
+    id: 'notifications',
+    section: 'System',
+    label: 'Notification settings',
+    description: 'Tune email and product alerts',
+    icon: <BellIcon />,
+  },
+  {
+    id: 'release-notes',
+    section: 'System',
+    label: 'Release notes',
+    description: 'Read the latest product changes',
+    icon: <ArrowUpRightIcon />,
+  },
+  {
+    id: 'api-tokens',
+    section: 'System',
+    label: 'API tokens',
+    description: 'Manage personal access tokens',
+    icon: <StarIcon />,
+  },
+  {
+    id: 'workspace-audit-log',
+    section: 'System',
+    label: 'Workspace audit log',
+    description: 'Inspect recent security events',
+    icon: <BellIcon />,
   },
 ];
 
@@ -143,7 +102,18 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-clear-bg-hover', 'var(--color-accent)'],
   ['--command-palette-clear-radius', 'var(--radius-md)'],
   ['--command-palette-clear-size', '1.75rem'],
+  ['--command-palette-close-offset', 'var(--spacing-3)'],
   ['--command-palette-color', 'var(--color-popover-foreground)'],
+  ['--command-palette-content-ending-opacity', '0'],
+  ['--command-palette-content-ending-scale', 'var(--scale-popup)'],
+  ['--command-palette-content-ending-translate-x', '0'],
+  ['--command-palette-content-ending-translate-y', '-0.75rem'],
+  ['--command-palette-content-starting-opacity', '0'],
+  ['--command-palette-content-starting-scale', 'var(--scale-popup)'],
+  ['--command-palette-content-starting-translate-x', '0'],
+  ['--command-palette-content-starting-translate-y', '-0.75rem'],
+  ['--command-palette-control-padding-x', 'var(--spacing-4)'],
+  ['--command-palette-control-padding-y', 'var(--spacing-3)'],
   ['--command-palette-divider-color', 'var(--color-border)'],
   ['--command-palette-divider-width', 'var(--border-width-sm)'],
   ['--command-palette-empty-font-size', 'var(--text-sm)'],
@@ -174,8 +144,6 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-input-height', '4rem'],
   ['--command-palette-input-line-height', 'var(--line-height-text-lg)'],
   ['--command-palette-input-placeholder-color', 'var(--color-muted-foreground)'],
-  ['--command-palette-input-wrap-padding-x', 'var(--spacing-4)'],
-  ['--command-palette-input-wrap-padding-y', 'var(--spacing-3)'],
   ['--command-palette-item-color', 'var(--command-palette-color)'],
   ['--command-palette-item-description-font-size', 'var(--text-xs)'],
   ['--command-palette-item-description-line-height', 'var(--line-height-text-xs)'],
@@ -214,22 +182,15 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-max-height', '34rem'],
   ['--command-palette-max-width', 'calc(100vw - var(--spacing-8))'],
   ['--command-palette-muted-color', 'var(--color-muted-foreground)'],
-  ['--command-palette-popup-ending-opacity', '0'],
-  ['--command-palette-popup-ending-scale', 'var(--scale-popup)'],
-  ['--command-palette-popup-ending-translate-x', '0'],
-  ['--command-palette-popup-ending-translate-y', '0'],
-  ['--command-palette-popup-starting-opacity', '0'],
-  ['--command-palette-popup-starting-scale', 'var(--scale-popup)'],
-  ['--command-palette-popup-starting-translate-x', '0'],
-  ['--command-palette-popup-starting-translate-y', '0'],
+  ['--command-palette-positioner-padding', '10dvh var(--spacing-4) var(--spacing-4)'],
   ['--command-palette-radius', 'var(--radius-lg)'],
+  ['--command-palette-scrollbar-margin', 'var(--spacing-1)'],
+  ['--command-palette-scrollbar-size', '0.375rem'],
+  ['--command-palette-scrollbar-thumb-bg', 'var(--color-border)'],
+  ['--command-palette-selected-color', 'var(--command-palette-highlight-color)'],
   ['--command-palette-separator-margin-x', 'var(--spacing-2)'],
   ['--command-palette-separator-margin-y', 'var(--spacing-2)'],
   ['--command-palette-shadow', 'var(--shadow-lg)'],
-  ['--command-palette-status-font-size', 'var(--text-xs)'],
-  ['--command-palette-status-line-height', 'var(--line-height-text-xs)'],
-  ['--command-palette-status-padding-x', 'var(--spacing-4)'],
-  ['--command-palette-status-padding-y', '0.25rem'],
   ['--command-palette-top-bg', 'color-mix(in oklab, var(--color-popover) 96%, white 4%)'],
   ['--command-palette-transition', 'var(--transition-default)'],
   ['--command-palette-trigger-bg', 'var(--color-background)'],
@@ -244,7 +205,6 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-trigger-padding-x', '0.875rem'],
   ['--command-palette-trigger-padding-y', '0.5rem'],
   ['--command-palette-trigger-radius', 'var(--radius-md)'],
-  ['--command-palette-viewport-padding', '10dvh var(--spacing-4) var(--spacing-4)'],
   ['--command-palette-width', '37.5rem'],
 ];
 
@@ -295,128 +255,274 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function CommandPaletteExample() {
+function useCommandCollection<T extends CommandItem>(items: T[]) {
+  const { contains } = useFilter({ sensitivity: 'base' });
+  const { collection, filter } = useListCollection({
+    initialItems: items,
+    itemToString: (item) => `${item.label} ${item.description} ${item.section}`,
+    itemToValue: (item) => item.id,
+    filter: contains,
+    groupBy: (item) => item.section,
+  });
+
+  return { collection, filter };
+}
+
+function CommandPaletteShell<T extends CommandItem>({
+  children,
+  collection,
+  filter,
+  label,
+  onSelect,
+  placeholder,
+  shortcut = false,
+  trigger,
+}: {
+  children: React.ReactNode;
+  collection: ReturnType<typeof useCommandCollection<T>>['collection'];
+  filter: ReturnType<typeof useCommandCollection<T>>['filter'];
+  label: string;
+  onSelect?: (details: { value: string[] }) => void;
+  placeholder: string;
+  shortcut?: false | string;
+  trigger: React.ReactNode;
+}) {
   return (
-    <CommandPalette shortcut="alt+k">
-      <CommandPaletteTrigger render={<Button />}>Open palette</CommandPaletteTrigger>
-      <CommandPaletteContent<CommandItem>
-        aria-label="Command palette"
-        items={commandGroups}
-        itemToStringValue={(item) => `${item.label} ${item.description} ${item.section}`}
-      >
-        <CommandPaletteInputWrap>
-          <CommandPaletteInput
-            aria-label="Search commands"
-            placeholder="Search commands, pages, and settings..."
-          />
-          <CommandPaletteClear aria-label="Clear search" />
-        </CommandPaletteInputWrap>
-        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
-        <CommandPaletteList>
-          {(group: CommandGroup) => (
-            <CommandPaletteGroup key={group.value} items={group.items}>
-              <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
-              <CommandPaletteCollection>
-                {(item: CommandItem) => (
-                  <CommandPaletteItem key={item.id} value={item}>
-                    <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
-                    <CommandPaletteItemText>
-                      <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
-                      <CommandPaletteItemDescription>
-                        {item.description}
-                      </CommandPaletteItemDescription>
-                    </CommandPaletteItemText>
-                    {item.shortcut ? (
-                      <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
-                    ) : null}
-                  </CommandPaletteItem>
-                )}
-              </CommandPaletteCollection>
-            </CommandPaletteGroup>
-          )}
-        </CommandPaletteList>
-        <CommandPaletteFooter>
-          <span>
-            <CommandPaletteKbd>Enter</CommandPaletteKbd> run
-          </span>
-          <span>
-            <CommandPaletteKbd>Esc</CommandPaletteKbd> close
-          </span>
-        </CommandPaletteFooter>
-      </CommandPaletteContent>
+    <CommandPalette
+      aria-label={label}
+      shortcut={shortcut}
+      onOpenChange={(details) => {
+        if (!details.open) {
+          filter('');
+        }
+      }}
+    >
+      <CommandPalette.Trigger asChild>
+        <Button>{trigger}</Button>
+      </CommandPalette.Trigger>
+      <CommandPalette.Portal>
+        <CommandPalette.Backdrop />
+        <CommandPalette.Positioner>
+          <CommandPalette.Content>
+            <CommandPalette.Combobox
+              collection={collection}
+              onInputValueChange={(details) => filter(details.inputValue)}
+              onSelect={onSelect}
+            >
+              <CommandPalette.Control>
+                <CommandPalette.Input aria-label="Search commands" placeholder={placeholder} />
+                <CommandPalette.ClearTrigger aria-label="Clear search" />
+              </CommandPalette.Control>
+              {children}
+            </CommandPalette.Combobox>
+          </CommandPalette.Content>
+        </CommandPalette.Positioner>
+      </CommandPalette.Portal>
     </CommandPalette>
+  );
+}
+
+function CommandPaletteGroupedItems<T extends CommandItem>({
+  collection,
+}: {
+  collection: ReturnType<typeof useCommandCollection<T>>['collection'];
+}) {
+  return (
+    <CommandPalette.List>
+      <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+      {collection.group().map(([section, items]) => (
+        <CommandPalette.ItemGroup key={section}>
+          <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+          {items.map((item) => (
+            <CommandPalette.Item key={item.id} item={item}>
+              <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
+              <CommandPalette.ItemText>
+                <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
+                <CommandPalette.ItemDescription>{item.description}</CommandPalette.ItemDescription>
+              </CommandPalette.ItemText>
+              {item.shortcut ? (
+                <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
+              ) : null}
+            </CommandPalette.Item>
+          ))}
+        </CommandPalette.ItemGroup>
+      ))}
+    </CommandPalette.List>
+  );
+}
+
+export function CommandPaletteExample() {
+  const { collection, filter } = useCommandCollection(commandItems);
+
+  return (
+    <CommandPaletteShell
+      collection={collection}
+      filter={filter}
+      label="Command palette"
+      placeholder="Search commands, pages, and settings..."
+      shortcut="alt+k"
+      trigger="Open palette"
+    >
+      <CommandPaletteGroupedItems collection={collection} />
+      <CommandPalette.Footer>
+        <span>
+          <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
+        </span>
+        <span>
+          <CommandPalette.Kbd>Esc</CommandPalette.Kbd> close
+        </span>
+      </CommandPalette.Footer>
+    </CommandPaletteShell>
   );
 }
 
 export function CommandPaletteActionsExample() {
   const [lastAction, setLastAction] = React.useState('No command executed yet.');
 
-  const actionGroups: CommandActionGroup[] = commandGroups.map((group) => ({
-    value: group.value,
-    items: group.items.map((item) => ({
-      ...item,
-      onSelect: () => {
-        if (item.id === 'release-notes') {
-          window.open(
-            'https://github.com/Blinks44/moduix/releases',
-            '_blank',
-            'noopener,noreferrer',
-          );
-          setLastAction('Navigated: Release notes');
-          return;
-        }
+  const actionItems = commandItems.map<CommandActionItem>((item) => ({
+    ...item,
+    onSelect: () => {
+      if (item.id === 'release-notes') {
+        window.open('https://github.com/Blinks44/moduix/releases', '_blank', 'noopener,noreferrer');
+        setLastAction('Navigated: Release notes');
+        return;
+      }
 
-        setLastAction(`Executed: ${item.label}`);
-      },
-    })),
+      setLastAction(`Executed: ${item.label}`);
+    },
   }));
+  const { collection, filter } = useCommandCollection(actionItems);
 
   return (
-    <CommandPalette shortcut="alt+k">
-      <CommandPaletteTrigger render={<Button />}>Open actions palette</CommandPaletteTrigger>
-      <CommandPaletteContent<CommandActionItem>
-        aria-label="Command palette with actions"
-        items={actionGroups}
-        itemToStringValue={(item) => `${item.label} ${item.description} ${item.section}`}
+    <CommandPaletteShell
+      collection={collection}
+      filter={filter}
+      label="Command palette with actions"
+      onSelect={(details) => {
+        const selectedItem = collection.items.find((item) => item.id === details.value[0]);
+        selectedItem?.onSelect();
+      }}
+      placeholder="Search and run commands..."
+      trigger="Open actions palette"
+    >
+      <CommandPalette.List>
+        <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+        {collection.group().map(([section, items]) => (
+          <CommandPalette.ItemGroup key={section}>
+            <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+            {items.map((item) => (
+              <CommandPalette.Item key={item.id} item={item}>
+                <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
+                <CommandPalette.ItemText>
+                  <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
+                  <CommandPalette.ItemDescription>
+                    {item.description}
+                  </CommandPalette.ItemDescription>
+                </CommandPalette.ItemText>
+                {item.shortcut ? (
+                  <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
+                ) : null}
+              </CommandPalette.Item>
+            ))}
+          </CommandPalette.ItemGroup>
+        ))}
+      </CommandPalette.List>
+      <CommandPalette.Footer>
+        <span>
+          <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
+        </span>
+        <span>{lastAction}</span>
+      </CommandPalette.Footer>
+    </CommandPaletteShell>
+  );
+}
+
+export function ControlledCommandPaletteExample() {
+  const [open, setOpen] = React.useState(false);
+  const { collection, filter } = useCommandCollection(commandItems);
+
+  return (
+    <>
+      <Button type="button" onClick={() => setOpen(true)}>
+        Search actions
+      </Button>
+      <CommandPalette
+        aria-label="Controlled command palette"
+        open={open}
+        onOpenChange={(details) => {
+          setOpen(details.open);
+
+          if (!details.open) {
+            filter('');
+          }
+        }}
       >
-        <CommandPaletteInputWrap>
-          <CommandPaletteInput
-            aria-label="Search commands"
-            placeholder="Search and run commands..."
-          />
-          <CommandPaletteClear aria-label="Clear search" />
-        </CommandPaletteInputWrap>
-        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
-        <CommandPaletteList>
-          {(group: CommandActionGroup) => (
-            <CommandPaletteGroup key={group.value} items={group.items}>
-              <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
-              <CommandPaletteCollection>
-                {(item: CommandActionItem) => (
-                  <CommandPaletteItem key={item.id} value={item} onClick={item.onSelect}>
-                    <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
-                    <CommandPaletteItemText>
-                      <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
-                      <CommandPaletteItemDescription>
-                        {item.description}
-                      </CommandPaletteItemDescription>
-                    </CommandPaletteItemText>
-                    {item.shortcut ? (
-                      <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
-                    ) : null}
-                  </CommandPaletteItem>
-                )}
-              </CommandPaletteCollection>
-            </CommandPaletteGroup>
-          )}
-        </CommandPaletteList>
-        <CommandPaletteFooter>
-          <span>
-            <CommandPaletteKbd>Enter</CommandPaletteKbd> run
-          </span>
-          <span>{lastAction}</span>
-        </CommandPaletteFooter>
-      </CommandPaletteContent>
+        <CommandPalette.Portal>
+          <CommandPalette.Backdrop />
+          <CommandPalette.Positioner>
+            <CommandPalette.Content>
+              <CommandPalette.Combobox
+                collection={collection}
+                onInputValueChange={(details) => filter(details.inputValue)}
+              >
+                <CommandPalette.Control>
+                  <CommandPalette.Input
+                    aria-label="Search commands"
+                    placeholder="Search controlled commands..."
+                  />
+                  <CommandPalette.ClearTrigger aria-label="Clear search" />
+                </CommandPalette.Control>
+                <CommandPaletteGroupedItems collection={collection} />
+              </CommandPalette.Combobox>
+            </CommandPalette.Content>
+          </CommandPalette.Positioner>
+        </CommandPalette.Portal>
+      </CommandPalette>
+    </>
+  );
+}
+
+export function CommandPaletteShortcutExample() {
+  const { collection, filter } = useCommandCollection(commandItems);
+
+  return (
+    <CommandPalette
+      aria-label="Shortcut command palette preview"
+      onOpenChange={(details) => {
+        if (!details.open) {
+          filter('');
+        }
+      }}
+    >
+      <CommandPalette.Trigger asChild>
+        <Button>Open palette</Button>
+      </CommandPalette.Trigger>
+      <CommandPalette.Portal>
+        <CommandPalette.Backdrop />
+        <CommandPalette.Positioner>
+          <CommandPalette.Content>
+            <CommandPalette.Combobox
+              collection={collection}
+              onInputValueChange={(details) => filter(details.inputValue)}
+            >
+              <CommandPalette.Control>
+                <CommandPalette.Input
+                  aria-label="Search commands"
+                  placeholder="Search commands..."
+                />
+                <CommandPalette.ClearTrigger aria-label="Clear search" />
+              </CommandPalette.Control>
+              <CommandPaletteGroupedItems collection={collection} />
+              <CommandPalette.Footer>
+                <span>
+                  <CommandPalette.Kbd>Alt</CommandPalette.Kbd> +{' '}
+                  <CommandPalette.Kbd>K</CommandPalette.Kbd>
+                </span>
+              </CommandPalette.Footer>
+            </CommandPalette.Combobox>
+          </CommandPalette.Content>
+        </CommandPalette.Positioner>
+      </CommandPalette.Portal>
     </CommandPalette>
   );
 }

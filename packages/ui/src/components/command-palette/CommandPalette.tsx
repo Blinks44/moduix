@@ -1,59 +1,30 @@
-import type { ComponentProps } from 'react';
-import { Autocomplete as AutocompletePrimitive } from '@base-ui/react/autocomplete';
-import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
+import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
+import {
+  Combobox as ComboboxPrimitive,
+  type CollectionItem,
+  type ComboboxRootComponent,
+  type ComboboxRootProps,
+  type ComboboxRootProviderComponent,
+  type ComboboxRootProviderProps,
+} from '@ark-ui/react/combobox';
+import {
+  Dialog as DialogPrimitive,
+  type DialogOpenChangeDetails,
+  useDialogContext,
+} from '@ark-ui/react/dialog';
+import { Portal } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
-import { createContext, useContext, useEffect, useMemo } from 'react';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { Kbd } from '../kbd';
+import { ScrollArea } from '../scroll-area';
 import styles from './CommandPalette.module.css';
 
-const createCommandPaletteHandle = DialogPrimitive.createHandle;
-
-type CommandPaletteContextValue = {
-  handle: DialogPrimitive.Handle<unknown>;
-  modal: DialogPrimitive.Root.Props['modal'];
-};
-
-type CommandPaletteProps<Payload> = DialogPrimitive.Root.Props<Payload> & {
+type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> & {
   shortcut?: false | string;
   shortcutTarget?: Document | HTMLElement | null;
 };
-
-type CommandPaletteAutocompleteProps<ItemValue> = AutocompletePrimitive.Root.Props<ItemValue>;
-
-type CommandPaletteContentProps<ItemValue> = DialogPrimitive.Popup.Props & {
-  items?: CommandPaletteAutocompleteProps<ItemValue>['items'];
-  itemToStringValue?: CommandPaletteAutocompleteProps<ItemValue>['itemToStringValue'];
-  value?: CommandPaletteAutocompleteProps<ItemValue>['value'];
-  defaultValue?: CommandPaletteAutocompleteProps<ItemValue>['defaultValue'];
-  onValueChange?: CommandPaletteAutocompleteProps<ItemValue>['onValueChange'];
-  filter?: CommandPaletteAutocompleteProps<ItemValue>['filter'];
-  filteredItems?: CommandPaletteAutocompleteProps<ItemValue>['filteredItems'];
-  limit?: CommandPaletteAutocompleteProps<ItemValue>['limit'];
-};
-
-const CommandPaletteContext = createContext<CommandPaletteContextValue | null>(null);
-
-function useCommandPaletteContext(componentName: string) {
-  const context = useContext(CommandPaletteContext);
-
-  if (!context) {
-    throw new Error(`${componentName} must be used within CommandPalette.`);
-  }
-
-  return context;
-}
-
-function isMacLikePlatform() {
-  if (typeof navigator === 'undefined') {
-    return false;
-  }
-
-  const platform =
-    (navigator as Navigator & { userAgentData?: { platform?: string } }).userAgentData?.platform ??
-    navigator.platform;
-  return /mac|iphone|ipad|ipod/i.test(platform);
-}
 
 function isShortcutMatch(event: KeyboardEvent, shortcut: string) {
   const parts = shortcut
@@ -61,33 +32,39 @@ function isShortcutMatch(event: KeyboardEvent, shortcut: string) {
     .split('+')
     .map((part) => part.trim())
     .filter(Boolean);
-  const key = parts.at(-1);
-  const primaryModifier = parts.includes('mod') ? (isMacLikePlatform() ? 'meta' : 'ctrl') : null;
-  const needsCtrl =
-    parts.includes('ctrl') || parts.includes('control') || primaryModifier === 'ctrl';
-  const needsMeta =
-    parts.includes('meta') ||
-    parts.includes('cmd') ||
-    parts.includes('command') ||
-    primaryModifier === 'meta';
-  const needsAlt = parts.includes('alt') || parts.includes('option');
-  const needsShift = parts.includes('shift');
+  const [modifier, key] = parts;
+
+  if (!modifier || !key || parts.length !== 2 || event.shiftKey) {
+    return false;
+  }
+
   const eventKey = event.key.toLowerCase();
   const eventCode =
     event.code.startsWith('Key') || event.code.startsWith('Digit')
       ? event.code.slice(event.code.startsWith('Key') ? 3 : 5).toLowerCase()
       : event.code.toLowerCase();
 
-  if (!key || (eventKey !== key && eventCode !== key)) {
+  if (eventKey !== key && eventCode !== key) {
     return false;
   }
 
-  return (
-    event.ctrlKey === needsCtrl &&
-    event.metaKey === needsMeta &&
-    event.altKey === needsAlt &&
-    event.shiftKey === needsShift
-  );
+  if (modifier === 'mod') {
+    return (event.metaKey || event.ctrlKey) && !event.altKey;
+  }
+
+  if (modifier === 'ctrl' || modifier === 'control') {
+    return event.ctrlKey && !event.metaKey && !event.altKey;
+  }
+
+  if (modifier === 'meta' || modifier === 'cmd' || modifier === 'command') {
+    return event.metaKey && !event.ctrlKey && !event.altKey;
+  }
+
+  if (modifier === 'alt' || modifier === 'option') {
+    return event.altKey && !event.metaKey && !event.ctrlKey;
+  }
+
+  return false;
 }
 
 function isEditableTarget(target: EventTarget | null) {
@@ -100,23 +77,34 @@ function isEditableTarget(target: EventTarget | null) {
   );
 }
 
-function CommandPaletteAutocomplete(props: AutocompletePrimitive.Root.Props<any>) {
-  return <AutocompletePrimitive.Root {...props} />;
-}
-
-function CommandPalette<Payload = unknown>({
-  modal = true,
-  shortcut = 'mod+k',
+function CommandPaletteRoot({
+  shortcut = false,
   shortcutTarget,
-  handle,
+  open,
+  defaultOpen = false,
+  lazyMount = true,
+  unmountOnExit = true,
+  onOpenChange,
   children,
   ...props
-}: CommandPaletteProps<Payload>) {
-  const fallbackHandle = useMemo(() => createCommandPaletteHandle<Payload>(), []);
-  const resolvedHandle = handle ?? fallbackHandle;
+}: CommandPaletteRootProps) {
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
+  const isControlled = open !== undefined;
+  const currentOpen = open ?? uncontrolledOpen;
+
+  const handleOpenChange = useCallback(
+    (details: DialogOpenChangeDetails) => {
+      if (!isControlled) {
+        setUncontrolledOpen(details.open);
+      }
+
+      onOpenChange?.(details);
+    },
+    [isControlled, onOpenChange],
+  );
 
   useEffect(() => {
-    if (shortcut === false || shortcutTarget === null) {
+    if (!shortcut || shortcutTarget === null) {
       return;
     }
 
@@ -132,248 +120,358 @@ function CommandPalette<Payload = unknown>({
       }
 
       event.preventDefault();
-      resolvedHandle.open(null);
+      handleOpenChange({ open: true });
     };
 
     const eventListener = handleKeyDown as EventListener;
     target.addEventListener('keydown', eventListener);
     return () => target.removeEventListener('keydown', eventListener);
-  }, [resolvedHandle, shortcut, shortcutTarget]);
+  }, [handleOpenChange, shortcut, shortcutTarget]);
 
   return (
-    <CommandPaletteContext.Provider value={{ handle: resolvedHandle, modal }}>
-      <DialogPrimitive.Root modal={modal} handle={resolvedHandle} {...props}>
-        {children}
-      </DialogPrimitive.Root>
-    </CommandPaletteContext.Provider>
+    <DialogPrimitive.Root
+      open={currentOpen}
+      lazyMount={lazyMount}
+      unmountOnExit={unmountOnExit}
+      onOpenChange={handleOpenChange}
+      {...props}
+    >
+      {children}
+    </DialogPrimitive.Root>
   );
 }
 
-function CommandPaletteTrigger({ className, render, ...props }: DialogPrimitive.Trigger.Props) {
+function CommandPaletteRootProvider({
+  lazyMount = true,
+  unmountOnExit = true,
+  ...props
+}: ComponentProps<typeof DialogPrimitive.RootProvider>) {
+  return (
+    <DialogPrimitive.RootProvider lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
+  );
+}
+
+const CommandPaletteTrigger = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Trigger>,
+  ComponentProps<typeof DialogPrimitive.Trigger>
+>(function CommandPaletteTrigger({ asChild, className, ...props }, ref) {
   return (
     <DialogPrimitive.Trigger
+      ref={ref}
+      asChild={asChild}
       data-slot="command-palette-trigger"
-      className={render ? className : mergeClassName(className, styles.trigger)}
-      render={render}
+      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
       {...props}
     />
   );
+});
+
+function CommandPalettePortal(props: ComponentProps<typeof Portal>) {
+  return <Portal {...props} />;
 }
 
-function CommandPalettePortal(props: DialogPrimitive.Portal.Props) {
-  return <DialogPrimitive.Portal {...props} />;
-}
-
-function CommandPaletteBackdrop({ className, ...props }: DialogPrimitive.Backdrop.Props) {
+const CommandPaletteBackdrop = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Backdrop>,
+  ComponentProps<typeof DialogPrimitive.Backdrop>
+>(function CommandPaletteBackdrop({ className, ...props }, ref) {
   return (
     <DialogPrimitive.Backdrop
+      ref={ref}
       data-slot="command-palette-backdrop"
-      className={mergeClassName(className, styles.backdrop)}
+      className={clsx(styles.backdrop, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function CommandPaletteViewport({ className, ...props }: DialogPrimitive.Viewport.Props) {
+const CommandPalettePositioner = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Positioner>,
+  ComponentProps<typeof DialogPrimitive.Positioner>
+>(function CommandPalettePositioner({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Viewport
-      data-slot="command-palette-viewport"
-      className={mergeClassName(className, styles.viewport)}
+    <DialogPrimitive.Positioner
+      ref={ref}
+      data-slot="command-palette-positioner"
+      className={clsx(styles.positioner, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function CommandPalettePopup({ className, ...props }: DialogPrimitive.Popup.Props) {
+const CommandPaletteContent = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Content>,
+  ComponentProps<typeof DialogPrimitive.Content>
+>(function CommandPaletteContent({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Popup
-      data-slot="command-palette-popup"
-      className={mergeClassName(className, styles.popup)}
+    <DialogPrimitive.Content
+      ref={ref}
+      data-slot="command-palette-content"
+      className={clsx(styles.content, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function CommandPaletteClose({ className, ...props }: DialogPrimitive.Close.Props) {
+const CommandPaletteTitle = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Title>,
+  ComponentProps<typeof DialogPrimitive.Title>
+>(function CommandPaletteTitle({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Close
-      data-slot="command-palette-close"
-      className={mergeClassName(className, styles.close)}
+    <DialogPrimitive.Title
+      ref={ref}
+      data-slot="command-palette-title"
+      className={normalizeClassName(className)}
       {...props}
     />
   );
-}
+});
 
-function CommandPaletteContent<ItemValue = unknown>({
-  className,
-  children,
-  items,
-  itemToStringValue,
-  value,
-  defaultValue,
-  onValueChange,
-  filter,
-  filteredItems,
-  limit,
-  ...props
-}: CommandPaletteContentProps<ItemValue>) {
-  const { modal } = useCommandPaletteContext('CommandPaletteContent');
-  const autocompleteProps: CommandPaletteAutocompleteProps<ItemValue> = {
-    autoHighlight: 'always' as const,
-    defaultValue,
-    filter,
-    filteredItems,
-    inline: true,
-    items,
-    itemToStringValue,
-    keepHighlight: true,
-    limit,
-    onValueChange,
-    open: true,
-    value,
-  };
-
+const CommandPaletteDescription = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Description>,
+  ComponentProps<typeof DialogPrimitive.Description>
+>(function CommandPaletteDescription({ className, ...props }, ref) {
   return (
-    <CommandPalettePortal>
-      {modal ? <CommandPaletteBackdrop /> : null}
-      <CommandPaletteViewport className={modal ? undefined : styles.viewportNonModal}>
-        <CommandPalettePopup className={className} {...props}>
-          <CommandPaletteAutocomplete {...autocompleteProps}>{children}</CommandPaletteAutocomplete>
-        </CommandPalettePopup>
-      </CommandPaletteViewport>
-    </CommandPalettePortal>
-  );
-}
-
-function CommandPaletteInputWrap({ className, ...props }: ComponentProps<'div'>) {
-  return (
-    <div
-      data-slot="command-palette-input-wrap"
-      className={clsx(styles.inputWrap, className)}
+    <DialogPrimitive.Description
+      ref={ref}
+      data-slot="command-palette-description"
+      className={normalizeClassName(className)}
       {...props}
     />
   );
-}
+});
 
-function CommandPaletteInput({ className, ...props }: AutocompletePrimitive.Input.Props) {
+const CommandPaletteCloseTrigger = forwardRef<
+  ComponentRef<typeof DialogPrimitive.CloseTrigger>,
+  ComponentProps<typeof DialogPrimitive.CloseTrigger>
+>(function CommandPaletteCloseTrigger({ className, children, ...props }, ref) {
   return (
-    <AutocompletePrimitive.Input
-      data-slot="command-palette-input"
-      className={mergeClassName(className, styles.input)}
-      {...props}
-    />
-  );
-}
-
-function CommandPaletteClear({ className, children, ...props }: AutocompletePrimitive.Clear.Props) {
-  return (
-    <AutocompletePrimitive.Clear
-      data-slot="command-palette-clear"
-      className={mergeClassName(className, styles.clear)}
+    <DialogPrimitive.CloseTrigger
+      ref={ref}
+      data-slot="command-palette-close-trigger"
+      className={clsx(styles.closeTrigger, normalizeClassName(className))}
       {...props}
     >
       {children ?? <CloseIcon className={styles.iconSvg} />}
-    </AutocompletePrimitive.Clear>
+    </DialogPrimitive.CloseTrigger>
   );
-}
+});
 
-function CommandPaletteStatus({ className, ...props }: AutocompletePrimitive.Status.Props) {
-  return (
-    <AutocompletePrimitive.Status
-      data-slot="command-palette-status"
-      className={mergeClassName(className, styles.status)}
-      {...props}
-    />
-  );
-}
+const CommandPaletteCombobox = forwardRef(function CommandPaletteCombobox<T extends CollectionItem>(
+  {
+    className,
+    open = true,
+    inputBehavior = 'autohighlight',
+    selectionBehavior = 'preserve',
+    closeOnSelect = true,
+    disableLayer = true,
+    onSelect,
+    ...props
+  }: ComboboxRootProps<T>,
+  ref: ForwardedRef<HTMLDivElement>,
+) {
+  const dialog = useDialogContext();
+  const handleSelect: ComboboxRootProps<T>['onSelect'] = (details) => {
+    onSelect?.(details);
 
-function CommandPaletteEmpty({ className, ...props }: AutocompletePrimitive.Empty.Props) {
-  return (
-    <AutocompletePrimitive.Empty
-      data-slot="command-palette-empty"
-      className={mergeClassName(className, styles.empty)}
-      {...props}
-    />
-  );
-}
-
-function CommandPaletteList({ className, ...props }: AutocompletePrimitive.List.Props) {
-  return (
-    <AutocompletePrimitive.List
-      data-slot="command-palette-list"
-      className={mergeClassName(className, styles.list)}
-      {...props}
-    />
-  );
-}
-
-function CommandPaletteGroup({ className, ...props }: AutocompletePrimitive.Group.Props) {
-  return (
-    <AutocompletePrimitive.Group
-      data-slot="command-palette-group"
-      className={mergeClassName(className, styles.group)}
-      {...props}
-    />
-  );
-}
-
-function CommandPaletteGroupLabel({ className, ...props }: AutocompletePrimitive.GroupLabel.Props) {
-  return (
-    <AutocompletePrimitive.GroupLabel
-      data-slot="command-palette-group-label"
-      className={mergeClassName(className, styles.groupLabel)}
-      {...props}
-    />
-  );
-}
-
-function CommandPaletteCollection(props: AutocompletePrimitive.Collection.Props) {
-  return <AutocompletePrimitive.Collection data-slot="command-palette-collection" {...props} />;
-}
-
-function CommandPaletteItem({
-  className,
-  closeOnSelect = true,
-  onClick,
-  ...props
-}: AutocompletePrimitive.Item.Props & {
-  closeOnSelect?: boolean;
-}) {
-  const { handle } = useCommandPaletteContext('CommandPaletteItem');
-
-  const handleClick: AutocompletePrimitive.Item.Props['onClick'] = (event) => {
-    onClick?.(event);
-
-    if (!event.defaultPrevented && closeOnSelect) {
-      handle.close();
+    if (closeOnSelect) {
+      dialog.setOpen(false);
     }
   };
 
   return (
-    <AutocompletePrimitive.Item
-      data-slot="command-palette-item"
-      className={mergeClassName(className, styles.item)}
-      onClick={handleClick}
+    <ComboboxPrimitive.Root
+      ref={ref}
+      data-slot="command-palette-combobox"
+      className={clsx(styles.combobox, normalizeClassName(className))}
+      open={open}
+      inputBehavior={inputBehavior}
+      selectionBehavior={selectionBehavior}
+      closeOnSelect={closeOnSelect}
+      disableLayer={disableLayer}
+      onSelect={handleSelect}
       {...props}
     />
   );
-}
+}) as ComboboxRootComponent;
+
+const CommandPaletteComboboxRootProvider = forwardRef(function CommandPaletteComboboxRootProvider<
+  T extends CollectionItem,
+>({ className, ...props }: ComboboxRootProviderProps<T>, ref: ForwardedRef<HTMLDivElement>) {
+  return (
+    <ComboboxPrimitive.RootProvider
+      ref={ref}
+      data-slot="command-palette-combobox-root-provider"
+      className={clsx(styles.combobox, normalizeClassName(className))}
+      {...props}
+    />
+  );
+}) as ComboboxRootProviderComponent;
+
+const CommandPaletteControl = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Control>,
+  ComponentProps<typeof ComboboxPrimitive.Control>
+>(function CommandPaletteControl({ className, ...props }, ref) {
+  return (
+    <ComboboxPrimitive.Control
+      ref={ref}
+      data-slot="command-palette-control"
+      className={clsx(styles.control, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const CommandPaletteInput = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Input>,
+  ComponentProps<typeof ComboboxPrimitive.Input>
+>(function CommandPaletteInput({ className, ...props }, ref) {
+  return (
+    <ComboboxPrimitive.Input
+      ref={ref}
+      data-slot="command-palette-input"
+      className={clsx(styles.input, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const CommandPaletteClearTrigger = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.ClearTrigger>,
+  ComponentProps<typeof ComboboxPrimitive.ClearTrigger>
+>(function CommandPaletteClearTrigger({ className, children, ...props }, ref) {
+  return (
+    <ComboboxPrimitive.ClearTrigger
+      ref={ref}
+      data-slot="command-palette-clear-trigger"
+      className={clsx(styles.clearTrigger, normalizeClassName(className))}
+      {...props}
+    >
+      {children ?? <CloseIcon className={styles.iconSvg} />}
+    </ComboboxPrimitive.ClearTrigger>
+  );
+});
+
+const CommandPaletteList = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Content>,
+  ComponentProps<typeof ComboboxPrimitive.Content>
+>(function CommandPaletteList({ className, children, ...props }, ref) {
+  return (
+    <ComboboxPrimitive.Content
+      ref={ref}
+      data-slot="command-palette-list"
+      className={clsx(styles.list, normalizeClassName(className))}
+      {...props}
+    >
+      <ScrollArea data-slot="command-palette-scroll-area" className={styles.scrollArea}>
+        <ScrollArea.Viewport
+          data-slot="command-palette-scroll-viewport"
+          className={styles.scrollViewport}
+        >
+          <ScrollArea.Content
+            data-slot="command-palette-scroll-content"
+            className={styles.scrollContent}
+          >
+            {children}
+          </ScrollArea.Content>
+        </ScrollArea.Viewport>
+        <ScrollArea.Scrollbar data-slot="command-palette-scrollbar" className={styles.scrollbar}>
+          <ScrollArea.Thumb />
+        </ScrollArea.Scrollbar>
+        <ScrollArea.Corner />
+      </ScrollArea>
+    </ComboboxPrimitive.Content>
+  );
+});
+
+const CommandPaletteEmpty = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Empty>,
+  ComponentProps<typeof ComboboxPrimitive.Empty>
+>(function CommandPaletteEmpty({ className, ...props }, ref) {
+  return (
+    <ComboboxPrimitive.Empty
+      ref={ref}
+      data-slot="command-palette-empty"
+      className={clsx(styles.empty, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const CommandPaletteItemGroup = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.ItemGroup>,
+  ComponentProps<typeof ComboboxPrimitive.ItemGroup>
+>(function CommandPaletteItemGroup({ className, ...props }, ref) {
+  return (
+    <ComboboxPrimitive.ItemGroup
+      ref={ref}
+      data-slot="command-palette-item-group"
+      className={clsx(styles.itemGroup, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const CommandPaletteItemGroupLabel = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.ItemGroupLabel>,
+  ComponentProps<typeof ComboboxPrimitive.ItemGroupLabel>
+>(function CommandPaletteItemGroupLabel({ className, ...props }, ref) {
+  return (
+    <ComboboxPrimitive.ItemGroupLabel
+      ref={ref}
+      data-slot="command-palette-item-group-label"
+      className={clsx(styles.itemGroupLabel, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const CommandPaletteItem = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Item>,
+  ComponentProps<typeof ComboboxPrimitive.Item>
+>(function CommandPaletteItem({ className, ...props }, ref) {
+  return (
+    <ComboboxPrimitive.Item
+      ref={ref}
+      data-slot="command-palette-item"
+      className={clsx(styles.item, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const CommandPaletteItemText = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.ItemText>,
+  ComponentProps<typeof ComboboxPrimitive.ItemText>
+>(function CommandPaletteItemText({ className, ...props }, ref) {
+  return (
+    <ComboboxPrimitive.ItemText
+      ref={ref}
+      data-slot="command-palette-item-text"
+      className={clsx(styles.itemText, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const CommandPaletteItemIndicator = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.ItemIndicator>,
+  ComponentProps<typeof ComboboxPrimitive.ItemIndicator>
+>(function CommandPaletteItemIndicator({ className, ...props }, ref) {
+  return (
+    <ComboboxPrimitive.ItemIndicator
+      ref={ref}
+      data-slot="command-palette-item-indicator"
+      className={clsx(styles.itemIndicator, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
 
 function CommandPaletteItemIcon({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="command-palette-item-icon"
-      className={clsx(styles.itemIcon, className)}
-      {...props}
-    />
-  );
-}
-
-function CommandPaletteItemText({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="command-palette-item-text"
-      className={clsx(styles.itemText, className)}
+      className={clsx(styles.itemIcon, normalizeClassName(className))}
       {...props}
     />
   );
@@ -383,7 +481,7 @@ function CommandPaletteItemLabel({ className, ...props }: ComponentProps<'span'>
   return (
     <span
       data-slot="command-palette-item-label"
-      className={clsx(styles.itemLabel, className)}
+      className={clsx(styles.itemLabel, normalizeClassName(className))}
       {...props}
     />
   );
@@ -393,7 +491,7 @@ function CommandPaletteItemDescription({ className, ...props }: ComponentProps<'
   return (
     <span
       data-slot="command-palette-item-description"
-      className={clsx(styles.itemDescription, className)}
+      className={clsx(styles.itemDescription, normalizeClassName(className))}
       {...props}
     />
   );
@@ -403,17 +501,18 @@ function CommandPaletteItemMeta({ className, ...props }: ComponentProps<'span'>)
   return (
     <span
       data-slot="command-palette-item-meta"
-      className={clsx(styles.itemMeta, className)}
+      className={clsx(styles.itemMeta, normalizeClassName(className))}
       {...props}
     />
   );
 }
 
-function CommandPaletteSeparator({ className, ...props }: AutocompletePrimitive.Separator.Props) {
+function CommandPaletteSeparator({ className, ...props }: ComponentProps<'div'>) {
   return (
-    <AutocompletePrimitive.Separator
+    <div
+      role="separator"
       data-slot="command-palette-separator"
-      className={mergeClassName(className, styles.separator)}
+      className={clsx(styles.separator, normalizeClassName(className))}
       {...props}
     />
   );
@@ -421,40 +520,61 @@ function CommandPaletteSeparator({ className, ...props }: AutocompletePrimitive.
 
 function CommandPaletteFooter({ className, ...props }: ComponentProps<'div'>) {
   return (
-    <div data-slot="command-palette-footer" className={clsx(styles.footer, className)} {...props} />
+    <div
+      data-slot="command-palette-footer"
+      className={clsx(styles.footer, normalizeClassName(className))}
+      {...props}
+    />
   );
 }
 
-function CommandPaletteKbd({ className, ...props }: ComponentProps<'kbd'>) {
-  return <kbd data-slot="command-palette-kbd" className={clsx(styles.kbd, className)} {...props} />;
+function CommandPaletteKbd({ className, ...props }: ComponentProps<typeof Kbd.Root>) {
+  return (
+    <Kbd.Root
+      data-slot="command-palette-kbd"
+      className={clsx(styles.kbd, normalizeClassName(className))}
+      {...props}
+    />
+  );
 }
 
-export {
-  CommandPalette,
-  createCommandPaletteHandle,
-  CommandPaletteTrigger,
-  CommandPalettePortal,
-  CommandPaletteBackdrop,
-  CommandPaletteViewport,
-  CommandPalettePopup,
-  CommandPaletteClose,
-  CommandPaletteContent,
-  CommandPaletteInputWrap,
-  CommandPaletteInput,
-  CommandPaletteClear,
-  CommandPaletteStatus,
-  CommandPaletteEmpty,
-  CommandPaletteList,
-  CommandPaletteGroup,
-  CommandPaletteGroupLabel,
-  CommandPaletteCollection,
-  CommandPaletteItem,
-  CommandPaletteItemIcon,
-  CommandPaletteItemText,
-  CommandPaletteItemLabel,
-  CommandPaletteItemDescription,
-  CommandPaletteItemMeta,
-  CommandPaletteSeparator,
-  CommandPaletteFooter,
-  CommandPaletteKbd,
-};
+const CommandPaletteContext = DialogPrimitive.Context;
+const CommandPaletteComboboxContext = ComboboxPrimitive.Context;
+const CommandPaletteItemContext = ComboboxPrimitive.ItemContext;
+
+const CommandPalette = Object.assign(CommandPaletteRoot, {
+  Root: CommandPaletteRoot,
+  RootProvider: CommandPaletteRootProvider,
+  Trigger: CommandPaletteTrigger,
+  Portal: CommandPalettePortal,
+  Backdrop: CommandPaletteBackdrop,
+  Positioner: CommandPalettePositioner,
+  Content: CommandPaletteContent,
+  Title: CommandPaletteTitle,
+  Description: CommandPaletteDescription,
+  CloseTrigger: CommandPaletteCloseTrigger,
+  Combobox: CommandPaletteCombobox,
+  ComboboxRootProvider: CommandPaletteComboboxRootProvider,
+  Control: CommandPaletteControl,
+  Input: CommandPaletteInput,
+  ClearTrigger: CommandPaletteClearTrigger,
+  List: CommandPaletteList,
+  Empty: CommandPaletteEmpty,
+  ItemGroup: CommandPaletteItemGroup,
+  ItemGroupLabel: CommandPaletteItemGroupLabel,
+  Item: CommandPaletteItem,
+  ItemText: CommandPaletteItemText,
+  ItemIndicator: CommandPaletteItemIndicator,
+  ItemIcon: CommandPaletteItemIcon,
+  ItemLabel: CommandPaletteItemLabel,
+  ItemDescription: CommandPaletteItemDescription,
+  ItemMeta: CommandPaletteItemMeta,
+  Separator: CommandPaletteSeparator,
+  Footer: CommandPaletteFooter,
+  Kbd: CommandPaletteKbd,
+  Context: CommandPaletteContext,
+  ComboboxContext: CommandPaletteComboboxContext,
+  ItemContext: CommandPaletteItemContext,
+});
+
+export { CommandPalette };
