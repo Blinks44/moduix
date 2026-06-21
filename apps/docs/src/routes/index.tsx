@@ -9,9 +9,6 @@ import {
   Select,
   Switch,
   Tabs,
-  TabsList,
-  TabsPanel,
-  TabsTab,
   createListCollection,
 } from 'moduix';
 import { useState } from 'react';
@@ -131,20 +128,20 @@ function HomeShowcase() {
 
   return (
     <Tabs defaultValue="button" className={styles.showcaseTabs}>
-      <TabsList className={styles.showcaseTabsList}>
-        <TabsTab value="button">Button</TabsTab>
-        <TabsTab value="dialog">Dialog</TabsTab>
-        <TabsTab value="select">Select</TabsTab>
-      </TabsList>
+      <Tabs.List className={styles.showcaseTabsList}>
+        <Tabs.Trigger value="button">Button</Tabs.Trigger>
+        <Tabs.Trigger value="dialog">Dialog</Tabs.Trigger>
+        <Tabs.Trigger value="select">Select</Tabs.Trigger>
+      </Tabs.List>
 
-      <TabsPanel value="button" className={styles.showcasePanel}>
+      <Tabs.Content value="button" className={styles.showcasePanel}>
         <Tabs defaultValue="actions" variant="line" className={styles.nestedTabs}>
-          <TabsList className={styles.nestedTabsList}>
-            <TabsTab value="actions">Actions</TabsTab>
-            <TabsTab value="status">Status</TabsTab>
-          </TabsList>
+          <Tabs.List className={styles.nestedTabsList}>
+            <Tabs.Trigger value="actions">Actions</Tabs.Trigger>
+            <Tabs.Trigger value="status">Status</Tabs.Trigger>
+          </Tabs.List>
 
-          <TabsPanel value="actions" className={styles.nestedPanel}>
+          <Tabs.Content value="actions" className={styles.nestedPanel}>
             <div className={styles.previewCard}>
               <div className={styles.previewHeader}>
                 <span className={styles.eyebrow}>Release controls</span>
@@ -166,9 +163,9 @@ function HomeShowcase() {
                 </div>
               </div>
             </div>
-          </TabsPanel>
+          </Tabs.Content>
 
-          <TabsPanel value="status" className={styles.nestedPanel}>
+          <Tabs.Content value="status" className={styles.nestedPanel}>
             <div className={styles.previewCard}>
               <div className={styles.previewHeader}>
                 <span className={styles.eyebrow}>Flow health</span>
@@ -201,11 +198,11 @@ function HomeShowcase() {
                 </Button>
               </div>
             </div>
-          </TabsPanel>
+          </Tabs.Content>
         </Tabs>
-      </TabsPanel>
+      </Tabs.Content>
 
-      <TabsPanel value="dialog" className={styles.showcasePanel}>
+      <Tabs.Content value="dialog" className={styles.showcasePanel}>
         <div className={styles.previewCard}>
           <div className={styles.previewHeader}>
             <span className={styles.eyebrow}>Approval flow</span>
@@ -254,9 +251,9 @@ function HomeShowcase() {
             </div>
           </div>
         </div>
-      </TabsPanel>
+      </Tabs.Content>
 
-      <TabsPanel value="select" className={styles.showcasePanel}>
+      <Tabs.Content value="select" className={styles.showcasePanel}>
         <div className={styles.previewCard}>
           <div className={styles.previewHeader}>
             <span className={styles.eyebrow}>Workspace picker</span>
@@ -302,7 +299,7 @@ function HomeShowcase() {
             </div>
           </div>
         </div>
-      </TabsPanel>
+      </Tabs.Content>
     </Tabs>
   );
 }

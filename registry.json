@@ -234,7 +234,7 @@
       "type": "registry:item",
       "title": "Avatar",
       "description": "moduix Avatar component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
@@ -1467,7 +1467,7 @@
       "type": "registry:item",
       "title": "Tabs",
       "description": "moduix Tabs component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

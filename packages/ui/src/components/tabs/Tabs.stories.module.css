@@ -41,7 +41,18 @@
   flex-shrink: 0;
 }
 
-.inlineTab {
+.providerStack {
+  display: grid;
+  gap: var(--spacing-3);
+
+  & output {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+}
+
+.inlineTrigger {
   height: var(--size-md);
   margin: 0;
   appearance: none;
@@ -55,7 +66,7 @@
   line-height: var(--line-height-text-sm);
   cursor: pointer;
 
-  &[data-active] {
+  &[data-selected] {
     color: var(--color-foreground);
   }
 }
@@ -63,19 +74,17 @@
 .inlineIndicator {
   position: absolute;
   top: auto;
-  left: 0;
   bottom: 0;
-  width: var(--active-tab-width);
+  width: var(--width);
   height: var(--border-width-md);
   border-radius: var(--radius-full);
   background: var(--color-foreground);
-  translate: var(--active-tab-left) 0;
   transition:
-    translate var(--duration-normal) var(--ease-standard),
+    left var(--duration-normal) var(--ease-standard),
     width var(--duration-normal) var(--ease-standard);
 }
 
-.inlinePanel {
+.inlineContent {
   flex: 1;
   min-width: 0;
 

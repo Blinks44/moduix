@@ -1,1 +1,14 @@
-export { Tabs, TabsList, TabsIndicator, TabsTab, TabsPanel } from './Tabs';
+export { Tabs, useTabs, useTabsContext } from './Tabs';
+export type {
+  TabContentProps as TabsContentProps,
+  TabIndicatorProps as TabsIndicatorProps,
+  TabListProps as TabsListProps,
+  TabTriggerProps as TabsTriggerProps,
+  TabsFocusChangeDetails,
+  TabsRootProps,
+  TabsRootProviderProps,
+  TabsValueChangeDetails,
+  UseTabsContext,
+  UseTabsProps,
+  UseTabsReturn,
+} from '@ark-ui/react/tabs';

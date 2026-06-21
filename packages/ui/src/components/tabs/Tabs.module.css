@@ -49,7 +49,7 @@
     }
   }
 
-  .tab {
+  .trigger {
     box-sizing: border-box;
     position: relative;
     z-index: 1;
@@ -76,7 +76,7 @@
     cursor: pointer;
     transition: color var(--tabs-tab-transition, var(--transition-default));
 
-    &[data-active] {
+    &[data-selected] {
       color: var(--tabs-tab-color-active, var(--color-foreground));
     }
 
@@ -117,17 +117,13 @@
     position: absolute;
     z-index: 0;
     top: 50%;
-    left: 0;
-    width: var(--active-tab-width, 0);
+    width: var(--width, 0);
     height: var(--tabs-indicator-size, 1.75rem);
     border-radius: var(--tabs-indicator-radius, var(--radius-sm));
     background-color: var(--tabs-indicator-bg, var(--color-background));
-    translate: var(--active-tab-left, 0) -50%;
-    transition: var(
-      --tabs-indicator-transition,
-      translate var(--duration-normal) var(--ease-standard),
-      width var(--duration-normal) var(--ease-standard)
-    );
+    translate: 0 -50%;
+    --transition-duration: var(--tabs-indicator-duration, var(--duration-normal));
+    --transition-timing-function: var(--tabs-indicator-easing, var(--ease-standard));
 
     .root[data-variant='line'] & {
       top: auto;
@@ -138,41 +134,27 @@
         --tabs-line-indicator-bg,
         var(--tabs-tab-color-active, var(--color-foreground))
       );
-      translate: var(--active-tab-left, 0) 0;
-      transition: var(
-        --tabs-line-indicator-transition,
-        translate var(--duration-normal) var(--ease-standard),
-        width var(--duration-normal) var(--ease-standard)
-      );
+      translate: none;
+      --transition-duration: var(--tabs-line-indicator-duration, var(--duration-normal));
+      --transition-timing-function: var(--tabs-line-indicator-easing, var(--ease-standard));
     }
 
     &[data-orientation='vertical'] {
-      top: 0;
       left: 50%;
       width: calc(100% - (var(--tabs-list-padding-x, var(--tabs-list-padding, 0.25rem)) * 2));
-      height: var(--active-tab-height, 0);
-      translate: -50% var(--active-tab-top, 0);
-      transition: var(
-        --tabs-indicator-transition,
-        translate var(--duration-normal) var(--ease-standard),
-        height var(--duration-normal) var(--ease-standard)
-      );
+      height: var(--height, 0);
+      translate: -50% 0;
 
       .root[data-variant='line'] & {
         bottom: auto;
         left: 0;
         width: var(--tabs-line-indicator-size, 2px);
-        translate: 0 var(--active-tab-top, 0);
-        transition: var(
-          --tabs-line-indicator-transition,
-          translate var(--duration-normal) var(--ease-standard),
-          height var(--duration-normal) var(--ease-standard)
-        );
+        translate: none;
       }
     }
   }
 
-  .panel {
+  .content {
     box-sizing: border-box;
     flex: 1;
     min-width: 0;

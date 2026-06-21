@@ -1,14 +1,5 @@
 import { clsx } from 'clsx';
-import {
-  HandshakeIcon,
-  MapIcon,
-  PresentIcon,
-  Tabs,
-  TabsIndicator,
-  TabsList,
-  TabsPanel,
-  TabsTab,
-} from 'moduix';
+import { HandshakeIcon, MapIcon, PresentIcon, Tabs, useTabs } from 'moduix';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -34,22 +25,105 @@ const tabsItems = [
   },
 ];
 
+export const tabsItemsData = `const items = [
+  {
+    value: "overview",
+    title: "Overview",
+    content:
+      "Review project status, team velocity, workloads and activity highlights in one place.",
+  },
+  {
+    value: "projects",
+    title: "Projects",
+    content:
+      "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
+  },
+  {
+    value: "account",
+    title: "Account",
+    content: "Manage personal settings, team settings, notifications and access preferences.",
+  },
+];`;
+
+export const tabsExampleCss = `.tabs-demo {
+  width: 22rem;
+}
+
+@media (min-width: 32rem) {
+  .tabs-demo {
+    width: 32rem;
+  }
+}`;
+
+export const tabsCustomStylingCss = `.inline-tabs {
+  --tabs-bg: transparent;
+  --tabs-border-color: transparent;
+  --tabs-border-width: 0;
+  --tabs-gap: var(--spacing-4);
+  --tabs-list-bg: transparent;
+  --tabs-list-border-width: 0;
+  --tabs-list-padding: 0;
+  --tabs-list-padding-x: 0;
+  --tabs-list-padding-y: 0;
+  display: flex;
+  flex-direction: row;
+  width: 22rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tabs-gap);
+}
+
+.inline-tabs-trigger {
+  height: var(--size-md);
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding-inline: var(--spacing-3);
+  background: transparent;
+  color: var(--color-muted-foreground);
+}
+
+.inline-tabs-trigger[data-selected] {
+  color: var(--color-foreground);
+}
+
+.inline-tabs-indicator {
+  position: absolute;
+  bottom: 0;
+  width: var(--width);
+  height: var(--border-width-md);
+  border-radius: var(--radius-full);
+  background: var(--color-foreground);
+}`;
+
 export const tabsOverrideCssProperties: CssPropertyInput[] = [
-  ['--tabs-bg', 'var(--color-background)', 'Controls the panel background color.'],
-  ['--tabs-border-color', 'var(--color-border)', 'Controls the panel border color.'],
-  ['--tabs-border-width', 'var(--border-width-sm)', 'Controls the panel border width.'],
+  ['--tabs-bg', 'var(--color-background)', 'Controls the content background color.'],
+  ['--tabs-border-color', 'var(--color-border)', 'Controls the content border color.'],
+  ['--tabs-border-width', 'var(--border-width-sm)', 'Controls the content border width.'],
   ['--tabs-color', 'var(--color-foreground)', 'Controls the root text color.'],
-  ['--tabs-focus-ring-color', 'var(--color-ring)', 'Controls tab and panel focus ring color.'],
-  ['--tabs-focus-ring-offset', '0', 'Controls tab focus ring offset.'],
-  ['--tabs-focus-ring-width', 'var(--border-width-sm)', 'Controls tab and panel focus ring width.'],
-  ['--tabs-gap', '0.75rem', 'Controls spacing between the tab list and panels.'],
-  ['--tabs-indicator-bg', 'var(--color-background)', 'Controls the default indicator background.'],
-  ['--tabs-indicator-radius', 'var(--radius-sm)', 'Controls the default indicator radius.'],
-  ['--tabs-indicator-size', '1.75rem', 'Controls the default indicator thickness.'],
   [
-    '--tabs-indicator-transition',
-    'translate 200ms ease, width 200ms ease',
-    'Controls the default indicator movement transition.',
+    '--tabs-focus-ring-color',
+    'var(--color-ring)',
+    'Controls trigger and content focus ring color.',
+  ],
+  ['--tabs-focus-ring-offset', '0', 'Controls trigger focus ring offset.'],
+  [
+    '--tabs-focus-ring-width',
+    'var(--border-width-sm)',
+    'Controls trigger and content focus ring width.',
+  ],
+  ['--tabs-gap', '0.75rem', 'Controls spacing between the tab list and content.'],
+  ['--tabs-indicator-bg', 'var(--color-background)', 'Controls the indicator background.'],
+  ['--tabs-indicator-radius', 'var(--radius-sm)', 'Controls the indicator radius.'],
+  ['--tabs-indicator-size', '1.75rem', 'Controls the filled indicator thickness.'],
+  [
+    '--tabs-indicator-duration',
+    'var(--duration-normal)',
+    'Controls the filled indicator movement duration.',
+  ],
+  [
+    '--tabs-indicator-easing',
+    'var(--ease-standard)',
+    'Controls the filled indicator movement easing.',
   ],
   [
     '--tabs-line-indicator-bg',
@@ -59,14 +133,19 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--tabs-line-indicator-radius', 'var(--radius-full)', 'Controls the line indicator radius.'],
   ['--tabs-line-indicator-size', '2px', 'Controls the line indicator thickness.'],
   [
-    '--tabs-line-indicator-transition',
-    'translate 200ms ease, width 200ms ease',
-    'Controls the line indicator movement transition.',
+    '--tabs-line-indicator-duration',
+    'var(--duration-normal)',
+    'Controls the line indicator movement duration.',
+  ],
+  [
+    '--tabs-line-indicator-easing',
+    'var(--ease-standard)',
+    'Controls the line indicator movement easing.',
   ],
   ['--tabs-list-bg', 'var(--color-muted)', 'Controls the tab list background color.'],
   ['--tabs-list-border-color', 'var(--color-border)', 'Controls the tab list border color.'],
   ['--tabs-list-border-width', 'var(--border-width-sm)', 'Controls the tab list border width.'],
-  ['--tabs-list-gap', '0.25rem', 'Controls spacing between tabs.'],
+  ['--tabs-list-gap', '0.25rem', 'Controls spacing between triggers.'],
   ['--tabs-list-padding', '0.25rem', 'Controls the tab list padding.'],
   [
     '--tabs-list-padding-x',
@@ -81,31 +160,31 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
   [
     '--tabs-panel-color',
     'var(--tabs-color, var(--color-foreground))',
-    'Controls panel text color.',
+    'Controls content text color.',
   ],
-  ['--tabs-panel-font-size', 'var(--text-sm)', 'Controls panel text font size.'],
-  ['--tabs-panel-line-height', 'var(--line-height-text-sm)', 'Controls panel text line height.'],
-  ['--tabs-panel-focus-ring-offset', '-1px', 'Controls panel focus ring offset.'],
-  ['--tabs-panel-padding', '1rem', 'Controls panel padding.'],
-  ['--tabs-radius', 'var(--radius-lg)', 'Controls the tab list and panel border radius.'],
-  ['--tabs-tab-color', 'var(--color-muted-foreground)', 'Controls inactive tab text color.'],
-  ['--tabs-tab-color-active', 'var(--color-foreground)', 'Controls active tab text color.'],
+  ['--tabs-panel-font-size', 'var(--text-sm)', 'Controls content text font size.'],
+  ['--tabs-panel-line-height', 'var(--line-height-text-sm)', 'Controls content line height.'],
+  ['--tabs-panel-focus-ring-offset', '-1px', 'Controls content focus ring offset.'],
+  ['--tabs-panel-padding', '1rem', 'Controls content padding.'],
+  ['--tabs-radius', 'var(--radius-lg)', 'Controls the tab list and content border radius.'],
+  ['--tabs-tab-color', 'var(--color-muted-foreground)', 'Controls inactive trigger text color.'],
+  ['--tabs-tab-color-active', 'var(--color-foreground)', 'Controls selected trigger text color.'],
   [
     '--tabs-tab-color-hover',
     'var(--tabs-tab-color-active, var(--color-foreground))',
-    'Controls hovered tab text color.',
+    'Controls hovered trigger text color.',
   ],
-  ['--tabs-tab-content-gap', '0.5rem', 'Controls spacing between tab icon and label.'],
-  ['--tabs-tab-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled tab opacity.'],
-  ['--tabs-tab-font-size', 'var(--text-sm)', 'Controls tab text font size.'],
-  ['--tabs-tab-font-weight', 'var(--weight-medium)', 'Controls tab text font weight.'],
-  ['--tabs-tab-height', '2rem', 'Controls each tab height.'],
-  ['--tabs-tab-icon-size', '1rem', 'Controls tab icon size.'],
-  ['--tabs-tab-icon-color', 'currentColor', 'Controls tab icon color.'],
-  ['--tabs-tab-line-height', 'var(--line-height-text-sm)', 'Controls tab text line height.'],
-  ['--tabs-tab-padding-x', '0.625rem', 'Controls each tab horizontal padding.'],
-  ['--tabs-tab-radius', 'var(--radius-sm)', 'Controls each tab border radius.'],
-  ['--tabs-tab-transition', 'var(--transition-default)', 'Controls tab text color transition.'],
+  ['--tabs-tab-content-gap', '0.5rem', 'Controls spacing between trigger icon and label.'],
+  ['--tabs-tab-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled trigger opacity.'],
+  ['--tabs-tab-font-size', 'var(--text-sm)', 'Controls trigger text font size.'],
+  ['--tabs-tab-font-weight', 'var(--weight-medium)', 'Controls trigger text font weight.'],
+  ['--tabs-tab-height', '2rem', 'Controls each trigger height.'],
+  ['--tabs-tab-icon-size', '1rem', 'Controls trigger icon size.'],
+  ['--tabs-tab-icon-color', 'currentColor', 'Controls trigger icon color.'],
+  ['--tabs-tab-line-height', 'var(--line-height-text-sm)', 'Controls trigger text line height.'],
+  ['--tabs-tab-padding-x', '0.625rem', 'Controls each trigger horizontal padding.'],
+  ['--tabs-tab-radius', 'var(--radius-sm)', 'Controls each trigger border radius.'],
+  ['--tabs-tab-transition', 'var(--transition-default)', 'Controls trigger text color transition.'],
   ['--tabs-vertical-list-width', '12rem', 'Controls the list width in vertical orientation.'],
 ];
 
@@ -121,23 +200,32 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
+function TabsItems() {
+  return (
+    <>
+      <Tabs.List>
+        {tabsItems.map((item) => (
+          <Tabs.Trigger key={item.value} value={item.value}>
+            {item.title}
+          </Tabs.Trigger>
+        ))}
+        <Tabs.Indicator />
+      </Tabs.List>
+      {tabsItems.map((item) => (
+        <Tabs.Content key={item.value} value={item.value}>
+          {item.content}
+        </Tabs.Content>
+      ))}
+    </>
+  );
+}
+
 export function TabsExample(props: ComponentProps<typeof Tabs>) {
   const { className, ...restProps } = props;
 
   return (
     <Tabs defaultValue="overview" className={clsx(styles.demoRoot, className)} {...restProps}>
-      <TabsList>
-        {tabsItems.map((item) => (
-          <TabsTab key={item.value} value={item.value}>
-            {item.title}
-          </TabsTab>
-        ))}
-      </TabsList>
-      {tabsItems.map((item) => (
-        <TabsPanel key={item.value} value={item.value}>
-          {item.content}
-        </TabsPanel>
-      ))}
+      <TabsItems />
     </Tabs>
   );
 }
@@ -145,28 +233,48 @@ export function TabsExample(props: ComponentProps<typeof Tabs>) {
 export function ControlledTabsExample() {
   const [value, setValue] = useState('projects');
 
-  return <TabsExample value={value} onValueChange={setValue} />;
+  return (
+    <TabsExample
+      value={value}
+      onValueChange={(details) => {
+        setValue(details.value);
+      }}
+    />
+  );
 }
 
 export function VerticalTabsExample() {
   return <TabsExample orientation="vertical" />;
 }
 
-export function ActivateOnFocusTabsExample() {
+export function ManualActivationTabsExample() {
+  return <TabsExample activationMode="manual" />;
+}
+
+export function IndicatorTabsExample() {
   return (
     <Tabs defaultValue="overview" className={styles.demoRoot}>
-      <TabsList activateOnFocus>
+      <Tabs.List>
         {tabsItems.map((item) => (
-          <TabsTab key={item.value} value={item.value}>
+          <Tabs.Trigger key={item.value} value={item.value}>
             {item.title}
-          </TabsTab>
+          </Tabs.Trigger>
         ))}
-      </TabsList>
+        <Tabs.Indicator />
+      </Tabs.List>
       {tabsItems.map((item) => (
-        <TabsPanel key={item.value} value={item.value}>
+        <Tabs.Content key={item.value} value={item.value}>
           {item.content}
-        </TabsPanel>
+        </Tabs.Content>
       ))}
+    </Tabs>
+  );
+}
+
+export function LazyMountTabsExample() {
+  return (
+    <Tabs defaultValue="overview" lazyMount unmountOnExit className={styles.demoRoot}>
+      <TabsItems />
     </Tabs>
   );
 }
@@ -178,22 +286,17 @@ export function LineTabsExample() {
 export function LinkTabsExample() {
   return (
     <Tabs defaultValue="overview" className={styles.demoRoot}>
-      <TabsList>
+      <Tabs.List>
         {tabsItems.map((item) => (
-          <TabsTab
-            key={item.value}
-            value={item.value}
-            nativeButton={false}
-            render={<a href={`#${item.value}`} />}
-          >
-            {item.title}
-          </TabsTab>
+          <Tabs.Trigger key={item.value} value={item.value} asChild>
+            <a href={`#${item.value}`}>{item.title}</a>
+          </Tabs.Trigger>
         ))}
-      </TabsList>
+      </Tabs.List>
       {tabsItems.map((item) => (
-        <TabsPanel key={item.value} value={item.value}>
+        <Tabs.Content key={item.value} value={item.value}>
           <span id={item.value}>{item.content}</span>
-        </TabsPanel>
+        </Tabs.Content>
       ))}
     </Tabs>
   );
@@ -202,24 +305,24 @@ export function LinkTabsExample() {
 export function IconTabsExample() {
   return (
     <Tabs defaultValue="overview" className={styles.demoRoot}>
-      <TabsList>
-        <TabsTab value="overview">
+      <Tabs.List>
+        <Tabs.Trigger value="overview">
           <HandshakeIcon />
           <span>Overview</span>
-        </TabsTab>
-        <TabsTab value="projects">
+        </Tabs.Trigger>
+        <Tabs.Trigger value="projects">
           <PresentIcon />
           <span>Projects</span>
-        </TabsTab>
-        <TabsTab value="account">
+        </Tabs.Trigger>
+        <Tabs.Trigger value="account">
           <MapIcon />
           <span>Account</span>
-        </TabsTab>
-      </TabsList>
+        </Tabs.Trigger>
+      </Tabs.List>
       {tabsItems.map((item) => (
-        <TabsPanel key={item.value} value={item.value}>
+        <Tabs.Content key={item.value} value={item.value}>
           {item.content}
-        </TabsPanel>
+        </Tabs.Content>
       ))}
     </Tabs>
   );
@@ -228,40 +331,53 @@ export function IconTabsExample() {
 export function DisabledTabTabsExample() {
   return (
     <Tabs defaultValue="overview" className={styles.demoRoot}>
-      <TabsList>
-        <TabsTab value="overview">Overview</TabsTab>
-        <TabsTab value="projects" disabled>
+      <Tabs.List>
+        <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+        <Tabs.Trigger value="projects" disabled>
           Projects
-        </TabsTab>
-        <TabsTab value="account">Account</TabsTab>
-      </TabsList>
+        </Tabs.Trigger>
+        <Tabs.Trigger value="account">Account</Tabs.Trigger>
+      </Tabs.List>
       {tabsItems.map((item) => (
-        <TabsPanel key={item.value} value={item.value} keepMounted>
+        <Tabs.Content key={item.value} value={item.value}>
           {item.content}
-        </TabsPanel>
+        </Tabs.Content>
       ))}
     </Tabs>
   );
 }
 
-export function InlineInputsTabsExample() {
+export function RootProviderTabsExample() {
+  const tabs = useTabs({ defaultValue: 'overview' });
+
+  return (
+    <div className={styles.providerStack}>
+      <output>selected: {tabs.value}</output>
+      <Tabs.RootProvider value={tabs} className={styles.demoRoot}>
+        <TabsItems />
+      </Tabs.RootProvider>
+    </div>
+  );
+}
+
+export function CustomStylingTabsExample() {
   return (
     <Tabs defaultValue="name" className={styles.inlineRoot}>
-      <TabsList className={styles.inlineList}>
-        <TabsTab value="name" className={styles.inlineTab}>
+      <Tabs.List className={styles.inlineList}>
+        <Tabs.Trigger value="name" className={styles.inlineTrigger}>
           Name
-        </TabsTab>
-        <TabsTab value="email" className={styles.inlineTab}>
+        </Tabs.Trigger>
+        <Tabs.Trigger value="email" className={styles.inlineTrigger}>
           Email
-        </TabsTab>
-        <TabsIndicator className={styles.inlineIndicator} renderBeforeHydration />
-      </TabsList>
-      <TabsPanel value="name" className={styles.inlinePanel}>
+        </Tabs.Trigger>
+        <Tabs.Indicator className={styles.inlineIndicator} />
+      </Tabs.List>
+      <Tabs.Content value="name" className={styles.inlineContent}>
         <input className={styles.inlineInput} placeholder="Full name" aria-label="Full name" />
-      </TabsPanel>
-      <TabsPanel value="email" className={styles.inlinePanel}>
+      </Tabs.Content>
+      <Tabs.Content value="email" className={styles.inlineContent}>
         <input className={styles.inlineInput} placeholder="Email" aria-label="Email" />
-      </TabsPanel>
+      </Tabs.Content>
     </Tabs>
   );
 }

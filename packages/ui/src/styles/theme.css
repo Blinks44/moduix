@@ -2035,13 +2035,15 @@
   --tabs-focus-ring-width: initial; /* var(--border-width-sm) */
   --tabs-gap: initial; /* 0.75rem */
   --tabs-indicator-bg: initial; /* var(--color-background) */
+  --tabs-indicator-duration: initial; /* var(--duration-normal) */
+  --tabs-indicator-easing: initial; /* var(--ease-standard) */
   --tabs-indicator-radius: initial; /* var(--radius-sm) */
   --tabs-indicator-size: initial; /* 1.75rem */
-  --tabs-indicator-transition: initial; /* translate 200ms ease, width 200ms ease */
   --tabs-line-indicator-bg: initial; /* var(--tabs-tab-color-active, var(--color-foreground)) */
+  --tabs-line-indicator-duration: initial; /* var(--duration-normal) */
+  --tabs-line-indicator-easing: initial; /* var(--ease-standard) */
   --tabs-line-indicator-radius: initial; /* var(--radius-full) */
   --tabs-line-indicator-size: initial; /* 2px */
-  --tabs-line-indicator-transition: initial; /* translate 200ms ease, width 200ms ease */
   --tabs-list-bg: initial; /* var(--color-muted) */
   --tabs-list-border-color: initial; /* var(--color-border) */
   --tabs-list-border-width: initial; /* var(--border-width-sm) */

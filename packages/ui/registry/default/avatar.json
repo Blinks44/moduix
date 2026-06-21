@@ -3,7 +3,7 @@
   "name": "avatar",
   "title": "Avatar",
   "description": "moduix Avatar component.",
-  "dependencies": ["@base-ui/react", "clsx"],
+  "dependencies": ["@ark-ui/react", "clsx"],
   "registryDependencies": ["Blinks44/moduix/core"],
   "files": [
     {
