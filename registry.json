@@ -1442,7 +1442,7 @@
       "type": "registry:item",
       "title": "Table",
       "description": "moduix Table component.",
-      "dependencies": ["clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

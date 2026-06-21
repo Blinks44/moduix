@@ -1,18 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Badge } from '../badge';
 import { Card } from '../card';
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableContainer,
-  TableEmpty,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from './Table';
+import { Table } from './Table';
 import styles from './Table.stories.module.css';
 
 const invoices = [
@@ -44,32 +33,32 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <div className={styles.showcase}>
-      <TableContainer>
+      <Table.ScrollArea>
         <Table className={styles.table}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Invoice</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead numeric>Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader>Invoice</Table.ColumnHeader>
+              <Table.ColumnHeader>Status</Table.ColumnHeader>
+              <Table.ColumnHeader>Method</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Amount</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {invoices.map((invoice) => (
-              <TableRow key={invoice.id}>
-                <TableCell className={styles.code}>{invoice.id}</TableCell>
-                <TableCell>
+              <Table.Row key={invoice.id}>
+                <Table.Cell className={styles.code}>{invoice.id}</Table.Cell>
+                <Table.Cell>
                   <Badge variant={invoice.status === 'Paid' ? 'secondary' : 'outline'}>
                     {invoice.status}
                   </Badge>
-                </TableCell>
-                <TableCell>{invoice.method}</TableCell>
-                <TableCell numeric>{invoice.amount}</TableCell>
-              </TableRow>
+                </Table.Cell>
+                <Table.Cell>{invoice.method}</Table.Cell>
+                <Table.Cell numeric>{invoice.amount}</Table.Cell>
+              </Table.Row>
             ))}
-          </TableBody>
+          </Table.Body>
         </Table>
-      </TableContainer>
+      </Table.ScrollArea>
     </div>
   ),
 };
@@ -77,37 +66,37 @@ export const Basic: Story = {
 export const WithCaptionAndFooter: Story = {
   render: () => (
     <div className={styles.showcase}>
-      <TableContainer>
+      <Table.ScrollArea>
         <Table className={styles.table}>
-          <TableCaption side="top">
+          <Table.Caption side="top">
             A list of recent invoices for the current billing cycle.
-          </TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Invoice</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead numeric>Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+          </Table.Caption>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader>Invoice</Table.ColumnHeader>
+              <Table.ColumnHeader>Status</Table.ColumnHeader>
+              <Table.ColumnHeader>Method</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Amount</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {invoices.map((invoice) => (
-              <TableRow key={invoice.id}>
-                <TableCell className={styles.code}>{invoice.id}</TableCell>
-                <TableCell>{invoice.status}</TableCell>
-                <TableCell>{invoice.method}</TableCell>
-                <TableCell numeric>{invoice.amount}</TableCell>
-              </TableRow>
+              <Table.Row key={invoice.id}>
+                <Table.Cell className={styles.code}>{invoice.id}</Table.Cell>
+                <Table.Cell>{invoice.status}</Table.Cell>
+                <Table.Cell>{invoice.method}</Table.Cell>
+                <Table.Cell numeric>{invoice.amount}</Table.Cell>
+              </Table.Row>
             ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TableCell colSpan={3}>Total</TableCell>
-              <TableCell numeric>$1,200.00</TableCell>
-            </TableRow>
-          </TableFooter>
+          </Table.Body>
+          <Table.Footer>
+            <Table.Row>
+              <Table.Cell colSpan={3}>Total</Table.Cell>
+              <Table.Cell numeric>$1,200.00</Table.Cell>
+            </Table.Row>
+          </Table.Footer>
         </Table>
-      </TableContainer>
+      </Table.ScrollArea>
     </div>
   ),
 };
@@ -115,28 +104,133 @@ export const WithCaptionAndFooter: Story = {
 export const StripedRows: Story = {
   render: () => (
     <div className={styles.showcase}>
-      <TableContainer>
-        <Table striped className={styles.table}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Project</TableHead>
-              <TableHead>Owner</TableHead>
-              <TableHead>Updated</TableHead>
-              <TableHead numeric>Open issues</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+      <Table.ScrollArea>
+        <Table striped interactive className={styles.table}>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader>Project</Table.ColumnHeader>
+              <Table.ColumnHeader>Owner</Table.ColumnHeader>
+              <Table.ColumnHeader>Updated</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {projects.map((project, index) => (
-              <TableRow key={project.name}>
-                <TableCell className={styles.emphasis}>{project.name}</TableCell>
-                <TableCell>{project.owner}</TableCell>
-                <TableCell>{project.updated}</TableCell>
-                <TableCell numeric>{index + 1}</TableCell>
-              </TableRow>
+              <Table.Row key={project.name}>
+                <Table.Cell className={styles.emphasis}>{project.name}</Table.Cell>
+                <Table.Cell>{project.owner}</Table.Cell>
+                <Table.Cell>{project.updated}</Table.Cell>
+                <Table.Cell numeric>{index + 1}</Table.Cell>
+              </Table.Row>
             ))}
-          </TableBody>
+          </Table.Body>
         </Table>
-      </TableContainer>
+      </Table.ScrollArea>
+    </div>
+  ),
+};
+
+export const SizesAndVariants: Story = {
+  render: () => (
+    <div className={styles.stack}>
+      {(['sm', 'md', 'lg'] as const).map((size) => (
+        <Table.ScrollArea key={size}>
+          <Table size={size} variant={size === 'md' ? 'outline' : 'line'} className={styles.table}>
+            <Table.Caption side="top">{size.toUpperCase()} project summary</Table.Caption>
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeader>Project</Table.ColumnHeader>
+                <Table.ColumnHeader>Owner</Table.ColumnHeader>
+                <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {projects.slice(0, 2).map((project, index) => (
+                <Table.Row key={project.name}>
+                  <Table.Cell className={styles.emphasis}>{project.name}</Table.Cell>
+                  <Table.Cell>{project.owner}</Table.Cell>
+                  <Table.Cell numeric>{index + 1}</Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </Table.ScrollArea>
+      ))}
+    </div>
+  ),
+};
+
+export const ColumnGroupAndBorders: Story = {
+  render: () => (
+    <div className={styles.showcase}>
+      <Table.ScrollArea>
+        <Table showColumnBorder className={styles.table}>
+          <Table.ColumnGroup>
+            <Table.Column htmlWidth="42%" />
+            <Table.Column htmlWidth="28%" />
+            <Table.Column htmlWidth="30%" />
+          </Table.ColumnGroup>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader>Product</Table.ColumnHeader>
+              <Table.ColumnHeader>Category</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Price</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell className={styles.emphasis}>Laptop</Table.Cell>
+              <Table.Cell>Electronics</Table.Cell>
+              <Table.Cell numeric>$999.99</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell className={styles.emphasis}>Coffee Maker</Table.Cell>
+              <Table.Cell>Home Appliances</Table.Cell>
+              <Table.Cell numeric>$49.99</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell className={styles.emphasis}>Desk Chair</Table.Cell>
+              <Table.Cell>Furniture</Table.Cell>
+              <Table.Cell numeric>$150.00</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      </Table.ScrollArea>
+    </div>
+  ),
+};
+
+export const StickyHeaderAndColumn: Story = {
+  render: () => (
+    <div className={styles.showcase}>
+      <Table.ScrollArea className={styles.stickyScrollArea}>
+        <Table stickyHeader interactive className={styles.wideTable}>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader data-sticky="start">Project</Table.ColumnHeader>
+              <Table.ColumnHeader>Owner</Table.ColumnHeader>
+              <Table.ColumnHeader>Environment</Table.ColumnHeader>
+              <Table.ColumnHeader>Updated</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {Array.from({ length: 10 }, (_, index) => projects[index % projects.length]).map(
+              (project, index) => (
+                <Table.Row key={`${project.name}-${index}`}>
+                  <Table.Cell data-sticky="start" className={styles.emphasis}>
+                    {project.name}
+                  </Table.Cell>
+                  <Table.Cell>{project.owner}</Table.Cell>
+                  <Table.Cell>Production</Table.Cell>
+                  <Table.Cell>{project.updated}</Table.Cell>
+                  <Table.Cell numeric>{index + 1}</Table.Cell>
+                </Table.Row>
+              ),
+            )}
+          </Table.Body>
+        </Table>
+      </Table.ScrollArea>
     </div>
   ),
 };
@@ -148,28 +242,28 @@ export const InsideCard: Story = {
         <Card.Title>Projects</Card.Title>
       </Card.Header>
       <Card.Body className={styles.cardContent}>
-        <TableContainer>
+        <Table.ScrollArea>
           <Table className={styles.table}>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Project</TableHead>
-                <TableHead>Owner</TableHead>
-                <TableHead>Updated</TableHead>
-                <TableHead>Health</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeader>Project</Table.ColumnHeader>
+                <Table.ColumnHeader>Owner</Table.ColumnHeader>
+                <Table.ColumnHeader>Updated</Table.ColumnHeader>
+                <Table.ColumnHeader>Health</Table.ColumnHeader>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
               {projects.map((project) => (
-                <TableRow key={project.name}>
-                  <TableCell className={styles.emphasis}>{project.name}</TableCell>
-                  <TableCell>{project.owner}</TableCell>
-                  <TableCell>{project.updated}</TableCell>
-                  <TableCell>{project.issues}</TableCell>
-                </TableRow>
+                <Table.Row key={project.name}>
+                  <Table.Cell className={styles.emphasis}>{project.name}</Table.Cell>
+                  <Table.Cell>{project.owner}</Table.Cell>
+                  <Table.Cell>{project.updated}</Table.Cell>
+                  <Table.Cell>{project.issues}</Table.Cell>
+                </Table.Row>
               ))}
-            </TableBody>
+            </Table.Body>
           </Table>
-        </TableContainer>
+        </Table.ScrollArea>
       </Card.Body>
     </Card>
   ),
@@ -178,22 +272,24 @@ export const InsideCard: Story = {
 export const Empty: Story = {
   render: () => (
     <div className={styles.showcase}>
-      <TableContainer>
+      <Table.ScrollArea>
         <Table>
-          <TableCaption side="top">Projects filtered by the current workspace query.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Project</TableHead>
-              <TableHead>Owner</TableHead>
-              <TableHead>Updated</TableHead>
-              <TableHead numeric>Open issues</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableEmpty colSpan={4}>No projects matched the current filters.</TableEmpty>
-          </TableBody>
+          <Table.Caption side="top">
+            Projects filtered by the current workspace query.
+          </Table.Caption>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader>Project</Table.ColumnHeader>
+              <Table.ColumnHeader>Owner</Table.ColumnHeader>
+              <Table.ColumnHeader>Updated</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <Table.Empty colSpan={4}>No projects matched the current filters.</Table.Empty>
+          </Table.Body>
         </Table>
-      </TableContainer>
+      </Table.ScrollArea>
     </div>
   ),
 };

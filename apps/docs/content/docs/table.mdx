@@ -5,25 +5,30 @@ icon: Component
 ---
 
 import {
+  ColumnGroupTableExample,
   CustomCompositionTableExample,
   EmptyTableExample,
   NumericTableExample,
+  StickyTableExample,
   StripedTableExample,
   TableCaptionExample,
   TableCssPropertiesPanel,
   TableExample,
   TableInCardExample,
   TableRowActionsExample,
+  TableSizesAndVariantsExample,
 } from '@/components/examples/table';
 
 ## API Reference
 
-`Table` does not wrap a dedicated Ark UI primitive. It is a native semantic table wrapper with moduix
-styling, `data-slot` hooks, and a few small convenience parts for the common read-only table path.
+`Table` does not wrap a dedicated Ark UI primitive; Ark UI v5 has no table component. Moduix owns
+this native semantic table family using Ark's [factory/composition model](https://ark-ui.com/docs/guides/composition),
+Ark-style `data-scope` / `data-part` styling hooks, and the current
+[Chakra Table recipe](https://chakra-ui.com/docs/components/table) as the naming and feature reference.
 
 ## Basic
 
-Start with `TableContainer`, `Table`, `TableHeader`, `TableBody`, and the native row and cell
+Start with `Table.ScrollArea`, `Table`, `Table.Header`, `Table.Body`, and the native row and cell
 parts. This is the recommended path for invoices, summaries, and admin-style read-only datasets.
 
 <Preview>
@@ -34,42 +39,36 @@ parts. This is the recommended path for invoices, summaries, and admin-style rea
       import {
         Badge,
         Table,
-        TableBody,
-        TableCell,
-        TableContainer,
-        TableHead,
-        TableHeader,
-        TableRow,
       } from "moduix";
 
       export function TableDemo() {
         return (
-          <TableContainer className={styles.shell}>
+          <Table.ScrollArea className={styles.shell}>
             <Table className={styles.table}>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Invoice</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Method</TableHead>
-                  <TableHead numeric>Amount</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+              <Table.Header>
+                <Table.Row>
+                  <Table.ColumnHeader>Invoice</Table.ColumnHeader>
+                  <Table.ColumnHeader>Status</Table.ColumnHeader>
+                  <Table.ColumnHeader>Method</Table.ColumnHeader>
+                  <Table.ColumnHeader numeric>Amount</Table.ColumnHeader>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
                 {invoices.map((invoice) => (
-                  <TableRow key={invoice.id}>
-                    <TableCell>{invoice.id}</TableCell>
-                    <TableCell>
+                  <Table.Row key={invoice.id}>
+                    <Table.Cell>{invoice.id}</Table.Cell>
+                    <Table.Cell>
                       <Badge variant={invoice.status === "Paid" ? "secondary" : "outline"}>
                         {invoice.status}
                       </Badge>
-                    </TableCell>
-                    <TableCell>{invoice.method}</TableCell>
-                    <TableCell numeric>{invoice.amount}</TableCell>
-                  </TableRow>
+                    </Table.Cell>
+                    <Table.Cell>{invoice.method}</Table.Cell>
+                    <Table.Cell numeric>{invoice.amount}</Table.Cell>
+                  </Table.Row>
                 ))}
-              </TableBody>
+              </Table.Body>
             </Table>
-          </TableContainer>
+          </Table.ScrollArea>
         );
       }
     `}
@@ -153,80 +152,90 @@ as styles, icons, and small utilities.
 The normal consumer path stays close to native table markup:
 
 ```text
-TableContainer (optional)
+Table.ScrollArea (optional)
 └─ Table
-   ├─ TableCaption (optional)
-   ├─ TableHeader
-   │  └─ TableRow
-   │     └─ TableHead
-   ├─ TableBody
-   │  ├─ TableRow
-   │  │  └─ TableCell
-   │  └─ TableEmpty (optional)
-   └─ TableFooter (optional)
+   ├─ Table.ColumnGroup (optional)
+   │  └─ Table.Column
+   ├─ Table.Caption (optional)
+   ├─ Table.Header
+   │  └─ Table.Row
+   │     └─ Table.ColumnHeader
+   ├─ Table.Body
+   │  ├─ Table.Row
+   │  │  └─ Table.Cell
+   │  └─ Table.Empty (optional)
+   └─ Table.Footer (optional)
 ```
 
-| Part             | Role                                                                       |
-| ---------------- | -------------------------------------------------------------------------- |
-| `TableContainer` | Optional bordered overflow shell for the common “table in a surface” case. |
-| `Table`          | Native `table` root. Owns typography, dividers, and hover styling.         |
-| `TableCaption`   | Optional label above or below the table via `side`.                        |
-| `TableHeader`    | Native `thead` wrapper for column headers.                                 |
-| `TableBody`      | Native `tbody` wrapper for body rows.                                      |
-| `TableFooter`    | Native `tfoot` wrapper for summary rows.                                   |
-| `TableRow`       | Native `tr` wrapper with divider and hover behavior.                       |
-| `TableHead`      | Native `th` wrapper. Supports `numeric`.                                   |
-| `TableCell`      | Native `td` wrapper. Supports `numeric`.                                   |
-| `TableEmpty`     | Convenience empty-state row inside `TableBody`.                            |
+| Part                   | Role                                                                       |
+| ---------------------- | -------------------------------------------------------------------------- |
+| `Table` / `Table.Root` | Native `table` root. Owns typography, dividers, and state attributes.      |
+| `Table.ScrollArea`     | Optional bordered overflow shell for the common “table in a surface” case. |
+| `Table.ColumnGroup`    | Native `colgroup` wrapper for column width distribution.                   |
+| `Table.Column`         | Native `col` wrapper. Supports `htmlWidth`.                                |
+| `Table.Caption`        | Optional label above or below the table via `side`.                        |
+| `Table.Header`         | Native `thead` wrapper for column headers.                                 |
+| `Table.Body`           | Native `tbody` wrapper for body rows.                                      |
+| `Table.Footer`         | Native `tfoot` wrapper for summary rows.                                   |
+| `Table.Row`            | Native `tr` wrapper with divider behavior.                                 |
+| `Table.ColumnHeader`   | Native `th` wrapper. Supports `numeric`.                                   |
+| `Table.Cell`           | Native `td` wrapper. Supports `numeric`.                                   |
+| `Table.Empty`          | Convenience empty-state row inside `Table.Body`.                           |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with `TableContainer` plus the semantic table parts for most read-only data views.
+Stay with `Table.ScrollArea` plus the semantic table parts for most read-only data views.
 
-Use `TableContainer` when you need the common bordered horizontal-scroll shell. Use `numeric` on
-`TableHead` and `TableCell` for amounts, counts, percentages, and latency columns. Use
-`TableCaption` when the table needs a short label or summary, and `TableFooter` when the last row
-represents totals or rollups. Use `striped` when long read-only bodies need stronger row-by-row
-scanability.
+Use `Table.ScrollArea` when you need the common bordered horizontal-scroll shell. Use `numeric` on
+`Table.ColumnHeader` and `Table.Cell` for amounts, counts, percentages, and latency columns. Use
+`Table.Caption` when the table needs a short label or summary, and `Table.Footer` when the last row
+represents totals or rollups. Use `striped`, `interactive`, `showColumnBorder`, `stickyHeader`,
+and `size` / `variant` when the table needs Chakra-style visual modes without adding data-grid
+state.
 
 ### When to go custom
 
-Skip `TableContainer` when the surrounding layout already owns scrolling, padding, border, or
+Skip `Table.ScrollArea` when the surrounding layout already owns scrolling, padding, border, or
 surface styling. In that case, keep `Table` itself and move the wrapper concerns into your own
 layout component or shell markup.
 
-`Table` intentionally does not own sorting, filtering, selection, sticky headers, pagination, or
-column sizing. Treat it as the visual and semantic primitive that higher-level table abstractions
-can build on.
+`Table` intentionally does not own sorting, filtering, selection, pagination, or row action state.
+Treat it as the visual and semantic primitive that higher-level table abstractions can build on.
 
 ### Default props
 
 All parts accept `className` and their matching native element props.
 
-| Component      | Prop      | Default    | Notes                                               |
-| -------------- | --------- | ---------- | --------------------------------------------------- |
-| `Table`        | `striped` | `false`    | Zebra-stripes even body rows, excluding empty rows. |
-| `TableCaption` | `side`    | `'bottom'` | Supports `'top'` and `'bottom'`.                    |
-| `TableHead`    | `numeric` | `false`    | Right-aligns content and uses tabular nums.         |
-| `TableCell`    | `numeric` | `false`    | Right-aligns content and uses tabular nums.         |
-| `TableEmpty`   | `colSpan` | required   | Must match the current body column count.           |
+| Component            | Prop               | Default    | Notes                                                  |
+| -------------------- | ------------------ | ---------- | ------------------------------------------------------ |
+| `Table`              | `interactive`      | `false`    | Enables body-row hover highlighting.                   |
+| `Table`              | `showColumnBorder` | `false`    | Adds borders between visible columns.                  |
+| `Table`              | `size`             | `'md'`     | Supports `'sm'`, `'md'`, and `'lg'`.                   |
+| `Table`              | `stickyHeader`     | `false`    | Makes `Table.Header` sticky inside a scroll container. |
+| `Table`              | `striped`          | `false`    | Zebra-stripes even body rows, excluding empty rows.    |
+| `Table`              | `variant`          | `'line'`   | Supports `'line'` and `'outline'`.                     |
+| `Table.Caption`      | `side`             | `'bottom'` | Supports `'top'` and `'bottom'`.                       |
+| `Table.Column`       | `htmlWidth`        | —          | Maps to the native `width` attribute on `col`.         |
+| `Table.ColumnHeader` | `numeric`          | `false`    | Right-aligns content and uses tabular nums.            |
+| `Table.Cell`         | `numeric`          | `false`    | Right-aligns content and uses tabular nums.            |
+| `Table.Empty`        | `colSpan`          | required   | Must match the current body column count.              |
 
 ### Behavioral notes
 
-- `TableEmpty` renders a full table row for the empty state, so pass the body column count through
+- `Table.Empty` renders a full table row for the empty state, so pass the body column count through
   `colSpan`.
 - Header and body rows render a shared bottom divider. The last body row drops its border.
-- Body rows get a subtle hover background by default.
-- `TableCaption` inherits muted typography and adds inline padding so it does not sit flush against
+- Body rows get a subtle hover background only when `interactive` is set.
+- `Table.Caption` inherits muted typography and adds inline padding so it does not sit flush against
   the table edges.
 
 ## Examples
 
 ### Caption and Footer
 
-Use `TableCaption side="top"` when the label reads better before the data, and `TableFooter` for
+Use `Table.Caption side="top"` when the label reads better before the data, and `Table.Footer` for
 totals or summaries.
 
 <Preview>
@@ -236,47 +245,39 @@ totals or summaries.
     {`
       import {
         Table,
-        TableBody,
-        TableCaption,
-        TableCell,
-        TableContainer,
-        TableFooter,
-        TableHead,
-        TableHeader,
-        TableRow,
       } from "moduix";
 
-      <TableContainer className={styles.shell}>
+      <Table.ScrollArea className={styles.shell}>
         <Table className={styles.table}>
-          <TableCaption side="top">
+          <Table.Caption side="top">
             A list of recent invoices for the current billing cycle.
-          </TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Invoice</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead numeric>Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+          </Table.Caption>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader>Invoice</Table.ColumnHeader>
+              <Table.ColumnHeader>Status</Table.ColumnHeader>
+              <Table.ColumnHeader>Method</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Amount</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {invoices.map((invoice) => (
-              <TableRow key={invoice.id}>
-                <TableCell>{invoice.id}</TableCell>
-                <TableCell>{invoice.status}</TableCell>
-                <TableCell>{invoice.method}</TableCell>
-                <TableCell numeric>{invoice.amount}</TableCell>
-              </TableRow>
+              <Table.Row key={invoice.id}>
+                <Table.Cell>{invoice.id}</Table.Cell>
+                <Table.Cell>{invoice.status}</Table.Cell>
+                <Table.Cell>{invoice.method}</Table.Cell>
+                <Table.Cell numeric>{invoice.amount}</Table.Cell>
+              </Table.Row>
             ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TableCell colSpan={3}>Total</TableCell>
-              <TableCell numeric>$1,200.00</TableCell>
-            </TableRow>
-          </TableFooter>
+          </Table.Body>
+          <Table.Footer>
+            <Table.Row>
+              <Table.Cell colSpan={3}>Total</Table.Cell>
+              <Table.Cell numeric>$1,200.00</Table.Cell>
+            </Table.Row>
+          </Table.Footer>
         </Table>
-      </TableContainer>
+      </Table.ScrollArea>
     `}
 
   </Preview.Code>
@@ -318,49 +319,44 @@ Use `numeric` on both the header and the cells for the common aligned-metrics ca
     {`
       import {
         Table,
-        TableBody,
-        TableCell,
-        TableContainer,
-        TableHead,
-        TableHeader,
-        TableRow,
       } from "moduix";
 
-      <TableContainer className={styles.shell}>
+      <Table.ScrollArea className={styles.shell}>
         <Table className={styles.table}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Service</TableHead>
-              <TableHead numeric>Requests</TableHead>
-              <TableHead numeric>Error rate</TableHead>
-              <TableHead numeric>Latency</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>Search API</TableCell>
-              <TableCell numeric>1,204,122</TableCell>
-              <TableCell numeric>0.12%</TableCell>
-              <TableCell numeric>128 ms</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Billing API</TableCell>
-              <TableCell numeric>248,421</TableCell>
-              <TableCell numeric>0.04%</TableCell>
-              <TableCell numeric>96 ms</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Docs site</TableCell>
-              <TableCell numeric>82,304</TableCell>
-              <TableCell numeric>0.00%</TableCell>
-              <TableCell numeric>42 ms</TableCell>
-            </TableRow>
-          </TableBody>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader>Service</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Requests</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Error rate</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Latency</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {metrics.map((metric) => (
+              <Table.Row key={metric.service}>
+                <Table.Cell>{metric.service}</Table.Cell>
+                <Table.Cell numeric>{metric.requests}</Table.Cell>
+                <Table.Cell numeric>{metric.errorRate}</Table.Cell>
+                <Table.Cell numeric>{metric.latency}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
         </Table>
-      </TableContainer>
+      </Table.ScrollArea>
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const metrics = [
+        { service: "Search API", requests: "1,204,122", errorRate: "0.12%", latency: "128 ms" },
+        { service: "Billing API", requests: "248,421", errorRate: "0.04%", latency: "96 ms" },
+        { service: "Docs site", requests: "82,304", errorRate: "0.00%", latency: "42 ms" },
+      ];
+    `}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`
@@ -388,36 +384,30 @@ opinionated table abstraction.
     {`
       import {
         Table,
-        TableBody,
-        TableCell,
-        TableContainer,
-        TableHead,
-        TableHeader,
-        TableRow,
       } from "moduix";
 
-      <TableContainer className={styles.shell}>
-        <Table striped className={styles.table}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Project</TableHead>
-              <TableHead>Owner</TableHead>
-              <TableHead>Updated</TableHead>
-              <TableHead numeric>Open issues</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+      <Table.ScrollArea className={styles.shell}>
+        <Table striped interactive className={styles.table}>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader>Project</Table.ColumnHeader>
+              <Table.ColumnHeader>Owner</Table.ColumnHeader>
+              <Table.ColumnHeader>Updated</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {projects.map((project, index) => (
-              <TableRow key={project.name}>
-                <TableCell>{project.name}</TableCell>
-                <TableCell>{project.owner}</TableCell>
-                <TableCell>{project.updated}</TableCell>
-                <TableCell numeric>{index + 1}</TableCell>
-              </TableRow>
+              <Table.Row key={project.name}>
+                <Table.Cell>{project.name}</Table.Cell>
+                <Table.Cell>{project.owner}</Table.Cell>
+                <Table.Cell>{project.updated}</Table.Cell>
+                <Table.Cell numeric>{index + 1}</Table.Cell>
+              </Table.Row>
             ))}
-          </TableBody>
+          </Table.Body>
         </Table>
-      </TableContainer>
+      </Table.ScrollArea>
     `}
 
   </Preview.Code>
@@ -447,9 +437,200 @@ opinionated table abstraction.
   </Preview.CSS>
 </Preview>
 
+### Sizes and Variants
+
+Use `size` for density and `variant` for divider style. `Table` keeps these as visual modes on the
+native root instead of adding extra state.
+
+<Preview>
+  <TableSizesAndVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Table } from "moduix";
+
+      {(["sm", "md", "lg"] as const).map((size) => (
+        <Table.ScrollArea key={size} className={styles.shell}>
+          <Table size={size} variant={size === "md" ? "outline" : "line"}>
+            <Table.Caption side="top">{size.toUpperCase()} project summary</Table.Caption>
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeader>Project</Table.ColumnHeader>
+                <Table.ColumnHeader>Owner</Table.ColumnHeader>
+                <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {projects.map((project, index) => (
+                <Table.Row key={project.name}>
+                  <Table.Cell>{project.name}</Table.Cell>
+                  <Table.Cell>{project.owner}</Table.Cell>
+                  <Table.Cell numeric>{index + 1}</Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </Table.ScrollArea>
+      ))}
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const projects = [
+        { name: "Docs redesign", owner: "Product Design" },
+        { name: "Billing migration", owner: "Growth" },
+      ];
+    `}
+
+  </Preview.Data>
+
+  <Preview.CSS>
+    {`
+      .shell {
+        width: min(44rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Column Group and Borders
+
+Use `Table.ColumnGroup` and `Table.Column` for native column widths, and `showColumnBorder` when
+column separation needs to be visible.
+
+<Preview>
+  <ColumnGroupTableExample />
+
+  <Preview.Code>
+    {`
+      import { Table } from "moduix";
+
+      <Table.ScrollArea className={styles.shell}>
+        <Table showColumnBorder className={styles.table}>
+          <Table.ColumnGroup>
+            <Table.Column htmlWidth="42%" />
+            <Table.Column htmlWidth="28%" />
+            <Table.Column htmlWidth="30%" />
+          </Table.ColumnGroup>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader>Product</Table.ColumnHeader>
+              <Table.ColumnHeader>Category</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Price</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {products.map((product) => (
+              <Table.Row key={product.name}>
+                <Table.Cell>{product.name}</Table.Cell>
+                <Table.Cell>{product.category}</Table.Cell>
+                <Table.Cell numeric>{product.price}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </Table.ScrollArea>
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const products = [
+        { name: "Laptop", category: "Electronics", price: "$999.99" },
+        { name: "Coffee Maker", category: "Home Appliances", price: "$49.99" },
+        { name: "Desk Chair", category: "Furniture", price: "$150.00" },
+      ];
+    `}
+
+  </Preview.Data>
+
+  <Preview.CSS>
+    {`
+      .shell {
+        width: min(44rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Sticky Header and Column
+
+Use `stickyHeader` on the root and `data-sticky="start" | "end"` on cells when a horizontally or
+vertically scrolling table needs persistent context.
+
+<Preview>
+  <StickyTableExample />
+
+  <Preview.Code>
+    {`
+      import { Table } from "moduix";
+
+      <Table.ScrollArea className={styles.stickyShell}>
+        <Table stickyHeader interactive className={styles.wideTable}>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader data-sticky="start">Project</Table.ColumnHeader>
+              <Table.ColumnHeader>Owner</Table.ColumnHeader>
+              <Table.ColumnHeader>Environment</Table.ColumnHeader>
+              <Table.ColumnHeader>Updated</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {rows.map((row, index) => (
+              <Table.Row key={row.name}>
+                <Table.Cell data-sticky="start">{row.name}</Table.Cell>
+                <Table.Cell>{row.owner}</Table.Cell>
+                <Table.Cell>{row.environment}</Table.Cell>
+                <Table.Cell>{row.updated}</Table.Cell>
+                <Table.Cell numeric>{index + 1}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </Table.ScrollArea>
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const rows = [
+        { name: "Docs redesign", owner: "Product Design", environment: "Production", updated: "2 hours ago" },
+        { name: "Billing migration", owner: "Growth", environment: "Staging", updated: "Yesterday" },
+        { name: "Command palette", owner: "Platform", environment: "Preview", updated: "Today" },
+      ];
+    `}
+
+  </Preview.Data>
+
+  <Preview.CSS>
+    {`
+      .stickyShell {
+        width: min(44rem, calc(100vw - var(--spacing-8)));
+        max-height: 18rem;
+      }
+
+      .wideTable {
+        min-width: 56rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
 ### Empty State
 
-Use `TableEmpty` when a body would otherwise render no rows.
+Use `Table.Empty` when a body would otherwise render no rows.
 
 <Preview>
   <EmptyTableExample />
@@ -458,40 +639,42 @@ Use `TableEmpty` when a body would otherwise render no rows.
     {`
       import {
         Table,
-        TableBody,
-        TableCaption,
-        TableContainer,
-        TableEmpty,
-        TableHead,
-        TableHeader,
-        TableRow,
       } from "moduix";
 
       export function EmptyStateTableDemo() {
         return (
-          <TableContainer className={styles.shell}>
+          <Table.ScrollArea className={styles.shell}>
             <Table>
-              <TableCaption side="top">
+              <Table.Caption side="top">
                 Projects filtered by the current workspace query.
-              </TableCaption>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Project</TableHead>
-                  <TableHead>Owner</TableHead>
-                  <TableHead>Updated</TableHead>
-                  <TableHead numeric>Open issues</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableEmpty colSpan={4}>No projects matched the current filters.</TableEmpty>
-              </TableBody>
+              </Table.Caption>
+              <Table.Header>
+                <Table.Row>
+                  <Table.ColumnHeader>Project</Table.ColumnHeader>
+                  <Table.ColumnHeader>Owner</Table.ColumnHeader>
+                  <Table.ColumnHeader>Updated</Table.ColumnHeader>
+                  <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                <Table.Empty colSpan={columnCount}>
+                  No projects matched the current filters.
+                </Table.Empty>
+              </Table.Body>
             </Table>
-          </TableContainer>
+          </Table.ScrollArea>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const columnCount = 4;
+    `}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`
@@ -509,42 +692,42 @@ Use `TableEmpty` when a body would otherwise render no rows.
 
 ### Inside Card
 
-`TableContainer` fits naturally inside `Card.Body` when the table should live on a card surface.
+`Table.ScrollArea` fits naturally inside `Card.Body` when the table should live on a card surface.
 
 <Preview>
   <TableInCardExample />
 
   <Preview.Code>
     {`
-      import { Card, Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from "moduix";
+      import { Card, Table } from "moduix";
 
       <Card>
         <Card.Header>
           <Card.Title>Projects</Card.Title>
         </Card.Header>
         <Card.Body className={styles.cardContent}>
-          <TableContainer>
+          <Table.ScrollArea>
             <Table className={styles.table}>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Project</TableHead>
-                  <TableHead>Owner</TableHead>
-                  <TableHead>Updated</TableHead>
-                  <TableHead>Health</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+              <Table.Header>
+                <Table.Row>
+                  <Table.ColumnHeader>Project</Table.ColumnHeader>
+                  <Table.ColumnHeader>Owner</Table.ColumnHeader>
+                  <Table.ColumnHeader>Updated</Table.ColumnHeader>
+                  <Table.ColumnHeader>Health</Table.ColumnHeader>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
                 {projects.map((project) => (
-                  <TableRow key={project.name}>
-                    <TableCell>{project.name}</TableCell>
-                    <TableCell>{project.owner}</TableCell>
-                    <TableCell>{project.updated}</TableCell>
-                    <TableCell>{project.issues}</TableCell>
-                  </TableRow>
+                  <Table.Row key={project.name}>
+                    <Table.Cell>{project.name}</Table.Cell>
+                    <Table.Cell>{project.owner}</Table.Cell>
+                    <Table.Cell>{project.updated}</Table.Cell>
+                    <Table.Cell>{project.issues}</Table.Cell>
+                  </Table.Row>
                 ))}
-              </TableBody>
+              </Table.Body>
             </Table>
-          </TableContainer>
+          </Table.ScrollArea>
         </Card.Body>
       </Card>
     `}
@@ -596,12 +779,6 @@ Use the last column for row-specific actions when the dataset needs lightweight 
         Menu,
         Portal,
         Table,
-        TableBody,
-        TableCell,
-        TableContainer,
-        TableHead,
-        TableHeader,
-        TableRow,
       } from "moduix";
 
       function RowActionsMenu({ itemName }) {
@@ -610,10 +787,11 @@ Use the last column for row-specific actions when the dataset needs lightweight 
             <Menu.Trigger asChild>
                 <Button
                   variant="ghost"
-                  size="icon-md"
+                  size="icon-sm"
+                  className={styles.actionTrigger}
                   aria-label={\`Open actions for \${itemName}\`}
                 >
-                  <span aria-hidden>...</span>
+                  <span aria-hidden className={styles.actionEllipsis}>...</span>
                 </Button>
             </Menu.Trigger>
             <Portal>
@@ -635,32 +813,32 @@ Use the last column for row-specific actions when the dataset needs lightweight 
 
       export function TableRowActionsDemo() {
         return (
-          <TableContainer className={styles.shell}>
+          <Table.ScrollArea className={styles.shell}>
             <Table className={styles.table}>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Project</TableHead>
-                  <TableHead>Owner</TableHead>
-                  <TableHead>Environment</TableHead>
-                  <TableHead>Updated</TableHead>
-                  <TableHead className={styles.actionsHead}>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+              <Table.Header>
+                <Table.Row>
+                  <Table.ColumnHeader>Project</Table.ColumnHeader>
+                  <Table.ColumnHeader>Owner</Table.ColumnHeader>
+                  <Table.ColumnHeader>Environment</Table.ColumnHeader>
+                  <Table.ColumnHeader>Updated</Table.ColumnHeader>
+                  <Table.ColumnHeader className={styles.actionsHead}>Actions</Table.ColumnHeader>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
                 {rows.map((row) => (
-                  <TableRow key={row.name}>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.owner}</TableCell>
-                    <TableCell>{row.environment}</TableCell>
-                    <TableCell>{row.updated}</TableCell>
-                    <TableCell className={styles.actionsCell}>
+                  <Table.Row key={row.name}>
+                    <Table.Cell>{row.name}</Table.Cell>
+                    <Table.Cell>{row.owner}</Table.Cell>
+                    <Table.Cell>{row.environment}</Table.Cell>
+                    <Table.Cell>{row.updated}</Table.Cell>
+                    <Table.Cell className={styles.actionsCell}>
                       <RowActionsMenu itemName={row.name} />
-                    </TableCell>
-                  </TableRow>
+                    </Table.Cell>
+                  </Table.Row>
                 ))}
-              </TableBody>
+              </Table.Body>
             </Table>
-          </TableContainer>
+          </Table.ScrollArea>
         );
       }
     `}
@@ -694,6 +872,20 @@ Use the last column for row-specific actions when the dataset needs lightweight 
         text-align: right;
         white-space: nowrap;
       }
+
+      .actionTrigger {
+        --button-size-icon-sm: 1.25rem;
+        --button-focus-ring-width: var(--border-width-sm);
+
+        margin-inline-start: auto;
+        border-radius: var(--radius-sm);
+      }
+
+      .actionEllipsis {
+        font-size: 0.8125rem;
+        font-weight: var(--weight-medium);
+        line-height: 1;
+      }
     `}
 
   </Preview.CSS>
@@ -701,7 +893,7 @@ Use the last column for row-specific actions when the dataset needs lightweight 
 
 ### Custom Composition
 
-Skip `TableContainer` when the surrounding layout already owns the shell or scrolling behavior.
+Skip `Table.ScrollArea` when the surrounding layout already owns the shell or scrolling behavior.
 
 <Preview>
   <CustomCompositionTableExample />
@@ -710,48 +902,45 @@ Skip `TableContainer` when the surrounding layout already owns the shell or scro
     {`
       import {
         Table,
-        TableBody,
-        TableCaption,
-        TableCell,
-        TableHead,
-        TableHeader,
-        TableRow,
       } from "moduix";
 
       <div className={styles.shell}>
         <Table className={styles.table}>
-          <TableCaption side="bottom">
-            This version uses a plain wrapper instead of TableContainer.
-          </TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Plan</TableHead>
-              <TableHead>Seats</TableHead>
-              <TableHead numeric>Monthly cost</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>Starter</TableCell>
-              <TableCell>Up to 5</TableCell>
-              <TableCell numeric>$19</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Team</TableCell>
-              <TableCell>Up to 25</TableCell>
-              <TableCell numeric>$79</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Enterprise</TableCell>
-              <TableCell>Custom</TableCell>
-              <TableCell numeric>Contact sales</TableCell>
-            </TableRow>
-          </TableBody>
+          <Table.Caption side="bottom">
+            This version uses a plain wrapper instead of Table.ScrollArea.
+          </Table.Caption>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader>Plan</Table.ColumnHeader>
+              <Table.ColumnHeader>Seats</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Monthly cost</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {plans.map((plan) => (
+              <Table.Row key={plan.name}>
+                <Table.Cell>{plan.name}</Table.Cell>
+                <Table.Cell>{plan.seats}</Table.Cell>
+                <Table.Cell numeric>{plan.cost}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
         </Table>
       </div>
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const plans = [
+        { name: "Starter", seats: "Up to 5", cost: "$19" },
+        { name: "Team", seats: "Up to 25", cost: "$79" },
+        { name: "Enterprise", seats: "Custom", cost: "Contact sales" },
+      ];
+    `}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`
@@ -791,11 +980,13 @@ attributes, and the `--table-*` CSS variables shown below.
 
 Use the part that owns the visual concern:
 
-- `className` on `TableContainer` for shell-wide border, radius, and surface overrides
+- `className` on `Table.ScrollArea` for shell-wide border, radius, and surface overrides
 - `className` on `Table` for table typography and width constraints
-- `data-slot="table-container"`, `table`, `table-caption`, `table-header`, `table-body`,
-  `table-footer`, `table-row`, `table-head`, `table-cell`, and `table-empty` for part-level
-  targeting
-- `data-side="top" | "bottom"` on `TableCaption` for caption placement styling
-- `data-numeric` on `TableHead` and `TableCell` for numeric-column targeting
-- `data-striped` on `Table` when zebra striping is enabled
+- `data-slot="table-root"`, `table-scroll-area`, `table-column-group`, `table-column`,
+  `table-caption`, `table-header`, `table-body`, `table-footer`, `table-row`,
+  `table-column-header`, `table-cell`, and `table-empty` for part-level targeting
+- `data-side="top" | "bottom"` on `Table.Caption` for caption placement styling
+- `data-numeric` on `Table.ColumnHeader` and `Table.Cell` for numeric-column targeting
+- `data-size`, `data-variant`, `data-striped`, `data-interactive`, `data-sticky-header`, and
+  `data-show-column-border` on `Table` for root-level state styling
+- `data-sticky="start" | "end"` on `Table.ColumnHeader` and `Table.Cell` for sticky columns

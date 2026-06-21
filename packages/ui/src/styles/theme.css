@@ -1995,24 +1995,35 @@
   --table-cell-padding-x: initial; /* var(--spacing-4) */
   --table-cell-padding-y: initial; /* var(--spacing-3) */
   --table-color: initial; /* var(--color-foreground) */
-  --table-container-bg: initial; /* var(--color-card) */
-  --table-container-border-color: initial; /* var(--table-border-color, var(--color-border)) */
-  --table-container-border-width: initial; /* var(--table-border-width, var(--border-width-sm)) */
-  --table-container-radius: initial; /* var(--radius-lg) */
-  --table-container-shadow: initial; /* none */
+  --table-column-border-color: initial; /* var(--table-border-color, var(--color-border)) */
+  --table-column-border-width: initial; /* var(--table-border-width, var(--border-width-sm)) */
+  --table-column-header-color: initial; /* var(--color-muted-foreground) */
+  --table-column-header-font-weight: initial; /* var(--weight-medium) */
   --table-empty-color: initial; /* var(--color-muted-foreground) */
   --table-empty-padding-y: initial; /* calc(var(--table-cell-padding-y, var(--spacing-3)) * 2) */
   --table-font-family: initial; /* var(--font-sans) */
   --table-font-size: initial; /* var(--text-sm) */
+  --table-font-size-lg: initial; /* var(--text-md) */
+  --table-font-size-sm: initial; /* var(--text-xs) */
   --table-footer-bg: initial; /* var(--color-muted) */
   --table-footer-color: initial; /* var(--table-color, var(--color-foreground)) */
   --table-footer-font-weight: initial; /* var(--weight-medium) */
-  --table-head-color: initial; /* var(--color-muted-foreground) */
-  --table-head-font-weight: initial; /* var(--weight-medium) */
   --table-line-height: initial; /* var(--line-height-text-sm) */
+  --table-line-height-lg: initial; /* var(--line-height-text-md) */
+  --table-line-height-sm: initial; /* var(--line-height-text-xs) */
   --table-row-bg-hover: initial; /* var(--color-muted) */
   --table-row-bg-striped: initial; /* color-mix(in oklab, var(--color-muted) 35%, transparent) */
   --table-row-transition: initial; /* background-color var(--transition-default) */
+  --table-scroll-area-bg: initial; /* var(--color-card) */
+  --table-scroll-area-border-color: initial; /* var(--table-border-color, var(--color-border)) */
+  --table-scroll-area-border-width: initial; /* var(--table-border-width, var(--border-width-sm)) */
+  --table-scroll-area-radius: initial; /* var(--radius-lg) */
+  --table-scroll-area-shadow: initial; /* none */
+  --table-sticky-column-bg: initial; /* var(--table-scroll-area-bg, var(--color-card)) */
+  --table-sticky-column-z-index: initial; /* 2 */
+  --table-sticky-header-bg: initial; /* var(--table-scroll-area-bg, var(--color-card)) */
+  --table-sticky-header-z-index: initial; /* 3 */
+  --table-sticky-intersection-z-index: initial; /* 4 */
 
   /* Tabs */
   --tabs-bg: initial; /* var(--color-background) */

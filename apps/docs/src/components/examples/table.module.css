@@ -6,6 +6,20 @@
   min-width: 40rem;
 }
 
+.wideTable {
+  min-width: 56rem;
+}
+
+.stack {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.stickyScrollArea {
+  width: min(44rem, calc(100vw - var(--spacing-8)));
+  max-height: 18rem;
+}
+
 .card {
   width: min(44rem, calc(100vw - var(--spacing-8)));
 }
@@ -27,11 +41,15 @@
 }
 
 .actionTrigger {
+  --button-size-icon-sm: 1.25rem;
+  --button-focus-ring-width: var(--border-width-sm);
+
   margin-inline-start: auto;
+  border-radius: var(--radius-sm);
 }
 
 .actionEllipsis {
-  font-size: 1.125rem;
+  font-size: 0.8125rem;
   font-weight: var(--weight-medium);
   line-height: 1;
   letter-spacing: 0;
