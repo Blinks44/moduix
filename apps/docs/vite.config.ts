@@ -38,7 +38,6 @@ const uiPrimitiveOptimizeDeps = [
   '@base-ui/react/switch',
   '@base-ui/react/tabs',
   '@base-ui/react/toggle-group',
-  '@base-ui/react/toolbar',
   '@base-ui/react/tooltip',
   '@base-ui/react/unstable-use-media-query',
   '@base-ui/react/use-render',

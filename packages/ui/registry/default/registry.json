@@ -1613,31 +1613,6 @@
       ]
     },
     {
-      "name": "toolbar",
-      "type": "registry:item",
-      "title": "Toolbar",
-      "description": "moduix Toolbar component.",
-      "dependencies": ["@base-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/core"],
-      "files": [
-        {
-          "path": "packages/ui/src/components/toolbar/Toolbar.tsx",
-          "target": "@components/moduix/toolbar/Toolbar.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "packages/ui/src/components/toolbar/Toolbar.module.css",
-          "target": "@components/moduix/toolbar/Toolbar.module.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/ui/src/components/toolbar/index.ts",
-          "target": "@components/moduix/toolbar/index.ts",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "tooltip",
       "type": "registry:item",
       "title": "Tooltip",
