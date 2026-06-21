@@ -1392,7 +1392,7 @@
       "type": "registry:item",
       "title": "Switch",
       "description": "moduix Switch component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

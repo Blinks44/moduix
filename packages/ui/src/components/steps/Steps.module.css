@@ -1,5 +1,6 @@
 @layer ui.components {
   .root {
+    --percent: 0%;
     --steps-percent: var(--percent, 0%);
 
     box-sizing: border-box;

@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useId, useState, type ComponentProps } from 'react';
+import { useState, type ComponentProps } from 'react';
+import { Button } from '../button';
 import { Field } from '../field';
-import { Switch, SwitchField, SwitchLabel, SwitchThumb } from './Switch';
+import { Switch, useSwitch } from './Switch';
 import styles from './Switch.stories.module.css';
 
 const meta = {
@@ -33,10 +34,11 @@ function PowerIcon(props: ComponentProps<'svg'>) {
 export const Basic: Story = {
   render: () => {
     return (
-      <SwitchField>
-        <Switch defaultChecked />
-        <SwitchLabel>Enable notifications</SwitchLabel>
-      </SwitchField>
+      <Switch defaultChecked>
+        <Switch.Control />
+        <Switch.Label>Enable notifications</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
     );
   },
 };
@@ -45,26 +47,31 @@ export const Sizes: Story = {
   render: () => {
     return (
       <div className={styles.stack}>
-        <SwitchField>
-          <Switch size="xs" defaultChecked />
-          <SwitchLabel>Extra-small</SwitchLabel>
-        </SwitchField>
-        <SwitchField>
-          <Switch size="sm" defaultChecked />
-          <SwitchLabel>Small</SwitchLabel>
-        </SwitchField>
-        <SwitchField>
-          <Switch size="md" defaultChecked />
-          <SwitchLabel>Medium</SwitchLabel>
-        </SwitchField>
-        <SwitchField>
-          <Switch size="lg" defaultChecked />
-          <SwitchLabel>Large</SwitchLabel>
-        </SwitchField>
-        <SwitchField>
-          <Switch size="xl" defaultChecked />
-          <SwitchLabel>Extra-large</SwitchLabel>
-        </SwitchField>
+        <Switch size="xs" defaultChecked>
+          <Switch.Control />
+          <Switch.Label>Extra-small</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
+        <Switch size="sm" defaultChecked>
+          <Switch.Control />
+          <Switch.Label>Small</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
+        <Switch size="md" defaultChecked>
+          <Switch.Control />
+          <Switch.Label>Medium</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
+        <Switch size="lg" defaultChecked>
+          <Switch.Control />
+          <Switch.Label>Large</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
+        <Switch size="xl" defaultChecked>
+          <Switch.Control />
+          <Switch.Label>Extra-large</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
       </div>
     );
   },
@@ -74,14 +81,16 @@ export const Disabled: Story = {
   render: () => {
     return (
       <div className={styles.stack}>
-        <SwitchField>
-          <Switch disabled />
-          <SwitchLabel>Enable dark mode</SwitchLabel>
-        </SwitchField>
-        <SwitchField>
-          <Switch defaultChecked disabled />
-          <SwitchLabel>Keep me signed in</SwitchLabel>
-        </SwitchField>
+        <Switch disabled>
+          <Switch.Control />
+          <Switch.Label>Enable dark mode</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
+        <Switch defaultChecked disabled>
+          <Switch.Control />
+          <Switch.Label>Keep me signed in</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
       </div>
     );
   },
@@ -93,10 +102,11 @@ export const Controlled: Story = {
 
     return (
       <div className={styles.stack}>
-        <SwitchField>
-          <Switch checked={checked} onCheckedChange={setChecked} />
-          <SwitchLabel>{checked ? 'On' : 'Off'}</SwitchLabel>
-        </SwitchField>
+        <Switch checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
+          <Switch.Control />
+          <Switch.Label>{checked ? 'On' : 'Off'}</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
         <span className={styles.hint}>Current value: {String(checked)}</span>
       </div>
     );
@@ -107,14 +117,16 @@ export const ReadOnly: Story = {
   render: () => {
     return (
       <div className={styles.stack}>
-        <SwitchField>
-          <Switch readOnly />
-          <SwitchLabel>Managed by policy</SwitchLabel>
-        </SwitchField>
-        <SwitchField>
-          <Switch defaultChecked readOnly />
-          <SwitchLabel>Always on</SwitchLabel>
-        </SwitchField>
+        <Switch readOnly>
+          <Switch.Control />
+          <Switch.Label>Managed by policy</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
+        <Switch defaultChecked readOnly>
+          <Switch.Control />
+          <Switch.Label>Always on</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
       </div>
     );
   },
@@ -123,48 +135,64 @@ export const ReadOnly: Story = {
 export const CustomIcon: Story = {
   render: () => {
     return (
-      <SwitchField>
-        <Switch defaultChecked>
-          <SwitchThumb className={styles.customIconThumb}>
+      <Switch defaultChecked>
+        <Switch.Control>
+          <Switch.Thumb className={styles.customIconThumb}>
             <PowerIcon />
-          </SwitchThumb>
-        </Switch>
-        <SwitchLabel>Use custom thumb icon</SwitchLabel>
-      </SwitchField>
+          </Switch.Thumb>
+        </Switch.Control>
+        <Switch.Label>Use custom thumb icon</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
     );
   },
 };
 
-export const SiblingLabelNativeButton: Story = {
-  name: 'Sibling Label (Native Button)',
+export const Context: Story = {
   render: () => {
-    const id = useId();
+    return (
+      <Switch defaultChecked>
+        <Switch.Control />
+        <Switch.Context>
+          {(context) => (
+            <Switch.Label>Feature is {context.checked ? 'enabled' : 'disabled'}</Switch.Label>
+          )}
+        </Switch.Context>
+        <Switch.HiddenInput />
+      </Switch>
+    );
+  },
+};
+
+export const RootProvider: Story = {
+  render: () => {
+    const switchApi = useSwitch({ defaultChecked: true });
 
     return (
-      <div className={styles.siblingRow}>
-        <Switch nativeButton render={<button />} id={id} defaultChecked />
-        <label htmlFor={id} className={styles.label}>
-          Receive product updates
-        </label>
+      <div className={styles.stack}>
+        <Button variant="outline" onClick={() => switchApi.toggleChecked()}>
+          Toggle externally
+        </Button>
+        <Switch.RootProvider value={switchApi}>
+          <Switch.Control />
+          <Switch.Label>External state owner</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch.RootProvider>
       </div>
     );
   },
 };
 
-export const NativeButtonRenderCallback: Story = {
-  name: 'Native Button (Render Callback)',
+export const AsChild: Story = {
   render: () => {
     return (
-      <Switch
-        defaultChecked
-        nativeButton
-        render={(buttonProps) => (
-          <label className={styles.siblingRow}>
-            <button {...buttonProps} />
-            <span className={styles.label}>Enable reminders</span>
-          </label>
-        )}
-      />
+      <Switch asChild defaultChecked>
+        <label className={styles.siblingRow}>
+          <Switch.Control />
+          <span className={styles.label}>Enable reminders</span>
+          <Switch.HiddenInput />
+        </label>
+      </Switch>
     );
   },
 };
@@ -172,11 +200,14 @@ export const NativeButtonRenderCallback: Story = {
 export const FormIntegration: Story = {
   render: () => {
     return (
-      <Field>
-        <Field.Label>
-          <Switch defaultChecked />
-          <SwitchLabel>Notifications</SwitchLabel>
-        </Field.Label>
+      <Field invalid className={styles.formField}>
+        <Switch defaultChecked name="notifications">
+          <Switch.Control />
+          <Switch.Label>Notifications</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
+        <Field.HelperText>Used for product and account updates.</Field.HelperText>
+        <Field.ErrorText>Notification preference is required.</Field.ErrorText>
       </Field>
     );
   },

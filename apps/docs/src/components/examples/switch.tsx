@@ -1,8 +1,16 @@
-import { Field, Switch, SwitchField, SwitchLabel, SwitchThumb } from 'moduix';
-import { useId, useState, type ComponentProps } from 'react';
+import { Button, Field, Switch, useSwitch } from 'moduix';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './switch.module.css';
+
+export const switchSizeOptions = [
+  { label: 'Extra-small', value: 'xs' },
+  { label: 'Small', value: 'sm' },
+  { label: 'Medium', value: 'md' },
+  { label: 'Large', value: 'lg' },
+  { label: 'Extra-large', value: 'xl' },
+] as const;
 
 export const switchOverrideCssProperties: CssPropertyInput[] = [
   ['--switch-bg', 'var(--color-muted)', 'Controls unchecked background color.'],
@@ -20,7 +28,7 @@ export const switchOverrideCssProperties: CssPropertyInput[] = [
   ['--switch-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   ['--switch-focus-ring-offset', 'var(--border-width-sm)', 'Controls focus ring offset.'],
   ['--switch-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
-  ['--switch-gap', 'var(--spacing-2)', 'Controls spacing between switch and label.'],
+  ['--switch-gap', 'var(--spacing-2)', 'Controls spacing between switch control and label.'],
   ['--switch-height-xs', '1rem', 'Controls switch height for the xs size.'],
   ['--switch-height-sm', '1.25rem', 'Controls switch height for the sm size.'],
   ['--switch-height-md', '1.5rem', 'Controls switch height for the md size.'],
@@ -85,6 +93,7 @@ export const switchOverrideCssProperties: CssPropertyInput[] = [
   ['--switch-width-lg', '3rem', 'Controls switch width for the lg size.'],
   ['--switch-width-xl', '3.5rem', 'Controls switch width for the xl size.'],
 ];
+
 export const switchPlaygroundCssProperties: CssPropertyInput[] = [
   ['--switch-bg', 'var(--color-muted)', 'Controls unchecked background color.'],
   ['--switch-bg-checked', 'var(--color-primary)', 'Controls checked background color.'],
@@ -141,36 +150,34 @@ function PowerIcon(props: ComponentProps<'svg'>) {
 
 export function SwitchExample(props: ComponentProps<typeof Switch>) {
   return (
-    <SwitchField>
-      <Switch defaultChecked {...props} />
-      <SwitchLabel>Enable notifications</SwitchLabel>
-    </SwitchField>
+    <Switch defaultChecked {...props}>
+      <Switch.Control />
+      <Switch.Label>Enable notifications</Switch.Label>
+      <Switch.HiddenInput />
+    </Switch>
+  );
+}
+
+export function SwitchInitialCheckedExample() {
+  return (
+    <Switch defaultChecked>
+      <Switch.Control />
+      <Switch.Label>Start enabled</Switch.Label>
+      <Switch.HiddenInput />
+    </Switch>
   );
 }
 
 export function SwitchSizesExample() {
   return (
     <div className={styles.stack}>
-      <SwitchField>
-        <Switch size="xs" defaultChecked />
-        <SwitchLabel>Extra-small</SwitchLabel>
-      </SwitchField>
-      <SwitchField>
-        <Switch size="sm" defaultChecked />
-        <SwitchLabel>Small</SwitchLabel>
-      </SwitchField>
-      <SwitchField>
-        <Switch size="md" defaultChecked />
-        <SwitchLabel>Medium</SwitchLabel>
-      </SwitchField>
-      <SwitchField>
-        <Switch size="lg" defaultChecked />
-        <SwitchLabel>Large</SwitchLabel>
-      </SwitchField>
-      <SwitchField>
-        <Switch size="xl" defaultChecked />
-        <SwitchLabel>Extra-large</SwitchLabel>
-      </SwitchField>
+      {switchSizeOptions.map((item) => (
+        <Switch key={item.value} size={item.value} defaultChecked>
+          <Switch.Control />
+          <Switch.Label>{item.label}</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
+      ))}
     </div>
   );
 }
@@ -178,14 +185,16 @@ export function SwitchSizesExample() {
 export function SwitchDisabledExample() {
   return (
     <div className={styles.stack}>
-      <SwitchField>
-        <Switch disabled />
-        <SwitchLabel>Enable dark mode</SwitchLabel>
-      </SwitchField>
-      <SwitchField>
-        <Switch defaultChecked disabled />
-        <SwitchLabel>Keep me signed in</SwitchLabel>
-      </SwitchField>
+      <Switch disabled>
+        <Switch.Control />
+        <Switch.Label>Enable dark mode</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
+      <Switch defaultChecked disabled>
+        <Switch.Control />
+        <Switch.Label>Keep me signed in</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
     </div>
   );
 }
@@ -195,10 +204,11 @@ export function ControlledSwitchExample() {
 
   return (
     <div className={styles.stack}>
-      <SwitchField>
-        <Switch checked={checked} onCheckedChange={setChecked} />
-        <SwitchLabel>{checked ? 'On' : 'Off'}</SwitchLabel>
-      </SwitchField>
+      <Switch checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
+        <Switch.Control />
+        <Switch.Label>{checked ? 'On' : 'Off'}</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
       <span className={styles.hint}>Current value: {String(checked)}</span>
     </div>
   );
@@ -207,66 +217,87 @@ export function ControlledSwitchExample() {
 export function SwitchReadOnlyExample() {
   return (
     <div className={styles.stack}>
-      <SwitchField>
-        <Switch readOnly />
-        <SwitchLabel>Managed by policy</SwitchLabel>
-      </SwitchField>
-      <SwitchField>
-        <Switch defaultChecked readOnly />
-        <SwitchLabel>Always on</SwitchLabel>
-      </SwitchField>
+      <Switch readOnly>
+        <Switch.Control />
+        <Switch.Label>Managed by policy</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
+      <Switch defaultChecked readOnly>
+        <Switch.Control />
+        <Switch.Label>Always on</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
     </div>
+  );
+}
+
+export function SwitchContextExample() {
+  return (
+    <Switch defaultChecked>
+      <Switch.Control />
+      <Switch.Context>
+        {(context) => (
+          <Switch.Label>Feature is {context.checked ? 'enabled' : 'disabled'}</Switch.Label>
+        )}
+      </Switch.Context>
+      <Switch.HiddenInput />
+    </Switch>
+  );
+}
+
+export function SwitchRootProviderExample() {
+  const switchApi = useSwitch({ defaultChecked: true });
+
+  return (
+    <div className={styles.stack}>
+      <Button variant="outline" onClick={() => switchApi.toggleChecked()}>
+        Toggle externally
+      </Button>
+      <Switch.RootProvider value={switchApi}>
+        <Switch.Control />
+        <Switch.Label>External state owner</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch.RootProvider>
+    </div>
+  );
+}
+
+export function SwitchAsChildExample() {
+  return (
+    <Switch asChild defaultChecked>
+      <label className={styles.siblingRow}>
+        <Switch.Control />
+        <span className={styles.label}>Enable reminders</span>
+        <Switch.HiddenInput />
+      </label>
+    </Switch>
   );
 }
 
 export function CustomIconSwitchExample() {
   return (
-    <SwitchField>
-      <Switch defaultChecked>
-        <SwitchThumb className={styles.customIconThumb}>
+    <Switch defaultChecked>
+      <Switch.Control>
+        <Switch.Thumb className={styles.customIconThumb}>
           <PowerIcon />
-        </SwitchThumb>
-      </Switch>
-      <SwitchLabel>Use custom thumb icon</SwitchLabel>
-    </SwitchField>
-  );
-}
-
-export function SwitchSiblingLabelNativeButtonExample() {
-  const id = useId();
-
-  return (
-    <div className={styles.siblingRow}>
-      <Switch nativeButton render={<button />} id={id} defaultChecked />
-      <label htmlFor={id} className={styles.label}>
-        Receive product updates
-      </label>
-    </div>
-  );
-}
-
-export function SwitchNativeButtonRenderCallbackExample() {
-  return (
-    <Switch
-      defaultChecked
-      nativeButton
-      render={(buttonProps) => (
-        <label className={styles.siblingRow}>
-          <button {...buttonProps} />
-          <span className={styles.label}>Enable reminders</span>
-        </label>
-      )}
-    />
+        </Switch.Thumb>
+      </Switch.Control>
+      <Switch.Label>Use custom thumb icon</Switch.Label>
+      <Switch.HiddenInput />
+    </Switch>
   );
 }
 
 export function SwitchFormIntegrationExample() {
   return (
-    <Field className={styles.formField}>
-      <Field.Label>
-        <Switch defaultChecked />
-        <SwitchLabel>Notifications</SwitchLabel>
-      </Field.Label>
+    <Field invalid className={styles.formField}>
+      <Switch defaultChecked name="notifications" required>
+        <Switch.Control />
+        <Switch.Label>Notifications</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
+      <Field.HelperText>Used for product and account updates.</Field.HelperText>
+      <Field.ErrorText>Notification preference is required.</Field.ErrorText>
     </Field>
   );
 }

@@ -8,8 +8,6 @@ import {
   ProgressLinear,
   Select,
   Switch,
-  SwitchField,
-  SwitchLabel,
   Tabs,
   TabsList,
   TabsPanel,
@@ -126,9 +124,9 @@ function HomeShowcase() {
   const workspaceLabel =
     workspaceOptions.find((item) => item.value === workspaceValue[0])?.label ?? 'Select workspace';
 
-  const handleAutomationChange = (checked: boolean) => {
-    setAutomationEnabled(checked);
-    setProgressValue(checked ? 72 : 38);
+  const handleAutomationChange = (details: { checked: boolean }) => {
+    setAutomationEnabled(details.checked);
+    setProgressValue(details.checked ? 72 : 38);
   };
 
   return (
@@ -176,10 +174,15 @@ function HomeShowcase() {
                 <span className={styles.eyebrow}>Flow health</span>
                 <strong>Toggle and progress in one pass</strong>
               </div>
-              <SwitchField className={styles.switchRow}>
-                <Switch checked={automationEnabled} onCheckedChange={handleAutomationChange} />
-                <SwitchLabel>Auto-review before release</SwitchLabel>
-              </SwitchField>
+              <Switch
+                checked={automationEnabled}
+                onCheckedChange={handleAutomationChange}
+                className={styles.switchRow}
+              >
+                <Switch.Control />
+                <Switch.Label>Auto-review before release</Switch.Label>
+                <Switch.HiddenInput />
+              </Switch>
               <ProgressLinear value={progressValue} className={styles.heroProgress}>
                 <ProgressLinear.Label>Release readiness</ProgressLinear.Label>
                 <ProgressLinear.ValueText />
