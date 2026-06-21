@@ -1,2 +1,10 @@
-export { Tag, TagLabel, TagRemove } from './Tag';
-export type { TagProps, TagSize, TagVariant, TagLabelProps, TagRemoveProps } from './Tag';
+export { Tag } from './Tag';
+export type {
+  TagCloseTriggerProps,
+  TagEndElementProps,
+  TagLabelProps,
+  TagRootProps,
+  TagSize,
+  TagStartElementProps,
+  TagVariant,
+} from './Tag';

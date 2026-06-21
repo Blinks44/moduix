@@ -1,173 +1,147 @@
 # Tag
 
-Upstream primitive docs: there is no dedicated Base UI `Tag` primitive. moduix `Tag` composes a
-native `span` root with a Base UI `Button` for the optional remove action.
+Upstream docs:
+
+- Ark UI: no dedicated `Tag` component; use the Ark composition/factory model at https://ark-ui.com/docs/guides/composition and styling model at https://ark-ui.com/docs/guides/styling
+- Chakra UI: https://chakra-ui.com/docs/components/tag
 
 ## Purpose
 
-`Tag` is a compact value token for selected items, filters, assignments, and other short values that
-may need an inline action.
+`Tag` is a compact value token for selected items, filters, assignments, and other short interface
+values that may need inline leading, trailing, or close affordances.
 
-Use `Badge` for non-interactive metadata. Use `Tag` when the value itself is the object users are
-working with and the UI may need an adjacent remove action.
+## Upstream model to preserve
 
-## Basic usage
+Ark does not ship a `Tag` primitive. The moduix wrapper uses `@ark-ui/react/factory` so each part
+supports Ark-style `asChild`, ref forwarding, `className`, `data-scope`, and `data-part` attributes.
+
+The public anatomy follows Chakra's Ark-aligned `Tag` recipe: `Root`, `Label`, `StartElement`,
+`EndElement`, and `CloseTrigger`. There is no provider, context, state hook, hidden input, managed
+keyboard model, or callback details object to mirror.
+
+## Current behavior contract
+
+- `Tag` is the short root form and is equivalent to `Tag.Root`.
+- `Tag` accepts Ark factory `span` props plus `variant` and `size`.
+- `Tag.Label`, `Tag.StartElement`, and `Tag.EndElement` are Ark factory `span` parts.
+- `Tag.CloseTrigger` is an Ark factory `button` part with default `type="button"` and a default
+  close icon.
+- The component owns no selected or removed state. Parent widgets own list mutation and event
+  handling.
+
+## Anatomy and exported parts
+
+```text
+Tag / Tag.Root
+├─ Tag.StartElement (optional)
+├─ Tag.Label
+└─ Tag.EndElement (optional)
+   └─ Tag.CloseTrigger (optional)
+```
+
+| Part               | Element  | Stable hooks                                                                     |
+| ------------------ | -------- | -------------------------------------------------------------------------------- |
+| `Tag` / `Tag.Root` | `span`   | `data-scope="tag"`, `data-part="root"`, `data-slot="tag-root"`                   |
+| `Tag.Label`        | `span`   | `data-scope="tag"`, `data-part="label"`, `data-slot="tag-label"`                 |
+| `Tag.StartElement` | `span`   | `data-scope="tag"`, `data-part="start-element"`, `data-slot="tag-start-element"` |
+| `Tag.EndElement`   | `span`   | `data-scope="tag"`, `data-part="end-element"`, `data-slot="tag-end-element"`     |
+| `Tag.CloseTrigger` | `button` | `data-scope="tag"`, `data-part="close-trigger"`, `data-slot="tag-close-trigger"` |
+
+## Composition
 
 ```tsx
-import { Tag, TagLabel, TagRemove } from 'moduix';
+import { Tag } from 'moduix';
 
 export function TagDemo() {
   return (
-    <Tag>
-      <TagLabel>TypeScript</TagLabel>
-      <TagRemove aria-label="Remove TypeScript tag" />
+    <Tag variant="outline">
+      <Tag.Label>Billing</Tag.Label>
+      <Tag.EndElement>
+        <Tag.CloseTrigger aria-label="Remove Billing tag" />
+      </Tag.EndElement>
     </Tag>
   );
 }
 ```
 
-## Parts
+Use `Tag.StartElement` and `Tag.EndElement` for icons, avatars, or inline actions so `Tag.Label`
+can remain the truncation boundary.
 
-| Part        | Element        | Data attributes                                     | Purpose                                                  |
-| ----------- | -------------- | --------------------------------------------------- | -------------------------------------------------------- |
-| `Tag`       | `span`         | `data-slot="tag-root"`, `data-size`, `data-variant` | Root token surface and layout wrapper.                   |
-| `TagLabel`  | `span`         | `data-slot="tag-label"`                             | Ellipsized text wrapper for the visible value.           |
-| `TagRemove` | Base UI button | `data-slot="tag-remove"`                            | Optional inline remove action with a default close icon. |
-
-## Public props
-
-### `Tag`
-
-`Tag` accepts native `span` props plus:
-
-| Prop      | Type                                                                | Default     | Notes                                        |
-| --------- | ------------------------------------------------------------------- | ----------- | -------------------------------------------- |
-| `variant` | `'default' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive'` | `'default'` | Sets the visual tone through `data-variant`. |
-| `size`    | `'sm' \| 'md'`                                                      | `'md'`      | Sets the compactness through `data-size`.    |
-
-Exported helper types:
-
-- `TagProps`
-- `TagSize`
-- `TagVariant`
-
-### `TagLabel`
-
-`TagLabel` accepts native `span` props, including `className` and `title`. It exists so long values
-can truncate without clipping icons or `TagRemove`.
-
-### `TagRemove`
-
-`TagRemove` accepts Base UI `Button` props. Important defaults:
-
-| Prop         | Default        | Notes                                                                |
-| ------------ | -------------- | -------------------------------------------------------------------- |
-| `type`       | `'button'`     | Prevents accidental form submission.                                 |
-| `children`   | close icon     | Replaced when custom children are passed.                            |
-| `aria-label` | `'Remove tag'` | Applied only when no children and no `aria-labelledby` are provided. |
-
-Exported helper type: `TagRemoveProps`.
-
-## Composition
-
-The default composition keeps the root non-interactive and makes the inline action explicit:
+Use `asChild` only when the root itself needs native semantics:
 
 ```tsx
-<Tag variant="outline">
-  <TagLabel>Billing</TagLabel>
-  <TagRemove aria-label="Remove Billing tag" onClick={() => remove('billing')} />
+<Tag asChild>
+  <button type="button">
+    <Tag.Label>Open filter</Tag.Label>
+  </button>
 </Tag>
 ```
 
-Leading icons can stay as direct children of `Tag`:
+## Upstream feature coverage
 
-```tsx
-<Tag>
-  <CheckIcon />
-  <TagLabel>Selected</TagLabel>
-</Tag>
-```
+- Chakra `Usage`: covered by `Tag` / `Tag.Root` plus `Tag.Label`.
+- Chakra `Icon`: covered by `Tag.StartElement` and `Tag.EndElement`.
+- Chakra `Variants`: mapped to moduix variants `default`, `secondary`, `outline`, `ghost`, and
+  `destructive`.
+- Chakra `Sizes`: mapped to moduix sizes `sm` and `md`.
+- Chakra `Closable`: covered by `Tag.CloseTrigger` inside `Tag.EndElement`.
+- Chakra `Overflow`: covered by `Tag.Label` truncation and root `max-width` support.
+- Chakra `Avatar`: supported structurally through `Tag.StartElement`; moduix does not add an avatar
+  dependency.
+- Chakra `Render as button`: covered through Ark factory `asChild`.
+- Chakra `Closed Component`: intentionally not exposed as props such as `startElement`, `endElement`,
+  `closable`, or `onClose`; explicit composition is the moduix API.
 
-`Tag` does not own selection state, list behavior, keyboard navigation, or remove callbacks. Keep
-those behaviors in the parent widget.
+## Accessibility and state
 
-## Current behavior contract
+- Root renders a presentational `span` by default and has no ARIA state.
+- `Tag.CloseTrigger` renders a `button`, defaults to `type="button"`, and adds fallback
+  `aria-label="Remove tag"` only when no children and no `aria-labelledby` are provided.
+- Pass a specific accessible name to `Tag.CloseTrigger` when several tags are shown together.
+- `Tag.CloseTrigger` prevents click handlers from firing when `disabled` or `aria-disabled` is true.
+- `asChild` requires one semantic child. The child owns keyboard, focus, and click behavior.
 
-- `Tag` renders a presentational `span` root and never becomes interactive on its own.
-- `TagLabel` is the recommended truncation wrapper for long values.
-- `TagRemove` is explicit composition, not a root-level `onRemove` prop.
-- `TagRemove` defaults to `type="button"` and renders a close icon when `children` are omitted.
-- `TagRemove` only adds the fallback `aria-label="Remove tag"` when no visible children and no
-  `aria-labelledby` are provided.
+## Defaults and styling
 
-## Styling API
+| Surface            | Prop         | Default      |
+| ------------------ | ------------ | ------------ |
+| `Tag`              | `variant`    | `default`    |
+| `Tag`              | `size`       | `md`         |
+| `Tag.CloseTrigger` | `type`       | `button`     |
+| `Tag.CloseTrigger` | `children`   | close icon   |
+| `Tag.CloseTrigger` | `aria-label` | `Remove tag` |
 
-Use `className` on `Tag`, `TagLabel`, or `TagRemove` for local styling. Stable selectors:
+Public CSS variables live in `packages/ui/src/styles/theme.css` and start with `--tag-*`. Variant
+colors intentionally match `Badge` so shared variant names carry the same visual meaning across
+compact token components. Close-trigger variables use the `--tag-close-trigger-*` prefix. Consumers
+can style parts through `className`, `data-scope`, `data-part`, and `data-slot`.
 
-- `data-slot="tag-root"`
-- `data-slot="tag-label"`
-- `data-slot="tag-remove"`
-- `data-size="sm" | "md"`
-- `data-variant="default" | "secondary" | "outline" | "ghost" | "destructive"`
+`Tag` writes `data-size` and `data-variant`. `Tag.CloseTrigger` writes `data-disabled` for disabled
+or `aria-disabled` states.
 
-Direct child `svg` icons on `Tag` use `--tag-icon-size`. `TagRemove` sizes its own icon with
-`--tag-remove-icon-size`.
+## Intentional sugar and differences from upstream
 
-Public CSS variables:
-
-| Variable                               | Default                                                         | Applies to                  |
-| -------------------------------------- | --------------------------------------------------------------- | --------------------------- |
-| `--tag-bg`                             | `color-mix(in oklab, var(--color-primary) 8%, transparent)`     | `Tag`                       |
-| `--tag-border-color`                   | `color-mix(in oklab, var(--color-foreground) 10%, transparent)` | `Tag`                       |
-| `--tag-border-width`                   | `var(--border-width-sm)`                                        | `Tag`                       |
-| `--tag-color`                          | `var(--color-foreground)`                                       | `Tag`                       |
-| `--tag-disabled-opacity`               | `var(--opacity-disabled)`                                       | `TagRemove`                 |
-| `--tag-font-size`                      | `var(--text-xs)`                                                | `Tag`                       |
-| `--tag-font-weight`                    | `var(--weight-medium)`                                          | `Tag`                       |
-| `--tag-gap`                            | `0.375rem`                                                      | `Tag`                       |
-| `--tag-gap-sm`                         | `0.25rem`                                                       | `Tag` with `size="sm"`      |
-| `--tag-height-md`                      | `1.5rem`                                                        | `Tag` with `size="md"`      |
-| `--tag-height-sm`                      | `1.25rem`                                                       | `Tag` with `size="sm"`      |
-| `--tag-icon-size`                      | `0.75rem`                                                       | direct child `svg` on `Tag` |
-| `--tag-line-height`                    | `var(--line-height-text-xs)`                                    | `Tag`                       |
-| `--tag-padding-x-md`                   | `0.5rem`                                                        | `Tag` with `size="md"`      |
-| `--tag-padding-x-sm`                   | `0.375rem`                                                      | `Tag` with `size="sm"`      |
-| `--tag-padding-y-md`                   | `0.125rem`                                                      | `Tag` with `size="md"`      |
-| `--tag-padding-y-sm`                   | `0`                                                             | `Tag` with `size="sm"`      |
-| `--tag-radius`                         | `var(--radius-full)`                                            | `Tag`                       |
-| `--tag-remove-bg`                      | `transparent`                                                   | `TagRemove`                 |
-| `--tag-remove-bg-hover`                | `color-mix(in oklab, currentColor 12%, transparent)`            | `TagRemove`                 |
-| `--tag-remove-focus-ring-color`        | `var(--color-ring)`                                             | `TagRemove`                 |
-| `--tag-remove-focus-ring-offset`       | `0`                                                             | `TagRemove`                 |
-| `--tag-remove-focus-ring-offset-color` | `transparent`                                                   | `TagRemove`                 |
-| `--tag-remove-focus-ring-width`        | `var(--border-width-sm)`                                        | `TagRemove`                 |
-| `--tag-remove-icon-size`               | `0.625rem`                                                      | `TagRemove`                 |
-| `--tag-remove-radius`                  | `var(--radius-full)`                                            | `TagRemove`                 |
-| `--tag-remove-size`                    | `1rem`                                                          | `TagRemove`                 |
-| `--tag-transition`                     | `var(--transition-default)`                                     | `Tag`, `TagRemove`          |
-
-## UX and accessibility
-
-- Keep the visible value in text, not only in color or icon.
-- `TagRemove` should get a specific accessible name when several removable tags are shown together.
-- The root `Tag` is presentational. If the whole token needs click semantics, use a real button or
-  link wrapper instead of attaching interaction to the `span`.
-- `TagLabel` is the recommended truncation point for long values.
-
-## Intentional differences from Base UI
-
-- There is no upstream Base UI `Tag` primitive; this is a moduix composition wrapper.
-- moduix ships a dedicated inline remove part so the common dismissible-token path does not require
-  manual button styling every time.
-- The root stays non-interactive by default even when `TagRemove` is present.
+- moduix keeps local visual variants instead of Chakra `colorPalette` and `surface/subtle/solid`
+  variants so the component matches the existing moduix token language.
+- moduix exposes explicit namespaced parts only. Flat `TagLabel` and `TagRemove` exports were removed.
+- `TagRemove` was renamed to `Tag.CloseTrigger` to match Chakra/Ark part naming.
+- `Tag.CloseTrigger` supplies the default close icon and fallback accessible name.
 
 ## Agent notes
 
-- Keep `Tag` distinct from `Badge`: tag is for values and selected entities, badge is for metadata.
-- Preserve the explicit `TagRemove` composition path instead of adding wrapper-level remove props.
-- If variants, sizing, or styling hooks change, update stories and this file together.
+- Keep `Tag` distinct from `Badge`: tag is for selected values and managed interface entities; badge
+  is for metadata.
+- Do not add root-level `onClose`, `closable`, `startElement`, or `endElement` props. Use composition.
+- If new parts are added, keep `data-scope="tag"`, Ark-style `data-part`, and stable `data-slot`
+  hooks synchronized across code, stories, docs, and registry.
 
 ## Local changelog
 
+- 2026-06-21: Migrated from Base UI button composition to Ark factory parts, added namespace API
+  (`Tag.Root`, `Tag.Label`, `Tag.StartElement`, `Tag.EndElement`, `Tag.CloseTrigger`), added
+  `asChild`, renamed remove styling variables to `--tag-close-trigger-*`, and removed flat legacy
+  exports.
+- 2026-06-21: Aligned built-in `Tag` variant colors with `Badge` so `default`, `secondary`,
+  `outline`, `ghost`, and `destructive` share the same color semantics.
 - Added the first `Tag` component with root, label, and remove parts, compact size variants, and
   public CSS variables for token-style customization.

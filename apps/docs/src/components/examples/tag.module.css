@@ -9,11 +9,16 @@
   max-width: 18rem;
 }
 
+.buttonTag {
+  appearance: none;
+  cursor: pointer;
+}
+
 .customSoft {
   --tag-bg: color-mix(in oklab, var(--color-primary) 16%, var(--color-background));
   --tag-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
   --tag-color: var(--color-primary);
-  --tag-remove-bg-hover: color-mix(in oklab, var(--color-primary) 18%, transparent);
+  --tag-close-trigger-bg-hover: color-mix(in oklab, var(--color-primary) 18%, transparent);
 }
 
 .customOutline {

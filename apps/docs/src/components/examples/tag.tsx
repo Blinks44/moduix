@@ -1,26 +1,32 @@
 import type { TagVariant } from 'moduix';
 import type { ComponentProps } from 'react';
-import { CheckIcon, Tag, TagLabel, TagRemove } from 'moduix';
+import { CheckIcon, Tag } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './tag.module.css';
 
 const variants = ['default', 'secondary', 'outline', 'ghost', 'destructive'] satisfies TagVariant[];
+const sizes = [
+  { label: 'Compact', size: 'sm' },
+  { label: 'Default', size: 'md' },
+] satisfies { label: string; size: ComponentProps<typeof Tag>['size'] }[];
+const removableTags = [
+  { label: 'TypeScript', variant: 'default' },
+  { label: 'Design review', variant: 'secondary' },
+  { label: 'Needs approval', variant: 'outline', disabled: true },
+] satisfies { label: string; variant: TagVariant; disabled?: boolean }[];
+const iconTags = [
+  { label: 'Selected', variant: 'default', removable: false },
+  { label: 'Deployed', variant: 'outline', removable: true },
+] satisfies { label: string; variant: TagVariant; removable: boolean }[];
+const longTagLabel = 'Ready for stakeholder review after legal approval';
 
 const tagCssProperties: CssPropertyInput[] = [
-  [
-    '--tag-bg',
-    'color-mix(in oklab, var(--color-primary) 8%, transparent)',
-    'Controls tag background color.',
-  ],
-  [
-    '--tag-border-color',
-    'color-mix(in oklab, var(--color-foreground) 10%, transparent)',
-    'Controls tag border color.',
-  ],
+  ['--tag-bg', 'var(--color-primary)', 'Controls tag background color.'],
+  ['--tag-border-color', 'transparent', 'Controls tag border color.'],
   ['--tag-border-width', 'var(--border-width-sm)', 'Controls tag border width.'],
-  ['--tag-color', 'var(--color-foreground)', 'Controls tag text and icon color.'],
-  ['--tag-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled remove button opacity.'],
+  ['--tag-color', 'var(--color-primary-foreground)', 'Controls tag text and icon color.'],
+  ['--tag-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled close trigger opacity.'],
   ['--tag-font-size', 'var(--text-xs)', 'Controls tag font size.'],
   ['--tag-font-weight', 'var(--weight-medium)', 'Controls tag font weight.'],
   ['--tag-gap', '0.375rem', 'Controls space between tag children at md size.'],
@@ -34,32 +40,32 @@ const tagCssProperties: CssPropertyInput[] = [
   ['--tag-padding-y-sm', '0', 'Controls sm vertical padding.'],
   ['--tag-padding-y-md', '0.125rem', 'Controls md vertical padding.'],
   ['--tag-radius', 'var(--radius-full)', 'Controls tag border radius.'],
-  ['--tag-remove-bg', 'transparent', 'Controls remove button background color.'],
+  ['--tag-close-trigger-bg', 'transparent', 'Controls close trigger background color.'],
   [
-    '--tag-remove-bg-hover',
+    '--tag-close-trigger-bg-hover',
     'color-mix(in oklab, currentColor 12%, transparent)',
-    'Controls remove button hover background color.',
+    'Controls close trigger hover background color.',
   ],
   [
-    '--tag-remove-focus-ring-color',
+    '--tag-close-trigger-focus-ring-color',
     'var(--color-ring)',
-    'Controls remove button focus ring color.',
+    'Controls close trigger focus ring color.',
   ],
-  ['--tag-remove-focus-ring-offset', '0', 'Controls remove button focus ring offset.'],
+  ['--tag-close-trigger-focus-ring-offset', '0', 'Controls close trigger focus ring offset.'],
   [
-    '--tag-remove-focus-ring-offset-color',
+    '--tag-close-trigger-focus-ring-offset-color',
     'transparent',
-    'Controls remove button focus ring offset color.',
+    'Controls close trigger focus ring offset color.',
   ],
   [
-    '--tag-remove-focus-ring-width',
+    '--tag-close-trigger-focus-ring-width',
     'var(--border-width-sm)',
-    'Controls remove button focus ring width.',
+    'Controls close trigger focus ring width.',
   ],
-  ['--tag-remove-icon-size', '0.625rem', 'Controls remove icon size.'],
-  ['--tag-remove-radius', 'var(--radius-full)', 'Controls remove button border radius.'],
-  ['--tag-remove-size', '1rem', 'Controls remove button size.'],
-  ['--tag-transition', 'var(--transition-default)', 'Controls tag and remove button transitions.'],
+  ['--tag-close-trigger-icon-size', '0.625rem', 'Controls close trigger icon size.'],
+  ['--tag-close-trigger-radius', 'var(--radius-full)', 'Controls close trigger border radius.'],
+  ['--tag-close-trigger-size', '1rem', 'Controls close trigger size.'],
+  ['--tag-transition', 'var(--transition-default)', 'Controls tag and trigger transitions.'],
 ];
 
 export function TagCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -77,7 +83,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
 export function TagExample(props: ComponentProps<typeof Tag>) {
   return (
     <Tag {...props}>
-      <TagLabel>TypeScript</TagLabel>
+      <Tag.Label>TypeScript</Tag.Label>
     </Tag>
   );
 }
@@ -87,7 +93,7 @@ export function TagVariantsExample() {
     <div className={styles.row}>
       {variants.map((variant) => (
         <Tag key={variant} variant={variant}>
-          <TagLabel>{variant}</TagLabel>
+          <Tag.Label>{variant}</Tag.Label>
         </Tag>
       ))}
     </div>
@@ -97,12 +103,11 @@ export function TagVariantsExample() {
 export function TagSizesExample() {
   return (
     <div className={styles.row}>
-      <Tag size="sm">
-        <TagLabel>Compact</TagLabel>
-      </Tag>
-      <Tag>
-        <TagLabel>Default</TagLabel>
-      </Tag>
+      {sizes.map((tag) => (
+        <Tag key={tag.size} size={tag.size}>
+          <Tag.Label>{tag.label}</Tag.Label>
+        </Tag>
+      ))}
     </div>
   );
 }
@@ -110,18 +115,14 @@ export function TagSizesExample() {
 export function RemovableTagExample() {
   return (
     <div className={styles.row}>
-      <Tag>
-        <TagLabel>TypeScript</TagLabel>
-        <TagRemove aria-label="Remove TypeScript tag" />
-      </Tag>
-      <Tag variant="secondary">
-        <TagLabel>Design review</TagLabel>
-        <TagRemove aria-label="Remove design review tag" />
-      </Tag>
-      <Tag variant="outline">
-        <TagLabel>Needs approval</TagLabel>
-        <TagRemove disabled />
-      </Tag>
+      {removableTags.map((tag) => (
+        <Tag key={tag.label} variant={tag.variant}>
+          <Tag.Label>{tag.label}</Tag.Label>
+          <Tag.EndElement>
+            <Tag.CloseTrigger disabled={tag.disabled} aria-label={`Remove ${tag.label} tag`} />
+          </Tag.EndElement>
+        </Tag>
+      ))}
     </div>
   );
 }
@@ -129,15 +130,19 @@ export function RemovableTagExample() {
 export function TagWithLeadingIconExample() {
   return (
     <div className={styles.row}>
-      <Tag>
-        <CheckIcon />
-        <TagLabel>Selected</TagLabel>
-      </Tag>
-      <Tag variant="outline">
-        <CheckIcon />
-        <TagLabel>Deployed</TagLabel>
-        <TagRemove aria-label="Remove deployed tag" />
-      </Tag>
+      {iconTags.map((tag) => (
+        <Tag key={tag.label} variant={tag.variant}>
+          <Tag.StartElement>
+            <CheckIcon />
+          </Tag.StartElement>
+          <Tag.Label>{tag.label}</Tag.Label>
+          {tag.removable ? (
+            <Tag.EndElement>
+              <Tag.CloseTrigger aria-label={`Remove ${tag.label} tag`} />
+            </Tag.EndElement>
+          ) : null}
+        </Tag>
+      ))}
     </div>
   );
 }
@@ -145,10 +150,20 @@ export function TagWithLeadingIconExample() {
 export function TagTruncatedExample() {
   return (
     <Tag className={styles.constrained}>
-      <TagLabel title="Ready for stakeholder review after legal approval">
-        Ready for stakeholder review after legal approval
-      </TagLabel>
-      <TagRemove aria-label="Remove long tag" />
+      <Tag.Label title={longTagLabel}>{longTagLabel}</Tag.Label>
+      <Tag.EndElement>
+        <Tag.CloseTrigger aria-label="Remove long tag" />
+      </Tag.EndElement>
+    </Tag>
+  );
+}
+
+export function TagAsChildExample() {
+  return (
+    <Tag asChild variant="outline">
+      <button className={styles.buttonTag} type="button">
+        <Tag.Label>Open filter</Tag.Label>
+      </button>
     </Tag>
   );
 }
@@ -157,12 +172,16 @@ export function CustomTagExample() {
   return (
     <div className={styles.row}>
       <Tag className={styles.customSoft}>
-        <CheckIcon />
-        <TagLabel>Priority</TagLabel>
-        <TagRemove aria-label="Remove priority tag" />
+        <Tag.StartElement>
+          <CheckIcon />
+        </Tag.StartElement>
+        <Tag.Label>Priority</Tag.Label>
+        <Tag.EndElement>
+          <Tag.CloseTrigger aria-label="Remove priority tag" />
+        </Tag.EndElement>
       </Tag>
       <Tag className={styles.customOutline} variant="outline">
-        <TagLabel>Customer-facing</TagLabel>
+        <Tag.Label>Customer-facing</Tag.Label>
       </Tag>
     </div>
   );

@@ -1954,10 +1954,10 @@
   --switch-width-xl: initial; /* 3.5rem */
 
   /* Tag */
-  --tag-bg: initial; /* color-mix(in oklab, var(--color-primary) 8%, transparent) */
-  --tag-border-color: initial; /* color-mix(in oklab, var(--color-foreground) 10%, transparent) */
+  --tag-bg: initial; /* var(--color-primary) */
+  --tag-border-color: initial; /* transparent */
   --tag-border-width: initial; /* var(--border-width-sm) */
-  --tag-color: initial; /* var(--color-foreground) */
+  --tag-color: initial; /* var(--color-primary-foreground) */
   --tag-disabled-opacity: initial; /* var(--opacity-disabled) */
   --tag-font-size: initial; /* var(--text-xs) */
   --tag-font-weight: initial; /* var(--weight-medium) */
@@ -1972,15 +1972,15 @@
   --tag-padding-y-sm: initial; /* 0 */
   --tag-padding-y-md: initial; /* 0.125rem */
   --tag-radius: initial; /* var(--radius-full) */
-  --tag-remove-bg: initial; /* transparent */
-  --tag-remove-bg-hover: initial; /* color-mix(in oklab, currentColor 12%, transparent) */
-  --tag-remove-focus-ring-color: initial; /* var(--color-ring) */
-  --tag-remove-focus-ring-offset: initial; /* 0 */
-  --tag-remove-focus-ring-offset-color: initial; /* transparent */
-  --tag-remove-focus-ring-width: initial; /* var(--border-width-sm) */
-  --tag-remove-icon-size: initial; /* 0.625rem */
-  --tag-remove-radius: initial; /* var(--radius-full) */
-  --tag-remove-size: initial; /* 1rem */
+  --tag-close-trigger-bg: initial; /* transparent */
+  --tag-close-trigger-bg-hover: initial; /* color-mix(in oklab, currentColor 12%, transparent) */
+  --tag-close-trigger-focus-ring-color: initial; /* var(--color-ring) */
+  --tag-close-trigger-focus-ring-offset: initial; /* 0 */
+  --tag-close-trigger-focus-ring-offset-color: initial; /* transparent */
+  --tag-close-trigger-focus-ring-width: initial; /* var(--border-width-sm) */
+  --tag-close-trigger-icon-size: initial; /* 0.625rem */
+  --tag-close-trigger-radius: initial; /* var(--radius-full) */
+  --tag-close-trigger-size: initial; /* 1rem */
   --tag-transition: initial; /* var(--transition-default) */
 
   /* Table */

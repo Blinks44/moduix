@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
 import type { TagVariant } from './Tag';
-import { Tag, TagLabel, TagRemove } from './Tag';
+import { Tag } from './Tag';
 import styles from './Tag.stories.module.css';
 
 const meta = {
@@ -30,7 +30,7 @@ export const Variants: Story = {
       <div className={styles.row}>
         {variants.map((variant) => (
           <Tag key={variant} variant={variant}>
-            <TagLabel>{variant}</TagLabel>
+            <Tag.Label>{variant}</Tag.Label>
           </Tag>
         ))}
       </div>
@@ -43,10 +43,10 @@ export const Sizes: Story = {
     return (
       <div className={styles.row}>
         <Tag size="sm">
-          <TagLabel>Compact</TagLabel>
+          <Tag.Label>Compact</Tag.Label>
         </Tag>
         <Tag size="md">
-          <TagLabel>Default</TagLabel>
+          <Tag.Label>Default</Tag.Label>
         </Tag>
       </div>
     );
@@ -58,16 +58,22 @@ export const Removable: Story = {
     return (
       <div className={styles.row}>
         <Tag>
-          <TagLabel>TypeScript</TagLabel>
-          <TagRemove />
+          <Tag.Label>TypeScript</Tag.Label>
+          <Tag.EndElement>
+            <Tag.CloseTrigger />
+          </Tag.EndElement>
         </Tag>
         <Tag variant="secondary">
-          <TagLabel>Design review</TagLabel>
-          <TagRemove aria-label="Remove design review tag" />
+          <Tag.Label>Design review</Tag.Label>
+          <Tag.EndElement>
+            <Tag.CloseTrigger aria-label="Remove design review tag" />
+          </Tag.EndElement>
         </Tag>
         <Tag variant="outline">
-          <TagLabel>Needs approval</TagLabel>
-          <TagRemove disabled />
+          <Tag.Label>Needs approval</Tag.Label>
+          <Tag.EndElement>
+            <Tag.CloseTrigger disabled />
+          </Tag.EndElement>
         </Tag>
       </div>
     );
@@ -79,13 +85,19 @@ export const WithLeadingIcon: Story = {
     return (
       <div className={styles.row}>
         <Tag>
-          <CheckIcon />
-          <TagLabel>Selected</TagLabel>
+          <Tag.StartElement>
+            <CheckIcon />
+          </Tag.StartElement>
+          <Tag.Label>Selected</Tag.Label>
         </Tag>
         <Tag variant="outline">
-          <CheckIcon />
-          <TagLabel>Deployed</TagLabel>
-          <TagRemove />
+          <Tag.StartElement>
+            <CheckIcon />
+          </Tag.StartElement>
+          <Tag.Label>Deployed</Tag.Label>
+          <Tag.EndElement>
+            <Tag.CloseTrigger />
+          </Tag.EndElement>
         </Tag>
       </div>
     );
@@ -96,10 +108,24 @@ export const TruncatedLabel: Story = {
   render: () => {
     return (
       <Tag className={styles.constrained}>
-        <TagLabel title="Ready for stakeholder review after legal approval">
+        <Tag.Label title="Ready for stakeholder review after legal approval">
           Ready for stakeholder review after legal approval
-        </TagLabel>
-        <TagRemove />
+        </Tag.Label>
+        <Tag.EndElement>
+          <Tag.CloseTrigger />
+        </Tag.EndElement>
+      </Tag>
+    );
+  },
+};
+
+export const RenderAsButton: Story = {
+  render: () => {
+    return (
+      <Tag asChild variant="outline">
+        <button className={styles.buttonTag} type="button">
+          <Tag.Label>Open filter</Tag.Label>
+        </button>
       </Tag>
     );
   },
@@ -110,12 +136,16 @@ export const CustomStyling: Story = {
     return (
       <div className={styles.row}>
         <Tag className={styles.customSoft}>
-          <CheckIcon />
-          <TagLabel>Priority</TagLabel>
-          <TagRemove />
+          <Tag.StartElement>
+            <CheckIcon />
+          </Tag.StartElement>
+          <Tag.Label>Priority</Tag.Label>
+          <Tag.EndElement>
+            <Tag.CloseTrigger />
+          </Tag.EndElement>
         </Tag>
         <Tag className={styles.customOutline} variant="outline">
-          <TagLabel>Customer-facing</TagLabel>
+          <Tag.Label>Customer-facing</Tag.Label>
         </Tag>
       </div>
     );

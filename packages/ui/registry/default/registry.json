@@ -1417,7 +1417,7 @@
       "type": "registry:item",
       "title": "Tag",
       "description": "moduix Tag component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

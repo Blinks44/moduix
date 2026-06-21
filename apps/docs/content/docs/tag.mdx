@@ -1,12 +1,13 @@
 ---
 title: Tag
-description: A compact token for selected values, filters, and assignments with an optional remove action.
+description: A compact token for selected values, filters, and assignments with optional leading, trailing, and close parts.
 icon: Component
 ---
 
 import {
   CustomTagExample,
   RemovableTagExample,
+  TagAsChildExample,
   TagCssPropertiesPanel,
   TagExample,
   TagSizesExample,
@@ -17,9 +18,7 @@ import {
 
 ## API Reference
 
-`Tag` is a standalone moduix component for selected values, filters, assignees, and other compact
-state tokens. There is no dedicated Ark UI `Tag` primitive; `TagRemove` composes the shipped primitive
-button when the token needs an explicit inline remove action.
+There is no dedicated Ark UI `Tag` primitive, so moduix owns this component contract and builds it with the Ark [`ark` factory](https://ark-ui.com/docs/guides/composition) and Ark [styling attributes](https://ark-ui.com/docs/guides/styling). Its part model follows the Chakra UI [`Tag`](https://chakra-ui.com/docs/components/tag) recipe: `Root`, `Label`, `StartElement`, `EndElement`, and `CloseTrigger`.
 
 ## Choosing the right component
 
@@ -31,26 +30,36 @@ removed, reordered, or managed as part of the current interface state.
 
 ## Basic
 
-Start with `Tag` and `TagLabel`. Add `TagRemove` only when the surrounding UI actually supports
-removing the token.
+Start with the short root form and `Tag.Label`. Add other parts only when the token needs icons or
+an inline close action.
 
 <Preview>
   <TagExample />
 
   <Preview.Code>
     {`
-      import { Tag, TagLabel } from "moduix";
+      import { Tag } from "moduix";
 
       export function TagDemo() {
         return (
           <Tag>
-            <TagLabel>TypeScript</TagLabel>
+            <Tag.Label>TypeScript</Tag.Label>
           </Tag>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const label = "TypeScript";`}
+
+  </Preview.Data>
+
+  <Preview.CSS>
+    {`      /* No custom styles are required. */`}
+
+  </Preview.CSS>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -101,69 +110,67 @@ styles, icons, and small utilities.
 
 ## Anatomy
 
-The public structure stays small and keeps the remove action explicit.
+The root is also exported as `Tag.Root` for namespace consistency with multipart Ark-style
+components.
 
 ```text
-Tag
-├─ svg icon (optional)
-├─ TagLabel
-└─ TagRemove (optional)
+Tag / Tag.Root
+├─ Tag.StartElement (optional)
+├─ Tag.Label
+└─ Tag.EndElement (optional)
+   └─ Tag.CloseTrigger (optional)
 ```
 
-| Part        | Role                                                                |
-| ----------- | ------------------------------------------------------------------- |
-| `Tag`       | Root slot. Applies token layout, border, size, and variant styling. |
-| `TagLabel`  | Truncation wrapper for the visible token value.                     |
-| `TagRemove` | Optional inline action for dismissing or removing the token.        |
+| Part               | Role                                                                               |
+| ------------------ | ---------------------------------------------------------------------------------- |
+| `Tag` / `Tag.Root` | Root slot. Applies token layout, border, size, variant, and `asChild` composition. |
+| `Tag.Label`        | Truncation wrapper for the visible token value.                                    |
+| `Tag.StartElement` | Optional leading slot for icons, avatars, or status markers.                       |
+| `Tag.EndElement`   | Optional trailing slot for icons or actions.                                       |
+| `Tag.CloseTrigger` | Optional button action for dismissing or removing the token.                       |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with `Tag`, `TagLabel`, and `TagRemove` for selected values, filter chips, assignees, and
-other token-like UI.
-
-Use `variant` for the built-in tones: `default`, `secondary`, `outline`, `ghost`, and
-`destructive`. Use `size="sm"` for denser rows of tokens.
-
-Keep long visible values inside `TagLabel` so truncation happens on the label instead of clipping
-icons or the remove button.
+Keep token text in `Tag.Label`. Put decorative or supporting elements in `Tag.StartElement` and
+`Tag.EndElement`, and put `Tag.CloseTrigger` inside `Tag.EndElement` when the token is removable.
 
 ### When to go custom
 
-Switch to `className` overrides and local CSS variables when the token needs a different tone,
-spacing, or inline remove treatment. `Tag` stays a presentational `span`, so there is no separate
-low-level composition path to learn.
+Use `asChild` when the root itself needs native button or link semantics. The child must be a single
+semantic element, and it owns the interaction behavior.
 
 ### Default props
 
-| Surface     | Prop         | Default      | Values / Notes                                                                |
-| ----------- | ------------ | ------------ | ----------------------------------------------------------------------------- |
-| `Tag`       | `variant`    | `default`    | `default`, `secondary`, `outline`, `ghost`, `destructive`                     |
-| `Tag`       | `size`       | `md`         | `sm`, `md`                                                                    |
-| `TagRemove` | `type`       | `button`     | Prevents accidental form submission                                           |
-| `TagRemove` | `children`   | close icon   | Replaced when custom children are passed                                      |
-| `TagRemove` | `aria-label` | `Remove tag` | Applied only when there are no custom children and no `aria-labelledby` value |
+| Surface            | Prop         | Default      | Notes                                                          |
+| ------------------ | ------------ | ------------ | -------------------------------------------------------------- |
+| `Tag`              | `variant`    | `default`    | `default`, `secondary`, `outline`, `ghost`, `destructive`      |
+| `Tag`              | `size`       | `md`         | `sm`, `md`                                                     |
+| `Tag.CloseTrigger` | `type`       | `button`     | Prevents accidental form submission when not using `asChild`.  |
+| `Tag.CloseTrigger` | `children`   | close icon   | Replaced when custom children are passed.                      |
+| `Tag.CloseTrigger` | `aria-label` | `Remove tag` | Applied only with no custom children and no `aria-labelledby`. |
 
 ### Behavioral notes
 
-- `Tag` is presentational and never becomes interactive on its own.
-- `TagRemove` is explicit composition, not a root-level `onRemove` prop.
-- `TagRemove` uses `Button` semantics, so give it a specific accessible name when several removable tags appear together.
-- Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and use `--tag-icon-size`.
+- `Tag` has no owned state, callbacks, keyboard roving, or form behavior.
+- `Tag.CloseTrigger` is explicit composition, not a root-level `onClose` prop.
+- Built-in variants use the same color semantics as `Badge`; `Tag` differs by part anatomy and close affordance.
+- Give each close trigger a specific accessible name when several removable tags appear together.
+- `asChild` follows Ark factory composition and requires one child element.
 
 ## Examples
 
 ### Variants
 
-Use the built-in variants for the common visual tones.
+Use the built-in variants for common moduix tones while keeping the same part structure.
 
 <Preview>
   <TagVariantsExample />
 
   <Preview.Code>
     {`
-      import { Tag, TagLabel } from "moduix";
+      import { Tag } from "moduix";
       import styles from "./tag-demo.module.css";
 
       const variants = ["default", "secondary", "outline", "ghost", "destructive"] as const;
@@ -173,7 +180,7 @@ Use the built-in variants for the common visual tones.
           <div className={styles.row}>
             {variants.map((variant) => (
               <Tag key={variant} variant={variant}>
-                <TagLabel>{variant}</TagLabel>
+                <Tag.Label>{variant}</Tag.Label>
               </Tag>
             ))}
           </div>
@@ -203,31 +210,45 @@ Use the built-in variants for the common visual tones.
 
 ### Sizes
 
-Use `size="sm"` for denser token rows.
+Use `size="sm"` for dense token rows and keep the default `md` size for standalone tokens.
 
 <Preview>
   <TagSizesExample />
 
   <Preview.Code>
     {`
-      import { Tag, TagLabel } from "moduix";
+      import { Tag } from "moduix";
       import styles from "./tag-demo.module.css";
+
+      const sizes = [
+        { label: "Compact", size: "sm" },
+        { label: "Default", size: "md" },
+      ] as const;
 
       export function TagSizesDemo() {
         return (
           <div className={styles.row}>
-            <Tag size="sm">
-              <TagLabel>Compact</TagLabel>
-            </Tag>
-            <Tag>
-              <TagLabel>Default</TagLabel>
-            </Tag>
+            {sizes.map((tag) => (
+              <Tag key={tag.size} size={tag.size}>
+                <Tag.Label>{tag.label}</Tag.Label>
+              </Tag>
+            ))}
           </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const sizes = [
+        { label: "Compact", size: "sm" },
+        { label: "Default", size: "md" },
+      ] as const;
+    `}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`
@@ -242,35 +263,53 @@ Use `size="sm"` for denser token rows.
   </Preview.CSS>
 </Preview>
 
-### Removable Tags
+### Closable
 
-Render `TagRemove` only when the surrounding UI actually supports removing the token.
+Use `Tag.EndElement` with `Tag.CloseTrigger` for removable values. The parent widget owns removal
+state and click handling.
 
 <Preview>
   <RemovableTagExample />
 
   <Preview.Code>
     {`
-      import { Tag, TagLabel, TagRemove } from "moduix";
+      import { Tag } from "moduix";
       import styles from "./tag-demo.module.css";
+
+      const tags = [
+        { label: "TypeScript", variant: "default" },
+        { label: "Design review", variant: "secondary" },
+        { label: "Needs approval", variant: "outline", disabled: true },
+      ] as const;
 
       export function RemovableTagDemo() {
         return (
           <div className={styles.row}>
-            <Tag>
-              <TagLabel>TypeScript</TagLabel>
-              <TagRemove aria-label="Remove TypeScript tag" />
-            </Tag>
-            <Tag variant="secondary">
-              <TagLabel>Design review</TagLabel>
-              <TagRemove aria-label="Remove design review tag" />
-            </Tag>
+            {tags.map((tag) => (
+              <Tag key={tag.label} variant={tag.variant}>
+                <Tag.Label>{tag.label}</Tag.Label>
+                <Tag.EndElement>
+                  <Tag.CloseTrigger disabled={tag.disabled} aria-label={\`Remove \${tag.label} tag\`} />
+                </Tag.EndElement>
+              </Tag>
+            ))}
           </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const tags = [
+        { label: "TypeScript", variant: "default" },
+        { label: "Design review", variant: "secondary" },
+        { label: "Needs approval", variant: "outline", disabled: true },
+      ] as const;
+    `}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`
@@ -285,36 +324,56 @@ Render `TagRemove` only when the surrounding UI actually supports removing the t
   </Preview.CSS>
 </Preview>
 
-### Leading Icons
+### Icon
 
-Place a direct child icon before the label when the token benefits from a second visual cue.
+Use `Tag.StartElement` and `Tag.EndElement` for icon slots so label truncation and action sizing stay
+independent.
 
 <Preview>
   <TagWithLeadingIconExample />
 
   <Preview.Code>
     {`
-      import { CheckIcon, Tag, TagLabel, TagRemove } from "moduix";
+      import { CheckIcon, Tag } from "moduix";
       import styles from "./tag-demo.module.css";
 
-      export function TagWithLeadingIconDemo() {
+      const tags = [
+        { label: "Selected", variant: "default", removable: false },
+        { label: "Deployed", variant: "outline", removable: true },
+      ] as const;
+
+      export function TagWithIconDemo() {
         return (
           <div className={styles.row}>
-            <Tag>
-              <CheckIcon />
-              <TagLabel>Selected</TagLabel>
-            </Tag>
-            <Tag variant="outline">
-              <CheckIcon />
-              <TagLabel>Deployed</TagLabel>
-              <TagRemove aria-label="Remove deployed tag" />
-            </Tag>
+            {tags.map((tag) => (
+              <Tag key={tag.label} variant={tag.variant}>
+                <Tag.StartElement>
+                  <CheckIcon />
+                </Tag.StartElement>
+                <Tag.Label>{tag.label}</Tag.Label>
+                {tag.removable ? (
+                  <Tag.EndElement>
+                    <Tag.CloseTrigger aria-label={\`Remove \${tag.label} tag\`} />
+                  </Tag.EndElement>
+                ) : null}
+              </Tag>
+            ))}
           </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const tags = [
+        { label: "Selected", variant: "default", removable: false },
+        { label: "Deployed", variant: "outline", removable: true },
+      ] as const;
+    `}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`
@@ -329,26 +388,28 @@ Place a direct child icon before the label when the token benefits from a second
   </Preview.CSS>
 </Preview>
 
-### Long Labels
+### Overflow
 
-Use `TagLabel` as the truncation point for longer token values. Add `title` when the full text
-should remain discoverable.
+Use `Tag.Label` as the truncation point for long values. Add `title` when the full text should
+remain discoverable.
 
 <Preview>
   <TagTruncatedExample />
 
   <Preview.Code>
     {`
-      import { Tag, TagLabel, TagRemove } from "moduix";
+      import { Tag } from "moduix";
       import styles from "./tag-demo.module.css";
+
+      const label = "Ready for stakeholder review after legal approval";
 
       export function TagTruncatedDemo() {
         return (
           <Tag className={styles.constrained}>
-            <TagLabel title="Ready for stakeholder review after legal approval">
-              Ready for stakeholder review after legal approval
-            </TagLabel>
-            <TagRemove aria-label="Remove long tag" />
+            <Tag.Label title={label}>{label}</Tag.Label>
+            <Tag.EndElement>
+              <Tag.CloseTrigger aria-label="Remove long tag" />
+            </Tag.EndElement>
           </Tag>
         );
       }
@@ -356,10 +417,57 @@ should remain discoverable.
 
   </Preview.Code>
 
+  <Preview.Data>
+    {`      const label = "Ready for stakeholder review after legal approval";`}
+
+  </Preview.Data>
+
   <Preview.CSS>
     {`
       .constrained {
         max-width: 18rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Render as Button
+
+Use `asChild` when the whole token is an action. Keep the child as the semantic element that owns
+keyboard and click behavior.
+
+<Preview>
+  <TagAsChildExample />
+
+  <Preview.Code>
+    {`
+      import { Tag } from "moduix";
+      import styles from "./tag-demo.module.css";
+
+      export function TagAsChildDemo() {
+        return (
+          <Tag asChild variant="outline">
+            <button className={styles.buttonTag} type="button">
+              <Tag.Label>Open filter</Tag.Label>
+            </button>
+          </Tag>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`      const label = "Open filter";`}
+
+  </Preview.Data>
+
+  <Preview.CSS>
+    {`
+      .buttonTag {
+        appearance: none;
+        cursor: pointer;
       }
     `}
 
@@ -375,19 +483,23 @@ Use local CSS variables when a token needs custom tone or spacing without changi
 
   <Preview.Code>
     {`
-      import { CheckIcon, Tag, TagLabel, TagRemove } from "moduix";
+      import { CheckIcon, Tag } from "moduix";
       import styles from "./tag-demo.module.css";
 
       export function CustomTagDemo() {
         return (
           <div className={styles.row}>
             <Tag className={styles.customSoft}>
-              <CheckIcon />
-              <TagLabel>Priority</TagLabel>
-              <TagRemove aria-label="Remove priority tag" />
+              <Tag.StartElement>
+                <CheckIcon />
+              </Tag.StartElement>
+              <Tag.Label>Priority</Tag.Label>
+              <Tag.EndElement>
+                <Tag.CloseTrigger aria-label="Remove priority tag" />
+              </Tag.EndElement>
             </Tag>
             <Tag className={styles.customOutline} variant="outline">
-              <TagLabel>Customer-facing</TagLabel>
+              <Tag.Label>Customer-facing</Tag.Label>
             </Tag>
           </div>
         );
@@ -396,13 +508,23 @@ Use local CSS variables when a token needs custom tone or spacing without changi
 
   </Preview.Code>
 
+  <Preview.Data>
+    {`
+      const labels = {
+        priority: "Priority",
+        customer: "Customer-facing",
+      };
+    `}
+
+  </Preview.Data>
+
   <Preview.CSS>
     {`
       .customSoft {
         --tag-bg: color-mix(in oklab, var(--color-primary) 16%, var(--color-background));
         --tag-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
         --tag-color: var(--color-primary);
-        --tag-remove-bg-hover: color-mix(in oklab, var(--color-primary) 18%, transparent);
+        --tag-close-trigger-bg-hover: color-mix(in oklab, var(--color-primary) 18%, transparent);
       }
 
       .customOutline {
@@ -437,7 +559,7 @@ Prefer built-in variants first, then local CSS variables for one-off sizing and 
 
 ### Styling hooks
 
-- `data-slot="tag-root"`, `data-slot="tag-label"`, and `data-slot="tag-remove"` are stable selectors on the exported parts.
+- `data-scope="tag"` and `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"` are emitted on the exported parts.
+- `data-slot="tag-root"`, `data-slot="tag-label"`, `data-slot="tag-start-element"`, `data-slot="tag-end-element"`, and `data-slot="tag-close-trigger"` are stable moduix selectors.
 - `Tag` writes the selected size and tone to `data-size` and `data-variant`.
-- `TagLabel` is the intended truncation wrapper for long values.
-- `TagRemove` inherits the token color, uses `--tag-remove-icon-size` for its icon, and exposes the same `className` override path as other exported parts.
+- `Tag.CloseTrigger` exposes `data-disabled` for disabled or `aria-disabled` states and inherits the token color.
