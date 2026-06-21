@@ -45,8 +45,8 @@ function InlineLink(props: InlineLinkProps) {
 export const CustomElement: Story = {
   name: 'Custom Element',
   render: () => (
-    <Text render={<InlineLink href="#" />} tone="primary" weight="medium">
-      Text rendered through a custom link component.
+    <Text asChild tone="primary" weight="medium">
+      <InlineLink href="#">Text rendered through a custom link component.</InlineLink>
     </Text>
   ),
 };
@@ -92,6 +92,18 @@ export const Aligned: Story = {
       <Text align="left">Left aligned text.</Text>
       <Text align="center">Center aligned text.</Text>
       <Text align="right">Right aligned text.</Text>
+    </div>
+  ),
+};
+
+export const Truncation: Story = {
+  render: () => (
+    <div className={storyStyles.narrow}>
+      <Text truncate>Release notes for the weekly platform update are ready for review.</Text>
+      <Text lineClamp={2}>
+        Longer interface copy can be clamped when it appears inside dense cards, tables, or
+        constrained previews where the surrounding layout owns disclosure.
+      </Text>
     </div>
   ),
 };

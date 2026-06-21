@@ -1,6 +1,6 @@
 ---
 title: Text
-description: A typography primitive for body copy, inline text, supporting descriptions, and semantic emphasis.
+description: A typography root for body copy, inline text, supporting descriptions, semantic emphasis, and constrained previews.
 icon: Component
 ---
 
@@ -13,13 +13,18 @@ import {
   TextExample,
   TextSizesExample,
   TextTonesExample,
+  TextTruncationExample,
   TextWeightsExample,
 } from '@/components/examples/text';
 
 ## API Reference
 
-There is no dedicated Ark UI `Text` primitive behind this component. `Text` is the shipped moduix
-typography wrapper for body copy, helper text, inline emphasis, and simple semantic root swaps.
+Ark UI does not provide a dedicated `Text` primitive, so moduix implements `Text` as a root-only
+`@ark-ui/react/factory` wrapper that follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition) and
+[styling](https://ark-ui.com/docs/guides/styling) guides. Chakra's
+[Text](https://chakra-ui.com/docs/components/text) recipe informs the supported surface for sizes,
+weights, truncation, line clamp, and ref access.
 
 ## Choosing the right component
 
@@ -27,10 +32,8 @@ Use `Text` for body copy, helper copy, inline emphasis, and supporting UI text t
 the moduix text scale.
 
 - Choose **`Heading`** for document structure and heading hierarchy.
-- Choose **`Text`** when the content should keep paragraph or inline semantics with body-text
-  styling.
-- Choose local CSS or layout primitives when the concern is spacing, truncation, or rich-text
-  layout rather than typography tokens.
+- Choose **`Text`** when content should keep paragraph or inline semantics with body-text styling.
+- Choose local CSS when the concern is rich text layout, spacing, or disclosure around clamped text.
 
 ## Basic
 
@@ -46,19 +49,37 @@ same text styling contract stays in place.
 
       export function TextDemo() {
         return (
-          <>
+          <div className={styles.stack}>
             <Text>
               Use text to describe interface state and supporting details.
             </Text>
             <Text as="small" tone="muted">
               Last updated 2 minutes ago
             </Text>
-          </>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .stack {
+        display: flex;
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const updatedAt = "Last updated 2 minutes ago";
+    `}
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -104,69 +125,37 @@ aubx shadcn@latest add Blinks44/moduix/text
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Text` depends on, such
-as styles, icons, and small utilities.
-
 ## Anatomy
 
-`Text` renders a single root element.
+`Text` renders one Ark factory root. The short `<Text>` form and `<Text.Root>` are equivalent.
 
 ```text
-Text
+Text / Text.Root
 └─ text or inline content
 ```
 
-| Part   | Role                                                                |
-| ------ | ------------------------------------------------------------------- |
-| `Text` | Semantic text root with design-system typography, tone, and sizing. |
+| Part                 | Role                                                             |
+| -------------------- | ---------------------------------------------------------------- |
+| `Text` / `Text.Root` | Semantic text root with design-system typography and data hooks. |
 
 ## Composition
 
-### When to stay high-level
-
-Stay with `Text` and, when needed, the intrinsic `as` prop for regular body copy, metadata, inline
-emphasis, and descriptive text.
-
-Use `as` when a native semantic tag is enough:
-
-- default `p` for paragraphs and body copy
-- `span` for inline copy inside other text flows
-- `small` for supporting metadata
-- `strong` and `em` when semantic emphasis is actually correct
-- `div` when the content must stay block-level without paragraph semantics
-
-### When to go custom
-
-Use `render` only when the root must be a custom component such as a router link or app-level
-primitive that owns its own element contract.
+Use `as` for supported intrinsic tags and `asChild` for a single custom host element. `asChild`
+replaces the old Base UI `render` escape hatch and passes the moduix class name, style, data
+attributes, and ref to the child.
 
 ### Default props
 
-| Prop     | Default         | Values                                                 |
-| -------- | --------------- | ------------------------------------------------------ |
-| `as`     | `p`             | `p`, `span`, `small`, `strong`, `em`, `div`            |
-| `render` | Unset           | React element or render function                       |
-| `size`   | Render-based    | `xs`, `sm`, `md`, `lg`, `xl`                           |
-| `weight` | Render-based    | `regular`, `medium`, `semibold`, `bold`                |
-| `tone`   | `default`       | `default`, `muted`, `subtle`, `primary`, `destructive` |
-| `align`  | Unset (`start`) | `left`, `center`, `right`                              |
-
-Resolved defaults for `size` and `weight`:
-
-- default root (`p`): `size="md"`, `weight="regular"`
-- `as="small"` or `render={<small />}`: `size="sm"`, `weight="regular"`
-- `as="strong"` or `render={<strong />}`: `size="md"`, `weight="semibold"`
-- other intrinsic elements and custom components: `size="md"`, `weight="regular"`
-
-### Behavioral notes
-
-- `Text` always renders one root element and applies `data-slot="text-root"`.
-- It also exposes `data-size`, `data-weight`, and `data-tone` on every render, plus `data-align`
-  only when `align` is provided.
-- The base styles reset paragraph margin to `0`, keep `text-align: start` by default, and wrap long
-  words with `overflow-wrap: break-word`.
-- `Text` does not add interaction behavior, truncation helpers, rich-text parsing, or layout
-  spacing.
+| Prop        | Default         | Notes                                                   |
+| ----------- | --------------- | ------------------------------------------------------- |
+| `as`        | `p`             | `p`, `span`, `small`, `strong`, `em`, or `div`.         |
+| `asChild`   | `false`         | Uses the single child as the host element.              |
+| `size`      | Element-based   | `small` defaults to `sm`; other roots default to `md`.  |
+| `weight`    | Element-based   | `strong` defaults to `semibold`; others to `regular`.   |
+| `tone`      | `default`       | `default`, `muted`, `subtle`, `primary`, `destructive`. |
+| `align`     | Unset (`start`) | `left`, `center`, or `right` when explicit.             |
+| `truncate`  | `false`         | Single-line CSS ellipsis.                               |
+| `lineClamp` | Unset           | Multi-line CSS clamp count.                             |
 
 ## Examples
 
@@ -199,17 +188,23 @@ Use `as` for common semantic tags without leaving the typography scale.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .stack {
         display: flex;
-        width: min(34rem, calc(100vw - var(--spacing-8)));
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-3);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const elements = ["p", "span", "small", "strong", "em", "div"] as const;
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Tone
@@ -238,17 +233,23 @@ Use `tone` to match the role of the copy without local color classes.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .stack {
         display: flex;
-        width: min(34rem, calc(100vw - var(--spacing-8)));
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-3);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const tones = ["default", "muted", "subtle", "primary", "destructive"] as const;
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Size
@@ -278,17 +279,23 @@ component.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .stack {
         display: flex;
-        width: min(34rem, calc(100vw - var(--spacing-8)));
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-3);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const sizes = ["xl", "lg", "md", "sm", "xs"] as const;
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Weight
@@ -316,17 +323,23 @@ Use `weight` when the emphasis should stay within the same semantic element.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .stack {
         display: flex;
-        width: min(34rem, calc(100vw - var(--spacing-8)));
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-3);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const weights = ["regular", "medium", "semibold", "bold"] as const;
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Alignment
@@ -353,22 +366,76 @@ Use `align` when alignment belongs to the text itself instead of the surrounding
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .aligned {
         display: flex;
-        width: min(34rem, calc(100vw - var(--spacing-8)));
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-4);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const alignments = ["left", "center", "right"] as const;
+    `}
+  </Preview.Data>
+</Preview>
+
+### Truncation
+
+Use `truncate` for a single-line ellipsis and `lineClamp` for dense multi-line previews where the
+surrounding layout owns expansion or disclosure.
+
+<Preview>
+  <TextTruncationExample />
+
+  <Preview.Code>
+    {`
+      import { Text } from "moduix";
+
+      export function TextTruncationDemo() {
+        return (
+          <div className={styles.narrow}>
+            <Text truncate>
+              Release notes for the weekly platform update are ready for review.
+            </Text>
+            <Text lineClamp={2}>
+              Longer interface copy can be clamped when it appears inside dense cards,
+              tables, or constrained previews where the surrounding layout owns disclosure.
+            </Text>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .narrow {
+        display: flex;
+        width: min(18rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-4);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const clampLines = 2;
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Custom Composition
 
-Use `render` when the root should be a custom component instead of an intrinsic tag.
+Use `asChild` when the root should be a custom component instead of one of the intrinsic `as`
+values. The child must be a single element that can accept the forwarded props and ref.
 
 <Preview>
   <TextCustomElementExample />
@@ -386,14 +453,35 @@ Use `render` when the root should be a custom component instead of an intrinsic 
 
       export function TextCustomElementDemo() {
         return (
-          <Text render={<InlineLink href="/docs" />} tone="primary" weight="medium">
-            Read the documentation
+          <Text asChild tone="primary" weight="medium">
+            <InlineLink className={styles.link} href="/docs">
+              Read the documentation
+            </InlineLink>
           </Text>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .link {
+        text-decoration: none;
+      }
+
+      .link:hover {
+        text-decoration: underline;
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const href = "/docs";
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -418,8 +506,8 @@ Pass `className` when styling the root with local CSS variables.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .customText {
         --text-default-color: var(--color-primary);
         --text-font-size-md: var(--text-lg);
@@ -427,14 +515,19 @@ Pass `className` when styling the root with local CSS variables.
         --text-font-weight-regular: var(--weight-medium);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const overrideScope = "local className";
+    `}
+  </Preview.Data>
 </Preview>
 
 ## Styling
 
-Style `Text` through `className`, root data attributes, and the public `--text-*` CSS variables
-defined in [`theme.css`](/Users/sergejvrenev/Desktop/dev/2gis/moduix/packages/ui/src/styles/theme.css:2325).
+Style `Text` through `className`, Ark-style root data attributes, and the public `--text-*` CSS
+variables defined in [`theme.css`](/Users/sergejvrenev/Desktop/dev/2gis/moduix/packages/ui/src/styles/theme.css:2076).
 
 ### CSS Properties
 
@@ -448,9 +541,12 @@ defined in [`theme.css`](/Users/sergejvrenev/Desktop/dev/2gis/moduix/packages/ui
 
 ### Styling hooks
 
-- `data-slot="text-root"` is the stable selector on the exported root.
+- `data-scope="text"` and `data-part="root"` identify the Ark-style root.
+- `data-slot="text-root"` is the stable moduix selector on the exported root.
 - `data-size` reflects the resolved visual size: `xs`, `sm`, `md`, `lg`, or `xl`.
 - `data-weight` reflects the resolved weight preset: `regular`, `medium`, `semibold`, or `bold`.
 - `data-tone` reflects the active tone preset: `default`, `muted`, `subtle`, `primary`, or
   `destructive`.
 - `data-align` appears only when `align` is explicitly set to `left`, `center`, or `right`.
+- `data-truncate` appears when single-line ellipsis is active.
+- `data-line-clamp` appears when `lineClamp` is active and sets `--text-line-clamp`.

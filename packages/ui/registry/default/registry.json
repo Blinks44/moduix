@@ -1492,7 +1492,7 @@
       "type": "registry:item",
       "title": "Text",
       "description": "moduix Text component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

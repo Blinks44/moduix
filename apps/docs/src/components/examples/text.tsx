@@ -18,6 +18,7 @@ export const textOverrideCssProperties: CssPropertyInput[] = [
   ['--text-font-weight-regular', 'var(--weight-regular)', 'Controls regular text weight.'],
   ['--text-font-weight-semibold', 'var(--weight-semibold)', 'Controls semibold text weight.'],
   ['--text-letter-spacing', '0', 'Controls text letter spacing.'],
+  ['--text-line-clamp', 'set by `lineClamp`', 'Controls the active line clamp count.'],
   ['--text-line-height-xs', 'var(--line-height-text-xs)', 'Controls `xs` text line height.'],
   ['--text-line-height-sm', 'var(--line-height-text-sm)', 'Controls `sm` text line height.'],
   ['--text-line-height-md', 'var(--line-height-text-md)', 'Controls `md` text line height.'],
@@ -73,8 +74,10 @@ function InlineLink(props: InlineLinkProps) {
 
 export function TextCustomElementExample() {
   return (
-    <Text render={<InlineLink href="/docs" />} tone="primary" weight="medium">
-      Read the documentation
+    <Text asChild tone="primary" weight="medium">
+      <InlineLink className={styles.link} href="/docs">
+        Read the documentation
+      </InlineLink>
     </Text>
   );
 }
@@ -120,6 +123,18 @@ export function TextAlignExample() {
       <Text align="left">Left aligned text.</Text>
       <Text align="center">Center aligned text.</Text>
       <Text align="right">Right aligned text.</Text>
+    </div>
+  );
+}
+
+export function TextTruncationExample() {
+  return (
+    <div className={styles.narrow}>
+      <Text truncate>Release notes for the weekly platform update are ready for review.</Text>
+      <Text lineClamp={2}>
+        Longer interface copy can be clamped when it appears inside dense cards, tables, or
+        constrained previews where the surrounding layout owns disclosure.
+      </Text>
     </div>
   );
 }

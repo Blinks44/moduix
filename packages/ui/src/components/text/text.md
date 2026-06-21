@@ -1,174 +1,141 @@
 # Text
 
-`Text` is the default moduix typography primitive for body copy, inline copy, helper text, and small
-semantic emphasis.
+Upstream docs:
 
-There is no dedicated Base UI `Text` primitive behind this component. The wrapper uses Base UI
-`useRender` only to keep root replacement simple while the shipped moduix contract stays small and
-predictable.
+- Ark UI: no dedicated Text primitive; use https://ark-ui.com/docs/guides/composition and
+  https://ark-ui.com/docs/guides/styling
+- Chakra UI: https://chakra-ui.com/docs/components/text
 
 ## Purpose
 
-Use `Text` when you need:
+`Text` is the moduix typography root for body copy, inline copy, helper text, simple semantic
+emphasis, and constrained text previews.
 
-- body typography tokens without writing local CSS for every paragraph;
-- a small set of visual variants for size, weight, tone, and alignment;
-- simple semantic swaps such as `span`, `small`, `strong`, `em`, or `div`;
-- custom root composition through `render` for app-level primitives such as links.
+## Upstream model to preserve
 
-Use `Heading` for document headings. Use local layout or component CSS for spacing, truncation, or
-rich text layout concerns that do not belong in the typography primitive itself.
+Ark UI does not ship a `Text` component. The wrapper follows Ark's factory/composition model with
+`@ark-ui/react/factory`, `HTMLArkProps`, `asChild`, forwarded refs, `data-scope="text"`, and
+`data-part="root"`.
+
+Chakra's `Text` recipe informs the supported typography surface: size, weight, truncation, line
+clamp, and access to the underlying element ref. There are no Ark state machines, callbacks,
+providers, context hooks, hidden inputs, ids, keyboard interactions, or controlled/uncontrolled
+modes to preserve.
 
 ## Current behavior contract
 
-`Text` renders exactly one root element and always applies:
-
-- `data-slot="text-root"`;
-- `data-size` with the resolved size variant;
-- `data-weight` with the resolved weight variant;
-- `data-tone` with the resolved tone variant;
-- `data-align` only when `align` is provided.
+`Text` renders one root element. The short `<Text>` form and `<Text.Root>` are equivalent.
 
 Default behavior:
 
-| Prop     | Default         | Values                                                 |
-| -------- | --------------- | ------------------------------------------------------ |
-| `as`     | `p`             | `p`, `span`, `small`, `strong`, `em`, `div`            |
-| `render` | unset           | React element or Base UI render function               |
-| `size`   | render-based    | `xs`, `sm`, `md`, `lg`, `xl`                           |
-| `weight` | render-based    | `regular`, `medium`, `semibold`, `bold`                |
-| `tone`   | `default`       | `default`, `muted`, `subtle`, `primary`, `destructive` |
-| `align`  | unset (`start`) | `left`, `center`, `right`                              |
+| Prop        | Default         | Values                                                 |
+| ----------- | --------------- | ------------------------------------------------------ |
+| `as`        | `p`             | `p`, `span`, `small`, `strong`, `em`, `div`            |
+| `asChild`   | `false`         | boolean                                                |
+| `size`      | Element-based   | `xs`, `sm`, `md`, `lg`, `xl`                           |
+| `weight`    | Element-based   | `regular`, `medium`, `semibold`, `bold`                |
+| `tone`      | `default`       | `default`, `muted`, `subtle`, `primary`, `destructive` |
+| `align`     | Unset (`start`) | `left`, `center`, `right`                              |
+| `truncate`  | `false`         | boolean                                                |
+| `lineClamp` | Unset           | number                                                 |
 
-Resolved defaults for `size` and `weight`:
+Element-based defaults:
 
 - default root (`p`) -> `size="md"`, `weight="regular"`
-- `as="small"` or `render={<small />}` -> `size="sm"`, `weight="regular"`
-- `as="strong"` or `render={<strong />}` -> `size="md"`, `weight="semibold"`
-- every other intrinsic element or custom rendered component -> `size="md"`, `weight="regular"`
+- `as="small"` -> `size="sm"`, `weight="regular"`
+- `as="strong"` -> `size="md"`, `weight="semibold"`
+- every other root -> `size="md"`, `weight="regular"`
 
-The wrapper does not add interactive behavior, disabled/read-only states, truncation helpers, rich
-text parsing, or layout spacing.
+## Anatomy and exported parts
 
-## Basic usage
-
-```tsx
-import { Text } from 'moduix';
-
-export function ReleaseNote() {
-  return (
-    <>
-      <Text>Use text to describe interface state and supporting details.</Text>
-      <Text as="small" tone="muted">
-        Last updated 2 minutes ago
-      </Text>
-    </>
-  );
-}
+```text
+Text / Text.Root
+└─ text or inline content
 ```
 
-## Composition
-
-`Text` has two intended composition paths:
-
-| Pattern             | Best fit                                                         |
-| ------------------- | ---------------------------------------------------------------- |
-| default `p` / `as`  | Native semantic elements that only need moduix typography styles |
-| `render={<Link />}` | Router links or app-specific primitives that own the root        |
-
-Intrinsic semantic swap:
-
-```tsx
-import { Text } from 'moduix';
-
-export function Metadata() {
-  return (
-    <Text as="small" tone="muted">
-      Last synced 2 minutes ago
-    </Text>
-  );
-}
-```
-
-Custom root element:
-
-```tsx
-import type { ComponentPropsWithoutRef } from 'react';
-import { Text } from 'moduix';
-
-type InlineLinkProps = ComponentPropsWithoutRef<'a'>;
-
-function InlineLink(props: InlineLinkProps) {
-  return <a {...props} />;
-}
-
-export function DocsLink() {
-  return (
-    <Text render={<InlineLink href="/docs" />} tone="primary" weight="medium">
-      Read the documentation
-    </Text>
-  );
-}
-```
-
-Recommendations:
-
-- prefer `as` when an intrinsic HTML tag is enough;
-- prefer `render` only when the root must be a custom component;
-- keep the children simple and inline-friendly;
-- keep spacing and layout outside of `Text`.
-
-## Parts
-
-| Part   | Element/primitive | Purpose                                           |
-| ------ | ----------------- | ------------------------------------------------- |
-| `Text` | root element      | Styled body-text root with semantic tag override. |
-
-There are no slots, subcomponents, `slotProps`, or class-name maps.
-
-## Public API
-
-`Text` accepts native paragraph attributes plus the wrapper props below.
-
-| Prop        | Type                                                   | Description                                                   |
-| ----------- | ------------------------------------------------------ | ------------------------------------------------------------- |
-| `as`        | `p \| span \| small \| strong \| em \| div`            | Replaces the default root with a supported intrinsic element. |
-| `render`    | Base UI `render` prop                                  | Replaces the root with a React element or render function.    |
-| `size`      | `xs \| sm \| md \| lg \| xl`                           | Overrides the visual text size.                               |
-| `weight`    | `regular \| medium \| semibold \| bold`                | Overrides the font-weight preset.                             |
-| `tone`      | `default \| muted \| subtle \| primary \| destructive` | Selects the built-in text color preset.                       |
-| `align`     | `left \| center \| right`                              | Sets text alignment on the root element.                      |
-| `className` | `string`                                               | Adds classes to the root element.                             |
-| `style`     | native React style prop                                | Useful for one-off CSS variable overrides.                    |
-| `children`  | React node                                             | Text or inline content rendered inside the root.              |
+| Part                 | data-slot   | Notes                                           |
+| -------------------- | ----------- | ----------------------------------------------- |
+| `Text` / `Text.Root` | `text-root` | Ark factory root with typography styling hooks. |
 
 Exported types:
 
-- `TextProps`
+- `TextRootProps`
 - `TextElement`
 - `TextSize`
 - `TextWeight`
 - `TextTone`
 - `TextAlign`
 
-## Styling API
+## Composition
 
-Root hooks:
+Canonical usage:
 
-| Hook          | When it exists                                   |
-| ------------- | ------------------------------------------------ |
-| `data-slot`   | Always present as `text-root`.                   |
-| `data-size`   | Always present with the resolved size variant.   |
-| `data-weight` | Always present with the resolved weight variant. |
-| `data-tone`   | Always present with the resolved tone variant.   |
-| `data-align`  | Present only when `align` is set.                |
+```tsx
+import { Text } from 'moduix';
 
-Important styling details:
+export function Example() {
+  return <Text>Use text to describe interface state and supporting details.</Text>;
+}
+```
 
-- the base style resets paragraph margin to `0`;
-- the default alignment is `text-align: start`, which stays logical for LTR and RTL content;
-- explicit `align` values use physical CSS values (`left`, `center`, `right`);
-- long words wrap with `overflow-wrap: break-word`.
+Use `as` for supported intrinsic semantics:
+
+```tsx
+<Text as="small" tone="muted">
+  Last updated 2 minutes ago
+</Text>
+```
+
+Use `asChild` for a single custom host element:
+
+```tsx
+<Text asChild tone="primary" weight="medium">
+  <a href="/docs">Read the documentation</a>
+</Text>
+```
+
+When `asChild` is used, the child owns the semantic element and must be a single accessible element
+that can receive the forwarded props, class name, data attributes, style, and ref.
+
+## Upstream feature coverage
+
+- Ark composition guide: covered by `ark.*`, `HTMLArkProps`, forwarded refs, and `asChild`.
+- Ark styling guide: covered by `data-scope`, `data-part`, `data-slot`, local state-like data
+  attributes, `className`, and public CSS variables.
+- Chakra usage: covered by the default body text root.
+- Chakra sizes: covered by `size`.
+- Chakra weights: covered by `weight`.
+- Chakra truncation: covered by `truncate`.
+- Chakra line clamp: covered by `lineClamp`.
+- Chakra ref: covered by `forwardRef` to the root host.
+
+## Accessibility and state
+
+`Text` keeps native semantics. Use `as` or `asChild` to choose the correct HTML meaning instead of
+adding ARIA to the default paragraph.
+
+The component has no interactive state, keyboard behavior, focus lifecycle, Field/Fieldset context,
+HiddenInput, ids, callback detail objects, provider, context, or RootProvider API. `truncate` and
+`lineClamp` are CSS-only rendering constraints; they do not provide disclosure or screen reader
+behavior.
+
+Root attributes:
+
+- `data-scope="text"`
+- `data-part="root"`
+- `data-slot="text-root"`
+- `data-size`
+- `data-weight`
+- `data-tone`
+- `data-align` when `align` is set
+- `data-truncate` when `truncate` is true
+- `data-line-clamp` when `lineClamp` is set
+
+## Defaults and styling
+
+The root accepts `className`, `style`, native paragraph props from `HTMLArkProps<'p'>`, and `asChild`.
+Base styles reset margin to `0`, use logical `text-align: start`, and wrap long words with
+`overflow-wrap: break-word`.
 
 Public CSS variables:
 
@@ -187,6 +154,7 @@ Public CSS variables:
 | `--text-font-weight-regular`  | `var(--weight-regular)`             |
 | `--text-font-weight-semibold` | `var(--weight-semibold)`            |
 | `--text-letter-spacing`       | `0`                                 |
+| `--text-line-clamp`           | set by `lineClamp`                  |
 | `--text-line-height-xs`       | `var(--line-height-text-xs)`        |
 | `--text-line-height-sm`       | `var(--line-height-text-sm)`        |
 | `--text-line-height-md`       | `var(--line-height-text-md)`        |
@@ -196,61 +164,27 @@ Public CSS variables:
 | `--text-primary-color`        | `var(--color-primary)`              |
 | `--text-subtle-color`         | `var(--color-secondary-foreground)` |
 
-Example override:
+## Intentional sugar and differences from upstream
 
-```tsx
-import { Text } from 'moduix';
-import styles from './example.module.css';
+moduix adds a constrained semantic `as` union, visual `tone` presets, default variants for `small`
+and `strong`, stable `data-slot`, and theme variables.
 
-export function Example() {
-  return <Text className={styles.customText}>Customized body copy.</Text>;
-}
-```
-
-```css
-.customText {
-  --text-default-color: var(--color-primary);
-  --text-font-size-md: var(--text-lg);
-  --text-line-height-md: var(--line-height-text-lg);
-  --text-font-weight-regular: var(--weight-medium);
-}
-```
-
-## UX and accessibility notes
-
-- `Text` keeps native semantics; use `as` to choose the correct HTML meaning instead of adding ARIA.
-- Use `small`, `strong`, and `em` only when the semantic meaning fits, not only for visual styling.
-- Do not rely on `tone` alone to communicate destructive or important state; pair color with clear
-  copy or supporting icons when the meaning matters.
-- When using `render`, preserve the semantics and focus behavior of the element you render.
-- The component has no keyboard, focus-management, disabled, or read-only behavior of its own.
-
-## Limitations and recommendations
-
-- `Text` is not a rich-text renderer or markdown wrapper.
-- It does not provide truncation, line clamp, link styling, spacing, or responsive typography props.
-- It is intentionally limited to a small intrinsic `as` set. For anything else, use `render`.
-- If the text should be the interactive control itself, let the rendered element own that behavior.
-
-## Intentional differences from Base UI
-
-- there is no dedicated Base UI text primitive to mirror here;
-- moduix ships a styled typography root with `data-slot` and documented `--text-*` variables;
-- the local docs describe the moduix wrapper contract instead of generic `useRender` behavior;
-- `Text` keeps a narrow semantic `as` API and uses `render` as the explicit escape hatch.
+There is no legacy Base UI `render` prop. Custom host composition now uses Ark-style `asChild`.
+`TextProps` was replaced by the Ark-shaped `TextRootProps`.
 
 ## Agent notes
 
-- Preserve the intrinsic default mapping for `small` and `strong` unless the public typography scale changes.
-- Keep the local markdown, Storybook stories, docs examples, and shipped `Text` API synchronized.
-- If `Text` gains new public variants or `--text-*` variables, update this file in the same task.
-- Do not add layout, truncation, interactive, or slot-based props unless there is a repeated consumer need
-  strong enough to justify the extra API surface.
+- Keep `Text` root-only. Do not add subparts, local state, callback props, rich-text parsing, or
+  layout spacing.
+- Keep `Text.Root` attached so root-only docs can teach short `<Text>` while preserving Ark-style
+  namespace composition.
+- If new variants or `--text-*` variables are added, update this file, docs examples, theme tokens,
+  and registry artifacts in the same task.
 
 ## Local changelog
 
-- 2026-06-03: Rewrote the local documentation around the shipped moduix `Text` contract, including the
-  real default semantics, composition model, styling hooks, CSS variables, accessibility guidance, and
-  exported TypeScript types.
-- 2026-06-03: Exported `TextProps`, `TextElement`, `TextSize`, `TextWeight`, `TextTone`, and `TextAlign`
-  for consumer-side typing and wrapper composition.
+- 2026-06-21: Migrated `Text` from Base UI `useRender` to Ark factory, replaced `render` with
+  `asChild`, added `Text.Root`, forwarded refs, Ark-style root data attributes, and Chakra-informed
+  `truncate` / `lineClamp` props.
+- 2026-06-03: Rewrote the local documentation around the shipped moduix `Text` contract, including
+  defaults, composition, styling hooks, CSS variables, accessibility guidance, and exported types.

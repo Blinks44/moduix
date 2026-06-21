@@ -2087,6 +2087,7 @@
   --text-font-weight-regular: initial; /* var(--weight-regular) */
   --text-font-weight-semibold: initial; /* var(--weight-semibold) */
   --text-letter-spacing: initial; /* 0 */
+  --text-line-clamp: initial; /* set by Text lineClamp */
   --text-line-height-xs: initial; /* var(--line-height-text-xs) */
   --text-line-height-sm: initial; /* var(--line-height-text-sm) */
   --text-line-height-md: initial; /* var(--line-height-text-md) */
