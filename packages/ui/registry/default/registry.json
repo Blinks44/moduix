@@ -1342,7 +1342,7 @@
       "type": "registry:item",
       "title": "Stack",
       "description": "moduix Stack component.",
-      "dependencies": ["clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

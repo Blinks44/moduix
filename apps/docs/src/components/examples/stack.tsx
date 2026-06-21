@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Heading, Skeleton, Stack, Text } from 'moduix';
+import { Heading, Separator, Skeleton, Stack, Text } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './stack.module.css';
@@ -66,6 +66,22 @@ export function StackWrapExample() {
   );
 }
 
+export function StackSeparatorExample() {
+  return (
+    <Stack
+      direction="row"
+      align="center"
+      gap={10}
+      separator={<Separator orientation="vertical" aria-hidden="true" />}
+      className={styles.row}
+    >
+      <Text weight="semibold">Design</Text>
+      <Text tone="muted">Engineering</Text>
+      <Text tone="muted">Docs</Text>
+    </Stack>
+  );
+}
+
 export function StackFillExample() {
   return (
     <Stack direction="row" align="center" gap={12} className={styles.row}>
@@ -89,13 +105,15 @@ export function StackResponsiveDirectionExample() {
 
 export function StackSemanticExample() {
   return (
-    <Stack as="section" gap={12} className={styles.panel}>
-      <Heading asChild size="md">
-        <h3>Rendered as section</h3>
-      </Heading>
-      <Text tone="muted">
-        Use `as` when the layout wrapper should also carry document semantics.
-      </Text>
+    <Stack asChild gap={12} className={styles.panel}>
+      <section>
+        <Heading asChild size="md">
+          <h3>Rendered as section</h3>
+        </Heading>
+        <Text tone="muted">
+          Use asChild when the layout wrapper should also carry document semantics.
+        </Text>
+      </section>
     </Stack>
   );
 }

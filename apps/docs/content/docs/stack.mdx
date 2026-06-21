@@ -1,6 +1,6 @@
 ---
 title: Stack
-description: A small flex layout primitive for vertical and horizontal composition.
+description: A small Ark-aligned flex layout primitive for vertical and horizontal composition.
 icon: Component
 ---
 
@@ -11,13 +11,14 @@ import {
   StackResponsiveDirectionExample,
   StackRowExample,
   StackSemanticExample,
+  StackSeparatorExample,
   StackSkeletonExample,
   StackWrapExample,
 } from '@/components/examples/stack';
 
 ## API Reference
 
-`Stack` is a standalone moduix layout primitive and does not wrap a dedicated Ark UI primitive.
+`Stack` has no dedicated Ark UI primitive; moduix implements it with the Ark [composition](https://ark-ui.com/docs/guides/composition), [ref](https://ark-ui.com/docs/guides/ref), and [styling](https://ark-ui.com/docs/guides/styling) model through `@ark-ui/react/factory`. The public layout API is informed by Chakra UI [Stack](https://chakra-ui.com/docs/components/stack): direction, gap, alignment, wrapping, and optional separators.
 
 ## Basic
 
@@ -30,11 +31,14 @@ common alignment.
   <Preview.Code>
     {`
       import { Heading, Stack, Text } from "moduix";
+      import styles from "./stack.module.css";
 
       export function StackDemo() {
         return (
           <Stack gap={12} className={styles.panel}>
-            <Heading asChild size="md"><h3>Project updates</h3></Heading>
+            <Heading asChild size="md">
+              <h3>Project updates</h3>
+            </Heading>
             <Text tone="muted">
               Use Stack when the layout intent is just flex direction, spacing, and alignment.
             </Text>
@@ -46,8 +50,8 @@ common alignment.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .panel {
         width: min(20rem, calc(100vw - var(--spacing-8)));
         padding: var(--spacing-4);
@@ -56,8 +60,11 @@ common alignment.
         background-color: var(--color-background);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    No external data. The example uses static children.
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -108,58 +115,65 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`Stack` renders one root flex wrapper. It owns direction, gap, common alignment, and a small amount
-of responsive sugar, while broader layout rules stay in local CSS.
+`Stack` renders one Ark-aligned root flex wrapper. It owns direction, gap, common alignment,
+optional separators, and a small amount of responsive sugar, while broader layout rules stay in
+local CSS.
 
 ```text
-Stack
-└─ root[data-slot="stack-root"]
+Stack / Stack.Root
+└─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
    └─ children
 ```
 
-| Part    | Role                                                 |
-| ------- | ---------------------------------------------------- |
-| `Stack` | Root flex wrapper for direction, gap, and alignment. |
+| Part                   | Role                                                                |
+| ---------------------- | ------------------------------------------------------------------- |
+| `Stack` / `Stack.Root` | Root flex wrapper for direction, gap, alignment, and child spacing. |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with `Stack` directly for most rows, columns, media-object layouts, skeleton groups, and
-simple settings panels.
+Use the short `<Stack>` form for normal `div` output. Use `Stack.Root` only when namespace
+consistency helps next to multipart components.
 
 Use `direction`, `gap`, `align`, `justify`, and `wrap` for common flex layout. Use `fill` when a
-nested stack should grow as a flex item. Use `as` when the wrapper should also carry document
-semantics.
+nested stack should grow as a flex item. Use `separator` for a repeated node between children.
+Use `asChild` when the stack should render as a semantic element.
 
 ### When to go custom
 
 Switch to local CSS when the layout needs more than one flex container, more than the mobile/desktop
-direction switch, or styling that reads clearer in a stylesheet than in component props.
+direction switch, per-breakpoint gap changes, item-level layout rules, or styling that reads clearer
+in a stylesheet than in component props.
 
 Use `style` when you intentionally need to override the inline `--stack-*` instance variables or
 the computed flex properties on one specific stack.
 
 ### Default props
 
-| Prop        | Default         | Values                                                |
-| ----------- | --------------- | ----------------------------------------------------- |
-| `direction` | `column`        | `column`, `row`, or `{ mobile?: ..., desktop?: ... }` |
-| `gap`       | -               | CSS length (`number` = `px`)                          |
-| `align`     | browser default | Any valid `align-items` value                         |
-| `justify`   | browser default | Any valid `justify-content` value                     |
-| `wrap`      | browser default | Any valid `flex-wrap` value                           |
-| `fill`      | `false`         | `true`, `false` (`true` = `flex: 1 1 0`)              |
-| `as`        | `div`           | Any React element type                                |
+| Prop        | Default         | Notes                                                   |
+| ----------- | --------------- | ------------------------------------------------------- |
+| `direction` | `column`        | `column`, `row`, or `{ mobile?: ..., desktop?: ... }`   |
+| `gap`       | browser default | CSS length (`number` = `px`)                            |
+| `align`     | browser default | Any valid `align-items` value                           |
+| `justify`   | browser default | Any valid `justify-content` value                       |
+| `wrap`      | browser default | Any valid `flex-wrap` value                             |
+| `fill`      | `false`         | `true` sets `flex: 1 1 0` on the root                   |
+| `separator` | -               | React node rendered between children                    |
+| `asChild`   | `false`         | Ark factory composition with one semantic child element |
 
 ### Behavioral notes
 
-- `Stack` renders exactly one root and forwards regular DOM props to that root.
+- `Stack` renders exactly one root and forwards Ark factory DOM props to that root.
 - `direction={{ mobile, desktop }}` switches at `640px` and cross-falls back when only one side is
   provided.
 - `fill` affects the stack as a flex item, not its children.
+- `separator` is rendered exactly as provided and should be marked `aria-hidden` when decorative.
 - `gap`, `align`, `justify`, and `wrap` are written inline only when you provide them.
-- `Stack` does not add wrappers, slot maps, keyboard behavior, or ARIA semantics on its own.
+- `Stack` exposes `data-scope="stack"`, `data-part="root"`, and `data-slot="stack-root"` for
+  Ark-style styling.
+- `Stack` does not add item wrappers, keyboard behavior, ARIA semantics, context hooks, or provider
+  state.
 
 ## Examples
 
@@ -173,6 +187,7 @@ Use `direction="row"` and alignment props for inline layouts.
   <Preview.Code>
     {`
       import { Stack, Text } from "moduix";
+      import styles from "./stack.module.css";
 
       export function StackRowDemo() {
         return (
@@ -186,8 +201,8 @@ Use `direction="row"` and alignment props for inline layouts.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .row {
         width: min(20rem, calc(100vw - var(--spacing-8)));
         padding: var(--spacing-4);
@@ -196,8 +211,11 @@ Use `direction="row"` and alignment props for inline layouts.
         background-color: var(--color-background);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    No external data. The example uses static children.
+  </Preview.Data>
 </Preview>
 
 ### Wrapped Items
@@ -210,6 +228,7 @@ Use `wrap="wrap"` when items should flow to the next line.
   <Preview.Code>
     {`
       import { Stack } from "moduix";
+      import styles from "./stack.module.css";
 
       export function StackWrapDemo() {
         return (
@@ -244,27 +263,37 @@ Use `wrap="wrap"` when items should flow to the next line.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    No external data. The example uses static children.
+  </Preview.Data>
 </Preview>
 
-### Growing Child Stack
+### Separator
 
-Use `fill` when a nested stack should take the remaining space in a flex row.
+Pass a `Separator` node when a horizontal or vertical stack needs a repeated visual divider between
+children.
 
 <Preview>
-  <StackFillExample />
+  <StackSeparatorExample />
 
   <Preview.Code>
     {`
-      import { Skeleton, Stack } from "moduix";
+      import { Separator, Stack, Text } from "moduix";
+      import styles from "./stack.module.css";
 
-      export function StackFillDemo() {
+      export function StackSeparatorDemo() {
         return (
-          <Stack direction="row" align="center" gap={12} className={styles.row}>
-            <Skeleton boxSize={40} borderRadius="var(--radius-full)" />
-            <Stack gap={8} fill>
-              <Skeleton width="48%" height={16} />
-              <Skeleton height={14} />
-            </Stack>
+          <Stack
+            direction="row"
+            align="center"
+            gap={10}
+            separator={<Separator orientation="vertical" aria-hidden="true" />}
+            className={styles.row}
+          >
+            <Text weight="semibold">Design</Text>
+            <Text tone="muted">Engineering</Text>
+            <Text tone="muted">Docs</Text>
           </Stack>
         );
       }
@@ -281,9 +310,58 @@ Use `fill` when a nested stack should take the remaining space in a flex row.
         border-radius: var(--radius-lg);
         background-color: var(--color-background);
       }
+
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    No external data. The separator is the moduix Separator component passed as React children.
+  </Preview.Data>
+</Preview>
+
+### Growing Child Stack
+
+Use `fill` when a nested stack should take the remaining space in a flex row.
+
+<Preview>
+  <StackFillExample />
+
+  <Preview.Code>
+    {`
+      import { Skeleton, Stack } from "moduix";
+      import styles from "./stack.module.css";
+
+      export function StackFillDemo() {
+        return (
+          <Stack direction="row" align="center" gap={12} className={styles.row}>
+            <Skeleton boxSize={40} borderRadius="var(--radius-full)" />
+            <Stack gap={8} fill>
+              <Skeleton width="48%" height={16} />
+              <Skeleton height={14} />
+            </Stack>
+          </Stack>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .row {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-background);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    No external data. The example uses static skeleton children.
+  </Preview.Data>
 </Preview>
 
 ### Responsive Direction
@@ -296,6 +374,7 @@ Use responsive `direction` when the layout only needs a column-on-mobile and row
   <Preview.Code>
     {`
       import { Stack, Text } from "moduix";
+      import styles from "./stack.module.css";
 
       export function StackResponsiveDirectionDemo() {
         return (
@@ -313,8 +392,8 @@ Use responsive `direction` when the layout only needs a column-on-mobile and row
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .row {
         width: min(20rem, calc(100vw - var(--spacing-8)));
         padding: var(--spacing-4);
@@ -323,13 +402,16 @@ Use responsive `direction` when the layout only needs a column-on-mobile and row
         background-color: var(--color-background);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    No external data. The example uses static children.
+  </Preview.Data>
 </Preview>
 
 ### Semantic Element
 
-Use `as` when the layout wrapper should also describe document structure.
+Use Ark `asChild` when the layout wrapper should also describe document structure.
 
 <Preview>
   <StackSemanticExample />
@@ -337,14 +419,19 @@ Use `as` when the layout wrapper should also describe document structure.
   <Preview.Code>
     {`
       import { Heading, Stack, Text } from "moduix";
+      import styles from "./stack.module.css";
 
       export function StackSemanticDemo() {
         return (
-          <Stack as="section" gap={12} className={styles.panel}>
-            <Heading asChild size="md"><h3>Rendered as section</h3></Heading>
-            <Text tone="muted">
-              Use as when the layout wrapper should also carry document semantics.
-            </Text>
+          <Stack asChild gap={12} className={styles.panel}>
+            <section>
+              <Heading asChild size="md">
+                <h3>Rendered as section</h3>
+              </Heading>
+              <Text tone="muted">
+                Use asChild when the layout wrapper should also carry document semantics.
+              </Text>
+            </section>
           </Stack>
         );
       }
@@ -352,8 +439,8 @@ Use `as` when the layout wrapper should also describe document structure.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .panel {
         width: min(20rem, calc(100vw - var(--spacing-8)));
         padding: var(--spacing-4);
@@ -362,8 +449,11 @@ Use `as` when the layout wrapper should also describe document structure.
         background-color: var(--color-background);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    No external data. The example uses one semantic child as the Ark asChild host.
+  </Preview.Data>
 </Preview>
 
 ### Loading Layout
@@ -376,6 +466,7 @@ Use `Stack` with `Skeleton` when the loading state only needs flex composition a
   <Preview.Code>
     {`
       import { Skeleton, Stack } from "moduix";
+      import styles from "./stack.module.css";
 
       export function StackSkeletonDemo() {
         return (
@@ -393,23 +484,26 @@ Use `Stack` with `Skeleton` when the loading state only needs flex composition a
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .skeletonCard {
         width: min(20rem, calc(100vw - var(--spacing-8)));
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
+  <Preview.Data>
+    No external data. The example uses static skeleton children.
+  </Preview.Data>
 </Preview>
 
 ## Styling
 
 ### CSS Properties
 
-`Stack` exposes a small CSS variable contract in `theme.css`, but these variables are still written
-inline by the component at render time. Use the `style` prop for per-instance overrides when the
-computed `direction` or `fill` value needs to change.
+`Stack` exposes instance CSS variables that are written inline by the component at render time. Use
+the `style` prop for per-instance overrides when the computed `direction` or `fill` value needs to
+change.
 
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
@@ -423,7 +517,9 @@ computed `direction` or `fill` value needs to change.
 
 - `className` styles the single root for width, padding, borders, backgrounds, and other surface
   concerns.
-- `data-slot="stack-root"` is the stable selector for targeting the root in local CSS.
+- `data-scope="stack"` and `data-part="root"` align the wrapper with Ark styling conventions.
+- `data-slot="stack-root"` is the stable moduix selector for targeting the root in local CSS.
 - `style` is applied last, so it can override computed `gap`, `alignItems`, `justifyContent`,
   `flexWrap`, and the inline `--stack-*` variables.
-- There are no additional slots, state attributes, or `slotProps` maps in the public contract.
+- There are no state attributes, CSS animation variables, or `slotProps` maps in the public
+  contract.

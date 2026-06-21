@@ -1,135 +1,125 @@
 # Stack
 
-Upstream primitive docs: none. `Stack` is a local layout primitive, not a Base UI wrapper.
+Upstream docs:
+
+- Ark UI: no dedicated Stack primitive. Use the Ark composition and factory model: https://ark-ui.com/docs/guides/composition
+- Chakra UI: https://chakra-ui.com/docs/components/stack
 
 ## Purpose
 
-`Stack` is a small flex wrapper for the common "put these children in a row or column with gap and
-alignment" case.
+`Stack` lays out children in one vertical or horizontal flex container with common spacing,
+alignment, wrapping, grow behavior, and optional separators.
 
-Use it when the layout intent is:
+## Upstream model to preserve
 
-- one flex container;
-- one direction (`column` or `row`);
-- optional gap, alignment, wrapping, and grow behavior;
-- a simple mobile/desktop direction switch without a dedicated CSS file.
+Ark UI does not ship a dedicated `Stack` primitive. moduix implements `Stack` as an Ark-aligned
+factory wrapper with `@ark-ui/react/factory`.
 
-Use regular CSS when the layout needs grid behavior, more than two responsive breakpoints, or
-styling that is easier to express in a stylesheet than in a few flex props.
+Preserve the Ark composition model: one root part, DOM ownership through `asChild`, forwarded refs
+to the root element, Ark-style `data-scope` / `data-part` attributes, and no Base UI `render` or
+legacy `as` contract. Chakra's Stack recipe informs the public layout props and the optional
+`separator` composition pattern.
 
 ## Current behavior contract
 
-- Renders exactly one root element and forwards regular DOM props to that root.
-- Applies `data-slot="stack-root"` on the root.
+- `Stack` is the primary root component.
+- `Stack.Root` is the same component exposed for Ark-style namespace consistency.
+- Root accepts Ark factory div props, including `asChild`.
+- Applies `data-scope="stack"`, `data-part="root"`, and `data-slot="stack-root"` on the root.
 - Always applies the local root class from `Stack.module.css`, which sets `display: flex`.
 - `direction` defaults to `column` by behavior.
-- `fill={true}` sets `flex: 1 1 0` on the root. When omitted or `false`, the root keeps `flex:
-initial`.
+- `fill={true}` sets `flex: 1 1 0` on the root. When omitted or `false`, the root keeps
+  `flex: initial`.
 - `gap`, `align`, `justify`, and `wrap` are written as inline styles only when their corresponding
   prop is provided. When omitted, normal browser flex defaults apply.
-- Responsive `direction={{ mobile, desktop }}` switches at `640px`.
-- Responsive direction has a cross-fallback:
-  - `direction={{ mobile: 'column' }}` also uses `column` on desktop;
-  - `direction={{ desktop: 'row' }}` also uses `row` on mobile.
-- The component does not add wrappers, slots, ARIA relationships, keyboard handling, focus
-  management, disabled states, or read-only states.
+- Responsive `direction={{ mobile, desktop }}` switches at `640px` and cross-falls back when only
+  one side is provided.
+- `separator` renders the provided React node between children. It does not add extra spacing,
+  roles, or ARIA behavior.
+- The component does not add item wrappers, keyboard handling, focus management, disabled states, or
+  read-only states.
 
-## Composition
+## Anatomy and exported parts
 
 ```text
-Stack
+Stack / Stack.Root
 └─ children
 ```
 
-| Part    | Role                                                 |
-| ------- | ---------------------------------------------------- |
-| `Stack` | Root flex wrapper for direction, gap, and alignment. |
+Every exported part accepts `className` and uses the standard hooks below:
 
-`Stack` is root-only and composition-first. Put any semantic or visual content inside it.
+| Part                   | Hook                     | Notes                                                |
+| ---------------------- | ------------------------ | ---------------------------------------------------- |
+| `Stack` / `Stack.Root` | `data-slot="stack-root"` | Root flex wrapper for direction, gap, and alignment. |
+| `Stack` / `Stack.Root` | `data-scope="stack"`     | Ark-aligned component scope.                         |
+| `Stack` / `Stack.Root` | `data-part="root"`       | Ark-aligned part name.                               |
+
+## Composition
 
 ```tsx
 import { Heading, Stack, Text } from 'moduix';
+import styles from './stack.module.css';
 
 export function Example() {
   return (
-    <Stack as="section" gap={12}>
-      <Heading asChild size="md">
-        <h2>Project updates</h2>
-      </Heading>
-      <Text tone="muted">Use Stack when flex direction and spacing are the main layout needs.</Text>
-      <Text tone="muted">Keep more specific layout rules in local CSS.</Text>
+    <Stack asChild gap={12} className={styles.panel}>
+      <section>
+        <Heading asChild size="md">
+          <h2>Project updates</h2>
+        </Heading>
+        <Text tone="muted">
+          Use Stack when flex direction and spacing are the main layout needs.
+        </Text>
+        <Text tone="muted">Keep more specific layout rules in local CSS.</Text>
+      </section>
     </Stack>
   );
 }
 ```
 
-### Common patterns
+Prefer the short `<Stack>` form for normal `div` output. Use the equivalent `<Stack.Root>` namespace
+form when consistency with multipart component anatomy is useful. Use `asChild` when a semantic
+element such as `section`, `article`, `nav`, or `header` should own the DOM node; the child must be
+a single element that accepts `className`, `style`, and DOM attributes.
 
-Row layout:
+## Upstream feature coverage
 
-```tsx
-<Stack direction="row" align="center" justify="space-between" gap={12}>
-  <span>Status</span>
-  <span>Ready to publish</span>
-</Stack>
-```
+- Ark composition: preserved through factory `asChild` behavior.
+- Ark ref guide: the forwarded ref targets the root DOM element or the single `asChild` child.
+- Ark styling: the root exposes `data-scope`, `data-part`, and `data-slot` hooks.
+- Chakra Stack direction, gap, align, justify, wrap, and separator patterns are supported.
+- Chakra `HStack` and `VStack` shortcut components are intentionally not exported. Use
+  `direction="row"` or the default column direction.
+- Dedicated Ark state, provider/context, callbacks, `ids`, form integration, and keyboard patterns
+  are not applicable because `Stack` is a stateless layout primitive.
 
-Responsive direction:
+## Accessibility and state
 
-```tsx
-<Stack direction={{ mobile: 'column', desktop: 'row' }} gap={12}>
-  <span>Title</span>
-  <span>Metadata</span>
-</Stack>
-```
+- `Stack` has no managed state, callbacks, or ARIA behavior.
+- Use `asChild` with semantic HTML or ARIA attributes when the wrapper itself should be meaningful to
+  assistive technology.
+- Reading order and focus order follow the JSX child order.
+- `separator` is rendered as provided. Mark decorative separators with `aria-hidden="true"` or use
+  semantic markup when the separator should be announced.
+- There is no `Field` / `Fieldset` context integration, `HiddenInput`, `RootProvider`, or context
+  hook surface.
 
-Growing nested stack:
+## Defaults and styling
 
-```tsx
-<Stack direction="row" align="center" gap={12}>
-  <div>Avatar</div>
-  <Stack gap={8} fill>
-    <div>Name</div>
-    <div>Description</div>
-  </Stack>
-</Stack>
-```
+| Entry       | Default         | Values / Notes                                           |
+| ----------- | --------------- | -------------------------------------------------------- |
+| `direction` | `column`        | `column`, `row`, or `{ mobile?: ..., desktop?: ... }`    |
+| `gap`       | browser default | CSS length (`number` = `px`)                             |
+| `align`     | browser default | Any valid `align-items` value                            |
+| `justify`   | browser default | Any valid `justify-content` value                        |
+| `wrap`      | browser default | Any valid `flex-wrap` value                              |
+| `fill`      | `false`         | `true` sets `flex: 1 1 0` on the root                    |
+| `separator` | -               | React node rendered between children                     |
+| `asChild`   | `false`         | Ark factory composition                                  |
+| `className` | -               | Applied to the root                                      |
+| `style`     | -               | Applied last and can override computed inline properties |
 
-## Public props
-
-`Stack` accepts regular `div` props plus these wrapper props:
-
-| Prop        | Type                                                                 | Default by behavior | Notes                                                                  |
-| ----------- | -------------------------------------------------------------------- | ------------------- | ---------------------------------------------------------------------- |
-| `as`        | `React.ElementType`                                                  | `div`               | Changes the rendered root element.                                     |
-| `direction` | `'row' \| 'column' \| { mobile?: 'row' \| 'column'; desktop?: ... }` | `column`            | Supports a narrow mobile/desktop switch at `640px`.                    |
-| `gap`       | `number \| string`                                                   | browser default     | Written to the CSS `gap` property. Numbers become `px`.                |
-| `align`     | `CSSProperties['alignItems']`                                        | browser default     | Written to `align-items` only when provided.                           |
-| `justify`   | `CSSProperties['justifyContent']`                                    | browser default     | Written to `justify-content` only when provided.                       |
-| `wrap`      | `CSSProperties['flexWrap']`                                          | browser default     | Written to `flex-wrap` only when provided.                             |
-| `fill`      | `boolean`                                                            | `false`             | `true` makes the root a growing flex item with `flex: 1 1 0`.          |
-| `className` | `string`                                                             | —                   | Merged with the root class for local styling overrides.                |
-| `style`     | `React.CSSProperties`                                                | —                   | Applied last; can override computed flex properties and CSS variables. |
-
-`children`, `id`, `aria-*`, event handlers, and other regular DOM props are forwarded to the root.
-
-`as` follows the same lightweight polymorphic pattern as other local layout primitives in this
-package: it is convenient for semantic HTML (`section`, `article`, `nav`, `header`) and for custom
-wrappers that accept `className`, `style`, and regular DOM attributes.
-
-## Styling API
-
-### Stable hook
-
-| Hook                     | Purpose                            |
-| ------------------------ | ---------------------------------- |
-| `data-slot="stack-root"` | Stable selector for the root part. |
-
-There are no additional slots, variant data attributes, `slotProps`, or `classNames` maps.
-
-### Inline CSS custom properties
-
-`Stack` writes these CSS custom properties directly on the root element:
+`Stack` writes these instance CSS custom properties directly on the root element:
 
 | Variable                    | Source                    | Effect                                       |
 | --------------------------- | ------------------------- | -------------------------------------------- |
@@ -137,74 +127,42 @@ There are no additional slots, variant data attributes, `slotProps`, or `classNa
 | `--stack-direction-desktop` | resolved from `direction` | Desktop `flex-direction` value from `640px`. |
 | `--stack-flex`              | resolved from `fill`      | Root `flex` value.                           |
 
-Important difference from token-style variables in `theme.css`:
+These variables are instance variables, not global theme tokens. Use the `style` prop when one stack
+needs to override them.
 
-- these variables are **instance variables**, not global theme tokens;
-- they are written as inline styles by the component;
-- `className` rules cannot override them, because the inline style wins;
-- use the `style` prop if you intentionally need to override them.
+## Intentional sugar and differences from upstream
 
-Example:
-
-```tsx
-<Stack
-  direction="row"
-  style={{
-    '--stack-direction-mobile': 'column',
-  }}
-/>
-```
-
-The root also accepts normal flex styling overrides through `className` and `style`. For example,
-backgrounds, borders, padding, or width belong in local CSS, not in the component API.
-
-## Accessibility and UX notes
-
-- `Stack` has no intrinsic semantics. Use `as="section"`, `as="article"`, `as="nav"`, or ARIA
-  attributes when the wrapper itself should be meaningful to assistive technology.
-- Because it is a normal flex container, reading order and focus order follow the child order in JSX.
-- The component is non-interactive. It does not manage keyboard navigation, roving focus, disabled
-  state, pressed state, or read-only behavior.
-- `fill` affects the stack as a flex **item**, not its children. It is useful only when the parent is
-  already a flex container.
-- Responsive `direction` is intentionally narrow. If a layout needs tablet breakpoints, gap changes,
-  or more complex responsive behavior, prefer local CSS over expanding `Stack`.
-
-## Limitations and recommendations
-
-- `Stack` is intentionally small. It does not provide grid layout, item-level alignment props, slot
-  bags, per-breakpoint gap props, or variant presets.
-- Keep visual surface styling in local CSS. `Stack` should stay a layout primitive, not become a card,
-  panel, or list abstraction.
-- Prefer plain composition over adding convenience props for every flex feature. The current API is
-  meant to cover the common path only.
-- When preview examples use custom surface styling, include the same wrapper classes in the shown code
-  so consumers can understand why the preview looks the way it does.
-
-## Intentional differences from Base UI
-
-- There is no upstream Base UI primitive behind this component in our implementation.
-- The local contract is one exported root component rather than a compound primitive API.
-- There is no render-prop model, state model, slot props API, or `asChild` abstraction.
-- Styling is driven by the root class, normal DOM props, and a few inline CSS custom properties.
+- There is no dedicated Ark Stack primitive, so `Stack` is a moduix-owned root-only wrapper rather
+  than a direct primitive namespace.
+- Legacy `as` was removed. Use Ark factory `asChild` instead.
+- `Stack.Root` exists only for Ark-style namespace consistency; it is the same root component as
+  `Stack`.
+- `separator` is Chakra-informed sugar. Prefer the moduix `Separator` component for visual dividers,
+  but moduix does not add `HStack`, `VStack`, item wrappers, or built-in divider styling.
+- `fill` is moduix sugar for making the stack itself grow as a flex item.
 
 ## Agent notes
 
 - Keep `Stack` a thin single-root flex primitive.
-- Preserve `data-slot="stack-root"` as a stable root hook.
-- Preserve the current responsive direction behavior, including the mobile/desktop cross-fallback when
-  only one side is provided.
+- Preserve `data-scope="stack"`, `data-part="root"`, and `data-slot="stack-root"` as stable root
+  hooks.
+- Preserve the current responsive direction behavior, including the mobile/desktop cross-fallback
+  when only one side is provided.
+- Keep `separator` structural and unstyled; use `Separator` for the standard moduix divider or
+  consumer CSS for custom separators.
 - Do not document `align`, `justify`, or `wrap` as component-enforced defaults; they rely on browser
   flex defaults when omitted.
 - Keep the styling contract clear: `--stack-direction-*` and `--stack-flex` are inline instance
   variables, so `style` is the override escape hatch, not `className`.
-- Add DX sugar only when it removes repeated real-world boilerplate without hiding the simple
-  composition model. No additional sugar is justified in the current implementation.
 
 ## Local changelog
 
-- 2026-06-03: Rewrote the local documentation around the real shipped `Stack` contract, including the
-  root-only composition model, responsive-direction fallback behavior, styling hooks, accessibility
-  boundaries, and instance-level CSS custom properties.
+- 2026-06-21: Migrated `Stack` to `@ark-ui/react/factory`, added `Stack.Root`, `asChild`,
+  `data-scope="stack"`, `data-part="root"`, forwarded root refs, and Chakra-informed `separator`
+  composition.
+- 2026-06-21: Removed the legacy `as` contract in favor of Ark factory `asChild`.
+- 2026-06-03: Rewrote the local documentation around the real shipped `Stack` contract, including
+  the root-only composition model, responsive-direction fallback behavior, styling hooks,
+  accessibility boundaries, and instance-level CSS custom properties.
 - 2026-06-03: Preserved `data-slot="stack-root"` as a stable root hook by preventing consumer props
   from overriding it accidentally.
