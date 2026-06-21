@@ -56,6 +56,9 @@ informs the public contract.
 - Treat old Base UI-oriented docs as disposable migration input, not as the target structure.
 - Public docs and local component markdown should show the Ark UI mental model first: parts, composition, state
   shapes, callback signatures, and structural requirements.
+- For migrated components with a dedicated Ark primitive page, `API Reference` in `apps/docs` must use the same
+  standalone `<PrimitiveReference href="https://ark-ui.com/docs/components/<component-slug>" />` block as
+  `accordion`. Do not replace that block with prose-only summaries.
 - For migrated components with no dedicated Ark primitive, `API Reference` should be one compact paragraph with inline
   links to the relevant Ark guide or primitive page and any Chakra recipe reference. Do not format those upstream
   references as a bullet list.
@@ -69,9 +72,10 @@ informs the public contract.
   `<Accordion.Item>`).
 - In docs `### CSS Properties`, use the same moduix docs wrapper as `accordion`: `not-prose` container, docs `Tabs`
   with a `CSS Variables` tab, and a bounded scroll area around the reference table.
-- In migrated component docs, every `<Preview>` example should expose `Code`, `Styles`, and `Data` tabs. Put shared
-  arrays, records, and bulky constants in `<Preview.Data>` instead of hiding them in comments or prose. If an example
-  truly has no data, provide the smallest useful setup data or explain the exception in the docs change summary.
+- In migrated component docs, every `<Preview>` example should expose `Code`, `Styles`, and `Data` tabs via
+  `Preview.Code`, `Preview.CSS`, and `Preview.Data`. Put shared arrays, records, and bulky constants in
+  `<Preview.Data>` instead of hiding them in comments or prose. If an example truly has no data, provide the
+  smallest useful setup data or explain the exception in the docs change summary.
 - Cover the full Ark example surface that is relevant to the migrated component family. If Ark docs show multiple
   important usage patterns, reproduce those patterns in moduix docs/examples instead of keeping only the old Base UI
   subset.

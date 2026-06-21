@@ -1819,46 +1819,72 @@
   --stack-direction-mobile: initial; /* column */
   --stack-flex: initial; /* initial */
 
-  /* Stepper */
-  --stepper-color: initial; /* var(--color-foreground) */
-  --stepper-connector-color: initial; /* var(--color-border) */
-  --stepper-connector-color-active: initial; /* var(--color-foreground) */
-  --stepper-connector-inset: initial; /* 0.5rem */
-  --stepper-connector-thickness: initial; /* var(--border-width-sm) */
-  --stepper-content-gap: initial; /* 0.25rem */
-  --stepper-description-color: initial; /* var(--color-muted-foreground) */
-  --stepper-description-color-current: initial; /* var(--stepper-description-color, var(--color-muted-foreground)) */
-  --stepper-description-font-size: initial; /* var(--text-xs) */
-  --stepper-description-line-height: initial; /* var(--line-height-text-xs) */
-  --stepper-disabled-opacity: initial; /* var(--opacity-disabled) */
-  --stepper-focus-ring-color: initial; /* var(--color-ring) */
-  --stepper-focus-ring-offset: initial; /* 2px */
-  --stepper-focus-ring-width: initial; /* var(--border-width-sm) */
-  --stepper-gap: initial; /* var(--spacing-4) */
-  --stepper-indicator-bg: initial; /* var(--color-background) */
-  --stepper-indicator-bg-completed: initial; /* var(--color-foreground) */
-  --stepper-indicator-bg-current: initial; /* var(--stepper-indicator-bg, var(--color-background)) */
-  --stepper-indicator-border-color: initial; /* var(--color-border) */
-  --stepper-indicator-border-color-completed: initial; /* var(--color-foreground) */
-  --stepper-indicator-border-color-current: initial; /* var(--stepper-indicator-border-color-completed, var(--color-foreground)) */
-  --stepper-indicator-border-color-hover: initial; /* var(--stepper-indicator-border-color-current, var(--stepper-indicator-border-color-completed, var(--color-foreground))) */
-  --stepper-indicator-border-width: initial; /* var(--border-width-sm) */
-  --stepper-indicator-color: initial; /* var(--color-muted-foreground) */
-  --stepper-indicator-color-completed: initial; /* var(--color-background) */
-  --stepper-indicator-color-current: initial; /* var(--color-foreground) */
-  --stepper-indicator-color-hover: initial; /* var(--stepper-indicator-color-current, var(--color-foreground)) */
-  --stepper-indicator-font-size: initial; /* var(--text-sm) */
-  --stepper-indicator-font-weight: initial; /* var(--weight-semibold) */
-  --stepper-indicator-icon-size: initial; /* 0.875rem */
-  --stepper-indicator-radius: initial; /* var(--radius-full) */
-  --stepper-indicator-size: initial; /* 2rem */
-  --stepper-title-color: initial; /* currentColor */
-  --stepper-title-color-current: initial; /* var(--stepper-title-color, currentColor) */
-  --stepper-title-color-hover: initial; /* var(--color-foreground) */
-  --stepper-title-font-size: initial; /* var(--text-sm) */
-  --stepper-title-font-weight: initial; /* var(--weight-medium) */
-  --stepper-title-line-height: initial; /* var(--line-height-text-sm) */
-  --stepper-trigger-gap: initial; /* var(--spacing-3) */
+  /* Steps */
+  --steps-action-bg: initial; /* var(--color-background) */
+  --steps-action-bg-hover: initial; /* var(--color-accent) */
+  --steps-action-border-color: initial; /* var(--color-border) */
+  --steps-action-border-width: initial; /* var(--border-width-sm) */
+  --steps-action-color: initial; /* var(--color-foreground) */
+  --steps-action-font-size: initial; /* var(--text-sm) */
+  --steps-action-gap: initial; /* var(--spacing-2) */
+  --steps-action-height: initial; /* 2rem */
+  --steps-action-line-height: initial; /* var(--line-height-text-sm) */
+  --steps-action-padding-x: initial; /* 0.75rem */
+  --steps-action-padding-y: initial; /* 0.375rem */
+  --steps-action-radius: initial; /* var(--radius-md) */
+  --steps-color: initial; /* var(--color-foreground) */
+  --steps-completed-content-color: initial; /* var(--color-foreground) */
+  --steps-completed-content-font-weight: initial; /* var(--weight-medium) */
+  --steps-content-bg: initial; /* var(--color-muted) */
+  --steps-content-color: initial; /* var(--color-foreground) */
+  --steps-content-font-size: initial; /* var(--text-sm) */
+  --steps-content-line-height: initial; /* var(--line-height-text-sm) */
+  --steps-content-min-height: initial; /* 10rem */
+  --steps-content-padding-x: initial; /* var(--spacing-4) */
+  --steps-content-padding-y: initial; /* var(--spacing-4) */
+  --steps-content-radius: initial; /* var(--radius-md) */
+  --steps-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --steps-focus-ring-color: initial; /* var(--color-ring) */
+  --steps-focus-ring-offset: initial; /* 2px */
+  --steps-focus-ring-width: initial; /* var(--border-width-sm) */
+  --steps-gap: initial; /* var(--spacing-4) */
+  --steps-indicator-bg: initial; /* var(--color-background) */
+  --steps-indicator-bg-complete: initial; /* var(--color-foreground) */
+  --steps-indicator-bg-current: initial; /* var(--steps-indicator-bg, var(--color-background)) */
+  --steps-indicator-border-color: initial; /* var(--color-border) */
+  --steps-indicator-border-color-complete: initial; /* var(--color-foreground) */
+  --steps-indicator-border-color-current: initial; /* var(--steps-indicator-border-color-complete, var(--color-foreground)) */
+  --steps-indicator-border-color-hover: initial; /* var(--steps-indicator-border-color-current, var(--color-foreground)) */
+  --steps-indicator-border-width: initial; /* var(--border-width-sm) */
+  --steps-indicator-color: initial; /* var(--color-muted-foreground) */
+  --steps-indicator-color-complete: initial; /* var(--color-background) */
+  --steps-indicator-color-current: initial; /* var(--color-foreground) */
+  --steps-indicator-color-hover: initial; /* var(--steps-indicator-color-current, var(--color-foreground)) */
+  --steps-indicator-font-size: initial; /* var(--text-sm) */
+  --steps-indicator-font-weight: initial; /* var(--weight-semibold) */
+  --steps-indicator-icon-size: initial; /* 0.875rem */
+  --steps-indicator-radius: initial; /* var(--radius-full) */
+  --steps-indicator-size: initial; /* 2rem */
+  --steps-max-width: initial; /* 52rem */
+  --steps-next-action-bg: initial; /* var(--color-foreground) */
+  --steps-next-action-bg-hover: initial; /* var(--color-foreground) */
+  --steps-next-action-border-color: initial; /* var(--color-foreground) */
+  --steps-next-action-color: initial; /* var(--color-background) */
+  --steps-progress-bg: initial; /* var(--color-border) */
+  --steps-progress-fill-bg: initial; /* var(--color-foreground) */
+  --steps-progress-height: initial; /* var(--border-width-md) */
+  --steps-progress-radius: initial; /* var(--radius-full) */
+  --steps-root-gap: initial; /* var(--spacing-4) */
+  --steps-separator-color: initial; /* var(--color-border) */
+  --steps-separator-color-complete: initial; /* var(--color-foreground) */
+  --steps-separator-inset: initial; /* 0.5rem */
+  --steps-separator-min-width: initial; /* var(--spacing-8) */
+  --steps-separator-thickness: initial; /* var(--border-width-sm) */
+  --steps-trigger-color-incomplete: initial; /* inherit */
+  --steps-trigger-gap: initial; /* var(--spacing-3) */
+  --steps-trigger-radius: initial; /* var(--radius-md) */
+  --steps-vertical-gap: initial; /* var(--spacing-6) */
+  --steps-vertical-item-min-height: initial; /* 4rem */
 
   /* Skeleton */
   --skeleton-animation: initial; /* var(--animation-pulse) */

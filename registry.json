@@ -1363,26 +1363,26 @@
       ]
     },
     {
-      "name": "stepper",
+      "name": "steps",
       "type": "registry:item",
-      "title": "Stepper",
-      "description": "moduix Stepper component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "title": "Steps",
+      "description": "moduix Steps component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
-          "path": "packages/ui/src/components/stepper/Stepper.tsx",
-          "target": "@components/moduix/stepper/Stepper.tsx",
+          "path": "packages/ui/src/components/steps/Steps.tsx",
+          "target": "@components/moduix/steps/Steps.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/ui/src/components/stepper/Stepper.module.css",
-          "target": "@components/moduix/stepper/Stepper.module.css",
+          "path": "packages/ui/src/components/steps/Steps.module.css",
+          "target": "@components/moduix/steps/Steps.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/ui/src/components/stepper/index.ts",
-          "target": "@components/moduix/stepper/index.ts",
+          "path": "packages/ui/src/components/steps/index.ts",
+          "target": "@components/moduix/steps/index.ts",
           "type": "registry:component"
         }
       ]

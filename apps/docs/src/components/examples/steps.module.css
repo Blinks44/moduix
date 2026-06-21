@@ -1,0 +1,83 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  width: min(100%, 52rem);
+}
+
+.vertical {
+  max-width: min(100%, 40rem);
+
+  :global([data-slot='steps-root'][data-orientation='vertical']) {
+    align-items: flex-start;
+  }
+
+  :global([data-slot='steps-list'][data-orientation='vertical']) {
+    align-self: flex-start;
+  }
+
+  :global([data-slot='steps-item'][data-orientation='vertical']) {
+    align-self: flex-start;
+  }
+
+  :global([data-slot='steps-trigger'][data-orientation='vertical']) {
+    align-self: flex-start;
+  }
+}
+
+.stepText {
+  display: grid;
+  min-width: 0;
+  gap: 0.125rem;
+}
+
+.stepTitle {
+  color: currentColor;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  line-height: var(--line-height-text-sm);
+}
+
+.stepDescription {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.panelContent {
+  display: inline-flex;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-2);
+}
+
+.output {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+}
+
+.customSteps {
+  --steps-content-bg: color-mix(in oklab, var(--color-primary) 10%, var(--color-muted) 90%);
+  --steps-indicator-bg-current: color-mix(
+    in oklab,
+    var(--color-primary) 12%,
+    var(--color-background) 88%
+  );
+  --steps-indicator-bg-complete: var(--color-primary);
+  --steps-indicator-border-color-complete: var(--color-primary);
+  --steps-indicator-border-color-current: var(--color-primary);
+  --steps-indicator-color-current: var(--color-primary);
+  --steps-indicator-radius: var(--radius-md);
+  --steps-indicator-size: 2.5rem;
+  --steps-next-action-bg: var(--color-primary);
+  --steps-next-action-border-color: var(--color-primary);
+  --steps-next-action-color: var(--color-primary-foreground, var(--color-background));
+  --steps-separator-color-complete: var(--color-primary);
+  --steps-separator-thickness: var(--border-width-md);
+  --steps-progress-fill-bg: var(--color-primary);
+}

@@ -26,9 +26,9 @@ Use this skill for work in `apps/docs`.
 - Import public components from `moduix`. Do not duplicate library components inside the docs app.
 - Document the shipped public API only. Remove stale props, examples, styling hooks, and legacy guidance in the same task.
 - Keep MDX consumer-facing. Put interactive logic, bulky example data, and `cssProperties` arrays in example `.tsx` files.
-- For component migration/audit docs, every example preview should include `Code`, `Styles`, and `Data` tabs. Put
-  shared arrays, fixture objects, and setup constants in `Preview.Data`; do not hide required code behind comments,
-  ellipses, or prose.
+- For component migration/audit docs, every example preview should include `Code`, `Styles`, and `Data` tabs via
+  `Preview.Code`, `Preview.CSS`, and `Preview.Data`. Put shared arrays, fixture objects, and setup constants in
+  `Preview.Data`; do not hide required code behind comments, ellipses, or prose.
 - Prefer `as T` over `useState<T>()` in MDX.
 - Prefer short, production-like examples over exhaustive configuration demos.
 - Keep demo styles in colocated CSS Modules when that is clearer than inline styles.
@@ -46,6 +46,9 @@ Use this skill for work in `apps/docs`.
 - If a component has a dedicated Ark UI page, the docs page must mirror the upstream Ark mental model first:
   anatomy, recommended composition path, relevant examples, guides, state hooks, and styling hooks that the
   moduix wrapper still exposes.
+- If a component has a dedicated Ark UI page, `## API Reference` must render the same standalone
+  `<PrimitiveReference href="https://ark-ui.com/docs/components/<component-slug>" />` block used by `accordion`.
+  Do not replace that block with prose-only API summaries.
 - When a component has a dedicated Ark UI examples section, moduix docs examples should cover at least 80% of
   those upstream Ark examples, adapted to the public moduix API and merged only when examples teach the same
   consumer-facing pattern.
