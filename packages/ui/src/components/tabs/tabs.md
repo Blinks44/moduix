@@ -27,7 +27,7 @@ State and callbacks must remain Ark-shaped. `onValueChange(details)` exposes the
 - `variant?: 'default' | 'line'` is the only moduix visual sugar on `Tabs.Root` and
   `Tabs.RootProvider`.
 - `Tabs.List` does not auto-render `Tabs.Indicator`. Consumers render the indicator explicitly.
-- Legacy flat exports (`TabsList`, `TabsTab`, `TabsPanel`, `TabsIndicator`) and Base UI props such as
+- Legacy flat exports (`TabsList`, `TabsTab`, `TabsPanel`, `TabsIndicator`) and legacy props such as
   `render`, `nativeButton`, `activateOnFocus`, `keepMounted`, and `renderBeforeHydration` are not
   part of the contract.
 
@@ -129,19 +129,19 @@ The root defaults to a column layout and switches to row layout for `orientation
 - `variant` is moduix visual sugar; Ark has no `variant` prop for tabs.
 - The wrapper adds `data-slot` hooks and default CSS module classes.
 - The wrapper does not add a default indicator automatically. This keeps Ark composition explicit.
-- Legacy Base UI flat aliases and render contracts were intentionally removed during migration.
+- Legacy legacy flat aliases and render contracts were intentionally removed during migration.
 
 ## Agent notes
 
 - Keep wrappers thin and namespace-first. Do not re-export flat part aliases unless a future product
   decision explicitly reverses this migration rule.
-- Preserve Ark callback detail objects and do not add compatibility shims for old Base UI signatures.
+- Preserve Ark callback detail objects and do not add compatibility shims for old legacy signatures.
 - Keep custom styling examples on Ark variables `--left`, `--top`, `--width`, and `--height`; do not
-  reintroduce Base UI `--active-tab-*` variables.
+  reintroduce legacy `--active-tab-*` variables.
 - If docs import `useTabs` or `useTabsContext`, verify public barrel exports remain in sync.
 
 ## Local changelog
 
-- 2026-06-21: Migrated Tabs from Base UI to Ark UI React. Replaced flat part exports with
+- 2026-06-21: Migrated Tabs to Ark UI React. Replaced flat part exports with
   namespace-first `Tabs.*`, added `RootProvider`, `Context`, `useTabs`, and `useTabsContext`,
-  switched callbacks/state/styling to Ark contracts, and removed Base UI compatibility props.
+  switched callbacks/state/styling to Ark contracts, and removed legacy compatibility props.

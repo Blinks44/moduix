@@ -187,9 +187,9 @@ Public exported types:
   state is built in or needed.
 - Respect reduced motion. The shipped CSS disables spinner rotation for users who request less motion.
 
-## Intentional differences from Base UI
+## Intentional differences from legacy
 
-- There is no upstream Base UI or Ark UI `Spinner` primitive to mirror locally.
+- There is no upstream legacy or Ark UI `Spinner` primitive to mirror locally.
 - The component no longer exposes a plain DOM-only span prop contract. It uses `HTMLArkProps<'span'>`
   and supports `asChild`.
 - The public root namespace follows Ark-style root-only components: `Spinner` and `Spinner.Root`.

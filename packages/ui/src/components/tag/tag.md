@@ -137,7 +137,7 @@ or `aria-disabled` states.
 
 ## Local changelog
 
-- 2026-06-21: Migrated from Base UI button composition to Ark factory parts, added namespace API
+- 2026-06-21: Migrated from legacy button composition to Ark factory parts, added namespace API
   (`Tag.Root`, `Tag.Label`, `Tag.StartElement`, `Tag.EndElement`, `Tag.CloseTrigger`), added
   `asChild`, renamed remove styling variables to `--tag-close-trigger-*`, and removed flat legacy
   exports.

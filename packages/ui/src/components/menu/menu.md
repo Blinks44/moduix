@@ -27,7 +27,7 @@ Callbacks and state shapes must remain Ark-shaped: `onOpenChange(details)`,
 The component exports thin styled wrappers over Ark parts and mirrors Ark provider/context hooks
 through the package barrel: `useMenu`, `useMenuContext`, and `useMenuItemContext`.
 
-Breaking Base UI-era APIs were removed:
+Breaking legacy APIs were removed:
 
 - no `render` prop contract; use Ark `asChild`
 - no `closeOnClick`; use Ark `closeOnSelect` or item/root defaults
@@ -185,7 +185,7 @@ exported from `packages/ui/src/components/menu/index.ts` and the root package ba
   set, so `Menu.Trigger asChild` does not override consumer button styling.
 - 2026-06-19: Changed `Menu.Trigger` open-state background fallback to `--menu-trigger-bg` so
   opening a popup no longer forces the hover accent color unless `--menu-trigger-bg-active` is set.
-- 2026-06-18: Migrated `Menu` from Base UI to Ark UI React. Removed Base UI compatibility exports
+- 2026-06-18: Migrated `Menu` to Ark UI React. Removed legacy compatibility exports
   and rewrote the public contract around Ark parts, `asChild`, `value` items, `RootProvider`,
   `ContextTrigger`, `TriggerItem`, Ark state attributes, and Ark positioning variables.
 - 2026-06-16: Added `tone="destructive"` and dedicated destructive highlight tokens for softer
@@ -193,4 +193,4 @@ exported from `packages/ui/src/components/menu/index.ts` and the root package ba
 - 2026-06-14: Added `indicator="none"` for checkbox and radio rows so menus can opt out of the
   reserved indicator column without causing selection-time layout shift.
 - 2026-06-10: Added phase-specific backdrop and popup motion tokens for menu enter/exit motion.
-- 2026-06-02: Rewrote the local documentation around the Base UI wrapper contract.
+- 2026-06-02: Rewrote the local documentation around the previous wrapper contract.

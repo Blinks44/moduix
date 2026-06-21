@@ -29,7 +29,7 @@ model through `@ark-ui/react/factory`:
 - Omitting `children` renders the moduix `CloseIcon`.
 - Omitting an accessible name on the default-icon path adds `aria-label="Close"`.
 - `disabled` and `aria-disabled="true"` expose `data-disabled`.
-- Base UI `render`, `nativeButton`, and `focusableWhenDisabled` are not supported.
+- legacy `render`, `nativeButton`, and `focusableWhenDisabled` are not supported.
 - `CloseButton` is a namespace object, not a callable alias.
 
 ## Anatomy and exported parts
@@ -123,11 +123,11 @@ Public CSS variables:
 - Keep this as a thin Ark factory wrapper with one part.
 - Preserve the shared `--close-button-*` contract because Dialog, Drawer, and Lightbox map their
   close-control tokens into it.
-- Do not reintroduce Base UI render props or a callable `CloseButton` alias.
+- Do not reintroduce legacy render props or a callable `CloseButton` alias.
 
 ## Local changelog
 
 - 2026-06-18: Migrated to `@ark-ui/react/factory`, introduced the explicit
-  `CloseButton.Root` part and Ark data hooks, added `asChild`, and removed the Base UI button
+  `CloseButton.Root` part and Ark data hooks, added `asChild`, and removed the legacy button
   contract and callable alias.
 - 2026-06-18: Aligned `aria-disabled` with disabled behavior by suppressing root click activation.

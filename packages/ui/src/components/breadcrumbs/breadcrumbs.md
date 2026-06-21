@@ -147,7 +147,7 @@ The last item can shrink and is capped by `--breadcrumbs-item-max-width`; link, 
 ## Intentional sugar and differences from upstream
 
 - Moduix provides the Breadcrumb part family because Ark UI does not currently provide a dedicated primitive.
-- The legacy Base UI `render` prop was removed. Use Ark `asChild`.
+- The legacy `render` prop was removed. Use Ark `asChild`.
 - Separators are explicit JSX parts instead of generated automatically.
 - Collapsing is not built in; compose `Menu` explicitly for hidden path items.
 - `Breadcrumbs.Ellipsis` has compact sizing and a subtle hover background for collapsed menu triggers.

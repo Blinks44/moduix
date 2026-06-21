@@ -95,7 +95,7 @@ The package barrel also exports `useSteps`, `useStepsContext`, `useStepsItemCont
 
 Use `Steps.Root` or the short `Steps` root for normal usage. Use `Steps.RootProvider` only when state is created outside with `useSteps()`.
 
-Use `asChild` instead of the removed Base UI `render` prop:
+Use `asChild` instead of the removed legacy `render` prop:
 
 ```tsx
 <Steps.Trigger asChild>
@@ -134,10 +134,10 @@ This migration intentionally removes the old `Stepper` contract: no flat part ex
 
 ## Agent notes
 
-Do not re-add Base UI imports or compatibility aliases. Keep future changes aligned with Ark part names and zero-based state. If a new Ark `Steps` part or hook appears upstream, mirror it through `Steps` and the barrel unless there is a documented reason not to.
+Do not re-add legacy primitive imports or compatibility aliases. Keep future changes aligned with Ark part names and zero-based state. If a new Ark `Steps` part or hook appears upstream, mirror it through `Steps` and the barrel unless there is a documented reason not to.
 
 When changing styling hooks or variables, update `Steps.module.css`, `theme.css`, stories, docs examples, `apps/docs/content/docs/steps.mdx`, and this file together.
 
 ## Local changelog
 
-- 2026-06-21: Migrated `Stepper` to Ark UI `Steps`, renamed the component and registry surface to `steps`, removed Base UI render compatibility, adopted Ark state/callback/index contracts, added real content/completed/progress/navigation parts, and documented the breaking API.
+- 2026-06-21: Migrated `Stepper` to Ark UI `Steps`, renamed the component and registry surface to `steps`, removed legacy render compatibility, adopted Ark state/callback/index contracts, added real content/completed/progress/navigation parts, and documented the breaking API.

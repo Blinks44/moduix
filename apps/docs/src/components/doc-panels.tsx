@@ -4,7 +4,7 @@ const quickStartSteps = [
   {
     title: 'Install',
     body: 'Add moduix and the current primitive peer dependencies to the application.',
-    code: 'npm install moduix @ark-ui/react @base-ui/react',
+    code: 'npm install moduix @ark-ui/react',
   },
   {
     title: 'Connect CSS',

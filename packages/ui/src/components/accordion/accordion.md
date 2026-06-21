@@ -142,7 +142,7 @@ Primary CSS variables:
 
 ## Local changelog
 
-- 2026-06-17: Migrated wrapper internals from Base UI Accordion to Ark UI Accordion, adopted Ark part
+- 2026-06-17: Migrated wrapper internals from legacy Accordion to Ark UI Accordion, adopted Ark part
   naming (`ItemTrigger`, `ItemIndicator`, `ItemContent`), and moved styling/state hooks to Ark
   data attributes and `--height`-based content animation.
 - 2026-06-17: Removed flat named exports (`AccordionRoot`, `AccordionItem`, `AccordionItemTrigger`,

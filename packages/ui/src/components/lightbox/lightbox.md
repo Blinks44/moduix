@@ -138,7 +138,7 @@ Public variables use Ark part names: `--lightbox-backdrop-*`, `--lightbox-positi
 - `Lightbox.CloseIcon` composes Ark `CloseTrigger` with the Moduix close button and defaults its
   label to `"Close image"`.
 - Part wrappers add `data-slot` hooks and lightbox-specific visual defaults.
-- Legacy Base UI APIs were removed: flat part exports, `LightboxPortal`, `LightboxViewport`,
+- Legacy legacy APIs were removed: flat part exports, `LightboxPortal`, `LightboxViewport`,
   `LightboxPopup`, `LightboxClose`, `LightboxCloseButton`, `LightboxImage`, `LightboxGallery`,
   `createLightboxHandle`, hidden overlay composition, `render`, `nativeButton`, `handle`,
   `fullSrc`, `showCloseButton`, `closeOnContentClick`, and `closeLabel`.
@@ -151,7 +151,7 @@ the base `Lightbox` parts.
 
 ## Local changelog
 
-- 2026-06-19: Replaced Base UI with Ark UI Dialog, adopted Ark anatomy, namespace exports,
+- 2026-06-19: Adopted Ark UI Dialog, adopted Ark anatomy, namespace exports,
   callbacks, provider/context hooks, data-state styling, and explicit overlay composition; removed
   all legacy adapters and image/gallery state helpers.
 - 2026-06-19: Restored delegated CMS capture as `Lightbox.Gallery`, using Ark dialog state under

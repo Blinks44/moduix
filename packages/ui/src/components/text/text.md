@@ -169,7 +169,7 @@ Public CSS variables:
 moduix adds a constrained semantic `as` union, visual `tone` presets, default variants for `small`
 and `strong`, stable `data-slot`, and theme variables.
 
-There is no legacy Base UI `render` prop. Custom host composition now uses Ark-style `asChild`.
+There is no legacy `render` prop. Custom host composition now uses Ark-style `asChild`.
 `TextProps` was replaced by the Ark-shaped `TextRootProps`.
 
 ## Agent notes
@@ -183,7 +183,7 @@ There is no legacy Base UI `render` prop. Custom host composition now uses Ark-s
 
 ## Local changelog
 
-- 2026-06-21: Migrated `Text` from Base UI `useRender` to Ark factory, replaced `render` with
+- 2026-06-21: Migrated `Text` from legacy `useRender` to Ark factory, replaced `render` with
   `asChild`, added `Text.Root`, forwarded refs, Ark-style root data attributes, and Chakra-informed
   `truncate` / `lineClamp` props.
 - 2026-06-03: Rewrote the local documentation around the shipped moduix `Text` contract, including

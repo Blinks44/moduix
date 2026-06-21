@@ -11,6 +11,7 @@ Use this skill when component work needs upstream Ark UI, Chakra UI, or shadcn r
 
 - Ark UI routing index: `https://ark-ui.com/llms.txt`
 - Ark UI component docs: `https://ark-ui.com/docs/components/<component-slug>`
+- Ark UI mdx component docs: `https://ark-ui.com/docs/components/<component-slug>.mdx`
 - Ark UI ref guide: `https://ark-ui.com/docs/guides/ref`
 - Ark UI forms guide: `https://ark-ui.com/docs/guides/forms`
 - Ark UI animation guide: `https://ark-ui.com/docs/guides/animation`
@@ -18,6 +19,7 @@ Use this skill when component work needs upstream Ark UI, Chakra UI, or shadcn r
 - Ark UI composition guide: `https://ark-ui.com/docs/guides/composition`
 - Ark UI styling guide: `https://ark-ui.com/docs/guides/styling`
 - Chakra UI component docs: `https://chakra-ui.com/docs/components/<component-slug>`
+- Chakra UI mdx component docs: `https://chakra-ui.com/docs/components/<component-slug>.mdx`
 - shadcn agent index: `https://ui.shadcn.com/llms.txt`
 
 ## Rules
@@ -38,7 +40,7 @@ When translating upstream guidance into moduix rules:
 - Use Ark `Field.Root` and `Fieldset.Root` context for form state (`disabled`, `invalid`, `required`, `readOnly`).
   Do not duplicate those states with local context when Ark context can carry them.
 - Include the relevant Ark `HiddenInput` in form controls that need native form submission or reset behavior.
-- Preserve Ark callback detail objects and state shapes. Do not convert `details` callbacks to legacy positional
+- Preserve Ark callback detail objects and state shapes. Do not convert `details` callbacks to positional
   callbacks or local aliases.
 - Use `Component.Context` for local inline render-prop access, `use*Context` hooks for reusable child parts, and
   `useComponent` plus `RootProvider` only when state must be controlled outside the component tree. Do not render both

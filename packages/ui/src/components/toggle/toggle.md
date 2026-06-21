@@ -39,7 +39,7 @@ The root renders a `button`. `Indicator` renders inline pressed/fallback content
   standalone toggle keeps a visible button outline before it is pressed.
 - The root writes `data-slot="toggle-root"`, `data-variant`, and `data-size`.
 - The indicator writes `data-slot="toggle-indicator"`.
-- Base UI `render`, `nativeButton`, state callback `className`, and state callback `style` are removed. Use Ark
+- legacy `render`, `nativeButton`, state callback `className`, and state callback `style` are removed. Use Ark
   `asChild`, `Toggle.Indicator`, or `Toggle.Context` instead.
 
 ## Anatomy and exported parts
@@ -172,21 +172,21 @@ the root to a square box.
   no-border toggle.
 - `Toggle.Indicator` does not add default icons; consumers pass the pressed content and optional
   `fallback`.
-- Base UI compatibility APIs are intentionally removed. There is no `render`, `nativeButton`,
-  Base UI event details object, or Base UI state callback styling contract.
+- legacy compatibility APIs are intentionally removed. There is no `render`, `nativeButton`,
+  legacy event details object, or legacy state callback styling contract.
 - Use Ark `asChild` for custom host composition.
 
 ## Agent notes
 
 - Keep the wrapper thin. Do not add local state or remap `onPressedChange`.
 - If Ark adds `RootProvider` for Toggle in the future, mirror it through the namespace and barrel.
-- Do not reintroduce Base UI `render` examples in stories, docs, or local markdown.
+- Do not reintroduce legacy `render` examples in stories, docs, or local markdown.
 - `ToggleGroup` is a separate component family; do not make standalone `Toggle` depend on group context.
 
 ## Local changelog
 
 - 2026-06-21: Changed the off-state default variant from transparent/no-border to
   `var(--color-background)` plus `var(--color-border)` so standalone toggles have visible affordance.
-- 2026-06-21: Migrated `Toggle` from Base UI to Ark UI. Added `Toggle.Root`,
-  `Toggle.Indicator`, `Toggle.Context`, `useToggle`, and `useToggleContext`; removed Base UI
+- 2026-06-21: Migrated `Toggle` to Ark UI. Added `Toggle.Root`,
+  `Toggle.Indicator`, `Toggle.Context`, `useToggle`, and `useToggleContext`; removed legacy
   `render` / `nativeButton` compatibility and updated styling hooks to Ark data attributes.

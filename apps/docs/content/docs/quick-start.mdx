@@ -24,47 +24,47 @@ package management.
 
 ### 1. Install the package
 
-The components, CSS, and design tokens are shipped together. During the migration window, Ark UI is the primary primitive peer and a compatibility peer remains for not-yet-migrated components:
+The components, CSS, and design tokens are shipped together. Ark UI is the primitive peer dependency:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
 
 ```bash
-npm install moduix @ark-ui/react @base-ui/react
+npm install moduix @ark-ui/react
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm add moduix @ark-ui/react @base-ui/react
+pnpm add moduix @ark-ui/react
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bun add moduix @ark-ui/react @base-ui/react
+bun add moduix @ark-ui/react
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno add moduix @ark-ui/react @base-ui/react
+deno add moduix @ark-ui/react
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aube add moduix @ark-ui/react @base-ui/react
+aube add moduix @ark-ui/react
 ```
 
   </Tab>
 </Tabs>
 
-`@ark-ui/react` and `@base-ui/react` stay in your application bundle during the migration window, so moduix does not ship duplicate primitive runtimes.
+`@ark-ui/react` stays in your application bundle, so moduix does not ship a duplicate Ark UI runtime.
 
 ### 2. Add styles
 

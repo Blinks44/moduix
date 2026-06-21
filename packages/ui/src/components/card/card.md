@@ -207,11 +207,11 @@ Public CSS variables:
 
 ## Local changelog
 
-- 2026-06-18: Completed the Ark factory migration audit: removed the stale Base UI registry
+- 2026-06-18: Completed the Ark factory migration audit: removed the stale legacy registry
   dependency, added Chakra-aligned `lg` sizing and `elevated` / `outline` / `subtle` variants,
   documented all current Chakra Card example categories, and standardized docs previews with
   Code, Styles, and Data tabs.
 - 2026-06: Migrated `Card` to an Ark-style multipart API based on `Card.Root`, `Card.Header`,
-  `Card.Body`, `Card.Footer`, `Card.Title`, and `Card.Description`; replaced Base UI `render` with
+  `Card.Body`, `Card.Footer`, `Card.Title`, and `Card.Description`; replaced legacy `render` with
   Ark `asChild`; renamed `CardContent` to `Card.Body`; and added Ark-style `data-scope` /
   `data-part` hooks across all parts.

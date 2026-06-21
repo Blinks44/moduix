@@ -22,7 +22,7 @@ invalid state.
 - `disabled`, `invalid`, and `id` pass directly to Ark.
 - `Fieldset.ErrorText` renders only while the root is invalid.
 - `Fieldset.HelperText` and active error text are connected through `aria-describedby`.
-- Base UI `render`, callback class names, flat part aliases, and compatibility adapters are removed.
+- legacy `render`, callback class names, flat part aliases, and compatibility adapters are removed.
 
 ## Anatomy and exported parts
 
@@ -99,7 +99,7 @@ disabled and invalid state, and helper/error text typography and color.
 
 - moduix supplies CSS Module defaults, design-token fallbacks, CSS variables, and `data-slot`.
 - The short `<Fieldset>` form is equivalent to `<Fieldset.Root>`.
-- No Chakra-only content wrapper or Base UI flat aliases are added.
+- No Chakra-only content wrapper or legacy flat aliases are added.
 
 ## Agent notes
 
@@ -110,6 +110,6 @@ disabled and invalid state, and helper/error text typography and color.
 
 ## Local changelog
 
-- 2026-06-19: Migrated from Base UI to Ark UI 5.37.2; added the complete anatomy, provider/context
+- 2026-06-19: Migrated to Ark UI 5.37.2; added the complete anatomy, provider/context
   surface, invalid/helper/error semantics, Ark state styling, and namespace-first exports; removed
   legacy flat aliases and `render`.

@@ -43,7 +43,7 @@ instance.
 - `size` is the only moduix root sugar. It defaults to `md` and writes `data-size` on the root.
   Supported values are `xs`, `sm`, `md`, `lg`, and `xl`.
 - `className` is accepted on all visible Ark parts and merged with CSS Module classes.
-- Base UI compatibility is removed. There is no `SwitchField`, flat `SwitchThumb`, flat
+- legacy compatibility is removed. There is no `SwitchField`, flat `SwitchThumb`, flat
   `SwitchLabel`, `render`, `nativeButton`, `inputRef`, raw boolean `onCheckedChange`, or
   `uncheckedValue` wrapper contract.
 
@@ -203,22 +203,22 @@ Public CSS variables:
   should prefer explicit Ark anatomy for accessible labels and form examples.
 - Styling is not unstyled: CSS Modules, `data-slot`, `data-size`, and `--switch-*` variables are
   part of the public wrapper contract.
-- Flat Base UI-era exports (`SwitchThumb`, `SwitchField`, `SwitchLabel`) and Base UI host props
+- Flat legacy exports (`SwitchThumb`, `SwitchField`, `SwitchLabel`) and legacy host props
   (`render`, `nativeButton`) are intentionally removed.
 
 ## Agent notes
 
 - Keep `Switch`, `Checkbox`, and `RadioGroup` aligned around Ark callback detail objects and
   explicit hidden input parts.
-- Do not restore Base UI compatibility aliases or raw boolean callback adapters.
+- Do not restore legacy compatibility aliases or raw boolean callback adapters.
 - Keep hover and focus styling on Ark attributes, not custom modifier classes.
 - If Ark adds new switch parts or state APIs, mirror them through the namespace and `index.ts`
   unless there is a documented reason not to.
 
 ## Local changelog
 
-- 2026-06-21: Migrated `Switch` from Base UI to Ark UI React, adopted namespace parts,
+- 2026-06-21: Migrated `Switch` to Ark UI React, adopted namespace parts,
   `HiddenInput`, Ark `onCheckedChange(details)`, `Context`, `useSwitch`, `RootProvider`, `asChild`,
-  and Ark state attributes; removed Base UI compatibility exports and props.
+  and Ark state attributes; removed legacy compatibility exports and props.
 - 2026-06-03: Rewrote the local documentation to describe the previous moduix `Switch` wrapper,
   exported parts, styling contract, accessibility guidance, and `size`/thumb behavior.

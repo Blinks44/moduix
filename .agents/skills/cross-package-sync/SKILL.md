@@ -24,7 +24,7 @@ Use this skill when work spans `packages/ui` and `apps/docs`.
   context, callback detail objects, `asChild`, `ids`, context hooks, `RootProvider`, state attributes, and CSS
   variables should match the shipped wrapper.
 - Sync README files when install paths, styling entrypoints, or ownership guidance changes, and keep wording consistent with `quick-start.mdx`.
-- Remove docs for deleted props, types, styling hooks, feature flags, and legacy examples in the same task.
+- Remove docs for deleted props, types, styling hooks, feature flags, and outdated examples in the same task.
 - Teach the recommended default path first. Keep lower-level composition as the advanced path.
 - Reuse `docs-workflow/references/component-doc-patterns.md` for preview and CSS-variable doc rules instead of redefining them here.
 

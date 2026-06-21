@@ -18,7 +18,7 @@ surface styles, or interactive behavior.
 Ark UI does not ship a dedicated `Container` primitive. moduix implements this component as an
 Ark-aligned factory wrapper with `@ark-ui/react/factory`.
 
-Preserve the Ark composition model: one root part, DOM ownership through `asChild`, and no Base UI
+Preserve the Ark composition model: one root part, DOM ownership through `asChild`, and no legacy
 `render` or legacy `as` contract.
 
 ## Current behavior contract

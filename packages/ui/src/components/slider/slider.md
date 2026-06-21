@@ -131,10 +131,10 @@ export function VolumeSlider() {
 - Ark is headless; moduix provides default visuals and stable `data-slot` hooks.
 - The public API is namespace-first: `Slider` with attached parts. Flat aliases such as
   `SliderRoot`, `SliderValue`, `SliderIndicator`, and `SliderThumb` are intentionally not exported.
-- Base UI props were removed. Use `ValueText` instead of `Value`, `Range` instead of `Indicator`,
+- legacy props were removed. Use `ValueText` instead of `Value`, `Range` instead of `Indicator`,
   `onValueChangeEnd(details)` instead of `onValueCommitted`, `minStepsBetweenThumbs` instead of
   `minStepsBetweenValues`, and Ark `number[]` values instead of `number`.
-- No Base UI render prop, positional callback adapter, child-splitting wrapper, generated track, or
+- No legacy render prop, positional callback adapter, child-splitting wrapper, generated track, or
   generated range remains.
 
 ## Agent notes
@@ -147,6 +147,6 @@ export function VolumeSlider() {
 
 ## Local changelog
 
-- 2026-06-20: Migrated from Base UI to Ark UI React; replaced the flat Base UI-compatible API with
+- 2026-06-20: Migrated to Ark UI React; replaced the flat legacy-compatible API with
   namespace-first Ark parts, exposed `RootProvider`, `Context`, hooks, and Ark types; updated
   styles, stories, docs, and registry dependencies for the Ark contract.

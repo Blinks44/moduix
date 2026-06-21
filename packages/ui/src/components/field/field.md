@@ -16,7 +16,7 @@ The wrapper follows `@ark-ui/react/field`. Preserve Ark part names (`Root`, `Roo
 `Label`, `Input`, `Textarea`, `Select`, `HelperText`, `ErrorText`, `RequiredIndicator`, `Item`,
 `Context`), `useField`, `useFieldContext`, `ids`, `target`, `asChild`, and root state props.
 
-Ark Field does not own Base UI-style validation. It exposes `invalid` state and ARIA wiring; form
+Ark Field does not own legacy validation. It exposes `invalid` state and ARIA wiring; form
 libraries or app state decide when the field is invalid.
 
 ## Current behavior contract
@@ -93,7 +93,7 @@ Covered Ark examples:
 - custom control via `useFieldContext`
 - item-target label wiring via `Field.Item value` and root `target`
 
-Moduix does not implement Base UI `validate`, `validationMode`, `match`, `dirty`, `touched`, or
+Moduix does not implement legacy `validate`, `validationMode`, `match`, `dirty`, `touched`, or
 `FieldValidity`; those were removed during the Ark migration.
 
 ## Accessibility and state
@@ -122,7 +122,7 @@ contract.
 `Field.Item` adds a local wrapper div because Ark's `Item` only provides nested field context and
 does not render a styleable row.
 
-No Base UI compatibility aliases are exported. Consumers must use Ark names:
+No legacy compatibility aliases are exported. Consumers must use Ark names:
 `Field.Input`, `Field.HelperText`, `Field.ErrorText`, `Field.Textarea`, and `Field.Select`.
 
 ## Agent notes
@@ -133,7 +133,7 @@ their own `HiddenInput`; Field itself has no hidden input.
 
 ## Local changelog
 
-- 2026-06-19: Migrated `Field` from Base UI to Ark UI, replaced Base UI validation API with Ark
+- 2026-06-19: Migrated `Field` to Ark UI, replaced legacy validation API with Ark
   field context, renamed public parts to Ark names, exposed provider/context hooks, and updated
   styling hooks.
 - 2026-06-19: Replaced legacy `type="radio"` field examples with Ark-style `Checkbox` and

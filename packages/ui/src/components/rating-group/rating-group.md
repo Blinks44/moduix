@@ -153,7 +153,7 @@ Public CSS variables:
 - `size` is a moduix styling prop, not an Ark behavior prop.
 - `RatingGroup.ItemIndicator` is local visual sugar for the default star icon. Ark does not expose
   this part. Passing children replaces the default star visual.
-- The old `Rating` name, `max` prop, raw-number callback, and Base UI radio-group implementation
+- The old `Rating` name, `max` prop, raw-number callback, and legacy radio-group implementation
   are intentionally removed.
 
 ## Agent notes
@@ -167,7 +167,7 @@ Public CSS variables:
 
 ## Local changelog
 
-- 2026-06-20: Renamed `Rating` to `RatingGroup` and migrated from Base UI radio-group composition to
+- 2026-06-20: Renamed `Rating` to `RatingGroup` and migrated from legacy radio-group composition to
   Ark UI `rating-group` parts, callbacks, provider/context hooks, `HiddenInput`, half rating, and
   Ark data attributes.
 - 2026-06-20: Documented and hardened custom `RatingGroup.ItemIndicator` children so consumers can

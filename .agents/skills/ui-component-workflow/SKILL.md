@@ -37,6 +37,15 @@ Build thin styled wrappers over Ark UI primitives and Ark-style contracts:
 
 Small DX sugar is acceptable only when it removes repeated production boilerplate without hiding the real composition model.
 
+## Ark-First Maintenance
+
+- Treat Ark UI as the source of truth for component anatomy, naming, lifecycle, state, callback details, and accessibility.
+- Use Chakra and shadcn only as secondary references for higher-level composition, recipes, and docs ergonomics.
+- Keep wrappers thin. Do not add compatibility shims, prop translations, flat aliases, hidden structural bundles, or local state layers unless there is a documented product reason.
+- When Ark exposes `RootProvider`, `Context`, `ItemContext`, `useComponent`, `use*Context`, or related types, mirror that public surface through the component and barrel unless intentionally documented otherwise.
+- For components without a dedicated Ark primitive, use Ark factory/composition patterns or native DOM semantics, and document the component as a moduix-owned contract.
+- Keep stories, local markdown, public docs, package barrels, and registry artifacts synchronized with the shipped API.
+
 ## Ark Contract Rules
 
 - Use Ark React primitives from `@ark-ui/react/<component>` as the behavior source for Ark-backed components.
@@ -56,7 +65,7 @@ Small DX sugar is acceptable only when it removes repeated production boilerplat
   accessibility and interaction semantics.
 - Use the `ark` factory for local standalone polymorphic elements that should behave like Ark elements.
 - Use Ark `ids` props when separate Ark components must share accessibility or interaction IDs.
-- Do not reintroduce Base UI `render` contracts, local state handles, or converted callbacks in migrated code.
+- Do not introduce `render` prop contracts, local state handles, or converted callbacks.
 
 ## Core Rules
 
@@ -105,7 +114,7 @@ If the answer is weak, simplify or remove it.
 - Stories and local component markdown must match the shipped API.
 - Stories should cover provider/context/state examples when the wrapper exposes those Ark surfaces, not only the basic
   rendered parts.
-- Remove deleted props, legacy customization paths, and outdated examples in the same task.
+- Remove deleted props, obsolete customization paths, and outdated examples in the same task.
 - If API, behavior, styling hooks, or recommended usage changed, update local component markdown in the same task.
 - If docs become inaccurate, apply `cross-package-sync`.
 - If a registry-shipped component changes public styling, import contract, or registry dependencies, update `registry.json` and run `npm run build:registry`.

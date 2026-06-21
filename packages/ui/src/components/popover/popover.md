@@ -94,7 +94,7 @@ the Ark part.
   reusable child components.
 - `lazyMount`, `unmountOnExit`, `present`, `skipAnimationOnMount`, `ids`, `portalled`, interaction
   callbacks, and focus callbacks pass through Ark unchanged.
-- Ark has no popover backdrop, viewport, hover trigger, detached handle, or Base UI popup part.
+- Ark has no popover backdrop, viewport, hover trigger, detached handle, or legacy popup part.
   Those legacy surfaces are intentionally absent.
 
 ## Accessibility and state
@@ -133,7 +133,7 @@ runtime available-size and reference-size variables rather than duplicate measur
 - `Popover.Header`, `Popover.Body`, and `Popover.Footer` provide only moduix layout and slots.
 - Trigger and close-trigger default visuals are omitted with `asChild`, leaving the composed child
   responsible for its own appearance.
-- No Base UI aliases, flat part exports, adapter callbacks, hidden content composition, or legacy
+- No legacy aliases, flat part exports, adapter callbacks, hidden content composition, or legacy
   compatibility layers are retained.
 
 ## Agent notes
@@ -152,7 +152,7 @@ runtime available-size and reference-size variables rather than duplicate measur
   `Portal` export so Popover composition matches Menu, Select, Combobox, and other popup families.
 - 2026-06-19: Updated layering to keep Ark `--z-index` on `Popover.Positioner` and apply
   `calc(var(--z-popup) + var(--layer-index))` on `Popover.Content` so nested popovers render above parent layers.
-- 2026-06-19: Replaced the Base UI implementation and legacy API with the full Ark UI React
+- 2026-06-19: Replaced the previous implementation and legacy API with the full Ark UI React
   contract, namespace composition, provider/context hooks, Ark state selectors, positioning
   variables, examples, and documentation.
-- 2026-06-10: Added phase-specific Base UI popup motion variables.
+- 2026-06-10: Added phase-specific legacy popup motion variables.

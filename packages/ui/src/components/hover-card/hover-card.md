@@ -19,7 +19,7 @@ The wrapper follows Ark UI `@ark-ui/react/hover-card`. Preserve `Root`, `RootPro
 
 `HoverCard` is the short root form and `HoverCard.Root` is the equivalent namespace part. Root props,
 controlled state, delay props, positioning, ids, presence props, outside-interaction callbacks, and
-callback detail objects pass through Ark without remapping. The previous Base UI `PreviewCard`
+callback detail objects pass through Ark without remapping. The previous legacy `PreviewCard`
 contract, detached handle API, `render` prop examples, `Popup`, `Viewport`, `Backdrop`, and
 high-level content wrapper are intentionally removed.
 
@@ -108,11 +108,11 @@ legacy `PreviewCard*` aliases are exported.
 ## Agent notes
 
 Keep popup structure explicit. Do not reintroduce `HoverCardContent` sugar that hides portal,
-positioner, and content. Do not reintroduce Base UI `createHandle`, `handle`, `payload`, `render`,
+positioner, and content. Do not reintroduce legacy `createHandle`, `handle`, `payload`, `render`,
 `Popup`, `Viewport`, or `Backdrop` compatibility.
 
 ## Local changelog
 
-- 2026-06-20: Migrated from Base UI `preview-card` to Ark UI `hover-card`, renamed the component,
+- 2026-06-20: Migrated from legacy `preview-card` to Ark UI `hover-card`, renamed the component,
   removed legacy aliases and handle API, exposed Ark namespace parts/hooks/types, and updated
   styling to Ark data attributes and CSS variables.

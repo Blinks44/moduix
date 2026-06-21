@@ -8,7 +8,6 @@
     "libDir": "./lib"
   },
   "baseDir": "src",
-  "uiLibrary": "base-ui",
   "framework": "tanstack-start",
   "commands": {}
 }

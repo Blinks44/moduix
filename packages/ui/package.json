@@ -1,10 +1,10 @@
 {
   "name": "moduix",
   "version": "1.0.5",
-  "description": "Composable React UI components built on Ark UI primitives with transitional support for not-yet-migrated components.",
+  "description": "Composable React UI components built on Ark UI primitives.",
   "keywords": [
     "accessible",
-    "base-ui",
+    "ark-ui",
     "component-library",
     "components",
     "css-modules",
@@ -54,7 +54,6 @@
   },
   "devDependencies": {
     "@ark-ui/react": "^5.37.2",
-    "@base-ui/react": "^1.5.0",
     "@tsdown/css": "^0.22.2",
     "@types/node": "^25.9.3",
     "@types/react": "^19.2.17",
@@ -70,7 +69,6 @@
   },
   "peerDependencies": {
     "@ark-ui/react": "^5.37.2",
-    "@base-ui/react": "^1.5.0",
     "react": "^17 || ^18 || ^19",
     "react-dom": "^17 || ^18 || ^19"
   }

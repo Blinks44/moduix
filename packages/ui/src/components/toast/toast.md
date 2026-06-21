@@ -38,7 +38,7 @@ the library `CloseButton` as the default close trigger surface.
 - `Toast.CloseTrigger` renders `CloseButton.Root` by default and defaults its accessible label to
   `"Close toast"` when `aria-label` is omitted.
 - All Ark callback details and store method signatures pass through unchanged.
-- The old Base UI region/provider layer is intentionally removed: no `ToastProvider`, `ToastRegion`,
+- The old legacy region/provider layer is intentionally removed: no `ToastProvider`, `ToastRegion`,
   `ToastViewport`, `ToastRoot`, `ToastAction`, `ToastClose`, `createToastManager`,
   `useToastManager`, `ToastAnchoredRegion`, or anchored manager helpers remain.
 
@@ -189,7 +189,7 @@ consumer selectors.
   standalone component.
 - `Portal` is intentionally imported separately. Toast does not expose a `ToastPortal` alias or
   `Toast.Portal` namespace member because portal behavior is shared across components.
-- Base UI compatibility exports and anchored toast helpers were removed as a breaking migration.
+- legacy compatibility exports and anchored toast helpers were removed as a breaking migration.
 
 ## Agent notes
 
@@ -204,8 +204,8 @@ consumer selectors.
 
 ## Local changelog
 
-- 2026-06-21: Migrated Toast from Base UI to Ark UI, replacing provider/region/manager APIs with
-  `createToaster`, `Toaster`, and Ark namespace parts. Removed anchored toast helpers and Base UI
+- 2026-06-21: Migrated Toast to Ark UI, replacing provider/region/manager APIs with
+  `createToaster`, `Toaster`, and Ark namespace parts. Removed anchored toast helpers and legacy
   compatibility exports.
 - 2026-06-21: Updated styling to Ark `data-scope`, `data-part`, `data-state`, `data-type`, and
   runtime variables (`--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity`).

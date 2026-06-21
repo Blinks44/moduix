@@ -26,7 +26,7 @@ state, focus targets, modal behavior, presence options, dismissal callbacks, `id
 `role="dialog" | "alertdialog"`.
 
 `onOpenChange` keeps the Ark callback shape: `(details) => void`, with the current state in
-`details.open`. `modal` is boolean; the Base UI `"trap-focus"` mode is not supported.
+`details.open`. `modal` is boolean; the legacy `"trap-focus"` mode is not supported.
 
 ## Anatomy and exported parts
 
@@ -129,7 +129,7 @@ default, including when it is composed outside `Dialog.Header`. Public `--dialog
 - `Dialog.Header`, `Dialog.Body`, and `Dialog.Footer` are native layout helpers.
 - `Dialog.Trigger` and `Dialog.CloseTrigger` receive moduix button styling only when they render
   their native button. `asChild` leaves the child component's visual styling in control.
-- Legacy Base UI exports were removed: `createDialogHandle`, `DialogPortal`, `DialogViewport`,
+- Legacy legacy exports were removed: `createDialogHandle`, `DialogPortal`, `DialogViewport`,
   `DialogPopup`, flat part aliases, hidden `DialogContent` overlay composition, `render`, `handle`,
   and payload APIs.
 
@@ -141,7 +141,7 @@ barrel.
 
 ## Local changelog
 
-- 2026-06-18: Replaced Base UI with Ark UI, adopted Ark anatomy and callbacks, exposed
+- 2026-06-18: Adopted Ark UI, adopted Ark anatomy and callbacks, exposed
   provider/context hooks, moved to explicit overlay composition, migrated state styling, and
   removed all legacy compatibility APIs.
 - 2026-06-18: Aligned positioner pointer events with Ark, made close-icon placement independent of

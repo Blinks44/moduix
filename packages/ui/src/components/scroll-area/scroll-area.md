@@ -16,7 +16,7 @@ The wrapper follows Ark UI React `@ark-ui/react/scroll-area`. Preserve the Ark p
 `Root`, `RootProvider`, `Viewport`, `Content`, `Scrollbar`, `Thumb`, `Corner`, and `Context`.
 
 Ark owns measurement, overflow state, scrollbar interaction, thumb sizing, edge state, and the
-imperative API returned by `useScrollArea()`. Do not reintroduce Base UI props such as
+imperative API returned by `useScrollArea()`. Do not reintroduce legacy props such as
 `scrollbars`, `overflowEdgeThreshold`, `keepMounted`, or `render`.
 
 ## Current behavior contract
@@ -165,7 +165,7 @@ scrollbar when its matching Ark overflow attribute is absent.
 - Moduix adds default classes, `data-slot` hooks, CSS variables, visual scrollbar styling, and the
   optional vertical `fade` mask sugar.
 - Moduix does not copy Ark demo colors; it maps the behavior to Moduix tokens.
-- The old Base UI high-level conveniences were removed except for the narrower `fade?: boolean`
+- The old legacy high-level conveniences were removed except for the narrower `fade?: boolean`
   contract: `scrollbars`, automatic child wrapping, flat aliases, `overflowEdgeThreshold`,
   `keepMounted`, and `render` remain removed.
 - `ScrollArea` remains the short root import for docs ergonomics and has attached Ark parts.
@@ -185,10 +185,10 @@ scrollbar when its matching Ark overflow attribute is absent.
 
 ## Local changelog
 
-- 2026-06-19: Migrated `ScrollArea` from Base UI to Ark UI React, removed legacy convenience props
+- 2026-06-19: Migrated `ScrollArea` to Ark UI React, removed legacy convenience props
   and flat aliases, exposed `RootProvider`, `Context`, `useScrollArea`, `useScrollAreaContext`, and
   Ark public types, and updated styling hooks to Ark data attributes and CSS variables.
 - 2026-06-19: Restored the narrow `fade?: boolean` Moduix sugar for top and bottom viewport masks
-  without bringing back the old Base UI convenience surface.
+  without bringing back the old legacy convenience surface.
 - 2026-06-21: Added defensive min-size reset on root and viewport so ScrollArea can shrink
   correctly inside flex/grid layouts.

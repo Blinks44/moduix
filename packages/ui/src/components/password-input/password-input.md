@@ -67,7 +67,7 @@ input from Ark parts and put native input props such as `value`, `defaultValue`,
 
 The wrapper supports all relevant Ark examples: basic composition, `autoComplete`, controlled
 visibility, `ignorePasswordManagers`, `RootProvider`, strength meter composition, `Field`
-integration, and validation through `invalid`. No Base UI prop aliases are preserved.
+integration, and validation through `invalid`. No legacy prop aliases are preserved.
 
 ## Accessibility and state
 

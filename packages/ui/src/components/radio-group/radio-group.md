@@ -104,7 +104,7 @@ Preserve Ark data attributes such as `data-scope="radio-group"`, `data-part`, `d
 ## Defaults and styling
 
 The CSS uses Ark state attributes and moduix `--radio-*` variables. Public selectors should target
-the exported part class, `data-slot`, or Ark attributes rather than old Base UI state attributes.
+the exported part class, `data-slot`, or Ark attributes rather than old legacy state attributes.
 
 The root lays items out vertically by default. For horizontal groups, use `orientation="horizontal"`
 and provide an inline item wrapper when you need custom row wrapping. `ItemControl` writes
@@ -116,7 +116,7 @@ and provide an inline item wrapper when you need custom row wrapping. `ItemContr
   `RadioField`, `RadioLabel`, `RadioGroupLabel`, and `RadioGroupList` aliases are removed.
 - `ItemControl` accepts a moduix-only `size` prop for control diameter and indicator-dot scale.
 - The default checked visual is CSS on `ItemControl::before`, not an extra public icon part.
-- Base UI `render`, `nativeButton`, `inputRef`, and Base UI callback signatures are not supported.
+- legacy `render`, `nativeButton`, `inputRef`, and legacy callback signatures are not supported.
   Use Ark `asChild`, Ark refs, and `onValueChange(details)` instead.
 
 ## Agent notes
@@ -131,6 +131,6 @@ and provide an inline item wrapper when you need custom row wrapping. `ItemContr
 
 ## Local changelog
 
-- 2026-06-19: Migrated from Base UI `radio`/`radio-group` wrappers to Ark UI `radio-group`,
+- 2026-06-19: Migrated from legacy `radio`/`radio-group` wrappers to Ark UI `radio-group`,
   renamed the component surface to `radio-group`, removed legacy aliases and render contracts, and
   documented the Ark-aligned namespace API.

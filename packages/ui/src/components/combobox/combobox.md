@@ -117,7 +117,7 @@ export function ComboboxExample() {
   receives items for an existing `value` or `defaultValue`.
 - Virtualization: preserved through `scrollToIndexFn` and collection-driven item rendering.
 - Ark `Field.Root` context is preserved by the primitive. The current moduix `Field` wrapper is
-  still Base UI-backed, so consumers that need Ark field-context inheritance must compose with
+  still legacy, so consumers that need Ark field-context inheritance must compose with
   `@ark-ui/react/field` until that component is migrated.
 - Public docs adapt 15 of Ark's 17 React examples (88%). The dedicated Field example is deferred
   to the moduix Field migration, and matching-text highlighting remains ordinary composition
@@ -149,9 +149,9 @@ export function ComboboxExample() {
 - moduix ships default icons for `Trigger`, `ClearTrigger`, and `ItemIndicator`.
 - moduix re-exports Ark `Portal` and collection/filter hooks so examples can import the complete
   composition from `moduix`.
-- Removed Base UI-only `Field`, `Value`, `InputGroup`, `ControlActions`, popup aliases, arrow,
+- Removed legacy `Field`, `Value`, `InputGroup`, `ControlActions`, popup aliases, arrow,
   backdrop, status, row, separator, collection render props, and chip parts.
-- Removed Base UI root props such as `items`, `itemToStringLabel`, `filter`, `filteredItems`,
+- Removed legacy root props such as `items`, `itemToStringLabel`, `filter`, `filteredItems`,
   `openOnInputClick`, and converted callback signatures.
 
 ## Agent notes
@@ -173,6 +173,6 @@ export function ComboboxExample() {
   Ark's content-to-positioner z-index contract, and documented async value rehydration and the
   current Ark Field integration boundary.
 - 2026-06-18: Registered Ark `--reference-width` in the shared theme runtime-variable declarations.
-- 2026-06-18: Migrated Combobox from Base UI to Ark UI, replaced the legacy flat API with
+- 2026-06-18: Migrated Combobox to Ark UI, replaced the legacy flat API with
   `Combobox.*`, adopted collection-first state and Ark callback details, removed hidden popup and
   chip abstractions, and moved styles to Ark state attributes and positioning variables.

@@ -37,7 +37,7 @@ Use this skill for JS/TS React work in this repo.
 
 ## Ark React Rules
 
-- Prefer Ark `asChild` over legacy `render` props for host-element composition.
+- Prefer Ark `asChild` over `render` props for host-element composition.
 - Use `forwardRef` when wrapping an Ark part that renders a focusable/control DOM element or when form libraries need
   a ref for invalid-focus behavior.
 - Type refs with `React.ComponentRef<typeof ArkPart>` and props with `React.ComponentProps<typeof ArkPart>` unless a

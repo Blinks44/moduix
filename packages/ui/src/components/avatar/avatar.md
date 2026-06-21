@@ -24,7 +24,7 @@ externally owned state.
 - `Avatar.Context` exposes the Ark context through a render prop.
 - `useAvatar` and `useAvatarContext` are exported from `moduix`.
 - `size` is the only local behavior-neutral prop. It is available on `Root` and `RootProvider`.
-- No Base UI `render`, delay, loading-state adapter, or callback compatibility API remains.
+- No legacy `render`, delay, loading-state adapter, or callback compatibility API remains.
 
 ## Anatomy and exported parts
 
@@ -133,12 +133,12 @@ or the public CSS variables.
 - Keep the complete Ark provider/context/hook surface exported from the package barrel.
 - Preserve `onStatusChange(details)` and the original context method names.
 - Keep `RootProvider` styled like `Root`, but never create another state owner inside it.
-- Do not reintroduce Base UI `render`, delay, or transition attributes.
+- Do not reintroduce legacy `render`, delay, or transition attributes.
 
 ## Local changelog
 
 - 2026-06-18: Completed Ark UI parity by exporting `RootProvider`, `Context`, `useAvatar`,
   `useAvatarContext`, and related types; added root-provider styling and state selectors; aligned
   stories and docs with Ark composition and provider/context examples.
-- 2026-06-17: Migrated Avatar from Base UI to Ark UI, adopted `Root`, `Image`, and `Fallback`,
-  replaced `render` with `asChild`, and removed Base UI-only loading and motion contracts.
+- 2026-06-17: Migrated Avatar to Ark UI, adopted `Root`, `Image`, and `Fallback`,
+  replaced `render` with `asChild`, and removed legacy loading and motion contracts.

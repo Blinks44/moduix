@@ -118,13 +118,13 @@ export function RotationAngleSlider() {
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
 - Public `--angle-slider-*` variables are registered in `src/styles/theme.css`.
 - Focus styling uses Ark `Control[data-focus]`; invalid, disabled, read-only, and marker styling use
-  Ark state attributes rather than Base UI classes or wrapper state.
+  Ark state attributes rather than legacy classes or wrapper state.
 
 ## Intentional sugar and differences from upstream
 
 - Ark is headless; moduix provides default visuals and stable `data-slot` hooks.
 - Markers remain explicit instead of being generated from a wrapper prop.
-- No Base UI aliases, positional callback adapters, custom state context, or `render` prop remain.
+- No legacy aliases, positional callback adapters, custom state context, or `render` prop remain.
 - The public barrel re-exports Ark's `UseAngleSliderProps`, `UseAngleSliderReturn`,
   `UseAngleSliderContext`, and `AngleSliderContextProps` types.
 

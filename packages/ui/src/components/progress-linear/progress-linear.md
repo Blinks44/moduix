@@ -116,7 +116,7 @@ text, value text, track, range, and the indeterminate animation.
 - Use `translations.value(details)` when the default formatted percent is not descriptive enough.
 - Progress is informational and has no keyboard interaction.
 
-## Intentional differences from the old Base UI wrapper
+## Intentional differences from the old previous wrapper
 
 - `Progress`, `ProgressRoot`, `ProgressLabel`, `ProgressValue`, `ProgressTrack`, and
   `ProgressIndicator` were removed.
@@ -124,11 +124,11 @@ text, value text, track, range, and the indeterminate animation.
 - `format` was replaced by Ark `formatOptions`.
 - `getAriaValueText` and `aria-valuetext` examples were replaced by Ark `translations.value`.
 - `ProgressValue` was replaced by Ark `ValueText`.
-- State selectors changed from Base UI status attributes to Ark `data-state`.
+- State selectors changed from legacy status attributes to Ark `data-state`.
 
 ## Local changelog
 
-- Migrated linear progress from Base UI to Ark UI.
+- Migrated linear progress to Ark UI.
 - Split progress into `ProgressLinear` and `ProgressCircular` public components.
 - Replaced flat aliases with namespace-first Ark parts.
 - Added RootProvider, Context, and hook exports.

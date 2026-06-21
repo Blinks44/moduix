@@ -66,7 +66,7 @@ The wrapper adds default Moduix styling, stable `data-slot` hooks, and one narro
 | `ArrowTip`         | `tooltip-arrow-tip`  | Ref forwards to the Ark arrow tip div.                   |
 | `Context`          | none                 | Ark render-prop state access.                            |
 
-Removed Base UI-only exports: `TooltipProvider`, `TooltipPopup`, `TooltipViewport`,
+Removed legacy exports: `TooltipProvider`, `TooltipPopup`, `TooltipViewport`,
 `TooltipContent` as a portal wrapper, `createTooltipHandle`, `render`, `handle`, `payload`,
 `showArrow`, and positioner props such as `side`/`sideOffset` on a content wrapper.
 
@@ -154,12 +154,12 @@ so consumers can keep the whole tooltip part tree under `Tooltip.*`.
 `Tooltip.Arrow` renders `Tooltip.ArrowTip` by default. Consumers can pass custom children when they
 need a custom arrow shape.
 
-The old Base UI high-level `TooltipContent` wrapper was removed intentionally. Consumers now compose
+The old legacy high-level `TooltipContent` wrapper was removed intentionally. Consumers now compose
 `Tooltip.Portal`, `Tooltip.Positioner`, and `Tooltip.Content` explicitly.
 
 ## Agent notes
 
-Do not reintroduce Base UI compatibility aliases. Tooltip is now an Ark-first popup family member,
+Do not reintroduce legacy compatibility aliases. Tooltip is now an Ark-first popup family member,
 matching the explicit composition rules used by migrated popup-like components.
 
 Keep docs and stories on namespace-first imports. If upstream adds new exported tooltip state
@@ -167,6 +167,6 @@ helpers, mirror them from this wrapper and `index.ts` unless there is a document
 
 ## Local changelog
 
-- 2026-06-21: Migrated Tooltip from Base UI to Ark UI React. Replaced the Base UI high-level
+- 2026-06-21: Migrated Tooltip to Ark UI React. Replaced the legacy high-level
   wrapper contract with explicit Ark parts, Ark state callbacks, provider/context hooks, Ark data
   attributes, and synchronized docs/stories/examples.

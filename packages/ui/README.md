@@ -7,7 +7,7 @@
 # moduix
 
 Composable React components for product interfaces, built on top of
-[Ark UI](https://ark-ui.com/) primitives, with transitional support for the remaining not-yet-migrated components.
+[Ark UI](https://ark-ui.com/) primitives.
 
 moduix gives you ready-made components with accessible behavior, native CSS styles, and a
 composition-first API. It is inspired by the clarity of
@@ -28,7 +28,8 @@ it helps another team build consistent interfaces faster, that is already a good
 
 - **Ark UI underneath.** Components target Ark UI composition and accessibility primitives instead of
   reimplementing low-level interaction behavior.
-- **Small dependency surface.** Ark UI is the primary external primitive layer. A temporary compatibility peer remains only while the migration is still incomplete.
+- **Small dependency surface.** Ark UI is the only external UI primitive layer. The package
+  keeps the runtime stack intentionally small and does not bring a styling framework with it.
 - **Two installation paths.** Use moduix as an npm package, or copy component source into your
   project when direct ownership is more important than package-managed updates.
 - **Composable API.** Components are exposed as named parts, so complex UI can be assembled
@@ -54,11 +55,11 @@ moduix supports two installation paths:
 ### npm package
 
 ```bash
-npm install moduix @ark-ui/react @base-ui/react
+npm install moduix @ark-ui/react
 ```
 
-`react`, `react-dom`, `@ark-ui/react`, and `@base-ui/react` are peer dependencies during the migration window. They stay in your application
-bundle, so moduix does not ship duplicate React or primitive runtimes.
+`react`, `react-dom`, and `@ark-ui/react` are peer dependencies. They stay in your application
+bundle, so moduix does not ship duplicate React or Ark UI runtimes.
 
 ### shadcn copy-owned install
 

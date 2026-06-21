@@ -108,7 +108,7 @@ must remain a container; addon/text children should remain presentational.
 - There is no upstream Ark primitive; the size context, shell focus redirect, visual merging, and
   button defaults are moduix sugar.
 - Explicit child parts are retained instead of Chakra's `startElement` and `endElement` props.
-- Base UI `onValueChange`, `render`, and callback styling props disappear with the migrated
+- legacy `onValueChange`, `render`, and callback styling props disappear with the migrated
   `InputGroupInput`.
 
 ## Agent notes
@@ -121,4 +121,4 @@ must remain a container; addon/text children should remain presentational.
 ## Local changelog
 
 - 2026-06-19: Migrated structural elements to Ark factory composition and the nested input to Ark
-  `Field.Input`; added `asChild`; replaced Base UI value callbacks with native input events.
+  `Field.Input`; added `asChild`; replaced legacy value callbacks with native input events.

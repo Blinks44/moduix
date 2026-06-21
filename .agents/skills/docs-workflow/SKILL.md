@@ -24,9 +24,9 @@ Use this skill for work in `apps/docs`.
 ## Core Rules
 
 - Import public components from `moduix`. Do not duplicate library components inside the docs app.
-- Document the shipped public API only. Remove stale props, examples, styling hooks, and legacy guidance in the same task.
+- Document the shipped public API only. Remove stale props, examples, styling hooks, and obsolete guidance in the same task.
 - Keep MDX consumer-facing. Put interactive logic, bulky example data, and `cssProperties` arrays in example `.tsx` files.
-- For component migration/audit docs, every example preview should include `Code`, `Styles`, and `Data` tabs via
+- For component docs, every substantial example preview should include `Code`, `Styles`, and `Data` tabs via
   `Preview.Code`, `Preview.CSS`, and `Preview.Data`. Put shared arrays, fixture objects, and setup constants in
   `Preview.Data`; do not hide required code behind comments, ellipses, or prose.
 - Prefer `as T` over `useState<T>()` in MDX.
@@ -62,7 +62,7 @@ Use this skill for work in `apps/docs`.
   model with a local-only narrative.
 - For form components, show Ark `Field` / `Fieldset` context integration and include `HiddenInput` wherever the
   shipped control needs native form submission or reset behavior.
-- For custom host elements, teach `asChild` and keep examples to a single semantic child. Do not use Base UI `render`
+- For custom host elements, teach `asChild` and keep examples to a single semantic child. Do not use `render` prop
   examples in Ark-backed docs.
 - For state access, document the Ark choice that fits the example: `Component.Context` for inline reads,
   `use*Context` for custom child parts, and `useComponent` plus `RootProvider` for state controlled outside the tree.

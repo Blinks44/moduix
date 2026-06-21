@@ -32,7 +32,7 @@ composition.
 - `disabled` and `aria-disabled="true"` expose `data-disabled`.
 - The forwarded ref targets the rendered button element.
 - Writes `data-scope="button"`, `data-part="root"`, and `data-slot="button-root"` on the root.
-- Does not keep Base UI `render`, `nativeButton`, or `focusableWhenDisabled`.
+- Does not keep legacy `render`, `nativeButton`, or `focusableWhenDisabled`.
 
 ## Anatomy and exported parts
 
@@ -178,7 +178,7 @@ Primary CSS variables:
 - moduix ships pre-styled defaults and the local `variant` / `size` shortcuts.
 - moduix keeps loading UI compositional instead of copying Chakra's managed `loading`,
   `loadingText`, `spinner`, and `spinnerPlacement` props.
-- The old Base UI `render`, `nativeButton`, and `focusableWhenDisabled` surface is removed. Use
+- The old legacy `render`, `nativeButton`, and `focusableWhenDisabled` surface is removed. Use
   `asChild` for polymorphism and native `disabled` or `aria-disabled` depending on the rendered
   element.
 
@@ -196,7 +196,7 @@ Primary CSS variables:
 - 2026-06-18: Restored safe `type="button"` behavior for native roots, added Ark-style
   `data-disabled`, documented ref forwarding and Chakra recipe coverage, and kept `asChild`
   free of injected button-only defaults.
-- 2026-06-17: Migrated `Button` from Base UI to an Ark-style factory wrapper, added `Button.Root`
+- 2026-06-17: Migrated `Button` from legacy to an Ark-style factory wrapper, added `Button.Root`
   plus the callable `Button` alias, and replaced `render` / `nativeButton` with `asChild`.
 - 2026-06-17: Switched disabled styling hooks to native `[disabled]` and `[aria-disabled='true']`
   for the root-only Ark surface.

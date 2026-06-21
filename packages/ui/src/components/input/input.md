@@ -95,7 +95,7 @@ focusability, refs, and forwarded props.
 - moduix adds visual sizes, `htmlSize`, design tokens, and `data-slot`.
 - `Input` is exported as a standalone wrapper even though its upstream implementation is
   `Field.Input`.
-- Base UI `onValueChange`, `render`, callback `className`, callback `style`, and Base UI field-state
+- legacy `onValueChange`, `render`, callback `className`, callback `style`, and legacy field-state
   attributes are intentionally removed.
 
 ## Agent notes
@@ -107,5 +107,5 @@ focusability, refs, and forwarded props.
 
 ## Local changelog
 
-- 2026-06-19: Migrated from Base UI Input to Ark UI `Field.Input`; added `asChild` and Ark field
-  anatomy/state hooks; removed Base UI callback, render, and state contracts.
+- 2026-06-19: Migrated from legacy Input to Ark UI `Field.Input`; added `asChild` and Ark field
+  anatomy/state hooks; removed legacy callback, render, and state contracts.

@@ -38,7 +38,7 @@ The wrapper follows Ark UI React `@ark-ui/react/toggle-group`.
 - Item writes `data-slot="toggle-group-item"`, `data-variant`, and `data-size`.
 - Items inherit the root/root-provider `variant` and `size` through a small local visual context.
   That context must not own selection, focus, disabled state, callbacks, ids, or ARIA behavior.
-- Flat `ToggleGroupItem`, Base UI `render`, `nativeButton`, and raw-array `onValueChange` callback
+- Flat `ToggleGroupItem`, legacy `render`, `nativeButton`, and raw-array `onValueChange` callback
   compatibility are not part of this Ark-backed API.
 
 ## Anatomy and exported parts
@@ -176,8 +176,8 @@ export function RootProviderToggleGroupDemo() {
 - Item styling reuses standalone `Toggle` visuals so `Toggle` and `ToggleGroup.Item` stay visually
   synchronized.
 - Items inherit root/root-provider `variant` and `size` unless the item overrides them.
-- The Base UI-era flat `ToggleGroupItem` export is intentionally removed. Use `ToggleGroup.Item`.
-- The Base UI-era `render`/`nativeButton` composition path is intentionally removed. Use Ark
+- The legacy flat `ToggleGroupItem` export is intentionally removed. Use `ToggleGroup.Item`.
+- The legacy `render`/`nativeButton` composition path is intentionally removed. Use Ark
   `asChild`.
 - `onValueChange={setValue}` is intentionally removed because Ark passes details, not a raw array.
 
@@ -192,7 +192,7 @@ export function RootProviderToggleGroupDemo() {
 
 ## Local changelog
 
-- 2026-06-21: Migrated `ToggleGroup` from Base UI to Ark UI React, replaced flat
+- 2026-06-21: Migrated `ToggleGroup` to Ark UI React, replaced flat
   `ToggleGroupItem` with `ToggleGroup.Item`, adopted Ark `onValueChange(details)`, exposed
   `RootProvider`/`Context`/hooks/types, and updated the styling contract around Ark data
   attributes.

@@ -49,7 +49,7 @@ export function Example() {
 }
 ```
 
-The old Base UI Toolbar-backed `PaginationContent`, `PaginationLink`, `PaginationPrevious`,
+The old legacy Toolbar-backed `PaginationContent`, `PaginationLink`, `PaginationPrevious`,
 `PaginationNext`, `PaginationItem` layout wrapper, and custom moduix range-math `usePagination`
 contract were removed. The public API is now Ark-shaped.
 
@@ -188,7 +188,7 @@ Public CSS variables:
 The wrapper keeps Ark API names and does not expose legacy flat aliases. Moduix sugar is limited to
 default icons, default ellipsis text, root label default, `data-slot` hooks, and styling tokens.
 
-Breaking removals from the previous custom/Base UI contract:
+Breaking removals from the previous custom/legacy contract:
 
 - `PaginationContent`
 - `PaginationLink`
@@ -197,7 +197,7 @@ Breaking removals from the previous custom/Base UI contract:
 - old layout-only `PaginationItem`
 - old `PaginationEllipsis` without required `index`
 - old custom `usePagination({ count: pageCount, page })` return shape
-- Base UI `render` prop patterns
+- legacy `render` prop patterns
 
 ## Agent notes
 
@@ -207,7 +207,7 @@ pass page objects directly into `Pagination.Item`.
 
 ## Local changelog
 
-- 2026-06-20: Migrated Pagination from a custom Base UI Toolbar composition to Ark UI
+- 2026-06-20: Migrated Pagination from a custom legacy Toolbar composition to Ark UI
   `@ark-ui/react/pagination`; replaced flat aliases with namespace parts, re-exported Ark hooks and
   types, updated styling hooks, docs, stories, registry dependencies, and documented breaking API
   removals.

@@ -32,7 +32,7 @@ explicit popup composition, `HiddenSelect`, and `RootProvider` / context hooks.
   `useSelectItemContext` are exported from the package barrel.
 - `Select.ItemTextContent`, `Select.ItemTextIcon`, and `Select.ItemTextLabel` are moduix span
   helpers for richer item text layout.
-- Base UI-era flat aliases and compatibility APIs are intentionally removed.
+- legacy flat aliases and compatibility APIs are intentionally removed.
 
 ## Anatomy and exported parts
 
@@ -164,7 +164,7 @@ export function SelectDemo() {
 - Default icons are added for clear trigger, indicator, and item indicator.
 - `ItemTextContent`, `ItemTextIcon`, and `ItemTextLabel` are local leaf helpers only; they do not
   replace Ark item composition.
-- Base UI aliases were removed: `SelectField`, `SelectValue`, `SelectIcon`, `SelectPopup`,
+- legacy aliases were removed: `SelectField`, `SelectValue`, `SelectIcon`, `SelectPopup`,
   `SelectArrow`, `SelectContent` as hidden portal wrapper, scroll arrows, separator, `items`,
   `itemToStringLabel`, `itemToStringValue`, null item clearing, and flat part exports.
 - Consumers should use Ark `collection`, `item`, `ValueText`, `ClearTrigger`, `Indicator`,
@@ -186,6 +186,6 @@ export function SelectDemo() {
   labels, and tightened trigger action icon alignment.
 - 2026-06-19: Realigned trigger/control styling with Ark anatomy, added `Select.Indicators` for
   clear/indicator layout, and changed highlighted item colors to accent tokens.
-- 2026-06-19: Migrated `Select` from Base UI to Ark UI. Replaced legacy flat aliases with
+- 2026-06-19: Migrated `Select` to Ark UI. Replaced legacy flat aliases with
   namespace-first Ark parts, added RootProvider/context/hook exports, preserved HiddenSelect,
-  rewrote stories/docs, and removed Base UI compatibility APIs.
+  rewrote stories/docs, and removed legacy compatibility APIs.

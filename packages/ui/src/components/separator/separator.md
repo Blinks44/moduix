@@ -26,7 +26,7 @@ Chakra's current Separator recipe materially informs this contract: `orientation
 - The callable `Separator` export is the root part itself, so `<Separator />` and
   `<Separator.Root />` are equivalent.
 - `Separator.Root` accepts Ark factory span props plus local `orientation`, `variant`, and `size`.
-- `asChild` replaces the host element through Ark factory composition; there is no Base UI `render`
+- `asChild` replaces the host element through Ark factory composition; there is no legacy `render`
   prop.
 - Default props are `orientation="horizontal"`, `variant="solid"`, and `size="sm"`.
 - The component is non-interactive and has no controlled state, uncontrolled state, callbacks,
@@ -123,7 +123,7 @@ Public CSS variables:
   component as a moduix-owned single-part contract.
 - moduix keeps Chakra's useful `orientation`, `variant`, and `size` surface but maps visuals to
   moduix tokens and CSS variables.
-- Base UI `render`, Base UI state callback `className`, and Base UI style callback behavior were
+- legacy `render`, legacy state callback `className`, and legacy style callback behavior were
   removed. Use Ark `asChild` and direct `className` instead.
 - moduix does not implement Chakra's responsive prop system or label prop pattern for this wrapper.
 
@@ -138,8 +138,8 @@ Public CSS variables:
 
 ## Local changelog
 
-- 2026-06-20: Migrated from Base UI to an Ark factory wrapper, added `Separator.Root`, `asChild`,
-  `variant`, `size`, Ark-style data hooks, Chakra-informed ARIA semantics, and removed Base UI
+- 2026-06-20: Migrated from legacy to an Ark factory wrapper, added `Separator.Root`, `asChild`,
+  `variant`, `size`, Ark-style data hooks, Chakra-informed ARIA semantics, and removed legacy
   `render` compatibility.
 - 2026-06-03: Rewrote the local documentation around the real moduix wrapper, documented the
   shipped styling contract and accessibility behavior, and aligned the wrapper with the repo Base

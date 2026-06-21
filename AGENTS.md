@@ -22,8 +22,7 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 - For CSS or CSS Modules work, apply `.agents/skills/css-authoring/SKILL.md`.
 - For JS/TS work, apply `.agents/skills/js-react-conventions/SKILL.md`.
 - For TanStack Start, TanStack Router, or TanStack Intent work in `apps/docs`, apply `.agents/skills/tanstack-intent/SKILL.md`.
-- For Base UI or shadcn reference material, apply `.agents/skills/upstream-library-docs/SKILL.md`.
-- For full component migration to Ark UI contracts/naming in `packages/ui`, apply `.agents/skills/ark-ui-migration/SKILL.md`.
+- For Ark UI or shadcn reference material, apply `.agents/skills/upstream-library-docs/SKILL.md`.
 - For component work in `packages/ui`, apply `.agents/skills/ui-component-workflow/SKILL.md`.
 - For local component markdown in `packages/ui/src/components`, apply `.agents/skills/local-component-docs/SKILL.md`.
 - For docs work in `apps/docs`, apply `.agents/skills/docs-workflow/SKILL.md`.
@@ -35,7 +34,7 @@ If a task spans UI and docs, apply skills in this order:
 
 1. `engineering-principles`
 2. `css-authoring` when CSS or CSS Modules are part of the task
-3. `upstream-library-docs` when upstream Base UI or shadcn behavior matters
+3. `upstream-library-docs` when upstream Ark UI or shadcn behavior matters
 4. `ui-component-workflow`
 5. `local-component-docs` when component markdown is created or updated
 6. `cross-package-sync`
@@ -58,7 +57,7 @@ If a task spans UI and docs, apply skills in this order:
 - `npm run build:registry` uses `shadcn build registry.json --output packages/ui/registry/default`.
 - `packages/ui/registry/default` contains generated registry JSON artifacts, not copied source files.
 - Consumer registry targets remain namespaced under `@components/moduix/*` and `@lib/moduix/*`.
-- Read Base UI and shadcn references online through `.agents/skills/upstream-library-docs/SKILL.md`; do not rely on local snapshots.
+- Read Ark UI and shadcn references online through `.agents/skills/upstream-library-docs/SKILL.md`; do not rely on local snapshots.
 - In MDX snippets, prefer `as T` over `useState<T>()`; MDX can parse `<T>` as JSX.
 - Keep component APIs, naming, code structure, and composition patterns uniform across the library. Similar components should share the same prop names and conventions.
 

@@ -1621,7 +1621,7 @@
       "type": "registry:item",
       "title": "Tooltip",
       "description": "moduix Tooltip component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

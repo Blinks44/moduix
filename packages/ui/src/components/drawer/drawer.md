@@ -160,14 +160,14 @@ Public theme variables are declared in `packages/ui/src/styles/theme.css`.
   state or hidden structure.
 - `Drawer.Trigger` and `Drawer.CloseTrigger` receive moduix button visuals only when `asChild` is
   not used.
-- The removed Base UI API is intentionally unsupported: `DrawerProvider`, `createDrawerHandle`,
+- The removed legacy API is intentionally unsupported: `DrawerProvider`, `createDrawerHandle`,
   `DrawerPortal`, `DrawerViewport`, `DrawerPopup`, `DrawerContentInner`, `DrawerHandle`, and the
   former high-level `DrawerContent` composition wrapper.
 
 ## Agent notes
 
 - Keep the explicit Ark structural tree visible in stories and public docs.
-- Do not add a portal or recreate the removed Base UI popup/viewport split.
+- Do not add a portal or recreate the removed legacy popup/viewport split.
 - Do not convert Ark callback detail objects to scalar values.
 - Use `start` and `end` in public props; physical `left` and `right` are styling attributes only.
 - Keep `Grabber` and `GrabberIndicator` as separate parts.
@@ -177,6 +177,6 @@ Public theme variables are declared in `packages/ui/src/styles/theme.css`.
 - 2026-06-18: Removed conflicting content open keyframes, kept closed drag-to-dismiss animations
   active while `data-swiping` is present, removed `!important` hidden overrides, and updated demo
   defaults to use compact bottom snap points where the example is not about full-height drawers.
-- 2026-06-18: Replaced the Base UI implementation with Ark UI 5.37.2, adopted Ark anatomy and
-  callbacks, exposed provider/context/stack APIs, rewrote state styling, and removed all Base UI
+- 2026-06-18: Replaced the previous implementation with Ark UI 5.37.2, adopted Ark anatomy and
+  callbacks, exposed provider/context/stack APIs, rewrote state styling, and removed all legacy
   compatibility layers.

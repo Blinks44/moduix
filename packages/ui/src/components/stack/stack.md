@@ -16,7 +16,7 @@ Ark UI does not ship a dedicated `Stack` primitive. moduix implements `Stack` as
 factory wrapper with `@ark-ui/react/factory`.
 
 Preserve the Ark composition model: one root part, DOM ownership through `asChild`, forwarded refs
-to the root element, Ark-style `data-scope` / `data-part` attributes, and no Base UI `render` or
+to the root element, Ark-style `data-scope` / `data-part` attributes, and no legacy `render` or
 legacy `as` contract. Chakra's Stack recipe informs the public layout props and the optional
 `separator` composition pattern.
 

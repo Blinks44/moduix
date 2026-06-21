@@ -16,7 +16,7 @@ Ark UI does not ship a dedicated heading primitive. moduix implements `Heading` 
 `@ark-ui/react/factory` wrapper.
 
 Preserve the Ark composition model: one root part, native `h1` output by default, semantic element
-replacement through `asChild`, and no Base UI `render` or legacy `as` contract.
+replacement through `asChild`, and no legacy `render` or legacy `as` contract.
 
 ## Current behavior contract
 

@@ -85,7 +85,7 @@ export function VerificationCodeField() {
 - Moduix default composition and grouped-separator composition are documented as local sugar after
   the core Ark examples.
 - Controlled and uncontrolled values use Ark string arrays.
-- `type`, `pattern`, and `sanitizeValue` replace the old Base UI `validationType` and
+- `type`, `pattern`, and `sanitizeValue` replace the old legacy `validationType` and
   `normalizeValue` contract.
 - `PinInput.Separator` is moduix sugar only; it is not an Ark primitive part.
 
@@ -120,7 +120,7 @@ Important hooks:
 - `PinInput.Separator` provides a decorative grouping helper with the default separator icon.
 - The default placeholder is `''` instead of Ark's `○`. Use `placeholder` when visible placeholders
   are desired.
-- No Base UI compatibility remains: `OTPField`, `OTPFieldInput`, `OTPFieldSeparator`, `length`,
+- No legacy compatibility remains: `OTPField`, `OTPFieldInput`, `OTPFieldSeparator`, `length`,
   `validationType`, string `value`, string `defaultValue`, string callbacks, and `normalizeValue`
   were removed.
 
@@ -133,6 +133,6 @@ Important hooks:
 
 ## Local changelog
 
-- 2026-06-20: Renamed `otp-field` to `pin-input`, replaced Base UI OTPField with Ark UI
+- 2026-06-20: Renamed `otp-field` to `pin-input`, replaced legacy OTPField with Ark UI
   `PinInput`, adopted Ark parts/callbacks/value arrays, exposed RootProvider/context hooks, updated
-  styling hooks and tokens, and removed legacy Base UI API compatibility.
+  styling hooks and tokens, and removed legacy API compatibility.

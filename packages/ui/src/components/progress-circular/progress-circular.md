@@ -123,7 +123,7 @@ circle size/thickness, track color, range color, value text, and the indetermina
 - Use `translations.value(details)` when the default formatted percent is not descriptive enough.
 - Progress is informational and has no keyboard interaction.
 
-## Intentional differences from the old Base UI wrapper
+## Intentional differences from the old previous wrapper
 
 - `Progress`, `ProgressRoot`, `ProgressLabel`, `ProgressValue`, `ProgressTrack`, and
   `ProgressIndicator` were removed.
@@ -132,7 +132,7 @@ circle size/thickness, track color, range color, value text, and the indetermina
 - `format` was replaced by Ark `formatOptions`.
 - `getAriaValueText` and `aria-valuetext` examples were replaced by Ark `translations.value`.
 - `ProgressValue` was replaced by Ark `ValueText`.
-- State selectors changed from Base UI status attributes to Ark `data-state`.
+- State selectors changed from legacy status attributes to Ark `data-state`.
 
 ## Local changelog
 

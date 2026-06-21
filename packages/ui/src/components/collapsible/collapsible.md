@@ -144,7 +144,7 @@ Primary CSS variables:
 
 ## Local changelog
 
-- 2026-06-18: Migrated from Base UI to Ark UI, replaced flat exports with `Collapsible.*`, renamed
+- 2026-06-18: Migrated to Ark UI, replaced flat exports with `Collapsible.*`, renamed
   `Panel` to `Content` and `TriggerIcon` to `Indicator`, added `RootProvider`, `Context`, and
   `useCollapsible`, adopted Ark callback/state hooks, and replaced Base motion variables with Ark
   `--height` / `--collapsed-height`.

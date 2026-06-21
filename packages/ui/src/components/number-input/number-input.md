@@ -27,7 +27,7 @@ Ark parts exposed by moduix are `Root`, `RootProvider`, `Label`, `Scrubber`, `Co
 - Formatting uses `formatOptions`; accessible labels use Ark `translations`.
 - The wrapper adds visual styling, stable `data-slot` hooks, and default plus/minus icons for the
   trigger parts.
-- No Base UI aliases, numeric/null value adapters, `format` alias, `allowWheelScrub`,
+- No legacy aliases, numeric/null value adapters, `format` alias, `allowWheelScrub`,
   `NumberField*` flat exports, or automatic stepper group are preserved.
 
 ## Anatomy and exported parts
@@ -163,7 +163,7 @@ Public CSS variables:
 moduix adds visual defaults, stable `data-slot` hooks, and default trigger icons. It does not add
 variants, sizes, slot prop bags, class-name maps, or high-level props over Ark behavior.
 
-Breaking migration differences from the old Base UI wrapper:
+Breaking migration differences from the old previous wrapper:
 
 - `NumberField` and all `NumberField*` flat aliases are removed.
 - `NumberInput` no longer auto-renders the control group; compose Ark parts explicitly.
@@ -182,5 +182,5 @@ Keep the public barrel in sync with Ark provider/context/hooks. Docs examples mu
 
 ## Local changelog
 
-- 2026-06-19: Migrated from Base UI `NumberField` to Ark UI `NumberInput`; renamed source, docs,
+- 2026-06-19: Migrated from legacy `NumberField` to Ark UI `NumberInput`; renamed source, docs,
   registry item, slots, CSS variables, examples, and public exports to `number-input`.

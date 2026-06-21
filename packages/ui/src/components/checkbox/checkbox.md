@@ -166,7 +166,7 @@ export function CheckboxProviderDemo() {
 - Indeterminate state: supported with `checked="indeterminate"` and an explicit
   `Checkbox.Indicator indeterminate` part.
 - Field/form integration: supported with `HiddenInput`; examples use moduix `Field`/`Fieldset`
-  wrappers until those wrappers migrate from Base UI.
+  wrappers until those wrappers migrate from legacy.
 - Context access: supported with `Checkbox.Context` and `useCheckboxContext`.
 - Group state: supported with `Checkbox.Group`, controlled `value`, `onValueChange(value)`,
   `maxSelectedValues`, invalid state, native form submission, and `Fieldset` composition.
@@ -193,7 +193,7 @@ export function CheckboxProviderDemo() {
 - moduix ships styled defaults; Ark is unstyled.
 - Public CSS variables are declared in `packages/ui/src/styles/theme.css` and documented in
   `apps/docs/content/docs/checkbox.mdx`.
-- Styling uses local classes plus Ark state data attributes. No Base UI state selectors are used in
+- Styling uses local classes plus Ark state data attributes. No legacy state selectors are used in
   `Checkbox.module.css`.
 - `Checkbox.Control` owns visual state styles for checked, indeterminate, invalid, disabled, hover,
   and focus-visible states.
@@ -206,7 +206,7 @@ export function CheckboxProviderDemo() {
 - `Checkbox.Root` and `Checkbox.RootProvider` add `size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'`.
 - `Checkbox.Indicator` renders `CheckIcon` or `IndeterminateIcon` when no children are provided.
 - The wrapper adds stable `data-slot` hooks for moduix styling.
-- Removed legacy Base UI API and compatibility props: flat `CheckboxIndicator`, `CheckboxField`,
+- Removed legacy API and compatibility props: flat `CheckboxIndicator`, `CheckboxField`,
   `CheckboxLabel`, separate `CheckboxGroup`, `render`, `nativeButton`, `uncheckedValue`, `inputRef`,
   `allValues`, and `parent`.
 
@@ -225,6 +225,6 @@ export function CheckboxProviderDemo() {
   types from the public checkbox barrel.
 - 2026-06-18: Expanded docs and stories to cover Ark standalone, provider, context, form, field,
   group, group provider, max-selected, select-all, invalid, and fieldset patterns.
-- 2026-06-18: Migrated `Checkbox` from Base UI to Ark UI, adopted the Ark namespace API
+- 2026-06-18: Migrated `Checkbox` to Ark UI, adopted the Ark namespace API
   (`Checkbox.Root`, `Checkbox.Control`, `Checkbox.Indicator`, `Checkbox.Label`,
   `Checkbox.HiddenInput`, `Checkbox.Group`), and removed the standalone `CheckboxGroup` component.
