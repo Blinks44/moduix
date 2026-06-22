@@ -1418,6 +1418,31 @@
       ]
     },
     {
+      "name": "react-signature-pad",
+      "type": "registry:item",
+      "title": "SignaturePad",
+      "description": "moduix React SignaturePad component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/signature-pad/SignaturePad.tsx",
+          "target": "@components/moduix/signature-pad/SignaturePad.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/signature-pad/SignaturePad.module.css",
+          "target": "@components/moduix/signature-pad/SignaturePad.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/signature-pad/index.ts",
+          "target": "@components/moduix/signature-pad/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-select",
       "type": "registry:item",
       "title": "Select",

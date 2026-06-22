@@ -55,6 +55,7 @@ export * from './components/scroll-area';
 export * from './components/separator';
 export * from './components/segment-group';
 export * from './components/select';
+export * from './components/signature-pad';
 export { createListCollection, useListCollection } from './components/select';
 export type { CollectionItem, ListCollection, UseListCollectionProps } from './components/select';
 export { createGridCollection } from '@ark-ui/react/collection';

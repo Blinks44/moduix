@@ -1,0 +1,475 @@
+---
+title: SignaturePad
+description: An Ark UI signature pad for handwritten pointer and touch input.
+icon: Component
+---
+
+import {
+  ControlledSignaturePadExample,
+  CustomStylingSignaturePadExample,
+  DrawingSignaturePadExample,
+  FieldSignaturePadExample,
+  ImagePreviewSignaturePadExample,
+  RootProviderSignaturePadExample,
+  SignaturePadCssPropertiesPanel,
+  SignaturePadExample,
+  signaturePadBasicData,
+  signaturePadControlledData,
+  signaturePadCustomStylingCss,
+  signaturePadDrawingData,
+  signaturePadExampleCss,
+  signaturePadPreviewCss,
+  signaturePadPreviewData,
+} from '@/components/examples/signature-pad';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/signature-pad" />
+
+## Basic
+
+Use `SignaturePad` as the Ark root and keep the drawing parts explicit. `Control` is the focusable
+surface, `Segment` renders the SVG paths, `ClearTrigger` clears the paths, and `Guide` draws the
+baseline.
+
+<Preview>
+  <SignaturePadExample />
+
+  <Preview.Code>
+    {`
+      import { RotateCcwIcon, SignaturePad } from "@moduix/react";
+
+      export function SignaturePadDemo() {
+        return (
+          <SignaturePad
+            name="signature"
+            translations={{
+              control: "Signature drawing area",
+              clearTrigger: "Clear signature",
+            }}
+          >
+            <SignaturePad.Label>Sign below</SignaturePad.Label>
+            <SignaturePad.Control>
+              <SignaturePad.Segment />
+              <SignaturePad.ClearTrigger>
+                <RotateCcwIcon aria-hidden="true" />
+              </SignaturePad.ClearTrigger>
+              <SignaturePad.Guide />
+            </SignaturePad.Control>
+          </SignaturePad>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{signaturePadExampleCss}</Preview.CSS>
+  <Preview.Data>{signaturePadBasicData}</Preview.Data>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `SignaturePad` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/react-signature-pad
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/react-signature-pad
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/react-signature-pad
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-signature-pad
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/react-signature-pad
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+SignaturePad / SignaturePad.Root
+├─ SignaturePad.Label
+├─ SignaturePad.Control
+│  ├─ SignaturePad.Segment
+│  ├─ SignaturePad.ClearTrigger
+│  └─ SignaturePad.Guide
+└─ SignaturePad.HiddenInput
+
+SignaturePad.RootProvider
+└─ same part tree connected to useSignaturePad()
+```
+
+| Part                                 | Role                                                           |
+| ------------------------------------ | -------------------------------------------------------------- |
+| `SignaturePad` / `SignaturePad.Root` | Owns paths, drawing options, form name, ids, and callbacks.    |
+| `SignaturePad.RootProvider`          | Renders a tree from state returned by `useSignaturePad()`.     |
+| `SignaturePad.Label`                 | Labels the drawing area and hidden input.                      |
+| `SignaturePad.Control`               | Focusable pointer/touch drawing region.                        |
+| `SignaturePad.Segment`               | SVG layer for saved paths and the current in-progress path.    |
+| `SignaturePad.ClearTrigger`          | Native button that clears paths; Ark hides it while empty.     |
+| `SignaturePad.Guide`                 | Non-interactive baseline inside the control.                   |
+| `SignaturePad.HiddenInput`           | Native form input when the current paths need form submission. |
+| `SignaturePad.Context`               | Render-prop access to the current Ark signature pad API.       |
+
+## Composition
+
+### Recommended composition
+
+Keep `Label`, `Control`, `Segment`, `ClearTrigger`, and `Guide` visible in the tree. That preserves
+Ark's focus target, pointer capture, accessible labels, clear button behavior, and SVG rendering.
+
+### When to go custom
+
+Use controlled `paths` when application state needs to restore, clear, autosave, or validate the
+signature outside the Ark tree. Use `RootProvider` when controls outside the component need direct
+access to `paths`, `clear()`, or `getDataUrl()`.
+
+Use `HiddenInput` when the signature should participate in native form submission. Keep it inside
+the same `SignaturePad` tree so `SignaturePad.Context` can read the current Ark state.
+
+Use `drawing` for stroke-level customization. `drawing.size` changes stroke width,
+`drawing.simulatePressure` controls pressure simulation, and `drawing.fill` sets the stroke color.
+Use a concrete color string for `drawing.fill`; Zag does not accept CSS variables for that option.
+
+### Default props
+
+| Prop           | Default                               | Notes                                                           |
+| -------------- | ------------------------------------- | --------------------------------------------------------------- |
+| `defaultPaths` | -                                     | Initial uncontrolled SVG path array.                            |
+| `paths`        | -                                     | Controlled SVG path array. Pair with `onDraw(details)`.         |
+| `drawing`      | `{ size: 2, simulatePressure: true }` | Zag stroke options; `fill` must be a concrete CSS color string. |
+| `name`         | -                                     | Native form field name.                                         |
+| `disabled`     | -                                     | Disables drawing and clear trigger interaction.                 |
+| `readOnly`     | -                                     | Prevents drawing while preserving display.                      |
+| `required`     | -                                     | Marks label and hidden input as required.                       |
+| `ids`          | -                                     | Stable ids for root, control, hidden input, and label.          |
+| `translations` | Ark defaults                          | Accessible labels for the control and clear trigger.            |
+
+The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px`
+with the default token scale. Override `--signature-pad-width`, `--signature-pad-height`, or the
+more specific `--signature-pad-control-*` variables to resize the signing area.
+
+### Behavioral notes
+
+Use `defaultPaths` for an initial uncontrolled signature. Use `paths` with `onDraw(details)` when
+the signature must stay in application state. `onDrawEnd(details)` fires after a stroke ends or the
+signature is cleared and exposes `details.getDataUrl(type, quality?)`.
+
+Set `name` on the root and render `HiddenInput` from `SignaturePad.Context` when native form
+submission is needed. Wrap with `Field.Root` when helper text, error text, required state, or
+disabled state should be shared with surrounding form UI.
+
+`Control` is keyboard-focusable and exposes `role="application"` with
+`aria-roledescription="signature pad"`. Drawing uses pointer and touch input rather than arrow-key
+navigation. `ClearTrigger` is a native button, so Enter and Space activation remain standard button
+behavior.
+
+## Examples
+
+### Image Preview
+
+Use `onDrawEnd` to export the signature and show a preview before saving it.
+
+<Preview>
+  <ImagePreviewSignaturePadExample />
+
+  <Preview.Code>
+    {`
+      import { RotateCcwIcon, SignaturePad } from "@moduix/react";
+      import { useState } from "react";
+
+      export function ImagePreviewSignaturePadDemo() {
+        const [imageUrl, setImageUrl] = useState("");
+
+        return (
+          <div className="signature-pad-stack">
+            <SignaturePad
+              onDrawEnd={(details) => {
+                void details.getDataUrl("image/png").then(setImageUrl);
+              }}
+            >
+              <SignaturePad.Label>Sign below</SignaturePad.Label>
+              <SignaturePad.Control>
+                <SignaturePad.Segment />
+                <SignaturePad.ClearTrigger>
+                  <RotateCcwIcon aria-hidden="true" />
+                </SignaturePad.ClearTrigger>
+                <SignaturePad.Guide />
+              </SignaturePad.Control>
+            </SignaturePad>
+            {imageUrl ? (
+              <img src={imageUrl} alt="Signature preview" className="signature-pad-preview" />
+            ) : (
+              <div className="signature-pad-preview-placeholder">
+                Preview appears after signing
+              </div>
+            )}
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {signaturePadExampleCss + '\n' + signaturePadPreviewCss}
+  </Preview.CSS>
+  <Preview.Data>{signaturePadPreviewData}</Preview.Data>
+</Preview>
+
+### Controlled
+
+Control `paths` when the signature must stay synchronized with surrounding state, reset controls, or
+autosave logic.
+
+<Preview>
+  <ControlledSignaturePadExample />
+
+  <Preview.Code>
+    {`
+      import { Button, RotateCcwIcon, SignaturePad } from "@moduix/react";
+      import { useState } from "react";
+
+      export function ControlledSignaturePadDemo() {
+        const [paths, setPaths] = useState(initialSignaturePaths);
+
+        return (
+          <div className="signature-pad-stack">
+            <SignaturePad paths={paths} onDraw={(details) => setPaths(details.paths)}>
+              <SignaturePad.Label>Sign below</SignaturePad.Label>
+              <SignaturePad.Control>
+                <SignaturePad.Segment />
+                <SignaturePad.ClearTrigger>
+                  <RotateCcwIcon aria-hidden="true" />
+                </SignaturePad.ClearTrigger>
+                <SignaturePad.Guide />
+              </SignaturePad.Control>
+            </SignaturePad>
+            <div className="signature-pad-actions">
+              <Button size="sm" variant="outline" onClick={() => setPaths(initialSignaturePaths)}>
+                Restore
+              </Button>
+              <Button size="sm" variant="outline" onClick={() => setPaths([])}>
+                Clear
+              </Button>
+            </div>
+            <output className="signature-pad-status">Paths: {paths.length}</output>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{signaturePadExampleCss}</Preview.CSS>
+  <Preview.Data>{signaturePadControlledData}</Preview.Data>
+</Preview>
+
+### Drawing
+
+Pass `drawing` when stroke width, stroke color, or pressure behavior needs to differ from the
+defaults.
+
+<Preview>
+  <DrawingSignaturePadExample />
+
+  <Preview.Code>
+    {`
+      import { RotateCcwIcon, SignaturePad } from "@moduix/react";
+
+      export function DrawingSignaturePadDemo() {
+        return (
+          <SignaturePad
+            drawing={{ fill: "#2563eb", size: 4, simulatePressure: false }}
+          >
+            <SignaturePad.Label>Sign below</SignaturePad.Label>
+            <SignaturePad.Control>
+              <SignaturePad.Segment />
+              <SignaturePad.ClearTrigger>
+                <RotateCcwIcon aria-hidden="true" />
+              </SignaturePad.ClearTrigger>
+              <SignaturePad.Guide />
+            </SignaturePad.Control>
+          </SignaturePad>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{signaturePadExampleCss}</Preview.CSS>
+  <Preview.Data>{signaturePadDrawingData}</Preview.Data>
+</Preview>
+
+### Field
+
+Use `Field` around the signature pad when helper text, error text, or required state belongs to the
+same form control.
+
+<Preview>
+  <FieldSignaturePadExample />
+
+  <Preview.Code>
+    {`
+      import { Field, RotateCcwIcon, SignaturePad } from "@moduix/react";
+
+      export function FieldSignaturePadDemo() {
+        return (
+          <Field className="signature-pad-field" required>
+            <SignaturePad name="signature" required>
+              <SignaturePad.Label>Sign below</SignaturePad.Label>
+              <SignaturePad.Control>
+                <SignaturePad.Segment />
+                <SignaturePad.ClearTrigger>
+                  <RotateCcwIcon aria-hidden="true" />
+                </SignaturePad.ClearTrigger>
+                <SignaturePad.Guide />
+              </SignaturePad.Control>
+              <SignaturePad.Context>
+                {(api) => <SignaturePad.HiddenInput value={api.paths.join(" ")} />}
+              </SignaturePad.Context>
+            </SignaturePad>
+            <Field.HelperText>Use pointer or touch input to add a signature.</Field.HelperText>
+            <Field.ErrorText>Signature is required.</Field.ErrorText>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{signaturePadExampleCss}</Preview.CSS>
+  <Preview.Data>{signaturePadBasicData}</Preview.Data>
+</Preview>
+
+### Root Provider
+
+Use `useSignaturePad()` with `RootProvider` when controls outside the component tree need direct
+access to paths, `clear()`, or `getDataUrl()`.
+
+<Preview>
+  <RootProviderSignaturePadExample />
+
+  <Preview.Code>
+    {`
+      import { RotateCcwIcon, SignaturePad, useSignaturePad } from "@moduix/react";
+
+      export function RootProviderSignaturePadDemo() {
+        const signaturePad = useSignaturePad();
+
+        return (
+          <div className="signature-pad-stack">
+            <SignaturePad.RootProvider value={signaturePad}>
+              <SignaturePad.Label>Sign below</SignaturePad.Label>
+              <SignaturePad.Control>
+                <SignaturePad.Segment />
+                <SignaturePad.ClearTrigger>
+                  <RotateCcwIcon aria-hidden="true" />
+                </SignaturePad.ClearTrigger>
+                <SignaturePad.Guide />
+              </SignaturePad.Control>
+            </SignaturePad.RootProvider>
+            <output className="signature-pad-status">
+              Paths: {signaturePad.paths.length}
+            </output>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{signaturePadExampleCss}</Preview.CSS>
+  <Preview.Data>{signaturePadBasicData}</Preview.Data>
+</Preview>
+
+### Custom Styling
+
+Customize the pad with CSS variables and part `className` values. Explicit `drawing.fill` still
+wins over the CSS default stroke color.
+
+<Preview>
+  <CustomStylingSignaturePadExample />
+
+  <Preview.Code>
+    {`
+      import { RotateCcwIcon, SignaturePad } from "@moduix/react";
+
+      export function CustomStylingSignaturePadDemo() {
+        return (
+          <SignaturePad className="signature-pad-custom">
+            <SignaturePad.Label>Sign below</SignaturePad.Label>
+            <SignaturePad.Control>
+              <SignaturePad.Segment />
+              <SignaturePad.ClearTrigger>
+                <RotateCcwIcon aria-hidden="true" />
+              </SignaturePad.ClearTrigger>
+              <SignaturePad.Guide />
+            </SignaturePad.Control>
+          </SignaturePad>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{signaturePadCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{signaturePadBasicData}</Preview.Data>
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <SignaturePadCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use `className` on any exported part for local styling. moduix also adds stable `data-slot`
+attributes:
+
+| Part                                 | `data-slot`                   |
+| ------------------------------------ | ----------------------------- |
+| `SignaturePad` / `SignaturePad.Root` | `signature-pad-root`          |
+| `SignaturePad.RootProvider`          | `signature-pad-root-provider` |
+| `SignaturePad.Label`                 | `signature-pad-label`         |
+| `SignaturePad.Control`               | `signature-pad-control`       |
+| `SignaturePad.Segment`               | `signature-pad-segment`       |
+| `SignaturePad.Guide`                 | `signature-pad-guide`         |
+| `SignaturePad.ClearTrigger`          | `signature-pad-clear-trigger` |
+| `SignaturePad.HiddenInput`           | `signature-pad-hidden-input`  |
+
+Ark state attributes remain available for targeted styles: `data-scope="signature-pad"`,
+`data-part`, `data-disabled`, and `data-required` on the parts that Ark marks.

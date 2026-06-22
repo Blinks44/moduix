@@ -2222,6 +2222,49 @@
   --segment-group-radius: initial; /* var(--radius-lg) */
   --segment-group-transition: initial; /* var(--transition-default) */
 
+  /* SignaturePad */
+  --signature-pad-bg: initial; /* var(--color-background) */
+  --signature-pad-border-color: initial; /* var(--color-border) */
+  --signature-pad-border-width: initial; /* var(--border-width-sm) */
+  --signature-pad-clear-trigger-bg: initial; /* transparent */
+  --signature-pad-clear-trigger-bg-hover: initial; /* var(--color-accent) */
+  --signature-pad-clear-trigger-border-color: initial; /* transparent */
+  --signature-pad-clear-trigger-border-width: initial; /* 0 */
+  --signature-pad-clear-trigger-color: initial; /* var(--color-muted-foreground) */
+  --signature-pad-clear-trigger-color-hover: initial; /* var(--color-foreground) */
+  --signature-pad-clear-trigger-focus-ring-color: initial; /* var(--color-ring) */
+  --signature-pad-clear-trigger-focus-ring-offset: initial; /* var(--spacing-1) */
+  --signature-pad-clear-trigger-focus-ring-width: initial; /* var(--border-width-md) */
+  --signature-pad-clear-trigger-icon-size: initial; /* 1rem */
+  --signature-pad-clear-trigger-offset: initial; /* var(--spacing-2) */
+  --signature-pad-clear-trigger-radius: initial; /* var(--radius-sm) */
+  --signature-pad-clear-trigger-size: initial; /* var(--size-md) */
+  --signature-pad-color: initial; /* var(--color-foreground) */
+  --signature-pad-control-height: initial; /* var(--signature-pad-height, 10rem) */
+  --signature-pad-control-min-height: initial; /* 10rem */
+  --signature-pad-control-min-width: initial; /* 0 */
+  --signature-pad-control-width: initial; /* 100% */
+  --signature-pad-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --signature-pad-focus-border-color: initial; /* var(--color-ring) */
+  --signature-pad-focus-ring-color: initial; /* var(--color-ring) */
+  --signature-pad-focus-ring-width: initial; /* var(--border-width-md) */
+  --signature-pad-gap: initial; /* var(--spacing-2) */
+  --signature-pad-guide-border-width: initial; /* var(--border-width-sm) */
+  --signature-pad-guide-bottom: initial; /* var(--spacing-8) */
+  --signature-pad-guide-color: initial; /* var(--color-border) */
+  --signature-pad-guide-inset-x: initial; /* var(--spacing-6) */
+  --signature-pad-height: initial; /* 10rem */
+  --signature-pad-label-color: initial; /* var(--color-foreground) */
+  --signature-pad-label-font-size: initial; /* var(--text-sm) */
+  --signature-pad-label-font-weight: initial; /* var(--weight-medium) */
+  --signature-pad-label-line-height: initial; /* var(--line-height-text-sm) */
+  --signature-pad-max-width: initial; /* 100% */
+  --signature-pad-radius: initial; /* var(--radius-md) */
+  --signature-pad-shadow: initial; /* var(--shadow-xs) */
+  --signature-pad-stroke-color: initial; /* var(--color-foreground) */
+  --signature-pad-transition: initial; /* var(--transition-default) */
+  --signature-pad-width: initial; /* 17.5rem */
+
   /* Select */
   --select-action-bg: initial; /* transparent */
   --select-action-bg-hover: initial; /* var(--color-muted) */

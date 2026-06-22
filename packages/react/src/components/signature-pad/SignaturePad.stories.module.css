@@ -1,0 +1,28 @@
+.preview {
+  display: grid;
+  gap: var(--spacing-4);
+  justify-items: center;
+}
+
+.preview img {
+  display: block;
+  width: 17.5rem;
+  max-width: 100%;
+  height: auto;
+}
+
+.status {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+}
+
+.field {
+  align-items: center;
+  width: auto;
+}
+
+.custom {
+  --signature-pad-stroke-color: var(--color-primary);
+  --signature-pad-guide-color: color-mix(in srgb, var(--color-primary) 45%, transparent);
+}
