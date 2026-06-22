@@ -51,6 +51,9 @@
   --popup-width: initial;
   --positioner-height: initial;
   --positioner-width: initial;
+  --qrcode-height: initial;
+  --qrcode-pixel-size: initial;
+  --qrcode-width: initial;
   --reference-height: initial;
   --reference-width: initial;
   --scroll-area-overflow-x-end: initial;
@@ -2012,6 +2015,36 @@
   --progress-linear-value-text-font-weight: initial; /* var(--weight-regular) */
   --progress-linear-value-text-line-height: initial; /* var(--line-height-text-sm) */
   --progress-linear-width: initial; /* 12rem */
+
+  /* QrCode */
+  --qr-code-color: initial; /* var(--color-foreground) */
+  --qr-code-disabled-opacity: initial; /* var(--button-disabled-opacity, var(--opacity-disabled)) */
+  --qr-code-download-trigger-bg: initial; /* var(--button-outline-bg, var(--color-background)) */
+  --qr-code-download-trigger-bg-hover: initial; /* var(--button-outline-bg-hover, var(--color-accent)) */
+  --qr-code-download-trigger-border-color: initial; /* var(--button-outline-border-color, var(--color-border)) */
+  --qr-code-download-trigger-border-width: initial; /* var(--button-border-width, var(--border-width-sm)) */
+  --qr-code-download-trigger-color: initial; /* var(--button-outline-color, var(--color-foreground)) */
+  --qr-code-download-trigger-focus-ring-color: initial; /* var(--button-focus-ring-color, var(--color-ring)) */
+  --qr-code-download-trigger-focus-ring-offset: initial; /* var(--qr-code-download-trigger-border-width, var(--button-border-width, var(--border-width-sm))) */
+  --qr-code-download-trigger-focus-ring-width: initial; /* var(--button-focus-ring-width, var(--border-width-md)) */
+  --qr-code-download-trigger-font-size: initial; /* var(--button-font-size, var(--text-sm)) */
+  --qr-code-download-trigger-font-weight: initial; /* var(--button-font-weight, var(--weight-medium)) */
+  --qr-code-download-trigger-gap: initial; /* var(--button-content-gap, var(--spacing-2)) */
+  --qr-code-download-trigger-height: initial; /* var(--button-size-md, var(--size-lg)) */
+  --qr-code-download-trigger-icon-size: initial; /* var(--button-icon-size, 1rem) */
+  --qr-code-download-trigger-line-height: initial; /* var(--button-line-height, var(--line-height-text-sm)) */
+  --qr-code-download-trigger-padding-x: initial; /* var(--button-padding-x-md, 1rem) */
+  --qr-code-download-trigger-radius: initial; /* var(--button-radius, var(--radius-md)) */
+  --qr-code-fill: initial; /* currentColor */
+  --qr-code-gap: initial; /* var(--spacing-3) */
+  --qr-code-max-width: initial; /* 100% */
+  --qr-code-overlay-bg: initial; /* var(--color-background) */
+  --qr-code-overlay-color: initial; /* var(--color-foreground) */
+  --qr-code-overlay-padding: initial; /* var(--spacing-1) */
+  --qr-code-overlay-radius: initial; /* var(--radius-sm) */
+  --qr-code-overlay-size: initial; /* 2.5rem */
+  --qr-code-size: initial; /* 8rem */
+  --qr-code-transition: initial; /* var(--button-transition, var(--transition-default)) */
 
   /* Radio */
   --radio-bg: initial; /* var(--color-background) */

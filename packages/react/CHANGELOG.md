@@ -4,6 +4,8 @@
 
 ### Minor Changes
 
+- Add `QrCode` as an Ark UI-backed component with frame, pattern, overlay, download trigger,
+  provider/context exports, docs, and registry metadata.
 - Complete the Avatar Ark UI contract with `RootProvider`, `Context`, `useAvatar`,
   `useAvatarContext`, and their public types.
 

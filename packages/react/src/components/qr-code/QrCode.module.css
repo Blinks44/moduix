@@ -1,0 +1,140 @@
+@layer ui.components {
+  .root {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--qr-code-gap, var(--spacing-3));
+    width: fit-content;
+    max-width: var(--qr-code-max-width, 100%);
+    color: var(--qr-code-color, var(--color-foreground));
+  }
+
+  .frame {
+    box-sizing: border-box;
+    display: block;
+    width: var(--qr-code-size, 8rem);
+    height: var(--qr-code-size, 8rem);
+    color: inherit;
+    fill: var(--qr-code-fill, currentColor);
+  }
+
+  .pattern {
+    fill: inherit;
+  }
+
+  .overlay {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--qr-code-overlay-size, 2.5rem);
+    height: var(--qr-code-overlay-size, 2.5rem);
+    padding: var(--qr-code-overlay-padding, var(--spacing-1));
+    border-radius: var(--qr-code-overlay-radius, var(--radius-sm));
+    background-color: var(--qr-code-overlay-bg, var(--color-background));
+    color: var(--qr-code-overlay-color, var(--color-foreground));
+  }
+
+  .overlay :where(img, svg) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .downloadTrigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--qr-code-download-trigger-gap, var(--button-content-gap, var(--spacing-2)));
+    min-height: var(--qr-code-download-trigger-height, var(--button-size-md, var(--size-lg)));
+    padding-inline: var(--qr-code-download-trigger-padding-x, var(--button-padding-x-md, 1rem));
+    border: var(
+        --qr-code-download-trigger-border-width,
+        var(--button-border-width, var(--border-width-sm))
+      )
+      solid
+      var(
+        --qr-code-download-trigger-border-color,
+        var(--button-outline-border-color, var(--color-border))
+      );
+    border-radius: var(--qr-code-download-trigger-radius, var(--button-radius, var(--radius-md)));
+    background-color: var(
+      --qr-code-download-trigger-bg,
+      var(--button-outline-bg, var(--color-background))
+    );
+    color: var(
+      --qr-code-download-trigger-color,
+      var(--button-outline-color, var(--color-foreground))
+    );
+    appearance: none;
+    font: inherit;
+    font-size: var(--qr-code-download-trigger-font-size, var(--button-font-size, var(--text-sm)));
+    font-weight: var(
+      --qr-code-download-trigger-font-weight,
+      var(--button-font-weight, var(--weight-medium))
+    );
+    line-height: var(
+      --qr-code-download-trigger-line-height,
+      var(--button-line-height, var(--line-height-text-sm))
+    );
+    user-select: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      border-color var(--qr-code-transition, var(--button-transition, var(--transition-default))),
+      background-color
+        var(--qr-code-transition, var(--button-transition, var(--transition-default))),
+      color var(--qr-code-transition, var(--button-transition, var(--transition-default))),
+      opacity var(--qr-code-transition, var(--button-transition, var(--transition-default))),
+      box-shadow var(--qr-code-transition, var(--button-transition, var(--transition-default)));
+  }
+
+  .downloadTrigger :where(svg) {
+    width: var(--qr-code-download-trigger-icon-size, var(--button-icon-size, 1rem));
+    height: var(--qr-code-download-trigger-icon-size, var(--button-icon-size, 1rem));
+    flex-shrink: 0;
+  }
+
+  @media (hover: hover) {
+    .downloadTrigger:hover:not(:disabled, [data-disabled]) {
+      background-color: var(
+        --qr-code-download-trigger-bg-hover,
+        var(--button-outline-bg-hover, var(--color-accent))
+      );
+    }
+  }
+
+  .downloadTrigger:focus-visible {
+    outline: var(
+        --qr-code-download-trigger-focus-ring-width,
+        var(--button-focus-ring-width, var(--border-width-md))
+      )
+      solid
+      var(
+        --qr-code-download-trigger-focus-ring-color,
+        var(--button-focus-ring-color, var(--color-ring))
+      );
+    outline-offset: calc(
+      var(
+          --qr-code-download-trigger-focus-ring-offset,
+          var(
+            --qr-code-download-trigger-border-width,
+            var(--button-border-width, var(--border-width-sm))
+          )
+        ) *
+        -1
+    );
+  }
+
+  .downloadTrigger:disabled,
+  .downloadTrigger[data-disabled] {
+    pointer-events: none;
+    opacity: var(
+      --qr-code-disabled-opacity,
+      var(--button-disabled-opacity, var(--opacity-disabled))
+    );
+  }
+}

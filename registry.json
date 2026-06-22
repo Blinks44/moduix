@@ -1268,6 +1268,31 @@
       ]
     },
     {
+      "name": "react-qr-code",
+      "type": "registry:item",
+      "title": "QrCode",
+      "description": "moduix React QrCode component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/qr-code/QrCode.tsx",
+          "target": "@components/moduix/qr-code/QrCode.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/qr-code/QrCode.module.css",
+          "target": "@components/moduix/qr-code/QrCode.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/qr-code/index.ts",
+          "target": "@components/moduix/qr-code/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-radio-group",
       "type": "registry:item",
       "title": "Radio Group",

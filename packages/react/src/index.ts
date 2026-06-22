@@ -47,6 +47,7 @@ export * from './components/popover';
 export * from './components/hover-card';
 export * from './components/progress-circular';
 export * from './components/progress-linear';
+export * from './components/qr-code';
 export * from './components/radio-group';
 export * from './components/rating-group';
 export * from './components/scroll-area';
