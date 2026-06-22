@@ -1,0 +1,318 @@
+---
+title: Splitter
+description: A resizable layout primitive for dividing an interface into panels.
+icon: Component
+---
+
+import {
+  BasicSplitterExample,
+  CollapsibleSplitterExample,
+  ContextSplitterExample,
+  ControlledSplitterExample,
+  CustomStylingSplitterExample,
+  DynamicCollapsibleSplitterExample,
+  MultiplePanelsSplitterExample,
+  NestedSplitterExample,
+  ResizeIndicatorSplitterExample,
+  RootProviderSplitterExample,
+  SplitterCssPropertiesPanel,
+  VerticalSplitterExample,
+  splitterBasicCode,
+  splitterCollapsibleCode,
+  splitterCollapsibleData,
+  splitterControlledCode,
+  splitterCustomStylingCode,
+  splitterCustomStylingCss,
+  splitterDynamicCollapsibleCode,
+  splitterExampleCss,
+  splitterMultipleCode,
+  splitterNestedCode,
+  splitterNestedCss,
+  splitterNestedData,
+  splitterNoData,
+  splitterPanelsData,
+  splitterResizeIndicatorCode,
+  splitterRootProviderCode,
+  splitterStackCss,
+  splitterContextCode,
+  splitterThreePanelsData,
+  splitterVerticalCode,
+  splitterVerticalCss,
+} from '@/components/examples/splitter';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
+
+## Basic
+
+Use Ark-style parts: `Splitter.Root`, `Splitter.Panel`, `Splitter.ResizeTrigger`, and
+`Splitter.ResizeTriggerIndicator`. `panels` defines ids and constraints; rendered panel ids must
+match that array.
+
+<Preview>
+  <BasicSplitterExample />
+
+  <Preview.Code>{splitterBasicCode}</Preview.Code>
+  <Preview.CSS>{splitterExampleCss}</Preview.CSS>
+  <Preview.Data>{splitterPanelsData}</Preview.Data>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `Splitter` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/react-splitter
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/react-splitter
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/react-splitter
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-splitter
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/react-splitter
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+Splitter.Root
+├─ Splitter.Context (optional render-prop access)
+├─ Splitter.Panel[id]
+├─ Splitter.ResizeTrigger[id="panel-a:panel-b"]
+│  └─ Splitter.ResizeTriggerIndicator (optional)
+└─ Splitter.Panel[id]
+```
+
+| Part                              | Role                                                                                   |
+| --------------------------------- | -------------------------------------------------------------------------------------- |
+| `Splitter` / `Splitter.Root`      | Owns panel constraints, sizes, orientation, callbacks, and the splitter state machine. |
+| `Splitter.Context`                | Optional render-prop access to current Ark state and imperative methods.               |
+| `Splitter.Panel`                  | Resizable region. Its `id` must match one item in the `panels` prop.                   |
+| `Splitter.ResizeTrigger`          | Accessible handle button between adjacent panels.                                      |
+| `Splitter.ResizeTriggerIndicator` | Optional visual indicator inside a resize trigger.                                     |
+| `Splitter.RootProvider`           | Renders the same part tree from state created with `useSplitter()`.                    |
+
+## Composition
+
+### Recommended composition
+
+Render panels and handles explicitly in the same order they appear visually. Use trigger ids in the
+`"left:right"` form so Ark can connect the two adjacent panel ids.
+
+### When to go custom
+
+Use controlled `size` with `onResize(details)` when panel sizes must be mirrored into app state.
+Use `Splitter.Context` or `useSplitterContext()` when child UI needs methods such as
+`resizePanel`, `collapsePanel`, `expandPanel`, `setSizes`, or `resetSizes`.
+
+Use `useSplitter()` with `Splitter.RootProvider` when the splitter API must be owned outside the
+rendered part tree. Use `createSplitterRegistry()` or `Splitter.createRegistry()` when nested
+splitters should resize together at handle intersections.
+
+Use `asChild` only when another element must own the rendered node. Custom resize triggers must keep
+button semantics, focus behavior, and keyboard interaction intact.
+
+### Default props
+
+| Prop               | Default        | Notes                                                                 |
+| ------------------ | -------------- | --------------------------------------------------------------------- |
+| `orientation`      | `"horizontal"` | Use `"vertical"` for stacked panels.                                  |
+| `defaultSize`      | Ark-calculated | Pass percentage values totaling `100` for predictable initial sizing. |
+| `keyboardResizeBy` | Ark default    | Controls arrow-key resize distance.                                   |
+| `size`             | uncontrolled   | Pass with `onResize(details)` for controlled panel sizes.             |
+
+### Behavioral notes
+
+`panels` is required and defines constraints such as `minSize`, `maxSize`, `collapsible`, and
+`collapsedSize`. `defaultSize` and controlled `size` are percentage arrays. Ark preserves the WAI-ARIA
+Window Splitter pattern, keyboard resizing, focus state, and pointer dragging.
+
+Callbacks keep Ark detail objects: `onResize(details)`, `onResizeEnd(details)`, `onCollapse(details)`,
+and `onExpand(details)`. `onResizeStart` is called when a resize begins.
+
+## Examples
+
+### Controlled
+
+Control panel sizes from React state and update that state from `details.size`.
+
+<Preview>
+  <ControlledSplitterExample />
+
+  <Preview.Code>{splitterControlledCode}</Preview.Code>
+  <Preview.CSS>{splitterStackCss}</Preview.CSS>
+  <Preview.Data>{splitterPanelsData}</Preview.Data>
+</Preview>
+
+### Vertical
+
+Set `orientation="vertical"` and give the root a stable height so stacked panels have room to resize.
+
+<Preview>
+  <VerticalSplitterExample />
+
+  <Preview.Code>{splitterVerticalCode}</Preview.Code>
+  <Preview.CSS>{splitterVerticalCss}</Preview.CSS>
+  <Preview.Data>{splitterPanelsData}</Preview.Data>
+</Preview>
+
+### Collapsible Panels
+
+Set `collapsible` and `collapsedSize` on a panel definition when a panel can shrink to a collapsed
+rail.
+
+<Preview>
+  <CollapsibleSplitterExample />
+
+  <Preview.Code>{splitterCollapsibleCode}</Preview.Code>
+  <Preview.CSS>{splitterExampleCss}</Preview.CSS>
+  <Preview.Data>{splitterCollapsibleData}</Preview.Data>
+</Preview>
+
+### Multiple Panels
+
+Add another `Panel` and another adjacent `ResizeTrigger` for three-panel layouts.
+
+<Preview>
+  <MultiplePanelsSplitterExample />
+
+  <Preview.Code>{splitterMultipleCode}</Preview.Code>
+  <Preview.CSS>{splitterExampleCss}</Preview.CSS>
+  <Preview.Data>{splitterThreePanelsData}</Preview.Data>
+</Preview>
+
+### Context
+
+Use a splitter instance when controls should sit above the panels while still reading and invoking
+the same programmatic API. `Splitter.Context` remains useful for child UI that intentionally renders
+inside the root.
+
+<Preview>
+  <ContextSplitterExample />
+
+  <Preview.Code>{splitterContextCode}</Preview.Code>
+  <Preview.CSS>{splitterStackCss}</Preview.CSS>
+  <Preview.Data>{splitterPanelsData}</Preview.Data>
+</Preview>
+
+### Root Provider
+
+Use `useSplitter()` with `Splitter.RootProvider` when controls outside the root need access to the
+same splitter API.
+
+<Preview>
+  <RootProviderSplitterExample />
+
+  <Preview.Code>{splitterRootProviderCode}</Preview.Code>
+  <Preview.CSS>{splitterStackCss}</Preview.CSS>
+  <Preview.Data>{splitterPanelsData}</Preview.Data>
+</Preview>
+
+### Resize Indicator
+
+Place `Splitter.ResizeTriggerIndicator` inside the trigger when the handle needs a stronger visual
+affordance.
+
+<Preview>
+  <ResizeIndicatorSplitterExample />
+
+  <Preview.Code>{splitterResizeIndicatorCode}</Preview.Code>
+  <Preview.CSS>{splitterExampleCss}</Preview.CSS>
+  <Preview.Data>{splitterPanelsData}</Preview.Data>
+</Preview>
+
+### Dynamic Collapsible
+
+Programmatic collapse and expand methods work well for responsive sidebars that react to measured
+available width.
+
+<Preview>
+  <DynamicCollapsibleSplitterExample />
+
+  <Preview.Code>{splitterDynamicCollapsibleCode}</Preview.Code>
+  <Preview.CSS>{splitterExampleCss}</Preview.CSS>
+  <Preview.Data>{splitterNoData}</Preview.Data>
+</Preview>
+
+### Nested
+
+Share a registry between nested splitters to support multi-drag behavior at horizontal and vertical
+handle intersections.
+
+<Preview>
+  <NestedSplitterExample />
+
+  <Preview.Code>{splitterNestedCode}</Preview.Code>
+  <Preview.CSS>{splitterNestedCss}</Preview.CSS>
+  <Preview.Data>{splitterNestedData}</Preview.Data>
+</Preview>
+
+### Custom Styling
+
+Customize visuals with CSS variables, `className`, `data-slot` hooks, and Ark state attributes.
+
+<Preview>
+  <CustomStylingSplitterExample />
+
+  <Preview.Code>{splitterCustomStylingCode}</Preview.Code>
+  <Preview.CSS>{splitterCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{splitterPanelsData}</Preview.Data>
+</Preview>
+
+## Styling
+
+Style `Splitter` through `className`, Ark attributes, stable `data-slot="splitter-*"` hooks, and the
+public Moduix CSS variables below. The default surface lives on `Splitter.Root`, while panels stay
+flat and flush inside it. The resize trigger contributes only a `1px` separator to layout, with a
+transparent hit area and `Splitter.ResizeTriggerIndicator` rendered as the raised rounded handle on
+top of that line. The indicator is centered over the separator for both orientations. The separator
+line and handle stay neutral on hover, focus, and drag by default, while drag-specific CSS variables
+let consumers opt into a different active color.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <SplitterCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Ark writes `data-scope="splitter"` and `data-part` to rendered parts. Moduix also writes
+`data-slot` values: `splitter-root`, `splitter-root-provider`, `splitter-panel`,
+`splitter-resize-trigger`, and `splitter-resize-trigger-indicator`.
+
+Important Ark state hooks include `data-orientation`, `data-dragging`, trigger `data-focus`,
+trigger `data-disabled`, panel `data-id`, and panel `data-index`.

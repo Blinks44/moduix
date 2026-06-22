@@ -1543,6 +1543,31 @@
       ]
     },
     {
+      "name": "react-splitter",
+      "type": "registry:item",
+      "title": "Splitter",
+      "description": "moduix React Splitter component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/splitter/Splitter.tsx",
+          "target": "@components/moduix/splitter/Splitter.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/splitter/Splitter.module.css",
+          "target": "@components/moduix/splitter/Splitter.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/splitter/index.ts",
+          "target": "@components/moduix/splitter/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-carousel",
       "type": "registry:item",
       "title": "Carousel",

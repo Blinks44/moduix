@@ -61,6 +61,7 @@ export type { CollectionItem, ListCollection, UseListCollectionProps } from './c
 export { createGridCollection } from '@ark-ui/react/collection';
 export type { GridCollection, GridCollectionOptions } from '@ark-ui/react/collection';
 export * from './components/slider';
+export * from './components/splitter';
 export * from './components/carousel';
 export * from './components/skeleton';
 export * from './components/spinner';

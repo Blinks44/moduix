@@ -2265,6 +2265,50 @@
   --signature-pad-transition: initial; /* var(--transition-default) */
   --signature-pad-width: initial; /* 17.5rem */
 
+  /* Splitter */
+  --splitter-bg: initial; /* var(--color-card) */
+  --splitter-border-color: initial; /* var(--color-border) */
+  --splitter-border-width: initial; /* var(--border-width-sm) */
+  --splitter-color: initial; /* var(--color-foreground) */
+  --splitter-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --splitter-height: initial; /* 28rem */
+  --splitter-min-height: initial; /* 0 */
+  --splitter-min-width: initial; /* 0 */
+  --splitter-panel-bg: initial; /* var(--color-card) */
+  --splitter-panel-border-color: initial; /* var(--color-border) */
+  --splitter-panel-border-width: initial; /* 0 */
+  --splitter-panel-color: initial; /* var(--color-card-foreground) */
+  --splitter-panel-min-height: initial; /* 12.5rem */
+  --splitter-panel-min-height-vertical: initial; /* 0 */
+  --splitter-panel-min-width: initial; /* 0 */
+  --splitter-panel-padding: initial; /* var(--spacing-4) */
+  --splitter-panel-radius: initial; /* 0 */
+  --splitter-panel-shadow: initial; /* none */
+  --splitter-radius: initial; /* var(--radius-md) */
+  --splitter-resize-trigger-bg: initial; /* transparent */
+  --splitter-resize-trigger-indicator-bg: initial; /* var(--color-background) */
+  --splitter-resize-trigger-indicator-bg-dragging: initial; /* var(--splitter-resize-trigger-indicator-bg, var(--color-background)) */
+  --splitter-resize-trigger-indicator-border-color: initial; /* var(--color-border) */
+  --splitter-resize-trigger-indicator-border-color-dragging: initial; /* var(--splitter-resize-trigger-indicator-border-color, var(--color-border)) */
+  --splitter-resize-trigger-indicator-border-width: initial; /* var(--border-width-sm) */
+  --splitter-resize-trigger-indicator-height: initial; /* 1.5rem */
+  --splitter-resize-trigger-indicator-radius: initial; /* var(--radius-full) */
+  --splitter-resize-trigger-indicator-shadow: initial; /* var(--shadow-sm) */
+  --splitter-resize-trigger-indicator-shadow-dragging: initial; /* var(--splitter-resize-trigger-indicator-shadow, var(--shadow-sm)) */
+  --splitter-resize-trigger-indicator-shadow-focus: initial; /* var(--splitter-resize-trigger-indicator-shadow, var(--shadow-sm)) */
+  --splitter-resize-trigger-indicator-width: initial; /* 0.375rem */
+  --splitter-resize-trigger-line-color: initial; /* var(--color-border) */
+  --splitter-resize-trigger-line-color-dragging: initial; /* var(--splitter-resize-trigger-line-color, var(--color-border)) */
+  --splitter-resize-trigger-line-color-focus: initial; /* var(--splitter-resize-trigger-line-color, var(--color-border)) */
+  --splitter-resize-trigger-line-color-hover: initial; /* var(--splitter-resize-trigger-line-color, var(--color-border)) */
+  --splitter-resize-trigger-line-length: initial; /* 100% */
+  --splitter-resize-trigger-line-radius: initial; /* var(--radius-full) */
+  --splitter-resize-trigger-line-size: initial; /* 1px */
+  --splitter-resize-trigger-size: initial; /* 0.625rem */
+  --splitter-shadow: initial; /* var(--shadow-sm) */
+  --splitter-transition: initial; /* var(--transition-default) */
+  --splitter-width: initial; /* 100% */
+
   /* Select */
   --select-action-bg: initial; /* transparent */
   --select-action-bg-hover: initial; /* var(--color-muted) */
