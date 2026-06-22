@@ -76,7 +76,7 @@ export const tabsCustomStylingCss = `.inline-tabs {
 .inline-tabs-trigger {
   height: var(--size-md);
   border: 0;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   padding-inline: var(--spacing-3);
   background: transparent;
   color: var(--color-muted-foreground);
@@ -93,6 +93,9 @@ export const tabsCustomStylingCss = `.inline-tabs {
   height: var(--border-width-md);
   border-radius: var(--radius-full);
   background: var(--color-foreground);
+  transition:
+    left var(--tabs-line-indicator-transition, var(--transition-default)),
+    width var(--tabs-line-indicator-transition, var(--transition-default));
 }`;
 
 export const tabsOverrideCssProperties: CssPropertyInput[] = [
@@ -113,17 +116,13 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--tabs-gap', '0.75rem', 'Controls spacing between the tab list and content.'],
   ['--tabs-indicator-bg', 'var(--color-background)', 'Controls the indicator background.'],
-  ['--tabs-indicator-radius', 'var(--radius-sm)', 'Controls the indicator radius.'],
-  ['--tabs-indicator-size', '1.75rem', 'Controls the filled indicator thickness.'],
+  ['--tabs-indicator-radius', 'var(--radius-md)', 'Controls the indicator radius.'],
+  ['--tabs-indicator-shadow', 'var(--shadow-sm)', 'Controls the filled indicator shadow.'],
+  ['--tabs-indicator-size', '2rem', 'Controls the filled indicator thickness.'],
   [
-    '--tabs-indicator-duration',
-    'var(--duration-normal)',
-    'Controls the filled indicator movement duration.',
-  ],
-  [
-    '--tabs-indicator-easing',
-    'var(--ease-standard)',
-    'Controls the filled indicator movement easing.',
+    '--tabs-indicator-transition',
+    'var(--transition-default)',
+    'Controls the filled indicator movement transition.',
   ],
   [
     '--tabs-line-indicator-bg',
@@ -133,14 +132,9 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--tabs-line-indicator-radius', 'var(--radius-full)', 'Controls the line indicator radius.'],
   ['--tabs-line-indicator-size', '2px', 'Controls the line indicator thickness.'],
   [
-    '--tabs-line-indicator-duration',
-    'var(--duration-normal)',
-    'Controls the line indicator movement duration.',
-  ],
-  [
-    '--tabs-line-indicator-easing',
-    'var(--ease-standard)',
-    'Controls the line indicator movement easing.',
+    '--tabs-line-indicator-transition',
+    'var(--transition-default)',
+    'Controls the line indicator movement transition.',
   ],
   ['--tabs-list-bg', 'var(--color-muted)', 'Controls the tab list background color.'],
   ['--tabs-list-border-color', 'var(--color-border)', 'Controls the tab list border color.'],
@@ -183,7 +177,7 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--tabs-tab-icon-color', 'currentColor', 'Controls trigger icon color.'],
   ['--tabs-tab-line-height', 'var(--line-height-text-sm)', 'Controls trigger text line height.'],
   ['--tabs-tab-padding-x', '0.625rem', 'Controls each trigger horizontal padding.'],
-  ['--tabs-tab-radius', 'var(--radius-sm)', 'Controls each trigger border radius.'],
+  ['--tabs-tab-radius', 'var(--radius-md)', 'Controls each trigger border radius.'],
   ['--tabs-tab-transition', 'var(--transition-default)', 'Controls trigger text color transition.'],
   ['--tabs-vertical-list-width', '12rem', 'Controls the list width in vertical orientation.'],
 ];

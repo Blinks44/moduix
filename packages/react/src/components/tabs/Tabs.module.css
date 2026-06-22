@@ -61,7 +61,7 @@
     margin: 0;
     appearance: none;
     border: 0;
-    border-radius: var(--tabs-tab-radius, var(--radius-sm));
+    border-radius: var(--tabs-tab-radius, var(--radius-md));
     padding-inline: var(--tabs-tab-padding-x, 0.625rem);
     background: none;
     color: var(--tabs-tab-color, var(--color-muted-foreground));
@@ -74,7 +74,9 @@
     white-space: nowrap;
     outline: 0;
     cursor: pointer;
-    transition: color var(--tabs-tab-transition, var(--transition-default));
+    transition:
+      color var(--tabs-tab-transition, var(--transition-default)),
+      opacity var(--tabs-tab-transition, var(--transition-default));
 
     &[data-selected] {
       color: var(--tabs-tab-color-active, var(--color-foreground));
@@ -118,12 +120,16 @@
     z-index: 0;
     top: 50%;
     width: var(--width, 0);
-    height: var(--tabs-indicator-size, 1.75rem);
-    border-radius: var(--tabs-indicator-radius, var(--radius-sm));
+    height: var(--tabs-indicator-size, 2rem);
+    border-radius: var(--tabs-indicator-radius, var(--radius-md));
     background-color: var(--tabs-indicator-bg, var(--color-background));
+    box-shadow: var(--tabs-indicator-shadow, var(--shadow-sm));
     translate: 0 -50%;
-    --transition-duration: var(--tabs-indicator-duration, var(--duration-normal));
-    --transition-timing-function: var(--tabs-indicator-easing, var(--ease-standard));
+    transition:
+      width var(--tabs-indicator-transition, var(--transition-default)),
+      height var(--tabs-indicator-transition, var(--transition-default)),
+      top var(--tabs-indicator-transition, var(--transition-default)),
+      left var(--tabs-indicator-transition, var(--transition-default));
 
     .root[data-variant='line'] & {
       top: auto;
@@ -135,8 +141,12 @@
         var(--tabs-tab-color-active, var(--color-foreground))
       );
       translate: none;
-      --transition-duration: var(--tabs-line-indicator-duration, var(--duration-normal));
-      --transition-timing-function: var(--tabs-line-indicator-easing, var(--ease-standard));
+      box-shadow: none;
+      transition:
+        width var(--tabs-line-indicator-transition, var(--transition-default)),
+        height var(--tabs-line-indicator-transition, var(--transition-default)),
+        top var(--tabs-line-indicator-transition, var(--transition-default)),
+        left var(--tabs-line-indicator-transition, var(--transition-default));
     }
 
     &[data-orientation='vertical'] {

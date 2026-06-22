@@ -864,6 +864,31 @@
       ]
     },
     {
+      "name": "react-image-cropper",
+      "type": "registry:item",
+      "title": "ImageCropper",
+      "description": "moduix React ImageCropper component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/image-cropper/ImageCropper.tsx",
+          "target": "@components/moduix/image-cropper/ImageCropper.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/image-cropper/ImageCropper.module.css",
+          "target": "@components/moduix/image-cropper/ImageCropper.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/image-cropper/index.ts",
+          "target": "@components/moduix/image-cropper/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-input",
       "type": "registry:item",
       "title": "Input",

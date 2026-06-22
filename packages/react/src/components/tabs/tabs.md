@@ -118,7 +118,8 @@ Every visual part accepts `className` and receives a stable `data-slot`. moduix 
 the existing compact visual identity through `--tabs-*` variables, design tokens, border radii, and
 motion tokens.
 
-`variant="default"` renders a filled indicator surface when `Tabs.Indicator` is present.
+`variant="default"` renders a SegmentGroup-like filled indicator surface with `radius-md`,
+`shadow-sm`, and explicit movement transitions when `Tabs.Indicator` is present.
 `variant="line"` switches the same Ark indicator part to an edge line treatment.
 
 The root defaults to a column layout and switches to row layout for `orientation="vertical"`.
@@ -145,3 +146,5 @@ The root defaults to a column layout and switches to row layout for `orientation
 - 2026-06-21: Migrated Tabs to Ark UI React. Replaced flat part exports with
   namespace-first `Tabs.*`, added `RootProvider`, `Context`, `useTabs`, and `useTabsContext`,
   switched callbacks/state/styling to Ark contracts, and removed legacy compatibility props.
+- 2026-06-22: Aligned the default indicator styling with `SegmentGroup`: `radius-md`,
+  `shadow-sm`, and explicit transition variables. Kept `variant="line"` as an underline treatment.

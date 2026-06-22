@@ -57,7 +57,7 @@
   margin: 0;
   appearance: none;
   border: 0;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   padding-inline: var(--spacing-3);
   background: transparent;
   color: var(--color-muted-foreground);
@@ -80,8 +80,8 @@
   border-radius: var(--radius-full);
   background: var(--color-foreground);
   transition:
-    left var(--duration-normal) var(--ease-standard),
-    width var(--duration-normal) var(--ease-standard);
+    left var(--tabs-line-indicator-transition, var(--transition-default)),
+    width var(--tabs-line-indicator-transition, var(--transition-default));
 }
 
 .inlineContent {

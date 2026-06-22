@@ -29,6 +29,10 @@
   --available-width: initial;
   --collapsed-width: initial;
   --column-count: initial;
+  --crop-height: initial;
+  --crop-width: initial;
+  --crop-x: initial;
+  --crop-y: initial;
   --drawer-frontmost-height: initial;
   --drawer-height: initial;
   --drawer-snap-point-offset-x: initial;
@@ -43,6 +47,10 @@
   --first-height: initial;
   --gap: initial;
   --height: initial;
+  --image-offset-x: initial;
+  --image-offset-y: initial;
+  --image-rotation: initial;
+  --image-zoom: initial;
   --layer-index: initial;
   --nested-drawers: initial;
   --nested-layer-count: initial;
@@ -1362,6 +1370,41 @@
   --heading-line-height-2xl: initial; /* var(--line-height-text-3xl) */
   --heading-text-wrap: initial; /* balance */
 
+  /* ImageCropper */
+  --image-cropper-border-color: initial; /* var(--color-border) */
+  --image-cropper-border-width: initial; /* var(--border-width-sm) */
+  --image-cropper-checker-color: initial; /* color-mix(in oklab, var(--color-muted) 72%, transparent) */
+  --image-cropper-checker-size: initial; /* 1rem */
+  --image-cropper-color: initial; /* var(--color-foreground) */
+  --image-cropper-focus-ring-color: initial; /* var(--color-ring) */
+  --image-cropper-focus-ring-width: initial; /* var(--border-width-md) */
+  --image-cropper-gap: initial; /* var(--spacing-3) */
+  --image-cropper-grid-color: initial; /* rgb(255 255 255 / 62%) */
+  --image-cropper-grid-width: initial; /* var(--border-width-sm) */
+  --image-cropper-handle-bg: initial; /* rgb(255 255 255 / 96%) */
+  --image-cropper-handle-border-color: initial; /* rgb(255 255 255 / 88%) */
+  --image-cropper-handle-border-width: initial; /* var(--border-width-sm) */
+  --image-cropper-handle-edge-radius: initial; /* var(--radius-full) */
+  --image-cropper-handle-edge-thickness: initial; /* 0.1875rem */
+  --image-cropper-handle-radius: initial; /* 0.125rem */
+  --image-cropper-handle-shadow: initial; /* 0 1px 3px rgb(15 23 42 / 18%) */
+  --image-cropper-handle-size: initial; /* 0.625rem */
+  --image-cropper-max-width: initial; /* 100% */
+  --image-cropper-radius: initial; /* var(--radius-lg) */
+  --image-cropper-selection-border-color: initial; /* var(--color-primary) */
+  --image-cropper-selection-border-width: initial; /* var(--border-width-md) */
+  --image-cropper-selection-circle-radius: initial; /* var(--radius-full) */
+  --image-cropper-selection-inner-border-color: initial; /* rgb(255 255 255 / 64%) */
+  --image-cropper-selection-inner-border-width: initial; /* var(--border-width-sm) */
+  --image-cropper-selection-overlay-bg: initial; /* rgb(0 0 0 / 45%) */
+  --image-cropper-selection-radius: initial; /* var(--radius-md) */
+  --image-cropper-shadow: initial; /* none */
+  --image-cropper-transition: initial; /* var(--transition-default) */
+  --image-cropper-viewport-bg: initial; /* var(--color-background) */
+  --image-cropper-viewport-height: initial; /* var(--image-cropper-viewport-min-height, 20rem) */
+  --image-cropper-viewport-min-height: initial; /* 20rem */
+  --image-cropper-width: initial; /* 32rem */
+
   /* Input */
   --input-bg: initial; /* var(--color-background) */
   --input-border-color: initial; /* var(--color-border) */
@@ -2543,15 +2586,14 @@
   --tabs-focus-ring-width: initial; /* var(--border-width-sm) */
   --tabs-gap: initial; /* 0.75rem */
   --tabs-indicator-bg: initial; /* var(--color-background) */
-  --tabs-indicator-duration: initial; /* var(--duration-normal) */
-  --tabs-indicator-easing: initial; /* var(--ease-standard) */
-  --tabs-indicator-radius: initial; /* var(--radius-sm) */
-  --tabs-indicator-size: initial; /* 1.75rem */
+  --tabs-indicator-radius: initial; /* var(--radius-md) */
+  --tabs-indicator-shadow: initial; /* var(--shadow-sm) */
+  --tabs-indicator-size: initial; /* 2rem */
+  --tabs-indicator-transition: initial; /* var(--transition-default) */
   --tabs-line-indicator-bg: initial; /* var(--tabs-tab-color-active, var(--color-foreground)) */
-  --tabs-line-indicator-duration: initial; /* var(--duration-normal) */
-  --tabs-line-indicator-easing: initial; /* var(--ease-standard) */
   --tabs-line-indicator-radius: initial; /* var(--radius-full) */
   --tabs-line-indicator-size: initial; /* 2px */
+  --tabs-line-indicator-transition: initial; /* var(--transition-default) */
   --tabs-list-bg: initial; /* var(--color-muted) */
   --tabs-list-border-color: initial; /* var(--color-border) */
   --tabs-list-border-width: initial; /* var(--border-width-sm) */
@@ -2577,7 +2619,7 @@
   --tabs-tab-icon-size: initial; /* 1rem */
   --tabs-tab-line-height: initial; /* var(--line-height-text-sm) */
   --tabs-tab-padding-x: initial; /* 0.625rem */
-  --tabs-tab-radius: initial; /* var(--radius-sm) */
+  --tabs-tab-radius: initial; /* var(--radius-md) */
   --tabs-tab-transition: initial; /* var(--transition-default) */
   --tabs-vertical-list-width: initial; /* 12rem */
 

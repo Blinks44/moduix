@@ -603,20 +603,22 @@ lighter inline layout.
         return (
           <Tabs defaultValue="name" className={styles.inlineRoot}>
             <Tabs.List className={styles.inlineList}>
-              <Tabs.Trigger value="name" className={styles.inlineTrigger}>
-                Name
-              </Tabs.Trigger>
-              <Tabs.Trigger value="email" className={styles.inlineTrigger}>
-                Email
-              </Tabs.Trigger>
+              {fields.map((field) => (
+                <Tabs.Trigger key={field.value} value={field.value} className={styles.inlineTrigger}>
+                  {field.label}
+                </Tabs.Trigger>
+              ))}
               <Tabs.Indicator className={styles.inlineIndicator} />
             </Tabs.List>
-            <Tabs.Content value="name" className={styles.inlineContent}>
-              <input className={styles.inlineInput} placeholder="Full name" aria-label="Full name" />
-            </Tabs.Content>
-            <Tabs.Content value="email" className={styles.inlineContent}>
-              <input className={styles.inlineInput} placeholder="Email" aria-label="Email" />
-            </Tabs.Content>
+            {fields.map((field) => (
+              <Tabs.Content key={field.value} value={field.value} className={styles.inlineContent}>
+                <input
+                  className={styles.inlineInput}
+                  placeholder={field.placeholder}
+                  aria-label={field.placeholder}
+                />
+              </Tabs.Content>
+            ))}
           </Tabs>
         );
       }
