@@ -564,6 +564,31 @@
       ]
     },
     {
+      "name": "react-date-input",
+      "type": "registry:item",
+      "title": "DateInput",
+      "description": "moduix React DateInput component.",
+      "dependencies": ["@ark-ui/react", "@internationalized/date", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/date-input/DateInput.tsx",
+          "target": "@components/moduix/date-input/DateInput.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/date-input/DateInput.module.css",
+          "target": "@components/moduix/date-input/DateInput.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/date-input/index.ts",
+          "target": "@components/moduix/date-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-clipboard",
       "type": "registry:item",
       "title": "Clipboard",

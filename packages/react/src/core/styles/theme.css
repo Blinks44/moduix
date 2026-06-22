@@ -769,6 +769,42 @@
   --container-max-width-lg: initial; /* 72rem */
   --container-max-width-xl: initial; /* 90rem */
 
+  /* DateInput */
+  --date-input-bg: initial; /* var(--color-background) */
+  --date-input-border-color: initial; /* var(--color-border) */
+  --date-input-border-color-invalid: initial; /* var(--color-destructive) */
+  --date-input-border-style: initial; /* solid */
+  --date-input-border-width: initial; /* var(--border-width-sm) */
+  --date-input-color: initial; /* var(--color-foreground) */
+  --date-input-control-height: initial; /* var(--size-lg) */
+  --date-input-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --date-input-focus-ring-color: initial; /* var(--color-ring) */
+  --date-input-focus-ring-offset: initial; /* -1px */
+  --date-input-focus-ring-width: initial; /* var(--date-input-border-width, var(--border-width-sm)) */
+  --date-input-gap: initial; /* var(--spacing-1) */
+  --date-input-label-color: initial; /* var(--color-foreground) */
+  --date-input-label-font-size: initial; /* var(--text-sm) */
+  --date-input-label-font-weight: initial; /* var(--weight-medium) */
+  --date-input-label-line-height: initial; /* var(--line-height-text-sm) */
+  --date-input-max-width: initial; /* none */
+  --date-input-padding-x: initial; /* 0.75rem */
+  --date-input-padding-y: initial; /* 0.5rem */
+  --date-input-placeholder-color: initial; /* var(--color-muted-foreground) */
+  --date-input-radius: initial; /* var(--radius-md) */
+  --date-input-segment-bg-focus: initial; /* color-mix(in oklab, var(--color-ring) 18%, transparent) */
+  --date-input-segment-color: initial; /* currentColor */
+  --date-input-segment-color-focus: initial; /* var(--color-foreground) */
+  --date-input-segment-gap: initial; /* 0.125rem */
+  --date-input-segment-line-height: initial; /* var(--line-height-text-md) */
+  --date-input-segment-min-width: initial; /* 1.25ch */
+  --date-input-segment-padding-x: initial; /* 0.125rem */
+  --date-input-segment-padding-y: initial; /* 0.0625rem */
+  --date-input-segment-radius: initial; /* var(--radius-sm) */
+  --date-input-segment-shadow-focus: initial; /* inset 0 0 0 var(--border-width-sm) color-mix(in oklab, var(--color-ring) 55%, transparent) */
+  --date-input-separator-color: initial; /* var(--color-muted-foreground) */
+  --date-input-transition: initial; /* var(--transition-default) */
+  --date-input-width: initial; /* auto */
+
   /* Dialog */
   --dialog-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --dialog-backdrop-blur: initial; /* 4px */
