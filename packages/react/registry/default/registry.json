@@ -1018,6 +1018,31 @@
       ]
     },
     {
+      "name": "react-marquee",
+      "type": "registry:item",
+      "title": "Marquee",
+      "description": "moduix React Marquee component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/marquee/Marquee.tsx",
+          "target": "@components/moduix/marquee/Marquee.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/marquee/Marquee.module.css",
+          "target": "@components/moduix/marquee/Marquee.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/marquee/index.ts",
+          "target": "@components/moduix/marquee/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-menu",
       "type": "registry:item",
       "title": "Menu",

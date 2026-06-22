@@ -37,6 +37,7 @@ export * from './components/kbd';
 export * from './components/lightbox';
 export * from './components/list';
 export * from './components/listbox';
+export * from './components/marquee';
 export * from './components/menu';
 export * from './components/number-input';
 export * from './components/pin-input';

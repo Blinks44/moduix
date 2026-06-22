@@ -1636,6 +1636,20 @@
   --listbox-value-text-line-height: initial; /* var(--line-height-text-sm) */
   --listbox-width: initial; /* 16rem */
 
+  /* Marquee */
+  --marquee-color: initial; /* var(--color-foreground) */
+  --marquee-delay: initial; /* 0s */
+  --marquee-duration: initial; /* computed by Ark from content size and speed */
+  --marquee-edge-color: initial; /* var(--color-background) */
+  --marquee-edge-size: initial; /* 20% */
+  --marquee-edge-z-index: initial; /* 1 */
+  --marquee-height: initial; /* auto */
+  --marquee-loop-count: initial; /* 0 */
+  --marquee-spacing: initial; /* 1rem */
+  --marquee-translate: initial; /* computed by Ark from content size and side */
+  --marquee-vertical-height: initial; /* 15rem */
+  --marquee-width: initial; /* 100% */
+
   /* Menu */
   --menu-arrow-size: initial; /* 0.625rem */
   --menu-arrow-stroke-color: initial; /* var(--menu-popup-border-color) */
