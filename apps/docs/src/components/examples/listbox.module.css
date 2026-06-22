@@ -1,0 +1,39 @@
+@layer ui.docs {
+  .root {
+    --listbox-width: 16rem;
+    --listbox-root-gap: var(--spacing-3);
+    --listbox-content-max-height: 13.5rem;
+  }
+
+  .horizontalRoot {
+    --listbox-width: min(100%, 34rem);
+    --listbox-horizontal-content-max-height: none;
+    --listbox-horizontal-item-width: 10.5rem;
+  }
+
+  .gridRoot {
+    --listbox-width: 16rem;
+    --listbox-grid-selected-bg: var(--color-muted);
+    --listbox-grid-selected-color: var(--color-foreground);
+  }
+
+  .root [data-slot='listbox-input']:focus-visible {
+    border-color: var(
+      --listbox-input-border-color,
+      var(--listbox-border-color, var(--color-border))
+    );
+    outline-color: transparent;
+  }
+
+  .albumText {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-1);
+  }
+
+  .artist {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-text-xs);
+  }
+}

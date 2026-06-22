@@ -1,0 +1,783 @@
+---
+title: Listbox
+description: Ark UI listbox composition for visible single, multiple, and extended selection.
+icon: Component
+---
+
+import {
+  ControlledListboxExample,
+  DisabledItemListboxExample,
+  ExtendedSelectListboxExample,
+  FilteringListboxExample,
+  GridListboxExample,
+  GroupedListboxExample,
+  HorizontalListboxExample,
+  ListboxCssPropertiesPanel,
+  ListboxExample,
+  MultipleListboxExample,
+  RootProviderListboxExample,
+  SelectAllListboxExample,
+  ValueTextListboxExample,
+} from '@/components/examples/listbox';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/listbox" />
+
+## Basic
+
+Use `Listbox` for a visible collection where users pick one or more items without opening a popup.
+Pass a `collection`, render `Content`, and pass each item through `Listbox.Item item={item}`.
+
+<Preview>
+  <ListboxExample />
+
+  <Preview.Code>
+    {`
+      import { Listbox, createListCollection } from "@moduix/react";
+
+      const countries = createListCollection({
+        items: [
+          { label: "United States", value: "us" },
+          { label: "United Kingdom", value: "uk" },
+          { label: "Canada", value: "ca" },
+        ],
+      });
+
+      export function ListboxDemo() {
+        return (
+          <Listbox collection={countries}>
+            <Listbox.Label>Select country</Listbox.Label>
+            <Listbox.Content>
+              {countries.items.map((item) => (
+                <Listbox.Item key={item.value} item={item}>
+                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
+                  <Listbox.ItemIndicator />
+                </Listbox.Item>
+              ))}
+            </Listbox.Content>
+          </Listbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      [data-slot="listbox-content"] {
+        max-height: var(--listbox-content-max-height);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const countries = createListCollection({
+        items: [
+          { label: "United States", value: "us" },
+          { label: "United Kingdom", value: "uk" },
+          { label: "Canada", value: "ca" },
+        ],
+      });
+    `}
+
+  </Preview.Data>
+</Preview>
+
+## Install With Shadcn (Optional)
+
+If you want `Listbox` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/react-listbox
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/react-listbox
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/react-listbox
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-listbox
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/react-listbox
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+Listbox / Listbox.Root
+├─ Listbox.Label
+├─ Listbox.Input
+├─ Listbox.Content
+│  ├─ Listbox.Empty
+│  ├─ Listbox.ItemGroup
+│  │  ├─ Listbox.ItemGroupLabel
+│  │  └─ Listbox.Item[item]
+│  │     ├─ Listbox.ItemText
+│  │     └─ Listbox.ItemIndicator
+│  └─ Listbox.Item[item]
+│     ├─ Listbox.ItemText
+│     └─ Listbox.ItemIndicator
+└─ Listbox.ValueText
+```
+
+| Part                              | Role                                                          |
+| --------------------------------- | ------------------------------------------------------------- |
+| `Listbox` / `Listbox.Root`        | Owns collection, selected values, highlighted item, and mode. |
+| `Listbox.RootProvider`            | Renders a listbox tree from state returned by `useListbox`.   |
+| `Listbox.Label`                   | Accessible label for the listbox content.                     |
+| `Listbox.Input`                   | Optional filter input connected to the same listbox state.    |
+| `Listbox.Content`                 | Focusable listbox surface with keyboard navigation.           |
+| `Listbox.Empty`                   | Empty-state content for filtered collections.                 |
+| `Listbox.ItemGroup`               | Group wrapper for related collection items.                   |
+| `Listbox.ItemGroupLabel`          | Label for a collection group.                                 |
+| `Listbox.Item`                    | Selectable row. Pass the collection item through `item`.      |
+| `Listbox.ItemText`                | Text used for display and accessibility.                      |
+| `Listbox.ItemIndicator`           | Selected-state indicator with the moduix default check icon.  |
+| `Listbox.ValueText`               | Selected value summary.                                       |
+| `Listbox.Context` / `ItemContext` | Inline access to root and item state.                         |
+
+## Composition
+
+### Default Props
+
+| Prop                      | Default    | Notes                                                                 |
+| ------------------------- | ---------- | --------------------------------------------------------------------- |
+| `collection`              | -          | Required Ark collection. Use `createListCollection` or grid variants. |
+| `defaultValue`            | `[]`       | Initial selected values for uncontrolled state.                       |
+| `defaultHighlightedValue` | -          | Initial highlighted item for uncontrolled highlight state.            |
+| `deselectable`            | -          | Follows Ark's empty-selection behavior for deselecting values.        |
+| `disabled`                | `false`    | Disables the whole listbox.                                           |
+| `disallowSelectAll`       | `false`    | Disables `Cmd/Ctrl + A` selection.                                    |
+| `loopFocus`               | `false`    | Keeps arrow navigation from wrapping by default.                      |
+| `orientation`             | `vertical` | Controls layout and arrow-key direction.                              |
+| `selectionMode`           | `single`   | Supports `single`, `multiple`, and `extended`.                        |
+| `selectOnHighlight`       | `false`    | Selects items as keyboard highlight changes.                          |
+| `typeahead`               | `true`     | Enables typeahead unless a filtering input owns text entry.           |
+
+### Styling Defaults
+
+| Variable                          | Default               | Notes                                                              |
+| --------------------------------- | --------------------- | ------------------------------------------------------------------ |
+| `--listbox-width`                 | `16rem`               | A compact field width that still leaves room for the check column. |
+| `--listbox-content-max-height`    | `13.5rem`             | Keeps long grouped lists scrollable by default.                    |
+| `--listbox-root-gap`              | `var(--spacing-3)`    | Separates label, filtering input, buttons, and content.            |
+| `--listbox-hover-bg`              | `var(--color-accent)` | Makes pointer hover match keyboard highlight affordance.           |
+| `--listbox-horizontal-item-width` | `11rem`               | Gives horizontal items a stable card-like width.                   |
+| `--listbox-grid-selected-bg`      | `var(--color-muted)`  | Uses neutral background selection for compact grid cells.          |
+
+### State And Callbacks
+
+`value`, `defaultValue`, and `onValueChange(details)` use string arrays. Read `details.value` for
+selected keys and `details.items` for selected collection items.
+
+`highlightedValue`, `defaultHighlightedValue`, and `onHighlightChange(details)` control active
+descendant movement. `onSelect(details)` fires for item selection with the selected value.
+
+## Examples
+
+### Controlled
+
+Control the selected string array from React state and update it from `details.value`.
+
+<Preview>
+  <ControlledListboxExample />
+
+  <Preview.Code>
+    {`
+      import { useState } from "react";
+      import { Listbox, createListCollection } from "@moduix/react";
+
+      const sizes = createListCollection({
+        items: [
+          { label: "Small", value: "sm" },
+          { label: "Medium", value: "md" },
+          { label: "Large", value: "lg" },
+          { label: "Extra Large", value: "xl" },
+        ],
+      });
+
+      export function ControlledListboxDemo() {
+      const [value, setValue] = useState(["md"]);
+
+        return (
+          <Listbox
+            collection={sizes}
+            value={value}
+            onValueChange={(details) => setValue(details.value)}
+          >
+            <Listbox.Label>Select size</Listbox.Label>
+            <Listbox.Content>
+              {sizes.items.map((item) => (
+                <Listbox.Item key={item.value} item={item}>
+                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
+                  <Listbox.ItemIndicator />
+                </Listbox.Item>
+              ))}
+            </Listbox.Content>
+          </Listbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="listbox-item"][data-selected] { color: var(--listbox-item-selected-color); }`}</Preview.CSS>
+  <Preview.Data>{`const sizes = createListCollection({ items: [{ label: "Medium", value: "md" }] });`}</Preview.Data>
+</Preview>
+
+### Root Provider
+
+Use `useListbox` with `Listbox.RootProvider` when external controls need direct access to the
+listbox API.
+
+<Preview>
+  <RootProviderListboxExample />
+
+  <Preview.Code>
+    {`
+      import { Button, Listbox, createListCollection, useListbox } from "@moduix/react";
+
+      const priorities = createListCollection({
+        items: [
+          { label: "Low", value: "low" },
+          { label: "Medium", value: "medium" },
+          { label: "High", value: "high" },
+          { label: "Critical", value: "critical" },
+        ],
+      });
+
+      export function RootProviderListboxDemo() {
+      const listbox = useListbox({ collection: priorities });
+
+        return (
+          <>
+            <Button onClick={() => listbox.setValue(["high"])}>Set to high</Button>
+            <Listbox.RootProvider value={listbox}>
+              <Listbox.Label>Select priority</Listbox.Label>
+              <Listbox.Content>
+                {priorities.items.map((item) => (
+                  <Listbox.Item key={item.value} item={item}>
+                    <Listbox.ItemText>{item.label}</Listbox.ItemText>
+                    <Listbox.ItemIndicator />
+                  </Listbox.Item>
+                ))}
+              </Listbox.Content>
+            </Listbox.RootProvider>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="listbox-root"] { gap: var(--listbox-root-gap); }`}</Preview.CSS>
+  <Preview.Data>{`const priorities = createListCollection({ items: [{ label: "High", value: "high" }] });`}</Preview.Data>
+</Preview>
+
+### Disabled Item
+
+Disable individual items through the collection item `disabled` field or `isItemDisabled`.
+
+<Preview>
+  <DisabledItemListboxExample />
+
+  <Preview.Code>
+    {`
+      import { Listbox, createListCollection } from "@moduix/react";
+
+      const plans = createListCollection({
+        items: [
+          { label: "Free", value: "free" },
+          { label: "Pro", value: "pro" },
+          { label: "Enterprise", value: "enterprise", disabled: true },
+          { label: "Custom", value: "custom" },
+        ],
+      });
+
+      export function DisabledItemListboxDemo() {
+        return (
+          <Listbox collection={plans}>
+            <Listbox.Label>Select plan</Listbox.Label>
+            <Listbox.Content>
+              {plans.items.map((item) => (
+                <Listbox.Item key={item.value} item={item}>
+                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
+                  <Listbox.ItemIndicator />
+                </Listbox.Item>
+              ))}
+            </Listbox.Content>
+          </Listbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="listbox-item"][data-disabled] { opacity: var(--listbox-disabled-opacity); }`}</Preview.CSS>
+  <Preview.Data>{`{ label: "Enterprise", value: "enterprise", disabled: true }`}</Preview.Data>
+</Preview>
+
+### Multiple
+
+Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
+
+<Preview>
+  <MultipleListboxExample />
+
+  <Preview.Code>
+    {`
+      import { Listbox, createListCollection } from "@moduix/react";
+
+      const days = createListCollection({
+        items: [
+          { label: "Monday", value: "mon" },
+          { label: "Tuesday", value: "tue" },
+          { label: "Wednesday", value: "wed" },
+          { label: "Thursday", value: "thu" },
+          { label: "Friday", value: "fri" },
+          { label: "Saturday", value: "sat" },
+          { label: "Sunday", value: "sun" },
+        ],
+      });
+
+      export function MultipleListboxDemo() {
+        return (
+          <Listbox collection={days} selectionMode="multiple" defaultValue={["mon", "wed", "fri"]}>
+            <Listbox.Label>Select days</Listbox.Label>
+            <Listbox.Content>
+              {days.items.map((item) => (
+                <Listbox.Item key={item.value} item={item}>
+                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
+                  <Listbox.ItemIndicator />
+                </Listbox.Item>
+              ))}
+            </Listbox.Content>
+            <Listbox.ValueText />
+          </Listbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="listbox-value-text"] { color: var(--listbox-value-text-color); }`}</Preview.CSS>
+  <Preview.Data>{`const days = createListCollection({ items: [{ label: "Monday", value: "mon" }] });`}</Preview.Data>
+</Preview>
+
+### Grouping
+
+Use `groupBy` on the collection and render `ItemGroup` plus `ItemGroupLabel`.
+
+<Preview>
+  <GroupedListboxExample />
+
+  <Preview.Code>
+    {`
+      import { Listbox, createListCollection } from "@moduix/react";
+
+      const regions = createListCollection({
+        items: [
+          { label: "New York", value: "nyc", region: "North America" },
+          { label: "Los Angeles", value: "lax", region: "North America" },
+          { label: "Toronto", value: "yyz", region: "North America" },
+          { label: "London", value: "lhr", region: "Europe" },
+          { label: "Paris", value: "cdg", region: "Europe" },
+          { label: "Berlin", value: "ber", region: "Europe" },
+          { label: "Tokyo", value: "nrt", region: "Asia Pacific" },
+          { label: "Singapore", value: "sin", region: "Asia Pacific" },
+          { label: "Sydney", value: "syd", region: "Asia Pacific" },
+        ],
+        groupBy: (item) => item.region,
+      });
+
+      export function GroupedListboxDemo() {
+        return (
+          <Listbox collection={regions}>
+            <Listbox.Label>Select region</Listbox.Label>
+            <Listbox.Content>
+              {regions.group().map(([region, items]) => (
+                <Listbox.ItemGroup key={region} id={region}>
+                  <Listbox.ItemGroupLabel>{region}</Listbox.ItemGroupLabel>
+                  {items.map((item) => (
+                    <Listbox.Item key={item.value} item={item}>
+                      <Listbox.ItemText>{item.label}</Listbox.ItemText>
+                      <Listbox.ItemIndicator />
+                    </Listbox.Item>
+                  ))}
+                </Listbox.ItemGroup>
+              ))}
+            </Listbox.Content>
+          </Listbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="listbox-item-group-label"] { color: var(--listbox-item-group-label-color); }`}</Preview.CSS>
+  <Preview.Data>{`{ label: "London", value: "lhr", region: "Europe" }`}</Preview.Data>
+</Preview>
+
+### Extended Selection
+
+Use `selectionMode="extended"` when users should select multiple items with platform modifier keys.
+
+<Preview>
+  <ExtendedSelectListboxExample />
+
+  <Preview.Code>
+    {`
+      import { Listbox, createListCollection } from "@moduix/react";
+
+      const frameworks = createListCollection({
+        items: [
+          { label: "React", value: "react" },
+          { label: "Vue", value: "vue" },
+          { label: "Angular", value: "angular" },
+          { label: "Svelte", value: "svelte" },
+          { label: "Solid", value: "solid" },
+          { label: "Preact", value: "preact" },
+        ],
+      });
+
+      export function ExtendedListboxDemo() {
+        return (
+          <Listbox collection={frameworks} selectionMode="extended">
+            <Listbox.Label>Hold Cmd or Ctrl to select multiple</Listbox.Label>
+            <Listbox.Content>
+              {frameworks.items.map((item) => (
+                <Listbox.Item key={item.value} item={item}>
+                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
+                  <Listbox.ItemIndicator />
+                </Listbox.Item>
+              ))}
+            </Listbox.Content>
+          </Listbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="listbox-item"][data-highlighted] { background: var(--listbox-highlight-bg); }`}</Preview.CSS>
+  <Preview.Data>{`const frameworks = createListCollection({ items: [{ label: "React", value: "react" }] });`}</Preview.Data>
+</Preview>
+
+### Horizontal
+
+Set `orientation="horizontal"` for horizontal layout and left/right keyboard navigation.
+
+<Preview>
+  <HorizontalListboxExample />
+
+  <Preview.Code>
+    {`
+      import { Listbox, createListCollection } from "@moduix/react";
+      import styles from "./listbox.module.css";
+
+      const albums = createListCollection({
+        items: [
+          { title: "Midnight Dreams", artist: "Luna Ray" },
+          { title: "Neon Skyline", artist: "The Electric" },
+          { title: "Acoustic Sessions", artist: "Sarah Woods" },
+          { title: "Urban Echoes", artist: "Metro Collective" },
+          { title: "Summer Vibes", artist: "Coastal Waves" },
+        ],
+        itemToValue: (item) => item.title,
+        itemToString: (item) => item.title,
+      });
+
+      export function HorizontalListboxDemo() {
+        return (
+          <Listbox collection={albums} orientation="horizontal" className={styles.horizontalRoot}>
+            <Listbox.Label>Select album</Listbox.Label>
+            <Listbox.Content>
+              {albums.items.map((item) => (
+                <Listbox.Item key={item.title} item={item}>
+                  <Listbox.ItemText>
+                    <Listbox.ItemTextContent className={styles.albumText}>
+                      <Listbox.ItemTextLabel>{item.title}</Listbox.ItemTextLabel>
+                      <span className={styles.artist}>{item.artist}</span>
+                    </Listbox.ItemTextContent>
+                  </Listbox.ItemText>
+                  <Listbox.ItemIndicator />
+                </Listbox.Item>
+              ))}
+            </Listbox.Content>
+          </Listbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .horizontalRoot {
+        --listbox-width: min(100%, 34rem);
+        --listbox-horizontal-content-max-height: none;
+        --listbox-horizontal-item-width: 10.5rem;
+      }
+
+      .albumText {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-1);
+      }
+    `}
+
+  </Preview.CSS>
+  <Preview.Data>{`{ title: "Neon Skyline", artist: "The Electric" }`}</Preview.Data>
+</Preview>
+
+### Grid
+
+Pass a grid collection to get grid keyboard navigation. Ark exposes `data-layout="grid"` and the
+`--column-count` CSS variable on `Content`. Grid examples use selected background instead of an
+inline check indicator to keep cells compact.
+
+<Preview>
+  <GridListboxExample />
+
+  <Preview.Code>
+    {`
+      const colors = createGridCollection({
+        items: [
+          { label: "Red", value: "red" },
+          { label: "Green", value: "green" },
+          { label: "Blue", value: "blue" },
+        ],
+        columnCount: 3,
+      });
+
+      export function GridListboxDemo() {
+        return (
+          <Listbox collection={colors}>
+            <Listbox.Label>Pick a color</Listbox.Label>
+            <Listbox.Content>
+              {colors.items.map((item) => (
+                <Listbox.Item key={item.value} item={item}>
+                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
+                </Listbox.Item>
+              ))}
+            </Listbox.Content>
+          </Listbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="listbox-content"][data-layout="grid"] { grid-template-columns: repeat(var(--column-count), minmax(0, 1fr)); }
+[data-slot="listbox-content"][data-layout="grid"] [data-slot="listbox-item"] { justify-items: center; text-align: center; }
+[data-slot="listbox-content"][data-layout="grid"] [data-selected] { background: var(--listbox-grid-selected-bg); }`}</Preview.CSS>
+  <Preview.Data>{`const colors = createGridCollection({ items, columnCount: 3 });`}</Preview.Data>
+</Preview>
+
+### Filtering
+
+Use `Listbox.Input` with `useListCollection`. Turn off typeahead when text input owns search.
+
+<Preview>
+  <FilteringListboxExample />
+
+  <Preview.Code>
+    {`
+      import { Listbox, useListCollection } from "@moduix/react";
+
+      const frameworks = [
+        { label: "React", value: "react" },
+        { label: "Vue", value: "vue" },
+        { label: "Angular", value: "angular" },
+        { label: "Svelte", value: "svelte" },
+        { label: "Solid", value: "solid" },
+        { label: "Next.js", value: "nextjs" },
+        { label: "Nuxt.js", value: "nuxtjs" },
+        { label: "Remix", value: "remix" },
+        { label: "Gatsby", value: "gatsby" },
+        { label: "Preact", value: "preact" },
+      ];
+
+      export function FilteringListboxDemo() {
+      const { collection, filter } = useListCollection({
+        initialItems: frameworks,
+        filter: (itemText, filterText) =>
+          itemText.toLowerCase().includes(filterText.toLowerCase()),
+      });
+
+        return (
+          <Listbox collection={collection} typeahead={false}>
+            <Listbox.Label>Select framework</Listbox.Label>
+            <Listbox.Input
+              placeholder="Filter frameworks"
+              onChange={(event) => filter(event.target.value)}
+            />
+            <Listbox.Content>
+              {collection.items.map((item) => (
+                <Listbox.Item key={item.value} item={item}>
+                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
+                  <Listbox.ItemIndicator />
+                </Listbox.Item>
+              ))}
+              <Listbox.Empty>No frameworks found</Listbox.Empty>
+            </Listbox.Content>
+          </Listbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="listbox-root"] { gap: var(--listbox-root-gap); }`}</Preview.CSS>
+  <Preview.Data>{`const frameworks = [{ label: "React", value: "react" }];`}</Preview.Data>
+</Preview>
+
+### Select All
+
+Use `useListboxContext` inside a child component to implement select-all controls.
+
+<Preview>
+  <SelectAllListboxExample />
+
+  <Preview.Code>
+    {`
+      import { Button, Listbox, createListCollection, useListboxContext } from "@moduix/react";
+
+      const days = createListCollection({
+        items: [
+          { label: "Monday", value: "mon" },
+          { label: "Tuesday", value: "tue" },
+          { label: "Wednesday", value: "wed" },
+          { label: "Thursday", value: "thu" },
+          { label: "Friday", value: "fri" },
+          { label: "Saturday", value: "sat" },
+          { label: "Sunday", value: "sun" },
+        ],
+      });
+
+      function SelectAllTrigger() {
+        const listbox = useListboxContext();
+        const allValues = days.items.map((item) => item.value);
+        const allSelected = listbox.value.length === allValues.length;
+
+        return (
+          <Button onClick={() => listbox.setValue(allSelected ? [] : allValues)}>
+            {allSelected ? "Clear all" : "Select all"}
+          </Button>
+        );
+      }
+
+      export function SelectAllListboxDemo() {
+        return (
+          <Listbox collection={days} selectionMode="multiple">
+            <Listbox.Label>Select days</Listbox.Label>
+            <SelectAllTrigger />
+            <Listbox.Content>
+              {days.items.map((item) => (
+                <Listbox.Item key={item.value} item={item}>
+                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
+                  <Listbox.ItemIndicator />
+                </Listbox.Item>
+              ))}
+            </Listbox.Content>
+          </Listbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="listbox-root"] { width: var(--listbox-width); }`}</Preview.CSS>
+  <Preview.Data>{`const allValues = days.items.map((item) => item.value);`}</Preview.Data>
+</Preview>
+
+### Value Text
+
+Render `ValueText` when the selected value summary should stay visible near the list.
+
+<Preview>
+  <ValueTextListboxExample />
+
+  <Preview.Code>
+    {`
+      import { Listbox, createListCollection } from "@moduix/react";
+
+      const countries = createListCollection({
+        items: [
+          { label: "United States", value: "us" },
+          { label: "United Kingdom", value: "uk" },
+          { label: "Canada", value: "ca" },
+        ],
+      });
+
+      export function ValueTextListboxDemo() {
+        return (
+          <Listbox collection={countries} defaultValue={["ca"]}>
+            <Listbox.Label>Select country</Listbox.Label>
+            <Listbox.Content>
+              {countries.items.map((item) => (
+                <Listbox.Item key={item.value} item={item}>
+                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
+                  <Listbox.ItemIndicator />
+                </Listbox.Item>
+              ))}
+            </Listbox.Content>
+            <Listbox.ValueText placeholder="No country selected" />
+          </Listbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`[data-slot="listbox-value-text"] { font-size: var(--listbox-value-text-font-size); }`}</Preview.CSS>
+  <Preview.Data>{`defaultValue={["ca"]}`}</Preview.Data>
+</Preview>
+
+## Styling
+
+Style `Listbox` through `className`, stable `data-slot="listbox-*"` hooks, Ark
+`data-scope="listbox"` / `data-part`, and state attributes.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ListboxCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling Hooks
+
+- Ark anatomy hooks: `data-scope="listbox"` and `data-part` on root, label, input, content,
+  item group, item group label, item, item text, item indicator, value text, and empty.
+- State hooks: `data-orientation`, `data-disabled`, `data-empty`, `data-layout`,
+  `data-activedescendant`, `data-value`, `data-selected`, `data-state`, and `data-highlighted`.
+- Moduix hooks: `data-slot="listbox-root"`, `listbox-label`, `listbox-input`,
+  `listbox-content`, `listbox-empty`, `listbox-item-group`, `listbox-item-group-label`,
+  `listbox-item`, `listbox-item-text`, `listbox-item-indicator`, and `listbox-value-text`.
+
+## Accessibility
+
+Ark owns the ARIA listbox pattern, active-descendant focus management, keyboard navigation,
+typeahead, Home/End behavior, disabled item handling, and orientation-specific arrow keys. Keep
+`Listbox.Label` in the tree and use `typeahead={false}` when `Listbox.Input` is used for filtering.

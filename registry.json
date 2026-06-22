@@ -993,6 +993,31 @@
       ]
     },
     {
+      "name": "react-listbox",
+      "type": "registry:item",
+      "title": "Listbox",
+      "description": "moduix React Listbox component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/listbox/Listbox.tsx",
+          "target": "@components/moduix/listbox/Listbox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/listbox/Listbox.module.css",
+          "target": "@components/moduix/listbox/Listbox.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/listbox/index.ts",
+          "target": "@components/moduix/listbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-menu",
       "type": "registry:item",
       "title": "Menu",
