@@ -10,7 +10,6 @@ import {
   InputGroupCssPropertiesPanel,
   InputGroupExample,
   InputGroupFieldValidationExample,
-  InputGroupInlineEditingExample,
   InputGroupPrefixSuffixExample,
   InputGroupSizesExample,
   InputGroupWithActionExample,
@@ -28,6 +27,7 @@ action patterns.
 
 - Choose **`Input`** for a plain single-line field.
 - Choose **`InputGroup`** for inline prefixes, suffixes, text, or actions.
+- Choose **`Editable`** for preview-first text that switches into edit mode.
 - Choose **`PasswordInput`** for the existing password visibility composition.
 - Choose **`NumberInput`** when numeric behavior matters.
 
@@ -163,9 +163,6 @@ an accessible name only when the standalone composition itself needs grouped sem
 
 - The input ref targets the real `HTMLInputElement`.
 - The root does not own value, validation, ARIA ids, context hooks, or a `HiddenInput`.
-- A plain primary press on non-interactive shell space focuses the first editable grouped input.
-- Focus redirection skips buttons, links, inputs, selects, textareas, modified clicks, disabled
-  inputs, and read-only inputs.
 - Root invalid, disabled, and read-only visuals derive from the nested input state.
 - Legacy `onValueChange`, `render`, and callback styling props are not supported.
 
@@ -341,101 +338,6 @@ also become unavailable.
   <Preview.Data>
     {`
       const workspaceHandle = "maps";
-    `}
-  </Preview.Data>
-</Preview>
-
-### Inline Editing
-
-Keep one mounted input, toggle `readOnly`, and swap only the trailing actions.
-
-<Preview>
-  <InputGroupInlineEditingExample />
-
-  <Preview.Code>
-    {`
-      import {
-        CheckIcon,
-        CloseIcon,
-        Field,
-        InputGroup,
-        InputGroupButton,
-        InputGroupInput,
-        PencilIcon,
-      } from "@moduix/react";
-      import { useEffect, useRef, useState } from "react";
-
-      export function InlineEditingDemo() {
-        const [editing, setEditing] = useState(false);
-        const [value, setValue] = useState("Workspace display name");
-        const [draft, setDraft] = useState(value);
-        const inputRef = useRef(null as HTMLInputElement | null);
-
-        useEffect(() => {
-          if (editing) inputRef.current?.focus();
-        }, [editing]);
-
-        return (
-          <Field className="input-group-demo-field">
-            <Field.Label>Display name</Field.Label>
-            <InputGroup>
-              <InputGroupInput
-                ref={inputRef}
-                readOnly={!editing}
-                value={editing ? draft : value}
-                onChange={(event) => setDraft(event.currentTarget.value)}
-              />
-              {editing ? (
-                <>
-                  <InputGroupButton
-                    aria-label="Cancel editing"
-                    size="icon-md"
-                    onClick={() => {
-                      setDraft(value);
-                      setEditing(false);
-                    }}
-                  >
-                    <CloseIcon />
-                  </InputGroupButton>
-                  <InputGroupButton
-                    aria-label="Save changes"
-                    size="icon-md"
-                    onClick={() => {
-                      setValue(draft);
-                      setEditing(false);
-                    }}
-                  >
-                    <CheckIcon />
-                  </InputGroupButton>
-                </>
-              ) : (
-                <InputGroupButton
-                  aria-label="Edit display name"
-                  size="icon-md"
-                  onClick={() => setEditing(true)}
-                >
-                  <PencilIcon />
-                </InputGroupButton>
-              )}
-            </InputGroup>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.CSS>
-  {`
-      .input-group-demo-field {
-        width: min(16rem, 100%);
-      }
-    `}
-</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const initialDisplayName = "Workspace display name";
     `}
   </Preview.Data>
 </Preview>

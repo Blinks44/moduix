@@ -22,6 +22,7 @@ Chakra's Textarea recipe informs the public examples for helper text, error text
 - Uses native `onChange` for controlled usage; no `onValueChange` compatibility layer is provided.
 - Works standalone when consumers provide an accessible name, or inside moduix `Field` for labels, helper text, error text, and state inheritance.
 - Adds moduix visual defaults, `data-slot="textarea-root"`, and public `--textarea-*` CSS variables.
+- Does not provide preview/edit controls; use `Editable` for inline read/edit workflows.
 
 ## Anatomy and exported parts
 
@@ -54,12 +55,16 @@ export function CommentField() {
 
 Use `Field.Root` / `Field` for accessible labels, descriptions, required state, invalid state, and read-only/disabled inheritance. Use native textarea props such as `rows`, `maxLength`, `resize` styling, `value`, `defaultValue`, and `onChange` for browser behavior.
 
+Use `Editable` when the UI should render preview text first and switch into a multiline editing
+surface with edit, submit, and cancel controls.
+
 ## Upstream feature coverage
 
 - Ark Field anatomy: covered through the optional `Field` wrapper plus `Textarea` as the control.
 - Ark Field examples: textarea, textarea autoresize, custom control state, and root/provider behavior remain available through the `Field` component; `Textarea` itself intentionally stays root-only.
 - Ark Forms guide: accessible labels, helper text, error text, required state, invalid state, `readOnly`, `disabled`, and `Fieldset` inheritance are preserved by Ark.
 - Chakra Textarea examples: basic usage, Field composition, helper/error text, native resizing, autoresize, refs, and form-library integration are supported.
+- Inline read/edit flows belong to `Editable`, not `Textarea`.
 - Chakra size and variant props are not supported; moduix uses CSS variables and `className` instead.
 
 ## Accessibility and state
@@ -99,14 +104,19 @@ Public CSS variables from `theme.css`:
 - The old `onValueChange(value)` callback was removed in favor of native `onChange(event)`.
 - `data-autoresize` is a moduix styling hook layered over Ark's `autoresize` behavior.
 - Chakra `variant`, `size`, and style-prop APIs are intentionally not mirrored.
+- Manual read-only/editing controls are intentionally not documented for `Textarea`; use `Editable`
+  for that behavior.
 
 ## Agent notes
 
 - Do not reintroduce the legacy `Field.Control`, `render`, `mergeProps`, `autoResize`, or `onValueChange` adapter contract.
 - Keep `Textarea` aligned with Ark `Field.Textarea`; use `Field.Textarea` as the local implementation reference.
+- Keep inline edit/read-only examples on `Editable`, not `Textarea`.
 - Keep stories, docs examples, `theme.css`, registry output, and this file synchronized when the public contract changes.
 
 ## Local changelog
 
+- 2026-06-22: Removed the manual read-only/editing story and docs path; inline editing now belongs
+  to `Editable`.
 - 2026-06-21: Migrated implementation to Ark `Field.Textarea`; replaced `autoResize` with `autoresize` and removed `onValueChange`.
 - 2026-06-21: Rewrote the local contract around Ark Field, Chakra Textarea examples, native textarea behavior, and moduix styling hooks.

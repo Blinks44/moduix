@@ -5,11 +5,8 @@ import {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
-  CheckIcon,
-  CloseIcon,
-  PencilIcon,
 } from '@moduix/react';
-import { useEffect, useRef, useState, type ComponentProps } from 'react';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 
@@ -185,63 +182,6 @@ export function InputGroupWithActionExample() {
           placeholder="name@example.com"
         />
         <InputGroupButton disabled={!value}>Send</InputGroupButton>
-      </InputGroup>
-    </Field>
-  );
-}
-
-export function InputGroupInlineEditingExample() {
-  const [editing, setEditing] = useState(false);
-  const [value, setValue] = useState('Workspace display name');
-  const [draft, setDraft] = useState(value);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    if (editing) {
-      inputRef.current?.focus();
-    }
-  }, [editing]);
-
-  const handleEdit = () => {
-    setDraft(value);
-    setEditing(true);
-  };
-
-  const handleCancel = () => {
-    setDraft(value);
-    setEditing(false);
-  };
-
-  const handleSave = () => {
-    setValue(draft);
-    setEditing(false);
-  };
-
-  return (
-    <Field className="input-group-demo-field">
-      <Field.Label>Display name</Field.Label>
-      <InputGroup>
-        <InputGroupInput
-          aria-label="Display name"
-          ref={inputRef}
-          readOnly={!editing}
-          value={editing ? draft : value}
-          onChange={(event) => setDraft(event.currentTarget.value)}
-        />
-        {editing ? (
-          <>
-            <InputGroupButton aria-label="Cancel editing" size="icon-md" onClick={handleCancel}>
-              <CloseIcon />
-            </InputGroupButton>
-            <InputGroupButton aria-label="Save changes" size="icon-md" onClick={handleSave}>
-              <CheckIcon />
-            </InputGroupButton>
-          </>
-        ) : (
-          <InputGroupButton aria-label="Edit display name" size="icon-md" onClick={handleEdit}>
-            <PencilIcon />
-          </InputGroupButton>
-        )}
       </InputGroup>
     </Field>
   );

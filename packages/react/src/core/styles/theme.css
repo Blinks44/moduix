@@ -1077,6 +1077,50 @@
   --empty-title-font-weight: initial; /* var(--weight-semibold) */
   --empty-title-line-height: initial; /* var(--line-height-text-xl) */
 
+  /* Editable */
+  --editable-area-height: initial; /* var(--size-lg) */
+  --editable-area-width: initial; /* 100% */
+  --editable-bg: initial; /* var(--color-background) */
+  --editable-border-color: initial; /* var(--color-border) */
+  --editable-border-color-invalid: initial; /* var(--color-destructive) */
+  --editable-border-style: initial; /* solid */
+  --editable-border-width: initial; /* var(--border-width-sm) */
+  --editable-color: initial; /* var(--color-foreground) */
+  --editable-control-gap: initial; /* var(--spacing-1) */
+  --editable-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --editable-focus-ring-color: initial; /* var(--color-ring) */
+  --editable-focus-ring-width: initial; /* var(--editable-border-width, var(--border-width-sm)) */
+  --editable-font-size: initial; /* var(--text-md) */
+  --editable-gap: initial; /* var(--spacing-1) */
+  --editable-input-width: initial; /* 100% */
+  --editable-label-color: initial; /* var(--color-foreground) */
+  --editable-label-color-invalid: initial; /* var(--color-destructive) */
+  --editable-label-font-size: initial; /* var(--text-sm) */
+  --editable-label-font-weight: initial; /* var(--weight-medium) */
+  --editable-label-gap: initial; /* var(--spacing-1) */
+  --editable-label-line-height: initial; /* var(--line-height-text-sm) */
+  --editable-line-height: initial; /* var(--line-height-text-md) */
+  --editable-max-width: initial; /* 100% */
+  --editable-padding-x: initial; /* 0.875rem */
+  --editable-padding-y: initial; /* 0.5rem */
+  --editable-placeholder-color: initial; /* var(--color-muted-foreground) */
+  --editable-preview-min-height: initial; /* 1lh */
+  --editable-radius: initial; /* var(--radius-md) */
+  --editable-textarea-min-height: initial; /* 6rem */
+  --editable-textarea-resize: initial; /* vertical */
+  --editable-transition: initial; /* var(--transition-default) */
+  --editable-trigger-bg: initial; /* var(--color-background) */
+  --editable-trigger-bg-active: initial; /* var(--editable-trigger-bg-hover) */
+  --editable-trigger-bg-hover: initial; /* var(--color-accent) */
+  --editable-trigger-border-color: initial; /* var(--color-border) */
+  --editable-trigger-border-style: initial; /* solid */
+  --editable-trigger-border-width: initial; /* var(--border-width-sm) */
+  --editable-trigger-color: initial; /* var(--color-foreground) */
+  --editable-trigger-icon-size: initial; /* 0.875rem */
+  --editable-trigger-radius: initial; /* var(--radius-sm) */
+  --editable-trigger-size: initial; /* var(--size-md) */
+  --editable-width: initial; /* auto */
+
   /* Field */
   --field-color: initial; /* var(--color-foreground) */
   --field-control-bg: initial; /* var(--color-background) */

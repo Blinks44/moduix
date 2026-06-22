@@ -13,7 +13,6 @@ import {
   NativeAttributesTextareaExample,
   TextareaCssPropertiesPanel,
   TextareaExample,
-  TextareaReadOnlyEditingExample,
 } from '@/components/examples/textarea';
 
 ## API Reference
@@ -30,6 +29,7 @@ browser textarea behavior.
 
 - Choose **`Input`** for short single-line values such as names, URLs, or compact filters.
 - Choose **`Textarea`** for notes, comments, descriptions, and other longer free-form text.
+- Choose **`Editable`** for preview-first text that switches into edit mode.
 - Choose **`Field` + `Textarea`** when labels, descriptions, and validation should stay
   declarative.
 
@@ -152,6 +152,8 @@ There is no lower-level `Textarea` composition path beyond the styled textarea r
 needs to change, keep `Textarea` as the control and customize the surrounding layout with your own
 wrappers, actions, or adjacent UI.
 
+Use `Editable` instead of composing custom read-only/editing controls around `Textarea`.
+
 ### Default props
 
 | Prop         | Default | Notes                                            |
@@ -163,8 +165,8 @@ wrappers, actions, or adjacent UI.
 - Use `value` with native `onChange` for controlled text.
 - Use `name` plus regular form submission when the value only needs to be read from `FormData`.
 - Use Ark `autoresize` when the field should grow with content.
-- For inline edit/read-only flows, keep the same mounted `Textarea` and toggle `readOnly` instead
-  of swapping to separate display markup.
+- Use `Editable` for inline edit/read-only flows with preview text, edit triggers, and commit or
+  cancel controls.
 
 ## Examples
 
@@ -385,109 +387,6 @@ Set `disabled` or `readOnly` based on interaction requirements.
         disabledPlaceholder: "Disabled textarea",
         readOnlyValue: "Read-only text value",
       };
-    `}
-  </Preview.Data>
-</Preview>
-
-### Readonly Editing
-
-For multiline inline editing, keep the same `Textarea` mounted and switch only `readOnly` plus the
-action buttons. That avoids a text-to-textarea layout jump and lets you focus the field as soon as
-edit mode starts.
-
-<Preview>
-  <TextareaReadOnlyEditingExample />
-
-  <Preview.Code>
-    {`
-      import { Button, CheckIcon, CloseIcon, Field, PencilIcon, Textarea } from "@moduix/react";
-      import { useEffect, useRef, useState } from "react";
-
-      export function ReadonlyEditingTextareaDemo() {
-        const [editing, setEditing] = useState(false);
-        const [value, setValue] = useState(
-          "Build the docs examples first, then harden the public API around real usage.",
-        );
-        const [draft, setDraft] = useState(value);
-        const textareaRef = useRef(null as HTMLTextAreaElement | null);
-
-        useEffect(() => {
-          if (editing) {
-            textareaRef.current?.focus();
-          }
-        }, [editing]);
-
-        const handleEdit = () => {
-          setDraft(value);
-          setEditing(true);
-        };
-
-        const handleCancel = () => {
-          setDraft(value);
-          setEditing(false);
-        };
-
-        const handleSave = () => {
-          setValue(draft);
-          setEditing(false);
-        };
-
-        return (
-          <Field className={styles.field}>
-            <Field.Label>Team note</Field.Label>
-            <Field.HelperText>
-              The textarea stays mounted and only switches between read-only and editable modes.
-            </Field.HelperText>
-            <Textarea
-              ref={textareaRef}
-              autoresize
-              readOnly={!editing}
-              rows={3}
-              value={editing ? draft : value}
-              onChange={(event) => setDraft(event.currentTarget.value)}
-            />
-            <div className={styles.actions}>
-              {editing ? (
-                <>
-                  <Button aria-label="Cancel editing" size="icon-md" variant="ghost" onClick={handleCancel}>
-                    <CloseIcon />
-                  </Button>
-                  <Button aria-label="Save changes" size="icon-md" onClick={handleSave}>
-                    <CheckIcon />
-                  </Button>
-                </>
-              ) : (
-                <Button aria-label="Edit team note" size="icon-md" variant="ghost" onClick={handleEdit}>
-                  <PencilIcon />
-                </Button>
-              )}
-            </div>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .field {
-        width: min(28rem, calc(100vw - var(--spacing-8)));
-      }
-
-      .actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: var(--spacing-2);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const initialNote =
-        "Build the docs examples first, then harden the public API around real usage.";
     `}
   </Preview.Data>
 </Preview>

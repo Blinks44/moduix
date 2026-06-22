@@ -6,7 +6,6 @@ import {
   useContext,
   type ComponentProps,
   type ComponentRef,
-  type MouseEvent,
 } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { Button, type ButtonRootProps } from '../button';
@@ -20,38 +19,9 @@ type InputGroupProps = ComponentProps<typeof ark.div> & {
 const InputGroupSizeContext = createContext<InputSize>('md');
 
 const InputGroup = forwardRef<ComponentRef<typeof ark.div>, InputGroupProps>(function InputGroup(
-  { children, className, onMouseDown, size = 'md', ...props },
+  { children, className, size = 'md', ...props },
   ref,
 ) {
-  const handleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
-    onMouseDown?.(event);
-
-    if (
-      event.defaultPrevented ||
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.altKey ||
-      event.shiftKey
-    ) {
-      return;
-    }
-
-    if (!(event.target instanceof HTMLElement)) return;
-    if (
-      event.target.closest('button, a, input, select, textarea, [role="button"], [role="link"]')
-    ) {
-      return;
-    }
-
-    const input = event.currentTarget.querySelector<HTMLInputElement>(
-      '[data-slot="input-group-input"]',
-    );
-    if (!input || input.disabled || input.readOnly) return;
-
-    input.focus();
-  };
-
   return (
     <InputGroupSizeContext.Provider value={size}>
       <ark.div
@@ -59,7 +29,6 @@ const InputGroup = forwardRef<ComponentRef<typeof ark.div>, InputGroupProps>(fun
         data-slot="input-group-root"
         data-size={size}
         className={clsx(styles.root, className)}
-        onMouseDown={handleMouseDown}
         {...props}
       >
         {children}

@@ -24,6 +24,7 @@ export * from './components/date-input';
 export * from './components/date-picker';
 export * from './components/dialog';
 export * from './components/drawer';
+export * from './components/editable';
 export * from './components/empty';
 export * from './components/field';
 export * from './components/fieldset';

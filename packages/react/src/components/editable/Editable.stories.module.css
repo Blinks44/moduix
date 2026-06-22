@@ -1,0 +1,50 @@
+@layer ui.storybook {
+  .stack {
+    display: grid;
+    gap: var(--spacing-3);
+  }
+
+  .hint {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-text-xs);
+  }
+
+  .textareaArea {
+    align-items: flex-start;
+  }
+
+  .textareaRoot {
+    --editable-control-align: start;
+    --editable-width: min(24rem, 100%);
+    --editable-area-width: 100%;
+  }
+
+  .textareaInput,
+  .textareaPreview {
+    min-height: 6rem;
+    white-space: pre-wrap;
+  }
+
+  .customArea {
+    --editable-border-color: var(--color-primary);
+    --editable-focus-ring-color: var(--color-primary);
+    --editable-radius: var(--radius-sm);
+    --editable-area-width: 16rem;
+  }
+
+  .actions {
+    display: flex;
+    gap: var(--spacing-2);
+  }
+
+  .actions button {
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-1) var(--spacing-2);
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+}

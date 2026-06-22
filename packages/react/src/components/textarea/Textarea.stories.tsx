@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useEffect, useRef, useState } from 'react';
-import { CheckIcon, CloseIcon, PencilIcon } from '@/lib/moduix/icons/ui';
-import { Button } from '../button';
+import { useState } from 'react';
 import { Field } from '../field';
 import { Textarea } from './Textarea';
 import storyStyles from './Textarea.stories.module.css';
@@ -88,76 +86,6 @@ export const DisabledAndReadOnly: Story = {
         <Textarea aria-label="Disabled textarea" disabled placeholder="Disabled textarea" />
         <Textarea aria-label="Read-only textarea" readOnly value="Read-only text value" />
       </div>
-    );
-  },
-};
-
-export const ReadOnlyEditing: Story = {
-  render: () => {
-    const [editing, setEditing] = useState(false);
-    const [value, setValue] = useState(
-      'Build the docs examples first, then harden the public API around real usage.',
-    );
-    const [draft, setDraft] = useState(value);
-    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-
-    useEffect(() => {
-      if (editing) {
-        textareaRef.current?.focus();
-      }
-    }, [editing]);
-
-    const handleEdit = () => {
-      setDraft(value);
-      setEditing(true);
-    };
-
-    const handleCancel = () => {
-      setDraft(value);
-      setEditing(false);
-    };
-
-    const handleSave = () => {
-      setValue(draft);
-      setEditing(false);
-    };
-
-    return (
-      <Field className={storyStyles.field}>
-        <Field.Label>Team note</Field.Label>
-        <Field.HelperText>
-          The textarea stays mounted and only switches between read-only and editable modes.
-        </Field.HelperText>
-        <Textarea
-          autoresize
-          ref={textareaRef}
-          readOnly={!editing}
-          rows={3}
-          value={editing ? draft : value}
-          onChange={(event) => setDraft(event.currentTarget.value)}
-        />
-        <div className={storyStyles.actions}>
-          {editing ? (
-            <>
-              <Button
-                aria-label="Cancel editing"
-                size="icon-md"
-                variant="ghost"
-                onClick={handleCancel}
-              >
-                <CloseIcon />
-              </Button>
-              <Button aria-label="Save changes" size="icon-md" onClick={handleSave}>
-                <CheckIcon />
-              </Button>
-            </>
-          ) : (
-            <Button aria-label="Edit team note" size="icon-md" variant="ghost" onClick={handleEdit}>
-              <PencilIcon />
-            </Button>
-          )}
-        </div>
-      </Field>
     );
   },
 };

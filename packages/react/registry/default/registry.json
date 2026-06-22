@@ -714,6 +714,31 @@
       ]
     },
     {
+      "name": "react-editable",
+      "type": "registry:item",
+      "title": "Editable",
+      "description": "moduix React Editable component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/editable/Editable.tsx",
+          "target": "@components/moduix/editable/Editable.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/editable/Editable.module.css",
+          "target": "@components/moduix/editable/Editable.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/editable/index.ts",
+          "target": "@components/moduix/editable/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-field",
       "type": "registry:item",
       "title": "Field",

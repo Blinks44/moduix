@@ -12,7 +12,9 @@ factory elements, the Ark-backed local `Input`, and the local `Button`.
 ## Purpose
 
 `InputGroup` presents one single-line input with inline addons, text, or actions as one visual
-control while preserving the native semantics of the nested input and buttons.
+control while preserving the native semantics of the nested input and buttons. It does not provide
+preview/edit mode; use `Editable` when text should render read-only first and switch into editing
+intentionally.
 
 ## Upstream model to preserve
 
@@ -28,8 +30,6 @@ control while preserving the native semantics of the nested input and buttons.
 - `InputGroupAddon` and `InputGroupText` render Ark factory `span` elements and support `asChild`.
 - `InputGroupButton` renders `Button`, inherits group size, defaults to `variant="ghost"` and
   `type="button"`.
-- A plain primary-button press on non-interactive shell space focuses the first editable grouped
-  input.
 - One `InputGroupInput` per group is the supported composition.
 
 ## Anatomy and exported parts
@@ -78,6 +78,9 @@ export function WorkspaceField() {
 Use `asChild` only with one semantic child that can receive the part props and ref. The root child
 must remain a container; addon/text children should remain presentational.
 
+Use `Editable` instead of composing manual inline editing around `InputGroupInput`. `InputGroup`
+should stay focused on ordinary input composition with addons, text, and actions.
+
 ## Upstream feature coverage
 
 - Ark factory composition: supported on root, addon, and text.
@@ -89,6 +92,7 @@ must remain a container; addon/text children should remain presentational.
   `InputGroup`; those concepts belong to the nested components.
 - Chakra-style start/end elements, addons, buttons, and keyboard hints are expressed with explicit
   child composition rather than `startElement`/`endElement` props.
+- Preview-first inline editing belongs to `Editable`, not `InputGroup`.
 
 ## Accessibility and state
 
@@ -97,8 +101,6 @@ must remain a container; addon/text children should remain presentational.
   composition needs grouped semantics.
 - The input ref targets the real `HTMLInputElement`.
 - Root visuals derive invalid, disabled, and read-only state from the nested input with `:has(...)`.
-- Shell focus redirection skips interactive descendants, modified clicks, disabled inputs, and
-  read-only inputs.
 - Buttons retain native keyboard behavior and default to `type="button"`.
 
 ## Defaults and styling
@@ -111,8 +113,8 @@ must remain a container; addon/text children should remain presentational.
 
 ## Intentional sugar and differences from upstream
 
-- There is no upstream Ark primitive; the size context, shell focus redirect, visual merging, and
-  button defaults are moduix sugar.
+- There is no upstream Ark primitive; the size context, visual merging, and button defaults are
+  moduix sugar.
 - Explicit child parts are retained instead of Chakra's `startElement` and `endElement` props.
 - legacy `onValueChange`, `render`, and callback styling props disappear with the migrated
   `InputGroupInput`.
@@ -122,9 +124,14 @@ must remain a container; addon/text children should remain presentational.
 - Keep one grouped input per root.
 - Keep the root free of a default ARIA role.
 - Do not move value state into the group or mirror child state with React state.
+- Keep inline edit/read-only examples on `Editable`; do not reintroduce manual edit toggles here.
 - Keep `PasswordInput` behavior isolated until its separate Ark Password Input migration.
 
 ## Local changelog
 
+- 2026-06-22: Removed shell focus redirection from `InputGroup`; the root now stays a passive
+  composition wrapper and clicks focus only native interactive descendants.
+- 2026-06-22: Removed the manual inline editing story and docs path; preview-first editing now
+  belongs to `Editable`.
 - 2026-06-19: Migrated structural elements to Ark factory composition and the nested input to Ark
   `Field.Input`; added `asChild`; replaced legacy value callbacks with native input events.

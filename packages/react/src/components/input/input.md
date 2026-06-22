@@ -30,6 +30,7 @@ and error text when rendered inside `Field`.
 - Adds visual `size="xs" | "sm" | "md" | "lg" | "xl"` with `md` as the default.
 - Supports `asChild` with one semantic input-like child.
 - Adds no value state, validation state, label, clear trigger, mask, or prefix/suffix API.
+- Adds no preview/edit mode; use `Editable` for inline read/edit workflows.
 
 ## Anatomy and exported parts
 
@@ -60,6 +61,9 @@ export function EmailField() {
 `asChild` follows Ark composition rules: provide exactly one child and preserve input semantics,
 focusability, refs, and forwarded props.
 
+Use `Editable` when the UI should render preview text first and switch into input editing with
+edit, submit, and cancel controls.
+
 ## Upstream feature coverage
 
 - Field input: supported through `Field.Input`.
@@ -71,6 +75,7 @@ focusability, refs, and forwarded props.
   controls that need `getInputProps()`.
 - Root provider, context, ids, helper/error text, and required indicator belong to `Field`, not
   `Input`.
+- Preview/edit state belongs to `Editable`, not `Input`.
 - No `HiddenInput` is needed because `Input` is the native form control.
 
 ## Accessibility and state
@@ -103,9 +108,12 @@ focusability, refs, and forwarded props.
 - Keep the wrapper as one Ark `Field.Input`; do not add local value or validation state.
 - Keep controlled examples on native `onChange(event)`.
 - Use `InputGroup` for inline decoration and actions.
+- Keep inline edit/read-only examples on `Editable`, not `Input`.
 - Do not migrate `PasswordInput` to Ark Password Input as part of `Input` changes.
 
 ## Local changelog
 
+- 2026-06-22: Documented `Input` as plain native entry only; preview/edit behavior belongs to
+  `Editable`.
 - 2026-06-19: Migrated from legacy Input to Ark UI `Field.Input`; added `asChild` and Ark field
   anatomy/state hooks; removed legacy callback, render, and state contracts.
