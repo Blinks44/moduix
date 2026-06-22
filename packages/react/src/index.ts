@@ -52,6 +52,7 @@ export * from './components/radio-group';
 export * from './components/rating-group';
 export * from './components/scroll-area';
 export * from './components/separator';
+export * from './components/segment-group';
 export * from './components/select';
 export { createListCollection, useListCollection } from './components/select';
 export type { CollectionItem, ListCollection, UseListCollectionProps } from './components/select';

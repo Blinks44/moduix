@@ -1368,6 +1368,31 @@
       ]
     },
     {
+      "name": "react-segment-group",
+      "type": "registry:item",
+      "title": "SegmentGroup",
+      "description": "moduix React SegmentGroup component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/segment-group/SegmentGroup.tsx",
+          "target": "@components/moduix/segment-group/SegmentGroup.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/segment-group/SegmentGroup.module.css",
+          "target": "@components/moduix/segment-group/SegmentGroup.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/segment-group/index.ts",
+          "target": "@components/moduix/segment-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-select",
       "type": "registry:item",
       "title": "Select",

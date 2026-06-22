@@ -1,0 +1,532 @@
+---
+title: Segment Group
+description: Ark UI segment-group composition for choosing one value from a compact visible set.
+icon: Component
+---
+
+import {
+  ConditionalSegmentGroupExample,
+  ControlledSegmentGroupExample,
+  DisabledSegmentGroupExample,
+  FormSegmentGroupExample,
+  SegmentGroupAsChildExample,
+  SegmentGroupCssPropertiesPanel,
+  SegmentGroupCustomStylingExample,
+  SegmentGroupExample,
+  SegmentGroupRootProviderExample,
+  VerticalSegmentGroupExample,
+  segmentGroupAsChildCss,
+  segmentGroupCustomStylingCss,
+  segmentGroupExampleCss,
+  segmentGroupFormExampleCss,
+  segmentGroupFrameworksData,
+  segmentGroupVerticalCss,
+  segmentGroupViewsData,
+} from '@/components/examples/segment-group';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/segment-group" />
+
+## Choosing The Right Component
+
+Use `SegmentGroup` when the user chooses one value from a small visible set.
+
+- Choose **`Tabs`** when selection changes the visible content panel.
+- Choose **`ToggleGroup`** when items behave like toolbar buttons and can support multiple active
+  values.
+- Choose **`RadioGroup`** when the form-control shape should stay visibly radio-like.
+- Choose **`SegmentGroup`** when the value is still radio-like, but the visual should be a compact
+  segmented control.
+
+## Basic
+
+Use Ark-style parts: `SegmentGroup`, `SegmentGroup.Indicator`, `SegmentGroup.Item`,
+`SegmentGroup.ItemText`, `SegmentGroup.ItemControl`, and `SegmentGroup.ItemHiddenInput`.
+
+<Preview>
+  <SegmentGroupExample />
+
+  <Preview.Code>
+    {`
+      import { SegmentGroup } from "@moduix/react";
+
+      export function SegmentGroupDemo() {
+        return (
+          <SegmentGroup aria-label="Framework" defaultValue="React">
+            <SegmentGroup.Indicator />
+            {frameworks.map((framework) => (
+              <SegmentGroup.Item key={framework} value={framework}>
+                <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
+                <SegmentGroup.ItemControl />
+                <SegmentGroup.ItemHiddenInput />
+              </SegmentGroup.Item>
+            ))}
+          </SegmentGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{segmentGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `SegmentGroup` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/react-segment-group
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/react-segment-group
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/react-segment-group
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-segment-group
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/react-segment-group
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+SegmentGroup / SegmentGroup.Root
+├─ SegmentGroup.Label (optional)
+├─ SegmentGroup.Indicator
+└─ SegmentGroup.Item[value]
+   ├─ SegmentGroup.ItemText
+   ├─ SegmentGroup.ItemControl
+   └─ SegmentGroup.ItemHiddenInput
+
+SegmentGroup.RootProvider
+└─ same item tree connected to a useSegmentGroup() store
+```
+
+| Part                                 | Role                                                        |
+| ------------------------------------ | ----------------------------------------------------------- |
+| `SegmentGroup` / `SegmentGroup.Root` | Owns single-value state, keyboard navigation, and forms.    |
+| `SegmentGroup.RootProvider`          | Connects parts to state created with `useSegmentGroup()`.   |
+| `SegmentGroup.Label`                 | Optional accessible label for the group.                    |
+| `SegmentGroup.Indicator`             | Measured active-item highlight using Ark CSS variables.     |
+| `SegmentGroup.Item`                  | One selectable segment; renders a `label` by default.       |
+| `SegmentGroup.ItemText`              | Visible segment text.                                       |
+| `SegmentGroup.ItemControl`           | Ark control part; visually hidden by moduix default styles. |
+| `SegmentGroup.ItemHiddenInput`       | Native input for form submission, validation, and reset.    |
+| `SegmentGroup.Context`               | Reads root state through an Ark render prop.                |
+| `SegmentGroup.ItemContext`           | Reads item state through an Ark render prop.                |
+
+## Composition
+
+### Recommended composition
+
+Use the short root form `<SegmentGroup>` for normal usage. Render `Indicator` before items so the
+measured highlight sits behind the checked segment, and keep `ItemHiddenInput` inside each item
+when the control participates in native forms or reset behavior.
+
+### When to go custom
+
+Use `SegmentGroup.Item asChild` when a custom item node should own the label element. The child
+must still be a single semantic `label`. Use `SegmentGroup.RootProvider` with `useSegmentGroup()`
+when surrounding controls need to call methods such as `setValue`, `clearValue`, or `focus`.
+
+### Default props
+
+| Prop           | Default      | Notes                                                     |
+| -------------- | ------------ | --------------------------------------------------------- |
+| `defaultValue` | -            | Initial uncontrolled value.                               |
+| `value`        | -            | Controlled selected value.                                |
+| `orientation`  | `horizontal` | Moduix defaults to horizontal; set `vertical` explicitly. |
+| `disabled`     | `false`      | Disables the whole group when set on the root.            |
+| `readOnly`     | `false`      | Prevents changes while keeping the value readable.        |
+| `required`     | `false`      | Marks hidden inputs as required for native forms.         |
+| `invalid`      | `false`      | Adds Ark invalid state attributes for styling/ARIA.       |
+
+### Behavioral notes
+
+`onValueChange(details)` keeps Ark's callback shape. Read `details.value` for the selected value.
+Ark owns roving focus, arrow-key navigation, focus management, disabled/read-only/invalid/required
+state, ids, form submission, and form reset synchronization.
+
+## Examples
+
+### Controlled
+
+Control the selected value from React state and update it from `details.value`.
+
+<Preview>
+  <ControlledSegmentGroupExample />
+
+  <Preview.Code>
+    {`
+      import { SegmentGroup } from "@moduix/react";
+      import { useState } from "react";
+
+      export function ControlledSegmentGroupDemo() {
+        const [value, setValue] = useState("React" as string | null);
+
+        return (
+          <div className="segment-stack">
+            <SegmentGroup
+              aria-label="Framework"
+              value={value}
+              onValueChange={(details) => setValue(details.value)}
+            >
+              <SegmentGroup.Indicator />
+              {frameworks.map((framework) => (
+                <SegmentGroup.Item key={framework} value={framework}>
+                  <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
+                  <SegmentGroup.ItemControl />
+                  <SegmentGroup.ItemHiddenInput />
+                </SegmentGroup.Item>
+              ))}
+            </SegmentGroup>
+            <output className="segment-output">selected: {value ?? "none"}</output>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{segmentGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+</Preview>
+
+### Root Provider
+
+Use `RootProvider` when state from `useSegmentGroup()` needs to be shared with controls outside the
+segment tree.
+
+<Preview>
+  <SegmentGroupRootProviderExample />
+
+  <Preview.Code>
+    {`
+      import { SegmentGroup, useSegmentGroup } from "@moduix/react";
+
+      export function SegmentGroupRootProviderDemo() {
+        const segmentGroup = useSegmentGroup({ defaultValue: "React" });
+
+        return (
+          <div className="segment-stack">
+            <SegmentGroup.RootProvider aria-label="Framework" value={segmentGroup}>
+              <SegmentGroup.Indicator />
+              {frameworks.map((framework) => (
+                <SegmentGroup.Item key={framework} value={framework}>
+                  <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
+                  <SegmentGroup.ItemControl />
+                  <SegmentGroup.ItemHiddenInput />
+                </SegmentGroup.Item>
+              ))}
+            </SegmentGroup.RootProvider>
+            <button className="segment-button" type="button" onClick={() => segmentGroup.setValue("Solid")}>
+              Set to Solid
+            </button>
+            <output className="segment-output">selected: {segmentGroup.value ?? "none"}</output>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{segmentGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+</Preview>
+
+### Disabled
+
+Set `disabled` on an item when only one segment should be unavailable.
+
+<Preview>
+  <DisabledSegmentGroupExample />
+
+  <Preview.Code>
+    {`
+      import { SegmentGroup } from "@moduix/react";
+
+      export function DisabledSegmentGroupDemo() {
+        return (
+          <SegmentGroup aria-label="Framework" defaultValue="React">
+            <SegmentGroup.Indicator />
+            {frameworks.map((framework) => (
+              <SegmentGroup.Item key={framework} value={framework} disabled={framework === "Svelte"}>
+                <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
+                <SegmentGroup.ItemControl />
+                <SegmentGroup.ItemHiddenInput />
+              </SegmentGroup.Item>
+            ))}
+          </SegmentGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{segmentGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+</Preview>
+
+### Conditional Mount
+
+Segment groups can mount conditionally; Ark recalculates item geometry for the indicator after the
+group appears.
+
+<Preview>
+  <ConditionalSegmentGroupExample />
+
+  <Preview.Code>
+    {`
+      import { SegmentGroup } from "@moduix/react";
+      import { useState } from "react";
+
+      export function ConditionalSegmentGroupDemo() {
+        const [visible, setVisible] = useState(true);
+
+        return (
+          <div className="segment-stack">
+            <button className="segment-button" type="button" onClick={() => setVisible((value) => !value)}>
+              {visible ? "Hide" : "Show"}
+            </button>
+            {visible ? (
+              <SegmentGroup aria-label="Framework" defaultValue="React">
+                <SegmentGroup.Indicator />
+                {frameworks.map((framework) => (
+                  <SegmentGroup.Item key={framework} value={framework}>
+                    <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
+                    <SegmentGroup.ItemControl />
+                    <SegmentGroup.ItemHiddenInput />
+                  </SegmentGroup.Item>
+                ))}
+              </SegmentGroup>
+            ) : null}
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{segmentGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+</Preview>
+
+### Vertical Orientation
+
+Set `orientation="vertical"` when arrow-key behavior and layout should follow a vertical list.
+
+<Preview>
+  <VerticalSegmentGroupExample />
+
+  <Preview.Code>
+    {`
+      import { SegmentGroup } from "@moduix/react";
+
+      export function VerticalSegmentGroupDemo() {
+        return (
+          <SegmentGroup
+            aria-label="View"
+            defaultValue="List"
+            orientation="vertical"
+            className="segment-vertical"
+          >
+            <SegmentGroup.Indicator />
+            {views.map((view) => (
+              <SegmentGroup.Item key={view} value={view}>
+                <SegmentGroup.ItemText>{view}</SegmentGroup.ItemText>
+                <SegmentGroup.ItemControl />
+                <SegmentGroup.ItemHiddenInput />
+              </SegmentGroup.Item>
+            ))}
+          </SegmentGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{segmentGroupVerticalCss}</Preview.CSS>
+  <Preview.Data>{segmentGroupViewsData}</Preview.Data>
+</Preview>
+
+### Form Submission
+
+Pass `name` to the root and keep `ItemHiddenInput` in every item to submit the selected value with
+native form data.
+
+<Preview>
+  <FormSegmentGroupExample />
+
+  <Preview.Code>
+    {`
+      import { SegmentGroup } from "@moduix/react";
+      import { useState, type FormEvent } from "react";
+
+      export function FormSegmentGroupDemo() {
+        const [submitted, setSubmitted] = useState("none");
+
+        const handleSubmit = (event: FormEvent) => {
+          event.preventDefault();
+          const form = event.currentTarget as HTMLFormElement;
+          const formData = new FormData(form);
+          setSubmitted(String(formData.get("framework") ?? "none"));
+        };
+
+        return (
+          <form className="segment-form" onSubmit={handleSubmit}>
+            <SegmentGroup aria-label="Framework" name="framework" defaultValue="React">
+              <SegmentGroup.Indicator />
+              {frameworks.map((framework) => (
+                <SegmentGroup.Item key={framework} value={framework}>
+                  <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
+                  <SegmentGroup.ItemControl />
+                  <SegmentGroup.ItemHiddenInput />
+                </SegmentGroup.Item>
+              ))}
+            </SegmentGroup>
+            <button className="segment-button" type="submit">Submit</button>
+            <output className="segment-output">submitted: {submitted}</output>
+          </form>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{segmentGroupFormExampleCss}</Preview.CSS>
+  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+</Preview>
+
+### asChild
+
+Use `SegmentGroup.Item asChild` when a custom label layout should own the item DOM node.
+
+<Preview>
+  <SegmentGroupAsChildExample />
+
+  <Preview.Code>
+    {`
+      import { SegmentGroup } from "@moduix/react";
+
+      export function SegmentGroupAsChildDemo() {
+        return (
+          <SegmentGroup aria-label="Billing cycle" defaultValue="Monthly">
+            <SegmentGroup.Indicator />
+            {[
+              ["Monthly", "Pay monthly"],
+              ["Annual", "Save 20%"],
+            ].map(([item, description]) => (
+              <SegmentGroup.Item key={item} value={item} asChild>
+                <label className="segment-card-item">
+                  <SegmentGroup.ItemText className="segment-card-title">{item}</SegmentGroup.ItemText>
+                  <span className="segment-card-description">{description}</span>
+                  <SegmentGroup.ItemControl />
+                  <SegmentGroup.ItemHiddenInput />
+                </label>
+              </SegmentGroup.Item>
+            ))}
+          </SegmentGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{segmentGroupAsChildCss}</Preview.CSS>
+  <Preview.Data>
+    {`
+      const billingCycles = ["Monthly", "Annual"];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Custom Styling
+
+Pass `className` to the Ark part that owns the visual concern and style public CSS variables or
+Ark state attributes.
+
+<Preview>
+  <SegmentGroupCustomStylingExample />
+
+  <Preview.Code>
+    {`
+      import { SegmentGroup } from "@moduix/react";
+
+      export function StyledSegmentGroupDemo() {
+        return (
+          <SegmentGroup aria-label="Framework" defaultValue="React" className="segment-custom-root">
+            <SegmentGroup.Indicator />
+            {frameworks.map((framework) => (
+              <SegmentGroup.Item key={framework} value={framework} className="segment-custom-item">
+                <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
+                <SegmentGroup.ItemControl />
+                <SegmentGroup.ItemHiddenInput />
+              </SegmentGroup.Item>
+            ))}
+          </SegmentGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{segmentGroupCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+</Preview>
+
+## Styling
+
+Style `SegmentGroup` through `className`, stable `data-slot="segment-group-*"` hooks, Ark
+`data-scope`, `data-part`, `data-state`, and the public `--segment-group-*` CSS variables below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <SegmentGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- Ark anatomy hooks: `data-scope="segment-group"` and `data-part` on root, label, indicator,
+  item, item text, item control, and hidden input.
+- Ark state hooks: `data-state="checked" | "unchecked"`, `data-orientation`,
+  `data-disabled`, `data-invalid`, `data-required`, `data-active`, and `data-focus-visible`.
+- Moduix hooks: `data-slot="segment-group-root"`, `segment-group-root-provider`,
+  `segment-group-label`, `segment-group-indicator`, `segment-group-item`,
+  `segment-group-item-text`, `segment-group-item-control`, and
+  `segment-group-item-hidden-input`.
+- Indicator sizing uses Ark runtime variables `--left`, `--top`, `--width`, and `--height`.
