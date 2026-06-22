@@ -173,12 +173,12 @@ export const fileUploadOverrideCssProperties: CssPropertyInput[] = [
   ['--file-upload-dropzone-padding', 'var(--spacing-5)', 'Controls dropzone padding.'],
   [
     '--file-upload-trigger-bg',
-    'var(--button-bg, var(--color-primary))',
+    'var(--button-default-bg, var(--color-primary))',
     'Controls trigger background.',
   ],
   [
     '--file-upload-trigger-color',
-    'var(--button-color, var(--color-primary-foreground))',
+    'var(--button-default-color, var(--color-primary-foreground))',
     'Controls trigger text color.',
   ],
   [

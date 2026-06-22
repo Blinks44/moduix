@@ -91,11 +91,18 @@
         --file-upload-trigger-border-width,
         var(--button-border-width, var(--border-width-sm))
       )
-      solid var(--file-upload-trigger-border-color, var(--button-border-color, transparent));
+      solid
+      var(
+        --file-upload-trigger-border-color,
+        var(--button-default-border-color, var(--color-primary))
+      );
     border-radius: var(--file-upload-trigger-radius, var(--button-radius, var(--radius-md)));
     padding-inline: var(--file-upload-trigger-padding-x, var(--button-padding-x-md, 1rem));
-    background-color: var(--file-upload-trigger-bg, var(--button-bg, var(--color-primary)));
-    color: var(--file-upload-trigger-color, var(--button-color, var(--color-primary-foreground)));
+    background-color: var(--file-upload-trigger-bg, var(--button-default-bg, var(--color-primary)));
+    color: var(
+      --file-upload-trigger-color,
+      var(--button-default-color, var(--color-primary-foreground))
+    );
     appearance: none;
     font: inherit;
     font-size: var(--file-upload-trigger-font-size, var(--button-font-size, var(--text-sm)));
@@ -122,7 +129,7 @@
       &:hover:not(:disabled, [data-disabled], [data-readonly]) {
         background-color: var(
           --file-upload-trigger-bg-hover,
-          var(--button-bg-hover, var(--color-primary))
+          var(--button-default-bg-hover, var(--color-foreground))
         );
       }
     }

@@ -1189,11 +1189,11 @@
   --file-upload-max-width: initial; /* 28rem */
   --file-upload-radius: initial; /* var(--radius-md) */
   --file-upload-transition: initial; /* var(--transition-default) */
-  --file-upload-trigger-bg: initial; /* var(--button-bg, var(--color-primary)) */
-  --file-upload-trigger-bg-hover: initial; /* var(--button-bg-hover, var(--color-primary)) */
-  --file-upload-trigger-border-color: initial; /* var(--button-border-color, transparent) */
+  --file-upload-trigger-bg: initial; /* var(--button-default-bg, var(--color-primary)) */
+  --file-upload-trigger-bg-hover: initial; /* var(--button-default-bg-hover, var(--color-foreground)) */
+  --file-upload-trigger-border-color: initial; /* var(--button-default-border-color, var(--color-primary)) */
   --file-upload-trigger-border-width: initial; /* var(--button-border-width, var(--border-width-sm)) */
-  --file-upload-trigger-color: initial; /* var(--button-color, var(--color-primary-foreground)) */
+  --file-upload-trigger-color: initial; /* var(--button-default-color, var(--color-primary-foreground)) */
   --file-upload-trigger-font-size: initial; /* var(--button-font-size, var(--text-sm)) */
   --file-upload-trigger-font-weight: initial; /* var(--button-font-weight, var(--weight-medium)) */
   --file-upload-trigger-gap: initial; /* var(--button-content-gap, var(--spacing-2)) */
