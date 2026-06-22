@@ -1,0 +1,752 @@
+---
+title: File Upload
+description: Ark UI file upload composition for selecting, dropping, validating, and previewing files.
+icon: Component
+---
+
+import {
+  ControlledFileUploadExample,
+  CustomStylingFileUploadExample,
+  FileUploadAcceptedTypesExample,
+  FileUploadCssPropertiesPanel,
+  FileUploadDirectoryExample,
+  FileUploadDropzoneDemo,
+  FileUploadErrorHandlingExample,
+  FileUploadExample,
+  FileUploadFormExample,
+  FileUploadInitialFilesExample,
+  FileUploadMediaCaptureExample,
+  FileUploadRejectedFilesExample,
+  FileUploadRootProviderExample,
+  FileUploadTransformFilesExample,
+  FileUploadWithFieldExample,
+  fileUploadAcceptedTypesData,
+  fileUploadBasicData,
+  fileUploadCustomStylingCss,
+  fileUploadDirectoryData,
+  fileUploadDropzoneData,
+  fileUploadErrorHandlingData,
+  fileUploadExampleCss,
+  fileUploadFormData,
+  fileUploadInitialFilesData,
+  fileUploadMediaCaptureData,
+  fileUploadRejectedFilesData,
+  fileUploadRootProviderData,
+  fileUploadTransformData,
+} from '@/components/examples/file-upload';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/file-upload" />
+
+## Basic
+
+Use `FileUpload` as the root, render a `Label`, add either a `Trigger` or `Dropzone`, list files
+from `FileUpload.Context`, and keep `HiddenInput` in the tree for native form behavior.
+
+<Preview>
+  <FileUploadExample />
+
+  <Preview.Code>
+    {`
+      import { FileUpload } from "@moduix/react";
+
+      export function FileUploadDemo() {
+        return (
+          <FileUpload className="file-upload-demo file-upload-simple-demo" maxFiles={3}>
+            <FileUpload.Label>Attachments</FileUpload.Label>
+            <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+            <FileUpload.ItemGroup>
+              <FileUpload.Context>
+                {({ acceptedFiles }) =>
+                  acceptedFiles.map((file) => (
+                    <FileUpload.Item key={file.name} file={file}>
+                      <FileUpload.ItemName />
+                      <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                    </FileUpload.Item>
+                  ))
+                }
+              </FileUpload.Context>
+            </FileUpload.ItemGroup>
+            <FileUpload.HiddenInput />
+          </FileUpload>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadBasicData}</Preview.Data>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `FileUpload` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/react-file-upload
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/react-file-upload
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/react-file-upload
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-file-upload
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/react-file-upload
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+FileUpload / FileUpload.Root
+├─ FileUpload.Label
+├─ FileUpload.Dropzone
+│  ├─ FileUpload.DropzoneIcon
+│  └─ FileUpload.Trigger
+├─ FileUpload.ItemGroup[type]
+│  └─ FileUpload.Context
+│     └─ FileUpload.Item[file]
+│        ├─ FileUpload.ItemPreview[type]
+│        │  └─ FileUpload.ItemPreviewImage
+│        ├─ FileUpload.ItemName
+│        ├─ FileUpload.ItemSizeText
+│        └─ FileUpload.ItemDeleteTrigger
+├─ FileUpload.ClearTrigger
+└─ FileUpload.HiddenInput
+```
+
+| Part                             | Role                                                                 |
+| -------------------------------- | -------------------------------------------------------------------- |
+| `FileUpload` / `FileUpload.Root` | Owns file state, validation, drag/drop, paste, and form integration. |
+| `FileUpload.RootProvider`        | Renders a file upload tree from state returned by `useFileUpload`.   |
+| `FileUpload.Label`               | Accessible label for the hidden input and upload controls.           |
+| `FileUpload.Dropzone`            | Drag/drop target. Use `disableClick` with a nested trigger.          |
+| `FileUpload.DropzoneIcon`        | Decorative upload icon helper for dropzone surfaces.                 |
+| `FileUpload.Trigger`             | Button that opens the native file picker.                            |
+| `FileUpload.HiddenInput`         | Native file input for forms, validation, reset, and submission.      |
+| `FileUpload.ItemGroup`           | List wrapper for accepted or rejected file items.                    |
+| `FileUpload.Item`                | File row. Pass the current `file` object.                            |
+| `FileUpload.ItemPreview`         | Conditional preview slot matched by MIME type.                       |
+| `FileUpload.ItemPreviewImage`    | Image preview rendered inside `ItemPreview type="image/*"`.          |
+| `FileUpload.ItemName`            | File name text.                                                      |
+| `FileUpload.ItemSizeText`        | Localized file size text.                                            |
+| `FileUpload.ItemDeleteTrigger`   | Removes one file. Defaults to the moduix trash icon.                 |
+| `FileUpload.ClearTrigger`        | Clears selected files. Defaults to the moduix close icon.            |
+| `FileUpload.Context`             | Inline access to accepted files, rejected files, and machine APIs.   |
+| `useFileUpload` / context hooks  | External state and custom child-part access.                         |
+
+## Composition
+
+### Recommended composition
+
+Keep the Ark part tree visible. Use `Trigger` for compact upload controls and `Dropzone` for
+drag-and-drop surfaces. If `Trigger` is nested inside `Dropzone`, pass `disableClick` to `Dropzone`
+so the native file picker is not opened twice.
+
+Render `HiddenInput` whenever the upload participates in a form. Read accepted files from
+`FileUpload.Context.acceptedFiles` and rejected files from `FileUpload.Context.rejectedFiles`.
+
+### When to go custom
+
+Use the compact item shape for simple attachment lists. Add `ItemPreview type="image/*"` and a
+fallback `ItemPreview type=".*"` when a dropzone or media flow benefits from richer rows. Use
+`asChild` only when the child is a single semantic element that can preserve the required button,
+label, or input behavior.
+
+### Default props
+
+| Prop                  | Default | Notes                                                        |
+| --------------------- | ------- | ------------------------------------------------------------ |
+| `allowDrop`           | `true`  | Enables drag/drop on `Dropzone`.                             |
+| `maxFiles`            | `1`     | Increase or remove it for multi-file and directory uploads.  |
+| `minFileSize`         | `0`     | Minimum accepted file size in bytes.                         |
+| `maxFileSize`         | `∞`     | Maximum accepted file size in bytes.                         |
+| `preventDocumentDrop` | `true`  | Prevents accidental navigation when dropping outside target. |
+| `locale`              | `en-US` | Used for file size formatting.                               |
+
+### Behavioral notes
+
+`acceptedFiles`, `defaultAcceptedFiles`, and `onFileChange(details)` preserve Ark controlled and
+uncontrolled state. `onFileAccept(details)` and `onFileReject(details)` keep Ark detail objects.
+`Field.Root` and `Fieldset.Root` can provide disabled, invalid, required, and read-only state.
+Use `ids` when separate labels or descriptions need stable accessibility links.
+
+## Examples
+
+### Dropzone
+
+Use `Dropzone` for drag-and-drop uploads. Keep a nested `Trigger` for keyboard and picker access.
+
+<Preview>
+  <FileUploadDropzoneDemo />
+
+  <Preview.Code>
+    {`
+      <FileUpload maxFiles={5}>
+        <FileUpload.Label>Project files</FileUpload.Label>
+        <FileUpload.Dropzone disableClick>
+          <FileUpload.DropzoneIcon />
+          <div className="file-upload-dropzone-content">
+            <span className="file-upload-dropzone-title">Drag and drop files here</span>
+            <span className="file-upload-dropzone-description">or browse from your device</span>
+            <FileUpload.Trigger>Browse files</FileUpload.Trigger>
+          </div>
+        </FileUpload.Dropzone>
+        <FileUpload.ItemGroup>
+          <FileUpload.Context>
+            {({ acceptedFiles }) =>
+              acceptedFiles.map((file) => (
+                <FileUpload.Item key={file.name} file={file}>
+                  <FileUpload.ItemName />
+                  <FileUpload.ItemSizeText />
+                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                </FileUpload.Item>
+              ))
+            }
+          </FileUpload.Context>
+        </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
+      </FileUpload>
+    `}
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadDropzoneData}</Preview.Data>
+</Preview>
+
+### Accepted File Types
+
+Restrict picker and drop validation with `accept`. MIME types and extensions are both supported by Ark.
+
+<Preview>
+  <FileUploadAcceptedTypesExample />
+
+  <Preview.Code>
+    {`
+      <FileUpload accept="image/png,image/jpeg" maxFiles={4}>
+        <FileUpload.Label>Images</FileUpload.Label>
+        <FileUpload.Dropzone disableClick>
+          <FileUpload.DropzoneIcon />
+          <div className="file-upload-dropzone-content">
+            <span className="file-upload-dropzone-title">Drop PNG or JPEG files here</span>
+            <span className="file-upload-dropzone-description">Only PNG and JPEG files are accepted</span>
+            <FileUpload.Trigger>Select images</FileUpload.Trigger>
+          </div>
+        </FileUpload.Dropzone>
+        <FileUpload.ItemGroup>
+          <FileUpload.Context>
+            {({ acceptedFiles }) =>
+              acceptedFiles.map((file) => (
+                <FileUpload.Item key={file.name} file={file}>
+                  <FileUpload.ItemName />
+                  <FileUpload.ItemSizeText />
+                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                </FileUpload.Item>
+              ))
+            }
+          </FileUpload.Context>
+        </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
+      </FileUpload>
+    `}
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadAcceptedTypesData}</Preview.Data>
+</Preview>
+
+### Rejected Files
+
+Render `rejectedFiles` in a separate `ItemGroup type="rejected"` when users need to see validation failures.
+
+<Preview>
+  <FileUploadRejectedFilesExample />
+
+  <Preview.Code>
+    {`
+      <FileUpload accept="image/*" maxFiles={2} maxFileSize={120_000}>
+        <FileUpload.Label>Images</FileUpload.Label>
+        <FileUpload.Trigger>Select images</FileUpload.Trigger>
+        <FileUpload.ItemGroup>
+          <FileUpload.Context>
+            {({ acceptedFiles }) =>
+              acceptedFiles.map((file) => (
+                <FileUpload.Item key={file.name} file={file}>
+                  <FileUpload.ItemName />
+                  <FileUpload.ItemSizeText />
+                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                </FileUpload.Item>
+              ))
+            }
+          </FileUpload.Context>
+        </FileUpload.ItemGroup>
+        <FileUpload.ItemGroup type="rejected">
+          <FileUpload.Context>
+            {({ rejectedFiles }) =>
+              rejectedFiles.map(({ file, errors }) => (
+                <FileUpload.Item key={file.name} file={file}>
+                  <FileUpload.ItemName />
+                  <p className="file-upload-error">{errors.join(", ")}</p>
+                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                </FileUpload.Item>
+              ))
+            }
+          </FileUpload.Context>
+        </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
+      </FileUpload>
+    `}
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadRejectedFilesData}</Preview.Data>
+</Preview>
+
+### Error Handling
+
+Use `onFileReject(details)` for application feedback and keep validation constraints on the root.
+
+<Preview>
+  <FileUploadErrorHandlingExample />
+
+  <Preview.Code>
+    {`
+      const [message, setMessage] = useState("");
+
+      <div className="file-upload-stack">
+        <FileUpload
+          className="file-upload-demo file-upload-simple-demo"
+          accept="image/*"
+          maxFiles={2}
+          maxFileSize={120_000}
+          onFileReject={(details) => setMessage(\`\${details.files.length} file(s) rejected\`)}
+          onFileAccept={() => setMessage("Files accepted")}
+        >
+          <FileUpload.Label>Images</FileUpload.Label>
+          <FileUpload.Trigger>Select images</FileUpload.Trigger>
+          <FileUpload.ItemGroup>
+            <FileUpload.Context>
+              {({ acceptedFiles }) =>
+                acceptedFiles.map((file) => (
+                  <FileUpload.Item key={file.name} file={file}>
+                    <FileUpload.ItemName />
+                    <FileUpload.ItemSizeText />
+                    <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                  </FileUpload.Item>
+                ))
+              }
+            </FileUpload.Context>
+          </FileUpload.ItemGroup>
+          <FileUpload.ItemGroup type="rejected">
+            <FileUpload.Context>
+              {({ rejectedFiles }) =>
+                rejectedFiles.map(({ file, errors }) => (
+                  <FileUpload.Item key={file.name} file={file}>
+                    <FileUpload.ItemName />
+                    <p className="file-upload-error">{errors.join(", ")}</p>
+                    <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                  </FileUpload.Item>
+                ))
+              }
+            </FileUpload.Context>
+          </FileUpload.ItemGroup>
+          <FileUpload.HiddenInput />
+        </FileUpload>
+        <p className="file-upload-state">{message || "No files selected"}</p>
+      </div>
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadErrorHandlingData}</Preview.Data>
+</Preview>
+
+### Controlled
+
+Control `acceptedFiles` when selected files need to coordinate with external state or multi-step flows.
+
+<Preview>
+  <ControlledFileUploadExample />
+
+  <Preview.Code>
+    {`
+      const [files, setFiles] = useState(getInitialFiles());
+
+      <FileUpload
+        className="file-upload-demo file-upload-simple-demo"
+        acceptedFiles={files}
+        onFileChange={(details) => setFiles(details.acceptedFiles)}
+      >
+        <FileUpload.Label>Attachments</FileUpload.Label>
+        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+        <FileUpload.ItemGroup>
+          <FileUpload.Context>
+            {({ acceptedFiles }) =>
+              acceptedFiles.map((file) => (
+                <FileUpload.Item key={file.name} file={file}>
+                  <FileUpload.ItemName />
+                  <FileUpload.ItemSizeText />
+                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                </FileUpload.Item>
+              ))
+            }
+          </FileUpload.Context>
+        </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
+      </FileUpload>
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadInitialFilesData}</Preview.Data>
+</Preview>
+
+### Initial Files
+
+Use `defaultAcceptedFiles` when the upload should start with existing files and then manage itself.
+
+<Preview>
+  <FileUploadInitialFilesExample />
+
+  <Preview.Code>
+    {`
+      <FileUpload className="file-upload-demo file-upload-simple-demo" defaultAcceptedFiles={initialFiles}>
+        <FileUpload.Label>Attachments</FileUpload.Label>
+        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+        <FileUpload.ItemGroup>
+          <FileUpload.Context>
+            {({ acceptedFiles }) =>
+              acceptedFiles.map((file) => (
+                <FileUpload.Item key={file.name} file={file}>
+                  <FileUpload.ItemName />
+                  <FileUpload.ItemSizeText />
+                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                </FileUpload.Item>
+              ))
+            }
+          </FileUpload.Context>
+        </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
+      </FileUpload>
+    `}
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadInitialFilesData}</Preview.Data>
+</Preview>
+
+### With Field
+
+Wrap the upload in `Field.Root` when helper text, error text, required state, or invalid state belongs to the form field.
+
+<Preview>
+  <FileUploadWithFieldExample />
+
+  <Preview.Code>
+    {`
+      <Field.Root className="file-upload-demo file-upload-simple-demo" required>
+        <FileUpload name="attachments" maxFiles={3}>
+          <FileUpload.Label>Required attachments</FileUpload.Label>
+          <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+          <FileUpload.ItemGroup>
+            <FileUpload.Context>
+              {({ acceptedFiles }) =>
+                acceptedFiles.map((file) => (
+                  <FileUpload.Item key={file.name} file={file}>
+                    <FileUpload.ItemName />
+                    <FileUpload.ItemSizeText />
+                    <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                  </FileUpload.Item>
+                ))
+              }
+            </FileUpload.Context>
+          </FileUpload.ItemGroup>
+          <FileUpload.HiddenInput />
+        </FileUpload>
+        <Field.HelperText>Upload up to three files.</Field.HelperText>
+        <Field.ErrorText>Upload at least one file.</Field.ErrorText>
+      </Field.Root>
+    `}
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadFormData}</Preview.Data>
+</Preview>
+
+### Form Usage
+
+Pass `name` to the root and render `HiddenInput` so native form submission and reset can include the file input.
+
+<Preview>
+  <FileUploadFormExample />
+
+  <Preview.Code>
+    {`
+      <form className="file-upload-stack" onSubmit={(event) => event.preventDefault()}>
+        <FileUpload
+          className="file-upload-demo file-upload-simple-demo"
+          name="project-assets"
+          maxFiles={3}
+        >
+          <FileUpload.Label>Project assets</FileUpload.Label>
+          <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+          <FileUpload.ItemGroup>
+            <FileUpload.Context>
+              {({ acceptedFiles }) =>
+                acceptedFiles.map((file) => (
+                  <FileUpload.Item key={file.name} file={file}>
+                    <FileUpload.ItemName />
+                    <FileUpload.ItemSizeText />
+                    <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                  </FileUpload.Item>
+                ))
+              }
+            </FileUpload.Context>
+          </FileUpload.ItemGroup>
+          <FileUpload.HiddenInput />
+        </FileUpload>
+        <button className="file-upload-submit" type="submit">Submit</button>
+      </form>
+    `}
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadFormData}</Preview.Data>
+</Preview>
+
+### Root Provider And Paste
+
+Use `useFileUpload` with `RootProvider` when state or methods need to be owned outside the rendered upload tree.
+
+<Preview>
+  <FileUploadRootProviderExample />
+
+  <Preview.Code>
+    {`
+      const fileUpload = useFileUpload({ maxFiles: 3, accept: "image/*" });
+
+      <FileUpload.RootProvider className="file-upload-demo file-upload-simple-demo" value={fileUpload}>
+        <FileUpload.Label>Images</FileUpload.Label>
+        <Textarea
+          placeholder="Paste an image here"
+          onPaste={(event) => fileUpload.setClipboardFiles(event.clipboardData)}
+        />
+        <FileUpload.ItemGroup>
+          <FileUpload.Context>
+            {({ acceptedFiles }) =>
+              acceptedFiles.map((file) => (
+                <FileUpload.Item key={file.name} file={file}>
+                  <FileUpload.ItemName />
+                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                </FileUpload.Item>
+              ))
+            }
+          </FileUpload.Context>
+        </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
+      </FileUpload.RootProvider>
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadRootProviderData}</Preview.Data>
+</Preview>
+
+### Directory Upload
+
+Use `directory` for folder upload. Browsers that support it expose relative paths on `file.webkitRelativePath`.
+
+<Preview>
+  <FileUploadDirectoryExample />
+
+  <Preview.Code>
+    {`
+      <FileUpload className="file-upload-demo file-upload-simple-demo" directory maxFiles={20}>
+        <FileUpload.Label>Folder</FileUpload.Label>
+        <FileUpload.Trigger>Choose folder</FileUpload.Trigger>
+        <FileUpload.ItemGroup>
+          <FileUpload.Context>
+            {({ acceptedFiles }) =>
+              acceptedFiles.map((file) => (
+                <FileUpload.Item key={file.name} file={file}>
+                  <FileUpload.ItemName>{file.webkitRelativePath || file.name}</FileUpload.ItemName>
+                  <FileUpload.ItemSizeText />
+                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                </FileUpload.Item>
+              ))
+            }
+          </FileUpload.Context>
+        </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
+      </FileUpload>
+    `}
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadDirectoryData}</Preview.Data>
+</Preview>
+
+### Media Capture
+
+Use `capture` with an image or video `accept` value to hint that mobile browsers should open a camera.
+
+<Preview>
+  <FileUploadMediaCaptureExample />
+
+  <Preview.Code>
+    {`
+      <FileUpload accept="image/*" capture="environment" maxFiles={1}>
+        <FileUpload.Label>Photo</FileUpload.Label>
+        <FileUpload.Dropzone disableClick>
+          <FileUpload.DropzoneIcon />
+          <div className="file-upload-dropzone-content">
+            <span className="file-upload-dropzone-title">Drop an image or open the camera</span>
+            <span className="file-upload-dropzone-description">One image from the environment camera</span>
+            <FileUpload.Trigger>Open camera</FileUpload.Trigger>
+          </div>
+        </FileUpload.Dropzone>
+        <FileUpload.ItemGroup>
+          <FileUpload.Context>
+            {({ acceptedFiles }) =>
+              acceptedFiles.map((file) => (
+                <FileUpload.Item key={file.name} file={file}>
+                  <FileUpload.ItemPreview type="image/*">
+                    <FileUpload.ItemPreviewImage />
+                  </FileUpload.ItemPreview>
+                  <FileUpload.ItemName />
+                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                </FileUpload.Item>
+              ))
+            }
+          </FileUpload.Context>
+        </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
+      </FileUpload>
+    `}
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadMediaCaptureData}</Preview.Data>
+</Preview>
+
+### Transform Files
+
+Use `transformFiles(files)` for async processing before files enter accepted state.
+
+<Preview>
+  <FileUploadTransformFilesExample />
+
+  <Preview.Code>
+    {`
+      async function transformFiles(files) {
+        return files.map((file) => new File([file], file.name.toLowerCase(), { type: file.type }));
+      }
+
+      <FileUpload
+        className="file-upload-demo file-upload-simple-demo"
+        accept="image/*"
+        transformFiles={transformFiles}
+      >
+        <FileUpload.Label>Images</FileUpload.Label>
+        <FileUpload.Trigger>Choose images</FileUpload.Trigger>
+        <FileUpload.ItemGroup>
+          <FileUpload.Context>
+            {({ acceptedFiles }) =>
+              acceptedFiles.map((file) => (
+                <FileUpload.Item key={file.name} file={file}>
+                  <FileUpload.ItemName />
+                  <FileUpload.ItemSizeText />
+                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                </FileUpload.Item>
+              ))
+            }
+          </FileUpload.Context>
+        </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
+      </FileUpload>
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadTransformData}</Preview.Data>
+</Preview>
+
+### Custom Styling
+
+Customize with `className`, `data-slot`, Ark `data-part`, and state attributes such as `data-dragging` or `data-invalid`.
+
+<Preview>
+  <CustomStylingFileUploadExample />
+
+  <Preview.Code>
+    {`
+      <FileUpload maxFiles={2}>
+        <FileUpload.Label>Brand assets</FileUpload.Label>
+        <FileUpload.Dropzone className="file-upload-custom-dropzone" disableClick>
+          <FileUpload.DropzoneIcon />
+          <div className="file-upload-dropzone-content">
+            <span className="file-upload-dropzone-title">Drop files here</span>
+            <span className="file-upload-dropzone-description">SVG, PNG, or PDF</span>
+            <FileUpload.Trigger className="file-upload-custom-trigger">Browse files</FileUpload.Trigger>
+          </div>
+        </FileUpload.Dropzone>
+        <FileUpload.ItemGroup>
+          <FileUpload.Context>
+            {({ acceptedFiles }) =>
+              acceptedFiles.map((file) => (
+                <FileUpload.Item key={file.name} file={file}>
+                  <FileUpload.ItemName />
+                  <FileUpload.ItemSizeText />
+                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                </FileUpload.Item>
+              ))
+            }
+          </FileUpload.Context>
+        </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
+      </FileUpload>
+    `}
+  </Preview.Code>
+  <Preview.CSS>{fileUploadCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{fileUploadDropzoneData}</Preview.Data>
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']}>
+    <Tab value="CSS Variables">
+      <div className="max-h-96 overflow-auto">
+        <FileUploadCssPropertiesPanel />
+      </div>
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Target stable moduix slots such as `[data-slot="file-upload-dropzone"]`,
+`[data-slot="file-upload-item"]`, and `[data-slot="file-upload-item-delete-trigger"]`.
+Ark also exposes `data-scope="file-upload"`, part-specific `data-part`, and state attributes:
+`data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-dragging`, and `data-type`.

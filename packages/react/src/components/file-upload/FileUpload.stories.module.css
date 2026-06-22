@@ -1,0 +1,65 @@
+@layer ui.storybook {
+  .stack {
+    display: grid;
+    gap: var(--spacing-3);
+    width: min(28rem, 100%);
+  }
+
+  .simpleDemo {
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-4);
+    background-color: color-mix(in oklab, var(--color-muted) 32%, var(--color-background));
+  }
+
+  .dropzoneContent {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing-1);
+  }
+
+  .dropzoneTitle {
+    color: var(--color-foreground);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    line-height: var(--line-height-text-sm);
+  }
+
+  .dropzoneDescription {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-text-xs);
+  }
+
+  .hint,
+  .state,
+  .errorText {
+    margin: 0;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-text-xs);
+  }
+
+  .errorText {
+    color: var(--color-destructive);
+  }
+
+  .fileIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    color: currentColor;
+  }
+
+  .customDropzone {
+    border-color: var(--color-primary);
+    background-color: color-mix(in oklab, var(--color-primary) 5%, var(--color-background));
+  }
+
+  .customTrigger {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+  }
+}

@@ -19,4 +19,6 @@ export {
   RatingStarIcon,
   ScrubCursorIcon,
   SeparatorMarkIcon,
+  TrashIcon,
+  UploadIcon,
 } from './Icons';

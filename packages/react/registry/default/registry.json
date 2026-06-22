@@ -764,6 +764,31 @@
       ]
     },
     {
+      "name": "react-file-upload",
+      "type": "registry:item",
+      "title": "FileUpload",
+      "description": "moduix React FileUpload component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/file-upload/FileUpload.tsx",
+          "target": "@components/moduix/file-upload/FileUpload.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/file-upload/FileUpload.module.css",
+          "target": "@components/moduix/file-upload/FileUpload.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/file-upload/index.ts",
+          "target": "@components/moduix/file-upload/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-fieldset",
       "type": "registry:item",
       "title": "Fieldset",

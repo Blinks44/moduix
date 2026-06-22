@@ -1121,6 +1121,88 @@
   --editable-trigger-size: initial; /* var(--size-md) */
   --editable-width: initial; /* auto */
 
+  /* FileUpload */
+  --file-upload-action-bg: initial; /* transparent */
+  --file-upload-action-bg-hover: initial; /* var(--color-muted) */
+  --file-upload-action-color: initial; /* var(--color-muted-foreground) */
+  --file-upload-action-color-hover: initial; /* var(--color-foreground) */
+  --file-upload-action-icon-size: initial; /* 1rem */
+  --file-upload-action-radius: initial; /* var(--radius-sm) */
+  --file-upload-action-size: initial; /* 1.75rem */
+  --file-upload-clear-trigger-color: initial; /* var(--color-muted-foreground) */
+  --file-upload-clear-trigger-font-size: initial; /* var(--text-sm) */
+  --file-upload-clear-trigger-gap: initial; /* var(--spacing-2) */
+  --file-upload-clear-trigger-line-height: initial; /* var(--line-height-text-sm) */
+  --file-upload-clear-trigger-padding-x: initial; /* var(--spacing-2) */
+  --file-upload-color: initial; /* var(--color-foreground) */
+  --file-upload-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --file-upload-dropzone-bg: initial; /* var(--color-background) */
+  --file-upload-dropzone-bg-dragging: initial; /* var(--color-accent) */
+  --file-upload-dropzone-border-color: initial; /* var(--color-border) */
+  --file-upload-dropzone-border-color-dragging: initial; /* var(--color-primary) */
+  --file-upload-dropzone-border-width: initial; /* var(--border-width-sm) */
+  --file-upload-dropzone-color: initial; /* var(--color-muted-foreground) */
+  --file-upload-dropzone-color-dragging: initial; /* var(--color-foreground) */
+  --file-upload-dropzone-gap: initial; /* var(--spacing-3) */
+  --file-upload-dropzone-icon-bg: initial; /* var(--color-muted) */
+  --file-upload-dropzone-icon-border-color: initial; /* var(--color-border) */
+  --file-upload-dropzone-icon-border-width: initial; /* var(--border-width-sm) */
+  --file-upload-dropzone-icon-box-size: initial; /* 2.75rem */
+  --file-upload-dropzone-icon-color: initial; /* var(--color-foreground) */
+  --file-upload-dropzone-icon-radius: initial; /* var(--radius-full) */
+  --file-upload-dropzone-icon-size: initial; /* 1.125rem */
+  --file-upload-dropzone-min-height: initial; /* 8rem */
+  --file-upload-dropzone-padding: initial; /* var(--spacing-5) */
+  --file-upload-focus-ring-color: initial; /* var(--color-ring) */
+  --file-upload-focus-ring-offset: initial; /* var(--border-width-sm) */
+  --file-upload-focus-ring-width: initial; /* var(--border-width-md) */
+  --file-upload-gap: initial; /* var(--spacing-3) */
+  --file-upload-invalid-color: initial; /* var(--color-destructive) */
+  --file-upload-item-bg: initial; /* var(--color-background) */
+  --file-upload-item-border-color: initial; /* var(--color-border) */
+  --file-upload-item-border-width: initial; /* var(--border-width-sm) */
+  --file-upload-item-color: initial; /* var(--color-foreground) */
+  --file-upload-item-gap: initial; /* var(--spacing-3) */
+  --file-upload-item-group-gap: initial; /* var(--spacing-2) */
+  --file-upload-item-min-height: initial; /* 2.5rem */
+  --file-upload-item-name-color: initial; /* currentColor */
+  --file-upload-item-name-font-size: initial; /* var(--text-sm) */
+  --file-upload-item-name-font-weight: initial; /* var(--weight-medium) */
+  --file-upload-item-name-line-height: initial; /* var(--line-height-text-sm) */
+  --file-upload-item-padding-x: initial; /* var(--spacing-3) */
+  --file-upload-item-padding-y: initial; /* 0.375rem */
+  --file-upload-item-preview-bg: initial; /* var(--color-muted) */
+  --file-upload-item-preview-color: initial; /* var(--color-muted-foreground) */
+  --file-upload-item-preview-min-height: initial; /* 3rem */
+  --file-upload-item-preview-padding-y: initial; /* var(--spacing-2) */
+  --file-upload-item-preview-radius: initial; /* var(--radius-sm) */
+  --file-upload-item-preview-size: initial; /* 2rem */
+  --file-upload-item-radius: initial; /* var(--radius-md) */
+  --file-upload-item-row-gap: initial; /* 0.125rem */
+  --file-upload-item-size-color: initial; /* var(--color-muted-foreground) */
+  --file-upload-item-size-font-size: initial; /* var(--text-xs) */
+  --file-upload-item-size-line-height: initial; /* var(--line-height-text-xs) */
+  --file-upload-label-color: initial; /* var(--file-upload-color, var(--color-foreground)) */
+  --file-upload-label-font-size: initial; /* var(--text-sm) */
+  --file-upload-label-font-weight: initial; /* var(--weight-medium) */
+  --file-upload-label-line-height: initial; /* var(--line-height-text-sm) */
+  --file-upload-max-width: initial; /* 28rem */
+  --file-upload-radius: initial; /* var(--radius-md) */
+  --file-upload-transition: initial; /* var(--transition-default) */
+  --file-upload-trigger-bg: initial; /* var(--button-bg, var(--color-primary)) */
+  --file-upload-trigger-bg-hover: initial; /* var(--button-bg-hover, var(--color-primary)) */
+  --file-upload-trigger-border-color: initial; /* var(--button-border-color, transparent) */
+  --file-upload-trigger-border-width: initial; /* var(--button-border-width, var(--border-width-sm)) */
+  --file-upload-trigger-color: initial; /* var(--button-color, var(--color-primary-foreground)) */
+  --file-upload-trigger-font-size: initial; /* var(--button-font-size, var(--text-sm)) */
+  --file-upload-trigger-font-weight: initial; /* var(--button-font-weight, var(--weight-medium)) */
+  --file-upload-trigger-gap: initial; /* var(--button-content-gap, var(--spacing-2)) */
+  --file-upload-trigger-height: initial; /* var(--button-size-md, var(--size-lg)) */
+  --file-upload-trigger-line-height: initial; /* var(--button-line-height, var(--line-height-text-sm)) */
+  --file-upload-trigger-padding-x: initial; /* var(--button-padding-x-md, 1rem) */
+  --file-upload-trigger-radius: initial; /* var(--button-radius, var(--radius-md)) */
+  --file-upload-width: initial; /* 100% */
+
   /* Field */
   --field-color: initial; /* var(--color-foreground) */
   --field-control-bg: initial; /* var(--color-background) */

@@ -27,6 +27,7 @@ export * from './components/drawer';
 export * from './components/editable';
 export * from './components/empty';
 export * from './components/field';
+export * from './components/file-upload';
 export * from './components/fieldset';
 export * from './components/heading';
 export * from './components/input';
