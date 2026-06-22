@@ -589,6 +589,31 @@
       ]
     },
     {
+      "name": "react-date-picker",
+      "type": "registry:item",
+      "title": "DatePicker",
+      "description": "moduix React DatePicker component.",
+      "dependencies": ["@ark-ui/react", "@internationalized/date", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/date-picker/DatePicker.tsx",
+          "target": "@components/moduix/date-picker/DatePicker.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/date-picker/DatePicker.module.css",
+          "target": "@components/moduix/date-picker/DatePicker.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/date-picker/index.ts",
+          "target": "@components/moduix/date-picker/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-clipboard",
       "type": "registry:item",
       "title": "Clipboard",

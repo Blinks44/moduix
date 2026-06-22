@@ -1,0 +1,370 @@
+---
+title: Date Picker
+description: Ark UI calendar picker for editable, popup, inline, range, and multiple date selection.
+icon: Component
+---
+
+import {
+  ControlledDatePickerExample,
+  CustomStylesDatePickerExample,
+  DatePickerCssPropertiesPanel,
+  DatePickerExample,
+  FieldDatePickerExample,
+  InlineDatePickerExample,
+  LocaleDatePickerExample,
+  MinMaxDatePickerExample,
+  MonthYearSelectDatePickerExample,
+  MultipleDatePickerExample,
+  MultipleMonthsDatePickerExample,
+  PresetDatePickerExample,
+  RangeDatePickerExample,
+  RootProviderDatePickerExample,
+  datePickerBasicCode,
+  datePickerControlledCode,
+  datePickerCustomStylesCode,
+  datePickerExampleCss,
+  datePickerFieldStateCode,
+  datePickerInlineCode,
+  datePickerLocaleCode,
+  datePickerMinMaxCode,
+  datePickerMonthYearSelectCode,
+  datePickerMultipleCode,
+  datePickerMultipleMonthsCode,
+  datePickerNoData,
+  datePickerPresetsCode,
+  datePickerRangeData,
+  datePickerRangeCode,
+  datePickerRootProviderCode,
+  datePickerValidationData,
+} from '@/components/examples/date-picker';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/date-picker" />
+
+## Choosing The Right Component
+
+- Choose **`Input`** for plain date strings without calendar behavior.
+- Choose **`DateInput`** for keyboard-first segmented date entry.
+- Choose **`DatePicker`** when users need an editable input plus a calendar popup or inline calendar.
+
+## Basic
+
+`DatePicker` keeps Ark's explicit composition: render the input field, then render the calendar
+views with `DatePicker.Context`. The wrapper adds styling, `data-slot` attributes, and default
+icons for trigger buttons.
+
+<Preview>
+  <DatePickerExample />
+
+<Preview.Code>{datePickerBasicCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{datePickerNoData}</Preview.Data>
+</Preview>
+
+## Install With Shadcn (Optional)
+
+If you want `Date Picker` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/react-date-picker
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/react-date-picker
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/react-date-picker
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-date-picker
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/react-date-picker
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+DatePicker / DatePicker.Root
+├─ DatePicker.Label
+├─ DatePicker.Control
+│  ├─ DatePicker.Input
+│  ├─ DatePicker.ClearTrigger
+│  └─ DatePicker.Trigger
+├─ Portal
+│  └─ DatePicker.Positioner
+│     └─ DatePicker.Content
+│        ├─ DatePicker.View[view="day" | "month" | "year"]
+│        │  ├─ DatePicker.ViewControl
+│        │  │  ├─ DatePicker.PrevTrigger
+│        │  │  ├─ DatePicker.ViewTrigger / DatePicker.RangeText
+│        │  │  └─ DatePicker.NextTrigger
+│        │  └─ DatePicker.Table
+│        │     ├─ DatePicker.TableHead / TableBody / TableRow
+│        │     ├─ DatePicker.TableHeader
+│        │     ├─ DatePicker.TableCell
+│        │     └─ DatePicker.TableCellTrigger
+│        ├─ DatePicker.MonthSelect / DatePicker.YearSelect
+│        ├─ DatePicker.PresetTrigger
+│        └─ DatePicker.Context
+```
+
+| Part                             | Role                                                            |
+| -------------------------------- | --------------------------------------------------------------- |
+| `DatePicker` / `DatePicker.Root` | Root value, view, open state, locale, validation, form context. |
+| `DatePicker.RootProvider`        | Renders parts from state returned by `useDatePicker()`.         |
+| `DatePicker.Label`               | Accessible label.                                               |
+| `DatePicker.Control`             | Input field wrapper that receives Ark state attributes.         |
+| `DatePicker.Input`               | Editable date text and native form input.                       |
+| `DatePicker.Trigger`             | Opens the calendar, defaults to a calendar icon.                |
+| `DatePicker.ClearTrigger`        | Clears the current value, defaults to a close icon.             |
+| `DatePicker.Positioner`          | Floating layer using Ark positioning CSS variables.             |
+| `DatePicker.Content`             | Calendar surface for popup or inline mode.                      |
+| `DatePicker.View`                | Day, month, or year panel.                                      |
+| `DatePicker.Context`             | Access to Ark weeks, months, years, state, and helpers.         |
+| `DatePicker.Table*`              | Calendar table composition.                                     |
+| `DatePicker.MonthSelect`         | Native month select connected to focused date.                  |
+| `DatePicker.YearSelect`          | Native year select connected to focused date.                   |
+| `DatePicker.PresetTrigger`       | Preset range button.                                            |
+
+## Composition
+
+`value`, `defaultValue`, and `onValueChange(details)` use `DateValue[]`. Use `parseDate()` for ISO
+strings in examples and tests. The default root and popup width is `18.75rem` (300px); override
+`--date-picker-width` or `--date-picker-content-width` when a wider composition is needed.
+When content is portaled, put popup sizing variables on `DatePicker.Content` or another element
+inside the portal, not only on `DatePicker.Root`.
+
+`open`, `defaultOpen`, and `onOpenChange(details)` control popup state. `view`, `defaultView`,
+`minView`, `maxView`, and `onViewChange(details)` control the active calendar panel.
+
+Use `selectionMode="single"`, `"range"`, or `"multiple"`. `maxSelectedDates` applies only to
+multiple selection. `numOfMonths`, `fixedWeeks`, and `showWeekNumbers` change the calendar table.
+
+Use `min`, `max`, and `isDateUnavailable(date, locale)` for unavailable dates. Use `locale`,
+`timeZone`, `format`, `parse`, `translations`, and `createCalendar` for localization.
+
+## Examples
+
+### Controlled
+
+Control the selected `DateValue[]` and update it from `details.value`.
+
+<Preview>
+  <ControlledDatePickerExample />
+
+<Preview.Code>{datePickerControlledCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{`const initialValue = [parseDate('2026-06-22')];`}</Preview.Data>
+</Preview>
+
+### Range
+
+Use `selectionMode="range"` with two values. Ark owns range hover, first/last-in-range state, and
+input formatting. Ark renders ranges through two indexed inputs, one for the start date and one for
+the end date.
+
+<Preview>
+  <RangeDatePickerExample />
+
+<Preview.Code>{datePickerRangeCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{datePickerRangeData}</Preview.Data>
+</Preview>
+
+### Multiple
+
+Use `selectionMode="multiple"` and optionally cap selections with `maxSelectedDates`. Ark does not
+try to squeeze multiple values into one text input; use `DatePicker.Context` to render selected-date
+chips and call `datePicker.setValue()` when a chip is removed.
+
+<Preview>
+  <MultipleDatePickerExample />
+
+<Preview.Code>{datePickerMultipleCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{`const maxSelectedDates = 3;`}</Preview.Data>
+</Preview>
+
+### Multiple Months
+
+Set `numOfMonths` when users need more context while choosing dates.
+
+<Preview>
+  <MultipleMonthsDatePickerExample />
+
+<Preview.Code>{datePickerMultipleMonthsCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{`const numOfMonths = 2;`}</Preview.Data>
+</Preview>
+
+### Month And Year Select
+
+Ark ships native `DatePicker.MonthSelect` and `DatePicker.YearSelect` parts. This example uses
+moduix `Select` with `DatePicker.Context` instead, so the header matches the rest of the library
+while still updating Ark's focused date.
+
+<Preview>
+  <MonthYearSelectDatePickerExample />
+
+<Preview.Code>{datePickerMonthYearSelectCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{datePickerNoData}</Preview.Data>
+</Preview>
+
+### Presets
+
+`DatePicker.PresetTrigger` accepts Zag range preset names such as `last7Days` or a custom
+`DateValue[]`. Use range mode with two indexed inputs so the selected preset displays both dates.
+
+<Preview>
+  <PresetDatePickerExample />
+
+<Preview.Code>{datePickerPresetsCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{`const presets = ['last7Days', 'last30Days'];`}</Preview.Data>
+</Preview>
+
+### Min, Max, And Unavailable
+
+Use `min`, `max`, and `isDateUnavailable` for validation rules that should affect both input and
+calendar cells.
+
+<Preview>
+  <MinMaxDatePickerExample />
+
+<Preview.Code>{datePickerMinMaxCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{datePickerValidationData}</Preview.Data>
+</Preview>
+
+### Locale And Format
+
+`locale`, `startOfWeek`, `format`, and `parse` pass through to Ark.
+
+<Preview>
+  <LocaleDatePickerExample />
+
+<Preview.Code>{datePickerLocaleCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{`const locale = 'de-DE';`}</Preview.Data>
+</Preview>
+
+### Inline And Week Numbers
+
+Set `inline` when the calendar should stay in the layout. Inline calendars render `Content`
+directly without `Portal` and `Positioner`.
+
+<Preview>
+  <InlineDatePickerExample />
+
+<Preview.Code>{datePickerInlineCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{`const showWeekNumbers = true;`}</Preview.Data>
+</Preview>
+
+### Field State
+
+`DatePicker` consumes Ark field state. Use `invalid`, `disabled`, `readOnly`, and `required` on the
+root when you are not composing through `Field`.
+
+<Preview>
+  <FieldDatePickerExample />
+
+<Preview.Code>{datePickerFieldStateCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{datePickerNoData}</Preview.Data>
+</Preview>
+
+### Root Provider
+
+Use `useDatePicker()` when the calendar state must be shared with external controls.
+
+<Preview>
+  <RootProviderDatePickerExample />
+
+<Preview.Code>{datePickerRootProviderCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{`const datePicker = useDatePicker({ defaultValue: [today('UTC')] });`}</Preview.Data>
+</Preview>
+
+### Custom Styles
+
+Override public `--date-picker-*` variables on the root or any wrapper.
+
+<Preview>
+  <CustomStylesDatePickerExample />
+
+<Preview.Code>{datePickerCustomStylesCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{datePickerNoData}</Preview.Data>
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <DatePickerCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="date-picker-root"` on the root.
+- `data-slot="date-picker-root-provider"` on the provider root.
+- `data-slot="date-picker-label"` on the label.
+- `data-slot="date-picker-control"` on the input wrapper.
+- `data-slot="date-picker-input"` on the editable input.
+- `data-slot="date-picker-trigger"` and `date-picker-clear-trigger` on input actions.
+- `data-slot="date-picker-positioner"` and `date-picker-content` on the floating layer.
+- `data-slot="date-picker-view"`, `view-control`, `view-trigger`, `prev-trigger`, and
+  `next-trigger` on calendar navigation.
+- `data-slot="date-picker-table*"` on table parts and `date-picker-table-cell-trigger` on cells.
+- `data-slot="date-picker-week-number-*"` on week-number cells.
+- `data-slot="date-picker-month-select"` and `date-picker-year-select` on native selects.
+- `data-slot="date-picker-preset-trigger"` on range preset buttons.
+
+Ark state attributes include `data-state`, `data-disabled`, `data-readonly`, `data-invalid`,
+`data-focus`, `data-selected`, `data-today`, `data-unavailable`, `data-outside-range`,
+`data-in-range`, `data-range-start`, `data-range-end`, `data-in-hover-range`,
+`data-hover-range-start`, `data-hover-range-end`, and `data-view`.

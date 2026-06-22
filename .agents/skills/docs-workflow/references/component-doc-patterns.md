@@ -74,6 +74,10 @@ Inside `## Styling`, always use:
 - Put example-local CSS in `Preview.CSS`.
 - Put arrays, mock payloads, and other setup data in `Preview.Data`.
 - Keep snippets self-contained and consumer-facing.
+- Prefer the Ark UI documentation style: one complete component per visible snippet, with the relevant parts inlined.
+  Do not make readers jump between hidden helper components just to understand the example. Keep helpers in the docs
+  source only when needed for maintainability, and inline them in the displayed snippet unless the helper itself is the
+  public pattern being taught.
 - Do not repeat global setup imports.
 - In runnable examples (`Preview` and `Preview.Code`), use the short root form (`<Component>`) instead of
   `<Component.Root>`, while keeping child parts namespaced (for example `<Component.Item>`).

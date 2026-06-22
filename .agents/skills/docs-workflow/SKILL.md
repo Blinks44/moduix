@@ -34,6 +34,11 @@ Use this skill for work in `apps/docs`.
 - Keep demo styles in colocated CSS Modules when that is clearer than inline styles.
 - Use existing pages as structure references, not as permission to preserve old complexity.
 - For popup and dialog families, teach the explicit Ark/Chakra composition path as the default example structure.
+- Keep `Preview.Code` snippets readable as one complete consumer component, following the Ark UI docs style. Do not
+  split the visible snippet into many local helper components such as `ComponentField`, `ComponentPopup`, or
+  `ComponentTable` unless that helper is the actual pattern being taught. If the live example uses helpers to keep
+  `apps/docs` source maintainable, inline those parts in the displayed snippet so readers can see the full composition
+  without chasing hidden code.
 - Use documentation snippets and curated examples to reduce perceived verbosity instead of inventing hidden structural wrappers.
 - Every example in `## Examples` must have a short lead-in sentence or short paragraph before the preview.
   Do not place a heading and immediately render `<Preview>`.

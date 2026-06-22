@@ -805,6 +805,119 @@
   --date-input-transition: initial; /* var(--transition-default) */
   --date-input-width: initial; /* auto */
 
+  /* DatePicker */
+  --date-picker-action-bg: initial; /* transparent */
+  --date-picker-action-bg-hover: initial; /* var(--color-muted) */
+  --date-picker-action-color-hover: initial; /* var(--color-foreground) */
+  --date-picker-action-focus-ring-offset: initial; /* 0 */
+  --date-picker-action-focus-ring-width: initial; /* var(--border-width-sm) */
+  --date-picker-action-gap: initial; /* 0.125rem */
+  --date-picker-action-radius: initial; /* var(--radius-sm) */
+  --date-picker-action-size: initial; /* 1.5rem */
+  --date-picker-bg: initial; /* var(--color-background) */
+  --date-picker-bg-hover: initial; /* var(--color-accent) */
+  --date-picker-border-color: initial; /* var(--color-border) */
+  --date-picker-border-width: initial; /* var(--border-width-sm) */
+  --date-picker-color: initial; /* var(--color-foreground) */
+  --date-picker-content-bg: initial; /* var(--color-popover) */
+  --date-picker-content-border-color: initial; /* var(--color-border) */
+  --date-picker-content-border-width: initial; /* var(--border-width-sm) */
+  --date-picker-content-closed-opacity: initial; /* 0 */
+  --date-picker-content-closed-scale: initial; /* var(--scale-popup) */
+  --date-picker-content-color: initial; /* var(--color-popover-foreground) */
+  --date-picker-content-max-height: initial; /* 32rem */
+  --date-picker-content-max-width: initial; /* calc(100vw - 2rem) */
+  --date-picker-content-min-width: initial; /* 18.75rem */
+  --date-picker-content-padding: initial; /* var(--spacing-3) */
+  --date-picker-content-radius: initial; /* var(--radius-md) */
+  --date-picker-content-shadow: initial; /* var(--shadow-lg) */
+  --date-picker-content-width: initial; /* 18.75rem */
+  --date-picker-control-height: initial; /* var(--size-lg) */
+  --date-picker-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --date-picker-focus-ring-color: initial; /* var(--color-ring) */
+  --date-picker-focus-ring-width: initial; /* var(--border-width-sm) */
+  --date-picker-font-size: initial; /* var(--text-md) */
+  --date-picker-icon-color: initial; /* var(--color-muted-foreground) */
+  --date-picker-icon-size: initial; /* 1rem */
+  --date-picker-inline-content-min-width: initial; /* 18rem */
+  --date-picker-inline-content-shadow: initial; /* none */
+  --date-picker-input-min-width: initial; /* 7.5rem */
+  --date-picker-input-padding-x-end: initial; /* 4.25rem */
+  --date-picker-input-padding-x-start: initial; /* 0.875rem */
+  --date-picker-input-padding-y: initial; /* 0.5rem */
+  --date-picker-input-gap: initial; /* var(--spacing-2) */
+  --date-picker-invalid-color: initial; /* var(--color-destructive) */
+  --date-picker-label-color: initial; /* var(--date-picker-color, var(--color-foreground)) */
+  --date-picker-label-font-size: initial; /* var(--text-sm) */
+  --date-picker-label-font-weight: initial; /* var(--weight-medium) */
+  --date-picker-label-line-height: initial; /* var(--line-height-text-sm) */
+  --date-picker-line-height: initial; /* var(--line-height-text-md) */
+  --date-picker-max-width: initial; /* 100% */
+  --date-picker-nav-trigger-size: initial; /* 2rem */
+  --date-picker-placeholder-color: initial; /* var(--color-muted-foreground) */
+  --date-picker-preset-trigger-bg: initial; /* var(--color-muted) */
+  --date-picker-preset-trigger-bg-hover: initial; /* var(--color-accent) */
+  --date-picker-preset-trigger-color: initial; /* var(--color-foreground) */
+  --date-picker-preset-trigger-font-size: initial; /* var(--text-sm) */
+  --date-picker-preset-trigger-height: initial; /* 2rem */
+  --date-picker-preset-trigger-line-height: initial; /* var(--line-height-text-sm) */
+  --date-picker-preset-trigger-padding-x: initial; /* var(--spacing-2) */
+  --date-picker-preset-trigger-selected-bg: initial; /* var(--color-primary) */
+  --date-picker-preset-trigger-selected-color: initial; /* var(--color-primary-foreground) */
+  --date-picker-range-input-min-width: initial; /* 7.5rem */
+  --date-picker-radius: initial; /* var(--radius-md) */
+  --date-picker-root-gap: initial; /* var(--spacing-1) */
+  --date-picker-select-bg: initial; /* var(--color-background) */
+  --date-picker-select-bg-hover: initial; /* var(--color-accent) */
+  --date-picker-select-border-color: initial; /* var(--color-border) */
+  --date-picker-select-border-width: initial; /* var(--border-width-sm) */
+  --date-picker-select-color: initial; /* var(--color-foreground) */
+  --date-picker-select-focus-ring-width: initial; /* var(--border-width-sm) */
+  --date-picker-select-font-size: initial; /* var(--text-sm) */
+  --date-picker-select-height: initial; /* 2rem */
+  --date-picker-select-line-height: initial; /* var(--line-height-text-sm) */
+  --date-picker-select-padding-x: initial; /* var(--spacing-2) */
+  --date-picker-select-padding-y: initial; /* 0.25rem */
+  --date-picker-select-radius: initial; /* var(--radius-sm) */
+  --date-picker-table-cell-bg: initial; /* transparent */
+  --date-picker-table-cell-bg-hover: initial; /* var(--color-accent) */
+  --date-picker-table-cell-border-color: initial; /* transparent */
+  --date-picker-table-cell-border-width: initial; /* 0 */
+  --date-picker-table-cell-color: initial; /* var(--date-picker-content-color, var(--color-foreground)) */
+  --date-picker-table-cell-color-hover: initial; /* var(--color-accent-foreground) */
+  --date-picker-table-cell-focus-ring-color: initial; /* var(--color-ring) */
+  --date-picker-table-cell-focus-ring-width: initial; /* var(--border-width-sm) */
+  --date-picker-table-cell-font-size: initial; /* var(--text-sm) */
+  --date-picker-table-cell-gap: initial; /* 0.125rem */
+  --date-picker-table-cell-line-height: initial; /* var(--line-height-text-sm) */
+  --date-picker-table-cell-muted-color: initial; /* var(--color-muted-foreground) */
+  --date-picker-table-cell-radius: initial; /* var(--radius-sm) */
+  --date-picker-table-cell-range-bg: initial; /* var(--color-muted) */
+  --date-picker-table-cell-range-color: initial; /* var(--color-foreground) */
+  --date-picker-table-cell-selected-bg: initial; /* var(--color-primary) */
+  --date-picker-table-cell-selected-color: initial; /* var(--color-primary-foreground) */
+  --date-picker-table-cell-size: initial; /* 2.25rem */
+  --date-picker-table-cell-today-border-color: initial; /* var(--color-ring) */
+  --date-picker-table-cell-today-color: initial; /* var(--date-picker-table-cell-color, var(--color-foreground)) */
+  --date-picker-table-header-color: initial; /* var(--color-muted-foreground) */
+  --date-picker-table-header-font-size: initial; /* var(--text-xs) */
+  --date-picker-table-header-font-weight: initial; /* var(--weight-medium) */
+  --date-picker-table-header-height: initial; /* 1.75rem */
+  --date-picker-table-header-line-height: initial; /* var(--line-height-text-xs) */
+  --date-picker-transition: initial; /* var(--transition-default) */
+  --date-picker-trigger-offset-right: initial; /* 0.5rem */
+  --date-picker-view-control-gap: initial; /* var(--spacing-2) */
+  --date-picker-view-gap: initial; /* var(--spacing-3) */
+  --date-picker-view-trigger-color: initial; /* var(--color-foreground) */
+  --date-picker-view-trigger-font-size: initial; /* var(--text-sm) */
+  --date-picker-view-trigger-font-weight: initial; /* var(--weight-medium) */
+  --date-picker-view-trigger-gap: initial; /* var(--spacing-2) */
+  --date-picker-view-trigger-height: initial; /* 2rem */
+  --date-picker-view-trigger-line-height: initial; /* var(--line-height-text-sm) */
+  --date-picker-view-trigger-padding-x: initial; /* var(--spacing-2) */
+  --date-picker-week-number-color: initial; /* var(--color-muted-foreground) */
+  --date-picker-width: initial; /* 18.75rem */
+
   /* Dialog */
   --dialog-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --dialog-backdrop-blur: initial; /* 4px */

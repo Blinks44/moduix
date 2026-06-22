@@ -1,0 +1,449 @@
+@layer ui.components {
+  @keyframes date-picker-content-open {
+    from {
+      opacity: var(--date-picker-content-closed-opacity, 0);
+      transform: scale(var(--date-picker-content-closed-scale, var(--scale-popup)));
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes date-picker-content-closed {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    to {
+      opacity: var(--date-picker-content-closed-opacity, 0);
+      transform: scale(var(--date-picker-content-closed-scale, var(--scale-popup)));
+    }
+  }
+
+  .root {
+    box-sizing: border-box;
+    display: inline-flex;
+    width: var(--date-picker-width, 18.75rem);
+    max-width: var(--date-picker-max-width, 100%);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--date-picker-root-gap, var(--spacing-1));
+    color: var(--date-picker-color, var(--color-foreground));
+
+    &:is([data-disabled], [data-readonly]) {
+      opacity: var(--date-picker-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .label {
+    display: inline-flex;
+    align-items: center;
+    color: var(--date-picker-label-color, var(--date-picker-color, var(--color-foreground)));
+    font-size: var(--date-picker-label-font-size, var(--text-sm));
+    font-weight: var(--date-picker-label-font-weight, var(--weight-medium));
+    line-height: var(--date-picker-label-line-height, var(--line-height-text-sm));
+    user-select: none;
+  }
+
+  .control {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    align-items: center;
+    gap: var(--date-picker-input-gap, var(--spacing-2));
+    color: var(--date-picker-color, var(--color-foreground));
+
+    &:is([data-disabled], [data-readonly]) {
+      opacity: var(--date-picker-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .input {
+    box-sizing: border-box;
+    flex: 1 1 0;
+    width: 100%;
+    min-width: min(var(--date-picker-input-min-width, 7.5rem), 100%);
+    height: var(--date-picker-control-height, var(--size-lg));
+    margin: 0;
+    border: var(--date-picker-border-width, var(--border-width-sm)) solid
+      var(--date-picker-border-color, var(--color-border));
+    border-radius: var(--date-picker-radius, var(--radius-md));
+    padding-block: var(--date-picker-input-padding-y, 0.5rem);
+    padding-inline: var(--date-picker-input-padding-x-start, 0.875rem)
+      var(--date-picker-input-padding-x-end, 4.25rem);
+    background-color: var(--date-picker-bg, var(--color-background));
+    color: inherit;
+    font: inherit;
+    font-size: var(--date-picker-font-size, var(--text-md));
+    line-height: var(--date-picker-line-height, var(--line-height-text-md));
+    outline: var(--date-picker-focus-ring-width, var(--border-width-sm)) solid transparent;
+    outline-offset: calc(var(--date-picker-focus-ring-width, var(--border-width-sm)) * -1);
+    transition:
+      background-color var(--date-picker-transition, var(--transition-default)),
+      border-color var(--date-picker-transition, var(--transition-default)),
+      color var(--date-picker-transition, var(--transition-default)),
+      outline-color var(--date-picker-transition, var(--transition-default)),
+      opacity var(--date-picker-transition, var(--transition-default));
+
+    &::placeholder {
+      color: var(--date-picker-placeholder-color, var(--color-muted-foreground));
+      opacity: 1;
+    }
+
+    &:focus,
+    .control[data-focus] & {
+      border-color: var(--date-picker-focus-ring-color, var(--color-ring));
+      outline-color: var(--date-picker-focus-ring-color, var(--color-ring));
+    }
+
+    &:is([data-invalid], [aria-invalid='true']),
+    .control[data-invalid] & {
+      border-color: var(--date-picker-invalid-color, var(--color-destructive));
+      outline-color: var(--date-picker-invalid-color, var(--color-destructive));
+    }
+
+    &:is([disabled], [data-disabled], [readonly], [data-readonly]) {
+      cursor: default;
+    }
+
+    .control:not([data-disabled], [data-readonly]) & {
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--date-picker-bg-hover, var(--color-accent));
+        }
+      }
+    }
+  }
+
+  .control:has(.input + .input) .input {
+    min-width: min(var(--date-picker-range-input-min-width, 7.5rem), 100%);
+    padding-inline-end: var(--date-picker-input-padding-x-start, 0.875rem);
+  }
+
+  .control:has(.input + .input) .input:last-of-type {
+    padding-inline-end: var(--date-picker-input-padding-x-end, 4.25rem);
+  }
+
+  .trigger,
+  .navTrigger,
+  .viewTrigger,
+  .clearTrigger,
+  .presetTrigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    border: 0;
+    border-radius: var(--date-picker-action-radius, var(--radius-sm));
+    padding: 0;
+    background: var(--date-picker-action-bg, transparent);
+    color: var(--date-picker-icon-color, var(--color-muted-foreground));
+    font: inherit;
+    line-height: 0;
+    outline: var(--date-picker-action-focus-ring-width, var(--border-width-sm)) solid transparent;
+    outline-offset: var(--date-picker-action-focus-ring-offset, 0);
+    cursor: pointer;
+    transition:
+      background-color var(--date-picker-transition, var(--transition-default)),
+      color var(--date-picker-transition, var(--transition-default)),
+      outline-color var(--date-picker-transition, var(--transition-default)),
+      opacity var(--date-picker-transition, var(--transition-default));
+
+    & > svg {
+      display: block;
+      width: var(--date-picker-icon-size, 1rem);
+      height: var(--date-picker-icon-size, 1rem);
+    }
+
+    &:is(:focus-visible, [data-focus]) {
+      outline-color: var(--date-picker-focus-ring-color, var(--color-ring));
+    }
+
+    &:is([disabled], [data-disabled]) {
+      cursor: default;
+      opacity: var(--date-picker-disabled-opacity, var(--opacity-disabled));
+    }
+
+    &[hidden] {
+      display: none;
+    }
+
+    &:not(:is([disabled], [data-disabled])) {
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--date-picker-action-bg-hover, var(--color-muted));
+          color: var(--date-picker-action-color-hover, var(--color-foreground));
+        }
+      }
+    }
+  }
+
+  .trigger,
+  .clearTrigger {
+    position: absolute;
+    top: 50%;
+    width: var(--date-picker-action-size, 1.5rem);
+    height: var(--date-picker-action-size, 1.5rem);
+    transform: translateY(-50%);
+  }
+
+  .trigger {
+    right: var(--date-picker-trigger-offset-right, 0.5rem);
+  }
+
+  .clearTrigger {
+    right: calc(
+      var(--date-picker-trigger-offset-right, 0.5rem) + var(--date-picker-action-size, 1.5rem) +
+        var(--date-picker-action-gap, 0.125rem)
+    );
+  }
+
+  .positioner {
+    z-index: var(--z-index);
+    outline: 0;
+  }
+
+  .content {
+    box-sizing: border-box;
+    z-index: calc(var(--z-popup) + var(--layer-index, 0));
+    width: min(var(--date-picker-content-width, 18.75rem), var(--available-width));
+    min-width: min(var(--date-picker-content-min-width, 18.75rem), var(--available-width));
+    max-width: min(
+      var(--date-picker-content-max-width, calc(100vw - 2rem)),
+      var(--available-width)
+    );
+    max-height: min(var(--date-picker-content-max-height, 32rem), var(--available-height));
+    overflow: auto;
+    border: var(--date-picker-content-border-width, var(--border-width-sm)) solid
+      var(--date-picker-content-border-color, var(--color-border));
+    border-radius: var(--date-picker-content-radius, var(--radius-md));
+    padding: var(--date-picker-content-padding, var(--spacing-3));
+    background-color: var(--date-picker-content-bg, var(--color-popover));
+    box-shadow: var(--date-picker-content-shadow, var(--shadow-lg));
+    color: var(--date-picker-content-color, var(--color-popover-foreground));
+    transform-origin: var(--transform-origin);
+    outline: 0;
+    overscroll-behavior: contain;
+
+    &[data-state='open'] {
+      animation: date-picker-content-open var(--date-picker-transition, var(--transition-default));
+    }
+
+    &[data-state='closed'] {
+      animation: date-picker-content-closed var(--date-picker-transition, var(--transition-default));
+      pointer-events: none;
+    }
+  }
+
+  .root[data-inline] .content {
+    min-width: var(--date-picker-inline-content-min-width, 18rem);
+    max-height: none;
+    box-shadow: var(--date-picker-inline-content-shadow, none);
+  }
+
+  .view {
+    display: grid;
+    gap: var(--date-picker-view-gap, var(--spacing-3));
+  }
+
+  .viewControl {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--date-picker-view-control-gap, var(--spacing-2));
+  }
+
+  .navTrigger {
+    width: var(--date-picker-nav-trigger-size, 2rem);
+    height: var(--date-picker-nav-trigger-size, 2rem);
+  }
+
+  .viewTrigger {
+    min-width: 0;
+    min-height: var(--date-picker-view-trigger-height, 2rem);
+    flex: 1;
+    gap: var(--date-picker-view-trigger-gap, var(--spacing-2));
+    padding-inline: var(--date-picker-view-trigger-padding-x, var(--spacing-2));
+    color: var(--date-picker-view-trigger-color, var(--color-foreground));
+    font-size: var(--date-picker-view-trigger-font-size, var(--text-sm));
+    font-weight: var(--date-picker-view-trigger-font-weight, var(--weight-medium));
+    line-height: var(--date-picker-view-trigger-line-height, var(--line-height-text-sm));
+  }
+
+  .rangeText,
+  .valueText {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: var(--date-picker-table-cell-gap, 0.125rem);
+    table-layout: fixed;
+  }
+
+  .tableHeader,
+  .weekNumberCell {
+    width: var(--date-picker-table-cell-size, 2.25rem);
+    height: var(--date-picker-table-header-height, 1.75rem);
+    color: var(--date-picker-table-header-color, var(--color-muted-foreground));
+    font-size: var(--date-picker-table-header-font-size, var(--text-xs));
+    font-weight: var(--date-picker-table-header-font-weight, var(--weight-medium));
+    line-height: var(--date-picker-table-header-line-height, var(--line-height-text-xs));
+    text-align: center;
+  }
+
+  .tableCell {
+    width: var(--date-picker-table-cell-size, 2.25rem);
+    height: var(--date-picker-table-cell-size, 2.25rem);
+    padding: 0;
+    text-align: center;
+  }
+
+  .weekNumberCell {
+    color: var(--date-picker-week-number-color, var(--color-muted-foreground));
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tableCellTrigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    width: 100%;
+    min-width: var(--date-picker-table-cell-size, 2.25rem);
+    height: var(--date-picker-table-cell-size, 2.25rem);
+    align-items: center;
+    justify-content: center;
+    border: var(--date-picker-table-cell-border-width, 0) solid
+      var(--date-picker-table-cell-border-color, transparent);
+    border-radius: var(--date-picker-table-cell-radius, var(--radius-sm));
+    padding: 0;
+    background: var(--date-picker-table-cell-bg, transparent);
+    color: var(
+      --date-picker-table-cell-color,
+      var(--date-picker-content-color, var(--color-foreground))
+    );
+    font: inherit;
+    font-size: var(--date-picker-table-cell-font-size, var(--text-sm));
+    line-height: var(--date-picker-table-cell-line-height, var(--line-height-text-sm));
+    outline: var(--date-picker-table-cell-focus-ring-width, var(--border-width-sm)) solid
+      transparent;
+    outline-offset: calc(
+      var(--date-picker-table-cell-focus-ring-width, var(--border-width-sm)) * -1
+    );
+    cursor: pointer;
+    transition:
+      background-color var(--date-picker-transition, var(--transition-default)),
+      border-color var(--date-picker-transition, var(--transition-default)),
+      color var(--date-picker-transition, var(--transition-default)),
+      outline-color var(--date-picker-transition, var(--transition-default)),
+      opacity var(--date-picker-transition, var(--transition-default));
+
+    &:is(:focus-visible, [data-focus], [data-focused]) {
+      outline-color: var(--date-picker-table-cell-focus-ring-color, var(--color-ring));
+    }
+
+    &[data-today] {
+      border-color: var(--date-picker-table-cell-today-border-color, var(--color-ring));
+      color: var(
+        --date-picker-table-cell-today-color,
+        var(--date-picker-table-cell-color, var(--color-foreground))
+      );
+    }
+
+    &:is([data-in-range], [data-in-hover-range]) {
+      background-color: var(--date-picker-table-cell-range-bg, var(--color-muted));
+      color: var(--date-picker-table-cell-range-color, var(--color-foreground));
+    }
+
+    &[data-selected] {
+      background-color: var(--date-picker-table-cell-selected-bg, var(--color-primary));
+      color: var(--date-picker-table-cell-selected-color, var(--color-primary-foreground));
+    }
+
+    &:is([data-outside-range], [data-unavailable]) {
+      color: var(--date-picker-table-cell-muted-color, var(--color-muted-foreground));
+    }
+
+    &:is([data-disabled], [disabled]) {
+      cursor: default;
+      opacity: var(--date-picker-disabled-opacity, var(--opacity-disabled));
+    }
+
+    &:not(:is([data-disabled], [disabled], [data-selected])) {
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--date-picker-table-cell-bg-hover, var(--color-accent));
+          color: var(--date-picker-table-cell-color-hover, var(--color-accent-foreground));
+        }
+      }
+    }
+  }
+
+  .select {
+    box-sizing: border-box;
+    flex: 1 1 0;
+    width: 100%;
+    min-width: 0;
+    min-height: var(--date-picker-select-height, 2rem);
+    border: var(--date-picker-select-border-width, var(--border-width-sm)) solid
+      var(--date-picker-select-border-color, var(--color-border));
+    border-radius: var(--date-picker-select-radius, var(--radius-sm));
+    padding-block: var(--date-picker-select-padding-y, 0.25rem);
+    padding-inline: var(--date-picker-select-padding-x, var(--spacing-2));
+    background-color: var(--date-picker-select-bg, var(--color-background));
+    color: var(--date-picker-select-color, var(--color-foreground));
+    font: inherit;
+    font-size: var(--date-picker-select-font-size, var(--text-sm));
+    line-height: var(--date-picker-select-line-height, var(--line-height-text-sm));
+    outline: var(--date-picker-select-focus-ring-width, var(--border-width-sm)) solid transparent;
+    outline-offset: calc(var(--date-picker-select-focus-ring-width, var(--border-width-sm)) * -1);
+    cursor: pointer;
+    transition:
+      background-color var(--date-picker-transition, var(--transition-default)),
+      border-color var(--date-picker-transition, var(--transition-default)),
+      outline-color var(--date-picker-transition, var(--transition-default));
+
+    &:focus {
+      border-color: var(--date-picker-focus-ring-color, var(--color-ring));
+      outline-color: var(--date-picker-focus-ring-color, var(--color-ring));
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--date-picker-select-bg-hover, var(--color-accent));
+      }
+    }
+  }
+
+  .presetTrigger {
+    min-height: var(--date-picker-preset-trigger-height, 2rem);
+    padding-inline: var(--date-picker-preset-trigger-padding-x, var(--spacing-2));
+    background-color: var(--date-picker-preset-trigger-bg, var(--color-muted));
+    color: var(--date-picker-preset-trigger-color, var(--color-foreground));
+    font-size: var(--date-picker-preset-trigger-font-size, var(--text-sm));
+    line-height: var(--date-picker-preset-trigger-line-height, var(--line-height-text-sm));
+
+    &:not(:is([disabled], [data-disabled], [data-selected])) {
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--date-picker-preset-trigger-bg-hover, var(--color-accent));
+        }
+      }
+    }
+
+    &[data-selected] {
+      background-color: var(--date-picker-preset-trigger-selected-bg, var(--color-primary));
+      color: var(--date-picker-preset-trigger-selected-color, var(--color-primary-foreground));
+    }
+  }
+}
