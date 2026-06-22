@@ -11,7 +11,10 @@ Upstream docs:
 
 ## Upstream model to preserve
 
-The root, trigger, portal, backdrop, positioner, content, close trigger, title, and description follow Ark `Dialog`. Search state, input, clear trigger, listbox content, grouped items, item text, item indicator, context, and item context follow Ark `Combobox`.
+The root, trigger, backdrop, positioner, content, close trigger, title, and description follow Ark
+`Dialog`. The popup is mounted through the shared Ark `Portal`. Search state, input, clear trigger,
+listbox content, grouped items, item text, item indicator, context, and item context follow Ark
+`Combobox`.
 
 There is no Ark command-palette primitive, so the component is a moduix-owned composite. Do not add legacy render contracts, autocomplete render functions, imperative handles, or hidden `Content` sugar.
 
@@ -28,7 +31,7 @@ When consumers filter an external `useListCollection`, reset that filter when th
 ```tsx
 <CommandPalette>
   <CommandPalette.Trigger />
-  <CommandPalette.Portal>
+  <Portal>
     <CommandPalette.Backdrop />
     <CommandPalette.Positioner>
       <CommandPalette.Content>
@@ -55,14 +58,14 @@ When consumers filter an external `useListCollection`, reset that filter when th
         </CommandPalette.Combobox>
       </CommandPalette.Content>
     </CommandPalette.Positioner>
-  </CommandPalette.Portal>
+  </Portal>
 </CommandPalette>
 ```
 
 - `CommandPalette` / `CommandPalette.Root`: Ark Dialog root plus shortcut listener.
 - `CommandPalette.RootProvider`: Ark Dialog root provider for externally owned dialog state.
 - `CommandPalette.Trigger`: Ark Dialog trigger, styled unless `asChild` is used.
-- `CommandPalette.Portal`: Ark Portal.
+- `Portal`: shared Ark Portal imported separately from `@moduix/react`.
 - `CommandPalette.Backdrop`: Ark Dialog backdrop, `data-slot="command-palette-backdrop"`.
 - `CommandPalette.Positioner`: Ark Dialog positioner, `data-slot="command-palette-positioner"`.
 - `CommandPalette.Content`: Ark Dialog content, `data-slot="command-palette-content"`.
@@ -91,7 +94,7 @@ const { collection, filter } = useListCollection({
   <CommandPalette.Trigger asChild>
     <Button>Open palette</Button>
   </CommandPalette.Trigger>
-  <CommandPalette.Portal>
+  <Portal>
     <CommandPalette.Backdrop />
     <CommandPalette.Positioner>
       <CommandPalette.Content>
@@ -119,7 +122,7 @@ const { collection, filter } = useListCollection({
         </CommandPalette.Combobox>
       </CommandPalette.Content>
     </CommandPalette.Positioner>
-  </CommandPalette.Portal>
+  </Portal>
 </CommandPalette>;
 ```
 
@@ -159,6 +162,8 @@ Top-level `moduix` already exports `useListCollection`, `createListCollection`, 
 
 ## Local changelog
 
+- 2026-06-22: Removed the `CommandPalette.Portal` namespace alias; examples now import the shared
+  `Portal` from `@moduix/react`.
 - 2026-06-21: Migrated from legacy Dialog/Autocomplete to an Ark Dialog + Ark Combobox composite. Removed imperative handles, Base render props, autocomplete collection render functions, and legacy flat part exports.
 - 2026-06-21: Matched Dialog-style enter/exit animation tokens, simplified shortcut matching to primary-modifier shortcuts, and moved result scrolling to the local ScrollArea.
 - 2026-06-21: Removed the list height formula, let the list consume remaining flex space above `Footer`, and fixed sticky group labels to pin to the scroll viewport instead of sliding under the input header.

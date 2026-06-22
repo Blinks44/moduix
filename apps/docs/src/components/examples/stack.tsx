@@ -35,8 +35,8 @@ function normalizeCssProperty(property: CssPropertyInput) {
 export function StackExample(props: ComponentProps<typeof Stack>) {
   return (
     <Stack gap={12} className={styles.panel} {...props}>
-      <Heading asChild size="md">
-        <h3>Project updates</h3>
+      <Heading as="h3" size="md">
+        Project updates
       </Heading>
       <Text tone="muted">
         Use Stack when the layout intent is just flex direction, spacing, and alignment.
@@ -107,8 +107,8 @@ export function StackSemanticExample() {
   return (
     <Stack asChild gap={12} className={styles.panel}>
       <section>
-        <Heading asChild size="md">
-          <h3>Rendered as section</h3>
+        <Heading as="h3" size="md">
+          Rendered as section
         </Heading>
         <Text tone="muted">
           Use asChild when the layout wrapper should also carry document semantics.

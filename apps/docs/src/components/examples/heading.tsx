@@ -163,21 +163,11 @@ export function HeadingElementsExample() {
   return (
     <div className={styles.stack}>
       <Heading>{headingLevels[0].label}</Heading>
-      <Heading asChild>
-        <h2>{headingLevels[1].label}</h2>
-      </Heading>
-      <Heading asChild>
-        <h3>{headingLevels[2].label}</h3>
-      </Heading>
-      <Heading asChild>
-        <h4>{headingLevels[3].label}</h4>
-      </Heading>
-      <Heading asChild>
-        <h5>{headingLevels[4].label}</h5>
-      </Heading>
-      <Heading asChild>
-        <h6>{headingLevels[5].label}</h6>
-      </Heading>
+      <Heading as="h2">{headingLevels[1].label}</Heading>
+      <Heading as="h3">{headingLevels[2].label}</Heading>
+      <Heading as="h4">{headingLevels[3].label}</Heading>
+      <Heading as="h5">{headingLevels[4].label}</Heading>
+      <Heading as="h6">{headingLevels[5].label}</Heading>
     </div>
   );
 }
@@ -186,8 +176,8 @@ export function HeadingSizesExample() {
   return (
     <div className={styles.stack}>
       {headingSizes.map((item) => (
-        <Heading key={item.size} asChild size={item.size}>
-          <h2>{item.label}</h2>
+        <Heading key={item.size} as="h2" size={item.size}>
+          {item.label}
         </Heading>
       ))}
     </div>
@@ -198,8 +188,8 @@ export function HeadingWeightsExample() {
   return (
     <div className={styles.stack}>
       {headingWeights.map((item) => (
-        <Heading key={item.weight} asChild weight={item.weight}>
-          <h2>{item.label}</h2>
+        <Heading key={item.weight} as="h2" weight={item.weight}>
+          {item.label}
         </Heading>
       ))}
     </div>
@@ -208,16 +198,16 @@ export function HeadingWeightsExample() {
 
 export function HeadingSemanticLevelExample() {
   return (
-    <Heading asChild size="2xl" className={styles.demo}>
-      <h2>Page title rendered as h2</h2>
+    <Heading as="h2" size="2xl" className={styles.demo}>
+      Page title rendered as h2
     </Heading>
   );
 }
 
 export function CustomStylingHeadingExample() {
   return (
-    <Heading asChild className={styles.custom}>
-      <h2>Customized heading</h2>
+    <Heading as="h2" className={styles.custom}>
+      Customized heading
     </Heading>
   );
 }

@@ -1,13 +1,5 @@
-import { Portal } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
-import {
-  createContext,
-  forwardRef,
-  useContext,
-  type ComponentProps,
-  type ComponentRef,
-  type ReactNode,
-} from 'react';
+import { createContext, forwardRef, useContext, type ComponentRef, type ReactNode } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { Button, type ButtonRootProps, type ButtonSize, type ButtonVariant } from '../button';
@@ -47,7 +39,6 @@ type SplitButtonTriggerProps = MenuTriggerProps & {
 
 type SplitButtonContentProps = MenuContentProps;
 type SplitButtonPositionerProps = MenuPositionerProps;
-type SplitButtonPortalProps = ComponentProps<typeof Portal>;
 
 const SplitButtonContext = createContext<SplitButtonContextValue | null>(null);
 
@@ -124,10 +115,6 @@ const SplitButtonTrigger = forwardRef<ComponentRef<typeof Menu.Trigger>, SplitBu
   },
 );
 
-function SplitButtonPortal(props: SplitButtonPortalProps) {
-  return <Portal {...props} />;
-}
-
 const SplitButtonPositioner = forwardRef<
   ComponentRef<typeof Menu.Positioner>,
   SplitButtonPositionerProps
@@ -159,7 +146,6 @@ const SplitButton = Object.assign(SplitButtonRoot, {
   Root: SplitButtonRoot,
   Action: SplitButtonAction,
   Trigger: SplitButtonTrigger,
-  Portal: SplitButtonPortal,
   Positioner: SplitButtonPositioner,
   Content: SplitButtonContent,
 });
@@ -168,7 +154,6 @@ export { SplitButton };
 export type {
   SplitButtonActionProps,
   SplitButtonContentProps,
-  SplitButtonPortalProps,
   SplitButtonPositionerProps,
   SplitButtonRootProps,
   SplitButtonSize,

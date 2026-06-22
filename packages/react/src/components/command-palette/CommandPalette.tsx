@@ -12,7 +12,6 @@ import {
   type DialogOpenChangeDetails,
   useDialogContext,
 } from '@ark-ui/react/dialog';
-import { Portal } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
@@ -165,10 +164,6 @@ const CommandPaletteTrigger = forwardRef<
     />
   );
 });
-
-function CommandPalettePortal(props: ComponentProps<typeof Portal>) {
-  return <Portal {...props} />;
-}
 
 const CommandPaletteBackdrop = forwardRef<
   ComponentRef<typeof DialogPrimitive.Backdrop>,
@@ -546,7 +541,6 @@ const CommandPalette = Object.assign(CommandPaletteRoot, {
   Root: CommandPaletteRoot,
   RootProvider: CommandPaletteRootProvider,
   Trigger: CommandPaletteTrigger,
-  Portal: CommandPalettePortal,
   Backdrop: CommandPaletteBackdrop,
   Positioner: CommandPalettePositioner,
   Content: CommandPaletteContent,

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Portal } from '@ark-ui/react/portal';
 import * as React from 'react';
 import { ArrowUpRightIcon, BellIcon, StarIcon } from '@/icons/demo';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
@@ -155,7 +156,7 @@ function CommandPaletteShell<T extends CommandItem>({
       <CommandPalette.Trigger asChild>
         <Button>{trigger}</Button>
       </CommandPalette.Trigger>
-      <CommandPalette.Portal>
+      <Portal>
         <CommandPalette.Backdrop />
         <CommandPalette.Positioner>
           <CommandPalette.Content>
@@ -172,7 +173,7 @@ function CommandPaletteShell<T extends CommandItem>({
             </CommandPalette.Combobox>
           </CommandPalette.Content>
         </CommandPalette.Positioner>
-      </CommandPalette.Portal>
+      </Portal>
     </CommandPalette>
   );
 }

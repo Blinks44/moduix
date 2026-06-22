@@ -23,8 +23,9 @@ actions.
 
 ## Current behavior contract
 
-- Public API is namespace-first: `SplitButton`, `SplitButton.Root`, `SplitButton.Action`,
-  `SplitButton.Trigger`, `SplitButton.Portal`, `SplitButton.Positioner`, and `SplitButton.Content`.
+- Public API is namespace-first for split-button-owned parts: `SplitButton`,
+  `SplitButton.Root`, `SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Positioner`, and
+  `SplitButton.Content`.
 - `SplitButton` is the short root form and is equivalent to `SplitButton.Root`.
 - Root props forward `Menu.Root` behavior props, including `open`, `defaultOpen`,
   `onOpenChange(details)`, `onSelect(details)`, `closeOnSelect`, `positioning`, `ids`, `lazyMount`,
@@ -34,8 +35,8 @@ actions.
   default values.
 - `Trigger` renders an Ark `Menu.Trigger asChild` around a moduix `Button` and defaults to a chevron
   icon with `aria-label="More actions"` when no children are provided.
-- `Portal`, `Positioner`, and `Content` expose the real popup structure. Consumers place shared
-  `Menu.*` rows inside `SplitButton.Content`.
+- Shared `Portal`, `SplitButton.Positioner`, and `SplitButton.Content` expose the real popup
+  structure. Consumers place shared `Menu.*` rows inside `SplitButton.Content`.
 
 ## Anatomy and exported parts
 
@@ -43,7 +44,7 @@ actions.
 SplitButton.Root
 ├─ SplitButton.Action
 ├─ SplitButton.Trigger
-└─ SplitButton.Portal
+└─ Portal
    └─ SplitButton.Positioner
       └─ SplitButton.Content
          ├─ Menu.Item
@@ -58,21 +59,20 @@ Every exported DOM part accepts `className` and receives stable styling hooks:
 | `SplitButton.Root`       | `split-button-root`       | Grouped visual wrapper around the two buttons.  |
 | `SplitButton.Action`     | `split-button-action`     | Primary Button action.                          |
 | `SplitButton.Trigger`    | `split-button-trigger`    | Ark Menu trigger rendered through Button.       |
-| `SplitButton.Portal`     | none                      | Ark Portal utility; no DOM styling hook.        |
 | `SplitButton.Positioner` | `split-button-positioner` | Ark Menu positioner with runtime CSS variables. |
 | `SplitButton.Content`    | `split-button-content`    | Ark Menu content surface with menu state attrs. |
 
 ## Composition
 
 ```tsx
-import { Menu, SplitButton } from '@moduix/react';
+import { Menu, Portal, SplitButton } from '@moduix/react';
 
 export function SplitButtonExample() {
   return (
     <SplitButton>
       <SplitButton.Action>Save Changes</SplitButton.Action>
       <SplitButton.Trigger />
-      <SplitButton.Portal>
+      <Portal>
         <SplitButton.Positioner>
           <SplitButton.Content>
             <Menu.Item value="save-draft">Save as Draft</Menu.Item>
@@ -81,7 +81,7 @@ export function SplitButtonExample() {
             <Menu.Item value="publish">Publish Now</Menu.Item>
           </SplitButton.Content>
         </SplitButton.Positioner>
-      </SplitButton.Portal>
+      </Portal>
     </SplitButton>
   );
 }
@@ -151,6 +151,8 @@ export function SplitButtonExample() {
 
 ## Local changelog
 
+- 2026-06-22: Removed the `SplitButton.Portal` namespace alias and `SplitButtonPortalProps`;
+  examples now import the shared `Portal` from `@moduix/react`.
 - Added `SplitButton` as a composition-first grouped action built from the moduix `Button` and
   `Menu` wrappers.
 - 2026-06-17: Updated the primary action contract from Base button composition props to Ark-style

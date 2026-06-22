@@ -30,7 +30,7 @@ composition built on [Ark Menu](https://ark-ui.com/docs/components/menu), the
 ## Basic
 
 Use `SplitButton` as the short root form, then keep the Ark-style structure visible with
-`SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Portal`, `SplitButton.Positioner`, and
+`SplitButton.Action`, `SplitButton.Trigger`, `Portal`, `SplitButton.Positioner`, and
 `SplitButton.Content`.
 
 <Preview>
@@ -38,14 +38,14 @@ Use `SplitButton` as the short root form, then keep the Ark-style structure visi
 
   <Preview.Code>
     {`
-      import { Menu, SplitButton } from "@moduix/react";
+      import { Menu, Portal, SplitButton } from "@moduix/react";
 
       export function SplitButtonDemo() {
         return (
           <SplitButton>
             <SplitButton.Action>Save Changes</SplitButton.Action>
             <SplitButton.Trigger />
-            <SplitButton.Portal>
+            <Portal>
               <SplitButton.Positioner>
                 <SplitButton.Content>
                   {items.slice(0, 2).map((item) => (
@@ -57,7 +57,7 @@ Use `SplitButton` as the short root form, then keep the Ark-style structure visi
                   <Menu.Item value={items[2].value}>{items[2].label}</Menu.Item>
                 </SplitButton.Content>
               </SplitButton.Positioner>
-            </SplitButton.Portal>
+            </Portal>
           </SplitButton>
         );
       }
@@ -118,7 +118,7 @@ aubx shadcn@latest add Blinks44/moduix/react-split-button
 SplitButton.Root
 ├─ SplitButton.Action
 ├─ SplitButton.Trigger
-└─ SplitButton.Portal
+└─ Portal
    └─ SplitButton.Positioner
       └─ SplitButton.Content
          ├─ Menu.Item
@@ -131,7 +131,7 @@ SplitButton.Root
 | `SplitButton` / `SplitButton.Root` | Owns Ark Menu root state and the grouped visual wrapper.              |
 | `SplitButton.Action`               | Primary Button action. Inherits root `variant` and `size` by default. |
 | `SplitButton.Trigger`              | Ark Menu trigger rendered as a moduix Button with a chevron fallback. |
-| `SplitButton.Portal`               | Portal boundary for the menu popup.                                   |
+| `Portal`                           | Portal boundary for the menu popup.                                   |
 | `SplitButton.Positioner`           | Ark Menu positioner with placement variables and layer z-index.       |
 | `SplitButton.Content`              | Ark Menu content surface for shared `Menu.*` rows.                    |
 
@@ -155,7 +155,7 @@ another compatible element.
 Use `asChild` on `SplitButton.Trigger` only with a single semantic child that can receive Ark Menu
 trigger props and keyboard behavior.
 
-Use `positioning` on `SplitButton.Root` for popup placement. Keep `SplitButton.Portal`,
+Use `positioning` on `SplitButton.Root` for popup placement. Keep `Portal`,
 `SplitButton.Positioner`, and `SplitButton.Content` explicit so consumers can style or configure the
 popup structure without rewriting the component.
 
@@ -196,7 +196,7 @@ Use the root `variant` when both grouped buttons should share the same visual to
 
   <Preview.Code>
     {`
-      import { Menu, SplitButton } from "@moduix/react";
+      import { Menu, Portal, SplitButton } from "@moduix/react";
 
       export function SplitButtonVariantsDemo() {
         return (
@@ -205,14 +205,14 @@ Use the root `variant` when both grouped buttons should share the same visual to
               <SplitButton key={variant} variant={variant}>
                 <SplitButton.Action>{variant}</SplitButton.Action>
                 <SplitButton.Trigger />
-                <SplitButton.Portal>
+                <Portal>
                   <SplitButton.Positioner>
                     <SplitButton.Content>
                       <Menu.Item value={\`\${variant}-edit\`}>Edit</Menu.Item>
                       <Menu.Item value={\`\${variant}-duplicate\`}>Duplicate</Menu.Item>
                     </SplitButton.Content>
                   </SplitButton.Positioner>
-                </SplitButton.Portal>
+                </Portal>
               </SplitButton>
             ))}
           </div>
@@ -235,7 +235,7 @@ Use the root `size` when both sides should scale together.
 
   <Preview.Code>
     {`
-      import { Menu, SplitButton } from "@moduix/react";
+      import { Menu, Portal, SplitButton } from "@moduix/react";
 
       export function SplitButtonSizesDemo() {
         return (
@@ -244,14 +244,14 @@ Use the root `size` when both sides should scale together.
               <SplitButton key={size} size={size} variant="outline">
                 <SplitButton.Action>{size}</SplitButton.Action>
                 <SplitButton.Trigger />
-                <SplitButton.Portal>
+                <Portal>
                   <SplitButton.Positioner>
                     <SplitButton.Content>
                       <Menu.Item value={\`\${size}-create\`}>Create</Menu.Item>
                       <Menu.Item value={\`\${size}-create-open\`}>Create and Open</Menu.Item>
                     </SplitButton.Content>
                   </SplitButton.Positioner>
-                </SplitButton.Portal>
+                </Portal>
               </SplitButton>
             ))}
           </div>
@@ -275,7 +275,7 @@ label.
 
   <Preview.Code>
     {`
-      import { Menu, PlusIcon, SplitButton } from "@moduix/react";
+      import { Menu, PlusIcon, Portal, SplitButton } from "@moduix/react";
 
       export function SplitButtonIconsDemo() {
         return (
@@ -285,7 +285,7 @@ label.
               Create Item
             </SplitButton.Action>
             <SplitButton.Trigger aria-label="More create actions" />
-            <SplitButton.Portal>
+            <Portal>
               <SplitButton.Positioner>
                 <SplitButton.Content>
                   <Menu.Item value="create-blank">Create Blank</Menu.Item>
@@ -294,7 +294,7 @@ label.
                   <Menu.Item value="import-existing">Import Existing</Menu.Item>
                 </SplitButton.Content>
               </SplitButton.Positioner>
-            </SplitButton.Portal>
+            </Portal>
           </SplitButton>
         );
       }
@@ -315,7 +315,7 @@ Use the same controlled open-state contract as Ark Menu when outside state shoul
 
   <Preview.Code>
     {`
-      import { Menu, SplitButton } from "@moduix/react";
+      import { Menu, Portal, SplitButton } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledSplitButton() {
@@ -325,7 +325,7 @@ Use the same controlled open-state contract as Ark Menu when outside state shoul
           <SplitButton open={open} onOpenChange={(details) => setOpen(details.open)} variant="outline">
             <SplitButton.Action>Share</SplitButton.Action>
             <SplitButton.Trigger aria-label="More share actions" />
-            <SplitButton.Portal>
+            <Portal>
               <SplitButton.Positioner>
                 <SplitButton.Content>
                   <Menu.Item value="copy-link">Copy Link</Menu.Item>
@@ -336,7 +336,7 @@ Use the same controlled open-state contract as Ark Menu when outside state shoul
                   </Menu.Item>
                 </SplitButton.Content>
               </SplitButton.Positioner>
-            </SplitButton.Portal>
+            </Portal>
           </SplitButton>
         );
       }
@@ -358,21 +358,21 @@ parts explicit.
 
   <Preview.Code>
     {`
-      import { Menu, SplitButton } from "@moduix/react";
+      import { Menu, Portal, SplitButton } from "@moduix/react";
 
       export function SplitButtonPositioningDemo() {
         return (
           <SplitButton positioning={{ placement: "bottom-start", gutter: 8 }} variant="outline">
             <SplitButton.Action>Export</SplitButton.Action>
             <SplitButton.Trigger aria-label="More export actions" />
-            <SplitButton.Portal>
+            <Portal>
               <SplitButton.Positioner>
                 <SplitButton.Content>
                   <Menu.Item value="export-pdf">Export PDF</Menu.Item>
                   <Menu.Item value="export-csv">Export CSV</Menu.Item>
                 </SplitButton.Content>
               </SplitButton.Positioner>
-            </SplitButton.Portal>
+            </Portal>
           </SplitButton>
         );
       }
@@ -393,7 +393,7 @@ Use root `className` and stable `data-slot` hooks when the grouped control needs
 
   <Preview.Code>
     {`
-      import { Menu, SplitButton } from "@moduix/react";
+      import { Menu, Portal, SplitButton } from "@moduix/react";
       import styles from "./split-button.module.css";
 
       export function SplitButtonStylingDemo() {
@@ -401,14 +401,14 @@ Use root `className` and stable `data-slot` hooks when the grouped control needs
           <SplitButton className={styles.brandSplitButton} variant="outline">
             <SplitButton.Action>Review</SplitButton.Action>
             <SplitButton.Trigger aria-label="More review actions" />
-            <SplitButton.Portal>
+            <Portal>
               <SplitButton.Positioner>
                 <SplitButton.Content>
                   <Menu.Item value="approve">Approve</Menu.Item>
                   <Menu.Item value="request-changes">Request Changes</Menu.Item>
                 </SplitButton.Content>
               </SplitButton.Positioner>
-            </SplitButton.Portal>
+            </Portal>
           </SplitButton>
         );
       }
@@ -429,7 +429,7 @@ Use `asChild` on `SplitButton.Action` when the primary action should render as a
 
   <Preview.Code>
     {`
-      import { ArrowUpRightIcon, Menu, SplitButton } from "@moduix/react";
+      import { ArrowUpRightIcon, Menu, Portal, SplitButton } from "@moduix/react";
 
       export function SplitButtonLinkActionDemo() {
         return (
@@ -441,14 +441,14 @@ Use `asChild` on `SplitButton.Action` when the primary action should render as a
               </a>
             </SplitButton.Action>
             <SplitButton.Trigger aria-label="More docs actions" />
-            <SplitButton.Portal>
+            <Portal>
               <SplitButton.Positioner>
                 <SplitButton.Content>
                   <Menu.Item value="copy-link">Copy Link</Menu.Item>
                   <Menu.Item value="open-new-tab">Open in New Tab</Menu.Item>
                 </SplitButton.Content>
               </SplitButton.Positioner>
-            </SplitButton.Portal>
+            </Portal>
           </SplitButton>
         );
       }

@@ -58,9 +58,12 @@
 
 .virtualList {
   position: relative;
+  overflow: visible;
 }
 
 .virtualItem {
   position: absolute;
-  inset: 0 0 auto;
+  top: 0;
+  left: 0;
+  width: 100%;
 }

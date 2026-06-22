@@ -31,7 +31,7 @@ high-level content wrapper are intentionally removed.
   <HoverCard.Trigger asChild>
     <a href="#profile">@sarah_chen</a>
   </HoverCard.Trigger>
-  <HoverCard.Portal>
+  <Portal>
     <HoverCard.Positioner>
       <HoverCard.Content>
         <HoverCard.Arrow>
@@ -39,13 +39,12 @@ high-level content wrapper are intentionally removed.
         </HoverCard.Arrow>
       </HoverCard.Content>
     </HoverCard.Positioner>
-  </HoverCard.Portal>
+  </Portal>
 </HoverCard>
 ```
 
 - `HoverCard` / `HoverCard.Root`: root state and lifecycle, no default class or `data-slot`.
 - `HoverCard.RootProvider`: connects parts to `useHoverCard()` state.
-- `HoverCard.Portal`: moduix re-export of Ark `Portal`.
 - `HoverCard.Trigger`: `data-slot="hover-card-trigger"`, default link-like styling when `asChild` is not used.
 - `HoverCard.Positioner`: `data-slot="hover-card-positioner"`, Ark positioning layer.
 - `HoverCard.Content`: `data-slot="hover-card-content"`, visible styled popup surface.
@@ -56,7 +55,7 @@ high-level content wrapper are intentionally removed.
 ## Composition
 
 ```tsx
-import { HoverCard } from '@moduix/react';
+import { HoverCard, Portal } from '@moduix/react';
 
 export function Example() {
   return (
@@ -64,14 +63,14 @@ export function Example() {
       <HoverCard.Trigger asChild>
         <a href="#profile">@sarah_chen</a>
       </HoverCard.Trigger>
-      <HoverCard.Portal>
+      <Portal>
         <HoverCard.Positioner>
           <HoverCard.Content>
             <HoverCard.Arrow />
             Profile details
           </HoverCard.Content>
         </HoverCard.Positioner>
-      </HoverCard.Portal>
+      </Portal>
     </HoverCard>
   );
 }
@@ -101,9 +100,9 @@ and `--arrow-offset`. Public theme variables use the `--hover-card-*` prefix.
 
 ## Intentional sugar and differences from upstream
 
-`HoverCard.Arrow` renders `HoverCard.ArrowTip` when no children are passed. `HoverCard.Portal` is
-attached to the namespace so consumer examples can keep the entire tree under `HoverCard`. No
-legacy `PreviewCard*` aliases are exported.
+`HoverCard.Arrow` renders `HoverCard.ArrowTip` when no children are passed. `Portal` is imported
+separately from `@moduix/react` because it is the shared Ark Portal utility, not a hover-card-owned
+part. No legacy `PreviewCard*` aliases are exported.
 
 ## Agent notes
 
@@ -113,6 +112,8 @@ positioner, and content. Do not reintroduce legacy `createHandle`, `handle`, `pa
 
 ## Local changelog
 
+- 2026-06-22: Removed the `HoverCard.Portal` namespace alias; examples now import the shared
+  `Portal` from `@moduix/react`.
 - 2026-06-20: Migrated from legacy `preview-card` to Ark UI `hover-card`, renamed the component,
   removed legacy aliases and handle API, exposed Ark namespace parts/hooks/types, and updated
   styling to Ark data attributes and CSS variables.

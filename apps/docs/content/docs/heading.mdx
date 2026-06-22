@@ -115,12 +115,11 @@ Heading / Heading.Root
 
 ### Recommended composition
 
-Use `<Heading>` for an `h1`. For another semantic level, use Ark factory `asChild` with exactly one
-native heading child:
+Use `<Heading>` for an `h1`. For another semantic level, pass `as="h2"` through `as="h6"`:
 
 ```tsx
-<Heading asChild size="2xl">
-  <h2>Page title rendered as h2</h2>
+<Heading as="h2" size="2xl">
+  Page title rendered as h2
 </Heading>
 ```
 
@@ -136,7 +135,7 @@ the content is body copy or general typography rather than a document heading.
 
 | Entry     | Default             | Values / Notes                          |
 | --------- | ------------------- | --------------------------------------- |
-| element   | `h1`                | Use `asChild` for `h2` through `h6`     |
+| element   | `h1`                | Use `as` for `h2` through `h6`          |
 | `size`    | by rendered element | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
 | `weight`  | `semibold`          | `regular`, `medium`, `semibold`, `bold` |
 | `asChild` | `false`             | Ark factory composition                 |
@@ -167,8 +166,8 @@ an explicit visual size.
 
       export function SemanticHeadingDemo() {
         return (
-          <Heading asChild size="2xl" className={styles.demo}>
-            <h2>{headingText}</h2>
+          <Heading as="h2" size="2xl" className={styles.demo}>
+            {headingText}
           </Heading>
         );
       }
@@ -195,7 +194,7 @@ an explicit visual size.
 
 ### Heading Levels
 
-Use `asChild` for `h2` through `h6`. The default visual scale follows the actual heading element.
+Use `as` for `h2` through `h6`. The default visual scale follows the actual heading element.
 
 <Preview>
   <HeadingElementsExample />
@@ -209,11 +208,11 @@ Use `asChild` for `h2` through `h6`. The default visual scale follows the actual
         return (
           <div className={styles.stack}>
             <Heading>{headingLevels[0].label}</Heading>
-            <Heading asChild><h2>{headingLevels[1].label}</h2></Heading>
-            <Heading asChild><h3>{headingLevels[2].label}</h3></Heading>
-            <Heading asChild><h4>{headingLevels[3].label}</h4></Heading>
-            <Heading asChild><h5>{headingLevels[4].label}</h5></Heading>
-            <Heading asChild><h6>{headingLevels[5].label}</h6></Heading>
+            <Heading as="h2">{headingLevels[1].label}</Heading>
+            <Heading as="h3">{headingLevels[2].label}</Heading>
+            <Heading as="h4">{headingLevels[3].label}</Heading>
+            <Heading as="h5">{headingLevels[4].label}</Heading>
+            <Heading as="h6">{headingLevels[5].label}</Heading>
           </div>
         );
       }
@@ -265,8 +264,8 @@ Use `size` when multiple headings share one semantic level but need different vi
         return (
           <div className={styles.stack}>
             {headingSizes.map((item) => (
-              <Heading key={item.size} asChild size={item.size}>
-                <h2>{item.label}</h2>
+              <Heading key={item.size} as="h2" size={item.size}>
+                {item.label}
               </Heading>
             ))}
           </div>
@@ -320,8 +319,8 @@ Use `weight` for the built-in typography emphasis presets.
         return (
           <div className={styles.stack}>
             {headingWeights.map((item) => (
-              <Heading key={item.weight} asChild weight={item.weight}>
-                <h2>{item.label}</h2>
+              <Heading key={item.weight} as="h2" weight={item.weight}>
+                {item.label}
               </Heading>
             ))}
           </div>
@@ -371,8 +370,8 @@ Pass `className` to override public typography variables on one heading.
 
       export function CustomHeadingDemo() {
         return (
-          <Heading asChild className={styles.custom}>
-            <h2>{headingText}</h2>
+          <Heading as="h2" className={styles.custom}>
+            {headingText}
           </Heading>
         );
       }

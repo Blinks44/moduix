@@ -693,7 +693,12 @@ export function VirtualizedComboboxExample() {
       collection={collection}
       onInputValueChange={(details) => filter(details.inputValue)}
       scrollToIndexFn={(details) => {
-        virtualizer.scrollToIndex(details.index, { align: 'center' });
+        flushSync(() => {
+          virtualizer.scrollToIndex(details.index, {
+            align: 'center',
+            behavior: 'auto',
+          });
+        });
       }}
     >
       <Combobox.Label>Large dataset</Combobox.Label>
@@ -708,7 +713,7 @@ export function VirtualizedComboboxExample() {
             <div ref={scrollRef} className={styles.virtualScroller}>
               <Combobox.List
                 className={styles.virtualList}
-                style={{ height: virtualizer.getTotalSize() }}
+                style={{ height: virtualizer.getTotalSize(), width: '100%' }}
               >
                 {virtualizer.getVirtualItems().map((virtualItem) => {
                   const item = collection.items[virtualItem.index];
@@ -721,6 +726,10 @@ export function VirtualizedComboboxExample() {
                       aria-posinset={virtualItem.index + 1}
                       className={styles.virtualItem}
                       style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
                         height: virtualItem.size,
                         transform: `translateY(${virtualItem.start}px)`,
                       }}

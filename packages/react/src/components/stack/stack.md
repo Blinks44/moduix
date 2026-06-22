@@ -64,8 +64,8 @@ export function Example() {
   return (
     <Stack asChild gap={12} className={styles.panel}>
       <section>
-        <Heading asChild size="md">
-          <h2>Project updates</h2>
+        <Heading as="h2" size="md">
+          Project updates
         </Heading>
         <Text tone="muted">
           Use Stack when flex direction and spacing are the main layout needs.

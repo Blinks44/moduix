@@ -1,5 +1,4 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Portal } from '@ark-ui/react/portal';
 import { Tooltip as TooltipPrimitive, useTooltip, useTooltipContext } from '@ark-ui/react/tooltip';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
@@ -12,10 +11,6 @@ function TooltipRoot(props: ComponentProps<typeof TooltipPrimitive.Root>) {
 
 function TooltipRootProvider(props: ComponentProps<typeof TooltipPrimitive.RootProvider>) {
   return <TooltipPrimitive.RootProvider {...props} />;
-}
-
-function TooltipPortal(props: ComponentProps<typeof Portal>) {
-  return <Portal {...props} />;
 }
 
 const TooltipTrigger = forwardRef<
@@ -96,7 +91,6 @@ const TooltipContext = TooltipPrimitive.Context;
 const Tooltip = Object.assign(TooltipRoot, {
   Root: TooltipRoot,
   RootProvider: TooltipRootProvider,
-  Portal: TooltipPortal,
   Trigger: TooltipTrigger,
   Positioner: TooltipPositioner,
   Content: TooltipContent,

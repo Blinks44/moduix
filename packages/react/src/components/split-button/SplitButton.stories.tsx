@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Portal } from '@ark-ui/react/portal';
 import { useState } from 'react';
 import { ArrowUpRightIcon } from '@/icons/demo';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
@@ -33,7 +34,7 @@ export const Basic: Story = {
     <SplitButton>
       <SplitButton.Action onClick={() => undefined}>Save Changes</SplitButton.Action>
       <SplitButton.Trigger />
-      <SplitButton.Portal>
+      <Portal>
         <SplitButton.Positioner>
           <SplitButton.Content>
             <Menu.Item value="save-draft">Save as Draft</Menu.Item>
@@ -42,7 +43,7 @@ export const Basic: Story = {
             <Menu.Item value="publish">Publish Now</Menu.Item>
           </SplitButton.Content>
         </SplitButton.Positioner>
-      </SplitButton.Portal>
+      </Portal>
     </SplitButton>
   ),
 };
@@ -54,14 +55,14 @@ export const Variants: Story = {
         <SplitButton key={variant} variant={variant}>
           <SplitButton.Action>{variant}</SplitButton.Action>
           <SplitButton.Trigger />
-          <SplitButton.Portal>
+          <Portal>
             <SplitButton.Positioner>
               <SplitButton.Content>
                 <Menu.Item value={`${variant}-edit`}>Edit</Menu.Item>
                 <Menu.Item value={`${variant}-duplicate`}>Duplicate</Menu.Item>
               </SplitButton.Content>
             </SplitButton.Positioner>
-          </SplitButton.Portal>
+          </Portal>
         </SplitButton>
       ))}
     </div>
@@ -75,14 +76,14 @@ export const Sizes: Story = {
         <SplitButton key={size} size={size} variant="outline">
           <SplitButton.Action>{size}</SplitButton.Action>
           <SplitButton.Trigger />
-          <SplitButton.Portal>
+          <Portal>
             <SplitButton.Positioner>
               <SplitButton.Content>
                 <Menu.Item value={`${size}-create`}>Create</Menu.Item>
                 <Menu.Item value={`${size}-create-open`}>Create and Open</Menu.Item>
               </SplitButton.Content>
             </SplitButton.Positioner>
-          </SplitButton.Portal>
+          </Portal>
         </SplitButton>
       ))}
     </div>
@@ -97,7 +98,7 @@ export const WithIcons: Story = {
         Create Item
       </SplitButton.Action>
       <SplitButton.Trigger aria-label="More create actions" />
-      <SplitButton.Portal>
+      <Portal>
         <SplitButton.Positioner>
           <SplitButton.Content>
             <Menu.Item value="create-blank">Create Blank</Menu.Item>
@@ -106,7 +107,7 @@ export const WithIcons: Story = {
             <Menu.Item value="import-existing">Import Existing</Menu.Item>
           </SplitButton.Content>
         </SplitButton.Positioner>
-      </SplitButton.Portal>
+      </Portal>
     </SplitButton>
   ),
 };
@@ -119,7 +120,7 @@ export const ControlledMenu: Story = {
       <SplitButton open={open} onOpenChange={(details) => setOpen(details.open)} variant="outline">
         <SplitButton.Action>Share</SplitButton.Action>
         <SplitButton.Trigger aria-label="More share actions" />
-        <SplitButton.Portal>
+        <Portal>
           <SplitButton.Positioner>
             <SplitButton.Content>
               <Menu.Item value="copy-link">Copy Link</Menu.Item>
@@ -130,7 +131,7 @@ export const ControlledMenu: Story = {
               </Menu.Item>
             </SplitButton.Content>
           </SplitButton.Positioner>
-        </SplitButton.Portal>
+        </Portal>
       </SplitButton>
     );
   },
@@ -146,14 +147,14 @@ export const LinkAction: Story = {
         </a>
       </SplitButton.Action>
       <SplitButton.Trigger aria-label="More docs actions" />
-      <SplitButton.Portal>
+      <Portal>
         <SplitButton.Positioner>
           <SplitButton.Content>
             <Menu.Item value="copy-link">Copy Link</Menu.Item>
             <Menu.Item value="open-new-tab">Open in New Tab</Menu.Item>
           </SplitButton.Content>
         </SplitButton.Positioner>
-      </SplitButton.Portal>
+      </Portal>
     </SplitButton>
   ),
 };

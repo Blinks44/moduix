@@ -3,6 +3,7 @@ import {
   Button,
   InfoIcon,
   PlusIcon,
+  Portal,
   ShareIcon,
   Tooltip,
   useTooltip,
@@ -128,11 +129,11 @@ export function TooltipExample() {
           </span>
         </Button>
       </Tooltip.Trigger>
-      <Tooltip.Portal>
+      <Portal>
         <Tooltip.Positioner>
           <Tooltip.Content>Notifications</Tooltip.Content>
         </Tooltip.Positioner>
-      </Tooltip.Portal>
+      </Portal>
     </Tooltip>
   );
 }
@@ -141,14 +142,14 @@ export function ArrowTooltipExample() {
   return (
     <Tooltip>
       <Tooltip.Trigger>Hover or focus</Tooltip.Trigger>
-      <Tooltip.Portal>
+      <Portal>
         <Tooltip.Positioner>
           <Tooltip.Content>
             <Tooltip.Arrow />
             Tooltip with arrow
           </Tooltip.Content>
         </Tooltip.Positioner>
-      </Tooltip.Portal>
+      </Portal>
     </Tooltip>
   );
 }
@@ -157,11 +158,11 @@ export function DelayTooltipExample() {
   return (
     <Tooltip closeDelay={0} openDelay={0}>
       <Tooltip.Trigger>Immediate tooltip</Tooltip.Trigger>
-      <Tooltip.Portal>
+      <Portal>
         <Tooltip.Positioner>
           <Tooltip.Content>No open or close delay</Tooltip.Content>
         </Tooltip.Positioner>
-      </Tooltip.Portal>
+      </Portal>
     </Tooltip>
   );
 }
@@ -189,11 +190,11 @@ export function PositioningTooltipExample() {
         <Tooltip.Trigger asChild aria-label={`Tooltip placement: ${placement}`}>
           <Button>Hover or focus</Button>
         </Tooltip.Trigger>
-        <Tooltip.Portal>
+        <Portal>
           <Tooltip.Positioner>
             <Tooltip.Content>Placement: {placement}</Tooltip.Content>
           </Tooltip.Positioner>
-        </Tooltip.Portal>
+        </Portal>
       </Tooltip>
     </div>
   );
@@ -209,11 +210,11 @@ export function ControlledTooltipExample() {
       </Button>
       <Tooltip open={open} onOpenChange={(details) => setOpen(details.open)}>
         <Tooltip.Trigger>Controlled tooltip</Tooltip.Trigger>
-        <Tooltip.Portal>
+        <Portal>
           <Tooltip.Positioner>
             <Tooltip.Content>Open: {String(open)}</Tooltip.Content>
           </Tooltip.Positioner>
-        </Tooltip.Portal>
+        </Portal>
       </Tooltip>
     </div>
   );
@@ -223,7 +224,7 @@ export function ContextTooltipExample() {
   return (
     <Tooltip>
       <Tooltip.Trigger>Context tooltip</Tooltip.Trigger>
-      <Tooltip.Portal>
+      <Portal>
         <Tooltip.Positioner>
           <Tooltip.Context>
             {(tooltip) => (
@@ -231,7 +232,7 @@ export function ContextTooltipExample() {
             )}
           </Tooltip.Context>
         </Tooltip.Positioner>
-      </Tooltip.Portal>
+      </Portal>
     </Tooltip>
   );
 }
@@ -244,11 +245,11 @@ export function RootProviderTooltipExample() {
       <output className={styles.output}>Open: {String(tooltip.open)}</output>
       <Tooltip.RootProvider value={tooltip}>
         <Tooltip.Trigger>RootProvider tooltip</Tooltip.Trigger>
-        <Tooltip.Portal>
+        <Portal>
           <Tooltip.Positioner>
             <Tooltip.Content>State is owned outside the tree.</Tooltip.Content>
           </Tooltip.Positioner>
-        </Tooltip.Portal>
+        </Portal>
       </Tooltip.RootProvider>
     </div>
   );
@@ -272,7 +273,7 @@ export function MultipleTriggersTooltipExample() {
           </Tooltip.Trigger>
         ))}
       </div>
-      <Tooltip.Portal>
+      <Portal>
         <Tooltip.Positioner>
           <Tooltip.Content>
             {activeTool ? (
@@ -282,7 +283,7 @@ export function MultipleTriggersTooltipExample() {
             ) : null}
           </Tooltip.Content>
         </Tooltip.Positioner>
-      </Tooltip.Portal>
+      </Portal>
     </Tooltip>
   );
 }
@@ -292,11 +293,11 @@ export function WithinFixedTooltipExample() {
     <div className={styles.fixedContainer}>
       <Tooltip positioning={{ strategy: 'fixed' }}>
         <Tooltip.Trigger>Fixed strategy</Tooltip.Trigger>
-        <Tooltip.Portal>
+        <Portal>
           <Tooltip.Positioner>
             <Tooltip.Content>Positioned from a fixed container.</Tooltip.Content>
           </Tooltip.Positioner>
-        </Tooltip.Portal>
+        </Portal>
       </Tooltip>
     </div>
   );
@@ -308,14 +309,14 @@ export function CustomStylingTooltipExample() {
       <Tooltip.Trigger aria-label="Custom styled tooltip" className={styles.customTrigger}>
         Custom style
       </Tooltip.Trigger>
-      <Tooltip.Portal>
+      <Portal>
         <Tooltip.Positioner className={styles.customPositioner}>
           <Tooltip.Content className={styles.customContent}>
             <Tooltip.Arrow className={styles.customArrow} />
             Styled through explicit Ark parts
           </Tooltip.Content>
         </Tooltip.Positioner>
-      </Tooltip.Portal>
+      </Portal>
     </Tooltip>
   );
 }

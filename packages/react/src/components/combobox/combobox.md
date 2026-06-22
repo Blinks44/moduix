@@ -164,6 +164,9 @@ export function ComboboxExample() {
 
 ## Local changelog
 
+- 2026-06-22: Fixed the docs virtualized composition to use a dedicated scroll container,
+  synchronous `scrollToIndexFn`, and non-scrolling virtual list rows so popup scrolling works with
+  TanStack Virtual.
 - 2026-06-19: Aligned Combobox interactive styling with Select by moving item highlight to accent
   tokens, adding open and hover surface states on the control, and matching checked/disabled item
   colors to the Select visual contract.

@@ -28,6 +28,7 @@ Use the explicit dialog structure and place `CommandPalette.Combobox` inside `Co
       import {
         Button,
         CommandPalette,
+        Portal,
         useFilter,
         useListCollection,
       } from "@moduix/react";
@@ -55,7 +56,7 @@ Use the explicit dialog structure and place `CommandPalette.Combobox` inside `Co
             <CommandPalette.Trigger asChild>
               <Button>Open palette</Button>
             </CommandPalette.Trigger>
-            <CommandPalette.Portal>
+            <Portal>
               <CommandPalette.Backdrop />
               <CommandPalette.Positioner>
                 <CommandPalette.Content className="commandPalette">
@@ -103,7 +104,7 @@ Use the explicit dialog structure and place `CommandPalette.Combobox` inside `Co
                   </CommandPalette.Combobox>
                 </CommandPalette.Content>
               </CommandPalette.Positioner>
-            </CommandPalette.Portal>
+            </Portal>
           </CommandPalette>
         );
       }
@@ -191,7 +192,7 @@ aubx shadcn@latest add Blinks44/moduix/react-command-palette
 ```text
 CommandPalette / CommandPalette.Root
 ├─ CommandPalette.Trigger
-└─ CommandPalette.Portal
+└─ Portal
    ├─ CommandPalette.Backdrop
    └─ CommandPalette.Positioner
       └─ CommandPalette.Content
@@ -214,7 +215,7 @@ CommandPalette / CommandPalette.Root
 | --------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | `CommandPalette` / `CommandPalette.Root`                              | Ark Dialog root plus optional global shortcut listener.              |
 | `CommandPalette.Trigger`                                              | Ark Dialog trigger; use `asChild` for custom trigger hosts.          |
-| `CommandPalette.Portal`                                               | Ark Portal for the overlay subtree.                                  |
+| `Portal`                                                              | Ark Portal for the overlay subtree.                                  |
 | `CommandPalette.Backdrop`                                             | Ark Dialog backdrop with `data-state` animations.                    |
 | `CommandPalette.Positioner`                                           | Ark Dialog positioner for viewport alignment and scroll containment. |
 | `CommandPalette.Content`                                              | Ark Dialog content and visual palette surface.                       |
@@ -234,7 +235,7 @@ CommandPalette / CommandPalette.Root
 
 ### Recommended composition
 
-Use `useListCollection` with `itemToString`, `itemToValue`, and `groupBy`, then call `filter(details.inputValue)` from `CommandPalette.Combobox` `onInputValueChange`. Keep `CommandPalette.Portal`, `Backdrop`, `Positioner`, and `Content` explicit so overlay structure stays overrideable.
+Use `useListCollection` with `itemToString`, `itemToValue`, and `groupBy`, then call `filter(details.inputValue)` from `CommandPalette.Combobox` `onInputValueChange`. Keep `Portal`, `Backdrop`, `Positioner`, and `Content` explicit so overlay structure stays overrideable.
 
 ### When to go custom
 
@@ -272,6 +273,7 @@ Attach execution behavior to items and let `CommandPalette.Combobox` close the d
       import {
         Button,
         CommandPalette,
+        Portal,
         useFilter,
         useListCollection,
       } from "@moduix/react";
@@ -304,7 +306,7 @@ Attach execution behavior to items and let `CommandPalette.Combobox` close the d
             <CommandPalette.Trigger asChild>
               <Button>Open actions palette</Button>
             </CommandPalette.Trigger>
-            <CommandPalette.Portal>
+            <Portal>
               <CommandPalette.Backdrop />
               <CommandPalette.Positioner>
                 <CommandPalette.Content>
@@ -353,7 +355,7 @@ Attach execution behavior to items and let `CommandPalette.Combobox` close the d
                   </CommandPalette.Combobox>
                 </CommandPalette.Content>
               </CommandPalette.Positioner>
-            </CommandPalette.Portal>
+            </Portal>
           </CommandPalette>
         );
       }
@@ -396,6 +398,7 @@ Control `open` from React state when the palette must coordinate with surroundin
       import {
         Button,
         CommandPalette,
+        Portal,
         useFilter,
         useListCollection,
       } from "@moduix/react";
@@ -428,7 +431,7 @@ Control `open` from React state when the palette must coordinate with surroundin
                 }
               }}
             >
-              <CommandPalette.Portal>
+              <Portal>
                 <CommandPalette.Backdrop />
                 <CommandPalette.Positioner>
                   <CommandPalette.Content className="commandPalette">
@@ -464,7 +467,7 @@ Control `open` from React state when the palette must coordinate with surroundin
                     </CommandPalette.Combobox>
                   </CommandPalette.Content>
                 </CommandPalette.Positioner>
-              </CommandPalette.Portal>
+              </Portal>
             </CommandPalette>
           </>
         );
@@ -498,7 +501,7 @@ Enable the listener when a palette should open from a global command key. The li
         <CommandPalette.Trigger asChild>
           <Button>Open palette</Button>
         </CommandPalette.Trigger>
-        <CommandPalette.Portal>
+        <Portal>
           <CommandPalette.Backdrop />
           <CommandPalette.Positioner>
             <CommandPalette.Content>
@@ -521,7 +524,7 @@ Enable the listener when a palette should open from a global command key. The li
               </CommandPalette.Combobox>
             </CommandPalette.Content>
           </CommandPalette.Positioner>
-        </CommandPalette.Portal>
+        </Portal>
       </CommandPalette>
     `}
 </Preview.Code>

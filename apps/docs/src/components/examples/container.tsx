@@ -92,8 +92,8 @@ export function ContainerExample(props: ComponentProps<typeof Container>) {
   return (
     <div className={styles.viewport}>
       <Container className={styles.container} {...props}>
-        <Heading asChild size="lg">
-          <h3>{containerContent.title}</h3>
+        <Heading as="h3" size="lg">
+          {containerContent.title}
         </Heading>
         <Text tone="muted">{containerContent.description}</Text>
       </Container>
@@ -136,8 +136,8 @@ export function ContainerSemanticExample() {
     <div className={styles.viewport}>
       <Container asChild size="md" className={styles.container}>
         <main>
-          <Heading asChild size="lg">
-            <h3>{semanticContent.title}</h3>
+          <Heading as="h3" size="lg">
+            {semanticContent.title}
           </Heading>
           <Text tone="muted">{semanticContent.description}</Text>
         </main>
@@ -160,8 +160,8 @@ export function ContainerBleedExample() {
   return (
     <div className={styles.viewport}>
       <Container className={styles.container}>
-        <Heading asChild size="lg">
-          <h3>{bleedContent.title}</h3>
+        <Heading as="h3" size="lg">
+          {bleedContent.title}
         </Heading>
         <Text tone="muted">{bleedContent.description}</Text>
         <Bleed.Root inline="md">

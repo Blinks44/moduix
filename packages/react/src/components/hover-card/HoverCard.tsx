@@ -4,7 +4,6 @@ import {
   useHoverCard,
   useHoverCardContext,
 } from '@ark-ui/react/hover-card';
-import { Portal } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -16,10 +15,6 @@ function HoverCardRoot(props: ComponentProps<typeof HoverCardPrimitive.Root>) {
 
 function HoverCardRootProvider(props: ComponentProps<typeof HoverCardPrimitive.RootProvider>) {
   return <HoverCardPrimitive.RootProvider {...props} />;
-}
-
-function HoverCardPortal(props: ComponentProps<typeof Portal>) {
-  return <Portal {...props} />;
 }
 
 const HoverCardTrigger = forwardRef<
@@ -100,7 +95,6 @@ const HoverCardContext = HoverCardPrimitive.Context;
 const HoverCard = Object.assign(HoverCardRoot, {
   Root: HoverCardRoot,
   RootProvider: HoverCardRootProvider,
-  Portal: HoverCardPortal,
   Trigger: HoverCardTrigger,
   Positioner: HoverCardPositioner,
   Content: HoverCardContent,

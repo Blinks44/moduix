@@ -35,8 +35,8 @@ applies responsive inline gutters, and stays out of vertical spacing decisions.
       export function ContainerDemo() {
         return (
           <Container className="container">
-            <Heading asChild size="lg">
-              <h3>{containerContent.title}</h3>
+            <Heading as="h3" size="lg">
+              {containerContent.title}
             </Heading>
             <Text tone="muted">{containerContent.description}</Text>
           </Container>
@@ -305,7 +305,7 @@ Use `asChild` when the layout wrapper should also describe document structure.
         return (
           <Container asChild size="md" className="container">
             <main>
-              <Heading asChild size="lg"><h3>{semanticContent.title}</h3></Heading>
+              <Heading as="h3" size="lg">{semanticContent.title}</Heading>
               <Text tone="muted">{semanticContent.description}</Text>
             </main>
           </Container>
@@ -355,7 +355,7 @@ Keep the text column constrained and let only the wider child opt out.
       export function ContainerBleedDemo() {
         return (
           <Container className="container">
-            <Heading asChild size="lg"><h3>{bleedContent.title}</h3></Heading>
+            <Heading as="h3" size="lg">{bleedContent.title}</Heading>
             <Text tone="muted">{bleedContent.description}</Text>
             <Bleed.Root inline="md">
               <div className="bleedSurface">{bleedContent.callout}</div>

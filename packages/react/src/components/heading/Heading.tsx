@@ -7,19 +7,33 @@ import styles from './Heading.module.css';
 
 export type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 export type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
+export type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 export type HeadingRootProps = HTMLArkProps<'h1'> & {
+  as?: HeadingElement;
   size?: HeadingSize;
   weight?: HeadingWeight;
 };
 
+const elements = {
+  h1: ark.h1,
+  h2: ark.h2,
+  h3: ark.h3,
+  h4: ark.h4,
+  h5: ark.h5,
+  h6: ark.h6,
+} as const;
+
 const HeadingRoot = forwardRef<HTMLHeadingElement, HeadingRootProps>(function HeadingRoot(
-  { size, weight = 'semibold', className, ...props },
+  { as, asChild, size, weight = 'semibold', className, ...props },
   ref,
 ) {
+  const Element = elements[as ?? 'h1'] as typeof ark.h1;
+
   return (
-    <ark.h1
+    <Element
       ref={ref}
+      asChild={asChild}
       data-scope="heading"
       data-part="root"
       data-slot="heading-root"

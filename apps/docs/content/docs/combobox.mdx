@@ -740,6 +740,7 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
       import { useVirtualizer } from "@tanstack/react-virtual";
       import { Combobox, Portal, useFilter, useListCollection } from "@moduix/react";
       import { useRef } from "react";
+      import { flushSync } from "react-dom";
 
       export function VirtualizedComboboxDemo() {
         const scrollRef = useRef(null as HTMLDivElement | null);
@@ -760,7 +761,12 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
             collection={collection}
             onInputValueChange={(details) => filter(details.inputValue)}
             scrollToIndexFn={(details) => {
-              virtualizer.scrollToIndex(details.index, { align: "center" });
+              flushSync(() => {
+                virtualizer.scrollToIndex(details.index, {
+                  align: "center",
+                  behavior: "auto",
+                });
+              });
             }}
           >
             <Combobox.Label>Large dataset</Combobox.Label>
@@ -778,7 +784,7 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
                   <div ref={scrollRef} className="virtualScroller">
                     <Combobox.List
                       className="virtualList"
-                      style={{ height: virtualizer.getTotalSize() }}
+                      style={{ height: virtualizer.getTotalSize(), width: "100%" }}
                     >
                       {virtualizer.getVirtualItems().map((virtualItem) => {
                         const item = collection.items[virtualItem.index];
@@ -791,6 +797,10 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
                             aria-posinset={virtualItem.index + 1}
                             className="virtualItem"
                             style={{
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              width: "100%",
                               height: virtualItem.size,
                               transform: \`translateY(\${virtualItem.start}px)\`,
                             }}
@@ -825,11 +835,14 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
 
       .virtualList {
         position: relative;
+        overflow: visible;
       }
 
       .virtualItem {
         position: absolute;
-        inset: 0 0 auto;
+        top: 0;
+        left: 0;
+        width: 100%;
       }
     `}
 

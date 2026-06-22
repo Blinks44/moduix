@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Portal } from '@ark-ui/react/portal';
 import { useState } from 'react';
 import { BellIcon, InfoIcon, ShareIcon } from '@/icons/demo';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
@@ -40,11 +41,11 @@ export const Default: Story = {
             </span>
           </Button>
         </Tooltip.Trigger>
-        <Tooltip.Portal>
+        <Portal>
           <Tooltip.Positioner>
             <Tooltip.Content>Notifications</Tooltip.Content>
           </Tooltip.Positioner>
-        </Tooltip.Portal>
+        </Portal>
       </Tooltip>
     );
   },
@@ -56,14 +57,14 @@ export const WithArrow: Story = {
     return (
       <Tooltip>
         <Tooltip.Trigger aria-label="Tooltip with arrow">Hover or focus</Tooltip.Trigger>
-        <Tooltip.Portal>
+        <Portal>
           <Tooltip.Positioner>
             <Tooltip.Content>
               <Tooltip.Arrow />
               Tooltip with arrow
             </Tooltip.Content>
           </Tooltip.Positioner>
-        </Tooltip.Portal>
+        </Portal>
       </Tooltip>
     );
   },
@@ -74,11 +75,11 @@ export const Delay: Story = {
     return (
       <Tooltip closeDelay={0} openDelay={0}>
         <Tooltip.Trigger>Immediate tooltip</Tooltip.Trigger>
-        <Tooltip.Portal>
+        <Portal>
           <Tooltip.Positioner>
             <Tooltip.Content>No open or close delay</Tooltip.Content>
           </Tooltip.Positioner>
-        </Tooltip.Portal>
+        </Portal>
       </Tooltip>
     );
   },
@@ -108,11 +109,11 @@ export const Positioning: Story = {
           <Tooltip.Trigger asChild aria-label={`Tooltip placement: ${placement}`}>
             <Button>Hover or focus</Button>
           </Tooltip.Trigger>
-          <Tooltip.Portal>
+          <Portal>
             <Tooltip.Positioner>
               <Tooltip.Content>Placement: {placement}</Tooltip.Content>
             </Tooltip.Positioner>
-          </Tooltip.Portal>
+          </Portal>
         </Tooltip>
       </div>
     );
@@ -130,11 +131,11 @@ export const Controlled: Story = {
         </Button>
         <Tooltip open={open} onOpenChange={(details) => setOpen(details.open)}>
           <Tooltip.Trigger>Controlled tooltip</Tooltip.Trigger>
-          <Tooltip.Portal>
+          <Portal>
             <Tooltip.Positioner>
               <Tooltip.Content>Open: {String(open)}</Tooltip.Content>
             </Tooltip.Positioner>
-          </Tooltip.Portal>
+          </Portal>
         </Tooltip>
       </div>
     );
@@ -146,7 +147,7 @@ export const Context: Story = {
     return (
       <Tooltip>
         <Tooltip.Trigger>Context tooltip</Tooltip.Trigger>
-        <Tooltip.Portal>
+        <Portal>
           <Tooltip.Positioner>
             <Tooltip.Context>
               {(tooltip) => (
@@ -154,7 +155,7 @@ export const Context: Story = {
               )}
             </Tooltip.Context>
           </Tooltip.Positioner>
-        </Tooltip.Portal>
+        </Portal>
       </Tooltip>
     );
   },
@@ -170,11 +171,11 @@ export const RootProvider: Story = {
         <output className={storyStyles.output}>Open: {String(tooltip.open)}</output>
         <Tooltip.RootProvider value={tooltip}>
           <Tooltip.Trigger>RootProvider tooltip</Tooltip.Trigger>
-          <Tooltip.Portal>
+          <Portal>
             <Tooltip.Positioner>
               <Tooltip.Content>State is owned outside the tree.</Tooltip.Content>
             </Tooltip.Positioner>
-          </Tooltip.Portal>
+          </Portal>
         </Tooltip.RootProvider>
       </div>
     );
@@ -201,7 +202,7 @@ export const MultipleTriggers: Story = {
             </Tooltip.Trigger>
           ))}
         </div>
-        <Tooltip.Portal>
+        <Portal>
           <Tooltip.Positioner>
             <Tooltip.Content>
               {activeTool ? (
@@ -212,7 +213,7 @@ export const MultipleTriggers: Story = {
               ) : null}
             </Tooltip.Content>
           </Tooltip.Positioner>
-        </Tooltip.Portal>
+        </Portal>
       </Tooltip>
     );
   },
@@ -228,11 +229,11 @@ export const WithinFixedContainer: Story = {
       <div className={storyStyles.fixedContainer}>
         <Tooltip positioning={{ strategy: 'fixed' }}>
           <Tooltip.Trigger>Fixed strategy</Tooltip.Trigger>
-          <Tooltip.Portal>
+          <Portal>
             <Tooltip.Positioner>
               <Tooltip.Content>Positioned from a fixed container.</Tooltip.Content>
             </Tooltip.Positioner>
-          </Tooltip.Portal>
+          </Portal>
         </Tooltip>
       </div>
     );
@@ -247,14 +248,14 @@ export const CustomComposition: Story = {
         <Tooltip.Trigger aria-label="Custom styled tooltip" className={storyStyles.customTrigger}>
           Custom style
         </Tooltip.Trigger>
-        <Tooltip.Portal>
+        <Portal>
           <Tooltip.Positioner className={storyStyles.customPositioner}>
             <Tooltip.Content className={storyStyles.customContent}>
               <Tooltip.Arrow className={storyStyles.customArrow} />
               Styled through explicit Ark parts
             </Tooltip.Content>
           </Tooltip.Positioner>
-        </Tooltip.Portal>
+        </Portal>
       </Tooltip>
     );
   },

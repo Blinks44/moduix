@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Portal } from '@ark-ui/react/portal';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import * as React from 'react';
 import { HoverCard, useHoverCard } from './HoverCard';
@@ -59,14 +60,14 @@ function PreviewCardContent({ profile }: { profile: Profile; compact?: boolean }
 
 function HoverCardSurface({ profile }: { profile: Profile; compact?: boolean }) {
   return (
-    <HoverCard.Portal>
+    <Portal>
       <HoverCard.Positioner>
         <HoverCard.Content>
           <HoverCard.Arrow />
           <PreviewCardContent profile={profile} />
         </HoverCard.Content>
       </HoverCard.Positioner>
-    </HoverCard.Portal>
+    </Portal>
   );
 }
 
