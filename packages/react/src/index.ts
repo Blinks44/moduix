@@ -29,6 +29,7 @@ export * from './components/empty';
 export * from './components/field';
 export * from './components/file-upload';
 export * from './components/fieldset';
+export * from './components/floating-panel';
 export * from './components/heading';
 export * from './components/input';
 export * from './components/input-group';

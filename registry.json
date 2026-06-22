@@ -814,6 +814,31 @@
       ]
     },
     {
+      "name": "react-floating-panel",
+      "type": "registry:item",
+      "title": "FloatingPanel",
+      "description": "moduix React FloatingPanel component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core", "Blinks44/moduix/react-close-button"],
+      "files": [
+        {
+          "path": "packages/react/src/components/floating-panel/FloatingPanel.tsx",
+          "target": "@components/moduix/floating-panel/FloatingPanel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/floating-panel/FloatingPanel.module.css",
+          "target": "@components/moduix/floating-panel/FloatingPanel.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/floating-panel/index.ts",
+          "target": "@components/moduix/floating-panel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-heading",
       "type": "registry:item",
       "title": "Heading",

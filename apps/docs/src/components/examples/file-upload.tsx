@@ -53,11 +53,6 @@ export const fileUploadExampleCss = `
     color: var(--color-destructive);
   }
 
-  .file-upload-file-icon {
-    width: 1rem;
-    height: 1rem;
-  }
-
   .file-upload-submit {
     justify-self: start;
     border: var(--border-width-sm) solid var(--color-border);
@@ -108,13 +103,9 @@ export const fileUploadRejectedFilesData = `
 `;
 
 export const fileUploadErrorHandlingData = `
-  const errorMessages = {
-    TOO_MANY_FILES: "Too many files selected",
-    FILE_INVALID_TYPE: "Invalid file type",
-    FILE_TOO_LARGE: "File is too large",
-    FILE_TOO_SMALL: "File is too small",
-    FILE_EXISTS: "File already exists",
-  };
+  const accept = "image/*";
+  const maxFiles = 2;
+  const maxFileSize = 120_000;
 `;
 
 export const fileUploadInitialFilesData = `
@@ -124,26 +115,31 @@ export const fileUploadInitialFilesData = `
 `;
 
 export const fileUploadFormData = `
-  const formName = "project-assets";
+  const name = "project-assets";
+  const maxFiles = 3;
 `;
 
 export const fileUploadRootProviderData = `
-  const fileUpload = useFileUpload({ maxFiles: 3, accept: "image/*" });
+  const maxFiles = 3;
+  const accept = "image/*";
 `;
 
 export const fileUploadDirectoryData = `
-  const directory = true;
+  const maxFiles = 20;
 `;
 
 export const fileUploadMediaCaptureData = `
   const capture = "environment";
   const accept = "image/*";
+  const maxFiles = 1;
 `;
 
 export const fileUploadTransformData = `
-  async function transformFiles(files) {
-    return files.map((file) => new File([file], file.name.toLowerCase(), { type: file.type }));
-  }
+  const accept = "image/*";
+`;
+
+export const fileUploadCustomStylingData = `
+  const maxFiles = 2;
 `;
 
 export const fileUploadOverrideCssProperties: CssPropertyInput[] = [
@@ -225,20 +221,6 @@ export function FileUploadCssPropertiesPanel() {
   );
 }
 
-function FileIcon(props: ComponentProps<'svg'>) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
-      <path
-        d="M4 1.75h5l3 3v9.5H4z"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinejoin="round"
-      />
-      <path d="M9 1.75V5h3" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 function getInitialFiles() {
   return [new File(['Welcome to moduix'], 'README.md', { type: 'text/plain' })];
 }
@@ -249,12 +231,6 @@ function AcceptedFileItems() {
       {({ acceptedFiles }) =>
         acceptedFiles.map((file) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
-            <FileUpload.ItemPreview type="image/*">
-              <FileUpload.ItemPreviewImage />
-            </FileUpload.ItemPreview>
-            <FileUpload.ItemPreview type=".*">
-              <FileIcon className={styles.fileIcon} />
-            </FileUpload.ItemPreview>
             <FileUpload.ItemName />
             <FileUpload.ItemSizeText />
             <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
@@ -286,13 +262,8 @@ function RejectedFileItems({ showErrors = true }: { showErrors?: boolean }) {
       {({ rejectedFiles }) =>
         rejectedFiles.map(({ file, errors }) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
-            <FileUpload.ItemPreview type=".*">
-              <FileIcon className={styles.fileIcon} />
-            </FileUpload.ItemPreview>
-            <div>
-              <FileUpload.ItemName />
-              {showErrors ? <p className={styles.error}>{errors.join(', ')}</p> : null}
-            </div>
+            <FileUpload.ItemName />
+            {showErrors ? <p className={styles.error}>{errors.join(', ')}</p> : null}
             <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
           </FileUpload.Item>
         ))

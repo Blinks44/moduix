@@ -1265,6 +1265,74 @@
   --fieldset-radius: initial; /* var(--radius-none) */
   --fieldset-width: initial; /* 100% */
 
+  /* FloatingPanel */
+  --floating-panel-behind-opacity: initial; /* 0.55 */
+  --floating-panel-bg: initial; /* var(--color-popover) */
+  --floating-panel-body-color: initial; /* var(--floating-panel-color, var(--color-popover-foreground)) */
+  --floating-panel-body-font-size: initial; /* var(--text-sm) */
+  --floating-panel-body-line-height: initial; /* var(--line-height-text-sm) */
+  --floating-panel-body-padding: initial; /* var(--spacing-4) */
+  --floating-panel-border-color: initial; /* var(--color-border) */
+  --floating-panel-border-width: initial; /* var(--border-width-sm) */
+  --floating-panel-color: initial; /* var(--color-popover-foreground) */
+  --floating-panel-control-bg: initial; /* var(--color-background) */
+  --floating-panel-control-bg-hover: initial; /* var(--color-accent) */
+  --floating-panel-control-border-color: initial; /* var(--color-border) */
+  --floating-panel-control-border-width: initial; /* var(--border-width-sm) */
+  --floating-panel-control-color: initial; /* var(--color-foreground) */
+  --floating-panel-control-gap: initial; /* var(--spacing-1) */
+  --floating-panel-control-icon-size: initial; /* 0.875rem */
+  --floating-panel-control-radius: initial; /* var(--radius-sm) */
+  --floating-panel-control-size: initial; /* 1.625rem */
+  --floating-panel-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --floating-panel-drag-indicator-color: initial; /* var(--color-muted-foreground) */
+  --floating-panel-drag-indicator-size: initial; /* 1rem */
+  --floating-panel-ending-opacity: initial; /* 0 */
+  --floating-panel-ending-scale: initial; /* var(--scale-popup) */
+  --floating-panel-ending-translate-x: initial; /* 0 */
+  --floating-panel-ending-translate-y: initial; /* 0 */
+  --floating-panel-focus-ring-color: initial; /* var(--color-ring) */
+  --floating-panel-focus-ring-width: initial; /* var(--border-width-sm) */
+  --floating-panel-header-bg: initial; /* var(--color-muted) */
+  --floating-panel-header-border-color: initial; /* var(--floating-panel-border-color, var(--color-border)) */
+  --floating-panel-header-border-width: initial; /* var(--border-width-sm) */
+  --floating-panel-header-gap: initial; /* var(--spacing-3) */
+  --floating-panel-header-height: initial; /* 2.75rem */
+  --floating-panel-header-padding-x: initial; /* var(--spacing-3) */
+  --floating-panel-header-padding-y: initial; /* var(--spacing-2) */
+  --floating-panel-height: initial; /* 100% */
+  --floating-panel-min-height: initial; /* 10rem */
+  --floating-panel-min-width: initial; /* 16rem */
+  --floating-panel-radius: initial; /* var(--radius-md) */
+  --floating-panel-resize-corner-size: initial; /* 0.75rem */
+  --floating-panel-resize-edge-inset: initial; /* 0.75rem */
+  --floating-panel-resize-edge-size: initial; /* 0.375rem */
+  --floating-panel-shadow: initial; /* var(--shadow-lg) */
+  --floating-panel-starting-opacity: initial; /* 0 */
+  --floating-panel-starting-scale: initial; /* var(--scale-popup) */
+  --floating-panel-starting-translate-x: initial; /* 0 */
+  --floating-panel-starting-translate-y: initial; /* 0 */
+  --floating-panel-title-color: initial; /* var(--floating-panel-color, var(--color-popover-foreground)) */
+  --floating-panel-title-font-size: initial; /* var(--text-sm) */
+  --floating-panel-title-font-weight: initial; /* var(--weight-semibold) */
+  --floating-panel-title-gap: initial; /* var(--spacing-2) */
+  --floating-panel-title-line-height: initial; /* var(--line-height-text-sm) */
+  --floating-panel-transition: initial; /* var(--transition-default) */
+  --floating-panel-trigger-bg: initial; /* var(--color-background) */
+  --floating-panel-trigger-bg-active: initial; /* var(--floating-panel-trigger-bg-hover, var(--color-accent)) */
+  --floating-panel-trigger-bg-hover: initial; /* var(--color-accent) */
+  --floating-panel-trigger-border-color: initial; /* var(--color-border) */
+  --floating-panel-trigger-border-width: initial; /* var(--border-width-sm) */
+  --floating-panel-trigger-color: initial; /* var(--color-foreground) */
+  --floating-panel-trigger-font-size: initial; /* var(--text-md) */
+  --floating-panel-trigger-height: initial; /* var(--size-lg) */
+  --floating-panel-trigger-line-height: initial; /* var(--line-height-text-md) */
+  --floating-panel-trigger-padding-x: initial; /* 0.875rem */
+  --floating-panel-trigger-padding-y: initial; /* 0.5rem */
+  --floating-panel-trigger-radius: initial; /* var(--radius-md) */
+  --floating-panel-width: initial; /* 100% */
+  --floating-panel-z-index: initial; /* var(--z-popup) */
+
   /* Heading */
   --heading-color: initial; /* var(--color-foreground) */
   --heading-font-family: initial; /* var(--font-sans) */

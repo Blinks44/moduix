@@ -1,0 +1,98 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.triggerRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.panel {
+  --floating-panel-width: 100%;
+  --floating-panel-height: 100%;
+}
+
+.widePanel {
+  --floating-panel-min-width: 20rem;
+}
+
+.titleText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bodyStack {
+  display: grid;
+  gap: var(--spacing-3);
+}
+
+.bodyStack p {
+  margin: 0;
+}
+
+.field {
+  display: grid;
+  gap: var(--spacing-2);
+}
+
+.input {
+  min-height: var(--size-lg);
+  padding-inline: var(--spacing-3);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font: inherit;
+}
+
+.status {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+}
+
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-2);
+}
+
+.metric {
+  display: grid;
+  gap: var(--spacing-1);
+  padding: var(--spacing-3);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
+}
+
+.metric span {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+}
+
+.metric strong {
+  font-size: var(--text-lg);
+}
+
+.customPanel {
+  --floating-panel-bg: var(--color-primary);
+  --floating-panel-color: var(--color-primary-foreground);
+  --floating-panel-border-color: color-mix(in oklab, var(--color-primary), black 18%);
+  --floating-panel-header-bg: color-mix(in oklab, var(--color-primary), white 12%);
+  --floating-panel-control-bg: color-mix(in oklab, var(--color-primary), white 8%);
+  --floating-panel-control-bg-hover: color-mix(in oklab, var(--color-primary), white 18%);
+  --floating-panel-control-border-color: color-mix(in oklab, var(--color-primary), white 22%);
+  --floating-panel-control-color: var(--color-primary-foreground);
+  --floating-panel-drag-indicator-color: var(--color-primary-foreground);
+  --floating-panel-title-color: var(--color-primary-foreground);
+  --floating-panel-radius: var(--radius-lg);
+  --floating-panel-shadow: var(--shadow-xl);
+}

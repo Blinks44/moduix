@@ -9,6 +9,7 @@ import {
   CustomStylingFileUploadExample,
   FileUploadAcceptedTypesExample,
   FileUploadCssPropertiesPanel,
+  fileUploadCustomStylingData,
   FileUploadDirectoryExample,
   FileUploadDropzoneDemo,
   FileUploadErrorHandlingExample,
@@ -53,7 +54,7 @@ from `FileUpload.Context`, and keep `HiddenInput` in the tree for native form be
 
       export function FileUploadDemo() {
         return (
-          <FileUpload className="file-upload-demo file-upload-simple-demo" maxFiles={3}>
+          <FileUpload className="file-upload-demo file-upload-simple-demo" maxFiles={maxFiles}>
             <FileUpload.Label>Attachments</FileUpload.Label>
             <FileUpload.Trigger>Choose files</FileUpload.Trigger>
             <FileUpload.ItemGroup>
@@ -209,32 +210,39 @@ Use `Dropzone` for drag-and-drop uploads. Keep a nested `Trigger` for keyboard a
 
   <Preview.Code>
     {`
-      <FileUpload maxFiles={5}>
-        <FileUpload.Label>Project files</FileUpload.Label>
-        <FileUpload.Dropzone disableClick>
-          <FileUpload.DropzoneIcon />
-          <div className="file-upload-dropzone-content">
-            <span className="file-upload-dropzone-title">Drag and drop files here</span>
-            <span className="file-upload-dropzone-description">or browse from your device</span>
-            <FileUpload.Trigger>Browse files</FileUpload.Trigger>
-          </div>
-        </FileUpload.Dropzone>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
-            {({ acceptedFiles }) =>
-              acceptedFiles.map((file) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemSizeText />
-                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                </FileUpload.Item>
-              ))
-            }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
-      </FileUpload>
+      import { FileUpload } from "@moduix/react";
+
+      export function FileUploadDropzoneDemo() {
+        return (
+          <FileUpload className="file-upload-demo" maxFiles={maxFiles}>
+            <FileUpload.Label>Project files</FileUpload.Label>
+            <FileUpload.Dropzone disableClick>
+              <FileUpload.DropzoneIcon />
+              <div className="file-upload-dropzone-content">
+                <span className="file-upload-dropzone-title">Drag and drop files here</span>
+                <span className="file-upload-dropzone-description">or browse from your device</span>
+                <FileUpload.Trigger>Browse files</FileUpload.Trigger>
+              </div>
+            </FileUpload.Dropzone>
+            <FileUpload.ItemGroup>
+              <FileUpload.Context>
+                {({ acceptedFiles }) =>
+                  acceptedFiles.map((file) => (
+                    <FileUpload.Item key={file.name} file={file}>
+                      <FileUpload.ItemName />
+                      <FileUpload.ItemSizeText />
+                      <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                    </FileUpload.Item>
+                  ))
+                }
+              </FileUpload.Context>
+            </FileUpload.ItemGroup>
+            <FileUpload.HiddenInput />
+          </FileUpload>
+        );
+      }
     `}
+
   </Preview.Code>
   <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
   <Preview.Data>{fileUploadDropzoneData}</Preview.Data>
@@ -249,32 +257,39 @@ Restrict picker and drop validation with `accept`. MIME types and extensions are
 
   <Preview.Code>
     {`
-      <FileUpload accept="image/png,image/jpeg" maxFiles={4}>
-        <FileUpload.Label>Images</FileUpload.Label>
-        <FileUpload.Dropzone disableClick>
-          <FileUpload.DropzoneIcon />
-          <div className="file-upload-dropzone-content">
-            <span className="file-upload-dropzone-title">Drop PNG or JPEG files here</span>
-            <span className="file-upload-dropzone-description">Only PNG and JPEG files are accepted</span>
-            <FileUpload.Trigger>Select images</FileUpload.Trigger>
-          </div>
-        </FileUpload.Dropzone>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
-            {({ acceptedFiles }) =>
-              acceptedFiles.map((file) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemSizeText />
-                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                </FileUpload.Item>
-              ))
-            }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
-      </FileUpload>
+      import { FileUpload } from "@moduix/react";
+
+      export function AcceptedTypesFileUploadDemo() {
+        return (
+          <FileUpload className="file-upload-demo" accept={accept} maxFiles={maxFiles}>
+            <FileUpload.Label>Images</FileUpload.Label>
+            <FileUpload.Dropzone disableClick>
+              <FileUpload.DropzoneIcon />
+              <div className="file-upload-dropzone-content">
+                <span className="file-upload-dropzone-title">Drop PNG or JPEG files here</span>
+                <span className="file-upload-dropzone-description">Only PNG and JPEG files are accepted</span>
+                <FileUpload.Trigger>Select images</FileUpload.Trigger>
+              </div>
+            </FileUpload.Dropzone>
+            <FileUpload.ItemGroup>
+              <FileUpload.Context>
+                {({ acceptedFiles }) =>
+                  acceptedFiles.map((file) => (
+                    <FileUpload.Item key={file.name} file={file}>
+                      <FileUpload.ItemName />
+                      <FileUpload.ItemSizeText />
+                      <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                    </FileUpload.Item>
+                  ))
+                }
+              </FileUpload.Context>
+            </FileUpload.ItemGroup>
+            <FileUpload.HiddenInput />
+          </FileUpload>
+        );
+      }
     `}
+
   </Preview.Code>
   <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
   <Preview.Data>{fileUploadAcceptedTypesData}</Preview.Data>
@@ -289,38 +304,57 @@ Render `rejectedFiles` in a separate `ItemGroup type="rejected"` when users need
 
   <Preview.Code>
     {`
-      <FileUpload accept="image/*" maxFiles={2} maxFileSize={120_000}>
-        <FileUpload.Label>Images</FileUpload.Label>
-        <FileUpload.Trigger>Select images</FileUpload.Trigger>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
-            {({ acceptedFiles }) =>
-              acceptedFiles.map((file) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemSizeText />
-                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                </FileUpload.Item>
-              ))
-            }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.ItemGroup type="rejected">
-          <FileUpload.Context>
-            {({ rejectedFiles }) =>
-              rejectedFiles.map(({ file, errors }) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName />
-                  <p className="file-upload-error">{errors.join(", ")}</p>
-                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                </FileUpload.Item>
-              ))
-            }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
-      </FileUpload>
+      import { FileUpload } from "@moduix/react";
+
+      export function RejectedFilesUploadDemo() {
+        return (
+          <FileUpload
+            className="file-upload-demo"
+            accept={accept}
+            maxFiles={maxFiles}
+            maxFileSize={maxFileSize}
+          >
+            <FileUpload.Label>Images</FileUpload.Label>
+            <FileUpload.Dropzone disableClick>
+              <FileUpload.DropzoneIcon />
+              <div className="file-upload-dropzone-content">
+                <span className="file-upload-dropzone-title">Drop image files here</span>
+                <span className="file-upload-dropzone-description">PNG or JPEG, up to 120 KB</span>
+                <FileUpload.Trigger>Select images</FileUpload.Trigger>
+              </div>
+            </FileUpload.Dropzone>
+            <FileUpload.ItemGroup>
+              <FileUpload.Context>
+                {({ acceptedFiles }) =>
+                  acceptedFiles.map((file) => (
+                    <FileUpload.Item key={file.name} file={file}>
+                      <FileUpload.ItemName />
+                      <FileUpload.ItemSizeText />
+                      <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                    </FileUpload.Item>
+                  ))
+                }
+              </FileUpload.Context>
+            </FileUpload.ItemGroup>
+            <FileUpload.ItemGroup type="rejected">
+              <FileUpload.Context>
+                {({ rejectedFiles }) =>
+                  rejectedFiles.map(({ file, errors }) => (
+                    <FileUpload.Item key={file.name} file={file}>
+                      <FileUpload.ItemName />
+                      <p className="file-upload-error">{errors.join(", ")}</p>
+                      <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                    </FileUpload.Item>
+                  ))
+                }
+              </FileUpload.Context>
+            </FileUpload.ItemGroup>
+            <FileUpload.HiddenInput />
+          </FileUpload>
+        );
+      }
     `}
+
   </Preview.Code>
   <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
   <Preview.Data>{fileUploadRejectedFilesData}</Preview.Data>
@@ -335,49 +369,55 @@ Use `onFileReject(details)` for application feedback and keep validation constra
 
   <Preview.Code>
     {`
-      const [message, setMessage] = useState("");
+      import { FileUpload } from "@moduix/react";
+      import { useState } from "react";
 
-      <div className="file-upload-stack">
-        <FileUpload
-          className="file-upload-demo file-upload-simple-demo"
-          accept="image/*"
-          maxFiles={2}
-          maxFileSize={120_000}
-          onFileReject={(details) => setMessage(\`\${details.files.length} file(s) rejected\`)}
-          onFileAccept={() => setMessage("Files accepted")}
-        >
-          <FileUpload.Label>Images</FileUpload.Label>
-          <FileUpload.Trigger>Select images</FileUpload.Trigger>
-          <FileUpload.ItemGroup>
-            <FileUpload.Context>
-              {({ acceptedFiles }) =>
-                acceptedFiles.map((file) => (
-                  <FileUpload.Item key={file.name} file={file}>
-                    <FileUpload.ItemName />
-                    <FileUpload.ItemSizeText />
-                    <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                  </FileUpload.Item>
-                ))
-              }
-            </FileUpload.Context>
-          </FileUpload.ItemGroup>
-          <FileUpload.ItemGroup type="rejected">
-            <FileUpload.Context>
-              {({ rejectedFiles }) =>
-                rejectedFiles.map(({ file, errors }) => (
-                  <FileUpload.Item key={file.name} file={file}>
-                    <FileUpload.ItemName />
-                    <p className="file-upload-error">{errors.join(", ")}</p>
-                    <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                  </FileUpload.Item>
-                ))
-              }
-            </FileUpload.Context>
-          </FileUpload.ItemGroup>
-          <FileUpload.HiddenInput />
-        </FileUpload>
-        <p className="file-upload-state">{message || "No files selected"}</p>
-      </div>
+      export function ErrorHandlingFileUploadDemo() {
+        const [message, setMessage] = useState("");
+
+        return (
+          <div className="file-upload-stack">
+            <FileUpload
+              className="file-upload-demo file-upload-simple-demo"
+              accept={accept}
+              maxFiles={maxFiles}
+              maxFileSize={maxFileSize}
+              onFileReject={(details) => setMessage(\`\${details.files.length} file(s) rejected\`)}
+              onFileAccept={() => setMessage("Files accepted")}
+            >
+              <FileUpload.Label>Images</FileUpload.Label>
+              <FileUpload.Trigger>Select images</FileUpload.Trigger>
+              <FileUpload.ItemGroup>
+                <FileUpload.Context>
+                  {({ acceptedFiles }) =>
+                    acceptedFiles.map((file) => (
+                      <FileUpload.Item key={file.name} file={file}>
+                        <FileUpload.ItemName />
+                        <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                      </FileUpload.Item>
+                    ))
+                  }
+                </FileUpload.Context>
+              </FileUpload.ItemGroup>
+              <FileUpload.ItemGroup type="rejected">
+                <FileUpload.Context>
+                  {({ rejectedFiles }) =>
+                    rejectedFiles.map(({ file, errors }) => (
+                      <FileUpload.Item key={file.name} file={file}>
+                        <FileUpload.ItemName />
+                        <p className="file-upload-error">{errors.join(", ")}</p>
+                        <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                      </FileUpload.Item>
+                    ))
+                  }
+                </FileUpload.Context>
+              </FileUpload.ItemGroup>
+              <FileUpload.HiddenInput />
+            </FileUpload>
+            <p className="file-upload-state">{message || "No files selected"}</p>
+          </div>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -394,30 +434,39 @@ Control `acceptedFiles` when selected files need to coordinate with external sta
 
   <Preview.Code>
     {`
-      const [files, setFiles] = useState(getInitialFiles());
+      import { FileUpload } from "@moduix/react";
+      import { useState } from "react";
 
-      <FileUpload
-        className="file-upload-demo file-upload-simple-demo"
-        acceptedFiles={files}
-        onFileChange={(details) => setFiles(details.acceptedFiles)}
-      >
-        <FileUpload.Label>Attachments</FileUpload.Label>
-        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
-            {({ acceptedFiles }) =>
-              acceptedFiles.map((file) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemSizeText />
-                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                </FileUpload.Item>
-              ))
-            }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
-      </FileUpload>
+      export function ControlledFileUploadDemo() {
+        const [files, setFiles] = useState(initialFiles);
+
+        return (
+          <div className="file-upload-stack">
+            <FileUpload
+              className="file-upload-demo file-upload-simple-demo"
+              acceptedFiles={files}
+              onFileChange={(details) => setFiles(details.acceptedFiles)}
+            >
+              <FileUpload.Label>Attachments</FileUpload.Label>
+              <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+              <FileUpload.ItemGroup>
+                <FileUpload.Context>
+                  {({ acceptedFiles }) =>
+                    acceptedFiles.map((file) => (
+                      <FileUpload.Item key={file.name} file={file}>
+                        <FileUpload.ItemName />
+                        <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                      </FileUpload.Item>
+                    ))
+                  }
+                </FileUpload.Context>
+              </FileUpload.ItemGroup>
+              <FileUpload.HiddenInput />
+            </FileUpload>
+            <p className="file-upload-state">Selected files: {files.length}</p>
+          </div>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -434,25 +483,31 @@ Use `defaultAcceptedFiles` when the upload should start with existing files and 
 
   <Preview.Code>
     {`
-      <FileUpload className="file-upload-demo file-upload-simple-demo" defaultAcceptedFiles={initialFiles}>
-        <FileUpload.Label>Attachments</FileUpload.Label>
-        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
-            {({ acceptedFiles }) =>
-              acceptedFiles.map((file) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemSizeText />
-                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                </FileUpload.Item>
-              ))
-            }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
-      </FileUpload>
+      import { FileUpload } from "@moduix/react";
+
+      export function InitialFilesUploadDemo() {
+        return (
+          <FileUpload className="file-upload-demo file-upload-simple-demo" defaultAcceptedFiles={initialFiles}>
+            <FileUpload.Label>Attachments</FileUpload.Label>
+            <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+            <FileUpload.ItemGroup>
+              <FileUpload.Context>
+                {({ acceptedFiles }) =>
+                  acceptedFiles.map((file) => (
+                    <FileUpload.Item key={file.name} file={file}>
+                      <FileUpload.ItemName />
+                      <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                    </FileUpload.Item>
+                  ))
+                }
+              </FileUpload.Context>
+            </FileUpload.ItemGroup>
+            <FileUpload.HiddenInput />
+          </FileUpload>
+        );
+      }
     `}
+
   </Preview.Code>
   <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
   <Preview.Data>{fileUploadInitialFilesData}</Preview.Data>
@@ -467,29 +522,35 @@ Wrap the upload in `Field.Root` when helper text, error text, required state, or
 
   <Preview.Code>
     {`
-      <Field.Root className="file-upload-demo file-upload-simple-demo" required>
-        <FileUpload name="attachments" maxFiles={3}>
-          <FileUpload.Label>Required attachments</FileUpload.Label>
-          <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-          <FileUpload.ItemGroup>
-            <FileUpload.Context>
-              {({ acceptedFiles }) =>
-                acceptedFiles.map((file) => (
-                  <FileUpload.Item key={file.name} file={file}>
-                    <FileUpload.ItemName />
-                    <FileUpload.ItemSizeText />
-                    <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                  </FileUpload.Item>
-                ))
-              }
-            </FileUpload.Context>
-          </FileUpload.ItemGroup>
-          <FileUpload.HiddenInput />
-        </FileUpload>
-        <Field.HelperText>Upload up to three files.</Field.HelperText>
-        <Field.ErrorText>Upload at least one file.</Field.ErrorText>
-      </Field.Root>
+      import { Field, FileUpload } from "@moduix/react";
+
+      export function FileUploadWithFieldDemo() {
+        return (
+          <Field.Root className="file-upload-demo file-upload-simple-demo" required>
+            <FileUpload name="attachments" maxFiles={maxFiles}>
+              <FileUpload.Label>Required attachments</FileUpload.Label>
+              <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+              <FileUpload.ItemGroup>
+                <FileUpload.Context>
+                  {({ acceptedFiles }) =>
+                    acceptedFiles.map((file) => (
+                      <FileUpload.Item key={file.name} file={file}>
+                        <FileUpload.ItemName />
+                        <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                      </FileUpload.Item>
+                    ))
+                  }
+                </FileUpload.Context>
+              </FileUpload.ItemGroup>
+              <FileUpload.HiddenInput />
+            </FileUpload>
+            <Field.HelperText>Upload up to three files.</Field.HelperText>
+            <Field.ErrorText>Upload at least one file.</Field.ErrorText>
+          </Field.Root>
+        );
+      }
     `}
+
   </Preview.Code>
   <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
   <Preview.Data>{fileUploadFormData}</Preview.Data>
@@ -504,32 +565,38 @@ Pass `name` to the root and render `HiddenInput` so native form submission and r
 
   <Preview.Code>
     {`
-      <form className="file-upload-stack" onSubmit={(event) => event.preventDefault()}>
-        <FileUpload
-          className="file-upload-demo file-upload-simple-demo"
-          name="project-assets"
-          maxFiles={3}
-        >
-          <FileUpload.Label>Project assets</FileUpload.Label>
-          <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-          <FileUpload.ItemGroup>
-            <FileUpload.Context>
-              {({ acceptedFiles }) =>
-                acceptedFiles.map((file) => (
-                  <FileUpload.Item key={file.name} file={file}>
-                    <FileUpload.ItemName />
-                    <FileUpload.ItemSizeText />
-                    <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                  </FileUpload.Item>
-                ))
-              }
-            </FileUpload.Context>
-          </FileUpload.ItemGroup>
-          <FileUpload.HiddenInput />
-        </FileUpload>
-        <button className="file-upload-submit" type="submit">Submit</button>
-      </form>
+      import { FileUpload } from "@moduix/react";
+
+      export function FileUploadFormDemo() {
+        return (
+          <form className="file-upload-stack" onSubmit={(event) => event.preventDefault()}>
+            <FileUpload
+              className="file-upload-demo file-upload-simple-demo"
+              name={name}
+              maxFiles={maxFiles}
+            >
+              <FileUpload.Label>Project assets</FileUpload.Label>
+              <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+              <FileUpload.ItemGroup>
+                <FileUpload.Context>
+                  {({ acceptedFiles }) =>
+                    acceptedFiles.map((file) => (
+                      <FileUpload.Item key={file.name} file={file}>
+                        <FileUpload.ItemName />
+                        <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                      </FileUpload.Item>
+                    ))
+                  }
+                </FileUpload.Context>
+              </FileUpload.ItemGroup>
+              <FileUpload.HiddenInput />
+            </FileUpload>
+            <button className="file-upload-submit" type="submit">Submit</button>
+          </form>
+        );
+      }
     `}
+
   </Preview.Code>
   <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
   <Preview.Data>{fileUploadFormData}</Preview.Data>
@@ -544,28 +611,34 @@ Use `useFileUpload` with `RootProvider` when state or methods need to be owned o
 
   <Preview.Code>
     {`
-      const fileUpload = useFileUpload({ maxFiles: 3, accept: "image/*" });
+      import { FileUpload, Textarea, useFileUpload } from "@moduix/react";
 
-      <FileUpload.RootProvider className="file-upload-demo file-upload-simple-demo" value={fileUpload}>
-        <FileUpload.Label>Images</FileUpload.Label>
-        <Textarea
-          placeholder="Paste an image here"
-          onPaste={(event) => fileUpload.setClipboardFiles(event.clipboardData)}
-        />
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
-            {({ acceptedFiles }) =>
-              acceptedFiles.map((file) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                </FileUpload.Item>
-              ))
-            }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
-      </FileUpload.RootProvider>
+      export function RootProviderPasteUploadDemo() {
+        const fileUpload = useFileUpload({ maxFiles, accept });
+
+        return (
+          <FileUpload.RootProvider className="file-upload-demo file-upload-simple-demo" value={fileUpload}>
+            <FileUpload.Label>Images</FileUpload.Label>
+            <Textarea
+              placeholder="Paste an image here"
+              onPaste={(event) => fileUpload.setClipboardFiles(event.clipboardData)}
+            />
+            <FileUpload.ItemGroup>
+              <FileUpload.Context>
+                {({ acceptedFiles }) =>
+                  acceptedFiles.map((file) => (
+                    <FileUpload.Item key={file.name} file={file}>
+                      <FileUpload.ItemName />
+                      <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                    </FileUpload.Item>
+                  ))
+                }
+              </FileUpload.Context>
+            </FileUpload.ItemGroup>
+            <FileUpload.HiddenInput />
+          </FileUpload.RootProvider>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -582,25 +655,32 @@ Use `directory` for folder upload. Browsers that support it expose relative path
 
   <Preview.Code>
     {`
-      <FileUpload className="file-upload-demo file-upload-simple-demo" directory maxFiles={20}>
-        <FileUpload.Label>Folder</FileUpload.Label>
-        <FileUpload.Trigger>Choose folder</FileUpload.Trigger>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
-            {({ acceptedFiles }) =>
-              acceptedFiles.map((file) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName>{file.webkitRelativePath || file.name}</FileUpload.ItemName>
-                  <FileUpload.ItemSizeText />
-                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                </FileUpload.Item>
-              ))
-            }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
-      </FileUpload>
+      import { FileUpload } from "@moduix/react";
+
+      export function DirectoryUploadDemo() {
+        return (
+          <FileUpload className="file-upload-demo file-upload-simple-demo" directory maxFiles={maxFiles}>
+            <FileUpload.Label>Folder</FileUpload.Label>
+            <FileUpload.Trigger>Choose folder</FileUpload.Trigger>
+            <FileUpload.ItemGroup>
+              <FileUpload.Context>
+                {({ acceptedFiles }) =>
+                  acceptedFiles.map((file) => (
+                    <FileUpload.Item key={file.name} file={file}>
+                      <FileUpload.ItemName>{file.webkitRelativePath || file.name}</FileUpload.ItemName>
+                      <FileUpload.ItemSizeText />
+                      <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                    </FileUpload.Item>
+                  ))
+                }
+              </FileUpload.Context>
+            </FileUpload.ItemGroup>
+            <FileUpload.HiddenInput />
+          </FileUpload>
+        );
+      }
     `}
+
   </Preview.Code>
   <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
   <Preview.Data>{fileUploadDirectoryData}</Preview.Data>
@@ -615,34 +695,39 @@ Use `capture` with an image or video `accept` value to hint that mobile browsers
 
   <Preview.Code>
     {`
-      <FileUpload accept="image/*" capture="environment" maxFiles={1}>
-        <FileUpload.Label>Photo</FileUpload.Label>
-        <FileUpload.Dropzone disableClick>
-          <FileUpload.DropzoneIcon />
-          <div className="file-upload-dropzone-content">
-            <span className="file-upload-dropzone-title">Drop an image or open the camera</span>
-            <span className="file-upload-dropzone-description">One image from the environment camera</span>
-            <FileUpload.Trigger>Open camera</FileUpload.Trigger>
-          </div>
-        </FileUpload.Dropzone>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
-            {({ acceptedFiles }) =>
-              acceptedFiles.map((file) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemPreview type="image/*">
-                    <FileUpload.ItemPreviewImage />
-                  </FileUpload.ItemPreview>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                </FileUpload.Item>
-              ))
-            }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
-      </FileUpload>
+      import { FileUpload } from "@moduix/react";
+
+      export function MediaCaptureUploadDemo() {
+        return (
+          <FileUpload className="file-upload-demo" accept={accept} capture={capture} maxFiles={maxFiles}>
+            <FileUpload.Label>Photo</FileUpload.Label>
+            <FileUpload.Dropzone disableClick>
+              <FileUpload.DropzoneIcon />
+              <div className="file-upload-dropzone-content">
+                <span className="file-upload-dropzone-title">Drop an image or open the camera</span>
+                <span className="file-upload-dropzone-description">One image from the environment camera</span>
+                <FileUpload.Trigger>Open camera</FileUpload.Trigger>
+              </div>
+            </FileUpload.Dropzone>
+            <FileUpload.ItemGroup>
+              <FileUpload.Context>
+                {({ acceptedFiles }) =>
+                  acceptedFiles.map((file) => (
+                    <FileUpload.Item key={file.name} file={file}>
+                      <FileUpload.ItemName />
+                      <FileUpload.ItemSizeText />
+                      <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                    </FileUpload.Item>
+                  ))
+                }
+              </FileUpload.Context>
+            </FileUpload.ItemGroup>
+            <FileUpload.HiddenInput />
+          </FileUpload>
+        );
+      }
     `}
+
   </Preview.Code>
   <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
   <Preview.Data>{fileUploadMediaCaptureData}</Preview.Data>
@@ -657,32 +742,37 @@ Use `transformFiles(files)` for async processing before files enter accepted sta
 
   <Preview.Code>
     {`
+      import { FileUpload } from "@moduix/react";
+
       async function transformFiles(files) {
         return files.map((file) => new File([file], file.name.toLowerCase(), { type: file.type }));
       }
 
-      <FileUpload
-        className="file-upload-demo file-upload-simple-demo"
-        accept="image/*"
-        transformFiles={transformFiles}
-      >
-        <FileUpload.Label>Images</FileUpload.Label>
-        <FileUpload.Trigger>Choose images</FileUpload.Trigger>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
-            {({ acceptedFiles }) =>
-              acceptedFiles.map((file) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemSizeText />
-                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                </FileUpload.Item>
-              ))
-            }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
-      </FileUpload>
+      export function TransformFilesUploadDemo() {
+        return (
+          <FileUpload
+            className="file-upload-demo file-upload-simple-demo"
+            accept={accept}
+            transformFiles={transformFiles}
+          >
+            <FileUpload.Label>Images</FileUpload.Label>
+            <FileUpload.Trigger>Choose images</FileUpload.Trigger>
+            <FileUpload.ItemGroup>
+              <FileUpload.Context>
+                {({ acceptedFiles }) =>
+                  acceptedFiles.map((file) => (
+                    <FileUpload.Item key={file.name} file={file}>
+                      <FileUpload.ItemName />
+                      <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                    </FileUpload.Item>
+                  ))
+                }
+              </FileUpload.Context>
+            </FileUpload.ItemGroup>
+            <FileUpload.HiddenInput />
+          </FileUpload>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -699,35 +789,42 @@ Customize with `className`, `data-slot`, Ark `data-part`, and state attributes s
 
   <Preview.Code>
     {`
-      <FileUpload maxFiles={2}>
-        <FileUpload.Label>Brand assets</FileUpload.Label>
-        <FileUpload.Dropzone className="file-upload-custom-dropzone" disableClick>
-          <FileUpload.DropzoneIcon />
-          <div className="file-upload-dropzone-content">
-            <span className="file-upload-dropzone-title">Drop files here</span>
-            <span className="file-upload-dropzone-description">SVG, PNG, or PDF</span>
-            <FileUpload.Trigger className="file-upload-custom-trigger">Browse files</FileUpload.Trigger>
-          </div>
-        </FileUpload.Dropzone>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
-            {({ acceptedFiles }) =>
-              acceptedFiles.map((file) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemSizeText />
-                  <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
-                </FileUpload.Item>
-              ))
-            }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
-      </FileUpload>
+      import { FileUpload } from "@moduix/react";
+
+      export function CustomFileUploadDemo() {
+        return (
+          <FileUpload className="file-upload-demo" maxFiles={maxFiles}>
+            <FileUpload.Label>Brand assets</FileUpload.Label>
+            <FileUpload.Dropzone className="file-upload-custom-dropzone" disableClick>
+              <FileUpload.DropzoneIcon />
+              <div className="file-upload-dropzone-content">
+                <span className="file-upload-dropzone-title">Drop files here</span>
+                <span className="file-upload-dropzone-description">SVG, PNG, or PDF</span>
+                <FileUpload.Trigger className="file-upload-custom-trigger">Browse files</FileUpload.Trigger>
+              </div>
+            </FileUpload.Dropzone>
+            <FileUpload.ItemGroup>
+              <FileUpload.Context>
+                {({ acceptedFiles }) =>
+                  acceptedFiles.map((file) => (
+                    <FileUpload.Item key={file.name} file={file}>
+                      <FileUpload.ItemName />
+                      <FileUpload.ItemSizeText />
+                      <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                    </FileUpload.Item>
+                  ))
+                }
+              </FileUpload.Context>
+            </FileUpload.ItemGroup>
+            <FileUpload.HiddenInput />
+          </FileUpload>
+        );
+      }
     `}
+
   </Preview.Code>
   <Preview.CSS>{fileUploadCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{fileUploadDropzoneData}</Preview.Data>
+  <Preview.Data>{fileUploadCustomStylingData}</Preview.Data>
 </Preview>
 
 ## Styling

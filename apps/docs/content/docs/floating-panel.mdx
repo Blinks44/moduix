@@ -1,0 +1,679 @@
+---
+title: Floating Panel
+description: A non-modal Ark UI window that can be dragged, resized, minimized, and maximized.
+icon: Component
+---
+
+import {
+  AnchorPositionFloatingPanelExample,
+  ContextFloatingPanelExample,
+  ControlledFloatingPanelExample,
+  ControlledPositionFloatingPanelExample,
+  ControlledSizeFloatingPanelExample,
+  CustomFloatingPanelExample,
+  FloatingPanelCssPropertiesPanel,
+  FloatingPanelExample,
+  LazyMountFloatingPanelExample,
+  RootProviderFloatingPanelExample,
+} from '@/components/examples/floating-panel';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/floating-panel" />
+
+## Choosing the right component
+
+Use `FloatingPanel` for a detachable, non-modal workspace surface. Use `Popover` for compact
+trigger-anchored content, `Dialog` for modal workflows, and `Drawer` for edge-attached panels with
+swipe or snap-point behavior.
+
+## Basic
+
+Compose the Ark structure explicitly. `FloatingPanel.Positioner` owns Ark's measured rect, while
+`FloatingPanel.Content` is the draggable and resizable surface.
+
+<Preview>
+  <FloatingPanelExample />
+  <Preview.Code>
+    {`
+      import { Button, FloatingPanel, Portal } from "@moduix/react";
+
+      export function FloatingPanelDemo() {
+        return (
+          <FloatingPanel defaultSize={{ width: 360, height: 260 }}>
+            <FloatingPanel.Trigger asChild>
+              <Button>Open panel</Button>
+            </FloatingPanel.Trigger>
+            <Portal>
+              <FloatingPanel.Positioner>
+                <FloatingPanel.Content>
+                  <FloatingPanel.DragTrigger>
+                    <FloatingPanel.Header>
+                      <FloatingPanel.Title>
+                        <FloatingPanel.DragIndicator />
+                        Inspector
+                      </FloatingPanel.Title>
+                      <FloatingPanel.Control>
+                        <FloatingPanel.StageTrigger stage="minimized" />
+                        <FloatingPanel.StageTrigger stage="maximized" />
+                        <FloatingPanel.CloseIcon />
+                      </FloatingPanel.Control>
+                    </FloatingPanel.Header>
+                  </FloatingPanel.DragTrigger>
+                  <FloatingPanel.Body>
+                    Drag the header to move this panel and resize it from any edge.
+                  </FloatingPanel.Body>
+                  <FloatingPanel.ResizeTriggerGroup />
+                </FloatingPanel.Content>
+              </FloatingPanel.Positioner>
+            </Portal>
+          </FloatingPanel>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`/* Uses the default moduix floating-panel styles. */`}</Preview.CSS>
+  <Preview.Data>{`const defaultSize = { width: 360, height: 260 };`}</Preview.Data>
+</Preview>
+
+## Install with shadcn (optional)
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/react-floating-panel
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/react-floating-panel
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/react-floating-panel
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-floating-panel
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/react-floating-panel
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+FloatingPanel.Root
+├─ FloatingPanel.Trigger
+└─ Portal
+   └─ FloatingPanel.Positioner
+      └─ FloatingPanel.Content
+         ├─ FloatingPanel.DragTrigger
+         │  └─ FloatingPanel.Header
+         │     ├─ FloatingPanel.Title
+         │     │  └─ FloatingPanel.DragIndicator (optional)
+         │     └─ FloatingPanel.Control
+         │        ├─ FloatingPanel.StageTrigger
+         │        └─ FloatingPanel.CloseTrigger / CloseIcon
+         ├─ FloatingPanel.Body
+         └─ FloatingPanel.ResizeTrigger / ResizeTriggerGroup
+```
+
+| Part                                       | Role                                                       |
+| ------------------------------------------ | ---------------------------------------------------------- |
+| `FloatingPanel` / `FloatingPanel.Root`     | Owns open, position, size, drag, resize, and stage state.  |
+| `FloatingPanel.Trigger`                    | Opens or toggles the panel.                                |
+| `FloatingPanel.Positioner`                 | Applies Ark position, size, transform, and z-index values. |
+| `FloatingPanel.Content`                    | Visible floating window surface.                           |
+| `FloatingPanel.DragTrigger`                | Marks the draggable region, usually around the header.     |
+| `FloatingPanel.Header`                     | Ark header part and recommended drag handle layout.        |
+| `FloatingPanel.Title`                      | Accessible title target.                                   |
+| `FloatingPanel.Control`                    | Groups stage and close controls.                           |
+| `FloatingPanel.StageTrigger`               | Switches to `default`, `minimized`, or `maximized`.        |
+| `FloatingPanel.CloseTrigger` / `CloseIcon` | Closes the panel.                                          |
+| `FloatingPanel.Body`                       | Scrollable content region.                                 |
+| `FloatingPanel.ResizeTrigger`              | Resize handle for one Ark axis.                            |
+| `FloatingPanel.ResizeTriggerGroup`         | Moduix helper that renders all resize axes.                |
+| `FloatingPanel.RootProvider`               | Connects parts to state created with `useFloatingPanel()`. |
+| `FloatingPanel.Context`                    | Inline render-prop access to the Ark panel API.            |
+
+`FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, and `FloatingPanel.ResizeTriggerGroup`
+are moduix helpers. They do not replace Ark structural parts.
+
+## Composition
+
+### Recommended composition
+
+Use `FloatingPanel.Root` for state and behavior. Render `Portal`, `Positioner`, and `Content`
+explicitly, then place `DragTrigger` around the header so pointer movement starts from a predictable
+region.
+
+Use `StageTrigger` with `stage="minimized"` and `stage="maximized"` for the built-in icon buttons.
+Render your own child for `stage="default"` when you need an explicit restore control.
+
+### When to go custom
+
+Apply `className` directly to any exported part. Use `asChild` with exactly one semantic child for
+custom trigger, close-trigger, or stage-trigger hosts. Use individual `ResizeTrigger` parts when
+only specific axes should be resizable.
+
+Use `FloatingPanel.Context` or `useFloatingPanelContext` for state-aware child components. Use
+`useFloatingPanel` with `FloatingPanel.RootProvider` when external controls need the panel API; do
+not combine `Root` and `RootProvider` for the same state instance.
+
+### Default props
+
+Moduix defaults `persistRect` to `true` so close animations run at the last panel position instead
+of flashing at the viewport origin during Ark presence teardown. Ark owns defaults for
+`defaultOpen`, `defaultPosition`, `defaultSize`, `allowOverflow`, `draggable`, `resizable`,
+`gridSize`, `strategy`, `lazyMount`, `unmountOnExit`, and the rest of presence behavior.
+
+### Behavioral notes
+
+- `onOpenChange(details)` exposes `details.open`.
+- `onPositionChange(details)` and `onPositionChangeEnd(details)` expose `details.position`.
+- `onSizeChange(details)` and `onSizeChangeEnd(details)` expose `details.size`.
+- `onStageChange(details)` exposes the Ark stage details object.
+- `position` and `size` are controlled independently; use `defaultPosition` and `defaultSize` for
+  uncontrolled initialization.
+- `getAnchorPosition(details)` can derive the initial position from the trigger rect.
+- `closeOnEscape`, `ids`, `translations`, `getBoundaryEl`, `lockAspectRatio`, and `gridSize` pass
+  through Ark unchanged.
+- `persistRect` can be set to `false`, but the default `true` keeps size and position available for
+  close animations.
+- The panel is non-modal and does not trap focus or block outside interaction.
+
+## Examples
+
+### Controlled Open
+
+Use Ark's details object to synchronize panel visibility with surrounding UI.
+
+<Preview>
+  <ControlledFloatingPanelExample />
+  <Preview.Code>
+    {`
+      import { Button, FloatingPanel, Portal } from "@moduix/react";
+      import { useState } from "react";
+
+      export function ControlledFloatingPanelDemo() {
+        const [open, setOpen] = useState(false);
+
+        return (
+          <FloatingPanel
+            open={open}
+            defaultSize={{ width: 360, height: 260 }}
+            onOpenChange={(details) => setOpen(details.open)}
+          >
+            <FloatingPanel.Trigger asChild>
+              <Button>{open ? "Focus panel" : "Open controlled panel"}</Button>
+            </FloatingPanel.Trigger>
+            <Portal>
+              <FloatingPanel.Positioner>
+                <FloatingPanel.Content>
+                  <FloatingPanel.DragTrigger>
+                    <FloatingPanel.Header>
+                      <FloatingPanel.Title>
+                        <FloatingPanel.DragIndicator />
+                        Controlled open
+                      </FloatingPanel.Title>
+                      <FloatingPanel.Control>
+                        <FloatingPanel.StageTrigger stage="minimized" />
+                        <FloatingPanel.StageTrigger stage="maximized" />
+                        <FloatingPanel.CloseIcon />
+                      </FloatingPanel.Control>
+                    </FloatingPanel.Header>
+                  </FloatingPanel.DragTrigger>
+                  <FloatingPanel.Body>
+                    Open state is synchronized with React state.
+                  </FloatingPanel.Body>
+                  <FloatingPanel.ResizeTriggerGroup />
+                </FloatingPanel.Content>
+              </FloatingPanel.Positioner>
+            </Portal>
+          </FloatingPanel>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`/* Uses the default moduix floating-panel styles. */`}</Preview.CSS>
+  <Preview.Data>{`const initialOpen = false;`}</Preview.Data>
+</Preview>
+
+### Controlled Position
+
+Control `position` when another part of the application needs the latest panel coordinates.
+
+<Preview>
+  <ControlledPositionFloatingPanelExample />
+  <Preview.Code>
+    {`
+      import { Button, FloatingPanel, Portal } from "@moduix/react";
+      import { useState } from "react";
+
+      export function ControlledPositionDemo() {
+        const [position, setPosition] = useState({ x: 160, y: 140 });
+
+        return (
+          <FloatingPanel
+            defaultSize={{ width: 360, height: 260 }}
+            position={position}
+            onPositionChange={(details) => setPosition(details.position)}
+          >
+            <FloatingPanel.Trigger asChild>
+              <Button>Open positioned panel</Button>
+            </FloatingPanel.Trigger>
+            <Portal>
+              <FloatingPanel.Positioner>
+                <FloatingPanel.Content>
+                  <FloatingPanel.DragTrigger>
+                    <FloatingPanel.Header>
+                      <FloatingPanel.Title>
+                        <FloatingPanel.DragIndicator />
+                        Controlled position
+                      </FloatingPanel.Title>
+                      <FloatingPanel.Control>
+                        <FloatingPanel.StageTrigger stage="minimized" />
+                        <FloatingPanel.StageTrigger stage="maximized" />
+                        <FloatingPanel.CloseIcon />
+                      </FloatingPanel.Control>
+                    </FloatingPanel.Header>
+                  </FloatingPanel.DragTrigger>
+                  <FloatingPanel.Body>
+                    Dragging updates the controlled position object.
+                  </FloatingPanel.Body>
+                  <FloatingPanel.ResizeTriggerGroup />
+                </FloatingPanel.Content>
+              </FloatingPanel.Positioner>
+            </Portal>
+          </FloatingPanel>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`/* The live example displays x/y above the trigger. */`}</Preview.CSS>
+  <Preview.Data>{`const initialPosition = { x: 160, y: 140 };`}</Preview.Data>
+</Preview>
+
+### Controlled Size
+
+Control `size` when the surrounding UI needs to store or display the current panel dimensions.
+
+<Preview>
+  <ControlledSizeFloatingPanelExample />
+  <Preview.Code>
+    {`
+      import { Button, FloatingPanel, Portal } from "@moduix/react";
+      import { useState } from "react";
+
+      export function ControlledSizeDemo() {
+        const [size, setSize] = useState({ width: 360, height: 260 });
+
+        return (
+          <FloatingPanel size={size} onSizeChange={(details) => setSize(details.size)}>
+            <FloatingPanel.Trigger asChild>
+              <Button>Open resizable panel</Button>
+            </FloatingPanel.Trigger>
+            <Portal>
+              <FloatingPanel.Positioner>
+                <FloatingPanel.Content>
+                  <FloatingPanel.DragTrigger>
+                    <FloatingPanel.Header>
+                      <FloatingPanel.Title>
+                        <FloatingPanel.DragIndicator />
+                        Controlled size
+                      </FloatingPanel.Title>
+                      <FloatingPanel.Control>
+                        <FloatingPanel.StageTrigger stage="minimized" />
+                        <FloatingPanel.StageTrigger stage="maximized" />
+                        <FloatingPanel.CloseIcon />
+                      </FloatingPanel.Control>
+                    </FloatingPanel.Header>
+                  </FloatingPanel.DragTrigger>
+                  <FloatingPanel.Body>
+                    Resize handles update controlled width and height.
+                  </FloatingPanel.Body>
+                  <FloatingPanel.ResizeTriggerGroup />
+                </FloatingPanel.Content>
+              </FloatingPanel.Positioner>
+            </Portal>
+          </FloatingPanel>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`/* The live example displays width and height above the trigger. */`}</Preview.CSS>
+  <Preview.Data>{`const initialSize = { width: 360, height: 260 };`}</Preview.Data>
+</Preview>
+
+### Anchor Position
+
+Use `getAnchorPosition` to calculate the initial panel position from the trigger rectangle.
+
+<Preview>
+  <AnchorPositionFloatingPanelExample />
+  <Preview.Code>
+    {`
+      import { Button, FloatingPanel, Portal } from "@moduix/react";
+
+      export function AnchorPositionDemo() {
+        return (
+          <FloatingPanel
+            defaultSize={{ width: 360, height: 260 }}
+            getAnchorPosition={({ triggerRect }) => {
+              if (!triggerRect) return { x: 0, y: 0 };
+              return {
+                x: triggerRect.x + triggerRect.width / 2,
+                y: triggerRect.y + triggerRect.height + 12,
+              };
+            }}
+          >
+            <FloatingPanel.Trigger asChild>
+              <Button>Open from trigger</Button>
+            </FloatingPanel.Trigger>
+            <Portal>
+              <FloatingPanel.Positioner>
+                <FloatingPanel.Content>
+                  <FloatingPanel.DragTrigger>
+                    <FloatingPanel.Header>
+                      <FloatingPanel.Title>
+                        <FloatingPanel.DragIndicator />
+                        Anchored start
+                      </FloatingPanel.Title>
+                      <FloatingPanel.Control>
+                        <FloatingPanel.StageTrigger stage="minimized" />
+                        <FloatingPanel.StageTrigger stage="maximized" />
+                        <FloatingPanel.CloseIcon />
+                      </FloatingPanel.Control>
+                    </FloatingPanel.Header>
+                  </FloatingPanel.DragTrigger>
+                  <FloatingPanel.Body>
+                    The initial panel position is derived from the trigger rect.
+                  </FloatingPanel.Body>
+                  <FloatingPanel.ResizeTriggerGroup />
+                </FloatingPanel.Content>
+              </FloatingPanel.Positioner>
+            </Portal>
+          </FloatingPanel>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`/* Position is initialized from the trigger rect. */`}</Preview.CSS>
+  <Preview.Data>{`const offset = 12;`}</Preview.Data>
+</Preview>
+
+### Context
+
+Read the Ark panel API inline with `FloatingPanel.Context`.
+
+<Preview>
+  <ContextFloatingPanelExample />
+  <Preview.Code>
+    {`
+      import { Button, FloatingPanel, Portal } from "@moduix/react";
+
+      export function ContextFloatingPanelDemo() {
+        return (
+          <FloatingPanel defaultSize={{ width: 360, height: 260 }}>
+            <FloatingPanel.Trigger asChild>
+              <Button>Open context panel</Button>
+            </FloatingPanel.Trigger>
+            <FloatingPanel.Context>
+              {(panel) => (
+                <span>
+                  open: {String(panel.open)}, dragging: {String(panel.dragging)}
+                </span>
+              )}
+            </FloatingPanel.Context>
+            <Portal>
+              <FloatingPanel.Positioner>
+                <FloatingPanel.Content>
+                  <FloatingPanel.DragTrigger>
+                    <FloatingPanel.Header>
+                      <FloatingPanel.Title>
+                        <FloatingPanel.DragIndicator />
+                        Context state
+                      </FloatingPanel.Title>
+                      <FloatingPanel.Control>
+                        <FloatingPanel.StageTrigger stage="minimized" />
+                        <FloatingPanel.StageTrigger stage="maximized" />
+                        <FloatingPanel.CloseIcon />
+                      </FloatingPanel.Control>
+                    </FloatingPanel.Header>
+                  </FloatingPanel.DragTrigger>
+                  <FloatingPanel.Body>
+                    FloatingPanel.Context exposes the Ark panel API to descendants.
+                  </FloatingPanel.Body>
+                  <FloatingPanel.ResizeTriggerGroup />
+                </FloatingPanel.Content>
+              </FloatingPanel.Positioner>
+            </Portal>
+          </FloatingPanel>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`/* Context output can be styled like any surrounding text. */`}</Preview.CSS>
+  <Preview.Data>{`const contextFields = ["open", "dragging"];`}</Preview.Data>
+</Preview>
+
+### Root Provider
+
+Use `useFloatingPanel` with `RootProvider` when controls outside the panel tree need access to Ark
+methods like `minimize`, `maximize`, and `setOpen`.
+
+<Preview>
+  <RootProviderFloatingPanelExample />
+  <Preview.Code>
+    {`
+      import { Button, FloatingPanel, Portal, useFloatingPanel } from "@moduix/react";
+
+      export function RootProviderFloatingPanelDemo() {
+        const panel = useFloatingPanel({ defaultSize: { width: 360, height: 260 } });
+
+        return (
+          <>
+            <Button onClick={() => panel.setOpen(true)}>Open via API</Button>
+            <Button variant="outline" onClick={() => panel.maximize()}>Maximize</Button>
+            <Button variant="outline" onClick={() => panel.minimize()}>Minimize</Button>
+            <FloatingPanel.RootProvider value={panel}>
+              <Portal>
+                <FloatingPanel.Positioner>
+                  <FloatingPanel.Content>
+                    <FloatingPanel.DragTrigger>
+                      <FloatingPanel.Header>
+                        <FloatingPanel.Title>
+                          <FloatingPanel.DragIndicator />
+                          Root provider
+                        </FloatingPanel.Title>
+                        <FloatingPanel.Control>
+                          <FloatingPanel.StageTrigger stage="minimized" />
+                          <FloatingPanel.StageTrigger stage="maximized" />
+                          <FloatingPanel.CloseIcon />
+                        </FloatingPanel.Control>
+                      </FloatingPanel.Header>
+                    </FloatingPanel.DragTrigger>
+                    <FloatingPanel.Body>
+                      useFloatingPanel owns the panel state outside the rendered part tree.
+                    </FloatingPanel.Body>
+                    <FloatingPanel.ResizeTriggerGroup />
+                  </FloatingPanel.Content>
+                </FloatingPanel.Positioner>
+              </Portal>
+            </FloatingPanel.RootProvider>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`/* External controls can live outside the Ark part tree. */`}</Preview.CSS>
+  <Preview.Data>{`const externalActions = ["setOpen", "maximize", "minimize"];`}</Preview.Data>
+</Preview>
+
+### Lazy Mount
+
+Use Ark presence props when the panel should mount only after first open and unmount after exit.
+
+<Preview>
+  <LazyMountFloatingPanelExample />
+  <Preview.Code>
+    {`
+      import { Button, FloatingPanel, Portal } from "@moduix/react";
+      import { useState } from "react";
+
+      export function LazyMountFloatingPanelDemo() {
+        const [exits, setExits] = useState(0);
+
+        return (
+          <FloatingPanel
+            lazyMount
+            unmountOnExit
+            defaultSize={{ width: 360, height: 260 }}
+            onExitComplete={() => setExits((count) => count + 1)}
+          >
+            <FloatingPanel.Trigger asChild>
+              <Button>Open lazy panel</Button>
+            </FloatingPanel.Trigger>
+            <Portal>
+              <FloatingPanel.Positioner>
+                <FloatingPanel.Content>
+                  <FloatingPanel.DragTrigger>
+                    <FloatingPanel.Header>
+                      <FloatingPanel.Title>
+                        <FloatingPanel.DragIndicator />
+                        Lazy mounted
+                      </FloatingPanel.Title>
+                      <FloatingPanel.Control>
+                        <FloatingPanel.StageTrigger stage="minimized" />
+                        <FloatingPanel.StageTrigger stage="maximized" />
+                        <FloatingPanel.CloseIcon />
+                      </FloatingPanel.Control>
+                    </FloatingPanel.Header>
+                  </FloatingPanel.DragTrigger>
+                  <FloatingPanel.Body>
+                    The panel content mounts on first open and unmounts after exit.
+                  </FloatingPanel.Body>
+                  <FloatingPanel.ResizeTriggerGroup />
+                </FloatingPanel.Content>
+              </FloatingPanel.Positioner>
+            </Portal>
+          </FloatingPanel>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{`/* Close animation uses the preserved panel rect. */`}</Preview.CSS>
+  <Preview.Data>{`const lifecycle = { lazyMount: true, unmountOnExit: true };`}</Preview.Data>
+</Preview>
+
+### Custom Styling
+
+Override the public Moduix variables without changing the Ark composition.
+
+<Preview>
+  <CustomFloatingPanelExample />
+  <Preview.Code>
+    {`
+      import { Button, FloatingPanel, Portal } from "@moduix/react";
+      import "./floating-panel-demo.css";
+
+      export function CustomFloatingPanelDemo() {
+        return (
+          <FloatingPanel defaultSize={{ width: 380, height: 240 }}>
+            <FloatingPanel.Trigger asChild>
+              <Button>Open styled panel</Button>
+            </FloatingPanel.Trigger>
+            <Portal>
+              <FloatingPanel.Positioner>
+                <FloatingPanel.Content className="customPanel">
+                  <FloatingPanel.DragTrigger>
+                    <FloatingPanel.Header>
+                      <FloatingPanel.Title>
+                        <FloatingPanel.DragIndicator />
+                        Custom styling
+                      </FloatingPanel.Title>
+                      <FloatingPanel.Control>
+                        <FloatingPanel.StageTrigger stage="minimized" />
+                        <FloatingPanel.StageTrigger stage="maximized" />
+                        <FloatingPanel.CloseIcon />
+                      </FloatingPanel.Control>
+                    </FloatingPanel.Header>
+                  </FloatingPanel.DragTrigger>
+                  <FloatingPanel.Body>
+                    Theme variables change the visual treatment without changing Ark composition.
+                  </FloatingPanel.Body>
+                  <FloatingPanel.ResizeTriggerGroup />
+                </FloatingPanel.Content>
+              </FloatingPanel.Positioner>
+            </Portal>
+          </FloatingPanel>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .customPanel {
+        --floating-panel-bg: var(--color-primary);
+        --floating-panel-color: var(--color-primary-foreground);
+        --floating-panel-border-color: color-mix(in oklab, var(--color-primary), black 18%);
+        --floating-panel-header-bg: color-mix(in oklab, var(--color-primary), white 12%);
+        --floating-panel-radius: var(--radius-lg);
+        --floating-panel-shadow: var(--shadow-xl);
+      }
+    `}
+  </Preview.CSS>
+  <Preview.Data>{`const theme = "primary";`}</Preview.Data>
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']}>
+    <Tab value="CSS Variables">
+      <div className="max-h-96 overflow-auto">
+        <FloatingPanelCssPropertiesPanel />
+      </div>
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Ark parts retain `data-scope="floating-panel"` and their `data-part` values. Moduix adds
+`data-slot="floating-panel-*"` to rendered wrappers. Target `data-state="open|closed"`,
+`data-dragging`, `data-topmost`, `data-behind`, `data-minimized`, `data-maximized`, `data-staged`,
+and `data-axis` for state-aware styling.
+
+`Positioner` exposes `--width`, `--height`, `--x`, `--y`, `--reference-width`,
+`--reference-height`, `--available-width`, `--available-height`, `--z-index`, and
+`--transform-origin`. Keep sizing and transform logic on Ark runtime variables rather than
+duplicating measurements in userland.
