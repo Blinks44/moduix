@@ -12,7 +12,9 @@ Before substantial work:
 
 # moduix-monorepo
 
-Monorepo for the UI component library and documentation.
+Monorepo for the Ark-backed `moduix` React component library, shadcn-compatible registry output,
+and documentation site. Treat the library as shipped software in active development: preserve the
+current public API, keep docs aligned with behavior, and remove stale guidance when contracts change.
 
 ## Skill Routing
 
@@ -52,6 +54,7 @@ If a task spans UI and docs, apply skills in this order:
 - Never run `npm run build:react` and `npm run tsc:check` in parallel. Wait for `build:react` to finish successfully before starting `tsc:check`.
 - After changes to component or shared registry-shipped source code in `packages/react`, run `npm run build:registry` after validation so the generated shadcn registry artifacts stay in sync.
 - After changes to a component in `packages/react`, update that component's local `.md` file in `packages/react/src/components` with the current functionality and a concise changelog entry when behavior, API, styling contract, or recommended usage changed.
+- Components are thin, styled Ark UI wrappers by default. Preserve Ark anatomy, state, callback detail objects, refs, `asChild`, provider/context hooks, `HiddenInput`, and data attributes unless an intentional moduix difference is documented.
 - `packages/react/src/components` uses `kebab-case` directories. Keep component implementation files inside those directories in their existing names, for example `packages/react/src/components/password-input/PasswordInput.tsx`.
 - Use relative imports for component-to-component dependencies inside `packages/react/src/components`, and use `@/lib/moduix/*` for shared registry-safe utilities, icons, and styles.
 - The root `registry.json` is the source of truth for the shadcn/GitHub registry. Source files in registry items point directly at `packages/react/src/...`.
@@ -68,6 +71,6 @@ After code changes, run from repo root:
 
 - `npm run fmt:fix`
 - `npm run lint:check`
-- `npm run build:react` before `npm run tsc:check` when `packages/react` changed
-- `npm run tsc:check` only after `npm run build:react` has completed successfully; do not run them in parallel
+- `npm run build:react` before `npm run tsc:check` when `packages/react` changed or docs depend on fresh React output
+- `npm run tsc:check`
 - `npm run build:registry` after validation when registry-shipped source code in `packages/react` changed

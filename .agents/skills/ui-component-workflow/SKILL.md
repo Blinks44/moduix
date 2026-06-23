@@ -25,9 +25,9 @@ Use this skill for work in `packages/react`.
 
 Before editing an existing component, inspect the TSX implementation, CSS module, stories, and local component markdown. Check public docs/examples when the change is user-facing.
 
-## Goal
+## Current Library Contract
 
-Build thin styled wrappers over Ark UI primitives and Ark-style contracts:
+Maintain thin styled wrappers over Ark UI primitives and Ark-style contracts:
 
 - minimal wrapper logic
 - predictable composition
@@ -124,11 +124,3 @@ If the answer is weak, simplify or remove it.
 ## Validation
 
 Run the required checks from `AGENTS.md` after changes.
-
-When `packages/react` changed, treat `npm run build:react` and `npm run tsc:check` as a strict sequence:
-
-1. run `npm run build:react`
-2. wait for it to complete successfully
-3. only then run `npm run tsc:check`
-
-Do not run those two commands in parallel.

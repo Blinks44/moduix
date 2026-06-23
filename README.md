@@ -11,19 +11,15 @@ Composable React components for product interfaces, built on top of
 [Ark UI](https://ark-ui.com/) primitives.
 
 moduix gives you ready-made components with accessible behavior, native CSS styles, and a
-composition-first API. It is inspired by the clarity of
-[shadcn/ui](https://ui.shadcn.com/), and it is trying to combine two useful workflows: install
-components as a regular npm package when that fits your project, or copy component source when
-you need direct ownership.
+composition-first API. It supports two production workflows: install the package for managed
+updates, or copy registry component source when your application needs direct ownership.
 
 ## Why It Exists
 
-moduix started as an internal tool for shared product UI. We needed a component library that
-was practical enough for real application screens, predictable enough to use across teams, and
-small enough to stay easy to understand.
-
-The library is now public because it may be useful outside of the original company context. If
-it helps another team build consistent interfaces faster, that is already a good outcome.
+moduix is built for real product screens: predictable behavior, readable composition, small
+runtime surface, and CSS that can be owned by the application. The library is public and actively
+developed around Ark UI primitives, shadcn-compatible source delivery, and practical defaults for
+teams that need consistent interfaces.
 
 ## Principles
 
@@ -37,9 +33,8 @@ it helps another team build consistent interfaces faster, that is already a good
   without hiding important structure.
 - **Native CSS.** Styles are distributed as CSS, use CSS custom properties, and are designed to
   work with your existing styling approach.
-- **Not a shadcn/ui competitor.** shadcn/ui is a major inspiration for the developer experience.
-  moduix explores whether package-managed components and copy-owned components can coexist in
-  one library.
+- **shadcn-compatible source delivery.** shadcn/ui remains a major inspiration for readable
+  component composition. moduix keeps that ownership model available through its registry.
 
 ## Installation
 
@@ -70,8 +65,7 @@ The files become part of your codebase instead of staying in `node_modules`.
 Make sure your project resolves the `@/*` alias to `src/*` in both `tsconfig.json` and
 `tsconfig.app.json`, and mirror it in your bundler config.
 
-Create `components.json` in the project root. Current workaround while `shadcn` custom registry
-base init still fails for this setup:
+Create `components.json` in the project root when your app does not already have one:
 
 ```json
 {
@@ -125,7 +119,7 @@ With the aliases above, generated files land in `src/components/moduix/*` and `s
 
 ## Usage
 
-Import the library styles once in your application entry point:
+Import the required foundation stylesheet once in your application entry point:
 
 ```tsx
 import '@moduix/react/style.css';
@@ -141,22 +135,29 @@ import '@moduix/react/style.css';
 Then import and compose the components you need:
 
 ```tsx
-import { Button, Dialog, DialogContent, DialogTitle, DialogTrigger } from '@moduix/react';
+import { Button, Dialog, Portal } from '@moduix/react';
 
 export function Example() {
   return (
-    <Dialog>
-      <DialogTrigger render={<Button />}>Open dialog</DialogTrigger>
-      <DialogContent>
-        <DialogTitle>Project settings</DialogTitle>
-      </DialogContent>
-    </Dialog>
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <Button>Open dialog</Button>
+      </Dialog.Trigger>
+      <Portal>
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          <Dialog.Content>
+            <Dialog.Title>Project settings</Dialog.Title>
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Portal>
+    </Dialog.Root>
   );
 }
 ```
 
-`style.css` ships the shared design tokens and base styles. Component imports bring along only the
-CSS they use, so you do not need a library-wide component stylesheet.
+`style.css` ships the shared design tokens and base styles. Component imports still bring along only
+the component CSS they use.
 
 ## Styling
 
@@ -181,9 +182,9 @@ classes, or component-level variables.
 
 ## What Is Included
 
-The package exports composed components for common product UI needs, including Accordion,
-Avatar, Button, Checkbox, Dialog, Drawer, Field, Form, Input, Menu, NavigationMenu, Popover,
-Select, Tabs, Toast, Tooltip, and supporting primitives.
+The package exports composed components for common product UI needs, including Accordion, Avatar,
+Button, Checkbox, Combobox, Dialog, Drawer, Field, FileUpload, Menu, NumberInput, Popover,
+QrCode, Select, Tabs, Toast, Tooltip, TreeView, and supporting layout and display primitives.
 
 ## Documentation
 
@@ -206,13 +207,14 @@ npm run dev
 
 This project could not exist without the work of these teams and communities:
 
-- [Ark UI](https://ark-ui.com/) for the accessible React primitives that power the components.
+- [Ark UI](https://ark-ui.com/) for the composition and accessibility primitives that shape the
+  library contract.
 - [shadcn/ui](https://ui.shadcn.com/) for the API inspiration and the culture of practical,
   readable component composition.
 - [Tailwind CSS](https://tailwindcss.com/) for the reset.css implementation.
 - [Fumadocs](https://fumadocs.dev/) for the documentation foundation.
 - [TanStack](https://tanstack.com/) for the application tooling used by the docs.
-- [Voidzero](https://voidzero.dev/) for awesome JS tools
+- [Voidzero](https://voidzero.dev/) for the JavaScript tooling used by the workspace.
 
 ## Contributing
 
@@ -241,11 +243,9 @@ Before opening a pull request:
    npm run tsc:check
    ```
 
-Keep pull requests small and specific. For component changes, update the related stories,
-exports, and documentation so the package and docs stay in sync.
+Keep pull requests small and specific. For component changes, update the related stories, exports,
+local component notes, public docs, and registry output so the package and docs stay in sync.
 
-Feel free to use agents or code generation tools, but
-please review the result before submitting. The components are intentionally small and direct,
-so the goal is to keep the code readable, maintainable, and free from unnecessary abstractions.
-I added the `skills` folder so code written with agents stays consistent with the rest of the
-library components.
+Agent-facing repository guidance lives in `AGENTS.md` and `.agents/skills`. Generated or
+agent-assisted changes should still preserve the library's direct Ark-first component contracts,
+small APIs, and readable implementation style.

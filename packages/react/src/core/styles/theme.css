@@ -30,6 +30,7 @@
   --collapsed-width: initial;
   --column-count: initial;
   --crop-height: initial;
+  --depth: initial;
   --crop-width: initial;
   --crop-x: initial;
   --crop-y: initial;
@@ -2800,6 +2801,61 @@
   --text-muted-color: initial; /* var(--color-muted-foreground) */
   --text-primary-color: initial; /* var(--color-primary) */
   --text-subtle-color: initial; /* var(--color-secondary-foreground) */
+
+  /* TreeView */
+  --tree-view-checkbox-bg: initial; /* var(--color-background) */
+  --tree-view-checkbox-border-color: initial; /* var(--color-border) */
+  --tree-view-checkbox-border-width: initial; /* var(--border-width-sm) */
+  --tree-view-checkbox-checked-bg: initial; /* var(--color-primary) */
+  --tree-view-checkbox-color: initial; /* var(--color-primary-foreground) */
+  --tree-view-checkbox-focus-ring-offset: initial; /* var(--border-width-sm) */
+  --tree-view-checkbox-icon-size: initial; /* 0.75rem */
+  --tree-view-checkbox-radius: initial; /* var(--radius-xs) */
+  --tree-view-checkbox-size: initial; /* 1rem */
+  --tree-view-color: initial; /* var(--color-foreground) */
+  --tree-view-content-transition-duration: initial; /* 150ms */
+  --tree-view-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --tree-view-focus-ring-color: initial; /* var(--color-ring) */
+  --tree-view-focus-ring-width: initial; /* var(--border-width-sm) */
+  --tree-view-indent: initial; /* 1rem */
+  --tree-view-indent-guide-color: initial; /* var(--color-border) */
+  --tree-view-indent-guide-width: initial; /* var(--border-width-sm) */
+  --tree-view-indicator-color: initial; /* currentColor */
+  --tree-view-indicator-icon-size: initial; /* 0.875rem */
+  --tree-view-indicator-size: initial; /* 1rem */
+  --tree-view-item-bg: initial; /* transparent */
+  --tree-view-item-border-color: initial; /* transparent */
+  --tree-view-item-border-width: initial; /* 0 */
+  --tree-view-item-color: initial; /* var(--tree-view-color, var(--color-foreground)) */
+  --tree-view-item-disabled-color: initial; /* var(--color-muted-foreground) */
+  --tree-view-item-font-size: initial; /* var(--text-sm) */
+  --tree-view-item-gap: initial; /* var(--spacing-2) */
+  --tree-view-item-hover-bg: initial; /* var(--color-accent) */
+  --tree-view-item-hover-color: initial; /* var(--color-accent-foreground) */
+  --tree-view-item-line-height: initial; /* var(--line-height-text-sm) */
+  --tree-view-item-min-height: initial; /* 2rem */
+  --tree-view-item-padding-x: initial; /* var(--spacing-2) */
+  --tree-view-item-padding-y: initial; /* var(--spacing-1) */
+  --tree-view-item-radius: initial; /* var(--radius-sm) */
+  --tree-view-item-selected-bg: initial; /* var(--color-accent) */
+  --tree-view-item-selected-color: initial; /* var(--color-accent-foreground) */
+  --tree-view-item-text-gap: initial; /* var(--spacing-2) */
+  --tree-view-label-color: initial; /* var(--tree-view-color, var(--color-foreground)) */
+  --tree-view-label-font-size: initial; /* var(--text-sm) */
+  --tree-view-label-font-weight: initial; /* var(--weight-medium) */
+  --tree-view-label-line-height: initial; /* var(--line-height-text-sm) */
+  --tree-view-max-width: initial; /* 100% */
+  --tree-view-node-icon-size: initial; /* 1rem */
+  --tree-view-rename-input-bg: initial; /* var(--color-background) */
+  --tree-view-rename-input-border-color: initial; /* var(--color-ring) */
+  --tree-view-rename-input-border-width: initial; /* var(--border-width-sm) */
+  --tree-view-rename-input-color: initial; /* var(--color-foreground) */
+  --tree-view-rename-input-padding-x: initial; /* var(--spacing-1) */
+  --tree-view-rename-input-padding-y: initial; /* 0 */
+  --tree-view-rename-input-radius: initial; /* var(--radius-xs) */
+  --tree-view-root-gap: initial; /* var(--spacing-2) */
+  --tree-view-transition: initial; /* var(--transition-default) */
+  --tree-view-width: initial; /* 20rem */
 
   /* Textarea */
   --textarea-bg: initial; /* var(--color-background) */

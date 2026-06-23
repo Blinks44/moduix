@@ -1043,6 +1043,31 @@
       ]
     },
     {
+      "name": "react-tree-view",
+      "type": "registry:item",
+      "title": "TreeView",
+      "description": "moduix React TreeView component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/tree-view/TreeView.tsx",
+          "target": "@components/moduix/tree-view/TreeView.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/tree-view/TreeView.module.css",
+          "target": "@components/moduix/tree-view/TreeView.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/tree-view/index.ts",
+          "target": "@components/moduix/tree-view/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-marquee",
       "type": "registry:item",
       "title": "Marquee",

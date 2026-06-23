@@ -1,6 +1,9 @@
-# moduix project skills
+# moduix Project Skills
 
-Local skills for this repository.
+Local agent skills for maintaining the shipped `moduix` component library and docs.
+
+The library is Ark-backed and actively developed. Skills should preserve current public contracts,
+keep package/docs/registry output aligned, and remove stale instructions when behavior changes.
 
 ## Skills
 
@@ -14,6 +17,8 @@ Local skills for this repository.
 - `.agents/skills/docs-workflow/SKILL.md` - workflow for docs pages, examples, and CSS variable docs in `apps/docs`
 - `.agents/skills/cross-package-sync/SKILL.md` - parity rules for tasks that touch both UI and docs
 
-## Routing
+## Source Of Truth
 
-Use `AGENTS.md` in the repo root as the source of truth for skill selection and validation.
+Use `AGENTS.md` in the repo root as the source of truth for skill routing, global repository rules,
+and required validation. Keep individual skills focused on their own workflow instead of repeating
+the same validation matrix.

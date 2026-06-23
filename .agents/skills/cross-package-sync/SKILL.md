@@ -16,9 +16,6 @@ Use this skill when work spans `packages/react` and `apps/docs`.
 ## Rules
 
 - Follow the skill order in `AGENTS.md`.
-- Rebuild UI before validating docs against changed React output.
-- When `packages/react` changed, wait for `npm run build:react` to finish successfully before starting
-  `npm run tsc:check`. Do not run those commands in parallel.
 - Keep code, stories, local component docs, and site docs aligned to the same current API.
 - Keep Ark-backed behavior described consistently across all surfaces: parts, refs, `HiddenInput`, `Field`/`Fieldset`
   context, callback detail objects, `asChild`, `ids`, context hooks, `RootProvider`, state attributes, and CSS

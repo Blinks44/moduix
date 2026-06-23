@@ -58,7 +58,7 @@ Inside `## Styling`, always use:
 
 ## Duplication Rules
 
-- Rename old `Default Path` sections to `Basic`.
+- Use `Basic` for the recommended first example.
 - Do not duplicate the `Basic` example in `Anatomy` as a full code block unless the structure would otherwise be unclear.
 - Do not put runnable snippets in `Composition` when the same case is already covered in `Examples`.
 - Use `Custom Composition` only as an example label inside `Examples` when a low-level escape hatch is worth showing.
@@ -78,6 +78,15 @@ Inside `## Styling`, always use:
   Do not make readers jump between hidden helper components just to understand the example. Keep helpers in the docs
   source only when needed for maintainability, and inline them in the displayed snippet unless the helper itself is the
   public pattern being taught.
+- For Ark collection primitives, show the collection setup directly in the visible snippet:
+  - Use `create*Collection({ nodeToValue/itemToValue, nodeToString/itemToString, rootNode/items })` inline.
+  - Name the root data `rootNode` only when it is passed directly to `create*Collection`; otherwise put the root object
+    directly inside the collection call.
+  - Render from `collection.rootNode.children?.map(...)` or `collection.items.map(...)` where the consumer sees the
+    root shape and the rendered children together.
+  - Avoid snippet-only factories like `createFilesCollection(rootNode = treeData)`, `buildCollection(data)`, or
+    structural wrappers like `TreeContent` when they hide how Ark's collection and parts fit together.
+  - Keep recursive renderers such as `TreeNode` visible when users must write that composition to use the component.
 - Do not repeat global setup imports.
 - In runnable examples (`Preview` and `Preview.Code`), use the short root form (`<Component>`) instead of
   `<Component.Root>`, while keeping child parts namespaced (for example `<Component.Item>`).

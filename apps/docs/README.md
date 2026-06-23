@@ -1,10 +1,13 @@
 # moduix docs
 
-`apps/docs` is the documentation site for the `moduix` UI component library from `packages/react`.
+`apps/docs` is the documentation site for the `moduix` React component library from
+`packages/react`.
 
-It contains user-facing guides, component pages, usage examples, and API references.
+It contains user-facing guides, component pages, usage examples, install guidance, and API
+references for the current shipped library.
 
-Key docs that currently require extra synchronization with library behavior:
+Keep these pages synchronized with package behavior whenever install flow, composition guidance,
+or styling tokens change:
 
 - `content/docs/quick-start.mdx` for package install and `shadcn` registry setup
 - `content/docs/composition-patterns.mdx` for wrapper composition guidance
@@ -27,13 +30,15 @@ apps/docs/
 
 ## Development
 
-Before working on docs, build the React package from the monorepo root so docs use fresh library output:
+Before validating docs that depend on React package output, build the package from the monorepo root
+so docs use fresh declarations and compiled files:
 
 ```bash
 npm run build:react
 ```
 
-Then run docs:
+Use the already running project server during agent work. Start the docs server only when explicitly
+asked to run it:
 
 ```bash
 npm --workspace moduix-docs run dev
