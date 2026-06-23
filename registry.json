@@ -1995,6 +1995,31 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "react-tour",
+      "type": "registry:item",
+      "title": "Tour",
+      "description": "moduix React Tour component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/tour/Tour.tsx",
+          "target": "@components/moduix/tour/Tour.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/tour/Tour.module.css",
+          "target": "@components/moduix/tour/Tour.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/tour/index.ts",
+          "target": "@components/moduix/tour/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

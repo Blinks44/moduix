@@ -78,5 +78,6 @@ export * from './components/textarea';
 export * from './components/timer';
 export * from './components/toast';
 export * from './components/tooltip';
+export * from './components/tour';
 export * from './components/toggle';
 export * from './components/toggle-group';

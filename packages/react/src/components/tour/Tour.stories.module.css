@@ -1,0 +1,85 @@
+.canvas {
+  display: flex;
+  width: min(28rem, calc(100vw - var(--spacing-8)));
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+}
+
+.targets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.target {
+  display: grid;
+  min-height: 5rem;
+  width: 100%;
+  place-items: center;
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-muted);
+  color: var(--color-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+}
+
+.closeIcon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.progressTrack {
+  margin-top: var(--spacing-2);
+  height: 0.25rem;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: var(--color-muted);
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-primary);
+  transition: width var(--transition-default);
+}
+
+.log {
+  width: 100%;
+  min-height: 5rem;
+  padding: var(--spacing-3);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-muted);
+  color: var(--color-muted-foreground);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.field {
+  display: grid;
+  width: min(20rem, 100%);
+  gap: var(--spacing-1);
+  color: var(--color-foreground);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  line-height: var(--line-height-text-sm);
+}
+
+.input {
+  min-height: var(--size-lg);
+  padding: 0 var(--spacing-3);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font: inherit;
+  outline: 0;
+
+  &:focus-visible {
+    outline: var(--border-width-sm) solid var(--color-ring);
+    outline-offset: calc(var(--border-width-sm) * -1);
+  }
+}
