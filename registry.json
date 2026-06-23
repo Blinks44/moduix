@@ -1747,6 +1747,31 @@
       ]
     },
     {
+      "name": "react-tags-input",
+      "type": "registry:item",
+      "title": "TagsInput",
+      "description": "moduix React TagsInput component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core", "Blinks44/moduix/react-close-button"],
+      "files": [
+        {
+          "path": "packages/react/src/components/tags-input/TagsInput.tsx",
+          "target": "@components/moduix/tags-input/TagsInput.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/tags-input/TagsInput.module.css",
+          "target": "@components/moduix/tags-input/TagsInput.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/tags-input/index.ts",
+          "target": "@components/moduix/tags-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-table",
       "type": "registry:item",
       "title": "Table",

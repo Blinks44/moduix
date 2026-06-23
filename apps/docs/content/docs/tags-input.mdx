@@ -1,0 +1,763 @@
+---
+title: Tags Input
+description: Ark UI tags input composition for entering, editing, validating, and submitting string tags.
+icon: Component
+---
+
+import {
+  TagsInputControlledExample,
+  TagsInputControlledInputExample,
+  TagsInputCssPropertiesPanel,
+  TagsInputCustomStylingExample,
+  TagsInputDelimiterPasteExample,
+  TagsInputDisableEditingExample,
+  TagsInputExample,
+  TagsInputFieldExample,
+  TagsInputRootProviderExample,
+  TagsInputSanitizeBlurExample,
+  TagsInputStateExample,
+  TagsInputValidationExample,
+} from '@/components/examples/tags-input';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/tags-input" />
+
+## Choosing the right component
+
+Use `TagsInput` when users need to build a list of editable string values inside one form control.
+
+- Choose **`TagsInput`** for labels, skills, filters, recipients, topics, and similar free-form string lists.
+- Choose **`Tag`** when the UI only displays an existing token and may offer a separate remove action.
+- Choose **`Combobox`** when users must choose from a known collection and filtering is the main interaction.
+
+## Basic
+
+Start with the Ark part tree: root state, label, control, rendered items, entry input, clear trigger,
+and `HiddenInput` for native form submission and reset synchronization.
+
+<Preview>
+  <TagsInputExample />
+
+  <Preview.Code>
+    {`
+      import { TagsInput } from "@moduix/react";
+
+      const initialTags = ["React", "TypeScript"];
+
+      export function TagsInputDemo() {
+        return (
+          <TagsInput defaultValue={initialTags} name="frameworks">
+            <TagsInput.Label>Frameworks</TagsInput.Label>
+            <TagsInput.Control>
+              <TagsInput.Context>
+                {(tagsInput) =>
+                  tagsInput.value.map((value, index) => (
+                    <TagsInput.Item key={value} index={index} value={value}>
+                      <TagsInput.ItemPreview>
+                        <TagsInput.ItemText>{value}</TagsInput.ItemText>
+                        <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${value}\`} />
+                      </TagsInput.ItemPreview>
+                      <TagsInput.ItemInput />
+                    </TagsInput.Item>
+                  ))
+                }
+              </TagsInput.Context>
+              <TagsInput.Input placeholder="Add framework" />
+              <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+            </TagsInput.Control>
+            <TagsInput.HiddenInput />
+          </TagsInput>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      [data-slot="tags-input-control"] {
+        --tags-input-control-gap: var(--spacing-1);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>{`const initialTags = ["React", "TypeScript"];`}</Preview.Data>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `TagsInput` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/react-tags-input
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/react-tags-input
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/react-tags-input
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-tags-input
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/react-tags-input
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+TagsInput / TagsInput.Root
+├─ TagsInput.Label
+├─ TagsInput.Control
+│  ├─ TagsInput.Item[index, value]
+│  │  ├─ TagsInput.ItemPreview
+│  │  │  ├─ TagsInput.ItemText
+│  │  │  └─ TagsInput.ItemDeleteTrigger
+│  │  └─ TagsInput.ItemInput
+│  ├─ TagsInput.Input
+│  └─ TagsInput.ClearTrigger
+└─ TagsInput.HiddenInput
+```
+
+| Part                            | Role                                                                 |
+| ------------------------------- | -------------------------------------------------------------------- |
+| `TagsInput` / `TagsInput.Root`  | Root state machine, value array, input value, validation, and forms. |
+| `TagsInput.RootProvider`        | Renders tags input from state returned by `useTagsInput`.            |
+| `TagsInput.Label`               | Accessible label for the tags input.                                 |
+| `TagsInput.Control`             | Visible input shell containing tags, entry input, and clear trigger. |
+| `TagsInput.Item`                | One tag item. Pass `index` and `value`.                              |
+| `TagsInput.ItemPreview`         | Visible tag surface outside edit mode.                               |
+| `TagsInput.ItemText`            | Visible tag text.                                                    |
+| `TagsInput.ItemDeleteTrigger`   | Removes one tag; moduix supplies a compact default close icon.       |
+| `TagsInput.ItemInput`           | Inline edit input for the tag.                                       |
+| `TagsInput.Input`               | Entry input for new tags.                                            |
+| `TagsInput.ClearTrigger`        | Clears all tags; moduix uses the shared `CloseButton.Root` default.  |
+| `TagsInput.HiddenInput`         | Hidden native input for forms and reset behavior.                    |
+| `TagsInput.Context`             | Inline access to Ark root state.                                     |
+| `TagsInput.ItemContext`         | Inline access to Ark item state.                                     |
+| `useTagsInput` / `RootProvider` | External state ownership and imperative methods.                     |
+| `useTagsInputContext`           | Hook access for custom child parts.                                  |
+| `useTagsInputItemContext`       | Hook access for custom item child parts.                             |
+
+## Composition
+
+### Recommended composition
+
+Use the short `<TagsInput>` root form. Render `TagsInput.Context` inside `Control`, map
+`tagsInput.value`, pass `index` and `value` to each `TagsInput.Item`, and keep `ItemInput` mounted
+inside each item so Ark can enter edit mode. Keep `HiddenInput` mounted when `name`, form
+submission, browser validation, or form reset synchronization matters.
+
+### When to go custom
+
+Use `TagsInput.RootProvider` with `useTagsInput` when surrounding UI needs imperative methods such
+as `addValue`, `setValue`, `clearValue`, `setInputValue`, or `focus`. Use `ids` when composing
+`TagsInput` with another Ark primitive, such as a `Combobox`, and both primitives must share an
+input or control ID.
+
+### Default props
+
+| Prop                | Default    | Notes                                                                   |
+| ------------------- | ---------- | ----------------------------------------------------------------------- |
+| `defaultValue`      | `[]`       | Initial uncontrolled tag array.                                         |
+| `value`             | -          | Controlled tag array. Update from `onValueChange(details).value`.       |
+| `defaultInputValue` | `''`       | Initial uncontrolled entry input value.                                 |
+| `inputValue`        | -          | Controlled entry input value.                                           |
+| `delimiter`         | `','`      | Character or regex used for paste splitting and delimiter key handling. |
+| `max`               | `Infinity` | Maximum number of tags.                                                 |
+| `maxLength`         | -          | Maximum characters accepted by the entry input.                         |
+| `allowOverflow`     | `false`    | Allows values beyond `max` while marking the root invalid.              |
+| `editable`          | `true`     | Lets focused or double-clicked tags enter edit mode.                    |
+| `addOnPaste`        | `false`    | Splits pasted input into tags using `delimiter`.                        |
+| `blurBehavior`      | -          | Use `"add"` to add the entry value on blur or `"clear"` to discard it.  |
+
+### Behavioral notes
+
+`onValueChange(details)`, `onInputValueChange(details)`, `onHighlightChange(details)`, and
+`onValueInvalid(details)` expose Ark detail objects. `validate(details)` accepts or rejects the
+pending tag, and `sanitizeValue(value)` normalizes each tag before it is added.
+
+`Field.Root` and `Fieldset.Root` can provide disabled, invalid, required, and read-only state
+through Ark context. All exported Ark parts support `asChild`. The default clear trigger uses
+`CloseButton.Root` under Ark `asChild`, while item delete keeps a smaller tag-level icon button.
+
+## Examples
+
+### Controlled
+
+Control the tag array when selected tags must drive surrounding UI or be reset from React state.
+
+<Preview>
+  <TagsInputControlledExample />
+
+  <Preview.Code>
+    {`
+      import { TagsInput, type TagsInputValueChangeDetails } from "@moduix/react";
+      import { useState } from "react";
+
+      export function ControlledTagsInput() {
+        const [value, setValue] = useState(["React", "TypeScript"]);
+
+        function handleValueChange(details: TagsInputValueChangeDetails) {
+          setValue(details.value);
+        }
+
+        return (
+          <TagsInput value={value} onValueChange={handleValueChange}>
+            <TagsInput.Label>Skills</TagsInput.Label>
+            <TagsInput.Control>
+              {value.map((item, index) => (
+                <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                  <TagsInput.ItemPreview>
+                    <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                    <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                  </TagsInput.ItemPreview>
+                  <TagsInput.ItemInput />
+                </TagsInput.Item>
+              ))}
+              <TagsInput.Input placeholder="Add skill" />
+              <TagsInput.ClearTrigger aria-label="Clear skills" />
+            </TagsInput.Control>
+            <TagsInput.HiddenInput />
+          </TagsInput>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`.hint { color: var(--color-muted-foreground); }`}</Preview.CSS>
+  <Preview.Data>{`const [value, setValue] = useState(["React", "TypeScript"]);`}</Preview.Data>
+</Preview>
+
+### Controlled Input Value
+
+Control `inputValue` separately when another control should prefill or clear the entry input.
+
+<Preview>
+  <TagsInputControlledInputExample />
+
+  <Preview.Code>
+    {`
+      import { TagsInput, type TagsInputInputValueChangeDetails } from "@moduix/react";
+      import { useState } from "react";
+
+      export function ControlledInputValueTagsInput() {
+        const [inputValue, setInputValue] = useState("");
+
+        function handleInputValueChange(details: TagsInputInputValueChangeDetails) {
+          setInputValue(details.inputValue);
+        }
+
+        return (
+          <>
+            <button type="button" onClick={() => setInputValue("React")}>Set React</button>
+            <TagsInput
+              defaultValue={["Solid"]}
+              inputValue={inputValue}
+              onInputValueChange={handleInputValueChange}
+            >
+              <TagsInput.Label>Frameworks</TagsInput.Label>
+              <TagsInput.Control>
+                <TagsInput.Context>
+                  {(tagsInput) =>
+                    tagsInput.value.map((item, index) => (
+                      <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                        <TagsInput.ItemPreview>
+                          <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                          <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                        </TagsInput.ItemPreview>
+                        <TagsInput.ItemInput />
+                      </TagsInput.Item>
+                    ))
+                  }
+                </TagsInput.Context>
+                <TagsInput.Input placeholder="Add framework" />
+                <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+              </TagsInput.Control>
+              <TagsInput.HiddenInput />
+            </TagsInput>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`.actions { display: inline-flex; gap: var(--spacing-2); }`}</Preview.CSS>
+  <Preview.Data>{`const [inputValue, setInputValue] = useState("");`}</Preview.Data>
+</Preview>
+
+### Delimiter And Paste
+
+Use `delimiter` with `addOnPaste` when pasted text should create multiple tags.
+
+<Preview>
+  <TagsInputDelimiterPasteExample />
+
+  <Preview.Code>
+    {`
+      import { TagsInput } from "@moduix/react";
+
+      export function DelimiterPasteTagsInput() {
+        return (
+          <TagsInput defaultValue={["React", "Solid", "Vue"]} delimiter={/[,;\\s]/} addOnPaste>
+            <TagsInput.Label>Frameworks</TagsInput.Label>
+            <TagsInput.Control>
+              <TagsInput.Context>
+                {(tagsInput) =>
+                  tagsInput.value.map((item, index) => (
+                    <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                      <TagsInput.ItemPreview>
+                        <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                        <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                      </TagsInput.ItemPreview>
+                      <TagsInput.ItemInput />
+                    </TagsInput.Item>
+                  ))
+                }
+              </TagsInput.Context>
+              <TagsInput.Input placeholder="Comma, semicolon, or space" />
+              <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+            </TagsInput.Control>
+            <TagsInput.HiddenInput />
+          </TagsInput>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`[data-slot="tags-input-input"] { min-width: 10rem; }`}</Preview.CSS>
+  <Preview.Data>{`const delimiter = /[,;\\s]/;`}</Preview.Data>
+</Preview>
+
+### Validation And Max
+
+Use `validate`, `max`, and `onValueInvalid` to reject invalid values and surface validation state.
+Add `maxLength` when the entry input should stop accepting long tag values before validation runs.
+
+<Preview>
+  <TagsInputValidationExample />
+
+  <Preview.Code>
+    {`
+      import { TagsInput } from "@moduix/react";
+      import { useState } from "react";
+
+      export function ValidationTagsInput() {
+        const [invalidReason, setInvalidReason] = useState("none");
+
+        return (
+          <TagsInput
+            max={3}
+            maxLength={12}
+            defaultValue={["alpha", "beta", "gamma"]}
+            validate={(details) => {
+              return details.inputValue.length >= 3 && !details.value.includes(details.inputValue);
+            }}
+            onValueInvalid={(details) => {
+              setInvalidReason(details.reason);
+            }}
+          >
+            <TagsInput.Label>Labels</TagsInput.Label>
+            <TagsInput.Control>
+              <TagsInput.Context>
+                {(tagsInput) =>
+                  tagsInput.value.map((item, index) => (
+                    <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                      <TagsInput.ItemPreview>
+                        <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                        <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                      </TagsInput.ItemPreview>
+                      <TagsInput.ItemInput />
+                    </TagsInput.Item>
+                  ))
+                }
+              </TagsInput.Context>
+              <TagsInput.Input placeholder="Add unique label" />
+              <TagsInput.ClearTrigger aria-label="Clear labels" />
+            </TagsInput.Control>
+            <TagsInput.HiddenInput />
+          </TagsInput>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`.hint { color: var(--color-muted-foreground); }`}</Preview.CSS>
+  <Preview.Data>{`const max = 3; const maxLength = 12;`}</Preview.Data>
+</Preview>
+
+### Sanitize And Blur
+
+Use `sanitizeValue` to normalize incoming tags and `blurBehavior="add"` to commit the current input
+when focus leaves the control.
+
+<Preview>
+  <TagsInputSanitizeBlurExample />
+
+  <Preview.Code>
+    {`
+      import { TagsInput } from "@moduix/react";
+
+      export function SanitizeBlurTagsInput() {
+        return (
+          <TagsInput
+            blurBehavior="add"
+            sanitizeValue={(value) => value.trim().toLowerCase()}
+            defaultValue={["design"]}
+          >
+            <TagsInput.Label>Topics</TagsInput.Label>
+            <TagsInput.Control>
+              <TagsInput.Context>
+                {(tagsInput) =>
+                  tagsInput.value.map((item, index) => (
+                    <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                      <TagsInput.ItemPreview>
+                        <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                        <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                      </TagsInput.ItemPreview>
+                      <TagsInput.ItemInput />
+                    </TagsInput.Item>
+                  ))
+                }
+              </TagsInput.Context>
+              <TagsInput.Input placeholder="Blur to add" />
+              <TagsInput.ClearTrigger aria-label="Clear topics" />
+            </TagsInput.Control>
+            <TagsInput.HiddenInput />
+          </TagsInput>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`[data-slot="tags-input-item-text"] { text-transform: lowercase; }`}</Preview.CSS>
+  <Preview.Data>{`const normalize = (value: string) => value.trim().toLowerCase();`}</Preview.Data>
+</Preview>
+
+### Field
+
+Wrap `TagsInput` in `Field` when label, helper text, invalid state, and error text should share Ark
+form accessibility wiring.
+
+<Preview>
+  <TagsInputFieldExample />
+
+  <Preview.Code>
+    {`
+      import { Field, TagsInput } from "@moduix/react";
+
+      export function FieldTagsInput() {
+        return (
+          <Field invalid required>
+            <TagsInput defaultValue={["api"]} name="topics">
+              <TagsInput.Label>Topics</TagsInput.Label>
+              <TagsInput.Control>
+                <TagsInput.Context>
+                  {(tagsInput) =>
+                    tagsInput.value.map((item, index) => (
+                      <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                        <TagsInput.ItemPreview>
+                          <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                          <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                        </TagsInput.ItemPreview>
+                        <TagsInput.ItemInput />
+                      </TagsInput.Item>
+                    ))
+                  }
+                </TagsInput.Context>
+                <TagsInput.Input placeholder="Add topic" />
+                <TagsInput.ClearTrigger aria-label="Clear topics" />
+              </TagsInput.Control>
+              <TagsInput.HiddenInput />
+            </TagsInput>
+            <Field.HelperText>Add at least one topic.</Field.HelperText>
+            <Field.ErrorText>Topics are required.</Field.ErrorText>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`[data-slot="tags-input-control"][data-invalid] { border-color: var(--color-destructive); }`}</Preview.CSS>
+  <Preview.Data>{`const invalid = true;`}</Preview.Data>
+</Preview>
+
+### Disabled And Read-only
+
+Use `disabled` for a non-interactive control and `readOnly` when values remain visible but should
+not be edited.
+
+<Preview>
+  <TagsInputStateExample />
+
+  <Preview.Code>
+    {`
+      import { TagsInput } from "@moduix/react";
+
+      export function StateTagsInput() {
+        return (
+          <>
+            <TagsInput disabled defaultValue={["disabled"]}>
+              <TagsInput.Label>Disabled</TagsInput.Label>
+              <TagsInput.Control>
+                <TagsInput.Context>
+                  {(tagsInput) =>
+                    tagsInput.value.map((item, index) => (
+                      <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                        <TagsInput.ItemPreview>
+                          <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                          <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                        </TagsInput.ItemPreview>
+                        <TagsInput.ItemInput />
+                      </TagsInput.Item>
+                    ))
+                  }
+                </TagsInput.Context>
+                <TagsInput.Input placeholder="Unavailable" />
+              </TagsInput.Control>
+              <TagsInput.HiddenInput />
+            </TagsInput>
+
+            <TagsInput readOnly defaultValue={["read-only"]}>
+              <TagsInput.Label>Read-only</TagsInput.Label>
+              <TagsInput.Control>
+                <TagsInput.Context>
+                  {(tagsInput) =>
+                    tagsInput.value.map((item, index) => (
+                      <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                        <TagsInput.ItemPreview>
+                          <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                          <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                        </TagsInput.ItemPreview>
+                        <TagsInput.ItemInput />
+                      </TagsInput.Item>
+                    ))
+                  }
+                </TagsInput.Context>
+                <TagsInput.Input placeholder="Read-only" />
+                <TagsInput.ClearTrigger aria-label="Clear read-only tags" />
+              </TagsInput.Control>
+              <TagsInput.HiddenInput />
+            </TagsInput>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`.stack { display: grid; gap: var(--spacing-3); }`}</Preview.CSS>
+  <Preview.Data>{`const disabled = true; const readOnly = true;`}</Preview.Data>
+</Preview>
+
+### Disable Editing
+
+Set `editable={false}` when existing tags should be removable but not editable in place.
+
+<Preview>
+  <TagsInputDisableEditingExample />
+
+  <Preview.Code>
+    {`
+      import { TagsInput } from "@moduix/react";
+
+      export function DisableEditingTagsInput() {
+        return (
+          <TagsInput editable={false} defaultValue={["React", "TypeScript"]}>
+            <TagsInput.Label>Frameworks</TagsInput.Label>
+            <TagsInput.Control>
+              <TagsInput.Context>
+                {(tagsInput) =>
+                  tagsInput.value.map((item, index) => (
+                    <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                      <TagsInput.ItemPreview>
+                        <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                        <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                      </TagsInput.ItemPreview>
+                      <TagsInput.ItemInput />
+                    </TagsInput.Item>
+                  ))
+                }
+              </TagsInput.Context>
+              <TagsInput.Input placeholder="Add framework" />
+              <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+            </TagsInput.Control>
+            <TagsInput.HiddenInput />
+          </TagsInput>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`[data-slot="tags-input-item-preview"] { user-select: none; }`}</Preview.CSS>
+  <Preview.Data>{`const editable = false;`}</Preview.Data>
+</Preview>
+
+### Root Provider
+
+Use `useTagsInput` with `RootProvider` when state and imperative methods need to live outside the
+rendered tags input tree.
+
+<Preview>
+  <TagsInputRootProviderExample />
+
+  <Preview.Code>
+    {`
+      import { TagsInput, useTagsInput } from "@moduix/react";
+      import { useId } from "react";
+
+      export function RootProviderTagsInput() {
+        const id = useId();
+        const tagsInput = useTagsInput({ id, defaultValue: ["React"] });
+
+        return (
+          <div>
+            <button type="button" onClick={() => tagsInput.addValue("Solid")}>Add Solid</button>
+            <button type="button" onClick={() => tagsInput.clearValue()}>Clear</button>
+            <button type="button" onClick={tagsInput.focus}>Focus</button>
+
+            <TagsInput.RootProvider value={tagsInput}>
+              <TagsInput.Label>Frameworks</TagsInput.Label>
+              <TagsInput.Control>
+                {tagsInput.value.map((item, index) => (
+                  <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                    <TagsInput.ItemPreview>
+                      <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                      <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                    </TagsInput.ItemPreview>
+                    <TagsInput.ItemInput />
+                  </TagsInput.Item>
+                ))}
+                <TagsInput.Input placeholder="Add framework" />
+                <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+              </TagsInput.Control>
+              <TagsInput.HiddenInput />
+            </TagsInput.RootProvider>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`.actions { display: inline-flex; gap: var(--spacing-2); }`}</Preview.CSS>
+  <Preview.Data>{`const tagsInput = useTagsInput({ id, defaultValue: ["React"] });`}</Preview.Data>
+</Preview>
+
+### Custom Styling
+
+Customize the visible token treatment with CSS variables while keeping Ark data attributes and part
+composition intact.
+
+<Preview>
+  <TagsInputCustomStylingExample />
+
+  <Preview.Code>
+    {`
+      import { TagsInput } from "@moduix/react";
+      import styles from "./tags-input-demo.module.css";
+
+      export function CustomStylingTagsInput() {
+        return (
+          <TagsInput className={styles.customRoot} defaultValue={["Design", "API"]}>
+            <TagsInput.Label>Workstreams</TagsInput.Label>
+            <TagsInput.Control>
+              <TagsInput.Context>
+                {(tagsInput) =>
+                  tagsInput.value.map((item, index) => (
+                    <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                      <TagsInput.ItemPreview>
+                        <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                        <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                      </TagsInput.ItemPreview>
+                      <TagsInput.ItemInput />
+                    </TagsInput.Item>
+                  ))
+                }
+              </TagsInput.Context>
+              <TagsInput.Input placeholder="Add workstream" />
+              <TagsInput.ClearTrigger aria-label="Clear workstreams" />
+            </TagsInput.Control>
+            <TagsInput.HiddenInput />
+          </TagsInput>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customRoot {
+        --tags-input-item-bg: color-mix(in oklab, var(--color-primary) 14%, var(--color-background));
+        --tags-input-item-border-color: color-mix(in oklab, var(--color-primary) 28%, transparent);
+        --tags-input-item-color: var(--color-primary);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>{`const initialTags = ["Design", "API"];`}</Preview.Data>
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <TagsInputCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- Root and root provider expose `data-slot="tags-input-root"` and `data-slot="tags-input-root-provider"`.
+- Ark parts keep `data-scope="tags-input"` and `data-part` values from the upstream anatomy.
+- State styling uses `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`,
+  `data-required`, `data-value`, and `data-highlighted` on the parts where Ark emits them.
+- Delete and clear triggers expose stable `data-slot` hooks. Item delete uses a compact default
+  close icon; clear-all uses the shared `CloseButton.Root` default styling.
+- `TagsInput.ClearTrigger` stays anchored to the inline end of the control when tag rows wrap.
+
+## Accessibility
+
+Ark owns label wiring, tag highlighting, inline edit mode, Backspace/Delete removal, ArrowLeft and
+ArrowRight tag navigation, Enter-to-add and Enter-to-edit behavior, paste splitting, and hidden
+input form integration. Keep `HiddenInput` mounted for native forms, and give delete and clear
+triggers specific accessible names when multiple actions are visible.

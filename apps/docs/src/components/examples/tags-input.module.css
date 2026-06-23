@@ -1,0 +1,34 @@
+.stack {
+  display: grid;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.hint {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.field {
+  width: 24rem;
+  max-width: 100%;
+}
+
+.customRoot {
+  --tags-input-item-bg: color-mix(in oklab, var(--color-primary) 14%, var(--color-background));
+  --tags-input-item-border-color: color-mix(in oklab, var(--color-primary) 28%, transparent);
+  --tags-input-item-color: var(--color-primary);
+  --tags-input-item-highlight-ring-color: color-mix(
+    in oklab,
+    var(--color-primary) 70%,
+    transparent
+  );
+  --tags-input-trigger-bg-hover: color-mix(in oklab, var(--color-primary) 16%, transparent);
+}

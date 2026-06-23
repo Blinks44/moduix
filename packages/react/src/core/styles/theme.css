@@ -2621,6 +2621,71 @@
   --tag-close-trigger-size: initial; /* 1rem */
   --tag-transition: initial; /* var(--transition-default) */
 
+  /* TagsInput */
+  --tags-input-bg: initial; /* var(--input-bg, var(--color-background)) */
+  --tags-input-border-color: initial; /* var(--input-border-color, var(--color-border)) */
+  --tags-input-border-width: initial; /* var(--input-border-width, var(--border-width-sm)) */
+  --tags-input-clear-trigger-bg: initial; /* transparent */
+  --tags-input-clear-trigger-bg-hover: initial; /* var(--color-muted) */
+  --tags-input-clear-trigger-color: initial; /* var(--color-muted-foreground) */
+  --tags-input-clear-trigger-color-hover: initial; /* var(--color-foreground) */
+  --tags-input-clear-trigger-icon-size: initial; /* 0.75rem */
+  --tags-input-clear-trigger-radius: initial; /* var(--radius-sm) */
+  --tags-input-clear-trigger-size: initial; /* 1.5rem */
+  --tags-input-color: initial; /* var(--input-color, var(--color-foreground)) */
+  --tags-input-control-gap: initial; /* var(--spacing-1) */
+  --tags-input-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --tags-input-focus-ring-color: initial; /* var(--input-focus-ring-color, var(--color-ring)) */
+  --tags-input-focus-ring-offset: initial; /* var(--input-focus-ring-offset) */
+  --tags-input-focus-ring-width: initial; /* var(--input-focus-ring-width, var(--border-width-sm)) */
+  --tags-input-gap: initial; /* var(--field-gap, var(--spacing-1)) */
+  --tags-input-input-font-size: initial; /* var(--input-font-size, var(--text-sm)) */
+  --tags-input-input-height: initial; /* 1.5rem */
+  --tags-input-input-line-height: initial; /* var(--input-line-height, var(--line-height-text-sm)) */
+  --tags-input-input-min-width: initial; /* 7rem */
+  --tags-input-input-padding-x: initial; /* 0.25rem */
+  --tags-input-invalid-border-color: initial; /* var(--input-border-color-invalid, var(--color-destructive)) */
+  --tags-input-invalid-focus-ring-color: initial; /* var(--input-border-color-invalid, var(--color-destructive)) */
+  --tags-input-item-bg: initial; /* var(--color-secondary) */
+  --tags-input-item-border-color: initial; /* transparent */
+  --tags-input-item-border-width: initial; /* var(--border-width-sm) */
+  --tags-input-item-color: initial; /* var(--color-secondary-foreground) */
+  --tags-input-item-font-size: initial; /* var(--text-xs) */
+  --tags-input-item-font-weight: initial; /* var(--weight-medium) */
+  --tags-input-item-gap: initial; /* var(--spacing-1) */
+  --tags-input-item-height: initial; /* 1.5rem */
+  --tags-input-item-highlight-ring-color: initial; /* var(--color-ring) */
+  --tags-input-item-highlight-ring-width: initial; /* var(--border-width-sm) */
+  --tags-input-item-input-width: initial; /* 7rem */
+  --tags-input-item-line-height: initial; /* var(--line-height-text-xs) */
+  --tags-input-item-padding-x: initial; /* 0.5rem */
+  --tags-input-item-padding-y: initial; /* 0.125rem */
+  --tags-input-item-radius: initial; /* var(--radius-full) */
+  --tags-input-label-color: initial; /* var(--field-label-color, var(--color-foreground)) */
+  --tags-input-label-font-size: initial; /* var(--field-label-font-size, var(--text-sm)) */
+  --tags-input-label-font-weight: initial; /* var(--field-label-font-weight, var(--weight-medium)) */
+  --tags-input-label-gap: initial; /* var(--field-label-gap, var(--spacing-1)) */
+  --tags-input-label-line-height: initial; /* var(--field-label-line-height, var(--line-height-text-sm)) */
+  --tags-input-max-width: initial; /* 24rem */
+  --tags-input-min-height: initial; /* var(--input-height, var(--size-lg)) */
+  --tags-input-padding-x: initial; /* 0.5rem */
+  --tags-input-padding-y: initial; /* 0.3125rem */
+  --tags-input-placeholder-color: initial; /* var(--input-placeholder-color, var(--color-muted-foreground)) */
+  --tags-input-radius: initial; /* var(--input-radius, var(--radius-md)) */
+  --tags-input-readonly-bg: initial; /* var(--input-readonly-bg, var(--color-background)) */
+  --tags-input-readonly-color: initial; /* var(--input-readonly-color, var(--color-foreground)) */
+  --tags-input-transition: initial; /* var(--input-transition, var(--transition-default)) */
+  --tags-input-trigger-bg: initial; /* transparent */
+  --tags-input-trigger-bg-hover: initial; /* color-mix(in oklab, currentColor 12%, transparent) */
+  --tags-input-trigger-color: initial; /* currentColor */
+  --tags-input-trigger-focus-ring-color: initial; /* var(--color-ring) */
+  --tags-input-trigger-focus-ring-offset: initial; /* 2px */
+  --tags-input-trigger-focus-ring-width: initial; /* var(--border-width-sm) */
+  --tags-input-trigger-icon-size: initial; /* 0.625rem */
+  --tags-input-trigger-radius: initial; /* var(--radius-full) */
+  --tags-input-trigger-size: initial; /* 1rem */
+  --tags-input-width: initial; /* 100% */
+
   /* Table */
   --table-border-color: initial; /* var(--color-border) */
   --table-border-width: initial; /* var(--border-width-sm) */
