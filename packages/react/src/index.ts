@@ -75,6 +75,7 @@ export * from './components/table';
 export * from './components/tabs';
 export * from './components/text';
 export * from './components/textarea';
+export * from './components/timer';
 export * from './components/toast';
 export * from './components/tooltip';
 export * from './components/toggle';

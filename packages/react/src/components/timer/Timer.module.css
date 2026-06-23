@@ -1,0 +1,98 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: inline-grid;
+    place-items: center;
+    gap: var(--timer-gap, var(--spacing-3));
+    width: var(--timer-width, max-content);
+    color: var(--timer-color, var(--color-foreground));
+  }
+
+  .area {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--timer-area-gap, var(--spacing-1));
+    font-size: var(--timer-area-font-size, var(--text-2xl));
+    font-weight: var(--timer-area-font-weight, var(--weight-semibold));
+    line-height: var(--timer-area-line-height, var(--line-height-text-sm));
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+  }
+
+  .item {
+    min-width: var(--timer-item-min-width, 2ch);
+    color: var(--timer-item-color, currentColor);
+    text-align: var(--timer-item-text-align, center);
+  }
+
+  .separator {
+    color: var(--timer-separator-color, var(--color-muted-foreground));
+  }
+
+  .control {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--timer-control-gap, var(--spacing-2));
+  }
+
+  .actionTrigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--timer-action-trigger-gap, var(--spacing-2));
+    min-height: var(--timer-action-trigger-height, var(--size-md));
+    margin: 0;
+    border: var(--timer-action-trigger-border-width, var(--border-width-sm)) solid
+      var(--timer-action-trigger-border-color, var(--color-border));
+    border-radius: var(--timer-action-trigger-radius, var(--radius-md));
+    padding-block: var(--timer-action-trigger-padding-y, 0.375rem);
+    padding-inline: var(--timer-action-trigger-padding-x, 0.75rem);
+    background-color: var(--timer-action-trigger-bg, var(--color-background));
+    color: var(--timer-action-trigger-color, var(--color-foreground));
+    appearance: none;
+    font: inherit;
+    font-size: var(--timer-action-trigger-font-size, var(--text-sm));
+    font-weight: var(--timer-action-trigger-font-weight, var(--weight-medium));
+    line-height: var(--timer-action-trigger-line-height, var(--line-height-text-sm));
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color var(--timer-action-trigger-transition, var(--transition-default)),
+      border-color var(--timer-action-trigger-transition, var(--transition-default)),
+      color var(--timer-action-trigger-transition, var(--transition-default)),
+      opacity var(--timer-action-trigger-transition, var(--transition-default)),
+      box-shadow var(--timer-action-trigger-transition, var(--transition-default));
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--timer-action-trigger-bg-hover, var(--color-accent));
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--timer-action-trigger-focus-ring-width, var(--border-width-md)) solid
+        var(--timer-action-trigger-focus-ring-color, var(--color-ring));
+      outline-offset: calc(
+        var(
+            --timer-action-trigger-focus-ring-offset,
+            var(--timer-action-trigger-border-width, var(--border-width-sm))
+          ) *
+          -1
+      );
+    }
+
+    &:is(:disabled, [data-disabled], [aria-disabled='true']) {
+      opacity: var(--timer-action-trigger-disabled-opacity, var(--opacity-disabled));
+      cursor: default;
+      pointer-events: none;
+    }
+
+    & :where(svg) {
+      width: var(--timer-action-trigger-icon-size, 1rem);
+      height: var(--timer-action-trigger-icon-size, 1rem);
+      flex-shrink: 0;
+    }
+  }
+}

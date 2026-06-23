@@ -74,6 +74,7 @@
   --thumb-width: initial;
   --transform-origin: initial;
   --scale: initial;
+  --value: initial;
   --viewport-offset-bottom: initial;
   --viewport-offset-left: initial;
   --viewport-offset-right: initial;
@@ -2823,6 +2824,39 @@
   --textarea-resize: initial; /* vertical */
   --textarea-transition: initial; /* var(--transition-default) */
   --textarea-width: initial; /* 100% */
+
+  /* Timer */
+  --timer-action-trigger-bg: initial; /* var(--color-background) */
+  --timer-action-trigger-bg-hover: initial; /* var(--color-accent) */
+  --timer-action-trigger-border-color: initial; /* var(--color-border) */
+  --timer-action-trigger-border-width: initial; /* var(--border-width-sm) */
+  --timer-action-trigger-color: initial; /* var(--color-foreground) */
+  --timer-action-trigger-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --timer-action-trigger-focus-ring-color: initial; /* var(--color-ring) */
+  --timer-action-trigger-focus-ring-offset: initial; /* var(--timer-action-trigger-border-width) */
+  --timer-action-trigger-focus-ring-width: initial; /* var(--border-width-md) */
+  --timer-action-trigger-font-size: initial; /* var(--text-sm) */
+  --timer-action-trigger-font-weight: initial; /* var(--weight-medium) */
+  --timer-action-trigger-gap: initial; /* var(--spacing-2) */
+  --timer-action-trigger-height: initial; /* var(--size-md) */
+  --timer-action-trigger-icon-size: initial; /* 1rem */
+  --timer-action-trigger-line-height: initial; /* var(--line-height-text-sm) */
+  --timer-action-trigger-padding-x: initial; /* 0.75rem */
+  --timer-action-trigger-padding-y: initial; /* 0.375rem */
+  --timer-action-trigger-radius: initial; /* var(--radius-md) */
+  --timer-action-trigger-transition: initial; /* var(--transition-default) */
+  --timer-area-font-size: initial; /* var(--text-2xl) */
+  --timer-area-font-weight: initial; /* var(--weight-semibold) */
+  --timer-area-gap: initial; /* var(--spacing-1) */
+  --timer-area-line-height: initial; /* var(--line-height-heading-sm) */
+  --timer-color: initial; /* var(--color-foreground) */
+  --timer-control-gap: initial; /* var(--spacing-2) */
+  --timer-gap: initial; /* var(--spacing-3) */
+  --timer-item-color: initial; /* currentColor */
+  --timer-item-min-width: initial; /* 2ch */
+  --timer-item-text-align: initial; /* center */
+  --timer-separator-color: initial; /* var(--color-muted-foreground) */
+  --timer-width: initial; /* max-content */
 
   /* Toast */
   --toast-action-bg: initial; /* var(--color-background) */

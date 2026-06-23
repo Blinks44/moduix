@@ -1872,6 +1872,31 @@
       ]
     },
     {
+      "name": "react-timer",
+      "type": "registry:item",
+      "title": "Timer",
+      "description": "moduix React Timer component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/timer/Timer.tsx",
+          "target": "@components/moduix/timer/Timer.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/timer/Timer.module.css",
+          "target": "@components/moduix/timer/Timer.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/timer/index.ts",
+          "target": "@components/moduix/timer/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-toast",
       "type": "registry:item",
       "title": "Toast",
