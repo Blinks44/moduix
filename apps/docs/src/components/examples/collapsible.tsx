@@ -95,7 +95,7 @@ export const collapsibleLongContentData = `const paragraphs = [
   'Use partial collapse when a short preview should stay visible while the rest of the content is inert.',
 ];`;
 
-export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
+const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ['--collapsible-color', 'var(--color-foreground)', 'Controls root text color.'],
   ['--collapsible-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--collapsible-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
@@ -201,9 +201,9 @@ function RecoveryKeys() {
   );
 }
 
-export function CollapsibleExample(props: ComponentProps<typeof Collapsible.Root>) {
+export function CollapsibleExample(props: ComponentProps<typeof Collapsible>) {
   return (
-    <Collapsible.Root {...props}>
+    <Collapsible {...props}>
       <Collapsible.Trigger>
         Recovery keys
         <Collapsible.Indicator />
@@ -213,7 +213,7 @@ export function CollapsibleExample(props: ComponentProps<typeof Collapsible.Root
           <RecoveryKeys />
         </div>
       </Collapsible.Content>
-    </Collapsible.Root>
+    </Collapsible>
   );
 }
 
@@ -221,7 +221,7 @@ export function ControlledCollapsibleExample() {
   const [open, setOpen] = useState(false);
 
   return (
-    <Collapsible.Root open={open} onOpenChange={(details) => setOpen(details.open)}>
+    <Collapsible open={open} onOpenChange={(details) => setOpen(details.open)}>
       <Collapsible.Trigger>
         Recovery keys
         <Collapsible.Indicator />
@@ -232,13 +232,13 @@ export function ControlledCollapsibleExample() {
         </div>
       </Collapsible.Content>
       <span className="collapsible-state">Current state: {open ? 'open' : 'closed'}</span>
-    </Collapsible.Root>
+    </Collapsible>
   );
 }
 
 export function DisabledCollapsibleExample() {
   return (
-    <Collapsible.Root disabled>
+    <Collapsible disabled>
       <Collapsible.Trigger>
         Recovery keys
         <Collapsible.Indicator />
@@ -248,13 +248,13 @@ export function DisabledCollapsibleExample() {
           <RecoveryKeys />
         </div>
       </Collapsible.Content>
-    </Collapsible.Root>
+    </Collapsible>
   );
 }
 
 export function LazyMountCollapsibleExample() {
   return (
-    <Collapsible.Root lazyMount unmountOnExit>
+    <Collapsible lazyMount unmountOnExit>
       <Collapsible.Trigger>
         Recovery keys
         <Collapsible.Indicator />
@@ -264,13 +264,13 @@ export function LazyMountCollapsibleExample() {
           <RecoveryKeys />
         </div>
       </Collapsible.Content>
-    </Collapsible.Root>
+    </Collapsible>
   );
 }
 
 export function PartialCollapseCollapsibleExample() {
   return (
-    <Collapsible.Root collapsedHeight="3rem">
+    <Collapsible collapsedHeight="3rem">
       <Collapsible.Trigger>
         Read more
         <Collapsible.Indicator />
@@ -282,13 +282,13 @@ export function PartialCollapseCollapsibleExample() {
           ))}
         </div>
       </Collapsible.Content>
-    </Collapsible.Root>
+    </Collapsible>
   );
 }
 
 export function NestedCollapsibleExample() {
   return (
-    <Collapsible.Root>
+    <Collapsible>
       <Collapsible.Trigger>
         Account security
         <Collapsible.Indicator />
@@ -296,7 +296,7 @@ export function NestedCollapsibleExample() {
       <Collapsible.Content>
         <div className="collapsible-nested-content">
           <p>Security options for this account.</p>
-          <Collapsible.Root className="collapsible-nested-root">
+          <Collapsible className="collapsible-nested-root">
             <Collapsible.Trigger>
               Recovery keys
               <Collapsible.Indicator />
@@ -306,10 +306,10 @@ export function NestedCollapsibleExample() {
                 <RecoveryKeys />
               </div>
             </Collapsible.Content>
-          </Collapsible.Root>
+          </Collapsible>
         </div>
       </Collapsible.Content>
-    </Collapsible.Root>
+    </Collapsible>
   );
 }
 
@@ -338,7 +338,7 @@ export function RootProviderCollapsibleExample() {
 
 export function CustomCompositionCollapsibleExample() {
   return (
-    <Collapsible.Root>
+    <Collapsible>
       <Collapsible.Trigger asChild>
         <button type="button" className="collapsible-custom-trigger">
           Styled recovery keys
@@ -352,6 +352,6 @@ export function CustomCompositionCollapsibleExample() {
           <RecoveryKeys />
         </div>
       </Collapsible.Content>
-    </Collapsible.Root>
+    </Collapsible>
   );
 }

@@ -26,7 +26,8 @@ import {
 
 ## Basic
 
-Use the Ark-shaped `Root`, `Trigger`, `Indicator`, and `Content` parts for one inline disclosure.
+Use `Collapsible` with the Ark-shaped `Trigger`, `Indicator`, and `Content` parts for one inline
+disclosure.
 
 <Preview>
   <CollapsibleExample />
@@ -128,7 +129,7 @@ Collapsible.Root
 
 ### Recommended composition
 
-Use `Collapsible.Root`, `Collapsible.Trigger`, optional `Collapsible.Indicator`, and
+Use `Collapsible`, `Collapsible.Trigger`, optional `Collapsible.Indicator`, and
 `Collapsible.Content`. Root props include `open`, `defaultOpen`, `onOpenChange(details)`,
 `disabled`, `collapsedHeight`, `collapsedWidth`, `lazyMount`, `unmountOnExit`, `ids`, and
 `onExitComplete`.
@@ -152,7 +153,7 @@ custom children.
 
 | Part                    | Default          | Notes                                              |
 | ----------------------- | ---------------- | -------------------------------------------------- |
-| `Collapsible.Root`      | closed           | `defaultOpen={false}`, mounted content             |
+| `Collapsible`           | closed           | `defaultOpen={false}`, mounted content             |
 | `Collapsible.Trigger`   | `button`         | Supports Ark `asChild`                             |
 | `Collapsible.Indicator` | right chevron    | Rotates from `data-state="open"`                   |
 | `Collapsible.Content`   | collapsed region | Uses Ark measurement variables and render strategy |
@@ -176,21 +177,27 @@ Set `defaultOpen` for an uncontrolled disclosure that starts expanded.
 
   <Preview.Code>
     {`
-      <Collapsible defaultOpen>
-        <Collapsible.Trigger>
-          Recovery keys
-          <Collapsible.Indicator />
-        </Collapsible.Trigger>
-        <Collapsible.Content>
-          <div className="collapsible-content-body">
-            <ul className="collapsible-keys-list">
-              {recoveryKeys.map((key) => (
-                <li key={key}>{key}</li>
-              ))}
-            </ul>
-          </div>
-        </Collapsible.Content>
-      </Collapsible>
+      import { Collapsible } from "@moduix/react";
+
+      export function DefaultOpenCollapsibleDemo() {
+        return (
+          <Collapsible defaultOpen>
+            <Collapsible.Trigger>
+              Recovery keys
+              <Collapsible.Indicator />
+            </Collapsible.Trigger>
+            <Collapsible.Content>
+              <div className="collapsible-content-body">
+                <ul className="collapsible-keys-list">
+                  {recoveryKeys.map((key) => (
+                    <li key={key}>{key}</li>
+                  ))}
+                </ul>
+              </div>
+            </Collapsible.Content>
+          </Collapsible>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -253,21 +260,27 @@ Set `disabled` on the root to keep the disclosure visible but unavailable.
 
   <Preview.Code>
     {`
-      <Collapsible disabled>
-        <Collapsible.Trigger>
-          Recovery keys
-          <Collapsible.Indicator />
-        </Collapsible.Trigger>
-        <Collapsible.Content>
-          <div className="collapsible-content-body">
-            <ul className="collapsible-keys-list">
-              {recoveryKeys.map((key) => (
-                <li key={key}>{key}</li>
-              ))}
-            </ul>
-          </div>
-        </Collapsible.Content>
-      </Collapsible>
+      import { Collapsible } from "@moduix/react";
+
+      export function DisabledCollapsibleDemo() {
+        return (
+          <Collapsible disabled>
+            <Collapsible.Trigger>
+              Recovery keys
+              <Collapsible.Indicator />
+            </Collapsible.Trigger>
+            <Collapsible.Content>
+              <div className="collapsible-content-body">
+                <ul className="collapsible-keys-list">
+                  {recoveryKeys.map((key) => (
+                    <li key={key}>{key}</li>
+                  ))}
+                </ul>
+              </div>
+            </Collapsible.Content>
+          </Collapsible>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -285,21 +298,27 @@ Combine `lazyMount` and `unmountOnExit` when closed content should not remain in
 
   <Preview.Code>
     {`
-      <Collapsible lazyMount unmountOnExit>
-        <Collapsible.Trigger>
-          Recovery keys
-          <Collapsible.Indicator />
-        </Collapsible.Trigger>
-        <Collapsible.Content>
-          <div className="collapsible-content-body">
-            <ul className="collapsible-keys-list">
-              {recoveryKeys.map((key) => (
-                <li key={key}>{key}</li>
-              ))}
-            </ul>
-          </div>
-        </Collapsible.Content>
-      </Collapsible>
+      import { Collapsible } from "@moduix/react";
+
+      export function LazyMountCollapsibleDemo() {
+        return (
+          <Collapsible lazyMount unmountOnExit>
+            <Collapsible.Trigger>
+              Recovery keys
+              <Collapsible.Indicator />
+            </Collapsible.Trigger>
+            <Collapsible.Content>
+              <div className="collapsible-content-body">
+                <ul className="collapsible-keys-list">
+                  {recoveryKeys.map((key) => (
+                    <li key={key}>{key}</li>
+                  ))}
+                </ul>
+              </div>
+            </Collapsible.Content>
+          </Collapsible>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -317,19 +336,25 @@ Use `collapsedHeight` or `collapsedWidth` to leave part of the content visible w
 
   <Preview.Code>
     {`
-      <Collapsible collapsedHeight="3rem">
-        <Collapsible.Trigger>
-          Read more
-          <Collapsible.Indicator />
-        </Collapsible.Trigger>
-        <Collapsible.Content>
-          <div className="collapsible-content-body">
-            {paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-        </Collapsible.Content>
-      </Collapsible>
+      import { Collapsible } from "@moduix/react";
+
+      export function PartialCollapseCollapsibleDemo() {
+        return (
+          <Collapsible collapsedHeight="3rem">
+            <Collapsible.Trigger>
+              Read more
+              <Collapsible.Indicator />
+            </Collapsible.Trigger>
+            <Collapsible.Content>
+              <div className="collapsible-content-body">
+                {paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </Collapsible.Content>
+          </Collapsible>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -347,32 +372,38 @@ Nest independent roots when a disclosed section contains another optional detail
 
   <Preview.Code>
     {`
-      <Collapsible>
-        <Collapsible.Trigger>
-          Account security
-          <Collapsible.Indicator />
-        </Collapsible.Trigger>
-        <Collapsible.Content>
-          <div className="collapsible-nested-content">
-            <p>Security options for this account.</p>
-            <Collapsible className="collapsible-nested-root">
-              <Collapsible.Trigger>
-                Recovery keys
-                <Collapsible.Indicator />
-              </Collapsible.Trigger>
-              <Collapsible.Content>
-                <div className="collapsible-content-body">
-                  <ul className="collapsible-keys-list">
-                    {recoveryKeys.map((key) => (
-                      <li key={key}>{key}</li>
-                    ))}
-                  </ul>
-                </div>
-              </Collapsible.Content>
-            </Collapsible>
-          </div>
-        </Collapsible.Content>
-      </Collapsible>
+      import { Collapsible } from "@moduix/react";
+
+      export function NestedCollapsibleDemo() {
+        return (
+          <Collapsible>
+            <Collapsible.Trigger>
+              Account security
+              <Collapsible.Indicator />
+            </Collapsible.Trigger>
+            <Collapsible.Content>
+              <div className="collapsible-nested-content">
+                <p>Security options for this account.</p>
+                <Collapsible className="collapsible-nested-root">
+                  <Collapsible.Trigger>
+                    Recovery keys
+                    <Collapsible.Indicator />
+                  </Collapsible.Trigger>
+                  <Collapsible.Content>
+                    <div className="collapsible-content-body">
+                      <ul className="collapsible-keys-list">
+                        {recoveryKeys.map((key) => (
+                          <li key={key}>{key}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </Collapsible.Content>
+                </Collapsible>
+              </div>
+            </Collapsible.Content>
+          </Collapsible>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -400,7 +431,7 @@ Create the state machine with `useCollapsible` when code outside the rendered ro
             <output>
               open: {String(collapsible.open)}, visible: {String(collapsible.visible)}
             </output>
-            <CollapsibleProvider value={collapsible}>
+            <Collapsible.RootProvider value={collapsible}>
               <Collapsible.Trigger>
                 Recovery keys
                 <Collapsible.Indicator />
@@ -485,6 +516,7 @@ Use `asChild` to compose the trigger behavior onto a consumer-owned button.
 - DOM parts expose `data-slot="collapsible-root"`, `collapsible-root-provider`,
   `collapsible-trigger`, `collapsible-indicator`, and `collapsible-content`.
 - Ark exposes `data-state="open" | "closed"` on root, trigger, indicator, and content.
+- Ark adds `data-collapsible` to the content part.
 - `data-disabled` marks disabled trigger, indicator, and content parts.
 - `data-has-collapsed-size` marks content configured with `collapsedHeight` or `collapsedWidth`.
 - Content animation uses Ark `--height`, `--width`, `--collapsed-height`, and `--collapsed-width`.

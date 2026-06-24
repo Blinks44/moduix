@@ -58,7 +58,7 @@ import { Collapsible } from '@moduix/react';
 
 export function CollapsibleExample() {
   return (
-    <Collapsible.Root>
+    <Collapsible>
       <Collapsible.Trigger>
         Recovery keys
         <Collapsible.Indicator />
@@ -66,7 +66,7 @@ export function CollapsibleExample() {
       <Collapsible.Content>
         <div className="contentBody">Store these keys somewhere safe.</div>
       </Collapsible.Content>
-    </Collapsible.Root>
+    </Collapsible>
   );
 }
 ```
@@ -74,9 +74,9 @@ export function CollapsibleExample() {
 Controlled callbacks keep the Ark details object:
 
 ```tsx
-<Collapsible.Root open={open} onOpenChange={(details) => setOpen(details.open)}>
+<Collapsible open={open} onOpenChange={(details) => setOpen(details.open)}>
   {/* parts */}
-</Collapsible.Root>
+</Collapsible>
 ```
 
 ## Upstream feature coverage
@@ -98,7 +98,9 @@ Controlled callbacks keep the Ark details object:
 - Ark callbacks are not converted. `onOpenChange` receives `{ open }`.
 - Ark context exposes `open` for intended state and `visible` for mounted visibility during exit
   animations.
+- Ark `data-scope="collapsible"` and `data-part` identify root, trigger, indicator, and content.
 - `data-state="open" | "closed"` appears on root, trigger, indicator, and content.
+- `data-collapsible` appears on content.
 - `data-disabled` appears on trigger, indicator, and content when disabled.
 - `data-has-collapsed-size` appears on content for partial-collapse configurations.
 - Content exposes Ark runtime variables `--height`, `--width`, `--collapsed-height`, and
@@ -107,7 +109,8 @@ Controlled callbacks keep the Ark details object:
 
 ## Defaults and styling
 
-- `Root` and `RootProvider` are column flex containers with a `14rem` default width.
+- `Collapsible`, `Root`, and `RootProvider` are column flex containers with a `14rem` default
+  width.
 - `Trigger` includes moduix hover, active, focus-visible, and disabled styling.
 - `Indicator` rotates on `data-state="open"`.
 - `Content` animates between Ark `--height` / `--width` and collapsed-size variables; put padding
@@ -117,23 +120,39 @@ Primary CSS variables:
 
 | Variable                                 | Default                         |
 | ---------------------------------------- | ------------------------------- |
+| `--collapsible-color`                    | `var(--color-foreground)`       |
 | `--collapsible-width`                    | `14rem`                         |
 | `--collapsible-max-width`                | `100%`                          |
+| `--collapsible-disabled-opacity`         | `var(--opacity-disabled)`       |
+| `--collapsible-focus-ring-color`         | `var(--color-ring)`             |
+| `--collapsible-focus-ring-offset`        | `var(--border-width-sm)`        |
+| `--collapsible-focus-ring-width`         | `var(--border-width-sm)`        |
 | `--collapsible-indicator-open-transform` | `rotate(90deg)`                 |
 | `--collapsible-indicator-size`           | `0.75rem`                       |
+| `--collapsible-indicator-transition`     | `var(--transition-default)`     |
 | `--collapsible-content-color`            | `var(--color-muted-foreground)` |
 | `--collapsible-content-closed-opacity`   | `0.01`                          |
+| `--collapsible-content-font-size`        | `var(--text-sm)`                |
+| `--collapsible-content-line-height`      | `var(--line-height-text-sm)`    |
 | `--collapsible-content-open-opacity`     | `1`                             |
 | `--collapsible-content-transition`       | `var(--transition-default)`     |
 | `--collapsible-trigger-bg`               | `transparent`                   |
+| `--collapsible-trigger-bg-active`        | trigger hover background        |
 | `--collapsible-trigger-bg-hover`         | trigger background              |
+| `--collapsible-trigger-color`            | `var(--collapsible-color)`      |
+| `--collapsible-trigger-font-size`        | `var(--text-sm)`                |
+| `--collapsible-trigger-gap`              | `var(--spacing-2)`              |
+| `--collapsible-trigger-line-height`      | `var(--line-height-text-sm)`    |
+| `--collapsible-trigger-padding-x`        | `var(--spacing-2)`              |
+| `--collapsible-trigger-padding-y`        | `var(--spacing-1)`              |
+| `--collapsible-trigger-radius`           | `0`                             |
+| `--collapsible-trigger-transition`       | `var(--transition-default)`     |
 
 ## Intentional sugar and differences from upstream
 
 - moduix adds default styling and public theme variables; Ark is unstyled.
 - `Collapsible.Indicator` supplies `ChevronRightIcon` when children are omitted.
-- No legacy flat exports, `Panel` alias, `TriggerIcon` alias, or converted callback signature are
-  retained.
+- No legacy flat exports, aliases, or converted callback signatures are retained.
 
 ## Agent notes
 
@@ -144,10 +163,12 @@ Primary CSS variables:
 
 ## Local changelog
 
-- 2026-06-18: Migrated to Ark UI, replaced flat exports with `Collapsible.*`, renamed
-  `Panel` to `Content` and `TriggerIcon` to `Indicator`, added `RootProvider`, `Context`, and
-  `useCollapsible`, adopted Ark callback/state hooks, and replaced Base motion variables with Ark
-  `--height` / `--collapsed-height`.
+- 2026-06-24: Audited the Ark UI migration, fixed the docs `RootProvider` example, removed an
+  unused docs CSS module, and synchronized documented styling hooks with Ark `data-collapsible` and
+  the full moduix CSS variable surface.
+- 2026-06-18: Migrated to Ark UI, replaced flat exports with `Collapsible.*`, added
+  `RootProvider`, `Context`, and `useCollapsible`, adopted Ark callback/state hooks, and replaced
+  legacy motion variables with Ark `--height` / `--collapsed-height`.
 - 2026-06-18: Exposed `useCollapsibleContext` from the public barrel to match Ark's state access
   surface and synchronized public docs previews with Code, Styles, and Data tabs.
 - 2026-06-18: Updated content animation to respect Ark `--width` and `--collapsed-width` for

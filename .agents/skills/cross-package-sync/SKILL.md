@@ -23,7 +23,8 @@ Use this skill when work spans `packages/react` and `apps/docs`.
 - Sync README files when install paths, styling entrypoints, or ownership guidance changes, and keep wording consistent with `quick-start.mdx`.
 - Remove docs for deleted props, types, styling hooks, feature flags, and outdated examples in the same task.
 - Teach the recommended default path first. Keep lower-level composition as the advanced path.
-- Reuse `docs-workflow/references/component-doc-patterns.md` for preview and CSS-variable doc rules instead of redefining them here.
+- Reuse `docs-workflow/SKILL.md` for component-page structure, preview, Ark alignment, and CSS-variable doc rules
+  instead of redefining them here.
 
 ## Done Criteria
 
