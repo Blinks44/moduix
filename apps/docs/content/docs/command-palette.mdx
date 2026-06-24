@@ -14,7 +14,11 @@ import {
 
 ## API Reference
 
-Ark UI has no dedicated command-palette primitive. `CommandPalette` is a moduix composite that uses Ark [`Dialog`](https://ark-ui.com/docs/components/dialog) for overlay, focus, and dismissal behavior plus Ark [`Combobox`](https://ark-ui.com/docs/components/combobox) for input, collection, filtering, groups, item state, and keyboard navigation; Chakra UI has no dedicated command-palette component, so Chakra only informs the command metadata visual convention.
+Ark UI does not ship a dedicated `command-palette` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance, and composes Ark [`Dialog`](https://ark-ui.com/docs/components/dialog)
+with Ark [`Combobox`](https://ark-ui.com/docs/components/combobox) for behavior.
 
 ## Basic
 
@@ -314,7 +318,7 @@ Attach execution behavior to items and let `CommandPalette.Combobox` close the d
                     collection={collection}
                     onInputValueChange={(details) => filter(details.inputValue)}
                     onSelect={(details) => {
-                      const selectedItem = collection.items.find((item) => item.id === details.value[0]);
+                      const selectedItem = collection.items.find((item) => item.id === details.itemValue);
                       selectedItem?.onSelect();
                     }}
                   >
@@ -489,48 +493,69 @@ Enable the listener when a palette should open from a global command key. The li
 
 <Preview.Code>
   {`
-      <CommandPalette
-        aria-label="Command palette"
-        shortcut="alt+k"
-        onOpenChange={(details) => {
-          if (!details.open) {
-            filter("");
-          }
-        }}
-      >
-        <CommandPalette.Trigger asChild>
-          <Button>Open palette</Button>
-        </CommandPalette.Trigger>
-        <Portal>
-          <CommandPalette.Backdrop />
-          <CommandPalette.Positioner>
-            <CommandPalette.Content>
-              <CommandPalette.Combobox
-                collection={collection}
-                onInputValueChange={(details) => filter(details.inputValue)}
-              >
-                <CommandPalette.Control>
-                  <CommandPalette.Input aria-label="Search commands" />
-                  <CommandPalette.ClearTrigger aria-label="Clear search" />
-                </CommandPalette.Control>
-                <CommandPalette.List>
-                  <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
-                  {collection.items.map((item) => (
-                    <CommandPalette.Item key={item.id} item={item}>
-                      <CommandPalette.ItemText>{item.label}</CommandPalette.ItemText>
-                    </CommandPalette.Item>
-                  ))}
-                </CommandPalette.List>
-              </CommandPalette.Combobox>
-            </CommandPalette.Content>
-          </CommandPalette.Positioner>
-        </Portal>
-      </CommandPalette>
+      import {
+        Button,
+        CommandPalette,
+        Portal,
+      } from "@moduix/react";
+      import { useListCollection } from "@ark-ui/react/collection";
+      import { useFilter } from "@ark-ui/react/locale";
+
+      export function CommandPaletteShortcutDemo() {
+        const { contains } = useFilter({ sensitivity: "base" });
+        const { collection, filter } = useListCollection({
+          initialItems: commandItems,
+          itemToString: (item) => item.label,
+          itemToValue: (item) => item.id,
+          filter: contains,
+        });
+
+        return (
+          <CommandPalette
+            aria-label="Command palette"
+            shortcut="alt+k"
+            onOpenChange={(details) => {
+              if (!details.open) {
+                filter("");
+              }
+            }}
+          >
+            <CommandPalette.Trigger asChild>
+              <Button>Open palette</Button>
+            </CommandPalette.Trigger>
+            <Portal>
+              <CommandPalette.Backdrop />
+              <CommandPalette.Positioner>
+                <CommandPalette.Content>
+                  <CommandPalette.Combobox
+                    collection={collection}
+                    onInputValueChange={(details) => filter(details.inputValue)}
+                  >
+                    <CommandPalette.Control>
+                      <CommandPalette.Input aria-label="Search commands" />
+                      <CommandPalette.ClearTrigger aria-label="Clear search" />
+                    </CommandPalette.Control>
+                    <CommandPalette.List>
+                      <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+                      {collection.items.map((item) => (
+                        <CommandPalette.Item key={item.id} item={item}>
+                          <CommandPalette.ItemText>{item.label}</CommandPalette.ItemText>
+                        </CommandPalette.Item>
+                      ))}
+                    </CommandPalette.List>
+                  </CommandPalette.Combobox>
+                </CommandPalette.Content>
+              </CommandPalette.Positioner>
+            </Portal>
+          </CommandPalette>
+        );
+      }
     `}
+
 </Preview.Code>
 
   <Preview.CSS>{`[data-slot="command-palette-trigger"] { min-width: 9rem; }`}</Preview.CSS>
-  <Preview.Data>{`const shortcut = "alt+k";`}</Preview.Data>
+  <Preview.Data>{`const commandItems = [{ id: "recent", label: "Open recent work" }];`}</Preview.Data>
 </Preview>
 
 ## Styling

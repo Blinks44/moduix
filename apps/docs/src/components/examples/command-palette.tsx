@@ -102,7 +102,7 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-border-width', 'var(--border-width-sm)'],
   ['--command-palette-clear-bg-hover', 'var(--color-accent)'],
   ['--command-palette-clear-radius', 'var(--radius-md)'],
-  ['--command-palette-clear-size', '1.75rem'],
+  ['--command-palette-clear-size', 'var(--size-sm)'],
   ['--command-palette-close-offset', 'var(--spacing-3)'],
   ['--command-palette-color', 'var(--color-popover-foreground)'],
   ['--command-palette-content-ending-opacity', '0'],
@@ -128,18 +128,18 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-footer-gap', 'var(--spacing-3)'],
   ['--command-palette-footer-line-height', 'var(--line-height-text-xs)'],
   ['--command-palette-footer-padding-x', 'var(--spacing-4)'],
-  ['--command-palette-footer-padding-y', '0.625rem'],
-  ['--command-palette-group-gap', '0.125rem'],
+  ['--command-palette-footer-padding-y', 'var(--spacing-2)'],
+  ['--command-palette-group-gap', 'var(--spacing-1)'],
   ['--command-palette-group-label-font-size', 'var(--text-xs)'],
   ['--command-palette-group-label-font-weight', 'var(--weight-semibold)'],
   ['--command-palette-group-label-line-height', 'var(--line-height-text-xs)'],
-  ['--command-palette-group-label-padding-x', '0.75rem'],
-  ['--command-palette-group-label-padding-y', '0.375rem'],
+  ['--command-palette-group-label-padding-x', 'var(--spacing-3)'],
+  ['--command-palette-group-label-padding-y', 'var(--spacing-1)'],
   ['--command-palette-group-padding-bottom', 'var(--spacing-2)'],
   ['--command-palette-highlight-bg', 'var(--color-accent)'],
   ['--command-palette-highlight-color', 'var(--color-foreground)'],
   ['--command-palette-icon-size', '1rem'],
-  ['--command-palette-input-control-height', '2.25rem'],
+  ['--command-palette-input-control-height', 'var(--size-md)'],
   ['--command-palette-input-font-size', 'var(--text-lg)'],
   ['--command-palette-input-gap', 'var(--spacing-2)'],
   ['--command-palette-input-height', '4rem'],
@@ -162,20 +162,20 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-item-meta-font-size', 'var(--text-xs)'],
   ['--command-palette-item-meta-line-height', 'var(--line-height-text-xs)'],
   ['--command-palette-item-min-height', '3rem'],
-  ['--command-palette-item-padding-x', '0.75rem'],
-  ['--command-palette-item-padding-y', '0.5rem'],
+  ['--command-palette-item-padding-x', 'var(--spacing-3)'],
+  ['--command-palette-item-padding-y', 'var(--spacing-2)'],
   ['--command-palette-item-radius', 'var(--radius-md)'],
-  ['--command-palette-item-text-gap', '0.125rem'],
+  ['--command-palette-item-text-gap', 'var(--spacing-1)'],
   ['--command-palette-kbd-bg', 'var(--color-muted)'],
   ['--command-palette-kbd-border-color', 'var(--color-border)'],
   ['--command-palette-kbd-border-width', 'var(--border-width-sm)'],
   ['--command-palette-kbd-color', 'var(--color-muted-foreground)'],
   ['--command-palette-kbd-font-family', 'var(--font-mono)'],
-  ['--command-palette-kbd-font-size', '0.6875rem'],
+  ['--command-palette-kbd-font-size', 'var(--text-xs)'],
   ['--command-palette-kbd-height', '1.25rem'],
   ['--command-palette-kbd-line-height', '1rem'],
   ['--command-palette-kbd-min-width', '1.25rem'],
-  ['--command-palette-kbd-padding-x', '0.375rem'],
+  ['--command-palette-kbd-padding-x', 'var(--spacing-1)'],
   ['--command-palette-kbd-radius', 'var(--radius-sm)'],
   ['--command-palette-list-padding-x', 'var(--spacing-2)'],
   ['--command-palette-list-padding-y', 'var(--spacing-2)'],
@@ -283,7 +283,7 @@ function CommandPaletteShell<T extends CommandItem>({
   collection: ReturnType<typeof useCommandCollection<T>>['collection'];
   filter: ReturnType<typeof useCommandCollection<T>>['filter'];
   label: string;
-  onSelect?: (details: { value: string[] }) => void;
+  onSelect?: (details: { itemValue: string }) => void;
   placeholder: string;
   shortcut?: false | string;
   trigger: React.ReactNode;
@@ -400,7 +400,7 @@ export function CommandPaletteActionsExample() {
       filter={filter}
       label="Command palette with actions"
       onSelect={(details) => {
-        const selectedItem = collection.items.find((item) => item.id === details.value[0]);
+        const selectedItem = collection.items.find((item) => item.id === details.itemValue);
         selectedItem?.onSelect();
       }}
       placeholder="Search and run commands..."

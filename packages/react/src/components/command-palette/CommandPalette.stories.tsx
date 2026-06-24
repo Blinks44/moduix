@@ -141,7 +141,7 @@ function CommandPaletteShell<T extends CommandItem>({
   filter: ReturnType<typeof useCommandCollection<T>>['filter'];
   trigger: React.ReactNode;
   label: string;
-  onSelect?: (details: { value: string[] }) => void;
+  onSelect?: (details: { itemValue: string }) => void;
   placeholder: string;
   shortcut?: false | string;
 }) {
@@ -226,7 +226,7 @@ export const Actions: Story = {
         filter={filter}
         label="Command palette with actions"
         onSelect={(details) => {
-          const selectedItem = collection.items.find((item) => item.id === details.value[0]);
+          const selectedItem = collection.items.find((item) => item.id === details.itemValue);
           selectedItem?.onSelect();
         }}
         placeholder="Search and run..."

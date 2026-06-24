@@ -2,7 +2,7 @@
 
 Upstream docs:
 
-- Ark UI: no dedicated `command-palette` primitive; this wrapper composes https://ark-ui.com/docs/components/dialog and https://ark-ui.com/docs/components/combobox
+- Ark UI: no dedicated `command-palette` primitive; this wrapper composes https://ark-ui.com/docs/components/dialog and https://ark-ui.com/docs/components/combobox, and its local leaf parts follow https://ark-ui.com/docs/guides/composition#the-ark-factory
 - Chakra UI: no dedicated `command-palette` component; Chakra menu command text informed only the visual command metadata pattern.
 
 ## Purpose
@@ -14,7 +14,8 @@ Upstream docs:
 The root, trigger, backdrop, positioner, content, close trigger, title, and description follow Ark
 `Dialog`. The popup is mounted through the shared Ark `Portal`. Search state, input, clear trigger,
 listbox content, grouped items, item text, item indicator, context, and item context follow Ark
-`Combobox`.
+`Combobox`. Local visual leaves use the Ark factory so they keep `asChild`, ref, and prop-merging
+behavior consistent with local-only moduix primitives.
 
 There is no Ark command-palette primitive, so the component is a moduix-owned composite. Do not add legacy render contracts, autocomplete render functions, imperative handles, or hidden `Content` sugar.
 
@@ -22,7 +23,7 @@ There is no Ark command-palette primitive, so the component is a moduix-owned co
 
 `CommandPalette` / `CommandPalette.Root` owns Ark Dialog state and an optional global shortcut listener. `shortcut` defaults to `false`; pass `shortcut="alt+k"` or another primary-modifier shortcut to enable it. The supported format is one primary modifier (`mod`, `ctrl`, `control`, `meta`, `cmd`, `command`, `alt`, or `option`) plus one key. `mod` accepts either Meta or Control so the component does not need platform detection. Editable targets are ignored. `shortcutTarget={null}` skips registration.
 
-Consumers render the explicit dialog structure and place `CommandPalette.Combobox` inside `CommandPalette.Content`. The combobox requires an Ark collection and defaults to `open={true}`, `inputBehavior="autohighlight"`, `selectionBehavior="preserve"`, `disableLayer={true}`, and `closeOnSelect={true}`. Selection closes the dialog through Ark dialog context.
+Consumers render the explicit dialog structure and place `CommandPalette.Combobox` inside `CommandPalette.Content`. The combobox requires an Ark collection and defaults to `open={true}`, `inputBehavior="autohighlight"`, `selectionBehavior="preserve"`, `disableLayer={true}`, and `closeOnSelect={true}`. Selection closes the dialog through Ark dialog context. `CommandPalette.CloseTrigger` and `CommandPalette.ClearTrigger` render default icon-only buttons with accessible labels unless consumers provide children, labels, or `asChild`.
 
 When consumers filter an external `useListCollection`, reset that filter when the dialog closes. Ark Combobox can clear its input on remount, but it does not own the external collection state.
 
@@ -70,11 +71,11 @@ When consumers filter an external `useListCollection`, reset that filter when th
 - `CommandPalette.Positioner`: Ark Dialog positioner, `data-slot="command-palette-positioner"`.
 - `CommandPalette.Content`: Ark Dialog content, `data-slot="command-palette-content"`.
 - `CommandPalette.Title` / `CommandPalette.Description`: Ark Dialog accessible title and description.
-- `CommandPalette.CloseTrigger`: Ark Dialog close trigger with a default close icon.
+- `CommandPalette.CloseTrigger`: Ark Dialog close trigger with a default close icon and label.
 - `CommandPalette.Combobox`: Ark Combobox root with command-palette defaults.
 - `CommandPalette.ComboboxRootProvider`: Ark Combobox root provider for externally owned combobox state.
-- `CommandPalette.Control`, `Input`, `ClearTrigger`, `List`, `Empty`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`, `ItemIndicator`: Ark Combobox parts styled for command-palette layout. `List` includes the local moduix `ScrollArea`.
-- `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta`, `Separator`, `Footer`: moduix leaf parts for command metadata and footer affordances.
+- `CommandPalette.Control`, `Input`, `ClearTrigger`, `List`, `Empty`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`, `ItemIndicator`: Ark Combobox parts styled for command-palette layout. `ClearTrigger` renders a default icon and label. `List` includes the local moduix `ScrollArea`.
+- `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta`, `Separator`, `Footer`: Ark factory-based moduix leaf parts for command metadata and footer affordances.
 - `CommandPalette.Kbd`: command-palette scoped wrapper around the local `Kbd.Root`.
 - `CommandPalette.Context`: Ark Dialog context.
 - `CommandPalette.ComboboxContext` / `CommandPalette.ItemContext`: Ark Combobox context parts.
@@ -128,15 +129,15 @@ const { collection, filter } = useListCollection({
 
 ## Upstream feature coverage
 
-The wrapper covers the relevant Ark Dialog surface: controlled and uncontrolled open state, `onOpenChange(details)`, modal/non-modal behavior, focus trapping, escape and outside-interaction dismissal, `ids`, `initialFocusEl`, `finalFocusEl`, lazy mounting, `present`, `RootProvider`, and `Context`.
+The wrapper covers the relevant Ark Dialog surface through Ark `useDialog`: controlled and uncontrolled open state, `onOpenChange(details)`, modal/non-modal behavior, focus trapping, escape and outside-interaction dismissal, `ids`, `initialFocusEl`, `finalFocusEl`, lazy mounting, `present`, `RootProvider`, and `Context`.
 
-The wrapper covers the relevant Ark Combobox surface for command search: `collection`, `useListCollection`, custom objects via `itemToString` and `itemToValue`, filtering through `onInputValueChange(details)`, grouping through `collection.group()`, `inputBehavior`, `selectionBehavior`, controlled `inputValue` and `value`, `onSelect(details)`, `onValueChange(details)`, `RootProvider`, `Context`, `ItemContext`, `asChild` on Ark parts, and Ark item state attributes.
+The wrapper covers the relevant Ark Combobox surface for command search: `collection`, `useListCollection`, custom objects via `itemToString` and `itemToValue`, filtering through `onInputValueChange(details)`, grouping through `collection.group()`, `inputBehavior`, `selectionBehavior`, controlled `inputValue` and `value`, `onSelect(details)` with `details.itemValue`, `onValueChange(details)`, `RootProvider`, `Context`, `ItemContext`, `asChild` on Ark parts, and Ark item state attributes.
 
 Ark Combobox examples that are not command-palette relevant remain available on the standalone `Combobox` component, including multiple selection, async search, creatable options, virtualized content, and form-oriented `HiddenInput` examples.
 
 ## Accessibility and state
 
-Use `aria-label` on `CommandPalette` or render `CommandPalette.Title` so Ark Dialog has an accessible name. `CommandPalette.Input` should have its own label or `aria-label` for the search field.
+Use `aria-label` on `CommandPalette` or render `CommandPalette.Title` so Ark Dialog has an accessible name. `CommandPalette.Input` should have its own label or `aria-label` for the search field. Default icon-only close and clear triggers receive fallback labels; custom `asChild` triggers must provide their own accessible name through the child.
 
 Dialog state uses Ark `data-scope="dialog"`, `data-part`, and `data-state="open" | "closed"` attributes. Combobox state uses Ark `data-scope="combobox"`, `data-part`, `data-state`, `data-highlighted`, `data-disabled`, `data-invalid`, and `data-empty` attributes.
 
@@ -146,11 +147,11 @@ Refs forward to the underlying Ark DOM parts. `CommandPalette.Input` is the inpu
 
 The visual contract uses `data-slot="command-palette-*"` hooks on each exported part and on the internal scroll area. `lazyMount` and `unmountOnExit` default to `true` so Ark Presence can run enter and exit animations while still removing the palette after close. Motion is tied to Ark `data-state` on `Backdrop` and `Content`, not legacy starting/ending style attributes.
 
-Important CSS variables include `--command-palette-positioner-padding`, `--command-palette-width`, `--command-palette-max-height`, `--command-palette-bg`, `--command-palette-border-color`, `--command-palette-control-padding-*`, `--command-palette-highlight-*`, `--command-palette-scrollbar-*`, and the item/footer/kbd variables.
+Important CSS variables include `--command-palette-positioner-padding`, `--command-palette-width`, `--command-palette-max-height`, `--command-palette-bg`, `--command-palette-border-color`, `--command-palette-control-padding-*`, `--command-palette-highlight-*`, `--command-palette-scrollbar-*`, and the item/footer/kbd variables. Size and spacing defaults should prefer shared tokens such as `--size-sm`, `--size-md`, and `--spacing-*` over one-off fractional rem values.
 
 ## Intentional sugar and differences from upstream
 
-`CommandPalette` can add a global shortcut listener because neither Ark Dialog nor Ark Combobox owns command-launch behavior. The listener is opt-in so pages with multiple palettes do not open every mounted instance from one key press. `CommandPalette.CloseTrigger` and `CommandPalette.ClearTrigger` render a default close icon. `CommandPalette.List` wraps its children in the local `ScrollArea` so command results use moduix scrollbars by default. The list is a flex child and does not own a hard-coded height; footer/header space is resolved by the dialog flex layout. `CommandPalette.Kbd` composes the local `Kbd.Root` and maps command-palette CSS variables to the shared Kbd contract. `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta`, and `Footer` are visual leaf parts only.
+`CommandPalette` can add a global shortcut listener because neither Ark Dialog nor Ark Combobox owns command-launch behavior. The listener is opt-in so pages with multiple palettes do not open every mounted instance from one key press. `CommandPalette.CloseTrigger` and `CommandPalette.ClearTrigger` render a default close icon and label when used as icon-only controls. `CommandPalette.List` wraps its children in the local `ScrollArea` so command results use moduix scrollbars by default. The list is a flex child and does not own a hard-coded height; footer/header space is resolved by the dialog flex layout. `CommandPalette.Kbd` composes the local `Kbd.Root` and maps command-palette CSS variables to the shared Kbd contract. `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta`, `Separator`, and `Footer` are visual Ark factory leaf parts only.
 
 `CommandPalette.Combobox` defaults to an always-open listbox inside the dialog and closes the dialog on selection. Set `closeOnSelect={false}` on `CommandPalette.Combobox` for commands that should keep the palette open.
 
@@ -165,6 +166,9 @@ consumers should compose the Ark helpers directly.
 
 ## Local changelog
 
+- 2026-06-25: Simplified root state through Ark `useDialog`, moved local visual leaves to the
+  Ark factory, added fallback labels for default icon triggers, and normalized several CSS defaults
+  to shared size/spacing tokens.
 - 2026-06-24: Updated the command palette contract to treat collections and locale filtering as
   direct Ark UI imports instead of moduix re-exports.
 

@@ -1,3 +1,4 @@
+import type { HTMLArkProps } from '@ark-ui/react/factory';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import {
   Combobox as ComboboxPrimitive,
@@ -7,18 +8,18 @@ import {
   type ComboboxRootProviderComponent,
   type ComboboxRootProviderProps,
 } from '@ark-ui/react/combobox';
-import {
-  Dialog as DialogPrimitive,
-  type DialogOpenChangeDetails,
-  useDialogContext,
-} from '@ark-ui/react/dialog';
+import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
+import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { forwardRef, useCallback, useEffect, useState } from 'react';
+import { forwardRef, useEffect } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { Kbd } from '../kbd';
 import { ScrollArea } from '../scroll-area';
 import styles from './CommandPalette.module.css';
+
+const DEFAULT_CLOSE_TRIGGER_LABEL = 'Close command palette';
+const DEFAULT_CLEAR_TRIGGER_LABEL = 'Clear search';
 
 type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> & {
   shortcut?: false | string;
@@ -79,28 +80,16 @@ function isEditableTarget(target: EventTarget | null) {
 function CommandPaletteRoot({
   shortcut = false,
   shortcutTarget,
-  open,
-  defaultOpen = false,
   lazyMount = true,
   unmountOnExit = true,
-  onOpenChange,
+  immediate,
+  onExitComplete,
+  present,
+  skipAnimationOnMount,
   children,
   ...props
 }: CommandPaletteRootProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-  const isControlled = open !== undefined;
-  const currentOpen = open ?? uncontrolledOpen;
-
-  const handleOpenChange = useCallback(
-    (details: DialogOpenChangeDetails) => {
-      if (!isControlled) {
-        setUncontrolledOpen(details.open);
-      }
-
-      onOpenChange?.(details);
-    },
-    [isControlled, onOpenChange],
-  );
+  const dialog = useDialog(props);
 
   useEffect(() => {
     if (!shortcut || shortcutTarget === null) {
@@ -119,24 +108,26 @@ function CommandPaletteRoot({
       }
 
       event.preventDefault();
-      handleOpenChange({ open: true });
+      dialog.setOpen(true);
     };
 
     const eventListener = handleKeyDown as EventListener;
     target.addEventListener('keydown', eventListener);
     return () => target.removeEventListener('keydown', eventListener);
-  }, [handleOpenChange, shortcut, shortcutTarget]);
+  }, [dialog, shortcut, shortcutTarget]);
 
   return (
-    <DialogPrimitive.Root
-      open={currentOpen}
+    <DialogPrimitive.RootProvider
+      value={dialog}
+      immediate={immediate}
       lazyMount={lazyMount}
+      onExitComplete={onExitComplete}
+      present={present}
+      skipAnimationOnMount={skipAnimationOnMount}
       unmountOnExit={unmountOnExit}
-      onOpenChange={handleOpenChange}
-      {...props}
     >
       {children}
-    </DialogPrimitive.Root>
+    </DialogPrimitive.RootProvider>
   );
 }
 
@@ -238,15 +229,33 @@ const CommandPaletteDescription = forwardRef<
 const CommandPaletteCloseTrigger = forwardRef<
   ComponentRef<typeof DialogPrimitive.CloseTrigger>,
   ComponentProps<typeof DialogPrimitive.CloseTrigger>
->(function CommandPaletteCloseTrigger({ className, children, ...props }, ref) {
+>(function CommandPaletteCloseTrigger(
+  {
+    asChild,
+    className,
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
   return (
     <DialogPrimitive.CloseTrigger
       ref={ref}
+      asChild={asChild}
       data-slot="command-palette-close-trigger"
-      className={clsx(styles.closeTrigger, normalizeClassName(className))}
+      aria-label={
+        ariaLabel ??
+        (!asChild && children == null && ariaLabelledBy == null
+          ? DEFAULT_CLOSE_TRIGGER_LABEL
+          : undefined)
+      }
+      aria-labelledby={ariaLabelledBy}
+      className={clsx(!asChild && styles.closeTrigger, normalizeClassName(className))}
       {...props}
     >
-      {children ?? <CloseIcon className={styles.iconSvg} />}
+      {children ?? (!asChild ? <CloseIcon className={styles.iconSvg} /> : undefined)}
     </DialogPrimitive.CloseTrigger>
   );
 });
@@ -333,15 +342,33 @@ const CommandPaletteInput = forwardRef<
 const CommandPaletteClearTrigger = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.ClearTrigger>,
   ComponentProps<typeof ComboboxPrimitive.ClearTrigger>
->(function CommandPaletteClearTrigger({ className, children, ...props }, ref) {
+>(function CommandPaletteClearTrigger(
+  {
+    asChild,
+    className,
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
   return (
     <ComboboxPrimitive.ClearTrigger
       ref={ref}
+      asChild={asChild}
       data-slot="command-palette-clear-trigger"
-      className={clsx(styles.clearTrigger, normalizeClassName(className))}
+      aria-label={
+        ariaLabel ??
+        (!asChild && children == null && ariaLabelledBy == null
+          ? DEFAULT_CLEAR_TRIGGER_LABEL
+          : undefined)
+      }
+      aria-labelledby={ariaLabelledBy}
+      className={clsx(!asChild && styles.clearTrigger, normalizeClassName(className))}
       {...props}
     >
-      {children ?? <CloseIcon className={styles.iconSvg} />}
+      {children ?? (!asChild ? <CloseIcon className={styles.iconSvg} /> : undefined)}
     </ComboboxPrimitive.ClearTrigger>
   );
 });
@@ -462,66 +489,84 @@ const CommandPaletteItemIndicator = forwardRef<
   );
 });
 
-function CommandPaletteItemIcon({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="command-palette-item-icon"
-      className={clsx(styles.itemIcon, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}
+const CommandPaletteItemIcon = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(
+  function CommandPaletteItemIcon({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="command-palette-item-icon"
+        className={clsx(styles.itemIcon, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function CommandPaletteItemLabel({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="command-palette-item-label"
-      className={clsx(styles.itemLabel, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}
+const CommandPaletteItemLabel = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(
+  function CommandPaletteItemLabel({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="command-palette-item-label"
+        className={clsx(styles.itemLabel, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function CommandPaletteItemDescription({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="command-palette-item-description"
-      className={clsx(styles.itemDescription, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}
+const CommandPaletteItemDescription = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(
+  function CommandPaletteItemDescription({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="command-palette-item-description"
+        className={clsx(styles.itemDescription, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function CommandPaletteItemMeta({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="command-palette-item-meta"
-      className={clsx(styles.itemMeta, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}
+const CommandPaletteItemMeta = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(
+  function CommandPaletteItemMeta({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="command-palette-item-meta"
+        className={clsx(styles.itemMeta, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function CommandPaletteSeparator({ className, ...props }: ComponentProps<'div'>) {
-  return (
-    <div
-      role="separator"
-      data-slot="command-palette-separator"
-      className={clsx(styles.separator, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}
+const CommandPaletteSeparator = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
+  function CommandPaletteSeparator({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        role="separator"
+        data-slot="command-palette-separator"
+        className={clsx(styles.separator, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function CommandPaletteFooter({ className, ...props }: ComponentProps<'div'>) {
-  return (
-    <div
-      data-slot="command-palette-footer"
-      className={clsx(styles.footer, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}
+const CommandPaletteFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
+  function CommandPaletteFooter({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="command-palette-footer"
+        className={clsx(styles.footer, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 function CommandPaletteKbd({ className, ...props }: ComponentProps<typeof Kbd.Root>) {
   return (
