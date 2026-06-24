@@ -8,6 +8,8 @@
   }
 
   .panelContent {
+    display: grid;
+    gap: var(--spacing-3);
     padding: var(--spacing-3);
   }
 

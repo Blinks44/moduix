@@ -121,6 +121,11 @@
   --accordion-focus-ring-color: initial; /* var(--color-ring) */
   --accordion-focus-ring-offset: initial; /* var(--border-width-sm) */
   --accordion-focus-ring-width: initial; /* var(--border-width-md) */
+  --accordion-horizontal-content-width: initial; /* 16rem */
+  --accordion-horizontal-height: initial; /* 20rem */
+  --accordion-horizontal-max-height: initial; /* 100% */
+  --accordion-horizontal-trigger-width: initial; /* 2.5rem */
+  --accordion-horizontal-width: initial; /* auto */
   --accordion-icon-open-transform: initial; /* rotate(45deg) scale(1.1) */
   --accordion-icon-size: initial; /* 0.75rem */
   --accordion-icon-transition: initial; /* var(--transition-default) */

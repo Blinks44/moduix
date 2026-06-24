@@ -1,11 +1,24 @@
-import { Accordion, ChevronDownIcon, useAccordion } from '@moduix/react';
+import { Accordion, ChevronDownIcon, Slider, useAccordion } from '@moduix/react';
 import { useState, type ComponentProps, type ReactNode } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 
 export const accordionExampleCss = `
   .accordion-panel-content {
+    display: grid;
+    gap: var(--spacing-3);
     padding: var(--spacing-3);
+  }
+
+  .accordion-provider-stack {
+    display: grid;
+    gap: var(--spacing-3);
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .accordion-provider-stack .accordion-state {
+    margin-top: 0;
   }
 
   .accordion-state {
@@ -25,6 +38,8 @@ export const accordionExampleCss = `
 
 export const accordionCustomStylingCss = `
   .accordion-panel-content {
+    display: grid;
+    gap: var(--spacing-3);
     padding: var(--spacing-3);
   }
 
@@ -85,6 +100,19 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'var(--border-width-md)',
     'Controls trigger focus ring outline width.',
   ],
+  [
+    '--accordion-horizontal-content-width',
+    '16rem',
+    'Controls the inner content width for horizontal accordions.',
+  ],
+  ['--accordion-horizontal-height', '20rem', 'Controls horizontal accordion height.'],
+  ['--accordion-horizontal-max-height', '100%', 'Controls horizontal accordion maximum height.'],
+  [
+    '--accordion-horizontal-trigger-width',
+    '2.5rem',
+    'Controls trigger width in horizontal orientation.',
+  ],
+  ['--accordion-horizontal-width', 'auto', 'Controls horizontal accordion width.'],
   [
     '--accordion-icon-open-transform',
     'rotate(45deg) scale(1.1)',
@@ -151,59 +179,12 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
   ['--accordion-width', '22rem', 'Controls the default accordion width.'],
 ];
 
-export const accordionPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--accordion-color', 'var(--color-foreground)', 'Controls accordion text color.'],
-  ['--accordion-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
-  ['--accordion-icon-size', '0.75rem', 'Controls indicator size.'],
-  ['--accordion-item-border-color', 'var(--color-border)', 'Controls separator color.'],
-  ['--accordion-item-border-width', 'var(--border-width-sm)', 'Controls separator width.'],
-  [
-    '--accordion-item-content-color',
-    'var(--color-muted-foreground)',
-    'Controls content text color.',
-  ],
-  [
-    '--accordion-item-content-transition',
-    'var(--transition-default)',
-    'Controls content animation timing.',
-  ],
-  ['--accordion-max-width', '100%', 'Controls the maximum accordion width.'],
-  ['--accordion-trigger-bg', 'var(--color-muted)', 'Controls trigger background color.'],
-  ['--accordion-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
-  [
-    '--accordion-trigger-gap',
-    'var(--spacing-4)',
-    'Controls trigger content and indicator spacing.',
-  ],
-  ['--accordion-trigger-padding-x', 'var(--spacing-3)', 'Controls trigger horizontal padding.'],
-  ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
-  ['--accordion-width', '22rem', 'Controls the default accordion width.'],
-];
-
 const accordionCssPropertiesReference = accordionOverrideCssProperties.map(normalizeCssProperty);
-const accordionCssPlaygroundReference = accordionPlaygroundCssProperties.map(normalizeCssProperty);
 
-export function AccordionCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function AccordionCssPropertiesPanel() {
   return (
     <div className="space-y-2">
       <CSSPropertiesReferenceTable properties={accordionCssPropertiesReference} />
-    </div>
-  );
-}
-
-export function AccordionCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <div className="space-y-2">
-      <CSSPropertiesEditor
-        properties={accordionCssPlaygroundReference}
-        values={values}
-        onChange={onChange}
-        onReset={onReset}
-      />
     </div>
   );
 }
@@ -309,9 +290,12 @@ export function RootProviderAccordionExample() {
   return (
     <>
       <style>{accordionExampleCss}</style>
-      <Accordion.RootProvider value={accordion}>
-        <AccordionItems />
-      </Accordion.RootProvider>
+      <div className="accordion-provider-stack">
+        <div className="accordion-state">Open sections: {accordion.value.join(', ')}</div>
+        <Accordion.RootProvider value={accordion}>
+          <AccordionItems />
+        </Accordion.RootProvider>
+      </div>
     </>
   );
 }
@@ -324,7 +308,11 @@ export function ContextAccordionExample() {
         <AccordionItems />
         <Accordion.Context>
           {(accordion) => (
-            <div className="accordion-state">Open sections: {accordion.value.join(', ')}</div>
+            <div className="accordion-state">
+              Open sections: {accordion.value.join(', ')}
+              <br />
+              Focused section: {accordion.focusedValue ?? 'none'}
+            </div>
           )}
         </Accordion.Context>
       </Accordion.Root>
@@ -338,13 +326,19 @@ export function ItemStateAccordionExample() {
       <style>{accordionExampleCss}</style>
       <Accordion.Root defaultValue={['what-is-ark-ui']}>
         {accordionItems.map((item) => (
-          <Accordion.Item key={item.value} value={item.value}>
+          <Accordion.Item
+            key={item.value}
+            value={item.value}
+            disabled={item.value === 'getting-started'}
+          >
             <Accordion.ItemTrigger>
               {item.title}
               <Accordion.ItemContext>
                 {(itemState) => (
                   <span className="accordion-item-state">
                     {itemState.expanded ? 'Open' : 'Closed'}
+                    {itemState.focused ? ' / Focused' : ''}
+                    {itemState.disabled ? ' / Disabled' : ''}
                   </span>
                 )}
               </Accordion.ItemContext>
@@ -352,6 +346,40 @@ export function ItemStateAccordionExample() {
             </Accordion.ItemTrigger>
             <Accordion.ItemContent>
               <div className="accordion-panel-content">{item.description}</div>
+            </Accordion.ItemContent>
+          </Accordion.Item>
+        ))}
+      </Accordion.Root>
+    </>
+  );
+}
+
+export function WithSliderAccordionExample() {
+  return (
+    <>
+      <style>{accordionExampleCss}</style>
+      <Accordion.Root defaultValue={['what-is-ark-ui']}>
+        {accordionItems.map((item) => (
+          <Accordion.Item key={item.value} value={item.value}>
+            <Accordion.ItemTrigger>
+              {item.title}
+              <Accordion.ItemIndicator />
+            </Accordion.ItemTrigger>
+            <Accordion.ItemContent>
+              <div className="accordion-panel-content">
+                <span>{item.description}</span>
+                <Slider defaultValue={[40]}>
+                  <Slider.Label>{item.title} priority</Slider.Label>
+                  <Slider.Control>
+                    <Slider.Track>
+                      <Slider.Range />
+                    </Slider.Track>
+                    <Slider.Thumb index={0}>
+                      <Slider.HiddenInput />
+                    </Slider.Thumb>
+                  </Slider.Control>
+                </Slider>
+              </div>
             </Accordion.ItemContent>
           </Accordion.Item>
         ))}

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+import { Slider } from '../slider';
 import { Accordion, useAccordion } from './Accordion';
 import styles from './Accordion.stories.module.css';
 
@@ -147,9 +148,12 @@ export const RootProvider: Story = {
     const accordion = useAccordion({ defaultValue: ['what-is-ark-ui'] });
 
     return (
-      <Accordion.RootProvider value={accordion} className={styles.demoRoot}>
-        <FaqAccordionItems />
-      </Accordion.RootProvider>
+      <>
+        <div className={styles.state}>Open sections: {accordion.value.join(', ')}</div>
+        <Accordion.RootProvider value={accordion} className={styles.demoRoot}>
+          <FaqAccordionItems />
+        </Accordion.RootProvider>
+      </>
     );
   },
 };
@@ -161,7 +165,11 @@ export const Context: Story = {
         <FaqAccordionItems />
         <Accordion.Context>
           {(accordion) => (
-            <div className={styles.state}>Open sections: {accordion.value.join(', ')}</div>
+            <div className={styles.state}>
+              Open sections: {accordion.value.join(', ')}
+              <br />
+              Focused section: {accordion.focusedValue ?? 'none'}
+            </div>
           )}
         </Accordion.Context>
       </Accordion.Root>
@@ -174,18 +182,59 @@ export const ItemState: Story = {
     return (
       <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
         {faqItems.map((item) => (
-          <Accordion.Item key={item.value} value={item.value}>
+          <Accordion.Item
+            key={item.value}
+            value={item.value}
+            disabled={item.value === 'getting-started'}
+          >
             <Accordion.ItemTrigger>
               {item.title}
               <Accordion.ItemContext>
                 {(itemState) => (
-                  <span className={styles.itemState}>{itemState.expanded ? 'Open' : 'Closed'}</span>
+                  <span className={styles.itemState}>
+                    {itemState.expanded ? 'Open' : 'Closed'}
+                    {itemState.focused ? ' / Focused' : ''}
+                    {itemState.disabled ? ' / Disabled' : ''}
+                  </span>
                 )}
               </Accordion.ItemContext>
               <Accordion.ItemIndicator />
             </Accordion.ItemTrigger>
             <Accordion.ItemContent>
               <div className={styles.panelContent}>{item.description}</div>
+            </Accordion.ItemContent>
+          </Accordion.Item>
+        ))}
+      </Accordion.Root>
+    );
+  },
+};
+
+export const WithSlider: Story = {
+  render: () => {
+    return (
+      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
+        {faqItems.map((item) => (
+          <Accordion.Item key={item.value} value={item.value}>
+            <Accordion.ItemTrigger>
+              {item.title}
+              <Accordion.ItemIndicator />
+            </Accordion.ItemTrigger>
+            <Accordion.ItemContent>
+              <div className={styles.panelContent}>
+                <span>{item.description}</span>
+                <Slider defaultValue={[40]}>
+                  <Slider.Label>{item.title} priority</Slider.Label>
+                  <Slider.Control>
+                    <Slider.Track>
+                      <Slider.Range />
+                    </Slider.Track>
+                    <Slider.Thumb index={0}>
+                      <Slider.HiddenInput />
+                    </Slider.Thumb>
+                  </Slider.Control>
+                </Slider>
+              </div>
             </Accordion.ItemContent>
           </Accordion.Item>
         ))}

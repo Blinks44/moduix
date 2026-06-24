@@ -17,6 +17,7 @@ import {
   LazyMountAccordionExample,
   MultipleAccordionExample,
   RootProviderAccordionExample,
+  WithSliderAccordionExample,
   accordionCustomStylingCss,
   accordionExampleCss,
   accordionItemsData,
@@ -166,57 +167,26 @@ are provided, but you can replace the indicator content entirely.
 Use `asChild` only when another element must own the rendered node. Keep the Ark part tree visible
 instead of hiding it behind convenience wrappers.
 
-### Default props
+### Default Props
 
-| Surface                        | Default | Notes                                                  |
-| ------------------------------ | ------- | ------------------------------------------------------ |
-| `Accordion` / `Accordion.Root` | —       | No additional behavioral defaults; Ark defaults apply. |
+| Prop                   | Default    | Notes                                                 |
+| ---------------------- | ---------- | ----------------------------------------------------- |
+| `collapsible`          | `false`    | Keeps one expanded item open until another is chosen. |
+| `lazyMount`            | `false`    | Mounts item content immediately.                      |
+| `multiple`             | `false`    | Allows a single expanded item by default.             |
+| `orientation`          | `vertical` | Uses vertical keyboard and layout behavior.           |
+| `unmountOnExit`        | `false`    | Keeps collapsed content mounted.                      |
+| `value`/`defaultValue` | `[]`       | Values are string arrays, including single-open mode. |
 
 ### Behavioral notes
 
-Keep spacing wrappers inside `Accordion.ItemContent` instead of on the content part itself. The Ark
-measurement variable `--height` drives the open/close animation, so inner padding keeps the motion
-clean.
+Keep spacing wrappers inside `Accordion.ItemContent` instead of on the content part itself. Ark
+measurement variables drive the open/close animation: `--height` for vertical accordions and
+`--width` for horizontal accordions.
 
 All exported parts support `asChild` for cases where another element must own the rendered node.
 
 ## Examples
-
-### Default Value
-
-Set `defaultValue` to specify which item should be expanded when the accordion first renders.
-
-<Preview>
-  <AccordionExample defaultValue={["what-is-ark-ui"]} />
-
-  <Preview.Code>
-    {`
-      import { Accordion } from "@moduix/react";
-
-      export function DefaultValueAccordionDemo() {
-        return (
-          <Accordion defaultValue={["what-is-ark-ui"]}>
-            {items.map((item) => (
-              <Accordion.Item key={item.value} value={item.value}>
-                <Accordion.ItemTrigger>
-                  {item.title}
-                  <Accordion.ItemIndicator />
-                </Accordion.ItemTrigger>
-                <Accordion.ItemContent>
-                  <div className="accordion-panel-content">{item.description}</div>
-                </Accordion.ItemContent>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{accordionItemsData}</Preview.Data>
-</Preview>
 
 ### Multiple
 
@@ -304,19 +274,24 @@ the rendered accordion tree. Do not render `Accordion.Root` for the same store.
         const accordion = useAccordion({ defaultValue: ["what-is-ark-ui"] });
 
         return (
-          <AccordionProvider value={accordion}>
-            {items.map((item) => (
-              <Accordion.Item key={item.value} value={item.value}>
-                <Accordion.ItemTrigger>
-                  {item.title}
-                  <Accordion.ItemIndicator />
-                </Accordion.ItemTrigger>
-                <Accordion.ItemContent>
-                  <div className="accordion-panel-content">{item.description}</div>
-                </Accordion.ItemContent>
-              </Accordion.Item>
-            ))}
-          </Accordion.RootProvider>
+          <>
+            <div className="accordion-provider-stack">
+              <div className="accordion-state">Open sections: {accordion.value.join(", ")}</div>
+              <Accordion.RootProvider value={accordion}>
+                {items.map((item) => (
+                  <Accordion.Item key={item.value} value={item.value}>
+                    <Accordion.ItemTrigger>
+                      {item.title}
+                      <Accordion.ItemIndicator />
+                    </Accordion.ItemTrigger>
+                    <Accordion.ItemContent>
+                      <div className="accordion-panel-content">{item.description}</div>
+                    </Accordion.ItemContent>
+                  </Accordion.Item>
+                ))}
+              </Accordion.RootProvider>
+            </div>
+          </>
         );
       }
     `}
@@ -455,7 +430,11 @@ state in React.
             ))}
             <Accordion.Context>
               {(accordion) => (
-                <div className="accordion-state">Open sections: {accordion.value.join(", ")}</div>
+                <div className="accordion-state">
+                  Open sections: {accordion.value.join(", ")}
+                  <br />
+                  Focused section: {accordion.focusedValue ?? "none"}
+                </div>
               )}
             </Accordion.Context>
           </Accordion>
@@ -482,13 +461,19 @@ Use `Accordion.ItemContext` when a custom child part needs the current item stat
         return (
           <Accordion defaultValue={["what-is-ark-ui"]}>
             {items.map((item) => (
-              <Accordion.Item key={item.value} value={item.value}>
+              <Accordion.Item
+                key={item.value}
+                value={item.value}
+                disabled={item.value === "getting-started"}
+              >
                 <Accordion.ItemTrigger>
                   {item.title}
                   <Accordion.ItemContext>
                     {(itemState) => (
                       <span className="accordion-item-state">
                         {itemState.expanded ? "Open" : "Closed"}
+                        {itemState.focused ? " / Focused" : ""}
+                        {itemState.disabled ? " / Disabled" : ""}
                       </span>
                     )}
                   </Accordion.ItemContext>
@@ -543,6 +528,56 @@ Set `disabled` on an item when it should stay visible in the list but remain una
     `}
 
   </Preview.Code>
+  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
+  <Preview.Data>{accordionItemsData}</Preview.Data>
+</Preview>
+
+### With Slider
+
+Accordion content can host another Ark-based composite widget. Keep each primitive's part tree
+explicit so keyboard handling and hidden form inputs stay owned by the correct component.
+
+<Preview>
+  <WithSliderAccordionExample />
+
+  <Preview.Code>
+    {`
+      import { Accordion, Slider } from "@moduix/react";
+
+      export function WithSliderAccordionDemo() {
+        return (
+          <Accordion defaultValue={["what-is-ark-ui"]}>
+            {items.map((item) => (
+              <Accordion.Item key={item.value} value={item.value}>
+                <Accordion.ItemTrigger>
+                  {item.title}
+                  <Accordion.ItemIndicator />
+                </Accordion.ItemTrigger>
+                <Accordion.ItemContent>
+                  <div className="accordion-panel-content">
+                    <span>{item.description}</span>
+                    <Slider defaultValue={[40]}>
+                      <Slider.Label>{item.title} priority</Slider.Label>
+                      <Slider.Control>
+                        <Slider.Track>
+                          <Slider.Range />
+                        </Slider.Track>
+                        <Slider.Thumb index={0}>
+                          <Slider.HiddenInput />
+                        </Slider.Thumb>
+                      </Slider.Control>
+                    </Slider>
+                  </div>
+                </Accordion.ItemContent>
+              </Accordion.Item>
+            ))}
+          </Accordion>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
   <Preview.CSS>{accordionExampleCss}</Preview.CSS>
   <Preview.Data>{accordionItemsData}</Preview.Data>
 </Preview>
@@ -604,4 +639,7 @@ data attributes (`data-state`, `data-disabled`, `data-orientation`) and moduix `
 
 - `data-slot="accordion-root"`, `accordion-root-provider`, `accordion-item`,
   `accordion-item-trigger`, `accordion-item-indicator`, and `accordion-item-content`.
-- Ark state hooks: `data-state="open|closed"`, `data-disabled`, `data-orientation`.
+- Ark anatomy hooks: `data-scope="accordion"` and `data-part="root|item|item-trigger|item-indicator|item-content"`.
+- Ark state hooks: `data-state="open|closed"`, `data-disabled`, `data-focus`,
+  `data-controls`, and `data-orientation="horizontal|vertical"`.
+- Ark content variables: `--height` for vertical animation and `--width` for horizontal animation.
