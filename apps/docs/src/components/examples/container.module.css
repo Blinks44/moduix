@@ -2,9 +2,7 @@
   width: min(72rem, calc(100vw - var(--spacing-8)));
   max-width: 100%;
   padding-block: var(--spacing-4);
-  background:
-    linear-gradient(90deg, rgb(0 0 0 / 0.05) 0 1px, transparent 1px) 0 0 / 4rem 100%,
-    var(--color-background);
+  background-color: var(--color-background);
 }
 
 .stack {

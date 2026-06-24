@@ -19,6 +19,7 @@ const ContainerRoot = forwardRef<HTMLDivElement, ContainerRootProps>(function Co
 ) {
   return (
     <ark.div
+      {...props}
       ref={ref}
       data-scope="container"
       data-part="root"
@@ -26,7 +27,6 @@ const ContainerRoot = forwardRef<HTMLDivElement, ContainerRootProps>(function Co
       data-size={size}
       data-gutter={gutter}
       className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
     />
   );
 });

@@ -2,7 +2,9 @@
 
 Upstream docs:
 
-- Ark UI: https://ark-ui.com/docs/guides/composition
+- Ark UI: no dedicated Container primitive. Use the Ark factory model in https://ark-ui.com/docs/guides/composition
+- Ark UI styling guide: https://ark-ui.com/docs/guides/styling
+- Ark UI ref guide: https://ark-ui.com/docs/guides/ref
 
 ## Purpose
 
@@ -18,8 +20,8 @@ surface styles, or interactive behavior.
 Ark UI does not ship a dedicated `Container` primitive. moduix implements this component as an
 Ark-aligned factory wrapper with `@ark-ui/react/factory`.
 
-Preserve the Ark composition model: one root part, DOM ownership through `asChild`, and no legacy
-`render` or legacy `as` contract.
+Preserve the Ark composition model: one root part, DOM ownership through `asChild`, forwarded refs
+to the rendered root, and no legacy `render` or legacy `as` contract.
 
 ## Current behavior contract
 
@@ -89,6 +91,9 @@ semantic element such as `main`, `section`, or `article` should own the DOM node
 ## Upstream feature coverage
 
 - `Composition`: preserved through Ark factory `asChild` behavior.
+- `Styling`: follows Ark's `data-scope`, `data-part`, and state/data-attribute guidance with one
+  root part and no invented state attributes.
+- `Refs`: the forwarded ref targets the rendered root, or the single child element with `asChild`.
 - `Dedicated primitive features`: not applicable because Ark has no dedicated `Container`
   component page.
 - `Stateful or behavioral patterns`: intentionally unsupported; `Container` remains a single-root
@@ -97,6 +102,7 @@ semantic element such as `main`, `section`, or `article` should own the DOM node
 ## Accessibility and state
 
 - `Container` has no managed state, callbacks, or ARIA behavior.
+- The forwarded ref targets the rendered root DOM element.
 - Use `asChild` with `main`, `section`, `article`, or ARIA attributes when the wrapper itself should
   be meaningful to assistive technology.
 - The root keeps stable hooks for styling and test targeting:
@@ -147,6 +153,8 @@ when a page shell needs different layout math.
 - Keep `Container` a thin single-root layout primitive.
 - Preserve `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`,
   `data-size`, `data-gutter`, and the `--container-*` variable contract.
+- Keep wrapper-owned data hooks and the merged root class after consumer props so they cannot be
+  accidentally replaced.
 - Keep `size="full"` as "uncapped width with the current gutter", not as a different layout mode.
 - Do not add vertical rhythm props, slot bags, or convenience wrappers around headings/content.
 - If stories or docs previews show custom surface styling, the code snippet must include the same
@@ -154,6 +162,9 @@ when a page shell needs different layout math.
 
 ## Local changelog
 
+- 2026-06-25: Re-audited `Container` as a local Ark factory primitive, protected root data/class
+  hooks from consumer prop overrides, simplified the root CSS selector, aligned public docs API
+  reference wording, and removed decorative docs example CSS.
 - 2026-06-18: Migrated `Container` to an Ark-aligned factory wrapper, added `Container.Root`,
   replaced `as` with `asChild`, added Ark-style root hooks, and aligned docs/examples to the new
   root contract.
