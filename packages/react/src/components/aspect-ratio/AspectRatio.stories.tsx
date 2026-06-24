@@ -63,7 +63,7 @@ export const Photo: Story = {
 export const CustomRatio: Story = {
   render: () => (
     <div className={styles.container}>
-      <AspectRatio ratio={2.35}>
+      <AspectRatio ratio={2}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
       </AspectRatio>
     </div>

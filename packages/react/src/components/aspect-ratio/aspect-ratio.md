@@ -2,16 +2,20 @@
 
 Upstream docs:
 
-- Ark UI composition and factory: https://ark-ui.com/docs/guides/composition
+- Ark UI factory: https://ark-ui.com/docs/guides/composition#the-ark-factory
+- Ark UI composition: https://ark-ui.com/docs/guides/composition
 - Ark UI styling: https://ark-ui.com/docs/guides/styling
+- Ark UI ref: https://ark-ui.com/docs/guides/ref
 
 ## Purpose
 
 `AspectRatio` constrains media and embed content inside a responsive box with a fixed numeric
 width-to-height ratio.
 
-Ark UI does not ship a dedicated `AspectRatio` primitive in `@ark-ui/react@5.37.2`, so moduix
-implements this component as an Ark-aligned factory wrapper with `@ark-ui/react/factory`.
+Ark UI does not ship a dedicated `aspect-ratio` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Upstream model to preserve
 
@@ -36,17 +40,17 @@ implements this component as an Ark-aligned factory wrapper with `@ark-ui/react/
 ## Anatomy and exported parts
 
 ```text
-AspectRatio.Root
+AspectRatio / AspectRatio.Root
 └─ media | iframe | canvas | svg | custom content
 ```
 
 Every exported part accepts `className` and uses the standard hooks below:
 
-| Part               | Hook                            | Notes                        |
-| ------------------ | ------------------------------- | ---------------------------- |
-| `AspectRatio.Root` | `data-slot="aspect-ratio-root"` | Single exported root part.   |
-| `AspectRatio.Root` | `data-scope="aspect-ratio"`     | Ark-aligned component scope. |
-| `AspectRatio.Root` | `data-part="root"`              | Ark-aligned part name.       |
+| Part                               | Hook                            | Notes                        |
+| ---------------------------------- | ------------------------------- | ---------------------------- |
+| `AspectRatio` / `AspectRatio.Root` | `data-slot="aspect-ratio-root"` | Single exported root part.   |
+| `AspectRatio` / `AspectRatio.Root` | `data-scope="aspect-ratio"`     | Ark-aligned component scope. |
+| `AspectRatio` / `AspectRatio.Root` | `data-part="root"`              | Ark-aligned part name.       |
 
 ## Composition
 
@@ -86,6 +90,7 @@ Use `asChild` with exactly one child when another semantic element must own the 
 - Ark-style ownership changes remain available through `asChild`.
 - `asChild` requires one valid React element; consumers remain responsible for choosing semantic,
   accessible host elements.
+- The forwarded ref targets the rendered root element, or the composed child when `asChild` is used.
 - The root keeps stable hooks for styling and test targeting: `data-scope`, `data-part`, and
   `data-slot`.
 
@@ -115,3 +120,5 @@ Primary CSS variable:
   removed preset ratio aliases, and aligned docs/examples to numeric `ratio`.
 - 2026-06-18: Audited the Ark factory contract, documented valid ratio constraints and `asChild`,
   aligned the recommended short root form, and fixed the registry dependency.
+- 2026-06-24: Re-audited the local-only Ark factory contract, refreshed the official Ark guide
+  references, documented the root ref target, and simplified docs/examples after migration.
