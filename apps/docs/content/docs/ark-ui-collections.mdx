@@ -1,0 +1,44 @@
+---
+title: Ark UI Collections
+description: Data helpers from Ark UI for list, tree, async, and selection workflows.
+icon: Database
+---
+
+# Ark UI Collections
+
+Collections are the data layer behind Ark list-style components. They are not styled moduix
+components, but they are important when you work with `Select`, `Combobox`, `Listbox`, `TreeView`,
+or custom list interactions.
+
+moduix re-exports the collection helpers that are already part of its component examples:
+
+```tsx
+import { createGridCollection, createListCollection, useListCollection } from '@moduix/react';
+```
+
+Use lower-level Ark collection APIs directly from `@ark-ui/react/collection` when a helper is not
+re-exported by moduix.
+
+## Overview
+
+| Ark feature                                                            | Use it for                                                                                                |
+| ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| [List Collection](https://ark-ui.com/docs/collections/list-collection) | Array-backed option data with value lookup, next/previous traversal, disabled items, and reorder support. |
+| [Tree Collection](https://ark-ui.com/docs/collections/tree-collection) | Hierarchical data such as folders, navigation trees, nested categories, and organization charts.          |
+| [Async List](https://ark-ui.com/docs/collections/async-list)           | Loading, filtering, sorting, pagination, request cancellation, and error state for remote list data.      |
+| [List Selection](https://ark-ui.com/docs/collections/list-selection)   | Single, multiple, deselectable, and range-style selection state for list collections.                     |
+
+## When To Use Them
+
+Use collections when a component needs stable item identity, keyboard traversal, or value-to-item
+conversion. `createListCollection` is the normal path for `Select`, `Combobox`, and `Listbox`
+options. `createGridCollection` fits grid-like listbox layouts. Tree and async helpers are Ark
+tooling for more advanced data ownership, so import them from Ark until moduix documents them as
+part of its public API.
+
+For component-specific usage, start from the relevant moduix page:
+
+- [Select](/docs/select)
+- [Combobox](/docs/combobox)
+- [Listbox](/docs/listbox)
+- [Tree View](/docs/tree-view)

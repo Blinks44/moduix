@@ -76,7 +76,7 @@ Checkbox.GroupProvider[value]
 | Part                     | `data-slot`                             | Notes                                                |
 | ------------------------ | --------------------------------------- | ---------------------------------------------------- |
 | `Checkbox.Root`          | `checkbox-root`                         | Styled Ark root. Accepts Ark root props plus `size`. |
-| `Checkbox.RootProvider`  | `checkbox-root-provider`                | Styled Ark provider. Accepts `size`.                 |
+| `Checkbox.RootProvider`  | `checkbox-root-provider`                | Styled Ark provider. Accepts Ark props plus `size`.  |
 | `Checkbox.Control`       | `checkbox-control`                      | Styled Ark control with state styles.                |
 | `Checkbox.Indicator`     | `checkbox-indicator`                    | Defaults to moduix icons when children are omitted.  |
 | checked icon             | `checkbox-indicator-checked-icon`       | Default check icon wrapper.                          |
@@ -206,6 +206,8 @@ export function CheckboxProviderDemo() {
 - `Checkbox.Root` and `Checkbox.RootProvider` add `size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'`.
 - `Checkbox.Indicator` renders `CheckIcon` or `IndeterminateIcon` when no children are provided.
 - The wrapper adds stable `data-slot` hooks for moduix styling.
+- Public type exports mirror Ark part prop/base prop types. `Checkbox.RootProps` and
+  `Checkbox.RootProviderProps` are moduix-local so their `size` sugar is typed.
 - Removed legacy API and compatibility props: flat `CheckboxIndicator`, `CheckboxField`,
   `CheckboxLabel`, separate `CheckboxGroup`, `render`, `nativeButton`, `uncheckedValue`, `inputRef`,
   `allValues`, and `parent`.
@@ -220,6 +222,9 @@ export function CheckboxProviderDemo() {
 
 ## Local changelog
 
+- 2026-06-24: Finalized Ark migration audit by mirroring missing Ark part prop types, typing
+  `RootProvider.size`, aligning disabled/hover styles to Ark data attributes, and fixing docs form
+  examples to pass `name`.
 - 2026-06-18: Completed Ark parity audit by exposing `RootProvider`, `GroupProvider`, `Context`,
   `useCheckbox`, `useCheckboxContext`, `useCheckboxGroup`, `useCheckboxGroupContext`, and related
   types from the public checkbox barrel.

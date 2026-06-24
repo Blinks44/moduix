@@ -14,6 +14,9 @@ import styles from './Checkbox.module.css';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type CheckboxRootProps = ComponentProps<typeof CheckboxPrimitive.Root> & { size?: CheckboxSize };
+type CheckboxRootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootProvider> & {
+  size?: CheckboxSize;
+};
 
 const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, CheckboxRootProps>(
   function CheckboxRoot({ className, size = 'md', ...props }, ref) {
@@ -31,7 +34,7 @@ const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Che
 
 const CheckboxRootProvider = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.RootProvider>,
-  ComponentProps<typeof CheckboxPrimitive.RootProvider> & { size?: CheckboxSize }
+  CheckboxRootProviderProps
 >(function CheckboxRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <CheckboxPrimitive.RootProvider
@@ -151,11 +154,20 @@ export type {
   CheckboxCheckedChangeDetails,
   CheckboxCheckedState,
   CheckboxContextProps,
+  CheckboxControlBaseProps,
+  CheckboxControlProps,
+  CheckboxGroupBaseProps,
   CheckboxGroupProviderBaseProps,
   CheckboxGroupProviderProps,
   CheckboxGroupProps,
+  CheckboxHiddenInputBaseProps,
+  CheckboxHiddenInputProps,
+  CheckboxIndicatorBaseProps,
+  CheckboxIndicatorProps,
+  CheckboxLabelBaseProps,
+  CheckboxLabelProps,
+  CheckboxRootBaseProps,
   CheckboxRootProviderBaseProps,
-  CheckboxRootProviderProps,
   UseCheckboxContext,
   UseCheckboxGroupContext,
   UseCheckboxGroupProps,
@@ -163,4 +175,4 @@ export type {
   UseCheckboxProps,
   UseCheckboxReturn,
 } from '@ark-ui/react/checkbox';
-export type { CheckboxRootProps, CheckboxSize };
+export type { CheckboxRootProps, CheckboxRootProviderProps, CheckboxSize };

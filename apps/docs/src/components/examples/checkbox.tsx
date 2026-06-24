@@ -359,7 +359,7 @@ export function CheckboxContextExample() {
 export function CheckboxWithFieldExample() {
   return (
     <Field className={styles.field}>
-      <Checkbox.Root required>
+      <Checkbox.Root required name="terms" value="accepted">
         <Checkbox.Control>
           <Checkbox.Indicator />
         </Checkbox.Control>
@@ -384,7 +384,9 @@ export function CheckboxWithFormExample() {
         setResult(`terms: ${formData.get('terms') ?? 'none'}`);
       }}
     >
-      <CheckboxItem value="accepted">I agree to the terms and conditions</CheckboxItem>
+      <CheckboxItem name="terms" value="accepted">
+        I agree to the terms and conditions
+      </CheckboxItem>
       <button type="submit" className={styles.submit}>
         Submit
       </button>
@@ -405,7 +407,7 @@ export function CheckboxGroupExample(props: ComponentProps<typeof Checkbox.Group
   return (
     <div className={styles.wrapper}>
       <div className={styles.groupHeading}>Notification Channels</div>
-      <Checkbox.Group defaultValue={['email']} {...props}>
+      <Checkbox.Group defaultValue={['email']} name="notifications" {...props}>
         {notificationOptions.map((option) => (
           <CheckboxItem key={option.value} value={option.value}>
             {option.label}
@@ -422,7 +424,7 @@ export function ControlledCheckboxGroupExample() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.groupHeading}>Active Alerts</div>
-      <Checkbox.Group value={value} onValueChange={setValue}>
+      <Checkbox.Group value={value} onValueChange={setValue} name="notifications">
         {notificationOptions.map((option) => (
           <CheckboxItem key={option.value} value={option.value}>
             {option.label}
@@ -435,7 +437,7 @@ export function ControlledCheckboxGroupExample() {
 }
 
 export function CheckboxGroupProviderExample() {
-  const group = useCheckboxGroup({ defaultValue: ['react'], name: 'framework' });
+  const group = useCheckboxGroup({ defaultValue: ['react'], name: 'frameworks' });
 
   return (
     <Checkbox.GroupProvider value={group}>
@@ -448,7 +450,7 @@ export function CheckboxGroupInvalidExample() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.groupHeading}>Notification Channels</div>
-      <Checkbox.Group invalid defaultValue={['email']}>
+      <Checkbox.Group invalid defaultValue={['email']} name="notifications">
         {notificationOptions.map((option) => (
           <CheckboxItem key={option.value} value={option.value}>
             {option.label}
@@ -462,7 +464,7 @@ export function CheckboxGroupInvalidExample() {
 
 export function CheckboxGroupMaxSelectedExample() {
   return (
-    <Checkbox.Group defaultValue={['react', 'solid']} maxSelectedValues={2}>
+    <Checkbox.Group defaultValue={['react', 'solid']} maxSelectedValues={2} name="frameworks">
       <FrameworkCheckboxes options={frameworkOptionsWithSvelte} />
     </Checkbox.Group>
   );
@@ -483,7 +485,7 @@ export function CheckboxGroupSelectAllExample() {
       >
         Select all
       </CheckboxItem>
-      <Checkbox.Group value={value} onValueChange={setValue}>
+      <Checkbox.Group value={value} onValueChange={setValue} name="frameworks">
         <FrameworkCheckboxes />
       </Checkbox.Group>
       <span className={styles.hint}>Selected: {JSON.stringify(value)}</span>
@@ -503,7 +505,7 @@ export function CheckboxGroupWithFormExample() {
         setResult(`framework: ${JSON.stringify(formData.getAll('framework'))}`);
       }}
     >
-      <Checkbox.Group defaultValue={['react']}>
+      <Checkbox.Group defaultValue={['react']} name="framework">
         <FrameworkCheckboxes />
       </Checkbox.Group>
       <button type="submit" className={styles.submit}>
@@ -518,7 +520,7 @@ export function CheckboxGroupFieldsetExample() {
   return (
     <Fieldset className={styles.fieldset}>
       <Fieldset.Legend>Frameworks</Fieldset.Legend>
-      <Checkbox.Group defaultValue={['react']}>
+      <Checkbox.Group defaultValue={['react']} name="frameworks">
         <FrameworkCheckboxes />
       </Checkbox.Group>
     </Fieldset>

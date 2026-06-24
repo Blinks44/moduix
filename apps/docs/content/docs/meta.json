@@ -4,6 +4,8 @@
     "index",
     "quick-start",
     "composition-patterns",
+    "ark-ui-collections",
+    "ark-ui-utilities",
     "animations",
     "tokens",
     "---Components---",
