@@ -137,6 +137,8 @@ or the public CSS variables.
 
 ## Local changelog
 
+- 2026-06-24: Audited the Ark UI migration, simplified pass-through wiring and state CSS, and
+  aligned public docs with Ark provider examples.
 - 2026-06-18: Completed Ark UI parity by exporting `RootProvider`, `Context`, `useAvatar`,
   `useAvatarContext`, and related types; added root-provider styling and state selectors; aligned
   stories and docs with Ark composition and provider/context examples.

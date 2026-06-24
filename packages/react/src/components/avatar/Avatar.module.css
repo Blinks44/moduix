@@ -51,11 +51,6 @@
     object-position: var(--avatar-image-object-position, center);
     border-radius: inherit;
 
-    &[data-state='visible'] {
-      display: block;
-      opacity: 1;
-    }
-
     &[data-state='hidden'] {
       display: none;
     }
@@ -72,10 +67,6 @@
     color: var(--avatar-fallback-color, inherit);
     border-radius: inherit;
     line-height: 1;
-
-    &[data-state='visible'] {
-      display: inline-flex;
-    }
 
     &[data-state='hidden'] {
       display: none;

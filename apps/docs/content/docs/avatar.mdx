@@ -11,6 +11,7 @@ import {
   AvatarCustomFallbackExample,
   AvatarExample,
   AvatarFallbackOnlyExample,
+  AvatarProviderExample,
   AvatarRootProviderExample,
   AvatarStatusExample,
   CustomCompositionAvatarExample,
@@ -243,10 +244,46 @@ render `Avatar.RootProvider` instead of `Avatar.Root`.
             >
               Change avatar
             </button>
-            <AvatarProvider value={avatar}>
+            <Avatar.RootProvider value={avatar}>
               <Avatar.Fallback>LT</Avatar.Fallback>
               <Avatar.Image src={\`\${avatarImage}&seed=\${count}\`} alt="Alex T." />
             </Avatar.RootProvider>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{avatarExampleCss}</Preview.CSS>
+  <Preview.Data>{avatarImageData}</Preview.Data>
+</Preview>
+
+### Provider
+
+Pass options to `useAvatar` when the state owner needs the same Ark callbacks as `Avatar.Root`.
+
+<Preview>
+  <AvatarProviderExample />
+
+  <Preview.Code>
+    {`
+      import { Avatar, useAvatar } from "@moduix/react";
+      import { useState } from "react";
+
+      export function AvatarProviderDemo() {
+        const [status, setStatus] = useState("idle");
+        const avatar = useAvatar({
+          onStatusChange: (details) => setStatus(details.status),
+        });
+
+        return (
+          <div className="docs-avatar-status">
+            <Avatar.RootProvider value={avatar}>
+              <Avatar.Fallback>LT</Avatar.Fallback>
+              <Avatar.Image src={avatarImage} alt="Alex T." />
+            </Avatar.RootProvider>
+            <output>Hook status: {status}</output>
           </div>
         );
       }

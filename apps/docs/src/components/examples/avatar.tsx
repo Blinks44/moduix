@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { Avatar, ComputerIcon, useAvatar } from '@moduix/react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import type { CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 
 const avatarImage =
@@ -92,44 +92,71 @@ export const avatarImageData = `
     "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
 `;
 
-export const avatarOverrideCssProperties: CssPropertyInput[] = [
-  ['--avatar-bg', 'var(--color-muted)', 'Controls avatar background color.'],
-  ['--avatar-color', 'var(--color-foreground)', 'Controls avatar text color.'],
-  [
-    '--avatar-fallback-bg',
-    'var(--avatar-bg)',
-    'Controls fallback background color independently from the root.',
-  ],
-  ['--avatar-fallback-color', 'inherit', 'Controls fallback text and icon color.'],
-  ['--avatar-fallback-padding', '0', 'Controls fallback inner padding.'],
-  ['--avatar-font-size', 'var(--text-md)', 'Controls avatar text font size.'],
-  ['--avatar-font-weight', 'var(--weight-medium)', 'Controls avatar text font weight.'],
-  ['--avatar-image-object-fit', 'cover', 'Controls how the image fits into the avatar.'],
-  [
-    '--avatar-image-object-position',
-    'center',
-    'Controls which part of the image remains visible when cropped.',
-  ],
-  ['--avatar-line-height', 'var(--line-height-text-md)', 'Controls avatar text line height.'],
-  ['--avatar-radius', 'var(--radius-full)', 'Controls avatar corner radius.'],
-  ['--avatar-size', 'var(--size-md)', 'Controls avatar width and height.'],
-];
-const avatarCssProperties = avatarOverrideCssProperties.map(normalizeCssProperty);
+const avatarCssProperties = [
+  {
+    name: '--avatar-bg',
+    defaultValue: 'var(--color-muted)',
+    description: 'Controls avatar background color.',
+  },
+  {
+    name: '--avatar-color',
+    defaultValue: 'var(--color-foreground)',
+    description: 'Controls avatar text color.',
+  },
+  {
+    name: '--avatar-fallback-bg',
+    defaultValue: 'var(--avatar-bg)',
+    description: 'Controls fallback background color independently from the root.',
+  },
+  {
+    name: '--avatar-fallback-color',
+    defaultValue: 'inherit',
+    description: 'Controls fallback text and icon color.',
+  },
+  {
+    name: '--avatar-fallback-padding',
+    defaultValue: '0',
+    description: 'Controls fallback inner padding.',
+  },
+  {
+    name: '--avatar-font-size',
+    defaultValue: 'var(--text-md)',
+    description: 'Controls avatar text font size.',
+  },
+  {
+    name: '--avatar-font-weight',
+    defaultValue: 'var(--weight-medium)',
+    description: 'Controls avatar text font weight.',
+  },
+  {
+    name: '--avatar-image-object-fit',
+    defaultValue: 'cover',
+    description: 'Controls how the image fits into the avatar.',
+  },
+  {
+    name: '--avatar-image-object-position',
+    defaultValue: 'center',
+    description: 'Controls which part of the image remains visible when cropped.',
+  },
+  {
+    name: '--avatar-line-height',
+    defaultValue: 'var(--line-height-text-md)',
+    description: 'Controls avatar text line height.',
+  },
+  {
+    name: '--avatar-radius',
+    defaultValue: 'var(--radius-full)',
+    description: 'Controls avatar corner radius.',
+  },
+  {
+    name: '--avatar-size',
+    defaultValue: 'var(--size-md)',
+    description: 'Controls avatar width and height.',
+  },
+] satisfies CssProperty[];
 
-export function AvatarCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function AvatarCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={avatarCssProperties} />;
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return {
-      name: property[0],
-      defaultValue: property[1],
-      description: property[2],
-    };
-  }
-
-  return property;
 }
 
 export function AvatarExample(props: ComponentProps<typeof Avatar.Root>) {
@@ -225,6 +252,23 @@ export function AvatarRootProviderExample() {
         <Avatar.Fallback>LT</Avatar.Fallback>
         <Avatar.Image src={`${avatarImage}&seed=${count}`} alt="Alex T." />
       </Avatar.RootProvider>
+    </div>
+  );
+}
+
+export function AvatarProviderExample() {
+  const [status, setStatus] = useState('idle');
+  const avatar = useAvatar({
+    onStatusChange: (details) => setStatus(details.status),
+  });
+
+  return (
+    <div className="docs-avatar-status">
+      <Avatar.RootProvider value={avatar}>
+        <Avatar.Fallback>LT</Avatar.Fallback>
+        <Avatar.Image src={avatarImage} alt="Alex T." />
+      </Avatar.RootProvider>
+      <output className="text-sm text-muted-foreground">Hook status: {status}</output>
     </div>
   );
 }
