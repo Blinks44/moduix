@@ -13,7 +13,7 @@ Upstream docs:
 flow. Use it for full-width media, section backgrounds, dividers, and panels inside a centered or
 padded layout.
 
-Ark UI does not ship a dedicated `Bleed` primitive, so moduix implements this component as an
+Ark UI does not ship a dedicated `bleed` primitive, so Moduix implements this component as an
 Ark-aligned factory wrapper with `@ark-ui/react/factory`.
 
 ## Upstream model to preserve
@@ -142,6 +142,9 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-06-24: Re-audited `Bleed` as a local Ark factory primitive, aligned the public docs API
+  reference wording, simplified docs example code, and corrected the local full-bleed CSS override
+  example to use parent-relative sizing.
 - 2026-06-18: Completed the Ark migration audit, documented factory composition, ref and
   `asChild` constraints, Chakra-informed differences, and the preferred root-only `<Bleed />`
   usage.

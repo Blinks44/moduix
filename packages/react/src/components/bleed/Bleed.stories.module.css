@@ -44,6 +44,6 @@
 }
 
 .customBleed {
-  --bleed-inline-full: calc(var(--spacing-8) * -1);
-  --bleed-inline-full-size: calc(100vw - (var(--spacing-8) * 2));
+  --bleed-inline-full: calc(var(--spacing-4) * -1);
+  --bleed-inline-full-size: calc(100% + var(--spacing-8));
 }

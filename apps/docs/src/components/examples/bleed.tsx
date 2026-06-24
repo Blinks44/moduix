@@ -1,6 +1,5 @@
-import type { ComponentProps } from 'react';
 import { Bleed, Text } from '@moduix/react';
-import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
+import type { CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 
 const basicContent = {
@@ -118,15 +117,15 @@ export const bleedCssProperties: CssProperty[] = [
   },
 ];
 
-export function BleedCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function BleedCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={bleedCssProperties} />;
 }
 
-export function BleedExample(props: ComponentProps<typeof Bleed.Root>) {
+export function BleedExample() {
   return (
     <div className="bleed-demo-container">
       <Text tone="muted">{basicContent.before}</Text>
-      <Bleed className="bleed-demo-surface" {...props}>
+      <Bleed className="bleed-demo-surface">
         <Text weight="semibold">{basicContent.surface}</Text>
       </Bleed>
       <Text tone="muted">{basicContent.after}</Text>
