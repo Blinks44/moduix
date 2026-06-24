@@ -84,7 +84,7 @@
 
   .thumbnailIndicator {
     overflow: hidden;
-    width: 4.75rem;
+    width: 5rem;
     height: 3rem;
     padding: 0;
     border: var(--border-width-sm) solid transparent;

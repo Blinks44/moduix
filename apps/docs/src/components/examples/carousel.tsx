@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { Button, Carousel, PlusIcon, useCarousel } from '@moduix/react';
 import { clsx } from 'clsx';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './carousel.module.css';
@@ -225,13 +225,27 @@ function ImageSlide({
   );
 }
 
-function GalleryIndicators({ count }: { count: number }) {
+function SlideIndicators({ slides }: { slides: readonly unknown[] }) {
   return (
     <Carousel.IndicatorGroup>
-      {Array.from({ length: count }, (_, index) => (
+      {slides.map((_, index) => (
         <Carousel.Indicator key={index} index={index} />
       ))}
     </Carousel.IndicatorGroup>
+  );
+}
+
+function PageIndicators() {
+  return (
+    <Carousel.Context>
+      {(api) => (
+        <Carousel.IndicatorGroup>
+          {api.pageSnapPoints.map((_, index) => (
+            <Carousel.Indicator key={index} index={index} />
+          ))}
+        </Carousel.IndicatorGroup>
+      )}
+    </Carousel.Context>
   );
 }
 
@@ -267,7 +281,7 @@ export function CarouselExample({
         </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
-      <GalleryIndicators count={slides.length} />
+      <SlideIndicators slides={slides} />
       <Carousel.ProgressText />
     </Carousel.Root>
   );
@@ -295,7 +309,7 @@ export function ControlledCarouselExample() {
         <Carousel.NextTrigger />
       </Carousel.Control>
       <div className={styles.statusRow}>
-        <GalleryIndicators count={gallerySlides.length} />
+        <SlideIndicators slides={gallerySlides} />
         <output className={styles.output}>Page {page + 1}</output>
       </div>
     </Carousel.Root>
@@ -342,7 +356,7 @@ export function LoopCarouselExample() {
         </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
-      <GalleryIndicators count={gallerySlides.length} />
+      <SlideIndicators slides={gallerySlides} />
       <Carousel.ProgressText />
     </Carousel.Root>
   );
@@ -362,7 +376,7 @@ export function MouseDragCarouselExample() {
         </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
-      <GalleryIndicators count={gallerySlides.length} />
+      <SlideIndicators slides={gallerySlides} />
       <Carousel.ProgressText />
     </Carousel.Root>
   );
@@ -391,7 +405,7 @@ export function PauseOnHoverCarouselExample() {
           </Carousel.ItemGroup>
         )}
       </Carousel.Context>
-      <GalleryIndicators count={gallerySlides.length} />
+      <SlideIndicators slides={gallerySlides} />
     </Carousel.Root>
   );
 }
@@ -399,7 +413,7 @@ export function PauseOnHoverCarouselExample() {
 export function DynamicSlidesCarouselExample() {
   const [count, setCount] = useState(4);
   const [page, setPage] = useState(0);
-  const slides = useMemo(() => gallerySlides.slice(0, count), [count]);
+  const slides = gallerySlides.slice(0, count);
 
   const handleAddSlide = () => {
     setCount((currentCount) => Math.min(gallerySlides.length, currentCount + 1));
@@ -422,7 +436,7 @@ export function DynamicSlidesCarouselExample() {
         </Carousel.ItemGroup>
         <Carousel.Control>
           <Carousel.PrevTrigger />
-          <GalleryIndicators count={slides.length} />
+          <SlideIndicators slides={slides} />
           <Carousel.NextTrigger />
         </Carousel.Control>
       </Carousel.Root>
@@ -452,7 +466,7 @@ export function RootProviderCarouselExample() {
           </Carousel.ItemGroup>
           <Carousel.NextTrigger />
         </Carousel.Control>
-        <GalleryIndicators count={gallerySlides.length} />
+        <SlideIndicators slides={gallerySlides} />
       </Carousel.RootProvider>
     </div>
   );
@@ -481,7 +495,7 @@ export function ScrollToCarouselExample() {
         <Carousel.PrevTrigger />
         <Carousel.NextTrigger />
       </Carousel.Control>
-      <GalleryIndicators count={gallerySlides.length} />
+      <SlideIndicators slides={gallerySlides} />
     </Carousel.Root>
   );
 }
@@ -505,15 +519,7 @@ export function SlidesPerPageCarouselExample() {
           </Carousel.Item>
         ))}
       </Carousel.ItemGroup>
-      <Carousel.Context>
-        {(api) => (
-          <Carousel.IndicatorGroup>
-            {api.pageSnapPoints.map((_, index) => (
-              <Carousel.Indicator key={index} index={index} />
-            ))}
-          </Carousel.IndicatorGroup>
-        )}
-      </Carousel.Context>
+      <PageIndicators />
     </Carousel.Root>
   );
 }
@@ -522,7 +528,7 @@ export function SpacingCarouselExample() {
   return (
     <Carousel.Root
       slideCount={gallerySlides.length}
-      slidesPerPage={1.4}
+      slidesPerPage={1.5}
       spacing="3rem"
       className={clsx(styles.carousel, styles.wideCarousel)}
     >
@@ -536,15 +542,7 @@ export function SpacingCarouselExample() {
       </Carousel.ItemGroup>
       <Carousel.Control>
         <Carousel.PrevTrigger />
-        <Carousel.Context>
-          {(api) => (
-            <Carousel.IndicatorGroup>
-              {api.pageSnapPoints.map((_, index) => (
-                <Carousel.Indicator key={index} index={index} />
-              ))}
-            </Carousel.IndicatorGroup>
-          )}
-        </Carousel.Context>
+        <PageIndicators />
         <Carousel.NextTrigger />
       </Carousel.Control>
     </Carousel.Root>
@@ -601,15 +599,7 @@ export function VariableSizeCarouselExample() {
           </Carousel.Item>
         ))}
       </Carousel.ItemGroup>
-      <Carousel.Context>
-        {(api) => (
-          <Carousel.IndicatorGroup>
-            {api.pageSnapPoints.map((_, index) => (
-              <Carousel.Indicator key={index} index={index} />
-            ))}
-          </Carousel.IndicatorGroup>
-        )}
-      </Carousel.Context>
+      <PageIndicators />
     </Carousel.Root>
   );
 }
@@ -630,7 +620,7 @@ export function VerticalCarouselExample() {
       </Carousel.ItemGroup>
       <Carousel.Control>
         <Carousel.PrevTrigger />
-        <GalleryIndicators count={gallerySlides.length} />
+        <SlideIndicators slides={gallerySlides} />
         <Carousel.NextTrigger />
       </Carousel.Control>
     </Carousel.Root>

@@ -249,12 +249,12 @@ Update `slideCount` alongside the rendered items when slides can be added or rem
   <Preview.Code>
     {`
       import { Button, Carousel, PlusIcon } from "@moduix/react";
-      import { useMemo, useState } from "react";
+      import { useState } from "react";
 
       export function DynamicSlidesCarousel() {
         const [count, setCount] = useState(4);
         const [page, setPage] = useState(0);
-        const visibleSlides = useMemo(() => slides.slice(0, count), [count]);
+        const visibleSlides = slides.slice(0, count);
 
         return (
           <>
@@ -364,7 +364,7 @@ Use `Carousel.RootProvider` when the carousel store should be created outside th
         const carousel = useCarousel({ slideCount: slides.length });
 
         return (
-          <CarouselProvider value={carousel}>
+          <Carousel.RootProvider value={carousel}>
             <Carousel.Control>
               <Carousel.PrevTrigger />
               <Carousel.ItemGroup aria-label="Root provider gallery">
@@ -497,7 +497,7 @@ Tune `spacing` when adjacent slides need more separation for editorial layouts, 
 
       export function SpacingCarousel() {
         return (
-          <Carousel slideCount={slides.length} slidesPerPage={1.4} spacing="3rem">
+          <Carousel slideCount={slides.length} slidesPerPage={1.5} spacing="3rem">
             <Carousel.ItemGroup aria-label="Spaced gallery">
               {slides.map((slide, index) => (
                 <Carousel.Item key={slide.id} index={index}>

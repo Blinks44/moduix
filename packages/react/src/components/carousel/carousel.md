@@ -213,3 +213,6 @@ Primary theme variables:
   styling section with the shared `Accordion` CSS properties tab pattern.
 - 2026-06-18: Exported `useCarouselContext()` and added styled defaults for autoplay pressed state
   plus read-only and disabled indicators.
+- 2026-06-24: Simplified docs and story examples around slide indicators vs runtime `pageSnapPoints`,
+  aligned the spacing example with Ark's `slidesPerPage={1.5}` pattern, and normalized carousel CSS
+  sizing values to the local spacing scale.

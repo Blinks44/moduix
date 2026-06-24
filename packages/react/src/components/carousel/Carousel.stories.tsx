@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
 import { Carousel, useCarousel } from './Carousel';
@@ -71,13 +71,27 @@ function ImageSlide({
   );
 }
 
-function Indicators({ count }: { count: number }) {
+function SlideIndicators({ slides }: { slides: readonly unknown[] }) {
   return (
     <Carousel.IndicatorGroup>
-      {Array.from({ length: count }, (_, index) => (
+      {slides.map((_, index) => (
         <Carousel.Indicator key={index} index={index} />
       ))}
     </Carousel.IndicatorGroup>
+  );
+}
+
+function PageIndicators() {
+  return (
+    <Carousel.Context>
+      {(api) => (
+        <Carousel.IndicatorGroup>
+          {api.pageSnapPoints.map((_, index) => (
+            <Carousel.Indicator key={index} index={index} />
+          ))}
+        </Carousel.IndicatorGroup>
+      )}
+    </Carousel.Context>
   );
 }
 
@@ -116,7 +130,7 @@ export const Basic: Story = {
         </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
-      <Indicators count={slides.length} />
+      <SlideIndicators slides={slides} />
       <Carousel.ProgressText />
     </Carousel.Root>
   ),
@@ -146,7 +160,7 @@ export const Controlled: Story = {
           <Carousel.NextTrigger />
         </Carousel.Control>
         <div className={styles.statusRow}>
-          <Indicators count={slides.length} />
+          <SlideIndicators slides={slides} />
           <output className={styles.output}>Page {page + 1}</output>
         </div>
       </Carousel.Root>
@@ -159,7 +173,7 @@ export const DynamicSlides: Story = {
   render: () => {
     const [count, setCount] = useState(4);
     const [page, setPage] = useState(0);
-    const visibleSlides = useMemo(() => slides.slice(0, count), [count]);
+    const visibleSlides = slides.slice(0, count);
 
     return (
       <div className={styles.exampleStack}>
@@ -178,7 +192,7 @@ export const DynamicSlides: Story = {
           </Carousel.ItemGroup>
           <Carousel.Control>
             <Carousel.PrevTrigger />
-            <Indicators count={visibleSlides.length} />
+            <SlideIndicators slides={visibleSlides} />
             <Carousel.NextTrigger />
           </Carousel.Control>
         </Carousel.Root>
@@ -219,7 +233,7 @@ export const PauseOnHover: Story = {
           </Carousel.ItemGroup>
         )}
       </Carousel.Context>
-      <Indicators count={slides.length} />
+      <SlideIndicators slides={slides} />
     </Carousel.Root>
   ),
 };
@@ -244,7 +258,7 @@ export const RootProvider: Story = {
             </Carousel.ItemGroup>
             <Carousel.NextTrigger />
           </Carousel.Control>
-          <Indicators count={slides.length} />
+          <SlideIndicators slides={slides} />
         </Carousel.RootProvider>
       </div>
     );
@@ -275,7 +289,7 @@ export const ScrollTo: Story = {
         <Carousel.PrevTrigger />
         <Carousel.NextTrigger />
       </Carousel.Control>
-      <Indicators count={slides.length} />
+      <SlideIndicators slides={slides} />
     </Carousel.Root>
   ),
 };
@@ -300,15 +314,7 @@ export const SlidesPerPage: Story = {
           </Carousel.Item>
         ))}
       </Carousel.ItemGroup>
-      <Carousel.Context>
-        {(api) => (
-          <Carousel.IndicatorGroup>
-            {api.pageSnapPoints.map((_, index) => (
-              <Carousel.Indicator key={index} index={index} />
-            ))}
-          </Carousel.IndicatorGroup>
-        )}
-      </Carousel.Context>
+      <PageIndicators />
     </Carousel.Root>
   ),
 };
@@ -318,7 +324,7 @@ export const Spacing: Story = {
   render: () => (
     <Carousel.Root
       slideCount={slides.length}
-      slidesPerPage={1.4}
+      slidesPerPage={1.5}
       spacing="3rem"
       className={`${styles.carousel} ${styles.wideCarousel}`}
     >
@@ -332,15 +338,7 @@ export const Spacing: Story = {
       </Carousel.ItemGroup>
       <Carousel.Control>
         <Carousel.PrevTrigger />
-        <Carousel.Context>
-          {(api) => (
-            <Carousel.IndicatorGroup>
-              {api.pageSnapPoints.map((_, index) => (
-                <Carousel.Indicator key={index} index={index} />
-              ))}
-            </Carousel.IndicatorGroup>
-          )}
-        </Carousel.Context>
+        <PageIndicators />
         <Carousel.NextTrigger />
       </Carousel.Control>
     </Carousel.Root>
@@ -399,15 +397,7 @@ export const VariableSize: Story = {
           </Carousel.Item>
         ))}
       </Carousel.ItemGroup>
-      <Carousel.Context>
-        {(api) => (
-          <Carousel.IndicatorGroup>
-            {api.pageSnapPoints.map((_, index) => (
-              <Carousel.Indicator key={index} index={index} />
-            ))}
-          </Carousel.IndicatorGroup>
-        )}
-      </Carousel.Context>
+      <PageIndicators />
     </Carousel.Root>
   ),
 };
@@ -454,7 +444,7 @@ export const Loop: Story = {
         </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
-      <Indicators count={slides.length} />
+      <SlideIndicators slides={slides} />
       <Carousel.ProgressText />
     </Carousel.Root>
   ),
@@ -475,7 +465,7 @@ export const MouseDrag: Story = {
         </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
-      <Indicators count={slides.length} />
+      <SlideIndicators slides={slides} />
       <Carousel.ProgressText />
     </Carousel.Root>
   ),
@@ -498,7 +488,7 @@ export const Vertical: Story = {
       </Carousel.ItemGroup>
       <Carousel.Control>
         <Carousel.PrevTrigger />
-        <Indicators count={slides.length} />
+        <SlideIndicators slides={slides} />
         <Carousel.NextTrigger />
       </Carousel.Control>
     </Carousel.Root>

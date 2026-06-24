@@ -176,7 +176,7 @@
     }
 
     &[data-current] {
-      width: calc(var(--carousel-indicator-size, 0.5rem) * 2.75);
+      width: calc(var(--carousel-indicator-size, 0.5rem) * 3);
       background-color: var(--carousel-indicator-bg-current, var(--color-primary));
       opacity: 1;
     }
@@ -191,12 +191,12 @@
   .control[data-orientation='vertical'] > .indicatorGroup .indicator {
     &[data-current] {
       width: var(--carousel-indicator-size, 0.5rem);
-      height: calc(var(--carousel-indicator-size, 0.5rem) * 2.75);
+      height: calc(var(--carousel-indicator-size, 0.5rem) * 3);
     }
   }
 
   .autoplayTrigger {
-    min-width: 2.75rem;
+    min-width: 3rem;
   }
 
   .autoplayIndicator {
