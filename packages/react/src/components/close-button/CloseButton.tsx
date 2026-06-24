@@ -55,8 +55,8 @@ const CloseButtonRoot = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
   },
 );
 
-const CloseButton = {
+const CloseButton = Object.assign(CloseButtonRoot, {
   Root: CloseButtonRoot,
-};
+});
 
 export { CloseButton };

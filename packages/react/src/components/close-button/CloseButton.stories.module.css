@@ -1,10 +1,10 @@
 .customChildrenButton {
-  --close-button-size: 2.25rem;
-  --close-button-icon-size: 1.125rem;
+  --close-button-size: 2.5rem;
+  --close-button-icon-size: 1.25rem;
 }
 
 .customButton {
-  --close-button-size: 2.25rem;
+  --close-button-size: 2.5rem;
   --close-button-icon-size: 1rem;
   --close-button-bg: var(--color-primary);
   --close-button-bg-hover: var(--color-foreground);

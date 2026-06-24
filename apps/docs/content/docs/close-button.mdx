@@ -15,14 +15,14 @@ import {
 
 ## API Reference
 
-Ark UI does not ship a dedicated close-button primitive. `CloseButton.Root` is an Ark-aligned
-standalone wrapper built with [`@ark-ui/react/factory`](https://ark-ui.com/docs/guides/composition)
-and styled through Ark
-[`data-scope` and `data-part` hooks](https://ark-ui.com/docs/guides/styling).
+Ark UI does not ship a dedicated close-button primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Basic
 
-Use `CloseButton.Root` when the control itself performs a dismiss or close action. It provides
+Use `CloseButton` when the control itself performs a dismiss or close action. It provides
 button semantics and a default close glyph, but it does not manage overlay state by itself.
 
 <Preview>
@@ -150,7 +150,7 @@ such as styles, icons, and small utilities.
 `CloseButton` exposes one Ark-style root part.
 
 ```text
-CloseButton.Root
+CloseButton / CloseButton.Root
 └─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
    └─ CloseIcon (default) | custom children
 ```
@@ -163,7 +163,7 @@ CloseButton.Root
 
 ### Recommended composition
 
-Use `CloseButton.Root` directly when a native button should own the close action. The wrapper
+Use `CloseButton` directly when a native button should own the close action. The wrapper
 forwards Ark factory button props, native attributes, event handlers, and refs.
 
 ### When to go custom
@@ -185,13 +185,13 @@ dismissal state and focus lifecycle.
 
 ### Behavioral notes
 
-- `CloseButton.Root` does not close anything by itself; wire `onClick` or use an overlay close
+- `CloseButton` does not close anything by itself; wire `onClick` or use an overlay close
   trigger.
 - Custom icon children need an accessible name through `aria-label` or `aria-labelledby`.
 - Native `disabled` and `aria-disabled="true"` expose `data-disabled` for Ark-style state
   targeting and suppress click activation.
 - The previous `render`, `nativeButton`, and `focusableWhenDisabled` props are removed.
-- `CloseButton` is a namespace object and must be rendered through `CloseButton.Root`.
+- `CloseButton.Root` is available as the equivalent Ark-aligned namespace form.
 
 ## Examples
 
@@ -230,8 +230,8 @@ Replace the default glyph through `children` while keeping the root button and s
   <Preview.CSS>
     {`
       .customChildrenButton {
-        --close-button-size: 2.25rem;
-        --close-button-icon-size: 1.125rem;
+        --close-button-size: 2.5rem;
+        --close-button-icon-size: 1.25rem;
       }
     `}
 
@@ -272,7 +272,7 @@ Close Button styling and data hooks.
 
       export function CloseButtonAsChildDemo() {
         return (
-          <CloseButton asChild aria-label="Close composed panel">
+          <CloseButton asChild className="asChildButton" aria-label="Close composed panel">
             <button>
               <CircleXIcon />
             </button>
@@ -285,8 +285,9 @@ Close Button styling and data hooks.
 
   <Preview.CSS>
     {`
-      [data-slot="close-button-root"] > svg {
-        stroke-width: 3;
+      .asChildButton {
+        --close-button-size: 2.5rem;
+        --close-button-icon-size: 1.25rem;
       }
     `}
 
@@ -324,7 +325,7 @@ Style the root through `className` and the public `--close-button-*` variables.
   <Preview.CSS>
     {`
       .customButton {
-        --close-button-size: 2.25rem;
+        --close-button-size: 2.5rem;
         --close-button-icon-size: 1rem;
         --close-button-bg: var(--color-primary);
         --close-button-bg-hover: var(--color-foreground);
@@ -338,7 +339,7 @@ Style the root through `className` and the public `--close-button-*` variables.
   <Preview.Data>
     {`
       const customStylingTokens = {
-        "--close-button-size": "2.25rem",
+        "--close-button-size": "2.5rem",
         "--close-button-icon-size": "1rem",
         "--close-button-bg": "var(--color-primary)",
         "--close-button-bg-hover": "var(--color-foreground)",
@@ -363,7 +364,13 @@ discoverable while refusing activation.
       import { CloseButton } from "@moduix/react";
 
       export function CloseButtonDisabledDemo() {
-        return <CloseButton aria-disabled="true" aria-label="Close unavailable message" />;
+        return (
+          <CloseButton
+            className="disabledCloseButton"
+            aria-disabled="true"
+            aria-label="Close unavailable message"
+          />
+        );
       }
     `}
 
@@ -371,8 +378,8 @@ discoverable while refusing activation.
 
   <Preview.CSS>
     {`
-      [data-slot="close-button-root"][data-disabled] {
-        opacity: var(--close-button-disabled-opacity, var(--opacity-disabled));
+      .disabledCloseButton {
+        --close-button-disabled-opacity: 0.5;
       }
     `}
 
@@ -406,5 +413,5 @@ discoverable while refusing activation.
 - `data-scope="close-button"` identifies the component family.
 - `data-part="root"` identifies the only exported part.
 - `data-slot="close-button-root"` provides the moduix slot hook.
-- `data-disabled`, `:disabled`, and `[aria-disabled="true"]` expose disabled styling.
+- `data-disabled` exposes the normalized `disabled` and `aria-disabled="true"` styling state.
 - Direct nested SVG children inherit sizing from `--close-button-icon-size`.

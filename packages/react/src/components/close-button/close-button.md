@@ -16,33 +16,33 @@ lightboxes, and similar closeable surfaces.
 Ark UI does not ship a dedicated close-button primitive. The component follows the Ark factory
 model through `@ark-ui/react/factory`:
 
-- one explicit `CloseButton.Root` part;
+- one explicit root part exposed as `CloseButton` and `CloseButton.Root`;
 - native button props and ref forwarding;
 - DOM ownership composition through `asChild`;
 - Ark-style `data-scope`, `data-part`, and state hooks.
 
 ## Current behavior contract
 
-- `CloseButton.Root` is the only public part.
+- `CloseButton` is the short root form.
+- `CloseButton.Root` is the equivalent Ark-aligned namespace form.
 - The default DOM node is `button`.
 - `type` defaults to `button` for the native root.
 - Omitting `children` renders the moduix `CloseIcon`.
 - Omitting an accessible name on the default-icon path adds `aria-label="Close"`.
 - `disabled` and `aria-disabled="true"` expose `data-disabled`.
 - legacy `render`, `nativeButton`, and `focusableWhenDisabled` are not supported.
-- `CloseButton` is a namespace object, not a callable alias.
 
 ## Anatomy and exported parts
 
 ```text
-CloseButton.Root
+CloseButton / CloseButton.Root
 └─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
    └─ CloseIcon (default) | custom children
 ```
 
-| Part               | `data-slot`         | Notes                                 |
-| ------------------ | ------------------- | ------------------------------------- |
-| `CloseButton.Root` | `close-button-root` | Single icon-only interactive surface. |
+| Part                               | `data-slot`         | Notes                                 |
+| ---------------------------------- | ------------------- | ------------------------------------- |
+| `CloseButton` / `CloseButton.Root` | `close-button-root` | Single icon-only interactive surface. |
 
 ## Composition
 
@@ -50,7 +50,7 @@ CloseButton.Root
 import { CloseButton } from '@moduix/react';
 
 export function DismissNotification() {
-  return <CloseButton.Root aria-label="Dismiss notification" />;
+  return <CloseButton aria-label="Dismiss notification" />;
 }
 ```
 
@@ -58,11 +58,11 @@ Use `asChild` when another button component must own the DOM node. The child mus
 icon content because the single child is the composed root:
 
 ```tsx
-<CloseButton.Root asChild aria-label="Close panel">
+<CloseButton asChild aria-label="Close panel">
   <button>
     <MyCloseIcon aria-hidden="true" />
   </button>
-</CloseButton.Root>
+</CloseButton>
 ```
 
 ## Upstream feature coverage
@@ -115,7 +115,8 @@ Public CSS variables:
 
 - moduix adds the default close glyph, accessible-name fallback, visual tokens, and square
   icon-button styling.
-- The component exposes only `CloseButton.Root`; no callable alias or extra wrapper is retained.
+- The component exposes `CloseButton` as the short root form and `CloseButton.Root` as the
+  equivalent Ark-aligned namespace form.
 - The root defaults to safe non-submit behavior without forwarding that default through `asChild`.
 
 ## Agent notes
@@ -123,10 +124,14 @@ Public CSS variables:
 - Keep this as a thin Ark factory wrapper with one part.
 - Preserve the shared `--close-button-*` contract because Dialog, Drawer, and Lightbox map their
   close-control tokens into it.
-- Do not reintroduce legacy render props or a callable `CloseButton` alias.
+- Do not reintroduce legacy render props.
 
 ## Local changelog
 
+- 2026-06-24: Restored the short root `CloseButton` API and kept `CloseButton.Root` as the
+  equivalent namespace form.
+- 2026-06-24: Simplified close-button CSS to style the normalized `data-disabled`
+  state only and aligned public docs examples with the root API.
 - 2026-06-18: Migrated to `@ark-ui/react/factory`, introduced the explicit
   `CloseButton.Root` part and Ark data hooks, added `asChild`, and removed the legacy button
   contract and callable alias.

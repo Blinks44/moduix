@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { CloseButton } from '@moduix/react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './close-button.module.css';
 
 export const closeButtonOverrideCssProperties: CssPropertyInput[] = [
@@ -29,7 +29,7 @@ const closeButtonCssProperties = closeButtonOverrideCssProperties.map((property)
       },
 );
 
-export function CloseButtonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function CloseButtonCssPropertiesPanel() {
   return (
     <div className="space-y-2">
       <CSSPropertiesReferenceTable properties={closeButtonCssProperties} />
@@ -37,59 +37,48 @@ export function CloseButtonCssPropertiesPanel(_context: CSSPropertiesEditorConte
   );
 }
 
-export function CloseButtonCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <div className="space-y-2">
-      <CSSPropertiesEditor
-        properties={closeButtonCssProperties}
-        values={values}
-        onChange={onChange}
-        onReset={onReset}
-      />
-    </div>
-  );
-}
-
-export function CloseButtonExample(props: ComponentProps<typeof CloseButton.Root>) {
+export function CloseButtonExample(props: ComponentProps<typeof CloseButton>) {
   return (
     <div className={styles.surface}>
       <div className={styles.content}>
         <p className={styles.title}>Draft saved</p>
         <p className={styles.description}>The notification can be dismissed.</p>
       </div>
-      <CloseButton.Root aria-label="Dismiss notification" {...props} />
+      <CloseButton aria-label="Dismiss notification" {...props} />
     </div>
   );
 }
 
 export function CloseButtonCustomChildrenExample() {
   return (
-    <CloseButton.Root className={styles.customChildrenButton} aria-label="Close panel">
+    <CloseButton className={styles.customChildrenButton} aria-label="Close panel">
       <CircleXIcon />
-    </CloseButton.Root>
+    </CloseButton>
   );
 }
 
 export function CloseButtonAsChildExample() {
   return (
-    <CloseButton.Root asChild aria-label="Close composed panel">
+    <CloseButton asChild className={styles.asChildButton} aria-label="Close composed panel">
       <button>
         <CircleXIcon />
       </button>
-    </CloseButton.Root>
+    </CloseButton>
   );
 }
 
 export function CloseButtonCustomStylingExample() {
-  return <CloseButton.Root className={styles.customButton} aria-label="Close message" />;
+  return <CloseButton className={styles.customButton} aria-label="Close message" />;
 }
 
 export function CloseButtonDisabledExample() {
-  return <CloseButton.Root aria-disabled="true" aria-label="Close unavailable message" />;
+  return (
+    <CloseButton
+      className={styles.disabledButton}
+      aria-disabled="true"
+      aria-label="Close unavailable message"
+    />
+  );
 }
 
 function CircleXIcon(props: ComponentProps<'svg'>) {
