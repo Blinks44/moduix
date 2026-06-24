@@ -1,4 +1,4 @@
-import type { ForwardedRef } from 'react';
+import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
@@ -10,7 +10,6 @@ import {
   useComboboxContext,
   useComboboxItemContext,
 } from '@ark-ui/react/combobox';
-import { useFilter } from '@ark-ui/react/locale';
 import { Portal } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
@@ -47,8 +46,8 @@ const ComboboxRootProvider = forwardRef(function ComboboxRootProvider<T extends 
 }) as ComboboxRootProviderComponent;
 
 const ComboboxLabel = forwardRef<
-  HTMLLabelElement,
-  React.ComponentProps<typeof ComboboxPrimitive.Label>
+  ComponentRef<typeof ComboboxPrimitive.Label>,
+  ComponentProps<typeof ComboboxPrimitive.Label>
 >(function ComboboxLabel({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Label
@@ -61,8 +60,8 @@ const ComboboxLabel = forwardRef<
 });
 
 const ComboboxControl = forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<typeof ComboboxPrimitive.Control>
+  ComponentRef<typeof ComboboxPrimitive.Control>,
+  ComponentProps<typeof ComboboxPrimitive.Control>
 >(function ComboboxControl({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Control
@@ -75,8 +74,8 @@ const ComboboxControl = forwardRef<
 });
 
 const ComboboxInput = forwardRef<
-  HTMLInputElement,
-  React.ComponentProps<typeof ComboboxPrimitive.Input>
+  ComponentRef<typeof ComboboxPrimitive.Input>,
+  ComponentProps<typeof ComboboxPrimitive.Input>
 >(function ComboboxInput({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Input
@@ -89,8 +88,8 @@ const ComboboxInput = forwardRef<
 });
 
 const ComboboxClearTrigger = forwardRef<
-  HTMLButtonElement,
-  React.ComponentProps<typeof ComboboxPrimitive.ClearTrigger>
+  ComponentRef<typeof ComboboxPrimitive.ClearTrigger>,
+  ComponentProps<typeof ComboboxPrimitive.ClearTrigger>
 >(function ComboboxClearTrigger({ className, children, ...props }, ref) {
   return (
     <ComboboxPrimitive.ClearTrigger
@@ -105,8 +104,8 @@ const ComboboxClearTrigger = forwardRef<
 });
 
 const ComboboxTrigger = forwardRef<
-  HTMLButtonElement,
-  React.ComponentProps<typeof ComboboxPrimitive.Trigger>
+  ComponentRef<typeof ComboboxPrimitive.Trigger>,
+  ComponentProps<typeof ComboboxPrimitive.Trigger>
 >(function ComboboxTrigger({ className, children, ...props }, ref) {
   return (
     <ComboboxPrimitive.Trigger
@@ -121,8 +120,8 @@ const ComboboxTrigger = forwardRef<
 });
 
 const ComboboxPositioner = forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<typeof ComboboxPrimitive.Positioner>
+  ComponentRef<typeof ComboboxPrimitive.Positioner>,
+  ComponentProps<typeof ComboboxPrimitive.Positioner>
 >(function ComboboxPositioner({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Positioner
@@ -135,8 +134,8 @@ const ComboboxPositioner = forwardRef<
 });
 
 const ComboboxContent = forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<typeof ComboboxPrimitive.Content>
+  ComponentRef<typeof ComboboxPrimitive.Content>,
+  ComponentProps<typeof ComboboxPrimitive.Content>
 >(function ComboboxContent({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Content
@@ -149,8 +148,8 @@ const ComboboxContent = forwardRef<
 });
 
 const ComboboxEmpty = forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<typeof ComboboxPrimitive.Empty>
+  ComponentRef<typeof ComboboxPrimitive.Empty>,
+  ComponentProps<typeof ComboboxPrimitive.Empty>
 >(function ComboboxEmpty({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Empty
@@ -163,8 +162,8 @@ const ComboboxEmpty = forwardRef<
 });
 
 const ComboboxList = forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<typeof ComboboxPrimitive.List>
+  ComponentRef<typeof ComboboxPrimitive.List>,
+  ComponentProps<typeof ComboboxPrimitive.List>
 >(function ComboboxList({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.List
@@ -177,8 +176,8 @@ const ComboboxList = forwardRef<
 });
 
 const ComboboxItemGroup = forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<typeof ComboboxPrimitive.ItemGroup>
+  ComponentRef<typeof ComboboxPrimitive.ItemGroup>,
+  ComponentProps<typeof ComboboxPrimitive.ItemGroup>
 >(function ComboboxItemGroup({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.ItemGroup
@@ -191,8 +190,8 @@ const ComboboxItemGroup = forwardRef<
 });
 
 const ComboboxItemGroupLabel = forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<typeof ComboboxPrimitive.ItemGroupLabel>
+  ComponentRef<typeof ComboboxPrimitive.ItemGroupLabel>,
+  ComponentProps<typeof ComboboxPrimitive.ItemGroupLabel>
 >(function ComboboxItemGroupLabel({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.ItemGroupLabel
@@ -205,8 +204,8 @@ const ComboboxItemGroupLabel = forwardRef<
 });
 
 const ComboboxItem = forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<typeof ComboboxPrimitive.Item>
+  ComponentRef<typeof ComboboxPrimitive.Item>,
+  ComponentProps<typeof ComboboxPrimitive.Item>
 >(function ComboboxItem({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Item
@@ -219,8 +218,8 @@ const ComboboxItem = forwardRef<
 });
 
 const ComboboxItemText = forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<typeof ComboboxPrimitive.ItemText>
+  ComponentRef<typeof ComboboxPrimitive.ItemText>,
+  ComponentProps<typeof ComboboxPrimitive.ItemText>
 >(function ComboboxItemText({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.ItemText
@@ -233,8 +232,8 @@ const ComboboxItemText = forwardRef<
 });
 
 const ComboboxItemIndicator = forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<typeof ComboboxPrimitive.ItemIndicator>
+  ComponentRef<typeof ComboboxPrimitive.ItemIndicator>,
+  ComponentProps<typeof ComboboxPrimitive.ItemIndicator>
 >(function ComboboxItemIndicator({ className, children, ...props }, ref) {
   return (
     <ComboboxPrimitive.ItemIndicator
@@ -272,15 +271,53 @@ const Combobox = Object.assign(ComboboxRoot, {
   ItemContext: ComboboxItemContext,
 });
 
-export { Combobox, Portal, useCombobox, useComboboxContext, useComboboxItemContext, useFilter };
+export { Combobox, Portal, useCombobox, useComboboxContext, useComboboxItemContext };
 export type {
+  CollectionItem as ComboboxCollectionItem,
+  ComboboxClearTriggerBaseProps,
+  ComboboxClearTriggerProps,
+  ComboboxContentBaseProps,
+  ComboboxContentProps,
+  ComboboxContextProps,
+  ComboboxControlBaseProps,
+  ComboboxControlProps,
+  ComboboxEmptyBaseProps,
+  ComboboxEmptyProps,
   ComboboxFocusOutsideEvent,
   ComboboxHighlightChangeDetails,
+  ComboboxInputBaseProps,
+  ComboboxInputProps,
   ComboboxInputValueChangeDetails,
   ComboboxInteractOutsideEvent,
+  ComboboxItemBaseProps,
+  ComboboxItemContextProps,
+  ComboboxItemGroupBaseProps,
+  ComboboxItemGroupLabelBaseProps,
+  ComboboxItemGroupLabelProps,
+  ComboboxItemGroupProps,
+  ComboboxItemIndicatorBaseProps,
+  ComboboxItemIndicatorProps,
+  ComboboxItemProps,
+  ComboboxItemTextBaseProps,
+  ComboboxItemTextProps,
+  ComboboxLabelBaseProps,
+  ComboboxLabelProps,
+  ComboboxListBaseProps,
+  ComboboxListProps,
   ComboboxOpenChangeDetails,
   ComboboxPointerDownOutsideEvent,
+  ComboboxPositionerBaseProps,
+  ComboboxPositionerProps,
+  ComboboxRootBaseProps,
+  ComboboxRootComponent,
+  ComboboxRootComponentProps,
+  ComboboxRootProps,
+  ComboboxRootProviderBaseProps,
+  ComboboxRootProviderComponent,
+  ComboboxRootProviderProps,
   ComboboxSelectionDetails,
+  ComboboxTriggerBaseProps,
+  ComboboxTriggerProps,
   ComboboxValueChangeDetails,
   UseComboboxContext,
   UseComboboxItemContext,

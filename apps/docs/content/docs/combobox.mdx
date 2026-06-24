@@ -223,6 +223,8 @@ combobox `Status` part.
   `details.reason`.
 - `onOpenChange`, `onHighlightChange`, and `onSelect` keep their Ark detail shapes.
 - All Ark DOM parts preserve `asChild`.
+- The current Ark Combobox package does not expose a `HiddenInput` part. Use the root `name` and
+  `form` props for Ark's built-in form submission behavior.
 - `useComboboxContext` and `useComboboxItemContext` are exported from `moduix` alongside
   `Combobox.Context` and `Combobox.ItemContext`.
 - Ark `Field.Root` state inheritance remains available when composing with `@ark-ui/react/field`.
@@ -1377,7 +1379,7 @@ selected object.
         }, [set]);
 
         return (
-          <ComboboxProvider value={combobox}>
+          <Combobox.RootProvider value={combobox}>
             <Combobox.Label>Character</Combobox.Label>
             <RehydrateComboboxValue />
             <Combobox.Control>
@@ -1445,7 +1447,7 @@ state before the root renders.
             <button type="button" onClick={() => combobox.focus()}>
               Focus
             </button>
-            <ComboboxProvider value={combobox}>
+            <Combobox.RootProvider value={combobox}>
               <Combobox.Label>Job title</Combobox.Label>
               <Combobox.Control>
                 <Combobox.Input />

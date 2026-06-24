@@ -119,6 +119,8 @@ export function ComboboxExample() {
 - Async value rehydration: `useComboboxContext().syncSelectedItems()` after a delayed collection
   receives items for an existing `value` or `defaultValue`.
 - Virtualization: preserved through `scrollToIndexFn` and collection-driven item rendering.
+- Form integration: preserved through Ark root props such as `name` and `form`. The current
+  `@ark-ui/react` Combobox package does not expose a `HiddenInput` part.
 - Ark `Field.Root` context is preserved by the primitive. The current moduix `Field` wrapper is
   still legacy, so consumers that need Ark field-context inheritance must compose with
   `@ark-ui/react/field` until that component is migrated.
@@ -150,8 +152,8 @@ export function ComboboxExample() {
 ## Intentional sugar and differences from upstream
 
 - moduix ships default icons for `Trigger`, `ClearTrigger`, and `ItemIndicator`.
-- moduix re-exports Ark `Portal` and collection/filter hooks so examples can import the complete
-  composition from `moduix`.
+- moduix re-exports Ark `Portal` and combobox state hooks. Collection helpers and locale filters
+  stay imported from Ark UI.
 - Removed legacy `Field`, `Value`, `InputGroup`, `ControlActions`, popup aliases, arrow,
   backdrop, status, row, separator, collection render props, and chip parts.
 - Removed legacy root props such as `items`, `itemToStringLabel`, `filter`, `filteredItems`,
