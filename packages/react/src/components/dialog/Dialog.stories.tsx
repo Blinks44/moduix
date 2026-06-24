@@ -153,7 +153,7 @@ export const ScrollableBody: Story = {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content className={storyStyles.scrollPopup}>
+          <Dialog.Content className={storyStyles.scrollContent}>
             <Dialog.Header>
               <Dialog.Title>Release checklist</Dialog.Title>
               <Dialog.CloseIcon />
@@ -165,7 +165,7 @@ export const ScrollableBody: Story = {
               <ScrollArea className={storyStyles.scrollArea}>
                 <ScrollArea.Viewport>
                   <ScrollArea.Content>
-                    <div className={storyStyles.scrollContent}>
+                    <div className={storyStyles.scrollSections}>
                       {insideScrollSections.map((item) => (
                         <section key={item.title}>
                           <h3>{item.title}</h3>

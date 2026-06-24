@@ -1,4 +1,4 @@
-import { Button, Dialog, Portal, ScrollArea, useDialog } from '@moduix/react';
+import { Button, Dialog, Menu, Portal, ScrollArea, useDialog } from '@moduix/react';
 import { useRef, useState, type ReactNode } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -61,6 +61,12 @@ export const dialogExampleCss = `
   .dialog-state {
     margin-top: var(--spacing-3);
     color: var(--color-muted-foreground);
+  }
+
+  .dialog-textarea {
+    min-height: 7rem;
+    padding-block: var(--spacing-2);
+    resize: vertical;
   }
 `;
 
@@ -535,5 +541,107 @@ export function MultipleTriggersDialogExample() {
         </DialogSurface>
       </Dialog.Root>
     </div>
+  );
+}
+
+export function OpenFromMenuDialogExample() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Menu>
+        <Menu.Trigger asChild>
+          <Button variant="outline">
+            Actions
+            <Menu.Indicator />
+          </Button>
+        </Menu.Trigger>
+        <Portal>
+          <Menu.Positioner>
+            <Menu.Content>
+              <Menu.Item value="edit">Edit</Menu.Item>
+              <Menu.Item value="duplicate">Duplicate</Menu.Item>
+              <Menu.Item value="delete" tone="destructive" onClick={() => setOpen(true)}>
+                Delete...
+              </Menu.Item>
+            </Menu.Content>
+          </Menu.Positioner>
+        </Portal>
+      </Menu>
+
+      <Dialog.Root open={open} onOpenChange={(details) => setOpen(details.open)} role="alertdialog">
+        <DialogSurface>
+          <Dialog.Title>Confirm delete</Dialog.Title>
+          <Dialog.Description>This action cannot be undone.</Dialog.Description>
+          <Dialog.Footer>
+            <Dialog.CloseTrigger asChild>
+              <Button variant="outline">Cancel</Button>
+            </Dialog.CloseTrigger>
+            <Button>Delete</Button>
+          </Dialog.Footer>
+        </DialogSurface>
+      </Dialog.Root>
+    </>
+  );
+}
+
+export function ConfirmationDialogExample() {
+  const [formContent, setFormContent] = useState('');
+  const [open, setOpen] = useState(false);
+  const confirmDialog = useDialog();
+  const parentDialog = useDialog({
+    open,
+    onOpenChange(details) {
+      if (!details.open && formContent.trim()) {
+        confirmDialog.setOpen(true);
+        return;
+      }
+
+      setOpen(details.open);
+    },
+  });
+
+  const handleDiscard = () => {
+    setFormContent('');
+    confirmDialog.setOpen(false);
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <style>{dialogExampleCss}</style>
+      <Button onClick={() => setOpen(true)}>Open form</Button>
+
+      <Dialog.RootProvider value={parentDialog}>
+        <DialogSurface>
+          <Dialog.Title>Edit content</Dialog.Title>
+          <Dialog.CloseIcon />
+          <Dialog.Description>
+            Unsaved changes ask for confirmation before closing.
+          </Dialog.Description>
+          <Dialog.Body>
+            <textarea
+              className="dialog-input dialog-textarea"
+              value={formContent}
+              onChange={(event) => setFormContent(event.currentTarget.value)}
+              placeholder="Enter some text..."
+            />
+          </Dialog.Body>
+        </DialogSurface>
+      </Dialog.RootProvider>
+
+      <Dialog.RootProvider value={confirmDialog}>
+        <DialogSurface>
+          <Dialog.Title>Discard changes?</Dialog.Title>
+          <Dialog.Description>You have unsaved changes.</Dialog.Description>
+          <Dialog.Footer>
+            <Dialog.CloseTrigger asChild>
+              <Button variant="outline">Keep editing</Button>
+            </Dialog.CloseTrigger>
+            <Button onClick={handleDiscard}>Discard</Button>
+          </Dialog.Footer>
+        </DialogSurface>
+      </Dialog.RootProvider>
+    </>
   );
 }

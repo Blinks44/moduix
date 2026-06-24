@@ -91,8 +91,11 @@ same state instance comes from `useDialog()`.
   through.
 - `lazyMount`, `unmountOnExit`, `present`, `immediate`, `skipAnimationOnMount`, and
   `onExitComplete` preserve Ark presence behavior.
-- Confirmation, open-from-menu, and rapid-state-change patterns use the same controlled or
+- Open-from-menu, confirmation, and rapid-state-change patterns use the same controlled or
   `useDialog()` contracts and require no wrapper-specific API.
+- Close-behavior, conditional-rendering, z-index stacking, and dynamic-import guide patterns stay
+  Ark-shaped: keep the root mounted, use `lazyMount`/`unmountOnExit` for portal content, and style
+  stacking through `--layer-index`.
 
 ## Accessibility and state
 
@@ -129,7 +132,7 @@ default, including when it is composed outside `Dialog.Header`. Public `--dialog
 - `Dialog.Header`, `Dialog.Body`, and `Dialog.Footer` are native layout helpers.
 - `Dialog.Trigger` and `Dialog.CloseTrigger` receive moduix button styling only when they render
   their native button. `asChild` leaves the child component's visual styling in control.
-- Legacy legacy exports were removed: `createDialogHandle`, `DialogPortal`, `DialogViewport`,
+- Legacy exports were removed: `createDialogHandle`, `DialogPortal`, `DialogViewport`,
   `DialogPopup`, flat part aliases, hidden `DialogContent` overlay composition, `render`, `handle`,
   and payload APIs.
 
@@ -141,6 +144,9 @@ barrel.
 
 ## Local changelog
 
+- 2026-06-25: Audited Ark migration, corrected public docs snippets to use `Dialog.RootProvider`,
+  added open-from-menu and confirmation examples, and removed stale story CSS left from pre-Ark
+  popup naming.
 - 2026-06-18: Adopted Ark UI, adopted Ark anatomy and callbacks, exposed
   provider/context hooks, moved to explicit overlay composition, migrated state styling, and
   removed all legacy compatibility APIs.

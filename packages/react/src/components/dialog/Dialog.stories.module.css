@@ -1,13 +1,5 @@
 @layer ui.stories {
-  .detachedTrigger {
-    margin-left: var(--spacing-2);
-  }
-
-  .nestedActionsStart {
-    margin-right: auto;
-  }
-
-  .scrollPopup {
+  .scrollContent {
     display: flex;
     flex-direction: column;
     height: min(42rem, calc(100dvh - var(--spacing-10)));
@@ -25,7 +17,7 @@
     min-height: 0;
   }
 
-  .scrollContent {
+  .scrollSections {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-5);
@@ -43,28 +35,5 @@
       font-size: var(--text-sm);
       line-height: var(--line-height-text-md);
     }
-  }
-
-  .customBackdrop {
-    background: rgb(15 23 42 / 0.56);
-  }
-
-  .customViewport {
-    align-items: start;
-    padding-top: var(--spacing-10);
-  }
-
-  .customPopup {
-    position: relative;
-    overflow: visible;
-  }
-
-  .customCloseIcon {
-    position: absolute;
-    top: var(--spacing-4);
-    right: var(--spacing-4);
-    color: var(--dialog-color, var(--color-popover-foreground));
-    border: var(--border-width-sm) solid var(--dialog-border-color, var(--color-border));
-    background: var(--dialog-bg, var(--color-popover));
   }
 }
