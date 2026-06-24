@@ -100,6 +100,7 @@ export function ClipboardDemo() {
 - Styles follow Ark `data-part` hooks and keep `data-copied` available for opt-in customization.
 - Public component tokens live under `--clipboard-*` in `packages/react/src/core/styles/theme.css`.
 - Input and trigger tokens intentionally fall back to the existing `--input-*` and `--button-*` families where that keeps the visual system aligned.
+- Copied-state styling should target Ark `data-copied` directly; there is no separate `--clipboard-*-copied` token layer.
 
 ## Intentional sugar and differences from upstream
 
@@ -117,4 +118,5 @@ export function ClipboardDemo() {
 
 ## Local changelog
 
+- 2026-06-24: Synced RootProvider docs with the shipped `Clipboard.RootProvider` API and removed stale copied-state styling tokens from examples.
 - 2026-06-18: Replaced `CopyButton` with an Ark UI `Clipboard` component family and removed the legacy button-only API.

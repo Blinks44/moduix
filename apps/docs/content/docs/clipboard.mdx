@@ -376,15 +376,18 @@ tree but the visible parts should stay Ark-shaped.
         });
 
         return (
-          <ClipboardProvider value={clipboard}>
-            <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
-            <Clipboard.Control>
-              <Clipboard.Input readOnly />
-              <Clipboard.Trigger aria-label="Copy provider value">
-                <Clipboard.Indicator />
-              </Clipboard.Trigger>
-            </Clipboard.Control>
-          </Clipboard.RootProvider>
+          <>
+            <p>Copied: {String(clipboard.copied)}</p>
+            <Clipboard.RootProvider value={clipboard}>
+              <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
+              <Clipboard.Control>
+                <Clipboard.Input readOnly />
+                <Clipboard.Trigger aria-label="Copy provider value">
+                  <Clipboard.Indicator />
+                </Clipboard.Trigger>
+              </Clipboard.Control>
+            </Clipboard.RootProvider>
+          </>
         );
       }
     `}

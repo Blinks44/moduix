@@ -1,5 +1,5 @@
 import { Clipboard, useClipboard } from '@moduix/react';
-import { useState, type ComponentProps, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 
@@ -158,7 +158,7 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--clipboard-input-focus-ring-offset',
-    'calc(0px - var(--clipboard-input-border-width, var(--input-border-width, var(--border-width-sm))))',
+    'var(--clipboard-input-border-width, var(--input-border-width, var(--border-width-sm)))',
     'Controls input focus ring offset.',
   ],
   [
@@ -329,17 +329,12 @@ function ClipboardExampleFrame({ children }: { children: ReactNode }) {
   );
 }
 
-function joinClassNames(...classNames: Array<string | undefined>) {
-  return classNames.filter(Boolean).join(' ');
-}
-
-export function ClipboardExample({ className, ...props }: ComponentProps<typeof Clipboard.Root>) {
+export function ClipboardExample() {
   return (
     <ClipboardExampleFrame>
       <Clipboard.Root
-        className={joinClassNames('clipboard-demo-root', className)}
+        className="clipboard-demo-root"
         defaultValue="https://moduix.dev/docs/clipboard"
-        {...props}
       >
         <Clipboard.Label>Copy this link</Clipboard.Label>
         <Clipboard.Control>
@@ -475,15 +470,18 @@ export function RootProviderClipboardExample() {
 
   return (
     <ClipboardExampleFrame>
-      <Clipboard.RootProvider className="clipboard-demo-root" value={clipboard}>
-        <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
-        <Clipboard.Control>
-          <Clipboard.Input readOnly />
-          <Clipboard.Trigger aria-label="Copy provider value">
-            <Clipboard.Indicator />
-          </Clipboard.Trigger>
-        </Clipboard.Control>
-      </Clipboard.RootProvider>
+      <div className="clipboard-provider-stack">
+        <p className="clipboard-status-text">Copied: {String(clipboard.copied)}</p>
+        <Clipboard.RootProvider className="clipboard-demo-root" value={clipboard}>
+          <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
+          <Clipboard.Control>
+            <Clipboard.Input readOnly />
+            <Clipboard.Trigger aria-label="Copy provider value">
+              <Clipboard.Indicator />
+            </Clipboard.Trigger>
+          </Clipboard.Control>
+        </Clipboard.RootProvider>
+      </div>
     </ClipboardExampleFrame>
   );
 }

@@ -425,7 +425,7 @@
   --clipboard-input-border-width: initial; /* var(--input-border-width, var(--border-width-sm)) */
   --clipboard-input-color: initial; /* var(--input-color, var(--color-foreground)) */
   --clipboard-input-focus-ring-color: initial; /* var(--input-focus-ring-color, var(--color-ring)) */
-  --clipboard-input-focus-ring-offset: initial; /* calc(0px - var(--clipboard-input-border-width, var(--input-border-width, var(--border-width-sm)))) */
+  --clipboard-input-focus-ring-offset: initial; /* var(--clipboard-input-border-width, var(--input-border-width, var(--border-width-sm))) */
   --clipboard-input-focus-ring-width: initial; /* var(--input-focus-ring-width, var(--border-width-sm)) */
   --clipboard-input-font-size: initial; /* var(--input-font-size-md, var(--text-md)) */
   --clipboard-input-height: initial; /* var(--input-height-md, var(--size-lg)) */

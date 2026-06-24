@@ -46,11 +46,12 @@
         var(--input-focus-ring-width, var(--border-width-sm))
       )
       solid transparent;
-    outline-offset: var(
-      --clipboard-input-focus-ring-offset,
-      calc(
-        0px - var(--clipboard-input-border-width, var(--input-border-width, var(--border-width-sm)))
-      )
+    outline-offset: calc(
+      var(
+          --clipboard-input-focus-ring-offset,
+          var(--clipboard-input-border-width, var(--input-border-width, var(--border-width-sm)))
+        ) *
+        -1
     );
     transition:
       border-color var(--clipboard-transition, var(--input-transition, var(--transition-default))),

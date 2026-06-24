@@ -41,22 +41,14 @@
   }
 
   .customInput[data-copied] {
-    --clipboard-input-border-color-copied: color-mix(
-      in srgb,
-      var(--color-primary) 45%,
-      transparent
-    );
+    border-color: color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
     --clipboard-input-focus-ring-color: var(--color-primary);
   }
 
   .customTrigger[data-copied] {
-    --clipboard-trigger-bg-copied: color-mix(in srgb, var(--color-primary) 10%, transparent);
-    --clipboard-trigger-border-color-copied: color-mix(
-      in srgb,
-      var(--color-primary) 45%,
-      transparent
-    );
-    --clipboard-trigger-color-copied: var(--color-primary);
+    border-color: color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
+    background-color: color-mix(in srgb, var(--color-primary) 4%, var(--color-background));
+    color: color-mix(in srgb, var(--color-primary) 70%, var(--color-foreground));
     --clipboard-trigger-focus-ring-color: var(--color-primary);
   }
 }
