@@ -42,7 +42,7 @@ export const Basic: Story = {
     <Menu>
       <MenuButtonTrigger>
         Song
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <DefaultPositionedContent>
         <Menu.Item value="add-library">Add to Library</Menu.Item>
@@ -68,7 +68,7 @@ export const Controlled: Story = {
         <Button onClick={() => setOpen((value) => !value)}>Toggle</Button>
         <MenuButtonTrigger>
           Actions
-          <Menu.TriggerIcon />
+          <Menu.Indicator />
         </MenuButtonTrigger>
         <DefaultPositionedContent>
           <Menu.Item value="edit">Edit</Menu.Item>
@@ -92,7 +92,7 @@ export const RootProvider: Story = {
         <Button onClick={() => menu.api.setHighlightedValue('copy')}>Highlight Copy</Button>
         <MenuButtonTrigger>
           Edit
-          <Menu.TriggerIcon />
+          <Menu.Indicator />
         </MenuButtonTrigger>
         <DefaultPositionedContent>
           <Menu.Item value="cut">Cut</Menu.Item>
@@ -118,7 +118,7 @@ export const WithGroupsAndControls: Story = {
       <Menu>
         <MenuButtonTrigger>
           View
-          <Menu.TriggerIcon />
+          <Menu.Indicator />
         </MenuButtonTrigger>
         <DefaultPositionedContent>
           <Menu.ItemGroup>
@@ -176,7 +176,7 @@ export const WithShortcuts: Story = {
     <Menu>
       <MenuButtonTrigger>
         Edit
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <DefaultPositionedContent>
         <Menu.Item value="copy">
@@ -206,7 +206,7 @@ export const IndicatorRightWithIcon: Story = {
       <Menu>
         <MenuButtonTrigger>
           View
-          <Menu.TriggerIcon />
+          <Menu.Indicator />
         </MenuButtonTrigger>
         <DefaultPositionedContent>
           <Menu.CheckboxItem
@@ -252,7 +252,7 @@ export const Nested: Story = {
     <Menu>
       <MenuButtonTrigger>
         Song
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <DefaultPositionedContent>
         <Menu.Item value="add-library">Add to Library</Menu.Item>
@@ -286,7 +286,7 @@ export const WithArrow: Story = {
     <Menu positioning={{ placement: 'right-start', gutter: 12 }}>
       <MenuButtonTrigger>
         Export
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <Portal>
         <Menu.Positioner>
@@ -306,12 +306,12 @@ export const WithArrow: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <Menu positioning={{ placement: 'right-start', gutter: 12 }}>
-      <MenuButtonTrigger className={storyStyles.backdropDemoTrigger}>
+      <MenuButtonTrigger>
         Export
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <Portal>
-        <Menu.Positioner className={storyStyles.positioner}>
+        <Menu.Positioner>
           <Menu.Content className={storyStyles.customPopup}>
             <Menu.Arrow />
             <Menu.Item value="png">Export PNG</Menu.Item>
@@ -331,7 +331,7 @@ export const LinkItems: Story = {
     <Menu>
       <MenuButtonTrigger>
         Navigate
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <DefaultPositionedContent>
         <Menu.Item value="projects" asChild>

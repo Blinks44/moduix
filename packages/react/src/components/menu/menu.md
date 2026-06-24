@@ -40,7 +40,9 @@ Breaking legacy APIs were removed:
 
 ```tsx
 <Menu>
-  <Menu.Trigger />
+  <Menu.Trigger>
+    <Menu.Indicator />
+  </Menu.Trigger>
   <Portal>
     <Menu.Positioner>
       <Menu.Content>
@@ -142,8 +144,9 @@ destructive tone, indicators, and shortcuts.
 
 Styles target Ark state and layout hooks:
 
-- `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='content']`, `[data-part='item']`
-- `[data-state='open' | 'closed' | 'checked']`
+- `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,
+  `[data-part='content']`, `[data-part='item']`, `[data-part='option-item']`
+- `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`
 - `[data-highlighted]`, `[data-disabled]`, `[data-placement]`, `[data-side]`
 - `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`,
   `--layer-index`, `--arrow-size`, and `--arrow-background`
@@ -160,7 +163,8 @@ moduix adds leaf-level styling helpers only:
 - `Menu.ItemShortcut`, `Menu.ItemTextContent`, `Menu.ItemTextIcon`, and `Menu.ItemTextLabel` support
   common row layouts
 - `tone="destructive"` on `Menu.Item`
-- `indicator="start" | "end" | "none"` on checkbox and radio item wrappers
+- `indicator="start" | "end" | "none"` on checkbox and radio item wrappers; defaults to `start`
+  and is reflected through `data-indicator-position`
 
 These helpers must not hide the Ark part tree or remap Ark callback detail objects.
 
@@ -175,6 +179,9 @@ exported from `packages/react/src/components/menu/index.ts` and the root package
 
 ## Local changelog
 
+- 2026-06-24: Made checkbox and radio `indicator` placement explicit by defaulting
+  `data-indicator-position` to `start`, switched menu docs and stories to the Ark `Menu.Indicator`
+  part, and removed stale backdrop story styles.
 - 2026-06-19: Aligned popup item highlight defaults with `Select` and `Combobox` by switching
   menu highlighted-row fallback tokens from foreground/background to accent/accent-foreground.
 - 2026-06-19: `Menu.Trigger` now skips the internal `.trigger` class when `asChild` is enabled, so

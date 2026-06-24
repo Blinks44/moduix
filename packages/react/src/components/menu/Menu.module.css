@@ -157,28 +157,9 @@
     user-select: none;
     cursor: default;
 
-    &[data-highlighted] {
+    &:is([data-highlighted], [data-state='open']) {
       z-index: 0;
-      color: var(--menu-highlight-color, var(--color-accent-foreground));
 
-      &::before {
-        content: '';
-        z-index: -1;
-        position: absolute;
-        inset-block: 0;
-        inset-inline: var(
-          --menu-highlight-inset-x,
-          var(--popup-highlight-inset-x, var(--spacing-1))
-        );
-        border-radius: var(
-          --menu-highlight-radius,
-          var(--popup-highlight-radius, var(--radius-sm))
-        );
-        background-color: var(--menu-highlight-bg, var(--color-accent));
-      }
-    }
-
-    &[data-state='open'] {
       &::before {
         content: '';
         z-index: -1;
@@ -196,7 +177,11 @@
       }
     }
 
-    &[data-highlighted][data-state='open']::before {
+    &[data-highlighted] {
+      color: var(--menu-highlight-color, var(--color-accent-foreground));
+    }
+
+    &[data-highlighted]::before {
       background-color: var(--menu-highlight-bg, var(--color-accent));
     }
 

@@ -241,7 +241,7 @@ const MenuRadioItemGroup = forwardRef<
 });
 
 const MenuRadioItem = forwardRef<ComponentRef<typeof MenuPrimitive.RadioItem>, MenuRadioItemProps>(
-  function MenuRadioItem({ className, indicator, ...props }, ref) {
+  function MenuRadioItem({ className, indicator = 'start', ...props }, ref) {
     return (
       <MenuPrimitive.RadioItem
         ref={ref}
@@ -257,7 +257,7 @@ const MenuRadioItem = forwardRef<ComponentRef<typeof MenuPrimitive.RadioItem>, M
 const MenuCheckboxItem = forwardRef<
   ComponentRef<typeof MenuPrimitive.CheckboxItem>,
   MenuCheckboxItemProps
->(function MenuCheckboxItem({ className, indicator, ...props }, ref) {
+>(function MenuCheckboxItem({ className, indicator = 'start', ...props }, ref) {
   return (
     <MenuPrimitive.CheckboxItem
       ref={ref}

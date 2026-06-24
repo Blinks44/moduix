@@ -33,12 +33,6 @@ export const menuExampleCss = `.menu-content {
 
 .menu-context-trigger {
   width: 16rem;
-}
-
-.message-list {
-  display: grid;
-  gap: 0.5rem;
-  width: min(24rem, 100%);
 }`;
 
 export const menuCustomStylingCss = `.custom-content {
@@ -97,8 +91,8 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--menu-group-label-padding-x-start', '0.625rem', 'Controls group label start padding.'],
   ['--menu-group-label-padding-y', '0.35rem', 'Controls group label vertical padding.'],
   ['--menu-group-padding-y', '0', 'Controls group vertical padding.'],
-  ['--menu-highlight-bg', 'var(--color-foreground)', 'Controls highlighted item background.'],
-  ['--menu-highlight-color', 'var(--color-background)', 'Controls highlighted item color.'],
+  ['--menu-highlight-bg', 'var(--color-accent)', 'Controls highlighted item background.'],
+  ['--menu-highlight-color', 'var(--color-accent-foreground)', 'Controls highlighted item color.'],
   ['--menu-highlight-inset-x', 'var(--spacing-1)', 'Controls highlight inline inset.'],
   ['--menu-highlight-radius', 'var(--radius-sm)', 'Controls highlight radius.'],
   ['--menu-item-bg', 'transparent', 'Controls item background.'],
@@ -240,7 +234,7 @@ export function MenuExample() {
     <Menu>
       <MenuButtonTrigger>
         File
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <PositionedContent>
         <Menu.Arrow />
@@ -262,7 +256,7 @@ export function ControlledMenuExample() {
       <Button onClick={() => setOpen((value) => !value)}>Toggle</Button>
       <MenuButtonTrigger>
         Actions
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <PositionedContent>
         <Menu.Item value="edit">Edit</Menu.Item>
@@ -284,7 +278,7 @@ export function RootProviderMenuExample() {
       <Button onClick={() => menu.api.setHighlightedValue('copy')}>Highlight Copy</Button>
       <MenuButtonTrigger>
         Edit
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <PositionedContent>
         <Menu.Item value="cut">Cut</Menu.Item>
@@ -303,7 +297,7 @@ export function GroupMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         Edit
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <PositionedContent>
         <Menu.ItemGroup>
@@ -328,7 +322,7 @@ export function LinkItemsMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         Help
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <PositionedContent>
         <Menu.Item value="docs" asChild>
@@ -353,7 +347,7 @@ export function CheckboxItemsMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         View
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <PositionedContent>
         <Menu.CheckboxItem checked={showToolbar} value="toolbar" onCheckedChange={setShowToolbar}>
@@ -380,7 +374,7 @@ export function RadioItemsMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         Sort
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <PositionedContent>
         <Menu.ItemGroup>
@@ -448,7 +442,7 @@ export function NestedMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         File
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <PositionedContent>
         <Menu.Item value="new-file">New File</Menu.Item>
@@ -522,7 +516,7 @@ export function SelectEventMenuExample() {
       <Menu onSelect={(details) => setSelected(details.value)}>
         <MenuButtonTrigger>
           Actions
-          <Menu.TriggerIcon />
+          <Menu.Indicator />
         </MenuButtonTrigger>
         <PositionedContent>
           <Menu.Item value="edit">Edit</Menu.Item>
@@ -540,7 +534,7 @@ export function ItemContextMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         Settings
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <PositionedContent>
         <Menu.Item value="profile">
@@ -569,7 +563,7 @@ export function IndicatorRightMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         View
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <PositionedContent>
         <Menu.CheckboxItem
@@ -614,7 +608,7 @@ export function CustomStylingMenuExample() {
     <Menu positioning={{ placement: 'right-start', gutter: 12 }}>
       <MenuButtonTrigger>
         Export
-        <Menu.TriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
       <PositionedContent className={styles.customContent}>
         <Menu.Arrow />
