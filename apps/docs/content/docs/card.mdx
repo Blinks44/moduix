@@ -21,10 +21,10 @@ import {
 
 ## API Reference
 
-Ark UI does not ship a dedicated Card primitive. `Card` follows the
-[Ark factory and `asChild` composition model](https://ark-ui.com/docs/guides/composition), the
-[Ark data-attribute styling model](https://ark-ui.com/docs/guides/styling), and uses
-[Chakra Card](https://chakra-ui.com/docs/components/card) as the recipe-level anatomy reference.
+Ark UI does not ship a dedicated card primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Basic
 
@@ -327,7 +327,7 @@ Compose the root as a form when the card groups related fields and actions.
 
   <Preview.CSS>
     {`
-      form [data-part="body"] {
+      form [data-slot="card-body"] {
         display: grid;
         gap: var(--spacing-3);
       }
@@ -520,8 +520,8 @@ Compose profile media inside the header when identity is the card's subject.
 
       .avatar {
         display: inline-grid;
-        width: 2.75rem;
-        height: 2.75rem;
+        width: 3rem;
+        height: 3rem;
         place-items: center;
         border-radius: var(--radius-full);
         background: var(--color-primary);

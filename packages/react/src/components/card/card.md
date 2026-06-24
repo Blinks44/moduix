@@ -3,6 +3,8 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/guides/composition
+- Ark UI styling: https://ark-ui.com/docs/guides/styling
+- Ark UI refs: https://ark-ui.com/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/card
 
 ## Purpose
@@ -14,9 +16,11 @@ component built with `@ark-ui/react/factory` and Chakra's Card anatomy.
 
 ## Upstream model to preserve
 
-- Uses Ark factory parts instead of a dedicated Ark primitive.
+- Uses the official Ark factory instead of a dedicated Ark primitive.
 - Keeps a Chakra-aligned multipart card model centered on root, header, title, description, body,
   and footer.
+- Follows Ark composition, styling, and ref guidance: `asChild` for host-element composition,
+  `data-scope` / `data-part` hooks for parts, and forwarded refs to rendered elements.
 - Keeps Ark-style DOM ownership through `asChild` while leaving card state and workflow logic
   outside the component.
 
@@ -207,6 +211,9 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-06-24: Finalized the Ark factory migration review by aligning public docs with the
+  required local-only primitive reference text, removing an unused docs example export, and
+  normalizing demo avatar sizing to the standard rem scale.
 - 2026-06-18: Completed the Ark factory migration audit: removed the stale legacy registry
   dependency, added Chakra-aligned `lg` sizing and `elevated` / `outline` / `subtle` variants,
   documented all current Chakra Card example categories, and standardized docs previews with

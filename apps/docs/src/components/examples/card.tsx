@@ -184,27 +184,6 @@ export function CardExample(props: ComponentProps<typeof Card>) {
   );
 }
 
-export function CardCompactExample() {
-  return (
-    <Card className={styles.card} size="sm">
-      <Card.Header>
-        <Card.Title>Billing plan</Card.Title>
-        <Card.Description>Team workspace, monthly billing.</Card.Description>
-      </Card.Header>
-      <Card.Body>
-        <div className={styles.metric}>
-          <span className={styles.metricValue}>$48</span>
-          <span className={styles.metricLabel}>per month</span>
-        </div>
-      </Card.Body>
-      <Card.Footer>
-        <Button variant="outline">Cancel</Button>
-        <Button>Upgrade</Button>
-      </Card.Footer>
-    </Card>
-  );
-}
-
 export function CardVariantsExample() {
   return (
     <div className={styles.cardGrid}>
