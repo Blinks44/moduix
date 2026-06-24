@@ -17,10 +17,10 @@ import {
 
 ## API Reference
 
-Ark UI does not ship a dedicated Badge primitive. `Badge` follows the
-[Ark factory and `asChild` composition model](https://ark-ui.com/docs/guides/composition), the
-[Ark data-attribute styling model](https://ark-ui.com/docs/guides/styling), and uses
-[Chakra Badge](https://chakra-ui.com/docs/components/badge) as the nearest recipe-level reference.
+Ark UI does not ship a dedicated badge primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Choosing the right component
 
@@ -32,7 +32,7 @@ itself.
 
 ## Basic
 
-Start with `Badge.Root` only. Add `variant` when the default tone is not enough, and add `Badge.Dot`
+Start with `Badge` only. Add `variant` when the default tone is not enough, and add `Badge.Dot`
 only when the status needs a grouped indicator.
 
 <Preview>
@@ -45,7 +45,7 @@ only when the status needs a grouped indicator.
       export function BadgeDemo() {
         return (
           <div className="badge-demo-basic">
-            <Badge>{badge.label}</Badge>
+            <Badge>{label}</Badge>
           </div>
         );
       }
@@ -64,7 +64,7 @@ only when the status needs a grouped indicator.
 
   <Preview.Data>
     {`
-      const badge = { label: "New" };
+      const label = "New";
     `}
 
   </Preview.Data>
@@ -136,7 +136,7 @@ Badge.Root
 
 ### Recommended composition
 
-Stay with `Badge.Root` directly for most status labels, categories, version pills, and short
+Stay with `Badge` directly for most status labels, categories, version pills, and short
 counters.
 
 Use `variant` for the built-in tones: `default`, `secondary`, `destructive`, `outline`, `ghost`.
@@ -147,7 +147,7 @@ Place `Badge.Dot` or a direct child icon next to the label when a badge needs an
 
 ### When to go custom
 
-Use `Badge.Root asChild` when another semantic element must own the DOM node. Ark composition
+Use `Badge asChild` when another semantic element must own the DOM node. Ark composition
 requires exactly one child. Interactive children keep their native behavior and must retain a
 visible focus treatment.
 
@@ -464,25 +464,25 @@ Use local CSS variables when a surface needs custom sizing or a different tone.
         --badge-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
         --badge-color: var(--color-primary);
         --badge-dot-size: 0.5rem;
-        --badge-height: 1.625rem;
+        --badge-height: 1.5rem;
         --badge-padding-x: var(--spacing-3);
         --badge-radius: var(--radius-sm);
       }
 
       .badge-demo-small {
-        --badge-height: 1.125rem;
+        --badge-height: 1rem;
         --badge-font-size: var(--text-xs);
-        --badge-icon-size: 0.6875rem;
+        --badge-icon-size: 0.75rem;
         --badge-line-height: var(--line-height-text-xs);
         --badge-padding-x: 0.5rem;
       }
 
       .badge-demo-large {
-        --badge-height: 1.5rem;
+        --badge-height: 2rem;
         --badge-font-size: var(--text-sm);
-        --badge-icon-size: 0.875rem;
+        --badge-icon-size: 1rem;
         --badge-line-height: var(--line-height-text-sm);
-        --badge-padding-x: 0.75rem;
+        --badge-padding-x: 1rem;
       }
     `}
 

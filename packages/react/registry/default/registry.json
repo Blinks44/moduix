@@ -264,7 +264,7 @@
       "type": "registry:item",
       "title": "Badge",
       "description": "moduix React Badge component.",
-      "dependencies": ["clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/react-core"],
       "files": [
         {

@@ -15,22 +15,22 @@
   --badge-color: var(--color-primary);
   --badge-dot-size: 0.5rem;
   --badge-radius: var(--radius-sm);
-  --badge-height: 1.625rem;
+  --badge-height: 1.5rem;
   --badge-padding-x: var(--spacing-3);
 }
 
 .small {
-  --badge-height: 1.125rem;
+  --badge-height: 1rem;
   --badge-font-size: var(--text-xs);
-  --badge-icon-size: 0.6875rem;
+  --badge-icon-size: 0.75rem;
   --badge-line-height: var(--line-height-text-xs);
   --badge-padding-x: 0.5rem;
 }
 
 .large {
-  --badge-height: 1.5rem;
+  --badge-height: 2rem;
   --badge-font-size: var(--text-sm);
-  --badge-icon-size: 0.875rem;
+  --badge-icon-size: 1rem;
   --badge-line-height: var(--line-height-text-sm);
-  --badge-padding-x: 0.75rem;
+  --badge-padding-x: 1rem;
 }

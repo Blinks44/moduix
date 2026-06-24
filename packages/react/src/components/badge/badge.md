@@ -17,14 +17,13 @@ factory wrapper with explicit parts.
 ## Upstream model to preserve
 
 - Uses the Ark factory composition model instead of a dedicated Ark primitive.
-- Keeps the public surface intentionally small: `Badge.Root` and `Badge.Dot`.
+- Keeps the public surface intentionally small: `Badge` / `Badge.Root` and `Badge.Dot`.
 - Keeps Ark-style DOM ownership through `asChild` without adding managed state or behavior.
 
 ## Current behavior contract
 
-- Public API is part-first: `Badge.Root` and `Badge.Dot`.
-- The callable `Badge` export remains the root part itself, but docs and examples should use
-  explicit part names.
+- `Badge` is the root shorthand and `Badge.Root` exposes the same root part explicitly.
+- `Badge.Dot` is the optional decorative indicator part.
 - `Badge.Root` accepts Ark factory span props plus local `variant`.
 - `Badge.Dot` accepts Ark factory span props and renders `aria-hidden="true"` by default.
 - `Badge` remains presentational. It does not add focus, keyboard, disabled, or controlled state.
@@ -33,7 +32,7 @@ factory wrapper with explicit parts.
 ## Anatomy and exported parts
 
 ```text
-Badge.Root
+Badge / Badge.Root
 ├─ content
 ├─ Badge.Dot (optional)
 └─ svg icon (optional)
@@ -41,10 +40,10 @@ Badge.Root
 
 Every exported part accepts `className` and receives stable hooks:
 
-| Part         | `data-slot`  | Notes                                                    |
-| ------------ | ------------ | -------------------------------------------------------- |
-| `Badge.Root` | `badge-root` | Root label with variant colors, spacing, and truncation. |
-| `Badge.Dot`  | `badge-dot`  | Optional decorative dot that inherits `currentColor`.    |
+| Part                   | `data-slot`  | Notes                                                    |
+| ---------------------- | ------------ | -------------------------------------------------------- |
+| `Badge` / `Badge.Root` | `badge-root` | Root label with variant colors, spacing, and truncation. |
+| `Badge.Dot`            | `badge-dot`  | Optional decorative dot that inherits `currentColor`.    |
 
 Direct child `svg` icons are styled by the root and inherit `currentColor`.
 
@@ -54,17 +53,17 @@ Direct child `svg` icons are styled by the root and inherit `currentColor`.
 import { Badge } from '@moduix/react';
 
 export function BadgeDemo() {
-  return <Badge.Root>New</Badge.Root>;
+  return <Badge>New</Badge>;
 }
 ```
 
 Use `Badge.Dot` or a direct child icon next to the label when a badge needs an extra visual cue:
 
 ```tsx
-<Badge.Root variant="default">
+<Badge variant="default">
   <Badge.Dot />
   Online
-</Badge.Root>
+</Badge>
 ```
 
 ## Upstream feature coverage
@@ -90,7 +89,7 @@ Use `Badge.Dot` or a direct child icon next to the label when a badge needs an e
   - `data-part="dot"`
   - `data-slot="badge-dot"`
 - `Badge.Dot` is hidden from assistive technology by default with `aria-hidden="true"`.
-- `Badge.Root asChild` requires one semantic child. Interactive children keep their native
+- `Badge asChild` and `Badge.Root asChild` require one semantic child. Interactive children keep their native
   keyboard and accessibility behavior and must provide their own interaction-specific focus and
   hover styling.
 - Long labels stay on one line and are clipped with ellipsis. Add `title` when users need the full
@@ -139,6 +138,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-06-24: Reconfirmed the local Ark factory contract, aligned docs around the `Badge` root
+  shorthand, simplified variant CSS selectors, and fixed the registry dependency on Ark UI.
 - 2026-06-18: Completed the Ark factory audit, documented Chakra parity and intentional
   differences, added `asChild` guidance, and aligned numeric/presentational styling.
 - 2026-06-17: Migrated the component to an Ark-style wrapper built with `@ark-ui/react/factory`.
