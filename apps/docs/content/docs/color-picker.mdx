@@ -363,7 +363,7 @@ with native form data.
       export function FormUsageColorPickerDemo() {
         return (
           <form className="color-picker-form">
-            <ColorPicker  defaultValue={parseColor("#eb5e41")}>
+            <ColorPicker name="accent" defaultValue={parseColor("#eb5e41")}>
               <ColorPicker.Label>Color</ColorPicker.Label>
               <ColorPicker.Control>
                 <ColorPicker.ChannelInput channel="hex" />
@@ -403,7 +403,7 @@ field container and should expose the same state through Ark data attributes.
       export function FieldStateColorPickerDemo() {
         return (
           <Field className="color-picker-field">
-            <ColorPicker required invalid  defaultValue={parseColor("#eb5e41")}>
+            <ColorPicker name="accent" required invalid defaultValue={parseColor("#eb5e41")}>
               <ColorPicker.Label>Accent color</ColorPicker.Label>
               <ColorPicker.Control>
                 <ColorPicker.ChannelInput channel="hex" />
@@ -743,7 +743,7 @@ rendered tree and shared with nearby controls.
         const colorPicker = useColorPicker({ defaultValue: parseColor("#9333ea") });
 
         return (
-          <ColorPickerProvider value={colorPicker}>
+          <ColorPicker.RootProvider value={colorPicker}>
             <ColorPicker.Context>
               {(context) => <span>Color: {context.valueAsString}</span>}
             </ColorPicker.Context>

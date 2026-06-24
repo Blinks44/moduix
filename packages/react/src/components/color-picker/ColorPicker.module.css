@@ -30,7 +30,7 @@
     max-width: var(--color-picker-max-width, 100%);
     min-width: 0;
     flex-direction: column;
-    gap: var(--color-picker-root-gap, 0.5rem);
+    gap: var(--color-picker-root-gap, var(--spacing-2));
     color: var(--color-picker-color, var(--color-foreground));
 
     &[data-disabled] {
@@ -75,7 +75,7 @@
     border: var(--color-picker-border-width, var(--border-width-sm)) solid
       var(--color-picker-border-color, var(--color-border));
     border-radius: var(--color-picker-radius, var(--radius-md));
-    padding: var(--color-picker-trigger-padding, 0.1875rem);
+    padding: var(--color-picker-trigger-padding, var(--spacing-1));
     background: var(--color-picker-control-bg, var(--color-background));
     color: var(--color-picker-color, var(--color-foreground));
     outline: var(--color-picker-focus-ring-width, var(--border-width-sm)) solid transparent;
@@ -113,7 +113,7 @@
     max-width: var(--available-width);
     max-height: min(var(--color-picker-content-max-height, 32rem), var(--available-height));
     flex-direction: column;
-    gap: var(--color-picker-content-gap, 0.75rem);
+    gap: var(--color-picker-content-gap, var(--spacing-3));
     overflow: auto;
     border: var(--color-picker-content-border-width, var(--border-width-sm)) solid
       var(--color-picker-content-border-color, var(--color-border));
@@ -164,14 +164,14 @@
 
   .thumb {
     box-sizing: border-box;
-    width: var(--color-picker-thumb-size, 0.875rem);
-    height: var(--color-picker-thumb-size, 0.875rem);
+    width: var(--color-picker-thumb-size, 1rem);
+    height: var(--color-picker-thumb-size, 1rem);
     border-radius: var(--color-picker-thumb-radius, var(--radius-full));
     background: var(--color-picker-thumb-bg, var(--color-background));
     box-shadow:
-      0 0 0 var(--color-picker-thumb-inner-ring-width, 0.125rem)
+      0 0 0 var(--color-picker-thumb-inner-ring-width, var(--border-width-md))
         var(--color-picker-thumb-inner-ring-color, var(--color-background)),
-      0 0 0 var(--color-picker-thumb-outer-ring-width, 0.1875rem)
+      0 0 0 var(--color-picker-thumb-outer-ring-width, var(--border-width-lg))
         var(--color-picker-thumb-outer-ring-color, color-mix(in oklab, black 18%, transparent)),
       var(--color-picker-thumb-shadow, var(--shadow-sm));
     transform: translate(-50%, -50%);
@@ -179,9 +179,9 @@
 
     &:focus-visible {
       box-shadow:
-        0 0 0 var(--color-picker-thumb-inner-ring-width, 0.125rem)
+        0 0 0 var(--color-picker-thumb-inner-ring-width, var(--border-width-md))
           var(--color-picker-thumb-inner-ring-color, var(--color-background)),
-        0 0 0 var(--color-picker-thumb-focus-ring-width, 0.25rem)
+        0 0 0 var(--color-picker-thumb-focus-ring-width, var(--border-width-lg))
           var(--color-picker-focus-ring-color, var(--color-ring)),
         var(--color-picker-thumb-shadow, var(--shadow-sm));
     }
@@ -195,14 +195,14 @@
     position: relative;
     box-sizing: border-box;
     display: flex;
-    height: var(--color-picker-channel-slider-height, 0.75rem);
+    height: var(--color-picker-channel-slider-height, var(--spacing-3));
     align-items: center;
     border-radius: var(--color-picker-channel-slider-radius, var(--radius-full));
     touch-action: none;
     user-select: none;
 
     &[data-orientation='vertical'] {
-      width: var(--color-picker-channel-slider-height, 0.75rem);
+      width: var(--color-picker-channel-slider-height, var(--spacing-3));
       height: var(--color-picker-channel-slider-vertical-height, 10rem);
       align-items: stretch;
       justify-content: center;
@@ -211,13 +211,13 @@
 
   .channelSliderTrack {
     width: 100%;
-    height: var(--color-picker-channel-slider-track-size, 0.75rem);
+    height: var(--color-picker-channel-slider-track-size, var(--spacing-3));
     border-radius: inherit;
     box-shadow: inset 0 0 0 var(--color-picker-channel-slider-border-width, var(--border-width-sm))
       var(--color-picker-channel-slider-border-color, color-mix(in oklab, black 14%, transparent));
 
     &[data-orientation='vertical'] {
-      width: var(--color-picker-channel-slider-track-size, 0.75rem);
+      width: var(--color-picker-channel-slider-track-size, var(--spacing-3));
       height: 100%;
     }
   }
@@ -248,7 +248,7 @@
     border: var(--color-picker-border-width, var(--border-width-sm)) solid
       var(--color-picker-border-color, var(--color-border));
     border-radius: var(--color-picker-radius, var(--radius-md));
-    padding-inline: var(--color-picker-input-padding-x, 0.75rem);
+    padding-inline: var(--color-picker-input-padding-x, var(--spacing-3));
     background: var(--color-picker-control-bg, var(--color-background));
     color: var(--color-picker-color, var(--color-foreground));
     font: inherit;
@@ -310,7 +310,7 @@
     border: var(--color-picker-border-width, var(--border-width-sm)) solid
       var(--color-picker-border-color, var(--color-border));
     border-radius: var(--color-picker-radius, var(--radius-md));
-    padding-inline: var(--color-picker-action-padding-x, 0.625rem);
+    padding-inline: var(--color-picker-action-padding-x, var(--spacing-2));
     background: var(--color-picker-action-bg, transparent);
     color: var(--color-picker-action-color, var(--color-muted-foreground));
     font: inherit;

@@ -1,7 +1,7 @@
 .sliderGroup {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--spacing-3);
 }
 
 .channelSliders {
@@ -9,26 +9,26 @@
   min-width: 0;
   flex: 1;
   flex-direction: column;
-  gap: 0.625rem;
+  gap: var(--spacing-2);
 }
 
 .valueRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: var(--spacing-3);
 }
 
 .inputRow {
   display: flex;
   min-width: 0;
-  gap: 0.5rem;
+  gap: var(--spacing-2);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--spacing-3);
 }
 
 .submitButton {

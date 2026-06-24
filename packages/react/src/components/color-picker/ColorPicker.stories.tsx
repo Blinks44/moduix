@@ -60,10 +60,10 @@ function ColorPickerField({ swatchList = swatches }: { swatchList?: string[] }) 
                 </ColorPicker.SwatchTrigger>
               ))}
             </ColorPicker.SwatchGroup>
-            <ColorPicker.HiddenInput />
           </ColorPicker.Content>
         </ColorPicker.Positioner>
       </Portal>
+      <ColorPicker.HiddenInput />
     </>
   );
 }

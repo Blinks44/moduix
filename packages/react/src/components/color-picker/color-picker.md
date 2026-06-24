@@ -162,3 +162,5 @@ export function ColorPickerExample() {
   `--reference-width`, matching Ark's color picker composition expectations.
 - 2026-06-18: Expanded public docs to cover the full Ark example set, added required preview
   `Code`/`Styles`/`Data` tabs, and re-exported Ark part prop types.
+- 2026-06-24: Replaced ad hoc fractional CSS fallbacks with existing spacing/border tokens,
+  fixed native form examples to pass `name`, and corrected the RootProvider docs snippet.

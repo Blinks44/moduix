@@ -582,7 +582,7 @@
   --color-picker-action-font-size: initial; /* var(--text-sm) */
   --color-picker-action-gap: initial; /* var(--spacing-2) */
   --color-picker-action-line-height: initial; /* var(--line-height-text-sm) */
-  --color-picker-action-padding-x: initial; /* 0.625rem */
+  --color-picker-action-padding-x: initial; /* var(--spacing-2) */
   --color-picker-action-size: initial; /* var(--size-lg) */
   --color-picker-alpha-input-width: initial; /* 4rem */
   --color-picker-area-border-color: initial; /* color-mix(in oklab, var(--color-border) 70%, transparent) */
@@ -593,13 +593,13 @@
   --color-picker-border-width: initial; /* var(--border-width-sm) */
   --color-picker-channel-slider-border-color: initial; /* color-mix(in oklab, black 14%, transparent) */
   --color-picker-channel-slider-border-width: initial; /* var(--border-width-sm) */
-  --color-picker-channel-slider-height: initial; /* 0.75rem */
+  --color-picker-channel-slider-height: initial; /* var(--spacing-3) */
   --color-picker-channel-slider-label-color: initial; /* var(--color-picker-color) */
   --color-picker-channel-slider-label-font-size: initial; /* var(--text-sm) */
   --color-picker-channel-slider-label-font-weight: initial; /* var(--weight-medium) */
   --color-picker-channel-slider-label-line-height: initial; /* var(--line-height-text-sm) */
   --color-picker-channel-slider-radius: initial; /* var(--radius-full) */
-  --color-picker-channel-slider-track-size: initial; /* 0.75rem */
+  --color-picker-channel-slider-track-size: initial; /* var(--spacing-3) */
   --color-picker-channel-slider-value-color: initial; /* var(--color-muted-foreground) */
   --color-picker-channel-slider-value-font-size: initial; /* var(--text-sm) */
   --color-picker-channel-slider-value-line-height: initial; /* var(--line-height-text-sm) */
@@ -611,7 +611,7 @@
   --color-picker-content-closed-opacity: initial; /* 0 */
   --color-picker-content-closed-scale: initial; /* var(--scale-popup) */
   --color-picker-content-color: initial; /* var(--color-popover-foreground) */
-  --color-picker-content-gap: initial; /* 0.75rem */
+  --color-picker-content-gap: initial; /* var(--spacing-3) */
   --color-picker-content-max-height: initial; /* 32rem */
   --color-picker-content-padding: initial; /* var(--spacing-4) */
   --color-picker-content-radius: initial; /* var(--color-picker-radius) */
@@ -626,7 +626,7 @@
   --color-picker-input-font-size: initial; /* var(--text-sm) */
   --color-picker-input-height: initial; /* var(--size-lg) */
   --color-picker-input-line-height: initial; /* var(--line-height-text-sm) */
-  --color-picker-input-padding-x: initial; /* 0.75rem */
+  --color-picker-input-padding-x: initial; /* var(--spacing-3) */
   --color-picker-invalid-color: initial; /* var(--color-destructive) */
   --color-picker-label-color: initial; /* var(--color-picker-color) */
   --color-picker-label-font-size: initial; /* var(--text-sm) */
@@ -634,7 +634,7 @@
   --color-picker-label-line-height: initial; /* var(--line-height-text-sm) */
   --color-picker-max-width: initial; /* 100% */
   --color-picker-radius: initial; /* var(--radius-md) */
-  --color-picker-root-gap: initial; /* 0.5rem */
+  --color-picker-root-gap: initial; /* var(--spacing-2) */
   --color-picker-swatch-border-color: initial; /* color-mix(in oklab, black 14%, transparent) */
   --color-picker-swatch-border-width: initial; /* var(--border-width-sm) */
   --color-picker-swatch-gap: initial; /* var(--spacing-2) */
@@ -643,16 +643,16 @@
   --color-picker-swatch-radius: initial; /* var(--radius-sm) */
   --color-picker-swatch-size: initial; /* 2rem */
   --color-picker-thumb-bg: initial; /* var(--color-background) */
-  --color-picker-thumb-focus-ring-width: initial; /* 0.25rem */
+  --color-picker-thumb-focus-ring-width: initial; /* var(--border-width-lg) */
   --color-picker-thumb-inner-ring-color: initial; /* var(--color-background) */
-  --color-picker-thumb-inner-ring-width: initial; /* 0.125rem */
+  --color-picker-thumb-inner-ring-width: initial; /* var(--border-width-md) */
   --color-picker-thumb-outer-ring-color: initial; /* color-mix(in oklab, black 18%, transparent) */
-  --color-picker-thumb-outer-ring-width: initial; /* 0.1875rem */
+  --color-picker-thumb-outer-ring-width: initial; /* var(--border-width-lg) */
   --color-picker-thumb-radius: initial; /* var(--radius-full) */
   --color-picker-thumb-shadow: initial; /* var(--shadow-sm) */
-  --color-picker-thumb-size: initial; /* 0.875rem */
+  --color-picker-thumb-size: initial; /* 1rem */
   --color-picker-transition: initial; /* var(--transition-default) */
-  --color-picker-trigger-padding: initial; /* 0.1875rem */
+  --color-picker-trigger-padding: initial; /* var(--spacing-1) */
   --color-picker-trigger-size: initial; /* var(--size-lg) */
   --color-picker-value-text-color: initial; /* var(--color-picker-color) */
   --color-picker-value-text-font-size: initial; /* var(--text-sm) */

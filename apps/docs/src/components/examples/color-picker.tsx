@@ -50,7 +50,7 @@ export const colorPickerExampleCss = `
   .color-picker-slider-group {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: var(--spacing-3);
   }
 
   .color-picker-channel-sliders {
@@ -58,7 +58,7 @@ export const colorPickerExampleCss = `
     min-width: 0;
     flex: 1;
     flex-direction: column;
-    gap: 0.625rem;
+    gap: var(--spacing-2);
   }
 `;
 
@@ -67,13 +67,13 @@ export const colorPickerInlineCss = `
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
+    gap: var(--spacing-3);
   }
 
   .color-picker-input-row {
     display: flex;
     min-width: 0;
-    gap: 0.5rem;
+    gap: var(--spacing-2);
   }
 `;
 
@@ -81,7 +81,7 @@ export const colorPickerFormCss = `
   .color-picker-form {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: var(--spacing-3);
   }
 
   .color-picker-submit {
@@ -139,7 +139,7 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
     'var(--line-height-text-sm)',
     'Controls action button line height.',
   ],
-  ['--color-picker-action-padding-x', '0.625rem', 'Controls action button inline padding.'],
+  ['--color-picker-action-padding-x', 'var(--spacing-2)', 'Controls action button inline padding.'],
   ['--color-picker-action-size', 'var(--size-lg)', 'Controls action button height.'],
   ['--color-picker-alpha-input-width', '4rem', 'Controls alpha input width.'],
   [
@@ -170,7 +170,11 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
     'var(--border-width-sm)',
     'Controls channel slider inset border width.',
   ],
-  ['--color-picker-channel-slider-height', '0.75rem', 'Controls horizontal channel slider height.'],
+  [
+    '--color-picker-channel-slider-height',
+    'var(--spacing-3)',
+    'Controls horizontal channel slider height.',
+  ],
   [
     '--color-picker-channel-slider-label-color',
     'var(--color-picker-color)',
@@ -198,7 +202,7 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--color-picker-channel-slider-track-size',
-    '0.75rem',
+    'var(--spacing-3)',
     'Controls channel slider track thickness.',
   ],
   [
@@ -232,7 +236,7 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
     'Controls closed-state animation scale.',
   ],
   ['--color-picker-content-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--color-picker-content-gap', '0.75rem', 'Controls popup content gap.'],
+  ['--color-picker-content-gap', 'var(--spacing-3)', 'Controls popup content gap.'],
   ['--color-picker-content-max-height', '32rem', 'Controls popup maximum height.'],
   ['--color-picker-content-padding', 'var(--spacing-4)', 'Controls popup padding.'],
   ['--color-picker-content-radius', 'var(--color-picker-radius)', 'Controls popup corner radius.'],
@@ -255,7 +259,7 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
     'var(--line-height-text-sm)',
     'Controls channel input line height.',
   ],
-  ['--color-picker-input-padding-x', '0.75rem', 'Controls channel input inline padding.'],
+  ['--color-picker-input-padding-x', 'var(--spacing-3)', 'Controls channel input inline padding.'],
   ['--color-picker-invalid-color', 'var(--color-destructive)', 'Controls invalid border color.'],
   ['--color-picker-label-color', 'var(--color-picker-color)', 'Controls root label text color.'],
   ['--color-picker-label-font-size', 'var(--text-sm)', 'Controls root label font size.'],
@@ -267,7 +271,7 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--color-picker-max-width', '100%', 'Controls the maximum root width.'],
   ['--color-picker-radius', 'var(--radius-md)', 'Controls shared control corner radius.'],
-  ['--color-picker-root-gap', '0.5rem', 'Controls vertical spacing in the root.'],
+  ['--color-picker-root-gap', 'var(--spacing-2)', 'Controls vertical spacing in the root.'],
   [
     '--color-picker-swatch-border-color',
     'color-mix(in oklab, black 14%, transparent)',
@@ -284,24 +288,36 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
   ['--color-picker-swatch-radius', 'var(--radius-sm)', 'Controls swatch corner radius.'],
   ['--color-picker-swatch-size', '2rem', 'Controls swatch size.'],
   ['--color-picker-thumb-bg', 'var(--color-background)', 'Controls thumb fill color.'],
-  ['--color-picker-thumb-focus-ring-width', '0.25rem', 'Controls focused thumb ring width.'],
+  [
+    '--color-picker-thumb-focus-ring-width',
+    'var(--border-width-lg)',
+    'Controls focused thumb ring width.',
+  ],
   [
     '--color-picker-thumb-inner-ring-color',
     'var(--color-background)',
     'Controls thumb inner ring color.',
   ],
-  ['--color-picker-thumb-inner-ring-width', '0.125rem', 'Controls thumb inner ring width.'],
+  [
+    '--color-picker-thumb-inner-ring-width',
+    'var(--border-width-md)',
+    'Controls thumb inner ring width.',
+  ],
   [
     '--color-picker-thumb-outer-ring-color',
     'color-mix(in oklab, black 18%, transparent)',
     'Controls thumb outer ring color.',
   ],
-  ['--color-picker-thumb-outer-ring-width', '0.1875rem', 'Controls thumb outer ring width.'],
+  [
+    '--color-picker-thumb-outer-ring-width',
+    'var(--border-width-lg)',
+    'Controls thumb outer ring width.',
+  ],
   ['--color-picker-thumb-radius', 'var(--radius-full)', 'Controls thumb corner radius.'],
   ['--color-picker-thumb-shadow', 'var(--shadow-sm)', 'Controls thumb shadow.'],
-  ['--color-picker-thumb-size', '0.875rem', 'Controls area and slider thumb size.'],
+  ['--color-picker-thumb-size', '1rem', 'Controls area and slider thumb size.'],
   ['--color-picker-transition', 'var(--transition-default)', 'Controls transition timing.'],
-  ['--color-picker-trigger-padding', '0.1875rem', 'Controls trigger swatch padding.'],
+  ['--color-picker-trigger-padding', 'var(--spacing-1)', 'Controls trigger swatch padding.'],
   ['--color-picker-trigger-size', 'var(--size-lg)', 'Controls the trigger swatch button size.'],
   ['--color-picker-value-text-color', 'var(--color-picker-color)', 'Controls value text color.'],
   ['--color-picker-value-text-font-size', 'var(--text-sm)', 'Controls value text font size.'],
@@ -327,7 +343,6 @@ export const colorPickerCustomStylingCss = `
       transparent
     );
     --color-picker-action-color-hover: var(--color-chart-4);
-    --color-picker-swatch-size: 1.75rem;
   }
 `;
 
@@ -436,7 +451,7 @@ export function FormUsageColorPickerExample() {
         setSubmitted(String(new FormData(event.currentTarget).get('accent') ?? ''));
       }}
     >
-      <ColorPicker.Root defaultValue={parseColor('#eb5e41')}>
+      <ColorPicker.Root name="accent" defaultValue={parseColor('#eb5e41')}>
         <PickerField />
       </ColorPicker.Root>
       <button className={styles.submitButton} type="submit">
@@ -642,7 +657,7 @@ export function CustomStylingColorPickerExample() {
 export function FieldStateColorPickerExample() {
   return (
     <Field className={styles.field}>
-      <ColorPicker.Root required invalid defaultValue={parseColor('#eb5e41')}>
+      <ColorPicker.Root name="accent" required invalid defaultValue={parseColor('#eb5e41')}>
         <ColorPicker.Label>Accent color</ColorPicker.Label>
         <ColorPicker.Control>
           <ColorPicker.ChannelInput channel="hex" />
