@@ -50,8 +50,8 @@
       --alert-indicator-color-default: var(--color-destructive);
     }
 
-    &:not(:has([data-slot='alert-indicator'])) {
-      [data-slot='alert-content'] {
+    &:not(:has([data-part='indicator'])) {
+      [data-part='content'] {
         grid-column: 1 / -1;
       }
     }

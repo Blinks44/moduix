@@ -3,6 +3,8 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/guides/composition
+- Ark UI styling: https://ark-ui.com/docs/guides/styling
+- Ark UI refs: https://ark-ui.com/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/alert
 
 ## Purpose
@@ -21,15 +23,18 @@ factory and Chakra's Alert part contract.
 
 ## Current behavior contract
 
-- Public API is compound-only: `Alert.Root`, `Alert.Indicator`, `Alert.Content`, `Alert.Title`,
+- Public API is part-first: `Alert.Root`, `Alert.Indicator`, `Alert.Content`, `Alert.Title`,
   `Alert.Description`.
+- The callable `Alert` export remains the root part itself, but docs and examples should use
+  explicit part names.
 - `Alert.Root` defaults `status` to `'neutral'`.
 - `Alert.Root` defaults `role` to `'status'`, and switches to `'alert'` when `status="error"`.
 - `Alert.Title` renders an `h3` by default.
 - All exported parts accept `className`.
 - All exported parts accept Ark `asChild`.
-- The component stays presentational and does not add dismiss state, action slots, or focus
-  management.
+- Refs forward to each rendered DOM part.
+- The component stays presentational and does not add dismiss state, controlled state, action slots,
+  or focus management.
 - Public docs examples should show `Code`, `Styles`, and `Data` tabs, even though Alert has no Ark
   primitive example set to mirror.
 
@@ -43,15 +48,15 @@ Alert.Root
    └─ Alert.Description
 ```
 
-Every exported part accepts `className` and receives a stable `data-slot`:
+Every exported part accepts `className` and receives stable hooks:
 
-| Part                | `data-slot`         | Notes                                                           |
-| ------------------- | ------------------- | --------------------------------------------------------------- |
-| `Alert.Root`        | `alert-root`        | Exposes `data-status` and auto role behavior.                   |
-| `Alert.Indicator`   | `alert-indicator`   | Defaults to `aria-hidden="true"`.                               |
-| `Alert.Content`     | `alert-content`     | Expands to full width when no indicator is rendered.            |
-| `Alert.Title`       | `alert-title`       | Renders `h3` by default and supports `asChild`.                 |
-| `Alert.Description` | `alert-description` | Styled description wrapper with margin resets for child blocks. |
+| Part                | `data-part`   | `data-slot`         | Notes                                                           |
+| ------------------- | ------------- | ------------------- | --------------------------------------------------------------- |
+| `Alert.Root`        | `root`        | `alert-root`        | Exposes `data-status` and auto role behavior.                   |
+| `Alert.Indicator`   | `indicator`   | `alert-indicator`   | Defaults to `aria-hidden="true"`.                               |
+| `Alert.Content`     | `content`     | `alert-content`     | Expands to full width when no indicator is rendered.            |
+| `Alert.Title`       | `title`       | `alert-title`       | Renders `h3` by default and supports `asChild`.                 |
+| `Alert.Description` | `description` | `alert-description` | Styled description wrapper with margin resets for child blocks. |
 
 ## Composition
 
@@ -85,6 +90,8 @@ Use `asChild` on `Alert.Title` when the document outline needs a different headi
 
 - `Anatomy`: moduix preserves a Chakra-style compound part tree and exposes each part explicitly.
 - `Composition`: preserved through Ark factory `asChild` behavior on every exported part.
+- `Refs`: forwarded to the rendered DOM element for every exported part.
+- `Styling`: follows Ark `data-scope` / `data-part` targeting and moduix `data-slot` hooks.
 - `Status semantics`: moduix adds a focused status surface with `neutral`, `info`, `success`,
   `warning`, and `error`.
 - `Heading composition`: preserved through `Alert.Title asChild` for document outline control.
@@ -95,11 +102,19 @@ Use `asChild` on `Alert.Title` when the document outline needs a different headi
 
 ## Accessibility and state
 
+- `Alert.Root` writes:
+  - `data-scope="alert"`
+  - `data-part="root"`
+  - `data-slot="alert-root"`
+  - `data-status="<status>"`
+- `Alert.Indicator` writes `data-part="indicator"`, `data-slot="alert-indicator"`, and defaults to
+  `aria-hidden="true"`, so essential meaning must stay in title or description text.
+- `Alert.Content`, `Alert.Title`, and `Alert.Description` write matching `data-scope="alert"`,
+  `data-part`, and `data-slot` attributes.
 - `Alert.Root` defaults to `role="status"` and switches to `role="alert"` for `status="error"`.
-- `status` is exposed as `data-status` on the root for styling and testing.
-- `Alert.Indicator` defaults to `aria-hidden="true"`, so essential meaning must stay in title or
-  description text.
 - All exported parts support Ark `asChild`.
+- `asChild` requires one semantic child; interactive children keep their own native keyboard and
+  focus behavior.
 
 ## Defaults and styling
 
@@ -139,6 +154,7 @@ Extends Ark `div` props and supports `asChild`.
 
 Built-in statuses derive their accents from shared palette tokens:
 
+- `info` -> `--color-primary`
 - `success` -> `--color-success`
 - `warning` -> `--color-warning`
 - `error` -> `--color-destructive`
@@ -154,11 +170,9 @@ Built-in statuses derive their accents from shared palette tokens:
 
 ## Agent notes
 
-- Breaking changes in this migration are intentional:
-  - flat exports like `AlertIcon` and `AlertTitle` were removed
-  - `variant` was replaced with Ark-style `status`
-  - `destructive` status became `error`
-  - `AlertTitle as` was replaced by Ark `asChild`
+- Keep docs and examples on the explicit `Alert.Root` compound contract.
+- Do not add local dismiss, keyboard, or focus behavior to the alert wrapper; compose interactive
+  controls inside `Alert.Content`.
 
 ## Local changelog
 
@@ -168,3 +182,5 @@ Built-in statuses derive their accents from shared palette tokens:
   `as` to `asChild`.
 - 2026-06-18: Updated docs/examples to make every Alert preview reproducible with `Code`,
   `Styles`, and `Data` tabs, and added a dedicated `Alert.Title asChild` example.
+- 2026-06-24: Added explicit Ark-style `data-scope` / `data-part` hooks, exported part prop types,
+  and finalized local/docs guidance for the Ark factory implementation.

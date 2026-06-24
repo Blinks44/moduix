@@ -25,9 +25,13 @@ import {
 
 ## API Reference
 
-Ark UI does not ship a dedicated `Alert` primitive. `Alert` is a moduix-owned compound component
-built with the Ark `ark` factory and Chakra-style alert anatomy. Public parts are `Alert.Root`,
-`Alert.Indicator`, `Alert.Content`, `Alert.Title`, and `Alert.Description`.
+Ark UI does not ship a dedicated `alert` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
+
+Public parts are `Alert.Root`, `Alert.Indicator`, `Alert.Content`, `Alert.Title`, and
+`Alert.Description`.
 
 ## Choosing the right component
 
@@ -51,12 +55,12 @@ Start with `Alert.Root`, `Alert.Content`, `Alert.Title`, and `Alert.Description`
 
       export function AlertDemo() {
         return (
-          <Alert className="alert-demo">
+          <Alert.Root className="alert-demo">
             <Alert.Content>
               <Alert.Title>{alert.title}</Alert.Title>
               <Alert.Description>{alert.description}</Alert.Description>
             </Alert.Content>
-          </Alert>
+          </Alert.Root>
         );
       }
     `}
@@ -122,13 +126,13 @@ Alert.Root
    └─ Alert.Description
 ```
 
-| Part                   | Role                                                         |
-| ---------------------- | ------------------------------------------------------------ |
-| `Alert` / `Alert.Root` | Root slot. Applies status styles and semantics.              |
-| `Alert.Indicator`      | Optional indicator slot. Sizes child SVG icons consistently. |
-| `Alert.Content`        | Text content wrapper for title and description.              |
-| `Alert.Title`          | Alert heading slot. Renders `h3` by default.                 |
-| `Alert.Description`    | Supporting message slot.                                     |
+| Part                | `data-part`   | Role                                                         |
+| ------------------- | ------------- | ------------------------------------------------------------ |
+| `Alert.Root`        | `root`        | Root slot. Applies status styles and semantics.              |
+| `Alert.Indicator`   | `indicator`   | Optional indicator slot. Sizes child SVG icons consistently. |
+| `Alert.Content`     | `content`     | Text content wrapper for title and description.              |
+| `Alert.Title`       | `title`       | Alert heading slot. Renders `h3` by default.                 |
+| `Alert.Description` | `description` | Supporting message slot.                                     |
 
 ## Composition
 
@@ -186,7 +190,7 @@ Place a moduix icon or custom SVG inside `Alert.Indicator`.
 
       export function AlertWithIconDemo() {
         return (
-          <Alert status="info" className="alert-demo">
+          <Alert.Root status="info" className="alert-demo">
             <Alert.Indicator>
               <InfoIcon />
             </Alert.Indicator>
@@ -194,7 +198,7 @@ Place a moduix icon or custom SVG inside `Alert.Indicator`.
               <Alert.Title>{alert.title}</Alert.Title>
               <Alert.Description>{alert.description}</Alert.Description>
             </Alert.Content>
-          </Alert>
+          </Alert.Root>
         );
       }
     `}
@@ -219,7 +223,7 @@ Use statuses for neutral, informational, success, warning, and error states.
         return (
           <div className="alert-stack">
             {statuses.map((status) => (
-              <Alert key={status} status={status}>
+              <Alert.Root key={status} status={status}>
                 <Alert.Indicator>
                   {status === "success" ? <CheckIcon /> : <InfoIcon />}
                 </Alert.Indicator>
@@ -227,7 +231,7 @@ Use statuses for neutral, informational, success, warning, and error states.
                   <Alert.Title>{status}</Alert.Title>
                   <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
                 </Alert.Content>
-              </Alert>
+              </Alert.Root>
             ))}
           </div>
         );
@@ -253,7 +257,7 @@ emphasis.
 
       export function AlertErrorDemo() {
         return (
-          <Alert status="error" className="alert-demo">
+          <Alert.Root status="error" className="alert-demo">
             <Alert.Indicator>
               <InfoIcon />
             </Alert.Indicator>
@@ -261,7 +265,7 @@ emphasis.
               <Alert.Title>{alert.title}</Alert.Title>
               <Alert.Description>{alert.description}</Alert.Description>
             </Alert.Content>
-          </Alert>
+          </Alert.Root>
         );
       }
     `}
@@ -290,7 +294,7 @@ action. Keep dismiss state in the consuming component when a local alert should 
         if (!visible) return null;
 
         return (
-          <Alert status="warning" className="alert-custom">
+          <Alert.Root status="warning" className="alert-custom">
             <Alert.Indicator>
               <InfoIcon />
             </Alert.Indicator>
@@ -304,7 +308,7 @@ action. Keep dismiss state in the consuming component when a local alert should 
                 </Button>
               </div>
             </Alert.Content>
-          </Alert>
+          </Alert.Root>
         );
       }
     `}
@@ -327,14 +331,14 @@ Use `asChild` on `Alert.Title` when the alert should participate in a specific d
 
       export function AlertHeadingDemo() {
         return (
-          <Alert status="info" className="alert-demo">
+          <Alert.Root status="info" className="alert-demo">
             <Alert.Content>
               <Alert.Title asChild>
                 <h2>{alert.title}</h2>
               </Alert.Title>
               <Alert.Description>{alert.description}</Alert.Description>
             </Alert.Content>
-          </Alert>
+          </Alert.Root>
         );
       }
     `}
@@ -372,4 +376,6 @@ Built-in statuses also read shared palette tokens:
 
 - Stable `data-slot` selectors: `alert-root`, `alert-indicator`, `alert-content`, `alert-title`,
   and `alert-description`
+- Ark-style selectors: `data-scope="alert"` with `data-part="root"`, `indicator`, `content`,
+  `title`, or `description`
 - `Alert.Root` writes the selected status to `data-status`

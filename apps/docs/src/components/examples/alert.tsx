@@ -1,7 +1,7 @@
 import { Alert, Button, CheckIcon, InfoIcon } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './alert.module.css';
 
 const statuses = ['neutral', 'info', 'success', 'warning', 'error'] as const;
@@ -96,7 +96,7 @@ export const alertHeadingData = `const alert = {
   description: 'Use asChild when the surrounding page needs a different heading level.',
 };`;
 
-export const alertOverrideCssProperties: CssPropertyInput[] = [
+const alertCssProperties: CssPropertyInput[] = [
   ['--alert-bg', 'var(--alert-bg-default, var(--color-card))', 'Controls alert background.'],
   [
     '--alert-border-color',
@@ -162,41 +162,8 @@ export const alertOverrideCssProperties: CssPropertyInput[] = [
   ],
 ];
 
-export const alertPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--alert-bg', 'var(--alert-bg-default, var(--color-card))', 'Controls alert background.'],
-  [
-    '--alert-border-color',
-    'var(--alert-border-color-default, var(--color-border))',
-    'Controls alert border color.',
-  ],
-  ['--alert-border-width', 'var(--border-width-sm)', 'Controls alert border width.'],
-  ['--alert-color', 'var(--alert-color-default)', 'Controls alert text color.'],
-  ['--alert-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
-  ['--alert-gap', 'var(--spacing-3)', 'Controls root column gap.'],
-  ['--alert-indicator-color', 'var(--alert-indicator-color-default)', 'Controls indicator color.'],
-  ['--alert-indicator-size', '1rem', 'Controls indicator size.'],
-  ['--alert-padding', 'var(--spacing-4)', 'Controls alert padding.'],
-  ['--alert-radius', 'var(--radius-lg)', 'Controls alert border radius.'],
-  ['--alert-shadow', 'none', 'Controls alert shadow.'],
-];
-
-export function AlertCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={alertOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function AlertCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={alertPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
+export function AlertCssPropertiesPanel() {
+  return <CSSPropertiesReferenceTable properties={alertCssProperties.map(normalizeCssProperty)} />;
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
