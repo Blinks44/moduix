@@ -13,6 +13,10 @@ const previewContainerStyle = {
   maxWidth: 'min(34rem, 100%)',
 };
 
+const longLabelStyle = {
+  '--breadcrumbs-item-max-width': '12rem',
+};
+
 const separatorIconStyle = {
   width: '0.75rem',
   height: '0.25rem',
@@ -30,8 +34,8 @@ const collapsedMenuTriggerStyle = {
 const collapsedMenuContentStyle = {
   '--menu-popup-min-width': '8rem',
   '--menu-item-font-size': 'var(--text-xs)',
-  '--menu-item-padding-x-start': '0.625rem',
-  '--menu-item-padding-x-end': '0.625rem',
+  '--menu-item-padding-x-start': '0.5rem',
+  '--menu-item-padding-x-end': '0.5rem',
   '--menu-item-padding-y': '0.25rem',
 };
 
@@ -193,7 +197,7 @@ export function BreadcrumbsCustomSeparatorExample() {
 export function BreadcrumbsLongLabelExample() {
   return (
     <div style={previewContainerStyle}>
-      <Breadcrumbs>
+      <Breadcrumbs style={longLabelStyle}>
         <Breadcrumbs.List>
           <Breadcrumbs.Item>
             <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>

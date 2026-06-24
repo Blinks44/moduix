@@ -25,7 +25,7 @@ separators hidden from assistive technology. Collapsed paths are composed explic
 - `Breadcrumbs.Item` renders a list item for a visible segment.
 - `Breadcrumbs.Link` renders an anchor by default and supports Ark `asChild` for router links.
 - `Breadcrumbs.Page` renders a `span` with `aria-current="page"`.
-- `Breadcrumbs.Separator` renders an `aria-hidden` list item and defaults to `/`.
+- `Breadcrumbs.Separator` renders an `aria-hidden` presentation list item and defaults to `/`.
 - `Breadcrumbs.Ellipsis` renders an `aria-hidden` span and defaults to `...`.
 - The root is also exposed as `Breadcrumbs.Root`, with namespace-only parts for Ark-aligned
   composition.
@@ -49,7 +49,7 @@ Breadcrumbs / Breadcrumbs.Root
 | `Item`      | `Breadcrumbs.Item`                | `breadcrumbs-item`      | `li`, segment wrapper.                    |
 | `Link`      | `Breadcrumbs.Link`                | `breadcrumbs-link`      | `a`, supports `asChild`.                  |
 | `Page`      | `Breadcrumbs.Page`                | `breadcrumbs-page`      | `span`, sets `aria-current="page"`.       |
-| `Separator` | `Breadcrumbs.Separator`           | `breadcrumbs-separator` | `li`, `aria-hidden`, defaults to `/`.     |
+| `Separator` | `Breadcrumbs.Separator`           | `breadcrumbs-separator` | `li`, `role="presentation"`, hidden, `/`. |
 | `Ellipsis`  | `Breadcrumbs.Ellipsis`            | `breadcrumbs-ellipsis`  | `span`, `aria-hidden`, defaults to `...`. |
 
 ## Composition
@@ -102,8 +102,8 @@ Use framework links through Ark `asChild`:
 Refs forward to the rendered Ark factory element for each part. `Breadcrumbs.Link` forwards to the anchor by default; with
 `asChild`, the child must be a single semantic link component that preserves link behavior and focusability.
 
-`Breadcrumbs.Page` sets `aria-current="page"`. `Breadcrumbs.Separator` and `Breadcrumbs.Ellipsis` are hidden from assistive
-technology. When ellipsis opens a menu, the accessible label belongs on `Menu.Trigger`, for example
+`Breadcrumbs.Page` sets `aria-current="page"`. `Breadcrumbs.Separator` is a presentational list item and
+`Breadcrumbs.Ellipsis` is hidden from assistive technology. When ellipsis opens a menu, the accessible label belongs on `Menu.Trigger`, for example
 `aria-label="Show hidden path items"`.
 
 Every part exposes `data-scope="breadcrumbs"` and an Ark-style `data-part`. There is no component-owned state, callback,
@@ -150,7 +150,7 @@ The last item can shrink and is capped by `--breadcrumbs-item-max-width`; link, 
 - The legacy `render` prop was removed. Use Ark `asChild`.
 - Separators are explicit JSX parts instead of generated automatically.
 - Collapsing is not built in; compose `Menu` explicitly for hidden path items.
-- `Breadcrumbs.Ellipsis` has compact sizing and a subtle hover background for collapsed menu triggers.
+- `Breadcrumbs.Ellipsis` stays non-interactive; compose it inside an accessible trigger for collapsed menus.
 
 ## Agent notes
 
@@ -164,3 +164,5 @@ The last item can shrink and is capped by `--breadcrumbs-item-max-width`; link, 
 
 - 2026-06-19: Migrated the component to Ark factory elements, added Ark-style `data-scope`/`data-part` hooks,
   namespace parts, prop type exports, and replaced `render` with `asChild`.
+- 2026-06-24: Re-audited the local-only Ark factory contract, made separators presentational by default,
+  aligned ellipsis padding with the documented item padding token, and removed non-interactive ellipsis hover styling.

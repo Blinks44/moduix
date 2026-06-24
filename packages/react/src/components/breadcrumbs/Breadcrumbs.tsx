@@ -95,7 +95,10 @@ const BreadcrumbsPage = forwardRef<HTMLSpanElement, BreadcrumbsPageProps>(functi
 });
 
 const BreadcrumbsSeparator = forwardRef<HTMLLIElement, BreadcrumbsSeparatorProps>(
-  function BreadcrumbsSeparator({ className, children = '/', ...props }, ref) {
+  function BreadcrumbsSeparator(
+    { className, children = '/', role = 'presentation', ...props },
+    ref,
+  ) {
     return (
       <ark.li
         ref={ref}
@@ -103,6 +106,7 @@ const BreadcrumbsSeparator = forwardRef<HTMLLIElement, BreadcrumbsSeparatorProps
         data-part="separator"
         data-slot="breadcrumbs-separator"
         aria-hidden="true"
+        role={role}
         className={clsx(styles.separator, normalizeClassName(className))}
         {...props}
       >
