@@ -28,16 +28,25 @@ function MarkerRing() {
   );
 }
 
+function AngleSliderParts() {
+  return (
+    <>
+      <AngleSlider.Control>
+        <MarkerRing />
+        <AngleSlider.Thumb />
+      </AngleSlider.Control>
+      <AngleSlider.ValueText />
+      <AngleSlider.HiddenInput />
+    </>
+  );
+}
+
 export const Basic: Story = {
   render: () => {
     return (
       <AngleSlider.Root defaultValue={135} aria-label="Rotation" className={styles.demoRoot}>
         <AngleSlider.Label>Rotation</AngleSlider.Label>
-        <AngleSlider.Control>
-          <AngleSlider.Thumb />
-        </AngleSlider.Control>
-        <AngleSlider.ValueText />
-        <AngleSlider.HiddenInput />
+        <AngleSliderParts />
       </AngleSlider.Root>
     );
   },
@@ -55,11 +64,7 @@ export const Controlled: Story = {
         onValueChange={(details) => setValue(details.value)}
       >
         <AngleSlider.Label>Heading</AngleSlider.Label>
-        <AngleSlider.Control>
-          <AngleSlider.Thumb />
-        </AngleSlider.Control>
-        <AngleSlider.ValueText />
-        <AngleSlider.HiddenInput />
+        <AngleSliderParts />
       </AngleSlider.Root>
     );
   },
@@ -75,10 +80,7 @@ export const Steps: Story = {
         className={styles.demoRoot}
       >
         <AngleSlider.Label>Snap angle</AngleSlider.Label>
-        <AngleSlider.Control>
-          <AngleSlider.Thumb />
-        </AngleSlider.Control>
-        <AngleSlider.ValueText />
+        <AngleSliderParts />
       </AngleSlider.Root>
     );
   },
@@ -94,10 +96,7 @@ export const ReadOnly: Story = {
         className={styles.demoRoot}
       >
         <AngleSlider.Label>Locked angle</AngleSlider.Label>
-        <AngleSlider.Control>
-          <AngleSlider.Thumb />
-        </AngleSlider.Control>
-        <AngleSlider.ValueText />
+        <AngleSliderParts />
       </AngleSlider.Root>
     );
   },
@@ -113,12 +112,7 @@ export const Disabled: Story = {
         className={styles.demoRoot}
       >
         <AngleSlider.Label>Rotation</AngleSlider.Label>
-        <AngleSlider.Control>
-          <MarkerRing />
-          <AngleSlider.Thumb />
-        </AngleSlider.Control>
-        <AngleSlider.ValueText />
-        <AngleSlider.HiddenInput />
+        <AngleSliderParts />
       </AngleSlider.Root>
     );
   },
@@ -131,12 +125,7 @@ export const Context: Story = {
         <AngleSlider.Context>
           {(context) => <AngleSlider.Label>{context.value} degrees</AngleSlider.Label>}
         </AngleSlider.Context>
-        <AngleSlider.Control>
-          <MarkerRing />
-          <AngleSlider.Thumb />
-        </AngleSlider.Control>
-        <AngleSlider.ValueText />
-        <AngleSlider.HiddenInput />
+        <AngleSliderParts />
       </AngleSlider.Root>
     );
   },
@@ -149,12 +138,7 @@ function RootProviderStory() {
     <div className={styles.providerLayout}>
       <AngleSlider.RootProvider value={angleSlider} className={styles.demoRoot}>
         <AngleSlider.Label>Rotation</AngleSlider.Label>
-        <AngleSlider.Control>
-          <MarkerRing />
-          <AngleSlider.Thumb />
-        </AngleSlider.Control>
-        <AngleSlider.ValueText />
-        <AngleSlider.HiddenInput />
+        <AngleSliderParts />
       </AngleSlider.RootProvider>
       <button
         type="button"
@@ -171,7 +155,7 @@ export const RootProvider: Story = {
   render: () => <RootProviderStory />,
 };
 
-export const WithMarkers: Story = {
+export const CustomStyling: Story = {
   render: () => {
     return (
       <AngleSlider.Root
@@ -180,11 +164,7 @@ export const WithMarkers: Story = {
         className={styles.customRoot}
       >
         <AngleSlider.Label>Compass</AngleSlider.Label>
-        <AngleSlider.Control>
-          <MarkerRing />
-          <AngleSlider.Thumb />
-        </AngleSlider.Control>
-        <AngleSlider.ValueText />
+        <AngleSliderParts />
       </AngleSlider.Root>
     );
   },

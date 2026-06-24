@@ -186,8 +186,8 @@ shared IDs. Refs are forwarded to the DOM element rendered by each wrapped Ark p
 - The thumb supports Ark slider keyboard behavior and pointer dragging around the circular control.
 - Set `name` and render `HiddenInput` for native form submission and reset synchronization.
 - `ValueText` renders Ark's degree string when no custom children are provided.
-- `data-disabled`, `data-invalid`, `data-readonly`, `data-focus`, marker `data-state`, `--value`,
-  `--angle`, `--marker-value`, and `--marker-display-value` remain available for styling.
+- `data-disabled`, `data-invalid`, `data-readonly`, marker `data-state`, `--value`, `--angle`,
+  `--marker-value`, and `--marker-display-value` remain available for styling.
 
 ## Examples
 
@@ -410,7 +410,7 @@ machine.
 
         return (
           <div className="docs-angle-slider-provider-layout">
-            <AngleSliderProvider
+            <AngleSlider.RootProvider
               value={angleSlider}
               className="docs-angle-slider-provider"
             >
@@ -567,9 +567,10 @@ variables below.
 ### Styling hooks
 
 - `data-slot="angle-slider-root"` and `data-slot="angle-slider-root-provider"` own shared layout.
-- `data-slot="angle-slider-control"` owns the dial and receives `data-focus`, `data-disabled`,
-  `data-invalid`, and `data-readonly`.
-- `data-slot="angle-slider-thumb"` owns the focusable rotating indicator.
+- `data-slot="angle-slider-control"` owns the dial and receives `data-disabled`, `data-invalid`,
+  and `data-readonly`.
+- `data-slot="angle-slider-thumb"` owns the focusable rotating indicator and can be targeted with
+  `:focus-visible`.
 - `data-slot="angle-slider-marker"` exposes `data-value` and
   `data-state="under-value | at-value | over-value"`.
 - Ark root variables `--value` and `--angle` and marker variables `--marker-value` and

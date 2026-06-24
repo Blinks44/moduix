@@ -104,7 +104,6 @@ export function RotationAngleSlider() {
 - `ids` can stabilize the root, thumb, hidden input, control, value text, and label IDs.
 - Ark state hooks remain intact:
   - root, label, control, and thumb: `data-disabled`, `data-invalid`, `data-readonly`
-  - control: `data-focus`
   - marker: `data-value`, `data-disabled`, and
     `data-state="under-value | at-value | over-value"`
 - Ark CSS variables remain intact:
@@ -117,7 +116,7 @@ export function RotationAngleSlider() {
   focus, disabled, read-only, and invalid visuals.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
 - Public `--angle-slider-*` variables are registered in `src/core/styles/theme.css`.
-- Focus styling uses Ark `Control[data-focus]`; invalid, disabled, read-only, and marker styling use
+- Focus styling follows `Thumb:focus-visible`; invalid, disabled, read-only, and marker styling use
   Ark state attributes rather than legacy classes or wrapper state.
 
 ## Intentional sugar and differences from upstream
@@ -125,8 +124,8 @@ export function RotationAngleSlider() {
 - Ark is headless; moduix provides default visuals and stable `data-slot` hooks.
 - Markers remain explicit instead of being generated from a wrapper prop.
 - No legacy aliases, positional callback adapters, custom state context, or `render` prop remain.
-- The public barrel re-exports Ark's `UseAngleSliderProps`, `UseAngleSliderReturn`,
-  `UseAngleSliderContext`, and `AngleSliderContextProps` types.
+- The public barrel re-exports Ark's part props, context props, `UseAngleSliderProps`,
+  `UseAngleSliderReturn`, and `UseAngleSliderContext` types.
 
 ## Agent notes
 
@@ -138,6 +137,8 @@ export function RotationAngleSlider() {
 
 ## Local changelog
 
+- 2026-06-24: Removed stale control focus styling, kept read-only thumbs pointer-focusable,
+  exported the full Ark part prop type surface, and fixed the RootProvider docs snippet.
 - 2026-06-18: Completed Ark UI parity by exposing `RootProvider`, `Context`, state hooks and types;
   added focus/read-only state styling; expanded stories and docs to all current Ark React examples;
   and standardized every docs preview with `Code`, `Styles`, and `Data`.

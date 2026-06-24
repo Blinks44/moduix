@@ -22,6 +22,12 @@
   }
 
   .control {
+    --_angle-slider-control-border-color: var(
+      --angle-slider-control-border-color,
+      var(--color-border)
+    );
+    --_angle-slider-track-border-color: var(--angle-slider-track-border-color, var(--color-border));
+
     position: relative;
     box-sizing: border-box;
     display: flex;
@@ -34,7 +40,7 @@
     background: var(--angle-slider-track-bg, var(--color-muted));
     box-shadow:
       inset 0 0 0 var(--angle-slider-track-border-width, var(--border-width-sm))
-        var(--angle-slider-track-border-color, var(--color-border)),
+        var(--_angle-slider-track-border-color),
       var(--angle-slider-shadow, none);
     cursor: pointer;
     outline: 0;
@@ -47,7 +53,7 @@
       border-radius: inherit;
       background: var(--angle-slider-control-bg, var(--color-background));
       box-shadow: inset 0 0 0 var(--angle-slider-control-border-width, var(--border-width-sm))
-        var(--angle-slider-control-border-color, var(--color-border));
+        var(--_angle-slider-control-border-color);
       content: '';
     }
 
@@ -64,34 +70,24 @@
       content: '';
     }
 
-    &[data-focus] {
+    &:has(.thumb:focus-visible) {
       box-shadow:
         inset 0 0 0 var(--angle-slider-track-border-width, var(--border-width-sm))
-          var(--angle-slider-track-border-color, var(--color-border)),
+          var(--_angle-slider-track-border-color),
         0 0 0 var(--angle-slider-focus-ring-width, 0.1875rem)
           var(--angle-slider-focus-ring-color, var(--color-ring)),
         var(--angle-slider-shadow, none);
     }
 
     &[data-invalid] {
-      box-shadow:
-        inset 0 0 0 var(--angle-slider-track-border-width, var(--border-width-sm))
-          var(--angle-slider-invalid-color, var(--color-destructive)),
-        var(--angle-slider-shadow, none);
-
-      &::after {
-        box-shadow: inset 0 0 0 var(--angle-slider-control-border-width, var(--border-width-sm))
-          var(--angle-slider-invalid-color, var(--color-destructive));
-      }
-
-      &[data-focus] {
-        box-shadow:
-          inset 0 0 0 var(--angle-slider-track-border-width, var(--border-width-sm))
-            var(--angle-slider-invalid-color, var(--color-destructive)),
-          0 0 0 var(--angle-slider-focus-ring-width, 0.1875rem)
-            var(--angle-slider-focus-ring-color, var(--color-ring)),
-          var(--angle-slider-shadow, none);
-      }
+      --_angle-slider-control-border-color: var(
+        --angle-slider-invalid-color,
+        var(--color-destructive)
+      );
+      --_angle-slider-track-border-color: var(
+        --angle-slider-invalid-color,
+        var(--color-destructive)
+      );
     }
 
     &:is([data-disabled], [data-readonly]) {
@@ -176,7 +172,7 @@
       );
     }
 
-    &:is([data-disabled], [data-readonly]) {
+    &[data-disabled] {
       pointer-events: none;
     }
   }
@@ -191,7 +187,6 @@
   .marker {
     position: absolute;
     inset: 0;
-    border-radius: inherit;
 
     &::before {
       position: absolute;
