@@ -56,16 +56,16 @@ Every exported root accepts `className` and receives stable hooks:
 import { Button } from '@moduix/react';
 
 export function SaveButton() {
-  return <Button.Root>Save Changes</Button.Root>;
+  return <Button>Save Changes</Button>;
 }
 ```
 
 Use `asChild` when another element should own the DOM node:
 
 ```tsx
-<Button.Root asChild variant="outline">
+<Button asChild variant="outline">
   <a href="/docs/button">Open Button Docs</a>
-</Button.Root>
+</Button>
 ```
 
 For icon-only buttons, use an `icon-*` size and provide an accessible name with `aria-label` or an
@@ -91,7 +91,7 @@ equivalent labeling mechanism.
   - `data-part="root"`
   - `data-variant="<variant>"`
   - `data-size="<size>"`
-- Disabled styling is driven by `:disabled`, `[data-disabled]`, and `[aria-disabled='true']`.
+- Disabled styling is driven by `[data-disabled]`.
 - `data-disabled` is present for native `disabled` and `aria-disabled="true"`.
 - `Button.Root` forwards native button attributes and event handlers without wrapper translation.
 - `Button.Root` forwards its ref to the rendered root.
@@ -193,6 +193,9 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-06-24: Finalized the Ark factory review by locking the root data hooks after passthrough
+  props, simplifying disabled CSS to the shared `data-disabled` state, and aligning docs with the
+  local-only Ark factory API reference text.
 - 2026-06-18: Restored safe `type="button"` behavior for native roots, added Ark-style
   `data-disabled`, documented ref forwarding and Chakra recipe coverage, and kept `asChild`
   free of injected button-only defaults.

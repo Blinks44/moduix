@@ -207,7 +207,7 @@ export function ButtonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
 export function ButtonExample(props: ComponentProps<typeof Button>) {
   return (
     <div className={styles.row}>
-      <Button.Root {...props}>{buttonLabels.basic}</Button.Root>
+      <Button {...props}>{buttonLabels.basic}</Button>
     </div>
   );
 }
@@ -263,20 +263,20 @@ export function ButtonDisabledExample() {
   return (
     <div className={styles.row}>
       <Button disabled>{buttonLabels.disabled}</Button>
-      <Button.Root asChild aria-disabled="true" variant="outline">
+      <Button asChild aria-disabled="true" variant="outline">
         <a href="#button" onClick={(event) => event.preventDefault()}>
           {buttonLabels.disabledLink}
         </a>
-      </Button.Root>
+      </Button>
     </div>
   );
 }
 
 export function ButtonLinkCompositionExample() {
   return (
-    <Button.Root asChild variant="outline">
+    <Button asChild variant="outline">
       <a href="#button">{buttonLabels.link}</a>
-    </Button.Root>
+    </Button>
   );
 }
 

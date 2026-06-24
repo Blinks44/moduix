@@ -34,7 +34,7 @@
       );
     }
 
-    &:is(:disabled, [data-disabled], [aria-disabled='true']) {
+    &[data-disabled] {
       opacity: var(--button-disabled-opacity, var(--opacity-disabled));
       cursor: default;
       pointer-events: none;
@@ -52,7 +52,7 @@
       color: var(--button-default-color, var(--color-primary-foreground));
 
       @media (hover: hover) {
-        &:hover {
+        &:not([data-disabled]):hover {
           background-color: var(--button-default-bg-hover, var(--color-foreground));
         }
       }
@@ -64,7 +64,7 @@
       color: var(--button-outline-color, var(--color-foreground));
 
       @media (hover: hover) {
-        &:hover {
+        &:not([data-disabled]):hover {
           background-color: var(--button-outline-bg-hover, var(--color-accent));
         }
       }
@@ -76,7 +76,7 @@
       color: var(--button-secondary-color, var(--color-secondary-foreground));
 
       @media (hover: hover) {
-        &:hover {
+        &:not([data-disabled]):hover {
           background-color: var(--button-secondary-bg-hover, var(--color-accent));
         }
       }
@@ -88,7 +88,7 @@
       color: var(--button-destructive-color, var(--color-primary-foreground));
 
       @media (hover: hover) {
-        &:hover {
+        &:not([data-disabled]):hover {
           filter: brightness(var(--button-destructive-hover-brightness, 0.96));
         }
       }
@@ -100,7 +100,7 @@
       color: var(--button-destructive-outline-color, var(--color-destructive));
 
       @media (hover: hover) {
-        &:hover {
+        &:not([data-disabled]):hover {
           background-color: var(--button-destructive-outline-bg-hover, var(--color-destructive));
           color: var(
             --button-destructive-outline-color-hover,
@@ -116,7 +116,7 @@
       color: var(--button-ghost-color, var(--color-foreground));
 
       @media (hover: hover) {
-        &:hover {
+        &:not([data-disabled]):hover {
           background-color: var(--button-ghost-bg-hover, var(--color-accent));
         }
       }
@@ -131,7 +131,7 @@
       padding-inline: 0;
 
       @media (hover: hover) {
-        &:hover {
+        &:not([data-disabled]):hover {
           color: var(--button-link-color-hover, var(--color-foreground));
         }
       }

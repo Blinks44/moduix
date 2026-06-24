@@ -40,15 +40,15 @@ const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(function Butto
       asChild={asChild}
       type={asChild ? type : (type ?? 'button')}
       disabled={disabled}
+      aria-disabled={ariaDisabled}
+      {...props}
       data-scope="button"
       data-part="root"
       data-slot="button-root"
       data-variant={variant}
       data-size={size}
       data-disabled={isDisabled ? '' : undefined}
-      aria-disabled={ariaDisabled}
       className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
     />
   );
 });

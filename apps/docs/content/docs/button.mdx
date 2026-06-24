@@ -19,11 +19,10 @@ import {
 
 ## API Reference
 
-Ark UI does not ship a dedicated Button primitive. `Button` follows the
-[Ark factory and `asChild` composition model](https://ark-ui.com/docs/guides/composition), the
-[Ark data-attribute styling model](https://ark-ui.com/docs/guides/styling), and uses
-[Chakra Button](https://chakra-ui.com/docs/components/button) as the nearest recipe-level
-reference.
+Ark UI does not ship a dedicated `button` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Basic
 
@@ -578,4 +577,4 @@ Use `className`, CSS variables, and stable data hooks for local visual changes.
 - `data-scope="button"` and `data-part="root"` support Ark-style targeting.
 - `data-variant` and `data-size` reflect the active visual recipe.
 - `data-disabled` is present for both native `disabled` and `aria-disabled="true"`.
-- `:disabled`, `[data-disabled]`, and `[aria-disabled="true"]` drive disabled visuals.
+- `[data-disabled]` drives disabled visuals for native `disabled` and `aria-disabled="true"`.
