@@ -10,14 +10,18 @@ Collections are the data layer behind Ark list-style components. They are not st
 components, but they are important when you work with `Select`, `Combobox`, `Listbox`, `TreeView`,
 or custom list interactions.
 
-moduix re-exports the collection helpers that are already part of its component examples:
+Import collection helpers directly from Ark UI:
 
 ```tsx
-import { createGridCollection, createListCollection, useListCollection } from '@moduix/react';
+import {
+  createGridCollection,
+  createListCollection,
+  useListCollection,
+} from '@ark-ui/react/collection';
 ```
 
-Use lower-level Ark collection APIs directly from `@ark-ui/react/collection` when a helper is not
-re-exported by moduix.
+moduix components accept Ark collections, but moduix does not wrap or re-export the collection
+helpers.
 
 ## Overview
 
@@ -32,9 +36,8 @@ re-exported by moduix.
 
 Use collections when a component needs stable item identity, keyboard traversal, or value-to-item
 conversion. `createListCollection` is the normal path for `Select`, `Combobox`, and `Listbox`
-options. `createGridCollection` fits grid-like listbox layouts. Tree and async helpers are Ark
-tooling for more advanced data ownership, so import them from Ark until moduix documents them as
-part of its public API.
+options. `createGridCollection` fits grid-like listbox layouts. Tree and async helpers are also Ark
+tooling for more advanced data ownership.
 
 For component-specific usage, start from the relevant moduix page:
 

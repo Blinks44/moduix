@@ -158,9 +158,15 @@ Important CSS variables include `--command-palette-positioner-padding`, `--comma
 
 Do not reintroduce `legacy autocomplete primitive`, `legacy dialog primitive`, `render` props, `createCommandPaletteHandle`, `CommandPaletteCollection`, or `items` render-function APIs. Keep structural dialog parts explicit and keep search behavior in Ark Combobox collection state.
 
-Top-level `moduix` already exports `useListCollection`, `createListCollection`, `useFilter`, `useCombobox`, and dialog hooks through the standalone Ark-backed components. Avoid duplicate command-palette re-exports with the same names because the package root uses `export *`.
+Collections and locale helpers belong to Ark UI. Import `useListCollection` and
+`createListCollection` from `@ark-ui/react/collection`, and `useFilter` from
+`@ark-ui/react/locale`. Avoid duplicate command-palette re-exports with the same names because
+consumers should compose the Ark helpers directly.
 
 ## Local changelog
+
+- 2026-06-24: Updated the command palette contract to treat collections and locale filtering as
+  direct Ark UI imports instead of moduix re-exports.
 
 - 2026-06-22: Removed the `CommandPalette.Portal` namespace alias; examples now import the shared
   `Portal` from `@moduix/react`.

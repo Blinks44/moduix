@@ -26,8 +26,9 @@ filterable collection.
 - `Combobox.Root` requires `collection`; use `createListCollection()` or `useListCollection()`.
 - `onValueChange`, `onInputValueChange`, `onOpenChange`, and `onHighlightChange` preserve Ark detail
   objects without remapping.
-- `Portal`, `createListCollection`, `useListCollection`, `useCombobox`, `useComboboxContext`,
-  `useComboboxItemContext`, and `useFilter` are re-exported for the canonical Ark workflows.
+- `Portal`, `useCombobox`, `useComboboxContext`, and `useComboboxItemContext` are re-exported for
+  canonical Ark workflows. Import collection helpers from `@ark-ui/react/collection` and
+  `useFilter` from `@ark-ui/react/locale`.
 - `Combobox.Trigger`, `Combobox.ClearTrigger`, and `Combobox.ItemIndicator` provide default moduix
   icons when children are omitted.
 
@@ -59,7 +60,9 @@ Ark state without rendering a DOM node. `RootProvider` accepts a state object fr
 ## Composition
 
 ```tsx
-import { Combobox, Portal, useFilter, useListCollection } from '@moduix/react';
+import { useListCollection } from '@ark-ui/react/collection';
+import { useFilter } from '@ark-ui/react/locale';
+import { Combobox, Portal } from '@moduix/react';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -163,6 +166,9 @@ export function ComboboxExample() {
 - Keep generic inference on `Root` and `RootProvider`.
 
 ## Local changelog
+
+- 2026-06-24: Removed collection and locale helper re-exports from the Combobox public surface;
+  docs now import those helpers directly from Ark UI.
 
 - 2026-06-22: Fixed the docs virtualized composition to use a dedicated scroll container,
   synchronous `scrollToIndexFn`, and non-scrolling virtual list rows so popup scrolling works with

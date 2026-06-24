@@ -28,8 +28,8 @@ explicit popup composition, `HiddenSelect`, and `RootProvider` / context hooks.
   around `ClearTrigger` and `Indicator`.
 - When `Select.ClearTrigger` is omitted or hidden, the trigger automatically reduces its end
   padding so it only reserves space for the indicator.
-- `Portal`, `createListCollection`, `useListCollection`, `useSelect`, `useSelectContext`, and
-  `useSelectItemContext` are exported from the package barrel.
+- `Portal`, `useSelect`, `useSelectContext`, and `useSelectItemContext` are exported from the
+  package barrel. Import collection helpers directly from `@ark-ui/react/collection`.
 - `Select.ItemTextContent`, `Select.ItemTextIcon`, and `Select.ItemTextLabel` are moduix span
   helpers for richer item text layout.
 - legacy flat aliases and compatibility APIs are intentionally removed.
@@ -84,7 +84,8 @@ Select / Select.Root
 ## Composition
 
 ```tsx
-import { Portal, Select, createListCollection } from '@moduix/react';
+import { createListCollection } from '@ark-ui/react/collection';
+import { Portal, Select } from '@moduix/react';
 
 const fruits = createListCollection({
   items: [
@@ -179,6 +180,9 @@ export function SelectDemo() {
 - When registry-shipped select source changes, run `npm run build:registry`.
 
 ## Local changelog
+
+- 2026-06-24: Removed collection helper re-exports from the Select public surface; docs now import
+  `createListCollection` and `useListCollection` directly from Ark UI.
 
 - 2026-06-20: Reduced trigger end padding automatically when no clear trigger is rendered, so
   indicator-only selects no longer reserve empty clear-button space.

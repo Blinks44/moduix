@@ -1,13 +1,12 @@
+import type { ListCollection } from '@ark-ui/react/collection';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
-import type { ListCollection } from './Listbox';
 import {
-  Listbox,
   createGridCollection,
   createListCollection,
   useListCollection,
-  useListbox,
-} from './Listbox';
+} from '@ark-ui/react/collection';
+import { useState } from 'react';
+import { Listbox, useListbox } from './Listbox';
 import styles from './Listbox.stories.module.css';
 
 interface OptionItem {

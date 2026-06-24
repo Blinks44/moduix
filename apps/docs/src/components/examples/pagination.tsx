@@ -1,4 +1,5 @@
-import { Pagination, Portal, Select, createListCollection, usePagination } from '@moduix/react';
+import { createListCollection } from '@ark-ui/react/collection';
+import { Pagination, Portal, Select, usePagination } from '@moduix/react';
 import { useState, type CSSProperties } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

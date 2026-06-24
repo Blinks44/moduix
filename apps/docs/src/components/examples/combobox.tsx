@@ -1,13 +1,7 @@
 import type { UseComboboxContext } from '@moduix/react';
-import {
-  Combobox,
-  Portal,
-  createListCollection,
-  useCombobox,
-  useComboboxContext,
-  useFilter,
-  useListCollection,
-} from '@moduix/react';
+import { createListCollection, useListCollection } from '@ark-ui/react/collection';
+import { useFilter } from '@ark-ui/react/locale';
+import { Combobox, Portal, useCombobox, useComboboxContext } from '@moduix/react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';

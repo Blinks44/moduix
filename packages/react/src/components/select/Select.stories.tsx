@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
+import { createListCollection } from '@ark-ui/react/collection';
 import { useState } from 'react';
 import { InfoIcon } from '@/icons/demo';
-import { Select, Portal, createListCollection, useSelect } from './Select';
+import { Select, Portal, useSelect } from './Select';
 import styles from './Select.stories.module.css';
 
 interface OptionItem {

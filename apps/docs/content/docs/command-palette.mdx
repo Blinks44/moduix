@@ -29,9 +29,9 @@ Use the explicit dialog structure and place `CommandPalette.Combobox` inside `Co
         Button,
         CommandPalette,
         Portal,
-        useFilter,
-        useListCollection,
       } from "@moduix/react";
+      import { useListCollection } from "@ark-ui/react/collection";
+      import { useFilter } from "@ark-ui/react/locale";
 
       export function CommandPaletteDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -274,9 +274,9 @@ Attach execution behavior to items and let `CommandPalette.Combobox` close the d
         Button,
         CommandPalette,
         Portal,
-        useFilter,
-        useListCollection,
       } from "@moduix/react";
+      import { useListCollection } from "@ark-ui/react/collection";
+      import { useFilter } from "@ark-ui/react/locale";
       import { useState } from "react";
 
       export function CommandPaletteActionsDemo() {
@@ -399,9 +399,9 @@ Control `open` from React state when the palette must coordinate with surroundin
         Button,
         CommandPalette,
         Portal,
-        useFilter,
-        useListCollection,
       } from "@moduix/react";
+      import { useListCollection } from "@ark-ui/react/collection";
+      import { useFilter } from "@ark-ui/react/locale";
       import { useState } from "react";
 
       export function ControlledCommandPalette() {

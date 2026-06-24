@@ -34,7 +34,8 @@ Pass a `collection`, render `Content`, and pass each item through `Listbox.Item 
 
   <Preview.Code>
     {`
-      import { Listbox, createListCollection } from "@moduix/react";
+      import { createListCollection } from "@ark-ui/react/collection";
+      import { Listbox } from "@moduix/react";
 
       const countries = createListCollection({
         items: [
@@ -213,7 +214,8 @@ Control the selected string array from React state and update it from `details.v
   <Preview.Code>
     {`
       import { useState } from "react";
-      import { Listbox, createListCollection } from "@moduix/react";
+      import { createListCollection } from "@ark-ui/react/collection";
+      import { Listbox } from "@moduix/react";
 
       const sizes = createListCollection({
         items: [
@@ -262,7 +264,8 @@ listbox API.
 
   <Preview.Code>
     {`
-      import { Button, Listbox, createListCollection, useListbox } from "@moduix/react";
+      import { createListCollection } from "@ark-ui/react/collection";
+      import { Button, Listbox, useListbox } from "@moduix/react";
 
       const priorities = createListCollection({
         items: [
@@ -309,7 +312,8 @@ Disable individual items through the collection item `disabled` field or `isItem
 
   <Preview.Code>
     {`
-      import { Listbox, createListCollection } from "@moduix/react";
+      import { createListCollection } from "@ark-ui/react/collection";
+      import { Listbox } from "@moduix/react";
 
       const plans = createListCollection({
         items: [
@@ -351,7 +355,8 @@ Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
 
   <Preview.Code>
     {`
-      import { Listbox, createListCollection } from "@moduix/react";
+      import { createListCollection } from "@ark-ui/react/collection";
+      import { Listbox } from "@moduix/react";
 
       const days = createListCollection({
         items: [
@@ -397,7 +402,8 @@ Use `groupBy` on the collection and render `ItemGroup` plus `ItemGroupLabel`.
 
   <Preview.Code>
     {`
-      import { Listbox, createListCollection } from "@moduix/react";
+      import { createListCollection } from "@ark-ui/react/collection";
+      import { Listbox } from "@moduix/react";
 
       const regions = createListCollection({
         items: [
@@ -450,7 +456,8 @@ Use `selectionMode="extended"` when users should select multiple items with plat
 
   <Preview.Code>
     {`
-      import { Listbox, createListCollection } from "@moduix/react";
+      import { createListCollection } from "@ark-ui/react/collection";
+      import { Listbox } from "@moduix/react";
 
       const frameworks = createListCollection({
         items: [
@@ -494,7 +501,8 @@ Set `orientation="horizontal"` for horizontal layout and left/right keyboard nav
 
   <Preview.Code>
     {`
-      import { Listbox, createListCollection } from "@moduix/react";
+      import { createListCollection } from "@ark-ui/react/collection";
+      import { Listbox } from "@moduix/react";
       import styles from "./listbox.module.css";
 
       const albums = createListCollection({
@@ -562,6 +570,9 @@ inline check indicator to keep cells compact.
 
   <Preview.Code>
     {`
+      import { createGridCollection } from "@ark-ui/react/collection";
+      import { Listbox } from "@moduix/react";
+
       const colors = createGridCollection({
         items: [
           { label: "Red", value: "red" },
@@ -603,7 +614,8 @@ Use `Listbox.Input` with `useListCollection`. Turn off typeahead when text input
 
   <Preview.Code>
     {`
-      import { Listbox, useListCollection } from "@moduix/react";
+      import { useListCollection } from "@ark-ui/react/collection";
+      import { Listbox } from "@moduix/react";
 
       const frameworks = [
         { label: "React", value: "react" },
@@ -660,7 +672,8 @@ Use `useListboxContext` inside a child component to implement select-all control
 
   <Preview.Code>
     {`
-      import { Button, Listbox, createListCollection, useListboxContext } from "@moduix/react";
+      import { createListCollection } from "@ark-ui/react/collection";
+      import { Button, Listbox, useListboxContext } from "@moduix/react";
 
       const days = createListCollection({
         items: [
@@ -718,7 +731,8 @@ Render `ValueText` when the selected value summary should stay visible near the 
 
   <Preview.Code>
     {`
-      import { Listbox, createListCollection } from "@moduix/react";
+      import { createListCollection } from "@ark-ui/react/collection";
+      import { Listbox } from "@moduix/react";
 
       const countries = createListCollection({
         items: [

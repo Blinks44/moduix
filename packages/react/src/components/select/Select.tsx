@@ -7,8 +7,6 @@ import {
   type SelectRootProps,
   type SelectRootProviderComponent,
   type SelectRootProviderProps,
-  createListCollection,
-  useListCollection,
   useSelect,
   useSelectContext,
   useSelectItemContext,
@@ -333,18 +331,8 @@ const Select = Object.assign(SelectRoot, {
   ItemContext: SelectItemContext,
 });
 
-export {
-  Select,
-  Portal,
-  createListCollection,
-  useListCollection,
-  useSelect,
-  useSelectContext,
-  useSelectItemContext,
-};
+export { Select, Portal, useSelect, useSelectContext, useSelectItemContext };
 export type {
-  CollectionItem,
-  ListCollection,
   SelectFocusOutsideEvent,
   SelectHighlightChangeDetails,
   SelectInteractOutsideEvent,
@@ -355,7 +343,6 @@ export type {
   SelectRootProviderComponent,
   SelectRootProviderProps,
   SelectValueChangeDetails,
-  UseListCollectionProps,
   UseSelectContext,
   UseSelectItemContext,
   UseSelectProps,

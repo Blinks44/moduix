@@ -75,7 +75,8 @@ Listbox / Listbox.Root
 ## Composition
 
 ```tsx
-import { Listbox, createListCollection } from '@moduix/react';
+import { createListCollection } from '@ark-ui/react/collection';
+import { Listbox } from '@moduix/react';
 
 const countries = createListCollection({
   items: [
@@ -153,6 +154,9 @@ export function ListboxDemo() {
 - When registry-shipped listbox source changes, run `npm run build:registry`.
 
 ## Local changelog
+
+- 2026-06-24: Removed collection helper re-exports from the Listbox public surface; docs now import
+  `createListCollection`, `createGridCollection`, and `useListCollection` directly from Ark UI.
 
 - 2026-06-22: Polished default sizing, scroll behavior, filtering input styling, indicator layout,
   horizontal/grid examples, stories, and docs snippets.

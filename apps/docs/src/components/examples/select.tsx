@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { Field, Portal, Select, createListCollection, useSelect } from '@moduix/react';
+import { createListCollection } from '@ark-ui/react/collection';
+import { Field, Portal, Select, useSelect } from '@moduix/react';
 import { useMemo, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';

@@ -1,10 +1,5 @@
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import {
-  createGridCollection,
-  createListCollection,
-  useListCollection,
-} from '@ark-ui/react/collection';
-import {
   Listbox as ListboxPrimitive,
   type CollectionItem,
   type ListboxRootComponent,
@@ -244,15 +239,7 @@ const Listbox = Object.assign(ListboxRoot, {
   ItemContext: ListboxItemContext,
 });
 
-export {
-  Listbox,
-  createGridCollection,
-  createListCollection,
-  useListCollection,
-  useListbox,
-  useListboxContext,
-  useListboxItemContext,
-};
+export { Listbox, useListbox, useListboxContext, useListboxItemContext };
 export type {
   CollectionItem as ListboxCollectionItem,
   ListboxContentBaseProps,
@@ -294,10 +281,3 @@ export type {
   UseListboxProps,
   UseListboxReturn,
 } from '@ark-ui/react/listbox';
-export type {
-  GridCollection,
-  GridCollectionOptions,
-  ListCollection,
-  UseListCollectionProps,
-  UseListCollectionReturn,
-} from '@ark-ui/react/collection';

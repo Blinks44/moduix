@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { createListCollection } from '@ark-ui/react/collection';
 import { Portal } from '@ark-ui/react/portal';
 import { today } from '@internationalized/date';
 import { useState } from 'react';
 import { Button } from '../button';
 import { Field } from '../field';
-import { Select, createListCollection } from '../select';
+import { Select } from '../select';
 import {
   DatePicker,
   parseDate,
