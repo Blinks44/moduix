@@ -7,8 +7,8 @@ Upstream docs:
 
 ## Purpose
 
-`Fieldset` groups related form controls under one accessible legend and provides shared disabled and
-invalid state.
+`Fieldset` groups related form controls under one accessible legend, exposes group invalid state,
+and provides shared disabled state to compatible descendants.
 
 ## Upstream model to preserve
 
@@ -55,10 +55,10 @@ export function ContactDetails() {
   return (
     <Fieldset>
       <Fieldset.Legend>Contact details</Fieldset.Legend>
-      <Field.Root>
+      <Field>
         <Field.Label>Email</Field.Label>
         <Field.Input type="email" />
-      </Field.Root>
+      </Field>
       <Fieldset.HelperText>Use an address you check regularly.</Fieldset.HelperText>
     </Fieldset>
   );
@@ -71,7 +71,7 @@ Use `asChild` with one semantic child when replacing a part's host. Use `useFiel
 ## Upstream feature coverage
 
 - Basic grouped fields and native controls are supported.
-- Ark `Field`, checkbox, radio-group, and input/select compositions work as nested controls.
+- Ark `Field`, checkbox, radio-group, and select compositions work as nested controls.
 - Root Provider is exposed through `useFieldset` and `Fieldset.RootProvider`.
 - Context state is exposed through `Fieldset.Context` and `useFieldsetContext`.
 - `id`, `disabled`, `invalid`, refs, and `asChild` are passed through unchanged.
@@ -83,9 +83,10 @@ Use `asChild` with one semantic child when replacing a part's host. Use `useFiel
 - `ErrorText` has `aria-live="polite"` and is absent when `invalid` is false.
 - Root/provider refs target `HTMLFieldSetElement`; legend refs target `HTMLLegendElement`.
 - Ark state hooks are `data-scope="fieldset"`, `data-part="root" | "legend" | "helper-text" |
-"error-text"`, `data-disabled`, and `data-invalid`.
+"error-text"`, with `data-disabled` and `data-invalid` on the root and legend.
 - Native fieldset disabled behavior applies to descendant native controls. Ark controls nested inside
-  the fieldset also consume Ark fieldset context where supported.
+  the fieldset can consume disabled state where supported. Set `invalid` on nested `Field`
+  components when individual controls need invalid styling or ARIA state.
 - Fieldset has no value and therefore no `HiddenInput`, controlled value, callback, or keyboard
   navigation contract of its own.
 
@@ -110,6 +111,9 @@ disabled and invalid state, and helper/error text typography and color.
 
 ## Local changelog
 
+- 2026-06-25: Audited the Ark UI fieldset migration against upstream docs and runtime behavior;
+  clarified disabled versus invalid propagation and synchronized docs examples with the short root
+  component form.
 - 2026-06-19: Migrated to Ark UI 5.37.2; added the complete anatomy, provider/context
   surface, invalid/helper/error semantics, Ark state styling, and namespace-first exports; removed
   legacy flat aliases and `render`.

@@ -1,16 +1,40 @@
 import type { ComponentProps } from 'react';
-import { Checkbox, Field, Fieldset, useFieldset } from '@moduix/react';
+import { createListCollection } from '@ark-ui/react/collection';
+import { Checkbox, Field, Fieldset, Portal, Select, useFieldset } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './fieldset.module.css';
 
 export const fieldsetExampleCss = `
   .fieldset {
-    width: min(16rem, 100%);
+    width: min(20rem, 100%);
+    margin-inline: auto;
+  }
+`;
+
+export const fieldsetPhoneInputCss = `
+  .fieldset {
+    width: min(20rem, 100%);
+    margin-inline: auto;
+  }
+
+  .phone-input {
+    display: grid;
+    grid-template-columns: minmax(0, 6rem) minmax(0, 1fr);
+    gap: var(--spacing-2);
+  }
+
+  .country-code {
+    --select-width: 100%;
   }
 `;
 
 export const fieldsetCustomStylingCss = `
+  .fieldset {
+    width: min(20rem, 100%);
+    margin-inline: auto;
+  }
+
   .custom-fieldset {
     --fieldset-border-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
     --fieldset-border-width: var(--border-width-sm);
@@ -33,10 +57,32 @@ export const fieldsetPreferencesData = `const preferences = [
   { label: 'Marketing emails', value: 'marketing' },
 ];`;
 
-const countryCodes = ['+1', '+44', '+49', '+41'];
+const countryCodeItems = [
+  { label: '+1', value: '+1' },
+  { label: '+44', value: '+44' },
+  { label: '+49', value: '+49' },
+  { label: '+41', value: '+41' },
+];
 
-export const fieldsetCountryCodesData = `const countryCodes = ['+1', '+44', '+49', '+41'];`;
+const countryCodes = createListCollection({ items: countryCodeItems });
+
+export const fieldsetCountryCodesData = `const countryCodes = createListCollection({
+  items: [
+    { label: '+1', value: '+1' },
+    { label: '+44', value: '+44' },
+    { label: '+49', value: '+49' },
+    { label: '+41', value: '+41' },
+  ],
+});`;
+export const fieldsetDisabledData = `const lockedAddress = {
+  street: '123 Main St',
+  city: 'San Francisco',
+};`;
 export const fieldsetEmptyData = `const initialFieldsetState = { disabled: false, invalid: false };`;
+export const fieldsetInvalidData = `const validation = {
+  username: 'Username must be at least 3 characters.',
+  email: 'Enter a valid email address.',
+};`;
 
 export const fieldsetOverrideCssProperties: CssPropertyInput[] = [
   ['--fieldset-border-color', 'transparent', 'Controls the root border color.'],
@@ -88,14 +134,14 @@ export function FieldsetExample(props: ComponentProps<typeof Fieldset>) {
   return (
     <Fieldset className={styles.fieldset} {...props}>
       <Fieldset.Legend>Contact details</Fieldset.Legend>
-      <Field.Root>
+      <Field>
         <Field.Label>Name</Field.Label>
         <Field.Input name="name" />
-      </Field.Root>
-      <Field.Root>
+      </Field>
+      <Field>
         <Field.Label>Email</Field.Label>
         <Field.Input name="email" type="email" />
-      </Field.Root>
+      </Field>
       <Fieldset.HelperText>We only use these details to contact you.</Fieldset.HelperText>
     </Fieldset>
   );
@@ -105,15 +151,53 @@ export function FieldsetWithFieldExample() {
   return (
     <Fieldset className={styles.fieldset}>
       <Fieldset.Legend>Personal information</Fieldset.Legend>
-      <Field.Root>
+      <Field>
         <Field.Label>First name</Field.Label>
         <Field.Input />
         <Field.HelperText>As it appears on your ID.</Field.HelperText>
-      </Field.Root>
-      <Field.Root>
+      </Field>
+      <Field>
         <Field.Label>Last name</Field.Label>
         <Field.Input />
-      </Field.Root>
+      </Field>
+    </Fieldset>
+  );
+}
+
+export function FieldsetDisabledExample() {
+  return (
+    <Fieldset className={styles.fieldset} disabled>
+      <Fieldset.Legend>Shipping address</Fieldset.Legend>
+      <Fieldset.HelperText>
+        Your address cannot be changed after order confirmation.
+      </Fieldset.HelperText>
+      <Field>
+        <Field.Label>Street</Field.Label>
+        <Field.Input defaultValue="123 Main St" />
+      </Field>
+      <Field>
+        <Field.Label>City</Field.Label>
+        <Field.Input defaultValue="San Francisco" />
+      </Field>
+    </Fieldset>
+  );
+}
+
+export function FieldsetInvalidExample() {
+  return (
+    <Fieldset className={styles.fieldset} invalid>
+      <Fieldset.Legend>Account information</Fieldset.Legend>
+      <Fieldset.ErrorText>Please fix the errors below to continue.</Fieldset.ErrorText>
+      <Field invalid>
+        <Field.Label>Username</Field.Label>
+        <Field.Input defaultValue="jo" />
+        <Field.ErrorText>Username must be at least 3 characters.</Field.ErrorText>
+      </Field>
+      <Field invalid>
+        <Field.Label>Email</Field.Label>
+        <Field.Input type="email" defaultValue="invalid-email" />
+        <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+      </Field>
     </Fieldset>
   );
 }
@@ -123,13 +207,13 @@ export function FieldsetCheckboxExample() {
     <Fieldset className={styles.fieldset}>
       <Fieldset.Legend>Email preferences</Fieldset.Legend>
       {preferences.map((preference) => (
-        <Checkbox.Root key={preference.value} value={preference.value}>
+        <Checkbox key={preference.value} value={preference.value}>
           <Checkbox.Control>
             <Checkbox.Indicator />
           </Checkbox.Control>
           <Checkbox.Label>{preference.label}</Checkbox.Label>
           <Checkbox.HiddenInput />
-        </Checkbox.Root>
+        </Checkbox>
       ))}
     </Fieldset>
   );
@@ -141,10 +225,10 @@ export function FieldsetRootProviderExample() {
   return (
     <Fieldset.RootProvider value={fieldset} className={styles.fieldset}>
       <Fieldset.Legend>Contact details</Fieldset.Legend>
-      <Field.Root>
+      <Field>
         <Field.Label>Email</Field.Label>
         <Field.Input type="email" defaultValue="invalid-address" />
-      </Field.Root>
+      </Field>
       <Fieldset.ErrorText>Enter a valid email address.</Fieldset.ErrorText>
       <Fieldset.Context>
         {(context) => <output className={styles.state}>Invalid: {String(context.invalid)}</output>}
@@ -158,18 +242,34 @@ export function FieldsetPhoneInputExample() {
     <Fieldset className={styles.fieldset}>
       <Fieldset.Legend>Mobile number</Fieldset.Legend>
       <div className={styles.phoneInput}>
-        <Field.Root>
-          <Field.Label>Code</Field.Label>
-          <Field.Select aria-label="Country code">
-            {countryCodes.map((code) => (
-              <option key={code}>{code}</option>
-            ))}
-          </Field.Select>
-        </Field.Root>
-        <Field.Root>
+        <Select className={styles.countryCode} collection={countryCodes} defaultValue={['+1']}>
+          <Select.Label>Code</Select.Label>
+          <Select.Control>
+            <Select.Trigger>
+              <Select.ValueText />
+            </Select.Trigger>
+            <Select.Indicators>
+              <Select.Indicator />
+            </Select.Indicators>
+          </Select.Control>
+          <Portal>
+            <Select.Positioner>
+              <Select.Content>
+                {countryCodes.items.map((item) => (
+                  <Select.Item key={item.value} item={item}>
+                    <Select.ItemText>{item.label}</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Positioner>
+          </Portal>
+          <Select.HiddenSelect name="countryCode" />
+        </Select>
+        <Field>
           <Field.Label>Phone</Field.Label>
           <Field.Input type="tel" aria-label="Phone number" />
-        </Field.Root>
+        </Field>
       </div>
       <Fieldset.HelperText>Include the area code.</Fieldset.HelperText>
     </Fieldset>
@@ -180,10 +280,10 @@ export function CustomStylesFieldsetExample() {
   return (
     <Fieldset className={`${styles.fieldset} ${styles.customFieldset}`}>
       <Fieldset.Legend>Styled fieldset</Fieldset.Legend>
-      <Field.Root>
+      <Field>
         <Field.Label>Project name</Field.Label>
         <Field.Input placeholder="Maps Platform" />
-      </Field.Root>
+      </Field>
       <Fieldset.HelperText>Visible to project members.</Fieldset.HelperText>
     </Fieldset>
   );
