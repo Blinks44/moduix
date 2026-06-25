@@ -37,13 +37,11 @@ function FileIcon(props: ComponentProps<'svg'>) {
   );
 }
 
-function FileUploadItems({ rejected = false }: { rejected?: boolean }) {
+function FileUploadItems() {
   return (
     <FileUpload.Context>
-      {({ acceptedFiles, rejectedFiles }) => {
-        const files = rejected ? rejectedFiles.map(({ file }) => file) : acceptedFiles;
-
-        return files.map((file) => (
+      {({ acceptedFiles }) =>
+        acceptedFiles.map((file) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
             <FileUpload.ItemPreview type="image/*">
               <FileUpload.ItemPreviewImage />
@@ -55,8 +53,8 @@ function FileUploadItems({ rejected = false }: { rejected?: boolean }) {
             <FileUpload.ItemSizeText />
             <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
           </FileUpload.Item>
-        ));
-      }}
+        ))
+      }
     </FileUpload.Context>
   );
 }

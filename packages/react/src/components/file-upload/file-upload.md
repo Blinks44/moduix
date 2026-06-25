@@ -96,6 +96,7 @@ export function FileUploadDemo() {
 ## Upstream feature coverage
 
 - Basic upload: supported with `Root`, `Label`, `Trigger`, `ItemGroup`, `Item`, and `HiddenInput`.
+- Clear trigger: supported with `ClearTrigger`; omit children to use the default close icon.
 - Dropzone: supported with `Dropzone`; use `disableClick` when a nested `Trigger` is rendered.
 - Accepted file types: supported through `accept`.
 - Rejected files and errors: supported through `Context.rejectedFiles`, `ItemGroup type="rejected"`, and validation
@@ -131,6 +132,7 @@ export function FileUploadDemo() {
 - `ClearTrigger` defaults to the moduix `CloseIcon` when children are omitted.
 - Public styling hooks are Ark `data-scope` / `data-part`, Ark state attributes, and moduix `data-slot`.
 - Public component tokens live under `--file-upload-*` in `packages/react/src/core/styles/theme.css`.
+- Item layout selectors use the public `data-slot` hooks for previews and size text.
 - Empty `ItemGroup` parts are hidden so they do not add root spacing before accepted or rejected files exist.
 - No Ark runtime CSS variables are required by this primitive.
 
@@ -153,6 +155,8 @@ export function FileUploadDemo() {
 
 ## Local changelog
 
+- 2026-06-25: Added public docs coverage for `ClearTrigger`, completed the CSS variables reference, switched item
+  layout selectors to `data-slot`, and normalized fractional fallback sizes to the component spacing scale.
 - 2026-06-22: Hid empty `ItemGroup` parts to remove extra root gap before files are selected.
 - 2026-06-22: Added the Ark UI `FileUpload` component family, CSS Modules styling, provider/context exports, local
   docs, stories, public package export, and registry integration.

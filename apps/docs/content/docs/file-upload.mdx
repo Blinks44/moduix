@@ -8,6 +8,7 @@ import {
   ControlledFileUploadExample,
   CustomStylingFileUploadExample,
   FileUploadAcceptedTypesExample,
+  FileUploadClearTriggerExample,
   FileUploadCssPropertiesPanel,
   fileUploadCustomStylingData,
   FileUploadDirectoryExample,
@@ -23,10 +24,12 @@ import {
   FileUploadWithFieldExample,
   fileUploadAcceptedTypesData,
   fileUploadBasicData,
+  fileUploadClearTriggerData,
   fileUploadCustomStylingCss,
   fileUploadDirectoryData,
   fileUploadDropzoneData,
   fileUploadErrorHandlingData,
+  fileUploadFieldData,
   fileUploadExampleCss,
   fileUploadFormData,
   fileUploadInitialFilesData,
@@ -513,6 +516,48 @@ Use `defaultAcceptedFiles` when the upload should start with existing files and 
   <Preview.Data>{fileUploadInitialFilesData}</Preview.Data>
 </Preview>
 
+### Clear Trigger
+
+Use `ClearTrigger` to clear accepted files at once.
+
+<Preview>
+  <FileUploadClearTriggerExample />
+
+  <Preview.Code>
+    {`
+      import { FileUpload } from "@moduix/react";
+
+      export function ClearTriggerFileUploadDemo() {
+        return (
+          <FileUpload className="file-upload-demo file-upload-simple-demo" maxFiles={maxFiles}>
+            <FileUpload.Label>Attachments</FileUpload.Label>
+            <div className="file-upload-actions">
+              <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+              <FileUpload.ClearTrigger>Clear files</FileUpload.ClearTrigger>
+            </div>
+            <FileUpload.ItemGroup>
+              <FileUpload.Context>
+                {({ acceptedFiles }) =>
+                  acceptedFiles.map((file) => (
+                    <FileUpload.Item key={file.name} file={file}>
+                      <FileUpload.ItemName />
+                      <FileUpload.ItemDeleteTrigger aria-label={\`Remove \${file.name}\`} />
+                    </FileUpload.Item>
+                  ))
+                }
+              </FileUpload.Context>
+            </FileUpload.ItemGroup>
+            <FileUpload.HiddenInput />
+          </FileUpload>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
+  <Preview.Data>{fileUploadClearTriggerData}</Preview.Data>
+</Preview>
+
 ### With Field
 
 Wrap the upload in `Field.Root` when helper text, error text, required state, or invalid state belongs to the form field.
@@ -527,7 +572,7 @@ Wrap the upload in `Field.Root` when helper text, error text, required state, or
       export function FileUploadWithFieldDemo() {
         return (
           <Field.Root className="file-upload-demo file-upload-simple-demo" required>
-            <FileUpload name="attachments" maxFiles={maxFiles}>
+            <FileUpload name={name} maxFiles={maxFiles}>
               <FileUpload.Label>Required attachments</FileUpload.Label>
               <FileUpload.Trigger>Choose files</FileUpload.Trigger>
               <FileUpload.ItemGroup>
@@ -553,7 +598,7 @@ Wrap the upload in `Field.Root` when helper text, error text, required state, or
 
   </Preview.Code>
   <Preview.CSS>{fileUploadExampleCss}</Preview.CSS>
-  <Preview.Data>{fileUploadFormData}</Preview.Data>
+  <Preview.Data>{fileUploadFieldData}</Preview.Data>
 </Preview>
 
 ### Form Usage

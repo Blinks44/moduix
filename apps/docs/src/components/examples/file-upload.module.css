@@ -15,6 +15,16 @@
   width: min(28rem, 100%);
 }
 
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  --file-upload-action-size: var(
+    --file-upload-trigger-height,
+    var(--button-size-md, var(--size-lg))
+  );
+}
+
 .dropzoneContent {
   display: grid;
   justify-items: center;
@@ -34,7 +44,6 @@
   line-height: var(--line-height-text-xs);
 }
 
-.hint,
 .state,
 .error {
   margin: 0;

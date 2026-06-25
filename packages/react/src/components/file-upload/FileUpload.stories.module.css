@@ -31,7 +31,6 @@
     line-height: var(--line-height-text-xs);
   }
 
-  .hint,
   .state,
   .errorText {
     margin: 0;

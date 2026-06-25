@@ -1148,7 +1148,7 @@
   --file-upload-action-color-hover: initial; /* var(--color-foreground) */
   --file-upload-action-icon-size: initial; /* 1rem */
   --file-upload-action-radius: initial; /* var(--radius-sm) */
-  --file-upload-action-size: initial; /* 1.75rem */
+  --file-upload-action-size: initial; /* 2rem */
   --file-upload-clear-trigger-color: initial; /* var(--color-muted-foreground) */
   --file-upload-clear-trigger-font-size: initial; /* var(--text-sm) */
   --file-upload-clear-trigger-gap: initial; /* var(--spacing-2) */
@@ -1167,10 +1167,10 @@
   --file-upload-dropzone-icon-bg: initial; /* var(--color-muted) */
   --file-upload-dropzone-icon-border-color: initial; /* var(--color-border) */
   --file-upload-dropzone-icon-border-width: initial; /* var(--border-width-sm) */
-  --file-upload-dropzone-icon-box-size: initial; /* 2.75rem */
+  --file-upload-dropzone-icon-box-size: initial; /* 2.5rem */
   --file-upload-dropzone-icon-color: initial; /* var(--color-foreground) */
   --file-upload-dropzone-icon-radius: initial; /* var(--radius-full) */
-  --file-upload-dropzone-icon-size: initial; /* 1.125rem */
+  --file-upload-dropzone-icon-size: initial; /* 1rem */
   --file-upload-dropzone-min-height: initial; /* 8rem */
   --file-upload-dropzone-padding: initial; /* var(--spacing-5) */
   --file-upload-focus-ring-color: initial; /* var(--color-ring) */
@@ -1190,7 +1190,7 @@
   --file-upload-item-name-font-weight: initial; /* var(--weight-medium) */
   --file-upload-item-name-line-height: initial; /* var(--line-height-text-sm) */
   --file-upload-item-padding-x: initial; /* var(--spacing-3) */
-  --file-upload-item-padding-y: initial; /* 0.375rem */
+  --file-upload-item-padding-y: initial; /* var(--spacing-2) */
   --file-upload-item-preview-bg: initial; /* var(--color-muted) */
   --file-upload-item-preview-color: initial; /* var(--color-muted-foreground) */
   --file-upload-item-preview-min-height: initial; /* 3rem */
@@ -1198,7 +1198,7 @@
   --file-upload-item-preview-radius: initial; /* var(--radius-sm) */
   --file-upload-item-preview-size: initial; /* 2rem */
   --file-upload-item-radius: initial; /* var(--radius-md) */
-  --file-upload-item-row-gap: initial; /* 0.125rem */
+  --file-upload-item-row-gap: initial; /* var(--spacing-1) */
   --file-upload-item-size-color: initial; /* var(--color-muted-foreground) */
   --file-upload-item-size-font-size: initial; /* var(--text-xs) */
   --file-upload-item-size-line-height: initial; /* var(--line-height-text-xs) */
