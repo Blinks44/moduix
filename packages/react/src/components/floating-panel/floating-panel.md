@@ -27,7 +27,8 @@ presence lifecycle, and provider/context APIs without remapping callback details
   `onSizeChangeEnd`, and `onStageChange` receive Ark detail objects unchanged.
 - `Trigger`, `Positioner`, `Content`, `DragTrigger`, `Header`, `Title`, `Control`,
   `StageTrigger`, `CloseTrigger`, `Body`, and `ResizeTrigger` map directly to Ark parts.
-- `StageTrigger` supplies default minimize and maximize icons when children are omitted.
+- `StageTrigger` supplies default minimize and maximize icons when children are omitted on the
+  default Ark button host.
 - `CloseIcon`, `DragIndicator`, and `ResizeTriggerGroup` are moduix helpers layered on top of Ark
   composition.
 - `ResizeTriggerGroup` renders all Ark `resizeTriggerAxes`.
@@ -97,7 +98,8 @@ export function FloatingPanelDemo() {
 ```
 
 Use `asChild` with one semantic child when a trigger or control should use another component's
-visuals.
+visuals. `StageTrigger` default icons are not injected for `asChild`; the child owns its semantics
+and accessible name.
 
 ## Upstream feature coverage
 
@@ -144,7 +146,7 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
 
 - `FloatingPanel.CloseIcon` composes Ark `CloseTrigger` with the shared `CloseButton`.
 - `FloatingPanel.StageTrigger` renders the shared `MinusIcon` and `MaximizeIcon` by default for the
-  `minimized` and `maximized` stages.
+  `minimized` and `maximized` stages when it renders Ark's default button host.
 - `FloatingPanel.DragIndicator` renders the shared grip icon for title/header composition.
 - `FloatingPanel.ResizeTriggerGroup` renders all Ark resize handles from `resizeTriggerAxes`.
 - No custom state adapters, modal behavior, backdrop, synthetic restore icon, or renamed Ark
@@ -160,6 +162,8 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
 
 ## Local changelog
 
+- 2026-06-25: Preserved `StageTrigger asChild` semantics by limiting default icons to the default
+  Ark button host and normalized floating-panel size defaults to the shared spacing/size scale.
 - 2026-06-22: Restored close animation by defaulting `persistRect` to `true` on `Root` and
   `useFloatingPanel`.
 - 2026-06-22: Added Storybook coverage and completed docs snippets so examples are closed by

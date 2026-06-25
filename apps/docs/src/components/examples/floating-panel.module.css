@@ -13,15 +13,6 @@
   gap: var(--spacing-2);
 }
 
-.panel {
-  --floating-panel-width: 100%;
-  --floating-panel-height: 100%;
-}
-
-.widePanel {
-  --floating-panel-min-width: 20rem;
-}
-
 .titleText {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -35,21 +26,6 @@
 
 .bodyStack p {
   margin: 0;
-}
-
-.field {
-  display: grid;
-  gap: var(--spacing-2);
-}
-
-.input {
-  min-height: var(--size-lg);
-  padding-inline: var(--spacing-3);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font: inherit;
 }
 
 .status {

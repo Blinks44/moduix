@@ -7,7 +7,7 @@
     min-height: var(--floating-panel-trigger-height, var(--size-lg));
     margin: 0;
     padding: var(--floating-panel-trigger-padding-y, 0.5rem)
-      var(--floating-panel-trigger-padding-x, 0.875rem);
+      var(--floating-panel-trigger-padding-x, var(--spacing-3));
     border: var(--floating-panel-trigger-border-width, var(--border-width-sm)) solid
       var(--floating-panel-trigger-border-color, var(--color-border));
     border-radius: var(--floating-panel-trigger-radius, var(--radius-md));
@@ -114,7 +114,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--floating-panel-header-gap, var(--spacing-3));
-    min-height: var(--floating-panel-header-height, 2.75rem);
+    min-height: var(--floating-panel-header-height, var(--size-xl));
     padding: var(--floating-panel-header-padding-y, var(--spacing-2))
       var(--floating-panel-header-padding-x, var(--spacing-3));
     border-bottom: var(--floating-panel-header-border-width, var(--border-width-sm)) solid
@@ -162,8 +162,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--floating-panel-control-size, 1.625rem);
-    height: var(--floating-panel-control-size, 1.625rem);
+    width: var(--floating-panel-control-size, var(--size-sm));
+    height: var(--floating-panel-control-size, var(--size-sm));
     margin: 0;
     padding: 0;
     border: var(--floating-panel-control-border-width, var(--border-width-sm)) solid
@@ -181,8 +181,8 @@
       opacity var(--floating-panel-transition, var(--transition-default));
 
     & > svg {
-      width: var(--floating-panel-control-icon-size, 0.875rem);
-      height: var(--floating-panel-control-icon-size, 0.875rem);
+      width: var(--floating-panel-control-icon-size, 1rem);
+      height: var(--floating-panel-control-icon-size, 1rem);
     }
 
     @media (hover: hover) {
@@ -252,32 +252,32 @@
     &[data-axis='s'] {
       left: var(--floating-panel-resize-edge-inset, 0.75rem);
       width: calc(100% - (var(--floating-panel-resize-edge-inset, 0.75rem) * 2));
-      height: var(--floating-panel-resize-edge-size, 0.375rem);
+      height: var(--floating-panel-resize-edge-size, 0.5rem);
       cursor: ns-resize;
     }
 
     &[data-axis='n'] {
-      top: calc(var(--floating-panel-resize-edge-size, 0.375rem) / -2);
+      top: calc(var(--floating-panel-resize-edge-size, 0.5rem) / -2);
     }
 
     &[data-axis='s'] {
-      bottom: calc(var(--floating-panel-resize-edge-size, 0.375rem) / -2);
+      bottom: calc(var(--floating-panel-resize-edge-size, 0.5rem) / -2);
     }
 
     &[data-axis='e'],
     &[data-axis='w'] {
       top: var(--floating-panel-resize-edge-inset, 0.75rem);
-      width: var(--floating-panel-resize-edge-size, 0.375rem);
+      width: var(--floating-panel-resize-edge-size, 0.5rem);
       height: calc(100% - (var(--floating-panel-resize-edge-inset, 0.75rem) * 2));
       cursor: ew-resize;
     }
 
     &[data-axis='e'] {
-      right: calc(var(--floating-panel-resize-edge-size, 0.375rem) / -2);
+      right: calc(var(--floating-panel-resize-edge-size, 0.5rem) / -2);
     }
 
     &[data-axis='w'] {
-      left: calc(var(--floating-panel-resize-edge-size, 0.375rem) / -2);
+      left: calc(var(--floating-panel-resize-edge-size, 0.5rem) / -2);
     }
 
     &[data-axis='ne'],

@@ -73,7 +73,7 @@ Compose the Ark structure explicitly. `FloatingPanel.Positioner` owns Ark's meas
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`/* Uses the default moduix floating-panel styles. */`}</Preview.CSS>
+  <Preview.CSS>{``}</Preview.CSS>
   <Preview.Data>{`const defaultSize = { width: 360, height: 260 };`}</Preview.Data>
 </Preview>
 
@@ -166,7 +166,9 @@ explicitly, then place `DragTrigger` around the header so pointer movement start
 region.
 
 Use `StageTrigger` with `stage="minimized"` and `stage="maximized"` for the built-in icon buttons.
-Render your own child for `stage="default"` when you need an explicit restore control.
+Render your own child for `stage="default"` when you need an explicit restore control. When
+`asChild` is set on a trigger or control, provide a single semantic child; default Moduix icons are
+only added for the default Ark button host.
 
 ### When to go custom
 
@@ -180,10 +182,13 @@ not combine `Root` and `RootProvider` for the same state instance.
 
 ### Default props
 
-Moduix defaults `persistRect` to `true` so close animations run at the last panel position instead
-of flashing at the viewport origin during Ark presence teardown. Ark owns defaults for
-`defaultOpen`, `defaultPosition`, `defaultSize`, `allowOverflow`, `draggable`, `resizable`,
-`gridSize`, `strategy`, `lazyMount`, `unmountOnExit`, and the rest of presence behavior.
+| Prop           | Default | Notes                                                                      |
+| -------------- | ------- | -------------------------------------------------------------------------- |
+| `persistRect`  | `true`  | Keeps the last rect available while close animations finish.               |
+| `draggable`    | Ark     | Passed through unchanged; Ark defaults it to `true`.                       |
+| `resizable`    | Ark     | Passed through unchanged; Ark defaults it to `true`.                       |
+| `strategy`     | Ark     | Passed through unchanged; Ark defaults to fixed positioning.               |
+| Presence props | Ark     | `lazyMount`, `unmountOnExit`, `present`, and animation props pass through. |
 
 ### Behavioral notes
 
@@ -254,7 +259,7 @@ Use Ark's details object to synchronize panel visibility with surrounding UI.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`/* Uses the default moduix floating-panel styles. */`}</Preview.CSS>
+  <Preview.CSS>{``}</Preview.CSS>
   <Preview.Data>{`const initialOpen = false;`}</Preview.Data>
 </Preview>
 
@@ -310,7 +315,7 @@ Control `position` when another part of the application needs the latest panel c
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`/* The live example displays x/y above the trigger. */`}</Preview.CSS>
+  <Preview.CSS>{``}</Preview.CSS>
   <Preview.Data>{`const initialPosition = { x: 160, y: 140 };`}</Preview.Data>
 </Preview>
 
@@ -362,7 +367,7 @@ Control `size` when the surrounding UI needs to store or display the current pan
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`/* The live example displays width and height above the trigger. */`}</Preview.CSS>
+  <Preview.CSS>{``}</Preview.CSS>
   <Preview.Data>{`const initialSize = { width: 360, height: 260 };`}</Preview.Data>
 </Preview>
 
@@ -420,7 +425,7 @@ Use `getAnchorPosition` to calculate the initial panel position from the trigger
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`/* Position is initialized from the trigger rect. */`}</Preview.CSS>
+  <Preview.CSS>{``}</Preview.CSS>
   <Preview.Data>{`const offset = 12;`}</Preview.Data>
 </Preview>
 
@@ -476,7 +481,7 @@ Read the Ark panel API inline with `FloatingPanel.Context`.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`/* Context output can be styled like any surrounding text. */`}</Preview.CSS>
+  <Preview.CSS>{``}</Preview.CSS>
   <Preview.Data>{`const contextFields = ["open", "dragging"];`}</Preview.Data>
 </Preview>
 
@@ -530,7 +535,7 @@ methods like `minimize`, `maximize`, and `setOpen`.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`/* External controls can live outside the Ark part tree. */`}</Preview.CSS>
+  <Preview.CSS>{``}</Preview.CSS>
   <Preview.Data>{`const externalActions = ["setOpen", "maximize", "minimize"];`}</Preview.Data>
 </Preview>
 
@@ -587,7 +592,7 @@ Use Ark presence props when the panel should mount only after first open and unm
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`/* Close animation uses the preserved panel rect. */`}</Preview.CSS>
+  <Preview.CSS>{``}</Preview.CSS>
   <Preview.Data>{`const lifecycle = { lazyMount: true, unmountOnExit: true };`}</Preview.Data>
 </Preview>
 
@@ -670,8 +675,8 @@ Override the public Moduix variables without changing the Ark composition.
 
 Ark parts retain `data-scope="floating-panel"` and their `data-part` values. Moduix adds
 `data-slot="floating-panel-*"` to rendered wrappers. Target `data-state="open|closed"`,
-`data-dragging`, `data-topmost`, `data-behind`, `data-minimized`, `data-maximized`, `data-staged`,
-and `data-axis` for state-aware styling.
+`data-dragging`, `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`,
+`data-maximized`, `data-staged`, and `data-axis` for state-aware styling.
 
 `Positioner` exposes `--width`, `--height`, `--x`, `--y`, `--reference-width`,
 `--reference-height`, `--available-width`, `--available-height`, `--z-index`, and

@@ -1301,9 +1301,9 @@
   --floating-panel-control-border-width: initial; /* var(--border-width-sm) */
   --floating-panel-control-color: initial; /* var(--color-foreground) */
   --floating-panel-control-gap: initial; /* var(--spacing-1) */
-  --floating-panel-control-icon-size: initial; /* 0.875rem */
+  --floating-panel-control-icon-size: initial; /* 1rem */
   --floating-panel-control-radius: initial; /* var(--radius-sm) */
-  --floating-panel-control-size: initial; /* 1.625rem */
+  --floating-panel-control-size: initial; /* var(--size-sm) */
   --floating-panel-disabled-opacity: initial; /* var(--opacity-disabled) */
   --floating-panel-drag-indicator-color: initial; /* var(--color-muted-foreground) */
   --floating-panel-drag-indicator-size: initial; /* 1rem */
@@ -1317,7 +1317,7 @@
   --floating-panel-header-border-color: initial; /* var(--floating-panel-border-color, var(--color-border)) */
   --floating-panel-header-border-width: initial; /* var(--border-width-sm) */
   --floating-panel-header-gap: initial; /* var(--spacing-3) */
-  --floating-panel-header-height: initial; /* 2.75rem */
+  --floating-panel-header-height: initial; /* var(--size-xl) */
   --floating-panel-header-padding-x: initial; /* var(--spacing-3) */
   --floating-panel-header-padding-y: initial; /* var(--spacing-2) */
   --floating-panel-height: initial; /* 100% */
@@ -1326,7 +1326,7 @@
   --floating-panel-radius: initial; /* var(--radius-md) */
   --floating-panel-resize-corner-size: initial; /* 0.75rem */
   --floating-panel-resize-edge-inset: initial; /* 0.75rem */
-  --floating-panel-resize-edge-size: initial; /* 0.375rem */
+  --floating-panel-resize-edge-size: initial; /* 0.5rem */
   --floating-panel-shadow: initial; /* var(--shadow-lg) */
   --floating-panel-starting-opacity: initial; /* 0 */
   --floating-panel-starting-scale: initial; /* var(--scale-popup) */
@@ -1347,7 +1347,7 @@
   --floating-panel-trigger-font-size: initial; /* var(--text-md) */
   --floating-panel-trigger-height: initial; /* var(--size-lg) */
   --floating-panel-trigger-line-height: initial; /* var(--line-height-text-md) */
-  --floating-panel-trigger-padding-x: initial; /* 0.875rem */
+  --floating-panel-trigger-padding-x: initial; /* var(--spacing-3) */
   --floating-panel-trigger-padding-y: initial; /* 0.5rem */
   --floating-panel-trigger-radius: initial; /* var(--radius-md) */
   --floating-panel-width: initial; /* 100% */

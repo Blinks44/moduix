@@ -150,6 +150,14 @@ const FloatingPanelStageTrigger = forwardRef<
   { asChild, className, children, stage, 'aria-label': ariaLabel, ...props },
   ref,
 ) {
+  const shouldRenderDefaultIcon = children == null && !asChild;
+  const defaultAriaLabel =
+    shouldRenderDefaultIcon && stage === 'minimized'
+      ? DEFAULT_MINIMIZE_LABEL
+      : shouldRenderDefaultIcon && stage === 'maximized'
+        ? DEFAULT_MAXIMIZE_LABEL
+        : undefined;
+
   return (
     <FloatingPanelPrimitive.StageTrigger
       ref={ref}
@@ -157,18 +165,12 @@ const FloatingPanelStageTrigger = forwardRef<
       stage={stage}
       data-slot="floating-panel-stage-trigger"
       className={clsx(!asChild && styles.controlButton, normalizeClassName(className))}
-      aria-label={
-        ariaLabel ??
-        (children == null && stage === 'minimized'
-          ? DEFAULT_MINIMIZE_LABEL
-          : children == null && stage === 'maximized'
-            ? DEFAULT_MAXIMIZE_LABEL
-            : undefined)
-      }
+      aria-label={ariaLabel ?? defaultAriaLabel}
       {...props}
     >
-      {children ?? (stage === 'minimized' ? <MinusIcon /> : null)}
-      {children == null && stage === 'maximized' ? <MaximizeIcon /> : null}
+      {children}
+      {shouldRenderDefaultIcon && stage === 'minimized' ? <MinusIcon /> : null}
+      {shouldRenderDefaultIcon && stage === 'maximized' ? <MaximizeIcon /> : null}
     </FloatingPanelPrimitive.StageTrigger>
   );
 });
