@@ -22,7 +22,7 @@
   .label {
     display: inline-flex;
     align-items: center;
-    gap: var(--field-label-gap, var(--spacing-1));
+    gap: var(--field-label-gap, var(--spacing-2));
     color: var(--field-label-color, var(--color-foreground));
     font-size: var(--field-label-font-size, var(--text-sm));
     font-weight: var(--field-label-font-weight, var(--weight-medium));

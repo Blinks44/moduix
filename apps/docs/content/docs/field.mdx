@@ -12,8 +12,10 @@ import {
   FieldCustomStylesExample,
   FieldDisabledExample,
   FieldExample,
+  FieldItemExample,
   FieldInvalidExample,
   FieldRadioGroupExample,
+  FieldReadOnlyExample,
   FieldRootProviderExample,
   FieldSelectExample,
   FieldTextareaAutoresizeExample,
@@ -134,11 +136,32 @@ Field
 | `Field.Item`              | Item-scoped field context for grouped controls via `value`.     |
 | `Field.Context`           | Render-prop access to the current field context.                |
 
-## Default props
+## Composition
+
+### Recommended composition
+
+Keep one visible label in the root, render exactly one primary control for the field, and add helper
+or error text when the control needs description or validation feedback.
+
+### When to go custom
+
+Use `Field.Context` or `useFieldContext` when a custom control needs Ark's generated control props.
+Use `Field.Item value` with root `target` when a field contains multiple native controls and the
+label should point to one of them.
+
+### Default props
 
 | Surface                | Default | Notes                                                  |
 | ---------------------- | ------- | ------------------------------------------------------ |
 | `Field` / `Field.Root` | —       | No additional behavioral defaults; Ark defaults apply. |
+
+### Behavioral notes
+
+- `Field.ErrorText` is absent from the DOM until the root is `invalid`.
+- `Field.RootProvider` must receive state from `useField()` and should not be nested inside
+  `Field.Root` for the same field instance.
+- `Field` does not render a hidden input; composed controls such as `Checkbox` and `RadioGroup` own
+  their own native form parts.
 
 ## Examples
 
@@ -350,6 +373,70 @@ around a single checkbox control.
   <Preview.Data>{`const required = true;`}</Preview.Data>
 </Preview>
 
+### Item Target
+
+Use `Field.Item value` with root `target` when one field label should point to a specific control
+inside a grouped control row.
+
+<Preview>
+  <FieldItemExample />
+
+  <Preview.Code>
+    {`
+      import { Field } from "@moduix/react";
+
+      const currencyOptions = [
+        { label: "USD", value: "USD" },
+        { label: "EUR", value: "EUR" },
+        { label: "GBP", value: "GBP" },
+      ];
+
+      export function ItemFieldDemo() {
+        return (
+          <Field target="amount">
+            <Field.Label>Amount</Field.Label>
+            <div className="inlineControls">
+              <Field.Item value="currency">
+                <Field.Select aria-label="Currency" defaultValue="USD">
+                  {currencyOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </Field.Select>
+              </Field.Item>
+              <Field.Item value="amount">
+                <Field.Input inputMode="decimal" placeholder="0.00" />
+              </Field.Item>
+            </div>
+            <Field.HelperText>The root label targets the amount input.</Field.HelperText>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .inlineControls {
+        display: grid;
+        grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr);
+        gap: var(--spacing-2);
+      }
+    `}
+  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const currencyOptions = [
+        { label: "USD", value: "USD" },
+        { label: "EUR", value: "EUR" },
+        { label: "GBP", value: "GBP" },
+      ];
+    `}
+  </Preview.Data>
+</Preview>
+
 ### RadioGroup
 
 Use `Field` with `RadioGroup` when one field label, helper text, or error message should describe
@@ -394,33 +481,31 @@ the whole choice set instead of individual native radio inputs.
 
 ### Custom Control
 
-Use `useFieldContext` when a custom control must receive Ark's control props directly.
+Use `Field.Context` when a custom control must receive Ark's control props directly.
 
 <Preview>
   <FieldCustomControlExample />
 
   <Preview.Code>
     {`
-      import { Field, useFieldContext } from "@moduix/react";
-
-      function CustomControl() {
-        const field = useFieldContext();
-
-        return (
-          <input
-            type="button"
-            className="customControl"
-            value={field.invalid ? "Resolve status" : "Set status"}
-            {...field.getInputProps()}
-          />
-        );
-      }
+      import { Field } from "@moduix/react";
 
       export function CustomControlFieldDemo() {
         return (
           <Field invalid>
             <Field.Label>Status</Field.Label>
-            <CustomControl />
+            <Field.Context>
+              {(field) => (
+                <input
+                  {...field.getInputProps()}
+                  className="customInput"
+                  placeholder="Set status"
+                />
+              )}
+            </Field.Context>
+            <Field.HelperText>
+              Uses getInputProps() for maximum flexibility.
+            </Field.HelperText>
             <Field.ErrorText>Status needs a resolution.</Field.ErrorText>
           </Field>
         );
@@ -431,8 +516,14 @@ Use `useFieldContext` when a custom control must receive Ark's control props dir
 
   <Preview.CSS>
     {`
-      .customControl {
-        border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+      .customInput {
+        width: 100%;
+        min-height: var(--field-control-height, var(--size-lg));
+        border: var(--field-control-border-width, var(--border-width-sm))
+          solid var(--field-control-border-color, var(--color-border));
+        border-radius: var(--field-control-radius, var(--radius-md));
+        padding: var(--field-control-padding-y, 0.5rem)
+          var(--field-control-padding-x, 0.875rem);
       }
     `}
   </Preview.CSS>
@@ -455,7 +546,7 @@ tree.
         const field = useField({ id: "root-provider-field", required: true });
 
         return (
-          <FieldProvider value={field}>
+          <Field.RootProvider value={field}>
             <Field.Label>Project key</Field.Label>
             <Field.Input placeholder="MAPS" />
             <Field.HelperText>
@@ -500,6 +591,36 @@ Set `disabled` on the root to propagate disabled state to Ark field parts.
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
   <Preview.Data>{`const disabled = true;`}</Preview.Data>
+</Preview>
+
+### Read Only
+
+Set `readOnly` on the root when the control value can be copied but not edited.
+
+<Preview>
+  <FieldReadOnlyExample />
+
+  <Preview.Code>
+    {`
+      import { Field } from "@moduix/react";
+
+      export function ReadOnlyFieldDemo() {
+        return (
+          <Field readOnly>
+            <Field.Label>Workspace key</Field.Label>
+            <Field.Input defaultValue="MAPS" />
+            <Field.HelperText>
+              Read-only state is propagated to the input.
+            </Field.HelperText>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
+  <Preview.Data>{`const readOnly = true;`}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -566,8 +687,9 @@ moduix `data-slot="field-*"` hooks, and the public `--field-*` CSS variables sho
   </Tabs>
 </div>
 
-### State
+### Styling hooks
 
 Ark adds `data-disabled`, `data-invalid`, `data-readonly`, and `data-required` to the relevant
 parts. `Field.ErrorText` is only rendered while the current field context is invalid, and helper or
-error text ids are included in the control's `aria-describedby` when present.
+error text ids are included in the control's `aria-describedby` when present. Every DOM part also
+keeps a stable `data-slot="field-*"` hook.

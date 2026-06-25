@@ -162,6 +162,27 @@ export const WithRadioGroup: Story = {
   },
 };
 
+export const ItemTarget: Story = {
+  render: () => {
+    return (
+      <Field target="amount">
+        <Field.Label>Amount</Field.Label>
+        <Field.Item value="currency">
+          <Field.Select aria-label="Currency" defaultValue="USD">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+          </Field.Select>
+        </Field.Item>
+        <Field.Item value="amount">
+          <Field.Input inputMode="decimal" placeholder="0.00" />
+        </Field.Item>
+        <Field.HelperText>The root label targets the amount input.</Field.HelperText>
+      </Field>
+    );
+  },
+};
+
 export const Context: Story = {
   render: () => {
     return (

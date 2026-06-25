@@ -5,6 +5,8 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Field.module.css';
 
+type FieldItemProps = ComponentProps<'div'> & ComponentProps<typeof FieldPrimitive.Item>;
+
 const FieldRoot = forwardRef<
   ComponentRef<typeof FieldPrimitive.Root>,
   ComponentProps<typeof FieldPrimitive.Root>
@@ -33,12 +35,7 @@ const FieldRootProvider = forwardRef<
   );
 });
 
-function FieldItem({
-  className,
-  children,
-  value,
-  ...props
-}: ComponentProps<'div'> & ComponentProps<typeof FieldPrimitive.Item>) {
+function FieldItem({ className, children, value, ...props }: FieldItemProps) {
   return (
     <FieldPrimitive.Item value={value}>
       <div
@@ -167,4 +164,29 @@ const Field = Object.assign(FieldRoot, {
 });
 
 export { Field, useField, useFieldContext };
-export type { UseFieldContext, UseFieldProps, UseFieldReturn } from '@ark-ui/react/field';
+export type {
+  FieldContextProps,
+  FieldErrorTextBaseProps,
+  FieldErrorTextProps,
+  FieldHelperTextBaseProps,
+  FieldHelperTextProps,
+  FieldInputBaseProps,
+  FieldInputProps,
+  FieldItemBaseProps,
+  FieldLabelBaseProps,
+  FieldLabelProps,
+  FieldRequiredIndicatorBaseProps,
+  FieldRequiredIndicatorProps,
+  FieldRootBaseProps,
+  FieldRootProps,
+  FieldRootProviderBaseProps,
+  FieldRootProviderProps,
+  FieldSelectBaseProps,
+  FieldSelectProps,
+  FieldTextareaBaseProps,
+  FieldTextareaProps,
+  UseFieldContext,
+  UseFieldProps,
+  UseFieldReturn,
+} from '@ark-ui/react/field';
+export type { FieldItemProps };

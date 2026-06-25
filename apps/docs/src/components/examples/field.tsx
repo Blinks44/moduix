@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Checkbox, Field, RadioGroup, useField, useFieldContext } from '@moduix/react';
+import { Checkbox, Field, RadioGroup, useField } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -117,6 +117,12 @@ export const fieldPriorityOptions = [
   { label: 'Low', value: 'low' },
   { label: 'Normal', value: 'normal' },
   { label: 'High', value: 'high' },
+];
+
+export const fieldCurrencyOptions = [
+  { label: 'USD', value: 'USD' },
+  { label: 'EUR', value: 'EUR' },
+  { label: 'GBP', value: 'GBP' },
 ];
 
 export function FieldExample(props: ComponentProps<typeof Field>) {
@@ -237,24 +243,20 @@ export function FieldRadioGroupExample() {
   );
 }
 
-function CustomControl() {
-  const field = useFieldContext();
-
-  return (
-    <input
-      type="button"
-      className={styles.customControl}
-      value={field.invalid ? 'Resolve status' : 'Set status'}
-      {...field.getInputProps()}
-    />
-  );
-}
-
 export function FieldCustomControlExample() {
   return (
     <Field invalid className={styles.field}>
       <Field.Label>Status</Field.Label>
-      <CustomControl />
+      <Field.Context>
+        {(field) => (
+          <input
+            {...field.getInputProps()}
+            className={styles.customInput}
+            placeholder="Set status"
+          />
+        )}
+      </Field.Context>
+      <Field.HelperText>Uses getInputProps() for maximum flexibility.</Field.HelperText>
       <Field.ErrorText>Status needs a resolution.</Field.ErrorText>
     </Field>
   );
@@ -278,6 +280,39 @@ export function FieldDisabledExample() {
       <Field.Label>Organization</Field.Label>
       <Field.Input placeholder="Acme Inc." />
       <Field.HelperText>This field is currently managed by your workspace.</Field.HelperText>
+    </Field>
+  );
+}
+
+export function FieldReadOnlyExample() {
+  return (
+    <Field readOnly className={styles.field}>
+      <Field.Label>Workspace key</Field.Label>
+      <Field.Input defaultValue="MAPS" />
+      <Field.HelperText>Read-only state is propagated to the input.</Field.HelperText>
+    </Field>
+  );
+}
+
+export function FieldItemExample() {
+  return (
+    <Field target="amount" className={styles.field}>
+      <Field.Label>Amount</Field.Label>
+      <div className={styles.inlineControls}>
+        <Field.Item value="currency">
+          <Field.Select aria-label="Currency" defaultValue="USD">
+            {fieldCurrencyOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </Field.Select>
+        </Field.Item>
+        <Field.Item value="amount">
+          <Field.Input inputMode="decimal" placeholder="0.00" />
+        </Field.Item>
+      </div>
+      <Field.HelperText>The root label targets the amount input.</Field.HelperText>
     </Field>
   );
 }

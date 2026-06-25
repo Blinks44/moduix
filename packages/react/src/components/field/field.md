@@ -54,8 +54,8 @@ style hook.
 | `Field.RequiredIndicator` | `Field.RequiredIndicator` | `field-required-indicator` |
 | `Field.Context`           | `Field.Context`           | none                       |
 
-The barrel also exports `useField`, `useFieldContext`, `UseFieldProps`, `UseFieldReturn`, and
-`UseFieldContext`.
+The barrel also exports `useField`, `useFieldContext`, Ark prop types for all exported parts, the
+local `FieldItemProps` wrapper type, `UseFieldProps`, `UseFieldReturn`, and `UseFieldContext`.
 
 ## Composition
 
@@ -89,8 +89,9 @@ Covered Ark examples:
 - native select via `Field.Select`
 - checkbox composition via `Field` + `Checkbox`
 - radio group composition via `Field` + `RadioGroup`
+- read-only root state via `readOnly`
 - root provider via `useField` and `Field.RootProvider`
-- custom control via `useFieldContext`
+- custom control via `Field.Context` or `useFieldContext`
 - item-target label wiring via `Field.Item value` and root `target`
 
 Moduix does not implement legacy `validate`, `validationMode`, `match`, `dirty`, `touched`, or
@@ -114,7 +115,7 @@ focus ring, disabled opacity, invalid border color, helper text, and destructive
 Styles use Ark `data-scope="field"` / `data-part="..."` attributes where Ark provides state and
 moduix `data-slot` hooks for consumer overrides. Public CSS variables remain under `--field-*`;
 `--field-required-indicator-color` and `--field-textarea-min-height` are part of the Ark-aligned
-contract.
+contract. `--field-label-gap` defaults to `var(--spacing-2)`.
 
 ## Intentional sugar and differences from upstream
 
@@ -133,6 +134,9 @@ their own `HiddenInput`; Field itself has no hidden input.
 
 ## Local changelog
 
+- 2026-06-25: Exported Ark part prop types through the field barrel, aligned
+  `--field-label-gap` fallback with the documented theme default, and refreshed docs coverage for
+  `Field.Item`, `readOnly`, `Field.Context`, and `RootProvider`.
 - 2026-06-19: Migrated `Field` to Ark UI, replaced legacy validation API with Ark
   field context, renamed public parts to Ark names, exposed provider/context hooks, and updated
   styling hooks.
