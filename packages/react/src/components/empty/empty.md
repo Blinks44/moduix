@@ -3,7 +3,7 @@
 Upstream docs:
 
 - Ark UI: no dedicated Empty primitive; use https://ark-ui.com/docs/guides/composition and
-  https://ark-ui.com/docs/guides/styling
+  https://ark-ui.com/docs/guides/styling plus https://ark-ui.com/docs/guides/ref
 - Chakra UI: no dedicated recipe used for this wrapper
 
 ## Purpose
@@ -166,6 +166,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-06-25: Audited the Ark factory migration, confirmed the TSX and CSS contracts, and aligned
+  public docs with the required local-only Ark factory API reference text.
 - 2026-06-19: Migrated `Empty` to an Ark-aligned factory wrapper with `data-scope`/`data-part`,
   namespaced `Empty.*` parts, forwarded refs, and `asChild` composition. Removed flat part exports
   and `EmptyTitle as`.

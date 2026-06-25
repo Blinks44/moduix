@@ -18,10 +18,10 @@ import {
 
 ## API Reference
 
-Ark UI does not ship a dedicated Empty primitive. `Empty` follows the
-[Ark factory and `asChild` composition model](https://ark-ui.com/docs/guides/composition) and the
-[Ark data-attribute styling model](https://ark-ui.com/docs/guides/styling) as a moduix-owned
-empty-state layout component.
+Ark UI does not ship a dedicated empty primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance
 
 ## Basic
 
@@ -114,13 +114,6 @@ aubx shadcn@latest add Blinks44/moduix/react-empty
 
   </Tab>
 </Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Empty` depends on, such as
-styles and small utilities.
-
-`Empty` gives missing-data states a consistent Ark-style factory surface, optional icon slot, and
-wrapping actions row without locking consumers into workflow props like `title`, `description`, or
-`primaryAction`.
 
 ## Anatomy
 
