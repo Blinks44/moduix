@@ -37,6 +37,18 @@
   gap: var(--spacing-4);
 }
 
+.nestedDemo {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.nestedList {
+  display: grid;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding-inline-start: var(--spacing-4);
+}
+
 .indentStage {
   position: relative;
   width: min(42rem, 100%);

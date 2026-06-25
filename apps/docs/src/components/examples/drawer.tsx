@@ -312,6 +312,48 @@ export function RootProviderDrawerExample() {
   );
 }
 
+const nestedItems = ['Passkeys enabled', 'Two-factor authentication on', '3 signed-in devices'];
+
+export function NestedDrawerExample() {
+  const accountDrawer = useDrawer();
+  const securityDrawer = useDrawer();
+
+  return (
+    <div className={styles.nestedDemo}>
+      <Button onClick={() => accountDrawer.setOpen(true)}>Open account drawer</Button>
+      <Drawer.RootProvider value={accountDrawer}>
+        <DrawerSurface title="Account" description="Review account preferences.">
+          <Drawer.Body>
+            <Button variant="outline" onClick={() => securityDrawer.setOpen(true)}>
+              Security settings
+            </Button>
+          </Drawer.Body>
+        </DrawerSurface>
+      </Drawer.RootProvider>
+      <Drawer.RootProvider value={securityDrawer}>
+        <DrawerSurface
+          title="Security"
+          description="Nested drawers keep their own focus state."
+          backdrop={false}
+        >
+          <Drawer.Body>
+            <ul className={styles.nestedList}>
+              {nestedItems.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </Drawer.Body>
+          <Drawer.Footer>
+            <Drawer.CloseTrigger asChild>
+              <Button variant="outline">Done</Button>
+            </Drawer.CloseTrigger>
+          </Drawer.Footer>
+        </DrawerSurface>
+      </Drawer.RootProvider>
+    </div>
+  );
+}
+
 export function IndentDrawerExample() {
   return (
     <Drawer.Stack>

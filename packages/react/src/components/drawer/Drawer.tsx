@@ -31,9 +31,7 @@ function DrawerRootProvider({
   );
 }
 
-function DrawerStack(props: ComponentProps<typeof DrawerPrimitive.Stack>) {
-  return <DrawerPrimitive.Stack {...props} />;
-}
+const DrawerStack = DrawerPrimitive.Stack;
 
 const DrawerTrigger = forwardRef<
   ComponentRef<typeof DrawerPrimitive.Trigger>,

@@ -99,6 +99,8 @@ focusable element that preserves button behavior.
   are supported.
 - Multiple triggers: `Trigger value`, `triggerValue`, and
   `onTriggerValueChange(details)` are supported.
+- Nested drawers: render separate `useDrawer` states with `RootProvider` siblings so each drawer
+  keeps independent open and focus state while Ark exposes nested drawer state attributes.
 - External state: `useDrawer` and `RootProvider` are exported from the package barrel.
 - Stack visuals: `Stack`, `Indent`, and `IndentBackground` use Ark stack context.
 - Render strategy and focus props: `present`, `lazyMount`, `unmountOnExit`, `initialFocusEl`,
@@ -174,6 +176,8 @@ Public theme variables are declared in `packages/react/src/core/styles/theme.css
 
 ## Local changelog
 
+- 2026-06-25: Rechecked the wrapper against the current Ark UI drawer MDX, fixed public docs for
+  `RootProvider`, added nested drawer coverage, and kept `Stack` as a direct Ark passthrough.
 - 2026-06-18: Removed conflicting content open keyframes, kept closed drag-to-dismiss animations
   active while `data-swiping` is present, removed `!important` hidden overrides, and updated demo
   defaults to use compact bottom snap points where the example is not about full-height drawers.
