@@ -288,6 +288,57 @@ export function DelegatedLightboxExample() {
   );
 }
 
+export function FocusLightboxExample() {
+  const closeRef = useRef<HTMLButtonElement | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+
+  return (
+    <div className="lightbox-stack">
+      <style>{lightboxExampleCss}</style>
+      <button ref={triggerRef} type="button" className="lightbox-button">
+        Focus returns here
+      </button>
+      <Lightbox
+        initialFocusEl={() => closeRef.current}
+        finalFocusEl={() => triggerRef.current}
+        ids={{
+          content: 'lightbox-focus-content',
+          title: 'lightbox-focus-title',
+        }}
+      >
+        <Lightbox.Trigger className="lightbox-button">Open focus-managed lightbox</Lightbox.Trigger>
+        <Portal>
+          <Lightbox.Backdrop />
+          <Lightbox.Positioner>
+            <Lightbox.CloseIcon ref={closeRef} />
+            <Lightbox.Content>
+              <Lightbox.Title className="lightbox-status">Mountain ridge at sunset</Lightbox.Title>
+              <Lightbox.Frame>
+                <img src={images[0].src} alt={images[0].alt} />
+              </Lightbox.Frame>
+            </Lightbox.Content>
+          </Lightbox.Positioner>
+        </Portal>
+      </Lightbox>
+    </div>
+  );
+}
+
+export function NonModalLightboxExample() {
+  return (
+    <div className="lightbox-stack">
+      <style>{lightboxExampleCss}</style>
+      <Lightbox modal={false} trapFocus={false} preventScroll={false}>
+        <Lightbox.Trigger className="lightbox-button">Open non-modal lightbox</Lightbox.Trigger>
+        <LightboxSurface src={images[2].src} alt={images[2].alt} />
+      </Lightbox>
+      <button type="button" className="lightbox-button">
+        Background action
+      </button>
+    </div>
+  );
+}
+
 export function RootProviderLightboxExample() {
   const lightbox = useLightbox();
 

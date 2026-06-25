@@ -5,6 +5,8 @@ Upstream docs:
 - Ark UI has no dedicated Lightbox primitive: https://ark-ui.com/docs/components
 - Ark UI Dialog: https://ark-ui.com/docs/components/dialog
 - Ark UI composition: https://ark-ui.com/docs/guides/composition
+- Ark UI styling: https://ark-ui.com/docs/guides/styling
+- Ark UI ref: https://ark-ui.com/docs/guides/ref
 - Chakra UI Carousel lightbox recipe: https://chakra-ui.com/docs/components/carousel
 
 ## Purpose
@@ -30,9 +32,9 @@ presence, `ids`, modal behavior, and Ark callback detail objects.
 
 The base `Lightbox` parts do not manage image sources or gallery state. Consumers compose media
 inside `Lightbox.Frame` and use Ark multiple-trigger values for explicit galleries.
-`Lightbox.Frame` adds the only wrapper-specific interaction prop on the composed content path:
-`closeOnClick`. `Lightbox.Gallery` is the delegated capture helper for CMS or third-party markup
-that cannot render `Lightbox.Trigger` directly.
+`Lightbox.Frame` is a local Ark factory `div` part. It adds the only wrapper-specific interaction
+prop on the composed content path: `closeOnClick`. `Lightbox.Gallery` is the delegated capture
+helper for CMS or third-party markup that cannot render `Lightbox.Trigger` directly.
 
 ## Anatomy and exported parts
 
@@ -54,7 +56,8 @@ Lightbox.RootProvider
 
 Stable slots are `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
 `lightbox-content`, `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`,
-`lightbox-close-icon`, and `lightbox-frame`.
+`lightbox-close-icon`, and `lightbox-frame`. `Lightbox.Frame` also exposes
+`data-scope="lightbox"` and `data-part="frame"` because it is a local Ark factory part.
 
 `Lightbox.Gallery` is a behavior helper, not an Ark anatomy part.
 
@@ -100,8 +103,10 @@ not inherit content transforms.
 - Gallery selection uses `Trigger.value` and `onTriggerValueChange(details)`.
 - `Lightbox.Gallery` restores delegated CMS capture by listening to external markup and opening an
   internal Ark-driven lightbox from resolved image sources.
-- `open`, `defaultOpen`, `onOpenChange(details)`, `ids`, `modal`, dismissal callbacks, focus props,
-  `lazyMount`, `unmountOnExit`, `present`, and `onExitComplete` pass through.
+- `open`, `defaultOpen`, `onOpenChange(details)`, `ids`, `initialFocusEl`, `finalFocusEl`, `modal`,
+  `persistentElements`, `restoreFocus`, dismissal callbacks, focus props, `lazyMount`,
+  `unmountOnExit`, `present`, `immediate`, `skipAnimationOnMount`, and `onExitComplete` pass
+  through.
 - Chakra's carousel lightbox recipe can be composed inside `Lightbox.Content`; carousel behavior is
   intentionally not duplicated here.
 - `Lightbox.Frame closeOnClick` composes Ark `CloseTrigger asChild` around the frame so media can
@@ -113,8 +118,8 @@ Ark owns focus trapping, Escape handling, outside interaction, scroll locking, f
 layering, and ARIA wiring. Render `Lightbox.Title` or provide root `aria-label`. Media still needs
 useful native `alt`, captions, or equivalent accessible text.
 
-Refs on Ark parts target their DOM elements. `Lightbox.CloseIcon` forwards its ref to
-`CloseButton.Root`. `Lightbox.Frame` forwards its ref to the native `div`.
+Refs on Ark Dialog parts target their DOM elements. `Lightbox.CloseIcon` forwards its ref to the
+library `CloseButton.Root`. `Lightbox.Frame` forwards its ref to its Ark factory `div`.
 
 Ark parts expose `data-scope="dialog"`, `data-part`, and `data-state="open|closed"`.
 `Lightbox.Content` also preserves nested-dialog state and `--layer-index` /
@@ -132,16 +137,14 @@ Public variables use Ark part names: `--lightbox-backdrop-*`, `--lightbox-positi
 
 ## Intentional sugar and differences from upstream
 
-- `Lightbox.Frame` is a native layout helper for constrained image or video content.
+- `Lightbox.Frame` is an Ark factory layout helper for constrained image or video content.
 - `Lightbox.Frame closeOnClick` is narrow Moduix sugar for image-preview workflows.
 - `Lightbox.Gallery` is narrow Moduix sugar for delegated image capture from CMS or external DOM.
-- `Lightbox.CloseIcon` composes Ark `CloseTrigger` with the Moduix close button and defaults its
-  label to `"Close image"`.
+- `Lightbox.CloseIcon` composes Ark `CloseTrigger` with the library `CloseButton.Root` and defaults
+  its label to `"Close image"`.
 - Part wrappers add `data-slot` hooks and lightbox-specific visual defaults.
-- Legacy legacy APIs were removed: flat part exports, `LightboxPortal`, `LightboxViewport`,
-  `LightboxPopup`, `LightboxClose`, `LightboxCloseButton`, `LightboxImage`, `LightboxGallery`,
-  `createLightboxHandle`, hidden overlay composition, `render`, `nativeButton`, `handle`,
-  `fullSrc`, `showCloseButton`, `closeOnContentClick`, and `closeLabel`.
+- Legacy adapters, hidden overlay composition, flat part exports, and image registry props stay
+  removed.
 
 ## Agent notes
 
@@ -156,3 +159,6 @@ the base `Lightbox` parts.
   all legacy adapters and image/gallery state helpers.
 - 2026-06-19: Restored delegated CMS capture as `Lightbox.Gallery`, using Ark dialog state under
   the hood while keeping the base composition explicit.
+- 2026-06-25: Re-audited the Ark Dialog contract after migration, documented inherited focus,
+  presence, id, and non-modal props, converted `Lightbox.Frame` to an Ark factory part, and
+  simplified `closeOnClick` composition.

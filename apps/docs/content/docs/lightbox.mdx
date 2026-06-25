@@ -9,10 +9,12 @@ import {
   ControlledLightboxExample,
   DelegatedLightboxExample,
   CustomizedLightboxExample,
+  FocusLightboxExample,
   GalleryLightboxExample,
   LazyMountLightboxExample,
   LightboxCssPropertiesPanel,
   LightboxExample,
+  NonModalLightboxExample,
   RootProviderLightboxExample,
   lightboxEmptyData,
   lightboxExampleCss,
@@ -23,8 +25,11 @@ import {
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/dialog" />
 
-Ark UI does not ship a dedicated Lightbox primitive. Moduix `Lightbox` is an image-preview recipe
-over Ark UI `Dialog`, so Dialog is the behavior source of truth.
+Ark UI does not ship a dedicated `lightbox` primitive. Moduix builds this component on Ark UI
+`Dialog`, follows Ark's [composition](https://ark-ui.com/docs/guides/composition),
+[styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance, and keeps Dialog as the behavior source of
+truth.
 
 ## Choosing the right component
 
@@ -148,8 +153,8 @@ Lightbox.RootProvider
 | `Lightbox.Title`             | Optional accessible title.                                                     |
 | `Lightbox.Description`       | Optional accessible description.                                               |
 | `Lightbox.CloseTrigger`      | Low-level Ark close trigger.                                                   |
-| `Lightbox.CloseIcon`         | Moduix close-button sugar over Ark close trigger.                              |
-| `Lightbox.Frame`             | Moduix media layout helper.                                                    |
+| `Lightbox.CloseIcon`         | Moduix `CloseButton.Root` sugar over Ark close trigger.                        |
+| `Lightbox.Frame`             | Ark factory media layout helper.                                               |
 | `Lightbox.Gallery`           | Delegated capture helper for CMS or third-party image markup.                  |
 | `Lightbox.Context`           | Inline Ark dialog state reader.                                                |
 
@@ -161,7 +166,9 @@ Keep the overlay structure explicit. `Lightbox.Content` is the real Ark content 
 render a portal, backdrop, positioner, frame, or close button for you.
 
 Use `Lightbox.Frame` for image/video sizing, or place your own media layout inside
-`Lightbox.Content`.
+`Lightbox.Content`. `Lightbox.Frame` is a local Ark factory `div`, so it supports Ark `asChild`
+composition and exposes `data-scope="lightbox"` / `data-part="frame"` in addition to its
+`data-slot`.
 
 Render `Lightbox.CloseIcon` as a sibling of `Lightbox.Content` inside `Lightbox.Positioner` when
 you want it pinned to the viewport corner. Rendering it inside `Lightbox.Content` makes it inherit
@@ -192,6 +199,10 @@ Use `useLightbox()` with `Lightbox.RootProvider` when controls live outside the 
 `Lightbox.Frame closeOnClick` is the supported image-preview shortcut when the media itself should
 dismiss the overlay. `Lightbox.Gallery` is the delegated capture helper for CMS or third-party
 markup you cannot wrap with `Lightbox.Trigger`.
+
+Other inherited Dialog props pass through unchanged, including `id`, `ids`, `initialFocusEl`,
+`finalFocusEl`, `persistentElements`, `restoreFocus`, `present`, `immediate`,
+`skipAnimationOnMount`, and outside-interaction callbacks.
 
 ## Examples
 
@@ -316,6 +327,108 @@ choose a `selector`, and it will read `data-lightbox-src`, then `currentSrc`, th
             </div>
 
             <Lightbox.Gallery rootRef={rootRef} selector="button" />
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
+  <Preview.Data>{lightboxImagesData}</Preview.Data>
+</Preview>
+
+### Focus and IDs
+
+Use Ark `initialFocusEl`, `finalFocusEl`, and `ids` when a lightbox needs explicit focus targets or
+stable element ids for external accessibility composition.
+
+<Preview>
+  <FocusLightboxExample />
+
+  <Preview.Code>
+    {`
+      import { Lightbox, Portal } from "@moduix/react";
+      import { useRef } from "react";
+
+      export function FocusLightboxDemo() {
+        const closeRef = useRef<HTMLButtonElement | null>(null);
+        const triggerRef = useRef<HTMLButtonElement | null>(null);
+
+        return (
+          <>
+            <button ref={triggerRef} type="button" className="lightbox-button">
+              Focus returns here
+            </button>
+            <Lightbox
+              initialFocusEl={() => closeRef.current}
+              finalFocusEl={() => triggerRef.current}
+              ids={{
+                content: "lightbox-focus-content",
+                title: "lightbox-focus-title",
+              }}
+            >
+              <Lightbox.Trigger className="lightbox-button">
+                Open focus-managed lightbox
+              </Lightbox.Trigger>
+              <Portal>
+                <Lightbox.Backdrop />
+                <Lightbox.Positioner>
+                  <Lightbox.CloseIcon ref={closeRef} />
+                  <Lightbox.Content>
+                    <Lightbox.Title className="lightbox-status">
+                      Mountain ridge at sunset
+                    </Lightbox.Title>
+                    <Lightbox.Frame>
+                      <img src={images[0].src} alt={images[0].alt} />
+                    </Lightbox.Frame>
+                  </Lightbox.Content>
+                </Lightbox.Positioner>
+              </Portal>
+            </Lightbox>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
+  <Preview.Data>{lightboxImagesData}</Preview.Data>
+</Preview>
+
+### Non Modal
+
+Set `modal={false}` for rare previews that should leave the page interactive. Pair it with
+`trapFocus={false}` and `preventScroll={false}` when the background needs to remain reachable.
+
+<Preview>
+  <NonModalLightboxExample />
+
+  <Preview.Code>
+    {`
+      import { Lightbox, Portal } from "@moduix/react";
+
+      export function NonModalLightboxDemo() {
+        return (
+          <>
+            <Lightbox modal={false} trapFocus={false} preventScroll={false}>
+              <Lightbox.Trigger className="lightbox-button">
+                Open non-modal lightbox
+              </Lightbox.Trigger>
+              <Portal>
+                <Lightbox.Backdrop />
+                <Lightbox.Positioner>
+                  <Lightbox.CloseIcon />
+                  <Lightbox.Content aria-label={images[2].alt}>
+                    <Lightbox.Frame>
+                      <img src={images[2].src} alt={images[2].alt} />
+                    </Lightbox.Frame>
+                  </Lightbox.Content>
+                </Lightbox.Positioner>
+              </Portal>
+            </Lightbox>
+            <button type="button" className="lightbox-button">
+              Background action
+            </button>
           </>
         );
       }
@@ -504,5 +617,6 @@ Customize the backdrop, content sizing, media radius, and close icon through cla
   `lightbox-close-icon`, and `lightbox-frame`.
 - Ark state and anatomy hooks: `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
   `data-nested`, `data-has-nested`, `--layer-index`, and `--nested-layer-count`.
+- Local factory hooks: `Lightbox.Frame` exposes `data-scope="lightbox"` and `data-part="frame"`.
 - Motion is driven by Ark `data-state`; use `present` only when JavaScript animation control needs
   to keep the content mounted.

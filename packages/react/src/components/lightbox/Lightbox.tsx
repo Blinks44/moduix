@@ -1,5 +1,7 @@
+import type { HTMLArkProps } from '@ark-ui/react/factory';
 import type { ComponentProps, ComponentRef, RefObject } from 'react';
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
+import { ark } from '@ark-ui/react/factory';
 import { Portal as PortalPrimitive } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
 import { forwardRef, useEffect, useState } from 'react';
@@ -15,7 +17,7 @@ type LightboxImageData = {
   src: string;
 };
 
-type LightboxFrameProps = ComponentProps<'div'> & {
+type LightboxFrameProps = HTMLArkProps<'div'> & {
   closeOnClick?: boolean;
 };
 
@@ -197,26 +199,38 @@ const LightboxCloseIcon = forwardRef<
   );
 });
 
-const LightboxFrame = forwardRef<ComponentRef<'div'>, LightboxFrameProps>(function LightboxFrame(
+const LightboxFrame = forwardRef<HTMLDivElement, LightboxFrameProps>(function LightboxFrame(
   { className, closeOnClick = false, onClick, ...props },
   ref,
 ) {
-  const frame = (
-    <div
+  if (closeOnClick) {
+    return (
+      <DialogPrimitive.CloseTrigger asChild>
+        <ark.div
+          ref={ref}
+          data-scope="lightbox"
+          data-part="frame"
+          data-slot="lightbox-frame"
+          data-close-on-click=""
+          className={clsx(styles.frame, normalizeClassName(className))}
+          onClick={onClick}
+          {...props}
+        />
+      </DialogPrimitive.CloseTrigger>
+    );
+  }
+
+  return (
+    <ark.div
       ref={ref}
+      data-scope="lightbox"
+      data-part="frame"
       data-slot="lightbox-frame"
-      data-close-on-click={closeOnClick ? '' : undefined}
-      className={clsx(styles.frame, className)}
+      className={clsx(styles.frame, normalizeClassName(className))}
       onClick={onClick}
       {...props}
     />
   );
-
-  if (!closeOnClick) {
-    return frame;
-  }
-
-  return <DialogPrimitive.CloseTrigger asChild>{frame}</DialogPrimitive.CloseTrigger>;
 });
 
 function LightboxGallery({
