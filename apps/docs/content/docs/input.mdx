@@ -19,9 +19,11 @@ import {
 
 ## API Reference
 
-Ark UI has no standalone Input component. moduix `Input` wraps
-[Ark Field.Input](https://ark-ui.com/docs/components/field) and follows the
-[Ark composition model](https://ark-ui.com/docs/guides/composition).
+Ark UI does not ship a dedicated input primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance, and delegates field behavior to
+[Ark Field.Input](https://ark-ui.com/docs/components/field).
 
 ## Choosing the right component
 
@@ -157,7 +159,6 @@ instead of forcing it through `Input`.
 - No `HiddenInput` is needed because `Input` is the native form control.
 - Ark `Field` supplies `aria-describedby`, `aria-invalid`, ids, and state props.
 - `Input` does not manage value, validity, focus, or keyboard navigation.
-- Legacy `onValueChange`, `render`, callback `className`, and callback `style` are not supported.
 
 ## Examples
 
@@ -260,8 +261,8 @@ Use native props directly or place them on `Field.Root` when the full field shou
       export function InputStatesDemo() {
         return (
           <div className="input-demo-stack">
-            <Input disabled placeholder="Disabled input" />
-            <Input readOnly value="Assigned workspace" />
+            <Input disabled aria-label="Disabled input" placeholder="Disabled input" />
+            <Input readOnly aria-label="Read-only workspace" value="Assigned workspace" />
           </div>
         );
       }
@@ -386,11 +387,11 @@ The moduix `size` prop changes visual density without replacing the native `size
       export function InputSizesDemo() {
         return (
           <div className="input-demo-stack">
-            <Input size="xs" aria-label="Extra-small input" />
-            <Input size="sm" aria-label="Small input" />
-            <Input size="md" aria-label="Medium input" />
-            <Input size="lg" aria-label="Large input" />
-            <Input size="xl" aria-label="Extra-large input" />
+            <Input size="xs" aria-label="Extra-small input" placeholder="Extra-small input" />
+            <Input size="sm" aria-label="Small input" placeholder="Small input" />
+            <Input size="md" aria-label="Medium input" placeholder="Medium input" />
+            <Input size="lg" aria-label="Large input" placeholder="Large input" />
+            <Input size="xl" aria-label="Extra-large input" placeholder="Extra-large input" />
           </div>
         );
       }
@@ -428,7 +429,13 @@ no field context to supply ids or helper/error relationships.
       import { Input } from "@moduix/react";
 
       export function StandaloneInputDemo() {
-        return <Input aria-label="Search projects" placeholder="Search projects" />;
+        return (
+          <Input
+            className="input-demo-standalone"
+            aria-label="Search projects"
+            placeholder="Search projects"
+          />
+        );
       }
     `}
 
@@ -436,7 +443,7 @@ no field context to supply ids or helper/error relationships.
 
 <Preview.CSS>
   {`
-      [data-slot="input-root"] {
+      .input-demo-standalone {
         max-width: 14rem;
       }
     `}

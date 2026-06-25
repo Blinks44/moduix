@@ -2,12 +2,14 @@
 
 Upstream docs:
 
-- Ark UI Field: https://ark-ui.com/docs/components/field
+- Ark UI: no dedicated Input primitive; follows https://ark-ui.com/docs/components/field and `Field.Input`
 - Ark UI composition: https://ark-ui.com/docs/guides/composition
+- Ark UI styling: https://ark-ui.com/docs/guides/styling
+- Ark UI ref: https://ark-ui.com/docs/guides/ref
 - Chakra UI Input: https://chakra-ui.com/docs/components/input
 
-Ark UI has no standalone `Input` component page. The wrapper uses Ark `Field.Input` as its
-behavioral and accessibility model.
+Ark UI has no standalone `Input` component page. The wrapper uses Ark `Field.Input`, which renders
+an Ark factory input with field context, as its behavioral and accessibility model.
 
 ## Purpose
 
@@ -28,6 +30,7 @@ and error text when rendered inside `Field`.
 - Renders one `Field.Input` and forwards the ref to its `HTMLInputElement`.
 - Accepts Ark `Field.Input` props except native `size`, which is renamed to `htmlSize`.
 - Adds visual `size="xs" | "sm" | "md" | "lg" | "xl"` with `md` as the default.
+- Exposes `Input.Root` as the same root component for namespace consistency.
 - Supports `asChild` with one semantic input-like child.
 - Adds no value state, validation state, label, clear trigger, mask, or prefix/suffix API.
 - Adds no preview/edit mode; use `Editable` for inline read/edit workflows.
@@ -36,10 +39,10 @@ and error text when rendered inside `Field`.
 
 ```text
 Field.Root (optional)
-└─ Input
+└─ Input / Input.Root
 ```
 
-- `Input` -> `data-slot="input-root"`, `data-scope="field"`, `data-part="input"`
+- `Input` / `Input.Root` -> `data-slot="input-root"`, `data-scope="field"`, `data-part="input"`
 - Exported types: `InputProps`, `InputSize`
 
 ## Composition
@@ -93,6 +96,8 @@ edit, submit, and cancel controls.
 - `className` is merged with the moduix CSS module class.
 - Stable hooks are `data-slot`, `data-size`, `data-scope`, `data-part`, Ark field state attributes,
   native state selectors, and the public `--input-*` variables in `theme.css`.
+- Visual size defaults use the shared control scale: `xs` uses `--size-xs`, `sm` uses `--size-sm`,
+  `md` uses `--size-lg`, `lg` uses `--size-xl`, and `xl` uses `3.5rem`.
 - The component exposes no Ark runtime CSS variables.
 
 ## Intentional sugar and differences from upstream
@@ -100,8 +105,9 @@ edit, submit, and cancel controls.
 - moduix adds visual sizes, `htmlSize`, design tokens, and `data-slot`.
 - `Input` is exported as a standalone wrapper even though its upstream implementation is
   `Field.Input`.
-- legacy `onValueChange`, `render`, callback `className`, callback `style`, and legacy field-state
-  attributes are intentionally removed.
+- `Input.Root` is an alias of `Input` for the root-only namespace pattern used across moduix.
+- Legacy value adapters, render shims, callback styling props, and duplicated field-state
+  attributes are intentionally not part of the current contract.
 
 ## Agent notes
 
@@ -113,7 +119,9 @@ edit, submit, and cancel controls.
 
 ## Local changelog
 
+- 2026-06-25: Added `Input.Root`, normalized `className`, simplified size token defaults, and
+  refreshed docs examples for accessible standalone inputs.
 - 2026-06-22: Documented `Input` as plain native entry only; preview/edit behavior belongs to
   `Editable`.
 - 2026-06-19: Migrated from legacy Input to Ark UI `Field.Input`; added `asChild` and Ark field
-  anatomy/state hooks; removed legacy callback, render, and state contracts.
+  anatomy/state hooks; removed compatibility adapters and duplicated state contracts.

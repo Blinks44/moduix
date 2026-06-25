@@ -109,7 +109,6 @@ export const WithFieldValidation: Story = {
       <Field className={storyStyles.field} invalid>
         <Field.Label>Email</Field.Label>
         <Input type="email" placeholder="name@example.com" />
-        <Field.ErrorText>Please enter your email.</Field.ErrorText>
         <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
       </Field>
     );

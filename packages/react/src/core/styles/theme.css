@@ -430,8 +430,8 @@
   --clipboard-input-font-size: initial; /* var(--input-font-size-md, var(--text-md)) */
   --clipboard-input-height: initial; /* var(--input-height-md, var(--size-lg)) */
   --clipboard-input-line-height: initial; /* var(--input-line-height-md, var(--line-height-text-md)) */
-  --clipboard-input-padding-x: initial; /* var(--input-padding-x-md, 0.875rem) */
-  --clipboard-input-padding-y: initial; /* var(--input-padding-y-md, 0.5rem) */
+  --clipboard-input-padding-x: initial; /* var(--input-padding-x-md, var(--spacing-3)) */
+  --clipboard-input-padding-y: initial; /* var(--input-padding-y-md, var(--spacing-2)) */
   --clipboard-input-placeholder-color: initial; /* var(--input-placeholder-color, var(--color-muted-foreground)) */
   --clipboard-input-radius: initial; /* var(--input-radius, var(--radius-md)) */
   --clipboard-input-readonly-bg: initial; /* var(--input-readonly-bg, var(--clipboard-input-bg, var(--color-background))) */
@@ -1431,11 +1431,11 @@
   --input-font-size-lg: initial; /* var(--text-lg) */
   --input-font-size-xl: initial; /* var(--text-lg) */
   --input-height: initial; /* var(--size-lg) */
-  --input-height-xs: initial; /* var(--size-sm) */
-  --input-height-sm: initial; /* 2rem */
+  --input-height-xs: initial; /* var(--size-xs) */
+  --input-height-sm: initial; /* var(--size-sm) */
   --input-height-md: initial; /* var(--size-lg) */
   --input-height-lg: initial; /* var(--size-xl) */
-  --input-height-xl: initial; /* 3rem */
+  --input-height-xl: initial; /* 3.5rem */
   --input-line-height: initial; /* var(--line-height-text-md) */
   --input-line-height-xs: initial; /* var(--line-height-text-xs) */
   --input-line-height-sm: initial; /* var(--line-height-text-sm) */
@@ -1443,18 +1443,18 @@
   --input-line-height-lg: initial; /* var(--line-height-text-lg) */
   --input-line-height-xl: initial; /* var(--line-height-text-lg) */
   --input-max-width: initial; /* none */
-  --input-padding-x: initial; /* 0.875rem */
-  --input-padding-x-xs: initial; /* 0.625rem */
-  --input-padding-x-sm: initial; /* 0.75rem */
-  --input-padding-x-md: initial; /* 0.875rem */
-  --input-padding-x-lg: initial; /* 1rem */
-  --input-padding-x-xl: initial; /* 1.125rem */
-  --input-padding-y: initial; /* 0.5rem */
-  --input-padding-y-xs: initial; /* 0.25rem */
-  --input-padding-y-sm: initial; /* 0.3125rem */
-  --input-padding-y-md: initial; /* 0.5rem */
-  --input-padding-y-lg: initial; /* 0.625rem */
-  --input-padding-y-xl: initial; /* 0.75rem */
+  --input-padding-x: initial; /* var(--spacing-3) */
+  --input-padding-x-xs: initial; /* var(--spacing-2) */
+  --input-padding-x-sm: initial; /* var(--spacing-2) */
+  --input-padding-x-md: initial; /* var(--spacing-3) */
+  --input-padding-x-lg: initial; /* var(--spacing-4) */
+  --input-padding-x-xl: initial; /* var(--spacing-4) */
+  --input-padding-y: initial; /* var(--spacing-2) */
+  --input-padding-y-xs: initial; /* var(--spacing-1) */
+  --input-padding-y-sm: initial; /* var(--spacing-1) */
+  --input-padding-y-md: initial; /* var(--spacing-2) */
+  --input-padding-y-lg: initial; /* var(--spacing-2) */
+  --input-padding-y-xl: initial; /* var(--spacing-3) */
   --input-placeholder-color: initial; /* var(--color-muted-foreground) */
   --input-radius: initial; /* var(--radius-md) */
   --input-readonly-bg: initial; /* var(--input-bg, var(--color-background)) */
