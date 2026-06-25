@@ -89,7 +89,7 @@ Ark runtime CSS variables set on the root are `--crop-width`, `--crop-height`, `
 
 ## Defaults and styling
 
-The wrapper uses CSS Modules and adds default cropper visuals: a stable `32rem` root width, `100%` max width, fixed `20rem` viewport height, bordered viewport, checkerboard background, dimmed outside area, crop grid, near-white resize handles with slim edge bars and 2px-rounded square corners, and focus ring. Consumers can pass `className` to each exported visual part.
+The wrapper uses CSS Modules and adds default cropper visuals: a stable `32rem` root width, `100%` max width, fixed `20rem` viewport height, bordered viewport, checkerboard background, dimmed outside area, crop grid, near-white resize handles with slim edge bars and token-rounded square corners, and a `:focus-visible` selection ring. Consumers can pass `className` to each exported visual part.
 
 Public override variables use the `--image-cropper-*` prefix and are documented in the docs site. CSS targets local classes and Ark state attributes; it does not add custom modifier classes.
 
@@ -110,3 +110,4 @@ The only sugar over Ark is styling, stable `data-slot` hooks, prefixed type expo
 - 2026-06-22: Stabilized default sizing for Storybook/docs rendering, switched examples to a real Unsplash image with CORS, and changed cropper toolbar examples to icon-only controls.
 - 2026-06-22: Refined handles, aligned cropper toolbar examples and Tabs default indicator with SegmentGroup styling, and switched docs/stories to a closer 640x400 Unsplash image.
 - 2026-06-22: Changed resize handles to near-white slim edge bars with larger 2px-rounded square corner handles and switched the crop preview action to the default `Button`.
+- 2026-06-25: Aligned image, grid, handle, and focus styles with Ark runtime attributes; removed `data-focus` styling, kept side handles visually connected to corner handles, and synced docs CSS values.

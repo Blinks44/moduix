@@ -1393,10 +1393,10 @@
   --image-cropper-handle-border-color: initial; /* rgb(255 255 255 / 88%) */
   --image-cropper-handle-border-width: initial; /* var(--border-width-sm) */
   --image-cropper-handle-edge-radius: initial; /* var(--radius-full) */
-  --image-cropper-handle-edge-thickness: initial; /* 0.1875rem */
-  --image-cropper-handle-radius: initial; /* 0.125rem */
+  --image-cropper-handle-edge-thickness: initial; /* 0.2rem */
+  --image-cropper-handle-radius: initial; /* var(--radius-xs) */
   --image-cropper-handle-shadow: initial; /* 0 1px 3px rgb(15 23 42 / 18%) */
-  --image-cropper-handle-size: initial; /* 0.625rem */
+  --image-cropper-handle-size: initial; /* 0.75rem */
   --image-cropper-max-width: initial; /* 100% */
   --image-cropper-radius: initial; /* var(--radius-lg) */
   --image-cropper-selection-border-color: initial; /* var(--color-primary) */

@@ -74,13 +74,18 @@
   }
 
   .image {
+    position: absolute;
+    inset: 0;
     display: block;
-    max-width: none;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     transform-origin: center;
+    backface-visibility: hidden;
   }
 
   .selection {
-    box-sizing: border-box;
+    box-sizing: content-box;
     border: var(--image-cropper-selection-border-width, var(--border-width-md)) solid
       var(--image-cropper-selection-border-color, var(--color-primary));
     border-radius: var(--image-cropper-selection-radius, var(--radius-md));
@@ -98,7 +103,7 @@
       border-radius: var(--image-cropper-selection-circle-radius, var(--radius-full));
     }
 
-    &[data-focus] {
+    &:focus-visible {
       box-shadow:
         0 0 0 9999px var(--image-cropper-selection-overlay-bg, rgb(0 0 0 / 45%)),
         inset 0 0 0 var(--image-cropper-selection-inner-border-width, var(--border-width-sm))
@@ -117,19 +122,14 @@
   }
 
   .grid {
-    position: absolute;
     pointer-events: none;
 
     &[data-axis='horizontal'] {
-      inset-block: 33.333%;
-      inset-inline: 0;
       border-block: var(--image-cropper-grid-width, var(--border-width-sm)) solid
         var(--image-cropper-grid-color, rgb(255 255 255 / 62%));
     }
 
     &[data-axis='vertical'] {
-      inset-block: 0;
-      inset-inline: 33.333%;
       border-inline: var(--image-cropper-grid-width, var(--border-width-sm)) solid
         var(--image-cropper-grid-color, rgb(255 255 255 / 62%));
     }
@@ -139,11 +139,11 @@
     position: absolute;
     z-index: 1;
     box-sizing: border-box;
-    width: var(--image-cropper-handle-size, 0.625rem);
-    height: var(--image-cropper-handle-size, 0.625rem);
+    width: var(--image-cropper-handle-size, 0.75rem);
+    height: var(--image-cropper-handle-size, 0.75rem);
     border: var(--image-cropper-handle-border-width, var(--border-width-sm)) solid
       var(--image-cropper-handle-border-color, rgb(255 255 255 / 88%));
-    border-radius: var(--image-cropper-handle-radius, 0.125rem);
+    border-radius: var(--image-cropper-handle-radius, var(--radius-xs));
     background-color: var(--image-cropper-handle-bg, rgb(255 255 255 / 96%));
     box-shadow: var(--image-cropper-handle-shadow, 0 1px 3px rgb(15 23 42 / 18%));
     transition:
@@ -155,14 +155,14 @@
     &[data-position='n'],
     &[data-position='s'] {
       width: 100% !important;
-      height: var(--image-cropper-handle-edge-thickness, 0.1875rem);
+      height: var(--image-cropper-handle-edge-thickness, 0.2rem);
       border-width: 0;
       border-radius: var(--image-cropper-handle-edge-radius, var(--radius-full));
     }
 
     &[data-position='e'],
     &[data-position='w'] {
-      width: var(--image-cropper-handle-edge-thickness, 0.1875rem);
+      width: var(--image-cropper-handle-edge-thickness, 0.2rem);
       height: 100% !important;
       border-width: 0;
       border-radius: var(--image-cropper-handle-edge-radius, var(--radius-full));

@@ -76,7 +76,7 @@ export const imageCropperExampleCss = `
 
 .cropper-button {
   display: inline-flex;
-  min-height: 2.125rem;
+  min-height: 2rem;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-2);
@@ -110,7 +110,7 @@ export const imageCropperExampleCss = `
 }
 
 .cropper-icon-button {
-  width: 2.125rem;
+  width: 2rem;
   padding-inline: 0;
 }
 
@@ -181,10 +181,10 @@ export const imageCropperOverrideCssProperties: CssPropertyInput[] = [
     'Controls handle border width.',
   ],
   ['--image-cropper-handle-edge-radius', 'var(--radius-full)', 'Controls side handle radius.'],
-  ['--image-cropper-handle-edge-thickness', '0.1875rem', 'Controls side handle thickness.'],
-  ['--image-cropper-handle-radius', '0.125rem', 'Controls corner handle radius.'],
+  ['--image-cropper-handle-edge-thickness', '0.2rem', 'Controls side handle thickness.'],
+  ['--image-cropper-handle-radius', 'var(--radius-xs)', 'Controls corner handle radius.'],
   ['--image-cropper-handle-shadow', '0 1px 3px rgb(15 23 42 / 18%)', 'Controls handle shadow.'],
-  ['--image-cropper-handle-size', '0.625rem', 'Controls corner handle size.'],
+  ['--image-cropper-handle-size', '0.75rem', 'Controls corner handle size.'],
   ['--image-cropper-max-width', '100%', 'Controls root maximum width.'],
   ['--image-cropper-radius', 'var(--radius-lg)', 'Controls viewport radius.'],
   [

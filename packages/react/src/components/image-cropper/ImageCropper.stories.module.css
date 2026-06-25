@@ -19,7 +19,7 @@
 
   .button {
     display: inline-flex;
-    min-height: 2.125rem;
+    min-height: 2rem;
     align-items: center;
     justify-content: center;
     gap: var(--spacing-2);
@@ -53,7 +53,7 @@
   }
 
   .iconButton {
-    width: 2.125rem;
+    width: 2rem;
     padding-inline: 0;
 
     & svg {
