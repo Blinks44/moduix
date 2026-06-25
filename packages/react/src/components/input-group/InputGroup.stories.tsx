@@ -79,10 +79,10 @@ export const AsChild: Story = {
       <Field className={storyStyles.field}>
         <Field.Label>Workspace</Field.Label>
         <InputGroup asChild>
-          <section>
+          <div>
             <InputGroupAddon>@</InputGroupAddon>
             <InputGroupInput placeholder="maps" />
-          </section>
+          </div>
         </InputGroup>
       </Field>
     );

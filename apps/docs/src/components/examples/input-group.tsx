@@ -200,6 +200,20 @@ export function InputGroupPrefixSuffixExample() {
   );
 }
 
+export function InputGroupAsChildExample() {
+  return (
+    <Field className="input-group-demo-field">
+      <Field.Label>Repository</Field.Label>
+      <InputGroup asChild>
+        <div>
+          <InputGroupAddon>moduix/</InputGroupAddon>
+          <InputGroupInput placeholder="components" />
+        </div>
+      </InputGroup>
+    </Field>
+  );
+}
+
 export function InputGroupSizesExample() {
   return (
     <div className="input-group-demo-stack">

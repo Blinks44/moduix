@@ -25,30 +25,34 @@ intentionally.
 
 ## Current behavior contract
 
-- `InputGroup` renders an Ark factory `div`, owns visual size context, and supports `asChild`.
+- `InputGroup` is the short root form and maps to `InputGroup.Root`.
+- `InputGroup.Root` renders an Ark factory `div`, owns visual size context, and supports
+  `asChild`.
 - `InputGroupInput` renders `Input`, inherits group size, and accepts native `onChange(event)`.
 - `InputGroupAddon` and `InputGroupText` render Ark factory `span` elements and support `asChild`.
 - `InputGroupButton` renders `Button`, inherits group size, defaults to `variant="ghost"` and
   `type="button"`.
+- The `InputGroup` namespace also exposes `Input`, `Addon`, `Text`, and `Button` aliases for the
+  named parts.
 - One `InputGroupInput` per group is the supported composition.
 
 ## Anatomy and exported parts
 
 ```text
-InputGroup
-├─ InputGroupAddon (optional)
-├─ InputGroupInput
-├─ InputGroupText (optional)
-└─ InputGroupButton (optional)
+InputGroup / InputGroup.Root
+├─ InputGroupAddon / InputGroup.Addon (optional)
+├─ InputGroupInput / InputGroup.Input
+├─ InputGroupText / InputGroup.Text (optional)
+└─ InputGroupButton / InputGroup.Button (optional)
 ```
 
-| Part               | Stable slot          |
-| ------------------ | -------------------- |
-| `InputGroup`       | `input-group-root`   |
-| `InputGroupInput`  | `input-group-input`  |
-| `InputGroupAddon`  | `input-group-addon`  |
-| `InputGroupText`   | `input-group-text`   |
-| `InputGroupButton` | `input-group-button` |
+| Part                                     | Stable slot          |
+| ---------------------------------------- | -------------------- |
+| `InputGroup` / `InputGroup.Root`         | `input-group-root`   |
+| `InputGroupInput` / `InputGroup.Input`   | `input-group-input`  |
+| `InputGroupAddon` / `InputGroup.Addon`   | `input-group-addon`  |
+| `InputGroupText` / `InputGroup.Text`     | `input-group-text`   |
+| `InputGroupButton` / `InputGroup.Button` | `input-group-button` |
 
 ## Composition
 
@@ -85,6 +89,7 @@ should stay focused on ordinary input composition with addons, text, and actions
 
 - Ark factory composition: supported on root, addon, and text.
 - Ark Field integration: inherited by `InputGroupInput`.
+- Ark ref guidance: refs forward to the rendered root, input, addon, text, and button elements.
 - Native controlled/uncontrolled input: `value`, `defaultValue`, and `onChange(event)`.
 - Field and Fieldset state: invalid, disabled, required, and read-only state reaches the nested
   input through Ark Field context.
@@ -100,6 +105,9 @@ should stay focused on ordinary input composition with addons, text, and actions
 - Prefer `Field.Label`; use `role="group"` plus an accessible name only when the full standalone
   composition needs grouped semantics.
 - The input ref targets the real `HTMLInputElement`.
+- Root, addon, and text expose `data-scope="input-group"` plus matching `data-part` attributes.
+- The nested input keeps Ark Field input state attributes and the grouped `input-group-input` slot.
+- The grouped button keeps Button behavior while exposing the grouped `input-group-button` slot.
 - Root visuals derive invalid, disabled, and read-only state from the nested input with `:has(...)`.
 - Buttons retain native keyboard behavior and default to `type="button"`.
 
@@ -107,8 +115,8 @@ should stay focused on ordinary input composition with addons, text, and actions
 
 - Group size defaults to `md` and is exposed as `data-size`.
 - `className` is supported on every exported part.
-- Use stable `data-slot` hooks, Ark field attributes on `InputGroupInput`, native state selectors,
-  and public `--input-group-*` variables.
+- Use stable `data-slot` hooks, `data-scope`/`data-part` on factory parts, Ark field attributes on
+  `InputGroupInput`, native state selectors, and public `--input-group-*` variables.
 - The group exposes no Ark runtime CSS variables.
 
 ## Intentional sugar and differences from upstream
@@ -116,8 +124,6 @@ should stay focused on ordinary input composition with addons, text, and actions
 - There is no upstream Ark primitive; the size context, visual merging, and button defaults are
   moduix sugar.
 - Explicit child parts are retained instead of Chakra's `startElement` and `endElement` props.
-- legacy `onValueChange`, `render`, and callback styling props disappear with the migrated
-  `InputGroupInput`.
 
 ## Agent notes
 
@@ -129,6 +135,8 @@ should stay focused on ordinary input composition with addons, text, and actions
 
 ## Local changelog
 
+- 2026-06-25: Added `InputGroup.Root` and namespace part aliases, aligned factory data attributes,
+  and made the grouped button's `input-group-button` slot render on the actual button.
 - 2026-06-22: Removed shell focus redirection from `InputGroup`; the root now stays a passive
   composition wrapper and clicks focus only native interactive descendants.
 - 2026-06-22: Removed the manual inline editing story and docs path; preview-first editing now

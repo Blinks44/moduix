@@ -5,6 +5,7 @@ icon: Component
 ---
 
 import {
+  InputGroupAsChildExample,
   CustomStylesInputGroupExample,
   DisabledInputGroupExample,
   InputGroupCssPropertiesPanel,
@@ -17,11 +18,10 @@ import {
 
 ## API Reference
 
-Ark UI has no Input Group primitive. moduix builds this composition with the
-[Ark factory and `asChild` model](https://ark-ui.com/docs/guides/composition), the Ark-backed local
-`Input`, and the local `Button`. Chakra's
-[Input composition examples](https://chakra-ui.com/docs/components/input) inform the addon and
-action patterns.
+Ark UI does not ship a dedicated input-group primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance
 
 ## Choosing the right component
 
@@ -42,12 +42,14 @@ Compose one grouped input with only the presentational parts the field needs.
     {`
       import { Field, InputGroup, InputGroupAddon, InputGroupInput } from "@moduix/react";
 
+      const workspacePrefix = "@";
+
       export function InputGroupDemo() {
         return (
           <Field className="input-group-demo-field">
             <Field.Label>Workspace</Field.Label>
             <InputGroup>
-              <InputGroupAddon>@</InputGroupAddon>
+              <InputGroupAddon>{workspacePrefix}</InputGroupAddon>
               <InputGroupInput name="workspace" placeholder="maps" />
             </InputGroup>
           </Field>
@@ -115,20 +117,20 @@ aubx shadcn@latest add Blinks44/moduix/react-input-group
 ## Anatomy
 
 ```text
-InputGroup
-├─ InputGroupAddon (optional)
-├─ InputGroupInput
-├─ InputGroupText (optional)
-└─ InputGroupButton (optional)
+InputGroup / InputGroup.Root
+├─ InputGroupAddon / InputGroup.Addon (optional)
+├─ InputGroupInput / InputGroup.Input
+├─ InputGroupText / InputGroup.Text (optional)
+└─ InputGroupButton / InputGroup.Button (optional)
 ```
 
 | Part                             | Role                                                         |
 | -------------------------------- | ------------------------------------------------------------ |
 | `InputGroup` / `InputGroup.Root` | Ark factory root for shared layout, border, focus, and size. |
-| `InputGroupInput`                | Ark-backed native input and form value owner.                |
-| `InputGroupAddon`                | Filled presentational prefix or suffix.                      |
-| `InputGroupText`                 | Unfilled inline presentational text.                         |
-| `InputGroupButton`               | Native button action with grouped visual defaults.           |
+| `InputGroupInput` / `.Input`     | Ark-backed native input and form value owner.                |
+| `InputGroupAddon` / `.Addon`     | Filled presentational prefix or suffix.                      |
+| `InputGroupText` / `.Text`       | Unfilled inline presentational text.                         |
+| `InputGroupButton` / `.Button`   | Native button action with grouped visual defaults.           |
 
 ## Composition
 
@@ -164,7 +166,6 @@ an accessible name only when the standalone composition itself needs grouped sem
 - The input ref targets the real `HTMLInputElement`.
 - The root does not own value, validation, ARIA ids, context hooks, or a `HiddenInput`.
 - Root invalid, disabled, and read-only visuals derive from the nested input state.
-- Legacy `onValueChange`, `render`, and callback styling props are not supported.
 
 ## Examples
 
@@ -180,8 +181,10 @@ Use a grouped button for an action tied to the native input value.
       import { Field, InputGroup, InputGroupButton, InputGroupInput } from "@moduix/react";
       import { useState } from "react";
 
+      const initialInviteEmail = "";
+
       export function InputGroupWithActionDemo() {
-        const [value, setValue] = useState("");
+        const [value, setValue] = useState(initialInviteEmail);
 
         return (
           <Field className="input-group-demo-field">
@@ -228,14 +231,16 @@ Mix a filled addon with plain text when the two sides have different visual weig
     {`
       import { Field, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "@moduix/react";
 
+      const currency = { symbol: "$", code: "USD" };
+
       export function BudgetInputGroupDemo() {
         return (
           <Field className="input-group-demo-field">
             <Field.Label>Monthly budget</Field.Label>
             <InputGroup>
-              <InputGroupAddon>$</InputGroupAddon>
+              <InputGroupAddon>{currency.symbol}</InputGroupAddon>
               <InputGroupInput inputMode="decimal" placeholder="2500" />
-              <InputGroupText>USD</InputGroupText>
+              <InputGroupText>{currency.code}</InputGroupText>
             </InputGroup>
           </Field>
         );
@@ -271,15 +276,18 @@ shell reacts to that input state.
     {`
       import { Field, InputGroup, InputGroupInput, InputGroupText } from "@moduix/react";
 
+      const domainSuffix = ".test.com";
+      const domainErrorMessage = "Please enter a valid domain.";
+
       export function InvalidDomainDemo() {
         return (
           <Field className="input-group-demo-field" invalid>
             <Field.Label>Domain</Field.Label>
             <InputGroup>
               <InputGroupInput placeholder="company" />
-              <InputGroupText>.test.com</InputGroupText>
+              <InputGroupText>{domainSuffix}</InputGroupText>
             </InputGroup>
-            <Field.ErrorText>Please enter a valid domain.</Field.ErrorText>
+            <Field.ErrorText>{domainErrorMessage}</Field.ErrorText>
           </Field>
         );
       }
@@ -298,6 +306,7 @@ shell reacts to that input state.
   <Preview.Data>
     {`
       const domainSuffix = ".test.com";
+      const domainErrorMessage = "Please enter a valid domain.";
     `}
   </Preview.Data>
 </Preview>
@@ -314,11 +323,13 @@ also become unavailable.
     {`
       import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@moduix/react";
 
+      const workspaceHandle = "maps";
+
       export function DisabledInputGroupDemo() {
         return (
           <InputGroup role="group" aria-label="Workspace handle">
             <InputGroupAddon>@</InputGroupAddon>
-            <InputGroupInput disabled value="maps" />
+            <InputGroupInput disabled value={workspaceHandle} />
             <InputGroupButton disabled>Copy</InputGroupButton>
           </InputGroup>
         );
@@ -353,10 +364,12 @@ Set size once on the root so the input, addon, text, and button stay aligned.
     {`
       import { InputGroup, InputGroupAddon, InputGroupInput } from "@moduix/react";
 
+      const inputGroupSizes = ["xs", "sm", "md", "lg", "xl"] as const;
+
       export function InputGroupSizesDemo() {
         return (
           <div className="input-group-demo-stack">
-            {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
+            {inputGroupSizes.map((size) => (
               <InputGroup key={size} size={size}>
                 <InputGroupAddon>@</InputGroupAddon>
                 <InputGroupInput aria-label={size + " workspace"} />
@@ -386,6 +399,52 @@ Set size once on the root so the input, addon, text, and button stay aligned.
   </Preview.Data>
 </Preview>
 
+### As Child
+
+Use `asChild` when the root must render a custom container while keeping the grouped styling and
+size context.
+
+<Preview>
+  <InputGroupAsChildExample />
+
+  <Preview.Code>
+    {`
+      import { Field, InputGroup, InputGroupAddon, InputGroupInput } from "@moduix/react";
+
+      const repositoryOwner = "moduix/";
+
+      export function InputGroupAsChildDemo() {
+        return (
+          <Field className="input-group-demo-field">
+            <Field.Label>Repository</Field.Label>
+            <InputGroup asChild>
+              <div>
+                <InputGroupAddon>{repositoryOwner}</InputGroupAddon>
+                <InputGroupInput placeholder="components" />
+              </div>
+            </InputGroup>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .input-group-demo-field {
+        width: min(16rem, 100%);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const repositoryOwner = "moduix/";
+    `}
+  </Preview.Data>
+</Preview>
+
 ### Custom Styling
 
 Use root variables for the merged shell and part classes for local addon or button styling.
@@ -397,11 +456,13 @@ Use root variables for the merged shell and part classes for local addon or butt
     {`
       import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@moduix/react";
 
+      const customHandle = "custom-group";
+
       export function CustomInputGroupDemo() {
         return (
           <InputGroup className="input-group-demo-custom-group">
             <InputGroupAddon className="input-group-demo-custom-addon">@</InputGroupAddon>
-            <InputGroupInput placeholder="custom-group" />
+            <InputGroupInput placeholder={customHandle} />
             <InputGroupButton className="input-group-demo-custom-button">Check</InputGroupButton>
           </InputGroup>
         );
@@ -450,8 +511,9 @@ Use root variables for the merged shell and part classes for local addon or butt
 ### Styling hooks
 
 - `data-slot="input-group-root"` and `data-size`
-- `data-slot="input-group-input"` plus Ark Field anatomy/state attributes
+- `data-scope="input-group"` and `data-part="root" | "addon" | "text"` on factory parts
+- `data-slot="input-group-input"` plus Ark Field input state attributes
 - `data-slot="input-group-addon"`
 - `data-slot="input-group-text"`
-- `data-slot="input-group-button"`
+- `data-slot="input-group-button"` on the grouped action button
 - nested `data-invalid`, `aria-invalid`, `disabled`, and `readOnly` state through root `:has(...)`

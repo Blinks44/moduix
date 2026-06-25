@@ -31,7 +31,9 @@ composition.
 - Native roots default to `type="button"`; pass `type="submit"` explicitly for form submission.
 - `disabled` and `aria-disabled="true"` expose `data-disabled`.
 - The forwarded ref targets the rendered button element.
-- Writes `data-scope="button"`, `data-part="root"`, and `data-slot="button-root"` on the root.
+- Writes `data-scope="button"`, `data-part="root"`, and `data-slot="button-root"` on the root by
+  default. Composed moduix wrappers may pass a narrower `data-slot` while preserving button
+  behavior.
 - Does not keep legacy `render`, `nativeButton`, or `focusableWhenDisabled`.
 
 ## Anatomy and exported parts
@@ -189,10 +191,14 @@ Primary CSS variables:
 - Preserve the native-root `type="button"` default and do not forward that default through
   `asChild`.
 - Keep `data-disabled` synchronized with both native `disabled` and `aria-disabled`.
+- Keep the `data-slot` default as `button-root`, but preserve the narrow override path for composed
+  wrappers that need their own stable slot.
 - Do not reintroduce Base button shims or converted prop names.
 
 ## Local changelog
 
+- 2026-06-25: Allowed composed wrappers to override only the root `data-slot` while keeping
+  `data-scope="button"` and `data-part="root"` locked to Button.
 - 2026-06-24: Finalized the Ark factory review by locking the root data hooks after passthrough
   props, simplifying disabled CSS to the shared `data-disabled` state, and aligning docs with the
   local-only Ark factory API reference text.

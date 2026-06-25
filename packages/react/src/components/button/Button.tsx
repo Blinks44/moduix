@@ -17,6 +17,7 @@ export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md
 export type ButtonRootProps = HTMLArkProps<'button'> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  'data-slot'?: string;
 };
 
 const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(function ButtonRoot(
@@ -26,6 +27,7 @@ const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(function Butto
     disabled,
     size = 'md',
     type,
+    'data-slot': dataSlot,
     variant = 'default',
     'aria-disabled': ariaDisabled,
     ...props
@@ -44,7 +46,7 @@ const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(function Butto
       {...props}
       data-scope="button"
       data-part="root"
-      data-slot="button-root"
+      data-slot={dataSlot ?? 'button-root'}
       data-variant={variant}
       data-size={size}
       data-disabled={isDisabled ? '' : undefined}
