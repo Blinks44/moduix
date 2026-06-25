@@ -150,6 +150,8 @@ Each input has `--date-picker-input-min-width: 7.5rem`; range inputs use
   custom multiple-value displays, `maxSelectedDates`, and range preset triggers.
 - Multiple months and week numbers: supported with `numOfMonths`, `fixedWeeks`, and
   `showWeekNumbers`.
+- Month-only, year-only, default-view, select-today, and date-with-time flows are supported through
+  Ark view props, `DatePicker.Context`, `format`, `parse`, and `CalendarDateTime` values.
 - Validation: supported with `min`, `max`, `isDateUnavailable`, `invalid`, `disabled`,
   `readOnly`, and `required`.
 - Locale and parsing: supported with `locale`, `timeZone`, `format`, `parse`, `translations`,
@@ -181,6 +183,9 @@ The CSS also handles the Ark range input layout by making sibling `DatePicker.In
 one `DatePicker.Control`, keeping each input wide enough for a date, and keeping the end input clear
 of the trigger icons.
 
+Disabled and read-only opacity is applied at the root level only. Do not duplicate the same opacity
+on `DatePicker.Control`, because Ark can emit disabled/read-only state on both parts.
+
 Preset triggers use a muted surface by default through `--date-picker-preset-trigger-bg` and
 `--date-picker-preset-trigger-bg-hover`, so quick range actions read as buttons even before they
 are selected.
@@ -209,6 +214,9 @@ Intentional moduix sugar:
 
 ## Local changelog
 
+- 2026-06-25: Audited the Ark UI migration against the official Date Picker MDX, removed stale
+  non-Ark focus styling, avoided double disabled/read-only opacity, expanded docs examples, and
+  synchronized the docs CSS variable table with the full theme contract.
 - 2026-06-22: Restored two-month popup composition, switched presets to range inputs, added muted
   preset trigger surface variables, and documented custom month/year header composition with
   moduix `Select`.

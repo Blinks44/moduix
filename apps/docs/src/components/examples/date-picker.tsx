@@ -1,5 +1,11 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { today } from '@internationalized/date';
+import {
+  CalendarDate,
+  CalendarDateTime,
+  DateFormatter,
+  getLocalTimeZone,
+  today,
+} from '@internationalized/date';
 import {
   Button,
   DatePicker,
@@ -9,9 +15,10 @@ import {
   parseDate,
   useDatePicker,
   type DateValue,
+  type DatePickerValueChangeDetails,
   type UseDatePickerReturn,
 } from '@moduix/react';
-import { useState } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 
@@ -39,6 +46,25 @@ const monthSelectCollection = createListCollection<DatePickerSelectItem>({
   items: monthSelectItems,
 });
 
+const dateTimeFormatter = new DateFormatter('en-US', {
+  dateStyle: 'medium',
+  timeStyle: 'short',
+});
+
+const formatMonthYear = (date: DateValue) => `${String(date.month).padStart(2, '0')}/${date.year}`;
+
+const parseMonthYear = (value: string) => {
+  const match = value.match(/^(\d{1,2})\/(\d{4})$/);
+  return match ? new CalendarDate(Number(match[2]), Number(match[1]), 1) : undefined;
+};
+
+const formatYear = (date: DateValue) => String(date.year);
+
+const parseYear = (value: string) => {
+  const year = Number(value);
+  return Number.isFinite(year) ? new CalendarDate(year, 1, 1) : undefined;
+};
+
 export const datePickerExampleCss = `
   .date-picker-state {
     margin-top: var(--spacing-3);
@@ -52,6 +78,32 @@ export const datePickerExampleCss = `
     flex-wrap: wrap;
     gap: var(--spacing-2);
     margin-bottom: var(--spacing-3);
+  }
+
+  .date-picker-today-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--spacing-3);
+  }
+
+  .date-picker-time-field {
+    display: grid;
+    gap: var(--spacing-1);
+    margin-top: var(--spacing-3);
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+
+  .date-picker-time-field input {
+    height: var(--date-picker-select-height, 2rem);
+    border: var(--date-picker-border-width, var(--border-width-sm)) solid
+      var(--date-picker-border-color, var(--color-border));
+    border-radius: var(--radius-sm);
+    padding-inline: var(--spacing-2);
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font: inherit;
   }
 
   .date-picker-selected-dates {
@@ -207,6 +259,9 @@ export const datePickerBasicCode =
 export const datePickerControlledCode =
   'import { DatePicker, Portal, parseDate, type DateValue } from "@moduix/react";\nimport { useState } from "react";\n\nexport function ControlledDatePickerDemo() {\n  const [value, setValue] = useState([parseDate("2026-06-22")] as DateValue[]);\n\n  return (\n    <div>\n      <DatePicker value={value} onValueChange={(details) => setValue(details.value)}>\n        <DatePicker.Label>Controlled date</DatePicker.Label>\n        <DatePicker.Control>\n          <DatePicker.Input placeholder="Select date" />\n          <DatePicker.ClearTrigger aria-label="Clear date" />\n          <DatePicker.Trigger aria-label="Open calendar" />\n        </DatePicker.Control>\n        <Portal>\n          <DatePicker.Positioner>\n            <DatePicker.Content>\n              <DatePicker.View view="day">\n                <DatePicker.ViewControl>\n                  <DatePicker.PrevTrigger />\n                  <DatePicker.ViewTrigger />\n                  <DatePicker.NextTrigger />\n                </DatePicker.ViewControl>\n                <DatePicker.Context>\n                  {(datePicker) => (\n                    <DatePicker.Table>\n                      <DatePicker.TableHead>\n                        <DatePicker.TableRow>\n                          {datePicker.weekDays.map((weekDay) => (\n                            <DatePicker.TableHeader key={weekDay.value.toString()}>\n                              {weekDay.short}\n                            </DatePicker.TableHeader>\n                          ))}\n                        </DatePicker.TableRow>\n                      </DatePicker.TableHead>\n                      <DatePicker.TableBody>\n                        {datePicker.weeks.map((week) => (\n                          <DatePicker.TableRow key={week[0]?.toString()}>\n                            {week.map((day) => (\n                              <DatePicker.TableCell key={day.toString()} value={day}>\n                                <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>\n                              </DatePicker.TableCell>\n                            ))}\n                          </DatePicker.TableRow>\n                        ))}\n                      </DatePicker.TableBody>\n                    </DatePicker.Table>\n                  )}\n                </DatePicker.Context>\n              </DatePicker.View>\n            </DatePicker.Content>\n          </DatePicker.Positioner>\n        </Portal>\n      </DatePicker>\n      <div className="date-picker-state">Current value: {value[0]?.toString() ?? "empty"}</div>\n    </div>\n  );\n}';
 
+export const datePickerDefaultViewCode =
+  'import { DatePicker, Portal, parseDate } from "@moduix/react";\n\nexport function DefaultViewDatePickerDemo() {\n  return (\n    <DatePicker defaultValue={[parseDate("2026-06-22")]} defaultView="month" fixedWeeks>\n      <DatePicker.Label>Billing month</DatePicker.Label>\n      <DatePicker.Control>\n        <DatePicker.Input placeholder="Select date" />\n        <DatePicker.ClearTrigger aria-label="Clear date" />\n        <DatePicker.Trigger aria-label="Open calendar" />\n      </DatePicker.Control>\n      <Portal>\n        <DatePicker.Positioner>\n          <DatePicker.Content>\n            <DatePicker.View view="day">\n              <DatePicker.ViewControl>\n                <DatePicker.PrevTrigger />\n                <DatePicker.ViewTrigger />\n                <DatePicker.NextTrigger />\n              </DatePicker.ViewControl>\n              <DatePicker.Context>\n                {(datePicker) => (\n                  <DatePicker.Table>\n                    <DatePicker.TableHead>\n                      <DatePicker.TableRow>\n                        {datePicker.weekDays.map((weekDay) => (\n                          <DatePicker.TableHeader key={weekDay.value.toString()}>\n                            {weekDay.short}\n                          </DatePicker.TableHeader>\n                        ))}\n                      </DatePicker.TableRow>\n                    </DatePicker.TableHead>\n                    <DatePicker.TableBody>\n                      {datePicker.weeks.map((week) => (\n                        <DatePicker.TableRow key={week[0]?.toString()}>\n                          {week.map((day) => (\n                            <DatePicker.TableCell key={day.toString()} value={day}>\n                              <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>\n                            </DatePicker.TableCell>\n                          ))}\n                        </DatePicker.TableRow>\n                      ))}\n                    </DatePicker.TableBody>\n                  </DatePicker.Table>\n                )}\n              </DatePicker.Context>\n            </DatePicker.View>\n            <DatePicker.View view="month">\n              <DatePicker.Context>\n                {(datePicker) => (\n                  <DatePicker.Table columns={4}>\n                    <DatePicker.TableBody>\n                      {datePicker.getMonthsGrid({ columns: 4, format: "short" }).map((months, rowIndex) => (\n                        <DatePicker.TableRow key={rowIndex}>\n                          {months.map((month) => (\n                            <DatePicker.TableCell key={month.value} value={month.value}>\n                              <DatePicker.TableCellTrigger>{month.label}</DatePicker.TableCellTrigger>\n                            </DatePicker.TableCell>\n                          ))}\n                        </DatePicker.TableRow>\n                      ))}\n                    </DatePicker.TableBody>\n                  </DatePicker.Table>\n                )}\n              </DatePicker.Context>\n            </DatePicker.View>\n          </DatePicker.Content>\n        </DatePicker.Positioner>\n      </Portal>\n    </DatePicker>\n  );\n}';
+
 export const datePickerRangeCode =
   'import { DatePicker, Portal, parseDate } from "@moduix/react";\n\nexport function RangeDatePickerDemo() {\n  return (\n    <DatePicker selectionMode="range" defaultValue={[parseDate("2026-06-22"), parseDate("2026-06-26")]}>\n      <DatePicker.Label>Travel dates</DatePicker.Label>\n      <DatePicker.Control>\n        <DatePicker.Input index={0} placeholder="Start date" />\n        <DatePicker.Input index={1} placeholder="End date" />\n        <DatePicker.ClearTrigger aria-label="Clear date" />\n        <DatePicker.Trigger aria-label="Open calendar" />\n      </DatePicker.Control>\n      <Portal>\n        <DatePicker.Positioner>\n          <DatePicker.Content>\n            <DatePicker.View view="day">\n              <DatePicker.ViewControl>\n                <DatePicker.PrevTrigger />\n                <DatePicker.ViewTrigger />\n                <DatePicker.NextTrigger />\n              </DatePicker.ViewControl>\n              <DatePicker.Context>\n                {(datePicker) => (\n                  <DatePicker.Table>\n                    <DatePicker.TableHead>\n                      <DatePicker.TableRow>\n                        {datePicker.weekDays.map((weekDay) => (\n                          <DatePicker.TableHeader key={weekDay.value.toString()}>\n                            {weekDay.short}\n                          </DatePicker.TableHeader>\n                        ))}\n                      </DatePicker.TableRow>\n                    </DatePicker.TableHead>\n                    <DatePicker.TableBody>\n                      {datePicker.weeks.map((week) => (\n                        <DatePicker.TableRow key={week[0]?.toString()}>\n                          {week.map((day) => (\n                            <DatePicker.TableCell key={day.toString()} value={day}>\n                              <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>\n                            </DatePicker.TableCell>\n                          ))}\n                        </DatePicker.TableRow>\n                      ))}\n                    </DatePicker.TableBody>\n                  </DatePicker.Table>\n                )}\n              </DatePicker.Context>\n            </DatePicker.View>\n          </DatePicker.Content>\n        </DatePicker.Positioner>\n      </Portal>\n    </DatePicker>\n  );\n}';
 
@@ -228,6 +283,12 @@ export const datePickerMinMaxCode =
 export const datePickerLocaleCode =
   'import { DatePicker, Portal, parseDate } from "@moduix/react";\n\nexport function LocaleDatePickerDemo() {\n  return (\n    <DatePicker\n      locale="de-DE"\n      startOfWeek={1}\n      defaultValue={[parseDate("2026-06-22")]}\n    >\n      <DatePicker.Label>German locale</DatePicker.Label>\n      <DatePicker.Control>\n        <DatePicker.Input placeholder="Select date" />\n        <DatePicker.ClearTrigger aria-label="Clear date" />\n        <DatePicker.Trigger aria-label="Open calendar" />\n      </DatePicker.Control>\n      <Portal>\n        <DatePicker.Positioner>\n          <DatePicker.Content>\n            <DatePicker.View view="day">\n              <DatePicker.ViewControl>\n                <DatePicker.PrevTrigger />\n                <DatePicker.ViewTrigger />\n                <DatePicker.NextTrigger />\n              </DatePicker.ViewControl>\n              <DatePicker.Context>\n                {(datePicker) => (\n                  <DatePicker.Table>\n                    <DatePicker.TableHead>\n                      <DatePicker.TableRow>\n                        {datePicker.weekDays.map((weekDay) => (\n                          <DatePicker.TableHeader key={weekDay.value.toString()}>\n                            {weekDay.short}\n                          </DatePicker.TableHeader>\n                        ))}\n                      </DatePicker.TableRow>\n                    </DatePicker.TableHead>\n                    <DatePicker.TableBody>\n                      {datePicker.weeks.map((week) => (\n                        <DatePicker.TableRow key={week[0]?.toString()}>\n                          {week.map((day) => (\n                            <DatePicker.TableCell key={day.toString()} value={day}>\n                              <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>\n                            </DatePicker.TableCell>\n                          ))}\n                        </DatePicker.TableRow>\n                      ))}\n                    </DatePicker.TableBody>\n                  </DatePicker.Table>\n                )}\n              </DatePicker.Context>\n            </DatePicker.View>\n          </DatePicker.Content>\n        </DatePicker.Positioner>\n      </Portal>\n    </DatePicker>\n  );\n}';
 
+export const datePickerMonthPickerCode =
+  'import { CalendarDate } from "@internationalized/date";\nimport { DatePicker, Portal, type DateValue } from "@moduix/react";\n\nconst format = (date: DateValue) => `${String(date.month).padStart(2, "0")}/${date.year}`;\nconst parse = (value: string) => {\n  const match = value.match(/^(\\d{1,2})\\/(\\d{4})$/);\n  return match ? new CalendarDate(Number(match[2]), Number(match[1]), 1) : undefined;\n};\n\nexport function MonthPickerDemo() {\n  return (\n    <DatePicker defaultView="month" minView="month" format={format} parse={parse}>\n      <DatePicker.Label>Month</DatePicker.Label>\n      <DatePicker.Control>\n        <DatePicker.Input placeholder="mm/yyyy" />\n        <DatePicker.ClearTrigger aria-label="Clear month" />\n        <DatePicker.Trigger aria-label="Open calendar" />\n      </DatePicker.Control>\n      <Portal>\n        <DatePicker.Positioner>\n          <DatePicker.Content>\n            <DatePicker.View view="month">\n              <DatePicker.ViewControl>\n                <DatePicker.PrevTrigger />\n                <DatePicker.ViewTrigger />\n                <DatePicker.NextTrigger />\n              </DatePicker.ViewControl>\n              <DatePicker.Context>\n                {(datePicker) => (\n                  <DatePicker.Table columns={4}>\n                    <DatePicker.TableBody>\n                      {datePicker.getMonthsGrid({ columns: 4, format: "short" }).map((months, rowIndex) => (\n                        <DatePicker.TableRow key={rowIndex}>\n                          {months.map((month) => (\n                            <DatePicker.TableCell key={month.value} value={month.value}>\n                              <DatePicker.TableCellTrigger>{month.label}</DatePicker.TableCellTrigger>\n                            </DatePicker.TableCell>\n                          ))}\n                        </DatePicker.TableRow>\n                      ))}\n                    </DatePicker.TableBody>\n                  </DatePicker.Table>\n                )}\n              </DatePicker.Context>\n            </DatePicker.View>\n          </DatePicker.Content>\n        </DatePicker.Positioner>\n      </Portal>\n    </DatePicker>\n  );\n}';
+
+export const datePickerYearPickerCode =
+  'import { CalendarDate } from "@internationalized/date";\nimport { DatePicker, Portal, type DateValue } from "@moduix/react";\n\nconst format = (date: DateValue) => String(date.year);\nconst parse = (value: string) => {\n  const year = Number(value);\n  return Number.isFinite(year) ? new CalendarDate(year, 1, 1) : undefined;\n};\n\nexport function YearPickerDemo() {\n  return (\n    <DatePicker defaultView="year" minView="year" format={format} parse={parse}>\n      <DatePicker.Label>Year</DatePicker.Label>\n      <DatePicker.Control>\n        <DatePicker.Input placeholder="yyyy" />\n        <DatePicker.ClearTrigger aria-label="Clear year" />\n        <DatePicker.Trigger aria-label="Open calendar" />\n      </DatePicker.Control>\n      <Portal>\n        <DatePicker.Positioner>\n          <DatePicker.Content>\n            <DatePicker.View view="year">\n              <DatePicker.ViewControl>\n                <DatePicker.PrevTrigger />\n                <DatePicker.ViewTrigger />\n                <DatePicker.NextTrigger />\n              </DatePicker.ViewControl>\n              <DatePicker.Context>\n                {(datePicker) => (\n                  <DatePicker.Table columns={4}>\n                    <DatePicker.TableBody>\n                      {datePicker.getYearsGrid({ columns: 4 }).map((years, rowIndex) => (\n                        <DatePicker.TableRow key={rowIndex}>\n                          {years.map((year) => (\n                            <DatePicker.TableCell key={`${year.label}-${year.value}`} value={year.value} disabled={year.disabled}>\n                              <DatePicker.TableCellTrigger>{year.label}</DatePicker.TableCellTrigger>\n                            </DatePicker.TableCell>\n                          ))}\n                        </DatePicker.TableRow>\n                      ))}\n                    </DatePicker.TableBody>\n                  </DatePicker.Table>\n                )}\n              </DatePicker.Context>\n            </DatePicker.View>\n          </DatePicker.Content>\n        </DatePicker.Positioner>\n      </Portal>\n    </DatePicker>\n  );\n}';
+
 export const datePickerInlineCode =
   'import { DatePicker, parseDate } from "@moduix/react";\n\nexport function InlineDatePickerDemo() {\n  return (\n    <div className="date-picker-inline-preview">\n      <DatePicker\n        inline\n        selectionMode="multiple"\n        maxSelectedDates={3}\n        defaultValue={[parseDate("2026-06-22"), parseDate("2026-06-24")]}\n        showWeekNumbers\n      >\n        <DatePicker.Label>Available days</DatePicker.Label>\n        <DatePicker.Content>\n          <DatePicker.View view="day">\n            <DatePicker.Context>\n              {(datePicker) => (\n                <DatePicker.Table>\n                  <DatePicker.TableHead>\n                    <DatePicker.TableRow>\n                      <DatePicker.WeekNumberHeaderCell />\n                      {datePicker.weekDays.map((weekDay) => (\n                        <DatePicker.TableHeader key={weekDay.value.toString()}>\n                          {weekDay.short}\n                        </DatePicker.TableHeader>\n                      ))}\n                    </DatePicker.TableRow>\n                  </DatePicker.TableHead>\n                  <DatePicker.TableBody>\n                    {datePicker.weeks.map((week, weekIndex) => (\n                      <DatePicker.TableRow key={week[0]?.toString()}>\n                        <DatePicker.WeekNumberCell week={week} weekIndex={weekIndex}>\n                          {datePicker.getWeekNumber(week)}\n                        </DatePicker.WeekNumberCell>\n                        {week.map((day) => (\n                          <DatePicker.TableCell key={day.toString()} value={day}>\n                            <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>\n                          </DatePicker.TableCell>\n                        ))}\n                      </DatePicker.TableRow>\n                    ))}\n                  </DatePicker.TableBody>\n                </DatePicker.Table>\n              )}\n            </DatePicker.Context>\n          </DatePicker.View>\n        </DatePicker.Content>\n      </DatePicker>\n    </div>\n  );\n}';
 
@@ -237,10 +298,28 @@ export const datePickerFieldStateCode =
 export const datePickerRootProviderCode =
   'import { today } from "@internationalized/date";\nimport { Button, DatePicker, Portal, useDatePicker } from "@moduix/react";\n\nexport function RootProviderDatePickerDemo() {\n  const datePicker = useDatePicker({ defaultValue: [today("UTC")] });\n\n  return (\n    <div>\n      <DatePicker.RootProvider value={datePicker}>\n        <DatePicker.Label>Report date</DatePicker.Label>\n        <DatePicker.Control>\n          <DatePicker.Input placeholder="Select date" />\n          <DatePicker.ClearTrigger aria-label="Clear date" />\n          <DatePicker.Trigger aria-label="Open calendar" />\n        </DatePicker.Control>\n        <Portal>\n          <DatePicker.Positioner>\n            <DatePicker.Content>\n              <DatePicker.View view="day">\n                <DatePicker.ViewControl>\n                  <DatePicker.PrevTrigger />\n                  <DatePicker.ViewTrigger />\n                  <DatePicker.NextTrigger />\n                </DatePicker.ViewControl>\n                <DatePicker.Context>\n                  {(datePicker) => (\n                    <DatePicker.Table>\n                      <DatePicker.TableHead>\n                        <DatePicker.TableRow>\n                          {datePicker.weekDays.map((weekDay) => (\n                            <DatePicker.TableHeader key={weekDay.value.toString()}>\n                              {weekDay.short}\n                            </DatePicker.TableHeader>\n                          ))}\n                        </DatePicker.TableRow>\n                      </DatePicker.TableHead>\n                      <DatePicker.TableBody>\n                        {datePicker.weeks.map((week) => (\n                          <DatePicker.TableRow key={week[0]?.toString()}>\n                            {week.map((day) => (\n                              <DatePicker.TableCell key={day.toString()} value={day}>\n                                <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>\n                              </DatePicker.TableCell>\n                            ))}\n                          </DatePicker.TableRow>\n                        ))}\n                      </DatePicker.TableBody>\n                    </DatePicker.Table>\n                  )}\n                </DatePicker.Context>\n              </DatePicker.View>\n            </DatePicker.Content>\n          </DatePicker.Positioner>\n        </Portal>\n      </DatePicker.RootProvider>\n      <div className="date-picker-state">\n        <Button size="sm" variant="secondary" onClick={() => datePicker.clearValue()}>\n          Clear\n        </Button>\n      </div>\n    </div>\n  );\n}';
 
+export const datePickerSelectTodayCode =
+  'import { Button, DatePicker, Portal } from "@moduix/react";\n\nexport function SelectTodayDatePickerDemo() {\n  return (\n    <DatePicker>\n      <DatePicker.Label>Today shortcut</DatePicker.Label>\n      <DatePicker.Control>\n        <DatePicker.Input placeholder="Select date" />\n        <DatePicker.ClearTrigger aria-label="Clear date" />\n        <DatePicker.Trigger aria-label="Open calendar" />\n      </DatePicker.Control>\n      <Portal>\n        <DatePicker.Positioner>\n          <DatePicker.Content>\n            <DatePicker.View view="day">\n              <DatePicker.ViewControl>\n                <DatePicker.PrevTrigger />\n                <DatePicker.ViewTrigger />\n                <DatePicker.NextTrigger />\n              </DatePicker.ViewControl>\n              <DatePicker.Context>\n                {(datePicker) => (\n                  <>\n                    <DatePicker.Table>\n                      <DatePicker.TableHead>\n                        <DatePicker.TableRow>\n                          {datePicker.weekDays.map((weekDay) => (\n                            <DatePicker.TableHeader key={weekDay.value.toString()}>\n                              {weekDay.short}\n                            </DatePicker.TableHeader>\n                          ))}\n                        </DatePicker.TableRow>\n                      </DatePicker.TableHead>\n                      <DatePicker.TableBody>\n                        {datePicker.weeks.map((week) => (\n                          <DatePicker.TableRow key={week[0]?.toString()}>\n                            {week.map((day) => (\n                              <DatePicker.TableCell key={day.toString()} value={day}>\n                                <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>\n                              </DatePicker.TableCell>\n                            ))}\n                          </DatePicker.TableRow>\n                        ))}\n                      </DatePicker.TableBody>\n                    </DatePicker.Table>\n                    <div className="date-picker-today-row">\n                      <Button size="sm" variant="secondary" onClick={() => datePicker.selectToday()}>\n                        Today\n                      </Button>\n                    </div>\n                  </>\n                )}\n              </DatePicker.Context>\n            </DatePicker.View>\n          </DatePicker.Content>\n        </DatePicker.Positioner>\n      </Portal>\n    </DatePicker>\n  );\n}';
+
+export const datePickerWithTimeCode =
+  'import { CalendarDateTime, DateFormatter, getLocalTimeZone } from "@internationalized/date";\nimport { DatePicker, Portal, type DatePickerValueChangeDetails } from "@moduix/react";\nimport { useState } from "react";\n\nconst formatter = new DateFormatter("en-US", {\n  dateStyle: "medium",\n  timeStyle: "short",\n});\n\nexport function DatePickerWithTimeDemo() {\n  const [value, setValue] = useState([new CalendarDateTime(2026, 6, 22, 14, 30)]);\n  const timeValue = value[0]\n    ? `${String(value[0].hour).padStart(2, "0")}:${String(value[0].minute).padStart(2, "0")}`\n    : "";\n\n  const handleDateChange = (details: DatePickerValueChangeDetails) => {\n    const nextDate = details.value[0];\n    if (!nextDate) return setValue([]);\n    const previousTime = value[0] ?? new CalendarDateTime(nextDate.year, nextDate.month, nextDate.day, 0, 0);\n    setValue([\n      new CalendarDateTime(\n        nextDate.year,\n        nextDate.month,\n        nextDate.day,\n        previousTime.hour,\n        previousTime.minute,\n      ),\n    ]);\n  };\n\n  return (\n    <div>\n      <DatePicker value={value} onValueChange={handleDateChange}>\n        <DatePicker.Label>Appointment</DatePicker.Label>\n        <DatePicker.Control>\n          <DatePicker.ValueText>\n            {value[0] ? formatter.format(value[0].toDate(getLocalTimeZone())) : "Select date"}\n          </DatePicker.ValueText>\n          <DatePicker.Trigger aria-label="Open calendar" />\n        </DatePicker.Control>\n        <Portal>\n          <DatePicker.Positioner>\n            <DatePicker.Content>\n              <DatePicker.View view="day">\n                <DatePicker.ViewControl>\n                  <DatePicker.PrevTrigger />\n                  <DatePicker.ViewTrigger />\n                  <DatePicker.NextTrigger />\n                </DatePicker.ViewControl>\n                <DatePicker.Context>\n                  {(datePicker) => (\n                    <DatePicker.Table>\n                      <DatePicker.TableHead>\n                        <DatePicker.TableRow>\n                          {datePicker.weekDays.map((weekDay) => (\n                            <DatePicker.TableHeader key={weekDay.value.toString()}>\n                              {weekDay.short}\n                            </DatePicker.TableHeader>\n                          ))}\n                        </DatePicker.TableRow>\n                      </DatePicker.TableHead>\n                      <DatePicker.TableBody>\n                        {datePicker.weeks.map((week) => (\n                          <DatePicker.TableRow key={week[0]?.toString()}>\n                            {week.map((day) => (\n                              <DatePicker.TableCell key={day.toString()} value={day}>\n                                <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>\n                              </DatePicker.TableCell>\n                            ))}\n                          </DatePicker.TableRow>\n                        ))}\n                      </DatePicker.TableBody>\n                    </DatePicker.Table>\n                  )}\n                </DatePicker.Context>\n              </DatePicker.View>\n            </DatePicker.Content>\n          </DatePicker.Positioner>\n        </Portal>\n      </DatePicker>\n      <label className="date-picker-time-field">\n        Time\n        <input\n          type="time"\n          value={timeValue}\n          onChange={(event) => {\n            const [hour, minute] = event.currentTarget.value.split(":").map(Number);\n            setValue((previous) => {\n              const current = previous[0] ?? new CalendarDateTime(2026, 6, 22, 0, 0);\n              return [current.set({ hour, minute })];\n            });\n          }}\n        />\n      </label>\n    </div>\n  );\n}';
+
 export const datePickerCustomStylesCode =
   'import { DatePicker, Portal, parseDate } from "@moduix/react";\n\nexport function CustomStylesDatePickerDemo() {\n  return (\n    <DatePicker\n      className="date-picker-custom-root"\n      defaultValue={[parseDate("2026-06-22")]}\n    >\n      <DatePicker.Label>Styled date</DatePicker.Label>\n      <DatePicker.Control>\n        <DatePicker.Input placeholder="Select date" />\n        <DatePicker.ClearTrigger aria-label="Clear date" />\n        <DatePicker.Trigger aria-label="Open calendar" />\n      </DatePicker.Control>\n      <Portal>\n        <DatePicker.Positioner>\n          <DatePicker.Content>\n            <DatePicker.View view="day">\n              <DatePicker.ViewControl>\n                <DatePicker.PrevTrigger />\n                <DatePicker.ViewTrigger />\n                <DatePicker.NextTrigger />\n              </DatePicker.ViewControl>\n              <DatePicker.Context>\n                {(datePicker) => (\n                  <DatePicker.Table>\n                    <DatePicker.TableHead>\n                      <DatePicker.TableRow>\n                        {datePicker.weekDays.map((weekDay) => (\n                          <DatePicker.TableHeader key={weekDay.value.toString()}>\n                            {weekDay.short}\n                          </DatePicker.TableHeader>\n                        ))}\n                      </DatePicker.TableRow>\n                    </DatePicker.TableHead>\n                    <DatePicker.TableBody>\n                      {datePicker.weeks.map((week) => (\n                        <DatePicker.TableRow key={week[0]?.toString()}>\n                          {week.map((day) => (\n                            <DatePicker.TableCell key={day.toString()} value={day}>\n                              <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>\n                            </DatePicker.TableCell>\n                          ))}\n                        </DatePicker.TableRow>\n                      ))}\n                    </DatePicker.TableBody>\n                  </DatePicker.Table>\n                )}\n              </DatePicker.Context>\n            </DatePicker.View>\n          </DatePicker.Content>\n        </DatePicker.Positioner>\n      </Portal>\n    </DatePicker>\n  );\n}';
 
 export const datePickerOverrideCssProperties: CssPropertyInput[] = [
+  ['--date-picker-action-bg', 'transparent', 'Controls action background.'],
+  ['--date-picker-action-bg-hover', 'var(--color-muted)', 'Controls action hover background.'],
+  ['--date-picker-action-color-hover', 'var(--color-foreground)', 'Controls action hover color.'],
+  ['--date-picker-action-focus-ring-offset', '0', 'Controls action focus ring offset.'],
+  [
+    '--date-picker-action-focus-ring-width',
+    'var(--border-width-sm)',
+    'Controls action focus ring width.',
+  ],
+  ['--date-picker-action-gap', '0.125rem', 'Controls gap between input actions.'],
+  ['--date-picker-action-radius', 'var(--radius-sm)', 'Controls action corner radius.'],
+  ['--date-picker-action-size', '1.5rem', 'Controls input action button size.'],
   ['--date-picker-bg', 'var(--color-background)', 'Controls input background.'],
   ['--date-picker-bg-hover', 'var(--color-accent)', 'Controls input hover background.'],
   ['--date-picker-border-color', 'var(--color-border)', 'Controls input border color.'],
@@ -249,6 +328,8 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
   ['--date-picker-content-bg', 'var(--color-popover)', 'Controls calendar surface background.'],
   ['--date-picker-content-border-color', 'var(--color-border)', 'Controls popup border color.'],
   ['--date-picker-content-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
+  ['--date-picker-content-closed-opacity', '0', 'Controls closed popup opacity.'],
+  ['--date-picker-content-closed-scale', 'var(--scale-popup)', 'Controls closed popup scale.'],
   ['--date-picker-content-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
   ['--date-picker-content-max-height', '32rem', 'Controls popup maximum height.'],
   ['--date-picker-content-max-width', 'calc(100vw - 2rem)', 'Controls popup maximum width.'],
@@ -261,10 +342,28 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
   ['--date-picker-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--date-picker-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   ['--date-picker-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
+  ['--date-picker-font-size', 'var(--text-md)', 'Controls input font size.'],
   ['--date-picker-icon-color', 'var(--color-muted-foreground)', 'Controls trigger icon color.'],
   ['--date-picker-icon-size', '1rem', 'Controls trigger icon size.'],
+  ['--date-picker-inline-content-min-width', '18rem', 'Controls inline calendar minimum width.'],
+  ['--date-picker-inline-content-shadow', 'none', 'Controls inline calendar shadow.'],
   ['--date-picker-input-min-width', '7.5rem', 'Controls the minimum width of each input.'],
+  ['--date-picker-input-padding-x-end', '4.25rem', 'Controls input end padding around actions.'],
+  ['--date-picker-input-padding-x-start', '0.875rem', 'Controls input start padding.'],
+  ['--date-picker-input-padding-y', '0.5rem', 'Controls input vertical padding.'],
+  ['--date-picker-input-gap', 'var(--spacing-2)', 'Controls gap between range inputs.'],
   ['--date-picker-invalid-color', 'var(--color-destructive)', 'Controls invalid border and ring.'],
+  [
+    '--date-picker-label-color',
+    'var(--date-picker-color, var(--color-foreground))',
+    'Controls label color.',
+  ],
+  ['--date-picker-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
+  ['--date-picker-label-font-weight', 'var(--weight-medium)', 'Controls label weight.'],
+  ['--date-picker-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
+  ['--date-picker-line-height', 'var(--line-height-text-md)', 'Controls input line height.'],
+  ['--date-picker-max-width', '100%', 'Controls root maximum width.'],
+  ['--date-picker-nav-trigger-size', '2rem', 'Controls calendar nav button size.'],
   [
     '--date-picker-placeholder-color',
     'var(--color-muted-foreground)',
@@ -276,12 +375,80 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
     'var(--color-accent)',
     'Controls preset button hover background.',
   ],
-  ['--date-picker-radius', 'var(--radius-md)', 'Controls input radius.'],
+  ['--date-picker-preset-trigger-color', 'var(--color-foreground)', 'Controls preset text color.'],
+  ['--date-picker-preset-trigger-font-size', 'var(--text-sm)', 'Controls preset font size.'],
+  ['--date-picker-preset-trigger-height', '2rem', 'Controls preset button height.'],
+  [
+    '--date-picker-preset-trigger-line-height',
+    'var(--line-height-text-sm)',
+    'Controls preset line height.',
+  ],
+  [
+    '--date-picker-preset-trigger-padding-x',
+    'var(--spacing-2)',
+    'Controls preset horizontal padding.',
+  ],
+  [
+    '--date-picker-preset-trigger-selected-bg',
+    'var(--color-primary)',
+    'Controls selected preset background.',
+  ],
+  [
+    '--date-picker-preset-trigger-selected-color',
+    'var(--color-primary-foreground)',
+    'Controls selected preset text.',
+  ],
   ['--date-picker-range-input-min-width', '7.5rem', 'Controls each range input minimum width.'],
+  ['--date-picker-radius', 'var(--radius-md)', 'Controls input radius.'],
+  ['--date-picker-root-gap', 'var(--spacing-1)', 'Controls root vertical gap.'],
+  ['--date-picker-select-bg', 'var(--color-background)', 'Controls native select background.'],
+  [
+    '--date-picker-select-bg-hover',
+    'var(--color-accent)',
+    'Controls native select hover background.',
+  ],
+  [
+    '--date-picker-select-border-color',
+    'var(--color-border)',
+    'Controls native select border color.',
+  ],
+  [
+    '--date-picker-select-border-width',
+    'var(--border-width-sm)',
+    'Controls native select border width.',
+  ],
+  ['--date-picker-select-color', 'var(--color-foreground)', 'Controls native select text.'],
+  [
+    '--date-picker-select-focus-ring-width',
+    'var(--border-width-sm)',
+    'Controls native select focus ring width.',
+  ],
+  ['--date-picker-select-font-size', 'var(--text-sm)', 'Controls native select font size.'],
+  ['--date-picker-select-height', '2rem', 'Controls native select height.'],
+  [
+    '--date-picker-select-line-height',
+    'var(--line-height-text-sm)',
+    'Controls native select line height.',
+  ],
+  [
+    '--date-picker-select-padding-x',
+    'var(--spacing-2)',
+    'Controls native select horizontal padding.',
+  ],
+  ['--date-picker-select-padding-y', '0.25rem', 'Controls native select vertical padding.'],
+  ['--date-picker-select-radius', 'var(--radius-sm)', 'Controls native select radius.'],
+  ['--date-picker-table-cell-bg', 'transparent', 'Controls calendar cell background.'],
   [
     '--date-picker-table-cell-bg-hover',
     'var(--color-accent)',
     'Controls day cell hover background.',
+  ],
+  ['--date-picker-table-cell-border-color', 'transparent', 'Controls calendar cell border color.'],
+  ['--date-picker-table-cell-border-width', '0', 'Controls calendar cell border width.'],
+  [
+    '--date-picker-table-cell-color',
+    'var(--date-picker-content-color, var(--color-foreground))',
+    'Controls calendar cell text.',
   ],
   [
     '--date-picker-table-cell-color-hover',
@@ -294,11 +461,25 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
     'Controls day cell focus ring.',
   ],
   [
+    '--date-picker-table-cell-focus-ring-width',
+    'var(--border-width-sm)',
+    'Controls calendar cell focus ring width.',
+  ],
+  ['--date-picker-table-cell-font-size', 'var(--text-sm)', 'Controls calendar cell font size.'],
+  ['--date-picker-table-cell-gap', '0.125rem', 'Controls calendar cell spacing.'],
+  [
+    '--date-picker-table-cell-line-height',
+    'var(--line-height-text-sm)',
+    'Controls calendar cell line height.',
+  ],
+  [
     '--date-picker-table-cell-muted-color',
     'var(--color-muted-foreground)',
     'Controls unavailable/outside dates.',
   ],
+  ['--date-picker-table-cell-radius', 'var(--radius-sm)', 'Controls calendar cell radius.'],
   ['--date-picker-table-cell-range-bg', 'var(--color-muted)', 'Controls range background.'],
+  ['--date-picker-table-cell-range-color', 'var(--color-foreground)', 'Controls range text color.'],
   [
     '--date-picker-table-cell-selected-bg',
     'var(--color-primary)',
@@ -316,9 +497,62 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
     'Controls today marker color.',
   ],
   [
+    '--date-picker-table-cell-today-color',
+    'var(--date-picker-table-cell-color, var(--color-foreground))',
+    'Controls today text color.',
+  ],
+  [
+    '--date-picker-table-header-color',
+    'var(--color-muted-foreground)',
+    'Controls weekday header color.',
+  ],
+  ['--date-picker-table-header-font-size', 'var(--text-xs)', 'Controls weekday font size.'],
+  [
+    '--date-picker-table-header-font-weight',
+    'var(--weight-medium)',
+    'Controls weekday font weight.',
+  ],
+  ['--date-picker-table-header-height', '1.75rem', 'Controls weekday header height.'],
+  [
+    '--date-picker-table-header-line-height',
+    'var(--line-height-text-xs)',
+    'Controls weekday header line height.',
+  ],
+  [
     '--date-picker-transition',
     'var(--transition-default)',
     'Controls interactive transition timing.',
+  ],
+  ['--date-picker-trigger-offset-right', '0.5rem', 'Controls input action right offset.'],
+  ['--date-picker-view-control-gap', 'var(--spacing-2)', 'Controls calendar header control gap.'],
+  ['--date-picker-view-gap', 'var(--spacing-3)', 'Controls calendar view gap.'],
+  [
+    '--date-picker-view-trigger-color',
+    'var(--color-foreground)',
+    'Controls view trigger text color.',
+  ],
+  ['--date-picker-view-trigger-font-size', 'var(--text-sm)', 'Controls view trigger font size.'],
+  [
+    '--date-picker-view-trigger-font-weight',
+    'var(--weight-medium)',
+    'Controls view trigger font weight.',
+  ],
+  ['--date-picker-view-trigger-gap', 'var(--spacing-2)', 'Controls view trigger content gap.'],
+  ['--date-picker-view-trigger-height', '2rem', 'Controls view trigger height.'],
+  [
+    '--date-picker-view-trigger-line-height',
+    'var(--line-height-text-sm)',
+    'Controls view trigger line height.',
+  ],
+  [
+    '--date-picker-view-trigger-padding-x',
+    'var(--spacing-2)',
+    'Controls view trigger horizontal padding.',
+  ],
+  [
+    '--date-picker-week-number-color',
+    'var(--color-muted-foreground)',
+    'Controls week number text color.',
   ],
   ['--date-picker-width', '18.75rem', 'Controls root width.'],
 ];
@@ -741,6 +975,16 @@ export function ControlledDatePickerExample() {
   );
 }
 
+export function DefaultViewDatePickerExample() {
+  return (
+    <DatePicker defaultValue={[parseDate('2026-06-22')]} defaultView="month" fixedWeeks>
+      <DatePicker.Label>Billing month</DatePicker.Label>
+      <DatePickerField />
+      <DatePickerPopup />
+    </DatePicker>
+  );
+}
+
 export function RangeDatePickerExample() {
   return (
     <DatePicker
@@ -863,6 +1107,42 @@ export function LocaleDatePickerExample() {
   );
 }
 
+export function MonthPickerExample() {
+  return (
+    <DatePicker defaultView="month" minView="month" format={formatMonthYear} parse={parseMonthYear}>
+      <DatePicker.Label>Month</DatePicker.Label>
+      <DatePickerField placeholder="mm/yyyy" />
+      <Portal>
+        <DatePicker.Positioner>
+          <DatePicker.Content>
+            <DatePicker.View view="month">
+              <DatePickerMonthTable />
+            </DatePicker.View>
+          </DatePicker.Content>
+        </DatePicker.Positioner>
+      </Portal>
+    </DatePicker>
+  );
+}
+
+export function YearPickerExample() {
+  return (
+    <DatePicker defaultView="year" minView="year" format={formatYear} parse={parseYear}>
+      <DatePicker.Label>Year</DatePicker.Label>
+      <DatePickerField placeholder="yyyy" />
+      <Portal>
+        <DatePicker.Positioner>
+          <DatePicker.Content>
+            <DatePicker.View view="year">
+              <DatePickerYearTable />
+            </DatePicker.View>
+          </DatePicker.Content>
+        </DatePicker.Positioner>
+      </Portal>
+    </DatePicker>
+  );
+}
+
 export function InlineDatePickerExample() {
   return (
     <div className="date-picker-inline-preview">
@@ -910,6 +1190,93 @@ export function RootProviderDatePickerExample() {
           Clear
         </Button>
       </div>
+    </div>
+  );
+}
+
+export function SelectTodayDatePickerExample() {
+  return (
+    <DatePicker>
+      <DatePicker.Label>Today shortcut</DatePicker.Label>
+      <DatePickerField />
+      <Portal>
+        <DatePicker.Positioner>
+          <DatePicker.Content>
+            <DatePicker.View view="day">
+              <DatePicker.Context>
+                {(datePicker) => (
+                  <>
+                    <DatePickerDayTable />
+                    <div className="date-picker-today-row">
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={() => datePicker.selectToday()}
+                      >
+                        Today
+                      </Button>
+                    </div>
+                  </>
+                )}
+              </DatePicker.Context>
+            </DatePicker.View>
+          </DatePicker.Content>
+        </DatePicker.Positioner>
+      </Portal>
+    </DatePicker>
+  );
+}
+
+export function DatePickerWithTimeExample() {
+  const [value, setValue] = useState([new CalendarDateTime(2026, 6, 22, 14, 30)]);
+  const timeValue = value[0]
+    ? `${String(value[0].hour).padStart(2, '0')}:${String(value[0].minute).padStart(2, '0')}`
+    : '';
+
+  const handleDateChange = (details: DatePickerValueChangeDetails) => {
+    const nextDate = details.value[0];
+
+    if (!nextDate) {
+      setValue([]);
+      return;
+    }
+
+    const previousTime =
+      value[0] ?? new CalendarDateTime(nextDate.year, nextDate.month, nextDate.day, 0, 0);
+
+    setValue([
+      new CalendarDateTime(
+        nextDate.year,
+        nextDate.month,
+        nextDate.day,
+        previousTime.hour,
+        previousTime.minute,
+      ),
+    ]);
+  };
+
+  const handleTimeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const [hour, minute] = event.currentTarget.value.split(':').map(Number);
+
+    setValue((previous) => {
+      const current = previous[0] ?? new CalendarDateTime(2026, 6, 22, 0, 0);
+      return [current.set({ hour, minute })];
+    });
+  };
+
+  return (
+    <div>
+      <DatePicker value={value} onValueChange={handleDateChange}>
+        <DatePicker.Label>Appointment</DatePicker.Label>
+        <DatePickerField />
+        <DatePickerPopup />
+      </DatePicker>
+      <label className="date-picker-time-field">
+        {value[0]
+          ? dateTimeFormatter.format(value[0].toDate(getLocalTimeZone()))
+          : 'Select date and time'}
+        <input type="time" value={timeValue} onChange={handleTimeChange} />
+      </label>
     </div>
   );
 }

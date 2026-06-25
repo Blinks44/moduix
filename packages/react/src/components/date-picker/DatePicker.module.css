@@ -56,10 +56,6 @@
     align-items: center;
     gap: var(--date-picker-input-gap, var(--spacing-2));
     color: var(--date-picker-color, var(--color-foreground));
-
-    &:is([data-disabled], [data-readonly]) {
-      opacity: var(--date-picker-disabled-opacity, var(--opacity-disabled));
-    }
   }
 
   .input {
@@ -348,7 +344,7 @@
       outline-color var(--date-picker-transition, var(--transition-default)),
       opacity var(--date-picker-transition, var(--transition-default));
 
-    &:is(:focus-visible, [data-focus], [data-focused]) {
+    &:is(:focus-visible, [data-focus]) {
       outline-color: var(--date-picker-table-cell-focus-ring-color, var(--color-ring));
     }
 

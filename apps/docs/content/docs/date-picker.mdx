@@ -9,24 +9,31 @@ import {
   CustomStylesDatePickerExample,
   DatePickerCssPropertiesPanel,
   DatePickerExample,
+  DatePickerWithTimeExample,
+  DefaultViewDatePickerExample,
   FieldDatePickerExample,
   InlineDatePickerExample,
   LocaleDatePickerExample,
   MinMaxDatePickerExample,
+  MonthPickerExample,
   MonthYearSelectDatePickerExample,
   MultipleDatePickerExample,
   MultipleMonthsDatePickerExample,
   PresetDatePickerExample,
   RangeDatePickerExample,
   RootProviderDatePickerExample,
+  SelectTodayDatePickerExample,
+  YearPickerExample,
   datePickerBasicCode,
   datePickerControlledCode,
   datePickerCustomStylesCode,
+  datePickerDefaultViewCode,
   datePickerExampleCss,
   datePickerFieldStateCode,
   datePickerInlineCode,
   datePickerLocaleCode,
   datePickerMinMaxCode,
+  datePickerMonthPickerCode,
   datePickerMonthYearSelectCode,
   datePickerMultipleCode,
   datePickerMultipleMonthsCode,
@@ -35,7 +42,10 @@ import {
   datePickerRangeData,
   datePickerRangeCode,
   datePickerRootProviderCode,
+  datePickerSelectTodayCode,
   datePickerValidationData,
+  datePickerWithTimeCode,
+  datePickerYearPickerCode,
 } from '@/components/examples/date-picker';
 
 ## API Reference
@@ -179,8 +189,22 @@ Control the selected `DateValue[]` and update it from `details.value`.
 
 <Preview.Code>{datePickerControlledCode}</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+<Preview.CSS>{datePickerExampleCss}</Preview.CSS>
   <Preview.Data>{`const initialValue = [parseDate('2026-06-22')];`}</Preview.Data>
+</Preview>
+
+### Default View And Fixed Weeks
+
+Use `defaultView` to open on a different panel. Add `fixedWeeks` when the day view should keep a
+stable six-row height while users navigate between months.
+
+<Preview>
+  <DefaultViewDatePickerExample />
+
+<Preview.Code>{datePickerDefaultViewCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{`const defaultView = 'month';\nconst fixedWeeks = true;`}</Preview.Data>
 </Preview>
 
 ### Range
@@ -278,8 +302,36 @@ calendar cells.
 
 <Preview.Code>{datePickerLocaleCode}</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+<Preview.CSS>{datePickerExampleCss}</Preview.CSS>
   <Preview.Data>{`const locale = 'de-DE';`}</Preview.Data>
+</Preview>
+
+### Month Picker
+
+Set `defaultView="month"` and `minView="month"` for month-only selection. Use `format` and `parse`
+when the input should accept a month/year string.
+
+<Preview>
+  <MonthPickerExample />
+
+<Preview.Code>{datePickerMonthPickerCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{`const pattern = 'mm/yyyy';`}</Preview.Data>
+</Preview>
+
+### Year Picker
+
+Set `defaultView="year"` and `minView="year"` for year-only selection. The same `format` / `parse`
+contract keeps keyboard input aligned with the calendar view.
+
+<Preview>
+  <YearPickerExample />
+
+<Preview.Code>{datePickerYearPickerCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{`const pattern = 'yyyy';`}</Preview.Data>
 </Preview>
 
 ### Inline And Week Numbers
@@ -319,8 +371,35 @@ Use `useDatePicker()` when the calendar state must be shared with external contr
 
 <Preview.Code>{datePickerRootProviderCode}</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+<Preview.CSS>{datePickerExampleCss}</Preview.CSS>
   <Preview.Data>{`const datePicker = useDatePicker({ defaultValue: [today('UTC')] });`}</Preview.Data>
+</Preview>
+
+### Select Today
+
+Use `DatePicker.Context` when a nearby control needs to call Ark helpers such as `selectToday()`.
+
+<Preview>
+  <SelectTodayDatePickerExample />
+
+<Preview.Code>{datePickerSelectTodayCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{`datePicker.selectToday();`}</Preview.Data>
+</Preview>
+
+### With Time
+
+Keep time in the selected `DateValue` by storing `CalendarDateTime` values and updating the time
+field separately from Ark's date grid.
+
+<Preview>
+  <DatePickerWithTimeExample />
+
+<Preview.Code>{datePickerWithTimeCode}</Preview.Code>
+
+  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
+  <Preview.Data>{`const value = new CalendarDateTime(2026, 6, 22, 14, 30);`}</Preview.Data>
 </Preview>
 
 ### Custom Styles
