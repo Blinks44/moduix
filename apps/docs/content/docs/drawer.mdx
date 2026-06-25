@@ -6,6 +6,7 @@ icon: Component
 
 import {
   ControlledDrawerExample,
+  ContextDrawerExample,
   DragControlsDrawerExample,
   DrawerCssPropertiesPanel,
   DrawerExample,
@@ -197,20 +198,24 @@ Wrap coordinated indent surfaces in `Drawer.Stack`, then render `Drawer.IndentBa
 
 ### Default props
 
-| Prop                     | Default  | Notes                                                  |
-| ------------------------ | -------- | ------------------------------------------------------ |
-| `modal`                  | `true`   | Hides page content and blocks outside interaction.     |
-| `swipeDirection`         | `"down"` | Opens from the bottom by default.                      |
-| `snapPoints`             | `[1]`    | Uses a full-size drawer unless snap points are set.    |
-| `closeOnEscape`          | `true`   | Keeps Ark Escape dismissal enabled.                    |
-| `closeOnInteractOutside` | `true`   | Closes when a modal drawer receives outside input.     |
-| `preventDragOnScroll`    | `true`   | Avoids starting a drag from scrollable descendants.    |
-| `preventScroll`          | `true`   | Prevents background scroll while open.                 |
-| `restoreFocus`           | `true`   | Returns focus to the previous active element.          |
-| `trapFocus`              | `true`   | Keeps focus inside modal drawer content.               |
-| `lazyMount`              | `true`   | Moduix default, different from Ark's `false`.          |
-| `unmountOnExit`          | `true`   | Moduix default, different from Ark's `false`.          |
-| `Content draggable`      | `true`   | The grabber still drags when content is not draggable. |
+| Prop                     | Default    | Notes                                                  |
+| ------------------------ | ---------- | ------------------------------------------------------ |
+| `modal`                  | `true`     | Hides page content and blocks outside interaction.     |
+| `swipeDirection`         | `"down"`   | Opens from the bottom by default.                      |
+| `snapPoints`             | `[1]`      | Uses a full-size drawer unless snap points are set.    |
+| `closeOnEscape`          | `true`     | Keeps Ark Escape dismissal enabled.                    |
+| `closeOnInteractOutside` | `true`     | Closes when a modal drawer receives outside input.     |
+| `preventDragOnScroll`    | `true`     | Avoids starting a drag from scrollable descendants.    |
+| `preventScroll`          | `true`     | Prevents background scroll while open.                 |
+| `restoreFocus`           | `true`     | Returns focus to the previous active element.          |
+| `trapFocus`              | `true`     | Keeps focus inside modal drawer content.               |
+| `lazyMount`              | `true`     | Moduix default, different from Ark's `false`.          |
+| `unmountOnExit`          | `true`     | Moduix default, different from Ark's `false`.          |
+| `Content draggable`      | `true`     | The grabber still drags when content is not draggable. |
+| `closeThreshold`         | `0.25`     | Swipe distance ratio required to dismiss the drawer.   |
+| `snapToSequentialPoints` | `false`    | Moves through snap points one step at a time.          |
+| `swipeVelocityThreshold` | `700`      | Swipe velocity threshold for closing.                  |
+| `role`                   | `"dialog"` | Set to `"alertdialog"` for urgent blocking content.    |
 
 ### Behavioral notes
 
@@ -219,6 +224,9 @@ Wrap coordinated indent surfaces in `Drawer.Stack`, then render `Drawer.IndentBa
 - `Content draggable={false}` disables dragging from content while keeping the grabber draggable.
 - `data-no-drag` prevents a drag gesture from starting inside a specific subtree.
 - `ids` customizes accessibility IDs for cross-part composition.
+- `stack` accepts an external Ark drawer stack store for app-level stack visuals.
+- `immediate` and `skipAnimationOnMount` tune Ark presence timing when custom animation control is
+  needed.
 - `present`, `lazyMount`, `unmountOnExit`, and `onExitComplete` control render lifecycle.
   Moduix defaults `lazyMount` and `unmountOnExit` to `true` so exit animations can finish without
   rendering hidden drawers on initial page load.
@@ -687,6 +695,84 @@ points.
   <Preview.Data>{`const snapPoints = [0.25, 0.5, 1];`}</Preview.Data>
 </Preview>
 
+### Context
+
+Use `Drawer.Context` for state-aware content that lives inside the drawer tree.
+
+<Preview>
+  <ContextDrawerExample />
+
+  <Preview.Code>
+    {`
+      import { Button, Drawer } from "@moduix/react";
+
+      export function ContextDrawerDemo() {
+        return (
+          <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
+            <Drawer.Trigger asChild>
+              <Button>Open context drawer</Button>
+            </Drawer.Trigger>
+            <Drawer.Backdrop />
+            <Drawer.Positioner>
+              <Drawer.Content>
+                <Drawer.Grabber>
+                  <Drawer.GrabberIndicator />
+                </Drawer.Grabber>
+                <Drawer.Header>
+                  <Drawer.Title>Context state</Drawer.Title>
+                  <Drawer.CloseIcon />
+                </Drawer.Header>
+                <Drawer.Context>
+                  {(drawer) => (
+                    <Drawer.Body>
+                      <dl className="context-readout">
+                        <div>
+                          <dt>Open</dt>
+                          <dd>{String(drawer.open)}</dd>
+                        </div>
+                        <div>
+                          <dt>Direction</dt>
+                          <dd>{drawer.swipeDirection}</dd>
+                        </div>
+                        <div>
+                          <dt>Snap point</dt>
+                          <dd>{String(drawer.snapPoint)}</dd>
+                        </div>
+                      </dl>
+                    </Drawer.Body>
+                  )}
+                </Drawer.Context>
+              </Drawer.Content>
+            </Drawer.Positioner>
+          </Drawer>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .context-readout {
+        display: grid;
+        gap: 0.5rem;
+        margin: 0;
+      }
+
+      .context-readout > div {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .context-readout dd {
+        margin: 0;
+      }
+    `}
+
+  </Preview.CSS>
+  <Preview.Data>{`const snapPoints = [0.18, 1];`}</Preview.Data>
+</Preview>
+
 ### Nested
 
 Render nested drawers with separate `useDrawer` instances and `Drawer.RootProvider` trees so each
@@ -811,6 +897,7 @@ progress.
                     <Button>{copy.trigger}</Button>
                   </Drawer.Trigger>
                 </Drawer.Indent>
+                <Drawer.Backdrop />
                 <Drawer.Positioner>
                   <Drawer.Content>
                     <Drawer.Grabber>
@@ -880,9 +967,9 @@ progress.
   `drawer-indent-background`.
 - Ark part hooks: `data-scope="drawer"` with `data-part`.
 - State hooks: `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
-  `data-dragging`, `data-expanded`, `data-nested-drawer-open`, and
-  `data-nested-drawer-swiping`.
-- Runtime variables: `--drawer-translate-x`, `--drawer-translate-y`,
+  `data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,
+  `data-nested-drawer-open`, and `data-nested-drawer-swiping`.
+- Runtime variables: `--drawer-translate`, `--drawer-translate-x`, `--drawer-translate-y`,
   `--drawer-snap-point-offset-x`, `--drawer-snap-point-offset-y`,
   `--drawer-swipe-movement-x`, `--drawer-swipe-movement-y`, `--drawer-swipe-progress`,
   `--drawer-swipe-strength`, `--drawer-height`, `--drawer-frontmost-height`,

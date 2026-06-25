@@ -19,10 +19,31 @@ export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-backdrop-blur', '4px', 'Backdrop blur amount.'],
   ['--drawer-backdrop-transition', 'var(--transition-spring)', 'Backdrop enter and exit motion.'],
   ['--drawer-bg', 'var(--color-popover)', 'Content background.'],
+  ['--drawer-body-margin-top', 'var(--spacing-4)', 'Space above body content.'],
   ['--drawer-bleed-size', '3rem', 'Overdrag background extension.'],
   ['--drawer-border-color', 'var(--color-border)', 'Content border color.'],
   ['--drawer-border-width', 'var(--border-width-sm)', 'Content border width.'],
   ['--drawer-color', 'var(--color-popover-foreground)', 'Content text color.'],
+  ['--drawer-close-icon-bg', 'transparent', 'Close icon button background.'],
+  ['--drawer-close-icon-bg-hover', 'var(--color-accent)', 'Close icon button hover background.'],
+  [
+    '--drawer-close-icon-color',
+    'var(--drawer-description-color, var(--color-muted-foreground))',
+    'Close icon button color.',
+  ],
+  [
+    '--drawer-close-icon-color-hover',
+    'var(--drawer-color, var(--color-popover-foreground))',
+    'Close icon button hover color.',
+  ],
+  [
+    '--drawer-close-icon-focus-ring-color',
+    'var(--drawer-focus-ring-color, var(--color-ring))',
+    'Close icon button focus ring color.',
+  ],
+  ['--drawer-close-icon-glyph-size', '0.75rem', 'Close icon glyph size.'],
+  ['--drawer-close-icon-radius', 'var(--radius-md)', 'Close icon button radius.'],
+  ['--drawer-close-icon-size', '1.75rem', 'Close icon button size.'],
   ['--drawer-control-bg', 'var(--color-background)', 'Default trigger background.'],
   ['--drawer-control-bg-hover', 'var(--color-accent)', 'Default trigger hover background.'],
   ['--drawer-control-border-color', 'var(--color-border)', 'Default trigger border color.'],
@@ -376,5 +397,37 @@ export function IndentDrawerExample() {
         </Drawer.Root>
       </div>
     </Drawer.Stack>
+  );
+}
+
+export function ContextDrawerExample() {
+  return (
+    <Drawer.Root defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
+      <Drawer.Trigger asChild>
+        <Button>Open context drawer</Button>
+      </Drawer.Trigger>
+      <DrawerSurface title="Context state">
+        <Drawer.Context>
+          {(drawer) => (
+            <Drawer.Body>
+              <dl className={styles.contextReadout}>
+                <div>
+                  <dt>Open</dt>
+                  <dd>{String(drawer.open)}</dd>
+                </div>
+                <div>
+                  <dt>Direction</dt>
+                  <dd>{drawer.swipeDirection}</dd>
+                </div>
+                <div>
+                  <dt>Snap point</dt>
+                  <dd>{String(drawer.snapPoint)}</dd>
+                </div>
+              </dl>
+            </Drawer.Body>
+          )}
+        </Drawer.Context>
+      </DrawerSurface>
+    </Drawer.Root>
   );
 }

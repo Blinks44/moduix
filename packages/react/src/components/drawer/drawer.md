@@ -119,10 +119,10 @@ Callbacks retain Ark detail objects:
 - `onTriggerValueChange(details)` reads `details.value` and `details.triggerElement`.
 
 State styling uses `data-scope="drawer"`, Ark part attributes, `data-state`, `data-swiping`,
-`data-dragging`, `data-expanded`, `data-nested-drawer-open`,
-`data-nested-drawer-swiping`, and `data-swipe-direction`.
+`data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,
+`data-nested-drawer-open`, `data-nested-drawer-swiping`, and `data-swipe-direction`.
 
-Runtime variables include `--drawer-translate-x`, `--drawer-translate-y`,
+Runtime variables include `--drawer-translate`, `--drawer-translate-x`, `--drawer-translate-y`,
 `--drawer-snap-point-offset-x`, `--drawer-snap-point-offset-y`,
 `--drawer-swipe-movement-x`, `--drawer-swipe-movement-y`, `--drawer-swipe-progress`,
 `--drawer-swipe-strength`, `--drawer-height`, `--drawer-frontmost-height`,
@@ -176,6 +176,9 @@ Public theme variables are declared in `packages/react/src/core/styles/theme.css
 
 ## Local changelog
 
+- 2026-06-25: Added public docs coverage for `Drawer.Context`, synced documented Ark data hooks
+  and runtime variables with the current Ark styling guide, and filled in missing close-icon/body
+  styling tokens in the docs CSS properties table.
 - 2026-06-25: Rechecked the wrapper against the current Ark UI drawer MDX, fixed public docs for
   `RootProvider`, added nested drawer coverage, and kept `Stack` as a direct Ark passthrough.
 - 2026-06-18: Removed conflicting content open keyframes, kept closed drag-to-dismiss animations

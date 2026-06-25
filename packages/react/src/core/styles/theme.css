@@ -1016,7 +1016,7 @@
   --drawer-close-icon-bg: initial; /* transparent */
   --drawer-close-icon-bg-hover: initial; /* var(--color-accent) */
   --drawer-close-icon-color: initial; /* var(--drawer-description-color, var(--color-muted-foreground)) */
-  --drawer-close-icon-color-hover: initial; /* var(--drawer-close-icon-color, var(--drawer-color, var(--color-popover-foreground))) */
+  --drawer-close-icon-color-hover: initial; /* var(--drawer-color, var(--color-popover-foreground)) */
   --drawer-close-icon-focus-ring-color: initial; /* var(--drawer-focus-ring-color, var(--color-ring)) */
   --drawer-close-icon-glyph-size: initial; /* 0.75rem */
   --drawer-close-icon-radius: initial; /* var(--radius-md) */
