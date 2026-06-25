@@ -1533,12 +1533,12 @@
   --kbd-font-family: initial; /* var(--font-mono) */
   --kbd-font-size: initial; /* var(--text-xs) */
   --kbd-font-weight: initial; /* var(--weight-medium) */
-  --kbd-group-gap: initial; /* 0.25rem */
+  --kbd-group-gap: initial; /* var(--spacing-1) */
   --kbd-group-separator-color: initial; /* var(--color-muted-foreground) */
   --kbd-height: initial; /* 1.5rem */
   --kbd-line-height: initial; /* var(--line-height-text-xs) */
   --kbd-min-width: initial; /* var(--kbd-height, 1.5rem) */
-  --kbd-padding-x: initial; /* 0.4375rem */
+  --kbd-padding-x: initial; /* var(--spacing-2) */
   --kbd-padding-y: initial; /* 0 */
   --kbd-radius: initial; /* var(--radius-sm) */
   --kbd-shadow: initial; /* inset 0 -1px 0 color-mix(in oklab, var(--color-foreground) 12%, transparent) */

@@ -12,7 +12,7 @@
     border: var(--kbd-border-width, var(--border-width-sm)) solid
       var(--kbd-border-color, var(--color-border));
     border-radius: var(--kbd-radius, var(--radius-sm));
-    padding: var(--kbd-padding-y, 0) var(--kbd-padding-x, 0.4375rem);
+    padding: var(--kbd-padding-y, 0) var(--kbd-padding-x, var(--spacing-2));
     background-color: var(--kbd-bg, var(--color-muted));
     box-shadow: var(
       --kbd-shadow,
@@ -35,7 +35,7 @@
     display: inline-flex;
     max-width: 100%;
     align-items: center;
-    gap: var(--kbd-group-gap, 0.25rem);
+    gap: var(--kbd-group-gap, var(--spacing-1));
     padding: 0;
     border: 0;
     background: none;

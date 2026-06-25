@@ -1,7 +1,8 @@
 import { Kbd } from '@moduix/react';
 import { Fragment } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
+import styles from './kbd.module.css';
 
 const kbdBasicData = {
   label: 'Command K',
@@ -32,7 +33,7 @@ export const kbdOverrideCssProperties: CssPropertyInput[] = [
   ['--kbd-font-family', 'var(--font-mono)', 'Controls key font family.'],
   ['--kbd-font-size', 'var(--text-xs)', 'Controls key font size.'],
   ['--kbd-font-weight', 'var(--weight-medium)', 'Controls key font weight.'],
-  ['--kbd-group-gap', '0.25rem', 'Controls spacing between grouped keys.'],
+  ['--kbd-group-gap', 'var(--spacing-1)', 'Controls spacing between grouped keys.'],
   [
     '--kbd-group-separator-color',
     'var(--color-muted-foreground)',
@@ -41,7 +42,7 @@ export const kbdOverrideCssProperties: CssPropertyInput[] = [
   ['--kbd-height', '1.5rem', 'Controls key height.'],
   ['--kbd-line-height', 'var(--line-height-text-xs)', 'Controls key line-height.'],
   ['--kbd-min-width', 'var(--kbd-height, 1.5rem)', 'Controls minimum key width.'],
-  ['--kbd-padding-x', '0.4375rem', 'Controls horizontal key padding.'],
+  ['--kbd-padding-x', 'var(--spacing-2)', 'Controls horizontal key padding.'],
   ['--kbd-padding-y', '0', 'Controls vertical key padding.'],
   ['--kbd-radius', 'var(--radius-sm)', 'Controls key border radius.'],
   [
@@ -51,7 +52,7 @@ export const kbdOverrideCssProperties: CssPropertyInput[] = [
   ],
 ];
 
-export function KbdCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function KbdCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable properties={kbdOverrideCssProperties.map(normalizeCssProperty)} />
   );
@@ -65,14 +66,16 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 export function KbdExample() {
   return (
-    <Kbd.Group aria-label={kbdBasicData.label}>
-      {kbdBasicData.keys.map((key, index) => (
-        <Fragment key={key}>
-          {index > 0 && '+'}
-          <Kbd>{key}</Kbd>
-        </Fragment>
-      ))}
-    </Kbd.Group>
+    <div className={styles.shortcut}>
+      <Kbd.Group aria-label={kbdBasicData.label}>
+        {kbdBasicData.keys.map((key, index) => (
+          <Fragment key={key}>
+            {index > 0 && '+'}
+            <Kbd>{key}</Kbd>
+          </Fragment>
+        ))}
+      </Kbd.Group>
+    </div>
   );
 }
 
@@ -82,9 +85,9 @@ export function KbdSingleKeyExample() {
 
 export function KbdShortcutListExample() {
   return (
-    <div className="kbd-demo-shortcut-list">
+    <div className={styles.shortcutList}>
       {kbdShortcutListData.map((shortcut) => (
-        <div key={shortcut.label} className="kbd-demo-shortcut-row">
+        <div key={shortcut.label} className={styles.shortcutRow}>
           <Kbd.Group aria-label={shortcut.label}>
             {shortcut.keys.map((key, index) => (
               <Fragment key={key}>
@@ -102,9 +105,9 @@ export function KbdShortcutListExample() {
 
 export function KbdDenseExample() {
   return (
-    <div className="kbd-demo-row">
+    <div className={styles.row}>
       {kbdDenseData.map((key) => (
-        <Kbd key={key} className="kbd-demo-dense">
+        <Kbd key={key} className={styles.dense}>
           {key}
         </Kbd>
       ))}
@@ -114,11 +117,11 @@ export function KbdDenseExample() {
 
 export function CustomStylingKbdExample() {
   return (
-    <Kbd.Group aria-label={kbdCustomData.label} className="kbd-demo-custom-group">
+    <Kbd.Group aria-label={kbdCustomData.label} className={styles.customGroup}>
       {kbdCustomData.keys.map((key, index) => (
         <Fragment key={key}>
           {index > 0 && '+'}
-          <Kbd className="kbd-demo-custom-key">{key}</Kbd>
+          <Kbd className={styles.customKey}>{key}</Kbd>
         </Fragment>
       ))}
     </Kbd.Group>

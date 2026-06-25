@@ -5,7 +5,11 @@
   gap: var(--spacing-2);
 }
 
-.column {
+.shortcut {
+  display: inline-flex;
+}
+
+.shortcutList {
   display: grid;
   gap: var(--spacing-3);
 }
@@ -20,7 +24,11 @@
   line-height: var(--line-height-text-sm);
 }
 
-.customKbd {
+.customGroup {
+  --kbd-group-gap: var(--spacing-2);
+}
+
+.customKey {
   --kbd-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
   --kbd-border-color: color-mix(in oklab, var(--color-primary) 32%, transparent);
   --kbd-color: var(--color-primary);
@@ -29,10 +37,6 @@
   --kbd-padding-x: var(--spacing-3);
   --kbd-radius: var(--radius-md);
   --kbd-shadow: inset 0 -1px 0 color-mix(in oklab, var(--color-primary) 22%, transparent);
-}
-
-.customGroup {
-  --kbd-group-gap: var(--spacing-2);
 }
 
 .dense {

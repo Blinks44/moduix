@@ -2,8 +2,11 @@
 
 ## Upstream docs
 
-Ark UI has no dedicated Kbd primitive. This component follows the
-[Ark composition and factory model](https://ark-ui.com/docs/guides/composition).
+Ark UI has no dedicated Kbd primitive. This component follows the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory),
+[composition](https://ark-ui.com/docs/guides/composition),
+[styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Purpose
 
@@ -112,12 +115,12 @@ Public CSS variables:
 | `--kbd-font-family`           | `var(--font-mono)`                                                             | Root  |
 | `--kbd-font-size`             | `var(--text-xs)`                                                               | Root  |
 | `--kbd-font-weight`           | `var(--weight-medium)`                                                         | Root  |
-| `--kbd-group-gap`             | `0.25rem`                                                                      | Group |
+| `--kbd-group-gap`             | `var(--spacing-1)`                                                             | Group |
 | `--kbd-group-separator-color` | `var(--color-muted-foreground)`                                                | Group |
 | `--kbd-height`                | `1.5rem`                                                                       | Root  |
 | `--kbd-line-height`           | `var(--line-height-text-xs)`                                                   | Root  |
 | `--kbd-min-width`             | `var(--kbd-height, 1.5rem)`                                                    | Root  |
-| `--kbd-padding-x`             | `0.4375rem`                                                                    | Root  |
+| `--kbd-padding-x`             | `var(--spacing-2)`                                                             | Root  |
 | `--kbd-padding-y`             | `0`                                                                            | Root  |
 | `--kbd-radius`                | `var(--radius-sm)`                                                             | Root  |
 | `--kbd-shadow`                | `inset 0 -1px 0 color-mix(in oklab, var(--color-foreground) 12%, transparent)` | Root  |
@@ -137,6 +140,9 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-06-25: Reconfirmed the component as a moduix-owned Ark factory primitive, aligned the
+  no-dedicated-Ark-primitive docs text, and simplified Kbd spacing defaults to existing spacing
+  tokens.
 - 2026-06-19: Migrated the component to Ark factory primitives, added `Root`/`Group` anatomy,
   `asChild`, forwarded refs, Ark data attributes, and removed the standalone `KbdGroup` export.
 - 2026-06-02: Documented the native Kbd behavior and public styling contract.
