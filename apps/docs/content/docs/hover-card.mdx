@@ -58,7 +58,7 @@ Use the Ark part tree directly: render `HoverCard.Trigger` near the hovered cont
 
   </Preview.Code>
 
-  <Preview.CSS>{`[data-slot="hover-card-content"] { transform-origin: var(--transform-origin); }`}</Preview.CSS>
+  <Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-max-width: 18rem; }`}</Preview.CSS>
   <Preview.Data>{`const profiles = hoverCardProfiles;`}</Preview.Data>
 </Preview>
 
@@ -239,7 +239,7 @@ Create the machine state with `useHoverCard()` when external controls need to re
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`[data-slot="hover-card-root-provider"] { --hover-card-max-width: 18rem; }`}</Preview.CSS>
+  <Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-max-width: 18rem; }`}</Preview.CSS>
   <Preview.Data>{`const hoverCard = useHoverCard();`}</Preview.Data>
 </Preview>
 
@@ -274,7 +274,7 @@ Tune hover timing with `openDelay` and `closeDelay` on the root.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`/* Timing is configured by Root props, not CSS. */`}</Preview.CSS>
+  <Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-transition: 160ms; }`}</Preview.CSS>
   <Preview.Data>{`const timing = { openDelay: 200, closeDelay: 500 };`}</Preview.Data>
 </Preview>
 
@@ -309,7 +309,7 @@ Pass Ark positioning options through the `positioning` prop.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`[data-slot="hover-card-positioner"] { max-width: var(--available-width); }`}</Preview.CSS>
+  <Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-min-width: 12rem; }`}</Preview.CSS>
   <Preview.Data>{`const positioning = { placement: "right", gutter: 12 };`}</Preview.Data>
 </Preview>
 
@@ -441,7 +441,7 @@ Override moduix CSS variables and target stable `data-slot` hooks without changi
     `}
 
   </Preview.CSS>
-  <Preview.Data>{`const profile = hoverCardProfiles[0];`}</Preview.Data>
+  <Preview.Data>{`const profiles = hoverCardProfiles;`}</Preview.Data>
 </Preview>
 
 ## Styling

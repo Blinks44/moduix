@@ -112,6 +112,8 @@ positioner, and content. Do not reintroduce legacy `createHandle`, `handle`, `pa
 
 ## Local changelog
 
+- 2026-06-25: Audited Ark migration against current Ark Hover Card docs; simplified docs and
+  stories data/content examples while preserving the Ark part tree and public wrapper API.
 - 2026-06-22: Removed the `HoverCard.Portal` namespace alias; examples now import the shared
   `Portal` from `@moduix/react`.
 - 2026-06-20: Migrated from legacy `preview-card` to Ark UI `hover-card`, renamed the component,

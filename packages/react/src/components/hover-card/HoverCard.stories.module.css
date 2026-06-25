@@ -48,19 +48,12 @@
 
   .card {
     display: grid;
-    gap: var(--spacing-2);
+    gap: var(--spacing-1);
     width: min(14rem, calc(100vw - 4rem));
   }
 
-  .image {
-    display: block;
-    width: 100%;
-    aspect-ratio: 14 / 8;
-    border-radius: var(--radius-sm);
-    object-fit: cover;
-  }
-
   .name,
+  .username,
   .bio {
     margin: 0;
   }
@@ -70,6 +63,12 @@
     font-size: var(--text-md);
     font-weight: var(--weight-bold);
     line-height: var(--line-height-text-md);
+  }
+
+  .username {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
   }
 
   .bio {

@@ -45,19 +45,12 @@
 
 .hover-card-example__card {
   display: grid;
-  gap: var(--spacing-2);
+  gap: var(--spacing-1);
   width: min(14rem, calc(100vw - 4rem));
 }
 
-.hover-card-example__image {
-  display: block;
-  width: 100%;
-  aspect-ratio: 14 / 8;
-  border-radius: var(--radius-sm);
-  object-fit: cover;
-}
-
 .hover-card-example__name,
+.hover-card-example__username,
 .hover-card-example__bio {
   margin: 0;
 }
@@ -67,6 +60,12 @@
   font-size: var(--text-md);
   font-weight: var(--weight-bold);
   line-height: var(--line-height-text-md);
+}
+
+.hover-card-example__username {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
 }
 
 .hover-card-example__bio {
@@ -89,10 +88,7 @@
 }
 
 .hover-card-example__custom-content .hover-card-example__name,
+.hover-card-example__custom-content .hover-card-example__username,
 .hover-card-example__custom-content .hover-card-example__bio {
   color: var(--color-background);
-}
-
-.hover-card-example__custom-arrow {
-  --hover-card-arrow-stroke-color: var(--hover-card-border-color);
 }
