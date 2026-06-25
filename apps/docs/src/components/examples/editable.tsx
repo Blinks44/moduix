@@ -73,7 +73,11 @@ export const editableOverrideCssProperties: CssPropertyInput[] = [
   ['--editable-control-gap', 'var(--spacing-1)', 'Controls spacing between trigger buttons.'],
   ['--editable-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--editable-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--editable-focus-ring-width', 'var(--editable-border-width)', 'Controls focus ring width.'],
+  [
+    '--editable-focus-ring-width',
+    'var(--editable-border-width, var(--border-width-sm))',
+    'Controls focus ring width.',
+  ],
   ['--editable-font-size', 'var(--text-md)', 'Controls input and preview font size.'],
   ['--editable-gap', 'var(--spacing-1)', 'Controls spacing between editable parts.'],
   ['--editable-input-width', '100%', 'Controls input and preview width.'],
@@ -114,7 +118,11 @@ export const editableOverrideCssProperties: CssPropertyInput[] = [
   ['--editable-trigger-color', 'var(--color-foreground)', 'Controls trigger icon color.'],
   ['--editable-trigger-icon-size', '0.875rem', 'Controls default trigger icon size.'],
   ['--editable-trigger-radius', 'var(--radius-sm)', 'Controls trigger corner radius.'],
-  ['--editable-trigger-size', 'var(--editable-area-height)', 'Controls trigger button size.'],
+  [
+    '--editable-trigger-size',
+    'var(--editable-area-height, var(--size-lg))',
+    'Controls trigger button size.',
+  ],
   ['--editable-width', 'auto', 'Controls root width.'],
 ];
 
@@ -176,6 +184,31 @@ export function ControlledEditableExample() {
         </Editable.Control>
       </Editable>
       <div className="editable-state">Current value: {value || 'empty'}</div>
+    </div>
+  );
+}
+
+export function ContextEditableExample() {
+  return (
+    <div style={centeredExampleStyle}>
+      <Editable defaultValue="Service area">
+        <Editable.Label>Name</Editable.Label>
+        <Editable.Area>
+          <Editable.Input />
+          <Editable.Preview />
+        </Editable.Area>
+        <Editable.Context>
+          {(editable) =>
+            editable.editing ? (
+              <div className="editable-state">Enter to save, Esc to cancel.</div>
+            ) : (
+              <Editable.Control>
+                <Editable.EditTrigger />
+              </Editable.Control>
+            )
+          }
+        </Editable.Context>
+      </Editable>
     </div>
   );
 }
@@ -391,6 +424,33 @@ export const editableControlledCode = `
         <Editable.Control>
           <Editable.EditTrigger />
         </Editable.Control>
+      </Editable>
+    );
+  }
+`;
+
+export const editableContextCode = `
+  import { Editable } from "@moduix/react";
+
+  export function ContextEditableDemo() {
+    return (
+      <Editable defaultValue="Service area">
+        <Editable.Label>Name</Editable.Label>
+        <Editable.Area>
+          <Editable.Input />
+          <Editable.Preview />
+        </Editable.Area>
+        <Editable.Context>
+          {(editable) =>
+            editable.editing ? (
+              <span>Enter to save, Esc to cancel.</span>
+            ) : (
+              <Editable.Control>
+                <Editable.EditTrigger />
+              </Editable.Control>
+            )
+          }
+        </Editable.Context>
       </Editable>
     );
   }

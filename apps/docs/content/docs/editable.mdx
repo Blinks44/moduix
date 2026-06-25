@@ -6,6 +6,7 @@ icon: Component
 
 import {
   ControlledEditableExample,
+  ContextEditableExample,
   CustomStylesEditableExample,
   EditableControlsExample,
   EditableCssPropertiesPanel,
@@ -15,6 +16,7 @@ import {
   RootProviderEditableExample,
   TextareaEditableExample,
   editableBasicCode,
+  editableContextCode,
   editableControlledCode,
   editableControlsCode,
   editableCustomStylesCode,
@@ -175,6 +177,32 @@ Control the value with `value` and `onValueChange` when application state is the
   <Preview.Data>{`const initialValue = "Downtown route";`}</Preview.Data>
 </Preview>
 
+### Root Provider
+
+Use `useEditable()` and `Editable.RootProvider` when external controls need access to the editable
+state methods.
+
+<Preview>
+  <RootProviderEditableExample />
+
+  <Preview.Code>{editableRootProviderCode}</Preview.Code>
+  <Preview.CSS>{editableExampleCss}</Preview.CSS>
+  <Preview.Data>{editableNoData}</Preview.Data>
+</Preview>
+
+### Context
+
+Use `Editable.Context` for one-off state reads inside the part tree, such as swapping controls for
+editing hints.
+
+<Preview>
+  <ContextEditableExample />
+
+  <Preview.Code>{editableContextCode}</Preview.Code>
+  <Preview.CSS>{editableExampleCss}</Preview.CSS>
+  <Preview.Data>{editableNoData}</Preview.Data>
+</Preview>
+
 ### Custom Controls
 
 Use `Editable.Context` to show edit, submit, or cancel controls based on the current edit state.
@@ -212,19 +240,6 @@ surface.
   <Preview.Code>{editableFieldCode}</Preview.Code>
   <Preview.CSS>{editableExampleCss}</Preview.CSS>
   <Preview.Data>{`const error = "Bio is required.";`}</Preview.Data>
-</Preview>
-
-### Root Provider
-
-Use `useEditable()` and `Editable.RootProvider` when external controls need access to the editable
-state methods.
-
-<Preview>
-  <RootProviderEditableExample />
-
-  <Preview.Code>{editableRootProviderCode}</Preview.Code>
-  <Preview.CSS>{editableExampleCss}</Preview.CSS>
-  <Preview.Data>{editableNoData}</Preview.Data>
 </Preview>
 
 ### Guides
@@ -273,5 +288,7 @@ visual treatment.
   `editable-input`, `editable-preview`, `editable-control`, `editable-edit-trigger`,
   `editable-submit-trigger`, and `editable-cancel-trigger`.
 - Ark also emits `data-scope="editable"` and `data-part` attributes for each primitive part.
-- State selectors include `data-focus`, `data-disabled`, `data-readonly`, `data-invalid`,
-  `data-required`, `data-placeholder-shown`, and `data-autoresize` on the parts that support them.
+- State selectors include `data-focus` on `Label` and `Area`; `data-disabled` on `Area`, `Input`,
+  and `Preview`; `data-readonly` / `aria-readonly` on read-only controls; `data-invalid` on
+  `Label`, `Input`, and `Preview`; `data-required` on `Label`; `data-placeholder-shown` on `Area`
+  and `Preview`; and `data-autoresize` on `Input` and `Preview`.

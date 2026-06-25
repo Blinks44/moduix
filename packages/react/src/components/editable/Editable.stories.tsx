@@ -65,6 +65,29 @@ export const Controlled: Story = {
   },
 };
 
+export const Context: Story = {
+  render: () => (
+    <Editable defaultValue="Service area">
+      <Editable.Label>Name</Editable.Label>
+      <Editable.Area>
+        <Editable.Input />
+        <Editable.Preview />
+      </Editable.Area>
+      <Editable.Context>
+        {(editable) =>
+          editable.editing ? (
+            <p className={storyStyles.hint}>Enter to save, Esc to cancel.</p>
+          ) : (
+            <Editable.Control>
+              <Editable.EditTrigger />
+            </Editable.Control>
+          )
+        }
+      </Editable.Context>
+    </Editable>
+  ),
+};
+
 export const Controls: Story = {
   render: () => (
     <Editable defaultValue="Transit corridor" submitMode="none">

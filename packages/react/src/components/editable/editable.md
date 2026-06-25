@@ -151,8 +151,11 @@ Important Ark root props include `ids`, `name`, `form`, `disabled`, `readOnly`, 
 `onValueRevert`, `onEditChange`, `onPointerDownOutside`, `onFocusOutside`, and
 `onInteractOutside`.
 
-The shipped CSS uses Ark `data-focus`, `data-disabled`, `data-readonly`, `data-invalid`,
-`data-required`, `data-placeholder-shown`, and `data-autoresize` where the primitive emits them.
+The shipped CSS uses the data attributes that Ark emits on concrete parts: `data-focus` on
+`Label` and `Area`; `data-disabled` on `Area`, `Input`, and `Preview`; `data-readonly` /
+`aria-readonly` on read-only controls; `data-invalid` on `Label`, `Input`, and `Preview`;
+`data-required` on `Label`; `data-placeholder-shown` on `Area` and `Preview`; and
+`data-autoresize` on `Input` and `Preview`.
 Ark also exposes `data-scope="editable"` and `data-part` attributes for part-level selectors.
 
 ## Defaults and styling
@@ -189,12 +192,16 @@ adapters, or high-level props over Ark behavior.
 
 ## Agent notes
 
-Keep the public barrel in sync with Ark provider/context/hooks. Docs examples must import from
-`moduix`, not from the component file. Registry source paths are under
+Keep the public barrel in sync with Ark provider/context/hooks. Do not style root-level disabled or
+invalid attributes for `Editable`; Ark emits those states on the concrete parts. The area invalid
+border intentionally follows `Input` / `Preview` invalid state with `:has(...)`. Docs examples must
+import from `moduix`, not from the component file. Registry source paths are under
 `packages/react/src/components/editable`.
 
 ## Local changelog
 
+- 2026-06-25: Replaced stale root-state styling guidance with real Ark part attributes, added
+  explicit Context docs coverage, and synced editable CSS variable defaults.
 - 2026-06-22: Matched the default trigger button size to `--editable-area-height` so single-line
   editable inputs and controls share the same height.
 - 2026-06-22: Centered right-side controls by default for single-line editable inputs and added

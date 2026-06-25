@@ -10,7 +10,7 @@
     max-width: var(--editable-max-width, 100%);
     color: var(--editable-color, var(--color-foreground));
 
-    &[data-disabled] {
+    &:has(.area[data-disabled]) {
       opacity: var(--editable-disabled-opacity, var(--opacity-disabled));
     }
   }
@@ -60,8 +60,10 @@
       outline-color: var(--editable-focus-ring-color, var(--color-ring));
     }
 
-    &[data-invalid],
-    .root[data-invalid] & {
+    &:has(
+      .input:is([data-invalid], [aria-invalid='true']),
+      .preview:is([data-invalid], [aria-invalid='true'])
+    ) {
       border-color: var(--editable-border-color-invalid, var(--color-destructive));
 
       &[data-focus] {
@@ -71,7 +73,6 @@
 
     &[data-disabled] {
       pointer-events: none;
-      opacity: var(--editable-disabled-opacity, var(--opacity-disabled));
     }
   }
 
@@ -113,7 +114,7 @@
       color: var(--editable-placeholder-color, var(--color-muted-foreground));
     }
 
-    &:is([data-disabled], [data-readonly]) {
+    &:is([data-disabled], [data-readonly], [aria-readonly='true']) {
       cursor: default;
     }
   }

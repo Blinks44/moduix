@@ -1105,6 +1105,7 @@
   --editable-border-style: initial; /* solid */
   --editable-border-width: initial; /* var(--border-width-sm) */
   --editable-color: initial; /* var(--color-foreground) */
+  --editable-control-align: initial; /* center */
   --editable-control-gap: initial; /* var(--spacing-1) */
   --editable-disabled-opacity: initial; /* var(--opacity-disabled) */
   --editable-focus-ring-color: initial; /* var(--color-ring) */
@@ -1137,7 +1138,7 @@
   --editable-trigger-color: initial; /* var(--color-foreground) */
   --editable-trigger-icon-size: initial; /* 0.875rem */
   --editable-trigger-radius: initial; /* var(--radius-sm) */
-  --editable-trigger-size: initial; /* var(--size-md) */
+  --editable-trigger-size: initial; /* var(--editable-area-height, var(--size-lg)) */
   --editable-width: initial; /* auto */
 
   /* FileUpload */
