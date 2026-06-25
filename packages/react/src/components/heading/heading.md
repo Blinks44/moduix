@@ -2,8 +2,8 @@
 
 Upstream docs:
 
-- Ark UI composition guide: https://ark-ui.com/docs/guides/composition
-- Ark UI factory: https://ark-ui.com/docs/guides/composition#factory
+- Ark UI: no dedicated Heading primitive; use https://ark-ui.com/docs/guides/composition,
+  https://ark-ui.com/docs/guides/styling, and https://ark-ui.com/docs/guides/ref
 
 ## Purpose
 
@@ -62,11 +62,19 @@ export function Example() {
 Use the short `<Heading>` form for an `h1`. Use the equivalent `<Heading.Root>` form when namespace
 consistency is useful. Use `asChild` only when a custom semantic host must own the DOM node.
 
+```tsx
+<Heading asChild size="xl">
+  <h2>Factory-composed heading</h2>
+</Heading>
+```
+
 ## Upstream feature coverage
 
 - Semantic heading levels are supported through the `as` prop.
 - Ark factory composition is supported through `asChild`.
 - Native heading attributes and refs are forwarded to the rendered element.
+- Ark styling guidance is represented by `data-scope`, `data-part`, `data-slot`, `className`, and
+  public CSS variables.
 - Dedicated Ark anatomy, state, callbacks, providers, context hooks, and CSS variables are not
   applicable because Ark has no heading primitive.
 - The relevant upstream example surface is semantic host composition; moduix documents default
@@ -108,7 +116,7 @@ Public CSS variables:
 | Variable                         | Default                               |
 | -------------------------------- | ------------------------------------- |
 | `--heading-color`                | `var(--color-foreground)`             |
-| `--heading-font-family`          | inherited                             |
+| `--heading-font-family`          | `inherit`                             |
 | `--heading-font-size`            | size-dependent fallback               |
 | `--heading-font-size-{size}`     | matching `--text-*` token             |
 | `--heading-font-weight`          | selected weight fallback              |
@@ -140,6 +148,8 @@ The root also uses `overflow-wrap: break-word`.
 
 ## Local changelog
 
+- 2026-06-25: Finalized local-only Ark factory docs, added explicit `asChild` guidance, and
+  synchronized heading CSS variable default documentation.
 - 2026-06-22: Restored a limited `as` prop for `h1` through `h6` so semantic heading levels no
   longer require `asChild`; kept `asChild` for Ark factory composition.
 - 2026-06-19: Migrated `Heading` from the legacy `as` contract to an Ark factory root with

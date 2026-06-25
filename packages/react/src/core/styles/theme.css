@@ -1355,7 +1355,7 @@
 
   /* Heading */
   --heading-color: initial; /* var(--color-foreground) */
-  --heading-font-family: initial; /* var(--font-sans) */
+  --heading-font-family: initial; /* inherit */
   --heading-font-size: initial; /* size-dependent, var(--text-3xl) for 2xl */
   --heading-font-size-xs: initial; /* var(--text-sm) */
   --heading-font-size-sm: initial; /* var(--text-md) */

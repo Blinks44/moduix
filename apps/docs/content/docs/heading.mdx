@@ -6,6 +6,7 @@ icon: Component
 
 import {
   CustomStylingHeadingExample,
+  HeadingCustomHostExample,
   HeadingCssPropertiesPanel,
   HeadingElementsExample,
   HeadingExample,
@@ -16,8 +17,10 @@ import {
 
 ## API Reference
 
-Ark UI has no dedicated heading primitive. `Heading` follows the
-[Ark composition and factory model](https://ark-ui.com/docs/guides/composition).
+Ark UI does not ship a dedicated heading primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Basic
 
@@ -123,8 +126,8 @@ Use `<Heading>` for an `h1`. For another semantic level, pass `as="h2"` through 
 </Heading>
 ```
 
-The child owns the DOM node while receiving the component props, class name, data attributes, and
-forwarded ref.
+Use `asChild` only when a semantic heading child must own the DOM node while receiving the
+component props, class name, data attributes, and forwarded ref.
 
 ### When to go custom
 
@@ -133,12 +136,13 @@ the content is body copy or general typography rather than a document heading.
 
 ### Default props
 
-| Entry     | Default             | Values / Notes                          |
-| --------- | ------------------- | --------------------------------------- |
-| element   | `h1`                | Use `as` for `h2` through `h6`          |
-| `size`    | by rendered element | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
-| `weight`  | `semibold`          | `regular`, `medium`, `semibold`, `bold` |
-| `asChild` | `false`             | Ark factory composition                 |
+| Entry       | Default             | Values / Notes                          |
+| ----------- | ------------------- | --------------------------------------- |
+| element     | `h1`                | Use `as` for `h2` through `h6`          |
+| `size`      | by rendered element | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
+| `weight`    | `semibold`          | `regular`, `medium`, `semibold`, `bold` |
+| `asChild`   | `false`             | Ark factory composition                 |
+| `className` | -                   | Applied to the rendered heading root    |
 
 ### Behavioral notes
 
@@ -153,8 +157,8 @@ the content is body copy or general typography rather than a document heading.
 
 ### Semantic Level and Visual Size
 
-Keep document structure and visual emphasis independent by composing a semantic child and applying
-an explicit visual size.
+Keep document structure and visual emphasis independent by choosing a semantic level and applying an
+explicit visual size.
 
 <Preview>
   <HeadingSemanticLevelExample />
@@ -187,6 +191,46 @@ an explicit visual size.
   <Preview.Data>
     {`
       const headingText = "Page title rendered as h2";
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Custom Host
+
+Use `asChild` for Ark factory composition when a semantic heading element must be supplied directly.
+
+<Preview>
+  <HeadingCustomHostExample />
+
+  <Preview.Code>
+    {`
+      import { Heading } from "@moduix/react";
+      import styles from "./heading.module.css";
+
+      export function CustomHostHeadingDemo() {
+        return (
+          <Heading asChild size="xl" className={styles.customHost}>
+            <h2>{headingText}</h2>
+          </Heading>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customHost {
+        max-width: 28rem;
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const headingText = "Factory-composed heading";
     `}
 
   </Preview.Data>
@@ -383,9 +427,9 @@ Pass `className` to override public typography variables on one heading.
     {`
       .custom {
         --heading-color: var(--color-primary);
-        --heading-font-size-xl: var(--text-3xl);
-        --heading-line-height-xl: var(--line-height-text-3xl);
-        --heading-font-weight-semibold: var(--weight-bold);
+        --heading-font-size: var(--text-3xl);
+        --heading-line-height: var(--line-height-text-3xl);
+        --heading-font-weight: var(--weight-bold);
       }
     `}
 

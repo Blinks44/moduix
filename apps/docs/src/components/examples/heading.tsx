@@ -37,7 +37,7 @@ export const headingOverrideCssProperties = [
   },
   {
     name: '--heading-font-family',
-    defaultValue: 'var(--font-sans)',
+    defaultValue: 'inherit',
     description: 'Controls heading font family.',
   },
   {
@@ -200,6 +200,14 @@ export function HeadingSemanticLevelExample() {
   return (
     <Heading as="h2" size="2xl" className={styles.demo}>
       Page title rendered as h2
+    </Heading>
+  );
+}
+
+export function HeadingCustomHostExample() {
+  return (
+    <Heading asChild size="xl" className={styles.customHost}>
+      <h2>Factory-composed heading</h2>
     </Heading>
   );
 }

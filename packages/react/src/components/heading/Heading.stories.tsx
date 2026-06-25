@@ -41,6 +41,14 @@ export const SemanticLevel: Story = {
   ),
 };
 
+export const CustomHost: Story = {
+  render: () => (
+    <Heading asChild size="xl">
+      <h2>Factory-composed heading</h2>
+    </Heading>
+  ),
+};
+
 export const VisualSizes: Story = {
   render: () => (
     <div className={storyStyles.stack}>
