@@ -1,4 +1,4 @@
-import { CalendarDate, today } from '@internationalized/date';
+import { CalendarDate, CalendarDateTime, today } from '@internationalized/date';
 import { DateInput, Field, useDateInput, type DateInputDateValue } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
@@ -14,6 +14,11 @@ export const dateInputExampleCss = `
     color: var(--color-muted-foreground);
     font-size: var(--text-sm);
     line-height: var(--line-height-text-sm);
+  }
+
+  .date-input-state-grid {
+    display: grid;
+    gap: var(--spacing-3);
   }
 
   .date-input-range-control {
@@ -43,8 +48,6 @@ export const dateInputExampleCss = `
   .date-input-custom-segment {
     --date-input-segment-bg-focus: color-mix(in oklab, var(--color-primary) 14%, transparent);
     --date-input-segment-color-focus: var(--color-foreground);
-    --date-input-segment-shadow-focus: inset 0 0 0 var(--border-width-sm)
-      color-mix(in oklab, var(--color-primary) 60%, transparent);
   }
 
   .date-input-field-preview {
@@ -107,7 +110,7 @@ export const dateInputOverrideCssProperties: CssProperty[] = [
   {
     name: '--date-input-disabled-opacity',
     defaultValue: 'var(--opacity-disabled)',
-    description: 'Controls disabled and readonly root opacity.',
+    description: 'Controls disabled root opacity.',
   },
   {
     name: '--date-input-focus-ring-color',
@@ -191,7 +194,7 @@ export const dateInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--date-input-segment-gap',
-    defaultValue: '0.125rem',
+    defaultValue: 'var(--border-width-md)',
     description: 'Controls spacing between date segments.',
   },
   {
@@ -201,29 +204,23 @@ export const dateInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--date-input-segment-min-width',
-    defaultValue: '1.25ch',
+    defaultValue: '2ch',
     description: 'Controls segment minimum width.',
   },
   {
     name: '--date-input-segment-padding-x',
-    defaultValue: '0.125rem',
+    defaultValue: 'var(--spacing-1)',
     description: 'Controls segment horizontal padding.',
   },
   {
     name: '--date-input-segment-padding-y',
-    defaultValue: '0.0625rem',
+    defaultValue: '0',
     description: 'Controls segment vertical padding.',
   },
   {
     name: '--date-input-segment-radius',
     defaultValue: 'var(--radius-sm)',
     description: 'Controls segment corner radius.',
-  },
-  {
-    name: '--date-input-segment-shadow-focus',
-    defaultValue:
-      'inset 0 0 0 var(--border-width-sm) color-mix(in oklab, var(--color-ring) 55%, transparent)',
-    description: 'Controls the focused segment inset ring.',
   },
   {
     name: '--date-input-separator-color',
@@ -326,6 +323,28 @@ export function MinMaxDateInputExample() {
   );
 }
 
+export function DisabledReadOnlyDateInputExample() {
+  return (
+    <div className="date-input-state-grid">
+      <DateInput disabled defaultValue={[new CalendarDate(2026, 6, 22)]}>
+        <DateInput.Label>Disabled date</DateInput.Label>
+        <DateInput.Control>
+          <DateInputSegments />
+        </DateInput.Control>
+        <DateInput.HiddenInput name="disabled-date" />
+      </DateInput>
+
+      <DateInput readOnly defaultValue={[new CalendarDate(2026, 6, 22)]}>
+        <DateInput.Label>Read-only date</DateInput.Label>
+        <DateInput.Control>
+          <DateInputSegments />
+        </DateInput.Control>
+        <DateInput.HiddenInput name="read-only-date" />
+      </DateInput>
+    </div>
+  );
+}
+
 export function LocaleDateInputExample() {
   return (
     <div style={centeredExampleStyle}>
@@ -335,6 +354,24 @@ export function LocaleDateInputExample() {
           <DateInputSegments />
         </DateInput.Control>
         <DateInput.HiddenInput />
+      </DateInput>
+    </div>
+  );
+}
+
+export function GranularityDateInputExample() {
+  return (
+    <div style={centeredExampleStyle}>
+      <DateInput
+        granularity="minute"
+        hourCycle={24}
+        defaultValue={[new CalendarDateTime(2026, 12, 5, 14, 30)]}
+      >
+        <DateInput.Label>Date and time</DateInput.Label>
+        <DateInput.Control>
+          <DateInputSegments />
+        </DateInput.Control>
+        <DateInput.HiddenInput name="scheduled-at" />
       </DateInput>
     </div>
   );

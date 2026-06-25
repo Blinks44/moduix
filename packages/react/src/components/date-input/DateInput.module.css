@@ -7,7 +7,7 @@
     width: var(--date-input-width, auto);
     max-width: var(--date-input-max-width, none);
 
-    &:is([data-disabled], [data-readonly]) {
+    &[data-disabled] {
       opacity: var(--date-input-disabled-opacity, var(--opacity-disabled));
     }
   }
@@ -54,7 +54,7 @@
       }
     }
 
-    &:is([data-disabled], [data-readonly]) {
+    &[data-disabled] {
       pointer-events: none;
     }
   }
@@ -62,15 +62,15 @@
   .segmentGroup {
     display: inline-flex;
     align-items: center;
-    gap: var(--date-input-segment-gap, 0.125rem);
+    gap: var(--date-input-segment-gap, var(--border-width-md));
     font-variant-numeric: tabular-nums;
   }
 
   .segment {
-    min-width: var(--date-input-segment-min-width, 1.25ch);
+    min-width: var(--date-input-segment-min-width, 2ch);
     border-radius: var(--date-input-segment-radius, var(--radius-sm));
-    padding: var(--date-input-segment-padding-y, 0.0625rem)
-      var(--date-input-segment-padding-x, 0.125rem);
+    padding: var(--date-input-segment-padding-y, 0)
+      var(--date-input-segment-padding-x, var(--spacing-1));
     color: var(--date-input-segment-color, currentColor);
     font: inherit;
     line-height: var(--date-input-segment-line-height, var(--line-height-text-md));
@@ -85,8 +85,7 @@
       color: var(--date-input-placeholder-color, var(--color-muted-foreground));
     }
 
-    &:focus-visible,
-    &[data-focus] {
+    &:focus-visible {
       background-color: var(
         --date-input-segment-bg-focus,
         color-mix(in oklab, var(--color-ring) 18%, transparent)

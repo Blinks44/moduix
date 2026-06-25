@@ -814,13 +814,12 @@
   --date-input-segment-bg-focus: initial; /* color-mix(in oklab, var(--color-ring) 18%, transparent) */
   --date-input-segment-color: initial; /* currentColor */
   --date-input-segment-color-focus: initial; /* var(--color-foreground) */
-  --date-input-segment-gap: initial; /* 0.125rem */
+  --date-input-segment-gap: initial; /* var(--border-width-md) */
   --date-input-segment-line-height: initial; /* var(--line-height-text-md) */
-  --date-input-segment-min-width: initial; /* 1.25ch */
-  --date-input-segment-padding-x: initial; /* 0.125rem */
-  --date-input-segment-padding-y: initial; /* 0.0625rem */
+  --date-input-segment-min-width: initial; /* 2ch */
+  --date-input-segment-padding-x: initial; /* var(--spacing-1) */
+  --date-input-segment-padding-y: initial; /* 0 */
   --date-input-segment-radius: initial; /* var(--radius-sm) */
-  --date-input-segment-shadow-focus: initial; /* inset 0 0 0 var(--border-width-sm) color-mix(in oklab, var(--color-ring) 55%, transparent) */
   --date-input-separator-color: initial; /* var(--color-muted-foreground) */
   --date-input-transition: initial; /* var(--transition-default) */
   --date-input-width: initial; /* auto */

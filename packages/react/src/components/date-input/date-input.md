@@ -107,12 +107,12 @@ Use `DateInput.RootProvider` only with state created by `useDateInput()`; do not
 - Controlled and uncontrolled state: supported with `value`, `defaultValue`, and
   `onValueChange(details)`.
 - Placeholder control: supported with `placeholderValue`, `defaultPlaceholderValue`, and
-  `onPlaceholderValueChange(details)`.
+  `onPlaceholderChange(details)`.
 - Focus state: supported with `focused`, `defaultFocused`, and `onFocusChange(details)`.
 - Single and range selection: supported with `selectionMode="single"` or `"range"`.
 - Locale and formatting: supported with `locale`, `timeZone`, `hourCycle`, `granularity`,
   `formatter`, `format`, `translations`, and `createCalendar`.
-- Validation: supported with `min`, `max`, `isDateUnavailable`, `invalid`, and Ark field context.
+- Validation: supported with `min`, `max`, `isDateUnavailable`, and `invalid`.
 - Forms: supported by explicit `DateInput.HiddenInput`, `name`, `form`, and `required`.
 - Provider/state hooks: supported by `useDateInput()`, `DateInput.RootProvider`,
   `DateInput.Context`, `DateInput.SegmentContext`, and `useDateInputContext()`.
@@ -122,7 +122,9 @@ Use `DateInput.RootProvider` only with state created by `useDateInput()`; do not
 
 Every date input needs an accessible name from `DateInput.Label`, a native label, or ARIA props.
 Ark wires segment spinbutton semantics, arrow-key editing, numeric typing, focus movement, ARIA value
-text, and label association.
+text, and label association. `Field` can provide surrounding helper and error text, but pass
+`required`, `disabled`, or `invalid` to `DateInput` when those state attributes must be present on
+the date input itself.
 
 `DateInput.HiddenInput` keeps native form submission and form reset synchronized with the Ark state.
 For range inputs, render indexed hidden inputs and pass names explicitly when the submitted start/end
@@ -130,13 +132,15 @@ fields need separate keys.
 
 Ark emits `data-scope="date-input"` and `data-part` attributes for `root`, `label`, `control`,
 `segment-group`, `segment`, and `hidden-input`. State attributes include `data-disabled`,
-`data-readonly`, `data-invalid`, `data-focus`, `data-type`, and `data-placeholder-shown`.
+`data-readonly`, `data-invalid`, `data-focus` on control and segment groups, `data-type`,
+`data-editable`, and `data-placeholder-shown`.
 
 ## Defaults and styling
 
 All visual parts accept `className`. The CSS module defines defaults for root spacing, label text,
 the control frame, segment focus, placeholder color, invalid state, disabled/readonly state, and
-presentational separators.
+presentational separators. Disabled inputs are visually muted; read-only inputs remain focusable and
+non-editable.
 
 Public styling hooks:
 
@@ -153,8 +157,8 @@ Public styling hooks:
   `--date-input-segment-radius`, `--date-input-segment-padding-x`,
   `--date-input-segment-padding-y`, `--date-input-segment-color`,
   `--date-input-segment-bg-focus`, `--date-input-segment-color-focus`,
-  `--date-input-segment-shadow-focus`, `--date-input-segment-line-height`,
-  `--date-input-placeholder-color`, `--date-input-separator-color`
+  `--date-input-segment-line-height`, `--date-input-placeholder-color`,
+  `--date-input-separator-color`
 
 ## Intentional sugar and differences from upstream
 
@@ -173,5 +177,8 @@ string parsing, segment shortcuts, or local event aliases.
 
 ## Local changelog
 
+- 2026-06-25: Finalized the Ark migration audit by fixing the placeholder callback name in docs,
+  preserving read-only pointer interaction, removing an unused segment shadow hook, and adding
+  disabled/read-only and granularity docs coverage.
 - 2026-06-22: Added the Ark-backed `DateInput` wrapper, segmented composition, CSS module, stories,
   local docs, public exports, docs page, and registry metadata.

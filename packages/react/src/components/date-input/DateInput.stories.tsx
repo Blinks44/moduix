@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { CalendarDate, today } from '@internationalized/date';
+import { CalendarDate, CalendarDateTime, today } from '@internationalized/date';
 import { useState } from 'react';
 import { Field } from '../field';
 import { DateInput, useDateInput, type DateInputDateValue } from './DateInput';
@@ -90,6 +90,44 @@ export const MinMaxAndUnavailable: Story = {
         <DateInputSegments />
       </DateInput.Control>
       <DateInput.HiddenInput />
+    </DateInput>
+  ),
+};
+
+export const DisabledAndReadOnly: Story = {
+  render: () => (
+    <div className={storyStyles.stack}>
+      <DateInput disabled defaultValue={[new CalendarDate(2026, 6, 22)]}>
+        <DateInput.Label>Disabled date</DateInput.Label>
+        <DateInput.Control>
+          <DateInputSegments />
+        </DateInput.Control>
+        <DateInput.HiddenInput name="disabled-date" />
+      </DateInput>
+
+      <DateInput readOnly defaultValue={[new CalendarDate(2026, 6, 22)]}>
+        <DateInput.Label>Read-only date</DateInput.Label>
+        <DateInput.Control>
+          <DateInputSegments />
+        </DateInput.Control>
+        <DateInput.HiddenInput name="read-only-date" />
+      </DateInput>
+    </div>
+  ),
+};
+
+export const Granularity: Story = {
+  render: () => (
+    <DateInput
+      granularity="minute"
+      hourCycle={24}
+      defaultValue={[new CalendarDateTime(2026, 12, 5, 14, 30)]}
+    >
+      <DateInput.Label>Date and time</DateInput.Label>
+      <DateInput.Control>
+        <DateInputSegments />
+      </DateInput.Control>
+      <DateInput.HiddenInput name="scheduled-at" />
     </DateInput>
   ),
 };

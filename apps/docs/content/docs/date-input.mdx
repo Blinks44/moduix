@@ -10,6 +10,8 @@ import {
   DateInputCssPropertiesPanel,
   DateInputExample,
   DateInputFieldExample,
+  DisabledReadOnlyDateInputExample,
+  GranularityDateInputExample,
   LocaleDateInputExample,
   MinMaxDateInputExample,
   RangeDateInputExample,
@@ -173,7 +175,7 @@ Use `ids` when an external label, helper text, or another component must share e
 - Values are `DateInputDateValue[]` objects from Ark / `@internationalized/date`, not strings.
 - `onValueChange(details)` preserves Ark's details object with `details.value` and `details.valueAsString`.
 - `focused`, `defaultFocused`, and `onFocusChange(details)` control root focus state.
-- `placeholderValue`, `defaultPlaceholderValue`, and `onPlaceholderValueChange(details)` control the placeholder date.
+- `placeholderValue`, `defaultPlaceholderValue`, and `onPlaceholderChange(details)` control the placeholder date.
 - `selectionMode="range"` enables indexed segment groups and hidden inputs.
 - `min`, `max`, and `isDateUnavailable` validate committed dates.
 - `locale`, `timeZone`, `hourCycle`, `granularity`, `formatter`, `format`, `translations`, and `createCalendar` pass through to Ark.
@@ -238,7 +240,6 @@ Use `selectionMode="range"` and pass `index` to the segment group and hidden inp
 
   <Preview.Code>
     {`
-      import { CalendarDate } from "@internationalized/date";
       import { DateInput } from "@moduix/react";
 
       function DateInputSegments({ index }: { index?: number }) {
@@ -282,6 +283,7 @@ Use `min`, `max`, and `isDateUnavailable` to mark committed dates outside busine
 
   <Preview.Code>
     {`
+      import { CalendarDate } from "@internationalized/date";
       import { DateInput } from "@moduix/react";
 
       function DateInputSegments() {
@@ -316,6 +318,58 @@ Use `min`, `max`, and `isDateUnavailable` to mark committed dates outside busine
 
   <Preview.CSS>{dateInputExampleCss}</Preview.CSS>
   <Preview.Data>{dateInputValidationData}</Preview.Data>
+</Preview>
+
+### Disabled and Read Only
+
+Use `disabled` to prevent interaction. Use `readOnly` when the value should remain focusable but not
+editable.
+
+<Preview>
+  <DisabledReadOnlyDateInputExample />
+
+  <Preview.Code>
+    {`
+      import { CalendarDate } from "@internationalized/date";
+      import { DateInput } from "@moduix/react";
+
+      function DateInputSegments() {
+        return (
+          <DateInput.SegmentGroup>
+            <DateInput.SegmentContext>
+              {(segment) => <DateInput.Segment segment={segment} />}
+            </DateInput.SegmentContext>
+          </DateInput.SegmentGroup>
+        );
+      }
+
+      export function DisabledReadOnlyDateInputDemo() {
+        return (
+          <div className="date-input-state-grid">
+            <DateInput disabled defaultValue={[new CalendarDate(2026, 6, 22)]}>
+              <DateInput.Label>Disabled date</DateInput.Label>
+              <DateInput.Control>
+                <DateInputSegments />
+              </DateInput.Control>
+              <DateInput.HiddenInput name="disabled-date" />
+            </DateInput>
+
+            <DateInput readOnly defaultValue={[new CalendarDate(2026, 6, 22)]}>
+              <DateInput.Label>Read-only date</DateInput.Label>
+              <DateInput.Control>
+                <DateInputSegments />
+              </DateInput.Control>
+              <DateInput.HiddenInput name="read-only-date" />
+            </DateInput>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{dateInputExampleCss}</Preview.CSS>
+  <Preview.Data>{dateInputNoData}</Preview.Data>
 </Preview>
 
 ### Locale
@@ -360,10 +414,55 @@ need to match regional expectations.
   <Preview.Data>{dateInputNoData}</Preview.Data>
 </Preview>
 
+### Granularity
+
+Set `granularity` when the input should include time segments.
+
+<Preview>
+  <GranularityDateInputExample />
+
+  <Preview.Code>
+    {`
+      import { CalendarDateTime } from "@internationalized/date";
+      import { DateInput } from "@moduix/react";
+
+      function DateInputSegments() {
+        return (
+          <DateInput.SegmentGroup>
+            <DateInput.SegmentContext>
+              {(segment) => <DateInput.Segment segment={segment} />}
+            </DateInput.SegmentContext>
+          </DateInput.SegmentGroup>
+        );
+      }
+
+      export function GranularityDateInputDemo() {
+        return (
+          <DateInput
+            granularity="minute"
+            hourCycle={24}
+            defaultValue={[new CalendarDateTime(2026, 12, 5, 14, 30)]}
+          >
+            <DateInput.Label>Date and time</DateInput.Label>
+            <DateInput.Control>
+              <DateInputSegments />
+            </DateInput.Control>
+            <DateInput.HiddenInput name="scheduled-at" />
+          </DateInput>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{dateInputExampleCss}</Preview.CSS>
+  <Preview.Data>{dateInputNoData}</Preview.Data>
+</Preview>
+
 ### Field State
 
-Use `Field` around date input when helper text, error text, required, disabled, or invalid state
-should be shared with surrounding form UI.
+Use `Field` around date input for surrounding form text. Pass `required`, `disabled`, or `invalid`
+to `DateInput` when Ark state attributes should appear on the date input itself.
 
 <Preview>
   <DateInputFieldExample />
@@ -457,7 +556,8 @@ rendered root tree.
 ### Custom Styling
 
 Customize visual parts with `className`, public CSS variables, `data-slot`, and Ark state
-attributes such as `data-focus`, `data-invalid`, and `data-placeholder-shown`.
+attributes such as `data-invalid`, `data-disabled`, `data-readonly`, and
+`data-placeholder-shown`.
 
 <Preview>
   <CustomStylesDateInputExample />
@@ -513,5 +613,5 @@ attributes such as `data-focus`, `data-invalid`, and `data-placeholder-shown`.
 - `data-slot="date-input-segment"` on editable and literal segments.
 - `data-slot="date-input-hidden-input"` on the hidden native input.
 - `data-slot="date-input-separator"` on moduix range separator sugar.
-- Ark state attributes include `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`,
-  `data-type`, and `data-placeholder-shown`.
+- Ark state attributes include `data-disabled`, `data-readonly`, `data-invalid`, `data-focus` on
+  control and segment groups, `data-type`, `data-editable`, and `data-placeholder-shown`.
