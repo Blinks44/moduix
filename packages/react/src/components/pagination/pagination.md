@@ -49,9 +49,8 @@ export function Example() {
 }
 ```
 
-The old legacy Toolbar-backed `PaginationContent`, `PaginationLink`, `PaginationPrevious`,
-`PaginationNext`, `PaginationItem` layout wrapper, and custom moduix range-math `usePagination`
-contract were removed. The public API is now Ark-shaped.
+The public API is Ark-shaped. Use namespace parts, Ark callback details, and Ark state helpers
+directly instead of local range math or layout aliases.
 
 ## Anatomy and exported parts
 
@@ -185,29 +184,21 @@ Public CSS variables:
 
 ## Intentional sugar and differences from upstream
 
-The wrapper keeps Ark API names and does not expose legacy flat aliases. Moduix sugar is limited to
-default icons, default ellipsis text, root label default, `data-slot` hooks, and styling tokens.
-
-Breaking removals from the previous custom/legacy contract:
-
-- `PaginationContent`
-- `PaginationLink`
-- `PaginationPrevious`
-- `PaginationNext`
-- old layout-only `PaginationItem`
-- old `PaginationEllipsis` without required `index`
-- old custom `usePagination({ count: pageCount, page })` return shape
-- legacy `render` prop patterns
+The wrapper keeps Ark API names and does not expose flat aliases. Moduix sugar is limited to default
+icons, default ellipsis text, root label default, `data-slot` hooks, and styling tokens.
 
 ## Agent notes
 
-Keep the wrapper thin. Do not reintroduce range math, toolbar semantics, flat aliases, or a high-level
-configuration API. Future examples should render page items from Ark `pagination.pages` and should
-pass page objects directly into `Pagination.Item`.
+Keep the wrapper thin. Do not add local range math, flat aliases, or a high-level configuration API.
+Future examples should render page items from Ark `pagination.pages` and should pass page objects
+directly into `Pagination.Item`.
 
 ## Local changelog
 
-- 2026-06-20: Migrated Pagination from a custom legacy Toolbar composition to Ark UI
+- 2026-06-26: Audited the Ark UI migration, replaced structural icon-only trigger CSS with an
+  internal class, removed stale previous-contract guidance, and aligned docs examples with the
+  current Ark-shaped composition.
+- 2026-06-20: Migrated Pagination from a previous custom Toolbar composition to Ark UI
   `@ark-ui/react/pagination`; replaced flat aliases with namespace parts, re-exported Ark hooks and
   types, updated styling hooks, docs, stories, registry dependencies, and documented breaking API
   removals.

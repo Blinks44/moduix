@@ -19,6 +19,7 @@ import {
   PaginationWithEdgesExample,
   paginationCustomStylingCss,
   paginationExampleCss,
+  paginationNoData,
   paginationUsersData,
 } from '@/components/examples/pagination';
 
@@ -40,7 +41,7 @@ Use `Pagination` as the short root form for Ark `Pagination.Root`. Render page b
 
       export function PaginationDemo() {
         return (
-          <Pagination count={200} pageSize={10} siblingCount={2}>
+          <Pagination className="pagination-demo" count={200} pageSize={10} siblingCount={2}>
             <Pagination.PrevTrigger />
             <Pagination.Context>
               {(pagination) =>
@@ -63,13 +64,7 @@ Use `Pagination` as the short root form for Ark `Pagination.Root`. Render page b
 
   </Preview.Code>
   <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      count = 200
-      pageSize = 10
-      siblingCount = 2
-    `}
-  </Preview.Data>
+  <Preview.Data>{paginationNoData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -154,21 +149,12 @@ of pages. Pair it with `pageSize` or `defaultPageSize` so Ark can calculate `tot
 `Pagination.Item` expects the page object returned by `pagination.pages`. Pass the object through
 with `{...page}` so Ark can set the correct selected state, labels, and event handlers.
 
-### State and callbacks
-
-Use `defaultPage` and `defaultPageSize` for uncontrolled state. Use `page`, `pageSize`,
-`onPageChange(details)`, and `onPageSizeChange(details)` for controlled state. Callback detail
-objects are the Ark objects; read `details.page` or `details.pageSize` without remapping.
+### When to go custom
 
 Use `Pagination.Context` for inline reads, `usePaginationContext()` inside custom child parts, and
 `usePagination()` plus `Pagination.RootProvider` when state must be created outside the rendered
-pagination tree.
-
-### Link mode
-
-Set `type="link"` and provide `getPageUrl(details)` when pagination should render navigational
-links. Ark applies the generated URL to item and trigger props while preserving selected and
-disabled state attributes.
+pagination tree. Set `type="link"` and provide `getPageUrl(details)` when pagination should render
+navigational links.
 
 ### Default props
 
@@ -180,6 +166,14 @@ disabled state attributes.
 | `siblingCount`    | `1`          | Ark pages shown beside the active page.                     |
 | `boundaryCount`   | `1`          | Ark pages shown at the beginning and end of the page range. |
 | `type`            | `button`     | Use `link` with `getPageUrl(details)` for anchors.          |
+
+### Behavioral notes
+
+Use `defaultPage` and `defaultPageSize` for uncontrolled state. Use `page`, `pageSize`,
+`onPageChange(details)`, and `onPageSizeChange(details)` for controlled state. Callback detail
+objects are the Ark objects; read `details.page` or `details.pageSize` without remapping. Ark
+preserves keyboard behavior, selected item semantics, disabled trigger state, `ids`, `asChild`,
+translations, and link URL generation.
 
 ## Examples
 
@@ -199,42 +193,40 @@ Control the active page with Ark's `page` and `onPageChange(details)` props.
         const [page, setPage] = useState(5);
 
         return (
-          <Pagination
-            count={200}
-            page={page}
-            pageSize={10}
-            siblingCount={2}
-            onPageChange={(details) => setPage(details.page)}
-          >
-            <Pagination.PrevTrigger />
-            <Pagination.Context>
-              {(pagination) =>
-                pagination.pages.map((page, index) =>
-                  page.type === "page" ? (
-                    <Pagination.Item key={index} {...page}>
-                      {page.value}
-                    </Pagination.Item>
-                  ) : (
-                    <Pagination.Ellipsis key={index} index={index} />
-                  ),
-                )
-              }
-            </Pagination.Context>
-            <Pagination.NextTrigger />
-          </Pagination>
+          <div className="pagination-stack">
+            <Pagination
+              className="pagination-demo"
+              count={200}
+              page={page}
+              pageSize={10}
+              siblingCount={2}
+              onPageChange={(details) => setPage(details.page)}
+            >
+              <Pagination.PrevTrigger />
+              <Pagination.Context>
+                {(pagination) =>
+                  pagination.pages.map((page, index) =>
+                    page.type === "page" ? (
+                      <Pagination.Item key={index} {...page}>
+                        {page.value}
+                      </Pagination.Item>
+                    ) : (
+                      <Pagination.Ellipsis key={index} index={index} />
+                    ),
+                  )
+                }
+              </Pagination.Context>
+              <Pagination.NextTrigger />
+            </Pagination>
+            <p className="pagination-muted">Current page: {page}</p>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
   <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      initialPage = 5
-      count = 200
-      pageSize = 10
-    `}
-  </Preview.Data>
+  <Preview.Data>{`const initialPage = 5;`}</Preview.Data>
 </Preview>
 
 ### Context
@@ -250,14 +242,14 @@ Use `Pagination.Context` when custom controls need access to page helpers such a
       <Pagination count={200} pageSize={10}>
         <Pagination.Context>
           {(pagination) => (
-            <div className="pagination-demo-row">
+            <div className="pagination-row">
               <button type="button" onClick={() => pagination.goToFirstPage()}>
                 First
               </button>
               <button type="button" onClick={() => pagination.goToPrevPage()}>
                 Prev
               </button>
-              <span>
+              <span className="pagination-muted">
                 Page {pagination.page} of {pagination.totalPages}
               </span>
               <button type="button" onClick={() => pagination.goToNextPage()}>
@@ -274,12 +266,7 @@ Use `Pagination.Context` when custom controls need access to page helpers such a
 
   </Preview.Code>
   <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      count = 200
-      pageSize = 10
-    `}
-  </Preview.Data>
+  <Preview.Data>{paginationNoData}</Preview.Data>
 </Preview>
 
 ### Customized
@@ -293,6 +280,7 @@ Use `translations` for accessible labels and adjust the computed window with `si
   <Preview.Code>
     {`
       <Pagination
+        className="pagination-demo"
         count={400}
         pageSize={20}
         siblingCount={3}
@@ -322,13 +310,7 @@ Use `translations` for accessible labels and adjust the computed window with `si
 
   </Preview.Code>
   <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      count = 400
-      pageSize = 20
-      siblingCount = 3
-    `}
-  </Preview.Data>
+  <Preview.Data>{`const siblingCount = 3;`}</Preview.Data>
 </Preview>
 
 ### Data Slicing
@@ -344,25 +326,29 @@ of an array.
       <Pagination count={users.length} pageSize={4}>
         <Pagination.Context>
           {(pagination) => (
-            <>
-              {pagination.slice(users).map((user) => (
-                <div key={user.id}>
-                  <strong>{user.name}</strong>
-                  <span>{user.email}</span>
-                </div>
-              ))}
-              <Pagination.PrevTrigger />
-              {pagination.pages.map((page, index) =>
-                page.type === "page" ? (
-                  <Pagination.Item key={index} {...page}>
-                    {page.value}
-                  </Pagination.Item>
-                ) : (
-                  <Pagination.Ellipsis key={index} index={index} />
-                ),
-              )}
-              <Pagination.NextTrigger />
-            </>
+            <div className="pagination-stack">
+              <div className="pagination-users">
+                {pagination.slice(users).map((user) => (
+                  <div key={user.id} className="pagination-user">
+                    <strong>{user.name}</strong>
+                    <span className="pagination-muted">{user.email}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="pagination-row">
+                <Pagination.PrevTrigger />
+                {pagination.pages.map((page, index) =>
+                  page.type === "page" ? (
+                    <Pagination.Item key={index} {...page}>
+                      {page.value}
+                    </Pagination.Item>
+                  ) : (
+                    <Pagination.Ellipsis key={index} index={index} />
+                  ),
+                )}
+                <Pagination.NextTrigger />
+              </div>
+            </div>
           )}
         </Pagination.Context>
       </Pagination>
@@ -383,6 +369,7 @@ Use `type="link"` with `getPageUrl(details)` when page changes should be real na
   <Preview.Code>
     {`
       <Pagination
+        className="pagination-demo"
         count={200}
         pageSize={10}
         siblingCount={2}
@@ -409,12 +396,7 @@ Use `type="link"` with `getPageUrl(details)` when page changes should be real na
 
   </Preview.Code>
   <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      count = 200
-      getPageUrl({ page }) -> "?page=page"
-    `}
-  </Preview.Data>
+  <Preview.Data>{`const getPageUrl = ({ page }: { page: number }) => \`?page=\${page}\`;`}</Preview.Data>
 </Preview>
 
 ### Page Range
@@ -429,23 +411,25 @@ Use `pagination.pageRange` when nearby UI should describe the visible item range
       <Pagination count={200} pageSize={10}>
         <Pagination.Context>
           {(pagination) => (
-            <>
-              <Pagination.PrevTrigger />
-              {pagination.pages.map((page, index) =>
-                page.type === "page" ? (
-                  <Pagination.Item key={index} {...page}>
-                    {page.value}
-                  </Pagination.Item>
-                ) : (
-                  <Pagination.Ellipsis key={index} index={index} />
-                ),
-              )}
-              <Pagination.NextTrigger />
-              <p>
+            <div className="pagination-stack">
+              <div className="pagination-row">
+                <Pagination.PrevTrigger />
+                {pagination.pages.map((page, index) =>
+                  page.type === "page" ? (
+                    <Pagination.Item key={index} {...page}>
+                      {page.value}
+                    </Pagination.Item>
+                  ) : (
+                    <Pagination.Ellipsis key={index} index={index} />
+                  ),
+                )}
+                <Pagination.NextTrigger />
+              </div>
+              <p className="pagination-muted">
                 Showing {pagination.pageRange.start + 1}-{pagination.pageRange.end} of{" "}
                 {pagination.count} results
               </p>
-            </>
+            </div>
           )}
         </Pagination.Context>
       </Pagination>
@@ -453,12 +437,7 @@ Use `pagination.pageRange` when nearby UI should describe the visible item range
 
   </Preview.Code>
   <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      count = 200
-      pageSize = 10
-    `}
-  </Preview.Data>
+  <Preview.Data>{paginationNoData}</Preview.Data>
 </Preview>
 
 ### Page Size Control
@@ -473,44 +452,65 @@ Call `pagination.setPageSize(nextSize)` from context to let a separate control u
       <Pagination count={200} defaultPageSize={10}>
         <Pagination.Context>
           {(pagination) => (
-            <>
-              <Select
-                collection={pageSizes}
-                value={[String(pagination.pageSize)]}
-                onValueChange={(details) => {
-                  const nextValue = details.value[0];
-                  if (nextValue) pagination.setPageSize(Number(nextValue));
-                }}
-              >
-                <Select.Control>
-                  <Select.Trigger>
-                    <Select.ValueText placeholder="Page size" />
-                  </Select.Trigger>
-                  <Select.Indicators>
-                    <Select.Indicator />
-                  </Select.Indicators>
-                </Select.Control>
-                <Select.Content>
-                  {pageSizes.items.map((item) => (
-                    <Select.Item key={item.value} item={item}>
-                      <Select.ItemText>{item.label}</Select.ItemText>
-                      <Select.ItemIndicator />
-                    </Select.Item>
-                  ))}
-                </Select.Content>
-              </Select>
-              <Pagination.PrevTrigger />
-              {pagination.pages.map((page, index) =>
-                page.type === "page" ? (
-                  <Pagination.Item key={index} {...page}>
-                    {page.value}
-                  </Pagination.Item>
-                ) : (
-                  <Pagination.Ellipsis key={index} index={index} />
-                ),
-              )}
-              <Pagination.NextTrigger />
-            </>
+            <div className="pagination-stack">
+              <div className="pagination-row">
+                <Select
+                  className="pagination-page-size-select"
+                  collection={pageSizes}
+                  value={[String(pagination.pageSize)]}
+                  positioning={{ sameWidth: true }}
+                  onValueChange={(details) => {
+                    const nextValue = details.value[0];
+                    if (nextValue) pagination.setPageSize(Number(nextValue));
+                  }}
+                >
+                  <Select.Label>Items per page</Select.Label>
+                  <Select.Control>
+                    <Select.Trigger>
+                      <Select.ValueText placeholder="Page size" />
+                    </Select.Trigger>
+                    <Select.Indicators>
+                      <Select.Indicator />
+                    </Select.Indicators>
+                  </Select.Control>
+                  <Select.Context>
+                    {(select) =>
+                      select.open ? (
+                        <Portal>
+                          <Select.Positioner>
+                            <Select.Content>
+                              {pageSizes.items.map((item) => (
+                                <Select.Item key={item.value} item={item}>
+                                  <Select.ItemText>{item.label}</Select.ItemText>
+                                  <Select.ItemIndicator />
+                                </Select.Item>
+                              ))}
+                            </Select.Content>
+                          </Select.Positioner>
+                        </Portal>
+                      ) : null
+                    }
+                  </Select.Context>
+                  <Select.HiddenSelect />
+                </Select>
+              </div>
+              <div className="pagination-row">
+                <Pagination.PrevTrigger />
+                {pagination.pages.map((page, index) =>
+                  page.type === "page" ? (
+                    <Pagination.Item key={index} {...page}>
+                      {page.value}
+                    </Pagination.Item>
+                  ) : (
+                    <Pagination.Ellipsis key={index} index={index} />
+                  ),
+                )}
+                <Pagination.NextTrigger />
+              </div>
+              <p className="pagination-muted">
+                Page {pagination.page} of {pagination.totalPages}
+              </p>
+            </div>
           )}
         </Pagination.Context>
       </Pagination>
@@ -520,7 +520,14 @@ Call `pagination.setPageSize(nextSize)` from context to let a separate control u
   <Preview.CSS>{paginationExampleCss}</Preview.CSS>
   <Preview.Data>
     {`
-      pageSizeOptions = [5, 10, 20, 50]
+      const pageSizes = createListCollection({
+        items: [
+          { label: "5", value: "5" },
+          { label: "10", value: "10" },
+          { label: "20", value: "20" },
+          { label: "50", value: "50" },
+        ],
+      });
     `}
   </Preview.Data>
 </Preview>
@@ -541,11 +548,11 @@ rendered root.
         const pagination = usePagination({ count: 200, pageSize: 10, siblingCount: 2 });
 
         return (
-          <>
+          <div className="pagination-stack">
             <button type="button" onClick={() => pagination.goToNextPage()}>
               Next page
             </button>
-            <Pagination.RootProvider value={pagination}>
+            <Pagination.RootProvider className="pagination-demo" value={pagination}>
               <Pagination.PrevTrigger />
               <Pagination.Context>
                 {(pagination) =>
@@ -562,20 +569,14 @@ rendered root.
               </Pagination.Context>
               <Pagination.NextTrigger />
             </Pagination.RootProvider>
-          </>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
   <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      count = 200
-      pageSize = 10
-      siblingCount = 2
-    `}
-  </Preview.Data>
+  <Preview.Data>{paginationNoData}</Preview.Data>
 </Preview>
 
 ### With Edges
@@ -587,7 +588,7 @@ Add `FirstTrigger` and `LastTrigger` when users need explicit jumps to the first
 
   <Preview.Code>
     {`
-      <Pagination count={400} pageSize={20} siblingCount={2}>
+      <Pagination className="pagination-demo" count={400} pageSize={20} siblingCount={2}>
         <Pagination.FirstTrigger />
         <Pagination.PrevTrigger />
         <Pagination.Context>
@@ -610,13 +611,7 @@ Add `FirstTrigger` and `LastTrigger` when users need explicit jumps to the first
 
   </Preview.Code>
   <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      count = 400
-      pageSize = 20
-      siblingCount = 2
-    `}
-  </Preview.Data>
+  <Preview.Data>{paginationNoData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -650,13 +645,7 @@ attributes, and the public `--pagination-*` variables.
 
   </Preview.Code>
   <Preview.CSS>{paginationCustomStylingCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      count = 200
-      defaultPage = 5
-      pageSize = 10
-    `}
-  </Preview.Data>
+  <Preview.Data>{paginationNoData}</Preview.Data>
 </Preview>
 
 ## Styling

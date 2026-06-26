@@ -92,7 +92,11 @@ const PaginationPrevTrigger = forwardRef<
     <PaginationPrimitive.PrevTrigger
       ref={ref}
       data-slot="pagination-prev-trigger"
-      className={clsx(styles.trigger, normalizeClassName(className))}
+      className={clsx(
+        styles.trigger,
+        children == null && styles.iconTrigger,
+        normalizeClassName(className),
+      )}
       {...props}
     >
       {children ?? <ChevronLeftIcon />}
@@ -108,7 +112,11 @@ const PaginationNextTrigger = forwardRef<
     <PaginationPrimitive.NextTrigger
       ref={ref}
       data-slot="pagination-next-trigger"
-      className={clsx(styles.trigger, normalizeClassName(className))}
+      className={clsx(
+        styles.trigger,
+        children == null && styles.iconTrigger,
+        normalizeClassName(className),
+      )}
       {...props}
     >
       {children ?? <ChevronRightIcon />}
@@ -124,7 +132,11 @@ const PaginationFirstTrigger = forwardRef<
     <PaginationPrimitive.FirstTrigger
       ref={ref}
       data-slot="pagination-first-trigger"
-      className={clsx(styles.trigger, normalizeClassName(className))}
+      className={clsx(
+        styles.trigger,
+        children == null && styles.iconTrigger,
+        normalizeClassName(className),
+      )}
       {...props}
     >
       {children ?? <EdgeIcon side="left" />}
@@ -140,7 +152,11 @@ const PaginationLastTrigger = forwardRef<
     <PaginationPrimitive.LastTrigger
       ref={ref}
       data-slot="pagination-last-trigger"
-      className={clsx(styles.trigger, normalizeClassName(className))}
+      className={clsx(
+        styles.trigger,
+        children == null && styles.iconTrigger,
+        normalizeClassName(className),
+      )}
       {...props}
     >
       {children ?? <EdgeIcon side="right" />}

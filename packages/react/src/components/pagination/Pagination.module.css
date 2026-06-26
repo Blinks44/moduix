@@ -82,8 +82,7 @@
     padding-inline: max(var(--pagination-item-padding-inline, 0.75rem), var(--spacing-3));
   }
 
-  .trigger:has(> svg),
-  .trigger:has(> .edgeIcon) {
+  .iconTrigger {
     width: var(--pagination-item-size, var(--size-lg));
     padding-inline: 0;
   }
