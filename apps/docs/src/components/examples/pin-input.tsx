@@ -1,7 +1,7 @@
-import { Field, PinInput, type PinInputValueChangeDetails, usePinInput } from '@moduix/react';
+import { Field, PinInput, usePinInput } from '@moduix/react';
 import { useId, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './pin-input.module.css';
 
 export const pinInputCount = 6;
@@ -52,37 +52,10 @@ export const pinInputOverrideCssProperties: CssPropertyInput[] = [
   ['--pin-input-width', 'auto', 'Controls root width.'],
 ];
 
-export const pinInputPlaygroundCssProperties = pinInputOverrideCssProperties.filter((property) =>
-  [
-    '--pin-input-bg',
-    '--pin-input-border-color',
-    '--pin-input-border-width',
-    '--pin-input-focus-ring-color',
-    '--pin-input-gap',
-    '--pin-input-radius',
-    '--pin-input-separator-color',
-  ].includes(normalizeCssProperty(property).name),
-);
-
-export function PinInputCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function PinInputCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={pinInputOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function PinInputCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={pinInputPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }
@@ -174,11 +147,6 @@ export function PinInputMaskedExample() {
 
 export function PinInputChangeEventsExample() {
   const [value, setValue] = useState<string[]>([]);
-  const [invalidValue, setInvalidValue] = useState('');
-
-  function handleValueChange(details: PinInputValueChangeDetails) {
-    setValue(details.value);
-  }
 
   return (
     <div className={styles.stack}>
@@ -186,10 +154,8 @@ export function PinInputChangeEventsExample() {
         count={pinInputCount}
         type="alphanumeric"
         value={value}
-        sanitizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, '')}
-        onValueChange={handleValueChange}
-        onValueInvalid={(details) => {
-          setInvalidValue(details.value);
+        onValueChange={(details) => {
+          setValue(details.value);
         }}
       >
         <PinInput.Label>Invite code</PinInput.Label>
@@ -198,8 +164,7 @@ export function PinInputChangeEventsExample() {
         </PinInput.Control>
         <PinInput.HiddenInput />
       </PinInput>
-      <span className={styles.hint}>Accepted value: {value.join('') || 'empty'}</span>
-      <span className={styles.hint}>Last rejected character: {invalidValue || 'none'}</span>
+      <span className={styles.hint}>Current value: {value.join('') || 'empty'}</span>
     </div>
   );
 }
@@ -231,39 +196,6 @@ export function PinInputFieldExample() {
       <Field.HelperText>Additional info</Field.HelperText>
       <Field.ErrorText>Please enter the verification code.</Field.ErrorText>
     </Field>
-  );
-}
-
-export function PinInputAutoSubmitExample() {
-  const [completedValue, setCompletedValue] = useState('');
-  const [submittedValue, setSubmittedValue] = useState('');
-
-  return (
-    <form
-      className={styles.form}
-      onSubmit={(event) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        setSubmittedValue(String(formData.get('verificationCode') ?? ''));
-      }}
-    >
-      <PinInput
-        count={pinInputCount}
-        name="verificationCode"
-        autoSubmit
-        onValueComplete={(details) => {
-          setCompletedValue(details.valueAsString);
-        }}
-      >
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInputSlots />
-        </PinInput.Control>
-        <PinInput.HiddenInput />
-      </PinInput>
-      <span className={styles.hint}>Last completed value: {completedValue || 'empty'}</span>
-      <span className={styles.hint}>Last submitted value: {submittedValue || 'empty'}</span>
-    </form>
   );
 }
 

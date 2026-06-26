@@ -59,8 +59,7 @@
       color: var(--pin-input-placeholder-color, var(--color-muted-foreground));
     }
 
-    &:focus-visible,
-    &[data-focus] {
+    &:focus-visible {
       outline-color: var(--pin-input-focus-ring-color, var(--color-ring));
     }
 
@@ -74,14 +73,12 @@
     &[data-invalid] {
       border-color: var(--pin-input-border-color-invalid, var(--color-destructive));
 
-      &:focus-visible,
-      &[data-focus] {
+      &:focus-visible {
         outline-color: var(--pin-input-border-color-invalid, var(--color-destructive));
       }
     }
 
-    &[data-disabled],
-    &[data-readonly] {
+    &[data-disabled] {
       pointer-events: none;
     }
   }

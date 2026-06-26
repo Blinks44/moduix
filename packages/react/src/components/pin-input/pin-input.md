@@ -14,15 +14,14 @@ Upstream docs:
 The wrapper follows Ark UI `PinInput`: `Root`, `Label`, `Control`, indexed `Input`,
 `HiddenInput`, `Context`, `RootProvider`, `usePinInput`, and `usePinInputContext`.
 
-The official MDX URL returned 403 during migration, so the source-of-truth content was read from
-`chakra-ui/ark` GitHub `website/src/content/pages/components/pin-input.mdx` plus installed Ark UI
-5.37.2 types.
+The official MDX content was reviewed from the task attachment `component-documentation.mdx` and
+checked against the installed Ark UI 5.37.2 props and examples.
 
 ## Current behavior contract
 
 `PinInput` is the short root form and is equivalent to `PinInput.Root`. It accepts Ark root props:
-`count`, `value`, `defaultValue`, `type`, `pattern`, `placeholder`, `otp`, `mask`, `autoSubmit`,
-`blurOnComplete`, `sanitizeValue`, `onValueChange(details)`, `onValueComplete(details)`, and
+`count`, `value`, `defaultValue`, `type`, `pattern`, `placeholder`, `otp`, `mask`,
+`blurOnComplete`, `selectOnFocus`, `onValueChange(details)`, `onValueComplete(details)`, and
 `onValueInvalid(details)`.
 
 moduix overrides Ark's default placeholder behavior by using an empty placeholder string unless the
@@ -80,13 +79,12 @@ export function VerificationCodeField() {
 ## Upstream feature coverage
 
 - Basic composition maps directly to Ark `Root` / `Label` / `Control` / `Input` / `HiddenInput`.
-- Placeholder, blur-on-complete, OTP mode, masking, change events, field integration, and
+- Placeholder, blur-on-complete, OTP mode, masking, controlled values, field integration, and
   RootProvider examples are represented in Storybook and docs.
 - Moduix default composition and grouped-separator composition are documented as local sugar after
   the core Ark examples.
 - Controlled and uncontrolled values use Ark string arrays.
-- `type`, `pattern`, and `sanitizeValue` replace the old legacy `validationType` and
-  `normalizeValue` contract.
+- `type` and `pattern` replace the old legacy `validationType` contract.
 - `PinInput.Separator` is moduix sugar only; it is not an Ark primitive part.
 
 ## Accessibility and state
@@ -110,8 +108,9 @@ Styling targets Ark `data-scope="pin-input"` / `data-part` attributes plus stabl
 
 Important hooks:
 
-- root: `data-disabled`
-- input: `data-focus`, `data-disabled`, `data-readonly`, `data-invalid`, `data-complete`
+- root: `data-disabled`, `data-invalid`, `data-complete`, `data-readonly`
+- label: `data-disabled`, `data-invalid`, `data-complete`, `data-required`, `data-readonly`
+- input: `data-disabled`, `data-invalid`, `data-complete`, `data-filled`, `data-index`
 - separator: `data-slot="pin-input-separator"`
 
 ## Intentional sugar and differences from upstream
@@ -136,3 +135,5 @@ Important hooks:
 - 2026-06-20: Renamed `otp-field` to `pin-input`, replaced legacy OTPField with Ark UI
   `PinInput`, adopted Ark parts/callbacks/value arrays, exposed RootProvider/context hooks, updated
   styling hooks and tokens, and removed legacy API compatibility.
+- 2026-06-26: Audited the Ark migration against the official PinInput MDX, removed stale submit
+  and sanitize guidance, and aligned CSS/docs state hooks with Ark data attributes.

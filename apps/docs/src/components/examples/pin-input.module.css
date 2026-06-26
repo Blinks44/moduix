@@ -1,5 +1,4 @@
-.stack,
-.form {
+.stack {
   display: grid;
   align-items: flex-start;
   gap: var(--spacing-3);
@@ -7,10 +6,6 @@
 
 .field {
   width: max-content;
-}
-
-.form {
-  width: 20rem;
 }
 
 .hint {

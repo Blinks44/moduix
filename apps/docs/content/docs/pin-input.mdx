@@ -5,7 +5,6 @@ icon: Component
 ---
 
 import {
-  PinInputAutoSubmitExample,
   PinInputBlurOnCompleteExample,
   PinInputChangeEventsExample,
   PinInputCssPropertiesPanel,
@@ -169,9 +168,9 @@ the full code.
 | `placeholder`    | `''` in moduix | Ark defaults to `○`; moduix hides it unless you pass `placeholder`. |
 | `otp`            | `false`        | Adds one-time-code autocomplete behavior when true.                 |
 | `mask`           | `false`        | Masks visible values like password inputs.                          |
-| `autoSubmit`     | `false`        | Submits the owning form when all inputs are filled.                 |
 | `blurOnComplete` | `false`        | Blurs the last input after completion.                              |
 | `selectOnFocus`  | -              | Selects a focused input's current value when enabled.               |
+| `pattern`        | -              | Custom regular expression for accepted characters.                  |
 | `defaultValue`   | `[]`           | Uncontrolled value as a string array.                               |
 | `value`          | -              | Controlled value as a string array.                                 |
 
@@ -181,10 +180,9 @@ the full code.
 `onValueComplete(details)` expose `details.value` and `details.valueAsString`.
 `onValueInvalid(details)` exposes the rejected `details.value` and `details.index`.
 
-Use `type`, `pattern`, and `sanitizeValue` for validation and paste cleanup. `Field.Root` and
-`Fieldset.Root` can provide disabled, invalid, required, and read-only state through Ark context.
-All exported parts support `asChild`, and `ids` can be used when external labels or descriptions
-need stable element IDs.
+Use `type` and `pattern` for value validation. `Field.Root` and `Fieldset.Root` can provide
+disabled, invalid, required, and read-only state through Ark context. All exported parts support
+`asChild`, and `ids` can be used when external labels or descriptions need stable element IDs.
 
 ## Examples
 
@@ -342,36 +340,32 @@ Control the value array from React state and read the Ark callback detail object
 
   <Preview.Code>
     {`
-      import { PinInput, type PinInputValueChangeDetails } from "@moduix/react";
+      import { PinInput } from "@moduix/react";
       import { useState } from "react";
 
       export function ChangeEventsPinInput() {
         const [value, setValue] = useState([] as string[]);
-        const [invalidValue, setInvalidValue] = useState("");
-
-        function handleValueChange(details: PinInputValueChangeDetails) {
-          setValue(details.value);
-        }
 
         return (
-          <PinInput
-            count={6}
-            type="alphanumeric"
-            value={value}
-            sanitizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, "")}
-            onValueChange={handleValueChange}
-            onValueInvalid={(details) => {
-              setInvalidValue(details.value);
-            }}
-          >
-            <PinInput.Label>Invite code</PinInput.Label>
-            <PinInput.Control>
-              {Array.from({ length: 6 }, (_, index) => (
-                <PinInput.Input key={index} index={index} />
-              ))}
-            </PinInput.Control>
-            <PinInput.HiddenInput />
-          </PinInput>
+          <div>
+            <PinInput
+              count={6}
+              type="alphanumeric"
+              value={value}
+              onValueChange={(details) => {
+                setValue(details.value);
+              }}
+            >
+              <PinInput.Label>Invite code</PinInput.Label>
+              <PinInput.Control>
+                {Array.from({ length: 6 }, (_, index) => (
+                  <PinInput.Input key={index} index={index} />
+                ))}
+              </PinInput.Control>
+              <PinInput.HiddenInput />
+            </PinInput>
+            <span className="hint">Current value: {value.join("") || "empty"}</span>
+          </div>
         );
       }
     `}
@@ -438,8 +432,10 @@ rendered pin input tree.
 
         return (
           <div>
-            <button type="button" onClick={pinInput.focus}>Focus</button>
-            <button type="button" onClick={pinInput.clearValue}>Clear</button>
+            <div className="actions">
+              <button type="button" onClick={pinInput.focus}>Focus</button>
+              <button type="button" onClick={pinInput.clearValue}>Clear</button>
+            </div>
 
             <PinInput.RootProvider value={pinInput}>
               <PinInput.Label>Verification code</PinInput.Label>
@@ -497,7 +493,7 @@ Use the Moduix `Separator` helper for grouped codes while keeping Ark `Input` in
 
       export function GroupedPinInput() {
         return (
-          <PinInput count={6}>
+          <PinInput count={6} className="customRoot">
             <PinInput.Label>Auth code</PinInput.Label>
             <PinInput.Control>
               {[0, 1, 2].map((index) => (
@@ -528,49 +524,6 @@ Use the Moduix `Separator` helper for grouped codes while keeping Ark `Input` in
   <Preview.Data>{`const left = [0, 1, 2]; const right = [3, 4, 5];`}</Preview.Data>
 </Preview>
 
-### Auto Submit
-
-Use `autoSubmit` with `name` and `HiddenInput` when a complete code should submit its owning form.
-
-<Preview>
-  <PinInputAutoSubmitExample />
-
-  <Preview.Code>
-    {`
-      import { PinInput } from "@moduix/react";
-      import { useState } from "react";
-
-      export function AutoSubmitPinInput() {
-        const [submittedValue, setSubmittedValue] = useState("");
-
-        return (
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              const formData = new FormData(event.currentTarget);
-              setSubmittedValue(String(formData.get("verificationCode") ?? ""));
-            }}
-          >
-            <PinInput count={6} name="verificationCode" autoSubmit>
-              <PinInput.Label>Verification code</PinInput.Label>
-              <PinInput.Control>
-                {Array.from({ length: 6 }, (_, index) => (
-                  <PinInput.Input key={index} index={index} />
-                ))}
-              </PinInput.Control>
-              <PinInput.HiddenInput />
-            </PinInput>
-          </form>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{`.form { display: grid; gap: var(--spacing-3); }`}</Preview.CSS>
-  <Preview.Data>{`const formData = new FormData(event.currentTarget);`}</Preview.Data>
-</Preview>
-
 ## Styling
 
 ### CSS Properties
@@ -587,8 +540,9 @@ Use `autoSubmit` with `name` and `HiddenInput` when a complete code should submi
 
 - Root and root provider expose `data-slot="pin-input-root"` and `data-slot="pin-input-root-provider"`.
 - Ark parts keep `data-scope="pin-input"` and `data-part="root" | "label" | "control" | "input"`.
-- State styling uses `data-focus`, `data-disabled`, `data-readonly`, `data-invalid`, and
-  `data-complete` on relevant parts.
+- Root state styling uses `data-disabled`, `data-invalid`, `data-complete`, and `data-readonly`.
+- Input state styling uses `data-disabled`, `data-invalid`, `data-complete`, `data-filled`, and
+  `data-index`.
 - `PinInput.Separator` exposes `data-slot="pin-input-separator"` and is decorative by default.
 
 ## Accessibility

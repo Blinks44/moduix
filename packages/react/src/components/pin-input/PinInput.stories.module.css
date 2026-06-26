@@ -12,13 +12,6 @@
     line-height: var(--line-height-text-xs);
   }
 
-  .form {
-    display: grid;
-    gap: var(--spacing-3);
-    align-items: flex-start;
-    width: 20rem;
-  }
-
   .customRoot {
     --pin-input-separator-size: 1.5rem;
     --pin-input-separator-color: var(--color-primary);

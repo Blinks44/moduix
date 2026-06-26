@@ -151,56 +151,15 @@ export const WithFieldValidation: Story = {
   ),
 };
 
-export const AutoSubmit: Story = {
+export const InvalidValue: Story = {
   render: () => {
-    const [completedValue, setCompletedValue] = useState('');
-    const [submittedValue, setSubmittedValue] = useState('');
-
-    return (
-      <form
-        className={storyStyles.form}
-        onSubmit={(event) => {
-          event.preventDefault();
-          const formData = new FormData(event.currentTarget);
-          setSubmittedValue(String(formData.get('verificationCode') ?? ''));
-        }}
-      >
-        <PinInput
-          count={PIN_COUNT}
-          name="verificationCode"
-          autoSubmit
-          onValueComplete={(details) => {
-            setCompletedValue(details.valueAsString);
-          }}
-        >
-          <PinInput.Label>Verification code</PinInput.Label>
-          <PinInput.Control>
-            <PinInputSlots />
-          </PinInput.Control>
-          <PinInput.HiddenInput />
-        </PinInput>
-        <p className={storyStyles.hint}>Last completed value: {completedValue || 'empty'}</p>
-        <p className={storyStyles.hint}>Last submitted value: {submittedValue || 'empty'}</p>
-      </form>
-    );
-  },
-};
-
-export const CustomSanitization: Story = {
-  render: () => {
-    const [value, setValue] = useState<string[]>([]);
     const [invalidValue, setInvalidValue] = useState('');
 
     return (
       <div className={storyStyles.stack}>
         <PinInput
           count={PIN_COUNT}
-          type="alphanumeric"
-          value={value}
-          sanitizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, '')}
-          onValueChange={(details) => {
-            setValue(details.value);
-          }}
+          type="alphabetic"
           onValueInvalid={(details) => {
             setInvalidValue(details.value);
           }}
@@ -211,7 +170,6 @@ export const CustomSanitization: Story = {
           </PinInput.Control>
           <PinInput.HiddenInput />
         </PinInput>
-        <p className={storyStyles.hint}>Accepted value: {value.join('') || 'empty'}</p>
         <p className={storyStyles.hint}>Last rejected character: {invalidValue || 'none'}</p>
       </div>
     );
