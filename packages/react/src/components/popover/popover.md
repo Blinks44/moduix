@@ -51,6 +51,22 @@ Exported Ark-aligned state surfaces are `Popover.RootProvider`, `Popover.Context
 and `usePopoverContext`. Every rendered wrapper has a matching `data-slot` in kebab-case except
 `Portal`, which does not render a DOM element.
 
+| Export                 | Stable slot             | Notes                                      |
+| ---------------------- | ----------------------- | ------------------------------------------ |
+| `Popover.Anchor`       | `popover-anchor`        | Optional positioning reference.            |
+| `Popover.Trigger`      | `popover-trigger`       | Styled by moduix unless `asChild` is used. |
+| `Popover.Indicator`    | `popover-indicator`     | Optional trigger state indicator.          |
+| `Popover.Positioner`   | `popover-positioner`    | Ark floating positioner.                   |
+| `Popover.Content`      | `popover-content`       | Styled popup surface.                      |
+| `Popover.Arrow`        | `popover-arrow`         | Renders `ArrowTip` by default.             |
+| `Popover.ArrowTip`     | `popover-arrow-tip`     | Visible arrow tip.                         |
+| `Popover.Title`        | `popover-title`         | Accessible content title.                  |
+| `Popover.Description`  | `popover-description`   | Accessible content description.            |
+| `Popover.CloseTrigger` | `popover-close-trigger` | Styled by moduix unless `asChild` is used. |
+| `Popover.Header`       | `popover-header`        | Moduix layout helper.                      |
+| `Popover.Body`         | `popover-body`          | Moduix layout helper.                      |
+| `Popover.Footer`       | `popover-footer`        | Moduix action row helper.                  |
+
 ## Composition
 
 ```tsx
@@ -86,19 +102,23 @@ the Ark part.
 
 ## Upstream feature coverage
 
-- Basic explicit composition, controlled state, arrow, placement, close behavior, modal mode,
-  custom anchor, same-width positioning, dialog layering, and nested popovers are supported.
+- Basic explicit composition, `asChild`, controlled state, context reads, arrow, placement, close
+  behavior, lazy mounting, modal mode, initial focus, custom anchor, same-width positioning, dialog
+  layering, nested popovers, and multiple trigger values are supported.
 - External state uses `usePopover` with `Popover.RootProvider`; do not render `Root` for that same
   state instance.
 - `Popover.Context` supports inline render-prop state access and `usePopoverContext` supports
   reusable child components.
-- `lazyMount`, `unmountOnExit`, `present`, `skipAnimationOnMount`, `ids`, `portalled`, interaction
-  callbacks, and focus callbacks pass through Ark unchanged.
+- `lazyMount`, `unmountOnExit`, `present`, `skipAnimationOnMount`, `ids`, `portalled`,
+  `onTriggerValueChange`, interaction callbacks, and focus callbacks pass through Ark unchanged.
 - Ark has no popover backdrop, viewport, hover trigger, detached handle, or legacy popup part.
   Those legacy surfaces are intentionally absent.
 
 ## Accessibility and state
 
+- Refs forward to the underlying Ark DOM parts. `Trigger` and `CloseTrigger` target buttons;
+  `Anchor`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `Indicator`,
+  `Header`, `Body`, and `Footer` target their rendered elements.
 - Ark wires `Trigger`, `Content`, `Title`, `Description`, and `CloseTrigger` IDs and ARIA
   relationships. Use `ids` when stable cross-part IDs are required.
 - `modal` is a boolean. In modal mode Ark traps focus, blocks outside interaction and scrolling, and
@@ -146,6 +166,10 @@ runtime available-size and reference-size variables rather than duplicate measur
 
 ## Local changelog
 
+- 2026-06-26: Synced public docs and stories with current Ark Popover examples for context reads,
+  lazy mounting, multiple trigger values, default props, and anatomy roles.
+- 2026-06-26: Tightened docs-workflow alignment for anatomy, ref targets, and stable `data-slot`
+  hooks.
 - 2026-06-20: Removed the `Popover.Portal` alias from the public API. Popover now follows the same
   shared `Portal -> Popover.Positioner -> Popover.Content` composition as other popup components.
 - 2026-06-20: Switched the recommended docs and examples from `Popover.Portal` to the shared
@@ -155,4 +179,4 @@ runtime available-size and reference-size variables rather than duplicate measur
 - 2026-06-19: Replaced the previous implementation and legacy API with the full Ark UI React
   contract, namespace composition, provider/context hooks, Ark state selectors, positioning
   variables, examples, and documentation.
-- 2026-06-10: Added phase-specific legacy popup motion variables.
+- 2026-06-10: Added phase-specific popup motion variables.

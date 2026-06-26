@@ -6,10 +6,21 @@
     gap: var(--spacing-3);
   }
 
+  .triggerGroup {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-2);
+  }
+
   .triggerContent {
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-2);
+  }
+
+  .status {
+    font-weight: var(--weight-medium);
   }
 
   .icon {

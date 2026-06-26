@@ -63,6 +63,24 @@ export const popoverOverrideCssProperties: CssPropertyInput[] = [
   ['--popover-width', 'auto', 'Controls content width.'],
 ];
 
+export const popoverActions = [
+  {
+    id: 'share',
+    label: 'Share',
+    detail: 'Share this item with others by link or email.',
+  },
+  {
+    id: 'export',
+    label: 'Export',
+    detail: 'Export this item as PDF, CSV, or JSON.',
+  },
+  {
+    id: 'archive',
+    label: 'Archive',
+    detail: 'Move this item to the archive for later reference.',
+  },
+];
+
 function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
@@ -160,6 +178,35 @@ export function RootProviderPopoverExample() {
         />
       </Popover.RootProvider>
     </div>
+  );
+}
+
+export function PopoverContextExample() {
+  return (
+    <Popover positioning={{ gutter: 8 }}>
+      <Popover.Trigger asChild>
+        <Button>Read context</Button>
+      </Popover.Trigger>
+      <Portal>
+        <Popover.Positioner>
+          <Popover.Content>
+            <Popover.Title>Status</Popover.Title>
+            <Popover.Description>
+              <Popover.Context>
+                {(context) => (
+                  <span className={styles.status}>
+                    Popover is {context.open ? 'visible' : 'hidden'}
+                  </span>
+                )}
+              </Popover.Context>
+            </Popover.Description>
+            <Popover.Footer>
+              <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+            </Popover.Footer>
+          </Popover.Content>
+        </Popover.Positioner>
+      </Portal>
+    </Popover>
   );
 }
 
@@ -275,6 +322,20 @@ export function SameWidthPopoverExample() {
   );
 }
 
+export function LazyMountPopoverExample() {
+  return (
+    <Popover lazyMount unmountOnExit positioning={{ gutter: 8 }}>
+      <Popover.Trigger asChild>
+        <Button>Open lazy popover</Button>
+      </Popover.Trigger>
+      <PopoverSurface
+        title="Lazy mounted"
+        description="This content mounts on open and unmounts after exit."
+      />
+    </Popover>
+  );
+}
+
 export function NestedPopoverExample() {
   return (
     <Popover positioning={{ gutter: 8 }}>
@@ -299,6 +360,37 @@ export function NestedPopoverExample() {
                 />
               </Popover>
             </Popover.Body>
+          </Popover.Content>
+        </Popover.Positioner>
+      </Portal>
+    </Popover>
+  );
+}
+
+export function MultipleTriggersPopoverExample() {
+  const [activeItem, setActiveItem] = React.useState<(typeof popoverActions)[number] | null>(null);
+
+  return (
+    <Popover
+      onTriggerValueChange={(details) => {
+        setActiveItem(popoverActions.find((item) => item.id === details.value) ?? null);
+      }}
+      positioning={{ gutter: 8 }}
+    >
+      <div className={styles.triggerGroup}>
+        {popoverActions.map((item) => (
+          <Popover.Trigger key={item.id} value={item.id}>
+            {item.label}
+          </Popover.Trigger>
+        ))}
+      </div>
+      <Portal>
+        <Popover.Positioner>
+          <Popover.Content>
+            <Popover.Title>{activeItem?.label ?? 'Select an action'}</Popover.Title>
+            <Popover.Description>
+              {activeItem?.detail ?? 'Choose one of the actions.'}
+            </Popover.Description>
           </Popover.Content>
         </Popover.Positioner>
       </Portal>

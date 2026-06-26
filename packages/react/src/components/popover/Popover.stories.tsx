@@ -18,6 +18,24 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const popoverActions = [
+  {
+    id: 'share',
+    label: 'Share',
+    detail: 'Share this item with others by link or email.',
+  },
+  {
+    id: 'export',
+    label: 'Export',
+    detail: 'Export this item as PDF, CSV, or JSON.',
+  },
+  {
+    id: 'archive',
+    label: 'Archive',
+    detail: 'Move this item to the archive for later reference.',
+  },
+];
+
 function PopoverSurface({
   title,
   description,
@@ -107,6 +125,35 @@ export const RootProvider: Story = {
   },
 };
 
+export const Context: Story = {
+  render: () => (
+    <Popover positioning={{ gutter: 8 }}>
+      <Popover.Trigger asChild>
+        <Button>Read context</Button>
+      </Popover.Trigger>
+      <Portal>
+        <Popover.Positioner>
+          <Popover.Content>
+            <Popover.Title>Status</Popover.Title>
+            <Popover.Description>
+              <Popover.Context>
+                {(context) => (
+                  <span className={storyStyles.status}>
+                    Popover is {context.open ? 'visible' : 'hidden'}
+                  </span>
+                )}
+              </Popover.Context>
+            </Popover.Description>
+            <Popover.Footer>
+              <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+            </Popover.Footer>
+          </Popover.Content>
+        </Popover.Positioner>
+      </Portal>
+    </Popover>
+  ),
+};
+
 export const WithArrow: Story = {
   name: 'With Arrow',
   render: () => (
@@ -132,6 +179,21 @@ export const Positioning: Story = {
       <PopoverSurface
         title="Left placement"
         description="Placement and offsets belong to Root.positioning."
+      />
+    </Popover>
+  ),
+};
+
+export const LazyMount: Story = {
+  name: 'Lazy Mount',
+  render: () => (
+    <Popover lazyMount unmountOnExit positioning={{ gutter: 8 }}>
+      <Popover.Trigger asChild>
+        <Button>Open lazy popover</Button>
+      </Popover.Trigger>
+      <PopoverSurface
+        title="Lazy mounted"
+        description="This content mounts on open and unmounts after exit."
       />
     </Popover>
   ),
@@ -221,6 +283,42 @@ export const SameWidth: Story = {
       </Portal>
     </Popover>
   ),
+};
+
+export const MultipleTriggers: Story = {
+  name: 'Multiple Triggers',
+  render: () => {
+    const [activeItem, setActiveItem] = React.useState<(typeof popoverActions)[number] | null>(
+      null,
+    );
+
+    return (
+      <Popover
+        onTriggerValueChange={(details) => {
+          setActiveItem(popoverActions.find((item) => item.id === details.value) ?? null);
+        }}
+        positioning={{ gutter: 8 }}
+      >
+        <div className={storyStyles.triggerGroup}>
+          {popoverActions.map((item) => (
+            <Popover.Trigger key={item.id} value={item.id}>
+              {item.label}
+            </Popover.Trigger>
+          ))}
+        </div>
+        <Portal>
+          <Popover.Positioner>
+            <Popover.Content>
+              <Popover.Title>{activeItem?.label ?? 'Select an action'}</Popover.Title>
+              <Popover.Description>
+                {activeItem?.detail ?? 'Choose one of the actions.'}
+              </Popover.Description>
+            </Popover.Content>
+          </Popover.Positioner>
+        </Portal>
+      </Popover>
+    );
+  },
 };
 
 export const Nested: Story = {

@@ -9,8 +9,11 @@ import {
   CloseBehaviorPopoverExample,
   ControlledPopoverExample,
   CustomStylingPopoverExample,
+  LazyMountPopoverExample,
   ModalPopoverExample,
+  MultipleTriggersPopoverExample,
   NestedPopoverExample,
+  PopoverContextExample,
   PopoverCssPropertiesPanel,
   PopoverExample,
   PopoverWithArrowExample,
@@ -147,8 +150,24 @@ Popover.Root
          └─ Popover.CloseTrigger
 ```
 
-`Popover.RootProvider`, `Popover.Context`, `usePopover`, and `usePopoverContext` expose Ark's
-external-state and context surfaces. `Header`, `Body`, and `Footer` are layout-only Moduix additions.
+| Part                         | Role                                                             |
+| ---------------------------- | ---------------------------------------------------------------- |
+| `Popover` / `Popover.Root`   | Root state, popup lifecycle, dismissal, focus, and positioning.  |
+| `Popover.RootProvider`       | Renders a popover tree from state returned by `usePopover`.      |
+| `Popover.Anchor`             | Optional custom positioning reference.                           |
+| `Popover.Trigger`            | Button that toggles the popover and may carry a trigger `value`. |
+| `Popover.Indicator`          | Optional trigger state indicator.                                |
+| `Portal`                     | Ark portal exported by moduix for popup mounting.                |
+| `Popover.Positioner`         | Floating layer that exposes Ark positioning CSS variables.       |
+| `Popover.Content`            | Interactive popup surface.                                       |
+| `Popover.Arrow` / `ArrowTip` | Optional positioned arrow and its visible tip.                   |
+| `Popover.Title`              | Accessible title wired to the content.                           |
+| `Popover.Description`        | Accessible description wired to the content.                     |
+| `Popover.CloseTrigger`       | Button that dismisses the popover.                               |
+| `Popover.Header` / `Body`    | Moduix layout wrappers with stable slots.                        |
+| `Popover.Footer`             | Moduix action row wrapper with stable slot.                      |
+| `Popover.Context`            | Inline access to Ark popover state.                              |
+| `usePopoverContext`          | Hook for reusable child parts inside a popover tree.             |
 
 ## Composition
 
@@ -167,16 +186,33 @@ popover inside another overlay should render inline; otherwise combine portal us
 
 ### Default props
 
-Moduix adds visual defaults only. Ark owns `defaultOpen`, `open`, `modal`, `autoFocus`,
-`closeOnEscape`, `closeOnInteractOutside`, `initialFocusEl`, `ids`, `lazyMount`, `present`,
-`unmountOnExit`, and `positioning`.
+| Prop                     | Default | Notes                                                        |
+| ------------------------ | ------- | ------------------------------------------------------------ |
+| `autoFocus`              | `true`  | Focuses the first focusable element when the popover opens.  |
+| `closeOnEscape`          | `true`  | Closes the popover on Escape.                                |
+| `closeOnInteractOutside` | `true`  | Closes the popover on outside interaction.                   |
+| `lazyMount`              | `false` | Defers popup content mounting until first open.              |
+| `modal`                  | `false` | Enables focus trap, scroll lock, and outside isolation.      |
+| `portalled`              | `true`  | Proxies tab behavior for portalled content.                  |
+| `skipAnimationOnMount`   | `false` | Keeps the initial presence animation enabled.                |
+| `unmountOnExit`          | `false` | Removes popup content after close when enabled.              |
+| `defaultOpen`            | -       | Initial uncontrolled open state.                             |
+| `open`                   | -       | Controlled open state.                                       |
+| `ids`                    | -       | Stable IDs for trigger, content, title, description, anchor. |
+| `initialFocusEl`         | -       | Function returning the element to focus on open.             |
+| `positioning`            | -       | Ark floating positioning options.                            |
+| `present`                | -       | Controlled presence for JavaScript animation lifecycles.     |
 
 ### Behavioral notes
 
+- Refs forward to the underlying Ark DOM parts: `Trigger` and `CloseTrigger` target buttons, while
+  `Anchor`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `Indicator`,
+  `Header`, `Body`, and `Footer` target their rendered elements.
 - `onOpenChange` receives `{ open }`; callbacks are not converted to positional values.
 - `modal` is boolean and enables focus trapping, scroll lock, outside interaction blocking, and
   screen-reader isolation.
 - `RootProvider` receives the object returned by `usePopover`; do not wrap the same state in `Root`.
+- `Popover.Context`, `usePopover`, and `usePopoverContext` are exported for Ark state access.
 - `Popover.Arrow` renders the default `ArrowTip`; render `ArrowTip` explicitly only to customize it.
 - Ark closes on Escape and outside interaction by default. Both behaviors can be disabled separately.
 - Use `ids` when stable trigger, content, title, description, anchor, or close-trigger IDs are needed.
@@ -199,23 +235,45 @@ Use Ark's details object when synchronizing open state with surrounding UI.
         const [open, setOpen] = useState(false);
 
         return (
-          <Popover open={open} onOpenChange={(details) => setOpen(details.open)}>
-            <Popover.Trigger asChild><Button>Open</Button></Popover.Trigger>
-            <Portal>
-              <Popover.Positioner>
-                <Popover.Content>
-                  <Popover.Title>Controlled popover</Popover.Title>
-                  <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-                </Popover.Content>
-              </Popover.Positioner>
-            </Portal>
-          </Popover>
+          <div className="stack">
+            <span>Popover is {open ? "open" : "closed"}</span>
+            <Popover open={open} onOpenChange={(details) => setOpen(details.open)}>
+              <Popover.Trigger asChild><Button>Open controlled popover</Button></Popover.Trigger>
+              <Portal>
+                <Popover.Positioner>
+                  <Popover.Content>
+                    <Popover.Header>
+                      <Popover.Title>Publish changes?</Popover.Title>
+                      <Popover.Description>
+                        This action will make your latest updates visible to all users.
+                      </Popover.Description>
+                    </Popover.Header>
+                    <Popover.Footer>
+                      <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+                    </Popover.Footer>
+                  </Popover.Content>
+                </Popover.Positioner>
+              </Portal>
+            </Popover>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`/* Uses the default moduix popover styles. */`}</Preview.CSS>
+  <Preview.CSS>
+    {`
+      [data-slot="popover-content"] {
+        max-width: 20rem;
+      }
+
+      .stack {
+        display: grid;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
   <Preview.Data>{`const initialOpen = false;`}</Preview.Data>
 </Preview>
 
@@ -228,7 +286,7 @@ or methods.
   <RootProviderPopoverExample />
   <Preview.Code>
     {`
-      import { Button, Popover, usePopover } from "@moduix/react";
+      import { Button, Popover, Portal, usePopover } from "@moduix/react";
 
       export function RootProviderDemo() {
         const popover = usePopover({
@@ -236,26 +294,94 @@ or methods.
         });
 
         return (
-          <>
+          <div className="stack">
+            <span>Popover is {popover.open ? "open" : "closed"}</span>
             <Button onClick={() => popover.setOpen(!popover.open)}>Toggle externally</Button>
             <Popover.RootProvider value={popover}>
               <Popover.Trigger asChild><Button>Open from trigger</Button></Popover.Trigger>
               <Portal>
                 <Popover.Positioner>
                   <Popover.Content>
-                    <Popover.Title>External state</Popover.Title>
+                    <Popover.Header>
+                      <Popover.Title>External state</Popover.Title>
+                      <Popover.Description>
+                        The usePopover hook owns this popover state.
+                      </Popover.Description>
+                    </Popover.Header>
+                    <Popover.Footer>
+                      <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+                    </Popover.Footer>
                   </Popover.Content>
                 </Popover.Positioner>
               </Portal>
             </Popover.RootProvider>
-          </>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`/* Uses the default moduix popover styles. */`}</Preview.CSS>
+  <Preview.CSS>
+    {`
+      [data-slot="popover-content"] {
+        max-width: 20rem;
+      }
+
+      .stack {
+        display: grid;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
   <Preview.Data>{`const placement = "bottom-start";`}</Preview.Data>
+</Preview>
+
+### Context
+
+Use `Popover.Context` for inline reads from the current Ark state.
+
+<Preview>
+  <PopoverContextExample />
+  <Preview.Code>
+    {`
+      import { Button, Popover, Portal } from "@moduix/react";
+
+      export function PopoverContextDemo() {
+        return (
+          <Popover positioning={{ gutter: 8 }}>
+            <Popover.Trigger asChild><Button>Read context</Button></Popover.Trigger>
+            <Portal>
+              <Popover.Positioner>
+                <Popover.Content>
+                  <Popover.Title>Status</Popover.Title>
+                  <Popover.Description>
+                    <Popover.Context>
+                      {(context) => (
+                        <span className="status">
+                          Popover is {context.open ? "visible" : "hidden"}
+                        </span>
+                      )}
+                    </Popover.Context>
+                  </Popover.Description>
+                  <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+                </Popover.Content>
+              </Popover.Positioner>
+            </Portal>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .status {
+        font-weight: var(--weight-medium);
+      }
+    `}
+  </Preview.CSS>
+  <Preview.Data>{`const openLabel = context.open ? "visible" : "hidden";`}</Preview.Data>
 </Preview>
 
 ### Arrow
@@ -266,20 +392,41 @@ Render `Arrow` to get the default Moduix-styled `ArrowTip`.
   <PopoverWithArrowExample />
   <Preview.Code>
     {`
-      <Popover positioning={{ gutter: 8 }}>
-        <Popover.Trigger asChild><Button>Open with arrow</Button></Popover.Trigger>
-        <Portal>
-          <Popover.Positioner>
-            <Popover.Content>
-              <Popover.Arrow />
-              <Popover.Title>Notifications</Popover.Title>
-            </Popover.Content>
-          </Popover.Positioner>
-        </Portal>
-      </Popover>
+      import { Button, Popover, Portal } from "@moduix/react";
+
+      export function PopoverArrowDemo() {
+        return (
+          <Popover positioning={{ gutter: 8 }}>
+            <Popover.Trigger asChild><Button>Open with arrow</Button></Popover.Trigger>
+            <Portal>
+              <Popover.Positioner>
+                <Popover.Content>
+                  <Popover.Arrow />
+                  <Popover.Header>
+                    <Popover.Title>With arrow</Popover.Title>
+                    <Popover.Description>
+                      Arrow and ArrowTip use Ark positioning variables.
+                    </Popover.Description>
+                  </Popover.Header>
+                  <Popover.Footer>
+                    <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+                  </Popover.Footer>
+                </Popover.Content>
+              </Popover.Positioner>
+            </Portal>
+          </Popover>
+        );
+      }
     `}
+
   </Preview.Code>
-  <Preview.CSS>{`/* Arrow visuals use --popover-arrow-size and --popover-arrow-stroke-color. */`}</Preview.CSS>
+  <Preview.CSS>
+    {`
+      [data-slot="popover-arrow"] {
+        --popover-arrow-size: 0.625rem;
+      }
+    `}
+  </Preview.CSS>
   <Preview.Data>{`const gutter = 8;`}</Preview.Data>
 </Preview>
 
@@ -291,17 +438,40 @@ Set placement and offsets through Ark's `positioning` object.
   <PositioningPopoverExample />
   <Preview.Code>
     {`
-      <Popover positioning={{ placement: "left", gutter: 12 }}>
-        <Popover.Trigger asChild><Button>Open on the left</Button></Popover.Trigger>
-        <Portal>
-          <Popover.Positioner>
-            <Popover.Content><Popover.Title>Left placement</Popover.Title></Popover.Content>
-          </Popover.Positioner>
-        </Portal>
-      </Popover>
+      import { Button, Popover, Portal } from "@moduix/react";
+
+      export function PositioningPopoverDemo() {
+        return (
+          <Popover positioning={{ placement: "left", gutter: 12 }}>
+            <Popover.Trigger asChild><Button>Open on the left</Button></Popover.Trigger>
+            <Portal>
+              <Popover.Positioner>
+                <Popover.Content>
+                  <Popover.Header>
+                    <Popover.Title>Left placement</Popover.Title>
+                    <Popover.Description>
+                      Placement and offsets belong to Root.positioning.
+                    </Popover.Description>
+                  </Popover.Header>
+                  <Popover.Footer>
+                    <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+                  </Popover.Footer>
+                </Popover.Content>
+              </Popover.Positioner>
+            </Portal>
+          </Popover>
+        );
+      }
     `}
+
   </Preview.Code>
-  <Preview.CSS>{`/* Positioning is computed by Ark UI. */`}</Preview.CSS>
+  <Preview.CSS>
+    {`
+      [data-slot="popover-content"] {
+        transform-origin: var(--transform-origin);
+      }
+    `}
+  </Preview.CSS>
   <Preview.Data>{`const positioning = { placement: "left", gutter: 12 };`}</Preview.Data>
 </Preview>
 
@@ -313,21 +483,86 @@ Disable outside or Escape dismissal only when the workflow provides an explicit 
   <CloseBehaviorPopoverExample />
   <Preview.Code>
     {`
-      <Popover closeOnEscape={false} closeOnInteractOutside={false}>
-        <Popover.Trigger asChild><Button>Open persistent popover</Button></Popover.Trigger>
-        <Portal>
-          <Popover.Positioner>
-            <Popover.Content>
-              <Popover.Title>Explicit close</Popover.Title>
-              <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-            </Popover.Content>
-          </Popover.Positioner>
-        </Portal>
-      </Popover>
+      import { Button, Popover, Portal } from "@moduix/react";
+
+      export function CloseBehaviorPopoverDemo() {
+        return (
+          <Popover closeOnEscape={false} closeOnInteractOutside={false}>
+            <Popover.Trigger asChild><Button>Open persistent popover</Button></Popover.Trigger>
+            <Portal>
+              <Popover.Positioner>
+                <Popover.Content>
+                  <Popover.Header>
+                    <Popover.Title>Explicit close</Popover.Title>
+                    <Popover.Description>
+                      Escape and outside interactions do not dismiss this popover.
+                    </Popover.Description>
+                  </Popover.Header>
+                  <Popover.Footer>
+                    <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+                  </Popover.Footer>
+                </Popover.Content>
+              </Popover.Positioner>
+            </Portal>
+          </Popover>
+        );
+      }
     `}
+
   </Preview.Code>
-  <Preview.CSS>{`/* Uses the default moduix popover styles. */`}</Preview.CSS>
+  <Preview.CSS>
+    {`
+      [data-slot="popover-close-trigger"] {
+        margin-inline-start: auto;
+      }
+    `}
+  </Preview.CSS>
   <Preview.Data>{`const dismissBehavior = { closeOnEscape: false, closeOnInteractOutside: false };`}</Preview.Data>
+</Preview>
+
+### Lazy Mount
+
+Use `lazyMount` and `unmountOnExit` when content should only exist while the popover is used.
+
+<Preview>
+  <LazyMountPopoverExample />
+  <Preview.Code>
+    {`
+      import { Button, Popover, Portal } from "@moduix/react";
+
+      export function LazyMountPopoverDemo() {
+        return (
+          <Popover lazyMount unmountOnExit positioning={{ gutter: 8 }}>
+            <Popover.Trigger asChild><Button>Open lazy popover</Button></Popover.Trigger>
+            <Portal>
+              <Popover.Positioner>
+                <Popover.Content>
+                  <Popover.Header>
+                    <Popover.Title>Lazy mounted</Popover.Title>
+                    <Popover.Description>
+                      This content mounts on open and unmounts after exit.
+                    </Popover.Description>
+                  </Popover.Header>
+                  <Popover.Footer>
+                    <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+                  </Popover.Footer>
+                </Popover.Content>
+              </Popover.Positioner>
+            </Portal>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      [data-slot="popover-content"][data-state="closed"] {
+        animation-duration: var(--popover-transition, var(--duration-fast));
+      }
+    `}
+  </Preview.CSS>
+  <Preview.Data>{`const mountStrategy = { lazyMount: true, unmountOnExit: true };`}</Preview.Data>
 </Preview>
 
 ### Modal
@@ -339,6 +574,7 @@ focus target.
   <ModalPopoverExample />
   <Preview.Code>
     {`
+      import { Button, Popover, Portal } from "@moduix/react";
       import { useRef } from "react";
 
       export function ModalPopoverDemo() {
@@ -350,9 +586,21 @@ focus target.
             <Portal>
               <Popover.Positioner>
                 <Popover.Content>
-                  <Popover.Title>Invite teammates</Popover.Title>
-                  <input ref={inputRef} className="input" />
-                  <Popover.CloseTrigger>Done</Popover.CloseTrigger>
+                  <Popover.Header>
+                    <Popover.Title>Invite teammates</Popover.Title>
+                    <Popover.Description>
+                      Focus is trapped inside this modal popover until dismissed.
+                    </Popover.Description>
+                  </Popover.Header>
+                  <Popover.Body>
+                    <label className="field">
+                      <span>Email</span>
+                      <input ref={inputRef} className="input" />
+                    </label>
+                  </Popover.Body>
+                  <Popover.Footer>
+                    <Popover.CloseTrigger>Done</Popover.CloseTrigger>
+                  </Popover.Footer>
                 </Popover.Content>
               </Popover.Positioner>
             </Portal>
@@ -369,7 +617,13 @@ focus target.
         border: var(--border-width-sm) solid var(--color-border);
         border-radius: var(--radius-md);
       }
+
+      .field {
+        display: grid;
+        gap: var(--spacing-2);
+      }
     `}
+
   </Preview.CSS>
   <Preview.Data>{`const modal = true;`}</Preview.Data>
 </Preview>
@@ -382,18 +636,35 @@ Use `Anchor` when a different element should provide the positioning reference.
   <AnchorPopoverExample />
   <Preview.Code>
     {`
-      <Popover positioning={{ gutter: 8 }}>
-        <Popover.Anchor asChild>
-          <input className="input" placeholder="Popover anchor" />
-        </Popover.Anchor>
-        <Popover.Trigger asChild><Button>Open below the input</Button></Popover.Trigger>
-        <Portal>
-          <Popover.Positioner>
-            <Popover.Content><Popover.Title>Custom anchor</Popover.Title></Popover.Content>
-          </Popover.Positioner>
-        </Portal>
-      </Popover>
+      import { Button, Popover, Portal } from "@moduix/react";
+
+      export function AnchorPopoverDemo() {
+        return (
+          <Popover positioning={{ gutter: 8 }}>
+            <Popover.Anchor asChild>
+              <input className="input" placeholder="Popover anchor" />
+            </Popover.Anchor>
+            <Popover.Trigger asChild><Button>Open below the input</Button></Popover.Trigger>
+            <Portal>
+              <Popover.Positioner>
+                <Popover.Content>
+                  <Popover.Header>
+                    <Popover.Title>Custom anchor</Popover.Title>
+                    <Popover.Description>
+                      The popup is positioned relative to the input instead of the trigger.
+                    </Popover.Description>
+                  </Popover.Header>
+                  <Popover.Footer>
+                    <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+                  </Popover.Footer>
+                </Popover.Content>
+              </Popover.Positioner>
+            </Portal>
+          </Popover>
+        );
+      }
     `}
+
   </Preview.Code>
   <Preview.CSS>
     {`
@@ -415,19 +686,29 @@ Enable `positioning.sameWidth` and use Ark's `--reference-width` variable on the
   <SameWidthPopoverExample />
   <Preview.Code>
     {`
-      <Popover positioning={{ sameWidth: true, gutter: 8 }}>
-        <Popover.Trigger asChild>
-          <Button className="wideTrigger">Match this trigger width</Button>
-        </Popover.Trigger>
-        <Portal>
-          <Popover.Positioner>
-            <Popover.Content className="sameWidthContent">
-              <Popover.Title>Matched width</Popover.Title>
-            </Popover.Content>
-          </Popover.Positioner>
-        </Portal>
-      </Popover>
+      import { Button, Popover, Portal } from "@moduix/react";
+
+      export function SameWidthPopoverDemo() {
+        return (
+          <Popover positioning={{ sameWidth: true, gutter: 8 }}>
+            <Popover.Trigger asChild>
+              <Button className="wideTrigger">Match this trigger width</Button>
+            </Popover.Trigger>
+            <Portal>
+              <Popover.Positioner>
+                <Popover.Content className="sameWidthContent">
+                  <Popover.Title>Matched width</Popover.Title>
+                  <Popover.Description>
+                    The content uses Ark's reference width measurement.
+                  </Popover.Description>
+                </Popover.Content>
+              </Popover.Positioner>
+            </Portal>
+          </Popover>
+        );
+      }
     `}
+
   </Preview.Code>
   <Preview.CSS>
     {`
@@ -446,30 +727,130 @@ Nested popovers keep independent state and expose Ark's nested-layer data attrib
   <NestedPopoverExample />
   <Preview.Code>
     {`
-      <Popover>
-        <Popover.Trigger asChild><Button>Open settings</Button></Popover.Trigger>
-        <Portal>
-          <Popover.Positioner>
-            <Popover.Content>
-              <Popover.Title>Settings</Popover.Title>
-              <Popover positioning={{ placement: "right", gutter: 8 }}>
-                <Popover.Trigger asChild><Button>Advanced</Button></Popover.Trigger>
-                <Portal>
-                  <Popover.Positioner>
-                    <Popover.Content>
-                      <Popover.Title>Advanced settings</Popover.Title>
-                    </Popover.Content>
-                  </Popover.Positioner>
-                </Portal>
-              </Popover>
-            </Popover.Content>
-          </Popover.Positioner>
-        </Portal>
-      </Popover>
+      import { Button, Popover, Portal } from "@moduix/react";
+
+      export function NestedPopoverDemo() {
+        return (
+          <Popover>
+            <Popover.Trigger asChild><Button>Open settings</Button></Popover.Trigger>
+            <Portal>
+              <Popover.Positioner>
+                <Popover.Content>
+                  <Popover.Header>
+                    <Popover.Title>Settings</Popover.Title>
+                    <Popover.Description>Nested popovers keep independent state.</Popover.Description>
+                  </Popover.Header>
+                  <Popover.Body className="nestedBody">
+                    <Popover positioning={{ placement: "right", gutter: 8 }}>
+                      <Popover.Trigger asChild><Button>Advanced</Button></Popover.Trigger>
+                      <Portal>
+                        <Popover.Positioner>
+                          <Popover.Content>
+                            <Popover.Header>
+                              <Popover.Title>Advanced settings</Popover.Title>
+                              <Popover.Description>
+                                This content belongs to the nested popover.
+                              </Popover.Description>
+                            </Popover.Header>
+                            <Popover.Footer>
+                              <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+                            </Popover.Footer>
+                          </Popover.Content>
+                        </Popover.Positioner>
+                      </Portal>
+                    </Popover>
+                  </Popover.Body>
+                </Popover.Content>
+              </Popover.Positioner>
+            </Portal>
+          </Popover>
+        );
+      }
     `}
+
   </Preview.Code>
-  <Preview.CSS>{`/* Nested layers use the same component styles. */`}</Preview.CSS>
+  <Preview.CSS>
+    {`
+      [data-slot="popover-content"][data-nested] {
+        --popover-shadow: var(--shadow-xl);
+      }
+
+      .nestedBody {
+        margin-top: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
   <Preview.Data>{`const nestedPlacement = "right";`}</Preview.Data>
+</Preview>
+
+### Multiple Triggers
+
+Give each trigger a `value` when one popover surface should react to the trigger that opened it.
+
+<Preview>
+  <MultipleTriggersPopoverExample />
+  <Preview.Code>
+    {`
+      import { Button, Popover, Portal } from "@moduix/react";
+      import { useState } from "react";
+
+      const actions = [
+        { id: "share", label: "Share", detail: "Share this item by link or email." },
+        { id: "export", label: "Export", detail: "Export this item as PDF, CSV, or JSON." },
+        { id: "archive", label: "Archive", detail: "Move this item to the archive." },
+      ];
+
+      export function MultipleTriggersDemo() {
+        const [activeItem, setActiveItem] = useState(null as (typeof actions)[number] | null);
+
+        return (
+          <Popover
+            onTriggerValueChange={(details) => {
+              setActiveItem(actions.find((item) => item.id === details.value) ?? null);
+            }}
+          >
+            <div className="triggerGroup">
+              {actions.map((item) => (
+                <Popover.Trigger key={item.id} value={item.id}>
+                  {item.label}
+                </Popover.Trigger>
+              ))}
+            </div>
+            <Portal>
+              <Popover.Positioner>
+                <Popover.Content>
+                  <Popover.Title>{activeItem?.label ?? "Select an action"}</Popover.Title>
+                  <Popover.Description>
+                    {activeItem?.detail ?? "Choose one of the actions."}
+                  </Popover.Description>
+                </Popover.Content>
+              </Popover.Positioner>
+            </Portal>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .triggerGroup {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+      }
+    `}
+  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const actions = [
+        { id: "share", label: "Share", detail: "Share this item by link or email." },
+        { id: "export", label: "Export", detail: "Export this item as PDF, CSV, or JSON." },
+        { id: "archive", label: "Archive", detail: "Move this item to the archive." },
+      ];
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -480,18 +861,33 @@ Override the public Moduix variables without changing the Ark composition.
   <CustomStylingPopoverExample />
   <Preview.Code>
     {`
-      <Popover positioning={{ gutter: 8 }}>
-        <Popover.Trigger asChild><Button>Open styled popover</Button></Popover.Trigger>
-        <Portal>
-          <Popover.Positioner>
-            <Popover.Content className="customContent">
-              <Popover.Arrow />
-              <Popover.Title>Custom styling</Popover.Title>
-            </Popover.Content>
-          </Popover.Positioner>
-        </Portal>
-      </Popover>
+      import { Button, Popover, Portal } from "@moduix/react";
+
+      export function CustomStylingPopoverDemo() {
+        return (
+          <Popover positioning={{ gutter: 8 }}>
+            <Popover.Trigger asChild><Button>Open styled popover</Button></Popover.Trigger>
+            <Portal>
+              <Popover.Positioner>
+                <Popover.Content className="customContent">
+                  <Popover.Arrow />
+                  <Popover.Header>
+                    <Popover.Title>Custom styling</Popover.Title>
+                    <Popover.Description>
+                      The Ark structure stays unchanged while moduix variables change the surface.
+                    </Popover.Description>
+                  </Popover.Header>
+                  <Popover.Footer>
+                    <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+                  </Popover.Footer>
+                </Popover.Content>
+              </Popover.Positioner>
+            </Portal>
+          </Popover>
+        );
+      }
     `}
+
   </Preview.Code>
   <Preview.CSS>
     {`
@@ -524,8 +920,9 @@ Override the public Moduix variables without changing the Ark composition.
 
 ### Styling hooks
 
-Ark parts retain `data-scope="popover"` and their `data-part` values. Moduix adds
-`data-slot="popover-*"` to rendered wrappers. Target `data-state="open|closed"`,
+Ark parts retain `data-scope="popover"` and their `data-part` values. Every exported rendered part
+accepts `className`; Moduix adds `data-slot="popover-*"` to rendered wrappers. Target
+`data-state="open|closed"`,
 `data-placement`, `data-nested`, `data-has-nested`, and `data-expanded` for state-aware styling.
 
 `Positioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
