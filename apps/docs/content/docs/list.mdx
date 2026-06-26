@@ -25,7 +25,10 @@ import {
 
 ## API Reference
 
-Ark UI does not ship a dedicated `List` primitive or component page. The moduix `List` contract is anchored to the Ark guides for [Composition](https://ark-ui.com/docs/guides/composition), [Styling](https://ark-ui.com/docs/guides/styling), and [Refs](https://ark-ui.com/docs/guides/ref), then specialized for semantic `ul`, `ol`, and `li` markup.
+Ark UI does not ship a dedicated list primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Basic
 
@@ -117,7 +120,7 @@ List / List.Root
 
 ### Recommended composition
 
-Stay with `<List>` for unordered content and switch the host element with `asChild` when you need ordered semantics. This keeps the contract aligned with Ark composition instead of adding a second host-switching prop API.
+Stay with `<List>` for unordered content and use `as="ol"` when you need ordered semantics. Use `asChild` only when the caller needs to own a custom semantic host.
 
 ### When to go custom
 
@@ -133,19 +136,20 @@ Keep items as direct `li` descendants. The built-in spacing and marker styling a
 | `size`    | `md`            | Typography size token.                                               |
 | `tone`    | `default`       | Semantic color path for text and markers.                            |
 | `marker`  | semantic `auto` | `disc` on `ul`, browser-provided ordered markers on `ol`, or `none`. |
+| `as`      | `ul`            | Switches the native list host between `ul` and `ol`.                 |
 | `asChild` | `false`         | Replaces the semantic host with a single caller-owned child element. |
 
 ### Behavioral notes
 
-- Ordered-list props such as `start`, `reversed`, and `type` live on the child `<ol>` when `asChild` is used.
+- Ordered-list props such as `start`, `reversed`, and `type` are available when `as="ol"` is used.
 - Use `marker="none"` to hide markers while keeping list semantics. `List` adds `role="list"` on that path unless you explicitly override `role`.
 - `List.Item` is optional. Use plain `li` elements when the exported item slot adds no value.
 
 ## Examples
 
-### Ordered AsChild
+### Ordered
 
-Use `asChild` to render an ordered list while keeping the moduix root styling contract. Native ordered-list props stay on the semantic `<ol>`.
+Use `as="ol"` to render an ordered list while keeping the moduix root styling contract.
 
 <Preview>
   <OrderedListExample />
@@ -156,12 +160,10 @@ Use `asChild` to render an ordered list while keeping the moduix root styling co
 
       export function OrderedListDemo() {
         return (
-          <List asChild>
-            <ol start={3}>
-              <List.Item>Prepare the release notes.</List.Item>
-              <List.Item>Publish the package.</List.Item>
-              <List.Item>Announce the release.</List.Item>
-            </ol>
+          <List as="ol" start={3}>
+            <List.Item>Prepare the release notes.</List.Item>
+            <List.Item>Publish the package.</List.Item>
+            <List.Item>Announce the release.</List.Item>
           </List>
         );
       }

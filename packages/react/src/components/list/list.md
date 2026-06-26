@@ -15,7 +15,8 @@ Upstream docs:
 
 There is no dedicated Ark `List` primitive or component page. The wrapper should stay aligned with Ark's factory-based composition model:
 
-- `List` is a thin `ark.ul` wrapper with `asChild` support for host-element replacement.
+- `List` is a thin Ark factory wrapper over `ark.ul` / `ark.ol`, with `asChild` support for
+  custom host-element replacement.
 - `List.Item` is a thin `ark.li` wrapper with the same `asChild` composition path.
 - Styling is driven through Ark-style `data-scope`, `data-part`, state-like data attributes, and public CSS variables.
 - Ref behavior targets the rendered semantic root/item element, with the standard Ark `asChild` constraint of a single semantic child.
@@ -23,12 +24,14 @@ There is no dedicated Ark `List` primitive or component page. The wrapper should
 ## Current behavior contract
 
 - `List` defaults to a semantic `<ul>`.
-- Ordered lists now use Ark-style composition: render `<List asChild><ol ... /></List>` instead of `as="ol"`.
+- Ordered lists use narrow host sugar: render `<List as="ol" start={...}>` for native ordered
+  semantics and ordered-list props.
+- `asChild` remains available for custom host ownership, not for the normal `ul` / `ol` path.
 - `List.Item` is the public item part. The flat `ListItem` export was removed during the Ark migration.
 - `marker="none"` still applies `role="list"` by default for markerless semantics unless the caller passes a custom `role`.
 - Native list props remain available on the rendered host element:
   - plain `<List>` accepts `ul` props;
-  - ordered-list props such as `start`, `reversed`, and `type` belong on the child `<ol>` when `asChild` is used.
+  - ordered-list props such as `start`, `reversed`, and `type` are available when `as="ol"` is used.
 - Visual behavior stays token-driven through `gap`, `size`, `tone`, native `::marker`, and the `--list-*` CSS variable contract.
 
 ## Anatomy and exported parts
@@ -68,12 +71,10 @@ import { List } from '@moduix/react';
 
 export function OrderedListDemo() {
   return (
-    <List asChild>
-      <ol start={3}>
-        <List.Item>Prepare the release notes.</List.Item>
-        <List.Item>Publish the package.</List.Item>
-        <List.Item>Announce the release.</List.Item>
-      </ol>
+    <List as="ol" start={3}>
+      <List.Item>Prepare the release notes.</List.Item>
+      <List.Item>Publish the package.</List.Item>
+      <List.Item>Announce the release.</List.Item>
     </List>
   );
 }
@@ -120,19 +121,24 @@ export function OrderedListDemo() {
 ## Intentional sugar and differences from upstream
 
 - `List` is still a moduix-owned component because Ark UI does not ship a dedicated list primitive.
-- The moduix wrapper adds design-system props (`gap`, `size`, `tone`, `marker`) and a stable `List.Item` slot.
-- The Ark migration intentionally removed:
-  - `as="ol"` in favor of `asChild`;
-  - the flat `ListItem` export in favor of `List.Item`;
-  - the old `ListAs` / union host-prop contract.
+- The moduix wrapper adds design-system props (`gap`, `size`, `tone`, `marker`), narrow `as="ul" | "ol"` host sugar, and a stable `List.Item` slot.
+- The Ark migration intentionally removed the flat `ListItem` export in favor of `List.Item`.
+- Do not expand `as` beyond `ul` / `ol`; use `asChild` for custom semantic hosts.
 
 ## Agent notes
 
 - Do not add a fake Ark part tree, context API, or state callbacks to mimic other Ark primitives.
 - Keep the wrapper thin: Ark factory composition, semantic DOM, styling hooks, and token mapping only.
-- If future work needs more custom ordered-list behavior, prefer `asChild` + native `ol` props or CSS over new wrapper props.
+- Keep `data-scope="list"`, `data-part`, and `data-slot` locked after passthrough props so
+  consumers cannot accidentally remove the public styling hooks.
+- If future work needs custom non-list hosts, prefer `asChild` over widening the `as` union.
 
 ## Local changelog
 
+- 2026-06-26: Reintroduced narrow `as="ul" | "ol"` host sugar so ordered lists can use
+  `<List as="ol" start={...}>`, while keeping `asChild` as the custom-host escape hatch.
+- 2026-06-26: Finalized the Ark factory audit by simplifying marker resolution, locking the root
+  and item data hooks after passthrough props, aligning public docs with the local-only API
+  reference text, and adding the missing `@ark-ui/react` registry dependency.
 - 2026-06-19: Migrated `List` to an Ark-style factory wrapper, replaced `as="ol"` with `asChild`, removed the flat `ListItem` export in favor of `List.Item`, and rewrote the local contract around Ark composition/styling guides.
 - 2026-06-15: Restored ordered-list markers on the default `as="ol"` path after the global reset, documented `ListItem`, formalized public styling hooks and CSS variables, and recorded the markerless accessibility + ordered-list marker preservation notes.

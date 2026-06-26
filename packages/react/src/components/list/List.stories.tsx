@@ -36,15 +36,12 @@ export const Basic: Story = {
   ),
 };
 
-export const OrderedAsChild: Story = {
-  name: 'Ordered AsChild',
+export const Ordered: Story = {
   render: () => (
-    <List asChild className={storyStyles.list}>
-      <ol start={3}>
-        <List.Item>Prepare the release notes.</List.Item>
-        <List.Item>Publish the package.</List.Item>
-        <List.Item>Announce the release.</List.Item>
-      </ol>
+    <List as="ol" start={3} className={storyStyles.list}>
+      <List.Item>Prepare the release notes.</List.Item>
+      <List.Item>Publish the package.</List.Item>
+      <List.Item>Announce the release.</List.Item>
     </List>
   ),
 };
@@ -52,12 +49,10 @@ export const OrderedAsChild: Story = {
 export const OrderedType: Story = {
   name: 'Ordered Type',
   render: () => (
-    <List asChild className={storyStyles.list}>
-      <ol type="A">
-        <List.Item>Draft the rollout checklist.</List.Item>
-        <List.Item>Coordinate the release window.</List.Item>
-        <List.Item>Confirm the post-release review.</List.Item>
-      </ol>
+    <List as="ol" type="A" className={storyStyles.list}>
+      <List.Item>Draft the rollout checklist.</List.Item>
+      <List.Item>Coordinate the release window.</List.Item>
+      <List.Item>Confirm the post-release review.</List.Item>
     </List>
   ),
 };

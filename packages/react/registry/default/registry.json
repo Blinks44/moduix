@@ -997,7 +997,7 @@
       "type": "registry:item",
       "title": "List",
       "description": "moduix React List component.",
-      "dependencies": ["clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/react-core"],
       "files": [
         {

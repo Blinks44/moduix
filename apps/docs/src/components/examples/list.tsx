@@ -280,12 +280,10 @@ export function ListExample(props: ComponentProps<typeof List>) {
 
 export function OrderedListExample() {
   return (
-    <List asChild>
-      <ol start={3}>
-        {orderedItems.map((item) => (
-          <List.Item key={item}>{item}</List.Item>
-        ))}
-      </ol>
+    <List as="ol" start={3}>
+      {orderedItems.map((item) => (
+        <List.Item key={item}>{item}</List.Item>
+      ))}
     </List>
   );
 }
