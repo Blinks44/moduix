@@ -129,7 +129,7 @@ export function ListboxDemo() {
 - Moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
 - Default root width is `16rem` through `--listbox-width`.
 - `Listbox.Content` is the main interactive surface and keeps its border stable on focus.
-- `Listbox.Content` has a default max height and scrolls long lists without blocking page scroll
+- `Listbox.Content` has a `14rem` default max height and scrolls long lists without blocking page scroll
   chaining.
 - `Listbox.Input` is optional and only needed for filtering scenarios.
 - `Listbox.Input` is styled with the same token shape as the standalone `Input`, while preserving
@@ -154,6 +154,10 @@ export function ListboxDemo() {
 - When registry-shipped listbox source changes, run `npm run build:registry`.
 
 ## Local changelog
+
+- 2026-06-26: Simplified listbox spacing defaults to existing spacing tokens, changed content max
+  height to `14rem`, removed the docs-only filter input focus override, and aligned the public
+  docs composition section with the current Ark-backed contract.
 
 - 2026-06-24: Removed collection helper re-exports from the Listbox public surface; docs now import
   `createListCollection`, `createGridCollection`, and `useListCollection` directly from Ark UI.

@@ -30,7 +30,8 @@
     border: var(--listbox-input-border-width, var(--listbox-border-width, var(--border-width-sm)))
       solid var(--listbox-input-border-color, var(--listbox-border-color, var(--color-border)));
     border-radius: var(--listbox-input-radius, var(--listbox-radius, var(--radius-md)));
-    padding: var(--listbox-input-padding-y, 0.5rem) var(--listbox-input-padding-x, 0.875rem);
+    padding: var(--listbox-input-padding-y, var(--spacing-2))
+      var(--listbox-input-padding-x, var(--spacing-3));
     background-color: var(--listbox-input-bg, var(--color-background));
     color: var(--listbox-input-color, var(--listbox-color, var(--color-foreground)));
     font: inherit;
@@ -79,7 +80,7 @@
     box-sizing: border-box;
     display: flex;
     min-height: 0;
-    max-height: var(--listbox-content-max-height, 13.5rem);
+    max-height: var(--listbox-content-max-height, 14rem);
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
@@ -134,8 +135,8 @@
   }
 
   .itemGroupLabel {
-    padding-block: var(--listbox-item-group-label-padding-y, 0.35rem);
-    padding-inline: var(--listbox-item-group-label-padding-x, 0.625rem);
+    padding-block: var(--listbox-item-group-label-padding-y, var(--spacing-1));
+    padding-inline: var(--listbox-item-group-label-padding-x, var(--spacing-2));
     color: var(--listbox-item-group-label-color, var(--color-muted-foreground));
     font-size: var(--listbox-item-group-label-font-size, var(--text-xs));
     font-weight: var(--listbox-item-group-label-font-weight, var(--weight-semibold));
@@ -149,14 +150,14 @@
     display: grid;
     width: calc(100% - var(--listbox-item-inset-x, var(--spacing-2)));
     min-height: var(--listbox-item-min-height, 2rem);
-    grid-template-columns: minmax(0, 1fr) var(--listbox-item-indicator-size, 0.875rem);
+    grid-template-columns: minmax(0, 1fr) var(--listbox-item-indicator-size, 1rem);
     align-items: center;
     gap: var(--listbox-item-gap, var(--spacing-2));
     margin-inline: calc(var(--listbox-item-inset-x, var(--spacing-2)) / 2);
     border: var(--listbox-item-border-width, 0) solid var(--listbox-item-border-color, transparent);
     border-radius: var(--listbox-item-radius, var(--radius-sm));
     padding-block: var(--listbox-item-padding-y, var(--spacing-2));
-    padding-inline: var(--listbox-item-padding-x, 0.625rem);
+    padding-inline: var(--listbox-item-padding-x, var(--spacing-3));
     background-color: var(--listbox-item-bg, transparent);
     color: var(--listbox-item-color, var(--listbox-color, var(--color-foreground)));
     font: inherit;
@@ -226,8 +227,8 @@
 
   .itemIndicator {
     display: inline-flex;
-    width: var(--listbox-item-indicator-size, 0.875rem);
-    height: var(--listbox-item-indicator-size, 0.875rem);
+    width: var(--listbox-item-indicator-size, 1rem);
+    height: var(--listbox-item-indicator-size, 1rem);
     flex-shrink: 0;
     align-items: center;
     justify-content: center;

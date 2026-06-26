@@ -6,8 +6,8 @@ import {
 } from '@ark-ui/react/collection';
 import { Button, Listbox, useListbox, useListboxContext } from '@moduix/react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './listbox.module.css';
 
 interface OptionItem {
@@ -144,7 +144,7 @@ export const listboxOverrideCssProperties: CssPropertyInput[] = [
   ['--listbox-border-color', 'var(--color-border)', 'Controls input and content border color.'],
   ['--listbox-border-width', 'var(--border-width-sm)', 'Controls input and content border width.'],
   ['--listbox-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--listbox-content-max-height', '13.5rem', 'Controls content maximum height.'],
+  ['--listbox-content-max-height', '14rem', 'Controls content maximum height.'],
   ['--listbox-content-padding-y', 'var(--spacing-1)', 'Controls content vertical padding.'],
   ['--listbox-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--listbox-empty-color', 'var(--color-muted-foreground)', 'Controls empty message color.'],
@@ -206,8 +206,8 @@ export const listboxOverrideCssProperties: CssPropertyInput[] = [
     'var(--line-height-text-md)',
     'Controls filter input line height.',
   ],
-  ['--listbox-input-padding-x', '0.875rem', 'Controls filter input horizontal padding.'],
-  ['--listbox-input-padding-y', '0.5rem', 'Controls filter input vertical padding.'],
+  ['--listbox-input-padding-x', 'var(--spacing-3)', 'Controls filter input horizontal padding.'],
+  ['--listbox-input-padding-y', 'var(--spacing-2)', 'Controls filter input vertical padding.'],
   ['--listbox-input-radius', 'var(--listbox-radius)', 'Controls filter input radius.'],
   ['--listbox-item-bg', 'transparent', 'Controls item background.'],
   ['--listbox-item-border-color', 'transparent', 'Controls item border color.'],
@@ -237,15 +237,23 @@ export const listboxOverrideCssProperties: CssPropertyInput[] = [
     'var(--line-height-text-xs)',
     'Controls group label line height.',
   ],
-  ['--listbox-item-group-label-padding-x', '0.625rem', 'Controls group label horizontal padding.'],
-  ['--listbox-item-group-label-padding-y', '0.35rem', 'Controls group label vertical padding.'],
+  [
+    '--listbox-item-group-label-padding-x',
+    'var(--spacing-2)',
+    'Controls group label horizontal padding.',
+  ],
+  [
+    '--listbox-item-group-label-padding-y',
+    'var(--spacing-1)',
+    'Controls group label vertical padding.',
+  ],
   ['--listbox-item-indicator-color', 'currentColor', 'Controls selected indicator color.'],
   ['--listbox-item-indicator-icon-size', '0.75rem', 'Controls selected icon size.'],
-  ['--listbox-item-indicator-size', '0.875rem', 'Controls selected indicator box size.'],
+  ['--listbox-item-indicator-size', '1rem', 'Controls selected indicator box size.'],
   ['--listbox-item-inset-x', 'var(--spacing-2)', 'Controls item horizontal inset.'],
   ['--listbox-item-line-height', 'var(--line-height-text-sm)', 'Controls item line height.'],
   ['--listbox-item-min-height', '2rem', 'Controls item minimum height.'],
-  ['--listbox-item-padding-x', '0.625rem', 'Controls item horizontal padding.'],
+  ['--listbox-item-padding-x', 'var(--spacing-3)', 'Controls item horizontal padding.'],
   ['--listbox-item-padding-y', 'var(--spacing-2)', 'Controls item vertical padding.'],
   ['--listbox-item-radius', 'var(--radius-sm)', 'Controls item radius.'],
   ['--listbox-item-selected-color', 'var(--listbox-item-color)', 'Controls selected item color.'],
@@ -271,41 +279,10 @@ export const listboxOverrideCssProperties: CssPropertyInput[] = [
   ['--listbox-width', '16rem', 'Controls root width.'],
 ];
 
-export const listboxPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--listbox-bg', 'var(--color-background)', 'Controls input and content background.'],
-  ['--listbox-border-color', 'var(--color-border)', 'Controls input and content border color.'],
-  ['--listbox-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--listbox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--listbox-highlight-bg', 'var(--color-accent)', 'Controls highlighted item background.'],
-  [
-    '--listbox-highlight-color',
-    'var(--color-accent-foreground)',
-    'Controls highlighted item text color.',
-  ],
-  ['--listbox-hover-bg', 'var(--listbox-highlight-bg)', 'Controls hovered item background.'],
-  ['--listbox-item-selected-color', 'var(--listbox-item-color)', 'Controls selected item color.'],
-  ['--listbox-radius', 'var(--radius-md)', 'Controls input and content radius.'],
-];
-
-export function ListboxCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function ListboxCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={listboxOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function ListboxCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={listboxPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }
@@ -326,7 +303,7 @@ function ListboxItems({ collection = countries }: { collection?: typeof countrie
 }
 
 function Stack({ children }: { children: ReactNode }) {
-  return <div style={{ display: 'grid', gap: '0.75rem' }}>{children}</div>;
+  return <div className={styles.stack}>{children}</div>;
 }
 
 export function ListboxExample() {

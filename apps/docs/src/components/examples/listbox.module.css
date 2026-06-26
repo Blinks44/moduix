@@ -2,27 +2,24 @@
   .root {
     --listbox-width: 16rem;
     --listbox-root-gap: var(--spacing-3);
-    --listbox-content-max-height: 13.5rem;
+    --listbox-content-max-height: 14rem;
+  }
+
+  .stack {
+    display: grid;
+    gap: var(--spacing-3);
   }
 
   .horizontalRoot {
     --listbox-width: min(100%, 34rem);
     --listbox-horizontal-content-max-height: none;
-    --listbox-horizontal-item-width: 10.5rem;
+    --listbox-horizontal-item-width: 10rem;
   }
 
   .gridRoot {
     --listbox-width: 16rem;
     --listbox-grid-selected-bg: var(--color-muted);
     --listbox-grid-selected-color: var(--color-foreground);
-  }
-
-  .root [data-slot='listbox-input']:focus-visible {
-    border-color: var(
-      --listbox-input-border-color,
-      var(--listbox-border-color, var(--color-border))
-    );
-    outline-color: transparent;
   }
 
   .albumText {

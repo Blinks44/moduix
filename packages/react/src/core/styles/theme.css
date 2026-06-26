@@ -1616,7 +1616,7 @@
   --listbox-border-color: initial; /* var(--color-border) */
   --listbox-border-width: initial; /* var(--border-width-sm) */
   --listbox-color: initial; /* var(--color-foreground) */
-  --listbox-content-max-height: initial; /* 13.5rem */
+  --listbox-content-max-height: initial; /* 14rem */
   --listbox-content-padding-y: initial; /* var(--spacing-1) */
   --listbox-disabled-opacity: initial; /* var(--opacity-disabled) */
   --listbox-empty-color: initial; /* var(--color-muted-foreground) */
@@ -1646,8 +1646,8 @@
   --listbox-input-font-size: initial; /* var(--text-md) */
   --listbox-input-height: initial; /* var(--size-lg) */
   --listbox-input-line-height: initial; /* var(--line-height-text-md) */
-  --listbox-input-padding-x: initial; /* 0.875rem */
-  --listbox-input-padding-y: initial; /* 0.5rem */
+  --listbox-input-padding-x: initial; /* var(--spacing-3) */
+  --listbox-input-padding-y: initial; /* var(--spacing-2) */
   --listbox-input-radius: initial; /* var(--listbox-radius, var(--radius-md)) */
   --listbox-item-bg: initial; /* transparent */
   --listbox-item-border-color: initial; /* transparent */
@@ -1661,15 +1661,15 @@
   --listbox-item-group-label-font-size: initial; /* var(--text-xs) */
   --listbox-item-group-label-font-weight: initial; /* var(--weight-semibold) */
   --listbox-item-group-label-line-height: initial; /* var(--line-height-text-xs) */
-  --listbox-item-group-label-padding-x: initial; /* 0.625rem */
-  --listbox-item-group-label-padding-y: initial; /* 0.35rem */
+  --listbox-item-group-label-padding-x: initial; /* var(--spacing-2) */
+  --listbox-item-group-label-padding-y: initial; /* var(--spacing-1) */
   --listbox-item-indicator-color: initial; /* currentColor */
   --listbox-item-indicator-icon-size: initial; /* 0.75rem */
-  --listbox-item-indicator-size: initial; /* 0.875rem */
+  --listbox-item-indicator-size: initial; /* 1rem */
   --listbox-item-inset-x: initial; /* var(--spacing-2) */
   --listbox-item-line-height: initial; /* var(--line-height-text-sm) */
   --listbox-item-min-height: initial; /* 2rem */
-  --listbox-item-padding-x: initial; /* 0.625rem */
+  --listbox-item-padding-x: initial; /* var(--spacing-3) */
   --listbox-item-padding-y: initial; /* var(--spacing-2) */
   --listbox-item-radius: initial; /* var(--radius-sm) */
   --listbox-item-selected-color: initial; /* var(--listbox-item-color, var(--color-foreground)) */

@@ -216,9 +216,6 @@ function ListboxItemTextLabel({ className, ...props }: ComponentProps<'span'>) {
   );
 }
 
-const ListboxContext = ListboxPrimitive.Context;
-const ListboxItemContext = ListboxPrimitive.ItemContext;
-
 const Listbox = Object.assign(ListboxRoot, {
   Root: ListboxRoot,
   RootProvider: ListboxRootProvider,
@@ -235,8 +232,8 @@ const Listbox = Object.assign(ListboxRoot, {
   ItemTextContent: ListboxItemTextContent,
   ItemTextIcon: ListboxItemTextIcon,
   ItemTextLabel: ListboxItemTextLabel,
-  Context: ListboxContext,
-  ItemContext: ListboxItemContext,
+  Context: ListboxPrimitive.Context,
+  ItemContext: ListboxPrimitive.ItemContext,
 });
 
 export { Listbox, useListbox, useListboxContext, useListboxItemContext };

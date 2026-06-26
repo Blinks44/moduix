@@ -47,7 +47,7 @@
   .horizontalRoot {
     --listbox-width: min(100%, 34rem);
     --listbox-horizontal-content-max-height: none;
-    --listbox-horizontal-item-width: 10.5rem;
+    --listbox-horizontal-item-width: 10rem;
   }
 
   .artist {

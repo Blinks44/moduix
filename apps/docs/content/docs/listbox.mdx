@@ -167,7 +167,20 @@ Listbox / Listbox.Root
 
 ## Composition
 
-### Default Props
+### Recommended composition
+
+Render the Ark part tree directly: `Listbox` owns the collection, `Listbox.Content` owns focus and
+keyboard navigation, and each `Listbox.Item` receives the original collection item through `item`.
+Use `Listbox.ItemIndicator` when rows should reserve selected-state space.
+
+### When to go custom
+
+Use `asChild` only when a custom element can keep the required listbox semantics and receive Ark's
+props. Use `ids` when listbox parts need stable IDs for composition with surrounding UI. Use
+`useListbox` with `Listbox.RootProvider` when state must be controlled outside the rendered tree;
+do not render `Listbox.Root` for the same state instance.
+
+### Default props
 
 | Prop                      | Default    | Notes                                                                 |
 | ------------------------- | ---------- | --------------------------------------------------------------------- |
@@ -183,24 +196,20 @@ Listbox / Listbox.Root
 | `selectOnHighlight`       | `false`    | Selects items as keyboard highlight changes.                          |
 | `typeahead`               | `true`     | Enables typeahead unless a filtering input owns text entry.           |
 
-### Styling Defaults
-
-| Variable                          | Default               | Notes                                                              |
-| --------------------------------- | --------------------- | ------------------------------------------------------------------ |
-| `--listbox-width`                 | `16rem`               | A compact field width that still leaves room for the check column. |
-| `--listbox-content-max-height`    | `13.5rem`             | Keeps long grouped lists scrollable by default.                    |
-| `--listbox-root-gap`              | `var(--spacing-3)`    | Separates label, filtering input, buttons, and content.            |
-| `--listbox-hover-bg`              | `var(--color-accent)` | Makes pointer hover match keyboard highlight affordance.           |
-| `--listbox-horizontal-item-width` | `11rem`               | Gives horizontal items a stable card-like width.                   |
-| `--listbox-grid-selected-bg`      | `var(--color-muted)`  | Uses neutral background selection for compact grid cells.          |
-
-### State And Callbacks
+### Behavioral notes
 
 `value`, `defaultValue`, and `onValueChange(details)` use string arrays. Read `details.value` for
 selected keys and `details.items` for selected collection items.
 
 `highlightedValue`, `defaultHighlightedValue`, and `onHighlightChange(details)` control active
 descendant movement. `onSelect(details)` fires for item selection with the selected value.
+
+`Listbox.Input` is only needed for filtering. Set `typeahead={false}` when text input owns search
+so typeahead and filtering do not compete.
+
+Ark owns the ARIA listbox pattern, active-descendant focus management, keyboard navigation,
+typeahead, Home/End behavior, disabled item handling, and orientation-specific arrow keys. Keep
+`Listbox.Label` in the tree when the listbox needs a visible label.
 
 ## Examples
 
@@ -227,7 +236,7 @@ Control the selected string array from React state and update it from `details.v
       });
 
       export function ControlledListboxDemo() {
-      const [value, setValue] = useState(["md"]);
+        const [value, setValue] = useState(["md"]);
 
         return (
           <Listbox
@@ -277,7 +286,7 @@ listbox API.
       });
 
       export function RootProviderListboxDemo() {
-      const listbox = useListbox({ collection: priorities });
+        const listbox = useListbox({ collection: priorities });
 
         return (
           <>
@@ -545,7 +554,7 @@ Set `orientation="horizontal"` for horizontal layout and left/right keyboard nav
       .horizontalRoot {
         --listbox-width: min(100%, 34rem);
         --listbox-horizontal-content-max-height: none;
-        --listbox-horizontal-item-width: 10.5rem;
+        --listbox-horizontal-item-width: 10rem;
       }
 
       .albumText {
@@ -631,11 +640,11 @@ Use `Listbox.Input` with `useListCollection`. Turn off typeahead when text input
       ];
 
       export function FilteringListboxDemo() {
-      const { collection, filter } = useListCollection({
-        initialItems: frameworks,
-        filter: (itemText, filterText) =>
-          itemText.toLowerCase().includes(filterText.toLowerCase()),
-      });
+        const { collection, filter } = useListCollection({
+          initialItems: frameworks,
+          filter: (itemText, filterText) =>
+            itemText.toLowerCase().includes(filterText.toLowerCase()),
+        });
 
         return (
           <Listbox collection={collection} typeahead={false}>
@@ -789,9 +798,3 @@ Style `Listbox` through `className`, stable `data-slot="listbox-*"` hooks, Ark
 - Moduix hooks: `data-slot="listbox-root"`, `listbox-label`, `listbox-input`,
   `listbox-content`, `listbox-empty`, `listbox-item-group`, `listbox-item-group-label`,
   `listbox-item`, `listbox-item-text`, `listbox-item-indicator`, and `listbox-value-text`.
-
-## Accessibility
-
-Ark owns the ARIA listbox pattern, active-descendant focus management, keyboard navigation,
-typeahead, Home/End behavior, disabled item handling, and orientation-specific arrow keys. Keep
-`Listbox.Label` in the tree and use `typeahead={false}` when `Listbox.Input` is used for filtering.
