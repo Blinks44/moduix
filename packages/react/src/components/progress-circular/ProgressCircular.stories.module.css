@@ -4,64 +4,8 @@
   gap: var(--spacing-4);
 }
 
-.rangeControl {
-  --progress-demo-range-percent: 0%;
-  --progress-demo-range-thumb-bg: var(--color-background);
-  --progress-demo-range-thumb-border: var(--color-foreground);
-  --progress-demo-range-track: var(--color-muted);
-
-  appearance: none;
+.slider {
   width: 12rem;
-  height: 0.375rem;
-  border-radius: var(--radius-full);
-  accent-color: var(--color-foreground);
-  background: linear-gradient(
-    90deg,
-    var(--color-foreground) 0%,
-    var(--color-foreground) var(--progress-demo-range-percent, 0%),
-    var(--progress-demo-range-track) var(--progress-demo-range-percent, 0%),
-    var(--progress-demo-range-track) 100%
-  );
-  cursor: pointer;
-}
-
-.rangeControl::-webkit-slider-runnable-track {
-  height: 0.375rem;
-  border-radius: var(--radius-full);
-  background: transparent;
-}
-
-.rangeControl::-webkit-slider-thumb {
-  appearance: none;
-  width: 1rem;
-  height: 1rem;
-  margin-top: calc((0.375rem - 1rem) / 2);
-  border: var(--border-width-sm) solid var(--progress-demo-range-thumb-border);
-  border-radius: var(--radius-full);
-  background: var(--progress-demo-range-thumb-bg);
-  box-shadow: var(--shadow-sm);
-}
-
-.rangeControl::-moz-range-track {
-  height: 0.375rem;
-  border: 0;
-  border-radius: var(--radius-full);
-  background: var(--progress-demo-range-track);
-}
-
-.rangeControl::-moz-range-progress {
-  height: 0.375rem;
-  border-radius: var(--radius-full);
-  background: var(--color-foreground);
-}
-
-.rangeControl::-moz-range-thumb {
-  width: 1rem;
-  height: 1rem;
-  border: var(--border-width-sm) solid var(--progress-demo-range-thumb-border);
-  border-radius: var(--radius-full);
-  background: var(--progress-demo-range-thumb-bg);
-  box-shadow: var(--shadow-sm);
 }
 
 .circleContainer {
@@ -80,7 +24,7 @@
 
 .customProgress {
   --progress-circular-size: 4rem;
-  --progress-circular-thickness: 0.5rem;
+  --progress-circular-thickness: 0.4rem;
   --progress-circular-track-bg: var(--color-accent);
   --progress-circular-range-bg: var(--color-chart-2);
 }
@@ -90,5 +34,5 @@
 }
 
 .customProgress [data-slot='progress-circular-circle-range'] {
-  filter: drop-shadow(0 0 0.375rem color-mix(in oklab, var(--color-chart-2), transparent 45%));
+  filter: drop-shadow(0 0 0.25rem color-mix(in oklab, var(--color-chart-2), transparent 45%));
 }

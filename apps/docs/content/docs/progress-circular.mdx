@@ -14,12 +14,13 @@ import {
   ProgressCircularCssPropertiesPanel,
   ProgressCircularExample,
   RootProviderProgressCircularExample,
+  StateViewsProgressCircularExample,
   ValueTextProgressCircularExample,
   progressCircularCustomStylingCss,
-  progressCircularData,
   progressCircularExampleCss,
+  progressCircularNoData,
+  progressCircularStateViewsData,
 } from '@/components/examples/progress-circular';
-import { ProgressCircular } from '@moduix/react';
 
 ## API Reference
 
@@ -61,7 +62,7 @@ Use Ark-style parts: `ProgressCircular.Root`, `ProgressCircular.Circle`,
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularData}</Preview.Data>
+  <Preview.Data>{progressCircularNoData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -193,7 +194,7 @@ Keep `value` in React state when circular progress mirrors another control or ex
       import { useState } from "react";
 
       export function ControlledProgressCircularDemo() {
-        const [value, setValue] = useState(42);
+        const [value, setValue] = useState(42 as number | null);
 
         return (
           <div className="progress-circular-stack">
@@ -211,7 +212,7 @@ Keep `value` in React state when circular progress mirrors another control or ex
               className="progress-circular-slider"
               min={0}
               max={100}
-              value={[value]}
+              value={[value ?? 0]}
               onValueChange={(details) => setValue(details.value[0] ?? 0)}
             >
               <Slider.Label>Progress value</Slider.Label>
@@ -233,7 +234,7 @@ Keep `value` in React state when circular progress mirrors another control or ex
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularData}</Preview.Data>
+  <Preview.Data>{progressCircularNoData}</Preview.Data>
 </Preview>
 
 ### Initial Value
@@ -251,11 +252,13 @@ Use `defaultValue` to set the initial uncontrolled progress value.
         return (
           <ProgressCircular defaultValue={70}>
             <ProgressCircular.Label>Import data</ProgressCircular.Label>
-            <ProgressCircular.Circle>
-              <ProgressCircular.CircleTrack />
-              <ProgressCircular.CircleRange />
-            </ProgressCircular.Circle>
-            <ProgressCircular.ValueText />
+            <div className="progress-circular-circle-container">
+              <ProgressCircular.Circle>
+                <ProgressCircular.CircleTrack />
+                <ProgressCircular.CircleRange />
+              </ProgressCircular.Circle>
+              <ProgressCircular.ValueText />
+            </div>
           </ProgressCircular>
         );
       }
@@ -264,7 +267,7 @@ Use `defaultValue` to set the initial uncontrolled progress value.
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularData}</Preview.Data>
+  <Preview.Data>{progressCircularNoData}</Preview.Data>
 </Preview>
 
 ### Min Max
@@ -282,11 +285,13 @@ Use `min` and `max` when the value does not use the default `0` to `100` range.
         return (
           <ProgressCircular defaultValue={420} min={200} max={800}>
             <ProgressCircular.Label>Requests per minute</ProgressCircular.Label>
-            <ProgressCircular.Circle>
-              <ProgressCircular.CircleTrack />
-              <ProgressCircular.CircleRange />
-            </ProgressCircular.Circle>
-            <ProgressCircular.ValueText />
+            <div className="progress-circular-circle-container">
+              <ProgressCircular.Circle>
+                <ProgressCircular.CircleTrack />
+                <ProgressCircular.CircleRange />
+              </ProgressCircular.Circle>
+              <ProgressCircular.ValueText />
+            </div>
           </ProgressCircular>
         );
       }
@@ -295,7 +300,7 @@ Use `min` and `max` when the value does not use the default `0` to `100` range.
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularData}</Preview.Data>
+  <Preview.Data>{progressCircularNoData}</Preview.Data>
 </Preview>
 
 ### Indeterminate
@@ -313,11 +318,13 @@ Pass `defaultValue={null}` or `value={null}` when progress is running but comple
         return (
           <ProgressCircular defaultValue={null}>
             <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
-            <ProgressCircular.Circle>
-              <ProgressCircular.CircleTrack />
-              <ProgressCircular.CircleRange />
-            </ProgressCircular.Circle>
-            <ProgressCircular.ValueText />
+            <div className="progress-circular-circle-container">
+              <ProgressCircular.Circle>
+                <ProgressCircular.CircleTrack />
+                <ProgressCircular.CircleRange />
+              </ProgressCircular.Circle>
+              <ProgressCircular.ValueText />
+            </div>
           </ProgressCircular>
         );
       }
@@ -326,7 +333,7 @@ Pass `defaultValue={null}` or `value={null}` when progress is running but comple
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularData}</Preview.Data>
+  <Preview.Data>{progressCircularNoData}</Preview.Data>
 </Preview>
 
 ### Value Text
@@ -351,11 +358,13 @@ Use `translations.value(details)` when the formatted percent is not the wording 
             }}
           >
             <ProgressCircular.Label>Migration</ProgressCircular.Label>
-            <ProgressCircular.Circle>
-              <ProgressCircular.CircleTrack />
-              <ProgressCircular.CircleRange />
-            </ProgressCircular.Circle>
-            <ProgressCircular.ValueText />
+            <div className="progress-circular-circle-container">
+              <ProgressCircular.Circle>
+                <ProgressCircular.CircleTrack />
+                <ProgressCircular.CircleRange />
+              </ProgressCircular.Circle>
+              <ProgressCircular.ValueText />
+            </div>
           </ProgressCircular>
         );
       }
@@ -364,7 +373,7 @@ Use `translations.value(details)` when the formatted percent is not the wording 
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularData}</Preview.Data>
+  <Preview.Data>{progressCircularNoData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -384,11 +393,13 @@ Create the Ark progress store outside the rendered tree when another component n
         return (
           <ProgressCircular.RootProvider value={progress}>
             <ProgressCircular.Label>Team rollout</ProgressCircular.Label>
-            <ProgressCircular.Circle>
-              <ProgressCircular.CircleTrack />
-              <ProgressCircular.CircleRange />
-            </ProgressCircular.Circle>
-            <ProgressCircular.ValueText />
+            <div className="progress-circular-circle-container">
+              <ProgressCircular.Circle>
+                <ProgressCircular.CircleTrack />
+                <ProgressCircular.CircleRange />
+              </ProgressCircular.Circle>
+              <ProgressCircular.ValueText />
+            </div>
           </ProgressCircular.RootProvider>
         );
       }
@@ -397,7 +408,7 @@ Create the Ark progress store outside the rendered tree when another component n
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularData}</Preview.Data>
+  <Preview.Data>{progressCircularNoData}</Preview.Data>
 </Preview>
 
 ### Context
@@ -415,11 +426,13 @@ Read Ark state inline with `ProgressCircular.Context` when surrounding UI needs 
         return (
           <ProgressCircular defaultValue={64}>
             <ProgressCircular.Label>Migration</ProgressCircular.Label>
-            <ProgressCircular.Circle>
-              <ProgressCircular.CircleTrack />
-              <ProgressCircular.CircleRange />
-            </ProgressCircular.Circle>
-            <ProgressCircular.ValueText />
+            <div className="progress-circular-circle-container">
+              <ProgressCircular.Circle>
+                <ProgressCircular.CircleTrack />
+                <ProgressCircular.CircleRange />
+              </ProgressCircular.Circle>
+              <ProgressCircular.ValueText />
+            </div>
             <ProgressCircular.Context>
               {(progress) => (
                 <span className="progress-circular-context">
@@ -435,7 +448,7 @@ Read Ark state inline with `ProgressCircular.Context` when surrounding UI needs 
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularData}</Preview.Data>
+  <Preview.Data>{progressCircularNoData}</Preview.Data>
 </Preview>
 
 ### State Views
@@ -444,17 +457,7 @@ Use `ProgressCircular.View` when supporting text or UI should switch with the Ar
 instead of duplicating state checks outside the component.
 
 <Preview>
-  <ProgressCircular defaultValue={null}>
-    <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
-    <ProgressCircular.Circle>
-      <ProgressCircular.CircleTrack />
-      <ProgressCircular.CircleRange />
-    </ProgressCircular.Circle>
-    <ProgressCircular.ValueText />
-    <ProgressCircular.View state="indeterminate">Waiting for source data</ProgressCircular.View>
-    <ProgressCircular.View state="loading">Transfer in progress</ProgressCircular.View>
-    <ProgressCircular.View state="complete">Export complete</ProgressCircular.View>
-  </ProgressCircular>
+  <StateViewsProgressCircularExample />
 
   <Preview.Code>
     {`
@@ -464,16 +467,22 @@ instead of duplicating state checks outside the component.
         return (
           <ProgressCircular defaultValue={null}>
             <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
-            <ProgressCircular.Circle>
-              <ProgressCircular.CircleTrack />
-              <ProgressCircular.CircleRange />
-            </ProgressCircular.Circle>
-            <ProgressCircular.ValueText />
-            <ProgressCircular.View state="indeterminate">
-              Waiting for source data
+            <div className="progress-circular-circle-container">
+              <ProgressCircular.Circle>
+                <ProgressCircular.CircleTrack />
+                <ProgressCircular.CircleRange />
+              </ProgressCircular.Circle>
+              <ProgressCircular.ValueText />
+            </div>
+            <ProgressCircular.View className="progress-circular-state" state="indeterminate">
+              {progressCircularStateMessages.indeterminate}
             </ProgressCircular.View>
-            <ProgressCircular.View state="loading">Transfer in progress</ProgressCircular.View>
-            <ProgressCircular.View state="complete">Export complete</ProgressCircular.View>
+            <ProgressCircular.View className="progress-circular-state" state="loading">
+              {progressCircularStateMessages.loading}
+            </ProgressCircular.View>
+            <ProgressCircular.View className="progress-circular-state" state="complete">
+              {progressCircularStateMessages.complete}
+            </ProgressCircular.View>
           </ProgressCircular>
         );
       }
@@ -482,7 +491,7 @@ instead of duplicating state checks outside the component.
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularData}</Preview.Data>
+  <Preview.Data>{progressCircularStateViewsData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -500,11 +509,13 @@ Override public CSS variables and target SVG `data-slot` hooks when only the vis
         return (
           <ProgressCircular defaultValue={72} className="progress-circular-custom">
             <ProgressCircular.Label>Monthly quota</ProgressCircular.Label>
-            <ProgressCircular.Circle>
-              <ProgressCircular.CircleTrack />
-              <ProgressCircular.CircleRange />
-            </ProgressCircular.Circle>
-            <ProgressCircular.ValueText />
+            <div className="progress-circular-circle-container">
+              <ProgressCircular.Circle>
+                <ProgressCircular.CircleTrack />
+                <ProgressCircular.CircleRange />
+              </ProgressCircular.Circle>
+              <ProgressCircular.ValueText />
+            </div>
           </ProgressCircular>
         );
       }
@@ -513,7 +524,7 @@ Override public CSS variables and target SVG `data-slot` hooks when only the vis
   </Preview.Code>
 
   <Preview.CSS>{progressCircularCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{progressCircularData}</Preview.Data>
+  <Preview.Data>{progressCircularNoData}</Preview.Data>
 </Preview>
 
 ## Styling

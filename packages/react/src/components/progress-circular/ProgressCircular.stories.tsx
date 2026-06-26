@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState, type CSSProperties } from 'react';
+import { useState } from 'react';
+import { Slider } from '../slider';
 import { ProgressCircular, useProgressCircular } from './ProgressCircular';
 import styles from './ProgressCircular.stories.module.css';
 
@@ -18,15 +19,6 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-
-function getProgressDemoRangeStyle(value: number | null, min = 0, max = 100): CSSProperties {
-  const safeValue = value ?? min;
-  const percent = ((safeValue - min) / (max - min)) * 100;
-
-  return {
-    '--progress-demo-range-percent': `${Math.max(0, Math.min(100, percent))}%`,
-  } as CSSProperties;
-}
 
 function CircularParts() {
   return (
@@ -61,17 +53,26 @@ export const Controlled: Story = {
           <ProgressCircular.Label>Upload status</ProgressCircular.Label>
           <CircularParts />
         </ProgressCircular>
-        <input
-          className={styles.rangeControl}
-          type="range"
+        <Slider
+          className={styles.slider}
           min={0}
           max={100}
-          value={value ?? 0}
-          style={getProgressDemoRangeStyle(value)}
-          onChange={(event) => {
-            setValue(Number(event.target.value));
+          value={[value ?? 0]}
+          onValueChange={(details) => {
+            setValue(details.value[0] ?? 0);
           }}
-        />
+        >
+          <Slider.Label>Progress value</Slider.Label>
+          <Slider.ValueText />
+          <Slider.Control>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumb index={0} aria-label="Progress value">
+              <Slider.HiddenInput />
+            </Slider.Thumb>
+          </Slider.Control>
+        </Slider>
       </div>
     );
   },

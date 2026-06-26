@@ -27,12 +27,19 @@ export const progressCircularExampleCss = `
   .progress-circular-circle-container [data-slot="progress-circular-value-text"] {
     grid-area: 1 / 1;
   }
+
+  .progress-circular-context,
+  .progress-circular-state {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
 `;
 
 export const progressCircularCustomStylingCss = `
   .progress-circular-custom {
     --progress-circular-size: 4rem;
-    --progress-circular-thickness: 0.5rem;
+    --progress-circular-thickness: 0.4rem;
     --progress-circular-track-bg: var(--color-accent);
     --progress-circular-range-bg: var(--color-chart-2);
   }
@@ -42,18 +49,22 @@ export const progressCircularCustomStylingCss = `
   }
 
   .progress-circular-custom [data-slot="progress-circular-circle-range"] {
-    filter: drop-shadow(0 0 0.375rem color-mix(in oklab, var(--color-chart-2), transparent 45%));
+    filter: drop-shadow(0 0 0.25rem color-mix(in oklab, var(--color-chart-2), transparent 45%));
   }
 `;
 
-export const progressCircularData = `const progressLabels = {
-  export: 'Export data',
-  upload: 'Upload status',
-  import: 'Import data',
-  requests: 'Requests per minute',
-  report: 'Preparing report',
-  migration: 'Migration',
-  quota: 'Monthly quota',
+const progressCircularStateMessages = {
+  indeterminate: 'Waiting for source data',
+  loading: 'Transfer in progress',
+  complete: 'Export complete',
+};
+
+export const progressCircularNoData = `const data = null;`;
+
+export const progressCircularStateViewsData = `const progressCircularStateMessages = {
+  indeterminate: 'Waiting for source data',
+  loading: 'Transfer in progress',
+  complete: 'Export complete',
 };`;
 
 export const progressCircularCssProperties: CssPropertyInput[] = [
@@ -86,7 +97,7 @@ export const progressCircularCssProperties: CssPropertyInput[] = [
   ],
   ['--progress-circular-root-width', 'max-content', 'Controls root width.'],
   ['--progress-circular-size', '3rem', 'Controls SVG circle size.'],
-  ['--progress-circular-thickness', '0.375rem', 'Controls SVG stroke thickness.'],
+  ['--progress-circular-thickness', '0.4rem', 'Controls SVG stroke thickness.'],
   ['--progress-circular-track-bg', 'var(--color-muted)', 'Controls circle track color.'],
   ['--progress-circular-value-text-color', 'currentColor', 'Controls value text color.'],
   ['--progress-circular-value-text-font-size', 'var(--text-sm)', 'Controls value text font size.'],
@@ -235,6 +246,24 @@ export function ContextProgressCircularExample() {
           <span className="progress-circular-context">Current percent: {progress.percent}%</span>
         )}
       </ProgressCircular.Context>
+    </ProgressCircular>
+  );
+}
+
+export function StateViewsProgressCircularExample() {
+  return (
+    <ProgressCircular defaultValue={null}>
+      <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
+      <ProgressCircularParts />
+      <ProgressCircular.View className="progress-circular-state" state="indeterminate">
+        {progressCircularStateMessages.indeterminate}
+      </ProgressCircular.View>
+      <ProgressCircular.View className="progress-circular-state" state="loading">
+        {progressCircularStateMessages.loading}
+      </ProgressCircular.View>
+      <ProgressCircular.View className="progress-circular-state" state="complete">
+        {progressCircularStateMessages.complete}
+      </ProgressCircular.View>
     </ProgressCircular>
   );
 }

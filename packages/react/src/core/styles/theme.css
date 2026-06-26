@@ -2036,7 +2036,7 @@
   --progress-circular-range-transition: initial; /* var(--transition-default) */
   --progress-circular-root-width: initial; /* max-content */
   --progress-circular-size: initial; /* 3rem */
-  --progress-circular-thickness: initial; /* 0.375rem */
+  --progress-circular-thickness: initial; /* 0.4rem */
   --progress-circular-track-bg: initial; /* var(--color-muted) */
   --progress-circular-value-text-color: initial; /* currentColor */
   --progress-circular-value-text-font-size: initial; /* var(--text-sm) */

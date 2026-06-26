@@ -25,7 +25,7 @@
 
   .circle {
     --size: var(--progress-circular-size, 3rem);
-    --thickness: var(--progress-circular-thickness, 0.375rem);
+    --thickness: var(--progress-circular-thickness, 0.4rem);
 
     display: block;
     overflow: visible;
