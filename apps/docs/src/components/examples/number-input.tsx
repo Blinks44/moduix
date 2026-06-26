@@ -1,7 +1,7 @@
 import { ChevronDownIcon, ChevronUpIcon, Field, NumberInput, useNumberInput } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssProperty } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 
 const centeredExampleStyle = {
   width: 'fit-content',
@@ -10,6 +10,13 @@ const centeredExampleStyle = {
 export const numberInputExampleCss = `
   .number-input-state {
     margin-top: var(--spacing-3);
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+
+  .number-input-context-value {
+    margin-top: var(--spacing-2);
     color: var(--color-muted-foreground);
     font-size: var(--text-sm);
     line-height: var(--line-height-text-sm);
@@ -92,7 +99,7 @@ export const numberInputOverrideCssProperties: CssProperty[] = [
   {
     name: '--number-input-disabled-opacity',
     defaultValue: 'var(--opacity-disabled)',
-    description: 'Controls disabled and readonly opacity.',
+    description: 'Controls disabled opacity.',
   },
   {
     name: '--number-input-focus-ring-color',
@@ -155,6 +162,26 @@ export const numberInputOverrideCssProperties: CssProperty[] = [
     description: 'Controls label text color.',
   },
   {
+    name: '--number-input-label-font-size',
+    defaultValue: 'var(--text-sm)',
+    description: 'Controls label font size.',
+  },
+  {
+    name: '--number-input-label-font-weight',
+    defaultValue: 'var(--weight-medium)',
+    description: 'Controls label font weight.',
+  },
+  {
+    name: '--number-input-label-line-height',
+    defaultValue: 'var(--line-height-text-sm)',
+    description: 'Controls label line height.',
+  },
+  {
+    name: '--number-input-max-width',
+    defaultValue: 'none',
+    description: 'Controls root max width.',
+  },
+  {
     name: '--number-input-radius',
     defaultValue: 'var(--radius-md)',
     description: 'Controls the outer control corner radius.',
@@ -165,44 +192,34 @@ export const numberInputOverrideCssProperties: CssProperty[] = [
     description: 'Controls scrubber text color.',
   },
   {
+    name: '--number-input-scrubber-gap',
+    defaultValue: 'var(--spacing-2)',
+    description: 'Controls spacing inside the scrubber.',
+  },
+  {
     name: '--number-input-value-text-color',
     defaultValue: 'var(--color-muted-foreground)',
     description: 'Controls value text color.',
   },
+  {
+    name: '--number-input-value-text-font-size',
+    defaultValue: 'var(--text-sm)',
+    description: 'Controls value text font size.',
+  },
+  {
+    name: '--number-input-value-text-line-height',
+    defaultValue: 'var(--line-height-text-sm)',
+    description: 'Controls value text line height.',
+  },
+  {
+    name: '--number-input-width',
+    defaultValue: 'auto',
+    description: 'Controls root width.',
+  },
 ];
 
-export const numberInputPlaygroundCssProperties = numberInputOverrideCssProperties.filter(
-  (property) =>
-    [
-      '--number-input-border-color',
-      '--number-input-button-bg',
-      '--number-input-button-bg-hover',
-      '--number-input-button-color',
-      '--number-input-focus-ring-color',
-      '--number-input-input-bg',
-      '--number-input-input-color',
-      '--number-input-input-width',
-      '--number-input-radius',
-    ].includes(property.name),
-);
-
-export function NumberInputCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function NumberInputCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={numberInputOverrideCssProperties} />;
-}
-
-export function NumberInputCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={numberInputPlaygroundCssProperties}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
 }
 
 export function NumberInputExample(props: ComponentProps<typeof NumberInput>) {
@@ -276,10 +293,9 @@ export function NumberInputScrubberExample() {
   return (
     <div style={centeredExampleStyle}>
       <NumberInput defaultValue="250">
-        <NumberInput.Scrubber>
-          <NumberInput.Label>Drag to scrub</NumberInput.Label>
-        </NumberInput.Scrubber>
+        <NumberInput.Label>Drag to scrub</NumberInput.Label>
         <NumberInput.Control>
+          <NumberInput.Scrubber>Drag</NumberInput.Scrubber>
           <NumberInput.DecrementTrigger />
           <NumberInput.Input />
           <NumberInput.IncrementTrigger />
@@ -338,6 +354,24 @@ export function NumberInputFieldExample() {
         </NumberInput>
         <Field.ErrorText>Value should be between 1 and 10.</Field.ErrorText>
       </Field>
+    </div>
+  );
+}
+
+export function ContextNumberInputExample() {
+  return (
+    <div style={centeredExampleStyle}>
+      <NumberInput defaultValue="42">
+        <NumberInput.Context>
+          {(context) => <NumberInput.Label>Value: {context.valueAsNumber}</NumberInput.Label>}
+        </NumberInput.Context>
+        <NumberInput.Control>
+          <NumberInput.DecrementTrigger />
+          <NumberInput.Input />
+          <NumberInput.IncrementTrigger />
+        </NumberInput.Control>
+        <NumberInput.ValueText className="number-input-context-value" />
+      </NumberInput>
     </div>
   );
 }

@@ -35,8 +35,8 @@ Ark parts exposed by moduix are `Root`, `RootProvider`, `Label`, `Scrubber`, `Co
 ```text
 NumberInput.Root
 ├─ NumberInput.Label
-├─ NumberInput.Scrubber (optional)
 ├─ NumberInput.Control
+│  ├─ NumberInput.Scrubber (optional)
 │  ├─ NumberInput.DecrementTrigger
 │  ├─ NumberInput.Input
 │  └─ NumberInput.IncrementTrigger
@@ -115,6 +115,8 @@ Use `NumberInput.RootProvider` only with state created by `useNumberInput()`; do
 - Min/max/step: forwarded directly to Ark.
 - Precision and formatting: supported through `formatOptions`.
 - Scrubbing: supported through `NumberInput.Scrubber`.
+- Context and value text: supported through `NumberInput.Context`, `useNumberInputContext()`, and
+  `NumberInput.ValueText`.
 - Mouse wheel: supported through `allowMouseWheel`.
 - Field integration: preserved through Ark field context and the moduix `Field` wrapper.
 - Root provider: supported through `useNumberInput()` and `NumberInput.RootProvider`.
@@ -129,10 +131,12 @@ labels are managed by Ark and can be localized with `translations.incrementLabel
 Important Ark root props include `ids`, `name`, `form`, `disabled`, `readOnly`, `invalid`,
 `required`, `min`, `max`, `step`, `allowMouseWheel`, `allowOverflow`, `clampValueOnBlur`,
 `spinOnPress`, `inputMode`, `formatOptions`, `translations`, `onValueChange`, `onValueCommit`,
-`onValueInvalid`, and `onFocusChange`.
+`onValueInvalid`, and `onFocusChange`. Keep controlled values as strings, especially with
+locale-specific `formatOptions`; read `valueAsNumber` from `NumberInput.Context` when a numeric
+derived value or hidden form value is needed.
 
-The shipped CSS uses `data-disabled`, `data-readonly`, `data-invalid`, and `data-focus`. Ark also
-exposes `data-scope="number-input"` and `data-part` attributes for part-level selectors.
+The shipped CSS uses `data-disabled`, `data-invalid`, and `data-focus`. Ark also exposes
+`data-scrubbing`, `data-scope="number-input"`, and `data-part` attributes for part-level selectors.
 
 ## Defaults and styling
 
@@ -182,5 +186,7 @@ Keep the public barrel in sync with Ark provider/context/hooks. Docs examples mu
 
 ## Local changelog
 
+- 2026-06-26: Aligned scrubber composition, context/value-text coverage, Ark state docs, and CSS
+  variable references with the official Ark UI number input documentation.
 - 2026-06-19: Migrated from legacy `NumberField` to Ark UI `NumberInput`; renamed source, docs,
   registry item, slots, CSS variables, examples, and public exports to `number-input`.

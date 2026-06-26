@@ -7,7 +7,7 @@
     width: var(--number-input-width, auto);
     max-width: var(--number-input-max-width, none);
 
-    &:is([data-disabled], [data-readonly]) {
+    &[data-disabled] {
       opacity: var(--number-input-disabled-opacity, var(--opacity-disabled));
     }
   }
@@ -27,7 +27,7 @@
     user-select: none;
     cursor: ew-resize;
 
-    &:is([data-disabled], [data-readonly]) {
+    &[data-disabled] {
       cursor: default;
       opacity: var(--number-input-disabled-opacity, var(--opacity-disabled));
     }
@@ -88,7 +88,7 @@
       z-index: 1;
     }
 
-    &:is([data-disabled], [data-readonly], :disabled) {
+    &:is([data-disabled], :disabled) {
       opacity: var(--number-input-disabled-opacity, var(--opacity-disabled));
       pointer-events: none;
     }
@@ -167,7 +167,7 @@
       }
     }
 
-    &:is([data-disabled], [data-readonly]) {
+    &:is([data-disabled], :disabled) {
       opacity: var(--number-input-disabled-opacity, var(--opacity-disabled));
     }
   }

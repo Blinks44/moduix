@@ -5,6 +5,7 @@ icon: Component
 ---
 
 import {
+  ContextNumberInputExample,
   ControlledNumberInputExample,
   CustomIconsNumberInputExample,
   FormattedNumberInputExample,
@@ -104,8 +105,8 @@ aubx shadcn@latest add Blinks44/moduix/react-number-input
 ```text
 NumberInput.Root
 ├─ NumberInput.Label
-├─ NumberInput.Scrubber (optional)
 ├─ NumberInput.Control
+│  ├─ NumberInput.Scrubber (optional)
 │  ├─ NumberInput.DecrementTrigger
 │  ├─ NumberInput.Input
 │  └─ NumberInput.IncrementTrigger
@@ -154,6 +155,7 @@ the parsed number.
 
 - Use `formatOptions`, not `format`, for localized number formatting.
 - Use `translations.incrementLabel`, `translations.decrementLabel`, and `translations.valueText` for accessible localized labels.
+- Use `NumberInput.Context` to read `valueAsNumber` for derived UI or hidden numeric form values.
 - `min`, `max`, `step`, `allowOverflow`, `clampValueOnBlur`, `spinOnPress`, `inputMode`, and `allowMouseWheel` pass directly to Ark.
 - `onValueInvalid(details)` reports `rangeUnderflow` or `rangeOverflow` when the value exceeds configured bounds.
 - Use `ids` when external labels or descriptions need stable element IDs.
@@ -279,14 +281,47 @@ Render `NumberInput.Scrubber` when pointer dragging should change the value.
       export function NumberInputScrubberDemo() {
         return (
           <NumberInput defaultValue="250">
-            <NumberInput.Scrubber>
-              <NumberInput.Label>Drag to scrub</NumberInput.Label>
-            </NumberInput.Scrubber>
+            <NumberInput.Label>Drag to scrub</NumberInput.Label>
+            <NumberInput.Control>
+              <NumberInput.Scrubber>Drag</NumberInput.Scrubber>
+              <NumberInput.DecrementTrigger />
+              <NumberInput.Input />
+              <NumberInput.IncrementTrigger />
+            </NumberInput.Control>
+          </NumberInput>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{numberInputExampleCss}</Preview.CSS>
+  <Preview.Data>{numberInputNoData}</Preview.Data>
+</Preview>
+
+### Context
+
+Use `NumberInput.Context` for derived UI that needs the parsed numeric value.
+
+<Preview>
+  <ContextNumberInputExample />
+
+  <Preview.Code>
+    {`
+      import { NumberInput } from "@moduix/react";
+
+      export function ContextNumberInputDemo() {
+        return (
+          <NumberInput defaultValue="42">
+            <NumberInput.Context>
+              {(context) => <NumberInput.Label>Value: {context.valueAsNumber}</NumberInput.Label>}
+            </NumberInput.Context>
             <NumberInput.Control>
               <NumberInput.DecrementTrigger />
               <NumberInput.Input />
               <NumberInput.IncrementTrigger />
             </NumberInput.Control>
+            <NumberInput.ValueText className="number-input-context-value" />
           </NumberInput>
         );
       }
@@ -493,5 +528,5 @@ The trigger parts render moduix plus and minus icons by default. Provide childre
 - `data-slot="number-input-root"`, `number-input-root-provider`, `number-input-label`,
   `number-input-scrubber`, `number-input-control`, `number-input-decrement-trigger`,
   `number-input-input`, `number-input-increment-trigger`, and `number-input-value-text`.
-- Ark state hooks: `data-disabled`, `data-readonly`, `data-invalid`, and `data-focus`.
+- Ark state hooks: `data-disabled`, `data-invalid`, `data-focus`, and `data-scrubbing`.
 - Ark part hooks: `data-scope="number-input"` and `data-part` values matching the Ark anatomy.

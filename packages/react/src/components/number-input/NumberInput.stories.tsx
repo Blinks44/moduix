@@ -84,10 +84,9 @@ export const FractionDigits: Story = {
 export const Scrubber: Story = {
   render: () => (
     <NumberInput defaultValue="250">
-      <NumberInput.Scrubber>
-        <NumberInput.Label>Drag to scrub</NumberInput.Label>
-      </NumberInput.Scrubber>
+      <NumberInput.Label>Drag to scrub</NumberInput.Label>
       <NumberInput.Control>
+        <NumberInput.Scrubber>Drag</NumberInput.Scrubber>
         <NumberInput.DecrementTrigger />
         <NumberInput.Input />
         <NumberInput.IncrementTrigger />
@@ -140,6 +139,22 @@ export const WithFieldValidation: Story = {
       </NumberInput>
       <Field.ErrorText>Value should be between 1 and 10.</Field.ErrorText>
     </Field>
+  ),
+};
+
+export const Context: Story = {
+  render: () => (
+    <NumberInput defaultValue="42">
+      <NumberInput.Context>
+        {(context) => <NumberInput.Label>Value: {context.valueAsNumber}</NumberInput.Label>}
+      </NumberInput.Context>
+      <NumberInput.Control>
+        <NumberInput.DecrementTrigger />
+        <NumberInput.Input />
+        <NumberInput.IncrementTrigger />
+      </NumberInput.Control>
+      <NumberInput.ValueText />
+    </NumberInput>
   ),
 };
 

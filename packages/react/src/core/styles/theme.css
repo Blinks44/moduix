@@ -1823,7 +1823,7 @@
   --number-input-input-width: initial; /* 6rem */
   --number-input-label-color: initial; /* var(--color-foreground) */
   --number-input-label-font-size: initial; /* var(--text-sm) */
-  --number-input-label-font-weight: initial; /* var(--font-weight-medium) */
+  --number-input-label-font-weight: initial; /* var(--weight-medium) */
   --number-input-label-line-height: initial; /* var(--line-height-text-sm) */
   --number-input-max-width: initial; /* none */
   --number-input-radius: initial; /* var(--radius-md) */
