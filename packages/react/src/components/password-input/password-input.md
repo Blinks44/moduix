@@ -79,7 +79,9 @@ this primitive.
 
 Ark data attributes to preserve include `data-scope="password-input"`, `data-part`, `data-state` on
 `Input`, `VisibilityTrigger`, and `Indicator`, plus `data-disabled`, `data-invalid`, `data-readonly`,
-and `data-required` where upstream provides them.
+and `data-required` where upstream provides them. `Control` receives `data-disabled`,
+`data-invalid`, and `data-readonly`; shell styling should target those Ark attributes instead of
+deriving state through descendant selectors.
 
 ## Defaults and styling
 
@@ -89,8 +91,9 @@ runtime CSS variables for this primitive. Styling should target Ark attributes o
 `data-slot` hooks. The `Input` part must stay visually in sync with `Input` and `Field.Input`: the
 same padding, typography, invalid state, disabled opacity, and readonly surface all flow from the
 shared `--input-*` tokens unless a password-specific override is intentional. The bordered field
-shell now lives on `PasswordInput.Control`, so the input text area stops before the visibility
-trigger instead of extending underneath it.
+shell lives on `PasswordInput.Control`, so the input text area stays borderless and stops before the
+visibility trigger instead of extending underneath it. Keep docs CSS variables synchronized with the
+full public `--password-input-*` list in `src/core/styles/theme.css`.
 
 ## Intentional sugar and differences from upstream
 
@@ -108,6 +111,9 @@ component and barrel exports in the same migration style.
 
 ## Local changelog
 
+- 2026-06-26: Simplified `PasswordInput.Control` styling to use Ark state attributes directly,
+  removed an unused focus-border token, aligned padding fallbacks with shared Input tokens, and
+  synced public docs with the full password-input CSS variable contract.
 - 2026-06-20: Added missing public password-input styling variables and aligned trigger/icon
   defaults with the shared Button tokens.
 - 2026-06-20: Moved the shared field shell styling to `PasswordInput.Control` so the input area

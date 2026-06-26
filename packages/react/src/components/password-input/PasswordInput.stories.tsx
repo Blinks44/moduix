@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Field } from '../field';
 import { PasswordInput, usePasswordInput } from './PasswordInput';
 import styles from './PasswordInput.stories.module.css';
@@ -123,7 +123,7 @@ export const RootProvider: Story = {
 export const StrengthMeter: Story = {
   render: function StrengthMeterStory() {
     const [password, setPassword] = useState('asdfasdf');
-    const strength = useMemo(() => getPasswordStrength(password), [password]);
+    const strength = getPasswordStrength(password);
 
     return (
       <PasswordInput>

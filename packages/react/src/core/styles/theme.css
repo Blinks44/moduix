@@ -1874,23 +1874,22 @@
   --password-input-border-color: initial; /* var(--input-border-color, var(--color-border)) */
   --password-input-color: initial; /* var(--input-color, var(--color-foreground)) */
   --password-input-disabled-opacity: initial; /* var(--opacity-disabled) */
-  --password-input-focus-border-color: initial; /* var(--input-focus-border-color) */
   --password-input-focus-ring-color: initial; /* var(--input-focus-ring-color) */
   --password-input-font-size: initial; /* var(--input-font-size-md) */
-  --password-input-gap: initial; /* var(--spacing-1-5) */
+  --password-input-gap: initial; /* var(--field-gap, var(--spacing-1)) */
   --password-input-height: initial; /* var(--input-height-md) */
   --password-input-icon-size: initial; /* var(--button-icon-size, 1rem) */
-  --password-input-invalid-border-color: initial; /* var(--input-invalid-border-color) */
-  --password-input-invalid-focus-ring-color: initial; /* var(--input-invalid-focus-ring-color) */
+  --password-input-invalid-border-color: initial; /* var(--input-border-color-invalid, var(--color-destructive)) */
+  --password-input-invalid-focus-ring-color: initial; /* var(--input-border-color-invalid, var(--color-destructive)) */
   --password-input-label-color: initial; /* var(--color-foreground) */
   --password-input-label-font-size: initial; /* var(--text-sm) */
-  --password-input-label-font-weight: initial; /* var(--font-weight-medium) */
+  --password-input-label-font-weight: initial; /* var(--weight-medium) */
   --password-input-label-gap: initial; /* var(--field-label-gap, var(--spacing-1)) */
   --password-input-label-line-height: initial; /* var(--line-height-text-sm) */
   --password-input-line-height: initial; /* var(--input-line-height-md) */
   --password-input-max-width: initial; /* 20rem */
-  --password-input-padding-x: initial; /* var(--input-padding-x-md) */
-  --password-input-padding-y: initial; /* var(--input-padding-y-md) */
+  --password-input-padding-x: initial; /* var(--input-padding-x, var(--input-padding-x-md, var(--spacing-3))) */
+  --password-input-padding-y: initial; /* var(--input-padding-y, var(--input-padding-y-md, var(--spacing-2))) */
   --password-input-placeholder-color: initial; /* var(--input-placeholder-color) */
   --password-input-radius: initial; /* var(--input-radius, var(--radius-md)) */
   --password-input-readonly-bg: initial; /* var(--input-readonly-bg) */

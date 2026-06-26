@@ -239,29 +239,35 @@ Use `Pagination.Context` when custom controls need access to page helpers such a
 
   <Preview.Code>
     {`
-      <Pagination count={200} pageSize={10}>
-        <Pagination.Context>
-          {(pagination) => (
-            <div className="pagination-row">
-              <button type="button" onClick={() => pagination.goToFirstPage()}>
-                First
-              </button>
-              <button type="button" onClick={() => pagination.goToPrevPage()}>
-                Prev
-              </button>
-              <span className="pagination-muted">
-                Page {pagination.page} of {pagination.totalPages}
-              </span>
-              <button type="button" onClick={() => pagination.goToNextPage()}>
-                Next
-              </button>
-              <button type="button" onClick={() => pagination.goToLastPage()}>
-                Last
-              </button>
-            </div>
-          )}
-        </Pagination.Context>
-      </Pagination>
+      import { Pagination } from "@moduix/react";
+
+      export function PaginationContextDemo() {
+        return (
+          <Pagination count={200} pageSize={10}>
+            <Pagination.Context>
+              {(pagination) => (
+                <div className="pagination-row">
+                  <button type="button" onClick={() => pagination.goToFirstPage()}>
+                    First
+                  </button>
+                  <button type="button" onClick={() => pagination.goToPrevPage()}>
+                    Prev
+                  </button>
+                  <span className="pagination-muted">
+                    Page {pagination.page} of {pagination.totalPages}
+                  </span>
+                  <button type="button" onClick={() => pagination.goToNextPage()}>
+                    Next
+                  </button>
+                  <button type="button" onClick={() => pagination.goToLastPage()}>
+                    Last
+                  </button>
+                </div>
+              )}
+            </Pagination.Context>
+          </Pagination>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -279,33 +285,39 @@ Use `translations` for accessible labels and adjust the computed window with `si
 
   <Preview.Code>
     {`
-      <Pagination
-        className="pagination-demo"
-        count={400}
-        pageSize={20}
-        siblingCount={3}
-        translations={{
-          nextTriggerLabel: "Next page",
-          prevTriggerLabel: "Previous page",
-          itemLabel: (details) => \`Page \${details.page}\`,
-        }}
-      >
-        <Pagination.PrevTrigger />
-        <Pagination.Context>
-          {(pagination) =>
-            pagination.pages.map((page, index) =>
-              page.type === "page" ? (
-                <Pagination.Item key={index} {...page}>
-                  {page.value}
-                </Pagination.Item>
-              ) : (
-                <Pagination.Ellipsis key={index} index={index} />
-              ),
-            )
-          }
-        </Pagination.Context>
-        <Pagination.NextTrigger />
-      </Pagination>
+      import { Pagination } from "@moduix/react";
+
+      export function CustomizedPaginationDemo() {
+        return (
+          <Pagination
+            className="pagination-demo"
+            count={400}
+            pageSize={20}
+            siblingCount={3}
+            translations={{
+              nextTriggerLabel: "Next page",
+              prevTriggerLabel: "Previous page",
+              itemLabel: (details) => \`Page \${details.page}\`,
+            }}
+          >
+            <Pagination.PrevTrigger />
+            <Pagination.Context>
+              {(pagination) =>
+                pagination.pages.map((page, index) =>
+                  page.type === "page" ? (
+                    <Pagination.Item key={index} {...page}>
+                      {page.value}
+                    </Pagination.Item>
+                  ) : (
+                    <Pagination.Ellipsis key={index} index={index} />
+                  ),
+                )
+              }
+            </Pagination.Context>
+            <Pagination.NextTrigger />
+          </Pagination>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -323,35 +335,41 @@ of an array.
 
   <Preview.Code>
     {`
-      <Pagination count={users.length} pageSize={4}>
-        <Pagination.Context>
-          {(pagination) => (
-            <div className="pagination-stack">
-              <div className="pagination-users">
-                {pagination.slice(users).map((user) => (
-                  <div key={user.id} className="pagination-user">
-                    <strong>{user.name}</strong>
-                    <span className="pagination-muted">{user.email}</span>
+      import { Pagination } from "@moduix/react";
+
+      export function PaginationDataSlicingDemo() {
+        return (
+          <Pagination count={users.length} pageSize={4}>
+            <Pagination.Context>
+              {(pagination) => (
+                <div className="pagination-stack">
+                  <div className="pagination-users">
+                    {pagination.slice(users).map((user) => (
+                      <div key={user.id} className="pagination-user">
+                        <strong>{user.name}</strong>
+                        <span className="pagination-muted">{user.email}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-              <div className="pagination-row">
-                <Pagination.PrevTrigger />
-                {pagination.pages.map((page, index) =>
-                  page.type === "page" ? (
-                    <Pagination.Item key={index} {...page}>
-                      {page.value}
-                    </Pagination.Item>
-                  ) : (
-                    <Pagination.Ellipsis key={index} index={index} />
-                  ),
-                )}
-                <Pagination.NextTrigger />
-              </div>
-            </div>
-          )}
-        </Pagination.Context>
-      </Pagination>
+                  <div className="pagination-row">
+                    <Pagination.PrevTrigger />
+                    {pagination.pages.map((page, index) =>
+                      page.type === "page" ? (
+                        <Pagination.Item key={index} {...page}>
+                          {page.value}
+                        </Pagination.Item>
+                      ) : (
+                        <Pagination.Ellipsis key={index} index={index} />
+                      ),
+                    )}
+                    <Pagination.NextTrigger />
+                  </div>
+                </div>
+              )}
+            </Pagination.Context>
+          </Pagination>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -368,30 +386,36 @@ Use `type="link"` with `getPageUrl(details)` when page changes should be real na
 
   <Preview.Code>
     {`
-      <Pagination
-        className="pagination-demo"
-        count={200}
-        pageSize={10}
-        siblingCount={2}
-        type="link"
-        getPageUrl={(details) => \`?page=\${details.page}\`}
-      >
-        <Pagination.PrevTrigger />
-        <Pagination.Context>
-          {(pagination) =>
-            pagination.pages.map((page, index) =>
-              page.type === "page" ? (
-                <Pagination.Item key={index} {...page}>
-                  {page.value}
-                </Pagination.Item>
-              ) : (
-                <Pagination.Ellipsis key={index} index={index} />
-              ),
-            )
-          }
-        </Pagination.Context>
-        <Pagination.NextTrigger />
-      </Pagination>
+      import { Pagination } from "@moduix/react";
+
+      export function LinkPaginationDemo() {
+        return (
+          <Pagination
+            className="pagination-demo"
+            count={200}
+            pageSize={10}
+            siblingCount={2}
+            type="link"
+            getPageUrl={(details) => \`?page=\${details.page}\`}
+          >
+            <Pagination.PrevTrigger />
+            <Pagination.Context>
+              {(pagination) =>
+                pagination.pages.map((page, index) =>
+                  page.type === "page" ? (
+                    <Pagination.Item key={index} {...page}>
+                      {page.value}
+                    </Pagination.Item>
+                  ) : (
+                    <Pagination.Ellipsis key={index} index={index} />
+                  ),
+                )
+              }
+            </Pagination.Context>
+            <Pagination.NextTrigger />
+          </Pagination>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -408,31 +432,37 @@ Use `pagination.pageRange` when nearby UI should describe the visible item range
 
   <Preview.Code>
     {`
-      <Pagination count={200} pageSize={10}>
-        <Pagination.Context>
-          {(pagination) => (
-            <div className="pagination-stack">
-              <div className="pagination-row">
-                <Pagination.PrevTrigger />
-                {pagination.pages.map((page, index) =>
-                  page.type === "page" ? (
-                    <Pagination.Item key={index} {...page}>
-                      {page.value}
-                    </Pagination.Item>
-                  ) : (
-                    <Pagination.Ellipsis key={index} index={index} />
-                  ),
-                )}
-                <Pagination.NextTrigger />
-              </div>
-              <p className="pagination-muted">
-                Showing {pagination.pageRange.start + 1}-{pagination.pageRange.end} of{" "}
-                {pagination.count} results
-              </p>
-            </div>
-          )}
-        </Pagination.Context>
-      </Pagination>
+      import { Pagination } from "@moduix/react";
+
+      export function PaginationPageRangeDemo() {
+        return (
+          <Pagination count={200} pageSize={10}>
+            <Pagination.Context>
+              {(pagination) => (
+                <div className="pagination-stack">
+                  <div className="pagination-row">
+                    <Pagination.PrevTrigger />
+                    {pagination.pages.map((page, index) =>
+                      page.type === "page" ? (
+                        <Pagination.Item key={index} {...page}>
+                          {page.value}
+                        </Pagination.Item>
+                      ) : (
+                        <Pagination.Ellipsis key={index} index={index} />
+                      ),
+                    )}
+                    <Pagination.NextTrigger />
+                  </div>
+                  <p className="pagination-muted">
+                    Showing {pagination.pageRange.start + 1}-{pagination.pageRange.end} of{" "}
+                    {pagination.count} results
+                  </p>
+                </div>
+              )}
+            </Pagination.Context>
+          </Pagination>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -449,71 +479,87 @@ Call `pagination.setPageSize(nextSize)` from context to let a separate control u
 
   <Preview.Code>
     {`
-      <Pagination count={200} defaultPageSize={10}>
-        <Pagination.Context>
-          {(pagination) => (
-            <div className="pagination-stack">
-              <div className="pagination-row">
-                <Select
-                  className="pagination-page-size-select"
-                  collection={pageSizes}
-                  value={[String(pagination.pageSize)]}
-                  positioning={{ sameWidth: true }}
-                  onValueChange={(details) => {
-                    const nextValue = details.value[0];
-                    if (nextValue) pagination.setPageSize(Number(nextValue));
-                  }}
-                >
-                  <Select.Label>Items per page</Select.Label>
-                  <Select.Control>
-                    <Select.Trigger>
-                      <Select.ValueText placeholder="Page size" />
-                    </Select.Trigger>
-                    <Select.Indicators>
-                      <Select.Indicator />
-                    </Select.Indicators>
-                  </Select.Control>
-                  <Select.Context>
-                    {(select) =>
-                      select.open ? (
-                        <Portal>
-                          <Select.Positioner>
-                            <Select.Content>
-                              {pageSizes.items.map((item) => (
-                                <Select.Item key={item.value} item={item}>
-                                  <Select.ItemText>{item.label}</Select.ItemText>
-                                  <Select.ItemIndicator />
-                                </Select.Item>
-                              ))}
-                            </Select.Content>
-                          </Select.Positioner>
-                        </Portal>
-                      ) : null
-                    }
-                  </Select.Context>
-                  <Select.HiddenSelect />
-                </Select>
-              </div>
-              <div className="pagination-row">
-                <Pagination.PrevTrigger />
-                {pagination.pages.map((page, index) =>
-                  page.type === "page" ? (
-                    <Pagination.Item key={index} {...page}>
-                      {page.value}
-                    </Pagination.Item>
-                  ) : (
-                    <Pagination.Ellipsis key={index} index={index} />
-                  ),
-                )}
-                <Pagination.NextTrigger />
-              </div>
-              <p className="pagination-muted">
-                Page {pagination.page} of {pagination.totalPages}
-              </p>
-            </div>
-          )}
-        </Pagination.Context>
-      </Pagination>
+      import { createListCollection } from "@ark-ui/react/collection";
+      import { Pagination, Portal, Select } from "@moduix/react";
+
+      const pageSizes = createListCollection({
+        items: [
+          { label: "5", value: "5" },
+          { label: "10", value: "10" },
+          { label: "20", value: "20" },
+          { label: "50", value: "50" },
+        ],
+      });
+
+      export function PaginationPageSizeControlDemo() {
+        return (
+          <Pagination count={200} defaultPageSize={10}>
+            <Pagination.Context>
+              {(pagination) => (
+                <div className="pagination-stack">
+                  <div className="pagination-row">
+                    <Select
+                      className="pagination-page-size-select"
+                      collection={pageSizes}
+                      value={[String(pagination.pageSize)]}
+                      positioning={{ sameWidth: true }}
+                      onValueChange={(details) => {
+                        const nextValue = details.value[0];
+                        if (nextValue) pagination.setPageSize(Number(nextValue));
+                      }}
+                    >
+                      <Select.Label>Items per page</Select.Label>
+                      <Select.Control>
+                        <Select.Trigger>
+                          <Select.ValueText placeholder="Page size" />
+                        </Select.Trigger>
+                        <Select.Indicators>
+                          <Select.Indicator />
+                        </Select.Indicators>
+                      </Select.Control>
+                      <Select.Context>
+                        {(select) =>
+                          select.open ? (
+                            <Portal>
+                              <Select.Positioner>
+                                <Select.Content>
+                                  {pageSizes.items.map((item) => (
+                                    <Select.Item key={item.value} item={item}>
+                                      <Select.ItemText>{item.label}</Select.ItemText>
+                                      <Select.ItemIndicator />
+                                    </Select.Item>
+                                  ))}
+                                </Select.Content>
+                              </Select.Positioner>
+                            </Portal>
+                          ) : null
+                        }
+                      </Select.Context>
+                      <Select.HiddenSelect />
+                    </Select>
+                  </div>
+                  <div className="pagination-row">
+                    <Pagination.PrevTrigger />
+                    {pagination.pages.map((page, index) =>
+                      page.type === "page" ? (
+                        <Pagination.Item key={index} {...page}>
+                          {page.value}
+                        </Pagination.Item>
+                      ) : (
+                        <Pagination.Ellipsis key={index} index={index} />
+                      ),
+                    )}
+                    <Pagination.NextTrigger />
+                  </div>
+                  <p className="pagination-muted">
+                    Page {pagination.page} of {pagination.totalPages}
+                  </p>
+                </div>
+              )}
+            </Pagination.Context>
+          </Pagination>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -588,25 +634,31 @@ Add `FirstTrigger` and `LastTrigger` when users need explicit jumps to the first
 
   <Preview.Code>
     {`
-      <Pagination className="pagination-demo" count={400} pageSize={20} siblingCount={2}>
-        <Pagination.FirstTrigger />
-        <Pagination.PrevTrigger />
-        <Pagination.Context>
-          {(pagination) =>
-            pagination.pages.map((page, index) =>
-              page.type === "page" ? (
-                <Pagination.Item key={index} {...page}>
-                  {page.value}
-                </Pagination.Item>
-              ) : (
-                <Pagination.Ellipsis key={index} index={index} />
-              ),
-            )
-          }
-        </Pagination.Context>
-        <Pagination.NextTrigger />
-        <Pagination.LastTrigger />
-      </Pagination>
+      import { Pagination } from "@moduix/react";
+
+      export function PaginationWithEdgesDemo() {
+        return (
+          <Pagination className="pagination-demo" count={400} pageSize={20} siblingCount={2}>
+            <Pagination.FirstTrigger />
+            <Pagination.PrevTrigger />
+            <Pagination.Context>
+              {(pagination) =>
+                pagination.pages.map((page, index) =>
+                  page.type === "page" ? (
+                    <Pagination.Item key={index} {...page}>
+                      {page.value}
+                    </Pagination.Item>
+                  ) : (
+                    <Pagination.Ellipsis key={index} index={index} />
+                  ),
+                )
+              }
+            </Pagination.Context>
+            <Pagination.NextTrigger />
+            <Pagination.LastTrigger />
+          </Pagination>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -624,23 +676,29 @@ attributes, and the public `--pagination-*` variables.
 
   <Preview.Code>
     {`
-      <Pagination className="custom-pagination" count={200} defaultPage={5} pageSize={10}>
-        <Pagination.PrevTrigger />
-        <Pagination.Context>
-          {(pagination) =>
-            pagination.pages.map((page, index) =>
-              page.type === "page" ? (
-                <Pagination.Item key={index} {...page}>
-                  {page.value}
-                </Pagination.Item>
-              ) : (
-                <Pagination.Ellipsis key={index} index={index} />
-              ),
-            )
-          }
-        </Pagination.Context>
-        <Pagination.NextTrigger />
-      </Pagination>
+      import { Pagination } from "@moduix/react";
+
+      export function CustomPaginationDemo() {
+        return (
+          <Pagination className="custom-pagination" count={200} defaultPage={5} pageSize={10}>
+            <Pagination.PrevTrigger />
+            <Pagination.Context>
+              {(pagination) =>
+                pagination.pages.map((page, index) =>
+                  page.type === "page" ? (
+                    <Pagination.Item key={index} {...page}>
+                      {page.value}
+                    </Pagination.Item>
+                  ) : (
+                    <Pagination.Ellipsis key={index} index={index} />
+                  ),
+                )
+              }
+            </Pagination.Context>
+            <Pagination.NextTrigger />
+          </Pagination>
+        );
+      }
     `}
 
   </Preview.Code>
