@@ -13,7 +13,7 @@
 
   .customRoot {
     --marquee-width: 34rem;
-    --marquee-edge-size: 28%;
+    --marquee-edge-size: 25%;
     --marquee-edge-color: var(--color-card);
     padding-block: var(--spacing-3);
     border: var(--border-width-sm) solid var(--color-border);
@@ -64,5 +64,13 @@
     display: flex;
     gap: var(--spacing-2);
     justify-content: flex-end;
+  }
+
+  .status {
+    display: flex;
+    gap: var(--spacing-3);
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
   }
 }

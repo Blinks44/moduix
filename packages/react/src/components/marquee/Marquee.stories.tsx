@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
+import { useState } from 'react';
 import { Button } from '../button';
 import { Marquee, useMarquee } from './Marquee';
 import styles from './Marquee.stories.module.css';
@@ -75,6 +76,25 @@ function RootProviderStory() {
   );
 }
 
+function FiniteLoopsStory() {
+  const [loopCount, setLoopCount] = useState(0);
+  const [completeCount, setCompleteCount] = useState(0);
+
+  return (
+    <div className={styles.providerStack}>
+      <BasicMarquee
+        loopCount={3}
+        onLoopComplete={() => setLoopCount((value) => value + 1)}
+        onComplete={() => setCompleteCount((value) => value + 1)}
+      />
+      <div className={styles.status}>
+        <span>Loops: {loopCount}</span>
+        <span>Completed: {completeCount}</span>
+      </div>
+    </div>
+  );
+}
+
 export const Basic: Story = {
   render: () => <BasicMarquee />,
 };
@@ -95,6 +115,20 @@ export const Reverse: Story = {
 
 export const Vertical: Story = {
   render: () => <BasicMarquee side="bottom" className={styles.verticalRoot} />,
+};
+
+export const Speed: Story = {
+  render: () => (
+    <div className={styles.providerStack}>
+      <BasicMarquee speed={25} />
+      <BasicMarquee speed={100} />
+    </div>
+  ),
+};
+
+export const FiniteLoops: Story = {
+  name: 'Finite Loops',
+  render: () => <FiniteLoopsStory />,
 };
 
 export const WithEdges: Story = {

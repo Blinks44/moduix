@@ -104,6 +104,29 @@ Use `Marquee.RootProvider` with `useMarquee()` when controls outside the root ne
 - `ids`: preserved on the root for stable root, viewport, and content IDs.
 - `Marquee.Context` and `useMarqueeContext`: exported for state reads inside the tree.
 
+## Props and callbacks
+
+| Prop or callback     | Notes                                                         |
+| -------------------- | ------------------------------------------------------------- |
+| `side`               | `start`, `end`, `top`, or `bottom`; top/bottom are vertical.  |
+| `speed`              | Pixels per second; Ark calculates duration from content size. |
+| `spacing`            | Gap between content instances and items.                      |
+| `delay`              | Delay before animation starts, in seconds.                    |
+| `loopCount`          | Number of loops; `0` means infinite loops.                    |
+| `autoFill`           | Duplicates content until the viewport is filled.              |
+| `pauseOnInteraction` | Pauses on hover and focus. Recommended for readable content.  |
+| `reverse`            | Reverses animation direction without changing `side`.         |
+| `defaultPaused`      | Initial uncontrolled pause state.                             |
+| `paused`             | Controlled pause state. Pair with `onPauseChange`.            |
+| `onPauseChange`      | Receives Ark pause status details.                            |
+| `onLoopComplete`     | Fires after each loop iteration.                              |
+| `onComplete`         | Fires after the final loop when `loopCount` is finite.        |
+| `translations`       | Localized root label. Use this or `aria-label`.               |
+| `ids`                | Stable ids for root, viewport, and content instances.         |
+| `asChild`            | Preserved on every Ark part for host element replacement.     |
+| `Marquee.Edge side`  | Required edge side: `start`, `end`, `top`, or `bottom`.       |
+| `RootProvider.value` | Required `UseMarqueeReturn` from `useMarquee()`.              |
+
 ## Accessibility and state
 
 Ark provides `role="region"` with `aria-roledescription="marquee"`, hides cloned content from
@@ -112,13 +135,15 @@ should pass a descriptive `aria-label` or `translations.root`.
 
 Relevant Ark attributes and variables:
 
-| Target  | Attribute or variable                                                                  | Meaning                                  |
-| ------- | -------------------------------------------------------------------------------------- | ---------------------------------------- |
-| Root    | `data-state="paused" \| "idle"`, `data-paused`, `data-orientation`                     | Playback and orientation state.          |
-| Content | `data-index`, `data-orientation`, `data-side`, `data-reverse`, `data-clone`            | Animation direction and clone identity.  |
-| Edge    | `data-side`, `data-orientation`                                                        | Fade side and orientation.               |
-| Root    | `--marquee-duration`, `--marquee-delay`, `--marquee-loop-count`, `--marquee-translate` | Animation values consumed by CSS.        |
-| Root    | `--marquee-spacing`                                                                    | Spacing between content instances/items. |
+| Target   | Attribute or variable                                                                  | Meaning                                  |
+| -------- | -------------------------------------------------------------------------------------- | ---------------------------------------- |
+| Root     | `data-state="paused" \| "idle"`, `data-paused`, `data-orientation`                     | Playback and orientation state.          |
+| Viewport | `data-orientation`, `data-side`                                                        | Layout orientation and scroll side.      |
+| Content  | `data-index`, `data-orientation`, `data-side`, `data-reverse`, `data-clone`            | Animation direction and clone identity.  |
+| Item     | `data-scope="marquee"`, `data-part="item"`                                             | Individual item styling hook.            |
+| Edge     | `data-side`, `data-orientation`                                                        | Fade side and orientation.               |
+| Root     | `--marquee-duration`, `--marquee-delay`, `--marquee-loop-count`, `--marquee-translate` | Animation values consumed by CSS.        |
+| Root     | `--marquee-spacing`                                                                    | Spacing between content instances/items. |
 
 `paused` with `onPauseChange(details)` is the controlled playback path. `defaultPaused` sets the
 initial uncontrolled state. Refs forward to the actual Ark DOM part for every wrapped part.
@@ -179,3 +204,5 @@ content animation when Ark sets `data-paused` on the root and disables animation
   examples, and registry metadata.
 - 2026-06-22: Kept the default root visually neutral and moved framed demo treatment to custom
   styling examples.
+- 2026-06-26: Audited the Ark migration, documented the full prop/callback surface and data
+  attributes, and aligned stories with the official Ark example set.

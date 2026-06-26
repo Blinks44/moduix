@@ -75,7 +75,7 @@ export const marqueeVerticalCss = `
 export const marqueeCustomStylingCss = `
   .marquee-custom {
     --marquee-width: 34rem;
-    --marquee-edge-size: 28%;
+    --marquee-edge-size: 25%;
     --marquee-edge-color: var(--color-card);
     padding-block: var(--spacing-3);
     border: var(--border-width-sm) solid var(--color-border);

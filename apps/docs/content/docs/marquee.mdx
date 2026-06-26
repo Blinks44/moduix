@@ -147,7 +147,7 @@ state object.
 Use `asChild` on Ark parts when replacing the host element. Keep the replacement child semantic and
 single. Use `ids` when a custom tree needs stable root, viewport, or content ids.
 
-### Default props
+### Props and callbacks
 
 | Prop                 | Default | Notes                                                            |
 | -------------------- | ------- | ---------------------------------------------------------------- |
@@ -160,6 +160,15 @@ single. Use `ids` when a custom tree needs stable root, viewport, or content ids
 | `pauseOnInteraction` | `false` | Pauses on hover and focus. Recommended for readable content.     |
 | `reverse`            | `false` | Reverses animation direction without changing `side`.            |
 | `defaultPaused`      | `false` | Initial uncontrolled pause state.                                |
+| `paused`             | -       | Controlled pause state. Pair with `onPauseChange`.               |
+| `onPauseChange`      | -       | Receives Ark pause status details.                               |
+| `onLoopComplete`     | -       | Fires after each loop iteration.                                 |
+| `onComplete`         | -       | Fires after the final loop when `loopCount` is finite.           |
+| `translations`       | -       | Localized root label. Use this or `aria-label`.                  |
+| `ids`                | -       | Stable ids for root, viewport, and content instances.            |
+| `asChild`            | -       | Preserved on every Ark part for host element replacement.        |
+| `Marquee.Edge side`  | -       | Required edge side: `start`, `end`, `top`, or `bottom`.          |
+| `RootProvider.value` | -       | Required `UseMarqueeReturn` from `useMarquee()`.                 |
 
 ### Behavioral notes
 
@@ -571,7 +580,8 @@ CSS variables and part classes; keep Ark state attributes for behavioral styling
 
 - `data-slot="marquee-root"`, `marquee-root-provider`, `marquee-viewport`, `marquee-content`,
   `marquee-item`, and `marquee-edge`.
-- Ark hooks: `data-scope="marquee"`, `data-part`, `data-state="paused|idle"`,
-  `data-orientation`, `data-side`, `data-paused`, `data-reverse`, and `data-clone`.
+- Ark hooks: `data-scope="marquee"`, `data-part="root|viewport|content|item|edge"`,
+  `data-state="paused|idle"`, `data-orientation`, `data-side`, `data-index`, `data-paused`,
+  `data-reverse`, and `data-clone`.
 - Ark CSS variables: `--marquee-duration`, `--marquee-spacing`, `--marquee-delay`,
   `--marquee-loop-count`, and `--marquee-translate`.
