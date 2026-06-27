@@ -26,13 +26,13 @@ const TagRoot = forwardRef<HTMLSpanElement, TagRootProps>(function TagRoot(
   return (
     <ark.span
       ref={ref}
+      {...props}
       data-scope="tag"
       data-part="root"
       data-slot="tag-root"
       data-size={size}
       data-variant={variant}
       className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
     />
   );
 });
@@ -44,11 +44,11 @@ const TagLabel = forwardRef<HTMLSpanElement, TagLabelProps>(function TagLabel(
   return (
     <ark.span
       ref={ref}
+      {...props}
       data-scope="tag"
       data-part="label"
       data-slot="tag-label"
       className={clsx(styles.label, normalizeClassName(className))}
-      {...props}
     />
   );
 });
@@ -60,11 +60,11 @@ const TagStartElement = forwardRef<HTMLSpanElement, TagStartElementProps>(functi
   return (
     <ark.span
       ref={ref}
+      {...props}
       data-scope="tag"
       data-part="start-element"
       data-slot="tag-start-element"
       className={clsx(styles.startElement, normalizeClassName(className))}
-      {...props}
     />
   );
 });
@@ -76,11 +76,11 @@ const TagEndElement = forwardRef<HTMLSpanElement, TagEndElementProps>(function T
   return (
     <ark.span
       ref={ref}
+      {...props}
       data-scope="tag"
       data-part="end-element"
       data-slot="tag-end-element"
       className={clsx(styles.endElement, normalizeClassName(className))}
-      {...props}
     />
   );
 });
@@ -109,17 +109,18 @@ const TagCloseTrigger = forwardRef<HTMLButtonElement, TagCloseTriggerProps>(
         asChild={asChild}
         type={asChild ? type : (type ?? 'button')}
         disabled={disabled}
+        aria-disabled={ariaDisabled}
+        aria-label={
+          ariaLabel ??
+          (!asChild && children == null && ariaLabelledBy == null ? DEFAULT_CLOSE_LABEL : undefined)
+        }
+        aria-labelledby={ariaLabelledBy}
+        {...props}
         data-scope="tag"
         data-part="close-trigger"
         data-slot="tag-close-trigger"
         data-disabled={isDisabled ? '' : undefined}
         className={clsx(styles.closeTrigger, normalizeClassName(className))}
-        aria-disabled={ariaDisabled}
-        aria-label={
-          ariaLabel ??
-          (children == null && ariaLabelledBy == null ? DEFAULT_CLOSE_LABEL : undefined)
-        }
-        aria-labelledby={ariaLabelledBy}
         onClick={(event) => {
           if (isDisabled) {
             event.preventDefault();
@@ -129,9 +130,8 @@ const TagCloseTrigger = forwardRef<HTMLButtonElement, TagCloseTriggerProps>(
 
           onClick?.(event);
         }}
-        {...props}
       >
-        {children ?? <CloseIcon />}
+        {children ?? (!asChild ? <CloseIcon /> : undefined)}
       </ark.button>
     );
   },

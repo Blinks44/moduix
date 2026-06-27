@@ -23,5 +23,4 @@
 
 .customOutline {
   --tag-border-color: color-mix(in oklab, var(--color-foreground) 18%, transparent);
-  --tag-padding-x-md: 0.625rem;
 }

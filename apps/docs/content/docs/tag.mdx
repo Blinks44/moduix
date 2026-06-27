@@ -18,7 +18,10 @@ import {
 
 ## API Reference
 
-There is no dedicated Ark UI `Tag` primitive, so moduix owns this component contract and builds it with the Ark [`ark` factory](https://ark-ui.com/docs/guides/composition) and Ark [styling attributes](https://ark-ui.com/docs/guides/styling). Its part model follows the Chakra UI [`Tag`](https://chakra-ui.com/docs/components/tag) recipe: `Root`, `Label`, `StartElement`, `EndElement`, and `CloseTrigger`.
+Ark UI does not ship a dedicated `tag` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Choosing the right component
 
@@ -143,13 +146,13 @@ semantic element, and it owns the interaction behavior.
 
 ### Default props
 
-| Surface            | Prop         | Default      | Notes                                                          |
-| ------------------ | ------------ | ------------ | -------------------------------------------------------------- |
-| `Tag`              | `variant`    | `default`    | `default`, `secondary`, `outline`, `ghost`, `destructive`      |
-| `Tag`              | `size`       | `md`         | `sm`, `md`                                                     |
-| `Tag.CloseTrigger` | `type`       | `button`     | Prevents accidental form submission when not using `asChild`.  |
-| `Tag.CloseTrigger` | `children`   | close icon   | Replaced when custom children are passed.                      |
-| `Tag.CloseTrigger` | `aria-label` | `Remove tag` | Applied only with no custom children and no `aria-labelledby`. |
+| Surface            | Prop         | Default      | Notes                                                                         |
+| ------------------ | ------------ | ------------ | ----------------------------------------------------------------------------- |
+| `Tag`              | `variant`    | `default`    | `default`, `secondary`, `outline`, `ghost`, `destructive`                     |
+| `Tag`              | `size`       | `md`         | `sm`, `md`                                                                    |
+| `Tag.CloseTrigger` | `type`       | `button`     | Prevents accidental form submission when not using `asChild`.                 |
+| `Tag.CloseTrigger` | `children`   | close icon   | Used only when not using `asChild`; replaced by custom children.              |
+| `Tag.CloseTrigger` | `aria-label` | `Remove tag` | Applied only with no custom children, no `aria-labelledby`, and no `asChild`. |
 
 ### Behavioral notes
 
@@ -158,6 +161,7 @@ semantic element, and it owns the interaction behavior.
 - Built-in variants use the same color semantics as `Badge`; `Tag` differs by part anatomy and close affordance.
 - Give each close trigger a specific accessible name when several removable tags appear together.
 - `asChild` follows Ark factory composition and requires one child element.
+- `Tag.CloseTrigger asChild` requires an explicit semantic child; the default close icon is rendered only by the default button host.
 
 ## Examples
 
@@ -529,7 +533,6 @@ Use local CSS variables when a token needs custom tone or spacing without changi
 
       .customOutline {
         --tag-border-color: color-mix(in oklab, var(--color-foreground) 18%, transparent);
-        --tag-padding-x-md: 0.625rem;
       }
 
       .row {

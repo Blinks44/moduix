@@ -2,7 +2,7 @@
 
 Upstream docs:
 
-- Ark UI: no dedicated `Tag` component; use the Ark composition/factory model at https://ark-ui.com/docs/guides/composition and styling model at https://ark-ui.com/docs/guides/styling
+- Ark UI: no dedicated `Tag` component; use the Ark factory, composition, styling, and ref guides at https://ark-ui.com/docs/guides/composition#the-ark-factory, https://ark-ui.com/docs/guides/composition, https://ark-ui.com/docs/guides/styling, and https://ark-ui.com/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/tag
 
 ## Purpose
@@ -12,8 +12,12 @@ values that may need inline leading, trailing, or close affordances.
 
 ## Upstream model to preserve
 
-Ark does not ship a `Tag` primitive. The moduix wrapper uses `@ark-ui/react/factory` so each part
-supports Ark-style `asChild`, ref forwarding, `className`, `data-scope`, and `data-part` attributes.
+Ark UI does not ship a dedicated `tag` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance. The moduix wrapper uses `@ark-ui/react/factory`
+so each part supports Ark-style `asChild`, ref forwarding, `className`, `data-scope`, and
+`data-part` attributes.
 
 The public anatomy follows Chakra's Ark-aligned `Tag` recipe: `Root`, `Label`, `StartElement`,
 `EndElement`, and `CloseTrigger`. There is no provider, context, state hook, hidden input, managed
@@ -25,7 +29,7 @@ keyboard model, or callback details object to mirror.
 - `Tag` accepts Ark factory `span` props plus `variant` and `size`.
 - `Tag.Label`, `Tag.StartElement`, and `Tag.EndElement` are Ark factory `span` parts.
 - `Tag.CloseTrigger` is an Ark factory `button` part with default `type="button"` and a default
-  close icon.
+  close icon when not using `asChild`.
 - The component owns no selected or removed state. Parent widgets own list mutation and event
   handling.
 
@@ -96,20 +100,23 @@ Use `asChild` only when the root itself needs native semantics:
 
 - Root renders a presentational `span` by default and has no ARIA state.
 - `Tag.CloseTrigger` renders a `button`, defaults to `type="button"`, and adds fallback
-  `aria-label="Remove tag"` only when no children and no `aria-labelledby` are provided.
+  `aria-label="Remove tag"` only when not using `asChild`, no children, and no `aria-labelledby`
+  are provided.
 - Pass a specific accessible name to `Tag.CloseTrigger` when several tags are shown together.
 - `Tag.CloseTrigger` prevents click handlers from firing when `disabled` or `aria-disabled` is true.
 - `asChild` requires one semantic child. The child owns keyboard, focus, and click behavior.
+- `Tag.CloseTrigger asChild` requires an explicit semantic child; the default close icon is rendered
+  only by the default button host.
 
 ## Defaults and styling
 
-| Surface            | Prop         | Default      |
-| ------------------ | ------------ | ------------ |
-| `Tag`              | `variant`    | `default`    |
-| `Tag`              | `size`       | `md`         |
-| `Tag.CloseTrigger` | `type`       | `button`     |
-| `Tag.CloseTrigger` | `children`   | close icon   |
-| `Tag.CloseTrigger` | `aria-label` | `Remove tag` |
+| Surface            | Prop         | Default                                                                      |
+| ------------------ | ------------ | ---------------------------------------------------------------------------- |
+| `Tag`              | `variant`    | `default`                                                                    |
+| `Tag`              | `size`       | `md`                                                                         |
+| `Tag.CloseTrigger` | `type`       | `button`                                                                     |
+| `Tag.CloseTrigger` | `children`   | close icon when not using `asChild`                                          |
+| `Tag.CloseTrigger` | `aria-label` | `Remove tag` when not using `asChild`, no children, and no `aria-labelledby` |
 
 Public CSS variables live in `packages/react/src/core/styles/theme.css` and start with `--tag-*`. Variant
 colors intentionally match `Badge` so shared variant names carry the same visual meaning across
@@ -143,5 +150,7 @@ or `aria-disabled` states.
   exports.
 - 2026-06-21: Aligned built-in `Tag` variant colors with `Badge` so `default`, `secondary`,
   `outline`, `ghost`, and `destructive` share the same color semantics.
+- 2026-06-27: Protected Ark/moduix data hooks from rest-prop overrides, clarified `CloseTrigger`
+  `asChild` behavior, and simplified outline/ghost styling.
 - Added the first `Tag` component with root, label, and remove parts, compact size variants, and
   public CSS variables for token-style customization.

@@ -45,16 +45,14 @@
       color: var(--tag-color, var(--color-secondary-foreground));
     }
 
-    &[data-variant='outline'] {
+    &[data-variant='outline'],
+    &[data-variant='ghost'] {
       background-color: var(--tag-bg, transparent);
-      border-color: var(--tag-border-color, var(--color-border));
       color: var(--tag-color, var(--color-foreground));
     }
 
-    &[data-variant='ghost'] {
-      background-color: var(--tag-bg, transparent);
-      border-color: var(--tag-border-color, transparent);
-      color: var(--tag-color, var(--color-foreground));
+    &[data-variant='outline'] {
+      border-color: var(--tag-border-color, var(--color-border));
     }
 
     &[data-variant='destructive'] {
