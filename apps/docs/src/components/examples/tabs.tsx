@@ -74,16 +74,7 @@ export const tabsCustomStylingCss = `.inline-tabs {
 }
 
 .inline-tabs-trigger {
-  height: var(--size-md);
-  border: 0;
-  border-radius: var(--radius-md);
-  padding-inline: var(--spacing-3);
-  background: transparent;
-  color: var(--color-muted-foreground);
-}
-
-.inline-tabs-trigger[data-selected] {
-  color: var(--color-foreground);
+  --tabs-tab-radius: var(--radius-sm);
 }
 
 .inline-tabs-indicator {
@@ -93,6 +84,7 @@ export const tabsCustomStylingCss = `.inline-tabs {
   height: var(--border-width-md);
   border-radius: var(--radius-full);
   background: var(--color-foreground);
+  translate: none;
   transition:
     left var(--tabs-line-indicator-transition, var(--transition-default)),
     width var(--tabs-line-indicator-transition, var(--transition-default));

@@ -53,22 +53,7 @@
 }
 
 .inlineTrigger {
-  height: var(--size-md);
-  margin: 0;
-  appearance: none;
-  border: 0;
-  border-radius: var(--radius-md);
-  padding-inline: var(--spacing-3);
-  background: transparent;
-  color: var(--color-muted-foreground);
-  font: inherit;
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
-  cursor: pointer;
-
-  &[data-selected] {
-    color: var(--color-foreground);
-  }
+  --tabs-tab-radius: var(--radius-sm);
 }
 
 .inlineIndicator {
@@ -79,6 +64,7 @@
   height: var(--border-width-md);
   border-radius: var(--radius-full);
   background: var(--color-foreground);
+  translate: none;
   transition:
     left var(--tabs-line-indicator-transition, var(--transition-default)),
     width var(--tabs-line-indicator-transition, var(--transition-default));
@@ -87,10 +73,6 @@
 .inlineContent {
   flex: 1;
   min-width: 0;
-
-  &[hidden]:not([hidden='until-found']) {
-    display: none;
-  }
 }
 
 .inlineInput {

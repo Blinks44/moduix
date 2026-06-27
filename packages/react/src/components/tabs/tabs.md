@@ -27,9 +27,6 @@ State and callbacks must remain Ark-shaped. `onValueChange(details)` exposes the
 - `variant?: 'default' | 'line'` is the only moduix visual sugar on `Tabs.Root` and
   `Tabs.RootProvider`.
 - `Tabs.List` does not auto-render `Tabs.Indicator`. Consumers render the indicator explicitly.
-- Legacy flat exports (`TabsList`, `TabsTab`, `TabsPanel`, `TabsIndicator`) and legacy props such as
-  `render`, `nativeButton`, `activateOnFocus`, `keepMounted`, and `renderBeforeHydration` are not
-  part of the contract.
 
 ## Anatomy and exported parts
 
@@ -137,12 +134,13 @@ The root defaults to a column layout and switches to row layout for `orientation
 - Keep wrappers thin and namespace-first. Do not re-export flat part aliases unless a future product
   decision explicitly reverses this migration rule.
 - Preserve Ark callback detail objects and do not add compatibility shims for old legacy signatures.
-- Keep custom styling examples on Ark variables `--left`, `--top`, `--width`, and `--height`; do not
-  reintroduce legacy `--active-tab-*` variables.
+- Keep custom styling examples on Ark variables `--left`, `--top`, `--width`, and `--height`.
 - If docs import `useTabs` or `useTabsContext`, verify public barrel exports remain in sync.
 
 ## Local changelog
 
+- 2026-06-27: Included moduix `variant` in the public root prop types and simplified custom styling
+  examples to use Ark indicator positioning without duplicate trigger styles.
 - 2026-06-21: Migrated Tabs to Ark UI React. Replaced flat part exports with
   namespace-first `Tabs.*`, added `RootProvider`, `Context`, `useTabs`, and `useTabsContext`,
   switched callbacks/state/styling to Ark contracts, and removed legacy compatibility props.
