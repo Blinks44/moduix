@@ -93,9 +93,9 @@ export const DisabledAndReadOnly: Story = {
 export const FieldValidation: Story = {
   render: () => {
     return (
-      <Field className={storyStyles.field}>
+      <Field className={storyStyles.field} invalid required>
         <Field.Label>Details</Field.Label>
-        <Textarea required minLength={10} placeholder="Add at least 10 characters" />
+        <Textarea minLength={10} placeholder="Add at least 10 characters" />
         <Field.HelperText>
           Include enough detail for the team to reproduce the issue.
         </Field.HelperText>

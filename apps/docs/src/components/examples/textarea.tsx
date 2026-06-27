@@ -1,7 +1,7 @@
 import { Field, Textarea } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './textarea.module.css';
 
 export const textareaCssProperties: CssPropertyInput[] = [
@@ -17,11 +17,7 @@ export const textareaCssProperties: CssPropertyInput[] = [
   ['--textarea-color', 'var(--color-foreground)', 'Controls the textarea text color.'],
   ['--textarea-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--textarea-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  [
-    '--textarea-focus-ring-offset',
-    'calc(0px - var(--textarea-border-width, var(--border-width-sm)))',
-    'Controls focus ring offset.',
-  ],
+  ['--textarea-focus-ring-offset', '-1px', 'Controls focus ring offset.'],
   [
     '--textarea-focus-ring-width',
     'var(--textarea-border-width, var(--border-width-sm))',
@@ -49,39 +45,10 @@ export const textareaCssProperties: CssPropertyInput[] = [
   ['--textarea-transition', 'var(--transition-default)', 'Controls state transition timing.'],
   ['--textarea-width', '100%', 'Controls textarea width.'],
 ];
-export const textareaPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--textarea-bg', 'var(--color-background)', 'Controls the textarea background color.'],
-  ['--textarea-border-color', 'var(--color-border)', 'Controls the textarea border color.'],
-  ['--textarea-border-width', 'var(--border-width-sm)', 'Controls the textarea border width.'],
-  ['--textarea-color', 'var(--color-foreground)', 'Controls the textarea text color.'],
-  ['--textarea-font-size', 'var(--text-md)', 'Controls default font size.'],
-  ['--textarea-line-height', 'var(--line-height-text-md)', 'Controls default line height.'],
-  ['--textarea-min-height', '6rem', 'Controls default minimum textarea height.'],
-  ['--textarea-padding-x', '0.875rem', 'Controls default horizontal padding.'],
-  ['--textarea-padding-y', '0.5rem', 'Controls default vertical padding.'],
-  ['--textarea-placeholder-color', 'var(--color-muted-foreground)', 'Controls placeholder color.'],
-  ['--textarea-radius', 'var(--radius-md)', 'Controls textarea corner radius.'],
-  ['--textarea-width', '100%', 'Controls textarea width.'],
-];
 
 export function TextareaCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable properties={textareaCssProperties.map(normalizeCssProperty)} />
-  );
-}
-
-export function TextareaCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={textareaPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
   );
 }
 
@@ -154,9 +121,9 @@ export function AutoResizeTextareaExample() {
 
 export function FieldValidationTextareaExample() {
   return (
-    <Field className={styles.field}>
+    <Field className={styles.field} invalid required>
       <Field.Label>Details</Field.Label>
-      <Textarea required minLength={10} placeholder="Add at least 10 characters" />
+      <Textarea minLength={10} placeholder="Add at least 10 characters" />
       <Field.HelperText>
         Include enough detail for the team to reproduce the issue.
       </Field.HelperText>

@@ -17,10 +17,11 @@ import {
 
 ## API Reference
 
-Ark UI does not expose a dedicated Textarea primitive. moduix `Textarea` is a styled
-[`Field.Textarea`](https://ark-ui.com/docs/components/field) root from Ark Field; Chakra's
-[`Textarea`](https://chakra-ui.com/docs/components/textarea) recipe informs the documented
-`autoresize`, resize, Field, validation, and ref patterns.
+Ark UI does not ship a dedicated textarea primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance, and delegates field behavior to
+[Ark Field.Textarea](https://ark-ui.com/docs/components/field).
 
 ## Choosing the right component
 
@@ -302,7 +303,8 @@ Use Ark `autoresize` when the textarea should grow with its content.
 
 ### Field Validation
 
-Use `Field` with `Field.ErrorText` for native validity and accessible error messaging.
+Put invalid state on `Field`; Ark applies `aria-invalid` and `data-invalid` to the textarea and
+connects the error text.
 
 <Preview>
   <FieldValidationTextareaExample />
@@ -313,9 +315,9 @@ Use `Field` with `Field.ErrorText` for native validity and accessible error mess
 
       export function TextareaFieldValidationDemo() {
         return (
-          <Field className={styles.field}>
+          <Field className={styles.field} invalid required>
             <Field.Label>Details</Field.Label>
-            <Textarea required minLength={10} placeholder="Add at least 10 characters" />
+            <Textarea minLength={10} placeholder="Add at least 10 characters" />
             <Field.HelperText>
               Include enough detail for the team to reproduce the issue.
             </Field.HelperText>
@@ -340,6 +342,7 @@ Use `Field` with `Field.ErrorText` for native validity and accessible error mess
   <Preview.Data>
     {`
       const validation = {
+        invalid: true,
         required: true,
         minLength: 10,
       };
@@ -464,5 +467,5 @@ around it.
 - `Field` wrapper for width, max width, spacing, label layout, description, and validation text
 - `data-slot="textarea-root"` for stable targeting in scoped styles
 - `data-autoresize` when `autoresize` is enabled
-- `data-invalid`, `[disabled]`, `data-disabled`, `:read-only`, and `data-readonly` for state-aware
-  styling
+- `data-invalid`, `[aria-invalid='true']`, `[disabled]`, `data-disabled`, `:read-only`, and
+  `data-readonly` for state-aware styling

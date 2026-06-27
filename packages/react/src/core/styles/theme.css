@@ -2878,7 +2878,7 @@
   --textarea-color: initial; /* var(--color-foreground) */
   --textarea-disabled-opacity: initial; /* var(--opacity-disabled) */
   --textarea-focus-ring-color: initial; /* var(--color-ring) */
-  --textarea-focus-ring-offset: initial; /* calc(0px - var(--textarea-border-width, var(--border-width-sm))) */
+  --textarea-focus-ring-offset: initial; /* -1px */
   --textarea-focus-ring-width: initial; /* var(--textarea-border-width, var(--border-width-sm)) */
   --textarea-font-size: initial; /* var(--text-md) */
   --textarea-line-height: initial; /* var(--line-height-text-md) */

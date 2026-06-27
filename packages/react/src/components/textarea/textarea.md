@@ -3,6 +3,9 @@
 Upstream docs:
 
 - Ark UI: no dedicated Textarea primitive; follows https://ark-ui.com/docs/components/field and `Field.Textarea`
+- Ark UI composition: https://ark-ui.com/docs/guides/composition
+- Ark UI styling: https://ark-ui.com/docs/guides/styling
+- Ark UI ref: https://ark-ui.com/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/textarea
 
 ## Purpose
@@ -11,7 +14,13 @@ Upstream docs:
 
 ## Upstream model to preserve
 
-Ark exposes textarea behavior through `@ark-ui/react/field`, not through a standalone textarea primitive. Preserve the `Field.Textarea` contract: native textarea props, `autoresize`, ref forwarding to `HTMLTextAreaElement`, `asChild` from Ark polymorphic props, and inherited `Field.Root` / `Fieldset.Root` state.
+Ark UI does not ship a dedicated `textarea` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance, and delegates field behavior to Ark
+`Field.Textarea`.
+
+Preserve the `Field.Textarea` contract: native textarea props, `autoresize`, ref forwarding to `HTMLTextAreaElement`, `asChild` from Ark polymorphic props, and inherited `Field.Root` / `Fieldset.Root` state.
 
 Chakra's Textarea recipe informs the public examples for helper text, error text, `resize`, `autoresize`, Hook Form-style refs, and direct native textarea usage.
 
@@ -61,7 +70,7 @@ surface with edit, submit, and cancel controls.
 ## Upstream feature coverage
 
 - Ark Field anatomy: covered through the optional `Field` wrapper plus `Textarea` as the control.
-- Ark Field examples: textarea, textarea autoresize, custom control state, and root/provider behavior remain available through the `Field` component; `Textarea` itself intentionally stays root-only.
+- Ark Field examples: textarea, textarea autoresize, field state, and custom control patterns remain available through the `Field` component; `Textarea` itself intentionally stays root-only.
 - Ark Forms guide: accessible labels, helper text, error text, required state, invalid state, `readOnly`, `disabled`, and `Fieldset` inheritance are preserved by Ark.
 - Chakra Textarea examples: basic usage, Field composition, helper/error text, native resizing, autoresize, refs, and form-library integration are supported.
 - Inline read/edit flows belong to `Editable`, not `Textarea`.
@@ -72,7 +81,7 @@ surface with edit, submit, and cancel controls.
 - The forwarded ref targets the native `HTMLTextAreaElement`, which is the correct target for invalid focus and form-library registration.
 - The textarea needs an accessible name from `Field.Label`, a native `<label>`, or `aria-label`.
 - Ark links `Field.Label`, `Field.HelperText`, and `Field.ErrorText` to the textarea through IDs and `aria-describedby`.
-- Ark applies `required`, `disabled`, `readOnly`, `aria-invalid`, `data-required`, `data-disabled`, `data-readonly`, and `data-invalid` from field context.
+- Ark applies `required`, `disabled`, `readOnly`, `aria-invalid`, `data-required`, `data-disabled`, `data-readonly`, and `data-invalid` from `Field` context.
 - No `HiddenInput` is needed because native `<textarea>` already participates in form submission and form reset.
 - `asChild` is inherited from Ark polymorphic props; if used, the child must be a single semantic textarea-compatible element.
 
@@ -84,7 +93,7 @@ surface with edit, submit, and cancel controls.
 - `data-part="textarea"`
 - `data-slot="textarea-root"`
 - `data-autoresize` when `autoresize` is true
-- native `[disabled]`, `[readonly]`, `:read-only`, and Ark `data-disabled`, `data-readonly`, `data-invalid`
+- native `[disabled]`, `[aria-invalid='true']`, `[readonly]`, `:read-only`, and Ark `data-disabled`, `data-readonly`, `data-invalid`
 
 Public CSS variables from `theme.css`:
 
@@ -116,6 +125,7 @@ Public CSS variables from `theme.css`:
 
 ## Local changelog
 
+- 2026-06-27: Protected Ark/moduix data hooks from rest-prop overrides, aligned the validation example with Ark `Field invalid`, and refreshed docs wording for the no-dedicated-primitive contract.
 - 2026-06-22: Removed the manual read-only/editing story and docs path; inline editing now belongs
   to `Editable`.
 - 2026-06-21: Migrated implementation to Ark `Field.Textarea`; replaced `autoResize` with `autoresize` and removed `onValueChange`.
