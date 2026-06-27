@@ -2,8 +2,8 @@ import type { ReactNode } from 'react';
 import { createListCollection } from '@ark-ui/react/collection';
 import { Field, Portal, Select, useSelect } from '@moduix/react';
 import { useMemo, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 
 interface OptionItem {
   label: string;
@@ -135,7 +135,7 @@ export const selectOverrideCssProperties: CssPropertyInput[] = [
     'Controls group label line height.',
   ],
   ['--select-item-group-label-padding-x', '0.625rem', 'Controls group label horizontal padding.'],
-  ['--select-item-group-label-padding-y', '0.35rem', 'Controls group label vertical padding.'],
+  ['--select-item-group-label-padding-y', '0.375rem', 'Controls group label vertical padding.'],
   ['--select-item-indicator-color', 'currentColor', 'Controls selected indicator color.'],
   ['--select-item-indicator-icon-size', '0.75rem', 'Controls selected indicator icon size.'],
   ['--select-item-indicator-size', '0.875rem', 'Controls selected indicator box size.'],
@@ -162,43 +162,10 @@ export const selectOverrideCssProperties: CssPropertyInput[] = [
   ['--select-width', '14rem', 'Controls root width.'],
 ];
 
-export const selectPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--select-bg', 'var(--color-background)', 'Controls trigger background.'],
-  ['--select-bg-active', 'var(--color-muted)', 'Controls trigger background when open.'],
-  ['--select-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
-  ['--select-border-color', 'var(--color-border)', 'Controls trigger border color.'],
-  ['--select-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--select-content-bg', 'var(--color-popover)', 'Controls popup background.'],
-  ['--select-content-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--select-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--select-highlight-bg', 'var(--color-accent)', 'Controls highlighted item background.'],
-  [
-    '--select-highlight-color',
-    'var(--color-accent-foreground)',
-    'Controls highlighted item text color.',
-  ],
-  ['--select-radius', 'var(--radius-md)', 'Controls trigger and popup radius.'],
-];
-
-export function SelectCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function SelectCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={selectOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function SelectCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={selectPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }
@@ -225,17 +192,11 @@ function SelectControl({ placeholder = 'Select an option' }: { placeholder?: str
 
 function SelectPopupContent({ children }: { children: ReactNode }) {
   return (
-    <Select.Context>
-      {(select) =>
-        select.open ? (
-          <Portal>
-            <Select.Positioner>
-              <Select.Content>{children}</Select.Content>
-            </Select.Positioner>
-          </Portal>
-        ) : null
-      }
-    </Select.Context>
+    <Portal>
+      <Select.Positioner>
+        <Select.Content>{children}</Select.Content>
+      </Select.Positioner>
+    </Portal>
   );
 }
 

@@ -26,7 +26,7 @@ import {
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/select" />
 
-## Choosing The Right Component
+## Choosing the right component
 
 Use `Select` when users choose from a fixed collection and the trigger should stay read-only.
 
@@ -93,9 +93,8 @@ Keep `HiddenSelect` in the tree for native form submission and browser autofill.
 
   <Preview.CSS>
     {`
-      [data-slot="select-content"] {
-        min-width: var(--reference-width);
-        max-height: min(var(--select-content-max-height), var(--available-height));
+      [data-slot="select-root"] {
+        --select-width: 16rem;
       }
     `}
 
@@ -115,7 +114,7 @@ Keep `HiddenSelect` in the tree for native form submission and browser autofill.
   </Preview.Data>
 </Preview>
 
-## Install With Shadcn (Optional)
+## Install with shadcn (optional)
 
 If you want `Select` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
@@ -206,7 +205,20 @@ Select / Select.Root
 
 ## Composition
 
-### Default Props
+### Recommended composition
+
+Use the explicit Ark part tree: root, label, control, trigger, value text, optional clear and
+indicator buttons, portaled positioner/content, items, and `HiddenSelect`.
+
+`Select` is the short root form and is equivalent to `Select.Root`.
+
+### When to go custom
+
+Use `asChild` when a part must render a custom host element, but keep a single semantic child that
+can receive Ark props. Use `Select.List` for custom list wrappers and virtualization paths; regular
+selects can render items directly in `Select.Content`.
+
+### Default props
 
 | Prop                    | Default | Notes                                                          |
 | ----------------------- | ------- | -------------------------------------------------------------- |
@@ -220,7 +232,7 @@ Select / Select.Root
 | `unmountOnExit`         | `false` | Removes popup content after close when set with lazy mounting. |
 | `ValueText.placeholder` | -       | Text shown when the value array is empty.                      |
 
-### State And Callbacks
+### Behavioral notes
 
 `value`, `defaultValue`, and `onValueChange(details)` use string arrays. Read
 `details.value` for selected keys and `details.items` for the selected collection items.
@@ -228,6 +240,10 @@ Select / Select.Root
 `onOpenChange(details)`, `onHighlightChange(details)`, and `onSelect(details)` keep Ark's detail
 object signatures. `Field.Root` and `Fieldset.Root` can provide disabled, invalid, required, and
 read-only state through Ark context.
+
+Keep `HiddenSelect` in normal form usage for native submission, autofill, and reset behavior. For
+very large virtualized collections, compose a lightweight hidden input with `useSelectContext`
+instead of rendering one native option per item.
 
 ## Examples
 
@@ -274,7 +290,7 @@ Control the selected string array from React state and update it from `details.v
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`[data-slot="select-control"][data-focus] [data-slot="select-trigger"] { outline-color: var(--color-ring); }`}</Preview.CSS>
+  <Preview.CSS>{`[data-slot="select-root"] { --select-width: 14rem; }`}</Preview.CSS>
   <Preview.Data>{`const themes = createListCollection({ items: themeItems });`}</Preview.Data>
 </Preview>
 
@@ -394,7 +410,7 @@ Use `groupBy` on the collection and render `collection.group()` with `ItemGroup`
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`[data-slot="select-item-group-label"] { background: transparent; }`}</Preview.CSS>
+  <Preview.CSS>{`[data-slot="select-item-group-label"] { color: var(--color-muted-foreground); }`}</Preview.CSS>
   <Preview.Data>{`const produceItems = [{ label: "Apple", value: "apple", type: "Fruits" }];`}</Preview.Data>
 </Preview>
 
@@ -483,7 +499,7 @@ to a form field.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`[data-slot="select-hidden-select"] { position: absolute; }`}</Preview.CSS>
+  <Preview.CSS>{`form [data-slot="select-root"] { --select-width: 16rem; }`}</Preview.CSS>
   <Preview.Data>{`const submitted = new FormData(event.currentTarget).get("theme");`}</Preview.Data>
 </Preview>
 
@@ -524,7 +540,7 @@ Use `lazyMount` and `unmountOnExit` when popup content should only exist while t
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`[data-slot="select-content"][data-state="closed"] { animation-name: select-content-closed; }`}</Preview.CSS>
+  <Preview.CSS>{`[data-slot="select-content"] { --select-content-closed-scale: 0.96; }`}</Preview.CSS>
   <Preview.Data>{`const fruits = createListCollection({ items: fruitItems });`}</Preview.Data>
 </Preview>
 
@@ -771,7 +787,7 @@ Recreate or update the collection when the available items change.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{`[data-slot="select-root"] + [data-slot="select-root"] { margin-top: var(--spacing-3); }`}</Preview.CSS>
+  <Preview.CSS>{`input + [data-slot="select-root"] { margin-top: var(--spacing-3); }`}</Preview.CSS>
   <Preview.Data>{`const [query, setQuery] = useState("");`}</Preview.Data>
 </Preview>
 
@@ -816,7 +832,7 @@ public `--select-*` CSS variables shown below.
   </Tabs>
 </div>
 
-### Styling Hooks
+### Styling hooks
 
 - Root and root provider expose `data-slot="select-root"` and `data-slot="select-root-provider"`.
 - Ark parts keep `data-scope="select"` and `data-part` for anatomy selectors.

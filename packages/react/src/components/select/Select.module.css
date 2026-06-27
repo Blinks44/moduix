@@ -258,7 +258,7 @@
   }
 
   .itemGroupLabel {
-    padding-block: var(--select-item-group-label-padding-y, 0.35rem);
+    padding-block: var(--select-item-group-label-padding-y, 0.375rem);
     padding-inline: var(--select-item-group-label-padding-x, 0.625rem);
     color: var(--select-item-group-label-color, var(--color-muted-foreground));
     font-size: var(--select-item-group-label-font-size, var(--text-xs));

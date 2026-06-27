@@ -33,6 +33,8 @@ explicit popup composition, `HiddenSelect`, and `RootProvider` / context hooks.
 - `Select.ItemTextContent`, `Select.ItemTextIcon`, and `Select.ItemTextLabel` are moduix span
   helpers for richer item text layout.
 - legacy flat aliases and compatibility APIs are intentionally removed.
+- Do not gate `Portal`, `Positioner`, or `Content` with `Select.Context` and `select.open`;
+  Ark's `lazyMount`, `unmountOnExit`, `present`, and exit callbacks own presence.
 
 ## Anatomy and exported parts
 
@@ -130,15 +132,17 @@ export function SelectDemo() {
 - Basic, controlled, root provider, multiple, grouping, field, form usage, lazy mount,
   select-on-highlight, max selection, select all, overflow, dynamic collection, and custom item
   layout are represented in docs/stories.
-- Async loading and virtualized rendering are supported by Ark through `collection`,
-  `useListCollection`, and `scrollToIndexFn`; add task-specific examples when product docs need
-  those larger integrations.
+- Async loading, reactive collections, and virtualized rendering are supported by Ark through
+  `collection`, `useListCollection`, and `scrollToIndexFn`; add task-specific examples when
+  product docs need those larger integrations.
 - Ark `Select.List` is exported for custom list and virtualization paths, but the simple content
   path can render items directly in `Select.Content`.
 
 ## Accessibility and state
 
 - Keep `Select.HiddenSelect` for form submission, browser autofill, and form reset behavior.
+- For very large virtualized collections, avoid `HiddenSelect` and compose a lightweight hidden
+  input with `useSelectContext` so the DOM does not render one native option for every item.
 - Forward refs to the Ark DOM part for root, trigger, control, content, and item parts.
 - Preserve Ark state attributes: `data-state`, `data-focus`, `data-invalid`, `data-disabled`,
   `data-readonly`, `data-required`, `data-placeholder-shown`, `data-highlighted`, and item
@@ -158,6 +162,8 @@ export function SelectDemo() {
 - `Select.Content` uses Ark `--reference-width`, `--available-width`, `--available-height`, and
   `--transform-origin`.
 - Open/closed animation is tied to Ark `data-state` attributes.
+- Group labels use a standard `0.375rem` vertical padding default through
+  `--select-item-group-label-padding-y`.
 - Public theme variables are documented in `apps/docs/src/components/examples/select.tsx`.
 
 ## Intentional sugar and differences from upstream
@@ -181,9 +187,10 @@ export function SelectDemo() {
 
 ## Local changelog
 
+- 2026-06-27: Removed docs-only manual popup gating so examples preserve Ark presence behavior,
+  documented virtualized hidden input guidance, and normalized group label padding to `0.375rem`.
 - 2026-06-24: Removed collection helper re-exports from the Select public surface; docs now import
   `createListCollection` and `useListCollection` directly from Ark UI.
-
 - 2026-06-20: Reduced trigger end padding automatically when no clear trigger is rendered, so
   indicator-only selects no longer reserve empty clear-button space.
 - 2026-06-19: Made closed popup content inert for stacked docs previews, removed sticky group

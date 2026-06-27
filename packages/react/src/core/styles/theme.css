@@ -2369,7 +2369,7 @@
   --select-item-group-label-font-weight: initial; /* var(--weight-semibold) */
   --select-item-group-label-line-height: initial; /* var(--line-height-text-xs) */
   --select-item-group-label-padding-x: initial; /* 0.625rem */
-  --select-item-group-label-padding-y: initial; /* 0.35rem */
+  --select-item-group-label-padding-y: initial; /* 0.375rem */
   --select-item-indicator-color: initial; /* currentColor */
   --select-item-indicator-icon-size: initial; /* 0.75rem */
   --select-item-indicator-size: initial; /* 0.875rem */
