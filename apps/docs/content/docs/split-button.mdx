@@ -10,22 +10,24 @@ import {
   SplitButtonExample,
   SplitButtonIconExample,
   SplitButtonLinkActionExample,
+  SplitButtonMenuCompositionExample,
   SplitButtonSizesExample,
   SplitButtonStylingExample,
   SplitButtonVariantsExample,
   splitButtonCustomStylingCss,
   splitButtonExampleCss,
   splitButtonItemsData,
+  splitButtonMenuCompositionData,
   splitButtonSizesData,
   splitButtonVariantsData,
 } from '@/components/examples/split-button';
 
 ## API Reference
 
-Ark UI does not provide a dedicated Split Button primitive. `SplitButton` is a moduix-owned
-composition built on [Ark Menu](https://ark-ui.com/docs/components/menu), the
-[Ark `asChild` composition model](https://ark-ui.com/docs/guides/composition), and the
-[Chakra Button split-menu recipe](https://chakra-ui.com/docs/components/button#split-menu).
+Ark UI does not ship a dedicated split-button primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Basic
 
@@ -152,8 +154,8 @@ parts.
 Use `asChild` on `SplitButton.Action` when the primary action should render as a semantic link or
 another compatible element.
 
-Use `asChild` on `SplitButton.Trigger` only with a single semantic child that can receive Ark Menu
-trigger props and keyboard behavior.
+Use `asChild` on `SplitButton.Trigger` only with a single semantic child that can receive button
+props, Ark Menu trigger ARIA, and keyboard behavior.
 
 Use `positioning` on `SplitButton.Root` for popup placement. Keep `Portal`,
 `SplitButton.Positioner`, and `SplitButton.Content` explicit so consumers can style or configure the
@@ -176,8 +178,9 @@ When the menu itself needs advanced state access, compose directly with `Menu.Ro
 
 - `SplitButton` has no legacy render contract and no flat part exports.
 - `SplitButton.Action` follows the shared moduix `Button` `asChild` contract.
-- `SplitButton.Trigger` receives Ark Menu trigger data attributes such as `data-state`, `data-side`,
-  `data-placement`, and `data-controls`.
+- `SplitButton.Trigger` renders a moduix `Button` as the Ark Menu trigger host. It keeps
+  `data-slot="split-button-trigger"` and receives Ark trigger ARIA/state attributes such as
+  `aria-expanded`, `aria-controls`, and `data-state`.
 - `SplitButton.Positioner` receives Ark Menu CSS variables such as `--reference-width`,
   `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`.
 - The root `variant` excludes the `link` button variant because grouped link-style split buttons do
@@ -384,6 +387,51 @@ parts explicit.
   <Preview.Data>{`const positioning = { placement: "bottom-start", gutter: 8 };`}</Preview.Data>
 </Preview>
 
+### Menu Composition
+
+Use shared `Menu.*` parts inside `SplitButton.Content` when secondary actions need groups,
+separators, checkbox items, radio items, or link rows.
+
+<Preview>
+  <SplitButtonMenuCompositionExample />
+
+  <Preview.Code>
+    {`
+      import { Menu, Portal, SplitButton } from "@moduix/react";
+
+      export function SplitButtonMenuCompositionDemo() {
+        return (
+          <SplitButton variant="outline">
+            <SplitButton.Action>Copy</SplitButton.Action>
+            <SplitButton.Trigger aria-label="More copy actions" />
+            <Portal>
+              <SplitButton.Positioner>
+                <SplitButton.Content>
+                  <Menu.ItemGroup>
+                    <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
+                    <Menu.Item value="copy">Copy</Menu.Item>
+                    <Menu.Item value="duplicate">Duplicate</Menu.Item>
+                  </Menu.ItemGroup>
+                  <Menu.Separator />
+                  <Menu.ItemGroup>
+                    <Menu.ItemGroupLabel>Export</Menu.ItemGroupLabel>
+                    <Menu.Item value="export-pdf">Export PDF</Menu.Item>
+                    <Menu.Item value="export-csv">Export CSV</Menu.Item>
+                  </Menu.ItemGroup>
+                </SplitButton.Content>
+              </SplitButton.Positioner>
+            </Portal>
+          </SplitButton>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{splitButtonExampleCss}</Preview.CSS>
+  <Preview.Data>{splitButtonMenuCompositionData}</Preview.Data>
+</Preview>
+
 ### Custom Styling
 
 Use root `className` and stable `data-slot` hooks when the grouped control needs a custom tone.
@@ -473,7 +521,7 @@ visual treatment.
 - `data-slot="split-button-trigger"` targets the dropdown trigger side.
 - `data-slot="split-button-positioner"` targets the Ark Menu positioner wrapper.
 - `data-slot="split-button-content"` targets the Ark Menu content surface.
-- `SplitButton.Trigger` carries Ark Menu trigger state attributes including `data-state="open" |
-"closed"`.
+- `SplitButton.Trigger` renders through the shared `Button` host and carries Ark Menu trigger ARIA
+  and state attributes including `data-state="open" | "closed"`.
 - `SplitButton.Content` carries Ark Menu content attributes including `data-state`, `data-side`,
   `data-placement`, `data-nested`, and `data-has-nested`.

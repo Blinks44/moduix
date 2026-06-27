@@ -42,19 +42,11 @@
     padding-inline: 0.625rem;
   }
 
-  .trigger[data-size='md'] {
-    padding-inline: 0.75rem;
-  }
-
   .trigger[data-size='lg'] {
     padding-inline: 0.875rem;
   }
 
   .trigger[data-size='xl'] {
     padding-inline: 1rem;
-  }
-
-  .trigger :where(svg) {
-    flex-shrink: 0;
   }
 }

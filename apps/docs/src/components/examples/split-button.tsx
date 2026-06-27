@@ -64,6 +64,11 @@ export const splitButtonSizesData = `
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 `;
 
+export const splitButtonMenuCompositionData = `
+const clipboardItems = ["Copy", "Duplicate"];
+const exportItems = ["Export PDF", "Export CSV"];
+`;
+
 function SplitButtonMenuItems({ includeSeparator = true }: { includeSeparator?: boolean }) {
   return (
     <>
@@ -191,6 +196,32 @@ export function SplitButtonCustomPositioningExample() {
           <SplitButton.Content>
             <Menu.Item value="export-pdf">Export PDF</Menu.Item>
             <Menu.Item value="export-csv">Export CSV</Menu.Item>
+          </SplitButton.Content>
+        </SplitButton.Positioner>
+      </Portal>
+    </SplitButton>
+  );
+}
+
+export function SplitButtonMenuCompositionExample() {
+  return (
+    <SplitButton variant="outline">
+      <SplitButton.Action>Copy</SplitButton.Action>
+      <SplitButton.Trigger aria-label="More copy actions" />
+      <Portal>
+        <SplitButton.Positioner>
+          <SplitButton.Content>
+            <Menu.ItemGroup>
+              <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
+              <Menu.Item value="copy">Copy</Menu.Item>
+              <Menu.Item value="duplicate">Duplicate</Menu.Item>
+            </Menu.ItemGroup>
+            <Menu.Separator />
+            <Menu.ItemGroup>
+              <Menu.ItemGroupLabel>Export</Menu.ItemGroupLabel>
+              <Menu.Item value="export-pdf">Export PDF</Menu.Item>
+              <Menu.Item value="export-csv">Export CSV</Menu.Item>
+            </Menu.ItemGroup>
           </SplitButton.Content>
         </SplitButton.Positioner>
       </Portal>

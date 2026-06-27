@@ -96,19 +96,19 @@ const SplitButtonTrigger = forwardRef<ComponentRef<typeof Menu.Trigger>, SplitBu
     ref,
   ) {
     const context = useSplitButtonContext('SplitButton.Trigger');
-    const resolvedChildren = children ?? <ChevronDownIcon />;
+    const isIconOnly = children == null;
 
     return (
       <Menu.Trigger
         ref={ref}
         asChild
         data-slot="split-button-trigger"
-        aria-label={children ? ariaLabel : (ariaLabel ?? 'More actions')}
+        aria-label={isIconOnly ? (ariaLabel ?? 'More actions') : ariaLabel}
         className={clsx(styles.trigger, normalizeClassName(className))}
         {...props}
       >
         <Button asChild={asChild} size={size ?? context.size} variant={variant ?? context.variant}>
-          {resolvedChildren}
+          {children ?? <ChevronDownIcon />}
         </Button>
       </Menu.Trigger>
     );

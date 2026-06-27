@@ -33,8 +33,8 @@ actions.
 - Root `variant` and `size` provide shared defaults for `Action` and `Trigger`.
 - `Action` forwards the shared `Button` API except root-provided `size` and `variant` become the
   default values.
-- `Trigger` renders an Ark `Menu.Trigger asChild` around a moduix `Button` and defaults to a chevron
-  icon with `aria-label="More actions"` when no children are provided.
+- `Trigger` renders a moduix `Button` as the Ark `Menu.Trigger` host and defaults to a chevron icon
+  with `aria-label="More actions"` when no children are provided.
 - Shared `Portal`, `SplitButton.Positioner`, and `SplitButton.Content` expose the real popup
   structure. Consumers place shared `Menu.*` rows inside `SplitButton.Content`.
 
@@ -108,10 +108,10 @@ export function SplitButtonExample() {
 
 - The primary action is a real button by default and can use `asChild` for a single compatible custom
   child, such as a link.
-- The trigger is Ark `Menu.Trigger`; it receives menu keyboard behavior, `aria-expanded`,
-  `aria-controls`, and state attributes from Ark.
+- The trigger is a moduix `Button` host wired to Ark `Menu.Trigger`; it receives menu keyboard
+  behavior, `aria-expanded`, `aria-controls`, and state attributes from Ark.
 - `SplitButton.Trigger` `asChild` is forwarded to the inner Button. Use it only with one semantic
-  child that can receive button and menu trigger props.
+  child that can receive button props, Ark Menu trigger ARIA, and keyboard behavior.
 - Root callbacks keep Ark detail objects, including `onOpenChange(details)`.
 - `SplitButton.Positioner` preserves Ark Menu positioning variables: `--reference-width`,
   `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`, `--z-index`, and
@@ -151,6 +151,9 @@ export function SplitButtonExample() {
 
 ## Local changelog
 
+- 2026-06-27: Clarified the trigger DOM contract after the Ark Menu migration: the host keeps the
+  Button data scope with `data-slot="split-button-trigger"` while Ark supplies trigger ARIA, state,
+  keyboard behavior, and focus management.
 - 2026-06-22: Removed the `SplitButton.Portal` namespace alias and `SplitButtonPortalProps`;
   examples now import the shared `Portal` from `@moduix/react`.
 - Added `SplitButton` as a composition-first grouped action built from the moduix `Button` and
