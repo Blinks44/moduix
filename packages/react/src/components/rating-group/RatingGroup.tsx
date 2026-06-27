@@ -119,7 +119,15 @@ const RatingGroupItemIndicator = forwardRef<HTMLSpanElement, RatingGroupItemIndi
   },
 );
 
-const RatingGroupHiddenInput = RatingGroupPrimitive.HiddenInput;
+const RatingGroupHiddenInput = forwardRef<
+  ComponentRef<typeof RatingGroupPrimitive.HiddenInput>,
+  ComponentProps<typeof RatingGroupPrimitive.HiddenInput>
+>(function RatingGroupHiddenInput(props, ref) {
+  return (
+    <RatingGroupPrimitive.HiddenInput ref={ref} data-slot="rating-group-hidden-input" {...props} />
+  );
+});
+
 const RatingGroupContext = RatingGroupPrimitive.Context;
 const RatingGroupItemContext = RatingGroupPrimitive.ItemContext;
 

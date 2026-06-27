@@ -29,9 +29,8 @@ import {
 
 ## Basic
 
-Use Ark-style parts: `RatingGroup.Root`, `RatingGroup.Label`, `RatingGroup.Control`,
-`RatingGroup.Context`, `RatingGroup.Item`, `RatingGroup.ItemIndicator`, and
-`RatingGroup.HiddenInput`.
+Use the short root form with Ark-style child parts: `RatingGroup.Label`, `RatingGroup.Control`,
+`RatingGroup.Context`, `RatingGroup.Item`, `RatingGroup.ItemIndicator`, and `RatingGroup.HiddenInput`.
 
 <Preview>
   <RatingGroupExample />
@@ -127,7 +126,7 @@ RatingGroup.RootProvider
 | `RatingGroup.Item`                 | One selectable rating item; requires an `index`.          |
 | `RatingGroup.ItemContext`          | Reads checked, highlighted, and half state for one item.  |
 | `RatingGroup.ItemIndicator`        | Moduix star visual that follows Ark item context.         |
-| `RatingGroup.HiddenInput`          | Native form input synchronized with the rating value.     |
+| `RatingGroup.HiddenInput`          | Ark hidden input synchronized with the rating value.      |
 
 ## Composition
 
@@ -514,6 +513,8 @@ attributes, Ark state attributes, moduix `data-slot` hooks, and the registered
 - `data-slot="rating-group-control"`
 - `data-slot="rating-group-item"`
 - `data-slot="rating-group-item-indicator"`
+- `data-slot="rating-group-hidden-input"`
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` on the root or root provider
-- Ark item attributes: `data-checked`, `data-highlighted`, `data-half`, `data-disabled`, and
-  `data-readonly`
+- Ark label attributes: `data-disabled` and `data-required`
+- Ark control attributes: `data-disabled` and `data-readonly`
+- Ark item attributes: `data-checked`, `data-highlighted`, `data-half`, `data-disabled`, and `data-readonly`

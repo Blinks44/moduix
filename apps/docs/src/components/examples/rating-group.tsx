@@ -1,7 +1,7 @@
 import { Button, Field, HeartIcon, RatingGroup, useRatingGroup } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 
 export const ratingGroupExampleCss = `
   .rating-group-stack {
@@ -91,9 +91,13 @@ export const ratingGroupOverrideCssProperties: CssPropertyInput[] = [
     'var(--opacity-disabled)',
     'Controls disabled label and control opacity.',
   ],
-  ['--rating-group-focus-ring-color', 'transparent', 'Controls item focus ring color.'],
-  ['--rating-group-focus-ring-offset', '0.125rem', 'Controls item focus ring offset.'],
-  ['--rating-group-focus-ring-width', '0', 'Controls item focus ring width.'],
+  ['--rating-group-focus-ring-color', 'var(--color-ring)', 'Controls item focus ring color.'],
+  [
+    '--rating-group-focus-ring-offset',
+    'var(--border-width-sm)',
+    'Controls item focus ring offset.',
+  ],
+  ['--rating-group-focus-ring-width', 'var(--border-width-sm)', 'Controls item focus ring width.'],
   ['--rating-group-gap', 'var(--spacing-1)', 'Controls gap between rating items.'],
   ['--rating-group-root-gap', 'var(--spacing-1)', 'Controls gap between label and control.'],
   ['--rating-group-icon-size-xs', '0.875rem', 'Controls icon size for `xs`.'],
@@ -112,19 +116,8 @@ export const ratingGroupOverrideCssProperties: CssPropertyInput[] = [
   ],
 ];
 
-export const ratingGroupPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--rating-group-active-color', 'var(--color-primary)', 'Controls highlighted star color.'],
-  ['--rating-group-color', 'var(--color-muted-foreground)', 'Controls empty star color.'],
-  ['--rating-group-focus-ring-color', 'transparent', 'Controls item focus ring color.'],
-  ['--rating-group-gap', 'var(--spacing-1)', 'Controls gap between rating items.'],
-  ['--rating-group-icon-size-md', '1.25rem', 'Controls medium icon size.'],
-  ['--rating-group-root-gap', 'var(--spacing-1)', 'Controls gap between label and control.'],
-];
-
 const ratingGroupCssPropertiesReference =
   ratingGroupOverrideCssProperties.map(normalizeCssProperty);
-const ratingGroupCssPlaygroundReference =
-  ratingGroupPlaygroundCssProperties.map(normalizeCssProperty);
 
 function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property)) {
@@ -164,23 +157,8 @@ function RatingGroupHeartItems() {
   );
 }
 
-export function RatingGroupCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function RatingGroupCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={ratingGroupCssPropertiesReference} />;
-}
-
-export function RatingGroupCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={ratingGroupCssPlaygroundReference}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
 }
 
 export function RatingGroupExample(props: ComponentProps<typeof RatingGroup>) {

@@ -56,7 +56,7 @@ RatingGroup.RootProvider
 | `.Control`                  | `data-slot="rating-group-control"`        | Ark item container.                        |
 | `.Item`                     | `data-slot="rating-group-item"`           | Ark item; requires numeric `index`.        |
 | `.ItemIndicator`            | `data-slot="rating-group-item-indicator"` | Default moduix star visual.                |
-| `.HiddenInput`              | Ark hidden input                          | Required for native form submission/reset. |
+| `.HiddenInput`              | `data-slot="rating-group-hidden-input"`   | Required for native form submission/reset. |
 | `.Context` / `.ItemContext` | Ark render props                          | Read root or item state inline.            |
 
 ## Composition
@@ -122,7 +122,9 @@ are added; Ark defaults apply.
 
 Stable styling hooks include Ark `data-scope="rating-group"` and part attributes, Ark state
 attributes (`data-disabled`, `data-readonly`, `data-checked`, `data-highlighted`, `data-half`,
-`data-required`), and moduix `data-slot` hooks.
+`data-required`), and moduix `data-slot` hooks. The default star foreground is clipped from
+Ark item attributes and mirrored `ItemIndicator` attributes so custom visuals can target either
+surface.
 
 Public CSS variables:
 
@@ -131,9 +133,9 @@ Public CSS variables:
 | `--rating-group-active-color`      | `var(--color-primary)`          |
 | `--rating-group-color`             | `var(--color-muted-foreground)` |
 | `--rating-group-disabled-opacity`  | `var(--opacity-disabled)`       |
-| `--rating-group-focus-ring-color`  | `transparent`                   |
-| `--rating-group-focus-ring-offset` | `0.125rem`                      |
-| `--rating-group-focus-ring-width`  | `0`                             |
+| `--rating-group-focus-ring-color`  | `var(--color-ring)`             |
+| `--rating-group-focus-ring-offset` | `var(--border-width-sm)`        |
+| `--rating-group-focus-ring-width`  | `var(--border-width-sm)`        |
 | `--rating-group-gap`               | `var(--spacing-1)`              |
 | `--rating-group-root-gap`          | `var(--spacing-1)`              |
 | `--rating-group-icon-size-xs`      | `0.875rem`                      |
@@ -172,3 +174,5 @@ Public CSS variables:
   Ark data attributes.
 - 2026-06-20: Documented and hardened custom `RatingGroup.ItemIndicator` children so consumers can
   replace the default star icon while preserving Ark item state.
+- 2026-06-27: Added a stable `data-slot` hook to `HiddenInput`, aligned focus ring defaults with
+  the rest of the library, and tied default star clipping to Ark item state attributes.

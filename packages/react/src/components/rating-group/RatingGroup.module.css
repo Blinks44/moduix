@@ -5,14 +5,6 @@
     gap: var(--rating-group-root-gap, var(--spacing-1));
     color: var(--rating-group-color, var(--color-muted-foreground));
 
-    &[data-disabled] {
-      opacity: var(--rating-group-disabled-opacity, var(--opacity-disabled));
-    }
-
-    &[data-readonly] {
-      pointer-events: none;
-    }
-
     &[data-size='xs'] {
       --_rating-group-icon-size: var(--rating-group-icon-size-xs, 0.875rem);
     }
@@ -72,7 +64,8 @@
       color var(--rating-group-transition, var(--transition-default)),
       opacity var(--rating-group-transition, var(--transition-default));
 
-    &[data-readonly] {
+    &[data-readonly],
+    &[data-disabled] {
       cursor: default;
     }
 
@@ -81,9 +74,9 @@
     }
 
     &:focus-visible {
-      outline: var(--rating-group-focus-ring-width, 0) solid
-        var(--rating-group-focus-ring-color, transparent);
-      outline-offset: var(--rating-group-focus-ring-offset, 0.125rem);
+      outline: var(--rating-group-focus-ring-width, var(--border-width-sm)) solid
+        var(--rating-group-focus-ring-color, var(--color-ring));
+      outline-offset: var(--rating-group-focus-ring-offset, var(--border-width-sm));
     }
   }
 
@@ -114,6 +107,14 @@
     &:not([data-highlighted]) .iconFg {
       clip-path: inset(0 100% 0 0);
     }
+  }
+
+  .item[data-half] .iconFg {
+    clip-path: inset(0 50% 0 0);
+  }
+
+  .item:not([data-highlighted]) .iconFg {
+    clip-path: inset(0 100% 0 0);
   }
 
   .iconBg {
