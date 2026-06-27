@@ -25,8 +25,8 @@ Upstream docs:
 - `Slider.Context`, `useSlider`, and `useSliderContext` expose the Ark state API without remapping.
 - `value`, `defaultValue`, `min`, `max`, `step`, `origin`, `orientation`,
   `minStepsBetweenThumbs`, `thumbAlignment`, `thumbCollisionBehavior`, `disabled`, `invalid`,
-  `readOnly`, `name`, `form`, `ids`, `onValueChange(details)`, `onValueChangeEnd(details)`, and
-  `onFocusChange(details)` pass through unchanged.
+  `readOnly`, `name`, `form`, `ids`, `thumbSize`, `onValueChange(details)`,
+  `onValueChangeEnd(details)`, and `onFocusChange(details)` pass through unchanged.
 - Values are arrays. Single-thumb sliders use `[value]`, not a bare number.
 
 ## Anatomy and exported parts
@@ -63,6 +63,11 @@ Externally owned state replaces `Root` with `RootProvider`.
 | `Slider.DraggingIndicator` | `slider-dragging-indicator` |
 
 `Slider.Context` does not render a DOM element and therefore has no `data-slot`.
+
+Ark part prop types are re-exported with their upstream names, including `SliderRootProps`,
+`SliderRootProviderProps`, `SliderControlProps`, `SliderTrackProps`, `SliderRangeProps`,
+`SliderThumbProps`, `SliderHiddenInputProps`, `SliderMarkerGroupProps`, `SliderMarkerProps`, and
+`SliderDraggingIndicatorProps`.
 
 ## Composition
 
@@ -108,6 +113,8 @@ export function VolumeSlider() {
   supported by the primitive.
 - `asChild` is available on Ark DOM parts and requires one semantic child that preserves the part's
   interaction contract.
+- `thumbSize` can override Ark's measured thumb dimensions when custom thumb rendering needs a
+  known size.
 - `ids` can stabilize root, thumb, hidden input, control, track, range, label, value text, and
   marker IDs.
 - Ark state hooks include `data-orientation`, `data-disabled`, `data-invalid`, `data-focus`,
@@ -147,6 +154,8 @@ export function VolumeSlider() {
 
 ## Local changelog
 
+- 2026-06-27: Finished Ark migration audit; added missing Ark part prop type exports, documented
+  `thumbSize`, and simplified the controlled docs example.
 - 2026-06-20: Migrated to Ark UI React; replaced the flat legacy-compatible API with
   namespace-first Ark parts, exposed `RootProvider`, `Context`, hooks, and Ark types; updated
   styles, stories, docs, and registry dependencies for the Ark contract.

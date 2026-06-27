@@ -28,7 +28,6 @@ import {
   sliderContextCode,
   sliderContextCss,
   sliderControlledCode,
-  sliderControlledCss,
   sliderCustomStylingCode,
   sliderCustomStylingCss,
   sliderDisabledCode,
@@ -154,6 +153,19 @@ Slider / Slider.Root
 
 ## Composition
 
+### Recommended composition
+
+Use the explicit Ark part tree: root, label, optional value text, control, track, range, one thumb
+per value, and `HiddenInput` inside each thumb when forms or resets matter.
+
+`Slider` is the short root form and is equivalent to `Slider.Root`.
+
+### When to go custom
+
+Use `asChild` when a part must render a custom host element, but keep a single semantic child that
+can receive Ark props. Use `Slider.Context` for inline state reads and `useSlider` with
+`Slider.RootProvider` when state must be owned outside the rendered tree.
+
 ### Default props
 
 | Prop                     | Default      | Notes                                      |
@@ -167,9 +179,21 @@ Slider / Slider.Root
 | `origin`                 | `start`      | Fill start for single-value ranges.        |
 | `thumbAlignment`         | `contain`    | Use `center` to let the thumb overflow.    |
 | `thumbCollisionBehavior` | `none`       | Use `push` or `swap` for range dragging.   |
+| `thumbSize`              | measured     | Override Ark's measured thumb dimensions.  |
 
 `value`, `defaultValue`, `onValueChange(details)`, and `onValueChangeEnd(details)` use Ark detail
 objects. Use `details.value` to read the array.
+
+### Behavioral notes
+
+`Slider` follows Ark's WAI-ARIA slider behavior. Each thumb needs an accessible name through
+`Slider.Label`, `aria-label`, or `aria-labelledby`. Horizontal sliders use left/right arrow keys;
+vertical sliders use up/down arrow keys. Home and End move to bounds.
+
+Keep `Slider.HiddenInput` inside every `Slider.Thumb` when native form submission, form
+association, or form reset synchronization matters. `disabled`, `invalid`, `readOnly`, `name`,
+`form`, `ids`, `aria-label`, `aria-labelledby`, and `getAriaValueText(details)` pass through to
+Ark.
 
 ## Examples
 
@@ -217,7 +241,7 @@ Control the value from React state by storing Ark's `details.value` array.
   <ControlledSliderExample />
 
   <Preview.Code>{sliderControlledCode}</Preview.Code>
-  <Preview.CSS>{sliderControlledCss}</Preview.CSS>
+  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
   <Preview.Data>{sliderNoData}</Preview.Data>
 </Preview>
 
@@ -366,16 +390,6 @@ Customize visuals with CSS variables, `className`, `data-slot` hooks, and Ark st
   <Preview.CSS>{sliderCustomStylingCss}</Preview.CSS>
   <Preview.Data>{sliderNoData}</Preview.Data>
 </Preview>
-
-## Accessibility
-
-`Slider` follows the Ark UI implementation of the WAI-ARIA slider pattern. Each thumb needs an
-accessible name through `Slider.Label`, `aria-label`, or `aria-labelledby`. Horizontal sliders use
-left/right arrow keys; vertical sliders use up/down arrow keys. Home and End move to bounds.
-
-Keep `Slider.HiddenInput` inside every `Slider.Thumb` when native form submission, form association,
-or form reset synchronization matters. `disabled`, `invalid`, `readOnly`, `name`, `form`, `ids`,
-`aria-label`, `aria-labelledby`, and `getAriaValueText(details)` pass through to Ark.
 
 ## Styling
 

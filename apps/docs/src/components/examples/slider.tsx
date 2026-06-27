@@ -138,40 +138,6 @@ export const sliderEventsCss = `
 }
 `;
 
-export const sliderControlledCss = `
-.slider-stack {
-  display: grid;
-  gap: var(--spacing-4);
-}
-
-.slider-secondary-control {
-  width: 12rem;
-}
-
-.slider-secondary-label {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-xs);
-  line-height: var(--line-height-text-xs);
-}
-
-.slider-controlled-control {
-  --slider-width: 12rem;
-}
-
-.slider-controlled-control [data-slot="slider-track"] {
-  --slider-track-bg: color-mix(in oklab, var(--color-chart-2) 18%, var(--color-muted));
-}
-
-.slider-controlled-control [data-slot="slider-range"] {
-  --slider-range-bg: var(--color-chart-2);
-}
-
-.slider-controlled-control [data-slot="slider-thumb"] {
-  --slider-thumb-bg: var(--color-chart-2);
-  --slider-thumb-border-color: var(--color-background);
-}
-`;
-
 export const sliderVerticalCss = `
 .slider-vertical {
   --slider-width-vertical: auto;
@@ -318,41 +284,20 @@ export function ControlledSliderDemo() {
   const [value, setValue] = useState([24]);
 
   return (
-    <div className="slider-stack">
-      <Slider value={value} onValueChange={(details) => setValue(details.value)}>
-        <div className="slider-header">
-          <Slider.Label>Brightness</Slider.Label>
-          <Slider.ValueText />
-        </div>
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumb index={0} aria-label="Brightness">
-            <Slider.HiddenInput />
-          </Slider.Thumb>
-        </Slider.Control>
-      </Slider>
-
-      <Slider
-        className="slider-secondary-control"
-        min={0}
-        max={100}
-        value={value}
-        onValueChange={(details) => setValue(details.value)}
-      >
-        <Slider.Label className="slider-secondary-label">Secondary control</Slider.Label>
+    <Slider value={value} onValueChange={(details) => setValue(details.value)}>
+      <div className="slider-header">
+        <Slider.Label>Brightness</Slider.Label>
         <Slider.ValueText />
-        <Slider.Control className="slider-controlled-control">
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumb index={0} aria-label="Brightness control">
-            <Slider.HiddenInput />
-          </Slider.Thumb>
-        </Slider.Control>
-      </Slider>
-    </div>
+      </div>
+      <Slider.Control>
+        <Slider.Track>
+          <Slider.Range />
+        </Slider.Track>
+        <Slider.Thumb index={0} aria-label="Brightness">
+          <Slider.HiddenInput />
+        </Slider.Thumb>
+      </Slider.Control>
+    </Slider>
   );
 }
 `;
@@ -754,30 +699,10 @@ export function ControlledSliderExample() {
   const [value, setValue] = useState([24]);
 
   return (
-    <div className={styles.stack}>
-      <Slider value={value} onValueChange={(details) => setValue(details.value)}>
-        <SliderHeader label="Brightness" />
-        <SliderControlExample />
-      </Slider>
-      <Slider
-        className={styles.secondaryControl}
-        min={0}
-        max={100}
-        value={value}
-        onValueChange={(details) => setValue(details.value)}
-      >
-        <Slider.Label className={styles.secondaryControlLabel}>Secondary control</Slider.Label>
-        <Slider.ValueText />
-        <Slider.Control className={styles.controlledSlider}>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumb index={0} aria-label="Brightness control">
-            <Slider.HiddenInput />
-          </Slider.Thumb>
-        </Slider.Control>
-      </Slider>
-    </div>
+    <Slider value={value} onValueChange={(details) => setValue(details.value)}>
+      <SliderHeader label="Brightness" />
+      <SliderControlExample />
+    </Slider>
   );
 }
 
