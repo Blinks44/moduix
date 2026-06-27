@@ -9,7 +9,6 @@ import {
   CustomIconSwitchExample,
   SwitchAsChildExample,
   SwitchContextExample,
-  SwitchCssPlaygroundPanel,
   SwitchCssPropertiesPanel,
   SwitchDisabledExample,
   SwitchExample,
@@ -18,7 +17,6 @@ import {
   SwitchReadOnlyExample,
   SwitchRootProviderExample,
   SwitchSizesExample,
-  switchPlaygroundCssProperties,
   switchSizeOptions,
 } from '@/components/examples/switch';
 
@@ -41,7 +39,7 @@ state.
 Start with the Ark anatomy: root label, visual control, thumb, text label, and hidden input. The
 short `<Switch>` export is the same root part as `Switch.Root`.
 
-<Preview cssProperties={switchPlaygroundCssProperties}>
+<Preview>
   <SwitchExample />
 
   <Preview.Code>
@@ -62,7 +60,7 @@ short `<Switch>` export is the same root part as `Switch.Root`.
   </Preview.Code>
   <Preview.CSS>
     {`
-      .switch {
+      [data-slot="switch-root"] {
         --switch-bg-checked: var(--color-primary);
       }
     `}
@@ -75,8 +73,6 @@ short `<Switch>` export is the same root part as `Switch.Root`.
     `}
 
   </Preview.Data>
-  <Preview.CSSProperties>{(context) => <SwitchCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <SwitchCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -147,14 +143,31 @@ Switch / Switch.Root
 
 ## Composition
 
+### Recommended composition
+
+Keep the Ark part tree visible. Render `Switch.Control`, `Switch.Label`, and
+`Switch.HiddenInput` inside `Switch` / `Switch.Root`.
+
+`Switch.Control` renders the default `Switch.Thumb` when its children are omitted. Compose
+`Switch.Thumb` directly when the thumb needs custom content or styling.
+
+### When to go custom
+
+Use `asChild` only when the root must render a custom host element. Ark renders the root as a
+`label`; the direct `asChild` element must stay label-compatible so the switch keeps a valid
+accessible name.
+
+Use `Switch.Context`, `useSwitchContext`, or `useSwitch` with `Switch.RootProvider` when surrounding
+UI needs to read or own the Ark switch state.
+
 ### Default props
 
-| Prop        | Default     | Notes                                                             |
-| ----------- | ----------- | ----------------------------------------------------------------- |
-| `size`      | `md`        | moduix sugar: `xs`, `sm`, `md`, `lg`, `xl`.                       |
-| `value`     | `on`        | Ark hidden input value for form submission.                       |
-| `children`  | auto parts  | Omitting children renders `Switch.Control` and hidden input only. |
-| `className` | `undefined` | Applied to the Ark root label.                                    |
+| Prop        | Default     | Notes                                       |
+| ----------- | ----------- | ------------------------------------------- |
+| `size`      | `md`        | moduix sugar: `xs`, `sm`, `md`, `lg`, `xl`. |
+| `value`     | `on`        | Ark hidden input value for form submission. |
+| `children`  | `undefined` | Compose Ark parts explicitly.               |
+| `className` | `undefined` | Applied to the Ark root label.              |
 
 ### Behavioral notes
 
@@ -195,7 +208,7 @@ afterward.
   </Preview.Code>
   <Preview.CSS>
     {`
-      .switch {
+      [data-slot="switch-root"] {
         width: fit-content;
       }
     `}
@@ -632,7 +645,7 @@ Compose `Switch.Thumb` when the thumb needs custom content or separate styling h
   </Preview.Data>
 </Preview>
 
-### Custom Composition
+### As Child
 
 Use `asChild` when a custom root element needs to own the DOM node while Ark keeps the switch
 behavior.

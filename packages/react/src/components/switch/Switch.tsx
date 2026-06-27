@@ -6,33 +6,29 @@ import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Switch.module.css';
 
 type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type SwitchRootProps = ComponentProps<typeof SwitchPrimitive.Root> & { size?: SwitchSize };
+type SwitchRootProviderProps = ComponentProps<typeof SwitchPrimitive.RootProvider> & {
+  size?: SwitchSize;
+};
 
-const SwitchRoot = forwardRef<
-  ComponentRef<typeof SwitchPrimitive.Root>,
-  ComponentProps<typeof SwitchPrimitive.Root> & { size?: SwitchSize }
->(function SwitchRoot({ className, size = 'md', children, ...props }, ref) {
-  return (
-    <SwitchPrimitive.Root
-      ref={ref}
-      data-slot="switch-root"
-      data-size={size}
-      className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
-    >
-      {children ?? (
-        <>
-          <SwitchControl />
-          <SwitchHiddenInput />
-        </>
-      )}
-    </SwitchPrimitive.Root>
-  );
-});
+const SwitchRoot = forwardRef<ComponentRef<typeof SwitchPrimitive.Root>, SwitchRootProps>(
+  function SwitchRoot({ className, size = 'md', ...props }, ref) {
+    return (
+      <SwitchPrimitive.Root
+        ref={ref}
+        data-slot="switch-root"
+        data-size={size}
+        className={clsx(styles.root, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 const SwitchRootProvider = forwardRef<
   ComponentRef<typeof SwitchPrimitive.RootProvider>,
-  ComponentProps<typeof SwitchPrimitive.RootProvider> & { size?: SwitchSize }
->(function SwitchRootProvider({ className, size = 'md', children, ...props }, ref) {
+  SwitchRootProviderProps
+>(function SwitchRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <SwitchPrimitive.RootProvider
       ref={ref}
@@ -40,14 +36,7 @@ const SwitchRootProvider = forwardRef<
       data-size={size}
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    >
-      {children ?? (
-        <>
-          <SwitchControl />
-          <SwitchHiddenInput />
-        </>
-      )}
-    </SwitchPrimitive.RootProvider>
+    />
   );
 });
 
@@ -121,10 +110,9 @@ export type {
   SwitchControlProps,
   SwitchHiddenInputProps,
   SwitchLabelProps,
-  SwitchRootProps,
-  SwitchRootProviderProps,
   SwitchThumbProps,
   UseSwitchContext,
   UseSwitchProps,
   UseSwitchReturn,
 } from '@ark-ui/react/switch';
+export type { SwitchRootProps, SwitchRootProviderProps, SwitchSize };

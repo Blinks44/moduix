@@ -23,13 +23,12 @@
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
-    width: var(--switch-width, 2.5rem);
+    width: var(--switch-width, 3rem);
     height: var(--switch-height, 1.5rem);
     --switch-thumb-translate-default: calc(
-      var(--switch-width, 2.5rem) - var(--switch-thumb-size, 1.125rem) -
-        var(--switch-padding, 0.125rem) - var(--switch-padding, 0.125rem) -
-        var(--switch-border-width, var(--border-width-sm)) -
-        var(--switch-border-width, var(--border-width-sm))
+      var(--switch-width, 3rem) - var(--switch-thumb-size, 1.25rem) -
+        (var(--switch-padding, 0.125rem) * 2) -
+        (var(--switch-border-width, var(--border-width-sm)) * 2)
     );
     border: var(--switch-border-width, var(--border-width-sm)) solid
       var(--switch-border-color, var(--color-border));
@@ -72,39 +71,39 @@
   .root[data-size='xs'] .control {
     --switch-width: var(--switch-width-xs, 1.75rem);
     --switch-height: var(--switch-height-xs, 1rem);
-    --switch-thumb-size: var(--switch-thumb-size-xs, 0.625rem);
+    --switch-thumb-size: var(--switch-thumb-size-xs, 0.75rem);
   }
 
   .root[data-size='sm'] .control {
-    --switch-width: var(--switch-width-sm, 2rem);
+    --switch-width: var(--switch-width-sm, 2.25rem);
     --switch-height: var(--switch-height-sm, 1.25rem);
-    --switch-thumb-size: var(--switch-thumb-size-sm, 0.875rem);
+    --switch-thumb-size: var(--switch-thumb-size-sm, 1rem);
   }
 
   .root[data-size='md'] .control {
-    --switch-width: var(--switch-width-md, 2.5rem);
+    --switch-width: var(--switch-width-md, 2.75rem);
     --switch-height: var(--switch-height-md, 1.5rem);
-    --switch-thumb-size: var(--switch-thumb-size-md, 1.125rem);
+    --switch-thumb-size: var(--switch-thumb-size-md, 1.25rem);
   }
 
   .root[data-size='lg'] .control {
-    --switch-width: var(--switch-width-lg, 3rem);
+    --switch-width: var(--switch-width-lg, 3.25rem);
     --switch-height: var(--switch-height-lg, 1.75rem);
-    --switch-thumb-size: var(--switch-thumb-size-lg, 1.375rem);
+    --switch-thumb-size: var(--switch-thumb-size-lg, 1.5rem);
   }
 
   .root[data-size='xl'] .control {
-    --switch-width: var(--switch-width-xl, 3.5rem);
+    --switch-width: var(--switch-width-xl, 3.75rem);
     --switch-height: var(--switch-height-xl, 2rem);
-    --switch-thumb-size: var(--switch-thumb-size-xl, 1.625rem);
+    --switch-thumb-size: var(--switch-thumb-size-xl, 1.75rem);
   }
 
   .thumb {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--switch-thumb-size, 1.125rem);
-    height: var(--switch-thumb-size, 1.125rem);
+    width: var(--switch-thumb-size, 1.25rem);
+    height: var(--switch-thumb-size, 1.25rem);
     border: var(--switch-thumb-border-width, 0) solid var(--switch-thumb-border-color, transparent);
     border-radius: var(--switch-thumb-radius, var(--radius-full));
     background-color: var(

@@ -37,9 +37,8 @@ instance.
 - `Switch.Root`, `Switch.RootProvider`, `Switch.Control`, `Switch.Thumb`, `Switch.Label`, and
   `Switch.HiddenInput` are thin styled wrappers over the matching Ark parts.
 - `Switch.Control` renders a default `Switch.Thumb` when its children are omitted.
-- `Switch` / `Switch.Root` and `Switch.RootProvider` render default `Switch.Control` plus
-  `Switch.HiddenInput` only when children are omitted. Labeled, form-ready examples should compose
-  all parts explicitly.
+- `Switch` / `Switch.Root` and `Switch.RootProvider` do not render structural children for
+  consumers. Compose the Ark parts explicitly so labels and form inputs stay visible in code.
 - `size` is the only moduix root sugar. It defaults to `md` and writes `data-size` on the root.
   Supported values are `xs`, `sm`, `md`, `lg`, and `xl`.
 - `className` is accepted on all visible Ark parts and merged with CSS Module classes.
@@ -49,16 +48,16 @@ instance.
 
 ## Anatomy and exported parts
 
-| Export                           | Ark part / element             | `data-slot`            | Notes                                      |
-| -------------------------------- | ------------------------------ | ---------------------- | ------------------------------------------ |
-| `Switch` / `Switch.Root`         | `SwitchPrimitive.Root`         | `switch-root`          | Root label, state owner, accepts `size`.   |
-| `Switch.RootProvider`            | `SwitchPrimitive.RootProvider` | `switch-root-provider` | Root label driven by `useSwitch()`.        |
-| `Switch.Control`                 | `SwitchPrimitive.Control`      | `switch-control`       | Visual track, focus ring target.           |
-| `Switch.Thumb`                   | `SwitchPrimitive.Thumb`        | `switch-thumb`         | Movable thumb; supports custom children.   |
-| `Switch.Label`                   | `SwitchPrimitive.Label`        | `switch-label`         | Ark-connected label text.                  |
-| `Switch.HiddenInput`             | `SwitchPrimitive.HiddenInput`  | `switch-hidden-input`  | Native input for forms and reset.          |
-| `Switch.Context`                 | `SwitchPrimitive.Context`      | -                      | Inline render-prop state access.           |
-| `useSwitch` / `useSwitchContext` | Ark hooks                      | -                      | External state owner and child-part state. |
+| Export                           | Ark part / element             | `data-slot`            | Notes                                               |
+| -------------------------------- | ------------------------------ | ---------------------- | --------------------------------------------------- |
+| `Switch` / `Switch.Root`         | `SwitchPrimitive.Root`         | `switch-root`          | Root label, state owner, accepts `size`.            |
+| `Switch.RootProvider`            | `SwitchPrimitive.RootProvider` | `switch-root-provider` | Root label driven by `useSwitch()`, accepts `size`. |
+| `Switch.Control`                 | `SwitchPrimitive.Control`      | `switch-control`       | Visual track, focus ring target.                    |
+| `Switch.Thumb`                   | `SwitchPrimitive.Thumb`        | `switch-thumb`         | Movable thumb; supports custom children.            |
+| `Switch.Label`                   | `SwitchPrimitive.Label`        | `switch-label`         | Ark-connected label text.                           |
+| `Switch.HiddenInput`             | `SwitchPrimitive.HiddenInput`  | `switch-hidden-input`  | Native input for forms and reset.                   |
+| `Switch.Context`                 | `SwitchPrimitive.Context`      | -                      | Inline render-prop state access.                    |
+| `useSwitch` / `useSwitchContext` | Ark hooks                      | -                      | External state owner and child-part state.          |
 
 ## Composition
 
@@ -181,26 +180,26 @@ Public CSS variables:
 | `--switch-thumb-icon-size`       | `65%`                                                     | Custom thumb icon size.              |
 | `--switch-thumb-radius`          | `var(--radius-full)`                                      | Thumb border radius.                 |
 | `--switch-thumb-shadow`          | `var(--shadow-sm)`                                        | Thumb shadow.                        |
-| `--switch-thumb-size-xs`         | `0.625rem`                                                | Thumb size for `size="xs"`.          |
-| `--switch-thumb-size-sm`         | `0.875rem`                                                | Thumb size for `size="sm"`.          |
-| `--switch-thumb-size-md`         | `1.125rem`                                                | Thumb size for `size="md"`.          |
-| `--switch-thumb-size-lg`         | `1.375rem`                                                | Thumb size for `size="lg"`.          |
-| `--switch-thumb-size-xl`         | `1.625rem`                                                | Thumb size for `size="xl"`.          |
+| `--switch-thumb-size-xs`         | `0.75rem`                                                 | Thumb size for `size="xs"`.          |
+| `--switch-thumb-size-sm`         | `1rem`                                                    | Thumb size for `size="sm"`.          |
+| `--switch-thumb-size-md`         | `1.25rem`                                                 | Thumb size for `size="md"`.          |
+| `--switch-thumb-size-lg`         | `1.5rem`                                                  | Thumb size for `size="lg"`.          |
+| `--switch-thumb-size-xl`         | `1.75rem`                                                 | Thumb size for `size="xl"`.          |
 | `--switch-thumb-transition`      | `var(--switch-transition, var(--transition-default))`     | Thumb movement transition timing.    |
 | `--switch-thumb-translate`       | `var(--switch-thumb-translate-default)`                   | Checked thumb translation distance.  |
 | `--switch-transition`            | `var(--transition-default)`                               | State transition timing.             |
 | `--switch-width-xs`              | `1.75rem`                                                 | Control width for `size="xs"`.       |
-| `--switch-width-sm`              | `2rem`                                                    | Control width for `size="sm"`.       |
-| `--switch-width-md`              | `2.5rem`                                                  | Control width for `size="md"`.       |
-| `--switch-width-lg`              | `3rem`                                                    | Control width for `size="lg"`.       |
-| `--switch-width-xl`              | `3.5rem`                                                  | Control width for `size="xl"`.       |
+| `--switch-width-sm`              | `2.25rem`                                                 | Control width for `size="sm"`.       |
+| `--switch-width-md`              | `2.75rem`                                                 | Control width for `size="md"`.       |
+| `--switch-width-lg`              | `3.25rem`                                                 | Control width for `size="lg"`.       |
+| `--switch-width-xl`              | `3.75rem`                                                 | Control width for `size="xl"`.       |
 
 ## Intentional sugar and differences from upstream
 
 - `size` is moduix-only and scales `Switch.Control` plus the default thumb.
 - `Switch.Control` auto-renders `Switch.Thumb` when no children are provided.
-- `Switch` can render a minimal control-only switch when children are omitted, but documentation
-  should prefer explicit Ark anatomy for accessible labels and form examples.
+- `Switch.Root` and `Switch.RootProvider` require explicit children; this keeps accessible labels,
+  hidden inputs, and custom composition visible in consumer code.
 - Styling is not unstyled: CSS Modules, `data-slot`, `data-size`, and `--switch-*` variables are
   part of the public wrapper contract.
 - Flat legacy exports (`SwitchThumb`, `SwitchField`, `SwitchLabel`) and legacy host props
@@ -217,6 +216,10 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-06-27: Removed root-level auto composition, exported local root prop types with `size`, and
+  simplified switch size CSS variables to quarter-rem steps.
+- 2026-06-27: Shortened default switch track widths by `0.25rem` across all sizes while keeping
+  the existing heights and thumb sizes.
 - 2026-06-21: Migrated `Switch` to Ark UI React, adopted namespace parts,
   `HiddenInput`, Ark `onCheckedChange(details)`, `Context`, `useSwitch`, `RootProvider`, `asChild`,
   and Ark state attributes; removed legacy compatibility exports and props.

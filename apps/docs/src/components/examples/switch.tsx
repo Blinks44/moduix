@@ -1,7 +1,7 @@
 import { Button, Field, Switch, useSwitch } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './switch.module.css';
 
 export const switchSizeOptions = [
@@ -71,11 +71,11 @@ export const switchOverrideCssProperties: CssPropertyInput[] = [
   ['--switch-thumb-icon-size', '65%', 'Controls custom thumb icon size.'],
   ['--switch-thumb-radius', 'var(--radius-full)', 'Controls thumb corner radius.'],
   ['--switch-thumb-shadow', 'var(--shadow-sm)', 'Controls thumb shadow.'],
-  ['--switch-thumb-size-xs', '0.625rem', 'Controls thumb size for the xs switch size.'],
-  ['--switch-thumb-size-sm', '0.875rem', 'Controls thumb size for the sm switch size.'],
-  ['--switch-thumb-size-md', '1.125rem', 'Controls thumb size for the md switch size.'],
-  ['--switch-thumb-size-lg', '1.375rem', 'Controls thumb size for the lg switch size.'],
-  ['--switch-thumb-size-xl', '1.625rem', 'Controls thumb size for the xl switch size.'],
+  ['--switch-thumb-size-xs', '0.75rem', 'Controls thumb size for the xs switch size.'],
+  ['--switch-thumb-size-sm', '1rem', 'Controls thumb size for the sm switch size.'],
+  ['--switch-thumb-size-md', '1.25rem', 'Controls thumb size for the md switch size.'],
+  ['--switch-thumb-size-lg', '1.5rem', 'Controls thumb size for the lg switch size.'],
+  ['--switch-thumb-size-xl', '1.75rem', 'Controls thumb size for the xl switch size.'],
   [
     '--switch-thumb-transition',
     'var(--switch-transition, var(--transition-default))',
@@ -88,43 +88,16 @@ export const switchOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--switch-transition', 'var(--transition-default)', 'Controls state transition timing.'],
   ['--switch-width-xs', '1.75rem', 'Controls switch width for the xs size.'],
-  ['--switch-width-sm', '2rem', 'Controls switch width for the sm size.'],
-  ['--switch-width-md', '2.5rem', 'Controls switch width for the md size.'],
-  ['--switch-width-lg', '3rem', 'Controls switch width for the lg size.'],
-  ['--switch-width-xl', '3.5rem', 'Controls switch width for the xl size.'],
-];
-
-export const switchPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--switch-bg', 'var(--color-muted)', 'Controls unchecked background color.'],
-  ['--switch-bg-checked', 'var(--color-primary)', 'Controls checked background color.'],
-  ['--switch-bg-hover', 'var(--color-accent)', 'Controls unchecked hover background color.'],
-  ['--switch-border-color', 'var(--color-border)', 'Controls unchecked border color.'],
-  ['--switch-border-color-checked', 'var(--color-primary)', 'Controls checked border color.'],
-  ['--switch-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--switch-thumb-bg', 'var(--color-background)', 'Controls thumb background color.'],
-  ['--switch-thumb-color', 'var(--color-muted)', 'Controls thumb content color.'],
-  ['--switch-label-color', 'var(--color-foreground)', 'Controls label text color.'],
+  ['--switch-width-sm', '2.25rem', 'Controls switch width for the sm size.'],
+  ['--switch-width-md', '2.75rem', 'Controls switch width for the md size.'],
+  ['--switch-width-lg', '3.25rem', 'Controls switch width for the lg size.'],
+  ['--switch-width-xl', '3.75rem', 'Controls switch width for the xl size.'],
 ];
 
 export function SwitchCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
       properties={switchOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function SwitchCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={switchPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }

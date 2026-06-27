@@ -2592,19 +2592,19 @@
   --switch-thumb-icon-size: initial; /* 65% */
   --switch-thumb-radius: initial; /* var(--radius-full) */
   --switch-thumb-shadow: initial; /* var(--shadow-sm) */
-  --switch-thumb-size-xs: initial; /* 0.625rem */
-  --switch-thumb-size-sm: initial; /* 0.875rem */
-  --switch-thumb-size-md: initial; /* 1.125rem */
-  --switch-thumb-size-lg: initial; /* 1.375rem */
-  --switch-thumb-size-xl: initial; /* 1.625rem */
+  --switch-thumb-size-xs: initial; /* 0.75rem */
+  --switch-thumb-size-sm: initial; /* 1rem */
+  --switch-thumb-size-md: initial; /* 1.25rem */
+  --switch-thumb-size-lg: initial; /* 1.5rem */
+  --switch-thumb-size-xl: initial; /* 1.75rem */
   --switch-thumb-transition: initial; /* var(--switch-transition, var(--transition-default)) */
   --switch-thumb-translate: initial; /* var(--switch-thumb-translate-default) */
   --switch-transition: initial; /* var(--transition-default) */
   --switch-width-xs: initial; /* 1.75rem */
-  --switch-width-sm: initial; /* 2rem */
-  --switch-width-md: initial; /* 2.5rem */
-  --switch-width-lg: initial; /* 3rem */
-  --switch-width-xl: initial; /* 3.5rem */
+  --switch-width-sm: initial; /* 2.25rem */
+  --switch-width-md: initial; /* 2.75rem */
+  --switch-width-lg: initial; /* 3.25rem */
+  --switch-width-xl: initial; /* 3.75rem */
 
   /* Tag */
   --tag-bg: initial; /* var(--color-primary) */

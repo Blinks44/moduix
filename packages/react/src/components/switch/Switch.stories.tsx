@@ -201,7 +201,7 @@ export const FormIntegration: Story = {
   render: () => {
     return (
       <Field invalid className={styles.formField}>
-        <Switch defaultChecked name="notifications">
+        <Switch defaultChecked name="notifications" required>
           <Switch.Control />
           <Switch.Label>Notifications</Switch.Label>
           <Switch.HiddenInput />

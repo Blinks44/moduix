@@ -7,6 +7,7 @@ export type {
   SwitchLabelProps,
   SwitchRootProps,
   SwitchRootProviderProps,
+  SwitchSize,
   SwitchThumbProps,
   UseSwitchContext,
   UseSwitchProps,
