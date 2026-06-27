@@ -326,6 +326,13 @@ current viewport without introducing another wrapper.
         padding: var(--spacing-3);
         padding-right: var(--spacing-6);
       }
+
+      .paragraph {
+        margin: 0;
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
     `}
 
   </Preview.CSS>
@@ -398,6 +405,16 @@ Render vertical and horizontal scrollbars when content can overflow on both axes
         width: max-content;
         gap: var(--spacing-2);
         padding: var(--spacing-3);
+      }
+
+      .cell {
+        display: grid;
+        place-items: center;
+        border-radius: var(--radius-sm);
+        background-color: var(--color-muted);
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        font-weight: var(--weight-medium);
       }
     `}
 
@@ -481,6 +498,20 @@ complete so Ark can measure each area independently.
         border: var(--border-width-sm) solid var(--color-border);
         border-radius: var(--radius-lg);
       }
+
+      .textContent {
+        display: grid;
+        gap: var(--spacing-3);
+        padding: var(--spacing-3);
+        padding-right: var(--spacing-6);
+      }
+
+      .paragraph {
+        margin: 0;
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
     `}
 
   </Preview.CSS>
@@ -553,10 +584,32 @@ scrolling API.
         gap: var(--spacing-3);
       }
 
+      .root {
+        --scroll-area-width: 24rem;
+        --scroll-area-height: 13rem;
+        max-width: calc(100vw - 2rem);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+
       .actions {
         display: flex;
         gap: var(--spacing-2);
         justify-content: flex-end;
+      }
+
+      .textContent {
+        display: grid;
+        gap: var(--spacing-3);
+        padding: var(--spacing-3);
+        padding-right: var(--spacing-6);
+      }
+
+      .paragraph {
+        margin: 0;
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
       }
     `}
 
@@ -564,9 +617,9 @@ scrolling API.
 
   <Preview.Data>
     {`
-      const controls = [
-        { label: "Top", edge: "top" },
-        { label: "Bottom", edge: "bottom" },
+      const sections = [
+        { title: "Overview", body: "External controls can call the same scroll area API that Ark provides to the root provider." },
+        { title: "Scroll targets", body: "Use scrollToEdge for simple top and bottom controls, or the lower-level scroll methods for custom targets." },
       ];
     `}
 
@@ -599,8 +652,8 @@ composition and state attributes intact.
                 </div>
               </ScrollArea.Content>
             </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar className="primaryScrollbar">
-              <ScrollArea.Thumb className="primaryThumb" />
+            <ScrollArea.Scrollbar>
+              <ScrollArea.Thumb />
             </ScrollArea.Scrollbar>
             <ScrollArea.Scrollbar orientation="horizontal" className="accentScrollbar">
               <ScrollArea.Thumb className="accentThumb" />
@@ -618,7 +671,7 @@ composition and state attributes intact.
       .customRoot {
         --scroll-area-width: 24rem;
         --scroll-area-height: 13rem;
-        --scroll-area-scrollbar-size: 0.625rem;
+        --scroll-area-scrollbar-size: var(--spacing-2);
         --scroll-area-scrollbar-margin: var(--spacing-1);
         --scroll-area-scrollbar-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
         --scroll-area-thumb-bg: var(--color-primary);
@@ -634,6 +687,25 @@ composition and state attributes intact.
 
       .accentThumb {
         background-color: var(--color-chart-3);
+      }
+
+      .gridContent {
+        display: grid;
+        grid-template-columns: repeat(12, 5rem);
+        grid-template-rows: repeat(8, 5rem);
+        width: max-content;
+        gap: var(--spacing-2);
+        padding: var(--spacing-3);
+      }
+
+      .cell {
+        display: grid;
+        place-items: center;
+        border-radius: var(--radius-sm);
+        background-color: var(--color-muted);
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        font-weight: var(--weight-medium);
       }
     `}
 

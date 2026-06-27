@@ -50,17 +50,17 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   ['--scroll-area-scrollbar-hidden-opacity', '0', 'Controls hidden scrollbar opacity.'],
   [
     '--scroll-area-scrollbar-hit-area-size',
-    '1.25rem',
+    'var(--spacing-5)',
     'Controls the invisible pointer hit area around the scrollbar.',
   ],
   [
     '--scroll-area-scrollbar-margin',
-    'calc(var(--spacing-1) / 2)',
+    'var(--spacing-1)',
     'Controls spacing between scrollbar and viewport edge.',
   ],
   ['--scroll-area-scrollbar-padding', '0', 'Controls scrollbar track padding.'],
   ['--scroll-area-scrollbar-radius', 'var(--radius-md)', 'Controls scrollbar track radius.'],
-  ['--scroll-area-scrollbar-size', '0.375rem', 'Controls the scrollbar track thickness.'],
+  ['--scroll-area-scrollbar-size', 'var(--spacing-1)', 'Controls the scrollbar track thickness.'],
   ['--scroll-area-scrollbar-visible-opacity', '1', 'Controls visible scrollbar opacity.'],
   ['--scroll-area-thumb-bg', 'var(--color-border)', 'Controls the draggable thumb color.'],
   ['--scroll-area-thumb-min-size', '1.5rem', 'Controls the minimum draggable thumb size.'],
@@ -239,8 +239,8 @@ export function CustomStylingScrollAreaExample() {
           </div>
         </ScrollArea.Content>
       </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar className={styles.primaryScrollbar}>
-        <ScrollArea.Thumb className={styles.primaryThumb} />
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
       </ScrollArea.Scrollbar>
       <ScrollArea.Scrollbar orientation="horizontal" className={styles.accentScrollbar}>
         <ScrollArea.Thumb className={styles.accentThumb} />

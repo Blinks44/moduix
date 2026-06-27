@@ -150,8 +150,8 @@ Primary CSS variables:
 | `--scroll-area-fade-size`        | `var(--spacing-10)`                               |
 | `--scroll-area-fade-start-size`  | `var(--scroll-area-fade-size, var(--spacing-10))` |
 | `--scroll-area-fade-end-size`    | `var(--scroll-area-fade-size, var(--spacing-10))` |
-| `--scroll-area-scrollbar-size`   | `0.375rem`                                        |
-| `--scroll-area-scrollbar-margin` | `calc(var(--spacing-1) / 2)`                      |
+| `--scroll-area-scrollbar-size`   | `var(--spacing-1)`                                |
+| `--scroll-area-scrollbar-margin` | `var(--spacing-1)`                                |
 | `--scroll-area-scrollbar-bg`     | `transparent`                                     |
 | `--scroll-area-thumb-bg`         | `var(--color-border)`                             |
 | `--scroll-area-thumb-min-size`   | `1.5rem`                                          |
@@ -192,3 +192,5 @@ scrollbar when its matching Ark overflow attribute is absent.
   without bringing back the old legacy convenience surface.
 - 2026-06-21: Added defensive min-size reset on root and viewport so ScrollArea can shrink
   correctly inside flex/grid layouts.
+- 2026-06-27: Simplified scrollbar defaults to spacing tokens and synced docs examples with the
+  current Ark-aligned part composition.

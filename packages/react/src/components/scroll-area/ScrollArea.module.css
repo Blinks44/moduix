@@ -62,11 +62,11 @@
   }
 
   .scrollbar {
-    --_scroll-area-scrollbar-margin: var(
-      --scroll-area-scrollbar-margin,
-      calc(var(--spacing-1) / 2)
+    --_scroll-area-scrollbar-margin: var(--scroll-area-scrollbar-margin, var(--spacing-1));
+    --_scroll-area-scrollbar-hit-area-size: var(
+      --scroll-area-scrollbar-hit-area-size,
+      var(--spacing-5)
     );
-    --_scroll-area-scrollbar-hit-area-size: var(--scroll-area-scrollbar-hit-area-size, 1.25rem);
 
     position: absolute;
     box-sizing: border-box;
@@ -90,7 +90,7 @@
       top: 0;
       inset-inline-end: 0;
       bottom: var(--corner-height, 0px);
-      width: var(--scroll-area-scrollbar-size, 0.375rem);
+      width: var(--scroll-area-scrollbar-size, var(--spacing-1));
       margin-block: var(--_scroll-area-scrollbar-margin);
       margin-inline-end: var(--_scroll-area-scrollbar-margin);
 
@@ -110,7 +110,7 @@
       inset-inline-start: 0;
       inset-inline-end: var(--corner-width, 0px);
       bottom: 0;
-      height: var(--scroll-area-scrollbar-size, 0.375rem);
+      height: var(--scroll-area-scrollbar-size, var(--spacing-1));
       flex-direction: column;
       margin-inline: var(--_scroll-area-scrollbar-margin);
       margin-block-end: var(--_scroll-area-scrollbar-margin);

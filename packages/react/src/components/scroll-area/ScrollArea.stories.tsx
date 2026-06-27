@@ -17,19 +17,25 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+function TextContent() {
+  return (
+    <div className={styles.textContent}>
+      {insideScrollSections.map((item) => (
+        <section key={item.title}>
+          <h3>{item.title}</h3>
+          <p className={styles.paragraph}>{item.body}</p>
+        </section>
+      ))}
+    </div>
+  );
+}
+
 function VerticalScrollArea() {
   return (
     <ScrollArea className={styles.root}>
       <ScrollArea.Viewport>
         <ScrollArea.Content>
-          <div className={styles.textContent}>
-            {insideScrollSections.map((item) => (
-              <section key={item.title}>
-                <h3>{item.title}</h3>
-                <p className={styles.paragraph}>{item.body}</p>
-              </section>
-            ))}
-          </div>
+          <TextContent />
         </ScrollArea.Content>
       </ScrollArea.Viewport>
       <ScrollArea.Scrollbar>
@@ -64,14 +70,7 @@ function RootProviderStory() {
       <ScrollArea.RootProvider value={scrollArea} className={styles.root}>
         <ScrollArea.Viewport>
           <ScrollArea.Content>
-            <div className={styles.textContent}>
-              {insideScrollSections.map((item) => (
-                <section key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p className={styles.paragraph}>{item.body}</p>
-                </section>
-              ))}
-            </div>
+            <TextContent />
           </ScrollArea.Content>
         </ScrollArea.Viewport>
         <ScrollArea.Scrollbar>
@@ -92,14 +91,7 @@ export const Fade: Story = {
     <ScrollArea className={styles.root} fade>
       <ScrollArea.Viewport>
         <ScrollArea.Content>
-          <div className={styles.textContent}>
-            {insideScrollSections.map((item) => (
-              <section key={item.title}>
-                <h3>{item.title}</h3>
-                <p className={styles.paragraph}>{item.body}</p>
-              </section>
-            ))}
-          </div>
+          <TextContent />
         </ScrollArea.Content>
       </ScrollArea.Viewport>
       <ScrollArea.Scrollbar>
@@ -111,77 +103,71 @@ export const Fade: Story = {
 };
 
 export const Horizontal: Story = {
-  render: () => {
-    return (
-      <ScrollArea className={styles.horizontalRoot}>
-        <ScrollArea.Viewport>
-          <ScrollArea.Content>
-            <p className={styles.wideParagraph}>{insideScrollSections[0]?.body}</p>
-          </ScrollArea.Content>
-        </ScrollArea.Viewport>
-        <ScrollArea.Scrollbar orientation="horizontal">
-          <ScrollArea.Thumb />
-        </ScrollArea.Scrollbar>
-        <ScrollArea.Corner />
-      </ScrollArea>
-    );
-  },
+  render: () => (
+    <ScrollArea className={styles.horizontalRoot}>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <p className={styles.wideParagraph}>{insideScrollSections[0]?.body}</p>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar orientation="horizontal">
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
+    </ScrollArea>
+  ),
 };
 
 export const BothDirections: Story = {
   name: 'Both Directions',
-  render: () => {
-    return (
-      <ScrollArea className={styles.root}>
-        <ScrollArea.Viewport>
-          <ScrollArea.Content>
-            <div className={styles.gridContent}>
-              {Array.from({ length: 96 }, (_, index) => (
-                <div key={index} className={styles.cell}>
-                  {index + 1}
-                </div>
-              ))}
-            </div>
-          </ScrollArea.Content>
-        </ScrollArea.Viewport>
-        <ScrollArea.Scrollbar>
-          <ScrollArea.Thumb />
-        </ScrollArea.Scrollbar>
-        <ScrollArea.Scrollbar orientation="horizontal">
-          <ScrollArea.Thumb />
-        </ScrollArea.Scrollbar>
-        <ScrollArea.Corner />
-      </ScrollArea>
-    );
-  },
+  render: () => (
+    <ScrollArea className={styles.root}>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <div className={styles.gridContent}>
+            {Array.from({ length: 96 }, (_, index) => (
+              <div key={index} className={styles.cell}>
+                {index + 1}
+              </div>
+            ))}
+          </div>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Scrollbar orientation="horizontal">
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
+    </ScrollArea>
+  ),
 };
 
 export const Nested: Story = {
-  render: () => {
-    return (
-      <ScrollArea className={styles.root}>
-        <ScrollArea.Viewport>
-          <ScrollArea.Content>
-            <div className={styles.textContent}>
-              <section>
-                <h3>Outer release notes</h3>
-                <p className={styles.paragraph}>{insideScrollSections[0]?.body}</p>
-              </section>
-              <VerticalScrollArea />
-              <section>
-                <h3>Follow-up items</h3>
-                <p className={styles.paragraph}>{insideScrollSections[1]?.body}</p>
-              </section>
-            </div>
-          </ScrollArea.Content>
-        </ScrollArea.Viewport>
-        <ScrollArea.Scrollbar>
-          <ScrollArea.Thumb />
-        </ScrollArea.Scrollbar>
-        <ScrollArea.Corner />
-      </ScrollArea>
-    );
-  },
+  render: () => (
+    <ScrollArea className={styles.root}>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <div className={styles.textContent}>
+            <section>
+              <h3>Outer release notes</h3>
+              <p className={styles.paragraph}>{insideScrollSections[0]?.body}</p>
+            </section>
+            <VerticalScrollArea />
+            <section>
+              <h3>Follow-up items</h3>
+              <p className={styles.paragraph}>{insideScrollSections[1]?.body}</p>
+            </section>
+          </div>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
+    </ScrollArea>
+  ),
 };
 
 export const RootProvider: Story = {

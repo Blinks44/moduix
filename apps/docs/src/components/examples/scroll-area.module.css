@@ -70,23 +70,15 @@
 }
 
 .customRoot {
-  --scroll-area-scrollbar-size: 0.625rem;
+  --scroll-area-scrollbar-size: var(--spacing-2);
   --scroll-area-scrollbar-margin: var(--spacing-1);
   --scroll-area-scrollbar-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
   --scroll-area-thumb-bg: var(--color-primary);
   --scroll-area-corner-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
 }
 
-.primaryScrollbar {
-  background-color: color-mix(in srgb, var(--color-primary) 12%, transparent);
-}
-
 .accentScrollbar {
   background-color: color-mix(in srgb, var(--color-chart-3) 18%, transparent);
-}
-
-.primaryThumb {
-  background-color: var(--color-primary);
 }
 
 .accentThumb {
