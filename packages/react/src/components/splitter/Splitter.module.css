@@ -3,8 +3,6 @@
     position: relative;
     box-sizing: border-box;
     display: flex;
-    width: var(--splitter-width, 100%);
-    height: var(--splitter-height, 28rem);
     min-width: var(--splitter-min-width, 0);
     min-height: var(--splitter-min-height, 0);
     overflow: hidden;
@@ -182,7 +180,7 @@
     );
   }
 
-  .resizeTrigger:focus-visible:not([data-dragging]) .resizeTriggerIndicator {
+  .resizeTrigger[data-focus]:not([data-dragging]) .resizeTriggerIndicator {
     box-shadow: var(
       --splitter-resize-trigger-indicator-shadow-focus,
       var(--splitter-resize-trigger-indicator-shadow, var(--shadow-sm))

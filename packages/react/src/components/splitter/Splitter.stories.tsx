@@ -47,7 +47,6 @@ export const Vertical: Story = {
       panels={panels}
       defaultSize={[45, 55]}
       className={styles.vertical}
-      style={{ height: '28rem' }}
     >
       <Splitter.Panel id="a" className={styles.panel}>
         Top
@@ -144,29 +143,25 @@ export const MultiplePanels: Story = {
 };
 
 export const Context: Story = {
-  render: () => {
-    const splitter = useSplitter({ panels, defaultSize: [35, 65] });
-
-    return (
-      <div className={styles.stack}>
-        <div className={styles.toolbar}>
-          <Button onClick={() => splitter.resizePanel('a', 20)}>Set A to 20%</Button>
-          <output className={styles.status}>Dragging: {String(splitter.dragging)}</output>
-        </div>
-        <Splitter.RootProvider value={splitter} className={styles.demo}>
-          <Splitter.Panel id="a" className={styles.panel}>
-            A
-          </Splitter.Panel>
-          <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-            <Splitter.ResizeTriggerIndicator />
-          </Splitter.ResizeTrigger>
-          <Splitter.Panel id="b" className={styles.panel}>
-            B
-          </Splitter.Panel>
-        </Splitter.RootProvider>
-      </div>
-    );
-  },
+  render: () => (
+    <Splitter panels={panels} defaultSize={[35, 65]} className={styles.demo}>
+      <Splitter.Context>
+        {(splitter) => (
+          <>
+            <Splitter.Panel id="a" className={styles.panel}>
+              <Button onClick={() => splitter.resizePanel('a', 20)}>Set A to 20%</Button>
+            </Splitter.Panel>
+            <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
+              <Splitter.ResizeTriggerIndicator />
+            </Splitter.ResizeTrigger>
+            <Splitter.Panel id="b" className={styles.panel}>
+              <Button onClick={() => splitter.resizePanel('b', 20)}>Set B to 20%</Button>
+            </Splitter.Panel>
+          </>
+        )}
+      </Splitter.Context>
+    </Splitter>
+  ),
 };
 
 export const RootProvider: Story = {

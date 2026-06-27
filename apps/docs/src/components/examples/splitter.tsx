@@ -5,7 +5,7 @@ import {
   useSplitter,
   type SplitterPanelData,
 } from '@moduix/react';
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './splitter.module.css';
@@ -20,8 +20,6 @@ const threePanels: SplitterPanelData[] = [
   { id: 'b', minSize: 15 },
   { id: 'c', minSize: 15 },
 ];
-
-const verticalSplitterStyle = { height: '28rem' } satisfies CSSProperties;
 
 export const splitterNoData = `No external data is required.`;
 
@@ -57,16 +55,11 @@ export const splitterExampleCss = `
 .splitter-demo {
   --splitter-width: min(56rem, 100%);
   --splitter-height: 28rem;
-
-  width: min(56rem, 100%);
-  min-width: min(42rem, 100%);
-  height: 28rem;
 }
 
 .splitter-panel {
   display: grid;
   place-items: center;
-  min-height: 12.5rem;
   font-weight: var(--weight-medium);
 }
 `;
@@ -75,20 +68,15 @@ export const splitterVerticalCss = `
 .splitter-vertical {
   --splitter-width: min(34rem, 100%);
   --splitter-height: 28rem;
-
-  width: min(34rem, 100%);
-  min-width: min(28rem, 100%);
-  height: 28rem;
 }
 
 .splitter-panel {
   display: grid;
   place-items: center;
-  min-height: 12.5rem;
   font-weight: var(--weight-medium);
 }
 
-[data-orientation="vertical"] > .splitter-panel {
+.splitter-vertical > .splitter-panel {
   min-height: 0;
 }
 `;
@@ -104,10 +92,6 @@ export const splitterStackCss = `
 .splitter-demo {
   --splitter-width: min(56rem, 100%);
   --splitter-height: 28rem;
-
-  width: min(56rem, 100%);
-  min-width: min(42rem, 100%);
-  height: 28rem;
 }
 
 .splitter-toolbar {
@@ -125,12 +109,7 @@ export const splitterStackCss = `
 .splitter-panel {
   display: grid;
   place-items: center;
-  min-height: 12.5rem;
   font-weight: var(--weight-medium);
-}
-
-[data-orientation="vertical"] > .splitter-panel {
-  min-height: 0;
 }
 `;
 
@@ -138,27 +117,20 @@ export const splitterNestedCss = `
 .splitter-nested {
   --splitter-width: min(56rem, 100%);
   --splitter-height: 30rem;
-
-  width: min(56rem, 100%);
-  height: 30rem;
-  max-width: 100%;
 }
 
 .splitter-panel {
   display: grid;
   place-items: center;
-  min-height: 12.5rem;
   font-weight: var(--weight-medium);
-}
-
-.splitter-nested [data-orientation="vertical"] > .splitter-panel {
-  min-height: 0;
 }
 
 .splitter-nested [data-orientation="vertical"] {
   --splitter-height: 100%;
+  min-height: 0;
+}
 
-  height: 100%;
+.splitter-nested [data-orientation="vertical"] > [data-slot="splitter-panel"] {
   min-height: 0;
 }
 `;
@@ -172,14 +144,11 @@ export const splitterCustomStylingCss = `
   --splitter-panel-bg: color-mix(in oklab, var(--color-primary) 4%, var(--color-background));
   --splitter-resize-trigger-line-color: color-mix(in oklab, var(--color-foreground) 24%, transparent);
   --splitter-resize-trigger-indicator-border-color: color-mix(in oklab, var(--color-foreground) 24%, var(--color-border));
-  width: min(56rem, 100%);
-  min-width: min(42rem, 100%);
 }
 
 .splitter-panel {
   display: grid;
   place-items: center;
-  min-height: 12.5rem;
   font-weight: var(--weight-medium);
 }
 `;
@@ -214,7 +183,6 @@ export function VerticalSplitterDemo() {
       panels={panels}
       defaultSize={[45, 55]}
       className="splitter-vertical"
-      style={{ height: "28rem" }}
     >
       <Splitter.Panel id="a" className="splitter-panel">
         Top
@@ -308,29 +276,27 @@ export function MultiplePanelsSplitterDemo() {
 `;
 
 export const splitterContextCode = `
-import { Button, Splitter, useSplitter } from "@moduix/react";
+import { Button, Splitter } from "@moduix/react";
 
 export function ContextSplitterDemo() {
-  const splitter = useSplitter({ panels, defaultSize: [35, 65] });
-
   return (
-    <div className="splitter-stack">
-      <div className="splitter-toolbar">
-        <Button onClick={() => splitter.resizePanel("a", 20)}>Set A to 20%</Button>
-        <output className="splitter-status">Dragging: {String(splitter.dragging)}</output>
-      </div>
-      <Splitter.RootProvider value={splitter} className="splitter-demo">
-        <Splitter.Panel id="a" className="splitter-panel">
-          A
-        </Splitter.Panel>
-        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-          <Splitter.ResizeTriggerIndicator />
-        </Splitter.ResizeTrigger>
-        <Splitter.Panel id="b" className="splitter-panel">
-          B
-        </Splitter.Panel>
-      </Splitter.RootProvider>
-    </div>
+    <Splitter panels={panels} defaultSize={[35, 65]} className="splitter-demo">
+      <Splitter.Context>
+        {(splitter) => (
+          <>
+            <Splitter.Panel id="a" className="splitter-panel">
+              <Button onClick={() => splitter.resizePanel("a", 20)}>Set A to 20%</Button>
+            </Splitter.Panel>
+            <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
+              <Splitter.ResizeTriggerIndicator />
+            </Splitter.ResizeTrigger>
+            <Splitter.Panel id="b" className="splitter-panel">
+              <Button onClick={() => splitter.resizePanel("b", 20)}>Set B to 20%</Button>
+            </Splitter.Panel>
+          </>
+        )}
+      </Splitter.Context>
+    </Splitter>
   );
 }
 `;
@@ -496,6 +462,8 @@ export function CustomStylingSplitterDemo() {
 export const splitterOverrideCssProperties: CssPropertyInput[] = [
   ['--splitter-height', '28rem', 'Controls the root height.'],
   ['--splitter-width', '100%', 'Controls the root width.'],
+  ['--splitter-min-height', '0', 'Controls the root minimum height.'],
+  ['--splitter-min-width', '0', 'Controls the root minimum width.'],
   ['--splitter-bg', 'var(--color-card)', 'Controls the root background.'],
   ['--splitter-border-color', 'var(--color-border)', 'Controls the root border color.'],
   ['--splitter-border-width', 'var(--border-width-sm)', 'Controls the root border width.'],
@@ -505,12 +473,21 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
   ['--splitter-panel-bg', 'var(--color-card)', 'Controls panel background color.'],
   ['--splitter-panel-border-color', 'var(--color-border)', 'Controls panel border color.'],
   ['--splitter-panel-border-width', '0', 'Controls optional panel border width.'],
+  ['--splitter-panel-color', 'var(--color-card-foreground)', 'Controls panel text color.'],
   ['--splitter-panel-min-height', '12.5rem', 'Controls panel minimum height.'],
   ['--splitter-panel-min-height-vertical', '0', 'Controls vertical panel minimum height.'],
+  ['--splitter-panel-min-width', '0', 'Controls panel minimum width.'],
   ['--splitter-panel-padding', 'var(--spacing-4)', 'Controls panel padding.'],
   ['--splitter-panel-radius', '0', 'Controls optional panel corner radius.'],
   ['--splitter-panel-shadow', 'none', 'Controls optional panel shadow.'],
+  ['--splitter-resize-trigger-bg', 'transparent', 'Controls the resize trigger background.'],
   ['--splitter-resize-trigger-size', '0.625rem', 'Controls the resize handle hit area.'],
+  ['--splitter-resize-trigger-line-length', '100%', 'Controls the visible splitter line length.'],
+  [
+    '--splitter-resize-trigger-line-radius',
+    'var(--radius-full)',
+    'Controls the visible splitter line radius.',
+  ],
   ['--splitter-resize-trigger-line-size', '1px', 'Controls the visible splitter line thickness.'],
   [
     '--splitter-resize-trigger-line-color',
@@ -521,6 +498,16 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
     '--splitter-resize-trigger-line-color-dragging',
     'var(--splitter-resize-trigger-line-color, var(--color-border))',
     'Controls the splitter line color while dragging.',
+  ],
+  [
+    '--splitter-resize-trigger-line-color-focus',
+    'var(--splitter-resize-trigger-line-color, var(--color-border))',
+    'Controls the splitter line color while focused.',
+  ],
+  [
+    '--splitter-resize-trigger-line-color-hover',
+    'var(--splitter-resize-trigger-line-color, var(--color-border))',
+    'Controls the splitter line color on hover.',
   ],
   [
     '--splitter-resize-trigger-indicator-bg',
@@ -538,9 +525,20 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
     'Controls the handle indicator border color.',
   ],
   [
+    '--splitter-resize-trigger-indicator-border-width',
+    'var(--border-width-sm)',
+    'Controls the handle indicator border width.',
+  ],
+  [
     '--splitter-resize-trigger-indicator-border-color-dragging',
     'var(--splitter-resize-trigger-indicator-border-color, var(--color-border))',
     'Controls the handle indicator border color while dragging.',
+  ],
+  ['--splitter-resize-trigger-indicator-height', '1.5rem', 'Controls the handle indicator length.'],
+  [
+    '--splitter-resize-trigger-indicator-radius',
+    'var(--radius-full)',
+    'Controls the handle indicator radius.',
   ],
   [
     '--splitter-resize-trigger-indicator-shadow',
@@ -557,7 +555,13 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
     'var(--splitter-resize-trigger-indicator-shadow, var(--shadow-sm))',
     'Controls the handle indicator focus shadow.',
   ],
+  [
+    '--splitter-resize-trigger-indicator-width',
+    '0.375rem',
+    'Controls the handle indicator thickness.',
+  ],
   ['--splitter-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled trigger opacity.'],
+  ['--splitter-transition', 'var(--transition-default)', 'Controls splitter visual transitions.'],
 ];
 
 function normalizeCssProperty(property: CssPropertyInput) {
@@ -595,7 +599,6 @@ export function VerticalSplitterExample() {
       panels={panels}
       defaultSize={[45, 55]}
       className={styles.vertical}
-      style={verticalSplitterStyle}
     >
       <Splitter.Panel id="a" className={styles.panel}>
         Top
@@ -682,26 +685,24 @@ export function MultiplePanelsSplitterExample() {
 }
 
 export function ContextSplitterExample() {
-  const splitter = useSplitter({ panels, defaultSize: [35, 65] });
-
   return (
-    <div className={styles.stack}>
-      <div className={styles.toolbar}>
-        <Button onClick={() => splitter.resizePanel('a', 20)}>Set A to 20%</Button>
-        <output className={styles.status}>Dragging: {String(splitter.dragging)}</output>
-      </div>
-      <Splitter.RootProvider value={splitter} className={styles.demo}>
-        <Splitter.Panel id="a" className={styles.panel}>
-          A
-        </Splitter.Panel>
-        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-          <Splitter.ResizeTriggerIndicator />
-        </Splitter.ResizeTrigger>
-        <Splitter.Panel id="b" className={styles.panel}>
-          B
-        </Splitter.Panel>
-      </Splitter.RootProvider>
-    </div>
+    <Splitter panels={panels} defaultSize={[35, 65]} className={styles.demo}>
+      <Splitter.Context>
+        {(splitter) => (
+          <>
+            <Splitter.Panel id="a" className={styles.panel}>
+              <Button onClick={() => splitter.resizePanel('a', 20)}>Set A to 20%</Button>
+            </Splitter.Panel>
+            <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
+              <Splitter.ResizeTriggerIndicator />
+            </Splitter.ResizeTrigger>
+            <Splitter.Panel id="b" className={styles.panel}>
+              <Button onClick={() => splitter.resizePanel('b', 20)}>Set B to 20%</Button>
+            </Splitter.Panel>
+          </>
+        )}
+      </Splitter.Context>
+    </Splitter>
   );
 }
 
@@ -731,7 +732,19 @@ export function RootProviderSplitterExample() {
 }
 
 export function ResizeIndicatorSplitterExample() {
-  return <BasicSplitterExample />;
+  return (
+    <Splitter panels={panels} defaultSize={[40, 60]} className={styles.demo}>
+      <Splitter.Panel id="a" className={styles.panel}>
+        A
+      </Splitter.Panel>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
+        <Splitter.ResizeTriggerIndicator />
+      </Splitter.ResizeTrigger>
+      <Splitter.Panel id="b" className={styles.panel}>
+        B
+      </Splitter.Panel>
+    </Splitter>
+  );
 }
 
 export function DynamicCollapsibleSplitterExample() {

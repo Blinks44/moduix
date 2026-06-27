@@ -149,6 +149,7 @@ button semantics, focus behavior, and keyboard interaction intact.
 | `defaultSize`      | Ark-calculated | Pass percentage values totaling `100` for predictable initial sizing. |
 | `keyboardResizeBy` | Ark default    | Controls arrow-key resize distance.                                   |
 | `size`             | uncontrolled   | Pass with `onResize(details)` for controlled panel sizes.             |
+| `disabled`         | `false`        | Set on `ResizeTrigger` to disable a handle.                           |
 
 ### Behavioral notes
 
@@ -212,9 +213,7 @@ Add another `Panel` and another adjacent `ResizeTrigger` for three-panel layouts
 
 ### Context
 
-Use a splitter instance when controls should sit above the panels while still reading and invoking
-the same programmatic API. `Splitter.Context` remains useful for child UI that intentionally renders
-inside the root.
+Use `Splitter.Context` when child UI inside the root needs the current splitter API.
 
 <Preview>
   <ContextSplitterExample />
@@ -291,12 +290,16 @@ Customize visuals with CSS variables, `className`, `data-slot` hooks, and Ark st
 ## Styling
 
 Style `Splitter` through `className`, Ark attributes, stable `data-slot="splitter-*"` hooks, and the
-public Moduix CSS variables below. The default surface lives on `Splitter.Root`, while panels stay
-flat and flush inside it. The resize trigger contributes only a `1px` separator to layout, with a
-transparent hit area and `Splitter.ResizeTriggerIndicator` rendered as the raised rounded handle on
-top of that line. The indicator is centered over the separator for both orientations. The separator
-line and handle stay neutral on hover, focus, and drag by default, while drag-specific CSS variables
-let consumers opt into a different active color.
+public Moduix CSS variables below. `Splitter.Root` and `Splitter.RootProvider` apply
+`--splitter-width` and `--splitter-height` through their default inline style so those variables can
+override Ark's root layout style. The default surface lives on the root, while panels stay flat and
+flush inside it.
+
+The resize trigger contributes only a `1px` separator to layout, with a transparent hit area and
+`Splitter.ResizeTriggerIndicator` rendered as the raised rounded handle on top of that line. The
+indicator is centered over the separator for both orientations. The separator line and handle stay
+neutral on hover, focus, and drag by default, while drag-specific CSS variables let consumers opt
+into a different active color.
 
 ### CSS Properties
 

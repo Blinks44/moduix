@@ -25,6 +25,8 @@ The upstream model is:
 
 `Splitter` exposes Ark props directly. It does not translate callback details, manage sizes locally, infer panel ids, or render hidden panels. Consumers pass `panels` and render matching `Panel` / `ResizeTrigger` parts explicitly.
 
+`Splitter.Root` and `Splitter.RootProvider` add a default inline sizing style that resolves `--splitter-width` and `--splitter-height`. This keeps moduix sizing variables effective because Ark's root props include inline `width: 100%` and `height: 100%`.
+
 `Splitter` also exports `createSplitterRegistry` and `getSplitterLayout` from Ark. The namespaced `Splitter.createRegistry` and `Splitter.getLayout` aliases mirror Ark's namespace API.
 
 ## Anatomy and exported parts
@@ -102,9 +104,9 @@ Refs are forwarded to the actual Ark-rendered root, panel, trigger, and indicato
 
 Every styled part accepts `className`, merged with moduix defaults through `clsx` and `normalizeClassName`. The CSS module uses flat selectors, Ark data attributes, and stable `data-slot` hooks.
 
-The root defaults to `width: 100%`, `height: 28rem`, a card background, an outer border, rounded corners, clipping, and a small shadow. Panels get `min-height: 12.5rem`, padding, `overflow: auto`, and a flat card background so adjacent panels sit flush. Vertical splitters reset panel min height through `--splitter-panel-min-height-vertical` so top/bottom panels can resize inside the fixed root height. The resize trigger contributes only a `1px` divider to layout; its transparent hit area overlaps the divider, and the line and handle stay neutral on hover, focus, and drag by default. Focus- and drag-specific variables are available for consumers that want active styling, but their fallbacks match the idle state. `ResizeTriggerIndicator` is centered absolutely over the divider and renders as a narrow rounded handle with a background fill, stable border, and shadow.
+The root defaults to inline `width: var(--splitter-width, 100%)` and `height: var(--splitter-height, 28rem)` plus a card background, an outer border, rounded corners, clipping, and a small shadow. Panels get `min-height: 12.5rem`, padding, `overflow: auto`, and a flat card background so adjacent panels sit flush. Vertical splitters reset panel min height through `--splitter-panel-min-height-vertical` so top/bottom panels can resize inside the fixed root height. The resize trigger contributes only a `1px` divider to layout; its transparent hit area overlaps the divider, and the line and handle stay neutral on hover, focus, and drag by default. Focus- and drag-specific variables are available for consumers that want active styling, but their fallbacks match the idle state. `ResizeTriggerIndicator` is centered absolutely over the divider and renders as a narrow rounded handle with a background fill, stable border, and shadow.
 
-All `--splitter-*` variables used by `Splitter.module.css` are declared in `src/core/styles/theme.css`. Common overrides include `--splitter-height`, `--splitter-bg`, `--splitter-border-color`, `--splitter-radius`, `--splitter-shadow`, `--splitter-panel-bg`, `--splitter-panel-min-height`, `--splitter-panel-min-height-vertical`, `--splitter-panel-padding`, `--splitter-resize-trigger-size`, `--splitter-resize-trigger-line-color`, `--splitter-resize-trigger-line-color-dragging`, `--splitter-resize-trigger-indicator-bg`, `--splitter-resize-trigger-indicator-bg-dragging`, `--splitter-resize-trigger-indicator-border-color`, `--splitter-resize-trigger-indicator-border-color-dragging`, `--splitter-resize-trigger-indicator-shadow`, and `--splitter-resize-trigger-indicator-shadow-dragging`.
+All public `--splitter-*` variables used by the component are declared in `src/core/styles/theme.css`. Common overrides include `--splitter-height`, `--splitter-bg`, `--splitter-border-color`, `--splitter-radius`, `--splitter-shadow`, `--splitter-panel-bg`, `--splitter-panel-min-height`, `--splitter-panel-min-height-vertical`, `--splitter-panel-padding`, `--splitter-resize-trigger-size`, `--splitter-resize-trigger-line-color`, `--splitter-resize-trigger-line-color-dragging`, `--splitter-resize-trigger-indicator-bg`, `--splitter-resize-trigger-indicator-bg-dragging`, `--splitter-resize-trigger-indicator-border-color`, `--splitter-resize-trigger-indicator-border-color-dragging`, `--splitter-resize-trigger-indicator-shadow`, and `--splitter-resize-trigger-indicator-shadow-dragging`.
 
 ## Intentional sugar and differences from upstream
 
@@ -127,3 +129,5 @@ Keep `ResizeTriggerIndicator` optional and inside `ResizeTrigger`; it depends on
 - 2026-06-23: Added drag-state CSS variables for the divider and handle with neutral default fallbacks.
 - 2026-06-23: Kept focus and drag handle styles neutral by default while preserving CSS variables for consumer opt-in styling.
 - 2026-06-23: Stabilized vertical Storybook and docs examples with direct root height on first render while keeping Storybook's centered layout.
+- 2026-06-27: Aligned focus styling with Ark's `data-focus` state and refreshed docs examples/CSS variable coverage after the Ark migration review.
+- 2026-06-27: Moved root width/height defaults into the wrapper's inline style so `--splitter-width` and `--splitter-height` override Ark's inline root layout.

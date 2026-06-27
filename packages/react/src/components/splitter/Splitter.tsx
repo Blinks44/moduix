@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentRef, CSSProperties } from 'react';
 import {
   Splitter as SplitterPrimitive,
   createSplitterRegistry,
@@ -11,15 +11,21 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Splitter.module.css';
 
+const rootStyle = {
+  width: 'var(--splitter-width, 100%)',
+  height: 'var(--splitter-height, 28rem)',
+} satisfies CSSProperties;
+
 const SplitterRoot = forwardRef<
   ComponentRef<typeof SplitterPrimitive.Root>,
   ComponentProps<typeof SplitterPrimitive.Root>
->(function SplitterRoot({ className, ...props }, ref) {
+>(function SplitterRoot({ className, style, ...props }, ref) {
   return (
     <SplitterPrimitive.Root
       ref={ref}
       data-slot="splitter-root"
       className={clsx(styles.root, normalizeClassName(className))}
+      style={{ ...rootStyle, ...style }}
       {...props}
     />
   );
@@ -28,12 +34,13 @@ const SplitterRoot = forwardRef<
 const SplitterRootProvider = forwardRef<
   ComponentRef<typeof SplitterPrimitive.RootProvider>,
   ComponentProps<typeof SplitterPrimitive.RootProvider>
->(function SplitterRootProvider({ className, ...props }, ref) {
+>(function SplitterRootProvider({ className, style, ...props }, ref) {
   return (
     <SplitterPrimitive.RootProvider
       ref={ref}
       data-slot="splitter-root-provider"
       className={clsx(styles.root, normalizeClassName(className))}
+      style={{ ...rootStyle, ...style }}
       {...props}
     />
   );

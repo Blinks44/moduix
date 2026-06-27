@@ -1,10 +1,6 @@
 .demo {
   --splitter-width: min(56rem, 100%);
   --splitter-height: 28rem;
-
-  width: min(56rem, 100%);
-  min-width: min(42rem, 100%);
-  height: 28rem;
 }
 
 .panel {
@@ -22,10 +18,6 @@
 .vertical {
   --splitter-width: min(34rem, 100%);
   --splitter-height: 28rem;
-
-  width: min(34rem, 100%);
-  min-width: min(28rem, 100%);
-  height: 28rem;
 }
 
 .vertical > .panel {
@@ -54,16 +46,10 @@
 .nested {
   --splitter-width: min(56rem, 100%);
   --splitter-height: 30rem;
-
-  width: min(56rem, 100%);
-  height: 30rem;
-  max-width: 100%;
 }
 
 .nested [data-orientation='vertical'] {
   --splitter-height: 100%;
-
-  height: 100%;
   min-height: 0;
 }
 
@@ -87,6 +73,4 @@
     var(--color-foreground) 24%,
     var(--color-border)
   );
-  width: min(56rem, 100%);
-  min-width: min(42rem, 100%);
 }
