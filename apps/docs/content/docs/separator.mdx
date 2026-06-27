@@ -16,9 +16,10 @@ import {
 
 ## API Reference
 
-Ark UI does not ship a dedicated separator primitive. moduix implements `Separator` as an
-Ark-style factory wrapper over one semantic root element, with Chakra-inspired orientation,
-variant, and size props.
+Ark UI does not ship a dedicated separator primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Basic
 
@@ -36,9 +37,9 @@ Use `Separator` when the line itself communicates structure between related cont
         return (
           <div className={styles.card}>
             <div className={styles.stack}>
-              <span className={styles.text}>Account settings</span>
+              <span className={styles.text}>{sections[0]}</span>
               <Separator />
-              <span className={styles.text}>Billing details</span>
+              <span className={styles.text}>{sections[1]}</span>
             </div>
           </div>
         );
@@ -131,10 +132,6 @@ Separator / Separator.Root
 └─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
 ```
 
-```tsx
-<Separator orientation="horizontal" />
-```
-
 | Part                           | Role                                                                                   |
 | ------------------------------ | -------------------------------------------------------------------------------------- |
 | `Separator` / `Separator.Root` | Root divider element. Controls orientation, accessibility metadata, and visual recipe. |
@@ -143,7 +140,7 @@ Style the root directly with `className`, `asChild`, or the `--separator-*` CSS 
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
 Use the short `<Separator />` form for most dividers. It is equivalent to
 `<Separator.Root />` and keeps the public root form consistent with multipart Ark-style
@@ -369,11 +366,11 @@ Use `asChild` to render a native host while keeping the moduix separator styling
       export function SeparatorAsChildDemo() {
         return (
           <div className={styles.section}>
-            <span className={styles.text}>Before native rule</span>
+            <span className={styles.text}>{labels[0]}</span>
             <Separator asChild>
               <hr className={styles.nativeRule} />
             </Separator>
-            <span className={styles.text}>After native rule</span>
+            <span className={styles.text}>{labels[1]}</span>
           </div>
         );
       }
@@ -423,9 +420,9 @@ or a fixed length.
       export function CustomSeparatorDemo() {
         return (
           <div className={styles.section}>
-            <span className={styles.text}>Completed profile</span>
+            <span className={styles.text}>{steps[0]}</span>
             <Separator className={styles.customSeparator} />
-            <span className={styles.text}>Next step: billing details</span>
+            <span className={styles.text}>{steps[1]}</span>
           </div>
         );
       }

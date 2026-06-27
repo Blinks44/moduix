@@ -67,6 +67,8 @@ export const Sizes: Story = {
   render: () => {
     return (
       <div className={styles.section}>
+        <span className={styles.link}>Extra small</span>
+        <Separator size="xs" />
         <span className={styles.link}>Small</span>
         <Separator size="sm" />
         <span className={styles.link}>Medium</span>

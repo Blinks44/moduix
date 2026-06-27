@@ -4,30 +4,30 @@
     flex-shrink: 0;
     border: 0;
     border-color: var(--separator-color, var(--color-border));
-    border-style: var(--separator-border-style, solid);
+    border-style: var(--separator-border-style, var(--separator-variant-border-style, solid));
 
-    &[data-scope='separator'][data-part='root'][data-size='xs'] {
+    &[data-size='xs'] {
       --separator-size-thickness: 0.5px;
     }
 
-    &[data-scope='separator'][data-part='root'][data-size='sm'] {
+    &[data-size='sm'] {
       --separator-size-thickness: 1px;
     }
 
-    &[data-scope='separator'][data-part='root'][data-size='md'] {
+    &[data-size='md'] {
       --separator-size-thickness: 2px;
     }
 
-    &[data-scope='separator'][data-part='root'][data-size='lg'] {
+    &[data-size='lg'] {
       --separator-size-thickness: 3px;
     }
 
-    &[data-scope='separator'][data-part='root'][data-variant='dashed'] {
-      --separator-border-style: dashed;
+    &[data-variant='dashed'] {
+      --separator-variant-border-style: dashed;
     }
 
-    &[data-scope='separator'][data-part='root'][data-variant='dotted'] {
-      --separator-border-style: dotted;
+    &[data-variant='dotted'] {
+      --separator-variant-border-style: dotted;
     }
 
     &[data-orientation='horizontal'] {

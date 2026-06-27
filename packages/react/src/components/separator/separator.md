@@ -12,9 +12,9 @@ horizontal or vertical rule.
 
 ## Upstream model to preserve
 
-Ark UI does not ship a dedicated separator primitive. The wrapper follows Ark factory composition:
-one exported `ark.span` root, `asChild` support for a single custom host, refs forwarded to the
-rendered element, and Ark-style `data-scope` / `data-part` styling hooks.
+Ark UI does not ship a dedicated separator primitive. Moduix builds this component with the official
+Ark factory: one exported `ark.span` root, `asChild` support for a single custom host, refs
+forwarded to the rendered element, and Ark-style `data-scope` / `data-part` styling hooks.
 
 Chakra's current Separator recipe materially informs this contract: `orientation`, `variant`,
 `size`, a single root element, default horizontal orientation, and separator semantics through
@@ -110,7 +110,7 @@ Public CSS variables:
 
 | Variable                        | Default                                | Effect                                   |
 | ------------------------------- | -------------------------------------- | ---------------------------------------- |
-| `--separator-border-style`      | `solid`                                | Border style used by the active variant. |
+| `--separator-border-style`      | active `variant` style                 | Overrides the variant border style.      |
 | `--separator-color`             | `var(--color-border)`                  | Divider color.                           |
 | `--separator-length-horizontal` | `100%`                                 | Width for horizontal mode.               |
 | `--separator-length-vertical`   | `1em`                                  | Height for vertical mode.                |
@@ -138,6 +138,9 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-06-27: Re-audited the Ark factory contract, simplified size and variant CSS selectors,
+  made `--separator-border-style` a consumer override above the recipe variant, and aligned public
+  docs/examples with the local-only Ark factory API text.
 - 2026-06-20: Migrated from legacy to an Ark factory wrapper, added `Separator.Root`, `asChild`,
   `variant`, `size`, Ark-style data hooks, Chakra-informed ARIA semantics, and removed legacy
   `render` compatibility.
