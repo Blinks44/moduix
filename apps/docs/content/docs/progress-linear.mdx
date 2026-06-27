@@ -1,6 +1,6 @@
 ---
 title: Progress Linear
-description: A horizontal progressbar for determinate or indeterminate progress.
+description: A linear progressbar for determinate or indeterminate progress.
 icon: Component
 ---
 
@@ -15,9 +15,11 @@ import {
   ProgressLinearExample,
   RootProviderProgressLinearExample,
   ValueTextProgressLinearExample,
+  VerticalProgressLinearExample,
   progressLinearCustomStylingCss,
   progressLinearData,
   progressLinearExampleCss,
+  progressLinearVerticalCss,
 } from '@/components/examples/progress-linear';
 import { ProgressLinear } from '@moduix/react';
 
@@ -27,8 +29,8 @@ import { ProgressLinear } from '@moduix/react';
 
 ## Choosing the right component
 
-Choose `ProgressLinear` when horizontal space is available and the user should compare progress
-against a clear track. Choose `ProgressCircular` for compact inline status surfaces.
+Choose `ProgressLinear` when the user should compare progress against a clear bar track. Choose
+`ProgressCircular` for compact inline status surfaces.
 
 ## Basic
 
@@ -121,9 +123,9 @@ ProgressLinear.RootProvider
 | ---------------------------------------- | --------------------------------------------------------------- |
 | `ProgressLinear` / `ProgressLinear.Root` | Owns progress state, formatting, and ids.                       |
 | `ProgressLinear.RootProvider`            | Connects parts to state created with `useProgressLinear()`.     |
-| `ProgressLinear.Label`                   | Accessible label for the progressbar.                           |
+| `ProgressLinear.Label`                   | Visible label for the progressbar.                              |
 | `ProgressLinear.ValueText`               | Visible value text generated from Ark translations.             |
-| `ProgressLinear.Track`                   | Linear rail with progressbar semantics and ARIA value.          |
+| `ProgressLinear.Track`                   | Linear rail with progressbar role and ARIA value attributes.    |
 | `ProgressLinear.Range`                   | Filled range that reflects the current percent.                 |
 | `ProgressLinear.View`                    | Conditional view for `indeterminate`, `loading`, or `complete`. |
 | `ProgressLinear.Context`                 | Render-prop access to the Ark progress API.                     |
@@ -153,19 +155,21 @@ instead of duplicating state checks outside the component.
 
 ### Default props
 
-| Prop            | Default                | Notes                                   |
-| --------------- | ---------------------- | --------------------------------------- |
-| `defaultValue`  | `50`                   | Initial uncontrolled value.             |
-| `min`           | `0`                    | Lower bound for percent and ARIA value. |
-| `max`           | `100`                  | Upper bound for percent and ARIA value. |
-| `formatOptions` | `{ style: 'percent' }` | Controls `ValueText` formatting.        |
-| `locale`        | `'en-US'`              | Locale used by `Intl.NumberFormat`.     |
-| `orientation`   | `'horizontal'`         | Ark orientation.                        |
+| Prop            | Default                | Notes                                                  |
+| --------------- | ---------------------- | ------------------------------------------------------ |
+| `defaultValue`  | `50`                   | Initial uncontrolled value.                            |
+| `min`           | `0`                    | Lower bound for percent and ARIA value.                |
+| `max`           | `100`                  | Upper bound for percent and ARIA value.                |
+| `formatOptions` | `{ style: 'percent' }` | Controls `ValueText` formatting.                       |
+| `locale`        | `'en-US'`              | Locale used by `Intl.NumberFormat`.                    |
+| `orientation`   | `'horizontal'`         | Ark orientation. Use `vertical` with a defined height. |
 
 ### Behavioral notes
 
 `ProgressLinear.Track` receives the progressbar role and ARIA value attributes from Ark. The root
-stores progress state and exposes `data-state="indeterminate|loading|complete"`.
+stores progress state and exposes `data-state="indeterminate|loading|complete"`. Ark writes
+`data-orientation` on the root, label, track, and range so horizontal and vertical styles can share
+the same part tree.
 
 All exported parts support `asChild` through Ark polymorphic composition. Keep replacement children
 semantic and preserve the progressbar semantics on the track.
@@ -315,6 +319,40 @@ Pass `defaultValue={null}` or `value={null}` when progress is running but comple
   </Preview.Code>
 
   <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
+  <Preview.Data>{progressLinearData}</Preview.Data>
+</Preview>
+
+### Vertical
+
+Set `orientation="vertical"` when the track should fill upward instead of from left to right.
+
+<Preview>
+  <VerticalProgressLinearExample />
+
+  <Preview.Code>
+    {`
+      import { ProgressLinear } from "@moduix/react";
+
+      export function VerticalProgressLinearDemo() {
+        return (
+          <ProgressLinear
+            defaultValue={42}
+            orientation="vertical"
+            className="progress-linear-vertical"
+          >
+            <ProgressLinear.Label>Indexing files</ProgressLinear.Label>
+            <ProgressLinear.ValueText />
+            <ProgressLinear.Track>
+              <ProgressLinear.Range />
+            </ProgressLinear.Track>
+          </ProgressLinear>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{progressLinearVerticalCss}</Preview.CSS>
   <Preview.Data>{progressLinearData}</Preview.Data>
 </Preview>
 
@@ -520,4 +558,4 @@ data attributes and moduix `data-slot` hooks.
   `progress-linear-label`, `progress-linear-value-text`, `progress-linear-track`,
   `progress-linear-range`, and `progress-linear-view`.
 - Ark hooks: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
-  `data-orientation`, `data-value`, and `data-max`.
+  `data-orientation="horizontal|vertical"`, `data-value`, and `data-max`.

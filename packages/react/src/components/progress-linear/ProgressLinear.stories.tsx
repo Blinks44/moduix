@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState, type CSSProperties } from 'react';
+import { useState } from 'react';
 import { ProgressLinear, useProgressLinear } from './ProgressLinear';
 import styles from './ProgressLinear.stories.module.css';
 
@@ -18,15 +18,6 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-
-function getProgressDemoRangeStyle(value: number | null, min = 0, max = 100): CSSProperties {
-  const safeValue = value ?? min;
-  const percent = ((safeValue - min) / (max - min)) * 100;
-
-  return {
-    '--progress-demo-range-percent': `${Math.max(0, Math.min(100, percent))}%`,
-  } as CSSProperties;
-}
 
 export const Basic: Story = {
   render: (args) => {
@@ -61,7 +52,6 @@ export const Controlled: Story = {
           min={0}
           max={100}
           value={value ?? 0}
-          style={getProgressDemoRangeStyle(value)}
           onChange={(event) => {
             setValue(Number(event.target.value));
           }}
@@ -104,6 +94,20 @@ export const Indeterminate: Story = {
     return (
       <ProgressLinear defaultValue={null}>
         <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
+        <ProgressLinear.ValueText />
+        <ProgressLinear.Track>
+          <ProgressLinear.Range />
+        </ProgressLinear.Track>
+      </ProgressLinear>
+    );
+  },
+};
+
+export const Vertical: Story = {
+  render: () => {
+    return (
+      <ProgressLinear defaultValue={42} orientation="vertical" className={styles.verticalProgress}>
+        <ProgressLinear.Label>Indexing files</ProgressLinear.Label>
         <ProgressLinear.ValueText />
         <ProgressLinear.Track>
           <ProgressLinear.Range />

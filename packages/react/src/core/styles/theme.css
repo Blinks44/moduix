@@ -2046,12 +2046,14 @@
   /* ProgressLinear */
   --progress-linear-color: initial; /* var(--color-foreground) */
   --progress-linear-gap: initial; /* 0.5rem */
+  --progress-linear-height: initial; /* 12rem */
   --progress-linear-label-color: initial; /* currentColor */
   --progress-linear-label-font-size: initial; /* var(--text-sm) */
   --progress-linear-label-font-weight: initial; /* var(--weight-regular) */
   --progress-linear-label-line-height: initial; /* var(--line-height-text-sm) */
   --progress-linear-range-bg: initial; /* var(--color-primary) */
   --progress-linear-range-indeterminate-animation: initial; /* progress-linear-indeterminate 1.5s ease-in-out infinite */
+  --progress-linear-range-indeterminate-vertical-animation: initial; /* progress-linear-indeterminate-vertical 1.5s ease-in-out infinite */
   --progress-linear-range-indeterminate-width: initial; /* 35% */
   --progress-linear-range-radius: initial; /* inherit */
   --progress-linear-range-transition: initial; /* var(--transition-default) */
@@ -2060,10 +2062,12 @@
   --progress-linear-track-border-width: initial; /* var(--border-width-sm) */
   --progress-linear-track-height: initial; /* 0.5rem */
   --progress-linear-track-radius: initial; /* var(--radius-full) */
+  --progress-linear-track-width: initial; /* 0.5rem */
   --progress-linear-value-text-color: initial; /* currentColor */
   --progress-linear-value-text-font-size: initial; /* var(--text-sm) */
   --progress-linear-value-text-font-weight: initial; /* var(--weight-regular) */
   --progress-linear-value-text-line-height: initial; /* var(--line-height-text-sm) */
+  --progress-linear-vertical-width: initial; /* max-content */
   --progress-linear-width: initial; /* 12rem */
 
   /* QrCode */

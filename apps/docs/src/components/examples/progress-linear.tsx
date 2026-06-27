@@ -31,6 +31,12 @@ export const progressLinearCustomStylingCss = `
   }
 `;
 
+export const progressLinearVerticalCss = `
+  .progress-linear-vertical {
+    --progress-linear-height: 10rem;
+  }
+`;
+
 export const progressLinearData = `const progressLabels = {
   export: 'Export data',
   upload: 'Upload status',
@@ -39,11 +45,13 @@ export const progressLinearData = `const progressLabels = {
   report: 'Preparing report',
   migration: 'Migration',
   quota: 'Monthly quota',
+  indexing: 'Indexing files',
 };`;
 
 export const progressLinearCssProperties: CssPropertyInput[] = [
   ['--progress-linear-color', 'var(--color-foreground)', 'Controls root text color.'],
   ['--progress-linear-gap', '0.5rem', 'Controls spacing between label/value and track.'],
+  ['--progress-linear-height', '12rem', 'Controls vertical root height.'],
   ['--progress-linear-label-color', 'currentColor', 'Controls label text color.'],
   ['--progress-linear-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
   ['--progress-linear-label-font-weight', 'var(--weight-regular)', 'Controls label weight.'],
@@ -58,7 +66,12 @@ export const progressLinearCssProperties: CssPropertyInput[] = [
     'progress-linear-indeterminate 1.5s ease-in-out infinite',
     'Controls indeterminate range animation.',
   ],
-  ['--progress-linear-range-indeterminate-width', '35%', 'Controls indeterminate range width.'],
+  [
+    '--progress-linear-range-indeterminate-vertical-animation',
+    'progress-linear-indeterminate-vertical 1.5s ease-in-out infinite',
+    'Controls vertical indeterminate range animation.',
+  ],
+  ['--progress-linear-range-indeterminate-width', '35%', 'Controls indeterminate range length.'],
   ['--progress-linear-range-radius', 'inherit', 'Controls filled range radius.'],
   [
     '--progress-linear-range-transition',
@@ -78,6 +91,7 @@ export const progressLinearCssProperties: CssPropertyInput[] = [
   ],
   ['--progress-linear-track-height', '0.5rem', 'Controls track height.'],
   ['--progress-linear-track-radius', 'var(--radius-full)', 'Controls track radius.'],
+  ['--progress-linear-track-width', '0.5rem', 'Controls vertical track width.'],
   ['--progress-linear-value-text-color', 'currentColor', 'Controls value text color.'],
   ['--progress-linear-value-text-font-size', 'var(--text-sm)', 'Controls value text font size.'],
   [
@@ -90,6 +104,7 @@ export const progressLinearCssProperties: CssPropertyInput[] = [
     'var(--line-height-text-sm)',
     'Controls value text line height.',
   ],
+  ['--progress-linear-vertical-width', 'max-content', 'Controls vertical root width.'],
   ['--progress-linear-width', '12rem', 'Controls default root width.'],
 ];
 
@@ -182,6 +197,15 @@ export function IndeterminateProgressLinearExample() {
   return (
     <ProgressLinear defaultValue={null}>
       <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
+      <ProgressLinearParts />
+    </ProgressLinear>
+  );
+}
+
+export function VerticalProgressLinearExample() {
+  return (
+    <ProgressLinear defaultValue={42} orientation="vertical" className="progress-linear-vertical">
+      <ProgressLinear.Label>Indexing files</ProgressLinear.Label>
       <ProgressLinearParts />
     </ProgressLinear>
   );
