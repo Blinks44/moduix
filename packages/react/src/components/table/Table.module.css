@@ -81,15 +81,15 @@
       var(--table-border-color, var(--color-border));
   }
 
-  .root[data-interactive] .body .row:hover {
-    background-color: var(--table-row-bg-hover, var(--color-muted));
-  }
-
-  .root[data-striped] .body .row:nth-child(even):not(.emptyRow):not(:hover) {
+  .root[data-striped] .body .row:nth-child(even):not(.emptyRow) {
     background-color: var(
       --table-row-bg-striped,
       color-mix(in oklab, var(--color-muted) 35%, transparent)
     );
+  }
+
+  .root[data-interactive] .body .row:not(.emptyRow):hover {
+    background-color: var(--table-row-bg-hover, var(--color-muted));
   }
 
   .root[data-show-column-border] :is(.columnHeader, .cell):not(:last-child) {
@@ -167,10 +167,6 @@
     text-align: right;
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
-  }
-
-  .emptyRow:hover {
-    background-color: transparent;
   }
 
   .empty {

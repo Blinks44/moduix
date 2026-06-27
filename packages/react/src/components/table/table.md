@@ -2,7 +2,7 @@
 
 Upstream docs:
 
-- Ark UI: no dedicated Table primitive. Use https://ark-ui.com/docs/guides/composition and https://ark-ui.com/docs/guides/styling.
+- Ark UI: no dedicated Table primitive. Use https://ark-ui.com/docs/guides/composition, https://ark-ui.com/docs/guides/styling, and https://ark-ui.com/docs/guides/ref.
 - Chakra UI: https://chakra-ui.com/docs/components/table
 
 ## Purpose
@@ -14,7 +14,8 @@ Ark-style namespace API.
 
 Ark UI has no table state machine or primitive parts. The component follows Ark's owned-component
 model instead: each part is rendered through `@ark-ui/react/factory`, supports `asChild`, and
-exposes `data-scope="table"` plus a stable `data-part`. Chakra's current Table recipe informs the
+forwards refs to the rendered native element. Each part exposes `data-scope="table"` plus a stable
+`data-part`. Chakra's current Table recipe informs the
 part names and visual props: `Root`, `ScrollArea`, `Caption`, `ColumnGroup`, `Column`, `Header`,
 `Body`, `Footer`, `Row`, `ColumnHeader`, and `Cell`.
 
@@ -162,6 +163,9 @@ a border around the table root; `Table.ScrollArea` owns the common outer surface
 
 ## Local changelog
 
+- 2026-06-27: Audited the owned Ark factory migration, simplified striped/interactive row styling,
+  removed docs-only playground code, and aligned public docs with the no-dedicated-Ark-primitive API
+  reference wording.
 - 2026-06-21: Migrated `Table` to an Ark-style owned component using `@ark-ui/react/factory`,
   namespace parts, `asChild`, `data-scope` / `data-part`, Chakra-informed part names, new visual
   props, updated styling hooks, and renamed scroll-area / column-header tokens.

@@ -49,10 +49,8 @@
 }
 
 .actionEllipsis {
-  font-size: 0.8125rem;
   font-weight: var(--weight-medium);
   line-height: 1;
-  letter-spacing: 0;
 }
 
 .code {
@@ -73,4 +71,14 @@
   border: var(--border-width-sm) dashed var(--color-border);
   border-radius: var(--radius-lg);
   background-color: color-mix(in srgb, var(--color-muted) 35%, transparent);
+}
+
+.scrollArea {
+  --scroll-area-height: 16rem;
+  --scroll-area-radius: var(--radius-lg);
+  --scroll-area-bg: var(--color-card);
+
+  width: min(44rem, calc(100vw - var(--spacing-8)));
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-lg);
 }

@@ -1,7 +1,6 @@
-import type { ComponentProps, ReactNode } from 'react';
-import { Badge, Button, Card, Menu, Portal, Table } from '@moduix/react';
+import { Badge, Button, Card, Menu, Portal, ScrollArea, Table } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './table.module.css';
 
 const invoices = [
@@ -111,31 +110,6 @@ export const tableOverrideCssProperties: CssPropertyInput[] = [
   ['--table-sticky-intersection-z-index', '4', 'Controls sticky header/column stacking.'],
 ] as const;
 
-export const tablePlaygroundCssProperties: CssPropertyInput[] = [
-  ['--table-border-color', 'var(--color-border)', 'Controls table divider color.'],
-  ['--table-caption-color', 'var(--color-muted-foreground)', 'Controls caption text color.'],
-  ['--table-caption-padding-edge', 'var(--spacing-2)', 'Controls outer caption inset.'],
-  ['--table-caption-padding-y', 'var(--spacing-3)', 'Controls caption-to-table spacing.'],
-  ['--table-cell-padding-x', 'var(--spacing-4)', 'Controls cell horizontal padding.'],
-  ['--table-cell-padding-y', 'var(--spacing-3)', 'Controls cell vertical padding.'],
-  ['--table-scroll-area-bg', 'var(--color-card)', 'Controls scroll area background color.'],
-  [
-    '--table-scroll-area-border-color',
-    'var(--table-border-color, var(--color-border))',
-    'Controls scroll area border color.',
-  ],
-  ['--table-scroll-area-radius', 'var(--radius-lg)', 'Controls scroll area border radius.'],
-  ['--table-empty-color', 'var(--color-muted-foreground)', 'Controls empty-state text color.'],
-  ['--table-footer-bg', 'var(--color-muted)', 'Controls footer background color.'],
-  ['--table-column-header-color', 'var(--color-muted-foreground)', 'Controls header cell color.'],
-  ['--table-row-bg-hover', 'var(--color-muted)', 'Controls body row hover background.'],
-  [
-    '--table-row-bg-striped',
-    'color-mix(in oklab, var(--color-muted) 35%, transparent)',
-    'Controls striped even-row background.',
-  ],
-] as const;
-
 function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property)) {
     return { defaultValue: property[1], description: property[2], name: property[0] };
@@ -148,17 +122,6 @@ export function TableCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
       properties={tableOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function TableCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={tablePlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }
@@ -454,7 +417,18 @@ export function TableInCardExample() {
 function TableRowActionsMenu({ itemName }: { itemName: string }) {
   return (
     <Menu positioning={{ placement: 'bottom-end' }}>
-      <MenuTriggerButton aria-label={`Open actions for ${itemName}`}>...</MenuTriggerButton>
+      <Menu.Trigger asChild>
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          className={styles.actionTrigger}
+          aria-label={`Open actions for ${itemName}`}
+        >
+          <span aria-hidden className={styles.actionEllipsis}>
+            ...
+          </span>
+        </Button>
+      </Menu.Trigger>
       <Portal>
         <Menu.Positioner>
           <Menu.Content>
@@ -469,23 +443,6 @@ function TableRowActionsMenu({ itemName }: { itemName: string }) {
         </Menu.Positioner>
       </Portal>
     </Menu>
-  );
-}
-
-function MenuTriggerButton({
-  children,
-  ...props
-}: Omit<ComponentProps<typeof Button>, 'children'> & {
-  children: ReactNode;
-}) {
-  return (
-    <Menu.Trigger asChild>
-      <Button variant="ghost" size="icon-sm" className={styles.actionTrigger} {...props}>
-        <span aria-hidden className={styles.actionEllipsis}>
-          {children}
-        </span>
-      </Button>
-    </Menu.Trigger>
   );
 }
 
@@ -553,5 +510,48 @@ export function CustomCompositionTableExample() {
         </Table.Body>
       </Table>
     </div>
+  );
+}
+
+export function TableWithScrollAreaExample() {
+  return (
+    <ScrollArea className={styles.scrollArea}>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <Table className={styles.wideTable}>
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeader>Project</Table.ColumnHeader>
+                <Table.ColumnHeader>Owner</Table.ColumnHeader>
+                <Table.ColumnHeader>Environment</Table.ColumnHeader>
+                <Table.ColumnHeader>Updated</Table.ColumnHeader>
+                <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {Array.from(
+                { length: 12 },
+                (_, index) => deploymentRows[index % deploymentRows.length],
+              ).map((row, index) => (
+                <Table.Row key={`${row.name}-${index}`}>
+                  <Table.Cell className={styles.emphasis}>{row.name}</Table.Cell>
+                  <Table.Cell>{row.owner}</Table.Cell>
+                  <Table.Cell>{row.environment}</Table.Cell>
+                  <Table.Cell>{row.updated}</Table.Cell>
+                  <Table.Cell numeric>{index + 1}</Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Scrollbar orientation="horizontal">
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
+    </ScrollArea>
   );
 }
