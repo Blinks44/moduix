@@ -76,12 +76,13 @@ const ComboboxControl = forwardRef<
 const ComboboxInput = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.Input>,
   ComponentProps<typeof ComboboxPrimitive.Input>
->(function ComboboxInput({ className, ...props }, ref) {
+>(function ComboboxInput({ asChild, className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Input
       ref={ref}
       data-slot="combobox-input"
-      className={clsx(styles.input, normalizeClassName(className))}
+      asChild={asChild}
+      className={clsx(!asChild && styles.input, normalizeClassName(className))}
       {...props}
     />
   );

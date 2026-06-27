@@ -5,6 +5,8 @@ icon: Component
 ---
 
 import {
+  TagsInputAllowDuplicatesExample,
+  TagsInputComboboxExample,
   TagsInputControlledExample,
   TagsInputControlledInputExample,
   TagsInputCssPropertiesPanel,
@@ -13,6 +15,7 @@ import {
   TagsInputDisableEditingExample,
   TagsInputExample,
   TagsInputFieldExample,
+  TagsInputMaxOverflowExample,
   TagsInputRootProviderExample,
   TagsInputSanitizeBlurExample,
   TagsInputStateExample,
@@ -193,9 +196,11 @@ input or control ID.
 | `max`               | `Infinity` | Maximum number of tags.                                                 |
 | `maxLength`         | -          | Maximum characters accepted by the entry input.                         |
 | `allowOverflow`     | `false`    | Allows values beyond `max` while marking the root invalid.              |
+| `allowDuplicates`   | `false`    | Allows adding the same string value more than once.                     |
 | `editable`          | `true`     | Lets focused or double-clicked tags enter edit mode.                    |
 | `addOnPaste`        | `false`    | Splits pasted input into tags using `delimiter`.                        |
 | `blurBehavior`      | -          | Use `"add"` to add the entry value on blur or `"clear"` to discard it.  |
+| `sanitizeValue`     | trim       | Normalizes each value before Ark validates and adds it.                 |
 
 ### Behavioral notes
 
@@ -414,6 +419,95 @@ Add `maxLength` when the entry input should stop accepting long tag values befor
 
   <Preview.CSS>{`.hint { color: var(--color-muted-foreground); }`}</Preview.CSS>
   <Preview.Data>{`const max = 3; const maxLength = 12;`}</Preview.Data>
+</Preview>
+
+### Allow Duplicates
+
+Set `allowDuplicates` when repeated values are meaningful, such as recipients or weighted labels.
+
+<Preview>
+  <TagsInputAllowDuplicatesExample />
+
+  <Preview.Code>
+    {`
+      import { TagsInput } from "@moduix/react";
+
+      export function AllowDuplicatesTagsInput() {
+        return (
+          <TagsInput allowDuplicates defaultValue={["React", "React"]}>
+            <TagsInput.Label>Frameworks</TagsInput.Label>
+            <TagsInput.Control>
+              <TagsInput.Context>
+                {(tagsInput) =>
+                  tagsInput.value.map((item, index) => (
+                    <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                      <TagsInput.ItemPreview>
+                        <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                        <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                      </TagsInput.ItemPreview>
+                      <TagsInput.ItemInput />
+                    </TagsInput.Item>
+                  ))
+                }
+              </TagsInput.Context>
+              <TagsInput.Input placeholder="Add framework" />
+              <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+            </TagsInput.Control>
+            <TagsInput.HiddenInput />
+          </TagsInput>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`[data-slot="tags-input-item-preview"] { max-width: 12rem; }`}</Preview.CSS>
+  <Preview.Data>{`const allowDuplicates = true;`}</Preview.Data>
+</Preview>
+
+### Max With Overflow
+
+Use `allowOverflow` with `max` when users may exceed the limit while the control reports invalid
+state.
+
+<Preview>
+  <TagsInputMaxOverflowExample />
+
+  <Preview.Code>
+    {`
+      import { TagsInput } from "@moduix/react";
+
+      export function MaxOverflowTagsInput() {
+        return (
+          <TagsInput max={2} allowOverflow defaultValue={["React", "Solid"]}>
+            <TagsInput.Label>Frameworks</TagsInput.Label>
+            <TagsInput.Control>
+              <TagsInput.Context>
+                {(tagsInput) =>
+                  tagsInput.value.map((item, index) => (
+                    <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                      <TagsInput.ItemPreview>
+                        <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                        <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                      </TagsInput.ItemPreview>
+                      <TagsInput.ItemInput />
+                    </TagsInput.Item>
+                  ))
+                }
+              </TagsInput.Context>
+              <TagsInput.Input placeholder="Add framework" />
+              <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+            </TagsInput.Control>
+            <TagsInput.HiddenInput />
+          </TagsInput>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{`[data-slot="tags-input-control"][data-invalid] { border-color: var(--color-destructive); }`}</Preview.CSS>
+  <Preview.Data>{`const max = 2; const allowOverflow = true;`}</Preview.Data>
 </Preview>
 
 ### Sanitize And Blur
@@ -675,6 +769,102 @@ rendered tags input tree.
 
   <Preview.CSS>{`.actions { display: inline-flex; gap: var(--spacing-2); }`}</Preview.CSS>
   <Preview.Data>{`const tagsInput = useTagsInput({ id, defaultValue: ["React"] });`}</Preview.Data>
+</Preview>
+
+### With Combobox
+
+Compose `TagsInput` with `Combobox` when typed input should offer known options while still
+allowing custom tags.
+
+<Preview>
+  <TagsInputComboboxExample />
+
+  <Preview.Code>
+    {`
+      import { useListCollection } from "@ark-ui/react/collection";
+      import { useFilter } from "@ark-ui/react/locale";
+      import { Combobox, Portal, TagsInput, useCombobox, useTagsInput } from "@moduix/react";
+      import { useId } from "react";
+
+      const frameworkOptions = ["React", "Solid", "Vue", "Svelte", "Angular", "Preact", "Next.js"];
+
+      export function ComboboxTagsInput() {
+        const { contains } = useFilter({ sensitivity: "base" });
+        const { collection, filter } = useListCollection({
+          initialItems: frameworkOptions,
+          filter: contains,
+        });
+        const id = useId();
+        const ids = { input: \`\${id}-input\`, control: \`\${id}-control\` };
+        const tagsInput = useTagsInput({ ids });
+        const combobox = useCombobox({
+          ids,
+          collection,
+          value: [],
+          allowCustomValue: true,
+          selectionBehavior: "clear",
+          onInputValueChange: (details) => {
+            filter(details.inputValue);
+          },
+          onValueChange: (details) => {
+            if (details.value[0]) {
+              tagsInput.addValue(details.value[0]);
+            }
+          },
+        });
+
+        return (
+          <Combobox.RootProvider value={combobox}>
+            <TagsInput.RootProvider value={tagsInput}>
+              <TagsInput.Label>Frameworks</TagsInput.Label>
+              <TagsInput.Control>
+                {tagsInput.value.map((item, index) => (
+                  <TagsInput.Item key={\`\${item}-\${index}\`} index={index} value={item}>
+                    <TagsInput.ItemPreview>
+                      <TagsInput.ItemText>{item}</TagsInput.ItemText>
+                      <TagsInput.ItemDeleteTrigger aria-label={\`Remove \${item}\`} />
+                    </TagsInput.ItemPreview>
+                    <TagsInput.ItemInput />
+                  </TagsInput.Item>
+                ))}
+                <Combobox.Input asChild>
+                  <TagsInput.Input placeholder="Add framework" />
+                </Combobox.Input>
+                <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+              </TagsInput.Control>
+              <TagsInput.HiddenInput />
+            </TagsInput.RootProvider>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.Empty>No frameworks found.</Combobox.Empty>
+                  {collection.items.map((item) => (
+                    <Combobox.Item key={item} item={item}>
+                      <Combobox.ItemText>{item}</Combobox.ItemText>
+                      <Combobox.ItemIndicator />
+                    </Combobox.Item>
+                  ))}
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.RootProvider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      [data-slot="combobox-content"] {
+        min-width: var(--reference-width);
+        max-height: min(var(--available-height, 18rem), 18rem);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>{`const frameworkOptions = ["React", "Solid", "Vue", "Svelte", "Angular", "Preact", "Next.js"];`}</Preview.Data>
 </Preview>
 
 ### Custom Styling

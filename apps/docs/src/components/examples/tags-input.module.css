@@ -21,6 +21,36 @@
   max-width: 100%;
 }
 
+.comboboxContent {
+  box-sizing: border-box;
+  min-width: var(--reference-width);
+  max-height: min(var(--available-height, 18rem), 18rem);
+  overflow: auto;
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-1);
+  background: var(--color-popover);
+  box-shadow: var(--shadow-md);
+}
+
+.comboboxItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-2);
+  color: var(--color-popover-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+  outline: none;
+
+  &[data-highlighted] {
+    background: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+}
+
 .customRoot {
   --tags-input-item-bg: color-mix(in oklab, var(--color-primary) 14%, var(--color-background));
   --tags-input-item-border-color: color-mix(in oklab, var(--color-primary) 28%, transparent);

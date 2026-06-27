@@ -1,18 +1,24 @@
+import { useListCollection } from '@ark-ui/react/collection';
+import { useFilter } from '@ark-ui/react/locale';
 import {
+  Combobox,
   Field,
+  Portal,
   TagsInput,
   type TagsInputInputValueChangeDetails,
   type TagsInputValueChangeDetails,
+  useCombobox,
   useTagsInput,
 } from '@moduix/react';
 import { useId, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './tags-input.module.css';
 
 export const initialTags = ['React', 'TypeScript'];
 export const pastedTags = ['React', 'Solid', 'Vue'];
 export const invalidInitialTags = ['alpha', 'beta', 'gamma'];
+const frameworkOptions = ['React', 'Solid', 'Vue', 'Svelte', 'Angular', 'Preact', 'Next.js'];
 
 const tagsInputCssProperties: CssPropertyInput[] = [
   ['--tags-input-bg', 'var(--input-bg, var(--color-background))', 'Controls control background.'],
@@ -53,10 +59,46 @@ const tagsInputCssProperties: CssPropertyInput[] = [
     'var(--input-focus-ring-color, var(--color-ring))',
     'Controls focus ring color.',
   ],
+  [
+    '--tags-input-focus-ring-offset',
+    'var(--input-focus-ring-offset)',
+    'Controls focus ring offset.',
+  ],
+  [
+    '--tags-input-focus-ring-width',
+    'var(--input-focus-ring-width, var(--border-width-sm))',
+    'Controls focus ring width.',
+  ],
   ['--tags-input-gap', 'var(--field-gap, var(--spacing-1))', 'Controls root vertical gap.'],
+  [
+    '--tags-input-input-font-size',
+    'var(--input-font-size, var(--text-sm))',
+    'Controls entry input font size.',
+  ],
+  ['--tags-input-input-height', '1.5rem', 'Controls entry input height.'],
+  [
+    '--tags-input-input-line-height',
+    'var(--input-line-height, var(--line-height-text-sm))',
+    'Controls entry input line height.',
+  ],
   ['--tags-input-input-min-width', '7rem', 'Controls entry input minimum width.'],
+  ['--tags-input-input-padding-x', '0.25rem', 'Controls entry input horizontal padding.'],
+  [
+    '--tags-input-invalid-border-color',
+    'var(--input-border-color-invalid, var(--color-destructive))',
+    'Controls invalid border color.',
+  ],
+  [
+    '--tags-input-invalid-focus-ring-color',
+    'var(--input-border-color-invalid, var(--color-destructive))',
+    'Controls invalid focus ring color.',
+  ],
   ['--tags-input-item-bg', 'var(--color-secondary)', 'Controls tag background color.'],
+  ['--tags-input-item-border-color', 'transparent', 'Controls tag border color.'],
+  ['--tags-input-item-border-width', 'var(--border-width-sm)', 'Controls tag border width.'],
   ['--tags-input-item-color', 'var(--color-secondary-foreground)', 'Controls tag text color.'],
+  ['--tags-input-item-font-size', 'var(--text-xs)', 'Controls tag font size.'],
+  ['--tags-input-item-font-weight', 'var(--weight-medium)', 'Controls tag font weight.'],
   ['--tags-input-item-gap', 'var(--spacing-1)', 'Controls spacing inside each tag.'],
   ['--tags-input-item-height', '1.5rem', 'Controls tag minimum height.'],
   [
@@ -70,11 +112,30 @@ const tagsInputCssProperties: CssPropertyInput[] = [
     'Controls highlighted tag ring width.',
   ],
   ['--tags-input-item-input-width', '7rem', 'Controls edit input width.'],
+  ['--tags-input-item-line-height', 'var(--line-height-text-xs)', 'Controls tag line height.'],
+  ['--tags-input-item-padding-x', '0.5rem', 'Controls tag horizontal padding.'],
+  ['--tags-input-item-padding-y', '0.125rem', 'Controls tag vertical padding.'],
   ['--tags-input-item-radius', 'var(--radius-full)', 'Controls tag corner radius.'],
   [
     '--tags-input-label-color',
     'var(--field-label-color, var(--color-foreground))',
     'Controls label color.',
+  ],
+  [
+    '--tags-input-label-font-size',
+    'var(--field-label-font-size, var(--text-sm))',
+    'Controls label font size.',
+  ],
+  [
+    '--tags-input-label-font-weight',
+    'var(--field-label-font-weight, var(--weight-medium))',
+    'Controls label font weight.',
+  ],
+  ['--tags-input-label-gap', 'var(--field-label-gap, var(--spacing-1))', 'Controls label gap.'],
+  [
+    '--tags-input-label-line-height',
+    'var(--field-label-line-height, var(--line-height-text-sm))',
+    'Controls label line height.',
   ],
   ['--tags-input-max-width', '24rem', 'Controls root max width.'],
   [
@@ -84,12 +145,34 @@ const tagsInputCssProperties: CssPropertyInput[] = [
   ],
   ['--tags-input-padding-x', '0.5rem', 'Controls horizontal control padding.'],
   ['--tags-input-padding-y', '0.3125rem', 'Controls vertical control padding.'],
+  [
+    '--tags-input-placeholder-color',
+    'var(--input-placeholder-color, var(--color-muted-foreground))',
+    'Controls entry input placeholder color.',
+  ],
   ['--tags-input-radius', 'var(--input-radius, var(--radius-md))', 'Controls control radius.'],
+  [
+    '--tags-input-readonly-bg',
+    'var(--input-readonly-bg, var(--color-background))',
+    'Controls read-only control background.',
+  ],
+  [
+    '--tags-input-readonly-color',
+    'var(--input-readonly-color, var(--color-foreground))',
+    'Controls read-only text color.',
+  ],
+  [
+    '--tags-input-transition',
+    'var(--input-transition, var(--transition-default))',
+    'Controls component state transitions.',
+  ],
+  ['--tags-input-trigger-bg', 'transparent', 'Controls item delete trigger background.'],
   [
     '--tags-input-trigger-bg-hover',
     'color-mix(in oklab, currentColor 12%, transparent)',
     'Controls item delete trigger hover background.',
   ],
+  ['--tags-input-trigger-color', 'currentColor', 'Controls item delete trigger color.'],
   [
     '--tags-input-trigger-focus-ring-color',
     'var(--color-ring)',
@@ -102,11 +185,12 @@ const tagsInputCssProperties: CssPropertyInput[] = [
     'Controls trigger focus ring width.',
   ],
   ['--tags-input-trigger-icon-size', '0.625rem', 'Controls trigger icon size.'],
+  ['--tags-input-trigger-radius', 'var(--radius-full)', 'Controls item delete trigger radius.'],
   ['--tags-input-trigger-size', '1rem', 'Controls item delete trigger size.'],
   ['--tags-input-width', '100%', 'Controls root width.'],
 ];
 
-export function TagsInputCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function TagsInputCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable properties={tagsInputCssProperties.map(normalizeCssProperty)} />
   );
@@ -255,6 +339,38 @@ export function TagsInputValidationExample() {
   );
 }
 
+export function TagsInputAllowDuplicatesExample() {
+  return (
+    <TagsInput allowDuplicates defaultValue={['React', 'React']}>
+      <TagsInput.Label>Frameworks</TagsInput.Label>
+      <TagsInput.Control>
+        <TagsInput.Context>
+          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
+        </TagsInput.Context>
+        <TagsInput.Input placeholder="Add framework" />
+        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+      </TagsInput.Control>
+      <TagsInput.HiddenInput />
+    </TagsInput>
+  );
+}
+
+export function TagsInputMaxOverflowExample() {
+  return (
+    <TagsInput max={2} allowOverflow defaultValue={['React', 'Solid']}>
+      <TagsInput.Label>Frameworks</TagsInput.Label>
+      <TagsInput.Control>
+        <TagsInput.Context>
+          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
+        </TagsInput.Context>
+        <TagsInput.Input placeholder="Add framework" />
+        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+      </TagsInput.Control>
+      <TagsInput.HiddenInput />
+    </TagsInput>
+  );
+}
+
 export function TagsInputSanitizeBlurExample() {
   return (
     <TagsInput
@@ -272,6 +388,61 @@ export function TagsInputSanitizeBlurExample() {
       </TagsInput.Control>
       <TagsInput.HiddenInput />
     </TagsInput>
+  );
+}
+
+export function TagsInputComboboxExample() {
+  const { contains } = useFilter({ sensitivity: 'base' });
+  const { collection, filter } = useListCollection({
+    initialItems: frameworkOptions,
+    filter: contains,
+  });
+  const id = useId();
+  const ids = { input: `${id}-input`, control: `${id}-control` };
+  const tagsInput = useTagsInput({ ids });
+  const combobox = useCombobox({
+    ids,
+    collection,
+    value: [],
+    allowCustomValue: true,
+    selectionBehavior: 'clear',
+    onInputValueChange: (details) => {
+      filter(details.inputValue);
+    },
+    onValueChange: (details) => {
+      if (details.value[0]) {
+        tagsInput.addValue(details.value[0]);
+      }
+    },
+  });
+
+  return (
+    <Combobox.RootProvider value={combobox}>
+      <TagsInput.RootProvider value={tagsInput}>
+        <TagsInput.Label>Frameworks</TagsInput.Label>
+        <TagsInput.Control>
+          <TagsInputItems value={tagsInput.value} />
+          <Combobox.Input asChild>
+            <TagsInput.Input placeholder="Add framework" />
+          </Combobox.Input>
+          <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+        </TagsInput.Control>
+        <TagsInput.HiddenInput />
+      </TagsInput.RootProvider>
+      <Portal>
+        <Combobox.Positioner>
+          <Combobox.Content className={styles.comboboxContent}>
+            <Combobox.Empty className={styles.comboboxItem}>No frameworks found.</Combobox.Empty>
+            {collection.items.map((item) => (
+              <Combobox.Item key={item} item={item} className={styles.comboboxItem}>
+                <Combobox.ItemText>{item}</Combobox.ItemText>
+                <Combobox.ItemIndicator />
+              </Combobox.Item>
+            ))}
+          </Combobox.Content>
+        </Combobox.Positioner>
+      </Portal>
+    </Combobox.RootProvider>
   );
 }
 

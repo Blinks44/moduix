@@ -1,5 +1,10 @@
 # TagsInput
 
+Upstream docs:
+
+- Ark UI: https://ark-ui.com/docs/components/tags-input
+- Zag API: https://zagjs.com/components/react/tags-input
+
 ## Purpose
 
 `TagsInput` lets users enter, edit, remove, and submit a list of string tags from one input-like
@@ -13,9 +18,9 @@ navigation, focus management, validation hooks, hidden form input, and data attr
 
 The upstream component is a multipart form control. Values are `string[]`, `inputValue` is the
 editable text field value, and callbacks receive Ark/Zag detail objects. The wrapper must preserve
-controlled and uncontrolled `value` / `inputValue`, `validate`, `sanitizeValue`, `delimiter`,
-`blurBehavior`, `addOnPaste`, `editable`, `max`, `allowOverflow`, `ids`, and outside-interaction
-callbacks without translating them to local aliases.
+controlled and uncontrolled `value` / `inputValue`, `validate`, `delimiter`,
+`blurBehavior`, `addOnPaste`, `editable`, `max`, `allowOverflow`, `allowDuplicates`,
+`sanitizeValue`, `ids`, and outside-interaction callbacks without translating them to local aliases.
 
 ## Current behavior contract
 
@@ -81,14 +86,15 @@ inside `Control` for entry and render `HiddenInput` for forms.
 
 Use `RootProvider` plus `useTagsInput` only when state or imperative methods like `addValue`,
 `setValue`, `clearValue`, or `focus` must be controlled outside the component tree. Use `ids` to
-share an input/control between `TagsInput` and other Ark primitives such as `Combobox`.
+share an input/control between `TagsInput` and other Ark primitives such as `Combobox`, and compose
+the shared text field with `Combobox.Input asChild` around `TagsInput.Input`.
 
 ## Upstream feature coverage
 
 The wrapper exposes upstream controlled and uncontrolled values, controlled input value, max tags,
-custom delimiter, disabled, invalid, read-only, maxLength, validation, blur behavior, paste
-behavior, editable tags, sanitizeValue, provider/context, field integration, native forms, and
-programmatic control.
+max with overflow, duplicate values, custom delimiter, disabled, invalid, read-only, maxLength,
+validation, blur behavior, paste behavior, editable tags, sanitizeValue, provider/context, field
+integration, combobox composition with shared `ids`, native forms, and programmatic control.
 
 ## Accessibility and state
 
@@ -131,6 +137,8 @@ form examples.
 
 ## Local changelog
 
+- 2026-06-27: Audited the Ark UI v5.37.2 migration, documented `allowDuplicates`, max overflow,
+  and combobox composition coverage, and synced docs examples with the current Ark feature set.
 - 2026-06-23: Added the initial Ark-backed `TagsInput` component with multipart namespace API,
   provider/context hooks, default trigger icons, CSS Modules styling, local docs, docs examples, and
   registry metadata.

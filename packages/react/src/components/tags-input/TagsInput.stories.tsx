@@ -121,6 +121,38 @@ export const Validation: Story = {
   },
 };
 
+export const AllowDuplicates: Story = {
+  render: () => (
+    <TagsInput allowDuplicates defaultValue={['React', 'React']}>
+      <TagsInput.Label>Frameworks</TagsInput.Label>
+      <TagsInput.Control>
+        <TagsInput.Context>
+          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
+        </TagsInput.Context>
+        <TagsInput.Input placeholder="Add framework" />
+        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+      </TagsInput.Control>
+      <TagsInput.HiddenInput />
+    </TagsInput>
+  ),
+};
+
+export const MaxWithOverflow: Story = {
+  render: () => (
+    <TagsInput max={2} allowOverflow defaultValue={['React', 'Solid']}>
+      <TagsInput.Label>Frameworks</TagsInput.Label>
+      <TagsInput.Control>
+        <TagsInput.Context>
+          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
+        </TagsInput.Context>
+        <TagsInput.Input placeholder="Add framework" />
+        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+      </TagsInput.Control>
+      <TagsInput.HiddenInput />
+    </TagsInput>
+  ),
+};
+
 export const WithFieldValidation: Story = {
   render: () => (
     <Field invalid required className={storyStyles.field}>

@@ -144,6 +144,8 @@ export function ComboboxExample() {
 
 - moduix applies its tokens, radius, focus ring, popup shadow, item highlight, and motion defaults.
 - `className` is accepted on every visual part.
+- `Combobox.Input asChild` preserves Ark input behavior without applying the default combobox input
+  visual class to the child element.
 - Public component variables are declared in `packages/react/src/core/styles/theme.css`.
 - `Content` uses Ark `--reference-width`, `--available-height`, `--transform-origin`, and
   `--layer-index`. Its z-index is declared on the content part so Ark can propagate it to
@@ -169,6 +171,8 @@ export function ComboboxExample() {
 
 ## Local changelog
 
+- 2026-06-27: Aligned `Combobox.Input asChild` with Ark composition so composed inputs keep their
+  own visual styling while receiving combobox behavior.
 - 2026-06-24: Removed collection and locale helper re-exports from the Combobox public surface;
   docs now import those helpers directly from Ark UI.
 
