@@ -119,3 +119,31 @@ export const RootProvider: Story = {
     );
   },
 };
+
+export const Context: Story = {
+  render: () => {
+    const [status, setStatus] = useState('Ready to export');
+
+    return (
+      <div className={styles.stack}>
+        <QrCode.Root defaultValue="https://moduix.dev/docs/qr-code">
+          <QrCodeGraphic />
+          <QrCode.Context>
+            {(qrCode) => (
+              <button
+                className={styles.action}
+                onClick={async () => {
+                  const dataUrl = await qrCode.getDataUrl('image/png');
+                  setStatus(`${Math.round(dataUrl.length / 1000)} KB PNG data URL ready`);
+                }}
+              >
+                Create PNG data URL
+              </button>
+            )}
+          </QrCode.Context>
+        </QrCode.Root>
+        <output className={styles.hint}>{status}</output>
+      </div>
+    );
+  },
+};

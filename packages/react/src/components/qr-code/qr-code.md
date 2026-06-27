@@ -23,11 +23,13 @@ render path that hides `Frame` or `Pattern`.
 - `QrCode` is the short root export and is equivalent to `QrCode.Root`.
 - `defaultValue` creates uncontrolled state; `value` plus `onValueChange(details)` creates
   controlled state.
-- `encoding` passes Ark/Zag QR generation options such as `ecc: 'L' | 'M' | 'Q' | 'H'`.
-- `pixelSize` and `ids` are forwarded to Ark.
+- `encoding` passes Ark/Zag QR generation options such as `ecc: 'L' | 'M' | 'Q' | 'H'` and
+  `boostEcc`.
+- `id`, `pixelSize`, and `ids` are forwarded to Ark.
 - `QrCode.DownloadTrigger` requires `fileName` and `mimeType`; it preserves Ark's `quality` option.
 - `useQrCode`, `useQrCodeContext`, `QrCode.Context`, and `QrCode.RootProvider` are exported for
-  provider-driven and render-prop usage.
+  provider-driven and render-prop usage. The context API exposes `value`, `setValue`, and
+  `getDataUrl(type, quality?)`.
 
 ## Anatomy and exported parts
 
@@ -87,20 +89,22 @@ Use `QrCode.Overlay` with high error correction when central content covers part
 - Controlled value: supported through `value` and `onValueChange(details)`.
 - Download: supported through `DownloadTrigger` with `fileName`, `mimeType`, and optional
   `quality`.
-- Error correction: supported through `encoding.ecc`.
+- Error correction: supported through `encoding.ecc` and `encoding.boostEcc`.
 - Fill customization: supported through `className`, SVG `style`, and `--qr-code-fill`.
 - Overlay: supported through `Overlay`; consumers should use stronger error correction when the
   overlay is large.
 - Root provider: supported through `useQrCode()` and `QrCode.RootProvider`.
 - `asChild`: preserved on every Ark part.
-- `ids`: preserved for stable root and frame ids.
-- `QrCode.Context` and `useQrCodeContext`: exported for state reads inside the tree.
+- `id` and `ids`: preserved for stable machine, root, and frame ids.
+- `QrCode.Context` and `useQrCodeContext`: exported for state reads, value updates, and image data
+  URL generation inside the tree.
 
 ## Accessibility and state
 
-Ark renders the QR code frame as an SVG and manages the part props. The QR image is visual content;
-provide surrounding text, labels, or adjacent copy when the encoded value needs to be available to
-assistive technology.
+Ark renders the root as a `div`, the frame as an `svg`, the pattern as a `path`, the overlay as a
+`div`, and the download trigger as a native `button`. Refs forward to those Ark elements. The QR
+image is visual content; provide surrounding text, labels, or adjacent copy when the encoded value
+needs to be available to assistive technology.
 
 There is no roving focus or QR-specific keyboard navigation. `DownloadTrigger` is a native button
 and keeps normal button focus, keyboard activation, `disabled`, and `asChild` behavior from Ark.
@@ -120,21 +124,21 @@ radius by default.
 
 Primary CSS variables:
 
-| Variable                       | Default                                              |
-| ------------------------------ | ---------------------------------------------------- |
-| `--qr-code-color`              | `var(--color-foreground)`                            |
-| `--qr-code-fill`               | `currentColor`                                       |
-| `--qr-code-gap`                | `var(--spacing-3)`                                   |
-| `--qr-code-max-width`          | `100%`                                               |
-| `--qr-code-size`               | `8rem`                                               |
-| `--qr-code-overlay-size`       | `2.5rem`                                             |
-| `--qr-code-overlay-padding`    | `var(--spacing-1)`                                   |
-| `--qr-code-overlay-radius`     | `var(--radius-sm)`                                   |
-| `--qr-code-overlay-bg`         | `var(--color-background)`                            |
-| `--qr-code-overlay-color`      | `var(--color-foreground)`                            |
-| `--qr-code-download-trigger-*` | Button token fallbacks                               |
-| `--qr-code-disabled-opacity`   | `var(--button-disabled-opacity, --opacity-disabled)` |
-| `--qr-code-transition`         | `var(--button-transition, --transition-default)`     |
+| Variable                       | Default                                                   |
+| ------------------------------ | --------------------------------------------------------- |
+| `--qr-code-color`              | `var(--color-foreground)`                                 |
+| `--qr-code-fill`               | `currentColor`                                            |
+| `--qr-code-gap`                | `var(--spacing-3)`                                        |
+| `--qr-code-max-width`          | `100%`                                                    |
+| `--qr-code-size`               | `8rem`                                                    |
+| `--qr-code-overlay-size`       | `2.5rem`                                                  |
+| `--qr-code-overlay-padding`    | `var(--spacing-1)`                                        |
+| `--qr-code-overlay-radius`     | `var(--radius-sm)`                                        |
+| `--qr-code-overlay-bg`         | `var(--color-background)`                                 |
+| `--qr-code-overlay-color`      | `var(--color-foreground)`                                 |
+| `--qr-code-download-trigger-*` | Button token fallbacks                                    |
+| `--qr-code-disabled-opacity`   | `var(--button-disabled-opacity, var(--opacity-disabled))` |
+| `--qr-code-transition`         | `var(--button-transition, var(--transition-default))`     |
 
 ## Intentional sugar and differences from upstream
 
@@ -153,6 +157,8 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-06-27: Audited Ark UI parity after migration, documented `id`, `boostEcc`, ref targets, and
+  the `Context` data URL API, and aligned public docs with the exported Ark surface.
 - 2026-06-22: Added `QrCode` as an Ark UI-backed component with root shortcut,
   provider/context support, frame/pattern/overlay/download parts, CSS Modules, stories, local docs,
   public exports, docs examples, and registry metadata.
