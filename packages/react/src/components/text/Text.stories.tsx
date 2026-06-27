@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import type { ComponentPropsWithoutRef } from 'react';
 import { Text } from './Text';
 import storyStyles from './Text.stories.module.css';
 
@@ -36,17 +35,11 @@ export const Semantics: Story = {
   ),
 };
 
-type InlineLinkProps = ComponentPropsWithoutRef<'a'>;
-
-function InlineLink(props: InlineLinkProps) {
-  return <a {...props} />;
-}
-
 export const CustomElement: Story = {
   name: 'Custom Element',
   render: () => (
     <Text asChild tone="primary" weight="medium">
-      <InlineLink href="#">Text rendered through a custom link component.</InlineLink>
+      <a href="#">Text rendered through a custom link element.</a>
     </Text>
   ),
 };

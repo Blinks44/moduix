@@ -79,6 +79,7 @@
     &[data-line-clamp] {
       display: -webkit-box;
       overflow: hidden;
+      white-space: normal;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: var(--text-line-clamp);
     }

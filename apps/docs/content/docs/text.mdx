@@ -19,12 +19,10 @@ import {
 
 ## API Reference
 
-Ark UI does not provide a dedicated `Text` primitive, so moduix implements `Text` as a root-only
-`@ark-ui/react/factory` wrapper that follows Ark's
-[composition](https://ark-ui.com/docs/guides/composition) and
-[styling](https://ark-ui.com/docs/guides/styling) guides. Chakra's
-[Text](https://chakra-ui.com/docs/components/text) recipe informs the supported surface for sizes,
-weights, truncation, line clamp, and ref access.
+Ark UI does not ship a dedicated `text` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Choosing the right component
 
@@ -140,9 +138,17 @@ Text / Text.Root
 
 ## Composition
 
-Use `as` for supported intrinsic tags and `asChild` for a single custom host element. `asChild`
-replaces the old legacy `render` escape hatch and passes the moduix class name, style, data
-attributes, and ref to the child.
+### Recommended composition
+
+Use the short `<Text>` root for body copy and supporting text. It is equivalent to `<Text.Root>`,
+renders a `p` by default, and forwards the ref to the rendered Ark factory element.
+
+### When to go custom
+
+Use `as` for supported intrinsic tags when the semantic element should change. Use `asChild` when a
+single custom host element should receive the moduix class name, style, data attributes, and ref.
+Chakra's [Text](https://chakra-ui.com/docs/components/text) recipe informs the local size, weight,
+truncation, and line-clamp surface.
 
 ### Default props
 
@@ -156,6 +162,12 @@ attributes, and ref to the child.
 | `align`     | Unset (`start`) | `left`, `center`, or `right` when explicit.             |
 | `truncate`  | `false`         | Single-line CSS ellipsis.                               |
 | `lineClamp` | Unset           | Multi-line CSS clamp count.                             |
+
+### Behavioral notes
+
+`Text` has no state machine, controlled state, keyboard behavior, Field/Fieldset integration,
+HiddenInput, ids, context hooks, or RootProvider. `truncate` and `lineClamp` are visual CSS
+constraints; the surrounding layout owns any disclosure behavior.
 
 ## Examples
 
@@ -434,7 +446,7 @@ surrounding layout owns expansion or disclosure.
 
 ### Custom Composition
 
-Use `asChild` when the root should be a custom component instead of one of the intrinsic `as`
+Use `asChild` when the root should be a custom host element instead of one of the intrinsic `as`
 values. The child must be a single element that can accept the forwarded props and ref.
 
 <Preview>
@@ -443,20 +455,13 @@ values. The child must be a single element that can accept the forwarded props a
   <Preview.Code>
     {`
       import { Text } from "@moduix/react";
-      import type { ComponentPropsWithoutRef } from "react";
-
-      type InlineLinkProps = ComponentPropsWithoutRef<"a">;
-
-      function InlineLink(props: InlineLinkProps) {
-        return <a {...props} />;
-      }
 
       export function TextCustomElementDemo() {
         return (
           <Text asChild tone="primary" weight="medium">
-            <InlineLink className={styles.link} href="/docs">
+            <a className={styles.link} href="/docs">
               Read the documentation
-            </InlineLink>
+            </a>
           </Text>
         );
       }
@@ -468,10 +473,10 @@ values. The child must be a single element that can accept the forwarded props a
     {`
       .link {
         text-decoration: none;
-      }
 
-      .link:hover {
-        text-decoration: underline;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     `}
 
@@ -527,7 +532,7 @@ Pass `className` when styling the root with local CSS variables.
 ## Styling
 
 Style `Text` through `className`, Ark-style root data attributes, and the public `--text-*` CSS
-variables defined in [`theme.css`](/Users/sergejvrenev/Desktop/dev/2gis/moduix/packages/react/src/core/styles/theme.css:2076).
+variables defined in `theme.css`.
 
 ### CSS Properties
 

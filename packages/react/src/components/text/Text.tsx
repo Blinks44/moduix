@@ -1,27 +1,10 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
-import type { CSSProperties } from 'react';
+import type { ComponentRef, CSSProperties } from 'react';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Text.module.css';
-
-const defaultVariants = { size: 'md', weight: 'regular' } as const;
-
-const defaultVariantsByElement = {
-  small: { size: 'sm', weight: 'regular' },
-  strong: { size: 'md', weight: 'semibold' },
-} as const;
-
-function getDefaultVariants(element: TextElement | undefined) {
-  if (!element) {
-    return defaultVariants;
-  }
-
-  return (
-    defaultVariantsByElement[element as keyof typeof defaultVariantsByElement] ?? defaultVariants
-  );
-}
 
 const elements = {
   div: ark.div,
@@ -47,7 +30,7 @@ type TextRootProps = HTMLArkProps<'p'> & {
   lineClamp?: number;
 };
 
-const TextRoot = forwardRef<HTMLParagraphElement, TextRootProps>(function TextRoot(
+const TextRoot = forwardRef<ComponentRef<typeof ark.p>, TextRootProps>(function TextRoot(
   {
     as,
     asChild,
@@ -64,7 +47,8 @@ const TextRoot = forwardRef<HTMLParagraphElement, TextRootProps>(function TextRo
   ref,
 ) {
   const Element = elements[as ?? 'p'] as typeof ark.p;
-  const defaults = getDefaultVariants(as);
+  const defaultSize = as === 'small' ? 'sm' : 'md';
+  const defaultWeight = as === 'strong' ? 'semibold' : 'regular';
   const lineClampStyle =
     lineClamp === undefined
       ? style
@@ -74,18 +58,18 @@ const TextRoot = forwardRef<HTMLParagraphElement, TextRootProps>(function TextRo
     <Element
       ref={ref}
       asChild={asChild}
+      {...props}
       data-scope="text"
       data-part="root"
       data-slot="text-root"
-      data-size={size ?? defaults.size}
-      data-weight={weight ?? defaults.weight}
+      data-size={size ?? defaultSize}
+      data-weight={weight ?? defaultWeight}
       data-tone={tone}
       data-align={align}
       data-truncate={truncate ? '' : undefined}
       data-line-clamp={lineClamp === undefined ? undefined : ''}
       className={clsx(styles.root, normalizeClassName(className))}
       style={lineClampStyle}
-      {...props}
     />
   );
 });

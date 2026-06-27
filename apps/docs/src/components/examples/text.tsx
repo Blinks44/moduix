@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentPropsWithoutRef } from 'react';
 import { Text } from '@moduix/react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -7,7 +6,7 @@ import styles from './text.module.css';
 export const textOverrideCssProperties: CssPropertyInput[] = [
   ['--text-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
   ['--text-destructive-color', 'var(--color-destructive)', 'Controls destructive tone color.'],
-  ['--text-font-family', 'var(--font-sans)', 'Controls text font family.'],
+  ['--text-font-family', 'inherit', 'Controls text font family.'],
   ['--text-font-size-xs', 'var(--text-xs)', 'Controls `xs` text font size.'],
   ['--text-font-size-sm', 'var(--text-sm)', 'Controls `sm` text font size.'],
   ['--text-font-size-md', 'var(--text-md)', 'Controls `md` text font size.'],
@@ -40,10 +39,10 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function TextExample(props: ComponentProps<typeof Text>) {
+export function TextExample() {
   return (
     <div className={styles.stack}>
-      <Text {...props}>Use text to describe interface state and supporting details.</Text>
+      <Text>Use text to describe interface state and supporting details.</Text>
       <Text as="small" tone="muted">
         Last updated 2 minutes ago
       </Text>
@@ -66,18 +65,12 @@ export function TextElementsExample() {
   );
 }
 
-type InlineLinkProps = ComponentPropsWithoutRef<'a'>;
-
-function InlineLink(props: InlineLinkProps) {
-  return <a {...props} />;
-}
-
 export function TextCustomElementExample() {
   return (
     <Text asChild tone="primary" weight="medium">
-      <InlineLink className={styles.link} href="/docs">
+      <a className={styles.link} href="/docs">
         Read the documentation
-      </InlineLink>
+      </a>
     </Text>
   );
 }

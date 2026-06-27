@@ -2,8 +2,9 @@
 
 Upstream docs:
 
-- Ark UI: no dedicated Text primitive; use https://ark-ui.com/docs/guides/composition and
-  https://ark-ui.com/docs/guides/styling
+- Ark UI: no dedicated Text primitive; use https://ark-ui.com/docs/guides/composition#the-ark-factory,
+  https://ark-ui.com/docs/guides/composition, https://ark-ui.com/docs/guides/styling, and
+  https://ark-ui.com/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/text
 
 ## Purpose
@@ -102,6 +103,7 @@ that can receive the forwarded props, class name, data attributes, style, and re
 - Ark composition guide: covered by `ark.*`, `HTMLArkProps`, forwarded refs, and `asChild`.
 - Ark styling guide: covered by `data-scope`, `data-part`, `data-slot`, local state-like data
   attributes, `className`, and public CSS variables.
+- Ark ref guide: covered by forwarding the ref to the rendered root element.
 - Chakra usage: covered by the default body text root.
 - Chakra sizes: covered by `size`.
 - Chakra weights: covered by `weight`.
@@ -117,7 +119,8 @@ adding ARIA to the default paragraph.
 The component has no interactive state, keyboard behavior, focus lifecycle, Field/Fieldset context,
 HiddenInput, ids, callback detail objects, provider, context, or RootProvider API. `truncate` and
 `lineClamp` are CSS-only rendering constraints; they do not provide disclosure or screen reader
-behavior.
+behavior. If `truncate` and `lineClamp` are both passed, line clamp remains the effective visual
+constraint.
 
 Root attributes:
 
@@ -143,7 +146,7 @@ Public CSS variables:
 | ----------------------------- | ----------------------------------- |
 | `--text-default-color`        | `var(--color-foreground)`           |
 | `--text-destructive-color`    | `var(--color-destructive)`          |
-| `--text-font-family`          | `var(--font-sans)`                  |
+| `--text-font-family`          | `inherit`                           |
 | `--text-font-size-xs`         | `var(--text-xs)`                    |
 | `--text-font-size-sm`         | `var(--text-sm)`                    |
 | `--text-font-size-md`         | `var(--text-md)`                    |
@@ -183,6 +186,9 @@ There is no legacy `render` prop. Custom host composition now uses Ark-style `as
 
 ## Local changelog
 
+- 2026-06-27: Re-audited the local Ark factory contract, simplified default variant resolution,
+  preserved root data hooks after passthrough props, aligned docs API text with local-only
+  components, and fixed `lineClamp` when `truncate` is also present.
 - 2026-06-21: Migrated `Text` from legacy `useRender` to Ark factory, replaced `render` with
   `asChild`, added `Text.Root`, forwarded refs, Ark-style root data attributes, and Chakra-informed
   `truncate` / `lineClamp` props.

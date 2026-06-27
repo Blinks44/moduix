@@ -2793,7 +2793,7 @@
   /* Text */
   --text-default-color: initial; /* var(--color-foreground) */
   --text-destructive-color: initial; /* var(--color-destructive) */
-  --text-font-family: initial; /* var(--font-sans) */
+  --text-font-family: initial; /* inherit */
   --text-font-size-xs: initial; /* var(--text-xs) */
   --text-font-size-sm: initial; /* var(--text-sm) */
   --text-font-size-md: initial; /* var(--text-md) */
