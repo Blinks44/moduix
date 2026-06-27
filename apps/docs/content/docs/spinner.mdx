@@ -15,16 +15,15 @@ import {
   spinnerAsChildCss,
   spinnerInlineCss,
   spinnerRowCss,
-  spinnerSizeData,
   spinnerStylingCss,
 } from '@/components/examples/spinner';
 
 ## API Reference
 
-There is no dedicated Ark UI `Spinner` primitive. moduix implements `Spinner` as a root-only
-Ark-style component with `@ark-ui/react/factory`, `asChild`, and Ark `data-scope` / `data-part`
-styling hooks. Chakra UI's spinner contract informs the size, track color, custom color, thickness,
-speed, label, and overlay composition examples.
+Ark UI does not ship a dedicated spinner primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Basic
 
@@ -194,16 +193,17 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
   <Preview.Code>
     {`
       import { Spinner } from "@moduix/react";
+      import styles from "./spinner.module.css";
 
       export function SpinnerSizesDemo() {
+        const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
+
         return (
-          <>
-            <Spinner decorative size="xs" />
-            <Spinner decorative size="sm" />
-            <Spinner decorative size="md" />
-            <Spinner decorative size="lg" />
-            <Spinner decorative size="xl" />
-          </>
+          <div className={styles.row}>
+            {sizes.map((size) => (
+              <Spinner key={size} decorative size={size} />
+            ))}
+          </div>
         );
       }
     `}
@@ -211,7 +211,7 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
   </Preview.Code>
 
   <Preview.CSS>{spinnerRowCss}</Preview.CSS>
-  <Preview.Data>{spinnerSizeData}</Preview.Data>
+  <Preview.Data>{`// No setup data required.`}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -254,11 +254,9 @@ root attributes and class name, so it must render the visual indicator itself.
         return (
           <Spinner asChild size="lg" aria-label="Loading report">
             <span className={styles.customSpinnerHost}>
-              <span
-                data-scope="spinner"
-                data-part="indicator"
-                className={styles.customSpinnerIndicator}
-              />
+              <span data-scope="spinner" data-part="indicator" data-slot="spinner-indicator">
+                <span data-scope="spinner" data-part="ring" data-slot="spinner-ring" />
+              </span>
             </span>
           </Spinner>
         );

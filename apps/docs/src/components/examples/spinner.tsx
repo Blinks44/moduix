@@ -26,7 +26,7 @@ export const spinnerRowCss = `
 export const spinnerStylingCss = `
   .brandSpinner {
     --spinner-color: var(--color-primary);
-    --spinner-ring-border-width: 0.1875rem;
+    --spinner-ring-border-width: var(--border-width-lg);
     --spinner-ring-track-color: color-mix(
       in oklab,
       var(--color-primary) 22%,
@@ -39,26 +39,13 @@ export const spinnerAsChildCss = `
   .customSpinnerHost {
     color: var(--color-primary);
   }
-
-  .customSpinnerIndicator {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border: var(--spinner-ring-border-width, 0.125rem) solid
-      var(--spinner-ring-track-color, color-mix(in oklab, currentColor 22%, transparent));
-    border-block-start-color: var(--spinner-color, currentColor);
-    border-radius: var(--spinner-radius, var(--radius-full));
-    animation: var(--spinner-animation, var(--animation-spin));
-  }
 `;
-
-export const spinnerSizeData = `const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;`;
 
 export const spinnerOverrideCssProperties: CssPropertyInput[] = [
   ['--spinner-animation', 'var(--animation-spin)', 'Controls indicator rotation animation.'],
   ['--spinner-color', 'currentColor', 'Controls spinner color.'],
   ['--spinner-radius', 'var(--radius-full)', 'Controls round spinner part radius.'],
-  ['--spinner-ring-border-width', '0.125rem', 'Controls ring stroke width.'],
+  ['--spinner-ring-border-width', 'var(--border-width-md)', 'Controls ring stroke width.'],
   [
     '--spinner-ring-track-color',
     'color-mix(in oklab, currentColor 22%, transparent)',
@@ -134,11 +121,9 @@ export function SpinnerAsChildExample() {
   return (
     <Spinner asChild size="lg" aria-label="Loading report">
       <span className={styles.customSpinnerHost}>
-        <span
-          data-scope="spinner"
-          data-part="indicator"
-          className={styles.customSpinnerIndicator}
-        />
+        <span data-scope="spinner" data-part="indicator" data-slot="spinner-indicator">
+          <span data-scope="spinner" data-part="ring" data-slot="spinner-ring" />
+        </span>
       </span>
     </Spinner>
   );

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import type { CSSProperties } from 'react';
 import { Spinner } from './Spinner';
 import styles from './Spinner.stories.module.css';
 
@@ -67,8 +66,10 @@ export const AsChild: Story = {
   render: () => {
     return (
       <Spinner asChild size="lg" aria-label="Loading report">
-        <span>
-          <span data-scope="spinner" data-part="indicator" className={styles.customIndicator} />
+        <span className={styles.brandSpinner}>
+          <span data-scope="spinner" data-part="indicator" data-slot="spinner-indicator">
+            <span data-scope="spinner" data-part="ring" data-slot="spinner-ring" />
+          </span>
         </span>
       </Spinner>
     );
@@ -77,13 +78,6 @@ export const AsChild: Story = {
 
 export const Styling: Story = {
   render: () => {
-    const style = {
-      color: 'var(--color-primary)',
-      '--spinner-ring-border-width': '0.1875rem',
-      '--spinner-ring-track-color':
-        'color-mix(in oklab, var(--color-primary) 22%, transparent 40%)',
-    } as CSSProperties;
-
-    return <Spinner decorative size="lg" style={style} />;
+    return <Spinner decorative size="lg" className={styles.brandSpinner} />;
   },
 };

@@ -1,48 +1,62 @@
 # Spinner
 
-`Spinner` is a root-only moduix loading indicator implemented with `@ark-ui/react/factory`.
-Ark UI does not provide a dedicated spinner primitive, so the component follows Ark composition and
-styling conventions instead of wrapping a behavior machine.
+Upstream docs:
+
+- Ark UI: no dedicated Spinner primitive. Use the Ark factory model in https://ark-ui.com/docs/guides/composition#the-ark-factory
+- Ark composition: https://ark-ui.com/docs/guides/composition
+- Ark styling: https://ark-ui.com/docs/guides/styling
+- Ark refs: https://ark-ui.com/docs/guides/ref
 
 ## Purpose
 
-Use `Spinner` for short-lived pending states when a compact, inline indicator is enough:
+`Spinner` is a compact loading indicator for inline pending states, buttons, small cards, toolbars, and form actions.
 
-- inside buttons;
-- next to visible status text such as "Saving changes";
-- in small cards, toolbars, and form actions.
+## Upstream model to preserve
 
-It is intentionally small:
+Ark UI does not ship a dedicated spinner primitive. Moduix builds `Spinner` with `@ark-ui/react/factory` as a local root-only Ark-style component:
 
-- one exported root component with `Spinner.Root` attached as the Ark-style namespace form;
-- one visual root;
-- built-in status semantics for the default path;
-- optional custom indicator content inside the same sized/spinning wrapper;
-- `asChild` support for custom root hosts;
-- no layout, delay handling, loading-state orchestration, or variants beyond size.
+- one Ark factory root rendered as `ark.span`;
+- `asChild` support for a single custom root host;
+- direct ref forwarding to the rendered root element;
+- Ark-style `data-scope` and `data-part` selectors for styling.
+
+There is no Ark state machine, provider, context hook, controlled state, hidden input, keyboard behavior, or focus management to preserve.
 
 ## Current behavior contract
 
 - `Spinner` and `Spinner.Root` are the same root component.
-- The default root renders an `ark.span` with `data-scope="spinner"`, `data-part="root"`,
-  `data-slot="spinner-root"`, and `data-size`.
-- When `decorative={false}` (default), the root renders with `role="status"`.
-- Non-decorative spinners default to `aria-label="Loading"` unless the consumer provides
-  `aria-label` or `aria-labelledby`.
-- When `decorative={true}`, the root switches to `role="presentation"` and `aria-hidden="true"`.
-- The inner rotating wrapper renders as
-  `span[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]`.
-- Without custom `children`, the indicator wrapper renders the default ring as
-  `span[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"]`.
-- With custom `children`, the default ring is replaced, but the `spinner-indicator` wrapper still
-  provides sizing and rotation.
-- With `asChild`, Ark merges the root props into the single child. The child becomes the root and
-  must render its own visual contents.
-- Spinner motion is disabled automatically under `prefers-reduced-motion`.
+- `Spinner.Root` accepts `HTMLArkProps<'span'>` plus `size` and `decorative`.
+- `size` defaults to `'md'` and writes `data-size` on the root.
+- `decorative` defaults to `false`.
+- Non-decorative spinners render `role="status"` and default to `aria-label="Loading"` unless `aria-label` or `aria-labelledby` is provided.
+- Decorative spinners render `role="presentation"` and `aria-hidden="true"`.
+- Custom `children` replace the default ring while keeping the built-in indicator wrapper.
+- `asChild` makes the single child the root; that child must render its own indicator contents.
+- Motion is disabled under `prefers-reduced-motion`.
 
-## Basic usage
+## Anatomy and exported parts
 
-Standalone status:
+```text
+Spinner / Spinner.Root
+└─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
+   └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
+      └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (default only)
+```
+
+| Part                       | Hook                            | Notes                                                      |
+| -------------------------- | ------------------------------- | ---------------------------------------------------------- |
+| `Spinner` / `Spinner.Root` | `data-slot="spinner-root"`      | Exported root and custom host composition point.           |
+| indicator                  | `data-slot="spinner-indicator"` | Internal rotating wrapper that owns size and animation.    |
+| ring                       | `data-slot="spinner-ring"`      | Internal default ring, omitted when custom children exist. |
+
+Public exported types:
+
+- `SpinnerRootProps`
+- `SpinnerSize`
+
+## Composition
+
+Use the short root form for normal consumers:
 
 ```tsx
 import { Spinner } from '@moduix/react';
@@ -52,43 +66,22 @@ export function LoadingState() {
 }
 ```
 
-Inline with visible text:
+Use `decorative` beside visible loading text:
 
 ```tsx
 import { Spinner } from '@moduix/react';
 
 export function SavingState() {
   return (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+    <span>
       <Spinner decorative size="sm" />
-      <span>Saving changes</span>
+      Saving changes
     </span>
   );
 }
 ```
 
-Custom static indicator:
-
-```tsx
-import { Spinner } from '@moduix/react';
-
-export function SyncSpinner() {
-  return (
-    <Spinner aria-label="Syncing">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M12 3v4M12 17v4M3 12h4M17 12h4M5.64 5.64l2.83 2.83M15.53 15.53l2.83 2.83M18.36 5.64l-2.83 2.83M8.47 15.53l-2.83 2.83"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
-    </Spinner>
-  );
-}
-```
-
-Custom root host:
+Use `asChild` only when the root host itself must be custom:
 
 ```tsx
 import { Spinner } from '@moduix/react';
@@ -97,123 +90,63 @@ export function ReportSpinner() {
   return (
     <Spinner asChild size="lg" aria-label="Loading report">
       <span>
-        <span data-scope="spinner" data-part="indicator" />
+        <span data-scope="spinner" data-part="indicator" data-slot="spinner-indicator">
+          <span data-scope="spinner" data-part="ring" data-slot="spinner-ring" />
+        </span>
       </span>
     </Spinner>
   );
 }
 ```
 
-## Composition
+## Upstream feature coverage
 
-`Spinner` exposes one root component and two default internal visual parts:
+- Composition: follows Ark factory `asChild` behavior and the single-child custom host constraint.
+- Styling: exposes Ark-style `data-scope="spinner"` and `data-part` hooks plus stable moduix `data-slot` hooks.
+- Refs: forwards the React `ref` to the root Ark factory element.
+- State: has no controlled or uncontrolled state. The only local state-like attribute is `data-size`.
+- Accessibility: uses native status semantics rather than an Ark primitive contract.
+- Forms, IDs, provider/context, `HiddenInput`, focus management, and keyboard navigation do not apply.
 
-```text
-Spinner / Spinner.Root
-└─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
-   └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
-      └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (default only)
-```
+## Accessibility and state
 
-| Part                       | Role                                                                 |
-| -------------------------- | -------------------------------------------------------------------- |
-| `Spinner` / `Spinner.Root` | Root status element and custom host composition point.               |
-| `spinner-indicator`        | Rotating wrapper that owns the spinner animation.                    |
-| `spinner-ring`             | Default ring indicator. It is omitted when custom children are used. |
+The default non-decorative path announces a loading status. Prefer `decorative` when adjacent visible text already communicates the pending state. Use `aria-labelledby` when a visible label elsewhere should name the status.
 
-There are no slot props, no `classNames` maps, no context hooks, and no separate exported parts.
-Use `className` on the root plus Ark/data-slot selectors or public CSS variables for styling.
+`Spinner` is non-interactive, so it does not manage focus, keyboard input, disabled state, invalid state, read-only state, or field context.
 
-## Public props
+## Defaults and styling
 
-`Spinner.Root` accepts `HTMLArkProps<'span'>` plus these wrapper props:
+`className` applies to the root. Consumers can style the component through root class selectors, Ark-style data selectors, stable `data-slot` hooks, `data-size`, and public CSS variables.
 
-| Prop              | Type                                   | Default                 | Notes                                                                               |
-| ----------------- | -------------------------------------- | ----------------------- | ----------------------------------------------------------------------------------- |
-| `size`            | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`                  | Sets `data-size` and switches the default size scale.                               |
-| `decorative`      | `boolean`                              | `false`                 | Removes status semantics when adjacent visible text already communicates the state. |
-| `asChild`         | `boolean`                              | `false`                 | Merges root props into the single child element.                                    |
-| `children`        | `React.ReactNode`                      | default ring            | Replaces the default ring unless `asChild` makes the child the root.                |
-| `className`       | `string`                               | -                       | Merged with the root class for local styling overrides.                             |
-| `aria-label`      | `string`                               | `"Loading"` by behavior | Overrides the default announcement when the spinner is not decorative.              |
-| `aria-labelledby` | `string`                               | -                       | Uses external text as the accessible name instead of the default label.             |
+| Variable                      | Default                                              |
+| ----------------------------- | ---------------------------------------------------- |
+| `--spinner-animation`         | `var(--animation-spin)`                              |
+| `--spinner-color`             | `currentColor`                                       |
+| `--spinner-radius`            | `var(--radius-full)`                                 |
+| `--spinner-ring-border-width` | `var(--border-width-md)`                             |
+| `--spinner-ring-track-color`  | `color-mix(in oklab, currentColor 22%, transparent)` |
+| `--spinner-size`              | `var(--spinner-size-md, 1.25rem)`                    |
+| `--spinner-size-xs`           | `0.75rem`                                            |
+| `--spinner-size-sm`           | `1rem`                                               |
+| `--spinner-size-md`           | `1.25rem`                                            |
+| `--spinner-size-lg`           | `1.75rem`                                            |
+| `--spinner-size-xl`           | `2.25rem`                                            |
 
-Public exported types:
+## Intentional sugar and differences from upstream
 
-- `SpinnerRootProps`
-- `SpinnerSize`
-
-## Styling API
-
-### Stable hooks
-
-| Hook                                               | Purpose                                      |
-| -------------------------------------------------- | -------------------------------------------- |
-| `[data-scope="spinner"][data-part="root"]`         | Ark-style selector for the root.             |
-| `[data-scope="spinner"][data-part="indicator"]`    | Ark-style selector for the rotating wrapper. |
-| `[data-scope="spinner"][data-part="ring"]`         | Ark-style selector for the default ring.     |
-| `data-slot="spinner-root"`                         | Stable moduix selector for the root.         |
-| `data-slot="spinner-indicator"`                    | Stable moduix selector for the wrapper.      |
-| `data-slot="spinner-ring"`                         | Stable moduix selector for the default ring. |
-| `[data-size='xs' \| 'sm' \| 'md' \| 'lg' \| 'xl']` | Size state on the root.                      |
-
-### Public CSS variables
-
-`Spinner` exposes these public variables through `src/core/styles/theme.css` and the component stylesheet:
-
-| Variable                      | Default                                              | Effect                                        |
-| ----------------------------- | ---------------------------------------------------- | --------------------------------------------- |
-| `--spinner-animation`         | `var(--animation-spin)`                              | Rotation applied to `spinner-indicator`.      |
-| `--spinner-color`             | `currentColor`                                       | Main indicator color.                         |
-| `--spinner-radius`            | `var(--radius-full)`                                 | Default border radius for the ring.           |
-| `--spinner-ring-border-width` | `0.125rem`                                           | Ring stroke thickness.                        |
-| `--spinner-ring-track-color`  | `color-mix(in oklab, currentColor 22%, transparent)` | Track color for the default ring.             |
-| `--spinner-size`              | `var(--spinner-size-md, 1.25rem)`                    | Global size override for the current subtree. |
-| `--spinner-size-xs`           | `0.75rem`                                            | Token for `size="xs"`.                        |
-| `--spinner-size-sm`           | `1rem`                                               | Token for `size="sm"`.                        |
-| `--spinner-size-md`           | `1.25rem`                                            | Token for `size="md"`.                        |
-| `--spinner-size-lg`           | `1.75rem`                                            | Token for `size="lg"`.                        |
-| `--spinner-size-xl`           | `2.25rem`                                            | Token for `size="xl"`.                        |
-
-## UX and accessibility
-
-- The default path is accessible out of the box because the root exposes `role="status"` and a fallback
-  label of `"Loading"`.
-- Prefer `decorative` whenever nearby visible text already says what is happening, such as "Saving
-  changes" or "Submitting".
-- Use `aria-labelledby` when the spinner should reuse visible text elsewhere instead of repeating a new
-  announcement.
-- `Spinner` is non-interactive: no keyboard behavior, focus management, disabled state, or read-only
-  state is built in or needed.
-- Respect reduced motion. The shipped CSS disables spinner rotation for users who request less motion.
-
-## Intentional differences from legacy
-
-- There is no upstream legacy or Ark UI `Spinner` primitive to mirror locally.
-- The component no longer exposes a plain DOM-only span prop contract. It uses `HTMLArkProps<'span'>`
-  and supports `asChild`.
-- The public root namespace follows Ark-style root-only components: `Spinner` and `Spinner.Root`.
-- Styling uses Ark `data-scope` and `data-part` attributes plus stable moduix `data-slot` hooks.
+- There is no dedicated Ark Spinner primitive to mirror.
+- Moduix adds default status semantics, the `decorative` prop, the `size` prop, and the default ring.
+- `children` is convenience sugar for replacing the default ring while keeping the indicator wrapper.
+- `Spinner.Root` exists only to keep the API aligned with root-only Ark-style components.
 
 ## Agent notes
 
-- Keep `Spinner` thin. Do not add loading-state orchestration, text rendering props, delay handling, or
-  variant systems.
-- Preserve the current semantics contract:
-  - default path announces a loading status;
-  - `decorative` hides the spinner from assistive technology;
-  - `aria-labelledby` suppresses the fallback `aria-label`.
-- Preserve the public hooks `data-scope="spinner"`, `data-part`, `data-slot`, and `data-size`.
-- Preserve the public `--spinner-*` variable contract unless the task explicitly changes styling API.
-- If behavior, styling hooks, or examples change, update `Spinner.tsx`, `Spinner.module.css`,
-  Storybook stories, public docs examples, and this file together.
+- Keep the component thin. Do not add loading orchestration, delay handling, text props, variants, or slot maps.
+- Preserve `asChild`, ref forwarding, status semantics, `data-scope`, `data-part`, `data-slot`, and `data-size`.
+- Keep public docs, stories, local markdown, and registry output synchronized with any behavior or styling contract change.
 
 ## Local changelog
 
-- 2026-06-21: Migrated `Spinner` to an Ark-style root-only component with `@ark-ui/react/factory`,
-  `asChild`, `Spinner.Root`, `data-scope="spinner"`, `data-part` styling hooks, docs examples with
-  Code/Styles/Data tabs, and the `SpinnerRootProps` public type.
-- 2026-06-03: Rewrote the local documentation around the actual moduix `Spinner` contract, documented
-  semantics/composition/styling hooks, exposed the default ring as `data-slot="spinner-ring"`, added
-  public prop and size type exports, and added `--spinner-animation` while disabling motion under
-  `prefers-reduced-motion`.
+- 2026-06-27: Re-audited the local Ark factory contract, simplified `asChild` examples to reuse public data hooks, aligned docs API text, and removed non-token ring thickness overrides from examples.
+- 2026-06-21: Migrated `Spinner` to an Ark-style root-only component with `@ark-ui/react/factory`, `asChild`, `Spinner.Root`, `data-scope="spinner"`, `data-part` styling hooks, docs examples with Code/Styles/Data tabs, and the `SpinnerRootProps` public type.
+- 2026-06-03: Rewrote the local documentation around the actual moduix `Spinner` contract, documented semantics/composition/styling hooks, exposed the default ring as `data-slot="spinner-ring"`, added public prop and size type exports, and added `--spinner-animation` while disabling motion under `prefers-reduced-motion`.

@@ -2547,7 +2547,7 @@
   --spinner-animation: initial; /* var(--animation-spin) */
   --spinner-color: initial; /* currentColor */
   --spinner-radius: initial; /* var(--radius-full) */
-  --spinner-ring-border-width: initial; /* 0.125rem */
+  --spinner-ring-border-width: initial; /* var(--border-width-md) */
   --spinner-ring-track-color: initial; /* color-mix(in oklab, currentColor 22%, transparent) */
   --spinner-size: initial; /* var(--spinner-size-md, 1.25rem) */
   --spinner-size-xs: initial; /* 0.75rem */
