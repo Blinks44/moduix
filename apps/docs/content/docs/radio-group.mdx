@@ -30,8 +30,8 @@ import {
 
 ## Basic
 
-Use Ark-style parts: `RadioGroup.Root`, `RadioGroup.Label`, `RadioGroup.Item`,
-`RadioGroup.ItemControl`, `RadioGroup.ItemText`, and `RadioGroup.ItemHiddenInput`.
+Use `RadioGroup` with Ark-style item parts and keep `RadioGroup.ItemHiddenInput` in each
+form-backed item.
 
 <Preview>
   <RadioGroupExample />
@@ -42,7 +42,7 @@ Use Ark-style parts: `RadioGroup.Root`, `RadioGroup.Label`, `RadioGroup.Item`,
 
       export function RadioGroupDemo() {
         return (
-          <RadioGroup.Root defaultValue="React">
+          <RadioGroup defaultValue="React">
             <RadioGroup.Label>Framework</RadioGroup.Label>
             {frameworks.map((framework) => (
               <RadioGroup.Item key={framework} value={framework}>
@@ -51,7 +51,7 @@ Use Ark-style parts: `RadioGroup.Root`, `RadioGroup.Label`, `RadioGroup.Item`,
                 <RadioGroup.ItemHiddenInput />
               </RadioGroup.Item>
             ))}
-          </RadioGroup.Root>
+          </RadioGroup>
         );
       }
     `}
@@ -135,15 +135,33 @@ RadioGroup.RootProvider
 
 ## Composition
 
+### Recommended composition
+
+Use `RadioGroup` as the short form for `RadioGroup.Root`. Keep the Ark item tree explicit:
+`RadioGroup.Label`, `RadioGroup.Item`, `RadioGroup.ItemControl`, `RadioGroup.ItemText`, and
+`RadioGroup.ItemHiddenInput`.
+
+### When to go custom
+
+Use `RadioGroup.RootProvider` with `useRadioGroup()` when state must be created outside the
+rendered group tree. Use `RadioGroup.Item asChild` when a custom item layout should own the item
+DOM node; the direct child must still be a semantic `label`.
+
+### Default props
+
+| Prop                          | Default | Notes                                                 |
+| ----------------------------- | ------- | ----------------------------------------------------- |
+| `RadioGroup.ItemControl size` | `md`    | Moduix-only control diameter and indicator-dot scale. |
+
+### Behavioral notes
+
 `RadioGroup.Root` accepts Ark props such as `value`, `defaultValue`,
 `onValueChange(details)`, `name`, `form`, `orientation`, `disabled`, `invalid`, `readOnly`,
 `required`, `ids`, and `asChild`.
 
-Use `RadioGroup` as the short form for `RadioGroup.Root`. Use `RadioGroup.RootProvider` with
-`useRadioGroup()` when state must be created outside the rendered group tree.
-
-`RadioGroup.ItemHiddenInput` should stay in each item that participates in native forms. When using
-`RadioGroup.Item asChild`, the direct child must still be a semantic `label`.
+`RadioGroup.ItemHiddenInput` should stay in each item that participates in native form submission,
+validation, or reset. Ark owns the controlled and uncontrolled value state, roving focus, keyboard
+navigation, and `onValueChange(details)` callback shape.
 
 ## Examples
 
@@ -160,7 +178,7 @@ Set `defaultValue` when the initial checked item is known but the group can mana
 
       export function InitialValueDemo() {
         return (
-          <RadioGroup.Root defaultValue="Solid">
+          <RadioGroup defaultValue="Solid">
             <RadioGroup.Label>Framework</RadioGroup.Label>
             {frameworks.map((framework) => (
               <RadioGroup.Item key={framework} value={framework}>
@@ -169,7 +187,7 @@ Set `defaultValue` when the initial checked item is known but the group can mana
                 <RadioGroup.ItemHiddenInput />
               </RadioGroup.Item>
             ))}
-          </RadioGroup.Root>
+          </RadioGroup>
         );
       }
     `}
@@ -196,7 +214,7 @@ Use `value` with `onValueChange(details)` when selected value is owned by surrou
         const [value, setValue] = useState(null as string | null);
 
         return (
-          <RadioGroup.Root value={value} onValueChange={(details) => setValue(details.value)}>
+          <RadioGroup value={value} onValueChange={(details) => setValue(details.value)}>
             <RadioGroup.Label>Framework</RadioGroup.Label>
             {frameworks.map((framework) => (
               <RadioGroup.Item key={framework} value={framework}>
@@ -205,7 +223,7 @@ Use `value` with `onValueChange(details)` when selected value is owned by surrou
                 <RadioGroup.ItemHiddenInput />
               </RadioGroup.Item>
             ))}
-          </RadioGroup.Root>
+          </RadioGroup>
         );
       }
     `}
@@ -270,7 +288,7 @@ Set `disabled` on the root to make every item unavailable while keeping the sele
 
       export function DisabledRadioGroupDemo() {
         return (
-          <RadioGroup.Root defaultValue="React" disabled>
+          <RadioGroup defaultValue="React" disabled>
             <RadioGroup.Label>Framework</RadioGroup.Label>
             {frameworks.map((framework) => (
               <RadioGroup.Item key={framework} value={framework}>
@@ -279,7 +297,7 @@ Set `disabled` on the root to make every item unavailable while keeping the sele
                 <RadioGroup.ItemHiddenInput />
               </RadioGroup.Item>
             ))}
-          </RadioGroup.Root>
+          </RadioGroup>
         );
       }
     `}
@@ -303,7 +321,7 @@ Set `orientation="horizontal"` when arrow-key behavior and layout should follow 
 
       export function RadioGroupOrientationDemo() {
         return (
-          <RadioGroup.Root orientation="horizontal" defaultValue="React">
+          <RadioGroup orientation="horizontal" defaultValue="React">
             <RadioGroup.Label>Framework</RadioGroup.Label>
             <div className="radio-inline-items">
               {frameworks.map((framework) => (
@@ -314,7 +332,7 @@ Set `orientation="horizontal"` when arrow-key behavior and layout should follow 
                 </RadioGroup.Item>
               ))}
             </div>
-          </RadioGroup.Root>
+          </RadioGroup>
         );
       }
     `}
@@ -340,7 +358,7 @@ Wrap the group in `Fieldset` when several radio items share a form section legen
         return (
           <Fieldset>
             <Fieldset.Legend>Select a framework</Fieldset.Legend>
-            <RadioGroup.Root defaultValue="React">
+            <RadioGroup defaultValue="React">
               {frameworks.map((framework) => (
                 <RadioGroup.Item key={framework} value={framework}>
                   <RadioGroup.ItemControl />
@@ -348,7 +366,7 @@ Wrap the group in `Fieldset` when several radio items share a form section legen
                   <RadioGroup.ItemHiddenInput />
                 </RadioGroup.Item>
               ))}
-            </RadioGroup.Root>
+            </RadioGroup>
           </Fieldset>
         );
       }
@@ -373,7 +391,7 @@ Use the moduix `size` prop on `ItemControl` when the radio control needs a diffe
 
       export function RadioGroupSizesDemo() {
         return (
-          <RadioGroup.Root defaultValue="md">
+          <RadioGroup defaultValue="md">
             <RadioGroup.Label>Control Size</RadioGroup.Label>
             {["xs", "sm", "md", "lg", "xl"].map((size) => (
               <RadioGroup.Item key={size} value={size}>
@@ -382,7 +400,7 @@ Use the moduix `size` prop on `ItemControl` when the radio control needs a diffe
                 <RadioGroup.ItemHiddenInput />
               </RadioGroup.Item>
             ))}
-          </RadioGroup.Root>
+          </RadioGroup>
         );
       }
     `}
@@ -411,7 +429,7 @@ Use `RadioGroup.Item asChild` when a custom label layout should own the item DOM
 
       export function RadioGroupAsChildDemo() {
         return (
-          <RadioGroup.Root defaultValue="React">
+          <RadioGroup defaultValue="React">
             <RadioGroup.Label>Framework</RadioGroup.Label>
             {frameworks.map((framework) => (
               <RadioGroup.Item key={framework} value={framework} asChild>
@@ -422,7 +440,7 @@ Use `RadioGroup.Item asChild` when a custom label layout should own the item DOM
                 </label>
               </RadioGroup.Item>
             ))}
-          </RadioGroup.Root>
+          </RadioGroup>
         );
       }
     `}
@@ -446,7 +464,7 @@ Pass `className` to the Ark part that owns the visual concern and style Ark stat
 
       export function StyledRadioGroupDemo() {
         return (
-          <RadioGroup.Root defaultValue="React" className="radio-custom-root">
+          <RadioGroup defaultValue="React" className="radio-custom-root">
             <RadioGroup.Label className="radio-custom-label">Styled Framework</RadioGroup.Label>
             {frameworks.map((framework) => (
               <RadioGroup.Item key={framework} value={framework} className="radio-custom-item">
@@ -455,7 +473,7 @@ Pass `className` to the Ark part that owns the visual concern and style Ark stat
                 <RadioGroup.ItemHiddenInput />
               </RadioGroup.Item>
             ))}
-          </RadioGroup.Root>
+          </RadioGroup>
         );
       }
     `}
@@ -483,7 +501,7 @@ exactly.
         return (
           <div className="radio-indicator-stack">
             <div>Framework</div>
-            <RadioGroup.Root aria-label="Framework" defaultValue="React" className="radio-indicator-root">
+            <RadioGroup aria-label="Framework" defaultValue="React" className="radio-indicator-root">
               <RadioGroup.Indicator className="radio-group-indicator" />
               {frameworks.map((framework) => (
                 <RadioGroup.Item key={framework} value={framework}>
@@ -492,7 +510,7 @@ exactly.
                   <RadioGroup.ItemHiddenInput />
                 </RadioGroup.Item>
               ))}
-            </RadioGroup.Root>
+            </RadioGroup>
           </div>
         );
       }
@@ -523,8 +541,9 @@ Style `RadioGroup` through `className`, stable `data-slot="radio-group-*"` hooks
 
 - Ark anatomy hooks: `data-scope="radio-group"` and `data-part` on root, label, item,
   item-control, item-text, item-hidden-input, and indicator.
-- Ark state hooks: `data-state="checked|unchecked"`, `data-disabled`, `data-invalid`,
-  `data-required`, `data-focus-visible`, and `data-orientation`.
+- Ark state hooks: `data-state="checked|unchecked"`, `data-disabled`, `data-readonly`,
+  `data-invalid`, `data-required`, `data-focus`, `data-focus-visible`, `data-hover`,
+  `data-active`, and `data-orientation`.
 - Ark indicator variables: `--transition-property`, `--left`, `--top`, `--width`, and `--height`.
 - Moduix hooks: `data-slot="radio-group-root"`, `radio-group-label`,
   `radio-group-item`, `radio-group-item-control`, `radio-group-item-text`,

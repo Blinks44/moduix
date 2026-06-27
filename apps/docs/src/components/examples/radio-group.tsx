@@ -1,7 +1,7 @@
 import { Fieldset, RadioGroup, useRadioGroup } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 
 const frameworks = ['React', 'Solid', 'Vue'] as const;
 
@@ -142,35 +142,10 @@ export const radioGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--radio-transition', 'var(--transition-default)', 'Controls radio state transitions.'],
 ];
 
-export const radioGroupPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--radio-bg', 'var(--color-background)', 'Controls unchecked item control background.'],
-  ['--radio-bg-checked', 'var(--color-primary)', 'Controls checked item control background.'],
-  ['--radio-bg-hover', 'var(--color-accent)', 'Controls unchecked hover background.'],
-  ['--radio-border-color', 'var(--color-border)', 'Controls unchecked item control border color.'],
-  ['--radio-border-color-checked', 'var(--color-primary)', 'Controls checked border color.'],
-  ['--radio-focus-ring-color', 'var(--color-ring)', 'Controls item control focus ring color.'],
-  ['--radio-indicator-color', 'var(--color-primary-foreground)', 'Controls item dot color.'],
-];
-
-export function RadioGroupCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function RadioGroupCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={radioGroupOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function RadioGroupCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={radioGroupPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }

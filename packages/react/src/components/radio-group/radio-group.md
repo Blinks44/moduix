@@ -88,6 +88,9 @@ rendered tree. Do not render `Root` and `RootProvider` for the same state instan
 - `ItemHiddenInput` is exposed and should be rendered in each item that participates in form
   submission, validation, or native reset.
 - `ids` is forwarded from `Root`/`RootProvider` for explicit accessibility composition.
+- Item, item-control, and item-text expose Ark item state attributes, including
+  `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`,
+  `data-focus-visible`, and `data-hover`; item-control also exposes `data-active`.
 - `Indicator` preserves Ark CSS variables: `--transition-property`, `--left`, `--top`, `--width`,
   and `--height`.
 
@@ -96,7 +99,8 @@ rendered tree. Do not render `Root` and `RootProvider` for the same state instan
 Ark owns the WAI-ARIA radio group behavior, roving focus, keyboard navigation, controlled and
 uncontrolled state, disabled/read-only/invalid/required propagation, and hidden input behavior.
 Preserve Ark data attributes such as `data-scope="radio-group"`, `data-part`, `data-state`,
-`data-orientation`, `data-disabled`, `data-invalid`, `data-required`, and `data-focus-visible`.
+`data-orientation`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`,
+`data-focus`, `data-focus-visible`, `data-hover`, and `data-active`.
 
 `ItemHiddenInput` forwards its ref to the real input. `Root`, `RootProvider`, `Label`, `Item`,
 `ItemControl`, `ItemText`, and `Indicator` forward refs to their Ark DOM parts.
@@ -134,3 +138,5 @@ and provide an inline item wrapper when you need custom row wrapping. `ItemContr
 - 2026-06-19: Migrated from legacy `radio`/`radio-group` wrappers to Ark UI `radio-group`,
   renamed the component surface to `radio-group`, removed legacy aliases and render contracts, and
   documented the Ark-aligned namespace API.
+- 2026-06-27: Re-audited the Ark UI migration, verified the runtime Ark data attributes, and
+  aligned docs around the short `<RadioGroup>` root form.
