@@ -34,7 +34,7 @@ function SignaturePadParts(props: ComponentProps<typeof SignaturePad.Root>) {
 }
 
 export const Basic: Story = {
-  render: () => <SignaturePadParts name="signature" />,
+  render: () => <SignaturePadParts />,
 };
 
 export const ImagePreview: Story = {
@@ -56,8 +56,20 @@ export const ImagePreview: Story = {
 
 export const WithField: Story = {
   render: () => (
-    <Field className={styles.field} required>
-      <SignaturePadParts name="signature" required />
+    <Field className={styles.field} invalid required>
+      <SignaturePad name="signature">
+        <SignaturePad.Label>Sign below</SignaturePad.Label>
+        <SignaturePad.Control>
+          <SignaturePad.Segment />
+          <SignaturePad.ClearTrigger>
+            <RotateCcwIcon aria-hidden="true" />
+          </SignaturePad.ClearTrigger>
+          <SignaturePad.Guide />
+        </SignaturePad.Control>
+        <SignaturePad.Context>
+          {(api) => <SignaturePad.HiddenInput value={api.paths.join(' ')} />}
+        </SignaturePad.Context>
+      </SignaturePad>
       <Field.HelperText>Use a pointer or touch input to sign.</Field.HelperText>
       <Field.ErrorText>Signature is required.</Field.ErrorText>
     </Field>

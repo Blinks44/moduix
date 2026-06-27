@@ -11,7 +11,7 @@
 
 ## Upstream model to preserve
 
-The wrapper follows Ark UI `SignaturePad` exactly: `Root` or `RootProvider` owns the Zag state machine, `Control` is the focusable drawing area, `Segment` renders the SVG paths, `Guide` renders the baseline, `ClearTrigger` clears the current paths, and `HiddenInput` carries form submission when `name` is set.
+The wrapper follows Ark UI `SignaturePad` exactly: `Root` or `RootProvider` owns the Zag state machine, `Control` is the focusable drawing area, `Segment` renders the SVG and Ark's internal `segmentPath` nodes, `Guide` renders the baseline, `ClearTrigger` clears the current paths, and `HiddenInput` carries native form submission when it is rendered with a `value` and the root has `name`.
 
 Preserve Ark callback detail objects for `onDraw(details)` and `onDrawEnd(details)`. `onDrawEnd` exposes `details.getDataUrl(type, quality?)` for PNG, JPEG, or SVG previews.
 
@@ -20,6 +20,8 @@ Preserve Ark callback detail objects for `onDraw(details)` and `onDrawEnd(detail
 `SignaturePad` is the styled alias for `SignaturePad.Root`. It supports all Ark root props, including `defaultPaths`, controlled `paths`, `drawing`, `name`, `disabled`, `readOnly`, `required`, `ids`, `translations`, `onDraw`, and `onDrawEnd`.
 
 `useSignaturePad()` with `SignaturePad.RootProvider` is exported for state that must be created outside the rendered tree. `useSignaturePadContext()` and `SignaturePad.Context` expose the current Ark API inside the tree.
+
+For native form submission, render `SignaturePad.HiddenInput value={...}` inside the same tree. `name` only gives the hidden input its form field name; it does not create a native value without `HiddenInput`.
 
 ## Anatomy and exported parts
 
@@ -55,7 +57,7 @@ import { RotateCcwIcon, SignaturePad } from '@moduix/react';
 
 export function SignaturePadDemo() {
   return (
-    <SignaturePad name="signature">
+    <SignaturePad>
       <SignaturePad.Label>Sign below</SignaturePad.Label>
       <SignaturePad.Control>
         <SignaturePad.Segment />
@@ -76,7 +78,8 @@ export function SignaturePadDemo() {
 - Controlled state uses `paths` with `onDraw(details)`; uncontrolled state uses `defaultPaths`.
 - `drawing` forwards Zag stroke options: `fill`, `size`, and `simulatePressure`. If `drawing.fill` is not set, moduix CSS supplies the default stroke color.
 - Form usage uses `name`, `required`, and `HiddenInput`; render `HiddenInput value={...}` when the form needs a native value.
-- `Field.Root` and `Fieldset.Root` context can carry disabled, required, invalid, and read-only state through Ark.
+- `Field.Root` context carries `disabled`, `required`, `readOnly`, and shared ids into `SignaturePad`. `Field` invalid state controls helper/error messaging and `HiddenInput` descriptions, but Ark does not add `data-invalid` to signature pad parts.
+- `Fieldset.Root` disabled state reaches `SignaturePad` through nested `Field.Root`, matching Ark's field/fieldset model. Set required, read-only, and invalid messaging state on `Field.Root` when those states belong to one signature field.
 - `RootProvider`, `Context`, `useSignaturePad`, and `useSignaturePadContext` are exported.
 
 ## Accessibility and state
@@ -88,13 +91,16 @@ Data attributes from Ark:
 - `Root`: `data-scope="signature-pad"`, `data-part="root"`, `data-disabled`
 - `Label`: `data-scope="signature-pad"`, `data-part="label"`, `data-disabled`, `data-required`
 - `Control`: `data-scope="signature-pad"`, `data-part="control"`, `data-disabled`
+- `Segment`: `data-scope="signature-pad"`, `data-part="segment"`
+- `Segment` child paths: `data-scope="signature-pad"`, `data-part="segment-path"`
 - `Guide`: `data-scope="signature-pad"`, `data-part="guide"`, `data-disabled`
+- `ClearTrigger`: `data-scope="signature-pad"`, `data-part="clear-trigger"`
 
 ## Defaults and styling
 
 Every styled part accepts `className`, merged with moduix defaults through `clsx` and `normalizeClassName`. Component CSS uses flat CSS Module selectors and Ark data attributes.
 
-The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px` with the default token scale.
+The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px` with the default token scale. The default shadow is `var(--shadow-xs)`.
 
 All `--signature-pad-*` variables used by `SignaturePad.module.css` are declared in `src/core/styles/theme.css` so IDEs can resolve the public styling surface. The most common overrides are `--signature-pad-width`, `--signature-pad-height`, `--signature-pad-control-width`, `--signature-pad-control-height`, `--signature-pad-stroke-color`, `--signature-pad-bg`, `--signature-pad-border-color`, `--signature-pad-radius`, `--signature-pad-guide-color`, and `--signature-pad-clear-trigger-*`.
 
@@ -110,4 +116,5 @@ Keep `HiddenInput` available even when examples omit it. Do not replace `paths`/
 
 ## Local changelog
 
+- 2026-06-27: Tightened the Field/HiddenInput contract, documented `segmentPath` data attributes, and aligned the default shadow token.
 - 2026-06-22: Added the initial Ark-backed `SignaturePad` wrapper, CSS Module defaults, exports, stories, docs, and registry metadata.

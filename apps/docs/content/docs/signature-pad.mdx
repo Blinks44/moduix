@@ -18,6 +18,7 @@ import {
   signaturePadCustomStylingCss,
   signaturePadDrawingData,
   signaturePadExampleCss,
+  signaturePadFieldData,
   signaturePadPreviewCss,
   signaturePadPreviewData,
 } from '@/components/examples/signature-pad';
@@ -42,11 +43,7 @@ baseline.
       export function SignaturePadDemo() {
         return (
           <SignaturePad
-            name="signature"
-            translations={{
-              control: "Signature drawing area",
-              clearTrigger: "Clear signature",
-            }}
+            translations={signaturePadTranslations}
           >
             <SignaturePad.Label>Sign below</SignaturePad.Label>
             <SignaturePad.Control>
@@ -151,7 +148,8 @@ signature outside the Ark tree. Use `RootProvider` when controls outside the com
 access to `paths`, `clear()`, or `getDataUrl()`.
 
 Use `HiddenInput` when the signature should participate in native form submission. Keep it inside
-the same `SignaturePad` tree so `SignaturePad.Context` can read the current Ark state.
+the same `SignaturePad` tree so `SignaturePad.Context` can read the current Ark state. `name` gives
+that hidden input its field name; it does not create a native value by itself.
 
 Use `drawing` for stroke-level customization. `drawing.size` changes stroke width,
 `drawing.simulatePressure` controls pressure simulation, and `drawing.fill` sets the stroke color.
@@ -164,7 +162,7 @@ Use a concrete color string for `drawing.fill`; Zag does not accept CSS variable
 | `defaultPaths` | -                                     | Initial uncontrolled SVG path array.                            |
 | `paths`        | -                                     | Controlled SVG path array. Pair with `onDraw(details)`.         |
 | `drawing`      | `{ size: 2, simulatePressure: true }` | Zag stroke options; `fill` must be a concrete CSS color string. |
-| `name`         | -                                     | Native form field name.                                         |
+| `name`         | -                                     | Native form field name for `HiddenInput`.                       |
 | `disabled`     | -                                     | Disables drawing and clear trigger interaction.                 |
 | `readOnly`     | -                                     | Prevents drawing while preserving display.                      |
 | `required`     | -                                     | Marks label and hidden input as required.                       |
@@ -183,7 +181,8 @@ signature is cleared and exposes `details.getDataUrl(type, quality?)`.
 
 Set `name` on the root and render `HiddenInput` from `SignaturePad.Context` when native form
 submission is needed. Wrap with `Field.Root` when helper text, error text, required state, or
-disabled state should be shared with surrounding form UI.
+disabled state should be shared with surrounding form UI. `Field` invalid state controls field
+messaging and descriptions; it does not add `data-invalid` to the signature pad parts.
 
 `Control` is keyboard-focusable and exposes `role="application"` with
 `aria-roledescription="signature pad"`. Drawing uses pointer and touch input rather than arrow-key
@@ -211,7 +210,7 @@ Use `onDrawEnd` to export the signature and show a preview before saving it.
           <div className="signature-pad-stack">
             <SignaturePad
               onDrawEnd={(details) => {
-                void details.getDataUrl("image/png").then(setImageUrl);
+                void details.getDataUrl(imageType).then(setImageUrl);
               }}
             >
               <SignaturePad.Label>Sign below</SignaturePad.Label>
@@ -306,7 +305,7 @@ defaults.
       export function DrawingSignaturePadDemo() {
         return (
           <SignaturePad
-            drawing={{ fill: "#2563eb", size: 4, simulatePressure: false }}
+            drawing={drawing}
           >
             <SignaturePad.Label>Sign below</SignaturePad.Label>
             <SignaturePad.Control>
@@ -329,8 +328,8 @@ defaults.
 
 ### Field
 
-Use `Field` around the signature pad when helper text, error text, or required state belongs to the
-same form control.
+Use `Field` around the signature pad when helper text, error text, required state, or invalid
+messaging belongs to the same form control.
 
 <Preview>
   <FieldSignaturePadExample />
@@ -341,8 +340,8 @@ same form control.
 
       export function FieldSignaturePadDemo() {
         return (
-          <Field className="signature-pad-field" required>
-            <SignaturePad name="signature" required>
+          <Field className="signature-pad-field" invalid required>
+            <SignaturePad name={signatureName}>
               <SignaturePad.Label>Sign below</SignaturePad.Label>
               <SignaturePad.Control>
                 <SignaturePad.Segment />
@@ -365,13 +364,14 @@ same form control.
   </Preview.Code>
 
   <Preview.CSS>{signaturePadExampleCss}</Preview.CSS>
-  <Preview.Data>{signaturePadBasicData}</Preview.Data>
+  <Preview.Data>{signaturePadFieldData}</Preview.Data>
 </Preview>
 
 ### Root Provider
 
 Use `useSignaturePad()` with `RootProvider` when controls outside the component tree need direct
-access to paths, `clear()`, or `getDataUrl()`.
+access to paths, `clear()`, or `getDataUrl()`. Pass root options such as `translations`, `ids`, and
+`drawing` to `useSignaturePad(...)`.
 
 <Preview>
   <RootProviderSignaturePadExample />
@@ -381,7 +381,9 @@ access to paths, `clear()`, or `getDataUrl()`.
       import { RotateCcwIcon, SignaturePad, useSignaturePad } from "@moduix/react";
 
       export function RootProviderSignaturePadDemo() {
-        const signaturePad = useSignaturePad();
+        const signaturePad = useSignaturePad({
+          translations: signaturePadTranslations,
+        });
 
         return (
           <div className="signature-pad-stack">
@@ -423,7 +425,10 @@ wins over the CSS default stroke color.
 
       export function CustomStylingSignaturePadDemo() {
         return (
-          <SignaturePad className="signature-pad-custom">
+          <SignaturePad
+            className="signature-pad-custom"
+            translations={signaturePadTranslations}
+          >
             <SignaturePad.Label>Sign below</SignaturePad.Label>
             <SignaturePad.Control>
               <SignaturePad.Segment />
@@ -471,5 +476,7 @@ attributes:
 | `SignaturePad.ClearTrigger`          | `signature-pad-clear-trigger` |
 | `SignaturePad.HiddenInput`           | `signature-pad-hidden-input`  |
 
-Ark state attributes remain available for targeted styles: `data-scope="signature-pad"`,
-`data-part`, `data-disabled`, and `data-required` on the parts that Ark marks.
+Ark attributes remain available for targeted styles. `Root`, `Label`, `Control`, `Segment`,
+`Guide`, `ClearTrigger`, and the internal segment paths expose `data-scope="signature-pad"` and
+`data-part`; `data-disabled` appears on root, label, control, and guide, and `data-required`
+appears on label.

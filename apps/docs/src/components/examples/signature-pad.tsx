@@ -87,7 +87,10 @@ export const signaturePadCustomStylingCss = `
   }
 `;
 
-export const signaturePadBasicData = `const signatureName = 'signature';`;
+export const signaturePadBasicData = `const signaturePadTranslations = {
+  control: 'Signature drawing area',
+  clearTrigger: 'Clear signature',
+};`;
 
 export const signaturePadPreviewData = `const imageType = 'image/png';`;
 
@@ -100,6 +103,8 @@ export const signaturePadDrawingData = `const drawing = {
   size: 4,
   simulatePressure: false,
 };`;
+
+export const signaturePadFieldData = `const signatureName = 'signature';`;
 
 export const signaturePadCssProperties: CssPropertyInput[] = [
   ['--signature-pad-width', '17.5rem', 'Controls the root width.'],
@@ -223,10 +228,9 @@ export function SignaturePadCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={signaturePadCssPropertiesReference} />;
 }
 
-function SignaturePadParts({ className, ...props }: ComponentProps<typeof SignaturePad.Root>) {
+function SignaturePadParts(props: ComponentProps<typeof SignaturePad.Root>) {
   return (
     <SignaturePad
-      className={className}
       translations={{
         control: 'Signature drawing area',
         clearTrigger: 'Clear signature',
@@ -246,7 +250,7 @@ function SignaturePadParts({ className, ...props }: ComponentProps<typeof Signat
 }
 
 export function SignaturePadExample() {
-  return <SignaturePadParts name="signature" />;
+  return <SignaturePadParts />;
 }
 
 export function ImagePreviewSignaturePadExample() {
@@ -293,10 +297,9 @@ export function DrawingSignaturePadExample() {
 
 export function FieldSignaturePadExample() {
   return (
-    <Field className={styles.field} required>
+    <Field className={styles.field} invalid required>
       <SignaturePad
         name="signature"
-        required
         translations={{
           control: 'Signature drawing area',
           clearTrigger: 'Clear signature',
@@ -321,7 +324,12 @@ export function FieldSignaturePadExample() {
 }
 
 export function RootProviderSignaturePadExample() {
-  const signaturePad = useSignaturePad();
+  const signaturePad = useSignaturePad({
+    translations: {
+      control: 'Signature drawing area',
+      clearTrigger: 'Clear signature',
+    },
+  });
 
   return (
     <div className={styles.stack}>
