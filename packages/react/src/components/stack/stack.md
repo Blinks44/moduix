@@ -27,9 +27,11 @@ legacy `as` contract. Chakra's Stack recipe informs the public layout props and 
 - Root accepts Ark factory div props, including `asChild`.
 - Applies `data-scope="stack"`, `data-part="root"`, and `data-slot="stack-root"` on the root.
 - Always applies the local root class from `Stack.module.css`, which sets `display: flex`.
-- `direction` defaults to `column` by behavior.
-- `fill={true}` sets `flex: 1 1 0` on the root. When omitted or `false`, the root keeps
-  `flex: initial`.
+- `direction` falls back to the `--stack-direction-*` theme variables and then `column`. When
+  provided, it writes inline `--stack-direction-mobile` and `--stack-direction-desktop` values.
+- `fill={true}` writes inline `--stack-flex: 1 1 0` on the root. `fill={false}` writes
+  `--stack-flex: initial`. When omitted, the root uses the `--stack-flex` theme variable and then
+  `initial`.
 - `gap`, `align`, `justify`, and `wrap` are written as inline styles only when their corresponding
   prop is provided. When omitted, normal browser flex defaults apply.
 - Responsive `direction={{ mobile, desktop }}` switches at `640px` and cross-falls back when only
@@ -113,22 +115,21 @@ a single element that accepts `className`, `style`, and DOM attributes.
 | `align`     | browser default | Any valid `align-items` value                            |
 | `justify`   | browser default | Any valid `justify-content` value                        |
 | `wrap`      | browser default | Any valid `flex-wrap` value                              |
-| `fill`      | `false`         | `true` sets `flex: 1 1 0` on the root                    |
+| `fill`      | theme default   | `true` sets `flex: 1 1 0`; `false` sets `flex: initial`  |
 | `separator` | -               | React node rendered between children                     |
 | `asChild`   | `false`         | Ark factory composition                                  |
 | `className` | -               | Applied to the root                                      |
 | `style`     | -               | Applied last and can override computed inline properties |
 
-`Stack` writes these instance CSS custom properties directly on the root element:
+These public CSS variables live in `packages/react/src/core/styles/theme.css`. `direction` and
+`fill` write inline values for the same variables when provided, and `style` is applied last as the
+per-instance override escape hatch.
 
-| Variable                    | Source                    | Effect                                       |
-| --------------------------- | ------------------------- | -------------------------------------------- |
-| `--stack-direction-mobile`  | resolved from `direction` | Mobile `flex-direction` value.               |
-| `--stack-direction-desktop` | resolved from `direction` | Desktop `flex-direction` value from `640px`. |
-| `--stack-flex`              | resolved from `fill`      | Root `flex` value.                           |
-
-These variables are instance variables, not global theme tokens. Use the `style` prop when one stack
-needs to override them.
+| Variable                    | Source                   | Effect                                       |
+| --------------------------- | ------------------------ | -------------------------------------------- |
+| `--stack-direction-mobile`  | theme / `direction` prop | Mobile `flex-direction` value.               |
+| `--stack-direction-desktop` | theme / `direction` prop | Desktop `flex-direction` value from `640px`. |
+| `--stack-flex`              | theme / `fill` prop      | Root `flex` value.                           |
 
 ## Intentional sugar and differences from upstream
 
@@ -152,11 +153,14 @@ needs to override them.
   consumer CSS for custom separators.
 - Do not document `align`, `justify`, or `wrap` as component-enforced defaults; they rely on browser
   flex defaults when omitted.
-- Keep the styling contract clear: `--stack-direction-*` and `--stack-flex` are inline instance
-  variables, so `style` is the override escape hatch, not `className`.
+- Keep the styling contract clear: `--stack-direction-*` and `--stack-flex` are public theme
+  variables that props can override inline, and `style` remains the per-instance override escape
+  hatch.
 
 ## Local changelog
 
+- 2026-06-27: Stopped writing default `--stack-*` inline variables when `direction` or `fill` are
+  omitted, so the public theme variables in `theme.css` can act as defaults.
 - 2026-06-21: Migrated `Stack` to `@ark-ui/react/factory`, added `Stack.Root`, `asChild`,
   `data-scope="stack"`, `data-part="root"`, forwarded root refs, and Chakra-informed `separator`
   composition.

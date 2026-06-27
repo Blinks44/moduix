@@ -4,32 +4,28 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './stack.module.css';
 
-const stackOverrideCssProperties: CssPropertyInput[] = [
-  [
-    '--stack-direction-mobile',
-    'column',
-    'Controls the root `flex-direction` below `640px`. Written inline from `direction`.',
-  ],
-  [
-    '--stack-direction-desktop',
-    'column',
-    'Controls the root `flex-direction` from `640px` up. Written inline from `direction`.',
-  ],
-  ['--stack-flex', 'initial', 'Controls the root `flex` value. Written inline from `fill`.'],
-];
+const stackOverrideCssProperties = [
+  {
+    name: '--stack-direction-mobile',
+    defaultValue: 'column',
+    description:
+      'Controls the root `flex-direction` below `640px`. The `direction` prop writes an inline override.',
+  },
+  {
+    name: '--stack-direction-desktop',
+    defaultValue: 'column',
+    description:
+      'Controls the root `flex-direction` from `640px` up. The `direction` prop writes an inline override.',
+  },
+  {
+    name: '--stack-flex',
+    defaultValue: 'initial',
+    description: 'Controls the root `flex` value. The `fill` prop writes an inline override.',
+  },
+] satisfies CssPropertyInput[];
 
 export function StackCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={stackOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
+  return <CSSPropertiesReferenceTable properties={stackOverrideCssProperties} />;
 }
 
 export function StackExample(props: ComponentProps<typeof Stack>) {

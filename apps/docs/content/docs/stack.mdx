@@ -18,7 +18,11 @@ import {
 
 ## API Reference
 
-`Stack` has no dedicated Ark UI primitive; moduix implements it with the Ark [composition](https://ark-ui.com/docs/guides/composition), [ref](https://ark-ui.com/docs/guides/ref), and [styling](https://ark-ui.com/docs/guides/styling) model through `@ark-ui/react/factory`. The public layout API is informed by Chakra UI [Stack](https://chakra-ui.com/docs/components/stack): direction, gap, alignment, wrapping, and optional separators.
+Ark UI does not ship a dedicated `stack` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance. Chakra UI [Stack](https://chakra-ui.com/docs/components/stack)
+informs only the layout prop vocabulary and separator pattern.
 
 ## Basic
 
@@ -146,8 +150,8 @@ Switch to local CSS when the layout needs more than one flex container, more tha
 direction switch, per-breakpoint gap changes, item-level layout rules, or styling that reads clearer
 in a stylesheet than in component props.
 
-Use `style` when you intentionally need to override the inline `--stack-*` instance variables or
-the computed flex properties on one specific stack.
+Use `style` when one instance needs to override public `--stack-*` variables or computed flex
+properties.
 
 ### Default props
 
@@ -158,7 +162,7 @@ the computed flex properties on one specific stack.
 | `align`     | browser default | Any valid `align-items` value                           |
 | `justify`   | browser default | Any valid `justify-content` value                       |
 | `wrap`      | browser default | Any valid `flex-wrap` value                             |
-| `fill`      | `false`         | `true` sets `flex: 1 1 0` on the root                   |
+| `fill`      | theme default   | `true` sets `flex: 1 1 0`; `false` sets `flex: initial` |
 | `separator` | -               | React node rendered between children                    |
 | `asChild`   | `false`         | Ark factory composition with one semantic child element |
 
@@ -501,9 +505,8 @@ Use `Stack` with `Skeleton` when the loading state only needs flex composition a
 
 ### CSS Properties
 
-`Stack` exposes instance CSS variables that are written inline by the component at render time. Use
-the `style` prop for per-instance overrides when the computed `direction` or `fill` value needs to
-change.
+`Stack` exposes public CSS variables in `theme.css`. The `direction` and `fill` props write inline
+values for these variables when provided, and the `style` prop can still override them per instance.
 
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
@@ -520,6 +523,6 @@ change.
 - `data-scope="stack"` and `data-part="root"` align the wrapper with Ark styling conventions.
 - `data-slot="stack-root"` is the stable moduix selector for targeting the root in local CSS.
 - `style` is applied last, so it can override computed `gap`, `alignItems`, `justifyContent`,
-  `flexWrap`, and the inline `--stack-*` variables.
+  `flexWrap`, and any `--stack-*` variables written by props.
 - There are no state attributes, CSS animation variables, or `slotProps` maps in the public
   contract.

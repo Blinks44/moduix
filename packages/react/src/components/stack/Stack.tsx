@@ -39,8 +39,10 @@ const StackRoot = forwardRef<HTMLDivElement, StackRootProps>(function StackRoot(
   },
   ref,
 ) {
-  const responsiveDirection =
-    typeof direction === 'string' ? { mobile: direction, desktop: direction } : direction;
+  const mobileDirection =
+    typeof direction === 'string' ? direction : (direction?.mobile ?? direction?.desktop);
+  const desktopDirection =
+    typeof direction === 'string' ? direction : (direction?.desktop ?? direction?.mobile);
   const childArray = separator == null ? undefined : Children.toArray(children);
   const content =
     childArray == null
@@ -63,11 +65,9 @@ const StackRoot = forwardRef<HTMLDivElement, StackRootProps>(function StackRoot(
       className={clsx(styles.root, normalizeClassName(className))}
       style={
         {
-          '--stack-direction-desktop':
-            responsiveDirection?.desktop ?? responsiveDirection?.mobile ?? 'column',
-          '--stack-direction-mobile':
-            responsiveDirection?.mobile ?? responsiveDirection?.desktop ?? 'column',
-          '--stack-flex': fill ? '1 1 0' : 'initial',
+          '--stack-direction-desktop': desktopDirection,
+          '--stack-direction-mobile': mobileDirection,
+          '--stack-flex': fill == null ? undefined : fill ? '1 1 0' : 'initial',
           gap,
           alignItems: align,
           justifyContent: justify,
