@@ -18,6 +18,7 @@ import {
   skeletonAsChildData,
   skeletonCardData,
   skeletonCompositionData,
+  skeletonCustomStylingData,
   skeletonCustomStylingCss,
   skeletonExampleData,
   skeletonLoadedData,
@@ -28,9 +29,10 @@ import {
 
 ## API Reference
 
-Ark UI does not ship a dedicated `Skeleton` primitive. moduix implements `Skeleton` as an Ark-style
-factory wrapper over a native element with `asChild`, `data-scope`, `data-part`, `data-state`, and
-`data-variant` hooks. Chakra UI's `loading` and `variant` model informs the public API.
+Ark UI does not ship a dedicated skeleton primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Basic
 
@@ -143,20 +145,20 @@ surfaces, apply `className`, `style`, or the public CSS variables.
 
 ### Default props
 
-| Prop           | Default                         | Notes                                                                          |
-| -------------- | ------------------------------- | ------------------------------------------------------------------------------ |
-| `loading`      | `true`                          | Controls whether placeholder styles are active or children are shown normally. |
-| `variant`      | `pulse`                         | Supports `pulse` and `none`.                                                   |
-| `height`       | `1rem`                          | CSS sets the default root height. Numeric prop values become `px`.             |
-| `width`        | `100%`                          | CSS sets the default root width. Numeric prop values become `px`.              |
-| `boxSize`      | -                               | Sets width and height together when that axis is not provided.                 |
-| `borderRadius` | `var(--skeleton-border-radius)` | Numeric prop values become `px`; style overrides still win.                    |
+| Prop           | Default                         | Notes                                                                                                       |
+| -------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `loading`      | `true`                          | Controls whether placeholder styles are active or children are shown normally.                              |
+| `variant`      | `pulse`                         | Supports `pulse` and `none`.                                                                                |
+| `height`       | `1rem` while loading            | Loading CSS sets the default placeholder height. Loaded content uses natural height unless a height is set. |
+| `width`        | `100%`                          | CSS sets the default root width. Numeric prop values become `px`.                                           |
+| `boxSize`      | -                               | Sets width and height together when that axis is not provided.                                              |
+| `borderRadius` | `var(--skeleton-border-radius)` | Numeric prop values become `px`; style overrides still win.                                                 |
 
 ### Behavioral notes
 
 - `Skeleton.Root` is the same component as `Skeleton`, provided for namespace consistency.
 - `loading={true}` sets `aria-hidden`, `data-state="loading"`, and `data-loading`.
-- `loading={false}` sets `data-state="loaded"` and removes placeholder-only pointer and color styles.
+- `loading={false}` sets `data-state="loaded"` and lets children use their natural height unless `height`, `boxSize`, or `style.height` is set.
 - `variant` is styling-only; no internal timers or state management are added.
 - `asChild` comes from Ark factory composition and replaces legacy render-prop composition.
 
@@ -275,7 +277,7 @@ Keep responsive layout logic in wrapper markup while each `Skeleton` stays a vis
   {`
       .layoutExample {
         width: min(24rem, calc(100vw - var(--spacing-8)));
-        padding-block: 4px;
+        padding-block: var(--spacing-1);
       }
     `}
 </Preview.CSS>
@@ -371,11 +373,11 @@ Use `loading` to keep the same host in place while switching from placeholder to
       export function LoadedSkeletonDemo() {
         return (
           <div className={styles.loadedGrid}>
-            <Skeleton loading={states.loading} className={styles.loadedContent}>
+            <Skeleton loading className={styles.loadedContent}>
               <strong>{profile.name}</strong>
               <span>{profile.role}</span>
             </Skeleton>
-            <Skeleton loading={states.loaded} className={styles.loadedContent}>
+            <Skeleton loading={false} className={styles.loadedContent}>
               <strong>{profile.name}</strong>
               <span>{profile.role}</span>
             </Skeleton>
@@ -391,7 +393,7 @@ Use `loading` to keep the same host in place while switching from placeholder to
       .loadedContent {
         display: grid;
         width: min(20rem, calc(100vw - var(--spacing-8)));
-        min-height: 4.25rem;
+        min-height: 4.5rem;
         gap: var(--spacing-1);
         padding: var(--spacing-4);
         border: var(--border-width-sm) solid var(--color-border);
@@ -457,9 +459,9 @@ Use `className` and the public CSS variables when the surface needs local stylin
       export function CustomSkeletonDemo() {
         return (
           <Stack gap={10} className={styles.customBlock}>
-            <Skeleton className={styles.customSkeleton} height={18} />
-            <Skeleton className={styles.customSkeleton} width="78%" height={18} />
-            <Skeleton className={styles.customSkeleton} width="52%" height={18} />
+            {customLines.map((width) => (
+              <Skeleton key={width} className={styles.customSkeleton} width={width} height={18} />
+            ))}
           </Stack>
         );
       }
@@ -469,7 +471,7 @@ Use `className` and the public CSS variables when the surface needs local stylin
 
 <Preview.CSS>{skeletonCustomStylingCss}</Preview.CSS>
 
-  <Preview.Data>{skeletonExampleData}</Preview.Data>
+  <Preview.Data>{skeletonCustomStylingData}</Preview.Data>
 </Preview>
 
 ## Styling

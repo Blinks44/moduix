@@ -26,8 +26,8 @@ revealed with `loading={false}`, and `variant` supports `pulse` and `none`.
 - `asChild` is supported by the Ark factory path. The child must be a single semantic element.
 - `loading` defaults to `true`. Loading roots get `aria-hidden`, `data-state="loading"`, and
   `data-loading`.
-- `loading={false}` sets `data-state="loaded"` and removes placeholder-only color, pointer, and
-  user-select styles so children render normally.
+- `loading={false}` sets `data-state="loaded"` and lets children use their natural height unless
+  `height`, `boxSize`, or `style.height` is set.
 - `variant` defaults to `pulse` and accepts `pulse` and `none`.
 - `width`, `height`, `boxSize`, and `borderRadius` accept CSS lengths. Numeric values are converted
   to `px`. `style` is merged last.
@@ -39,11 +39,11 @@ Skeleton.Root
 └─ children (optional, visible when loading={false})
 ```
 
-| Part                | Stable hooks                                                             | Notes                                       |
-| ------------------- | ------------------------------------------------------------------------ | ------------------------------------------- | -------------------------------------- |
-| `Skeleton` / `Root` | `data-scope="skeleton"`, `data-part="root"`, `data-slot="skeleton-root"` | Short root form and namespace are the same. |
-| Loading root state  | `data-state="loading"`, `data-loading`, `data-variant="pulse             | none"`                                      | Placeholder surface is decorative.     |
-| Loaded root state   | `data-state="loaded"`, `data-variant="pulse                              | none"`                                      | Children render through the same host. |
+| Part                | Stable hooks                                                                            | Notes                                       |
+| ------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `Skeleton` / `Root` | `data-scope="skeleton"`, `data-part="root"`, `data-slot="skeleton-root"`                | Short root form and namespace are the same. |
+| Loading root state  | `data-state="loading"`, `data-loading`, `data-variant="pulse"` or `data-variant="none"` | Placeholder surface is decorative.          |
+| Loaded root state   | `data-state="loaded"`, `data-variant="pulse"` or `data-variant="none"`                  | Children render through the same host.      |
 
 ## Composition
 
@@ -105,9 +105,10 @@ Default CSS:
 
 - `display: block`
 - `width: 100%`
-- `height: 1rem`
 - `overflow: hidden`
 - `border-radius: var(--skeleton-border-radius, var(--radius-md))`
+- loading-only height, background, text hiding, pointer blocking, and animation are scoped to
+  `data-state="loading"`
 
 Public CSS variables:
 
@@ -138,6 +139,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-06-27: Audited the Ark factory migration, simplified loading-state CSS, fixed the anatomy
+  hook table, and synchronized docs example data with rendered examples.
 - 2026-06-20: Migrated `Skeleton` to an Ark-style factory wrapper, added `Skeleton.Root`,
   `asChild`, `loading`, `variant`, `boxSize`, and `borderRadius`, removed legacy
   `animated`/`shape`/`radius`/`size`, and synchronized stories/docs/styling hooks.

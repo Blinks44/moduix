@@ -2,11 +2,11 @@
   .root {
     display: block;
     width: 100%;
-    height: 1rem;
     overflow: hidden;
     border-radius: var(--skeleton-border-radius, var(--radius-md));
 
     &[data-state='loading'] {
+      height: 1rem;
       animation: var(--skeleton-animation, var(--animation-pulse));
       background: var(
         --skeleton-bg,
@@ -19,22 +19,14 @@
       & > * {
         visibility: hidden;
       }
-    }
 
-    &[data-state='loaded'],
-    &[data-variant='none'] {
-      animation: none;
-    }
+      &[data-variant='none'] {
+        animation: none;
+      }
 
-    &[data-state='loaded'] {
-      background: transparent;
-      color: inherit;
-      pointer-events: auto;
-      user-select: auto;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      animation: none;
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
     }
   }
 }

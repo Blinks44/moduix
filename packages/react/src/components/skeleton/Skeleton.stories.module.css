@@ -13,7 +13,7 @@
 
   .layoutExample {
     width: 24rem;
-    padding-block: 4px;
+    padding-block: var(--spacing-1);
   }
 
   .customBlock {
@@ -30,7 +30,7 @@
   .loadedContent {
     display: grid;
     width: 20rem;
-    min-height: 4.25rem;
+    min-height: 4.5rem;
     gap: var(--spacing-1);
     padding: var(--spacing-4);
     border: var(--border-width-sm) solid var(--color-border);
