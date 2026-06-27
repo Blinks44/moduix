@@ -12,7 +12,7 @@ Upstream docs:
 
 The wrapper follows Ark UI `@ark-ui/react/steps`. Preserve the Ark part tree: `Root`, `RootProvider`, `List`, `Item`, `Trigger`, `Indicator`, `Separator`, `Content`, `CompletedContent`, `PrevTrigger`, `NextTrigger`, `Progress`, `Context`, and `ItemContext`.
 
-Ark owns `count`, zero-based `index`, `step/defaultStep`, `onStepChange(details)`, `onStepComplete`, `linear`, `isStepValid`, `isStepSkippable`, `onStepInvalid(details)`, `orientation`, `ids`, tablist/tabpanel ARIA, and previous/next navigation.
+Ark owns `count`, zero-based `index`, `step/defaultStep`, `onStepChange(details)`, `onStepComplete`, `linear`, `isStepValid`, `isStepSkippable`, `onStepInvalid(details)`, `orientation`, `ids`, tablist/tabpanel ARIA, progress percentage, and previous/next navigation.
 
 ## Current behavior contract
 
@@ -118,13 +118,13 @@ Ark provides `role="tablist"` on `Steps.List`, `role="tab"` on triggers, `role="
 
 Use Ark state hooks directly: `Steps.Context` for inline root reads, `Steps.ItemContext` or `useStepsItemContext()` for item state, and `useSteps()` plus `Steps.RootProvider` for externally owned state. Callback payloads stay Ark-shaped, such as `onStepChange(details)` with `details.step`.
 
-Important data/state hooks: `data-scope="steps"`, `data-part`, `data-orientation`, `data-current`, `data-complete`, `data-incomplete`, `data-state="open" | "closed"`, `data-skippable`, and Ark `--percent` on the root.
+Important data/state hooks: `data-scope="steps"`, `data-part`, `data-orientation`, `data-current`, `data-complete`, `data-incomplete`, `data-state="open" | "closed"` on triggers and content, `data-skippable`, `data-complete` on progress, and Ark `--percent` on the root.
 
 ## Defaults and styling
 
 The CSS keeps Moduix density, tokens, focus rings, rounded indicators, connector behavior, and button styling while using Ark state attributes. Public styling uses `data-slot` hooks and `--steps-*` variables in `packages/react/src/core/styles/theme.css`.
 
-Root class names apply to both `Steps.Root` and `Steps.RootProvider`. `Steps.Progress` renders a track/fill through CSS using the Ark `--percent` runtime variable.
+Root class names apply to both `Steps.Root` and `Steps.RootProvider`. `Steps.Progress` renders a track/fill through CSS using the Ark `--percent` runtime variable. Incomplete trigger text styles target Ark `data-incomplete`; completed triggers keep normal inherited text color unless consumers override the state hooks.
 
 ## Intentional sugar and differences from upstream
 
@@ -140,4 +140,5 @@ When changing styling hooks or variables, update `Steps.module.css`, `theme.css`
 
 ## Local changelog
 
+- 2026-06-27: Audited the Ark UI migration, tightened incomplete trigger/progress styling to current Ark data attributes, removed docs-only playground leftovers, and aligned docs snippets with the shipped composition.
 - 2026-06-21: Migrated `Stepper` to Ark UI `Steps`, renamed the component and registry surface to `steps`, removed legacy render compatibility, adopted Ark state/callback/index contracts, added real content/completed/progress/navigation parts, and documented the breaking API.

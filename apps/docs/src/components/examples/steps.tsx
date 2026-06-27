@@ -1,7 +1,7 @@
 import { Steps, useSteps } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './steps.module.css';
 
 const stepsItems = [
@@ -30,7 +30,7 @@ export const stepsItemsData = `const items = [
   { title: 'Launch', description: 'Review everything and go live.' },
 ];`;
 
-export const stepsExampleCss = `
+const sharedStepsCss = `
   .stepText {
     display: grid;
     gap: 0.125rem;
@@ -52,7 +52,16 @@ export const stepsExampleCss = `
   }
 `;
 
+export const stepsExampleCss = sharedStepsCss;
+
 export const controlledStepsCss = `
+  ${sharedStepsCss}
+
+  .stack {
+    display: grid;
+    gap: var(--spacing-3);
+  }
+
   .output {
     color: var(--color-muted-foreground);
     font-size: var(--text-sm);
@@ -60,31 +69,46 @@ export const controlledStepsCss = `
 `;
 
 export const rootProviderStepsCss = `
+  ${sharedStepsCss}
+
   .stack {
     display: grid;
     gap: var(--spacing-3);
   }
+
+  .output {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+  }
 `;
 
 export const verticalStepsCss = `
+  ${sharedStepsCss}
+
   .vertical {
     max-width: min(100%, 40rem);
   }
 `;
 
 export const asChildStepsCss = `
+  ${sharedStepsCss}
+
   a[data-scope='steps'][data-part='trigger'] {
     text-decoration: none;
   }
 `;
 
 export const progressStepsCss = `
+  ${sharedStepsCss}
+
   [data-slot='steps-progress'] {
     margin-block-end: var(--spacing-2);
   }
 `;
 
 export const customStylesStepsCss = `
+  ${sharedStepsCss}
+
   .customSteps {
     --steps-content-bg: color-mix(in oklab, var(--color-primary) 10%, var(--color-muted) 90%);
     --steps-indicator-bg-current: color-mix(
@@ -152,7 +176,7 @@ export const stepsOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--steps-indicator-bg-current',
-    'var(--steps-indicator-bg)',
+    'var(--steps-indicator-bg, var(--color-background))',
     'Controls current indicator background.',
   ],
   [
@@ -235,33 +259,6 @@ export const stepsOverrideCssProperties: CssPropertyInput[] = [
   ['--steps-vertical-item-min-height', '4rem', 'Controls vertical item minimum height.'],
 ];
 
-export const stepsPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--steps-color', 'var(--color-foreground)', 'Controls the base steps text color.'],
-  [
-    '--steps-indicator-bg-complete',
-    'var(--color-foreground)',
-    'Controls complete indicator background.',
-  ],
-  [
-    '--steps-indicator-border-color-current',
-    'var(--steps-indicator-border-color-complete)',
-    'Controls current indicator border color.',
-  ],
-  [
-    '--steps-indicator-color-current',
-    'var(--color-foreground)',
-    'Controls current indicator text color.',
-  ],
-  ['--steps-indicator-size', '2rem', 'Controls indicator size.'],
-  [
-    '--steps-separator-color-complete',
-    'var(--color-foreground)',
-    'Controls complete separator color.',
-  ],
-  ['--steps-content-bg', 'var(--color-muted)', 'Controls panel background.'],
-  ['--steps-root-gap', 'var(--spacing-4)', 'Controls horizontal root spacing.'],
-];
-
 function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
@@ -271,7 +268,6 @@ function normalizeCssProperty(property: CssPropertyInput) {
 }
 
 const stepsCssProperties = stepsOverrideCssProperties.map(normalizeCssProperty);
-const stepsPlaygroundProperties = stepsPlaygroundCssProperties.map(normalizeCssProperty);
 
 function StepsList() {
   return (
@@ -330,17 +326,6 @@ function StepsDemo(props: ComponentProps<typeof Steps>) {
 
 export function StepsCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return <CSSPropertiesReferenceTable properties={stepsCssProperties} />;
-}
-
-export function StepsCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={stepsPlaygroundProperties}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
 }
 
 export function StepsExample(props: ComponentProps<typeof Steps>) {

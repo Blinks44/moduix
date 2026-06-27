@@ -1,8 +1,5 @@
 @layer ui.components {
   .root {
-    --percent: 0%;
-    --steps-percent: var(--percent, 0%);
-
     box-sizing: border-box;
     display: flex;
     width: 100%;
@@ -96,7 +93,7 @@
       outline-offset: var(--steps-focus-ring-offset, 2px);
     }
 
-    &[data-state='closed'] {
+    &[data-incomplete] {
       color: var(--steps-trigger-color-incomplete, inherit);
     }
 
@@ -146,7 +143,10 @@
         --steps-indicator-border-color-current,
         var(--steps-indicator-border-color-complete, var(--color-foreground))
       );
-      background-color: var(--steps-indicator-bg-current, var(--steps-indicator-bg));
+      background-color: var(
+        --steps-indicator-bg-current,
+        var(--steps-indicator-bg, var(--color-background))
+      );
       color: var(--steps-indicator-color-current, var(--color-foreground));
     }
 
@@ -290,7 +290,7 @@
       position: absolute;
       inset-block: 0;
       inset-inline-start: 0;
-      width: var(--steps-percent);
+      width: var(--percent, 0%);
       border-radius: inherit;
       background-color: var(--steps-progress-fill-bg, var(--color-foreground));
       transition: width var(--transition-default);

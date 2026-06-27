@@ -7,22 +7,6 @@
 
 .vertical {
   max-width: min(100%, 40rem);
-
-  :global([data-slot='steps-root'][data-orientation='vertical']) {
-    align-items: flex-start;
-  }
-
-  :global([data-slot='steps-list'][data-orientation='vertical']) {
-    align-self: flex-start;
-  }
-
-  :global([data-slot='steps-item'][data-orientation='vertical']) {
-    align-self: flex-start;
-  }
-
-  :global([data-slot='steps-trigger'][data-orientation='vertical']) {
-    align-self: flex-start;
-  }
 }
 
 .stepText {

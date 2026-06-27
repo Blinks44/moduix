@@ -2472,6 +2472,7 @@
   --stack-flex: initial; /* initial */
 
   /* Steps */
+  --percent: initial; /* Ark Steps runtime progress percent */
   --steps-action-bg: initial; /* var(--color-background) */
   --steps-action-bg-hover: initial; /* var(--color-accent) */
   --steps-action-border-color: initial; /* var(--color-border) */

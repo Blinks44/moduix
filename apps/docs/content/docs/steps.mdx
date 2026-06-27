@@ -210,39 +210,44 @@ Control `step` from React state when the active step must stay synchronized with
         const [step, setStep] = useState(1);
 
         return (
-          <Steps
-            count={items.length}
-            step={step}
-            onStepChange={(details) => setStep(details.step)}
-          >
-            <Steps.List>
+          <div className="stack">
+            <output className="output">Current step: {step + 1}</output>
+            <Steps
+              count={items.length}
+              step={step}
+              onStepChange={(details) => setStep(details.step)}
+            >
+              <Steps.List>
+                {items.map((item, index) => (
+                  <Steps.Item key={item.title} index={index}>
+                    <Steps.Trigger>
+                      <Steps.Indicator />
+                      <span className="stepText">
+                        <span className="stepTitle">{item.title}</span>
+                        <span className="stepDescription">{item.description}</span>
+                      </span>
+                    </Steps.Trigger>
+                    <Steps.Separator />
+                  </Steps.Item>
+                ))}
+              </Steps.List>
+
               {items.map((item, index) => (
-                <Steps.Item key={item.title} index={index}>
-                  <Steps.Trigger>
-                    <Steps.Indicator />
-                    <span className="stepText">
-                      <span className="stepTitle">{item.title}</span>
-                      <span className="stepDescription">{item.description}</span>
-                    </span>
-                  </Steps.Trigger>
-                  <Steps.Separator />
-                </Steps.Item>
+                <Steps.Content key={item.title} index={index}>
+                  {item.title} - {item.description}
+                </Steps.Content>
               ))}
-            </Steps.List>
 
-            {items.map((item, index) => (
-              <Steps.Content key={item.title} index={index}>
-                {item.title} - {item.description}
-              </Steps.Content>
-            ))}
+              <Steps.CompletedContent>
+                Steps complete. The workspace is ready.
+              </Steps.CompletedContent>
 
-            <Steps.CompletedContent>
-              Steps complete. The workspace is ready.
-            </Steps.CompletedContent>
-
-            <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-            <Steps.NextTrigger>Next</Steps.NextTrigger>
-          </Steps>
+              <div className="actions">
+                <Steps.PrevTrigger>Back</Steps.PrevTrigger>
+                <Steps.NextTrigger>Next</Steps.NextTrigger>
+              </div>
+            </Steps>
+          </div>
         );
       }
     `}
@@ -269,7 +274,7 @@ Use `useSteps()` with `Steps.RootProvider` when controls outside the rendered tr
 
         return (
           <div className="stack">
-            <output>Current step: {steps.value + 1}</output>
+            <output className="output">Current step: {steps.value + 1}</output>
             <Steps.RootProvider value={steps}>
               <Steps.List>
                 {items.map((item, index) => (
@@ -321,16 +326,67 @@ Set `orientation="vertical"` when the step list should stack beside the active c
 
   <Preview.Code>
     {`
-      <Steps count={items.length} defaultStep={1} orientation="vertical">
+      <div className="vertical">
+        <Steps count={items.length} defaultStep={1} orientation="vertical">
+          <Steps.List>
+            {items.map((item, index) => (
+              <Steps.Item key={item.title} index={index}>
+                <Steps.Trigger>
+                  <Steps.Indicator />
+                  <span className="stepText">
+                    <span className="stepTitle">{item.title}</span>
+                    <span className="stepDescription">{item.description}</span>
+                  </span>
+                </Steps.Trigger>
+                <Steps.Separator />
+              </Steps.Item>
+            ))}
+          </Steps.List>
+
+          {items.map((item, index) => (
+            <Steps.Content key={item.title} index={index}>
+              {item.title} - {item.description}
+            </Steps.Content>
+          ))}
+
+          <Steps.CompletedContent>
+            Steps complete. The workspace is ready.
+          </Steps.CompletedContent>
+
+          <div className="actions">
+            <Steps.PrevTrigger>Back</Steps.PrevTrigger>
+            <Steps.NextTrigger>Next</Steps.NextTrigger>
+          </div>
+        </Steps>
+      </div>
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{verticalStepsCss}</Preview.CSS>
+  <Preview.Data>{stepsItemsData}</Preview.Data>
+</Preview>
+
+### Custom Composition
+
+Use `asChild` when a step trigger should render as another semantic element, such as an anchor or router link.
+
+<Preview>
+  <AsChildStepsExample />
+
+  <Preview.Code>
+    {`
+      <Steps count={items.length} defaultStep={1} linear={false}>
         <Steps.List>
           {items.map((item, index) => (
             <Steps.Item key={item.title} index={index}>
-              <Steps.Trigger>
-                <Steps.Indicator />
-                <span className="stepText">
-                  <span className="stepTitle">{item.title}</span>
-                  <span className="stepDescription">{item.description}</span>
-                </span>
+              <Steps.Trigger asChild>
+                <a href={\`#step-\${index + 1}\`}>
+                  <Steps.Indicator />
+                  <span className="stepText">
+                    <span className="stepTitle">{item.title}</span>
+                  </span>
+                </a>
               </Steps.Trigger>
               <Steps.Separator />
             </Steps.Item>
@@ -355,37 +411,6 @@ Set `orientation="vertical"` when the step list should stack beside the active c
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>{verticalStepsCss}</Preview.CSS>
-  <Preview.Data>{stepsItemsData}</Preview.Data>
-</Preview>
-
-### Custom Composition
-
-Use `asChild` when a step trigger should render as another semantic element, such as an anchor or router link.
-
-<Preview>
-  <AsChildStepsExample />
-
-<Preview.Code>
-  {`
-      <Steps count={items.length} defaultStep={1} linear={false}>
-        <Steps.List>
-          {items.map((item, index) => (
-            <Steps.Item key={item.title} index={index}>
-              <Steps.Trigger asChild>
-                <a href={\`#step-\${index + 1}\`}>
-                  <Steps.Indicator />
-                  <span>{item.title}</span>
-                </a>
-              </Steps.Trigger>
-              <Steps.Separator />
-            </Steps.Item>
-          ))}
-        </Steps.List>
-      </Steps>
-    `}
-</Preview.Code>
 
   <Preview.CSS>{asChildStepsCss}</Preview.CSS>
   <Preview.Data>{stepsItemsData}</Preview.Data>
@@ -513,4 +538,5 @@ The useful public hooks are:
 - `data-orientation="horizontal" | "vertical"` on root/list/item/trigger/content/separator parts
 - `data-current`, `data-complete`, and `data-incomplete` on indicator, separator, and trigger state surfaces
 - `data-state="open" | "closed"` on triggers and content panels
+- `data-complete` on `Steps.Progress`
 - `--percent` from Ark on the root, consumed by `Steps.Progress`
