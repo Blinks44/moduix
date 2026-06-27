@@ -115,6 +115,15 @@ The CSS uses Ark state attributes, Ark measurement variables on `Indicator`, and
 `--segment-group-*` variables. Public selectors should target the exported part class,
 `data-slot`, or Ark attributes.
 
+`data-invalid` changes the root border and invalid focus ring through
+`--segment-group-border-color-invalid` and `--segment-group-focus-ring-color-invalid`.
+`data-readonly` keeps the item readable but removes hover/click affordance styling.
+
+The indicator keeps Ark in charge of measurement and transition lifecycle. Customize motion with
+`--segment-group-indicator-transition-duration` and
+`--segment-group-indicator-transition-timing-function`, which feed Ark's
+`--transition-duration` and `--transition-timing-function` runtime variables.
+
 The root lays items out horizontally by default at both the component and hook level. Set
 `orientation="vertical"` for vertical arrow navigation and vertical layout. `ItemControl` is
 rendered but visually hidden because the segmented-control affordance comes from the active
@@ -144,3 +153,5 @@ rendered but visually hidden because the segmented-control affordance comes from
   CSS Modules styling, local documentation, docs examples, and registry metadata.
 - 2026-06-22: Set moduix default orientation to horizontal, polished `asChild` card styling, and
   clarified the component choice against Tabs, ToggleGroup, and RadioGroup.
+- 2026-06-27: Aligned invalid/read-only styling with Ark state attributes and moved indicator
+  motion customization to Ark runtime transition variables.

@@ -99,6 +99,11 @@ export const segmentGroupCustomStylingCss = `
 export const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--segment-group-bg', 'var(--color-muted)', 'Controls the root background.'],
   ['--segment-group-border-color', 'var(--color-border)', 'Controls the root border color.'],
+  [
+    '--segment-group-border-color-invalid',
+    'var(--color-destructive)',
+    'Controls invalid root border color.',
+  ],
   ['--segment-group-border-width', 'var(--border-width-sm)', 'Controls the root border width.'],
   ['--segment-group-color', 'var(--color-foreground)', 'Controls inherited group text color.'],
   [
@@ -107,6 +112,11 @@ export const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
     'Controls disabled root opacity.',
   ],
   ['--segment-group-focus-ring-color', 'var(--color-ring)', 'Controls item focus ring color.'],
+  [
+    '--segment-group-focus-ring-color-invalid',
+    'var(--color-destructive)',
+    'Controls invalid item focus ring color.',
+  ],
   [
     '--segment-group-focus-ring-offset',
     'var(--border-width-sm)',
@@ -118,9 +128,14 @@ export const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--segment-group-indicator-radius', 'var(--radius-md)', 'Controls indicator radius.'],
   ['--segment-group-indicator-shadow', 'var(--shadow-sm)', 'Controls indicator shadow.'],
   [
-    '--segment-group-indicator-transition',
-    'var(--transition-default)',
-    'Controls indicator movement transition.',
+    '--segment-group-indicator-transition-duration',
+    'var(--duration-normal)',
+    'Controls indicator movement duration.',
+  ],
+  [
+    '--segment-group-indicator-transition-timing-function',
+    'var(--ease-in-out)',
+    'Controls indicator movement easing.',
   ],
   ['--segment-group-item-color', 'var(--color-muted-foreground)', 'Controls unchecked item text.'],
   ['--segment-group-item-color-checked', 'var(--color-foreground)', 'Controls checked item text.'],
@@ -295,6 +310,15 @@ export function FormSegmentGroupExample() {
       </button>
       <output className="segment-output">submitted: {submitted}</output>
     </form>
+  );
+}
+
+export function InvalidSegmentGroupExample() {
+  return (
+    <SegmentGroup aria-label="Framework" name="framework" defaultValue="React" invalid required>
+      <SegmentGroup.Indicator />
+      <FrameworkItems />
+    </SegmentGroup>
   );
 }
 

@@ -98,6 +98,15 @@ export const Disabled: Story = {
   ),
 };
 
+export const Invalid: Story = {
+  render: () => (
+    <SegmentGroup aria-label="Framework" name="framework" defaultValue="React" invalid required>
+      <SegmentGroup.Indicator />
+      <SegmentItems />
+    </SegmentGroup>
+  ),
+};
+
 export const Vertical: Story = {
   render: () => (
     <SegmentGroup

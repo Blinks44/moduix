@@ -9,6 +9,7 @@ import {
   ControlledSegmentGroupExample,
   DisabledSegmentGroupExample,
   FormSegmentGroupExample,
+  InvalidSegmentGroupExample,
   SegmentGroupAsChildExample,
   SegmentGroupCssPropertiesPanel,
   SegmentGroupCustomStylingExample,
@@ -426,6 +427,40 @@ native form data.
   <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
 </Preview>
 
+### Invalid
+
+Set `invalid` on the root when validation fails. Pair it with `required` and `name` when the group
+participates in native form validation.
+
+<Preview>
+  <InvalidSegmentGroupExample />
+
+  <Preview.Code>
+    {`
+      import { SegmentGroup } from "@moduix/react";
+
+      export function InvalidSegmentGroupDemo() {
+        return (
+          <SegmentGroup aria-label="Framework" name="framework" defaultValue="React" invalid required>
+            <SegmentGroup.Indicator />
+            {frameworks.map((framework) => (
+              <SegmentGroup.Item key={framework} value={framework}>
+                <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
+                <SegmentGroup.ItemControl />
+                <SegmentGroup.ItemHiddenInput />
+              </SegmentGroup.Item>
+            ))}
+          </SegmentGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{segmentGroupExampleCss}</Preview.CSS>
+  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+</Preview>
+
 ### asChild
 
 Use `SegmentGroup.Item asChild` when a custom label layout should own the item DOM node.
@@ -524,9 +559,13 @@ Style `SegmentGroup` through `className`, stable `data-slot="segment-group-*"` h
 - Ark anatomy hooks: `data-scope="segment-group"` and `data-part` on root, label, indicator,
   item, item text, item control, and hidden input.
 - Ark state hooks: `data-state="checked" | "unchecked"`, `data-orientation`,
-  `data-disabled`, `data-invalid`, `data-required`, `data-active`, and `data-focus-visible`.
+  `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-active`, and
+  `data-focus-visible`.
 - Moduix hooks: `data-slot="segment-group-root"`, `segment-group-root-provider`,
   `segment-group-label`, `segment-group-indicator`, `segment-group-item`,
   `segment-group-item-text`, `segment-group-item-control`, and
   `segment-group-item-hidden-input`.
 - Indicator sizing uses Ark runtime variables `--left`, `--top`, `--width`, and `--height`.
+  Indicator motion uses Ark `--transition-duration` and `--transition-timing-function`, with
+  moduix defaults mapped from `--segment-group-indicator-transition-duration` and
+  `--segment-group-indicator-transition-timing-function`.

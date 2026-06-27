@@ -2202,17 +2202,20 @@
   /* SegmentGroup */
   --segment-group-bg: initial; /* var(--color-muted) */
   --segment-group-border-color: initial; /* var(--color-border) */
+  --segment-group-border-color-invalid: initial; /* var(--color-destructive) */
   --segment-group-border-width: initial; /* var(--border-width-sm) */
   --segment-group-color: initial; /* var(--color-foreground) */
   --segment-group-disabled-opacity: initial; /* var(--opacity-disabled) */
   --segment-group-focus-ring-color: initial; /* var(--color-ring) */
+  --segment-group-focus-ring-color-invalid: initial; /* var(--color-destructive) */
   --segment-group-focus-ring-offset: initial; /* var(--border-width-sm) */
   --segment-group-focus-ring-width: initial; /* var(--border-width-sm) */
   --segment-group-gap: initial; /* var(--spacing-1) */
   --segment-group-indicator-bg: initial; /* var(--color-background) */
   --segment-group-indicator-radius: initial; /* var(--radius-md) */
   --segment-group-indicator-shadow: initial; /* var(--shadow-sm) */
-  --segment-group-indicator-transition: initial; /* var(--transition-default) */
+  --segment-group-indicator-transition-duration: initial; /* var(--duration-normal) */
+  --segment-group-indicator-transition-timing-function: initial; /* var(--ease-in-out) */
   --segment-group-item-color: initial; /* var(--color-muted-foreground) */
   --segment-group-item-color-checked: initial; /* var(--color-foreground) */
   --segment-group-item-color-hover: initial; /* var(--color-foreground) */
