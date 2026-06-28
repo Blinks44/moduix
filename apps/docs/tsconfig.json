@@ -15,10 +15,6 @@
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@/lib/moduix/icons/ui": ["../../packages/react/src/icons/ui"],
-      "@/lib/moduix/icons/ui/*": ["../../packages/react/src/icons/ui/*"],
-      "@/lib/moduix": ["../../packages/react/src/core/lib/moduix"],
-      "@/lib/moduix/*": ["../../packages/react/src/core/lib/moduix/*"],
       "@/*": ["./src/*"],
       "collections/*": ["./.source/*"]
     },

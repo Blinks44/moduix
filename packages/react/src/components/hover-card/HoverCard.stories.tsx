@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Portal } from '@ark-ui/react/portal';
-import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import * as React from 'react';
+import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
 import { HoverCard, useHoverCard } from './HoverCard';
 import styles from './HoverCard.stories.module.css';
 

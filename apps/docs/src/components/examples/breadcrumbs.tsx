@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react';
+import type { ComponentProps, CSSProperties } from 'react';
 import { Breadcrumbs, Menu, Portal, SeparatorMarkIcon } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -13,7 +13,9 @@ const previewContainerStyle = {
   maxWidth: 'min(34rem, 100%)',
 };
 
-const longLabelStyle = {
+type CssVariables = CSSProperties & Partial<Record<`--${string}`, string>>;
+
+const longLabelStyle: CssVariables = {
   '--breadcrumbs-item-max-width': '12rem',
 };
 
@@ -31,7 +33,7 @@ const collapsedMenuTriggerStyle = {
   color: 'inherit',
 };
 
-const collapsedMenuContentStyle = {
+const collapsedMenuContentStyle: CssVariables = {
   '--menu-popup-min-width': '8rem',
   '--menu-item-font-size': 'var(--text-xs)',
   '--menu-item-padding-x-start': '0.5rem',

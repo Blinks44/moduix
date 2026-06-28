@@ -248,13 +248,11 @@ export function FieldCustomControlExample() {
     <Field invalid className={styles.field}>
       <Field.Label>Status</Field.Label>
       <Field.Context>
-        {(field) => (
-          <input
-            {...field.getInputProps()}
-            className={styles.customInput}
-            placeholder="Set status"
-          />
-        )}
+        {(field) => {
+          const inputProps = field.getInputProps() as ComponentProps<'input'>;
+
+          return <input {...inputProps} className={styles.customInput} placeholder="Set status" />;
+        }}
       </Field.Context>
       <Field.HelperText>Uses getInputProps() for maximum flexibility.</Field.HelperText>
       <Field.ErrorText>Status needs a resolution.</Field.ErrorText>
