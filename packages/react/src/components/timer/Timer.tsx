@@ -117,4 +117,16 @@ const Timer = Object.assign(TimerRoot, {
 });
 
 export { Timer, useTimer, useTimerContext };
-export type { UseTimerProps, UseTimerReturn } from '@ark-ui/react/timer';
+export type {
+  TimerActionTriggerProps,
+  TimerAreaProps,
+  TimerContextProps,
+  TimerControlProps,
+  TimerItemProps,
+  TimerRootProps,
+  TimerRootProviderProps,
+  TimerSeparatorProps,
+  UseTimerContext,
+  UseTimerProps,
+  UseTimerReturn,
+} from '@ark-ui/react/timer';

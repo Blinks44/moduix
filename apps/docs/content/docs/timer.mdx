@@ -11,6 +11,7 @@ import {
   IntervalTimerExample,
   PomodoroTimerExample,
   RootProviderTimerExample,
+  TimerCssPropertiesPanel,
   TimerExample,
   timerBasicCode,
   timerCountdownCode,
@@ -130,23 +131,26 @@ subtree. Use `Timer.Context` or `useTimerContext()` when nearby UI needs access 
 Use `interval` for sub-second displays. Keep the interval as coarse as the UI allows; the default
 Ark interval is `1000`.
 
-### Props and callbacks
+### Default props
 
-| Prop              | Notes                                                            |
-| ----------------- | ---------------------------------------------------------------- |
-| `autoStart`       | Starts the timer on mount.                                       |
-| `countdown`       | Counts down instead of up.                                       |
-| `startMs`         | Initial duration in milliseconds.                                |
-| `targetMs`        | Target duration in milliseconds.                                 |
-| `interval`        | Tick interval in milliseconds.                                   |
-| `ids`             | Explicit ids for root and area parts.                            |
-| `onTick(details)` | Called on each timer tick with value and formatted time details. |
-| `onComplete()`    | Called when the timer reaches its target.                        |
+| Prop              | Default   | Notes                                                               |
+| ----------------- | --------- | ------------------------------------------------------------------- |
+| `autoStart`       | `false`   | Starts the timer on mount.                                          |
+| `countdown`       | `false`   | Counts down instead of up.                                          |
+| `startMs`         | `0`       | Initial duration in milliseconds.                                   |
+| `targetMs`        | —         | Target duration in milliseconds.                                    |
+| `interval`        | `1000`    | Tick interval in milliseconds.                                      |
+| `ids`             | generated | Overrides the root and area ids.                                    |
+| `translations`    | built in  | Customizes the accessible area label through `areaLabel`.           |
+| `onTick(details)` | —         | Receives the current value, numeric time, and formatted time parts. |
+| `onComplete()`    | —         | Runs when the timer reaches its target.                             |
 
 ### Behavioral notes
 
 `Timer.ActionTrigger` renders a button by default, so keyboard activation follows native button
-behavior. Timer does not use roving focus or composite keyboard navigation.
+behavior. Ark hides state-dependent start, pause, resume, and reset actions when they are not
+available; `restart` remains available when rendered. Timer does not use roving focus or composite
+keyboard navigation.
 
 All exported parts support `asChild` through Ark polymorphic composition. Keep replacement
 children semantic, especially for `Timer.ActionTrigger`.
@@ -231,3 +235,27 @@ attributes.
   <Preview.CSS>{timerCustomStylingCss}</Preview.CSS>
   <Preview.Data>{timerData}</Preview.Data>
 </Preview>
+
+## Styling
+
+Use `className` on exported parts for structural overrides and CSS variables for visual defaults.
+Ark attributes remain available for part-specific styling.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <TimerCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="timer-root"`, `timer-root-provider`, `timer-area`, `timer-item`,
+  `timer-separator`, `timer-control`, and `timer-action-trigger`.
+- Ark anatomy hooks: `data-scope="timer"` and
+  `data-part="root|area|item|separator|control|action-trigger"`.
+- `Timer.Item` exposes `data-type` and Ark's `--value` runtime variable.
+- Ark applies `hidden` to action triggers that do not match the current timer state.

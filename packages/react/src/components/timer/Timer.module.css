@@ -74,19 +74,17 @@
     &:focus-visible {
       outline: var(--timer-action-trigger-focus-ring-width, var(--border-width-md)) solid
         var(--timer-action-trigger-focus-ring-color, var(--color-ring));
-      outline-offset: calc(
-        var(
-            --timer-action-trigger-focus-ring-offset,
-            var(--timer-action-trigger-border-width, var(--border-width-sm))
-          ) *
-          -1
-      );
+      outline-offset: var(--timer-action-trigger-focus-ring-offset, -1px);
     }
 
-    &:is(:disabled, [data-disabled], [aria-disabled='true']) {
+    &:is(:disabled, [aria-disabled='true']) {
       opacity: var(--timer-action-trigger-disabled-opacity, var(--opacity-disabled));
       cursor: default;
       pointer-events: none;
+    }
+
+    &[hidden] {
+      display: none;
     }
 
     & :where(svg) {

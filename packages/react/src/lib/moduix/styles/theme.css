@@ -2902,7 +2902,7 @@
   --timer-action-trigger-color: initial; /* var(--color-foreground) */
   --timer-action-trigger-disabled-opacity: initial; /* var(--opacity-disabled) */
   --timer-action-trigger-focus-ring-color: initial; /* var(--color-ring) */
-  --timer-action-trigger-focus-ring-offset: initial; /* var(--timer-action-trigger-border-width) */
+  --timer-action-trigger-focus-ring-offset: initial; /* -1px */
   --timer-action-trigger-focus-ring-width: initial; /* var(--border-width-md) */
   --timer-action-trigger-font-size: initial; /* var(--text-sm) */
   --timer-action-trigger-font-weight: initial; /* var(--weight-medium) */

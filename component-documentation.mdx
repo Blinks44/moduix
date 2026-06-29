@@ -1,0 +1,1483 @@
+<ComponentPreview id="Timer" />
+
+## Anatomy
+
+<Anatomy id="timer" />
+
+```tsx
+<Timer.Root>
+  <Timer.Area>
+    <Timer.Item />
+    <Timer.Separator />
+  </Timer.Area>
+  <Timer.Control>
+    <Timer.ActionTrigger />
+  </Timer.Control>
+</Timer.Root>
+```
+
+## Examples
+
+**Example: basic**
+
+#### React
+
+```tsx
+import { Timer } from '@ark-ui/react/timer';
+import { PauseIcon, PlayIcon } from 'lucide-react';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+export const Basic = () => (
+  <Timer.Root className="stack" targetMs={60 * 60 * 1000} startMs={40 * 60 * 1000}>
+    <Timer.Area className={styles.Area}>
+      <div className={styles.ItemGroup}>
+        <Timer.Item className={styles.Item} type="days" />
+        <span className={styles.ItemLabel}>days</span>
+      </div>
+      <Timer.Separator className={styles.Separator}>:</Timer.Separator>
+      <div className={styles.ItemGroup}>
+        <Timer.Item className={styles.Item} type="hours" />
+        <span className={styles.ItemLabel}>hours</span>
+      </div>
+      <Timer.Separator className={styles.Separator}>:</Timer.Separator>
+      <div className={styles.ItemGroup}>
+        <Timer.Item className={styles.Item} type="minutes" />
+        <span className={styles.ItemLabel}>minutes</span>
+      </div>
+      <Timer.Separator className={styles.Separator}>:</Timer.Separator>
+      <div className={styles.ItemGroup}>
+        <Timer.Item className={styles.Item} type="seconds" />
+        <span className={styles.ItemLabel}>seconds</span>
+      </div>
+    </Timer.Area>
+    <Timer.Control className="hstack">
+      <Timer.ActionTrigger className={button.Root} action="start">
+        <PlayIcon /> Play
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger className={button.Root} action="resume">
+        <PlayIcon /> Resume
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger className={button.Root} action="pause">
+        <PauseIcon /> Pause
+      </Timer.ActionTrigger>
+    </Timer.Control>
+  </Timer.Root>
+);
+```
+
+#### Solid
+
+```tsx
+import { Timer } from '@ark-ui/solid/timer';
+import { PauseIcon, PlayIcon } from 'lucide-solid';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+export const Basic = () => (
+  <Timer.Root class="stack" targetMs={60 * 60 * 1000} startMs={40 * 60 * 1000}>
+    <Timer.Area class={styles.Area}>
+      <div class={styles.ItemGroup}>
+        <Timer.Item class={styles.Item} type="days" />
+        <span class={styles.ItemLabel}>days</span>
+      </div>
+      <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+      <div class={styles.ItemGroup}>
+        <Timer.Item class={styles.Item} type="hours" />
+        <span class={styles.ItemLabel}>hours</span>
+      </div>
+      <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+      <div class={styles.ItemGroup}>
+        <Timer.Item class={styles.Item} type="minutes" />
+        <span class={styles.ItemLabel}>minutes</span>
+      </div>
+      <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+      <div class={styles.ItemGroup}>
+        <Timer.Item class={styles.Item} type="seconds" />
+        <span class={styles.ItemLabel}>seconds</span>
+      </div>
+    </Timer.Area>
+    <Timer.Control class="hstack">
+      <Timer.ActionTrigger class={button.Root} action="start">
+        <PlayIcon /> Play
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger class={button.Root} action="resume">
+        <PlayIcon /> Resume
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger class={button.Root} action="pause">
+        <PauseIcon /> Pause
+      </Timer.ActionTrigger>
+    </Timer.Control>
+  </Timer.Root>
+);
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+// biome-ignore lint/correctness/noUnusedImports: used in template
+import { Timer } from '@ark-ui/vue/timer';
+import { PauseIcon, PlayIcon } from 'lucide-vue-next';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+</script>
+
+<template>
+  <Timer.Root class="stack" :targetMs="60 * 60 * 1000" :startMs="40 * 60 * 1000">
+    <Timer.Area :class="styles.Area">
+      <div :class="styles.ItemGroup">
+        <Timer.Item :class="styles.Item" type="days" />
+        <span :class="styles.ItemLabel">days</span>
+      </div>
+      <Timer.Separator :class="styles.Separator">:</Timer.Separator>
+      <div :class="styles.ItemGroup">
+        <Timer.Item :class="styles.Item" type="hours" />
+        <span :class="styles.ItemLabel">hours</span>
+      </div>
+      <Timer.Separator :class="styles.Separator">:</Timer.Separator>
+      <div :class="styles.ItemGroup">
+        <Timer.Item :class="styles.Item" type="minutes" />
+        <span :class="styles.ItemLabel">minutes</span>
+      </div>
+      <Timer.Separator :class="styles.Separator">:</Timer.Separator>
+      <div :class="styles.ItemGroup">
+        <Timer.Item :class="styles.Item" type="seconds" />
+        <span :class="styles.ItemLabel">seconds</span>
+      </div>
+    </Timer.Area>
+    <Timer.Control class="hstack">
+      <Timer.ActionTrigger :class="button.Root" action="start">
+        <PlayIcon />
+        Play
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger :class="button.Root" action="resume">
+        <PlayIcon />
+        Resume
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger :class="button.Root" action="pause">
+        <PauseIcon />
+        Pause
+      </Timer.ActionTrigger>
+    </Timer.Control>
+  </Timer.Root>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Timer } from '@ark-ui/svelte/timer'
+  import { PauseIcon, PlayIcon } from 'lucide-svelte'
+  import button from 'styles/button.module.css'
+  import styles from 'styles/timer.module.css'
+</script>
+
+<Timer.Root class="stack" targetMs={60 * 60 * 1000} startMs={40 * 60 * 1000}>
+  <Timer.Area class={styles.Area}>
+    <div class={styles.ItemGroup}>
+      <Timer.Item class={styles.Item} type="days" />
+      <span class={styles.ItemLabel}>days</span>
+    </div>
+    <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+    <div class={styles.ItemGroup}>
+      <Timer.Item class={styles.Item} type="hours" />
+      <span class={styles.ItemLabel}>hours</span>
+    </div>
+    <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+    <div class={styles.ItemGroup}>
+      <Timer.Item class={styles.Item} type="minutes" />
+      <span class={styles.ItemLabel}>minutes</span>
+    </div>
+    <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+    <div class={styles.ItemGroup}>
+      <Timer.Item class={styles.Item} type="seconds" />
+      <span class={styles.ItemLabel}>seconds</span>
+    </div>
+  </Timer.Area>
+  <Timer.Control class="hstack">
+    <Timer.ActionTrigger class={button.Root} action="start">
+      <PlayIcon /> Play
+    </Timer.ActionTrigger>
+    <Timer.ActionTrigger class={button.Root} action="resume">
+      <PlayIcon /> Resume
+    </Timer.ActionTrigger>
+    <Timer.ActionTrigger class={button.Root} action="pause">
+      <PauseIcon /> Pause
+    </Timer.ActionTrigger>
+  </Timer.Control>
+</Timer.Root>
+
+```
+
+### Countdown
+
+You can create a countdown timer by setting the `countdown` prop to `true` and `startMs` to the initial time:
+
+**Example: countdown**
+
+#### React
+
+```tsx
+import { Timer } from '@ark-ui/react/timer';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-react';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+export const Countdown = () => (
+  <Timer.Root className="stack" countdown startMs={5 * 60 * 1000}>
+    <Timer.Area className={styles.Area}>
+      <div className={styles.ItemGroup}>
+        <Timer.Item className={styles.Item} type="minutes" />
+        <span className={styles.ItemLabel}>minutes</span>
+      </div>
+      <Timer.Separator className={styles.Separator}>:</Timer.Separator>
+      <div className={styles.ItemGroup}>
+        <Timer.Item className={styles.Item} type="seconds" />
+        <span className={styles.ItemLabel}>seconds</span>
+      </div>
+    </Timer.Area>
+    <Timer.Control className="hstack">
+      <Timer.ActionTrigger className={button.Root} action="start">
+        <PlayIcon /> Start
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger className={button.Root} action="pause">
+        <PauseIcon /> Pause
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger className={button.Root} action="reset">
+        <RotateCcwIcon /> Reset
+      </Timer.ActionTrigger>
+    </Timer.Control>
+  </Timer.Root>
+);
+```
+
+#### Solid
+
+```tsx
+import { Timer } from '@ark-ui/solid/timer';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-solid';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+export const Countdown = () => (
+  <Timer.Root class="stack" countdown startMs={5 * 60 * 1000}>
+    <Timer.Area class={styles.Area}>
+      <div class={styles.ItemGroup}>
+        <Timer.Item class={styles.Item} type="minutes" />
+        <span class={styles.ItemLabel}>minutes</span>
+      </div>
+      <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+      <div class={styles.ItemGroup}>
+        <Timer.Item class={styles.Item} type="seconds" />
+        <span class={styles.ItemLabel}>seconds</span>
+      </div>
+    </Timer.Area>
+    <Timer.Control class="hstack">
+      <Timer.ActionTrigger class={button.Root} action="start">
+        <PlayIcon /> Start
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger class={button.Root} action="pause">
+        <PauseIcon /> Pause
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger class={button.Root} action="reset">
+        <RotateCcwIcon /> Reset
+      </Timer.ActionTrigger>
+    </Timer.Control>
+  </Timer.Root>
+);
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+// biome-ignore lint/correctness/noUnusedImports: used in template
+import { Timer } from '@ark-ui/vue/timer';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-vue-next';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+</script>
+
+<template>
+  <Timer.Root class="stack" :countdown="true" :startMs="5 * 60 * 1000">
+    <Timer.Area :class="styles.Area">
+      <div :class="styles.ItemGroup">
+        <Timer.Item :class="styles.Item" type="minutes" />
+        <span :class="styles.ItemLabel">minutes</span>
+      </div>
+      <Timer.Separator :class="styles.Separator">:</Timer.Separator>
+      <div :class="styles.ItemGroup">
+        <Timer.Item :class="styles.Item" type="seconds" />
+        <span :class="styles.ItemLabel">seconds</span>
+      </div>
+    </Timer.Area>
+    <Timer.Control class="hstack">
+      <Timer.ActionTrigger :class="button.Root" action="start">
+        <PlayIcon />
+        Start
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger :class="button.Root" action="pause">
+        <PauseIcon />
+        Pause
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger :class="button.Root" action="reset">
+        <RotateCcwIcon />
+        Reset
+      </Timer.ActionTrigger>
+    </Timer.Control>
+  </Timer.Root>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Timer } from '@ark-ui/svelte/timer'
+  import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-svelte'
+  import button from 'styles/button.module.css'
+  import styles from 'styles/timer.module.css'
+</script>
+
+<Timer.Root class="stack" countdown startMs={5 * 60 * 1000}>
+  <Timer.Area class={styles.Area}>
+    <div class={styles.ItemGroup}>
+      <Timer.Item class={styles.Item} type="minutes" />
+      <span class={styles.ItemLabel}>minutes</span>
+    </div>
+    <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+    <div class={styles.ItemGroup}>
+      <Timer.Item class={styles.Item} type="seconds" />
+      <span class={styles.ItemLabel}>seconds</span>
+    </div>
+  </Timer.Area>
+  <Timer.Control class="hstack">
+    <Timer.ActionTrigger class={button.Root} action="start">
+      <PlayIcon /> Start
+    </Timer.ActionTrigger>
+    <Timer.ActionTrigger class={button.Root} action="pause">
+      <PauseIcon /> Pause
+    </Timer.ActionTrigger>
+    <Timer.ActionTrigger class={button.Root} action="reset">
+      <RotateCcwIcon /> Reset
+    </Timer.ActionTrigger>
+  </Timer.Control>
+</Timer.Root>
+
+```
+
+### Interval
+
+Use the `interval` prop to control how frequently the timer updates. This is useful for displaying milliseconds:
+
+**Example: interval**
+
+#### React
+
+```tsx
+import { Timer } from '@ark-ui/react/timer';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-react';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+export const Interval = () => (
+  <Timer.Root className="stack" interval={100} targetMs={60 * 1000}>
+    <Timer.Area className={styles.Area}>
+      <div className={styles.ItemGroup}>
+        <Timer.Item className={styles.Item} type="seconds" />
+        <span className={styles.ItemLabel}>seconds</span>
+      </div>
+      <Timer.Separator className={styles.Separator}>.</Timer.Separator>
+      <div className={styles.ItemGroup}>
+        <Timer.Item className={styles.Item} type="milliseconds" />
+        <span className={styles.ItemLabel}>ms</span>
+      </div>
+    </Timer.Area>
+    <Timer.Control className="hstack">
+      <Timer.ActionTrigger className={button.Root} action="start">
+        <PlayIcon /> Start
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger className={button.Root} action="pause">
+        <PauseIcon /> Pause
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger className={button.Root} action="reset">
+        <RotateCcwIcon /> Reset
+      </Timer.ActionTrigger>
+    </Timer.Control>
+  </Timer.Root>
+);
+```
+
+#### Solid
+
+```tsx
+import { Timer } from '@ark-ui/solid/timer';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-solid';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+export const Interval = () => (
+  <Timer.Root class="stack" interval={100} targetMs={60 * 1000}>
+    <Timer.Area class={styles.Area}>
+      <div class={styles.ItemGroup}>
+        <Timer.Item class={styles.Item} type="seconds" />
+        <span class={styles.ItemLabel}>seconds</span>
+      </div>
+      <Timer.Separator class={styles.Separator}>.</Timer.Separator>
+      <div class={styles.ItemGroup}>
+        <Timer.Item class={styles.Item} type="milliseconds" />
+        <span class={styles.ItemLabel}>ms</span>
+      </div>
+    </Timer.Area>
+    <Timer.Control class="hstack">
+      <Timer.ActionTrigger class={button.Root} action="start">
+        <PlayIcon /> Start
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger class={button.Root} action="pause">
+        <PauseIcon /> Pause
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger class={button.Root} action="reset">
+        <RotateCcwIcon /> Reset
+      </Timer.ActionTrigger>
+    </Timer.Control>
+  </Timer.Root>
+);
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+// biome-ignore lint/correctness/noUnusedImports: used in template
+import { Timer } from '@ark-ui/vue/timer';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-vue-next';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+</script>
+
+<template>
+  <Timer.Root class="stack" :interval="100" :targetMs="60 * 1000">
+    <Timer.Area :class="styles.Area">
+      <div :class="styles.ItemGroup">
+        <Timer.Item :class="styles.Item" type="seconds" />
+        <span :class="styles.ItemLabel">seconds</span>
+      </div>
+      <Timer.Separator :class="styles.Separator">.</Timer.Separator>
+      <div :class="styles.ItemGroup">
+        <Timer.Item :class="styles.Item" type="milliseconds" />
+        <span :class="styles.ItemLabel">ms</span>
+      </div>
+    </Timer.Area>
+    <Timer.Control class="hstack">
+      <Timer.ActionTrigger :class="button.Root" action="start">
+        <PlayIcon />
+        Start
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger :class="button.Root" action="pause">
+        <PauseIcon />
+        Pause
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger :class="button.Root" action="reset">
+        <RotateCcwIcon />
+        Reset
+      </Timer.ActionTrigger>
+    </Timer.Control>
+  </Timer.Root>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Timer } from '@ark-ui/svelte/timer'
+  import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-svelte'
+  import button from 'styles/button.module.css'
+  import styles from 'styles/timer.module.css'
+</script>
+
+<Timer.Root class="stack" interval={100} targetMs={60 * 1000}>
+  <Timer.Area class={styles.Area}>
+    <div class={styles.ItemGroup}>
+      <Timer.Item class={styles.Item} type="seconds" />
+      <span class={styles.ItemLabel}>seconds</span>
+    </div>
+    <Timer.Separator class={styles.Separator}>.</Timer.Separator>
+    <div class={styles.ItemGroup}>
+      <Timer.Item class={styles.Item} type="milliseconds" />
+      <span class={styles.ItemLabel}>ms</span>
+    </div>
+  </Timer.Area>
+  <Timer.Control class="hstack">
+    <Timer.ActionTrigger class={button.Root} action="start">
+      <PlayIcon /> Start
+    </Timer.ActionTrigger>
+    <Timer.ActionTrigger class={button.Root} action="pause">
+      <PauseIcon /> Pause
+    </Timer.ActionTrigger>
+    <Timer.ActionTrigger class={button.Root} action="reset">
+      <RotateCcwIcon /> Reset
+    </Timer.ActionTrigger>
+  </Timer.Control>
+</Timer.Root>
+
+```
+
+### Events
+
+The Timer component provides events that you can listen to for various timer-related actions.
+
+- The `onComplete` event is triggered when the timer reaches its target time.
+- The `onTick` event is called on each timer update, providing details about the current timer state.
+
+**Example: events**
+
+#### React
+
+```tsx
+import { Timer } from '@ark-ui/react/timer';
+import { PlayIcon, RotateCcwIcon } from 'lucide-react';
+import { useState } from 'react';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+export const Events = () => {
+  const [ticks, setTicks] = useState(0);
+
+  return (
+    <Timer.Root
+      className="stack"
+      targetMs={60 * 1000}
+      onComplete={() => console.log('Timer completed')}
+      onTick={() => setTicks((t) => t + 1)}
+    >
+      <Timer.Area className={styles.Area}>
+        <div className={styles.ItemGroup}>
+          <Timer.Item className={styles.Item} type="minutes" />
+          <span className={styles.ItemLabel}>minutes</span>
+        </div>
+        <Timer.Separator className={styles.Separator}>:</Timer.Separator>
+        <div className={styles.ItemGroup}>
+          <Timer.Item className={styles.Item} type="seconds" />
+          <span className={styles.ItemLabel}>seconds</span>
+        </div>
+      </Timer.Area>
+
+      <Timer.Control className="hstack">
+        <Timer.ActionTrigger className={button.Root} action="start">
+          <PlayIcon /> Start
+        </Timer.ActionTrigger>
+        <Timer.ActionTrigger className={button.Root} action="reset">
+          <RotateCcwIcon /> Reset
+        </Timer.ActionTrigger>
+      </Timer.Control>
+
+      <output>Ticks: {ticks}</output>
+    </Timer.Root>
+  );
+};
+```
+
+#### Solid
+
+```tsx
+import { Timer } from '@ark-ui/solid/timer';
+import { PlayIcon, RotateCcwIcon } from 'lucide-solid';
+import { createSignal } from 'solid-js';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+export const Events = () => {
+  const [ticks, setTicks] = createSignal(0);
+
+  return (
+    <Timer.Root
+      class="stack"
+      targetMs={60 * 1000}
+      onComplete={() => console.log('Timer completed')}
+      onTick={() => setTicks((t) => t + 1)}
+    >
+      <Timer.Area class={styles.Area}>
+        <div class={styles.ItemGroup}>
+          <Timer.Item class={styles.Item} type="minutes" />
+          <span class={styles.ItemLabel}>minutes</span>
+        </div>
+        <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+        <div class={styles.ItemGroup}>
+          <Timer.Item class={styles.Item} type="seconds" />
+          <span class={styles.ItemLabel}>seconds</span>
+        </div>
+      </Timer.Area>
+
+      <Timer.Control class="hstack">
+        <Timer.ActionTrigger class={button.Root} action="start">
+          <PlayIcon /> Start
+        </Timer.ActionTrigger>
+        <Timer.ActionTrigger class={button.Root} action="reset">
+          <RotateCcwIcon /> Reset
+        </Timer.ActionTrigger>
+      </Timer.Control>
+
+      <output>Ticks: {ticks()}</output>
+    </Timer.Root>
+  );
+};
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+// biome-ignore lint/correctness/noUnusedImports: used in template
+import { Timer } from '@ark-ui/vue/timer';
+import { PlayIcon, RotateCcwIcon } from 'lucide-vue-next';
+import { ref } from 'vue';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+const ticks = ref(0);
+
+const handleComplete = () => console.log('Timer completed');
+
+const handleTick = () => {
+  ticks.value += 1;
+};
+</script>
+
+<template>
+  <Timer.Root class="stack" :targetMs="60 * 1000" @complete="handleComplete" @tick="handleTick">
+    <Timer.Area :class="styles.Area">
+      <div :class="styles.ItemGroup">
+        <Timer.Item :class="styles.Item" type="minutes" />
+        <span :class="styles.ItemLabel">minutes</span>
+      </div>
+      <Timer.Separator :class="styles.Separator">:</Timer.Separator>
+      <div :class="styles.ItemGroup">
+        <Timer.Item :class="styles.Item" type="seconds" />
+        <span :class="styles.ItemLabel">seconds</span>
+      </div>
+    </Timer.Area>
+
+    <Timer.Control class="hstack">
+      <Timer.ActionTrigger :class="button.Root" action="start">
+        <PlayIcon />
+        Start
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger :class="button.Root" action="reset">
+        <RotateCcwIcon />
+        Reset
+      </Timer.ActionTrigger>
+    </Timer.Control>
+
+    <output>Ticks: {{ ticks }}</output>
+  </Timer.Root>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Timer } from '@ark-ui/svelte/timer'
+  import { PlayIcon, RotateCcwIcon } from 'lucide-svelte'
+  import button from 'styles/button.module.css'
+  import styles from 'styles/timer.module.css'
+
+  let ticks = $state(0)
+
+  const handleComplete = () => console.log('Timer completed')
+  const handleTick = () => (ticks += 1)
+</script>
+
+<Timer.Root class="stack" targetMs={60 * 1000} onComplete={handleComplete} onTick={handleTick}>
+  <Timer.Area class={styles.Area}>
+    <div class={styles.ItemGroup}>
+      <Timer.Item class={styles.Item} type="minutes" />
+      <span class={styles.ItemLabel}>minutes</span>
+    </div>
+    <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+    <div class={styles.ItemGroup}>
+      <Timer.Item class={styles.Item} type="seconds" />
+      <span class={styles.ItemLabel}>seconds</span>
+    </div>
+  </Timer.Area>
+
+  <Timer.Control class="hstack">
+    <Timer.ActionTrigger class={button.Root} action="start">
+      <PlayIcon /> Start
+    </Timer.ActionTrigger>
+    <Timer.ActionTrigger class={button.Root} action="reset">
+      <RotateCcwIcon /> Reset
+    </Timer.ActionTrigger>
+  </Timer.Control>
+
+  <output>Ticks: {ticks}</output>
+</Timer.Root>
+
+```
+
+### Pomodoro
+
+Here's an example of building a pomodoro timer that alternates between work and break sessions:
+
+**Example: pomodoro**
+
+#### React
+
+```tsx
+import { Timer } from '@ark-ui/react/timer';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-react';
+import { useState } from 'react';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+export const Pomodoro = () => {
+  const [isWorking, setIsWorking] = useState(true);
+  const [cycles, setCycles] = useState(0);
+
+  const handleComplete = () => {
+    setIsWorking(!isWorking);
+    if (!isWorking) setCycles((c) => c + 1);
+  };
+
+  return (
+    <Timer.Root
+      className="stack"
+      startMs={isWorking ? 25 * 60 * 1000 : 5 * 60 * 1000}
+      countdown
+      onComplete={handleComplete}
+    >
+      <h2>{isWorking ? 'Work Session' : 'Break Session'}</h2>
+
+      <Timer.Area className={styles.Area}>
+        <div className={styles.ItemGroup}>
+          <Timer.Item className={styles.Item} type="minutes" />
+          <span className={styles.ItemLabel}>minutes</span>
+        </div>
+        <Timer.Separator className={styles.Separator}>:</Timer.Separator>
+        <div className={styles.ItemGroup}>
+          <Timer.Item className={styles.Item} type="seconds" />
+          <span className={styles.ItemLabel}>seconds</span>
+        </div>
+      </Timer.Area>
+
+      <Timer.Control className="hstack">
+        <Timer.ActionTrigger className={button.Root} action="start">
+          <PlayIcon /> Start
+        </Timer.ActionTrigger>
+        <Timer.ActionTrigger className={button.Root} action="pause">
+          <PauseIcon /> Pause
+        </Timer.ActionTrigger>
+        <Timer.ActionTrigger className={button.Root} action="reset">
+          <RotateCcwIcon /> Reset
+        </Timer.ActionTrigger>
+      </Timer.Control>
+
+      <output>Completed cycles: {cycles}</output>
+    </Timer.Root>
+  );
+};
+```
+
+#### Solid
+
+```tsx
+import { Timer } from '@ark-ui/solid/timer';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-solid';
+import { createSignal } from 'solid-js';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+export const Pomodoro = () => {
+  const [isWorking, setIsWorking] = createSignal(true);
+  const [cycles, setCycles] = createSignal(0);
+
+  const handleComplete = () => {
+    setIsWorking(!isWorking());
+    if (!isWorking()) setCycles((c) => c + 1);
+  };
+
+  return (
+    <Timer.Root
+      class="stack"
+      startMs={isWorking() ? 25 * 60 * 1000 : 5 * 60 * 1000}
+      countdown
+      onComplete={handleComplete}
+    >
+      <h2>{isWorking() ? 'Work Session' : 'Break Session'}</h2>
+
+      <Timer.Area class={styles.Area}>
+        <div class={styles.ItemGroup}>
+          <Timer.Item class={styles.Item} type="minutes" />
+          <span class={styles.ItemLabel}>minutes</span>
+        </div>
+        <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+        <div class={styles.ItemGroup}>
+          <Timer.Item class={styles.Item} type="seconds" />
+          <span class={styles.ItemLabel}>seconds</span>
+        </div>
+      </Timer.Area>
+
+      <Timer.Control class="hstack">
+        <Timer.ActionTrigger class={button.Root} action="start">
+          <PlayIcon /> Start
+        </Timer.ActionTrigger>
+        <Timer.ActionTrigger class={button.Root} action="pause">
+          <PauseIcon /> Pause
+        </Timer.ActionTrigger>
+        <Timer.ActionTrigger class={button.Root} action="reset">
+          <RotateCcwIcon /> Reset
+        </Timer.ActionTrigger>
+      </Timer.Control>
+
+      <output>Completed cycles: {cycles()}</output>
+    </Timer.Root>
+  );
+};
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+// biome-ignore lint/correctness/noUnusedImports: used in template
+import { Timer } from '@ark-ui/vue/timer';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-vue-next';
+import { ref } from 'vue';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+const isWorking = ref(true);
+const cycles = ref(0);
+
+const handleComplete = () => {
+  isWorking.value = !isWorking.value;
+  if (!isWorking.value) cycles.value += 1;
+};
+</script>
+
+<template>
+  <Timer.Root
+    class="stack"
+    :startMs="isWorking ? 25 * 60 * 1000 : 5 * 60 * 1000"
+    :countdown="true"
+    @complete="handleComplete"
+  >
+    <h2>{{ isWorking ? 'Work Session' : 'Break Session' }}</h2>
+
+    <Timer.Area :class="styles.Area">
+      <div :class="styles.ItemGroup">
+        <Timer.Item :class="styles.Item" type="minutes" />
+        <span :class="styles.ItemLabel">minutes</span>
+      </div>
+      <Timer.Separator :class="styles.Separator">:</Timer.Separator>
+      <div :class="styles.ItemGroup">
+        <Timer.Item :class="styles.Item" type="seconds" />
+        <span :class="styles.ItemLabel">seconds</span>
+      </div>
+    </Timer.Area>
+
+    <Timer.Control class="hstack">
+      <Timer.ActionTrigger :class="button.Root" action="start">
+        <PlayIcon />
+        Start
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger :class="button.Root" action="pause">
+        <PauseIcon />
+        Pause
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger :class="button.Root" action="reset">
+        <RotateCcwIcon />
+        Reset
+      </Timer.ActionTrigger>
+    </Timer.Control>
+
+    <output>Completed cycles: {{ cycles }}</output>
+  </Timer.Root>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Timer } from '@ark-ui/svelte/timer'
+  import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-svelte'
+  import button from 'styles/button.module.css'
+  import styles from 'styles/timer.module.css'
+
+  let isWorking = $state(true)
+  let cycles = $state(0)
+
+  const handleComplete = () => {
+    isWorking = !isWorking
+    if (!isWorking) {
+      cycles += 1
+    }
+  }
+</script>
+
+<Timer.Root class="stack" startMs={isWorking ? 25 * 60 * 1000 : 5 * 60 * 1000} countdown onComplete={handleComplete}>
+  <h2>{isWorking ? 'Work Session' : 'Break Session'}</h2>
+
+  <Timer.Area class={styles.Area}>
+    <div class={styles.ItemGroup}>
+      <Timer.Item class={styles.Item} type="minutes" />
+      <span class={styles.ItemLabel}>minutes</span>
+    </div>
+    <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+    <div class={styles.ItemGroup}>
+      <Timer.Item class={styles.Item} type="seconds" />
+      <span class={styles.ItemLabel}>seconds</span>
+    </div>
+  </Timer.Area>
+
+  <Timer.Control class="hstack">
+    <Timer.ActionTrigger class={button.Root} action="start">
+      <PlayIcon /> Start
+    </Timer.ActionTrigger>
+    <Timer.ActionTrigger class={button.Root} action="pause">
+      <PauseIcon /> Pause
+    </Timer.ActionTrigger>
+    <Timer.ActionTrigger class={button.Root} action="reset">
+      <RotateCcwIcon /> Reset
+    </Timer.ActionTrigger>
+  </Timer.Control>
+
+  <output>Completed cycles: {cycles}</output>
+</Timer.Root>
+
+```
+
+### Root Provider
+
+An alternative way to control the timer is to use the `RootProvider` component and the `useTimer` hook. This way you can
+access the state and methods from outside the component.
+
+**Example: root-provider**
+
+#### React
+
+```tsx
+import { Timer, useTimer } from '@ark-ui/react/timer';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-react';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+export const RootProvider = () => {
+  const timer = useTimer({ targetMs: 60 * 60 * 1000 });
+
+  return (
+    <div className="stack">
+      <output>timer: {JSON.stringify(timer.time)}</output>
+      <Timer.RootProvider className={styles.Root} value={timer}>
+        <Timer.Area className={styles.Area}>
+          <div className={styles.ItemGroup}>
+            <Timer.Item className={styles.Item} type="hours" />
+            <span className={styles.ItemLabel}>hours</span>
+          </div>
+          <Timer.Separator className={styles.Separator}>:</Timer.Separator>
+          <div className={styles.ItemGroup}>
+            <Timer.Item className={styles.Item} type="minutes" />
+            <span className={styles.ItemLabel}>minutes</span>
+          </div>
+          <Timer.Separator className={styles.Separator}>:</Timer.Separator>
+          <div className={styles.ItemGroup}>
+            <Timer.Item className={styles.Item} type="seconds" />
+            <span className={styles.ItemLabel}>seconds</span>
+          </div>
+        </Timer.Area>
+        <Timer.Control className="hstack">
+          <Timer.ActionTrigger className={button.Root} action="start">
+            <PlayIcon /> Start
+          </Timer.ActionTrigger>
+          <Timer.ActionTrigger className={button.Root} action="resume">
+            <PlayIcon /> Resume
+          </Timer.ActionTrigger>
+          <Timer.ActionTrigger className={button.Root} action="pause">
+            <PauseIcon /> Pause
+          </Timer.ActionTrigger>
+          <Timer.ActionTrigger className={button.Root} action="reset">
+            <RotateCcwIcon /> Reset
+          </Timer.ActionTrigger>
+        </Timer.Control>
+      </Timer.RootProvider>
+    </div>
+  );
+};
+```
+
+#### Solid
+
+```tsx
+import { Timer, useTimer } from '@ark-ui/solid/timer';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-solid';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+export const RootProvider = () => {
+  const timer = useTimer({ targetMs: 60 * 60 * 1000 });
+
+  return (
+    <div class="stack">
+      <output>timer: {JSON.stringify(timer().time)}</output>
+      <Timer.RootProvider value={timer}>
+        <Timer.Area class={styles.Area}>
+          <div class={styles.ItemGroup}>
+            <Timer.Item class={styles.Item} type="hours" />
+            <span class={styles.ItemLabel}>hours</span>
+          </div>
+          <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+          <div class={styles.ItemGroup}>
+            <Timer.Item class={styles.Item} type="minutes" />
+            <span class={styles.ItemLabel}>minutes</span>
+          </div>
+          <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+          <div class={styles.ItemGroup}>
+            <Timer.Item class={styles.Item} type="seconds" />
+            <span class={styles.ItemLabel}>seconds</span>
+          </div>
+        </Timer.Area>
+        <Timer.Control class="hstack">
+          <Timer.ActionTrigger class={button.Root} action="start">
+            <PlayIcon /> Start
+          </Timer.ActionTrigger>
+          <Timer.ActionTrigger class={button.Root} action="resume">
+            <PlayIcon /> Resume
+          </Timer.ActionTrigger>
+          <Timer.ActionTrigger class={button.Root} action="pause">
+            <PauseIcon /> Pause
+          </Timer.ActionTrigger>
+          <Timer.ActionTrigger class={button.Root} action="reset">
+            <RotateCcwIcon /> Reset
+          </Timer.ActionTrigger>
+        </Timer.Control>
+      </Timer.RootProvider>
+    </div>
+  );
+};
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+// biome-ignore lint/correctness/noUnusedImports: used in template
+import { Timer, useTimer } from '@ark-ui/vue/timer';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-vue-next';
+import button from 'styles/button.module.css';
+import styles from 'styles/timer.module.css';
+
+// biome-ignore lint/correctness/noUnusedVariables: used in template
+const timer = useTimer({ targetMs: 60 * 60 * 1000 });
+</script>
+
+<template>
+  <div class="stack">
+    <output>timer: {{ JSON.stringify(timer.time) }}</output>
+
+    <Timer.RootProvider :value="timer">
+      <Timer.Area :class="styles.Area">
+        <div :class="styles.ItemGroup">
+          <Timer.Item :class="styles.Item" type="hours" />
+          <span :class="styles.ItemLabel">hours</span>
+        </div>
+        <Timer.Separator :class="styles.Separator">:</Timer.Separator>
+        <div :class="styles.ItemGroup">
+          <Timer.Item :class="styles.Item" type="minutes" />
+          <span :class="styles.ItemLabel">minutes</span>
+        </div>
+        <Timer.Separator :class="styles.Separator">:</Timer.Separator>
+        <div :class="styles.ItemGroup">
+          <Timer.Item :class="styles.Item" type="seconds" />
+          <span :class="styles.ItemLabel">seconds</span>
+        </div>
+      </Timer.Area>
+      <Timer.Control class="hstack">
+        <Timer.ActionTrigger :class="button.Root" action="start">
+          <PlayIcon />
+          Start
+        </Timer.ActionTrigger>
+        <Timer.ActionTrigger :class="button.Root" action="resume">
+          <PlayIcon />
+          Resume
+        </Timer.ActionTrigger>
+        <Timer.ActionTrigger :class="button.Root" action="pause">
+          <PauseIcon />
+          Pause
+        </Timer.ActionTrigger>
+        <Timer.ActionTrigger :class="button.Root" action="reset">
+          <RotateCcwIcon />
+          Reset
+        </Timer.ActionTrigger>
+      </Timer.Control>
+    </Timer.RootProvider>
+  </div>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Timer, useTimer } from '@ark-ui/svelte/timer'
+  import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-svelte'
+  import button from 'styles/button.module.css'
+  import styles from 'styles/timer.module.css'
+
+  const id = $props.id()
+  const timer = useTimer({ id, targetMs: 60 * 60 * 1000 })
+</script>
+
+<div class="stack">
+  <output>timer: {JSON.stringify(timer().time)}</output>
+
+  <Timer.RootProvider value={timer}>
+    <Timer.Area class={styles.Area}>
+      <div class={styles.ItemGroup}>
+        <Timer.Item class={styles.Item} type="hours" />
+        <span class={styles.ItemLabel}>hours</span>
+      </div>
+      <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+      <div class={styles.ItemGroup}>
+        <Timer.Item class={styles.Item} type="minutes" />
+        <span class={styles.ItemLabel}>minutes</span>
+      </div>
+      <Timer.Separator class={styles.Separator}>:</Timer.Separator>
+      <div class={styles.ItemGroup}>
+        <Timer.Item class={styles.Item} type="seconds" />
+        <span class={styles.ItemLabel}>seconds</span>
+      </div>
+    </Timer.Area>
+    <Timer.Control class="hstack">
+      <Timer.ActionTrigger class={button.Root} action="start">
+        <PlayIcon /> Start
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger class={button.Root} action="resume">
+        <PlayIcon /> Resume
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger class={button.Root} action="pause">
+        <PauseIcon /> Pause
+      </Timer.ActionTrigger>
+      <Timer.ActionTrigger class={button.Root} action="reset">
+        <RotateCcwIcon /> Reset
+      </Timer.ActionTrigger>
+    </Timer.Control>
+  </Timer.RootProvider>
+</div>
+
+```
+
+## API Reference
+
+### Props
+
+**Component API Reference**
+
+#### React
+
+**Root Props:**
+
+| Prop         | Type                                      | Required | Description                                                                                         |
+| ------------ | ----------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild`    | `boolean`                                 | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `autoStart`  | `boolean`                                 | No       | Whether the timer should start automatically                                                        |
+| `countdown`  | `boolean`                                 | No       | Whether the timer should countdown, decrementing the timer on each tick.                            |
+| `ids`        | `Partial<{ root: string; area: string }>` | No       | The ids of the timer parts                                                                          |
+| `interval`   | `number`                                  | No       | The interval in milliseconds to update the timer count.                                             |
+| `onComplete` | `() => void`                              | No       | Function invoked when the timer is completed                                                        |
+| `onTick`     | `(details: TickDetails) => void`          | No       | Function invoked when the timer ticks                                                               |
+| `startMs`    | `number`                                  | No       | The total duration of the timer in milliseconds.                                                    |
+| `targetMs`   | `number`                                  | No       | The minimum count of the timer in milliseconds.                                                     |
+
+**ActionTrigger Props:**
+
+| Prop      | Type          | Required | Description                                                                                         |
+| --------- | ------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `action`  | `TimerAction` | Yes      |                                                                                                     |
+| `asChild` | `boolean`     | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Area Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Control Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Item Props:**
+
+| Prop      | Type                 | Required | Description                                                                                         |
+| --------- | -------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `type`    | `keyof Time<number>` | Yes      |                                                                                                     |
+| `asChild` | `boolean`            | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Item Data Attributes:**
+
+| Attribute      | Value                |
+| -------------- | -------------------- |
+| `[data-scope]` | timer                |
+| `[data-part]`  | item                 |
+| `[data-type]`  | The type of the item |
+
+**Item CSS Variables:**
+
+| Variable  | Description       |
+| --------- | ----------------- |
+| `--value` | The current value |
+
+**RootProvider Props:**
+
+| Prop      | Type             | Required | Description                                                                                         |
+| --------- | ---------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `value`   | `UseTimerReturn` | Yes      |                                                                                                     |
+| `asChild` | `boolean`        | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Separator Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+#### Solid
+
+**Root Props:**
+
+| Prop         | Type                                      | Required | Description                                                                                         |
+| ------------ | ----------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild`    | `(props: ParentProps<'div'>) => Element`  | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `autoStart`  | `boolean`                                 | No       | Whether the timer should start automatically                                                        |
+| `countdown`  | `boolean`                                 | No       | Whether the timer should countdown, decrementing the timer on each tick.                            |
+| `ids`        | `Partial<{ root: string; area: string }>` | No       | The ids of the timer parts                                                                          |
+| `interval`   | `number`                                  | No       | The interval in milliseconds to update the timer count.                                             |
+| `onComplete` | `() => void`                              | No       | Function invoked when the timer is completed                                                        |
+| `onTick`     | `(details: TickDetails) => void`          | No       | Function invoked when the timer ticks                                                               |
+| `startMs`    | `number`                                  | No       | The total duration of the timer in milliseconds.                                                    |
+| `targetMs`   | `number`                                  | No       | The minimum count of the timer in milliseconds.                                                     |
+
+**ActionTrigger Props:**
+
+| Prop      | Type                                        | Required | Description                                                                                         |
+| --------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `action`  | `TimerAction`                               | Yes      |                                                                                                     |
+| `asChild` | `(props: ParentProps<'button'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Area Props:**
+
+| Prop      | Type                                     | Required | Description                                                                                         |
+| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Control Props:**
+
+| Prop      | Type                                     | Required | Description                                                                                         |
+| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Item Props:**
+
+| Prop      | Type                                     | Required | Description                                                                                         |
+| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `type`    | `keyof Time<number>`                     | Yes      |                                                                                                     |
+| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Item Data Attributes:**
+
+| Attribute      | Value                |
+| -------------- | -------------------- |
+| `[data-scope]` | timer                |
+| `[data-part]`  | item                 |
+| `[data-type]`  | The type of the item |
+
+**Item CSS Variables:**
+
+| Variable  | Description       |
+| --------- | ----------------- |
+| `--value` | The current value |
+
+**RootProvider Props:**
+
+| Prop      | Type                                     | Required | Description                                                                                         |
+| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `value`   | `UseTimerReturn`                         | Yes      |                                                                                                     |
+| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Separator Props:**
+
+| Prop      | Type                                     | Required | Description                                                                                         |
+| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+#### Vue
+
+**Root Props:**
+
+| Prop        | Type                                      | Required | Description                                                                                         |
+| ----------- | ----------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild`   | `boolean`                                 | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `autoStart` | `boolean`                                 | No       | Whether the timer should start automatically                                                        |
+| `countdown` | `boolean`                                 | No       | Whether the timer should countdown, decrementing the timer on each tick.                            |
+| `id`        | `string`                                  | No       | The unique identifier of the machine.                                                               |
+| `ids`       | `Partial<{ root: string; area: string }>` | No       | The ids of the timer parts                                                                          |
+| `interval`  | `number`                                  | No       | The interval in milliseconds to update the timer count.                                             |
+| `startMs`   | `number`                                  | No       | The total duration of the timer in milliseconds.                                                    |
+| `targetMs`  | `number`                                  | No       | The minimum count of the timer in milliseconds.                                                     |
+
+**ActionTrigger Props:**
+
+| Prop      | Type          | Required | Description                                                                                         |
+| --------- | ------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `action`  | `TimerAction` | Yes      |                                                                                                     |
+| `asChild` | `boolean`     | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Area Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Control Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Item Props:**
+
+| Prop      | Type                 | Required | Description                                                                                         |
+| --------- | -------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `type`    | `keyof Time<number>` | Yes      |                                                                                                     |
+| `asChild` | `boolean`            | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Item Data Attributes:**
+
+| Attribute      | Value                |
+| -------------- | -------------------- |
+| `[data-scope]` | timer                |
+| `[data-part]`  | item                 |
+| `[data-type]`  | The type of the item |
+
+**Item CSS Variables:**
+
+| Variable  | Description       |
+| --------- | ----------------- |
+| `--value` | The current value |
+
+**RootProvider Props:**
+
+| Prop      | Type                  | Required | Description                                                                                         |
+| --------- | --------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `value`   | `TimerApi<PropTypes>` | Yes      |                                                                                                     |
+| `asChild` | `boolean`             | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Separator Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+#### Svelte
+
+**Root Props:**
+
+| Prop         | Type                                      | Required | Description                                                                                         |
+| ------------ | ----------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild`    | `Snippet<[PropsFn<'div'>]>`               | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `autoStart`  | `boolean`                                 | No       | Whether the timer should start automatically                                                        |
+| `countdown`  | `boolean`                                 | No       | Whether the timer should countdown, decrementing the timer on each tick.                            |
+| `id`         | `string`                                  | No       | The unique identifier of the machine.                                                               |
+| `ids`        | `Partial<{ root: string; area: string }>` | No       | The ids of the timer parts                                                                          |
+| `interval`   | `number`                                  | No       | The interval in milliseconds to update the timer count.                                             |
+| `onComplete` | `() => void`                              | No       | Function invoked when the timer is completed                                                        |
+| `onTick`     | `(details: TickDetails) => void`          | No       | Function invoked when the timer ticks                                                               |
+| `ref`        | `Element`                                 | No       |                                                                                                     |
+| `startMs`    | `number`                                  | No       | The total duration of the timer in milliseconds.                                                    |
+| `targetMs`   | `number`                                  | No       | The minimum count of the timer in milliseconds.                                                     |
+
+**ActionTrigger Props:**
+
+| Prop      | Type                           | Required | Description                                                                                         |
+| --------- | ------------------------------ | -------- | --------------------------------------------------------------------------------------------------- |
+| `action`  | `TimerAction`                  | Yes      |                                                                                                     |
+| `asChild` | `Snippet<[PropsFn<'button'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                      | No       |                                                                                                     |
+
+**Area Props:**
+
+| Prop      | Type                        | Required | Description                                                                                         |
+| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                   | No       |                                                                                                     |
+
+**Context Props:**
+
+| Prop  | Type                         | Required | Description |
+| ----- | ---------------------------- | -------- | ----------- |
+| `api` | `Snippet<[UseTimerContext]>` | No       |             |
+
+**Control Props:**
+
+| Prop      | Type                        | Required | Description                                                                                         |
+| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                   | No       |                                                                                                     |
+
+**Item Props:**
+
+| Prop      | Type                        | Required | Description                                                                                         |
+| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `type`    | `keyof Time<number>`        | Yes      |                                                                                                     |
+| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                   | No       |                                                                                                     |
+
+**Item Data Attributes:**
+
+| Attribute      | Value                |
+| -------------- | -------------------- |
+| `[data-scope]` | timer                |
+| `[data-part]`  | item                 |
+| `[data-type]`  | The type of the item |
+
+**Item CSS Variables:**
+
+| Variable  | Description       |
+| --------- | ----------------- |
+| `--value` | The current value |
+
+**RootProvider Props:**
+
+| Prop      | Type                        | Required | Description                                                                                         |
+| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `value`   | `UseTimerReturn`            | Yes      |                                                                                                     |
+| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                   | No       |                                                                                                     |
+
+**Separator Props:**
+
+| Prop      | Type                        | Required | Description                                                                                         |
+| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                   | No       |                                                                                                     |
+
+### Context
+
+**API:**
+
+| Property          | Type           | Description                                  |
+| ----------------- | -------------- | -------------------------------------------- |
+| `running`         | `boolean`      | Whether the timer is running.                |
+| `paused`          | `boolean`      | Whether the timer is paused.                 |
+| `time`            | `Time`         | The formatted timer count value.             |
+| `formattedTime`   | `Time<string>` | The formatted time parts of the timer count. |
+| `start`           | `VoidFunction` | Function to start the timer.                 |
+| `pause`           | `VoidFunction` | Function to pause the timer.                 |
+| `resume`          | `VoidFunction` | Function to resume the timer.                |
+| `reset`           | `VoidFunction` | Function to reset the timer.                 |
+| `restart`         | `VoidFunction` | Function to restart the timer.               |
+| `progressPercent` | `number`       | The progress percentage of the timer.        |

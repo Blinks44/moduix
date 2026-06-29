@@ -34,13 +34,14 @@ Ark anatomy:
 
 - `Timer` is the same component as `Timer.Root`.
 - `Timer.Root` accepts Ark timer props including `autoStart`, `countdown`, `startMs`,
-  `targetMs`, `interval`, `ids`, `onTick`, and `onComplete`.
+  `targetMs`, `interval`, `ids`, `translations`, `onTick`, and `onComplete`.
 - `Timer.RootProvider` accepts a `value` from `useTimer()` for externally created timer state.
 - `Timer.ActionTrigger` requires Ark's `action` prop: `start`, `pause`, `resume`, `reset`, or
   `restart`.
 - `Timer.Item` requires `type`, matching Ark time parts such as `days`, `hours`, `minutes`,
   `seconds`, and `milliseconds`.
 - `useTimer` and `useTimerContext` are re-exported directly from Ark.
+- Ark part, context, and hook types are re-exported for typed composition.
 
 ## Anatomy and exported parts
 
@@ -103,13 +104,16 @@ than controlled by a React value. Use `RootProvider` when state must be created 
 ## Accessibility and state
 
 Ark owns the timer machine, button props, ids, callbacks, and formatted values. `ActionTrigger`
-renders a button by default, so keyboard activation follows native button behavior. There is no
-roving focus or composite keyboard navigation in the timer primitive.
+renders a button by default, so keyboard activation follows native button behavior. Ark applies
+`hidden` to actions that do not match the current machine state; the wrapper preserves that
+visibility contract. There is no roving focus or composite keyboard navigation in the timer
+primitive.
 
 `Timer.Item` preserves Ark `data-scope="timer"`, `data-part="item"`, `data-type`, and `--value`.
 Labels such as `days`, `hours`, or `seconds` are ordinary composition around `Timer.Item`, not a
 separate Ark part. All wrapped parts preserve Ark `asChild`, refs, and primitive attributes. Keep
-semantic replacement children compatible when using `asChild`.
+semantic replacement children compatible when using `asChild`. Use `translations.areaLabel` when
+the default accessible timer label is not appropriate.
 
 ## Defaults and styling
 
@@ -133,6 +137,8 @@ Keep future additions as explicit parts or style hooks unless Ark adds new timer
 
 ## Local changelog
 
+- 2026-06-29: Preserved Ark's action-trigger `hidden` state, aligned typography and focus styling,
+  exported Ark part/context types, and completed public API and CSS-variable documentation.
 - 2026-06-23: Added `Timer` as an Ark UI wrapper with CSS Modules, Storybook examples, docs, and
   registry support.
 - 2026-06-23: Aligned examples with Ark's icon action triggers and labeled time item composition;
