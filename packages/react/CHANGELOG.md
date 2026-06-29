@@ -10,6 +10,8 @@
   provider/context exports, docs, and registry metadata.
 - Complete the Avatar Ark UI contract with `RootProvider`, `Context`, `useAvatar`,
   `useAvatarContext`, and their public types.
+- Finalize the Toast Ark UI migration with direct toaster type exports, token-aligned styles,
+  mobile sizing, and explicit `null` title and description content.
 
 ## 1.0.5
 

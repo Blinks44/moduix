@@ -1,1009 +1,91 @@
-<ComponentPreview id="Timer" />
+<ComponentPreview id="Toast" />
 
 ## Anatomy
 
-<Anatomy id="timer" />
+<Anatomy id="toast" />
 
 ```tsx
-<Timer.Root>
-  <Timer.Area>
-    <Timer.Item />
-    <Timer.Separator />
-  </Timer.Area>
-  <Timer.Control>
-    <Timer.ActionTrigger />
-  </Timer.Control>
-</Timer.Root>
+const toaster = createToaster({ placement: 'bottom-end' })
+
+<Toaster toaster={toaster}>
+  {(toast) => (
+    <Toast.Root>
+      <Toast.Title />
+      <Toast.Description />
+      <Toast.ActionTrigger />
+      <Toast.CloseTrigger />
+    </Toast.Root>
+  )}
+</Toaster>
+```
+
+## Setup
+
+To use the Toast component, create the toast engine using the `createToaster` function.
+
+This function manages the placement and grouping of toasts, and provides a `toast` object needed to create toast
+notification.
+
+```ts
+const toaster = createToaster({
+  placement: 'bottom-end',
+  overlap: true,
+  gap: 24,
+});
 ```
 
 ## Examples
+
+Here's an example of creating a toast using the `toast.create` method.
 
 **Example: basic**
 
 #### React
 
 ```tsx
-import { Timer } from '@ark-ui/react/timer';
-import { PauseIcon, PlayIcon } from 'lucide-react';
+import { Portal } from '@ark-ui/react/portal';
+import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
+import { XIcon } from 'lucide-react';
 import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
+import styles from 'styles/toast.module.css';
 
-export const Basic = () => (
-  <Timer.Root className="stack" targetMs={60 * 60 * 1000} startMs={40 * 60 * 1000}>
-    <Timer.Area className={styles.Area}>
-      <div className={styles.ItemGroup}>
-        <Timer.Item className={styles.Item} type="days" />
-        <span className={styles.ItemLabel}>days</span>
-      </div>
-      <Timer.Separator className={styles.Separator}>:</Timer.Separator>
-      <div className={styles.ItemGroup}>
-        <Timer.Item className={styles.Item} type="hours" />
-        <span className={styles.ItemLabel}>hours</span>
-      </div>
-      <Timer.Separator className={styles.Separator}>:</Timer.Separator>
-      <div className={styles.ItemGroup}>
-        <Timer.Item className={styles.Item} type="minutes" />
-        <span className={styles.ItemLabel}>minutes</span>
-      </div>
-      <Timer.Separator className={styles.Separator}>:</Timer.Separator>
-      <div className={styles.ItemGroup}>
-        <Timer.Item className={styles.Item} type="seconds" />
-        <span className={styles.ItemLabel}>seconds</span>
-      </div>
-    </Timer.Area>
-    <Timer.Control className="hstack">
-      <Timer.ActionTrigger className={button.Root} action="start">
-        <PlayIcon /> Play
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger className={button.Root} action="resume">
-        <PlayIcon /> Resume
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger className={button.Root} action="pause">
-        <PauseIcon /> Pause
-      </Timer.ActionTrigger>
-    </Timer.Control>
-  </Timer.Root>
-);
-```
+const toaster = createToaster({
+  placement: 'bottom-end',
+  overlap: true,
+  gap: 24,
+});
 
-#### Solid
-
-```tsx
-import { Timer } from '@ark-ui/solid/timer';
-import { PauseIcon, PlayIcon } from 'lucide-solid';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-
-export const Basic = () => (
-  <Timer.Root class="stack" targetMs={60 * 60 * 1000} startMs={40 * 60 * 1000}>
-    <Timer.Area class={styles.Area}>
-      <div class={styles.ItemGroup}>
-        <Timer.Item class={styles.Item} type="days" />
-        <span class={styles.ItemLabel}>days</span>
-      </div>
-      <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-      <div class={styles.ItemGroup}>
-        <Timer.Item class={styles.Item} type="hours" />
-        <span class={styles.ItemLabel}>hours</span>
-      </div>
-      <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-      <div class={styles.ItemGroup}>
-        <Timer.Item class={styles.Item} type="minutes" />
-        <span class={styles.ItemLabel}>minutes</span>
-      </div>
-      <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-      <div class={styles.ItemGroup}>
-        <Timer.Item class={styles.Item} type="seconds" />
-        <span class={styles.ItemLabel}>seconds</span>
-      </div>
-    </Timer.Area>
-    <Timer.Control class="hstack">
-      <Timer.ActionTrigger class={button.Root} action="start">
-        <PlayIcon /> Play
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger class={button.Root} action="resume">
-        <PlayIcon /> Resume
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger class={button.Root} action="pause">
-        <PauseIcon /> Pause
-      </Timer.ActionTrigger>
-    </Timer.Control>
-  </Timer.Root>
-);
-```
-
-#### Vue
-
-```vue
-<script setup lang="ts">
-// biome-ignore lint/correctness/noUnusedImports: used in template
-import { Timer } from '@ark-ui/vue/timer';
-import { PauseIcon, PlayIcon } from 'lucide-vue-next';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-</script>
-
-<template>
-  <Timer.Root class="stack" :targetMs="60 * 60 * 1000" :startMs="40 * 60 * 1000">
-    <Timer.Area :class="styles.Area">
-      <div :class="styles.ItemGroup">
-        <Timer.Item :class="styles.Item" type="days" />
-        <span :class="styles.ItemLabel">days</span>
-      </div>
-      <Timer.Separator :class="styles.Separator">:</Timer.Separator>
-      <div :class="styles.ItemGroup">
-        <Timer.Item :class="styles.Item" type="hours" />
-        <span :class="styles.ItemLabel">hours</span>
-      </div>
-      <Timer.Separator :class="styles.Separator">:</Timer.Separator>
-      <div :class="styles.ItemGroup">
-        <Timer.Item :class="styles.Item" type="minutes" />
-        <span :class="styles.ItemLabel">minutes</span>
-      </div>
-      <Timer.Separator :class="styles.Separator">:</Timer.Separator>
-      <div :class="styles.ItemGroup">
-        <Timer.Item :class="styles.Item" type="seconds" />
-        <span :class="styles.ItemLabel">seconds</span>
-      </div>
-    </Timer.Area>
-    <Timer.Control class="hstack">
-      <Timer.ActionTrigger :class="button.Root" action="start">
-        <PlayIcon />
-        Play
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger :class="button.Root" action="resume">
-        <PlayIcon />
-        Resume
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger :class="button.Root" action="pause">
-        <PauseIcon />
-        Pause
-      </Timer.ActionTrigger>
-    </Timer.Control>
-  </Timer.Root>
-</template>
-```
-
-#### Svelte
-
-```svelte
-<script lang="ts">
-  import { Timer } from '@ark-ui/svelte/timer'
-  import { PauseIcon, PlayIcon } from 'lucide-svelte'
-  import button from 'styles/button.module.css'
-  import styles from 'styles/timer.module.css'
-</script>
-
-<Timer.Root class="stack" targetMs={60 * 60 * 1000} startMs={40 * 60 * 1000}>
-  <Timer.Area class={styles.Area}>
-    <div class={styles.ItemGroup}>
-      <Timer.Item class={styles.Item} type="days" />
-      <span class={styles.ItemLabel}>days</span>
-    </div>
-    <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-    <div class={styles.ItemGroup}>
-      <Timer.Item class={styles.Item} type="hours" />
-      <span class={styles.ItemLabel}>hours</span>
-    </div>
-    <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-    <div class={styles.ItemGroup}>
-      <Timer.Item class={styles.Item} type="minutes" />
-      <span class={styles.ItemLabel}>minutes</span>
-    </div>
-    <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-    <div class={styles.ItemGroup}>
-      <Timer.Item class={styles.Item} type="seconds" />
-      <span class={styles.ItemLabel}>seconds</span>
-    </div>
-  </Timer.Area>
-  <Timer.Control class="hstack">
-    <Timer.ActionTrigger class={button.Root} action="start">
-      <PlayIcon /> Play
-    </Timer.ActionTrigger>
-    <Timer.ActionTrigger class={button.Root} action="resume">
-      <PlayIcon /> Resume
-    </Timer.ActionTrigger>
-    <Timer.ActionTrigger class={button.Root} action="pause">
-      <PauseIcon /> Pause
-    </Timer.ActionTrigger>
-  </Timer.Control>
-</Timer.Root>
-
-```
-
-### Countdown
-
-You can create a countdown timer by setting the `countdown` prop to `true` and `startMs` to the initial time:
-
-**Example: countdown**
-
-#### React
-
-```tsx
-import { Timer } from '@ark-ui/react/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-react';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-
-export const Countdown = () => (
-  <Timer.Root className="stack" countdown startMs={5 * 60 * 1000}>
-    <Timer.Area className={styles.Area}>
-      <div className={styles.ItemGroup}>
-        <Timer.Item className={styles.Item} type="minutes" />
-        <span className={styles.ItemLabel}>minutes</span>
-      </div>
-      <Timer.Separator className={styles.Separator}>:</Timer.Separator>
-      <div className={styles.ItemGroup}>
-        <Timer.Item className={styles.Item} type="seconds" />
-        <span className={styles.ItemLabel}>seconds</span>
-      </div>
-    </Timer.Area>
-    <Timer.Control className="hstack">
-      <Timer.ActionTrigger className={button.Root} action="start">
-        <PlayIcon /> Start
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger className={button.Root} action="pause">
-        <PauseIcon /> Pause
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger className={button.Root} action="reset">
-        <RotateCcwIcon /> Reset
-      </Timer.ActionTrigger>
-    </Timer.Control>
-  </Timer.Root>
-);
-```
-
-#### Solid
-
-```tsx
-import { Timer } from '@ark-ui/solid/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-solid';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-
-export const Countdown = () => (
-  <Timer.Root class="stack" countdown startMs={5 * 60 * 1000}>
-    <Timer.Area class={styles.Area}>
-      <div class={styles.ItemGroup}>
-        <Timer.Item class={styles.Item} type="minutes" />
-        <span class={styles.ItemLabel}>minutes</span>
-      </div>
-      <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-      <div class={styles.ItemGroup}>
-        <Timer.Item class={styles.Item} type="seconds" />
-        <span class={styles.ItemLabel}>seconds</span>
-      </div>
-    </Timer.Area>
-    <Timer.Control class="hstack">
-      <Timer.ActionTrigger class={button.Root} action="start">
-        <PlayIcon /> Start
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger class={button.Root} action="pause">
-        <PauseIcon /> Pause
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger class={button.Root} action="reset">
-        <RotateCcwIcon /> Reset
-      </Timer.ActionTrigger>
-    </Timer.Control>
-  </Timer.Root>
-);
-```
-
-#### Vue
-
-```vue
-<script setup lang="ts">
-// biome-ignore lint/correctness/noUnusedImports: used in template
-import { Timer } from '@ark-ui/vue/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-vue-next';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-</script>
-
-<template>
-  <Timer.Root class="stack" :countdown="true" :startMs="5 * 60 * 1000">
-    <Timer.Area :class="styles.Area">
-      <div :class="styles.ItemGroup">
-        <Timer.Item :class="styles.Item" type="minutes" />
-        <span :class="styles.ItemLabel">minutes</span>
-      </div>
-      <Timer.Separator :class="styles.Separator">:</Timer.Separator>
-      <div :class="styles.ItemGroup">
-        <Timer.Item :class="styles.Item" type="seconds" />
-        <span :class="styles.ItemLabel">seconds</span>
-      </div>
-    </Timer.Area>
-    <Timer.Control class="hstack">
-      <Timer.ActionTrigger :class="button.Root" action="start">
-        <PlayIcon />
-        Start
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger :class="button.Root" action="pause">
-        <PauseIcon />
-        Pause
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger :class="button.Root" action="reset">
-        <RotateCcwIcon />
-        Reset
-      </Timer.ActionTrigger>
-    </Timer.Control>
-  </Timer.Root>
-</template>
-```
-
-#### Svelte
-
-```svelte
-<script lang="ts">
-  import { Timer } from '@ark-ui/svelte/timer'
-  import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-svelte'
-  import button from 'styles/button.module.css'
-  import styles from 'styles/timer.module.css'
-</script>
-
-<Timer.Root class="stack" countdown startMs={5 * 60 * 1000}>
-  <Timer.Area class={styles.Area}>
-    <div class={styles.ItemGroup}>
-      <Timer.Item class={styles.Item} type="minutes" />
-      <span class={styles.ItemLabel}>minutes</span>
-    </div>
-    <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-    <div class={styles.ItemGroup}>
-      <Timer.Item class={styles.Item} type="seconds" />
-      <span class={styles.ItemLabel}>seconds</span>
-    </div>
-  </Timer.Area>
-  <Timer.Control class="hstack">
-    <Timer.ActionTrigger class={button.Root} action="start">
-      <PlayIcon /> Start
-    </Timer.ActionTrigger>
-    <Timer.ActionTrigger class={button.Root} action="pause">
-      <PauseIcon /> Pause
-    </Timer.ActionTrigger>
-    <Timer.ActionTrigger class={button.Root} action="reset">
-      <RotateCcwIcon /> Reset
-    </Timer.ActionTrigger>
-  </Timer.Control>
-</Timer.Root>
-
-```
-
-### Interval
-
-Use the `interval` prop to control how frequently the timer updates. This is useful for displaying milliseconds:
-
-**Example: interval**
-
-#### React
-
-```tsx
-import { Timer } from '@ark-ui/react/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-react';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-
-export const Interval = () => (
-  <Timer.Root className="stack" interval={100} targetMs={60 * 1000}>
-    <Timer.Area className={styles.Area}>
-      <div className={styles.ItemGroup}>
-        <Timer.Item className={styles.Item} type="seconds" />
-        <span className={styles.ItemLabel}>seconds</span>
-      </div>
-      <Timer.Separator className={styles.Separator}>.</Timer.Separator>
-      <div className={styles.ItemGroup}>
-        <Timer.Item className={styles.Item} type="milliseconds" />
-        <span className={styles.ItemLabel}>ms</span>
-      </div>
-    </Timer.Area>
-    <Timer.Control className="hstack">
-      <Timer.ActionTrigger className={button.Root} action="start">
-        <PlayIcon /> Start
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger className={button.Root} action="pause">
-        <PauseIcon /> Pause
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger className={button.Root} action="reset">
-        <RotateCcwIcon /> Reset
-      </Timer.ActionTrigger>
-    </Timer.Control>
-  </Timer.Root>
-);
-```
-
-#### Solid
-
-```tsx
-import { Timer } from '@ark-ui/solid/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-solid';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-
-export const Interval = () => (
-  <Timer.Root class="stack" interval={100} targetMs={60 * 1000}>
-    <Timer.Area class={styles.Area}>
-      <div class={styles.ItemGroup}>
-        <Timer.Item class={styles.Item} type="seconds" />
-        <span class={styles.ItemLabel}>seconds</span>
-      </div>
-      <Timer.Separator class={styles.Separator}>.</Timer.Separator>
-      <div class={styles.ItemGroup}>
-        <Timer.Item class={styles.Item} type="milliseconds" />
-        <span class={styles.ItemLabel}>ms</span>
-      </div>
-    </Timer.Area>
-    <Timer.Control class="hstack">
-      <Timer.ActionTrigger class={button.Root} action="start">
-        <PlayIcon /> Start
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger class={button.Root} action="pause">
-        <PauseIcon /> Pause
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger class={button.Root} action="reset">
-        <RotateCcwIcon /> Reset
-      </Timer.ActionTrigger>
-    </Timer.Control>
-  </Timer.Root>
-);
-```
-
-#### Vue
-
-```vue
-<script setup lang="ts">
-// biome-ignore lint/correctness/noUnusedImports: used in template
-import { Timer } from '@ark-ui/vue/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-vue-next';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-</script>
-
-<template>
-  <Timer.Root class="stack" :interval="100" :targetMs="60 * 1000">
-    <Timer.Area :class="styles.Area">
-      <div :class="styles.ItemGroup">
-        <Timer.Item :class="styles.Item" type="seconds" />
-        <span :class="styles.ItemLabel">seconds</span>
-      </div>
-      <Timer.Separator :class="styles.Separator">.</Timer.Separator>
-      <div :class="styles.ItemGroup">
-        <Timer.Item :class="styles.Item" type="milliseconds" />
-        <span :class="styles.ItemLabel">ms</span>
-      </div>
-    </Timer.Area>
-    <Timer.Control class="hstack">
-      <Timer.ActionTrigger :class="button.Root" action="start">
-        <PlayIcon />
-        Start
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger :class="button.Root" action="pause">
-        <PauseIcon />
-        Pause
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger :class="button.Root" action="reset">
-        <RotateCcwIcon />
-        Reset
-      </Timer.ActionTrigger>
-    </Timer.Control>
-  </Timer.Root>
-</template>
-```
-
-#### Svelte
-
-```svelte
-<script lang="ts">
-  import { Timer } from '@ark-ui/svelte/timer'
-  import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-svelte'
-  import button from 'styles/button.module.css'
-  import styles from 'styles/timer.module.css'
-</script>
-
-<Timer.Root class="stack" interval={100} targetMs={60 * 1000}>
-  <Timer.Area class={styles.Area}>
-    <div class={styles.ItemGroup}>
-      <Timer.Item class={styles.Item} type="seconds" />
-      <span class={styles.ItemLabel}>seconds</span>
-    </div>
-    <Timer.Separator class={styles.Separator}>.</Timer.Separator>
-    <div class={styles.ItemGroup}>
-      <Timer.Item class={styles.Item} type="milliseconds" />
-      <span class={styles.ItemLabel}>ms</span>
-    </div>
-  </Timer.Area>
-  <Timer.Control class="hstack">
-    <Timer.ActionTrigger class={button.Root} action="start">
-      <PlayIcon /> Start
-    </Timer.ActionTrigger>
-    <Timer.ActionTrigger class={button.Root} action="pause">
-      <PauseIcon /> Pause
-    </Timer.ActionTrigger>
-    <Timer.ActionTrigger class={button.Root} action="reset">
-      <RotateCcwIcon /> Reset
-    </Timer.ActionTrigger>
-  </Timer.Control>
-</Timer.Root>
-
-```
-
-### Events
-
-The Timer component provides events that you can listen to for various timer-related actions.
-
-- The `onComplete` event is triggered when the timer reaches its target time.
-- The `onTick` event is called on each timer update, providing details about the current timer state.
-
-**Example: events**
-
-#### React
-
-```tsx
-import { Timer } from '@ark-ui/react/timer';
-import { PlayIcon, RotateCcwIcon } from 'lucide-react';
-import { useState } from 'react';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-
-export const Events = () => {
-  const [ticks, setTicks] = useState(0);
-
+export const Basic = () => {
   return (
-    <Timer.Root
-      className="stack"
-      targetMs={60 * 1000}
-      onComplete={() => console.log('Timer completed')}
-      onTick={() => setTicks((t) => t + 1)}
-    >
-      <Timer.Area className={styles.Area}>
-        <div className={styles.ItemGroup}>
-          <Timer.Item className={styles.Item} type="minutes" />
-          <span className={styles.ItemLabel}>minutes</span>
-        </div>
-        <Timer.Separator className={styles.Separator}>:</Timer.Separator>
-        <div className={styles.ItemGroup}>
-          <Timer.Item className={styles.Item} type="seconds" />
-          <span className={styles.ItemLabel}>seconds</span>
-        </div>
-      </Timer.Area>
-
-      <Timer.Control className="hstack">
-        <Timer.ActionTrigger className={button.Root} action="start">
-          <PlayIcon /> Start
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger className={button.Root} action="reset">
-          <RotateCcwIcon /> Reset
-        </Timer.ActionTrigger>
-      </Timer.Control>
-
-      <output>Ticks: {ticks}</output>
-    </Timer.Root>
-  );
-};
-```
-
-#### Solid
-
-```tsx
-import { Timer } from '@ark-ui/solid/timer';
-import { PlayIcon, RotateCcwIcon } from 'lucide-solid';
-import { createSignal } from 'solid-js';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-
-export const Events = () => {
-  const [ticks, setTicks] = createSignal(0);
-
-  return (
-    <Timer.Root
-      class="stack"
-      targetMs={60 * 1000}
-      onComplete={() => console.log('Timer completed')}
-      onTick={() => setTicks((t) => t + 1)}
-    >
-      <Timer.Area class={styles.Area}>
-        <div class={styles.ItemGroup}>
-          <Timer.Item class={styles.Item} type="minutes" />
-          <span class={styles.ItemLabel}>minutes</span>
-        </div>
-        <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-        <div class={styles.ItemGroup}>
-          <Timer.Item class={styles.Item} type="seconds" />
-          <span class={styles.ItemLabel}>seconds</span>
-        </div>
-      </Timer.Area>
-
-      <Timer.Control class="hstack">
-        <Timer.ActionTrigger class={button.Root} action="start">
-          <PlayIcon /> Start
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger class={button.Root} action="reset">
-          <RotateCcwIcon /> Reset
-        </Timer.ActionTrigger>
-      </Timer.Control>
-
-      <output>Ticks: {ticks()}</output>
-    </Timer.Root>
-  );
-};
-```
-
-#### Vue
-
-```vue
-<script setup lang="ts">
-// biome-ignore lint/correctness/noUnusedImports: used in template
-import { Timer } from '@ark-ui/vue/timer';
-import { PlayIcon, RotateCcwIcon } from 'lucide-vue-next';
-import { ref } from 'vue';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-
-const ticks = ref(0);
-
-const handleComplete = () => console.log('Timer completed');
-
-const handleTick = () => {
-  ticks.value += 1;
-};
-</script>
-
-<template>
-  <Timer.Root class="stack" :targetMs="60 * 1000" @complete="handleComplete" @tick="handleTick">
-    <Timer.Area :class="styles.Area">
-      <div :class="styles.ItemGroup">
-        <Timer.Item :class="styles.Item" type="minutes" />
-        <span :class="styles.ItemLabel">minutes</span>
-      </div>
-      <Timer.Separator :class="styles.Separator">:</Timer.Separator>
-      <div :class="styles.ItemGroup">
-        <Timer.Item :class="styles.Item" type="seconds" />
-        <span :class="styles.ItemLabel">seconds</span>
-      </div>
-    </Timer.Area>
-
-    <Timer.Control class="hstack">
-      <Timer.ActionTrigger :class="button.Root" action="start">
-        <PlayIcon />
-        Start
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger :class="button.Root" action="reset">
-        <RotateCcwIcon />
-        Reset
-      </Timer.ActionTrigger>
-    </Timer.Control>
-
-    <output>Ticks: {{ ticks }}</output>
-  </Timer.Root>
-</template>
-```
-
-#### Svelte
-
-```svelte
-<script lang="ts">
-  import { Timer } from '@ark-ui/svelte/timer'
-  import { PlayIcon, RotateCcwIcon } from 'lucide-svelte'
-  import button from 'styles/button.module.css'
-  import styles from 'styles/timer.module.css'
-
-  let ticks = $state(0)
-
-  const handleComplete = () => console.log('Timer completed')
-  const handleTick = () => (ticks += 1)
-</script>
-
-<Timer.Root class="stack" targetMs={60 * 1000} onComplete={handleComplete} onTick={handleTick}>
-  <Timer.Area class={styles.Area}>
-    <div class={styles.ItemGroup}>
-      <Timer.Item class={styles.Item} type="minutes" />
-      <span class={styles.ItemLabel}>minutes</span>
-    </div>
-    <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-    <div class={styles.ItemGroup}>
-      <Timer.Item class={styles.Item} type="seconds" />
-      <span class={styles.ItemLabel}>seconds</span>
-    </div>
-  </Timer.Area>
-
-  <Timer.Control class="hstack">
-    <Timer.ActionTrigger class={button.Root} action="start">
-      <PlayIcon /> Start
-    </Timer.ActionTrigger>
-    <Timer.ActionTrigger class={button.Root} action="reset">
-      <RotateCcwIcon /> Reset
-    </Timer.ActionTrigger>
-  </Timer.Control>
-
-  <output>Ticks: {ticks}</output>
-</Timer.Root>
-
-```
-
-### Pomodoro
-
-Here's an example of building a pomodoro timer that alternates between work and break sessions:
-
-**Example: pomodoro**
-
-#### React
-
-```tsx
-import { Timer } from '@ark-ui/react/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-react';
-import { useState } from 'react';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-
-export const Pomodoro = () => {
-  const [isWorking, setIsWorking] = useState(true);
-  const [cycles, setCycles] = useState(0);
-
-  const handleComplete = () => {
-    setIsWorking(!isWorking);
-    if (!isWorking) setCycles((c) => c + 1);
-  };
-
-  return (
-    <Timer.Root
-      className="stack"
-      startMs={isWorking ? 25 * 60 * 1000 : 5 * 60 * 1000}
-      countdown
-      onComplete={handleComplete}
-    >
-      <h2>{isWorking ? 'Work Session' : 'Break Session'}</h2>
-
-      <Timer.Area className={styles.Area}>
-        <div className={styles.ItemGroup}>
-          <Timer.Item className={styles.Item} type="minutes" />
-          <span className={styles.ItemLabel}>minutes</span>
-        </div>
-        <Timer.Separator className={styles.Separator}>:</Timer.Separator>
-        <div className={styles.ItemGroup}>
-          <Timer.Item className={styles.Item} type="seconds" />
-          <span className={styles.ItemLabel}>seconds</span>
-        </div>
-      </Timer.Area>
-
-      <Timer.Control className="hstack">
-        <Timer.ActionTrigger className={button.Root} action="start">
-          <PlayIcon /> Start
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger className={button.Root} action="pause">
-          <PauseIcon /> Pause
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger className={button.Root} action="reset">
-          <RotateCcwIcon /> Reset
-        </Timer.ActionTrigger>
-      </Timer.Control>
-
-      <output>Completed cycles: {cycles}</output>
-    </Timer.Root>
-  );
-};
-```
-
-#### Solid
-
-```tsx
-import { Timer } from '@ark-ui/solid/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-solid';
-import { createSignal } from 'solid-js';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-
-export const Pomodoro = () => {
-  const [isWorking, setIsWorking] = createSignal(true);
-  const [cycles, setCycles] = createSignal(0);
-
-  const handleComplete = () => {
-    setIsWorking(!isWorking());
-    if (!isWorking()) setCycles((c) => c + 1);
-  };
-
-  return (
-    <Timer.Root
-      class="stack"
-      startMs={isWorking() ? 25 * 60 * 1000 : 5 * 60 * 1000}
-      countdown
-      onComplete={handleComplete}
-    >
-      <h2>{isWorking() ? 'Work Session' : 'Break Session'}</h2>
-
-      <Timer.Area class={styles.Area}>
-        <div class={styles.ItemGroup}>
-          <Timer.Item class={styles.Item} type="minutes" />
-          <span class={styles.ItemLabel}>minutes</span>
-        </div>
-        <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-        <div class={styles.ItemGroup}>
-          <Timer.Item class={styles.Item} type="seconds" />
-          <span class={styles.ItemLabel}>seconds</span>
-        </div>
-      </Timer.Area>
-
-      <Timer.Control class="hstack">
-        <Timer.ActionTrigger class={button.Root} action="start">
-          <PlayIcon /> Start
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger class={button.Root} action="pause">
-          <PauseIcon /> Pause
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger class={button.Root} action="reset">
-          <RotateCcwIcon /> Reset
-        </Timer.ActionTrigger>
-      </Timer.Control>
-
-      <output>Completed cycles: {cycles()}</output>
-    </Timer.Root>
-  );
-};
-```
-
-#### Vue
-
-```vue
-<script setup lang="ts">
-// biome-ignore lint/correctness/noUnusedImports: used in template
-import { Timer } from '@ark-ui/vue/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-vue-next';
-import { ref } from 'vue';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-
-const isWorking = ref(true);
-const cycles = ref(0);
-
-const handleComplete = () => {
-  isWorking.value = !isWorking.value;
-  if (!isWorking.value) cycles.value += 1;
-};
-</script>
-
-<template>
-  <Timer.Root
-    class="stack"
-    :startMs="isWorking ? 25 * 60 * 1000 : 5 * 60 * 1000"
-    :countdown="true"
-    @complete="handleComplete"
-  >
-    <h2>{{ isWorking ? 'Work Session' : 'Break Session' }}</h2>
-
-    <Timer.Area :class="styles.Area">
-      <div :class="styles.ItemGroup">
-        <Timer.Item :class="styles.Item" type="minutes" />
-        <span :class="styles.ItemLabel">minutes</span>
-      </div>
-      <Timer.Separator :class="styles.Separator">:</Timer.Separator>
-      <div :class="styles.ItemGroup">
-        <Timer.Item :class="styles.Item" type="seconds" />
-        <span :class="styles.ItemLabel">seconds</span>
-      </div>
-    </Timer.Area>
-
-    <Timer.Control class="hstack">
-      <Timer.ActionTrigger :class="button.Root" action="start">
-        <PlayIcon />
-        Start
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger :class="button.Root" action="pause">
-        <PauseIcon />
-        Pause
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger :class="button.Root" action="reset">
-        <RotateCcwIcon />
-        Reset
-      </Timer.ActionTrigger>
-    </Timer.Control>
-
-    <output>Completed cycles: {{ cycles }}</output>
-  </Timer.Root>
-</template>
-```
-
-#### Svelte
-
-```svelte
-<script lang="ts">
-  import { Timer } from '@ark-ui/svelte/timer'
-  import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-svelte'
-  import button from 'styles/button.module.css'
-  import styles from 'styles/timer.module.css'
-
-  let isWorking = $state(true)
-  let cycles = $state(0)
-
-  const handleComplete = () => {
-    isWorking = !isWorking
-    if (!isWorking) {
-      cycles += 1
-    }
-  }
-</script>
-
-<Timer.Root class="stack" startMs={isWorking ? 25 * 60 * 1000 : 5 * 60 * 1000} countdown onComplete={handleComplete}>
-  <h2>{isWorking ? 'Work Session' : 'Break Session'}</h2>
-
-  <Timer.Area class={styles.Area}>
-    <div class={styles.ItemGroup}>
-      <Timer.Item class={styles.Item} type="minutes" />
-      <span class={styles.ItemLabel}>minutes</span>
-    </div>
-    <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-    <div class={styles.ItemGroup}>
-      <Timer.Item class={styles.Item} type="seconds" />
-      <span class={styles.ItemLabel}>seconds</span>
-    </div>
-  </Timer.Area>
-
-  <Timer.Control class="hstack">
-    <Timer.ActionTrigger class={button.Root} action="start">
-      <PlayIcon /> Start
-    </Timer.ActionTrigger>
-    <Timer.ActionTrigger class={button.Root} action="pause">
-      <PauseIcon /> Pause
-    </Timer.ActionTrigger>
-    <Timer.ActionTrigger class={button.Root} action="reset">
-      <RotateCcwIcon /> Reset
-    </Timer.ActionTrigger>
-  </Timer.Control>
-
-  <output>Completed cycles: {cycles}</output>
-</Timer.Root>
-
-```
-
-### Root Provider
-
-An alternative way to control the timer is to use the `RootProvider` component and the `useTimer` hook. This way you can
-access the state and methods from outside the component.
-
-**Example: root-provider**
-
-#### React
-
-```tsx
-import { Timer, useTimer } from '@ark-ui/react/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-react';
-import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
-
-export const RootProvider = () => {
-  const timer = useTimer({ targetMs: 60 * 60 * 1000 });
-
-  return (
-    <div className="stack">
-      <output>timer: {JSON.stringify(timer.time)}</output>
-      <Timer.RootProvider className={styles.Root} value={timer}>
-        <Timer.Area className={styles.Area}>
-          <div className={styles.ItemGroup}>
-            <Timer.Item className={styles.Item} type="hours" />
-            <span className={styles.ItemLabel}>hours</span>
-          </div>
-          <Timer.Separator className={styles.Separator}>:</Timer.Separator>
-          <div className={styles.ItemGroup}>
-            <Timer.Item className={styles.Item} type="minutes" />
-            <span className={styles.ItemLabel}>minutes</span>
-          </div>
-          <Timer.Separator className={styles.Separator}>:</Timer.Separator>
-          <div className={styles.ItemGroup}>
-            <Timer.Item className={styles.Item} type="seconds" />
-            <span className={styles.ItemLabel}>seconds</span>
-          </div>
-        </Timer.Area>
-        <Timer.Control className="hstack">
-          <Timer.ActionTrigger className={button.Root} action="start">
-            <PlayIcon /> Start
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger className={button.Root} action="resume">
-            <PlayIcon /> Resume
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger className={button.Root} action="pause">
-            <PauseIcon /> Pause
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger className={button.Root} action="reset">
-            <RotateCcwIcon /> Reset
-          </Timer.ActionTrigger>
-        </Timer.Control>
-      </Timer.RootProvider>
+    <div>
+      <button
+        type="button"
+        className={button.Root}
+        onClick={() =>
+          toaster.create({
+            title: 'Scheduled for tomorrow',
+            description: 'Your meeting has been scheduled for tomorrow at 10am.',
+            type: 'info',
+          })
+        }
+      >
+        Schedule meeting
+      </button>
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast.Root key={toast.id} className={styles.Root}>
+              <Toast.Title className={styles.Title}>{toast.title}</Toast.Title>
+              <Toast.Description className={styles.Description}>
+                {toast.description}
+              </Toast.Description>
+              <Toast.CloseTrigger className={styles.CloseTrigger}>
+                <XIcon />
+              </Toast.CloseTrigger>
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
     </div>
   );
 };
@@ -1012,49 +94,49 @@ export const RootProvider = () => {
 #### Solid
 
 ```tsx
-import { Timer, useTimer } from '@ark-ui/solid/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-solid';
+import { Portal } from 'solid-js/web';
+import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
+import { XIcon } from 'lucide-solid';
 import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
+import styles from 'styles/toast.module.css';
 
-export const RootProvider = () => {
-  const timer = useTimer({ targetMs: 60 * 60 * 1000 });
+export const Basic = () => {
+  const toaster = createToaster({
+    placement: 'bottom-end',
+    overlap: true,
+    gap: 24,
+  });
 
   return (
-    <div class="stack">
-      <output>timer: {JSON.stringify(timer().time)}</output>
-      <Timer.RootProvider value={timer}>
-        <Timer.Area class={styles.Area}>
-          <div class={styles.ItemGroup}>
-            <Timer.Item class={styles.Item} type="hours" />
-            <span class={styles.ItemLabel}>hours</span>
-          </div>
-          <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-          <div class={styles.ItemGroup}>
-            <Timer.Item class={styles.Item} type="minutes" />
-            <span class={styles.ItemLabel}>minutes</span>
-          </div>
-          <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-          <div class={styles.ItemGroup}>
-            <Timer.Item class={styles.Item} type="seconds" />
-            <span class={styles.ItemLabel}>seconds</span>
-          </div>
-        </Timer.Area>
-        <Timer.Control class="hstack">
-          <Timer.ActionTrigger class={button.Root} action="start">
-            <PlayIcon /> Start
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger class={button.Root} action="resume">
-            <PlayIcon /> Resume
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger class={button.Root} action="pause">
-            <PauseIcon /> Pause
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger class={button.Root} action="reset">
-            <RotateCcwIcon /> Reset
-          </Timer.ActionTrigger>
-        </Timer.Control>
-      </Timer.RootProvider>
+    <div>
+      <button
+        type="button"
+        class={button.Root}
+        onClick={() =>
+          toaster.create({
+            title: 'Scheduled for tomorrow',
+            description: 'Your meeting has been scheduled for tomorrow at 10am.',
+            type: 'info',
+          })
+        }
+      >
+        Schedule meeting
+      </button>
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast.Root class={styles.Root}>
+              <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
+              <Toast.Description class={styles.Description}>
+                {toast().description}
+              </Toast.Description>
+              <Toast.CloseTrigger class={styles.CloseTrigger}>
+                <XIcon />
+              </Toast.CloseTrigger>
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
     </div>
   );
 };
@@ -1064,56 +146,40 @@ export const RootProvider = () => {
 
 ```vue
 <script setup lang="ts">
-// biome-ignore lint/correctness/noUnusedImports: used in template
-import { Timer, useTimer } from '@ark-ui/vue/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-vue-next';
+import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
+import { X } from 'lucide-vue-next';
 import button from 'styles/button.module.css';
-import styles from 'styles/timer.module.css';
+import styles from 'styles/toast.module.css';
 
-// biome-ignore lint/correctness/noUnusedVariables: used in template
-const timer = useTimer({ targetMs: 60 * 60 * 1000 });
+const toaster = createToaster({
+  placement: 'bottom-end',
+  overlap: true,
+  gap: 16,
+});
+
+const createToast = () => {
+  toaster.create({
+    title: 'Scheduled for tomorrow',
+    description: 'Your meeting has been scheduled for tomorrow at 10am.',
+    type: 'info',
+  });
+};
 </script>
 
 <template>
-  <div class="stack">
-    <output>timer: {{ JSON.stringify(timer.time) }}</output>
-
-    <Timer.RootProvider :value="timer">
-      <Timer.Area :class="styles.Area">
-        <div :class="styles.ItemGroup">
-          <Timer.Item :class="styles.Item" type="hours" />
-          <span :class="styles.ItemLabel">hours</span>
-        </div>
-        <Timer.Separator :class="styles.Separator">:</Timer.Separator>
-        <div :class="styles.ItemGroup">
-          <Timer.Item :class="styles.Item" type="minutes" />
-          <span :class="styles.ItemLabel">minutes</span>
-        </div>
-        <Timer.Separator :class="styles.Separator">:</Timer.Separator>
-        <div :class="styles.ItemGroup">
-          <Timer.Item :class="styles.Item" type="seconds" />
-          <span :class="styles.ItemLabel">seconds</span>
-        </div>
-      </Timer.Area>
-      <Timer.Control class="hstack">
-        <Timer.ActionTrigger :class="button.Root" action="start">
-          <PlayIcon />
-          Start
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger :class="button.Root" action="resume">
-          <PlayIcon />
-          Resume
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger :class="button.Root" action="pause">
-          <PauseIcon />
-          Pause
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger :class="button.Root" action="reset">
-          <RotateCcwIcon />
-          Reset
-        </Timer.ActionTrigger>
-      </Timer.Control>
-    </Timer.RootProvider>
+  <div>
+    <button type="button" :class="button.Root" @click="createToast">Schedule meeting</button>
+    <Teleport to="body">
+      <Toaster :toaster="toaster" v-slot="toast">
+        <Toast.Root :class="styles.Root">
+          <Toast.Title :class="styles.Title">{{ toast.title }}</Toast.Title>
+          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
+          <Toast.CloseTrigger :class="styles.CloseTrigger">
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      </Toaster>
+    </Teleport>
   </div>
 </template>
 ```
@@ -1122,52 +188,2151 @@ const timer = useTimer({ targetMs: 60 * 60 * 1000 });
 
 ```svelte
 <script lang="ts">
-  import { Timer, useTimer } from '@ark-ui/svelte/timer'
-  import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-svelte'
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
+  import { X } from 'lucide-svelte'
   import button from 'styles/button.module.css'
-  import styles from 'styles/timer.module.css'
+  import styles from 'styles/toast.module.css'
 
-  const id = $props.id()
-  const timer = useTimer({ id, targetMs: 60 * 60 * 1000 })
+  const toaster = createToaster({
+    placement: 'bottom-end',
+    overlap: true,
+    gap: 16,
+  })
+
+  function addToast() {
+    toaster.create({
+      title: 'Scheduled for tomorrow',
+      description: 'Your meeting has been scheduled for tomorrow at 10am.',
+      type: 'info',
+    })
+  }
 </script>
 
-<div class="stack">
-  <output>timer: {JSON.stringify(timer().time)}</output>
-
-  <Timer.RootProvider value={timer}>
-    <Timer.Area class={styles.Area}>
-      <div class={styles.ItemGroup}>
-        <Timer.Item class={styles.Item} type="hours" />
-        <span class={styles.ItemLabel}>hours</span>
-      </div>
-      <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-      <div class={styles.ItemGroup}>
-        <Timer.Item class={styles.Item} type="minutes" />
-        <span class={styles.ItemLabel}>minutes</span>
-      </div>
-      <Timer.Separator class={styles.Separator}>:</Timer.Separator>
-      <div class={styles.ItemGroup}>
-        <Timer.Item class={styles.Item} type="seconds" />
-        <span class={styles.ItemLabel}>seconds</span>
-      </div>
-    </Timer.Area>
-    <Timer.Control class="hstack">
-      <Timer.ActionTrigger class={button.Root} action="start">
-        <PlayIcon /> Start
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger class={button.Root} action="resume">
-        <PlayIcon /> Resume
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger class={button.Root} action="pause">
-        <PauseIcon /> Pause
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger class={button.Root} action="reset">
-        <RotateCcwIcon /> Reset
-      </Timer.ActionTrigger>
-    </Timer.Control>
-  </Timer.RootProvider>
+<div>
+  <button type="button" class={button.Root} onclick={addToast}>Schedule meeting</button>
+  <Portal>
+    <Toaster {toaster}>
+      {#snippet children(toast)}
+        <Toast.Root class={styles.Root}>
+          <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
+          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
+          <Toast.CloseTrigger class={styles.CloseTrigger}>
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      {/snippet}
+    </Toaster>
+  </Portal>
 </div>
 
+```
+
+### Types
+
+You can create different types of toasts (`success`, `error`, `warning`, `info`) with appropriate styling. For example,
+to create a success toast, you can do:
+
+```ts
+toaster.success({
+  title: 'Success!',
+  description: 'Your changes have been saved.',
+});
+```
+
+**Example: types**
+
+#### React
+
+```tsx
+import { Portal } from '@ark-ui/react/portal';
+import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
+import { CircleAlertIcon, TriangleAlertIcon, CircleCheckIcon, InfoIcon, XIcon } from 'lucide-react';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  overlap: true,
+  placement: 'bottom-end',
+  gap: 16,
+});
+
+const iconMap = {
+  success: CircleCheckIcon,
+  error: CircleAlertIcon,
+  warning: TriangleAlertIcon,
+  info: InfoIcon,
+};
+
+export const Types = () => {
+  return (
+    <div>
+      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+        <button
+          type="button"
+          className={button.Root}
+          onClick={() =>
+            toaster.success({
+              title: 'Changes saved',
+              description: 'Your profile has been updated successfully.',
+            })
+          }
+        >
+          Success
+        </button>
+        <button
+          type="button"
+          className={button.Root}
+          onClick={() =>
+            toaster.error({
+              title: 'Upload failed',
+              description: 'There was an error uploading your file.',
+            })
+          }
+        >
+          Error
+        </button>
+        <button
+          type="button"
+          className={button.Root}
+          onClick={() =>
+            toaster.warning({
+              title: 'Low storage',
+              description: 'You have less than 10% storage remaining.',
+            })
+          }
+        >
+          Warning
+        </button>
+        <button
+          type="button"
+          className={button.Root}
+          onClick={() =>
+            toaster.info({
+              title: 'Update available',
+              description: 'A new version of the app is ready to install.',
+            })
+          }
+        >
+          Info
+        </button>
+      </div>
+
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => {
+            const ToastIcon = toast.type ? iconMap[toast.type as keyof typeof iconMap] : undefined;
+            return (
+              <Toast.Root key={toast.id} className={styles.Root}>
+                <Toast.Title className={styles.Title}>
+                  {ToastIcon && <ToastIcon className={styles.Indicator} />}
+                  {toast.title}
+                </Toast.Title>
+                <Toast.Description className={styles.Description}>
+                  {toast.description}
+                </Toast.Description>
+                <Toast.CloseTrigger className={styles.CloseTrigger}>
+                  <XIcon />
+                </Toast.CloseTrigger>
+              </Toast.Root>
+            );
+          }}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Solid
+
+```tsx
+import { Portal } from 'solid-js/web';
+import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
+import { CircleAlertIcon, CircleCheckIcon, InfoIcon, TriangleAlertIcon, XIcon } from 'lucide-solid';
+import { Dynamic } from 'solid-js/web';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const iconMap = {
+  success: CircleCheckIcon,
+  error: CircleAlertIcon,
+  warning: TriangleAlertIcon,
+  info: InfoIcon,
+};
+
+export const Types = () => {
+  const toaster = createToaster({
+    overlap: true,
+    placement: 'bottom-end',
+    gap: 16,
+  });
+
+  return (
+    <div>
+      <div style={{ display: 'flex', gap: '12px', 'flex-wrap': 'wrap' }}>
+        <button
+          type="button"
+          class={button.Root}
+          onClick={() =>
+            toaster.success({
+              title: 'Changes saved',
+              description: 'Your profile has been updated successfully.',
+            })
+          }
+        >
+          Success
+        </button>
+        <button
+          type="button"
+          class={button.Root}
+          onClick={() =>
+            toaster.error({
+              title: 'Upload failed',
+              description: 'There was an error uploading your file.',
+            })
+          }
+        >
+          Error
+        </button>
+        <button
+          type="button"
+          class={button.Root}
+          onClick={() =>
+            toaster.warning({
+              title: 'Low storage',
+              description: 'You have less than 10% storage remaining.',
+            })
+          }
+        >
+          Warning
+        </button>
+        <button
+          type="button"
+          class={button.Root}
+          onClick={() =>
+            toaster.info({
+              title: 'Update available',
+              description: 'A new version of the app is ready to install.',
+            })
+          }
+        >
+          Info
+        </button>
+      </div>
+
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => {
+            const icon = () =>
+              toast().type ? iconMap[toast().type as keyof typeof iconMap] : InfoIcon;
+            return (
+              <Toast.Root class={styles.Root}>
+                <Toast.Title class={styles.Title}>
+                  <Dynamic component={icon()} class={styles.Indicator} />
+                  {toast().title}
+                </Toast.Title>
+                <Toast.Description class={styles.Description}>
+                  {toast().description}
+                </Toast.Description>
+                <Toast.CloseTrigger class={styles.CloseTrigger}>
+                  <XIcon />
+                </Toast.CloseTrigger>
+              </Toast.Root>
+            );
+          }}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
+import { CircleAlertIcon, TriangleAlertIcon, CircleCheckIcon, InfoIcon, X } from 'lucide-vue-next';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  overlap: true,
+  placement: 'bottom-end',
+  gap: 16,
+});
+
+const iconMap = {
+  success: CircleCheckIcon,
+  error: CircleAlertIcon,
+  warning: TriangleAlertIcon,
+  info: InfoIcon,
+};
+</script>
+
+<template>
+  <div>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap">
+      <button
+        type="button"
+        :class="button.Root"
+        @click="
+          toaster.success({
+            title: 'Changes saved',
+            description: 'Your profile has been updated successfully.',
+          })
+        "
+      >
+        Success
+      </button>
+      <button
+        type="button"
+        :class="button.Root"
+        @click="
+          toaster.error({
+            title: 'Upload failed',
+            description: 'There was an error uploading your file.',
+          })
+        "
+      >
+        Error
+      </button>
+      <button
+        type="button"
+        :class="button.Root"
+        @click="
+          toaster.warning({
+            title: 'Low storage',
+            description: 'You have less than 10% storage remaining.',
+          })
+        "
+      >
+        Warning
+      </button>
+      <button
+        type="button"
+        :class="button.Root"
+        @click="
+          toaster.info({
+            title: 'Update available',
+            description: 'A new version of the app is ready to install.',
+          })
+        "
+      >
+        Info
+      </button>
+    </div>
+
+    <Teleport to="body">
+      <Toaster :toaster="toaster" v-slot="toast">
+        <Toast.Root :class="styles.Root">
+          <Toast.Title :class="styles.Title">
+            <component
+              :is="toast.type ? iconMap[toast.type as keyof typeof iconMap] : InfoIcon"
+              :class="styles.Indicator"
+            />
+            {{ toast.title }}
+          </Toast.Title>
+          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
+          <Toast.CloseTrigger :class="styles.CloseTrigger">
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      </Toaster>
+    </Teleport>
+  </div>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
+  import { CircleAlertIcon, TriangleAlertIcon, CircleCheckIcon, InfoIcon, X } from 'lucide-svelte'
+  import button from 'styles/button.module.css'
+  import styles from 'styles/toast.module.css'
+
+  const toaster = createToaster({
+    overlap: true,
+    placement: 'bottom-end',
+    gap: 16,
+  })
+
+  const iconMap = {
+    success: CircleCheckIcon,
+    error: CircleAlertIcon,
+    warning: TriangleAlertIcon,
+    info: InfoIcon,
+  }
+</script>
+
+<div>
+  <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+    <button
+      type="button"
+      class={button.Root}
+      onclick={() =>
+        toaster.success({ title: 'Changes saved', description: 'Your profile has been updated successfully.' })}
+    >
+      Success
+    </button>
+    <button
+      type="button"
+      class={button.Root}
+      onclick={() => toaster.error({ title: 'Upload failed', description: 'There was an error uploading your file.' })}
+    >
+      Error
+    </button>
+    <button
+      type="button"
+      class={button.Root}
+      onclick={() =>
+        toaster.warning({ title: 'Low storage', description: 'You have less than 10% storage remaining.' })}
+    >
+      Warning
+    </button>
+    <button
+      type="button"
+      class={button.Root}
+      onclick={() =>
+        toaster.info({ title: 'Update available', description: 'A new version of the app is ready to install.' })}
+    >
+      Info
+    </button>
+  </div>
+
+  <Portal>
+    <Toaster {toaster}>
+      {#snippet children(toast)}
+        {@const icon = toast().type ? iconMap[toast().type as keyof typeof iconMap] : InfoIcon}
+        <Toast.Root class={styles.Root}>
+          <Toast.Title class={styles.Title}>
+            <svelte:component this={icon} class={styles.Indicator} />
+            {toast().title}
+          </Toast.Title>
+          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
+          <Toast.CloseTrigger class={styles.CloseTrigger}>
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      {/snippet}
+    </Toaster>
+  </Portal>
+</div>
+
+```
+
+### Promise
+
+You can use `toaster.promise()` to automatically handle the different states of an asynchronous operation. It provides
+options for the `success`, `error`, and `loading` states of the promise and will automatically update the toast when the
+promise resolves or rejects.
+
+**Example: promise-toast**
+
+#### React
+
+```tsx
+import { Portal } from '@ark-ui/react/portal';
+import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
+import { XIcon, LoaderIcon, CircleCheckIcon, CircleAlertIcon } from 'lucide-react';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  overlap: true,
+  placement: 'bottom-end',
+  gap: 16,
+});
+
+const uploadFile = () => {
+  return new Promise<void>((resolve, reject) => {
+    setTimeout(() => {
+      Math.random() > 0.5 ? resolve() : reject(new Error('Upload failed'));
+    }, 2000);
+  });
+};
+
+export const PromiseToast = () => {
+  const handleUpload = async () => {
+    toaster.promise(uploadFile, {
+      loading: {
+        title: 'Uploading file...',
+        description: 'Please wait while we upload your document.',
+      },
+      success: {
+        title: 'Upload complete',
+        description: 'Your file has been uploaded successfully.',
+      },
+      error: {
+        title: 'Upload failed',
+        description: 'Could not upload the file. Please try again.',
+      },
+    });
+  };
+
+  const getIcon = (type: string | undefined) => {
+    switch (type) {
+      case 'loading':
+        return <LoaderIcon className={styles.Indicator} data-type="loading" />;
+      case 'success':
+        return <CircleCheckIcon className={styles.Indicator} />;
+      case 'error':
+        return <CircleAlertIcon className={styles.Indicator} />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div>
+      <button type="button" className={button.Root} onClick={handleUpload}>
+        Upload file
+      </button>
+
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast.Root key={toast.id} className={styles.Root}>
+              <Toast.Title className={styles.Title}>
+                {getIcon(toast.type)}
+                {toast.title}
+              </Toast.Title>
+              <Toast.Description className={styles.Description}>
+                {toast.description}
+              </Toast.Description>
+              <Toast.CloseTrigger className={styles.CloseTrigger}>
+                <XIcon />
+              </Toast.CloseTrigger>
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Solid
+
+```tsx
+import { Portal } from 'solid-js/web';
+import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
+import { CircleAlertIcon, CircleCheckIcon, InfoIcon, LoaderIcon, XIcon } from 'lucide-solid';
+import { Dynamic } from 'solid-js/web';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const uploadFile = () => {
+  return new Promise<void>((resolve, reject) => {
+    setTimeout(() => {
+      Math.random() > 0.5 ? resolve() : reject(new Error('Upload failed'));
+    }, 2000);
+  });
+};
+
+const iconMap = {
+  loading: LoaderIcon,
+  success: CircleCheckIcon,
+  error: CircleAlertIcon,
+  info: InfoIcon,
+};
+
+export const PromiseToast = () => {
+  const toaster = createToaster({
+    overlap: true,
+    placement: 'bottom-end',
+    gap: 16,
+  });
+
+  const handleUpload = async () => {
+    toaster.promise(uploadFile, {
+      loading: {
+        title: 'Uploading file...',
+        description: 'Please wait while we process your file.',
+      },
+      success: {
+        title: 'Upload complete',
+        description: 'Your file has been uploaded successfully.',
+      },
+      error: {
+        title: 'Upload failed',
+        description: 'There was an error uploading your file. Please try again.',
+      },
+    });
+  };
+
+  return (
+    <div>
+      <button type="button" class={button.Root} onClick={handleUpload}>
+        Upload file
+      </button>
+
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => {
+            const icon = () =>
+              toast().type ? iconMap[toast().type as keyof typeof iconMap] : InfoIcon;
+            return (
+              <Toast.Root class={styles.Root}>
+                <Toast.Title class={styles.Title}>
+                  <Dynamic
+                    component={icon()}
+                    class={styles.Indicator}
+                    style={
+                      toast().type === 'loading' ? { animation: 'spin 1s linear infinite' } : {}
+                    }
+                  />
+                  {toast().title}
+                </Toast.Title>
+                <Toast.Description class={styles.Description}>
+                  {toast().description}
+                </Toast.Description>
+                <Toast.CloseTrigger class={styles.CloseTrigger}>
+                  <XIcon />
+                </Toast.CloseTrigger>
+              </Toast.Root>
+            );
+          }}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
+import { X, LoaderIcon, CircleCheckIcon, CircleAlertIcon, InfoIcon } from 'lucide-vue-next';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  overlap: true,
+  placement: 'bottom-end',
+  gap: 16,
+});
+
+const uploadFile = () => {
+  return new Promise<void>((resolve, reject) => {
+    setTimeout(() => {
+      Math.random() > 0.5 ? resolve() : reject(new Error('Upload failed'));
+    }, 2000);
+  });
+};
+
+const handleUpload = async () => {
+  toaster.promise(uploadFile, {
+    loading: {
+      title: 'Uploading file...',
+      description: 'Please wait while we process your file.',
+    },
+    success: {
+      title: 'Upload complete',
+      description: 'Your file has been uploaded successfully.',
+    },
+    error: {
+      title: 'Upload failed',
+      description: 'There was an error uploading your file. Please try again.',
+    },
+  });
+};
+
+const iconMap = {
+  loading: LoaderIcon,
+  success: CircleCheckIcon,
+  error: CircleAlertIcon,
+  info: InfoIcon,
+};
+</script>
+
+<template>
+  <div>
+    <button type="button" :class="button.Root" @click="handleUpload">Upload file</button>
+
+    <Teleport to="body">
+      <Toaster :toaster="toaster" v-slot="toast">
+        <Toast.Root :class="styles.Root">
+          <Toast.Title :class="styles.Title">
+            <component
+              :is="toast.type ? iconMap[toast.type as keyof typeof iconMap] : InfoIcon"
+              :class="styles.Indicator"
+              :style="toast.type === 'loading' ? 'animation: spin 1s linear infinite;' : ''"
+            />
+            {{ toast.title }}
+          </Toast.Title>
+          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
+          <Toast.CloseTrigger :class="styles.CloseTrigger">
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      </Toaster>
+    </Teleport>
+  </div>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
+  import { X, LoaderIcon, CircleCheckIcon, CircleAlertIcon, InfoIcon } from 'lucide-svelte'
+  import button from 'styles/button.module.css'
+  import styles from 'styles/toast.module.css'
+
+  const toaster = createToaster({
+    overlap: true,
+    placement: 'bottom-end',
+    gap: 16,
+  })
+
+  const uploadFile = () => {
+    return new Promise<void>((resolve, reject) => {
+      setTimeout(() => {
+        Math.random() > 0.5 ? resolve() : reject(new Error('Upload failed'))
+      }, 2000)
+    })
+  }
+
+  const handleUpload = async () => {
+    toaster.promise(uploadFile, {
+      loading: {
+        title: 'Uploading file...',
+        description: 'Please wait while we process your file.',
+      },
+      success: {
+        title: 'Upload complete',
+        description: 'Your file has been uploaded successfully.',
+      },
+      error: {
+        title: 'Upload failed',
+        description: 'There was an error uploading your file. Please try again.',
+      },
+    })
+  }
+
+  const iconMap = {
+    loading: LoaderIcon,
+    success: CircleCheckIcon,
+    error: CircleAlertIcon,
+    info: InfoIcon,
+  }
+</script>
+
+<div>
+  <button type="button" class={button.Root} onclick={handleUpload}>Upload file</button>
+
+  <Portal>
+    <Toaster {toaster}>
+      {#snippet children(toast)}
+        {@const icon = toast().type ? iconMap[toast().type as keyof typeof iconMap] : InfoIcon}
+        <Toast.Root class={styles.Root}>
+          <Toast.Title class={styles.Title}>
+            <svelte:component
+              this={icon}
+              class={styles.Indicator}
+              style={toast().type === 'loading' ? 'animation: spin 1s linear infinite;' : ''}
+            />
+            {toast().title}
+          </Toast.Title>
+          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
+          <Toast.CloseTrigger class={styles.CloseTrigger}>
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      {/snippet}
+    </Toaster>
+  </Portal>
+</div>
+
+```
+
+### Update
+
+To update a toast, use the `toast.update` method.
+
+**Example: update**
+
+#### React
+
+```tsx
+import { Portal } from '@ark-ui/react/portal';
+import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
+import { useRef } from 'react';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  placement: 'bottom-end',
+  overlap: true,
+  gap: 24,
+});
+
+export const Update = () => {
+  const id = useRef<string>(undefined);
+
+  const createToast = () => {
+    id.current = toaster.create({
+      title: 'Sending message...',
+      description: 'Please wait while we deliver your message.',
+      type: 'loading',
+    });
+  };
+
+  const updateToast = () => {
+    if (!id.current) {
+      return;
+    }
+    toaster.update(id.current, {
+      title: 'Message sent',
+      description: 'Your message has been delivered successfully.',
+      type: 'success',
+    });
+  };
+
+  return (
+    <div className="hstack">
+      <button type="button" className={button.Root} onClick={createToast}>
+        Send message
+      </button>
+      <button type="button" className={button.Root} onClick={updateToast}>
+        Mark as sent
+      </button>
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast.Root key={toast.id} className={styles.Root}>
+              <Toast.Title className={styles.Title}>{toast.title}</Toast.Title>
+              <Toast.Description className={styles.Description}>
+                {toast.description}
+              </Toast.Description>
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Solid
+
+```tsx
+import { Portal } from 'solid-js/web';
+import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
+import { XIcon } from 'lucide-solid';
+import { createSignal } from 'solid-js';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+export const Update = () => {
+  const toaster = createToaster({
+    placement: 'bottom-end',
+    overlap: true,
+    gap: 16,
+  });
+
+  const [id, setId] = createSignal<string | undefined>(undefined);
+
+  const createToast = () => {
+    const newId = toaster.create({
+      title: 'Uploading file...',
+      description: 'Please wait while your file is being uploaded.',
+      type: 'loading',
+    });
+    setId(newId);
+  };
+
+  const updateToast = () => {
+    const currentId = id();
+    if (!currentId) {
+      return;
+    }
+    toaster.update(currentId, {
+      title: 'Upload complete',
+      description: 'Your file has been uploaded successfully.',
+      type: 'success',
+    });
+  };
+
+  return (
+    <div>
+      <div style={{ display: 'flex', gap: '8px' }}>
+        <button type="button" class={button.Root} onClick={createToast}>
+          Start upload
+        </button>
+        <button type="button" class={button.Root} onClick={updateToast}>
+          Complete upload
+        </button>
+      </div>
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast.Root class={styles.Root}>
+              <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
+              <Toast.Description class={styles.Description}>
+                {toast().description}
+              </Toast.Description>
+              <Toast.CloseTrigger class={styles.CloseTrigger}>
+                <XIcon />
+              </Toast.CloseTrigger>
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
+import { X } from 'lucide-vue-next';
+import { ref } from 'vue';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  placement: 'bottom-end',
+  overlap: true,
+  gap: 16,
+});
+
+const id = ref<string | undefined>(undefined);
+
+const createToast = () => {
+  id.value = toaster.create({
+    title: 'Uploading file...',
+    description: 'Please wait while your file is being uploaded.',
+    type: 'loading',
+  });
+};
+
+const updateToast = () => {
+  if (!id.value) {
+    return;
+  }
+  toaster.update(id.value, {
+    title: 'Upload complete',
+    description: 'Your file has been uploaded successfully.',
+    type: 'success',
+  });
+};
+</script>
+
+<template>
+  <div>
+    <div style="display: flex; gap: 8px">
+      <button type="button" :class="button.Root" @click="createToast">Start upload</button>
+      <button type="button" :class="button.Root" @click="updateToast">Complete upload</button>
+    </div>
+    <Teleport to="body">
+      <Toaster :toaster="toaster" v-slot="toast">
+        <Toast.Root :class="styles.Root">
+          <Toast.Title :class="styles.Title">{{ toast.title }}</Toast.Title>
+          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
+          <Toast.CloseTrigger :class="styles.CloseTrigger">
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      </Toaster>
+    </Teleport>
+  </div>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
+  import { X } from 'lucide-svelte'
+  import button from 'styles/button.module.css'
+  import styles from 'styles/toast.module.css'
+
+  const toaster = createToaster({
+    placement: 'bottom-end',
+    overlap: true,
+    gap: 16,
+  })
+
+  let toastId: string | undefined = $state()
+
+  function createToast() {
+    toastId = toaster.create({
+      title: 'Uploading file...',
+      description: 'Please wait while your file is being uploaded.',
+      type: 'loading',
+    })
+  }
+
+  function updateToast() {
+    if (!toastId) {
+      return
+    }
+    toaster.update(toastId, {
+      title: 'Upload complete',
+      description: 'Your file has been uploaded successfully.',
+      type: 'success',
+    })
+  }
+</script>
+
+<div>
+  <div style="display: flex; gap: 8px;">
+    <button type="button" class={button.Root} onclick={createToast}>Start upload</button>
+    <button type="button" class={button.Root} onclick={updateToast}>Complete upload</button>
+  </div>
+  <Portal>
+    <Toaster {toaster}>
+      {#snippet children(toast)}
+        <Toast.Root class={styles.Root}>
+          <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
+          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
+          <Toast.CloseTrigger class={styles.CloseTrigger}>
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      {/snippet}
+    </Toaster>
+  </Portal>
+</div>
+
+```
+
+### Action
+
+To add an action to a toast, use the `toast.action` property.
+
+**Example: action**
+
+#### React
+
+```tsx
+import { Portal } from '@ark-ui/react/portal';
+import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  placement: 'bottom-end',
+  gap: 24,
+});
+
+export const Action = () => {
+  return (
+    <div>
+      <button
+        type="button"
+        className={button.Root}
+        onClick={() =>
+          toaster.create({
+            title: 'Event has been created',
+            description: 'We have sent you an email with the event details.',
+            type: 'info',
+            action: {
+              label: 'Undo',
+              onClick: () => {
+                console.log('Undo');
+              },
+            },
+          })
+        }
+      >
+        Create event
+      </button>
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast.Root key={toast.id} className={styles.Root}>
+              <Toast.Title className={styles.Title}>{toast.title}</Toast.Title>
+              <Toast.Description className={styles.Description}>
+                {toast.description}
+              </Toast.Description>
+              {toast.action && (
+                <Toast.ActionTrigger className={styles.ActionTrigger}>
+                  {toast.action?.label}
+                </Toast.ActionTrigger>
+              )}
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Solid
+
+```tsx
+import { Portal } from 'solid-js/web';
+import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
+import { XIcon } from 'lucide-solid';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+export const Action = () => {
+  const toaster = createToaster({
+    placement: 'bottom-end',
+    overlap: true,
+    gap: 16,
+  });
+
+  return (
+    <div>
+      <button
+        type="button"
+        class={button.Root}
+        onClick={() =>
+          toaster.create({
+            title: 'Invitation sent',
+            description: 'Your team invitation has been sent. Click undo to cancel.',
+            type: 'info',
+            action: {
+              label: 'Undo',
+              onClick: () => {
+                console.log('Undo clicked');
+              },
+            },
+          })
+        }
+      >
+        Send invitation
+      </button>
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast.Root class={styles.Root}>
+              <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
+              <Toast.Description class={styles.Description}>
+                {toast().description}
+              </Toast.Description>
+              {toast().action && (
+                <Toast.ActionTrigger class={styles.ActionTrigger}>
+                  {toast().action?.label}
+                </Toast.ActionTrigger>
+              )}
+              <Toast.CloseTrigger class={styles.CloseTrigger}>
+                <XIcon />
+              </Toast.CloseTrigger>
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
+import { X } from 'lucide-vue-next';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  placement: 'bottom-end',
+  overlap: true,
+  gap: 16,
+});
+
+const addToast = () => {
+  toaster.create({
+    title: 'Invitation sent',
+    description: 'Your team invitation has been sent. Click undo to cancel.',
+    type: 'info',
+    action: {
+      label: 'Undo',
+      onClick: () => {
+        console.log('Undo clicked');
+      },
+    },
+  });
+};
+</script>
+
+<template>
+  <div>
+    <button type="button" :class="button.Root" @click="addToast">Send invitation</button>
+    <Teleport to="body">
+      <Toaster :toaster="toaster" v-slot="toast">
+        <Toast.Root :class="styles.Root">
+          <Toast.Title :class="styles.Title">{{ toast.title }}</Toast.Title>
+          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
+          <Toast.ActionTrigger v-if="toast.action" :class="styles.ActionTrigger">
+            {{ toast.action?.label }}
+          </Toast.ActionTrigger>
+          <Toast.CloseTrigger :class="styles.CloseTrigger">
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      </Toaster>
+    </Teleport>
+  </div>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
+  import { X } from 'lucide-svelte'
+  import button from 'styles/button.module.css'
+  import styles from 'styles/toast.module.css'
+
+  const toaster = createToaster({
+    placement: 'bottom-end',
+    overlap: true,
+    gap: 16,
+  })
+
+  function addToast() {
+    toaster.create({
+      title: 'Invitation sent',
+      description: 'Your team invitation has been sent. Click undo to cancel.',
+      type: 'info',
+      action: {
+        label: 'Undo',
+        onClick: () => {
+          console.log('Undo clicked')
+        },
+      },
+    })
+  }
+</script>
+
+<div>
+  <button type="button" class={button.Root} onclick={addToast}>Send invitation</button>
+  <Portal>
+    <Toaster {toaster}>
+      {#snippet children(toast)}
+        <Toast.Root class={styles.Root}>
+          <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
+          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
+          {#if toast().action}
+            <Toast.ActionTrigger class={styles.ActionTrigger}>{toast().action?.label}</Toast.ActionTrigger>
+          {/if}
+          <Toast.CloseTrigger class={styles.CloseTrigger}>
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      {/snippet}
+    </Toaster>
+  </Portal>
+</div>
+
+```
+
+### Duration
+
+You can control how long a toast stays visible by setting a custom `duration` in milliseconds, or use `Infinity` to keep
+it visible until manually dismissed.
+
+**Example: duration**
+
+#### React
+
+```tsx
+import { Portal } from '@ark-ui/react/portal';
+import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
+import { XIcon, ClockIcon } from 'lucide-react';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  overlap: true,
+  placement: 'bottom-end',
+  gap: 16,
+});
+
+const durations = [
+  { label: '1s', value: 1000 },
+  { label: '3s', value: 3000 },
+  { label: '5s', value: 5000 },
+  { label: '∞', value: Infinity },
+];
+
+export const Duration = () => {
+  return (
+    <div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        {durations.map((duration) => (
+          <button
+            key={duration.label}
+            type="button"
+            className={button.Root}
+            onClick={() =>
+              toaster.create({
+                title: 'Reminder set',
+                description: `This notification will ${
+                  duration.value === Infinity
+                    ? 'stay until dismissed'
+                    : `disappear in ${duration.label}`
+                }.`,
+                type: 'info',
+                duration: duration.value,
+              })
+            }
+          >
+            {duration.label}
+          </button>
+        ))}
+      </div>
+
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast.Root key={toast.id} className={styles.Root}>
+              <Toast.Title className={styles.Title}>
+                <ClockIcon className={styles.Indicator} />
+                {toast.title}
+              </Toast.Title>
+              <Toast.Description className={styles.Description}>
+                {toast.description}
+              </Toast.Description>
+              <Toast.CloseTrigger className={styles.CloseTrigger}>
+                <XIcon />
+              </Toast.CloseTrigger>
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Solid
+
+```tsx
+import { Portal } from 'solid-js/web';
+import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
+import { XIcon } from 'lucide-solid';
+import { For } from 'solid-js';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const durations = [
+  { label: '1s', value: 1000 },
+  { label: '3s', value: 3000 },
+  { label: '5s', value: 5000 },
+  { label: '∞', value: Infinity },
+];
+
+export const Duration = () => {
+  const toaster = createToaster({
+    overlap: true,
+    placement: 'bottom-end',
+    gap: 16,
+  });
+
+  return (
+    <div>
+      <div style={{ display: 'flex', 'flex-wrap': 'wrap', gap: '8px' }}>
+        <For each={durations}>
+          {(duration) => (
+            <button
+              type="button"
+              class={button.Root}
+              onClick={() =>
+                toaster.create({
+                  title: `Duration: ${duration.label}`,
+                  description:
+                    duration.value === Infinity
+                      ? 'This toast will stay until you dismiss it.'
+                      : `This toast will automatically close in ${duration.label}.`,
+                  type: 'info',
+                  duration: duration.value,
+                })
+              }
+            >
+              {duration.label}
+            </button>
+          )}
+        </For>
+      </div>
+
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast.Root class={styles.Root}>
+              <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
+              <Toast.Description class={styles.Description}>
+                {toast().description}
+              </Toast.Description>
+              <Toast.CloseTrigger class={styles.CloseTrigger}>
+                <XIcon />
+              </Toast.CloseTrigger>
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
+import { X } from 'lucide-vue-next';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  overlap: true,
+  placement: 'bottom-end',
+  gap: 16,
+});
+
+const durations = [
+  { label: '1s', value: 1000 },
+  { label: '3s', value: 3000 },
+  { label: '5s', value: 5000 },
+  { label: '∞', value: Infinity },
+];
+</script>
+
+<template>
+  <div>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px">
+      <button
+        v-for="duration in durations"
+        :key="duration.label"
+        type="button"
+        :class="button.Root"
+        @click="
+          toaster.create({
+            title: `Duration: ${duration.label}`,
+            description:
+              duration.value === Infinity
+                ? 'This toast will stay until you dismiss it.'
+                : `This toast will automatically close in ${duration.label}.`,
+            type: 'info',
+            duration: duration.value,
+          })
+        "
+      >
+        {{ duration.label }}
+      </button>
+    </div>
+
+    <Teleport to="body">
+      <Toaster :toaster="toaster" v-slot="toast">
+        <Toast.Root :class="styles.Root">
+          <Toast.Title :class="styles.Title">{{ toast.title }}</Toast.Title>
+          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
+          <Toast.CloseTrigger :class="styles.CloseTrigger">
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      </Toaster>
+    </Teleport>
+  </div>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
+  import { X } from 'lucide-svelte'
+  import button from 'styles/button.module.css'
+  import styles from 'styles/toast.module.css'
+
+  const toaster = createToaster({
+    overlap: true,
+    placement: 'bottom-end',
+    gap: 16,
+  })
+
+  const durations = [
+    { label: '1s', value: 1000 },
+    { label: '3s', value: 3000 },
+    { label: '5s', value: 5000 },
+    { label: '∞', value: Infinity },
+  ]
+</script>
+
+<div>
+  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+    {#each durations as duration}
+      <button
+        type="button"
+        class={button.Root}
+        onclick={() =>
+          toaster.create({
+            title: `Duration: ${duration.label}`,
+            description:
+              duration.value === Infinity
+                ? 'This toast will stay until you dismiss it.'
+                : `This toast will automatically close in ${duration.label}.`,
+            type: 'info',
+            duration: duration.value,
+          })}
+      >
+        {duration.label}
+      </button>
+    {/each}
+  </div>
+
+  <Portal>
+    <Toaster {toaster}>
+      {#snippet children(toast)}
+        <Toast.Root class={styles.Root}>
+          <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
+          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
+          <Toast.CloseTrigger class={styles.CloseTrigger}>
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      {/snippet}
+    </Toaster>
+  </Portal>
+</div>
+
+```
+
+### Max Visible
+
+Set the `max` prop on the `createToaster` function to define the maximum number of toasts that can be rendered at any
+one time. Any extra toasts will be queued and rendered when a toast has been dismissed.
+
+**Example: max-toasts**
+
+#### React
+
+```tsx
+import { Portal } from '@ark-ui/react/portal';
+import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
+import { XIcon, InfoIcon } from 'lucide-react';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  max: 3,
+  overlap: true,
+  placement: 'bottom-end',
+  gap: 16,
+});
+
+export const MaxToasts = () => {
+  return (
+    <div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        <button
+          type="button"
+          className={button.Root}
+          onClick={() =>
+            toaster.create({
+              title: 'New notification',
+              description: 'You have a new message in your inbox.',
+              type: 'info',
+            })
+          }
+        >
+          Add notification
+        </button>
+        <button
+          type="button"
+          className={button.Root}
+          onClick={() => {
+            const messages = [
+              'John liked your post',
+              'Sarah commented on your photo',
+              'New follower: @designpro',
+              'Your post was shared 10 times',
+              'Meeting reminder in 15 minutes',
+            ];
+            messages.forEach((msg) => {
+              toaster.create({
+                title: 'Notification',
+                description: msg,
+                type: 'info',
+              });
+            });
+          }}
+        >
+          Add 5 notifications
+        </button>
+      </div>
+
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast.Root key={toast.id} className={styles.Root}>
+              <InfoIcon className={styles.Indicator} />
+              <div style={{ flex: 1 }}>
+                <Toast.Title className={styles.Title}>{toast.title}</Toast.Title>
+                <Toast.Description className={styles.Description}>
+                  {toast.description}
+                </Toast.Description>
+              </div>
+              <Toast.CloseTrigger className={styles.CloseTrigger}>
+                <XIcon />
+              </Toast.CloseTrigger>
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Solid
+
+```tsx
+import { Portal } from 'solid-js/web';
+import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
+import { XIcon } from 'lucide-solid';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+export const MaxToasts = () => {
+  const toaster = createToaster({
+    max: 3,
+    overlap: true,
+    placement: 'bottom-end',
+    gap: 16,
+  });
+
+  return (
+    <div>
+      <div style={{ display: 'flex', 'flex-wrap': 'wrap', gap: '8px' }}>
+        <button
+          type="button"
+          class={button.Root}
+          onClick={() =>
+            toaster.create({
+              title: 'New notification',
+              description: 'Maximum of 3 toasts visible at once. Extra toasts are queued.',
+              type: 'info',
+            })
+          }
+        >
+          Add toast
+        </button>
+        <button
+          type="button"
+          class={button.Root}
+          onClick={() => {
+            const messages = [
+              { title: 'Message received', description: 'You have a new message from Sarah.' },
+              { title: 'File uploaded', description: 'Your document has been saved.' },
+              { title: 'Sync complete', description: 'All changes have been synced.' },
+              { title: 'New follower', description: 'John started following you.' },
+              { title: 'Task completed', description: 'Your export is ready for download.' },
+            ];
+            messages.forEach((msg) => {
+              toaster.create({
+                title: msg.title,
+                description: msg.description,
+                type: 'info',
+              });
+            });
+          }}
+        >
+          Add 5 toasts
+        </button>
+      </div>
+
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast.Root class={styles.Root}>
+              <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
+              <Toast.Description class={styles.Description}>
+                {toast().description}
+              </Toast.Description>
+              <Toast.CloseTrigger class={styles.CloseTrigger}>
+                <XIcon />
+              </Toast.CloseTrigger>
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
+import { X } from 'lucide-vue-next';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  max: 3,
+  overlap: true,
+  placement: 'bottom-end',
+  gap: 16,
+});
+
+const messages = [
+  { title: 'Message received', description: 'You have a new message from Sarah.' },
+  { title: 'File uploaded', description: 'Your document has been saved.' },
+  { title: 'Sync complete', description: 'All changes have been synced.' },
+  { title: 'New follower', description: 'John started following you.' },
+  { title: 'Task completed', description: 'Your export is ready for download.' },
+];
+
+const addFiveToasts = () => {
+  messages.forEach((msg) => {
+    toaster.create({
+      title: msg.title,
+      description: msg.description,
+      type: 'info',
+    });
+  });
+};
+</script>
+
+<template>
+  <div>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px">
+      <button
+        type="button"
+        :class="button.Root"
+        @click="
+          toaster.create({
+            title: 'New notification',
+            description: 'Maximum of 3 toasts visible at once. Extra toasts are queued.',
+            type: 'info',
+          })
+        "
+      >
+        Add toast
+      </button>
+      <button type="button" :class="button.Root" @click="addFiveToasts">Add 5 toasts</button>
+    </div>
+
+    <Teleport to="body">
+      <Toaster :toaster="toaster" v-slot="toast">
+        <Toast.Root :class="styles.Root">
+          <Toast.Title :class="styles.Title">{{ toast.title }}</Toast.Title>
+          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
+          <Toast.CloseTrigger :class="styles.CloseTrigger">
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      </Toaster>
+    </Teleport>
+  </div>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
+  import { X } from 'lucide-svelte'
+  import button from 'styles/button.module.css'
+  import styles from 'styles/toast.module.css'
+
+  const toaster = createToaster({
+    max: 3,
+    overlap: true,
+    placement: 'bottom-end',
+    gap: 16,
+  })
+
+  const messages = [
+    { title: 'Message received', description: 'You have a new message from Sarah.' },
+    { title: 'File uploaded', description: 'Your document has been saved.' },
+    { title: 'Sync complete', description: 'All changes have been synced.' },
+    { title: 'New follower', description: 'John started following you.' },
+    { title: 'Task completed', description: 'Your export is ready for download.' },
+  ]
+</script>
+
+<div>
+  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+    <button
+      type="button"
+      class={button.Root}
+      onclick={() =>
+        toaster.create({
+          title: 'New notification',
+          description: 'Maximum of 3 toasts visible at once. Extra toasts are queued.',
+          type: 'info',
+        })}
+    >
+      Add toast
+    </button>
+    <button
+      type="button"
+      class={button.Root}
+      onclick={() => {
+        messages.forEach((msg) => {
+          toaster.create({
+            title: msg.title,
+            description: msg.description,
+            type: 'info',
+          })
+        })
+      }}
+    >
+      Add 5 toasts
+    </button>
+  </div>
+
+  <Portal>
+    <Toaster {toaster}>
+      {#snippet children(toast)}
+        <Toast.Root class={styles.Root}>
+          <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
+          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
+          <Toast.CloseTrigger class={styles.CloseTrigger}>
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      {/snippet}
+    </Toaster>
+  </Portal>
+</div>
+
+```
+
+### Placement
+
+Configure where toasts appear on the screen using the `placement` option in `createToaster`. Options include
+`top-start`, `top-end`, `bottom-start`, `bottom-end`, and more.
+
+**Example: placement**
+
+#### React
+
+```tsx
+import { Portal } from '@ark-ui/react/portal';
+import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
+import { XIcon } from 'lucide-react';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  placement: 'top-end',
+  overlap: true,
+  gap: 16,
+});
+
+export const Placement = () => {
+  return (
+    <div>
+      <button
+        type="button"
+        className={button.Root}
+        onClick={() =>
+          toaster.create({
+            title: 'Notification',
+            description: 'This toast appears at the top-right corner.',
+            type: 'info',
+          })
+        }
+      >
+        Show toast (top-end)
+      </button>
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast.Root key={toast.id} className={styles.Root}>
+              <Toast.Title className={styles.Title}>{toast.title}</Toast.Title>
+              <Toast.Description className={styles.Description}>
+                {toast.description}
+              </Toast.Description>
+              <Toast.CloseTrigger className={styles.CloseTrigger}>
+                <XIcon />
+              </Toast.CloseTrigger>
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Solid
+
+```tsx
+import { Portal } from 'solid-js/web';
+import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
+import { XIcon } from 'lucide-solid';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+export const Placement = () => {
+  const toaster = createToaster({
+    placement: 'top-end',
+    overlap: true,
+    gap: 16,
+  });
+
+  return (
+    <div>
+      <button
+        type="button"
+        class={button.Root}
+        onClick={() =>
+          toaster.create({
+            title: 'Notification',
+            description: 'This toast appears at the top-right corner.',
+            type: 'info',
+          })
+        }
+      >
+        Show toast (top-end)
+      </button>
+      <Portal>
+        <Toaster toaster={toaster}>
+          {(toast) => (
+            <Toast.Root class={styles.Root}>
+              <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
+              <Toast.Description class={styles.Description}>
+                {toast().description}
+              </Toast.Description>
+              <Toast.CloseTrigger class={styles.CloseTrigger}>
+                <XIcon />
+              </Toast.CloseTrigger>
+            </Toast.Root>
+          )}
+        </Toaster>
+      </Portal>
+    </div>
+  );
+};
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
+import { X } from 'lucide-vue-next';
+import button from 'styles/button.module.css';
+import styles from 'styles/toast.module.css';
+
+const toaster = createToaster({
+  placement: 'top-end',
+  overlap: true,
+  gap: 16,
+});
+
+const addToast = () => {
+  toaster.create({
+    title: 'Notification',
+    description: 'This toast appears at the top-right corner.',
+    type: 'info',
+  });
+};
+</script>
+
+<template>
+  <div>
+    <button type="button" :class="button.Root" @click="addToast">Show toast (top-end)</button>
+    <Teleport to="body">
+      <Toaster :toaster="toaster" v-slot="toast">
+        <Toast.Root :class="styles.Root">
+          <Toast.Title :class="styles.Title">{{ toast.title }}</Toast.Title>
+          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
+          <Toast.CloseTrigger :class="styles.CloseTrigger">
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      </Toaster>
+    </Teleport>
+  </div>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
+  import { X } from 'lucide-svelte'
+  import button from 'styles/button.module.css'
+  import styles from 'styles/toast.module.css'
+
+  const toaster = createToaster({
+    placement: 'top-end',
+    overlap: true,
+    gap: 16,
+  })
+
+  function addToast() {
+    toaster.create({
+      title: 'Notification',
+      description: 'This toast appears at the top-right corner.',
+      type: 'info',
+    })
+  }
+</script>
+
+<div>
+  <button type="button" class={button.Root} onclick={addToast}>Show toast (top-end)</button>
+  <Portal>
+    <Toaster {toaster}>
+      {#snippet children(toast)}
+        <Toast.Root class={styles.Root}>
+          <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
+          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
+          <Toast.CloseTrigger class={styles.CloseTrigger}>
+            <X />
+          </Toast.CloseTrigger>
+        </Toast.Root>
+      {/snippet}
+    </Toaster>
+  </Portal>
+</div>
+
+```
+
+## Guides
+
+### Toast in Effects
+
+When creating a toast inside React effects (like `useEffect`, `useLayoutEffect`, or event handlers that trigger during
+render), you may encounter a "flushSync" warning. To avoid this, wrap the toast call in `queueMicrotask`:
+
+```tsx
+import { useEffect } from 'react';
+
+export const EffectToast = () => {
+  useEffect(() => {
+    // ❌ This may cause flushSync warnings
+    // toaster.create({ title: 'Effect triggered!' })
+
+    // ✅ Wrap in queueMicrotask to avoid warnings
+    queueMicrotask(() => {
+      toaster.create({
+        title: 'Effect triggered!',
+        description: 'This toast was called safely from an effect',
+        type: 'success',
+      });
+    });
+  }, []);
+
+  return <div>Component content</div>;
+};
+```
+
+This ensures the toast creation is deferred until after the current execution context, preventing React's concurrent
+rendering warnings.
+
+### Styling
+
+There's a minimal styling required for the toast to work correctly.
+
+#### Toast root
+
+The toast root will be assigned these css properties at runtime:
+
+- `--x` - The x position
+- `--y` - The y position
+- `--scale` - The scale
+- `--z-index` - The z-index
+- `--height` - The height
+- `--opacity` - The opacity
+- `--gap` - The gap between toasts
+
+```css
+[data-scope='toast'][data-part='root'] {
+  translate: var(--x) var(--y);
+  scale: var(--scale);
+  z-index: var(--z-index);
+  height: var(--height);
+  opacity: var(--opacity);
+  will-change: translate, opacity, scale;
+  transition:
+    translate 400ms,
+    scale 400ms,
+    opacity 400ms,
+    height 400ms,
+    box-shadow 200ms;
+  transition-timing-function: cubic-bezier(0.21, 1.02, 0.73, 1);
+
+  &[data-state='closed'] {
+    transition:
+      translate 400ms,
+      scale 400ms,
+      opacity 200ms;
+    transition-timing-function: cubic-bezier(0.06, 0.71, 0.55, 1);
+  }
+}
+```
+
+#### Styling based on type
+
+You can also style based on the `data-type` attribute.
+
+```css
+[data-scope='toast'][data-part='root'] {
+  &[data-type='error'] {
+    background: red;
+    color: white;
+  }
+
+  &[data-type='info'] {
+    background: blue;
+    color: white;
+  }
+
+  &[data-type='warning'] {
+    background: orange;
+  }
+
+  &[data-type='success'] {
+    background: green;
+    color: white;
+  }
+}
+```
+
+#### Mobile considerations
+
+A very common use case is to adjust the toast width on mobile so it spans the full width of the screen.
+
+```css
+@media (max-width: 640px) {
+  [data-scope='toast'][data-part='group'] {
+    width: 100%;
+  }
+
+  [data-scope='toast'][data-part='root'] {
+    inset-inline: 0;
+    width: calc(100% - var(--gap) * 2);
+  }
+}
 ```
 
 ## API Reference
@@ -1180,304 +2345,317 @@ const timer = useTimer({ targetMs: 60 * 60 * 1000 });
 
 **Root Props:**
 
-| Prop         | Type                                      | Required | Description                                                                                         |
-| ------------ | ----------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild`    | `boolean`                                 | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `autoStart`  | `boolean`                                 | No       | Whether the timer should start automatically                                                        |
-| `countdown`  | `boolean`                                 | No       | Whether the timer should countdown, decrementing the timer on each tick.                            |
-| `ids`        | `Partial<{ root: string; area: string }>` | No       | The ids of the timer parts                                                                          |
-| `interval`   | `number`                                  | No       | The interval in milliseconds to update the timer count.                                             |
-| `onComplete` | `() => void`                              | No       | Function invoked when the timer is completed                                                        |
-| `onTick`     | `(details: TickDetails) => void`          | No       | Function invoked when the timer ticks                                                               |
-| `startMs`    | `number`                                  | No       | The total duration of the timer in milliseconds.                                                    |
-| `targetMs`   | `number`                                  | No       | The minimum count of the timer in milliseconds.                                                     |
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Root Data Attributes:**
+
+| Attribute          | Value                                                   |
+| ------------------ | ------------------------------------------------------- | -------- |
+| `[data-scope]`     | toast                                                   |
+| `[data-part]`      | root                                                    |
+| `[data-state]`     | "open"                                                  | "closed" |
+| `[data-type]`      | The type of the item                                    |
+| `[data-placement]` | The placement of the toast                              |
+| `[data-align]`     |                                                         |
+| `[data-side]`      | The side of the trigger that the toast is positioned on |
+| `[data-mounted]`   | Present when mounted                                    |
+| `[data-paused]`    | Present when paused                                     |
+| `[data-first]`     |                                                         |
+| `[data-sibling]`   |                                                         |
+| `[data-stack]`     |                                                         |
+| `[data-overlap]`   | Present when overlapping                                |
 
 **ActionTrigger Props:**
 
-| Prop      | Type          | Required | Description                                                                                         |
-| --------- | ------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `action`  | `TimerAction` | Yes      |                                                                                                     |
-| `asChild` | `boolean`     | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 
-**Area Props:**
+**CloseTrigger Props:**
 
 | Prop      | Type      | Required | Description                                                                                         |
 | --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 
-**Control Props:**
+**Description Props:**
 
 | Prop      | Type      | Required | Description                                                                                         |
 | --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 
-**Item Props:**
+**Store Props:**
 
-| Prop      | Type                 | Required | Description                                                                                         |
-| --------- | -------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `type`    | `keyof Time<number>` | Yes      |                                                                                                     |
-| `asChild` | `boolean`            | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| Prop                                                   | Type        | Required     | Description                                                                                            |
+| ------------------------------------------------------ | ----------- | ------------ | ------------------------------------------------------------------------------------------------------ | ------ | ----------------- | --- | --------------------------------------------------------- |
+| `duration`                                             | `number`    | No           | The duration of the toast.                                                                             |
+| By default, it is determined by the type of the toast. |
+| `gap`                                                  | `number`    | No           | The gap between the toasts                                                                             |
+| `hotkey`                                               | `string[]`  | No           | The hotkey that will move focus to the toast group                                                     |
+| `max`                                                  | `number`    | No           | The maximum number of toasts. When the number of toasts exceeds this limit, the new toasts are queued. |
+| `offsets`                                              | `string     | Record<'top' | 'bottom'                                                                                               | 'left' | 'right', string>` | No  | The offset from the safe environment edge of the viewport |
+| `overlap`                                              | `boolean`   | No           | Whether to overlap the toasts                                                                          |
+| `pauseOnPageIdle`                                      | `boolean`   | No           | Whether to pause toast when the user leaves the browser tab                                            |
+| `placement`                                            | `Placement` | No           | The placement of the toast                                                                             |
+| `removeDelay`                                          | `number`    | No           | The duration for the toast to kept alive before it is removed.                                         |
+| Useful for exit transitions.                           |
 
-**Item Data Attributes:**
-
-| Attribute      | Value                |
-| -------------- | -------------------- |
-| `[data-scope]` | timer                |
-| `[data-part]`  | item                 |
-| `[data-type]`  | The type of the item |
-
-**Item CSS Variables:**
-
-| Variable  | Description       |
-| --------- | ----------------- |
-| `--value` | The current value |
-
-**RootProvider Props:**
-
-| Prop      | Type             | Required | Description                                                                                         |
-| --------- | ---------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `value`   | `UseTimerReturn` | Yes      |                                                                                                     |
-| `asChild` | `boolean`        | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-
-**Separator Props:**
+**Title Props:**
 
 | Prop      | Type      | Required | Description                                                                                         |
 | --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Toaster Props:**
+
+| Prop          | Type                  | Required   | Description                                                                                         |
+| ------------- | --------------------- | ---------- | --------------------------------------------------------------------------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `toaster`     | `CreateToasterReturn` | Yes        |                                                                                                     |
+| `asChild`     | `boolean`             | No         | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `dir`         | `'ltr'                | 'rtl'`     | No                                                                                                  | The document's text/writing direction. |
+| `getRootNode` | `() => Node           | ShadowRoot | Document`                                                                                           | No                                     | A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron. |
 
 #### Solid
 
 **Root Props:**
 
-| Prop         | Type                                      | Required | Description                                                                                         |
-| ------------ | ----------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild`    | `(props: ParentProps<'div'>) => Element`  | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `autoStart`  | `boolean`                                 | No       | Whether the timer should start automatically                                                        |
-| `countdown`  | `boolean`                                 | No       | Whether the timer should countdown, decrementing the timer on each tick.                            |
-| `ids`        | `Partial<{ root: string; area: string }>` | No       | The ids of the timer parts                                                                          |
-| `interval`   | `number`                                  | No       | The interval in milliseconds to update the timer count.                                             |
-| `onComplete` | `() => void`                              | No       | Function invoked when the timer is completed                                                        |
-| `onTick`     | `(details: TickDetails) => void`          | No       | Function invoked when the timer ticks                                                               |
-| `startMs`    | `number`                                  | No       | The total duration of the timer in milliseconds.                                                    |
-| `targetMs`   | `number`                                  | No       | The minimum count of the timer in milliseconds.                                                     |
+| Prop      | Type                                     | Required | Description                                                                                         |
+| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Root Data Attributes:**
+
+| Attribute          | Value                                                   |
+| ------------------ | ------------------------------------------------------- | -------- |
+| `[data-scope]`     | toast                                                   |
+| `[data-part]`      | root                                                    |
+| `[data-state]`     | "open"                                                  | "closed" |
+| `[data-type]`      | The type of the item                                    |
+| `[data-placement]` | The placement of the toast                              |
+| `[data-align]`     |                                                         |
+| `[data-side]`      | The side of the trigger that the toast is positioned on |
+| `[data-mounted]`   | Present when mounted                                    |
+| `[data-paused]`    | Present when paused                                     |
+| `[data-first]`     |                                                         |
+| `[data-sibling]`   |                                                         |
+| `[data-stack]`     |                                                         |
+| `[data-overlap]`   | Present when overlapping                                |
 
 **ActionTrigger Props:**
 
 | Prop      | Type                                        | Required | Description                                                                                         |
 | --------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `action`  | `TimerAction`                               | Yes      |                                                                                                     |
 | `asChild` | `(props: ParentProps<'button'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 
-**Area Props:**
+**CloseTrigger Props:**
+
+| Prop      | Type                                        | Required | Description                                                                                         |
+| --------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `(props: ParentProps<'button'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Description Props:**
 
 | Prop      | Type                                     | Required | Description                                                                                         |
 | --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
 | `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 
-**Control Props:**
+**Store Props:**
+
+| Prop                                                   | Type        | Required     | Description                                                                                            |
+| ------------------------------------------------------ | ----------- | ------------ | ------------------------------------------------------------------------------------------------------ | ------ | ----------------- | --- | --------------------------------------------------------- |
+| `duration`                                             | `number`    | No           | The duration of the toast.                                                                             |
+| By default, it is determined by the type of the toast. |
+| `gap`                                                  | `number`    | No           | The gap between the toasts                                                                             |
+| `hotkey`                                               | `string[]`  | No           | The hotkey that will move focus to the toast group                                                     |
+| `max`                                                  | `number`    | No           | The maximum number of toasts. When the number of toasts exceeds this limit, the new toasts are queued. |
+| `offsets`                                              | `string     | Record<'top' | 'bottom'                                                                                               | 'left' | 'right', string>` | No  | The offset from the safe environment edge of the viewport |
+| `overlap`                                              | `boolean`   | No           | Whether to overlap the toasts                                                                          |
+| `pauseOnPageIdle`                                      | `boolean`   | No           | Whether to pause toast when the user leaves the browser tab                                            |
+| `placement`                                            | `Placement` | No           | The placement of the toast                                                                             |
+| `removeDelay`                                          | `number`    | No           | The duration for the toast to kept alive before it is removed.                                         |
+| Useful for exit transitions.                           |
+
+**Title Props:**
 
 | Prop      | Type                                     | Required | Description                                                                                         |
 | --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
 | `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 
-**Item Props:**
+**Toaster Props:**
 
-| Prop      | Type                                     | Required | Description                                                                                         |
-| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `type`    | `keyof Time<number>`                     | Yes      |                                                                                                     |
-| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-
-**Item Data Attributes:**
-
-| Attribute      | Value                |
-| -------------- | -------------------- |
-| `[data-scope]` | timer                |
-| `[data-part]`  | item                 |
-| `[data-type]`  | The type of the item |
-
-**Item CSS Variables:**
-
-| Variable  | Description       |
-| --------- | ----------------- |
-| `--value` | The current value |
-
-**RootProvider Props:**
-
-| Prop      | Type                                     | Required | Description                                                                                         |
-| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `value`   | `UseTimerReturn`                         | Yes      |                                                                                                     |
-| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-
-**Separator Props:**
-
-| Prop      | Type                                     | Required | Description                                                                                         |
-| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| Prop          | Type                                     | Required   | Description                                                                                         |
+| ------------- | ---------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `toaster`     | `CreateToasterReturn`                    | Yes        |                                                                                                     |
+| `asChild`     | `(props: ParentProps<'div'>) => Element` | No         | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `dir`         | `'ltr'                                   | 'rtl'`     | No                                                                                                  | The document's text/writing direction. |
+| `getRootNode` | `() => Node                              | ShadowRoot | Document`                                                                                           | No                                     | A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron. |
 
 #### Vue
 
 **Root Props:**
 
-| Prop        | Type                                      | Required | Description                                                                                         |
-| ----------- | ----------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild`   | `boolean`                                 | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `autoStart` | `boolean`                                 | No       | Whether the timer should start automatically                                                        |
-| `countdown` | `boolean`                                 | No       | Whether the timer should countdown, decrementing the timer on each tick.                            |
-| `id`        | `string`                                  | No       | The unique identifier of the machine.                                                               |
-| `ids`       | `Partial<{ root: string; area: string }>` | No       | The ids of the timer parts                                                                          |
-| `interval`  | `number`                                  | No       | The interval in milliseconds to update the timer count.                                             |
-| `startMs`   | `number`                                  | No       | The total duration of the timer in milliseconds.                                                    |
-| `targetMs`  | `number`                                  | No       | The minimum count of the timer in milliseconds.                                                     |
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Root Data Attributes:**
+
+| Attribute          | Value                                                   |
+| ------------------ | ------------------------------------------------------- | -------- |
+| `[data-scope]`     | toast                                                   |
+| `[data-part]`      | root                                                    |
+| `[data-state]`     | "open"                                                  | "closed" |
+| `[data-type]`      | The type of the item                                    |
+| `[data-placement]` | The placement of the toast                              |
+| `[data-align]`     |                                                         |
+| `[data-side]`      | The side of the trigger that the toast is positioned on |
+| `[data-mounted]`   | Present when mounted                                    |
+| `[data-paused]`    | Present when paused                                     |
+| `[data-first]`     |                                                         |
+| `[data-sibling]`   |                                                         |
+| `[data-stack]`     |                                                         |
+| `[data-overlap]`   | Present when overlapping                                |
 
 **ActionTrigger Props:**
 
-| Prop      | Type          | Required | Description                                                                                         |
-| --------- | ------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `action`  | `TimerAction` | Yes      |                                                                                                     |
-| `asChild` | `boolean`     | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 
-**Area Props:**
+**CloseTrigger Props:**
 
 | Prop      | Type      | Required | Description                                                                                         |
 | --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 
-**Control Props:**
+**Description Props:**
 
 | Prop      | Type      | Required | Description                                                                                         |
 | --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 
-**Item Props:**
+**Store Props:**
 
-| Prop      | Type                 | Required | Description                                                                                         |
-| --------- | -------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `type`    | `keyof Time<number>` | Yes      |                                                                                                     |
-| `asChild` | `boolean`            | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| Prop                                                   | Type        | Required     | Description                                                                                            |
+| ------------------------------------------------------ | ----------- | ------------ | ------------------------------------------------------------------------------------------------------ | ------ | ----------------- | --- | --------------------------------------------------------- |
+| `duration`                                             | `number`    | No           | The duration of the toast.                                                                             |
+| By default, it is determined by the type of the toast. |
+| `gap`                                                  | `number`    | No           | The gap between the toasts                                                                             |
+| `hotkey`                                               | `string[]`  | No           | The hotkey that will move focus to the toast group                                                     |
+| `max`                                                  | `number`    | No           | The maximum number of toasts. When the number of toasts exceeds this limit, the new toasts are queued. |
+| `offsets`                                              | `string     | Record<'top' | 'bottom'                                                                                               | 'left' | 'right', string>` | No  | The offset from the safe environment edge of the viewport |
+| `overlap`                                              | `boolean`   | No           | Whether to overlap the toasts                                                                          |
+| `pauseOnPageIdle`                                      | `boolean`   | No           | Whether to pause toast when the user leaves the browser tab                                            |
+| `placement`                                            | `Placement` | No           | The placement of the toast                                                                             |
+| `removeDelay`                                          | `number`    | No           | The duration for the toast to kept alive before it is removed.                                         |
+| Useful for exit transitions.                           |
 
-**Item Data Attributes:**
+**Title Props:**
 
-| Attribute      | Value                |
-| -------------- | -------------------- |
-| `[data-scope]` | timer                |
-| `[data-part]`  | item                 |
-| `[data-type]`  | The type of the item |
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 
-**Item CSS Variables:**
-
-| Variable  | Description       |
-| --------- | ----------------- |
-| `--value` | The current value |
-
-**RootProvider Props:**
+**Toaster Props:**
 
 | Prop      | Type                  | Required | Description                                                                                         |
 | --------- | --------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `value`   | `TimerApi<PropTypes>` | Yes      |                                                                                                     |
+| `toaster` | `CreateToasterReturn` | Yes      |                                                                                                     |
 | `asChild` | `boolean`             | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-
-**Separator Props:**
-
-| Prop      | Type      | Required | Description                                                                                         |
-| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 
 #### Svelte
 
 **Root Props:**
 
-| Prop         | Type                                      | Required | Description                                                                                         |
-| ------------ | ----------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild`    | `Snippet<[PropsFn<'div'>]>`               | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `autoStart`  | `boolean`                                 | No       | Whether the timer should start automatically                                                        |
-| `countdown`  | `boolean`                                 | No       | Whether the timer should countdown, decrementing the timer on each tick.                            |
-| `id`         | `string`                                  | No       | The unique identifier of the machine.                                                               |
-| `ids`        | `Partial<{ root: string; area: string }>` | No       | The ids of the timer parts                                                                          |
-| `interval`   | `number`                                  | No       | The interval in milliseconds to update the timer count.                                             |
-| `onComplete` | `() => void`                              | No       | Function invoked when the timer is completed                                                        |
-| `onTick`     | `(details: TickDetails) => void`          | No       | Function invoked when the timer ticks                                                               |
-| `ref`        | `Element`                                 | No       |                                                                                                     |
-| `startMs`    | `number`                                  | No       | The total duration of the timer in milliseconds.                                                    |
-| `targetMs`   | `number`                                  | No       | The minimum count of the timer in milliseconds.                                                     |
+| Prop      | Type                        | Required | Description                                                                                         |
+| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                   | No       |                                                                                                     |
+
+**Root Data Attributes:**
+
+| Attribute          | Value                                                   |
+| ------------------ | ------------------------------------------------------- | -------- |
+| `[data-scope]`     | toast                                                   |
+| `[data-part]`      | root                                                    |
+| `[data-state]`     | "open"                                                  | "closed" |
+| `[data-type]`      | The type of the item                                    |
+| `[data-placement]` | The placement of the toast                              |
+| `[data-align]`     |                                                         |
+| `[data-side]`      | The side of the trigger that the toast is positioned on |
+| `[data-mounted]`   | Present when mounted                                    |
+| `[data-paused]`    | Present when paused                                     |
+| `[data-first]`     |                                                         |
+| `[data-sibling]`   |                                                         |
+| `[data-stack]`     |                                                         |
+| `[data-overlap]`   | Present when overlapping                                |
 
 **ActionTrigger Props:**
 
 | Prop      | Type                           | Required | Description                                                                                         |
 | --------- | ------------------------------ | -------- | --------------------------------------------------------------------------------------------------- |
-| `action`  | `TimerAction`                  | Yes      |                                                                                                     |
 | `asChild` | `Snippet<[PropsFn<'button'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 | `ref`     | `Element`                      | No       |                                                                                                     |
 
-**Area Props:**
+**CloseTrigger Props:**
 
-| Prop      | Type                        | Required | Description                                                                                         |
-| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `ref`     | `Element`                   | No       |                                                                                                     |
+| Prop      | Type                           | Required | Description                                                                                         |
+| --------- | ------------------------------ | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `Snippet<[PropsFn<'button'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                      | No       |                                                                                                     |
 
 **Context Props:**
 
-| Prop  | Type                         | Required | Description |
-| ----- | ---------------------------- | -------- | ----------- |
-| `api` | `Snippet<[UseTimerContext]>` | No       |             |
+| Prop     | Type                         | Required | Description |
+| -------- | ---------------------------- | -------- | ----------- |
+| `render` | `Snippet<[UseToastContext]>` | Yes      |             |
 
-**Control Props:**
+**Description Props:**
+
+| Prop      | Type                        | Required | Description                                                                                         |
+| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                   | No       |                                                                                                     |
+
+**Store Props:**
+
+| Prop                                                   | Type        | Required     | Description                                                                                            |
+| ------------------------------------------------------ | ----------- | ------------ | ------------------------------------------------------------------------------------------------------ | ------ | ----------------- | --- | --------------------------------------------------------- |
+| `duration`                                             | `number`    | No           | The duration of the toast.                                                                             |
+| By default, it is determined by the type of the toast. |
+| `gap`                                                  | `number`    | No           | The gap between the toasts                                                                             |
+| `hotkey`                                               | `string[]`  | No           | The hotkey that will move focus to the toast group                                                     |
+| `max`                                                  | `number`    | No           | The maximum number of toasts. When the number of toasts exceeds this limit, the new toasts are queued. |
+| `offsets`                                              | `string     | Record<'top' | 'bottom'                                                                                               | 'left' | 'right', string>` | No  | The offset from the safe environment edge of the viewport |
+| `overlap`                                              | `boolean`   | No           | Whether to overlap the toasts                                                                          |
+| `pauseOnPageIdle`                                      | `boolean`   | No           | Whether to pause toast when the user leaves the browser tab                                            |
+| `placement`                                            | `Placement` | No           | The placement of the toast                                                                             |
+| `removeDelay`                                          | `number`    | No           | The duration for the toast to kept alive before it is removed.                                         |
+| Useful for exit transitions.                           |
+
+**Title Props:**
 
 | Prop      | Type                        | Required | Description                                                                                         |
 | --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
 | `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 | `ref`     | `Element`                   | No       |                                                                                                     |
 
-**Item Props:**
+**Toaster Props:**
 
-| Prop      | Type                        | Required | Description                                                                                         |
-| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `type`    | `keyof Time<number>`        | Yes      |                                                                                                     |
-| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `ref`     | `Element`                   | No       |                                                                                                     |
-
-**Item Data Attributes:**
-
-| Attribute      | Value                |
-| -------------- | -------------------- |
-| `[data-scope]` | timer                |
-| `[data-part]`  | item                 |
-| `[data-type]`  | The type of the item |
-
-**Item CSS Variables:**
-
-| Variable  | Description       |
-| --------- | ----------------- |
-| `--value` | The current value |
-
-**RootProvider Props:**
-
-| Prop      | Type                        | Required | Description                                                                                         |
-| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `value`   | `UseTimerReturn`            | Yes      |                                                                                                     |
-| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `ref`     | `Element`                   | No       |                                                                                                     |
-
-**Separator Props:**
-
-| Prop      | Type                        | Required | Description                                                                                         |
-| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `ref`     | `Element`                   | No       |                                                                                                     |
+| Prop          | Type                  | Required   | Description           |
+| ------------- | --------------------- | ---------- | --------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `toaster`     | `CreateToasterReturn` | Yes        | The toaster instance. |
+| `dir`         | `'ltr'                | 'rtl'`     | No                    | The document's text/writing direction. |
+| `getRootNode` | `() => Node           | ShadowRoot | Document`             | No                                     | A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron. |
+| `ref`         | `Element`             | No         |                       |
 
 ### Context
 
 **API:**
 
-| Property          | Type           | Description                                  |
-| ----------------- | -------------- | -------------------------------------------- |
-| `running`         | `boolean`      | Whether the timer is running.                |
-| `paused`          | `boolean`      | Whether the timer is paused.                 |
-| `time`            | `Time`         | The formatted timer count value.             |
-| `formattedTime`   | `Time<string>` | The formatted time parts of the timer count. |
-| `start`           | `VoidFunction` | Function to start the timer.                 |
-| `pause`           | `VoidFunction` | Function to pause the timer.                 |
-| `resume`          | `VoidFunction` | Function to resume the timer.                |
-| `reset`           | `VoidFunction` | Function to reset the timer.                 |
-| `restart`         | `VoidFunction` | Function to restart the timer.               |
-| `progressPercent` | `number`       | The progress percentage of the timer.        |
+| Property    | Type                                                         | Description                  |
+| ----------- | ------------------------------------------------------------ | ---------------------------- |
+| `getCount`  | `() => number`                                               | The total number of toasts   |
+| `getToasts` | `() => ToastProps[]`                                         | The toasts                   |
+| `subscribe` | `(callback: (toasts: Options<O>[]) => void) => VoidFunction` | Subscribe to the toast group |

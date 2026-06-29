@@ -16,7 +16,6 @@ import {
   ToastExample,
   ToastTypesExample,
   UpdateToastExample,
-  VaryingHeightToastExample,
   toastBasicData,
   toastDurationData,
   toastExampleCss,
@@ -25,7 +24,6 @@ import {
   toastPlacementData,
   toastPromiseData,
   toastTypesData,
-  toastVaryingHeightData,
 } from '@/components/examples/toast';
 
 ## API Reference
@@ -178,15 +176,16 @@ behavior for `ActionTrigger` and `CloseTrigger`.
 
 ### Default props
 
-| Prop                        | Default              | Notes                                                                                      |
-| --------------------------- | -------------------- | ------------------------------------------------------------------------------------------ |
-| `createToaster.gap`         | `16`                 | Gap between toast items.                                                                   |
-| `createToaster.max`         | `24`                 | New toasts are queued after the visible stack reaches this limit.                          |
-| `createToaster.hotkey`      | `["altKey", "KeyT"]` | Moves focus to the toast group.                                                            |
-| `createToaster.offsets`     | `"1rem"`             | Safe-edge offset for the toast group.                                                      |
-| `createToaster.overlap`     | `false`              | Ark stack mode. Use `true` for overlapped stacks.                                          |
-| `createToaster.placement`   | `"bottom"`           | Use Ark placements: `top-start`, `top`, `top-end`, `bottom-start`, `bottom`, `bottom-end`. |
-| `createToaster.removeDelay` | `200`                | Keeps closed toasts mounted long enough for exit transitions.                              |
+| Prop                            | Default              | Notes                                                                                      |
+| ------------------------------- | -------------------- | ------------------------------------------------------------------------------------------ |
+| `createToaster.gap`             | `16`                 | Gap between toast items.                                                                   |
+| `createToaster.max`             | `24`                 | New toasts are queued after the visible stack reaches this limit.                          |
+| `createToaster.hotkey`          | `["altKey", "KeyT"]` | Moves focus to the toast group.                                                            |
+| `createToaster.offsets`         | `"1rem"`             | Safe-edge offset for the toast group.                                                      |
+| `createToaster.overlap`         | `false`              | Ark stack mode. Use `true` for overlapped stacks.                                          |
+| `createToaster.pauseOnPageIdle` | `true`               | Pauses timers while the page is idle.                                                      |
+| `createToaster.placement`       | `"bottom"`           | Use Ark placements: `top-start`, `top`, `top-end`, `bottom-start`, `bottom`, `bottom-end`. |
+| `createToaster.removeDelay`     | `200`                | Keeps closed toasts mounted long enough for exit transitions.                              |
 
 ### Behavioral notes
 
@@ -197,6 +196,8 @@ behavior for `ActionTrigger` and `CloseTrigger`.
 - `toast.duration` controls one toast; `createToaster({ duration })` controls the default.
 - `toast.onStatusChange(details)` receives Ark status changes for `visible`, `dismissing`, and
   `unmounted`.
+- When creating a toast inside an effect, defer the store call with `queueMicrotask()` to avoid
+  React `flushSync` warnings.
 - `Toast.Root` exposes Ark state attributes such as `data-state`, `data-type`, `data-placement`,
   `data-side`, `data-mounted`, `data-paused`, `data-first`, `data-sibling`, `data-stack`, and
   `data-overlap`.
@@ -314,7 +315,7 @@ dismissal.
   <Preview.Data>{toastDurationData}</Preview.Data>
 </Preview>
 
-### Max Toasts
+### Max Visible
 
 Set `max` on the toaster store when bursts should queue instead of filling the screen.
 
@@ -369,59 +370,6 @@ Set `max` on the toaster store when bursts should queue instead of filling the s
 
   <Preview.CSS>{toastExampleCss}</Preview.CSS>
   <Preview.Data>{toastMaxData}</Preview.Data>
-</Preview>
-
-### Always Expanded
-
-Use Ark's `overlap: false` option when stacked toasts should stay fully readable instead of
-overlapping until hover or focus.
-
-<Preview>
-  <ExpandedToastExample />
-
-  <Preview.Code>
-    {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
-
-      const toaster = createToaster({
-        placement: "bottom-end",
-        overlap: false,
-        gap: 16,
-      });
-
-      export function App() {
-        return (
-          <>
-            <Button
-              onClick={() =>
-                toaster.info({
-                  title: "Expanded toast",
-                  description: "Create several notifications to compare the always-expanded stack.",
-                })
-              }
-            >
-              Create expanded toast
-            </Button>
-            <Portal>
-              <Toaster toaster={toaster}>
-                {(toast) => (
-                  <Toast key={toast.id}>
-                    <Toast.Title />
-                    <Toast.Description />
-                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                  </Toast>
-                )}
-              </Toaster>
-            </Portal>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{toastExampleCss}</Preview.CSS>
-  <Preview.Data>{toastExpandedData}</Preview.Data>
 </Preview>
 
 ### Placement
@@ -665,35 +613,36 @@ change in place.
   <Preview.Data>{toastBasicData}</Preview.Data>
 </Preview>
 
-### Varying Height
+### Always Expanded
 
-Ark measures each toast and exposes `--height`, so stacks with mixed description lengths animate
-without manual sizing.
+Set `overlap: false` when every toast should remain fully visible instead of collapsing into an
+overlapping stack. This is an additional Ark store configuration, not a separate component mode.
 
 <Preview>
-  <VaryingHeightToastExample />
+  <ExpandedToastExample />
 
   <Preview.Code>
     {`
       import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
-      import { useState } from "react";
 
-      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
+      const toaster = createToaster({
+        placement: "bottom-end",
+        overlap: false,
+        gap: 16,
+      });
 
       export function App() {
-        const [count, setCount] = useState(0);
-
         return (
           <>
             <Button
-              onClick={() => {
-                const next = count + 1;
-                const description = descriptions[Math.floor(Math.random() * descriptions.length)];
-                setCount(next);
-                toaster.info({ title: \`Notification \${next}\`, description });
-              }}
+              onClick={() =>
+                toaster.info({
+                  title: "Expanded toast",
+                  description: "Each notification remains fully visible in the stack.",
+                })
+              }
             >
-              Create toast
+              Create expanded toast
             </Button>
             <Portal>
               <Toaster toaster={toaster}>
@@ -714,7 +663,7 @@ without manual sizing.
   </Preview.Code>
 
   <Preview.CSS>{toastExampleCss}</Preview.CSS>
-  <Preview.Data>{toastVaryingHeightData}</Preview.Data>
+  <Preview.Data>{toastExpandedData}</Preview.Data>
 </Preview>
 
 ### Custom Composition
@@ -799,9 +748,12 @@ Important Ark hooks:
 - `[data-scope='toast'][data-part='root']` on `Toast.Root`
 - `[data-scope='toast'][data-part='title']` on `Toast.Title`
 - `[data-scope='toast'][data-part='description']` on `Toast.Description`
-- `[data-scope='toast'][data-part='actionTrigger']` on `Toast.ActionTrigger`
-- `[data-scope='toast'][data-part='closeTrigger']` on `Toast.CloseTrigger`
+- `[data-scope='toast'][data-part='action-trigger']` on `Toast.ActionTrigger`
+- `[data-scope='toast'][data-part='close-trigger']` on `Toast.CloseTrigger`
 - `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity`, and `--gap` on `Toast.Root`
 
 moduix also adds stable hooks: `data-slot="toast-toaster"`, `toast-root`, `toast-title`,
 `toast-description`, `toast-action-trigger`, and `toast-close-trigger`.
+
+At viewport widths up to `40rem`, moduix follows Ark's mobile guidance: the toaster group spans the
+viewport and each root uses `--gap` for safe inline spacing.

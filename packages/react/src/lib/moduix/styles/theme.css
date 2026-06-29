@@ -2928,17 +2928,17 @@
   --timer-width: initial; /* max-content */
 
   /* Toast */
-  --toast-action-bg: initial; /* var(--color-background) */
+  --toast-action-bg: initial; /* transparent */
   --toast-action-bg-hover: initial; /* var(--color-accent) */
   --toast-action-border-color: initial; /* var(--color-border) */
   --toast-action-border-width: initial; /* var(--toast-border-width, var(--border-width-sm)) */
   --toast-action-color: initial; /* var(--color-foreground) */
   --toast-action-font-size: initial; /* var(--text-xs) */
   --toast-action-font-weight: initial; /* var(--weight-medium) */
-  --toast-action-gap: initial; /* 0.375rem */
+  --toast-action-gap: initial; /* var(--spacing-2) */
   --toast-action-line-height: initial; /* var(--line-height-text-xs) */
   --toast-action-margin-top: initial; /* 0.5rem */
-  --toast-action-min-height: initial; /* 1.625rem */
+  --toast-action-min-height: initial; /* var(--size-xs) */
   --toast-action-padding-x: initial; /* 0.5rem */
   --toast-action-padding-y: initial; /* 0.25rem */
   --toast-action-radius: initial; /* var(--radius-sm) */

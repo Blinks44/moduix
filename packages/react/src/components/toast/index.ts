@@ -1,6 +1,7 @@
 export { Toast, Toaster, createToaster, useToastContext } from './Toast';
 export type {
   CreateToasterReturn,
+  CreateToasterProps,
   ToastActionOptions,
   ToastActionTriggerProps,
   ToastCloseTriggerProps,

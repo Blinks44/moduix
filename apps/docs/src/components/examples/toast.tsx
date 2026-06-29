@@ -11,7 +11,7 @@ import {
 } from '@moduix/react';
 import { useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './toast.module.css';
 
 type ToastType = Extract<ToastOptions['type'], 'success' | 'error' | 'warning' | 'info'>;
@@ -29,7 +29,6 @@ const maxToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 
 const promiseToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
 const typeToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
 const updateToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
-const varyingHeightToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
 const customToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 const placements = ['top-start', 'top', 'top-end', 'bottom-start', 'bottom', 'bottom-end'] as const;
 const placementToasters: Record<ToastPlacement, ToastToaster> = {
@@ -53,10 +52,10 @@ export const toastOverrideCssProperties: CssPropertyInput[] = [
   ['--toast-action-color', 'var(--color-foreground)', 'Controls action text color.'],
   ['--toast-action-font-size', 'var(--text-xs)', 'Controls action font size.'],
   ['--toast-action-font-weight', 'var(--weight-medium)', 'Controls action font weight.'],
-  ['--toast-action-gap', '0.375rem', 'Controls spacing inside action buttons.'],
+  ['--toast-action-gap', 'var(--spacing-2)', 'Controls spacing inside action buttons.'],
   ['--toast-action-line-height', 'var(--line-height-text-xs)', 'Controls action line height.'],
   ['--toast-action-margin-top', '0.5rem', 'Controls action spacing from the description.'],
-  ['--toast-action-min-height', '1.625rem', 'Controls action button minimum height.'],
+  ['--toast-action-min-height', 'var(--size-xs)', 'Controls action button minimum height.'],
   ['--toast-action-padding-x', '0.5rem', 'Controls action horizontal padding.'],
   ['--toast-action-padding-y', '0.25rem', 'Controls action vertical padding.'],
   ['--toast-action-radius', 'var(--radius-sm)', 'Controls action button border radius.'],
@@ -113,18 +112,6 @@ export const toastOverrideCssProperties: CssPropertyInput[] = [
   ['--toast-viewport-inset', '1rem', 'Controls toast max-width distance from the window edge.'],
   ['--toast-width', '20rem', 'Controls toast width.'],
   ['--toast-z-index', 'var(--z-toast)', 'Controls toast stack z-index.'],
-];
-
-export const toastPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--toast-bg', 'var(--color-popover)', 'Controls toast background color.'],
-  ['--toast-border-color', 'var(--color-border)', 'Controls toast border color.'],
-  ['--toast-color', 'var(--color-popover-foreground)', 'Controls toast text color.'],
-  ['--toast-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
-  ['--toast-focus-ring-color', 'var(--color-ring)', 'Controls action and close focus rings.'],
-  ['--toast-radius', 'var(--radius-lg)', 'Controls toast border radius.'],
-  ['--toast-shadow', 'var(--shadow-lg)', 'Controls toast shadow.'],
-  ['--toast-title-font-size', 'var(--text-sm)', 'Controls title font size.'],
-  ['--toast-width', '20rem', 'Controls toast width.'],
 ];
 
 export const toastExampleCss = `
@@ -197,30 +184,10 @@ export const toastTypesData = `
 const types = ["success", "error", "warning", "info"];
 `;
 
-export const toastVaryingHeightData = `
-const descriptions = [
-  "Your changes have been saved.",
-  "File uploaded successfully. You can view it in your documents folder.",
-  "Your meeting has been scheduled for tomorrow at 10:00 AM.",
-  "We noticed unusual activity on your account. Please verify your identity.",
-];
-`;
-
 export function ToastCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
       properties={toastOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function ToastCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={toastPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }
@@ -341,7 +308,7 @@ export function ExpandedToastExample() {
         onClick={() =>
           expandedToaster.info({
             title: 'Expanded toast',
-            description: 'Create several notifications to compare the always-expanded stack.',
+            description: 'Each notification remains fully visible in the stack.',
           })
         }
       >
@@ -477,29 +444,6 @@ export function UpdateToastExample() {
   );
 }
 
-export function VaryingHeightToastExample() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <>
-      <Button
-        onClick={() => {
-          const next = count + 1;
-          const description = descriptions[Math.floor(Math.random() * descriptions.length)];
-          setCount(next);
-          varyingHeightToaster.info({
-            title: `Notification ${next}`,
-            description,
-          });
-        }}
-      >
-        Create toast
-      </Button>
-      <ToastRenderer toaster={varyingHeightToaster} />
-    </>
-  );
-}
-
 export function CustomToastExample() {
   return (
     <>
@@ -568,10 +512,3 @@ const uploadFile = () =>
       }
     }, 2000);
   });
-
-const descriptions = [
-  'Your changes have been saved.',
-  'File uploaded successfully. You can view it in your documents folder.',
-  'Your meeting has been scheduled for tomorrow at 10:00 AM. We have sent a calendar invite to all participants.',
-  'We noticed unusual activity on your account. Please verify your identity using the link sent to your email address.',
-];

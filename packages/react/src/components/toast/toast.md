@@ -33,14 +33,15 @@ the library `CloseButton` as the default close trigger surface.
   and `Toast.Toaster`.
 - `Toaster`, `createToaster`, and `useToastContext` are also exported as standalone names for
   ergonomic imports.
-- `Toast.Title` renders `toast.title` from Ark context when no children are passed.
-- `Toast.Description` renders `toast.description` from Ark context when no children are passed.
+- Ark's `CreateToasterProps`, `CreateToasterReturn`, `ToasterProps`, toast option, placement,
+  status, action, promise, and context types are re-exported without local copies.
+- `Toast.Title` renders `toast.title` from Ark context when `children` is omitted. Passing `null`
+  intentionally renders no title content.
+- `Toast.Description` renders `toast.description` from Ark context when `children` is omitted.
+  Passing `null` intentionally renders no description content.
 - `Toast.CloseTrigger` renders `CloseButton.Root` by default and defaults its accessible label to
   `"Close toast"` when `aria-label` is omitted.
 - All Ark callback details and store method signatures pass through unchanged.
-- The old legacy region/provider layer is intentionally removed: no `ToastProvider`, `ToastRegion`,
-  `ToastViewport`, `ToastRoot`, `ToastAction`, `ToastClose`, `createToastManager`,
-  `useToastManager`, `ToastAnchoredRegion`, or anchored manager helpers remain.
 
 ## Anatomy and exported parts
 
@@ -114,16 +115,17 @@ export function ToastExample() {
 - `Anatomy`: preserved through Ark-shaped parts and the required `Toaster` render prop.
 - `Setup`: preserved through `createToaster(options)`.
 - `Basic`: supported through `toaster.create(options)`.
+- `Types`: supported through `success`, `error`, `warning`, and `info` store methods plus
+  `data-type`.
+- `Promise Toast`: supported through `toaster.promise()`.
+- `Update`: supported through `toaster.update(id, options)`.
 - `Action`: supported through `toast.action` and `Toast.ActionTrigger`.
 - `Duration`: supported through per-toast `duration` and store-level `duration`.
-- `Max Toasts`: supported through `createToaster({ max })`.
-- `Always Expanded`: supported through Ark `createToaster({ overlap: false })`.
+- `Max Visible`: supported through `createToaster({ max })`.
 - `Placement`: supported through Ark placements `top-start`, `top`, `top-end`, `bottom-start`,
   `bottom`, and `bottom-end`.
-- `Promise Toast`: supported through `toaster.promise()`.
-- `Types`: supported through typed helpers and `data-type`.
-- `Update`: supported through `toaster.update(id, options)`.
-- `Varying Height`: supported through Ark runtime measurement and `--height`.
+- `Toast in Effects`: supported by deferring store calls with `queueMicrotask()`.
+- `Styling`: preserves Ark runtime layout variables, type selectors, and mobile group/root sizing.
 - `Context`: exposed through `Toast.Context` and `useToastContext()`.
 
 ## Accessibility and state
@@ -164,6 +166,8 @@ Primary CSS variables:
 | `--toast-title-font-weight`      | `var(--weight-semibold)`          |
 | `--toast-description-color`      | `var(--color-muted-foreground)`   |
 | `--toast-action-bg-hover`        | `var(--color-accent)`             |
+| `--toast-action-gap`             | `var(--spacing-2)`                |
+| `--toast-action-min-height`      | `var(--size-xs)`                  |
 | `--toast-close-bg-hover`         | `var(--color-muted)`              |
 | `--toast-close-focus-ring-width` | `var(--border-width-md)`          |
 | `--toast-close-size`             | `28px`                            |
@@ -173,9 +177,10 @@ Primary CSS variables:
 | `--toast-opacity-transition-out` | `200ms`                           |
 | `--toast-z-index`                | `var(--z-toast)`                  |
 
-The CSS targets Ark state through `[data-scope='toast'][data-part='root']`, root `data-state`, root
-`data-type`, and Ark runtime variables. Moduix `data-slot` hooks are layered on top for stable
-consumer selectors.
+The CSS keeps Ark `data-scope` and `data-part` attributes intact, styles state through root
+`data-state` and `data-type`, and consumes Ark runtime variables. Moduix `data-slot` hooks are
+layered on top for stable consumer selectors. On viewports up to `40rem`, the group spans the
+viewport and roots use Ark's `--gap` variable for safe inline spacing.
 
 ## Intentional sugar and differences from upstream
 
@@ -193,8 +198,7 @@ consumer selectors.
 
 ## Agent notes
 
-- Do not reintroduce a provider/region manager layer. Ark's `createToaster` store is the public
-  state model.
+- Ark's `createToaster` store is the public state model.
 - Keep `Toast.Root` as the outer node inside `Toaster` render props; Ark relies on it for layout,
   measurement, and dismiss lifecycle.
 - Preserve Ark placement values. Do not map them back to legacy `bottom-right` style names.
@@ -204,6 +208,9 @@ consumer selectors.
 
 ## Local changelog
 
+- 2026-06-29: Re-exported Ark toaster creation/prop types directly, allowed explicit `null`
+  title/description content, simplified placement-independent shadows, aligned action sizing with
+  library tokens, and added Ark-style mobile sizing.
 - 2026-06-21: Migrated Toast to Ark UI, replacing provider/region/manager APIs with
   `createToaster`, `Toaster`, and Ark namespace parts. Removed anchored toast helpers and legacy
   compatibility exports.

@@ -13,15 +13,10 @@ import styles from './Toast.module.css';
 
 const DEFAULT_CLOSE_TRIGGER_LABEL = 'Close toast';
 
-export type CreateToasterReturn = ReturnType<typeof createToaster>;
-export type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'toaster'> & {
-  toaster: CreateToasterReturn;
-};
-
-const Toaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(function Toaster(
-  { className, ...props },
-  ref,
-) {
+const Toaster = forwardRef<
+  ComponentRef<typeof ToasterPrimitive>,
+  ComponentProps<typeof ToasterPrimitive>
+>(function Toaster({ className, ...props }, ref) {
   return (
     <ToasterPrimitive
       ref={ref}
@@ -59,7 +54,7 @@ const ToastTitle = forwardRef<
       className={clsx(styles.title, normalizeClassName(className))}
       {...props}
     >
-      {children ?? toast.title}
+      {children === undefined ? toast.title : children}
     </ToastPrimitive.Title>
   );
 });
@@ -77,7 +72,7 @@ const ToastDescription = forwardRef<
       className={clsx(styles.description, normalizeClassName(className))}
       {...props}
     >
-      {children ?? toast.description}
+      {children === undefined ? toast.description : children}
     </ToastPrimitive.Description>
   );
 });
@@ -150,6 +145,8 @@ const Toast = Object.assign(ToastRoot, {
 
 export { Toast, Toaster, createToaster, useToastContext };
 export type {
+  CreateToasterProps,
+  CreateToasterReturn,
   ToastActionOptions,
   ToastActionTriggerProps,
   ToastCloseTriggerProps,
@@ -164,5 +161,6 @@ export type {
   ToastStoreProps,
   ToastTitleProps,
   ToastType,
+  ToasterProps,
   UseToastContext,
 } from '@ark-ui/react/toast';

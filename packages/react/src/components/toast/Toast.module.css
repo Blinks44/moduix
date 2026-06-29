@@ -41,16 +41,6 @@
       box-shadow var(--transition-fast);
     transition-timing-function: cubic-bezier(0.21, 1.02, 0.73, 1);
 
-    &[data-placement^='top'] {
-      box-shadow:
-        0 -0.25rem 0.75rem rgb(0 0 0 / 10%),
-        0 0 0.0625rem rgb(0 0 0 / 20%);
-    }
-
-    &[data-placement^='bottom'] {
-      box-shadow: var(--toast-shadow, var(--shadow-lg));
-    }
-
     &[data-state='closed'] {
       transition:
         translate var(--toast-transition-out, var(--duration-slow)),
@@ -108,8 +98,8 @@
     width: max-content;
     align-items: center;
     justify-content: center;
-    gap: var(--toast-action-gap, 0.375rem);
-    min-height: var(--toast-action-min-height, 1.625rem);
+    gap: var(--toast-action-gap, var(--spacing-2));
+    min-height: var(--toast-action-min-height, var(--size-xs));
     margin-top: var(--toast-action-margin-top, 0.5rem);
     border: var(--toast-action-border-width, var(--toast-border-width, var(--border-width-sm)))
       solid var(--toast-action-border-color, var(--toast-trigger-border-color-default));
@@ -155,5 +145,17 @@
     --close-button-focus-ring-offset: var(--toast-close-focus-ring-offset, 2px);
     --close-button-focus-ring-width: var(--toast-close-focus-ring-width, var(--border-width-md));
     --close-button-transition: var(--toast-close-transition, var(--transition-default));
+  }
+
+  @media (max-width: 40rem) {
+    .toaster {
+      width: 100%;
+    }
+
+    .root {
+      inset-inline: 0;
+      width: calc(100% - (var(--gap) * 2));
+      max-width: none;
+    }
   }
 }
