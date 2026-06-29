@@ -1,7 +1,7 @@
 import { BellIcon, CheckIcon, StarIcon, Toggle } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './toggle.module.css';
 
 export const toggleBasicCss = `
@@ -135,45 +135,10 @@ export const toggleOverrideCssProperties: CssPropertyInput[] = [
   ['--toggle-size-lg', 'var(--size-xl)', 'Controls large toggle height.'],
   ['--toggle-transition', 'var(--transition-default)', 'Controls state transition timing.'],
 ];
-export const togglePlaygroundCssProperties: CssPropertyInput[] = [
-  ['--toggle-default-bg', 'var(--color-background)', 'Controls default variant background.'],
-  [
-    '--toggle-default-bg-hover',
-    'var(--color-accent)',
-    'Controls default variant hover background.',
-  ],
-  ['--toggle-default-bg-pressed', 'var(--color-primary)', 'Controls pressed background.'],
-  ['--toggle-default-color', 'var(--color-foreground)', 'Controls default variant text color.'],
-  [
-    '--toggle-default-color-pressed',
-    'var(--color-primary-foreground)',
-    'Controls pressed text color.',
-  ],
-  ['--toggle-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--toggle-icon-size', '1rem', 'Controls nested SVG icon size.'],
-  ['--toggle-radius', 'var(--radius-md)', 'Controls toggle corner radius.'],
-];
-
 const toggleCssPropertiesReference = toggleOverrideCssProperties.map(normalizeCssProperty);
-const toggleCssPlaygroundReference = togglePlaygroundCssProperties.map(normalizeCssProperty);
 
-export function ToggleCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function ToggleCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={toggleCssPropertiesReference} />;
-}
-
-export function ToggleCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={toggleCssPlaygroundReference}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {

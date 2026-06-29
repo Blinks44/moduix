@@ -17,13 +17,13 @@ anatomy:
 ```tsx
 <Toggle.Root>
   <Toggle.Indicator />
-  <Toggle.Context>{/* optional state render prop */}</Toggle.Context>
 </Toggle.Root>
 ```
 
-The root renders a `button`. `Indicator` renders inline pressed/fallback content. Ark exposes
-`pressed`, `defaultPressed`, `onPressedChange(pressed)`, `disabled`, `asChild`, `Context`,
-`useToggle()`, and `useToggleContext()`.
+The root renders a `button`. `Indicator` renders inline pressed/fallback content. `Context` is a
+state reader rather than a DOM part. Ark exposes `pressed`, `defaultPressed`,
+`onPressedChange(pressed)`, `disabled`, `asChild`, `Context`, `useToggle()`, and
+`useToggleContext()`.
 
 ## Current behavior contract
 
@@ -46,8 +46,7 @@ The root renders a `button`. `Indicator` renders inline pressed/fallback content
 
 ```text
 Toggle / Toggle.Root
-├─ Toggle.Indicator (optional)
-└─ Toggle.Context (optional)
+└─ Toggle.Indicator (optional)
 ```
 
 | Part                     | data-slot          | Purpose                                                          |
@@ -161,8 +160,8 @@ Important hooks:
 | `data-state="on"`              | Preferred Ark selector for pressed state. |
 | `data-pressed`                 | Present when the toggle is pressed.       |
 
-Direct child `svg` elements inherit `--toggle-icon-size`. Icon-only sizes remove padding and size
-the root to a square box.
+Descendant `svg` elements inherit `--toggle-icon-size`. Icon-only sizes remove padding and keep the
+root at a non-shrinking square size.
 
 ## Intentional sugar and differences from upstream
 
@@ -185,6 +184,9 @@ the root to a square box.
 
 ## Local changelog
 
+- 2026-06-29: Simplified variant/state CSS to target Ark `data-state` and `data-disabled`
+  directly, kept pressed colors stable on hover, made icon-only sizes non-shrinking, and aligned
+  anatomy docs with Ark's DOM parts.
 - 2026-06-21: Changed the off-state default variant from transparent/no-border to
   `var(--color-background)` plus `var(--color-border)` so standalone toggles have visible affordance.
 - 2026-06-21: Migrated `Toggle` to Ark UI. Added `Toggle.Root`,

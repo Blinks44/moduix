@@ -112,9 +112,8 @@ as styles, icons, and small utilities.
 ## Anatomy
 
 ```text
-Toggle.Root
-├─ Toggle.Indicator (optional)
-└─ Toggle.Context (optional render-prop access)
+Toggle / Toggle.Root
+└─ Toggle.Indicator (optional)
 ```
 
 | Part                     | Role                                                                              |
@@ -157,6 +156,8 @@ buttons belong to one shared choice set.
 - Icon-only toggles need an accessible name such as `aria-label="Favorite"`.
 - `disabled` keeps the current visual state but prevents interaction.
 - Ark writes `data-state="on" | "off"`, `data-pressed`, and `data-disabled` for styling.
+- `useToggleContext()` must run below `Toggle`; `useToggle()` is the lower-level Ark state hook.
+- Ark Toggle does not expose `RootProvider` or a hidden form input.
 - legacy `render` and `nativeButton` are not part of the Ark-backed API; use `asChild`.
 
 ## Examples
@@ -458,5 +459,5 @@ for variants, sizes, focus ring, spacing, and icon sizing.
 - `data-pressed` is present when the toggle is pressed.
 - `data-variant` reflects the moduix visual variant.
 - `data-size` reflects the moduix size, including `icon-sm`, `icon-md`, and `icon-lg`.
-- `data-disabled` and the native `[disabled]` attribute drive disabled styles.
-- Direct child `svg` elements are sized through `--toggle-icon-size`.
+- `data-disabled` drives disabled styles; Ark also preserves the native `disabled` attribute.
+- Descendant `svg` elements are sized through `--toggle-icon-size`.

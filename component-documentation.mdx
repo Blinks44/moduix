@@ -1,92 +1,31 @@
-<ComponentPreview id="Toast" />
+<ComponentPreview id="Toggle" />
 
 ## Anatomy
 
-<Anatomy id="toast" />
+<Anatomy id="toggle" />
 
 ```tsx
-const toaster = createToaster({ placement: 'bottom-end' })
-
-<Toaster toaster={toaster}>
-  {(toast) => (
-    <Toast.Root>
-      <Toast.Title />
-      <Toast.Description />
-      <Toast.ActionTrigger />
-      <Toast.CloseTrigger />
-    </Toast.Root>
-  )}
-</Toaster>
-```
-
-## Setup
-
-To use the Toast component, create the toast engine using the `createToaster` function.
-
-This function manages the placement and grouping of toasts, and provides a `toast` object needed to create toast
-notification.
-
-```ts
-const toaster = createToaster({
-  placement: 'bottom-end',
-  overlap: true,
-  gap: 24,
-});
+<Toggle.Root>
+  <Toggle.Indicator />
+</Toggle.Root>
 ```
 
 ## Examples
-
-Here's an example of creating a toast using the `toast.create` method.
 
 **Example: basic**
 
 #### React
 
 ```tsx
-import { Portal } from '@ark-ui/react/portal';
-import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
-import { XIcon } from 'lucide-react';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const toaster = createToaster({
-  placement: 'bottom-end',
-  overlap: true,
-  gap: 24,
-});
+import { Toggle } from '@ark-ui/react/toggle';
+import { BoldIcon } from 'lucide-react';
+import styles from 'styles/toggle.module.css';
 
 export const Basic = () => {
   return (
-    <div>
-      <button
-        type="button"
-        className={button.Root}
-        onClick={() =>
-          toaster.create({
-            title: 'Scheduled for tomorrow',
-            description: 'Your meeting has been scheduled for tomorrow at 10am.',
-            type: 'info',
-          })
-        }
-      >
-        Schedule meeting
-      </button>
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast.Root key={toast.id} className={styles.Root}>
-              <Toast.Title className={styles.Title}>{toast.title}</Toast.Title>
-              <Toast.Description className={styles.Description}>
-                {toast.description}
-              </Toast.Description>
-              <Toast.CloseTrigger className={styles.CloseTrigger}>
-                <XIcon />
-              </Toast.CloseTrigger>
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
-    </div>
+    <Toggle.Root className={styles.Root}>
+      <BoldIcon />
+    </Toggle.Root>
   );
 };
 ```
@@ -94,50 +33,15 @@ export const Basic = () => {
 #### Solid
 
 ```tsx
-import { Portal } from 'solid-js/web';
-import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
-import { XIcon } from 'lucide-solid';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
+import { Toggle } from '@ark-ui/solid/toggle';
+import { BoldIcon } from 'lucide-solid';
+import styles from 'styles/toggle.module.css';
 
 export const Basic = () => {
-  const toaster = createToaster({
-    placement: 'bottom-end',
-    overlap: true,
-    gap: 24,
-  });
-
   return (
-    <div>
-      <button
-        type="button"
-        class={button.Root}
-        onClick={() =>
-          toaster.create({
-            title: 'Scheduled for tomorrow',
-            description: 'Your meeting has been scheduled for tomorrow at 10am.',
-            type: 'info',
-          })
-        }
-      >
-        Schedule meeting
-      </button>
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast.Root class={styles.Root}>
-              <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
-              <Toast.Description class={styles.Description}>
-                {toast().description}
-              </Toast.Description>
-              <Toast.CloseTrigger class={styles.CloseTrigger}>
-                <XIcon />
-              </Toast.CloseTrigger>
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
-    </div>
+    <Toggle.Root class={styles.Root}>
+      <BoldIcon />
+    </Toggle.Root>
   );
 };
 ```
@@ -146,41 +50,15 @@ export const Basic = () => {
 
 ```vue
 <script setup lang="ts">
-import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
-import { X } from 'lucide-vue-next';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const toaster = createToaster({
-  placement: 'bottom-end',
-  overlap: true,
-  gap: 16,
-});
-
-const createToast = () => {
-  toaster.create({
-    title: 'Scheduled for tomorrow',
-    description: 'Your meeting has been scheduled for tomorrow at 10am.',
-    type: 'info',
-  });
-};
+import { Toggle } from '@ark-ui/vue/toggle';
+import { BoldIcon } from 'lucide-vue-next';
+import styles from 'styles/toggle.module.css';
 </script>
 
 <template>
-  <div>
-    <button type="button" :class="button.Root" @click="createToast">Schedule meeting</button>
-    <Teleport to="body">
-      <Toaster :toaster="toaster" v-slot="toast">
-        <Toast.Root :class="styles.Root">
-          <Toast.Title :class="styles.Title">{{ toast.title }}</Toast.Title>
-          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
-          <Toast.CloseTrigger :class="styles.CloseTrigger">
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      </Toaster>
-    </Teleport>
-  </div>
+  <Toggle.Root :class="styles.Root">
+    <BoldIcon />
+  </Toggle.Root>
 </template>
 ```
 
@@ -188,158 +66,39 @@ const createToast = () => {
 
 ```svelte
 <script lang="ts">
-  import { Portal } from '@ark-ui/svelte/portal'
-  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
-  import { X } from 'lucide-svelte'
-  import button from 'styles/button.module.css'
-  import styles from 'styles/toast.module.css'
-
-  const toaster = createToaster({
-    placement: 'bottom-end',
-    overlap: true,
-    gap: 16,
-  })
-
-  function addToast() {
-    toaster.create({
-      title: 'Scheduled for tomorrow',
-      description: 'Your meeting has been scheduled for tomorrow at 10am.',
-      type: 'info',
-    })
-  }
+  import { Toggle } from '@ark-ui/svelte/toggle'
+  import { BoldIcon } from 'lucide-svelte'
+  import styles from 'styles/toggle.module.css'
 </script>
 
-<div>
-  <button type="button" class={button.Root} onclick={addToast}>Schedule meeting</button>
-  <Portal>
-    <Toaster {toaster}>
-      {#snippet children(toast)}
-        <Toast.Root class={styles.Root}>
-          <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
-          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
-          <Toast.CloseTrigger class={styles.CloseTrigger}>
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      {/snippet}
-    </Toaster>
-  </Portal>
-</div>
+<Toggle.Root class={styles.Root}>
+  <BoldIcon />
+</Toggle.Root>
 
 ```
 
-### Types
+### Controlled
 
-You can create different types of toasts (`success`, `error`, `warning`, `info`) with appropriate styling. For example,
-to create a success toast, you can do:
+Use the `pressed` and `onPressedChange` props to control the toggle's state.
 
-```ts
-toaster.success({
-  title: 'Success!',
-  description: 'Your changes have been saved.',
-});
-```
-
-**Example: types**
+**Example: controlled**
 
 #### React
 
 ```tsx
-import { Portal } from '@ark-ui/react/portal';
-import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
-import { CircleAlertIcon, TriangleAlertIcon, CircleCheckIcon, InfoIcon, XIcon } from 'lucide-react';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
+import { Toggle } from '@ark-ui/react/toggle';
+import { HeartIcon } from 'lucide-react';
+import { useState } from 'react';
+import styles from 'styles/toggle.module.css';
 
-const toaster = createToaster({
-  overlap: true,
-  placement: 'bottom-end',
-  gap: 16,
-});
-
-const iconMap = {
-  success: CircleCheckIcon,
-  error: CircleAlertIcon,
-  warning: TriangleAlertIcon,
-  info: InfoIcon,
-};
-
-export const Types = () => {
+export const Controlled = () => {
+  const [pressed, setPressed] = useState(false);
   return (
-    <div>
-      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-        <button
-          type="button"
-          className={button.Root}
-          onClick={() =>
-            toaster.success({
-              title: 'Changes saved',
-              description: 'Your profile has been updated successfully.',
-            })
-          }
-        >
-          Success
-        </button>
-        <button
-          type="button"
-          className={button.Root}
-          onClick={() =>
-            toaster.error({
-              title: 'Upload failed',
-              description: 'There was an error uploading your file.',
-            })
-          }
-        >
-          Error
-        </button>
-        <button
-          type="button"
-          className={button.Root}
-          onClick={() =>
-            toaster.warning({
-              title: 'Low storage',
-              description: 'You have less than 10% storage remaining.',
-            })
-          }
-        >
-          Warning
-        </button>
-        <button
-          type="button"
-          className={button.Root}
-          onClick={() =>
-            toaster.info({
-              title: 'Update available',
-              description: 'A new version of the app is ready to install.',
-            })
-          }
-        >
-          Info
-        </button>
-      </div>
-
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => {
-            const ToastIcon = toast.type ? iconMap[toast.type as keyof typeof iconMap] : undefined;
-            return (
-              <Toast.Root key={toast.id} className={styles.Root}>
-                <Toast.Title className={styles.Title}>
-                  {ToastIcon && <ToastIcon className={styles.Indicator} />}
-                  {toast.title}
-                </Toast.Title>
-                <Toast.Description className={styles.Description}>
-                  {toast.description}
-                </Toast.Description>
-                <Toast.CloseTrigger className={styles.CloseTrigger}>
-                  <XIcon />
-                </Toast.CloseTrigger>
-              </Toast.Root>
-            );
-          }}
-        </Toaster>
-      </Portal>
-    </div>
+    <Toggle.Root className={styles.Root} pressed={pressed} onPressedChange={setPressed}>
+      <Toggle.Indicator className={styles.Indicator} fallback={<HeartIcon />}>
+        <HeartIcon fill="currentColor" />
+      </Toggle.Indicator>
+    </Toggle.Root>
   );
 };
 ```
@@ -347,748 +106,19 @@ export const Types = () => {
 #### Solid
 
 ```tsx
-import { Portal } from 'solid-js/web';
-import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
-import { CircleAlertIcon, CircleCheckIcon, InfoIcon, TriangleAlertIcon, XIcon } from 'lucide-solid';
-import { Dynamic } from 'solid-js/web';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const iconMap = {
-  success: CircleCheckIcon,
-  error: CircleAlertIcon,
-  warning: TriangleAlertIcon,
-  info: InfoIcon,
-};
-
-export const Types = () => {
-  const toaster = createToaster({
-    overlap: true,
-    placement: 'bottom-end',
-    gap: 16,
-  });
-
-  return (
-    <div>
-      <div style={{ display: 'flex', gap: '12px', 'flex-wrap': 'wrap' }}>
-        <button
-          type="button"
-          class={button.Root}
-          onClick={() =>
-            toaster.success({
-              title: 'Changes saved',
-              description: 'Your profile has been updated successfully.',
-            })
-          }
-        >
-          Success
-        </button>
-        <button
-          type="button"
-          class={button.Root}
-          onClick={() =>
-            toaster.error({
-              title: 'Upload failed',
-              description: 'There was an error uploading your file.',
-            })
-          }
-        >
-          Error
-        </button>
-        <button
-          type="button"
-          class={button.Root}
-          onClick={() =>
-            toaster.warning({
-              title: 'Low storage',
-              description: 'You have less than 10% storage remaining.',
-            })
-          }
-        >
-          Warning
-        </button>
-        <button
-          type="button"
-          class={button.Root}
-          onClick={() =>
-            toaster.info({
-              title: 'Update available',
-              description: 'A new version of the app is ready to install.',
-            })
-          }
-        >
-          Info
-        </button>
-      </div>
-
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => {
-            const icon = () =>
-              toast().type ? iconMap[toast().type as keyof typeof iconMap] : InfoIcon;
-            return (
-              <Toast.Root class={styles.Root}>
-                <Toast.Title class={styles.Title}>
-                  <Dynamic component={icon()} class={styles.Indicator} />
-                  {toast().title}
-                </Toast.Title>
-                <Toast.Description class={styles.Description}>
-                  {toast().description}
-                </Toast.Description>
-                <Toast.CloseTrigger class={styles.CloseTrigger}>
-                  <XIcon />
-                </Toast.CloseTrigger>
-              </Toast.Root>
-            );
-          }}
-        </Toaster>
-      </Portal>
-    </div>
-  );
-};
-```
-
-#### Vue
-
-```vue
-<script setup lang="ts">
-import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
-import { CircleAlertIcon, TriangleAlertIcon, CircleCheckIcon, InfoIcon, X } from 'lucide-vue-next';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const toaster = createToaster({
-  overlap: true,
-  placement: 'bottom-end',
-  gap: 16,
-});
-
-const iconMap = {
-  success: CircleCheckIcon,
-  error: CircleAlertIcon,
-  warning: TriangleAlertIcon,
-  info: InfoIcon,
-};
-</script>
-
-<template>
-  <div>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap">
-      <button
-        type="button"
-        :class="button.Root"
-        @click="
-          toaster.success({
-            title: 'Changes saved',
-            description: 'Your profile has been updated successfully.',
-          })
-        "
-      >
-        Success
-      </button>
-      <button
-        type="button"
-        :class="button.Root"
-        @click="
-          toaster.error({
-            title: 'Upload failed',
-            description: 'There was an error uploading your file.',
-          })
-        "
-      >
-        Error
-      </button>
-      <button
-        type="button"
-        :class="button.Root"
-        @click="
-          toaster.warning({
-            title: 'Low storage',
-            description: 'You have less than 10% storage remaining.',
-          })
-        "
-      >
-        Warning
-      </button>
-      <button
-        type="button"
-        :class="button.Root"
-        @click="
-          toaster.info({
-            title: 'Update available',
-            description: 'A new version of the app is ready to install.',
-          })
-        "
-      >
-        Info
-      </button>
-    </div>
-
-    <Teleport to="body">
-      <Toaster :toaster="toaster" v-slot="toast">
-        <Toast.Root :class="styles.Root">
-          <Toast.Title :class="styles.Title">
-            <component
-              :is="toast.type ? iconMap[toast.type as keyof typeof iconMap] : InfoIcon"
-              :class="styles.Indicator"
-            />
-            {{ toast.title }}
-          </Toast.Title>
-          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
-          <Toast.CloseTrigger :class="styles.CloseTrigger">
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      </Toaster>
-    </Teleport>
-  </div>
-</template>
-```
-
-#### Svelte
-
-```svelte
-<script lang="ts">
-  import { Portal } from '@ark-ui/svelte/portal'
-  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
-  import { CircleAlertIcon, TriangleAlertIcon, CircleCheckIcon, InfoIcon, X } from 'lucide-svelte'
-  import button from 'styles/button.module.css'
-  import styles from 'styles/toast.module.css'
-
-  const toaster = createToaster({
-    overlap: true,
-    placement: 'bottom-end',
-    gap: 16,
-  })
-
-  const iconMap = {
-    success: CircleCheckIcon,
-    error: CircleAlertIcon,
-    warning: TriangleAlertIcon,
-    info: InfoIcon,
-  }
-</script>
-
-<div>
-  <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-    <button
-      type="button"
-      class={button.Root}
-      onclick={() =>
-        toaster.success({ title: 'Changes saved', description: 'Your profile has been updated successfully.' })}
-    >
-      Success
-    </button>
-    <button
-      type="button"
-      class={button.Root}
-      onclick={() => toaster.error({ title: 'Upload failed', description: 'There was an error uploading your file.' })}
-    >
-      Error
-    </button>
-    <button
-      type="button"
-      class={button.Root}
-      onclick={() =>
-        toaster.warning({ title: 'Low storage', description: 'You have less than 10% storage remaining.' })}
-    >
-      Warning
-    </button>
-    <button
-      type="button"
-      class={button.Root}
-      onclick={() =>
-        toaster.info({ title: 'Update available', description: 'A new version of the app is ready to install.' })}
-    >
-      Info
-    </button>
-  </div>
-
-  <Portal>
-    <Toaster {toaster}>
-      {#snippet children(toast)}
-        {@const icon = toast().type ? iconMap[toast().type as keyof typeof iconMap] : InfoIcon}
-        <Toast.Root class={styles.Root}>
-          <Toast.Title class={styles.Title}>
-            <svelte:component this={icon} class={styles.Indicator} />
-            {toast().title}
-          </Toast.Title>
-          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
-          <Toast.CloseTrigger class={styles.CloseTrigger}>
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      {/snippet}
-    </Toaster>
-  </Portal>
-</div>
-
-```
-
-### Promise
-
-You can use `toaster.promise()` to automatically handle the different states of an asynchronous operation. It provides
-options for the `success`, `error`, and `loading` states of the promise and will automatically update the toast when the
-promise resolves or rejects.
-
-**Example: promise-toast**
-
-#### React
-
-```tsx
-import { Portal } from '@ark-ui/react/portal';
-import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
-import { XIcon, LoaderIcon, CircleCheckIcon, CircleAlertIcon } from 'lucide-react';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const toaster = createToaster({
-  overlap: true,
-  placement: 'bottom-end',
-  gap: 16,
-});
-
-const uploadFile = () => {
-  return new Promise<void>((resolve, reject) => {
-    setTimeout(() => {
-      Math.random() > 0.5 ? resolve() : reject(new Error('Upload failed'));
-    }, 2000);
-  });
-};
-
-export const PromiseToast = () => {
-  const handleUpload = async () => {
-    toaster.promise(uploadFile, {
-      loading: {
-        title: 'Uploading file...',
-        description: 'Please wait while we upload your document.',
-      },
-      success: {
-        title: 'Upload complete',
-        description: 'Your file has been uploaded successfully.',
-      },
-      error: {
-        title: 'Upload failed',
-        description: 'Could not upload the file. Please try again.',
-      },
-    });
-  };
-
-  const getIcon = (type: string | undefined) => {
-    switch (type) {
-      case 'loading':
-        return <LoaderIcon className={styles.Indicator} data-type="loading" />;
-      case 'success':
-        return <CircleCheckIcon className={styles.Indicator} />;
-      case 'error':
-        return <CircleAlertIcon className={styles.Indicator} />;
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <div>
-      <button type="button" className={button.Root} onClick={handleUpload}>
-        Upload file
-      </button>
-
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast.Root key={toast.id} className={styles.Root}>
-              <Toast.Title className={styles.Title}>
-                {getIcon(toast.type)}
-                {toast.title}
-              </Toast.Title>
-              <Toast.Description className={styles.Description}>
-                {toast.description}
-              </Toast.Description>
-              <Toast.CloseTrigger className={styles.CloseTrigger}>
-                <XIcon />
-              </Toast.CloseTrigger>
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
-    </div>
-  );
-};
-```
-
-#### Solid
-
-```tsx
-import { Portal } from 'solid-js/web';
-import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
-import { CircleAlertIcon, CircleCheckIcon, InfoIcon, LoaderIcon, XIcon } from 'lucide-solid';
-import { Dynamic } from 'solid-js/web';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const uploadFile = () => {
-  return new Promise<void>((resolve, reject) => {
-    setTimeout(() => {
-      Math.random() > 0.5 ? resolve() : reject(new Error('Upload failed'));
-    }, 2000);
-  });
-};
-
-const iconMap = {
-  loading: LoaderIcon,
-  success: CircleCheckIcon,
-  error: CircleAlertIcon,
-  info: InfoIcon,
-};
-
-export const PromiseToast = () => {
-  const toaster = createToaster({
-    overlap: true,
-    placement: 'bottom-end',
-    gap: 16,
-  });
-
-  const handleUpload = async () => {
-    toaster.promise(uploadFile, {
-      loading: {
-        title: 'Uploading file...',
-        description: 'Please wait while we process your file.',
-      },
-      success: {
-        title: 'Upload complete',
-        description: 'Your file has been uploaded successfully.',
-      },
-      error: {
-        title: 'Upload failed',
-        description: 'There was an error uploading your file. Please try again.',
-      },
-    });
-  };
-
-  return (
-    <div>
-      <button type="button" class={button.Root} onClick={handleUpload}>
-        Upload file
-      </button>
-
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => {
-            const icon = () =>
-              toast().type ? iconMap[toast().type as keyof typeof iconMap] : InfoIcon;
-            return (
-              <Toast.Root class={styles.Root}>
-                <Toast.Title class={styles.Title}>
-                  <Dynamic
-                    component={icon()}
-                    class={styles.Indicator}
-                    style={
-                      toast().type === 'loading' ? { animation: 'spin 1s linear infinite' } : {}
-                    }
-                  />
-                  {toast().title}
-                </Toast.Title>
-                <Toast.Description class={styles.Description}>
-                  {toast().description}
-                </Toast.Description>
-                <Toast.CloseTrigger class={styles.CloseTrigger}>
-                  <XIcon />
-                </Toast.CloseTrigger>
-              </Toast.Root>
-            );
-          }}
-        </Toaster>
-      </Portal>
-    </div>
-  );
-};
-```
-
-#### Vue
-
-```vue
-<script setup lang="ts">
-import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
-import { X, LoaderIcon, CircleCheckIcon, CircleAlertIcon, InfoIcon } from 'lucide-vue-next';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const toaster = createToaster({
-  overlap: true,
-  placement: 'bottom-end',
-  gap: 16,
-});
-
-const uploadFile = () => {
-  return new Promise<void>((resolve, reject) => {
-    setTimeout(() => {
-      Math.random() > 0.5 ? resolve() : reject(new Error('Upload failed'));
-    }, 2000);
-  });
-};
-
-const handleUpload = async () => {
-  toaster.promise(uploadFile, {
-    loading: {
-      title: 'Uploading file...',
-      description: 'Please wait while we process your file.',
-    },
-    success: {
-      title: 'Upload complete',
-      description: 'Your file has been uploaded successfully.',
-    },
-    error: {
-      title: 'Upload failed',
-      description: 'There was an error uploading your file. Please try again.',
-    },
-  });
-};
-
-const iconMap = {
-  loading: LoaderIcon,
-  success: CircleCheckIcon,
-  error: CircleAlertIcon,
-  info: InfoIcon,
-};
-</script>
-
-<template>
-  <div>
-    <button type="button" :class="button.Root" @click="handleUpload">Upload file</button>
-
-    <Teleport to="body">
-      <Toaster :toaster="toaster" v-slot="toast">
-        <Toast.Root :class="styles.Root">
-          <Toast.Title :class="styles.Title">
-            <component
-              :is="toast.type ? iconMap[toast.type as keyof typeof iconMap] : InfoIcon"
-              :class="styles.Indicator"
-              :style="toast.type === 'loading' ? 'animation: spin 1s linear infinite;' : ''"
-            />
-            {{ toast.title }}
-          </Toast.Title>
-          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
-          <Toast.CloseTrigger :class="styles.CloseTrigger">
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      </Toaster>
-    </Teleport>
-  </div>
-</template>
-```
-
-#### Svelte
-
-```svelte
-<script lang="ts">
-  import { Portal } from '@ark-ui/svelte/portal'
-  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
-  import { X, LoaderIcon, CircleCheckIcon, CircleAlertIcon, InfoIcon } from 'lucide-svelte'
-  import button from 'styles/button.module.css'
-  import styles from 'styles/toast.module.css'
-
-  const toaster = createToaster({
-    overlap: true,
-    placement: 'bottom-end',
-    gap: 16,
-  })
-
-  const uploadFile = () => {
-    return new Promise<void>((resolve, reject) => {
-      setTimeout(() => {
-        Math.random() > 0.5 ? resolve() : reject(new Error('Upload failed'))
-      }, 2000)
-    })
-  }
-
-  const handleUpload = async () => {
-    toaster.promise(uploadFile, {
-      loading: {
-        title: 'Uploading file...',
-        description: 'Please wait while we process your file.',
-      },
-      success: {
-        title: 'Upload complete',
-        description: 'Your file has been uploaded successfully.',
-      },
-      error: {
-        title: 'Upload failed',
-        description: 'There was an error uploading your file. Please try again.',
-      },
-    })
-  }
-
-  const iconMap = {
-    loading: LoaderIcon,
-    success: CircleCheckIcon,
-    error: CircleAlertIcon,
-    info: InfoIcon,
-  }
-</script>
-
-<div>
-  <button type="button" class={button.Root} onclick={handleUpload}>Upload file</button>
-
-  <Portal>
-    <Toaster {toaster}>
-      {#snippet children(toast)}
-        {@const icon = toast().type ? iconMap[toast().type as keyof typeof iconMap] : InfoIcon}
-        <Toast.Root class={styles.Root}>
-          <Toast.Title class={styles.Title}>
-            <svelte:component
-              this={icon}
-              class={styles.Indicator}
-              style={toast().type === 'loading' ? 'animation: spin 1s linear infinite;' : ''}
-            />
-            {toast().title}
-          </Toast.Title>
-          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
-          <Toast.CloseTrigger class={styles.CloseTrigger}>
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      {/snippet}
-    </Toaster>
-  </Portal>
-</div>
-
-```
-
-### Update
-
-To update a toast, use the `toast.update` method.
-
-**Example: update**
-
-#### React
-
-```tsx
-import { Portal } from '@ark-ui/react/portal';
-import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
-import { useRef } from 'react';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const toaster = createToaster({
-  placement: 'bottom-end',
-  overlap: true,
-  gap: 24,
-});
-
-export const Update = () => {
-  const id = useRef<string>(undefined);
-
-  const createToast = () => {
-    id.current = toaster.create({
-      title: 'Sending message...',
-      description: 'Please wait while we deliver your message.',
-      type: 'loading',
-    });
-  };
-
-  const updateToast = () => {
-    if (!id.current) {
-      return;
-    }
-    toaster.update(id.current, {
-      title: 'Message sent',
-      description: 'Your message has been delivered successfully.',
-      type: 'success',
-    });
-  };
-
-  return (
-    <div className="hstack">
-      <button type="button" className={button.Root} onClick={createToast}>
-        Send message
-      </button>
-      <button type="button" className={button.Root} onClick={updateToast}>
-        Mark as sent
-      </button>
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast.Root key={toast.id} className={styles.Root}>
-              <Toast.Title className={styles.Title}>{toast.title}</Toast.Title>
-              <Toast.Description className={styles.Description}>
-                {toast.description}
-              </Toast.Description>
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
-    </div>
-  );
-};
-```
-
-#### Solid
-
-```tsx
-import { Portal } from 'solid-js/web';
-import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
-import { XIcon } from 'lucide-solid';
+import { Toggle } from '@ark-ui/solid/toggle';
+import { HeartIcon } from 'lucide-solid';
 import { createSignal } from 'solid-js';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
+import styles from 'styles/toggle.module.css';
 
-export const Update = () => {
-  const toaster = createToaster({
-    placement: 'bottom-end',
-    overlap: true,
-    gap: 16,
-  });
-
-  const [id, setId] = createSignal<string | undefined>(undefined);
-
-  const createToast = () => {
-    const newId = toaster.create({
-      title: 'Uploading file...',
-      description: 'Please wait while your file is being uploaded.',
-      type: 'loading',
-    });
-    setId(newId);
-  };
-
-  const updateToast = () => {
-    const currentId = id();
-    if (!currentId) {
-      return;
-    }
-    toaster.update(currentId, {
-      title: 'Upload complete',
-      description: 'Your file has been uploaded successfully.',
-      type: 'success',
-    });
-  };
-
+export const Controlled = () => {
+  const [pressed, setPressed] = createSignal(false);
   return (
-    <div>
-      <div style={{ display: 'flex', gap: '8px' }}>
-        <button type="button" class={button.Root} onClick={createToast}>
-          Start upload
-        </button>
-        <button type="button" class={button.Root} onClick={updateToast}>
-          Complete upload
-        </button>
-      </div>
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast.Root class={styles.Root}>
-              <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
-              <Toast.Description class={styles.Description}>
-                {toast().description}
-              </Toast.Description>
-              <Toast.CloseTrigger class={styles.CloseTrigger}>
-                <XIcon />
-              </Toast.CloseTrigger>
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
-    </div>
+    <Toggle.Root class={styles.Root} pressed={pressed()} onPressedChange={setPressed}>
+      <Toggle.Indicator class={styles.Indicator} fallback={<HeartIcon />}>
+        <HeartIcon fill="currentColor" />
+      </Toggle.Indicator>
+    </Toggle.Root>
   );
 };
 ```
@@ -1097,58 +127,23 @@ export const Update = () => {
 
 ```vue
 <script setup lang="ts">
-import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
-import { X } from 'lucide-vue-next';
+import { Toggle } from '@ark-ui/vue/toggle';
+import { HeartIcon } from 'lucide-vue-next';
 import { ref } from 'vue';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
+import styles from 'styles/toggle.module.css';
 
-const toaster = createToaster({
-  placement: 'bottom-end',
-  overlap: true,
-  gap: 16,
-});
-
-const id = ref<string | undefined>(undefined);
-
-const createToast = () => {
-  id.value = toaster.create({
-    title: 'Uploading file...',
-    description: 'Please wait while your file is being uploaded.',
-    type: 'loading',
-  });
-};
-
-const updateToast = () => {
-  if (!id.value) {
-    return;
-  }
-  toaster.update(id.value, {
-    title: 'Upload complete',
-    description: 'Your file has been uploaded successfully.',
-    type: 'success',
-  });
-};
+const pressed = ref(false);
 </script>
 
 <template>
-  <div>
-    <div style="display: flex; gap: 8px">
-      <button type="button" :class="button.Root" @click="createToast">Start upload</button>
-      <button type="button" :class="button.Root" @click="updateToast">Complete upload</button>
-    </div>
-    <Teleport to="body">
-      <Toaster :toaster="toaster" v-slot="toast">
-        <Toast.Root :class="styles.Root">
-          <Toast.Title :class="styles.Title">{{ toast.title }}</Toast.Title>
-          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
-          <Toast.CloseTrigger :class="styles.CloseTrigger">
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      </Toaster>
-    </Teleport>
-  </div>
+  <Toggle.Root :class="styles.Root" v-model:pressed="pressed">
+    <Toggle.Indicator :class="styles.Indicator">
+      <template #fallback>
+        <HeartIcon />
+      </template>
+      <HeartIcon fill="currentColor" />
+    </Toggle.Indicator>
+  </Toggle.Root>
 </template>
 ```
 
@@ -1156,121 +151,42 @@ const updateToast = () => {
 
 ```svelte
 <script lang="ts">
-  import { Portal } from '@ark-ui/svelte/portal'
-  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
-  import { X } from 'lucide-svelte'
-  import button from 'styles/button.module.css'
-  import styles from 'styles/toast.module.css'
+  import { Toggle } from '@ark-ui/svelte/toggle'
+  import { HeartIcon } from 'lucide-svelte'
+  import styles from 'styles/toggle.module.css'
 
-  const toaster = createToaster({
-    placement: 'bottom-end',
-    overlap: true,
-    gap: 16,
-  })
-
-  let toastId: string | undefined = $state()
-
-  function createToast() {
-    toastId = toaster.create({
-      title: 'Uploading file...',
-      description: 'Please wait while your file is being uploaded.',
-      type: 'loading',
-    })
-  }
-
-  function updateToast() {
-    if (!toastId) {
-      return
-    }
-    toaster.update(toastId, {
-      title: 'Upload complete',
-      description: 'Your file has been uploaded successfully.',
-      type: 'success',
-    })
-  }
+  let pressed = $state(false)
 </script>
 
-<div>
-  <div style="display: flex; gap: 8px;">
-    <button type="button" class={button.Root} onclick={createToast}>Start upload</button>
-    <button type="button" class={button.Root} onclick={updateToast}>Complete upload</button>
-  </div>
-  <Portal>
-    <Toaster {toaster}>
-      {#snippet children(toast)}
-        <Toast.Root class={styles.Root}>
-          <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
-          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
-          <Toast.CloseTrigger class={styles.CloseTrigger}>
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      {/snippet}
-    </Toaster>
-  </Portal>
-</div>
+<Toggle.Root class={styles.Root} bind:pressed>
+  <Toggle.Indicator class={styles.Indicator}>
+    {#snippet fallback()}
+      <HeartIcon />
+    {/snippet}
+    <HeartIcon fill="currentColor" />
+  </Toggle.Indicator>
+</Toggle.Root>
 
 ```
 
-### Action
+### Disabled
 
-To add an action to a toast, use the `toast.action` property.
+Use the `disabled` prop to disable the toggle.
 
-**Example: action**
+**Example: disabled**
 
 #### React
 
 ```tsx
-import { Portal } from '@ark-ui/react/portal';
-import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
+import { Toggle } from '@ark-ui/react/toggle';
+import { BoldIcon } from 'lucide-react';
+import styles from 'styles/toggle.module.css';
 
-const toaster = createToaster({
-  placement: 'bottom-end',
-  gap: 24,
-});
-
-export const Action = () => {
+export const Disabled = () => {
   return (
-    <div>
-      <button
-        type="button"
-        className={button.Root}
-        onClick={() =>
-          toaster.create({
-            title: 'Event has been created',
-            description: 'We have sent you an email with the event details.',
-            type: 'info',
-            action: {
-              label: 'Undo',
-              onClick: () => {
-                console.log('Undo');
-              },
-            },
-          })
-        }
-      >
-        Create event
-      </button>
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast.Root key={toast.id} className={styles.Root}>
-              <Toast.Title className={styles.Title}>{toast.title}</Toast.Title>
-              <Toast.Description className={styles.Description}>
-                {toast.description}
-              </Toast.Description>
-              {toast.action && (
-                <Toast.ActionTrigger className={styles.ActionTrigger}>
-                  {toast.action?.label}
-                </Toast.ActionTrigger>
-              )}
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
-    </div>
+    <Toggle.Root className={styles.Root} disabled>
+      <BoldIcon />
+    </Toggle.Root>
   );
 };
 ```
@@ -1278,61 +194,15 @@ export const Action = () => {
 #### Solid
 
 ```tsx
-import { Portal } from 'solid-js/web';
-import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
-import { XIcon } from 'lucide-solid';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
+import { Toggle } from '@ark-ui/solid/toggle';
+import { BoldIcon } from 'lucide-solid';
+import styles from 'styles/toggle.module.css';
 
-export const Action = () => {
-  const toaster = createToaster({
-    placement: 'bottom-end',
-    overlap: true,
-    gap: 16,
-  });
-
+export const Disabled = () => {
   return (
-    <div>
-      <button
-        type="button"
-        class={button.Root}
-        onClick={() =>
-          toaster.create({
-            title: 'Invitation sent',
-            description: 'Your team invitation has been sent. Click undo to cancel.',
-            type: 'info',
-            action: {
-              label: 'Undo',
-              onClick: () => {
-                console.log('Undo clicked');
-              },
-            },
-          })
-        }
-      >
-        Send invitation
-      </button>
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast.Root class={styles.Root}>
-              <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
-              <Toast.Description class={styles.Description}>
-                {toast().description}
-              </Toast.Description>
-              {toast().action && (
-                <Toast.ActionTrigger class={styles.ActionTrigger}>
-                  {toast().action?.label}
-                </Toast.ActionTrigger>
-              )}
-              <Toast.CloseTrigger class={styles.CloseTrigger}>
-                <XIcon />
-              </Toast.CloseTrigger>
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
-    </div>
+    <Toggle.Root class={styles.Root} disabled>
+      <BoldIcon />
+    </Toggle.Root>
   );
 };
 ```
@@ -1341,50 +211,15 @@ export const Action = () => {
 
 ```vue
 <script setup lang="ts">
-import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
-import { X } from 'lucide-vue-next';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const toaster = createToaster({
-  placement: 'bottom-end',
-  overlap: true,
-  gap: 16,
-});
-
-const addToast = () => {
-  toaster.create({
-    title: 'Invitation sent',
-    description: 'Your team invitation has been sent. Click undo to cancel.',
-    type: 'info',
-    action: {
-      label: 'Undo',
-      onClick: () => {
-        console.log('Undo clicked');
-      },
-    },
-  });
-};
+import { Toggle } from '@ark-ui/vue/toggle';
+import { BoldIcon } from 'lucide-vue-next';
+import styles from 'styles/toggle.module.css';
 </script>
 
 <template>
-  <div>
-    <button type="button" :class="button.Root" @click="addToast">Send invitation</button>
-    <Teleport to="body">
-      <Toaster :toaster="toaster" v-slot="toast">
-        <Toast.Root :class="styles.Root">
-          <Toast.Title :class="styles.Title">{{ toast.title }}</Toast.Title>
-          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
-          <Toast.ActionTrigger v-if="toast.action" :class="styles.ActionTrigger">
-            {{ toast.action?.label }}
-          </Toast.ActionTrigger>
-          <Toast.CloseTrigger :class="styles.CloseTrigger">
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      </Toaster>
-    </Teleport>
-  </div>
+  <Toggle.Root :class="styles.Root" disabled>
+    <BoldIcon />
+  </Toggle.Root>
 </template>
 ```
 
@@ -1392,130 +227,37 @@ const addToast = () => {
 
 ```svelte
 <script lang="ts">
-  import { Portal } from '@ark-ui/svelte/portal'
-  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
-  import { X } from 'lucide-svelte'
-  import button from 'styles/button.module.css'
-  import styles from 'styles/toast.module.css'
-
-  const toaster = createToaster({
-    placement: 'bottom-end',
-    overlap: true,
-    gap: 16,
-  })
-
-  function addToast() {
-    toaster.create({
-      title: 'Invitation sent',
-      description: 'Your team invitation has been sent. Click undo to cancel.',
-      type: 'info',
-      action: {
-        label: 'Undo',
-        onClick: () => {
-          console.log('Undo clicked')
-        },
-      },
-    })
-  }
+  import { Toggle } from '@ark-ui/svelte/toggle'
+  import { BoldIcon } from 'lucide-svelte'
+  import styles from 'styles/toggle.module.css'
 </script>
 
-<div>
-  <button type="button" class={button.Root} onclick={addToast}>Send invitation</button>
-  <Portal>
-    <Toaster {toaster}>
-      {#snippet children(toast)}
-        <Toast.Root class={styles.Root}>
-          <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
-          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
-          {#if toast().action}
-            <Toast.ActionTrigger class={styles.ActionTrigger}>{toast().action?.label}</Toast.ActionTrigger>
-          {/if}
-          <Toast.CloseTrigger class={styles.CloseTrigger}>
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      {/snippet}
-    </Toaster>
-  </Portal>
-</div>
+<Toggle.Root class={styles.Root} disabled>
+  <BoldIcon />
+</Toggle.Root>
 
 ```
 
-### Duration
+### Indicator
 
-You can control how long a toast stays visible by setting a custom `duration` in milliseconds, or use `Infinity` to keep
-it visible until manually dismissed.
+Use the `Toggle.Indicator` component to render different indicators based on the state of the toggle.
 
-**Example: duration**
+**Example: indicator**
 
 #### React
 
 ```tsx
-import { Portal } from '@ark-ui/react/portal';
-import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
-import { XIcon, ClockIcon } from 'lucide-react';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
+import { Toggle } from '@ark-ui/react/toggle';
+import { HeartIcon } from 'lucide-react';
+import styles from 'styles/toggle.module.css';
 
-const toaster = createToaster({
-  overlap: true,
-  placement: 'bottom-end',
-  gap: 16,
-});
-
-const durations = [
-  { label: '1s', value: 1000 },
-  { label: '3s', value: 3000 },
-  { label: '5s', value: 5000 },
-  { label: '∞', value: Infinity },
-];
-
-export const Duration = () => {
+export const Indicator = () => {
   return (
-    <div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-        {durations.map((duration) => (
-          <button
-            key={duration.label}
-            type="button"
-            className={button.Root}
-            onClick={() =>
-              toaster.create({
-                title: 'Reminder set',
-                description: `This notification will ${
-                  duration.value === Infinity
-                    ? 'stay until dismissed'
-                    : `disappear in ${duration.label}`
-                }.`,
-                type: 'info',
-                duration: duration.value,
-              })
-            }
-          >
-            {duration.label}
-          </button>
-        ))}
-      </div>
-
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast.Root key={toast.id} className={styles.Root}>
-              <Toast.Title className={styles.Title}>
-                <ClockIcon className={styles.Indicator} />
-                {toast.title}
-              </Toast.Title>
-              <Toast.Description className={styles.Description}>
-                {toast.description}
-              </Toast.Description>
-              <Toast.CloseTrigger className={styles.CloseTrigger}>
-                <XIcon />
-              </Toast.CloseTrigger>
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
-    </div>
+    <Toggle.Root className={styles.Root}>
+      <Toggle.Indicator className={styles.Indicator} fallback={<HeartIcon />}>
+        <HeartIcon fill="currentColor" />
+      </Toggle.Indicator>
+    </Toggle.Root>
   );
 };
 ```
@@ -1523,69 +265,17 @@ export const Duration = () => {
 #### Solid
 
 ```tsx
-import { Portal } from 'solid-js/web';
-import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
-import { XIcon } from 'lucide-solid';
-import { For } from 'solid-js';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
+import { Toggle } from '@ark-ui/solid/toggle';
+import { HeartIcon } from 'lucide-solid';
+import styles from 'styles/toggle.module.css';
 
-const durations = [
-  { label: '1s', value: 1000 },
-  { label: '3s', value: 3000 },
-  { label: '5s', value: 5000 },
-  { label: '∞', value: Infinity },
-];
-
-export const Duration = () => {
-  const toaster = createToaster({
-    overlap: true,
-    placement: 'bottom-end',
-    gap: 16,
-  });
-
+export const Indicator = () => {
   return (
-    <div>
-      <div style={{ display: 'flex', 'flex-wrap': 'wrap', gap: '8px' }}>
-        <For each={durations}>
-          {(duration) => (
-            <button
-              type="button"
-              class={button.Root}
-              onClick={() =>
-                toaster.create({
-                  title: `Duration: ${duration.label}`,
-                  description:
-                    duration.value === Infinity
-                      ? 'This toast will stay until you dismiss it.'
-                      : `This toast will automatically close in ${duration.label}.`,
-                  type: 'info',
-                  duration: duration.value,
-                })
-              }
-            >
-              {duration.label}
-            </button>
-          )}
-        </For>
-      </div>
-
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast.Root class={styles.Root}>
-              <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
-              <Toast.Description class={styles.Description}>
-                {toast().description}
-              </Toast.Description>
-              <Toast.CloseTrigger class={styles.CloseTrigger}>
-                <XIcon />
-              </Toast.CloseTrigger>
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
-    </div>
+    <Toggle.Root class={styles.Root}>
+      <Toggle.Indicator class={styles.Indicator} fallback={<HeartIcon />}>
+        <HeartIcon fill="currentColor" />
+      </Toggle.Indicator>
+    </Toggle.Root>
   );
 };
 ```
@@ -1594,61 +284,20 @@ export const Duration = () => {
 
 ```vue
 <script setup lang="ts">
-import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
-import { X } from 'lucide-vue-next';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const toaster = createToaster({
-  overlap: true,
-  placement: 'bottom-end',
-  gap: 16,
-});
-
-const durations = [
-  { label: '1s', value: 1000 },
-  { label: '3s', value: 3000 },
-  { label: '5s', value: 5000 },
-  { label: '∞', value: Infinity },
-];
+import { Toggle } from '@ark-ui/vue/toggle';
+import { HeartIcon } from 'lucide-vue-next';
+import styles from 'styles/toggle.module.css';
 </script>
 
 <template>
-  <div>
-    <div style="display: flex; flex-wrap: wrap; gap: 8px">
-      <button
-        v-for="duration in durations"
-        :key="duration.label"
-        type="button"
-        :class="button.Root"
-        @click="
-          toaster.create({
-            title: `Duration: ${duration.label}`,
-            description:
-              duration.value === Infinity
-                ? 'This toast will stay until you dismiss it.'
-                : `This toast will automatically close in ${duration.label}.`,
-            type: 'info',
-            duration: duration.value,
-          })
-        "
-      >
-        {{ duration.label }}
-      </button>
-    </div>
-
-    <Teleport to="body">
-      <Toaster :toaster="toaster" v-slot="toast">
-        <Toast.Root :class="styles.Root">
-          <Toast.Title :class="styles.Title">{{ toast.title }}</Toast.Title>
-          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
-          <Toast.CloseTrigger :class="styles.CloseTrigger">
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      </Toaster>
-    </Teleport>
-  </div>
+  <Toggle.Root :class="styles.Root">
+    <Toggle.Indicator :class="styles.Indicator">
+      <template #fallback>
+        <HeartIcon />
+      </template>
+      <HeartIcon fill="currentColor" />
+    </Toggle.Indicator>
+  </Toggle.Root>
 </template>
 ```
 
@@ -1656,683 +305,20 @@ const durations = [
 
 ```svelte
 <script lang="ts">
-  import { Portal } from '@ark-ui/svelte/portal'
-  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
-  import { X } from 'lucide-svelte'
-  import button from 'styles/button.module.css'
-  import styles from 'styles/toast.module.css'
-
-  const toaster = createToaster({
-    overlap: true,
-    placement: 'bottom-end',
-    gap: 16,
-  })
-
-  const durations = [
-    { label: '1s', value: 1000 },
-    { label: '3s', value: 3000 },
-    { label: '5s', value: 5000 },
-    { label: '∞', value: Infinity },
-  ]
+  import { Toggle } from '@ark-ui/svelte/toggle'
+  import { HeartIcon } from 'lucide-svelte'
+  import styles from 'styles/toggle.module.css'
 </script>
 
-<div>
-  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-    {#each durations as duration}
-      <button
-        type="button"
-        class={button.Root}
-        onclick={() =>
-          toaster.create({
-            title: `Duration: ${duration.label}`,
-            description:
-              duration.value === Infinity
-                ? 'This toast will stay until you dismiss it.'
-                : `This toast will automatically close in ${duration.label}.`,
-            type: 'info',
-            duration: duration.value,
-          })}
-      >
-        {duration.label}
-      </button>
-    {/each}
-  </div>
+<Toggle.Root class={styles.Root}>
+  <Toggle.Indicator class={styles.Indicator}>
+    {#snippet fallback()}
+      <HeartIcon />
+    {/snippet}
+    <HeartIcon fill="currentColor" />
+  </Toggle.Indicator>
+</Toggle.Root>
 
-  <Portal>
-    <Toaster {toaster}>
-      {#snippet children(toast)}
-        <Toast.Root class={styles.Root}>
-          <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
-          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
-          <Toast.CloseTrigger class={styles.CloseTrigger}>
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      {/snippet}
-    </Toaster>
-  </Portal>
-</div>
-
-```
-
-### Max Visible
-
-Set the `max` prop on the `createToaster` function to define the maximum number of toasts that can be rendered at any
-one time. Any extra toasts will be queued and rendered when a toast has been dismissed.
-
-**Example: max-toasts**
-
-#### React
-
-```tsx
-import { Portal } from '@ark-ui/react/portal';
-import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
-import { XIcon, InfoIcon } from 'lucide-react';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const toaster = createToaster({
-  max: 3,
-  overlap: true,
-  placement: 'bottom-end',
-  gap: 16,
-});
-
-export const MaxToasts = () => {
-  return (
-    <div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-        <button
-          type="button"
-          className={button.Root}
-          onClick={() =>
-            toaster.create({
-              title: 'New notification',
-              description: 'You have a new message in your inbox.',
-              type: 'info',
-            })
-          }
-        >
-          Add notification
-        </button>
-        <button
-          type="button"
-          className={button.Root}
-          onClick={() => {
-            const messages = [
-              'John liked your post',
-              'Sarah commented on your photo',
-              'New follower: @designpro',
-              'Your post was shared 10 times',
-              'Meeting reminder in 15 minutes',
-            ];
-            messages.forEach((msg) => {
-              toaster.create({
-                title: 'Notification',
-                description: msg,
-                type: 'info',
-              });
-            });
-          }}
-        >
-          Add 5 notifications
-        </button>
-      </div>
-
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast.Root key={toast.id} className={styles.Root}>
-              <InfoIcon className={styles.Indicator} />
-              <div style={{ flex: 1 }}>
-                <Toast.Title className={styles.Title}>{toast.title}</Toast.Title>
-                <Toast.Description className={styles.Description}>
-                  {toast.description}
-                </Toast.Description>
-              </div>
-              <Toast.CloseTrigger className={styles.CloseTrigger}>
-                <XIcon />
-              </Toast.CloseTrigger>
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
-    </div>
-  );
-};
-```
-
-#### Solid
-
-```tsx
-import { Portal } from 'solid-js/web';
-import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
-import { XIcon } from 'lucide-solid';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-export const MaxToasts = () => {
-  const toaster = createToaster({
-    max: 3,
-    overlap: true,
-    placement: 'bottom-end',
-    gap: 16,
-  });
-
-  return (
-    <div>
-      <div style={{ display: 'flex', 'flex-wrap': 'wrap', gap: '8px' }}>
-        <button
-          type="button"
-          class={button.Root}
-          onClick={() =>
-            toaster.create({
-              title: 'New notification',
-              description: 'Maximum of 3 toasts visible at once. Extra toasts are queued.',
-              type: 'info',
-            })
-          }
-        >
-          Add toast
-        </button>
-        <button
-          type="button"
-          class={button.Root}
-          onClick={() => {
-            const messages = [
-              { title: 'Message received', description: 'You have a new message from Sarah.' },
-              { title: 'File uploaded', description: 'Your document has been saved.' },
-              { title: 'Sync complete', description: 'All changes have been synced.' },
-              { title: 'New follower', description: 'John started following you.' },
-              { title: 'Task completed', description: 'Your export is ready for download.' },
-            ];
-            messages.forEach((msg) => {
-              toaster.create({
-                title: msg.title,
-                description: msg.description,
-                type: 'info',
-              });
-            });
-          }}
-        >
-          Add 5 toasts
-        </button>
-      </div>
-
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast.Root class={styles.Root}>
-              <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
-              <Toast.Description class={styles.Description}>
-                {toast().description}
-              </Toast.Description>
-              <Toast.CloseTrigger class={styles.CloseTrigger}>
-                <XIcon />
-              </Toast.CloseTrigger>
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
-    </div>
-  );
-};
-```
-
-#### Vue
-
-```vue
-<script setup lang="ts">
-import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
-import { X } from 'lucide-vue-next';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const toaster = createToaster({
-  max: 3,
-  overlap: true,
-  placement: 'bottom-end',
-  gap: 16,
-});
-
-const messages = [
-  { title: 'Message received', description: 'You have a new message from Sarah.' },
-  { title: 'File uploaded', description: 'Your document has been saved.' },
-  { title: 'Sync complete', description: 'All changes have been synced.' },
-  { title: 'New follower', description: 'John started following you.' },
-  { title: 'Task completed', description: 'Your export is ready for download.' },
-];
-
-const addFiveToasts = () => {
-  messages.forEach((msg) => {
-    toaster.create({
-      title: msg.title,
-      description: msg.description,
-      type: 'info',
-    });
-  });
-};
-</script>
-
-<template>
-  <div>
-    <div style="display: flex; flex-wrap: wrap; gap: 8px">
-      <button
-        type="button"
-        :class="button.Root"
-        @click="
-          toaster.create({
-            title: 'New notification',
-            description: 'Maximum of 3 toasts visible at once. Extra toasts are queued.',
-            type: 'info',
-          })
-        "
-      >
-        Add toast
-      </button>
-      <button type="button" :class="button.Root" @click="addFiveToasts">Add 5 toasts</button>
-    </div>
-
-    <Teleport to="body">
-      <Toaster :toaster="toaster" v-slot="toast">
-        <Toast.Root :class="styles.Root">
-          <Toast.Title :class="styles.Title">{{ toast.title }}</Toast.Title>
-          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
-          <Toast.CloseTrigger :class="styles.CloseTrigger">
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      </Toaster>
-    </Teleport>
-  </div>
-</template>
-```
-
-#### Svelte
-
-```svelte
-<script lang="ts">
-  import { Portal } from '@ark-ui/svelte/portal'
-  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
-  import { X } from 'lucide-svelte'
-  import button from 'styles/button.module.css'
-  import styles from 'styles/toast.module.css'
-
-  const toaster = createToaster({
-    max: 3,
-    overlap: true,
-    placement: 'bottom-end',
-    gap: 16,
-  })
-
-  const messages = [
-    { title: 'Message received', description: 'You have a new message from Sarah.' },
-    { title: 'File uploaded', description: 'Your document has been saved.' },
-    { title: 'Sync complete', description: 'All changes have been synced.' },
-    { title: 'New follower', description: 'John started following you.' },
-    { title: 'Task completed', description: 'Your export is ready for download.' },
-  ]
-</script>
-
-<div>
-  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-    <button
-      type="button"
-      class={button.Root}
-      onclick={() =>
-        toaster.create({
-          title: 'New notification',
-          description: 'Maximum of 3 toasts visible at once. Extra toasts are queued.',
-          type: 'info',
-        })}
-    >
-      Add toast
-    </button>
-    <button
-      type="button"
-      class={button.Root}
-      onclick={() => {
-        messages.forEach((msg) => {
-          toaster.create({
-            title: msg.title,
-            description: msg.description,
-            type: 'info',
-          })
-        })
-      }}
-    >
-      Add 5 toasts
-    </button>
-  </div>
-
-  <Portal>
-    <Toaster {toaster}>
-      {#snippet children(toast)}
-        <Toast.Root class={styles.Root}>
-          <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
-          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
-          <Toast.CloseTrigger class={styles.CloseTrigger}>
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      {/snippet}
-    </Toaster>
-  </Portal>
-</div>
-
-```
-
-### Placement
-
-Configure where toasts appear on the screen using the `placement` option in `createToaster`. Options include
-`top-start`, `top-end`, `bottom-start`, `bottom-end`, and more.
-
-**Example: placement**
-
-#### React
-
-```tsx
-import { Portal } from '@ark-ui/react/portal';
-import { Toast, Toaster, createToaster } from '@ark-ui/react/toast';
-import { XIcon } from 'lucide-react';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const toaster = createToaster({
-  placement: 'top-end',
-  overlap: true,
-  gap: 16,
-});
-
-export const Placement = () => {
-  return (
-    <div>
-      <button
-        type="button"
-        className={button.Root}
-        onClick={() =>
-          toaster.create({
-            title: 'Notification',
-            description: 'This toast appears at the top-right corner.',
-            type: 'info',
-          })
-        }
-      >
-        Show toast (top-end)
-      </button>
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast.Root key={toast.id} className={styles.Root}>
-              <Toast.Title className={styles.Title}>{toast.title}</Toast.Title>
-              <Toast.Description className={styles.Description}>
-                {toast.description}
-              </Toast.Description>
-              <Toast.CloseTrigger className={styles.CloseTrigger}>
-                <XIcon />
-              </Toast.CloseTrigger>
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
-    </div>
-  );
-};
-```
-
-#### Solid
-
-```tsx
-import { Portal } from 'solid-js/web';
-import { Toast, Toaster, createToaster } from '@ark-ui/solid/toast';
-import { XIcon } from 'lucide-solid';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-export const Placement = () => {
-  const toaster = createToaster({
-    placement: 'top-end',
-    overlap: true,
-    gap: 16,
-  });
-
-  return (
-    <div>
-      <button
-        type="button"
-        class={button.Root}
-        onClick={() =>
-          toaster.create({
-            title: 'Notification',
-            description: 'This toast appears at the top-right corner.',
-            type: 'info',
-          })
-        }
-      >
-        Show toast (top-end)
-      </button>
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast.Root class={styles.Root}>
-              <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
-              <Toast.Description class={styles.Description}>
-                {toast().description}
-              </Toast.Description>
-              <Toast.CloseTrigger class={styles.CloseTrigger}>
-                <XIcon />
-              </Toast.CloseTrigger>
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
-    </div>
-  );
-};
-```
-
-#### Vue
-
-```vue
-<script setup lang="ts">
-import { Toast, Toaster, createToaster } from '@ark-ui/vue/toast';
-import { X } from 'lucide-vue-next';
-import button from 'styles/button.module.css';
-import styles from 'styles/toast.module.css';
-
-const toaster = createToaster({
-  placement: 'top-end',
-  overlap: true,
-  gap: 16,
-});
-
-const addToast = () => {
-  toaster.create({
-    title: 'Notification',
-    description: 'This toast appears at the top-right corner.',
-    type: 'info',
-  });
-};
-</script>
-
-<template>
-  <div>
-    <button type="button" :class="button.Root" @click="addToast">Show toast (top-end)</button>
-    <Teleport to="body">
-      <Toaster :toaster="toaster" v-slot="toast">
-        <Toast.Root :class="styles.Root">
-          <Toast.Title :class="styles.Title">{{ toast.title }}</Toast.Title>
-          <Toast.Description :class="styles.Description">{{ toast.description }}</Toast.Description>
-          <Toast.CloseTrigger :class="styles.CloseTrigger">
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      </Toaster>
-    </Teleport>
-  </div>
-</template>
-```
-
-#### Svelte
-
-```svelte
-<script lang="ts">
-  import { Portal } from '@ark-ui/svelte/portal'
-  import { Toast, Toaster, createToaster } from '@ark-ui/svelte/toast'
-  import { X } from 'lucide-svelte'
-  import button from 'styles/button.module.css'
-  import styles from 'styles/toast.module.css'
-
-  const toaster = createToaster({
-    placement: 'top-end',
-    overlap: true,
-    gap: 16,
-  })
-
-  function addToast() {
-    toaster.create({
-      title: 'Notification',
-      description: 'This toast appears at the top-right corner.',
-      type: 'info',
-    })
-  }
-</script>
-
-<div>
-  <button type="button" class={button.Root} onclick={addToast}>Show toast (top-end)</button>
-  <Portal>
-    <Toaster {toaster}>
-      {#snippet children(toast)}
-        <Toast.Root class={styles.Root}>
-          <Toast.Title class={styles.Title}>{toast().title}</Toast.Title>
-          <Toast.Description class={styles.Description}>{toast().description}</Toast.Description>
-          <Toast.CloseTrigger class={styles.CloseTrigger}>
-            <X />
-          </Toast.CloseTrigger>
-        </Toast.Root>
-      {/snippet}
-    </Toaster>
-  </Portal>
-</div>
-
-```
-
-## Guides
-
-### Toast in Effects
-
-When creating a toast inside React effects (like `useEffect`, `useLayoutEffect`, or event handlers that trigger during
-render), you may encounter a "flushSync" warning. To avoid this, wrap the toast call in `queueMicrotask`:
-
-```tsx
-import { useEffect } from 'react';
-
-export const EffectToast = () => {
-  useEffect(() => {
-    // ❌ This may cause flushSync warnings
-    // toaster.create({ title: 'Effect triggered!' })
-
-    // ✅ Wrap in queueMicrotask to avoid warnings
-    queueMicrotask(() => {
-      toaster.create({
-        title: 'Effect triggered!',
-        description: 'This toast was called safely from an effect',
-        type: 'success',
-      });
-    });
-  }, []);
-
-  return <div>Component content</div>;
-};
-```
-
-This ensures the toast creation is deferred until after the current execution context, preventing React's concurrent
-rendering warnings.
-
-### Styling
-
-There's a minimal styling required for the toast to work correctly.
-
-#### Toast root
-
-The toast root will be assigned these css properties at runtime:
-
-- `--x` - The x position
-- `--y` - The y position
-- `--scale` - The scale
-- `--z-index` - The z-index
-- `--height` - The height
-- `--opacity` - The opacity
-- `--gap` - The gap between toasts
-
-```css
-[data-scope='toast'][data-part='root'] {
-  translate: var(--x) var(--y);
-  scale: var(--scale);
-  z-index: var(--z-index);
-  height: var(--height);
-  opacity: var(--opacity);
-  will-change: translate, opacity, scale;
-  transition:
-    translate 400ms,
-    scale 400ms,
-    opacity 400ms,
-    height 400ms,
-    box-shadow 200ms;
-  transition-timing-function: cubic-bezier(0.21, 1.02, 0.73, 1);
-
-  &[data-state='closed'] {
-    transition:
-      translate 400ms,
-      scale 400ms,
-      opacity 200ms;
-    transition-timing-function: cubic-bezier(0.06, 0.71, 0.55, 1);
-  }
-}
-```
-
-#### Styling based on type
-
-You can also style based on the `data-type` attribute.
-
-```css
-[data-scope='toast'][data-part='root'] {
-  &[data-type='error'] {
-    background: red;
-    color: white;
-  }
-
-  &[data-type='info'] {
-    background: blue;
-    color: white;
-  }
-
-  &[data-type='warning'] {
-    background: orange;
-  }
-
-  &[data-type='success'] {
-    background: green;
-    color: white;
-  }
-}
-```
-
-#### Mobile considerations
-
-A very common use case is to adjust the toast width on mobile so it spans the full width of the screen.
-
-```css
-@media (max-width: 640px) {
-  [data-scope='toast'][data-part='group'] {
-    width: 100%;
-  }
-
-  [data-scope='toast'][data-part='root'] {
-    inset-inline: 0;
-    width: calc(100% - var(--gap) * 2);
-  }
-}
 ```
 
 ## API Reference
@@ -2345,317 +331,170 @@ A very common use case is to adjust the toast width on mobile so it spans the fu
 
 **Root Props:**
 
-| Prop      | Type      | Required | Description                                                                                         |
-| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| Prop              | Type                         | Required | Description                                                                                         |
+| ----------------- | ---------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild`         | `boolean`                    | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `defaultPressed`  | `boolean`                    | No       | The default pressed state of the toggle.                                                            |
+| `onPressedChange` | `(pressed: boolean) => void` | No       | Event handler called when the pressed state of the toggle changes.                                  |
+| `pressed`         | `boolean`                    | No       | The pressed state of the toggle.                                                                    |
 
 **Root Data Attributes:**
 
-| Attribute          | Value                                                   |
-| ------------------ | ------------------------------------------------------- | -------- |
-| `[data-scope]`     | toast                                                   |
-| `[data-part]`      | root                                                    |
-| `[data-state]`     | "open"                                                  | "closed" |
-| `[data-type]`      | The type of the item                                    |
-| `[data-placement]` | The placement of the toast                              |
-| `[data-align]`     |                                                         |
-| `[data-side]`      | The side of the trigger that the toast is positioned on |
-| `[data-mounted]`   | Present when mounted                                    |
-| `[data-paused]`    | Present when paused                                     |
-| `[data-first]`     |                                                         |
-| `[data-sibling]`   |                                                         |
-| `[data-stack]`     |                                                         |
-| `[data-overlap]`   | Present when overlapping                                |
+| Attribute         | Value                 |
+| ----------------- | --------------------- | ----- |
+| `[data-scope]`    | toggle                |
+| `[data-part]`     | root                  |
+| `[data-state]`    | "on"                  | "off" |
+| `[data-pressed]`  | Present when pressed  |
+| `[data-disabled]` | Present when disabled |
 
-**ActionTrigger Props:**
+**Indicator Props:**
 
-| Prop      | Type      | Required | Description                                                                                         |
-| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| Prop       | Type      | Required | Description                                                                                         |
+| ---------- | --------- | -------- | --------------------------------------------------------------------------------------------------- | ------- | ---------------------------- | --------------------------- | ------------------- | ----------- | ------------- | --- | -------------------------------------------------------------- |
+| `asChild`  | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `fallback` | `string   | number   | bigint                                                                                              | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>` | No  | The fallback content to render when the toggle is not pressed. |
 
-**CloseTrigger Props:**
+**Indicator Data Attributes:**
 
-| Prop      | Type      | Required | Description                                                                                         |
-| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-
-**Description Props:**
-
-| Prop      | Type      | Required | Description                                                                                         |
-| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-
-**Store Props:**
-
-| Prop                                                   | Type        | Required     | Description                                                                                            |
-| ------------------------------------------------------ | ----------- | ------------ | ------------------------------------------------------------------------------------------------------ | ------ | ----------------- | --- | --------------------------------------------------------- |
-| `duration`                                             | `number`    | No           | The duration of the toast.                                                                             |
-| By default, it is determined by the type of the toast. |
-| `gap`                                                  | `number`    | No           | The gap between the toasts                                                                             |
-| `hotkey`                                               | `string[]`  | No           | The hotkey that will move focus to the toast group                                                     |
-| `max`                                                  | `number`    | No           | The maximum number of toasts. When the number of toasts exceeds this limit, the new toasts are queued. |
-| `offsets`                                              | `string     | Record<'top' | 'bottom'                                                                                               | 'left' | 'right', string>` | No  | The offset from the safe environment edge of the viewport |
-| `overlap`                                              | `boolean`   | No           | Whether to overlap the toasts                                                                          |
-| `pauseOnPageIdle`                                      | `boolean`   | No           | Whether to pause toast when the user leaves the browser tab                                            |
-| `placement`                                            | `Placement` | No           | The placement of the toast                                                                             |
-| `removeDelay`                                          | `number`    | No           | The duration for the toast to kept alive before it is removed.                                         |
-| Useful for exit transitions.                           |
-
-**Title Props:**
-
-| Prop      | Type      | Required | Description                                                                                         |
-| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-
-**Toaster Props:**
-
-| Prop          | Type                  | Required   | Description                                                                                         |
-| ------------- | --------------------- | ---------- | --------------------------------------------------------------------------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `toaster`     | `CreateToasterReturn` | Yes        |                                                                                                     |
-| `asChild`     | `boolean`             | No         | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `dir`         | `'ltr'                | 'rtl'`     | No                                                                                                  | The document's text/writing direction. |
-| `getRootNode` | `() => Node           | ShadowRoot | Document`                                                                                           | No                                     | A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron. |
+| Attribute         | Value                 |
+| ----------------- | --------------------- | ----- |
+| `[data-scope]`    | toggle                |
+| `[data-part]`     | indicator             |
+| `[data-disabled]` | Present when disabled |
+| `[data-pressed]`  | Present when pressed  |
+| `[data-state]`    | "on"                  | "off" |
 
 #### Solid
 
 **Root Props:**
 
-| Prop      | Type                                     | Required | Description                                                                                         |
-| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| Prop              | Type                                        | Required | Description                                                                                         |
+| ----------------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild`         | `(props: ParentProps<'button'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `defaultPressed`  | `boolean`                                   | No       | The default pressed state of the toggle.                                                            |
+| `onPressedChange` | `(pressed: boolean) => void`                | No       | Event handler called when the pressed state of the toggle changes.                                  |
+| `pressed`         | `boolean`                                   | No       | The pressed state of the toggle.                                                                    |
 
 **Root Data Attributes:**
 
-| Attribute          | Value                                                   |
-| ------------------ | ------------------------------------------------------- | -------- |
-| `[data-scope]`     | toast                                                   |
-| `[data-part]`      | root                                                    |
-| `[data-state]`     | "open"                                                  | "closed" |
-| `[data-type]`      | The type of the item                                    |
-| `[data-placement]` | The placement of the toast                              |
-| `[data-align]`     |                                                         |
-| `[data-side]`      | The side of the trigger that the toast is positioned on |
-| `[data-mounted]`   | Present when mounted                                    |
-| `[data-paused]`    | Present when paused                                     |
-| `[data-first]`     |                                                         |
-| `[data-sibling]`   |                                                         |
-| `[data-stack]`     |                                                         |
-| `[data-overlap]`   | Present when overlapping                                |
+| Attribute         | Value                 |
+| ----------------- | --------------------- | ----- |
+| `[data-scope]`    | toggle                |
+| `[data-part]`     | root                  |
+| `[data-state]`    | "on"                  | "off" |
+| `[data-pressed]`  | Present when pressed  |
+| `[data-disabled]` | Present when disabled |
 
-**ActionTrigger Props:**
+**Indicator Props:**
 
-| Prop      | Type                                        | Required | Description                                                                                         |
-| --------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `(props: ParentProps<'button'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| Prop       | Type                                     | Required | Description                                                                                         |
+| ---------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- | ------------ | -------------- | --- | --- |
+| `asChild`  | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `fallback` | `number                                  | boolean  | Node                                                                                                | ArrayElement | (string & {})` | No  |     |
 
-**CloseTrigger Props:**
+**Indicator Data Attributes:**
 
-| Prop      | Type                                        | Required | Description                                                                                         |
-| --------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `(props: ParentProps<'button'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-
-**Description Props:**
-
-| Prop      | Type                                     | Required | Description                                                                                         |
-| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-
-**Store Props:**
-
-| Prop                                                   | Type        | Required     | Description                                                                                            |
-| ------------------------------------------------------ | ----------- | ------------ | ------------------------------------------------------------------------------------------------------ | ------ | ----------------- | --- | --------------------------------------------------------- |
-| `duration`                                             | `number`    | No           | The duration of the toast.                                                                             |
-| By default, it is determined by the type of the toast. |
-| `gap`                                                  | `number`    | No           | The gap between the toasts                                                                             |
-| `hotkey`                                               | `string[]`  | No           | The hotkey that will move focus to the toast group                                                     |
-| `max`                                                  | `number`    | No           | The maximum number of toasts. When the number of toasts exceeds this limit, the new toasts are queued. |
-| `offsets`                                              | `string     | Record<'top' | 'bottom'                                                                                               | 'left' | 'right', string>` | No  | The offset from the safe environment edge of the viewport |
-| `overlap`                                              | `boolean`   | No           | Whether to overlap the toasts                                                                          |
-| `pauseOnPageIdle`                                      | `boolean`   | No           | Whether to pause toast when the user leaves the browser tab                                            |
-| `placement`                                            | `Placement` | No           | The placement of the toast                                                                             |
-| `removeDelay`                                          | `number`    | No           | The duration for the toast to kept alive before it is removed.                                         |
-| Useful for exit transitions.                           |
-
-**Title Props:**
-
-| Prop      | Type                                     | Required | Description                                                                                         |
-| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-
-**Toaster Props:**
-
-| Prop          | Type                                     | Required   | Description                                                                                         |
-| ------------- | ---------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `toaster`     | `CreateToasterReturn`                    | Yes        |                                                                                                     |
-| `asChild`     | `(props: ParentProps<'div'>) => Element` | No         | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `dir`         | `'ltr'                                   | 'rtl'`     | No                                                                                                  | The document's text/writing direction. |
-| `getRootNode` | `() => Node                              | ShadowRoot | Document`                                                                                           | No                                     | A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron. |
+| Attribute         | Value                 |
+| ----------------- | --------------------- | ----- |
+| `[data-scope]`    | toggle                |
+| `[data-part]`     | indicator             |
+| `[data-disabled]` | Present when disabled |
+| `[data-pressed]`  | Present when pressed  |
+| `[data-state]`    | "on"                  | "off" |
 
 #### Vue
 
 **Root Props:**
 
-| Prop      | Type      | Required | Description                                                                                         |
-| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| Prop             | Type      | Required | Description                                                                                         |
+| ---------------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild`        | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `defaultPressed` | `boolean` | No       | The default pressed state of the toggle.                                                            |
+| `disabled`       | `boolean` | No       | Whether the toggle is disabled.                                                                     |
+| `pressed`        | `boolean` | No       | The pressed state of the toggle.                                                                    |
 
 **Root Data Attributes:**
 
-| Attribute          | Value                                                   |
-| ------------------ | ------------------------------------------------------- | -------- |
-| `[data-scope]`     | toast                                                   |
-| `[data-part]`      | root                                                    |
-| `[data-state]`     | "open"                                                  | "closed" |
-| `[data-type]`      | The type of the item                                    |
-| `[data-placement]` | The placement of the toast                              |
-| `[data-align]`     |                                                         |
-| `[data-side]`      | The side of the trigger that the toast is positioned on |
-| `[data-mounted]`   | Present when mounted                                    |
-| `[data-paused]`    | Present when paused                                     |
-| `[data-first]`     |                                                         |
-| `[data-sibling]`   |                                                         |
-| `[data-stack]`     |                                                         |
-| `[data-overlap]`   | Present when overlapping                                |
+| Attribute         | Value                 |
+| ----------------- | --------------------- | ----- |
+| `[data-scope]`    | toggle                |
+| `[data-part]`     | root                  |
+| `[data-state]`    | "on"                  | "off" |
+| `[data-pressed]`  | Present when pressed  |
+| `[data-disabled]` | Present when disabled |
 
-**ActionTrigger Props:**
+**Indicator Props:**
 
 | Prop      | Type      | Required | Description                                                                                         |
 | --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 
-**CloseTrigger Props:**
+**Indicator Data Attributes:**
 
-| Prop      | Type      | Required | Description                                                                                         |
-| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-
-**Description Props:**
-
-| Prop      | Type      | Required | Description                                                                                         |
-| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-
-**Store Props:**
-
-| Prop                                                   | Type        | Required     | Description                                                                                            |
-| ------------------------------------------------------ | ----------- | ------------ | ------------------------------------------------------------------------------------------------------ | ------ | ----------------- | --- | --------------------------------------------------------- |
-| `duration`                                             | `number`    | No           | The duration of the toast.                                                                             |
-| By default, it is determined by the type of the toast. |
-| `gap`                                                  | `number`    | No           | The gap between the toasts                                                                             |
-| `hotkey`                                               | `string[]`  | No           | The hotkey that will move focus to the toast group                                                     |
-| `max`                                                  | `number`    | No           | The maximum number of toasts. When the number of toasts exceeds this limit, the new toasts are queued. |
-| `offsets`                                              | `string     | Record<'top' | 'bottom'                                                                                               | 'left' | 'right', string>` | No  | The offset from the safe environment edge of the viewport |
-| `overlap`                                              | `boolean`   | No           | Whether to overlap the toasts                                                                          |
-| `pauseOnPageIdle`                                      | `boolean`   | No           | Whether to pause toast when the user leaves the browser tab                                            |
-| `placement`                                            | `Placement` | No           | The placement of the toast                                                                             |
-| `removeDelay`                                          | `number`    | No           | The duration for the toast to kept alive before it is removed.                                         |
-| Useful for exit transitions.                           |
-
-**Title Props:**
-
-| Prop      | Type      | Required | Description                                                                                         |
-| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-
-**Toaster Props:**
-
-| Prop      | Type                  | Required | Description                                                                                         |
-| --------- | --------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `toaster` | `CreateToasterReturn` | Yes      |                                                                                                     |
-| `asChild` | `boolean`             | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| Attribute         | Value                 |
+| ----------------- | --------------------- | ----- |
+| `[data-scope]`    | toggle                |
+| `[data-part]`     | indicator             |
+| `[data-disabled]` | Present when disabled |
+| `[data-pressed]`  | Present when pressed  |
+| `[data-state]`    | "on"                  | "off" |
 
 #### Svelte
 
 **Root Props:**
 
-| Prop      | Type                        | Required | Description                                                                                         |
-| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `ref`     | `Element`                   | No       |                                                                                                     |
+| Prop              | Type                           | Required | Description                                                                                         |
+| ----------------- | ------------------------------ | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild`         | `Snippet<[PropsFn<'button'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `defaultPressed`  | `boolean`                      | No       | The default pressed state of the toggle.                                                            |
+| `disabled`        | `boolean`                      | No       | Whether the toggle is disabled.                                                                     |
+| `onPressedChange` | `(pressed: boolean) => void`   | No       | Event handler called when the pressed state of the toggle changes.                                  |
+| `pressed`         | `boolean`                      | No       | The pressed state of the toggle.                                                                    |
+| `ref`             | `Element`                      | No       |                                                                                                     |
 
 **Root Data Attributes:**
 
-| Attribute          | Value                                                   |
-| ------------------ | ------------------------------------------------------- | -------- |
-| `[data-scope]`     | toast                                                   |
-| `[data-part]`      | root                                                    |
-| `[data-state]`     | "open"                                                  | "closed" |
-| `[data-type]`      | The type of the item                                    |
-| `[data-placement]` | The placement of the toast                              |
-| `[data-align]`     |                                                         |
-| `[data-side]`      | The side of the trigger that the toast is positioned on |
-| `[data-mounted]`   | Present when mounted                                    |
-| `[data-paused]`    | Present when paused                                     |
-| `[data-first]`     |                                                         |
-| `[data-sibling]`   |                                                         |
-| `[data-stack]`     |                                                         |
-| `[data-overlap]`   | Present when overlapping                                |
-
-**ActionTrigger Props:**
-
-| Prop      | Type                           | Required | Description                                                                                         |
-| --------- | ------------------------------ | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `Snippet<[PropsFn<'button'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `ref`     | `Element`                      | No       |                                                                                                     |
-
-**CloseTrigger Props:**
-
-| Prop      | Type                           | Required | Description                                                                                         |
-| --------- | ------------------------------ | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `Snippet<[PropsFn<'button'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `ref`     | `Element`                      | No       |                                                                                                     |
+| Attribute         | Value                 |
+| ----------------- | --------------------- | ----- |
+| `[data-scope]`    | toggle                |
+| `[data-part]`     | root                  |
+| `[data-state]`    | "on"                  | "off" |
+| `[data-pressed]`  | Present when pressed  |
+| `[data-disabled]` | Present when disabled |
 
 **Context Props:**
 
-| Prop     | Type                         | Required | Description |
-| -------- | ---------------------------- | -------- | ----------- |
-| `render` | `Snippet<[UseToastContext]>` | Yes      |             |
+| Prop     | Type                          | Required | Description |
+| -------- | ----------------------------- | -------- | ----------- |
+| `render` | `Snippet<[UseToggleContext]>` | Yes      |             |
 
-**Description Props:**
+**Indicator Props:**
 
-| Prop      | Type                        | Required | Description                                                                                         |
-| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `ref`     | `Element`                   | No       |                                                                                                     |
+| Prop       | Type                        | Required | Description                                                                                         |
+| ---------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild`  | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `fallback` | `Snippet<[]>`               | No       | The fallback content to render when the toggle is not pressed.                                      |
+| `ref`      | `Element`                   | No       |                                                                                                     |
 
-**Store Props:**
+**Indicator Data Attributes:**
 
-| Prop                                                   | Type        | Required     | Description                                                                                            |
-| ------------------------------------------------------ | ----------- | ------------ | ------------------------------------------------------------------------------------------------------ | ------ | ----------------- | --- | --------------------------------------------------------- |
-| `duration`                                             | `number`    | No           | The duration of the toast.                                                                             |
-| By default, it is determined by the type of the toast. |
-| `gap`                                                  | `number`    | No           | The gap between the toasts                                                                             |
-| `hotkey`                                               | `string[]`  | No           | The hotkey that will move focus to the toast group                                                     |
-| `max`                                                  | `number`    | No           | The maximum number of toasts. When the number of toasts exceeds this limit, the new toasts are queued. |
-| `offsets`                                              | `string     | Record<'top' | 'bottom'                                                                                               | 'left' | 'right', string>` | No  | The offset from the safe environment edge of the viewport |
-| `overlap`                                              | `boolean`   | No           | Whether to overlap the toasts                                                                          |
-| `pauseOnPageIdle`                                      | `boolean`   | No           | Whether to pause toast when the user leaves the browser tab                                            |
-| `placement`                                            | `Placement` | No           | The placement of the toast                                                                             |
-| `removeDelay`                                          | `number`    | No           | The duration for the toast to kept alive before it is removed.                                         |
-| Useful for exit transitions.                           |
-
-**Title Props:**
-
-| Prop      | Type                        | Required | Description                                                                                         |
-| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `ref`     | `Element`                   | No       |                                                                                                     |
-
-**Toaster Props:**
-
-| Prop          | Type                  | Required   | Description           |
-| ------------- | --------------------- | ---------- | --------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `toaster`     | `CreateToasterReturn` | Yes        | The toaster instance. |
-| `dir`         | `'ltr'                | 'rtl'`     | No                    | The document's text/writing direction. |
-| `getRootNode` | `() => Node           | ShadowRoot | Document`             | No                                     | A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron. |
-| `ref`         | `Element`             | No         |                       |
+| Attribute         | Value                 |
+| ----------------- | --------------------- | ----- |
+| `[data-scope]`    | toggle                |
+| `[data-part]`     | indicator             |
+| `[data-disabled]` | Present when disabled |
+| `[data-pressed]`  | Present when pressed  |
+| `[data-state]`    | "on"                  | "off" |
 
 ### Context
 
 **API:**
 
-| Property    | Type                                                         | Description                  |
-| ----------- | ------------------------------------------------------------ | ---------------------------- |
-| `getCount`  | `() => number`                                               | The total number of toasts   |
-| `getToasts` | `() => ToastProps[]`                                         | The toasts                   |
-| `subscribe` | `(callback: (toasts: Options<O>[]) => void) => VoidFunction` | Subscribe to the toast group |
+| Property            | Type                         | Description                                                  |
+| ------------------- | ---------------------------- | ------------------------------------------------------------ |
+| `pressed`           | `boolean`                    | Whether the toggle is pressed.                               |
+| `disabled`          | `boolean`                    | Whether the toggle is disabled.                              |
+| `setPressed`        | `(pressed: boolean) => void` | Sets the pressed state of the toggle.                        |
+| `getRootProps`      | `() => T["element"]`         | Props for the root `button` element.                         |
+| `getIndicatorProps` | `() => T["element"]`         | Props for the optional visual indicator (e.g. icon) element. |
