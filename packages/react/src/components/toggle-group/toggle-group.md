@@ -45,8 +45,7 @@ The wrapper follows Ark UI React `@ark-ui/react/toggle-group`.
 
 ```text
 ToggleGroup / ToggleGroup.Root
-├─ ToggleGroup.Item
-└─ ToggleGroup.Context (optional)
+└─ ToggleGroup.Item
 
 ToggleGroup.RootProvider
 └─ ToggleGroup.Item
@@ -138,8 +137,14 @@ export function RootProviderToggleGroupDemo() {
 - Refs forward to the Ark DOM parts: root/root-provider `HTMLDivElement`, item `HTMLButtonElement`.
 - Ark manages roving tab index, arrow-key navigation, pressed semantics, disabled propagation, and
   item selection state.
+- Single-selection roots use `radiogroup` with `radio` items and `aria-checked`; multiple roots use
+  `group` with button `aria-pressed`.
+- Left/Right navigate horizontal groups, Up/Down navigate vertical groups, and Home/End focus the
+  first/last enabled item. Space/Enter activate the focused button, and `loopFocus` controls
+  whether arrow navigation wraps.
 - Root supports `disabled`, `orientation`, `loopFocus`, `rovingFocus`, `multiple`, `deselectable`,
   `id`, and `ids`.
+- `deselectable` is ignored when `multiple` is enabled.
 - Item supports required `value`, `disabled`, and `asChild`.
 - Ark data attributes to preserve: `data-scope="toggle-group"`, `data-part`, `data-orientation`,
   `data-disabled`, `data-focus`, and item `data-state="on" | "off"`.
@@ -192,6 +197,9 @@ export function RootProviderToggleGroupDemo() {
 
 ## Local changelog
 
+- 2026-06-29: Clarified Ark role, keyboard, `ids`, and context contracts; simplified CSS nesting
+  and docs examples; replaced fractional group padding with the matching border-width token; added
+  provider/context story coverage.
 - 2026-06-21: Migrated `ToggleGroup` to Ark UI React, replaced flat
   `ToggleGroupItem` with `ToggleGroup.Item`, adopted Ark `onValueChange(details)`, exposed
   `RootProvider`/`Context`/hooks/types, and updated the styling contract around Ark data

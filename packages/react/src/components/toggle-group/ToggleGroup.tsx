@@ -13,7 +13,7 @@ import styles from './ToggleGroup.module.css';
 type ToggleVariant = 'default' | 'outline' | 'ghost';
 type ToggleSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
 
-const ToggleGroupContext = createContext<{
+const ToggleGroupStyleContext = createContext<{
   variant: ToggleVariant;
   size: ToggleSize;
 }>({
@@ -43,7 +43,7 @@ const ToggleGroupRoot = forwardRef<
   const contextValue = useMemo(() => ({ variant, size }), [size, variant]);
 
   return (
-    <ToggleGroupContext.Provider value={contextValue}>
+    <ToggleGroupStyleContext.Provider value={contextValue}>
       <ToggleGroupPrimitive.Root
         ref={ref}
         data-slot="toggle-group-root"
@@ -52,7 +52,7 @@ const ToggleGroupRoot = forwardRef<
         className={clsx(styles.root, normalizeClassName(className))}
         {...props}
       />
-    </ToggleGroupContext.Provider>
+    </ToggleGroupStyleContext.Provider>
   );
 });
 
@@ -63,7 +63,7 @@ const ToggleGroupRootProvider = forwardRef<
   const contextValue = useMemo(() => ({ variant, size }), [size, variant]);
 
   return (
-    <ToggleGroupContext.Provider value={contextValue}>
+    <ToggleGroupStyleContext.Provider value={contextValue}>
       <ToggleGroupPrimitive.RootProvider
         ref={ref}
         data-slot="toggle-group-root-provider"
@@ -72,7 +72,7 @@ const ToggleGroupRootProvider = forwardRef<
         className={clsx(styles.root, normalizeClassName(className))}
         {...props}
       />
-    </ToggleGroupContext.Provider>
+    </ToggleGroupStyleContext.Provider>
   );
 });
 
@@ -80,7 +80,7 @@ const ToggleGroupItem = forwardRef<
   ComponentRef<typeof ToggleGroupPrimitive.Item>,
   ToggleGroupItemProps
 >(function ToggleGroupItem({ className, variant, size, ...props }, ref) {
-  const inherited = useContext(ToggleGroupContext);
+  const inherited = useContext(ToggleGroupStyleContext);
 
   return (
     <ToggleGroupPrimitive.Item

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Fragment, useState } from 'react';
 import { BellIcon, StarIcon } from '@/icons/demo';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
-import { ToggleGroup } from './ToggleGroup';
+import { ToggleGroup, useToggleGroup } from './ToggleGroup';
 import storyStyles from './ToggleGroup.stories.module.css';
 
 const meta = {
@@ -38,7 +38,7 @@ export const Multiple: Story = {
         multiple
         defaultValue={['bold', 'italic']}
         aria-label="Text formatting"
-        size="icon-md"
+        size="md"
       >
         <ToggleGroup.Item value="bold" aria-label="Bold">
           <strong>B</strong>
@@ -191,6 +191,42 @@ export const Controlled: Story = {
         </ToggleGroup>
         <span className={storyStyles.hint}>Current value: {value.join(', ') || 'empty'}</span>
       </div>
+    );
+  },
+};
+
+export const RootProvider: Story = {
+  name: 'Root Provider',
+  render: () => {
+    const toggleGroup = useToggleGroup({ defaultValue: ['left'] });
+
+    return (
+      <ToggleGroup.RootProvider value={toggleGroup} aria-label="Text alignment">
+        <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
+        <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
+        <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
+      </ToggleGroup.RootProvider>
+    );
+  },
+};
+
+export const Context: Story = {
+  render: () => {
+    return (
+      <ToggleGroup defaultValue={['left']} aria-label="Text alignment">
+        <ToggleGroup.Context>
+          {(context) => (
+            <>
+              <ToggleGroup.Item value="left">
+                {context.value.includes('left') ? 'Left selected' : 'Left'}
+              </ToggleGroup.Item>
+              <ToggleGroup.Item value="center">
+                {context.value.includes('center') ? 'Center selected' : 'Center'}
+              </ToggleGroup.Item>
+            </>
+          )}
+        </ToggleGroup.Context>
+      </ToggleGroup>
     );
   },
 };

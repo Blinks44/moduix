@@ -1,7 +1,8 @@
-import { BellIcon, CheckIcon, StarIcon, ToggleGroup, useToggleGroup } from '@moduix/react';
+import { ToggleGroup, useToggleGroup } from '@moduix/react';
+import { AlignCenterIcon, AlignLeftIcon, AlignRightIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './toggle-group.module.css';
 
 const alignmentItems = [
@@ -14,12 +15,6 @@ const variantItems = [
   { value: 'one', label: 'One' },
   { value: 'two', label: 'Two' },
   { value: 'three', label: 'Three' },
-];
-
-const formattingItems = [
-  { value: 'bold', label: 'B', ariaLabel: 'Bold' },
-  { value: 'italic', label: 'I', ariaLabel: 'Italic' },
-  { value: 'underline', label: 'U', ariaLabel: 'Underline' },
 ];
 
 const viewItems = [
@@ -47,40 +42,9 @@ export const toggleGroupOverrideCssProperties: CssPropertyInput[] = [
     'var(--color-background)',
     'Controls outline variant group background.',
   ],
-  ['--toggle-group-padding', '0.125rem', 'Controls group inner padding.'],
+  ['--toggle-group-padding', 'var(--border-width-md)', 'Controls group inner padding.'],
   ['--toggle-group-radius', 'var(--radius-lg)', 'Controls group corner radius.'],
 ];
-
-export const toggleGroupPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--toggle-group-bg', 'var(--color-muted)', 'Controls group background color.'],
-  ['--toggle-group-border-color', 'var(--color-border)', 'Controls group border color.'],
-  ['--toggle-group-color', 'var(--color-foreground)', 'Controls group text color.'],
-  ['--toggle-group-item-radius', 'var(--radius-md)', 'Controls item corner radius.'],
-  ['--toggle-group-radius', 'var(--radius-lg)', 'Controls group corner radius.'],
-];
-
-export function ToggleGroupCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={toggleGroupOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function ToggleGroupCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={toggleGroupPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
-}
 
 function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property)) {
@@ -90,43 +54,11 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function AlignLeftIcon(props: ComponentProps<'svg'>) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
-      <path
-        d="M2.5 3.5h11M2.5 8h8M2.5 12.5h11"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
+const toggleGroupCssPropertiesReference =
+  toggleGroupOverrideCssProperties.map(normalizeCssProperty);
 
-function AlignCenterIcon(props: ComponentProps<'svg'>) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
-      <path
-        d="M2.5 3.5h11M4 8h8M2.5 12.5h11"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function AlignRightIcon(props: ComponentProps<'svg'>) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
-      <path
-        d="M2.5 3.5h11M5.5 8h8M2.5 12.5h11"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
+export function ToggleGroupCssPropertiesPanel() {
+  return <CSSPropertiesReferenceTable properties={toggleGroupCssPropertiesReference} />;
 }
 
 export function ToggleGroupExample(props: ComponentProps<typeof ToggleGroup>) {
@@ -171,42 +103,35 @@ export function ToggleGroupVariantsExample() {
 
 export function ToggleGroupMultipleExample() {
   return (
-    <ToggleGroup
-      multiple
-      defaultValue={['bold', 'italic']}
-      aria-label="Text formatting"
-      size="icon-md"
-    >
-      {formattingItems.map((item) => (
-        <ToggleGroup.Item key={item.value} value={item.value} aria-label={item.ariaLabel}>
-          {item.value === 'bold' && <strong>{item.label}</strong>}
-          {item.value === 'italic' && <em>{item.label}</em>}
-          {item.value === 'underline' && <span className={styles.underline}>{item.label}</span>}
-        </ToggleGroup.Item>
-      ))}
+    <ToggleGroup multiple defaultValue={['bold', 'italic']} aria-label="Text formatting" size="md">
+      <ToggleGroup.Item value="bold" aria-label="Bold">
+        <strong>B</strong>
+      </ToggleGroup.Item>
+      <ToggleGroup.Item value="italic" aria-label="Italic">
+        <em>I</em>
+      </ToggleGroup.Item>
+      <ToggleGroup.Item value="underline" aria-label="Underline">
+        <span className={styles.underline}>U</span>
+      </ToggleGroup.Item>
     </ToggleGroup>
   );
 }
 
 export function ControlledToggleGroupExample() {
-  const [value, setValue] = useState(['favorites'] as string[]);
+  const [value, setValue] = useState(['left'] as string[]);
 
   return (
     <div className={styles.stack}>
       <ToggleGroup
         value={value}
         onValueChange={(details) => setValue(details.value)}
-        aria-label="Controlled options"
-        multiple
+        aria-label="Text alignment"
       >
-        <ToggleGroup.Item value="favorites">
-          {value.includes('favorites') ? <CheckIcon /> : <StarIcon />}
-          Favorites
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="alerts">
-          <BellIcon />
-          Alerts
-        </ToggleGroup.Item>
+        {alignmentItems.map((item) => (
+          <ToggleGroup.Item key={item.value} value={item.value}>
+            {item.label}
+          </ToggleGroup.Item>
+        ))}
       </ToggleGroup>
       <span className={styles.hint}>Current value: {value.join(', ') || 'empty'}</span>
     </div>
@@ -215,15 +140,20 @@ export function ControlledToggleGroupExample() {
 
 export function ToggleGroupIconExample() {
   return (
-    <ToggleGroup defaultValue={['left']} aria-label="Text alignment" size="icon-md">
+    <ToggleGroup
+      defaultValue={['left']}
+      aria-label="Text alignment"
+      size="md"
+      className={styles.iconGroup}
+    >
       <ToggleGroup.Item value="left" aria-label="Align left">
-        <AlignLeftIcon className={styles.customIcon} />
+        <AlignLeftIcon />
       </ToggleGroup.Item>
       <ToggleGroup.Item value="center" aria-label="Align center">
-        <AlignCenterIcon className={styles.customIcon} />
+        <AlignCenterIcon />
       </ToggleGroup.Item>
       <ToggleGroup.Item value="right" aria-label="Align right">
-        <AlignRightIcon className={styles.customIcon} />
+        <AlignRightIcon />
       </ToggleGroup.Item>
     </ToggleGroup>
   );
@@ -280,7 +210,27 @@ export function ToggleGroupDisabledExample() {
   );
 }
 
-export function CustomCompositionToggleGroupExample() {
+export function ToggleGroupContextExample() {
+  return (
+    <ToggleGroup
+      defaultValue={['left']}
+      aria-label="Text alignment"
+      className={styles.contextGroup}
+    >
+      <ToggleGroup.Context>
+        {(context) =>
+          alignmentItems.map((item) => (
+            <ToggleGroup.Item key={item.value} value={item.value}>
+              {context.value.includes(item.value) ? `${item.label} selected` : item.label}
+            </ToggleGroup.Item>
+          ))
+        }
+      </ToggleGroup.Context>
+    </ToggleGroup>
+  );
+}
+
+export function CustomStylesToggleGroupExample() {
   return (
     <ToggleGroup
       defaultValue={['day']}

@@ -23,9 +23,14 @@
   text-decoration: underline;
 }
 
-.customIcon {
-  width: 1rem;
-  height: 1rem;
+.contextGroup {
+  & [data-slot='toggle-group-item'] {
+    min-width: 4rem;
+  }
+}
+
+.iconGroup {
+  --toggle-icon-size: 1rem;
 }
 
 .customGroup {

@@ -6,7 +6,8 @@ icon: Component
 
 import {
   ControlledToggleGroupExample,
-  CustomCompositionToggleGroupExample,
+  CustomStylesToggleGroupExample,
+  ToggleGroupContextExample,
   ToggleGroupCssPropertiesPanel,
   ToggleGroupDisabledExample,
   ToggleGroupExample,
@@ -130,9 +131,8 @@ such as styles, icons, and small utilities.
 ## Anatomy
 
 ```text
-ToggleGroup.Root
-├─ ToggleGroup.Item[value]
-└─ ToggleGroup.Context (optional render-prop access)
+ToggleGroup / ToggleGroup.Root
+└─ ToggleGroup.Item[value]
 
 ToggleGroup.RootProvider
 └─ ToggleGroup.Item[value]
@@ -169,6 +169,9 @@ Use `useToggleGroup()` with `ToggleGroup.RootProvider` when state must be create
 rendered root. Do not render `ToggleGroup.Root` and `ToggleGroup.RootProvider` for the same state
 instance.
 
+Use `ToggleGroup.Context` for inline render-prop access and `useToggleGroupContext()` inside
+reusable descendants. Both must render below a root or root provider.
+
 ### Default props
 
 | Prop           | Default      | Notes                                                            |
@@ -184,67 +187,20 @@ instance.
 ### Behavioral notes
 
 - `onValueChange` receives Ark details: use `details.value` for the selected string array.
+- `deselectable` is ignored when `multiple` is enabled.
 - The group needs an accessible name from `aria-label` or `aria-labelledby`.
 - Icon-only items need their own accessible name such as `aria-label="Align left"`.
 - Use `disabled` on the group for the whole set or on one item for a single unavailable choice.
+- Use `ids` to provide stable root and item IDs when composing the group with other accessible UI.
+- Single-selection groups use `radiogroup`/`radio` semantics; multiple groups use `group` and
+  `aria-pressed`.
+- Horizontal groups use Left/Right arrows, vertical groups use Up/Down, and Home/End move to the
+  first/last enabled item. Space/Enter activate the focused button, and `loopFocus` controls
+  whether arrow navigation wraps.
 - Ark writes `data-scope="toggle-group"`, `data-part`, `data-orientation`, `data-disabled`,
   `data-focus`, and item `data-state="on" | "off"` for styling.
 
 ## Examples
-
-### Multiple Selection
-
-Use `multiple` when several options can stay pressed at the same time.
-
-<Preview>
-  <ToggleGroupMultipleExample />
-
-  <Preview.Code>
-    {`
-      import { ToggleGroup } from "@moduix/react";
-      import styles from "./toggle-group.module.css";
-
-      const formattingItems = [
-        { value: "bold", label: "B", ariaLabel: "Bold" },
-        { value: "italic", label: "I", ariaLabel: "Italic" },
-        { value: "underline", label: "U", ariaLabel: "Underline" },
-      ];
-
-      export function MultipleToggleGroupDemo() {
-        return (
-          <ToggleGroup multiple defaultValue={["bold", "italic"]} aria-label="Text formatting" size="icon-md">
-            {formattingItems.map((item) => (
-              <ToggleGroup.Item key={item.value} value={item.value} aria-label={item.ariaLabel}>
-                {item.value === "bold" && <strong>{item.label}</strong>}
-                {item.value === "italic" && <em>{item.label}</em>}
-                {item.value === "underline" && <span className={styles.underline}>{item.label}</span>}
-              </ToggleGroup.Item>
-            ))}
-          </ToggleGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.CSS>
-  {`
-      .underline {
-        text-decoration: underline;
-      }
-    `}
-</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const formattingItems = [
-        { value: "bold", label: "B", ariaLabel: "Bold" },
-        { value: "italic", label: "I", ariaLabel: "Italic" },
-        { value: "underline", label: "U", ariaLabel: "Underline" },
-      ];
-    `}
-  </Preview.Data>
-</Preview>
 
 ### Controlled
 
@@ -255,29 +211,31 @@ Control `value` from React state when the group needs to stay in sync with surro
 
   <Preview.Code>
     {`
-      import { BellIcon, CheckIcon, StarIcon, ToggleGroup } from "@moduix/react";
+      import { ToggleGroup } from "@moduix/react";
       import { useState } from "react";
       import styles from "./toggle-group.module.css";
 
+      const alignmentItems = [
+        { value: "left", label: "Left" },
+        { value: "center", label: "Center" },
+        { value: "right", label: "Right" },
+      ];
+
       export function ControlledToggleGroupDemo() {
-        const [value, setValue] = useState(["favorites"] as string[]);
+        const [value, setValue] = useState(["left"] as string[]);
 
         return (
           <div className={styles.stack}>
             <ToggleGroup
               value={value}
               onValueChange={(details) => setValue(details.value)}
-              aria-label="Controlled options"
-              multiple
+              aria-label="Text alignment"
             >
-              <ToggleGroup.Item value="favorites">
-                {value.includes("favorites") ? <CheckIcon /> : <StarIcon />}
-                Favorites
-              </ToggleGroup.Item>
-              <ToggleGroup.Item value="alerts">
-                <BellIcon />
-                Alerts
-              </ToggleGroup.Item>
+              {alignmentItems.map((item) => (
+                <ToggleGroup.Item key={item.value} value={item.value}>
+                  {item.label}
+                </ToggleGroup.Item>
+              ))}
             </ToggleGroup>
             <span className={styles.hint}>Current value: {value.join(", ") || "empty"}</span>
           </div>
@@ -305,7 +263,15 @@ Control `value` from React state when the group needs to stay in sync with surro
 
   </Preview.CSS>
 
-  <Preview.Data>{`const [value, setValue] = useState(["favorites"] as string[]);`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const alignmentItems = [
+        { value: "left", label: "Left" },
+        { value: "center", label: "Center" },
+        { value: "right", label: "Right" },
+      ];
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -370,6 +336,116 @@ the root is rendered.
   <Preview.Data>
     {`
       const toggleGroup = useToggleGroup({ defaultValue: ["left"] });
+    `}
+  </Preview.Data>
+</Preview>
+
+### Multiple Selection
+
+Use `multiple` when several options can stay pressed at the same time.
+
+<Preview>
+  <ToggleGroupMultipleExample />
+
+  <Preview.Code>
+    {`
+      import { ToggleGroup } from "@moduix/react";
+      import styles from "./toggle-group.module.css";
+
+      export function MultipleToggleGroupDemo() {
+        return (
+          <ToggleGroup
+            multiple
+            defaultValue={["bold", "italic"]}
+            aria-label="Text formatting"
+            size="md"
+          >
+            <ToggleGroup.Item value="bold" aria-label="Bold">
+              <strong>B</strong>
+            </ToggleGroup.Item>
+            <ToggleGroup.Item value="italic" aria-label="Italic">
+              <em>I</em>
+            </ToggleGroup.Item>
+            <ToggleGroup.Item value="underline" aria-label="Underline">
+              <span className={styles.underline}>U</span>
+            </ToggleGroup.Item>
+          </ToggleGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .underline {
+        text-decoration: underline;
+      }
+
+    `}
+
+</Preview.CSS>
+
+  <Preview.Data>{`const defaultValue = ["bold", "italic"];`}</Preview.Data>
+</Preview>
+
+### Context
+
+Use `ToggleGroup.Context` when item content needs the current selected values without duplicating
+the group state.
+
+<Preview>
+  <ToggleGroupContextExample />
+
+  <Preview.Code>
+    {`
+      import { ToggleGroup } from "@moduix/react";
+      import styles from "./toggle-group.module.css";
+
+      const alignmentItems = [
+        { value: "left", label: "Left" },
+        { value: "center", label: "Center" },
+        { value: "right", label: "Right" },
+      ];
+
+      export function ContextToggleGroupDemo() {
+        return (
+          <ToggleGroup
+            defaultValue={["left"]}
+            aria-label="Text alignment"
+            className={styles.contextGroup}
+          >
+            <ToggleGroup.Context>
+              {(context) =>
+                alignmentItems.map((item) => (
+                  <ToggleGroup.Item key={item.value} value={item.value}>
+                    {context.value.includes(item.value) ? \`\${item.label} selected\` : item.label}
+                  </ToggleGroup.Item>
+                ))
+              }
+            </ToggleGroup.Context>
+          </ToggleGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .contextGroup [data-slot="toggle-group-item"] {
+        min-width: 4rem;
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const alignmentItems = [
+        { value: "left", label: "Left" },
+        { value: "center", label: "Center" },
+        { value: "right", label: "Right" },
+      ];
     `}
   </Preview.Data>
 </Preview>
@@ -443,19 +519,25 @@ Pass icons as regular children. Icon-only items should always include an accessi
   <Preview.Code>
     {`
       import { ToggleGroup } from "@moduix/react";
+      import { AlignCenterIcon, AlignLeftIcon, AlignRightIcon } from "lucide-react";
       import styles from "./toggle-group.module.css";
 
       export function IconToggleGroupDemo() {
         return (
-          <ToggleGroup defaultValue={["left"]} aria-label="Text alignment" size="icon-md">
+          <ToggleGroup
+            defaultValue={["left"]}
+            aria-label="Text alignment"
+            size="md"
+            className={styles.iconGroup}
+          >
             <ToggleGroup.Item value="left" aria-label="Align left">
-              <AlignLeftIcon className={styles.customIcon} />
+              <AlignLeftIcon />
             </ToggleGroup.Item>
             <ToggleGroup.Item value="center" aria-label="Align center">
-              <AlignCenterIcon className={styles.customIcon} />
+              <AlignCenterIcon />
             </ToggleGroup.Item>
             <ToggleGroup.Item value="right" aria-label="Align right">
-              <AlignRightIcon className={styles.customIcon} />
+              <AlignRightIcon />
             </ToggleGroup.Item>
           </ToggleGroup>
         );
@@ -466,9 +548,8 @@ Pass icons as regular children. Icon-only items should always include an accessi
 
 <Preview.CSS>
   {`
-      .customIcon {
-        width: 1rem;
-        height: 1rem;
+      .iconGroup {
+        --toggle-icon-size: 1rem;
       }
     `}
 </Preview.CSS>
@@ -585,7 +666,7 @@ Use `className`, `--toggle-group-*`, and inherited `--toggle-*` variables when t
 structure is right but the surface styling needs to change.
 
 <Preview>
-  <CustomCompositionToggleGroupExample />
+  <CustomStylesToggleGroupExample />
 
   <Preview.Code>
     {`

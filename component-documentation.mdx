@@ -1,13 +1,19 @@
-<ComponentPreview id="Toggle" />
+<ComponentPreview id="Tooltip" />
 
 ## Anatomy
 
-<Anatomy id="toggle" />
+<Anatomy id="tooltip" />
 
 ```tsx
-<Toggle.Root>
-  <Toggle.Indicator />
-</Toggle.Root>
+<Tooltip.Root>
+  <Tooltip.Trigger />
+  <Tooltip.Positioner>
+    <Tooltip.Arrow>
+      <Tooltip.ArrowTip />
+    </Tooltip.Arrow>
+    <Tooltip.Content />
+  </Tooltip.Positioner>
+</Tooltip.Root>
 ```
 
 ## Examples
@@ -17,48 +23,58 @@
 #### React
 
 ```tsx
-import { Toggle } from '@ark-ui/react/toggle';
-import { BoldIcon } from 'lucide-react';
-import styles from 'styles/toggle.module.css';
+import { Tooltip } from '@ark-ui/react/tooltip';
+import { Portal } from '@ark-ui/react/portal';
+import styles from 'styles/tooltip.module.css';
 
-export const Basic = () => {
-  return (
-    <Toggle.Root className={styles.Root}>
-      <BoldIcon />
-    </Toggle.Root>
-  );
-};
+export const Basic = () => (
+  <Tooltip.Root>
+    <Tooltip.Trigger className={styles.Trigger}>Hover Me</Tooltip.Trigger>
+    <Portal>
+      <Tooltip.Positioner>
+        <Tooltip.Content className={styles.Content}>I am a tooltip!</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Portal>
+  </Tooltip.Root>
+);
 ```
 
 #### Solid
 
 ```tsx
-import { Toggle } from '@ark-ui/solid/toggle';
-import { BoldIcon } from 'lucide-solid';
-import styles from 'styles/toggle.module.css';
+import { Tooltip } from '@ark-ui/solid/tooltip';
+import { Portal } from 'solid-js/web';
+import styles from 'styles/tooltip.module.css';
 
-export const Basic = () => {
-  return (
-    <Toggle.Root class={styles.Root}>
-      <BoldIcon />
-    </Toggle.Root>
-  );
-};
+export const Basic = () => (
+  <Tooltip.Root>
+    <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+    <Portal>
+      <Tooltip.Positioner>
+        <Tooltip.Content class={styles.Content}>I am a tooltip!</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Portal>
+  </Tooltip.Root>
+);
 ```
 
 #### Vue
 
 ```vue
 <script setup lang="ts">
-import { Toggle } from '@ark-ui/vue/toggle';
-import { BoldIcon } from 'lucide-vue-next';
-import styles from 'styles/toggle.module.css';
+import { Tooltip } from '@ark-ui/vue/tooltip';
+import styles from 'styles/tooltip.module.css';
 </script>
 
 <template>
-  <Toggle.Root :class="styles.Root">
-    <BoldIcon />
-  </Toggle.Root>
+  <Tooltip.Root>
+    <Tooltip.Trigger :class="styles.Trigger">Hover Me</Tooltip.Trigger>
+    <Teleport to="body">
+      <Tooltip.Positioner>
+        <Tooltip.Content :class="styles.Content">I am a tooltip!</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Teleport>
+  </Tooltip.Root>
 </template>
 ```
 
@@ -66,39 +82,53 @@ import styles from 'styles/toggle.module.css';
 
 ```svelte
 <script lang="ts">
-  import { Toggle } from '@ark-ui/svelte/toggle'
-  import { BoldIcon } from 'lucide-svelte'
-  import styles from 'styles/toggle.module.css'
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Tooltip } from '@ark-ui/svelte/tooltip'
+  import styles from 'styles/tooltip.module.css'
 </script>
 
-<Toggle.Root class={styles.Root}>
-  <BoldIcon />
-</Toggle.Root>
+<Tooltip.Root>
+  <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+  <Portal>
+    <Tooltip.Positioner>
+      <Tooltip.Content class={styles.Content}>I am a tooltip!</Tooltip.Content>
+    </Tooltip.Positioner>
+  </Portal>
+</Tooltip.Root>
 
 ```
 
 ### Controlled
 
-Use the `pressed` and `onPressedChange` props to control the toggle's state.
+To create a controlled Tooltip component, manage the state of whether the tooltip is open using the `open` prop:
 
 **Example: controlled**
 
 #### React
 
 ```tsx
-import { Toggle } from '@ark-ui/react/toggle';
-import { HeartIcon } from 'lucide-react';
+import { Portal } from '@ark-ui/react/portal';
+import { Tooltip } from '@ark-ui/react/tooltip';
 import { useState } from 'react';
-import styles from 'styles/toggle.module.css';
+import styles from 'styles/tooltip.module.css';
+import button from 'styles/button.module.css';
 
 export const Controlled = () => {
-  const [pressed, setPressed] = useState(false);
+  const [open, setOpen] = useState(false);
   return (
-    <Toggle.Root className={styles.Root} pressed={pressed} onPressedChange={setPressed}>
-      <Toggle.Indicator className={styles.Indicator} fallback={<HeartIcon />}>
-        <HeartIcon fill="currentColor" />
-      </Toggle.Indicator>
-    </Toggle.Root>
+    <div className="stack">
+      <button type="button" onClick={() => setOpen(!open)} className={button.Root}>
+        Toggle
+      </button>
+      <Tooltip.Root open={open} onOpenChange={(e) => setOpen(e.open)}>
+        <Tooltip.Trigger className={styles.Trigger}>Hover Me</Tooltip.Trigger>
+        <Portal>
+          <Tooltip.Positioner>
+            <Tooltip.Content className={styles.Content}>I am a tooltip!</Tooltip.Content>
+          </Tooltip.Positioner>
+        </Portal>
+      </Tooltip.Root>
+    </div>
   );
 };
 ```
@@ -106,19 +136,27 @@ export const Controlled = () => {
 #### Solid
 
 ```tsx
-import { Toggle } from '@ark-ui/solid/toggle';
-import { HeartIcon } from 'lucide-solid';
+import { Tooltip } from '@ark-ui/solid/tooltip';
 import { createSignal } from 'solid-js';
-import styles from 'styles/toggle.module.css';
+import { Portal } from 'solid-js/web';
+import styles from 'styles/tooltip.module.css';
 
 export const Controlled = () => {
-  const [pressed, setPressed] = createSignal(false);
+  const [open, setOpen] = createSignal(false);
   return (
-    <Toggle.Root class={styles.Root} pressed={pressed()} onPressedChange={setPressed}>
-      <Toggle.Indicator class={styles.Indicator} fallback={<HeartIcon />}>
-        <HeartIcon fill="currentColor" />
-      </Toggle.Indicator>
-    </Toggle.Root>
+    <>
+      <button type="button" onClick={() => setOpen(!open())}>
+        Toggle
+      </button>
+      <Tooltip.Root open={open()} onOpenChange={(e) => setOpen(e.open)}>
+        <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+        <Portal>
+          <Tooltip.Positioner>
+            <Tooltip.Content class={styles.Content}>I am a tooltip!</Tooltip.Content>
+          </Tooltip.Positioner>
+        </Portal>
+      </Tooltip.Root>
+    </>
   );
 };
 ```
@@ -127,23 +165,23 @@ export const Controlled = () => {
 
 ```vue
 <script setup lang="ts">
-import { Toggle } from '@ark-ui/vue/toggle';
-import { HeartIcon } from 'lucide-vue-next';
+import { Tooltip } from '@ark-ui/vue/tooltip';
 import { ref } from 'vue';
-import styles from 'styles/toggle.module.css';
+import styles from 'styles/tooltip.module.css';
 
-const pressed = ref(false);
+const open = ref(false);
 </script>
 
 <template>
-  <Toggle.Root :class="styles.Root" v-model:pressed="pressed">
-    <Toggle.Indicator :class="styles.Indicator">
-      <template #fallback>
-        <HeartIcon />
-      </template>
-      <HeartIcon fill="currentColor" />
-    </Toggle.Indicator>
-  </Toggle.Root>
+  <button @click="open = !open">Toggle</button>
+  <Tooltip.Root v-model:open="open">
+    <Tooltip.Trigger :class="styles.Trigger">Hover Me</Tooltip.Trigger>
+    <Teleport to="body">
+      <Tooltip.Positioner>
+        <Tooltip.Content :class="styles.Content">I am a tooltip!</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Teleport>
+  </Tooltip.Root>
 </template>
 ```
 
@@ -151,42 +189,55 @@ const pressed = ref(false);
 
 ```svelte
 <script lang="ts">
-  import { Toggle } from '@ark-ui/svelte/toggle'
-  import { HeartIcon } from 'lucide-svelte'
-  import styles from 'styles/toggle.module.css'
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Tooltip } from '@ark-ui/svelte/tooltip'
+  import styles from 'styles/tooltip.module.css'
 
-  let pressed = $state(false)
+  let open = $state(false)
 </script>
 
-<Toggle.Root class={styles.Root} bind:pressed>
-  <Toggle.Indicator class={styles.Indicator}>
-    {#snippet fallback()}
-      <HeartIcon />
-    {/snippet}
-    <HeartIcon fill="currentColor" />
-  </Toggle.Indicator>
-</Toggle.Root>
+<button onclick={() => (open = !open)}>Toggle</button>
+
+<Tooltip.Root bind:open>
+  <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+  <Portal>
+    <Tooltip.Positioner>
+      <Tooltip.Content class={styles.Content}>I am a tooltip!</Tooltip.Content>
+    </Tooltip.Positioner>
+  </Portal>
+</Tooltip.Root>
 
 ```
 
-### Disabled
+### Root Provider
 
-Use the `disabled` prop to disable the toggle.
+An alternative way to control the tooltip is to use the `RootProvider` component and the `useTooltip` hook. This way you
+can access the state and methods from outside the component.
 
-**Example: disabled**
+**Example: root-provider**
 
 #### React
 
 ```tsx
-import { Toggle } from '@ark-ui/react/toggle';
-import { BoldIcon } from 'lucide-react';
-import styles from 'styles/toggle.module.css';
+import { Tooltip, useTooltip } from '@ark-ui/react/tooltip';
+import { Portal } from '@ark-ui/react/portal';
+import styles from 'styles/tooltip.module.css';
 
-export const Disabled = () => {
+export const RootProvider = () => {
+  const tooltip = useTooltip();
+
   return (
-    <Toggle.Root className={styles.Root} disabled>
-      <BoldIcon />
-    </Toggle.Root>
+    <>
+      <output>Open: {String(tooltip.open)}</output>
+      <Tooltip.RootProvider value={tooltip}>
+        <Tooltip.Trigger className={styles.Trigger}>Hover Me</Tooltip.Trigger>
+        <Portal>
+          <Tooltip.Positioner>
+            <Tooltip.Content className={styles.Content}>I am a tooltip!</Tooltip.Content>
+          </Tooltip.Positioner>
+        </Portal>
+      </Tooltip.RootProvider>
+    </>
   );
 };
 ```
@@ -194,15 +245,26 @@ export const Disabled = () => {
 #### Solid
 
 ```tsx
-import { Toggle } from '@ark-ui/solid/toggle';
-import { BoldIcon } from 'lucide-solid';
-import styles from 'styles/toggle.module.css';
+import { Tooltip, useTooltip } from '@ark-ui/solid/tooltip';
+import { Portal } from 'solid-js/web';
+import styles from 'styles/tooltip.module.css';
 
-export const Disabled = () => {
+export const RootProvider = () => {
+  const tooltip = useTooltip();
+
   return (
-    <Toggle.Root class={styles.Root} disabled>
-      <BoldIcon />
-    </Toggle.Root>
+    <>
+      <button onClick={() => tooltip().setOpen(true)}>Open</button>
+
+      <Tooltip.RootProvider value={tooltip}>
+        <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+        <Portal>
+          <Tooltip.Positioner>
+            <Tooltip.Content class={styles.Content}>I am a tooltip!</Tooltip.Content>
+          </Tooltip.Positioner>
+        </Portal>
+      </Tooltip.RootProvider>
+    </>
   );
 };
 ```
@@ -211,15 +273,23 @@ export const Disabled = () => {
 
 ```vue
 <script setup lang="ts">
-import { Toggle } from '@ark-ui/vue/toggle';
-import { BoldIcon } from 'lucide-vue-next';
-import styles from 'styles/toggle.module.css';
+import { Tooltip, useTooltip } from '@ark-ui/vue/tooltip';
+import styles from 'styles/tooltip.module.css';
+
+const tooltip = useTooltip();
 </script>
 
 <template>
-  <Toggle.Root :class="styles.Root" disabled>
-    <BoldIcon />
-  </Toggle.Root>
+  <button @click="tooltip.setOpen(true)">Open</button>
+
+  <Tooltip.RootProvider :value="tooltip">
+    <Tooltip.Trigger :class="styles.Trigger">Hover Me</Tooltip.Trigger>
+    <Teleport to="body">
+      <Tooltip.Positioner>
+        <Tooltip.Content :class="styles.Content">I am a tooltip!</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Teleport>
+  </Tooltip.RootProvider>
 </template>
 ```
 
@@ -227,37 +297,570 @@ import styles from 'styles/toggle.module.css';
 
 ```svelte
 <script lang="ts">
-  import { Toggle } from '@ark-ui/svelte/toggle'
-  import { BoldIcon } from 'lucide-svelte'
-  import styles from 'styles/toggle.module.css'
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Tooltip, useTooltip } from '@ark-ui/svelte/tooltip'
+  import styles from 'styles/tooltip.module.css'
+
+  const tooltip = useTooltip()
 </script>
 
-<Toggle.Root class={styles.Root} disabled>
-  <BoldIcon />
-</Toggle.Root>
+<button onclick={() => tooltip().setOpen(true)}>Open</button>
+
+<Tooltip.RootProvider value={tooltip}>
+  <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+  <Portal>
+    <Tooltip.Positioner>
+      <Tooltip.Content class={styles.Content}>I am a tooltip!</Tooltip.Content>
+    </Tooltip.Positioner>
+  </Portal>
+</Tooltip.RootProvider>
 
 ```
 
-### Indicator
+### Arrow
 
-Use the `Toggle.Indicator` component to render different indicators based on the state of the toggle.
+To display an arrow pointing to the trigger from the tooltip, use the `Tooltip.Arrow` and `Tooltip.ArrowTip` components:
 
-**Example: indicator**
+**Example: arrow**
 
 #### React
 
 ```tsx
-import { Toggle } from '@ark-ui/react/toggle';
-import { HeartIcon } from 'lucide-react';
-import styles from 'styles/toggle.module.css';
+import { Tooltip } from '@ark-ui/react/tooltip';
+import { Portal } from '@zag-js/react';
+import styles from 'styles/tooltip.module.css';
 
-export const Indicator = () => {
+export const Arrow = () => (
+  <Tooltip.Root>
+    <Tooltip.Trigger className={styles.Trigger}>Hover Me</Tooltip.Trigger>
+    <Portal>
+      <Tooltip.Positioner>
+        <Tooltip.Content className={styles.Content}>
+          <Tooltip.Arrow className={styles.Arrow}>
+            <Tooltip.ArrowTip className={styles.ArrowTip} />
+          </Tooltip.Arrow>
+          I am a tooltip!
+        </Tooltip.Content>
+      </Tooltip.Positioner>
+    </Portal>
+  </Tooltip.Root>
+);
+```
+
+#### Solid
+
+```tsx
+import { Tooltip } from '@ark-ui/solid/tooltip';
+import { Portal } from 'solid-js/web';
+import styles from 'styles/tooltip.module.css';
+
+export const Arrow = () => (
+  <Tooltip.Root>
+    <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+    <Portal>
+      <Tooltip.Positioner>
+        <Tooltip.Content class={styles.Content}>
+          <Tooltip.Arrow class={styles.Arrow}>
+            <Tooltip.ArrowTip class={styles.ArrowTip} />
+          </Tooltip.Arrow>
+          I am a tooltip!
+        </Tooltip.Content>
+      </Tooltip.Positioner>
+    </Portal>
+  </Tooltip.Root>
+);
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+import { Tooltip } from '@ark-ui/vue/tooltip';
+import styles from 'styles/tooltip.module.css';
+</script>
+
+<template>
+  <Tooltip.Root>
+    <Tooltip.Trigger :class="styles.Trigger">Hover Me</Tooltip.Trigger>
+    <Teleport to="body">
+      <Tooltip.Positioner>
+        <Tooltip.Content :class="styles.Content">
+          <Tooltip.Arrow :class="styles.Arrow">
+            <Tooltip.ArrowTip :class="styles.ArrowTip" />
+          </Tooltip.Arrow>
+          I am a tooltip!
+        </Tooltip.Content>
+      </Tooltip.Positioner>
+    </Teleport>
+  </Tooltip.Root>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Tooltip } from '@ark-ui/svelte/tooltip'
+  import styles from 'styles/tooltip.module.css'
+</script>
+
+<Tooltip.Root>
+  <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+  <Portal>
+    <Tooltip.Positioner>
+      <Tooltip.Content class={styles.Content}>
+        <Tooltip.Arrow class={styles.Arrow}>
+          <Tooltip.ArrowTip class={styles.ArrowTip} />
+        </Tooltip.Arrow>
+        I am a tooltip!
+      </Tooltip.Content>
+    </Tooltip.Positioner>
+  </Portal>
+</Tooltip.Root>
+
+```
+
+### Delay
+
+To configure the open and close delay for the Tooltip, use the `closeDelay` and `openDelay` props:
+
+**Example: delay**
+
+#### React
+
+```tsx
+import { Tooltip } from '@ark-ui/react/tooltip';
+import { Portal } from '@ark-ui/react/portal';
+import styles from 'styles/tooltip.module.css';
+
+export const Delay = () => (
+  <Tooltip.Root closeDelay={0} openDelay={0}>
+    <Tooltip.Trigger className={styles.Trigger}>Hover Me</Tooltip.Trigger>
+    <Portal>
+      <Tooltip.Positioner>
+        <Tooltip.Content className={styles.Content}>I am a tooltip!</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Portal>
+  </Tooltip.Root>
+);
+```
+
+#### Solid
+
+```tsx
+import { Tooltip } from '@ark-ui/solid/tooltip';
+import { Portal } from 'solid-js/web';
+import styles from 'styles/tooltip.module.css';
+
+export const Delay = () => (
+  <Tooltip.Root closeDelay={0} openDelay={0}>
+    <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+    <Portal>
+      <Tooltip.Positioner>
+        <Tooltip.Content class={styles.Content}>I am a tooltip!</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Portal>
+  </Tooltip.Root>
+);
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+import { Tooltip } from '@ark-ui/vue/tooltip';
+import styles from 'styles/tooltip.module.css';
+</script>
+
+<template>
+  <Tooltip.Root :closeDelay="0" :openDelay="0">
+    <Tooltip.Trigger :class="styles.Trigger">Hover Me</Tooltip.Trigger>
+    <Teleport to="body">
+      <Tooltip.Positioner>
+        <Tooltip.Content :class="styles.Content">I am a tooltip!</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Teleport>
+  </Tooltip.Root>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Tooltip } from '@ark-ui/svelte/tooltip'
+  import styles from 'styles/tooltip.module.css'
+</script>
+
+<Tooltip.Root closeDelay={0} openDelay={0}>
+  <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+  <Portal>
+    <Tooltip.Positioner>
+      <Tooltip.Content class={styles.Content}>I am a tooltip!</Tooltip.Content>
+    </Tooltip.Positioner>
+  </Portal>
+</Tooltip.Root>
+
+```
+
+### Positioning
+
+To customize the position of the Tooltip relative to the trigger, use the `positioning` prop:
+
+**Example: positioning**
+
+#### React
+
+```tsx
+import { Tooltip } from '@ark-ui/react/tooltip';
+import { Portal } from '@ark-ui/react/portal';
+import styles from 'styles/tooltip.module.css';
+
+export const Positioning = () => (
+  <Tooltip.Root
+    positioning={{
+      placement: 'left-start',
+      offset: { mainAxis: 12, crossAxis: 12 },
+    }}
+  >
+    <Tooltip.Trigger className={styles.Trigger}>Hover Me</Tooltip.Trigger>
+    <Portal>
+      <Tooltip.Positioner>
+        <Tooltip.Content className={styles.Content}>I am a tooltip!</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Portal>
+  </Tooltip.Root>
+);
+```
+
+#### Solid
+
+```tsx
+import { Tooltip } from '@ark-ui/solid/tooltip';
+import { Portal } from 'solid-js/web';
+import styles from 'styles/tooltip.module.css';
+
+export const Positioning = () => (
+  <Tooltip.Root
+    positioning={{
+      placement: 'left-start',
+      offset: { mainAxis: 12, crossAxis: 12 },
+    }}
+  >
+    <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+    <Portal>
+      <Tooltip.Positioner>
+        <Tooltip.Content class={styles.Content}>I am a tooltip!</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Portal>
+  </Tooltip.Root>
+);
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+import { Tooltip } from '@ark-ui/vue/tooltip';
+import styles from 'styles/tooltip.module.css';
+</script>
+
+<template>
+  <Tooltip.Root
+    :positioning="{
+      placement: 'left-start',
+      offset: { mainAxis: 12, crossAxis: 12 },
+    }"
+  >
+    <Tooltip.Trigger :class="styles.Trigger">Hover Me</Tooltip.Trigger>
+    <Teleport to="body">
+      <Tooltip.Positioner>
+        <Tooltip.Content :class="styles.Content">I am a tooltip!</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Teleport>
+  </Tooltip.Root>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Tooltip } from '@ark-ui/svelte/tooltip'
+  import styles from 'styles/tooltip.module.css'
+</script>
+
+<Tooltip.Root positioning={{ placement: 'left-start', offset: { mainAxis: 12, crossAxis: 12 } }}>
+  <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+  <Portal>
+    <Tooltip.Positioner>
+      <Tooltip.Content class={styles.Content}>I am a tooltip!</Tooltip.Content>
+    </Tooltip.Positioner>
+  </Portal>
+</Tooltip.Root>
+
+```
+
+### Context
+
+Access the tooltip's state and methods with `Tooltip.Context` or the `useTooltipContext` hook:
+
+**Example: context**
+
+#### React
+
+```tsx
+import { Portal } from '@ark-ui/react/portal';
+import { Tooltip } from '@ark-ui/react/tooltip';
+import styles from 'styles/tooltip.module.css';
+
+export const Context = () => (
+  <Tooltip.Root>
+    <Tooltip.Trigger className={styles.Trigger}>Hover Me</Tooltip.Trigger>
+    <Portal>
+      <Tooltip.Positioner>
+        <Tooltip.Context>
+          {(tooltip) => (
+            <Tooltip.Content className={styles.Content}>
+              This tooltip is open: {tooltip.open.toString()}
+            </Tooltip.Content>
+          )}
+        </Tooltip.Context>
+      </Tooltip.Positioner>
+    </Portal>
+  </Tooltip.Root>
+);
+```
+
+#### Solid
+
+```tsx
+import { Tooltip } from '@ark-ui/solid/tooltip';
+import { Portal } from 'solid-js/web';
+import styles from 'styles/tooltip.module.css';
+
+export const Context = () => (
+  <Tooltip.Root>
+    <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+    <Portal>
+      <Tooltip.Positioner>
+        <Tooltip.Context>
+          {(context) => (
+            <Tooltip.Content class={styles.Content}>
+              This tooltip is open: {context().open.toString()}
+            </Tooltip.Content>
+          )}
+        </Tooltip.Context>
+      </Tooltip.Positioner>
+    </Portal>
+  </Tooltip.Root>
+);
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+import { Tooltip } from '@ark-ui/vue/tooltip';
+import styles from 'styles/tooltip.module.css';
+</script>
+
+<template>
+  <Tooltip.Root>
+    <Tooltip.Trigger :class="styles.Trigger">Hover Me</Tooltip.Trigger>
+    <Teleport to="body">
+      <Tooltip.Positioner>
+        <Tooltip.Context v-slot="tooltip">
+          <Tooltip.Content :class="styles.Content"
+            >This tooltip is open: {{ tooltip.open.toString() }}</Tooltip.Content
+          >
+        </Tooltip.Context>
+      </Tooltip.Positioner>
+    </Teleport>
+  </Tooltip.Root>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Tooltip } from '@ark-ui/svelte/tooltip'
+  import styles from 'styles/tooltip.module.css'
+</script>
+
+<Tooltip.Root>
+  <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+  <Portal>
+    <Tooltip.Positioner>
+      <Tooltip.Context>
+        {#snippet render(context)}
+          <Tooltip.Content class={styles.Content}>
+            This tooltip is open: {context().open.toString()}
+          </Tooltip.Content>
+        {/snippet}
+      </Tooltip.Context>
+    </Tooltip.Positioner>
+  </Portal>
+</Tooltip.Root>
+
+```
+
+### Within Fixed Containers
+
+When rendering a tooltip inside a fixed-position container, set `positioning.strategy` to `"fixed"` to ensure proper
+positioning.
+
+**Example: within-fixed**
+
+#### React
+
+```tsx
+import { Portal } from '@ark-ui/react/portal';
+import { Tooltip } from '@ark-ui/react/tooltip';
+import styles from 'styles/tooltip.module.css';
+
+export const WithinFixed = () => (
+  <div style={{ position: 'fixed', top: '40px', left: '40px', padding: '40px', background: 'red' }}>
+    <Tooltip.Root positioning={{ strategy: 'fixed' }}>
+      <Tooltip.Trigger className={styles.Trigger}>Hover Me</Tooltip.Trigger>
+      <Portal>
+        <Tooltip.Positioner>
+          <Tooltip.Content className={styles.Content}>I am a tooltip!</Tooltip.Content>
+        </Tooltip.Positioner>
+      </Portal>
+    </Tooltip.Root>
+  </div>
+);
+```
+
+#### Solid
+
+```tsx
+import { Tooltip } from '@ark-ui/solid/tooltip';
+import { Portal } from 'solid-js/web';
+import styles from 'styles/tooltip.module.css';
+
+export const WithinFixed = () => (
+  <div style={{ position: 'fixed', top: '40px', left: '40px', padding: '40px', background: 'red' }}>
+    <Tooltip.Root positioning={{ strategy: 'fixed' }}>
+      <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+      <Portal>
+        <Tooltip.Positioner>
+          <Tooltip.Content class={styles.Content}>I am a tooltip!</Tooltip.Content>
+        </Tooltip.Positioner>
+      </Portal>
+    </Tooltip.Root>
+  </div>
+);
+```
+
+#### Vue
+
+```vue
+<script setup lang="ts">
+import { Tooltip } from '@ark-ui/vue/tooltip';
+import styles from 'styles/tooltip.module.css';
+</script>
+
+<template>
+  <div style="position: fixed; top: 40px; left: 40px; padding: 40px; background: red">
+    <Tooltip.Root :positioning="{ strategy: 'fixed' }">
+      <Tooltip.Trigger :class="styles.Trigger">Hover Me</Tooltip.Trigger>
+      <Teleport to="body">
+        <Tooltip.Positioner>
+          <Tooltip.Content :class="styles.Content">I am a tooltip!</Tooltip.Content>
+        </Tooltip.Positioner>
+      </Teleport>
+    </Tooltip.Root>
+  </div>
+</template>
+```
+
+#### Svelte
+
+```svelte
+<script lang="ts">
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Tooltip } from '@ark-ui/svelte/tooltip'
+  import styles from 'styles/tooltip.module.css'
+</script>
+
+<div style="position: fixed; top: 40px; left: 40px; padding: 40px; background: red">
+  <Tooltip.Root positioning={{ strategy: 'fixed' }}>
+    <Tooltip.Trigger class={styles.Trigger}>Hover Me</Tooltip.Trigger>
+    <Portal>
+      <Tooltip.Positioner>
+        <Tooltip.Content class={styles.Content}>I am a tooltip!</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Portal>
+  </Tooltip.Root>
+</div>
+
+```
+
+### Multiple Triggers
+
+Share a single tooltip across multiple trigger elements. Pass a `value` to each `Tooltip.Trigger` — the tooltip
+repositions to whichever trigger is hovered without closing.
+
+**Example: multiple-triggers**
+
+#### React
+
+```tsx
+import { Portal } from '@ark-ui/react/portal';
+import { Tooltip } from '@ark-ui/react/tooltip';
+import { BoldIcon, ItalicIcon, UnderlineIcon, StrikethroughIcon } from 'lucide-react';
+import { useState } from 'react';
+import styles from 'styles/tooltip.module.css';
+
+interface Tool {
+  id: string;
+  label: string;
+  shortcut: string;
+  icon: React.ElementType;
+}
+
+const tools: Tool[] = [
+  { id: 'bold', label: 'Bold', shortcut: '⌘+B', icon: BoldIcon },
+  { id: 'italic', label: 'Italic', shortcut: '⌘+I', icon: ItalicIcon },
+  { id: 'underline', label: 'Underline', shortcut: '⌘+U', icon: UnderlineIcon },
+  { id: 'strikethrough', label: 'Strikethrough', shortcut: '⌘+⇧+X', icon: StrikethroughIcon },
+];
+
+export const MultipleTriggers = () => {
+  const [activeTool, setActiveTool] = useState<Tool | null>(null);
+
   return (
-    <Toggle.Root className={styles.Root}>
-      <Toggle.Indicator className={styles.Indicator} fallback={<HeartIcon />}>
-        <HeartIcon fill="currentColor" />
-      </Toggle.Indicator>
-    </Toggle.Root>
+    <Tooltip.Root
+      onTriggerValueChange={(e) => {
+        setActiveTool(tools.find((t) => t.id === e.value) ?? null);
+      }}
+    >
+      <div className={styles.Toolbar}>
+        {tools.map((tool) => (
+          <Tooltip.Trigger key={tool.id} value={tool.id} className={styles.ToolbarButton}>
+            <tool.icon />
+          </Tooltip.Trigger>
+        ))}
+      </div>
+      <Portal>
+        <Tooltip.Positioner>
+          <Tooltip.Content className={styles.Content}>
+            {activeTool && (
+              <>
+                {activeTool.label} <span className={styles.Shortcut}>{activeTool.shortcut}</span>
+              </>
+            )}
+          </Tooltip.Content>
+        </Tooltip.Positioner>
+      </Portal>
+    </Tooltip.Root>
   );
 };
 ```
@@ -265,17 +868,56 @@ export const Indicator = () => {
 #### Solid
 
 ```tsx
-import { Toggle } from '@ark-ui/solid/toggle';
-import { HeartIcon } from 'lucide-solid';
-import styles from 'styles/toggle.module.css';
+import { Tooltip } from '@ark-ui/solid/tooltip';
+import { BoldIcon, ItalicIcon, StrikethroughIcon, UnderlineIcon } from 'lucide-solid';
+import { type Component, For, createSignal } from 'solid-js';
+import { Portal } from 'solid-js/web';
+import styles from 'styles/tooltip.module.css';
 
-export const Indicator = () => {
+interface Tool {
+  id: string;
+  label: string;
+  shortcut: string;
+  icon: Component;
+}
+
+const tools: Tool[] = [
+  { id: 'bold', label: 'Bold', shortcut: '⌘+B', icon: BoldIcon },
+  { id: 'italic', label: 'Italic', shortcut: '⌘+I', icon: ItalicIcon },
+  { id: 'underline', label: 'Underline', shortcut: '⌘+U', icon: UnderlineIcon },
+  { id: 'strikethrough', label: 'Strikethrough', shortcut: '⌘+⇧+X', icon: StrikethroughIcon },
+];
+
+export const MultipleTriggers = () => {
+  const [activeTool, setActiveTool] = createSignal<Tool | null>(null);
+
   return (
-    <Toggle.Root class={styles.Root}>
-      <Toggle.Indicator class={styles.Indicator} fallback={<HeartIcon />}>
-        <HeartIcon fill="currentColor" />
-      </Toggle.Indicator>
-    </Toggle.Root>
+    <Tooltip.Root
+      onTriggerValueChange={(e) => {
+        setActiveTool(tools.find((t) => t.id === e.value) ?? null);
+      }}
+    >
+      <div class={styles.Toolbar}>
+        <For each={tools}>
+          {(tool) => (
+            <Tooltip.Trigger value={tool.id} class={styles.ToolbarButton}>
+              <tool.icon />
+            </Tooltip.Trigger>
+          )}
+        </For>
+      </div>
+      <Portal>
+        <Tooltip.Positioner>
+          <Tooltip.Content class={styles.Content}>
+            {activeTool() && (
+              <>
+                {activeTool()!.label} <span class={styles.Shortcut}>{activeTool()!.shortcut}</span>
+              </>
+            )}
+          </Tooltip.Content>
+        </Tooltip.Positioner>
+      </Portal>
+    </Tooltip.Root>
   );
 };
 ```
@@ -284,20 +926,53 @@ export const Indicator = () => {
 
 ```vue
 <script setup lang="ts">
-import { Toggle } from '@ark-ui/vue/toggle';
-import { HeartIcon } from 'lucide-vue-next';
-import styles from 'styles/toggle.module.css';
+import { Tooltip } from '@ark-ui/vue/tooltip';
+import { BoldIcon, ItalicIcon, StrikethroughIcon, UnderlineIcon } from 'lucide-vue-next';
+import { ref } from 'vue';
+import styles from 'styles/tooltip.module.css';
+
+interface Tool {
+  id: string;
+  label: string;
+  shortcut: string;
+  icon: unknown;
+}
+
+const tools: Tool[] = [
+  { id: 'bold', label: 'Bold', shortcut: '⌘+B', icon: BoldIcon },
+  { id: 'italic', label: 'Italic', shortcut: '⌘+I', icon: ItalicIcon },
+  { id: 'underline', label: 'Underline', shortcut: '⌘+U', icon: UnderlineIcon },
+  { id: 'strikethrough', label: 'Strikethrough', shortcut: '⌘+⇧+X', icon: StrikethroughIcon },
+];
+
+const activeTool = ref<Tool | null>(null);
 </script>
 
 <template>
-  <Toggle.Root :class="styles.Root">
-    <Toggle.Indicator :class="styles.Indicator">
-      <template #fallback>
-        <HeartIcon />
-      </template>
-      <HeartIcon fill="currentColor" />
-    </Toggle.Indicator>
-  </Toggle.Root>
+  <Tooltip.Root
+    @trigger-value-change="(e) => (activeTool = tools.find((t) => t.id === e.value) ?? null)"
+  >
+    <div :class="styles.Toolbar">
+      <Tooltip.Trigger
+        v-for="tool in tools"
+        :key="tool.id"
+        :value="tool.id"
+        :class="styles.ToolbarButton"
+      >
+        <component :is="tool.icon" />
+      </Tooltip.Trigger>
+    </div>
+    <Teleport to="body">
+      <Tooltip.Positioner>
+        <Tooltip.Content :class="styles.Content">
+          <template v-if="activeTool">
+            {{ activeTool.label }}
+            <span :class="styles.Shortcut">{{ activeTool.shortcut }}</span>
+          </template>
+        </Tooltip.Content>
+      </Tooltip.Positioner>
+    </Teleport>
+  </Tooltip.Root>
 </template>
 ```
 
@@ -305,19 +980,57 @@ import styles from 'styles/toggle.module.css';
 
 ```svelte
 <script lang="ts">
-  import { Toggle } from '@ark-ui/svelte/toggle'
-  import { HeartIcon } from 'lucide-svelte'
-  import styles from 'styles/toggle.module.css'
+  import { Portal } from '@ark-ui/svelte/portal'
+  import { Tooltip } from '@ark-ui/svelte/tooltip'
+  import { BoldIcon, ItalicIcon, StrikethroughIcon, UnderlineIcon } from 'lucide-svelte'
+  import styles from 'styles/tooltip.module.css'
+
+  interface Tool {
+    id: string
+    label: string
+    shortcut: string
+  }
+
+  const tools: Tool[] = [
+    { id: 'bold', label: 'Bold', shortcut: '⌘+B' },
+    { id: 'italic', label: 'Italic', shortcut: '⌘+I' },
+    { id: 'underline', label: 'Underline', shortcut: '⌘+U' },
+    { id: 'strikethrough', label: 'Strikethrough', shortcut: '⌘+⇧+X' },
+  ]
+
+  let activeTool = $state<Tool | null>(null)
 </script>
 
-<Toggle.Root class={styles.Root}>
-  <Toggle.Indicator class={styles.Indicator}>
-    {#snippet fallback()}
-      <HeartIcon />
-    {/snippet}
-    <HeartIcon fill="currentColor" />
-  </Toggle.Indicator>
-</Toggle.Root>
+<Tooltip.Root
+  onTriggerValueChange={(e) => {
+    activeTool = tools.find((t) => t.id === e.value) ?? null
+  }}
+>
+  <div class={styles.Toolbar}>
+    <Tooltip.Trigger value="bold" class={styles.ToolbarButton}>
+      <BoldIcon />
+    </Tooltip.Trigger>
+    <Tooltip.Trigger value="italic" class={styles.ToolbarButton}>
+      <ItalicIcon />
+    </Tooltip.Trigger>
+    <Tooltip.Trigger value="underline" class={styles.ToolbarButton}>
+      <UnderlineIcon />
+    </Tooltip.Trigger>
+    <Tooltip.Trigger value="strikethrough" class={styles.ToolbarButton}>
+      <StrikethroughIcon />
+    </Tooltip.Trigger>
+  </div>
+  <Portal>
+    <Tooltip.Positioner>
+      <Tooltip.Content class={styles.Content}>
+        {#if activeTool}
+          {activeTool.label}
+          <span class={styles.Shortcut}>{activeTool.shortcut}</span>
+        {/if}
+      </Tooltip.Content>
+    </Tooltip.Positioner>
+  </Portal>
+</Tooltip.Root>
 
 ```
 
@@ -331,170 +1044,484 @@ import styles from 'styles/toggle.module.css';
 
 **Root Props:**
 
-| Prop              | Type                         | Required | Description                                                                                         |
-| ----------------- | ---------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild`         | `boolean`                    | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `defaultPressed`  | `boolean`                    | No       | The default pressed state of the toggle.                                                            |
-| `onPressedChange` | `(pressed: boolean) => void` | No       | Event handler called when the pressed state of the toggle changes.                                  |
-| `pressed`         | `boolean`                    | No       | The pressed state of the toggle.                                                                    |
+| Prop                                                                          | Type                                                                               | Required | Description                                                                         |
+| ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------- |
+| `aria-label`                                                                  | `string`                                                                           | No       | Custom label for the tooltip.                                                       |
+| `closeDelay`                                                                  | `number`                                                                           | No       | The close delay of the tooltip.                                                     |
+| `closeOnClick`                                                                | `boolean`                                                                          | No       | Whether the tooltip should close on click                                           |
+| `closeOnEscape`                                                               | `boolean`                                                                          | No       | Whether to close the tooltip when the Escape key is pressed.                        |
+| `closeOnPointerDown`                                                          | `boolean`                                                                          | No       | Whether to close the tooltip on pointerdown.                                        |
+| `closeOnScroll`                                                               | `boolean`                                                                          | No       | Whether the tooltip should close on scroll                                          |
+| `defaultOpen`                                                                 | `boolean`                                                                          | No       | The initial open state of the tooltip when rendered.                                |
+| Use when you don't need to control the open state of the tooltip.             |
+| `disabled`                                                                    | `boolean`                                                                          | No       | Whether the tooltip is disabled                                                     |
+| `id`                                                                          | `string`                                                                           | No       | The unique identifier of the machine.                                               |
+| `ids`                                                                         | `Partial<{ trigger: string; content: string; arrow: string; positioner: string }>` | No       | The ids of the elements in the tooltip. Useful for composition.                     |
+| `immediate`                                                                   | `boolean`                                                                          | No       | Whether to synchronize the present change immediately or defer it to the next frame |
+| `interactive`                                                                 | `boolean`                                                                          | No       | Whether the tooltip's content is interactive.                                       |
+| In this mode, the tooltip will remain open when user hovers over the content. |
+| `lazyMount`                                                                   | `boolean`                                                                          | No       | Whether to enable lazy mounting                                                     |
+| `onExitComplete`                                                              | `VoidFunction`                                                                     | No       | Function called when the animation ends in the closed state                         |
+| `onOpenChange`                                                                | `(details: OpenChangeDetails) => void`                                             | No       | Function called when the tooltip is opened.                                         |
+| `open`                                                                        | `boolean`                                                                          | No       | The controlled open state of the tooltip                                            |
+| `openDelay`                                                                   | `number`                                                                           | No       | The open delay of the tooltip.                                                      |
+| `positioning`                                                                 | `PositioningOptions`                                                               | No       | The user provided options used to position the popover content                      |
+| `present`                                                                     | `boolean`                                                                          | No       | Whether the node is present (controlled by the user)                                |
+| `skipAnimationOnMount`                                                        | `boolean`                                                                          | No       | Whether to allow the initial presence animation.                                    |
+| `unmountOnExit`                                                               | `boolean`                                                                          | No       | Whether to unmount on exit.                                                         |
 
-**Root Data Attributes:**
-
-| Attribute         | Value                 |
-| ----------------- | --------------------- | ----- |
-| `[data-scope]`    | toggle                |
-| `[data-part]`     | root                  |
-| `[data-state]`    | "on"                  | "off" |
-| `[data-pressed]`  | Present when pressed  |
-| `[data-disabled]` | Present when disabled |
-
-**Indicator Props:**
-
-| Prop       | Type      | Required | Description                                                                                         |
-| ---------- | --------- | -------- | --------------------------------------------------------------------------------------------------- | ------- | ---------------------------- | --------------------------- | ------------------- | ----------- | ------------- | --- | -------------------------------------------------------------- |
-| `asChild`  | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `fallback` | `string   | number   | bigint                                                                                              | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>` | No  | The fallback content to render when the toggle is not pressed. |
-
-**Indicator Data Attributes:**
-
-| Attribute         | Value                 |
-| ----------------- | --------------------- | ----- |
-| `[data-scope]`    | toggle                |
-| `[data-part]`     | indicator             |
-| `[data-disabled]` | Present when disabled |
-| `[data-pressed]`  | Present when pressed  |
-| `[data-state]`    | "on"                  | "off" |
-
-#### Solid
-
-**Root Props:**
-
-| Prop              | Type                                        | Required | Description                                                                                         |
-| ----------------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild`         | `(props: ParentProps<'button'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `defaultPressed`  | `boolean`                                   | No       | The default pressed state of the toggle.                                                            |
-| `onPressedChange` | `(pressed: boolean) => void`                | No       | Event handler called when the pressed state of the toggle changes.                                  |
-| `pressed`         | `boolean`                                   | No       | The pressed state of the toggle.                                                                    |
-
-**Root Data Attributes:**
-
-| Attribute         | Value                 |
-| ----------------- | --------------------- | ----- |
-| `[data-scope]`    | toggle                |
-| `[data-part]`     | root                  |
-| `[data-state]`    | "on"                  | "off" |
-| `[data-pressed]`  | Present when pressed  |
-| `[data-disabled]` | Present when disabled |
-
-**Indicator Props:**
-
-| Prop       | Type                                     | Required | Description                                                                                         |
-| ---------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- | ------------ | -------------- | --- | --- |
-| `asChild`  | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `fallback` | `number                                  | boolean  | Node                                                                                                | ArrayElement | (string & {})` | No  |     |
-
-**Indicator Data Attributes:**
-
-| Attribute         | Value                 |
-| ----------------- | --------------------- | ----- |
-| `[data-scope]`    | toggle                |
-| `[data-part]`     | indicator             |
-| `[data-disabled]` | Present when disabled |
-| `[data-pressed]`  | Present when pressed  |
-| `[data-state]`    | "on"                  | "off" |
-
-#### Vue
-
-**Root Props:**
-
-| Prop             | Type      | Required | Description                                                                                         |
-| ---------------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild`        | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `defaultPressed` | `boolean` | No       | The default pressed state of the toggle.                                                            |
-| `disabled`       | `boolean` | No       | Whether the toggle is disabled.                                                                     |
-| `pressed`        | `boolean` | No       | The pressed state of the toggle.                                                                    |
-
-**Root Data Attributes:**
-
-| Attribute         | Value                 |
-| ----------------- | --------------------- | ----- |
-| `[data-scope]`    | toggle                |
-| `[data-part]`     | root                  |
-| `[data-state]`    | "on"                  | "off" |
-| `[data-pressed]`  | Present when pressed  |
-| `[data-disabled]` | Present when disabled |
-
-**Indicator Props:**
+**Arrow Props:**
 
 | Prop      | Type      | Required | Description                                                                                         |
 | --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
 
-**Indicator Data Attributes:**
+**Arrow CSS Variables:**
+
+| Variable             | Description                                     |
+| -------------------- | ----------------------------------------------- |
+| `--arrow-size`       | The size of the arrow                           |
+| `--arrow-size-half`  | Half the size of the arrow                      |
+| `--arrow-background` | Use this variable to style the arrow background |
+| `--arrow-offset`     | The offset position of the arrow                |
+
+**ArrowTip Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Content Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Content Data Attributes:**
+
+| Attribute          | Value                                                     |
+| ------------------ | --------------------------------------------------------- | -------- |
+| `[data-scope]`     | tooltip                                                   |
+| `[data-part]`      | content                                                   |
+| `[data-state]`     | "open"                                                    | "closed" |
+| `[data-instant]`   |                                                           |
+| `[data-placement]` | The placement of the content                              |
+| `[data-side]`      | The side of the trigger that the content is positioned on |
+
+**Positioner Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Positioner CSS Variables:**
+
+| Variable             | Description                         |
+| -------------------- | ----------------------------------- |
+| `--reference-width`  | The width of the reference element  |
+| `--reference-height` | The height of the root              |
+| `--available-width`  | The available width in viewport     |
+| `--available-height` | The available height in viewport    |
+| `--x`                | The x position for transform        |
+| `--y`                | The y position for transform        |
+| `--z-index`          | The z-index value                   |
+| `--transform-origin` | The transform origin for animations |
+
+**RootProvider Props:**
+
+| Prop                   | Type               | Required | Description                                                                         |
+| ---------------------- | ------------------ | -------- | ----------------------------------------------------------------------------------- |
+| `value`                | `UseTooltipReturn` | Yes      |                                                                                     |
+| `immediate`            | `boolean`          | No       | Whether to synchronize the present change immediately or defer it to the next frame |
+| `lazyMount`            | `boolean`          | No       | Whether to enable lazy mounting                                                     |
+| `onExitComplete`       | `VoidFunction`     | No       | Function called when the animation ends in the closed state                         |
+| `present`              | `boolean`          | No       | Whether the node is present (controlled by the user)                                |
+| `skipAnimationOnMount` | `boolean`          | No       | Whether to allow the initial presence animation.                                    |
+| `unmountOnExit`        | `boolean`          | No       | Whether to unmount on exit.                                                         |
+
+**Trigger Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Trigger Data Attributes:**
 
 | Attribute         | Value                 |
-| ----------------- | --------------------- | ----- |
-| `[data-scope]`    | toggle                |
-| `[data-part]`     | indicator             |
-| `[data-disabled]` | Present when disabled |
-| `[data-pressed]`  | Present when pressed  |
-| `[data-state]`    | "on"                  | "off" |
+| ----------------- | --------------------- | -------- |
+| `[data-scope]`    | tooltip               |
+| `[data-part]`     | trigger               |
+| `[data-value]`    | The value of the item |
+| `[data-current]`  | Present when current  |
+| `[data-expanded]` | Present when expanded |
+| `[data-state]`    | "open"                | "closed" |
+
+#### Solid
+
+**Root Props:**
+
+| Prop                                                                          | Type                                                                               | Required | Description                                                                         |
+| ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------- |
+| `aria-label`                                                                  | `string`                                                                           | No       | Custom label for the tooltip.                                                       |
+| `closeDelay`                                                                  | `number`                                                                           | No       | The close delay of the tooltip.                                                     |
+| `closeOnClick`                                                                | `boolean`                                                                          | No       | Whether the tooltip should close on click                                           |
+| `closeOnEscape`                                                               | `boolean`                                                                          | No       | Whether to close the tooltip when the Escape key is pressed.                        |
+| `closeOnPointerDown`                                                          | `boolean`                                                                          | No       | Whether to close the tooltip on pointerdown.                                        |
+| `closeOnScroll`                                                               | `boolean`                                                                          | No       | Whether the tooltip should close on scroll                                          |
+| `defaultOpen`                                                                 | `boolean`                                                                          | No       | The initial open state of the tooltip when rendered.                                |
+| Use when you don't need to control the open state of the tooltip.             |
+| `disabled`                                                                    | `boolean`                                                                          | No       | Whether the tooltip is disabled                                                     |
+| `id`                                                                          | `string`                                                                           | No       | The unique identifier of the machine.                                               |
+| `ids`                                                                         | `Partial<{ trigger: string; content: string; arrow: string; positioner: string }>` | No       | The ids of the elements in the tooltip. Useful for composition.                     |
+| `immediate`                                                                   | `boolean`                                                                          | No       | Whether to synchronize the present change immediately or defer it to the next frame |
+| `interactive`                                                                 | `boolean`                                                                          | No       | Whether the tooltip's content is interactive.                                       |
+| In this mode, the tooltip will remain open when user hovers over the content. |
+| `lazyMount`                                                                   | `boolean`                                                                          | No       | Whether to enable lazy mounting                                                     |
+| `onExitComplete`                                                              | `VoidFunction`                                                                     | No       | Function called when the animation ends in the closed state                         |
+| `onOpenChange`                                                                | `(details: OpenChangeDetails) => void`                                             | No       | Function called when the tooltip is opened.                                         |
+| `open`                                                                        | `boolean`                                                                          | No       | The controlled open state of the tooltip                                            |
+| `openDelay`                                                                   | `number`                                                                           | No       | The open delay of the tooltip.                                                      |
+| `positioning`                                                                 | `PositioningOptions`                                                               | No       | The user provided options used to position the popover content                      |
+| `present`                                                                     | `boolean`                                                                          | No       | Whether the node is present (controlled by the user)                                |
+| `skipAnimationOnMount`                                                        | `boolean`                                                                          | No       | Whether to allow the initial presence animation.                                    |
+| `unmountOnExit`                                                               | `boolean`                                                                          | No       | Whether to unmount on exit.                                                         |
+
+**Arrow Props:**
+
+| Prop      | Type                                     | Required | Description                                                                                         |
+| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Arrow CSS Variables:**
+
+| Variable             | Description                                     |
+| -------------------- | ----------------------------------------------- |
+| `--arrow-size`       | The size of the arrow                           |
+| `--arrow-size-half`  | Half the size of the arrow                      |
+| `--arrow-background` | Use this variable to style the arrow background |
+| `--arrow-offset`     | The offset position of the arrow                |
+
+**ArrowTip Props:**
+
+| Prop      | Type                                     | Required | Description                                                                                         |
+| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Content Props:**
+
+| Prop      | Type                                     | Required | Description                                                                                         |
+| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Content Data Attributes:**
+
+| Attribute          | Value                                                     |
+| ------------------ | --------------------------------------------------------- | -------- |
+| `[data-scope]`     | tooltip                                                   |
+| `[data-part]`      | content                                                   |
+| `[data-state]`     | "open"                                                    | "closed" |
+| `[data-instant]`   |                                                           |
+| `[data-placement]` | The placement of the content                              |
+| `[data-side]`      | The side of the trigger that the content is positioned on |
+
+**Positioner Props:**
+
+| Prop      | Type                                     | Required | Description                                                                                         |
+| --------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `(props: ParentProps<'div'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Positioner CSS Variables:**
+
+| Variable             | Description                         |
+| -------------------- | ----------------------------------- |
+| `--reference-width`  | The width of the reference element  |
+| `--reference-height` | The height of the root              |
+| `--available-width`  | The available width in viewport     |
+| `--available-height` | The available height in viewport    |
+| `--x`                | The x position for transform        |
+| `--y`                | The y position for transform        |
+| `--z-index`          | The z-index value                   |
+| `--transform-origin` | The transform origin for animations |
+
+**RootProvider Props:**
+
+| Prop                   | Type               | Required | Description                                                                         |
+| ---------------------- | ------------------ | -------- | ----------------------------------------------------------------------------------- |
+| `value`                | `UseTooltipReturn` | Yes      |                                                                                     |
+| `immediate`            | `boolean`          | No       | Whether to synchronize the present change immediately or defer it to the next frame |
+| `lazyMount`            | `boolean`          | No       | Whether to enable lazy mounting                                                     |
+| `onExitComplete`       | `VoidFunction`     | No       | Function called when the animation ends in the closed state                         |
+| `present`              | `boolean`          | No       | Whether the node is present (controlled by the user)                                |
+| `skipAnimationOnMount` | `boolean`          | No       | Whether to allow the initial presence animation.                                    |
+| `unmountOnExit`        | `boolean`          | No       | Whether to unmount on exit.                                                         |
+
+**Trigger Props:**
+
+| Prop      | Type                                        | Required | Description                                                                                         |
+| --------- | ------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `(props: ParentProps<'button'>) => Element` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Trigger Data Attributes:**
+
+| Attribute         | Value                 |
+| ----------------- | --------------------- | -------- |
+| `[data-scope]`    | tooltip               |
+| `[data-part]`     | trigger               |
+| `[data-value]`    | The value of the item |
+| `[data-current]`  | Present when current  |
+| `[data-expanded]` | Present when expanded |
+| `[data-state]`    | "open"                | "closed" |
+
+#### Vue
+
+**Root Props:**
+
+| Prop                                                                          | Type                                                                               | Required | Description                                                     |
+| ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------- |
+| `aria-label`                                                                  | `string`                                                                           | No       | Custom label for the tooltip.                                   |
+| `closeDelay`                                                                  | `number`                                                                           | No       | The close delay of the tooltip.                                 |
+| `closeOnClick`                                                                | `boolean`                                                                          | No       | Whether the tooltip should close on click                       |
+| `closeOnEscape`                                                               | `boolean`                                                                          | No       | Whether to close the tooltip when the Escape key is pressed.    |
+| `closeOnPointerDown`                                                          | `boolean`                                                                          | No       | Whether to close the tooltip on pointerdown.                    |
+| `closeOnScroll`                                                               | `boolean`                                                                          | No       | Whether the tooltip should close on scroll                      |
+| `defaultOpen`                                                                 | `boolean`                                                                          | No       | The initial open state of the tooltip when rendered.            |
+| Use when you don't need to control the open state of the tooltip.             |
+| `disabled`                                                                    | `boolean`                                                                          | No       | Whether the tooltip is disabled                                 |
+| `id`                                                                          | `string`                                                                           | No       | The unique identifier of the machine.                           |
+| `ids`                                                                         | `Partial<{ trigger: string; content: string; arrow: string; positioner: string }>` | No       | The ids of the elements in the tooltip. Useful for composition. |
+| `interactive`                                                                 | `boolean`                                                                          | No       | Whether the tooltip's content is interactive.                   |
+| In this mode, the tooltip will remain open when user hovers over the content. |
+| `lazyMount`                                                                   | `boolean`                                                                          | No       | Whether to enable lazy mounting                                 |
+| `open`                                                                        | `boolean`                                                                          | No       | The controlled open state of the tooltip                        |
+| `openDelay`                                                                   | `number`                                                                           | No       | The open delay of the tooltip.                                  |
+| `positioning`                                                                 | `PositioningOptions`                                                               | No       | The user provided options used to position the popover content  |
+| `unmountOnExit`                                                               | `boolean`                                                                          | No       | Whether to unmount on exit.                                     |
+
+**Arrow Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Arrow CSS Variables:**
+
+| Variable             | Description                                     |
+| -------------------- | ----------------------------------------------- |
+| `--arrow-size`       | The size of the arrow                           |
+| `--arrow-size-half`  | Half the size of the arrow                      |
+| `--arrow-background` | Use this variable to style the arrow background |
+| `--arrow-offset`     | The offset position of the arrow                |
+
+**ArrowTip Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Content Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Content Data Attributes:**
+
+| Attribute          | Value                                                     |
+| ------------------ | --------------------------------------------------------- | -------- |
+| `[data-scope]`     | tooltip                                                   |
+| `[data-part]`      | content                                                   |
+| `[data-state]`     | "open"                                                    | "closed" |
+| `[data-instant]`   |                                                           |
+| `[data-placement]` | The placement of the content                              |
+| `[data-side]`      | The side of the trigger that the content is positioned on |
+
+**Positioner Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Positioner CSS Variables:**
+
+| Variable             | Description                         |
+| -------------------- | ----------------------------------- |
+| `--reference-width`  | The width of the reference element  |
+| `--reference-height` | The height of the root              |
+| `--available-width`  | The available width in viewport     |
+| `--available-height` | The available height in viewport    |
+| `--x`                | The x position for transform        |
+| `--y`                | The y position for transform        |
+| `--z-index`          | The z-index value                   |
+| `--transform-origin` | The transform origin for animations |
+
+**RootProvider Props:**
+
+| Prop            | Type                    | Required | Description                     |
+| --------------- | ----------------------- | -------- | ------------------------------- |
+| `value`         | `TooltipApi<PropTypes>` | Yes      |                                 |
+| `lazyMount`     | `boolean`               | No       | Whether to enable lazy mounting |
+| `unmountOnExit` | `boolean`               | No       | Whether to unmount on exit.     |
+
+**Trigger Props:**
+
+| Prop      | Type      | Required | Description                                                                                         |
+| --------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `boolean` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+
+**Trigger Data Attributes:**
+
+| Attribute         | Value                 |
+| ----------------- | --------------------- | -------- |
+| `[data-scope]`    | tooltip               |
+| `[data-part]`     | trigger               |
+| `[data-value]`    | The value of the item |
+| `[data-current]`  | Present when current  |
+| `[data-expanded]` | Present when expanded |
+| `[data-state]`    | "open"                | "closed" |
 
 #### Svelte
 
 **Root Props:**
 
-| Prop              | Type                           | Required | Description                                                                                         |
-| ----------------- | ------------------------------ | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild`         | `Snippet<[PropsFn<'button'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `defaultPressed`  | `boolean`                      | No       | The default pressed state of the toggle.                                                            |
-| `disabled`        | `boolean`                      | No       | Whether the toggle is disabled.                                                                     |
-| `onPressedChange` | `(pressed: boolean) => void`   | No       | Event handler called when the pressed state of the toggle changes.                                  |
-| `pressed`         | `boolean`                      | No       | The pressed state of the toggle.                                                                    |
-| `ref`             | `Element`                      | No       |                                                                                                     |
+| Prop                                                                          | Type                                                                               | Required | Description                                                                         |
+| ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------- |
+| `aria-label`                                                                  | `string`                                                                           | No       | Custom label for the tooltip.                                                       |
+| `closeDelay`                                                                  | `number`                                                                           | No       | The close delay of the tooltip.                                                     |
+| `closeOnClick`                                                                | `boolean`                                                                          | No       | Whether the tooltip should close on click                                           |
+| `closeOnEscape`                                                               | `boolean`                                                                          | No       | Whether to close the tooltip when the Escape key is pressed.                        |
+| `closeOnPointerDown`                                                          | `boolean`                                                                          | No       | Whether to close the tooltip on pointerdown.                                        |
+| `closeOnScroll`                                                               | `boolean`                                                                          | No       | Whether the tooltip should close on scroll                                          |
+| `defaultOpen`                                                                 | `boolean`                                                                          | No       | The initial open state of the tooltip when rendered.                                |
+| Use when you don't need to control the open state of the tooltip.             |
+| `disabled`                                                                    | `boolean`                                                                          | No       | Whether the tooltip is disabled                                                     |
+| `id`                                                                          | `string`                                                                           | No       | The unique identifier of the machine.                                               |
+| `ids`                                                                         | `Partial<{ trigger: string; content: string; arrow: string; positioner: string }>` | No       | The ids of the elements in the tooltip. Useful for composition.                     |
+| `immediate`                                                                   | `boolean`                                                                          | No       | Whether to synchronize the present change immediately or defer it to the next frame |
+| `interactive`                                                                 | `boolean`                                                                          | No       | Whether the tooltip's content is interactive.                                       |
+| In this mode, the tooltip will remain open when user hovers over the content. |
+| `lazyMount`                                                                   | `boolean`                                                                          | No       | Whether to enable lazy mounting                                                     |
+| `onExitComplete`                                                              | `VoidFunction`                                                                     | No       | Function called when the animation ends in the closed state                         |
+| `onOpenChange`                                                                | `(details: OpenChangeDetails) => void`                                             | No       | Function called when the tooltip is opened.                                         |
+| `open`                                                                        | `boolean`                                                                          | No       | The controlled open state of the tooltip                                            |
+| `openDelay`                                                                   | `number`                                                                           | No       | The open delay of the tooltip.                                                      |
+| `positioning`                                                                 | `PositioningOptions`                                                               | No       | The user provided options used to position the popover content                      |
+| `present`                                                                     | `boolean`                                                                          | No       | Whether the node is present (controlled by the user)                                |
+| `skipAnimationOnMount`                                                        | `boolean`                                                                          | No       | Whether to allow the initial presence animation.                                    |
+| `unmountOnExit`                                                               | `boolean`                                                                          | No       | Whether to unmount on exit.                                                         |
 
-**Root Data Attributes:**
+**Arrow Props:**
 
-| Attribute         | Value                 |
-| ----------------- | --------------------- | ----- |
-| `[data-scope]`    | toggle                |
-| `[data-part]`     | root                  |
-| `[data-state]`    | "on"                  | "off" |
-| `[data-pressed]`  | Present when pressed  |
-| `[data-disabled]` | Present when disabled |
+| Prop      | Type                        | Required | Description                                                                                         |
+| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                   | No       |                                                                                                     |
+
+**Arrow CSS Variables:**
+
+| Variable             | Description                                     |
+| -------------------- | ----------------------------------------------- |
+| `--arrow-size`       | The size of the arrow                           |
+| `--arrow-size-half`  | Half the size of the arrow                      |
+| `--arrow-background` | Use this variable to style the arrow background |
+| `--arrow-offset`     | The offset position of the arrow                |
+
+**ArrowTip Props:**
+
+| Prop      | Type                        | Required | Description                                                                                         |
+| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                   | No       |                                                                                                     |
+
+**Content Props:**
+
+| Prop      | Type                        | Required | Description                                                                                         |
+| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                   | No       |                                                                                                     |
+
+**Content Data Attributes:**
+
+| Attribute          | Value                                                     |
+| ------------------ | --------------------------------------------------------- | -------- |
+| `[data-scope]`     | tooltip                                                   |
+| `[data-part]`      | content                                                   |
+| `[data-state]`     | "open"                                                    | "closed" |
+| `[data-instant]`   |                                                           |
+| `[data-placement]` | The placement of the content                              |
+| `[data-side]`      | The side of the trigger that the content is positioned on |
 
 **Context Props:**
 
-| Prop     | Type                          | Required | Description |
-| -------- | ----------------------------- | -------- | ----------- |
-| `render` | `Snippet<[UseToggleContext]>` | Yes      |             |
+| Prop     | Type                           | Required | Description |
+| -------- | ------------------------------ | -------- | ----------- |
+| `render` | `Snippet<[UseTooltipContext]>` | No       |             |
 
-**Indicator Props:**
+**Positioner Props:**
 
-| Prop       | Type                        | Required | Description                                                                                         |
-| ---------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `asChild`  | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
-| `fallback` | `Snippet<[]>`               | No       | The fallback content to render when the toggle is not pressed.                                      |
-| `ref`      | `Element`                   | No       |                                                                                                     |
+| Prop      | Type                        | Required | Description                                                                                         |
+| --------- | --------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `Snippet<[PropsFn<'div'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                   | No       |                                                                                                     |
 
-**Indicator Data Attributes:**
+**Positioner CSS Variables:**
+
+| Variable             | Description                         |
+| -------------------- | ----------------------------------- |
+| `--reference-width`  | The width of the reference element  |
+| `--reference-height` | The height of the root              |
+| `--available-width`  | The available width in viewport     |
+| `--available-height` | The available height in viewport    |
+| `--x`                | The x position for transform        |
+| `--y`                | The y position for transform        |
+| `--z-index`          | The z-index value                   |
+| `--transform-origin` | The transform origin for animations |
+
+**RootProvider Props:**
+
+| Prop                   | Type               | Required | Description                                                                         |
+| ---------------------- | ------------------ | -------- | ----------------------------------------------------------------------------------- |
+| `value`                | `UseTooltipReturn` | Yes      |                                                                                     |
+| `immediate`            | `boolean`          | No       | Whether to synchronize the present change immediately or defer it to the next frame |
+| `lazyMount`            | `boolean`          | No       | Whether to enable lazy mounting                                                     |
+| `onExitComplete`       | `VoidFunction`     | No       | Function called when the animation ends in the closed state                         |
+| `present`              | `boolean`          | No       | Whether the node is present (controlled by the user)                                |
+| `skipAnimationOnMount` | `boolean`          | No       | Whether to allow the initial presence animation.                                    |
+| `unmountOnExit`        | `boolean`          | No       | Whether to unmount on exit.                                                         |
+
+**Trigger Props:**
+
+| Prop      | Type                           | Required | Description                                                                                         |
+| --------- | ------------------------------ | -------- | --------------------------------------------------------------------------------------------------- |
+| `asChild` | `Snippet<[PropsFn<'button'>]>` | No       | Use the provided child element as the default rendered element, combining their props and behavior. |
+| `ref`     | `Element`                      | No       |                                                                                                     |
+
+**Trigger Data Attributes:**
 
 | Attribute         | Value                 |
-| ----------------- | --------------------- | ----- |
-| `[data-scope]`    | toggle                |
-| `[data-part]`     | indicator             |
-| `[data-disabled]` | Present when disabled |
-| `[data-pressed]`  | Present when pressed  |
-| `[data-state]`    | "on"                  | "off" |
+| ----------------- | --------------------- | -------- |
+| `[data-scope]`    | tooltip               |
+| `[data-part]`     | trigger               |
+| `[data-value]`    | The value of the item |
+| `[data-current]`  | Present when current  |
+| `[data-expanded]` | Present when expanded |
+| `[data-state]`    | "open"                | "closed" |
 
 ### Context
 
 **API:**
 
-| Property            | Type                         | Description                                                  |
-| ------------------- | ---------------------------- | ------------------------------------------------------------ |
-| `pressed`           | `boolean`                    | Whether the toggle is pressed.                               |
-| `disabled`          | `boolean`                    | Whether the toggle is disabled.                              |
-| `setPressed`        | `(pressed: boolean) => void` | Sets the pressed state of the toggle.                        |
-| `getRootProps`      | `() => T["element"]`         | Props for the root `button` element.                         |
-| `getIndicatorProps` | `() => T["element"]`         | Props for the optional visual indicator (e.g. icon) element. |
+| Property          | Type                                              | Description                        |
+| ----------------- | ------------------------------------------------- | ---------------------------------- | --------------------------------- |
+| `open`            | `boolean`                                         | Whether the tooltip is open.       |
+| `setOpen`         | `(open: boolean) => void`                         | Function to open the tooltip.      |
+| `triggerValue`    | `string                                           | null`                              | The trigger value                 |
+| `setTriggerValue` | `(value: string                                   | null) => void`                     | Function to set the trigger value |
+| `reposition`      | `(options?: Partial<PositioningOptions>) => void` | Function to reposition the popover |
+
+## Accessibility
+
+Complies with the [Tooltip WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/).
+
+### Keyboard Support
+
+<KeyBindingsTable id="tooltip" />

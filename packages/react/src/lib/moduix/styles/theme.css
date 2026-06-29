@@ -3176,6 +3176,6 @@
   --toggle-group-ghost-padding: initial; /* 0 */
   --toggle-group-item-radius: initial; /* var(--radius-md) */
   --toggle-group-outline-bg: initial; /* var(--color-background) */
-  --toggle-group-padding: initial; /* 0.125rem */
+  --toggle-group-padding: initial; /* var(--border-width-md) */
   --toggle-group-radius: initial; /* var(--radius-lg) */
 }
