@@ -10,7 +10,7 @@
     "build": "turbo run build",
     "build:docs": "turbo run build -F moduix-docs",
     "build:react": "turbo run build -F @moduix/react",
-    "build:registry": "rm -rf packages/react/registry/default && npx shadcn@latest build registry.json --output packages/react/registry/default && oxfmt",
+    "build:registry": "shadcn registry validate && rm -rf packages/react/registry/default && shadcn build registry.json --output packages/react/registry/default && oxfmt",
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "changeset:release": "npm run build:react && changeset publish",
@@ -22,6 +22,7 @@
     "lint:fix": "oxlint --fix",
     "prepare": "husky",
     "publish:react": "npm publish -w @moduix/react",
+    "registry:validate": "shadcn registry validate",
     "tsc:check": "turbo run tsc:check"
   },
   "devDependencies": {
@@ -30,6 +31,7 @@
     "lint-staged": "^17.0.8",
     "oxfmt": "^0.56.0",
     "oxlint": "^1.71.0",
+    "shadcn": "^4.12.0",
     "turbo": "^2.10.0"
   },
   "engines": {

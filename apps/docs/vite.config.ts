@@ -33,4 +33,14 @@ export default defineConfig({
     dedupe: ['react', 'react-dom', '@ark-ui/react'],
     tsconfigPaths: true,
   },
+  optimizeDeps: {
+    include: ['@ark-ui/react/locale', '@internationalized/date', '@tanstack/react-virtual'],
+  },
+  environments: {
+    ssr: {
+      optimizeDeps: {
+        include: ['fumadocs-ui/components/dialog/search-default'],
+      },
+    },
+  },
 });
