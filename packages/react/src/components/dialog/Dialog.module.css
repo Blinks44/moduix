@@ -95,8 +95,12 @@
     background-color: var(--dialog-bg, var(--color-popover));
     color: var(--dialog-color, var(--color-popover-foreground));
     box-shadow: var(--dialog-shadow, var(--shadow-lg));
-    transition: transform
-      var(--dialog-nested-transition, var(--dialog-transition, var(--transition-default)));
+    transform-origin: center top;
+    scale: 1;
+    translate: 0 0;
+    transition:
+      scale var(--dialog-nested-transition, var(--dialog-transition, var(--transition-default))),
+      translate var(--dialog-nested-transition, var(--dialog-transition, var(--transition-default)));
 
     &::after {
       content: '';
@@ -112,9 +116,9 @@
     }
 
     &[data-has-nested] {
-      transform: scale(
-        calc(1 - var(--dialog-nested-scale-step, 0.05) * var(--nested-layer-count, 0))
-      );
+      scale: calc(1 - var(--dialog-nested-scale-step, 0.05) * var(--nested-layer-count, 0));
+      translate: 0
+        calc(var(--dialog-nested-translate-step, var(--spacing-10)) * var(--nested-layer-count, 0));
 
       &::after {
         opacity: 1;

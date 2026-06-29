@@ -13,6 +13,8 @@ import styles from './drawer.module.css';
 
 const DEFAULT_DEMO_SNAP_POINT = 0.3;
 const DEFAULT_DEMO_SNAP_POINTS = [DEFAULT_DEMO_SNAP_POINT, 1];
+const NESTED_DEMO_SNAP_POINT = 0.42;
+const NESTED_DEMO_SNAP_POINTS = [NESTED_DEMO_SNAP_POINT, 1];
 
 export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Backdrop background.'],
@@ -79,6 +81,12 @@ export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-indent-translate-y-active', 'var(--spacing-2)', 'Active indent translation.'],
   ['--drawer-max-height', '80dvh', 'Maximum vertical drawer height.'],
   ['--drawer-nested-scale-step', '0.05', 'Scale step for nested drawers.'],
+  [
+    '--drawer-nested-transition',
+    'var(--drawer-transition)',
+    'Nested drawer scale and offset motion.',
+  ],
+  ['--drawer-nested-translate-step', 'var(--spacing-10)', 'Offset step for nested drawers.'],
   ['--drawer-padding-x', 'var(--spacing-6)', 'Content horizontal padding.'],
   ['--drawer-padding-y', 'var(--spacing-4)', 'Content vertical padding.'],
   ['--drawer-positioner-padding', '0', 'Positioner inset padding.'],
@@ -336,8 +344,14 @@ export function RootProviderDrawerExample() {
 const nestedItems = ['Passkeys enabled', 'Two-factor authentication on', '3 signed-in devices'];
 
 export function NestedDrawerExample() {
-  const accountDrawer = useDrawer();
-  const securityDrawer = useDrawer();
+  const accountDrawer = useDrawer({
+    defaultSnapPoint: NESTED_DEMO_SNAP_POINT,
+    snapPoints: NESTED_DEMO_SNAP_POINTS,
+  });
+  const securityDrawer = useDrawer({
+    defaultSnapPoint: NESTED_DEMO_SNAP_POINT,
+    snapPoints: NESTED_DEMO_SNAP_POINTS,
+  });
 
   return (
     <div className={styles.nestedDemo}>

@@ -776,7 +776,8 @@ Use `Drawer.Context` for state-aware content that lives inside the drawer tree.
 ### Nested
 
 Render nested drawers with separate `useDrawer` instances and `Drawer.RootProvider` trees so each
-surface keeps its own open state and focus lifecycle.
+surface keeps its own open state and focus lifecycle. The parent surface recedes behind the active
+drawer while leaving a visible edge.
 
 <Preview>
   <NestedDrawerExample />
@@ -786,8 +787,14 @@ surface keeps its own open state and focus lifecycle.
       import { Button, Drawer, useDrawer } from "@moduix/react";
 
       export function NestedDrawerDemo() {
-        const accountDrawer = useDrawer();
-        const securityDrawer = useDrawer();
+        const accountDrawer = useDrawer({
+          snapPoints,
+          defaultSnapPoint: snapPoints[0],
+        });
+        const securityDrawer = useDrawer({
+          snapPoints,
+          defaultSnapPoint: snapPoints[0],
+        });
 
         return (
           <div className="nested-demo">
@@ -869,6 +876,7 @@ surface keeps its own open state and focus lifecycle.
         "Two-factor authentication on",
         "3 signed-in devices",
       ];
+      const snapPoints = [0.42, 1];
     `}
 
   </Preview.Data>

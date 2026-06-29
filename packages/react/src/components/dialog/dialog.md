@@ -120,10 +120,13 @@ Moduix supplies visual defaults for native trigger/close buttons, backdrop, cent
 content surface, typography, layout helpers, motion, and close icon.
 
 Open and close animations use Ark `data-state="open|closed"`. Nested scaling uses
-`--nested-layer-count` and transitions through `--dialog-nested-transition`. Layer order uses
-`--layer-index`. `Dialog.CloseIcon` is positioned at the content's block-start/inline-end corner by
-default, including when it is composed outside `Dialog.Header`. Public `--dialog-*` tokens live in
-`theme.css`.
+`--nested-layer-count` and transitions through `--dialog-nested-transition`. Like `Drawer`, nested
+dialogs animate the parent `Content` with CSS `scale` and `translate` individual transform
+properties so the parent recedes downward and remains visibly layered behind the active dialog. Tune
+the effect with `--dialog-nested-scale-step`, `--dialog-nested-translate-step`, and
+`--dialog-nested-transition`. Layer order uses `--layer-index`. `Dialog.CloseIcon` is positioned at
+the content's block-start/inline-end corner by default, including when it is composed outside
+`Dialog.Header`. Public `--dialog-*` tokens live in `theme.css`.
 
 ## Intentional sugar and differences from upstream
 
@@ -144,6 +147,8 @@ barrel.
 
 ## Local changelog
 
+- 2026-06-29: Synced nested dialog motion with Drawer by adding animated parent scale and downward
+  offset so the parent remains visibly layered behind the active nested dialog.
 - 2026-06-25: Audited Ark migration, corrected public docs snippets to use `Dialog.RootProvider`,
   added open-from-menu and confirmation examples, and removed stale story CSS left from pre-Ark
   popup naming.

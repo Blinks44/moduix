@@ -152,6 +152,13 @@ var(--drawer-max-height, 80dvh)` for top/bottom drawers so Ark measures a stable
 drag release and snap points. Do not change this back to `height: auto`; snap points will collapse
 to the height of the visible content.
 
+Nested drawers animate the parent `Content` with CSS `scale` and `translate` individual transform
+properties so Ark's inline swipe `transform` remains intact. Bottom drawers move the parent slightly
+up while scaling it down, leaving a visible edge behind the front drawer. Tune the effect with
+`--drawer-nested-scale-step`, `--drawer-nested-translate-step`, and `--drawer-nested-transition`.
+Direction-specific `transform-origin` is applied outside the nested state so closing a front drawer
+does not snap the parent between transform origins during its return animation.
+
 Public theme variables are declared in `packages/react/src/lib/moduix/styles/theme.css`.
 
 ## Intentional sugar and differences from upstream
@@ -176,6 +183,9 @@ Public theme variables are declared in `packages/react/src/lib/moduix/styles/the
 
 ## Local changelog
 
+- 2026-06-29: Added animated nested drawer scale/offset motion so parent drawers recede smoothly
+  and remain visibly layered behind the active nested drawer; stabilized direction-specific
+  transform origins so parent drawers return without a jump when the front drawer closes.
 - 2026-06-25: Added public docs coverage for `Drawer.Context`, synced documented Ark data hooks
   and runtime variables with the current Ark styling guide, and filled in missing close-icon/body
   styling tokens in the docs CSS properties table.

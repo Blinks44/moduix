@@ -992,6 +992,7 @@
   --dialog-nested-overlay-bg: initial; /* rgb(0 0 0 / 0.05) */
   --dialog-nested-scale-step: initial; /* 0.05 */
   --dialog-nested-transition: initial; /* var(--dialog-transition) */
+  --dialog-nested-translate-step: initial; /* var(--spacing-10) */
   --dialog-padding: initial; /* var(--spacing-6) */
   --dialog-positioner-padding: initial; /* var(--spacing-4) */
   --dialog-radius: initial; /* var(--radius-lg) */
@@ -1056,6 +1057,8 @@
   --drawer-indent-translate-y-active: initial; /* var(--spacing-2) */
   --drawer-max-height: initial; /* 80dvh */
   --drawer-nested-scale-step: initial; /* 0.05 */
+  --drawer-nested-transition: initial; /* var(--drawer-transition, var(--transition-spring)) */
+  --drawer-nested-translate-step: initial; /* var(--spacing-10) */
   --drawer-padding-x: initial; /* var(--spacing-6) */
   --drawer-padding-y: initial; /* var(--spacing-4) */
   --drawer-positioner-padding: initial; /* 0 */

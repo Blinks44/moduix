@@ -198,7 +198,8 @@ when JavaScript-driven exit animation needs to control mounted state.
 - `closeOnEscape`, `closeOnInteractOutside`, `trapFocus`, `preventScroll`, `restoreFocus`,
   `persistentElements`, and the outside-interaction callbacks pass through to Ark UI.
 - `Dialog.Title` or root `aria-label` is required for an accessible name.
-- Nested content receives `data-has-nested` and `--nested-layer-count`.
+- Nested content receives `data-has-nested` and `--nested-layer-count`. Moduix uses those hooks to
+  scale the parent down and offset it downward so the active nested dialog still reads as layered.
 - Open-from-menu and rapid state changes use the controlled `open` contract. Unsaved-change
   confirmation uses two `useDialog()` stores and intercepts the parent store's `onOpenChange`.
 
@@ -481,7 +482,7 @@ extend beyond the viewport.
 ### Nested
 
 Use separate `useDialog()` stores for nested layers. Ark UI provides stack-aware state and CSS
-variables to the parent content.
+variables to the parent content; moduix uses them for a receding parent effect that stacks downward.
 
 <Preview>
   <NestedDialogExample />

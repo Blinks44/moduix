@@ -169,6 +169,7 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--dialog-nested-overlay-bg', 'rgb(0 0 0 / 0.05)', 'Nested parent overlay.'],
   ['--dialog-nested-scale-step', '0.05', 'Nested parent scale step.'],
   ['--dialog-nested-transition', 'var(--dialog-transition)', 'Nested parent transition timing.'],
+  ['--dialog-nested-translate-step', 'var(--spacing-10)', 'Nested parent offset step.'],
   ['--dialog-padding', 'var(--spacing-6)', 'Content padding.'],
   ['--dialog-positioner-padding', 'var(--spacing-4)', 'Positioner viewport padding.'],
   ['--dialog-radius', 'var(--radius-lg)', 'Content border radius.'],

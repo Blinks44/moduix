@@ -130,9 +130,14 @@
     color: var(--drawer-color, var(--color-popover-foreground));
     box-shadow: var(--drawer-shadow, var(--shadow-lg));
     overscroll-behavior: contain;
+    transform-origin: center bottom;
+    scale: 1;
+    translate: 0 0;
     transition:
       transform calc(var(--drawer-swipe-strength, 1) * var(--duration-slower)) var(--ease-out),
-      height calc(var(--drawer-swipe-strength, 1) * var(--duration-slower)) var(--ease-out);
+      height calc(var(--drawer-swipe-strength, 1) * var(--duration-slower)) var(--ease-out),
+      scale var(--drawer-nested-transition, var(--drawer-transition, var(--transition-spring))),
+      translate var(--drawer-nested-transition, var(--drawer-transition, var(--transition-spring)));
 
     &::after {
       position: absolute;
@@ -163,6 +168,7 @@
     }
 
     &[data-swipe-direction='up'] {
+      transform-origin: center top;
       padding-top: calc(var(--drawer-padding-y, var(--spacing-4)) + env(safe-area-inset-top, 0px));
       padding-bottom: var(--drawer-padding-y, var(--spacing-4));
       border-radius: 0 0 var(--drawer-radius, var(--radius-xl))
@@ -199,6 +205,7 @@
     }
 
     &[data-swipe-direction='left'] {
+      transform-origin: left center;
       border-radius: 0 var(--drawer-radius, var(--radius-xl)) var(--drawer-radius, var(--radius-xl))
         0;
 
@@ -216,6 +223,7 @@
     }
 
     &[data-swipe-direction='right'] {
+      transform-origin: right center;
       border-radius: var(--drawer-radius, var(--radius-xl)) 0 0
         var(--drawer-radius, var(--radius-xl));
 
@@ -233,8 +241,31 @@
     }
 
     &[data-nested-drawer-open] {
-      transform-origin: center bottom;
       scale: calc(1 - var(--drawer-nested-scale-step, 0.05) * var(--nested-drawers, 0));
+    }
+
+    &[data-swipe-direction='down'][data-nested-drawer-open] {
+      translate: 0
+        calc(-1 * var(--drawer-nested-translate-step, var(--spacing-10)) * var(--nested-drawers, 0));
+    }
+
+    &[data-swipe-direction='up'][data-nested-drawer-open] {
+      translate: 0
+        calc(var(--drawer-nested-translate-step, var(--spacing-10)) * var(--nested-drawers, 0));
+    }
+
+    &[data-swipe-direction='left'][data-nested-drawer-open] {
+      translate: calc(
+          var(--drawer-nested-translate-step, var(--spacing-10)) * var(--nested-drawers, 0)
+        )
+        0;
+    }
+
+    &[data-swipe-direction='right'][data-nested-drawer-open] {
+      translate: calc(
+          -1 * var(--drawer-nested-translate-step, var(--spacing-10)) * var(--nested-drawers, 0)
+        )
+        0;
     }
   }
 
