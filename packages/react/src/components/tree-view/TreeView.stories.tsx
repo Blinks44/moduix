@@ -1,12 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  FileIcon,
-  FolderIcon,
-  FolderOpenIcon,
-  TreeView,
-  createTreeCollection,
-  type TreeViewNodeProviderProps,
-} from '@moduix/react';
+import { FileIcon, FolderIcon, FolderOpenIcon } from '@/lib/moduix/icons/ui';
+import { TreeView, createTreeCollection, type TreeViewNodeProviderProps } from './TreeView';
 import styles from './TreeView.stories.module.css';
 
 interface FileNode {

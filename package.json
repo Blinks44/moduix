@@ -24,20 +24,23 @@
     "publish:react": "npm publish -w @moduix/react",
     "tsc:check": "turbo run tsc:check"
   },
-  "dependencies": {},
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
-    "@storybook/react-vite": "^10.4.6",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8",
     "oxfmt": "^0.56.0",
     "oxlint": "^1.71.0",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "storybook": "^10.4.6",
     "turbo": "^2.10.0"
   },
-  "packageManager": "npm@11.17.0"
+  "engines": {
+    "node": "24.x",
+    "npm": "11.17.x"
+  },
+  "packageManager": "npm@11.17.0",
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "fsevents@2.3.3": true,
+    "sharp@0.34.5": true,
+    "workerd@1.20260625.1": true
+  }
 }

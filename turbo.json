@@ -7,6 +7,7 @@
       "outputs": ["dist/**"]
     },
     "dev": {
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     },
@@ -16,7 +17,7 @@
       "env": ["CLOUDFLARE_API_TOKEN"]
     },
     "tsc:check": {
-      "dependsOn": ["^tsc:check"],
+      "dependsOn": ["^build", "^tsc:check"],
       "outputs": []
     }
   }
