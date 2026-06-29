@@ -10,8 +10,6 @@ import {
   TreeView,
   createTreeCollection,
   useTreeView,
-  useTreeViewNodeContext,
-  type TreeCollection,
   type TreeViewLoadChildrenDetails,
   type TreeViewNodeProviderProps,
 } from '@moduix/react';
@@ -123,12 +121,6 @@ const disabledCollection = createFilesCollection({
   ],
 });
 
-function LoadingFolderIcon() {
-  const state = useTreeViewNodeContext();
-  if (state.loading) return <RestartIcon className={styles.loadingIcon} />;
-  return state.expanded ? <FolderOpenIcon /> : <FolderIcon />;
-}
-
 function Checkbox() {
   return (
     <TreeView.NodeCheckbox>
@@ -139,17 +131,7 @@ function Checkbox() {
   );
 }
 
-function FileTreeNode({
-  node,
-  indexPath,
-  checkbox,
-  rename,
-  links,
-}: TreeViewNodeProviderProps<FileNode> & {
-  checkbox?: boolean;
-  rename?: boolean;
-  links?: boolean;
-}) {
+function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
     <TreeView.NodeProvider node={node} indexPath={indexPath}>
       <TreeView.NodeContext>
@@ -158,55 +140,30 @@ function FileTreeNode({
             <TreeView.Branch>
               <TreeView.BranchControl>
                 <TreeView.BranchIndicator />
-                {checkbox && <Checkbox />}
-                {rename && state.renaming ? (
-                  <TreeView.NodeRenameInput />
-                ) : (
-                  <TreeView.BranchText>
-                    {state.loading ? (
-                      <LoadingFolderIcon />
-                    ) : state.expanded ? (
-                      <FolderOpenIcon />
-                    ) : (
-                      <FolderIcon />
-                    )}
-                    {node.name}
-                  </TreeView.BranchText>
-                )}
+                <TreeView.BranchText>
+                  {state.loading ? (
+                    <RestartIcon className={styles.loadingIcon} />
+                  ) : state.expanded ? (
+                    <FolderOpenIcon />
+                  ) : (
+                    <FolderIcon />
+                  )}
+                  {node.name}
+                </TreeView.BranchText>
               </TreeView.BranchControl>
               <TreeView.BranchContent>
                 <TreeView.BranchIndentGuide />
                 {node.children?.map((child, index) => (
-                  <FileTreeNode
-                    key={child.id}
-                    node={child}
-                    indexPath={[...indexPath, index]}
-                    checkbox={checkbox}
-                    rename={rename}
-                    links={links}
-                  />
+                  <FileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
                 ))}
               </TreeView.BranchContent>
             </TreeView.Branch>
           ) : (
-            <TreeView.Item asChild={links && Boolean(node.href)}>
-              {links && node.href ? (
-                <a href={node.href}>
-                  {checkbox && <Checkbox />}
-                  <TreeView.ItemText>
-                    <FileIcon />
-                    {rename && state.renaming ? <TreeView.NodeRenameInput /> : node.name}
-                  </TreeView.ItemText>
-                </a>
-              ) : (
-                <>
-                  {checkbox && <Checkbox />}
-                  <TreeView.ItemText>
-                    <FileIcon />
-                    {rename && state.renaming ? <TreeView.NodeRenameInput /> : node.name}
-                  </TreeView.ItemText>
-                </>
-              )}
+            <TreeView.Item>
+              <TreeView.ItemText>
+                <FileIcon />
+                {node.name}
+              </TreeView.ItemText>
             </TreeView.Item>
           )
         }
@@ -215,30 +172,131 @@ function FileTreeNode({
   );
 }
 
-function TreeContent({
-  source = collection,
-  checkbox,
-  rename,
-  links,
-}: {
-  source?: TreeCollection<FileNode>;
-  checkbox?: boolean;
-  rename?: boolean;
-  links?: boolean;
-}) {
+function CheckboxFileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeView.Tree>
-      {source.rootNode.children?.map((node, index) => (
-        <FileTreeNode
-          key={node.id}
-          node={node}
-          indexPath={[index]}
-          checkbox={checkbox}
-          rename={rename}
-          links={links}
-        />
-      ))}
-    </TreeView.Tree>
+    <TreeView.NodeProvider node={node} indexPath={indexPath}>
+      <TreeView.NodeContext>
+        {(state) =>
+          node.children ? (
+            <TreeView.Branch>
+              <TreeView.BranchControl>
+                <TreeView.BranchIndicator />
+                <Checkbox />
+                <TreeView.BranchText>
+                  {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+                  {node.name}
+                </TreeView.BranchText>
+              </TreeView.BranchControl>
+              <TreeView.BranchContent>
+                <TreeView.BranchIndentGuide />
+                {node.children.map((child, index) => (
+                  <CheckboxFileTreeNode
+                    key={child.id}
+                    node={child}
+                    indexPath={[...indexPath, index]}
+                  />
+                ))}
+              </TreeView.BranchContent>
+            </TreeView.Branch>
+          ) : (
+            <TreeView.Item>
+              <Checkbox />
+              <TreeView.ItemText>
+                <FileIcon />
+                {node.name}
+              </TreeView.ItemText>
+            </TreeView.Item>
+          )
+        }
+      </TreeView.NodeContext>
+    </TreeView.NodeProvider>
+  );
+}
+
+function RenamableFileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+  return (
+    <TreeView.NodeProvider node={node} indexPath={indexPath}>
+      <TreeView.NodeContext>
+        {(state) =>
+          node.children ? (
+            <TreeView.Branch>
+              <TreeView.BranchControl>
+                <TreeView.BranchIndicator />
+                {state.renaming ? (
+                  <TreeView.NodeRenameInput />
+                ) : (
+                  <TreeView.BranchText>
+                    {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+                    {node.name}
+                  </TreeView.BranchText>
+                )}
+              </TreeView.BranchControl>
+              <TreeView.BranchContent>
+                <TreeView.BranchIndentGuide />
+                {node.children.map((child, index) => (
+                  <RenamableFileTreeNode
+                    key={child.id}
+                    node={child}
+                    indexPath={[...indexPath, index]}
+                  />
+                ))}
+              </TreeView.BranchContent>
+            </TreeView.Branch>
+          ) : (
+            <TreeView.Item>
+              <TreeView.ItemText>
+                <FileIcon />
+                {state.renaming ? <TreeView.NodeRenameInput /> : node.name}
+              </TreeView.ItemText>
+            </TreeView.Item>
+          )
+        }
+      </TreeView.NodeContext>
+    </TreeView.NodeProvider>
+  );
+}
+
+function LinkFileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+  return (
+    <TreeView.NodeProvider node={node} indexPath={indexPath}>
+      <TreeView.NodeContext>
+        {(state) =>
+          node.children ? (
+            <TreeView.Branch>
+              <TreeView.BranchControl>
+                <TreeView.BranchIndicator />
+                <TreeView.BranchText>
+                  {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+                  {node.name}
+                </TreeView.BranchText>
+              </TreeView.BranchControl>
+              <TreeView.BranchContent>
+                <TreeView.BranchIndentGuide />
+                {node.children.map((child, index) => (
+                  <LinkFileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+                ))}
+              </TreeView.BranchContent>
+            </TreeView.Branch>
+          ) : node.href ? (
+            <TreeView.Item asChild>
+              <a href={node.href}>
+                <TreeView.ItemText>
+                  <FileIcon />
+                  {node.name}
+                </TreeView.ItemText>
+              </a>
+            </TreeView.Item>
+          ) : (
+            <TreeView.Item>
+              <TreeView.ItemText>
+                <FileIcon />
+                {node.name}
+              </TreeView.ItemText>
+            </TreeView.Item>
+          )
+        }
+      </TreeView.NodeContext>
+    </TreeView.NodeProvider>
   );
 }
 
@@ -370,9 +428,9 @@ const treeViewCoreSetupCode = `${treeViewDataSetupCode}
 
 ${treeViewBaseNodeSetupCode}`;
 
-const treeViewOptionsImportsCode = `import { CheckIcon, FileIcon, FolderIcon, FolderOpenIcon, IndeterminateIcon, TreeView, createTreeCollection, type TreeViewNodeProviderProps } from "@moduix/react";`;
+const treeViewCheckboxImportsCode = `import { CheckIcon, FileIcon, FolderIcon, FolderOpenIcon, IndeterminateIcon, TreeView, createTreeCollection, type TreeViewNodeProviderProps } from "@moduix/react";`;
 
-const treeViewOptionsSetupCode = `${treeViewDataSetupCode}
+const treeViewCheckboxSetupCode = `${treeViewDataSetupCode}
 
 function NodeCheckbox() {
   return (
@@ -384,27 +442,61 @@ function NodeCheckbox() {
   );
 }
 
-function FileTreeNodeWithOptions({
-  node,
-  indexPath,
-  checkbox,
-  rename,
-  links,
-}: TreeViewNodeProviderProps<FileNode> & {
-  checkbox?: boolean;
-  rename?: boolean;
-  links?: boolean;
-}) {
+function CheckboxFileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
     <TreeView.NodeProvider node={node} indexPath={indexPath}>
       <TreeView.NodeContext>
         {(state) =>
-          node.children || node.childrenCount ? (
+          node.children ? (
             <TreeView.Branch>
               <TreeView.BranchControl>
                 <TreeView.BranchIndicator />
-                {checkbox && <NodeCheckbox />}
-                {rename && state.renaming ? (
+                <NodeCheckbox />
+                <TreeView.BranchText>
+                  {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+                  {node.name}
+                </TreeView.BranchText>
+              </TreeView.BranchControl>
+              <TreeView.BranchContent>
+                <TreeView.BranchIndentGuide />
+                {node.children.map((child, index) => (
+                  <CheckboxFileTreeNode
+                    key={child.id}
+                    node={child}
+                    indexPath={[...indexPath, index]}
+                  />
+                ))}
+              </TreeView.BranchContent>
+            </TreeView.Branch>
+          ) : (
+            <TreeView.Item>
+              <NodeCheckbox />
+              <TreeView.ItemText>
+                <FileIcon />
+                {node.name}
+              </TreeView.ItemText>
+            </TreeView.Item>
+          )
+        }
+      </TreeView.NodeContext>
+    </TreeView.NodeProvider>
+  );
+}
+
+`;
+
+const treeViewRenameSetupCode = `${treeViewDataSetupCode}
+
+function RenamableFileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+  return (
+    <TreeView.NodeProvider node={node} indexPath={indexPath}>
+      <TreeView.NodeContext>
+        {(state) =>
+          node.children ? (
+            <TreeView.Branch>
+              <TreeView.BranchControl>
+                <TreeView.BranchIndicator />
+                {state.renaming ? (
                   <TreeView.NodeRenameInput />
                 ) : (
                   <TreeView.BranchText>
@@ -415,37 +507,65 @@ function FileTreeNodeWithOptions({
               </TreeView.BranchControl>
               <TreeView.BranchContent>
                 <TreeView.BranchIndentGuide />
-                {node.children?.map((child, index) => (
-                  <FileTreeNodeWithOptions
-                    key={child.id}
-                    node={child}
-                    indexPath={[...indexPath, index]}
-                    checkbox={checkbox}
-                    rename={rename}
-                    links={links}
-                  />
+                {node.children.map((child, index) => (
+                  <RenamableFileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
                 ))}
               </TreeView.BranchContent>
             </TreeView.Branch>
           ) : (
-            <TreeView.Item asChild={links && Boolean(node.href)}>
-              {links && node.href ? (
-                <a href={node.href}>
-                  {checkbox && <NodeCheckbox />}
-                  <TreeView.ItemText>
-                    <FileIcon />
-                    {rename && state.renaming ? <TreeView.NodeRenameInput /> : node.name}
-                  </TreeView.ItemText>
-                </a>
-              ) : (
-                <>
-                  {checkbox && <NodeCheckbox />}
-                  <TreeView.ItemText>
-                    <FileIcon />
-                    {rename && state.renaming ? <TreeView.NodeRenameInput /> : node.name}
-                  </TreeView.ItemText>
-                </>
-              )}
+            <TreeView.Item>
+              <TreeView.ItemText>
+                <FileIcon />
+                {state.renaming ? <TreeView.NodeRenameInput /> : node.name}
+              </TreeView.ItemText>
+            </TreeView.Item>
+          )
+        }
+      </TreeView.NodeContext>
+    </TreeView.NodeProvider>
+  );
+}
+
+`;
+
+const treeViewLinksSetupCode = `${treeViewDataSetupCode}
+
+function LinkFileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+  return (
+    <TreeView.NodeProvider node={node} indexPath={indexPath}>
+      <TreeView.NodeContext>
+        {(state) =>
+          node.children ? (
+            <TreeView.Branch>
+              <TreeView.BranchControl>
+                <TreeView.BranchIndicator />
+                <TreeView.BranchText>
+                  {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+                  {node.name}
+                </TreeView.BranchText>
+              </TreeView.BranchControl>
+              <TreeView.BranchContent>
+                <TreeView.BranchIndentGuide />
+                {node.children.map((child, index) => (
+                  <LinkFileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+                ))}
+              </TreeView.BranchContent>
+            </TreeView.Branch>
+          ) : node.href ? (
+            <TreeView.Item asChild>
+              <a href={node.href}>
+                <TreeView.ItemText>
+                  <FileIcon />
+                  {node.name}
+                </TreeView.ItemText>
+              </a>
+            </TreeView.Item>
+          ) : (
+            <TreeView.Item>
+              <TreeView.ItemText>
+                <FileIcon />
+                {node.name}
+              </TreeView.ItemText>
             </TreeView.Item>
           )
         }
@@ -540,8 +660,8 @@ ${treeViewCoreImportsCode}`,
 });
 
 export const treeViewCheckboxCode = createTreeViewCode({
-  imports: treeViewOptionsImportsCode,
-  setup: treeViewOptionsSetupCode,
+  imports: treeViewCheckboxImportsCode,
+  setup: treeViewCheckboxSetupCode,
   demo: `export function CheckboxTreeDemo() {
   return (
     <TreeView
@@ -551,7 +671,7 @@ export const treeViewCheckboxCode = createTreeViewCode({
     >
       <TreeView.Label>Checked files</TreeView.Label>
       <TreeView.Tree>
-        ${createTreeNodesCode({ component: 'FileTreeNodeWithOptions', props: ' checkbox' })}
+        ${createTreeNodesCode({ component: 'CheckboxFileTreeNode' })}
       </TreeView.Tree>
     </TreeView>
   );
@@ -714,8 +834,8 @@ export const treeViewLazyMountCode = createTreeViewCode({
 
 export const treeViewRenameCode = createTreeViewCode({
   imports: `import { useState } from "react";
-${treeViewOptionsImportsCode}`,
-  setup: treeViewOptionsSetupCode,
+${treeViewCoreImportsCode}`,
+  setup: treeViewRenameSetupCode,
   demo: `export function RenameTreeDemo() {
   const [source, setSource] = useState(collection);
 
@@ -733,7 +853,7 @@ ${treeViewOptionsImportsCode}`,
     >
       <TreeView.Label>Rename with F2</TreeView.Label>
       <TreeView.Tree>
-        ${createTreeNodesCode({ source: 'source', component: 'FileTreeNodeWithOptions', props: ' rename' })}
+        ${createTreeNodesCode({ source: 'source', component: 'RenamableFileTreeNode' })}
       </TreeView.Tree>
     </TreeView>
   );
@@ -757,8 +877,8 @@ export const treeViewRootProviderCode = createTreeViewCode({
 });
 
 export const treeViewLinksCode = createTreeViewCode({
-  imports: treeViewOptionsImportsCode,
-  setup: treeViewOptionsSetupCode,
+  imports: treeViewCoreImportsCode,
+  setup: treeViewLinksSetupCode,
   extraSetup: `const linksCollection = createTreeCollection<FileNode>({
   nodeToValue: (node) => node.id,
   nodeToString: (node) => node.name,
@@ -783,7 +903,7 @@ export const treeViewLinksCode = createTreeViewCode({
     <TreeView collection={linksCollection} defaultExpandedValue={["docs"]}>
       <TreeView.Label>Documentation</TreeView.Label>
       <TreeView.Tree>
-        ${createTreeNodesCode({ source: 'linksCollection', component: 'FileTreeNodeWithOptions', props: ' links' })}
+        ${createTreeNodesCode({ source: 'linksCollection', component: 'LinkFileTreeNode' })}
       </TreeView.Tree>
     </TreeView>
   );
@@ -897,7 +1017,11 @@ export function TreeViewExample() {
   return (
     <TreeView collection={collection} defaultExpandedValue={['src']} className={styles.root}>
       <TreeView.Label>Project files</TreeView.Label>
-      <TreeContent />
+      <TreeView.Tree>
+        {collection.rootNode.children?.map((node, index) => (
+          <FileTreeNode key={node.id} node={node} indexPath={[index]} />
+        ))}
+      </TreeView.Tree>
     </TreeView>
   );
 }
@@ -914,7 +1038,11 @@ export function ControlledExpandedTreeViewExample() {
         className={styles.root}
       >
         <TreeView.Label>Expanded folders</TreeView.Label>
-        <TreeContent />
+        <TreeView.Tree>
+          {collection.rootNode.children?.map((node, index) => (
+            <FileTreeNode key={node.id} node={node} indexPath={[index]} />
+          ))}
+        </TreeView.Tree>
       </TreeView>
       <output className={styles.output}>expanded: {expandedValue.join(', ') || 'none'}</output>
     </Stack>
@@ -933,7 +1061,11 @@ export function ControlledSelectedTreeViewExample() {
         className={styles.root}
       >
         <TreeView.Label>Selected file</TreeView.Label>
-        <TreeContent />
+        <TreeView.Tree>
+          {collection.rootNode.children?.map((node, index) => (
+            <FileTreeNode key={node.id} node={node} indexPath={[index]} />
+          ))}
+        </TreeView.Tree>
       </TreeView>
       <output className={styles.output}>selected: {selectedValue.join(', ') || 'none'}</output>
     </Stack>
@@ -949,7 +1081,11 @@ export function CheckboxTreeViewExample() {
       className={styles.root}
     >
       <TreeView.Label>Checked files</TreeView.Label>
-      <TreeContent checkbox />
+      <TreeView.Tree>
+        {collection.rootNode.children?.map((node, index) => (
+          <CheckboxFileTreeNode key={node.id} node={node} indexPath={[index]} />
+        ))}
+      </TreeView.Tree>
     </TreeView>
   );
 }
@@ -962,7 +1098,11 @@ export function DisabledNodeTreeViewExample() {
       className={styles.root}
     >
       <TreeView.Label>Disabled files</TreeView.Label>
-      <TreeContent source={disabledCollection} />
+      <TreeView.Tree>
+        {disabledCollection.rootNode.children?.map((node, index) => (
+          <FileTreeNode key={node.id} node={node} indexPath={[index]} />
+        ))}
+      </TreeView.Tree>
     </TreeView>
   );
 }
@@ -971,7 +1111,11 @@ export function ExpandCollapseTreeViewExample() {
   return (
     <TreeView collection={collection} defaultExpandedValue={['src']} className={styles.root}>
       <ExpandCollapseControls />
-      <TreeContent />
+      <TreeView.Tree>
+        {collection.rootNode.children?.map((node, index) => (
+          <FileTreeNode key={node.id} node={node} indexPath={[index]} />
+        ))}
+      </TreeView.Tree>
     </TreeView>
   );
 }
@@ -994,7 +1138,11 @@ export function FilteringTreeViewExample() {
       />
       <TreeView collection={filtered} className={styles.root}>
         <TreeView.Label>Filtered files</TreeView.Label>
-        <TreeContent source={filtered} />
+        <TreeView.Tree>
+          {filtered.rootNode.children?.map((node, index) => (
+            <FileTreeNode key={node.id} node={node} indexPath={[index]} />
+          ))}
+        </TreeView.Tree>
       </TreeView>
     </Stack>
   );
@@ -1011,7 +1159,11 @@ export function AsyncTreeViewExample() {
       className={styles.root}
     >
       <TreeView.Label>Lazy folders</TreeView.Label>
-      <TreeContent source={source} />
+      <TreeView.Tree>
+        {source.rootNode.children?.map((node, index) => (
+          <FileTreeNode key={node.id} node={node} indexPath={[index]} />
+        ))}
+      </TreeView.Tree>
     </TreeView>
   );
 }
@@ -1026,7 +1178,11 @@ export function LazyMountTreeViewExample() {
       className={styles.root}
     >
       <TreeView.Label>Lazy mounted folders</TreeView.Label>
-      <TreeContent />
+      <TreeView.Tree>
+        {collection.rootNode.children?.map((node, index) => (
+          <FileTreeNode key={node.id} node={node} indexPath={[index]} />
+        ))}
+      </TreeView.Tree>
     </TreeView>
   );
 }
@@ -1048,7 +1204,11 @@ export function RenameTreeViewExample() {
       className={styles.root}
     >
       <TreeView.Label>Rename with F2</TreeView.Label>
-      <TreeContent source={source} rename />
+      <TreeView.Tree>
+        {source.rootNode.children?.map((node, index) => (
+          <RenamableFileTreeNode key={node.id} node={node} indexPath={[index]} />
+        ))}
+      </TreeView.Tree>
     </TreeView>
   );
 }
@@ -1060,7 +1220,11 @@ export function RootProviderTreeViewExample() {
     <Stack>
       <TreeView.RootProvider value={treeView} className={styles.root}>
         <TreeView.Label>Root provider</TreeView.Label>
-        <TreeContent />
+        <TreeView.Tree>
+          {collection.rootNode.children?.map((node, index) => (
+            <FileTreeNode key={node.id} node={node} indexPath={[index]} />
+          ))}
+        </TreeView.Tree>
       </TreeView.RootProvider>
       <output className={styles.output}>
         selected: {treeView.selectedValue.join(', ') || 'none'}
@@ -1073,7 +1237,11 @@ export function LinksTreeViewExample() {
   return (
     <TreeView collection={linksCollection} defaultExpandedValue={['docs']} className={styles.root}>
       <TreeView.Label>Documentation</TreeView.Label>
-      <TreeContent source={linksCollection} links />
+      <TreeView.Tree>
+        {linksCollection.rootNode.children?.map((node, index) => (
+          <LinkFileTreeNode key={node.id} node={node} indexPath={[index]} />
+        ))}
+      </TreeView.Tree>
     </TreeView>
   );
 }
@@ -1086,7 +1254,11 @@ export function CustomStyledTreeViewExample() {
       className={styles.customRoot}
     >
       <TreeView.Label>Custom styled files</TreeView.Label>
-      <TreeContent />
+      <TreeView.Tree>
+        {collection.rootNode.children?.map((node, index) => (
+          <FileTreeNode key={node.id} node={node} indexPath={[index]} />
+        ))}
+      </TreeView.Tree>
     </TreeView>
   );
 }

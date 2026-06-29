@@ -182,6 +182,10 @@ inline rename handling come from Ark UI. Use the exported generic types such as
 `TreeViewRootComponent`, `TreeViewNodeProviderProps`, and `TreeViewLoadChildrenDetails` when building
 typed local wrappers around the recursive node renderer.
 
+Mutation and virtualized rendering stay regular Ark collection patterns: replace the collection after
+editing node data, or render the visible recursive nodes inside `TreeView.Tree` without adding a
+moduix-specific prop.
+
 ## Examples
 
 ### Controlled Expanded
@@ -372,4 +376,5 @@ data attributes and moduix `data-slot` hooks.
 - Ark state hooks: `data-state="open|closed"`, `data-focus`, `data-selected`,
   `data-disabled`, `data-loading`, `data-renaming`, `data-checked`, `data-indeterminate`,
   `data-depth`, `data-path`, and `data-value`.
-- Ark runtime variables: `--depth` for indentation and `--height` for branch content animation.
+- Ark runtime variables: `--depth` for indentation and collapsible `--height` for branch content
+  animation.

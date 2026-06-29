@@ -138,8 +138,8 @@ function TreeNode({ node, indexPath }) {
 - Basic file tree, controlled expanded state, controlled selected state, checkbox trees, async
   loading, rename, link composition with `asChild`, lazy mount, and root provider patterns are
   represented in docs.
-- Filtering, expand/collapse all, mutation, context menu, disabled node, and virtualized examples
-  are supported by the underlying Ark API but do not require extra moduix wrapper props.
+- Filtering, expand/collapse all, mutation, disabled node, and virtualized rendering are supported by
+  the underlying Ark API but do not require extra moduix wrapper props.
 - `createFileTreeCollection` is re-exported for consumers who prefer Ark's file tree helper.
 
 ## Accessibility and state
@@ -151,7 +151,8 @@ function TreeNode({ node, indexPath }) {
 - Preserve Ark state attributes including `data-state`, `data-focus`, `data-selected`,
   `data-disabled`, `data-loading`, `data-renaming`, `data-checked`, `data-indeterminate`,
   `data-depth`, `data-path`, and `data-value`.
-- `BranchContent` uses Ark's `--height` runtime variable for open/closed animation.
+- `BranchContent` uses Ark's shared collapsible `--height` runtime variable for open/closed
+  animation.
 - `Branch`, `BranchControl`, `Item`, and `BranchIndentGuide` use Ark's `--depth` runtime variable
   for indentation.
 - Use `useTreeView` with `TreeView.RootProvider`; do not render `TreeView.Root` for the same state
@@ -182,5 +183,7 @@ function TreeNode({ node, indexPath }) {
 
 ## Local changelog
 
+- 2026-06-29: Audited Ark UI migration, simplified docs examples to keep explicit recursive
+  composition visible, and clarified mutation/virtualization notes.
 - 2026-06-23: Added Ark UI `TreeView` wrapper with CSS Modules styling, icon defaults, stories,
   local docs, site docs, and registry metadata.
