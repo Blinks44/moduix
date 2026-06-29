@@ -197,7 +197,7 @@ Ark's floating options. Use `ids` when separate tooltip parts need stable shared
 | `closeDelay`           | `150`   | Delay before closing after hover or focus leaves.                 |
 | `closeOnClick`         | `true`  | Closes when the trigger is clicked.                               |
 | `closeOnEscape`        | `true`  | Closes when Escape is pressed.                                    |
-| `closeOnPointerDown`   | `true`  | Closes on pointer down outside the trigger/content path.          |
+| `closeOnPointerDown`   | `true`  | Closes on pointer down.                                           |
 | `closeOnScroll`        | `true`  | Closes on scroll.                                                 |
 | `interactive`          | `false` | Keeps the tooltip open while hovering content when set to `true`. |
 | `lazyMount`            | `false` | Defers mounting until the tooltip first opens.                    |
@@ -207,6 +207,10 @@ Ark's floating options. Use `ids` when separate tooltip parts need stable shared
 ### Behavioral notes
 
 - Controlled state uses Ark's `open` and `onOpenChange(details)` shape. Read `details.open`.
+- `defaultOpen` provides uncontrolled initial state, while `disabled` turns off tooltip
+  interaction without changing the trigger's own semantics.
+- Ark presence props such as `present`, `immediate`, `onExitComplete`, `lazyMount`, and
+  `unmountOnExit` pass through unchanged.
 - `Tooltip.Context`, `useTooltipContext`, `useTooltip`, and `Tooltip.RootProvider` are exported
   from `moduix`.
 - `Tooltip.Trigger` receives the moduix trigger skin only when `asChild` is not used. With
@@ -214,11 +218,9 @@ Ark's floating options. Use `ids` when separate tooltip parts need stable shared
 - `Tooltip.Content` owns the visible surface and z-index. `Tooltip.Positioner` owns floating
   layout and exposes Ark variables such as `--available-width`, `--available-height`, and
   `--transform-origin`.
-- Ark emits `data-state="open" | "closed"` on trigger and content, `data-expanded` on trigger,
-  and placement attributes such as `data-placement` and `data-side` on content.
-- There is no legacy `Provider`, `render`, `createTooltipHandle`, payload render function,
-  `TooltipPopup`, `TooltipViewport`, `side`, `sideOffset`, or `showArrow` API. Use Ark
-  composition and `positioning` instead.
+- Ark emits `data-state="open" | "closed"` on trigger and content; `data-value`, `data-current`,
+  and `data-expanded` on trigger; and placement attributes such as `data-placement` and
+  `data-side` on content.
 
 ## Examples
 
@@ -804,10 +806,12 @@ Use the part that owns the visual concern:
 - `Tooltip.Content` for popup surface overrides.
 - `Tooltip.Arrow` and `Tooltip.ArrowTip` for arrow size, background, and stroke.
 
-The main public hooks include `data-slot="tooltip-trigger"`, `tooltip-positioner`,
-`tooltip-content`, `tooltip-arrow`, and `tooltip-arrow-tip`.
+The main public hooks are `data-slot="tooltip-trigger"`, `data-slot="tooltip-positioner"`,
+`data-slot="tooltip-content"`, `data-slot="tooltip-arrow"`, and
+`data-slot="tooltip-arrow-tip"`.
 
 Ark also adds `data-scope="tooltip"`, `data-part`, `data-state="open" | "closed"`,
-`data-expanded`, `data-instant`, `data-placement`, and `data-side` on the relevant parts. The
-positioner exposes runtime CSS variables including `--available-width`, `--available-height`,
-`--reference-width`, `--reference-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`.
+`data-value`, `data-current`, `data-expanded`, `data-instant`, `data-placement`, and `data-side`
+on the relevant parts. The positioner exposes runtime CSS variables including
+`--available-width`, `--available-height`, `--reference-width`, `--reference-height`, `--x`,
+`--y`, `--z-index`, and `--transform-origin`.

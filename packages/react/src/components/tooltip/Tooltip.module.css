@@ -19,9 +19,9 @@
     outline: 0;
     cursor: pointer;
     transition:
-      background-color var(--tooltip-transition, var(--transition-default)),
-      border-color var(--tooltip-transition, var(--transition-default)),
-      color var(--tooltip-transition, var(--transition-default));
+      background-color var(--tooltip-transition, var(--duration-fast)) var(--ease-in-out),
+      border-color var(--tooltip-transition, var(--duration-fast)) var(--ease-in-out),
+      color var(--tooltip-transition, var(--duration-fast)) var(--ease-in-out);
 
     @media (hover: hover) {
       &:hover {
@@ -54,7 +54,6 @@
     z-index: var(--z-index, var(--z-popup));
     max-width: var(--available-width);
     max-height: var(--available-height);
-    outline: 0;
   }
 
   .content {

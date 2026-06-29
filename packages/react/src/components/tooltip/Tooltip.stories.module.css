@@ -11,14 +11,6 @@
   gap: var(--spacing-3);
 }
 
-.row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: var(--spacing-2);
-}
-
 .toolbar {
   display: inline-flex;
   align-items: center;
@@ -68,15 +60,6 @@
   height: 1rem;
 }
 
-.customPopup {
-  --tooltip-bg: var(--color-primary);
-  --tooltip-color: var(--color-primary-foreground);
-  --tooltip-border-color: color-mix(in oklab, var(--color-primary), black 18%);
-  --tooltip-arrow-stroke-color: var(--tooltip-border-color);
-  --tooltip-padding-x: var(--spacing-3);
-  --tooltip-padding-y: var(--spacing-2);
-}
-
 .customContent {
   --tooltip-bg: var(--color-primary);
   --tooltip-color: var(--color-primary-foreground);
@@ -91,11 +74,6 @@
 
 .customPositioner {
   filter: drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.14));
-}
-
-.customViewport {
-  min-width: 10rem;
-  text-align: left;
 }
 
 .customTrigger {

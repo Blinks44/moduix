@@ -64,10 +64,6 @@ The wrapper adds default Moduix styling, stable `data-slot` hooks, and one narro
 | `ArrowTip`         | `tooltip-arrow-tip`  | Ref forwards to the Ark arrow tip div.                 |
 | `Context`          | none                 | Ark render-prop state access.                          |
 
-Removed legacy exports: `TooltipProvider`, `TooltipPopup`, `TooltipViewport`,
-`TooltipContent` as a portal wrapper, `createTooltipHandle`, `render`, `handle`, `payload`,
-`showArrow`, and positioner props such as `side`/`sideOffset` on a content wrapper.
-
 ## Composition
 
 ```tsx
@@ -127,7 +123,7 @@ Relevant Ark attributes and variables:
 
 - `data-scope="tooltip"` and `data-part` on Ark DOM parts
 - `data-state="open" | "closed"` on trigger and content
-- `data-expanded` on trigger
+- `data-value`, `data-current`, and `data-expanded` on trigger
 - `data-instant`, `data-placement`, and `data-side` on content
 - `--available-width`, `--available-height`, `--reference-width`, `--reference-height`, `--x`,
   `--y`, `--z-index`, and `--transform-origin` on the positioner/content path
@@ -152,9 +148,6 @@ not a tooltip-owned part.
 `Tooltip.Arrow` renders `Tooltip.ArrowTip` by default. Consumers can pass custom children when they
 need a custom arrow shape.
 
-The old legacy high-level `TooltipContent` wrapper was removed intentionally. Consumers now compose
-shared `Portal`, `Tooltip.Positioner`, and `Tooltip.Content` explicitly.
-
 ## Agent notes
 
 Do not reintroduce legacy compatibility aliases. Tooltip is now an Ark-first popup family member,
@@ -166,6 +159,9 @@ documented reason not to.
 
 ## Local changelog
 
+- 2026-06-29: Audited the Ark migration, removed stale story/docs CSS, aligned documented
+  trigger state attributes and presence behavior with Ark, and made `--tooltip-transition` a
+  consistent duration token for trigger transitions and content animations.
 - 2026-06-22: Removed the `Tooltip.Portal` namespace alias; examples now import the shared
   `Portal` from `@moduix/react`.
 - 2026-06-21: Migrated Tooltip to Ark UI React. Replaced the legacy high-level
