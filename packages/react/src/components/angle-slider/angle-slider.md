@@ -115,7 +115,7 @@ export function RotationAngleSlider() {
 - moduix supplies the circular dial, inner disc, center dot, rotating thumb, active line, marker,
   focus, disabled, read-only, and invalid visuals.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
-- Public `--angle-slider-*` variables are registered in `src/core/styles/theme.css`.
+- Public `--angle-slider-*` variables are registered in `src/lib/moduix/styles/theme.css`.
 - Focus styling follows `Thumb:focus-visible`; invalid, disabled, read-only, and marker styling use
   Ark state attributes rather than legacy classes or wrapper state.
 

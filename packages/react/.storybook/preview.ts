@@ -1,5 +1,5 @@
-import '@/core/styles/style.css';
-import '@/core/styles/reset.css';
+import '@/lib/moduix/styles/style.css';
+import '@/lib/moduix/styles/reset.css';
 import type { Preview } from '@storybook/react-vite';
 
 const preview: Preview = {

@@ -131,7 +131,7 @@ Cell state hooks:
 
 ## Defaults and styling
 
-Public CSS variables are registered in `packages/react/src/core/styles/theme.css`. Important variables:
+Public CSS variables are registered in `packages/react/src/lib/moduix/styles/theme.css`. Important variables:
 
 - `--table-border-color`, `--table-border-width`
 - `--table-cell-padding-x`, `--table-cell-padding-y`

@@ -98,7 +98,7 @@ export function ClipboardDemo() {
 - `className` is supported on every exported visual part.
 - `Clipboard.Indicator` defaults to `CopyIcon` and `CheckIcon`.
 - Styles follow Ark `data-part` hooks and keep `data-copied` available for opt-in customization.
-- Public component tokens live under `--clipboard-*` in `packages/react/src/core/styles/theme.css`.
+- Public component tokens live under `--clipboard-*` in `packages/react/src/lib/moduix/styles/theme.css`.
 - Input and trigger tokens intentionally fall back to the existing `--input-*` and `--button-*` families where that keeps the visual system aligned.
 - Copied-state styling should target Ark `data-copied` directly; there is no separate `--clipboard-*-copied` token layer.
 

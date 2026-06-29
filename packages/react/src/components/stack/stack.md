@@ -121,7 +121,7 @@ a single element that accepts `className`, `style`, and DOM attributes.
 | `className` | -               | Applied to the root                                      |
 | `style`     | -               | Applied last and can override computed inline properties |
 
-These public CSS variables live in `packages/react/src/core/styles/theme.css`. `direction` and
+These public CSS variables live in `packages/react/src/lib/moduix/styles/theme.css`. `direction` and
 `fill` write inline values for the same variables when provided, and `style` is applied last as the
 per-instance override escape hatch.
 

@@ -102,7 +102,7 @@ Every styled part accepts `className`, merged with moduix defaults through `clsx
 
 The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px` with the default token scale. The default shadow is `var(--shadow-xs)`.
 
-All `--signature-pad-*` variables used by `SignaturePad.module.css` are declared in `src/core/styles/theme.css` so IDEs can resolve the public styling surface. The most common overrides are `--signature-pad-width`, `--signature-pad-height`, `--signature-pad-control-width`, `--signature-pad-control-height`, `--signature-pad-stroke-color`, `--signature-pad-bg`, `--signature-pad-border-color`, `--signature-pad-radius`, `--signature-pad-guide-color`, and `--signature-pad-clear-trigger-*`.
+All `--signature-pad-*` variables used by `SignaturePad.module.css` are declared in `src/lib/moduix/styles/theme.css` so IDEs can resolve the public styling surface. The most common overrides are `--signature-pad-width`, `--signature-pad-height`, `--signature-pad-control-width`, `--signature-pad-control-height`, `--signature-pad-stroke-color`, `--signature-pad-bg`, `--signature-pad-border-color`, `--signature-pad-radius`, `--signature-pad-guide-color`, and `--signature-pad-clear-trigger-*`.
 
 ## Intentional sugar and differences from upstream
 

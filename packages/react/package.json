@@ -36,8 +36,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./style.css": "./dist/core/styles/style.css",
-    "./reset.css": "./dist/core/styles/reset.css",
+    "./style.css": "./dist/lib/moduix/styles/style.css",
+    "./reset.css": "./dist/lib/moduix/styles/reset.css",
     "./package.json": "./package.json"
   },
   "publishConfig": {

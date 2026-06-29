@@ -1,3 +1,3 @@
-import './core/styles/reset.css';
+import './lib/moduix/styles/reset.css';
 
 export {};

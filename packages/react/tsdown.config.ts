@@ -17,9 +17,6 @@ export default defineConfig({
   platform: 'browser',
   target: 'es2023',
   alias: {
-    '@/icons/demo': path.resolve(dirname, './src/icons/demo'),
-    '@/lib/moduix/icons/ui': path.resolve(dirname, './src/icons/ui'),
-    '@/lib/moduix': path.resolve(dirname, './src/core/lib/moduix'),
     '@': path.resolve(dirname, './src'),
   },
   deps: {

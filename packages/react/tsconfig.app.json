@@ -7,12 +7,6 @@
     "types": ["vite/client"],
     "skipLibCheck": true,
     "paths": {
-      "@/icons/demo": ["./src/icons/demo"],
-      "@/icons/demo/*": ["./src/icons/demo/*"],
-      "@/lib/moduix/icons/ui": ["./src/icons/ui"],
-      "@/lib/moduix/icons/ui/*": ["./src/icons/ui/*"],
-      "@/lib/moduix": ["./src/core/lib/moduix"],
-      "@/lib/moduix/*": ["./src/core/lib/moduix/*"],
       "@/*": ["./src/*"]
     },
 

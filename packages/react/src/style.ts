@@ -1,3 +1,3 @@
-import './core/styles/style.css';
+import './lib/moduix/styles/style.css';
 
 export {};

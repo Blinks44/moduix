@@ -136,7 +136,7 @@ Inside `## Styling`, always use:
   `Tabs` with a single `CSS Variables` tab, and a bounded scroll area on the tab panel.
 - Use this pattern even when the table is short so component pages stay visually consistent.
 - `CSS Properties` must cover the full public `--<component>-*` contract from
-  `packages/react/src/core/styles/theme.css`.
+  `packages/react/src/lib/moduix/styles/theme.css`.
 - `Styling hooks` should cover meaningful `className`, `data-slot`, and state/data attributes consumers can actually
   target.
 

@@ -1,5 +1,3 @@
-@layer ui.reset, ui.tokens, ui.base, ui.components;
-
 @layer ui.base {
   body {
     font-family: var(--font-sans), sans-serif;

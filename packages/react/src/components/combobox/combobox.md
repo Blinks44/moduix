@@ -146,7 +146,7 @@ export function ComboboxExample() {
 - `className` is accepted on every visual part.
 - `Combobox.Input asChild` preserves Ark input behavior without applying the default combobox input
   visual class to the child element.
-- Public component variables are declared in `packages/react/src/core/styles/theme.css`.
+- Public component variables are declared in `packages/react/src/lib/moduix/styles/theme.css`.
 - `Content` uses Ark `--reference-width`, `--available-height`, `--transform-origin`, and
   `--layer-index`. Its z-index is declared on the content part so Ark can propagate it to
   `Positioner` through `--z-index`.

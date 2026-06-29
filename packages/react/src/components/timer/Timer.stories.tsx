@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ComponentProps } from 'react';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from '@/icons/ui';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { Timer, useTimer } from './Timer';
 import styles from './Timer.stories.module.css';
 

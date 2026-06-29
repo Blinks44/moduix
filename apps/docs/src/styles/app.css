@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
-@import '../../../../packages/react/src/core/styles/fonts.css';
+@import '../../../../packages/react/src/lib/moduix/styles/fonts.css';
 @import '@moduix/react/style.css';
 @import 'fumadocs-ui/css/preset.css';
 

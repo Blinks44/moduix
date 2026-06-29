@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import { RotateCcwIcon } from '@/icons/ui';
+import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { Field } from '../field';
 import { SignaturePad, useSignaturePad } from './SignaturePad';
 import styles from './SignaturePad.stories.module.css';

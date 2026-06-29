@@ -131,7 +131,7 @@ export function FileUploadDemo() {
 - `ItemDeleteTrigger` defaults to the moduix `TrashIcon` when children are omitted.
 - `ClearTrigger` defaults to the moduix `CloseIcon` when children are omitted.
 - Public styling hooks are Ark `data-scope` / `data-part`, Ark state attributes, and moduix `data-slot`.
-- Public component tokens live under `--file-upload-*` in `packages/react/src/core/styles/theme.css`.
+- Public component tokens live under `--file-upload-*` in `packages/react/src/lib/moduix/styles/theme.css`.
 - Item layout selectors use the public `data-slot` hooks for previews and size text.
 - Empty `ItemGroup` parts are hidden so they do not add root spacing before accepted or rejected files exist.
 - No Ark runtime CSS variables are required by this primitive.

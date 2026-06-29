@@ -152,7 +152,7 @@ var(--drawer-max-height, 80dvh)` for top/bottom drawers so Ark measures a stable
 drag release and snap points. Do not change this back to `height: auto`; snap points will collapse
 to the height of the visible content.
 
-Public theme variables are declared in `packages/react/src/core/styles/theme.css`.
+Public theme variables are declared in `packages/react/src/lib/moduix/styles/theme.css`.
 
 ## Intentional sugar and differences from upstream
 

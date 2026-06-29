@@ -129,8 +129,8 @@ If the answer is weak, simplify or remove it.
 
 ## Styling and Sync
 
-- Use tokens from `src/core/styles/*`.
-- Add public styling tokens to `src/core/styles/theme.css` with `initial` and a nearby default-value comment.
+- Use tokens from `src/lib/moduix/styles/*`.
+- Add public styling tokens to `src/lib/moduix/styles/theme.css` with `initial` and a nearby default-value comment.
 - Preserve Ark `data-scope`, `data-part`, `data-state`, and component-specific state attributes on styled parts.
 - Keep `data-slot` hooks as moduix-facing stable selectors layered on top of Ark attributes.
 - Use Ark runtime CSS variables such as positioning, sizing, transform-origin, and measured height variables when the
