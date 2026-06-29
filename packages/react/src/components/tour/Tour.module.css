@@ -17,7 +17,7 @@
     z-index: calc(var(--tour-z-index, var(--z-modal)) + var(--tour-layer, 0));
     box-shadow: var(
       --tour-spotlight-shadow,
-      0 0 0 var(--tour-spotlight-ring-width, 1px) var(--color-ring)
+      0 0 0 var(--tour-spotlight-ring-width, 2px) var(--color-ring)
     );
   }
 
@@ -140,7 +140,7 @@
 
   .progressText {
     order: 1;
-    margin-top: var(--tour-progress-text-margin-top, 0);
+    margin-top: var(--tour-progress-text-margin-top, var(--spacing-2));
     color: var(--tour-progress-text-color, var(--color-muted-foreground));
     font-size: var(--tour-progress-text-font-size, var(--text-xs));
     line-height: var(--tour-progress-text-line-height, var(--line-height-text-xs));

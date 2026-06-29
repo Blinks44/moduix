@@ -247,6 +247,9 @@ arrow IDs.
 `Tour` does not expose `RootProvider`; Ark requires a `tour` object from `useTour`. Controlled usage
 lives in `useTour` through `steps`, `stepId`, `onStepChange`, `onStepsChange`, and
 `onStatusChange`. Step actions preserve Ark objects: pass each action to `Tour.ActionTrigger`.
+Styled parts forward refs to their Ark DOM elements and support `asChild`; keep a single semantic
+child with the required keyboard and focus behavior. `Tour` / `Tour.Root` also preserve Ark
+presence props such as `lazyMount`, `unmountOnExit`, `present`, and `onExitComplete`.
 
 ## Examples
 

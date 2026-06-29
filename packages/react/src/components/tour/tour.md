@@ -17,6 +17,8 @@ The wrapper follows Ark UI `Tour`. State is created with `useTour()` and passed 
 
 `Tour` is a thin styled wrapper over Ark parts. It exposes `Root`, `Backdrop`, `Spotlight`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `ProgressText`, `CloseTrigger`, `Control`, `Actions`, `ActionTrigger`, and `Context`. The wrapper adds CSS Modules styling, stable `data-slot` hooks, bottom-aligned progress text, and a default `ArrowTip` when `Tour.Arrow` has no children. It does not add local tour state or convert Ark callbacks.
 
+The public type surface mirrors each exported part, including `TourActionsProps`, and re-exports Ark's `useTour`, `useTourContext`, and wait-helper types.
+
 ## Anatomy and exported parts
 
 ```tsx
@@ -118,6 +120,8 @@ The wrapper supports the Ark examples and guides for basic tours, mixed step typ
 
 Ark owns `role="alertdialog"`, `aria-modal`, live-region attributes, title and description IDs, dismissal, Escape handling, outside interaction, focus movement, and left/right keyboard navigation. `keyboardNavigation` defaults to enabled. `Tour.ActionTrigger` preserves Ark `StepAction` objects and sets disabled state for unavailable `prev` and `next` actions. Use `action: 'dismiss'` for the skip button pattern shown in the Ark examples. `Tour.Root` has no `RootProvider`; use the `tour` object from `useTour` as the external state handle. No `HiddenInput` or Field context is involved.
 
+Styled DOM parts forward refs to their Ark-rendered elements and preserve Ark `asChild`. `CloseTrigger` and `ActionTrigger` omit moduix button visuals when `asChild` is used so the semantic child owns its styling.
+
 Relevant attributes include `data-scope="tour"`, `data-part`, `data-state="open|closed"`, `data-type="dialog|tooltip|floating|wait"`, `data-placement`, `data-side`, `data-step`, and `data-disabled` on disabled action triggers. Runtime CSS variables include `--tour-layer`, `--reference-width`, `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`, `--z-index`, `--transform-origin`, `--arrow-size`, `--arrow-size-half`, `--arrow-background`, `--arrow-offset`, `--layer-index`, and `--nested-layer-count`.
 
 ## Defaults and styling
@@ -134,6 +138,7 @@ Keep `Tour.Root` as a required-`tour` root until Ark exposes a real `RootProvide
 
 ## Local changelog
 
+- 2026-06-29: Completed the Ark migration audit, restored the missing `TourActionsProps` export, aligned spotlight and progress defaults with the public theme contract, and clarified refs, `asChild`, and presence behavior.
 - 2026-06-23: Moved progress text and progress examples to the lower content area to avoid overlap with the close trigger.
 - 2026-06-23: Aligned skip examples with Ark's `action: 'dismiss'` pattern, documented click/element wait examples, and matched tour content animation fallback to `--transition-default`.
 - 2026-06-23: Added the Ark-backed `Tour` component with CSS Modules styling, stories, local docs, public exports, docs examples, and registry metadata.

@@ -9,6 +9,7 @@ export {
 } from './Tour';
 export type {
   TourActionTriggerProps,
+  TourActionsProps,
   TourArrowProps,
   TourArrowTipProps,
   TourBackdropProps,
