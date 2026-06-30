@@ -1118,6 +1118,31 @@
       ]
     },
     {
+      "name": "react-native-select",
+      "type": "registry:item",
+      "title": "NativeSelect",
+      "description": "moduix React NativeSelect component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/native-select/NativeSelect.tsx",
+          "target": "@components/moduix/native-select/NativeSelect.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/native-select/NativeSelect.module.css",
+          "target": "@components/moduix/native-select/NativeSelect.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/native-select/index.ts",
+          "target": "@components/moduix/native-select/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-number-input",
       "type": "registry:item",
       "title": "NumberInput",

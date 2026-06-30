@@ -1,0 +1,265 @@
+---
+title: NativeSelect
+description: A styled native select for simple option lists and platform-native selection.
+icon: Component
+---
+
+import {
+  NativeSelectCssPropertiesPanel,
+  NativeSelectExample,
+  NativeSelectFieldExample,
+  NativeSelectMultipleExample,
+} from '@/components/examples/native-select';
+
+## API Reference
+
+`NativeSelect` wraps Ark UI
+[Field.Select](https://ark-ui.com/docs/components/field) and renders a real HTML `<select>`.
+Chakra UI [Native Select](https://chakra-ui.com/docs/components/native-select) informs its visual
+relationship with custom Select, while moduix keeps the public API to one component.
+
+## Choosing the right component
+
+Use `NativeSelect` for straightforward option lists where browser autofill, form reset, native
+keyboard behavior, and mobile platform pickers are desirable. Use [`Select`](/docs/select) when the
+interface needs a custom popup, collection APIs, rich items, clearing, multiple-value presentation,
+or controlled popup behavior.
+
+## Basic
+
+Render native `option` or `optgroup` children and use normal select props.
+
+<Preview>
+  <NativeSelectExample />
+
+  <Preview.Code>
+    {`
+      import { NativeSelect } from "@moduix/react";
+
+      export function NativeSelectDemo() {
+        return (
+          <NativeSelect defaultValue="">
+            <option value="" disabled>
+              Choose framework
+            </option>
+            <option value="react">React</option>
+            <option value="vue">Vue</option>
+            <option value="svelte">Svelte</option>
+          </NativeSelect>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    No external data. Options are native children of the select element.
+  </Preview.Data>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `NativeSelect` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/react-native-select
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/react-native-select
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/react-native-select
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-native-select
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/react-native-select
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `NativeSelect` depends on.
+
+## Anatomy
+
+`NativeSelect` keeps the real select as its form control and adds a non-interactive moduix
+`ChevronDownIcon` for consistent alignment with `Select`.
+
+```text
+NativeSelect / NativeSelect.Root
+└─ span[data-scope="native-select"][data-part="control"]
+   ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
+   │  ├─ option
+   │  └─ optgroup
+   └─ span[data-scope="native-select"][data-part="indicator"]
+      └─ ChevronDownIcon
+```
+
+| Part                                 | Role                                          |
+| ------------------------------------ | --------------------------------------------- |
+| `NativeSelect` / `NativeSelect.Root` | Styled native select with a visual indicator. |
+
+## Composition
+
+### Recommended composition
+
+Use the short `NativeSelect` form with native children and native controlled or uncontrolled props.
+Compose it inside `Field.Root` when the control needs a visible label, helper text, error text, or
+shared required, invalid, or disabled state.
+
+### When to go custom
+
+Switch to `Select` when option rendering, popup positioning, collection state, or custom indicators
+must be controlled by the application. Keep `NativeSelect` for browser-owned selection behavior.
+
+### Default props
+
+| Prop           | Default         | Notes                                               |
+| -------------- | --------------- | --------------------------------------------------- |
+| `value`        | -               | Native controlled value                             |
+| `defaultValue` | -               | Native uncontrolled value                           |
+| `onChange`     | -               | Native `ChangeEvent<HTMLSelectElement>`             |
+| `multiple`     | `false`         | Enables native multiple selection                   |
+| `size`         | browser default | Native visible row count, not a visual size variant |
+| `disabled`     | `false`         | Native disabled state                               |
+| `asChild`      | `false`         | Ark composition; normally leave disabled for select |
+
+### Behavioral notes
+
+- The ref targets the real `HTMLSelectElement`.
+- Native submission, autofill, reset, required validation, options, and keyboard behavior are
+  preserved.
+- `multiple` and native `size` values greater than one use an intrinsic list height.
+- `Field.Root` supplies ids, `aria-describedby`, invalid state, and native state props.
+- HTML select does not support a read-only state.
+- `ChevronDownIcon` keeps the collapsed control aligned with `Select`; the browser still owns the
+  popup appearance.
+
+## Examples
+
+### Field Integration
+
+Use `Field` for accessible labels, descriptions, error text, and shared form state.
+
+<Preview>
+  <NativeSelectFieldExample />
+
+  <Preview.Code>
+    {`
+      import { Field, NativeSelect } from "@moduix/react";
+
+      export function NativeSelectFieldDemo() {
+        return (
+          <Field.Root className="nativeSelectFieldDemo" invalid required>
+            <Field.Label>Framework</Field.Label>
+            <NativeSelect defaultValue="" name="framework">
+              <option value="" disabled>
+                Choose framework
+              </option>
+              <option value="react">React</option>
+              <option value="vue">Vue</option>
+              <option value="svelte">Svelte</option>
+            </NativeSelect>
+            <Field.ErrorText>Select a framework.</Field.ErrorText>
+          </Field.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .nativeSelectFieldDemo {
+        --field-width: 14rem;
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    No external data. Field state and native options are declared inline.
+  </Preview.Data>
+</Preview>
+
+### Multiple Selection
+
+Native `multiple` and `size` props turn the control into a browser-managed option list.
+
+<Preview>
+  <NativeSelectMultipleExample />
+
+  <Preview.Code>
+    {`
+      import { NativeSelect } from "@moduix/react";
+
+      export function NativeSelectMultipleDemo() {
+        return (
+          <NativeSelect
+            defaultValue={["react", "vue"]}
+            multiple
+            size={3}
+            aria-label="Frameworks"
+          >
+            <option value="react">React</option>
+            <option value="vue">Vue</option>
+            <option value="svelte">Svelte</option>
+          </NativeSelect>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    No external data. Multiple selection uses native options and selected values.
+  </Preview.Data>
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+`NativeSelect` reuses the control-level `--select-*` variables so native and custom selects can
+share dimensions, indicator spacing, borders, colors, radius, focus ring, disabled opacity, and
+transitions. Its default padding and indicator geometry follow the shared 4px spacing scale.
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <NativeSelectCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `className` styles the real select element.
+- `data-scope="field"` and `data-part="select"` preserve the Ark Field styling contract.
+- `data-slot="native-select-root"` is the stable moduix selector for the control.
+- `data-slot="native-select-control"` and `data-slot="native-select-indicator"` target the internal
+  layout and icon.
+- Native `:focus-visible`, `:disabled`, `[aria-invalid="true"]`, `[multiple]`, and `[size]` selectors
+  drive visual states.

@@ -1,0 +1,107 @@
+@layer ui.components {
+  .control {
+    position: relative;
+    display: inline-grid;
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .root {
+    box-sizing: border-box;
+    width: var(--select-width, 14rem);
+    max-width: var(--select-max-width, 100%);
+    min-width: 0;
+    height: var(--select-control-height, var(--size-lg));
+    margin: 0;
+    border: var(--select-border-width, var(--border-width-sm)) solid
+      var(--select-border-color, var(--color-border));
+    border-radius: var(--select-radius, var(--radius-md));
+    padding-inline-start: var(--select-trigger-padding-x-start, var(--spacing-3));
+    padding-inline-end: calc(
+      var(--select-action-offset-right, var(--spacing-1)) +
+        var(--select-action-size, var(--spacing-6)) +
+        var(--select-trigger-padding-x-start, var(--spacing-3))
+    );
+    appearance: none;
+    background-color: var(--select-bg, var(--color-background));
+    color: var(--select-color, var(--color-foreground));
+    font: inherit;
+    outline: var(--select-focus-ring-width, var(--border-width-sm)) solid transparent;
+    outline-offset: calc(var(--select-focus-ring-width, var(--border-width-sm)) * -1);
+    cursor: pointer;
+    transition:
+      background-color var(--select-transition, var(--transition-default)),
+      border-color var(--select-transition, var(--transition-default)),
+      outline-color var(--select-transition, var(--transition-default)),
+      opacity var(--select-transition, var(--transition-default));
+
+    &:focus-visible {
+      border-color: var(--select-focus-ring-color, var(--color-ring));
+      outline-color: var(--select-focus-ring-color, var(--color-ring));
+    }
+
+    &:is([data-invalid], [aria-invalid='true']) {
+      border-color: var(--select-invalid-color, var(--color-destructive));
+      outline-color: var(--select-invalid-color, var(--color-destructive));
+    }
+
+    &:is([data-disabled], :disabled) {
+      pointer-events: none;
+      opacity: var(--select-disabled-opacity, var(--opacity-disabled));
+    }
+
+    &:is([multiple], [size]:not([size='1'])) {
+      height: auto;
+      padding-block: var(--spacing-2);
+      padding-inline: var(--select-trigger-padding-x-start, var(--spacing-3));
+      appearance: auto;
+    }
+
+    &:not(:disabled, [data-disabled]) {
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--select-bg-hover, var(--color-accent));
+        }
+      }
+    }
+
+    @media (forced-colors: active) {
+      padding-inline-end: var(--select-trigger-padding-x-start, var(--spacing-3));
+      appearance: auto;
+    }
+  }
+
+  .indicator {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: var(--select-action-offset-right, var(--spacing-1));
+    display: inline-flex;
+    width: var(--select-action-size, var(--spacing-6));
+    height: var(--select-action-size, var(--spacing-6));
+    align-items: center;
+    justify-content: center;
+    color: var(--select-icon-color, var(--color-muted-foreground));
+    line-height: 0;
+    pointer-events: none;
+    transform: translateY(-50%);
+
+    & > svg {
+      display: block;
+      width: var(--select-icon-size, var(--spacing-4));
+      height: var(--select-icon-size, var(--spacing-4));
+    }
+
+    @media (forced-colors: active) {
+      display: none;
+    }
+  }
+
+  .root:is([data-disabled], :disabled) + .indicator {
+    opacity: var(--select-disabled-opacity, var(--opacity-disabled));
+  }
+
+  .root:is([multiple], [size]:not([size='1'])) + .indicator {
+    display: none;
+  }
+}
