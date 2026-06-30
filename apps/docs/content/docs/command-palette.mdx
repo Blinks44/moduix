@@ -481,7 +481,31 @@ Control `open` from React state when the palette must coordinate with surroundin
   </Preview.Code>
 
   <Preview.CSS>{`.commandPalette { --command-palette-width: 34rem; }`}</Preview.CSS>
-  <Preview.Data>{`const commandItems = [{ id: "recent", section: "Navigate", label: "Open recent work", description: "Jump back to a recently edited file" }];`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const commandItems = [
+        {
+          id: "new-project",
+          section: "Create",
+          label: "New project",
+          description: "Start a blank workspace",
+        },
+        {
+          id: "recent",
+          section: "Navigate",
+          label: "Open recent work",
+          description: "Jump back to a recently edited file",
+        },
+        {
+          id: "preferences",
+          section: "Settings",
+          label: "Open preferences",
+          description: "Update workspace defaults",
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Enable the Global Shortcut
@@ -555,7 +579,16 @@ Enable the listener when a palette should open from a global command key. The li
 </Preview.Code>
 
   <Preview.CSS>{`[data-slot="command-palette-trigger"] { min-width: 9rem; }`}</Preview.CSS>
-  <Preview.Data>{`const commandItems = [{ id: "recent", label: "Open recent work" }];`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const commandItems = [
+        { id: "recent", label: "Open recent work" },
+        { id: "search", label: "Search documentation" },
+        { id: "settings", label: "Open settings" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Styling

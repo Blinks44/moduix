@@ -16,10 +16,20 @@ import {
   RootProviderProgressLinearExample,
   ValueTextProgressLinearExample,
   VerticalProgressLinearExample,
+  progressLinearBasicData,
+  progressLinearContextData,
+  progressLinearControlledData,
+  progressLinearCustomStylingData,
   progressLinearCustomStylingCss,
-  progressLinearData,
   progressLinearExampleCss,
+  progressLinearIndeterminateData,
+  progressLinearInitialValueData,
+  progressLinearMinMaxData,
+  progressLinearRootProviderData,
+  progressLinearStateViewsData,
+  progressLinearValueTextData,
   progressLinearVerticalCss,
+  progressLinearVerticalData,
 } from '@/components/examples/progress-linear';
 import { ProgressLinear } from '@moduix/react';
 
@@ -60,7 +70,7 @@ Use Ark-style parts: `ProgressLinear.Root`, `ProgressLinear.Label`,
   </Preview.Code>
 
   <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearData}</Preview.Data>
+  <Preview.Data>{progressLinearBasicData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -229,7 +239,7 @@ Keep `value` in React state when progress mirrors another control or external ta
   </Preview.Code>
 
   <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearData}</Preview.Data>
+  <Preview.Data>{progressLinearControlledData}</Preview.Data>
 </Preview>
 
 ### Initial Value
@@ -259,7 +269,7 @@ Use `defaultValue` to set the initial uncontrolled progress value.
   </Preview.Code>
 
   <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearData}</Preview.Data>
+  <Preview.Data>{progressLinearInitialValueData}</Preview.Data>
 </Preview>
 
 ### Min Max
@@ -289,7 +299,7 @@ Use `min` and `max` when the value does not use the default `0` to `100` range.
   </Preview.Code>
 
   <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearData}</Preview.Data>
+  <Preview.Data>{progressLinearMinMaxData}</Preview.Data>
 </Preview>
 
 ### Indeterminate
@@ -319,7 +329,7 @@ Pass `defaultValue={null}` or `value={null}` when progress is running but comple
   </Preview.Code>
 
   <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearData}</Preview.Data>
+  <Preview.Data>{progressLinearIndeterminateData}</Preview.Data>
 </Preview>
 
 ### Vertical
@@ -353,7 +363,7 @@ Set `orientation="vertical"` when the track should fill upward instead of from l
   </Preview.Code>
 
   <Preview.CSS>{progressLinearVerticalCss}</Preview.CSS>
-  <Preview.Data>{progressLinearData}</Preview.Data>
+  <Preview.Data>{progressLinearVerticalData}</Preview.Data>
 </Preview>
 
 ### Value Text
@@ -390,7 +400,7 @@ Use `translations.value(details)` when the formatted percent is not the wording 
   </Preview.Code>
 
   <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearData}</Preview.Data>
+  <Preview.Data>{progressLinearValueTextData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -422,7 +432,7 @@ Create the Ark progress store outside the rendered tree when another component n
   </Preview.Code>
 
   <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearData}</Preview.Data>
+  <Preview.Data>{progressLinearRootProviderData}</Preview.Data>
 </Preview>
 
 ### Context
@@ -459,7 +469,7 @@ Read Ark state inline with `ProgressLinear.Context` when surrounding UI needs li
   </Preview.Code>
 
   <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearData}</Preview.Data>
+  <Preview.Data>{progressLinearContextData}</Preview.Data>
 </Preview>
 
 ### State Views
@@ -504,7 +514,7 @@ instead of duplicating state checks outside the component.
   </Preview.Code>
 
   <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearData}</Preview.Data>
+  <Preview.Data>{progressLinearStateViewsData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -534,7 +544,7 @@ Override public CSS variables and target `data-slot` hooks when only the visuals
   </Preview.Code>
 
   <Preview.CSS>{progressLinearCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{progressLinearData}</Preview.Data>
+  <Preview.Data>{progressLinearCustomStylingData}</Preview.Data>
 </Preview>
 
 ## Styling

@@ -46,8 +46,6 @@ and `HiddenInput` for native form submission and reset synchronization.
     {`
       import { TagsInput } from "@moduix/react";
 
-      const initialTags = ["React", "TypeScript"];
-
       export function TagsInputDemo() {
         return (
           <TagsInput defaultValue={initialTags} name="frameworks">
@@ -258,7 +256,7 @@ Control the tag array when selected tags must drive surrounding UI or be reset f
   </Preview.Code>
 
   <Preview.CSS>{`.hint { color: var(--color-muted-foreground); }`}</Preview.CSS>
-  <Preview.Data>{`const [value, setValue] = useState(["React", "TypeScript"]);`}</Preview.Data>
+  <Preview.Data>{`const initialValue = ["React", "TypeScript"];`}</Preview.Data>
 </Preview>
 
 ### Controlled Input Value
@@ -316,7 +314,7 @@ Control `inputValue` separately when another control should prefill or clear the
   </Preview.Code>
 
   <Preview.CSS>{`.actions { display: inline-flex; gap: var(--spacing-2); }`}</Preview.CSS>
-  <Preview.Data>{`const [inputValue, setInputValue] = useState("");`}</Preview.Data>
+  <Preview.Data>{`const initialInputValue = "";`}</Preview.Data>
 </Preview>
 
 ### Delimiter And Paste
@@ -786,8 +784,6 @@ allowing custom tags.
       import { Combobox, Portal, TagsInput, useCombobox, useTagsInput } from "@moduix/react";
       import { useId } from "react";
 
-      const frameworkOptions = ["React", "Solid", "Vue", "Svelte", "Angular", "Preact", "Next.js"];
-
       export function ComboboxTagsInput() {
         const { contains } = useFilter({ sensitivity: "base" });
         const { collection, filter } = useListCollection({
@@ -795,10 +791,11 @@ allowing custom tags.
           filter: contains,
         });
         const id = useId();
-        const ids = { input: \`\${id}-input\`, control: \`\${id}-control\` };
-        const tagsInput = useTagsInput({ ids });
+        const inputId = \`\${id}-input\`;
+        const controlId = \`\${id}-control\`;
+        const tagsInput = useTagsInput({ ids: { input: inputId, control: controlId } });
         const combobox = useCombobox({
-          ids,
+          ids: { input: inputId, control: controlId },
           collection,
           value: [],
           allowCustomValue: true,

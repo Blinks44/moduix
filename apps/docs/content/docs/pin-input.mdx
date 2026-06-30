@@ -264,7 +264,7 @@ Set `blurOnComplete` when focus should leave the final input after all slots are
   </Preview.Code>
 
   <Preview.CSS>{`.hint { color: var(--color-muted-foreground); }`}</Preview.CSS>
-  <Preview.Data>{`const [completedValue, setCompletedValue] = useState("");`}</Preview.Data>
+  <Preview.Data>{`const initialCompletedValue = "";`}</Preview.Data>
 </Preview>
 
 ### OTP Mode
@@ -373,7 +373,7 @@ Control the value array from React state and read the Ark callback detail object
   </Preview.Code>
 
   <Preview.CSS>{`.hint { color: var(--color-muted-foreground); }`}</Preview.CSS>
-  <Preview.Data>{`const [value, setValue] = useState([] as string[]);`}</Preview.Data>
+  <Preview.Data>{`const initialValue = [] as string[];`}</Preview.Data>
 </Preview>
 
 ### Field

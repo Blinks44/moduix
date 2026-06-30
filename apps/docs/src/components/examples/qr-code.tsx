@@ -96,8 +96,6 @@ export const qrCodeFillData = `const fills = [
   { label: 'Danger', className: 'qr-code-danger' },
 ];`;
 
-export const qrCodeContextData = `const qrValue = 'https://moduix.dev/docs/qr-code';`;
-
 const qrValue = 'https://moduix.dev/docs/qr-code';
 const destinations = ['https://ark-ui.com', 'https://moduix.dev'];
 const errorLevels = ['L', 'M', 'Q', 'H'] as const;

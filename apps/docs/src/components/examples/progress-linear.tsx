@@ -37,16 +37,34 @@ export const progressLinearVerticalCss = `
   }
 `;
 
-export const progressLinearData = `const progressLabels = {
-  export: 'Export data',
-  upload: 'Upload status',
-  import: 'Import data',
-  requests: 'Requests per minute',
-  report: 'Preparing report',
-  migration: 'Migration',
-  quota: 'Monthly quota',
-  indexing: 'Indexing files',
-};`;
+export const progressLinearBasicData = `const defaultValue = 24;`;
+
+export const progressLinearControlledData = `const initialValue = 45;`;
+
+export const progressLinearInitialValueData = `const defaultValue = 70;`;
+
+export const progressLinearMinMaxData = `
+const defaultValue = 420;
+const min = 200;
+const max = 800;
+`;
+
+export const progressLinearIndeterminateData = `const defaultValue = null;`;
+
+export const progressLinearVerticalData = `
+const defaultValue = 42;
+const orientation = 'vertical';
+`;
+
+export const progressLinearValueTextData = `const fallbackText = 'Loading...';`;
+
+export const progressLinearRootProviderData = `const defaultValue = 58;`;
+
+export const progressLinearContextData = `const defaultValue = 64;`;
+
+export const progressLinearStateViewsData = `const defaultValue = null;`;
+
+export const progressLinearCustomStylingData = `const defaultValue = 72;`;
 
 export const progressLinearCssProperties: CssPropertyInput[] = [
   ['--progress-linear-color', 'var(--color-foreground)', 'Controls root text color.'],

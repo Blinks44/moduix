@@ -231,8 +231,6 @@ Mix a filled addon with plain text when the two sides have different visual weig
     {`
       import { Field, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "@moduix/react";
 
-      const currency = { symbol: "$", code: "USD" };
-
       export function BudgetInputGroupDemo() {
         return (
           <Field className="input-group-demo-field">
@@ -363,8 +361,6 @@ Set size once on the root so the input, addon, text, and button stay aligned.
   <Preview.Code>
     {`
       import { InputGroup, InputGroupAddon, InputGroupInput } from "@moduix/react";
-
-      const inputGroupSizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
       export function InputGroupSizesDemo() {
         return (

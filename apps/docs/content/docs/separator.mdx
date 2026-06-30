@@ -185,8 +185,6 @@ Use `orientation="vertical"` for inline groups such as navigation actions.
       import { Separator } from "@moduix/react";
       import styles from "./separator-demo.module.css";
 
-      const navigationItems = ["Home", "Pricing", "Sign in"];
-
       export function VerticalSeparatorDemo() {
         return (
           <nav className={styles.nav} aria-label="Main navigation">
@@ -242,8 +240,6 @@ Use `variant` when the separator needs a solid, dashed, or dotted stroke.
     {`
       import { Separator, type SeparatorVariant } from "@moduix/react";
       import styles from "./separator-demo.module.css";
-
-      const variants: SeparatorVariant[] = ["solid", "dashed", "dotted"];
 
       export function SeparatorVariantsDemo() {
         return (
@@ -302,8 +298,6 @@ Use `size` to select the recipe thickness before applying any custom CSS variabl
     {`
       import { Separator, type SeparatorSize } from "@moduix/react";
       import styles from "./separator-demo.module.css";
-
-      const sizes: SeparatorSize[] = ["xs", "sm", "md", "lg"];
 
       export function SeparatorSizesDemo() {
         return (

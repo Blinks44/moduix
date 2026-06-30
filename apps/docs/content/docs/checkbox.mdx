@@ -396,7 +396,13 @@ Pass `name` and `value` to `Checkbox.Root` so the hidden input submits with nati
     `}
   </Preview.Code>
   <Preview.CSS>{checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{`const formField = { name: 'terms', value: 'accepted' };`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const name = "terms";
+      const value = "accepted";
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Context
@@ -443,7 +449,13 @@ Apply moduix `size` to match checkbox density to the surrounding form or setting
     `}
   </Preview.Code>
   <Preview.CSS>{checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{`const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const size = "lg";
+      const defaultChecked = true;
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Indicator

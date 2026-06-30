@@ -61,8 +61,6 @@ forms.
     {`
       import { ColorPicker, Portal, parseColor } from "@moduix/react";
 
-      const swatches = ["#0f172a", "#2563eb", "#16a34a", "#f97316"];
-
       export function ColorPickerDemo() {
         return (
           <ColorPicker defaultValue={parseColor("#eb5e41")}>
@@ -508,8 +506,6 @@ be unnecessary.
     {`
       import { ColorPicker, parseColor } from "@moduix/react";
 
-      const swatches = ["#0f172a", "#2563eb", "#16a34a", "#f97316"];
-
       export function SwatchOnlyColorPickerDemo() {
         return (
           <ColorPicker inline defaultValue={parseColor("#f97316")}>
@@ -545,8 +541,6 @@ editing. `closeOnSelect` follows Ark behavior and closes the popup after a swatc
   <Preview.Code>
     {`
       import { ColorPicker, Portal, parseColor } from "@moduix/react";
-
-      const swatches = ["#0f172a", "#2563eb", "#16a34a", "#f97316"];
 
       export function SwatchesColorPickerDemo() {
         return (
@@ -897,8 +891,6 @@ Use CSS variables on the root for color, sizing, focus ring, popup shadow, and s
   <Preview.Code>
     {`
       import { ColorPicker, Portal, parseColor } from "@moduix/react";
-
-      const swatches = ["#0ea5e9", "#14b8a6", "#84cc16", "#f59e0b"];
 
       export function CustomColorPickerDemo() {
         return (

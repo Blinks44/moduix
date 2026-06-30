@@ -177,8 +177,6 @@ Use the built-in variants for common moduix tones while keeping the same part st
       import { Tag } from "@moduix/react";
       import styles from "./tag-demo.module.css";
 
-      const variants = ["default", "secondary", "outline", "ghost", "destructive"] as const;
-
       export function TagVariantsDemo() {
         return (
           <div className={styles.row}>
@@ -223,11 +221,6 @@ Use `size="sm"` for dense token rows and keep the default `md` size for standalo
     {`
       import { Tag } from "@moduix/react";
       import styles from "./tag-demo.module.css";
-
-      const sizes = [
-        { label: "Compact", size: "sm" },
-        { label: "Default", size: "md" },
-      ] as const;
 
       export function TagSizesDemo() {
         return (
@@ -279,12 +272,6 @@ state and click handling.
     {`
       import { Tag } from "@moduix/react";
       import styles from "./tag-demo.module.css";
-
-      const tags = [
-        { label: "TypeScript", variant: "default" },
-        { label: "Design review", variant: "secondary" },
-        { label: "Needs approval", variant: "outline", disabled: true },
-      ] as const;
 
       export function RemovableTagDemo() {
         return (
@@ -340,11 +327,6 @@ independent.
     {`
       import { CheckIcon, Tag } from "@moduix/react";
       import styles from "./tag-demo.module.css";
-
-      const tags = [
-        { label: "Selected", variant: "default", removable: false },
-        { label: "Deployed", variant: "outline", removable: true },
-      ] as const;
 
       export function TagWithIconDemo() {
         return (

@@ -55,13 +55,6 @@ Items use stable `value` identifiers for selection and typeahead.
         Portal,
       } from "@moduix/react";
 
-      const fileItems = [
-        { value: "new-file", label: "New File" },
-        { value: "open", label: "Open..." },
-        { value: "save", label: "Save" },
-        { value: "save-as", label: "Save As..." },
-      ];
-
       export function MenuDemo() {
         return (
           <Menu>
@@ -640,11 +633,6 @@ Pass a `value` to each `Menu.Trigger` when one menu is shared across multiple tr
   <Preview.Code>
     {`
       import { MapIcon, Menu, Portal } from "@moduix/react";
-
-      const messages = [
-        { id: "1", sender: "Alice Johnson", preview: "Hey, can you review the latest PR?" },
-        { id: "2", sender: "Bob Smith", preview: "Meeting notes from today are attached." },
-      ];
 
       export function MultipleTriggersMenuDemo() {
         return (

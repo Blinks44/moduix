@@ -44,16 +44,7 @@ Keep `HiddenSelect` in the tree for native form submission and browser autofill.
 
   <Preview.Code>
     {`
-      import { createListCollection } from "@ark-ui/react/collection";
       import { Portal, Select } from "@moduix/react";
-
-      const fruits = createListCollection({
-        items: [
-          { label: "Apple", value: "apple" },
-          { label: "Banana", value: "banana" },
-          { label: "Blueberry", value: "blueberry" },
-        ],
-      });
 
       export function SelectDemo() {
         return (
@@ -291,7 +282,20 @@ Control the selected string array from React state and update it from `details.v
 
   </Preview.Code>
   <Preview.CSS>{`[data-slot="select-root"] { --select-width: 14rem; }`}</Preview.CSS>
-  <Preview.Data>{`const themes = createListCollection({ items: themeItems });`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const value = ["light"];
+
+      const themes = createListCollection({
+        items: [
+          { label: "System", value: "system" },
+          { label: "Light", value: "light" },
+          { label: "Dark", value: "dark" },
+        ],
+      });
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -336,7 +340,25 @@ rendered select tree.
 
   </Preview.Code>
   <Preview.CSS>{`[data-slot="select-root-provider"] { --select-width: 14rem; }`}</Preview.CSS>
-  <Preview.Data>{`const fruits = createListCollection({ items: fruitItems });`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const fruits = createListCollection({
+        items: [
+          { label: "Apple", value: "apple" },
+          { label: "Banana", value: "banana" },
+          { label: "Blueberry", value: "blueberry" },
+          { label: "Grape", value: "grape" },
+          { label: "Kiwi", value: "kiwi" },
+          { label: "Mango", value: "mango" },
+          { label: "Orange", value: "orange" },
+          { label: "Pineapple", value: "pineapple" },
+          { label: "Strawberry", value: "strawberry" },
+          { label: "Watermelon", value: "watermelon" },
+        ],
+      });
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Multiple
@@ -378,7 +400,21 @@ the collection.
 
   </Preview.Code>
   <Preview.CSS>{`[data-slot="select-item"][data-state="checked"] { font-weight: var(--weight-semibold); }`}</Preview.CSS>
-  <Preview.Data>{`const languages = createListCollection({ items: languageItems });`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const languages = createListCollection({
+        items: [
+          { label: "C#", value: "csharp" },
+          { label: "Go", value: "go" },
+          { label: "JavaScript", value: "javascript" },
+          { label: "Python", value: "python" },
+          { label: "Rust", value: "rust" },
+          { label: "TypeScript", value: "typescript" },
+        ],
+      });
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Grouping
@@ -391,11 +427,6 @@ Use `groupBy` on the collection and render `collection.group()` with `ItemGroup`
 
   <Preview.Code>
     {`
-      const produce = createListCollection({
-        items: produceItems,
-        groupBy: (item) => item.type,
-      });
-
       {produce.group().map(([type, group]) => (
         <Select.ItemGroup key={type}>
           <Select.ItemGroupLabel>{type}</Select.ItemGroupLabel>
@@ -411,7 +442,22 @@ Use `groupBy` on the collection and render `collection.group()` with `ItemGroup`
 
   </Preview.Code>
   <Preview.CSS>{`[data-slot="select-item-group-label"] { color: var(--color-muted-foreground); }`}</Preview.CSS>
-  <Preview.Data>{`const produceItems = [{ label: "Apple", value: "apple", type: "Fruits" }];`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const produce = createListCollection({
+        items: [
+          { label: "Apple", value: "apple", type: "Fruits" },
+          { label: "Mango", value: "mango", type: "Fruits" },
+          { label: "Orange", value: "orange", type: "Fruits" },
+          { label: "Broccoli", value: "broccoli", type: "Vegetables" },
+          { label: "Carrot", value: "carrot", type: "Vegetables" },
+          { label: "Spinach", value: "spinach", type: "Vegetables" },
+        ],
+        groupBy: (item) => item.type,
+      });
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Field
@@ -456,7 +502,19 @@ to a form field.
 
   </Preview.Code>
   <Preview.CSS>{`[data-slot="select-label"][data-required]::after { content: " *"; }`}</Preview.CSS>
-  <Preview.Data>{`const frameworks = createListCollection({ items: frameworkItems });`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const frameworks = createListCollection({
+        items: [
+          { label: "React", value: "react" },
+          { label: "Solid", value: "solid" },
+          { label: "Vue", value: "vue" },
+          { label: "Svelte", value: "svelte", disabled: true },
+        ],
+      });
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Form Usage
@@ -500,7 +558,20 @@ to a form field.
 
   </Preview.Code>
   <Preview.CSS>{`form [data-slot="select-root"] { --select-width: 16rem; }`}</Preview.CSS>
-  <Preview.Data>{`const submitted = new FormData(event.currentTarget).get("theme");`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const themes = createListCollection({
+        items: [
+          { label: "System", value: "system" },
+          { label: "Light", value: "light" },
+          { label: "Dark", value: "dark" },
+        ],
+      });
+
+      const fieldName = "theme";
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Lazy Mount
@@ -541,7 +612,25 @@ Use `lazyMount` and `unmountOnExit` when popup content should only exist while t
 
   </Preview.Code>
   <Preview.CSS>{`[data-slot="select-content"] { --select-content-closed-scale: 0.96; }`}</Preview.CSS>
-  <Preview.Data>{`const fruits = createListCollection({ items: fruitItems });`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const fruits = createListCollection({
+        items: [
+          { label: "Apple", value: "apple" },
+          { label: "Banana", value: "banana" },
+          { label: "Blueberry", value: "blueberry" },
+          { label: "Grape", value: "grape" },
+          { label: "Kiwi", value: "kiwi" },
+          { label: "Mango", value: "mango" },
+          { label: "Orange", value: "orange" },
+          { label: "Pineapple", value: "pineapple" },
+          { label: "Strawberry", value: "strawberry" },
+          { label: "Watermelon", value: "watermelon" },
+        ],
+      });
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Select On Highlight
@@ -589,7 +678,25 @@ Use `onHighlightChange(details)` when moving through options should immediately 
 
   </Preview.Code>
   <Preview.CSS>{`[data-slot="select-item"][data-highlighted] { color: var(--select-highlight-color); }`}</Preview.CSS>
-  <Preview.Data>{`const select = useSelect({ collection: fruits, onHighlightChange });`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const fruits = createListCollection({
+        items: [
+          { label: "Apple", value: "apple" },
+          { label: "Banana", value: "banana" },
+          { label: "Blueberry", value: "blueberry" },
+          { label: "Grape", value: "grape" },
+          { label: "Kiwi", value: "kiwi" },
+          { label: "Mango", value: "mango" },
+          { label: "Orange", value: "orange" },
+          { label: "Pineapple", value: "pineapple" },
+          { label: "Strawberry", value: "strawberry" },
+          { label: "Watermelon", value: "watermelon" },
+        ],
+      });
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Max Selection
@@ -637,7 +744,23 @@ Limit multiple selection by rejecting oversized value arrays and marking remaini
 
   </Preview.Code>
   <Preview.CSS>{`[data-slot="select-item"][data-disabled] { opacity: var(--opacity-disabled); }`}</Preview.CSS>
-  <Preview.Data>{`const collection = createListCollection({ items: itemsWithDisabledState });`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const value = ["javascript"];
+
+      const collection = createListCollection({
+        items: [
+          { label: "C#", value: "csharp", disabled: false },
+          { label: "Go", value: "go", disabled: false },
+          { label: "JavaScript", value: "javascript", disabled: false },
+          { label: "Python", value: "python", disabled: false },
+          { label: "Rust", value: "rust", disabled: false },
+          { label: "TypeScript", value: "typescript", disabled: false },
+        ],
+      });
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Select All
@@ -699,7 +822,21 @@ Read root state with `Select.Context` and call `selectAll()` for bulk selection.
       }
     `}
   </Preview.CSS>
-  <Preview.Data>{`const languages = createListCollection({ items: languageItems });`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const languages = createListCollection({
+        items: [
+          { label: "C#", value: "csharp" },
+          { label: "Go", value: "go" },
+          { label: "JavaScript", value: "javascript" },
+          { label: "Python", value: "python" },
+          { label: "Rust", value: "rust" },
+          { label: "TypeScript", value: "typescript" },
+        ],
+      });
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Overflow
@@ -743,7 +880,25 @@ Use `positioning.fitViewport` and the exposed `--available-height` variable for 
 
   </Preview.Code>
   <Preview.CSS>{`[data-slot="select-content"] { max-height: min(24rem, var(--available-height)); }`}</Preview.CSS>
-  <Preview.Data>{`const fruits = createListCollection({ items: manyFruitItems });`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const fruits = createListCollection({
+        items: [
+          { label: "Apple", value: "apple" },
+          { label: "Banana", value: "banana" },
+          { label: "Blueberry", value: "blueberry" },
+          { label: "Grape", value: "grape" },
+          { label: "Kiwi", value: "kiwi" },
+          { label: "Mango", value: "mango" },
+          { label: "Orange", value: "orange" },
+          { label: "Pineapple", value: "pineapple" },
+          { label: "Strawberry", value: "strawberry" },
+          { label: "Watermelon", value: "watermelon" },
+        ],
+      });
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Dynamic Items
@@ -788,7 +943,27 @@ Recreate or update the collection when the available items change.
 
   </Preview.Code>
   <Preview.CSS>{`input + [data-slot="select-root"] { margin-top: var(--spacing-3); }`}</Preview.CSS>
-  <Preview.Data>{`const [query, setQuery] = useState("");`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const query = "";
+
+      const fruits = createListCollection({
+        items: [
+          { label: "Apple", value: "apple" },
+          { label: "Banana", value: "banana" },
+          { label: "Blueberry", value: "blueberry" },
+          { label: "Grape", value: "grape" },
+          { label: "Kiwi", value: "kiwi" },
+          { label: "Mango", value: "mango" },
+          { label: "Orange", value: "orange" },
+          { label: "Pineapple", value: "pineapple" },
+          { label: "Strawberry", value: "strawberry" },
+          { label: "Watermelon", value: "watermelon" },
+        ],
+      });
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Item Layout
@@ -814,7 +989,15 @@ layout. These helpers are plain spans; selection behavior stays on Ark `Select.I
 
   </Preview.Code>
   <Preview.CSS>{`[data-slot="select-item-text-content"] { gap: var(--spacing-2); }`}</Preview.CSS>
-  <Preview.Data>{`const item = { label: "Apple", value: "apple" };`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const item = {
+        label: "Apple",
+        value: "apple",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Styling

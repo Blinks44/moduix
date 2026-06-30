@@ -42,12 +42,6 @@ Start with the short root form `<ToggleGroup>` and add Ark-aligned `ToggleGroup.
     {`
       import { ToggleGroup } from "@moduix/react";
 
-      const alignmentItems = [
-        { value: "left", label: "Left" },
-        { value: "center", label: "Center" },
-        { value: "right", label: "Right" },
-      ];
-
       export function ToggleGroupDemo() {
         return (
           <ToggleGroup defaultValue={["left"]} aria-label="Text alignment">
@@ -215,12 +209,6 @@ Control `value` from React state when the group needs to stay in sync with surro
       import { useState } from "react";
       import styles from "./toggle-group.module.css";
 
-      const alignmentItems = [
-        { value: "left", label: "Left" },
-        { value: "center", label: "Center" },
-        { value: "right", label: "Right" },
-      ];
-
       export function ControlledToggleGroupDemo() {
         const [value, setValue] = useState(["left"] as string[]);
 
@@ -287,12 +275,6 @@ the root is rendered.
       import { ToggleGroup, useToggleGroup } from "@moduix/react";
       import styles from "./toggle-group.module.css";
 
-      const alignmentItems = [
-        { value: "left", label: "Left" },
-        { value: "center", label: "Center" },
-        { value: "right", label: "Right" },
-      ];
-
       export function RootProviderToggleGroupDemo() {
         const toggleGroup = useToggleGroup({ defaultValue: ["left"] });
 
@@ -335,8 +317,15 @@ the root is rendered.
 
   <Preview.Data>
     {`
+      const alignmentItems = [
+        { value: "left", label: "Left" },
+        { value: "center", label: "Center" },
+        { value: "right", label: "Right" },
+      ];
+
       const toggleGroup = useToggleGroup({ defaultValue: ["left"] });
     `}
+
   </Preview.Data>
 </Preview>
 
@@ -402,12 +391,6 @@ the group state.
       import { ToggleGroup } from "@moduix/react";
       import styles from "./toggle-group.module.css";
 
-      const alignmentItems = [
-        { value: "left", label: "Left" },
-        { value: "center", label: "Center" },
-        { value: "right", label: "Right" },
-      ];
-
       export function ContextToggleGroupDemo() {
         return (
           <ToggleGroup
@@ -461,12 +444,6 @@ Set `variant` on the group when every item should share the same visual treatmen
     {`
       import { ToggleGroup } from "@moduix/react";
       import styles from "./toggle-group.module.css";
-
-      const items = [
-        { value: "one", label: "One" },
-        { value: "two", label: "Two" },
-        { value: "three", label: "Three" },
-      ];
 
       export function ToggleGroupVariantsDemo() {
         return (
@@ -567,12 +544,6 @@ Set `orientation="vertical"` when the choices should stack in a column.
   <Preview.Code>
     {`
       import { ToggleGroup } from "@moduix/react";
-
-      const viewItems = [
-        { value: "list", label: "List" },
-        { value: "grid", label: "Grid" },
-        { value: "map", label: "Map" },
-      ];
 
       export function VerticalToggleGroupDemo() {
         return (
@@ -707,7 +678,7 @@ structure is right but the surface styling needs to change.
 
   </Preview.CSS>
 
-  <Preview.Data>{`const densityValues = ["day", "week", "month"];`}</Preview.Data>
+  <Preview.Data>{`const defaultValue = ["day"];`}</Preview.Data>
 </Preview>
 
 ## Styling

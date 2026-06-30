@@ -46,7 +46,7 @@ states. The default path announces loading automatically with `role="status"` an
   </Preview.Code>
 
   <Preview.CSS>{`/* No extra styles required. */`}</Preview.CSS>
-  <Preview.Data>{`// No setup data required.`}</Preview.Data>
+  <Preview.Data>{`const statusLabel = "Loading";`}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -180,7 +180,7 @@ Use `decorative` when visible text next to the spinner already says what is happ
   </Preview.Code>
 
   <Preview.CSS>{spinnerInlineCss}</Preview.CSS>
-  <Preview.Data>{`// No setup data required.`}</Preview.Data>
+  <Preview.Data>{`const statusText = "Saving changes";`}</Preview.Data>
 </Preview>
 
 ### Sizes
@@ -196,8 +196,6 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
       import styles from "./spinner.module.css";
 
       export function SpinnerSizesDemo() {
-        const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
-
         return (
           <div className={styles.row}>
             {sizes.map((size) => (
@@ -211,7 +209,7 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
   </Preview.Code>
 
   <Preview.CSS>{spinnerRowCss}</Preview.CSS>
-  <Preview.Data>{`// No setup data required.`}</Preview.Data>
+  <Preview.Data>{`const sizes = ["xs", "sm", "md", "lg", "xl"] as const;`}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -234,7 +232,7 @@ Use `className` and `--spinner-*` variables for one-off color and ring overrides
   </Preview.Code>
 
   <Preview.CSS>{spinnerStylingCss}</Preview.CSS>
-  <Preview.Data>{`// No setup data required.`}</Preview.Data>
+  <Preview.Data>{`const size = "lg";`}</Preview.Data>
 </Preview>
 
 ### As Child
@@ -266,7 +264,7 @@ root attributes and class name, so it must render the visual indicator itself.
   </Preview.Code>
 
   <Preview.CSS>{spinnerAsChildCss}</Preview.CSS>
-  <Preview.Data>{`// No setup data required.`}</Preview.Data>
+  <Preview.Data>{`const statusLabel = "Loading report";`}</Preview.Data>
 </Preview>
 
 ### Custom Indicator
@@ -300,7 +298,7 @@ should stay the same.
   </Preview.Code>
 
   <Preview.CSS>{`/* No extra styles required. */`}</Preview.CSS>
-  <Preview.Data>{`// No setup data required.`}</Preview.Data>
+  <Preview.Data>{`const statusLabel = "Syncing";`}</Preview.Data>
 </Preview>
 
 ## Styling

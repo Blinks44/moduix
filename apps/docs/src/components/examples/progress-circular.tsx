@@ -59,9 +59,29 @@ const progressCircularStateMessages = {
   complete: 'Export complete',
 };
 
-export const progressCircularNoData = `const data = null;`;
+export const progressCircularBasicData = `const defaultValue = 42;`;
 
-export const progressCircularStateViewsData = `const progressCircularStateMessages = {
+export const progressCircularControlledData = `const initialValue = 42;`;
+
+export const progressCircularInitialValueData = `const defaultValue = 70;`;
+
+export const progressCircularMinMaxData = `
+const defaultValue = 420;
+const min = 200;
+const max = 800;
+`;
+
+export const progressCircularIndeterminateData = `const defaultValue = null;`;
+
+export const progressCircularRootProviderData = `const defaultValue = 58;`;
+
+export const progressCircularContextData = `const defaultValue = 64;`;
+
+export const progressCircularCustomStylingData = `const defaultValue = 72;`;
+
+export const progressCircularStateViewsData = `const defaultValue = null;
+
+const progressCircularStateMessages = {
   indeterminate: 'Waiting for source data',
   loading: 'Transfer in progress',
   complete: 'Export complete',

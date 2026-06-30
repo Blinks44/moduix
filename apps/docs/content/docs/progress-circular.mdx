@@ -16,9 +16,16 @@ import {
   RootProviderProgressCircularExample,
   StateViewsProgressCircularExample,
   ValueTextProgressCircularExample,
+  progressCircularBasicData,
+  progressCircularContextData,
+  progressCircularControlledData,
+  progressCircularCustomStylingData,
   progressCircularCustomStylingCss,
+  progressCircularIndeterminateData,
+  progressCircularInitialValueData,
+  progressCircularMinMaxData,
   progressCircularExampleCss,
-  progressCircularNoData,
+  progressCircularRootProviderData,
   progressCircularStateViewsData,
 } from '@/components/examples/progress-circular';
 
@@ -62,7 +69,7 @@ Use Ark-style parts: `ProgressCircular.Root`, `ProgressCircular.Circle`,
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularNoData}</Preview.Data>
+  <Preview.Data>{progressCircularBasicData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -234,7 +241,7 @@ Keep `value` in React state when circular progress mirrors another control or ex
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularNoData}</Preview.Data>
+  <Preview.Data>{progressCircularControlledData}</Preview.Data>
 </Preview>
 
 ### Initial Value
@@ -267,7 +274,7 @@ Use `defaultValue` to set the initial uncontrolled progress value.
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularNoData}</Preview.Data>
+  <Preview.Data>{progressCircularInitialValueData}</Preview.Data>
 </Preview>
 
 ### Min Max
@@ -300,7 +307,7 @@ Use `min` and `max` when the value does not use the default `0` to `100` range.
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularNoData}</Preview.Data>
+  <Preview.Data>{progressCircularMinMaxData}</Preview.Data>
 </Preview>
 
 ### Indeterminate
@@ -333,7 +340,7 @@ Pass `defaultValue={null}` or `value={null}` when progress is running but comple
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularNoData}</Preview.Data>
+  <Preview.Data>{progressCircularIndeterminateData}</Preview.Data>
 </Preview>
 
 ### Value Text
@@ -373,7 +380,7 @@ Use `translations.value(details)` when the formatted percent is not the wording 
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularNoData}</Preview.Data>
+  <Preview.Data>{`const fallbackText = 'Loading...';`}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -408,7 +415,7 @@ Create the Ark progress store outside the rendered tree when another component n
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularNoData}</Preview.Data>
+  <Preview.Data>{progressCircularRootProviderData}</Preview.Data>
 </Preview>
 
 ### Context
@@ -448,7 +455,7 @@ Read Ark state inline with `ProgressCircular.Context` when surrounding UI needs 
   </Preview.Code>
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularNoData}</Preview.Data>
+  <Preview.Data>{progressCircularContextData}</Preview.Data>
 </Preview>
 
 ### State Views
@@ -524,7 +531,7 @@ Override public CSS variables and target SVG `data-slot` hooks when only the vis
   </Preview.Code>
 
   <Preview.CSS>{progressCircularCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{progressCircularNoData}</Preview.Data>
+  <Preview.Data>{progressCircularCustomStylingData}</Preview.Data>
 </Preview>
 
 ## Styling

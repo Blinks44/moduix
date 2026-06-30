@@ -795,12 +795,6 @@ Give each trigger a `value` when one popover surface should react to the trigger
       import { Button, Popover, Portal } from "@moduix/react";
       import { useState } from "react";
 
-      const actions = [
-        { id: "share", label: "Share", detail: "Share this item by link or email." },
-        { id: "export", label: "Export", detail: "Export this item as PDF, CSV, or JSON." },
-        { id: "archive", label: "Archive", detail: "Move this item to the archive." },
-      ];
-
       export function MultipleTriggersDemo() {
         const [activeItem, setActiveItem] = useState(null as (typeof actions)[number] | null);
 

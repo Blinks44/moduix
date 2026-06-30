@@ -384,15 +384,6 @@ Choose one of Ark's six placements when the toast group needs to appear on a spe
       import { Button, Portal, Toast, Toaster, createToaster, type ToastPlacement } from "@moduix/react";
       import { useState } from "react";
 
-      const toasters = {
-        "top-start": createToaster({ placement: "top-start", overlap: true, gap: 16 }),
-        top: createToaster({ placement: "top", overlap: true, gap: 16 }),
-        "top-end": createToaster({ placement: "top-end", overlap: true, gap: 16 }),
-        "bottom-start": createToaster({ placement: "bottom-start", overlap: true, gap: 16 }),
-        bottom: createToaster({ placement: "bottom", overlap: true, gap: 16 }),
-        "bottom-end": createToaster({ placement: "bottom-end", overlap: true, gap: 16 }),
-      };
-
       export function App() {
         const [placement, setPlacement] = useState("bottom-end" as ToastPlacement);
         const toaster = toasters[placement];

@@ -39,12 +39,11 @@ Render native `option` or `optgroup` children and use normal select props.
       export function NativeSelectDemo() {
         return (
           <NativeSelect defaultValue="">
-            <option value="" disabled>
-              Choose framework
-            </option>
-            <option value="react">React</option>
-            <option value="vue">Vue</option>
-            <option value="svelte">Svelte</option>
+            {frameworkOptions.map((option) => (
+              <option key={option.value} value={option.value} disabled={option.disabled}>
+                {option.label}
+              </option>
+            ))}
           </NativeSelect>
         );
       }
@@ -53,7 +52,14 @@ Render native `option` or `optgroup` children and use normal select props.
   </Preview.Code>
 
   <Preview.Data>
-    No external data. Options are native children of the select element.
+    {`
+      const frameworkOptions = [
+        { value: "", label: "Choose framework", disabled: true },
+        { value: "react", label: "React" },
+        { value: "vue", label: "Vue" },
+        { value: "svelte", label: "Svelte" },
+      ];
+    `}
   </Preview.Data>
 </Preview>
 
@@ -175,12 +181,11 @@ Use `Field` for accessible labels, descriptions, error text, and shared form sta
           <Field.Root className="nativeSelectFieldDemo" invalid required>
             <Field.Label>Framework</Field.Label>
             <NativeSelect defaultValue="" name="framework">
-              <option value="" disabled>
-                Choose framework
-              </option>
-              <option value="react">React</option>
-              <option value="vue">Vue</option>
-              <option value="svelte">Svelte</option>
+              {frameworkOptions.map((option) => (
+                <option key={option.value} value={option.value} disabled={option.disabled}>
+                  {option.label}
+                </option>
+              ))}
             </NativeSelect>
             <Field.ErrorText>Select a framework.</Field.ErrorText>
           </Field.Root>
@@ -200,7 +205,14 @@ Use `Field` for accessible labels, descriptions, error text, and shared form sta
   </Preview.CSS>
 
   <Preview.Data>
-    No external data. Field state and native options are declared inline.
+    {`
+      const frameworkOptions = [
+        { value: "", label: "Choose framework", disabled: true },
+        { value: "react", label: "React" },
+        { value: "vue", label: "Vue" },
+        { value: "svelte", label: "Svelte" },
+      ];
+    `}
   </Preview.Data>
 </Preview>
 
@@ -217,15 +229,12 @@ Native `multiple` and `size` props turn the control into a browser-managed optio
 
       export function NativeSelectMultipleDemo() {
         return (
-          <NativeSelect
-            defaultValue={["react", "vue"]}
-            multiple
-            size={3}
-            aria-label="Frameworks"
-          >
-            <option value="react">React</option>
-            <option value="vue">Vue</option>
-            <option value="svelte">Svelte</option>
+          <NativeSelect defaultValue={selectedFrameworks} multiple size={3} aria-label="Frameworks">
+            {frameworkOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </NativeSelect>
         );
       }
@@ -234,7 +243,16 @@ Native `multiple` and `size` props turn the control into a browser-managed optio
   </Preview.Code>
 
   <Preview.Data>
-    No external data. Multiple selection uses native options and selected values.
+    {`
+      const frameworkOptions = [
+        { value: "react", label: "React" },
+        { value: "vue", label: "Vue" },
+        { value: "svelte", label: "Svelte" },
+      ];
+
+      const selectedFrameworks = ["react", "vue"];
+    `}
+
   </Preview.Data>
 </Preview>
 

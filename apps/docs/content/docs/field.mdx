@@ -63,7 +63,15 @@ Start with Ark parts: `Field`, `Field.Label`, one control part, and optional hel
   </Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>{`const field = { label: "Name", helperText: "Visible on your public profile." };`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const label = "Name";
+      const placeholder = "Enter your name";
+      const helperText = "Visible on your public profile.";
+      const required = true;
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -256,7 +264,14 @@ Use `Field.Textarea` when the field owns a multiline native textarea.
   </Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>{`const field = { label: "Summary" };`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const label = "Summary";
+      const placeholder = "Describe the request";
+      const helperText = "Use a short operational summary.";
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Textarea Autoresize
@@ -284,7 +299,14 @@ Pass `autoresize` to let Ark keep the textarea height in sync with its content.
   </Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>{`const textarea = { autoresize: true };`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const label = "Details";
+      const autoresize = true;
+      const helperText = "The textarea grows as the user types.";
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Select
@@ -297,12 +319,6 @@ Use `Field.Select` for native select controls that should receive field ids and 
   <Preview.Code>
     {`
       import { Field } from "@moduix/react";
-
-      const priorityOptions = [
-        { label: "Low", value: "low" },
-        { label: "Normal", value: "normal" },
-        { label: "High", value: "high" },
-      ];
 
       export function SelectFieldDemo() {
         return (
@@ -384,12 +400,6 @@ inside a grouped control row.
   <Preview.Code>
     {`
       import { Field } from "@moduix/react";
-
-      const currencyOptions = [
-        { label: "USD", value: "USD" },
-        { label: "EUR", value: "EUR" },
-        { label: "GBP", value: "GBP" },
-      ];
 
       export function ItemFieldDemo() {
         return (
@@ -527,7 +537,14 @@ Use `Field.Context` when a custom control must receive Ark's control props direc
       }
     `}
   </Preview.CSS>
-  <Preview.Data>{`const status = { invalid: true };`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const invalid = true;
+      const placeholder = "Set status";
+      const errorText = "Status needs a resolution.";
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Root Provider

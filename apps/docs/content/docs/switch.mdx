@@ -542,18 +542,10 @@ Use moduix `size` to match different form densities without changing the Ark par
       import { Switch } from "@moduix/react";
       import styles from "./switch-demo.module.css";
 
-      const sizes = [
-        { label: "Extra-small", value: "xs" },
-        { label: "Small", value: "sm" },
-        { label: "Medium", value: "md" },
-        { label: "Large", value: "lg" },
-        { label: "Extra-large", value: "xl" },
-      ] as const;
-
       export function SwitchSizesDemo() {
         return (
           <div className={styles.stack}>
-            {sizes.map((item) => (
+            {switchSizeOptions.map((item) => (
               <Switch key={item.value} size={item.value} defaultChecked>
                 <Switch.Control />
                 <Switch.Label>{item.label}</Switch.Label>

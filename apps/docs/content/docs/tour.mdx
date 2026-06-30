@@ -36,38 +36,6 @@ settings.
       import type { TourStepDetails } from "@moduix/react";
       import { Button, CloseIcon, Portal, Tour, useTour } from "@moduix/react";
 
-      const steps = [
-        {
-          id: "welcome",
-          type: "dialog",
-          title: "Welcome to the workspace",
-          description: "Start with a dialog step, then move to a highlighted page control.",
-          actions: [{ label: "Start", action: "next" }],
-          backdrop: true,
-        },
-        {
-          id: "upload",
-          type: "tooltip",
-          title: "Upload files",
-          description: "Tooltip steps are anchored to target elements.",
-          target: () => document.querySelector("#tour-basic-upload") as HTMLElement | null,
-          actions: [
-            { label: "Back", action: "prev" },
-            { label: "Next", action: "next" },
-          ],
-          backdrop: true,
-          arrow: true,
-        },
-        {
-          id: "complete",
-          type: "dialog",
-          title: "You are ready",
-          description: "Dismiss the tour when the walkthrough is complete.",
-          actions: [{ label: "Finish", action: "dismiss" }],
-          backdrop: true,
-        },
-      ] satisfies TourStepDetails[];
-
       export function TourDemo() {
         const tour = useTour({ steps });
 
@@ -127,8 +95,37 @@ settings.
 
   <Preview.Data>
     {`
-      // Steps are TourStepDetails objects. The example uses dialog and tooltip steps,
-      // Back/Next/Dismiss action triggers, a target query, backdrop, and arrow rendering.
+      const steps = [
+        {
+          id: "welcome",
+          type: "dialog",
+          title: "Welcome to the workspace",
+          description: "Start with a dialog step, then move to a highlighted page control.",
+          actions: [{ label: "Start", action: "next" }],
+          backdrop: true,
+        },
+        {
+          id: "upload",
+          type: "tooltip",
+          title: "Upload files",
+          description: "Tooltip steps are anchored to target elements.",
+          target: () => document.querySelector("#tour-basic-upload") as HTMLElement | null,
+          actions: [
+            { label: "Back", action: "prev" },
+            { label: "Next", action: "next" },
+          ],
+          backdrop: true,
+          arrow: true,
+        },
+        {
+          id: "complete",
+          type: "dialog",
+          title: "You are ready",
+          description: "Dismiss the tour when the walkthrough is complete.",
+          actions: [{ label: "Finish", action: "dismiss" }],
+          backdrop: true,
+        },
+      ] satisfies TourStepDetails[];
     `}
   </Preview.Data>
 </Preview>
@@ -262,14 +259,16 @@ for viewport-level notes.
   <MixedTypesTourExample />
   <Preview.Code>
     {`
+      const tour = useTour({ steps });
+    `}
+  </Preview.Code>
+  <Preview.Data>{`
       const steps = [
         { id: "dialog", type: "dialog", title: "Mixed step types", description: "Start centered.", actions: [{ label: "Next", action: "next" }], backdrop: true },
         { id: "tooltip", type: "tooltip", title: "Anchored tooltip", description: "Follows a target.", target: () => document.querySelector("#tour-mixed-target") as HTMLElement | null, actions: [{ label: "Back", action: "prev" }, { label: "Next", action: "next" }], arrow: true },
         { id: "floating", type: "floating", placement: "bottom-end", title: "Floating note", description: "Sits in the viewport.", actions: [{ label: "Back", action: "prev" }, { label: "Done", action: "dismiss" }] },
       ] satisfies TourStepDetails[];
-    `}
-  </Preview.Code>
-  <Preview.Data>{`      // The preview renders the same Tour overlay tree as the Basic example.`}</Preview.Data>
+  `}</Preview.Data>
   <Preview.CSS>{`      .target { border: var(--border-width-sm) solid var(--color-border); }`}</Preview.CSS>
 </Preview>
 
@@ -293,7 +292,7 @@ tour lifecycle.
       });
     `}
   </Preview.Code>
-  <Preview.Data>{`      // Status values include idle, started, skipped, completed, dismissed, and not-found.`}</Preview.Data>
+  <Preview.Data>{`const statuses = ["idle", "started", "skipped", "completed", "dismissed", "not-found"] as const;`}</Preview.Data>
   <Preview.CSS>{`      .log { font-family: var(--font-mono); font-size: var(--text-xs); }`}</Preview.CSS>
 </Preview>
 
@@ -315,7 +314,13 @@ custom keyboard handling that should own Left and Right.
       });
     `}
   </Preview.Code>
-  <Preview.Data>{`      // Left and Right move between steps while Tour.Content has focus.`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const keyboardNavigation = true;
+      const progressText = ({ current, total }) => String(current + 1) + " / " + String(total);
+    `}
+
+  </Preview.Data>
   <Preview.CSS>{`      .note { color: var(--color-muted-foreground); }`}</Preview.CSS>
 </Preview>
 
@@ -338,7 +343,12 @@ localized text.
       </Tour.Content>
     `}
   </Preview.Code>
-  <Preview.Data>{`      // tour.getProgressPercent() ignores wait steps and returns a percentage for visible steps.`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const totalSteps = 3;
+    `}
+
+  </Preview.Data>
   <Preview.CSS>{`      .progressFill { height: 100%; background: var(--color-primary); }`}</Preview.CSS>
 </Preview>
 
@@ -350,6 +360,10 @@ Use a dismiss action for optional walkthroughs when users should be able to exit
   <SkipTourExample />
   <Preview.Code>
     {`
+      const tour = useTour({ steps });
+    `}
+  </Preview.Code>
+  <Preview.Data>{`
       const steps = [
         {
           id: "intro",
@@ -363,9 +377,7 @@ Use a dismiss action for optional walkthroughs when users should be able to exit
           backdrop: true,
         },
       ] satisfies TourStepDetails[];
-    `}
-  </Preview.Code>
-  <Preview.Data>{`      // Ark ActionTrigger handles "dismiss" as the built-in close action and reports status: "dismissed".`}</Preview.Data>
+  `}</Preview.Data>
   <Preview.CSS>{`      .note { font-size: var(--text-sm); }`}</Preview.CSS>
 </Preview>
 
@@ -393,7 +405,7 @@ Wait helpers let a step pause until the user completes a real DOM interaction.
       }
     `}
   </Preview.Code>
-  <Preview.Data>{`      // waitForEvent returns [promise, cancel], and effects should return cancel for cleanup.`}</Preview.Data>
+  <Preview.Data>{`const minLength = 2;`}</Preview.Data>
   <Preview.CSS>{`      .input:focus-visible { outline: var(--border-width-sm) solid var(--color-ring); }`}</Preview.CSS>
 </Preview>
 
@@ -421,7 +433,7 @@ interaction.
       }
     `}
   </Preview.Code>
-  <Preview.Data>{`      // waitForEvent resolves after the target dispatches the requested DOM event.`}</Preview.Data>
+  <Preview.Data>{`const eventType = "click";`}</Preview.Data>
   <Preview.CSS>{`      .demo { gap: var(--spacing-4); }`}</Preview.CSS>
 </Preview>
 
@@ -451,7 +463,7 @@ Use `waitForElement` when a later step targets content that appears after the to
       }
     `}
   </Preview.Code>
-  <Preview.Data>{`      // waitForElement polls the target getter until it returns an element or the timeout ends.`}</Preview.Data>
+  <Preview.Data>{`const timeout = 5000;`}</Preview.Data>
   <Preview.CSS>{`      .listItem[data-tour-new-item] { border-color: var(--color-primary); }`}</Preview.CSS>
 </Preview>
 
@@ -475,7 +487,7 @@ ready.
       }
     `}
   </Preview.Code>
-  <Preview.Data>{`      // The preview simulates async loading with a short timeout instead of a network request.`}</Preview.Data>
+  <Preview.Data>{`const delayMs = 1500;`}</Preview.Data>
   <Preview.CSS>{`      .target { background: var(--color-muted); }`}</Preview.CSS>
 </Preview>
 

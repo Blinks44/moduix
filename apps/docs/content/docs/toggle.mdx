@@ -193,7 +193,7 @@ Control `pressed` from React state when the toggle participates in app state or 
   </Preview.Code>
 
   <Preview.CSS>{toggleStackCss}</Preview.CSS>
-  <Preview.Data>{`const [pressed, setPressed] = useState(false);`}</Preview.Data>
+  <Preview.Data>{`const initialPressed = false;`}</Preview.Data>
 </Preview>
 
 ### Disabled
@@ -223,7 +223,13 @@ Use `disabled` to freeze interaction while preserving the current pressed state.
   </Preview.Code>
 
   <Preview.CSS>{toggleRowCss}</Preview.CSS>
-  <Preview.Data>{`const disabledStates = ["off disabled", "on disabled"];`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const disabled = true;
+      const defaultPressed = true;
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Indicator
@@ -278,7 +284,13 @@ Use `Toggle.Context` for inline state reads without mirroring the pressed state 
   </Preview.Code>
 
   <Preview.CSS>{toggleBasicCss}</Preview.CSS>
-  <Preview.Data>{`const labels = { on: "Saved", off: "Save" };`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const pressedLabel = "Saved";
+      const defaultLabel = "Save";
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Variants
@@ -308,7 +320,13 @@ Use `variant` to match surrounding UI density and emphasis.
   </Preview.Code>
 
   <Preview.CSS>{toggleRowCss}</Preview.CSS>
-  <Preview.Data>{`const variants = ["default", "outline", "ghost"];`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const pressedLabel = "Pressed";
+      const defaultPressed = true;
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Sizes
@@ -338,7 +356,7 @@ Use text sizes for labeled toggles and icon sizes for denser action rows.
   </Preview.Code>
 
   <Preview.CSS>{toggleRowCss}</Preview.CSS>
-  <Preview.Data>{`const sizes = ["xs", "sm", "md", "lg"];`}</Preview.Data>
+  <Preview.Data>{`const largestSize = "lg";`}</Preview.Data>
 </Preview>
 
 ### Icons
@@ -374,7 +392,13 @@ Pass icons as regular children. Use icon-only sizes for compact actions.
   </Preview.Code>
 
   <Preview.CSS>{toggleRowCss}</Preview.CSS>
-  <Preview.Data>{`const iconSizes = ["icon-md"];`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const size = "icon-md";
+      const defaultPressed = true;
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### asChild

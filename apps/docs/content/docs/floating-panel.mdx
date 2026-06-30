@@ -482,7 +482,12 @@ Read the Ark panel API inline with `FloatingPanel.Context`.
 
   </Preview.Code>
   <Preview.CSS>{``}</Preview.CSS>
-  <Preview.Data>{`const contextFields = ["open", "dragging"];`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const defaultSize = { width: 360, height: 260 };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -536,7 +541,13 @@ methods like `minimize`, `maximize`, and `setOpen`.
 
   </Preview.Code>
   <Preview.CSS>{``}</Preview.CSS>
-  <Preview.Data>{`const externalActions = ["setOpen", "maximize", "minimize"];`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const defaultSize = { width: 360, height: 260 };
+      const externalActions = ["setOpen", "maximize", "minimize"];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Lazy Mount
@@ -593,7 +604,14 @@ Use Ark presence props when the panel should mount only after first open and unm
 
   </Preview.Code>
   <Preview.CSS>{``}</Preview.CSS>
-  <Preview.Data>{`const lifecycle = { lazyMount: true, unmountOnExit: true };`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const lazyMount = true;
+      const unmountOnExit = true;
+      const defaultSize = { width: 360, height: 260 };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Styling

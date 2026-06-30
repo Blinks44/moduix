@@ -67,7 +67,13 @@ common alignment.
 </Preview.CSS>
 
   <Preview.Data>
-    No external data. The example uses static children.
+    {`
+      const title = "Project updates";
+      const messages = [
+        "Use Stack when the layout intent is just flex direction, spacing, and alignment.",
+        "Keep custom layout rules in local CSS.",
+      ];
+    `}
   </Preview.Data>
 </Preview>
 
@@ -218,7 +224,12 @@ Use `direction="row"` and alignment props for inline layouts.
 </Preview.CSS>
 
   <Preview.Data>
-    No external data. The example uses static children.
+    {`
+      const status = {
+        label: "Status",
+        value: "Ready to publish",
+      };
+    `}
   </Preview.Data>
 </Preview>
 
@@ -269,7 +280,9 @@ Use `wrap="wrap"` when items should flow to the next line.
   </Preview.CSS>
 
   <Preview.Data>
-    No external data. The example uses static children.
+    {`
+      const teams = ["Design", "Engineering", "Docs", "Release"];
+    `}
   </Preview.Data>
 </Preview>
 
@@ -320,7 +333,10 @@ children.
   </Preview.CSS>
 
   <Preview.Data>
-    No external data. The separator is the moduix Separator component passed as React children.
+    {`
+      const departments = ["Design", "Engineering", "Docs"];
+      const separatorOrientation = "vertical";
+    `}
   </Preview.Data>
 </Preview>
 
@@ -364,7 +380,13 @@ Use `fill` when a nested stack should take the remaining space in a flex row.
 </Preview.CSS>
 
   <Preview.Data>
-    No external data. The example uses static skeleton children.
+    {`
+      const avatarSize = 40;
+      const lines = [
+        { width: "48%", height: 16 },
+        { width: "100%", height: 14 },
+      ];
+    `}
   </Preview.Data>
 </Preview>
 
@@ -409,7 +431,10 @@ Use responsive `direction` when the layout only needs a column-on-mobile and row
 </Preview.CSS>
 
   <Preview.Data>
-    No external data. The example uses static children.
+    {`
+      const direction = { mobile: "column", desktop: "row" };
+      const content = ["Adaptive layout", "Column on mobile, row from desktop width."];
+    `}
   </Preview.Data>
 </Preview>
 
@@ -456,7 +481,10 @@ Use Ark `asChild` when the layout wrapper should also describe document structur
 </Preview.CSS>
 
   <Preview.Data>
-    No external data. The example uses one semantic child as the Ark asChild host.
+    {`
+      const hostElement = "section";
+      const title = "Rendered as section";
+    `}
   </Preview.Data>
 </Preview>
 
@@ -497,7 +525,16 @@ Use `Stack` with `Skeleton` when the loading state only needs flex composition a
 </Preview.CSS>
 
   <Preview.Data>
-    No external data. The example uses static skeleton children.
+    {`
+      const skeleton = {
+        mediaHeight: 144,
+        lines: [
+          { width: "62%", height: 18 },
+          { width: "100%", height: 14 },
+          { width: "78%", height: 14 },
+        ],
+      };
+    `}
   </Preview.Data>
 </Preview>
 

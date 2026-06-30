@@ -306,7 +306,16 @@ label.
   </Preview.Code>
 
   <Preview.CSS>{splitButtonExampleCss}</Preview.CSS>
-  <Preview.Data>{`const createItems = ["Create Blank", "Create From Template", "Import Existing"];`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const createItems = [
+        { value: "create-blank", label: "Create Blank" },
+        { value: "create-template", label: "Create From Template" },
+        { value: "import-existing", label: "Import Existing" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Controlled Menu State
@@ -348,7 +357,7 @@ Use the same controlled open-state contract as Ark Menu when outside state shoul
   </Preview.Code>
 
   <Preview.CSS>{splitButtonExampleCss}</Preview.CSS>
-  <Preview.Data>{`const [open, setOpen] = useState(false);`}</Preview.Data>
+  <Preview.Data>{`const initialOpen = false;`}</Preview.Data>
 </Preview>
 
 ### Positioning
@@ -465,7 +474,15 @@ Use root `className` and stable `data-slot` hooks when the grouped control needs
   </Preview.Code>
 
   <Preview.CSS>{splitButtonCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{`const reviewActions = ["Approve", "Request Changes"];`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const reviewActions = [
+        { value: "approve", label: "Approve" },
+        { value: "request-changes", label: "Request Changes" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Link Action
@@ -505,7 +522,15 @@ Use `asChild` on `SplitButton.Action` when the primary action should render as a
   </Preview.Code>
 
   <Preview.CSS>{splitButtonExampleCss}</Preview.CSS>
-  <Preview.Data>{`const docsActions = ["Copy Link", "Open in New Tab"];`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const docsActions = [
+        { value: "copy-link", label: "Copy Link" },
+        { value: "open-new-tab", label: "Open in New Tab" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Styling

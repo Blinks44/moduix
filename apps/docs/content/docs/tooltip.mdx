@@ -68,7 +68,14 @@ tooltips do not replace `aria-label` or visible text.
   </Preview.Code>
 
   <Preview.Data>
-    {`      // No external data is required for this example.`}
+    {`
+      const trigger = {
+        label: "Notifications",
+        icon: "BellIcon",
+      };
+
+      const content = "Notifications";
+    `}
 
   </Preview.Data>
 
@@ -255,10 +262,11 @@ The wrapper renders `Tooltip.ArrowTip` for the default arrow shape.
 
   </Preview.Code>
 
-  <Preview.Data>
-    {`      // No external data is required for this example.`}
-
-  </Preview.Data>
+<Preview.Data>
+  {`
+      const content = "Tooltip with arrow";
+    `}
+</Preview.Data>
 
   <Preview.CSS>
     {`      /* The default moduix tooltip styles are used. */`}
@@ -294,7 +302,14 @@ Use `openDelay` and `closeDelay` on the root to tune hover and focus timing.
   </Preview.Code>
 
   <Preview.Data>
-    {`      // No external data is required for this example.`}
+    {`
+      const delays = {
+        openDelay: 0,
+        closeDelay: 0,
+      };
+
+      const content = "No open or close delay";
+    `}
 
   </Preview.Data>
 
@@ -355,10 +370,12 @@ Pass Ark positioning options to `Tooltip`, including placement and offset values
 
   </Preview.Code>
 
-  <Preview.Data>
-    {`      const tooltipPlacements = ["top", "right", "bottom", "left"] as const;`}
-
-  </Preview.Data>
+<Preview.Data>
+  {`
+      const tooltipPlacements = ["top", "right", "bottom", "left"] as const;
+      const offset = { mainAxis: 12 };
+    `}
+</Preview.Data>
 
   <Preview.CSS>
     {`
@@ -441,10 +458,12 @@ Control open state with `open` and `onOpenChange(details)`.
 
   </Preview.Code>
 
-  <Preview.Data>
-    {`      // No external data is required for this example.`}
-
-  </Preview.Data>
+<Preview.Data>
+  {`
+      const initialOpen = false;
+      const toggleLabel = "Toggle";
+    `}
+</Preview.Data>
 
   <Preview.CSS>
     {`
@@ -492,10 +511,11 @@ Use `Tooltip.Context` when content needs inline access to the current tooltip st
 
   </Preview.Code>
 
-  <Preview.Data>
-    {`      // No external data is required for this example.`}
-
-  </Preview.Data>
+<Preview.Data>
+  {`
+      const content = "Open from context: false";
+    `}
+</Preview.Data>
 
   <Preview.CSS>
     {`      /* The default moduix tooltip styles are used. */`}
@@ -537,10 +557,12 @@ rendered tooltip subtree.
 
   </Preview.Code>
 
-  <Preview.Data>
-    {`      // No external data is required for this example.`}
-
-  </Preview.Data>
+<Preview.Data>
+  {`
+      const tooltip = useTooltip();
+      const outputLabel = "Open";
+    `}
+</Preview.Data>
 
   <Preview.CSS>
     {`
@@ -688,10 +710,12 @@ Set `positioning.strategy` to `"fixed"` when the tooltip is anchored inside fixe
 
   </Preview.Code>
 
-  <Preview.Data>
-    {`      // No external data is required for this example.`}
-
-  </Preview.Data>
+<Preview.Data>
+  {`
+      const positioning = { strategy: "fixed" };
+      const content = "Positioned from a fixed container.";
+    `}
+</Preview.Data>
 
   <Preview.CSS>
     {`
@@ -746,10 +770,12 @@ Ark state attributes without changing the part tree.
 
   </Preview.Code>
 
-  <Preview.Data>
-    {`      // No external data is required for this example.`}
-
-  </Preview.Data>
+<Preview.Data>
+  {`
+      const triggerLabel = "Custom styled tooltip";
+      const content = "Styled through explicit Ark parts";
+    `}
+</Preview.Data>
 
   <Preview.CSS>
     {`

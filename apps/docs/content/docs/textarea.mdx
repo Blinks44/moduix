@@ -298,7 +298,13 @@ Use Ark `autoresize` when the textarea should grow with its content.
 
   </Preview.CSS>
 
-  <Preview.Data>{`const textarea = { autoresize: true };`}</Preview.Data>
+  <Preview.Data>
+    {`
+      const autoresize = true;
+      const placeholder = "Start typing a longer description. Height grows with content.";
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Field Validation
