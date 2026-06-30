@@ -1518,6 +1518,31 @@
       ]
     },
     {
+      "name": "react-simple-grid",
+      "type": "registry:item",
+      "title": "SimpleGrid",
+      "description": "moduix React SimpleGrid component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/simple-grid/SimpleGrid.tsx",
+          "target": "@components/moduix/simple-grid/SimpleGrid.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/simple-grid/SimpleGrid.module.css",
+          "target": "@components/moduix/simple-grid/SimpleGrid.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/simple-grid/index.ts",
+          "target": "@components/moduix/simple-grid/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-skeleton",
       "type": "registry:item",
       "title": "Skeleton",

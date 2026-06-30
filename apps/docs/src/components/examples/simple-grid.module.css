@@ -1,0 +1,49 @@
+.simpleGridDemoGrid {
+  width: 100%;
+  padding: var(--spacing-3);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-muted);
+}
+
+.simpleGridDemoCards {
+  max-width: 44rem;
+}
+
+.simpleGridDemoMetrics {
+  max-width: 40rem;
+}
+
+.simpleGridDemoMetric {
+  min-width: 0;
+  padding: var(--spacing-3);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-background);
+  text-align: center;
+}
+
+.simpleGridDemoGallery {
+  max-width: 48rem;
+  margin: 0;
+  list-style: none;
+}
+
+.simpleGridDemoGalleryItem {
+  min-width: 0;
+  overflow: hidden;
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-background);
+}
+
+.simpleGridDemoImage {
+  aspect-ratio: 4 / 3;
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+.simpleGridDemoCaption {
+  display: block;
+  padding: var(--spacing-3);
+}

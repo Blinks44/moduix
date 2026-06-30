@@ -56,6 +56,7 @@ export * from './components/separator';
 export * from './components/segment-group';
 export * from './components/select';
 export * from './components/signature-pad';
+export * from './components/simple-grid';
 export * from './components/slider';
 export * from './components/splitter';
 export * from './components/carousel';

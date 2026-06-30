@@ -1,0 +1,350 @@
+---
+title: SimpleGrid
+description: An Ark-aligned equal-column grid that can adapt automatically to its available width.
+icon: Component
+---
+
+import {
+  SimpleGridColumnsExample,
+  SimpleGridExample,
+  SimpleGridSemanticExample,
+  simpleGridDestinationsData,
+  simpleGridMetricsData,
+  simpleGridPlansData,
+} from '@/components/examples/simple-grid';
+
+## API Reference
+
+Ark UI does not ship a dedicated `simple-grid` primitive. Moduix builds this component with the
+official [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance. Chakra UI
+[SimpleGrid](https://chakra-ui.com/docs/components/simple-grid) informs the `columns` and
+`minChildWidth` layout model.
+
+## Basic
+
+Use `minChildWidth` when equal-width items should automatically move between columns as the grid's
+available width changes. The component handles `auto-fit`, `minmax()`, and narrow-container overflow
+internally.
+
+<Preview>
+  <SimpleGridExample />
+
+  <Preview.Code>
+    {`
+      import { Card, SimpleGrid, Text } from "@moduix/react";
+      import styles from "./simple-grid.module.css";
+
+      export function SimpleGridDemo() {
+        return (
+          <SimpleGrid
+            minChildWidth="18rem"
+            gap="var(--spacing-4)"
+            className={\`\${styles.simpleGridDemoGrid} \${styles.simpleGridDemoCards}\`}
+          >
+            {plans.map((plan) => (
+              <Card key={plan.name} size="sm">
+                <Card.Header>
+                  <Card.Title>{plan.name}</Card.Title>
+                  <Card.Description>{plan.description}</Card.Description>
+                </Card.Header>
+                <Card.Body>
+                  <Text size="xl" weight="semibold">{plan.price}</Text>
+                </Card.Body>
+              </Card>
+            ))}
+          </SimpleGrid>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .simpleGridDemoGrid {
+        width: 100%;
+        padding: var(--spacing-3);
+        border-radius: var(--radius-xl);
+        background-color: var(--color-muted);
+      }
+
+      .simpleGridDemoCards {
+        max-width: 44rem;
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>{simpleGridPlansData}</Preview.Data>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `SimpleGrid` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/react-simple-grid
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/react-simple-grid
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/react-simple-grid
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-simple-grid
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/react-simple-grid
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `SimpleGrid` depends on,
+such as styles and small utilities.
+
+## Anatomy
+
+`SimpleGrid` renders one Ark-aligned grid root and does not wrap its children.
+
+```text
+SimpleGrid / SimpleGrid.Root
+└─ root[data-scope="simple-grid"][data-part="root"][data-slot="simple-grid-root"]
+   └─ children
+```
+
+| Part                             | Role                                                    |
+| -------------------------------- | ------------------------------------------------------- |
+| `SimpleGrid` / `SimpleGrid.Root` | Root wrapper that creates equal-width CSS Grid columns. |
+
+## Composition
+
+### Recommended composition
+
+Use the short `SimpleGrid` export for normal `div` output. Use `SimpleGrid.Root` only when namespace
+consistency helps next to multipart components.
+
+Choose one layout mode:
+
+- `minChildWidth` lets the browser fit as many equal columns as the available width allows.
+- `columns` creates an exact number of equal columns.
+
+Always provide an intentional `gap`, `rowGap`, or `columnGap` when grid items need visual
+separation. Use `asChild` when the root should be a semantic element such as `ul`, `section`, or
+`nav`.
+
+### When to go custom
+
+Use local CSS instead when the layout needs named areas, unequal tracks, item spans, or exact
+column counts at several media or container query breakpoints. Omit `columns` and `minChildWidth`
+when `grid-template-columns` is owned by the stylesheet.
+
+### Default props
+
+| Prop            | Default         | Notes                                                   |
+| --------------- | --------------- | ------------------------------------------------------- |
+| `columns`       | `1`             | Positive number of equal-width columns                  |
+| `minChildWidth` | -               | Minimum track width; numbers are converted to pixels    |
+| `gap`           | browser default | CSS length (`number` = `px`)                            |
+| `rowGap`        | browser default | CSS length (`number` = `px`)                            |
+| `columnGap`     | browser default | CSS length (`number` = `px`)                            |
+| `asChild`       | `false`         | Ark factory composition with one semantic child element |
+
+### Behavioral notes
+
+- `columns` and `minChildWidth` are mutually exclusive.
+- `columns={3}` creates three equal tracks with no child wrappers.
+- `minChildWidth={160}` creates as many tracks as fit and treats the number as `160px`.
+- The auto-fit mode guards against overflow when the grid becomes narrower than
+  `minChildWidth`.
+- `gap`, `rowGap`, and `columnGap` are written inline only when provided.
+- `style` is applied last and can override the generated `gridTemplateColumns` or gaps.
+- `ref` targets the rendered root. With `asChild`, it targets the single child element.
+- The component adds no roles, labels, keyboard behavior, focus management, state, or provider
+  context.
+
+## Examples
+
+### Fixed Columns
+
+Use `columns` when a compact dashboard should always render an exact number of equal tracks.
+
+<Preview>
+  <SimpleGridColumnsExample />
+
+  <Preview.Code>
+    {`
+      import { SimpleGrid, Text } from "@moduix/react";
+      import styles from "./simple-grid.module.css";
+
+      export function FixedColumnsDemo() {
+        return (
+          <SimpleGrid
+            columns={4}
+            gap="var(--spacing-3)"
+            className={\`\${styles.simpleGridDemoGrid} \${styles.simpleGridDemoMetrics}\`}
+          >
+            {metrics.map((metric) => (
+              <div key={metric.label} className={styles.simpleGridDemoMetric}>
+                <Text size="xl" weight="semibold">
+                  {metric.value}
+                </Text>
+                <Text tone="muted" size="sm">{metric.label}</Text>
+              </div>
+            ))}
+          </SimpleGrid>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .simpleGridDemoGrid {
+        width: 100%;
+        padding: var(--spacing-3);
+        border-radius: var(--radius-xl);
+        background-color: var(--color-muted);
+      }
+
+      .simpleGridDemoMetrics {
+        max-width: 40rem;
+      }
+
+      .simpleGridDemoMetric {
+        min-width: 0;
+        padding: var(--spacing-3);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-background);
+        text-align: center;
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>{simpleGridMetricsData}</Preview.Data>
+</Preview>
+
+### Media Gallery
+
+Combine intrinsic columns with Ark `asChild` when a media grid should also carry list semantics.
+
+<Preview>
+  <SimpleGridSemanticExample />
+
+  <Preview.Code>
+    {`
+      import { SimpleGrid, Text } from "@moduix/react";
+      import styles from "./simple-grid.module.css";
+
+      export function MediaGalleryDemo() {
+        return (
+          <SimpleGrid
+            asChild
+            minChildWidth="10rem"
+            gap="var(--spacing-3)"
+            className={\`\${styles.simpleGridDemoGrid} \${styles.simpleGridDemoGallery}\`}
+          >
+            <ul aria-label="Travel destinations">
+              {destinations.map((destination) => (
+                <li key={destination.name} className={styles.simpleGridDemoGalleryItem}>
+                  <img
+                    src={destination.image}
+                    alt={destination.alt}
+                    loading="lazy"
+                    className={styles.simpleGridDemoImage}
+                  />
+                  <Text as="span" size="sm" weight="medium" className={styles.simpleGridDemoCaption}>
+                    {destination.name}
+                  </Text>
+                </li>
+              ))}
+            </ul>
+          </SimpleGrid>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .simpleGridDemoGrid {
+        width: 100%;
+        padding: var(--spacing-3);
+        border-radius: var(--radius-xl);
+        background-color: var(--color-muted);
+      }
+
+      .simpleGridDemoGallery {
+        max-width: 48rem;
+        margin: 0;
+        list-style: none;
+      }
+
+      .simpleGridDemoGalleryItem {
+        min-width: 0;
+        overflow: hidden;
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-background);
+      }
+
+      .simpleGridDemoImage {
+        aspect-ratio: 4 / 3;
+        display: block;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .simpleGridDemoCaption {
+        display: block;
+        padding: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>{simpleGridDestinationsData}</Preview.Data>
+</Preview>
+
+## Styling
+
+`SimpleGrid` has no component-specific CSS variables, so there is no separate CSS properties
+reference. Layout props are written as inline styles on the root.
+
+### Styling hooks
+
+- `className` styles the single root for width, placement, backgrounds, and responsive layout when
+  `columns` and `minChildWidth` are omitted.
+- `data-scope="simple-grid"` and `data-part="root"` align the wrapper with Ark styling conventions.
+- `data-slot="simple-grid-root"` is the stable moduix selector for targeting the root in local CSS.
+- `columns`, `minChildWidth`, `gap`, `rowGap`, and `columnGap` write inline styles and therefore take
+  precedence over declarations from `className`.
+- `style` is merged after those props and is the final per-instance override.
+- The component exposes no state or animation styling hooks.
