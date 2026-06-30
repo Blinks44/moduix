@@ -4,9 +4,9 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 
 const collapsedItems = [
-  { href: '/engineering', label: 'Engineering' },
-  { href: '/engineering/backend', label: 'Backend' },
-  { href: '/engineering/backend/golang', label: 'Golang' },
+  { href: '/docs', label: 'Docs' },
+  { href: '/docs/quick-start', label: 'Quick Start' },
+  { href: '/docs/composition-patterns', label: 'Composition Patterns' },
 ] as const;
 
 const previewContainerStyle = {
@@ -117,7 +117,7 @@ export function BreadcrumbsExample(props: ComponentProps<typeof Breadcrumbs>) {
           </Breadcrumbs.Item>
           <Breadcrumbs.Separator />
           <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/vacancies">Vacancies</Breadcrumbs.Link>
+            <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
           </Breadcrumbs.Item>
           <Breadcrumbs.Separator />
           <Breadcrumbs.Item>
@@ -158,7 +158,7 @@ export function BreadcrumbsCollapsedExample() {
           </Breadcrumbs.Item>
           <Breadcrumbs.Separator />
           <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/vacancies">Vacancies</Breadcrumbs.Link>
+            <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
           </Breadcrumbs.Item>
           <Breadcrumbs.Separator />
           <Breadcrumbs.Item>
@@ -182,7 +182,7 @@ export function BreadcrumbsCustomSeparatorExample() {
             <SeparatorMarkIcon style={separatorIconStyle} />
           </Breadcrumbs.Separator>
           <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/vacancies">Vacancies</Breadcrumbs.Link>
+            <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
           </Breadcrumbs.Item>
           <Breadcrumbs.Separator>
             <SeparatorMarkIcon style={separatorIconStyle} />
@@ -206,7 +206,7 @@ export function BreadcrumbsLongLabelExample() {
           </Breadcrumbs.Item>
           <Breadcrumbs.Separator />
           <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/vacancies">Vacancies</Breadcrumbs.Link>
+            <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
           </Breadcrumbs.Item>
           <Breadcrumbs.Separator />
           <Breadcrumbs.Item>
@@ -238,16 +238,16 @@ export function BreadcrumbsFrameworkLinkExample() {
           <Breadcrumbs.Separator />
           <Breadcrumbs.Item>
             <Breadcrumbs.Link asChild>
-              <a href="/engineering" data-framework-link>
-                Engineering
+              <a href="/docs" data-framework-link>
+                Docs
               </a>
             </Breadcrumbs.Link>
           </Breadcrumbs.Item>
           <Breadcrumbs.Separator />
           <Breadcrumbs.Item>
             <Breadcrumbs.Link asChild>
-              <a href="/vacancies" data-framework-link>
-                Vacancies
+              <a href="/docs/breadcrumbs" data-framework-link>
+                Breadcrumbs
               </a>
             </Breadcrumbs.Link>
           </Breadcrumbs.Item>

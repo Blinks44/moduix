@@ -68,7 +68,7 @@ for navigable ancestors and `Breadcrumbs.Page` for the current page.
     {`
       const pathItems = [
         { href: "/", label: "Home" },
-        { href: "/vacancies", label: "Vacancies" },
+        { href: "/docs/breadcrumbs", label: "Breadcrumbs" },
       ] as const;
 
       const currentPage = "Go Developer";
@@ -206,7 +206,7 @@ items.
                 <SeparatorMarkIcon className="separator-icon" style={separatorIconStyle} />
               </Breadcrumbs.Separator>
               <Breadcrumbs.Item>
-                <Breadcrumbs.Link href="/vacancies">Vacancies</Breadcrumbs.Link>
+                <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
               </Breadcrumbs.Item>
               <Breadcrumbs.Separator>
                 <SeparatorMarkIcon className="separator-icon" style={separatorIconStyle} />
@@ -281,7 +281,7 @@ Compose with the migrated Ark `Menu` parts when hidden middle segments need disc
               </Breadcrumbs.Item>
               <Breadcrumbs.Separator />
               <Breadcrumbs.Item>
-                <Breadcrumbs.Link href="/vacancies">Vacancies</Breadcrumbs.Link>
+                <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
               </Breadcrumbs.Item>
               <Breadcrumbs.Separator />
               <Breadcrumbs.Item>
@@ -318,9 +318,9 @@ Compose with the migrated Ark `Menu` parts when hidden middle segments need disc
   <Preview.Data>
     {`
       const collapsedItems = [
-        { href: "/engineering", label: "Engineering" },
-        { href: "/engineering/backend", label: "Backend" },
-        { href: "/engineering/backend/golang", label: "Golang" },
+        { href: "/docs", label: "Docs" },
+        { href: "/docs/quick-start", label: "Quick Start" },
+        { href: "/docs/composition-patterns", label: "Composition Patterns" },
       ] as const;
     `}
   </Preview.Data>
@@ -348,7 +348,7 @@ Wrap the current page content with your own element when you need extra attribut
               </Breadcrumbs.Item>
               <Breadcrumbs.Separator />
               <Breadcrumbs.Item>
-                <Breadcrumbs.Link href="/vacancies">Vacancies</Breadcrumbs.Link>
+                <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
               </Breadcrumbs.Item>
               <Breadcrumbs.Separator />
               <Breadcrumbs.Item>
@@ -430,8 +430,8 @@ Use Ark `asChild` when the app standardizes on framework links.
     {`
       const pathItems = [
         { href: "/", label: "Home" },
-        { href: "/engineering", label: "Engineering" },
-        { href: "/vacancies", label: "Vacancies" },
+        { href: "/docs", label: "Docs" },
+        { href: "/docs/breadcrumbs", label: "Breadcrumbs" },
       ] as const;
     `}
   </Preview.Data>
