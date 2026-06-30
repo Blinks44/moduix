@@ -1,4 +1,5 @@
-import { Lightbox, Portal, useLightbox } from '@moduix/react';
+import type { LightboxImageSelectDetails } from '@moduix/react';
+import { Carousel, Lightbox, Portal, useLightbox } from '@moduix/react';
 import { useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -148,6 +149,25 @@ export const lightboxOverrideCssProperties: CssPropertyInput[] = [
   ['--lightbox-content-max-width', '80vw', 'Maximum content width.'],
   ['--lightbox-content-max-height', '80dvh', 'Maximum content height.'],
   ['--lightbox-transition', '220ms ease', 'Content motion timing.'],
+  ['--lightbox-gallery-max-width', '72rem', 'Maximum gallery width.'],
+  ['--lightbox-gallery-aspect-ratio', '16 / 10', 'Gallery viewport aspect ratio.'],
+  ['--lightbox-gallery-track-max-height', '68dvh', 'Maximum gallery viewport height.'],
+  ['--lightbox-gallery-gap', 'var(--spacing-4)', 'Space between carousel parts.'],
+  [
+    '--lightbox-gallery-track-bg',
+    'color-mix(in oklab, black 88%, var(--color-background) 12%)',
+    'Gallery viewport background.',
+  ],
+  ['--lightbox-gallery-thumbnail-width', '5rem', 'Thumbnail indicator width.'],
+  ['--lightbox-gallery-thumbnail-height', '3rem', 'Thumbnail indicator height.'],
+  ['--lightbox-gallery-thumbnail-radius', 'var(--radius-md)', 'Thumbnail indicator corner radius.'],
+  ['--lightbox-gallery-thumbnail-opacity', '0.65', 'Idle thumbnail opacity.'],
+  ['--lightbox-gallery-thumbnail-opacity-hover', '0.9', 'Hovered thumbnail opacity.'],
+  [
+    '--lightbox-gallery-thumbnail-border-color',
+    'var(--color-primary)',
+    'Current thumbnail border color.',
+  ],
   ['--lightbox-media-max-width', '80vw', 'Maximum media width.'],
   ['--lightbox-media-max-height', '80dvh', 'Maximum media height.'],
   ['--lightbox-media-radius', 'var(--radius-md)', 'Media corner radius.'],
@@ -178,11 +198,11 @@ function normalizeCssProperty(property: CssPropertyInput) {
 function LightboxSurface({
   src,
   alt,
-  closeOnMediaClick = false,
+  closeOnImageClick = false,
 }: {
   src: string;
   alt: string;
-  closeOnMediaClick?: boolean;
+  closeOnImageClick?: boolean;
 }) {
   return (
     <Portal>
@@ -190,9 +210,7 @@ function LightboxSurface({
       <Lightbox.Positioner>
         <Lightbox.CloseIcon />
         <Lightbox.Content aria-label={alt}>
-          <Lightbox.Frame closeOnClick={closeOnMediaClick}>
-            <img src={src} alt={alt} />
-          </Lightbox.Frame>
+          <Lightbox.Image src={src} alt={alt} closeOnClick={closeOnImageClick} />
         </Lightbox.Content>
       </Lightbox.Positioner>
     </Portal>
@@ -238,13 +256,13 @@ export function ClickToCloseLightboxExample() {
         <Lightbox.Trigger className="lightbox-button">
           Open click-to-close lightbox
         </Lightbox.Trigger>
-        <LightboxSurface src={images[1].src} alt={images[1].alt} closeOnMediaClick />
+        <LightboxSurface src={images[1].src} alt={images[1].alt} closeOnImageClick />
       </Lightbox>
     </>
   );
 }
 
-export function GalleryLightboxExample() {
+export function MultipleTriggersLightboxExample() {
   const [activeImage, setActiveImage] = useState(images[0]);
 
   return (
@@ -270,8 +288,70 @@ export function GalleryLightboxExample() {
   );
 }
 
-export function DelegatedLightboxExample() {
+export function GalleryLightboxExample() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeImage = images[activeIndex] ?? images[0];
+
+  return (
+    <>
+      <style>{lightboxExampleCss}</style>
+      <Lightbox
+        onTriggerValueChange={(details) => {
+          const nextIndex = images.findIndex((image) => image.id === details.value);
+          setActiveIndex(nextIndex >= 0 ? nextIndex : 0);
+        }}
+      >
+        <div className="lightbox-gallery">
+          {images.map((image) => (
+            <Lightbox.Trigger key={image.id} value={image.id} asChild>
+              <button type="button" className="lightbox-gallery-trigger">
+                <img src={image.thumbnail} alt={image.alt} />
+              </button>
+            </Lightbox.Trigger>
+          ))}
+        </div>
+        <Portal>
+          <Lightbox.Backdrop />
+          <Lightbox.Positioner>
+            <Lightbox.CloseIcon />
+            <Lightbox.Content aria-label={activeImage.alt}>
+              <Lightbox.Gallery>
+                <Carousel.Root
+                  page={activeIndex}
+                  onPageChange={(details) => setActiveIndex(details.page)}
+                  slideCount={images.length}
+                >
+                  <Carousel.Control>
+                    <Carousel.PrevTrigger />
+                    <Carousel.ItemGroup aria-label="Server-driven image carousel">
+                      {images.map((image, index) => (
+                        <Carousel.Item key={image.id} index={index}>
+                          <img src={image.src} alt={image.alt} />
+                        </Carousel.Item>
+                      ))}
+                    </Carousel.ItemGroup>
+                    <Carousel.NextTrigger />
+                  </Carousel.Control>
+                  <Carousel.IndicatorGroup>
+                    {images.map((image, index) => (
+                      <Carousel.Indicator key={image.id} index={index}>
+                        <img src={image.thumbnail} alt="" />
+                      </Carousel.Indicator>
+                    ))}
+                  </Carousel.IndicatorGroup>
+                </Carousel.Root>
+              </Lightbox.Gallery>
+            </Lightbox.Content>
+          </Lightbox.Positioner>
+        </Portal>
+      </Lightbox>
+    </>
+  );
+}
+
+export function BoundLightboxExample() {
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const [activeImage, setActiveImage] = useState<LightboxImageSelectDetails | null>(null);
 
   return (
     <>
@@ -283,7 +363,20 @@ export function DelegatedLightboxExample() {
           </button>
         ))}
       </div>
-      <Lightbox.Gallery rootRef={rootRef} selector="button" />
+      <Lightbox lazyMount unmountOnExit>
+        <Lightbox.Bind rootRef={rootRef} selector="button" onImageSelect={setActiveImage} />
+        <Portal>
+          <Lightbox.Backdrop />
+          <Lightbox.Positioner>
+            <Lightbox.CloseIcon />
+            <Lightbox.Content aria-label={activeImage?.alt ?? 'Image preview'}>
+              {activeImage ? (
+                <Lightbox.Image src={activeImage.src} alt={activeImage.alt ?? ''} />
+              ) : null}
+            </Lightbox.Content>
+          </Lightbox.Positioner>
+        </Portal>
+      </Lightbox>
     </>
   );
 }
@@ -313,9 +406,7 @@ export function FocusLightboxExample() {
             <Lightbox.CloseIcon ref={closeRef} />
             <Lightbox.Content>
               <Lightbox.Title className="lightbox-status">Mountain ridge at sunset</Lightbox.Title>
-              <Lightbox.Frame>
-                <img src={images[0].src} alt={images[0].alt} />
-              </Lightbox.Frame>
+              <Lightbox.Image src={images[0].src} alt={images[0].alt} />
             </Lightbox.Content>
           </Lightbox.Positioner>
         </Portal>
@@ -354,9 +445,7 @@ export function RootProviderLightboxExample() {
           <Lightbox.Positioner>
             <Lightbox.CloseIcon />
             <Lightbox.Content aria-label={images[2].alt}>
-              <Lightbox.Frame>
-                <img src={images[2].src} alt={images[2].alt} />
-              </Lightbox.Frame>
+              <Lightbox.Image src={images[2].src} alt={images[2].alt} />
               <Lightbox.Context>
                 {(state) => (
                   <span className="lightbox-status">
@@ -395,9 +484,7 @@ export function CustomizedLightboxExample() {
           <Lightbox.Positioner>
             <Lightbox.CloseIcon className="lightbox-custom-close" />
             <Lightbox.Content className="lightbox-custom-content" aria-label={images[1].alt}>
-              <Lightbox.Frame>
-                <img src={images[1].src} alt={images[1].alt} />
-              </Lightbox.Frame>
+              <Lightbox.Image src={images[1].src} alt={images[1].alt} />
             </Lightbox.Content>
           </Lightbox.Positioner>
         </Portal>

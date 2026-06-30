@@ -1,7 +1,15 @@
-export { Lightbox, LightboxGallery, useLightbox, useLightboxContext } from './Lightbox';
+export {
+  Lightbox,
+  LightboxBind,
+  LightboxGallery,
+  LightboxImage,
+  useLightbox,
+  useLightboxContext,
+} from './Lightbox';
 export type {
-  LightboxGalleryProps,
+  LightboxBindProps,
   LightboxFocusOutsideEvent,
+  LightboxImageSelectDetails,
   LightboxInteractOutsideEvent,
   LightboxOpenChangeDetails,
   LightboxPointerDownOutsideEvent,

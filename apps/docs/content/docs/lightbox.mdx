@@ -7,13 +7,14 @@ icon: Component
 import {
   ClickToCloseLightboxExample,
   ControlledLightboxExample,
-  DelegatedLightboxExample,
+  BoundLightboxExample,
   CustomizedLightboxExample,
   FocusLightboxExample,
   GalleryLightboxExample,
   LazyMountLightboxExample,
   LightboxCssPropertiesPanel,
   LightboxExample,
+  MultipleTriggersLightboxExample,
   NonModalLightboxExample,
   RootProviderLightboxExample,
   lightboxEmptyData,
@@ -39,7 +40,7 @@ Use `Lightbox` when the overlay is primarily about previewing image or media con
   surfaces.
 - Choose **`Dialog`** when the surface contains general application UI such as forms, actions, or
   mixed content.
-- Compose **`Carousel` inside `Lightbox.Content`** when the preview needs slides or arrows.
+- Compose **`Carousel` inside `Lightbox.Gallery`** when the preview needs slides or arrows.
 
 ## Basic
 
@@ -67,9 +68,7 @@ semantic trigger element.
               <Lightbox.Positioner>
                 <Lightbox.CloseIcon />
                 <Lightbox.Content aria-label={images[0].alt}>
-                  <Lightbox.Frame>
-                    <img src={images[0].src} alt={images[0].alt} />
-                  </Lightbox.Frame>
+                  <Lightbox.Image src={images[0].src} alt={images[0].alt} />
                 </Lightbox.Content>
               </Lightbox.Positioner>
             </Portal>
@@ -128,6 +127,7 @@ aubx shadcn@latest add Blinks44/moduix/react-lightbox
 ```text
 Lightbox.Root
 ├─ Lightbox.Trigger
+├─ Lightbox.Bind
 └─ Portal
    ├─ Lightbox.Backdrop
    └─ Lightbox.Positioner
@@ -135,7 +135,7 @@ Lightbox.Root
       └─ Lightbox.Content
          ├─ Lightbox.Title
          ├─ Lightbox.Description
-         └─ Lightbox.Frame
+         └─ Lightbox.Image
 
 Lightbox.RootProvider
 └─ the same part tree connected to useLightbox()
@@ -154,8 +154,9 @@ Lightbox.RootProvider
 | `Lightbox.Description`       | Optional accessible description.                                               |
 | `Lightbox.CloseTrigger`      | Low-level Ark close trigger.                                                   |
 | `Lightbox.CloseIcon`         | Moduix `CloseButton.Root` sugar over Ark close trigger.                        |
-| `Lightbox.Frame`             | Ark factory media layout helper.                                               |
-| `Lightbox.Gallery`           | Delegated capture helper for CMS or third-party image markup.                  |
+| `Lightbox.Image`             | Styled native image with an `HTMLImageElement` ref.                            |
+| `Lightbox.Gallery`           | Layout and styling boundary for a composed `Carousel`.                         |
+| `Lightbox.Bind`              | Zero-render behavior part that binds external image markup to the root.        |
 | `Lightbox.Context`           | Inline Ark dialog state reader.                                                |
 
 ## Composition
@@ -163,16 +164,25 @@ Lightbox.RootProvider
 ### Recommended composition
 
 Keep the overlay structure explicit. `Lightbox.Content` is the real Ark content part; it does not
-render a portal, backdrop, positioner, frame, or close button for you.
+render a portal, backdrop, positioner, image, gallery, or close button for you.
 
-Use `Lightbox.Frame` for image/video sizing, or place your own media layout inside
-`Lightbox.Content`. `Lightbox.Frame` is a local Ark factory `div`, so it supports Ark `asChild`
-composition and exposes `data-scope="lightbox"` / `data-part="frame"` in addition to its
-`data-slot`.
+Use `Lightbox.Image` for a single image. It renders a native `<img>`, accepts native image props,
+and forwards its ref to the `HTMLImageElement`. Place custom media layouts directly inside
+`Lightbox.Content`.
+
+Use `Lightbox.Gallery` around `Carousel.Root` for a known image collection. It provides the
+lightbox-specific viewport, arrow alignment, media sizing, and indicator layout while Carousel
+continues to own all slide behavior.
 
 Render `Lightbox.CloseIcon` as a sibling of `Lightbox.Content` inside `Lightbox.Positioner` when
 you want it pinned to the viewport corner. Rendering it inside `Lightbox.Content` makes it inherit
 content transforms during entry and exit motion.
+
+### When to go custom
+
+Render custom content directly inside `Lightbox.Content` when it is not a single media frame or a
+Carousel gallery. Use `Lightbox.Bind` only when the source markup cannot render
+`Lightbox.Trigger`; structured arrays should use explicit triggers and `Lightbox.Gallery`.
 
 ### Default props
 
@@ -188,7 +198,7 @@ content transforms during entry and exit motion.
 | `lazyMount`              | `false`    | Use with `unmountOnExit` for heavy media.                           |
 | `unmountOnExit`          | `false`    | Removes overlay nodes after exit.                                   |
 
-### State and callbacks
+### Behavioral notes
 
 `onOpenChange` and `onTriggerValueChange` keep Ark detail-object callback shapes. Read
 `details.open` for controlled open state and `details.value` for multiple-trigger galleries.
@@ -196,9 +206,11 @@ content transforms during entry and exit motion.
 Use `useLightbox()` with `Lightbox.RootProvider` when controls live outside the rendered root. Use
 `Lightbox.Context` or `useLightboxContext()` to read the current state from child components.
 
-`Lightbox.Frame closeOnClick` is the supported image-preview shortcut when the media itself should
-dismiss the overlay. `Lightbox.Gallery` is the delegated capture helper for CMS or third-party
-markup you cannot wrap with `Lightbox.Trigger`.
+`Lightbox.Image closeOnClick` is the supported image-preview shortcut when the image itself should
+dismiss the overlay. `Lightbox.Bind` is the zero-render binding helper for CMS or third-party
+markup you cannot wrap with `Lightbox.Trigger`. It must be rendered inside `Lightbox` and reports
+the selected image through `onImageSelect(details)`. Details contain `src`, optional `alt`, and
+the source `HTMLImageElement` as `element`.
 
 Other inherited Dialog props pass through unchanged, including `id`, `ids`, `initialFocusEl`,
 `finalFocusEl`, `persistentElements`, `restoreFocus`, `present`, `immediate`,
@@ -231,9 +243,7 @@ Use the Ark `onOpenChange(details)` callback when synchronizing lightbox state w
               <Lightbox.Positioner>
                 <Lightbox.CloseIcon />
                 <Lightbox.Content aria-label={images[1].alt}>
-                  <Lightbox.Frame>
-                    <img src={images[1].src} alt={images[1].alt} />
-                  </Lightbox.Frame>
+                  <Lightbox.Image src={images[1].src} alt={images[1].alt} />
                 </Lightbox.Content>
               </Lightbox.Positioner>
             </Portal>
@@ -253,14 +263,14 @@ Use `Trigger.value` and `onTriggerValueChange(details)` for gallery thumbnails. 
 not maintain a hidden image registry.
 
 <Preview>
-  <GalleryLightboxExample />
+  <MultipleTriggersLightboxExample />
 
   <Preview.Code>
     {`
       import { Lightbox, Portal } from "@moduix/react";
       import { useState } from "react";
 
-      export function GalleryLightboxDemo() {
+      export function MultipleTriggersLightboxDemo() {
         const [activeImage, setActiveImage] = useState(images[0]);
 
         return (
@@ -283,9 +293,7 @@ not maintain a hidden image registry.
               <Lightbox.Positioner>
                 <Lightbox.CloseIcon />
                 <Lightbox.Content aria-label={activeImage.alt}>
-                  <Lightbox.Frame>
-                    <img src={activeImage.src} alt={activeImage.alt} />
-                  </Lightbox.Frame>
+                  <Lightbox.Image src={activeImage.src} alt={activeImage.alt} />
                 </Lightbox.Content>
               </Lightbox.Positioner>
             </Portal>
@@ -299,22 +307,112 @@ not maintain a hidden image registry.
   <Preview.Data>{lightboxImagesData}</Preview.Data>
 </Preview>
 
-### Delegated CMS Capture
+### Gallery
 
-Use `Lightbox.Gallery` when previewable images come from CMS or third-party markup that you do not
-render directly with `Lightbox.Trigger`. Point it at a container with `rootRef` or `rootSelector`,
-choose a `selector`, and it will read `data-lightbox-src`, then `currentSrc`, then `src`.
+When a CMS or API gives you a structured array of images, keep that array in React state and
+compose `Carousel` inside `Lightbox.Gallery`. Use `Lightbox.Trigger value` to choose the initial
+slide and keep `Carousel` page state in sync as the user navigates.
 
 <Preview>
-  <DelegatedLightboxExample />
+  <GalleryLightboxExample />
 
   <Preview.Code>
     {`
-      import { Lightbox } from "@moduix/react";
-      import { useRef } from "react";
+      import { Carousel, Lightbox, Portal } from "@moduix/react";
+      import { useState } from "react";
+
+      export function GalleryLightboxDemo() {
+        const [activeIndex, setActiveIndex] = useState(0);
+        const activeImage = images[activeIndex] ?? images[0];
+
+        return (
+          <Lightbox
+            onTriggerValueChange={(details) => {
+              const nextIndex = images.findIndex((image) => image.id === details.value);
+              setActiveIndex(nextIndex >= 0 ? nextIndex : 0);
+            }}
+          >
+            <div className="lightbox-gallery">
+              {images.map((image) => (
+                <Lightbox.Trigger key={image.id} value={image.id} asChild>
+                  <button type="button" className="lightbox-gallery-trigger">
+                    <img src={image.thumbnail} alt={image.alt} />
+                  </button>
+                </Lightbox.Trigger>
+              ))}
+            </div>
+
+            <Portal>
+              <Lightbox.Backdrop />
+              <Lightbox.Positioner>
+                <Lightbox.CloseIcon />
+                <Lightbox.Content aria-label={activeImage.alt}>
+                  <Lightbox.Gallery>
+                    <Carousel.Root
+                      page={activeIndex}
+                      onPageChange={(details) => setActiveIndex(details.page)}
+                      slideCount={images.length}
+                    >
+                      <Carousel.Control>
+                        <Carousel.PrevTrigger />
+                        <Carousel.ItemGroup aria-label="Server-driven image carousel">
+                          {images.map((image, index) => (
+                            <Carousel.Item key={image.id} index={index}>
+                              <img src={image.src} alt={image.alt} />
+                            </Carousel.Item>
+                          ))}
+                        </Carousel.ItemGroup>
+                        <Carousel.NextTrigger />
+                      </Carousel.Control>
+
+                      <Carousel.IndicatorGroup>
+                        {images.map((image, index) => (
+                          <Carousel.Indicator key={image.id} index={index}>
+                            <img src={image.thumbnail} alt="" />
+                          </Carousel.Indicator>
+                        ))}
+                      </Carousel.IndicatorGroup>
+                    </Carousel.Root>
+                  </Lightbox.Gallery>
+                </Lightbox.Content>
+              </Lightbox.Positioner>
+            </Portal>
+          </Lightbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
+  <Preview.Data>{lightboxImagesData}</Preview.Data>
+</Preview>
+
+### Bind CMS Content
+
+Use `Lightbox.Bind` when previewable images come from CMS or third-party markup that you do not
+render directly with `Lightbox.Trigger`. Point it at a container with `rootRef` or `rootSelector`,
+choose a `selector`, and handle the resolved `{ src, alt, element }` through `onImageSelect`.
+`Bind` opens its parent Lightbox but renders no overlay structure, so backdrop, content, close
+controls, and image layout remain fully composable. It reads `data-lightbox-src`, then `currentSrc`,
+then `src`, and preloads that source on pointer hover or keyboard focus. Use a semantic button or
+link as the matched `selector` so native keyboard activation produces the click that opens the
+Lightbox. If your server already returns a real image array, prefer the
+`Lightbox.Gallery + Carousel` composition above.
+
+<Preview>
+  <BoundLightboxExample />
+
+  <Preview.Code>
+    {`
+      import { Lightbox, Portal } from "@moduix/react";
+      import type { LightboxImageSelectDetails } from "@moduix/react";
+      import { useRef, useState } from "react";
 
       export function CmsLightboxDemo() {
         const rootRef = useRef<HTMLDivElement | null>(null);
+        const [activeImage, setActiveImage] = useState(
+          null as LightboxImageSelectDetails | null
+        );
 
         return (
           <>
@@ -326,7 +424,24 @@ choose a `selector`, and it will read `data-lightbox-src`, then `currentSrc`, th
               ))}
             </div>
 
-            <Lightbox.Gallery rootRef={rootRef} selector="button" />
+            <Lightbox lazyMount unmountOnExit>
+              <Lightbox.Bind
+                rootRef={rootRef}
+                selector="button"
+                onImageSelect={setActiveImage}
+              />
+              <Portal>
+                <Lightbox.Backdrop />
+                <Lightbox.Positioner>
+                  <Lightbox.CloseIcon />
+                  <Lightbox.Content aria-label={activeImage?.alt ?? "Image preview"}>
+                    {activeImage ? (
+                      <Lightbox.Image src={activeImage.src} alt={activeImage.alt ?? ""} />
+                    ) : null}
+                  </Lightbox.Content>
+                </Lightbox.Positioner>
+              </Portal>
+            </Lightbox>
           </>
         );
       }
@@ -378,9 +493,7 @@ stable element ids for external accessibility composition.
                     <Lightbox.Title className="lightbox-status">
                       Mountain ridge at sunset
                     </Lightbox.Title>
-                    <Lightbox.Frame>
-                      <img src={images[0].src} alt={images[0].alt} />
-                    </Lightbox.Frame>
+                    <Lightbox.Image src={images[0].src} alt={images[0].alt} />
                   </Lightbox.Content>
                 </Lightbox.Positioner>
               </Portal>
@@ -419,9 +532,7 @@ Set `modal={false}` for rare previews that should leave the page interactive. Pa
                 <Lightbox.Positioner>
                   <Lightbox.CloseIcon />
                   <Lightbox.Content aria-label={images[2].alt}>
-                    <Lightbox.Frame>
-                      <img src={images[2].src} alt={images[2].alt} />
-                    </Lightbox.Frame>
+                    <Lightbox.Image src={images[2].src} alt={images[2].alt} />
                   </Lightbox.Content>
                 </Lightbox.Positioner>
               </Portal>
@@ -465,9 +576,7 @@ Create state with `useLightbox()` when the opener is outside the root. Read inli
                 <Lightbox.Positioner>
                   <Lightbox.CloseIcon />
                   <Lightbox.Content aria-label={images[2].alt}>
-                    <Lightbox.Frame>
-                      <img src={images[2].src} alt={images[2].alt} />
-                    </Lightbox.Frame>
+                    <Lightbox.Image src={images[2].src} alt={images[2].alt} />
                     <Lightbox.Context>
                       {(state) => <>Preview is {state.open ? "open" : "closed"}</>}
                     </Lightbox.Context>
@@ -506,9 +615,7 @@ Use Ark presence props for heavy media. `lazyMount` delays rendering until the f
               <Lightbox.Positioner>
                 <Lightbox.CloseIcon />
                 <Lightbox.Content aria-label={images[0].alt}>
-                  <Lightbox.Frame>
-                    <img src={images[0].src} alt={images[0].alt} />
-                  </Lightbox.Frame>
+                  <Lightbox.Image src={images[0].src} alt={images[0].alt} />
                 </Lightbox.Content>
               </Lightbox.Positioner>
             </Portal>
@@ -522,9 +629,9 @@ Use Ark presence props for heavy media. `lazyMount` delays rendering until the f
   <Preview.Data>{lightboxImagesData}</Preview.Data>
 </Preview>
 
-### Click To Close Media
+### Click To Close Image
 
-Use `Lightbox.Frame closeOnClick` when clicking the previewed media should dismiss the overlay. The
+Use `Lightbox.Image closeOnClick` when clicking the previewed image should dismiss the overlay. The
 close icon remains available and keeps the same Ark close semantics.
 
 <Preview>
@@ -545,9 +652,7 @@ close icon remains available and keeps the same Ark close semantics.
               <Lightbox.Positioner>
                 <Lightbox.CloseIcon />
                 <Lightbox.Content aria-label={images[1].alt}>
-                  <Lightbox.Frame closeOnClick>
-                    <img src={images[1].src} alt={images[1].alt} />
-                  </Lightbox.Frame>
+                  <Lightbox.Image src={images[1].src} alt={images[1].alt} closeOnClick />
                 </Lightbox.Content>
               </Lightbox.Positioner>
             </Portal>
@@ -582,9 +687,7 @@ Customize the backdrop, content sizing, media radius, and close icon through cla
               <Lightbox.Positioner>
                 <Lightbox.CloseIcon className="lightbox-custom-close" />
                 <Lightbox.Content className="lightbox-custom-content" aria-label={images[1].alt}>
-                  <Lightbox.Frame>
-                    <img src={images[1].src} alt={images[1].alt} />
-                  </Lightbox.Frame>
+                  <Lightbox.Image src={images[1].src} alt={images[1].alt} />
                 </Lightbox.Content>
               </Lightbox.Positioner>
             </Portal>
@@ -614,9 +717,11 @@ Customize the backdrop, content sizing, media radius, and close icon through cla
 
 - Moduix slots: `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
   `lightbox-content`, `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`,
-  `lightbox-close-icon`, and `lightbox-frame`.
+  `lightbox-close-icon`, `lightbox-image`, and `lightbox-gallery`.
 - Ark state and anatomy hooks: `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
   `data-nested`, `data-has-nested`, `--layer-index`, and `--nested-layer-count`.
-- Local factory hooks: `Lightbox.Frame` exposes `data-scope="lightbox"` and `data-part="frame"`.
+- Local hooks: `Lightbox.Image` exposes `data-slot="lightbox-image"` and optional
+  `data-close-on-click`; `Lightbox.Gallery` exposes `data-slot="lightbox-gallery"` and styles
+  nested Carousel slots.
 - Motion is driven by Ark `data-state`; use `present` only when JavaScript animation control needs
   to keep the content mounted.

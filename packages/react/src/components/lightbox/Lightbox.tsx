@@ -1,33 +1,28 @@
-import type { HTMLArkProps } from '@ark-ui/react/factory';
 import type { ComponentProps, ComponentRef, RefObject } from 'react';
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
-import { ark } from '@ark-ui/react/factory';
-import { Portal as PortalPrimitive } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useEffect } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
 import styles from './Lightbox.module.css';
 
 const DEFAULT_CLOSE_LABEL = 'Close image';
-const DEFAULT_PREVIEW_LABEL = 'Image preview';
 
-type LightboxImageData = {
+type LightboxImageSelectDetails = {
   alt?: string;
+  element: HTMLImageElement;
   src: string;
 };
 
-type LightboxFrameProps = HTMLArkProps<'div'> & {
+type LightboxImageProps = ComponentProps<'img'> & {
   closeOnClick?: boolean;
 };
 
-type LightboxGalleryProps = {
+type LightboxBindProps = {
+  onImageSelect: (details: LightboxImageSelectDetails) => void;
   selector?: string;
   rootRef?: RefObject<HTMLElement | null>;
   rootSelector?: string;
-  closeOnClick?: boolean;
-  className?: ComponentProps<typeof DialogPrimitive.Content>['className'];
-  closeLabel?: string;
 };
 
 const preloadedImageSources = new Set<string>();
@@ -42,19 +37,23 @@ function preloadImage(src?: string) {
   image.src = src;
 }
 
-function getGalleryImage(target: EventTarget | null, selector: string): LightboxImageData | null {
+function resolveImage(
+  target: EventTarget | null,
+  selector: string,
+  rootNode: HTMLElement,
+): LightboxImageSelectDetails | null {
   if (!(target instanceof Element)) {
     return null;
   }
 
   const matchedNode = target.closest(selector);
-  if (!matchedNode) {
+  if (!matchedNode || !rootNode.contains(matchedNode)) {
     return null;
   }
 
   const imageNode =
     matchedNode instanceof HTMLImageElement ? matchedNode : matchedNode.querySelector('img');
-  if (!(imageNode instanceof HTMLImageElement)) {
+  if (!(imageNode instanceof HTMLImageElement) || !rootNode.contains(imageNode)) {
     return null;
   }
 
@@ -66,6 +65,7 @@ function getGalleryImage(target: EventTarget | null, selector: string): Lightbox
   return {
     src: source,
     alt: imageNode.alt || undefined,
+    element: imageNode,
   };
 }
 
@@ -199,50 +199,53 @@ const LightboxCloseIcon = forwardRef<
   );
 });
 
-const LightboxFrame = forwardRef<HTMLDivElement, LightboxFrameProps>(function LightboxFrame(
+const LightboxImage = forwardRef<HTMLImageElement, LightboxImageProps>(function LightboxImage(
   { className, closeOnClick = false, onClick, ...props },
   ref,
 ) {
-  if (closeOnClick) {
-    return (
-      <DialogPrimitive.CloseTrigger asChild>
-        <ark.div
-          ref={ref}
-          data-scope="lightbox"
-          data-part="frame"
-          data-slot="lightbox-frame"
-          data-close-on-click=""
-          className={clsx(styles.frame, normalizeClassName(className))}
-          onClick={onClick}
-          {...props}
-        />
-      </DialogPrimitive.CloseTrigger>
-    );
-  }
+  const dialog = useDialogContext();
+
+  const handleClick: ComponentProps<'img'>['onClick'] = (event) => {
+    onClick?.(event);
+
+    if (closeOnClick && !event.defaultPrevented) {
+      dialog.setOpen(false);
+    }
+  };
 
   return (
-    <ark.div
+    <img
       ref={ref}
-      data-scope="lightbox"
-      data-part="frame"
-      data-slot="lightbox-frame"
-      className={clsx(styles.frame, normalizeClassName(className))}
-      onClick={onClick}
+      data-slot="lightbox-image"
+      data-close-on-click={closeOnClick ? '' : undefined}
+      className={clsx(styles.image, normalizeClassName(className))}
+      onClick={handleClick}
       {...props}
     />
   );
 });
 
-function LightboxGallery({
+const LightboxGallery = forwardRef<HTMLDivElement, ComponentProps<'div'>>(function LightboxGallery(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <div
+      ref={ref}
+      data-slot="lightbox-gallery"
+      className={clsx(styles.gallery, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+function LightboxBind({
+  onImageSelect,
   selector = 'img',
   rootRef,
   rootSelector,
-  closeOnClick = false,
-  className,
-  closeLabel = DEFAULT_CLOSE_LABEL,
-}: LightboxGalleryProps) {
-  const [open, setOpen] = useState(false);
-  const [image, setImage] = useState<LightboxImageData | null>(null);
+}: LightboxBindProps) {
+  const { setOpen } = useDialogContext();
 
   useEffect(() => {
     const rootNode =
@@ -251,28 +254,23 @@ function LightboxGallery({
       return;
     }
 
-    const handleOpen = (target: EventTarget | null) => {
-      const nextImage = getGalleryImage(target, selector);
+    const handleClick = (event: MouseEvent) => {
+      const nextImage = resolveImage(event.target, selector, rootNode);
       if (!nextImage) {
-        return false;
+        return;
       }
 
-      setImage(nextImage);
+      onImageSelect(nextImage);
       setOpen(true);
-      return true;
     };
 
     const handlePreload = (target: EventTarget | null) => {
-      const nextImage = getGalleryImage(target, selector);
+      const nextImage = resolveImage(target, selector, rootNode);
       if (!nextImage) {
         return;
       }
 
       preloadImage(nextImage.src);
-    };
-
-    const handleClick = (event: MouseEvent) => {
-      handleOpen(event.target);
     };
 
     const handlePointerEnter = (event: PointerEvent) => {
@@ -283,64 +281,18 @@ function LightboxGallery({
       handlePreload(event.target);
     };
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (
-        event.defaultPrevented ||
-        event.altKey ||
-        event.ctrlKey ||
-        event.metaKey ||
-        (event.key !== 'Enter' && event.key !== ' ')
-      ) {
-        return;
-      }
-
-      if (handleOpen(event.target)) {
-        event.preventDefault();
-      }
-    };
-
     rootNode.addEventListener('click', handleClick);
     rootNode.addEventListener('pointerenter', handlePointerEnter, true);
     rootNode.addEventListener('focusin', handleFocusIn);
-    rootNode.addEventListener('keydown', handleKeyDown);
 
     return () => {
       rootNode.removeEventListener('click', handleClick);
       rootNode.removeEventListener('pointerenter', handlePointerEnter, true);
       rootNode.removeEventListener('focusin', handleFocusIn);
-      rootNode.removeEventListener('keydown', handleKeyDown);
     };
-  }, [rootRef, rootSelector, selector]);
+  }, [onImageSelect, rootRef, rootSelector, selector, setOpen]);
 
-  return (
-    <DialogPrimitive.Root
-      open={open}
-      onOpenChange={(details) => {
-        setOpen(details.open);
-      }}
-      onExitComplete={() => {
-        if (!open) {
-          setImage(null);
-        }
-      }}
-      lazyMount
-      unmountOnExit
-    >
-      <PortalPrimitive>
-        <LightboxBackdrop />
-        <LightboxPositioner>
-          <LightboxCloseIcon aria-label={closeLabel} />
-          <LightboxContent aria-label={image?.alt ?? DEFAULT_PREVIEW_LABEL} className={className}>
-            {image ? (
-              <LightboxFrame closeOnClick={closeOnClick}>
-                <img src={image.src} alt={image.alt ?? ''} />
-              </LightboxFrame>
-            ) : null}
-          </LightboxContent>
-        </LightboxPositioner>
-      </PortalPrimitive>
-    </DialogPrimitive.Root>
-  );
+  return null;
 }
 
 const LightboxContext = DialogPrimitive.Context;
@@ -356,18 +308,21 @@ const Lightbox = Object.assign(LightboxRoot, {
   Description: LightboxDescription,
   CloseTrigger: LightboxCloseTrigger,
   CloseIcon: LightboxCloseIcon,
-  Frame: LightboxFrame,
+  Image: LightboxImage,
   Gallery: LightboxGallery,
+  Bind: LightboxBind,
   Context: LightboxContext,
 });
 
 export {
   Lightbox,
+  LightboxBind,
   LightboxGallery,
+  LightboxImage,
   useDialog as useLightbox,
   useDialogContext as useLightboxContext,
 };
-export type { LightboxGalleryProps };
+export type { LightboxBindProps, LightboxImageSelectDetails };
 export type {
   DialogFocusOutsideEvent as LightboxFocusOutsideEvent,
   DialogInteractOutsideEvent as LightboxInteractOutsideEvent,

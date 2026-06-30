@@ -1574,6 +1574,17 @@
   --lightbox-content-starting-scale: initial; /* 0.82 */
   --lightbox-content-starting-translate-x: initial; /* 0 */
   --lightbox-content-starting-translate-y: initial; /* 0 */
+  --lightbox-gallery-aspect-ratio: initial; /* 16 / 10 */
+  --lightbox-gallery-gap: initial; /* var(--spacing-4) */
+  --lightbox-gallery-max-width: initial; /* 72rem */
+  --lightbox-gallery-thumbnail-border-color: initial; /* var(--color-primary) */
+  --lightbox-gallery-thumbnail-height: initial; /* 3rem */
+  --lightbox-gallery-thumbnail-opacity: initial; /* 0.65 */
+  --lightbox-gallery-thumbnail-opacity-hover: initial; /* 0.9 */
+  --lightbox-gallery-thumbnail-radius: initial; /* var(--radius-md) */
+  --lightbox-gallery-thumbnail-width: initial; /* 5rem */
+  --lightbox-gallery-track-bg: initial; /* color-mix(in oklab, black 88%, var(--color-background) 12%) */
+  --lightbox-gallery-track-max-height: initial; /* 68dvh */
   --lightbox-media-max-height: initial; /* 80dvh */
   --lightbox-media-max-width: initial; /* 80vw */
   --lightbox-media-radius: initial; /* var(--radius-md) */
