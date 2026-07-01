@@ -1,0 +1,350 @@
+---
+title: TanStack Form
+description: Integrate moduix native and compound controls with TanStack Form.
+icon: Braces
+---
+
+import { TanStackFormExample } from '@/components/examples/forms';
+
+# TanStack Form
+
+TanStack Form fields are controlled. Pass `field.state.value` to the component, then map the
+component callback back to `field.handleChange`.
+
+```bash
+npm install @tanstack/react-form
+```
+
+## Mapping
+
+| Control                                         | TanStack Form wiring                                                   |
+| ----------------------------------------------- | ---------------------------------------------------------------------- |
+| `Field.Input`, `Field.Textarea`, `Field.Select` | Pass `field.state.value` and map the native change event.              |
+| `Select`                                        | Convert the scalar field value to and from Ark's string-array `value`. |
+| `Combobox`                                      | Use the same value mapping and keep filtering in `onInputValueChange`. |
+| `Checkbox`                                      | Map `details.checked === true` to the boolean field value.             |
+
+Define every field in `defaultValues`. Call `field.handleBlur` from the actual interaction
+boundary so touched state and blur validation remain accurate.
+
+For shared or cross-field validation, use a form-level Standard Schema validator. The component
+mapping below stays the same.
+
+## Complete form
+
+This example integrates `Input`, `Select`, `Combobox`, `Textarea`, and `Checkbox`, validates on
+submit, and uses `form.Subscribe` only for the submit state. `noValidate` keeps the demo's error
+flow inside TanStack Form; omit it when native browser validation should run first.
+
+<Preview>
+  <TanStackFormExample />
+
+  <Preview.Code>
+    {`
+      import { createListCollection, useListCollection } from "@ark-ui/react/collection";
+      import { useFilter } from "@ark-ui/react/locale";
+      import { useForm } from "@tanstack/react-form";
+      import {
+        Button,
+        Card,
+        Checkbox,
+        Combobox,
+        Field,
+        Portal,
+        Select,
+      } from "@moduix/react";
+
+      export function ProjectForm() {
+        const { contains } = useFilter({ sensitivity: "base" });
+        const { collection, filter } = useListCollection({
+          initialItems: people,
+          filter: contains,
+        });
+        const form = useForm({
+          defaultValues: {
+            name: "",
+            team: "",
+            reviewer: "",
+            summary: "",
+            notifications: false,
+          },
+          onSubmit: ({ value }) => console.log(value),
+        });
+
+        return (
+          <form
+            className="form"
+            noValidate
+            onSubmit={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              void form.handleSubmit();
+            }}
+          >
+            <Card>
+              <Card.Header>
+                <Card.Title>Create project</Card.Title>
+                <Card.Description>
+                  Share the details your team needs to get started.
+                </Card.Description>
+              </Card.Header>
+
+              <Card.Body className="fields">
+                <form.Field
+                  name="name"
+                  validators={{
+                    onSubmit: ({ value }) =>
+                      !value ? "Enter a project name." : undefined,
+                  }}
+                >
+                  {(field) => (
+                    <Field invalid={!field.state.meta.isValid} required>
+                      <Field.Label>
+                        Project name
+                        <Field.RequiredIndicator />
+                      </Field.Label>
+                      <Field.Input
+                        name={field.name}
+                        value={field.state.value}
+                        onChange={(event) =>
+                          field.handleChange(event.currentTarget.value)
+                        }
+                        onBlur={field.handleBlur}
+                      />
+                      <Field.ErrorText>
+                        {field.state.meta.errors.join(", ")}
+                      </Field.ErrorText>
+                    </Field>
+                  )}
+                </form.Field>
+
+              <form.Field
+                name="team"
+                validators={{
+                  onSubmit: ({ value }) =>
+                    !value ? "Choose a team." : undefined,
+                }}
+              >
+                {(field) => (
+                  <Field invalid={!field.state.meta.isValid} required>
+                    <Field.Label>
+                      Team
+                      <Field.RequiredIndicator />
+                    </Field.Label>
+                    <Select
+                      collection={teams}
+                      name={field.name}
+                      value={field.state.value ? [field.state.value] : []}
+                      onValueChange={(details) =>
+                        field.handleChange(details.value[0] ?? "")
+                      }
+                      onInteractOutside={field.handleBlur}
+                    >
+                      <Select.Control>
+                        <Select.Trigger>
+                          <Select.ValueText placeholder="Choose a team" />
+                        </Select.Trigger>
+                        <Select.Indicators>
+                          <Select.Indicator />
+                        </Select.Indicators>
+                      </Select.Control>
+                      <Portal>
+                        <Select.Positioner>
+                          <Select.Content>
+                            {teams.items.map((item) => (
+                              <Select.Item key={item.value} item={item}>
+                                <Select.ItemText>{item.label}</Select.ItemText>
+                                <Select.ItemIndicator />
+                              </Select.Item>
+                            ))}
+                          </Select.Content>
+                        </Select.Positioner>
+                      </Portal>
+                      <Select.HiddenSelect />
+                    </Select>
+                    <Field.ErrorText>
+                      {field.state.meta.errors.join(", ")}
+                    </Field.ErrorText>
+                  </Field>
+                )}
+              </form.Field>
+
+              <form.Field
+                name="reviewer"
+                validators={{
+                  onSubmit: ({ value }) =>
+                    !value ? "Choose a reviewer." : undefined,
+                }}
+              >
+                {(field) => (
+                  <Field invalid={!field.state.meta.isValid} required>
+                    <Field.Label>
+                      Reviewer
+                      <Field.RequiredIndicator />
+                    </Field.Label>
+                    <Combobox
+                      collection={collection}
+                      name={field.name}
+                      value={field.state.value ? [field.state.value] : []}
+                      onValueChange={(details) =>
+                        field.handleChange(details.value[0] ?? "")
+                      }
+                      onInputValueChange={(details) =>
+                        filter(details.inputValue)
+                      }
+                    >
+                      <Combobox.Control>
+                        <Combobox.Input
+                          onBlur={field.handleBlur}
+                          placeholder="Search people"
+                        />
+                        <Combobox.ClearTrigger aria-label="Clear reviewer" />
+                        <Combobox.Trigger aria-label="Open reviewers" />
+                      </Combobox.Control>
+                      <Portal>
+                        <Combobox.Positioner>
+                          <Combobox.Content>
+                            <Combobox.Empty>No reviewers found.</Combobox.Empty>
+                            <Combobox.List>
+                              {collection.items.map((item) => (
+                                <Combobox.Item key={item.value} item={item}>
+                                  <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                                  <Combobox.ItemIndicator />
+                                </Combobox.Item>
+                              ))}
+                            </Combobox.List>
+                          </Combobox.Content>
+                        </Combobox.Positioner>
+                      </Portal>
+                    </Combobox>
+                    <Field.ErrorText>
+                      {field.state.meta.errors.join(", ")}
+                    </Field.ErrorText>
+                  </Field>
+                )}
+              </form.Field>
+
+                <form.Field name="summary">
+                  {(field) => (
+                    <Field>
+                      <Field.Label>Summary</Field.Label>
+                      <Field.Textarea
+                        name={field.name}
+                        value={field.state.value}
+                        onChange={(event) =>
+                          field.handleChange(event.currentTarget.value)
+                        }
+                        onBlur={field.handleBlur}
+                        placeholder="What are you planning to build?"
+                        rows={3}
+                      />
+                    </Field>
+                  )}
+                </form.Field>
+
+                <form.Field name="notifications">
+                  {(field) => (
+                    <Checkbox
+                      name={field.name}
+                      checked={field.state.value}
+                      onCheckedChange={(details) =>
+                        field.handleChange(details.checked === true)
+                      }
+                    >
+                      <Checkbox.Control>
+                        <Checkbox.Indicator />
+                      </Checkbox.Control>
+                      <Checkbox.Label>Send status notifications</Checkbox.Label>
+                      <Checkbox.HiddenInput onBlur={field.handleBlur} />
+                    </Checkbox>
+                  )}
+                </form.Field>
+              </Card.Body>
+
+              <Card.Footer>
+                <form.Subscribe
+                  selector={(state) =>
+                    [state.canSubmit, state.isSubmitting] as const
+                  }
+                  children={([canSubmit, isSubmitting]) => (
+                    <Button
+                      className="submit"
+                      type="submit"
+                      disabled={!canSubmit}
+                    >
+                      {isSubmitting ? "Creating…" : "Create project"}
+                    </Button>
+                  )}
+                />
+              </Card.Footer>
+            </Card>
+          </form>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .form {
+        width: min(24rem, 100%);
+        margin-inline: auto;
+      }
+
+      .fields {
+        display: grid;
+        gap: var(--spacing-4);
+      }
+
+      .fields [data-slot="field-root"],
+      .fields [data-slot="select-root"],
+      .fields [data-slot="combobox-root"] {
+        width: 100%;
+      }
+
+      .fields [data-slot="select-root"] {
+        --select-width: 100%;
+      }
+
+      .fields [data-slot="combobox-root"] {
+        --combobox-width: 100%;
+      }
+
+      .submit {
+        width: 100%;
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const teams = createListCollection({
+        items: [
+          { label: "Platform", value: "platform" },
+          { label: "Product", value: "product" },
+          { label: "Design", value: "design" },
+        ],
+      });
+
+      const people = [
+        { label: "Ada Lovelace", value: "ada" },
+        { label: "Grace Hopper", value: "grace" },
+        { label: "Margaret Hamilton", value: "margaret" },
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+## Important details
+
+- For single selection, pass `field.state.value ? [field.state.value] : []` and read
+  `details.value[0] ?? ""`.
+- Call `field.handleBlur` from `Select.onInteractOutside` or `Combobox.Input.onBlur`.
+- Keep `Select.HiddenSelect` mounted for native semantics and reset synchronization.
+- Keep `Checkbox.HiddenInput` mounted and map its checked state to a boolean field value.
+- TanStack Form intentionally does not manage DOM focus. If you want to focus the first invalid
+  field, implement it in `onSubmitInvalid` using the rendered `aria-invalid` controls.
+- Use `form.Subscribe` for derived form state instead of reading `form.state` during render.

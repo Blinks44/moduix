@@ -19,6 +19,7 @@
     "@moduix/react": "*",
     "@shikijs/langs": "^4.3.0",
     "@shikijs/themes": "^4.3.0",
+    "@tanstack/react-form": "^1.33.0",
     "@tanstack/react-router": "^1.170.16",
     "@tanstack/react-start": "^1.168.26",
     "@tanstack/react-virtual": "^3.14.4",
@@ -29,6 +30,7 @@
     "lucide-react": "^1.21.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-hook-form": "^7.80.0",
     "shiki": "^4.3.0",
     "tailwind-merge": "^3.6.0"
   },

@@ -8,6 +8,10 @@
     "ark-ui-utilities",
     "animations",
     "tokens",
+    "---Forms---",
+    "forms",
+    "react-hook-form",
+    "tanstack-form",
     "---Components---",
     "..."
   ]
