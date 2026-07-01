@@ -66,7 +66,6 @@ presentation; the native form still owns submission, validation, and reset behav
         Portal,
         Select,
       } from "@moduix/react";
-      import type { FormEvent } from "react";
 
       export function NativeForm() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -75,13 +74,16 @@ presentation; the native form still owns submission, validation, and reset behav
           filter: contains,
         });
 
-        function handleSubmit(event: FormEvent<HTMLFormElement>) {
-          event.preventDefault();
-          console.log(Object.fromEntries(new FormData(event.currentTarget)));
-        }
-
         return (
-          <form className="form" onSubmit={handleSubmit}>
+          <form
+            className="form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              console.log(
+                Object.fromEntries(new FormData(event.currentTarget)),
+              );
+            }}
+          >
             <Card>
               <Card.Header>
                 <Card.Title>Create project</Card.Title>
@@ -242,6 +244,7 @@ presentation; the native form still owns submission, validation, and reset behav
         { label: "Ada Lovelace", value: "ada" },
         { label: "Grace Hopper", value: "grace" },
         { label: "Margaret Hamilton", value: "margaret" },
+        { label: "Radia Perlman", value: "radia" },
       ];
     `}
 

@@ -1,0 +1,55 @@
+---
+title: Collections
+description: Data structures and React hooks from Ark UI for list, tree, async, and selection workflows.
+icon: Database
+---
+
+# Collections
+
+Collections are the data layer behind Ark list-style components. They are not styled moduix
+components; import them directly from Ark UI when working with `Select`, `Combobox`, `Listbox`,
+`TreeView`, or custom collection-based interfaces.
+
+Because application code imports Ark UI directly, declare it as a direct dependency:
+
+```bash
+npm install @ark-ui/react
+```
+
+All collection APIs covered in this section use the React collection entry point:
+
+```tsx
+import { createListCollection } from '@ark-ui/react/collection';
+```
+
+## Overview
+
+| Page                                     | Use it for                                                                                              |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| [List Collection](/docs/list-collection) | Array-backed option data with value lookup, traversal, grouping, disabled items, and immutable updates. |
+| [Tree Collection](/docs/tree-collection) | Hierarchical data with parent/child queries, traversal, filtering, and immutable tree operations.       |
+| [Async List](/docs/async-list)           | Loading, filtering, sorting, pagination, request cancellation, and error state for remote list data.    |
+| [List Selection](/docs/list-selection)   | Single, multiple, deselectable, and range-style selection state for custom list interfaces.             |
+
+## Choosing the right collection
+
+- Start with `createListCollection` for a fixed array of options.
+- Use `useListCollection` when the list must be filtered or changed from React state.
+- Use `createTreeCollection` for nested data.
+- Use `useAsyncList` when a server owns loading, filtering, sorting, or pagination.
+- Use `useListSelection` for selection in a custom list. Moduix collection components already own
+  their selection state.
+
+Collections normalize item identity and text, but they do not render UI. Pass the resulting
+collection to the relevant moduix component:
+
+- [Select](/docs/select)
+- [Combobox](/docs/combobox)
+- [Listbox](/docs/listbox)
+- [Tree View](/docs/tree-view)
+
+## Ownership boundary
+
+Ark UI owns these APIs and their release lifecycle. moduix accepts the resulting collection
+objects without wrapping or re-exporting them. The following pages document the complete workflow
+needed by moduix consumers and link to the matching Ark reference at the top.

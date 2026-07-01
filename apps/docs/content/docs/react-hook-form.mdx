@@ -73,14 +73,14 @@ you intentionally want the browser's native validation UI.
           handleSubmit,
           register,
           formState: { errors },
-        } = useForm<FormValues>({
+        } = useForm({
           defaultValues: {
             name: "",
             team: "",
             reviewer: "",
             summary: "",
             notifications: false,
-          },
+          } as FormValues,
         });
 
         return (
@@ -111,104 +111,106 @@ you intentionally want the browser's native validation UI.
                   <Field.ErrorText>{errors.name?.message}</Field.ErrorText>
                 </Field>
 
-              <Controller
-                name="team"
-                control={control}
-                rules={{ required: "Choose a team." }}
-                render={({ field, fieldState }) => (
-                  <Field invalid={fieldState.invalid} required>
-                    <Field.Label>
-                      Team
-                      <Field.RequiredIndicator />
-                    </Field.Label>
-                    <Select
-                      collection={teams}
-                      name={field.name}
-                      value={field.value ? [field.value] : []}
-                      onValueChange={(details) =>
-                        field.onChange(details.value[0] ?? "")
-                      }
-                      onInteractOutside={field.onBlur}
-                    >
-                      <Select.Control>
-                        <Select.Trigger ref={field.ref}>
-                          <Select.ValueText placeholder="Choose a team" />
-                        </Select.Trigger>
-                        <Select.Indicators>
-                          <Select.Indicator />
-                        </Select.Indicators>
-                      </Select.Control>
-                      <Portal>
-                        <Select.Positioner>
-                          <Select.Content>
-                            {teams.items.map((item) => (
-                              <Select.Item key={item.value} item={item}>
-                                <Select.ItemText>{item.label}</Select.ItemText>
-                                <Select.ItemIndicator />
-                              </Select.Item>
-                            ))}
-                          </Select.Content>
-                        </Select.Positioner>
-                      </Portal>
-                      <Select.HiddenSelect />
-                    </Select>
-                    <Field.ErrorText>{fieldState.error?.message}</Field.ErrorText>
-                  </Field>
-                )}
-              />
-
-              <Controller
-                name="reviewer"
-                control={control}
-                rules={{ required: "Choose a reviewer." }}
-                render={({ field, fieldState }) => (
-                  <Field invalid={fieldState.invalid} required>
-                    <Field.Label>
-                      Reviewer
-                      <Field.RequiredIndicator />
-                    </Field.Label>
-                    <Combobox
-                      collection={collection}
-                      name={field.name}
-                      value={field.value ? [field.value] : []}
-                      onValueChange={(details) =>
-                        field.onChange(details.value[0] ?? "")
-                      }
-                      onInputValueChange={(details) =>
-                        filter(details.inputValue)
-                      }
-                    >
-                      <Combobox.Control>
-                        <Combobox.Input
-                          ref={field.ref}
-                          onBlur={field.onBlur}
-                          placeholder="Search people"
-                        />
-                        <Combobox.ClearTrigger aria-label="Clear reviewer" />
-                        <Combobox.Trigger aria-label="Open reviewers" />
-                      </Combobox.Control>
-                      <Portal>
-                        <Combobox.Positioner>
-                          <Combobox.Content>
-                            <Combobox.Empty>No reviewers found.</Combobox.Empty>
-                            <Combobox.List>
-                              {collection.items.map((item) => (
-                                <Combobox.Item key={item.value} item={item}>
-                                  <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                                  <Combobox.ItemIndicator />
-                                </Combobox.Item>
+                <Controller
+                  name="team"
+                  control={control}
+                  rules={{ required: "Choose a team." }}
+                  render={({ field, fieldState }) => (
+                    <Field invalid={fieldState.invalid} required>
+                      <Field.Label>
+                        Team
+                        <Field.RequiredIndicator />
+                      </Field.Label>
+                      <Select
+                        collection={teams}
+                        name={field.name}
+                        value={field.value ? [field.value] : []}
+                        onValueChange={(details) =>
+                          field.onChange(details.value[0] ?? "")
+                        }
+                        onInteractOutside={field.onBlur}
+                      >
+                        <Select.Control>
+                          <Select.Trigger ref={field.ref}>
+                            <Select.ValueText placeholder="Choose a team" />
+                          </Select.Trigger>
+                          <Select.Indicators>
+                            <Select.Indicator />
+                          </Select.Indicators>
+                        </Select.Control>
+                        <Portal>
+                          <Select.Positioner>
+                            <Select.Content>
+                              {teams.items.map((item) => (
+                                <Select.Item key={item.value} item={item}>
+                                  <Select.ItemText>{item.label}</Select.ItemText>
+                                  <Select.ItemIndicator />
+                                </Select.Item>
                               ))}
-                            </Combobox.List>
-                          </Combobox.Content>
-                        </Combobox.Positioner>
-                      </Portal>
-                    </Combobox>
-                    <Field.ErrorText>
-                      {fieldState.error?.message}
-                    </Field.ErrorText>
-                  </Field>
-                )}
-              />
+                            </Select.Content>
+                          </Select.Positioner>
+                        </Portal>
+                        <Select.HiddenSelect />
+                      </Select>
+                      <Field.ErrorText>
+                        {fieldState.error?.message}
+                      </Field.ErrorText>
+                    </Field>
+                  )}
+                />
+
+                <Controller
+                  name="reviewer"
+                  control={control}
+                  rules={{ required: "Choose a reviewer." }}
+                  render={({ field, fieldState }) => (
+                    <Field invalid={fieldState.invalid} required>
+                      <Field.Label>
+                        Reviewer
+                        <Field.RequiredIndicator />
+                      </Field.Label>
+                      <Combobox
+                        collection={collection}
+                        name={field.name}
+                        value={field.value ? [field.value] : []}
+                        onValueChange={(details) =>
+                          field.onChange(details.value[0] ?? "")
+                        }
+                        onInputValueChange={(details) =>
+                          filter(details.inputValue)
+                        }
+                      >
+                        <Combobox.Control>
+                          <Combobox.Input
+                            ref={field.ref}
+                            onBlur={field.onBlur}
+                            placeholder="Search people"
+                          />
+                          <Combobox.ClearTrigger aria-label="Clear reviewer" />
+                          <Combobox.Trigger aria-label="Open reviewers" />
+                        </Combobox.Control>
+                        <Portal>
+                          <Combobox.Positioner>
+                            <Combobox.Content>
+                              <Combobox.Empty>No reviewers found.</Combobox.Empty>
+                              <Combobox.List>
+                                {collection.items.map((item) => (
+                                  <Combobox.Item key={item.value} item={item}>
+                                    <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                                    <Combobox.ItemIndicator />
+                                  </Combobox.Item>
+                                ))}
+                              </Combobox.List>
+                            </Combobox.Content>
+                          </Combobox.Positioner>
+                        </Portal>
+                      </Combobox>
+                      <Field.ErrorText>
+                        {fieldState.error?.message}
+                      </Field.ErrorText>
+                    </Field>
+                  )}
+                />
 
                 <Field>
                   <Field.Label>Summary</Field.Label>
@@ -303,6 +305,7 @@ you intentionally want the browser's native validation UI.
         { label: "Ada Lovelace", value: "ada" },
         { label: "Grace Hopper", value: "grace" },
         { label: "Margaret Hamilton", value: "margaret" },
+        { label: "Radia Perlman", value: "radia" },
       ];
     `}
 
