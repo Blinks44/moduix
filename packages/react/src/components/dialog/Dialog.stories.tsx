@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Portal } from '@ark-ui/react/portal';
 import { useRef, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import { Button } from '../button';
@@ -22,12 +21,12 @@ type Story = StoryObj<typeof meta>;
 
 function DialogSurface({ children }: { children: React.ReactNode }) {
   return (
-    <Portal>
+    <>
       <Dialog.Backdrop />
       <Dialog.Positioner>
         <Dialog.Content>{children}</Dialog.Content>
       </Dialog.Positioner>
-    </Portal>
+    </>
   );
 }
 
@@ -150,40 +149,38 @@ export const ScrollableBody: Story = {
       <Dialog.Trigger asChild>
         <Button>Open long content</Button>
       </Dialog.Trigger>
-      <Portal>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content className={storyStyles.scrollContent}>
-            <Dialog.Header>
-              <Dialog.Title>Release checklist</Dialog.Title>
-              <Dialog.CloseIcon />
-              <Dialog.Description>
-                Review all items before publishing to production.
-              </Dialog.Description>
-            </Dialog.Header>
-            <Dialog.Body className={storyStyles.scrollBody}>
-              <ScrollArea className={storyStyles.scrollArea}>
-                <ScrollArea.Viewport>
-                  <ScrollArea.Content>
-                    <div className={storyStyles.scrollSections}>
-                      {insideScrollSections.map((item) => (
-                        <section key={item.title}>
-                          <h3>{item.title}</h3>
-                          <p>{item.body}</p>
-                        </section>
-                      ))}
-                    </div>
-                  </ScrollArea.Content>
-                </ScrollArea.Viewport>
-                <ScrollArea.Scrollbar>
-                  <ScrollArea.Thumb />
-                </ScrollArea.Scrollbar>
-                <ScrollArea.Corner />
-              </ScrollArea>
-            </Dialog.Body>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Portal>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content className={storyStyles.scrollContent}>
+          <Dialog.Header>
+            <Dialog.Title>Release checklist</Dialog.Title>
+            <Dialog.CloseIcon />
+            <Dialog.Description>
+              Review all items before publishing to production.
+            </Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Body className={storyStyles.scrollBody}>
+            <ScrollArea className={storyStyles.scrollArea}>
+              <ScrollArea.Viewport>
+                <ScrollArea.Content>
+                  <div className={storyStyles.scrollSections}>
+                    {insideScrollSections.map((item) => (
+                      <section key={item.title}>
+                        <h3>{item.title}</h3>
+                        <p>{item.body}</p>
+                      </section>
+                    ))}
+                  </div>
+                </ScrollArea.Content>
+              </ScrollArea.Viewport>
+              <ScrollArea.Scrollbar>
+                <ScrollArea.Thumb />
+              </ScrollArea.Scrollbar>
+              <ScrollArea.Corner />
+            </ScrollArea>
+          </Dialog.Body>
+        </Dialog.Content>
+      </Dialog.Positioner>
     </Dialog.Root>
   ),
 };
@@ -223,17 +220,15 @@ export const NonModal: Story = {
       <Dialog.Trigger asChild>
         <Button>Open non-modal dialog</Button>
       </Dialog.Trigger>
-      <Portal>
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Non-modal dialog</Dialog.Title>
-            <Dialog.CloseIcon />
-            <Dialog.Description>
-              The page remains interactive while this dialog is open.
-            </Dialog.Description>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Portal>
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Title>Non-modal dialog</Dialog.Title>
+          <Dialog.CloseIcon />
+          <Dialog.Description>
+            The page remains interactive while this dialog is open.
+          </Dialog.Description>
+        </Dialog.Content>
+      </Dialog.Positioner>
     </Dialog.Root>
   ),
 };

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { createListCollection } from '@ark-ui/react/collection';
-import { Portal } from '@ark-ui/react/portal';
 import { today } from '@internationalized/date';
 import { useState } from 'react';
 import { Button } from '../button';
@@ -262,13 +261,11 @@ function DatePickerViews({ showWeekNumbers = false }: { showWeekNumbers?: boolea
 
 function DatePickerPopup({ showWeekNumbers = false }: { showWeekNumbers?: boolean }) {
   return (
-    <Portal>
-      <DatePicker.Positioner>
-        <DatePicker.Content>
-          <DatePickerViews showWeekNumbers={showWeekNumbers} />
-        </DatePicker.Content>
-      </DatePicker.Positioner>
-    </Portal>
+    <DatePicker.Positioner>
+      <DatePicker.Content>
+        <DatePickerViews showWeekNumbers={showWeekNumbers} />
+      </DatePicker.Content>
+    </DatePicker.Positioner>
   );
 }
 
@@ -359,20 +356,18 @@ function DatePickerSelectContent({ items }: { items: DatePickerSelectItem[] }) {
     <Select.Context>
       {(select) =>
         select.open ? (
-          <Portal>
-            <Select.Positioner>
-              <Select.Content>
-                <Select.List>
-                  {items.map((item) => (
-                    <Select.Item key={item.value} item={item}>
-                      <Select.ItemText>{item.label}</Select.ItemText>
-                      <Select.ItemIndicator />
-                    </Select.Item>
-                  ))}
-                </Select.List>
-              </Select.Content>
-            </Select.Positioner>
-          </Portal>
+          <Select.Positioner>
+            <Select.Content>
+              <Select.List>
+                {items.map((item) => (
+                  <Select.Item key={item.value} item={item}>
+                    <Select.ItemText>{item.label}</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                ))}
+              </Select.List>
+            </Select.Content>
+          </Select.Positioner>
         ) : null
       }
     </Select.Context>
@@ -496,11 +491,9 @@ export const MultipleMonths: Story = {
     <DatePicker defaultValue={[parseDate('2026-06-22')]} numOfMonths={2}>
       <DatePicker.Label>Planning window</DatePicker.Label>
       <DatePickerField />
-      <Portal>
-        <DatePicker.Positioner>
-          <MultipleMonthsDatePickerContent />
-        </DatePicker.Positioner>
-      </Portal>
+      <DatePicker.Positioner>
+        <MultipleMonthsDatePickerContent />
+      </DatePicker.Positioner>
     </DatePicker>
   ),
 };
@@ -510,22 +503,20 @@ export const MonthAndYearSelect: Story = {
     <DatePicker defaultValue={[parseDate('2026-06-22')]}>
       <DatePicker.Label>Report date</DatePicker.Label>
       <DatePickerField />
-      <Portal>
-        <DatePicker.Positioner>
-          <DatePicker.Content>
-            <DatePicker.ViewControl className={storyStyles.monthYearControl}>
-              <MonthYearPickerSelects />
-              <div className={storyStyles.monthYearNav}>
-                <DatePicker.PrevTrigger />
-                <DatePicker.NextTrigger />
-              </div>
-            </DatePicker.ViewControl>
-            <DatePicker.View view="day">
-              <DatePickerDayTable showHeader={false} />
-            </DatePicker.View>
-          </DatePicker.Content>
-        </DatePicker.Positioner>
-      </Portal>
+      <DatePicker.Positioner>
+        <DatePicker.Content>
+          <DatePicker.ViewControl className={storyStyles.monthYearControl}>
+            <MonthYearPickerSelects />
+            <div className={storyStyles.monthYearNav}>
+              <DatePicker.PrevTrigger />
+              <DatePicker.NextTrigger />
+            </div>
+          </DatePicker.ViewControl>
+          <DatePicker.View view="day">
+            <DatePickerDayTable showHeader={false} />
+          </DatePicker.View>
+        </DatePicker.Content>
+      </DatePicker.Positioner>
     </DatePicker>
   ),
 };
@@ -565,17 +556,15 @@ export const Presets: Story = {
     <DatePicker selectionMode="range">
       <DatePicker.Label>Preset range</DatePicker.Label>
       <DatePickerField indexes={[0, 1]} />
-      <Portal>
-        <DatePicker.Positioner>
-          <DatePicker.Content>
-            <div className={storyStyles.presets}>
-              <DatePicker.PresetTrigger value="last7Days">Last 7 days</DatePicker.PresetTrigger>
-              <DatePicker.PresetTrigger value="last30Days">Last 30 days</DatePicker.PresetTrigger>
-            </div>
-            <DatePickerViews />
-          </DatePicker.Content>
-        </DatePicker.Positioner>
-      </Portal>
+      <DatePicker.Positioner>
+        <DatePicker.Content>
+          <div className={storyStyles.presets}>
+            <DatePicker.PresetTrigger value="last7Days">Last 7 days</DatePicker.PresetTrigger>
+            <DatePicker.PresetTrigger value="last30Days">Last 30 days</DatePicker.PresetTrigger>
+          </div>
+          <DatePickerViews />
+        </DatePicker.Content>
+      </DatePicker.Positioner>
     </DatePicker>
   ),
 };

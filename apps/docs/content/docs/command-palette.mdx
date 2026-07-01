@@ -32,7 +32,6 @@ Use the explicit dialog structure and place `CommandPalette.Combobox` inside `Co
       import {
         Button,
         CommandPalette,
-        Portal,
       } from "@moduix/react";
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
@@ -60,55 +59,53 @@ Use the explicit dialog structure and place `CommandPalette.Combobox` inside `Co
             <CommandPalette.Trigger asChild>
               <Button>Open palette</Button>
             </CommandPalette.Trigger>
-            <Portal>
-              <CommandPalette.Backdrop />
-              <CommandPalette.Positioner>
-                <CommandPalette.Content className="commandPalette">
-                  <CommandPalette.Combobox
-                    collection={collection}
-                    onInputValueChange={(details) => filter(details.inputValue)}
-                  >
-                    <CommandPalette.Control>
-                      <CommandPalette.Input
-                        aria-label="Search commands"
-                        placeholder="Search commands, pages, and settings..."
-                      />
-                      <CommandPalette.ClearTrigger aria-label="Clear search" />
-                    </CommandPalette.Control>
-                    <CommandPalette.List>
-                      <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
-                      {collection.group().map(([section, items]) => (
-                        <CommandPalette.ItemGroup key={section}>
-                          <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
-                          {items.map((item) => (
-                            <CommandPalette.Item key={item.id} item={item}>
-                              <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
-                              <CommandPalette.ItemText>
-                                <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                                <CommandPalette.ItemDescription>
-                                  {item.description}
-                                </CommandPalette.ItemDescription>
-                              </CommandPalette.ItemText>
-                              {item.shortcut ? (
-                                <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
-                              ) : null}
-                            </CommandPalette.Item>
-                          ))}
-                        </CommandPalette.ItemGroup>
-                      ))}
-                    </CommandPalette.List>
-                    <CommandPalette.Footer>
-                      <span>
-                        <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
-                      </span>
-                      <span>
-                        <CommandPalette.Kbd>Esc</CommandPalette.Kbd> close
-                      </span>
-                    </CommandPalette.Footer>
-                  </CommandPalette.Combobox>
-                </CommandPalette.Content>
-              </CommandPalette.Positioner>
-            </Portal>
+            <CommandPalette.Backdrop />
+            <CommandPalette.Positioner>
+              <CommandPalette.Content className="commandPalette">
+                <CommandPalette.Combobox
+                  collection={collection}
+                  onInputValueChange={(details) => filter(details.inputValue)}
+                >
+                  <CommandPalette.Control>
+                    <CommandPalette.Input
+                      aria-label="Search commands"
+                      placeholder="Search commands, pages, and settings..."
+                    />
+                    <CommandPalette.ClearTrigger aria-label="Clear search" />
+                  </CommandPalette.Control>
+                  <CommandPalette.List>
+                    <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+                    {collection.group().map(([section, items]) => (
+                      <CommandPalette.ItemGroup key={section}>
+                        <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+                        {items.map((item) => (
+                          <CommandPalette.Item key={item.id} item={item}>
+                            <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
+                            <CommandPalette.ItemText>
+                              <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
+                              <CommandPalette.ItemDescription>
+                                {item.description}
+                              </CommandPalette.ItemDescription>
+                            </CommandPalette.ItemText>
+                            {item.shortcut ? (
+                              <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
+                            ) : null}
+                          </CommandPalette.Item>
+                        ))}
+                      </CommandPalette.ItemGroup>
+                    ))}
+                  </CommandPalette.List>
+                  <CommandPalette.Footer>
+                    <span>
+                      <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
+                    </span>
+                    <span>
+                      <CommandPalette.Kbd>Esc</CommandPalette.Kbd> close
+                    </span>
+                  </CommandPalette.Footer>
+                </CommandPalette.Combobox>
+              </CommandPalette.Content>
+            </CommandPalette.Positioner>
           </CommandPalette>
         );
       }
@@ -196,7 +193,7 @@ aubx shadcn@latest add Blinks44/moduix/react-command-palette
 ```text
 CommandPalette / CommandPalette.Root
 ├─ CommandPalette.Trigger
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    ├─ CommandPalette.Backdrop
    └─ CommandPalette.Positioner
       └─ CommandPalette.Content
@@ -219,7 +216,6 @@ CommandPalette / CommandPalette.Root
 | --------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | `CommandPalette` / `CommandPalette.Root`                              | Ark Dialog root plus optional global shortcut listener.              |
 | `CommandPalette.Trigger`                                              | Ark Dialog trigger; use `asChild` for custom trigger hosts.          |
-| `Portal`                                                              | Ark Portal for the overlay subtree.                                  |
 | `CommandPalette.Backdrop`                                             | Ark Dialog backdrop with `data-state` animations.                    |
 | `CommandPalette.Positioner`                                           | Ark Dialog positioner for viewport alignment and scroll containment. |
 | `CommandPalette.Content`                                              | Ark Dialog content and visual palette surface.                       |
@@ -237,9 +233,11 @@ CommandPalette / CommandPalette.Root
 
 ## Composition
 
+The root portals `Backdrop` and `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+
 ### Recommended composition
 
-Use `useListCollection` with `itemToString`, `itemToValue`, and `groupBy`, then call `filter(details.inputValue)` from `CommandPalette.Combobox` `onInputValueChange`. Keep `Portal`, `Backdrop`, `Positioner`, and `Content` explicit so overlay structure stays overrideable.
+Use `useListCollection` with `itemToString`, `itemToValue`, and `groupBy`, then call `filter(details.inputValue)` from `CommandPalette.Combobox` `onInputValueChange`. Keep `Backdrop`, `Positioner`, and `Content` explicit so overlay structure stays overrideable.
 
 ### When to go custom
 
@@ -277,7 +275,6 @@ Attach execution behavior to items and let `CommandPalette.Combobox` close the d
       import {
         Button,
         CommandPalette,
-        Portal,
       } from "@moduix/react";
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
@@ -310,56 +307,54 @@ Attach execution behavior to items and let `CommandPalette.Combobox` close the d
             <CommandPalette.Trigger asChild>
               <Button>Open actions palette</Button>
             </CommandPalette.Trigger>
-            <Portal>
-              <CommandPalette.Backdrop />
-              <CommandPalette.Positioner>
-                <CommandPalette.Content>
-                  <CommandPalette.Combobox
-                    collection={collection}
-                    onInputValueChange={(details) => filter(details.inputValue)}
-                    onSelect={(details) => {
-                      const selectedItem = collection.items.find((item) => item.id === details.itemValue);
-                      selectedItem?.onSelect();
-                    }}
-                  >
-                    <CommandPalette.Control>
-                      <CommandPalette.Input
-                        aria-label="Search commands"
-                        placeholder="Search and run commands..."
-                      />
-                      <CommandPalette.ClearTrigger aria-label="Clear search" />
-                    </CommandPalette.Control>
-                    <CommandPalette.List>
-                      <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
-                      {collection.group().map(([section, items]) => (
-                        <CommandPalette.ItemGroup key={section}>
-                          <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
-                          {items.map((item) => (
-                            <CommandPalette.Item key={item.id} item={item}>
-                              <CommandPalette.ItemText>
-                                <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                                <CommandPalette.ItemDescription>
-                                  {item.description}
-                                </CommandPalette.ItemDescription>
-                              </CommandPalette.ItemText>
-                              {item.shortcut ? (
-                                <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
-                              ) : null}
-                            </CommandPalette.Item>
-                          ))}
-                        </CommandPalette.ItemGroup>
-                      ))}
-                    </CommandPalette.List>
-                    <CommandPalette.Footer>
-                      <span>
-                        <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
-                      </span>
-                      <span>{lastAction}</span>
-                    </CommandPalette.Footer>
-                  </CommandPalette.Combobox>
-                </CommandPalette.Content>
-              </CommandPalette.Positioner>
-            </Portal>
+            <CommandPalette.Backdrop />
+            <CommandPalette.Positioner>
+              <CommandPalette.Content>
+                <CommandPalette.Combobox
+                  collection={collection}
+                  onInputValueChange={(details) => filter(details.inputValue)}
+                  onSelect={(details) => {
+                    const selectedItem = collection.items.find((item) => item.id === details.itemValue);
+                    selectedItem?.onSelect();
+                  }}
+                >
+                  <CommandPalette.Control>
+                    <CommandPalette.Input
+                      aria-label="Search commands"
+                      placeholder="Search and run commands..."
+                    />
+                    <CommandPalette.ClearTrigger aria-label="Clear search" />
+                  </CommandPalette.Control>
+                  <CommandPalette.List>
+                    <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+                    {collection.group().map(([section, items]) => (
+                      <CommandPalette.ItemGroup key={section}>
+                        <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+                        {items.map((item) => (
+                          <CommandPalette.Item key={item.id} item={item}>
+                            <CommandPalette.ItemText>
+                              <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
+                              <CommandPalette.ItemDescription>
+                                {item.description}
+                              </CommandPalette.ItemDescription>
+                            </CommandPalette.ItemText>
+                            {item.shortcut ? (
+                              <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
+                            ) : null}
+                          </CommandPalette.Item>
+                        ))}
+                      </CommandPalette.ItemGroup>
+                    ))}
+                  </CommandPalette.List>
+                  <CommandPalette.Footer>
+                    <span>
+                      <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
+                    </span>
+                    <span>{lastAction}</span>
+                  </CommandPalette.Footer>
+                </CommandPalette.Combobox>
+              </CommandPalette.Content>
+            </CommandPalette.Positioner>
           </CommandPalette>
         );
       }
@@ -402,7 +397,6 @@ Control `open` from React state when the palette must coordinate with surroundin
       import {
         Button,
         CommandPalette,
-        Portal,
       } from "@moduix/react";
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
@@ -435,43 +429,41 @@ Control `open` from React state when the palette must coordinate with surroundin
                 }
               }}
             >
-              <Portal>
-                <CommandPalette.Backdrop />
-                <CommandPalette.Positioner>
-                  <CommandPalette.Content className="commandPalette">
-                    <CommandPalette.Combobox
-                      collection={collection}
-                      onInputValueChange={(details) => filter(details.inputValue)}
-                    >
-                      <CommandPalette.Control>
-                        <CommandPalette.Input
-                          aria-label="Search commands"
-                          placeholder="Search controlled commands..."
-                        />
-                        <CommandPalette.ClearTrigger aria-label="Clear search" />
-                      </CommandPalette.Control>
-                      <CommandPalette.List>
-                        <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
-                        {collection.group().map(([section, items]) => (
-                          <CommandPalette.ItemGroup key={section}>
-                            <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
-                            {items.map((item) => (
-                              <CommandPalette.Item key={item.id} item={item}>
-                                <CommandPalette.ItemText>
-                                  <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                                  <CommandPalette.ItemDescription>
-                                    {item.description}
-                                  </CommandPalette.ItemDescription>
-                                </CommandPalette.ItemText>
-                              </CommandPalette.Item>
-                            ))}
-                          </CommandPalette.ItemGroup>
-                        ))}
-                      </CommandPalette.List>
-                    </CommandPalette.Combobox>
-                  </CommandPalette.Content>
-                </CommandPalette.Positioner>
-              </Portal>
+              <CommandPalette.Backdrop />
+              <CommandPalette.Positioner>
+                <CommandPalette.Content className="commandPalette">
+                  <CommandPalette.Combobox
+                    collection={collection}
+                    onInputValueChange={(details) => filter(details.inputValue)}
+                  >
+                    <CommandPalette.Control>
+                      <CommandPalette.Input
+                        aria-label="Search commands"
+                        placeholder="Search controlled commands..."
+                      />
+                      <CommandPalette.ClearTrigger aria-label="Clear search" />
+                    </CommandPalette.Control>
+                    <CommandPalette.List>
+                      <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+                      {collection.group().map(([section, items]) => (
+                        <CommandPalette.ItemGroup key={section}>
+                          <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+                          {items.map((item) => (
+                            <CommandPalette.Item key={item.id} item={item}>
+                              <CommandPalette.ItemText>
+                                <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
+                                <CommandPalette.ItemDescription>
+                                  {item.description}
+                                </CommandPalette.ItemDescription>
+                              </CommandPalette.ItemText>
+                            </CommandPalette.Item>
+                          ))}
+                        </CommandPalette.ItemGroup>
+                      ))}
+                    </CommandPalette.List>
+                  </CommandPalette.Combobox>
+                </CommandPalette.Content>
+              </CommandPalette.Positioner>
             </CommandPalette>
           </>
         );
@@ -520,7 +512,6 @@ Enable the listener when a palette should open from a global command key. The li
       import {
         Button,
         CommandPalette,
-        Portal,
       } from "@moduix/react";
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
@@ -547,30 +538,28 @@ Enable the listener when a palette should open from a global command key. The li
             <CommandPalette.Trigger asChild>
               <Button>Open palette</Button>
             </CommandPalette.Trigger>
-            <Portal>
-              <CommandPalette.Backdrop />
-              <CommandPalette.Positioner>
-                <CommandPalette.Content>
-                  <CommandPalette.Combobox
-                    collection={collection}
-                    onInputValueChange={(details) => filter(details.inputValue)}
-                  >
-                    <CommandPalette.Control>
-                      <CommandPalette.Input aria-label="Search commands" />
-                      <CommandPalette.ClearTrigger aria-label="Clear search" />
-                    </CommandPalette.Control>
-                    <CommandPalette.List>
-                      <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
-                      {collection.items.map((item) => (
-                        <CommandPalette.Item key={item.id} item={item}>
-                          <CommandPalette.ItemText>{item.label}</CommandPalette.ItemText>
-                        </CommandPalette.Item>
-                      ))}
-                    </CommandPalette.List>
-                  </CommandPalette.Combobox>
-                </CommandPalette.Content>
-              </CommandPalette.Positioner>
-            </Portal>
+            <CommandPalette.Backdrop />
+            <CommandPalette.Positioner>
+              <CommandPalette.Content>
+                <CommandPalette.Combobox
+                  collection={collection}
+                  onInputValueChange={(details) => filter(details.inputValue)}
+                >
+                  <CommandPalette.Control>
+                    <CommandPalette.Input aria-label="Search commands" />
+                    <CommandPalette.ClearTrigger aria-label="Clear search" />
+                  </CommandPalette.Control>
+                  <CommandPalette.List>
+                    <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+                    {collection.items.map((item) => (
+                      <CommandPalette.Item key={item.id} item={item}>
+                        <CommandPalette.ItemText>{item.label}</CommandPalette.ItemText>
+                      </CommandPalette.Item>
+                    ))}
+                  </CommandPalette.List>
+                </CommandPalette.Combobox>
+              </CommandPalette.Content>
+            </CommandPalette.Positioner>
           </CommandPalette>
         );
       }

@@ -34,7 +34,7 @@ settings.
   <Preview.Code>
     {`
       import type { TourStepDetails } from "@moduix/react";
-      import { Button, CloseIcon, Portal, Tour, useTour } from "@moduix/react";
+      import { Button, CloseIcon, Tour, useTour } from "@moduix/react";
 
       export function TourDemo() {
         const tour = useTour({ steps });
@@ -45,30 +45,28 @@ settings.
             <Button id="tour-basic-upload" variant="outline">Upload</Button>
 
             <Tour tour={tour} lazyMount unmountOnExit>
-              <Portal>
-                <Tour.Backdrop />
-                <Tour.Spotlight />
-                <Tour.Positioner>
-                  <Tour.Content>
-                    <Tour.Arrow />
-                    <Tour.CloseTrigger>
-                      <CloseIcon />
-                    </Tour.CloseTrigger>
-                    <Tour.Title />
-                    <Tour.Description />
-                    <Tour.ProgressText />
-                    <Tour.Control>
-                      <Tour.Actions>
-                        {(actions) =>
-                          actions.map((action) => (
-                            <Tour.ActionTrigger key={action.label} action={action} />
-                          ))
-                        }
-                      </Tour.Actions>
-                    </Tour.Control>
-                  </Tour.Content>
-                </Tour.Positioner>
-              </Portal>
+              <Tour.Backdrop />
+              <Tour.Spotlight />
+              <Tour.Positioner>
+                <Tour.Content>
+                  <Tour.Arrow />
+                  <Tour.CloseTrigger>
+                    <CloseIcon />
+                  </Tour.CloseTrigger>
+                  <Tour.Title />
+                  <Tour.Description />
+                  <Tour.ProgressText />
+                  <Tour.Control>
+                    <Tour.Actions>
+                      {(actions) =>
+                        actions.map((action) => (
+                          <Tour.ActionTrigger key={action.label} action={action} />
+                        ))
+                      }
+                    </Tour.Actions>
+                  </Tour.Control>
+                </Tour.Content>
+              </Tour.Positioner>
             </Tour>
           </>
         );
@@ -177,7 +175,7 @@ aubx shadcn@latest add Blinks44/moduix/react-tour
 
 ```text
 Tour / Tour.Root
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    ├─ Tour.Backdrop
    ├─ Tour.Spotlight
    └─ Tour.Positioner
@@ -212,9 +210,12 @@ Tour / Tour.Root
 
 ## Composition
 
+`Tour.Root` portals `Backdrop`, `Spotlight`, and `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; all structural parts remain explicit and styleable.
+
 ### Recommended composition
 
-Use `useTour({ steps })` as the state owner and render the structural parts inside `Portal`.
+Use `useTour({ steps })` as the state owner and render the structural parts directly under
+`Tour.Root`; the root handles their portal boundary.
 Moduix adds default styling, `data-slot` hooks, and a default `ArrowTip`, but it does not hide the
 overlay tree behind a content shortcut.
 

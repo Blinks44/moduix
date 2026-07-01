@@ -2,7 +2,6 @@ import {
   Button,
   CloseIcon,
   InfoIcon,
-  Portal,
   Toast,
   Toaster,
   createToaster,
@@ -457,40 +456,36 @@ export function CustomToastExample() {
       >
         Create custom toast
       </Button>
-      <Portal>
-        <Toaster toaster={customToaster}>
-          {(toast) => (
-            <Toast.Root key={toast.id} className={styles.customToast}>
-              <div className={styles.customContent}>
-                <InfoIcon className={styles.customIcon} />
-                <Toast.Title />
-                <Toast.Description />
-              </div>
-              <Toast.CloseTrigger>
-                <CloseIcon className={styles.closeIcon} />
-              </Toast.CloseTrigger>
-            </Toast.Root>
-          )}
-        </Toaster>
-      </Portal>
+      <Toaster toaster={customToaster}>
+        {(toast) => (
+          <Toast.Root key={toast.id} className={styles.customToast}>
+            <div className={styles.customContent}>
+              <InfoIcon className={styles.customIcon} />
+              <Toast.Title />
+              <Toast.Description />
+            </div>
+            <Toast.CloseTrigger>
+              <CloseIcon className={styles.closeIcon} />
+            </Toast.CloseTrigger>
+          </Toast.Root>
+        )}
+      </Toaster>
     </>
   );
 }
 
 function ToastRenderer({ toaster }: { toaster: ToastToaster }) {
   return (
-    <Portal>
-      <Toaster toaster={toaster}>
-        {(toast) => (
-          <Toast.Root key={toast.id}>
-            <Toast.Title />
-            <Toast.Description />
-            {toast.action ? <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger> : null}
-            {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-          </Toast.Root>
-        )}
-      </Toaster>
-    </Portal>
+    <Toaster toaster={toaster}>
+      {(toast) => (
+        <Toast.Root key={toast.id}>
+          <Toast.Title />
+          <Toast.Description />
+          {toast.action ? <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger> : null}
+          {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+        </Toast.Root>
+      )}
+    </Toaster>
   );
 }
 

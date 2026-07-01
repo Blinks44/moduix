@@ -4,6 +4,8 @@ export type {
   PopoverInteractOutsideEvent,
   PopoverOpenChangeDetails,
   PopoverPointerDownOutsideEvent,
+  PopoverRootProps,
+  PopoverRootProviderProps,
   PopoverTriggerValueChangeDetails,
   UsePopoverContext,
   UsePopoverProps,

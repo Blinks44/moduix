@@ -24,6 +24,8 @@ Callbacks and state shapes must remain Ark-shaped: `onOpenChange(details)`,
 
 ## Current behavior contract
 
+`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+
 The component exports thin styled wrappers over Ark parts and mirrors Ark provider/context hooks
 through the package barrel: `useMenu`, `useMenuContext`, and `useMenuItemContext`.
 
@@ -33,7 +35,7 @@ Breaking legacy APIs were removed:
 - no `closeOnClick`; use Ark `closeOnSelect` or item/root defaults
 - no `MenuSubmenu`; nested menus are regular `Menu` roots opened by `Menu.TriggerItem`
 - no `MenuLinkItem`; use `Menu.Item asChild` with an anchor
-- no high-level `Menu.Content` wrapper that hides `Portal` or `Positioner`
+- no high-level `Menu.Content` wrapper that hides `Positioner`
 - no `createMenuHandle`, `MenuPopup`, `MenuViewport`, `MenuBackdrop`, or `MenuPortal` aliases
 
 ## Anatomy and exported parts
@@ -43,31 +45,27 @@ Breaking legacy APIs were removed:
   <Menu.Trigger>
     <Menu.Indicator />
   </Menu.Trigger>
-  <Portal>
-    <Menu.Positioner>
-      <Menu.Content>
-        <Menu.Arrow>
-          <Menu.ArrowTip />
-        </Menu.Arrow>
-        <Menu.Item value="edit" />
-        <Menu.CheckboxItem value="toolbar" checked={checked}>
-          <Menu.ItemIndicator />
-          <Menu.ItemText />
-        </Menu.CheckboxItem>
-        <Menu.RadioItemGroup value={value}>
-          <Menu.RadioItem value="date" />
-        </Menu.RadioItemGroup>
-        <Menu>
-          <Menu.TriggerItem />
-          <Portal>
-            <Menu.Positioner>
-              <Menu.Content />
-            </Menu.Positioner>
-          </Portal>
-        </Menu>
-      </Menu.Content>
-    </Menu.Positioner>
-  </Portal>
+  <Menu.Positioner>
+    <Menu.Content>
+      <Menu.Arrow>
+        <Menu.ArrowTip />
+      </Menu.Arrow>
+      <Menu.Item value="edit" />
+      <Menu.CheckboxItem value="toolbar" checked={checked}>
+        <Menu.ItemIndicator />
+        <Menu.ItemText />
+      </Menu.CheckboxItem>
+      <Menu.RadioItemGroup value={value}>
+        <Menu.RadioItem value="date" />
+      </Menu.RadioItemGroup>
+      <Menu>
+        <Menu.TriggerItem />
+        <Menu.Positioner>
+          <Menu.Content />
+        </Menu.Positioner>
+      </Menu>
+    </Menu.Content>
+  </Menu.Positioner>
 </Menu>
 ```
 
@@ -84,7 +82,7 @@ Stable slots:
 ## Composition
 
 ```tsx
-import { Button, Menu, Portal } from '@moduix/react';
+import { Button, Menu } from '@moduix/react';
 
 export function Example() {
   return (
@@ -92,14 +90,12 @@ export function Example() {
       <Menu.Trigger asChild>
         <Button>Actions</Button>
       </Menu.Trigger>
-      <Portal>
-        <Menu.Positioner>
-          <Menu.Content>
-            <Menu.Item value="edit">Edit</Menu.Item>
-            <Menu.Item value="duplicate">Duplicate</Menu.Item>
-          </Menu.Content>
-        </Menu.Positioner>
-      </Portal>
+      <Menu.Positioner>
+        <Menu.Content>
+          <Menu.Item value="edit">Edit</Menu.Item>
+          <Menu.Item value="duplicate">Duplicate</Menu.Item>
+        </Menu.Content>
+      </Menu.Positioner>
     </Menu>
   );
 }
@@ -171,13 +167,14 @@ These helpers must not hide the Ark part tree or remap Ark callback detail objec
 ## Agent notes
 
 Keep `Menu.Content` as the real Ark content part. Do not reintroduce a wrapper that renders
-`Portal`, `Positioner`, or `Arrow` internally. Use the public `Portal` export from `moduix` for
-popup composition.
+`Positioner` or `Arrow` internally; only portal transport belongs to the root.
 
 When docs import `useMenu`, `useMenuContext`, or `useMenuItemContext`, verify those hooks remain
 exported from `packages/react/src/components/menu/index.ts` and the root package barrel.
 
 ## Local changelog
+
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-24: Made checkbox and radio `indicator` placement explicit by defaulting
   `data-indicator-position` to `start`, switched menu docs and stories to the Ark `Menu.Indicator`

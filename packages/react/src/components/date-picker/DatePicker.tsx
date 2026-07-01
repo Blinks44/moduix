@@ -15,33 +15,46 @@ import {
   CloseIcon,
 } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import styles from './DatePicker.module.css';
+
+type DatePickerRootProps = ComponentProps<typeof DatePickerPrimitive.Root> & OverlayPortalProps;
+type DatePickerRootProviderProps = ComponentProps<typeof DatePickerPrimitive.RootProvider> &
+  OverlayPortalProps;
 
 const DatePickerRoot = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.Root>,
-  ComponentProps<typeof DatePickerPrimitive.Root>
->(function DatePickerRoot({ className, ...props }, ref) {
+  DatePickerRootProps
+>(function DatePickerRoot({ className, portalled, portalRef, ...props }, ref) {
   return (
-    <DatePickerPrimitive.Root
-      ref={ref}
-      data-slot="date-picker-root"
-      className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <DatePickerPrimitive.Root
+        ref={ref}
+        data-slot="date-picker-root"
+        className={clsx(styles.root, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortalProvider>
   );
 });
 
 const DatePickerRootProvider = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.RootProvider>,
-  ComponentProps<typeof DatePickerPrimitive.RootProvider>
->(function DatePickerRootProvider({ className, ...props }, ref) {
+  DatePickerRootProviderProps
+>(function DatePickerRootProvider({ className, portalled, portalRef, ...props }, ref) {
   return (
-    <DatePickerPrimitive.RootProvider
-      ref={ref}
-      data-slot="date-picker-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <DatePickerPrimitive.RootProvider
+        ref={ref}
+        data-slot="date-picker-root-provider"
+        className={clsx(styles.root, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortalProvider>
   );
 });
 
@@ -130,12 +143,14 @@ const DatePickerPositioner = forwardRef<
   ComponentProps<typeof DatePickerPrimitive.Positioner>
 >(function DatePickerPositioner({ className, ...props }, ref) {
   return (
-    <DatePickerPrimitive.Positioner
-      ref={ref}
-      data-slot="date-picker-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <DatePickerPrimitive.Positioner
+        ref={ref}
+        data-slot="date-picker-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -469,6 +484,7 @@ const DatePicker = Object.assign(DatePickerRoot, {
 });
 
 export { DatePicker, parseDate, useDatePicker, useDatePickerContext };
+export type { DatePickerRootProps, DatePickerRootProviderProps };
 export type {
   DatePickerContextProps,
   DatePickerDateRangePreset,

@@ -36,7 +36,7 @@ Use `Select` when users choose from a fixed collection and the trigger should st
 ## Basic
 
 Start with `Select`, pass a `collection`, render the visible field through `Label`, `Control`,
-`Trigger`, `ValueText`, `ClearTrigger`, and `Indicator`, then portal the popup structure explicitly.
+`Trigger`, `ValueText`, `ClearTrigger`, and `Indicator`, then render the popup structure explicitly.
 Keep `HiddenSelect` in the tree for native form submission and browser autofill.
 
 <Preview>
@@ -44,7 +44,7 @@ Keep `HiddenSelect` in the tree for native form submission and browser autofill.
 
   <Preview.Code>
     {`
-      import { Portal, Select } from "@moduix/react";
+      import { Select } from "@moduix/react";
 
       export function SelectDemo() {
         return (
@@ -59,21 +59,19 @@ Keep `HiddenSelect` in the tree for native form submission and browser autofill.
                 <Select.Indicator />
               </Select.Indicators>
             </Select.Control>
-            <Portal>
-              <Select.Positioner>
-                <Select.Content>
-                  <Select.ItemGroup>
-                    <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
-                    {fruits.items.map((item) => (
-                      <Select.Item key={item.value} item={item}>
-                        <Select.ItemText>{item.label}</Select.ItemText>
-                        <Select.ItemIndicator />
-                      </Select.Item>
-                    ))}
-                  </Select.ItemGroup>
-                </Select.Content>
-              </Select.Positioner>
-            </Portal>
+            <Select.Positioner>
+              <Select.Content>
+                <Select.ItemGroup>
+                  <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+                  {fruits.items.map((item) => (
+                    <Select.Item key={item.value} item={item}>
+                      <Select.ItemText>{item.label}</Select.ItemText>
+                      <Select.ItemIndicator />
+                    </Select.Item>
+                  ))}
+                </Select.ItemGroup>
+              </Select.Content>
+            </Select.Positioner>
             <Select.HiddenSelect />
           </Select>
         );
@@ -159,7 +157,7 @@ Select / Select.Root
 │  └─ Select.Indicators
 │     ├─ Select.ClearTrigger
 │     └─ Select.Indicator
-├─ Portal
+├─ Overlay subtree (automatically portalled)
 │  └─ Select.Positioner
 │     └─ Select.Content
 │        ├─ Select.List
@@ -192,14 +190,15 @@ Select / Select.Root
 | `Select.ItemIndicator`           | Selected-state indicator with the moduix default check icon.       |
 | `Select.HiddenSelect`            | Native hidden `<select>` for forms, autofill, and reset behavior.  |
 | `Select.Context` / `ItemContext` | Inline access to root and item state.                              |
-| `Portal`                         | Ark portal exported by moduix for popup mounting.                  |
 
 ## Composition
+
+The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
 
 ### Recommended composition
 
 Use the explicit Ark part tree: root, label, control, trigger, value text, optional clear and
-indicator buttons, portaled positioner/content, items, and `HiddenSelect`.
+indicator buttons, automatically portalled positioner/content, items, and `HiddenSelect`.
 
 `Select` is the short root form and is equivalent to `Select.Root`.
 
@@ -264,18 +263,16 @@ Control the selected string array from React state and update it from `details.v
             <Select.Indicator />
           </Select.Indicators>
         </Select.Control>
-        <Portal>
-          <Select.Positioner>
-            <Select.Content>
-              {themes.items.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner>
+          <Select.Content>
+            {themes.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
         <Select.HiddenSelect />
       </Select>
     `}
@@ -322,18 +319,16 @@ rendered select tree.
             <Select.Indicator />
           </Select.Indicators>
         </Select.Control>
-        <Portal>
-          <Select.Positioner>
-            <Select.Content>
-              {fruits.items.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner>
+          <Select.Content>
+            {fruits.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
         <Select.HiddenSelect />
       </Select.RootProvider>
     `}
@@ -382,18 +377,16 @@ the collection.
             <Select.Indicator />
           </Select.Indicators>
         </Select.Control>
-        <Portal>
-          <Select.Positioner>
-            <Select.Content>
-              {languages.items.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner>
+          <Select.Content>
+            {languages.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
         <Select.HiddenSelect />
       </Select>
     `}
@@ -482,18 +475,16 @@ to a form field.
               <Select.Indicator />
             </Select.Indicators>
           </Select.Control>
-          <Portal>
-            <Select.Positioner>
-              <Select.Content>
-                {frameworks.items.map((item) => (
-                  <Select.Item key={item.value} item={item}>
-                    <Select.ItemText>{item.label}</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                ))}
-              </Select.Content>
-            </Select.Positioner>
-          </Portal>
+          <Select.Positioner>
+            <Select.Content>
+              {frameworks.items.map((item) => (
+                <Select.Item key={item.value} item={item}>
+                  <Select.ItemText>{item.label}</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Positioner>
           <Select.HiddenSelect />
         </Select>
         <Field.HelperText>Pick the framework used by this project.</Field.HelperText>
@@ -538,18 +529,16 @@ to a form field.
               <Select.Indicator />
             </Select.Indicators>
           </Select.Control>
-          <Portal>
-            <Select.Positioner>
-              <Select.Content>
-                {themes.items.map((item) => (
-                  <Select.Item key={item.value} item={item}>
-                    <Select.ItemText>{item.label}</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                ))}
-              </Select.Content>
-            </Select.Positioner>
-          </Portal>
+          <Select.Positioner>
+            <Select.Content>
+              {themes.items.map((item) => (
+                <Select.Item key={item.value} item={item}>
+                  <Select.ItemText>{item.label}</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Positioner>
           <Select.HiddenSelect />
         </Select>
         <button type="submit">Submit</button>
@@ -594,18 +583,16 @@ Use `lazyMount` and `unmountOnExit` when popup content should only exist while t
             <Select.Indicator />
           </Select.Indicators>
         </Select.Control>
-        <Portal>
-          <Select.Positioner>
-            <Select.Content>
-              {fruits.items.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner>
+          <Select.Content>
+            {fruits.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
         <Select.HiddenSelect />
       </Select>
     `}
@@ -660,18 +647,16 @@ Use `onHighlightChange(details)` when moving through options should immediately 
             <Select.Indicator />
           </Select.Indicators>
         </Select.Control>
-        <Portal>
-          <Select.Positioner>
-            <Select.Content>
-              {fruits.items.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner>
+          <Select.Content>
+            {fruits.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
         <Select.HiddenSelect />
       </Select.RootProvider>
     `}
@@ -726,18 +711,16 @@ Limit multiple selection by rejecting oversized value arrays and marking remaini
             <Select.Indicator />
           </Select.Indicators>
         </Select.Control>
-        <Portal>
-          <Select.Positioner>
-            <Select.Content>
-              {collection.items.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner>
+          <Select.Content>
+            {collection.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
         <Select.HiddenSelect />
       </Select>
     `}
@@ -783,32 +766,30 @@ Read root state with `Select.Context` and call `selectAll()` for bulk selection.
             <Select.Indicator />
           </Select.Indicators>
         </Select.Control>
-        <Portal>
-          <Select.Positioner>
-            <Select.Content>
-              <Select.Context>
-                {(select) => (
-                  <button
-                    className="select-bulk-action"
-                    type="button"
-                    onClick={() => {
-                      select.selectAll();
-                      select.setOpen(false);
-                    }}
-                  >
-                    Select all
-                  </button>
-                )}
-              </Select.Context>
-              {languages.items.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner>
+          <Select.Content>
+            <Select.Context>
+              {(select) => (
+                <button
+                  className="select-bulk-action"
+                  type="button"
+                  onClick={() => {
+                    select.selectAll();
+                    select.setOpen(false);
+                  }}
+                >
+                  Select all
+                </button>
+              )}
+            </Select.Context>
+            {languages.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
         <Select.HiddenSelect />
       </Select>
     `}
@@ -862,18 +843,16 @@ Use `positioning.fitViewport` and the exposed `--available-height` variable for 
             <Select.Indicator />
           </Select.Indicators>
         </Select.Control>
-        <Portal>
-          <Select.Positioner>
-            <Select.Content>
-              {fruits.items.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner>
+          <Select.Content>
+            {fruits.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
         <Select.HiddenSelect />
       </Select>
     `}
@@ -925,18 +904,16 @@ Recreate or update the collection when the available items change.
             <Select.Indicator />
           </Select.Indicators>
         </Select.Control>
-        <Portal>
-          <Select.Positioner>
-            <Select.Content>
-              {collection.items.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
+        <Select.Positioner>
+          <Select.Content>
+            {collection.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
         <Select.HiddenSelect />
       </Select>
     `}

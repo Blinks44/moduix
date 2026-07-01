@@ -17,6 +17,8 @@ The wrapper follows Ark UI `@ark-ui/react/hover-card`. Preserve `Root`, `RootPro
 
 ## Current behavior contract
 
+`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+
 `HoverCard` is the short root form and `HoverCard.Root` is the equivalent namespace part. Root props,
 controlled state, delay props, positioning, ids, presence props, outside-interaction callbacks, and
 callback detail objects pass through Ark without remapping. The previous legacy `PreviewCard`
@@ -31,15 +33,13 @@ high-level content wrapper are intentionally removed.
   <HoverCard.Trigger asChild>
     <a href="#profile">@sarah_chen</a>
   </HoverCard.Trigger>
-  <Portal>
-    <HoverCard.Positioner>
-      <HoverCard.Content>
-        <HoverCard.Arrow>
-          <HoverCard.ArrowTip />
-        </HoverCard.Arrow>
-      </HoverCard.Content>
-    </HoverCard.Positioner>
-  </Portal>
+  <HoverCard.Positioner>
+    <HoverCard.Content>
+      <HoverCard.Arrow>
+        <HoverCard.ArrowTip />
+      </HoverCard.Arrow>
+    </HoverCard.Content>
+  </HoverCard.Positioner>
 </HoverCard>
 ```
 
@@ -55,7 +55,7 @@ high-level content wrapper are intentionally removed.
 ## Composition
 
 ```tsx
-import { HoverCard, Portal } from '@moduix/react';
+import { HoverCard } from '@moduix/react';
 
 export function Example() {
   return (
@@ -63,14 +63,12 @@ export function Example() {
       <HoverCard.Trigger asChild>
         <a href="#profile">@sarah_chen</a>
       </HoverCard.Trigger>
-      <Portal>
-        <HoverCard.Positioner>
-          <HoverCard.Content>
-            <HoverCard.Arrow />
-            Profile details
-          </HoverCard.Content>
-        </HoverCard.Positioner>
-      </Portal>
+      <HoverCard.Positioner>
+        <HoverCard.Content>
+          <HoverCard.Arrow />
+          Profile details
+        </HoverCard.Content>
+      </HoverCard.Positioner>
     </HoverCard>
   );
 }
@@ -100,22 +98,21 @@ and `--arrow-offset`. Public theme variables use the `--hover-card-*` prefix.
 
 ## Intentional sugar and differences from upstream
 
-`HoverCard.Arrow` renders `HoverCard.ArrowTip` when no children are passed. `Portal` is imported
-separately from `@moduix/react` because it is the shared Ark Portal utility, not a hover-card-owned
-part. No legacy `PreviewCard*` aliases are exported.
+`HoverCard.Arrow` renders `HoverCard.ArrowTip` when no children are passed. The root owns the portal
+boundary. No legacy `PreviewCard*` aliases are exported.
 
 ## Agent notes
 
-Keep popup structure explicit. Do not reintroduce `HoverCardContent` sugar that hides portal,
-positioner, and content. Do not reintroduce legacy `createHandle`, `handle`, `payload`, `render`,
+Keep popup structure explicit. Do not reintroduce `HoverCardContent` sugar that hides positioner
+and content. Do not reintroduce legacy `createHandle`, `handle`, `payload`, `render`,
 `Popup`, `Viewport`, or `Backdrop` compatibility.
 
 ## Local changelog
 
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
+
 - 2026-06-25: Audited Ark migration against current Ark Hover Card docs; simplified docs and
   stories data/content examples while preserving the Ark part tree and public wrapper API.
-- 2026-06-22: Removed the `HoverCard.Portal` namespace alias; examples now import the shared
-  `Portal` from `@moduix/react`.
 - 2026-06-20: Migrated from legacy `preview-card` to Ark UI `hover-card`, renamed the component,
   removed legacy aliases and handle API, exposed Ark namespace parts/hooks/types, and updated
   styling to Ark data attributes and CSS variables.

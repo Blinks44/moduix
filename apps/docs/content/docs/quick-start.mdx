@@ -92,7 +92,7 @@ the consuming bundle.
 Import the components and parts you need from `@moduix/react`:
 
 ```tsx
-import { Button, Dialog, Portal } from '@moduix/react';
+import { Button, Dialog } from '@moduix/react';
 
 export function Example() {
   return (
@@ -100,14 +100,12 @@ export function Example() {
       <Dialog.Trigger asChild>
         <Button>Open dialog</Button>
       </Dialog.Trigger>
-      <Portal>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Project settings</Dialog.Title>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Portal>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Title>Project settings</Dialog.Title>
+        </Dialog.Content>
+      </Dialog.Positioner>
     </Dialog.Root>
   );
 }

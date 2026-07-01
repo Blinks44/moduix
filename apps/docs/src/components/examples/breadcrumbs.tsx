@@ -1,5 +1,5 @@
 import type { ComponentProps, CSSProperties } from 'react';
-import { Breadcrumbs, Menu, Portal, SeparatorMarkIcon } from '@moduix/react';
+import { Breadcrumbs, Menu, SeparatorMarkIcon } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 
@@ -143,17 +143,15 @@ export function BreadcrumbsCollapsedExample() {
               <Menu.Trigger aria-label="Show hidden path items" style={collapsedMenuTriggerStyle}>
                 <Breadcrumbs.Ellipsis />
               </Menu.Trigger>
-              <Portal>
-                <Menu.Positioner>
-                  <Menu.Content style={collapsedMenuContentStyle}>
-                    {collapsedItems.map((item) => (
-                      <Menu.Item key={item.href} value={item.href} asChild>
-                        <a href={item.href}>{item.label}</a>
-                      </Menu.Item>
-                    ))}
-                  </Menu.Content>
-                </Menu.Positioner>
-              </Portal>
+              <Menu.Positioner>
+                <Menu.Content style={collapsedMenuContentStyle}>
+                  {collapsedItems.map((item) => (
+                    <Menu.Item key={item.href} value={item.href} asChild>
+                      <a href={item.href}>{item.label}</a>
+                    </Menu.Item>
+                  ))}
+                </Menu.Content>
+              </Menu.Positioner>
             </Menu>
           </Breadcrumbs.Item>
           <Breadcrumbs.Separator />

@@ -15,16 +15,18 @@ field input, color area, channel sliders, eyedropper, and swatches.
 - Uses `@ark-ui/react/color-picker` directly.
 - Keeps Ark parts, value objects from `parseColor`, format state, controlled/open state, provider
   state, context state, and callback detail objects unchanged.
-- Keeps popup structure explicit through `Portal`, `Positioner`, and `Content`.
+- Keeps popup structure explicit through `Positioner` and `Content`; the root owns portalling.
 - Keeps `HiddenInput` as the native form integration point.
 
 ## Current behavior contract
+
+`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
 - Public composition is `ColorPicker.Root`, `RootProvider`, `Label`, `Control`, `Trigger`,
   `Positioner`, `Content`, `Area`, `AreaBackground`, `AreaThumb`, channel slider parts,
   `ChannelInput`, `EyeDropperTrigger`, format parts, swatch parts, `TransparencyGrid`,
   `ValueSwatch`, `ValueText`, `View`, `HiddenInput`, and `Context`.
-- `parseColor`, `useColorPicker`, `useColorPickerContext`, and `Portal` are re-exported for the
+- `parseColor`, `useColorPicker`, and `useColorPickerContext` are re-exported for the
   canonical Ark workflows.
 - Ark part prop types are re-exported so consumers can type composed wrappers against the same
   public surface as Ark.
@@ -42,7 +44,7 @@ ColorPicker.Root
 │  └─ ColorPicker.Trigger
 │     ├─ ColorPicker.TransparencyGrid
 │     └─ ColorPicker.ValueSwatch
-├─ Portal
+├─ Overlay subtree (automatically portalled)
 │  └─ ColorPicker.Positioner
 │     └─ ColorPicker.Content
 │        ├─ ColorPicker.Area
@@ -67,7 +69,7 @@ without rendering a DOM node. `RootProvider` accepts a state object from `useCol
 ## Composition
 
 ```tsx
-import { ColorPicker, Portal, parseColor } from '@moduix/react';
+import { ColorPicker, parseColor } from '@moduix/react';
 
 export function ColorPickerExample() {
   return (
@@ -81,20 +83,18 @@ export function ColorPickerExample() {
           <ColorPicker.ValueSwatch />
         </ColorPicker.Trigger>
       </ColorPicker.Control>
-      <Portal>
-        <ColorPicker.Positioner>
-          <ColorPicker.Content>
-            <ColorPicker.Area>
-              <ColorPicker.AreaBackground />
-              <ColorPicker.AreaThumb />
-            </ColorPicker.Area>
-            <ColorPicker.ChannelSlider channel="hue">
-              <ColorPicker.ChannelSliderTrack />
-              <ColorPicker.ChannelSliderThumb />
-            </ColorPicker.ChannelSlider>
-          </ColorPicker.Content>
-        </ColorPicker.Positioner>
-      </Portal>
+      <ColorPicker.Positioner>
+        <ColorPicker.Content>
+          <ColorPicker.Area>
+            <ColorPicker.AreaBackground />
+            <ColorPicker.AreaThumb />
+          </ColorPicker.Area>
+          <ColorPicker.ChannelSlider channel="hue">
+            <ColorPicker.ChannelSliderTrack />
+            <ColorPicker.ChannelSliderThumb />
+          </ColorPicker.ChannelSlider>
+        </ColorPicker.Content>
+      </ColorPicker.Positioner>
       <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
@@ -141,9 +141,9 @@ export function ColorPickerExample() {
 ## Intentional sugar and differences from upstream
 
 - moduix ships default icons for `EyeDropperTrigger` and `SwatchIndicator`.
-- moduix re-exports `Portal`, `parseColor`, `useColorPicker`, and `useColorPickerContext`.
+- moduix re-exports `parseColor`, `useColorPicker`, and `useColorPickerContext`.
 - moduix re-exports Ark Color Picker part prop types in addition to core state and event types.
-- The wrapper does not hide `Portal`, `Positioner`, `Content`, or the input/slider/view structure
+- The wrapper hides only the portal transport; `Positioner`, `Content`, and the input/slider/view structure
   behind convenience components.
 - No local color parsing, value conversion, or callback reshaping is added.
 
@@ -155,6 +155,8 @@ export function ColorPickerExample() {
 - Keep `HiddenInput` explicit so consumers decide when the picker participates in forms.
 
 ## Local changelog
+
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-18: Added the Ark UI Color Picker wrapper with styled parts, default eyedropper and swatch
   indicator icons, stories, local documentation, and registry/docs integration.

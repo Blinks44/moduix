@@ -16,10 +16,11 @@ The wrapper follows `@ark-ui/react/dialog` directly. Preserve `Root`, `RootProvi
 `Backdrop`, `Positioner`, `Content`, `Title`, `Description`, `CloseTrigger`, and `Context`, plus
 `useDialog()` and `useDialogContext()`.
 
-Keep `Portal → Backdrop → Positioner → Content` explicit. `Portal` is exported separately from
-`moduix`; it is not hidden by a dialog convenience component.
+Keep `Backdrop → Positioner → Content` explicit. `Root` owns the portal boundary.
 
 ## Current behavior contract
+
+`Root` and `RootProvider` portal `Backdrop` and `Positioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
 `Dialog.Root` passes Ark root props through unchanged, including controlled and uncontrolled open
 state, focus targets, modal behavior, presence options, dismissal callbacks, `ids`, and
@@ -33,7 +34,7 @@ state, focus targets, modal behavior, presence options, dismissal callbacks, `id
 ```text
 Dialog.Root
 ├─ Dialog.Trigger
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    ├─ Dialog.Backdrop
    └─ Dialog.Positioner
       └─ Dialog.Content
@@ -55,7 +56,7 @@ Stable slots are `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`, `dial
 ## Composition
 
 ```tsx
-import { Button, Dialog, Portal } from '@moduix/react';
+import { Button, Dialog } from '@moduix/react';
 
 export function DialogDemo() {
   return (
@@ -63,16 +64,14 @@ export function DialogDemo() {
       <Dialog.Trigger asChild>
         <Button>Open dialog</Button>
       </Dialog.Trigger>
-      <Portal>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Project settings</Dialog.Title>
-            <Dialog.Description>Update the project configuration.</Dialog.Description>
-            <Dialog.CloseIcon />
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Portal>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Title>Project settings</Dialog.Title>
+          <Dialog.Description>Update the project configuration.</Dialog.Description>
+          <Dialog.CloseIcon />
+        </Dialog.Content>
+      </Dialog.Positioner>
     </Dialog.Root>
   );
 }
@@ -141,11 +140,12 @@ the content's block-start/inline-end corner by default, including when it is com
 
 ## Agent notes
 
-Do not reintroduce a convenience component that hides `Portal`, `Backdrop`, `Positioner`, or
-`Content`. Keep Ark callback detail objects and provider/context APIs available from the package
-barrel.
+Do not introduce a convenience component that hides `Backdrop`, `Positioner`, or `Content`. Keep
+Ark callback detail objects and provider/context APIs available from the package barrel.
 
 ## Local changelog
+
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-29: Synced nested dialog motion with Drawer by adding animated parent scale and downward
   offset so the parent remains visibly layered behind the active nested dialog.

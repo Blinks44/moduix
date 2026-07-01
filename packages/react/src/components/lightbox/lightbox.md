@@ -21,10 +21,11 @@ keeps its `Root`, `RootProvider`, `Trigger`, `Backdrop`, `Positioner`, `Content`
 `Description`, `CloseTrigger`, and `Context` contracts. `useLightbox()` and
 `useLightboxContext()` are renamed exports of Ark `useDialog()` and `useDialogContext()`.
 
-Keep `Portal → Backdrop → Positioner → Content` explicit. Use the public `Portal` export from
-`moduix`.
+Keep `Backdrop → Positioner → Content` explicit. `Root` owns the portal boundary.
 
 ## Current behavior contract
+
+`Root` and `RootProvider` portal `Backdrop` and `Positioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
 `Lightbox` and `Lightbox.Root` are the same root component. Root props pass through unchanged,
 including controlled and uncontrolled open state, trigger values, focus lifecycle, dismissal,
@@ -43,7 +44,7 @@ context and leaves all overlay markup consumer-owned.
 Lightbox.Root
 ├─ Lightbox.Trigger
 ├─ Lightbox.Bind
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    ├─ Lightbox.Backdrop
    └─ Lightbox.Positioner
       ├─ Lightbox.CloseTrigger or Lightbox.CloseIcon
@@ -69,7 +70,7 @@ an Ark anatomy part.
 ## Composition
 
 ```tsx
-import { Lightbox, Portal } from '@moduix/react';
+import { Lightbox } from '@moduix/react';
 
 export function LightboxDemo() {
   return (
@@ -79,15 +80,13 @@ export function LightboxDemo() {
           <img src={thumbnail} alt="Mountain ridge at sunset" />
         </button>
       </Lightbox.Trigger>
-      <Portal>
-        <Lightbox.Backdrop />
-        <Lightbox.Positioner>
-          <Lightbox.CloseIcon />
-          <Lightbox.Content>
-            <Lightbox.Image src={fullSize} alt="Mountain ridge at sunset" />
-          </Lightbox.Content>
-        </Lightbox.Positioner>
-      </Portal>
+      <Lightbox.Backdrop />
+      <Lightbox.Positioner>
+        <Lightbox.CloseIcon />
+        <Lightbox.Content>
+          <Lightbox.Image src={fullSize} alt="Mountain ridge at sunset" />
+        </Lightbox.Content>
+      </Lightbox.Positioner>
     </Lightbox>
   );
 }
@@ -106,7 +105,7 @@ its Ark state, controls, indicators, dragging, and keyboard behavior.
 
 For external markup, render `Lightbox.Bind` inside the root, store
 `LightboxImageSelectDetails` from `onImageSelect`, and compose the same explicit overlay tree. Bind
-opens the surrounding Dialog through context but does not render `Portal`, `Backdrop`, `Positioner`,
+opens the surrounding Dialog through context but does not render `Backdrop`, `Positioner`,
 `Content`, `CloseIcon`, or `Image`. Use a semantic button or link as the matched `selector` when
 images must be keyboard-accessible; Bind relies on the element's native click activation. It
 preloads the resolved full-size source on pointer hover or keyboard focus.
@@ -177,12 +176,14 @@ ratio, viewport height, gap, track background, and thumbnail sizing/state.
 
 ## Agent notes
 
-Do not add a convenience component that hides `Portal`, `Backdrop`, `Positioner`, or `Content`.
+Do not add a convenience component that hides `Backdrop`, `Positioner`, or `Content`.
 Keep external DOM binding scoped to `Lightbox.Bind`; do not smear source-capture behavior back
 into the base `Lightbox` parts or `Lightbox.Gallery`. When data already exists as a structured image
 array, prefer explicit `Lightbox.Gallery + Carousel` composition.
 
 ## Local changelog
+
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-19: Adopted Ark UI Dialog, adopted Ark anatomy, namespace exports,
   callbacks, provider/context hooks, data-state styling, and explicit overlay composition; removed

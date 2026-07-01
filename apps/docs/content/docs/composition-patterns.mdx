@@ -64,7 +64,7 @@ A product design system can wrap moduix parts without replacing the Ark composit
 ```tsx
 import type { ComponentProps } from 'react';
 import { clsx } from 'clsx';
-import { Dialog as DialogBase, Portal } from '@moduix/react';
+import { Dialog as DialogBase } from '@moduix/react';
 import styles from './AppDialog.module.css';
 
 export const Dialog = DialogBase.Root;
@@ -95,12 +95,10 @@ export function AppDialog({ children }: { children: React.ReactNode }) {
   return (
     <DialogBase.Root>
       <DialogTrigger>Open</DialogTrigger>
-      <Portal>
-        <DialogBackdrop />
-        <DialogPositioner>
-          <DialogContent>{children}</DialogContent>
-        </DialogPositioner>
-      </Portal>
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>{children}</DialogContent>
+      </DialogPositioner>
     </DialogBase.Root>
   );
 }

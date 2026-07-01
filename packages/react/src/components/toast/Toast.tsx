@@ -1,4 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
+import { Portal } from '@ark-ui/react/portal';
 import {
   Toast as ToastPrimitive,
   Toaster as ToasterPrimitive,
@@ -7,23 +8,28 @@ import {
 } from '@ark-ui/react/toast';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
+import type { OverlayPortalProps } from '@/lib/moduix/overlayPortal';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
 import styles from './Toast.module.css';
 
 const DEFAULT_CLOSE_TRIGGER_LABEL = 'Close toast';
 
-const Toaster = forwardRef<
-  ComponentRef<typeof ToasterPrimitive>,
-  ComponentProps<typeof ToasterPrimitive>
->(function Toaster({ className, ...props }, ref) {
+type ToasterProps = ComponentProps<typeof ToasterPrimitive> & OverlayPortalProps;
+
+const Toaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(function Toaster(
+  { className, portalled = true, portalRef, ...props },
+  ref,
+) {
   return (
-    <ToasterPrimitive
-      ref={ref}
-      data-slot="toast-toaster"
-      className={clsx(styles.toaster, normalizeClassName(className))}
-      {...props}
-    />
+    <Portal disabled={!portalled} container={portalRef}>
+      <ToasterPrimitive
+        ref={ref}
+        data-slot="toast-toaster"
+        className={clsx(styles.toaster, normalizeClassName(className))}
+        {...props}
+      />
+    </Portal>
   );
 });
 
@@ -144,6 +150,7 @@ const Toast = Object.assign(ToastRoot, {
 });
 
 export { Toast, Toaster, createToaster, useToastContext };
+export type { ToasterProps };
 export type {
   CreateToasterProps,
   CreateToasterReturn,
@@ -161,6 +168,5 @@ export type {
   ToastStoreProps,
   ToastTitleProps,
   ToastType,
-  ToasterProps,
   UseToastContext,
 } from '@ark-ui/react/toast';

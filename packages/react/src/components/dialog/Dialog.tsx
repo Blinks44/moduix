@@ -3,17 +3,34 @@ import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Dialog.module.css';
 
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close dialog';
 
-function DialogRoot(props: ComponentProps<typeof DialogPrimitive.Root>) {
-  return <DialogPrimitive.Root {...props} />;
+type DialogRootProps = ComponentProps<typeof DialogPrimitive.Root> & OverlayPortalProps;
+type DialogRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
+  OverlayPortalProps;
+
+function DialogRoot({ portalled, portalRef, ...props }: DialogRootProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <DialogPrimitive.Root {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
-function DialogRootProvider(props: ComponentProps<typeof DialogPrimitive.RootProvider>) {
-  return <DialogPrimitive.RootProvider {...props} />;
+function DialogRootProvider({ portalled, portalRef, ...props }: DialogRootProviderProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <DialogPrimitive.RootProvider {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
 const DialogTrigger = forwardRef<
@@ -36,12 +53,14 @@ const DialogBackdrop = forwardRef<
   ComponentProps<typeof DialogPrimitive.Backdrop>
 >(function DialogBackdrop({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Backdrop
-      ref={ref}
-      data-slot="dialog-backdrop"
-      className={clsx(styles.backdrop, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <DialogPrimitive.Backdrop
+        ref={ref}
+        data-slot="dialog-backdrop"
+        className={clsx(styles.backdrop, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -50,12 +69,14 @@ const DialogPositioner = forwardRef<
   ComponentProps<typeof DialogPrimitive.Positioner>
 >(function DialogPositioner({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Positioner
-      ref={ref}
-      data-slot="dialog-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <DialogPrimitive.Positioner
+        ref={ref}
+        data-slot="dialog-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -169,6 +190,7 @@ const Dialog = Object.assign(DialogRoot, {
 });
 
 export { Dialog, useDialog, useDialogContext };
+export type { DialogRootProps, DialogRootProviderProps };
 export type {
   DialogFocusOutsideEvent,
   DialogInteractOutsideEvent,

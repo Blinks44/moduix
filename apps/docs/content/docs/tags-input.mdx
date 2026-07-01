@@ -781,7 +781,7 @@ allowing custom tags.
     {`
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox, Portal, TagsInput, useCombobox, useTagsInput } from "@moduix/react";
+      import { Combobox, TagsInput, useCombobox, useTagsInput } from "@moduix/react";
       import { useId } from "react";
 
       export function ComboboxTagsInput() {
@@ -831,19 +831,17 @@ allowing custom tags.
               </TagsInput.Control>
               <TagsInput.HiddenInput />
             </TagsInput.RootProvider>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.Empty>No frameworks found.</Combobox.Empty>
-                  {collection.items.map((item) => (
-                    <Combobox.Item key={item} item={item}>
-                      <Combobox.ItemText>{item}</Combobox.ItemText>
-                      <Combobox.ItemIndicator />
-                    </Combobox.Item>
-                  ))}
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                <Combobox.Empty>No frameworks found.</Combobox.Empty>
+                {collection.items.map((item) => (
+                  <Combobox.Item key={item} item={item}>
+                    <Combobox.ItemText>{item}</Combobox.ItemText>
+                    <Combobox.ItemIndicator />
+                  </Combobox.Item>
+                ))}
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox.RootProvider>
         );
       }

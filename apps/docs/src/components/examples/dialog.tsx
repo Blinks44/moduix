@@ -1,4 +1,4 @@
-import { Button, Dialog, Menu, Portal, ScrollArea, useDialog } from '@moduix/react';
+import { Button, Dialog, Menu, ScrollArea, useDialog } from '@moduix/react';
 import { useRef, useState, type ReactNode } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -210,12 +210,12 @@ function DialogSurface({
   backdrop?: boolean;
 }) {
   return (
-    <Portal>
+    <>
       {backdrop ? <Dialog.Backdrop /> : null}
       <Dialog.Positioner className={positionerClassName}>
         <Dialog.Content className={contentClassName}>{children}</Dialog.Content>
       </Dialog.Positioner>
-    </Portal>
+    </>
   );
 }
 
@@ -441,25 +441,23 @@ export function OutsideScrollDialogExample() {
         <Dialog.Trigger asChild>
           <Button>Open privacy policy</Button>
         </Dialog.Trigger>
-        <Portal>
-          <Dialog.Backdrop />
-          <Dialog.Positioner className="dialog-outside-positioner">
-            <Dialog.Content ref={contentRef} className="dialog-outside-content">
-              <Dialog.Title>Privacy policy</Dialog.Title>
-              <Dialog.Description>
-                The positioner scrolls while the dialog can extend beyond the viewport.
-              </Dialog.Description>
-              <Dialog.Body className="dialog-scroll-content">
-                {insideScrollSections.map((item) => (
-                  <section key={item.title}>
-                    <h3>{item.title}</h3>
-                    <p>{item.body}</p>
-                  </section>
-                ))}
-              </Dialog.Body>
-            </Dialog.Content>
-          </Dialog.Positioner>
-        </Portal>
+        <Dialog.Backdrop />
+        <Dialog.Positioner className="dialog-outside-positioner">
+          <Dialog.Content ref={contentRef} className="dialog-outside-content">
+            <Dialog.Title>Privacy policy</Dialog.Title>
+            <Dialog.Description>
+              The positioner scrolls while the dialog can extend beyond the viewport.
+            </Dialog.Description>
+            <Dialog.Body className="dialog-scroll-content">
+              {insideScrollSections.map((item) => (
+                <section key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </section>
+              ))}
+            </Dialog.Body>
+          </Dialog.Content>
+        </Dialog.Positioner>
       </Dialog.Root>
     </>
   );
@@ -557,17 +555,15 @@ export function OpenFromMenuDialogExample() {
             <Menu.Indicator />
           </Button>
         </Menu.Trigger>
-        <Portal>
-          <Menu.Positioner>
-            <Menu.Content>
-              <Menu.Item value="edit">Edit</Menu.Item>
-              <Menu.Item value="duplicate">Duplicate</Menu.Item>
-              <Menu.Item value="delete" tone="destructive" onClick={() => setOpen(true)}>
-                Delete...
-              </Menu.Item>
-            </Menu.Content>
-          </Menu.Positioner>
-        </Portal>
+        <Menu.Positioner>
+          <Menu.Content>
+            <Menu.Item value="edit">Edit</Menu.Item>
+            <Menu.Item value="duplicate">Duplicate</Menu.Item>
+            <Menu.Item value="delete" tone="destructive" onClick={() => setOpen(true)}>
+              Delete...
+            </Menu.Item>
+          </Menu.Content>
+        </Menu.Positioner>
       </Menu>
 
       <Dialog.Root open={open} onOpenChange={(details) => setOpen(details.open)} role="alertdialog">

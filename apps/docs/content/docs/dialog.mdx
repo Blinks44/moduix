@@ -38,7 +38,7 @@ current page context. Use `Drawer` when the surface should remain attached to a 
 
 ## Basic
 
-Compose the explicit Ark UI structure: `Dialog.Root`, `Portal`, `Dialog.Backdrop`,
+Compose the explicit Ark UI structure: `Dialog.Root`, `Dialog.Backdrop`,
 `Dialog.Positioner`, and `Dialog.Content`.
 
 <Preview>
@@ -46,7 +46,7 @@ Compose the explicit Ark UI structure: `Dialog.Root`, `Portal`, `Dialog.Backdrop
 
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal } from "@moduix/react";
+      import { Button, Dialog } from "@moduix/react";
 
       export function DialogDemo() {
         return (
@@ -54,25 +54,23 @@ Compose the explicit Ark UI structure: `Dialog.Root`, `Portal`, `Dialog.Backdrop
             <Dialog.Trigger asChild>
               <Button>View notifications</Button>
             </Dialog.Trigger>
-            <Portal>
-              <Dialog.Backdrop />
-              <Dialog.Positioner>
-                <Dialog.Content>
-                  <Dialog.Header>
-                    <Dialog.Title>Notifications</Dialog.Title>
-                    <Dialog.CloseIcon />
-                    <Dialog.Description>
-                      You are all caught up. Good job!
-                    </Dialog.Description>
-                  </Dialog.Header>
-                  <Dialog.Footer>
-                    <Dialog.CloseTrigger asChild>
-                      <Button variant="outline">Close</Button>
-                    </Dialog.CloseTrigger>
-                  </Dialog.Footer>
-                </Dialog.Content>
-              </Dialog.Positioner>
-            </Portal>
+            <Dialog.Backdrop />
+            <Dialog.Positioner>
+              <Dialog.Content>
+                <Dialog.Header>
+                  <Dialog.Title>Notifications</Dialog.Title>
+                  <Dialog.CloseIcon />
+                  <Dialog.Description>
+                    You are all caught up. Good job!
+                  </Dialog.Description>
+                </Dialog.Header>
+                <Dialog.Footer>
+                  <Dialog.CloseTrigger asChild>
+                    <Button variant="outline">Close</Button>
+                  </Dialog.CloseTrigger>
+                </Dialog.Footer>
+              </Dialog.Content>
+            </Dialog.Positioner>
           </Dialog>
         );
       }
@@ -128,7 +126,7 @@ aubx shadcn@latest add Blinks44/moduix/react-dialog
 ```text
 Dialog.Root
 ├─ Dialog.Trigger
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    ├─ Dialog.Backdrop
    └─ Dialog.Positioner
       └─ Dialog.Content
@@ -140,7 +138,7 @@ Dialog.Root
          └─ Dialog.Footer (moduix layout sugar)
 
 Dialog.RootProvider
-└─ the same portal and content tree connected to useDialog()
+└─ the same automatically portalled content tree connected to useDialog()
 ```
 
 | Part                     | Role                                                             |
@@ -161,9 +159,11 @@ child components.
 
 ## Composition
 
+The root portals `Backdrop` and `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+
 ### Recommended composition
 
-Keep `Portal`, `Backdrop`, `Positioner`, and `Content` explicit. This preserves structural override
+Keep `Backdrop`, `Positioner`, and `Content` explicit. This preserves structural override
 points and matches Ark UI directly. Omit `Backdrop` for non-modal dialogs.
 
 Use `Dialog.Trigger asChild` and `Dialog.CloseTrigger asChild` with one semantic button child.
@@ -213,7 +213,7 @@ Use the Ark detail object when synchronizing dialog state with React.
   <ControlledDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal } from "@moduix/react";
+      import { Button, Dialog } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledDialogDemo() {
@@ -224,15 +224,13 @@ Use the Ark detail object when synchronizing dialog state with React.
             <Dialog.Trigger asChild>
               <Button>Open controlled dialog</Button>
             </Dialog.Trigger>
-            <Portal>
-              <Dialog.Backdrop />
-              <Dialog.Positioner>
-                <Dialog.Content>
-                  <Dialog.Title>Publish changes?</Dialog.Title>
-                  <Dialog.CloseIcon />
-                </Dialog.Content>
-              </Dialog.Positioner>
-            </Portal>
+            <Dialog.Backdrop />
+            <Dialog.Positioner>
+              <Dialog.Content>
+                <Dialog.Title>Publish changes?</Dialog.Title>
+                <Dialog.CloseIcon />
+              </Dialog.Content>
+            </Dialog.Positioner>
           </Dialog>
         );
       }
@@ -256,7 +254,7 @@ Create state with `useDialog()` when controls live outside the dialog, and read 
 
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal, useDialog } from "@moduix/react";
+      import { Button, Dialog, useDialog } from "@moduix/react";
 
       export function DialogStateDemo() {
         const dialog = useDialog();
@@ -267,20 +265,18 @@ Create state with `useDialog()` when controls live outside the dialog, and read 
               Dialog is {dialog.open ? "open" : "closed"}
             </Button>
             <Dialog.RootProvider value={dialog}>
-              <Portal>
-                <Dialog.Backdrop />
-                <Dialog.Positioner>
-                  <Dialog.Content>
-                    <Dialog.Title>Status</Dialog.Title>
-                    <Dialog.Description>
-                      <Dialog.Context>
-                        {(state) => <>Dialog is {state.open ? "open" : "closed"}</>}
-                      </Dialog.Context>
-                    </Dialog.Description>
-                    <Dialog.CloseIcon />
-                  </Dialog.Content>
-                </Dialog.Positioner>
-              </Portal>
+              <Dialog.Backdrop />
+              <Dialog.Positioner>
+                <Dialog.Content>
+                  <Dialog.Title>Status</Dialog.Title>
+                  <Dialog.Description>
+                    <Dialog.Context>
+                      {(state) => <>Dialog is {state.open ? "open" : "closed"}</>}
+                    </Dialog.Context>
+                  </Dialog.Description>
+                  <Dialog.CloseIcon />
+                </Dialog.Content>
+              </Dialog.Positioner>
             </Dialog.RootProvider>
           </>
         );
@@ -301,7 +297,7 @@ trigger.
   <AlertDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal } from "@moduix/react";
+      import { Button, Dialog } from "@moduix/react";
 
       export function DeleteAccountDialog() {
         return (
@@ -309,21 +305,19 @@ trigger.
             <Dialog.Trigger asChild>
               <Button>Delete account</Button>
             </Dialog.Trigger>
-            <Portal>
-              <Dialog.Backdrop />
-              <Dialog.Positioner>
-                <Dialog.Content>
-                  <Dialog.Title>Are you absolutely sure?</Dialog.Title>
-                  <Dialog.Description>This action cannot be undone.</Dialog.Description>
-                  <Dialog.Footer>
-                    <Dialog.CloseTrigger asChild>
-                      <Button variant="outline">Cancel</Button>
-                    </Dialog.CloseTrigger>
-                    <Button>Delete account</Button>
-                  </Dialog.Footer>
-                </Dialog.Content>
-              </Dialog.Positioner>
-            </Portal>
+            <Dialog.Backdrop />
+            <Dialog.Positioner>
+              <Dialog.Content>
+                <Dialog.Title>Are you absolutely sure?</Dialog.Title>
+                <Dialog.Description>This action cannot be undone.</Dialog.Description>
+                <Dialog.Footer>
+                  <Dialog.CloseTrigger asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </Dialog.CloseTrigger>
+                  <Button>Delete account</Button>
+                </Dialog.Footer>
+              </Dialog.Content>
+            </Dialog.Positioner>
           </Dialog>
         );
       }
@@ -347,7 +341,7 @@ Ark UI supports lazy mounting and explicit initial and final focus targets throu
 
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal } from "@moduix/react";
+      import { Button, Dialog } from "@moduix/react";
       import { useRef } from "react";
 
       export function DialogLifecycleDemo() {
@@ -366,16 +360,14 @@ Ark UI supports lazy mounting and explicit initial and final focus targets throu
               <Dialog.Trigger asChild>
                 <Button>Edit profile</Button>
               </Dialog.Trigger>
-              <Portal>
-                <Dialog.Backdrop />
-                <Dialog.Positioner>
-                  <Dialog.Content>
-                    <Dialog.Title>Edit profile</Dialog.Title>
-                    <input ref={inputRef} className="dialog-input" />
-                    <Dialog.CloseIcon />
-                  </Dialog.Content>
-                </Dialog.Positioner>
-              </Portal>
+              <Dialog.Backdrop />
+              <Dialog.Positioner>
+                <Dialog.Content>
+                  <Dialog.Title>Edit profile</Dialog.Title>
+                  <input ref={inputRef} className="dialog-input" />
+                  <Dialog.CloseIcon />
+                </Dialog.Content>
+              </Dialog.Positioner>
             </Dialog>
           </>
         );
@@ -395,7 +387,7 @@ Set `modal={false}` and omit the backdrop when outside interaction should remain
   <NonModalDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal } from "@moduix/react";
+      import { Button, Dialog } from "@moduix/react";
 
       export function NonModalDialogDemo() {
         return (
@@ -403,15 +395,13 @@ Set `modal={false}` and omit the backdrop when outside interaction should remain
             <Dialog.Trigger asChild>
               <Button>Open non-modal dialog</Button>
             </Dialog.Trigger>
-            <Portal>
-              <Dialog.Positioner>
-                <Dialog.Content>
-                  <Dialog.Title>Non-modal dialog</Dialog.Title>
-                  <Dialog.Description>The page remains interactive.</Dialog.Description>
-                  <Dialog.CloseIcon />
-                </Dialog.Content>
-              </Dialog.Positioner>
-            </Portal>
+            <Dialog.Positioner>
+              <Dialog.Content>
+                <Dialog.Title>Non-modal dialog</Dialog.Title>
+                <Dialog.Description>The page remains interactive.</Dialog.Description>
+                <Dialog.CloseIcon />
+              </Dialog.Content>
+            </Dialog.Positioner>
           </Dialog>
         );
       }
@@ -435,7 +425,7 @@ extend beyond the viewport.
 
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal, ScrollArea } from "@moduix/react";
+      import { Button, Dialog, ScrollArea } from "@moduix/react";
 
       export function DialogScrollDemo() {
         return (
@@ -443,32 +433,30 @@ extend beyond the viewport.
             <Dialog.Trigger asChild>
               <Button>Open terms</Button>
             </Dialog.Trigger>
-            <Portal>
-              <Dialog.Backdrop />
-              <Dialog.Positioner className="dialog-outside-positioner">
-                <Dialog.Content className="dialog-inside-scroll">
-                  <Dialog.Title>Terms of service</Dialog.Title>
-                  <ScrollArea className="dialog-scroll-area">
-                    <ScrollArea.Viewport>
-                      <ScrollArea.Content>
-                        <div className="dialog-scroll-content">
-                          {sections.map((section) => (
-                            <section key={section.title}>
-                              <h3>{section.title}</h3>
-                              <p>{section.body}</p>
-                            </section>
-                          ))}
-                        </div>
-                      </ScrollArea.Content>
-                    </ScrollArea.Viewport>
-                    <ScrollArea.Scrollbar>
-                      <ScrollArea.Thumb />
-                    </ScrollArea.Scrollbar>
-                    <ScrollArea.Corner />
-                  </ScrollArea>
-                </Dialog.Content>
-              </Dialog.Positioner>
-            </Portal>
+            <Dialog.Backdrop />
+            <Dialog.Positioner className="dialog-outside-positioner">
+              <Dialog.Content className="dialog-inside-scroll">
+                <Dialog.Title>Terms of service</Dialog.Title>
+                <ScrollArea className="dialog-scroll-area">
+                  <ScrollArea.Viewport>
+                    <ScrollArea.Content>
+                      <div className="dialog-scroll-content">
+                        {sections.map((section) => (
+                          <section key={section.title}>
+                            <h3>{section.title}</h3>
+                            <p>{section.body}</p>
+                          </section>
+                        ))}
+                      </div>
+                    </ScrollArea.Content>
+                  </ScrollArea.Viewport>
+                  <ScrollArea.Scrollbar>
+                    <ScrollArea.Thumb />
+                  </ScrollArea.Scrollbar>
+                  <ScrollArea.Corner />
+                </ScrollArea>
+              </Dialog.Content>
+            </Dialog.Positioner>
           </Dialog>
         );
       }
@@ -488,7 +476,7 @@ variables to the parent content; moduix uses them for a receding parent effect t
   <NestedDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal, useDialog } from "@moduix/react";
+      import { Button, Dialog, useDialog } from "@moduix/react";
 
       export function NestedDialogDemo() {
         const parent = useDialog();
@@ -498,26 +486,22 @@ variables to the parent content; moduix uses them for a receding parent effect t
           <>
             <Button onClick={() => parent.setOpen(true)}>Open parent</Button>
             <Dialog.RootProvider value={parent}>
-              <Portal>
-                <Dialog.Backdrop />
-                <Dialog.Positioner>
-                  <Dialog.Content>
-                    <Dialog.Title>Parent dialog</Dialog.Title>
-                    <Button onClick={() => child.setOpen(true)}>Open nested</Button>
-                  </Dialog.Content>
-                </Dialog.Positioner>
-              </Portal>
+              <Dialog.Backdrop />
+              <Dialog.Positioner>
+                <Dialog.Content>
+                  <Dialog.Title>Parent dialog</Dialog.Title>
+                  <Button onClick={() => child.setOpen(true)}>Open nested</Button>
+                </Dialog.Content>
+              </Dialog.Positioner>
             </Dialog.RootProvider>
             <Dialog.RootProvider value={child}>
-              <Portal>
-                <Dialog.Backdrop />
-                <Dialog.Positioner>
-                  <Dialog.Content>
-                    <Dialog.Title>Nested dialog</Dialog.Title>
-                    <Dialog.CloseIcon />
-                  </Dialog.Content>
-                </Dialog.Positioner>
-              </Portal>
+              <Dialog.Backdrop />
+              <Dialog.Positioner>
+                <Dialog.Content>
+                  <Dialog.Title>Nested dialog</Dialog.Title>
+                  <Dialog.CloseIcon />
+                </Dialog.Content>
+              </Dialog.Positioner>
             </Dialog.RootProvider>
           </>
         );
@@ -537,7 +521,7 @@ Control `open` from a menu item when a contextual action needs a confirmation di
   <OpenFromMenuDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, Menu, Portal } from "@moduix/react";
+      import { Button, Dialog, Menu } from "@moduix/react";
       import { useState } from "react";
 
       export function OpenFromMenuDialogDemo() {
@@ -552,17 +536,15 @@ Control `open` from a menu item when a contextual action needs a confirmation di
                   <Menu.Indicator />
                 </Button>
               </Menu.Trigger>
-              <Portal>
-                <Menu.Positioner>
-                  <Menu.Content>
-                    <Menu.Item value="edit">Edit</Menu.Item>
-                    <Menu.Item value="duplicate">Duplicate</Menu.Item>
-                    <Menu.Item value="delete" tone="destructive" onClick={() => setOpen(true)}>
-                      Delete...
-                    </Menu.Item>
-                  </Menu.Content>
-                </Menu.Positioner>
-              </Portal>
+              <Menu.Positioner>
+                <Menu.Content>
+                  <Menu.Item value="edit">Edit</Menu.Item>
+                  <Menu.Item value="duplicate">Duplicate</Menu.Item>
+                  <Menu.Item value="delete" tone="destructive" onClick={() => setOpen(true)}>
+                    Delete...
+                  </Menu.Item>
+                </Menu.Content>
+              </Menu.Positioner>
             </Menu>
 
             <Dialog
@@ -570,21 +552,19 @@ Control `open` from a menu item when a contextual action needs a confirmation di
               onOpenChange={(details) => setOpen(details.open)}
               role="alertdialog"
             >
-              <Portal>
-                <Dialog.Backdrop />
-                <Dialog.Positioner>
-                  <Dialog.Content>
-                    <Dialog.Title>Confirm delete</Dialog.Title>
-                    <Dialog.Description>This action cannot be undone.</Dialog.Description>
-                    <Dialog.Footer>
-                      <Dialog.CloseTrigger asChild>
-                        <Button variant="outline">Cancel</Button>
-                      </Dialog.CloseTrigger>
-                      <Button>Delete</Button>
-                    </Dialog.Footer>
-                  </Dialog.Content>
-                </Dialog.Positioner>
-              </Portal>
+              <Dialog.Backdrop />
+              <Dialog.Positioner>
+                <Dialog.Content>
+                  <Dialog.Title>Confirm delete</Dialog.Title>
+                  <Dialog.Description>This action cannot be undone.</Dialog.Description>
+                  <Dialog.Footer>
+                    <Dialog.CloseTrigger asChild>
+                      <Button variant="outline">Cancel</Button>
+                    </Dialog.CloseTrigger>
+                    <Button>Delete</Button>
+                  </Dialog.Footer>
+                </Dialog.Content>
+              </Dialog.Positioner>
             </Dialog>
           </>
         );
@@ -605,7 +585,7 @@ different records.
   <MultipleTriggersDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal } from "@moduix/react";
+      import { Button, Dialog } from "@moduix/react";
       import { useState } from "react";
 
       export function MultipleTriggersDialogDemo() {
@@ -622,16 +602,14 @@ different records.
                 <Button variant="outline">Edit {user.name}</Button>
               </Dialog.Trigger>
             ))}
-            <Portal>
-              <Dialog.Backdrop />
-              <Dialog.Positioner>
-                <Dialog.Content>
-                  <Dialog.Title>Edit user</Dialog.Title>
-                  <Dialog.Description>{activeUser?.email}</Dialog.Description>
-                  <Dialog.CloseIcon />
-                </Dialog.Content>
-              </Dialog.Positioner>
-            </Portal>
+            <Dialog.Backdrop />
+            <Dialog.Positioner>
+              <Dialog.Content>
+                <Dialog.Title>Edit user</Dialog.Title>
+                <Dialog.Description>{activeUser?.email}</Dialog.Description>
+                <Dialog.CloseIcon />
+              </Dialog.Content>
+            </Dialog.Positioner>
           </Dialog>
         );
       }
@@ -650,7 +628,7 @@ Intercept the parent dialog close request when unsaved changes should be confirm
   <ConfirmationDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, Portal, useDialog } from "@moduix/react";
+      import { Button, Dialog, useDialog } from "@moduix/react";
       import { useState } from "react";
 
       export function ConfirmationDialogDemo() {
@@ -680,44 +658,40 @@ Intercept the parent dialog close request when unsaved changes should be confirm
             <Button onClick={() => setOpen(true)}>Open form</Button>
 
             <Dialog.RootProvider value={parentDialog}>
-              <Portal>
-                <Dialog.Backdrop />
-                <Dialog.Positioner>
-                  <Dialog.Content>
-                    <Dialog.Title>Edit content</Dialog.Title>
-                    <Dialog.CloseIcon />
-                    <Dialog.Description>
-                      Unsaved changes ask for confirmation before closing.
-                    </Dialog.Description>
-                    <Dialog.Body>
-                      <textarea
-                        className="dialog-input dialog-textarea"
-                        value={formContent}
-                        onChange={(event) => setFormContent(event.currentTarget.value)}
-                        placeholder="Enter some text..."
-                      />
-                    </Dialog.Body>
-                  </Dialog.Content>
-                </Dialog.Positioner>
-              </Portal>
+              <Dialog.Backdrop />
+              <Dialog.Positioner>
+                <Dialog.Content>
+                  <Dialog.Title>Edit content</Dialog.Title>
+                  <Dialog.CloseIcon />
+                  <Dialog.Description>
+                    Unsaved changes ask for confirmation before closing.
+                  </Dialog.Description>
+                  <Dialog.Body>
+                    <textarea
+                      className="dialog-input dialog-textarea"
+                      value={formContent}
+                      onChange={(event) => setFormContent(event.currentTarget.value)}
+                      placeholder="Enter some text..."
+                    />
+                  </Dialog.Body>
+                </Dialog.Content>
+              </Dialog.Positioner>
             </Dialog.RootProvider>
 
             <Dialog.RootProvider value={confirmDialog}>
-              <Portal>
-                <Dialog.Backdrop />
-                <Dialog.Positioner>
-                  <Dialog.Content>
-                    <Dialog.Title>Discard changes?</Dialog.Title>
-                    <Dialog.Description>You have unsaved changes.</Dialog.Description>
-                    <Dialog.Footer>
-                      <Dialog.CloseTrigger asChild>
-                        <Button variant="outline">Keep editing</Button>
-                      </Dialog.CloseTrigger>
-                      <Button onClick={handleDiscard}>Discard</Button>
-                    </Dialog.Footer>
-                  </Dialog.Content>
-                </Dialog.Positioner>
-              </Portal>
+              <Dialog.Backdrop />
+              <Dialog.Positioner>
+                <Dialog.Content>
+                  <Dialog.Title>Discard changes?</Dialog.Title>
+                  <Dialog.Description>You have unsaved changes.</Dialog.Description>
+                  <Dialog.Footer>
+                    <Dialog.CloseTrigger asChild>
+                      <Button variant="outline">Keep editing</Button>
+                    </Dialog.CloseTrigger>
+                    <Button onClick={handleDiscard}>Discard</Button>
+                  </Dialog.Footer>
+                </Dialog.Content>
+              </Dialog.Positioner>
             </Dialog.RootProvider>
           </>
         );

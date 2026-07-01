@@ -119,7 +119,7 @@
       "type": "registry:item",
       "title": "moduix React core",
       "description": "React-specific icons and shared foundation dependencies for moduix React registry components.",
-      "dependencies": ["clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
@@ -130,6 +130,11 @@
         {
           "path": "packages/react/src/lib/moduix/icons/ui/Icons.tsx",
           "target": "@lib/moduix/icons/ui/Icons.tsx",
+          "type": "registry:lib"
+        },
+        {
+          "path": "packages/react/src/lib/moduix/overlayPortal.tsx",
+          "target": "@lib/moduix/overlayPortal.tsx",
           "type": "registry:lib"
         }
       ]

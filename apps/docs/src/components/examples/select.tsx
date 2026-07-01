@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { createListCollection } from '@ark-ui/react/collection';
-import { Field, Portal, Select, useSelect } from '@moduix/react';
+import { Field, Select, useSelect } from '@moduix/react';
 import { useMemo, useState } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -192,11 +192,9 @@ function SelectControl({ placeholder = 'Select an option' }: { placeholder?: str
 
 function SelectPopupContent({ children }: { children: ReactNode }) {
   return (
-    <Portal>
-      <Select.Positioner>
-        <Select.Content>{children}</Select.Content>
-      </Select.Positioner>
-    </Portal>
+    <Select.Positioner>
+      <Select.Content>{children}</Select.Content>
+    </Select.Positioner>
   );
 }
 

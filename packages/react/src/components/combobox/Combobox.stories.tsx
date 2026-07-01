@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { useMemo, useState } from 'react';
-import { Combobox, Portal, useCombobox } from './Combobox';
+import { Combobox, useCombobox } from './Combobox';
 import styles from './Combobox.stories.module.css';
 
 const meta = {
@@ -31,21 +31,19 @@ const fruits = [
 
 function ComboboxPopup({ items }: { items: Array<{ label: string; value: string }> }) {
   return (
-    <Portal>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.Empty>No options found.</Combobox.Empty>
-          <Combobox.List>
-            {items.map((item) => (
-              <Combobox.Item key={item.value} item={item}>
-                <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                <Combobox.ItemIndicator />
-              </Combobox.Item>
-            ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Portal>
+    <Combobox.Positioner>
+      <Combobox.Content>
+        <Combobox.Empty>No options found.</Combobox.Empty>
+        <Combobox.List>
+          {items.map((item) => (
+            <Combobox.Item key={item.value} item={item}>
+              <Combobox.ItemText>{item.label}</Combobox.ItemText>
+              <Combobox.ItemIndicator />
+            </Combobox.Item>
+          ))}
+        </Combobox.List>
+      </Combobox.Content>
+    </Combobox.Positioner>
   );
 }
 
@@ -118,24 +116,22 @@ function GroupedStory() {
         <Combobox.ClearTrigger aria-label="Clear selection" />
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
-      <Portal>
-        <Combobox.Positioner>
-          <Combobox.Content>
-            <Combobox.Empty>No countries found.</Combobox.Empty>
-            {collection.group().map(([continent, items]) => (
-              <Combobox.ItemGroup key={continent}>
-                <Combobox.ItemGroupLabel>{continent}</Combobox.ItemGroupLabel>
-                {items.map((item) => (
-                  <Combobox.Item key={item.value} item={item}>
-                    <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                    <Combobox.ItemIndicator />
-                  </Combobox.Item>
-                ))}
-              </Combobox.ItemGroup>
-            ))}
-          </Combobox.Content>
-        </Combobox.Positioner>
-      </Portal>
+      <Combobox.Positioner>
+        <Combobox.Content>
+          <Combobox.Empty>No countries found.</Combobox.Empty>
+          {collection.group().map(([continent, items]) => (
+            <Combobox.ItemGroup key={continent}>
+              <Combobox.ItemGroupLabel>{continent}</Combobox.ItemGroupLabel>
+              {items.map((item) => (
+                <Combobox.Item key={item.value} item={item}>
+                  <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                  <Combobox.ItemIndicator />
+                </Combobox.Item>
+              ))}
+            </Combobox.ItemGroup>
+          ))}
+        </Combobox.Content>
+      </Combobox.Positioner>
     </Combobox.Root>
   );
 }

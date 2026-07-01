@@ -63,7 +63,6 @@ presentation; the native form still owns submission, validation, and reset behav
         Checkbox,
         Combobox,
         Field,
-        Portal,
         Select,
       } from "@moduix/react";
 
@@ -115,18 +114,16 @@ presentation; the native form still owns submission, validation, and reset behav
                         <Select.Indicator />
                       </Select.Indicators>
                     </Select.Control>
-                    <Portal>
-                      <Select.Positioner>
-                        <Select.Content>
-                          {teams.items.map((item) => (
-                            <Select.Item key={item.value} item={item}>
-                              <Select.ItemText>{item.label}</Select.ItemText>
-                              <Select.ItemIndicator />
-                            </Select.Item>
-                          ))}
-                        </Select.Content>
-                      </Select.Positioner>
-                    </Portal>
+                    <Select.Positioner>
+                      <Select.Content>
+                        {teams.items.map((item) => (
+                          <Select.Item key={item.value} item={item}>
+                            <Select.ItemText>{item.label}</Select.ItemText>
+                            <Select.ItemIndicator />
+                          </Select.Item>
+                        ))}
+                      </Select.Content>
+                    </Select.Positioner>
                     <Select.HiddenSelect />
                   </Select>
                 </Field>
@@ -148,21 +145,19 @@ presentation; the native form still owns submission, validation, and reset behav
                       <Combobox.ClearTrigger aria-label="Clear reviewer" />
                       <Combobox.Trigger aria-label="Open reviewers" />
                     </Combobox.Control>
-                    <Portal>
-                      <Combobox.Positioner>
-                        <Combobox.Content>
-                          <Combobox.Empty>No reviewers found.</Combobox.Empty>
-                          <Combobox.List>
-                            {collection.items.map((item) => (
-                              <Combobox.Item key={item.value} item={item}>
-                                <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                                <Combobox.ItemIndicator />
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.List>
-                        </Combobox.Content>
-                      </Combobox.Positioner>
-                    </Portal>
+                    <Combobox.Positioner>
+                      <Combobox.Content>
+                        <Combobox.Empty>No reviewers found.</Combobox.Empty>
+                        <Combobox.List>
+                          {collection.items.map((item) => (
+                            <Combobox.Item key={item.value} item={item}>
+                              <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                              <Combobox.ItemIndicator />
+                            </Combobox.Item>
+                          ))}
+                        </Combobox.List>
+                      </Combobox.Content>
+                    </Combobox.Positioner>
                   </Combobox>
                 </Field>
 

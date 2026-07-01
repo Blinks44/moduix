@@ -10,6 +10,11 @@ import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { GripIcon, MaximizeIcon, MinusIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './FloatingPanel.module.css';
 
@@ -27,17 +32,34 @@ const resizeTriggerAxes = [
   'nw',
 ] satisfies FloatingPanelResizeTriggerAxis[];
 
+type FloatingPanelRootProps = ComponentProps<typeof FloatingPanelPrimitive.Root> &
+  OverlayPortalProps;
+type FloatingPanelRootProviderProps = ComponentProps<typeof FloatingPanelPrimitive.RootProvider> &
+  OverlayPortalProps;
+
 function FloatingPanelRoot({
   persistRect = true,
+  portalled,
+  portalRef,
   ...props
-}: ComponentProps<typeof FloatingPanelPrimitive.Root>) {
-  return <FloatingPanelPrimitive.Root persistRect={persistRect} {...props} />;
+}: FloatingPanelRootProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <FloatingPanelPrimitive.Root persistRect={persistRect} {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
-function FloatingPanelRootProvider(
-  props: ComponentProps<typeof FloatingPanelPrimitive.RootProvider>,
-) {
-  return <FloatingPanelPrimitive.RootProvider {...props} />;
+function FloatingPanelRootProvider({
+  portalled,
+  portalRef,
+  ...props
+}: FloatingPanelRootProviderProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <FloatingPanelPrimitive.RootProvider {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
 function useFloatingPanel(props: UseFloatingPanelProps = {}) {
@@ -64,12 +86,14 @@ const FloatingPanelPositioner = forwardRef<
   ComponentProps<typeof FloatingPanelPrimitive.Positioner>
 >(function FloatingPanelPositioner({ className, ...props }, ref) {
   return (
-    <FloatingPanelPrimitive.Positioner
-      ref={ref}
-      data-slot="floating-panel-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <FloatingPanelPrimitive.Positioner
+        ref={ref}
+        data-slot="floating-panel-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -288,6 +312,7 @@ const FloatingPanel = Object.assign(FloatingPanelRoot, {
 });
 
 export { FloatingPanel, resizeTriggerAxes, useFloatingPanel, useFloatingPanelContext };
+export type { FloatingPanelRootProps, FloatingPanelRootProviderProps };
 export type {
   FloatingPanelAnchorPositionDetails,
   FloatingPanelElementIds,

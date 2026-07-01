@@ -44,7 +44,7 @@ Use `Lightbox` when the overlay is primarily about previewing image or media con
 
 ## Basic
 
-Compose the explicit Ark UI dialog structure: `Lightbox`, `Lightbox.Trigger`, `Portal`,
+Compose the explicit Ark UI dialog structure: `Lightbox`, `Lightbox.Trigger`,
 `Lightbox.Backdrop`, `Lightbox.Positioner`, and `Lightbox.Content`. Use `asChild` with one
 semantic trigger element.
 
@@ -53,7 +53,7 @@ semantic trigger element.
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "@moduix/react";
+      import { Lightbox } from "@moduix/react";
 
       export function LightboxDemo() {
         return (
@@ -63,15 +63,13 @@ semantic trigger element.
                 <img src={images[0].thumbnail} alt={images[0].alt} />
               </button>
             </Lightbox.Trigger>
-            <Portal>
-              <Lightbox.Backdrop />
-              <Lightbox.Positioner>
-                <Lightbox.CloseIcon />
-                <Lightbox.Content aria-label={images[0].alt}>
-                  <Lightbox.Image src={images[0].src} alt={images[0].alt} />
-                </Lightbox.Content>
-              </Lightbox.Positioner>
-            </Portal>
+            <Lightbox.Backdrop />
+            <Lightbox.Positioner>
+              <Lightbox.CloseIcon />
+              <Lightbox.Content aria-label={images[0].alt}>
+                <Lightbox.Image src={images[0].src} alt={images[0].alt} />
+              </Lightbox.Content>
+            </Lightbox.Positioner>
           </Lightbox>
         );
       }
@@ -128,7 +126,7 @@ aubx shadcn@latest add Blinks44/moduix/react-lightbox
 Lightbox.Root
 ├─ Lightbox.Trigger
 ├─ Lightbox.Bind
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    ├─ Lightbox.Backdrop
    └─ Lightbox.Positioner
       ├─ Lightbox.CloseTrigger or Lightbox.CloseIcon
@@ -146,7 +144,6 @@ Lightbox.RootProvider
 | `Lightbox` / `Lightbox.Root` | Ark Dialog root for open state, focus lifecycle, dismissal, and accessibility. |
 | `Lightbox.RootProvider`      | Provider for state created with `useLightbox()`.                               |
 | `Lightbox.Trigger`           | Ark trigger. Use `asChild` for custom semantic buttons or links.               |
-| `Portal`                     | Renders overlay structure outside the local DOM flow.                          |
 | `Lightbox.Backdrop`          | Modal backdrop with Ark `data-state` and layer variables.                      |
 | `Lightbox.Positioner`        | Fixed centered overlay container.                                              |
 | `Lightbox.Content`           | Actual Ark dialog content node.                                                |
@@ -161,10 +158,12 @@ Lightbox.RootProvider
 
 ## Composition
 
+The root portals `Backdrop` and `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+
 ### Recommended composition
 
 Keep the overlay structure explicit. `Lightbox.Content` is the real Ark content part; it does not
-render a portal, backdrop, positioner, image, gallery, or close button for you.
+render a backdrop, positioner, image, gallery, or close button for you.
 
 Use `Lightbox.Image` for a single image. It renders a native `<img>`, accepts native image props,
 and forwards its ref to the `HTMLImageElement`. Place custom media layouts directly inside
@@ -227,7 +226,7 @@ Use the Ark `onOpenChange(details)` callback when synchronizing lightbox state w
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "@moduix/react";
+      import { Lightbox } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledLightboxDemo() {
@@ -238,15 +237,13 @@ Use the Ark `onOpenChange(details)` callback when synchronizing lightbox state w
             <Lightbox.Trigger className="lightbox-button">
               Open controlled lightbox
             </Lightbox.Trigger>
-            <Portal>
-              <Lightbox.Backdrop />
-              <Lightbox.Positioner>
-                <Lightbox.CloseIcon />
-                <Lightbox.Content aria-label={images[1].alt}>
-                  <Lightbox.Image src={images[1].src} alt={images[1].alt} />
-                </Lightbox.Content>
-              </Lightbox.Positioner>
-            </Portal>
+            <Lightbox.Backdrop />
+            <Lightbox.Positioner>
+              <Lightbox.CloseIcon />
+              <Lightbox.Content aria-label={images[1].alt}>
+                <Lightbox.Image src={images[1].src} alt={images[1].alt} />
+              </Lightbox.Content>
+            </Lightbox.Positioner>
           </Lightbox>
         );
       }
@@ -267,7 +264,7 @@ not maintain a hidden image registry.
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "@moduix/react";
+      import { Lightbox } from "@moduix/react";
       import { useState } from "react";
 
       export function MultipleTriggersLightboxDemo() {
@@ -288,15 +285,13 @@ not maintain a hidden image registry.
                 </Lightbox.Trigger>
               ))}
             </div>
-            <Portal>
-              <Lightbox.Backdrop />
-              <Lightbox.Positioner>
-                <Lightbox.CloseIcon />
-                <Lightbox.Content aria-label={activeImage.alt}>
-                  <Lightbox.Image src={activeImage.src} alt={activeImage.alt} />
-                </Lightbox.Content>
-              </Lightbox.Positioner>
-            </Portal>
+            <Lightbox.Backdrop />
+            <Lightbox.Positioner>
+              <Lightbox.CloseIcon />
+              <Lightbox.Content aria-label={activeImage.alt}>
+                <Lightbox.Image src={activeImage.src} alt={activeImage.alt} />
+              </Lightbox.Content>
+            </Lightbox.Positioner>
           </Lightbox>
         );
       }
@@ -318,7 +313,7 @@ slide and keep `Carousel` page state in sync as the user navigates.
 
   <Preview.Code>
     {`
-      import { Carousel, Lightbox, Portal } from "@moduix/react";
+      import { Carousel, Lightbox } from "@moduix/react";
       import { useState } from "react";
 
       export function GalleryLightboxDemo() {
@@ -342,41 +337,39 @@ slide and keep `Carousel` page state in sync as the user navigates.
               ))}
             </div>
 
-            <Portal>
-              <Lightbox.Backdrop />
-              <Lightbox.Positioner>
-                <Lightbox.CloseIcon />
-                <Lightbox.Content aria-label={activeImage.alt}>
-                  <Lightbox.Gallery>
-                    <Carousel.Root
-                      page={activeIndex}
-                      onPageChange={(details) => setActiveIndex(details.page)}
-                      slideCount={images.length}
-                    >
-                      <Carousel.Control>
-                        <Carousel.PrevTrigger />
-                        <Carousel.ItemGroup aria-label="Server-driven image carousel">
-                          {images.map((image, index) => (
-                            <Carousel.Item key={image.id} index={index}>
-                              <img src={image.src} alt={image.alt} />
-                            </Carousel.Item>
-                          ))}
-                        </Carousel.ItemGroup>
-                        <Carousel.NextTrigger />
-                      </Carousel.Control>
-
-                      <Carousel.IndicatorGroup>
+            <Lightbox.Backdrop />
+            <Lightbox.Positioner>
+              <Lightbox.CloseIcon />
+              <Lightbox.Content aria-label={activeImage.alt}>
+                <Lightbox.Gallery>
+                  <Carousel.Root
+                    page={activeIndex}
+                    onPageChange={(details) => setActiveIndex(details.page)}
+                    slideCount={images.length}
+                  >
+                    <Carousel.Control>
+                      <Carousel.PrevTrigger />
+                      <Carousel.ItemGroup aria-label="Server-driven image carousel">
                         {images.map((image, index) => (
-                          <Carousel.Indicator key={image.id} index={index}>
-                            <img src={image.thumbnail} alt="" />
-                          </Carousel.Indicator>
+                          <Carousel.Item key={image.id} index={index}>
+                            <img src={image.src} alt={image.alt} />
+                          </Carousel.Item>
                         ))}
-                      </Carousel.IndicatorGroup>
-                    </Carousel.Root>
-                  </Lightbox.Gallery>
-                </Lightbox.Content>
-              </Lightbox.Positioner>
-            </Portal>
+                      </Carousel.ItemGroup>
+                      <Carousel.NextTrigger />
+                    </Carousel.Control>
+
+                    <Carousel.IndicatorGroup>
+                      {images.map((image, index) => (
+                        <Carousel.Indicator key={image.id} index={index}>
+                          <img src={image.thumbnail} alt="" />
+                        </Carousel.Indicator>
+                      ))}
+                    </Carousel.IndicatorGroup>
+                  </Carousel.Root>
+                </Lightbox.Gallery>
+              </Lightbox.Content>
+            </Lightbox.Positioner>
           </Lightbox>
         );
       }
@@ -404,7 +397,7 @@ Lightbox. If your server already returns a real image array, prefer the
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "@moduix/react";
+      import { Lightbox } from "@moduix/react";
       import type { LightboxImageSelectDetails } from "@moduix/react";
       import { useRef, useState } from "react";
 
@@ -430,17 +423,15 @@ Lightbox. If your server already returns a real image array, prefer the
                 selector="button"
                 onImageSelect={setActiveImage}
               />
-              <Portal>
-                <Lightbox.Backdrop />
-                <Lightbox.Positioner>
-                  <Lightbox.CloseIcon />
-                  <Lightbox.Content aria-label={activeImage?.alt ?? "Image preview"}>
-                    {activeImage ? (
-                      <Lightbox.Image src={activeImage.src} alt={activeImage.alt ?? ""} />
-                    ) : null}
-                  </Lightbox.Content>
-                </Lightbox.Positioner>
-              </Portal>
+              <Lightbox.Backdrop />
+              <Lightbox.Positioner>
+                <Lightbox.CloseIcon />
+                <Lightbox.Content aria-label={activeImage?.alt ?? "Image preview"}>
+                  {activeImage ? (
+                    <Lightbox.Image src={activeImage.src} alt={activeImage.alt ?? ""} />
+                  ) : null}
+                </Lightbox.Content>
+              </Lightbox.Positioner>
             </Lightbox>
           </>
         );
@@ -462,7 +453,7 @@ stable element ids for external accessibility composition.
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "@moduix/react";
+      import { Lightbox } from "@moduix/react";
       import { useRef } from "react";
 
       export function FocusLightboxDemo() {
@@ -485,18 +476,16 @@ stable element ids for external accessibility composition.
               <Lightbox.Trigger className="lightbox-button">
                 Open focus-managed lightbox
               </Lightbox.Trigger>
-              <Portal>
-                <Lightbox.Backdrop />
-                <Lightbox.Positioner>
-                  <Lightbox.CloseIcon ref={closeRef} />
-                  <Lightbox.Content>
-                    <Lightbox.Title className="lightbox-status">
-                      Mountain ridge at sunset
-                    </Lightbox.Title>
-                    <Lightbox.Image src={images[0].src} alt={images[0].alt} />
-                  </Lightbox.Content>
-                </Lightbox.Positioner>
-              </Portal>
+              <Lightbox.Backdrop />
+              <Lightbox.Positioner>
+                <Lightbox.CloseIcon ref={closeRef} />
+                <Lightbox.Content>
+                  <Lightbox.Title className="lightbox-status">
+                    Mountain ridge at sunset
+                  </Lightbox.Title>
+                  <Lightbox.Image src={images[0].src} alt={images[0].alt} />
+                </Lightbox.Content>
+              </Lightbox.Positioner>
             </Lightbox>
           </>
         );
@@ -518,7 +507,7 @@ Set `modal={false}` for rare previews that should leave the page interactive. Pa
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "@moduix/react";
+      import { Lightbox } from "@moduix/react";
 
       export function NonModalLightboxDemo() {
         return (
@@ -527,15 +516,13 @@ Set `modal={false}` for rare previews that should leave the page interactive. Pa
               <Lightbox.Trigger className="lightbox-button">
                 Open non-modal lightbox
               </Lightbox.Trigger>
-              <Portal>
-                <Lightbox.Backdrop />
-                <Lightbox.Positioner>
-                  <Lightbox.CloseIcon />
-                  <Lightbox.Content aria-label={images[2].alt}>
-                    <Lightbox.Image src={images[2].src} alt={images[2].alt} />
-                  </Lightbox.Content>
-                </Lightbox.Positioner>
-              </Portal>
+              <Lightbox.Backdrop />
+              <Lightbox.Positioner>
+                <Lightbox.CloseIcon />
+                <Lightbox.Content aria-label={images[2].alt}>
+                  <Lightbox.Image src={images[2].src} alt={images[2].alt} />
+                </Lightbox.Content>
+              </Lightbox.Positioner>
             </Lightbox>
             <button type="button" className="lightbox-button">
               Background action
@@ -560,7 +547,7 @@ Create state with `useLightbox()` when the opener is outside the root. Read inli
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal, useLightbox } from "@moduix/react";
+      import { Lightbox, useLightbox } from "@moduix/react";
 
       export function LightboxStateDemo() {
         const lightbox = useLightbox();
@@ -571,18 +558,16 @@ Create state with `useLightbox()` when the opener is outside the root. Read inli
               Lightbox is {lightbox.open ? "open" : "closed"}
             </button>
             <Lightbox.RootProvider value={lightbox}>
-              <Portal>
-                <Lightbox.Backdrop />
-                <Lightbox.Positioner>
-                  <Lightbox.CloseIcon />
-                  <Lightbox.Content aria-label={images[2].alt}>
-                    <Lightbox.Image src={images[2].src} alt={images[2].alt} />
-                    <Lightbox.Context>
-                      {(state) => <>Preview is {state.open ? "open" : "closed"}</>}
-                    </Lightbox.Context>
-                  </Lightbox.Content>
-                </Lightbox.Positioner>
-              </Portal>
+              <Lightbox.Backdrop />
+              <Lightbox.Positioner>
+                <Lightbox.CloseIcon />
+                <Lightbox.Content aria-label={images[2].alt}>
+                  <Lightbox.Image src={images[2].src} alt={images[2].alt} />
+                  <Lightbox.Context>
+                    {(state) => <>Preview is {state.open ? "open" : "closed"}</>}
+                  </Lightbox.Context>
+                </Lightbox.Content>
+              </Lightbox.Positioner>
             </Lightbox.RootProvider>
           </>
         );
@@ -604,21 +589,19 @@ Use Ark presence props for heavy media. `lazyMount` delays rendering until the f
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "@moduix/react";
+      import { Lightbox } from "@moduix/react";
 
       export function LazyLightboxDemo() {
         return (
           <Lightbox lazyMount unmountOnExit>
             <Lightbox.Trigger className="lightbox-button">Open lazy lightbox</Lightbox.Trigger>
-            <Portal>
-              <Lightbox.Backdrop />
-              <Lightbox.Positioner>
-                <Lightbox.CloseIcon />
-                <Lightbox.Content aria-label={images[0].alt}>
-                  <Lightbox.Image src={images[0].src} alt={images[0].alt} />
-                </Lightbox.Content>
-              </Lightbox.Positioner>
-            </Portal>
+            <Lightbox.Backdrop />
+            <Lightbox.Positioner>
+              <Lightbox.CloseIcon />
+              <Lightbox.Content aria-label={images[0].alt}>
+                <Lightbox.Image src={images[0].src} alt={images[0].alt} />
+              </Lightbox.Content>
+            </Lightbox.Positioner>
           </Lightbox>
         );
       }
@@ -639,7 +622,7 @@ close icon remains available and keeps the same Ark close semantics.
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "@moduix/react";
+      import { Lightbox } from "@moduix/react";
 
       export function ClickToCloseLightboxDemo() {
         return (
@@ -647,15 +630,13 @@ close icon remains available and keeps the same Ark close semantics.
             <Lightbox.Trigger className="lightbox-button">
               Open click-to-close lightbox
             </Lightbox.Trigger>
-            <Portal>
-              <Lightbox.Backdrop />
-              <Lightbox.Positioner>
-                <Lightbox.CloseIcon />
-                <Lightbox.Content aria-label={images[1].alt}>
-                  <Lightbox.Image src={images[1].src} alt={images[1].alt} closeOnClick />
-                </Lightbox.Content>
-              </Lightbox.Positioner>
-            </Portal>
+            <Lightbox.Backdrop />
+            <Lightbox.Positioner>
+              <Lightbox.CloseIcon />
+              <Lightbox.Content aria-label={images[1].alt}>
+                <Lightbox.Image src={images[1].src} alt={images[1].alt} closeOnClick />
+              </Lightbox.Content>
+            </Lightbox.Positioner>
           </Lightbox>
         );
       }
@@ -676,21 +657,19 @@ Customize the backdrop, content sizing, media radius, and close icon through cla
 
   <Preview.Code>
     {`
-      import { Lightbox, Portal } from "@moduix/react";
+      import { Lightbox } from "@moduix/react";
 
       export function StyledLightboxDemo() {
         return (
           <Lightbox>
             <Lightbox.Trigger className="lightbox-button">Open styled lightbox</Lightbox.Trigger>
-            <Portal>
-              <Lightbox.Backdrop className="lightbox-custom-backdrop" />
-              <Lightbox.Positioner>
-                <Lightbox.CloseIcon className="lightbox-custom-close" />
-                <Lightbox.Content className="lightbox-custom-content" aria-label={images[1].alt}>
-                  <Lightbox.Image src={images[1].src} alt={images[1].alt} />
-                </Lightbox.Content>
-              </Lightbox.Positioner>
-            </Portal>
+            <Lightbox.Backdrop className="lightbox-custom-backdrop" />
+            <Lightbox.Positioner>
+              <Lightbox.CloseIcon className="lightbox-custom-close" />
+              <Lightbox.Content className="lightbox-custom-content" aria-label={images[1].alt}>
+                <Lightbox.Image src={images[1].src} alt={images[1].alt} />
+              </Lightbox.Content>
+            </Lightbox.Positioner>
           </Lightbox>
         );
       }

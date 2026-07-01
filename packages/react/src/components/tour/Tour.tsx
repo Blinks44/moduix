@@ -11,10 +11,21 @@ import {
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import styles from './Tour.module.css';
 
-function TourRoot(props: ComponentProps<typeof TourPrimitive.Root>) {
-  return <TourPrimitive.Root {...props} />;
+type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
+
+function TourRoot({ portalled, portalRef, ...props }: TourRootProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <TourPrimitive.Root {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
 const TourBackdrop = forwardRef<
@@ -22,12 +33,14 @@ const TourBackdrop = forwardRef<
   ComponentProps<typeof TourPrimitive.Backdrop>
 >(function TourBackdrop({ className, ...props }, ref) {
   return (
-    <TourPrimitive.Backdrop
-      ref={ref}
-      data-slot="tour-backdrop"
-      className={clsx(styles.backdrop, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <TourPrimitive.Backdrop
+        ref={ref}
+        data-slot="tour-backdrop"
+        className={clsx(styles.backdrop, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -36,12 +49,14 @@ const TourSpotlight = forwardRef<
   ComponentProps<typeof TourPrimitive.Spotlight>
 >(function TourSpotlight({ className, ...props }, ref) {
   return (
-    <TourPrimitive.Spotlight
-      ref={ref}
-      data-slot="tour-spotlight"
-      className={clsx(styles.spotlight, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <TourPrimitive.Spotlight
+        ref={ref}
+        data-slot="tour-spotlight"
+        className={clsx(styles.spotlight, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -50,12 +65,14 @@ const TourPositioner = forwardRef<
   ComponentProps<typeof TourPrimitive.Positioner>
 >(function TourPositioner({ className, ...props }, ref) {
   return (
-    <TourPrimitive.Positioner
-      ref={ref}
-      data-slot="tour-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <TourPrimitive.Positioner
+        ref={ref}
+        data-slot="tour-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -219,6 +236,7 @@ export {
   waitForEvent,
   waitForPromise,
 };
+export type { TourRootProps };
 export type {
   TourActionTriggerProps,
   TourActionsProps,
@@ -235,7 +253,6 @@ export type {
   TourPointerDownOutsideEvent,
   TourPositionerProps,
   TourProgressTextProps,
-  TourRootProps,
   TourSpotlightProps,
   TourStepDetails,
   TourStepEffectArgs,

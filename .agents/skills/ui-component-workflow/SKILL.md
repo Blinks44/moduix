@@ -81,7 +81,9 @@ Small DX sugar is acceptable only when it removes repeated production boilerplat
 - Use stable `data-slot` hooks on exported parts.
 - Prefer direct primitive passthrough over custom wrapper logic.
 - Prefer composition over feature flags, slot bags, render shims, and prop bags.
-- For overlay and floating families, export the real structural parts instead of convenience wrappers that render them internally.
+- For overlay and floating families, export the real visual structural parts instead of convenience
+  wrappers that render them internally. Portal transport is the exception: roots own it through the
+  shared `portalled` and `portalRef` contract.
 - Keep `Content` reserved for the real upstream content part. Do not overload it to mean `Portal + Positioner + Content`
   or other hidden structural bundles.
 - Keep controlled/uncontrolled primitive behavior intact unless the wrapper adds clear value.
@@ -105,8 +107,13 @@ If the answer is weak, simplify or remove it.
 - Prefer the full explicit Ark/Chakra composition path as the public contract.
 - Export structural parts such as `Root`, `Trigger`, `Anchor`, `Positioner`, `Content`, `Arrow`, `ArrowTip`,
   `CloseTrigger`, `Title`, `Description`, `Header`, `Body`, and `Footer` when the upstream family provides them.
-- Do not hide `Portal`, `Positioner`, `Backdrop`, `Popup`, `Viewport`, `Arrow`, or equivalent structural nodes behind
-  `*Content` sugar.
+- Portal `Positioner` automatically for floating families and portal `Backdrop` plus `Positioner`
+  automatically for dialog-like families. Keep `Positioner`, `Backdrop`, `Popup`, `Viewport`,
+  `Arrow`, and equivalent visual structural nodes explicit; never hide them behind `*Content`
+  sugar.
+- Use `portalled={false}` for inline rendering and `portalRef` for a custom portal container. Keep
+  the same prop names and defaults across overlay roots, root providers, and root-like hosts such as
+  `Toaster`.
 - Built-in arrows may be concise only when the upstream family already supports it, for example `Arrow` rendering a
   default `ArrowTip`.
 - Custom arrows and structural overrides stay in explicit composition.

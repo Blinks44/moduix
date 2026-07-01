@@ -12,7 +12,7 @@ Upstream docs:
 ## Upstream model to preserve
 
 The root, trigger, backdrop, positioner, content, close trigger, title, and description follow Ark
-`Dialog`. The popup is mounted through the shared Ark `Portal`. Search state, input, clear trigger,
+`Dialog`. The root portals the popup infrastructure automatically. Search state, input, clear trigger,
 listbox content, grouped items, item text, item indicator, context, and item context follow Ark
 `Combobox`. Local visual leaves use the Ark factory so they keep `asChild`, ref, and prop-merging
 behavior consistent with local-only moduix primitives.
@@ -20,6 +20,8 @@ behavior consistent with local-only moduix primitives.
 There is no Ark command-palette primitive, so the component is a moduix-owned composite. Do not add legacy render contracts, autocomplete render functions, imperative handles, or hidden `Content` sugar.
 
 ## Current behavior contract
+
+`Root` and `RootProvider` portal `Backdrop` and `Positioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
 `CommandPalette` / `CommandPalette.Root` owns Ark Dialog state and an optional global shortcut listener. `shortcut` defaults to `false`; pass `shortcut="alt+k"` or another primary-modifier shortcut to enable it. The supported format is one primary modifier (`mod`, `ctrl`, `control`, `meta`, `cmd`, `command`, `alt`, or `option`) plus one key. `mod` accepts either Meta or Control so the component does not need platform detection. Editable targets are ignored. `shortcutTarget={null}` skips registration.
 
@@ -32,41 +34,38 @@ When consumers filter an external `useListCollection`, reset that filter when th
 ```tsx
 <CommandPalette>
   <CommandPalette.Trigger />
-  <Portal>
-    <CommandPalette.Backdrop />
-    <CommandPalette.Positioner>
-      <CommandPalette.Content>
-        <CommandPalette.Combobox>
-          <CommandPalette.Control>
-            <CommandPalette.Input />
-            <CommandPalette.ClearTrigger />
-          </CommandPalette.Control>
-          <CommandPalette.List>
-            <CommandPalette.Empty />
-            <CommandPalette.ItemGroup>
-              <CommandPalette.ItemGroupLabel />
-              <CommandPalette.Item>
-                <CommandPalette.ItemIcon />
-                <CommandPalette.ItemText>
-                  <CommandPalette.ItemLabel />
-                  <CommandPalette.ItemDescription />
-                </CommandPalette.ItemText>
-                <CommandPalette.ItemMeta />
-              </CommandPalette.Item>
-            </CommandPalette.ItemGroup>
-          </CommandPalette.List>
-          <CommandPalette.Footer />
-        </CommandPalette.Combobox>
-      </CommandPalette.Content>
-    </CommandPalette.Positioner>
-  </Portal>
+  <CommandPalette.Backdrop />
+  <CommandPalette.Positioner>
+    <CommandPalette.Content>
+      <CommandPalette.Combobox>
+        <CommandPalette.Control>
+          <CommandPalette.Input />
+          <CommandPalette.ClearTrigger />
+        </CommandPalette.Control>
+        <CommandPalette.List>
+          <CommandPalette.Empty />
+          <CommandPalette.ItemGroup>
+            <CommandPalette.ItemGroupLabel />
+            <CommandPalette.Item>
+              <CommandPalette.ItemIcon />
+              <CommandPalette.ItemText>
+                <CommandPalette.ItemLabel />
+                <CommandPalette.ItemDescription />
+              </CommandPalette.ItemText>
+              <CommandPalette.ItemMeta />
+            </CommandPalette.Item>
+          </CommandPalette.ItemGroup>
+        </CommandPalette.List>
+        <CommandPalette.Footer />
+      </CommandPalette.Combobox>
+    </CommandPalette.Content>
+  </CommandPalette.Positioner>
 </CommandPalette>
 ```
 
 - `CommandPalette` / `CommandPalette.Root`: Ark Dialog root plus shortcut listener.
 - `CommandPalette.RootProvider`: Ark Dialog root provider for externally owned dialog state.
 - `CommandPalette.Trigger`: Ark Dialog trigger, styled unless `asChild` is used.
-- `Portal`: shared Ark Portal imported separately from `@moduix/react`.
 - `CommandPalette.Backdrop`: Ark Dialog backdrop, `data-slot="command-palette-backdrop"`.
 - `CommandPalette.Positioner`: Ark Dialog positioner, `data-slot="command-palette-positioner"`.
 - `CommandPalette.Content`: Ark Dialog content, `data-slot="command-palette-content"`.
@@ -95,35 +94,33 @@ const { collection, filter } = useListCollection({
   <CommandPalette.Trigger asChild>
     <Button>Open palette</Button>
   </CommandPalette.Trigger>
-  <Portal>
-    <CommandPalette.Backdrop />
-    <CommandPalette.Positioner>
-      <CommandPalette.Content>
-        <CommandPalette.Combobox
-          collection={collection}
-          onInputValueChange={(details) => filter(details.inputValue)}
-        >
-          <CommandPalette.Control>
-            <CommandPalette.Input aria-label="Search commands" />
-            <CommandPalette.ClearTrigger aria-label="Clear search" />
-          </CommandPalette.Control>
-          <CommandPalette.List>
-            <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
-            {collection.group().map(([section, items]) => (
-              <CommandPalette.ItemGroup key={section}>
-                <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
-                {items.map((item) => (
-                  <CommandPalette.Item key={item.id} item={item}>
-                    <CommandPalette.ItemText>{item.label}</CommandPalette.ItemText>
-                  </CommandPalette.Item>
-                ))}
-              </CommandPalette.ItemGroup>
-            ))}
-          </CommandPalette.List>
-        </CommandPalette.Combobox>
-      </CommandPalette.Content>
-    </CommandPalette.Positioner>
-  </Portal>
+  <CommandPalette.Backdrop />
+  <CommandPalette.Positioner>
+    <CommandPalette.Content>
+      <CommandPalette.Combobox
+        collection={collection}
+        onInputValueChange={(details) => filter(details.inputValue)}
+      >
+        <CommandPalette.Control>
+          <CommandPalette.Input aria-label="Search commands" />
+          <CommandPalette.ClearTrigger aria-label="Clear search" />
+        </CommandPalette.Control>
+        <CommandPalette.List>
+          <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+          {collection.group().map(([section, items]) => (
+            <CommandPalette.ItemGroup key={section}>
+              <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+              {items.map((item) => (
+                <CommandPalette.Item key={item.id} item={item}>
+                  <CommandPalette.ItemText>{item.label}</CommandPalette.ItemText>
+                </CommandPalette.Item>
+              ))}
+            </CommandPalette.ItemGroup>
+          ))}
+        </CommandPalette.List>
+      </CommandPalette.Combobox>
+    </CommandPalette.Content>
+  </CommandPalette.Positioner>
 </CommandPalette>;
 ```
 
@@ -166,14 +163,14 @@ consumers should compose the Ark helpers directly.
 
 ## Local changelog
 
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
+
 - 2026-06-25: Simplified root state through Ark `useDialog`, moved local visual leaves to the
   Ark factory, added fallback labels for default icon triggers, and normalized several CSS defaults
   to shared size/spacing tokens.
 - 2026-06-24: Updated the command palette contract to treat collections and locale filtering as
   direct Ark UI imports instead of moduix re-exports.
 
-- 2026-06-22: Removed the `CommandPalette.Portal` namespace alias; examples now import the shared
-  `Portal` from `@moduix/react`.
 - 2026-06-21: Migrated from legacy Dialog/Autocomplete to an Ark Dialog + Ark Combobox composite. Removed imperative handles, Base render props, autocomplete collection render functions, and legacy flat part exports.
 - 2026-06-21: Matched Dialog-style enter/exit animation tokens, simplified shortcut matching to primary-modifier shortcuts, and moved result scrolling to the local ScrollArea.
 - 2026-06-21: Removed the list height formula, let the list consume remaining flex space above `Footer`, and fixed sticky group labels to pin to the scroll viewport instead of sliding under the input header.

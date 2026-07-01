@@ -19,6 +19,8 @@ presence lifecycle, and provider/context APIs without remapping callback details
 
 ## Current behavior contract
 
+`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+
 - `FloatingPanel` and `FloatingPanel.Root` are the same root component.
 - `Root` owns `open`, `position`, `size`, and stage transitions unless a controlled prop is passed.
 - `Root` and `useFloatingPanel` default `persistRect` to `true` so close animations keep the last
@@ -38,7 +40,7 @@ presence lifecycle, and provider/context APIs without remapping callback details
 ```text
 FloatingPanel.Root
 ├─ FloatingPanel.Trigger
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    └─ FloatingPanel.Positioner
       └─ FloatingPanel.Content
          ├─ FloatingPanel.DragTrigger
@@ -55,7 +57,7 @@ FloatingPanel.Root
 
 Every rendered wrapper adds a stable kebab-case `data-slot`, for example
 `floating-panel-content`, `floating-panel-stage-trigger`, and
-`floating-panel-resize-trigger`. `Portal` does not render a DOM element.
+`floating-panel-resize-trigger`. The internal portal transport does not render a DOM element.
 
 Exported Ark-aligned state surfaces are `FloatingPanel.RootProvider`,
 `FloatingPanel.Context`, `useFloatingPanel`, and `useFloatingPanelContext`.
@@ -63,7 +65,7 @@ Exported Ark-aligned state surfaces are `FloatingPanel.RootProvider`,
 ## Composition
 
 ```tsx
-import { Button, FloatingPanel, Portal } from '@moduix/react';
+import { Button, FloatingPanel } from '@moduix/react';
 
 export function FloatingPanelDemo() {
   return (
@@ -71,27 +73,25 @@ export function FloatingPanelDemo() {
       <FloatingPanel.Trigger asChild>
         <Button>Open panel</Button>
       </FloatingPanel.Trigger>
-      <Portal>
-        <FloatingPanel.Positioner>
-          <FloatingPanel.Content>
-            <FloatingPanel.DragTrigger>
-              <FloatingPanel.Header>
-                <FloatingPanel.Title>
-                  <FloatingPanel.DragIndicator />
-                  Inspector
-                </FloatingPanel.Title>
-                <FloatingPanel.Control>
-                  <FloatingPanel.StageTrigger stage="minimized" />
-                  <FloatingPanel.StageTrigger stage="maximized" />
-                  <FloatingPanel.CloseIcon />
-                </FloatingPanel.Control>
-              </FloatingPanel.Header>
-            </FloatingPanel.DragTrigger>
-            <FloatingPanel.Body>Panel content</FloatingPanel.Body>
-            <FloatingPanel.ResizeTriggerGroup />
-          </FloatingPanel.Content>
-        </FloatingPanel.Positioner>
-      </Portal>
+      <FloatingPanel.Positioner>
+        <FloatingPanel.Content>
+          <FloatingPanel.DragTrigger>
+            <FloatingPanel.Header>
+              <FloatingPanel.Title>
+                <FloatingPanel.DragIndicator />
+                Inspector
+              </FloatingPanel.Title>
+              <FloatingPanel.Control>
+                <FloatingPanel.StageTrigger stage="minimized" />
+                <FloatingPanel.StageTrigger stage="maximized" />
+                <FloatingPanel.CloseIcon />
+              </FloatingPanel.Control>
+            </FloatingPanel.Header>
+          </FloatingPanel.DragTrigger>
+          <FloatingPanel.Body>Panel content</FloatingPanel.Body>
+          <FloatingPanel.ResizeTriggerGroup />
+        </FloatingPanel.Content>
+      </FloatingPanel.Positioner>
     </FloatingPanel>
   );
 }
@@ -154,13 +154,15 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
 
 ## Agent notes
 
-- Keep `Portal`, `FloatingPanel.Positioner`, and `FloatingPanel.Content` explicit in public
+- Keep `FloatingPanel.Positioner` and `FloatingPanel.Content` explicit in public
   examples.
 - Keep Ark callback detail objects unchanged.
 - Do not replace Ark drag, resize, boundary, stage, or presence behavior with local state.
 - Keep helper parts visual only; they must not hide required Ark parts or alter focus management.
 
 ## Local changelog
+
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-25: Preserved `StageTrigger asChild` semantics by limiting default icons to the default
   Ark button host and normalized floating-panel size defaults to the shared spacing/size scale.

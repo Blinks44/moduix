@@ -1,12 +1,11 @@
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
-import { Portal } from '@ark-ui/react/portal';
 import {
   Select as SelectPrimitive,
   type CollectionItem,
-  type SelectRootComponent,
-  type SelectRootProps,
-  type SelectRootProviderComponent,
-  type SelectRootProviderProps,
+  type SelectRootComponent as ArkSelectRootComponent,
+  type SelectRootProps as ArkSelectRootProps,
+  type SelectRootProviderComponent as ArkSelectRootProviderComponent,
+  type SelectRootProviderProps as ArkSelectRootProviderProps,
   useSelect,
   useSelectContext,
   useSelectItemContext,
@@ -15,33 +14,48 @@ import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon, ChevronUpDownIcon, CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import styles from './Select.module.css';
 
+type SelectRootProps<T extends CollectionItem> = ArkSelectRootProps<T> & OverlayPortalProps;
+type SelectRootProviderProps<T extends CollectionItem> = ArkSelectRootProviderProps<T> &
+  OverlayPortalProps;
+type SelectRootComponent = ArkSelectRootComponent<OverlayPortalProps>;
+type SelectRootProviderComponent = ArkSelectRootProviderComponent<OverlayPortalProps>;
+
 const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
-  { className, ...props }: SelectRootProps<T>,
+  { className, portalled, portalRef, ...props }: SelectRootProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
-    <SelectPrimitive.Root
-      ref={ref}
-      data-slot="select-root"
-      className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <SelectPrimitive.Root
+        ref={ref}
+        data-slot="select-root"
+        className={clsx(styles.root, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortalProvider>
   );
 }) as SelectRootComponent;
 
 const SelectRootProvider = forwardRef(function SelectRootProvider<T extends CollectionItem>(
-  { className, ...props }: SelectRootProviderProps<T>,
+  { className, portalled, portalRef, ...props }: SelectRootProviderProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
-    <SelectPrimitive.RootProvider
-      ref={ref}
-      data-slot="select-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <SelectPrimitive.RootProvider
+        ref={ref}
+        data-slot="select-root-provider"
+        className={clsx(styles.root, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortalProvider>
   );
 }) as SelectRootProviderComponent;
 
@@ -149,12 +163,14 @@ const SelectPositioner = forwardRef<
   ComponentProps<typeof SelectPrimitive.Positioner>
 >(function SelectPositioner({ className, ...props }, ref) {
   return (
-    <SelectPrimitive.Positioner
-      ref={ref}
-      data-slot="select-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <SelectPrimitive.Positioner
+        ref={ref}
+        data-slot="select-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -331,17 +347,19 @@ const Select = Object.assign(SelectRoot, {
   ItemContext: SelectItemContext,
 });
 
-export { Select, Portal, useSelect, useSelectContext, useSelectItemContext };
+export { Select, useSelect, useSelectContext, useSelectItemContext };
+export type {
+  SelectRootComponent,
+  SelectRootProps,
+  SelectRootProviderComponent,
+  SelectRootProviderProps,
+};
 export type {
   SelectFocusOutsideEvent,
   SelectHighlightChangeDetails,
   SelectInteractOutsideEvent,
   SelectOpenChangeDetails,
   SelectPointerDownOutsideEvent,
-  SelectRootComponent,
-  SelectRootProps,
-  SelectRootProviderComponent,
-  SelectRootProviderProps,
   SelectValueChangeDetails,
   UseSelectContext,
   UseSelectItemContext,

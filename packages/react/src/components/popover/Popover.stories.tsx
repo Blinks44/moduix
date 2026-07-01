@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Portal } from '@ark-ui/react/portal';
 import * as React from 'react';
 import { BellIcon } from '@/icons/demo';
 import { Button } from '../button';
@@ -46,20 +45,18 @@ function PopoverSurface({
   arrow?: boolean;
 }) {
   return (
-    <Portal>
-      <Popover.Positioner>
-        <Popover.Content>
-          {arrow ? <Popover.Arrow /> : null}
-          <Popover.Header>
-            <Popover.Title>{title}</Popover.Title>
-            <Popover.Description>{description}</Popover.Description>
-          </Popover.Header>
-          <Popover.Footer>
-            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-          </Popover.Footer>
-        </Popover.Content>
-      </Popover.Positioner>
-    </Portal>
+    <Popover.Positioner>
+      <Popover.Content>
+        {arrow ? <Popover.Arrow /> : null}
+        <Popover.Header>
+          <Popover.Title>{title}</Popover.Title>
+          <Popover.Description>{description}</Popover.Description>
+        </Popover.Header>
+        <Popover.Footer>
+          <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+        </Popover.Footer>
+      </Popover.Content>
+    </Popover.Positioner>
   );
 }
 
@@ -131,25 +128,23 @@ export const Context: Story = {
       <Popover.Trigger asChild>
         <Button>Read context</Button>
       </Popover.Trigger>
-      <Portal>
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Title>Status</Popover.Title>
-            <Popover.Description>
-              <Popover.Context>
-                {(context) => (
-                  <span className={storyStyles.status}>
-                    Popover is {context.open ? 'visible' : 'hidden'}
-                  </span>
-                )}
-              </Popover.Context>
-            </Popover.Description>
-            <Popover.Footer>
-              <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-            </Popover.Footer>
-          </Popover.Content>
-        </Popover.Positioner>
-      </Portal>
+      <Popover.Positioner>
+        <Popover.Content>
+          <Popover.Title>Status</Popover.Title>
+          <Popover.Description>
+            <Popover.Context>
+              {(context) => (
+                <span className={storyStyles.status}>
+                  Popover is {context.open ? 'visible' : 'hidden'}
+                </span>
+              )}
+            </Popover.Context>
+          </Popover.Description>
+          <Popover.Footer>
+            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+          </Popover.Footer>
+        </Popover.Content>
+      </Popover.Positioner>
     </Popover>
   ),
 };
@@ -220,27 +215,25 @@ export const Modal: Story = {
       <Popover.Trigger asChild>
         <Button>Invite teammates</Button>
       </Popover.Trigger>
-      <Portal>
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Header>
-              <Popover.Title>Invite teammates</Popover.Title>
-              <Popover.Description>
-                Focus is trapped inside this modal popover until dismissed.
-              </Popover.Description>
-            </Popover.Header>
-            <Popover.Body>
-              <label className={storyStyles.field}>
-                <span>Email</span>
-                <input id="popover-email" className={storyStyles.input} />
-              </label>
-            </Popover.Body>
-            <Popover.Footer>
-              <Popover.CloseTrigger>Done</Popover.CloseTrigger>
-            </Popover.Footer>
-          </Popover.Content>
-        </Popover.Positioner>
-      </Portal>
+      <Popover.Positioner>
+        <Popover.Content>
+          <Popover.Header>
+            <Popover.Title>Invite teammates</Popover.Title>
+            <Popover.Description>
+              Focus is trapped inside this modal popover until dismissed.
+            </Popover.Description>
+          </Popover.Header>
+          <Popover.Body>
+            <label className={storyStyles.field}>
+              <span>Email</span>
+              <input id="popover-email" className={storyStyles.input} />
+            </label>
+          </Popover.Body>
+          <Popover.Footer>
+            <Popover.CloseTrigger>Done</Popover.CloseTrigger>
+          </Popover.Footer>
+        </Popover.Content>
+      </Popover.Positioner>
     </Popover>
   ),
 };
@@ -271,16 +264,14 @@ export const SameWidth: Story = {
       <Popover.Trigger asChild>
         <Button className={storyStyles.wideTrigger}>Match this trigger width</Button>
       </Popover.Trigger>
-      <Portal>
-        <Popover.Positioner>
-          <Popover.Content className={storyStyles.sameWidthContent}>
-            <Popover.Title>Matched width</Popover.Title>
-            <Popover.Description>
-              The content uses Ark&apos;s reference width measurement.
-            </Popover.Description>
-          </Popover.Content>
-        </Popover.Positioner>
-      </Portal>
+      <Popover.Positioner>
+        <Popover.Content className={storyStyles.sameWidthContent}>
+          <Popover.Title>Matched width</Popover.Title>
+          <Popover.Description>
+            The content uses Ark&apos;s reference width measurement.
+          </Popover.Description>
+        </Popover.Content>
+      </Popover.Positioner>
     </Popover>
   ),
 };
@@ -306,16 +297,14 @@ export const MultipleTriggers: Story = {
             </Popover.Trigger>
           ))}
         </div>
-        <Portal>
-          <Popover.Positioner>
-            <Popover.Content>
-              <Popover.Title>{activeItem?.label ?? 'Select an action'}</Popover.Title>
-              <Popover.Description>
-                {activeItem?.detail ?? 'Choose one of the actions.'}
-              </Popover.Description>
-            </Popover.Content>
-          </Popover.Positioner>
-        </Portal>
+        <Popover.Positioner>
+          <Popover.Content>
+            <Popover.Title>{activeItem?.label ?? 'Select an action'}</Popover.Title>
+            <Popover.Description>
+              {activeItem?.detail ?? 'Choose one of the actions.'}
+            </Popover.Description>
+          </Popover.Content>
+        </Popover.Positioner>
       </Popover>
     );
   },
@@ -327,27 +316,25 @@ export const Nested: Story = {
       <Popover.Trigger asChild>
         <Button>Open settings</Button>
       </Popover.Trigger>
-      <Portal>
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Header>
-              <Popover.Title>Settings</Popover.Title>
-              <Popover.Description>Nested popovers keep independent state.</Popover.Description>
-            </Popover.Header>
-            <Popover.Body className={storyStyles.nestedBody}>
-              <Popover positioning={{ placement: 'right', gutter: 8 }}>
-                <Popover.Trigger asChild>
-                  <Button variant="outline">Advanced</Button>
-                </Popover.Trigger>
-                <PopoverSurface
-                  title="Advanced settings"
-                  description="This content belongs to the nested popover."
-                />
-              </Popover>
-            </Popover.Body>
-          </Popover.Content>
-        </Popover.Positioner>
-      </Portal>
+      <Popover.Positioner>
+        <Popover.Content>
+          <Popover.Header>
+            <Popover.Title>Settings</Popover.Title>
+            <Popover.Description>Nested popovers keep independent state.</Popover.Description>
+          </Popover.Header>
+          <Popover.Body className={storyStyles.nestedBody}>
+            <Popover positioning={{ placement: 'right', gutter: 8 }}>
+              <Popover.Trigger asChild>
+                <Button variant="outline">Advanced</Button>
+              </Popover.Trigger>
+              <PopoverSurface
+                title="Advanced settings"
+                description="This content belongs to the nested popover."
+              />
+            </Popover>
+          </Popover.Body>
+        </Popover.Content>
+      </Popover.Positioner>
     </Popover>
   ),
 };

@@ -775,7 +775,6 @@ Use the last column for row-specific actions when the dataset needs lightweight 
       import {
         Button,
         Menu,
-        Portal,
         Table,
       } from "@moduix/react";
 
@@ -792,19 +791,17 @@ Use the last column for row-specific actions when the dataset needs lightweight 
                 <span aria-hidden className={styles.actionEllipsis}>...</span>
               </Button>
             </Menu.Trigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content>
-                  <Menu.Item value="open">Open project</Menu.Item>
-                  <Menu.Item value="copy-link">Copy link</Menu.Item>
-                  <Menu.Item value="duplicate">Duplicate</Menu.Item>
-                  <Menu.Separator />
-                  <Menu.Item value="archive" tone="destructive">
-                    Archive
-                  </Menu.Item>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content>
+                <Menu.Item value="open">Open project</Menu.Item>
+                <Menu.Item value="copy-link">Copy link</Menu.Item>
+                <Menu.Item value="duplicate">Duplicate</Menu.Item>
+                <Menu.Separator />
+                <Menu.Item value="archive" tone="destructive">
+                  Archive
+                </Menu.Item>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }

@@ -1,7 +1,7 @@
 import type { UseComboboxContext } from '@moduix/react';
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox, Portal, useCombobox, useComboboxContext } from '@moduix/react';
+import { Combobox, useCombobox, useComboboxContext } from '@moduix/react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
@@ -99,21 +99,19 @@ const virtualItems = Array.from({ length: 1000 }, (_, index) => ({
 
 function Popup({ items }: { items: Array<{ label: string; value: string }> }) {
   return (
-    <Portal>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.Empty>No options found.</Combobox.Empty>
-          <Combobox.List>
-            {items.map((item) => (
-              <Combobox.Item key={item.value} item={item}>
-                <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                <Combobox.ItemIndicator />
-              </Combobox.Item>
-            ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Portal>
+    <Combobox.Positioner>
+      <Combobox.Content>
+        <Combobox.Empty>No options found.</Combobox.Empty>
+        <Combobox.List>
+          {items.map((item) => (
+            <Combobox.Item key={item.value} item={item}>
+              <Combobox.ItemText>{item.label}</Combobox.ItemText>
+              <Combobox.ItemIndicator />
+            </Combobox.Item>
+          ))}
+        </Combobox.List>
+      </Combobox.Content>
+    </Combobox.Positioner>
   );
 }
 
@@ -184,24 +182,22 @@ export function GroupedComboboxExample() {
         <Combobox.ClearTrigger aria-label="Clear selection" />
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
-      <Portal>
-        <Combobox.Positioner>
-          <Combobox.Content>
-            <Combobox.Empty>No countries found.</Combobox.Empty>
-            {collection.group().map(([continent, items]) => (
-              <Combobox.ItemGroup key={continent}>
-                <Combobox.ItemGroupLabel>{continent}</Combobox.ItemGroupLabel>
-                {items.map((item) => (
-                  <Combobox.Item key={item.code} item={item}>
-                    <Combobox.ItemText>{item.country}</Combobox.ItemText>
-                    <Combobox.ItemIndicator />
-                  </Combobox.Item>
-                ))}
-              </Combobox.ItemGroup>
-            ))}
-          </Combobox.Content>
-        </Combobox.Positioner>
-      </Portal>
+      <Combobox.Positioner>
+        <Combobox.Content>
+          <Combobox.Empty>No countries found.</Combobox.Empty>
+          {collection.group().map(([continent, items]) => (
+            <Combobox.ItemGroup key={continent}>
+              <Combobox.ItemGroupLabel>{continent}</Combobox.ItemGroupLabel>
+              {items.map((item) => (
+                <Combobox.Item key={item.code} item={item}>
+                  <Combobox.ItemText>{item.country}</Combobox.ItemText>
+                  <Combobox.ItemIndicator />
+                </Combobox.Item>
+              ))}
+            </Combobox.ItemGroup>
+          ))}
+        </Combobox.Content>
+      </Combobox.Positioner>
     </Combobox.Root>
   );
 }
@@ -279,24 +275,22 @@ export function AsyncSearchComboboxExample() {
         <Combobox.ClearTrigger aria-label="Clear search" />
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
-      <Portal>
-        <Combobox.Positioner>
-          <Combobox.Content>
-            {loading ? <div className={styles.status}>Searching…</div> : null}
-            {!loading && query && collection.items.length === 0 ? (
-              <div className={styles.status}>No results found.</div>
-            ) : null}
-            <Combobox.List>
-              {collection.items.map((item) => (
-                <Combobox.Item key={item.value} item={item}>
-                  <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                  <Combobox.ItemIndicator />
-                </Combobox.Item>
-              ))}
-            </Combobox.List>
-          </Combobox.Content>
-        </Combobox.Positioner>
-      </Portal>
+      <Combobox.Positioner>
+        <Combobox.Content>
+          {loading ? <div className={styles.status}>Searching…</div> : null}
+          {!loading && query && collection.items.length === 0 ? (
+            <div className={styles.status}>No results found.</div>
+          ) : null}
+          <Combobox.List>
+            {collection.items.map((item) => (
+              <Combobox.Item key={item.value} item={item}>
+                <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                <Combobox.ItemIndicator />
+              </Combobox.Item>
+            ))}
+          </Combobox.List>
+        </Combobox.Content>
+      </Combobox.Positioner>
     </Combobox.Root>
   );
 }
@@ -445,23 +439,21 @@ export function RehydrateValueComboboxExample() {
         <Combobox.ClearTrigger aria-label="Clear selection" />
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
-      <Portal>
-        <Combobox.Positioner>
-          <Combobox.Content>
-            {collection.size === 0 ? <div className={styles.status}>Loading…</div> : null}
-            <Combobox.List>
-              {collection.items.map((item) => (
-                <Combobox.Item key={item.name} item={item}>
-                  <Combobox.ItemText>
-                    {item.name} · {item.height} cm / {item.mass} kg
-                  </Combobox.ItemText>
-                  <Combobox.ItemIndicator />
-                </Combobox.Item>
-              ))}
-            </Combobox.List>
-          </Combobox.Content>
-        </Combobox.Positioner>
-      </Portal>
+      <Combobox.Positioner>
+        <Combobox.Content>
+          {collection.size === 0 ? <div className={styles.status}>Loading…</div> : null}
+          <Combobox.List>
+            {collection.items.map((item) => (
+              <Combobox.Item key={item.name} item={item}>
+                <Combobox.ItemText>
+                  {item.name} · {item.height} cm / {item.mass} kg
+                </Combobox.ItemText>
+                <Combobox.ItemIndicator />
+              </Combobox.Item>
+            ))}
+          </Combobox.List>
+        </Combobox.Content>
+      </Combobox.Positioner>
     </Combobox.RootProvider>
   );
 }
@@ -484,22 +476,20 @@ export function LinksComboboxExample() {
         <Combobox.Input placeholder="e.g. GitHub" />
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
-      <Portal>
-        <Combobox.Positioner>
-          <Combobox.Content>
-            <Combobox.List>
-              {collection.items.map((item) => (
-                <Combobox.Item key={item.value} item={item} asChild>
-                  <a href={item.href} target="_blank" rel="noreferrer">
-                    <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                    <Combobox.ItemIndicator />
-                  </a>
-                </Combobox.Item>
-              ))}
-            </Combobox.List>
-          </Combobox.Content>
-        </Combobox.Positioner>
-      </Portal>
+      <Combobox.Positioner>
+        <Combobox.Content>
+          <Combobox.List>
+            {collection.items.map((item) => (
+              <Combobox.Item key={item.value} item={item} asChild>
+                <a href={item.href} target="_blank" rel="noreferrer">
+                  <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                  <Combobox.ItemIndicator />
+                </a>
+              </Combobox.Item>
+            ))}
+          </Combobox.List>
+        </Combobox.Content>
+      </Combobox.Positioner>
     </Combobox.Root>
   );
 }
@@ -528,20 +518,18 @@ export function DynamicComboboxExample() {
         <Combobox.Input placeholder="e.g. alex" />
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
-      <Portal>
-        <Combobox.Positioner>
-          <Combobox.Content>
-            <Combobox.List>
-              {collection.items.map((item) => (
-                <Combobox.Item key={item} item={item}>
-                  <Combobox.ItemText>{item}</Combobox.ItemText>
-                  <Combobox.ItemIndicator />
-                </Combobox.Item>
-              ))}
-            </Combobox.List>
-          </Combobox.Content>
-        </Combobox.Positioner>
-      </Portal>
+      <Combobox.Positioner>
+        <Combobox.Content>
+          <Combobox.List>
+            {collection.items.map((item) => (
+              <Combobox.Item key={item} item={item}>
+                <Combobox.ItemText>{item}</Combobox.ItemText>
+                <Combobox.ItemIndicator />
+              </Combobox.Item>
+            ))}
+          </Combobox.List>
+        </Combobox.Content>
+      </Combobox.Positioner>
     </Combobox.Root>
   );
 }
@@ -623,24 +611,22 @@ export function CreatableComboboxExample() {
         <Combobox.ClearTrigger aria-label="Clear selection" />
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
-      <Portal>
-        <Combobox.Positioner>
-          <Combobox.Content>
-            <Combobox.List>
-              {collection.items.map((item) => (
-                <Combobox.Item key={item.value} item={item}>
-                  <Combobox.ItemText>
-                    {item.value === createOptionValue
-                      ? `Create "${item.label}"`
-                      : `${item.label}${item.created ? ' (new)' : ''}`}
-                  </Combobox.ItemText>
-                  <Combobox.ItemIndicator />
-                </Combobox.Item>
-              ))}
-            </Combobox.List>
-          </Combobox.Content>
-        </Combobox.Positioner>
-      </Portal>
+      <Combobox.Positioner>
+        <Combobox.Content>
+          <Combobox.List>
+            {collection.items.map((item) => (
+              <Combobox.Item key={item.value} item={item}>
+                <Combobox.ItemText>
+                  {item.value === createOptionValue
+                    ? `Create "${item.label}"`
+                    : `${item.label}${item.created ? ' (new)' : ''}`}
+                </Combobox.ItemText>
+                <Combobox.ItemIndicator />
+              </Combobox.Item>
+            ))}
+          </Combobox.List>
+        </Combobox.Content>
+      </Combobox.Positioner>
     </Combobox.Root>
   );
 }
@@ -700,44 +686,42 @@ export function VirtualizedComboboxExample() {
         <Combobox.Input placeholder="Search 1,000 results" />
         <Combobox.Trigger aria-label="Open options" onClick={reset} />
       </Combobox.Control>
-      <Portal>
-        <Combobox.Positioner>
-          <Combobox.Content className={styles.virtualContent}>
-            <Combobox.Empty>No results found.</Combobox.Empty>
-            <div ref={scrollRef} className={styles.virtualScroller}>
-              <Combobox.List
-                className={styles.virtualList}
-                style={{ height: virtualizer.getTotalSize(), width: '100%' }}
-              >
-                {virtualizer.getVirtualItems().map((virtualItem) => {
-                  const item = collection.items[virtualItem.index];
+      <Combobox.Positioner>
+        <Combobox.Content className={styles.virtualContent}>
+          <Combobox.Empty>No results found.</Combobox.Empty>
+          <div ref={scrollRef} className={styles.virtualScroller}>
+            <Combobox.List
+              className={styles.virtualList}
+              style={{ height: virtualizer.getTotalSize(), width: '100%' }}
+            >
+              {virtualizer.getVirtualItems().map((virtualItem) => {
+                const item = collection.items[virtualItem.index];
 
-                  return (
-                    <Combobox.Item
-                      key={item.value}
-                      item={item}
-                      aria-setsize={collection.size}
-                      aria-posinset={virtualItem.index + 1}
-                      className={styles.virtualItem}
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: virtualItem.size,
-                        transform: `translateY(${virtualItem.start}px)`,
-                      }}
-                    >
-                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                      <Combobox.ItemIndicator />
-                    </Combobox.Item>
-                  );
-                })}
-              </Combobox.List>
-            </div>
-          </Combobox.Content>
-        </Combobox.Positioner>
-      </Portal>
+                return (
+                  <Combobox.Item
+                    key={item.value}
+                    item={item}
+                    aria-setsize={collection.size}
+                    aria-posinset={virtualItem.index + 1}
+                    className={styles.virtualItem}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: virtualItem.size,
+                      transform: `translateY(${virtualItem.start}px)`,
+                    }}
+                  >
+                    <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                    <Combobox.ItemIndicator />
+                  </Combobox.Item>
+                );
+              })}
+            </Combobox.List>
+          </div>
+        </Combobox.Content>
+      </Combobox.Positioner>
     </Combobox.Root>
   );
 }

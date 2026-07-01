@@ -41,7 +41,7 @@ actions.
 
 ## Basic
 
-Start with the Ark part tree: `Menu`, `Menu.Trigger`, `Portal`, `Menu.Positioner`, and `Menu.Content`.
+Start with the Ark part tree: `Menu`, `Menu.Trigger`, `Menu.Positioner`, and `Menu.Content`.
 Items use stable `value` identifiers for selection and typeahead.
 
 <Preview>
@@ -52,7 +52,6 @@ Items use stable `value` identifiers for selection and typeahead.
       import {
         Button,
         Menu,
-        Portal,
       } from "@moduix/react";
 
       export function MenuDemo() {
@@ -64,18 +63,16 @@ Items use stable `value` identifiers for selection and typeahead.
                 <Menu.Indicator />
               </Button>
             </Menu.Trigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.Arrow />
-                  {fileItems.map((item) => (
-                    <Menu.Item key={item.value} value={item.value}>
-                      {item.label}
-                    </Menu.Item>
-                  ))}
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className="menu-content">
+                <Menu.Arrow />
+                {fileItems.map((item) => (
+                  <Menu.Item key={item.value} value={item.value}>
+                    {item.label}
+                  </Menu.Item>
+                ))}
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }
@@ -133,7 +130,7 @@ Menu
 ├─ Menu.Trigger
 │  └─ Menu.Indicator
 ├─ Menu.ContextTrigger
-├─ Portal
+├─ Overlay subtree (automatically portalled)
 │  └─ Menu.Positioner
 │     └─ Menu.Content
 │        ├─ Menu.Arrow
@@ -169,10 +166,12 @@ Menu
 
 ## Composition
 
+The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+
 ### Recommended composition
 
 Keep popup structure explicit. `Menu.Content` is the actual Ark content part; it no longer hides
-`Portal` or `Menu.Positioner`.
+`Menu.Positioner`.
 
 ```tsx
 <Menu positioning={{ placement: 'bottom-start', gutter: 8 }}>
@@ -182,13 +181,11 @@ Keep popup structure explicit. `Menu.Content` is the actual Ark content part; it
       <Menu.Indicator />
     </Button>
   </Menu.Trigger>
-  <Portal>
-    <Menu.Positioner>
-      <Menu.Content className="menu-content">
-        <Menu.Item value="edit">Edit</Menu.Item>
-      </Menu.Content>
-    </Menu.Positioner>
-  </Portal>
+  <Menu.Positioner>
+    <Menu.Content className="menu-content">
+      <Menu.Item value="edit">Edit</Menu.Item>
+    </Menu.Content>
+  </Menu.Positioner>
 </Menu>
 ```
 
@@ -199,7 +196,7 @@ Use `asChild` when the trigger or item must render as another semantic element. 
 focus, and keyboard behavior.
 
 Nested menus are regular `Menu` roots inside the parent content. The nested root uses
-`Menu.TriggerItem`, then its own `Portal`, `Menu.Positioner`, and `Menu.Content`.
+`Menu.TriggerItem`, then its own `Menu.Positioner` and `Menu.Content`.
 
 ### Default props
 
@@ -231,7 +228,7 @@ Control `open` with `onOpenChange(details)` when another control needs to drive 
   <ControlledMenuExample />
   <Preview.Code>
     {`
-      import { Button, Menu, Portal } from "@moduix/react";
+      import { Button, Menu } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledMenuDemo() {
@@ -246,15 +243,13 @@ Control `open` with `onOpenChange(details)` when another control needs to drive 
                 <Menu.Indicator />
               </Button>
             </Menu.Trigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.Item value="edit">Edit</Menu.Item>
-                  <Menu.Item value="duplicate">Duplicate</Menu.Item>
-                  <Menu.Item value="archive">Archive</Menu.Item>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className="menu-content">
+                <Menu.Item value="edit">Edit</Menu.Item>
+                <Menu.Item value="duplicate">Duplicate</Menu.Item>
+                <Menu.Item value="archive">Archive</Menu.Item>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }
@@ -274,7 +269,7 @@ API.
   <RootProviderMenuExample />
   <Preview.Code>
     {`
-      import { Button, Menu, Portal, useMenu } from "@moduix/react";
+      import { Button, Menu, useMenu } from "@moduix/react";
 
       export function RootProviderMenuDemo() {
         const menu = useMenu();
@@ -288,15 +283,13 @@ API.
                 <Menu.Indicator />
               </Button>
             </Menu.Trigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.Item value="cut">Cut</Menu.Item>
-                  <Menu.Item value="copy">Copy</Menu.Item>
-                  <Menu.Item value="paste">Paste</Menu.Item>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className="menu-content">
+                <Menu.Item value="cut">Cut</Menu.Item>
+                <Menu.Item value="copy">Copy</Menu.Item>
+                <Menu.Item value="paste">Paste</Menu.Item>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu.RootProvider>
         );
       }
@@ -318,7 +311,6 @@ Use `Menu.ItemGroup` and `Menu.ItemGroupLabel` to organize related menu rows.
       import {
         Button,
         Menu,
-        Portal,
       } from "@moduix/react";
 
       export function GroupingMenuDemo() {
@@ -330,22 +322,20 @@ Use `Menu.ItemGroup` and `Menu.ItemGroupLabel` to organize related menu rows.
                 <Menu.Indicator />
               </Button>
             </Menu.Trigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.ItemGroup>
-                    <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
-                    <Menu.Item value="cut">Cut</Menu.Item>
-                    <Menu.Item value="copy">Copy</Menu.Item>
-                  </Menu.ItemGroup>
-                  <Menu.Separator />
-                  <Menu.ItemGroup>
-                    <Menu.ItemGroupLabel>Selection</Menu.ItemGroupLabel>
-                    <Menu.Item value="select-all">Select All</Menu.Item>
-                  </Menu.ItemGroup>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className="menu-content">
+                <Menu.ItemGroup>
+                  <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
+                  <Menu.Item value="cut">Cut</Menu.Item>
+                  <Menu.Item value="copy">Copy</Menu.Item>
+                </Menu.ItemGroup>
+                <Menu.Separator />
+                <Menu.ItemGroup>
+                  <Menu.ItemGroupLabel>Selection</Menu.ItemGroupLabel>
+                  <Menu.Item value="select-all">Select All</Menu.Item>
+                </Menu.ItemGroup>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }
@@ -364,7 +354,7 @@ Use `Menu.Item asChild` for anchors so the link itself receives menu semantics.
   <LinkItemsMenuExample />
   <Preview.Code>
     {`
-      import { Button, Menu, Portal } from "@moduix/react";
+      import { Button, Menu } from "@moduix/react";
 
       export function LinkItemsMenuDemo() {
         return (
@@ -375,18 +365,16 @@ Use `Menu.Item asChild` for anchors so the link itself receives menu semantics.
                 <Menu.Indicator />
               </Button>
             </Menu.Trigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.Item value="docs" asChild>
-                    <a href="#menu-docs">Documentation</a>
-                  </Menu.Item>
-                  <Menu.Item value="github" asChild>
-                    <a href="https://github.com/Blinks44/moduix">GitHub</a>
-                  </Menu.Item>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className="menu-content">
+                <Menu.Item value="docs" asChild>
+                  <a href="#menu-docs">Documentation</a>
+                </Menu.Item>
+                <Menu.Item value="github" asChild>
+                  <a href="https://github.com/Blinks44/moduix">GitHub</a>
+                </Menu.Item>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }
@@ -408,7 +396,6 @@ Checkbox items keep boolean state while preserving menu navigation and typeahead
       import {
         Button,
         Menu,
-        Portal,
       } from "@moduix/react";
       import { useState } from "react";
 
@@ -423,16 +410,14 @@ Checkbox items keep boolean state while preserving menu navigation and typeahead
                 <Menu.Indicator />
               </Button>
             </Menu.Trigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.CheckboxItem checked={showToolbar} value="toolbar" onCheckedChange={setShowToolbar}>
-                    <Menu.ItemIndicator />
-                    <Menu.ItemText>Show Toolbar</Menu.ItemText>
-                  </Menu.CheckboxItem>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className="menu-content">
+                <Menu.CheckboxItem checked={showToolbar} value="toolbar" onCheckedChange={setShowToolbar}>
+                  <Menu.ItemIndicator />
+                  <Menu.ItemText>Show Toolbar</Menu.ItemText>
+                </Menu.CheckboxItem>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }
@@ -454,7 +439,6 @@ Use `Menu.RadioItemGroup` for one selected value inside a menu.
       import {
         Button,
         Menu,
-        Portal,
       } from "@moduix/react";
       import { useState } from "react";
 
@@ -469,25 +453,23 @@ Use `Menu.RadioItemGroup` for one selected value inside a menu.
                 <Menu.Indicator />
               </Button>
             </Menu.Trigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.ItemGroup>
-                    <Menu.ItemGroupLabel>Sort By</Menu.ItemGroupLabel>
-                    <Menu.RadioItemGroup value={sortBy} onValueChange={(details) => setSortBy(details.value)}>
-                      <Menu.RadioItem value="name">
-                        <Menu.ItemIndicator />
-                        <Menu.ItemText>Name</Menu.ItemText>
-                      </Menu.RadioItem>
-                      <Menu.RadioItem value="date">
-                        <Menu.ItemIndicator />
-                        <Menu.ItemText>Date Modified</Menu.ItemText>
-                      </Menu.RadioItem>
-                    </Menu.RadioItemGroup>
-                  </Menu.ItemGroup>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className="menu-content">
+                <Menu.ItemGroup>
+                  <Menu.ItemGroupLabel>Sort By</Menu.ItemGroupLabel>
+                  <Menu.RadioItemGroup value={sortBy} onValueChange={(details) => setSortBy(details.value)}>
+                    <Menu.RadioItem value="name">
+                      <Menu.ItemIndicator />
+                      <Menu.ItemText>Name</Menu.ItemText>
+                    </Menu.RadioItem>
+                    <Menu.RadioItem value="date">
+                      <Menu.ItemIndicator />
+                      <Menu.ItemText>Date Modified</Menu.ItemText>
+                    </Menu.RadioItem>
+                  </Menu.RadioItemGroup>
+                </Menu.ItemGroup>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }
@@ -506,21 +488,19 @@ Use `Menu.ContextTrigger` for right-click and long-press context menus.
   <ContextMenuExample />
   <Preview.Code>
     {`
-      import { Menu, Portal } from "@moduix/react";
+      import { Menu } from "@moduix/react";
 
       export function ContextMenuDemo() {
         return (
           <Menu>
             <Menu.ContextTrigger className="menu-context-trigger">Right click here</Menu.ContextTrigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.Item value="cut">Cut</Menu.Item>
-                  <Menu.Item value="copy">Copy</Menu.Item>
-                  <Menu.Item value="paste">Paste</Menu.Item>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className="menu-content">
+                <Menu.Item value="cut">Cut</Menu.Item>
+                <Menu.Item value="copy">Copy</Menu.Item>
+                <Menu.Item value="paste">Paste</Menu.Item>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }
@@ -540,7 +520,7 @@ is present.
   <ContextLazyMountMenuExample />
   <Preview.Code>
     {`
-      import { Menu, Portal } from "@moduix/react";
+      import { Menu } from "@moduix/react";
 
       export function ContextLazyMountMenuDemo() {
         return (
@@ -548,18 +528,16 @@ is present.
             <Menu.ContextTrigger className="menu-context-trigger">
               Right click lazy mounted content
             </Menu.ContextTrigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.Item value="cut">Cut</Menu.Item>
-                  <Menu.Item value="copy">Copy</Menu.Item>
-                  <Menu.Item value="paste">Paste</Menu.Item>
-                  <Menu.Item value="delete" tone="destructive">
-                    Delete
-                  </Menu.Item>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className="menu-content">
+                <Menu.Item value="cut">Cut</Menu.Item>
+                <Menu.Item value="copy">Copy</Menu.Item>
+                <Menu.Item value="paste">Paste</Menu.Item>
+                <Menu.Item value="delete" tone="destructive">
+                  Delete
+                </Menu.Item>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }
@@ -581,7 +559,6 @@ Render a nested `Menu` and open it from `Menu.TriggerItem`.
       import {
         Button,
         Menu,
-        Portal,
       } from "@moduix/react";
 
       export function NestedMenuDemo() {
@@ -593,27 +570,23 @@ Render a nested `Menu` and open it from `Menu.TriggerItem`.
                 <Menu.Indicator />
               </Button>
             </Menu.Trigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.Item value="open">Open...</Menu.Item>
-                  <Menu>
-                    <Menu.TriggerItem>
-                      Share
-                      <Menu.TriggerItemIcon />
-                    </Menu.TriggerItem>
-                    <Portal>
-                      <Menu.Positioner>
-                        <Menu.Content className="menu-content">
-                          <Menu.Item value="email">Email</Menu.Item>
-                          <Menu.Item value="message">Message</Menu.Item>
-                        </Menu.Content>
-                      </Menu.Positioner>
-                    </Portal>
-                  </Menu>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className="menu-content">
+                <Menu.Item value="open">Open...</Menu.Item>
+                <Menu>
+                  <Menu.TriggerItem>
+                    Share
+                    <Menu.TriggerItemIcon />
+                  </Menu.TriggerItem>
+                  <Menu.Positioner>
+                    <Menu.Content className="menu-content">
+                      <Menu.Item value="email">Email</Menu.Item>
+                      <Menu.Item value="message">Message</Menu.Item>
+                    </Menu.Content>
+                  </Menu.Positioner>
+                </Menu>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }
@@ -632,7 +605,7 @@ Pass a `value` to each `Menu.Trigger` when one menu is shared across multiple tr
   <MultipleTriggersMenuExample />
   <Preview.Code>
     {`
-      import { MapIcon, Menu, Portal } from "@moduix/react";
+      import { MapIcon, Menu } from "@moduix/react";
 
       export function MultipleTriggersMenuDemo() {
         return (
@@ -642,14 +615,12 @@ Pass a `value` to each `Menu.Trigger` when one menu is shared across multiple tr
                 <MapIcon />
               </Menu.Trigger>
             ))}
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.Item value="reply">Reply</Menu.Item>
-                  <Menu.Item value="archive">Archive</Menu.Item>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className="menu-content">
+                <Menu.Item value="reply">Reply</Menu.Item>
+                <Menu.Item value="archive">Archive</Menu.Item>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }
@@ -668,7 +639,7 @@ Use root `onSelect(details)` when the menu should react to any item selection.
   <SelectEventMenuExample />
   <Preview.Code>
     {`
-      import { Button, Menu, Portal } from "@moduix/react";
+      import { Button, Menu } from "@moduix/react";
       import { useState } from "react";
 
       export function SelectEventMenuDemo() {
@@ -683,14 +654,12 @@ Use root `onSelect(details)` when the menu should react to any item selection.
                   <Menu.Indicator />
                 </Button>
               </Menu.Trigger>
-              <Portal>
-                <Menu.Positioner>
-                  <Menu.Content className="menu-content">
-                    <Menu.Item value="edit">Edit</Menu.Item>
-                    <Menu.Item value="archive">Archive</Menu.Item>
-                  </Menu.Content>
-                </Menu.Positioner>
-              </Portal>
+              <Menu.Positioner>
+                <Menu.Content className="menu-content">
+                  <Menu.Item value="edit">Edit</Menu.Item>
+                  <Menu.Item value="archive">Archive</Menu.Item>
+                </Menu.Content>
+              </Menu.Positioner>
             </Menu>
             <span>{selected}</span>
           </>
@@ -711,7 +680,7 @@ Use `Menu.ItemContext` for inline access to item state such as `highlighted`.
   <ItemContextMenuExample />
   <Preview.Code>
     {`
-      import { Button, Menu, Portal } from "@moduix/react";
+      import { Button, Menu } from "@moduix/react";
 
       export function ItemContextMenuDemo() {
         return (
@@ -722,21 +691,19 @@ Use `Menu.ItemContext` for inline access to item state such as `highlighted`.
                 <Menu.Indicator />
               </Button>
             </Menu.Trigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.Item value="profile">
-                    <Menu.ItemContext>
-                      {(item) => (
-                        <span style={{ fontWeight: item.highlighted ? "var(--weight-semibold)" : undefined }}>
-                          Profile Settings
-                        </span>
-                      )}
-                    </Menu.ItemContext>
-                  </Menu.Item>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className="menu-content">
+                <Menu.Item value="profile">
+                  <Menu.ItemContext>
+                    {(item) => (
+                      <span style={{ fontWeight: item.highlighted ? "var(--weight-semibold)" : undefined }}>
+                        Profile Settings
+                      </span>
+                    )}
+                  </Menu.ItemContext>
+                </Menu.Item>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }
@@ -759,7 +726,6 @@ moduix adds `indicator="start" | "end" | "none"` on checkbox and radio rows for 
         Button,
         MapIcon,
         Menu,
-        Portal,
       } from "@moduix/react";
       import { useState } from "react";
 
@@ -774,23 +740,21 @@ moduix adds `indicator="start" | "end" | "none"` on checkbox and radio rows for 
                 <Menu.Indicator />
               </Button>
             </Menu.Trigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.CheckboxItem checked={showSearch} value="search" onCheckedChange={setShowSearch} indicator="end">
-                    <Menu.ItemText>
-                      <Menu.ItemTextContent>
-                        <Menu.ItemTextIcon>
-                          <MapIcon />
-                        </Menu.ItemTextIcon>
-                        <Menu.ItemTextLabel>Search</Menu.ItemTextLabel>
-                      </Menu.ItemTextContent>
-                    </Menu.ItemText>
-                    <Menu.ItemIndicator />
-                  </Menu.CheckboxItem>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className="menu-content">
+                <Menu.CheckboxItem checked={showSearch} value="search" onCheckedChange={setShowSearch} indicator="end">
+                  <Menu.ItemText>
+                    <Menu.ItemTextContent>
+                      <Menu.ItemTextIcon>
+                        <MapIcon />
+                      </Menu.ItemTextIcon>
+                      <Menu.ItemTextLabel>Search</Menu.ItemTextLabel>
+                    </Menu.ItemTextContent>
+                  </Menu.ItemText>
+                  <Menu.ItemIndicator />
+                </Menu.CheckboxItem>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }
@@ -810,7 +774,7 @@ variables without changing the Ark part tree.
   <CustomStylingMenuExample />
   <Preview.Code>
     {`
-      import { Button, Menu, Portal } from "@moduix/react";
+      import { Button, Menu } from "@moduix/react";
       import styles from "./menu.module.css";
 
       export function CustomStylingMenuDemo() {
@@ -822,15 +786,13 @@ variables without changing the Ark part tree.
                 <Menu.Indicator />
               </Button>
             </Menu.Trigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content className={styles.customContent}>
-                  <Menu.Arrow />
-                  <Menu.Item value="png">Export PNG</Menu.Item>
-                  <Menu.Item value="pdf">Export PDF</Menu.Item>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
+            <Menu.Positioner>
+              <Menu.Content className={styles.customContent}>
+                <Menu.Arrow />
+                <Menu.Item value="png">Export PNG</Menu.Item>
+                <Menu.Item value="pdf">Export PDF</Menu.Item>
+              </Menu.Content>
+            </Menu.Positioner>
           </Menu>
         );
       }

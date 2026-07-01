@@ -3,14 +3,31 @@ import { Tooltip as TooltipPrimitive, useTooltip, useTooltipContext } from '@ark
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import styles from './Tooltip.module.css';
 
-function TooltipRoot(props: ComponentProps<typeof TooltipPrimitive.Root>) {
-  return <TooltipPrimitive.Root {...props} />;
+type TooltipRootProps = ComponentProps<typeof TooltipPrimitive.Root> & OverlayPortalProps;
+type TooltipRootProviderProps = ComponentProps<typeof TooltipPrimitive.RootProvider> &
+  OverlayPortalProps;
+
+function TooltipRoot({ portalled, portalRef, ...props }: TooltipRootProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <TooltipPrimitive.Root {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
-function TooltipRootProvider(props: ComponentProps<typeof TooltipPrimitive.RootProvider>) {
-  return <TooltipPrimitive.RootProvider {...props} />;
+function TooltipRootProvider({ portalled, portalRef, ...props }: TooltipRootProviderProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <TooltipPrimitive.RootProvider {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
 const TooltipTrigger = forwardRef<
@@ -33,12 +50,14 @@ const TooltipPositioner = forwardRef<
   ComponentProps<typeof TooltipPrimitive.Positioner>
 >(function TooltipPositioner({ className, ...props }, ref) {
   return (
-    <TooltipPrimitive.Positioner
-      ref={ref}
-      data-slot="tooltip-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <TooltipPrimitive.Positioner
+        ref={ref}
+        data-slot="tooltip-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -100,6 +119,7 @@ const Tooltip = Object.assign(TooltipRoot, {
 });
 
 export { Tooltip, useTooltip, useTooltipContext };
+export type { TooltipRootProps, TooltipRootProviderProps };
 export type {
   TooltipOpenChangeDetails,
   TooltipTriggerValueChangeDetails,

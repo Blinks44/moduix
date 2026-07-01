@@ -17,6 +17,8 @@ explicit popup composition, `HiddenSelect`, and `RootProvider` / context hooks.
 
 ## Current behavior contract
 
+`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+
 - `Select` is the short root form and is equivalent to `Select.Root`.
 - The root renders a DOM element with `data-slot="select-root"` and moduix root styling.
 - Consumers must pass a `collection`; items render with `Select.Item item={item}`.
@@ -28,12 +30,12 @@ explicit popup composition, `HiddenSelect`, and `RootProvider` / context hooks.
   around `ClearTrigger` and `Indicator`.
 - When `Select.ClearTrigger` is omitted or hidden, the trigger automatically reduces its end
   padding so it only reserves space for the indicator.
-- `Portal`, `useSelect`, `useSelectContext`, and `useSelectItemContext` are exported from the
+- `useSelect`, `useSelectContext`, and `useSelectItemContext` are exported from the
   package barrel. Import collection helpers directly from `@ark-ui/react/collection`.
 - `Select.ItemTextContent`, `Select.ItemTextIcon`, and `Select.ItemTextLabel` are moduix span
   helpers for richer item text layout.
 - legacy flat aliases and compatibility APIs are intentionally removed.
-- Do not gate `Portal`, `Positioner`, or `Content` with `Select.Context` and `select.open`;
+- Do not gate `Positioner` or `Content` with `Select.Context` and `select.open`;
   Ark's `lazyMount`, `unmountOnExit`, `present`, and exit callbacks own presence.
 
 ## Anatomy and exported parts
@@ -47,7 +49,7 @@ Select / Select.Root
 │  └─ Select.Indicators
 │     ├─ Select.ClearTrigger
 │     └─ Select.Indicator
-├─ Portal
+├─ Overlay subtree (automatically portalled)
 │  └─ Select.Positioner
 │     └─ Select.Content
 │        ├─ Select.List
@@ -87,7 +89,7 @@ Select / Select.Root
 
 ```tsx
 import { createListCollection } from '@ark-ui/react/collection';
-import { Portal, Select } from '@moduix/react';
+import { Select } from '@moduix/react';
 
 const fruits = createListCollection({
   items: [
@@ -109,18 +111,16 @@ export function SelectDemo() {
           <Select.Indicator />
         </Select.Indicators>
       </Select.Control>
-      <Portal>
-        <Select.Positioner>
-          <Select.Content>
-            {fruits.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Portal>
+      <Select.Positioner>
+        <Select.Content>
+          {fruits.items.map((item) => (
+            <Select.Item key={item.value} item={item}>
+              <Select.ItemText>{item.label}</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
+          ))}
+        </Select.Content>
+      </Select.Positioner>
       <Select.HiddenSelect />
     </Select>
   );
@@ -179,13 +179,14 @@ export function SelectDemo() {
 
 ## Agent notes
 
-- Do not reintroduce a hidden `Portal + Positioner + Content` convenience wrapper; popup structure
-  must stay explicit.
+- Keep `Positioner` and `Content` explicit; only portal transport belongs to the root.
 - Keep package barrel exports aligned with the component file. Docs import from `moduix`, not local
   component paths.
 - When registry-shipped select source changes, run `npm run build:registry`.
 
 ## Local changelog
+
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-27: Removed docs-only manual popup gating so examples preserve Ark presence behavior,
   documented virtualized hidden input guidance, and normalized group label padding to `0.375rem`.

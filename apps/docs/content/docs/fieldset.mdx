@@ -356,7 +356,7 @@ logical value.
   <Preview.Code>
     {`
       import { createListCollection } from "@ark-ui/react/collection";
-      import { Field, Fieldset, Portal, Select } from "@moduix/react";
+      import { Field, Fieldset, Select } from "@moduix/react";
 
       const countryCodes = createListCollection({
         items: [
@@ -386,18 +386,16 @@ logical value.
                     <Select.Indicator />
                   </Select.Indicators>
                 </Select.Control>
-                <Portal>
-                  <Select.Positioner>
-                    <Select.Content>
-                      {countryCodes.items.map((item) => (
-                        <Select.Item key={item.value} item={item}>
-                          <Select.ItemText>{item.label}</Select.ItemText>
-                          <Select.ItemIndicator />
-                        </Select.Item>
-                      ))}
-                    </Select.Content>
-                  </Select.Positioner>
-                </Portal>
+                <Select.Positioner>
+                  <Select.Content>
+                    {countryCodes.items.map((item) => (
+                      <Select.Item key={item.value} item={item}>
+                        <Select.ItemText>{item.label}</Select.ItemText>
+                        <Select.ItemIndicator />
+                      </Select.Item>
+                    ))}
+                  </Select.Content>
+                </Select.Positioner>
                 <Select.HiddenSelect name="countryCode" />
               </Select>
               <Field>

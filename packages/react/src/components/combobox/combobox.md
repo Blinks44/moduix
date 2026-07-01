@@ -16,9 +16,11 @@ filterable collection.
 - Keeps Ark collection-first state: `Root` requires a `ListCollection`.
 - Keeps Ark part names, callback detail objects, controlled state, provider/context APIs, filtering,
   grouping, custom objects, multiple selection, async collections, and form behavior.
-- Keeps popup structure explicit through Ark `Portal`, `Positioner`, and `Content`.
+- Keeps popup structure explicit through Ark `Positioner` and `Content`; the root owns portalling.
 
 ## Current behavior contract
+
+`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
 - Public composition is `Combobox.Root`, `Label`, `Control`, `Input`, `ClearTrigger`, `Trigger`,
   `Positioner`, `Content`, `Empty`, `List`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`, and
@@ -26,7 +28,7 @@ filterable collection.
 - `Combobox.Root` requires `collection`; use `createListCollection()` or `useListCollection()`.
 - `onValueChange`, `onInputValueChange`, `onOpenChange`, and `onHighlightChange` preserve Ark detail
   objects without remapping.
-- `Portal`, `useCombobox`, `useComboboxContext`, and `useComboboxItemContext` are re-exported for
+- `useCombobox`, `useComboboxContext`, and `useComboboxItemContext` are re-exported for
   canonical Ark workflows. Import collection helpers from `@ark-ui/react/collection` and
   `useFilter` from `@ark-ui/react/locale`.
 - `Combobox.Trigger`, `Combobox.ClearTrigger`, and `Combobox.ItemIndicator` provide default moduix
@@ -41,7 +43,7 @@ Combobox.Root
 │  ├─ Combobox.Input
 │  ├─ Combobox.ClearTrigger
 │  └─ Combobox.Trigger
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    └─ Combobox.Positioner
       └─ Combobox.Content
          ├─ Combobox.Empty
@@ -62,7 +64,7 @@ Ark state without rendering a DOM node. `RootProvider` accepts a state object fr
 ```tsx
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox, Portal } from '@moduix/react';
+import { Combobox } from '@moduix/react';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -84,21 +86,19 @@ export function ComboboxExample() {
         <Combobox.ClearTrigger aria-label="Clear selection" />
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
-      <Portal>
-        <Combobox.Positioner>
-          <Combobox.Content>
-            <Combobox.Empty>No fruits found.</Combobox.Empty>
-            <Combobox.List>
-              {collection.items.map((item) => (
-                <Combobox.Item key={item.value} item={item}>
-                  <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                  <Combobox.ItemIndicator />
-                </Combobox.Item>
-              ))}
-            </Combobox.List>
-          </Combobox.Content>
-        </Combobox.Positioner>
-      </Portal>
+      <Combobox.Positioner>
+        <Combobox.Content>
+          <Combobox.Empty>No fruits found.</Combobox.Empty>
+          <Combobox.List>
+            {collection.items.map((item) => (
+              <Combobox.Item key={item.value} item={item}>
+                <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                <Combobox.ItemIndicator />
+              </Combobox.Item>
+            ))}
+          </Combobox.List>
+        </Combobox.Content>
+      </Combobox.Positioner>
     </Combobox.Root>
   );
 }
@@ -154,7 +154,7 @@ export function ComboboxExample() {
 ## Intentional sugar and differences from upstream
 
 - moduix ships default icons for `Trigger`, `ClearTrigger`, and `ItemIndicator`.
-- moduix re-exports Ark `Portal` and combobox state hooks. Collection helpers and locale filters
+- moduix re-exports combobox state hooks. Collection helpers and locale filters
   stay imported from Ark UI.
 - Removed legacy `Field`, `Value`, `InputGroup`, `ControlActions`, popup aliases, arrow,
   backdrop, status, row, separator, collection render props, and chip parts.
@@ -163,13 +163,15 @@ export function ComboboxExample() {
 
 ## Agent notes
 
-- Do not hide `Portal`, `Positioner`, or `Content` behind convenience content wrappers.
+- Keep `Positioner` and `Content` explicit; only portal transport belongs to the root.
 - Keep `collection` required and callbacks Ark-shaped.
 - Do not reintroduce combobox-owned chips; multiple-value rendering belongs in consumer composition
   through `Context`.
 - Keep generic inference on `Root` and `RootProvider`.
 
 ## Local changelog
+
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-27: Aligned `Combobox.Input asChild` with Ark composition so composed inputs keep their
   own visual styling while receiving combobox behavior.

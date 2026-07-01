@@ -160,7 +160,8 @@ Use Ark `asChild` for framework router links. The child must be a single semanti
 the expected `href`, focus, and keyboard behavior.
 
 Compose with `Menu` when middle segments need to collapse behind an ellipsis trigger. Keep the Menu
-structure explicit: `Portal`, `Menu.Positioner`, `Menu.Content`, and `Menu.Item asChild`.
+structure explicit: `Menu.Positioner`, `Menu.Content`, and `Menu.Item asChild`; Menu handles the
+portal boundary.
 
 ### Default props
 
@@ -250,7 +251,6 @@ Compose with the migrated Ark `Menu` parts when hidden middle segments need disc
       import {
         Breadcrumbs,
         Menu,
-        Portal,
       } from "@moduix/react";
 
       export function BreadcrumbsCollapsedDemo() {
@@ -266,17 +266,15 @@ Compose with the migrated Ark `Menu` parts when hidden middle segments need disc
                   <Menu.Trigger aria-label="Show hidden path items" className="collapsed-menu-trigger">
                     <Breadcrumbs.Ellipsis />
                   </Menu.Trigger>
-                  <Portal>
-                    <Menu.Positioner>
-                      <Menu.Content className="collapsed-menu-content">
-                        {collapsedItems.map((item) => (
-                          <Menu.Item key={item.href} value={item.href} asChild>
-                            <a href={item.href}>{item.label}</a>
-                          </Menu.Item>
-                        ))}
-                      </Menu.Content>
-                    </Menu.Positioner>
-                  </Portal>
+                  <Menu.Positioner>
+                    <Menu.Content className="collapsed-menu-content">
+                      {collapsedItems.map((item) => (
+                        <Menu.Item key={item.href} value={item.href} asChild>
+                          <a href={item.href}>{item.label}</a>
+                        </Menu.Item>
+                      ))}
+                    </Menu.Content>
+                  </Menu.Positioner>
                 </Menu>
               </Breadcrumbs.Item>
               <Breadcrumbs.Separator />

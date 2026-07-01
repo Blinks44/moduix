@@ -1,4 +1,4 @@
-import { ColorPicker, Dialog, Field, Portal, parseColor, useColorPicker } from '@moduix/react';
+import { ColorPicker, Dialog, Field, parseColor, useColorPicker } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -356,39 +356,37 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 function PickerPopup({ colors = swatches }: { colors?: string[] }) {
   return (
-    <Portal>
-      <ColorPicker.Positioner>
-        <ColorPicker.Content>
-          <ColorPicker.Area>
-            <ColorPicker.AreaBackground />
-            <ColorPicker.AreaThumb />
-          </ColorPicker.Area>
-          <div className={styles.sliderGroup}>
-            <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
-            <div className={styles.channelSliders}>
-              <ColorPicker.ChannelSlider channel="hue">
-                <ColorPicker.ChannelSliderTrack />
-                <ColorPicker.ChannelSliderThumb />
-              </ColorPicker.ChannelSlider>
-              <ColorPicker.ChannelSlider channel="alpha">
-                <ColorPicker.TransparencyGrid />
-                <ColorPicker.ChannelSliderTrack />
-                <ColorPicker.ChannelSliderThumb />
-              </ColorPicker.ChannelSlider>
-            </div>
+    <ColorPicker.Positioner>
+      <ColorPicker.Content>
+        <ColorPicker.Area>
+          <ColorPicker.AreaBackground />
+          <ColorPicker.AreaThumb />
+        </ColorPicker.Area>
+        <div className={styles.sliderGroup}>
+          <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
+          <div className={styles.channelSliders}>
+            <ColorPicker.ChannelSlider channel="hue">
+              <ColorPicker.ChannelSliderTrack />
+              <ColorPicker.ChannelSliderThumb />
+            </ColorPicker.ChannelSlider>
+            <ColorPicker.ChannelSlider channel="alpha">
+              <ColorPicker.TransparencyGrid />
+              <ColorPicker.ChannelSliderTrack />
+              <ColorPicker.ChannelSliderThumb />
+            </ColorPicker.ChannelSlider>
           </div>
-          <ColorPicker.SwatchGroup>
-            {colors.map((color) => (
-              <ColorPicker.SwatchTrigger key={color} value={color}>
-                <ColorPicker.Swatch value={color}>
-                  <ColorPicker.SwatchIndicator />
-                </ColorPicker.Swatch>
-              </ColorPicker.SwatchTrigger>
-            ))}
-          </ColorPicker.SwatchGroup>
-        </ColorPicker.Content>
-      </ColorPicker.Positioner>
-    </Portal>
+        </div>
+        <ColorPicker.SwatchGroup>
+          {colors.map((color) => (
+            <ColorPicker.SwatchTrigger key={color} value={color}>
+              <ColorPicker.Swatch value={color}>
+                <ColorPicker.SwatchIndicator />
+              </ColorPicker.Swatch>
+            </ColorPicker.SwatchTrigger>
+          ))}
+        </ColorPicker.SwatchGroup>
+      </ColorPicker.Content>
+    </ColorPicker.Positioner>
   );
 }
 
@@ -679,23 +677,21 @@ export function InsideDialogColorPickerExample() {
   return (
     <Dialog.Root>
       <Dialog.Trigger className={styles.dialogTrigger}>Open dialog</Dialog.Trigger>
-      <Portal>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.CloseIcon />
-            <Dialog.Title>Choose a color</Dialog.Title>
-            <Dialog.Description>
-              Wrap the color picker positioner in a portal so its popover layers correctly.
-            </Dialog.Description>
-            <div className={styles.dialogBody}>
-              <ColorPicker.Root defaultValue={parseColor('#eb5e41')}>
-                <PickerField colors={compactSwatches} />
-              </ColorPicker.Root>
-            </div>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Portal>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.CloseIcon />
+          <Dialog.Title>Choose a color</Dialog.Title>
+          <Dialog.Description>
+            Wrap the color picker positioner in a portal so its popover layers correctly.
+          </Dialog.Description>
+          <div className={styles.dialogBody}>
+            <ColorPicker.Root defaultValue={parseColor('#eb5e41')}>
+              <PickerField colors={compactSwatches} />
+            </ColorPicker.Root>
+          </div>
+        </Dialog.Content>
+      </Dialog.Positioner>
     </Dialog.Root>
   );
 }

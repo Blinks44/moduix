@@ -1,4 +1,4 @@
-import { Badge, Button, Card, Menu, Portal, ScrollArea, Table } from '@moduix/react';
+import { Badge, Button, Card, Menu, ScrollArea, Table } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './table.module.css';
@@ -429,19 +429,17 @@ function TableRowActionsMenu({ itemName }: { itemName: string }) {
           </span>
         </Button>
       </Menu.Trigger>
-      <Portal>
-        <Menu.Positioner>
-          <Menu.Content>
-            <Menu.Item value="open">Open project</Menu.Item>
-            <Menu.Item value="copy-link">Copy link</Menu.Item>
-            <Menu.Item value="duplicate">Duplicate</Menu.Item>
-            <Menu.Separator />
-            <Menu.Item value="archive" tone="destructive">
-              Archive
-            </Menu.Item>
-          </Menu.Content>
-        </Menu.Positioner>
-      </Portal>
+      <Menu.Positioner>
+        <Menu.Content>
+          <Menu.Item value="open">Open project</Menu.Item>
+          <Menu.Item value="copy-link">Copy link</Menu.Item>
+          <Menu.Item value="duplicate">Duplicate</Menu.Item>
+          <Menu.Separator />
+          <Menu.Item value="archive" tone="destructive">
+            Archive
+          </Menu.Item>
+        </Menu.Content>
+      </Menu.Positioner>
     </Menu>
   );
 }

@@ -3,7 +3,6 @@ import { useFilter } from '@ark-ui/react/locale';
 import {
   Combobox,
   Field,
-  Portal,
   TagsInput,
   type TagsInputInputValueChangeDetails,
   type TagsInputValueChangeDetails,
@@ -429,19 +428,17 @@ export function TagsInputComboboxExample() {
         </TagsInput.Control>
         <TagsInput.HiddenInput />
       </TagsInput.RootProvider>
-      <Portal>
-        <Combobox.Positioner>
-          <Combobox.Content className={styles.comboboxContent}>
-            <Combobox.Empty className={styles.comboboxItem}>No frameworks found.</Combobox.Empty>
-            {collection.items.map((item) => (
-              <Combobox.Item key={item} item={item} className={styles.comboboxItem}>
-                <Combobox.ItemText>{item}</Combobox.ItemText>
-                <Combobox.ItemIndicator />
-              </Combobox.Item>
-            ))}
-          </Combobox.Content>
-        </Combobox.Positioner>
-      </Portal>
+      <Combobox.Positioner>
+        <Combobox.Content className={styles.comboboxContent}>
+          <Combobox.Empty className={styles.comboboxItem}>No frameworks found.</Combobox.Empty>
+          {collection.items.map((item) => (
+            <Combobox.Item key={item} item={item} className={styles.comboboxItem}>
+              <Combobox.ItemText>{item}</Combobox.ItemText>
+              <Combobox.ItemIndicator />
+            </Combobox.Item>
+          ))}
+        </Combobox.Content>
+      </Combobox.Positioner>
     </Combobox.RootProvider>
   );
 }

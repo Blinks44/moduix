@@ -1,4 +1,4 @@
-import { Button, Popover, Portal } from '@moduix/react';
+import { Button, Popover } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './animations.module.css';
@@ -79,16 +79,14 @@ function RecipeCard({ title, description, popupClassName }: RecipeCardProps) {
         <Popover.Trigger asChild>
           <Button variant="outline">Preview</Button>
         </Popover.Trigger>
-        <Portal>
-          <Popover.Positioner>
-            <Popover.Content className={`${styles.popup} ${popupClassName}`}>
-              <div className={styles.popupHeader}>
-                <p className={styles.label}>{title}</p>
-                <p className={styles.caption}>Same structure, different motion recipe.</p>
-              </div>
-            </Popover.Content>
-          </Popover.Positioner>
-        </Portal>
+        <Popover.Positioner>
+          <Popover.Content className={`${styles.popup} ${popupClassName}`}>
+            <div className={styles.popupHeader}>
+              <p className={styles.label}>{title}</p>
+              <p className={styles.caption}>Same structure, different motion recipe.</p>
+            </div>
+          </Popover.Content>
+        </Popover.Positioner>
       </Popover>
     </div>
   );
@@ -150,20 +148,18 @@ export function MotionPlaygroundExample() {
             <Button>Open motion playground</Button>
           </Popover.Trigger>
         </div>
-        <Portal>
-          <Popover.Positioner>
-            <Popover.Content className={styles.playgroundPopup}>
-              <div className={styles.playgroundHeader}>
-                <span className={styles.playgroundKicker}>Animations</span>
-                <p className={styles.playgroundTitle}>Tune motion with variables</p>
-                <p className={styles.playgroundDescription}>
-                  Change the phase-specific popover tokens in the Playground tab to test fade,
-                  slide, zoom, or mixed motion on the live component.
-                </p>
-              </div>
-            </Popover.Content>
-          </Popover.Positioner>
-        </Portal>
+        <Popover.Positioner>
+          <Popover.Content className={styles.playgroundPopup}>
+            <div className={styles.playgroundHeader}>
+              <span className={styles.playgroundKicker}>Animations</span>
+              <p className={styles.playgroundTitle}>Tune motion with variables</p>
+              <p className={styles.playgroundDescription}>
+                Change the phase-specific popover tokens in the Playground tab to test fade, slide,
+                zoom, or mixed motion on the live component.
+              </p>
+            </div>
+          </Popover.Content>
+        </Popover.Positioner>
       </Popover>
     </div>
   );

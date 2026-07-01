@@ -3,6 +3,11 @@ import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/
 import { clsx } from 'clsx';
 import { forwardRef, useEffect } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Lightbox.module.css';
 
@@ -17,6 +22,10 @@ type LightboxImageSelectDetails = {
 type LightboxImageProps = ComponentProps<'img'> & {
   closeOnClick?: boolean;
 };
+
+type LightboxRootProps = ComponentProps<typeof DialogPrimitive.Root> & OverlayPortalProps;
+type LightboxRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
+  OverlayPortalProps;
 
 type LightboxBindProps = {
   onImageSelect: (details: LightboxImageSelectDetails) => void;
@@ -69,12 +78,20 @@ function resolveImage(
   };
 }
 
-function LightboxRoot(props: ComponentProps<typeof DialogPrimitive.Root>) {
-  return <DialogPrimitive.Root {...props} />;
+function LightboxRoot({ portalled, portalRef, ...props }: LightboxRootProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <DialogPrimitive.Root {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
-function LightboxRootProvider(props: ComponentProps<typeof DialogPrimitive.RootProvider>) {
-  return <DialogPrimitive.RootProvider {...props} />;
+function LightboxRootProvider({ portalled, portalRef, ...props }: LightboxRootProviderProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <DialogPrimitive.RootProvider {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
 const LightboxTrigger = forwardRef<
@@ -96,12 +113,14 @@ const LightboxBackdrop = forwardRef<
   ComponentProps<typeof DialogPrimitive.Backdrop>
 >(function LightboxBackdrop({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Backdrop
-      ref={ref}
-      data-slot="lightbox-backdrop"
-      className={clsx(styles.backdrop, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <DialogPrimitive.Backdrop
+        ref={ref}
+        data-slot="lightbox-backdrop"
+        className={clsx(styles.backdrop, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -110,12 +129,14 @@ const LightboxPositioner = forwardRef<
   ComponentProps<typeof DialogPrimitive.Positioner>
 >(function LightboxPositioner({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Positioner
-      ref={ref}
-      data-slot="lightbox-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <DialogPrimitive.Positioner
+        ref={ref}
+        data-slot="lightbox-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -322,7 +343,12 @@ export {
   useDialog as useLightbox,
   useDialogContext as useLightboxContext,
 };
-export type { LightboxBindProps, LightboxImageSelectDetails };
+export type {
+  LightboxBindProps,
+  LightboxImageSelectDetails,
+  LightboxRootProps,
+  LightboxRootProviderProps,
+};
 export type {
   DialogFocusOutsideEvent as LightboxFocusOutsideEvent,
   DialogInteractOutsideEvent as LightboxInteractOutsideEvent,

@@ -38,7 +38,7 @@ const collection = createListCollection({
 Pass the same collection object to the component and render its items:
 
 ```tsx
-import { Portal, Select } from '@moduix/react';
+import { Select } from '@moduix/react';
 
 <Select collection={collection}>
   <Select.Control>
@@ -49,18 +49,16 @@ import { Portal, Select } from '@moduix/react';
       <Select.Indicator />
     </Select.Indicators>
   </Select.Control>
-  <Portal>
-    <Select.Positioner>
-      <Select.Content>
-        {collection.items.map((item) => (
-          <Select.Item key={item.value} item={item}>
-            <Select.ItemText>{item.label}</Select.ItemText>
-            <Select.ItemIndicator />
-          </Select.Item>
-        ))}
-      </Select.Content>
-    </Select.Positioner>
-  </Portal>
+  <Select.Positioner>
+    <Select.Content>
+      {collection.items.map((item) => (
+        <Select.Item key={item.value} item={item}>
+          <Select.ItemText>{item.label}</Select.ItemText>
+          <Select.ItemIndicator />
+        </Select.Item>
+      ))}
+    </Select.Content>
+  </Select.Positioner>
   <Select.HiddenSelect />
 </Select>;
 ```

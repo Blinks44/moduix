@@ -2,7 +2,6 @@ import type { ListCollection } from '@ark-ui/react/collection';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Portal } from '@ark-ui/react/portal';
 import * as React from 'react';
 import { ArrowUpRightIcon, BellIcon, StarIcon } from '@/icons/demo';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
@@ -158,24 +157,22 @@ function CommandPaletteShell<T extends CommandItem>({
       <CommandPalette.Trigger asChild>
         <Button>{trigger}</Button>
       </CommandPalette.Trigger>
-      <Portal>
-        <CommandPalette.Backdrop />
-        <CommandPalette.Positioner>
-          <CommandPalette.Content>
-            <CommandPalette.Combobox
-              collection={collection}
-              onInputValueChange={(details) => filter(details.inputValue)}
-              onSelect={onSelect}
-            >
-              <CommandPalette.Control>
-                <CommandPalette.Input aria-label="Search commands" placeholder={placeholder} />
-                <CommandPalette.ClearTrigger aria-label="Clear search" />
-              </CommandPalette.Control>
-              {children}
-            </CommandPalette.Combobox>
-          </CommandPalette.Content>
-        </CommandPalette.Positioner>
-      </Portal>
+      <CommandPalette.Backdrop />
+      <CommandPalette.Positioner>
+        <CommandPalette.Content>
+          <CommandPalette.Combobox
+            collection={collection}
+            onInputValueChange={(details) => filter(details.inputValue)}
+            onSelect={onSelect}
+          >
+            <CommandPalette.Control>
+              <CommandPalette.Input aria-label="Search commands" placeholder={placeholder} />
+              <CommandPalette.ClearTrigger aria-label="Clear search" />
+            </CommandPalette.Control>
+            {children}
+          </CommandPalette.Combobox>
+        </CommandPalette.Content>
+      </CommandPalette.Positioner>
     </CommandPalette>
   );
 }

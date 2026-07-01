@@ -92,7 +92,7 @@ Use framework links through Ark `asChild`:
   `https://ark-ui.com/docs/components/breadcrumb.mdx`.
 - Ark factory composition: covered by every part using `ark.*` and `HTMLArkProps`.
 - Ark `asChild`: supported on all parts through `HTMLArkProps`; documented for `Breadcrumbs.Link`.
-- Ark Menu composition for collapsed paths: supported through explicit `Menu`, `Portal`, `Menu.Positioner`,
+- Ark Menu composition for collapsed paths: supported through explicit `Menu`, `Menu.Positioner`,
   `Menu.Content`, and `Menu.Item asChild`.
 - Controlled/uncontrolled state, callbacks, context, `RootProvider`, ids, `HiddenInput`, and Field/Fieldset state do not
   apply because breadcrumbs do not own interactive state or form state.

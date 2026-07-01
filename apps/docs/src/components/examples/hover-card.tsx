@@ -1,4 +1,4 @@
-import { HoverCard, Portal, useHoverCard } from '@moduix/react';
+import { HoverCard, useHoverCard } from '@moduix/react';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -254,28 +254,24 @@ export function CustomStylingHoverCardExample() {
         </HoverCard.Trigger>{' '}
         and 3 others
       </p>
-      <Portal>
-        <HoverCard.Positioner>
-          <HoverCard.Content className="hover-card-example__custom-content">
-            <HoverCard.Arrow />
-            <ProfileCard profile={hoverCardProfiles[0]} />
-          </HoverCard.Content>
-        </HoverCard.Positioner>
-      </Portal>
+      <HoverCard.Positioner>
+        <HoverCard.Content className="hover-card-example__custom-content">
+          <HoverCard.Arrow />
+          <ProfileCard profile={hoverCardProfiles[0]} />
+        </HoverCard.Content>
+      </HoverCard.Positioner>
     </HoverCard>
   );
 }
 
 function HoverCardSurface({ profile }: { profile: Profile }) {
   return (
-    <Portal>
-      <HoverCard.Positioner>
-        <HoverCard.Content>
-          <HoverCard.Arrow />
-          <ProfileCard profile={profile} />
-        </HoverCard.Content>
-      </HoverCard.Positioner>
-    </Portal>
+    <HoverCard.Positioner>
+      <HoverCard.Content>
+        <HoverCard.Arrow />
+        <ProfileCard profile={profile} />
+      </HoverCard.Content>
+    </HoverCard.Positioner>
   );
 }
 

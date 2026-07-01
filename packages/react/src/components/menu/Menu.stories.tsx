@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps, ReactNode } from 'react';
-import { Portal } from '@ark-ui/react/portal';
 import { useState } from 'react';
 import { InfoIcon, MapIcon } from '@/icons/demo';
 import { Button } from '../button';
@@ -29,11 +28,9 @@ function MenuButtonTrigger(props: ComponentProps<typeof Menu.Trigger>) {
 
 function DefaultPositionedContent({ children }: { children: ReactNode }) {
   return (
-    <Portal>
-      <Menu.Positioner>
-        <Menu.Content>{children}</Menu.Content>
-      </Menu.Positioner>
-    </Portal>
+    <Menu.Positioner>
+      <Menu.Content>{children}</Menu.Content>
+    </Menu.Positioner>
   );
 }
 
@@ -261,17 +258,15 @@ export const Nested: Story = {
             Add to Playlist
             <Menu.TriggerItemIcon />
           </Menu.TriggerItem>
-          <Portal>
-            <Menu.Positioner>
-              <Menu.Content>
-                <Menu.Item value="get-up">Get Up!</Menu.Item>
-                <Menu.Item value="inside-out">Inside Out</Menu.Item>
-                <Menu.Item value="night-beats">Night Beats</Menu.Item>
-                <Menu.Separator />
-                <Menu.Item value="new-playlist">New Playlist...</Menu.Item>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Portal>
+          <Menu.Positioner>
+            <Menu.Content>
+              <Menu.Item value="get-up">Get Up!</Menu.Item>
+              <Menu.Item value="inside-out">Inside Out</Menu.Item>
+              <Menu.Item value="night-beats">Night Beats</Menu.Item>
+              <Menu.Separator />
+              <Menu.Item value="new-playlist">New Playlist...</Menu.Item>
+            </Menu.Content>
+          </Menu.Positioner>
         </Menu>
         <Menu.Separator />
         <Menu.Item value="favorite">Favorite</Menu.Item>
@@ -288,17 +283,15 @@ export const WithArrow: Story = {
         Export
         <Menu.Indicator />
       </MenuButtonTrigger>
-      <Portal>
-        <Menu.Positioner>
-          <Menu.Content>
-            <Menu.Arrow />
-            <Menu.Item value="png">Export PNG</Menu.Item>
-            <Menu.Item value="pdf">Export PDF</Menu.Item>
-            <Menu.Separator />
-            <Menu.Item value="copy-link">Copy share link</Menu.Item>
-          </Menu.Content>
-        </Menu.Positioner>
-      </Portal>
+      <Menu.Positioner>
+        <Menu.Content>
+          <Menu.Arrow />
+          <Menu.Item value="png">Export PNG</Menu.Item>
+          <Menu.Item value="pdf">Export PDF</Menu.Item>
+          <Menu.Separator />
+          <Menu.Item value="copy-link">Copy share link</Menu.Item>
+        </Menu.Content>
+      </Menu.Positioner>
     </Menu>
   ),
 };
@@ -310,17 +303,15 @@ export const CustomStyling: Story = {
         Export
         <Menu.Indicator />
       </MenuButtonTrigger>
-      <Portal>
-        <Menu.Positioner>
-          <Menu.Content className={storyStyles.customPopup}>
-            <Menu.Arrow />
-            <Menu.Item value="png">Export PNG</Menu.Item>
-            <Menu.Item value="pdf">Export PDF</Menu.Item>
-            <Menu.Separator />
-            <Menu.Item value="copy-link">Copy share link</Menu.Item>
-          </Menu.Content>
-        </Menu.Positioner>
-      </Portal>
+      <Menu.Positioner>
+        <Menu.Content className={storyStyles.customPopup}>
+          <Menu.Arrow />
+          <Menu.Item value="png">Export PNG</Menu.Item>
+          <Menu.Item value="pdf">Export PDF</Menu.Item>
+          <Menu.Separator />
+          <Menu.Item value="copy-link">Copy share link</Menu.Item>
+        </Menu.Content>
+      </Menu.Positioner>
     </Menu>
   ),
 };

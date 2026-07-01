@@ -125,7 +125,7 @@ DatePicker / DatePicker.Root
 │  ├─ DatePicker.Input
 │  ├─ DatePicker.ClearTrigger
 │  └─ DatePicker.Trigger
-├─ Portal
+├─ Overlay subtree (automatically portalled)
 │  └─ DatePicker.Positioner
 │     └─ DatePicker.Content
 │        ├─ DatePicker.View[view="day" | "month" | "year"]
@@ -163,11 +163,13 @@ DatePicker / DatePicker.Root
 
 ## Composition
 
+The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+
 `value`, `defaultValue`, and `onValueChange(details)` use `DateValue[]`. Use `parseDate()` for ISO
 strings in examples and tests. The default root and popup width is `18.75rem` (300px); override
 `--date-picker-width` or `--date-picker-content-width` when a wider composition is needed.
-When content is portaled, put popup sizing variables on `DatePicker.Content` or another element
-inside the portal, not only on `DatePicker.Root`.
+Because popup content is portalled, put popup sizing variables on `DatePicker.Content` or another
+element inside the overlay subtree, not only on `DatePicker.Root`.
 
 `open`, `defaultOpen`, and `onOpenChange(details)` control popup state. `view`, `defaultView`,
 `minView`, `maxView`, and `onViewChange(details)` control the active calendar panel.
@@ -337,7 +339,7 @@ contract keeps keyboard input aligned with the calendar view.
 ### Inline And Week Numbers
 
 Set `inline` when the calendar should stay in the layout. Inline calendars render `Content`
-directly without `Portal` and `Positioner`.
+directly without `Positioner`.
 
 <Preview>
   <InlineDatePickerExample />

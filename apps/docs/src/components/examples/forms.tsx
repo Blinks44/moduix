@@ -1,6 +1,6 @@
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Button, Card, Checkbox, Combobox, Field, Portal, Select } from '@moduix/react';
+import { Button, Card, Checkbox, Combobox, Field, Select } from '@moduix/react';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
 import { useState } from 'react';
 import { Controller, useForm as useReactHookForm } from 'react-hook-form';
@@ -67,33 +67,29 @@ function TeamItems() {
 
 function SelectPopup() {
   return (
-    <Portal>
-      <Select.Positioner>
-        <Select.Content>
-          <TeamItems />
-        </Select.Content>
-      </Select.Positioner>
-    </Portal>
+    <Select.Positioner>
+      <Select.Content>
+        <TeamItems />
+      </Select.Content>
+    </Select.Positioner>
   );
 }
 
 function ComboboxPopup({ items }: { items: typeof people }) {
   return (
-    <Portal>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.Empty>No reviewers found.</Combobox.Empty>
-          <Combobox.List>
-            {items.map((item) => (
-              <Combobox.Item key={item.value} item={item}>
-                <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                <Combobox.ItemIndicator />
-              </Combobox.Item>
-            ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Portal>
+    <Combobox.Positioner>
+      <Combobox.Content>
+        <Combobox.Empty>No reviewers found.</Combobox.Empty>
+        <Combobox.List>
+          {items.map((item) => (
+            <Combobox.Item key={item.value} item={item}>
+              <Combobox.ItemText>{item.label}</Combobox.ItemText>
+              <Combobox.ItemIndicator />
+            </Combobox.Item>
+          ))}
+        </Combobox.List>
+      </Combobox.Content>
+    </Combobox.Positioner>
   );
 }
 

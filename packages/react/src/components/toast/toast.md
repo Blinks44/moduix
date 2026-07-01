@@ -28,6 +28,8 @@ the library `CloseButton` as the default close trigger surface.
 
 ## Current behavior contract
 
+`Toaster` portals itself to `document.body` by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. No explicit `Portal` wrapper is required.
+
 - Public API is namespace-first: `Toast` is the short root form and also exposes `Toast.Root`,
   `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger`, `Toast.CloseTrigger`, `Toast.Context`,
   and `Toast.Toaster`.
@@ -47,7 +49,7 @@ the library `CloseButton` as the default close trigger surface.
 
 ```text
 createToaster()
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    └─ Toast.Toaster / Toaster
       └─ Toast.Root / Toast
          ├─ Toast.Context (optional)
@@ -68,12 +70,11 @@ Every visual exported part accepts `className` and receives a stable `data-slot`
 | `Toast.ActionTrigger`       | `toast-action-trigger` | Styled Ark action button for the current toast action.        |
 | `Toast.CloseTrigger`        | `toast-close-trigger`  | Defaults to `CloseButton.Root` and the `"Close toast"` label. |
 | `Toast.Context`             | none                   | Ark render-prop state access.                                 |
-| `Portal`                    | none                   | General moduix Portal, imported separately from Toast.        |
 
 ## Composition
 
 ```tsx
-import { Button, Portal, Toast, Toaster, createToaster } from '@moduix/react';
+import { Button, Toast, Toaster, createToaster } from '@moduix/react';
 
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 
@@ -91,20 +92,16 @@ export function ToastExample() {
       >
         Schedule meeting
       </Button>
-      <Portal>
-        <Toaster toaster={toaster}>
-          {(toast) => (
-            <Toast key={toast.id}>
-              <Toast.Title />
-              <Toast.Description />
-              {toast.action ? (
-                <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger>
-              ) : null}
-              {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-            </Toast>
-          )}
-        </Toaster>
-      </Portal>
+      <Toaster toaster={toaster}>
+        {(toast) => (
+          <Toast key={toast.id}>
+            <Toast.Title />
+            <Toast.Description />
+            {toast.action ? <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger> : null}
+            {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+          </Toast>
+        )}
+      </Toaster>
     </>
   );
 }
@@ -192,8 +189,7 @@ viewport and roots use Ark's `--gap` variable for safe inline spacing.
   `CloseButton`; toast-specific `--toast-close-*` variables only override that shared baseline.
 - `Toast.Toaster` is attached to the `Toast` namespace even though Ark exports `Toaster` as a
   standalone component.
-- `Portal` is intentionally imported separately. Toast does not expose a `ToastPortal` alias or
-  `Toast.Portal` namespace member because portal behavior is shared across components.
+- `Toaster` owns portal transport directly and keeps toast anatomy independent from mounting.
 - legacy compatibility exports and anchored toast helpers were removed as a breaking migration.
 
 ## Agent notes
@@ -208,6 +204,8 @@ viewport and roots use Ark's `--gap` variable for safe inline spacing.
 
 ## Local changelog
 
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
+
 - 2026-06-29: Re-exported Ark toaster creation/prop types directly, allowed explicit `null`
   title/description content, simplified placement-independent shadows, aligned action sizing with
   library tokens, and added Ark-style mobile sizing.
@@ -218,7 +216,5 @@ viewport and roots use Ark's `--gap` variable for safe inline spacing.
   runtime variables (`--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity`).
 - 2026-06-21: Restored white default/info toast styling, aligned transitions with Ark's root
   guidance, and fixed placement examples by keeping all placement stores mounted.
-- 2026-06-21: Removed the `ToastPortal` / `Toast.Portal` alias. Use the shared `Portal` export
-  separately around `Toaster`.
 - 2026-06-21: Aligned default `Toast.CloseTrigger` styling with `CloseButton.Root` while preserving
   toast-scoped close override variables.

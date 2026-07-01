@@ -32,7 +32,7 @@ Use `Tooltip` for short, non-essential labels or hints that appear on hover or f
 
 ## Basic
 
-Start with the Ark part tree: `Tooltip`, `Tooltip.Trigger`, `Portal`,
+Start with the Ark part tree: `Tooltip`, `Tooltip.Trigger`,
 `Tooltip.Positioner`, and `Tooltip.Content`. Keep an accessible name on the trigger itself:
 tooltips do not replace `aria-label` or visible text.
 
@@ -41,7 +41,7 @@ tooltips do not replace `aria-label` or visible text.
 
   <Preview.Code>
     {`
-      import { BellIcon, Button, Portal, Tooltip } from "@moduix/react";
+      import { BellIcon, Button, Tooltip } from "@moduix/react";
       import styles from "./tooltip-demo.module.css";
 
       export function TooltipDemo() {
@@ -55,11 +55,9 @@ tooltips do not replace `aria-label` or visible text.
                 </span>
               </Button>
             </Tooltip.Trigger>
-            <Portal>
-              <Tooltip.Positioner>
-                <Tooltip.Content>Notifications</Tooltip.Content>
-              </Tooltip.Positioner>
-            </Portal>
+            <Tooltip.Positioner>
+              <Tooltip.Content>Notifications</Tooltip.Content>
+            </Tooltip.Positioner>
           </Tooltip>
         );
       }
@@ -147,7 +145,7 @@ as styles and small utilities.
 ```text
 Tooltip / Tooltip.Root
 ├─ Tooltip.Trigger
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    └─ Tooltip.Positioner
       └─ Tooltip.Content
          └─ content
@@ -159,7 +157,7 @@ the trigger. `Tooltip.Arrow` renders `Tooltip.ArrowTip` by default.
 ```text
 Tooltip / Tooltip.Root
 ├─ Tooltip.Trigger
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    └─ Tooltip.Positioner
       └─ Tooltip.Content
          ├─ Tooltip.Arrow
@@ -172,7 +170,6 @@ Tooltip / Tooltip.Root
 | `Tooltip` / `Tooltip.Root` | Root state, controlled/uncontrolled open state, delays, positioning options, and lifecycle. |
 | `Tooltip.RootProvider`     | Renders a tooltip from a `useTooltip()` state object owned outside the tree.                |
 | `Tooltip.Trigger`          | Interactive anchor element that opens the tooltip on hover or focus.                        |
-| `Portal`                   | Portal boundary for the floating structure.                                                 |
 | `Tooltip.Positioner`       | Floating layout layer that consumes Ark positioning options and runtime CSS variables.      |
 | `Tooltip.Content`          | Visible tooltip surface.                                                                    |
 | `Tooltip.Arrow`            | Optional arrow wrapper.                                                                     |
@@ -181,10 +178,12 @@ Tooltip / Tooltip.Root
 
 ## Composition
 
+The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+
 ### Recommended composition
 
 Use explicit Ark composition for every tooltip. Moduix adds default styling, `data-slot` hooks, and
-a default `ArrowTip`, but it does not hide `Portal`, `Positioner`, or `Content` behind a high-level
+a default `ArrowTip`, but it does not hide `Positioner` or `Content` behind a high-level
 content wrapper.
 
 ### When to go custom
@@ -241,20 +240,18 @@ The wrapper renders `Tooltip.ArrowTip` for the default arrow shape.
 
   <Preview.Code>
     {`
-      import { Portal, Tooltip } from "@moduix/react";
+      import { Tooltip } from "@moduix/react";
 
       export function ArrowTooltipDemo() {
         return (
           <Tooltip>
             <Tooltip.Trigger>Hover or focus</Tooltip.Trigger>
-            <Portal>
-              <Tooltip.Positioner>
-                <Tooltip.Content>
-                  <Tooltip.Arrow />
-                  Tooltip with arrow
-                </Tooltip.Content>
-              </Tooltip.Positioner>
-            </Portal>
+            <Tooltip.Positioner>
+              <Tooltip.Content>
+                <Tooltip.Arrow />
+                Tooltip with arrow
+              </Tooltip.Content>
+            </Tooltip.Positioner>
           </Tooltip>
         );
       }
@@ -283,17 +280,15 @@ Use `openDelay` and `closeDelay` on the root to tune hover and focus timing.
 
   <Preview.Code>
     {`
-      import { Portal, Tooltip } from "@moduix/react";
+      import { Tooltip } from "@moduix/react";
 
       export function DelayTooltipDemo() {
         return (
           <Tooltip closeDelay={0} openDelay={0}>
             <Tooltip.Trigger>Immediate tooltip</Tooltip.Trigger>
-            <Portal>
-              <Tooltip.Positioner>
-                <Tooltip.Content>No open or close delay</Tooltip.Content>
-              </Tooltip.Positioner>
-            </Portal>
+            <Tooltip.Positioner>
+              <Tooltip.Content>No open or close delay</Tooltip.Content>
+            </Tooltip.Positioner>
           </Tooltip>
         );
       }
@@ -328,7 +323,7 @@ Pass Ark positioning options to `Tooltip`, including placement and offset values
 
   <Preview.Code>
     {`
-      import { Button, Portal, Tooltip } from "@moduix/react";
+      import { Button, Tooltip } from "@moduix/react";
       import { useState } from "react";
       import styles from "./tooltip-demo.module.css";
 
@@ -357,11 +352,9 @@ Pass Ark positioning options to `Tooltip`, including placement and offset values
               <Tooltip.Trigger asChild aria-label={\`Tooltip placement: \${placement}\`}>
                 <Button>Hover or focus</Button>
               </Tooltip.Trigger>
-              <Portal>
-                <Tooltip.Positioner>
-                  <Tooltip.Content>Placement: {placement}</Tooltip.Content>
-                </Tooltip.Positioner>
-              </Portal>
+              <Tooltip.Positioner>
+                <Tooltip.Content>Placement: {placement}</Tooltip.Content>
+              </Tooltip.Positioner>
             </Tooltip>
           </div>
         );
@@ -431,7 +424,7 @@ Control open state with `open` and `onOpenChange(details)`.
 
   <Preview.Code>
     {`
-      import { Button, Portal, Tooltip } from "@moduix/react";
+      import { Button, Tooltip } from "@moduix/react";
       import { useState } from "react";
       import styles from "./tooltip-demo.module.css";
 
@@ -445,11 +438,9 @@ Control open state with `open` and `onOpenChange(details)`.
             </Button>
             <Tooltip open={open} onOpenChange={(details) => setOpen(details.open)}>
               <Tooltip.Trigger>Controlled tooltip</Tooltip.Trigger>
-              <Portal>
-                <Tooltip.Positioner>
-                  <Tooltip.Content>Open: {String(open)}</Tooltip.Content>
-                </Tooltip.Positioner>
-              </Portal>
+              <Tooltip.Positioner>
+                <Tooltip.Content>Open: {String(open)}</Tooltip.Content>
+              </Tooltip.Positioner>
             </Tooltip>
           </div>
         );
@@ -487,23 +478,21 @@ Use `Tooltip.Context` when content needs inline access to the current tooltip st
 
   <Preview.Code>
     {`
-      import { Portal, Tooltip } from "@moduix/react";
+      import { Tooltip } from "@moduix/react";
 
       export function ContextTooltipDemo() {
         return (
           <Tooltip>
             <Tooltip.Trigger>Context tooltip</Tooltip.Trigger>
-            <Portal>
-              <Tooltip.Positioner>
-                <Tooltip.Context>
-                  {(tooltip) => (
-                    <Tooltip.Content>
-                      Open from context: {tooltip.open.toString()}
-                    </Tooltip.Content>
-                  )}
-                </Tooltip.Context>
-              </Tooltip.Positioner>
-            </Portal>
+            <Tooltip.Positioner>
+              <Tooltip.Context>
+                {(tooltip) => (
+                  <Tooltip.Content>
+                    Open from context: {tooltip.open.toString()}
+                  </Tooltip.Content>
+                )}
+              </Tooltip.Context>
+            </Tooltip.Positioner>
           </Tooltip>
         );
       }
@@ -533,7 +522,7 @@ rendered tooltip subtree.
 
   <Preview.Code>
     {`
-      import { Portal, Tooltip, useTooltip } from "@moduix/react";
+      import { Tooltip, useTooltip } from "@moduix/react";
       import styles from "./tooltip-demo.module.css";
 
       export function RootProviderTooltipDemo() {
@@ -544,11 +533,9 @@ rendered tooltip subtree.
             <output className={styles.output}>Open: {String(tooltip.open)}</output>
             <Tooltip.RootProvider value={tooltip}>
               <Tooltip.Trigger>RootProvider tooltip</Tooltip.Trigger>
-              <Portal>
-                <Tooltip.Positioner>
-                  <Tooltip.Content>State is owned outside the tree.</Tooltip.Content>
-                </Tooltip.Positioner>
-              </Portal>
+              <Tooltip.Positioner>
+                <Tooltip.Content>State is owned outside the tree.</Tooltip.Content>
+              </Tooltip.Positioner>
             </Tooltip.RootProvider>
           </div>
         );
@@ -593,7 +580,7 @@ triggers.
 
   <Preview.Code>
     {`
-      import { Button, InfoIcon, PlusIcon, Portal, ShareIcon, Tooltip } from "@moduix/react";
+      import { Button, InfoIcon, PlusIcon, ShareIcon, Tooltip } from "@moduix/react";
       import { useState } from "react";
       import styles from "./tooltip-demo.module.css";
 
@@ -623,18 +610,16 @@ triggers.
                 </Tooltip.Trigger>
               ))}
             </div>
-            <Portal>
-              <Tooltip.Positioner>
-                <Tooltip.Content>
-                  {activeTool ? (
-                    <>
-                      {activeTool.label}{" "}
-                      <span className={styles.shortcut}>{activeTool.shortcut}</span>
-                    </>
-                  ) : null}
-                </Tooltip.Content>
-              </Tooltip.Positioner>
-            </Portal>
+            <Tooltip.Positioner>
+              <Tooltip.Content>
+                {activeTool ? (
+                  <>
+                    {activeTool.label}{" "}
+                    <span className={styles.shortcut}>{activeTool.shortcut}</span>
+                  </>
+                ) : null}
+              </Tooltip.Content>
+            </Tooltip.Positioner>
           </Tooltip>
         );
       }
@@ -689,7 +674,7 @@ Set `positioning.strategy` to `"fixed"` when the tooltip is anchored inside fixe
 
   <Preview.Code>
     {`
-      import { Portal, Tooltip } from "@moduix/react";
+      import { Tooltip } from "@moduix/react";
       import styles from "./tooltip-demo.module.css";
 
       export function WithinFixedTooltipDemo() {
@@ -697,11 +682,9 @@ Set `positioning.strategy` to `"fixed"` when the tooltip is anchored inside fixe
           <div className={styles.fixedContainer}>
             <Tooltip positioning={{ strategy: "fixed" }}>
               <Tooltip.Trigger>Fixed strategy</Tooltip.Trigger>
-              <Portal>
-                <Tooltip.Positioner>
-                  <Tooltip.Content>Positioned from a fixed container.</Tooltip.Content>
-                </Tooltip.Positioner>
-              </Portal>
+              <Tooltip.Positioner>
+                <Tooltip.Content>Positioned from a fixed container.</Tooltip.Content>
+              </Tooltip.Positioner>
             </Tooltip>
           </div>
         );
@@ -743,7 +726,7 @@ Ark state attributes without changing the part tree.
 
   <Preview.Code>
     {`
-      import { Portal, Tooltip } from "@moduix/react";
+      import { Tooltip } from "@moduix/react";
       import styles from "./tooltip-demo.module.css";
 
       export function CustomStylingTooltipDemo() {
@@ -755,14 +738,12 @@ Ark state attributes without changing the part tree.
             >
               Custom style
             </Tooltip.Trigger>
-            <Portal>
-              <Tooltip.Positioner className={styles.customPositioner}>
-                <Tooltip.Content className={styles.customContent}>
-                  <Tooltip.Arrow className={styles.customArrow} />
-                  Styled through explicit Ark parts
-                </Tooltip.Content>
-              </Tooltip.Positioner>
-            </Portal>
+            <Tooltip.Positioner className={styles.customPositioner}>
+              <Tooltip.Content className={styles.customContent}>
+                <Tooltip.Arrow className={styles.customArrow} />
+                Styled through explicit Ark parts
+              </Tooltip.Content>
+            </Tooltip.Positioner>
           </Tooltip>
         );
       }

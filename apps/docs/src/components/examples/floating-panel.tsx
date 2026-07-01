@@ -1,7 +1,6 @@
 import {
   Button,
   FloatingPanel,
-  Portal,
   type FloatingPanelPoint,
   type FloatingPanelSize,
   useFloatingPanel,
@@ -125,27 +124,25 @@ function FloatingPanelSurface({
   className?: string;
 }) {
   return (
-    <Portal>
-      <FloatingPanel.Positioner>
-        <FloatingPanel.Content className={className}>
-          <FloatingPanel.DragTrigger>
-            <FloatingPanel.Header>
-              <FloatingPanel.Title>
-                <FloatingPanel.DragIndicator />
-                <span className={styles.titleText}>{title}</span>
-              </FloatingPanel.Title>
-              <FloatingPanel.Control>
-                <FloatingPanel.StageTrigger stage="minimized" />
-                <FloatingPanel.StageTrigger stage="maximized" />
-                <FloatingPanel.CloseIcon />
-              </FloatingPanel.Control>
-            </FloatingPanel.Header>
-          </FloatingPanel.DragTrigger>
-          <FloatingPanel.Body>{children}</FloatingPanel.Body>
-          <FloatingPanel.ResizeTriggerGroup />
-        </FloatingPanel.Content>
-      </FloatingPanel.Positioner>
-    </Portal>
+    <FloatingPanel.Positioner>
+      <FloatingPanel.Content className={className}>
+        <FloatingPanel.DragTrigger>
+          <FloatingPanel.Header>
+            <FloatingPanel.Title>
+              <FloatingPanel.DragIndicator />
+              <span className={styles.titleText}>{title}</span>
+            </FloatingPanel.Title>
+            <FloatingPanel.Control>
+              <FloatingPanel.StageTrigger stage="minimized" />
+              <FloatingPanel.StageTrigger stage="maximized" />
+              <FloatingPanel.CloseIcon />
+            </FloatingPanel.Control>
+          </FloatingPanel.Header>
+        </FloatingPanel.DragTrigger>
+        <FloatingPanel.Body>{children}</FloatingPanel.Body>
+        <FloatingPanel.ResizeTriggerGroup />
+      </FloatingPanel.Content>
+    </FloatingPanel.Positioner>
   );
 }
 

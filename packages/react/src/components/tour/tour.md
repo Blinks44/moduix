@@ -15,6 +15,8 @@ The wrapper follows Ark UI `Tour`. State is created with `useTour()` and passed 
 
 ## Current behavior contract
 
+`Tour.Root` portals `Backdrop`, `Spotlight`, and `Positioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. These structural parts remain explicit and independently styleable.
+
 `Tour` is a thin styled wrapper over Ark parts. It exposes `Root`, `Backdrop`, `Spotlight`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `ProgressText`, `CloseTrigger`, `Control`, `Actions`, `ActionTrigger`, and `Context`. The wrapper adds CSS Modules styling, stable `data-slot` hooks, bottom-aligned progress text, and a default `ArrowTip` when `Tour.Arrow` has no children. It does not add local tour state or convert Ark callbacks.
 
 The public type surface mirrors each exported part, including `TourActionsProps`, and re-exports Ark's `useTour`, `useTourContext`, and wait-helper types.
@@ -25,24 +27,22 @@ The public type surface mirrors each exported part, including `TourActionsProps`
 const tour = useTour({ steps });
 
 <Tour tour={tour}>
-  <Portal>
-    <Tour.Backdrop />
-    <Tour.Spotlight />
-    <Tour.Positioner>
-      <Tour.Content>
-        <Tour.Arrow />
-        <Tour.CloseTrigger />
-        <Tour.Title />
-        <Tour.Description />
-        <Tour.ProgressText />
-        <Tour.Control>
-          <Tour.Actions>
-            {(actions) => actions.map((action) => <Tour.ActionTrigger action={action} />)}
-          </Tour.Actions>
-        </Tour.Control>
-      </Tour.Content>
-    </Tour.Positioner>
-  </Portal>
+  <Tour.Backdrop />
+  <Tour.Spotlight />
+  <Tour.Positioner>
+    <Tour.Content>
+      <Tour.Arrow />
+      <Tour.CloseTrigger />
+      <Tour.Title />
+      <Tour.Description />
+      <Tour.ProgressText />
+      <Tour.Control>
+        <Tour.Actions>
+          {(actions) => actions.map((action) => <Tour.ActionTrigger action={action} />)}
+        </Tour.Actions>
+      </Tour.Control>
+    </Tour.Content>
+  </Tour.Positioner>
 </Tour>;
 ```
 
@@ -60,7 +60,7 @@ const tour = useTour({ steps });
 ## Composition
 
 ```tsx
-import { CloseIcon, Portal, Tour, useTour } from '@moduix/react';
+import { CloseIcon, Tour, useTour } from '@moduix/react';
 
 const steps = [
   {
@@ -82,30 +82,26 @@ function Example() {
         Start tour
       </button>
       <Tour tour={tour} lazyMount unmountOnExit>
-        <Portal>
-          <Tour.Backdrop />
-          <Tour.Spotlight />
-          <Tour.Positioner>
-            <Tour.Content>
-              <Tour.Arrow />
-              <Tour.CloseTrigger>
-                <CloseIcon />
-              </Tour.CloseTrigger>
-              <Tour.Title />
-              <Tour.Description />
-              <Tour.ProgressText />
-              <Tour.Control>
-                <Tour.Actions>
-                  {(actions) =>
-                    actions.map((action) => (
-                      <Tour.ActionTrigger key={action.label} action={action} />
-                    ))
-                  }
-                </Tour.Actions>
-              </Tour.Control>
-            </Tour.Content>
-          </Tour.Positioner>
-        </Portal>
+        <Tour.Backdrop />
+        <Tour.Spotlight />
+        <Tour.Positioner>
+          <Tour.Content>
+            <Tour.Arrow />
+            <Tour.CloseTrigger>
+              <CloseIcon />
+            </Tour.CloseTrigger>
+            <Tour.Title />
+            <Tour.Description />
+            <Tour.ProgressText />
+            <Tour.Control>
+              <Tour.Actions>
+                {(actions) =>
+                  actions.map((action) => <Tour.ActionTrigger key={action.label} action={action} />)
+                }
+              </Tour.Actions>
+            </Tour.Control>
+          </Tour.Content>
+        </Tour.Positioner>
       </Tour>
     </>
   );
@@ -134,9 +130,13 @@ Moduix adds only styling, `data-slot` hooks, and the default `ArrowTip` inside `
 
 ## Agent notes
 
-Keep `Tour.Root` as a required-`tour` root until Ark exposes a real `RootProvider`. Do not render a hidden `Portal` / `Positioner` / `Content` wrapper from a higher-level part; overlay structure is part of the public contract. If action styling changes, update `theme.css`, docs CSS properties, stories, and registry artifacts together.
+Keep `Tour.Root` as a required-`tour` root until Ark exposes a real `RootProvider`. Keep
+`Positioner` and `Content` explicit; only portal transport is automatic. If action styling changes,
+update `theme.css`, docs CSS properties, stories, and registry artifacts together.
 
 ## Local changelog
+
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-29: Completed the Ark migration audit, restored the missing `TourActionsProps` export, aligned spotlight and progress defaults with the public theme contract, and clarified refs, `asChild`, and presence behavior.
 - 2026-06-23: Moved progress text and progress examples to the lower content area to avoid overlap with the close trigger.

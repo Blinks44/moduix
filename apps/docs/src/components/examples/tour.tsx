@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import {
   Button,
   CloseIcon,
-  Portal,
   Tour,
   useTour,
   waitForElement,
@@ -124,29 +123,27 @@ const skipSteps: TourStepDetails[] = [
 function TourOverlay({ children, tour }: { children?: ReactNode; tour: UseTourReturn }) {
   return (
     <Tour tour={tour} lazyMount unmountOnExit>
-      <Portal>
-        <Tour.Backdrop />
-        <Tour.Spotlight />
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.Arrow />
-            <Tour.CloseTrigger>
-              <CloseIcon className={styles.closeIcon} />
-            </Tour.CloseTrigger>
-            <Tour.Title />
-            <Tour.Description />
-            {children}
-            <Tour.ProgressText />
-            <Tour.Control>
-              <Tour.Actions>
-                {(actions) =>
-                  actions.map((action) => <Tour.ActionTrigger key={action.label} action={action} />)
-                }
-              </Tour.Actions>
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
-      </Portal>
+      <Tour.Backdrop />
+      <Tour.Spotlight />
+      <Tour.Positioner>
+        <Tour.Content>
+          <Tour.Arrow />
+          <Tour.CloseTrigger>
+            <CloseIcon className={styles.closeIcon} />
+          </Tour.CloseTrigger>
+          <Tour.Title />
+          <Tour.Description />
+          {children}
+          <Tour.ProgressText />
+          <Tour.Control>
+            <Tour.Actions>
+              {(actions) =>
+                actions.map((action) => <Tour.ActionTrigger key={action.label} action={action} />)
+              }
+            </Tour.Actions>
+          </Tour.Control>
+        </Tour.Content>
+      </Tour.Positioner>
     </Tour>
   );
 }

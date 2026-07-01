@@ -1,4 +1,4 @@
-import { BellIcon, Button, Popover, Portal, usePopover } from '@moduix/react';
+import { BellIcon, Button, Popover, usePopover } from '@moduix/react';
 import * as React from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -107,20 +107,18 @@ function PopoverSurface({
   className?: string;
 }) {
   return (
-    <Portal>
-      <Popover.Positioner>
-        <Popover.Content className={className}>
-          {arrow ? <Popover.Arrow /> : null}
-          <Popover.Header>
-            <Popover.Title>{title}</Popover.Title>
-            <Popover.Description>{description}</Popover.Description>
-          </Popover.Header>
-          <Popover.Footer>
-            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-          </Popover.Footer>
-        </Popover.Content>
-      </Popover.Positioner>
-    </Portal>
+    <Popover.Positioner>
+      <Popover.Content className={className}>
+        {arrow ? <Popover.Arrow /> : null}
+        <Popover.Header>
+          <Popover.Title>{title}</Popover.Title>
+          <Popover.Description>{description}</Popover.Description>
+        </Popover.Header>
+        <Popover.Footer>
+          <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+        </Popover.Footer>
+      </Popover.Content>
+    </Popover.Positioner>
   );
 }
 
@@ -187,25 +185,23 @@ export function PopoverContextExample() {
       <Popover.Trigger asChild>
         <Button>Read context</Button>
       </Popover.Trigger>
-      <Portal>
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Title>Status</Popover.Title>
-            <Popover.Description>
-              <Popover.Context>
-                {(context) => (
-                  <span className={styles.status}>
-                    Popover is {context.open ? 'visible' : 'hidden'}
-                  </span>
-                )}
-              </Popover.Context>
-            </Popover.Description>
-            <Popover.Footer>
-              <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-            </Popover.Footer>
-          </Popover.Content>
-        </Popover.Positioner>
-      </Portal>
+      <Popover.Positioner>
+        <Popover.Content>
+          <Popover.Title>Status</Popover.Title>
+          <Popover.Description>
+            <Popover.Context>
+              {(context) => (
+                <span className={styles.status}>
+                  Popover is {context.open ? 'visible' : 'hidden'}
+                </span>
+              )}
+            </Popover.Context>
+          </Popover.Description>
+          <Popover.Footer>
+            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+          </Popover.Footer>
+        </Popover.Content>
+      </Popover.Positioner>
     </Popover>
   );
 }
@@ -258,27 +254,25 @@ export function ModalPopoverExample() {
       <Popover.Trigger asChild>
         <Button>Invite teammates</Button>
       </Popover.Trigger>
-      <Portal>
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Header>
-              <Popover.Title>Invite teammates</Popover.Title>
-              <Popover.Description>
-                Focus is trapped inside this modal popover until dismissed.
-              </Popover.Description>
-            </Popover.Header>
-            <Popover.Body>
-              <label className={styles.field}>
-                <span>Email</span>
-                <input ref={inputRef} className={styles.input} />
-              </label>
-            </Popover.Body>
-            <Popover.Footer>
-              <Popover.CloseTrigger>Done</Popover.CloseTrigger>
-            </Popover.Footer>
-          </Popover.Content>
-        </Popover.Positioner>
-      </Portal>
+      <Popover.Positioner>
+        <Popover.Content>
+          <Popover.Header>
+            <Popover.Title>Invite teammates</Popover.Title>
+            <Popover.Description>
+              Focus is trapped inside this modal popover until dismissed.
+            </Popover.Description>
+          </Popover.Header>
+          <Popover.Body>
+            <label className={styles.field}>
+              <span>Email</span>
+              <input ref={inputRef} className={styles.input} />
+            </label>
+          </Popover.Body>
+          <Popover.Footer>
+            <Popover.CloseTrigger>Done</Popover.CloseTrigger>
+          </Popover.Footer>
+        </Popover.Content>
+      </Popover.Positioner>
     </Popover>
   );
 }
@@ -308,16 +302,14 @@ export function SameWidthPopoverExample() {
       <Popover.Trigger asChild>
         <Button className={styles.wideTrigger}>Match this trigger width</Button>
       </Popover.Trigger>
-      <Portal>
-        <Popover.Positioner>
-          <Popover.Content className={styles.sameWidthContent}>
-            <Popover.Title>Matched width</Popover.Title>
-            <Popover.Description>
-              The content uses Ark&apos;s reference width measurement.
-            </Popover.Description>
-          </Popover.Content>
-        </Popover.Positioner>
-      </Portal>
+      <Popover.Positioner>
+        <Popover.Content className={styles.sameWidthContent}>
+          <Popover.Title>Matched width</Popover.Title>
+          <Popover.Description>
+            The content uses Ark&apos;s reference width measurement.
+          </Popover.Description>
+        </Popover.Content>
+      </Popover.Positioner>
     </Popover>
   );
 }
@@ -342,27 +334,25 @@ export function NestedPopoverExample() {
       <Popover.Trigger asChild>
         <Button>Open settings</Button>
       </Popover.Trigger>
-      <Portal>
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Header>
-              <Popover.Title>Settings</Popover.Title>
-              <Popover.Description>Nested popovers keep independent state.</Popover.Description>
-            </Popover.Header>
-            <Popover.Body className={styles.nestedBody}>
-              <Popover positioning={{ placement: 'right', gutter: 8 }}>
-                <Popover.Trigger asChild>
-                  <Button variant="outline">Advanced</Button>
-                </Popover.Trigger>
-                <PopoverSurface
-                  title="Advanced settings"
-                  description="This content belongs to the nested popover."
-                />
-              </Popover>
-            </Popover.Body>
-          </Popover.Content>
-        </Popover.Positioner>
-      </Portal>
+      <Popover.Positioner>
+        <Popover.Content>
+          <Popover.Header>
+            <Popover.Title>Settings</Popover.Title>
+            <Popover.Description>Nested popovers keep independent state.</Popover.Description>
+          </Popover.Header>
+          <Popover.Body className={styles.nestedBody}>
+            <Popover positioning={{ placement: 'right', gutter: 8 }}>
+              <Popover.Trigger asChild>
+                <Button variant="outline">Advanced</Button>
+              </Popover.Trigger>
+              <PopoverSurface
+                title="Advanced settings"
+                description="This content belongs to the nested popover."
+              />
+            </Popover>
+          </Popover.Body>
+        </Popover.Content>
+      </Popover.Positioner>
     </Popover>
   );
 }
@@ -384,16 +374,14 @@ export function MultipleTriggersPopoverExample() {
           </Popover.Trigger>
         ))}
       </div>
-      <Portal>
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Title>{activeItem?.label ?? 'Select an action'}</Popover.Title>
-            <Popover.Description>
-              {activeItem?.detail ?? 'Choose one of the actions.'}
-            </Popover.Description>
-          </Popover.Content>
-        </Popover.Positioner>
-      </Portal>
+      <Popover.Positioner>
+        <Popover.Content>
+          <Popover.Title>{activeItem?.label ?? 'Select an action'}</Popover.Title>
+          <Popover.Description>
+            {activeItem?.detail ?? 'Choose one of the actions.'}
+          </Popover.Description>
+        </Popover.Content>
+      </Popover.Positioner>
     </Popover>
   );
 }

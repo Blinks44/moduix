@@ -22,7 +22,7 @@ import {
 
 ## Basic
 
-Use the Ark part tree directly: render `HoverCard.Trigger` near the hovered content, then portal
+Use the Ark part tree directly: render `HoverCard.Trigger` near the hovered content, then render
 `HoverCard.Positioner` and `HoverCard.Content`. `HoverCard.Arrow` renders the moduix default
 `ArrowTip` when no children are passed.
 
@@ -31,7 +31,7 @@ Use the Ark part tree directly: render `HoverCard.Trigger` near the hovered cont
 
   <Preview.Code>
     {`
-      import { HoverCard, Portal } from "@moduix/react";
+      import { HoverCard } from "@moduix/react";
 
       export function HoverCardDemo() {
         return (
@@ -43,14 +43,12 @@ Use the Ark part tree directly: render `HoverCard.Trigger` near the hovered cont
               </HoverCard.Trigger>{" "}
               and 3 others
             </p>
-            <Portal>
-              <HoverCard.Positioner>
-                <HoverCard.Content>
-                  <HoverCard.Arrow />
-                  <ProfileCard profile={profiles[0]} />
-                </HoverCard.Content>
-              </HoverCard.Positioner>
-            </Portal>
+            <HoverCard.Positioner>
+              <HoverCard.Content>
+                <HoverCard.Arrow />
+                <ProfileCard profile={profiles[0]} />
+              </HoverCard.Content>
+            </HoverCard.Positioner>
           </HoverCard>
         );
       }
@@ -111,7 +109,7 @@ aubx shadcn@latest add Blinks44/moduix/react-hover-card
 HoverCard / HoverCard.Root
 ├─ HoverCard.Context (optional render-prop access)
 ├─ HoverCard.Trigger
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    └─ HoverCard.Positioner
       └─ HoverCard.Content
          └─ HoverCard.Arrow
@@ -126,7 +124,6 @@ HoverCard.RootProvider
 | `HoverCard` / `HoverCard.Root` | Root state, delays, positioning, ids, presence, and outside interaction. |
 | `HoverCard.RootProvider`       | Renders a hover card tree from state returned by `useHoverCard`.         |
 | `HoverCard.Trigger`            | Hover and focus target. Use `asChild` for links or custom hosts.         |
-| `Portal`                       | Portal exported by moduix for popup mounting.                            |
 | `HoverCard.Positioner`         | Floating layer that exposes Ark positioning CSS variables.               |
 | `HoverCard.Content`            | Visible popup surface and dismissable layer.                             |
 | `HoverCard.Arrow`              | Positioned arrow wrapper. Defaults to `HoverCard.ArrowTip`.              |
@@ -134,6 +131,8 @@ HoverCard.RootProvider
 | `HoverCard.Context`            | Inline access to open state and other Ark context data.                  |
 
 ## Composition
+
+The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
 
 ### Recommended composition
 
@@ -177,7 +176,7 @@ Control the open state with `open` and `onOpenChange(details)`.
 
   <Preview.Code>
     {`
-      import { HoverCard, Portal } from "@moduix/react";
+      import { HoverCard } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledHoverCard() {
@@ -188,14 +187,12 @@ Control the open state with `open` and `onOpenChange(details)`.
             <HoverCard.Trigger asChild>
               <a href="#profile">@sarah_chen</a>
             </HoverCard.Trigger>
-            <Portal>
-              <HoverCard.Positioner>
-                <HoverCard.Content>
-                  <HoverCard.Arrow />
-                  <ProfileCard profile={profiles[0]} />
-                </HoverCard.Content>
-              </HoverCard.Positioner>
-            </Portal>
+            <HoverCard.Positioner>
+              <HoverCard.Content>
+                <HoverCard.Arrow />
+                <ProfileCard profile={profiles[0]} />
+              </HoverCard.Content>
+            </HoverCard.Positioner>
           </HoverCard>
         );
       }
@@ -215,7 +212,7 @@ Create the machine state with `useHoverCard()` when external controls need to re
 
   <Preview.Code>
     {`
-      import { HoverCard, Portal, useHoverCard } from "@moduix/react";
+      import { HoverCard, useHoverCard } from "@moduix/react";
 
       export function RootProviderHoverCard() {
         const hoverCard = useHoverCard();
@@ -225,14 +222,12 @@ Create the machine state with `useHoverCard()` when external controls need to re
             <HoverCard.Trigger asChild>
               <a href="#profile">@sarah_chen</a>
             </HoverCard.Trigger>
-            <Portal>
-              <HoverCard.Positioner>
-                <HoverCard.Content>
-                  <HoverCard.Arrow />
-                  <ProfileCard profile={profiles[0]} />
-                </HoverCard.Content>
-              </HoverCard.Positioner>
-            </Portal>
+            <HoverCard.Positioner>
+              <HoverCard.Content>
+                <HoverCard.Arrow />
+                <ProfileCard profile={profiles[0]} />
+              </HoverCard.Content>
+            </HoverCard.Positioner>
           </HoverCard.RootProvider>
         );
       }
@@ -252,7 +247,7 @@ Tune hover timing with `openDelay` and `closeDelay` on the root.
 
   <Preview.Code>
     {`
-      import { HoverCard, Portal } from "@moduix/react";
+      import { HoverCard } from "@moduix/react";
 
       export function DelayHoverCard() {
         return (
@@ -260,14 +255,12 @@ Tune hover timing with `openDelay` and `closeDelay` on the root.
             <HoverCard.Trigger asChild>
               <a href="#profile">@sarah_chen</a>
             </HoverCard.Trigger>
-            <Portal>
-              <HoverCard.Positioner>
-                <HoverCard.Content>
-                  <HoverCard.Arrow />
-                  <ProfileCard profile={profiles[0]} />
-                </HoverCard.Content>
-              </HoverCard.Positioner>
-            </Portal>
+            <HoverCard.Positioner>
+              <HoverCard.Content>
+                <HoverCard.Arrow />
+                <ProfileCard profile={profiles[0]} />
+              </HoverCard.Content>
+            </HoverCard.Positioner>
           </HoverCard>
         );
       }
@@ -287,7 +280,7 @@ Pass Ark positioning options through the `positioning` prop.
 
   <Preview.Code>
     {`
-      import { HoverCard, Portal } from "@moduix/react";
+      import { HoverCard } from "@moduix/react";
 
       export function PositioningHoverCard() {
         return (
@@ -295,14 +288,12 @@ Pass Ark positioning options through the `positioning` prop.
             <HoverCard.Trigger asChild>
               <a href="#profile">@sarah_chen</a>
             </HoverCard.Trigger>
-            <Portal>
-              <HoverCard.Positioner>
-                <HoverCard.Content>
-                  <HoverCard.Arrow />
-                  <ProfileCard profile={profiles[0]} />
-                </HoverCard.Content>
-              </HoverCard.Positioner>
-            </Portal>
+            <HoverCard.Positioner>
+              <HoverCard.Content>
+                <HoverCard.Arrow />
+                <ProfileCard profile={profiles[0]} />
+              </HoverCard.Content>
+            </HoverCard.Positioner>
           </HoverCard>
         );
       }
@@ -323,7 +314,7 @@ Use `HoverCard.Context` for inline state reads, such as changing trigger icons w
   <Preview.Code>
     {`
       import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-      import { HoverCard, Portal } from "@moduix/react";
+      import { HoverCard } from "@moduix/react";
 
       export function ContextHoverCard() {
         return (
@@ -337,14 +328,12 @@ Use `HoverCard.Context` for inline state reads, such as changing trigger icons w
                 </HoverCard.Trigger>
               )}
             </HoverCard.Context>
-            <Portal>
-              <HoverCard.Positioner>
-                <HoverCard.Content>
-                  <HoverCard.Arrow />
-                  <ProfileCard profile={profiles[0]} />
-                </HoverCard.Content>
-              </HoverCard.Positioner>
-            </Portal>
+            <HoverCard.Positioner>
+              <HoverCard.Content>
+                <HoverCard.Arrow />
+                <ProfileCard profile={profiles[0]} />
+              </HoverCard.Content>
+            </HoverCard.Positioner>
           </HoverCard>
         );
       }
@@ -365,7 +354,7 @@ Share one content surface across trigger values with `Trigger value` and
 
   <Preview.Code>
     {`
-      import { HoverCard, Portal } from "@moduix/react";
+      import { HoverCard } from "@moduix/react";
       import { useState } from "react";
 
       export function MultipleTriggersHoverCard() {
@@ -382,14 +371,12 @@ Share one content surface across trigger values with `Trigger value` and
                 <a href={"#" + profile.id}>{profile.username}</a>
               </HoverCard.Trigger>
             ))}
-            <Portal>
-              <HoverCard.Positioner>
-                <HoverCard.Content>
-                  <HoverCard.Arrow />
-                  {activeProfile ? <ProfileCard profile={activeProfile} /> : null}
-                </HoverCard.Content>
-              </HoverCard.Positioner>
-            </Portal>
+            <HoverCard.Positioner>
+              <HoverCard.Content>
+                <HoverCard.Arrow />
+                {activeProfile ? <ProfileCard profile={activeProfile} /> : null}
+              </HoverCard.Content>
+            </HoverCard.Positioner>
           </HoverCard>
         );
       }
@@ -409,7 +396,7 @@ Override moduix CSS variables and target stable `data-slot` hooks without changi
 
   <Preview.Code>
     {`
-      import { HoverCard, Portal } from "@moduix/react";
+      import { HoverCard } from "@moduix/react";
 
       export function CustomStylingHoverCard() {
         return (
@@ -417,14 +404,12 @@ Override moduix CSS variables and target stable `data-slot` hooks without changi
             <HoverCard.Trigger className="custom-trigger" asChild>
               <a href="#profile">@sarah_chen</a>
             </HoverCard.Trigger>
-            <Portal>
-              <HoverCard.Positioner>
-                <HoverCard.Content className="custom-content">
-                  <HoverCard.Arrow />
-                  <ProfileCard profile={profiles[0]} />
-                </HoverCard.Content>
-              </HoverCard.Positioner>
-            </Portal>
+            <HoverCard.Positioner>
+              <HoverCard.Content className="custom-content">
+                <HoverCard.Arrow />
+                <ProfileCard profile={profiles[0]} />
+              </HoverCard.Content>
+            </HoverCard.Positioner>
           </HoverCard>
         );
       }

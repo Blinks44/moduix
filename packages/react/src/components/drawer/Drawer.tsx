@@ -8,26 +8,49 @@ import {
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Drawer.module.css';
 
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close drawer';
 
+type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> & OverlayPortalProps;
+type DrawerRootProviderProps = ComponentProps<typeof DrawerPrimitive.RootProvider> &
+  OverlayPortalProps;
+
 function DrawerRoot({
   lazyMount = true,
+  portalled,
+  portalRef,
   unmountOnExit = true,
   ...props
-}: ComponentProps<typeof DrawerPrimitive.Root>) {
-  return <DrawerPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />;
+}: DrawerRootProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <DrawerPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
 function DrawerRootProvider({
   lazyMount = true,
+  portalled,
+  portalRef,
   unmountOnExit = true,
   ...props
-}: ComponentProps<typeof DrawerPrimitive.RootProvider>) {
+}: DrawerRootProviderProps) {
   return (
-    <DrawerPrimitive.RootProvider lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <DrawerPrimitive.RootProvider
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
+        {...props}
+      />
+    </OverlayPortalProvider>
   );
 }
 
@@ -53,12 +76,14 @@ const DrawerBackdrop = forwardRef<
   ComponentProps<typeof DrawerPrimitive.Backdrop>
 >(function DrawerBackdrop({ className, ...props }, ref) {
   return (
-    <DrawerPrimitive.Backdrop
-      ref={ref}
-      data-slot="drawer-backdrop"
-      className={clsx(styles.backdrop, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <DrawerPrimitive.Backdrop
+        ref={ref}
+        data-slot="drawer-backdrop"
+        className={clsx(styles.backdrop, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -67,12 +92,14 @@ const DrawerPositioner = forwardRef<
   ComponentProps<typeof DrawerPrimitive.Positioner>
 >(function DrawerPositioner({ className, ...props }, ref) {
   return (
-    <DrawerPrimitive.Positioner
-      ref={ref}
-      data-slot="drawer-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <DrawerPrimitive.Positioner
+        ref={ref}
+        data-slot="drawer-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -262,6 +289,7 @@ const Drawer = Object.assign(DrawerRoot, {
 });
 
 export { Drawer, useDrawer, useDrawerContext, useDrawerStackContext };
+export type { DrawerRootProps, DrawerRootProviderProps };
 export type {
   DrawerBackdropProps,
   DrawerCloseTriggerProps,
@@ -274,8 +302,6 @@ export type {
   DrawerIndentProps,
   DrawerOpenChangeDetails,
   DrawerPositionerProps,
-  DrawerRootProps,
-  DrawerRootProviderProps,
   DrawerSnapPointChangeDetails,
   DrawerStackProps,
   DrawerSwipeAreaProps,

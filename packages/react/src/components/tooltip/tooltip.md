@@ -16,15 +16,13 @@ The wrapper follows Ark UI React `@ark-ui/react/tooltip`. Preserve the explicit 
 ```tsx
 <Tooltip>
   <Tooltip.Trigger />
-  <Portal>
-    <Tooltip.Positioner>
-      <Tooltip.Content>
-        <Tooltip.Arrow>
-          <Tooltip.ArrowTip />
-        </Tooltip.Arrow>
-      </Tooltip.Content>
-    </Tooltip.Positioner>
-  </Portal>
+  <Tooltip.Positioner>
+    <Tooltip.Content>
+      <Tooltip.Arrow>
+        <Tooltip.ArrowTip />
+      </Tooltip.Arrow>
+    </Tooltip.Content>
+  </Tooltip.Positioner>
 </Tooltip>
 ```
 
@@ -32,6 +30,8 @@ Ark is the source of truth for controlled state, callback detail objects, positi
 presence props, `Context`, `RootProvider`, `useTooltip`, and `useTooltipContext`.
 
 ## Current behavior contract
+
+`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
 `Tooltip` is the root component and also exposes Ark-aligned namespace parts:
 
@@ -67,7 +67,7 @@ The wrapper adds default Moduix styling, stable `data-slot` hooks, and one narro
 ## Composition
 
 ```tsx
-import { Button, Portal, Tooltip } from '@moduix/react';
+import { Button, Tooltip } from '@moduix/react';
 
 export function Example() {
   return (
@@ -75,14 +75,12 @@ export function Example() {
       <Tooltip.Trigger asChild aria-label="Save">
         <Button>Save</Button>
       </Tooltip.Trigger>
-      <Portal>
-        <Tooltip.Positioner>
-          <Tooltip.Content>
-            <Tooltip.Arrow />
-            Save changes
-          </Tooltip.Content>
-        </Tooltip.Positioner>
-      </Portal>
+      <Tooltip.Positioner>
+        <Tooltip.Content>
+          <Tooltip.Arrow />
+          Save changes
+        </Tooltip.Content>
+      </Tooltip.Positioner>
     </Tooltip>
   );
 }
@@ -96,7 +94,7 @@ behavior.
 
 Supported Ark examples and patterns:
 
-- basic explicit composition with `Portal`, `Positioner`, and `Content`
+- basic explicit composition with `Positioner` and `Content`
 - controlled `open` with `onOpenChange(details)`
 - `RootProvider` with `useTooltip`
 - `Arrow` and `ArrowTip`
@@ -142,8 +140,7 @@ variables remain available for placement and arrow mechanics.
 
 ## Intentional sugar and differences from upstream
 
-`Portal` is imported separately from `@moduix/react` because it is the shared Ark Portal utility,
-not a tooltip-owned part.
+The root owns the portal boundary; `Positioner` and `Content` remain tooltip-owned parts.
 
 `Tooltip.Arrow` renders `Tooltip.ArrowTip` by default. Consumers can pass custom children when they
 need a custom arrow shape.
@@ -153,17 +150,17 @@ need a custom arrow shape.
 Do not reintroduce legacy compatibility aliases. Tooltip is now an Ark-first popup family member,
 matching the explicit composition rules used by migrated popup-like components.
 
-Keep docs and stories on explicit popup composition with separate `Portal`. If upstream adds new
+Keep docs and stories on explicit `Positioner` and `Content` composition. If upstream adds new
 exported tooltip state helpers, mirror them from this wrapper and `index.ts` unless there is a
 documented reason not to.
 
 ## Local changelog
 
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
+
 - 2026-06-29: Audited the Ark migration, removed stale story/docs CSS, aligned documented
   trigger state attributes and presence behavior with Ark, and made `--tooltip-transition` a
   consistent duration token for trigger transitions and content animations.
-- 2026-06-22: Removed the `Tooltip.Portal` namespace alias; examples now import the shared
-  `Portal` from `@moduix/react`.
 - 2026-06-21: Migrated Tooltip to Ark UI React. Replaced the legacy high-level
   wrapper contract with explicit Ark parts, Ark state callbacks, provider/context hooks, Ark data
   attributes, and synchronized docs/stories/examples.

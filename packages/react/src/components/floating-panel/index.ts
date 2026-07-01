@@ -12,6 +12,8 @@ export type {
   FloatingPanelPoint,
   FloatingPanelPositionChangeDetails,
   FloatingPanelResizeTriggerAxis,
+  FloatingPanelRootProps,
+  FloatingPanelRootProviderProps,
   FloatingPanelSize,
   FloatingPanelSizeChangeDetails,
   FloatingPanelStage,

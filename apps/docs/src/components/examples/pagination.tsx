@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Pagination, Portal, Select, usePagination } from '@moduix/react';
+import { Pagination, Select, usePagination } from '@moduix/react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -204,18 +204,16 @@ function PaginationPageSizeSelect({
       <Select.Context>
         {(select) =>
           select.open ? (
-            <Portal>
-              <Select.Positioner>
-                <Select.Content>
-                  {pageSizes.items.map((item) => (
-                    <Select.Item key={item.value} item={item}>
-                      <Select.ItemText>{item.label}</Select.ItemText>
-                      <Select.ItemIndicator />
-                    </Select.Item>
-                  ))}
-                </Select.Content>
-              </Select.Positioner>
-            </Portal>
+            <Select.Positioner>
+              <Select.Content>
+                {pageSizes.items.map((item) => (
+                  <Select.Item key={item.value} item={item}>
+                    <Select.ItemText>{item.label}</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Positioner>
           ) : null
         }
       </Select.Context>

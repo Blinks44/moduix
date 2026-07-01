@@ -18,10 +18,12 @@ actions.
   positioning, ids, lazy mounting, and typeahead come from the shared Ark-backed `Menu` wrapper.
 - The primary action and trigger are moduix `Button` surfaces grouped with a Chakra-style attached
   visual treatment.
-- Ark composition stays visible: popup structure is `Portal -> Positioner -> Content`, not a hidden
+- Ark composition stays visible: popup structure is `Positioner -> Content`, not a hidden
   `Content` convenience wrapper.
 
 ## Current behavior contract
+
+`SplitButton.Root` inherits the Menu overlay contract: `Positioner` is portalled automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. `Positioner` and `Content` remain explicit and styleable.
 
 - Public API is namespace-first for split-button-owned parts: `SplitButton`,
   `SplitButton.Root`, `SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Positioner`, and
@@ -35,7 +37,7 @@ actions.
   default values.
 - `Trigger` renders a moduix `Button` as the Ark `Menu.Trigger` host and defaults to a chevron icon
   with `aria-label="More actions"` when no children are provided.
-- Shared `Portal`, `SplitButton.Positioner`, and `SplitButton.Content` expose the real popup
+- `SplitButton.Positioner` and `SplitButton.Content` expose the real popup
   structure. Consumers place shared `Menu.*` rows inside `SplitButton.Content`.
 
 ## Anatomy and exported parts
@@ -44,7 +46,7 @@ actions.
 SplitButton.Root
 ├─ SplitButton.Action
 ├─ SplitButton.Trigger
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    └─ SplitButton.Positioner
       └─ SplitButton.Content
          ├─ Menu.Item
@@ -65,23 +67,21 @@ Every exported DOM part accepts `className` and receives stable styling hooks:
 ## Composition
 
 ```tsx
-import { Menu, Portal, SplitButton } from '@moduix/react';
+import { Menu, SplitButton } from '@moduix/react';
 
 export function SplitButtonExample() {
   return (
     <SplitButton>
       <SplitButton.Action>Save Changes</SplitButton.Action>
       <SplitButton.Trigger />
-      <Portal>
-        <SplitButton.Positioner>
-          <SplitButton.Content>
-            <Menu.Item value="save-draft">Save as Draft</Menu.Item>
-            <Menu.Item value="duplicate">Duplicate</Menu.Item>
-            <Menu.Separator />
-            <Menu.Item value="publish">Publish Now</Menu.Item>
-          </SplitButton.Content>
-        </SplitButton.Positioner>
-      </Portal>
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.Item value="save-draft">Save as Draft</Menu.Item>
+          <Menu.Item value="duplicate">Duplicate</Menu.Item>
+          <Menu.Separator />
+          <Menu.Item value="publish">Publish Now</Menu.Item>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
     </SplitButton>
   );
 }
@@ -89,7 +89,7 @@ export function SplitButtonExample() {
 
 ## Upstream feature coverage
 
-- Ark Menu anatomy is preserved for the popup path through `Portal`, `Positioner`, `Content`, and
+- Ark Menu anatomy is preserved for the popup path through `Positioner`, `Content`, and
   shared `Menu.Item`/group/checkbox/radio/separator rows.
 - Ark Menu controlled and uncontrolled open state is preserved through root props and
   `onOpenChange(details)`.
@@ -137,25 +137,25 @@ export function SplitButtonExample() {
 - The default chevron trigger is local sugar over Menu Trigger.
 - Flat named exports (`SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonContent`) are removed;
   use `SplitButton.Action`, `SplitButton.Trigger`, and explicit popup parts.
-- `SplitButton.Content` is the actual menu content part. It no longer renders `Portal` and
-  `Positioner` internally.
+- `SplitButton.Content` is the actual menu content part. It does not render `Positioner`
+  internally.
 
 ## Agent notes
 
 - Do not add a fake split-button provider/context API. Use `Menu` state helpers directly for advanced
   menu state patterns.
-- Keep popup structure explicit. Do not reintroduce a wrapper that hides `Portal` or `Positioner`.
+- Keep popup structure explicit. Do not reintroduce a wrapper that hides `Positioner`.
 - Preserve the grouped visual contract by keeping action and trigger radii and border overlap
   coordinated.
 - Keep alternate actions on shared `Menu.*` rows rather than adding split-button-specific item parts.
 
 ## Local changelog
 
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
+
 - 2026-06-27: Clarified the trigger DOM contract after the Ark Menu migration: the host keeps the
   Button data scope with `data-slot="split-button-trigger"` while Ark supplies trigger ARIA, state,
   keyboard behavior, and focus management.
-- 2026-06-22: Removed the `SplitButton.Portal` namespace alias and `SplitButtonPortalProps`;
-  examples now import the shared `Portal` from `@moduix/react`.
 - Added `SplitButton` as a composition-first grouped action built from the moduix `Button` and
   `Menu` wrappers.
 - 2026-06-17: Updated the primary action contract from Base button composition props to Ark-style

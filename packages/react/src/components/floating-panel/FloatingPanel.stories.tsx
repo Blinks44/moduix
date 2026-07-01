@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Portal } from '@ark-ui/react/portal';
 import { useState, type ReactNode } from 'react';
 import { Button } from '../button';
 import { FloatingPanel, useFloatingPanel } from './FloatingPanel';
@@ -31,27 +30,25 @@ function FloatingPanelSurface({
   className?: string;
 }) {
   return (
-    <Portal>
-      <FloatingPanel.Positioner>
-        <FloatingPanel.Content className={className}>
-          <FloatingPanel.DragTrigger>
-            <FloatingPanel.Header>
-              <FloatingPanel.Title>
-                <FloatingPanel.DragIndicator />
-                <span className={storyStyles.titleText}>{title}</span>
-              </FloatingPanel.Title>
-              <FloatingPanel.Control>
-                <FloatingPanel.StageTrigger stage="minimized" />
-                <FloatingPanel.StageTrigger stage="maximized" />
-                <FloatingPanel.CloseIcon />
-              </FloatingPanel.Control>
-            </FloatingPanel.Header>
-          </FloatingPanel.DragTrigger>
-          <FloatingPanel.Body>{children}</FloatingPanel.Body>
-          <FloatingPanel.ResizeTriggerGroup />
-        </FloatingPanel.Content>
-      </FloatingPanel.Positioner>
-    </Portal>
+    <FloatingPanel.Positioner>
+      <FloatingPanel.Content className={className}>
+        <FloatingPanel.DragTrigger>
+          <FloatingPanel.Header>
+            <FloatingPanel.Title>
+              <FloatingPanel.DragIndicator />
+              <span className={storyStyles.titleText}>{title}</span>
+            </FloatingPanel.Title>
+            <FloatingPanel.Control>
+              <FloatingPanel.StageTrigger stage="minimized" />
+              <FloatingPanel.StageTrigger stage="maximized" />
+              <FloatingPanel.CloseIcon />
+            </FloatingPanel.Control>
+          </FloatingPanel.Header>
+        </FloatingPanel.DragTrigger>
+        <FloatingPanel.Body>{children}</FloatingPanel.Body>
+        <FloatingPanel.ResizeTriggerGroup />
+      </FloatingPanel.Content>
+    </FloatingPanel.Positioner>
   );
 }
 

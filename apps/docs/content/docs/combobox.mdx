@@ -45,7 +45,7 @@ Create an Ark `ListCollection`, pass it to `Combobox.Root`, and keep the popup s
     {`
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox, Portal } from "@moduix/react";
+      import { Combobox } from "@moduix/react";
 
       export function ComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -65,21 +65,19 @@ Create an Ark `ListCollection`, pass it to `Combobox.Root`, and keep the popup s
               <Combobox.ClearTrigger aria-label="Clear selection" />
               <Combobox.Trigger aria-label="Open options" />
             </Combobox.Control>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.Empty>No fruits found.</Combobox.Empty>
-                  <Combobox.List>
-                    {collection.items.map((item) => (
-                      <Combobox.Item key={item.value} item={item}>
-                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                <Combobox.Empty>No fruits found.</Combobox.Empty>
+                <Combobox.List>
+                  {collection.items.map((item) => (
+                    <Combobox.Item key={item.value} item={item}>
+                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                      <Combobox.ItemIndicator />
+                    </Combobox.Item>
+                  ))}
+                </Combobox.List>
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox>
         );
       }
@@ -152,7 +150,7 @@ Combobox.Root[collection]
 │  ├─ Combobox.Input
 │  ├─ Combobox.ClearTrigger
 │  └─ Combobox.Trigger
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    └─ Combobox.Positioner
       └─ Combobox.Content
          ├─ Combobox.Empty
@@ -184,13 +182,15 @@ Ark provider and context paths.
 
 ## Composition
 
+The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+
 ### Recommended composition
 
 Use `createListCollection` for a static collection or `useListCollection` when filtering changes
 the rendered items. Object collections should define `itemToString` and `itemToValue`.
 
-Keep `Portal`, `Combobox.Positioner`, and `Combobox.Content` visible. `Content` is the actual Ark
-content part; it does not create a portal or positioner.
+Keep `Combobox.Positioner` and `Combobox.Content` visible. `Content` is the actual Ark content part;
+the root only automates the portal boundary.
 
 ### When to go custom
 
@@ -245,7 +245,7 @@ Enter can select it without an extra arrow-key press.
     {`
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox, Portal } from "@moduix/react";
+      import { Combobox } from "@moduix/react";
 
       export function AutoHighlightComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -266,21 +266,19 @@ Enter can select it without an extra arrow-key press.
               <Combobox.ClearTrigger aria-label="Clear selection" />
               <Combobox.Trigger aria-label="Open options" />
             </Combobox.Control>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.Empty>No departments found.</Combobox.Empty>
-                  <Combobox.List>
-                    {collection.items.map((item) => (
-                      <Combobox.Item key={item.value} item={item}>
-                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                <Combobox.Empty>No departments found.</Combobox.Empty>
+                <Combobox.List>
+                  {collection.items.map((item) => (
+                    <Combobox.Item key={item.value} item={item}>
+                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                      <Combobox.ItemIndicator />
+                    </Combobox.Item>
+                  ))}
+                </Combobox.List>
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox>
         );
       }
@@ -317,7 +315,7 @@ first matching item while preserving Ark keyboard navigation.
     {`
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox, Portal } from "@moduix/react";
+      import { Combobox } from "@moduix/react";
 
       export function InlineAutocompleteComboboxDemo() {
         const { startsWith } = useFilter({ sensitivity: "base" });
@@ -338,21 +336,19 @@ first matching item while preserving Ark keyboard navigation.
               <Combobox.ClearTrigger aria-label="Clear selection" />
               <Combobox.Trigger aria-label="Open options" />
             </Combobox.Control>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.Empty>No creatures found.</Combobox.Empty>
-                  <Combobox.List>
-                    {collection.items.map((item) => (
-                      <Combobox.Item key={item.value} item={item}>
-                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                <Combobox.Empty>No creatures found.</Combobox.Empty>
+                <Combobox.List>
+                  {collection.items.map((item) => (
+                    <Combobox.Item key={item.value} item={item}>
+                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                      <Combobox.ItemIndicator />
+                    </Combobox.Item>
+                  ))}
+                </Combobox.List>
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox>
         );
       }
@@ -389,7 +385,7 @@ as a native link. `selectionBehavior="preserve"` keeps the search text visible d
     {`
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox, Portal } from "@moduix/react";
+      import { Combobox } from "@moduix/react";
 
       export function LinksComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -409,22 +405,20 @@ as a native link. `selectionBehavior="preserve"` keeps the search text visible d
               <Combobox.Input placeholder="e.g. GitHub" />
               <Combobox.Trigger aria-label="Open options" />
             </Combobox.Control>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.List>
-                    {collection.items.map((item) => (
-                      <Combobox.Item key={item.value} item={item} asChild>
-                        <a href={item.href} target="_blank" rel="noreferrer">
-                          <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                          <Combobox.ItemIndicator />
-                        </a>
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                <Combobox.List>
+                  {collection.items.map((item) => (
+                    <Combobox.Item key={item.value} item={item} asChild>
+                      <a href={item.href} target="_blank" rel="noreferrer">
+                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </a>
+                    </Combobox.Item>
+                  ))}
+                </Combobox.List>
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox>
         );
       }
@@ -471,7 +465,7 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
   <Preview.Code>
     {`
       import { useListCollection } from "@ark-ui/react/collection";
-      import { Combobox, Portal } from "@moduix/react";
+      import { Combobox } from "@moduix/react";
 
       export function DynamicComboboxDemo() {
         const { collection, set } = useListCollection({
@@ -499,20 +493,18 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
               <Combobox.Input placeholder="e.g. alex" />
               <Combobox.Trigger aria-label="Open options" />
             </Combobox.Control>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.List>
-                    {collection.items.map((item) => (
-                      <Combobox.Item key={item} item={item}>
-                        <Combobox.ItemText>{item}</Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                <Combobox.List>
+                  {collection.items.map((item) => (
+                    <Combobox.Item key={item} item={item}>
+                      <Combobox.ItemText>{item}</Combobox.ItemText>
+                      <Combobox.ItemIndicator />
+                    </Combobox.Item>
+                  ))}
+                </Combobox.List>
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox>
         );
       }
@@ -542,7 +534,7 @@ replace that sentinel value with the user-entered value after selection.
     {`
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox, Portal } from "@moduix/react";
+      import { Combobox } from "@moduix/react";
       import { useState } from "react";
       import { flushSync } from "react-dom";
 
@@ -618,24 +610,22 @@ replace that sentinel value with the user-entered value after selection.
               <Combobox.ClearTrigger aria-label="Clear selection" />
               <Combobox.Trigger aria-label="Open options" />
             </Combobox.Control>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.List>
-                    {collection.items.map((item) => (
-                      <Combobox.Item key={item.value} item={item}>
-                        <Combobox.ItemText>
-                          {item.value === createOptionValue
-                            ? \`Create "\${item.label}"\`
-                            : \`\${item.label}\${item.created ? " (new)" : ""}\`}
-                        </Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                <Combobox.List>
+                  {collection.items.map((item) => (
+                    <Combobox.Item key={item.value} item={item}>
+                      <Combobox.ItemText>
+                        {item.value === createOptionValue
+                          ? \`Create "\${item.label}"\`
+                          : \`\${item.label}\${item.created ? " (new)" : ""}\`}
+                      </Combobox.ItemText>
+                      <Combobox.ItemIndicator />
+                    </Combobox.Item>
+                  ))}
+                </Combobox.List>
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox>
         );
       }
@@ -674,7 +664,7 @@ popup harder to scan. Filtering still runs against the complete initial collecti
     {`
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox, Portal } from "@moduix/react";
+      import { Combobox } from "@moduix/react";
 
       export function LimitComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -694,21 +684,19 @@ popup harder to scan. Filtering still runs against the complete initial collecti
               <Combobox.Input placeholder="e.g. San" />
               <Combobox.Trigger aria-label="Open options" />
             </Combobox.Control>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.Empty>No cities found.</Combobox.Empty>
-                  <Combobox.List>
-                    {collection.items.map((item) => (
-                      <Combobox.Item key={item.value} item={item}>
-                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                <Combobox.Empty>No cities found.</Combobox.Empty>
+                <Combobox.List>
+                  {collection.items.map((item) => (
+                    <Combobox.Item key={item.value} item={item}>
+                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                      <Combobox.ItemIndicator />
+                    </Combobox.Item>
+                  ))}
+                </Combobox.List>
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox>
         );
       }
@@ -755,7 +743,7 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
       import { useVirtualizer } from "@tanstack/react-virtual";
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox, Portal } from "@moduix/react";
+      import { Combobox } from "@moduix/react";
       import { useRef } from "react";
       import { flushSync } from "react-dom";
 
@@ -794,44 +782,42 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
                 onClick={reset}
               />
             </Combobox.Control>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content className="virtualContent">
-                  <Combobox.Empty>No results found.</Combobox.Empty>
-                  <div ref={scrollRef} className="virtualScroller">
-                    <Combobox.List
-                      className="virtualList"
-                      style={{ height: virtualizer.getTotalSize(), width: "100%" }}
-                    >
-                      {virtualizer.getVirtualItems().map((virtualItem) => {
-                        const item = collection.items[virtualItem.index];
+            <Combobox.Positioner>
+              <Combobox.Content className="virtualContent">
+                <Combobox.Empty>No results found.</Combobox.Empty>
+                <div ref={scrollRef} className="virtualScroller">
+                  <Combobox.List
+                    className="virtualList"
+                    style={{ height: virtualizer.getTotalSize(), width: "100%" }}
+                  >
+                    {virtualizer.getVirtualItems().map((virtualItem) => {
+                      const item = collection.items[virtualItem.index];
 
-                        return (
-                          <Combobox.Item
-                            key={item.value}
-                            item={item}
-                            aria-setsize={collection.size}
-                            aria-posinset={virtualItem.index + 1}
-                            className="virtualItem"
-                            style={{
-                              position: "absolute",
-                              top: 0,
-                              left: 0,
-                              width: "100%",
-                              height: virtualItem.size,
-                              transform: \`translateY(\${virtualItem.start}px)\`,
-                            }}
-                          >
-                            <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                            <Combobox.ItemIndicator />
-                          </Combobox.Item>
-                        );
-                      })}
-                    </Combobox.List>
-                  </div>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+                      return (
+                        <Combobox.Item
+                          key={item.value}
+                          item={item}
+                          aria-setsize={collection.size}
+                          aria-posinset={virtualItem.index + 1}
+                          className="virtualItem"
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: virtualItem.size,
+                            transform: \`translateY(\${virtualItem.start}px)\`,
+                          }}
+                        >
+                          <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                          <Combobox.ItemIndicator />
+                        </Combobox.Item>
+                      );
+                    })}
+                  </Combobox.List>
+                </div>
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox>
         );
       }
@@ -887,7 +873,7 @@ Control the selected string array and read the next value from `details.value`.
     {`
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox, Portal } from "@moduix/react";
+      import { Combobox } from "@moduix/react";
       import { useState } from "react";
 
       export function ControlledComboboxDemo() {
@@ -912,21 +898,19 @@ Control the selected string array and read the next value from `details.value`.
                 <Combobox.ClearTrigger aria-label="Clear selection" />
                 <Combobox.Trigger aria-label="Open options" />
               </Combobox.Control>
-              <Portal>
-                <Combobox.Positioner>
-                  <Combobox.Content>
-                    <Combobox.Empty>No fruits found.</Combobox.Empty>
-                    <Combobox.List>
-                      {collection.items.map((item) => (
-                        <Combobox.Item key={item.value} item={item}>
-                          <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                          <Combobox.ItemIndicator />
-                        </Combobox.Item>
-                      ))}
-                    </Combobox.List>
-                  </Combobox.Content>
-                </Combobox.Positioner>
-              </Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.Empty>No fruits found.</Combobox.Empty>
+                  <Combobox.List>
+                    {collection.items.map((item) => (
+                      <Combobox.Item key={item.value} item={item}>
+                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.List>
+                </Combobox.Content>
+              </Combobox.Positioner>
             </Combobox>
             <span>Selected: {value[0] ?? "none"}</span>
           </div>
@@ -963,7 +947,7 @@ Map object labels and values on the collection, then render Ark item groups from
     {`
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox, Portal } from "@moduix/react";
+      import { Combobox } from "@moduix/react";
 
       export function GroupedComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -986,28 +970,26 @@ Map object labels and values on the collection, then render Ark item groups from
               <Combobox.ClearTrigger aria-label="Clear selection" />
               <Combobox.Trigger aria-label="Open options" />
             </Combobox.Control>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.Empty>No countries found.</Combobox.Empty>
-                  {collection.group().map(([continent, items]) => (
-                    <Combobox.ItemGroup key={continent}>
-                      <Combobox.ItemGroupLabel>
-                        {continent}
-                      </Combobox.ItemGroupLabel>
-                      {items.map((item) => (
-                        <Combobox.Item key={item.code} item={item}>
-                          <Combobox.ItemText>
-                            {item.country}
-                          </Combobox.ItemText>
-                          <Combobox.ItemIndicator />
-                        </Combobox.Item>
-                      ))}
-                    </Combobox.ItemGroup>
-                  ))}
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                <Combobox.Empty>No countries found.</Combobox.Empty>
+                {collection.group().map(([continent, items]) => (
+                  <Combobox.ItemGroup key={continent}>
+                    <Combobox.ItemGroupLabel>
+                      {continent}
+                    </Combobox.ItemGroupLabel>
+                    {items.map((item) => (
+                      <Combobox.Item key={item.code} item={item}>
+                        <Combobox.ItemText>
+                          {item.country}
+                        </Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.ItemGroup>
+                ))}
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox>
         );
       }
@@ -1049,7 +1031,7 @@ separate state owner.
       import type { UseComboboxContext } from "@moduix/react";
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox, Portal } from "@moduix/react";
+      import { Combobox } from "@moduix/react";
 
       export function ContextComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -1074,20 +1056,18 @@ separate state owner.
               <Combobox.ClearTrigger aria-label="Clear selection" />
               <Combobox.Trigger aria-label="Open options" />
             </Combobox.Control>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.List>
-                    {collection.items.map((item) => (
-                      <Combobox.Item key={item.value} item={item}>
-                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                <Combobox.List>
+                  {collection.items.map((item) => (
+                    <Combobox.Item key={item.value} item={item}>
+                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                      <Combobox.ItemIndicator />
+                    </Combobox.Item>
+                  ))}
+                </Combobox.List>
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox>
         );
       }
@@ -1123,7 +1103,7 @@ composition rather than combobox parts.
       import type { UseComboboxContext } from "@moduix/react";
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox, Portal } from "@moduix/react";
+      import { Combobox } from "@moduix/react";
 
       export function MultipleComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -1157,21 +1137,19 @@ composition rather than combobox parts.
               <Combobox.Input placeholder="Search fruits" />
               <Combobox.Trigger aria-label="Open options" />
             </Combobox.Control>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.Empty>No fruits found.</Combobox.Empty>
-                  <Combobox.List>
-                    {collection.items.map((item) => (
-                      <Combobox.Item key={item.value} item={item}>
-                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                <Combobox.Empty>No fruits found.</Combobox.Empty>
+                <Combobox.List>
+                  {collection.items.map((item) => (
+                    <Combobox.Item key={item.value} item={item}>
+                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                      <Combobox.ItemIndicator />
+                    </Combobox.Item>
+                  ))}
+                </Combobox.List>
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox>
         );
       }
@@ -1229,7 +1207,7 @@ from machine-driven input updates.
   <Preview.Code>
     {`
       import { createListCollection } from "@ark-ui/react/collection";
-      import { Combobox, Portal } from "@moduix/react";
+      import { Combobox } from "@moduix/react";
       import { useEffect, useMemo, useState } from "react";
 
       export function AsyncSearchComboboxDemo() {
@@ -1281,24 +1259,22 @@ from machine-driven input updates.
               <Combobox.ClearTrigger aria-label="Clear search" />
               <Combobox.Trigger aria-label="Open options" />
             </Combobox.Control>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  {loading ? <div>Searching…</div> : null}
-                  {!loading && query && collection.items.length === 0 ? (
-                    <div>No results found.</div>
-                  ) : null}
-                  <Combobox.List>
-                    {collection.items.map((item) => (
-                      <Combobox.Item key={item.value} item={item}>
-                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                {loading ? <div>Searching…</div> : null}
+                {!loading && query && collection.items.length === 0 ? (
+                  <div>No results found.</div>
+                ) : null}
+                <Combobox.List>
+                  {collection.items.map((item) => (
+                    <Combobox.Item key={item.value} item={item}>
+                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                      <Combobox.ItemIndicator />
+                    </Combobox.Item>
+                  ))}
+                </Combobox.List>
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox>
         );
       }
@@ -1336,7 +1312,6 @@ selected object.
     {`
       import {
         Combobox,
-        Portal,
         useCombobox,
         useComboboxContext,
       } from "@moduix/react";
@@ -1387,22 +1362,20 @@ selected object.
               <Combobox.ClearTrigger aria-label="Clear selection" />
               <Combobox.Trigger aria-label="Open options" />
             </Combobox.Control>
-            <Portal>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.List>
-                    {collection.items.map((item) => (
-                      <Combobox.Item key={item.name} item={item}>
-                        <Combobox.ItemText>
-                          {item.name} · {item.height} cm / {item.mass} kg
-                        </Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Portal>
+            <Combobox.Positioner>
+              <Combobox.Content>
+                <Combobox.List>
+                  {collection.items.map((item) => (
+                    <Combobox.Item key={item.name} item={item}>
+                      <Combobox.ItemText>
+                        {item.name} · {item.height} cm / {item.mass} kg
+                      </Combobox.ItemText>
+                      <Combobox.ItemIndicator />
+                    </Combobox.Item>
+                  ))}
+                </Combobox.List>
+              </Combobox.Content>
+            </Combobox.Positioner>
           </Combobox.RootProvider>
         );
       }
@@ -1435,7 +1408,7 @@ state before the root renders.
   <Preview.Code>
     {`
       import { createListCollection } from "@ark-ui/react/collection";
-      import { Combobox, Portal, useCombobox } from "@moduix/react";
+      import { Combobox, useCombobox } from "@moduix/react";
 
       const collection = createListCollection({ items: jobTitles });
 
@@ -1454,20 +1427,18 @@ state before the root renders.
                 <Combobox.ClearTrigger aria-label="Clear selection" />
                 <Combobox.Trigger aria-label="Open options" />
               </Combobox.Control>
-              <Portal>
-                <Combobox.Positioner>
-                  <Combobox.Content>
-                    <Combobox.List>
-                      {collection.items.map((item) => (
-                        <Combobox.Item key={item.value} item={item}>
-                          <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                          <Combobox.ItemIndicator />
-                        </Combobox.Item>
-                      ))}
-                    </Combobox.List>
-                  </Combobox.Content>
-                </Combobox.Positioner>
-              </Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.List>
+                    {collection.items.map((item) => (
+                      <Combobox.Item key={item.value} item={item}>
+                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.List>
+                </Combobox.Content>
+              </Combobox.Positioner>
             </Combobox.RootProvider>
           </div>
         );

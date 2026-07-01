@@ -18,11 +18,13 @@ and provider/context APIs without remapping them.
 
 ## Current behavior contract
 
+`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+
 - `Popover` and `Popover.Root` are the same root component.
 - `onOpenChange` receives Ark's `{ open }` details object.
 - Floating placement is configured through `positioning` on `Root` or `usePopover`, not on
   `Positioner` or `Content`.
-- The popup tree is explicit: `Portal > Positioner > Content`.
+- The popup tree is explicit: `Positioner > Content`; the root owns portalling.
 - `Trigger` and `CloseTrigger` receive moduix control styling only when `asChild` is not used.
 - `Arrow` renders the styled `ArrowTip` by default.
 - `Header`, `Body`, and `Footer` are plain layout helpers.
@@ -34,7 +36,7 @@ Popover.Root
 ├─ Popover.Anchor (optional)
 ├─ Popover.Trigger
 │  └─ Popover.Indicator (optional)
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    └─ Popover.Positioner
       └─ Popover.Content
          ├─ Popover.Arrow
@@ -48,8 +50,8 @@ Popover.Root
 ```
 
 Exported Ark-aligned state surfaces are `Popover.RootProvider`, `Popover.Context`, `usePopover`,
-and `usePopoverContext`. Every rendered wrapper has a matching `data-slot` in kebab-case except
-`Portal`, which does not render a DOM element.
+and `usePopoverContext`. Every rendered wrapper has a matching `data-slot` in kebab-case; the
+internal portal transport does not render a DOM element.
 
 | Export                 | Stable slot             | Notes                                      |
 | ---------------------- | ----------------------- | ------------------------------------------ |
@@ -70,7 +72,7 @@ and `usePopoverContext`. Every rendered wrapper has a matching `data-slot` in ke
 ## Composition
 
 ```tsx
-import { Button, Popover, Portal } from '@moduix/react';
+import { Button, Popover } from '@moduix/react';
 
 export function PopoverDemo() {
   return (
@@ -78,20 +80,18 @@ export function PopoverDemo() {
       <Popover.Trigger asChild>
         <Button>Open</Button>
       </Popover.Trigger>
-      <Portal>
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Arrow />
-            <Popover.Header>
-              <Popover.Title>Project status</Popover.Title>
-              <Popover.Description>Everything is on schedule.</Popover.Description>
-            </Popover.Header>
-            <Popover.Footer>
-              <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-            </Popover.Footer>
-          </Popover.Content>
-        </Popover.Positioner>
-      </Portal>
+      <Popover.Positioner>
+        <Popover.Content>
+          <Popover.Arrow />
+          <Popover.Header>
+            <Popover.Title>Project status</Popover.Title>
+            <Popover.Description>Everything is on schedule.</Popover.Description>
+          </Popover.Header>
+          <Popover.Footer>
+            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+          </Popover.Footer>
+        </Popover.Content>
+      </Popover.Positioner>
     </Popover>
   );
 }
@@ -147,8 +147,8 @@ runtime available-size and reference-size variables rather than duplicate measur
 
 ## Intentional sugar and differences from upstream
 
-- The recommended popup composition uses the shared `Portal` export plus `Popover.Positioner` and
-  `Popover.Content` so overlay structure matches other popup components across the library.
+- The recommended popup composition keeps `Popover.Positioner` and `Popover.Content` explicit so
+  overlay structure matches other popup components across the library.
 - `Popover.Arrow` supplies `Popover.ArrowTip` when children are omitted.
 - `Popover.Header`, `Popover.Body`, and `Popover.Footer` provide only moduix layout and slots.
 - Trigger and close-trigger default visuals are omitted with `asChild`, leaving the composed child
@@ -158,7 +158,7 @@ runtime available-size and reference-size variables rather than duplicate measur
 
 ## Agent notes
 
-- Keep `Portal`, `Popover.Positioner`, and `Popover.Content` explicit in public examples.
+- Keep `Popover.Positioner` and `Popover.Content` explicit in public examples.
 - Keep positioning options on `Root`/`usePopover`.
 - Do not add `Backdrop`, `Popup`, `Viewport`, `openOnHover`, `render`, `handle`, or `showArrow`.
 - Mirror any future Ark provider, context, hook, part, or public type additions through the package
@@ -166,14 +166,12 @@ runtime available-size and reference-size variables rather than duplicate measur
 
 ## Local changelog
 
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
+
 - 2026-06-26: Synced public docs and stories with current Ark Popover examples for context reads,
   lazy mounting, multiple trigger values, default props, and anatomy roles.
 - 2026-06-26: Tightened docs-workflow alignment for anatomy, ref targets, and stable `data-slot`
   hooks.
-- 2026-06-20: Removed the `Popover.Portal` alias from the public API. Popover now follows the same
-  shared `Portal -> Popover.Positioner -> Popover.Content` composition as other popup components.
-- 2026-06-20: Switched the recommended docs and examples from `Popover.Portal` to the shared
-  `Portal` export so Popover composition matches Menu, Select, Combobox, and other popup families.
 - 2026-06-19: Updated layering to keep Ark `--z-index` on `Popover.Positioner` and apply
   `calc(var(--z-popup) + var(--layer-index))` on `Popover.Content` so nested popovers render above parent layers.
 - 2026-06-19: Replaced the previous implementation and legacy API with the full Ark UI React

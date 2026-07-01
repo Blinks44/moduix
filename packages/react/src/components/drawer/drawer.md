@@ -22,6 +22,8 @@ state without remapping.
 
 ## Current behavior contract
 
+`Root` and `RootProvider` portal `Backdrop` and `Positioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+
 `Drawer` and `Drawer.Root` are equivalent root components. All Ark root props pass through,
 including controlled/uncontrolled open and snap-point state, multiple trigger values, focus
 lifecycle, dismissal controls, `ids`, `present`, `lazyMount`, and `unmountOnExit`.
@@ -176,12 +178,14 @@ Public theme variables are declared in `packages/react/src/lib/moduix/styles/the
 ## Agent notes
 
 - Keep the explicit Ark structural tree visible in stories and public docs.
-- Do not add a portal or recreate the removed legacy popup/viewport split.
+- Keep portal transport on the root and do not recreate the removed legacy popup/viewport split.
 - Do not convert Ark callback detail objects to scalar values.
 - Use `start` and `end` in public props; physical `left` and `right` are styling attributes only.
 - Keep `Grabber` and `GrabberIndicator` as separate parts.
 
 ## Local changelog
+
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-29: Added animated nested drawer scale/offset motion so parent drawers recede smoothly
   and remain visibly layered behind the active nested drawer; stabilized direction-specific

@@ -3,14 +3,31 @@ import { Popover as PopoverPrimitive, usePopover, usePopoverContext } from '@ark
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import styles from './Popover.module.css';
 
-function PopoverRoot(props: ComponentProps<typeof PopoverPrimitive.Root>) {
-  return <PopoverPrimitive.Root {...props} />;
+type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPortalProps;
+type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> &
+  OverlayPortalProps;
+
+function PopoverRoot({ portalled, portalRef, ...props }: PopoverRootProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <PopoverPrimitive.Root portalled={portalled} {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
-function PopoverRootProvider(props: ComponentProps<typeof PopoverPrimitive.RootProvider>) {
-  return <PopoverPrimitive.RootProvider {...props} />;
+function PopoverRootProvider({ portalled, portalRef, value, ...props }: PopoverRootProviderProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled ?? value.portalled} portalRef={portalRef}>
+      <PopoverPrimitive.RootProvider value={value} {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
 const PopoverAnchor = forwardRef<
@@ -61,12 +78,14 @@ const PopoverPositioner = forwardRef<
   ComponentProps<typeof PopoverPrimitive.Positioner>
 >(function PopoverPositioner({ className, ...props }, ref) {
   return (
-    <PopoverPrimitive.Positioner
-      ref={ref}
-      data-slot="popover-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <PopoverPrimitive.Positioner
+        ref={ref}
+        data-slot="popover-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -191,6 +210,7 @@ const Popover = Object.assign(PopoverRoot, {
 });
 
 export { Popover, usePopover, usePopoverContext };
+export type { PopoverRootProps, PopoverRootProviderProps };
 export type {
   PopoverFocusOutsideEvent,
   PopoverInteractOutsideEvent,

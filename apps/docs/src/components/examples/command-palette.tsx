@@ -6,7 +6,6 @@ import {
   Button,
   CommandPalette,
   PlusIcon,
-  Portal,
   StarIcon,
 } from '@moduix/react';
 import * as React from 'react';
@@ -301,24 +300,22 @@ function CommandPaletteShell<T extends CommandItem>({
       <CommandPalette.Trigger asChild>
         <Button>{trigger}</Button>
       </CommandPalette.Trigger>
-      <Portal>
-        <CommandPalette.Backdrop />
-        <CommandPalette.Positioner>
-          <CommandPalette.Content>
-            <CommandPalette.Combobox
-              collection={collection}
-              onInputValueChange={(details) => filter(details.inputValue)}
-              onSelect={onSelect}
-            >
-              <CommandPalette.Control>
-                <CommandPalette.Input aria-label="Search commands" placeholder={placeholder} />
-                <CommandPalette.ClearTrigger aria-label="Clear search" />
-              </CommandPalette.Control>
-              {children}
-            </CommandPalette.Combobox>
-          </CommandPalette.Content>
-        </CommandPalette.Positioner>
-      </Portal>
+      <CommandPalette.Backdrop />
+      <CommandPalette.Positioner>
+        <CommandPalette.Content>
+          <CommandPalette.Combobox
+            collection={collection}
+            onInputValueChange={(details) => filter(details.inputValue)}
+            onSelect={onSelect}
+          >
+            <CommandPalette.Control>
+              <CommandPalette.Input aria-label="Search commands" placeholder={placeholder} />
+              <CommandPalette.ClearTrigger aria-label="Clear search" />
+            </CommandPalette.Control>
+            {children}
+          </CommandPalette.Combobox>
+        </CommandPalette.Content>
+      </CommandPalette.Positioner>
     </CommandPalette>
   );
 }
@@ -458,26 +455,24 @@ export function ControlledCommandPaletteExample() {
           }
         }}
       >
-        <Portal>
-          <CommandPalette.Backdrop />
-          <CommandPalette.Positioner>
-            <CommandPalette.Content>
-              <CommandPalette.Combobox
-                collection={collection}
-                onInputValueChange={(details) => filter(details.inputValue)}
-              >
-                <CommandPalette.Control>
-                  <CommandPalette.Input
-                    aria-label="Search commands"
-                    placeholder="Search controlled commands..."
-                  />
-                  <CommandPalette.ClearTrigger aria-label="Clear search" />
-                </CommandPalette.Control>
-                <CommandPaletteGroupedItems collection={collection} />
-              </CommandPalette.Combobox>
-            </CommandPalette.Content>
-          </CommandPalette.Positioner>
-        </Portal>
+        <CommandPalette.Backdrop />
+        <CommandPalette.Positioner>
+          <CommandPalette.Content>
+            <CommandPalette.Combobox
+              collection={collection}
+              onInputValueChange={(details) => filter(details.inputValue)}
+            >
+              <CommandPalette.Control>
+                <CommandPalette.Input
+                  aria-label="Search commands"
+                  placeholder="Search controlled commands..."
+                />
+                <CommandPalette.ClearTrigger aria-label="Clear search" />
+              </CommandPalette.Control>
+              <CommandPaletteGroupedItems collection={collection} />
+            </CommandPalette.Combobox>
+          </CommandPalette.Content>
+        </CommandPalette.Positioner>
       </CommandPalette>
     </>
   );
@@ -498,32 +493,27 @@ export function CommandPaletteShortcutExample() {
       <CommandPalette.Trigger asChild>
         <Button>Open palette</Button>
       </CommandPalette.Trigger>
-      <Portal>
-        <CommandPalette.Backdrop />
-        <CommandPalette.Positioner>
-          <CommandPalette.Content>
-            <CommandPalette.Combobox
-              collection={collection}
-              onInputValueChange={(details) => filter(details.inputValue)}
-            >
-              <CommandPalette.Control>
-                <CommandPalette.Input
-                  aria-label="Search commands"
-                  placeholder="Search commands..."
-                />
-                <CommandPalette.ClearTrigger aria-label="Clear search" />
-              </CommandPalette.Control>
-              <CommandPaletteGroupedItems collection={collection} />
-              <CommandPalette.Footer>
-                <span>
-                  <CommandPalette.Kbd>Alt</CommandPalette.Kbd> +{' '}
-                  <CommandPalette.Kbd>K</CommandPalette.Kbd>
-                </span>
-              </CommandPalette.Footer>
-            </CommandPalette.Combobox>
-          </CommandPalette.Content>
-        </CommandPalette.Positioner>
-      </Portal>
+      <CommandPalette.Backdrop />
+      <CommandPalette.Positioner>
+        <CommandPalette.Content>
+          <CommandPalette.Combobox
+            collection={collection}
+            onInputValueChange={(details) => filter(details.inputValue)}
+          >
+            <CommandPalette.Control>
+              <CommandPalette.Input aria-label="Search commands" placeholder="Search commands..." />
+              <CommandPalette.ClearTrigger aria-label="Clear search" />
+            </CommandPalette.Control>
+            <CommandPaletteGroupedItems collection={collection} />
+            <CommandPalette.Footer>
+              <span>
+                <CommandPalette.Kbd>Alt</CommandPalette.Kbd> +{' '}
+                <CommandPalette.Kbd>K</CommandPalette.Kbd>
+              </span>
+            </CommandPalette.Footer>
+          </CommandPalette.Combobox>
+        </CommandPalette.Content>
+      </CommandPalette.Positioner>
     </CommandPalette>
   );
 }

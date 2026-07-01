@@ -6,7 +6,6 @@ import {
   InfoIcon,
   MapIcon,
   Menu,
-  Portal,
   useMenu,
 } from '@moduix/react';
 import { useState } from 'react';
@@ -221,11 +220,9 @@ function MenuButtonTrigger(props: ComponentProps<typeof Menu.Trigger>) {
 
 function PositionedContent({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <Portal>
-      <Menu.Positioner>
-        <Menu.Content className={className}>{children}</Menu.Content>
-      </Menu.Positioner>
-    </Portal>
+    <Menu.Positioner>
+      <Menu.Content className={className}>{children}</Menu.Content>
+    </Menu.Positioner>
   );
 }
 

@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Button, Dialog, Portal, ProgressLinear, Select, Switch, Tabs } from '@moduix/react';
+import { Button, Dialog, ProgressLinear, Select, Switch, Tabs } from '@moduix/react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { HomeLayout } from 'fumadocs-ui/layouts/home';
 import { ArrowRight, Code2, Component, Layers3, PackageCheck, Sparkles } from 'lucide-react';
@@ -210,27 +210,25 @@ function HomeShowcase() {
               <Dialog.Trigger asChild>
                 <Button>Review changes</Button>
               </Dialog.Trigger>
-              <Portal>
-                <Dialog.Backdrop />
-                <Dialog.Positioner>
-                  <Dialog.Content>
-                    <Dialog.Header>
-                      <Dialog.Title>Publish release?</Dialog.Title>
-                      <Dialog.Description>
-                        Push the updated components and docs to the shared workspace.
-                      </Dialog.Description>
-                    </Dialog.Header>
-                    <Dialog.Footer>
-                      <Dialog.CloseTrigger asChild>
-                        <Button variant="outline">Back</Button>
-                      </Dialog.CloseTrigger>
-                      <Dialog.CloseTrigger asChild>
-                        <Button>Approve</Button>
-                      </Dialog.CloseTrigger>
-                    </Dialog.Footer>
-                  </Dialog.Content>
-                </Dialog.Positioner>
-              </Portal>
+              <Dialog.Backdrop />
+              <Dialog.Positioner>
+                <Dialog.Content>
+                  <Dialog.Header>
+                    <Dialog.Title>Publish release?</Dialog.Title>
+                    <Dialog.Description>
+                      Push the updated components and docs to the shared workspace.
+                    </Dialog.Description>
+                  </Dialog.Header>
+                  <Dialog.Footer>
+                    <Dialog.CloseTrigger asChild>
+                      <Button variant="outline">Back</Button>
+                    </Dialog.CloseTrigger>
+                    <Dialog.CloseTrigger asChild>
+                      <Button>Approve</Button>
+                    </Dialog.CloseTrigger>
+                  </Dialog.Footer>
+                </Dialog.Content>
+              </Dialog.Positioner>
             </Dialog.Root>
             <Button variant="outline">Inspect API</Button>
           </div>
@@ -269,18 +267,16 @@ function HomeShowcase() {
                 </Select.Indicators>
               </Select.Control>
 
-              <Portal>
-                <Select.Positioner>
-                  <Select.Content>
-                    {workspaceCollection.items.map((item) => (
-                      <Select.Item key={item.value} item={item}>
-                        <Select.ItemText>{item.label}</Select.ItemText>
-                        <Select.ItemIndicator />
-                      </Select.Item>
-                    ))}
-                  </Select.Content>
-                </Select.Positioner>
-              </Portal>
+              <Select.Positioner>
+                <Select.Content>
+                  {workspaceCollection.items.map((item) => (
+                    <Select.Item key={item.value} item={item}>
+                      <Select.ItemText>{item.label}</Select.ItemText>
+                      <Select.ItemIndicator />
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select.Positioner>
               <Select.HiddenSelect />
             </Select>
           </div>

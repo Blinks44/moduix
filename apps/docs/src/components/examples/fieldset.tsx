@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 import { createListCollection } from '@ark-ui/react/collection';
-import { Checkbox, Field, Fieldset, Portal, Select, useFieldset } from '@moduix/react';
+import { Checkbox, Field, Fieldset, Select, useFieldset } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './fieldset.module.css';
@@ -252,18 +252,16 @@ export function FieldsetPhoneInputExample() {
               <Select.Indicator />
             </Select.Indicators>
           </Select.Control>
-          <Portal>
-            <Select.Positioner>
-              <Select.Content>
-                {countryCodes.items.map((item) => (
-                  <Select.Item key={item.value} item={item}>
-                    <Select.ItemText>{item.label}</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                ))}
-              </Select.Content>
-            </Select.Positioner>
-          </Portal>
+          <Select.Positioner>
+            <Select.Content>
+              {countryCodes.items.map((item) => (
+                <Select.Item key={item.value} item={item}>
+                  <Select.ItemText>{item.label}</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Positioner>
           <Select.HiddenSelect name="countryCode" />
         </Select>
         <Field>

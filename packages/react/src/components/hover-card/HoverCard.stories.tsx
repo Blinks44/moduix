@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Portal } from '@ark-ui/react/portal';
 import * as React from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
 import { HoverCard, useHoverCard } from './HoverCard';
@@ -57,14 +56,12 @@ function ProfileCard({ profile }: { profile: Profile }) {
 
 function HoverCardSurface({ profile }: { profile: Profile }) {
   return (
-    <Portal>
-      <HoverCard.Positioner>
-        <HoverCard.Content>
-          <HoverCard.Arrow />
-          <ProfileCard profile={profile} />
-        </HoverCard.Content>
-      </HoverCard.Positioner>
-    </Portal>
+    <HoverCard.Positioner>
+      <HoverCard.Content>
+        <HoverCard.Arrow />
+        <ProfileCard profile={profile} />
+      </HoverCard.Content>
+    </HoverCard.Positioner>
   );
 }
 

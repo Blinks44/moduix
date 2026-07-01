@@ -4,6 +4,8 @@ export type {
   HoverCardInteractOutsideEvent,
   HoverCardOpenChangeDetails,
   HoverCardPointerDownOutsideEvent,
+  HoverCardRootProps,
+  HoverCardRootProviderProps,
   HoverCardTriggerValueChangeDetails,
   UseHoverCardContext,
   UseHoverCardProps,

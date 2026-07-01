@@ -22,6 +22,8 @@ and accessible labels. Do not translate dates to strings or local callback shape
 
 ## Current behavior contract
 
+`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+
 - `DatePicker` is the short root form and maps to `DatePicker.Root`.
 - Values use Ark's `DateValue[]` shape from `@ark-ui/react/date-picker`.
 - `DatePicker.Input` is the native input that participates in forms through Ark.
@@ -29,7 +31,7 @@ and accessible labels. Do not translate dates to strings or local callback shape
   `DatePicker.Input index={1}`.
 - Multiple selection should render selected values through `DatePicker.Context` instead of trying
   to display every date in one text input.
-- Popup calendars are explicit: render `Portal`, `DatePicker.Positioner`, and
+- Popup calendars are explicit: render `DatePicker.Positioner` and
   `DatePicker.Content` when the picker should float.
 - Inline calendars use `inline` and render `DatePicker.Content` directly in the root.
 - No local date math, parser, focus manager, or calendar machine is added.
@@ -43,7 +45,7 @@ DatePicker.Root
 │  ├─ DatePicker.Input
 │  ├─ DatePicker.ClearTrigger
 │  └─ DatePicker.Trigger
-├─ Portal
+├─ Overlay subtree (automatically portalled)
 │  └─ DatePicker.Positioner
 │     └─ DatePicker.Content
 │        ├─ DatePicker.View[view="day" | "month" | "year"]
@@ -104,7 +106,7 @@ Exported types: `DateValue`, `DatePickerDateRangePreset`, `DatePickerDateView`,
 ## Composition
 
 ```tsx
-import { DatePicker, Portal, parseDate } from '@moduix/react';
+import { DatePicker, parseDate } from '@moduix/react';
 
 export function ReleaseDatePicker() {
   return (
@@ -115,11 +117,9 @@ export function ReleaseDatePicker() {
         <DatePicker.ClearTrigger aria-label="Clear date" />
         <DatePicker.Trigger aria-label="Open calendar" />
       </DatePicker.Control>
-      <Portal>
-        <DatePicker.Positioner>
-          <DatePicker.Content>{/* render DatePicker.View tables here */}</DatePicker.Content>
-        </DatePicker.Positioner>
-      </Portal>
+      <DatePicker.Positioner>
+        <DatePicker.Content>{/* render DatePicker.View tables here */}</DatePicker.Content>
+      </DatePicker.Positioner>
     </DatePicker>
   );
 }
@@ -131,8 +131,8 @@ Use `DatePicker.RootProvider` only with state created by `useDatePicker()`; do n
 
 The default root and popup width is `18.75rem` (300px). Override `--date-picker-width` for the
 field and `--date-picker-content-width` for wider popup compositions such as two visible months.
-For portaled popups, set popup sizing variables on `DatePicker.Content` or another element inside
-the portal because variables on `DatePicker.Root` do not inherit across the portal boundary.
+For portalled popups, set popup sizing variables on `DatePicker.Content` or another element inside
+the overlay subtree because variables on `DatePicker.Root` do not inherit across the portal boundary.
 Each input has `--date-picker-input-min-width: 7.5rem`; range inputs use
 `--date-picker-range-input-min-width`.
 
@@ -207,12 +207,14 @@ Intentional moduix sugar:
   `details.view`.
 - Keep table rendering explicit through `DatePicker.Context`; do not add an automatic calendar
   renderer to the component API.
-- Keep popup mounting explicit through `Portal`, `Positioner`, and `Content`.
-- Keep inline examples free of `Portal` and `Positioner`.
+- Keep popup structure explicit through `Positioner` and `Content`.
+- Keep inline examples free of `Positioner`.
 - Keep `@internationalized/date` / `parseDate()` examples because Ark values are `DateValue`
   objects.
 
 ## Local changelog
+
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-25: Audited the Ark UI migration against the official Date Picker MDX, removed stale
   non-Ark focus styling, avoided double disabled/read-only opacity, expanded docs examples, and

@@ -40,7 +40,7 @@ store with `Toaster`.
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
+      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 24 });
 
@@ -58,17 +58,15 @@ store with `Toaster`.
             >
               Schedule meeting
             </Button>
-            <Portal>
-              <Toaster toaster={toaster}>
-                {(toast) => (
-                  <Toast key={toast.id}>
-                    <Toast.Title />
-                    <Toast.Description />
-                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                  </Toast>
-                )}
-              </Toaster>
-            </Portal>
+            <Toaster toaster={toaster}>
+              {(toast) => (
+                <Toast key={toast.id}>
+                  <Toast.Title />
+                  <Toast.Description />
+                  {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                </Toast>
+              )}
+            </Toaster>
           </>
         );
       }
@@ -127,7 +125,7 @@ aubx shadcn@latest add Blinks44/moduix/react-toast
 
 ```text
 createToaster()
-└─ Portal
+└─ Overlay subtree (automatically portalled)
    └─ Toaster
       └─ Toast.Root
          ├─ Toast.Context (optional render-prop access)
@@ -141,7 +139,6 @@ createToaster()
 | --------------------------- | ------------------------------------------------------------------------------------ |
 | `Toast` / `Toast.Root`      | Visible toast surface connected to the current Ark toast context.                    |
 | `Toaster` / `Toast.Toaster` | Renders a toaster store and owns the Ark toast group.                                |
-| `Portal`                    | Shared portal primitive for rendering the toaster group outside local layout.        |
 | `Toast.Title`               | Title part. Defaults to the current toast `title` when no children are passed.       |
 | `Toast.Description`         | Description part. Defaults to the current toast `description`.                       |
 | `Toast.ActionTrigger`       | Action button wired to `toast.action.onClick`. Pass `toast.action.label` as content. |
@@ -150,14 +147,16 @@ createToaster()
 
 ## Composition
 
+`Toaster` portals itself by default. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; no `Portal` wrapper is needed.
+
 ### Recommended composition
 
 Create a stable toaster store with `createToaster(options)`, then render it once with `Toaster`.
 The store controls placement, overlap, gap, max queue size, duration, remove delay, idle pausing,
 and the `Alt+T` focus hotkey.
 
-Import `Portal` separately from `moduix` and wrap `Toaster` with it when the group should render at
-the document body level. Toast does not expose a toast-specific portal alias.
+`Toaster` targets `document.body` by default. Set `portalled={false}` for inline rendering or pass
+`portalRef` for another container.
 
 Use `Toast` as the short root form in application code. It is equivalent to `Toast.Root` and keeps
 the Ark namespace available for the child parts.
@@ -213,7 +212,7 @@ Use `action: { label, onClick }` when the toast should expose one direct follow-
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
+      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({ placement: "bottom-end", gap: 24 });
 
@@ -235,19 +234,17 @@ Use `action: { label, onClick }` when the toast should expose one direct follow-
             >
               Create event
             </Button>
-            <Portal>
-              <Toaster toaster={toaster}>
-                {(toast) => (
-                  <Toast key={toast.id}>
-                    <Toast.Title />
-                    <Toast.Description />
-                    {toast.action ? (
-                      <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger>
-                    ) : null}
-                  </Toast>
-                )}
-              </Toaster>
-            </Portal>
+            <Toaster toaster={toaster}>
+              {(toast) => (
+                <Toast key={toast.id}>
+                  <Toast.Title />
+                  <Toast.Description />
+                  {toast.action ? (
+                    <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger>
+                  ) : null}
+                </Toast>
+              )}
+            </Toaster>
           </>
         );
       }
@@ -269,7 +266,7 @@ dismissal.
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
+      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
 
@@ -293,17 +290,15 @@ dismissal.
                 {duration.label}
               </Button>
             ))}
-            <Portal>
-              <Toaster toaster={toaster}>
-                {(toast) => (
-                  <Toast key={toast.id}>
-                    <Toast.Title />
-                    <Toast.Description />
-                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                  </Toast>
-                )}
-              </Toaster>
-            </Portal>
+            <Toaster toaster={toaster}>
+              {(toast) => (
+                <Toast key={toast.id}>
+                  <Toast.Title />
+                  <Toast.Description />
+                  {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                </Toast>
+              )}
+            </Toaster>
           </>
         );
       }
@@ -324,7 +319,7 @@ Set `max` on the toaster store when bursts should queue instead of filling the s
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
+      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({ max: 3, overlap: true, placement: "bottom-end", gap: 16 });
 
@@ -350,17 +345,15 @@ Set `max` on the toaster store when bursts should queue instead of filling the s
             >
               Add 5 notifications
             </Button>
-            <Portal>
-              <Toaster toaster={toaster}>
-                {(toast) => (
-                  <Toast key={toast.id}>
-                    <Toast.Title />
-                    <Toast.Description />
-                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                  </Toast>
-                )}
-              </Toaster>
-            </Portal>
+            <Toaster toaster={toaster}>
+              {(toast) => (
+                <Toast key={toast.id}>
+                  <Toast.Title />
+                  <Toast.Description />
+                  {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                </Toast>
+              )}
+            </Toaster>
           </>
         );
       }
@@ -381,7 +374,7 @@ Choose one of Ark's six placements when the toast group needs to appear on a spe
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster, type ToastPlacement } from "@moduix/react";
+      import { Button, Toast, Toaster, createToaster, type ToastPlacement } from "@moduix/react";
       import { useState } from "react";
 
       export function App() {
@@ -406,17 +399,15 @@ Choose one of Ark's six placements when the toast group needs to appear on a spe
               Show {placement}
             </Button>
             {placements.map((item) => (
-              <Portal key={item}>
-                <Toaster toaster={toasters[item]}>
-                  {(toast) => (
-                    <Toast key={toast.id}>
-                      <Toast.Title />
-                      <Toast.Description />
-                      {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                    </Toast>
-                  )}
-                </Toaster>
-              </Portal>
+              <Toaster key={item} toaster={toasters[item]}>
+                {(toast) => (
+                  <Toast key={toast.id}>
+                    <Toast.Title />
+                    <Toast.Description />
+                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                  </Toast>
+                )}
+              </Toaster>
             ))}
           </>
         );
@@ -438,7 +429,7 @@ Use `toaster.promise()` to transition one toast from loading to success or error
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
+      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
 
@@ -465,17 +456,15 @@ Use `toaster.promise()` to transition one toast from loading to success or error
             >
               Upload file
             </Button>
-            <Portal>
-              <Toaster toaster={toaster}>
-                {(toast) => (
-                  <Toast key={toast.id}>
-                    <Toast.Title />
-                    <Toast.Description />
-                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                  </Toast>
-                )}
-              </Toaster>
-            </Portal>
+            <Toaster toaster={toaster}>
+              {(toast) => (
+                <Toast key={toast.id}>
+                  <Toast.Title />
+                  <Toast.Description />
+                  {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                </Toast>
+              )}
+            </Toaster>
           </>
         );
       }
@@ -497,7 +486,7 @@ Use the typed toaster helpers for status-specific variants. moduix styles `info`
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
+      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
 
@@ -517,17 +506,15 @@ Use the typed toaster helpers for status-specific variants. moduix styles `info`
                 {type}
               </Button>
             ))}
-            <Portal>
-              <Toaster toaster={toaster}>
-                {(toast) => (
-                  <Toast key={toast.id}>
-                    <Toast.Title />
-                    <Toast.Description />
-                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                  </Toast>
-                )}
-              </Toaster>
-            </Portal>
+            <Toaster toaster={toaster}>
+              {(toast) => (
+                <Toast key={toast.id}>
+                  <Toast.Title />
+                  <Toast.Description />
+                  {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                </Toast>
+              )}
+            </Toaster>
           </>
         );
       }
@@ -549,7 +536,7 @@ change in place.
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
+      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
       import { useRef } from "react";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 24 });
@@ -583,16 +570,14 @@ change in place.
             >
               Mark as sent
             </Button>
-            <Portal>
-              <Toaster toaster={toaster}>
-                {(toast) => (
-                  <Toast key={toast.id}>
-                    <Toast.Title />
-                    <Toast.Description />
-                  </Toast>
-                )}
-              </Toaster>
-            </Portal>
+            <Toaster toaster={toaster}>
+              {(toast) => (
+                <Toast key={toast.id}>
+                  <Toast.Title />
+                  <Toast.Description />
+                </Toast>
+              )}
+            </Toaster>
           </>
         );
       }
@@ -614,7 +599,7 @@ overlapping stack. This is an additional Ark store configuration, not a separate
 
   <Preview.Code>
     {`
-      import { Button, Portal, Toast, Toaster, createToaster } from "@moduix/react";
+      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
 
       const toaster = createToaster({
         placement: "bottom-end",
@@ -635,17 +620,15 @@ overlapping stack. This is an additional Ark store configuration, not a separate
             >
               Create expanded toast
             </Button>
-            <Portal>
-              <Toaster toaster={toaster}>
-                {(toast) => (
-                  <Toast key={toast.id}>
-                    <Toast.Title />
-                    <Toast.Description />
-                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                  </Toast>
-                )}
-              </Toaster>
-            </Portal>
+            <Toaster toaster={toaster}>
+              {(toast) => (
+                <Toast key={toast.id}>
+                  <Toast.Title />
+                  <Toast.Description />
+                  {toast.closable !== false ? <Toast.CloseTrigger /> : null}
+                </Toast>
+              )}
+            </Toaster>
           </>
         );
       }
@@ -667,7 +650,7 @@ component-specific CSS variables.
 
   <Preview.Code>
     {`
-      import { Button, CloseIcon, InfoIcon, Portal, Toast, Toaster, createToaster } from "@moduix/react";
+      import { Button, CloseIcon, InfoIcon, Toast, Toaster, createToaster } from "@moduix/react";
       import styles from "./toast.module.css";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 24 });
@@ -685,22 +668,20 @@ component-specific CSS variables.
             >
               Create custom toast
             </Button>
-            <Portal>
-              <Toaster toaster={toaster}>
-                {(toast) => (
-                  <Toast key={toast.id} className={styles.customToast}>
-                    <div className={styles.customContent}>
-                      <InfoIcon className={styles.customIcon} />
-                      <Toast.Title />
-                      <Toast.Description />
-                    </div>
-                    <Toast.CloseTrigger>
-                      <CloseIcon className={styles.closeIcon} />
-                    </Toast.CloseTrigger>
-                  </Toast>
-                )}
-              </Toaster>
-            </Portal>
+            <Toaster toaster={toaster}>
+              {(toast) => (
+                <Toast key={toast.id} className={styles.customToast}>
+                  <div className={styles.customContent}>
+                    <InfoIcon className={styles.customIcon} />
+                    <Toast.Title />
+                    <Toast.Description />
+                  </div>
+                  <Toast.CloseTrigger>
+                    <CloseIcon className={styles.closeIcon} />
+                  </Toast.CloseTrigger>
+                </Toast>
+              )}
+            </Toaster>
           </>
         );
       }

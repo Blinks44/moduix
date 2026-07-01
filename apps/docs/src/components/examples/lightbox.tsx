@@ -1,5 +1,5 @@
 import type { LightboxImageSelectDetails } from '@moduix/react';
-import { Carousel, Lightbox, Portal, useLightbox } from '@moduix/react';
+import { Carousel, Lightbox, useLightbox } from '@moduix/react';
 import { useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -205,7 +205,7 @@ function LightboxSurface({
   closeOnImageClick?: boolean;
 }) {
   return (
-    <Portal>
+    <>
       <Lightbox.Backdrop />
       <Lightbox.Positioner>
         <Lightbox.CloseIcon />
@@ -213,7 +213,7 @@ function LightboxSurface({
           <Lightbox.Image src={src} alt={alt} closeOnClick={closeOnImageClick} />
         </Lightbox.Content>
       </Lightbox.Positioner>
-    </Portal>
+    </>
   );
 }
 
@@ -310,40 +310,38 @@ export function GalleryLightboxExample() {
             </Lightbox.Trigger>
           ))}
         </div>
-        <Portal>
-          <Lightbox.Backdrop />
-          <Lightbox.Positioner>
-            <Lightbox.CloseIcon />
-            <Lightbox.Content aria-label={activeImage.alt}>
-              <Lightbox.Gallery>
-                <Carousel.Root
-                  page={activeIndex}
-                  onPageChange={(details) => setActiveIndex(details.page)}
-                  slideCount={images.length}
-                >
-                  <Carousel.Control>
-                    <Carousel.PrevTrigger />
-                    <Carousel.ItemGroup aria-label="Server-driven image carousel">
-                      {images.map((image, index) => (
-                        <Carousel.Item key={image.id} index={index}>
-                          <img src={image.src} alt={image.alt} />
-                        </Carousel.Item>
-                      ))}
-                    </Carousel.ItemGroup>
-                    <Carousel.NextTrigger />
-                  </Carousel.Control>
-                  <Carousel.IndicatorGroup>
+        <Lightbox.Backdrop />
+        <Lightbox.Positioner>
+          <Lightbox.CloseIcon />
+          <Lightbox.Content aria-label={activeImage.alt}>
+            <Lightbox.Gallery>
+              <Carousel.Root
+                page={activeIndex}
+                onPageChange={(details) => setActiveIndex(details.page)}
+                slideCount={images.length}
+              >
+                <Carousel.Control>
+                  <Carousel.PrevTrigger />
+                  <Carousel.ItemGroup aria-label="Server-driven image carousel">
                     {images.map((image, index) => (
-                      <Carousel.Indicator key={image.id} index={index}>
-                        <img src={image.thumbnail} alt="" />
-                      </Carousel.Indicator>
+                      <Carousel.Item key={image.id} index={index}>
+                        <img src={image.src} alt={image.alt} />
+                      </Carousel.Item>
                     ))}
-                  </Carousel.IndicatorGroup>
-                </Carousel.Root>
-              </Lightbox.Gallery>
-            </Lightbox.Content>
-          </Lightbox.Positioner>
-        </Portal>
+                  </Carousel.ItemGroup>
+                  <Carousel.NextTrigger />
+                </Carousel.Control>
+                <Carousel.IndicatorGroup>
+                  {images.map((image, index) => (
+                    <Carousel.Indicator key={image.id} index={index}>
+                      <img src={image.thumbnail} alt="" />
+                    </Carousel.Indicator>
+                  ))}
+                </Carousel.IndicatorGroup>
+              </Carousel.Root>
+            </Lightbox.Gallery>
+          </Lightbox.Content>
+        </Lightbox.Positioner>
       </Lightbox>
     </>
   );
@@ -365,17 +363,15 @@ export function BoundLightboxExample() {
       </div>
       <Lightbox lazyMount unmountOnExit>
         <Lightbox.Bind rootRef={rootRef} selector="button" onImageSelect={setActiveImage} />
-        <Portal>
-          <Lightbox.Backdrop />
-          <Lightbox.Positioner>
-            <Lightbox.CloseIcon />
-            <Lightbox.Content aria-label={activeImage?.alt ?? 'Image preview'}>
-              {activeImage ? (
-                <Lightbox.Image src={activeImage.src} alt={activeImage.alt ?? ''} />
-              ) : null}
-            </Lightbox.Content>
-          </Lightbox.Positioner>
-        </Portal>
+        <Lightbox.Backdrop />
+        <Lightbox.Positioner>
+          <Lightbox.CloseIcon />
+          <Lightbox.Content aria-label={activeImage?.alt ?? 'Image preview'}>
+            {activeImage ? (
+              <Lightbox.Image src={activeImage.src} alt={activeImage.alt ?? ''} />
+            ) : null}
+          </Lightbox.Content>
+        </Lightbox.Positioner>
       </Lightbox>
     </>
   );
@@ -400,16 +396,14 @@ export function FocusLightboxExample() {
         }}
       >
         <Lightbox.Trigger className="lightbox-button">Open focus-managed lightbox</Lightbox.Trigger>
-        <Portal>
-          <Lightbox.Backdrop />
-          <Lightbox.Positioner>
-            <Lightbox.CloseIcon ref={closeRef} />
-            <Lightbox.Content>
-              <Lightbox.Title className="lightbox-status">Mountain ridge at sunset</Lightbox.Title>
-              <Lightbox.Image src={images[0].src} alt={images[0].alt} />
-            </Lightbox.Content>
-          </Lightbox.Positioner>
-        </Portal>
+        <Lightbox.Backdrop />
+        <Lightbox.Positioner>
+          <Lightbox.CloseIcon ref={closeRef} />
+          <Lightbox.Content>
+            <Lightbox.Title className="lightbox-status">Mountain ridge at sunset</Lightbox.Title>
+            <Lightbox.Image src={images[0].src} alt={images[0].alt} />
+          </Lightbox.Content>
+        </Lightbox.Positioner>
       </Lightbox>
     </div>
   );
@@ -440,22 +434,18 @@ export function RootProviderLightboxExample() {
         Lightbox is {lightbox.open ? 'open' : 'closed'}
       </button>
       <Lightbox.RootProvider value={lightbox}>
-        <Portal>
-          <Lightbox.Backdrop />
-          <Lightbox.Positioner>
-            <Lightbox.CloseIcon />
-            <Lightbox.Content aria-label={images[2].alt}>
-              <Lightbox.Image src={images[2].src} alt={images[2].alt} />
-              <Lightbox.Context>
-                {(state) => (
-                  <span className="lightbox-status">
-                    Preview is {state.open ? 'open' : 'closed'}
-                  </span>
-                )}
-              </Lightbox.Context>
-            </Lightbox.Content>
-          </Lightbox.Positioner>
-        </Portal>
+        <Lightbox.Backdrop />
+        <Lightbox.Positioner>
+          <Lightbox.CloseIcon />
+          <Lightbox.Content aria-label={images[2].alt}>
+            <Lightbox.Image src={images[2].src} alt={images[2].alt} />
+            <Lightbox.Context>
+              {(state) => (
+                <span className="lightbox-status">Preview is {state.open ? 'open' : 'closed'}</span>
+              )}
+            </Lightbox.Context>
+          </Lightbox.Content>
+        </Lightbox.Positioner>
       </Lightbox.RootProvider>
     </div>
   );
@@ -479,15 +469,13 @@ export function CustomizedLightboxExample() {
       <style>{lightboxExampleCss}</style>
       <Lightbox>
         <Lightbox.Trigger className="lightbox-button">Open styled lightbox</Lightbox.Trigger>
-        <Portal>
-          <Lightbox.Backdrop className="lightbox-custom-backdrop" />
-          <Lightbox.Positioner>
-            <Lightbox.CloseIcon className="lightbox-custom-close" />
-            <Lightbox.Content className="lightbox-custom-content" aria-label={images[1].alt}>
-              <Lightbox.Image src={images[1].src} alt={images[1].alt} />
-            </Lightbox.Content>
-          </Lightbox.Positioner>
-        </Portal>
+        <Lightbox.Backdrop className="lightbox-custom-backdrop" />
+        <Lightbox.Positioner>
+          <Lightbox.CloseIcon className="lightbox-custom-close" />
+          <Lightbox.Content className="lightbox-custom-content" aria-label={images[1].alt}>
+            <Lightbox.Image src={images[1].src} alt={images[1].alt} />
+          </Lightbox.Content>
+        </Lightbox.Positioner>
       </Lightbox>
     </>
   );

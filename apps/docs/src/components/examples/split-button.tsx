@@ -1,4 +1,4 @@
-import { ArrowUpRightIcon, Menu, PlusIcon, Portal, SplitButton } from '@moduix/react';
+import { ArrowUpRightIcon, Menu, PlusIcon, SplitButton } from '@moduix/react';
 import { useState } from 'react';
 import styles from './split-button.module.css';
 
@@ -88,13 +88,11 @@ export function SplitButtonExample() {
     <SplitButton>
       <SplitButton.Action>Save Changes</SplitButton.Action>
       <SplitButton.Trigger />
-      <Portal>
-        <SplitButton.Positioner>
-          <SplitButton.Content>
-            <SplitButtonMenuItems />
-          </SplitButton.Content>
-        </SplitButton.Positioner>
-      </Portal>
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <SplitButtonMenuItems />
+        </SplitButton.Content>
+      </SplitButton.Positioner>
     </SplitButton>
   );
 }
@@ -106,14 +104,12 @@ export function SplitButtonVariantsExample() {
         <SplitButton key={variant.value} variant={variant.value}>
           <SplitButton.Action>{variant.label}</SplitButton.Action>
           <SplitButton.Trigger />
-          <Portal>
-            <SplitButton.Positioner>
-              <SplitButton.Content>
-                <Menu.Item value={`${variant.value}-edit`}>Edit</Menu.Item>
-                <Menu.Item value={`${variant.value}-duplicate`}>Duplicate</Menu.Item>
-              </SplitButton.Content>
-            </SplitButton.Positioner>
-          </Portal>
+          <SplitButton.Positioner>
+            <SplitButton.Content>
+              <Menu.Item value={`${variant.value}-edit`}>Edit</Menu.Item>
+              <Menu.Item value={`${variant.value}-duplicate`}>Duplicate</Menu.Item>
+            </SplitButton.Content>
+          </SplitButton.Positioner>
         </SplitButton>
       ))}
     </div>
@@ -127,14 +123,12 @@ export function SplitButtonSizesExample() {
         <SplitButton key={size.value} size={size.value} variant="outline">
           <SplitButton.Action>{size.label}</SplitButton.Action>
           <SplitButton.Trigger />
-          <Portal>
-            <SplitButton.Positioner>
-              <SplitButton.Content>
-                <Menu.Item value={`${size.value}-create`}>Create</Menu.Item>
-                <Menu.Item value={`${size.value}-create-open`}>Create and Open</Menu.Item>
-              </SplitButton.Content>
-            </SplitButton.Positioner>
-          </Portal>
+          <SplitButton.Positioner>
+            <SplitButton.Content>
+              <Menu.Item value={`${size.value}-create`}>Create</Menu.Item>
+              <Menu.Item value={`${size.value}-create-open`}>Create and Open</Menu.Item>
+            </SplitButton.Content>
+          </SplitButton.Positioner>
         </SplitButton>
       ))}
     </div>
@@ -149,16 +143,14 @@ export function SplitButtonIconExample() {
         Create Item
       </SplitButton.Action>
       <SplitButton.Trigger aria-label="More create actions" />
-      <Portal>
-        <SplitButton.Positioner>
-          <SplitButton.Content>
-            <Menu.Item value="create-blank">Create Blank</Menu.Item>
-            <Menu.Item value="create-template">Create From Template</Menu.Item>
-            <Menu.Separator />
-            <Menu.Item value="import-existing">Import Existing</Menu.Item>
-          </SplitButton.Content>
-        </SplitButton.Positioner>
-      </Portal>
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.Item value="create-blank">Create Blank</Menu.Item>
+          <Menu.Item value="create-template">Create From Template</Menu.Item>
+          <Menu.Separator />
+          <Menu.Item value="import-existing">Import Existing</Menu.Item>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
     </SplitButton>
   );
 }
@@ -170,18 +162,16 @@ export function SplitButtonControlledExample() {
     <SplitButton open={open} onOpenChange={(details) => setOpen(details.open)} variant="outline">
       <SplitButton.Action>Share</SplitButton.Action>
       <SplitButton.Trigger aria-label="More share actions" />
-      <Portal>
-        <SplitButton.Positioner>
-          <SplitButton.Content>
-            <Menu.Item value="copy-link">Copy Link</Menu.Item>
-            <Menu.Item value="invite-email">Invite by Email</Menu.Item>
-            <Menu.Separator />
-            <Menu.Item value="close-menu" onSelect={() => setOpen(false)}>
-              Close Menu
-            </Menu.Item>
-          </SplitButton.Content>
-        </SplitButton.Positioner>
-      </Portal>
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.Item value="copy-link">Copy Link</Menu.Item>
+          <Menu.Item value="invite-email">Invite by Email</Menu.Item>
+          <Menu.Separator />
+          <Menu.Item value="close-menu" onSelect={() => setOpen(false)}>
+            Close Menu
+          </Menu.Item>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
     </SplitButton>
   );
 }
@@ -191,14 +181,12 @@ export function SplitButtonCustomPositioningExample() {
     <SplitButton positioning={{ placement: 'bottom-start', gutter: 8 }} variant="outline">
       <SplitButton.Action>Export</SplitButton.Action>
       <SplitButton.Trigger aria-label="More export actions" />
-      <Portal>
-        <SplitButton.Positioner>
-          <SplitButton.Content>
-            <Menu.Item value="export-pdf">Export PDF</Menu.Item>
-            <Menu.Item value="export-csv">Export CSV</Menu.Item>
-          </SplitButton.Content>
-        </SplitButton.Positioner>
-      </Portal>
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.Item value="export-pdf">Export PDF</Menu.Item>
+          <Menu.Item value="export-csv">Export CSV</Menu.Item>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
     </SplitButton>
   );
 }
@@ -208,23 +196,21 @@ export function SplitButtonMenuCompositionExample() {
     <SplitButton variant="outline">
       <SplitButton.Action>Copy</SplitButton.Action>
       <SplitButton.Trigger aria-label="More copy actions" />
-      <Portal>
-        <SplitButton.Positioner>
-          <SplitButton.Content>
-            <Menu.ItemGroup>
-              <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
-              <Menu.Item value="copy">Copy</Menu.Item>
-              <Menu.Item value="duplicate">Duplicate</Menu.Item>
-            </Menu.ItemGroup>
-            <Menu.Separator />
-            <Menu.ItemGroup>
-              <Menu.ItemGroupLabel>Export</Menu.ItemGroupLabel>
-              <Menu.Item value="export-pdf">Export PDF</Menu.Item>
-              <Menu.Item value="export-csv">Export CSV</Menu.Item>
-            </Menu.ItemGroup>
-          </SplitButton.Content>
-        </SplitButton.Positioner>
-      </Portal>
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.ItemGroup>
+            <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
+            <Menu.Item value="copy">Copy</Menu.Item>
+            <Menu.Item value="duplicate">Duplicate</Menu.Item>
+          </Menu.ItemGroup>
+          <Menu.Separator />
+          <Menu.ItemGroup>
+            <Menu.ItemGroupLabel>Export</Menu.ItemGroupLabel>
+            <Menu.Item value="export-pdf">Export PDF</Menu.Item>
+            <Menu.Item value="export-csv">Export CSV</Menu.Item>
+          </Menu.ItemGroup>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
     </SplitButton>
   );
 }
@@ -234,14 +220,12 @@ export function SplitButtonStylingExample() {
     <SplitButton className={styles.brandSplitButton} variant="outline">
       <SplitButton.Action>Review</SplitButton.Action>
       <SplitButton.Trigger aria-label="More review actions" />
-      <Portal>
-        <SplitButton.Positioner>
-          <SplitButton.Content>
-            <Menu.Item value="approve">Approve</Menu.Item>
-            <Menu.Item value="request-changes">Request Changes</Menu.Item>
-          </SplitButton.Content>
-        </SplitButton.Positioner>
-      </Portal>
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.Item value="approve">Approve</Menu.Item>
+          <Menu.Item value="request-changes">Request Changes</Menu.Item>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
     </SplitButton>
   );
 }
@@ -256,14 +240,12 @@ export function SplitButtonLinkActionExample() {
         </a>
       </SplitButton.Action>
       <SplitButton.Trigger aria-label="More docs actions" />
-      <Portal>
-        <SplitButton.Positioner>
-          <SplitButton.Content>
-            <Menu.Item value="copy-link">Copy Link</Menu.Item>
-            <Menu.Item value="open-new-tab">Open in New Tab</Menu.Item>
-          </SplitButton.Content>
-        </SplitButton.Positioner>
-      </Portal>
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.Item value="copy-link">Copy Link</Menu.Item>
+          <Menu.Item value="open-new-tab">Open in New Tab</Menu.Item>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
     </SplitButton>
   );
 }

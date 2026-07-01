@@ -14,6 +14,11 @@ import { clsx } from 'clsx';
 import { forwardRef, useEffect } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import { Kbd } from '../kbd';
 import { ScrollArea } from '../scroll-area';
 import styles from './CommandPalette.module.css';
@@ -24,7 +29,10 @@ const DEFAULT_CLEAR_TRIGGER_LABEL = 'Clear search';
 type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> & {
   shortcut?: false | string;
   shortcutTarget?: Document | HTMLElement | null;
-};
+} & OverlayPortalProps;
+
+type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
+  OverlayPortalProps;
 
 function isShortcutMatch(event: KeyboardEvent, shortcut: string) {
   const parts = shortcut
@@ -84,7 +92,9 @@ function CommandPaletteRoot({
   unmountOnExit = true,
   immediate,
   onExitComplete,
+  portalled,
   present,
+  portalRef,
   skipAnimationOnMount,
   children,
   ...props
@@ -117,27 +127,37 @@ function CommandPaletteRoot({
   }, [dialog, shortcut, shortcutTarget]);
 
   return (
-    <DialogPrimitive.RootProvider
-      value={dialog}
-      immediate={immediate}
-      lazyMount={lazyMount}
-      onExitComplete={onExitComplete}
-      present={present}
-      skipAnimationOnMount={skipAnimationOnMount}
-      unmountOnExit={unmountOnExit}
-    >
-      {children}
-    </DialogPrimitive.RootProvider>
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <DialogPrimitive.RootProvider
+        value={dialog}
+        immediate={immediate}
+        lazyMount={lazyMount}
+        onExitComplete={onExitComplete}
+        present={present}
+        skipAnimationOnMount={skipAnimationOnMount}
+        unmountOnExit={unmountOnExit}
+      >
+        {children}
+      </DialogPrimitive.RootProvider>
+    </OverlayPortalProvider>
   );
 }
 
 function CommandPaletteRootProvider({
   lazyMount = true,
+  portalled,
+  portalRef,
   unmountOnExit = true,
   ...props
-}: ComponentProps<typeof DialogPrimitive.RootProvider>) {
+}: CommandPaletteRootProviderProps) {
   return (
-    <DialogPrimitive.RootProvider lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <DialogPrimitive.RootProvider
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
+        {...props}
+      />
+    </OverlayPortalProvider>
   );
 }
 
@@ -161,12 +181,14 @@ const CommandPaletteBackdrop = forwardRef<
   ComponentProps<typeof DialogPrimitive.Backdrop>
 >(function CommandPaletteBackdrop({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Backdrop
-      ref={ref}
-      data-slot="command-palette-backdrop"
-      className={clsx(styles.backdrop, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <DialogPrimitive.Backdrop
+        ref={ref}
+        data-slot="command-palette-backdrop"
+        className={clsx(styles.backdrop, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -175,12 +197,14 @@ const CommandPalettePositioner = forwardRef<
   ComponentProps<typeof DialogPrimitive.Positioner>
 >(function CommandPalettePositioner({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Positioner
-      ref={ref}
-      data-slot="command-palette-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <DialogPrimitive.Positioner
+        ref={ref}
+        data-slot="command-palette-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -617,3 +641,4 @@ const CommandPalette = Object.assign(CommandPaletteRoot, {
 });
 
 export { CommandPalette };
+export type { CommandPaletteRootProps, CommandPaletteRootProviderProps };

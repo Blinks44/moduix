@@ -4,6 +4,8 @@ export type {
   DialogInteractOutsideEvent,
   DialogOpenChangeDetails,
   DialogPointerDownOutsideEvent,
+  DialogRootProps,
+  DialogRootProviderProps,
   DialogTriggerValueChangeDetails,
   UseDialogContext,
   UseDialogProps,

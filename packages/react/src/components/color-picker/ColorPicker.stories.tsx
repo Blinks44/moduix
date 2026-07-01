@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { ColorPicker, Portal, parseColor, useColorPicker } from './ColorPicker';
+import { ColorPicker, parseColor, useColorPicker } from './ColorPicker';
 import styles from './ColorPicker.stories.module.css';
 
 const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316', '#dc2626', '#9333ea'];
@@ -30,39 +30,37 @@ function ColorPickerField({ swatchList = swatches }: { swatchList?: string[] }) 
           <ColorPicker.ValueSwatch />
         </ColorPicker.Trigger>
       </ColorPicker.Control>
-      <Portal>
-        <ColorPicker.Positioner>
-          <ColorPicker.Content>
-            <ColorPicker.Area>
-              <ColorPicker.AreaBackground />
-              <ColorPicker.AreaThumb />
-            </ColorPicker.Area>
-            <div className={styles.sliderGroup}>
-              <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
-              <div className={styles.channelSliders}>
-                <ColorPicker.ChannelSlider channel="hue">
-                  <ColorPicker.ChannelSliderTrack />
-                  <ColorPicker.ChannelSliderThumb />
-                </ColorPicker.ChannelSlider>
-                <ColorPicker.ChannelSlider channel="alpha">
-                  <ColorPicker.TransparencyGrid />
-                  <ColorPicker.ChannelSliderTrack />
-                  <ColorPicker.ChannelSliderThumb />
-                </ColorPicker.ChannelSlider>
-              </div>
+      <ColorPicker.Positioner>
+        <ColorPicker.Content>
+          <ColorPicker.Area>
+            <ColorPicker.AreaBackground />
+            <ColorPicker.AreaThumb />
+          </ColorPicker.Area>
+          <div className={styles.sliderGroup}>
+            <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
+            <div className={styles.channelSliders}>
+              <ColorPicker.ChannelSlider channel="hue">
+                <ColorPicker.ChannelSliderTrack />
+                <ColorPicker.ChannelSliderThumb />
+              </ColorPicker.ChannelSlider>
+              <ColorPicker.ChannelSlider channel="alpha">
+                <ColorPicker.TransparencyGrid />
+                <ColorPicker.ChannelSliderTrack />
+                <ColorPicker.ChannelSliderThumb />
+              </ColorPicker.ChannelSlider>
             </div>
-            <ColorPicker.SwatchGroup>
-              {swatchList.map((color) => (
-                <ColorPicker.SwatchTrigger key={color} value={color}>
-                  <ColorPicker.Swatch value={color}>
-                    <ColorPicker.SwatchIndicator />
-                  </ColorPicker.Swatch>
-                </ColorPicker.SwatchTrigger>
-              ))}
-            </ColorPicker.SwatchGroup>
-          </ColorPicker.Content>
-        </ColorPicker.Positioner>
-      </Portal>
+          </div>
+          <ColorPicker.SwatchGroup>
+            {swatchList.map((color) => (
+              <ColorPicker.SwatchTrigger key={color} value={color}>
+                <ColorPicker.Swatch value={color}>
+                  <ColorPicker.SwatchIndicator />
+                </ColorPicker.Swatch>
+              </ColorPicker.SwatchTrigger>
+            ))}
+          </ColorPicker.SwatchGroup>
+        </ColorPicker.Content>
+      </ColorPicker.Positioner>
       <ColorPicker.HiddenInput />
     </>
   );

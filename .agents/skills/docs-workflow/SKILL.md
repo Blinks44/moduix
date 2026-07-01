@@ -173,6 +173,9 @@ Inside `## Styling`, always use:
 Popup-like components:
 
 - Teach the explicit Ark/Chakra part tree as the default contract.
+- Do not render or import `Portal` in examples. Document that roots portal the structural overlay
+  parts automatically, `portalled={false}` renders inline, and `portalRef` selects a custom
+  container.
 - Treat built-in popup arrows as opt-in unless the component contract explicitly says otherwise.
 - Keep structural parts visible in docs examples instead of hiding them behind `*Content` sugar.
 

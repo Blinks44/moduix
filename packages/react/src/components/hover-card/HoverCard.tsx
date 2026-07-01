@@ -7,14 +7,31 @@ import {
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import styles from './HoverCard.module.css';
 
-function HoverCardRoot(props: ComponentProps<typeof HoverCardPrimitive.Root>) {
-  return <HoverCardPrimitive.Root {...props} />;
+type HoverCardRootProps = ComponentProps<typeof HoverCardPrimitive.Root> & OverlayPortalProps;
+type HoverCardRootProviderProps = ComponentProps<typeof HoverCardPrimitive.RootProvider> &
+  OverlayPortalProps;
+
+function HoverCardRoot({ portalled, portalRef, ...props }: HoverCardRootProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <HoverCardPrimitive.Root {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
-function HoverCardRootProvider(props: ComponentProps<typeof HoverCardPrimitive.RootProvider>) {
-  return <HoverCardPrimitive.RootProvider {...props} />;
+function HoverCardRootProvider({ portalled, portalRef, ...props }: HoverCardRootProviderProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <HoverCardPrimitive.RootProvider {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
 const HoverCardTrigger = forwardRef<
@@ -37,12 +54,14 @@ const HoverCardPositioner = forwardRef<
   ComponentProps<typeof HoverCardPrimitive.Positioner>
 >(function HoverCardPositioner({ className, ...props }, ref) {
   return (
-    <HoverCardPrimitive.Positioner
-      ref={ref}
-      data-slot="hover-card-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <HoverCardPrimitive.Positioner
+        ref={ref}
+        data-slot="hover-card-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -104,6 +123,7 @@ const HoverCard = Object.assign(HoverCardRoot, {
 });
 
 export { HoverCard, useHoverCard, useHoverCardContext };
+export type { HoverCardRootProps, HoverCardRootProviderProps };
 export type {
   HoverCardFocusOutsideEvent,
   HoverCardInteractOutsideEvent,

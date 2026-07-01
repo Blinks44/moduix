@@ -2,46 +2,63 @@ import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
-  type ComboboxRootComponent,
-  type ComboboxRootProps,
-  type ComboboxRootProviderComponent,
-  type ComboboxRootProviderProps,
+  type ComboboxRootComponent as ArkComboboxRootComponent,
+  type ComboboxRootComponentProps as ArkComboboxRootComponentProps,
+  type ComboboxRootProps as ArkComboboxRootProps,
+  type ComboboxRootProviderComponent as ArkComboboxRootProviderComponent,
+  type ComboboxRootProviderProps as ArkComboboxRootProviderProps,
   useCombobox,
   useComboboxContext,
   useComboboxItemContext,
 } from '@ark-ui/react/combobox';
-import { Portal } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon, ChevronUpDownIcon, CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import styles from './Combobox.module.css';
 
+type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> & OverlayPortalProps;
+type ComboboxRootComponentProps<T extends CollectionItem = CollectionItem> =
+  ArkComboboxRootComponentProps<T, OverlayPortalProps>;
+type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProviderProps<T> &
+  OverlayPortalProps;
+type ComboboxRootComponent = ArkComboboxRootComponent<OverlayPortalProps>;
+type ComboboxRootProviderComponent = ArkComboboxRootProviderComponent<OverlayPortalProps>;
+
 const ComboboxRoot = forwardRef(function ComboboxRoot<T extends CollectionItem>(
-  { className, ...props }: ComboboxRootProps<T>,
+  { className, portalled, portalRef, ...props }: ComboboxRootProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
-    <ComboboxPrimitive.Root
-      ref={ref}
-      data-slot="combobox-root"
-      className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <ComboboxPrimitive.Root
+        ref={ref}
+        data-slot="combobox-root"
+        className={clsx(styles.root, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortalProvider>
   );
 }) as ComboboxRootComponent;
 
 const ComboboxRootProvider = forwardRef(function ComboboxRootProvider<T extends CollectionItem>(
-  { className, ...props }: ComboboxRootProviderProps<T>,
+  { className, portalled, portalRef, ...props }: ComboboxRootProviderProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
-    <ComboboxPrimitive.RootProvider
-      ref={ref}
-      data-slot="combobox-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <ComboboxPrimitive.RootProvider
+        ref={ref}
+        data-slot="combobox-root-provider"
+        className={clsx(styles.root, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortalProvider>
   );
 }) as ComboboxRootProviderComponent;
 
@@ -125,12 +142,14 @@ const ComboboxPositioner = forwardRef<
   ComponentProps<typeof ComboboxPrimitive.Positioner>
 >(function ComboboxPositioner({ className, ...props }, ref) {
   return (
-    <ComboboxPrimitive.Positioner
-      ref={ref}
-      data-slot="combobox-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <ComboboxPrimitive.Positioner
+        ref={ref}
+        data-slot="combobox-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -272,7 +291,14 @@ const Combobox = Object.assign(ComboboxRoot, {
   ItemContext: ComboboxItemContext,
 });
 
-export { Combobox, Portal, useCombobox, useComboboxContext, useComboboxItemContext };
+export { Combobox, useCombobox, useComboboxContext, useComboboxItemContext };
+export type {
+  ComboboxRootComponent,
+  ComboboxRootComponentProps,
+  ComboboxRootProps,
+  ComboboxRootProviderComponent,
+  ComboboxRootProviderProps,
+};
 export type {
   CollectionItem as ComboboxCollectionItem,
   ComboboxClearTriggerBaseProps,
@@ -310,12 +336,7 @@ export type {
   ComboboxPositionerBaseProps,
   ComboboxPositionerProps,
   ComboboxRootBaseProps,
-  ComboboxRootComponent,
-  ComboboxRootComponentProps,
-  ComboboxRootProps,
   ComboboxRootProviderBaseProps,
-  ComboboxRootProviderComponent,
-  ComboboxRootProviderProps,
   ComboboxSelectionDetails,
   ComboboxTriggerBaseProps,
   ComboboxTriggerProps,

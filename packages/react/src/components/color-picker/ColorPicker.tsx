@@ -5,38 +5,50 @@ import {
   useColorPicker,
   useColorPickerContext,
 } from '@ark-ui/react/color-picker';
-import { Portal } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon, PipetteIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import styles from './ColorPicker.module.css';
+
+type ColorPickerRootProps = ComponentProps<typeof ColorPickerPrimitive.Root> & OverlayPortalProps;
+type ColorPickerRootProviderProps = ComponentProps<typeof ColorPickerPrimitive.RootProvider> &
+  OverlayPortalProps;
 
 const ColorPickerRoot = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.Root>,
-  ComponentProps<typeof ColorPickerPrimitive.Root>
->(function ColorPickerRoot({ className, ...props }, ref) {
+  ColorPickerRootProps
+>(function ColorPickerRoot({ className, portalled, portalRef, ...props }, ref) {
   return (
-    <ColorPickerPrimitive.Root
-      ref={ref}
-      data-slot="color-picker-root"
-      className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <ColorPickerPrimitive.Root
+        ref={ref}
+        data-slot="color-picker-root"
+        className={clsx(styles.root, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortalProvider>
   );
 });
 
 const ColorPickerRootProvider = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.RootProvider>,
-  ComponentProps<typeof ColorPickerPrimitive.RootProvider>
->(function ColorPickerRootProvider({ className, ...props }, ref) {
+  ColorPickerRootProviderProps
+>(function ColorPickerRootProvider({ className, portalled, portalRef, ...props }, ref) {
   return (
-    <ColorPickerPrimitive.RootProvider
-      ref={ref}
-      data-slot="color-picker-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <ColorPickerPrimitive.RootProvider
+        ref={ref}
+        data-slot="color-picker-root-provider"
+        className={clsx(styles.root, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortalProvider>
   );
 });
 
@@ -87,12 +99,14 @@ const ColorPickerPositioner = forwardRef<
   ComponentProps<typeof ColorPickerPrimitive.Positioner>
 >(function ColorPickerPositioner({ className, ...props }, ref) {
   return (
-    <ColorPickerPrimitive.Positioner
-      ref={ref}
-      data-slot="color-picker-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <ColorPickerPrimitive.Positioner
+        ref={ref}
+        data-slot="color-picker-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -442,7 +456,8 @@ const ColorPicker = Object.assign(ColorPickerRoot, {
   Context: ColorPickerContext,
 });
 
-export { ColorPicker, Portal, parseColor, useColorPicker, useColorPickerContext };
+export { ColorPicker, parseColor, useColorPicker, useColorPickerContext };
+export type { ColorPickerRootProps, ColorPickerRootProviderProps };
 export type {
   Color,
   ColorPickerAreaBackgroundProps,
@@ -469,8 +484,6 @@ export type {
   ColorPickerOpenChangeDetails,
   ColorPickerPositionerProps,
   ColorPickerPointerDownOutsideEvent,
-  ColorPickerRootProps,
-  ColorPickerRootProviderProps,
   ColorPickerSwatchGroupProps,
   ColorPickerSwatchIndicatorProps,
   ColorPickerSwatchProps,

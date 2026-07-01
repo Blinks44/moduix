@@ -13,6 +13,8 @@ export type {
   LightboxInteractOutsideEvent,
   LightboxOpenChangeDetails,
   LightboxPointerDownOutsideEvent,
+  LightboxRootProps,
+  LightboxRootProviderProps,
   LightboxTriggerValueChangeDetails,
   UseLightboxContext,
   UseLightboxProps,

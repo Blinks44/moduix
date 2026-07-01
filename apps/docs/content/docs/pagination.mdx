@@ -480,7 +480,7 @@ Call `pagination.setPageSize(nextSize)` from context to let a separate control u
   <Preview.Code>
     {`
       import { createListCollection } from "@ark-ui/react/collection";
-      import { Pagination, Portal, Select } from "@moduix/react";
+      import { Pagination, Select } from "@moduix/react";
 
       const pageSizes = createListCollection({
         items: [
@@ -520,18 +520,16 @@ Call `pagination.setPageSize(nextSize)` from context to let a separate control u
                       <Select.Context>
                         {(select) =>
                           select.open ? (
-                            <Portal>
-                              <Select.Positioner>
-                                <Select.Content>
-                                  {pageSizes.items.map((item) => (
-                                    <Select.Item key={item.value} item={item}>
-                                      <Select.ItemText>{item.label}</Select.ItemText>
-                                      <Select.ItemIndicator />
-                                    </Select.Item>
-                                  ))}
-                                </Select.Content>
-                              </Select.Positioner>
-                            </Portal>
+                            <Select.Positioner>
+                              <Select.Content>
+                                {pageSizes.items.map((item) => (
+                                  <Select.Item key={item.value} item={item}>
+                                    <Select.ItemText>{item.label}</Select.ItemText>
+                                    <Select.ItemIndicator />
+                                  </Select.Item>
+                                ))}
+                              </Select.Content>
+                            </Select.Positioner>
                           ) : null
                         }
                       </Select.Context>

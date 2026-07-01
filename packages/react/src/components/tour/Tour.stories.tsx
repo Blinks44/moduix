@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Portal } from '@ark-ui/react/portal';
 import { useState } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import type { TourStepDetails } from './Tour';
@@ -88,28 +87,26 @@ const mixedSteps: TourStepDetails[] = [
 function TourOverlay({ tour }: { tour: ReturnType<typeof useTour> }) {
   return (
     <Tour tour={tour} lazyMount unmountOnExit>
-      <Portal>
-        <Tour.Backdrop />
-        <Tour.Spotlight />
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.Arrow />
-            <Tour.CloseTrigger>
-              <CloseIcon className={storyStyles.closeIcon} />
-            </Tour.CloseTrigger>
-            <Tour.Title />
-            <Tour.Description />
-            <Tour.ProgressText />
-            <Tour.Control>
-              <Tour.Actions>
-                {(actions) =>
-                  actions.map((action) => <Tour.ActionTrigger key={action.label} action={action} />)
-                }
-              </Tour.Actions>
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
-      </Portal>
+      <Tour.Backdrop />
+      <Tour.Spotlight />
+      <Tour.Positioner>
+        <Tour.Content>
+          <Tour.Arrow />
+          <Tour.CloseTrigger>
+            <CloseIcon className={storyStyles.closeIcon} />
+          </Tour.CloseTrigger>
+          <Tour.Title />
+          <Tour.Description />
+          <Tour.ProgressText />
+          <Tour.Control>
+            <Tour.Actions>
+              {(actions) =>
+                actions.map((action) => <Tour.ActionTrigger key={action.label} action={action} />)
+              }
+            </Tour.Actions>
+          </Tour.Control>
+        </Tour.Content>
+      </Tour.Positioner>
     </Tour>
   );
 }
@@ -161,35 +158,33 @@ export const Progress: Story = {
           Upload
         </Button>
         <Tour tour={tour} lazyMount unmountOnExit>
-          <Portal>
-            <Tour.Backdrop />
-            <Tour.Spotlight />
-            <Tour.Positioner>
-              <Tour.Content>
-                <Tour.Arrow />
-                <Tour.CloseTrigger>
-                  <CloseIcon className={storyStyles.closeIcon} />
-                </Tour.CloseTrigger>
-                <Tour.Title />
-                <Tour.Description />
-                <div className={storyStyles.progressTrack}>
-                  <div
-                    className={storyStyles.progressFill}
-                    style={{ width: `${tour.getProgressPercent()}%` }}
-                  />
-                </div>
-                <Tour.Control>
-                  <Tour.Actions>
-                    {(actions) =>
-                      actions.map((action) => (
-                        <Tour.ActionTrigger key={action.label} action={action} />
-                      ))
-                    }
-                  </Tour.Actions>
-                </Tour.Control>
-              </Tour.Content>
-            </Tour.Positioner>
-          </Portal>
+          <Tour.Backdrop />
+          <Tour.Spotlight />
+          <Tour.Positioner>
+            <Tour.Content>
+              <Tour.Arrow />
+              <Tour.CloseTrigger>
+                <CloseIcon className={storyStyles.closeIcon} />
+              </Tour.CloseTrigger>
+              <Tour.Title />
+              <Tour.Description />
+              <div className={storyStyles.progressTrack}>
+                <div
+                  className={storyStyles.progressFill}
+                  style={{ width: `${tour.getProgressPercent()}%` }}
+                />
+              </div>
+              <Tour.Control>
+                <Tour.Actions>
+                  {(actions) =>
+                    actions.map((action) => (
+                      <Tour.ActionTrigger key={action.label} action={action} />
+                    ))
+                  }
+                </Tour.Actions>
+              </Tour.Control>
+            </Tour.Content>
+          </Tour.Positioner>
         </Tour>
       </div>
     );

@@ -9,6 +9,11 @@ import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import {
+  OverlayPortal,
+  OverlayPortalProvider,
+  type OverlayPortalProps,
+} from '@/lib/moduix/overlayPortal';
 import styles from './Menu.module.css';
 
 export type MenuIndicatorPosition = 'start' | 'end' | 'none';
@@ -22,13 +27,24 @@ export type MenuCheckboxItemProps = ComponentProps<typeof MenuPrimitive.Checkbox
 export type MenuRadioItemProps = ComponentProps<typeof MenuPrimitive.RadioItem> & {
   indicator?: MenuIndicatorPosition;
 };
+export type MenuRootProps = ComponentProps<typeof MenuPrimitive.Root> & OverlayPortalProps;
+export type MenuRootProviderProps = ComponentProps<typeof MenuPrimitive.RootProvider> &
+  OverlayPortalProps;
 
-function MenuRoot(props: ComponentProps<typeof MenuPrimitive.Root>) {
-  return <MenuPrimitive.Root {...props} />;
+function MenuRoot({ portalled, portalRef, ...props }: MenuRootProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <MenuPrimitive.Root {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
-function MenuRootProvider(props: ComponentProps<typeof MenuPrimitive.RootProvider>) {
-  return <MenuPrimitive.RootProvider {...props} />;
+function MenuRootProvider({ portalled, portalRef, ...props }: MenuRootProviderProps) {
+  return (
+    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+      <MenuPrimitive.RootProvider {...props} />
+    </OverlayPortalProvider>
+  );
 }
 
 const MenuTrigger = forwardRef<
@@ -89,12 +105,14 @@ const MenuPositioner = forwardRef<
   ComponentProps<typeof MenuPrimitive.Positioner>
 >(function MenuPositioner({ className, ...props }, ref) {
   return (
-    <MenuPrimitive.Positioner
-      ref={ref}
-      data-slot="menu-positioner"
-      className={clsx(styles.positioner, normalizeClassName(className))}
-      {...props}
-    />
+    <OverlayPortal>
+      <MenuPrimitive.Positioner
+        ref={ref}
+        data-slot="menu-positioner"
+        className={clsx(styles.positioner, normalizeClassName(className))}
+        {...props}
+      />
+    </OverlayPortal>
   );
 });
 
@@ -396,8 +414,6 @@ export type {
   MenuPositionerProps,
   MenuRadioItemGroupProps,
   MenuRadioItemProps as ArkMenuRadioItemProps,
-  MenuRootProps,
-  MenuRootProviderProps,
   MenuSelectionDetails,
   MenuSeparatorProps,
   MenuTriggerItemProps,

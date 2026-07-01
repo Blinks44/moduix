@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { createListCollection } from '@ark-ui/react/collection';
 import { useState } from 'react';
 import { InfoIcon } from '@/icons/demo';
-import { Select, Portal, useSelect } from './Select';
+import { Select, useSelect } from './Select';
 import styles from './Select.stories.module.css';
 
 interface OptionItem {
@@ -89,11 +89,9 @@ function FruitItems() {
 
 function SelectPopupContent({ children }: { children: ReactNode }) {
   return (
-    <Portal>
-      <Select.Positioner>
-        <Select.Content>{children}</Select.Content>
-      </Select.Positioner>
-    </Portal>
+    <Select.Positioner>
+      <Select.Content>{children}</Select.Content>
+    </Select.Positioner>
   );
 }
 
