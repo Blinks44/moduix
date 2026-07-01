@@ -16,6 +16,7 @@ keep package/docs/registry output aligned, and remove stale instructions when be
 - `.agents/skills/local-component-docs/SKILL.md` - rules for component-local markdown and changelog upkeep
 - `.agents/skills/docs-workflow/SKILL.md` - workflow for docs pages, examples, and CSS variable docs in `apps/docs`
 - `.agents/skills/cross-package-sync/SKILL.md` - parity rules for tasks that touch both UI and docs
+- `.agents/skills/simplify-components/SKILL.md` - temporary rules for reducing component APIs without hiding visual structure
 
 ## Source Of Truth
 
