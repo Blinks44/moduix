@@ -25,7 +25,8 @@ keys, secondary metadata, or a single disclosure row. Use `Accordion` for coordi
 - `Collapsible.RootProvider` accepts the return value from `useCollapsible`.
 - `Collapsible.Context` exposes Ark state through a render function.
 - `Collapsible.Indicator` renders `ChevronRightIcon` when children are omitted.
-- Every DOM part forwards its Ark props, ref, `className`, and `asChild`.
+- Every DOM part forwards its Ark props, ref, `className`, and `asChild`. `Trigger asChild` supplies
+  behavior and state attributes without imposing the default trigger class.
 
 ## Anatomy and exported parts
 
@@ -163,6 +164,8 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-07-01: Made `Trigger asChild` behavior-only so a composed button keeps its own visual
+  contract without inheriting Collapsible trigger layout.
 - 2026-06-24: Audited the Ark UI migration, fixed the docs `RootProvider` example, removed an
   unused docs CSS module, and synchronized documented styling hooks with Ark `data-collapsible` and
   the full moduix CSS variable surface.

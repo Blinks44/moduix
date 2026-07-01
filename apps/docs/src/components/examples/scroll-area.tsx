@@ -63,6 +63,11 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   ['--scroll-area-scrollbar-size', 'var(--spacing-1)', 'Controls the scrollbar track thickness.'],
   ['--scroll-area-scrollbar-visible-opacity', '1', 'Controls visible scrollbar opacity.'],
   ['--scroll-area-thumb-bg', 'var(--color-border)', 'Controls the draggable thumb color.'],
+  [
+    '--scroll-area-thumb-hover-increase',
+    '2px',
+    'Controls how much the thumb grows across its track on hover and drag.',
+  ],
   ['--scroll-area-thumb-min-size', '1.5rem', 'Controls the minimum draggable thumb size.'],
   ['--scroll-area-thumb-radius', 'var(--radius-full)', 'Controls the thumb border radius.'],
   ['--scroll-area-transition', 'var(--transition-default)', 'Controls scrollbar fade timing.'],

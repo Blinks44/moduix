@@ -59,6 +59,7 @@ export * from './components/signature-pad';
 export * from './components/simple-grid';
 export * from './components/slider';
 export * from './components/splitter';
+export * from './components/sidebar';
 export * from './components/carousel';
 export * from './components/skeleton';
 export * from './components/spinner';

@@ -88,6 +88,12 @@ Zag notes preserved by the wrapper:
 - `nonce` is passed through for the cursor stylesheet Ark injects.
 - `ids` can be used when external composition needs stable accessibility and interaction ids.
 
+Zag 1.41.2 has a known regression where `collapsedSize < minSize` updates internal state correctly
+but the inline CSS minimum keeps the rendered panel at `minSize`. This is tracked by
+[zag#3179](https://github.com/chakra-ui/zag/issues/3179) and fixed by the open
+[zag#3180](https://github.com/chakra-ui/zag/pull/3180). The wrapper intentionally remains thin and
+does not patch that upstream layout behavior.
+
 ## Accessibility and state
 
 Ark implements the WAI-ARIA Window Splitter pattern. `ResizeTrigger` renders a button with keyboard and pointer handling, focus state, and panel relationship metadata from Ark.
@@ -120,6 +126,8 @@ Keep `ResizeTriggerIndicator` optional and inside `ResizeTrigger`; it depends on
 
 ## Local changelog
 
+- 2026-07-01: Documented the pending upstream Zag fix for collapsible panels rendering at
+  `minSize` instead of a smaller `collapsedSize`.
 - 2026-06-22: Added Ark-backed `Splitter` with styled parts, context/provider hooks, registry helpers, theme variables, docs, and registry integration.
 - 2026-06-22: Refined default styling to use a thin splitter line plus rounded indicator handle, and enlarged docs/story demos for practical resizing.
 - 2026-06-22: Tightened the handle and added polished panel surface defaults with minimum panel height.

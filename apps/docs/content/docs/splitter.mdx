@@ -157,6 +157,11 @@ button semantics, focus behavior, and keyboard interaction intact.
 `collapsedSize`. `defaultSize` and controlled `size` are percentage arrays. Ark preserves the WAI-ARIA
 Window Splitter pattern, keyboard resizing, focus state, and pointer dragging.
 
+Zag 1.41.2 currently renders a collapsed panel at `minSize` when `collapsedSize` is smaller. The
+upstream [issue](https://github.com/chakra-ui/zag/issues/3179) and
+[fix](https://github.com/chakra-ui/zag/pull/3180) cover this regression; moduix does not add a local
+layout override while the fix is pending.
+
 Callbacks keep Ark detail objects: `onResize(details)`, `onResizeEnd(details)`, `onCollapse(details)`,
 and `onExpand(details)`. `onResizeStart` is called when a resize begins.
 

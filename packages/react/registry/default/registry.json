@@ -1648,6 +1648,31 @@
       ]
     },
     {
+      "name": "react-sidebar",
+      "type": "registry:item",
+      "title": "Sidebar",
+      "description": "moduix React Sidebar component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-splitter"],
+      "files": [
+        {
+          "path": "packages/react/src/components/sidebar/Sidebar.tsx",
+          "target": "@components/moduix/sidebar/Sidebar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/sidebar/Sidebar.module.css",
+          "target": "@components/moduix/sidebar/Sidebar.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/sidebar/index.ts",
+          "target": "@components/moduix/sidebar/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-carousel",
       "type": "registry:item",
       "title": "Carousel",

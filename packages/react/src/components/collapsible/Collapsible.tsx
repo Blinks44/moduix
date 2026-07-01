@@ -41,12 +41,13 @@ const CollapsibleRootProvider = forwardRef<
 const CollapsibleTrigger = forwardRef<
   ComponentRef<typeof CollapsiblePrimitive.Trigger>,
   ComponentProps<typeof CollapsiblePrimitive.Trigger>
->(function CollapsibleTrigger({ className, ...props }, ref) {
+>(function CollapsibleTrigger({ asChild, className, ...props }, ref) {
   return (
     <CollapsiblePrimitive.Trigger
       ref={ref}
+      asChild={asChild}
       data-slot="collapsible-trigger"
-      className={clsx(styles.trigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
       {...props}
     />
   );

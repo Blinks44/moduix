@@ -139,26 +139,28 @@ state attributes and measurements.
 
 Primary CSS variables:
 
-| Variable                         | Default                                           |
-| -------------------------------- | ------------------------------------------------- |
-| `--scroll-area-width`            | `100%`                                            |
-| `--scroll-area-height`           | `100%`                                            |
-| `--scroll-area-bg`               | `transparent`                                     |
-| `--scroll-area-color`            | `var(--color-foreground)`                         |
-| `--scroll-area-radius`           | `var(--radius-md)`                                |
-| `--scroll-area-content-padding`  | `0`                                               |
-| `--scroll-area-fade-size`        | `var(--spacing-10)`                               |
-| `--scroll-area-fade-start-size`  | `var(--scroll-area-fade-size, var(--spacing-10))` |
-| `--scroll-area-fade-end-size`    | `var(--scroll-area-fade-size, var(--spacing-10))` |
-| `--scroll-area-scrollbar-size`   | `var(--spacing-1)`                                |
-| `--scroll-area-scrollbar-margin` | `var(--spacing-1)`                                |
-| `--scroll-area-scrollbar-bg`     | `transparent`                                     |
-| `--scroll-area-thumb-bg`         | `var(--color-border)`                             |
-| `--scroll-area-thumb-min-size`   | `1.5rem`                                          |
-| `--scroll-area-corner-bg`        | `var(--scroll-area-scrollbar-bg, transparent)`    |
+| Variable                             | Default                                           |
+| ------------------------------------ | ------------------------------------------------- |
+| `--scroll-area-width`                | `100%`                                            |
+| `--scroll-area-height`               | `100%`                                            |
+| `--scroll-area-bg`                   | `transparent`                                     |
+| `--scroll-area-color`                | `var(--color-foreground)`                         |
+| `--scroll-area-radius`               | `var(--radius-md)`                                |
+| `--scroll-area-content-padding`      | `0`                                               |
+| `--scroll-area-fade-size`            | `var(--spacing-10)`                               |
+| `--scroll-area-fade-start-size`      | `var(--scroll-area-fade-size, var(--spacing-10))` |
+| `--scroll-area-fade-end-size`        | `var(--scroll-area-fade-size, var(--spacing-10))` |
+| `--scroll-area-scrollbar-size`       | `var(--spacing-1)`                                |
+| `--scroll-area-scrollbar-margin`     | `var(--spacing-1)`                                |
+| `--scroll-area-scrollbar-bg`         | `transparent`                                     |
+| `--scroll-area-thumb-bg`             | `var(--color-border)`                             |
+| `--scroll-area-thumb-hover-increase` | `2px`                                             |
+| `--scroll-area-thumb-min-size`       | `1.5rem`                                          |
+| `--scroll-area-corner-bg`            | `var(--scroll-area-scrollbar-bg, transparent)`    |
 
 Use classes on individual parts for axis-specific customization. The bundled CSS hides each
-scrollbar when its matching Ark overflow attribute is absent.
+scrollbar when its matching Ark overflow attribute is absent. The thumb grows by `2px` across the
+track on hover and while dragging without changing its default `var(--color-border)` color.
 
 ## Intentional sugar and differences from upstream
 
@@ -185,6 +187,8 @@ scrollbar when its matching Ark overflow attribute is absent.
 
 ## Local changelog
 
+- 2026-07-01: Added a configurable `2px` thumb growth on hover and drag while preserving the
+  existing default thumb color.
 - 2026-06-19: Migrated `ScrollArea` to Ark UI React, removed legacy convenience props
   and flat aliases, exposed `RootProvider`, `Context`, `useScrollArea`, `useScrollAreaContext`, and
   Ark public types, and updated styling hooks to Ark data attributes and CSS variables.

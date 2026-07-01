@@ -1,4 +1,0 @@
-interface:
-  display_name: "Simplify Components"
-  short_description: "Reduce component APIs without hiding structure"
-  default_prompt: "Use $simplify-components to audit and simplify this moduix component API."
