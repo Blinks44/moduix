@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react';
-import { Avatar, ComputerIcon, useAvatar } from '@moduix/react';
+import { Avatar, useAvatar } from '@moduix/react';
+import { Computer as ComputerIcon } from 'lucide-react';
 import { useState } from 'react';
 import type { CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

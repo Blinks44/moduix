@@ -59,7 +59,7 @@ form.
   </Preview.Data>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
@@ -211,7 +211,8 @@ Text and icon-only sizes share the same root API.
 
   <Preview.Code>
     {`
-      import { Button, StarIcon } from "@moduix/react";
+      import { Button } from "@moduix/react";
+import { Star as StarIcon } from "lucide-react";
 
       export function ButtonSizesDemo() {
         return (
@@ -271,7 +272,8 @@ name.
 
   <Preview.Code>
     {`
-      import { ArrowUpRightIcon, Button, PlusIcon, StarIcon } from "@moduix/react";
+      import { Button, PlusIcon } from "@moduix/react";
+import { ArrowUpRight as ArrowUpRightIcon, Star as StarIcon } from "lucide-react";
 
       export function ButtonIconsDemo() {
         return (

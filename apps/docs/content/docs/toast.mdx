@@ -78,7 +78,7 @@ store with `Toaster`.
   <Preview.Data>{toastBasicData}</Preview.Data>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
 If you want `Toast` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
@@ -650,7 +650,8 @@ component-specific CSS variables.
 
   <Preview.Code>
     {`
-      import { Button, CloseIcon, InfoIcon, Toast, Toaster, createToaster } from "@moduix/react";
+      import { Button, CloseIcon, Toast, Toaster, createToaster } from "@moduix/react";
+import { Info as InfoIcon } from "lucide-react";
       import styles from "./toast.module.css";
 
       const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 24 });

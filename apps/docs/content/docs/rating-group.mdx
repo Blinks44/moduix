@@ -57,7 +57,7 @@ Use the short root form with Ark-style child parts: `RatingGroup.Label`, `Rating
   <Preview.Data>{ratingGroupItemsData}</Preview.Data>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
 If you want `RatingGroup` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
@@ -470,7 +470,8 @@ indicator still receives Ark-driven `data-highlighted` and `data-half` attribute
 
   <Preview.Code>
     {`
-      import { HeartIcon, RatingGroup } from "@moduix/react";
+      import { RatingGroup } from "@moduix/react";
+import { Heart as HeartIcon } from "lucide-react";
 
       export function CustomIconRatingGroupDemo() {
         return (

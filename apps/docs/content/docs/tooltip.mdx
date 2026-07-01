@@ -41,7 +41,8 @@ tooltips do not replace `aria-label` or visible text.
 
   <Preview.Code>
     {`
-      import { BellIcon, Button, Tooltip } from "@moduix/react";
+      import { Button, Tooltip } from "@moduix/react";
+import { Bell as BellIcon } from "lucide-react";
       import styles from "./tooltip-demo.module.css";
 
       export function TooltipDemo() {
@@ -94,7 +95,7 @@ tooltips do not replace `aria-label` or visible text.
   </Preview.CSS>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
 If you want `Tooltip` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
@@ -580,7 +581,8 @@ triggers.
 
   <Preview.Code>
     {`
-      import { Button, InfoIcon, PlusIcon, ShareIcon, Tooltip } from "@moduix/react";
+      import { Button, PlusIcon, Tooltip } from "@moduix/react";
+import { Info as InfoIcon, Share as ShareIcon } from "lucide-react";
       import { useState } from "react";
       import styles from "./tooltip-demo.module.css";
 

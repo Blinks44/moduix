@@ -83,7 +83,7 @@ Items use stable `value` identifiers for selection and typeahead.
   <Preview.Data>{menuItemsData}</Preview.Data>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
@@ -605,7 +605,8 @@ Pass a `value` to each `Menu.Trigger` when one menu is shared across multiple tr
   <MultipleTriggersMenuExample />
   <Preview.Code>
     {`
-      import { MapIcon, Menu } from "@moduix/react";
+      import { Menu } from "@moduix/react";
+import { Map as MapIcon } from "lucide-react";
 
       export function MultipleTriggersMenuDemo() {
         return (
@@ -722,11 +723,8 @@ moduix adds `indicator="start" | "end" | "none"` on checkbox and radio rows for 
   <IndicatorRightMenuExample />
   <Preview.Code>
     {`
-      import {
-        Button,
-        MapIcon,
-        Menu,
-      } from "@moduix/react";
+      import { Button, Menu } from "@moduix/react";
+import { Map as MapIcon } from "lucide-react";
       import { useState } from "react";
 
       export function IndicatorRightMenuDemo() {

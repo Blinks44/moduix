@@ -47,3 +47,14 @@
   --animation-slide-down: moduix-slide-down var(--duration-normal) var(--ease-out);
   --animation-spin: moduix-spin 0.75s linear infinite;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --animation-pulse: none;
+    --animation-fade-in: none;
+    --animation-fade-out: none;
+    --animation-slide-up: none;
+    --animation-slide-down: none;
+    --animation-spin: none;
+  }
+}

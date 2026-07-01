@@ -21,3 +21,12 @@
   --transition-spring: var(--duration-slower) var(--ease-spring);
   --transition-emphasized: var(--duration-slower) var(--ease-emphasized);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.01ms;
+    --duration-normal: 0.01ms;
+    --duration-slow: 0.01ms;
+    --duration-slower: 0.01ms;
+  }
+}

@@ -1,5 +1,4 @@
 export * from './lib/moduix/icons/ui';
-export * from './icons/demo';
 export { Portal } from '@ark-ui/react/portal';
 
 export * from './components/aspect-ratio';

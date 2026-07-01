@@ -33,11 +33,8 @@ Start with the callable `<Empty />` root and namespaced parts. Add `Empty.Icon` 
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        ComputerIcon,
-        Empty,
-      } from "@moduix/react";
+      import { Button, Empty } from "@moduix/react";
+import { Computer as ComputerIcon } from "lucide-react";
 
       export function EmptyDemo() {
         return (
@@ -72,7 +69,7 @@ Start with the callable `<Empty />` root and namespaced parts. Add `Empty.Icon` 
   <Preview.Data>{emptyDeploymentData}</Preview.Data>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
 If you want `Empty` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
@@ -188,10 +185,8 @@ Omit `Empty.Actions` when the state is only informational.
 
   <Preview.Code>
     {`
-      import {
-        Empty,
-        MapIcon,
-      } from "@moduix/react";
+      import { Empty } from "@moduix/react";
+import { Map as MapIcon } from "lucide-react";
 
       export function SavedPlacesEmptyState() {
         return (
@@ -275,11 +270,8 @@ screen tone.
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        ComputerIcon,
-        Empty,
-      } from "@moduix/react";
+      import { Button, Empty } from "@moduix/react";
+import { Computer as ComputerIcon } from "lucide-react";
 
       export function TeamInviteEmptyState() {
         return (

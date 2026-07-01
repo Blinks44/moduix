@@ -128,7 +128,7 @@ settings.
   </Preview.Data>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
 If you want `Tour` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
@@ -477,15 +477,17 @@ ready.
   <AsyncStepTourExample />
   <Preview.Code>
     {`
-      effect({ show, update }) {
-        const controller = new AbortController();
-        const [promise, cancel] = waitForPromise(loadDetails(), controller, 1500);
-        promise.then((details) => {
-          update(details);
-          show();
-        });
-        return cancel;
-      }
+      const asyncStep = {
+        effect({ show, update }) {
+          const controller = new AbortController();
+          const [promise, cancel] = waitForPromise(loadDetails(), controller, delayMs);
+          promise.then((details) => {
+            update(details);
+            show();
+          });
+          return cancel;
+        },
+      };
     `}
   </Preview.Code>
   <Preview.Data>{`const delayMs = 1500;`}</Preview.Data>

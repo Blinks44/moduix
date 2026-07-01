@@ -45,7 +45,8 @@ Start with `Toggle` alone. It is the short form for `Toggle.Root` and keeps Ark 
 
   <Preview.Code>
     {`
-      import { StarIcon, Toggle } from "@moduix/react";
+      import { Toggle } from "@moduix/react";
+import { Star as StarIcon } from "lucide-react";
 
       export function ToggleDemo() {
         return (
@@ -63,7 +64,7 @@ Start with `Toggle` alone. It is the short form for `Toggle.Root` and keeps Ark 
   <Preview.Data>{`const defaultPressed = true;`}</Preview.Data>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
 If you want `Toggle` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
@@ -171,7 +172,8 @@ Control `pressed` from React state when the toggle participates in app state or 
 
   <Preview.Code>
     {`
-      import { BellIcon, Toggle } from "@moduix/react";
+      import { Toggle } from "@moduix/react";
+import { Bell as BellIcon } from "lucide-react";
       import { useState } from "react";
       import styles from "./toggle.module.css";
 
@@ -241,7 +243,8 @@ Use `Toggle.Indicator` when pressed and unpressed states need different inline c
 
   <Preview.Code>
     {`
-      import { CheckIcon, StarIcon, Toggle } from "@moduix/react";
+      import { CheckIcon, Toggle } from "@moduix/react";
+import { Star as StarIcon } from "lucide-react";
 
       export function IndicatorToggleDemo() {
         return (
@@ -269,7 +272,8 @@ Use `Toggle.Context` for inline state reads without mirroring the pressed state 
 
   <Preview.Code>
     {`
-      import { StarIcon, Toggle } from "@moduix/react";
+      import { Toggle } from "@moduix/react";
+import { Star as StarIcon } from "lucide-react";
 
       export function ContextToggleDemo() {
         return (
@@ -368,7 +372,8 @@ Pass icons as regular children. Use icon-only sizes for compact actions.
 
   <Preview.Code>
     {`
-      import { BellIcon, CheckIcon, StarIcon, Toggle } from "@moduix/react";
+      import { CheckIcon, Toggle } from "@moduix/react";
+import { Bell as BellIcon, Star as StarIcon } from "lucide-react";
       import styles from "./toggle.module.css";
 
       export function ToggleIconsDemo() {

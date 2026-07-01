@@ -75,7 +75,7 @@ Use Ark-style parts: `Tabs.Root`, `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator`,
   <Preview.Data>{tabsItemsData}</Preview.Data>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
 If you want `Tabs` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
@@ -550,7 +550,8 @@ Compose icons and labels directly inside `Tabs.Trigger`.
 
   <Preview.Code>
     {`
-      import { HandshakeIcon, MapIcon, PresentIcon, Tabs } from "@moduix/react";
+      import { Tabs } from "@moduix/react";
+import { Handshake as HandshakeIcon, Map as MapIcon, Gift as PresentIcon } from "lucide-react";
 
       export function IconTabsDemo() {
         return (

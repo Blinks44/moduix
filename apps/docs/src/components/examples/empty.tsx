@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react';
-import { Button, ComputerIcon, Empty, MapIcon } from '@moduix/react';
+import { Button, Empty } from '@moduix/react';
+import { Computer as ComputerIcon, Map as MapIcon } from 'lucide-react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './empty.module.css';

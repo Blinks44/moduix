@@ -1,4 +1,5 @@
-import { Button, Field, HeartIcon, RatingGroup, useRatingGroup } from '@moduix/react';
+import { Button, Field, RatingGroup, useRatingGroup } from '@moduix/react';
+import { Heart as HeartIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

@@ -1,4 +1,5 @@
-import { BellIcon, CheckIcon, StarIcon, Toggle } from '@moduix/react';
+import { CheckIcon, Toggle } from '@moduix/react';
+import { Bell as BellIcon, Star as StarIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

@@ -1,13 +1,13 @@
 import {
   Button,
   CloseIcon,
-  InfoIcon,
   Toast,
   Toaster,
   createToaster,
   type ToastOptions,
   type ToastPlacement,
 } from '@moduix/react';
+import { Info as InfoIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

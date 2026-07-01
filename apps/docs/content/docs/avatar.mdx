@@ -54,7 +54,7 @@ can switch between it and the image as loading state changes.
   <Preview.Data>{avatarImageData}</Preview.Data>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
 If you want `Avatar` in your project source instead of `node_modules`, install it from the moduix
 GitHub registry:
@@ -403,7 +403,8 @@ the fallback itself conveys information that is not available in nearby text.
 
   <Preview.Code>
     {`
-      import { Avatar, ComputerIcon } from "@moduix/react";
+      import { Avatar } from "@moduix/react";
+import { Computer as ComputerIcon } from "lucide-react";
 
       export function AvatarIconFallbackDemo() {
         return (

@@ -18,6 +18,11 @@ moduix appearance transitions expose phase-specific motion tokens for opacity, s
 Shared `--duration-*`, `--ease-*`, `--transition-*`, and `--scale-*` tokens affect multiple
 components; component-local tokens are preferable for isolated changes.
 
+When the operating system requests reduced motion, the foundation reduces shared duration tokens
+to `0.01ms` and disables the shared pulse, fade, slide, and spin animations. Components with
+specialized continuous motion, such as marquee and indeterminate progress, keep their own
+`prefers-reduced-motion` fallback.
+
 `*-starting-*` values apply during entry and `*-ending-*` values apply during exit. For the
 Ark-backed `Popover`, the visual part is `Content`, so its token family is
 `--popover-content-*`. Other component families may still use `popup`, `content`, or another

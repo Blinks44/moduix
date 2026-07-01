@@ -1,12 +1,5 @@
-import {
-  BellIcon,
-  Button,
-  InfoIcon,
-  PlusIcon,
-  ShareIcon,
-  Tooltip,
-  useTooltip,
-} from '@moduix/react';
+import { Button, PlusIcon, Tooltip, useTooltip } from '@moduix/react';
+import { Bell as BellIcon, Info as InfoIcon, Share as ShareIcon } from 'lucide-react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

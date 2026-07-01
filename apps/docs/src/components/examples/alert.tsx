@@ -1,4 +1,5 @@
-import { Alert, Button, CheckIcon, InfoIcon } from '@moduix/react';
+import { Alert, Button, CheckIcon } from '@moduix/react';
+import { Info as InfoIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

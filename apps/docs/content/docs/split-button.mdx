@@ -69,7 +69,7 @@ Use `SplitButton` as the short root form, then keep the Ark-style structure visi
   <Preview.Data>{splitButtonItemsData}</Preview.Data>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
 If you want `Split Button` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
@@ -479,7 +479,8 @@ Use `asChild` on `SplitButton.Action` when the primary action should render as a
 
   <Preview.Code>
     {`
-      import { ArrowUpRightIcon, Menu, SplitButton } from "@moduix/react";
+      import { Menu, SplitButton } from "@moduix/react";
+import { ArrowUpRight as ArrowUpRightIcon } from "lucide-react";
 
       export function SplitButtonLinkActionDemo() {
         return (

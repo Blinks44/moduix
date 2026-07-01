@@ -65,7 +65,7 @@ import { Alert } from '@moduix/react';
 
 export function AlertDemo() {
   return (
-    <Alert.Root status="warning">
+    <Alert status="warning">
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
@@ -73,7 +73,7 @@ export function AlertDemo() {
         <Alert.Title>Storage is almost full</Alert.Title>
         <Alert.Description>Archive old uploads or upgrade the plan.</Alert.Description>
       </Alert.Content>
-    </Alert.Root>
+    </Alert>
   );
 }
 ```
@@ -170,12 +170,15 @@ Built-in statuses derive their accents from shared palette tokens:
 
 ## Agent notes
 
-- Keep docs and examples on the explicit `Alert.Root` compound contract.
+- Use the short `<Alert>` root form in runnable examples; keep `Alert.Root` for anatomy and API
+  explanations.
 - Do not add local dismiss, keyboard, or focus behavior to the alert wrapper; compose interactive
   controls inside `Alert.Content`.
 
 ## Local changelog
 
+- 2026-07-01: Aligned runnable examples on the short `<Alert>` root form while preserving
+  `Alert.Root` as the equivalent anatomy/API alias.
 - 2026-06: Migrated `Alert` to an Ark-style compound contract based on `Alert.Root`,
   `Alert.Indicator`, `Alert.Content`, `Alert.Title`, and `Alert.Description`; replaced
   `variant` with `status`; renamed `destructive` to `error`; and moved heading polymorphism from

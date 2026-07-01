@@ -1,4 +1,5 @@
-import { BellIcon, Button, Popover, usePopover } from '@moduix/react';
+import { Button, Popover, usePopover } from '@moduix/react';
+import { Bell as BellIcon } from 'lucide-react';
 import * as React from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

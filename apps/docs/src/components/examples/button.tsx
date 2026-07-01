@@ -1,4 +1,5 @@
-import { ArrowUpRightIcon, Button, PlusIcon, Spinner, StarIcon } from '@moduix/react';
+import { Button, PlusIcon, Spinner } from '@moduix/react';
+import { ArrowUpRight as ArrowUpRightIcon, Star as StarIcon } from 'lucide-react';
 import { useRef, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
