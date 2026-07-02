@@ -13,8 +13,7 @@ dates through an editable input, popup calendar, or inline calendar.
 ## Upstream model to preserve
 
 Preserve Ark UI's `DatePicker.Root` primitive, explicit popup / inline composition,
-`DateValue[]` state, details-object callbacks, `RootProvider`, `Context`, `useDatePicker()`,
-`useDatePickerContext()`, and `parseDate()`.
+`DateValue[]` state, details-object callbacks, and `RootProvider`.
 
 Ark owns input parsing, calendar view state, keyboard navigation, focus management, min/max
 validation, unavailable dates, range hover state, form integration, positioning, locale formatting,
@@ -29,8 +28,8 @@ and accessible labels. Do not translate dates to strings or local callback shape
 - `DatePicker.Input` is the native input that participates in forms through Ark.
 - Range selection renders two indexed inputs: `DatePicker.Input index={0}` and
   `DatePicker.Input index={1}`.
-- Multiple selection should render selected values through `DatePicker.Context` instead of trying
-  to display every date in one text input.
+- Multiple selection should render selected values through `ArkDatePicker.Context` from
+  `@ark-ui/react/date-picker` instead of trying to display every date in one text input.
 - Popup calendars are explicit: render `DatePicker.Positioner` and
   `DatePicker.Content` when the picker should float.
 - Inline calendars use `inline` and render `DatePicker.Content` directly in the root.
@@ -62,10 +61,10 @@ DatePicker.Root
 │        │     └─ DatePicker.TableCellTrigger
 │        ├─ DatePicker.MonthSelect / DatePicker.YearSelect
 │        └─ DatePicker.PresetTrigger
-└─ DatePicker.Context (optional state access)
+└─ ArkDatePicker.Context (optional Ark state access)
 
 DatePicker.RootProvider
-└─ same part tree connected to a useDatePicker() store
+└─ same part tree connected to an Ark `useDatePicker()` store
 ```
 
 | Exported part                     | `data-slot`                           | Notes                                             |
@@ -92,21 +91,19 @@ DatePicker.RootProvider
 | `DatePicker.MonthSelect`          | `date-picker-month-select`            | Native month select.                              |
 | `DatePicker.YearSelect`           | `date-picker-year-select`             | Native year select.                               |
 | `DatePicker.PresetTrigger`        | `date-picker-preset-trigger`          | Range preset button.                              |
-| `DatePicker.Context`              | -                                     | Ark render-prop access to root state.             |
+| `ArkDatePicker.Context`           | -                                     | Direct Ark render-prop access to root state.      |
 
-Exported values: `DatePicker`, `parseDate`, `useDatePicker`, and `useDatePickerContext`.
+Exported values: `DatePicker`.
 
-Exported types: `DateValue`, `DatePickerDateRangePreset`, `DatePickerDateView`,
-`DatePickerFocusChangeDetails`, `DatePickerOpenChangeDetails`, `DatePickerSelectionMode`,
-`DatePickerValueChangeDetails`, `DatePickerValueTextRenderProps`,
-`DatePickerViewChangeDetails`, `DatePickerVisibleRangeChangeDetails`,
-`DatePickerContextProps`, `UseDatePickerContext`, `UseDatePickerProps`, and
-`UseDatePickerReturn`.
+Advanced Ark utilities such as `parseDate`, `useDatePicker`, `DatePicker.Context`,
+`useDatePickerContext`, and Ark event/detail types are imported directly from
+`@ark-ui/react/date-picker`.
 
 ## Composition
 
 ```tsx
-import { DatePicker, parseDate } from '@moduix/react';
+import { DatePicker } from '@moduix/react';
+import { DatePicker as ArkDatePicker, parseDate } from '@ark-ui/react/date-picker';
 
 export function ReleaseDatePicker() {
   return (
@@ -125,9 +122,9 @@ export function ReleaseDatePicker() {
 }
 ```
 
-Use `DatePicker.Context` to render week days, weeks, month grids, and year grids from Ark's API.
-Use `DatePicker.RootProvider` only with state created by `useDatePicker()`; do not also render
-`DatePicker.Root` for the same state instance.
+Use `ArkDatePicker.Context` to render week days, weeks, month grids, and year grids from Ark's
+API. Use `DatePicker.RootProvider` only with state created by Ark `useDatePicker()`; do not also
+render `DatePicker.Root` for the same state instance.
 
 The default root and popup width is `18.75rem` (300px). Override `--date-picker-width` for the
 field and `--date-picker-content-width` for wider popup compositions such as two visible months.
@@ -151,14 +148,14 @@ Each input has `--date-picker-input-min-width: 7.5rem`; range inputs use
 - Multiple months and week numbers: supported with `numOfMonths`, `fixedWeeks`, and
   `showWeekNumbers`.
 - Month-only, year-only, default-view, select-today, and date-with-time flows are supported through
-  Ark view props, `DatePicker.Context`, `format`, `parse`, and `CalendarDateTime` values.
+  Ark view props, `ArkDatePicker.Context`, `format`, `parse`, and `CalendarDateTime` values.
 - Validation: supported with `min`, `max`, `isDateUnavailable`, `invalid`, `disabled`,
   `readOnly`, and `required`.
 - Locale and parsing: supported with `locale`, `timeZone`, `format`, `parse`, `translations`,
   and `createCalendar`.
 - Inline calendar: supported with `inline` and direct `DatePicker.Content` composition.
-- Provider/state hooks: supported by `useDatePicker()`, `DatePicker.RootProvider`,
-  `DatePicker.Context`, and `useDatePickerContext()`.
+- Provider/state hooks: supported by `DatePicker.RootProvider`; import Ark `useDatePicker()`,
+  `DatePicker.Context`, and `useDatePickerContext()` directly when needed.
 - `asChild`, `ids`, `dir`, and `positioning`: preserved on Ark parts and root props.
 
 ## Accessibility and state
@@ -198,23 +195,27 @@ Intentional moduix sugar:
   omitted.
 - `DatePicker.ViewTrigger` renders `DatePicker.RangeText` plus a chevron when children are omitted.
 - Docs may show a custom month/year header built with the moduix `Select` and
-  `DatePicker.Context`. Keep the exported `DatePicker.MonthSelect` / `DatePicker.YearSelect`
+  `ArkDatePicker.Context`. Keep the exported `DatePicker.MonthSelect` / `DatePicker.YearSelect`
   native Ark parts available; the custom select header is composition, not replacement wrapper API.
 
 ## Agent notes
 
 - Keep callback details untouched: read `details.value`, `details.valueAsString`, and
   `details.view`.
-- Keep table rendering explicit through `DatePicker.Context`; do not add an automatic calendar
+- Keep table rendering explicit through Ark `DatePicker.Context`; do not add an automatic calendar
   renderer to the component API.
 - Keep popup structure explicit through `Positioner` and `Content`.
 - Keep inline examples free of `Positioner`.
-- Keep `@internationalized/date` / `parseDate()` examples because Ark values are `DateValue`
+- Keep `@internationalized/date` / Ark `parseDate()` examples because Ark values are `DateValue`
   objects.
 
 ## Local changelog
 
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
+
+- 2026-07-02: Removed Ark context, hooks, utility re-exports, and event/detail type re-exports
+  from the moduix surface. `RootProvider` and visual parts stay on `DatePicker`; advanced Ark APIs
+  now import directly from `@ark-ui/react/date-picker`.
 
 - 2026-06-25: Audited the Ark UI migration against the official Date Picker MDX, removed stale
   non-Ark focus styling, avoided double disabled/read-only opacity, expanded docs examples, and

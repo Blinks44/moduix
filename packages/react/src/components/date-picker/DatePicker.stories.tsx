@@ -1,17 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { createListCollection } from '@ark-ui/react/collection';
+import {
+  DatePicker as ArkDatePicker,
+  parseDate,
+  useDatePicker,
+  type DateValue,
+  type UseDatePickerReturn,
+} from '@ark-ui/react/date-picker';
 import { today } from '@internationalized/date';
 import { useState } from 'react';
 import { Button } from '../button';
 import { Field } from '../field';
 import { Select } from '../select';
-import {
-  DatePicker,
-  parseDate,
-  useDatePicker,
-  type DateValue,
-  type UseDatePickerReturn,
-} from './DatePicker';
+import { DatePicker } from './DatePicker';
 import storyStyles from './DatePicker.stories.module.css';
 
 type DatePickerSelectItem = {
@@ -51,6 +52,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const DatePickerContext = ArkDatePicker.Context;
+
 function DatePickerField({
   placeholder = 'Select date',
   indexes,
@@ -85,7 +88,7 @@ function formatSelectedDate(date: DateValue) {
 function MultipleDatePickerField() {
   return (
     <DatePicker.Control>
-      <DatePicker.Context>
+      <DatePickerContext>
         {(datePicker) => (
           <div className={storyStyles.selectedDates}>
             {datePicker.value.length === 0 ? (
@@ -111,7 +114,7 @@ function MultipleDatePickerField() {
             )}
           </div>
         )}
-      </DatePicker.Context>
+      </DatePickerContext>
       <DatePicker.ClearTrigger aria-label="Clear dates" />
       <DatePicker.Trigger aria-label="Open calendar" />
     </DatePicker.Control>
@@ -130,7 +133,7 @@ function DatePickerDayTable({
   offset?: DatePickerOffset;
 }) {
   return (
-    <DatePicker.Context>
+    <DatePickerContext>
       {(datePicker) => (
         <>
           {showHeader ? (
@@ -177,13 +180,13 @@ function DatePickerDayTable({
           </DatePicker.Table>
         </>
       )}
-    </DatePicker.Context>
+    </DatePickerContext>
   );
 }
 
 function DatePickerMonthTable() {
   return (
-    <DatePicker.Context>
+    <DatePickerContext>
       {(datePicker) => (
         <>
           <DatePicker.ViewControl>
@@ -206,13 +209,13 @@ function DatePickerMonthTable() {
           </DatePicker.Table>
         </>
       )}
-    </DatePicker.Context>
+    </DatePickerContext>
   );
 }
 
 function DatePickerYearTable() {
   return (
-    <DatePicker.Context>
+    <DatePickerContext>
       {(datePicker) => (
         <>
           <DatePicker.ViewControl>
@@ -239,7 +242,7 @@ function DatePickerYearTable() {
           </DatePicker.Table>
         </>
       )}
-    </DatePicker.Context>
+    </DatePickerContext>
   );
 }
 
@@ -286,7 +289,7 @@ function MultipleMonthsDatePickerContent() {
         <DatePicker.NextTrigger />
       </DatePicker.ViewControl>
       <div className={storyStyles.multipleMonths}>
-        <DatePicker.Context>
+        <DatePickerContext>
           {(datePicker) => (
             <DatePicker.Table className={storyStyles.multipleMonthsTable}>
               <DatePicker.TableHead>
@@ -311,8 +314,8 @@ function MultipleMonthsDatePickerContent() {
               </DatePicker.TableBody>
             </DatePicker.Table>
           )}
-        </DatePicker.Context>
-        <DatePicker.Context>
+        </DatePickerContext>
+        <DatePickerContext>
           {(datePicker) => {
             const offset = datePicker.getOffset({ months: 1 });
 
@@ -345,7 +348,7 @@ function MultipleMonthsDatePickerContent() {
               </DatePicker.Table>
             );
           }}
-        </DatePicker.Context>
+        </DatePickerContext>
       </div>
     </DatePicker.Content>
   );
@@ -389,7 +392,7 @@ function DatePickerSelectControl() {
 
 function MonthYearPickerSelects() {
   return (
-    <DatePicker.Context>
+    <DatePickerContext>
       {(datePicker) => {
         const focusedYear = datePicker.focusedValue.year;
         const yearItems = Array.from({ length: 12 }, (_, index) => {
@@ -427,7 +430,7 @@ function MonthYearPickerSelects() {
           </div>
         );
       }}
-    </DatePicker.Context>
+    </DatePickerContext>
   );
 }
 

@@ -1,10 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  DatePicker as DatePickerPrimitive,
-  parseDate,
-  useDatePicker,
-  useDatePickerContext,
-} from '@ark-ui/react/date-picker';
+import { DatePicker as DatePickerPrimitive } from '@ark-ui/react/date-picker';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import {
@@ -449,8 +444,6 @@ const DatePickerValueText = forwardRef<
   );
 });
 
-const DatePickerContext = DatePickerPrimitive.Context;
-
 const DatePicker = Object.assign(DatePickerRoot, {
   Root: DatePickerRoot,
   RootProvider: DatePickerRootProvider,
@@ -480,24 +473,7 @@ const DatePicker = Object.assign(DatePickerRoot, {
   MonthSelect: DatePickerMonthSelect,
   YearSelect: DatePickerYearSelect,
   PresetTrigger: DatePickerPresetTrigger,
-  Context: DatePickerContext,
 });
 
-export { DatePicker, parseDate, useDatePicker, useDatePickerContext };
+export { DatePicker };
 export type { DatePickerRootProps, DatePickerRootProviderProps };
-export type {
-  DatePickerContextProps,
-  DatePickerDateRangePreset,
-  DatePickerDateView,
-  DatePickerFocusChangeDetails,
-  DatePickerOpenChangeDetails,
-  DatePickerSelectionMode,
-  DatePickerValueChangeDetails,
-  DatePickerValueTextRenderProps,
-  DatePickerViewChangeDetails,
-  DatePickerVisibleRangeChangeDetails,
-  DateValue,
-  UseDatePickerContext,
-  UseDatePickerProps,
-  UseDatePickerReturn,
-} from '@ark-ui/react/date-picker';

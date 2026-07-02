@@ -61,8 +61,8 @@ import {
 ## Basic
 
 `DatePicker` keeps Ark's explicit composition: render the input field, then render the calendar
-views with `DatePicker.Context`. The wrapper adds styling, `data-slot` attributes, and default
-icons for trigger buttons.
+views with `ArkDatePicker.Context` from `@ark-ui/react/date-picker`. The wrapper adds styling,
+`data-slot` attributes, and default icons for trigger buttons.
 
 <Preview>
   <DatePickerExample />
@@ -139,8 +139,8 @@ DatePicker / DatePicker.Root
 │        │     ├─ DatePicker.TableCell
 │        │     └─ DatePicker.TableCellTrigger
 │        ├─ DatePicker.MonthSelect / DatePicker.YearSelect
-│        ├─ DatePicker.PresetTrigger
-│        └─ DatePicker.Context
+│        └─ DatePicker.PresetTrigger
+└─ ArkDatePicker.Context (import from @ark-ui/react/date-picker when you need calendar state)
 ```
 
 | Part                             | Role                                                            |
@@ -155,7 +155,6 @@ DatePicker / DatePicker.Root
 | `DatePicker.Positioner`          | Floating layer using Ark positioning CSS variables.             |
 | `DatePicker.Content`             | Calendar surface for popup or inline mode.                      |
 | `DatePicker.View`                | Day, month, or year panel.                                      |
-| `DatePicker.Context`             | Access to Ark weeks, months, years, state, and helpers.         |
 | `DatePicker.Table*`              | Calendar table composition.                                     |
 | `DatePicker.MonthSelect`         | Native month select connected to focused date.                  |
 | `DatePicker.YearSelect`          | Native year select connected to focused date.                   |
@@ -165,9 +164,11 @@ DatePicker / DatePicker.Root
 
 The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
 
-`value`, `defaultValue`, and `onValueChange(details)` use `DateValue[]`. Use `parseDate()` for ISO
-strings in examples and tests. The default root and popup width is `18.75rem` (300px); override
-`--date-picker-width` or `--date-picker-content-width` when a wider composition is needed.
+`value`, `defaultValue`, and `onValueChange(details)` use Ark `DateValue[]`. Import `parseDate`,
+`DatePicker.Context`, `useDatePicker`, and event/detail types directly from
+`@ark-ui/react/date-picker` when you need them. The default root and popup width is `18.75rem`
+(300px); override `--date-picker-width` or `--date-picker-content-width` when a wider composition
+is needed.
 Because popup content is portalled, put popup sizing variables on `DatePicker.Content` or another
 element inside the overlay subtree, not only on `DatePicker.Root`.
 
@@ -227,8 +228,8 @@ the end date.
 ### Multiple
 
 Use `selectionMode="multiple"` and optionally cap selections with `maxSelectedDates`. Ark does not
-try to squeeze multiple values into one text input; use `DatePicker.Context` to render selected-date
-chips and call `datePicker.setValue()` when a chip is removed.
+try to squeeze multiple values into one text input; use `ArkDatePicker.Context` to render
+selected-date chips and call `datePicker.setValue()` when a chip is removed.
 
 <Preview>
   <MultipleDatePickerExample />
@@ -255,7 +256,7 @@ Set `numOfMonths` when users need more context while choosing dates.
 ### Month And Year Select
 
 Ark ships native `DatePicker.MonthSelect` and `DatePicker.YearSelect` parts. This example uses
-moduix `Select` with `DatePicker.Context` instead, so the header matches the rest of the library
+moduix `Select` with `ArkDatePicker.Context` instead, so the header matches the rest of the library
 while still updating Ark's focused date.
 
 <Preview>
@@ -366,7 +367,7 @@ root when you are not composing through `Field`.
 
 ### Root Provider
 
-Use `useDatePicker()` when the calendar state must be shared with external controls.
+Use Ark `useDatePicker()` when the calendar state must be shared with external controls.
 
 <Preview>
   <RootProviderDatePickerExample />
@@ -379,7 +380,7 @@ Use `useDatePicker()` when the calendar state must be shared with external contr
 
 ### Select Today
 
-Use `DatePicker.Context` when a nearby control needs to call Ark helpers such as `selectToday()`.
+Use `ArkDatePicker.Context` when a nearby control needs to call Ark helpers such as `selectToday()`.
 
 <Preview>
   <SelectTodayDatePickerExample />
