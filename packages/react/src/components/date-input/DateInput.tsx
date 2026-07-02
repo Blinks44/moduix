@@ -1,9 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  DateInput as DateInputPrimitive,
-  useDateInput,
-  useDateInputContext,
-} from '@ark-ui/react/date-input';
+import { DateInput as DateInputPrimitive } from '@ark-ui/react/date-input';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -119,9 +115,6 @@ function DateInputSeparator({
   );
 }
 
-const DateInputContext = DateInputPrimitive.Context;
-const DateInputSegmentContext = DateInputPrimitive.SegmentContext;
-
 const DateInput = Object.assign(DateInputRoot, {
   Root: DateInputRoot,
   RootProvider: DateInputRootProvider,
@@ -131,19 +124,6 @@ const DateInput = Object.assign(DateInputRoot, {
   Segment: DateInputSegment,
   HiddenInput: DateInputHiddenInput,
   Separator: DateInputSeparator,
-  Context: DateInputContext,
-  SegmentContext: DateInputSegmentContext,
 });
 
-export { DateInput, useDateInput, useDateInputContext };
-export type {
-  DateInputDateValue,
-  DateInputFocusChangeDetails,
-  DateInputContextProps,
-  DateInputSelectionMode,
-  DateInputSegmentContextProps,
-  DateInputValueChangeDetails,
-  UseDateInputContext,
-  UseDateInputProps,
-  UseDateInputReturn,
-} from '@ark-ui/react/date-input';
+export { DateInput };

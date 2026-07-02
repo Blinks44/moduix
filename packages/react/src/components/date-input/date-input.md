@@ -13,8 +13,8 @@ segments and native form submission.
 ## Upstream model to preserve
 
 Preserve Ark UI's `DateInput.Root` primitive, explicit segmented composition, `DateValue[]` state,
-details-object callbacks, `RootProvider`, `Context`, `SegmentContext`, `useDateInput()`, and
-`useDateInputContext()`.
+details-object callbacks, `RootProvider`, and the upstream segmented rendering flow through
+`DateInputSegmentContext` and `useDateInput()`.
 
 Ark owns keyboard editing, segment focus, parsing, min/max validation, unavailable-date validation,
 locale formatting, `HiddenInput` synchronization, and form reset behavior. Do not translate dates to
@@ -23,9 +23,10 @@ strings or local callback shapes in the wrapper.
 ## Current behavior contract
 
 - `DateInput` is the short root form and maps to `DateInput.Root`.
-- Values use Ark's `DateInputDateValue[]` shape from `@ark-ui/react/date-input`.
-- `DateInput.SegmentContext` is the recommended Ark path for rendering locale-aware segments inside
-  a `DateInput.SegmentGroup`.
+- Advanced hooks, renderless context helpers, and Ark type aliases are imported directly from
+  `@ark-ui/react/date-input`.
+- `DateInputSegmentContext` from `@ark-ui/react/date-input` is the recommended Ark path for
+  rendering locale-aware segments inside a `DateInput.SegmentGroup`.
 - `DateInput.HiddenInput` is explicit so consumers choose form names for single or range inputs.
 - `DateInput.Separator` is moduix sugar for non-interactive text between segment groups.
 - No local calendar popup, string parser, automatic segment renderer, or date-picker bundle is added.
@@ -37,11 +38,10 @@ DateInput.Root
 ├─ DateInput.Label
 ├─ DateInput.Control
 │  ├─ DateInput.SegmentGroup
-│  │  └─ DateInput.SegmentContext
+│  │  └─ DateInputSegmentContext (from @ark-ui/react/date-input)
 │  │     └─ DateInput.Segment
 │  └─ DateInput.Separator (optional, range layouts)
-├─ DateInput.HiddenInput
-└─ DateInput.Context / DateInput.SegmentContext (optional state access)
+└─ DateInput.HiddenInput
 
 DateInput.RootProvider
 └─ same part tree connected to a useDateInput() store
@@ -57,28 +57,22 @@ DateInput.RootProvider
 | `DateInput.Segment`            | `date-input-segment`       | Editable or literal date segment from Ark.         |
 | `DateInput.HiddenInput`        | `date-input-hidden-input`  | Native hidden input for form submission and reset. |
 | `DateInput.Separator`          | `date-input-separator`     | Presentational text between segment groups.        |
-| `DateInput.Context`            | —                          | Ark render-prop access to root state.              |
-| `DateInput.SegmentContext`     | —                          | Ark render-prop access to segment state.           |
 
-Exported values: `DateInput`, `useDateInput`, and `useDateInputContext`.
-
-Exported types: `DateInputDateValue`, `DateInputFocusChangeDetails`,
-`DateInputContextProps`, `DateInputSelectionMode`, `DateInputSegmentContextProps`,
-`DateInputValueChangeDetails`, `UseDateInputContext`, `UseDateInputProps`, and
-`UseDateInputReturn`.
+Exported values: `DateInput`.
 
 ## Composition
 
 ```tsx
 import { CalendarDate } from '@internationalized/date';
+import { DateInputSegmentContext } from '@ark-ui/react/date-input';
 import { DateInput } from '@moduix/react';
 
 function DateInputSegments() {
   return (
     <DateInput.SegmentGroup>
-      <DateInput.SegmentContext>
+      <DateInputSegmentContext>
         {(segment) => <DateInput.Segment segment={segment} />}
-      </DateInput.SegmentContext>
+      </DateInputSegmentContext>
     </DateInput.SegmentGroup>
   );
 }
@@ -97,13 +91,14 @@ export function ReleaseDateInput() {
 ```
 
 For ranges, set `selectionMode="range"` and render indexed `SegmentGroup` / `HiddenInput` pairs.
-Use `DateInput.RootProvider` only with state created by `useDateInput()`; do not also render
+Use `DateInput.RootProvider` only with state created by Ark `useDateInput()`; do not also render
 `DateInput.Root` for the same state instance.
 
 ## Upstream feature coverage
 
-- Basic segmented date input: supported through `Label`, `Control`, `Context`, `SegmentGroup`,
-  `Segment`, and `HiddenInput`.
+- Basic segmented date input: supported through `Label`, `Control`, `SegmentGroup`, `Segment`, and
+  `HiddenInput`. Render segments with
+  `DateInputSegmentContext` from `@ark-ui/react/date-input`.
 - Controlled and uncontrolled state: supported with `value`, `defaultValue`, and
   `onValueChange(details)`.
 - Placeholder control: supported with `placeholderValue`, `defaultPlaceholderValue`, and
@@ -114,8 +109,9 @@ Use `DateInput.RootProvider` only with state created by `useDateInput()`; do not
   `formatter`, `format`, `translations`, and `createCalendar`.
 - Validation: supported with `min`, `max`, `isDateUnavailable`, and `invalid`.
 - Forms: supported by explicit `DateInput.HiddenInput`, `name`, `form`, and `required`.
-- Provider/state hooks: supported by `useDateInput()`, `DateInput.RootProvider`,
-  `DateInput.Context`, `DateInput.SegmentContext`, and `useDateInputContext()`.
+- Provider/state hooks: `DateInput.RootProvider` is preserved; import Ark `useDateInput()`,
+  `useDateInputContext()`, `DateInputContext`, and `DateInputSegmentContext` directly from
+  `@ark-ui/react/date-input` when needed.
 - `asChild` and `ids`: preserved on Ark parts and root props.
 
 ## Accessibility and state
@@ -163,13 +159,15 @@ Public styling hooks:
 ## Intentional sugar and differences from upstream
 
 `DateInput.Separator` is the only local sugar. It renders a presentational span for text such as
-`to` between range segment groups. The wrapper does not add date-picker popovers, calendar buttons,
-string parsing, segment shortcuts, or local event aliases.
+`to` between range segment groups. The wrapper keeps `RootProvider`, but does not re-export Ark
+hooks, renderless context helpers, or Ark type aliases. Import those directly from
+`@ark-ui/react/date-input` when needed. The wrapper does not add date-picker popovers, calendar
+buttons, string parsing, segment shortcuts, or local event aliases.
 
 ## Agent notes
 
-- Keep the default examples aligned with Ark `DateInput.SegmentContext`; use `DateInput.Context`
-  only when consumers need root API access such as `clearValue()`, `focus()`, or `valueAsString`.
+- Keep the default examples aligned with Ark `DateInputSegmentContext` from
+  `@ark-ui/react/date-input`.
 - Keep callback details untouched: `onValueChange(details)` reports `details.value` and
   `details.valueAsString`.
 - Do not hide `HiddenInput`; form behavior depends on explicit names, especially for ranges.
@@ -177,6 +175,9 @@ string parsing, segment shortcuts, or local event aliases.
 
 ## Local changelog
 
+- 2026-07-02: Simplified the public surface to match other Ark wrappers by keeping `RootProvider`
+  and all visual parts, preserving `Separator`, and moving Ark hooks, renderless context helpers,
+  and type aliases back to direct upstream imports.
 - 2026-06-25: Finalized the Ark migration audit by fixing the placeholder callback name in docs,
   preserving read-only pointer interaction, removing an unused segment shadow hook, and adding
   disabled/read-only and granularity docs coverage.

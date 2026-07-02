@@ -34,8 +34,8 @@ import {
 
 ## Basic
 
-Render date segments through `DateInput.SegmentContext`. Ark controls segment order, keyboard
-editing, focus, placeholders, and form synchronization.
+Render date segments through Ark `DateInputSegmentContext`. Ark controls segment order, keyboard
+editing, focus, placeholders, and form synchronization, while moduix keeps the styled visual parts.
 
 <Preview>
   <DateInputExample />
@@ -43,14 +43,15 @@ editing, focus, placeholders, and form synchronization.
   <Preview.Code>
     {`
       import { CalendarDate } from "@internationalized/date";
+      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
       import { DateInput } from "@moduix/react";
 
       function DateInputSegments() {
         return (
           <DateInput.SegmentGroup>
-            <DateInput.SegmentContext>
+            <DateInputSegmentContext>
               {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInput.SegmentContext>
+            </DateInputSegmentContext>
           </DateInput.SegmentGroup>
         );
       }
@@ -124,34 +125,33 @@ DateInput.Root
 ├─ DateInput.Label
 ├─ DateInput.Control
 │  └─ DateInput.SegmentGroup
-│     └─ DateInput.SegmentContext
+│     └─ DateInputSegmentContext (from @ark-ui/react/date-input)
 │        └─ DateInput.Segment
-├─ DateInput.HiddenInput
-└─ DateInput.Context / DateInput.SegmentContext (optional state access)
+└─ DateInput.HiddenInput
 
 DateInput.RootProvider
 └─ same part tree connected to a useDateInput() store
 ```
 
-| Part                                             | Role                                                               |
-| ------------------------------------------------ | ------------------------------------------------------------------ |
-| `DateInput` / `DateInput.Root`                   | Controls date value, locale formatting, segment focus, validation. |
-| `DateInput.RootProvider`                         | Connects parts to state created with `useDateInput()`.             |
-| `DateInput.Label`                                | Accessible label for the date input.                               |
-| `DateInput.Control`                              | Visual frame around one or more segment groups.                    |
-| `DateInput.SegmentGroup`                         | Groups segments for one date index.                                |
-| `DateInput.Segment`                              | Editable or literal date segment returned by Ark.                  |
-| `DateInput.HiddenInput`                          | Native hidden input synchronized with the selected date.           |
-| `DateInput.Separator`                            | Presentational text for range layouts.                             |
-| `DateInput.Context` / `DateInput.SegmentContext` | Reads Ark state and segment metadata through render props.         |
-| `useDateInput()` / `useDateInputContext()`       | Ark state hooks exposed through moduix.                            |
+| Part                           | Role                                                               |
+| ------------------------------ | ------------------------------------------------------------------ |
+| `DateInput` / `DateInput.Root` | Controls date value, locale formatting, segment focus, validation. |
+| `DateInput.RootProvider`       | Connects parts to state created with `useDateInput()`.             |
+| `DateInput.Label`              | Accessible label for the date input.                               |
+| `DateInput.Control`            | Visual frame around one or more segment groups.                    |
+| `DateInput.SegmentGroup`       | Groups segments for one date index.                                |
+| `DateInput.Segment`            | Editable or literal date segment returned by Ark.                  |
+| `DateInput.HiddenInput`        | Native hidden input synchronized with the selected date.           |
+| `DateInput.Separator`          | Presentational text for range layouts.                             |
+| `DateInputSegmentContext`      | Upstream Ark render helper for locale-aware segment rendering.     |
 
 ## Composition
 
 ### Recommended composition
 
 Use `DateInput` as the short root form. Render `DateInput.SegmentGroup`, then use
-`DateInput.SegmentContext` to receive each locale-aware segment and pass it to `DateInput.Segment`.
+Ark `DateInputSegmentContext` to receive each locale-aware segment and pass it to
+`DateInput.Segment`.
 
 Use `DateInput.HiddenInput` when the date should submit with a form or reset with a native form
 reset. For ranges, render indexed segment groups and hidden inputs for each side.
@@ -179,6 +179,9 @@ Use `ids` when an external label, helper text, or another component must share e
 - `selectionMode="range"` enables indexed segment groups and hidden inputs.
 - `min`, `max`, and `isDateUnavailable` validate committed dates.
 - `locale`, `timeZone`, `hourCycle`, `granularity`, `formatter`, `format`, `translations`, and `createCalendar` pass through to Ark.
+- Import Ark `useDateInput()`, `useDateInputContext()`, `DateInputContext`, and
+  `DateInputSegmentContext` directly from `@ark-ui/react/date-input` when you need advanced state
+  access or renderless helpers.
 
 ## Examples
 
@@ -192,15 +195,19 @@ Control the selected date array and update it from `details.value`.
   <Preview.Code>
     {`
       import { CalendarDate } from "@internationalized/date";
-      import { DateInput, type DateInputDateValue } from "@moduix/react";
+      import {
+        DateInputSegmentContext,
+        type DateInputDateValue,
+      } from "@ark-ui/react/date-input";
+      import { DateInput } from "@moduix/react";
       import { useState } from "react";
 
       function DateInputSegments() {
         return (
           <DateInput.SegmentGroup>
-            <DateInput.SegmentContext>
+            <DateInputSegmentContext>
               {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInput.SegmentContext>
+            </DateInputSegmentContext>
           </DateInput.SegmentGroup>
         );
       }
@@ -240,14 +247,15 @@ Use `selectionMode="range"` and pass `index` to the segment group and hidden inp
 
   <Preview.Code>
     {`
+      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
       import { DateInput } from "@moduix/react";
 
       function DateInputSegments({ index }: { index?: number }) {
         return (
           <DateInput.SegmentGroup index={index}>
-            <DateInput.SegmentContext>
+            <DateInputSegmentContext>
               {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInput.SegmentContext>
+            </DateInputSegmentContext>
           </DateInput.SegmentGroup>
         );
       }
@@ -284,14 +292,15 @@ Use `min`, `max`, and `isDateUnavailable` to mark committed dates outside busine
   <Preview.Code>
     {`
       import { CalendarDate } from "@internationalized/date";
+      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
       import { DateInput } from "@moduix/react";
 
       function DateInputSegments() {
         return (
           <DateInput.SegmentGroup>
-            <DateInput.SegmentContext>
+            <DateInputSegmentContext>
               {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInput.SegmentContext>
+            </DateInputSegmentContext>
           </DateInput.SegmentGroup>
         );
       }
@@ -331,14 +340,15 @@ editable.
   <Preview.Code>
     {`
       import { CalendarDate } from "@internationalized/date";
+      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
       import { DateInput } from "@moduix/react";
 
       function DateInputSegments() {
         return (
           <DateInput.SegmentGroup>
-            <DateInput.SegmentContext>
+            <DateInputSegmentContext>
               {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInput.SegmentContext>
+            </DateInputSegmentContext>
           </DateInput.SegmentGroup>
         );
       }
@@ -383,14 +393,15 @@ need to match regional expectations.
   <Preview.Code>
     {`
       import { CalendarDate } from "@internationalized/date";
+      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
       import { DateInput } from "@moduix/react";
 
       function DateInputSegments() {
         return (
           <DateInput.SegmentGroup>
-            <DateInput.SegmentContext>
+            <DateInputSegmentContext>
               {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInput.SegmentContext>
+            </DateInputSegmentContext>
           </DateInput.SegmentGroup>
         );
       }
@@ -424,14 +435,15 @@ Set `granularity` when the input should include time segments.
   <Preview.Code>
     {`
       import { CalendarDateTime } from "@internationalized/date";
+      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
       import { DateInput } from "@moduix/react";
 
       function DateInputSegments() {
         return (
           <DateInput.SegmentGroup>
-            <DateInput.SegmentContext>
+            <DateInputSegmentContext>
               {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInput.SegmentContext>
+            </DateInputSegmentContext>
           </DateInput.SegmentGroup>
         );
       }
@@ -469,14 +481,15 @@ to `DateInput` when Ark state attributes should appear on the date input itself.
 
   <Preview.Code>
     {`
+      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
       import { DateInput, Field } from "@moduix/react";
 
       function DateInputSegments() {
         return (
           <DateInput.SegmentGroup>
-            <DateInput.SegmentContext>
+            <DateInputSegmentContext>
               {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInput.SegmentContext>
+            </DateInputSegmentContext>
           </DateInput.SegmentGroup>
         );
       }
@@ -505,7 +518,7 @@ to `DateInput` when Ark state attributes should appear on the date input itself.
 
 ### Root Provider
 
-Use `useDateInput()` and `DateInput.RootProvider` when state actions need to live outside the
+Use Ark `useDateInput()` with `DateInput.RootProvider` when state actions need to live outside the
 rendered root tree.
 
 <Preview>
@@ -514,14 +527,15 @@ rendered root tree.
   <Preview.Code>
     {`
       import { today } from "@internationalized/date";
-      import { DateInput, useDateInput } from "@moduix/react";
+      import { DateInputSegmentContext, useDateInput } from "@ark-ui/react/date-input";
+      import { DateInput } from "@moduix/react";
 
       function DateInputSegments() {
         return (
           <DateInput.SegmentGroup>
-            <DateInput.SegmentContext>
+            <DateInputSegmentContext>
               {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInput.SegmentContext>
+            </DateInputSegmentContext>
           </DateInput.SegmentGroup>
         );
       }
@@ -565,6 +579,7 @@ attributes such as `data-invalid`, `data-disabled`, `data-readonly`, and
   <Preview.Code>
     {`
       import { CalendarDate } from "@internationalized/date";
+      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
       import { DateInput } from "@moduix/react";
 
       export function CustomDateInputDemo() {
@@ -573,11 +588,11 @@ attributes such as `data-invalid`, `data-disabled`, `data-readonly`, and
             <DateInput.Label>Styled date</DateInput.Label>
             <DateInput.Control className="date-input-custom-control">
               <DateInput.SegmentGroup>
-                <DateInput.SegmentContext>
+                <DateInputSegmentContext>
                   {(segment) => (
                     <DateInput.Segment segment={segment} className="date-input-custom-segment" />
                   )}
-                </DateInput.SegmentContext>
+                </DateInputSegmentContext>
               </DateInput.SegmentGroup>
             </DateInput.Control>
             <DateInput.HiddenInput />

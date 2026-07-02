@@ -1,8 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import {
+  DateInputSegmentContext,
+  type DateInputDateValue,
+  useDateInput,
+} from '@ark-ui/react/date-input';
 import { CalendarDate, CalendarDateTime, today } from '@internationalized/date';
 import { useState } from 'react';
 import { Field } from '../field';
-import { DateInput, useDateInput, type DateInputDateValue } from './DateInput';
+import { DateInput } from './DateInput';
 import storyStyles from './DateInput.stories.module.css';
 
 const meta = {
@@ -21,9 +26,9 @@ type Story = StoryObj<typeof meta>;
 function DateInputSegments({ index }: { index?: number }) {
   return (
     <DateInput.SegmentGroup index={index}>
-      <DateInput.SegmentContext>
+      <DateInputSegmentContext>
         {(segment) => <DateInput.Segment segment={segment} />}
-      </DateInput.SegmentContext>
+      </DateInputSegmentContext>
     </DateInput.SegmentGroup>
   );
 }
@@ -174,11 +179,11 @@ export const CustomStyling: Story = {
       <DateInput.Label>Styled date</DateInput.Label>
       <DateInput.Control className={storyStyles.customControl}>
         <DateInput.SegmentGroup>
-          <DateInput.SegmentContext>
+          <DateInputSegmentContext>
             {(segment) => (
               <DateInput.Segment segment={segment} className={storyStyles.customSegment} />
             )}
-          </DateInput.SegmentContext>
+          </DateInputSegmentContext>
         </DateInput.SegmentGroup>
       </DateInput.Control>
       <DateInput.HiddenInput />

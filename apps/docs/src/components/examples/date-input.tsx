@@ -1,5 +1,10 @@
+import {
+  DateInputSegmentContext,
+  type DateInputDateValue,
+  useDateInput,
+} from '@ark-ui/react/date-input';
 import { CalendarDate, CalendarDateTime, today } from '@internationalized/date';
-import { DateInput, Field, useDateInput, type DateInputDateValue } from '@moduix/react';
+import { DateInput, Field } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -246,9 +251,9 @@ export function DateInputCssPropertiesPanel(_context: CSSPropertiesEditorContext
 function DateInputSegments({ index }: { index?: number }) {
   return (
     <DateInput.SegmentGroup index={index}>
-      <DateInput.SegmentContext>
+      <DateInputSegmentContext>
         {(segment) => <DateInput.Segment segment={segment} />}
-      </DateInput.SegmentContext>
+      </DateInputSegmentContext>
     </DateInput.SegmentGroup>
   );
 }
@@ -425,11 +430,11 @@ export function CustomStylesDateInputExample() {
         <DateInput.Label>Styled date</DateInput.Label>
         <DateInput.Control className="date-input-custom-control">
           <DateInput.SegmentGroup>
-            <DateInput.SegmentContext>
+            <DateInputSegmentContext>
               {(segment) => (
                 <DateInput.Segment segment={segment} className="date-input-custom-segment" />
               )}
-            </DateInput.SegmentContext>
+            </DateInputSegmentContext>
           </DateInput.SegmentGroup>
         </DateInput.Control>
         <DateInput.HiddenInput />
