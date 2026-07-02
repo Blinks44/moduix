@@ -5,10 +5,10 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Container.module.css';
 
-export type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-export type ContainerGutter = 'none' | 'sm' | 'md' | 'lg';
+type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+type ContainerGutter = 'none' | 'sm' | 'md' | 'lg';
 
-export type ContainerRootProps = HTMLArkProps<'div'> & {
+type ContainerRootProps = HTMLArkProps<'div'> & {
   size?: ContainerSize;
   gutter?: ContainerGutter;
 };

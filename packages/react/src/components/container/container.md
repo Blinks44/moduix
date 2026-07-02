@@ -28,6 +28,8 @@ to the rendered root, and no legacy `render` or legacy `as` contract.
 - `Container` is the primary root component.
 - `Container.Root` is the same component exposed for Ark-style namespace consistency.
 - Root accepts Ark factory div props, including `asChild`.
+- moduix does not export dedicated `Container*` prop or variant type aliases; advanced consumers can
+  derive prop types locally or import Ark factory helpers directly.
 - Applies `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`,
   `data-size`, and `data-gutter` on the root.
 - Defaults to `size="lg"` and `gutter="md"`.
@@ -147,6 +149,8 @@ when a page shell needs different layout math.
 - moduix adds Ark-style namespace access through `Container.Root`.
 - moduix adds Ark-style `data-scope` and `data-part` hooks on the root.
 - The only built-in layout variants are `size` and `gutter`.
+- moduix intentionally keeps the TypeScript surface minimal and does not mirror local root prop or
+  variant aliases as public exports.
 
 ## Agent notes
 
@@ -162,6 +166,8 @@ when a page shell needs different layout math.
 
 ## Local changelog
 
+- 2026-07-02: Removed redundant public `Container*` type exports and kept only the callable root
+  component surface (`Container` / `Container.Root`).
 - 2026-06-25: Re-audited `Container` as a local Ark factory primitive, protected root data/class
   hooks from consumer prop overrides, simplified the root CSS selector, aligned public docs API
   reference wording, and removed decorative docs example CSS.
