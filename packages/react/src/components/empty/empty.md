@@ -30,6 +30,8 @@ Preserve these Ark guide concepts:
 - `Empty.Icon`, `Empty.Content`, `Empty.Title`, `Empty.Description`, and `Empty.Actions` are
   namespaced parts on the root component.
 - Every part forwards its ref to the rendered DOM element.
+- The package does not export dedicated `Empty*Props` aliases. Advanced typing should use Ark
+  factory intrinsic props directly, for example `HTMLArkProps<'div'>` or `HTMLArkProps<'h3'>`.
 - `Empty.Title` renders `h3` by default. Use `asChild` with a heading element when the page outline
   needs a different level.
 - `Empty.Description` renders a `div`, not a `p`, so it can safely contain paragraphs, links, or
@@ -148,6 +150,8 @@ Public CSS variables:
 
 - There is no upstream Ark Empty API. The namespace is moduix-owned but shaped like other
   Ark-aligned factory wrappers in this package.
+- Public `Empty*Props` aliases are intentionally omitted because they only duplicate Ark factory
+  intrinsic prop types.
 - The previous flat exports (`EmptyIcon`, `EmptyContent`, `EmptyTitle`, `EmptyDescription`,
   `EmptyActions`) were removed in favor of `Empty.*` namespaced parts.
 - The previous `EmptyTitle as` prop was removed. Use Ark factory `asChild` instead.
@@ -168,6 +172,8 @@ Public CSS variables:
 
 - 2026-06-25: Audited the Ark factory migration, confirmed the TSX and CSS contracts, and aligned
   public docs with the required local-only Ark factory API reference text.
+- 2026-07-02: Removed redundant exported `Empty*Props` aliases; the public API now exposes only the
+  callable `Empty` namespace while typing stays on Ark factory intrinsics.
 - 2026-06-19: Migrated `Empty` to an Ark-aligned factory wrapper with `data-scope`/`data-part`,
   namespaced `Empty.*` parts, forwarded refs, and `asChild` composition. Removed flat part exports
   and `EmptyTitle as`.

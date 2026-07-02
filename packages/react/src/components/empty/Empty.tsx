@@ -5,14 +5,7 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Empty.module.css';
 
-export type EmptyRootProps = HTMLArkProps<'div'>;
-export type EmptyIconProps = HTMLArkProps<'div'>;
-export type EmptyContentProps = HTMLArkProps<'div'>;
-export type EmptyTitleProps = HTMLArkProps<'h3'>;
-export type EmptyDescriptionProps = HTMLArkProps<'div'>;
-export type EmptyActionsProps = HTMLArkProps<'div'>;
-
-const EmptyRoot = forwardRef<HTMLDivElement, EmptyRootProps>(function EmptyRoot(
+const EmptyRoot = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function EmptyRoot(
   { className, ...props },
   ref,
 ) {
@@ -28,7 +21,7 @@ const EmptyRoot = forwardRef<HTMLDivElement, EmptyRootProps>(function EmptyRoot(
   );
 });
 
-const EmptyIcon = forwardRef<HTMLDivElement, EmptyIconProps>(function EmptyIcon(
+const EmptyIcon = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function EmptyIcon(
   { className, ...props },
   ref,
 ) {
@@ -44,7 +37,7 @@ const EmptyIcon = forwardRef<HTMLDivElement, EmptyIconProps>(function EmptyIcon(
   );
 });
 
-const EmptyContent = forwardRef<HTMLDivElement, EmptyContentProps>(function EmptyContent(
+const EmptyContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function EmptyContent(
   { className, ...props },
   ref,
 ) {
@@ -60,7 +53,7 @@ const EmptyContent = forwardRef<HTMLDivElement, EmptyContentProps>(function Empt
   );
 });
 
-const EmptyTitle = forwardRef<HTMLHeadingElement, EmptyTitleProps>(function EmptyTitle(
+const EmptyTitle = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(function EmptyTitle(
   { className, ...props },
   ref,
 ) {
@@ -76,22 +69,23 @@ const EmptyTitle = forwardRef<HTMLHeadingElement, EmptyTitleProps>(function Empt
   );
 });
 
-const EmptyDescription = forwardRef<HTMLDivElement, EmptyDescriptionProps>(
-  function EmptyDescription({ className, ...props }, ref) {
-    return (
-      <ark.div
-        ref={ref}
-        data-scope="empty"
-        data-part="description"
-        data-slot="empty-description"
-        className={clsx(styles.description, normalizeClassName(className))}
-        {...props}
-      />
-    );
-  },
-);
+const EmptyDescription = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function EmptyDescription(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <ark.div
+      ref={ref}
+      data-scope="empty"
+      data-part="description"
+      data-slot="empty-description"
+      className={clsx(styles.description, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
 
-const EmptyActions = forwardRef<HTMLDivElement, EmptyActionsProps>(function EmptyActions(
+const EmptyActions = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function EmptyActions(
   { className, ...props },
   ref,
 ) {
