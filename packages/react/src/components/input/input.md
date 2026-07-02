@@ -74,8 +74,8 @@ edit, submit, and cancel controls.
   inherits from `Fieldset.Root`.
 - Native controlled/uncontrolled input: supported with `value`, `defaultValue`, and
   `onChange(event)`.
-- Custom control: supported through `asChild`; use `Field.Context` directly for more specialized
-  controls that need `getInputProps()`.
+- Custom control: supported through `asChild` when one semantic input element must own the DOM
+  node.
 - Root provider, context, ids, helper/error text, and required indicator belong to `Field`, not
   `Input`.
 - Preview/edit state belongs to `Editable`, not `Input`.

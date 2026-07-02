@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useField } from '@ark-ui/react/field';
 import { useState } from 'react';
 import { Checkbox } from '../checkbox';
 import { RadioGroup } from '../radio-group';
-import { Field, useField } from './Field';
-import storyStyles from './Field.stories.module.css';
+import { Field } from './Field';
 
 const meta = {
   title: 'Components/Field',
@@ -178,25 +178,6 @@ export const ItemTarget: Story = {
           <Field.Input inputMode="decimal" placeholder="0.00" />
         </Field.Item>
         <Field.HelperText>The root label targets the amount input.</Field.HelperText>
-      </Field>
-    );
-  },
-};
-
-export const Context: Story = {
-  render: () => {
-    return (
-      <Field invalid required>
-        <Field.Label>Status</Field.Label>
-        <Field.Input placeholder="Status" />
-        <Field.Context>
-          {(field) => (
-            <p className={storyStyles.helper}>
-              {field.invalid ? 'The field is invalid.' : 'The field is valid.'}
-            </p>
-          )}
-        </Field.Context>
-        <Field.ErrorText>Status is required.</Field.ErrorText>
       </Field>
     );
   },

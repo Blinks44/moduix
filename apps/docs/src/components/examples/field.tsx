@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react';
-import { Checkbox, Field, RadioGroup, useField } from '@moduix/react';
+import { useField } from '@ark-ui/react/field';
+import { Checkbox, Field, RadioGroup } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -239,23 +240,6 @@ export function FieldRadioGroupExample() {
         </RadioGroup.Item>
       </RadioGroup>
       <Field.HelperText>Choose the default account context for new projects.</Field.HelperText>
-    </Field>
-  );
-}
-
-export function FieldCustomControlExample() {
-  return (
-    <Field invalid className={styles.field}>
-      <Field.Label>Status</Field.Label>
-      <Field.Context>
-        {(field) => {
-          const inputProps = field.getInputProps() as ComponentProps<'input'>;
-
-          return <input {...inputProps} className={styles.customInput} placeholder="Set status" />;
-        }}
-      </Field.Context>
-      <Field.HelperText>Uses getInputProps() for maximum flexibility.</Field.HelperText>
-      <Field.ErrorText>Status needs a resolution.</Field.ErrorText>
     </Field>
   );
 }

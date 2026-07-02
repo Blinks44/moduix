@@ -142,8 +142,8 @@ uncontrolled inputs use `defaultValue`.
 Use `asChild` when one semantic input element must own the rendered node. Ark merges the wrapper
 props, field props, class, and ref into that single child.
 
-For a control that is not input-compatible, use `Field.Context` and `context.getInputProps()`
-instead of forcing it through `Input`.
+For a control that is not input-compatible, do not force it through `Input`; compose it with a
+component that owns the correct Ark control primitive.
 
 ### Default props
 

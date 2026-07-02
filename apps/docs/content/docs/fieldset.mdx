@@ -117,8 +117,7 @@ Fieldset.Root | Fieldset.RootProvider
 ├─ Fieldset.Legend
 ├─ grouped controls
 ├─ Fieldset.HelperText (optional)
-├─ Fieldset.ErrorText (optional)
-└─ Fieldset.Context (optional)
+└─ Fieldset.ErrorText (optional)
 ```
 
 | Part                         | Role                                                                  |
@@ -128,7 +127,6 @@ Fieldset.Root | Fieldset.RootProvider
 | `Fieldset.Legend`            | Native `legend` and accessible group name.                            |
 | `Fieldset.HelperText`        | Description linked to the root through `aria-describedby`.            |
 | `Fieldset.ErrorText`         | Polite-live validation message rendered only while `invalid` is true. |
-| `Fieldset.Context`           | Inline access to IDs, state, refs, and prop getters.                  |
 
 ## Composition
 
@@ -142,9 +140,8 @@ Use `asChild` with one semantic child when a custom host must own a part.
 
 ### When to go custom
 
-Use `Fieldset.Context` for an inline state read and `useFieldsetContext` in reusable descendants.
-Use `useFieldset` with `Fieldset.RootProvider` when state is owned outside the rendered tree. Do not
-wrap a provider in `Fieldset.Root` for the same state instance.
+Use `useFieldset` from `@ark-ui/react/fieldset` with `Fieldset.RootProvider` when state is owned
+outside the rendered tree. Do not wrap a provider in `Fieldset.Root` for the same state instance.
 
 ### Default props
 
@@ -319,7 +316,8 @@ to coordinate with it.
 
   <Preview.Code>
     {`
-      import { Field, Fieldset, useFieldset } from "@moduix/react";
+      import { useFieldset } from "@ark-ui/react/fieldset";
+      import { Field, Fieldset } from "@moduix/react";
 
       export function ExternalFieldsetState() {
         const fieldset = useFieldset({ invalid: true });
@@ -332,9 +330,6 @@ to coordinate with it.
               <Field.Input type="email" defaultValue="invalid-address" />
             </Field>
             <Fieldset.ErrorText>Enter a valid email address.</Fieldset.ErrorText>
-            <Fieldset.Context>
-              {(context) => <output>Invalid: {String(context.invalid)}</output>}
-            </Fieldset.Context>
           </Fieldset.RootProvider>
         );
       }

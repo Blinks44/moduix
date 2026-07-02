@@ -1,9 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  Fieldset as FieldsetPrimitive,
-  useFieldset,
-  useFieldsetContext,
-} from '@ark-ui/react/fieldset';
+import { Fieldset as FieldsetPrimitive } from '@ark-ui/react/fieldset';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -79,31 +75,12 @@ const FieldsetErrorText = forwardRef<
   );
 });
 
-const FieldsetContext = FieldsetPrimitive.Context;
-
 const Fieldset = Object.assign(FieldsetRoot, {
   Root: FieldsetRoot,
   RootProvider: FieldsetRootProvider,
   Legend: FieldsetLegend,
   HelperText: FieldsetHelperText,
   ErrorText: FieldsetErrorText,
-  Context: FieldsetContext,
 });
 
-export { Fieldset, useFieldset, useFieldsetContext };
-export type {
-  FieldsetContextProps,
-  FieldsetErrorTextBaseProps,
-  FieldsetErrorTextProps,
-  FieldsetHelperTextBaseProps,
-  FieldsetHelperTextProps,
-  FieldsetLegendBaseProps,
-  FieldsetLegendProps,
-  FieldsetRootBaseProps,
-  FieldsetRootProps,
-  FieldsetRootProviderBaseProps,
-  FieldsetRootProviderProps,
-  UseFieldsetContext,
-  UseFieldsetProps,
-  UseFieldsetReturn,
-} from '@ark-ui/react/fieldset';
+export { Fieldset };

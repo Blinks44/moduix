@@ -13,8 +13,8 @@ required marker, and shared `disabled`, `invalid`, `required`, and `readOnly` st
 ## Upstream model to preserve
 
 The wrapper follows `@ark-ui/react/field`. Preserve Ark part names (`Root`, `RootProvider`,
-`Label`, `Input`, `Textarea`, `Select`, `HelperText`, `ErrorText`, `RequiredIndicator`, `Item`,
-`Context`), `useField`, `useFieldContext`, `ids`, `target`, `asChild`, and root state props.
+`Label`, `Input`, `Textarea`, `Select`, `HelperText`, `ErrorText`, `RequiredIndicator`, `Item`),
+`ids`, `target`, `asChild`, and root state props.
 
 Ark Field does not own legacy validation. It exposes `invalid` state and ARIA wiring; form
 libraries or app state decide when the field is invalid.
@@ -52,10 +52,6 @@ style hook.
 | `Field.HelperText`        | `Field.HelperText`        | `field-helper-text`        |
 | `Field.ErrorText`         | `Field.ErrorText`         | `field-error-text`         |
 | `Field.RequiredIndicator` | `Field.RequiredIndicator` | `field-required-indicator` |
-| `Field.Context`           | `Field.Context`           | none                       |
-
-The barrel also exports `useField`, `useFieldContext`, Ark prop types for all exported parts, the
-local `FieldItemProps` wrapper type, `UseFieldProps`, `UseFieldReturn`, and `UseFieldContext`.
 
 ## Composition
 
@@ -76,8 +72,9 @@ export function NameField() {
 }
 ```
 
-Use `Field.RootProvider` with `useField()` when state must be created outside the rendered tree.
-Do not render `Field.Root` and `Field.RootProvider` for the same field instance.
+Use `Field.RootProvider` with `useField()` from `@ark-ui/react/field` when state must be created
+outside the rendered tree. Do not render `Field.Root` and `Field.RootProvider` for the same field
+instance.
 
 ## Upstream feature coverage
 
@@ -90,8 +87,7 @@ Covered Ark examples:
 - checkbox composition via `Field` + `Checkbox`
 - radio group composition via `Field` + `RadioGroup`
 - read-only root state via `readOnly`
-- root provider via `useField` and `Field.RootProvider`
-- custom control via `Field.Context` or `useFieldContext`
+- root provider via Ark `useField` and `Field.RootProvider`
 - item-target label wiring via `Field.Item value` and root `target`
 
 Moduix does not implement legacy `validate`, `validationMode`, `match`, `dirty`, `touched`, or
@@ -123,7 +119,7 @@ contract. `--field-label-gap` defaults to `var(--spacing-2)`.
 `Field.Item` adds a local wrapper div because Ark's `Item` only provides nested field context and
 does not render a styleable row.
 
-No legacy compatibility aliases are exported. Consumers must use Ark names:
+No legacy compatibility aliases or Ark state hooks are exported. Consumers must use Ark names:
 `Field.Input`, `Field.HelperText`, `Field.ErrorText`, `Field.Textarea`, and `Field.Select`.
 
 ## Agent notes
@@ -134,9 +130,12 @@ their own `HiddenInput`; Field itself has no hidden input.
 
 ## Local changelog
 
+- 2026-07-02: Simplified the public surface to match other Ark-backed wrappers; kept callable root,
+  `RootProvider`, and visual parts while removing re-exported Ark hooks, context parts, and type
+  aliases from `moduix`.
 - 2026-06-25: Exported Ark part prop types through the field barrel, aligned
   `--field-label-gap` fallback with the documented theme default, and refreshed docs coverage for
-  `Field.Item`, `readOnly`, `Field.Context`, and `RootProvider`.
+  `Field.Item`, `readOnly`, and `RootProvider`.
 - 2026-06-19: Migrated `Field` to Ark UI, replaced legacy validation API with Ark
   field context, renamed public parts to Ark names, exposed provider/context hooks, and updated
   styling hooks.

@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Field as FieldPrimitive, useField, useFieldContext } from '@ark-ui/react/field';
+import { Field as FieldPrimitive } from '@ark-ui/react/field';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -147,8 +147,6 @@ const FieldRequiredIndicator = forwardRef<
   );
 });
 
-const FieldContext = FieldPrimitive.Context;
-
 const Field = Object.assign(FieldRoot, {
   Root: FieldRoot,
   RootProvider: FieldRootProvider,
@@ -160,33 +158,6 @@ const Field = Object.assign(FieldRoot, {
   HelperText: FieldHelperText,
   ErrorText: FieldErrorText,
   RequiredIndicator: FieldRequiredIndicator,
-  Context: FieldContext,
 });
 
-export { Field, useField, useFieldContext };
-export type {
-  FieldContextProps,
-  FieldErrorTextBaseProps,
-  FieldErrorTextProps,
-  FieldHelperTextBaseProps,
-  FieldHelperTextProps,
-  FieldInputBaseProps,
-  FieldInputProps,
-  FieldItemBaseProps,
-  FieldLabelBaseProps,
-  FieldLabelProps,
-  FieldRequiredIndicatorBaseProps,
-  FieldRequiredIndicatorProps,
-  FieldRootBaseProps,
-  FieldRootProps,
-  FieldRootProviderBaseProps,
-  FieldRootProviderProps,
-  FieldSelectBaseProps,
-  FieldSelectProps,
-  FieldTextareaBaseProps,
-  FieldTextareaProps,
-  UseFieldContext,
-  UseFieldProps,
-  UseFieldReturn,
-} from '@ark-ui/react/field';
-export type { FieldItemProps };
+export { Field };

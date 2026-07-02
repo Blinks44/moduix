@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useFieldset } from '@ark-ui/react/fieldset';
 import { Checkbox } from '../checkbox';
 import { Field } from '../field';
 import { RadioGroup } from '../radio-group';
-import { Fieldset, useFieldset } from './Fieldset';
+import { Fieldset } from './Fieldset';
 import styles from './Fieldset.stories.module.css';
 
 const meta = {
@@ -115,9 +116,6 @@ function RootProviderDemo() {
         <Field.Input defaultValue="" />
       </Field.Root>
       <Fieldset.ErrorText>A project name is required.</Fieldset.ErrorText>
-      <Fieldset.Context>
-        {(context) => <output>Invalid: {String(context.invalid)}</output>}
-      </Fieldset.Context>
     </Fieldset.RootProvider>
   );
 }

@@ -12,8 +12,8 @@ and provides shared disabled state to compatible descendants.
 
 ## Upstream model to preserve
 
-- Preserve Ark UI `Root`, `RootProvider`, `Legend`, `HelperText`, `ErrorText`, and `Context`.
-- Preserve `useFieldset`, `useFieldsetContext`, Ark IDs, refs, and context state without remapping.
+- Preserve Ark UI `Root`, `RootProvider`, `Legend`, `HelperText`, and `ErrorText`.
+- Preserve Ark IDs, refs, and root state without remapping.
 - Keep the native `fieldset` and `legend` semantics.
 
 ## Current behavior contract
@@ -31,8 +31,7 @@ Fieldset.Root | Fieldset.RootProvider
 ├─ Fieldset.Legend
 ├─ grouped controls
 ├─ Fieldset.HelperText (optional)
-├─ Fieldset.ErrorText (optional)
-└─ Fieldset.Context (optional state reader)
+└─ Fieldset.ErrorText (optional)
 ```
 
 | Part                    | `data-slot`              | Element/role                       |
@@ -42,9 +41,6 @@ Fieldset.Root | Fieldset.RootProvider
 | `Fieldset.Legend`       | `fieldset-legend`        | Native `legend`.                   |
 | `Fieldset.HelperText`   | `fieldset-helper-text`   | Descriptive `span`.                |
 | `Fieldset.ErrorText`    | `fieldset-error-text`    | Conditional polite-live `span`.    |
-| `Fieldset.Context`      | none                     | Inline Ark context render prop.    |
-
-The package barrel also exports `useFieldset`, `useFieldsetContext`, and the Ark fieldset types.
 
 ## Composition
 
@@ -65,15 +61,15 @@ export function ContactDetails() {
 }
 ```
 
-Use `asChild` with one semantic child when replacing a part's host. Use `useFieldset` with
-`Fieldset.RootProvider`; do not render `Fieldset.Root` around the same state instance.
+Use `asChild` with one semantic child when replacing a part's host. Use `useFieldset` from
+`@ark-ui/react/fieldset` with `Fieldset.RootProvider`; do not render `Fieldset.Root` around the
+same state instance.
 
 ## Upstream feature coverage
 
 - Basic grouped fields and native controls are supported.
 - Ark `Field`, checkbox, radio-group, and select compositions work as nested controls.
-- Root Provider is exposed through `useFieldset` and `Fieldset.RootProvider`.
-- Context state is exposed through `Fieldset.Context` and `useFieldsetContext`.
+- Root Provider is exposed through Ark `useFieldset` and `Fieldset.RootProvider`.
 - `id`, `disabled`, `invalid`, refs, and `asChild` are passed through unchanged.
 
 ## Accessibility and state
@@ -104,13 +100,16 @@ disabled and invalid state, and helper/error text typography and color.
 
 ## Agent notes
 
-- Keep all Ark parts, provider/context hooks, and public types exported.
+- Keep the visual parts and `RootProvider`; do not re-export Ark hooks, context parts, or types.
 - Keep `ErrorText` conditional; do not duplicate its visibility logic.
 - Do not restore `render`; Ark composition uses `asChild`.
 - Keep docs examples on the namespace API.
 
 ## Local changelog
 
+- 2026-07-02: Simplified the public surface to match other Ark-backed wrappers; preserved
+  `RootProvider` and visual parts while removing re-exported Ark hooks, context parts, and type
+  aliases from `moduix`.
 - 2026-06-25: Audited the Ark UI fieldset migration against upstream docs and runtime behavior;
   clarified disabled versus invalid propagation and synchronized docs examples with the short root
   component form.

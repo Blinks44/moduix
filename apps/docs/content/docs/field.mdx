@@ -8,7 +8,6 @@ import {
   FieldCheckboxExample,
   FieldControlledInvalidExample,
   FieldCssPropertiesPanel,
-  FieldCustomControlExample,
   FieldCustomStylesExample,
   FieldDisabledExample,
   FieldExample,
@@ -142,7 +141,6 @@ Field
 | `Field.ErrorText`         | Error text rendered only when `Field` is `invalid`.             |
 | `Field.RequiredIndicator` | Visual required marker with optional `fallback`.                |
 | `Field.Item`              | Item-scoped field context for grouped controls via `value`.     |
-| `Field.Context`           | Render-prop access to the current field context.                |
 
 ## Composition
 
@@ -153,9 +151,9 @@ or error text when the control needs description or validation feedback.
 
 ### When to go custom
 
-Use `Field.Context` or `useFieldContext` when a custom control needs Ark's generated control props.
 Use `Field.Item value` with root `target` when a field contains multiple native controls and the
-label should point to one of them.
+label should point to one of them. Use `asChild` when one semantic input element must own the
+rendered node.
 
 ### Default props
 
@@ -166,8 +164,8 @@ label should point to one of them.
 ### Behavioral notes
 
 - `Field.ErrorText` is absent from the DOM until the root is `invalid`.
-- `Field.RootProvider` must receive state from `useField()` and should not be nested inside
-  `Field.Root` for the same field instance.
+- `Field.RootProvider` must receive state from `useField()` imported from `@ark-ui/react/field`
+  and should not be nested inside `Field.Root` for the same field instance.
 - `Field` does not render a hidden input; composed controls such as `Checkbox` and `RadioGroup` own
   their own native form parts.
 
@@ -489,64 +487,6 @@ the whole choice set instead of individual native radio inputs.
   <Preview.Data>{`const defaultValue = "team";`}</Preview.Data>
 </Preview>
 
-### Custom Control
-
-Use `Field.Context` when a custom control must receive Ark's control props directly.
-
-<Preview>
-  <FieldCustomControlExample />
-
-  <Preview.Code>
-    {`
-      import { Field } from "@moduix/react";
-
-      export function CustomControlFieldDemo() {
-        return (
-          <Field invalid>
-            <Field.Label>Status</Field.Label>
-            <Field.Context>
-              {(field) => (
-                <input
-                  {...field.getInputProps()}
-                  className="customInput"
-                  placeholder="Set status"
-                />
-              )}
-            </Field.Context>
-            <Field.HelperText>
-              Uses getInputProps() for maximum flexibility.
-            </Field.HelperText>
-            <Field.ErrorText>Status needs a resolution.</Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customInput {
-        width: 100%;
-        min-height: var(--field-control-height, var(--size-lg));
-        border: var(--field-control-border-width, var(--border-width-sm))
-          solid var(--field-control-border-color, var(--color-border));
-        border-radius: var(--field-control-radius, var(--radius-md));
-        padding: var(--field-control-padding-y, 0.5rem)
-          var(--field-control-padding-x, 0.875rem);
-      }
-    `}
-  </Preview.CSS>
-  <Preview.Data>
-    {`
-      const invalid = true;
-      const placeholder = "Set status";
-      const errorText = "Status needs a resolution.";
-    `}
-
-  </Preview.Data>
-</Preview>
-
 ### Root Provider
 
 Use `useField` with `Field.RootProvider` when the field state must be owned outside the rendered
@@ -557,7 +497,8 @@ tree.
 
   <Preview.Code>
     {`
-      import { Field, useField } from "@moduix/react";
+      import { useField } from "@ark-ui/react/field";
+      import { Field } from "@moduix/react";
 
       export function RootProviderFieldDemo() {
         const field = useField({ id: "root-provider-field", required: true });

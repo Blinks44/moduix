@@ -1,6 +1,7 @@
 import type { ComponentProps } from 'react';
 import { createListCollection } from '@ark-ui/react/collection';
-import { Checkbox, Field, Fieldset, Select, useFieldset } from '@moduix/react';
+import { useFieldset } from '@ark-ui/react/fieldset';
+import { Checkbox, Field, Fieldset, Select } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './fieldset.module.css';
@@ -230,9 +231,6 @@ export function FieldsetRootProviderExample() {
         <Field.Input type="email" defaultValue="invalid-address" />
       </Field>
       <Fieldset.ErrorText>Enter a valid email address.</Fieldset.ErrorText>
-      <Fieldset.Context>
-        {(context) => <output className={styles.state}>Invalid: {String(context.invalid)}</output>}
-      </Fieldset.Context>
     </Fieldset.RootProvider>
   );
 }
