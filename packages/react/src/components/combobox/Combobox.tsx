@@ -3,13 +3,9 @@ import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
   type ComboboxRootComponent as ArkComboboxRootComponent,
-  type ComboboxRootComponentProps as ArkComboboxRootComponentProps,
   type ComboboxRootProps as ArkComboboxRootProps,
   type ComboboxRootProviderComponent as ArkComboboxRootProviderComponent,
   type ComboboxRootProviderProps as ArkComboboxRootProviderProps,
-  useCombobox,
-  useComboboxContext,
-  useComboboxItemContext,
 } from '@ark-ui/react/combobox';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
@@ -23,8 +19,6 @@ import {
 import styles from './Combobox.module.css';
 
 type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> & OverlayPortalProps;
-type ComboboxRootComponentProps<T extends CollectionItem = CollectionItem> =
-  ArkComboboxRootComponentProps<T, OverlayPortalProps>;
 type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProviderProps<T> &
   OverlayPortalProps;
 type ComboboxRootComponent = ArkComboboxRootComponent<OverlayPortalProps>;
@@ -267,9 +261,6 @@ const ComboboxItemIndicator = forwardRef<
   );
 });
 
-const ComboboxContext = ComboboxPrimitive.Context;
-const ComboboxItemContext = ComboboxPrimitive.ItemContext;
-
 const Combobox = Object.assign(ComboboxRoot, {
   Root: ComboboxRoot,
   RootProvider: ComboboxRootProvider,
@@ -287,62 +278,6 @@ const Combobox = Object.assign(ComboboxRoot, {
   Item: ComboboxItem,
   ItemText: ComboboxItemText,
   ItemIndicator: ComboboxItemIndicator,
-  Context: ComboboxContext,
-  ItemContext: ComboboxItemContext,
 });
 
-export { Combobox, useCombobox, useComboboxContext, useComboboxItemContext };
-export type {
-  ComboboxRootComponent,
-  ComboboxRootComponentProps,
-  ComboboxRootProps,
-  ComboboxRootProviderComponent,
-  ComboboxRootProviderProps,
-};
-export type {
-  CollectionItem as ComboboxCollectionItem,
-  ComboboxClearTriggerBaseProps,
-  ComboboxClearTriggerProps,
-  ComboboxContentBaseProps,
-  ComboboxContentProps,
-  ComboboxContextProps,
-  ComboboxControlBaseProps,
-  ComboboxControlProps,
-  ComboboxEmptyBaseProps,
-  ComboboxEmptyProps,
-  ComboboxFocusOutsideEvent,
-  ComboboxHighlightChangeDetails,
-  ComboboxInputBaseProps,
-  ComboboxInputProps,
-  ComboboxInputValueChangeDetails,
-  ComboboxInteractOutsideEvent,
-  ComboboxItemBaseProps,
-  ComboboxItemContextProps,
-  ComboboxItemGroupBaseProps,
-  ComboboxItemGroupLabelBaseProps,
-  ComboboxItemGroupLabelProps,
-  ComboboxItemGroupProps,
-  ComboboxItemIndicatorBaseProps,
-  ComboboxItemIndicatorProps,
-  ComboboxItemProps,
-  ComboboxItemTextBaseProps,
-  ComboboxItemTextProps,
-  ComboboxLabelBaseProps,
-  ComboboxLabelProps,
-  ComboboxListBaseProps,
-  ComboboxListProps,
-  ComboboxOpenChangeDetails,
-  ComboboxPointerDownOutsideEvent,
-  ComboboxPositionerBaseProps,
-  ComboboxPositionerProps,
-  ComboboxRootBaseProps,
-  ComboboxRootProviderBaseProps,
-  ComboboxSelectionDetails,
-  ComboboxTriggerBaseProps,
-  ComboboxTriggerProps,
-  ComboboxValueChangeDetails,
-  UseComboboxContext,
-  UseComboboxItemContext,
-  UseComboboxProps,
-  UseComboboxReturn,
-} from '@ark-ui/react/combobox';
+export { Combobox };

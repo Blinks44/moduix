@@ -1,9 +1,9 @@
-import type { UseComboboxContext } from '@ark-ui/react/combobox';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
+import { useCombobox } from '@ark-ui/react/combobox';
 import { useFilter } from '@ark-ui/react/locale';
 import { useMemo, useState } from 'react';
-import { Combobox, useCombobox } from './Combobox';
+import { Combobox } from './Combobox';
 import styles from './Combobox.stories.module.css';
 
 const meta = {
@@ -139,28 +139,28 @@ function GroupedStory() {
 function MultipleStory() {
   const { contains } = useFilter({ sensitivity: 'base' });
   const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });
+  const [value, setValue] = useState<string[]>([]);
+  const selectedItems = fruits.filter((item) => value.includes(item.value));
 
   return (
     <Combobox.Root
       collection={collection}
+      value={value}
+      onValueChange={(details) => setValue(details.value)}
       onInputValueChange={(details) => filter(details.inputValue)}
       multiple
     >
       <Combobox.Label>Fruits</Combobox.Label>
-      <Combobox.Context>
-        {(context: UseComboboxContext<(typeof fruits)[number]>) => (
-          <div className={styles.tags}>
-            {context.selectedItems.length === 0 ? (
-              <span className={styles.tagPlaceholder}>None selected</span>
-            ) : null}
-            {context.selectedItems.map((item) => (
-              <span key={item.value} className={styles.tag}>
-                {item.label}
-              </span>
-            ))}
-          </div>
-        )}
-      </Combobox.Context>
+      <div className={styles.tags}>
+        {selectedItems.length === 0 ? (
+          <span className={styles.tagPlaceholder}>None selected</span>
+        ) : null}
+        {selectedItems.map((item) => (
+          <span key={item.value} className={styles.tag}>
+            {item.label}
+          </span>
+        ))}
+      </div>
       <Combobox.Control>
         <Combobox.Input placeholder="Search fruits" />
         <Combobox.Trigger aria-label="Open options" />

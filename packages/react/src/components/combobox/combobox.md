@@ -14,23 +14,26 @@ filterable collection.
 
 - Uses `@ark-ui/react/combobox` directly.
 - Keeps Ark collection-first state: `Root` requires a `ListCollection`.
-- Keeps Ark part names, callback detail objects, controlled state, provider/context APIs, filtering,
+- Keeps Ark part names, callback detail objects, controlled state, `RootProvider`, filtering,
   grouping, custom objects, multiple selection, async collections, and form behavior.
 - Keeps popup structure explicit through Ark `Positioner` and `Content`; the root owns portalling.
 
 ## Current behavior contract
 
-`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to
+render it inline, or pass `portalRef` to target a custom container. The structural parts remain
+explicit and independently styleable.
 
 - Public composition is `Combobox.Root`, `Label`, `Control`, `Input`, `ClearTrigger`, `Trigger`,
   `Positioner`, `Content`, `Empty`, `List`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`, and
   `ItemIndicator`.
+- `Combobox.RootProvider` renders the styled root for state created with Ark `useCombobox`.
 - `Combobox.Root` requires `collection`; use `createListCollection()` or `useListCollection()`.
 - `onValueChange`, `onInputValueChange`, `onOpenChange`, and `onHighlightChange` preserve Ark detail
   objects without remapping.
-- `useCombobox`, `useComboboxContext`, and `useComboboxItemContext` are re-exported for
-  canonical Ark workflows. Import collection helpers from `@ark-ui/react/collection` and
-  `useFilter` from `@ark-ui/react/locale`.
+- Context parts, hooks, and types are imported directly from `@ark-ui/react/combobox`. Import
+  collection helpers from `@ark-ui/react/collection` and `useFilter` from
+  `@ark-ui/react/locale`.
 - `Combobox.Trigger`, `Combobox.ClearTrigger`, and `Combobox.ItemIndicator` provide default moduix
   icons when children are omitted.
 
@@ -56,8 +59,8 @@ Combobox.Root
             └─ Combobox.Item
 ```
 
-All styled parts expose matching kebab-case `data-slot` hooks. `Context` and `ItemContext` expose
-Ark state without rendering a DOM node. `RootProvider` accepts a state object from `useCombobox`.
+All styled parts expose matching kebab-case `data-slot` hooks. `RootProvider` accepts state created
+with Ark `useCombobox` and keeps the same root styling and portal contract.
 
 ## Composition
 
@@ -110,23 +113,21 @@ export function ComboboxExample() {
 - Controlled state: Ark `value`, `inputValue`, `open`, and detail callbacks.
 - Custom objects: `itemToString` and `itemToValue` on the collection.
 - Grouping: `groupBy`, `collection.group()`, `ItemGroup`, and `ItemGroupLabel`.
-- Multiple selection: `multiple` plus `Context.selectedItems`; no combobox-specific chip API.
+- Multiple selection: `multiple` plus controlled `value`; no combobox-specific chip API.
 - Async search: replace collection items and handle `details.reason` from
   `onInputValueChange`.
 - Creatable values: preserved through `allowCustomValue`.
-- Provider state: `useCombobox` plus `RootProvider`.
-- Context state: `Context`, `ItemContext`, `useComboboxContext`, and `useComboboxItemContext`.
-- Async value rehydration: `useComboboxContext().syncSelectedItems()` after a delayed collection
-  receives items for an existing `value` or `defaultValue`.
+- Provider state: Ark `useCombobox` plus moduix `RootProvider`.
+- Context state remains available directly from `@ark-ui/react/combobox`.
 - Virtualization: preserved through `scrollToIndexFn` and collection-driven item rendering.
 - Form integration: preserved through Ark root props such as `name` and `form`. The current
   `@ark-ui/react` Combobox package does not expose a `HiddenInput` part.
 - Ark `Field.Root` context is preserved by the primitive. The current moduix `Field` wrapper is
   still legacy, so consumers that need Ark field-context inheritance must compose with
   `@ark-ui/react/field` until that component is migrated.
-- Public docs adapt 15 of Ark's 17 React examples (88%). The dedicated Field example is deferred
-  to the moduix Field migration, and matching-text highlighting remains ordinary composition
-  because moduix does not currently ship an Ark Highlight wrapper.
+- The dedicated Field example is deferred to the moduix Field migration, and matching-text
+  highlighting remains ordinary composition because moduix does not currently ship an Ark
+  Highlight wrapper.
 
 ## Accessibility and state
 
@@ -154,8 +155,8 @@ export function ComboboxExample() {
 ## Intentional sugar and differences from upstream
 
 - moduix ships default icons for `Trigger`, `ClearTrigger`, and `ItemIndicator`.
-- moduix re-exports combobox state hooks. Collection helpers and locale filters
-  stay imported from Ark UI.
+- moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
+  aliases. Advanced consumers import those directly from `@ark-ui/react/combobox`.
 - Removed legacy `Field`, `Value`, `InputGroup`, `ControlActions`, popup aliases, arrow,
   backdrop, status, row, separator, collection render props, and chip parts.
 - Removed legacy root props such as `items`, `itemToStringLabel`, `filter`, `filteredItems`,
@@ -166,11 +167,13 @@ export function ComboboxExample() {
 - Keep `Positioner` and `Content` explicit; only portal transport belongs to the root.
 - Keep `collection` required and callbacks Ark-shaped.
 - Do not reintroduce combobox-owned chips; multiple-value rendering belongs in consumer composition
-  through `Context`.
-- Keep generic inference on `Root` and `RootProvider`.
+  through controlled state.
+- Keep generic inference on the callable root, `Root`, and `RootProvider`.
 
 ## Local changelog
 
+- 2026-07-02: Removed duplicate Ark type exports, context parts, and state hooks from the moduix
+  surface. Kept `RootProvider`, the callable root, and every styled visual part.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-27: Aligned `Combobox.Input asChild` with Ark composition so composed inputs keep their

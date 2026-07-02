@@ -1,4 +1,5 @@
 import { useListCollection } from '@ark-ui/react/collection';
+import { useCombobox } from '@ark-ui/react/combobox';
 import { useFilter } from '@ark-ui/react/locale';
 import {
   Combobox,
@@ -6,7 +7,6 @@ import {
   TagsInput,
   type TagsInputInputValueChangeDetails,
   type TagsInputValueChangeDetails,
-  useCombobox,
   useTagsInput,
 } from '@moduix/react';
 import { useId, useState } from 'react';

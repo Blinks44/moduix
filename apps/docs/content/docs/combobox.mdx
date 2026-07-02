@@ -9,7 +9,6 @@ import {
   AutoHighlightComboboxExample,
   ComboboxCssPropertiesPanel,
   ComboboxExample,
-  ContextComboboxExample,
   ControlledComboboxExample,
   CreatableComboboxExample,
   DynamicComboboxExample,
@@ -18,7 +17,6 @@ import {
   LimitComboboxExample,
   LinksComboboxExample,
   MultipleComboboxExample,
-  RehydrateValueComboboxExample,
   RootProviderComboboxExample,
   VirtualizedComboboxExample,
   comboboxExampleCss,
@@ -177,8 +175,8 @@ Combobox.Root[collection]
 | `Combobox.ItemText`          | Text label slot inside an item.                                    |
 | `Combobox.ItemIndicator`     | Selected/highlight indicator slot for an item.                     |
 
-`Combobox.RootProvider`, `Combobox.Context`, and `Combobox.ItemContext` expose the corresponding
-Ark provider and context paths.
+`Combobox.RootProvider` renders the same styled root around state created with Ark `useCombobox`.
+Context parts and hooks remain direct Ark imports.
 
 ## Composition
 
@@ -194,12 +192,13 @@ the root only automates the portal boundary.
 
 ### When to go custom
 
-Use `Combobox.Context` when adjacent UI needs `selectedItems`, `valueAsString`, focus methods, or
-other root state. Use `useCombobox` with `Combobox.RootProvider` when state must be created outside
-the rendered subtree.
+Use controlled `value` and Ark detail callbacks when adjacent UI needs selected values. When state
+must be created outside the rendered subtree, create it with Ark `useCombobox` and render
+`Combobox.RootProvider`. Context and state hooks remain available directly from
+`@ark-ui/react/combobox`.
 
 Multiple selection does not add a combobox-specific chip API. Render tags or another value summary
-from `Combobox.Context`, then keep selection behavior on `Combobox.Root multiple`.
+from controlled state, then keep selection behavior on `Combobox.Root multiple`.
 
 Use ordinary elements inside `Combobox.Content` for loading and error status. Ark does not expose a
 combobox `Status` part.
@@ -225,8 +224,9 @@ combobox `Status` part.
 - All Ark DOM parts preserve `asChild`.
 - The current Ark Combobox package does not expose a `HiddenInput` part. Use the root `name` and
   `form` props for Ark's built-in form submission behavior.
-- `useComboboxContext` and `useComboboxItemContext` are exported from `moduix` alongside
-  `Combobox.Context` and `Combobox.ItemContext`.
+- `Combobox.RootProvider` preserves moduix root styling and portal configuration for externally
+  created Ark state. Hooks, context parts, and Ark types are imported directly from
+  `@ark-ui/react/combobox`.
 - Ark `Field.Root` state inheritance remains available when composing with `@ark-ui/react/field`.
   The current moduix `Field` component has not migrated to the Ark field contract yet and does not provide Ark field
   context.
@@ -1018,92 +1018,20 @@ Map object labels and values on the collection, then render Ark item groups from
   </Preview.Data>
 </Preview>
 
-### Context
-
-Use `Combobox.Context` for inline access to selected values and root methods without creating a
-separate state owner.
-
-<Preview>
-  <ContextComboboxExample />
-
-  <Preview.Code>
-    {`
-      import type { UseComboboxContext } from "@moduix/react";
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox } from "@moduix/react";
-
-      export function ContextComboboxDemo() {
-        const { contains } = useFilter({ sensitivity: "base" });
-        const { collection, filter } = useListCollection({
-          initialItems: sizes,
-          filter: contains,
-        });
-
-        return (
-          <Combobox
-            collection={collection}
-            onInputValueChange={(details) => filter(details.inputValue)}
-          >
-            <Combobox.Context>
-              {(context: UseComboboxContext<(typeof sizes)[number]>) => (
-                <span>Selected: {context.valueAsString || "none"}</span>
-              )}
-            </Combobox.Context>
-            <Combobox.Label>Size</Combobox.Label>
-            <Combobox.Control>
-              <Combobox.Input placeholder="e.g. Medium" />
-              <Combobox.ClearTrigger aria-label="Clear selection" />
-              <Combobox.Trigger aria-label="Open options" />
-            </Combobox.Control>
-            <Combobox.Positioner>
-              <Combobox.Content>
-                <Combobox.List>
-                  {collection.items.map((item) => (
-                    <Combobox.Item key={item.value} item={item}>
-                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                      <Combobox.ItemIndicator />
-                    </Combobox.Item>
-                  ))}
-                </Combobox.List>
-              </Combobox.Content>
-            </Combobox.Positioner>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const sizes = [
-        { label: "Small", value: "sm" },
-        { label: "Medium", value: "md" },
-        { label: "Large", value: "lg" },
-        { label: "Extra Large", value: "xl" },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
 ### Multiple
 
-Enable `multiple` and render the selected objects from `Combobox.Context`. Tags are consumer
-composition rather than combobox parts.
+Enable `multiple` and render selected objects from controlled `value`. Tags are consumer composition
+rather than combobox parts.
 
 <Preview>
   <MultipleComboboxExample />
 
   <Preview.Code>
     {`
-      import type { UseComboboxContext } from "@moduix/react";
       import { useListCollection } from "@ark-ui/react/collection";
       import { useFilter } from "@ark-ui/react/locale";
       import { Combobox } from "@moduix/react";
+      import { useState } from "react";
 
       export function MultipleComboboxDemo() {
         const { contains } = useFilter({ sensitivity: "base" });
@@ -1111,28 +1039,28 @@ composition rather than combobox parts.
           initialItems: fruits,
           filter: contains,
         });
+        const [value, setValue] = useState([]);
+        const selectedItems = fruits.filter((item) => value.includes(item.value));
 
         return (
           <Combobox
             collection={collection}
+            value={value}
+            onValueChange={(details) => setValue(details.value)}
             onInputValueChange={(details) => filter(details.inputValue)}
             multiple
           >
             <Combobox.Label>Fruits</Combobox.Label>
-            <Combobox.Context>
-              {(context: UseComboboxContext<(typeof fruits)[number]>) => (
-                <div className="tags">
-                  {context.selectedItems.length === 0 ? (
-                    <span className="note">None selected</span>
-                  ) : null}
-                  {context.selectedItems.map((item) => (
-                    <span key={item.value} className="tag">
-                      {item.label}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </Combobox.Context>
+            <div className="tags">
+              {selectedItems.length === 0 ? (
+                <span className="note">None selected</span>
+              ) : null}
+              {selectedItems.map((item) => (
+                <span key={item.value} className="tag">
+                  {item.label}
+                </span>
+              ))}
+            </div>
             <Combobox.Control>
               <Combobox.Input placeholder="Search fruits" />
               <Combobox.Trigger aria-label="Open options" />
@@ -1299,108 +1227,11 @@ from machine-driven input updates.
   </Preview.Data>
 </Preview>
 
-### Rehydrate Value
-
-When an existing value arrives before its object collection, call
-`useComboboxContext().syncSelectedItems()` after the collection loads so the input can resolve the
-selected object.
-
-<Preview>
-  <RehydrateValueComboboxExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Combobox,
-        useCombobox,
-        useComboboxContext,
-      } from "@moduix/react";
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { useEffect, useRef } from "react";
-
-      function RehydrateComboboxValue() {
-        const combobox = useComboboxContext();
-        const hydrated = useRef(false);
-
-        useEffect(() => {
-          if (
-            combobox.value.length &&
-            combobox.collection.size &&
-            !hydrated.current
-          ) {
-            combobox.syncSelectedItems();
-            hydrated.current = true;
-          }
-        }, [combobox]);
-
-        return null;
-      }
-
-      export function RehydrateValueComboboxDemo() {
-        const { collection, set } = useListCollection({
-          initialItems: [],
-          itemToString: (item) => item.name,
-          itemToValue: (item) => item.name,
-        });
-        const combobox = useCombobox({
-          collection,
-          defaultValue: ["C-3PO"],
-          placeholder: "e.g. Luke",
-        });
-
-        useEffect(() => {
-          const timeout = window.setTimeout(() => set(characters), 400);
-          return () => window.clearTimeout(timeout);
-        }, [set]);
-
-        return (
-          <Combobox.RootProvider value={combobox}>
-            <Combobox.Label>Character</Combobox.Label>
-            <RehydrateComboboxValue />
-            <Combobox.Control>
-              <Combobox.Input />
-              <Combobox.ClearTrigger aria-label="Clear selection" />
-              <Combobox.Trigger aria-label="Open options" />
-            </Combobox.Control>
-            <Combobox.Positioner>
-              <Combobox.Content>
-                <Combobox.List>
-                  {collection.items.map((item) => (
-                    <Combobox.Item key={item.name} item={item}>
-                      <Combobox.ItemText>
-                        {item.name} · {item.height} cm / {item.mass} kg
-                      </Combobox.ItemText>
-                      <Combobox.ItemIndicator />
-                    </Combobox.Item>
-                  ))}
-                </Combobox.List>
-              </Combobox.Content>
-            </Combobox.Positioner>
-          </Combobox.RootProvider>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const characters = [
-        { name: "C-3PO", height: "167", mass: "75" },
-        { name: "R2-D2", height: "96", mass: "32" },
-        { name: "Luke Skywalker", height: "172", mass: "77" },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
 ### Root Provider
 
-Create the Ark machine with `useCombobox` when external controls need imperative methods or shared
-state before the root renders.
+Create the state with Ark `useCombobox` when external controls need imperative methods or shared
+state before the root renders. `Combobox.RootProvider` preserves the moduix root styling and portal
+configuration.
 
 <Preview>
   <RootProviderComboboxExample />
@@ -1408,7 +1239,8 @@ state before the root renders.
   <Preview.Code>
     {`
       import { createListCollection } from "@ark-ui/react/collection";
-      import { Combobox, useCombobox } from "@moduix/react";
+      import { useCombobox } from "@ark-ui/react/combobox";
+      import { Combobox } from "@moduix/react";
 
       const collection = createListCollection({ items: jobTitles });
 

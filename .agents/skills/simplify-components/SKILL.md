@@ -15,10 +15,12 @@ implementation direct.
   upstream types directly from Ark UI.
 - Preserve the callable root assembled with `Object.assign`. Both `<Component>` and
   `<Component.Root>` are intentional supported forms.
-- Remove advanced state-machine APIs from the moduix public surface when ordinary component usage
-  does not need them. This includes `RootProvider`, renderless `Context` / `ItemContext` parts, and
-  `useComponent` / context hooks. Import these directly from Ark UI when an advanced workflow needs
-  them.
+- Preserve `RootProvider` when Ark exposes it. The moduix wrapper must keep root styling, refs,
+  `data-slot`, portal configuration, and other shared root behavior for externally owned Ark state.
+- Remove other advanced state-machine APIs from the moduix public surface when ordinary component
+  usage does not need them. This includes renderless `Context` / `ItemContext` parts and
+  `useComponent` / context hooks. Import hooks and context APIs directly from Ark UI when an
+  advanced workflow needs them.
 - Preserve every meaningful visual or structural part, including controls, labels, positioners,
   content, groups, items, indicators, and empty states. Users must retain direct styling and
   composition access.
@@ -37,8 +39,8 @@ implementation direct.
    convenience sugar, or advanced Ark state API.
 3. Remove duplicate public type exports. Keep the minimum private generic types needed to preserve
    inference and refs.
-4. Remove advanced state API only after locating and updating internal dependants. Do not remove a
-   visual part merely because its use case is uncommon.
+4. Keep `RootProvider`, then remove other advanced state API only after locating and updating
+   internal dependants. Do not remove a visual part merely because its use case is uncommon.
 5. Keep wrappers explicit and preserve Ark props, refs, `asChild`, callback details, accessibility,
    data attributes, and generic inference.
 6. Synchronize affected stories, docs, barrels, registry metadata, and generated registry output.

@@ -1,7 +1,7 @@
-import type { UseComboboxContext } from '@moduix/react';
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
+import { useCombobox } from '@ark-ui/react/combobox';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox, useCombobox, useComboboxContext } from '@moduix/react';
+import { Combobox } from '@moduix/react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
@@ -47,25 +47,6 @@ const seaCreatures = [
   { label: 'Octopus', value: 'octopus' },
   { label: 'Jellyfish', value: 'jellyfish' },
   { label: 'Seahorse', value: 'seahorse' },
-];
-
-const sizes = [
-  { label: 'Small', value: 'sm' },
-  { label: 'Medium', value: 'md' },
-  { label: 'Large', value: 'lg' },
-  { label: 'Extra Large', value: 'xl' },
-];
-
-type Character = {
-  name: string;
-  height: string;
-  mass: string;
-};
-
-const characters: Character[] = [
-  { name: 'C-3PO', height: '167', mass: '75' },
-  { name: 'R2-D2', height: '96', mass: '32' },
-  { name: 'Luke Skywalker', height: '172', mass: '77' },
 ];
 
 const developerResources = [
@@ -205,28 +186,26 @@ export function GroupedComboboxExample() {
 export function MultipleComboboxExample() {
   const { contains } = useFilter({ sensitivity: 'base' });
   const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });
+  const [value, setValue] = useState<string[]>([]);
+  const selectedItems = fruits.filter((item) => value.includes(item.value));
 
   return (
     <Combobox.Root
       collection={collection}
+      value={value}
+      onValueChange={(details) => setValue(details.value)}
       onInputValueChange={(details) => filter(details.inputValue)}
       multiple
     >
       <Combobox.Label>Fruits</Combobox.Label>
-      <Combobox.Context>
-        {(context: UseComboboxContext<(typeof fruits)[number]>) => (
-          <div className={styles.tags}>
-            {context.selectedItems.length === 0 ? (
-              <span className={styles.note}>None selected</span>
-            ) : null}
-            {context.selectedItems.map((item) => (
-              <span key={item.value} className={styles.tag}>
-                {item.label}
-              </span>
-            ))}
-          </div>
-        )}
-      </Combobox.Context>
+      <div className={styles.tags}>
+        {selectedItems.length === 0 ? <span className={styles.note}>None selected</span> : null}
+        {selectedItems.map((item) => (
+          <span key={item.value} className={styles.tag}>
+            {item.label}
+          </span>
+        ))}
+      </div>
       <Combobox.Control>
         <Combobox.Input placeholder="Search fruits" />
         <Combobox.Trigger aria-label="Open options" />
@@ -369,92 +348,6 @@ export function InlineAutocompleteComboboxExample() {
       </Combobox.Control>
       <Popup items={collection.items} />
     </Combobox.Root>
-  );
-}
-
-export function ContextComboboxExample() {
-  const { contains } = useFilter({ sensitivity: 'base' });
-  const { collection, filter } = useListCollection({ initialItems: sizes, filter: contains });
-
-  return (
-    <div className={styles.stack}>
-      <Combobox.Root
-        collection={collection}
-        onInputValueChange={(details) => filter(details.inputValue)}
-      >
-        <Combobox.Context>
-          {(context: UseComboboxContext<(typeof sizes)[number]>) => (
-            <span className={styles.note}>Selected: {context.valueAsString || 'none'}</span>
-          )}
-        </Combobox.Context>
-        <Combobox.Label>Size</Combobox.Label>
-        <Combobox.Control>
-          <Combobox.Input placeholder="e.g. Medium" />
-          <Combobox.ClearTrigger aria-label="Clear selection" />
-          <Combobox.Trigger aria-label="Open options" />
-        </Combobox.Control>
-        <Popup items={collection.items} />
-      </Combobox.Root>
-    </div>
-  );
-}
-
-function RehydrateComboboxValue() {
-  const combobox = useComboboxContext();
-  const hydrated = useRef(false);
-
-  useEffect(() => {
-    if (combobox.value.length && combobox.collection.size && !hydrated.current) {
-      combobox.syncSelectedItems();
-      hydrated.current = true;
-    }
-  }, [combobox]);
-
-  return null;
-}
-
-export function RehydrateValueComboboxExample() {
-  const { collection, set } = useListCollection<Character>({
-    initialItems: [],
-    itemToString: (item) => item.name,
-    itemToValue: (item) => item.name,
-  });
-  const combobox = useCombobox({
-    collection,
-    defaultValue: ['C-3PO'],
-    placeholder: 'e.g. Luke',
-  });
-
-  useEffect(() => {
-    const timeout = window.setTimeout(() => set(characters), 400);
-    return () => window.clearTimeout(timeout);
-  }, [set]);
-
-  return (
-    <Combobox.RootProvider value={combobox}>
-      <Combobox.Label>Character</Combobox.Label>
-      <RehydrateComboboxValue />
-      <Combobox.Control>
-        <Combobox.Input />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          {collection.size === 0 ? <div className={styles.status}>Loading…</div> : null}
-          <Combobox.List>
-            {collection.items.map((item) => (
-              <Combobox.Item key={item.name} item={item}>
-                <Combobox.ItemText>
-                  {item.name} · {item.height} cm / {item.mass} kg
-                </Combobox.ItemText>
-                <Combobox.ItemIndicator />
-              </Combobox.Item>
-            ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.RootProvider>
   );
 }
 
