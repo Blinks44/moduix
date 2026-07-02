@@ -116,6 +116,9 @@ Primary CSS variable:
 
 ## Local changelog
 
+- 2026-07-02: Removed the duplicate root prop type from the public moduix surface while preserving
+  the callable root, `AspectRatio.Root`, `asChild`, refs, numeric ratio contract, and styled media
+  frame behavior.
 - 2026-06-17: Migrated `AspectRatio` to an Ark-aligned factory wrapper, added `AspectRatio.Root`,
   removed preset ratio aliases, and aligned docs/examples to numeric `ratio`.
 - 2026-06-18: Audited the Ark factory contract, documented valid ratio constraints and `asChild`,

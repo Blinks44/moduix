@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "packages/react/src/components/aspect-ratio/AspectRatio.tsx",
-      "content": "import type { HTMLArkProps } from '@ark-ui/react/factory';\nimport { ark } from '@ark-ui/react/factory';\nimport { clsx } from 'clsx';\nimport { forwardRef } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './AspectRatio.module.css';\n\ntype AspectRatioRootProps = HTMLArkProps<'div'> & {\n  ratio: number;\n};\n\nconst AspectRatioRoot = forwardRef<HTMLDivElement, AspectRatioRootProps>(function AspectRatioRoot(\n  { ratio, className, style, ...props },\n  ref,\n) {\n  return (\n    <ark.div\n      ref={ref}\n      data-scope=\"aspect-ratio\"\n      data-part=\"root\"\n      data-slot=\"aspect-ratio-root\"\n      className={clsx(styles.root, normalizeClassName(className))}\n      style={{ aspectRatio: ratio, ...style }}\n      {...props}\n    />\n  );\n});\n\nconst AspectRatio = Object.assign(AspectRatioRoot, {\n  Root: AspectRatioRoot,\n});\n\nexport { AspectRatio };\nexport type { AspectRatioRootProps };",
+      "content": "import { ark } from '@ark-ui/react/factory';\nimport { clsx } from 'clsx';\nimport { forwardRef, type ComponentProps, type ComponentRef } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './AspectRatio.module.css';\n\ntype AspectRatioRootProps = ComponentProps<typeof ark.div> & {\n  ratio: number;\n};\n\nconst AspectRatioRoot = forwardRef<ComponentRef<typeof ark.div>, AspectRatioRootProps>(\n  function AspectRatioRoot({ ratio, className, style, ...props }, ref) {\n    return (\n      <ark.div\n        ref={ref}\n        data-scope=\"aspect-ratio\"\n        data-part=\"root\"\n        data-slot=\"aspect-ratio-root\"\n        className={clsx(styles.root, normalizeClassName(className))}\n        style={{ aspectRatio: ratio, ...style }}\n        {...props}\n      />\n    );\n  },\n);\n\nconst AspectRatio = Object.assign(AspectRatioRoot, {\n  Root: AspectRatioRoot,\n});\n\nexport { AspectRatio };",
       "type": "registry:component",
       "target": "@components/moduix/aspect-ratio/AspectRatio.tsx"
     },
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/aspect-ratio/index.ts",
-      "content": "export { AspectRatio } from './AspectRatio';\nexport type { AspectRatioRootProps } from './AspectRatio';",
+      "content": "export { AspectRatio } from './AspectRatio';",
       "type": "registry:component",
       "target": "@components/moduix/aspect-ratio/index.ts"
     }
