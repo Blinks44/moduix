@@ -241,7 +241,7 @@ Use `useListCollection` with `itemToString`, `itemToValue`, and `groupBy`, then 
 
 ### When to go custom
 
-Set `closeOnSelect={false}` on `CommandPalette.Combobox` when selecting a command should update palette state instead of closing the dialog. Use `CommandPalette.Title` or `aria-label` on the root to provide the dialog name, and use `CommandPalette.RootProvider` / `CommandPalette.ComboboxRootProvider` only when external code owns those Ark state machines.
+Set `closeOnSelect={false}` on `CommandPalette.Combobox` when selecting a command should update palette state instead of closing the dialog. Use `CommandPalette.Title` or `aria-label` on the root to provide the dialog name. Keep `CommandPalette.RootProvider` for externally owned dialog state, and import advanced combobox provider/context APIs directly from `@ark-ui/react/combobox` when you need them.
 
 ### Default props
 

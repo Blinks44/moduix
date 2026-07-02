@@ -5,8 +5,6 @@ import {
   type CollectionItem,
   type ComboboxRootComponent,
   type ComboboxRootProps,
-  type ComboboxRootProviderComponent,
-  type ComboboxRootProviderProps,
 } from '@ark-ui/react/combobox';
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
 import { ark } from '@ark-ui/react/factory';
@@ -322,19 +320,6 @@ const CommandPaletteCombobox = forwardRef(function CommandPaletteCombobox<T exte
   );
 }) as ComboboxRootComponent;
 
-const CommandPaletteComboboxRootProvider = forwardRef(function CommandPaletteComboboxRootProvider<
-  T extends CollectionItem,
->({ className, ...props }: ComboboxRootProviderProps<T>, ref: ForwardedRef<HTMLDivElement>) {
-  return (
-    <ComboboxPrimitive.RootProvider
-      ref={ref}
-      data-slot="command-palette-combobox-root-provider"
-      className={clsx(styles.combobox, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}) as ComboboxRootProviderComponent;
-
 const CommandPaletteControl = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.Control>,
   ComponentProps<typeof ComboboxPrimitive.Control>
@@ -602,10 +587,6 @@ function CommandPaletteKbd({ className, ...props }: ComponentProps<typeof Kbd.Ro
   );
 }
 
-const CommandPaletteContext = DialogPrimitive.Context;
-const CommandPaletteComboboxContext = ComboboxPrimitive.Context;
-const CommandPaletteItemContext = ComboboxPrimitive.ItemContext;
-
 const CommandPalette = Object.assign(CommandPaletteRoot, {
   Root: CommandPaletteRoot,
   RootProvider: CommandPaletteRootProvider,
@@ -617,7 +598,6 @@ const CommandPalette = Object.assign(CommandPaletteRoot, {
   Description: CommandPaletteDescription,
   CloseTrigger: CommandPaletteCloseTrigger,
   Combobox: CommandPaletteCombobox,
-  ComboboxRootProvider: CommandPaletteComboboxRootProvider,
   Control: CommandPaletteControl,
   Input: CommandPaletteInput,
   ClearTrigger: CommandPaletteClearTrigger,
@@ -635,10 +615,6 @@ const CommandPalette = Object.assign(CommandPaletteRoot, {
   Separator: CommandPaletteSeparator,
   Footer: CommandPaletteFooter,
   Kbd: CommandPaletteKbd,
-  Context: CommandPaletteContext,
-  ComboboxContext: CommandPaletteComboboxContext,
-  ItemContext: CommandPaletteItemContext,
 });
 
 export { CommandPalette };
-export type { CommandPaletteRootProps, CommandPaletteRootProviderProps };

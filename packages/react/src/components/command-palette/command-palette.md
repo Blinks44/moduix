@@ -72,12 +72,9 @@ When consumers filter an external `useListCollection`, reset that filter when th
 - `CommandPalette.Title` / `CommandPalette.Description`: Ark Dialog accessible title and description.
 - `CommandPalette.CloseTrigger`: Ark Dialog close trigger with a default close icon and label.
 - `CommandPalette.Combobox`: Ark Combobox root with command-palette defaults.
-- `CommandPalette.ComboboxRootProvider`: Ark Combobox root provider for externally owned combobox state.
 - `CommandPalette.Control`, `Input`, `ClearTrigger`, `List`, `Empty`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`, `ItemIndicator`: Ark Combobox parts styled for command-palette layout. `ClearTrigger` renders a default icon and label. `List` includes the local moduix `ScrollArea`.
 - `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta`, `Separator`, `Footer`: Ark factory-based moduix leaf parts for command metadata and footer affordances.
 - `CommandPalette.Kbd`: command-palette scoped wrapper around the local `Kbd.Root`.
-- `CommandPalette.Context`: Ark Dialog context.
-- `CommandPalette.ComboboxContext` / `CommandPalette.ItemContext`: Ark Combobox context parts.
 
 ## Composition
 
@@ -128,7 +125,7 @@ const { collection, filter } = useListCollection({
 
 The wrapper covers the relevant Ark Dialog surface through Ark `useDialog`: controlled and uncontrolled open state, `onOpenChange(details)`, modal/non-modal behavior, focus trapping, escape and outside-interaction dismissal, `ids`, `initialFocusEl`, `finalFocusEl`, lazy mounting, `present`, `RootProvider`, and `Context`.
 
-The wrapper covers the relevant Ark Combobox surface for command search: `collection`, `useListCollection`, custom objects via `itemToString` and `itemToValue`, filtering through `onInputValueChange(details)`, grouping through `collection.group()`, `inputBehavior`, `selectionBehavior`, controlled `inputValue` and `value`, `onSelect(details)` with `details.itemValue`, `onValueChange(details)`, `RootProvider`, `Context`, `ItemContext`, `asChild` on Ark parts, and Ark item state attributes.
+The wrapper covers the relevant Ark Combobox surface for command search: `collection`, `useListCollection`, custom objects via `itemToString` and `itemToValue`, filtering through `onInputValueChange(details)`, grouping through `collection.group()`, `inputBehavior`, `selectionBehavior`, controlled `inputValue` and `value`, `onSelect(details)` with `details.itemValue`, `onValueChange(details)`, `asChild` on Ark parts, and Ark item state attributes.
 
 Ark Combobox examples that are not command-palette relevant remain available on the standalone `Combobox` component, including multiple selection, async search, creatable options, virtualized content, and form-oriented `HiddenInput` examples.
 
@@ -156,14 +153,20 @@ Important CSS variables include `--command-palette-positioner-padding`, `--comma
 
 Do not reintroduce `legacy autocomplete primitive`, `legacy dialog primitive`, `render` props, `createCommandPaletteHandle`, `CommandPaletteCollection`, or `items` render-function APIs. Keep structural dialog parts explicit and keep search behavior in Ark Combobox collection state.
 
-Collections and locale helpers belong to Ark UI. Import `useListCollection` and
-`createListCollection` from `@ark-ui/react/collection`, and `useFilter` from
-`@ark-ui/react/locale`. Avoid duplicate command-palette re-exports with the same names because
-consumers should compose the Ark helpers directly.
+Collections, locale helpers, and advanced combobox state APIs belong to Ark UI. Import
+`useListCollection` and `createListCollection` from `@ark-ui/react/collection`, `useFilter` from
+`@ark-ui/react/locale`, and direct Ark combobox provider/context APIs from `@ark-ui/react/combobox`
+when a workflow needs them. Avoid duplicate command-palette re-exports with the same names because
+consumers should compose those Ark helpers directly.
 
 ## Local changelog
 
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
+
+- 2026-07-02: Removed `CommandPalette.ComboboxRootProvider`, `CommandPalette.Context`,
+  `CommandPalette.ComboboxContext`, `CommandPalette.ItemContext`, and public prop type re-exports.
+  Keep `CommandPalette.RootProvider`; import advanced combobox state APIs from Ark UI directly when
+  needed.
 
 - 2026-06-25: Simplified root state through Ark `useDialog`, moved local visual leaves to the
   Ark factory, added fallback labels for default icon triggers, and normalized several CSS defaults
