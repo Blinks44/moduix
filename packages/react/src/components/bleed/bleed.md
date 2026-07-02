@@ -142,6 +142,9 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-02: Removed the public `BleedInline`, `BleedBlock`, and `BleedRootProps` aliases while
+  preserving the callable root, `Bleed.Root`, axis props, Ark factory composition, data attributes,
+  and all token-based bleed behavior.
 - 2026-06-24: Re-audited `Bleed` as a local Ark factory primitive, aligned the public docs API
   reference wording, simplified docs example code, and corrected the local full-bleed CSS override
   example to use parent-relative sizing.
