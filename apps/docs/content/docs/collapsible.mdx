@@ -116,14 +116,13 @@ Collapsible.Root
    └─ content
 ```
 
-| Part                               | Role                                                                |
-| ---------------------------------- | ------------------------------------------------------------------- |
-| `Collapsible` / `Collapsible.Root` | Owns controlled or uncontrolled open state.                         |
-| `Collapsible.RootProvider`         | Connects parts to state created with `useCollapsible`.              |
-| `Collapsible.Trigger`              | Accessible button that toggles the content.                         |
-| `Collapsible.Indicator`            | Optional state cue with a default moduix chevron.                   |
-| `Collapsible.Content`              | Collapsible region measured through Ark CSS variables.              |
-| `Collapsible.Context`              | Exposes Ark state to a render function without another state layer. |
+| Part                               | Role                                                   |
+| ---------------------------------- | ------------------------------------------------------ |
+| `Collapsible` / `Collapsible.Root` | Owns controlled or uncontrolled open state.            |
+| `Collapsible.RootProvider`         | Connects parts to state created with `useCollapsible`. |
+| `Collapsible.Trigger`              | Accessible button that toggles the content.            |
+| `Collapsible.Indicator`            | Optional state cue with a default moduix chevron.      |
+| `Collapsible.Content`              | Collapsible region measured through Ark CSS variables. |
 
 ## Composition
 
@@ -142,10 +141,9 @@ content and exposes `--height`, `--width`, `--collapsed-height`, and `--collapse
 Use `asChild` when another semantic element must own the rendered node. In this mode Collapsible
 merges Ark behavior and state attributes but leaves the visual styling to that element.
 
-Use `useCollapsible` with `Collapsible.RootProvider` when state must be created outside the part
-tree. Use `Collapsible.Context` when descendants need the current Ark state.
-Reusable child parts can call `useCollapsibleContext()` from `moduix` to read `open`, `visible`,
-`disabled`, `setOpen`, and `measureSize`.
+Use Ark `useCollapsible` with `Collapsible.RootProvider` when state must be created outside the part
+tree. Advanced state hooks and context access come from `@ark-ui/react/collapsible`, not from the
+moduix wrapper.
 
 `Collapsible.Indicator` is optional. It renders the moduix right chevron by default and accepts
 custom children.
@@ -415,14 +413,16 @@ Nest independent roots when a disclosed section contains another optional detail
 
 ### Root Provider
 
-Create the state machine with `useCollapsible` when code outside the rendered root needs its state.
+Create the state machine with Ark `useCollapsible` when code outside the rendered root needs its
+state.
 
 <Preview>
   <RootProviderCollapsibleExample />
 
   <Preview.Code>
     {`
-      import { Collapsible, useCollapsible } from "@moduix/react";
+      import { useCollapsible } from "@ark-ui/react/collapsible";
+      import { Collapsible } from "@moduix/react";
 
       export function RootProviderCollapsibleDemo() {
         const collapsible = useCollapsible();

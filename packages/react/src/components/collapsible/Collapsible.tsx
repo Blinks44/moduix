@@ -1,9 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  Collapsible as CollapsiblePrimitive,
-  useCollapsible,
-  useCollapsibleContext,
-} from '@ark-ui/react/collapsible';
+import { Collapsible as CollapsiblePrimitive } from '@ark-ui/react/collapsible';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
@@ -83,21 +79,12 @@ const CollapsibleContent = forwardRef<
   );
 });
 
-const CollapsibleContext = CollapsiblePrimitive.Context;
-
 const Collapsible = Object.assign(CollapsibleRoot, {
   Root: CollapsibleRoot,
   RootProvider: CollapsibleRootProvider,
   Trigger: CollapsibleTrigger,
   Indicator: CollapsibleIndicator,
   Content: CollapsibleContent,
-  Context: CollapsibleContext,
 });
 
-export { Collapsible, useCollapsible, useCollapsibleContext };
-export type {
-  CollapsibleOpenChangeDetails,
-  UseCollapsibleContext,
-  UseCollapsibleProps,
-  UseCollapsibleReturn,
-} from '@ark-ui/react/collapsible';
+export { Collapsible };
