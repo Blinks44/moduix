@@ -1,10 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  ColorPicker as ColorPickerPrimitive,
-  parseColor,
-  useColorPicker,
-  useColorPickerContext,
-} from '@ark-ui/react/color-picker';
+import { ColorPicker as ColorPickerPrimitive, parseColor } from '@ark-ui/react/color-picker';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon, PipetteIcon } from '@/lib/moduix/icons/ui';
@@ -422,8 +417,6 @@ const ColorPickerHiddenInput = forwardRef<
   );
 });
 
-const ColorPickerContext = ColorPickerPrimitive.Context;
-
 const ColorPicker = Object.assign(ColorPickerRoot, {
   Root: ColorPickerRoot,
   RootProvider: ColorPickerRootProvider,
@@ -453,48 +446,6 @@ const ColorPicker = Object.assign(ColorPickerRoot, {
   ValueText: ColorPickerValueText,
   View: ColorPickerView,
   HiddenInput: ColorPickerHiddenInput,
-  Context: ColorPickerContext,
 });
 
-export { ColorPicker, parseColor, useColorPicker, useColorPickerContext };
-export type { ColorPickerRootProps, ColorPickerRootProviderProps };
-export type {
-  Color,
-  ColorPickerAreaBackgroundProps,
-  ColorPickerAreaProps,
-  ColorPickerAreaThumbProps,
-  ColorPickerChannelInputProps,
-  ColorPickerChannelSliderLabelProps,
-  ColorPickerChannelSliderProps,
-  ColorPickerChannelSliderThumbProps,
-  ColorPickerChannelSliderTrackProps,
-  ColorPickerChannelSliderValueTextProps,
-  ColorPickerColorFormat,
-  ColorPickerContentProps,
-  ColorPickerContextProps,
-  ColorPickerControlProps,
-  ColorPickerEyeDropperTriggerProps,
-  ColorPickerFocusOutsideEvent,
-  ColorPickerFormatSelectProps,
-  ColorPickerFormatTriggerProps,
-  ColorPickerFormatChangeDetails,
-  ColorPickerHiddenInputProps,
-  ColorPickerInteractOutsideEvent,
-  ColorPickerLabelProps,
-  ColorPickerOpenChangeDetails,
-  ColorPickerPositionerProps,
-  ColorPickerPointerDownOutsideEvent,
-  ColorPickerSwatchGroupProps,
-  ColorPickerSwatchIndicatorProps,
-  ColorPickerSwatchProps,
-  ColorPickerSwatchTriggerProps,
-  ColorPickerTransparencyGridProps,
-  ColorPickerTriggerProps,
-  ColorPickerValueChangeDetails,
-  ColorPickerValueSwatchProps,
-  ColorPickerValueTextProps,
-  ColorPickerViewProps,
-  UseColorPickerContext,
-  UseColorPickerProps,
-  UseColorPickerReturn,
-} from '@ark-ui/react/color-picker';
+export { ColorPicker, parseColor };

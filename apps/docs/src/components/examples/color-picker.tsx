@@ -1,4 +1,5 @@
-import { ColorPicker, Dialog, Field, parseColor, useColorPicker } from '@moduix/react';
+import { useColorPicker } from '@ark-ui/react/color-picker';
+import { ColorPicker, Dialog, Field, parseColor } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -594,9 +595,10 @@ export function RootProviderColorPickerExample() {
 
   return (
     <ColorPicker.RootProvider value={colorPicker}>
-      <ColorPicker.Context>
-        {(context) => <span className={styles.valueText}>Color: {context.valueAsString}</span>}
-      </ColorPicker.Context>
+      <div className={styles.valueRow}>
+        <ColorPicker.Label>Provider color</ColorPicker.Label>
+        <ColorPicker.ValueText format="hex" />
+      </div>
       <PickerField />
     </ColorPicker.RootProvider>
   );

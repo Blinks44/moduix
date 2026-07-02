@@ -204,8 +204,9 @@ ColorPicker.Root
 | `ColorPicker.ValueSwatch`          | Visual swatch for the current value.                               |
 | `ColorPicker.HiddenInput`          | Hidden form field for native submission and reset synchronization. |
 
-`ColorPicker.RootProvider`, `ColorPicker.Context`, `parseColor`, `useColorPicker`, and
-`useColorPickerContext` expose the corresponding Ark state paths.
+`ColorPicker.RootProvider` and `parseColor` cover the common wrapper path. Import Ark
+`useColorPicker`, `useColorPickerContext`, and related types directly from
+`@ark-ui/react/color-picker` when an advanced state workflow needs them.
 
 ## Composition
 
@@ -225,9 +226,9 @@ hidden input with a form library.
 Use `inline` on `ColorPicker.Root` when the area, sliders, inputs, and swatches should render as a
 permanent panel instead of a popup. Use `ColorPicker.View` to show inputs for one format at a time.
 
-Use `ColorPicker.Context` for local state reads and `useColorPicker` with `ColorPicker.RootProvider`
-when the state must be owned outside the rendered subtree. Do not render `Root` and `RootProvider`
-for the same state instance.
+Use Ark `useColorPicker` with `ColorPicker.RootProvider` when the state must be owned outside the
+rendered subtree. Read advanced state through Ark hooks directly instead of a moduix re-export. Do
+not render `Root` and `RootProvider` for the same state instance.
 
 Use `asChild` on exported Ark parts when another semantic element must own the DOM node. The child
 must stay a single element and preserve the required focus and interaction behavior.
@@ -717,25 +718,26 @@ Use controlled `open` state when another control or workflow owns whether the po
 
 ### Root Provider
 
-Use `useColorPicker` with `RootProvider` when the color picker state must be created outside the
-rendered tree and shared with nearby controls.
+Use Ark `useColorPicker` with `RootProvider` when the color picker state must be created outside
+the rendered tree and shared with nearby controls.
 
 <Preview>
   <RootProviderColorPickerExample />
 
   <Preview.Code>
     {`
-      import { ColorPicker, parseColor, useColorPicker } from "@moduix/react";
+      import { useColorPicker } from "@ark-ui/react/color-picker";
+      import { ColorPicker, parseColor } from "@moduix/react";
 
       export function RootProviderColorPickerDemo() {
         const colorPicker = useColorPicker({ defaultValue: parseColor("#9333ea") });
 
         return (
           <ColorPicker.RootProvider value={colorPicker}>
-            <ColorPicker.Context>
-              {(context) => <span>Color: {context.valueAsString}</span>}
-            </ColorPicker.Context>
-            <ColorPicker.Label>Color</ColorPicker.Label>
+            <div className="color-picker-value-row">
+              <ColorPicker.Label>Provider color</ColorPicker.Label>
+              <ColorPicker.ValueText format="hex" />
+            </div>
             <ColorPicker.Control>
               <ColorPicker.ChannelInput channel="hex" />
               <ColorPicker.ChannelInput channel="alpha" />
@@ -744,6 +746,14 @@ rendered tree and shared with nearby controls.
                 <ColorPicker.ValueSwatch />
               </ColorPicker.Trigger>
             </ColorPicker.Control>
+            <ColorPicker.Positioner>
+              <ColorPicker.Content>
+                <ColorPicker.Area>
+                  <ColorPicker.AreaBackground />
+                  <ColorPicker.AreaThumb />
+                </ColorPicker.Area>
+              </ColorPicker.Content>
+            </ColorPicker.Positioner>
             <ColorPicker.HiddenInput />
           </ColorPicker.RootProvider>
         );

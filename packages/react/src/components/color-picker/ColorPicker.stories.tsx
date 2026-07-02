@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useColorPicker } from '@ark-ui/react/color-picker';
 import { useState } from 'react';
-import { ColorPicker, parseColor, useColorPicker } from './ColorPicker';
+import { ColorPicker, parseColor } from './ColorPicker';
 import styles from './ColorPicker.stories.module.css';
 
 const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316', '#dc2626', '#9333ea'];
