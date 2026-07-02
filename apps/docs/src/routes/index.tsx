@@ -5,6 +5,7 @@ import { HomeLayout } from 'fumadocs-ui/layouts/home';
 import { ArrowRight, Code2, Component, Layers3, PackageCheck, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { baseOptions } from '@/lib/layout.shared';
+import { FrameworkSupport } from './framework-support';
 import styles from './index.module.css';
 
 export const Route = createFileRoute('/')({
@@ -51,6 +52,7 @@ function Home() {
               A precise React component library for teams shipping calm, consistent product
               interfaces.
             </p>
+            <FrameworkSupport />
             <div className={styles.actions}>
               <Link
                 to="/docs/$"
