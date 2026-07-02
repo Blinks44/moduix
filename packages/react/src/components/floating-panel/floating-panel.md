@@ -15,7 +15,7 @@ minimized, or maximized.
 
 The component is a thin styled wrapper over `@ark-ui/react/floating-panel`. Preserve Ark part names,
 open/position/size/stage state, drag and resize mechanics, boundary handling, focus behavior,
-presence lifecycle, and provider/context APIs without remapping callback details.
+presence lifecycle, and `RootProvider` support without remapping callback details.
 
 ## Current behavior contract
 
@@ -23,8 +23,8 @@ presence lifecycle, and provider/context APIs without remapping callback details
 
 - `FloatingPanel` and `FloatingPanel.Root` are the same root component.
 - `Root` owns `open`, `position`, `size`, and stage transitions unless a controlled prop is passed.
-- `Root` and `useFloatingPanel` default `persistRect` to `true` so close animations keep the last
-  size and position during Ark presence teardown.
+- `Root` defaults `persistRect` to `true` so close animations keep the last size and position
+  during Ark presence teardown.
 - `onOpenChange`, `onPositionChange`, `onPositionChangeEnd`, `onSizeChange`,
   `onSizeChangeEnd`, and `onStageChange` receive Ark detail objects unchanged.
 - `Trigger`, `Positioner`, `Content`, `DragTrigger`, `Header`, `Title`, `Control`,
@@ -59,8 +59,9 @@ Every rendered wrapper adds a stable kebab-case `data-slot`, for example
 `floating-panel-content`, `floating-panel-stage-trigger`, and
 `floating-panel-resize-trigger`. The internal portal transport does not render a DOM element.
 
-Exported Ark-aligned state surfaces are `FloatingPanel.RootProvider`,
-`FloatingPanel.Context`, `useFloatingPanel`, and `useFloatingPanelContext`.
+`FloatingPanel.RootProvider` stays public for externally owned Ark state. Import Ark
+`FloatingPanel.Context`, `useFloatingPanel`, and `useFloatingPanelContext` directly from
+`@ark-ui/react/floating-panel` when advanced workflows need them.
 
 ## Composition
 
@@ -104,8 +105,8 @@ and accessible name.
 ## Upstream feature coverage
 
 - Basic detached panel composition, controlled open state, controlled position, controlled size,
-  anchor-derived initial position, context render-prop access, `useFloatingPanel`, `RootProvider`,
-  lazy mounting, and exit lifecycle props are supported.
+  anchor-derived initial position, Ark context render-prop access, Ark `useFloatingPanel`,
+  `RootProvider`, lazy mounting, and exit lifecycle props are supported.
 - Dragging, resizing, `minSize`, `maxSize`, `lockAspectRatio`, `gridSize`, `allowOverflow`,
   `getBoundaryEl`, `draggable`, `resizable`, `disabled`, `persistRect`, `strategy`, `ids`,
   `translations`, `present`, `lazyMount`, and `unmountOnExit` pass through Ark unchanged.
@@ -149,6 +150,10 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
   `minimized` and `maximized` stages when it renders Ark's default button host.
 - `FloatingPanel.DragIndicator` renders the shared grip icon for title/header composition.
 - `FloatingPanel.ResizeTriggerGroup` renders all Ark resize handles from `resizeTriggerAxes`.
+- moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
+  aliases.
+- Consumers using Ark `useFloatingPanel` directly should pass `persistRect: true` when they want
+  the same close-animation behavior as the moduix root default.
 - No custom state adapters, modal behavior, backdrop, synthetic restore icon, or renamed Ark
   callbacks are added.
 
@@ -162,6 +167,8 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
 
 ## Local changelog
 
+- 2026-07-02: Removed duplicate Ark context, hook, and type exports from the moduix surface. Kept `RootProvider`,
+  visual helper parts, and the existing stage/control sugar.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-25: Preserved `StageTrigger asChild` semantics by limiting default icons to the default

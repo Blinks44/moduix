@@ -1,4 +1,5 @@
-import { Field, FileUpload, Textarea, useFileUpload } from '@moduix/react';
+import { FileUpload as ArkFileUpload, useFileUpload } from '@ark-ui/react/file-upload';
+import { Field, FileUpload, Textarea } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -398,7 +399,7 @@ function getInitialFiles() {
 
 function AcceptedFileItems() {
   return (
-    <FileUpload.Context>
+    <ArkFileUpload.Context>
       {({ acceptedFiles }) =>
         acceptedFiles.map((file) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -408,13 +409,13 @@ function AcceptedFileItems() {
           </FileUpload.Item>
         ))
       }
-    </FileUpload.Context>
+    </ArkFileUpload.Context>
   );
 }
 
 function CompactAcceptedFileItems() {
   return (
-    <FileUpload.Context>
+    <ArkFileUpload.Context>
       {({ acceptedFiles }) =>
         acceptedFiles.map((file) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -423,13 +424,13 @@ function CompactAcceptedFileItems() {
           </FileUpload.Item>
         ))
       }
-    </FileUpload.Context>
+    </ArkFileUpload.Context>
   );
 }
 
 function RejectedFileItems() {
   return (
-    <FileUpload.Context>
+    <ArkFileUpload.Context>
       {({ rejectedFiles }) =>
         rejectedFiles.map(({ file, errors }) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -439,7 +440,7 @@ function RejectedFileItems() {
           </FileUpload.Item>
         ))
       }
-    </FileUpload.Context>
+    </ArkFileUpload.Context>
   );
 }
 
@@ -652,7 +653,7 @@ export function FileUploadDirectoryExample() {
       <FileUpload.Label>Folder</FileUpload.Label>
       <FileUpload.Trigger>Choose folder</FileUpload.Trigger>
       <FileUpload.ItemGroup>
-        <FileUpload.Context>
+        <ArkFileUpload.Context>
           {({ acceptedFiles }) =>
             acceptedFiles.map((file) => (
               <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -662,7 +663,7 @@ export function FileUploadDirectoryExample() {
               </FileUpload.Item>
             ))
           }
-        </FileUpload.Context>
+        </ArkFileUpload.Context>
       </FileUpload.ItemGroup>
       <FileUpload.HiddenInput />
     </FileUpload.Root>

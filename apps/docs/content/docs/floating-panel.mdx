@@ -134,23 +134,22 @@ FloatingPanel.Root
          └─ FloatingPanel.ResizeTrigger / ResizeTriggerGroup
 ```
 
-| Part                                       | Role                                                       |
-| ------------------------------------------ | ---------------------------------------------------------- |
-| `FloatingPanel` / `FloatingPanel.Root`     | Owns open, position, size, drag, resize, and stage state.  |
-| `FloatingPanel.Trigger`                    | Opens or toggles the panel.                                |
-| `FloatingPanel.Positioner`                 | Applies Ark position, size, transform, and z-index values. |
-| `FloatingPanel.Content`                    | Visible floating window surface.                           |
-| `FloatingPanel.DragTrigger`                | Marks the draggable region, usually around the header.     |
-| `FloatingPanel.Header`                     | Ark header part and recommended drag handle layout.        |
-| `FloatingPanel.Title`                      | Accessible title target.                                   |
-| `FloatingPanel.Control`                    | Groups stage and close controls.                           |
-| `FloatingPanel.StageTrigger`               | Switches to `default`, `minimized`, or `maximized`.        |
-| `FloatingPanel.CloseTrigger` / `CloseIcon` | Closes the panel.                                          |
-| `FloatingPanel.Body`                       | Scrollable content region.                                 |
-| `FloatingPanel.ResizeTrigger`              | Resize handle for one Ark axis.                            |
-| `FloatingPanel.ResizeTriggerGroup`         | Moduix helper that renders all resize axes.                |
-| `FloatingPanel.RootProvider`               | Connects parts to state created with `useFloatingPanel()`. |
-| `FloatingPanel.Context`                    | Inline render-prop access to the Ark panel API.            |
+| Part                                       | Role                                                           |
+| ------------------------------------------ | -------------------------------------------------------------- |
+| `FloatingPanel` / `FloatingPanel.Root`     | Owns open, position, size, drag, resize, and stage state.      |
+| `FloatingPanel.Trigger`                    | Opens or toggles the panel.                                    |
+| `FloatingPanel.Positioner`                 | Applies Ark position, size, transform, and z-index values.     |
+| `FloatingPanel.Content`                    | Visible floating window surface.                               |
+| `FloatingPanel.DragTrigger`                | Marks the draggable region, usually around the header.         |
+| `FloatingPanel.Header`                     | Ark header part and recommended drag handle layout.            |
+| `FloatingPanel.Title`                      | Accessible title target.                                       |
+| `FloatingPanel.Control`                    | Groups stage and close controls.                               |
+| `FloatingPanel.StageTrigger`               | Switches to `default`, `minimized`, or `maximized`.            |
+| `FloatingPanel.CloseTrigger` / `CloseIcon` | Closes the panel.                                              |
+| `FloatingPanel.Body`                       | Scrollable content region.                                     |
+| `FloatingPanel.ResizeTrigger`              | Resize handle for one Ark axis.                                |
+| `FloatingPanel.ResizeTriggerGroup`         | Moduix helper that renders all resize axes.                    |
+| `FloatingPanel.RootProvider`               | Connects parts to state created with Ark `useFloatingPanel()`. |
 
 `FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, and `FloatingPanel.ResizeTriggerGroup`
 are moduix helpers. They do not replace Ark structural parts.
@@ -175,9 +174,10 @@ Apply `className` directly to any exported part. Use `asChild` with exactly one 
 custom trigger, close-trigger, or stage-trigger hosts. Use individual `ResizeTrigger` parts when
 only specific axes should be resizable.
 
-Use `FloatingPanel.Context` or `useFloatingPanelContext` for state-aware child components. Use
-`useFloatingPanel` with `FloatingPanel.RootProvider` when external controls need the panel API; do
-not combine `Root` and `RootProvider` for the same state instance.
+Import Ark `FloatingPanel.Context`, `useFloatingPanelContext`, and `useFloatingPanel()` directly
+from `@ark-ui/react/floating-panel` when state-aware child components or externally owned panel
+state are needed. moduix keeps `RootProvider`, but does not re-export those Ark state APIs. Do not
+combine `Root` and `RootProvider` for the same state instance.
 
 ### Default props
 
@@ -422,12 +422,13 @@ Use `getAnchorPosition` to calculate the initial panel position from the trigger
 
 ### Context
 
-Read the Ark panel API inline with `FloatingPanel.Context`.
+Read the Ark panel API inline with Ark `FloatingPanel.Context`.
 
 <Preview>
   <ContextFloatingPanelExample />
   <Preview.Code>
     {`
+      import { FloatingPanel as ArkFloatingPanel } from "@ark-ui/react/floating-panel";
       import { Button, FloatingPanel } from "@moduix/react";
 
       export function ContextFloatingPanelDemo() {
@@ -436,13 +437,13 @@ Read the Ark panel API inline with `FloatingPanel.Context`.
             <FloatingPanel.Trigger asChild>
               <Button>Open context panel</Button>
             </FloatingPanel.Trigger>
-            <FloatingPanel.Context>
+            <ArkFloatingPanel.Context>
               {(panel) => (
                 <span>
                   open: {String(panel.open)}, dragging: {String(panel.dragging)}
                 </span>
               )}
-            </FloatingPanel.Context>
+            </ArkFloatingPanel.Context>
             <FloatingPanel.Positioner>
               <FloatingPanel.Content>
                 <FloatingPanel.DragTrigger>
@@ -459,7 +460,7 @@ Read the Ark panel API inline with `FloatingPanel.Context`.
                   </FloatingPanel.Header>
                 </FloatingPanel.DragTrigger>
                 <FloatingPanel.Body>
-                  FloatingPanel.Context exposes the Ark panel API to descendants.
+                  Ark FloatingPanel.Context exposes the panel API to descendants.
                 </FloatingPanel.Body>
                 <FloatingPanel.ResizeTriggerGroup />
               </FloatingPanel.Content>
@@ -481,17 +482,22 @@ Read the Ark panel API inline with `FloatingPanel.Context`.
 
 ### Root Provider
 
-Use `useFloatingPanel` with `RootProvider` when controls outside the panel tree need access to Ark
-methods like `minimize`, `maximize`, and `setOpen`.
+Use Ark `useFloatingPanel` with `RootProvider` when controls outside the panel tree need access to
+Ark methods like `minimize`, `maximize`, and `setOpen`. Pass `persistRect: true` to match the
+moduix root default during close animations.
 
 <Preview>
   <RootProviderFloatingPanelExample />
   <Preview.Code>
     {`
-      import { Button, FloatingPanel, useFloatingPanel } from "@moduix/react";
+      import { useFloatingPanel } from "@ark-ui/react/floating-panel";
+      import { Button, FloatingPanel } from "@moduix/react";
 
       export function RootProviderFloatingPanelDemo() {
-        const panel = useFloatingPanel({ defaultSize: { width: 360, height: 260 } });
+        const panel = useFloatingPanel({
+          defaultSize: { width: 360, height: 260 },
+          persistRect: true,
+        });
 
         return (
           <>
@@ -515,7 +521,7 @@ methods like `minimize`, `maximize`, and `setOpen`.
                     </FloatingPanel.Header>
                   </FloatingPanel.DragTrigger>
                   <FloatingPanel.Body>
-                    useFloatingPanel owns the panel state outside the rendered part tree.
+                    Ark useFloatingPanel owns the panel state outside the rendered part tree.
                   </FloatingPanel.Body>
                   <FloatingPanel.ResizeTriggerGroup />
                 </FloatingPanel.Content>

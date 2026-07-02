@@ -1,9 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  FileUpload as FileUploadPrimitive,
-  useFileUpload,
-  useFileUploadContext,
-} from '@ark-ui/react/file-upload';
+import { FileUpload as FileUploadPrimitive } from '@ark-ui/react/file-upload';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CloseIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
@@ -218,8 +214,6 @@ const FileUploadClearTrigger = forwardRef<
   );
 });
 
-const FileUploadContext = FileUploadPrimitive.Context;
-
 const FileUpload = Object.assign(FileUploadRoot, {
   Root: FileUploadRoot,
   RootProvider: FileUploadRootProvider,
@@ -236,48 +230,6 @@ const FileUpload = Object.assign(FileUploadRoot, {
   ItemSizeText: FileUploadItemSizeText,
   ItemDeleteTrigger: FileUploadItemDeleteTrigger,
   ClearTrigger: FileUploadClearTrigger,
-  Context: FileUploadContext,
 });
 
-export { FileUpload, useFileUpload, useFileUploadContext };
-export type {
-  FileUploadClearTriggerBaseProps,
-  FileUploadClearTriggerProps,
-  FileUploadContextProps,
-  FileUploadDropzoneBaseProps,
-  FileUploadDropzoneProps,
-  FileUploadFileAcceptDetails,
-  FileUploadFileChangeDetails,
-  FileUploadFileError,
-  FileUploadFileMimeType,
-  FileUploadFileRejectDetails,
-  FileUploadFileRejection,
-  FileUploadFileValidateDetails,
-  FileUploadHiddenInputBaseProps,
-  FileUploadHiddenInputProps,
-  FileUploadItemBaseProps,
-  FileUploadItemDeleteTriggerBaseProps,
-  FileUploadItemDeleteTriggerProps,
-  FileUploadItemGroupBaseProps,
-  FileUploadItemGroupProps,
-  FileUploadItemNameBaseProps,
-  FileUploadItemNameProps,
-  FileUploadItemPreviewBaseProps,
-  FileUploadItemPreviewImageBaseProps,
-  FileUploadItemPreviewImageProps,
-  FileUploadItemPreviewProps,
-  FileUploadItemProps,
-  FileUploadItemSizeTextBaseProps,
-  FileUploadItemSizeTextProps,
-  FileUploadLabelBaseProps,
-  FileUploadLabelProps,
-  FileUploadRootBaseProps,
-  FileUploadRootProps,
-  FileUploadRootProviderBaseProps,
-  FileUploadRootProviderProps,
-  FileUploadTriggerBaseProps,
-  FileUploadTriggerProps,
-  UseFileUploadContext,
-  UseFileUploadProps,
-  UseFileUploadReturn,
-} from '@ark-ui/react/file-upload';
+export { FileUpload };

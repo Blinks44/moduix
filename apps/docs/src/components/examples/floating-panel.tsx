@@ -1,10 +1,5 @@
-import {
-  Button,
-  FloatingPanel,
-  type FloatingPanelPoint,
-  type FloatingPanelSize,
-  useFloatingPanel,
-} from '@moduix/react';
+import { FloatingPanel as ArkFloatingPanel, useFloatingPanel } from '@ark-ui/react/floating-panel';
+import { Button, FloatingPanel } from '@moduix/react';
 import { useState, type ReactNode } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -194,7 +189,7 @@ export function ControlledFloatingPanelExample() {
 }
 
 export function ControlledPositionFloatingPanelExample() {
-  const [position, setPosition] = useState<FloatingPanelPoint>(DEFAULT_POSITION);
+  const [position, setPosition] = useState(DEFAULT_POSITION);
 
   return (
     <div className={styles.stack}>
@@ -218,7 +213,7 @@ export function ControlledPositionFloatingPanelExample() {
 }
 
 export function ControlledSizeFloatingPanelExample() {
-  const [size, setSize] = useState<FloatingPanelSize>(DEFAULT_SIZE);
+  const [size, setSize] = useState(DEFAULT_SIZE);
 
   return (
     <div className={styles.stack}>
@@ -266,23 +261,23 @@ export function ContextFloatingPanelExample() {
         <FloatingPanel.Trigger asChild>
           <Button>Open context panel</Button>
         </FloatingPanel.Trigger>
-        <FloatingPanel.Context>
+        <ArkFloatingPanel.Context>
           {(panel) => (
             <span className={styles.status}>
               open: {String(panel.open)}, dragging: {String(panel.dragging)}
             </span>
           )}
-        </FloatingPanel.Context>
+        </ArkFloatingPanel.Context>
       </div>
       <FloatingPanelSurface title="Context state">
-        <p>FloatingPanel.Context exposes the Ark panel API to descendants.</p>
+        <p>Ark FloatingPanel.Context exposes the panel API to descendants.</p>
       </FloatingPanelSurface>
     </FloatingPanel>
   );
 }
 
 export function RootProviderFloatingPanelExample() {
-  const panel = useFloatingPanel({ defaultSize: DEFAULT_SIZE });
+  const panel = useFloatingPanel({ defaultSize: DEFAULT_SIZE, persistRect: true });
 
   return (
     <div className={styles.stack}>
@@ -297,7 +292,7 @@ export function RootProviderFloatingPanelExample() {
       </div>
       <FloatingPanel.RootProvider value={panel}>
         <FloatingPanelSurface title="Root provider">
-          <p>useFloatingPanel owns the panel state outside the rendered part tree.</p>
+          <p>Ark useFloatingPanel owns the panel state outside the rendered part tree.</p>
         </FloatingPanelSurface>
       </FloatingPanel.RootProvider>
     </div>

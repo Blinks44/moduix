@@ -1,11 +1,6 @@
 import type { FloatingPanelResizeTriggerAxis } from '@ark-ui/react/floating-panel';
-import type { UseFloatingPanelProps } from '@ark-ui/react/floating-panel';
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  FloatingPanel as FloatingPanelPrimitive,
-  useFloatingPanel as useFloatingPanelPrimitive,
-  useFloatingPanelContext,
-} from '@ark-ui/react/floating-panel';
+import { FloatingPanel as FloatingPanelPrimitive } from '@ark-ui/react/floating-panel';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { GripIcon, MaximizeIcon, MinusIcon } from '@/lib/moduix/icons/ui';
@@ -60,10 +55,6 @@ function FloatingPanelRootProvider({
       <FloatingPanelPrimitive.RootProvider {...props} />
     </OverlayPortalProvider>
   );
-}
-
-function useFloatingPanel(props: UseFloatingPanelProps = {}) {
-  return useFloatingPanelPrimitive({ persistRect: true, ...props });
 }
 
 const FloatingPanelTrigger = forwardRef<
@@ -289,8 +280,6 @@ const FloatingPanelDragIndicator = forwardRef<HTMLSpanElement, ComponentProps<'s
   },
 );
 
-const FloatingPanelContext = FloatingPanelPrimitive.Context;
-
 const FloatingPanel = Object.assign(FloatingPanelRoot, {
   Root: FloatingPanelRoot,
   RootProvider: FloatingPanelRootProvider,
@@ -308,24 +297,6 @@ const FloatingPanel = Object.assign(FloatingPanelRoot, {
   ResizeTrigger: FloatingPanelResizeTrigger,
   ResizeTriggerGroup: FloatingPanelResizeTriggerGroup,
   DragIndicator: FloatingPanelDragIndicator,
-  Context: FloatingPanelContext,
 });
 
-export { FloatingPanel, resizeTriggerAxes, useFloatingPanel, useFloatingPanelContext };
-export type { FloatingPanelRootProps, FloatingPanelRootProviderProps };
-export type {
-  FloatingPanelAnchorPositionDetails,
-  FloatingPanelElementIds,
-  FloatingPanelIntlTranslations,
-  FloatingPanelOpenChangeDetails,
-  FloatingPanelPoint,
-  FloatingPanelPositionChangeDetails,
-  FloatingPanelResizeTriggerAxis,
-  FloatingPanelSize,
-  FloatingPanelSizeChangeDetails,
-  FloatingPanelStage,
-  FloatingPanelStageChangeDetails,
-  UseFloatingPanelContext,
-  UseFloatingPanelProps,
-  UseFloatingPanelReturn,
-} from '@ark-ui/react/floating-panel';
+export { FloatingPanel, resizeTriggerAxes };

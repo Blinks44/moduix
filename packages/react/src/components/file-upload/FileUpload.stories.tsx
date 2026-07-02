@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
+import { FileUpload as ArkFileUpload, useFileUpload } from '@ark-ui/react/file-upload';
 import { useState } from 'react';
 import { Field } from '../field';
-import { FileUpload, useFileUpload } from './FileUpload';
+import { FileUpload } from './FileUpload';
 import styles from './FileUpload.stories.module.css';
 
 const meta = {
@@ -39,7 +40,7 @@ function FileIcon(props: ComponentProps<'svg'>) {
 
 function FileUploadItems() {
   return (
-    <FileUpload.Context>
+    <ArkFileUpload.Context>
       {({ acceptedFiles }) =>
         acceptedFiles.map((file) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -55,13 +56,13 @@ function FileUploadItems() {
           </FileUpload.Item>
         ))
       }
-    </FileUpload.Context>
+    </ArkFileUpload.Context>
   );
 }
 
 function CompactFileUploadItems() {
   return (
-    <FileUpload.Context>
+    <ArkFileUpload.Context>
       {({ acceptedFiles }) =>
         acceptedFiles.map((file) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -70,7 +71,7 @@ function CompactFileUploadItems() {
           </FileUpload.Item>
         ))
       }
-    </FileUpload.Context>
+    </ArkFileUpload.Context>
   );
 }
 
@@ -151,7 +152,7 @@ export const RejectedFiles: Story = {
         <FileUploadItems />
       </FileUpload.ItemGroup>
       <FileUpload.ItemGroup type="rejected">
-        <FileUpload.Context>
+        <ArkFileUpload.Context>
           {({ rejectedFiles }) =>
             rejectedFiles.map(({ file, errors }) => (
               <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -166,7 +167,7 @@ export const RejectedFiles: Story = {
               </FileUpload.Item>
             ))
           }
-        </FileUpload.Context>
+        </ArkFileUpload.Context>
       </FileUpload.ItemGroup>
       <FileUpload.HiddenInput />
     </FileUpload.Root>

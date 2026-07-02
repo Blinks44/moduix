@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { FloatingPanel as ArkFloatingPanel, useFloatingPanel } from '@ark-ui/react/floating-panel';
 import { useState, type ReactNode } from 'react';
 import { Button } from '../button';
-import { FloatingPanel, useFloatingPanel } from './FloatingPanel';
+import { FloatingPanel } from './FloatingPanel';
 import storyStyles from './FloatingPanel.stories.module.css';
 
 const DEFAULT_SIZE = { width: 360, height: 260 };
@@ -182,16 +183,16 @@ export const Context: Story = {
         <FloatingPanel.Trigger asChild>
           <Button>Open context panel</Button>
         </FloatingPanel.Trigger>
-        <FloatingPanel.Context>
+        <ArkFloatingPanel.Context>
           {(panel) => (
             <span className={storyStyles.status}>
               open: {String(panel.open)}, dragging: {String(panel.dragging)}
             </span>
           )}
-        </FloatingPanel.Context>
+        </ArkFloatingPanel.Context>
       </div>
       <FloatingPanelSurface title="Context state">
-        <p>FloatingPanel.Context exposes the Ark panel API to descendants.</p>
+        <p>Ark FloatingPanel.Context exposes the panel API to descendants.</p>
       </FloatingPanelSurface>
     </FloatingPanel>
   ),
@@ -200,7 +201,7 @@ export const Context: Story = {
 export const RootProvider: Story = {
   name: 'Root Provider',
   render: () => {
-    const panel = useFloatingPanel({ defaultSize: DEFAULT_SIZE });
+    const panel = useFloatingPanel({ defaultSize: DEFAULT_SIZE, persistRect: true });
 
     return (
       <div className={storyStyles.stack}>
@@ -215,7 +216,7 @@ export const RootProvider: Story = {
         </div>
         <FloatingPanel.RootProvider value={panel}>
           <FloatingPanelSurface title="Root provider">
-            <p>useFloatingPanel owns the panel state outside the rendered part tree.</p>
+            <p>Ark useFloatingPanel owns the panel state outside the rendered part tree.</p>
           </FloatingPanelSurface>
         </FloatingPanel.RootProvider>
       </div>

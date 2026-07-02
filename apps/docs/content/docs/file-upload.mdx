@@ -46,13 +46,14 @@ import {
 ## Basic
 
 Use `FileUpload` as the root, render a `Label`, add either a `Trigger` or `Dropzone`, list files
-from `FileUpload.Context`, and keep `HiddenInput` in the tree for native form behavior.
+through Ark `FileUpload.Context`, and keep `HiddenInput` in the tree for native form behavior.
 
 <Preview>
   <FileUploadExample />
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { FileUpload } from "@moduix/react";
 
       export function FileUploadDemo() {
@@ -61,7 +62,7 @@ from `FileUpload.Context`, and keep `HiddenInput` in the tree for native form be
             <FileUpload.Label>Attachments</FileUpload.Label>
             <FileUpload.Trigger>Choose files</FileUpload.Trigger>
             <FileUpload.ItemGroup>
-              <FileUpload.Context>
+              <ArkFileUpload.Context>
                 {({ acceptedFiles }) =>
                   acceptedFiles.map((file) => (
                     <FileUpload.Item key={file.name} file={file}>
@@ -70,7 +71,7 @@ from `FileUpload.Context`, and keep `HiddenInput` in the tree for native form be
                     </FileUpload.Item>
                   ))
                 }
-              </FileUpload.Context>
+              </ArkFileUpload.Context>
             </FileUpload.ItemGroup>
             <FileUpload.HiddenInput />
           </FileUpload>
@@ -135,7 +136,7 @@ FileUpload / FileUpload.Root
 │  ├─ FileUpload.DropzoneIcon
 │  └─ FileUpload.Trigger
 ├─ FileUpload.ItemGroup[type]
-│  └─ FileUpload.Context
+│  └─ ArkFileUpload.Context
 │     └─ FileUpload.Item[file]
 │        ├─ FileUpload.ItemPreview[type]
 │        │  └─ FileUpload.ItemPreviewImage
@@ -146,25 +147,23 @@ FileUpload / FileUpload.Root
 └─ FileUpload.HiddenInput
 ```
 
-| Part                             | Role                                                                 |
-| -------------------------------- | -------------------------------------------------------------------- |
-| `FileUpload` / `FileUpload.Root` | Owns file state, validation, drag/drop, paste, and form integration. |
-| `FileUpload.RootProvider`        | Renders a file upload tree from state returned by `useFileUpload`.   |
-| `FileUpload.Label`               | Accessible label for the hidden input and upload controls.           |
-| `FileUpload.Dropzone`            | Drag/drop target. Use `disableClick` with a nested trigger.          |
-| `FileUpload.DropzoneIcon`        | Decorative upload icon helper for dropzone surfaces.                 |
-| `FileUpload.Trigger`             | Button that opens the native file picker.                            |
-| `FileUpload.HiddenInput`         | Native file input for forms, validation, reset, and submission.      |
-| `FileUpload.ItemGroup`           | List wrapper for accepted or rejected file items.                    |
-| `FileUpload.Item`                | File row. Pass the current `file` object.                            |
-| `FileUpload.ItemPreview`         | Conditional preview slot matched by MIME type.                       |
-| `FileUpload.ItemPreviewImage`    | Image preview rendered inside `ItemPreview type="image/*"`.          |
-| `FileUpload.ItemName`            | File name text.                                                      |
-| `FileUpload.ItemSizeText`        | Localized file size text.                                            |
-| `FileUpload.ItemDeleteTrigger`   | Removes one file. Defaults to the moduix trash icon.                 |
-| `FileUpload.ClearTrigger`        | Clears selected files. Defaults to the moduix close icon.            |
-| `FileUpload.Context`             | Inline access to accepted files, rejected files, and machine APIs.   |
-| `useFileUpload` / context hooks  | External state and custom child-part access.                         |
+| Part                             | Role                                                                   |
+| -------------------------------- | ---------------------------------------------------------------------- |
+| `FileUpload` / `FileUpload.Root` | Owns file state, validation, drag/drop, paste, and form integration.   |
+| `FileUpload.RootProvider`        | Renders a file upload tree from state returned by Ark `useFileUpload`. |
+| `FileUpload.Label`               | Accessible label for the hidden input and upload controls.             |
+| `FileUpload.Dropzone`            | Drag/drop target. Use `disableClick` with a nested trigger.            |
+| `FileUpload.DropzoneIcon`        | Decorative upload icon helper for dropzone surfaces.                   |
+| `FileUpload.Trigger`             | Button that opens the native file picker.                              |
+| `FileUpload.HiddenInput`         | Native file input for forms, validation, reset, and submission.        |
+| `FileUpload.ItemGroup`           | List wrapper for accepted or rejected file items.                      |
+| `FileUpload.Item`                | File row. Pass the current `file` object.                              |
+| `FileUpload.ItemPreview`         | Conditional preview slot matched by MIME type.                         |
+| `FileUpload.ItemPreviewImage`    | Image preview rendered inside `ItemPreview type="image/*"`.            |
+| `FileUpload.ItemName`            | File name text.                                                        |
+| `FileUpload.ItemSizeText`        | Localized file size text.                                              |
+| `FileUpload.ItemDeleteTrigger`   | Removes one file. Defaults to the moduix trash icon.                   |
+| `FileUpload.ClearTrigger`        | Clears selected files. Defaults to the moduix close icon.              |
 
 ## Composition
 
@@ -174,8 +173,12 @@ Keep the Ark part tree visible. Use `Trigger` for compact upload controls and `D
 drag-and-drop surfaces. If `Trigger` is nested inside `Dropzone`, pass `disableClick` to `Dropzone`
 so the native file picker is not opened twice.
 
-Render `HiddenInput` whenever the upload participates in a form. Read accepted files from
-`FileUpload.Context.acceptedFiles` and rejected files from `FileUpload.Context.rejectedFiles`.
+Render `HiddenInput` whenever the upload participates in a form. Read accepted files from Ark
+`FileUpload.Context.acceptedFiles` and rejected files from Ark `FileUpload.Context.rejectedFiles`.
+
+Import Ark `FileUpload.Context`, `useFileUpload()`, and `useFileUploadContext()` directly from
+`@ark-ui/react/file-upload` when advanced state access is needed. moduix keeps `RootProvider`, but
+does not re-export those Ark state APIs.
 
 ### When to go custom
 
@@ -213,6 +216,7 @@ Use `Dropzone` for drag-and-drop uploads. Keep a nested `Trigger` for keyboard a
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { FileUpload } from "@moduix/react";
 
       export function FileUploadDropzoneDemo() {
@@ -228,7 +232,7 @@ Use `Dropzone` for drag-and-drop uploads. Keep a nested `Trigger` for keyboard a
               </div>
             </FileUpload.Dropzone>
             <FileUpload.ItemGroup>
-              <FileUpload.Context>
+              <ArkFileUpload.Context>
                 {({ acceptedFiles }) =>
                   acceptedFiles.map((file) => (
                     <FileUpload.Item key={file.name} file={file}>
@@ -238,7 +242,7 @@ Use `Dropzone` for drag-and-drop uploads. Keep a nested `Trigger` for keyboard a
                     </FileUpload.Item>
                   ))
                 }
-              </FileUpload.Context>
+              </ArkFileUpload.Context>
             </FileUpload.ItemGroup>
             <FileUpload.HiddenInput />
           </FileUpload>
@@ -260,6 +264,7 @@ Restrict picker and drop validation with `accept`. MIME types and extensions are
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { FileUpload } from "@moduix/react";
 
       export function AcceptedTypesFileUploadDemo() {
@@ -275,7 +280,7 @@ Restrict picker and drop validation with `accept`. MIME types and extensions are
               </div>
             </FileUpload.Dropzone>
             <FileUpload.ItemGroup>
-              <FileUpload.Context>
+              <ArkFileUpload.Context>
                 {({ acceptedFiles }) =>
                   acceptedFiles.map((file) => (
                     <FileUpload.Item key={file.name} file={file}>
@@ -285,7 +290,7 @@ Restrict picker and drop validation with `accept`. MIME types and extensions are
                     </FileUpload.Item>
                   ))
                 }
-              </FileUpload.Context>
+              </ArkFileUpload.Context>
             </FileUpload.ItemGroup>
             <FileUpload.HiddenInput />
           </FileUpload>
@@ -307,6 +312,7 @@ Render `rejectedFiles` in a separate `ItemGroup type="rejected"` when users need
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { FileUpload } from "@moduix/react";
 
       export function RejectedFilesUploadDemo() {
@@ -327,7 +333,7 @@ Render `rejectedFiles` in a separate `ItemGroup type="rejected"` when users need
               </div>
             </FileUpload.Dropzone>
             <FileUpload.ItemGroup>
-              <FileUpload.Context>
+              <ArkFileUpload.Context>
                 {({ acceptedFiles }) =>
                   acceptedFiles.map((file) => (
                     <FileUpload.Item key={file.name} file={file}>
@@ -337,10 +343,10 @@ Render `rejectedFiles` in a separate `ItemGroup type="rejected"` when users need
                     </FileUpload.Item>
                   ))
                 }
-              </FileUpload.Context>
+              </ArkFileUpload.Context>
             </FileUpload.ItemGroup>
             <FileUpload.ItemGroup type="rejected">
-              <FileUpload.Context>
+              <ArkFileUpload.Context>
                 {({ rejectedFiles }) =>
                   rejectedFiles.map(({ file, errors }) => (
                     <FileUpload.Item key={file.name} file={file}>
@@ -350,7 +356,7 @@ Render `rejectedFiles` in a separate `ItemGroup type="rejected"` when users need
                     </FileUpload.Item>
                   ))
                 }
-              </FileUpload.Context>
+              </ArkFileUpload.Context>
             </FileUpload.ItemGroup>
             <FileUpload.HiddenInput />
           </FileUpload>
@@ -372,6 +378,7 @@ Use `onFileReject(details)` for application feedback and keep validation constra
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { FileUpload } from "@moduix/react";
       import { useState } from "react";
 
@@ -391,7 +398,7 @@ Use `onFileReject(details)` for application feedback and keep validation constra
               <FileUpload.Label>Images</FileUpload.Label>
               <FileUpload.Trigger>Select images</FileUpload.Trigger>
               <FileUpload.ItemGroup>
-                <FileUpload.Context>
+                <ArkFileUpload.Context>
                   {({ acceptedFiles }) =>
                     acceptedFiles.map((file) => (
                       <FileUpload.Item key={file.name} file={file}>
@@ -400,10 +407,10 @@ Use `onFileReject(details)` for application feedback and keep validation constra
                       </FileUpload.Item>
                     ))
                   }
-                </FileUpload.Context>
+                </ArkFileUpload.Context>
               </FileUpload.ItemGroup>
               <FileUpload.ItemGroup type="rejected">
-                <FileUpload.Context>
+                <ArkFileUpload.Context>
                   {({ rejectedFiles }) =>
                     rejectedFiles.map(({ file, errors }) => (
                       <FileUpload.Item key={file.name} file={file}>
@@ -413,7 +420,7 @@ Use `onFileReject(details)` for application feedback and keep validation constra
                       </FileUpload.Item>
                     ))
                   }
-                </FileUpload.Context>
+                </ArkFileUpload.Context>
               </FileUpload.ItemGroup>
               <FileUpload.HiddenInput />
             </FileUpload>
@@ -437,6 +444,7 @@ Control `acceptedFiles` when selected files need to coordinate with external sta
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { FileUpload } from "@moduix/react";
       import { useState } from "react";
 
@@ -453,7 +461,7 @@ Control `acceptedFiles` when selected files need to coordinate with external sta
               <FileUpload.Label>Attachments</FileUpload.Label>
               <FileUpload.Trigger>Choose files</FileUpload.Trigger>
               <FileUpload.ItemGroup>
-                <FileUpload.Context>
+                <ArkFileUpload.Context>
                   {({ acceptedFiles }) =>
                     acceptedFiles.map((file) => (
                       <FileUpload.Item key={file.name} file={file}>
@@ -462,7 +470,7 @@ Control `acceptedFiles` when selected files need to coordinate with external sta
                       </FileUpload.Item>
                     ))
                   }
-                </FileUpload.Context>
+                </ArkFileUpload.Context>
               </FileUpload.ItemGroup>
               <FileUpload.HiddenInput />
             </FileUpload>
@@ -486,6 +494,7 @@ Use `defaultAcceptedFiles` when the upload should start with existing files and 
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { FileUpload } from "@moduix/react";
 
       export function InitialFilesUploadDemo() {
@@ -494,7 +503,7 @@ Use `defaultAcceptedFiles` when the upload should start with existing files and 
             <FileUpload.Label>Attachments</FileUpload.Label>
             <FileUpload.Trigger>Choose files</FileUpload.Trigger>
             <FileUpload.ItemGroup>
-              <FileUpload.Context>
+              <ArkFileUpload.Context>
                 {({ acceptedFiles }) =>
                   acceptedFiles.map((file) => (
                     <FileUpload.Item key={file.name} file={file}>
@@ -503,7 +512,7 @@ Use `defaultAcceptedFiles` when the upload should start with existing files and 
                     </FileUpload.Item>
                   ))
                 }
-              </FileUpload.Context>
+              </ArkFileUpload.Context>
             </FileUpload.ItemGroup>
             <FileUpload.HiddenInput />
           </FileUpload>
@@ -525,6 +534,7 @@ Use `ClearTrigger` to clear accepted files at once.
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { FileUpload } from "@moduix/react";
 
       export function ClearTriggerFileUploadDemo() {
@@ -536,7 +546,7 @@ Use `ClearTrigger` to clear accepted files at once.
               <FileUpload.ClearTrigger>Clear files</FileUpload.ClearTrigger>
             </div>
             <FileUpload.ItemGroup>
-              <FileUpload.Context>
+              <ArkFileUpload.Context>
                 {({ acceptedFiles }) =>
                   acceptedFiles.map((file) => (
                     <FileUpload.Item key={file.name} file={file}>
@@ -545,7 +555,7 @@ Use `ClearTrigger` to clear accepted files at once.
                     </FileUpload.Item>
                   ))
                 }
-              </FileUpload.Context>
+              </ArkFileUpload.Context>
             </FileUpload.ItemGroup>
             <FileUpload.HiddenInput />
           </FileUpload>
@@ -567,6 +577,7 @@ Wrap the upload in `Field.Root` when helper text, error text, required state, or
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { Field, FileUpload } from "@moduix/react";
 
       export function FileUploadWithFieldDemo() {
@@ -576,7 +587,7 @@ Wrap the upload in `Field.Root` when helper text, error text, required state, or
               <FileUpload.Label>Required attachments</FileUpload.Label>
               <FileUpload.Trigger>Choose files</FileUpload.Trigger>
               <FileUpload.ItemGroup>
-                <FileUpload.Context>
+                <ArkFileUpload.Context>
                   {({ acceptedFiles }) =>
                     acceptedFiles.map((file) => (
                       <FileUpload.Item key={file.name} file={file}>
@@ -585,7 +596,7 @@ Wrap the upload in `Field.Root` when helper text, error text, required state, or
                       </FileUpload.Item>
                     ))
                   }
-                </FileUpload.Context>
+                </ArkFileUpload.Context>
               </FileUpload.ItemGroup>
               <FileUpload.HiddenInput />
             </FileUpload>
@@ -610,6 +621,7 @@ Pass `name` to the root and render `HiddenInput` so native form submission and r
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { FileUpload } from "@moduix/react";
 
       export function FileUploadFormDemo() {
@@ -623,7 +635,7 @@ Pass `name` to the root and render `HiddenInput` so native form submission and r
               <FileUpload.Label>Project assets</FileUpload.Label>
               <FileUpload.Trigger>Choose files</FileUpload.Trigger>
               <FileUpload.ItemGroup>
-                <FileUpload.Context>
+                <ArkFileUpload.Context>
                   {({ acceptedFiles }) =>
                     acceptedFiles.map((file) => (
                       <FileUpload.Item key={file.name} file={file}>
@@ -632,7 +644,7 @@ Pass `name` to the root and render `HiddenInput` so native form submission and r
                       </FileUpload.Item>
                     ))
                   }
-                </FileUpload.Context>
+                </ArkFileUpload.Context>
               </FileUpload.ItemGroup>
               <FileUpload.HiddenInput />
             </FileUpload>
@@ -649,14 +661,16 @@ Pass `name` to the root and render `HiddenInput` so native form submission and r
 
 ### Root Provider And Paste
 
-Use `useFileUpload` with `RootProvider` when state or methods need to be owned outside the rendered upload tree.
+Use Ark `useFileUpload` with `RootProvider` when state or methods need to be owned outside the
+rendered upload tree.
 
 <Preview>
   <FileUploadRootProviderExample />
 
   <Preview.Code>
     {`
-      import { FileUpload, Textarea, useFileUpload } from "@moduix/react";
+      import { FileUpload as ArkFileUpload, useFileUpload } from "@ark-ui/react/file-upload";
+      import { FileUpload, Textarea } from "@moduix/react";
 
       export function RootProviderPasteUploadDemo() {
         const fileUpload = useFileUpload({ maxFiles, accept });
@@ -669,7 +683,7 @@ Use `useFileUpload` with `RootProvider` when state or methods need to be owned o
               onPaste={(event) => fileUpload.setClipboardFiles(event.clipboardData)}
             />
             <FileUpload.ItemGroup>
-              <FileUpload.Context>
+              <ArkFileUpload.Context>
                 {({ acceptedFiles }) =>
                   acceptedFiles.map((file) => (
                     <FileUpload.Item key={file.name} file={file}>
@@ -678,7 +692,7 @@ Use `useFileUpload` with `RootProvider` when state or methods need to be owned o
                     </FileUpload.Item>
                   ))
                 }
-              </FileUpload.Context>
+              </ArkFileUpload.Context>
             </FileUpload.ItemGroup>
             <FileUpload.HiddenInput />
           </FileUpload.RootProvider>
@@ -700,6 +714,7 @@ Use `directory` for folder upload. Browsers that support it expose relative path
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { FileUpload } from "@moduix/react";
 
       export function DirectoryUploadDemo() {
@@ -708,7 +723,7 @@ Use `directory` for folder upload. Browsers that support it expose relative path
             <FileUpload.Label>Folder</FileUpload.Label>
             <FileUpload.Trigger>Choose folder</FileUpload.Trigger>
             <FileUpload.ItemGroup>
-              <FileUpload.Context>
+              <ArkFileUpload.Context>
                 {({ acceptedFiles }) =>
                   acceptedFiles.map((file) => (
                     <FileUpload.Item key={file.name} file={file}>
@@ -718,7 +733,7 @@ Use `directory` for folder upload. Browsers that support it expose relative path
                     </FileUpload.Item>
                   ))
                 }
-              </FileUpload.Context>
+              </ArkFileUpload.Context>
             </FileUpload.ItemGroup>
             <FileUpload.HiddenInput />
           </FileUpload>
@@ -740,6 +755,7 @@ Use `capture` with an image or video `accept` value to hint that mobile browsers
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { FileUpload } from "@moduix/react";
 
       export function MediaCaptureUploadDemo() {
@@ -755,7 +771,7 @@ Use `capture` with an image or video `accept` value to hint that mobile browsers
               </div>
             </FileUpload.Dropzone>
             <FileUpload.ItemGroup>
-              <FileUpload.Context>
+              <ArkFileUpload.Context>
                 {({ acceptedFiles }) =>
                   acceptedFiles.map((file) => (
                     <FileUpload.Item key={file.name} file={file}>
@@ -765,7 +781,7 @@ Use `capture` with an image or video `accept` value to hint that mobile browsers
                     </FileUpload.Item>
                   ))
                 }
-              </FileUpload.Context>
+              </ArkFileUpload.Context>
             </FileUpload.ItemGroup>
             <FileUpload.HiddenInput />
           </FileUpload>
@@ -787,6 +803,7 @@ Use `transformFiles(files)` for async processing before files enter accepted sta
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { FileUpload } from "@moduix/react";
 
       async function transformFiles(files) {
@@ -803,7 +820,7 @@ Use `transformFiles(files)` for async processing before files enter accepted sta
             <FileUpload.Label>Images</FileUpload.Label>
             <FileUpload.Trigger>Choose images</FileUpload.Trigger>
             <FileUpload.ItemGroup>
-              <FileUpload.Context>
+              <ArkFileUpload.Context>
                 {({ acceptedFiles }) =>
                   acceptedFiles.map((file) => (
                     <FileUpload.Item key={file.name} file={file}>
@@ -812,7 +829,7 @@ Use `transformFiles(files)` for async processing before files enter accepted sta
                     </FileUpload.Item>
                   ))
                 }
-              </FileUpload.Context>
+              </ArkFileUpload.Context>
             </FileUpload.ItemGroup>
             <FileUpload.HiddenInput />
           </FileUpload>
@@ -834,6 +851,7 @@ Customize with `className`, `data-slot`, Ark `data-part`, and state attributes s
 
   <Preview.Code>
     {`
+      import { FileUpload as ArkFileUpload } from "@ark-ui/react/file-upload";
       import { FileUpload } from "@moduix/react";
 
       export function CustomFileUploadDemo() {
@@ -849,7 +867,7 @@ Customize with `className`, `data-slot`, Ark `data-part`, and state attributes s
               </div>
             </FileUpload.Dropzone>
             <FileUpload.ItemGroup>
-              <FileUpload.Context>
+              <ArkFileUpload.Context>
                 {({ acceptedFiles }) =>
                   acceptedFiles.map((file) => (
                     <FileUpload.Item key={file.name} file={file}>
@@ -859,7 +877,7 @@ Customize with `className`, `data-slot`, Ark `data-part`, and state attributes s
                     </FileUpload.Item>
                   ))
                 }
-              </FileUpload.Context>
+              </ArkFileUpload.Context>
             </FileUpload.ItemGroup>
             <FileUpload.HiddenInput />
           </FileUpload>
