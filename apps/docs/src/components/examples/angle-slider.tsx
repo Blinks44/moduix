@@ -1,4 +1,5 @@
-import { AngleSlider, useAngleSlider } from '@moduix/react';
+import { useAngleSlider } from '@ark-ui/react/angle-slider';
+import { AngleSlider } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -33,12 +34,6 @@ export const angleSliderDisabledCss = `
 
 export const angleSliderReadOnlyCss = `
   .docs-angle-slider-readonly {
-    --angle-slider-size: 9rem;
-  }
-`;
-
-export const angleSliderContextCss = `
-  .docs-angle-slider-context {
     --angle-slider-size: 9rem;
   }
 `;
@@ -307,24 +302,6 @@ export function ReadOnlyAngleSliderExample() {
         className="docs-angle-slider-readonly"
       >
         <AngleSlider.Label>Locked angle</AngleSlider.Label>
-        <AngleSliderParts />
-      </AngleSlider.Root>
-    </>
-  );
-}
-
-export function ContextAngleSliderExample() {
-  return (
-    <>
-      <style>{angleSliderContextCss}</style>
-      <AngleSlider.Root
-        defaultValue={90}
-        aria-label="Rotation"
-        className="docs-angle-slider-context"
-      >
-        <AngleSlider.Context>
-          {(context) => <AngleSlider.Label>{context.value} degrees</AngleSlider.Label>}
-        </AngleSlider.Context>
         <AngleSliderParts />
       </AngleSlider.Root>
     </>

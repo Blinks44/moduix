@@ -11,10 +11,10 @@ Upstream docs:
 
 ## Upstream model to preserve
 
-- Preserve Ark parts: `Root`, `RootProvider`, `Context`, `Label`, `Control`, `MarkerGroup`,
-  `Marker`, `Thumb`, `ValueText`, and `HiddenInput`.
-- Preserve `useAngleSlider`, `useAngleSliderContext`, controlled/uncontrolled state, callback detail
-  objects, keyboard behavior, pointer dragging, form behavior, IDs, refs, and `asChild`.
+- Preserve Ark visual parts: `Root`, `RootProvider`, `Label`, `Control`, `MarkerGroup`, `Marker`,
+  `Thumb`, `ValueText`, and `HiddenInput`.
+- Preserve controlled/uncontrolled state, callback detail objects, keyboard behavior, pointer
+  dragging, form behavior, IDs, refs, and `asChild`.
 - `RootProvider` owns an externally created `useAngleSlider` instance and must not be nested with a
   `Root` for that same instance.
 
@@ -22,8 +22,8 @@ Upstream docs:
 
 - `AngleSlider` is the styled root and is equivalent to `AngleSlider.Root`.
 - All DOM parts are thin wrappers over the corresponding Ark parts and forward refs.
-- `AngleSlider.Context`, `useAngleSlider`, and `useAngleSliderContext` expose the Ark state API
-  without remapping.
+- Context parts, state hooks, and Ark type aliases are imported directly from
+  `@ark-ui/react/angle-slider`.
 - `value`, `defaultValue`, `step`, `disabled`, `invalid`, `readOnly`, `name`, `ids`,
   `onValueChange(details)`, and `onValueChangeEnd(details)` pass through unchanged.
 - Visible parts and `HiddenInput` are explicitly composed; the wrapper does not generate markers or
@@ -56,8 +56,6 @@ Externally owned state replaces `Root` with `RootProvider`.
 | `AngleSlider.ValueText`    | `angle-slider-value-text`    |
 | `AngleSlider.HiddenInput`  | `angle-slider-hidden-input`  |
 
-`AngleSlider.Context` does not render a DOM element and therefore has no `data-slot`.
-
 ## Composition
 
 ```tsx
@@ -87,10 +85,9 @@ export function RotationAngleSlider() {
 ## Upstream feature coverage
 
 - Official MDX examples `Basic`, `Controlled`, and `Steps` are supported and documented.
-- Ark example surfaces `Disabled`, `Context`, and `Root Provider` are also supported and documented.
+- Ark example surfaces `Disabled` and `Root Provider` are also supported and documented.
 - `readOnly`, `invalid`, `name`, `ids`, `onValueChangeEnd`, `asChild`, and part refs pass through.
-- `Context` exposes `value`, `valueAsDegree`, `setValue`, and `dragging`.
-- `RootProvider` accepts the return value of `useAngleSlider`.
+- `RootProvider` accepts the return value of Ark's `useAngleSlider`.
 
 ## Accessibility and state
 
@@ -124,8 +121,8 @@ export function RotationAngleSlider() {
 - Ark is headless; moduix provides default visuals and stable `data-slot` hooks.
 - Markers remain explicit instead of being generated from a wrapper prop.
 - No legacy aliases, positional callback adapters, custom state context, or `render` prop remain.
-- The public barrel re-exports Ark's part props, context props, `UseAngleSliderProps`,
-  `UseAngleSliderReturn`, and `UseAngleSliderContext` types.
+- moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
+  aliases. Advanced consumers import those directly from `@ark-ui/react/angle-slider`.
 
 ## Agent notes
 
@@ -137,6 +134,8 @@ export function RotationAngleSlider() {
 
 ## Local changelog
 
+- 2026-07-02: Removed duplicate Ark type exports, the context part, and state hooks from the moduix
+  surface. Kept `RootProvider`, the callable root, every styled visual part, and form behavior.
 - 2026-06-24: Removed stale control focus styling, kept read-only thumbs pointer-focusable,
   exported the full Ark part prop type surface, and fixed the RootProvider docs snippet.
 - 2026-06-18: Completed Ark UI parity by exposing `RootProvider`, `Context`, state hooks and types;

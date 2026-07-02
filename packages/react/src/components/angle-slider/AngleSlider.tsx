@@ -1,9 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  AngleSlider as AngleSliderPrimitive,
-  useAngleSlider,
-  useAngleSliderContext,
-} from '@ark-ui/react/angle-slider';
+import { AngleSlider as AngleSliderPrimitive } from '@ark-ui/react/angle-slider';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -135,8 +131,6 @@ const AngleSliderHiddenInput = forwardRef<
   );
 });
 
-const AngleSliderContext = AngleSliderPrimitive.Context;
-
 const AngleSlider = Object.assign(AngleSliderRoot, {
   Root: AngleSliderRoot,
   RootProvider: AngleSliderRootProvider,
@@ -147,31 +141,6 @@ const AngleSlider = Object.assign(AngleSliderRoot, {
   Marker: AngleSliderMarker,
   ValueText: AngleSliderValueText,
   HiddenInput: AngleSliderHiddenInput,
-  Context: AngleSliderContext,
 });
 
-export { AngleSlider, useAngleSlider, useAngleSliderContext };
-export type {
-  AngleSliderContextProps,
-  AngleSliderControlBaseProps,
-  AngleSliderControlProps,
-  AngleSliderHiddenInputBaseProps,
-  AngleSliderHiddenInputProps,
-  AngleSliderLabelBaseProps,
-  AngleSliderLabelProps,
-  AngleSliderMarkerBaseProps,
-  AngleSliderMarkerGroupBaseProps,
-  AngleSliderMarkerGroupProps,
-  AngleSliderMarkerProps,
-  AngleSliderRootBaseProps,
-  AngleSliderRootProps,
-  AngleSliderRootProviderBaseProps,
-  AngleSliderRootProviderProps,
-  AngleSliderThumbBaseProps,
-  AngleSliderThumbProps,
-  AngleSliderValueTextBaseProps,
-  AngleSliderValueTextProps,
-  UseAngleSliderContext,
-  UseAngleSliderProps,
-  UseAngleSliderReturn,
-} from '@ark-ui/react/angle-slider';
+export { AngleSlider };

@@ -7,7 +7,6 @@ icon: Component
 import {
   AngleSliderCssPropertiesPanel,
   AngleSliderExample,
-  ContextAngleSliderExample,
   ControlledAngleSliderExample,
   CustomStylingAngleSliderExample,
   DisabledAngleSliderExample,
@@ -15,7 +14,6 @@ import {
   RootProviderAngleSliderExample,
   SteppedAngleSliderExample,
   angleSliderBasicCss,
-  angleSliderContextCss,
   angleSliderControlledCss,
   angleSliderCustomStylingCss,
   angleSliderDisabledCss,
@@ -142,8 +140,7 @@ AngleSlider.Root
 | Part                               | Role                                                                  |
 | ---------------------------------- | --------------------------------------------------------------------- |
 | `AngleSlider` / `AngleSlider.Root` | Owns uncontrolled or controlled slider state.                         |
-| `AngleSlider.RootProvider`         | Connects externally owned state from `useAngleSlider`.                |
-| `AngleSlider.Context`              | Exposes `value`, `valueAsDegree`, `setValue`, and `dragging`.         |
+| `AngleSlider.RootProvider`         | Connects externally owned Ark state.                                  |
 | `AngleSlider.Label`                | Associates a visible label with the slider thumb.                     |
 | `AngleSlider.Control`              | Circular pointer interaction surface.                                 |
 | `AngleSlider.MarkerGroup`          | Contains optional reference markers.                                  |
@@ -161,9 +158,9 @@ Use the full part tree shown above. `MarkerGroup` is optional, but `Label`, `Thu
 
 ### When to go custom
 
-Use `AngleSlider.Context` for inline state-dependent rendering. Use `useAngleSlider` with
-`AngleSlider.RootProvider` when state must be controlled outside the rendered slider subtree.
-Do not render `Root` and `RootProvider` for the same state instance.
+Use Ark's `useAngleSlider` with `AngleSlider.RootProvider` when state must be controlled outside
+the rendered slider subtree. Import context parts and state hooks directly from
+`@ark-ui/react/angle-slider`. Do not render `Root` and `RootProvider` for the same state instance.
 
 Every DOM part supports Ark `asChild`. Supply one semantic child that can preserve the part's
 keyboard, focus, ARIA, and pointer behavior. Use `ids` on `Root` when composed elements need stable
@@ -339,68 +336,18 @@ Use `disabled` when the control must be unavailable and excluded from interactio
   </Preview.Data>
 </Preview>
 
-### Context
-
-Use `AngleSlider.Context` for inline rendering that depends on the current Ark state.
-
-<Preview>
-  <ContextAngleSliderExample />
-
-  <Preview.Code>
-    {`
-      import { AngleSlider } from "@moduix/react";
-
-      export function ContextAngleSliderDemo() {
-        return (
-          <AngleSlider
-            defaultValue={initialValue}
-            aria-label="Rotation"
-            className="docs-angle-slider-context"
-          >
-            <AngleSlider.Context>
-              {(context) => (
-                <AngleSlider.Label>{context.value} degrees</AngleSlider.Label>
-              )}
-            </AngleSlider.Context>
-            <AngleSlider.Control>
-              <AngleSlider.MarkerGroup>
-                {markerValues.map((value) => (
-                  <AngleSlider.Marker key={value} value={value} />
-                ))}
-              </AngleSlider.MarkerGroup>
-              <AngleSlider.Thumb />
-            </AngleSlider.Control>
-            <AngleSlider.ValueText />
-            <AngleSlider.HiddenInput />
-          </AngleSlider>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.CSS>{angleSliderContextCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const initialValue = 90;
-      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
-    `}
-
-  </Preview.Data>
-</Preview>
-
 ### Root Provider
 
-Use `useAngleSlider` and `RootProvider` when another control needs direct access to the same state
-machine.
+Use Ark's `useAngleSlider` and the moduix `RootProvider` when another control needs direct access
+to the same state machine.
 
 <Preview>
   <RootProviderAngleSliderExample />
 
   <Preview.Code>
     {`
-      import { AngleSlider, useAngleSlider } from "@moduix/react";
+      import { useAngleSlider } from "@ark-ui/react/angle-slider";
+      import { AngleSlider } from "@moduix/react";
 
       export function RootProviderAngleSliderDemo() {
         const angleSlider = useAngleSlider({

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useAngleSlider } from '@ark-ui/react/angle-slider';
 import { useState } from 'react';
-import { AngleSlider, useAngleSlider } from './AngleSlider';
+import { AngleSlider } from './AngleSlider';
 import styles from './AngleSlider.stories.module.css';
 
 const markerValues = Array.from({ length: 8 }, (_, index) => index * 45);
@@ -112,19 +113,6 @@ export const Disabled: Story = {
         className={styles.demoRoot}
       >
         <AngleSlider.Label>Rotation</AngleSlider.Label>
-        <AngleSliderParts />
-      </AngleSlider.Root>
-    );
-  },
-};
-
-export const Context: Story = {
-  render: () => {
-    return (
-      <AngleSlider.Root defaultValue={90} aria-label="Rotation" className={styles.demoRoot}>
-        <AngleSlider.Context>
-          {(context) => <AngleSlider.Label>{context.value} degrees</AngleSlider.Label>}
-        </AngleSlider.Context>
         <AngleSliderParts />
       </AngleSlider.Root>
     );
