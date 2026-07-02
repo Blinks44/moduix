@@ -12,8 +12,7 @@ Upstream docs:
 ## Upstream model to preserve
 
 The wrapper follows Ark UI `Clipboard` for state, copy lifecycle, and composition. Keep the Ark part tree and callback
-shapes intact: `Root`, `RootProvider`, `Label`, `Control`, `Input`, `Trigger`, `Indicator`, `ValueText`,
-`Context`, `useClipboard()`, and `useClipboardContext()`.
+shapes intact: `Root`, `RootProvider`, `Label`, `Control`, `Input`, `Trigger`, `Indicator`, and `ValueText`.
 
 ## Current behavior contract
 
@@ -24,6 +23,8 @@ shapes intact: `Root`, `RootProvider`, `Label`, `Control`, `Input`, `Trigger`, `
 - `Clipboard.Trigger` is the copy action button. It stays structural and does not hide `Indicator` or `ValueText`.
 - `Clipboard.Indicator` adds only leaf-level sugar: default idle and copied icons when no custom content is provided.
 - `Clipboard.ValueText` exposes the current value as text when an input field is not the right surface.
+- `Clipboard.RootProvider` keeps the styled root for clipboard state created with Ark `useClipboard()`.
+- Ark context hooks and Ark type aliases are not re-exported from moduix. Import those directly from `@ark-ui/react/clipboard` when an advanced workflow needs them.
 - The old `CopyButton` API, prop names, live-region wrapper, and button-only mental model were removed in favor of the Ark family.
 
 ## Anatomy and exported parts
@@ -35,7 +36,6 @@ Clipboard.Root | Clipboard.RootProvider
 │  ├─ Clipboard.Input or Clipboard.ValueText
 │  └─ Clipboard.Trigger
 │     └─ Clipboard.Indicator (optional but recommended)
-└─ Clipboard.Context (optional render-prop access)
 ```
 
 - `Clipboard.Root` -> `data-slot="clipboard-root"`
@@ -81,8 +81,8 @@ export function ClipboardDemo() {
 - Copy status: supported via `onStatusChange(details)` and Ark `data-copied` attributes.
 - Timeout: supported via Ark `timeout`.
 - Value text pattern: supported with `Clipboard.ValueText`.
-- Root provider pattern: supported with `useClipboard()` and `Clipboard.RootProvider`.
-- Context access: supported with `Clipboard.Context` and `useClipboardContext()`.
+- Root provider pattern: supported with Ark `useClipboard()` and `Clipboard.RootProvider`.
+- Context access remains available directly from `@ark-ui/react/clipboard`.
 
 ## Accessibility and state
 
@@ -92,6 +92,7 @@ export function ClipboardDemo() {
 - Ark applies `data-readonly` on `Clipboard.Input` when read-only.
 - `Clipboard.Trigger` keeps Ark keyboard and focus behavior. Do not replace it with a custom click handler layer.
 - The wrapper no longer adds a separate live region. Accessibility follows the Ark clipboard contract directly.
+- `Clipboard.RootProvider` is the only advanced state surface re-exported by moduix. Ark `useClipboardContext()` stays available directly from `@ark-ui/react/clipboard`.
 
 ## Defaults and styling
 
@@ -107,6 +108,7 @@ export function ClipboardDemo() {
 - moduix adds styling defaults for all exported parts.
 - moduix adds default indicator icons only; that is the only behavior sugar beyond styling.
 - Default copied-state styling is intentionally neutral for `Input` and `Trigger`, matching the Ark examples more closely.
+- moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type aliases.
 - `CopyButton` was removed as a breaking change. Consumers must switch to `Clipboard` parts and Ark callback names.
 - No legacy prop aliases remain. `copiedDuration`, `copyLabels`, `onCopy`, and `onCopyError` do not exist on the new surface.
 
@@ -118,5 +120,6 @@ export function ClipboardDemo() {
 
 ## Local changelog
 
+- 2026-07-02: Removed duplicate Ark type exports, `Clipboard.Context`, and clipboard state hook re-exports from the moduix surface. Kept `RootProvider`, the callable root, and all styled visual parts.
 - 2026-06-24: Synced RootProvider docs with the shipped `Clipboard.RootProvider` API and removed stale copied-state styling tokens from examples.
 - 2026-06-18: Replaced `CopyButton` with an Ark UI `Clipboard` component family and removed the legacy button-only API.

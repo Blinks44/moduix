@@ -8,14 +8,12 @@ import {
   ClipboardCssPropertiesPanel,
   ClipboardExample,
   ControlledClipboardExample,
-  ContextClipboardExample,
   CopyStatusClipboardExample,
   CustomStylingClipboardExample,
   RootProviderClipboardExample,
   TimeoutClipboardExample,
   ValueTextClipboardExample,
   clipboardBasicData,
-  clipboardContextData,
   clipboardControlledData,
   clipboardCopyStatusData,
   clipboardCustomStylingData,
@@ -118,13 +116,12 @@ Clipboard.Root | Clipboard.RootProvider
 │  ├─ Clipboard.Input or Clipboard.ValueText
 │  └─ Clipboard.Trigger
 │     └─ Clipboard.Indicator (optional)
-└─ Clipboard.Context (optional render-prop access)
 ```
 
 | Part                           | Role                                                            |
 | ------------------------------ | --------------------------------------------------------------- |
 | `Clipboard` / `Clipboard.Root` | Owns clipboard state, copied lifecycle, and controlled value.   |
-| `Clipboard.RootProvider`       | Injects a `useClipboard()` store created outside the subtree.   |
+| `Clipboard.RootProvider`       | Injects Ark `useClipboard()` state created outside the subtree. |
 | `Clipboard.Label`              | Accessible label for the clipboard value.                       |
 | `Clipboard.Control`            | Layout row for value surface and trigger.                       |
 | `Clipboard.Input`              | Editable or read-only text field for the current value.         |
@@ -150,11 +147,9 @@ to the check icon while copied state is active.
 
 Use `Clipboard.ValueText` when the value should be displayed as text instead of inside an input.
 
-Use `useClipboard()` with `Clipboard.RootProvider` when clipboard state must be created outside the
-rendered subtree.
-
-Use `Clipboard.Context` or `useClipboardContext()` when nearby UI needs access to clipboard state
-without adding a separate React state layer.
+Use Ark `useClipboard()` with `Clipboard.RootProvider` when clipboard state must be created outside
+the rendered subtree. Ark context and state hooks remain available directly from
+`@ark-ui/react/clipboard`.
 
 Use `asChild` on the Ark parts only when another element must own the rendered node. Keep the Ark
 part tree visible instead of hiding it behind a convenience wrapper.
@@ -293,40 +288,6 @@ Set `timeout` when copied state should remain visible for longer than the Ark de
   <Preview.Data>{clipboardTimeoutData}</Preview.Data>
 </Preview>
 
-### Context
-
-Use `Clipboard.Context` when trigger text or nearby UI should react to clipboard state without
-introducing another React state layer.
-
-<Preview>
-  <ContextClipboardExample />
-
-  <Preview.Code>
-    {`
-      import { Clipboard } from "@moduix/react";
-
-      export function ContextClipboardDemo() {
-        return (
-          <Clipboard defaultValue="maps-platform-token">
-            <Clipboard.Control>
-              <Clipboard.Trigger aria-label="Copy API token">
-                <Clipboard.Indicator />
-                <Clipboard.Context>
-                  {(clipboard) => (clipboard.copied ? "Copied" : "Copy token")}
-                </Clipboard.Context>
-              </Clipboard.Trigger>
-            </Clipboard.Control>
-          </Clipboard>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
-  <Preview.Data>{clipboardContextData}</Preview.Data>
-</Preview>
-
 ### Value Text
 
 Use `Clipboard.ValueText` when the copied value should read like inline content instead of an input.
@@ -360,15 +321,16 @@ Use `Clipboard.ValueText` when the copied value should read like inline content 
 
 ### Root Provider
 
-Use `useClipboard()` with `Clipboard.RootProvider` when clipboard state belongs outside the rendered
-tree but the visible parts should stay Ark-shaped.
+Use Ark `useClipboard()` with `Clipboard.RootProvider` when clipboard state belongs outside the
+rendered tree but the visible parts should stay Ark-shaped.
 
 <Preview>
   <RootProviderClipboardExample />
 
   <Preview.Code>
     {`
-      import { Clipboard, useClipboard } from "@moduix/react";
+      import { useClipboard } from "@ark-ui/react/clipboard";
+      import { Clipboard } from "@moduix/react";
 
       export function RootProviderClipboardDemo() {
         const clipboard = useClipboard({

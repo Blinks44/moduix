@@ -1,4 +1,5 @@
-import { Clipboard, useClipboard } from '@moduix/react';
+import { useClipboard } from '@ark-ui/react/clipboard';
+import { Clipboard } from '@moduix/react';
 import { useState, type ReactNode } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -20,10 +21,6 @@ export const clipboardCopyStatusData = `
 export const clipboardTimeoutData = `
   const clipboardValue = "workspace-secret";
   const copiedStateTimeout = 5000;
-`;
-
-export const clipboardContextData = `
-  const clipboardValue = "maps-platform-token";
 `;
 
 export const clipboardValueTextData = `
@@ -420,26 +417,6 @@ export function TimeoutClipboardExample() {
           <Clipboard.Input readOnly />
           <Clipboard.Trigger aria-label="Copy workspace secret">
             <Clipboard.Indicator />
-          </Clipboard.Trigger>
-        </Clipboard.Control>
-      </Clipboard.Root>
-    </ClipboardExampleFrame>
-  );
-}
-
-export function ContextClipboardExample() {
-  return (
-    <ClipboardExampleFrame>
-      <Clipboard.Root
-        className="clipboard-demo-root clipboard-demo-root--compact"
-        defaultValue="maps-platform-token"
-      >
-        <Clipboard.Control>
-          <Clipboard.Trigger aria-label="Copy API token">
-            <Clipboard.Indicator />
-            <Clipboard.Context>
-              {(clipboard) => (clipboard.copied ? 'Copied' : 'Copy token')}
-            </Clipboard.Context>
           </Clipboard.Trigger>
         </Clipboard.Control>
       </Clipboard.Root>

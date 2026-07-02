@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useClipboard } from '@ark-ui/react/clipboard';
 import { useState } from 'react';
-import { Clipboard, useClipboard } from './Clipboard';
+import { Clipboard } from './Clipboard';
 import styles from './Clipboard.stories.module.css';
 
 const meta = {
@@ -113,23 +114,6 @@ export const Timeout: Story = {
           <Clipboard.Input readOnly />
           <Clipboard.Trigger aria-label="Copy workspace secret">
             <Clipboard.Indicator />
-          </Clipboard.Trigger>
-        </Clipboard.Control>
-      </Clipboard.Root>
-    );
-  },
-};
-
-export const Context: Story = {
-  render: () => {
-    return (
-      <Clipboard.Root className={styles.demo} defaultValue="maps-platform-token">
-        <Clipboard.Control>
-          <Clipboard.Trigger aria-label="Copy API token">
-            <Clipboard.Indicator />
-            <Clipboard.Context>
-              {(clipboard) => (clipboard.copied ? 'Copied' : 'Copy token')}
-            </Clipboard.Context>
           </Clipboard.Trigger>
         </Clipboard.Control>
       </Clipboard.Root>
