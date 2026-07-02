@@ -33,6 +33,8 @@ factory and Chakra's Alert part contract.
 - All exported parts accept `className`.
 - All exported parts accept Ark `asChild`.
 - Refs forward to each rendered DOM part.
+- Props are inferred from the component values with `ComponentProps`; moduix does not re-export
+  aliases for the Ark factory props or the `status` union.
 - The component stays presentational and does not add dismiss state, controlled state, action slots,
   or focus management.
 - Public docs examples should show `Code`, `Styles`, and `Data` tabs, even though Alert has no Ark
@@ -177,6 +179,9 @@ Built-in statuses derive their accents from shared palette tokens:
 
 ## Local changelog
 
+- 2026-07-02: Simplified the public type surface by removing Alert prop and status aliases; preserved
+  callable-root composition, all visual parts, statuses, automatic roles, refs, `asChild`, and
+  styling hooks.
 - 2026-07-01: Aligned runnable examples on the short `<Alert>` root form while preserving
   `Alert.Root` as the equivalent anatomy/API alias.
 - 2026-06: Migrated `Alert` to an Ark-style compound contract based on `Alert.Root`,
@@ -185,5 +190,5 @@ Built-in statuses derive their accents from shared palette tokens:
   `as` to `asChild`.
 - 2026-06-18: Updated docs/examples to make every Alert preview reproducible with `Code`,
   `Styles`, and `Data` tabs, and added a dedicated `Alert.Title asChild` example.
-- 2026-06-24: Added explicit Ark-style `data-scope` / `data-part` hooks, exported part prop types,
-  and finalized local/docs guidance for the Ark factory implementation.
+- 2026-06-24: Added explicit Ark-style `data-scope` / `data-part` hooks and finalized local/docs
+  guidance for the Ark factory implementation.
