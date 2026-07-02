@@ -29,6 +29,8 @@ separators hidden from assistive technology. Collapsed paths are composed explic
 - `Breadcrumbs.Ellipsis` renders an `aria-hidden` span and defaults to `...`.
 - The root is also exposed as `Breadcrumbs.Root`, with namespace-only parts for Ark-aligned
   composition.
+- Moduix does not re-export prop aliases that duplicate Ark factory types. Derive consumer types
+  with `ComponentProps<typeof Breadcrumbs>` or `ComponentProps<typeof Breadcrumbs.Link>` when needed.
 
 ## Anatomy and exported parts
 
@@ -162,6 +164,8 @@ The last item can shrink and is capped by `--breadcrumbs-item-max-width`; link, 
 
 ## Local changelog
 
+- 2026-07-02: Removed public prop aliases that only duplicated Ark factory types while preserving
+  every structural part, callable root form, default separator and ellipsis content, and `asChild`.
 - 2026-06-19: Migrated the component to Ark factory elements, added Ark-style `data-scope`/`data-part` hooks,
   namespace parts, prop type exports, and replaced `render` with `asChild`.
 - 2026-06-24: Re-audited the local-only Ark factory contract, made separators presentational by default,

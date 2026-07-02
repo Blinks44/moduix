@@ -8,6 +8,8 @@
   callable root, namespace form, and token-based layout API.
 - Simplify `Badge` by removing its public prop and variant type aliases. Derive consumer types from
   `ComponentProps<typeof Badge>` when needed.
+- Simplify `Breadcrumbs` by removing public prop aliases that duplicate Ark factory types while
+  preserving its callable root and explicit composition parts.
 
 ### Minor Changes
 
