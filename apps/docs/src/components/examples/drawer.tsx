@@ -1,10 +1,6 @@
-import {
-  Button,
-  Drawer,
-  ScrollArea,
-  type DrawerTriggerValueChangeDetails,
-  useDrawer,
-} from '@moduix/react';
+import type { DrawerTriggerValueChangeDetails } from '@ark-ui/react/drawer';
+import { useDrawer } from '@ark-ui/react/drawer';
+import { Button, Drawer, ScrollArea } from '@moduix/react';
 import { useState, type ReactNode } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -411,37 +407,5 @@ export function IndentDrawerExample() {
         </Drawer.Root>
       </div>
     </Drawer.Stack>
-  );
-}
-
-export function ContextDrawerExample() {
-  return (
-    <Drawer.Root defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
-      <Drawer.Trigger asChild>
-        <Button>Open context drawer</Button>
-      </Drawer.Trigger>
-      <DrawerSurface title="Context state">
-        <Drawer.Context>
-          {(drawer) => (
-            <Drawer.Body>
-              <dl className={styles.contextReadout}>
-                <div>
-                  <dt>Open</dt>
-                  <dd>{String(drawer.open)}</dd>
-                </div>
-                <div>
-                  <dt>Direction</dt>
-                  <dd>{drawer.swipeDirection}</dd>
-                </div>
-                <div>
-                  <dt>Snap point</dt>
-                  <dd>{String(drawer.snapPoint)}</dd>
-                </div>
-              </dl>
-            </Drawer.Body>
-          )}
-        </Drawer.Context>
-      </DrawerSurface>
-    </Drawer.Root>
   );
 }

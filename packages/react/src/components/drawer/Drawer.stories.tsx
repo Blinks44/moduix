@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useDrawer, useDrawerContext } from '@ark-ui/react/drawer';
 import { useState, type ReactNode } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import { Button } from '../button';
-import { Drawer, useDrawer } from './Drawer';
+import { Drawer } from './Drawer';
 import storyStyles from './Drawer.stories.module.css';
 
 const DEFAULT_DEMO_SNAP_POINT = 0.3;
@@ -277,6 +278,16 @@ export const IndentBackground: Story = {
   ),
 };
 
+function DrawerContextReadout() {
+  const drawer = useDrawerContext();
+
+  return (
+    <Drawer.Body>
+      Direction: {drawer.swipeDirection}; open: {String(drawer.open)}
+    </Drawer.Body>
+  );
+}
+
 export const Context: Story = {
   render: () => (
     <Drawer.Root defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
@@ -284,13 +295,7 @@ export const Context: Story = {
         <Button>Open context example</Button>
       </Drawer.Trigger>
       <DrawerSurface title="Context state">
-        <Drawer.Context>
-          {(drawer) => (
-            <Drawer.Body>
-              Direction: {drawer.swipeDirection}; open: {String(drawer.open)}
-            </Drawer.Body>
-          )}
-        </Drawer.Context>
+        <DrawerContextReadout />
       </DrawerSurface>
     </Drawer.Root>
   ),

@@ -66,24 +66,3 @@
   padding: var(--spacing-6);
   background: var(--color-background);
 }
-
-.contextReadout {
-  display: grid;
-  gap: var(--spacing-2);
-  margin: 0;
-
-  & > div {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--spacing-4);
-  }
-
-  & dt {
-    color: var(--color-muted-foreground);
-  }
-
-  & dd {
-    margin: 0;
-    color: var(--color-foreground);
-  }
-}

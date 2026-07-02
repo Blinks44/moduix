@@ -17,8 +17,8 @@ The wrapper follows `@ark-ui/react/drawer` directly. Preserve Ark part names, lo
 drag behavior, render strategy props, stack coordination, and runtime CSS variables.
 
 `Drawer.RootProvider` must receive a value from `useDrawer`; do not render `Drawer.Root` for the
-same state instance. `Drawer.Context`, `useDrawerContext`, and `useDrawerStackContext` expose Ark
-state without remapping.
+same state instance. Advanced state hooks, context APIs, and detail types come directly from
+`@ark-ui/react/drawer`.
 
 ## Current behavior contract
 
@@ -56,7 +56,7 @@ Drawer.Root
 
 Ark-aligned exports are `Root`, `RootProvider`, `Stack`, `Trigger`, `Backdrop`, `Positioner`,
 `Content`, `Grabber`, `GrabberIndicator`, `Title`, `Description`, `CloseTrigger`, `SwipeArea`,
-`Indent`, `IndentBackground`, and `Context`.
+`Indent`, `IndentBackground`, `Header`, `Body`, `Footer`, and `CloseIcon`.
 
 Stable moduix hooks use matching kebab-case `data-slot` values, for example `drawer-content`,
 `drawer-grabber`, and `drawer-close-trigger`.
@@ -103,7 +103,8 @@ focusable element that preserves button behavior.
   `onTriggerValueChange(details)` are supported.
 - Nested drawers: render separate `useDrawer` states with `RootProvider` siblings so each drawer
   keeps independent open and focus state while Ark exposes nested drawer state attributes.
-- External state: `useDrawer` and `RootProvider` are exported from the package barrel.
+- External state: import `useDrawer`, `useDrawerContext`, and related Ark APIs directly from
+  `@ark-ui/react/drawer`, then pair them with moduix `RootProvider`.
 - Stack visuals: `Stack`, `Indent`, and `IndentBackground` use Ark stack context.
 - Render strategy and focus props: `present`, `lazyMount`, `unmountOnExit`, `initialFocusEl`,
   `finalFocusEl`, `restoreFocus`, and dismissal callbacks pass through.
@@ -171,6 +172,9 @@ Public theme variables are declared in `packages/react/src/lib/moduix/styles/the
   state or hidden structure.
 - `Drawer.Trigger` and `Drawer.CloseTrigger` receive moduix button visuals only when `asChild` is
   not used.
+- moduix keeps `RootProvider`, but does not re-export Ark state hooks, context helpers, renderless
+  context parts, or Ark type aliases. Advanced consumers import those directly from
+  `@ark-ui/react/drawer`.
 - The removed legacy API is intentionally unsupported: `DrawerProvider`, `createDrawerHandle`,
   `DrawerPortal`, `DrawerViewport`, `DrawerPopup`, `DrawerContentInner`, `DrawerHandle`, and the
   former high-level `DrawerContent` composition wrapper.
@@ -179,12 +183,15 @@ Public theme variables are declared in `packages/react/src/lib/moduix/styles/the
 
 - Keep the explicit Ark structural tree visible in stories and public docs.
 - Keep portal transport on the root and do not recreate the removed legacy popup/viewport split.
+- Do not re-export Ark hooks, context helpers, renderless context parts, or duplicate type aliases.
 - Do not convert Ark callback detail objects to scalar values.
 - Use `start` and `end` in public props; physical `left` and `right` are styling attributes only.
 - Keep `Grabber` and `GrabberIndicator` as separate parts.
 
 ## Local changelog
 
+- 2026-07-02: Removed Ark hook, context, and duplicate type re-exports from the moduix `Drawer`
+  surface. Kept `RootProvider`, visual parts, layout helpers, and close-icon sugar.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-29: Added animated nested drawer scale/offset motion so parent drawers recede smoothly

@@ -1,10 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  Drawer as DrawerPrimitive,
-  useDrawer,
-  useDrawerContext,
-  useDrawerStackContext,
-} from '@ark-ui/react/drawer';
+import { Drawer as DrawerPrimitive } from '@ark-ui/react/drawer';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -263,8 +258,6 @@ function DrawerFooter({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="drawer-footer" className={clsx(styles.footer, className)} {...props} />;
 }
 
-const DrawerContext = DrawerPrimitive.Context;
-
 const Drawer = Object.assign(DrawerRoot, {
   Root: DrawerRoot,
   RootProvider: DrawerRootProvider,
@@ -285,31 +278,6 @@ const Drawer = Object.assign(DrawerRoot, {
   Header: DrawerHeader,
   Body: DrawerBody,
   Footer: DrawerFooter,
-  Context: DrawerContext,
 });
 
-export { Drawer, useDrawer, useDrawerContext, useDrawerStackContext };
-export type { DrawerRootProps, DrawerRootProviderProps };
-export type {
-  DrawerBackdropProps,
-  DrawerCloseTriggerProps,
-  DrawerContentProps,
-  DrawerContextProps,
-  DrawerDescriptionProps,
-  DrawerGrabberIndicatorProps,
-  DrawerGrabberProps,
-  DrawerIndentBackgroundProps,
-  DrawerIndentProps,
-  DrawerOpenChangeDetails,
-  DrawerPositionerProps,
-  DrawerSnapPointChangeDetails,
-  DrawerStackProps,
-  DrawerSwipeAreaProps,
-  DrawerTitleProps,
-  DrawerTriggerProps,
-  DrawerTriggerValueChangeDetails,
-  UseDrawerContext,
-  UseDrawerProps,
-  UseDrawerReturn,
-  UseDrawerStackContext,
-} from '@ark-ui/react/drawer';
+export { Drawer };

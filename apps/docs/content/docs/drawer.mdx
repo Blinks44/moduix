@@ -6,7 +6,6 @@ icon: Component
 
 import {
   ControlledDrawerExample,
-  ContextDrawerExample,
   DragControlsDrawerExample,
   DrawerCssPropertiesPanel,
   DrawerExample,
@@ -164,7 +163,6 @@ Drawer.Root
 | `Drawer.GrabberIndicator` | Visual indicator inside the grabber handle.         |
 | `Drawer.CloseTrigger`     | Closes the drawer.                                  |
 | `Drawer.RootProvider`     | Connects parts to state created with `useDrawer()`. |
-| `Drawer.Context`          | Inline render-prop access to drawer state.          |
 
 `Drawer.Header`, `Drawer.Body`, `Drawer.Footer`, and `Drawer.CloseIcon` are optional moduix layout
 and visual helpers. They do not replace or hide Ark structural parts.
@@ -190,10 +188,10 @@ Callbacks preserve Ark detail objects:
 
 ### When to go custom
 
-Apply `className` directly to any exported part. Use `Drawer.Context` or `useDrawerContext` for
-state-aware child components. Use `useDrawer` with `Drawer.RootProvider` when the state must be
-owned outside the rendered drawer tree; do not combine `Root` and `RootProvider` for the same
-instance.
+Apply `className` directly to any exported part. For externally owned state or advanced context
+access, import `useDrawer`, `useDrawerContext`, and related Ark helpers directly from
+`@ark-ui/react/drawer`, then pair that state with moduix `Drawer.RootProvider`. Do not combine
+`Drawer.Root` and `Drawer.RootProvider` for the same instance.
 
 Wrap coordinated indent surfaces in `Drawer.Stack`, then render `Drawer.IndentBackground` and
 `Drawer.Indent`.
@@ -586,7 +584,8 @@ trigger is current.
 
   <Preview.Code>
     {`
-      import { Button, Drawer, type DrawerTriggerValueChangeDetails } from "@moduix/react";
+      import type { DrawerTriggerValueChangeDetails } from "@ark-ui/react/drawer";
+      import { Button, Drawer } from "@moduix/react";
       import { useState } from "react";
 
       export function MultipleTriggersDrawerDemo() {
@@ -644,7 +643,8 @@ points.
 
   <Preview.Code>
     {`
-      import { Button, Drawer, useDrawer } from "@moduix/react";
+      import { useDrawer } from "@ark-ui/react/drawer";
+      import { Button, Drawer } from "@moduix/react";
 
       export function RootProviderDrawerDemo() {
         const drawer = useDrawer({
@@ -697,96 +697,19 @@ points.
   <Preview.Data>{`const snapPoints = [0.25, 0.5, 1];`}</Preview.Data>
 </Preview>
 
-### Context
-
-Use `Drawer.Context` for state-aware content that lives inside the drawer tree.
-
-<Preview>
-  <ContextDrawerExample />
-
-  <Preview.Code>
-    {`
-      import { Button, Drawer } from "@moduix/react";
-
-      export function ContextDrawerDemo() {
-        return (
-          <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
-            <Drawer.Trigger asChild>
-              <Button>Open context drawer</Button>
-            </Drawer.Trigger>
-            <Drawer.Backdrop />
-            <Drawer.Positioner>
-              <Drawer.Content>
-                <Drawer.Grabber>
-                  <Drawer.GrabberIndicator />
-                </Drawer.Grabber>
-                <Drawer.Header>
-                  <Drawer.Title>Context state</Drawer.Title>
-                  <Drawer.CloseIcon />
-                </Drawer.Header>
-                <Drawer.Context>
-                  {(drawer) => (
-                    <Drawer.Body>
-                      <dl className="context-readout">
-                        <div>
-                          <dt>Open</dt>
-                          <dd>{String(drawer.open)}</dd>
-                        </div>
-                        <div>
-                          <dt>Direction</dt>
-                          <dd>{drawer.swipeDirection}</dd>
-                        </div>
-                        <div>
-                          <dt>Snap point</dt>
-                          <dd>{String(drawer.snapPoint)}</dd>
-                        </div>
-                      </dl>
-                    </Drawer.Body>
-                  )}
-                </Drawer.Context>
-              </Drawer.Content>
-            </Drawer.Positioner>
-          </Drawer>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>
-    {`
-      .context-readout {
-        display: grid;
-        gap: 0.5rem;
-        margin: 0;
-      }
-
-      .context-readout > div {
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-      }
-
-      .context-readout dd {
-        margin: 0;
-      }
-    `}
-
-  </Preview.CSS>
-  <Preview.Data>{`const snapPoints = [0.18, 1];`}</Preview.Data>
-</Preview>
-
 ### Nested
 
-Render nested drawers with separate `useDrawer` instances and `Drawer.RootProvider` trees so each
-surface keeps its own open state and focus lifecycle. The parent surface recedes behind the active
-drawer while leaving a visible edge.
+Render nested drawers with separate Ark `useDrawer` instances and moduix `Drawer.RootProvider`
+trees so each surface keeps its own open state and focus lifecycle. The parent surface recedes
+behind the active drawer while leaving a visible edge.
 
 <Preview>
   <NestedDrawerExample />
 
   <Preview.Code>
     {`
-      import { Button, Drawer, useDrawer } from "@moduix/react";
+      import { useDrawer } from "@ark-ui/react/drawer";
+      import { Button, Drawer } from "@moduix/react";
 
       export function NestedDrawerDemo() {
         const accountDrawer = useDrawer({
