@@ -5,19 +5,10 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Card.module.css';
 
-export type CardSize = 'sm' | 'md' | 'lg';
-export type CardVariant = 'elevated' | 'outline' | 'subtle';
-export type CardRootProps = HTMLArkProps<'div'> & {
-  size?: CardSize;
-  variant?: CardVariant;
+type CardRootProps = HTMLArkProps<'div'> & {
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'elevated' | 'outline' | 'subtle';
 };
-export type CardHeaderProps = HTMLArkProps<'div'>;
-export type CardBodyProps = HTMLArkProps<'div'>;
-export type CardFooterProps = HTMLArkProps<'div'>;
-export type CardTitleProps = HTMLArkProps<'h3'>;
-export type CardDescriptionProps = HTMLArkProps<'p'>;
-export type CardActionProps = HTMLArkProps<'div'>;
-export type CardLinkProps = HTMLArkProps<'a'>;
 
 const CardRoot = forwardRef<HTMLDivElement, CardRootProps>(function CardRoot(
   { className, size = 'md', variant = 'outline', ...props },
@@ -37,7 +28,7 @@ const CardRoot = forwardRef<HTMLDivElement, CardRootProps>(function CardRoot(
   );
 });
 
-const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(function CardHeader(
+const CardHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function CardHeader(
   { className, ...props },
   ref,
 ) {
@@ -53,7 +44,7 @@ const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(function CardHead
   );
 });
 
-const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(function CardBody(
+const CardBody = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function CardBody(
   { className, ...props },
   ref,
 ) {
@@ -69,7 +60,7 @@ const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(function CardBody(
   );
 });
 
-const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(function CardFooter(
+const CardFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function CardFooter(
   { className, ...props },
   ref,
 ) {
@@ -85,7 +76,7 @@ const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(function CardFoot
   );
 });
 
-const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(function CardTitle(
+const CardTitle = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(function CardTitle(
   { className, ...props },
   ref,
 ) {
@@ -101,7 +92,7 @@ const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(function CardTi
   );
 });
 
-const CardDescription = forwardRef<HTMLParagraphElement, CardDescriptionProps>(
+const CardDescription = forwardRef<HTMLParagraphElement, HTMLArkProps<'p'>>(
   function CardDescription({ className, ...props }, ref) {
     return (
       <ark.p
@@ -116,7 +107,7 @@ const CardDescription = forwardRef<HTMLParagraphElement, CardDescriptionProps>(
   },
 );
 
-const CardAction = forwardRef<HTMLDivElement, CardActionProps>(function CardAction(
+const CardAction = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function CardAction(
   { className, ...props },
   ref,
 ) {
@@ -132,7 +123,7 @@ const CardAction = forwardRef<HTMLDivElement, CardActionProps>(function CardActi
   );
 });
 
-const CardLink = forwardRef<HTMLAnchorElement, CardLinkProps>(function CardLink(
+const CardLink = forwardRef<HTMLAnchorElement, HTMLArkProps<'a'>>(function CardLink(
   { className, ...props },
   ref,
 ) {

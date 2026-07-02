@@ -34,6 +34,8 @@ component built with `@ark-ui/react/factory` and Chakra's Card anatomy.
 - `Card.Root` defaults `variant` to `'outline'`.
 - `Card.Title` renders `h3` by default and uses Ark `asChild` for heading-level changes.
 - All exported parts accept Ark factory props, including `className` and `asChild`.
+- Props and variant unions are inferred from `Card` and its namespaced parts instead of being
+  re-exported as duplicate aliases.
 
 ## Anatomy and exported parts
 
@@ -211,6 +213,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-02: Removed duplicate prop and variant type exports while preserving the callable root,
+  every visual part, and the moduix size, variant, action, and overlay-link sugar.
 - 2026-06-24: Finalized the Ark factory migration review by aligning public docs with the
   required local-only primitive reference text, removing an unused docs example export, and
   normalizing demo avatar sizing to the standard rem scale.
