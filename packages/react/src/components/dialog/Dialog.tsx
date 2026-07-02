@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
+import { Dialog as DialogPrimitive } from '@ark-ui/react/dialog';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -170,8 +170,6 @@ function DialogFooter({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="dialog-footer" className={clsx(styles.footer, className)} {...props} />;
 }
 
-const DialogContext = DialogPrimitive.Context;
-
 const Dialog = Object.assign(DialogRoot, {
   Root: DialogRoot,
   RootProvider: DialogRootProvider,
@@ -186,18 +184,7 @@ const Dialog = Object.assign(DialogRoot, {
   Header: DialogHeader,
   Body: DialogBody,
   Footer: DialogFooter,
-  Context: DialogContext,
 });
 
-export { Dialog, useDialog, useDialogContext };
+export { Dialog };
 export type { DialogRootProps, DialogRootProviderProps };
-export type {
-  DialogFocusOutsideEvent,
-  DialogInteractOutsideEvent,
-  DialogOpenChangeDetails,
-  DialogPointerDownOutsideEvent,
-  DialogTriggerValueChangeDetails,
-  UseDialogContext,
-  UseDialogProps,
-  UseDialogReturn,
-} from '@ark-ui/react/dialog';

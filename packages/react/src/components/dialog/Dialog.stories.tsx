@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useDialog, useDialogContext } from '@ark-ui/react/dialog';
 import { useRef, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import { Button } from '../button';
 import { ScrollArea } from '../scroll-area';
-import { Dialog, useDialog } from './Dialog';
+import { Dialog } from './Dialog';
 import storyStyles from './Dialog.stories.module.css';
 
 const meta = {
@@ -28,6 +29,12 @@ function DialogSurface({ children }: { children: React.ReactNode }) {
       </Dialog.Positioner>
     </>
   );
+}
+
+function DialogStatusText() {
+  const dialog = useDialogContext();
+
+  return <>Dialog is {dialog.open ? 'open' : 'closed'}</>;
 }
 
 export const Basic: Story = {
@@ -242,9 +249,7 @@ export const Context: Story = {
       <DialogSurface>
         <Dialog.Title>Status</Dialog.Title>
         <Dialog.Description>
-          <Dialog.Context>
-            {(dialog) => <>Dialog is {dialog.open ? 'open' : 'closed'}</>}
-          </Dialog.Context>
+          <DialogStatusText />
         </Dialog.Description>
       </DialogSurface>
     </Dialog.Root>

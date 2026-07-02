@@ -138,7 +138,7 @@ Dialog.Root
          └─ Dialog.Footer (moduix layout sugar)
 
 Dialog.RootProvider
-└─ the same automatically portalled content tree connected to useDialog()
+└─ the same automatically portalled content tree connected to Ark useDialog()
 ```
 
 | Part                     | Role                                                             |
@@ -151,11 +151,10 @@ Dialog.RootProvider
 | `Dialog.Title`           | Accessible dialog title.                                         |
 | `Dialog.Description`     | Accessible supporting description.                               |
 | `Dialog.CloseTrigger`    | Closes the dialog.                                               |
-| `Dialog.RootProvider`    | Connects parts to state created with `useDialog()`.              |
-| `Dialog.Context`         | Inline render-prop access to dialog state.                       |
+| `Dialog.RootProvider`    | Connects parts to state created with Ark `useDialog()`.          |
 
-`Dialog.Context` exposes inline state. `useDialogContext()` exposes the same state to reusable
-child components.
+Import Ark `useDialog()` and `useDialogContext()` directly from `@ark-ui/react/dialog` when dialog
+state must live outside the rendered tree or be read inside reusable children.
 
 ## Composition
 
@@ -174,7 +173,7 @@ Use `Dialog.Trigger asChild` and `Dialog.CloseTrigger asChild` with one semantic
 Use `open` with `onOpenChange(details)` for React-controlled state. The callback receives an Ark
 detail object, so read `details.open`.
 
-Use `useDialog()` with `Dialog.RootProvider` when state and methods must live outside the rendered
+Use Ark `useDialog()` with `Dialog.RootProvider` when state and methods must live outside the rendered
 dialog tree. Do not render `Dialog.Root` for the same store.
 
 Use `ids` when separately composed parts need stable shared accessibility IDs. Use
@@ -201,7 +200,7 @@ when JavaScript-driven exit animation needs to control mounted state.
 - Nested content receives `data-has-nested` and `--nested-layer-count`. Moduix uses those hooks to
   scale the parent down and offset it downward so the active nested dialog still reads as layered.
 - Open-from-menu and rapid state changes use the controlled `open` contract. Unsaved-change
-  confirmation uses two `useDialog()` stores and intercepts the parent store's `onOpenChange`.
+  confirmation uses two Ark `useDialog()` stores and intercepts the parent store's `onOpenChange`.
 
 ## Examples
 
@@ -241,10 +240,10 @@ Use the Ark detail object when synchronizing dialog state with React.
   <Preview.Data>{dialogEmptyData}</Preview.Data>
 </Preview>
 
-### Root Provider and Context
+### Root Provider and Ark Context Hooks
 
-Create state with `useDialog()` when controls live outside the dialog, and read inline state with
-`Dialog.Context`.
+Create state with Ark `useDialog()` when controls live outside the dialog, and read dialog state in
+child components with Ark `useDialogContext()`.
 
 <Preview>
   <div className="dialog-stack">
@@ -254,7 +253,14 @@ Create state with `useDialog()` when controls live outside the dialog, and read 
 
   <Preview.Code>
     {`
-      import { Button, Dialog, useDialog } from "@moduix/react";
+      import { useDialog, useDialogContext } from "@ark-ui/react/dialog";
+      import { Button, Dialog } from "@moduix/react";
+
+      function DialogStatusText() {
+        const dialog = useDialogContext();
+
+        return <>Dialog is {dialog.open ? "open" : "closed"}</>;
+      }
 
       export function DialogStateDemo() {
         const dialog = useDialog();
@@ -270,9 +276,7 @@ Create state with `useDialog()` when controls live outside the dialog, and read 
                 <Dialog.Content>
                   <Dialog.Title>Status</Dialog.Title>
                   <Dialog.Description>
-                    <Dialog.Context>
-                      {(state) => <>Dialog is {state.open ? "open" : "closed"}</>}
-                    </Dialog.Context>
+                    <DialogStatusText />
                   </Dialog.Description>
                   <Dialog.CloseIcon />
                 </Dialog.Content>
@@ -469,14 +473,15 @@ extend beyond the viewport.
 
 ### Nested
 
-Use separate `useDialog()` stores for nested layers. Ark UI provides stack-aware state and CSS
+Use separate Ark `useDialog()` stores for nested layers. Ark UI provides stack-aware state and CSS
 variables to the parent content; moduix uses them for a receding parent effect that stacks downward.
 
 <Preview>
   <NestedDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, useDialog } from "@moduix/react";
+      import { useDialog } from "@ark-ui/react/dialog";
+      import { Button, Dialog } from "@moduix/react";
 
       export function NestedDialogDemo() {
         const parent = useDialog();
@@ -628,7 +633,8 @@ Intercept the parent dialog close request when unsaved changes should be confirm
   <ConfirmationDialogExample />
   <Preview.Code>
     {`
-      import { Button, Dialog, useDialog } from "@moduix/react";
+      import { useDialog } from "@ark-ui/react/dialog";
+      import { Button, Dialog } from "@moduix/react";
       import { useState } from "react";
 
       export function ConfirmationDialogDemo() {

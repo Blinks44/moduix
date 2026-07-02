@@ -1,13 +1,2 @@
-export { Dialog, useDialog, useDialogContext } from './Dialog';
-export type {
-  DialogFocusOutsideEvent,
-  DialogInteractOutsideEvent,
-  DialogOpenChangeDetails,
-  DialogPointerDownOutsideEvent,
-  DialogRootProps,
-  DialogRootProviderProps,
-  DialogTriggerValueChangeDetails,
-  UseDialogContext,
-  UseDialogProps,
-  UseDialogReturn,
-} from './Dialog';
+export { Dialog } from './Dialog';
+export type { DialogRootProps, DialogRootProviderProps } from './Dialog';

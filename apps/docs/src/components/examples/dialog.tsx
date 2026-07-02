@@ -1,4 +1,5 @@
-import { Button, Dialog, Menu, ScrollArea, useDialog } from '@moduix/react';
+import { useDialog, useDialogContext } from '@ark-ui/react/dialog';
+import { Button, Dialog, Menu, ScrollArea } from '@moduix/react';
 import { useRef, useState, type ReactNode } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -217,6 +218,12 @@ function DialogSurface({
       </Dialog.Positioner>
     </>
   );
+}
+
+function DialogStatusText() {
+  const dialog = useDialogContext();
+
+  return <>Dialog is {dialog.open ? 'open' : 'closed'}</>;
 }
 
 export function DialogExample() {
@@ -474,9 +481,7 @@ export function ContextDialogExample() {
         <DialogSurface>
           <Dialog.Title>Status</Dialog.Title>
           <Dialog.Description>
-            <Dialog.Context>
-              {(dialog) => <>Dialog is {dialog.open ? 'open' : 'closed'}</>}
-            </Dialog.Context>
+            <DialogStatusText />
           </Dialog.Description>
         </DialogSurface>
       </Dialog.Root>
