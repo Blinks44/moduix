@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Major Changes
+
+- Simplify `Badge` by removing its public prop and variant type aliases. Derive consumer types from
+  `ComponentProps<typeof Badge>` when needed.
+
 ### Minor Changes
 
 - Add `InputGroup.Root` and namespaced `InputGroup` part aliases while preserving the existing

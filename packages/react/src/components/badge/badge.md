@@ -138,6 +138,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-02: Removed redundant public Badge prop and variant type aliases while preserving the
+  callable root, `Badge.Dot`, Ark factory composition, refs, variants, and styling contract.
 - 2026-06-24: Reconfirmed the local Ark factory contract, aligned docs around the `Badge` root
   shorthand, simplified variant CSS selectors, and fixed the registry dependency on Ark UI.
 - 2026-06-18: Completed the Ark factory audit, documented Chakra parity and intentional

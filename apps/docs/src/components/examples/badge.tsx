@@ -1,8 +1,10 @@
-import type { BadgeVariant } from '@moduix/react';
+import type { ComponentProps } from 'react';
 import { Badge, ChevronRightIcon } from '@moduix/react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './badge.module.css';
+
+type BadgeVariant = NonNullable<ComponentProps<typeof Badge>['variant']>;
 
 const variants: BadgeVariant[] = ['default', 'secondary', 'destructive', 'outline', 'ghost'];
 const basicBadgeLabel = 'New';

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
-import type { BadgeVariant } from './Badge';
 import { Badge } from './Badge';
 import styles from './Badge.stories.module.css';
 
@@ -17,13 +17,9 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const variants = [
-  'default',
-  'secondary',
-  'destructive',
-  'outline',
-  'ghost',
-] satisfies BadgeVariant[];
+const variants = ['default', 'secondary', 'destructive', 'outline', 'ghost'] satisfies NonNullable<
+  ComponentProps<typeof Badge>['variant']
+>[];
 
 export const Basic: Story = {
   args: {
