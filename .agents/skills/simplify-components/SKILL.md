@@ -28,6 +28,14 @@ implementation direct.
   HOCs, configuration maps, or generic part builders.
 - Preserve narrow sugar that removes common boilerplate without hiding structure, such as default
   icons and automatic portal transport.
+- Keep `ark.*` factory elements and Ark primitive parts typed according to their different
+  contracts rather than forcing one uniform syntax.
+- When wrapping Ark primitive parts, prefer `ComponentRef<typeof Primitive.Part>` for refs and
+  `ComponentProps<typeof Primitive.Part>` for props.
+- When wrapping `ark` factory elements such as `ark.button`, `ark.a`, or `ark.div`, prefer
+  `HTMLArkProps<'button'>`, `HTMLArkProps<'a'>`, and related intrinsic forms for props.
+- Do not rewrite `ark.*` factory wrappers to `ComponentProps<typeof ark.div>`-style typing solely
+  for visual consistency with primitive wrappers.
 - Do not reorganize documentation into basic and advanced sections as part of simplification.
   Update only factual API references and remove stale examples when an exported contract changes.
 

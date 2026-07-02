@@ -1,10 +1,11 @@
+import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { forwardRef, type ComponentProps, type ComponentRef } from 'react';
+import { forwardRef, type ComponentRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './AspectRatio.module.css';
 
-type AspectRatioRootProps = ComponentProps<typeof ark.div> & {
+type AspectRatioRootProps = HTMLArkProps<'div'> & {
   ratio: number;
 };
 

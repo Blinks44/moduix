@@ -1,10 +1,11 @@
+import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { forwardRef, type ComponentProps, type ComponentRef } from 'react';
+import { forwardRef, type ComponentRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Alert.module.css';
 
-type AlertRootProps = ComponentProps<typeof ark.div> & {
+type AlertRootProps = HTMLArkProps<'div'> & {
   status?: 'neutral' | 'info' | 'success' | 'warning' | 'error';
 };
 
@@ -26,7 +27,7 @@ const AlertRoot = forwardRef<ComponentRef<typeof ark.div>, AlertRootProps>(funct
   );
 });
 
-const AlertIndicator = forwardRef<ComponentRef<typeof ark.span>, ComponentProps<typeof ark.span>>(
+const AlertIndicator = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
   function AlertIndicator({ className, ...props }, ref) {
     return (
       <ark.span
@@ -42,7 +43,7 @@ const AlertIndicator = forwardRef<ComponentRef<typeof ark.span>, ComponentProps<
   },
 );
 
-const AlertContent = forwardRef<ComponentRef<typeof ark.div>, ComponentProps<typeof ark.div>>(
+const AlertContent = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
   function AlertContent({ className, ...props }, ref) {
     return (
       <ark.div
@@ -57,22 +58,23 @@ const AlertContent = forwardRef<ComponentRef<typeof ark.div>, ComponentProps<typ
   },
 );
 
-const AlertTitle = forwardRef<ComponentRef<typeof ark.h3>, ComponentProps<typeof ark.h3>>(
-  function AlertTitle({ className, ...props }, ref) {
-    return (
-      <ark.h3
-        ref={ref}
-        data-scope="alert"
-        data-part="title"
-        data-slot="alert-title"
-        className={clsx(styles.title, normalizeClassName(className))}
-        {...props}
-      />
-    );
-  },
-);
+const AlertTitle = forwardRef<ComponentRef<typeof ark.h3>, HTMLArkProps<'h3'>>(function AlertTitle(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <ark.h3
+      ref={ref}
+      data-scope="alert"
+      data-part="title"
+      data-slot="alert-title"
+      className={clsx(styles.title, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
 
-const AlertDescription = forwardRef<ComponentRef<typeof ark.div>, ComponentProps<typeof ark.div>>(
+const AlertDescription = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
   function AlertDescription({ className, ...props }, ref) {
     return (
       <ark.div

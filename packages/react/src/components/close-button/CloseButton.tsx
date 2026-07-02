@@ -1,12 +1,12 @@
-import type { ComponentProps, ComponentRef } from 'react';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { forwardRef, type ComponentRef } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './CloseButton.module.css';
 
-type CloseButtonRootProps = ComponentProps<typeof ark.button>;
+type CloseButtonRootProps = HTMLArkProps<'button'>;
 
 const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonRootProps>(
   function CloseButtonRoot(

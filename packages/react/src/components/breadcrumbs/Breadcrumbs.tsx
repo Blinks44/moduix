@@ -1,11 +1,11 @@
-import type { ComponentProps, ComponentRef } from 'react';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { forwardRef, type ComponentRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Breadcrumbs.module.css';
 
-const BreadcrumbsRoot = forwardRef<ComponentRef<typeof ark.nav>, ComponentProps<typeof ark.nav>>(
+const BreadcrumbsRoot = forwardRef<ComponentRef<typeof ark.nav>, HTMLArkProps<'nav'>>(
   function BreadcrumbsRoot({ className, 'aria-label': ariaLabel = 'Breadcrumb', ...props }, ref) {
     return (
       <ark.nav
@@ -21,7 +21,7 @@ const BreadcrumbsRoot = forwardRef<ComponentRef<typeof ark.nav>, ComponentProps<
   },
 );
 
-const BreadcrumbsList = forwardRef<ComponentRef<typeof ark.ol>, ComponentProps<typeof ark.ol>>(
+const BreadcrumbsList = forwardRef<ComponentRef<typeof ark.ol>, HTMLArkProps<'ol'>>(
   function BreadcrumbsList({ className, ...props }, ref) {
     return (
       <ark.ol
@@ -36,7 +36,7 @@ const BreadcrumbsList = forwardRef<ComponentRef<typeof ark.ol>, ComponentProps<t
   },
 );
 
-const BreadcrumbsItem = forwardRef<ComponentRef<typeof ark.li>, ComponentProps<typeof ark.li>>(
+const BreadcrumbsItem = forwardRef<ComponentRef<typeof ark.li>, HTMLArkProps<'li'>>(
   function BreadcrumbsItem({ className, ...props }, ref) {
     return (
       <ark.li
@@ -51,7 +51,7 @@ const BreadcrumbsItem = forwardRef<ComponentRef<typeof ark.li>, ComponentProps<t
   },
 );
 
-const BreadcrumbsLink = forwardRef<ComponentRef<typeof ark.a>, ComponentProps<typeof ark.a>>(
+const BreadcrumbsLink = forwardRef<ComponentRef<typeof ark.a>, HTMLArkProps<'a'>>(
   function BreadcrumbsLink({ className, ...props }, ref) {
     return (
       <ark.a
@@ -66,7 +66,7 @@ const BreadcrumbsLink = forwardRef<ComponentRef<typeof ark.a>, ComponentProps<ty
   },
 );
 
-const BreadcrumbsPage = forwardRef<ComponentRef<typeof ark.span>, ComponentProps<typeof ark.span>>(
+const BreadcrumbsPage = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
   function BreadcrumbsPage({ className, ...props }, ref) {
     return (
       <ark.span
@@ -82,7 +82,7 @@ const BreadcrumbsPage = forwardRef<ComponentRef<typeof ark.span>, ComponentProps
   },
 );
 
-const BreadcrumbsSeparator = forwardRef<ComponentRef<typeof ark.li>, ComponentProps<typeof ark.li>>(
+const BreadcrumbsSeparator = forwardRef<ComponentRef<typeof ark.li>, HTMLArkProps<'li'>>(
   function BreadcrumbsSeparator(
     { className, children = '/', role = 'presentation', ...props },
     ref,
@@ -104,24 +104,23 @@ const BreadcrumbsSeparator = forwardRef<ComponentRef<typeof ark.li>, ComponentPr
   },
 );
 
-const BreadcrumbsEllipsis = forwardRef<
-  ComponentRef<typeof ark.span>,
-  ComponentProps<typeof ark.span>
->(function BreadcrumbsEllipsis({ className, children = '...', ...props }, ref) {
-  return (
-    <ark.span
-      ref={ref}
-      data-scope="breadcrumbs"
-      data-part="ellipsis"
-      data-slot="breadcrumbs-ellipsis"
-      aria-hidden="true"
-      className={clsx(styles.ellipsis, normalizeClassName(className))}
-      {...props}
-    >
-      {children}
-    </ark.span>
-  );
-});
+const BreadcrumbsEllipsis = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
+  function BreadcrumbsEllipsis({ className, children = '...', ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-scope="breadcrumbs"
+        data-part="ellipsis"
+        data-slot="breadcrumbs-ellipsis"
+        aria-hidden="true"
+        className={clsx(styles.ellipsis, normalizeClassName(className))}
+        {...props}
+      >
+        {children}
+      </ark.span>
+    );
+  },
+);
 
 const Breadcrumbs = Object.assign(BreadcrumbsRoot, {
   Root: BreadcrumbsRoot,

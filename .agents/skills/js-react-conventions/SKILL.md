@@ -40,8 +40,13 @@ Use this skill for JS/TS React work in this repo.
 - Prefer Ark `asChild` over `render` props for host-element composition.
 - Use `forwardRef` when wrapping an Ark part that renders a focusable/control DOM element or when form libraries need
   a ref for invalid-focus behavior.
-- Type refs with `React.ComponentRef<typeof ArkPart>` and props with `React.ComponentProps<typeof ArkPart>` unless a
-  wrapper prop type adds real meaning.
+- Treat `ark.*` factory elements and Ark primitive parts as different typing categories.
+- Type refs for Ark primitive parts with `React.ComponentRef<typeof ArkPart>`.
+- Type props for Ark primitive parts with `React.ComponentProps<typeof ArkPart>`.
+- For `ark` factory elements such as `ark.button`, `ark.a`, and `ark.div`, prefer
+  `HTMLArkProps<'button'>`, `HTMLArkProps<'a'>`, and related intrinsic forms for props.
+- Do not force `ComponentProps<typeof ark.div>`-style typing onto `ark.*` factory elements just to
+  match primitive syntax; keep the type form aligned with the underlying contract.
 - Preserve Ark callback detail objects. Avoid wrapper callbacks that unpack, rename, or reorder Ark callback payloads.
 - Use `Component.Context` sparingly for inline state reads. Prefer `use*Context` hooks inside reusable child
   components, and use `useComponent` plus `RootProvider` only when state must be owned outside the rendered tree.
