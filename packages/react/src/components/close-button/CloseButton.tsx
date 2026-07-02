@@ -1,4 +1,4 @@
-import type { HTMLArkProps } from '@ark-ui/react/factory';
+import type { ComponentProps, ComponentRef } from 'react';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
@@ -6,7 +6,9 @@ import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './CloseButton.module.css';
 
-const CloseButtonRoot = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
+type CloseButtonRootProps = ComponentProps<typeof ark.button>;
+
+const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonRootProps>(
   function CloseButtonRoot(
     {
       asChild,
@@ -23,6 +25,15 @@ const CloseButtonRoot = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
     ref,
   ) {
     const isDisabled = disabled || ariaDisabled === true || ariaDisabled === 'true';
+    const handleClick: CloseButtonRootProps['onClick'] = (event) => {
+      if (isDisabled) {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+
+      onClick?.(event);
+    };
 
     return (
       <ark.button
@@ -38,15 +49,7 @@ const CloseButtonRoot = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
         aria-disabled={ariaDisabled}
         aria-label={ariaLabel ?? (children == null && ariaLabelledBy == null ? 'Close' : undefined)}
         aria-labelledby={ariaLabelledBy}
-        onClick={(event) => {
-          if (isDisabled) {
-            event.preventDefault();
-            event.stopPropagation();
-            return;
-          }
-
-          onClick?.(event);
-        }}
+        onClick={handleClick}
         {...props}
       >
         {children ?? <CloseIcon />}
