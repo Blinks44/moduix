@@ -148,10 +148,9 @@ Additional Ark parts stay available for advanced flows:
 
 - `Carousel.AutoplayTrigger`
 - `Carousel.AutoplayIndicator`
-- `Carousel.Context`
 - `Carousel.RootProvider`
-- `useCarousel()`
-- `useCarouselContext()`
+
+Ark context parts and state hooks remain available directly from `@ark-ui/react/carousel`.
 
 ## Composition
 
@@ -163,13 +162,14 @@ Stay with `Carousel.Root`, `Carousel.Control`, `Carousel.ItemGroup`, `Carousel.I
 
 ### When to go custom
 
-Use `Carousel.Context` when indicator count depends on runtime `pageSnapPoints`, especially with
-`autoSize`, `slidesPerPage > 1`, and programmatic scrolling.
+Use Ark `Carousel.Context` directly from `@ark-ui/react/carousel` when indicator count depends on
+runtime `pageSnapPoints`, especially with `autoSize`, `slidesPerPage > 1`, and programmatic
+scrolling.
 
-Use `Carousel.RootProvider` and `useCarousel()` when carousel state must be created outside the
-rendered subtree.
+Use moduix `Carousel.RootProvider` with Ark `useCarousel()` when carousel state must be created
+outside the rendered subtree.
 
-Use `useCarouselContext()` inside custom child components that need the carousel API without a
+Use Ark `useCarouselContext()` inside custom child components that need the carousel API without a
 render prop.
 
 Use `Carousel.AutoplayTrigger` and `Carousel.AutoplayIndicator` when autoplay controls should be
@@ -308,16 +308,17 @@ Pause autoplay on pointer hover when readers need time to inspect slide content 
 
   <Preview.Code>
     {`
+      import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
       import { Carousel } from "@moduix/react";
 
       export function PauseOnHoverCarousel() {
         return (
           <Carousel autoplay loop slideCount={slides.length}>
-            <Carousel.Context>
+            <ArkCarousel.Context>
               {({ isPlaying }) => <p>Autoplay: {isPlaying ? "playing" : "paused"}</p>}
-            </Carousel.Context>
+            </ArkCarousel.Context>
 
-            <Carousel.Context>
+            <ArkCarousel.Context>
               {(api) => (
                 <Carousel.ItemGroup
                   aria-label="Pause on hover gallery"
@@ -331,7 +332,7 @@ Pause autoplay on pointer hover when readers need time to inspect slide content 
                   ))}
                 </Carousel.ItemGroup>
               )}
-            </Carousel.Context>
+            </ArkCarousel.Context>
 
             <Carousel.IndicatorGroup>
               {slides.map((_, index) => (
@@ -358,7 +359,8 @@ Use `Carousel.RootProvider` when the carousel store should be created outside th
 
   <Preview.Code>
     {`
-      import { Carousel, useCarousel } from "@moduix/react";
+      import { useCarousel } from "@ark-ui/react/carousel";
+      import { Carousel } from "@moduix/react";
 
       export function RootProviderCarousel() {
         const carousel = useCarousel({ slideCount: slides.length });
@@ -401,18 +403,19 @@ Call the carousel API from context when another control should jump directly to 
 
   <Preview.Code>
     {`
+      import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
       import { Button, Carousel } from "@moduix/react";
 
       export function ScrollToCarousel() {
         return (
           <Carousel slideCount={slides.length}>
-            <Carousel.Context>
+            <ArkCarousel.Context>
               {(api) => (
                 <Button variant="outline" onClick={() => api.scrollToIndex(3)}>
                   Go to slide 4
                 </Button>
               )}
-            </Carousel.Context>
+            </ArkCarousel.Context>
 
             <Carousel.ItemGroup aria-label="Scroll to gallery">
               {slides.map((slide, index) => (
@@ -446,6 +449,7 @@ Increase `slidesPerPage` when the layout should preview multiple items at once i
 
   <Preview.Code>
     {`
+      import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
       import { Carousel } from "@moduix/react";
 
       export function SlidesPerPageCarousel() {
@@ -464,7 +468,7 @@ Increase `slidesPerPage` when the layout should preview multiple items at once i
               ))}
             </Carousel.ItemGroup>
 
-            <Carousel.Context>
+            <ArkCarousel.Context>
               {(api) => (
                 <Carousel.IndicatorGroup>
                   {api.pageSnapPoints.map((_, index) => (
@@ -472,7 +476,7 @@ Increase `slidesPerPage` when the layout should preview multiple items at once i
                   ))}
                 </Carousel.IndicatorGroup>
               )}
-            </Carousel.Context>
+            </ArkCarousel.Context>
           </Carousel>
         );
       }
@@ -493,6 +497,7 @@ Tune `spacing` when adjacent slides need more separation for editorial layouts, 
 
   <Preview.Code>
     {`
+      import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
       import { Carousel } from "@moduix/react";
 
       export function SpacingCarousel() {
@@ -508,7 +513,7 @@ Tune `spacing` when adjacent slides need more separation for editorial layouts, 
 
             <Carousel.Control>
               <Carousel.PrevTrigger />
-              <Carousel.Context>
+              <ArkCarousel.Context>
                 {(api) => (
                   <Carousel.IndicatorGroup>
                     {api.pageSnapPoints.map((_, index) => (
@@ -516,7 +521,7 @@ Tune `spacing` when adjacent slides need more separation for editorial layouts, 
                     ))}
                   </Carousel.IndicatorGroup>
                 )}
-              </Carousel.Context>
+              </ArkCarousel.Context>
               <Carousel.NextTrigger />
             </Carousel.Control>
           </Carousel>
@@ -583,6 +588,7 @@ Enable `autoSize` when slide widths should follow their content rather than a fi
 
   <Preview.Code>
     {`
+      import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
       import { Carousel } from "@moduix/react";
 
       export function VariableSizeCarousel() {
@@ -606,7 +612,7 @@ Enable `autoSize` when slide widths should follow their content rather than a fi
               ))}
             </Carousel.ItemGroup>
 
-            <Carousel.Context>
+            <ArkCarousel.Context>
               {(api) => (
                 <Carousel.IndicatorGroup>
                   {api.pageSnapPoints.map((_, index) => (
@@ -614,7 +620,7 @@ Enable `autoSize` when slide widths should follow their content rather than a fi
                   ))}
                 </Carousel.IndicatorGroup>
               )}
-            </Carousel.Context>
+            </ArkCarousel.Context>
           </Carousel>
         );
       }

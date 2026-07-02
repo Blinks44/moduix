@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
+import { Carousel as ArkCarousel, useCarousel } from '@ark-ui/react/carousel';
 import { useState } from 'react';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
-import { Carousel, useCarousel } from './Carousel';
+import { Carousel } from './Carousel';
 import styles from './Carousel.stories.module.css';
 
 const slides = [
@@ -83,7 +84,7 @@ function SlideIndicators({ slides }: { slides: readonly unknown[] }) {
 
 function PageIndicators() {
   return (
-    <Carousel.Context>
+    <ArkCarousel.Context>
       {(api) => (
         <Carousel.IndicatorGroup>
           {api.pageSnapPoints.map((_, index) => (
@@ -91,7 +92,7 @@ function PageIndicators() {
           ))}
         </Carousel.IndicatorGroup>
       )}
-    </Carousel.Context>
+    </ArkCarousel.Context>
   );
 }
 
@@ -213,12 +214,12 @@ export const PauseOnHover: Story = {
   args: { slideCount: slides.length },
   render: () => (
     <Carousel.Root autoplay loop slideCount={slides.length} className={styles.carousel}>
-      <Carousel.Context>
+      <ArkCarousel.Context>
         {({ isPlaying }) => (
           <p className={styles.statusText}>Autoplay: {isPlaying ? 'playing' : 'paused'}</p>
         )}
-      </Carousel.Context>
-      <Carousel.Context>
+      </ArkCarousel.Context>
+      <ArkCarousel.Context>
         {(api) => (
           <Carousel.ItemGroup
             aria-label="Pause on hover image carousel"
@@ -232,7 +233,7 @@ export const PauseOnHover: Story = {
             ))}
           </Carousel.ItemGroup>
         )}
-      </Carousel.Context>
+      </ArkCarousel.Context>
       <SlideIndicators slides={slides} />
     </Carousel.Root>
   ),
@@ -269,7 +270,7 @@ export const ScrollTo: Story = {
   args: { slideCount: slides.length },
   render: () => (
     <Carousel.Root slideCount={slides.length} className={styles.carousel}>
-      <Carousel.Context>
+      <ArkCarousel.Context>
         {(api) => (
           <div className={styles.toolbar}>
             <Button onClick={() => api.scrollToIndex(3)} variant="outline">
@@ -277,7 +278,7 @@ export const ScrollTo: Story = {
             </Button>
           </div>
         )}
-      </Carousel.Context>
+      </ArkCarousel.Context>
       <Carousel.ItemGroup aria-label="Scroll to image carousel">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>

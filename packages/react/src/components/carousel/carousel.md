@@ -26,8 +26,8 @@ variables, and stable `data-slot` hooks.
 - Uses Ark composition directly: `Carousel.Root`, `Carousel.RootProvider`, `Carousel.Control`,
   `Carousel.ItemGroup`, `Carousel.Item`, `Carousel.PrevTrigger`, `Carousel.NextTrigger`,
   `Carousel.IndicatorGroup`, `Carousel.Indicator`, `Carousel.AutoplayTrigger`,
-  `Carousel.AutoplayIndicator`, `Carousel.ProgressText`, `Carousel.Context`, `useCarousel()`, and
-  `useCarouselContext()`.
+  `Carousel.AutoplayIndicator`, and `Carousel.ProgressText`.
+- Context parts, hooks, and types are imported directly from `@ark-ui/react/carousel`.
 - Keeps Ark controlled and uncontrolled paging unchanged: `page`, `defaultPage`, and
   `onPageChange(details)`.
 - Keeps Ark behavior props unchanged: `loop`, `autoplay`, `autoSize`, `slidesPerPage`,
@@ -50,8 +50,7 @@ Carousel.Root
 │  └─ Carousel.Indicator
 ├─ Carousel.AutoplayTrigger (optional)
 ├─ Carousel.AutoplayIndicator (optional)
-├─ Carousel.ProgressText (optional)
-└─ Carousel.Context (optional render-prop access)
+└─ Carousel.ProgressText (optional)
 ```
 
 Every styled part accepts `className` and receives a stable `data-slot`:
@@ -103,11 +102,13 @@ export function BasicCarousel() {
 }
 ```
 
-Use `Carousel.Context` when the number of page snap points depends on runtime layout, such as
-`autoSize`, `slidesPerPage > 1`, or custom `scrollToIndex` controls:
+Use Ark `Carousel.Context` directly when the number of page snap points depends on runtime layout,
+such as `autoSize`, `slidesPerPage > 1`, or custom `scrollToIndex` controls:
 
 ```tsx
-<Carousel.Context>
+import { Carousel as ArkCarousel } from '@ark-ui/react/carousel';
+
+<ArkCarousel.Context>
   {(api) => (
     <Carousel.IndicatorGroup>
       {api.pageSnapPoints.map((_, index) => (
@@ -115,27 +116,27 @@ Use `Carousel.Context` when the number of page snap points depends on runtime la
       ))}
     </Carousel.IndicatorGroup>
   )}
-</Carousel.Context>
+</ArkCarousel.Context>;
 ```
 
-Use `Carousel.RootProvider` with `useCarousel()` only when carousel state must be created outside
-the rendered subtree.
+Use `Carousel.RootProvider` with Ark `useCarousel()` only when carousel state must be created
+outside the rendered subtree.
 
-Use `useCarouselContext()` inside custom reusable children that need the same API exposed by
-`Carousel.Context` without introducing another render prop.
+Use Ark `useCarouselContext()` inside custom reusable children that need the carousel API without
+introducing another render prop.
 
 ## Upstream feature coverage
 
 - `Anatomy`: preserved directly through the exported Ark-shaped parts.
 - `Controlled`: preserved through `page` and `onPageChange(details)`.
-- `Root Provider`: preserved through `Carousel.RootProvider` and `useCarousel()`.
+- `Root Provider`: preserved through `Carousel.RootProvider` and Ark `useCarousel()`.
 - `Autoplay`: preserved through the Ark `autoplay` prop and autoplay parts.
-- `Pause on Hover`: not built in, matching Ark; consumers use `Carousel.Context` and `api.pause()`
-  or `api.play()`.
+- `Pause on Hover`: not built in, matching Ark; consumers use Ark `Carousel.Context` and
+  `api.pause()` or `api.play()`.
 - `Thumbnail Indicators`: preserved by rendering custom content inside `Carousel.Indicator`.
 - `Vertical`: preserved through `orientation="vertical"`.
 - `Dynamic`: preserved through controlled page flow and `slideCount`.
-- `Scroll to Slide`: preserved through `Carousel.Context` and `api.scrollToIndex(index)`.
+- `Scroll to Slide`: preserved through Ark `Carousel.Context` and `api.scrollToIndex(index)`.
 - `Slides Per Page`: preserved through `slidesPerPage` and `api.pageSnapPoints`.
 - `Spacing`: preserved through `spacing`.
 - `Variable Sizes`: preserved through `autoSize` and per-item snap alignment.
@@ -153,9 +154,8 @@ Use `useCarouselContext()` inside custom reusable children that need the same AP
   - `--slide-spacing`
   - `--slide-item-size`
 - Ark callback and API shapes remain unchanged, including `onPageChange(details)`,
-  `onAutoplayStatusChange(details)`, `onDragStatusChange(details)`, `Carousel.Context`, and
-  `useCarousel()`.
-- `useCarouselContext()` is exported from `moduix` for custom reusable child parts.
+  `onAutoplayStatusChange(details)`, and `onDragStatusChange(details)`.
+- Ark context parts, state hooks, and type aliases are not re-exported from moduix.
 
 ## Defaults and styling
 
@@ -193,17 +193,20 @@ Primary theme variables:
 - The default trigger icons are moduix chevrons, not Ark example icons.
 - `data-pressed` on autoplay controls and `data-readonly` or disabled indicators receive moduix
   visual state defaults.
+- moduix keeps `RootProvider`, but advanced Ark context parts, state hooks, and type aliases are
+  imported directly from `@ark-ui/react/carousel`.
 
 ## Agent notes
 
-- Keep Ark callback and state shapes untouched, especially `onPageChange(details)` and
-  `Carousel.Context`.
+- Keep Ark callback and state shapes untouched, especially `onPageChange(details)`.
 - Do not reintroduce the old native-scroll-only wrapper contract.
 - Keep `Carousel.Control` structural. Do not hide `ItemGroup`, `IndicatorGroup`, or autoplay parts
   behind convenience wrappers.
 
 ## Local changelog
 
+- 2026-07-02: Removed duplicate Ark type exports, `Context`, and state hooks from the moduix
+  surface. Kept `RootProvider`, the callable root, every visual part, and default trigger icons.
 - 2026-06-18: Adopted Ark UI `Carousel` naming, paging, autoplay, and provider contracts, and
   removed the legacy native-scroll sugar API.
 - 2026-06-18: Reworked the layout and styling contract around Ark composition, removed overlayed

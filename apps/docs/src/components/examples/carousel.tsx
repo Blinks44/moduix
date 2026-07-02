@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react';
-import { Button, Carousel, PlusIcon, useCarousel } from '@moduix/react';
+import { Carousel as ArkCarousel, useCarousel } from '@ark-ui/react/carousel';
+import { Button, Carousel, PlusIcon } from '@moduix/react';
 import { clsx } from 'clsx';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -237,7 +238,7 @@ function SlideIndicators({ slides }: { slides: readonly unknown[] }) {
 
 function PageIndicators() {
   return (
-    <Carousel.Context>
+    <ArkCarousel.Context>
       {(api) => (
         <Carousel.IndicatorGroup>
           {api.pageSnapPoints.map((_, index) => (
@@ -245,7 +246,7 @@ function PageIndicators() {
           ))}
         </Carousel.IndicatorGroup>
       )}
-    </Carousel.Context>
+    </ArkCarousel.Context>
   );
 }
 
@@ -385,12 +386,12 @@ export function MouseDragCarouselExample() {
 export function PauseOnHoverCarouselExample() {
   return (
     <Carousel.Root autoplay loop slideCount={gallerySlides.length} className={styles.carousel}>
-      <Carousel.Context>
+      <ArkCarousel.Context>
         {({ isPlaying }) => (
           <p className={styles.statusText}>Autoplay: {isPlaying ? 'playing' : 'paused'}</p>
         )}
-      </Carousel.Context>
-      <Carousel.Context>
+      </ArkCarousel.Context>
+      <ArkCarousel.Context>
         {(api) => (
           <Carousel.ItemGroup
             aria-label="Pause on hover travel gallery"
@@ -404,7 +405,7 @@ export function PauseOnHoverCarouselExample() {
             ))}
           </Carousel.ItemGroup>
         )}
-      </Carousel.Context>
+      </ArkCarousel.Context>
       <SlideIndicators slides={gallerySlides} />
     </Carousel.Root>
   );
@@ -475,7 +476,7 @@ export function RootProviderCarouselExample() {
 export function ScrollToCarouselExample() {
   return (
     <Carousel.Root slideCount={gallerySlides.length} className={styles.carousel}>
-      <Carousel.Context>
+      <ArkCarousel.Context>
         {(api) => (
           <div className={styles.toolbar}>
             <Button onClick={() => api.scrollToIndex(3)} variant="outline">
@@ -483,7 +484,7 @@ export function ScrollToCarouselExample() {
             </Button>
           </div>
         )}
-      </Carousel.Context>
+      </ArkCarousel.Context>
       <Carousel.ItemGroup aria-label="Scroll to travel gallery">
         {gallerySlides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>

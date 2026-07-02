@@ -1,9 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  Carousel as CarouselPrimitive,
-  useCarousel,
-  useCarouselContext,
-} from '@ark-ui/react/carousel';
+import { Carousel as CarouselPrimitive } from '@ark-ui/react/carousel';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
@@ -190,8 +186,6 @@ const CarouselProgressText = forwardRef<
   );
 });
 
-const CarouselContext = CarouselPrimitive.Context;
-
 const Carousel = Object.assign(CarouselRoot, {
   Root: CarouselRoot,
   RootProvider: CarouselRootProvider,
@@ -205,15 +199,6 @@ const Carousel = Object.assign(CarouselRoot, {
   AutoplayTrigger: CarouselAutoplayTrigger,
   AutoplayIndicator: CarouselAutoplayIndicator,
   ProgressText: CarouselProgressText,
-  Context: CarouselContext,
 });
 
-export { Carousel, useCarousel, useCarouselContext };
-export type {
-  CarouselAutoplayStatusDetails,
-  CarouselDragStatusDetails,
-  CarouselPageChangeDetails,
-  UseCarouselContext,
-  UseCarouselProps,
-  UseCarouselReturn,
-} from '@ark-ui/react/carousel';
+export { Carousel };
