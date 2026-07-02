@@ -28,6 +28,8 @@ composition.
 - Supports Ark factory root props such as `asChild`, `className`, `style`, event handlers, and
   native button attributes.
 - `variant` and `size` are the only local root props. They map to `data-variant` and `data-size`.
+- The package exports only the `Button` value. Derive its props with
+  `React.ComponentProps<typeof Button>` when a wrapper needs them.
 - Native roots default to `type="button"`; pass `type="submit"` explicitly for form submission.
 - `disabled` and `aria-disabled="true"` expose `data-disabled`.
 - The forwarded ref targets the rendered button element.
@@ -197,6 +199,8 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-07-02: Removed the public `ButtonRootProps`, `ButtonSize`, and `ButtonVariant` aliases while
+  preserving the callable root and all local variant, size, composition, state, and styling sugar.
 - 2026-06-25: Allowed composed wrappers to override only the root `data-slot` while keeping
   `data-scope="button"` and `data-part="root"` locked to Button.
 - 2026-06-24: Finalized the Ark factory review by locking the root data hooks after passthrough

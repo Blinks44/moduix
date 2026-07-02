@@ -1,9 +1,9 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { createContext, forwardRef, useContext } from 'react';
+import { createContext, forwardRef, useContext, type ComponentProps } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
-import { Button, type ButtonRootProps } from '../button';
+import { Button } from '../button';
 import { Input, type InputProps, type InputSize } from '../input';
 import styles from './InputGroup.module.css';
 
@@ -85,24 +85,26 @@ const InputGroupText = forwardRef<HTMLSpanElement, InputGroupTextProps>(function
   );
 });
 
-const InputGroupButton = forwardRef<HTMLButtonElement, ButtonRootProps>(function InputGroupButton(
-  { className, variant = 'ghost', size, type = 'button', ...props },
-  ref,
-) {
-  const groupSize = useContext(InputGroupSizeContext);
+const InputGroupButton = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>>(
+  function InputGroupButton(
+    { className, variant = 'ghost', size, type = 'button', ...props },
+    ref,
+  ) {
+    const groupSize = useContext(InputGroupSizeContext);
 
-  return (
-    <Button
-      ref={ref}
-      data-slot="input-group-button"
-      className={clsx(styles.button, normalizeClassName(className))}
-      variant={variant}
-      size={size ?? groupSize}
-      type={type}
-      {...props}
-    />
-  );
-});
+    return (
+      <Button
+        ref={ref}
+        data-slot="input-group-button"
+        className={clsx(styles.button, normalizeClassName(className))}
+        variant={variant}
+        size={size ?? groupSize}
+        type={type}
+        {...props}
+      />
+    );
+  },
+);
 
 const InputGroup = Object.assign(InputGroupRoot, {
   Root: InputGroupRoot,

@@ -1,8 +1,15 @@
 import { clsx } from 'clsx';
-import { createContext, forwardRef, useContext, type ComponentRef, type ReactNode } from 'react';
+import {
+  createContext,
+  forwardRef,
+  useContext,
+  type ComponentProps,
+  type ComponentRef,
+  type ReactNode,
+} from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
-import { Button, type ButtonRootProps, type ButtonSize, type ButtonVariant } from '../button';
+import { Button } from '../button';
 import {
   Menu,
   type MenuContentProps,
@@ -12,8 +19,9 @@ import {
 } from '../menu';
 import styles from './SplitButton.module.css';
 
-type SplitButtonVariant = Exclude<ButtonVariant, 'link'>;
-type SplitButtonSize = Exclude<ButtonSize, 'icon-sm' | 'icon-md' | 'icon-lg'>;
+type ButtonProps = ComponentProps<typeof Button>;
+type SplitButtonVariant = Exclude<NonNullable<ButtonProps['variant']>, 'link'>;
+type SplitButtonSize = Exclude<NonNullable<ButtonProps['size']>, 'icon-sm' | 'icon-md' | 'icon-lg'>;
 
 type SplitButtonContextValue = {
   size: SplitButtonSize;
@@ -27,7 +35,7 @@ type SplitButtonRootProps = Omit<MenuRootProps, 'children'> & {
   variant?: SplitButtonVariant;
 };
 
-type SplitButtonActionProps = Omit<ButtonRootProps, 'size' | 'variant'> & {
+type SplitButtonActionProps = Omit<ButtonProps, 'size' | 'variant'> & {
   size?: SplitButtonSize;
   variant?: SplitButtonVariant;
 };

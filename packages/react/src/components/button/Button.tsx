@@ -5,22 +5,21 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Button.module.css';
 
-export type ButtonVariant =
-  | 'default'
-  | 'outline'
-  | 'secondary'
-  | 'destructive'
-  | 'destructive-outline'
-  | 'ghost'
-  | 'link';
-export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'icon-lg';
-export type ButtonRootProps = HTMLArkProps<'button'> & {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  'data-slot'?: string;
-};
-
-const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(function ButtonRoot(
+const ButtonRoot = forwardRef<
+  HTMLButtonElement,
+  HTMLArkProps<'button'> & {
+    variant?:
+      | 'default'
+      | 'outline'
+      | 'secondary'
+      | 'destructive'
+      | 'destructive-outline'
+      | 'ghost'
+      | 'link';
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'icon-lg';
+    'data-slot'?: string;
+  }
+>(function ButtonRoot(
   {
     asChild,
     className,
