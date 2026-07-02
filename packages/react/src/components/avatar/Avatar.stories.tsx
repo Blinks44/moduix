@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useAvatar } from '@ark-ui/react/avatar';
 import { useState } from 'react';
 import { ComputerIcon } from '@/icons/demo';
-import { Avatar, useAvatar } from './Avatar';
+import { Avatar } from './Avatar';
 import styles from './Avatar.stories.module.css';
 
 const meta = {
@@ -99,19 +100,6 @@ export const AsChildComposition: Story = {
 
 export const StatusChange: Story = {
   render: () => <StatusChangeAvatar />,
-};
-
-export const Context: Story = {
-  render: () => {
-    return (
-      <Avatar.Root>
-        <Avatar.Context>
-          {(avatar) => <Avatar.Fallback>{avatar.loaded ? 'LT' : 'Loading'}</Avatar.Fallback>}
-        </Avatar.Context>
-        <Avatar.Image src={imageUrl} alt="Alex T." />
-      </Avatar.Root>
-    );
-  },
 };
 
 export const RootProvider: Story = {

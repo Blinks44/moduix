@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react';
-import { Avatar, useAvatar } from '@moduix/react';
+import { useAvatar } from '@ark-ui/react/avatar';
+import { Avatar } from '@moduix/react';
 import { Computer as ComputerIcon } from 'lucide-react';
 import { useState } from 'react';
 import type { CssProperty } from '../preview';
@@ -225,17 +226,6 @@ export function AvatarStatusExample() {
   );
 }
 
-export function AvatarContextExample() {
-  return (
-    <Avatar.Root>
-      <Avatar.Context>
-        {(avatar) => <Avatar.Fallback>{avatar.loaded ? 'LT' : 'Loading'}</Avatar.Fallback>}
-      </Avatar.Context>
-      <Avatar.Image src={avatarImage} alt="Alex T." />
-    </Avatar.Root>
-  );
-}
-
 export function AvatarRootProviderExample() {
   const [count, setCount] = useState(0);
   const avatar = useAvatar();
@@ -253,23 +243,6 @@ export function AvatarRootProviderExample() {
         <Avatar.Fallback>LT</Avatar.Fallback>
         <Avatar.Image src={`${avatarImage}&seed=${count}`} alt="Alex T." />
       </Avatar.RootProvider>
-    </div>
-  );
-}
-
-export function AvatarProviderExample() {
-  const [status, setStatus] = useState('idle');
-  const avatar = useAvatar({
-    onStatusChange: (details) => setStatus(details.status),
-  });
-
-  return (
-    <div className="docs-avatar-status">
-      <Avatar.RootProvider value={avatar}>
-        <Avatar.Fallback>LT</Avatar.Fallback>
-        <Avatar.Image src={avatarImage} alt="Alex T." />
-      </Avatar.RootProvider>
-      <output className="text-sm text-muted-foreground">Hook status: {status}</output>
     </div>
   );
 }

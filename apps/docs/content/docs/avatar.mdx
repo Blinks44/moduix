@@ -1,17 +1,15 @@
 ---
 title: Avatar
-description: Compact identity media with Ark UI image loading, fallback, context, and provider APIs.
+description: Compact identity media with Ark UI image loading and fallback behavior.
 icon: Component
 ---
 
 import {
   AvatarCompositionExample,
-  AvatarContextExample,
   AvatarCssPropertiesPanel,
   AvatarCustomFallbackExample,
   AvatarExample,
   AvatarFallbackOnlyExample,
-  AvatarProviderExample,
   AvatarRootProviderExample,
   AvatarStatusExample,
   CustomCompositionAvatarExample,
@@ -102,17 +100,15 @@ aubx shadcn@latest add Blinks44/moduix/react-avatar
 ```text
 Avatar.Root | Avatar.RootProvider
 ├─ Avatar.Fallback
-├─ Avatar.Image
-└─ Avatar.Context (optional state reader)
+└─ Avatar.Image
 ```
 
 | Part                     | Role                                                              |
 | ------------------------ | ----------------------------------------------------------------- |
 | `Avatar` / `Avatar.Root` | Creates and owns the Ark UI avatar state.                         |
-| `Avatar.RootProvider`    | Renders an avatar from state created with `useAvatar`.            |
+| `Avatar.RootProvider`    | Renders an avatar from externally created Ark UI state.           |
 | `Avatar.Fallback`        | Shows initials, an icon, or custom content until the image loads. |
 | `Avatar.Image`           | Shows the native image after a successful load.                   |
-| `Avatar.Context`         | Exposes `loaded` and image state methods through a render prop.   |
 
 ## Composition
 
@@ -127,12 +123,12 @@ Use `alt=""` when the surrounding link or button already has the accessible name
 
 ### When to go custom
 
-Use `Avatar.Context` for an inline state read and `useAvatarContext` inside reusable custom child
-components. Use `useAvatar` with `Avatar.RootProvider` when state must be created outside the
-rendered avatar. Do not render `Avatar.Root` around the same `RootProvider` state instance.
+Use Ark UI's `useAvatar` with `Avatar.RootProvider` when state must be created outside the rendered
+avatar. Import advanced state hooks and context APIs directly from `@ark-ui/react/avatar`. Do not
+render `Avatar.Root` around the same `RootProvider` state instance.
 
-For framework image components, merge the props from `useAvatarContext().getImageProps()` into the
-rendered image and preserve Ark's hidden/visible behavior.
+For framework image components, use Ark UI's `useAvatarContext()` directly and preserve Ark's
+hidden/visible behavior.
 
 Use `asChild` with one semantic child when a link, button, or framework component must own a part's
 DOM node.
@@ -149,7 +145,8 @@ DOM node.
 - `onStatusChange` receives a detail object; read the current value from `details.status`.
 - A missing or failed image keeps the fallback visible.
 - `Avatar.RootProvider` requires the `value` returned by `useAvatar`.
-- `Avatar.Context` and `useAvatarContext` expose `loaded`, `setSrc`, `setLoaded`, and `setError`.
+- Context parts, state hooks, and Ark type aliases are imported directly from
+  `@ark-ui/react/avatar`.
 - moduix adds only visual defaults, stable `data-slot` hooks, CSS variables, and `size`.
 
 ## Examples
@@ -187,37 +184,6 @@ Use `onStatusChange(details)` when surrounding UI needs to react to the image li
   <Preview.Data>{avatarImageData}</Preview.Data>
 </Preview>
 
-### Context
-
-Use `Avatar.Context` for a render-prop state read that stays inside the current avatar tree.
-
-<Preview>
-  <AvatarContextExample />
-
-  <Preview.Code>
-    {`
-      import { Avatar } from "@moduix/react";
-
-      export function AvatarContextDemo() {
-        return (
-          <Avatar>
-            <Avatar.Context>
-              {(avatar) => (
-                <Avatar.Fallback>{avatar.loaded ? "LT" : "Loading"}</Avatar.Fallback>
-              )}
-            </Avatar.Context>
-            <Avatar.Image src={avatarImage} alt="Alex T." />
-          </Avatar>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{avatarExampleCss}</Preview.CSS>
-  <Preview.Data>{avatarImageData}</Preview.Data>
-</Preview>
-
 ### Root Provider
 
 Create state with `useAvatar` when controls outside the avatar need to coordinate with it, then
@@ -228,7 +194,8 @@ render `Avatar.RootProvider` instead of `Avatar.Root`.
 
   <Preview.Code>
     {`
-      import { Avatar, useAvatar } from "@moduix/react";
+      import { useAvatar } from "@ark-ui/react/avatar";
+      import { Avatar } from "@moduix/react";
       import { useState } from "react";
 
       export function AvatarRootProviderDemo() {
@@ -248,42 +215,6 @@ render `Avatar.RootProvider` instead of `Avatar.Root`.
               <Avatar.Fallback>LT</Avatar.Fallback>
               <Avatar.Image src={\`\${avatarImage}&seed=\${count}\`} alt="Alex T." />
             </Avatar.RootProvider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{avatarExampleCss}</Preview.CSS>
-  <Preview.Data>{avatarImageData}</Preview.Data>
-</Preview>
-
-### Provider
-
-Pass options to `useAvatar` when the state owner needs the same Ark callbacks as `Avatar.Root`.
-
-<Preview>
-  <AvatarProviderExample />
-
-  <Preview.Code>
-    {`
-      import { Avatar, useAvatar } from "@moduix/react";
-      import { useState } from "react";
-
-      export function AvatarProviderDemo() {
-        const [status, setStatus] = useState("idle");
-        const avatar = useAvatar({
-          onStatusChange: (details) => setStatus(details.status),
-        });
-
-        return (
-          <div className="docs-avatar-status">
-            <Avatar.RootProvider value={avatar}>
-              <Avatar.Fallback>LT</Avatar.Fallback>
-              <Avatar.Image src={avatarImage} alt="Alex T." />
-            </Avatar.RootProvider>
-            <output>Hook status: {status}</output>
           </div>
         );
       }

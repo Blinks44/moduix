@@ -7,23 +7,23 @@ Upstream docs:
 
 ## Purpose
 
-`Avatar` renders identity media with Ark UI image loading, fallback visibility, context access, and
+`Avatar` renders identity media with Ark UI image loading, fallback visibility, and optional
 externally owned state.
 
 ## Upstream model to preserve
 
 - Use the Ark UI avatar primitive directly.
-- Preserve `Root`, `RootProvider`, `Fallback`, `Image`, and `Context`.
-- Preserve `useAvatar`, `useAvatarContext`, Ark callback detail objects, and context state methods.
+- Preserve `Root`, `RootProvider`, `Fallback`, and `Image`.
+- Preserve Ark callback detail objects and externally owned state through `RootProvider`.
 - Keep the image lifecycle and `data-state="visible" | "hidden"` behavior owned by Ark.
 
 ## Current behavior contract
 
 - `Avatar` and `Avatar.Root` are the same styled root component.
-- `Avatar.RootProvider` applies the same visual contract to state created by `useAvatar`.
-- `Avatar.Context` exposes the Ark context through a render prop.
-- `useAvatar` and `useAvatarContext` are exported from `moduix`.
+- `Avatar.RootProvider` applies the same visual contract to externally created Ark state.
 - `size` is the only local behavior-neutral prop. It is available on `Root` and `RootProvider`.
+- Context parts, state hooks, and Ark type aliases are imported directly from
+  `@ark-ui/react/avatar`.
 - No legacy `render`, delay, loading-state adapter, or callback compatibility API remains.
 
 ## Anatomy and exported parts
@@ -31,21 +31,15 @@ externally owned state.
 ```text
 Avatar.Root | Avatar.RootProvider
 ├─ Avatar.Fallback
-├─ Avatar.Image
-└─ Avatar.Context (optional)
+└─ Avatar.Image
 ```
 
-| Part                  | `data-slot`            | Notes                                          |
-| --------------------- | ---------------------- | ---------------------------------------------- |
-| `Avatar.Root`         | `avatar-root`          | Creates Ark state and accepts local `size`.    |
-| `Avatar.RootProvider` | `avatar-root-provider` | Uses `useAvatar` state and accepts `size`.     |
-| `Avatar.Fallback`     | `avatar-fallback`      | Visible while the image is absent or hidden.   |
-| `Avatar.Image`        | `avatar-image`         | Native image shown after successful loading.   |
-| `Avatar.Context`      | none                   | Render-prop access to the current Ark context. |
-
-Public hooks and types include `useAvatar`, `useAvatarContext`, `AvatarStatusChangeDetails`,
-`AvatarContextProps`, `UseAvatarProps`, `UseAvatarReturn`, `UseAvatarContext`, part prop types, and
-the local `AvatarSize`, `AvatarRootProps`, and `AvatarRootProviderProps`.
+| Part                  | `data-slot`            | Notes                                        |
+| --------------------- | ---------------------- | -------------------------------------------- |
+| `Avatar.Root`         | `avatar-root`          | Creates Ark state and accepts local `size`.  |
+| `Avatar.RootProvider` | `avatar-root-provider` | Uses `useAvatar` state and accepts `size`.   |
+| `Avatar.Fallback`     | `avatar-fallback`      | Visible while the image is absent or hidden. |
+| `Avatar.Image`        | `avatar-image`         | Native image shown after successful loading. |
 
 ## Composition
 
@@ -62,21 +56,21 @@ export function AvatarExample() {
 }
 ```
 
-For externally owned state, call `useAvatar()` and render `Avatar.RootProvider value={avatar}`.
-Do not wrap that provider with `Avatar.Root` for the same state instance.
+For externally owned state, import `useAvatar` from `@ark-ui/react/avatar` and render
+`Avatar.RootProvider value={avatar}`. Do not wrap that provider with `Avatar.Root` for the same
+state instance.
 
-Use `Avatar.Context` for inline state reads and `useAvatarContext` in reusable custom descendants.
-Use `asChild` with one semantic child when another element must own a part's DOM node.
+Import Ark context APIs directly from `@ark-ui/react/avatar`. Use `asChild` with one semantic child
+when another element must own a part's DOM node.
 
 ## Upstream feature coverage
 
 - Anatomy and Basic: all Ark parts use the upstream composition model.
 - Events: `onStatusChange(details)` is passed through without remapping.
-- Context: `Avatar.Context` and `useAvatarContext` are public.
-- Provider and Root Provider: `useAvatar` and styled `Avatar.RootProvider` are public.
-- Custom image integrations: `useAvatarContext().getImageProps()` remains available for framework
-  image components.
-- Stable IDs: Ark `ids` remains available on `Avatar.Root` and through `useAvatar`.
+- Provider and Root Provider: styled `Avatar.RootProvider` is public; `useAvatar` is imported from
+  Ark UI.
+- Context and custom image integrations remain available directly from `@ark-ui/react/avatar`.
+- Stable IDs: Ark `ids` remains available on `Avatar.Root`.
 
 ## Accessibility and state
 
@@ -86,7 +80,6 @@ Use `asChild` with one semantic child when another element must own a part's DOM
 - `asChild` requires one child with the correct semantics for its role.
 - Ark exposes `data-scope="avatar"` and `data-part="root" | "fallback" | "image"`.
 - `Avatar.Image` and `Avatar.Fallback` expose `data-state="visible" | "hidden"`.
-- Context exposes `loaded`, `setSrc`, `setLoaded`, and `setError`.
 - Avatar has no form value, `HiddenInput`, `Field`, or `Fieldset` integration.
 
 ## Defaults and styling
@@ -125,18 +118,21 @@ or the public CSS variables.
 - moduix supplies visual defaults while Ark UI remains headless.
 - `size="xs" | "sm" | "md" | "lg" | "xl"` maps to moduix tokens on both root components.
 - moduix adds stable `data-slot` hooks.
+- moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
+  aliases.
 - No Chakra-only fallback `name`, variant, shape, color palette, group, badge, or icon API is added.
   Those patterns remain explicit composition and styling.
 
 ## Agent notes
 
-- Keep the complete Ark provider/context/hook surface exported from the package barrel.
 - Preserve `onStatusChange(details)` and the original context method names.
 - Keep `RootProvider` styled like `Root`, but never create another state owner inside it.
 - Do not reintroduce legacy `render`, delay, or transition attributes.
 
 ## Local changelog
 
+- 2026-07-02: Removed duplicate Ark type exports, context parts, and state hooks from the moduix
+  surface. Kept `RootProvider`, the callable root, all visual parts, and the `size` sugar.
 - 2026-06-24: Audited the Ark UI migration, simplified pass-through wiring and state CSS, and
   aligned public docs with Ark provider examples.
 - 2026-06-18: Completed Ark UI parity by exporting `RootProvider`, `Context`, `useAvatar`,
