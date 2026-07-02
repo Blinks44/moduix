@@ -9,11 +9,9 @@ import {
   AccordionExample,
   CollapsibleAccordionExample,
   ControlledAccordionExample,
-  ContextAccordionExample,
   CustomStylingAccordionExample,
   DisabledItemAccordionExample,
   HorizontalAccordionExample,
-  ItemStateAccordionExample,
   LazyMountAccordionExample,
   MultipleAccordionExample,
   RootProviderAccordionExample,
@@ -111,11 +109,9 @@ aubx shadcn@latest add Blinks44/moduix/react-accordion
 
 ```text
 Accordion.Root
-└─ Accordion.Context (optional render-prop access)
 └─ Accordion.Item[value]
    ├─ Accordion.ItemTrigger
    │  ├─ label
-   │  ├─ Accordion.ItemContext (optional render-prop access)
    │  └─ Accordion.ItemIndicator (optional)
    └─ Accordion.ItemContent
       └─ content
@@ -132,8 +128,6 @@ Accordion.RootProvider
 | `Accordion.ItemTrigger`        | Interactive button that opens or closes the item.                                         |
 | `Accordion.ItemIndicator`      | Visual open/close cue. Defaults to the moduix plus icon when no children are provided.    |
 | `Accordion.ItemContent`        | Collapsible content region. Keep spacing wrappers inside for clean `--height` animations. |
-| `Accordion.Context`            | Reads root state through an Ark render prop.                                              |
-| `Accordion.ItemContext`        | Reads item state through an Ark render prop.                                              |
 
 ## Composition
 
@@ -154,9 +148,8 @@ the Ark callback shape and exposes the current item values as `details.value`.
 Use the Ark `RootProvider` and `useAccordion()` pattern when accordion state must be created
 outside the rendered subtree.
 
-Use `Accordion.Context`, `Accordion.ItemContext`, `useAccordionContext()`, or
-`useAccordionItemContext()` when surrounding UI needs to react to root or item state without adding
-a separate state layer.
+Import Ark context parts and hooks directly from `@ark-ui/react/accordion` when surrounding UI
+needs to read root or item state.
 
 `Accordion.Item` requires a stable `value`. Use `disabled` on the item when one section should stay
 present but unavailable.
@@ -268,7 +261,8 @@ the rendered accordion tree. Do not render `Accordion.Root` for the same store.
   <RootProviderAccordionExample />
   <Preview.Code>
     {`
-      import { Accordion, useAccordion } from "@moduix/react";
+      import { useAccordion } from "@ark-ui/react/accordion";
+      import { Accordion } from "@moduix/react";
 
       export function RootProviderAccordionDemo() {
         const accordion = useAccordion({ defaultValue: ["what-is-ark-ui"] });
@@ -386,97 +380,6 @@ Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and s
               <Accordion.Item key={item.value} value={item.value}>
                 <Accordion.ItemTrigger>
                   {item.title}
-                  <Accordion.ItemIndicator />
-                </Accordion.ItemTrigger>
-                <Accordion.ItemContent>
-                  <div className="accordion-panel-content">{item.description}</div>
-                </Accordion.ItemContent>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{accordionItemsData}</Preview.Data>
-</Preview>
-
-### Context
-
-Use `Accordion.Context` when adjacent UI needs to read root state without duplicating accordion
-state in React.
-
-<Preview>
-  <ContextAccordionExample />
-  <Preview.Code>
-    {`
-      import { Accordion } from "@moduix/react";
-
-      export function ContextAccordionDemo() {
-        return (
-          <Accordion defaultValue={["what-is-ark-ui"]}>
-            {items.map((item) => (
-              <Accordion.Item key={item.value} value={item.value}>
-                <Accordion.ItemTrigger>
-                  {item.title}
-                  <Accordion.ItemIndicator />
-                </Accordion.ItemTrigger>
-                <Accordion.ItemContent>
-                  <div className="accordion-panel-content">{item.description}</div>
-                </Accordion.ItemContent>
-              </Accordion.Item>
-            ))}
-            <Accordion.Context>
-              {(accordion) => (
-                <div className="accordion-state">
-                  Open sections: {accordion.value.join(", ")}
-                  <br />
-                  Focused section: {accordion.focusedValue ?? "none"}
-                </div>
-              )}
-            </Accordion.Context>
-          </Accordion>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{accordionItemsData}</Preview.Data>
-</Preview>
-
-### Item State
-
-Use `Accordion.ItemContext` when a custom child part needs the current item state.
-
-<Preview>
-  <ItemStateAccordionExample />
-  <Preview.Code>
-    {`
-      import { Accordion } from "@moduix/react";
-
-      export function ItemStateAccordionDemo() {
-        return (
-          <Accordion defaultValue={["what-is-ark-ui"]}>
-            {items.map((item) => (
-              <Accordion.Item
-                key={item.value}
-                value={item.value}
-                disabled={item.value === "getting-started"}
-              >
-                <Accordion.ItemTrigger>
-                  {item.title}
-                  <Accordion.ItemContext>
-                    {(itemState) => (
-                      <span className="accordion-item-state">
-                        {itemState.expanded ? "Open" : "Closed"}
-                        {itemState.focused ? " / Focused" : ""}
-                        {itemState.disabled ? " / Disabled" : ""}
-                      </span>
-                    )}
-                  </Accordion.ItemContext>
                   <Accordion.ItemIndicator />
                 </Accordion.ItemTrigger>
                 <Accordion.ItemContent>

@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
+import { useAccordion } from '@ark-ui/react/accordion';
 import { useState } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { Slider } from '../slider';
-import { Accordion, useAccordion } from './Accordion';
+import { Accordion } from './Accordion';
 import styles from './Accordion.stories.module.css';
 
 const meta = {
@@ -154,58 +155,6 @@ export const RootProvider: Story = {
           <FaqAccordionItems />
         </Accordion.RootProvider>
       </>
-    );
-  },
-};
-
-export const Context: Story = {
-  render: () => {
-    return (
-      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
-        <FaqAccordionItems />
-        <Accordion.Context>
-          {(accordion) => (
-            <div className={styles.state}>
-              Open sections: {accordion.value.join(', ')}
-              <br />
-              Focused section: {accordion.focusedValue ?? 'none'}
-            </div>
-          )}
-        </Accordion.Context>
-      </Accordion.Root>
-    );
-  },
-};
-
-export const ItemState: Story = {
-  render: () => {
-    return (
-      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
-        {faqItems.map((item) => (
-          <Accordion.Item
-            key={item.value}
-            value={item.value}
-            disabled={item.value === 'getting-started'}
-          >
-            <Accordion.ItemTrigger>
-              {item.title}
-              <Accordion.ItemContext>
-                {(itemState) => (
-                  <span className={styles.itemState}>
-                    {itemState.expanded ? 'Open' : 'Closed'}
-                    {itemState.focused ? ' / Focused' : ''}
-                    {itemState.disabled ? ' / Disabled' : ''}
-                  </span>
-                )}
-              </Accordion.ItemContext>
-              <Accordion.ItemIndicator />
-            </Accordion.ItemTrigger>
-            <Accordion.ItemContent>
-              <div className={styles.panelContent}>{item.description}</div>
-            </Accordion.ItemContent>
-          </Accordion.Item>
-        ))}
-      </Accordion.Root>
     );
   },
 };

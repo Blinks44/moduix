@@ -15,8 +15,8 @@ variables, and stable `data-slot` hooks.
 ## Upstream model to preserve
 
 - Uses the Ark UI accordion primitive directly.
-- Keeps Ark anatomy centered on `Root`, `RootProvider`, `Item`, `ItemTrigger`,
-  `ItemIndicator`, `ItemContent`, `Context`, and `ItemContext`.
+- Keeps Ark visual anatomy centered on `Root`, `RootProvider`, `Item`, `ItemTrigger`,
+  `ItemIndicator`, and `ItemContent`.
 - Keeps Ark controlled and uncontrolled value flow, lazy mounting, item state lifecycle, and
   `--height` / `--width` content animation measurements intact.
 
@@ -24,9 +24,8 @@ variables, and stable `data-slot` hooks.
 
 - Uses Ark composition: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`,
   `Accordion.ItemIndicator`, and `Accordion.ItemContent`.
-- Supports Ark external state ownership through `useAccordion()` and `Accordion.RootProvider`.
-- Supports Ark state reads through `Accordion.Context`, `Accordion.ItemContext`,
-  `useAccordionContext()`, and `useAccordionItemContext()`.
+- Supports Ark external state ownership through `Accordion.RootProvider`; import `useAccordion()`
+  directly from `@ark-ui/react/accordion`.
 - Supports Ark controlled and uncontrolled state with `value`, `defaultValue`, and
   `onValueChange(details)`.
 - Supports Ark root behavior props such as `multiple`, `collapsible`, `disabled`, `orientation`,
@@ -39,10 +38,8 @@ variables, and stable `data-slot` hooks.
 
 ```text
 Accordion.Root
-└─ Accordion.Context (optional)
 └─ Accordion.Item
    ├─ Accordion.ItemTrigger
-   │  ├─ Accordion.ItemContext (optional)
    │  └─ Accordion.ItemIndicator
    └─ Accordion.ItemContent
 
@@ -60,8 +57,6 @@ Every exported part accepts `className` and receives a stable `data-slot`:
 | `Accordion.ItemTrigger`   | `accordion-item-trigger`   | Styled Ark trigger button.                     |
 | `Accordion.ItemIndicator` | `accordion-item-indicator` | Defaults to `PlusIcon` when no children exist. |
 | `Accordion.ItemContent`   | `accordion-item-content`   | Styled Ark content with Ark size animation.    |
-| `Accordion.Context`       | none                       | Ark root state render prop.                    |
-| `Accordion.ItemContext`   | none                       | Ark item state render prop.                    |
 
 ## Composition
 
@@ -96,11 +91,11 @@ export function AccordionExample() {
 
 - `Anatomy`: preserved directly through the exported Ark-shaped parts.
 - `Controlled`: preserved through `value`, `defaultValue`, and `onValueChange(details)`.
-- `Root Provider`: preserved through `useAccordion()` and `Accordion.RootProvider`.
+- `Root Provider`: preserved through Ark `useAccordion()` and `Accordion.RootProvider`.
 - `Multiple` and `Collapsible`: preserved on `Accordion.Root`.
 - `Lazy Mount`: preserved through `lazyMount` and `unmountOnExit`.
-- `Context`: preserved through `Accordion.Context` and `useAccordionContext()`.
-- `Item State`: preserved through `Accordion.ItemContext` and `useAccordionItemContext()`.
+- `Context` and `Item State`: available directly from `@ark-ui/react/accordion`, not re-exported
+  by moduix.
 - `With Slider`: preserved as normal nested composition; nested Ark widgets keep their own part tree,
   keyboard behavior, and hidden inputs inside `Accordion.ItemContent`.
 - `Content Animation`: preserved through Ark `--height` and `--width` measurement rather than a custom sizing model.
@@ -141,6 +136,8 @@ Primary CSS variables:
 - moduix ships pre-styled defaults; Ark is intentionally unstyled.
 - `Accordion.ItemIndicator` defaults to `PlusIcon` when children are not provided.
 - `Accordion.RootProvider` shares the same default root styling as `Accordion.Root`.
+- Ark context parts, state hooks, and type aliases are imported directly from
+  `@ark-ui/react/accordion`.
 - Horizontal orientation gets a row layout, opposite-side trigger text rotation, trigger width
   defaults, and `--width`-based content animation in addition to Ark's horizontal keyboard behavior.
 
@@ -152,6 +149,9 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-07-02: Removed duplicate Ark type exports, context parts, and state hooks from the moduix
+  surface. Kept `RootProvider`, the callable root, every styled visual part, the default indicator,
+  and horizontal-layout sugar.
 - 2026-06-17: Migrated wrapper internals from legacy Accordion to Ark UI Accordion, adopted Ark part
   naming (`ItemTrigger`, `ItemIndicator`, `ItemContent`), and moved styling/state hooks to Ark
   data attributes and `--height`-based content animation.

@@ -1,4 +1,5 @@
-import { Accordion, ChevronDownIcon, Slider, useAccordion } from '@moduix/react';
+import { useAccordion } from '@ark-ui/react/accordion';
+import { Accordion, ChevronDownIcon, Slider } from '@moduix/react';
 import { useState, type ComponentProps, type ReactNode } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -28,12 +29,6 @@ export const accordionExampleCss = `
     line-height: var(--line-height-text-sm);
   }
 
-  .accordion-item-state {
-    margin-inline-start: auto;
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
-  }
 `;
 
 export const accordionCustomStylingCss = `
@@ -296,60 +291,6 @@ export function RootProviderAccordionExample() {
           <AccordionItems />
         </Accordion.RootProvider>
       </div>
-    </>
-  );
-}
-
-export function ContextAccordionExample() {
-  return (
-    <>
-      <style>{accordionExampleCss}</style>
-      <Accordion.Root defaultValue={['what-is-ark-ui']}>
-        <AccordionItems />
-        <Accordion.Context>
-          {(accordion) => (
-            <div className="accordion-state">
-              Open sections: {accordion.value.join(', ')}
-              <br />
-              Focused section: {accordion.focusedValue ?? 'none'}
-            </div>
-          )}
-        </Accordion.Context>
-      </Accordion.Root>
-    </>
-  );
-}
-
-export function ItemStateAccordionExample() {
-  return (
-    <>
-      <style>{accordionExampleCss}</style>
-      <Accordion.Root defaultValue={['what-is-ark-ui']}>
-        {accordionItems.map((item) => (
-          <Accordion.Item
-            key={item.value}
-            value={item.value}
-            disabled={item.value === 'getting-started'}
-          >
-            <Accordion.ItemTrigger>
-              {item.title}
-              <Accordion.ItemContext>
-                {(itemState) => (
-                  <span className="accordion-item-state">
-                    {itemState.expanded ? 'Open' : 'Closed'}
-                    {itemState.focused ? ' / Focused' : ''}
-                    {itemState.disabled ? ' / Disabled' : ''}
-                  </span>
-                )}
-              </Accordion.ItemContext>
-              <Accordion.ItemIndicator />
-            </Accordion.ItemTrigger>
-            <Accordion.ItemContent>
-              <div className="accordion-panel-content">{item.description}</div>
-            </Accordion.ItemContent>
-          </Accordion.Item>
-        ))}
-      </Accordion.Root>
     </>
   );
 }
