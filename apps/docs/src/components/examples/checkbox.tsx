@@ -1,4 +1,5 @@
-import { Checkbox, Field, Fieldset, useCheckbox, useCheckboxGroup } from '@moduix/react';
+import { useCheckbox } from '@ark-ui/react/checkbox';
+import { Checkbox, Field, Fieldset } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -341,21 +342,6 @@ export function CheckboxRootProviderExample() {
   );
 }
 
-export function CheckboxContextExample() {
-  return (
-    <Checkbox.Root defaultChecked>
-      <Checkbox.Control>
-        <Checkbox.Indicator />
-      </Checkbox.Control>
-      <Checkbox.Label>Context reader</Checkbox.Label>
-      <Checkbox.HiddenInput />
-      <Checkbox.Context>
-        {(checkbox) => <span className={styles.hint}>Checked: {String(checkbox.checked)}</span>}
-      </Checkbox.Context>
-    </Checkbox.Root>
-  );
-}
-
 export function CheckboxWithFieldExample() {
   return (
     <Field className={styles.field}>
@@ -433,16 +419,6 @@ export function ControlledCheckboxGroupExample() {
       </Checkbox.Group>
       <span className={styles.hint}>Current value: {value.join(', ') || 'none'}</span>
     </div>
-  );
-}
-
-export function CheckboxGroupProviderExample() {
-  const group = useCheckboxGroup({ defaultValue: ['react'], name: 'frameworks' });
-
-  return (
-    <Checkbox.GroupProvider value={group}>
-      <FrameworkCheckboxes />
-    </Checkbox.GroupProvider>
   );
 }
 

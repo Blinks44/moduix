@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useCheckbox } from '@ark-ui/react/checkbox';
 import { useState, type ComponentProps } from 'react';
 import { Fieldset } from '../fieldset';
-import { Checkbox, useCheckbox, useCheckboxGroup } from './Checkbox';
+import { Checkbox } from './Checkbox';
 import styles from './Checkbox.stories.module.css';
 
 const meta = {
@@ -130,21 +131,6 @@ export const RootProvider: Story = {
   },
 };
 
-export const Context: Story = {
-  render: () => (
-    <Checkbox.Root defaultChecked>
-      <Checkbox.Control>
-        <Checkbox.Indicator />
-      </Checkbox.Control>
-      <Checkbox.Label>Context reader</Checkbox.Label>
-      <Checkbox.HiddenInput />
-      <Checkbox.Context>
-        {(checkbox) => <span className={styles.hint}>Checked: {String(checkbox.checked)}</span>}
-      </Checkbox.Context>
-    </Checkbox.Root>
-  ),
-};
-
 export const Indeterminate: Story = {
   render: () => (
     <CheckboxItem checked="indeterminate" indicator="dual">
@@ -226,22 +212,6 @@ export const GroupControlled: Story = {
         </Checkbox.Group>
         <span className={styles.hint}>Current value: {value.join(', ') || 'none'}</span>
       </div>
-    );
-  },
-};
-
-export const GroupProvider: Story = {
-  render: () => {
-    const group = useCheckboxGroup({ defaultValue: ['react'], name: 'frameworks' });
-
-    return (
-      <Checkbox.GroupProvider value={group}>
-        {frameworkOptions.map((option) => (
-          <CheckboxItem key={option.value} value={option.value}>
-            {option.label}
-          </CheckboxItem>
-        ))}
-      </Checkbox.GroupProvider>
     );
   },
 };

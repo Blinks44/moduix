@@ -5,7 +5,6 @@ icon: Component
 ---
 
 import {
-  CheckboxContextExample,
   CheckboxCssPropertiesPanel,
   CheckboxDefaultCheckedExample,
   CheckboxDisabledExample,
@@ -14,7 +13,6 @@ import {
   CheckboxGroupFieldsetExample,
   CheckboxGroupInvalidExample,
   CheckboxGroupMaxSelectedExample,
-  CheckboxGroupProviderExample,
   CheckboxGroupSelectAllExample,
   CheckboxGroupWithFormExample,
   CheckboxIndeterminateExample,
@@ -120,8 +118,7 @@ Checkbox.Root
 │  ├─ Checkbox.Indicator
 │  └─ Checkbox.Indicator[indeterminate] (optional)
 ├─ Checkbox.Label
-├─ Checkbox.HiddenInput
-└─ Checkbox.Context (optional render-prop access)
+└─ Checkbox.HiddenInput
 
 Checkbox.RootProvider
 └─ same part tree connected to useCheckbox()
@@ -131,26 +128,21 @@ Checkbox.Group
    ├─ Checkbox.Control
    ├─ Checkbox.Label
    └─ Checkbox.HiddenInput
-
-Checkbox.GroupProvider
-└─ same grouped item tree connected to useCheckboxGroup()
 ```
 
 | Part                         | Role                                                                  |
 | ---------------------------- | --------------------------------------------------------------------- |
 | `Checkbox` / `Checkbox.Root` | Owns one checkbox state and renders the wrapping label element.       |
-| `Checkbox.RootProvider`      | Connects parts to state created with `useCheckbox()`.                 |
+| `Checkbox.RootProvider`      | Connects parts to Ark state created outside the rendered subtree.     |
 | `Checkbox.Control`           | Visual control surface. Styles checked, indeterminate, invalid state. |
 | `Checkbox.Indicator`         | Checked or indeterminate icon slot. Use `indeterminate` when needed.  |
 | `Checkbox.Label`             | Visible label text inside the root.                                   |
 | `Checkbox.HiddenInput`       | Native input for forms, validation, form reset, and submission.       |
-| `Checkbox.Context`           | Reads checkbox state through an Ark render prop.                      |
 | `Checkbox.Group`             | Shares value state across multiple checkbox roots.                    |
-| `Checkbox.GroupProvider`     | Connects grouped items to state created with `useCheckboxGroup()`.    |
 
 ## Composition
 
-### Recommended path
+### Recommended composition
 
 Keep the Ark part tree visible. `Checkbox.Root` accepts Ark root props such as `checked`,
 `defaultChecked`, `onCheckedChange(details)`, `disabled`, `readOnly`, `invalid`, `required`,
@@ -161,22 +153,26 @@ Keep the Ark part tree visible. `Checkbox.Root` accepts Ark root props such as `
 
 `size` is the only moduix DX prop. Apply it on `Checkbox.Root` or `Checkbox.RootProvider`.
 
-### Form controls
+### When to go custom
+
+Use `Checkbox.RootProvider` when checkbox state must be owned outside the rendered subtree. moduix
+keeps the provider, but the state hook comes from Ark UI.
+
+### Default props
+
+| Surface                      | Default | Notes                                                   |
+| ---------------------------- | ------- | ------------------------------------------------------- |
+| `Checkbox` / `Checkbox.Root` | —       | No additional behavioral defaults; Ark defaults apply.  |
+| `size`                       | `md`    | Applied on `Checkbox.Root` and `Checkbox.RootProvider`. |
+
+### Behavioral notes
 
 Render `Checkbox.HiddenInput` for native form participation, validation, form reset, and
 submission. For a standalone checkbox, pass `name` and `value` to `Checkbox.Root`. For a group,
 pass `name` to `Checkbox.Group` and `value` to every `Checkbox.Root`.
 
-### Custom host elements
-
 Ark `Checkbox.Root` renders a `label`. If you use `asChild`, the direct child must also be a
 semantic `label`, otherwise the checkbox no longer has valid form-control labelling.
-
-### Default props
-
-| Surface                      | Default | Notes                                                  |
-| ---------------------------- | ------- | ------------------------------------------------------ |
-| `Checkbox` / `Checkbox.Root` | —       | No additional behavioral defaults; Ark defaults apply. |
 
 ## Examples
 
@@ -236,14 +232,16 @@ Control `checked` from React state when the checkbox should coordinate with othe
 
 ### Root Provider
 
-Use `useCheckbox()` with `Checkbox.RootProvider` when checkbox state needs to live outside the rendered subtree.
+Use `Checkbox.RootProvider` when checkbox state needs to live outside the rendered subtree. Import
+the state hook from Ark UI directly.
 
 <Preview>
   <CheckboxRootProviderExample />
 
   <Preview.Code>
     {`
-      import { Checkbox, useCheckbox } from "@moduix/react";
+      import { useCheckbox } from "@ark-ui/react/checkbox";
+      import { Checkbox } from "@moduix/react";
 
       export function RootProviderCheckboxDemo() {
         const checkbox = useCheckbox({ defaultChecked: true });
@@ -405,31 +403,6 @@ Pass `name` and `value` to `Checkbox.Root` so the hidden input submits with nati
   </Preview.Data>
 </Preview>
 
-### Context
-
-Read Ark checkbox state with `Checkbox.Context` when nearby UI needs the current checked value.
-
-<Preview>
-  <CheckboxContextExample />
-
-  <Preview.Code>
-    {`
-      <Checkbox defaultChecked>
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
-        <Checkbox.Label>Context reader</Checkbox.Label>
-        <Checkbox.HiddenInput />
-        <Checkbox.Context>
-          {(checkbox) => <span>Checked: {String(checkbox.checked)}</span>}
-        </Checkbox.Context>
-      </Checkbox>
-    `}
-  </Preview.Code>
-  <Preview.CSS>{checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{`const initialChecked = true;`}</Preview.Data>
-</Preview>
-
 ### Sizes
 
 Apply moduix `size` to match checkbox density to the surrounding form or settings surface.
@@ -535,41 +508,6 @@ Control the group value from React state when selected options need to drive fil
   </Preview.Code>
   <Preview.CSS>{checkboxExampleCss}</Preview.CSS>
   <Preview.Data>{notificationOptionsData}</Preview.Data>
-</Preview>
-
-### Group Provider
-
-Use `useCheckboxGroup()` with `Checkbox.GroupProvider` when group state is created outside the rendered tree.
-
-<Preview>
-  <CheckboxGroupProviderExample />
-
-  <Preview.Code>
-    {`
-      import { Checkbox, useCheckboxGroup } from "@moduix/react";
-
-      export function CheckboxGroupProviderDemo() {
-        const group = useCheckboxGroup({ defaultValue: ["react"], name: "frameworks" });
-
-        return (
-          <Checkbox.GroupProvider value={group}>
-            {options.map((option) => (
-              <Checkbox key={option.value} value={option.value}>
-                <Checkbox.Control>
-                  <Checkbox.Indicator />
-                </Checkbox.Control>
-                <Checkbox.Label>{option.label}</Checkbox.Label>
-                <Checkbox.HiddenInput />
-              </Checkbox>
-            ))}
-          </Checkbox.GroupProvider>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{frameworkOptionsData}</Preview.Data>
 </Preview>
 
 ### Invalid Group
@@ -773,4 +711,3 @@ Use local classes and CSS variables when the checkbox visuals need a custom tone
 - `Checkbox.Label` exposes `data-slot="checkbox-label"` and Ark checkbox state attributes.
 - `Checkbox.HiddenInput` exposes `data-slot="checkbox-hidden-input"`.
 - `Checkbox.Group` exposes `data-slot="checkbox-group"`.
-- `Checkbox.GroupProvider` exposes `data-slot="checkbox-group-provider"`.

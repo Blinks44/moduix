@@ -1,11 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  Checkbox as CheckboxPrimitive,
-  useCheckbox,
-  useCheckboxContext,
-  useCheckboxGroup,
-  useCheckboxGroupContext,
-} from '@ark-ui/react/checkbox';
+import { Checkbox as CheckboxPrimitive } from '@ark-ui/react/checkbox';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
@@ -13,12 +7,12 @@ import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Checkbox.module.css';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type CheckboxRootProps = ComponentProps<typeof CheckboxPrimitive.Root> & { size?: CheckboxSize };
-type CheckboxRootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootProvider> & {
+type RootProps = ComponentProps<typeof CheckboxPrimitive.Root> & { size?: CheckboxSize };
+type RootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootProvider> & {
   size?: CheckboxSize;
 };
 
-const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, CheckboxRootProps>(
+const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, RootProps>(
   function CheckboxRoot({ className, size = 'md', ...props }, ref) {
     return (
       <CheckboxPrimitive.Root
@@ -34,7 +28,7 @@ const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Che
 
 const CheckboxRootProvider = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.RootProvider>,
-  CheckboxRootProviderProps
+  RootProviderProps
 >(function CheckboxRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <CheckboxPrimitive.RootProvider
@@ -121,22 +115,6 @@ const CheckboxGroup = forwardRef<
   );
 });
 
-const CheckboxGroupProvider = forwardRef<
-  ComponentRef<typeof CheckboxPrimitive.GroupProvider>,
-  ComponentProps<typeof CheckboxPrimitive.GroupProvider>
->(function CheckboxGroupProvider({ className, ...props }, ref) {
-  return (
-    <CheckboxPrimitive.GroupProvider
-      ref={ref}
-      data-slot="checkbox-group-provider"
-      className={clsx(styles.group, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
-
-const CheckboxContext = CheckboxPrimitive.Context;
-
 const Checkbox = Object.assign(CheckboxRoot, {
   Root: CheckboxRoot,
   RootProvider: CheckboxRootProvider,
@@ -145,34 +123,6 @@ const Checkbox = Object.assign(CheckboxRoot, {
   HiddenInput: CheckboxHiddenInput,
   Label: CheckboxLabel,
   Group: CheckboxGroup,
-  GroupProvider: CheckboxGroupProvider,
-  Context: CheckboxContext,
 });
 
-export { Checkbox, useCheckbox, useCheckboxContext, useCheckboxGroup, useCheckboxGroupContext };
-export type {
-  CheckboxCheckedChangeDetails,
-  CheckboxCheckedState,
-  CheckboxContextProps,
-  CheckboxControlBaseProps,
-  CheckboxControlProps,
-  CheckboxGroupBaseProps,
-  CheckboxGroupProviderBaseProps,
-  CheckboxGroupProviderProps,
-  CheckboxGroupProps,
-  CheckboxHiddenInputBaseProps,
-  CheckboxHiddenInputProps,
-  CheckboxIndicatorBaseProps,
-  CheckboxIndicatorProps,
-  CheckboxLabelBaseProps,
-  CheckboxLabelProps,
-  CheckboxRootBaseProps,
-  CheckboxRootProviderBaseProps,
-  UseCheckboxContext,
-  UseCheckboxGroupContext,
-  UseCheckboxGroupProps,
-  UseCheckboxGroupReturn,
-  UseCheckboxProps,
-  UseCheckboxReturn,
-} from '@ark-ui/react/checkbox';
-export type { CheckboxRootProps, CheckboxRootProviderProps, CheckboxSize };
+export { Checkbox };
