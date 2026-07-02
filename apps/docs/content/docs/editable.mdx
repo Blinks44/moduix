@@ -110,10 +110,9 @@ Editable.Root
 │  ├─ Editable.EditTrigger
 │  ├─ Editable.SubmitTrigger
 │  └─ Editable.CancelTrigger
-└─ Editable.Context (optional render-prop access)
 
 Editable.RootProvider
-└─ same part tree connected to a useEditable() store
+└─ same part tree connected to Ark `useEditable()` state
 ```
 
 | Part                         | Role                                                   |
@@ -128,7 +127,6 @@ Editable.RootProvider
 | `Editable.EditTrigger`       | Button that enters edit mode.                          |
 | `Editable.SubmitTrigger`     | Button that commits the value.                         |
 | `Editable.CancelTrigger`     | Button that reverts the value.                         |
-| `Editable.Context`           | Render-prop access to edit/value state and methods.    |
 
 ## Composition
 
@@ -141,8 +139,9 @@ controls aligned to the top of the multiline surface.
 
 ### When to go custom
 
-Use `Editable.Context` for inline conditional controls, `useEditableContext()` for reusable child
-parts, and `useEditable()` with `Editable.RootProvider` when state or methods must be owned outside
+Import Ark `Editable.Context` or `useEditableContext()` directly from
+`@ark-ui/react/editable` when reusable child parts or inline state reads need editable state.
+Use Ark `useEditable()` with `Editable.RootProvider` when state or methods must be owned outside
 the rendered editable tree. Use `asChild` for a semantic custom input host, such as a textarea.
 
 ### Default props
@@ -179,8 +178,9 @@ Control the value with `value` and `onValueChange` when application state is the
 
 ### Root Provider
 
-Use `useEditable()` and `Editable.RootProvider` when external controls need access to the editable
-state methods.
+Use Ark `useEditable()` and `Editable.RootProvider` when external controls need access to the
+editable state methods. Pass `activationMode: 'dblclick'` to the hook if you want the same default
+activation behavior as the moduix root component.
 
 <Preview>
   <RootProviderEditableExample />
@@ -192,8 +192,8 @@ state methods.
 
 ### Context
 
-Use `Editable.Context` for one-off state reads inside the part tree, such as swapping controls for
-editing hints.
+Use Ark `Editable.Context` for one-off state reads inside the part tree, such as swapping controls
+for editing hints, while keeping the moduix visual parts for the actual UI.
 
 <Preview>
   <ContextEditableExample />
@@ -205,8 +205,8 @@ editing hints.
 
 ### Custom Controls
 
-Use `Editable.Context` to show edit, submit, or cancel controls based on the current edit state.
-This example sets `submitMode="none"` so explicit controls own commit and revert.
+Use Ark `Editable.Context` to show edit, submit, or cancel controls based on the current edit
+state. This example sets `submitMode="none"` so explicit controls own commit and revert.
 
 <Preview>
   <EditableControlsExample />

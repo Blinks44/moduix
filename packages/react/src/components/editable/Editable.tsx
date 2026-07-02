@@ -1,10 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  Editable as EditablePrimitive,
-  useEditable as useEditablePrimitive,
-  useEditableContext,
-  type UseEditableProps,
-} from '@ark-ui/react/editable';
+import { Editable as EditablePrimitive } from '@ark-ui/react/editable';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon, CloseIcon, PencilIcon } from '@/lib/moduix/icons/ui';
@@ -158,12 +153,6 @@ const EditableCancelTrigger = forwardRef<
   );
 });
 
-const EditableContext = EditablePrimitive.Context;
-
-function useEditable(props: UseEditableProps = {}) {
-  return useEditablePrimitive({ activationMode: 'dblclick', ...props });
-}
-
 const Editable = Object.assign(EditableRoot, {
   Root: EditableRoot,
   RootProvider: EditableRootProvider,
@@ -175,17 +164,6 @@ const Editable = Object.assign(EditableRoot, {
   EditTrigger: EditableEditTrigger,
   SubmitTrigger: EditableSubmitTrigger,
   CancelTrigger: EditableCancelTrigger,
-  Context: EditableContext,
 });
 
-export { Editable, useEditable, useEditableContext };
-export type {
-  EditableEditChangeDetails,
-  EditableFocusOutsideEvent,
-  EditableInteractOutsideEvent,
-  EditablePointerDownOutsideEvent,
-  EditableValueChangeDetails,
-  UseEditableContext,
-  UseEditableProps,
-  UseEditableReturn,
-} from '@ark-ui/react/editable';
+export { Editable };

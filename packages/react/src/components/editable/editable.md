@@ -13,11 +13,11 @@ titles, names, short descriptions, and other values that switch between preview 
 ## Upstream model to preserve
 
 Preserve Ark's `Editable.Root` composition, edit/value state, details-object callbacks, keyboard
-commit and revert behavior, `Field` / `Fieldset` context integration, `RootProvider`, `Context`,
-`useEditable()`, `useEditableContext()`, and `asChild` support.
+commit and revert behavior, `Field` / `Fieldset` context integration, `RootProvider`, and
+`asChild` support.
 
 Ark parts exposed by moduix are `Root`, `RootProvider`, `Label`, `Area`, `Input`, `Preview`,
-`Control`, `EditTrigger`, `SubmitTrigger`, `CancelTrigger`, and `Context`.
+`Control`, `EditTrigger`, `SubmitTrigger`, and `CancelTrigger`.
 
 ## Current behavior contract
 
@@ -46,10 +46,9 @@ Editable.Root
 │  ├─ Editable.EditTrigger
 │  ├─ Editable.SubmitTrigger
 │  └─ Editable.CancelTrigger
-└─ Editable.Context (optional render-prop access)
 
 Editable.RootProvider
-└─ same part tree connected to a useEditable() store
+└─ same part tree connected to Ark `useEditable()` state
 ```
 
 | Part                         | `data-slot`               | Notes                                              |
@@ -65,16 +64,13 @@ Editable.RootProvider
 | `Editable.SubmitTrigger`     | `editable-submit-trigger` | Renders a check icon when children are omitted.    |
 | `Editable.CancelTrigger`     | `editable-cancel-trigger` | Renders a close icon when children are omitted.    |
 
-Exported values: `Editable`, `useEditable`, and `useEditableContext`.
-
-Exported types: `EditableEditChangeDetails`, `EditableFocusOutsideEvent`,
-`EditableInteractOutsideEvent`, `EditablePointerDownOutsideEvent`, `EditableValueChangeDetails`,
-`UseEditableContext`, `UseEditableProps`, and `UseEditableReturn`.
+Exported values: `Editable`.
 
 ## Composition
 
 ```tsx
 import { Editable } from '@moduix/react';
+import { Editable as EditablePrimitive } from '@ark-ui/react/editable';
 
 export function NameEditable() {
   return (
@@ -85,7 +81,7 @@ export function NameEditable() {
         <Editable.Preview />
       </Editable.Area>
       <Editable.Control>
-        <Editable.Context>
+        <EditablePrimitive.Context>
           {(editable) =>
             editable.editing ? (
               <>
@@ -96,7 +92,7 @@ export function NameEditable() {
               <Editable.EditTrigger />
             )
           }
-        </Editable.Context>
+        </EditablePrimitive.Context>
       </Editable.Control>
     </Editable>
   );
@@ -124,7 +120,7 @@ export function ControlledNameEditable() {
 }
 ```
 
-Use `Editable.RootProvider` only with state created by `useEditable()`; do not also render
+Use `Editable.RootProvider` only with state created by Ark `useEditable()`; do not also render
 `Editable.Root` for the same state instance.
 
 ## Upstream feature coverage
@@ -132,8 +128,9 @@ Use `Editable.RootProvider` only with state created by `useEditable()`; do not a
 - Basic composition: supported through `Editable`, `Label`, `Area`, `Input`, and `Preview`.
 - Controlled value: supported through `value` and `onValueChange`.
 - Controlled edit state: supported through `edit` and `onEditChange`.
-- Root provider: supported through `useEditable()` and `Editable.RootProvider`.
-- Context access and custom controls: supported through `Editable.Context` and trigger parts.
+- Root provider: supported through Ark `useEditable()` and `Editable.RootProvider`.
+- Context access and custom controls: supported through Ark `Editable.Context` /
+  `useEditableContext()` together with the moduix trigger parts.
 - Textarea: supported with `Editable.Input asChild` and a semantic `<textarea />`.
 - Field integration: preserved through Ark field context and the moduix `Field` wrapper.
 - Guides: `autoResize`, `maxLength`, `activationMode`, `submitMode`, `placeholder`,
@@ -186,20 +183,26 @@ Public CSS variables:
 ## Intentional sugar and differences from upstream
 
 moduix adds visual defaults, stable `data-slot` hooks, default trigger icons, right-side control
-layout with configurable vertical alignment, and `activationMode="dblclick"` as the root and
-`useEditable()` default. It does not add variants, sizes, slot prop bags, class-name maps, callback
-adapters, or high-level props over Ark behavior.
+layout with configurable vertical alignment, and `activationMode="dblclick"` on `Editable.Root`.
+When state is owned outside the tree, import Ark `useEditable()` / `Editable.Context` directly and
+pass `activationMode: 'dblclick'` there if you want the same default activation behavior. moduix
+does not add variants, sizes, slot prop bags, class-name maps, callback adapters, or high-level
+props over Ark behavior.
 
 ## Agent notes
 
-Keep the public barrel in sync with Ark provider/context/hooks. Do not style root-level disabled or
-invalid attributes for `Editable`; Ark emits those states on the concrete parts. The area invalid
-border intentionally follows `Input` / `Preview` invalid state with `:has(...)`. Docs examples must
-import from `moduix`, not from the component file. Registry source paths are under
+Keep `RootProvider`, but do not re-export Ark context parts, hooks, or duplicate type aliases from
+the moduix barrel. Do not style root-level disabled or invalid attributes for `Editable`; Ark emits
+those states on the concrete parts. The area invalid border intentionally follows `Input` /
+`Preview` invalid state with `:has(...)`. Docs examples must import from `moduix`, not from the
+component file. Registry source paths are under
 `packages/react/src/components/editable`.
 
 ## Local changelog
 
+- 2026-07-02: Removed `Editable.Context`, `useEditable`, `useEditableContext`, and duplicate Ark
+  type re-exports from the moduix surface. `RootProvider` remains, and advanced state access now
+  imports directly from `@ark-ui/react/editable`.
 - 2026-06-25: Replaced stale root-state styling guidance with real Ark part attributes, added
   explicit Context docs coverage, and synced editable CSS variable defaults.
 - 2026-06-22: Matched the default trigger button size to `--editable-area-height` so single-line

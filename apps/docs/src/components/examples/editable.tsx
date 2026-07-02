@@ -1,4 +1,5 @@
-import { Editable, Field, useEditable } from '@moduix/react';
+import { Editable as EditablePrimitive, useEditable } from '@ark-ui/react/editable';
+import { Editable, Field } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -150,7 +151,7 @@ export function EditableExample(props: ComponentProps<typeof Editable>) {
           <Editable.Preview />
         </Editable.Area>
         <Editable.Control>
-          <Editable.Context>
+          <EditablePrimitive.Context>
             {(editable) =>
               editable.editing ? (
                 <>
@@ -161,7 +162,7 @@ export function EditableExample(props: ComponentProps<typeof Editable>) {
                 <Editable.EditTrigger />
               )
             }
-          </Editable.Context>
+          </EditablePrimitive.Context>
         </Editable.Control>
       </Editable>
     </div>
@@ -197,7 +198,7 @@ export function ContextEditableExample() {
           <Editable.Input />
           <Editable.Preview />
         </Editable.Area>
-        <Editable.Context>
+        <EditablePrimitive.Context>
           {(editable) =>
             editable.editing ? (
               <div className="editable-state">Enter to save, Esc to cancel.</div>
@@ -207,7 +208,7 @@ export function ContextEditableExample() {
               </Editable.Control>
             )
           }
-        </Editable.Context>
+        </EditablePrimitive.Context>
       </Editable>
     </div>
   );
@@ -223,7 +224,7 @@ export function EditableControlsExample() {
           <Editable.Preview />
         </Editable.Area>
         <Editable.Control>
-          <Editable.Context>
+          <EditablePrimitive.Context>
             {(editable) =>
               editable.editing ? (
                 <>
@@ -234,7 +235,7 @@ export function EditableControlsExample() {
                 <Editable.EditTrigger />
               )
             }
-          </Editable.Context>
+          </EditablePrimitive.Context>
         </Editable.Control>
       </Editable>
     </div>
@@ -257,7 +258,7 @@ export function TextareaEditableExample() {
         <Editable.Preview className="editable-textarea-preview" />
       </Editable.Area>
       <Editable.Control>
-        <Editable.Context>
+        <EditablePrimitive.Context>
           {(editable) =>
             editable.editing ? (
               <>
@@ -268,7 +269,7 @@ export function TextareaEditableExample() {
               <Editable.EditTrigger />
             )
           }
-        </Editable.Context>
+        </EditablePrimitive.Context>
       </Editable.Control>
       <div className="editable-state">Double-click to edit. Press Cmd/Ctrl + Enter to save.</div>
     </Editable>
@@ -296,7 +297,7 @@ export function FieldEditableExample() {
 }
 
 export function RootProviderEditableExample() {
-  const editable = useEditable({ defaultValue: 'Root provider value' });
+  const editable = useEditable({ activationMode: 'dblclick', defaultValue: 'Root provider value' });
 
   return (
     <div style={centeredExampleStyle}>
@@ -307,7 +308,7 @@ export function RootProviderEditableExample() {
           <Editable.Preview />
         </Editable.Area>
         <Editable.Control>
-          <Editable.Context>
+          <EditablePrimitive.Context>
             {(editable) =>
               editable.editing ? (
                 <>
@@ -318,7 +319,7 @@ export function RootProviderEditableExample() {
                 <Editable.EditTrigger />
               )
             }
-          </Editable.Context>
+          </EditablePrimitive.Context>
         </Editable.Control>
       </Editable.RootProvider>
       <div className="editable-root-provider-actions">
@@ -378,6 +379,7 @@ export function CustomStylesEditableExample() {
 }
 
 export const editableBasicCode = `
+  import { Editable as EditablePrimitive } from "@ark-ui/react/editable";
   import { Editable } from "@moduix/react";
 
   export function EditableDemo() {
@@ -389,7 +391,7 @@ export const editableBasicCode = `
           <Editable.Preview />
         </Editable.Area>
         <Editable.Control>
-          <Editable.Context>
+          <EditablePrimitive.Context>
             {(editable) =>
               editable.editing ? (
                 <>
@@ -400,7 +402,7 @@ export const editableBasicCode = `
                 <Editable.EditTrigger />
               )
             }
-          </Editable.Context>
+          </EditablePrimitive.Context>
         </Editable.Control>
       </Editable>
     );
@@ -408,6 +410,7 @@ export const editableBasicCode = `
 `;
 
 export const editableControlledCode = `
+  import { Editable as EditablePrimitive } from "@ark-ui/react/editable";
   import { Editable } from "@moduix/react";
   import { useState } from "react";
 
@@ -440,7 +443,7 @@ export const editableContextCode = `
           <Editable.Input />
           <Editable.Preview />
         </Editable.Area>
-        <Editable.Context>
+        <EditablePrimitive.Context>
           {(editable) =>
             editable.editing ? (
               <span>Enter to save, Esc to cancel.</span>
@@ -450,13 +453,14 @@ export const editableContextCode = `
               </Editable.Control>
             )
           }
-        </Editable.Context>
+        </EditablePrimitive.Context>
       </Editable>
     );
   }
 `;
 
 export const editableControlsCode = `
+  import { Editable as EditablePrimitive } from "@ark-ui/react/editable";
   import { Editable } from "@moduix/react";
 
   export function EditableControlsDemo() {
@@ -468,7 +472,7 @@ export const editableControlsCode = `
           <Editable.Preview />
         </Editable.Area>
         <Editable.Control>
-          <Editable.Context>
+          <EditablePrimitive.Context>
             {(editable) =>
               editable.editing ? (
                 <>
@@ -479,7 +483,7 @@ export const editableControlsCode = `
                 <Editable.EditTrigger />
               )
             }
-          </Editable.Context>
+          </EditablePrimitive.Context>
         </Editable.Control>
       </Editable>
     );
@@ -487,6 +491,7 @@ export const editableControlsCode = `
 `;
 
 export const editableTextareaCode = `
+  import { Editable as EditablePrimitive } from "@ark-ui/react/editable";
   import { Editable } from "@moduix/react";
 
   export function TextareaEditableDemo() {
@@ -505,7 +510,7 @@ export const editableTextareaCode = `
           <Editable.Preview className="editable-textarea-preview" />
         </Editable.Area>
         <Editable.Control>
-          <Editable.Context>
+          <EditablePrimitive.Context>
             {(editable) =>
               editable.editing ? (
                 <>
@@ -516,7 +521,7 @@ export const editableTextareaCode = `
                 <Editable.EditTrigger />
               )
             }
-          </Editable.Context>
+          </EditablePrimitive.Context>
         </Editable.Control>
       </Editable>
     );
@@ -546,10 +551,12 @@ export const editableFieldCode = `
 `;
 
 export const editableRootProviderCode = `
-  import { Editable, useEditable } from "@moduix/react";
+  import { useEditable } from "@ark-ui/react/editable";
+  import { Editable as EditablePrimitive } from "@ark-ui/react/editable";
+  import { Editable } from "@moduix/react";
 
   export function RootProviderEditableDemo() {
-    const editable = useEditable({ defaultValue: "Root provider value" });
+    const editable = useEditable({ activationMode: "dblclick", defaultValue: "Root provider value" });
 
     return (
       <>
@@ -560,7 +567,7 @@ export const editableRootProviderCode = `
             <Editable.Preview />
           </Editable.Area>
           <Editable.Control>
-            <Editable.Context>
+            <EditablePrimitive.Context>
               {(editable) =>
                 editable.editing ? (
                   <>
@@ -571,7 +578,7 @@ export const editableRootProviderCode = `
                   <Editable.EditTrigger />
                 )
               }
-            </Editable.Context>
+            </EditablePrimitive.Context>
           </Editable.Control>
         </Editable.RootProvider>
         <button type="button" onClick={() => editable.edit()}>
