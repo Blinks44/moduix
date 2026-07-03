@@ -6,16 +6,16 @@ import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Tag.module.css';
 
-export type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
-export type TagSize = 'sm' | 'md';
-export type TagRootProps = HTMLArkProps<'span'> & {
+type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
+type TagSize = 'sm' | 'md';
+type TagRootProps = HTMLArkProps<'span'> & {
   variant?: TagVariant;
   size?: TagSize;
 };
-export type TagLabelProps = HTMLArkProps<'span'>;
-export type TagStartElementProps = HTMLArkProps<'span'>;
-export type TagEndElementProps = HTMLArkProps<'span'>;
-export type TagCloseTriggerProps = HTMLArkProps<'button'>;
+type TagLabelProps = HTMLArkProps<'span'>;
+type TagStartElementProps = HTMLArkProps<'span'>;
+type TagEndElementProps = HTMLArkProps<'span'>;
+type TagCloseTriggerProps = HTMLArkProps<'button'>;
 
 const DEFAULT_CLOSE_LABEL = 'Remove tag';
 

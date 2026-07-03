@@ -122,7 +122,6 @@ aubx shadcn@latest add Blinks44/moduix/react-tabs
 
 ```text
 Tabs.Root
-├─ Tabs.Context (optional render-prop access)
 ├─ Tabs.List
 │  ├─ Tabs.Trigger[value]
 │  ├─ Tabs.Trigger[value]
@@ -136,12 +135,11 @@ Tabs.RootProvider
 | Part                 | Role                                                            |
 | -------------------- | --------------------------------------------------------------- |
 | `Tabs` / `Tabs.Root` | Controls selected value, focus movement, orientation, and mode. |
-| `Tabs.RootProvider`  | Connects parts to state created with `useTabs()`.               |
+| `Tabs.RootProvider`  | Connects parts to state created with Ark `useTabs()`.           |
 | `Tabs.List`          | Groups tab triggers and owns roving-focus list semantics.       |
 | `Tabs.Trigger`       | Interactive tab button or `asChild` host with a required value. |
 | `Tabs.Indicator`     | Optional active-trigger indicator positioned by Ark variables.  |
 | `Tabs.Content`       | Content region for the matching trigger value.                  |
-| `Tabs.Context`       | Reads root state through an Ark render prop.                    |
 
 ## Composition
 
@@ -159,11 +157,8 @@ you want the active-trigger indicator.
 Use `asChild` on `Tabs.Trigger` when a trigger should render a link or router component. The child
 must be a single semantic element that can preserve Ark's keyboard, focus, and ARIA behavior.
 
-Use `useTabs()` with `Tabs.RootProvider` when tab state must be created outside the rendered tree.
-Do not render `Tabs.Root` around the same state instance.
-
-Use `Tabs.Context` or `useTabsContext()` when surrounding UI needs selected-value state without
-adding a parallel React state layer.
+Use Ark `useTabs()` with `Tabs.RootProvider` when tab state must be created outside the rendered
+tree. Do not render `Tabs.Root` around the same state instance.
 
 ### Default Props
 
@@ -422,14 +417,16 @@ Enter, or Space.
 
 ### Root Provider
 
-Create state with `useTabs()` when the selected value must be read before rendering the part tree.
+Create state with Ark `useTabs()` when the selected value must be read before rendering the part
+tree.
 
 <Preview>
   <RootProviderTabsExample />
 
   <Preview.Code>
     {`
-      import { Tabs, useTabs } from "@moduix/react";
+      import { useTabs } from "@ark-ui/react/tabs";
+      import { Tabs } from "@moduix/react";
 
       export function RootProviderTabsDemo() {
         const tabs = useTabs({ defaultValue: "overview" });

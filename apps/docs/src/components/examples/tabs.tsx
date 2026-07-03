@@ -1,4 +1,5 @@
-import { Tabs, useTabs } from '@moduix/react';
+import { useTabs } from '@ark-ui/react/tabs';
+import { Tabs } from '@moduix/react';
 import { clsx } from 'clsx';
 import { Handshake as HandshakeIcon, Map as MapIcon, Gift as PresentIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';

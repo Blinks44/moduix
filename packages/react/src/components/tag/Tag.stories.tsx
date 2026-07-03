@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
-import type { TagVariant } from './Tag';
 import { Tag } from './Tag';
 import styles from './Tag.stories.module.css';
 
@@ -20,7 +19,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const variants = ['default', 'secondary', 'outline', 'ghost', 'destructive'] satisfies TagVariant[];
+const variants = ['default', 'secondary', 'outline', 'ghost', 'destructive'] as const;
 
 export const Basic: Story = {};
 

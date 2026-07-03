@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Tabs as TabsPrimitive, useTabs, useTabsContext } from '@ark-ui/react/tabs';
+import { Tabs as TabsPrimitive } from '@ark-ui/react/tabs';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -7,31 +7,24 @@ import styles from './Tabs.module.css';
 
 type TabsVariant = 'default' | 'line';
 
-type TabsRootProps = ComponentProps<typeof TabsPrimitive.Root> & {
-  variant?: TabsVariant;
-};
-
-type TabsRootProviderProps = ComponentProps<typeof TabsPrimitive.RootProvider> & {
-  variant?: TabsVariant;
-};
-
-const TabsRoot = forwardRef<ComponentRef<typeof TabsPrimitive.Root>, TabsRootProps>(
-  function TabsRoot({ className, variant = 'default', ...props }, ref) {
-    return (
-      <TabsPrimitive.Root
-        ref={ref}
-        data-slot="tabs-root"
-        data-variant={variant}
-        className={clsx(styles.root, normalizeClassName(className))}
-        {...props}
-      />
-    );
-  },
-);
+const TabsRoot = forwardRef<
+  ComponentRef<typeof TabsPrimitive.Root>,
+  ComponentProps<typeof TabsPrimitive.Root> & { variant?: TabsVariant }
+>(function TabsRoot({ className, variant = 'default', ...props }, ref) {
+  return (
+    <TabsPrimitive.Root
+      ref={ref}
+      data-slot="tabs-root"
+      data-variant={variant}
+      className={clsx(styles.root, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
 
 const TabsRootProvider = forwardRef<
   ComponentRef<typeof TabsPrimitive.RootProvider>,
-  TabsRootProviderProps
+  ComponentProps<typeof TabsPrimitive.RootProvider> & { variant?: TabsVariant }
 >(function TabsRootProvider({ className, variant = 'default', ...props }, ref) {
   return (
     <TabsPrimitive.RootProvider
@@ -100,8 +93,6 @@ const TabsContent = forwardRef<
   );
 });
 
-const TabsContext = TabsPrimitive.Context;
-
 const Tabs = Object.assign(TabsRoot, {
   Root: TabsRoot,
   RootProvider: TabsRootProvider,
@@ -109,19 +100,6 @@ const Tabs = Object.assign(TabsRoot, {
   Trigger: TabsTrigger,
   Indicator: TabsIndicator,
   Content: TabsContent,
-  Context: TabsContext,
 });
 
-export { Tabs, useTabs, useTabsContext };
-export type { TabsRootProps, TabsRootProviderProps, TabsVariant };
-export type {
-  TabsFocusChangeDetails,
-  TabsValueChangeDetails,
-  TabListProps as TabsListProps,
-  TabTriggerProps as TabsTriggerProps,
-  TabIndicatorProps as TabsIndicatorProps,
-  TabContentProps as TabsContentProps,
-  UseTabsContext,
-  UseTabsProps,
-  UseTabsReturn,
-} from '@ark-ui/react/tabs';
+export { Tabs };

@@ -1,11 +1,18 @@
-import type { TagVariant } from '@moduix/react';
 import type { ComponentProps } from 'react';
 import { CheckIcon, Tag } from '@moduix/react';
 import type { CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './tag.module.css';
 
-const variants = ['default', 'secondary', 'outline', 'ghost', 'destructive'] satisfies TagVariant[];
+type TagVariant = ComponentProps<typeof Tag>['variant'];
+
+const variants = [
+  'default',
+  'secondary',
+  'outline',
+  'ghost',
+  'destructive',
+] as const satisfies readonly TagVariant[];
 const sizes = [
   { label: 'Compact', size: 'sm' },
   { label: 'Default', size: 'md' },

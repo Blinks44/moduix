@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useTagsInput } from '@ark-ui/react/tags-input';
 import { useId, useState } from 'react';
 import { Field } from '../field';
-import { TagsInput, useTagsInput, type TagsInputValueChangeDetails } from './TagsInput';
+import { TagsInput } from './TagsInput';
 import storyStyles from './TagsInput.stories.module.css';
 
 const initialTags = ['React', 'TypeScript'];
@@ -51,7 +52,7 @@ export const Controlled: Story = {
   render: () => {
     const [value, setValue] = useState(initialTags);
 
-    function handleValueChange(details: TagsInputValueChangeDetails) {
+    function handleValueChange(details: { value: string[] }) {
       setValue(details.value);
     }
 

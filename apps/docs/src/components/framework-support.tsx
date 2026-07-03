@@ -24,7 +24,7 @@ export function FrameworkSupport() {
             {icon}
           </Tooltip.Trigger>
           <Tooltip.Positioner>
-            <Tooltip.Content>Soon</Tooltip.Content>
+            <Tooltip.Content>Planned</Tooltip.Content>
           </Tooltip.Positioner>
         </Tooltip>
       ))}

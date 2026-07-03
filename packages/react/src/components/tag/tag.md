@@ -133,6 +133,8 @@ or `aria-disabled` states.
 - moduix exposes explicit namespaced parts only. Flat `TagLabel` and `TagRemove` exports were removed.
 - `TagRemove` was renamed to `Tag.CloseTrigger` to match Chakra/Ark part naming.
 - `Tag.CloseTrigger` supplies the default close icon and fallback accessible name.
+- moduix no longer re-exports helper prop/type aliases; consumers rely on the component surface
+  directly.
 
 ## Agent notes
 
@@ -144,6 +146,8 @@ or `aria-disabled` states.
 
 ## Local changelog
 
+- 2026-07-03: Removed public `Tag*Props`, `TagVariant`, and `TagSize` type exports to keep the
+  Tag surface component-first.
 - 2026-06-21: Migrated from legacy button composition to Ark factory parts, added namespace API
   (`Tag.Root`, `Tag.Label`, `Tag.StartElement`, `Tag.EndElement`, `Tag.CloseTrigger`), added
   `asChild`, renamed remove styling variables to `--tag-close-trigger-*`, and removed flat legacy

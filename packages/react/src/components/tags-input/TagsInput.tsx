@@ -1,10 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  TagsInput as TagsInputPrimitive,
-  useTagsInput,
-  useTagsInputContext,
-  useTagsInputItemContext,
-} from '@ark-ui/react/tags-input';
+import { TagsInput as TagsInputPrimitive } from '@ark-ui/react/tags-input';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
@@ -212,8 +207,6 @@ const TagsInputHiddenInput = forwardRef<
 });
 
 const TagsInputContext = TagsInputPrimitive.Context;
-const TagsInputItemContext = TagsInputPrimitive.ItemContext;
-
 const TagsInput = Object.assign(TagsInputRoot, {
   Root: TagsInputRoot,
   RootProvider: TagsInputRootProvider,
@@ -228,20 +221,6 @@ const TagsInput = Object.assign(TagsInputRoot, {
   ClearTrigger: TagsInputClearTrigger,
   HiddenInput: TagsInputHiddenInput,
   Context: TagsInputContext,
-  ItemContext: TagsInputItemContext,
 });
 
-export { TagsInput, useTagsInput, useTagsInputContext, useTagsInputItemContext };
-export type {
-  TagsInputFocusOutsideEvent,
-  TagsInputHighlightChangeDetails,
-  TagsInputInputValueChangeDetails,
-  TagsInputInteractOutsideEvent,
-  TagsInputPointerDownOutsideEvent,
-  TagsInputValidityChangeDetails,
-  TagsInputValueChangeDetails,
-  UseTagsInputContext,
-  UseTagsInputItemContext,
-  UseTagsInputProps,
-  UseTagsInputReturn,
-} from '@ark-ui/react/tags-input';
+export { TagsInput };

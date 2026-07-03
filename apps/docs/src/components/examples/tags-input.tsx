@@ -1,15 +1,9 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useCombobox } from '@ark-ui/react/combobox';
 import { useFilter } from '@ark-ui/react/locale';
-import {
-  Combobox,
-  Field,
-  TagsInput,
-  type TagsInputInputValueChangeDetails,
-  type TagsInputValueChangeDetails,
-  useTagsInput,
-} from '@moduix/react';
-import { useId, useState } from 'react';
+import { useTagsInput } from '@ark-ui/react/tags-input';
+import { Combobox, Field, TagsInput } from '@moduix/react';
+import { useId, useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './tags-input.module.css';
@@ -18,6 +12,12 @@ export const initialTags = ['React', 'TypeScript'];
 export const pastedTags = ['React', 'Solid', 'Vue'];
 export const invalidInitialTags = ['alpha', 'beta', 'gamma'];
 const frameworkOptions = ['React', 'Solid', 'Vue', 'Svelte', 'Angular', 'Preact', 'Next.js'];
+type TagsInputValueChangeDetails = Parameters<
+  NonNullable<ComponentProps<typeof TagsInput>['onValueChange']>
+>[0];
+type TagsInputInputValueChangeDetails = Parameters<
+  NonNullable<ComponentProps<typeof TagsInput>['onInputValueChange']>
+>[0];
 
 const tagsInputCssProperties: CssPropertyInput[] = [
   ['--tags-input-bg', 'var(--input-bg, var(--color-background))', 'Controls control background.'],
