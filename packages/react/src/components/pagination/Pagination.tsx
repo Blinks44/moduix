@@ -1,9 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  Pagination as PaginationPrimitive,
-  usePagination,
-  usePaginationContext,
-} from '@ark-ui/react/pagination';
+import { Pagination as PaginationPrimitive } from '@ark-ui/react/pagination';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
@@ -178,22 +174,4 @@ const Pagination = Object.assign(PaginationRoot, {
   Context: PaginationContext,
 });
 
-export { Pagination, usePagination, usePaginationContext };
-export type {
-  PaginationContextProps,
-  PaginationEllipsisProps,
-  PaginationFirstTriggerProps,
-  PaginationItemLabelDetails,
-  PaginationItemProps,
-  PaginationLastTriggerProps,
-  PaginationNextTriggerProps,
-  PaginationPageChangeDetails,
-  PaginationPageSizeChangeDetails,
-  PaginationPageUrlDetails,
-  PaginationPrevTriggerProps,
-  PaginationRootProps,
-  PaginationRootProviderProps,
-  UsePaginationContext,
-  UsePaginationProps,
-  UsePaginationReturn,
-} from '@ark-ui/react/pagination';
+export { Pagination };

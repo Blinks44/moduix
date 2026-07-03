@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useNumberInput } from '@ark-ui/react/number-input';
 import { useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
 import { Field } from '../field';
-import { NumberInput, useNumberInput } from './NumberInput';
+import { NumberInput } from './NumberInput';
 import storyStyles from './NumberInput.stories.module.css';
 
 const meta = {
@@ -142,12 +143,10 @@ export const WithFieldValidation: Story = {
   ),
 };
 
-export const Context: Story = {
+export const ValueText: Story = {
   render: () => (
     <NumberInput defaultValue="42">
-      <NumberInput.Context>
-        {(context) => <NumberInput.Label>Value: {context.valueAsNumber}</NumberInput.Label>}
-      </NumberInput.Context>
+      <NumberInput.Label>Value preview</NumberInput.Label>
       <NumberInput.Control>
         <NumberInput.DecrementTrigger />
         <NumberInput.Input />

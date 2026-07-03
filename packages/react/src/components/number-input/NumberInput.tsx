@@ -1,9 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  NumberInput as NumberInputPrimitive,
-  useNumberInput,
-  useNumberInputContext,
-} from '@ark-ui/react/number-input';
+import { NumberInput as NumberInputPrimitive } from '@ark-ui/react/number-input';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui';
@@ -140,8 +136,6 @@ const NumberInputValueText = forwardRef<
   );
 });
 
-const NumberInputContext = NumberInputPrimitive.Context;
-
 const NumberInput = Object.assign(NumberInputRoot, {
   Root: NumberInputRoot,
   RootProvider: NumberInputRootProvider,
@@ -152,15 +146,6 @@ const NumberInput = Object.assign(NumberInputRoot, {
   Input: NumberInputInput,
   IncrementTrigger: NumberInputIncrementTrigger,
   ValueText: NumberInputValueText,
-  Context: NumberInputContext,
 });
 
-export { NumberInput, useNumberInput, useNumberInputContext };
-export type {
-  NumberInputFocusChangeDetails,
-  NumberInputValueChangeDetails,
-  NumberInputValueInvalidDetails,
-  UseNumberInputContext,
-  UseNumberInputProps,
-  UseNumberInputReturn,
-} from '@ark-ui/react/number-input';
+export { NumberInput };

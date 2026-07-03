@@ -13,11 +13,11 @@ entry, prices, counters, quantities, formatting, stepping, and scrubbing.
 ## Upstream model to preserve
 
 Preserve Ark's `NumberInput.Root` composition, string value state, details-object callbacks, parser
-and formatter behavior, `Field` / `Fieldset` context integration, `RootProvider`, `Context`,
-`useNumberInput()`, `useNumberInputContext()`, and `asChild` support.
+and formatter behavior, `Field` / `Fieldset` context integration, `RootProvider`, and `asChild`
+support.
 
 Ark parts exposed by moduix are `Root`, `RootProvider`, `Label`, `Scrubber`, `Control`,
-`DecrementTrigger`, `Input`, `IncrementTrigger`, `ValueText`, and `Context`.
+`DecrementTrigger`, `Input`, `IncrementTrigger`, and `ValueText`.
 
 ## Current behavior contract
 
@@ -27,6 +27,8 @@ Ark parts exposed by moduix are `Root`, `RootProvider`, `Label`, `Scrubber`, `Co
 - Formatting uses `formatOptions`; accessible labels use Ark `translations`.
 - The wrapper adds visual styling, stable `data-slot` hooks, and default plus/minus icons for the
   trigger parts.
+- Advanced state helpers stay upstream. Import Ark `useNumberInput()` directly when pairing
+  external state with `NumberInput.RootProvider`.
 - No legacy aliases, numeric/null value adapters, `format` alias, `allowWheelScrub`,
   `NumberField*` flat exports, or automatic stepper group are preserved.
 
@@ -40,17 +42,16 @@ NumberInput.Root
 │  ├─ NumberInput.DecrementTrigger
 │  ├─ NumberInput.Input
 │  └─ NumberInput.IncrementTrigger
-├─ NumberInput.ValueText (optional)
-└─ NumberInput.Context (optional render-prop access)
+└─ NumberInput.ValueText (optional)
 
 NumberInput.RootProvider
-└─ same part tree connected to a useNumberInput() store
+└─ same part tree connected to state created with Ark `useNumberInput()`
 ```
 
 | Part                               | `data-slot`                      | Notes                                           |
 | ---------------------------------- | -------------------------------- | ----------------------------------------------- |
 | `NumberInput` / `NumberInput.Root` | `number-input-root`              | Root state, parsing, formatting, and a11y.      |
-| `NumberInput.RootProvider`         | `number-input-root-provider`     | Connects to `useNumberInput()` state.           |
+| `NumberInput.RootProvider`         | `number-input-root-provider`     | Connects to Ark `useNumberInput()` state.       |
 | `NumberInput.Label`                | `number-input-label`             | Accessible label for the input.                 |
 | `NumberInput.Scrubber`             | `number-input-scrubber`          | Optional drag-to-change affordance.             |
 | `NumberInput.Control`              | `number-input-control`           | Wrapper around triggers and input.              |
@@ -59,11 +60,7 @@ NumberInput.RootProvider
 | `NumberInput.IncrementTrigger`     | `number-input-increment-trigger` | Renders a plus icon when children are omitted.  |
 | `NumberInput.ValueText`            | `number-input-value-text`        | Read-only formatted value text.                 |
 
-Exported values: `NumberInput`, `useNumberInput`, and `useNumberInputContext`.
-
-Exported types: `NumberInputFocusChangeDetails`, `NumberInputValueChangeDetails`,
-`NumberInputValueInvalidDetails`, `UseNumberInputContext`, `UseNumberInputProps`, and
-`UseNumberInputReturn`.
+Exported values: `NumberInput`.
 
 ## Composition
 
@@ -106,8 +103,8 @@ export function ControlledQuantityInput() {
 }
 ```
 
-Use `NumberInput.RootProvider` only with state created by `useNumberInput()`; do not also render
-`NumberInput.Root` for the same state instance.
+Use `NumberInput.RootProvider` only with state created by Ark `useNumberInput()`; do not also
+render `NumberInput.Root` for the same state instance.
 
 ## Upstream feature coverage
 
@@ -115,11 +112,10 @@ Use `NumberInput.RootProvider` only with state created by `useNumberInput()`; do
 - Min/max/step: forwarded directly to Ark.
 - Precision and formatting: supported through `formatOptions`.
 - Scrubbing: supported through `NumberInput.Scrubber`.
-- Context and value text: supported through `NumberInput.Context`, `useNumberInputContext()`, and
-  `NumberInput.ValueText`.
+- Value text: supported through `NumberInput.ValueText`.
 - Mouse wheel: supported through `allowMouseWheel`.
 - Field integration: preserved through Ark field context and the moduix `Field` wrapper.
-- Root provider: supported through `useNumberInput()` and `NumberInput.RootProvider`.
+- Root provider: supported through Ark `useNumberInput()` and `NumberInput.RootProvider`.
 - Controlled state: Ark string values and details-object callbacks are preserved.
 
 ## Accessibility and state
@@ -132,8 +128,7 @@ Important Ark root props include `ids`, `name`, `form`, `disabled`, `readOnly`, 
 `required`, `min`, `max`, `step`, `allowMouseWheel`, `allowOverflow`, `clampValueOnBlur`,
 `spinOnPress`, `inputMode`, `formatOptions`, `translations`, `onValueChange`, `onValueCommit`,
 `onValueInvalid`, and `onFocusChange`. Keep controlled values as strings, especially with
-locale-specific `formatOptions`; read `valueAsNumber` from `NumberInput.Context` when a numeric
-derived value or hidden form value is needed.
+locale-specific `formatOptions`.
 
 The shipped CSS uses `data-disabled`, `data-invalid`, and `data-focus`. Ark also exposes
 `data-scrubbing`, `data-scope="number-input"`, and `data-part` attributes for part-level selectors.
@@ -180,12 +175,14 @@ Breaking migration differences from the old previous wrapper:
 
 ## Agent notes
 
-Keep the public barrel in sync with Ark provider/context/hooks. Docs examples must import from
-`moduix`, not from the component file. Registry source paths are under
+Keep the public barrel limited to the styled visual parts plus `RootProvider`. Advanced state
+helpers come from Ark directly. Registry source paths are under
 `packages/react/src/components/number-input`.
 
 ## Local changelog
 
+- 2026-07-03: Removed moduix re-exports of Ark number-input state helpers and the renderless
+  `Context` part from the public surface; `RootProvider` remains for Ark-owned external state.
 - 2026-06-26: Aligned scrubber composition, context/value-text coverage, Ark state docs, and CSS
   variable references with the official Ark UI number input documentation.
 - 2026-06-19: Migrated from legacy `NumberField` to Ark UI `NumberInput`; renamed source, docs,

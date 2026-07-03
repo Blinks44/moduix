@@ -1,4 +1,5 @@
-import { ChevronDownIcon, ChevronUpIcon, Field, NumberInput, useNumberInput } from '@moduix/react';
+import { useNumberInput } from '@ark-ui/react/number-input';
+import { ChevronDownIcon, ChevronUpIcon, Field, NumberInput } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -10,13 +11,6 @@ const centeredExampleStyle = {
 export const numberInputExampleCss = `
   .number-input-state {
     margin-top: var(--spacing-3);
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
-  }
-
-  .number-input-context-value {
-    margin-top: var(--spacing-2);
     color: var(--color-muted-foreground);
     font-size: var(--text-sm);
     line-height: var(--line-height-text-sm);
@@ -358,19 +352,17 @@ export function NumberInputFieldExample() {
   );
 }
 
-export function ContextNumberInputExample() {
+export function ValueTextNumberInputExample() {
   return (
     <div style={centeredExampleStyle}>
       <NumberInput defaultValue="42">
-        <NumberInput.Context>
-          {(context) => <NumberInput.Label>Value: {context.valueAsNumber}</NumberInput.Label>}
-        </NumberInput.Context>
+        <NumberInput.Label>Value preview</NumberInput.Label>
         <NumberInput.Control>
           <NumberInput.DecrementTrigger />
           <NumberInput.Input />
           <NumberInput.IncrementTrigger />
         </NumberInput.Control>
-        <NumberInput.ValueText className="number-input-context-value" />
+        <NumberInput.ValueText />
       </NumberInput>
     </div>
   );

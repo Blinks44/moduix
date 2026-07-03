@@ -13,8 +13,8 @@ paginated data views.
 ## Upstream model to preserve
 
 The wrapper follows Ark UI `@ark-ui/react/pagination`. Preserve the Ark parts, state shape,
-callbacks, `Context`, `RootProvider`, `usePagination()`, `usePaginationContext()`, `type="link"`,
-`getPageUrl(details)`, `ids`, and translations contract.
+callbacks, `Context`, `RootProvider`, `type="link"`, `getPageUrl(details)`, `ids`, and
+translations contract. Advanced state helpers stay available directly from Ark.
 
 Ark `count` means total data items, not total pages. `pageSize` or `defaultPageSize` controls how
 many items map to one page.
@@ -50,7 +50,8 @@ export function Example() {
 ```
 
 The public API is Ark-shaped. Use namespace parts, Ark callback details, and Ark state helpers
-directly instead of local range math or layout aliases.
+directly instead of local range math or layout aliases. Advanced state helpers stay upstream; import
+Ark `usePagination()` or `usePaginationContext()` directly when needed.
 
 ## Anatomy and exported parts
 
@@ -79,11 +80,6 @@ Pagination.RootProvider
 | `Pagination.NextTrigger`         | `pagination-next-trigger`  | Ark next trigger with default Moduix chevron.               |
 | `Pagination.FirstTrigger`        | `pagination-first-trigger` | Ark first trigger with default double-chevron visual.       |
 | `Pagination.LastTrigger`         | `pagination-last-trigger`  | Ark last trigger with default double-chevron visual.        |
-| `usePagination`                  | -                          | Ark state hook re-export.                                   |
-| `usePaginationContext`           | -                          | Ark context hook re-export.                                 |
-
-The package barrel exports matching Ark pagination public types, including page/page-size/url detail
-types and `UsePagination*` types.
 
 ## Composition
 
@@ -105,10 +101,9 @@ Use `Pagination.Context` for normal item rendering:
 </Pagination.Context>
 ```
 
-Use `type="link"` with `getPageUrl(details)` for anchor navigation. Use
-`usePagination()` plus `Pagination.RootProvider` when pagination state must be created outside the
-rendered root. Do not render `Pagination.Root` and `Pagination.RootProvider` for the same state
-instance.
+Use `type="link"` with `getPageUrl(details)` for anchor navigation. Use Ark `usePagination()` plus
+`Pagination.RootProvider` when pagination state must be created outside the rendered root. Do not
+render `Pagination.Root` and `Pagination.RootProvider` for the same state instance.
 
 ## Upstream feature coverage
 
@@ -189,12 +184,15 @@ icons, default ellipsis text, root label default, `data-slot` hooks, and styling
 
 ## Agent notes
 
-Keep the wrapper thin. Do not add local range math, flat aliases, or a high-level configuration API.
+Keep the wrapper thin. Do not add local range math, flat aliases, or a high-level configuration
+API. Keep `Pagination.Context` because ordinary page-item rendering depends on Ark `pagination.pages`.
 Future examples should render page items from Ark `pagination.pages` and should pass page objects
 directly into `Pagination.Item`.
 
 ## Local changelog
 
+- 2026-07-03: Removed moduix re-exports of Ark pagination hooks and duplicate public types while
+  keeping `Pagination.Context` for ordinary Ark-shaped page rendering.
 - 2026-06-26: Audited the Ark UI migration, replaced structural icon-only trigger CSS with an
   internal class, removed stale previous-contract guidance, and aligned docs examples with the
   current Ark-shaped composition.

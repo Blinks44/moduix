@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { usePagination } from '@ark-ui/react/pagination';
 import { useState, type CSSProperties } from 'react';
-import { Pagination, usePagination } from './Pagination';
+import { Pagination } from './Pagination';
 
 type PaginationStoryArgs = {
   count?: number;

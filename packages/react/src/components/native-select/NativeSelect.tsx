@@ -20,8 +20,6 @@ const NativeSelectRoot = forwardRef<
       <FieldPrimitive.Select
         {...props}
         ref={ref}
-        data-scope="field"
-        data-part="select"
         data-slot="native-select-root"
         className={clsx(styles.root, normalizeClassName(className))}
       />

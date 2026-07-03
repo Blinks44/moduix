@@ -151,10 +151,10 @@ with `{...page}` so Ark can set the correct selected state, labels, and event ha
 
 ### When to go custom
 
-Use `Pagination.Context` for inline reads, `usePaginationContext()` inside custom child parts, and
-`usePagination()` plus `Pagination.RootProvider` when state must be created outside the rendered
-pagination tree. Set `type="link"` and provide `getPageUrl(details)` when pagination should render
-navigational links.
+Use `Pagination.Context` for inline reads. When state must be created outside the rendered
+pagination tree, import Ark `usePagination()` or `usePaginationContext()` directly and pair that
+state with `Pagination.RootProvider`. Set `type="link"` and provide `getPageUrl(details)` when
+pagination should render navigational links.
 
 ### Default props
 
@@ -578,7 +578,7 @@ Call `pagination.setPageSize(nextSize)` from context to let a separate control u
 
 ### Root Provider
 
-Use `usePagination()` with `Pagination.RootProvider` when state needs to be owned outside the
+Use Ark `usePagination()` with `Pagination.RootProvider` when state needs to be owned outside the
 rendered root.
 
 <Preview>
@@ -586,7 +586,8 @@ rendered root.
 
   <Preview.Code>
     {`
-      import { Pagination, usePagination } from "@moduix/react";
+      import { usePagination } from "@ark-ui/react/pagination";
+      import { Pagination } from "@moduix/react";
 
       export function RootProviderPaginationDemo() {
         const pagination = usePagination({ count: 200, pageSize: 10, siblingCount: 2 });

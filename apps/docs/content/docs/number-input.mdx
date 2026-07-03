@@ -5,7 +5,6 @@ icon: Component
 ---
 
 import {
-  ContextNumberInputExample,
   ControlledNumberInputExample,
   CustomIconsNumberInputExample,
   FormattedNumberInputExample,
@@ -17,6 +16,7 @@ import {
   NumberInputFieldExample,
   NumberInputScrubberExample,
   RootProviderNumberInputExample,
+  ValueTextNumberInputExample,
   numberInputExampleCss,
   numberInputNoData,
 } from '@/components/examples/number-input';
@@ -110,26 +110,23 @@ NumberInput.Root
 │  ├─ NumberInput.DecrementTrigger
 │  ├─ NumberInput.Input
 │  └─ NumberInput.IncrementTrigger
-├─ NumberInput.ValueText (optional)
-└─ NumberInput.Context (optional render-prop access)
+└─ NumberInput.ValueText (optional)
 
 NumberInput.RootProvider
-└─ same part tree connected to a useNumberInput() store
+└─ same part tree connected to state created with Ark `useNumberInput()`
 ```
 
-| Part                                           | Role                                                                   |
-| ---------------------------------------------- | ---------------------------------------------------------------------- |
-| `NumberInput` / `NumberInput.Root`             | Controls number input state, parsing, formatting, keyboard behavior.   |
-| `NumberInput.RootProvider`                     | Connects parts to state created with `useNumberInput()`.               |
-| `NumberInput.Label`                            | Accessible label associated with the managed input.                    |
-| `NumberInput.Scrubber`                         | Optional drag target that changes the value through pointer movement.  |
-| `NumberInput.Control`                          | Structural wrapper for input and increment/decrement triggers.         |
-| `NumberInput.DecrementTrigger`                 | Button that decreases the current value. Defaults to the moduix minus. |
-| `NumberInput.Input`                            | Editable numeric text input managed by Ark UI.                         |
-| `NumberInput.IncrementTrigger`                 | Button that increases the current value. Defaults to the moduix plus.  |
-| `NumberInput.ValueText`                        | Read-only text surface for the formatted value.                        |
-| `NumberInput.Context`                          | Reads root state through an Ark render prop.                           |
-| `useNumberInput()` / `useNumberInputContext()` | Ark state hooks exposed through moduix.                                |
+| Part                               | Role                                                                   |
+| ---------------------------------- | ---------------------------------------------------------------------- |
+| `NumberInput` / `NumberInput.Root` | Controls number input state, parsing, formatting, keyboard behavior.   |
+| `NumberInput.RootProvider`         | Connects parts to state created with Ark `useNumberInput()`.           |
+| `NumberInput.Label`                | Accessible label associated with the managed input.                    |
+| `NumberInput.Scrubber`             | Optional drag target that changes the value through pointer movement.  |
+| `NumberInput.Control`              | Structural wrapper for input and increment/decrement triggers.         |
+| `NumberInput.DecrementTrigger`     | Button that decreases the current value. Defaults to the moduix minus. |
+| `NumberInput.Input`                | Editable numeric text input managed by Ark UI.                         |
+| `NumberInput.IncrementTrigger`     | Button that increases the current value. Defaults to the moduix plus.  |
+| `NumberInput.ValueText`            | Read-only text surface for the formatted value.                        |
 
 ## Composition
 
@@ -155,7 +152,6 @@ the parsed number.
 
 - Use `formatOptions`, not `format`, for localized number formatting.
 - Use `translations.incrementLabel`, `translations.decrementLabel`, and `translations.valueText` for accessible localized labels.
-- Use `NumberInput.Context` to read `valueAsNumber` for derived UI or hidden numeric form values.
 - `min`, `max`, `step`, `allowOverflow`, `clampValueOnBlur`, `spinOnPress`, `inputMode`, and `allowMouseWheel` pass directly to Ark.
 - `onValueInvalid(details)` reports `rangeUnderflow` or `rangeOverflow` when the value exceeds configured bounds.
 - Use `ids` when external labels or descriptions need stable element IDs.
@@ -299,29 +295,27 @@ Render `NumberInput.Scrubber` when pointer dragging should change the value.
   <Preview.Data>{numberInputNoData}</Preview.Data>
 </Preview>
 
-### Context
+### Value text
 
-Use `NumberInput.Context` for derived UI that needs the parsed numeric value.
+Use `NumberInput.ValueText` when the formatted value should also be visible outside the editable input.
 
 <Preview>
-  <ContextNumberInputExample />
+  <ValueTextNumberInputExample />
 
   <Preview.Code>
     {`
       import { NumberInput } from "@moduix/react";
 
-      export function ContextNumberInputDemo() {
+      export function ValueTextNumberInputDemo() {
         return (
           <NumberInput defaultValue="42">
-            <NumberInput.Context>
-              {(context) => <NumberInput.Label>Value: {context.valueAsNumber}</NumberInput.Label>}
-            </NumberInput.Context>
+            <NumberInput.Label>Value preview</NumberInput.Label>
             <NumberInput.Control>
               <NumberInput.DecrementTrigger />
               <NumberInput.Input />
               <NumberInput.IncrementTrigger />
             </NumberInput.Control>
-            <NumberInput.ValueText className="number-input-context-value" />
+            <NumberInput.ValueText />
           </NumberInput>
         );
       }
@@ -436,7 +430,7 @@ Compose with `Field` when form state, error text, and accessibility metadata sho
 
 ### Root Provider
 
-Use `useNumberInput()` with `NumberInput.RootProvider` when state must be created outside the
+Use Ark `useNumberInput()` with `NumberInput.RootProvider` when state must be created outside the
 rendered part tree.
 
 <Preview>
@@ -444,7 +438,8 @@ rendered part tree.
 
   <Preview.Code>
     {`
-      import { NumberInput, useNumberInput } from "@moduix/react";
+      import { useNumberInput } from "@ark-ui/react/number-input";
+      import { NumberInput } from "@moduix/react";
 
       export function RootProviderNumberInputDemo() {
         const numberInput = useNumberInput({ defaultValue: "3", min: 1, max: 10 });
