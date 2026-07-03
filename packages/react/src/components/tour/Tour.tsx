@@ -2,7 +2,6 @@ import type { ComponentProps, ComponentRef } from 'react';
 import {
   Tour as TourPrimitive,
   useTour,
-  useTourContext,
   waitForElement,
   waitForElementValue,
   waitForEvent,
@@ -207,7 +206,6 @@ const TourActionTrigger = forwardRef<
 });
 
 const TourActions = TourPrimitive.Actions;
-const TourContext = TourPrimitive.Context;
 
 const Tour = Object.assign(TourRoot, {
   Root: TourRoot,
@@ -224,42 +222,6 @@ const Tour = Object.assign(TourRoot, {
   Control: TourControl,
   Actions: TourActions,
   ActionTrigger: TourActionTrigger,
-  Context: TourContext,
 });
 
-export {
-  Tour,
-  useTour,
-  useTourContext,
-  waitForElement,
-  waitForElementValue,
-  waitForEvent,
-  waitForPromise,
-};
-export type { TourRootProps };
-export type {
-  TourActionTriggerProps,
-  TourActionsProps,
-  TourArrowProps,
-  TourArrowTipProps,
-  TourBackdropProps,
-  TourCloseTriggerProps,
-  TourContentProps,
-  TourContextProps,
-  TourControlProps,
-  TourDescriptionProps,
-  TourFocusOutsideEvent,
-  TourInteractOutsideEvent,
-  TourPointerDownOutsideEvent,
-  TourPositionerProps,
-  TourProgressTextProps,
-  TourSpotlightProps,
-  TourStepDetails,
-  TourStepEffectArgs,
-  TourTitleProps,
-  UseTourContext,
-  UseTourProps,
-  UseTourReturn,
-  WaitForEventOptions,
-  WaitOptions,
-} from '@ark-ui/react/tour';
+export { Tour, useTour, waitForElement, waitForElementValue, waitForEvent, waitForPromise };

@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useTooltip, useTooltipContext } from '@ark-ui/react/tooltip';
 import { useState } from 'react';
 import { BellIcon, InfoIcon, ShareIcon } from '@/icons/demo';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
-import { Tooltip, useTooltip } from './Tooltip';
+import { Tooltip } from './Tooltip';
 import storyStyles from './Tooltip.stories.module.css';
 
 const meta = {
@@ -137,11 +138,7 @@ export const Context: Story = {
       <Tooltip>
         <Tooltip.Trigger>Context tooltip</Tooltip.Trigger>
         <Tooltip.Positioner>
-          <Tooltip.Context>
-            {(tooltip) => (
-              <Tooltip.Content>Open from context: {tooltip.open.toString()}</Tooltip.Content>
-            )}
-          </Tooltip.Context>
+          <TooltipStateContent />
         </Tooltip.Positioner>
       </Tooltip>
     );
@@ -239,3 +236,8 @@ export const CustomComposition: Story = {
     );
   },
 };
+function TooltipStateContent() {
+  const tooltip = useTooltipContext();
+
+  return <Tooltip.Content>Open from context: {tooltip.open.toString()}</Tooltip.Content>;
+}

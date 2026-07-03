@@ -1,6 +1,8 @@
+import type { TreeViewNodeProviderProps } from '@ark-ui/react/tree-view';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useTreeViewNodeContext } from '@ark-ui/react/tree-view';
 import { FileIcon, FolderIcon, FolderOpenIcon } from '@/lib/moduix/icons/ui';
-import { TreeView, createTreeCollection, type TreeViewNodeProviderProps } from './TreeView';
+import { TreeView, createTreeCollection } from './TreeView';
 import styles from './TreeView.stories.module.css';
 
 interface FileNode {
@@ -46,35 +48,41 @@ const collection = createTreeCollection<FileNode>({
 function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
     <TreeView.NodeProvider node={node} indexPath={indexPath}>
-      <TreeView.NodeContext>
-        {(nodeState) =>
-          node.children ? (
-            <TreeView.Branch>
-              <TreeView.BranchControl>
-                <TreeView.BranchIndicator />
-                <TreeView.BranchText>
-                  {nodeState.expanded ? <FolderOpenIcon /> : <FolderIcon />}
-                  {node.name}
-                </TreeView.BranchText>
-              </TreeView.BranchControl>
-              <TreeView.BranchContent>
-                <TreeView.BranchIndentGuide />
-                {node.children.map((child, index) => (
-                  <FileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
-                ))}
-              </TreeView.BranchContent>
-            </TreeView.Branch>
-          ) : (
-            <TreeView.Item>
-              <TreeView.ItemText>
-                <FileIcon />
-                {node.name}
-              </TreeView.ItemText>
-            </TreeView.Item>
-          )
-        }
-      </TreeView.NodeContext>
+      <FileTreeNodeContent node={node} indexPath={indexPath} />
     </TreeView.NodeProvider>
+  );
+}
+
+function FileTreeNodeContent({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+  const nodeState = useTreeViewNodeContext();
+
+  if (node.children) {
+    return (
+      <TreeView.Branch>
+        <TreeView.BranchControl>
+          <TreeView.BranchIndicator />
+          <TreeView.BranchText>
+            {nodeState.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+            {node.name}
+          </TreeView.BranchText>
+        </TreeView.BranchControl>
+        <TreeView.BranchContent>
+          <TreeView.BranchIndentGuide />
+          {node.children.map((child, index) => (
+            <FileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+          ))}
+        </TreeView.BranchContent>
+      </TreeView.Branch>
+    );
+  }
+
+  return (
+    <TreeView.Item>
+      <TreeView.ItemText>
+        <FileIcon />
+        {node.name}
+      </TreeView.ItemText>
+    </TreeView.Item>
   );
 }
 

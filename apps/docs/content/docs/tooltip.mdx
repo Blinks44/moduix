@@ -175,7 +175,6 @@ Tooltip / Tooltip.Root
 | `Tooltip.Content`          | Visible tooltip surface.                                                                    |
 | `Tooltip.Arrow`            | Optional arrow wrapper.                                                                     |
 | `Tooltip.ArrowTip`         | Arrow tip element; rendered by default from `Tooltip.Arrow`.                                |
-| `Tooltip.Context`          | Render-prop access to the current tooltip state and methods.                                |
 
 ## Composition
 
@@ -218,8 +217,8 @@ Ark's floating options. Use `ids` when separate tooltip parts need stable shared
   interaction without changing the trigger's own semantics.
 - Ark presence props such as `present`, `immediate`, `onExitComplete`, `lazyMount`, and
   `unmountOnExit` pass through unchanged.
-- `Tooltip.Context`, `useTooltipContext`, `useTooltip`, and `Tooltip.RootProvider` are exported
-  from `moduix`.
+- `Tooltip.RootProvider` stays in `moduix`. Import `useTooltip` and `useTooltipContext` directly
+  from `@ark-ui/react/tooltip` when you need external or inline advanced state access.
 - `Tooltip.Trigger` receives the moduix trigger skin only when `asChild` is not used. With
   `asChild`, styling belongs to the child element.
 - `Tooltip.Content` owns the visible surface and z-index. `Tooltip.Positioner` owns floating
@@ -472,27 +471,28 @@ Control open state with `open` and `onOpenChange(details)`.
 
 ### Context
 
-Use `Tooltip.Context` when content needs inline access to the current tooltip state.
+Use Ark `useTooltipContext()` when content needs inline access to the current tooltip state.
 
 <Preview>
   <ContextTooltipExample />
 
   <Preview.Code>
     {`
+      import { useTooltipContext } from "@ark-ui/react/tooltip";
       import { Tooltip } from "@moduix/react";
+
+      function TooltipStateContent() {
+        const tooltip = useTooltipContext();
+
+        return <Tooltip.Content>Open from context: {tooltip.open.toString()}</Tooltip.Content>;
+      }
 
       export function ContextTooltipDemo() {
         return (
           <Tooltip>
             <Tooltip.Trigger>Context tooltip</Tooltip.Trigger>
             <Tooltip.Positioner>
-              <Tooltip.Context>
-                {(tooltip) => (
-                  <Tooltip.Content>
-                    Open from context: {tooltip.open.toString()}
-                  </Tooltip.Content>
-                )}
-              </Tooltip.Context>
+              <TooltipStateContent />
             </Tooltip.Positioner>
           </Tooltip>
         );
@@ -515,7 +515,7 @@ Use `Tooltip.Context` when content needs inline access to the current tooltip st
 
 ### Root Provider
 
-Use `useTooltip()` with `Tooltip.RootProvider` when tooltip state must be owned outside the
+Use Ark `useTooltip()` with `Tooltip.RootProvider` when tooltip state must be owned outside the
 rendered tooltip subtree.
 
 <Preview>
@@ -523,7 +523,8 @@ rendered tooltip subtree.
 
   <Preview.Code>
     {`
-      import { Tooltip, useTooltip } from "@moduix/react";
+      import { useTooltip } from "@ark-ui/react/tooltip";
+      import { Tooltip } from "@moduix/react";
       import styles from "./tooltip-demo.module.css";
 
       export function RootProviderTooltipDemo() {

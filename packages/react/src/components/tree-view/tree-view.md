@@ -30,7 +30,8 @@ objects, `RootProvider`, context hooks, async loading, checkbox trees, and renam
   uncontrolled behavior intact.
 - `TreeView.BranchIndicator`, `TreeView.BranchTrigger`, `TreeView.ItemIndicator`, and
   `TreeView.NodeCheckboxIndicator` render moduix default icons when children are omitted.
-- `useTreeView`, `useTreeViewContext`, and `useTreeViewNodeContext` are exported.
+- `RootProvider` stays available, but advanced hooks such as `useTreeView` and
+  `useTreeViewNodeContext` should be imported directly from `@ark-ui/react/tree-view`.
 
 ## Anatomy and exported parts
 
@@ -73,8 +74,6 @@ TreeView / TreeView.Root
 | `TreeView.NodeCheckbox`          | `tree-view-node-checkbox`           | Checkbox for node checking.    |
 | `TreeView.NodeCheckboxIndicator` | `tree-view-node-checkbox-indicator` | Default checked/mixed icons.   |
 | `TreeView.NodeRenameInput`       | `tree-view-node-rename-input`       | Inline rename input.           |
-| `TreeView.Context`               | -                                   | Ark root state render prop.    |
-| `TreeView.NodeContext`           | -                                   | Ark node state render prop.    |
 
 ## Composition
 
@@ -100,35 +99,37 @@ const collection = createTreeCollection({
 function TreeNode({ node, indexPath }) {
   return (
     <TreeView.NodeProvider node={node} indexPath={indexPath}>
-      <TreeView.NodeContext>
-        {(state) =>
-          node.children ? (
-            <TreeView.Branch>
-              <TreeView.BranchControl>
-                <TreeView.BranchIndicator />
-                <TreeView.BranchText>
-                  {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
-                  {node.name}
-                </TreeView.BranchText>
-              </TreeView.BranchControl>
-              <TreeView.BranchContent>
-                <TreeView.BranchIndentGuide />
-                {node.children.map((child, index) => (
-                  <TreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
-                ))}
-              </TreeView.BranchContent>
-            </TreeView.Branch>
-          ) : (
-            <TreeView.Item>
-              <TreeView.ItemText>
-                <FileIcon />
-                {node.name}
-              </TreeView.ItemText>
-            </TreeView.Item>
-          )
-        }
-      </TreeView.NodeContext>
+      <TreeNodeContent node={node} indexPath={indexPath} />
     </TreeView.NodeProvider>
+  );
+}
+
+function TreeNodeContent({ node, indexPath }) {
+  const state = useTreeViewNodeContext();
+
+  return node.children ? (
+    <TreeView.Branch>
+      <TreeView.BranchControl>
+        <TreeView.BranchIndicator />
+        <TreeView.BranchText>
+          {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+          {node.name}
+        </TreeView.BranchText>
+      </TreeView.BranchControl>
+      <TreeView.BranchContent>
+        <TreeView.BranchIndentGuide />
+        {node.children.map((child, index) => (
+          <TreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+        ))}
+      </TreeView.BranchContent>
+    </TreeView.Branch>
+  ) : (
+    <TreeView.Item>
+      <TreeView.ItemText>
+        <FileIcon />
+        {node.name}
+      </TreeView.ItemText>
+    </TreeView.Item>
   );
 }
 ```
@@ -155,8 +156,8 @@ function TreeNode({ node, indexPath }) {
   animation.
 - `Branch`, `BranchControl`, `Item`, and `BranchIndentGuide` use Ark's `--depth` runtime variable
   for indentation.
-- Use `useTreeView` with `TreeView.RootProvider`; do not render `TreeView.Root` for the same state
-  instance.
+- Use Ark `useTreeView` with `TreeView.RootProvider`; do not render `TreeView.Root` for the same
+  state instance.
 - Use `asChild` only with a single semantic child that can receive the required Ark props.
 
 ## Defaults and styling
@@ -182,6 +183,11 @@ function TreeNode({ node, indexPath }) {
 - When registry-shipped tree-view source changes, run `npm run build:registry`.
 
 ## Local changelog
+
+- 2026-07-03: Removed moduix re-exports for `TreeView.Context`, `TreeView.NodeContext`,
+  `useTreeView`, context hooks, and duplicate Ark types. Keep `RootProvider`, recursive
+  composition, and icon sugar; import advanced Ark state APIs directly from
+  `@ark-ui/react/tree-view`.
 
 - 2026-06-29: Audited Ark UI migration, simplified docs examples to keep explicit recursive
   composition visible, and clarified mutation/virtualization notes.

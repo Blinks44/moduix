@@ -1,7 +1,7 @@
+import type { TourStepDetails } from '@ark-ui/react/tour';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
-import type { TourStepDetails } from './Tour';
 import { Button } from '../button';
 import { Tour, useTour, waitForEvent } from './Tour';
 import storyStyles from './Tour.stories.module.css';

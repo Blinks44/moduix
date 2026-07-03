@@ -1,4 +1,4 @@
-import type { TourStepDetails, UseTourReturn } from '@moduix/react';
+import type { TourStepDetails, UseTourReturn } from '@ark-ui/react/tour';
 import type { ReactNode } from 'react';
 import {
   Button,

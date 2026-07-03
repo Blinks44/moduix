@@ -17,9 +17,9 @@ The wrapper follows Ark UI `Tour`. State is created with `useTour()` and passed 
 
 `Tour.Root` portals `Backdrop`, `Spotlight`, and `Positioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. These structural parts remain explicit and independently styleable.
 
-`Tour` is a thin styled wrapper over Ark parts. It exposes `Root`, `Backdrop`, `Spotlight`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `ProgressText`, `CloseTrigger`, `Control`, `Actions`, `ActionTrigger`, and `Context`. The wrapper adds CSS Modules styling, stable `data-slot` hooks, bottom-aligned progress text, and a default `ArrowTip` when `Tour.Arrow` has no children. It does not add local tour state or convert Ark callbacks.
+`Tour` is a thin styled wrapper over Ark parts. It exposes `Root`, `Backdrop`, `Spotlight`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `ProgressText`, `CloseTrigger`, `Control`, `Actions`, and `ActionTrigger`. The wrapper adds CSS Modules styling, stable `data-slot` hooks, bottom-aligned progress text, and a default `ArrowTip` when `Tour.Arrow` has no children. It does not add local tour state or convert Ark callbacks.
 
-The public type surface mirrors each exported part, including `TourActionsProps`, and re-exports Ark's `useTour`, `useTourContext`, and wait-helper types.
+The package keeps `useTour` and the Ark wait helpers because ordinary tour usage needs them. Import advanced context hooks and duplicate Ark types directly from `@ark-ui/react/tour`.
 
 ## Anatomy and exported parts
 
@@ -55,11 +55,11 @@ const tour = useTour({ steps });
 - `Tour.Title`, `Tour.Description`, `Tour.ProgressText`: current step content from Ark state.
 - `Tour.CloseTrigger`: dismiss button primitive. Consumers provide visible content or use `asChild`.
 - `Tour.Control`, `Tour.Actions`, `Tour.ActionTrigger`: action rendering path from the current step.
-- `Tour.Context`, `useTourContext`: inline and reusable access to Ark tour state.
 
 ## Composition
 
 ```tsx
+import type { TourStepDetails } from '@ark-ui/react/tour';
 import { CloseIcon, Tour, useTour } from '@moduix/react';
 
 const steps = [
@@ -135,6 +135,10 @@ Keep `Tour.Root` as a required-`tour` root until Ark exposes a real `RootProvide
 update `theme.css`, docs CSS properties, stories, and registry artifacts together.
 
 ## Local changelog
+
+- 2026-07-03: Removed moduix re-exports for `Tour.Context`, `useTourContext`, and duplicate Ark
+  types. Keep `useTour` and wait helpers in `moduix`; import advanced Ark state/types directly
+  from `@ark-ui/react/tour`.
 
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 

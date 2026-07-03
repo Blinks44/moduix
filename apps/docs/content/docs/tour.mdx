@@ -33,7 +33,7 @@ settings.
 
   <Preview.Code>
     {`
-      import type { TourStepDetails } from "@moduix/react";
+      import type { TourStepDetails } from "@ark-ui/react/tour";
       import { Button, CloseIcon, Tour, useTour } from "@moduix/react";
 
       export function TourDemo() {
@@ -206,7 +206,6 @@ Tour / Tour.Root
 | `Tour.Control`            | Action group container.                                            |
 | `Tour.Actions`            | Render prop for the current step action objects.                   |
 | `Tour.ActionTrigger`      | Button that runs a `StepAction` such as `next`, `prev`, `dismiss`. |
-| `Tour.Context`            | Inline access to the current tour API.                             |
 
 ## Composition
 
@@ -221,7 +220,7 @@ overlay tree behind a content shortcut.
 
 ### When to go custom
 
-Use `Tour.Context` or `useTourContext()` when custom child UI needs the current step, progress, or
+Import Ark `useTourContext()` directly when custom child UI needs the current step, progress, or
 navigation methods. Use step `effect` callbacks for async work and wait helpers. Use `ids` when
 separate markup must share the Ark-generated title, description, content, backdrop, positioner, or
 arrow IDs.

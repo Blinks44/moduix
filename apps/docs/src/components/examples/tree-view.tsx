@@ -1,5 +1,11 @@
 import type { ReactNode } from 'react';
 import {
+  type TreeViewLoadChildrenDetails,
+  type TreeViewNodeProviderProps,
+  useTreeView,
+  useTreeViewNodeContext,
+} from '@ark-ui/react/tree-view';
+import {
   CheckIcon,
   Button,
   FileIcon,
@@ -9,9 +15,6 @@ import {
   RestartIcon,
   TreeView,
   createTreeCollection,
-  useTreeView,
-  type TreeViewLoadChildrenDetails,
-  type TreeViewNodeProviderProps,
 } from '@moduix/react';
 import { useMemo, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -134,169 +137,189 @@ function Checkbox() {
 function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
     <TreeView.NodeProvider node={node} indexPath={indexPath}>
-      <TreeView.NodeContext>
-        {(state) =>
-          node.children || node.childrenCount ? (
-            <TreeView.Branch>
-              <TreeView.BranchControl>
-                <TreeView.BranchIndicator />
-                <TreeView.BranchText>
-                  {state.loading ? (
-                    <RestartIcon className={styles.loadingIcon} />
-                  ) : state.expanded ? (
-                    <FolderOpenIcon />
-                  ) : (
-                    <FolderIcon />
-                  )}
-                  {node.name}
-                </TreeView.BranchText>
-              </TreeView.BranchControl>
-              <TreeView.BranchContent>
-                <TreeView.BranchIndentGuide />
-                {node.children?.map((child, index) => (
-                  <FileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
-                ))}
-              </TreeView.BranchContent>
-            </TreeView.Branch>
-          ) : (
-            <TreeView.Item>
-              <TreeView.ItemText>
-                <FileIcon />
-                {node.name}
-              </TreeView.ItemText>
-            </TreeView.Item>
-          )
-        }
-      </TreeView.NodeContext>
+      <FileTreeNodeContent node={node} indexPath={indexPath} />
     </TreeView.NodeProvider>
+  );
+}
+
+function FileTreeNodeContent({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+  const state = useTreeViewNodeContext();
+
+  if (node.children || node.childrenCount) {
+    return (
+      <TreeView.Branch>
+        <TreeView.BranchControl>
+          <TreeView.BranchIndicator />
+          <TreeView.BranchText>
+            {state.loading ? (
+              <RestartIcon className={styles.loadingIcon} />
+            ) : state.expanded ? (
+              <FolderOpenIcon />
+            ) : (
+              <FolderIcon />
+            )}
+            {node.name}
+          </TreeView.BranchText>
+        </TreeView.BranchControl>
+        <TreeView.BranchContent>
+          <TreeView.BranchIndentGuide />
+          {node.children?.map((child, index) => (
+            <FileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+          ))}
+        </TreeView.BranchContent>
+      </TreeView.Branch>
+    );
+  }
+
+  return (
+    <TreeView.Item>
+      <TreeView.ItemText>
+        <FileIcon />
+        {node.name}
+      </TreeView.ItemText>
+    </TreeView.Item>
   );
 }
 
 function CheckboxFileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
     <TreeView.NodeProvider node={node} indexPath={indexPath}>
-      <TreeView.NodeContext>
-        {(state) =>
-          node.children ? (
-            <TreeView.Branch>
-              <TreeView.BranchControl>
-                <TreeView.BranchIndicator />
-                <Checkbox />
-                <TreeView.BranchText>
-                  {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
-                  {node.name}
-                </TreeView.BranchText>
-              </TreeView.BranchControl>
-              <TreeView.BranchContent>
-                <TreeView.BranchIndentGuide />
-                {node.children.map((child, index) => (
-                  <CheckboxFileTreeNode
-                    key={child.id}
-                    node={child}
-                    indexPath={[...indexPath, index]}
-                  />
-                ))}
-              </TreeView.BranchContent>
-            </TreeView.Branch>
-          ) : (
-            <TreeView.Item>
-              <Checkbox />
-              <TreeView.ItemText>
-                <FileIcon />
-                {node.name}
-              </TreeView.ItemText>
-            </TreeView.Item>
-          )
-        }
-      </TreeView.NodeContext>
+      <CheckboxFileTreeNodeContent node={node} indexPath={indexPath} />
     </TreeView.NodeProvider>
+  );
+}
+
+function CheckboxFileTreeNodeContent({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+  const state = useTreeViewNodeContext();
+
+  if (node.children) {
+    return (
+      <TreeView.Branch>
+        <TreeView.BranchControl>
+          <TreeView.BranchIndicator />
+          <Checkbox />
+          <TreeView.BranchText>
+            {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+            {node.name}
+          </TreeView.BranchText>
+        </TreeView.BranchControl>
+        <TreeView.BranchContent>
+          <TreeView.BranchIndentGuide />
+          {node.children.map((child, index) => (
+            <CheckboxFileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+          ))}
+        </TreeView.BranchContent>
+      </TreeView.Branch>
+    );
+  }
+
+  return (
+    <TreeView.Item>
+      <Checkbox />
+      <TreeView.ItemText>
+        <FileIcon />
+        {node.name}
+      </TreeView.ItemText>
+    </TreeView.Item>
   );
 }
 
 function RenamableFileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
     <TreeView.NodeProvider node={node} indexPath={indexPath}>
-      <TreeView.NodeContext>
-        {(state) =>
-          node.children ? (
-            <TreeView.Branch>
-              <TreeView.BranchControl>
-                <TreeView.BranchIndicator />
-                {state.renaming ? (
-                  <TreeView.NodeRenameInput />
-                ) : (
-                  <TreeView.BranchText>
-                    {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
-                    {node.name}
-                  </TreeView.BranchText>
-                )}
-              </TreeView.BranchControl>
-              <TreeView.BranchContent>
-                <TreeView.BranchIndentGuide />
-                {node.children.map((child, index) => (
-                  <RenamableFileTreeNode
-                    key={child.id}
-                    node={child}
-                    indexPath={[...indexPath, index]}
-                  />
-                ))}
-              </TreeView.BranchContent>
-            </TreeView.Branch>
-          ) : (
-            <TreeView.Item>
-              <TreeView.ItemText>
-                <FileIcon />
-                {state.renaming ? <TreeView.NodeRenameInput /> : node.name}
-              </TreeView.ItemText>
-            </TreeView.Item>
-          )
-        }
-      </TreeView.NodeContext>
+      <RenamableFileTreeNodeContent node={node} indexPath={indexPath} />
     </TreeView.NodeProvider>
+  );
+}
+
+function RenamableFileTreeNodeContent({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+  const state = useTreeViewNodeContext();
+
+  if (node.children) {
+    return (
+      <TreeView.Branch>
+        <TreeView.BranchControl>
+          <TreeView.BranchIndicator />
+          {state.renaming ? (
+            <TreeView.NodeRenameInput />
+          ) : (
+            <TreeView.BranchText>
+              {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+              {node.name}
+            </TreeView.BranchText>
+          )}
+        </TreeView.BranchControl>
+        <TreeView.BranchContent>
+          <TreeView.BranchIndentGuide />
+          {node.children.map((child, index) => (
+            <RenamableFileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+          ))}
+        </TreeView.BranchContent>
+      </TreeView.Branch>
+    );
+  }
+
+  return (
+    <TreeView.Item>
+      <TreeView.ItemText>
+        <FileIcon />
+        {state.renaming ? <TreeView.NodeRenameInput /> : node.name}
+      </TreeView.ItemText>
+    </TreeView.Item>
   );
 }
 
 function LinkFileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
     <TreeView.NodeProvider node={node} indexPath={indexPath}>
-      <TreeView.NodeContext>
-        {(state) =>
-          node.children ? (
-            <TreeView.Branch>
-              <TreeView.BranchControl>
-                <TreeView.BranchIndicator />
-                <TreeView.BranchText>
-                  {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
-                  {node.name}
-                </TreeView.BranchText>
-              </TreeView.BranchControl>
-              <TreeView.BranchContent>
-                <TreeView.BranchIndentGuide />
-                {node.children.map((child, index) => (
-                  <LinkFileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
-                ))}
-              </TreeView.BranchContent>
-            </TreeView.Branch>
-          ) : node.href ? (
-            <TreeView.Item asChild>
-              <a href={node.href}>
-                <TreeView.ItemText>
-                  <FileIcon />
-                  {node.name}
-                </TreeView.ItemText>
-              </a>
-            </TreeView.Item>
-          ) : (
-            <TreeView.Item>
-              <TreeView.ItemText>
-                <FileIcon />
-                {node.name}
-              </TreeView.ItemText>
-            </TreeView.Item>
-          )
-        }
-      </TreeView.NodeContext>
+      <LinkFileTreeNodeContent node={node} indexPath={indexPath} />
     </TreeView.NodeProvider>
+  );
+}
+
+function LinkFileTreeNodeContent({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+  const state = useTreeViewNodeContext();
+
+  if (node.children) {
+    return (
+      <TreeView.Branch>
+        <TreeView.BranchControl>
+          <TreeView.BranchIndicator />
+          <TreeView.BranchText>
+            {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+            {node.name}
+          </TreeView.BranchText>
+        </TreeView.BranchControl>
+        <TreeView.BranchContent>
+          <TreeView.BranchIndentGuide />
+          {node.children.map((child, index) => (
+            <LinkFileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+          ))}
+        </TreeView.BranchContent>
+      </TreeView.Branch>
+    );
+  }
+
+  if (node.href) {
+    return (
+      <TreeView.Item asChild>
+        <a href={node.href}>
+          <TreeView.ItemText>
+            <FileIcon />
+            {node.name}
+          </TreeView.ItemText>
+        </a>
+      </TreeView.Item>
+    );
+  }
+
+  return (
+    <TreeView.Item>
+      <TreeView.ItemText>
+        <FileIcon />
+        {node.name}
+      </TreeView.ItemText>
+    </TreeView.Item>
   );
 }
 
@@ -304,22 +327,19 @@ function Stack({ children }: { children: ReactNode }) {
   return <div className={styles.stack}>{children}</div>;
 }
 
-function ExpandCollapseControls() {
+function ExpandCollapseControls({
+  expanded,
+  onToggle,
+}: {
+  expanded: boolean;
+  onToggle: () => void;
+}) {
   return (
-    <TreeView.Context>
-      {(tree) => {
-        const branchValues = tree.collection.getBranchValues();
-        const expanded = branchValues.every((value) => tree.expandedValue.includes(value));
-
-        return (
-          <div>
-            <Button variant="outline" onClick={() => (expanded ? tree.collapse() : tree.expand())}>
-              {expanded ? 'Collapse all' : 'Expand all'}
-            </Button>
-          </div>
-        );
-      }}
-    </TreeView.Context>
+    <div>
+      <Button variant="outline" onClick={onToggle}>
+        {expanded ? 'Collapse all' : 'Expand all'}
+      </Button>
+    </div>
   );
 }
 
@@ -346,7 +366,8 @@ export const treeViewCustomStylingCss = `
   }
 `;
 
-const treeViewCoreImportsCode = `import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection, type TreeViewNodeProviderProps } from "@moduix/react";`;
+const treeViewCoreImportsCode = `import { useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
+import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`;
 
 const treeViewDataSetupCode = `interface FileNode {
   id: string;
@@ -390,35 +411,41 @@ const collection = createTreeCollection<FileNode>({
 const treeViewBaseNodeSetupCode = `function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
     <TreeView.NodeProvider node={node} indexPath={indexPath}>
-      <TreeView.NodeContext>
-        {(state) =>
-          node.children || node.childrenCount ? (
-            <TreeView.Branch>
-              <TreeView.BranchControl>
-                <TreeView.BranchIndicator />
-                <TreeView.BranchText>
-                  {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
-                  {node.name}
-                </TreeView.BranchText>
-              </TreeView.BranchControl>
-              <TreeView.BranchContent>
-                <TreeView.BranchIndentGuide />
-                {node.children?.map((child, index) => (
-                  <FileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
-                ))}
-              </TreeView.BranchContent>
-            </TreeView.Branch>
-          ) : (
-            <TreeView.Item>
-              <TreeView.ItemText>
-                <FileIcon />
-                {node.name}
-              </TreeView.ItemText>
-            </TreeView.Item>
-          )
-        }
-      </TreeView.NodeContext>
+      <FileTreeNodeContent node={node} indexPath={indexPath} />
     </TreeView.NodeProvider>
+  );
+}
+
+function FileTreeNodeContent({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+  const state = useTreeViewNodeContext();
+
+  if (node.children || node.childrenCount) {
+    return (
+      <TreeView.Branch>
+        <TreeView.BranchControl>
+          <TreeView.BranchIndicator />
+          <TreeView.BranchText>
+            {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+            {node.name}
+          </TreeView.BranchText>
+        </TreeView.BranchControl>
+        <TreeView.BranchContent>
+          <TreeView.BranchIndentGuide />
+          {node.children?.map((child, index) => (
+            <FileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+          ))}
+        </TreeView.BranchContent>
+      </TreeView.Branch>
+    );
+  }
+
+  return (
+    <TreeView.Item>
+      <TreeView.ItemText>
+        <FileIcon />
+        {node.name}
+      </TreeView.ItemText>
+    </TreeView.Item>
   );
 }
 
@@ -428,7 +455,8 @@ const treeViewCoreSetupCode = `${treeViewDataSetupCode}
 
 ${treeViewBaseNodeSetupCode}`;
 
-const treeViewCheckboxImportsCode = `import { CheckIcon, FileIcon, FolderIcon, FolderOpenIcon, IndeterminateIcon, TreeView, createTreeCollection, type TreeViewNodeProviderProps } from "@moduix/react";`;
+const treeViewCheckboxImportsCode = `import { useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
+import { CheckIcon, FileIcon, FolderIcon, FolderOpenIcon, IndeterminateIcon, TreeView, createTreeCollection } from "@moduix/react";`;
 
 const treeViewCheckboxSetupCode = `${treeViewDataSetupCode}
 
@@ -445,41 +473,43 @@ function NodeCheckbox() {
 function CheckboxFileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
     <TreeView.NodeProvider node={node} indexPath={indexPath}>
-      <TreeView.NodeContext>
-        {(state) =>
-          node.children ? (
-            <TreeView.Branch>
-              <TreeView.BranchControl>
-                <TreeView.BranchIndicator />
-                <NodeCheckbox />
-                <TreeView.BranchText>
-                  {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
-                  {node.name}
-                </TreeView.BranchText>
-              </TreeView.BranchControl>
-              <TreeView.BranchContent>
-                <TreeView.BranchIndentGuide />
-                {node.children.map((child, index) => (
-                  <CheckboxFileTreeNode
-                    key={child.id}
-                    node={child}
-                    indexPath={[...indexPath, index]}
-                  />
-                ))}
-              </TreeView.BranchContent>
-            </TreeView.Branch>
-          ) : (
-            <TreeView.Item>
-              <NodeCheckbox />
-              <TreeView.ItemText>
-                <FileIcon />
-                {node.name}
-              </TreeView.ItemText>
-            </TreeView.Item>
-          )
-        }
-      </TreeView.NodeContext>
+      <CheckboxFileTreeNodeContent node={node} indexPath={indexPath} />
     </TreeView.NodeProvider>
+  );
+}
+
+function CheckboxFileTreeNodeContent({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+  const state = useTreeViewNodeContext();
+
+  if (node.children) {
+    return (
+      <TreeView.Branch>
+        <TreeView.BranchControl>
+          <TreeView.BranchIndicator />
+          <NodeCheckbox />
+          <TreeView.BranchText>
+            {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+            {node.name}
+          </TreeView.BranchText>
+        </TreeView.BranchControl>
+        <TreeView.BranchContent>
+          <TreeView.BranchIndentGuide />
+          {node.children.map((child, index) => (
+            <CheckboxFileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+          ))}
+        </TreeView.BranchContent>
+      </TreeView.Branch>
+    );
+  }
+
+  return (
+    <TreeView.Item>
+      <NodeCheckbox />
+      <TreeView.ItemText>
+        <FileIcon />
+        {node.name}
+      </TreeView.ItemText>
+    </TreeView.Item>
   );
 }
 
@@ -490,39 +520,45 @@ const treeViewRenameSetupCode = `${treeViewDataSetupCode}
 function RenamableFileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
     <TreeView.NodeProvider node={node} indexPath={indexPath}>
-      <TreeView.NodeContext>
-        {(state) =>
-          node.children ? (
-            <TreeView.Branch>
-              <TreeView.BranchControl>
-                <TreeView.BranchIndicator />
-                {state.renaming ? (
-                  <TreeView.NodeRenameInput />
-                ) : (
-                  <TreeView.BranchText>
-                    {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
-                    {node.name}
-                  </TreeView.BranchText>
-                )}
-              </TreeView.BranchControl>
-              <TreeView.BranchContent>
-                <TreeView.BranchIndentGuide />
-                {node.children.map((child, index) => (
-                  <RenamableFileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
-                ))}
-              </TreeView.BranchContent>
-            </TreeView.Branch>
-          ) : (
-            <TreeView.Item>
-              <TreeView.ItemText>
-                <FileIcon />
-                {state.renaming ? <TreeView.NodeRenameInput /> : node.name}
-              </TreeView.ItemText>
-            </TreeView.Item>
-          )
-        }
-      </TreeView.NodeContext>
+      <RenamableFileTreeNodeContent node={node} indexPath={indexPath} />
     </TreeView.NodeProvider>
+  );
+}
+
+function RenamableFileTreeNodeContent({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+  const state = useTreeViewNodeContext();
+
+  if (node.children) {
+    return (
+      <TreeView.Branch>
+        <TreeView.BranchControl>
+          <TreeView.BranchIndicator />
+          {state.renaming ? (
+            <TreeView.NodeRenameInput />
+          ) : (
+            <TreeView.BranchText>
+              {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+              {node.name}
+            </TreeView.BranchText>
+          )}
+        </TreeView.BranchControl>
+        <TreeView.BranchContent>
+          <TreeView.BranchIndentGuide />
+          {node.children.map((child, index) => (
+            <RenamableFileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+          ))}
+        </TreeView.BranchContent>
+      </TreeView.Branch>
+    );
+  }
+
+  return (
+    <TreeView.Item>
+      <TreeView.ItemText>
+        <FileIcon />
+        {state.renaming ? <TreeView.NodeRenameInput /> : node.name}
+      </TreeView.ItemText>
+    </TreeView.Item>
   );
 }
 
@@ -533,44 +569,54 @@ const treeViewLinksSetupCode = `${treeViewDataSetupCode}
 function LinkFileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
     <TreeView.NodeProvider node={node} indexPath={indexPath}>
-      <TreeView.NodeContext>
-        {(state) =>
-          node.children ? (
-            <TreeView.Branch>
-              <TreeView.BranchControl>
-                <TreeView.BranchIndicator />
-                <TreeView.BranchText>
-                  {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
-                  {node.name}
-                </TreeView.BranchText>
-              </TreeView.BranchControl>
-              <TreeView.BranchContent>
-                <TreeView.BranchIndentGuide />
-                {node.children.map((child, index) => (
-                  <LinkFileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
-                ))}
-              </TreeView.BranchContent>
-            </TreeView.Branch>
-          ) : node.href ? (
-            <TreeView.Item asChild>
-              <a href={node.href}>
-                <TreeView.ItemText>
-                  <FileIcon />
-                  {node.name}
-                </TreeView.ItemText>
-              </a>
-            </TreeView.Item>
-          ) : (
-            <TreeView.Item>
-              <TreeView.ItemText>
-                <FileIcon />
-                {node.name}
-              </TreeView.ItemText>
-            </TreeView.Item>
-          )
-        }
-      </TreeView.NodeContext>
+      <LinkFileTreeNodeContent node={node} indexPath={indexPath} />
     </TreeView.NodeProvider>
+  );
+}
+
+function LinkFileTreeNodeContent({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
+  const state = useTreeViewNodeContext();
+
+  if (node.children) {
+    return (
+      <TreeView.Branch>
+        <TreeView.BranchControl>
+          <TreeView.BranchIndicator />
+          <TreeView.BranchText>
+            {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+            {node.name}
+          </TreeView.BranchText>
+        </TreeView.BranchControl>
+        <TreeView.BranchContent>
+          <TreeView.BranchIndentGuide />
+          {node.children.map((child, index) => (
+            <LinkFileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+          ))}
+        </TreeView.BranchContent>
+      </TreeView.Branch>
+    );
+  }
+
+  if (node.href) {
+    return (
+      <TreeView.Item asChild>
+        <a href={node.href}>
+          <TreeView.ItemText>
+            <FileIcon />
+            {node.name}
+          </TreeView.ItemText>
+        </a>
+      </TreeView.Item>
+    );
+  }
+
+  return (
+    <TreeView.Item>
+      <TreeView.ItemText>
+        <FileIcon />
+        {node.name}
+      </TreeView.ItemText>
+    </TreeView.Item>
   );
 }
 
@@ -712,31 +758,38 @@ export const treeViewDisabledCode = createTreeViewCode({
 });
 
 export const treeViewExpandCollapseCode = createTreeViewCode({
-  imports: `import { Button, FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection, type TreeViewNodeProviderProps } from "@moduix/react";`,
-  extraSetup: `function ExpandCollapseControls() {
+  imports: `import { useTreeView, useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
+import { Button, FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`,
+  extraSetup: `function ExpandCollapseControls({
+  expanded,
+  onToggle,
+}: {
+  expanded: boolean;
+  onToggle: () => void;
+}) {
   return (
-    <TreeView.Context>
-      {(tree) => {
-        const branchValues = tree.collection.getBranchValues();
-        const expanded = branchValues.every((value) => tree.expandedValue.includes(value));
-
-        return (
-          <Button variant="outline" onClick={() => (expanded ? tree.collapse() : tree.expand())}>
-            {expanded ? "Collapse all" : "Expand all"}
-          </Button>
-        );
-      }}
-    </TreeView.Context>
+    <Button variant="outline" onClick={onToggle}>
+      {expanded ? "Collapse all" : "Expand all"}
+    </Button>
   );
 }`,
   demo: `export function ExpandCollapseTreeDemo() {
+  const treeView = useTreeView({ collection, defaultExpandedValue: ["src"] });
+  const branchValues = treeView.collection.getBranchValues();
+  const expanded = branchValues.every((value) => treeView.expandedValue.includes(value));
+
   return (
-    <TreeView collection={collection} defaultExpandedValue={["src"]}>
-      <ExpandCollapseControls />
-      <TreeView.Tree>
-        ${createTreeNodesCode()}
-      </TreeView.Tree>
-    </TreeView>
+    <>
+      <ExpandCollapseControls
+        expanded={expanded}
+        onToggle={() => (expanded ? treeView.collapse() : treeView.expand())}
+      />
+      <TreeView.RootProvider value={treeView}>
+        <TreeView.Tree>
+          ${createTreeNodesCode()}
+        </TreeView.Tree>
+      </TreeView.RootProvider>
+    </>
   );
 }`,
 });
@@ -767,8 +820,9 @@ ${treeViewCoreImportsCode}`,
 });
 
 export const treeViewAsyncCode = createTreeViewCode({
-  imports: `import { useState } from "react";
-import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection, type TreeViewLoadChildrenDetails, type TreeViewNodeProviderProps } from "@moduix/react";`,
+  imports: `import { type TreeViewLoadChildrenDetails, useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
+import { useState } from "react";
+import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`,
   extraSetup: `const asyncCollection = createTreeCollection<FileNode>({
   nodeToValue: (node) => node.id,
   nodeToString: (node) => node.name,
@@ -861,7 +915,8 @@ ${treeViewCoreImportsCode}`,
 });
 
 export const treeViewRootProviderCode = createTreeViewCode({
-  imports: `import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection, useTreeView, type TreeViewNodeProviderProps } from "@moduix/react";`,
+  imports: `import { useTreeView, useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
+import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`,
   demo: `export function RootProviderTreeDemo() {
   const treeView = useTreeView({ collection, defaultSelectedValue: ["README.md"] });
 
@@ -1108,15 +1163,24 @@ export function DisabledNodeTreeViewExample() {
 }
 
 export function ExpandCollapseTreeViewExample() {
+  const treeView = useTreeView({ collection, defaultExpandedValue: ['src'] });
+  const branchValues = treeView.collection.getBranchValues();
+  const expanded = branchValues.every((value) => treeView.expandedValue.includes(value));
+
   return (
-    <TreeView collection={collection} defaultExpandedValue={['src']} className={styles.root}>
-      <ExpandCollapseControls />
-      <TreeView.Tree>
-        {collection.rootNode.children?.map((node, index) => (
-          <FileTreeNode key={node.id} node={node} indexPath={[index]} />
-        ))}
-      </TreeView.Tree>
-    </TreeView>
+    <Stack>
+      <ExpandCollapseControls
+        expanded={expanded}
+        onToggle={() => (expanded ? treeView.collapse() : treeView.expand())}
+      />
+      <TreeView.RootProvider value={treeView} className={styles.root}>
+        <TreeView.Tree>
+          {collection.rootNode.children?.map((node, index) => (
+            <FileTreeNode key={node.id} node={node} indexPath={[index]} />
+          ))}
+        </TreeView.Tree>
+      </TreeView.RootProvider>
+    </Stack>
   );
 }
 

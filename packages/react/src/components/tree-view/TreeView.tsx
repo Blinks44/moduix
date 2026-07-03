@@ -8,9 +8,6 @@ import {
   type TreeViewRootProps,
   type TreeViewRootProviderComponent,
   type TreeViewRootProviderProps,
-  useTreeView,
-  useTreeViewContext,
-  useTreeViewNodeContext,
 } from '@ark-ui/react/tree-view';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
@@ -266,8 +263,6 @@ const TreeViewNodeRenameInput = forwardRef<
   );
 });
 
-const TreeViewContext = TreeViewPrimitive.Context;
-const TreeViewNodeContext = TreeViewPrimitive.NodeContext;
 const TreeViewNodeProvider = TreeViewPrimitive.NodeProvider;
 
 const TreeView = Object.assign(TreeViewRoot, {
@@ -289,75 +284,6 @@ const TreeView = Object.assign(TreeViewRoot, {
   NodeCheckbox: TreeViewNodeCheckbox,
   NodeCheckboxIndicator: TreeViewNodeCheckboxIndicator,
   NodeRenameInput: TreeViewNodeRenameInput,
-  Context: TreeViewContext,
-  NodeContext: TreeViewNodeContext,
 });
 
-export {
-  TreeView,
-  createFileTreeCollection,
-  createTreeCollection,
-  useTreeView,
-  useTreeViewContext,
-  useTreeViewNodeContext,
-};
-export type {
-  TreeCollection,
-  TreeNode,
-  TreeViewBranchBaseProps,
-  TreeViewBranchContentBaseProps,
-  TreeViewBranchContentProps,
-  TreeViewBranchControlBaseProps,
-  TreeViewBranchControlProps,
-  TreeViewBranchIndentGuideBaseProps,
-  TreeViewBranchIndentGuideProps,
-  TreeViewBranchIndicatorBaseProps,
-  TreeViewBranchIndicatorProps,
-  TreeViewBranchProps,
-  TreeViewBranchTextBaseProps,
-  TreeViewBranchTextProps,
-  TreeViewBranchTriggerBaseProps,
-  TreeViewBranchTriggerProps,
-  TreeViewCheckedChangeDetails,
-  TreeViewContextProps,
-  TreeViewExpandedChangeDetails,
-  TreeViewFocusChangeDetails,
-  TreeViewItemBaseProps,
-  TreeViewItemIndicatorBaseProps,
-  TreeViewItemIndicatorProps,
-  TreeViewItemProps,
-  TreeViewItemTextBaseProps,
-  TreeViewItemTextProps,
-  TreeViewLabelBaseProps,
-  TreeViewLabelProps,
-  TreeViewLoadChildrenCompleteDetails,
-  TreeViewLoadChildrenDetails,
-  TreeViewLoadChildrenErrorDetails,
-  TreeViewNodeCheckboxBaseProps,
-  TreeViewNodeCheckboxIndicatorBaseProps,
-  TreeViewNodeCheckboxIndicatorProps,
-  TreeViewNodeCheckboxProps,
-  TreeViewNodeContextProps,
-  TreeViewNodeProps,
-  TreeViewNodeProviderBaseProps,
-  TreeViewNodeProviderProps,
-  TreeViewNodeRenameInputBaseProps,
-  TreeViewNodeRenameInputProps,
-  TreeViewNodeState,
-  TreeViewRenameCompleteDetails,
-  TreeViewRenameStartDetails,
-  TreeViewRootBaseProps,
-  TreeViewRootComponent,
-  TreeViewRootComponentProps,
-  TreeViewRootProps,
-  TreeViewRootProviderBaseProps,
-  TreeViewRootProviderComponent,
-  TreeViewRootProviderProps,
-  TreeViewSelectionChangeDetails,
-  TreeViewTreeBaseProps,
-  TreeViewTreeProps,
-  UseTreeViewContext,
-  UseTreeViewNodeContext,
-  UseTreeViewProps,
-  UseTreeViewReturn,
-} from '@ark-ui/react/tree-view';
+export { TreeView, createFileTreeCollection, createTreeCollection };

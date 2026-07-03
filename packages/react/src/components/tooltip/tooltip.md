@@ -27,7 +27,8 @@ The wrapper follows Ark UI React `@ark-ui/react/tooltip`. Preserve the explicit 
 ```
 
 Ark is the source of truth for controlled state, callback detail objects, positioning, `ids`,
-presence props, `Context`, `RootProvider`, `useTooltip`, and `useTooltipContext`.
+presence props, `RootProvider`, and the advanced state hooks available directly from
+`@ark-ui/react/tooltip`.
 
 ## Current behavior contract
 
@@ -42,11 +43,9 @@ presence props, `Context`, `RootProvider`, `useTooltip`, and `useTooltipContext`
 - `Tooltip.Content`
 - `Tooltip.Arrow`
 - `Tooltip.ArrowTip`
-- `Tooltip.Context`
 
-The package also exports `useTooltip`, `useTooltipContext`, `TooltipOpenChangeDetails`,
-`TooltipTriggerValueChangeDetails`, `UseTooltipContext`, `UseTooltipProps`, and
-`UseTooltipReturn`.
+For externally owned state, keep `Tooltip.RootProvider` and import `useTooltip` or
+`useTooltipContext` directly from `@ark-ui/react/tooltip`.
 
 The wrapper adds default Moduix styling, stable `data-slot` hooks, and one narrow sugar:
 `Tooltip.Arrow` renders `Tooltip.ArrowTip` by default when no children are provided.
@@ -62,7 +61,6 @@ The wrapper adds default Moduix styling, stable `data-slot` hooks, and one narro
 | `Content`          | `tooltip-content`    | Ref forwards to the visible Ark content div.           |
 | `Arrow`            | `tooltip-arrow`      | Ref forwards to the Ark arrow div; renders `ArrowTip`. |
 | `ArrowTip`         | `tooltip-arrow-tip`  | Ref forwards to the Ark arrow tip div.                 |
-| `Context`          | none                 | Ark render-prop state access.                          |
 
 ## Composition
 
@@ -96,11 +94,10 @@ Supported Ark examples and patterns:
 
 - basic explicit composition with `Positioner` and `Content`
 - controlled `open` with `onOpenChange(details)`
-- `RootProvider` with `useTooltip`
+- `RootProvider` with Ark `useTooltip`
 - `Arrow` and `ArrowTip`
 - `openDelay` and `closeDelay`
 - `positioning`
-- `Tooltip.Context`
 - multiple triggers via trigger `value` and `onTriggerValueChange(details)`
 - fixed-position containers via `positioning.strategy = 'fixed'`
 
@@ -150,11 +147,15 @@ need a custom arrow shape.
 Do not reintroduce legacy compatibility aliases. Tooltip is now an Ark-first popup family member,
 matching the explicit composition rules used by migrated popup-like components.
 
-Keep docs and stories on explicit `Positioner` and `Content` composition. If upstream adds new
-exported tooltip state helpers, mirror them from this wrapper and `index.ts` unless there is a
-documented reason not to.
+Keep docs and stories on explicit `Positioner` and `Content` composition. Advanced state access
+should come from Ark imports instead of new moduix re-exports unless there is a documented reason
+to keep them local.
 
 ## Local changelog
+
+- 2026-07-03: Removed moduix re-exports for `Tooltip.Context`, `useTooltip`,
+  `useTooltipContext`, and duplicate Ark types. Keep `RootProvider`; import advanced Ark state
+  helpers directly from `@ark-ui/react/tooltip`.
 
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 

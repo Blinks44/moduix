@@ -1,4 +1,5 @@
-import { Button, PlusIcon, Tooltip, useTooltip } from '@moduix/react';
+import { useTooltip, useTooltipContext } from '@ark-ui/react/tooltip';
+import { Button, PlusIcon, Tooltip } from '@moduix/react';
 import { Bell as BellIcon, Info as InfoIcon, Share as ShareIcon } from 'lucide-react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
@@ -207,11 +208,7 @@ export function ContextTooltipExample() {
     <Tooltip>
       <Tooltip.Trigger>Context tooltip</Tooltip.Trigger>
       <Tooltip.Positioner>
-        <Tooltip.Context>
-          {(tooltip) => (
-            <Tooltip.Content>Open from context: {tooltip.open.toString()}</Tooltip.Content>
-          )}
-        </Tooltip.Context>
+        <TooltipStateContent />
       </Tooltip.Positioner>
     </Tooltip>
   );
@@ -231,6 +228,12 @@ export function RootProviderTooltipExample() {
       </Tooltip.RootProvider>
     </div>
   );
+}
+
+function TooltipStateContent() {
+  const tooltip = useTooltipContext();
+
+  return <Tooltip.Content>Open from context: {tooltip.open.toString()}</Tooltip.Content>;
 }
 
 export function MultipleTriggersTooltipExample() {

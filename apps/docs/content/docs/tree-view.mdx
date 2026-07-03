@@ -145,8 +145,6 @@ aubx shadcn@latest add Blinks44/moduix/react-tree-view
 | `TreeView.NodeCheckbox`          | Node checkbox for checked trees.                                                            |
 | `TreeView.NodeCheckboxIndicator` | Checked and indeterminate visual states.                                                    |
 | `TreeView.NodeRenameInput`       | Inline input shown while a node is being renamed.                                           |
-| `TreeView.Context`               | Root state render prop.                                                                     |
-| `TreeView.NodeContext`           | Node state render prop.                                                                     |
 
 ## Composition
 
@@ -178,9 +176,10 @@ using Ark detail callbacks. `loadChildren` returns child nodes asynchronously an
 `onBeforeRename`, and `onRenameComplete` preserve Ark rename detail objects.
 
 Keyboard navigation, roving focus, typeahead, branch expansion, checkbox state, disabled nodes, and
-inline rename handling come from Ark UI. Use the exported generic types such as
-`TreeViewRootComponent`, `TreeViewNodeProviderProps`, and `TreeViewLoadChildrenDetails` when building
-typed local wrappers around the recursive node renderer.
+inline rename handling come from Ark UI. Import advanced hooks and generic types such as
+`useTreeView`, `useTreeViewNodeContext`, `TreeViewNodeProviderProps`, and
+`TreeViewLoadChildrenDetails` directly from `@ark-ui/react/tree-view` when building typed local
+wrappers around the recursive node renderer.
 
 Mutation and virtualized rendering stay regular Ark collection patterns: replace the collection after
 editing node data, or render the visible recursive nodes inside `TreeView.Tree` without adding a
@@ -244,8 +243,8 @@ Nodes with `disabled: true` in the collection keep their Ark disabled state and 
 
 ### Expand And Collapse All
 
-Read the root API from `TreeView.Context` when controls outside the node rows need to expand or
-collapse every branch.
+Use Ark `useTreeView()` with `TreeView.RootProvider` when controls outside the node rows need to
+expand or collapse every branch.
 
 <Preview>
   <ExpandCollapseTreeViewExample />
@@ -312,7 +311,7 @@ collection in `onRenameComplete`.
 
 ### Root Provider
 
-Use `useTreeView` with `TreeView.RootProvider` when state must be owned outside the rendered tree.
+Use Ark `useTreeView` with `TreeView.RootProvider` when state must be owned outside the rendered tree.
 
 <Preview>
   <RootProviderTreeViewExample />
