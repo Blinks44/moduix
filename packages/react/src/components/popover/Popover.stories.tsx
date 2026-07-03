@@ -122,33 +122,6 @@ export const RootProvider: Story = {
   },
 };
 
-export const Context: Story = {
-  render: () => (
-    <Popover positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild>
-        <Button>Read context</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Title>Status</Popover.Title>
-          <Popover.Description>
-            <Popover.Context>
-              {(context) => (
-                <span className={storyStyles.status}>
-                  Popover is {context.open ? 'visible' : 'hidden'}
-                </span>
-              )}
-            </Popover.Context>
-          </Popover.Description>
-          <Popover.Footer>
-            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-          </Popover.Footer>
-        </Popover.Content>
-      </Popover.Positioner>
-    </Popover>
-  ),
-};
-
 export const WithArrow: Story = {
   name: 'With Arrow',
   render: () => (

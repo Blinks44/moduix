@@ -2,7 +2,6 @@ import type { ComponentProps, ComponentRef } from 'react';
 import {
   PinInput as PinInputPrimitive,
   usePinInput as usePinInputPrimitive,
-  usePinInputContext,
   type UsePinInputProps,
 } from '@ark-ui/react/pin-input';
 import { clsx } from 'clsx';
@@ -24,17 +23,7 @@ const PinInputRoot = forwardRef<
       placeholder={placeholder}
       {...props}
     >
-      {children ??
-        (typeof count === 'number' ? (
-          <>
-            <PinInputControl>
-              {Array.from({ length: count }, (_, index) => (
-                <PinInputInput key={index} index={index} />
-              ))}
-            </PinInputControl>
-            <PinInputHiddenInput />
-          </>
-        ) : null)}
+      {children}
     </PinInputPrimitive.Root>
   );
 });
@@ -122,8 +111,6 @@ function PinInputSeparator({
   );
 }
 
-const PinInputContext = PinInputPrimitive.Context;
-
 function usePinInput(props: UsePinInputProps = {}) {
   return usePinInputPrimitive({ placeholder: '', ...props });
 }
@@ -136,14 +123,6 @@ const PinInput = Object.assign(PinInputRoot, {
   Input: PinInputInput,
   HiddenInput: PinInputHiddenInput,
   Separator: PinInputSeparator,
-  Context: PinInputContext,
 });
 
-export { PinInput, usePinInput, usePinInputContext };
-export type {
-  PinInputValueChangeDetails,
-  PinInputValueInvalidDetails,
-  UsePinInputContext,
-  UsePinInputProps,
-  UsePinInputReturn,
-} from '@ark-ui/react/pin-input';
+export { PinInput, usePinInput };

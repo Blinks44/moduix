@@ -12,7 +12,7 @@ Upstream docs:
 ## Upstream model to preserve
 
 The wrapper follows Ark UI `PinInput`: `Root`, `Label`, `Control`, indexed `Input`,
-`HiddenInput`, `Context`, `RootProvider`, `usePinInput`, and `usePinInputContext`.
+`HiddenInput`, `RootProvider`, and `usePinInput`.
 
 The official MDX content was reviewed from the task attachment `component-documentation.mdx` and
 checked against the installed Ark UI 5.37.2 props and examples.
@@ -26,9 +26,6 @@ checked against the installed Ark UI 5.37.2 props and examples.
 
 moduix overrides Ark's default placeholder behavior by using an empty placeholder string unless the
 consumer passes `placeholder` explicitly.
-
-When `children` are omitted and `count` is a number, moduix renders a default `Control`, indexed
-`Input` parts, and `HiddenInput`. Manual Ark composition remains the primary documented path.
 
 ## Anatomy and exported parts
 
@@ -52,9 +49,7 @@ When `children` are omitted and `count` is a number, moduix renders a default `C
 | `PinInput.Input`        | `data-slot="pin-input-input"`; requires `index`.          |
 | `PinInput.HiddenInput`  | `data-slot="pin-input-hidden-input"`; native form input.  |
 | `PinInput.Separator`    | `data-slot="pin-input-separator"`; decorative moduix aid. |
-| `PinInput.Context`      | Ark render-prop context.                                  |
 | `usePinInput`           | Ark state hook for `RootProvider`.                        |
-| `usePinInputContext`    | Ark context hook for custom child parts.                  |
 
 ## Composition
 
@@ -81,8 +76,6 @@ export function VerificationCodeField() {
 - Basic composition maps directly to Ark `Root` / `Label` / `Control` / `Input` / `HiddenInput`.
 - Placeholder, blur-on-complete, OTP mode, masking, controlled values, field integration, and
   RootProvider examples are represented in Storybook and docs.
-- Moduix default composition and grouped-separator composition are documented as local sugar after
-  the core Ark examples.
 - Controlled and uncontrolled values use Ark string arrays.
 - `type` and `pattern` replace the old legacy `validationType` contract.
 - `PinInput.Separator` is moduix sugar only; it is not an Ark primitive part.
@@ -115,7 +108,6 @@ Important hooks:
 
 ## Intentional sugar and differences from upstream
 
-- `PinInput` renders default visible inputs when `children` are omitted and `count` is provided.
 - `PinInput.Separator` provides a decorative grouping helper with the default separator icon.
 - The default placeholder is `''` instead of Ark's `○`. Use `placeholder` when visible placeholders
   are desired.
@@ -132,6 +124,9 @@ Important hooks:
 
 ## Local changelog
 
+- 2026-07-03: Simplified the public surface to match `Combobox`: removed moduix re-exports for Ark
+  context APIs and duplicate type aliases, and stopped auto-rendering hidden `Control`/`Input`/
+  `HiddenInput` structure inside `PinInput.Root`.
 - 2026-06-20: Renamed `otp-field` to `pin-input`, replaced legacy OTPField with Ark UI
   `PinInput`, adopted Ark parts/callbacks/value arrays, exposed RootProvider/context hooks, updated
   styling hooks and tokens, and removed legacy API compatibility.

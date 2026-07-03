@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Popover as PopoverPrimitive, usePopover, usePopoverContext } from '@ark-ui/react/popover';
+import { Popover as PopoverPrimitive, usePopover } from '@ark-ui/react/popover';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -188,8 +188,6 @@ function PopoverFooter({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="popover-footer" className={clsx(styles.footer, className)} {...props} />;
 }
 
-const PopoverContext = PopoverPrimitive.Context;
-
 const Popover = Object.assign(PopoverRoot, {
   Root: PopoverRoot,
   RootProvider: PopoverRootProvider,
@@ -206,18 +204,6 @@ const Popover = Object.assign(PopoverRoot, {
   Header: PopoverHeader,
   Body: PopoverBody,
   Footer: PopoverFooter,
-  Context: PopoverContext,
 });
 
-export { Popover, usePopover, usePopoverContext };
-export type { PopoverRootProps, PopoverRootProviderProps };
-export type {
-  PopoverFocusOutsideEvent,
-  PopoverInteractOutsideEvent,
-  PopoverOpenChangeDetails,
-  PopoverPointerDownOutsideEvent,
-  PopoverTriggerValueChangeDetails,
-  UsePopoverContext,
-  UsePopoverProps,
-  UsePopoverReturn,
-} from '@ark-ui/react/popover';
+export { Popover, usePopover };

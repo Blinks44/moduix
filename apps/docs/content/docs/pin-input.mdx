@@ -8,7 +8,6 @@ import {
   PinInputBlurOnCompleteExample,
   PinInputChangeEventsExample,
   PinInputCssPropertiesPanel,
-  PinInputDefaultCompositionExample,
   PinInputExample,
   PinInputFieldExample,
   PinInputGroupedLayoutExample,
@@ -140,9 +139,7 @@ PinInput / PinInput.Root
 | `PinInput.Input`               | One visible character input. Pass a zero-based `index`.               |
 | `PinInput.HiddenInput`         | Hidden native input for forms, autofill, validation, and reset.       |
 | `PinInput.Separator`           | Moduix decorative grouping helper. Not an Ark primitive part.         |
-| `PinInput.Context`             | Inline access to Ark root state.                                      |
 | `usePinInput` / `RootProvider` | External state ownership and imperative methods.                      |
-| `usePinInputContext`           | Hook access for reusable custom child parts.                          |
 
 ## Composition
 
@@ -154,10 +151,9 @@ autofill should keep working through the native input.
 
 ### When to go custom
 
-Reach for `PinInput.RootProvider`, `usePinInput`, `PinInput.Context`, or `usePinInputContext` when
-state ownership or custom child composition needs to move outside the default tree. Use
-`PinInput.Separator` only as a visual grouping aid and keep the Ark input indexes continuous across
-the full code.
+Reach for `PinInput.RootProvider` and `usePinInput` when state ownership needs to move outside the
+rendered tree. Use `PinInput.Separator` only as a visual grouping aid and keep the Ark input
+indexes continuous across the full code.
 
 ### Default props
 
@@ -455,29 +451,6 @@ rendered pin input tree.
 
   <Preview.CSS>{`.actions { display: inline-flex; gap: var(--spacing-2); }`}</Preview.CSS>
   <Preview.Data>{`const pinInput = usePinInput({ id, count: 6 });`}</Preview.Data>
-</Preview>
-
-### Moduix Default Composition
-
-When `children` are omitted and `count` is provided, moduix renders a styled `Control`, indexed
-`Input` parts, and `HiddenInput` for the common case.
-
-<Preview>
-  <PinInputDefaultCompositionExample />
-
-  <Preview.Code>
-    {`
-      import { PinInput } from "@moduix/react";
-
-      export function DefaultPinInput() {
-        return <PinInput count={6} aria-label="Verification code" name="verificationCode" />;
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{`[data-slot="pin-input-input"] { text-align: center; }`}</Preview.CSS>
-  <Preview.Data>{`const count = 6;`}</Preview.Data>
 </Preview>
 
 ### Grouped Layout

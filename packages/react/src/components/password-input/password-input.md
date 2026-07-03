@@ -13,9 +13,8 @@ visibility trigger.
 ## Upstream model to preserve
 
 The wrapper follows Ark UI `PasswordInput` exactly: `Root`, `RootProvider`, `Label`, `Control`,
-`Input`, `VisibilityTrigger`, `Indicator`, `Context`, `usePasswordInput`, and
-`usePasswordInputContext`. Visibility state belongs to the Ark root and uses `defaultVisible`,
-`visible`, and `onVisibilityChange(details)`.
+`Input`, `VisibilityTrigger`, `Indicator`, and `usePasswordInput`. Visibility state belongs to the
+Ark root and uses `defaultVisible`, `visible`, and `onVisibilityChange(details)`.
 
 ## Current behavior contract
 
@@ -47,7 +46,6 @@ input from Ark parts and put native input props such as `value`, `defaultValue`,
 | `PasswordInput.Input`                  | `data-slot="password-input-input"`              | Native input part.            |
 | `PasswordInput.VisibilityTrigger`      | `data-slot="password-input-visibility-trigger"` | Toggle button.                |
 | `PasswordInput.Indicator`              | `data-slot="password-input-indicator"`          | Defaults to moduix eye icons. |
-| `PasswordInput.Context`                | -                                               | Ark render-prop state access. |
 
 ## Composition
 
@@ -111,6 +109,8 @@ component and barrel exports in the same migration style.
 
 ## Local changelog
 
+- 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider` and
+  `usePasswordInput`, removed moduix re-exports for Ark context APIs and duplicate type aliases.
 - 2026-06-26: Simplified `PasswordInput.Control` styling to use Ark state attributes directly,
   removed an unused focus-border token, aligned padding fallbacks with shared Input tokens, and
   synced public docs with the full password-input CSS variable contract.

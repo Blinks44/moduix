@@ -2,7 +2,6 @@ import type { ComponentProps, ComponentRef } from 'react';
 import {
   PasswordInput as PasswordInputPrimitive,
   usePasswordInput,
-  usePasswordInputContext,
 } from '@ark-ui/react/password-input';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
@@ -111,8 +110,6 @@ const PasswordInputIndicator = forwardRef<
   );
 });
 
-const PasswordInputContext = PasswordInputPrimitive.Context;
-
 const PasswordInput = Object.assign(PasswordInputRoot, {
   Root: PasswordInputRoot,
   RootProvider: PasswordInputRootProvider,
@@ -121,13 +118,6 @@ const PasswordInput = Object.assign(PasswordInputRoot, {
   Input: PasswordInputInput,
   VisibilityTrigger: PasswordInputVisibilityTrigger,
   Indicator: PasswordInputIndicator,
-  Context: PasswordInputContext,
 });
 
-export { PasswordInput, usePasswordInput, usePasswordInputContext };
-export type {
-  PasswordInputVisibilityChangeDetails,
-  UsePasswordInputContext,
-  UsePasswordInputProps,
-  UsePasswordInputReturn,
-} from '@ark-ui/react/password-input';
+export { PasswordInput, usePasswordInput };

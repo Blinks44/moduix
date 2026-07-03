@@ -82,10 +82,6 @@ export function PinInputExample() {
   );
 }
 
-export function PinInputDefaultCompositionExample() {
-  return <PinInput count={pinInputCount} aria-label="Verification code" name="verificationCode" />;
-}
-
 export function PinInputPlaceholderExample() {
   return (
     <PinInput count={pinInputCount} placeholder="*">

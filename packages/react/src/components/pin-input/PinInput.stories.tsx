@@ -38,12 +38,6 @@ export const Basic: Story = {
   ),
 };
 
-export const DefaultComposition: Story = {
-  render: () => (
-    <PinInput count={PIN_COUNT} aria-label="Verification code" name="verificationCode" />
-  ),
-};
-
 export const Alphanumeric: Story = {
   render: () => {
     const [value, setValue] = useState<string[]>([]);

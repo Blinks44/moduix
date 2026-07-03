@@ -49,9 +49,9 @@ Popover.Root
          └─ Popover.CloseTrigger
 ```
 
-Exported Ark-aligned state surfaces are `Popover.RootProvider`, `Popover.Context`, `usePopover`,
-and `usePopoverContext`. Every rendered wrapper has a matching `data-slot` in kebab-case; the
-internal portal transport does not render a DOM element.
+Exported Ark-aligned state surfaces are `Popover.RootProvider` and `usePopover`. Every rendered
+wrapper has a matching `data-slot` in kebab-case; the internal portal transport does not render a
+DOM element.
 
 | Export                 | Stable slot             | Notes                                      |
 | ---------------------- | ----------------------- | ------------------------------------------ |
@@ -107,8 +107,6 @@ the Ark part.
   layering, nested popovers, and multiple trigger values are supported.
 - External state uses `usePopover` with `Popover.RootProvider`; do not render `Root` for that same
   state instance.
-- `Popover.Context` supports inline render-prop state access and `usePopoverContext` supports
-  reusable child components.
 - `lazyMount`, `unmountOnExit`, `present`, `skipAnimationOnMount`, `ids`, `portalled`,
   `onTriggerValueChange`, interaction callbacks, and focus callbacks pass through Ark unchanged.
 - Ark has no popover backdrop, viewport, hover trigger, detached handle, or legacy popup part.
@@ -166,6 +164,8 @@ runtime available-size and reference-size variables rather than duplicate measur
 
 ## Local changelog
 
+- 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider` and
+  `usePopover` and removed moduix re-exports for Ark context APIs and duplicate type aliases.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-26: Synced public docs and stories with current Ark Popover examples for context reads,
