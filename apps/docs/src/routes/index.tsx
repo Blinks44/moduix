@@ -4,8 +4,8 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { HomeLayout } from 'fumadocs-ui/layouts/home';
 import { ArrowRight, Code2, Component, Layers3, PackageCheck, Sparkles } from 'lucide-react';
 import { useState } from 'react';
+import { FrameworkSupport } from '@/components/framework-support';
 import { baseOptions } from '@/lib/layout.shared';
-import { FrameworkSupport } from './framework-support';
 import styles from './index.module.css';
 
 export const Route = createFileRoute('/')({
