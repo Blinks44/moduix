@@ -144,6 +144,8 @@ export function ComboboxExample() {
 ## Defaults and styling
 
 - moduix applies its tokens, radius, focus ring, popup shadow, item highlight, and motion defaults.
+- The field keeps its focus ring while the popup is open. Hovering the input or trigger highlights
+  the field surface; hovering `ClearTrigger` highlights only that action.
 - `className` is accepted on every visual part.
 - `Combobox.Input asChild` preserves Ark input behavior without applying the default combobox input
   visual class to the child element.
@@ -172,6 +174,8 @@ export function ComboboxExample() {
 
 ## Local changelog
 
+- 2026-07-03: Synchronized field interaction styling with Select: open popups retain the focus ring,
+  and clear-action hover no longer highlights the whole field surface.
 - 2026-07-02: Removed duplicate Ark type exports, context parts, and state hooks from the moduix
   surface. Kept `RootProvider`, the callable root, and every styled visual part.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.

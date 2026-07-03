@@ -68,6 +68,8 @@
 
     &[data-state='open'] {
       background-color: var(--combobox-bg-active, var(--color-muted));
+      border-color: var(--combobox-focus-ring-color, var(--color-ring));
+      outline-color: var(--combobox-focus-ring-color, var(--color-ring));
     }
 
     &[data-focus] {
@@ -86,7 +88,7 @@
 
     &:not([data-disabled]) {
       @media (hover: hover) {
-        &:hover {
+        &:hover:not(:has(.clearTrigger:hover)) {
           background-color: var(--combobox-bg-hover, var(--color-accent));
         }
       }

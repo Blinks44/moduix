@@ -97,6 +97,8 @@
 
     &[data-state='open'] {
       background-color: var(--select-bg-active, var(--color-muted));
+      border-color: var(--select-focus-ring-color, var(--color-ring));
+      outline-color: var(--select-focus-ring-color, var(--color-ring));
     }
 
     &[data-disabled],

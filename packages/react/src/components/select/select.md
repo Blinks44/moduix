@@ -160,6 +160,8 @@ export function SelectDemo() {
 
 - Moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
 - `Select.Control` owns Ark state attributes; `Select.Trigger` renders the visible field chrome.
+- The trigger keeps its focus ring while the popup is open. Hovering the trigger highlights the
+  field surface; hovering `ClearTrigger` highlights only that action.
 - `Select.Content` uses Ark `--reference-width`, `--available-width`, `--available-height`, and
   `--transform-origin`.
 - Open/closed animation is tied to Ark `data-state` attributes.
@@ -189,6 +191,8 @@ export function SelectDemo() {
 
 ## Local changelog
 
+- 2026-07-03: Kept the trigger focus ring visible while the popup is open and documented the shared
+  field/clear-action hover contract with Combobox.
 - 2026-07-03: Removed Ark context parts, state hooks, and duplicate Ark type exports from the
   moduix surface. Kept `RootProvider`, visual parts, and moduix layout sugar.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
