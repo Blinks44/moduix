@@ -1,4 +1,5 @@
-import { Steps, useSteps } from '@moduix/react';
+import { useSteps } from '@ark-ui/react/steps';
+import { Steps } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

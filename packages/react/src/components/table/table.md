@@ -160,9 +160,13 @@ a border around the table root; `Table.ScrollArea` owns the common outer surface
 - Do not add sorting, filtering, selection, or pagination state to this primitive. Build those as
   higher-level compositions on top of `Table`.
 - Keep `Table.Empty` narrow. It should remain a convenience row, not a full empty-state component.
+- Keep table prop/type aliases private unless a real consumer need appears; the public surface is the
+  namespaced component parts and their runtime behavior.
 
 ## Local changelog
 
+- 2026-07-03: Simplified the public surface by keeping table part prop aliases private while
+  preserving namespace composition, `Table.Empty`, and scroll-area styling affordances.
 - 2026-06-27: Audited the owned Ark factory migration, simplified striped/interactive row styling,
   removed docs-only playground code, and aligned public docs with the no-dedicated-Ark-primitive API
   reference wording.

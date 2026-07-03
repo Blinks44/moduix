@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useSteps } from '@ark-ui/react/steps';
 import { useState } from 'react';
-import { Steps, useSteps } from './Steps';
+import { Steps } from './Steps';
 
 const items = [
   {

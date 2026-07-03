@@ -1,10 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  Steps as StepsPrimitive,
-  useSteps,
-  useStepsContext,
-  useStepsItemContext,
-} from '@ark-ui/react/steps';
+import { Steps as StepsPrimitive, useStepsItemContext } from '@ark-ui/react/steps';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
@@ -183,9 +178,6 @@ const StepsProgress = forwardRef<
   );
 });
 
-const StepsContext = StepsPrimitive.Context;
-const StepsItemContext = StepsPrimitive.ItemContext;
-
 const Steps = Object.assign(StepsRoot, {
   Root: StepsRoot,
   RootProvider: StepsRootProvider,
@@ -199,29 +191,6 @@ const Steps = Object.assign(StepsRoot, {
   PrevTrigger: StepsPrevTrigger,
   NextTrigger: StepsNextTrigger,
   Progress: StepsProgress,
-  Context: StepsContext,
-  ItemContext: StepsItemContext,
 });
 
-export { Steps, useSteps, useStepsContext, useStepsItemContext };
-export type {
-  StepChangeDetails,
-  StepsCompletedContentProps,
-  StepsContentProps,
-  StepsContextProps,
-  StepsIndicatorProps,
-  StepsItemContextProps,
-  StepsItemProps,
-  StepsListProps,
-  StepsNextTriggerProps,
-  StepsPrevTriggerProps,
-  StepsProgressProps,
-  StepsRootProps,
-  StepsRootProviderProps,
-  StepsSeparatorProps,
-  StepsTriggerProps,
-  UseStepsContext,
-  UseStepsItemContext,
-  UseStepsProps,
-  UseStepsReturn,
-} from '@ark-ui/react/steps';
+export { Steps };

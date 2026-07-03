@@ -1,15 +1,2 @@
-export { Switch, useSwitch, useSwitchContext } from './Switch';
-export type {
-  SwitchCheckedChangeDetails,
-  SwitchContextProps,
-  SwitchControlProps,
-  SwitchHiddenInputProps,
-  SwitchLabelProps,
-  SwitchRootProps,
-  SwitchRootProviderProps,
-  SwitchSize,
-  SwitchThumbProps,
-  UseSwitchContext,
-  UseSwitchProps,
-  UseSwitchReturn,
-} from './Switch';
+export { Switch } from './Switch';
+export type { SwitchRootProps, SwitchRootProviderProps, SwitchSize } from './Switch';

@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useSwitch, useSwitchContext } from '@ark-ui/react/switch';
 import { useState, type ComponentProps } from 'react';
 import { Button } from '../button';
 import { Field } from '../field';
-import { Switch, useSwitch } from './Switch';
+import { Switch } from './Switch';
 import styles from './Switch.stories.module.css';
 
 const meta = {
@@ -29,6 +30,12 @@ function PowerIcon(props: ComponentProps<'svg'>) {
       />
     </svg>
   );
+}
+
+function SwitchContextLabel() {
+  const switchApi = useSwitchContext();
+
+  return <Switch.Label>Feature is {switchApi.checked ? 'enabled' : 'disabled'}</Switch.Label>;
 }
 
 export const Basic: Story = {
@@ -153,11 +160,7 @@ export const Context: Story = {
     return (
       <Switch defaultChecked>
         <Switch.Control />
-        <Switch.Context>
-          {(context) => (
-            <Switch.Label>Feature is {context.checked ? 'enabled' : 'disabled'}</Switch.Label>
-          )}
-        </Switch.Context>
+        <SwitchContextLabel />
         <Switch.HiddenInput />
       </Switch>
     );

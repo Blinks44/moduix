@@ -27,9 +27,9 @@ Switch / Switch.Root
 checked state, keyboard activation, ARIA wiring, ids, field context, data attributes, and
 controlled/uncontrolled behavior.
 
-Expose upstream state patterns through `Switch.Context`, `useSwitchContext`, `useSwitch`, and
-`Switch.RootProvider`. Do not render `Switch.Root` and `Switch.RootProvider` for the same state
-instance.
+Expose ordinary usage through the visible switch parts and keep `Switch.RootProvider` for state
+created outside with Ark `useSwitch()`. Do not render `Switch.Root` and `Switch.RootProvider` for
+the same state instance.
 
 ## Current behavior contract
 
@@ -48,16 +48,17 @@ instance.
 
 ## Anatomy and exported parts
 
-| Export                           | Ark part / element             | `data-slot`            | Notes                                               |
-| -------------------------------- | ------------------------------ | ---------------------- | --------------------------------------------------- |
-| `Switch` / `Switch.Root`         | `SwitchPrimitive.Root`         | `switch-root`          | Root label, state owner, accepts `size`.            |
-| `Switch.RootProvider`            | `SwitchPrimitive.RootProvider` | `switch-root-provider` | Root label driven by `useSwitch()`, accepts `size`. |
-| `Switch.Control`                 | `SwitchPrimitive.Control`      | `switch-control`       | Visual track, focus ring target.                    |
-| `Switch.Thumb`                   | `SwitchPrimitive.Thumb`        | `switch-thumb`         | Movable thumb; supports custom children.            |
-| `Switch.Label`                   | `SwitchPrimitive.Label`        | `switch-label`         | Ark-connected label text.                           |
-| `Switch.HiddenInput`             | `SwitchPrimitive.HiddenInput`  | `switch-hidden-input`  | Native input for forms and reset.                   |
-| `Switch.Context`                 | `SwitchPrimitive.Context`      | -                      | Inline render-prop state access.                    |
-| `useSwitch` / `useSwitchContext` | Ark hooks                      | -                      | External state owner and child-part state.          |
+| Export                   | Ark part / element             | `data-slot`            | Notes                                                   |
+| ------------------------ | ------------------------------ | ---------------------- | ------------------------------------------------------- |
+| `Switch` / `Switch.Root` | `SwitchPrimitive.Root`         | `switch-root`          | Root label, state owner, accepts `size`.                |
+| `Switch.RootProvider`    | `SwitchPrimitive.RootProvider` | `switch-root-provider` | Root label driven by Ark `useSwitch()`, accepts `size`. |
+| `Switch.Control`         | `SwitchPrimitive.Control`      | `switch-control`       | Visual track, focus ring target.                        |
+| `Switch.Thumb`           | `SwitchPrimitive.Thumb`        | `switch-thumb`         | Movable thumb; supports custom children.                |
+| `Switch.Label`           | `SwitchPrimitive.Label`        | `switch-label`         | Ark-connected label text.                               |
+| `Switch.HiddenInput`     | `SwitchPrimitive.HiddenInput`  | `switch-hidden-input`  | Native input for forms and reset.                       |
+
+Advanced Ark state helpers such as `Switch.Context`, `useSwitchContext`, and `useSwitch` are
+imported directly from `@ark-ui/react/switch` when needed.
 
 ## Composition
 
@@ -99,7 +100,8 @@ export function ControlledSwitchDemo() {
 External state owner:
 
 ```tsx
-import { Switch, useSwitch } from '@moduix/react';
+import { useSwitch } from '@ark-ui/react/switch';
+import { Switch } from '@moduix/react';
 
 export function RootProviderSwitchDemo() {
   const switchApi = useSwitch({ defaultChecked: true });
@@ -122,8 +124,9 @@ export function RootProviderSwitchDemo() {
 - Controlled state: supported with Ark `checked` and `onCheckedChange(details)`.
 - Disabled and read-only states: supported with Ark `disabled` and `readOnly` and styled through Ark
   state attributes.
-- Context access: supported through `Switch.Context` and `useSwitchContext`.
-- Root provider: supported through `useSwitch` and `Switch.RootProvider`.
+- Context access: import `Switch.Context` or `useSwitchContext` from `@ark-ui/react/switch`.
+- Root provider: import `useSwitch` from `@ark-ui/react/switch` and pair it with
+  `Switch.RootProvider`.
 - Field integration: supported by composing with `Field` and including `Switch.HiddenInput`.
 - ids and `asChild`: inherited from Ark root and part props.
 
@@ -200,6 +203,8 @@ Public CSS variables:
 - `Switch.Control` auto-renders `Switch.Thumb` when no children are provided.
 - `Switch.Root` and `Switch.RootProvider` require explicit children; this keeps accessible labels,
   hidden inputs, and custom composition visible in consumer code.
+- moduix keeps `RootProvider`, but no longer re-exports Ark context parts, hooks, or Ark type
+  aliases.
 - Styling is not unstyled: CSS Modules, `data-slot`, `data-size`, and `--switch-*` variables are
   part of the public wrapper contract.
 - Flat legacy exports (`SwitchThumb`, `SwitchField`, `SwitchLabel`) and legacy host props
@@ -211,11 +216,14 @@ Public CSS variables:
   explicit hidden input parts.
 - Do not restore legacy compatibility aliases or raw boolean callback adapters.
 - Keep hover and focus styling on Ark attributes, not custom modifier classes.
-- If Ark adds new switch parts or state APIs, mirror them through the namespace and `index.ts`
-  unless there is a documented reason not to.
+- Keep advanced Ark state APIs as direct Ark imports unless there is a documented reason to expose
+  them from moduix again.
 
 ## Local changelog
 
+- 2026-07-03: Simplified the moduix surface to match `combobox`: kept `RootProvider`, size sugar,
+  and default-thumb sugar, while moving Ark context/hooks/types back to direct imports from
+  `@ark-ui/react/switch`.
 - 2026-06-27: Removed root-level auto composition, exported local root prop types with `size`, and
   simplified switch size CSS variables to quarter-rem steps.
 - 2026-06-27: Shortened default switch track widths by `0.25rem` across all sizes while keeping

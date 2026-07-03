@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Switch as SwitchPrimitive, useSwitch, useSwitchContext } from '@ark-ui/react/switch';
+import { Switch as SwitchPrimitive } from '@ark-ui/react/switch';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -91,8 +91,6 @@ const SwitchHiddenInput = forwardRef<
   return <SwitchPrimitive.HiddenInput ref={ref} data-slot="switch-hidden-input" {...props} />;
 });
 
-const SwitchContext = SwitchPrimitive.Context;
-
 const Switch = Object.assign(SwitchRoot, {
   Root: SwitchRoot,
   RootProvider: SwitchRootProvider,
@@ -100,19 +98,7 @@ const Switch = Object.assign(SwitchRoot, {
   Thumb: SwitchThumb,
   Label: SwitchLabel,
   HiddenInput: SwitchHiddenInput,
-  Context: SwitchContext,
 });
 
-export { Switch, useSwitch, useSwitchContext };
-export type {
-  SwitchCheckedChangeDetails,
-  SwitchContextProps,
-  SwitchControlProps,
-  SwitchHiddenInputProps,
-  SwitchLabelProps,
-  SwitchThumbProps,
-  UseSwitchContext,
-  UseSwitchProps,
-  UseSwitchReturn,
-} from '@ark-ui/react/switch';
+export { Switch };
 export type { SwitchRootProps, SwitchRootProviderProps, SwitchSize };

@@ -1,4 +1,5 @@
-import { Button, Field, Switch, useSwitch } from '@moduix/react';
+import { useSwitch, useSwitchContext } from '@ark-ui/react/switch';
+import { Button, Field, Switch } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -121,6 +122,12 @@ function PowerIcon(props: ComponentProps<'svg'>) {
   );
 }
 
+function SwitchContextLabel() {
+  const switchApi = useSwitchContext();
+
+  return <Switch.Label>Feature is {switchApi.checked ? 'enabled' : 'disabled'}</Switch.Label>;
+}
+
 export function SwitchExample(props: ComponentProps<typeof Switch>) {
   return (
     <Switch defaultChecked {...props}>
@@ -208,11 +215,7 @@ export function SwitchContextExample() {
   return (
     <Switch defaultChecked>
       <Switch.Control />
-      <Switch.Context>
-        {(context) => (
-          <Switch.Label>Feature is {context.checked ? 'enabled' : 'disabled'}</Switch.Label>
-        )}
-      </Switch.Context>
+      <SwitchContextLabel />
       <Switch.HiddenInput />
     </Switch>
   );

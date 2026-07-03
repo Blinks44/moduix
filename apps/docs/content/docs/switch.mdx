@@ -131,15 +131,17 @@ Switch / Switch.Root
 └─ Switch.HiddenInput
 ```
 
-| Part                                  | Role                                                                 |
-| ------------------------------------- | -------------------------------------------------------------------- |
-| `Switch` / `Switch.Root`              | Root label element. Owns checked state, ids, form props, and `size`. |
-| `Switch.Control`                      | Visual track and focus ring target. Auto-renders `Switch.Thumb`.     |
-| `Switch.Thumb`                        | Movable thumb for default visuals or custom thumb content.           |
-| `Switch.Label`                        | Ark label text connected to the switch.                              |
-| `Switch.HiddenInput`                  | Native input for form submission, reset, validation, and name/value. |
-| `Switch.RootProvider`                 | Root label driven by an external `useSwitch()` state instance.       |
-| `Switch.Context` / `useSwitchContext` | Inline or child-part access to the Ark switch state.                 |
+| Part                     | Role                                                                 |
+| ------------------------ | -------------------------------------------------------------------- |
+| `Switch` / `Switch.Root` | Root label element. Owns checked state, ids, form props, and `size`. |
+| `Switch.Control`         | Visual track and focus ring target. Auto-renders `Switch.Thumb`.     |
+| `Switch.Thumb`           | Movable thumb for default visuals or custom thumb content.           |
+| `Switch.Label`           | Ark label text connected to the switch.                              |
+| `Switch.HiddenInput`     | Native input for form submission, reset, validation, and name/value. |
+| `Switch.RootProvider`    | Root label driven by an external Ark `useSwitch()` state instance.   |
+
+Advanced Ark state helpers such as `Switch.Context`, `useSwitchContext`, and `useSwitch` are
+imported directly from `@ark-ui/react/switch` when needed.
 
 ## Composition
 
@@ -157,8 +159,8 @@ Use `asChild` only when the root must render a custom host element. Ark renders 
 `label`; the direct `asChild` element must stay label-compatible so the switch keeps a valid
 accessible name.
 
-Use `Switch.Context`, `useSwitchContext`, or `useSwitch` with `Switch.RootProvider` when surrounding
-UI needs to read or own the Ark switch state.
+Import `Switch.Context`, `useSwitchContext`, or `useSwitch` from `@ark-ui/react/switch` when
+surrounding UI needs to read or own the Ark switch state.
 
 ### Default props
 
@@ -175,8 +177,8 @@ UI needs to read or own the Ark switch state.
   `onCheckedChange(details)` for controlled mode.
 - `details.checked` is the next boolean state. The old raw boolean callback is removed.
 - Include `Switch.HiddenInput` when the switch participates in native forms or form reset.
-- Use `Switch.Context`, `useSwitchContext`, or `useSwitch` with `Switch.RootProvider` for state
-  reads instead of wrapper-level callback adapters.
+- Import `Switch.Context`, `useSwitchContext`, or `useSwitch` from `@ark-ui/react/switch` for
+  advanced state reads instead of wrapper-level callback adapters.
 - Use `asChild` for a custom root host. The child must remain a single semantic label-compatible
   element.
 
@@ -386,24 +388,32 @@ Use `readOnly` when the current state should stay visible but should not be chan
 
 ### Context
 
-Use `Switch.Context` when a nearby label or supporting element should read the live switch state.
+Import `useSwitchContext` from `@ark-ui/react/switch` when a nearby label or supporting element
+should read the live switch state.
 
 <Preview>
   <SwitchContextExample />
 
   <Preview.Code>
     {`
+      import { useSwitchContext } from "@ark-ui/react/switch";
       import { Switch } from "@moduix/react";
+
+      function SwitchContextLabel() {
+        const switchApi = useSwitchContext();
+
+        return (
+          <Switch.Label>
+            Feature is {switchApi.checked ? "enabled" : "disabled"}
+          </Switch.Label>
+        );
+      }
 
       export function SwitchContextDemo() {
         return (
           <Switch defaultChecked>
             <Switch.Control />
-            <Switch.Context>
-              {(context) => (
-                <Switch.Label>Feature is {context.checked ? "enabled" : "disabled"}</Switch.Label>
-              )}
-            </Switch.Context>
+            <SwitchContextLabel />
             <Switch.HiddenInput />
           </Switch>
         );
@@ -430,14 +440,16 @@ Use `Switch.Context` when a nearby label or supporting element should read the l
 
 ### Root Provider
 
-Use `useSwitch` with `Switch.RootProvider` when state must be owned outside the rendered switch tree.
+Import `useSwitch` from `@ark-ui/react/switch` and pair it with `Switch.RootProvider` when state
+must be owned outside the rendered switch tree.
 
 <Preview>
   <SwitchRootProviderExample />
 
   <Preview.Code>
     {`
-      import { Button, Switch, useSwitch } from "@moduix/react";
+      import { useSwitch } from "@ark-ui/react/switch";
+      import { Button, Switch } from "@moduix/react";
       import styles from "./switch-demo.module.css";
 
       export function SwitchRootProviderDemo() {

@@ -5,16 +5,13 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Table.module.css';
 
-type TableSize = 'sm' | 'md' | 'lg';
-type TableVariant = 'line' | 'outline';
-
 type TableRootProps = HTMLArkProps<'table'> & {
   interactive?: boolean;
   showColumnBorder?: boolean;
-  size?: TableSize;
+  size?: 'sm' | 'md' | 'lg';
   stickyHeader?: boolean;
   striped?: boolean;
-  variant?: TableVariant;
+  variant?: 'line' | 'outline';
 };
 
 type TableScrollAreaProps = HTMLArkProps<'div'>;
@@ -291,19 +288,3 @@ const Table = Object.assign(TableRoot, {
 });
 
 export { Table };
-export type {
-  TableBodyProps,
-  TableCaptionProps,
-  TableCellProps,
-  TableColumnGroupProps,
-  TableColumnHeaderProps,
-  TableColumnProps,
-  TableEmptyProps,
-  TableFooterProps,
-  TableHeaderProps,
-  TableRootProps,
-  TableRowProps,
-  TableScrollAreaProps,
-  TableSize,
-  TableVariant,
-};
