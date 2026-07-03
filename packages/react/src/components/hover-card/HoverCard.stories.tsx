@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { HoverCard as HoverCardPrimitive, useHoverCard } from '@ark-ui/react/hover-card';
 import * as React from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
-import { HoverCard, useHoverCard } from './HoverCard';
+import { HoverCard } from './HoverCard';
 import styles from './HoverCard.stories.module.css';
 
 const meta = {
@@ -160,7 +161,7 @@ export const Positioning: Story = {
 export const Context: Story = {
   render: () => (
     <HoverCard>
-      <HoverCard.Context>
+      <HoverCardPrimitive.Context>
         {(context) => (
           <p className={styles.paragraph}>
             Liked by{' '}
@@ -172,7 +173,7 @@ export const Context: Story = {
             and 3 others
           </p>
         )}
-      </HoverCard.Context>
+      </HoverCardPrimitive.Context>
       <HoverCardSurface profile={profiles[0]} />
     </HoverCard>
   ),

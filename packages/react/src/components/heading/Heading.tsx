@@ -5,11 +5,10 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Heading.module.css';
 
-export type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-export type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
-export type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-
-export type HeadingRootProps = HTMLArkProps<'h1'> & {
+type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
+type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+type HeadingRootProps = HTMLArkProps<'h1'> & {
   as?: HeadingElement;
   size?: HeadingSize;
   weight?: HeadingWeight;

@@ -1,4 +1,5 @@
-import { HoverCard, useHoverCard } from '@moduix/react';
+import { HoverCard as HoverCardPrimitive, useHoverCard } from '@ark-ui/react/hover-card';
+import { HoverCard } from '@moduix/react';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -200,7 +201,7 @@ export function PositioningHoverCardExample() {
 export function ContextHoverCardExample() {
   return (
     <HoverCard>
-      <HoverCard.Context>
+      <HoverCardPrimitive.Context>
         {(context) => (
           <p className="hover-card-example__paragraph">
             Liked by{' '}
@@ -212,7 +213,7 @@ export function ContextHoverCardExample() {
             and 3 others
           </p>
         )}
-      </HoverCard.Context>
+      </HoverCardPrimitive.Context>
       <HoverCardSurface profile={hoverCardProfiles[0]} />
     </HoverCard>
   );

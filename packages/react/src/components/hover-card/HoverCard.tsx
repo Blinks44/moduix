@@ -1,9 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  HoverCard as HoverCardPrimitive,
-  useHoverCard,
-  useHoverCardContext,
-} from '@ark-ui/react/hover-card';
+import { HoverCard as HoverCardPrimitive } from '@ark-ui/react/hover-card';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -21,7 +17,7 @@ type HoverCardRootProviderProps = ComponentProps<typeof HoverCardPrimitive.RootP
 function HoverCardRoot({ portalled, portalRef, ...props }: HoverCardRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <HoverCardPrimitive.Root {...props} />
+      <HoverCardPrimitive.Root data-slot="hover-card-root" {...props} />
     </OverlayPortalProvider>
   );
 }
@@ -29,7 +25,7 @@ function HoverCardRoot({ portalled, portalRef, ...props }: HoverCardRootProps) {
 function HoverCardRootProvider({ portalled, portalRef, ...props }: HoverCardRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <HoverCardPrimitive.RootProvider {...props} />
+      <HoverCardPrimitive.RootProvider data-slot="hover-card-root-provider" {...props} />
     </OverlayPortalProvider>
   );
 }
@@ -109,8 +105,6 @@ const HoverCardArrowTip = forwardRef<
   );
 });
 
-const HoverCardContext = HoverCardPrimitive.Context;
-
 const HoverCard = Object.assign(HoverCardRoot, {
   Root: HoverCardRoot,
   RootProvider: HoverCardRootProvider,
@@ -119,18 +113,6 @@ const HoverCard = Object.assign(HoverCardRoot, {
   Content: HoverCardContent,
   Arrow: HoverCardArrow,
   ArrowTip: HoverCardArrowTip,
-  Context: HoverCardContext,
 });
 
-export { HoverCard, useHoverCard, useHoverCardContext };
-export type { HoverCardRootProps, HoverCardRootProviderProps };
-export type {
-  HoverCardFocusOutsideEvent,
-  HoverCardInteractOutsideEvent,
-  HoverCardOpenChangeDetails,
-  HoverCardPointerDownOutsideEvent,
-  HoverCardTriggerValueChangeDetails,
-  UseHoverCardContext,
-  UseHoverCardProps,
-  UseHoverCardReturn,
-} from '@ark-ui/react/hover-card';
+export { HoverCard };

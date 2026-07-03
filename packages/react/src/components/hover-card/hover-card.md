@@ -12,8 +12,8 @@ Rich preview popup that appears from hover or focus on a trigger, commonly a lin
 ## Upstream model to preserve
 
 The wrapper follows Ark UI `@ark-ui/react/hover-card`. Preserve `Root`, `RootProvider`, `Trigger`,
-`Positioner`, `Content`, `Arrow`, `ArrowTip`, `Context`, `useHoverCard`, and
-`useHoverCardContext` as the public model.
+`Positioner`, `Content`, `Arrow`, and `ArrowTip` as the public moduix model. Preserve Ark
+`RootProvider` compatibility so externally owned state from `@ark-ui/react/hover-card` still works.
 
 ## Current behavior contract
 
@@ -29,7 +29,6 @@ high-level content wrapper are intentionally removed.
 
 ```tsx
 <HoverCard>
-  <HoverCard.Context>{(context) => null}</HoverCard.Context>
   <HoverCard.Trigger asChild>
     <a href="#profile">@sarah_chen</a>
   </HoverCard.Trigger>
@@ -43,14 +42,13 @@ high-level content wrapper are intentionally removed.
 </HoverCard>
 ```
 
-- `HoverCard` / `HoverCard.Root`: root state and lifecycle, no default class or `data-slot`.
-- `HoverCard.RootProvider`: connects parts to `useHoverCard()` state.
+- `HoverCard` / `HoverCard.Root`: root state and lifecycle, `data-slot="hover-card-root"`.
+- `HoverCard.RootProvider`: connects parts to Ark `useHoverCard()` state and adds `data-slot="hover-card-root-provider"`.
 - `HoverCard.Trigger`: `data-slot="hover-card-trigger"`, default link-like styling when `asChild` is not used.
 - `HoverCard.Positioner`: `data-slot="hover-card-positioner"`, Ark positioning layer.
 - `HoverCard.Content`: `data-slot="hover-card-content"`, visible styled popup surface.
 - `HoverCard.Arrow`: `data-slot="hover-card-arrow"`, renders `HoverCard.ArrowTip` by default.
 - `HoverCard.ArrowTip`: `data-slot="hover-card-arrow-tip"`.
-- `HoverCard.Context`: Ark render-prop context.
 
 ## Composition
 
@@ -77,16 +75,19 @@ export function Example() {
 ## Upstream feature coverage
 
 Covered Ark examples: basic composition, controlled `open` with `onOpenChange(details)`,
-`RootProvider` plus `useHoverCard`, `openDelay`/`closeDelay`, `positioning`, `Context`, and
-multiple triggers through `Trigger value` plus `onTriggerValueChange(details)`. The wrapper also
-exports Ark event/detail types from the package barrel.
+`RootProvider` with Ark `useHoverCard`, `openDelay`/`closeDelay`, `positioning`, and multiple
+triggers through `Trigger value` plus `onTriggerValueChange(details)`. Ark `Context`,
+`useHoverCard`, `useHoverCardContext`, and event/detail types are intentionally not re-exported
+from moduix; import them from `@ark-ui/react/hover-card` for advanced workflows.
 
 ## Accessibility and state
 
 Ark owns hover/focus behavior, dismissable layer behavior, controlled/uncontrolled state, ids, and
 keyboard/focus lifecycle. `asChild` must receive a single semantic child that can preserve the
 trigger behavior. Styling should target Ark `data-scope="hover-card"`, `data-part`, `data-state`,
-`data-placement`, `data-side`, `data-value`, `data-current`, and moduix `data-slot` hooks.
+`data-placement`, `data-side`, `data-value`, `data-current`, and moduix `data-slot` hooks. For
+advanced state reads or external state ownership, use Ark `Context`, `useHoverCard`, or
+`useHoverCardContext` directly from `@ark-ui/react/hover-card`.
 
 ## Defaults and styling
 
@@ -99,16 +100,21 @@ and `--arrow-offset`. Public theme variables use the `--hover-card-*` prefix.
 ## Intentional sugar and differences from upstream
 
 `HoverCard.Arrow` renders `HoverCard.ArrowTip` when no children are passed. The root owns the portal
-boundary. No legacy `PreviewCard*` aliases are exported.
+boundary. `RootProvider` stays public, but Ark `Context`, hooks, and utility types are no longer
+re-exported from moduix. No legacy `PreviewCard*` aliases are exported.
 
 ## Agent notes
 
 Keep popup structure explicit. Do not reintroduce `HoverCardContent` sugar that hides positioner
 and content. Do not reintroduce legacy `createHandle`, `handle`, `payload`, `render`,
 `Popup`, `Viewport`, or `Backdrop` compatibility.
+Keep `RootProvider` compatible with Ark-owned state, but keep Ark context hooks and utility types
+out of the moduix public surface.
 
 ## Local changelog
 
+- 2026-07-03: Removed moduix re-exports of Ark hover-card context hooks and utility types; kept
+  `RootProvider`, explicit structure, root refs, and root `data-slot` hooks.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-25: Audited Ark migration against current Ark Hover Card docs; simplified docs and

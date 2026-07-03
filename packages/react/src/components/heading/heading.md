@@ -134,6 +134,8 @@ The root also uses `overflow-wrap: break-word`.
 - moduix adds the `as` prop for common heading-level selection.
 - moduix adds `Heading.Root` as an Ark-style namespace alias.
 - moduix adds `data-scope`, `data-part`, and stable `data-slot` hooks.
+- moduix no longer re-exports `Heading` helper types; infer props from the component or keep local
+  unions in consumer code when needed.
 - The removed `HeadingLevel` type is intentionally not preserved.
 - `data-size` represents an explicit size override. When omitted, CSS derives the visual size from
   the actual heading element.
@@ -148,6 +150,8 @@ The root also uses `overflow-wrap: break-word`.
 
 ## Local changelog
 
+- 2026-07-03: Removed public `Heading` type aliases to keep the wrapper surface aligned with other
+  simplified root-only components.
 - 2026-06-25: Finalized local-only Ark factory docs, added explicit `asChild` guidance, and
   synchronized heading CSS variable default documentation.
 - 2026-06-22: Restored a limited `as` prop for `h1` through `h6` so semantic heading levels no

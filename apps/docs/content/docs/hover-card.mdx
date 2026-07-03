@@ -107,7 +107,6 @@ aubx shadcn@latest add Blinks44/moduix/react-hover-card
 
 ```text
 HoverCard / HoverCard.Root
-├─ HoverCard.Context (optional render-prop access)
 ├─ HoverCard.Trigger
 └─ Overlay subtree (automatically portalled)
    └─ HoverCard.Positioner
@@ -116,19 +115,18 @@ HoverCard / HoverCard.Root
             └─ HoverCard.ArrowTip
 
 HoverCard.RootProvider
-└─ same part tree connected to a useHoverCard() store
+└─ same part tree connected to an Ark useHoverCard() store
 ```
 
 | Part                           | Role                                                                     |
 | ------------------------------ | ------------------------------------------------------------------------ |
 | `HoverCard` / `HoverCard.Root` | Root state, delays, positioning, ids, presence, and outside interaction. |
-| `HoverCard.RootProvider`       | Renders a hover card tree from state returned by `useHoverCard`.         |
+| `HoverCard.RootProvider`       | Renders a hover card tree from state returned by Ark `useHoverCard`.     |
 | `HoverCard.Trigger`            | Hover and focus target. Use `asChild` for links or custom hosts.         |
 | `HoverCard.Positioner`         | Floating layer that exposes Ark positioning CSS variables.               |
 | `HoverCard.Content`            | Visible popup surface and dismissable layer.                             |
 | `HoverCard.Arrow`              | Positioned arrow wrapper. Defaults to `HoverCard.ArrowTip`.              |
 | `HoverCard.ArrowTip`           | Arrow tip element styled through Ark arrow variables.                    |
-| `HoverCard.Context`            | Inline access to open state and other Ark context data.                  |
 
 ## Composition
 
@@ -144,8 +142,9 @@ controlled state, lazy mounting, and presence on `HoverCard`; style and animate 
 
 Use `asChild` on `HoverCard.Trigger` when the trigger should be a real link or your own semantic
 button. Use `HoverCard.ArrowTip` directly when the default arrow tip needs custom markup. Use
-`HoverCard.RootProvider` only when state created with `useHoverCard()` must be shared outside the
-rendered tree.
+`HoverCard.RootProvider` only when state created with Ark `useHoverCard()` must be shared outside
+the rendered tree. For inline state reads, import Ark `HoverCard.Context` or `useHoverCardContext`
+directly from `@ark-ui/react/hover-card`.
 
 ### Default props
 
@@ -205,14 +204,16 @@ Control the open state with `open` and `onOpenChange(details)`.
 
 ### Root Provider
 
-Create the machine state with `useHoverCard()` when external controls need to read or update it.
+Create the machine state with Ark `useHoverCard()` when external controls need to read or update
+it.
 
 <Preview>
   <RootProviderHoverCardExample />
 
   <Preview.Code>
     {`
-      import { HoverCard, useHoverCard } from "@moduix/react";
+      import { useHoverCard } from "@ark-ui/react/hover-card";
+      import { HoverCard } from "@moduix/react";
 
       export function RootProviderHoverCard() {
         const hoverCard = useHoverCard();
@@ -235,7 +236,7 @@ Create the machine state with `useHoverCard()` when external controls need to re
 
   </Preview.Code>
   <Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-max-width: 18rem; }`}</Preview.CSS>
-  <Preview.Data>{`const hoverCard = useHoverCard();`}</Preview.Data>
+  <Preview.Data>{`import { useHoverCard } from "@ark-ui/react/hover-card";`}</Preview.Data>
 </Preview>
 
 ### Delay
@@ -306,7 +307,8 @@ Pass Ark positioning options through the `positioning` prop.
 
 ### Context
 
-Use `HoverCard.Context` for inline state reads, such as changing trigger icons while open.
+For inline state reads, import Ark `HoverCard.Context` directly and keep the moduix part tree for
+the visible structure.
 
 <Preview>
   <ContextHoverCardExample />
@@ -314,12 +316,13 @@ Use `HoverCard.Context` for inline state reads, such as changing trigger icons w
   <Preview.Code>
     {`
       import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+      import { HoverCard as HoverCardPrimitive } from "@ark-ui/react/hover-card";
       import { HoverCard } from "@moduix/react";
 
       export function ContextHoverCard() {
         return (
           <HoverCard>
-            <HoverCard.Context>
+            <HoverCardPrimitive.Context>
               {(context) => (
                 <HoverCard.Trigger asChild>
                   <a href="#profile">
@@ -327,7 +330,7 @@ Use `HoverCard.Context` for inline state reads, such as changing trigger icons w
                   </a>
                 </HoverCard.Trigger>
               )}
-            </HoverCard.Context>
+            </HoverCardPrimitive.Context>
             <HoverCard.Positioner>
               <HoverCard.Content>
                 <HoverCard.Arrow />
