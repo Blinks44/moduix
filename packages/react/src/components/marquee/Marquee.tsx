@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Marquee as MarqueePrimitive, useMarquee, useMarqueeContext } from '@ark-ui/react/marquee';
+import { Marquee as MarqueePrimitive } from '@ark-ui/react/marquee';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -89,8 +89,6 @@ const MarqueeEdge = forwardRef<
   );
 });
 
-const MarqueeContext = MarqueePrimitive.Context;
-
 const Marquee = Object.assign(MarqueeRoot, {
   Root: MarqueeRoot,
   RootProvider: MarqueeRootProvider,
@@ -98,27 +96,6 @@ const Marquee = Object.assign(MarqueeRoot, {
   Content: MarqueeContent,
   Item: MarqueeItem,
   Edge: MarqueeEdge,
-  Context: MarqueeContext,
 });
 
-export { Marquee, useMarquee, useMarqueeContext };
-export type {
-  MarqueeContentBaseProps,
-  MarqueeContentProps,
-  MarqueeContextProps,
-  MarqueeEdgeBaseProps,
-  MarqueeEdgeProps,
-  MarqueeItemBaseProps,
-  MarqueeItemProps,
-  MarqueePauseStatusDetails,
-  MarqueeRootBaseProps,
-  MarqueeRootProps,
-  MarqueeRootProviderBaseProps,
-  MarqueeRootProviderProps,
-  MarqueeSide,
-  MarqueeViewportBaseProps,
-  MarqueeViewportProps,
-  UseMarqueeContext,
-  UseMarqueeProps,
-  UseMarqueeReturn,
-} from '@ark-ui/react/marquee';
+export { Marquee };

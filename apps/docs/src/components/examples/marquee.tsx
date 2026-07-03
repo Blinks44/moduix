@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react';
-import { Button, Marquee, useMarquee } from '@moduix/react';
+import { useMarquee } from '@ark-ui/react/marquee';
+import { Button, Marquee } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

@@ -1,10 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  Menu as MenuPrimitive,
-  useMenu,
-  useMenuContext,
-  useMenuItemContext,
-} from '@ark-ui/react/menu';
+import { Menu as MenuPrimitive } from '@ark-ui/react/menu';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
@@ -16,20 +11,19 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import styles from './Menu.module.css';
 
-export type MenuIndicatorPosition = 'start' | 'end' | 'none';
-export type MenuItemTone = 'default' | 'destructive';
-export type MenuItemProps = ComponentProps<typeof MenuPrimitive.Item> & {
+type MenuIndicatorPosition = 'start' | 'end' | 'none';
+type MenuItemTone = 'default' | 'destructive';
+type MenuItemProps = ComponentProps<typeof MenuPrimitive.Item> & {
   tone?: MenuItemTone;
 };
-export type MenuCheckboxItemProps = ComponentProps<typeof MenuPrimitive.CheckboxItem> & {
+type MenuCheckboxItemProps = ComponentProps<typeof MenuPrimitive.CheckboxItem> & {
   indicator?: MenuIndicatorPosition;
 };
-export type MenuRadioItemProps = ComponentProps<typeof MenuPrimitive.RadioItem> & {
+type MenuRadioItemProps = ComponentProps<typeof MenuPrimitive.RadioItem> & {
   indicator?: MenuIndicatorPosition;
 };
-export type MenuRootProps = ComponentProps<typeof MenuPrimitive.Root> & OverlayPortalProps;
-export type MenuRootProviderProps = ComponentProps<typeof MenuPrimitive.RootProvider> &
-  OverlayPortalProps;
+type MenuRootProps = ComponentProps<typeof MenuPrimitive.Root> & OverlayPortalProps;
+type MenuRootProviderProps = ComponentProps<typeof MenuPrimitive.RootProvider> & OverlayPortalProps;
 
 function MenuRoot({ portalled, portalRef, ...props }: MenuRootProps) {
   return (
@@ -357,9 +351,6 @@ function MenuItemShortcut({ className, ...props }: ComponentProps<'span'>) {
   );
 }
 
-const MenuContext = MenuPrimitive.Context;
-const MenuItemContext = MenuPrimitive.ItemContext;
-
 const Menu = Object.assign(MenuRoot, {
   Root: MenuRoot,
   RootProvider: MenuRootProvider,
@@ -386,42 +377,6 @@ const Menu = Object.assign(MenuRoot, {
   ItemTextIcon: MenuItemTextIcon,
   ItemTextLabel: MenuItemTextLabel,
   ItemShortcut: MenuItemShortcut,
-  Context: MenuContext,
-  ItemContext: MenuItemContext,
 });
 
-export { Menu, useMenu, useMenuContext, useMenuItemContext };
-
-export type {
-  MenuArrowProps,
-  MenuArrowTipProps,
-  MenuCheckboxItemProps as ArkMenuCheckboxItemProps,
-  MenuContentProps,
-  MenuContextProps,
-  MenuContextTriggerProps,
-  MenuFocusOutsideEvent,
-  MenuHighlightChangeDetails,
-  MenuIndicatorProps,
-  MenuInteractOutsideEvent,
-  MenuItemContextProps,
-  MenuItemGroupLabelProps,
-  MenuItemGroupProps,
-  MenuItemIndicatorProps,
-  MenuItemProps as ArkMenuItemProps,
-  MenuItemTextProps,
-  MenuOpenChangeDetails,
-  MenuPointerDownOutsideEvent,
-  MenuPositionerProps,
-  MenuRadioItemGroupProps,
-  MenuRadioItemProps as ArkMenuRadioItemProps,
-  MenuSelectionDetails,
-  MenuSeparatorProps,
-  MenuTriggerItemProps,
-  MenuTriggerProps,
-  MenuTriggerValueChangeDetails,
-  MenuValueChangeDetails,
-  UseMenuContext,
-  UseMenuItemContext,
-  UseMenuProps,
-  UseMenuReturn,
-} from '@ark-ui/react/menu';
+export { Menu };

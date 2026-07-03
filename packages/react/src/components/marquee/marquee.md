@@ -12,7 +12,7 @@ Upstream docs:
 ## Upstream model to preserve
 
 The wrapper follows Ark UI React `@ark-ui/react/marquee`. Preserve the Ark parts exactly: `Root`,
-`RootProvider`, `Viewport`, `Content`, `Item`, `Edge`, and `Context`.
+`RootProvider`, `Viewport`, `Content`, `Item`, and `Edge`.
 
 Ark owns pause state, orientation, side, auto-fill cloning, loop counts, ids, localized root labels,
 and the imperative API returned by `useMarquee()`. CSS supplies the keyframe animation that consumes
@@ -40,8 +40,8 @@ export function Example() {
 }
 ```
 
-The package exports `Marquee`, `useMarquee`, `useMarqueeContext`, and Ark-aligned public types from
-`@ark-ui/react/marquee`.
+The package exports `Marquee` plus its visible parts. Advanced state hooks and context access are
+imported directly from `@ark-ui/react/marquee`.
 
 ## Anatomy and exported parts
 
@@ -62,7 +62,6 @@ Marquee / Marquee.Root
 | `Marquee.Content`          | `marquee-content`       | Animated content wrapper and cloned content host.       |
 | `Marquee.Item`             | `marquee-item`          | Individual marquee item.                                |
 | `Marquee.Edge`             | `marquee-edge`          | Optional fade overlay. Requires `side`.                 |
-| `Marquee.Context`          | -                       | Render-prop access to the current marquee API.          |
 
 No flat part aliases such as `MarqueeRoot` or `MarqueeViewport` are exported.
 
@@ -85,7 +84,7 @@ shorter than the viewport, and `side="top" | "bottom"` for vertical marquees.
 </Marquee>
 ```
 
-Use `Marquee.RootProvider` with `useMarquee()` when controls outside the root need to call
+Use `Marquee.RootProvider` with Ark `useMarquee()` when controls outside the root need to call
 `pause()`, `resume()`, `togglePause()`, or `restart()`. Do not render `Marquee` and
 `Marquee.RootProvider` for the same state instance.
 
@@ -97,12 +96,12 @@ Use `Marquee.RootProvider` with `useMarquee()` when controls outside the root ne
 - Vertical: supported through `side="top"` or `side="bottom"`.
 - Speed and delay: supported through `speed` and `delay`.
 - Pause on interaction: supported through `pauseOnInteraction`, hover, and focus.
-- Programmatic control: supported through exported `useMarquee` and `Marquee.RootProvider`.
+- Programmatic control: supported through Ark `useMarquee` and `Marquee.RootProvider`.
 - Finite loops: supported through `loopCount`, `onLoopComplete`, and `onComplete`.
 - Edge fades: supported through `Marquee.Edge side="start|end|top|bottom"`.
 - `asChild`: preserved on all Ark parts.
 - `ids`: preserved on the root for stable root, viewport, and content IDs.
-- `Marquee.Context` and `useMarqueeContext`: exported for state reads inside the tree.
+- Advanced state reads stay available directly from `@ark-ui/react/marquee`.
 
 ## Props and callbacks
 
@@ -194,11 +193,13 @@ content animation when Ark sets `data-paused` on the root and disables animation
 - Keep the wrapper thin. Do not add automatic structural rendering for viewport/content/items.
 - Keep keyframe names local to the CSS module and tied to Ark `--marquee-translate`.
 - Keep pause callbacks and controlled state detail objects in Ark's original shape.
-- If Ark adds new public provider/context hooks or types, mirror them through `Marquee.tsx` and
-  `index.ts`.
+- Keep advanced Ark hooks and context APIs out of the moduix surface; consumers can import them
+  directly from Ark when needed.
 
 ## Local changelog
 
+- 2026-07-03: Removed Ark hook, context, and duplicate type re-exports from the moduix surface.
+  Kept `RootProvider`, the callable root, visible parts, and edge fade sugar.
 - 2026-06-22: Added `Marquee` as an Ark UI-backed component with root shortcut, provider/context
   support, required animation CSS, edge fade styling, stories, local docs, public exports, docs
   examples, and registry metadata.

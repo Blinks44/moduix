@@ -1,5 +1,6 @@
 import type { ComponentProps, ReactNode } from 'react';
-import { Button, ChevronDownIcon, CheckIcon, Menu, useMenu } from '@moduix/react';
+import { Menu as ArkMenu, useMenu } from '@ark-ui/react/menu';
+import { Button, ChevronDownIcon, CheckIcon, Menu } from '@moduix/react';
 import { Info as InfoIcon, Map as MapIcon } from 'lucide-react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
@@ -528,13 +529,13 @@ export function ItemContextMenuExample() {
       </MenuButtonTrigger>
       <PositionedContent>
         <Menu.Item value="profile">
-          <Menu.ItemContext>
+          <ArkMenu.ItemContext>
             {(item) => (
               <span style={{ fontWeight: item.highlighted ? 'var(--weight-semibold)' : undefined }}>
                 Profile Settings
               </span>
             )}
-          </Menu.ItemContext>
+          </ArkMenu.ItemContext>
         </Menu.Item>
         <Menu.Item value="preferences">Preferences</Menu.Item>
         <Menu.Item value="notifications">Notifications</Menu.Item>

@@ -14,7 +14,7 @@ items, or an extended modifier-key selection without opening a popup.
 
 The wrapper follows Ark UI's React `@ark-ui/react/listbox` primitive. Preserve Ark collection-based
 rendering, value arrays, highlighted value control, selection modes, callback detail objects,
-`RootProvider`, context hooks, and input/filtering composition.
+`RootProvider`, and input/filtering composition.
 
 ## Current behavior contract
 
@@ -31,7 +31,7 @@ rendering, value arrays, highlighted value control, selection modes, callback de
 - Pointer hover and keyboard highlight share the same accent affordance by default.
 - `Listbox.ItemTextContent`, `Listbox.ItemTextIcon`, and `Listbox.ItemTextLabel` are moduix span
   helpers for richer item text layout.
-- `useListbox`, `useListboxContext`, and `useListboxItemContext` are exported.
+- Advanced state hooks and context parts are imported directly from `@ark-ui/react/listbox`.
 
 ## Anatomy and exported parts
 
@@ -69,8 +69,6 @@ Listbox / Listbox.Root
 | `Listbox.ItemTextContent`  | `listbox-item-text-content` | Moduix span helper.            |
 | `Listbox.ItemTextIcon`     | `listbox-item-text-icon`    | Moduix span helper.            |
 | `Listbox.ItemTextLabel`    | `listbox-item-text-label`   | Moduix span helper.            |
-| `Listbox.Context`          | -                           | Ark root state render prop.    |
-| `Listbox.ItemContext`      | -                           | Ark item state render prop.    |
 
 ## Composition
 
@@ -120,8 +118,8 @@ export function ListboxDemo() {
   `data-activedescendant`, `data-layout`, item `data-value`, `data-selected`,
   `data-state="checked" | "unchecked"`, and `data-highlighted`.
 - Use `typeahead={false}` when a filtering input owns text entry.
-- Use `useListbox` with `Listbox.RootProvider`; do not render `Listbox.Root` for the same state
-  instance.
+- Use Ark `useListbox()` with `Listbox.RootProvider`; do not render `Listbox.Root` for the same
+  state instance.
 - Use `asChild` only with a single semantic child that can receive the required Ark props.
 
 ## Defaults and styling
@@ -155,6 +153,8 @@ export function ListboxDemo() {
 
 ## Local changelog
 
+- 2026-07-03: Removed Ark hook, context, and duplicate type re-exports from the moduix surface.
+  Kept `RootProvider`, the callable root, and the visible listbox parts.
 - 2026-06-26: Simplified listbox spacing defaults to existing spacing tokens, changed content max
   height to `14rem`, removed the docs-only filter input focus override, and aligned the public
   docs composition section with the current Ark-backed contract.

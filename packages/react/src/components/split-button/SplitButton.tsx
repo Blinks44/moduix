@@ -10,13 +10,7 @@ import {
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { Button } from '../button';
-import {
-  Menu,
-  type MenuContentProps,
-  type MenuPositionerProps,
-  type MenuRootProps,
-  type MenuTriggerProps,
-} from '../menu';
+import { Menu } from '../menu';
 import styles from './SplitButton.module.css';
 
 type ButtonProps = ComponentProps<typeof Button>;
@@ -28,7 +22,7 @@ type SplitButtonContextValue = {
   variant: SplitButtonVariant;
 };
 
-type SplitButtonRootProps = Omit<MenuRootProps, 'children'> & {
+type SplitButtonRootProps = Omit<ComponentProps<typeof Menu.Root>, 'children'> & {
   children?: ReactNode;
   className?: string;
   size?: SplitButtonSize;
@@ -40,13 +34,13 @@ type SplitButtonActionProps = Omit<ButtonProps, 'size' | 'variant'> & {
   variant?: SplitButtonVariant;
 };
 
-type SplitButtonTriggerProps = MenuTriggerProps & {
+type SplitButtonTriggerProps = ComponentProps<typeof Menu.Trigger> & {
   size?: SplitButtonSize;
   variant?: SplitButtonVariant;
 };
 
-type SplitButtonContentProps = MenuContentProps;
-type SplitButtonPositionerProps = MenuPositionerProps;
+type SplitButtonContentProps = ComponentProps<typeof Menu.Content>;
+type SplitButtonPositionerProps = ComponentProps<typeof Menu.Positioner>;
 
 const SplitButtonContext = createContext<SplitButtonContextValue | null>(null);
 

@@ -145,7 +145,6 @@ Menu
 │        │  └─ Menu.ItemGroupLabel
 │        └─ Menu
 │           └─ Menu.TriggerItem
-└─ Menu.Context / Menu.ItemContext
 ```
 
 | Part                  | Role                                                        |
@@ -262,14 +261,15 @@ Control `open` with `onOpenChange(details)` when another control needs to drive 
 
 ### Root Provider
 
-Use `useMenu` and `Menu.RootProvider` when code outside the rendered tree needs access to the menu
+Use Ark `useMenu` and `Menu.RootProvider` when code outside the rendered tree needs access to the menu
 API.
 
 <Preview>
   <RootProviderMenuExample />
   <Preview.Code>
     {`
-      import { Button, Menu, useMenu } from "@moduix/react";
+      import { useMenu } from "@ark-ui/react/menu";
+      import { Button, Menu } from "@moduix/react";
 
       export function RootProviderMenuDemo() {
         const menu = useMenu();
@@ -675,12 +675,13 @@ Use root `onSelect(details)` when the menu should react to any item selection.
 
 ### Item Context
 
-Use `Menu.ItemContext` for inline access to item state such as `highlighted`.
+Use Ark `Menu.ItemContext` for inline access to item state such as `highlighted`.
 
 <Preview>
   <ItemContextMenuExample />
   <Preview.Code>
     {`
+      import { Menu as ArkMenu } from "@ark-ui/react/menu";
       import { Button, Menu } from "@moduix/react";
 
       export function ItemContextMenuDemo() {
@@ -695,13 +696,13 @@ Use `Menu.ItemContext` for inline access to item state such as `highlighted`.
             <Menu.Positioner>
               <Menu.Content className="menu-content">
                 <Menu.Item value="profile">
-                  <Menu.ItemContext>
+                  <ArkMenu.ItemContext>
                     {(item) => (
                       <span style={{ fontWeight: item.highlighted ? "var(--weight-semibold)" : undefined }}>
                         Profile Settings
                       </span>
                     )}
-                  </Menu.ItemContext>
+                  </ArkMenu.ItemContext>
                 </Menu.Item>
               </Menu.Content>
             </Menu.Positioner>

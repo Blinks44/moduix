@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
+import { useMarquee } from '@ark-ui/react/marquee';
 import { useState } from 'react';
 import { Button } from '../button';
-import { Marquee, useMarquee } from './Marquee';
+import { Marquee } from './Marquee';
 import styles from './Marquee.stories.module.css';
 
 const meta = {

@@ -128,7 +128,6 @@ Marquee.RootProvider
 | `Marquee.Content`          | Animated content wrapper. Ark clones it when needed.                  |
 | `Marquee.Item`             | Individual repeated item inside the content.                          |
 | `Marquee.Edge`             | Optional fade overlay. Pass `side` to choose the edge.                |
-| `Marquee.Context`          | Render-prop access to the current Ark marquee API.                    |
 
 ## Composition
 
@@ -139,7 +138,7 @@ animation keyframes and state hooks, while item visuals and root framing stay in
 
 ### When to go custom
 
-Use `Marquee.Edge` when the content should fade into the page background. Use `useMarquee()` with
+Use `Marquee.Edge` when the content should fade into the page background. Use Ark `useMarquee()` with
 `Marquee.RootProvider` when controls outside the marquee need the API: `pause()`, `resume()`,
 `togglePause()`, and `restart()`. Do not render `Marquee` and `Marquee.RootProvider` for the same
 state object.
@@ -379,7 +378,7 @@ Use `pauseOnInteraction` to pause while the user hovers the marquee or focuses c
 
 ### Programmatic Control
 
-Use `useMarquee()` and `Marquee.RootProvider` when external controls need to pause, resume, or
+Use Ark `useMarquee()` and `Marquee.RootProvider` when external controls need to pause, resume, or
 restart playback.
 
 <Preview>
@@ -387,7 +386,8 @@ restart playback.
 
   <Preview.Code>
     {`
-      import { Button, Marquee, useMarquee } from "@moduix/react";
+      import { useMarquee } from "@ark-ui/react/marquee";
+      import { Button, Marquee } from "@moduix/react";
 
       export function ProgrammaticMarqueeDemo() {
         const marquee = useMarquee({ translations: { root: "Partner logos" } });

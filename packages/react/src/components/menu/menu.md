@@ -15,7 +15,7 @@ command trees.
 The wrapper follows Ark UI `@ark-ui/react/menu` directly. Preserve the Ark parts:
 `Root`, `RootProvider`, `Trigger`, `ContextTrigger`, `Positioner`, `Content`, `Arrow`, `ArrowTip`,
 `Item`, `TriggerItem`, `Separator`, `ItemGroup`, `ItemGroupLabel`, `CheckboxItem`,
-`RadioItemGroup`, `RadioItem`, `ItemIndicator`, `ItemText`, `Context`, and `ItemContext`.
+`RadioItemGroup`, `RadioItem`, `ItemIndicator`, and `ItemText`.
 
 Callbacks and state shapes must remain Ark-shaped: `onOpenChange(details)`,
 `onHighlightChange(details)`, `onSelect(details)`, `onValueChange(details)`,
@@ -26,8 +26,8 @@ Callbacks and state shapes must remain Ark-shaped: `onOpenChange(details)`,
 
 `Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
-The component exports thin styled wrappers over Ark parts and mirrors Ark provider/context hooks
-through the package barrel: `useMenu`, `useMenuContext`, and `useMenuItemContext`.
+The component exports thin styled wrappers over Ark parts. Advanced state hooks and context parts
+are imported directly from `@ark-ui/react/menu`.
 
 Breaking legacy APIs were removed:
 
@@ -101,8 +101,8 @@ export function Example() {
 }
 ```
 
-Use `Menu.RootProvider` with `useMenu()` only when state must be controlled from outside the tree.
-Do not render `Menu` and `Menu.RootProvider` for the same state instance.
+Use `Menu.RootProvider` with Ark `useMenu()` only when state must be controlled from outside the
+tree. Do not render `Menu` and `Menu.RootProvider` for the same state instance.
 
 ## Upstream feature coverage
 
@@ -110,7 +110,7 @@ Supported Ark examples and guides:
 
 - basic button-triggered menus with `Positioner` and `Content`
 - controlled `open` state and `onOpenChange(details)`
-- `RootProvider` and `useMenu`
+- `RootProvider` and Ark `useMenu`
 - item grouping and labels
 - link items through `Menu.Item asChild`
 - checkbox items and `onCheckedChange(checked)`
@@ -169,11 +169,14 @@ These helpers must not hide the Ark part tree or remap Ark callback detail objec
 Keep `Menu.Content` as the real Ark content part. Do not reintroduce a wrapper that renders
 `Positioner` or `Arrow` internally; only portal transport belongs to the root.
 
-When docs import `useMenu`, `useMenuContext`, or `useMenuItemContext`, verify those hooks remain
-exported from `packages/react/src/components/menu/index.ts` and the root package barrel.
+Advanced state access belongs to Ark imports. Do not re-export `useMenu`, `useMenuContext`,
+`useMenuItemContext`, `Menu.Context`, or `Menu.ItemContext` from moduix.
 
 ## Local changelog
 
+- 2026-07-03: Removed Ark hook, context, and duplicate type re-exports from the moduix surface.
+  Kept `RootProvider`, the callable root, visible menu parts, and leaf sugar like `tone`,
+  `indicator`, and default icons.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-24: Made checkbox and radio `indicator` placement explicit by defaulting

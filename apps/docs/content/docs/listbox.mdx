@@ -149,21 +149,20 @@ Listbox / Listbox.Root
 └─ Listbox.ValueText
 ```
 
-| Part                              | Role                                                          |
-| --------------------------------- | ------------------------------------------------------------- |
-| `Listbox` / `Listbox.Root`        | Owns collection, selected values, highlighted item, and mode. |
-| `Listbox.RootProvider`            | Renders a listbox tree from state returned by `useListbox`.   |
-| `Listbox.Label`                   | Accessible label for the listbox content.                     |
-| `Listbox.Input`                   | Optional filter input connected to the same listbox state.    |
-| `Listbox.Content`                 | Focusable listbox surface with keyboard navigation.           |
-| `Listbox.Empty`                   | Empty-state content for filtered collections.                 |
-| `Listbox.ItemGroup`               | Group wrapper for related collection items.                   |
-| `Listbox.ItemGroupLabel`          | Label for a collection group.                                 |
-| `Listbox.Item`                    | Selectable row. Pass the collection item through `item`.      |
-| `Listbox.ItemText`                | Text used for display and accessibility.                      |
-| `Listbox.ItemIndicator`           | Selected-state indicator with the moduix default check icon.  |
-| `Listbox.ValueText`               | Selected value summary.                                       |
-| `Listbox.Context` / `ItemContext` | Inline access to root and item state.                         |
+| Part                       | Role                                                          |
+| -------------------------- | ------------------------------------------------------------- |
+| `Listbox` / `Listbox.Root` | Owns collection, selected values, highlighted item, and mode. |
+| `Listbox.RootProvider`     | Renders a listbox tree from state returned by `useListbox`.   |
+| `Listbox.Label`            | Accessible label for the listbox content.                     |
+| `Listbox.Input`            | Optional filter input connected to the same listbox state.    |
+| `Listbox.Content`          | Focusable listbox surface with keyboard navigation.           |
+| `Listbox.Empty`            | Empty-state content for filtered collections.                 |
+| `Listbox.ItemGroup`        | Group wrapper for related collection items.                   |
+| `Listbox.ItemGroupLabel`   | Label for a collection group.                                 |
+| `Listbox.Item`             | Selectable row. Pass the collection item through `item`.      |
+| `Listbox.ItemText`         | Text used for display and accessibility.                      |
+| `Listbox.ItemIndicator`    | Selected-state indicator with the moduix default check icon.  |
+| `Listbox.ValueText`        | Selected value summary.                                       |
 
 ## Composition
 
@@ -176,7 +175,7 @@ Use `Listbox.ItemIndicator` when rows should reserve selected-state space.
 ### When to go custom
 
 Use `asChild` only when a custom element can keep the required listbox semantics and receive Ark's
-props. Use `ids` when listbox parts need stable IDs for composition with surrounding UI. Use
+props. Use `ids` when listbox parts need stable IDs for composition with surrounding UI. Use Ark
 `useListbox` with `Listbox.RootProvider` when state must be controlled outside the rendered tree;
 do not render `Listbox.Root` for the same state instance.
 
@@ -269,7 +268,7 @@ Control the selected string array from React state and update it from `details.v
 
 ### Root Provider
 
-Use `useListbox` with `Listbox.RootProvider` when external controls need direct access to the
+Use Ark `useListbox` with `Listbox.RootProvider` when external controls need direct access to the
 listbox API.
 
 <Preview>
@@ -277,7 +276,8 @@ listbox API.
 
   <Preview.Code>
     {`
-      import { Button, Listbox, useListbox } from "@moduix/react";
+      import { useListbox } from "@ark-ui/react/listbox";
+      import { Button, Listbox } from "@moduix/react";
 
       export function RootProviderListboxDemo() {
         const listbox = useListbox({ collection: priorities });
@@ -692,14 +692,15 @@ const frameworks = [
 
 ### Select All
 
-Use `useListboxContext` inside a child component to implement select-all controls.
+Use Ark `useListboxContext` inside a child component to implement select-all controls.
 
 <Preview>
   <SelectAllListboxExample />
 
   <Preview.Code>
     {`
-      import { Button, Listbox, useListboxContext } from "@moduix/react";
+      import { useListboxContext } from "@ark-ui/react/listbox";
+      import { Button, Listbox } from "@moduix/react";
 
       function SelectAllTrigger() {
         const listbox = useListboxContext();
