@@ -4,23 +4,7 @@ description: A circular control for selecting an angle from 0 to 360 degrees.
 icon: Component
 ---
 
-import {
-  AngleSliderCssPropertiesPanel,
-  AngleSliderExample,
-  ControlledAngleSliderExample,
-  CustomStylingAngleSliderExample,
-  DisabledAngleSliderExample,
-  ReadOnlyAngleSliderExample,
-  RootProviderAngleSliderExample,
-  SteppedAngleSliderExample,
-  angleSliderBasicCss,
-  angleSliderControlledCss,
-  angleSliderCustomStylingCss,
-  angleSliderDisabledCss,
-  angleSliderReadOnlyCss,
-  angleSliderRootProviderCss,
-  angleSliderStepCss,
-} from '@/components/examples/angle-slider';
+import * as AngleSliderDocs from '@/components/examples/angle-slider';
 
 ## API Reference
 
@@ -40,89 +24,17 @@ Compose the Ark parts explicitly. Markers provide reference points, `Thumb` owns
 the active angle indicator, and `HiddenInput` enables native form submission.
 
 <Preview>
-  <AngleSliderExample />
+  <AngleSliderDocs.AngleSliderExample />
 
   <Preview.Code>
-    {`
-      import { AngleSlider } from "@moduix/react";
-
-      export function AngleSliderDemo() {
-        return (
-          <AngleSlider
-            defaultValue={135}
-            aria-label="Rotation"
-            className="docs-angle-slider-basic"
-          >
-            <AngleSlider.Label>Rotation</AngleSlider.Label>
-            <AngleSlider.Control>
-              <AngleSlider.MarkerGroup>
-                {markerValues.map((value) => (
-                  <AngleSlider.Marker key={value} value={value} />
-                ))}
-              </AngleSlider.MarkerGroup>
-              <AngleSlider.Thumb />
-            </AngleSlider.Control>
-            <AngleSlider.ValueText />
-            <AngleSlider.HiddenInput />
-          </AngleSlider>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/angle-slider/basic.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{angleSliderBasicCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AngleSliderDocs.angleSliderBasicCss}</Preview.CSS>
 </Preview>
 
 ## Install with shadcn
 
-If you want `AngleSlider` in your project source instead of `node_modules`, install it from the
-moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-angle-slider
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-angle-slider
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-angle-slider
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-angle-slider
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-angle-slider
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-angle-slider" />
 
 ## Anatomy
 
@@ -193,50 +105,12 @@ shared IDs. Refs are forwarded to the DOM element rendered by each wrapped Ark p
 Use controlled state when the angle must stay synchronized with application state.
 
 <Preview>
-  <ControlledAngleSliderExample />
+  <AngleSliderDocs.ControlledAngleSliderExample />
 
   <Preview.Code>
-    {`
-      import { AngleSlider } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledAngleSliderDemo() {
-        const [value, setValue] = useState(initialValue);
-
-        return (
-          <AngleSlider
-            value={value}
-            aria-label="Heading"
-            className="docs-angle-slider-controlled"
-            onValueChange={(details) => setValue(details.value)}
-          >
-            <AngleSlider.Label>Heading</AngleSlider.Label>
-            <AngleSlider.Control>
-              <AngleSlider.MarkerGroup>
-                {markerValues.map((markerValue) => (
-                  <AngleSlider.Marker key={markerValue} value={markerValue} />
-                ))}
-              </AngleSlider.MarkerGroup>
-              <AngleSlider.Thumb />
-            </AngleSlider.Control>
-            <AngleSlider.ValueText />
-            <AngleSlider.HiddenInput />
-          </AngleSlider>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/angle-slider/controlled.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{angleSliderControlledCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const initialValue = 210;
-      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AngleSliderDocs.angleSliderControlledCss}</Preview.CSS>
 </Preview>
 
 ### Steps
@@ -244,48 +118,12 @@ Use controlled state when the angle must stay synchronized with application stat
 Use `step` to snap pointer and keyboard interaction to a discrete angular increment.
 
 <Preview>
-  <SteppedAngleSliderExample />
+  <AngleSliderDocs.SteppedAngleSliderExample />
 
   <Preview.Code>
-    {`
-      import { AngleSlider } from "@moduix/react";
-
-      export function SteppedAngleSliderDemo() {
-        return (
-          <AngleSlider
-            defaultValue={initialValue}
-            step={step}
-            aria-label="Snap angle"
-            className="docs-angle-slider-step"
-          >
-            <AngleSlider.Label>15 Step</AngleSlider.Label>
-            <AngleSlider.Control>
-              <AngleSlider.MarkerGroup>
-                {markerValues.map((value) => (
-                  <AngleSlider.Marker key={value} value={value} />
-                ))}
-              </AngleSlider.MarkerGroup>
-              <AngleSlider.Thumb />
-            </AngleSlider.Control>
-            <AngleSlider.ValueText />
-            <AngleSlider.HiddenInput />
-          </AngleSlider>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/angle-slider/steps.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{angleSliderStepCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const initialValue = 60;
-      const step = 15;
-      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AngleSliderDocs.angleSliderStepCss}</Preview.CSS>
 </Preview>
 
 ### Disabled
@@ -293,47 +131,12 @@ Use `step` to snap pointer and keyboard interaction to a discrete angular increm
 Use `disabled` when the control must be unavailable and excluded from interaction.
 
 <Preview>
-  <DisabledAngleSliderExample />
+  <AngleSliderDocs.DisabledAngleSliderExample />
 
   <Preview.Code>
-    {`
-      import { AngleSlider } from "@moduix/react";
-
-      export function DisabledAngleSliderDemo() {
-        return (
-          <AngleSlider
-            defaultValue={initialValue}
-            disabled
-            aria-label="Disabled rotation"
-            className="docs-angle-slider-disabled"
-          >
-            <AngleSlider.Label>Rotation</AngleSlider.Label>
-            <AngleSlider.Control>
-              <AngleSlider.MarkerGroup>
-                {markerValues.map((value) => (
-                  <AngleSlider.Marker key={value} value={value} />
-                ))}
-              </AngleSlider.MarkerGroup>
-              <AngleSlider.Thumb />
-            </AngleSlider.Control>
-            <AngleSlider.ValueText />
-            <AngleSlider.HiddenInput />
-          </AngleSlider>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/angle-slider/disabled.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{angleSliderDisabledCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const initialValue = 45;
-      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AngleSliderDocs.angleSliderDisabledCss}</Preview.CSS>
 </Preview>
 
 ### Root Provider
@@ -342,61 +145,12 @@ Use Ark's `useAngleSlider` and the moduix `RootProvider` when another control ne
 to the same state machine.
 
 <Preview>
-  <RootProviderAngleSliderExample />
+  <AngleSliderDocs.RootProviderAngleSliderExample />
 
   <Preview.Code>
-    {`
-      import { useAngleSlider } from "@ark-ui/react/angle-slider";
-      import { AngleSlider } from "@moduix/react";
-
-      export function RootProviderAngleSliderDemo() {
-        const angleSlider = useAngleSlider({
-          defaultValue: initialValue,
-          "aria-label": "Rotation",
-        });
-
-        return (
-          <div className="docs-angle-slider-provider-layout">
-            <AngleSlider.RootProvider
-              value={angleSlider}
-              className="docs-angle-slider-provider"
-            >
-              <AngleSlider.Label>Rotation</AngleSlider.Label>
-              <AngleSlider.Control>
-                <AngleSlider.MarkerGroup>
-                  {markerValues.map((value) => (
-                    <AngleSlider.Marker key={value} value={value} />
-                  ))}
-                </AngleSlider.MarkerGroup>
-                <AngleSlider.Thumb />
-              </AngleSlider.Control>
-              <AngleSlider.ValueText />
-              <AngleSlider.HiddenInput />
-            </AngleSlider.RootProvider>
-            <button
-              type="button"
-              className="docs-angle-slider-provider-button"
-              onClick={() => angleSlider.setValue(targetValue)}
-            >
-              Set to 90°
-            </button>
-          </div>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/angle-slider/root-provider.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{angleSliderRootProviderCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const initialValue = 45;
-      const targetValue = 90;
-      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AngleSliderDocs.angleSliderRootProviderCss}</Preview.CSS>
 </Preview>
 
 ### Read Only
@@ -404,47 +158,12 @@ to the same state machine.
 Use `readOnly` when the current value should remain focusable and visible without allowing edits.
 
 <Preview>
-  <ReadOnlyAngleSliderExample />
+  <AngleSliderDocs.ReadOnlyAngleSliderExample />
 
   <Preview.Code>
-    {`
-      import { AngleSlider } from "@moduix/react";
-
-      export function ReadOnlyAngleSliderDemo() {
-        return (
-          <AngleSlider
-            defaultValue={initialValue}
-            readOnly
-            aria-label="Locked angle"
-            className="docs-angle-slider-readonly"
-          >
-            <AngleSlider.Label>Locked angle</AngleSlider.Label>
-            <AngleSlider.Control>
-              <AngleSlider.MarkerGroup>
-                {markerValues.map((value) => (
-                  <AngleSlider.Marker key={value} value={value} />
-                ))}
-              </AngleSlider.MarkerGroup>
-              <AngleSlider.Thumb />
-            </AngleSlider.Control>
-            <AngleSlider.ValueText />
-            <AngleSlider.HiddenInput />
-          </AngleSlider>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/angle-slider/read-only.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{angleSliderReadOnlyCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const initialValue = 300;
-      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AngleSliderDocs.angleSliderReadOnlyCss}</Preview.CSS>
 </Preview>
 
 ### Custom Styling
@@ -453,46 +172,12 @@ Override public CSS variables to change the visual treatment without changing Ar
 state behavior.
 
 <Preview>
-  <CustomStylingAngleSliderExample />
+  <AngleSliderDocs.CustomStylingAngleSliderExample />
 
   <Preview.Code>
-    {`
-      import { AngleSlider } from "@moduix/react";
-
-      export function AngleSliderStylingDemo() {
-        return (
-          <AngleSlider
-            defaultValue={initialValue}
-            aria-label="Spotlight direction"
-            className="docs-angle-slider-spotlight"
-          >
-            <AngleSlider.Label>Spotlight</AngleSlider.Label>
-            <AngleSlider.Control>
-              <AngleSlider.MarkerGroup>
-                {markerValues.map((value) => (
-                  <AngleSlider.Marker key={value} value={value} />
-                ))}
-              </AngleSlider.MarkerGroup>
-              <AngleSlider.Thumb />
-            </AngleSlider.Control>
-            <AngleSlider.ValueText />
-            <AngleSlider.HiddenInput />
-          </AngleSlider>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/angle-slider/custom-styling.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{angleSliderCustomStylingCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const initialValue = 315;
-      const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AngleSliderDocs.angleSliderCustomStylingCss}</Preview.CSS>
 </Preview>
 
 ## Styling
@@ -503,13 +188,7 @@ variables below.
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <AngleSliderCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties} />
 
 ### Styling hooks
 

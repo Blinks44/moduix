@@ -4,23 +4,7 @@ description: Constrains media and embed content inside a responsive box with a f
 icon: Component
 ---
 
-import {
-  AspectRatioAsChildExample,
-  AspectRatioCardGridExample,
-  AspectRatioCssPropertiesPanel,
-  AspectRatioCustomRadiusExample,
-  AspectRatioCustomRatioExample,
-  AspectRatioEmbedExample,
-  AspectRatioExample,
-  AspectRatioPhotoExample,
-  AspectRatioPortraitExample,
-  AspectRatioSquareExample,
-  aspectRatioFrameCss,
-  aspectRatioGridCss,
-  aspectRatioImageCss,
-  aspectRatioNarrowImageCss,
-  aspectRatioRoundedCss,
-} from '@/components/examples/aspect-ratio';
+import * as AspectRatioDocs from '@/components/examples/aspect-ratio';
 
 ## API Reference
 
@@ -34,81 +18,17 @@ Ark UI does not ship a dedicated `aspect-ratio` primitive. Moduix builds this co
 Use `AspectRatio` with a numeric `ratio` for responsive images, videos, embeds, and canvas content.
 
 <Preview>
-  <AspectRatioExample />
+  <AspectRatioDocs.AspectRatioExample />
 
   <Preview.Code>
-    {`
-      import { AspectRatio } from "@moduix/react";
-
-      export function AspectRatioDemo() {
-        return (
-          <div className="aspect-ratio-demo">
-            <AspectRatio ratio={16 / 9}>
-              <img
-                src={image.src}
-                alt={image.alt}
-                className="aspect-ratio-demo__image"
-              />
-            </AspectRatio>
-          </div>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/aspect-ratio/basic.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{aspectRatioImageCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const image = {
-        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-        alt: "Mountain landscape",
-      };
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AspectRatioDocs.aspectRatioImageCss}</Preview.CSS>
 </Preview>
 
 ## Install with shadcn
 
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-aspect-ratio
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-aspect-ratio
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-aspect-ratio
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-aspect-ratio
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-aspect-ratio
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-aspect-ratio" />
 
 ## Anatomy
 
@@ -164,41 +84,12 @@ frame. Keep the clipping on the root itself.
 Use a square ratio for avatars, thumbnails, and other media that should remain visually balanced across layouts.
 
 <Preview>
-  <AspectRatioSquareExample />
+  <AspectRatioDocs.AspectRatioSquareExample />
 
   <Preview.Code>
-    {`
-      import { AspectRatio } from "@moduix/react";
-
-      export function SquareAspectRatioDemo() {
-        return (
-          <div className="aspect-ratio-demo">
-            <AspectRatio ratio={ratio}>
-              <img
-                src={media.src}
-                alt={media.alt}
-                className="aspect-ratio-demo__image"
-              />
-            </AspectRatio>
-          </div>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/aspect-ratio/square.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{aspectRatioImageCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const ratio = 1;
-      const media = {
-        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-        alt: "Mountain landscape",
-      };
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AspectRatioDocs.aspectRatioImageCss}</Preview.CSS>
 </Preview>
 
 ### Portrait
@@ -206,41 +97,12 @@ Use a square ratio for avatars, thumbnails, and other media that should remain v
 Choose a portrait ratio when the frame should favor tall media such as profile photography or editorial art.
 
 <Preview>
-  <AspectRatioPortraitExample />
+  <AspectRatioDocs.AspectRatioPortraitExample />
 
   <Preview.Code>
-    {`
-      import { AspectRatio } from "@moduix/react";
-
-      export function PortraitAspectRatioDemo() {
-        return (
-          <div className="aspect-ratio-demo aspect-ratio-demo--narrow">
-            <AspectRatio ratio={ratio}>
-              <img
-                src={media.src}
-                alt={media.alt}
-                className="aspect-ratio-demo__image"
-              />
-            </AspectRatio>
-          </div>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/aspect-ratio/portrait.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{aspectRatioNarrowImageCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const ratio = 9 / 16;
-      const media = {
-        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-        alt: "Mountain landscape",
-      };
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AspectRatioDocs.aspectRatioNarrowImageCss}</Preview.CSS>
 </Preview>
 
 ### Photo
@@ -248,41 +110,12 @@ Choose a portrait ratio when the frame should favor tall media such as profile p
 Use a photo-friendly ratio such as `4 / 3` when landscape imagery needs a familiar editorial crop.
 
 <Preview>
-  <AspectRatioPhotoExample />
+  <AspectRatioDocs.AspectRatioPhotoExample />
 
   <Preview.Code>
-    {`
-      import { AspectRatio } from "@moduix/react";
-
-      export function PhotoAspectRatioDemo() {
-        return (
-          <div className="aspect-ratio-demo">
-            <AspectRatio ratio={ratio}>
-              <img
-                src={media.src}
-                alt={media.alt}
-                className="aspect-ratio-demo__image"
-              />
-            </AspectRatio>
-          </div>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/aspect-ratio/photo.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{aspectRatioImageCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const ratio = 4 / 3;
-      const media = {
-        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-        alt: "Mountain landscape",
-      };
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AspectRatioDocs.aspectRatioImageCss}</Preview.CSS>
 </Preview>
 
 ### Card Grid
@@ -290,60 +123,12 @@ Use a photo-friendly ratio such as `4 / 3` when landscape imagery needs a famili
 Keep repeated cards visually aligned by wrapping their media in the same aspect ratio even when the source assets differ.
 
 <Preview>
-  <AspectRatioCardGridExample />
+  <AspectRatioDocs.AspectRatioCardGridExample />
 
   <Preview.Code>
-    {`
-      import { AspectRatio, Card } from "@moduix/react";
-
-      export function AspectRatioCardGridDemo() {
-        return (
-          <div className="aspect-ratio-grid">
-            {stories.map((story) => (
-              <Card key={story.title} className="aspect-ratio-grid__card">
-                <AspectRatio ratio={16 / 9} className="aspect-ratio-grid__media">
-                  <img
-                    src={story.src}
-                    alt={story.alt}
-                    className="aspect-ratio-grid__image"
-                  />
-                </AspectRatio>
-                <div className="aspect-ratio-grid__body">
-                  <h3 className="aspect-ratio-grid__title">{story.title}</h3>
-                  <p className="aspect-ratio-grid__description">
-                    {story.description}
-                  </p>
-                </div>
-              </Card>
-            ))}
-          </div>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/aspect-ratio/card-grid.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{aspectRatioGridCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const stories = [
-        {
-          src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&h=720&q=80",
-          alt: "Evening city skyline",
-          title: "City center opens a redesigned pedestrian corridor",
-          description: "The landscape source stays aligned with the neighboring card.",
-        },
-        {
-          src: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=720&h=1200&q=80",
-          alt: "Reporter portrait on a street background",
-          title: "Editors uploaded a tall portrait photo for this story",
-          description: "AspectRatio and object-fit keep the media height stable.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AspectRatioDocs.aspectRatioGridCss}</Preview.CSS>
 </Preview>
 
 ### Custom Ratio
@@ -351,41 +136,12 @@ Keep repeated cards visually aligned by wrapping their media in the same aspect 
 Pass a custom numeric ratio when the design calls for a format outside the usual square, portrait, or widescreen values.
 
 <Preview>
-  <AspectRatioCustomRatioExample />
+  <AspectRatioDocs.AspectRatioCustomRatioExample />
 
   <Preview.Code>
-    {`
-      import { AspectRatio } from "@moduix/react";
-
-      export function CustomRatioAspectRatioDemo() {
-        return (
-          <div className="aspect-ratio-demo">
-            <AspectRatio ratio={ratio}>
-              <img
-                src={media.src}
-                alt={media.alt}
-                className="aspect-ratio-demo__image"
-              />
-            </AspectRatio>
-          </div>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/aspect-ratio/custom-ratio.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{aspectRatioImageCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const ratio = 2;
-      const media = {
-        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-        alt: "Mountain landscape",
-      };
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AspectRatioDocs.aspectRatioImageCss}</Preview.CSS>
 </Preview>
 
 ### Embedded Content
@@ -393,43 +149,12 @@ Pass a custom numeric ratio when the design calls for a format outside the usual
 Wrap video or other embeds in `AspectRatio` to keep the frame stable before the external content finishes loading.
 
 <Preview>
-  <AspectRatioEmbedExample />
+  <AspectRatioDocs.AspectRatioEmbedExample />
 
   <Preview.Code>
-    {`
-      import { AspectRatio } from "@moduix/react";
-
-      export function AspectRatioEmbedDemo() {
-        return (
-          <div className="aspect-ratio-demo">
-            <AspectRatio ratio={embed.ratio}>
-              <iframe
-                src={embed.src}
-                title={embed.title}
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-                className="aspect-ratio-demo__frame"
-              />
-            </AspectRatio>
-          </div>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/aspect-ratio/embedded-content.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{aspectRatioFrameCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const embed = {
-        ratio: 16 / 9,
-        src: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        title: "Video embed",
-      };
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AspectRatioDocs.aspectRatioFrameCss}</Preview.CSS>
 </Preview>
 
 ### Custom Composition
@@ -438,43 +163,12 @@ Use `asChild` when a semantic element such as `figure` should own the frame. Ark
 component props into the single child element.
 
 <Preview>
-  <AspectRatioAsChildExample />
+  <AspectRatioDocs.AspectRatioAsChildExample />
 
   <Preview.Code>
-    {`
-      import { AspectRatio } from "@moduix/react";
-
-      export function AspectRatioAsChildDemo() {
-        return (
-          <div className="aspect-ratio-demo">
-            <AspectRatio ratio={media.ratio} asChild>
-              <figure>
-                <img
-                  src={media.src}
-                  alt={media.alt}
-                  className="aspect-ratio-demo__image"
-                />
-              </figure>
-            </AspectRatio>
-          </div>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/aspect-ratio/custom-composition.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{aspectRatioImageCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const media = {
-        ratio: 16 / 9,
-        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-        alt: "Mountain landscape",
-      };
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AspectRatioDocs.aspectRatioImageCss}</Preview.CSS>
 </Preview>
 
 ### Custom Styling
@@ -482,54 +176,19 @@ component props into the single child element.
 Use `className` and `--aspect-ratio-radius` when the frame needs local radius changes without affecting the child content.
 
 <Preview>
-  <AspectRatioCustomRadiusExample />
+  <AspectRatioDocs.AspectRatioCustomRadiusExample />
 
   <Preview.Code>
-    {`
-      import { AspectRatio } from "@moduix/react";
-
-      export function CustomRadiusAspectRatioDemo() {
-        return (
-          <div className="aspect-ratio-demo">
-            <AspectRatio ratio={media.ratio} className="aspect-ratio-demo__rounded">
-              <img
-                src={media.src}
-                alt={media.alt}
-                className="aspect-ratio-demo__image"
-              />
-            </AspectRatio>
-          </div>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/aspect-ratio/custom-styling.tsx#demo</include>
   </Preview.Code>
-
-<Preview.CSS>{aspectRatioRoundedCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const media = {
-        ratio: 16 / 9,
-        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-        alt: "Mountain landscape",
-      };
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{AspectRatioDocs.aspectRatioRoundedCss}</Preview.CSS>
 </Preview>
 
 ## Styling
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <AspectRatioCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={AspectRatioDocs.aspectRatioCssProperties} />
 
 ### Styling hooks
 

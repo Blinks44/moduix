@@ -8,7 +8,7 @@ const gridLandscapeImageUrl =
 const gridPortraitImageUrl =
   'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=720&h=1200&q=80';
 
-const aspectRatioCssProperties = [
+export const aspectRatioCssProperties = [
   {
     name: '--aspect-ratio-radius' as const,
     defaultValue: 'var(--radius-md)',

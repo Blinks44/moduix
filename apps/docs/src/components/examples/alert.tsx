@@ -97,7 +97,7 @@ export const alertHeadingData = `const alert = {
   description: 'Use asChild when the surrounding page needs a different heading level.',
 };`;
 
-const alertCssProperties: CssPropertyInput[] = [
+export const alertCssProperties: CssPropertyInput[] = [
   ['--alert-bg', 'var(--alert-bg-default, var(--color-card))', 'Controls alert background.'],
   [
     '--alert-border-color',

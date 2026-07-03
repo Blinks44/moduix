@@ -185,7 +185,7 @@ export const angleSliderOverrideCssProperties: CssPropertyInput[] = [
   ],
 ];
 
-const angleSliderCssProperties = angleSliderOverrideCssProperties.map(normalizeCssProperty);
+export const angleSliderCssProperties = angleSliderOverrideCssProperties.map(normalizeCssProperty);
 
 function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property)) {

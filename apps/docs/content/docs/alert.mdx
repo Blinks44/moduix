@@ -4,24 +4,7 @@ description: Inline feedback for status, validation, and system messages.
 icon: Component
 ---
 
-import {
-  AlertActionsExample,
-  AlertCssPropertiesPanel,
-  AlertErrorExample,
-  AlertExample,
-  AlertHeadingExample,
-  AlertStatusesExample,
-  AlertWithIconExample,
-  alertActionsData,
-  alertBasicData,
-  alertCustomCompositionCss,
-  alertErrorData,
-  alertExampleCss,
-  alertHeadingData,
-  alertIconData,
-  alertStatusesCss,
-  alertStatusesData,
-} from '@/components/examples/alert';
+import * as AlertDocs from '@/components/examples/alert';
 
 ## API Reference
 
@@ -47,71 +30,17 @@ Start with `Alert.Root`, `Alert.Content`, `Alert.Title`, and `Alert.Description`
 `Alert.Indicator` only when the message benefits from a leading visual cue.
 
 <Preview>
-  <AlertExample />
+  <AlertDocs.AlertExample />
 
   <Preview.Code>
-    {`
-      import { Alert } from "@moduix/react";
-
-      export function AlertDemo() {
-        return (
-          <Alert className="alert-demo">
-            <Alert.Content>
-              <Alert.Title>{alert.title}</Alert.Title>
-              <Alert.Description>{alert.description}</Alert.Description>
-            </Alert.Content>
-          </Alert>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/alert/basic.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{alertExampleCss}</Preview.CSS>
-  <Preview.Data>{alertBasicData}</Preview.Data>
+  <Preview.CSS>{AlertDocs.alertExampleCss}</Preview.CSS>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Alert` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-alert
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-alert
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-alert
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-alert
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-alert
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-alert" />
 
 This install path also pulls in the shared moduix foundation files that `Alert` depends on, such
 as styles, icons, and small utilities.
@@ -182,31 +111,12 @@ Use `Alert.Title asChild` when the document outline needs a different heading el
 Place a moduix icon or custom SVG inside `Alert.Indicator`.
 
 <Preview>
-  <AlertWithIconExample />
+  <AlertDocs.AlertWithIconExample />
 
   <Preview.Code>
-    {`
-      import { Alert } from "@moduix/react";
-import { Info as InfoIcon } from "lucide-react";
-
-      export function AlertWithIconDemo() {
-        return (
-          <Alert status="info" className="alert-demo">
-            <Alert.Indicator>
-              <InfoIcon />
-            </Alert.Indicator>
-            <Alert.Content>
-              <Alert.Title>{alert.title}</Alert.Title>
-              <Alert.Description>{alert.description}</Alert.Description>
-            </Alert.Content>
-          </Alert>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/alert/with-icon.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{alertExampleCss}</Preview.CSS>
-  <Preview.Data>{alertIconData}</Preview.Data>
+  <Preview.CSS>{AlertDocs.alertExampleCss}</Preview.CSS>
 </Preview>
 
 ### Statuses
@@ -214,35 +124,12 @@ import { Info as InfoIcon } from "lucide-react";
 Use statuses for neutral, informational, success, warning, and error states.
 
 <Preview>
-  <AlertStatusesExample />
+  <AlertDocs.AlertStatusesExample />
 
   <Preview.Code>
-    {`
-      import { Alert, CheckIcon } from "@moduix/react";
-import { Info as InfoIcon } from "lucide-react";
-
-      export function AlertStatusesDemo() {
-        return (
-          <div className="alert-stack">
-            {statuses.map((status) => (
-              <Alert key={status} status={status}>
-                <Alert.Indicator>
-                  {status === "success" ? <CheckIcon /> : <InfoIcon />}
-                </Alert.Indicator>
-                <Alert.Content>
-                  <Alert.Title>{status}</Alert.Title>
-                  <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
-                </Alert.Content>
-              </Alert>
-            ))}
-          </div>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/alert/statuses.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{alertStatusesCss}</Preview.CSS>
-  <Preview.Data>{alertStatusesData}</Preview.Data>
+  <Preview.CSS>{AlertDocs.alertStatusesCss}</Preview.CSS>
 </Preview>
 
 ### Error
@@ -251,31 +138,12 @@ Use `status="error"` when the message needs assertive announcement semantics and
 emphasis.
 
 <Preview>
-  <AlertErrorExample />
+  <AlertDocs.AlertErrorExample />
 
   <Preview.Code>
-    {`
-      import { Alert } from "@moduix/react";
-import { Info as InfoIcon } from "lucide-react";
-
-      export function AlertErrorDemo() {
-        return (
-          <Alert status="error" className="alert-demo">
-            <Alert.Indicator>
-              <InfoIcon />
-            </Alert.Indicator>
-            <Alert.Content>
-              <Alert.Title>{alert.title}</Alert.Title>
-              <Alert.Description>{alert.description}</Alert.Description>
-            </Alert.Content>
-          </Alert>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/alert/error.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{alertExampleCss}</Preview.CSS>
-  <Preview.Data>{alertErrorData}</Preview.Data>
+  <Preview.CSS>{AlertDocs.alertExampleCss}</Preview.CSS>
 </Preview>
 
 ### Custom Composition
@@ -284,42 +152,12 @@ Compose extra controls inside `Alert.Content` when the message needs a recovery 
 action. Keep dismiss state in the consuming component when a local alert should be hidden.
 
 <Preview>
-  <AlertActionsExample />
+  <AlertDocs.AlertActionsExample />
 
   <Preview.Code>
-    {`
-      import { Alert, Button } from "@moduix/react";
-import { Info as InfoIcon } from "lucide-react";
-      import { useState } from "react";
-
-      export function AlertActionsDemo() {
-        const [visible, setVisible] = useState(true);
-
-        if (!visible) return null;
-
-        return (
-          <Alert status="warning" className="alert-custom">
-            <Alert.Indicator>
-              <InfoIcon />
-            </Alert.Indicator>
-            <Alert.Content>
-              <Alert.Title>{alert.title}</Alert.Title>
-              <Alert.Description>{alert.description}</Alert.Description>
-              <div className="alert-actions">
-                <Button size="sm">{alert.primaryAction}</Button>
-                <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
-                  {alert.secondaryAction}
-                </Button>
-              </div>
-            </Alert.Content>
-          </Alert>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/alert/custom-composition.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{alertCustomCompositionCss}</Preview.CSS>
-  <Preview.Data>{alertActionsData}</Preview.Data>
+  <Preview.CSS>{AlertDocs.alertCustomCompositionCss}</Preview.CSS>
 </Preview>
 
 ### Custom Heading
@@ -327,29 +165,12 @@ import { Info as InfoIcon } from "lucide-react";
 Use `asChild` on `Alert.Title` when the alert should participate in a specific document outline.
 
 <Preview>
-  <AlertHeadingExample />
+  <AlertDocs.AlertHeadingExample />
 
   <Preview.Code>
-    {`
-      import { Alert } from "@moduix/react";
-
-      export function AlertHeadingDemo() {
-        return (
-          <Alert status="info" className="alert-demo">
-            <Alert.Content>
-              <Alert.Title asChild>
-                <h2>{alert.title}</h2>
-              </Alert.Title>
-              <Alert.Description>{alert.description}</Alert.Description>
-            </Alert.Content>
-          </Alert>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/alert/custom-heading.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{alertExampleCss}</Preview.CSS>
-  <Preview.Data>{alertHeadingData}</Preview.Data>
+  <Preview.CSS>{AlertDocs.alertExampleCss}</Preview.CSS>
 </Preview>
 
 ## Styling
@@ -368,13 +189,7 @@ Built-in statuses also read shared palette tokens:
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <AlertCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={AlertDocs.alertCssProperties} />
 
 ### Styling hooks
 
