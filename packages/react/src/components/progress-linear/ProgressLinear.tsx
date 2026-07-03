@@ -1,9 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  Progress as ProgressPrimitive,
-  useProgress,
-  useProgressContext,
-} from '@ark-ui/react/progress';
+import { Progress as ProgressPrimitive } from '@ark-ui/react/progress';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -107,8 +103,6 @@ const ProgressLinearView = forwardRef<
   );
 });
 
-const ProgressLinearContext = ProgressPrimitive.Context;
-
 const ProgressLinear = Object.assign(ProgressLinearRoot, {
   Root: ProgressLinearRoot,
   RootProvider: ProgressLinearRootProvider,
@@ -117,16 +111,6 @@ const ProgressLinear = Object.assign(ProgressLinearRoot, {
   Track: ProgressLinearTrack,
   Range: ProgressLinearRange,
   View: ProgressLinearView,
-  Context: ProgressLinearContext,
 });
 
-const useProgressLinear = useProgress;
-const useProgressLinearContext = useProgressContext;
-
-export { ProgressLinear, useProgressLinear, useProgressLinearContext };
-export type {
-  ProgressValueChangeDetails as ProgressLinearValueChangeDetails,
-  ProgressValueTranslationDetails as ProgressLinearValueTranslationDetails,
-  UseProgressProps as UseProgressLinearProps,
-  UseProgressReturn as UseProgressLinearReturn,
-} from '@ark-ui/react/progress';
+export { ProgressLinear };

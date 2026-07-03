@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useProgress } from '@ark-ui/react/progress';
 import { useState } from 'react';
 import { Slider } from '../slider';
-import { ProgressCircular, useProgressCircular } from './ProgressCircular';
+import { ProgressCircular } from './ProgressCircular';
 import styles from './ProgressCircular.stories.module.css';
 
 const meta = {
@@ -131,7 +132,7 @@ export const ValueText: Story = {
 
 export const RootProvider: Story = {
   render: () => {
-    const progress = useProgressCircular({ defaultValue: 58 });
+    const progress = useProgress({ defaultValue: 58 });
 
     return (
       <ProgressCircular.RootProvider value={progress}>

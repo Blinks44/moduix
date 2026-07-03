@@ -12,8 +12,7 @@ Upstream docs:
 ## Upstream model to preserve
 
 The wrapper follows Ark UI's linear `@ark-ui/react/progress` anatomy: `Root`, optional `Label`,
-optional `ValueText`, `Track`, `Range`, `View`, `Context`, `RootProvider`, `useProgress`, and
-`useProgressContext`.
+optional `ValueText`, `Track`, `Range`, `View`, and `RootProvider`.
 
 Preserve Ark root props, controlled and uncontrolled value behavior, `onValueChange(details)`,
 `translations.value(details)`, `ids`, `asChild`, orientation, state strings, ARIA generated on
@@ -28,8 +27,9 @@ text, track, or range. Consumers compose the Ark-shaped part tree explicitly.
 `defaultValue={null}` or `value={null}` renders indeterminate progress. `min`, `max`,
 `formatOptions`, `locale`, `translations`, `ids`, and `orientation` pass through to Ark.
 
-`ProgressLinear.RootProvider`, `ProgressLinear.Context`, `useProgressLinear()`, and
-`useProgressLinearContext()` are direct Ark state surfaces renamed for the linear wrapper.
+`ProgressLinear.RootProvider` is preserved for externally owned Ark progress state. Import
+`useProgress()` and related advanced state APIs directly from `@ark-ui/react/progress` when you
+need them.
 
 ## Anatomy and exported parts
 
@@ -42,13 +42,13 @@ ProgressLinear / ProgressLinear.Root
 └─ ProgressLinear.View
 
 ProgressLinear.RootProvider
-└─ same part tree connected to useProgressLinear()
+└─ same part tree connected to useProgress() from @ark-ui/react/progress
 ```
 
 - `ProgressLinear` / `ProgressLinear.Root`: `data-slot="progress-linear-root"`; owns Ark state,
   ids, formatting, `data-value`, `data-max`, `data-state`, and `data-orientation`.
 - `ProgressLinear.RootProvider`: `data-slot="progress-linear-root-provider"`; connects parts to
-  an external `useProgressLinear()` store.
+  an external `useProgress()` store.
 - `ProgressLinear.Label`: `data-slot="progress-linear-label"`; visible label.
 - `ProgressLinear.ValueText`: `data-slot="progress-linear-value-text"`; formatted value text with
   Ark live-region behavior.
@@ -58,7 +58,6 @@ ProgressLinear.RootProvider
   width or height and `data-state`.
 - `ProgressLinear.View`: `data-slot="progress-linear-view"`; conditional content for Ark progress
   states.
-- `ProgressLinear.Context`: render-prop access to the Ark progress API.
 
 ## Composition
 
@@ -85,7 +84,7 @@ default `12rem` height does not fit the layout.
 
 The wrapper exposes the linear Ark examples and guide topics: basic progress, `min`/`max`,
 indeterminate progress with `null`, custom `translations.value(details)`, vertical orientation,
-`RootProvider`, `Context`, `useProgressLinear()`, `useProgressLinearContext()`, and `View`.
+`RootProvider`, and `View`.
 
 Circular Ark parts (`Circle`, `CircleTrack`, and `CircleRange`) are intentionally not exported
 here. Use `ProgressCircular` for the SVG progress anatomy.
@@ -128,11 +127,16 @@ replaced by Ark parts, `formatOptions`, and `translations.value(details)`.
 ## Agent notes
 
 Do not add hidden structural wrappers for label, value text, track, or range. Do not remap Ark
-callback detail objects or replace `RootProvider` with a local state layer. When changing styling
-hooks or CSS variables, update docs examples, this file, `theme.css`, and the registry output.
+callback detail objects or replace `RootProvider` with a local state layer. Keep advanced Ark
+state APIs out of the moduix surface; consumers can import them from Ark directly when needed.
+When changing styling hooks or CSS variables, update docs examples, this file, `theme.css`, and
+the registry output.
 
 ## Local changelog
 
+- 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider`, removed
+  moduix re-exports of Ark hooks, context, and duplicate types, and updated docs to point advanced
+  state usage to direct Ark imports.
 - 2026-06-26: Audited the Ark migration, aligned local docs to the required structure, added
   documented vertical orientation styling, and removed stale story CSS.
 - Added `ProgressLinear` as an Ark UI linear progress wrapper with RootProvider, Context, hook

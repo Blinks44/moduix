@@ -1,4 +1,5 @@
-import { ProgressLinear, Slider, useProgressLinear } from '@moduix/react';
+import { useProgress } from '@ark-ui/react/progress';
+import { ProgressLinear, Slider } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -59,8 +60,6 @@ const orientation = 'vertical';
 export const progressLinearValueTextData = `const fallbackText = 'Loading...';`;
 
 export const progressLinearRootProviderData = `const defaultValue = 58;`;
-
-export const progressLinearContextData = `const defaultValue = 64;`;
 
 export const progressLinearStateViewsData = `const defaultValue = null;`;
 
@@ -246,27 +245,13 @@ export function ValueTextProgressLinearExample() {
 }
 
 export function RootProviderProgressLinearExample() {
-  const progress = useProgressLinear({ defaultValue: 58 });
+  const progress = useProgress({ defaultValue: 58 });
 
   return (
     <ProgressLinear.RootProvider value={progress}>
       <ProgressLinear.Label>Team rollout</ProgressLinear.Label>
       <ProgressLinearParts />
     </ProgressLinear.RootProvider>
-  );
-}
-
-export function ContextProgressLinearExample() {
-  return (
-    <ProgressLinear defaultValue={64}>
-      <ProgressLinear.Label>Migration</ProgressLinear.Label>
-      <ProgressLinearParts />
-      <ProgressLinear.Context>
-        {(progress) => (
-          <span className="progress-linear-context">Current percent: {progress.percent}%</span>
-        )}
-      </ProgressLinear.Context>
-    </ProgressLinear>
   );
 }
 

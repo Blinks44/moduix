@@ -27,9 +27,8 @@ render path that hides `Frame` or `Pattern`.
   `boostEcc`.
 - `id`, `pixelSize`, and `ids` are forwarded to Ark.
 - `QrCode.DownloadTrigger` requires `fileName` and `mimeType`; it preserves Ark's `quality` option.
-- `useQrCode`, `useQrCodeContext`, `QrCode.Context`, and `QrCode.RootProvider` are exported for
-  provider-driven and render-prop usage. The context API exposes `value`, `setValue`, and
-  `getDataUrl(type, quality?)`.
+- `QrCode.RootProvider` is preserved for externally owned Ark QR state. Import `useQrCode()` and
+  related advanced state APIs directly from `@ark-ui/react/qr-code` when you need them.
 
 ## Anatomy and exported parts
 
@@ -41,7 +40,7 @@ QrCode / QrCode.Root
 └─ QrCode.DownloadTrigger
 
 QrCode.RootProvider
-└─ same part tree connected to useQrCode()
+└─ same part tree connected to useQrCode() from @ark-ui/react/qr-code
 ```
 
 | Export                   | `data-slot`                | Notes                                      |
@@ -52,7 +51,6 @@ QrCode.RootProvider
 | `QrCode.Pattern`         | `qr-code-pattern`          | SVG path for QR modules.                   |
 | `QrCode.Overlay`         | `qr-code-overlay`          | Centered overlay content.                  |
 | `QrCode.DownloadTrigger` | `qr-code-download-trigger` | Button that downloads the current image.   |
-| `QrCode.Context`         | -                          | Render-prop access to the current API.     |
 
 No flat part aliases such as `QrCodeRoot` or `QrCodeFrame` are exported.
 
@@ -93,11 +91,9 @@ Use `QrCode.Overlay` with high error correction when central content covers part
 - Fill customization: supported through `className`, SVG `style`, and `--qr-code-fill`.
 - Overlay: supported through `Overlay`; consumers should use stronger error correction when the
   overlay is large.
-- Root provider: supported through `useQrCode()` and `QrCode.RootProvider`.
+- Root provider: supported through `useQrCode()` from Ark and `QrCode.RootProvider`.
 - `asChild`: preserved on every Ark part.
 - `id` and `ids`: preserved for stable machine, root, and frame ids.
-- `QrCode.Context` and `useQrCodeContext`: exported for state reads, value updates, and image data
-  URL generation inside the tree.
 
 ## Accessibility and state
 
@@ -153,12 +149,16 @@ Primary CSS variables:
 - Keep `Frame` and `Pattern` explicit in examples and docs.
 - When changing visual defaults, keep `--qr-code-*` tokens, docs examples, and registry output in
   sync.
-- If Ark adds new parts, hooks, or public QR types, mirror them through `QrCode.tsx` and `index.ts`.
+- Keep advanced Ark state APIs out of the moduix surface; consumers can import them from Ark
+  directly when needed.
 
 ## Local changelog
 
+- 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider`, removed
+  moduix re-exports of Ark hooks, context, and duplicate types, and updated docs to point advanced
+  state usage to direct Ark imports.
 - 2026-06-27: Audited Ark UI parity after migration, documented `id`, `boostEcc`, ref targets, and
-  the `Context` data URL API, and aligned public docs with the exported Ark surface.
+  aligned public docs with the exported Ark surface.
 - 2026-06-22: Added `QrCode` as an Ark UI-backed component with root shortcut,
   provider/context support, frame/pattern/overlay/download parts, CSS Modules, stories, local docs,
   public exports, docs examples, and registry metadata.

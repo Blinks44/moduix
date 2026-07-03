@@ -1,4 +1,5 @@
-import { ProgressCircular, Slider, useProgressCircular } from '@moduix/react';
+import { useProgress } from '@ark-ui/react/progress';
+import { ProgressCircular, Slider } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -74,8 +75,6 @@ const max = 800;
 export const progressCircularIndeterminateData = `const defaultValue = null;`;
 
 export const progressCircularRootProviderData = `const defaultValue = 58;`;
-
-export const progressCircularContextData = `const defaultValue = 64;`;
 
 export const progressCircularCustomStylingData = `const defaultValue = 72;`;
 
@@ -246,27 +245,13 @@ export function ValueTextProgressCircularExample() {
 }
 
 export function RootProviderProgressCircularExample() {
-  const progress = useProgressCircular({ defaultValue: 58 });
+  const progress = useProgress({ defaultValue: 58 });
 
   return (
     <ProgressCircular.RootProvider value={progress}>
       <ProgressCircular.Label>Team rollout</ProgressCircular.Label>
       <ProgressCircularParts />
     </ProgressCircular.RootProvider>
-  );
-}
-
-export function ContextProgressCircularExample() {
-  return (
-    <ProgressCircular defaultValue={64}>
-      <ProgressCircular.Label>Migration</ProgressCircular.Label>
-      <ProgressCircularParts />
-      <ProgressCircular.Context>
-        {(progress) => (
-          <span className="progress-circular-context">Current percent: {progress.percent}%</span>
-        )}
-      </ProgressCircular.Context>
-    </ProgressCircular>
   );
 }
 

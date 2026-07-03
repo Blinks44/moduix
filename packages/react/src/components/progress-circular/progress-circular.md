@@ -13,8 +13,7 @@ surfaces.
 ## Upstream model to preserve
 
 The wrapper follows Ark UI's circular `@ark-ui/react/progress` anatomy: `Root`, optional `Label`,
-`Circle`, `CircleTrack`, `CircleRange`, optional `ValueText`, `View`, `Context`, `RootProvider`,
-`useProgress`, and `useProgressContext`.
+`Circle`, `CircleTrack`, `CircleRange`, optional `ValueText`, `View`, and `RootProvider`.
 
 Preserve Ark root props, controlled and uncontrolled value behavior, `onValueChange(details)`,
 `translations.value(details)`, `ids`, `asChild`, state strings, ARIA generated on `Circle`, and SVG
@@ -29,8 +28,9 @@ circle, track, range, or value text. Consumers compose the Ark-shaped part tree 
 `defaultValue={null}` or `value={null}` renders indeterminate progress. `min`, `max`,
 `formatOptions`, `locale`, `translations`, `ids`, and `orientation` pass through to Ark.
 
-`ProgressCircular.RootProvider`, `ProgressCircular.Context`, `useProgressCircular()`, and
-`useProgressCircularContext()` are direct Ark state surfaces renamed for the circular wrapper.
+`ProgressCircular.RootProvider` is preserved for externally owned Ark progress state. Import
+`useProgress()` and related advanced state APIs directly from `@ark-ui/react/progress` when you
+need them.
 
 ## Anatomy and exported parts
 
@@ -44,13 +44,13 @@ ProgressCircular / ProgressCircular.Root
 └─ ProgressCircular.View
 
 ProgressCircular.RootProvider
-└─ same part tree connected to useProgressCircular()
+└─ same part tree connected to useProgress() from @ark-ui/react/progress
 ```
 
 - `ProgressCircular` / `ProgressCircular.Root`: `data-slot="progress-circular-root"`; owns Ark
   state, ids, formatting, `data-value`, `data-max`, `data-state`, and `data-orientation`.
 - `ProgressCircular.RootProvider`: `data-slot="progress-circular-root-provider"`; connects parts
-  to an external `useProgressCircular()` store.
+  to an external `useProgress()` store.
 - `ProgressCircular.Label`: `data-slot="progress-circular-label"`; accessible label.
 - `ProgressCircular.Circle`: `data-slot="progress-circular-circle"`; SVG progressbar surface with
   role and ARIA value attributes from Ark.
@@ -61,7 +61,6 @@ ProgressCircular.RootProvider
   with Ark live-region behavior.
 - `ProgressCircular.View`: `data-slot="progress-circular-view"`; conditional content for Ark
   progress states.
-- `ProgressCircular.Context`: render-prop access to the Ark progress API.
 
 ## Composition
 
@@ -89,8 +88,7 @@ circle. That wrapper is demo layout, not a required library part.
 
 The wrapper exposes the circular Ark examples and guide topics: basic progress, `min`/`max`,
 indeterminate progress with `null`, labels, value text, custom `translations.value(details)`,
-`RootProvider`, `Context`, `useProgressCircular()`, `useProgressCircularContext()`, `View`, and
-circle styling through `--size` and `--thickness`.
+`RootProvider`, `View`, and circle styling through `--size` and `--thickness`.
 
 Linear Ark parts (`Track` and `Range`) are intentionally not exported here. Use `ProgressLinear`
 for the horizontal progress anatomy.
@@ -134,13 +132,17 @@ replaced by Ark parts, `formatOptions`, and `translations.value(details)`.
 
 Do not add hidden structural wrappers to center `ValueText`; keep that as consumer or docs layout.
 Do not remap Ark callback detail objects or replace `RootProvider` with a local state layer.
-When changing styling hooks or CSS variables, update docs examples, this file, `theme.css`, and the
-registry output.
+Keep advanced Ark state APIs out of the moduix surface; consumers can import them from Ark
+directly when needed. When changing styling hooks or CSS variables, update docs examples, this
+file, `theme.css`, and the registry output.
 
 ## Local changelog
 
+- 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider`, removed
+  moduix re-exports of Ark hooks, context, and duplicate types, and updated docs to point advanced
+  state usage to direct Ark imports.
 - 2026-06-26: Audited the Ark migration, aligned local docs to the required structure, documented
-  circular Ark state surfaces, and normalized the default circle thickness to `0.4rem`.
+  circular anatomy and styling hooks, and normalized the default circle thickness to `0.4rem`.
 - Added `ProgressCircular` as an Ark UI circular progress wrapper with RootProvider, Context, hook
   exports, and `--progress-circular-*` styling tokens.
 - Split progress into dedicated `ProgressLinear` and `ProgressCircular` public components.

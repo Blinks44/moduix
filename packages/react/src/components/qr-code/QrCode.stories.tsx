@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useQrCode } from '@ark-ui/react/qr-code';
 import { useState } from 'react';
-import { QrCode, useQrCode } from './QrCode';
+import { QrCode } from './QrCode';
 import styles from './QrCode.stories.module.css';
 
 const meta = {
@@ -115,34 +116,6 @@ export const RootProvider: Story = {
           <QrCodeGraphic />
         </QrCode.RootProvider>
         <output className={styles.hint}>{qrCode.value}</output>
-      </div>
-    );
-  },
-};
-
-export const Context: Story = {
-  render: () => {
-    const [status, setStatus] = useState('Ready to export');
-
-    return (
-      <div className={styles.stack}>
-        <QrCode.Root defaultValue="https://moduix.dev/docs/qr-code">
-          <QrCodeGraphic />
-          <QrCode.Context>
-            {(qrCode) => (
-              <button
-                className={styles.action}
-                onClick={async () => {
-                  const dataUrl = await qrCode.getDataUrl('image/png');
-                  setStatus(`${Math.round(dataUrl.length / 1000)} KB PNG data URL ready`);
-                }}
-              >
-                Create PNG data URL
-              </button>
-            )}
-          </QrCode.Context>
-        </QrCode.Root>
-        <output className={styles.hint}>{status}</output>
       </div>
     );
   },

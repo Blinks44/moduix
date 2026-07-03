@@ -1,4 +1,5 @@
-import { Button, QrCode, useQrCode } from '@moduix/react';
+import { useQrCode } from '@ark-ui/react/qr-code';
+import { Button, QrCode } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -331,35 +332,6 @@ export function RootProviderQrCodeExample() {
         </QrCode.Frame>
       </QrCode.RootProvider>
       <output className={styles.status}>{qrCode.value}</output>
-    </div>
-  );
-}
-
-export function ContextQrCodeExample() {
-  const [status, setStatus] = useState('Ready to export');
-
-  return (
-    <div className={styles.stack}>
-      <QrCode className={styles.root} defaultValue={qrValue}>
-        <QrCode.Frame>
-          <QrCode.Pattern />
-        </QrCode.Frame>
-        <QrCode.Context>
-          {(qrCode) => (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={async () => {
-                const dataUrl = await qrCode.getDataUrl('image/png');
-                setStatus(`${Math.round(dataUrl.length / 1000)} KB PNG data URL ready`);
-              }}
-            >
-              Create PNG data URL
-            </Button>
-          )}
-        </QrCode.Context>
-      </QrCode>
-      <output className={styles.status}>{status}</output>
     </div>
   );
 }

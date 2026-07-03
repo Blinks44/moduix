@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { QrCode as QrCodePrimitive, useQrCode, useQrCodeContext } from '@ark-ui/react/qr-code';
+import { QrCode as QrCodePrimitive } from '@ark-ui/react/qr-code';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -89,8 +89,6 @@ const QrCodeDownloadTrigger = forwardRef<
   );
 });
 
-const QrCodeContext = QrCodePrimitive.Context;
-
 const QrCode = Object.assign(QrCodeRoot, {
   Root: QrCodeRoot,
   RootProvider: QrCodeRootProvider,
@@ -98,27 +96,6 @@ const QrCode = Object.assign(QrCodeRoot, {
   Pattern: QrCodePattern,
   Overlay: QrCodeOverlay,
   DownloadTrigger: QrCodeDownloadTrigger,
-  Context: QrCodeContext,
 });
 
-export { QrCode, useQrCode, useQrCodeContext };
-export type {
-  QrCodeContextProps,
-  QrCodeDownloadTriggerBaseProps,
-  QrCodeDownloadTriggerProps,
-  QrCodeFrameBaseProps,
-  QrCodeFrameProps,
-  QrCodeGenerateOptions,
-  QrCodeGenerateResult,
-  QrCodeOverlayBaseProps,
-  QrCodeOverlayProps,
-  QrCodePatternBaseProps,
-  QrCodePatternProps,
-  QrCodeRootBaseProps,
-  QrCodeRootProps,
-  QrCodeRootProviderBaseProps,
-  QrCodeRootProviderProps,
-  UseQrCodeContext,
-  UseQrCodeProps,
-  UseQrCodeReturn,
-} from '@ark-ui/react/qr-code';
+export { QrCode };

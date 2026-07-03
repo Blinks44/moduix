@@ -5,7 +5,6 @@ icon: Component
 ---
 
 import {
-  ContextProgressCircularExample,
   ControlledProgressCircularExample,
   CustomStylingProgressCircularExample,
   IndeterminateProgressCircularExample,
@@ -17,7 +16,6 @@ import {
   StateViewsProgressCircularExample,
   ValueTextProgressCircularExample,
   progressCircularBasicData,
-  progressCircularContextData,
   progressCircularControlledData,
   progressCircularCustomStylingData,
   progressCircularCustomStylingCss,
@@ -126,20 +124,19 @@ ProgressCircular.Root
 └─ ProgressCircular.ValueText
 
 ProgressCircular.RootProvider
-└─ same part tree connected to useProgressCircular()
+└─ same part tree connected to useProgress() from @ark-ui/react/progress
 ```
 
 | Part                                         | Role                                                            |
 | -------------------------------------------- | --------------------------------------------------------------- |
 | `ProgressCircular` / `ProgressCircular.Root` | Owns progress state, formatting, and ids.                       |
-| `ProgressCircular.RootProvider`              | Connects parts to state created with `useProgressCircular()`.   |
+| `ProgressCircular.RootProvider`              | Connects parts to state created with Ark `useProgress()`.       |
 | `ProgressCircular.Label`                     | Accessible label for the progressbar.                           |
 | `ProgressCircular.Circle`                    | SVG progressbar surface with ARIA value.                        |
 | `ProgressCircular.CircleTrack`               | Background circle.                                              |
 | `ProgressCircular.CircleRange`               | Foreground circle that reflects the current percent/state.      |
 | `ProgressCircular.ValueText`                 | Visible value text generated from Ark translations.             |
 | `ProgressCircular.View`                      | Conditional view for `indeterminate`, `loading`, or `complete`. |
-| `ProgressCircular.Context`                   | Render-prop access to the Ark progress API.                     |
 
 ## Composition
 
@@ -153,17 +150,16 @@ progress, and `defaultValue={null}` or `value={null}` for indeterminate progress
 
 ### When to go custom
 
-Use `ProgressCircular.RootProvider` with `useProgressCircular()` when progress state must be
-created outside the rendered subtree. Use `ProgressCircular.Context` or
-`useProgressCircularContext()` when nearby UI needs access to `value`, `valueAsString`, `percent`,
-`setValue()`, or `indeterminate`.
+Use `ProgressCircular.RootProvider` with `useProgress()` from `@ark-ui/react/progress` when
+progress state must be created outside the rendered subtree.
 
 Use `translations.value(details)` for custom visible and accessible value text. Wrap the circle and
 value text in your own layout element when the number should sit in the center.
 
 Use `ids` when the label, circle, or surrounding layout need stable explicit IDs across a more
 custom tree. Use `ProgressCircular.View` when supporting UI should switch with the Ark progress
-state instead of duplicating state checks outside the component.
+state instead of duplicating state checks outside the component. If you need Ark context APIs or
+hooks, import them directly from `@ark-ui/react/progress`.
 
 ### Default props
 
@@ -392,10 +388,11 @@ Create the Ark progress store outside the rendered tree when another component n
 
   <Preview.Code>
     {`
-      import { ProgressCircular, useProgressCircular } from "@moduix/react";
+      import { useProgress } from "@ark-ui/react/progress";
+      import { ProgressCircular } from "@moduix/react";
 
       export function RootProviderProgressCircularDemo() {
-        const progress = useProgressCircular({ defaultValue: 58 });
+        const progress = useProgress({ defaultValue: 58 });
 
         return (
           <ProgressCircular.RootProvider value={progress}>
@@ -416,46 +413,6 @@ Create the Ark progress store outside the rendered tree when another component n
 
   <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
   <Preview.Data>{progressCircularRootProviderData}</Preview.Data>
-</Preview>
-
-### Context
-
-Read Ark state inline with `ProgressCircular.Context` when surrounding UI needs live progress data.
-
-<Preview>
-  <ContextProgressCircularExample />
-
-  <Preview.Code>
-    {`
-      import { ProgressCircular } from "@moduix/react";
-
-      export function ContextProgressCircularDemo() {
-        return (
-          <ProgressCircular defaultValue={64}>
-            <ProgressCircular.Label>Migration</ProgressCircular.Label>
-            <div className="progress-circular-circle-container">
-              <ProgressCircular.Circle>
-                <ProgressCircular.CircleTrack />
-                <ProgressCircular.CircleRange />
-              </ProgressCircular.Circle>
-              <ProgressCircular.ValueText />
-            </div>
-            <ProgressCircular.Context>
-              {(progress) => (
-                <span className="progress-circular-context">
-                  Current percent: {progress.percent}%
-                </span>
-              )}
-            </ProgressCircular.Context>
-          </ProgressCircular>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularContextData}</Preview.Data>
 </Preview>
 
 ### State Views

@@ -5,7 +5,6 @@ icon: Component
 ---
 
 import {
-  ContextProgressLinearExample,
   ControlledProgressLinearExample,
   CustomStylingProgressLinearExample,
   IndeterminateProgressLinearExample,
@@ -17,7 +16,6 @@ import {
   ValueTextProgressLinearExample,
   VerticalProgressLinearExample,
   progressLinearBasicData,
-  progressLinearContextData,
   progressLinearControlledData,
   progressLinearCustomStylingData,
   progressLinearCustomStylingCss,
@@ -126,19 +124,18 @@ ProgressLinear.Root
    └─ ProgressLinear.Range
 
 ProgressLinear.RootProvider
-└─ same part tree connected to useProgressLinear()
+└─ same part tree connected to useProgress() from @ark-ui/react/progress
 ```
 
 | Part                                     | Role                                                            |
 | ---------------------------------------- | --------------------------------------------------------------- |
 | `ProgressLinear` / `ProgressLinear.Root` | Owns progress state, formatting, and ids.                       |
-| `ProgressLinear.RootProvider`            | Connects parts to state created with `useProgressLinear()`.     |
+| `ProgressLinear.RootProvider`            | Connects parts to state created with Ark `useProgress()`.       |
 | `ProgressLinear.Label`                   | Visible label for the progressbar.                              |
 | `ProgressLinear.ValueText`               | Visible value text generated from Ark translations.             |
 | `ProgressLinear.Track`                   | Linear rail with progressbar role and ARIA value attributes.    |
 | `ProgressLinear.Range`                   | Filled range that reflects the current percent.                 |
 | `ProgressLinear.View`                    | Conditional view for `indeterminate`, `loading`, or `complete`. |
-| `ProgressLinear.Context`                 | Render-prop access to the Ark progress API.                     |
 
 ## Composition
 
@@ -152,16 +149,16 @@ progress, and `defaultValue={null}` or `value={null}` for indeterminate progress
 
 ### When to go custom
 
-Use `ProgressLinear.RootProvider` with `useProgressLinear()` when progress state must be created
-outside the rendered subtree. Use `ProgressLinear.Context` or `useProgressLinearContext()` when
-nearby UI needs access to `value`, `valueAsString`, `percent`, `setValue()`, or `indeterminate`.
+Use `ProgressLinear.RootProvider` with `useProgress()` from `@ark-ui/react/progress` when
+progress state must be created outside the rendered subtree.
 
 Use `translations.value(details)` for custom visible and accessible value text. This replaces the
 old legacy `getAriaValueText` and child render function pattern.
 
 Use `ids` when the label, track, or surrounding layout need stable explicit IDs across a more
 custom tree. Use `ProgressLinear.View` when supporting UI should switch with the Ark progress state
-instead of duplicating state checks outside the component.
+instead of duplicating state checks outside the component. If you need Ark context APIs or hooks,
+import them directly from `@ark-ui/react/progress`.
 
 ### Default props
 
@@ -412,10 +409,11 @@ Create the Ark progress store outside the rendered tree when another component n
 
   <Preview.Code>
     {`
-      import { ProgressLinear, useProgressLinear } from "@moduix/react";
+      import { useProgress } from "@ark-ui/react/progress";
+      import { ProgressLinear } from "@moduix/react";
 
       export function RootProviderProgressLinearDemo() {
-        const progress = useProgressLinear({ defaultValue: 58 });
+        const progress = useProgress({ defaultValue: 58 });
 
         return (
           <ProgressLinear.RootProvider value={progress}>
@@ -433,43 +431,6 @@ Create the Ark progress store outside the rendered tree when another component n
 
   <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
   <Preview.Data>{progressLinearRootProviderData}</Preview.Data>
-</Preview>
-
-### Context
-
-Read Ark state inline with `ProgressLinear.Context` when surrounding UI needs live progress data.
-
-<Preview>
-  <ContextProgressLinearExample />
-
-  <Preview.Code>
-    {`
-      import { ProgressLinear } from "@moduix/react";
-
-      export function ContextProgressLinearDemo() {
-        return (
-          <ProgressLinear defaultValue={64}>
-            <ProgressLinear.Label>Migration</ProgressLinear.Label>
-            <ProgressLinear.ValueText />
-            <ProgressLinear.Track>
-              <ProgressLinear.Range />
-            </ProgressLinear.Track>
-            <ProgressLinear.Context>
-              {(progress) => (
-                <span className="progress-linear-context">
-                  Current percent: {progress.percent}%
-                </span>
-              )}
-            </ProgressLinear.Context>
-          </ProgressLinear>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearContextData}</Preview.Data>
 </Preview>
 
 ### State Views

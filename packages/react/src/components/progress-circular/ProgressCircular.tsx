@@ -1,9 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  Progress as ProgressPrimitive,
-  useProgress,
-  useProgressContext,
-} from '@ark-ui/react/progress';
+import { Progress as ProgressPrimitive } from '@ark-ui/react/progress';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -121,8 +117,6 @@ const ProgressCircularView = forwardRef<
   );
 });
 
-const ProgressCircularContext = ProgressPrimitive.Context;
-
 const ProgressCircular = Object.assign(ProgressCircularRoot, {
   Root: ProgressCircularRoot,
   RootProvider: ProgressCircularRootProvider,
@@ -132,16 +126,6 @@ const ProgressCircular = Object.assign(ProgressCircularRoot, {
   CircleTrack: ProgressCircularCircleTrack,
   CircleRange: ProgressCircularCircleRange,
   View: ProgressCircularView,
-  Context: ProgressCircularContext,
 });
 
-const useProgressCircular = useProgress;
-const useProgressCircularContext = useProgressContext;
-
-export { ProgressCircular, useProgressCircular, useProgressCircularContext };
-export type {
-  ProgressValueChangeDetails as ProgressCircularValueChangeDetails,
-  ProgressValueTranslationDetails as ProgressCircularValueTranslationDetails,
-  UseProgressProps as UseProgressCircularProps,
-  UseProgressReturn as UseProgressCircularReturn,
-} from '@ark-ui/react/progress';
+export { ProgressCircular };
