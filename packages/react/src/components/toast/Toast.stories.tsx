@@ -1,9 +1,10 @@
+import type { ToastOptions, ToastPlacement } from '@ark-ui/react/toast';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useRef, useState } from 'react';
 import { InfoIcon } from '@/icons/demo';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
-import { Toast, Toaster, createToaster, type ToastOptions, type ToastPlacement } from './Toast';
+import { Toast, Toaster, createToaster } from './Toast';
 import styles from './Toast.stories.module.css';
 
 const meta = {

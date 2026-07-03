@@ -31,12 +31,9 @@ the library `CloseButton` as the default close trigger surface.
 `Toaster` portals itself to `document.body` by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. No explicit `Portal` wrapper is required.
 
 - Public API is namespace-first: `Toast` is the short root form and also exposes `Toast.Root`,
-  `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger`, `Toast.CloseTrigger`, `Toast.Context`,
-  and `Toast.Toaster`.
-- `Toaster`, `createToaster`, and `useToastContext` are also exported as standalone names for
-  ergonomic imports.
-- Ark's `CreateToasterProps`, `CreateToasterReturn`, `ToasterProps`, toast option, placement,
-  status, action, promise, and context types are re-exported without local copies.
+  `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger`, `Toast.CloseTrigger`, and
+  `Toast.Toaster`.
+- `Toaster` and `createToaster` are also exported as standalone names for ergonomic imports.
 - `Toast.Title` renders `toast.title` from Ark context when `children` is omitted. Passing `null`
   intentionally renders no title content.
 - `Toast.Description` renders `toast.description` from Ark context when `children` is omitted.
@@ -52,7 +49,6 @@ createToaster()
 └─ Overlay subtree (automatically portalled)
    └─ Toast.Toaster / Toaster
       └─ Toast.Root / Toast
-         ├─ Toast.Context (optional)
          ├─ Toast.Title
          ├─ Toast.Description
          ├─ Toast.ActionTrigger
@@ -69,7 +65,6 @@ Every visual exported part accepts `className` and receives a stable `data-slot`
 | `Toast.Description`         | `toast-description`    | Defaults to the current toast description.                    |
 | `Toast.ActionTrigger`       | `toast-action-trigger` | Styled Ark action button for the current toast action.        |
 | `Toast.CloseTrigger`        | `toast-close-trigger`  | Defaults to `CloseButton.Root` and the `"Close toast"` label. |
-| `Toast.Context`             | none                   | Ark render-prop state access.                                 |
 
 ## Composition
 
@@ -123,7 +118,8 @@ export function ToastExample() {
   `bottom`, and `bottom-end`.
 - `Toast in Effects`: supported by deferring store calls with `queueMicrotask()`.
 - `Styling`: preserves Ark runtime layout variables, type selectors, and mobile group/root sizing.
-- `Context`: exposed through `Toast.Context` and `useToastContext()`.
+- Advanced Ark toast state remains available by importing `useToastContext()` directly from
+  `@ark-ui/react/toast`.
 
 ## Accessibility and state
 
@@ -190,6 +186,8 @@ viewport and roots use Ark's `--gap` variable for safe inline spacing.
 - `Toast.Toaster` is attached to the `Toast` namespace even though Ark exports `Toaster` as a
   standalone component.
 - `Toaster` owns portal transport directly and keeps toast anatomy independent from mounting.
+- moduix does not re-export Ark toast context helpers or toast type aliases; import those directly
+  from Ark when a custom child part or app-level typing needs them.
 - legacy compatibility exports and anchored toast helpers were removed as a breaking migration.
 
 ## Agent notes
@@ -204,6 +202,8 @@ viewport and roots use Ark's `--gap` variable for safe inline spacing.
 
 ## Local changelog
 
+- 2026-07-03: Removed public re-exports of Ark toast context helpers and type aliases so moduix
+  keeps the toaster wiring and visual parts public without mirroring Ark's advanced state API.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-29: Re-exported Ark toaster creation/prop types directly, allowed explicit `null`

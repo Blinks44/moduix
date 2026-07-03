@@ -1,4 +1,5 @@
-import { ToggleGroup, useToggleGroup } from '@moduix/react';
+import { useToggleGroup } from '@ark-ui/react/toggle-group';
+import { ToggleGroup } from '@moduix/react';
 import { AlignCenterIcon, AlignLeftIcon, AlignRightIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
@@ -207,26 +208,6 @@ export function ToggleGroupDisabledExample() {
         </ToggleGroup.Item>
       </ToggleGroup>
     </div>
-  );
-}
-
-export function ToggleGroupContextExample() {
-  return (
-    <ToggleGroup
-      defaultValue={['left']}
-      aria-label="Text alignment"
-      className={styles.contextGroup}
-    >
-      <ToggleGroup.Context>
-        {(context) =>
-          alignmentItems.map((item) => (
-            <ToggleGroup.Item key={item.value} value={item.value}>
-              {context.value.includes(item.value) ? `${item.label} selected` : item.label}
-            </ToggleGroup.Item>
-          ))
-        }
-      </ToggleGroup.Context>
-    </ToggleGroup>
   );
 }
 

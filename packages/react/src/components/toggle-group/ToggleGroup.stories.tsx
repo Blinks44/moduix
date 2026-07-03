@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useToggleGroup } from '@ark-ui/react/toggle-group';
 import { Fragment, useState } from 'react';
 import { BellIcon, StarIcon } from '@/icons/demo';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
-import { ToggleGroup, useToggleGroup } from './ToggleGroup';
+import { ToggleGroup } from './ToggleGroup';
 import storyStyles from './ToggleGroup.stories.module.css';
 
 const meta = {
@@ -206,27 +207,6 @@ export const RootProvider: Story = {
         <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
         <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
       </ToggleGroup.RootProvider>
-    );
-  },
-};
-
-export const Context: Story = {
-  render: () => {
-    return (
-      <ToggleGroup defaultValue={['left']} aria-label="Text alignment">
-        <ToggleGroup.Context>
-          {(context) => (
-            <>
-              <ToggleGroup.Item value="left">
-                {context.value.includes('left') ? 'Left selected' : 'Left'}
-              </ToggleGroup.Item>
-              <ToggleGroup.Item value="center">
-                {context.value.includes('center') ? 'Center selected' : 'Center'}
-              </ToggleGroup.Item>
-            </>
-          )}
-        </ToggleGroup.Context>
-      </ToggleGroup>
     );
   },
 };

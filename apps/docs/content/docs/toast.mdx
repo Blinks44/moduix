@@ -128,7 +128,6 @@ createToaster()
 └─ Overlay subtree (automatically portalled)
    └─ Toaster
       └─ Toast.Root
-         ├─ Toast.Context (optional render-prop access)
          ├─ Toast.Title
          ├─ Toast.Description
          ├─ Toast.ActionTrigger
@@ -143,7 +142,6 @@ createToaster()
 | `Toast.Description`         | Description part. Defaults to the current toast `description`.                       |
 | `Toast.ActionTrigger`       | Action button wired to `toast.action.onClick`. Pass `toast.action.label` as content. |
 | `Toast.CloseTrigger`        | Dismiss button. Renders `CloseButton.Root` by default.                               |
-| `Toast.Context`             | Reads Ark toast state through a render prop.                                         |
 
 ## Composition
 
@@ -167,11 +165,12 @@ Use the `Toaster` render prop when each toast needs custom layout, icons, or con
 Keep `Toast.Root` as the outer item so Ark can preserve stacking, height measurement, dismiss
 lifecycle, pausing, keyboard focus, and type/state attributes.
 
-Use `Toast.Context` or `useToastContext()` inside custom child parts when the rendered content needs
-access to `type`, `placement`, `visible`, `paused`, `dismiss()`, `pause()`, or `resume()`.
-
 All exported Ark parts support `asChild`; custom children must remain semantic and preserve button
 behavior for `ActionTrigger` and `CloseTrigger`.
+
+If a custom child part needs direct access to Ark toast state, import `useToastContext()` from
+`@ark-ui/react/toast`. moduix keeps the visual parts and toaster wiring public and leaves the
+advanced state hook to Ark.
 
 ### Default props
 
@@ -374,11 +373,11 @@ Choose one of Ark's six placements when the toast group needs to appear on a spe
 
   <Preview.Code>
     {`
-      import { Button, Toast, Toaster, createToaster, type ToastPlacement } from "@moduix/react";
+      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
       import { useState } from "react";
 
       export function App() {
-        const [placement, setPlacement] = useState("bottom-end" as ToastPlacement);
+        const [placement, setPlacement] = useState<(typeof placements)[number]>("bottom-end");
         const toaster = toasters[placement];
 
         return (

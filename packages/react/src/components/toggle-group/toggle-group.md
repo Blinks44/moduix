@@ -28,8 +28,6 @@ The wrapper follows Ark UI React `@ark-ui/react/toggle-group`.
 - `ToggleGroup.Root` wraps `ArkToggleGroup.Root`.
 - `ToggleGroup.RootProvider` wraps `ArkToggleGroup.RootProvider`.
 - `ToggleGroup.Item` wraps `ArkToggleGroup.Item`.
-- `ToggleGroup.Context`, `useToggleGroup`, and `useToggleGroupContext` are exported from the public
-  barrel.
 - moduix adds two visual props to root, root provider, and item:
   - `variant?: 'default' | 'outline' | 'ghost'`
   - `size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg'`
@@ -56,7 +54,6 @@ ToggleGroup.RootProvider
 | `ToggleGroup` / `ToggleGroup.Root` | `toggle-group-root`          | Ark root with selected values, roving focus, and size. |
 | `ToggleGroup.RootProvider`         | `toggle-group-root-provider` | Ark root driven by an external `useToggleGroup` state. |
 | `ToggleGroup.Item`                 | `toggle-group-item`          | Ark item button styled with moduix toggle visuals.     |
-| `ToggleGroup.Context`              | —                            | Ark render-prop state access.                          |
 
 ## Composition
 
@@ -102,7 +99,8 @@ export function ControlledToggleGroupDemo() {
 Root provider usage:
 
 ```tsx
-import { ToggleGroup, useToggleGroup } from '@moduix/react';
+import { useToggleGroup } from '@ark-ui/react/toggle-group';
+import { ToggleGroup } from '@moduix/react';
 
 export function RootProviderToggleGroupDemo() {
   const toggleGroup = useToggleGroup({ defaultValue: ['left'] });
@@ -122,7 +120,8 @@ export function RootProviderToggleGroupDemo() {
 - Basic: covered by `<ToggleGroup>` / `<ToggleGroup.Root>` with `ToggleGroup.Item` children.
 - Controlled: supported with Ark `value` and `onValueChange(details)`.
 - Multiple: supported with Ark `multiple`.
-- RootProvider: supported with `useToggleGroup()` and `ToggleGroup.RootProvider`.
+- RootProvider: supported with `ToggleGroup.RootProvider` and an Ark `useToggleGroup()` state
+  instance.
 - Deselectable single selection: supported with Ark `deselectable`.
 - Orientation and focus: supported with Ark `orientation`, `loopFocus`, and `rovingFocus`.
 - Custom host composition: supported with Ark `asChild` on root, root provider, and item.
@@ -181,6 +180,8 @@ export function RootProviderToggleGroupDemo() {
 - Item styling reuses standalone `Toggle` visuals so `Toggle` and `ToggleGroup.Item` stay visually
   synchronized.
 - Items inherit root/root-provider `variant` and `size` unless the item overrides them.
+- moduix keeps `RootProvider` public but leaves Ark context hooks and render-prop helpers to
+  `@ark-ui/react/toggle-group`.
 - The legacy flat `ToggleGroupItem` export is intentionally removed. Use `ToggleGroup.Item`.
 - The legacy `render`/`nativeButton` composition path is intentionally removed. Use Ark
   `asChild`.
@@ -197,6 +198,8 @@ export function RootProviderToggleGroupDemo() {
 
 ## Local changelog
 
+- 2026-07-03: Removed public re-exports of Ark toggle-group context helpers and render-prop
+  accessors while keeping `RootProvider` for externally owned Ark state.
 - 2026-06-29: Clarified Ark role, keyboard, `ids`, and context contracts; simplified CSS nesting
   and docs examples; replaced fractional group padding with the matching border-width token; added
   provider/context story coverage.

@@ -137,36 +137,13 @@ const ToastCloseTrigger = forwardRef<
   );
 });
 
-const ToastContext = ToastPrimitive.Context;
-
 const Toast = Object.assign(ToastRoot, {
   Root: ToastRoot,
   Title: ToastTitle,
   Description: ToastDescription,
   ActionTrigger: ToastActionTrigger,
   CloseTrigger: ToastCloseTrigger,
-  Context: ToastContext,
   Toaster,
 });
 
-export { Toast, Toaster, createToaster, useToastContext };
-export type { ToasterProps };
-export type {
-  CreateToasterProps,
-  CreateToasterReturn,
-  ToastActionOptions,
-  ToastActionTriggerProps,
-  ToastCloseTriggerProps,
-  ToastContextProps,
-  ToastDescriptionProps,
-  ToastOptions,
-  ToastPlacement,
-  ToastPromiseOptions,
-  ToastRootProps,
-  ToastStatus,
-  ToastStatusChangeDetails,
-  ToastStoreProps,
-  ToastTitleProps,
-  ToastType,
-  UseToastContext,
-} from '@ark-ui/react/toast';
+export { Toast, Toaster, createToaster };

@@ -1,12 +1,5 @@
-import {
-  Button,
-  CloseIcon,
-  Toast,
-  Toaster,
-  createToaster,
-  type ToastOptions,
-  type ToastPlacement,
-} from '@moduix/react';
+import type { ToastOptions, ToastPlacement } from '@ark-ui/react/toast';
+import { Button, CloseIcon, Toast, Toaster, createToaster } from '@moduix/react';
 import { Info as InfoIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';

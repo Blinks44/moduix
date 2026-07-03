@@ -8,7 +8,6 @@ import {
   ControlledToggleExample,
   CustomStylesToggleExample,
   ToggleAsChildExample,
-  ToggleContextExample,
   ToggleCssPropertiesPanel,
   ToggleDisabledExample,
   ToggleExample,
@@ -121,7 +120,6 @@ Toggle / Toggle.Root
 | ------------------------ | --------------------------------------------------------------------------------- |
 | `Toggle` / `Toggle.Root` | Two-state button root that handles pressed, focus, disabled, and `asChild` state. |
 | `Toggle.Indicator`       | Renders pressed content and optional `fallback` content when the toggle is off.   |
-| `Toggle.Context`         | Reads the current Ark toggle state through a render prop.                         |
 
 ## Composition
 
@@ -136,11 +134,12 @@ whether the toggle is pressed.
 
 ### When to go custom
 
-Use `Toggle.Context` or `useToggleContext()` when child content needs to read `pressed` without
-creating a parallel React state layer.
-
 Use `asChild` when another semantic button must own the rendered element. Keep the child a single
 button-like element so Ark can merge the required props and behavior onto it.
+
+If a custom child part needs direct access to Ark toggle state, import `useToggleContext()` or
+`useToggle()` from `@ark-ui/react/toggle`. moduix keeps the visual parts public and leaves the
+advanced state helpers to Ark.
 
 Use `ToggleGroup` instead of manually coordinating several standalone toggles when multiple pressed
 buttons belong to one shared choice set.
@@ -157,7 +156,6 @@ buttons belong to one shared choice set.
 - Icon-only toggles need an accessible name such as `aria-label="Favorite"`.
 - `disabled` keeps the current visual state but prevents interaction.
 - Ark writes `data-state="on" | "off"`, `data-pressed`, and `data-disabled` for styling.
-- `useToggleContext()` must run below `Toggle`; `useToggle()` is the lower-level Ark state hook.
 - Ark Toggle does not expose `RootProvider` or a hidden form input.
 - legacy `render` and `nativeButton` are not part of the Ark-backed API; use `asChild`.
 
@@ -261,40 +259,6 @@ import { Star as StarIcon } from "lucide-react";
 
   <Preview.CSS>{toggleBasicCss}</Preview.CSS>
   <Preview.Data>{`const fallbackIcon = "StarIcon";`}</Preview.Data>
-</Preview>
-
-### Context
-
-Use `Toggle.Context` for inline state reads without mirroring the pressed state yourself.
-
-<Preview>
-  <ToggleContextExample />
-
-  <Preview.Code>
-    {`
-      import { Toggle } from "@moduix/react";
-import { Star as StarIcon } from "lucide-react";
-
-      export function ContextToggleDemo() {
-        return (
-          <Toggle variant="outline">
-            <StarIcon />
-            <Toggle.Context>{(context) => (context.pressed ? "Saved" : "Save")}</Toggle.Context>
-          </Toggle>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{toggleBasicCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const pressedLabel = "Saved";
-      const defaultLabel = "Save";
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Variants

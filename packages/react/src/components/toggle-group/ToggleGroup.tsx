@@ -1,11 +1,7 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  ToggleGroup as ToggleGroupPrimitive,
-  useToggleGroup,
-  useToggleGroupContext,
-} from '@ark-ui/react/toggle-group';
+import { ToggleGroup as ToggleGroupPrimitive } from '@ark-ui/react/toggle-group';
 import { clsx } from 'clsx';
-import { createContext, forwardRef, useContext, useMemo } from 'react';
+import { createContext, forwardRef, useContext } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import toggleStyles from '../toggle/Toggle.module.css';
 import styles from './ToggleGroup.module.css';
@@ -13,13 +9,15 @@ import styles from './ToggleGroup.module.css';
 type ToggleVariant = 'default' | 'outline' | 'ghost';
 type ToggleSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
 
+const defaultToggleGroupStyles = {
+  variant: 'default' as ToggleVariant,
+  size: 'md' as ToggleSize,
+};
+
 const ToggleGroupStyleContext = createContext<{
   variant: ToggleVariant;
   size: ToggleSize;
-}>({
-  variant: 'default',
-  size: 'md',
-});
+}>(defaultToggleGroupStyles);
 
 type ToggleGroupRootProps = ComponentProps<typeof ToggleGroupPrimitive.Root> & {
   variant?: ToggleVariant;
@@ -40,10 +38,8 @@ const ToggleGroupRoot = forwardRef<
   ComponentRef<typeof ToggleGroupPrimitive.Root>,
   ToggleGroupRootProps
 >(function ToggleGroupRoot({ className, variant = 'default', size = 'md', ...props }, ref) {
-  const contextValue = useMemo(() => ({ variant, size }), [size, variant]);
-
   return (
-    <ToggleGroupStyleContext.Provider value={contextValue}>
+    <ToggleGroupStyleContext.Provider value={{ variant, size }}>
       <ToggleGroupPrimitive.Root
         ref={ref}
         data-slot="toggle-group-root"
@@ -60,10 +56,8 @@ const ToggleGroupRootProvider = forwardRef<
   ComponentRef<typeof ToggleGroupPrimitive.RootProvider>,
   ToggleGroupRootProviderProps
 >(function ToggleGroupRootProvider({ className, variant = 'default', size = 'md', ...props }, ref) {
-  const contextValue = useMemo(() => ({ variant, size }), [size, variant]);
-
   return (
-    <ToggleGroupStyleContext.Provider value={contextValue}>
+    <ToggleGroupStyleContext.Provider value={{ variant, size }}>
       <ToggleGroupPrimitive.RootProvider
         ref={ref}
         data-slot="toggle-group-root-provider"
@@ -94,30 +88,10 @@ const ToggleGroupItem = forwardRef<
   );
 });
 
-const ToggleGroupContextPart = ToggleGroupPrimitive.Context;
-
 const ToggleGroup = Object.assign(ToggleGroupRoot, {
   Root: ToggleGroupRoot,
   RootProvider: ToggleGroupRootProvider,
   Item: ToggleGroupItem,
-  Context: ToggleGroupContextPart,
 });
 
-export { ToggleGroup, useToggleGroup, useToggleGroupContext };
-export type {
-  ToggleGroupItemProps,
-  ToggleGroupRootProps,
-  ToggleGroupRootProviderProps,
-  ToggleSize,
-  ToggleVariant,
-};
-export type {
-  ToggleGroupContextProps,
-  ToggleGroupItemBaseProps,
-  ToggleGroupRootBaseProps,
-  ToggleGroupRootProviderBaseProps,
-  ToggleGroupValueChangeDetails,
-  UseToggleGroupContext,
-  UseToggleGroupProps,
-  UseToggleGroupReturn,
-} from '@ark-ui/react/toggle-group';
+export { ToggleGroup };

@@ -233,15 +233,6 @@ export function ToggleIndicatorExample() {
   );
 }
 
-export function ToggleContextExample() {
-  return (
-    <Toggle variant="outline">
-      <StarIcon />
-      <Toggle.Context>{(context) => (context.pressed ? 'Saved' : 'Save')}</Toggle.Context>
-    </Toggle>
-  );
-}
-
 export function ToggleAsChildExample() {
   return (
     <Toggle asChild variant="outline" defaultPressed>

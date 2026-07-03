@@ -120,17 +120,6 @@ export const Indicator: Story = {
   },
 };
 
-export const Context: Story = {
-  render: () => {
-    return (
-      <Toggle variant="outline">
-        <StarIcon />
-        <Toggle.Context>{(context) => (context.pressed ? 'Saved' : 'Save')}</Toggle.Context>
-      </Toggle>
-    );
-  },
-};
-
 export const AsChild: Story = {
   name: 'asChild',
   render: () => {
