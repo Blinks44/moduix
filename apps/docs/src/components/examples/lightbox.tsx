@@ -1,5 +1,6 @@
 import type { LightboxImageSelectDetails } from '@moduix/react';
-import { Carousel, Lightbox, useLightbox } from '@moduix/react';
+import { useDialog, useDialogContext } from '@ark-ui/react/dialog';
+import { Carousel, Lightbox } from '@moduix/react';
 import { useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -425,7 +426,7 @@ export function NonModalLightboxExample() {
 }
 
 export function RootProviderLightboxExample() {
-  const lightbox = useLightbox();
+  const lightbox = useDialog();
 
   return (
     <div className="lightbox-stack">
@@ -439,16 +440,18 @@ export function RootProviderLightboxExample() {
           <Lightbox.CloseIcon />
           <Lightbox.Content aria-label={images[2].alt}>
             <Lightbox.Image src={images[2].src} alt={images[2].alt} />
-            <Lightbox.Context>
-              {(state) => (
-                <span className="lightbox-status">Preview is {state.open ? 'open' : 'closed'}</span>
-              )}
-            </Lightbox.Context>
+            <LightboxStatus />
           </Lightbox.Content>
         </Lightbox.Positioner>
       </Lightbox.RootProvider>
     </div>
   );
+}
+
+function LightboxStatus() {
+  const dialog = useDialogContext();
+
+  return <span className="lightbox-status">Preview is {dialog.open ? 'open' : 'closed'}</span>;
 }
 
 export function LazyMountLightboxExample() {

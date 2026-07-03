@@ -123,6 +123,8 @@ export function OrderedListDemo() {
 - `List` is still a moduix-owned component because Ark UI does not ship a dedicated list primitive.
 - The moduix wrapper adds design-system props (`gap`, `size`, `tone`, `marker`), narrow `as="ul" | "ol"` host sugar, and a stable `List.Item` slot.
 - The Ark migration intentionally removed the flat `ListItem` export in favor of `List.Item`.
+- The wrapper does not re-export list prop or token union aliases; consumers can infer them from
+  `List` usage or declare local unions when needed.
 - Do not expand `as` beyond `ul` / `ol`; use `asChild` for custom semantic hosts.
 
 ## Agent notes
@@ -135,6 +137,7 @@ export function OrderedListDemo() {
 
 ## Local changelog
 
+- 2026-07-03: Removed redundant exported list prop and token type aliases from the public surface.
 - 2026-06-26: Reintroduced narrow `as="ul" | "ol"` host sugar so ordered lists can use
   `<List as="ol" start={...}>`, while keeping `asChild` as the custom-host escape hatch.
 - 2026-06-26: Finalized the Ark factory audit by simplifying marker resolution, locking the root

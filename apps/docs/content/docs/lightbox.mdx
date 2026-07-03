@@ -136,13 +136,13 @@ Lightbox.Root
          └─ Lightbox.Image
 
 Lightbox.RootProvider
-└─ the same part tree connected to useLightbox()
+└─ the same part tree connected to Ark useDialog()
 ```
 
 | Part                         | Role                                                                           |
 | ---------------------------- | ------------------------------------------------------------------------------ |
 | `Lightbox` / `Lightbox.Root` | Ark Dialog root for open state, focus lifecycle, dismissal, and accessibility. |
-| `Lightbox.RootProvider`      | Provider for state created with `useLightbox()`.                               |
+| `Lightbox.RootProvider`      | Provider for state created with Ark `useDialog()`.                             |
 | `Lightbox.Trigger`           | Ark trigger. Use `asChild` for custom semantic buttons or links.               |
 | `Lightbox.Backdrop`          | Modal backdrop with Ark `data-state` and layer variables.                      |
 | `Lightbox.Positioner`        | Fixed centered overlay container.                                              |
@@ -154,7 +154,6 @@ Lightbox.RootProvider
 | `Lightbox.Image`             | Styled native image with an `HTMLImageElement` ref.                            |
 | `Lightbox.Gallery`           | Layout and styling boundary for a composed `Carousel`.                         |
 | `Lightbox.Bind`              | Zero-render behavior part that binds external image markup to the root.        |
-| `Lightbox.Context`           | Inline Ark dialog state reader.                                                |
 
 ## Composition
 
@@ -202,8 +201,8 @@ Carousel gallery. Use `Lightbox.Bind` only when the source markup cannot render
 `onOpenChange` and `onTriggerValueChange` keep Ark detail-object callback shapes. Read
 `details.open` for controlled open state and `details.value` for multiple-trigger galleries.
 
-Use `useLightbox()` with `Lightbox.RootProvider` when controls live outside the rendered root. Use
-`Lightbox.Context` or `useLightboxContext()` to read the current state from child components.
+Use Ark `useDialog()` with `Lightbox.RootProvider` when controls live outside the rendered root.
+Read dialog state in child components with Ark `useDialogContext()`.
 
 `Lightbox.Image closeOnClick` is the supported image-preview shortcut when the image itself should
 dismiss the overlay. `Lightbox.Bind` is the zero-render binding helper for CMS or third-party
@@ -539,18 +538,25 @@ Set `modal={false}` for rare previews that should leave the page interactive. Pa
 
 ### Root Provider and Context
 
-Create state with `useLightbox()` when the opener is outside the root. Read inline state with
-`Lightbox.Context`.
+Create state with Ark `useDialog()` when the opener is outside the root. Read inline state with
+Ark `useDialogContext()` inside a child component.
 
 <Preview>
   <RootProviderLightboxExample />
 
   <Preview.Code>
     {`
-      import { Lightbox, useLightbox } from "@moduix/react";
+      import { useDialog, useDialogContext } from "@ark-ui/react/dialog";
+      import { Lightbox } from "@moduix/react";
+
+      function LightboxStatus() {
+        const dialog = useDialogContext();
+
+        return <>Preview is {dialog.open ? "open" : "closed"}</>;
+      }
 
       export function LightboxStateDemo() {
-        const lightbox = useLightbox();
+        const lightbox = useDialog();
 
         return (
           <>
@@ -563,9 +569,7 @@ Create state with `useLightbox()` when the opener is outside the root. Read inli
                 <Lightbox.CloseIcon />
                 <Lightbox.Content aria-label={images[2].alt}>
                   <Lightbox.Image src={images[2].src} alt={images[2].alt} />
-                  <Lightbox.Context>
-                    {(state) => <>Preview is {state.open ? "open" : "closed"}</>}
-                  </Lightbox.Context>
+                  <LightboxStatus />
                 </Lightbox.Content>
               </Lightbox.Positioner>
             </Lightbox.RootProvider>

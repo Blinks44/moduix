@@ -47,11 +47,6 @@ Kbd.Group
 | `Kbd` / `Kbd.Root` | `kbd`           | `data-scope="kbd"`, `data-part="root"`, `data-slot="kbd-root"`   |
 | `Kbd.Group`        | `kbd`           | `data-scope="kbd"`, `data-part="group"`, `data-slot="kbd-group"` |
 
-Exported prop types:
-
-- `KbdRootProps`
-- `KbdGroupProps`
-
 ## Composition
 
 ```tsx
@@ -130,6 +125,8 @@ Public CSS variables:
 - moduix defines the `Root` and `Group` anatomy because Ark UI has no Kbd primitive.
 - `Kbd` remains a root shorthand in addition to `Kbd.Root`.
 - moduix adds visual defaults, public CSS variables, and stable `data-slot` hooks.
+- The wrapper does not re-export aliases for native `kbd` props; use Ark `HTMLArkProps<'kbd'>`
+  directly when a named local type is needed.
 - The removed `KbdGroup` export is not retained as an alias; use `Kbd.Group`.
 
 ## Agent notes
@@ -143,6 +140,8 @@ Public CSS variables:
 - 2026-06-25: Reconfirmed the component as a moduix-owned Ark factory primitive, aligned the
   no-dedicated-Ark-primitive docs text, and simplified Kbd spacing defaults to existing spacing
   tokens.
+- 2026-07-03: Dropped redundant exported prop aliases and kept the public surface focused on the
+  explicit `Kbd` / `Kbd.Group` parts.
 - 2026-06-19: Migrated the component to Ark factory primitives, added `Root`/`Group` anatomy,
   `asChild`, forwarded refs, Ark data attributes, and removed the standalone `KbdGroup` export.
 - 2026-06-02: Documented the native Kbd behavior and public styling contract.

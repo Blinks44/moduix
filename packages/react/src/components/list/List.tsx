@@ -8,7 +8,6 @@ import styles from './List.module.css';
 
 type ListMarker = 'disc' | 'decimal' | 'none';
 type ListGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-type ListElement = 'ul' | 'ol';
 type ListSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type ListTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
 
@@ -21,8 +20,6 @@ type ListBaseProps = {
 type ListRootProps =
   | (HTMLArkProps<'ul'> & ListBaseProps & { as?: 'ul' })
   | (HTMLArkProps<'ol'> & ListBaseProps & { as: 'ol' });
-
-type ListItemProps = HTMLArkProps<'li'>;
 
 const ListRoot = forwardRef<HTMLUListElement | HTMLOListElement, ListRootProps>(function ListRoot(
   { as, asChild, className, gap = 'sm', marker, role, size = 'md', tone = 'default', ...props },
@@ -50,7 +47,7 @@ const ListRoot = forwardRef<HTMLUListElement | HTMLOListElement, ListRootProps>(
   return <ark.ul ref={ref as ForwardedRef<HTMLUListElement>} {...rootProps} />;
 });
 
-const ListItem = forwardRef<HTMLLIElement, ListItemProps>(function ListItem(
+const ListItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(function ListItem(
   { asChild, className, ...props },
   ref,
 ) {
@@ -73,4 +70,3 @@ const List = Object.assign(ListRoot, {
 });
 
 export { List };
-export type { ListElement, ListGap, ListItemProps, ListMarker, ListRootProps, ListSize, ListTone };

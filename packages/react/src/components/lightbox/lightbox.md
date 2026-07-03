@@ -18,8 +18,8 @@ control defaults.
 
 There is no Ark UI `Lightbox` primitive. The wrapper follows `@ark-ui/react/dialog` directly and
 keeps its `Root`, `RootProvider`, `Trigger`, `Backdrop`, `Positioner`, `Content`, `Title`,
-`Description`, `CloseTrigger`, and `Context` contracts. `useLightbox()` and
-`useLightboxContext()` are renamed exports of Ark `useDialog()` and `useDialogContext()`.
+`Description`, and `CloseTrigger` contracts. `RootProvider` remains the moduix bridge for Ark
+state created with `useDialog()`.
 
 Keep `Backdrop → Positioner → Content` explicit. `Root` owns the portal boundary.
 
@@ -56,7 +56,7 @@ Lightbox.Root
             └─ Carousel.Root
 
 Lightbox.RootProvider
-└─ the same part tree connected to useLightbox()
+└─ the same part tree connected to Ark useDialog()
 ```
 
 Stable slots are `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
@@ -94,7 +94,7 @@ export function LightboxDemo() {
 
 Use `asChild` with one semantic child. An image alone is not an interactive trigger; wrap it in a
 button. Use `Lightbox.RootProvider` instead of `Lightbox.Root` when state comes from
-`useLightbox()`. When the close control should stay pinned to the viewport corner, render
+Ark `useDialog()`. When the close control should stay pinned to the viewport corner, render
 `Lightbox.CloseIcon` as a sibling of `Lightbox.Content` inside `Lightbox.Positioner` so it does
 not inherit content transforms.
 
@@ -112,7 +112,7 @@ preloads the resolved full-size source on pointer hover or keyboard focus.
 
 ## Upstream feature coverage
 
-- Basic, controlled, root-provider, context, lazy-mount, initial-focus, final-focus, nested, and
+- Basic, controlled, root-provider, lazy-mount, initial-focus, final-focus, nested, and
   multiple-trigger flows come from Ark Dialog unchanged.
 - Gallery selection uses `Trigger.value` and `onTriggerValueChange(details)`.
 - Structured server or CMS image arrays compose `Carousel` inside `Lightbox.Gallery` and sync the
@@ -167,6 +167,8 @@ ratio, viewport height, gap, track background, and thumbnail sizing/state.
   image registry, render callbacks, or translated Carousel API.
 - `Lightbox.Bind` is narrow zero-render sugar for binding image selection to CMS or external DOM.
   Consumers keep ownership of image state and the complete overlay composition.
+- moduix does not re-export Ark dialog hooks, contexts, or detail-object types from `Lightbox`;
+  import advanced state APIs from `@ark-ui/react/dialog` when needed.
 - Structured image data and slide state stay consumer-owned.
 - `Lightbox.CloseIcon` composes Ark `CloseTrigger` with the library `CloseButton.Root` and defaults
   its label to `"Close image"`.
@@ -184,6 +186,8 @@ array, prefer explicit `Lightbox.Gallery + Carousel` composition.
 ## Local changelog
 
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
+- 2026-07-03: Kept `RootProvider` but removed moduix re-exports of Ark dialog hooks, contexts, and
+  renamed detail-object types; advanced state access now imports from `@ark-ui/react/dialog`.
 
 - 2026-06-19: Adopted Ark UI Dialog, adopted Ark anatomy, namespace exports,
   callbacks, provider/context hooks, data-state styling, and explicit overlay composition; removed

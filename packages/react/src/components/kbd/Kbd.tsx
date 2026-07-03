@@ -5,10 +5,7 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Kbd.module.css';
 
-export type KbdRootProps = HTMLArkProps<'kbd'>;
-export type KbdGroupProps = HTMLArkProps<'kbd'>;
-
-const KbdRoot = forwardRef<HTMLElement, KbdRootProps>(function KbdRoot(
+const KbdRoot = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function KbdRoot(
   { className, ...props },
   ref,
 ) {
@@ -24,7 +21,7 @@ const KbdRoot = forwardRef<HTMLElement, KbdRootProps>(function KbdRoot(
   );
 });
 
-const KbdGroupPart = forwardRef<HTMLElement, KbdGroupProps>(function KbdGroupPart(
+const KbdGroupPart = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function KbdGroupPart(
   { className, ...props },
   ref,
 ) {
