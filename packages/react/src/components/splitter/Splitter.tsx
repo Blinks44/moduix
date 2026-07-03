@@ -1,11 +1,5 @@
 import type { ComponentProps, ComponentRef, CSSProperties } from 'react';
-import {
-  Splitter as SplitterPrimitive,
-  createSplitterRegistry,
-  getSplitterLayout,
-  useSplitter,
-  useSplitterContext,
-} from '@ark-ui/react/splitter';
+import { Splitter as SplitterPrimitive } from '@ark-ui/react/splitter';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -88,39 +82,12 @@ const SplitterResizeTriggerIndicator = forwardRef<
   );
 });
 
-const SplitterContext = SplitterPrimitive.Context;
-
 const Splitter = Object.assign(SplitterRoot, {
   Root: SplitterRoot,
   RootProvider: SplitterRootProvider,
   Panel: SplitterPanel,
   ResizeTrigger: SplitterResizeTrigger,
   ResizeTriggerIndicator: SplitterResizeTriggerIndicator,
-  Context: SplitterContext,
-  createRegistry: SplitterPrimitive.createRegistry,
-  getLayout: SplitterPrimitive.getLayout,
 });
 
-export { Splitter, createSplitterRegistry, getSplitterLayout, useSplitter, useSplitterContext };
-export type {
-  SplitterContextProps,
-  SplitterExpandCollapseDetails,
-  SplitterPanelBaseProps,
-  SplitterPanelData,
-  SplitterPanelProps,
-  SplitterRegistryProps,
-  SplitterRegistryReturn,
-  SplitterResizeDetails,
-  SplitterResizeEndDetails,
-  SplitterResizeTriggerBaseProps,
-  SplitterResizeTriggerIndicatorBaseProps,
-  SplitterResizeTriggerIndicatorProps,
-  SplitterResizeTriggerProps,
-  SplitterRootBaseProps,
-  SplitterRootProps,
-  SplitterRootProviderBaseProps,
-  SplitterRootProviderProps,
-  UseSplitterContext,
-  UseSplitterProps,
-  UseSplitterReturn,
-} from '@ark-ui/react/splitter';
+export { Splitter };

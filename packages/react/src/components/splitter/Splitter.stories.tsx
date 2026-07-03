@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { createSplitterRegistry, useSplitter } from '@ark-ui/react/splitter';
 import { useState } from 'react';
 import { Button } from '../button';
-import { Splitter, createSplitterRegistry, useSplitter } from './Splitter';
+import { Splitter } from './Splitter';
 import styles from './Splitter.stories.module.css';
 
 const panels = [
@@ -138,28 +139,6 @@ export const MultiplePanels: Story = {
       <Splitter.Panel id="c" className={styles.panel}>
         C
       </Splitter.Panel>
-    </Splitter>
-  ),
-};
-
-export const Context: Story = {
-  render: () => (
-    <Splitter panels={panels} defaultSize={[35, 65]} className={styles.demo}>
-      <Splitter.Context>
-        {(splitter) => (
-          <>
-            <Splitter.Panel id="a" className={styles.panel}>
-              <Button onClick={() => splitter.resizePanel('a', 20)}>Set A to 20%</Button>
-            </Splitter.Panel>
-            <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-              <Splitter.ResizeTriggerIndicator />
-            </Splitter.ResizeTrigger>
-            <Splitter.Panel id="b" className={styles.panel}>
-              <Button onClick={() => splitter.resizePanel('b', 20)}>Set B to 20%</Button>
-            </Splitter.Panel>
-          </>
-        )}
-      </Splitter.Context>
     </Splitter>
   ),
 };

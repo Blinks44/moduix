@@ -137,6 +137,8 @@ export function SplitButtonExample() {
 - The default chevron trigger is local sugar over Menu Trigger.
 - Flat named exports (`SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonContent`) are removed;
   use `SplitButton.Action`, `SplitButton.Trigger`, and explicit popup parts.
+- Ark prop and utility types are not re-exported from moduix. Import upstream types directly only
+  when a consumer needs them.
 - `SplitButton.Content` is the actual menu content part. It does not render `Positioner`
   internally.
 
@@ -151,6 +153,8 @@ export function SplitButtonExample() {
 
 ## Local changelog
 
+- 2026-07-03: Removed `SplitButton` prop/type re-exports from the public moduix surface. Use the
+  namespaced parts directly and import upstream helper types from Ark only when needed.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-27: Clarified the trigger DOM contract after the Ark Menu migration: the host keeps the

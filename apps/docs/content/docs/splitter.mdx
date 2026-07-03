@@ -7,7 +7,6 @@ icon: Component
 import {
   BasicSplitterExample,
   CollapsibleSplitterExample,
-  ContextSplitterExample,
   ControlledSplitterExample,
   CustomStylingSplitterExample,
   DynamicCollapsibleSplitterExample,
@@ -34,7 +33,6 @@ import {
   splitterResizeIndicatorCode,
   splitterRootProviderCode,
   splitterStackCss,
-  splitterContextCode,
   splitterThreePanelsData,
   splitterVerticalCode,
   splitterVerticalCss,
@@ -105,7 +103,6 @@ aubx shadcn@latest add Blinks44/moduix/react-splitter
 
 ```text
 Splitter.Root
-├─ Splitter.Context (optional render-prop access)
 ├─ Splitter.Panel[id]
 ├─ Splitter.ResizeTrigger[id="panel-a:panel-b"]
 │  └─ Splitter.ResizeTriggerIndicator (optional)
@@ -115,7 +112,6 @@ Splitter.Root
 | Part                              | Role                                                                                   |
 | --------------------------------- | -------------------------------------------------------------------------------------- |
 | `Splitter` / `Splitter.Root`      | Owns panel constraints, sizes, orientation, callbacks, and the splitter state machine. |
-| `Splitter.Context`                | Optional render-prop access to current Ark state and imperative methods.               |
 | `Splitter.Panel`                  | Resizable region. Its `id` must match one item in the `panels` prop.                   |
 | `Splitter.ResizeTrigger`          | Accessible handle button between adjacent panels.                                      |
 | `Splitter.ResizeTriggerIndicator` | Optional visual indicator inside a resize trigger.                                     |
@@ -131,12 +127,10 @@ Render panels and handles explicitly in the same order they appear visually. Use
 ### When to go custom
 
 Use controlled `size` with `onResize(details)` when panel sizes must be mirrored into app state.
-Use `Splitter.Context` or `useSplitterContext()` when child UI needs methods such as
-`resizePanel`, `collapsePanel`, `expandPanel`, `setSizes`, or `resetSizes`.
-
-Use `useSplitter()` with `Splitter.RootProvider` when the splitter API must be owned outside the
-rendered part tree. Use `createSplitterRegistry()` or `Splitter.createRegistry()` when nested
-splitters should resize together at handle intersections.
+For advanced imperative access, import `Splitter as ArkSplitter`, `useSplitter()`,
+`useSplitterContext()`, or `createSplitterRegistry()` directly from `@ark-ui/react/splitter` and
+pair them with the moduix visual parts. `Splitter.RootProvider` stays available for externally owned
+Ark state.
 
 Use `asChild` only when another element must own the rendered node. Custom resize triggers must keep
 button semantics, focus behavior, and keyboard interaction intact.
@@ -216,22 +210,10 @@ Add another `Panel` and another adjacent `ResizeTrigger` for three-panel layouts
   <Preview.Data>{splitterThreePanelsData}</Preview.Data>
 </Preview>
 
-### Context
-
-Use `Splitter.Context` when child UI inside the root needs the current splitter API.
-
-<Preview>
-  <ContextSplitterExample />
-
-  <Preview.Code>{splitterContextCode}</Preview.Code>
-  <Preview.CSS>{splitterStackCss}</Preview.CSS>
-  <Preview.Data>{splitterPanelsData}</Preview.Data>
-</Preview>
-
 ### Root Provider
 
-Use `useSplitter()` with `Splitter.RootProvider` when controls outside the root need access to the
-same splitter API.
+Use `useSplitter()` from Ark with `Splitter.RootProvider` when controls outside the root need access
+to the same splitter API.
 
 <Preview>
   <RootProviderSplitterExample />

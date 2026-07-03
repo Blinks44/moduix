@@ -138,6 +138,8 @@ per-instance override escape hatch.
 - Legacy `as` was removed. Use Ark factory `asChild` instead.
 - `Stack.Root` exists only for Ark-style namespace consistency; it is the same root component as
   `Stack`.
+- `Stack` does not re-export a separate prop type surface from moduix; consumers use the component
+  directly and can derive prop types locally if they need them.
 - `separator` is Chakra-informed sugar. Prefer the moduix `Separator` component for visual dividers,
   but moduix does not add `HStack`, `VStack`, item wrappers, or built-in divider styling.
 - `fill` is moduix sugar for making the stack itself grow as a flex item.
@@ -159,6 +161,7 @@ per-instance override escape hatch.
 
 ## Local changelog
 
+- 2026-07-03: Removed the extra `StackRootProps` re-export so the public surface stays root-only.
 - 2026-06-27: Stopped writing default `--stack-*` inline variables when `direction` or `fill` are
   omitted, so the public theme variables in `theme.css` can act as defaults.
 - 2026-06-21: Migrated `Stack` to `@ark-ui/react/factory`, added `Stack.Root`, `asChild`,

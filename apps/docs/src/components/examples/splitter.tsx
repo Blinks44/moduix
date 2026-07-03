@@ -1,10 +1,9 @@
 import {
-  Button,
-  Splitter,
   createSplitterRegistry,
   useSplitter,
   type SplitterPanelData,
-} from '@moduix/react';
+} from '@ark-ui/react/splitter';
+import { Button, Splitter } from '@moduix/react';
 import { useEffect, useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -275,34 +274,9 @@ export function MultiplePanelsSplitterDemo() {
 }
 `;
 
-export const splitterContextCode = `
-import { Button, Splitter } from "@moduix/react";
-
-export function ContextSplitterDemo() {
-  return (
-    <Splitter panels={panels} defaultSize={[35, 65]} className="splitter-demo">
-      <Splitter.Context>
-        {(splitter) => (
-          <>
-            <Splitter.Panel id="a" className="splitter-panel">
-              <Button onClick={() => splitter.resizePanel("a", 20)}>Set A to 20%</Button>
-            </Splitter.Panel>
-            <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-              <Splitter.ResizeTriggerIndicator />
-            </Splitter.ResizeTrigger>
-            <Splitter.Panel id="b" className="splitter-panel">
-              <Button onClick={() => splitter.resizePanel("b", 20)}>Set B to 20%</Button>
-            </Splitter.Panel>
-          </>
-        )}
-      </Splitter.Context>
-    </Splitter>
-  );
-}
-`;
-
 export const splitterRootProviderCode = `
-import { Button, Splitter, useSplitter } from "@moduix/react";
+import { useSplitter } from "@ark-ui/react/splitter";
+import { Button, Splitter } from "@moduix/react";
 
 export function RootProviderSplitterDemo() {
   const splitter = useSplitter({ panels, defaultSize: [50, 50] });
@@ -351,7 +325,8 @@ export function ResizeIndicatorSplitterDemo() {
 `;
 
 export const splitterDynamicCollapsibleCode = `
-import { Splitter, useSplitter } from "@moduix/react";
+import { useSplitter } from "@ark-ui/react/splitter";
+import { Splitter } from "@moduix/react";
 import { useEffect, useRef, useState } from "react";
 
 export function DynamicCollapsibleSplitterDemo() {
@@ -397,7 +372,8 @@ export function DynamicCollapsibleSplitterDemo() {
 `;
 
 export const splitterNestedCode = `
-import { Splitter, createSplitterRegistry } from "@moduix/react";
+import { createSplitterRegistry } from "@ark-ui/react/splitter";
+import { Splitter } from "@moduix/react";
 import { useState } from "react";
 
 export function NestedSplitterDemo() {
@@ -680,28 +656,6 @@ export function MultiplePanelsSplitterExample() {
       <Splitter.Panel id="c" className={styles.panel}>
         C
       </Splitter.Panel>
-    </Splitter>
-  );
-}
-
-export function ContextSplitterExample() {
-  return (
-    <Splitter panels={panels} defaultSize={[35, 65]} className={styles.demo}>
-      <Splitter.Context>
-        {(splitter) => (
-          <>
-            <Splitter.Panel id="a" className={styles.panel}>
-              <Button onClick={() => splitter.resizePanel('a', 20)}>Set A to 20%</Button>
-            </Splitter.Panel>
-            <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-              <Splitter.ResizeTriggerIndicator />
-            </Splitter.ResizeTrigger>
-            <Splitter.Panel id="b" className={styles.panel}>
-              <Button onClick={() => splitter.resizePanel('b', 20)}>Set B to 20%</Button>
-            </Splitter.Panel>
-          </>
-        )}
-      </Splitter.Context>
     </Splitter>
   );
 }

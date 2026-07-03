@@ -153,12 +153,3 @@ const SplitButton = Object.assign(SplitButtonRoot, {
 });
 
 export { SplitButton };
-export type {
-  SplitButtonActionProps,
-  SplitButtonContentProps,
-  SplitButtonPositionerProps,
-  SplitButtonRootProps,
-  SplitButtonSize,
-  SplitButtonTriggerProps,
-  SplitButtonVariant,
-};

@@ -86,4 +86,3 @@ const Stack = Object.assign(StackRoot, {
 });
 
 export { Stack };
-export type { StackRootProps };

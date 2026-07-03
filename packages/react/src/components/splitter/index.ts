@@ -1,1 +1,1 @@
-export * from './Splitter';
+export { Splitter } from './Splitter';

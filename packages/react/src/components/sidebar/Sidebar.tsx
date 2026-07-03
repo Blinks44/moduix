@@ -1,12 +1,13 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
+import type { SplitterPanelData } from '@ark-ui/react/splitter';
 import type { ComponentProps, ComponentRef, MouseEvent } from 'react';
 import { ark } from '@ark-ui/react/factory';
+import { useSplitterContext } from '@ark-ui/react/splitter';
 import { clsx } from 'clsx';
 import { createContext, forwardRef, useContext } from 'react';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
-import type { SplitterPanelData } from '../splitter';
-import { Splitter, useSplitterContext } from '../splitter';
+import { Splitter } from '../splitter';
 import styles from './Sidebar.module.css';
 
 type SidebarSide = 'left' | 'right';

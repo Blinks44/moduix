@@ -11,7 +11,7 @@ Resizable layout primitive for dividing an interface into horizontal or vertical
 
 ## Upstream model to preserve
 
-`Splitter` is a thin wrapper over Ark UI's splitter primitive and preserves the Ark part tree, percentage-based panel sizing, constraints, collapse/expand behavior, keyboard resizing, context APIs, root-provider pattern, and shared registry support for nested multi-drag layouts.
+`Splitter` is a thin wrapper over Ark UI's splitter primitive and preserves the Ark part tree, percentage-based panel sizing, constraints, collapse/expand behavior, keyboard resizing, root-provider pattern, and shared registry support for nested multi-drag layouts.
 
 The upstream model is:
 
@@ -19,7 +19,8 @@ The upstream model is:
 - `Panel` renders each resizable region and requires a stable `id` matching the `panels` array.
 - `ResizeTrigger` connects two adjacent panels with an id such as `"a:b"` and renders the accessible window-splitter handle.
 - `ResizeTriggerIndicator` is an optional visual child of `ResizeTrigger`.
-- `Context`, `useSplitterContext()`, `useSplitter()`, and `RootProvider` expose Ark state and methods without a local state layer.
+- `RootProvider` preserves the Ark externally-owned state path. Other Ark state helpers stay
+  upstream-only and are imported directly from `@ark-ui/react/splitter` when needed.
 
 ## Current behavior contract
 
@@ -27,13 +28,13 @@ The upstream model is:
 
 `Splitter.Root` and `Splitter.RootProvider` add a default inline sizing style that resolves `--splitter-width` and `--splitter-height`. This keeps moduix sizing variables effective because Ark's root props include inline `width: 100%` and `height: 100%`.
 
-`Splitter` also exports `createSplitterRegistry` and `getSplitterLayout` from Ark. The namespaced `Splitter.createRegistry` and `Splitter.getLayout` aliases mirror Ark's namespace API.
+`Splitter` keeps the visual root/part namespace plus `RootProvider`. moduix does not re-export Ark
+hooks, context parts, registry helpers, layout helpers, or Ark type aliases from this wrapper.
 
 ## Anatomy and exported parts
 
 ```tsx
 Splitter / Splitter.Root
-├─ Splitter.Context (optional render-prop access)
 ├─ Splitter.Panel id="a"
 ├─ Splitter.ResizeTrigger id="a:b"
 │  └─ Splitter.ResizeTriggerIndicator (optional)
@@ -50,7 +51,6 @@ Splitter.RootProvider
 | `Splitter.Panel`                  | `data-slot="splitter-panel"`                    | Resizable region, id must match a panel entry.          |
 | `Splitter.ResizeTrigger`          | `data-slot="splitter-resize-trigger"`           | Accessible button handle between adjacent panels.       |
 | `Splitter.ResizeTriggerIndicator` | `data-slot="splitter-resize-trigger-indicator"` | Optional visual indicator inside a resize trigger.      |
-| `Splitter.Context`                | -                                               | Render-prop access to the Ark API.                      |
 
 ## Composition
 
@@ -72,13 +72,20 @@ Splitter.RootProvider
 
 Use `size` with `onResize(details)` for controlled layouts. Use `onResizeStart`, `onResizeEnd`, `onCollapse`, and `onExpand` with the original Ark detail objects. Use `orientation="vertical"` for stacked panels and keep a stable root height.
 
-Use `Splitter.Context` or `useSplitterContext()` for inline or reusable child parts that need methods such as `resizePanel`, `collapsePanel`, `expandPanel`, `setSizes`, and `resetSizes`. Use `useSplitter()` plus `Splitter.RootProvider` when state must be created outside the rendered part tree.
+Import `Splitter as ArkSplitter`, `useSplitterContext()`, or `useSplitter()` directly from
+`@ark-ui/react/splitter` when child UI needs imperative methods such as `resizePanel`,
+`collapsePanel`, `expandPanel`, `setSizes`, and `resetSizes`. Use `useSplitter()` plus
+`Splitter.RootProvider` when state must be created outside the rendered part tree.
 
-For nested splitters that should resize together at handle intersections, create a shared registry with `createSplitterRegistry()` or `Splitter.createRegistry()` and pass it to each root.
+For nested splitters that should resize together at handle intersections, create a shared registry
+with `createSplitterRegistry()` from `@ark-ui/react/splitter` and pass it to each root.
 
 ## Upstream feature coverage
 
-The wrapper supports the Ark examples for basic usage, context access, vertical orientation, collapsible panels, multiple panels, root-provider usage, resize indicator, dynamic collapsible behavior, and nested/shared registry layouts.
+The wrapper supports the Ark examples for basic usage, vertical orientation, collapsible panels,
+multiple panels, root-provider usage, resize indicator, dynamic collapsible behavior, and
+nested/shared registry layouts. Context and hook-based state access still work through direct Ark
+imports paired with the moduix visual parts.
 
 Zag notes preserved by the wrapper:
 
@@ -118,7 +125,9 @@ All public `--splitter-*` variables used by the component are declared in `src/l
 
 moduix adds visual defaults and `data-slot` hooks only. It does not add shortcut props, hidden panel composition, custom callbacks, local controlled/uncontrolled state, or inferred trigger ids.
 
-The namespace includes `Splitter.createRegistry` and `Splitter.getLayout` to match Ark's namespace shape, while named exports expose `createSplitterRegistry` and `getSplitterLayout`.
+moduix keeps only the visual wrapper namespace plus `RootProvider`. Ark context parts, hooks,
+registry helpers, layout helpers, and types are imported from `@ark-ui/react/splitter` directly in
+advanced workflows.
 
 ## Agent notes
 
@@ -126,6 +135,8 @@ Keep `ResizeTriggerIndicator` optional and inside `ResizeTrigger`; it depends on
 
 ## Local changelog
 
+- 2026-07-03: Removed Ark context parts, hooks, registry/layout helpers, and type re-exports from
+  the public moduix surface while keeping `Splitter.RootProvider` for externally owned Ark state.
 - 2026-07-01: Documented the pending upstream Zag fix for collapsible panels rendering at
   `minSize` instead of a smaller `collapsedSize`.
 - 2026-06-22: Added Ark-backed `Splitter` with styled parts, context/provider hooks, registry helpers, theme variables, docs, and registry integration.
