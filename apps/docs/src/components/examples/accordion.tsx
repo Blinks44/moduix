@@ -2,7 +2,6 @@ import { useAccordion } from '@ark-ui/react/accordion';
 import { Accordion, ChevronDownIcon, Slider } from '@moduix/react';
 import { useState, type ComponentProps, type ReactNode } from 'react';
 import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
 
 export const accordionExampleCss = `
   .accordion-panel-content {
@@ -173,24 +172,6 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
   ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
   ['--accordion-width', '22rem', 'Controls the default accordion width.'],
 ];
-
-const accordionCssPropertiesReference = accordionOverrideCssProperties.map(normalizeCssProperty);
-
-export function AccordionCssPropertiesPanel() {
-  return (
-    <div className="space-y-2">
-      <CSSPropertiesReferenceTable properties={accordionCssPropertiesReference} />
-    </div>
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
-}
 
 function AccordionItems({
   disabledValue,

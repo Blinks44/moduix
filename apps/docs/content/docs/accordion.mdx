@@ -4,22 +4,7 @@ description: A vertically stacked set of interactive headings that each reveal a
 icon: Component
 ---
 
-import {
-  AccordionCssPropertiesPanel,
-  AccordionExample,
-  CollapsibleAccordionExample,
-  ControlledAccordionExample,
-  CustomStylingAccordionExample,
-  DisabledItemAccordionExample,
-  HorizontalAccordionExample,
-  LazyMountAccordionExample,
-  MultipleAccordionExample,
-  RootProviderAccordionExample,
-  WithSliderAccordionExample,
-  accordionCustomStylingCss,
-  accordionExampleCss,
-  accordionItemsData,
-} from '@/components/examples/accordion';
+import * as AccordionDocs from '@/components/examples/accordion';
 
 ## API Reference
 
@@ -31,7 +16,7 @@ Use Ark-style parts: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`
 `Accordion.ItemIndicator`, and `Accordion.ItemContent`.
 
 <Preview>
-  <AccordionExample defaultValue={["what-is-ark-ui"]} />
+  <AccordionDocs.AccordionExample defaultValue={["what-is-ark-ui"]} />
 
   <Preview.Code>
     {`
@@ -58,52 +43,13 @@ Use Ark-style parts: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`
 
   </Preview.Code>
 
-  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{accordionItemsData}</Preview.Data>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Accordion` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-accordion
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-accordion
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-accordion
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-accordion
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-accordion
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-accordion" />
 
 ## Anatomy
 
@@ -186,7 +132,7 @@ All exported parts support `asChild` for cases where another element must own th
 Use `multiple` when several sections should stay open at the same time instead of collapsing to a single active item.
 
 <Preview>
-  <MultipleAccordionExample />
+  <AccordionDocs.MultipleAccordionExample />
   <Preview.Code>
     {`
       import { Accordion } from "@moduix/react";
@@ -211,8 +157,8 @@ Use `multiple` when several sections should stay open at the same time instead o
     `}
 
   </Preview.Code>
-  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{accordionItemsData}</Preview.Data>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Controlled
@@ -220,7 +166,7 @@ Use `multiple` when several sections should stay open at the same time instead o
 Control `value` from React state when the open items need to stay in sync with routing, filters, or surrounding UI.
 
 <Preview>
-  <ControlledAccordionExample />
+  <AccordionDocs.ControlledAccordionExample />
   <Preview.Code>
     {`
       import { Accordion } from "@moduix/react";
@@ -248,8 +194,8 @@ Control `value` from React state when the open items need to stay in sync with r
     `}
 
   </Preview.Code>
-  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{accordionItemsData}</Preview.Data>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -258,7 +204,7 @@ Use `useAccordion()` with `Accordion.RootProvider` when the state store must be 
 the rendered accordion tree. Do not render `Accordion.Root` for the same store.
 
 <Preview>
-  <RootProviderAccordionExample />
+  <AccordionDocs.RootProviderAccordionExample />
   <Preview.Code>
     {`
       import { useAccordion } from "@ark-ui/react/accordion";
@@ -291,8 +237,8 @@ the rendered accordion tree. Do not render `Accordion.Root` for the same store.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{accordionItemsData}</Preview.Data>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Collapsible
@@ -300,7 +246,7 @@ the rendered accordion tree. Do not render `Accordion.Root` for the same store.
 Add `collapsible` when the currently open item should be allowed to close without selecting another item first.
 
 <Preview>
-  <CollapsibleAccordionExample />
+  <AccordionDocs.CollapsibleAccordionExample />
   <Preview.Code>
     {`
       import { Accordion } from "@moduix/react";
@@ -325,8 +271,8 @@ Add `collapsible` when the currently open item should be allowed to close withou
     `}
 
   </Preview.Code>
-  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{accordionItemsData}</Preview.Data>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Horizontal
@@ -334,7 +280,7 @@ Add `collapsible` when the currently open item should be allowed to close withou
 Switch to `orientation="horizontal"` when the accordion should follow a horizontal interaction pattern.
 
 <Preview>
-  <HorizontalAccordionExample />
+  <AccordionDocs.HorizontalAccordionExample />
   <Preview.Code>
     {`
       import { Accordion } from "@moduix/react";
@@ -359,8 +305,8 @@ Switch to `orientation="horizontal"` when the accordion should follow a horizont
     `}
 
   </Preview.Code>
-  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{accordionItemsData}</Preview.Data>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Lazy Mount
@@ -368,7 +314,7 @@ Switch to `orientation="horizontal"` when the accordion should follow a horizont
 Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and should only render while needed.
 
 <Preview>
-  <LazyMountAccordionExample />
+  <AccordionDocs.LazyMountAccordionExample />
   <Preview.Code>
     {`
       import { Accordion } from "@moduix/react";
@@ -393,8 +339,8 @@ Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and s
     `}
 
   </Preview.Code>
-  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{accordionItemsData}</Preview.Data>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Disabled Item
@@ -402,7 +348,7 @@ Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and s
 Set `disabled` on an item when it should stay visible in the list but remain unavailable for interaction.
 
 <Preview>
-  <DisabledItemAccordionExample />
+  <AccordionDocs.DisabledItemAccordionExample />
   <Preview.Code>
     {`
       import { Accordion } from "@moduix/react";
@@ -431,8 +377,8 @@ Set `disabled` on an item when it should stay visible in the list but remain una
     `}
 
   </Preview.Code>
-  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{accordionItemsData}</Preview.Data>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### With Slider
@@ -441,7 +387,7 @@ Accordion content can host another Ark-based composite widget. Keep each primiti
 explicit so keyboard handling and hidden form inputs stay owned by the correct component.
 
 <Preview>
-  <WithSliderAccordionExample />
+  <AccordionDocs.WithSliderAccordionExample />
 
   <Preview.Code>
     {`
@@ -481,8 +427,8 @@ explicit so keyboard handling and hidden form inputs stay owned by the correct c
 
   </Preview.Code>
 
-  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{accordionItemsData}</Preview.Data>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -490,7 +436,7 @@ explicit so keyboard handling and hidden form inputs stay owned by the correct c
 Override the indicator content or local CSS variables when the accordion should match a product-specific visual language.
 
 <Preview>
-  <CustomStylingAccordionExample />
+  <AccordionDocs.CustomStylingAccordionExample />
 
   <Preview.Code>
     {`
@@ -519,8 +465,8 @@ Override the indicator content or local CSS variables when the accordion should 
 
   </Preview.Code>
 
-  <Preview.CSS>{accordionCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{accordionItemsData}</Preview.Data>
+  <Preview.CSS>{AccordionDocs.accordionCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ## Styling
@@ -530,13 +476,7 @@ data attributes (`data-state`, `data-disabled`, `data-orientation`) and moduix `
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <AccordionCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={AccordionDocs.accordionOverrideCssProperties} />
 
 ### Styling hooks
 

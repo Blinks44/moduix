@@ -1,7 +1,14 @@
 import type { MDXComponents } from 'mdx/types';
+import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock.core';
 import * as TabsComponents from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
-import { Preview } from './preview';
+import { docsShikiOptions, getDocsShikiHighlighter } from '@/lib/shiki';
+import {
+  CSSPropertiesReferenceTable,
+  Preview,
+  normalizeCssProperties,
+  type CssPropertyInput,
+} from './preview';
 
 function PrimitiveReference({ href, label = 'Ark UI API' }: { href: string; label?: string }) {
   return (
@@ -27,12 +34,88 @@ function PrimitiveReference({ href, label = 'Ark UI API' }: { href: string; labe
   );
 }
 
+function ShadcnInstall({ packageName }: { packageName: `react-${string}` }) {
+  const registryItem = `Blinks44/moduix/${packageName}`;
+  const sharedCodeBlockProps = {
+    highlighter: getDocsShikiHighlighter,
+    options: docsShikiOptions,
+    codeblock: {
+      allowCopy: true,
+    },
+  };
+
+  return (
+    <>
+      <p>
+        If you want the component to become part of your own project source instead of staying in{' '}
+        <code>node_modules</code>, install it from the moduix GitHub registry:
+      </p>
+
+      <TabsComponents.Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+        <TabsComponents.Tab value="npm" className="overflow-auto">
+          <DynamicCodeBlock
+            lang="bash"
+            code={`npx shadcn@latest add ${registryItem}`}
+            {...sharedCodeBlockProps}
+          />
+        </TabsComponents.Tab>
+
+        <TabsComponents.Tab value="pnpm" className="overflow-auto">
+          <DynamicCodeBlock
+            lang="bash"
+            code={`pnpm dlx shadcn@latest add ${registryItem}`}
+            {...sharedCodeBlockProps}
+          />
+        </TabsComponents.Tab>
+
+        <TabsComponents.Tab value="bun" className="overflow-auto">
+          <DynamicCodeBlock
+            lang="bash"
+            code={`bunx shadcn@latest add ${registryItem}`}
+            {...sharedCodeBlockProps}
+          />
+        </TabsComponents.Tab>
+
+        <TabsComponents.Tab value="deno" className="overflow-auto">
+          <DynamicCodeBlock
+            lang="bash"
+            code={`deno x -A npm:shadcn@latest add ${registryItem}`}
+            {...sharedCodeBlockProps}
+          />
+        </TabsComponents.Tab>
+
+        <TabsComponents.Tab value="aube" className="overflow-auto">
+          <DynamicCodeBlock
+            lang="bash"
+            code={`aubx shadcn@latest add ${registryItem}`}
+            {...sharedCodeBlockProps}
+          />
+        </TabsComponents.Tab>
+      </TabsComponents.Tabs>
+    </>
+  );
+}
+
+function CssPropertiesSection({ properties }: { properties: CssPropertyInput[] }) {
+  return (
+    <div className="not-prose">
+      <TabsComponents.Tabs items={['CSS Variables']} className="mb-0 mt-3">
+        <TabsComponents.Tab className="max-h-150 overflow-auto">
+          <CSSPropertiesReferenceTable properties={normalizeCssProperties(properties)} />
+        </TabsComponents.Tab>
+      </TabsComponents.Tabs>
+    </div>
+  );
+}
+
 export function getMDXComponents(components?: MDXComponents) {
   return {
     ...defaultMdxComponents,
     ...TabsComponents,
+    CssPropertiesSection,
     PrimitiveReference,
     Preview,
+    ShadcnInstall,
     ...components,
   } satisfies MDXComponents;
 }

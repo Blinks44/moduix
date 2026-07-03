@@ -527,5 +527,6 @@ export {
   PreviewCSSPlayground,
   PreviewData,
   PreviewCSSProperties,
+  normalizeCssProperties,
 };
 export type { CSSPropertiesEditorContext, CssProperty, CssPropertyInput, PreviewProps };
