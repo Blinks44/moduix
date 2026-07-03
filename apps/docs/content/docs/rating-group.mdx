@@ -30,7 +30,8 @@ import {
 ## Basic
 
 Use the short root form with Ark-style child parts: `RatingGroup.Label`, `RatingGroup.Control`,
-`RatingGroup.Context`, `RatingGroup.Item`, `RatingGroup.ItemIndicator`, and `RatingGroup.HiddenInput`.
+Ark `RatingGroup.Context`, `RatingGroup.Item`, `RatingGroup.ItemIndicator`, and
+`RatingGroup.HiddenInput`.
 
 <Preview>
   <RatingGroupExample />
@@ -106,34 +107,32 @@ aubx shadcn@latest add Blinks44/moduix/react-rating-group
 RatingGroup.Root
 ├─ RatingGroup.Label
 └─ RatingGroup.Control
-   ├─ RatingGroup.Context
+   ├─ ArkRatingGroup.Context (optional)
    │  └─ RatingGroup.Item[index]
-   │     ├─ RatingGroup.ItemContext (optional)
+   │     ├─ ArkRatingGroup.ItemContext (optional)
    │     └─ RatingGroup.ItemIndicator
    └─ RatingGroup.HiddenInput
 
 RatingGroup.RootProvider
-└─ same part tree connected to a useRatingGroup() store
+└─ same part tree connected to an Ark useRatingGroup() store
 ```
 
-| Part                               | Role                                                      |
-| ---------------------------------- | --------------------------------------------------------- |
-| `RatingGroup` / `RatingGroup.Root` | Controls rating value, keyboard behavior, and form state. |
-| `RatingGroup.RootProvider`         | Connects parts to state created with `useRatingGroup()`.  |
-| `RatingGroup.Label`                | Accessible label for the rating group.                    |
-| `RatingGroup.Control`              | Groups the interactive rating items.                      |
-| `RatingGroup.Context`              | Reads root state and exposes generated item indexes.      |
-| `RatingGroup.Item`                 | One selectable rating item; requires an `index`.          |
-| `RatingGroup.ItemContext`          | Reads checked, highlighted, and half state for one item.  |
-| `RatingGroup.ItemIndicator`        | Moduix star visual that follows Ark item context.         |
-| `RatingGroup.HiddenInput`          | Ark hidden input synchronized with the rating value.      |
+| Part                               | Role                                                         |
+| ---------------------------------- | ------------------------------------------------------------ |
+| `RatingGroup` / `RatingGroup.Root` | Controls rating value, keyboard behavior, and form state.    |
+| `RatingGroup.RootProvider`         | Connects parts to state created with Ark `useRatingGroup()`. |
+| `RatingGroup.Label`                | Accessible label for the rating group.                       |
+| `RatingGroup.Control`              | Groups the interactive rating items.                         |
+| `RatingGroup.Item`                 | One selectable rating item; requires an `index`.             |
+| `RatingGroup.ItemIndicator`        | Moduix star visual that follows Ark item context.            |
+| `RatingGroup.HiddenInput`          | Ark hidden input synchronized with the rating value.         |
 
 ## Composition
 
 ### Recommended composition
 
 `RatingGroup` is the short root form. It owns Ark value state, hover state, focus movement, labels,
-form integration, and keyboard behavior. Use `RatingGroup.Context` to map Ark-generated item
+form integration, and keyboard behavior. Use Ark `RatingGroup.Context` to map generated item
 indexes into `RatingGroup.Item`.
 
 Render `RatingGroup.HiddenInput` inside the control whenever the rating should submit with a
@@ -141,9 +140,9 @@ native form or reset with the form.
 
 ### When to go custom
 
-Use `RatingGroup.ItemContext` or `useRatingGroupItemContext()` when custom item visuals need
-`highlighted`, `checked`, or `half` state. Use `RatingGroup.RootProvider` with `useRatingGroup()`
-when rating state must be created outside the rendered subtree.
+Use Ark `RatingGroup.ItemContext` or `useRatingGroupItemContext()` when custom item visuals need
+`highlighted`, `checked`, or `half` state. Use `RatingGroup.RootProvider` with Ark
+`useRatingGroup()` when rating state must be created outside the rendered subtree.
 
 All Ark parts support `asChild`. Keep the child a single semantic element that can preserve the
 part's focus and interaction behavior.
@@ -207,14 +206,16 @@ Use controlled mode when the selected score drives surrounding UI or must be res
 
 ### Root Provider
 
-Create rating state with `useRatingGroup()` when other UI needs direct access to the same Ark store.
+Create rating state with Ark `useRatingGroup()` when other UI needs direct access to the same Ark
+store.
 
 <Preview>
   <RootProviderRatingGroupExample />
 
   <Preview.Code>
     {`
-      import { RatingGroup, useRatingGroup } from "@moduix/react";
+      import { useRatingGroup } from "@ark-ui/react/rating-group";
+      import { RatingGroup } from "@moduix/react";
 
       export function RootProviderRatingGroupDemo() {
         const ratingGroup = useRatingGroup({ count: 5, defaultValue: 3 });

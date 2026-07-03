@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useRadioGroup } from '@ark-ui/react/radio-group';
 import { useState } from 'react';
 import { Fieldset } from '../fieldset';
-import { RadioGroup, useRadioGroup } from './RadioGroup';
+import { RadioGroup } from './RadioGroup';
 import styles from './RadioGroup.stories.module.css';
 
 const meta = {

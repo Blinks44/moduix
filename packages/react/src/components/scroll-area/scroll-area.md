@@ -13,10 +13,11 @@ panels, drawers, dialogs, sidebars, and dense content regions.
 ## Upstream model to preserve
 
 The wrapper follows Ark UI React `@ark-ui/react/scroll-area`. Preserve the Ark parts exactly:
-`Root`, `RootProvider`, `Viewport`, `Content`, `Scrollbar`, `Thumb`, `Corner`, and `Context`.
+`Root`, `RootProvider`, `Viewport`, `Content`, `Scrollbar`, `Thumb`, and `Corner`.
 
 Ark owns measurement, overflow state, scrollbar interaction, thumb sizing, edge state, and the
-imperative API returned by `useScrollArea()`. Do not reintroduce legacy props such as
+imperative API returned by `useScrollArea()`. Advanced Ark state access stays available directly
+from `@ark-ui/react/scroll-area`. Do not reintroduce legacy props such as
 `scrollbars`, `overflowEdgeThreshold`, `keepMounted`, or `render`.
 
 ## Current behavior contract
@@ -44,8 +45,7 @@ export function Example() {
 }
 ```
 
-The package exports `ScrollArea`, `useScrollArea`, `useScrollAreaContext`, and Ark-aligned public
-types from `@ark-ui/react/scroll-area`.
+The package exports `ScrollArea` plus the local `fade` root prop types.
 
 ## Anatomy and exported parts
 
@@ -59,16 +59,15 @@ ScrollArea / ScrollArea.Root
 └─ ScrollArea.Corner
 ```
 
-| Export                           | `data-slot`                 | Notes                                              |
-| -------------------------------- | --------------------------- | -------------------------------------------------- |
-| `ScrollArea` / `ScrollArea.Root` | `scroll-area-root`          | Ark root and state owner.                          |
-| `ScrollArea.RootProvider`        | `scroll-area-root-provider` | Root for an external `useScrollArea()` instance.   |
-| `ScrollArea.Viewport`            | `scroll-area-viewport`      | Native scroll container and focus target.          |
-| `ScrollArea.Content`             | `scroll-area-content`       | Measured content wrapper.                          |
-| `ScrollArea.Scrollbar`           | `scroll-area-scrollbar`     | One scrollbar track; vertical by default.          |
-| `ScrollArea.Thumb`               | `scroll-area-thumb`         | Draggable thumb.                                   |
-| `ScrollArea.Corner`              | `scroll-area-corner`        | Bottom-end filler for two-axis overflow.           |
-| `ScrollArea.Context`             | -                           | Render-prop access to the current scroll area API. |
+| Export                           | `data-slot`                 | Notes                                                |
+| -------------------------------- | --------------------------- | ---------------------------------------------------- |
+| `ScrollArea` / `ScrollArea.Root` | `scroll-area-root`          | Ark root and state owner.                            |
+| `ScrollArea.RootProvider`        | `scroll-area-root-provider` | Root for an external Ark `useScrollArea()` instance. |
+| `ScrollArea.Viewport`            | `scroll-area-viewport`      | Native scroll container and focus target.            |
+| `ScrollArea.Content`             | `scroll-area-content`       | Measured content wrapper.                            |
+| `ScrollArea.Scrollbar`           | `scroll-area-scrollbar`     | One scrollbar track; vertical by default.            |
+| `ScrollArea.Thumb`               | `scroll-area-thumb`         | Draggable thumb.                                     |
+| `ScrollArea.Corner`              | `scroll-area-corner`        | Bottom-end filler for two-axis overflow.             |
 
 No flat part aliases such as `ScrollAreaRoot` or `ScrollAreaViewport` are exported.
 
@@ -94,9 +93,9 @@ Render one `ScrollArea.Scrollbar` for each axis consumers need. Horizontal scrol
 </ScrollArea>
 ```
 
-Use `ScrollArea.RootProvider` with `useScrollArea()` when controls outside the root need to call
-methods such as `scrollToEdge`. Do not render `ScrollArea` and `ScrollArea.RootProvider` for the
-same state instance.
+Use `ScrollArea.RootProvider` with Ark `useScrollArea()` when controls outside the root need to
+call methods such as `scrollToEdge`. Do not render `ScrollArea` and `ScrollArea.RootProvider` for
+the same state instance.
 
 ## Upstream feature coverage
 
@@ -105,11 +104,11 @@ same state instance.
 - Horizontal: supported by rendering only a horizontal scrollbar.
 - Both directions: supported by rendering both vertical and horizontal scrollbars.
 - Nested: supported by rendering complete independent scroll area trees.
-- Root provider: supported through exported `useScrollArea` and `ScrollArea.RootProvider`.
+- Root provider: supported through `ScrollArea.RootProvider` plus Ark `useScrollArea()`.
 - Vertical fade mask sugar: supported through `fade` on `ScrollArea` and `ScrollArea.RootProvider`.
 - `asChild`: preserved on all Ark parts.
 - `ids`: preserved on the root for stable root, viewport, content, scrollbar, and thumb IDs.
-- `ScrollArea.Context` and `useScrollAreaContext`: exported for state reads inside the tree.
+- Advanced Ark context reads stay available directly from `@ark-ui/react/scroll-area`.
 
 ## Accessibility and state
 
@@ -176,8 +175,8 @@ track on hover and while dragging without changing its default `var(--color-bord
 
 - Keep the wrapper thin. Do not add automatic structural rendering; examples should teach explicit
   Ark composition instead.
-- If Ark adds new public provider/context hooks or types, mirror them through `ScrollArea.tsx` and
-  `index.ts`.
+- Keep `fade`, but do not re-export Ark hooks, contexts, or duplicate Ark type aliases from the
+  moduix barrel.
 - Keep docs examples aligned with Ark's five official React examples: basic, horizontal, both
   directions, nested, and root provider.
 - Preserve required viewport native-scrollbar hiding styles.
@@ -187,6 +186,9 @@ track on hover and while dragging without changing its default `var(--color-bord
 
 ## Local changelog
 
+- 2026-07-03: Simplified the public surface to the callable root, `RootProvider`, visible scroll
+  parts, and the local `fade` sugar. Advanced Ark hooks and context access now come directly from
+  `@ark-ui/react/scroll-area`.
 - 2026-07-01: Added a configurable `2px` thumb growth on hover and drag while preserving the
   existing default thumb color.
 - 2026-06-19: Migrated `ScrollArea` to Ark UI React, removed legacy convenience props

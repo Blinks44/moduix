@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react';
-import { Button, ScrollArea, useScrollArea } from '@moduix/react';
+import { useScrollArea } from '@ark-ui/react/scroll-area';
+import { Button, ScrollArea } from '@moduix/react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

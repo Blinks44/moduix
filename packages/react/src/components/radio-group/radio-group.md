@@ -12,8 +12,9 @@ Upstream docs:
 ## Upstream model to preserve
 
 The component follows Ark UI's `@ark-ui/react/radio-group` primitive. Keep the Ark anatomy, state
-shape, callback detail objects, provider/context hooks, `asChild` behavior, and `ItemHiddenInput`
-form integration intact.
+shape, callback detail objects, `RootProvider`, `asChild` behavior, and `ItemHiddenInput` form
+integration intact. Advanced Ark hooks and context access stay available directly from
+`@ark-ui/react/radio-group`.
 
 ## Current behavior contract
 
@@ -42,18 +43,13 @@ Do not unpack or remap `onValueChange`; consumers should read `details.value`.
 | Part                         | `data-slot`                     | Notes                                     |
 | ---------------------------- | ------------------------------- | ----------------------------------------- |
 | `RadioGroup` / `Root`        | `radio-group-root`              | Ark root, value state, orientation, form. |
-| `RadioGroup.RootProvider`    | `radio-group-root-provider`     | Uses state from `useRadioGroup`.          |
+| `RadioGroup.RootProvider`    | `radio-group-root-provider`     | Uses state from Ark `useRadioGroup()`.    |
 | `RadioGroup.Label`           | `radio-group-label`             | Ark group label.                          |
 | `RadioGroup.Item`            | `radio-group-item`              | Ark item, renders a `label` by default.   |
 | `RadioGroup.ItemControl`     | `radio-group-item-control`      | Visual control; accepts moduix `size`.    |
 | `RadioGroup.ItemText`        | `radio-group-item-text`         | Ark item label text.                      |
 | `RadioGroup.ItemHiddenInput` | `radio-group-item-hidden-input` | Required for native forms and reset.      |
 | `RadioGroup.Indicator`       | `radio-group-indicator`         | Optional Ark active-item indicator.       |
-| `RadioGroup.Context`         | -                               | Ark inline group context component.       |
-| `RadioGroup.ItemContext`     | -                               | Ark inline item context component.        |
-
-Hooks exported from the public barrel: `useRadioGroup`, `useRadioGroupContext`, and
-`useRadioGroupItemContext`.
 
 ## Composition
 
@@ -76,8 +72,8 @@ export function RadioGroupDemo() {
 }
 ```
 
-Use `RadioGroup.RootProvider` with `useRadioGroup` when state must be controlled from outside the
-rendered tree. Do not render `Root` and `RootProvider` for the same state instance.
+Use `RadioGroup.RootProvider` with Ark `useRadioGroup()` when state must be controlled from outside
+the rendered tree. Do not render `Root` and `RootProvider` for the same state instance.
 
 ## Upstream feature coverage
 
@@ -127,14 +123,17 @@ and provide an inline item wrapper when you need custom row wrapping. `ItemContr
 
 - Keep `ItemHiddenInput` in examples unless the item is explicitly non-form-only and that exception
   is documented.
-- Keep provider/context hooks exported from `packages/react/src/components/radio-group/index.ts` and
-  the package barrel.
+- Keep `RootProvider`, but do not re-export Ark hooks, contexts, or duplicate Ark type aliases
+  from the moduix barrel.
 - When changing the public namespace, sync stories, docs examples, registry paths, and generated
   registry output in the same task.
 - Do not reintroduce flat aliases just for backwards compatibility.
 
 ## Local changelog
 
+- 2026-07-03: Simplified the public surface to the callable root, `RootProvider`, visual parts, and
+  the `ItemControl` size sugar. Advanced Ark hooks and context access now come directly from
+  `@ark-ui/react/radio-group`.
 - 2026-06-19: Migrated from legacy `radio`/`radio-group` wrappers to Ark UI `radio-group`,
   renamed the component surface to `radio-group`, removed legacy aliases and render contracts, and
   documented the Ark-aligned namespace API.

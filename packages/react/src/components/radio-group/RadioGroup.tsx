@@ -1,10 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  RadioGroup as RadioGroupPrimitive,
-  useRadioGroup,
-  useRadioGroupContext,
-  useRadioGroupItemContext,
-} from '@ark-ui/react/radio-group';
+import { RadioGroup as RadioGroupPrimitive } from '@ark-ui/react/radio-group';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -127,9 +122,6 @@ const RadioGroupIndicator = forwardRef<
   );
 });
 
-const RadioGroupContext = RadioGroupPrimitive.Context;
-const RadioGroupItemContext = RadioGroupPrimitive.ItemContext;
-
 const RadioGroup = Object.assign(RadioGroupRoot, {
   Root: RadioGroupRoot,
   RootProvider: RadioGroupRootProvider,
@@ -139,33 +131,7 @@ const RadioGroup = Object.assign(RadioGroupRoot, {
   ItemText: RadioGroupItemText,
   ItemHiddenInput: RadioGroupItemHiddenInput,
   Indicator: RadioGroupIndicator,
-  Context: RadioGroupContext,
-  ItemContext: RadioGroupItemContext,
 });
 
-export { RadioGroup, useRadioGroup, useRadioGroupContext, useRadioGroupItemContext };
-export type {
-  RadioGroupContextProps,
-  RadioGroupIndicatorBaseProps,
-  RadioGroupIndicatorProps,
-  RadioGroupItemBaseProps,
-  RadioGroupItemControlBaseProps,
-  RadioGroupItemContextProps,
-  RadioGroupItemHiddenInputBaseProps,
-  RadioGroupItemHiddenInputProps,
-  RadioGroupItemProps,
-  RadioGroupItemTextBaseProps,
-  RadioGroupItemTextProps,
-  RadioGroupLabelBaseProps,
-  RadioGroupLabelProps,
-  RadioGroupRootBaseProps,
-  RadioGroupRootProps,
-  RadioGroupRootProviderBaseProps,
-  RadioGroupRootProviderProps,
-  RadioGroupValueChangeDetails,
-  UseRadioGroupContext,
-  UseRadioGroupItemContext,
-  UseRadioGroupProps,
-  UseRadioGroupReturn,
-} from '@ark-ui/react/radio-group';
+export { RadioGroup };
 export type { RadioGroupItemControlProps, RadioGroupItemControlSize };

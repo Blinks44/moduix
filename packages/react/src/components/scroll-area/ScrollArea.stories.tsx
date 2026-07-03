@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useScrollArea } from '@ark-ui/react/scroll-area';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import { Button } from '../button';
-import { ScrollArea, useScrollArea } from './ScrollArea';
+import { ScrollArea } from './ScrollArea';
 import styles from './ScrollArea.stories.module.css';
 
 const meta = {

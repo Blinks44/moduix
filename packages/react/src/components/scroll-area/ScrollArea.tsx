@@ -1,9 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  ScrollArea as ScrollAreaPrimitive,
-  useScrollArea,
-  useScrollAreaContext,
-} from '@ark-ui/react/scroll-area';
+import { ScrollArea as ScrollAreaPrimitive } from '@ark-ui/react/scroll-area';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -116,8 +112,6 @@ const ScrollAreaCorner = forwardRef<
   );
 });
 
-const ScrollAreaContext = ScrollAreaPrimitive.Context;
-
 const ScrollArea = Object.assign(ScrollAreaRoot, {
   Root: ScrollAreaRoot,
   RootProvider: ScrollAreaRootProvider,
@@ -126,33 +120,7 @@ const ScrollArea = Object.assign(ScrollAreaRoot, {
   Scrollbar: ScrollAreaScrollbar,
   Thumb: ScrollAreaThumb,
   Corner: ScrollAreaCorner,
-  Context: ScrollAreaContext,
 });
 
-export { ScrollArea, useScrollArea, useScrollAreaContext };
-export type {
-  ScrollAreaContentBaseProps,
-  ScrollAreaContentProps,
-  ScrollAreaContextProps,
-  ScrollAreaCornerBaseProps,
-  ScrollAreaCornerProps,
-  ScrollAreaElementIds,
-  ScrollAreaRootBaseProps,
-  ScrollAreaRootProps,
-  ScrollAreaRootProviderBaseProps,
-  ScrollAreaRootProviderProps,
-  ScrollAreaScrollbarBaseProps,
-  ScrollAreaScrollbarProps,
-  ScrollAreaScrollbarState,
-  ScrollAreaScrollToDetails,
-  ScrollAreaScrollToEdge,
-  ScrollAreaScrollToEdgeDetails,
-  ScrollAreaThumbBaseProps,
-  ScrollAreaThumbProps,
-  ScrollAreaViewportBaseProps,
-  ScrollAreaViewportProps,
-  UseScrollAreaContext,
-  UseScrollAreaProps,
-  UseScrollAreaReturn,
-} from '@ark-ui/react/scroll-area';
+export { ScrollArea };
 export type { ModuixScrollAreaRootProps, ModuixScrollAreaRootProviderProps };

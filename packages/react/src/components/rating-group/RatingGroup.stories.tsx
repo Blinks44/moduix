@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { RatingGroup as RatingGroupPrimitive, useRatingGroup } from '@ark-ui/react/rating-group';
 import { useState } from 'react';
 import { HeartIcon } from '@/icons/demo';
 import { Button } from '../button';
 import { Field } from '../field';
-import { RatingGroup, useRatingGroup } from './RatingGroup';
+import { RatingGroup } from './RatingGroup';
 import storyStyles from './RatingGroup.stories.module.css';
 
 const meta = {
@@ -21,7 +22,7 @@ type Story = StoryObj<typeof meta>;
 
 function RatingItems() {
   return (
-    <RatingGroup.Context>
+    <RatingGroupPrimitive.Context>
       {({ items }) =>
         items.map((item) => (
           <RatingGroup.Item key={item} index={item}>
@@ -29,13 +30,13 @@ function RatingItems() {
           </RatingGroup.Item>
         ))
       }
-    </RatingGroup.Context>
+    </RatingGroupPrimitive.Context>
   );
 }
 
 function HeartRatingItems() {
   return (
-    <RatingGroup.Context>
+    <RatingGroupPrimitive.Context>
       {({ items }) =>
         items.map((item) => (
           <RatingGroup.Item key={item} index={item}>
@@ -45,7 +46,7 @@ function HeartRatingItems() {
           </RatingGroup.Item>
         ))
       }
-    </RatingGroup.Context>
+    </RatingGroupPrimitive.Context>
   );
 }
 

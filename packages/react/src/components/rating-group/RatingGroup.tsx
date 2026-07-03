@@ -1,8 +1,6 @@
 import type { ComponentProps, ComponentRef } from 'react';
 import {
   RatingGroup as RatingGroupPrimitive,
-  useRatingGroup,
-  useRatingGroupContext,
   useRatingGroupItemContext,
 } from '@ark-ui/react/rating-group';
 import { clsx } from 'clsx';
@@ -128,9 +126,6 @@ const RatingGroupHiddenInput = forwardRef<
   );
 });
 
-const RatingGroupContext = RatingGroupPrimitive.Context;
-const RatingGroupItemContext = RatingGroupPrimitive.ItemContext;
-
 const RatingGroup = Object.assign(RatingGroupRoot, {
   Root: RatingGroupRoot,
   RootProvider: RatingGroupRootProvider,
@@ -139,28 +134,12 @@ const RatingGroup = Object.assign(RatingGroupRoot, {
   Item: RatingGroupItem,
   ItemIndicator: RatingGroupItemIndicator,
   HiddenInput: RatingGroupHiddenInput,
-  Context: RatingGroupContext,
-  ItemContext: RatingGroupItemContext,
 });
 
-export { RatingGroup, useRatingGroup, useRatingGroupContext, useRatingGroupItemContext };
-export type { RatingGroupItemIndicatorProps, RatingGroupRootProps, RatingGroupRootProviderProps };
+export { RatingGroup };
 export type {
-  RatingGroupContextProps,
-  RatingGroupControlBaseProps,
-  RatingGroupControlProps,
-  RatingGroupHiddenInputBaseProps,
-  RatingGroupHiddenInputProps,
-  RatingGroupHoverChangeDetails,
-  RatingGroupItemBaseProps,
-  RatingGroupItemContextProps,
-  RatingGroupItemProps,
-  RatingGroupLabelBaseProps,
-  RatingGroupLabelProps,
-  RatingGroupRootBaseProps,
-  RatingGroupValueChangeDetails,
-  UseRatingGroupContext,
-  UseRatingGroupItemContext,
-  UseRatingGroupProps,
-  UseRatingGroupReturn,
-} from '@ark-ui/react/rating-group';
+  RatingGroupItemIndicatorProps,
+  RatingGroupRootProps,
+  RatingGroupRootProviderProps,
+  RatingGroupSize,
+};

@@ -1,4 +1,5 @@
-import { Button, Field, RatingGroup, useRatingGroup } from '@moduix/react';
+import { RatingGroup as RatingGroupPrimitive, useRatingGroup } from '@ark-ui/react/rating-group';
+import { Button, Field, RatingGroup } from '@moduix/react';
 import { Heart as HeartIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
@@ -56,7 +57,7 @@ export const ratingGroupCustomIconCss = `
 
 export const ratingGroupItemsData = `function RatingGroupItems() {
   return (
-    <RatingGroup.Context>
+    <RatingGroupPrimitive.Context>
       {({ items }) =>
         items.map((item) => (
           <RatingGroup.Item key={item} index={item}>
@@ -64,13 +65,13 @@ export const ratingGroupItemsData = `function RatingGroupItems() {
           </RatingGroup.Item>
         ))
       }
-    </RatingGroup.Context>
+    </RatingGroupPrimitive.Context>
   );
 }`;
 
 export const ratingGroupCustomIconData = `function RatingGroupHeartItems() {
   return (
-    <RatingGroup.Context>
+    <RatingGroupPrimitive.Context>
       {({ items }) =>
         items.map((item) => (
           <RatingGroup.Item key={item} index={item}>
@@ -80,7 +81,7 @@ export const ratingGroupCustomIconData = `function RatingGroupHeartItems() {
           </RatingGroup.Item>
         ))
       }
-    </RatingGroup.Context>
+    </RatingGroupPrimitive.Context>
   );
 }`;
 
@@ -130,7 +131,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 function RatingGroupItems() {
   return (
-    <RatingGroup.Context>
+    <RatingGroupPrimitive.Context>
       {({ items }) =>
         items.map((item) => (
           <RatingGroup.Item key={item} index={item}>
@@ -138,13 +139,13 @@ function RatingGroupItems() {
           </RatingGroup.Item>
         ))
       }
-    </RatingGroup.Context>
+    </RatingGroupPrimitive.Context>
   );
 }
 
 function RatingGroupHeartItems() {
   return (
-    <RatingGroup.Context>
+    <RatingGroupPrimitive.Context>
       {({ items }) =>
         items.map((item) => (
           <RatingGroup.Item key={item} index={item}>
@@ -154,7 +155,7 @@ function RatingGroupHeartItems() {
           </RatingGroup.Item>
         ))
       }
-    </RatingGroup.Context>
+    </RatingGroupPrimitive.Context>
   );
 }
 

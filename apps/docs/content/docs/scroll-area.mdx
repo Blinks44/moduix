@@ -171,13 +171,12 @@ ScrollArea
 | Part                             | Role                                                        |
 | -------------------------------- | ----------------------------------------------------------- |
 | `ScrollArea` / `ScrollArea.Root` | State owner and outer positioning box.                      |
-| `ScrollArea.RootProvider`        | Root that receives a `useScrollArea()` state object.        |
+| `ScrollArea.RootProvider`        | Root that receives an Ark `useScrollArea()` state object.   |
 | `ScrollArea.Viewport`            | Native scroll viewport and focus target.                    |
 | `ScrollArea.Content`             | Inner content wrapper measured by Ark UI.                   |
 | `ScrollArea.Scrollbar`           | Custom scrollbar track for one axis.                        |
 | `ScrollArea.Thumb`               | Draggable thumb inside a scrollbar.                         |
 | `ScrollArea.Corner`              | Bottom-end intersection filler when both axes can overflow. |
-| `ScrollArea.Context`             | Render-prop access to the current scroll area API.          |
 
 ## Composition
 
@@ -195,9 +194,10 @@ compose the Ark parts explicitly so each structural node remains configurable.
 
 ### State access
 
-Use `useScrollArea()` with `ScrollArea.RootProvider` when controls outside the root need to call the
-scroll area API. Use `ScrollArea.Context` or `useScrollAreaContext()` for state reads inside the
-rendered tree. Do not render `ScrollArea` and `ScrollArea.RootProvider` for the same state object.
+Use Ark `useScrollArea()` with `ScrollArea.RootProvider` when controls outside the root need to call
+the scroll area API. Advanced Ark context reads stay available directly from
+`@ark-ui/react/scroll-area`. Do not render `ScrollArea` and `ScrollArea.RootProvider` for the same
+state object.
 
 ### Behavior notes
 
@@ -529,7 +529,7 @@ complete so Ark can measure each area independently.
 
 ### Root Provider
 
-Use `useScrollArea()` with `ScrollArea.RootProvider` when external controls need access to the
+Use Ark `useScrollArea()` with `ScrollArea.RootProvider` when external controls need access to the
 scrolling API.
 
 <Preview>
@@ -537,7 +537,8 @@ scrolling API.
 
   <Preview.Code>
     {`
-      import { Button, ScrollArea, useScrollArea } from "@moduix/react";
+      import { useScrollArea } from "@ark-ui/react/scroll-area";
+      import { Button, ScrollArea } from "@moduix/react";
 
       export function RootProviderScrollAreaDemo() {
         const scrollArea = useScrollArea();

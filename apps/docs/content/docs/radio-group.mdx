@@ -117,21 +117,19 @@ RadioGroup.Root
    └─ RadioGroup.ItemHiddenInput
 
 RadioGroup.RootProvider
-└─ same item tree connected to a useRadioGroup() store
+└─ same item tree connected to an Ark useRadioGroup() store
 ```
 
-| Part                         | Role                                                       |
-| ---------------------------- | ---------------------------------------------------------- |
-| `RadioGroup` / `.Root`       | Owns value state, keyboard navigation, orientation, forms. |
-| `RadioGroup.RootProvider`    | Connects parts to state created with `useRadioGroup()`.    |
-| `RadioGroup.Label`           | Accessible label for the group.                            |
-| `RadioGroup.Item`            | One selectable option; renders a `label` by default.       |
-| `RadioGroup.ItemControl`     | Visual radio control; supports the moduix `size` prop.     |
-| `RadioGroup.ItemText`        | Visible option text.                                       |
-| `RadioGroup.ItemHiddenInput` | Native input for form submission, validation, and reset.   |
-| `RadioGroup.Indicator`       | Optional active-item indicator using Ark measurement vars. |
-| `RadioGroup.Context`         | Reads root state through an Ark render prop.               |
-| `RadioGroup.ItemContext`     | Reads item state through an Ark render prop.               |
+| Part                         | Role                                                        |
+| ---------------------------- | ----------------------------------------------------------- |
+| `RadioGroup` / `.Root`       | Owns value state, keyboard navigation, orientation, forms.  |
+| `RadioGroup.RootProvider`    | Connects parts to state created with Ark `useRadioGroup()`. |
+| `RadioGroup.Label`           | Accessible label for the group.                             |
+| `RadioGroup.Item`            | One selectable option; renders a `label` by default.        |
+| `RadioGroup.ItemControl`     | Visual radio control; supports the moduix `size` prop.      |
+| `RadioGroup.ItemText`        | Visible option text.                                        |
+| `RadioGroup.ItemHiddenInput` | Native input for form submission, validation, and reset.    |
+| `RadioGroup.Indicator`       | Optional active-item indicator using Ark measurement vars.  |
 
 ## Composition
 
@@ -143,7 +141,7 @@ Use `RadioGroup` as the short form for `RadioGroup.Root`. Keep the Ark item tree
 
 ### When to go custom
 
-Use `RadioGroup.RootProvider` with `useRadioGroup()` when state must be created outside the
+Use `RadioGroup.RootProvider` with Ark `useRadioGroup()` when state must be created outside the
 rendered group tree. Use `RadioGroup.Item asChild` when a custom item layout should own the item
 DOM node; the direct child must still be a semantic `label`.
 
@@ -236,7 +234,7 @@ Use `value` with `onValueChange(details)` when selected value is owned by surrou
 
 ### Root Provider
 
-Use `RootProvider` when a `useRadioGroup()` store needs to be shared with controls outside the
+Use `RootProvider` when an Ark `useRadioGroup()` store needs to be shared with controls outside the
 radio tree.
 
 <Preview>
@@ -244,7 +242,8 @@ radio tree.
 
   <Preview.Code>
     {`
-      import { RadioGroup, useRadioGroup } from "@moduix/react";
+      import { useRadioGroup } from "@ark-ui/react/radio-group";
+      import { RadioGroup } from "@moduix/react";
 
       export function RadioGroupRootProviderDemo() {
         const radioGroup = useRadioGroup({ defaultValue: "React" });

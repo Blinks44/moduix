@@ -1,4 +1,5 @@
-import { Fieldset, RadioGroup, useRadioGroup } from '@moduix/react';
+import { useRadioGroup } from '@ark-ui/react/radio-group';
+import { Fieldset, RadioGroup } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
