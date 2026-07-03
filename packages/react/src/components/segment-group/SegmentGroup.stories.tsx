@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useSegmentGroup } from '@ark-ui/react/segment-group';
 import { useState } from 'react';
-import { SegmentGroup, useSegmentGroup } from './SegmentGroup';
+import { SegmentGroup } from './SegmentGroup';
 import styles from './SegmentGroup.stories.module.css';
 
 const meta = {

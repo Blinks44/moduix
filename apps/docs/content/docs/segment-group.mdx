@@ -129,21 +129,19 @@ SegmentGroup / SegmentGroup.Root
    └─ SegmentGroup.ItemHiddenInput
 
 SegmentGroup.RootProvider
-└─ same item tree connected to a useSegmentGroup() store
+└─ same item tree connected to an Ark useSegmentGroup() store
 ```
 
-| Part                                 | Role                                                        |
-| ------------------------------------ | ----------------------------------------------------------- |
-| `SegmentGroup` / `SegmentGroup.Root` | Owns single-value state, keyboard navigation, and forms.    |
-| `SegmentGroup.RootProvider`          | Connects parts to state created with `useSegmentGroup()`.   |
-| `SegmentGroup.Label`                 | Optional accessible label for the group.                    |
-| `SegmentGroup.Indicator`             | Measured active-item highlight using Ark CSS variables.     |
-| `SegmentGroup.Item`                  | One selectable segment; renders a `label` by default.       |
-| `SegmentGroup.ItemText`              | Visible segment text.                                       |
-| `SegmentGroup.ItemControl`           | Ark control part; visually hidden by moduix default styles. |
-| `SegmentGroup.ItemHiddenInput`       | Native input for form submission, validation, and reset.    |
-| `SegmentGroup.Context`               | Reads root state through an Ark render prop.                |
-| `SegmentGroup.ItemContext`           | Reads item state through an Ark render prop.                |
+| Part                                 | Role                                                          |
+| ------------------------------------ | ------------------------------------------------------------- |
+| `SegmentGroup` / `SegmentGroup.Root` | Owns single-value state, keyboard navigation, and forms.      |
+| `SegmentGroup.RootProvider`          | Connects parts to state created with Ark `useSegmentGroup()`. |
+| `SegmentGroup.Label`                 | Optional accessible label for the group.                      |
+| `SegmentGroup.Indicator`             | Measured active-item highlight using Ark CSS variables.       |
+| `SegmentGroup.Item`                  | One selectable segment; renders a `label` by default.         |
+| `SegmentGroup.ItemText`              | Visible segment text.                                         |
+| `SegmentGroup.ItemControl`           | Ark control part; visually hidden by moduix default styles.   |
+| `SegmentGroup.ItemHiddenInput`       | Native input for form submission, validation, and reset.      |
 
 ## Composition
 
@@ -156,8 +154,9 @@ when the control participates in native forms or reset behavior.
 ### When to go custom
 
 Use `SegmentGroup.Item asChild` when a custom item node should own the label element. The child
-must still be a single semantic `label`. Use `SegmentGroup.RootProvider` with `useSegmentGroup()`
-when surrounding controls need to call methods such as `setValue`, `clearValue`, or `focus`.
+must still be a single semantic `label`. Use `SegmentGroup.RootProvider` with Ark
+`useSegmentGroup()` when surrounding controls need to call methods such as `setValue`,
+`clearValue`, or `focus`.
 
 ### Default props
 
@@ -224,15 +223,16 @@ Control the selected value from React state and update it from `details.value`.
 
 ### Root Provider
 
-Use `RootProvider` when state from `useSegmentGroup()` needs to be shared with controls outside the
-segment tree.
+Use `RootProvider` when state from Ark `useSegmentGroup()` needs to be shared with controls
+outside the segment tree.
 
 <Preview>
   <SegmentGroupRootProviderExample />
 
   <Preview.Code>
     {`
-      import { SegmentGroup, useSegmentGroup } from "@moduix/react";
+      import { useSegmentGroup } from "@ark-ui/react/segment-group";
+      import { SegmentGroup } from "@moduix/react";
 
       export function SegmentGroupRootProviderDemo() {
         const segmentGroup = useSegmentGroup({ defaultValue: "React" });

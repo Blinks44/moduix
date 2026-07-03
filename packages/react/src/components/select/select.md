@@ -30,8 +30,9 @@ explicit popup composition, `HiddenSelect`, and `RootProvider` / context hooks.
   around `ClearTrigger` and `Indicator`.
 - When `Select.ClearTrigger` is omitted or hidden, the trigger automatically reduces its end
   padding so it only reserves space for the indicator.
-- `useSelect`, `useSelectContext`, and `useSelectItemContext` are exported from the
-  package barrel. Import collection helpers directly from `@ark-ui/react/collection`.
+- Import Ark state helpers such as `useSelect`, `Select.Context`, and `useSelectContext` directly
+  from `@ark-ui/react/select`. Import collection helpers directly from
+  `@ark-ui/react/collection`.
 - `Select.ItemTextContent`, `Select.ItemTextIcon`, and `Select.ItemTextLabel` are moduix span
   helpers for richer item text layout.
 - legacy flat aliases and compatibility APIs are intentionally removed.
@@ -149,9 +150,9 @@ export function SelectDemo() {
   `data-state="checked" | "unchecked"`.
 - Use Ark `Field.Root` / `Fieldset.Root` context for disabled, invalid, required, and read-only
   state.
-- Use `Select.Context`, `Select.ItemContext`, `useSelectContext`, and `useSelectItemContext` for
-  state reads.
-- Use `useSelect` with `Select.RootProvider`; do not render `Select.Root` for the same state
+- Import Ark `Select.Context`, `Select.ItemContext`, `useSelectContext`, and
+  `useSelectItemContext` directly from `@ark-ui/react/select` for advanced state reads.
+- Use Ark `useSelect` with `Select.RootProvider`; do not render `Select.Root` for the same state
   instance.
 - Use `asChild` only with a single semantic child that can receive the required Ark props.
 
@@ -171,6 +172,8 @@ export function SelectDemo() {
 - Default icons are added for clear trigger, indicator, and item indicator.
 - `ItemTextContent`, `ItemTextIcon`, and `ItemTextLabel` are local leaf helpers only; they do not
   replace Ark item composition.
+- moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
+  aliases. Advanced consumers import those directly from `@ark-ui/react/select`.
 - legacy aliases were removed: `SelectField`, `SelectValue`, `SelectIcon`, `SelectPopup`,
   `SelectArrow`, `SelectContent` as hidden portal wrapper, scroll arrows, separator, `items`,
   `itemToStringLabel`, `itemToStringValue`, null item clearing, and flat part exports.
@@ -186,6 +189,8 @@ export function SelectDemo() {
 
 ## Local changelog
 
+- 2026-07-03: Removed Ark context parts, state hooks, and duplicate Ark type exports from the
+  moduix surface. Kept `RootProvider`, visual parts, and moduix layout sugar.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-27: Removed docs-only manual popup gating so examples preserve Ark presence behavior,

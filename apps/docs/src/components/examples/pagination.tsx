@@ -202,22 +202,16 @@ function PaginationPageSizeSelect({
           <Select.Indicator />
         </Select.Indicators>
       </Select.Control>
-      <Select.Context>
-        {(select) =>
-          select.open ? (
-            <Select.Positioner>
-              <Select.Content>
-                {pageSizes.items.map((item) => (
-                  <Select.Item key={item.value} item={item}>
-                    <Select.ItemText>{item.label}</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                ))}
-              </Select.Content>
-            </Select.Positioner>
-          ) : null
-        }
-      </Select.Context>
+      <Select.Positioner>
+        <Select.Content>
+          {pageSizes.items.map((item) => (
+            <Select.Item key={item.value} item={item}>
+              <Select.ItemText>{item.label}</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
+          ))}
+        </Select.Content>
+      </Select.Positioner>
       <Select.HiddenSelect />
     </Select>
   );

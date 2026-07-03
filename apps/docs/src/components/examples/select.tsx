@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { createListCollection } from '@ark-ui/react/collection';
-import { Field, Select, useSelect } from '@moduix/react';
+import { Select as ArkSelect, useSelect } from '@ark-ui/react/select';
+import { Field, Select } from '@moduix/react';
 import { useMemo, useState } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -438,7 +439,7 @@ export function SelectAllExample() {
       <Select.Label>Languages</Select.Label>
       <SelectControl placeholder="Select languages" />
       <SelectPopupContent>
-        <Select.Context>
+        <ArkSelect.Context>
           {(select) => (
             <button
               className="select-bulk-action"
@@ -451,7 +452,7 @@ export function SelectAllExample() {
               Select all
             </button>
           )}
-        </Select.Context>
+        </ArkSelect.Context>
         {languages.items.map((item) => (
           <Select.Item key={item.value} item={item}>
             <Select.ItemText>{item.label}</Select.ItemText>

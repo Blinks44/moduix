@@ -6,9 +6,6 @@ import {
   type SelectRootProps as ArkSelectRootProps,
   type SelectRootProviderComponent as ArkSelectRootProviderComponent,
   type SelectRootProviderProps as ArkSelectRootProviderProps,
-  useSelect,
-  useSelectContext,
-  useSelectItemContext,
 } from '@ark-ui/react/select';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
@@ -318,9 +315,6 @@ function SelectItemTextLabel({ className, ...props }: ComponentProps<'span'>) {
   );
 }
 
-const SelectContext = SelectPrimitive.Context;
-const SelectItemContext = SelectPrimitive.ItemContext;
-
 const Select = Object.assign(SelectRoot, {
   Root: SelectRoot,
   RootProvider: SelectRootProvider,
@@ -343,26 +337,6 @@ const Select = Object.assign(SelectRoot, {
   ItemTextContent: SelectItemTextContent,
   ItemTextIcon: SelectItemTextIcon,
   ItemTextLabel: SelectItemTextLabel,
-  Context: SelectContext,
-  ItemContext: SelectItemContext,
 });
 
-export { Select, useSelect, useSelectContext, useSelectItemContext };
-export type {
-  SelectRootComponent,
-  SelectRootProps,
-  SelectRootProviderComponent,
-  SelectRootProviderProps,
-};
-export type {
-  SelectFocusOutsideEvent,
-  SelectHighlightChangeDetails,
-  SelectInteractOutsideEvent,
-  SelectOpenChangeDetails,
-  SelectPointerDownOutsideEvent,
-  SelectValueChangeDetails,
-  UseSelectContext,
-  UseSelectItemContext,
-  UseSelectProps,
-  UseSelectReturn,
-} from '@ark-ui/react/select';
+export { Select };

@@ -14,7 +14,7 @@ visual.
 
 The component follows Ark UI React `@ark-ui/react/segment-group`, which is backed by Zag
 `radio-group` behavior for segmented controls. Keep the Ark anatomy, single-value state, callback
-detail objects, provider/context hooks, `asChild` behavior, measured `Indicator`, and
+detail objects, `RootProvider`, `asChild` behavior, measured `Indicator`, and
 `ItemHiddenInput` form integration intact.
 
 ## Current behavior contract
@@ -28,9 +28,8 @@ behavior props.
 `required`, `ids`, and `asChild`. Consumers should read `details.value`; do not unpack or remap
 the callback in the wrapper.
 
-moduix defaults `orientation` to `horizontal` on `SegmentGroup.Root` and on the exported
-`useSegmentGroup()` hook. Explicit `orientation="vertical"` still preserves Ark vertical keyboard
-navigation and layout.
+moduix defaults `orientation` to `horizontal` on `SegmentGroup.Root`. Explicit
+`orientation="vertical"` still preserves Ark vertical keyboard navigation and layout.
 
 ## Anatomy and exported parts
 
@@ -55,11 +54,9 @@ navigation and layout.
 | `SegmentGroup.ItemText`        | `segment-group-item-text`         | Visible item text.                         |
 | `SegmentGroup.ItemHiddenInput` | `segment-group-item-hidden-input` | Required for native forms and reset.       |
 | `SegmentGroup.Indicator`       | `segment-group-indicator`         | Measured active-item highlight.            |
-| `SegmentGroup.Context`         | -                                 | Ark inline group context component.        |
-| `SegmentGroup.ItemContext`     | -                                 | Ark inline item context component.         |
 
-Hooks exported from the public barrel: `useSegmentGroup`, `useSegmentGroupContext`, and
-`useSegmentGroupItemContext`.
+Import Ark `useSegmentGroup`, `SegmentGroup.Context`, and `useSegmentGroupContext` directly from
+`@ark-ui/react/segment-group` when an advanced state workflow needs them.
 
 ## Composition
 
@@ -84,8 +81,8 @@ export function SegmentGroupDemo() {
 }
 ```
 
-Use `SegmentGroup.RootProvider` with `useSegmentGroup` when state must be controlled from outside
-the rendered tree. Do not render `Root` and `RootProvider` for the same state instance.
+Use `SegmentGroup.RootProvider` with Ark `useSegmentGroup` when state must be controlled from
+outside the rendered tree. Do not render `Root` and `RootProvider` for the same state instance.
 
 ## Upstream feature coverage
 
@@ -141,14 +138,16 @@ rendered but visually hidden because the segmented-control affordance comes from
 ## Agent notes
 
 - Keep behavior delegated to Ark. Do not add local selection state or callback remapping.
-- Keep provider/context hooks exported from `packages/react/src/components/segment-group/index.ts`
-  and the package barrel.
+- Keep `RootProvider`, but do not re-export Ark context parts, state hooks, or Ark type aliases
+  from the moduix package.
 - Keep examples with `SegmentGroup.Indicator` before items when the active highlight should render.
 - When changing public slots or variables, sync stories, local docs, app docs, registry metadata,
   and generated registry output in the same task.
 
 ## Local changelog
 
+- 2026-07-03: Removed Ark context parts, state hooks, and duplicate Ark type exports from the
+  moduix surface. `RootProvider` remains for externally owned Ark state.
 - 2026-06-22: Added Ark UI `segment-group` wrapper with namespace parts, provider/context hooks,
   CSS Modules styling, local documentation, docs examples, and registry metadata.
 - 2026-06-22: Set moduix default orientation to horizontal, polished `asChild` card styling, and

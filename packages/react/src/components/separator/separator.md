@@ -123,6 +123,8 @@ Public CSS variables:
   component as a moduix-owned single-part contract.
 - moduix keeps Chakra's useful `orientation`, `variant`, and `size` surface but maps visuals to
   moduix tokens and CSS variables.
+- moduix does not export separate prop or option type aliases for this wrapper. Use
+  `ComponentProps<typeof Separator>` if you need to derive types locally.
 - legacy `render`, legacy state callback `className`, and legacy style callback behavior were
   removed. Use Ark `asChild` and direct `className` instead.
 - moduix does not implement Chakra's responsive prop system or label prop pattern for this wrapper.
@@ -138,6 +140,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-03: Removed public prop and option type aliases. The public surface is now only the
+  callable root component with `.Root`.
 - 2026-06-27: Re-audited the Ark factory contract, simplified size and variant CSS selectors,
   made `--separator-border-style` a consumer override above the recipe variant, and aligned public
   docs/examples with the local-only Ark factory API text.

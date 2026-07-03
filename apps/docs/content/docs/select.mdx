@@ -169,27 +169,26 @@ Select / Select.Root
 └─ Select.HiddenSelect
 ```
 
-| Part                             | Role                                                               |
-| -------------------------------- | ------------------------------------------------------------------ |
-| `Select` / `Select.Root`         | Root state, collection, selection, popup lifecycle, and form data. |
-| `Select.RootProvider`            | Renders a select tree from state returned by `useSelect`.          |
-| `Select.Label`                   | Accessible label inherited by the trigger and hidden select.       |
-| `Select.Control`                 | Visual field wrapper that receives focus, invalid, and open state. |
-| `Select.Trigger`                 | Button that opens the popup and owns keyboard entry.               |
-| `Select.ValueText`               | Placeholder or selected item labels.                               |
-| `Select.ClearTrigger`            | Button that clears the current value.                              |
-| `Select.Indicator`               | Trigger indicator with the moduix default chevron icon.            |
-| `Select.Indicators`              | Moduix wrapper that aligns clear and indicator buttons.            |
-| `Select.Positioner`              | Floating layer that exposes Ark positioning CSS variables.         |
-| `Select.Content`                 | Popup surface and listbox container.                               |
-| `Select.List`                    | Optional list wrapper for virtualized or custom list layouts.      |
-| `Select.ItemGroup`               | Group wrapper for related collection items.                        |
-| `Select.ItemGroupLabel`          | Label for a collection group.                                      |
-| `Select.Item`                    | Selectable row. Pass the collection item through `item`.           |
-| `Select.ItemText`                | Text used for display and accessibility.                           |
-| `Select.ItemIndicator`           | Selected-state indicator with the moduix default check icon.       |
-| `Select.HiddenSelect`            | Native hidden `<select>` for forms, autofill, and reset behavior.  |
-| `Select.Context` / `ItemContext` | Inline access to root and item state.                              |
+| Part                     | Role                                                               |
+| ------------------------ | ------------------------------------------------------------------ |
+| `Select` / `Select.Root` | Root state, collection, selection, popup lifecycle, and form data. |
+| `Select.RootProvider`    | Renders a select tree from state returned by `useSelect`.          |
+| `Select.Label`           | Accessible label inherited by the trigger and hidden select.       |
+| `Select.Control`         | Visual field wrapper that receives focus, invalid, and open state. |
+| `Select.Trigger`         | Button that opens the popup and owns keyboard entry.               |
+| `Select.ValueText`       | Placeholder or selected item labels.                               |
+| `Select.ClearTrigger`    | Button that clears the current value.                              |
+| `Select.Indicator`       | Trigger indicator with the moduix default chevron icon.            |
+| `Select.Indicators`      | Moduix wrapper that aligns clear and indicator buttons.            |
+| `Select.Positioner`      | Floating layer that exposes Ark positioning CSS variables.         |
+| `Select.Content`         | Popup surface and listbox container.                               |
+| `Select.List`            | Optional list wrapper for virtualized or custom list layouts.      |
+| `Select.ItemGroup`       | Group wrapper for related collection items.                        |
+| `Select.ItemGroupLabel`  | Label for a collection group.                                      |
+| `Select.Item`            | Selectable row. Pass the collection item through `item`.           |
+| `Select.ItemText`        | Text used for display and accessibility.                           |
+| `Select.ItemIndicator`   | Selected-state indicator with the moduix default check icon.       |
+| `Select.HiddenSelect`    | Native hidden `<select>` for forms, autofill, and reset behavior.  |
 
 ## Composition
 
@@ -232,8 +231,8 @@ object signatures. `Field.Root` and `Fieldset.Root` can provide disabled, invali
 read-only state through Ark context.
 
 Keep `HiddenSelect` in normal form usage for native submission, autofill, and reset behavior. For
-very large virtualized collections, compose a lightweight hidden input with `useSelectContext`
-instead of rendering one native option per item.
+very large virtualized collections, compose a lightweight hidden input with Ark
+`useSelectContext` instead of rendering one native option per item.
 
 ## Examples
 
@@ -297,14 +296,17 @@ Control the selected string array from React state and update it from `details.v
 
 ### Root Provider
 
-Use `useSelect` with `Select.RootProvider` when state needs to be read or controlled outside the
-rendered select tree.
+Use Ark `useSelect` with `Select.RootProvider` when state needs to be read or controlled outside
+the rendered select tree.
 
 <Preview>
   <RootProviderSelectExample />
 
   <Preview.Code>
     {`
+      import { useSelect } from "@ark-ui/react/select";
+      import { Select } from "@moduix/react";
+
       export function SelectRootProviderDemo() {
         const select = useSelect({ collection: fruits, defaultValue: ["banana"] });
 
@@ -635,6 +637,9 @@ Use `onHighlightChange(details)` when moving through options should immediately 
 
   <Preview.Code>
     {`
+      import { useSelect } from "@ark-ui/react/select";
+      import { Select } from "@moduix/react";
+
       const select = useSelect({
         collection: fruits,
         onHighlightChange({ highlightedValue }) {
@@ -754,13 +759,16 @@ Limit multiple selection by rejecting oversized value arrays and marking remaini
 
 ### Select All
 
-Read root state with `Select.Context` and call `selectAll()` for bulk selection.
+Read root state with Ark `Select.Context` and call `selectAll()` for bulk selection.
 
 <Preview>
   <SelectAllExample />
 
   <Preview.Code>
     {`
+      import { Select as ArkSelect } from "@ark-ui/react/select";
+      import { Select } from "@moduix/react";
+
       <Select collection={languages} multiple>
         <Select.Label>Languages</Select.Label>
         <Select.Control>
@@ -774,7 +782,7 @@ Read root state with `Select.Context` and call `selectAll()` for bulk selection.
         </Select.Control>
         <Select.Positioner>
           <Select.Content>
-            <Select.Context>
+            <ArkSelect.Context>
               {(select) => (
                 <button
                   className="select-bulk-action"
@@ -787,7 +795,7 @@ Read root state with `Select.Context` and call `selectAll()` for bulk selection.
                   Select all
                 </button>
               )}
-            </Select.Context>
+            </ArkSelect.Context>
             {languages.items.map((item) => (
               <Select.Item key={item.value} item={item}>
                 <Select.ItemText>{item.label}</Select.ItemText>

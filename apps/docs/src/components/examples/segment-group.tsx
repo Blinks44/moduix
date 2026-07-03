@@ -1,4 +1,5 @@
-import { SegmentGroup, useSegmentGroup } from '@moduix/react';
+import { useSegmentGroup } from '@ark-ui/react/segment-group';
+import { SegmentGroup } from '@moduix/react';
 import { useState, type FormEvent } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

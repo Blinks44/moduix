@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { createListCollection } from '@ark-ui/react/collection';
+import { Select as ArkSelect, useSelect } from '@ark-ui/react/select';
 import { useState } from 'react';
 import { InfoIcon } from '@/icons/demo';
-import { Select, useSelect } from './Select';
+import { Select } from './Select';
 import styles from './Select.stories.module.css';
 
 interface OptionItem {
@@ -238,9 +239,9 @@ export const Context: Story = {
     <Select collection={fruits} defaultValue={['apple']}>
       <Select.Label>Choose fruit</Select.Label>
       <SelectFieldView />
-      <Select.Context>
+      <ArkSelect.Context>
         {(select) => <span className={styles.state}>Selected: {select.valueAsString}</span>}
-      </Select.Context>
+      </ArkSelect.Context>
       <SelectPopupContent>
         <Select.ItemGroup>
           <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>

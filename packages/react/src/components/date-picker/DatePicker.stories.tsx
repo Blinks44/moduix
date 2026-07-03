@@ -356,24 +356,18 @@ function MultipleMonthsDatePickerContent() {
 
 function DatePickerSelectContent({ items }: { items: DatePickerSelectItem[] }) {
   return (
-    <Select.Context>
-      {(select) =>
-        select.open ? (
-          <Select.Positioner>
-            <Select.Content>
-              <Select.List>
-                {items.map((item) => (
-                  <Select.Item key={item.value} item={item}>
-                    <Select.ItemText>{item.label}</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                ))}
-              </Select.List>
-            </Select.Content>
-          </Select.Positioner>
-        ) : null
-      }
-    </Select.Context>
+    <Select.Positioner>
+      <Select.Content>
+        <Select.List>
+          {items.map((item) => (
+            <Select.Item key={item.value} item={item}>
+              <Select.ItemText>{item.label}</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
+          ))}
+        </Select.List>
+      </Select.Content>
+    </Select.Positioner>
   );
 }
 

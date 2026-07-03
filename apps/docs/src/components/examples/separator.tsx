@@ -1,13 +1,13 @@
 import type { ComponentProps } from 'react';
-import { Separator, type SeparatorSize, type SeparatorVariant } from '@moduix/react';
+import { Separator } from '@moduix/react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './separator.module.css';
 
 export const separatorSections = ['Account settings', 'Billing details'];
 export const separatorNavigationItems = ['Home', 'Pricing', 'Sign in'];
-export const separatorVariantItems: SeparatorVariant[] = ['solid', 'dashed', 'dotted'];
-export const separatorSizeItems: SeparatorSize[] = ['xs', 'sm', 'md', 'lg'];
+export const separatorVariantItems = ['solid', 'dashed', 'dotted'] as const;
+export const separatorSizeItems = ['xs', 'sm', 'md', 'lg'] as const;
 export const separatorNativeRuleLabels = ['Before native rule', 'After native rule'];
 export const separatorStepLabels = ['Completed profile', 'Next step: billing details'];
 

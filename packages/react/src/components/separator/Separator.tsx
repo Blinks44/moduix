@@ -5,17 +5,13 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Separator.module.css';
 
-export type SeparatorOrientation = 'horizontal' | 'vertical';
-export type SeparatorSize = 'xs' | 'sm' | 'md' | 'lg';
-export type SeparatorVariant = 'solid' | 'dashed' | 'dotted';
-
-export type SeparatorRootProps = HTMLArkProps<'span'> & {
-  orientation?: SeparatorOrientation;
-  size?: SeparatorSize;
-  variant?: SeparatorVariant;
+type SeparatorProps = HTMLArkProps<'span'> & {
+  orientation?: 'horizontal' | 'vertical';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
+  variant?: 'solid' | 'dashed' | 'dotted';
 };
 
-const SeparatorRoot = forwardRef<HTMLSpanElement, SeparatorRootProps>(function SeparatorRoot(
+const SeparatorRoot = forwardRef<HTMLSpanElement, SeparatorProps>(function SeparatorRoot(
   {
     asChild,
     className,

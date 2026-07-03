@@ -1,10 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  SegmentGroup as SegmentGroupPrimitive,
-  useSegmentGroup as useSegmentGroupPrimitive,
-  useSegmentGroupContext,
-  useSegmentGroupItemContext,
-} from '@ark-ui/react/segment-group';
+import { SegmentGroup as SegmentGroupPrimitive } from '@ark-ui/react/segment-group';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -122,13 +117,6 @@ const SegmentGroupIndicator = forwardRef<
   );
 });
 
-const SegmentGroupContext = SegmentGroupPrimitive.Context;
-const SegmentGroupItemContext = SegmentGroupPrimitive.ItemContext;
-
-function useSegmentGroup(props: Parameters<typeof useSegmentGroupPrimitive>[0] = {}) {
-  return useSegmentGroupPrimitive({ orientation: 'horizontal', ...props });
-}
-
 const SegmentGroup = Object.assign(SegmentGroupRoot, {
   Root: SegmentGroupRoot,
   RootProvider: SegmentGroupRootProvider,
@@ -138,33 +126,6 @@ const SegmentGroup = Object.assign(SegmentGroupRoot, {
   ItemText: SegmentGroupItemText,
   ItemHiddenInput: SegmentGroupItemHiddenInput,
   Indicator: SegmentGroupIndicator,
-  Context: SegmentGroupContext,
-  ItemContext: SegmentGroupItemContext,
 });
 
-export { SegmentGroup, useSegmentGroup, useSegmentGroupContext, useSegmentGroupItemContext };
-export type {
-  SegmentGroupContextProps,
-  SegmentGroupIndicatorBaseProps,
-  SegmentGroupIndicatorProps,
-  SegmentGroupItemBaseProps,
-  SegmentGroupItemContextProps,
-  SegmentGroupItemControlBaseProps,
-  SegmentGroupItemControlProps,
-  SegmentGroupItemHiddenInputBaseProps,
-  SegmentGroupItemHiddenInputProps,
-  SegmentGroupItemProps,
-  SegmentGroupItemTextBaseProps,
-  SegmentGroupItemTextProps,
-  SegmentGroupLabelBaseProps,
-  SegmentGroupLabelProps,
-  SegmentGroupRootBaseProps,
-  SegmentGroupRootProps,
-  SegmentGroupRootProviderBaseProps,
-  SegmentGroupRootProviderProps,
-  SegmentGroupValueChangeDetails,
-  UseSegmentGroupContext,
-  UseSegmentGroupItemContext,
-  UseSegmentGroupProps,
-  UseSegmentGroupReturn,
-} from '@ark-ui/react/segment-group';
+export { SegmentGroup };
