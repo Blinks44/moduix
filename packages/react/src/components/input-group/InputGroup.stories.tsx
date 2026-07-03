@@ -1,13 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Field } from '../field';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-  InputGroupText,
-} from './InputGroup';
+import { InputGroup } from './InputGroup';
 import storyStyles from './InputGroup.stories.module.css';
 
 const meta = {
@@ -29,8 +23,8 @@ export const Default: Story = {
       <Field className={storyStyles.field}>
         <Field.Label>Workspace</Field.Label>
         <InputGroup>
-          <InputGroupAddon>@</InputGroupAddon>
-          <InputGroupInput placeholder="maps" />
+          <InputGroup.Addon>@</InputGroup.Addon>
+          <InputGroup.Input placeholder="maps" />
         </InputGroup>
       </Field>
     );
@@ -45,13 +39,13 @@ export const WithAction: Story = {
       <Field className={storyStyles.field}>
         <Field.Label>Invite by email</Field.Label>
         <InputGroup>
-          <InputGroupInput
+          <InputGroup.Input
             value={value}
             onChange={(event) => setValue(event.currentTarget.value)}
             type="email"
             placeholder="name@example.com"
           />
-          <InputGroupButton disabled={!value}>Send</InputGroupButton>
+          <InputGroup.Button disabled={!value}>Send</InputGroup.Button>
         </InputGroup>
       </Field>
     );
@@ -64,9 +58,9 @@ export const PrefixSuffix: Story = {
       <Field className={storyStyles.field}>
         <Field.Label>Monthly budget</Field.Label>
         <InputGroup>
-          <InputGroupAddon className={storyStyles.currency}>$</InputGroupAddon>
-          <InputGroupInput inputMode="decimal" placeholder="2500" />
-          <InputGroupText>USD</InputGroupText>
+          <InputGroup.Addon className={storyStyles.currency}>$</InputGroup.Addon>
+          <InputGroup.Input inputMode="decimal" placeholder="2500" />
+          <InputGroup.Text>USD</InputGroup.Text>
         </InputGroup>
       </Field>
     );
@@ -80,8 +74,8 @@ export const AsChild: Story = {
         <Field.Label>Workspace</Field.Label>
         <InputGroup asChild>
           <div>
-            <InputGroupAddon>@</InputGroupAddon>
-            <InputGroupInput placeholder="maps" />
+            <InputGroup.Addon>@</InputGroup.Addon>
+            <InputGroup.Input placeholder="maps" />
           </div>
         </InputGroup>
       </Field>
@@ -94,24 +88,24 @@ export const Sizes: Story = {
     return (
       <div className={storyStyles.stack}>
         <InputGroup size="xs">
-          <InputGroupAddon>@</InputGroupAddon>
-          <InputGroupInput placeholder="Extra-small group" />
+          <InputGroup.Addon>@</InputGroup.Addon>
+          <InputGroup.Input placeholder="Extra-small group" />
         </InputGroup>
         <InputGroup size="sm">
-          <InputGroupAddon>@</InputGroupAddon>
-          <InputGroupInput placeholder="Small group" />
+          <InputGroup.Addon>@</InputGroup.Addon>
+          <InputGroup.Input placeholder="Small group" />
         </InputGroup>
         <InputGroup size="md">
-          <InputGroupAddon>@</InputGroupAddon>
-          <InputGroupInput placeholder="Medium group" />
+          <InputGroup.Addon>@</InputGroup.Addon>
+          <InputGroup.Input placeholder="Medium group" />
         </InputGroup>
         <InputGroup size="lg">
-          <InputGroupAddon>@</InputGroupAddon>
-          <InputGroupInput placeholder="Large group" />
+          <InputGroup.Addon>@</InputGroup.Addon>
+          <InputGroup.Input placeholder="Large group" />
         </InputGroup>
         <InputGroup size="xl">
-          <InputGroupAddon>@</InputGroupAddon>
-          <InputGroupInput placeholder="Extra-large group" />
+          <InputGroup.Addon>@</InputGroup.Addon>
+          <InputGroup.Input placeholder="Extra-large group" />
         </InputGroup>
       </div>
     );
@@ -122,9 +116,9 @@ export const Disabled: Story = {
   render: () => {
     return (
       <InputGroup className={storyStyles.group} role="group" aria-label="Workspace handle">
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput disabled value="maps" />
-        <InputGroupButton disabled>Copy</InputGroupButton>
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input disabled value="maps" />
+        <InputGroup.Button disabled>Copy</InputGroup.Button>
       </InputGroup>
     );
   },
@@ -136,8 +130,8 @@ export const WithFieldValidation: Story = {
       <Field className={storyStyles.field} invalid>
         <Field.Label>Domain</Field.Label>
         <InputGroup>
-          <InputGroupInput placeholder="company" />
-          <InputGroupText>.test.com</InputGroupText>
+          <InputGroup.Input placeholder="company" />
+          <InputGroup.Text>.test.com</InputGroup.Text>
         </InputGroup>
         <Field.ErrorText>Please enter a domain.</Field.ErrorText>
       </Field>
@@ -149,9 +143,9 @@ export const CustomStyles: Story = {
   render: () => {
     return (
       <InputGroup className={storyStyles.customGroup}>
-        <InputGroupAddon className={storyStyles.customAddon}>@</InputGroupAddon>
-        <InputGroupInput placeholder="custom-group" />
-        <InputGroupButton className={storyStyles.customButton}>Check</InputGroupButton>
+        <InputGroup.Addon className={storyStyles.customAddon}>@</InputGroup.Addon>
+        <InputGroup.Input placeholder="custom-group" />
+        <InputGroup.Button className={storyStyles.customButton}>Check</InputGroup.Button>
       </InputGroup>
     );
   },

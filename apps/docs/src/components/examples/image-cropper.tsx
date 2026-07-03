@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react';
+import { ImageCropper as ArkImageCropper, useImageCropper } from '@ark-ui/react/image-cropper';
 import {
   Button,
   FlipHorizontalIcon,
@@ -8,8 +9,6 @@ import {
   RotateCwIcon,
   ZoomInIcon,
   ZoomOutIcon,
-  useImageCropper,
-  type ImageCropperFlipState,
 } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -334,7 +333,7 @@ export function ControlledZoomImageCropperExample() {
 
 export function TransformImageCropperExample() {
   const [rotation, setRotation] = useState(0);
-  const [flip, setFlip] = useState<ImageCropperFlipState>({
+  const [flip, setFlip] = useState({
     horizontal: false,
     vertical: false,
   });
@@ -347,7 +346,7 @@ export function TransformImageCropperExample() {
         onRotationChange={(details) => setRotation(details.rotation)}
         onFlipChange={(details) => setFlip(details.flip)}
       >
-        <ImageCropper.Context>
+        <ArkImageCropper.Context>
           {(context) => (
             <div className="cropper-toolbar">
               <button
@@ -400,7 +399,7 @@ export function TransformImageCropperExample() {
               </button>
             </div>
           )}
-        </ImageCropper.Context>
+        </ArkImageCropper.Context>
         <ImageCropper.Viewport>
           <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
           <ImageCropper.Selection>

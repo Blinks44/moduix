@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "packages/react/src/components/input/Input.tsx",
-      "content": "import type { ComponentProps, ComponentRef } from 'react';\nimport { Field as FieldPrimitive } from '@ark-ui/react/field';\nimport { clsx } from 'clsx';\nimport { forwardRef } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './Input.module.css';\n\ntype InputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';\ntype InputProps = Omit<ComponentProps<typeof FieldPrimitive.Input>, 'size'> & {\n  size?: InputSize;\n  htmlSize?: ComponentProps<'input'>['size'];\n};\n\nconst InputRoot = forwardRef<ComponentRef<typeof FieldPrimitive.Input>, InputProps>(\n  function InputRoot({ className, size = 'md', htmlSize, ...props }, ref) {\n    return (\n      <FieldPrimitive.Input\n        ref={ref}\n        data-scope=\"field\"\n        data-part=\"input\"\n        data-slot=\"input-root\"\n        data-size={size}\n        className={clsx(styles.root, normalizeClassName(className))}\n        size={htmlSize}\n        {...props}\n      />\n    );\n  },\n);\n\nconst Input = Object.assign(InputRoot, {\n  Root: InputRoot,\n});\n\nexport { Input };\nexport type { InputProps, InputSize };",
+      "content": "import type { ComponentProps, ComponentRef } from 'react';\nimport { Field as FieldPrimitive } from '@ark-ui/react/field';\nimport { clsx } from 'clsx';\nimport { forwardRef } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './Input.module.css';\n\nconst InputRoot = forwardRef<\n  ComponentRef<typeof FieldPrimitive.Input>,\n  Omit<ComponentProps<typeof FieldPrimitive.Input>, 'size'> & {\n    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n    htmlSize?: ComponentProps<'input'>['size'];\n  }\n>(function InputRoot({ className, size = 'md', htmlSize, ...props }, ref) {\n  return (\n    <FieldPrimitive.Input\n      ref={ref}\n      data-scope=\"field\"\n      data-part=\"input\"\n      data-slot=\"input-root\"\n      data-size={size}\n      className={clsx(styles.root, normalizeClassName(className))}\n      size={htmlSize}\n      {...props}\n    />\n  );\n});\n\nconst Input = Object.assign(InputRoot, {\n  Root: InputRoot,\n});\n\nexport { Input };",
       "type": "registry:component",
       "target": "@components/moduix/input/Input.tsx"
     },
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/input/index.ts",
-      "content": "export { Input } from './Input';\nexport type { InputProps, InputSize } from './Input';",
+      "content": "export { Input } from './Input';",
       "type": "registry:component",
       "target": "@components/moduix/input/index.ts"
     }

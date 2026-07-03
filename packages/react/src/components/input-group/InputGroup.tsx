@@ -1,24 +1,28 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { createContext, forwardRef, useContext, type ComponentProps } from 'react';
+import {
+  createContext,
+  forwardRef,
+  useContext,
+  type ComponentProps,
+  type ComponentRef,
+} from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { Button } from '../button';
-import { Input, type InputProps, type InputSize } from '../input';
+import { Input } from '../input';
 import styles from './InputGroup.module.css';
 
-type InputGroupRootProps = HTMLArkProps<'div'> & {
-  size?: InputSize;
-};
-type InputGroupAddonProps = HTMLArkProps<'span'>;
-type InputGroupTextProps = HTMLArkProps<'span'>;
+type InputGroupSize = NonNullable<ComponentProps<typeof Input>['size']>;
 
-const InputGroupSizeContext = createContext<InputSize>('md');
+const InputGroupSizeContext = createContext<InputGroupSize>('md');
 
-const InputGroupRoot = forwardRef<HTMLDivElement, InputGroupRootProps>(function InputGroupRoot(
-  { children, className, size = 'md', ...props },
-  ref,
-) {
+const InputGroupRoot = forwardRef<
+  HTMLDivElement,
+  HTMLArkProps<'div'> & {
+    size?: InputGroupSize;
+  }
+>(function InputGroupRoot({ children, className, size = 'md', ...props }, ref) {
   return (
     <InputGroupSizeContext.Provider value={size}>
       <ark.div
@@ -36,24 +40,23 @@ const InputGroupRoot = forwardRef<HTMLDivElement, InputGroupRootProps>(function 
   );
 });
 
-const InputGroupInput = forwardRef<HTMLInputElement, InputProps>(function InputGroupInput(
-  { className, size, ...props },
-  ref,
-) {
-  const groupSize = useContext(InputGroupSizeContext);
+const InputGroupInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<typeof Input>>(
+  function InputGroupInput({ className, size, ...props }, ref) {
+    const groupSize = useContext(InputGroupSizeContext);
 
-  return (
-    <Input
-      ref={ref}
-      data-slot="input-group-input"
-      className={clsx(styles.input, normalizeClassName(className))}
-      size={size ?? groupSize}
-      {...props}
-    />
-  );
-});
+    return (
+      <Input
+        ref={ref}
+        data-slot="input-group-input"
+        className={clsx(styles.input, normalizeClassName(className))}
+        size={size ?? groupSize}
+        {...props}
+      />
+    );
+  },
+);
 
-const InputGroupAddon = forwardRef<HTMLSpanElement, InputGroupAddonProps>(function InputGroupAddon(
+const InputGroupAddon = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function InputGroupAddon(
   { className, ...props },
   ref,
 ) {
@@ -69,7 +72,7 @@ const InputGroupAddon = forwardRef<HTMLSpanElement, InputGroupAddonProps>(functi
   );
 });
 
-const InputGroupText = forwardRef<HTMLSpanElement, InputGroupTextProps>(function InputGroupText(
+const InputGroupText = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function InputGroupText(
   { className, ...props },
   ref,
 ) {
@@ -114,5 +117,4 @@ const InputGroup = Object.assign(InputGroupRoot, {
   Button: InputGroupButton,
 });
 
-export { InputGroup, InputGroupInput, InputGroupAddon, InputGroupText, InputGroupButton };
-export type { InputGroupAddonProps, InputGroupRootProps, InputGroupTextProps };
+export { InputGroup };

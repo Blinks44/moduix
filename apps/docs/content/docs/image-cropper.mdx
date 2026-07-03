@@ -99,7 +99,6 @@ npx shadcn@latest add Blinks44/moduix/react-image-cropper
 | `ImageCropper.Selection`             | Focusable crop selection and keyboard interaction target.                            |
 | `ImageCropper.Grid`                  | Horizontal or vertical crop guide lines.                                             |
 | `ImageCropper.Handle`                | Resize handle for each `ImageCropper.handles` position.                              |
-| `ImageCropper.Context`               | Inline access to Ark cropper state and methods.                                      |
 
 ## Composition
 
@@ -110,10 +109,10 @@ Ark behavior. Use `ImageCropper.handles` to render every handle position.
 
 ### When to go custom
 
-Use `ImageCropper.Context` for toolbars inside the root. Use `useImageCropper` with
-`ImageCropper.RootProvider` when controls, crop preview, or form integration need the cropper API
-outside the root subtree. Keep `RootProvider` separate from `ImageCropper.Root` for the same state
-instance.
+Use `ArkImageCropper.Context` from `@ark-ui/react/image-cropper` for toolbars inside the root. Use
+Ark `useImageCropper` with `ImageCropper.RootProvider` when controls, crop preview, or form
+integration need the cropper API outside the root subtree. Keep `RootProvider` separate from
+`ImageCropper.Root` for the same state instance.
 
 ### Default props
 
@@ -326,7 +325,7 @@ Control `zoom` with `onZoomChange` and bound the interaction with `minZoom` and 
 
 ### Rotation, Flip, And Reset
 
-Read the Ark context inside the root for toolbar actions such as zoom, rotate, flip, and reset.
+Read Ark context inside the root for toolbar actions such as zoom, rotate, flip, and reset.
 
 <Preview>
   <TransformImageCropperExample />
@@ -334,6 +333,7 @@ Read the Ark context inside the root for toolbar actions such as zoom, rotate, f
   <Preview.Code>
     {`
       import {
+        ImageCropper as ArkImageCropper,
         FlipHorizontalIcon,
         ImageCropper,
         RestartIcon,
@@ -356,7 +356,7 @@ Read the Ark context inside the root for toolbar actions such as zoom, rotate, f
               onRotationChange={(details) => setRotation(details.rotation)}
               onFlipChange={(details) => setFlip(details.flip)}
             >
-              <ImageCropper.Context>
+              <ArkImageCropper.Context>
                 {(context) => (
                   <div className="cropper-toolbar">
                     <button
@@ -409,7 +409,7 @@ Read the Ark context inside the root for toolbar actions such as zoom, rotate, f
                     </button>
                   </div>
                 )}
-              </ImageCropper.Context>
+              </ArkImageCropper.Context>
               <ImageCropper.Viewport>
                 <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
                 <ImageCropper.Selection>
@@ -512,7 +512,7 @@ Use `fixedCropArea` when the selection should stay fixed while the image moves u
 
 ### Crop Preview
 
-Create the cropper with `useImageCropper` when another control needs to call
+Create the cropper with Ark `useImageCropper` when another control needs to call
 `getCroppedImage()`.
 
 <Preview>
@@ -520,7 +520,8 @@ Create the cropper with `useImageCropper` when another control needs to call
 
   <Preview.Code>
     {`
-      import { Button, ImageCropper, useImageCropper } from "@moduix/react";
+      import { useImageCropper } from "@ark-ui/react/image-cropper";
+      import { Button, ImageCropper } from "@moduix/react";
       import { useState } from "react";
 
       export function CropPreviewImageCropperDemo() {
@@ -611,7 +612,7 @@ Use Ark detail objects to sync crop and zoom state with external UI.
 
 ### Root Provider
 
-Use `RootProvider` with a `useImageCropper` instance when a toolbar or workflow owns the cropper
+Use `RootProvider` with an Ark `useImageCropper` instance when a toolbar or workflow owns the cropper
 outside the rendered root.
 
 <Preview>
@@ -619,7 +620,8 @@ outside the rendered root.
 
   <Preview.Code>
     {`
-      import { ImageCropper, RestartIcon, useImageCropper } from "@moduix/react";
+      import { useImageCropper } from "@ark-ui/react/image-cropper";
+      import { ImageCropper, RestartIcon } from "@moduix/react";
 
       export function RootProviderImageCropperDemo() {
         const imageCropper = useImageCropper({ aspectRatio: 16 / 9 });

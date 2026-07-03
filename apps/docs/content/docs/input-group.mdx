@@ -40,7 +40,7 @@ Compose one grouped input with only the presentational parts the field needs.
 
   <Preview.Code>
     {`
-      import { Field, InputGroup, InputGroupAddon, InputGroupInput } from "@moduix/react";
+      import { Field, InputGroup } from "@moduix/react";
 
       const workspacePrefix = "@";
 
@@ -49,8 +49,8 @@ Compose one grouped input with only the presentational parts the field needs.
           <Field className="input-group-demo-field">
             <Field.Label>Workspace</Field.Label>
             <InputGroup>
-              <InputGroupAddon>{workspacePrefix}</InputGroupAddon>
-              <InputGroupInput name="workspace" placeholder="maps" />
+              <InputGroup.Addon>{workspacePrefix}</InputGroup.Addon>
+              <InputGroup.Input name="workspace" placeholder="maps" />
             </InputGroup>
           </Field>
         );
@@ -118,48 +118,48 @@ aubx shadcn@latest add Blinks44/moduix/react-input-group
 
 ```text
 InputGroup / InputGroup.Root
-├─ InputGroupAddon / InputGroup.Addon (optional)
-├─ InputGroupInput / InputGroup.Input
-├─ InputGroupText / InputGroup.Text (optional)
-└─ InputGroupButton / InputGroup.Button (optional)
+├─ InputGroup.Addon (optional)
+├─ InputGroup.Input
+├─ InputGroup.Text (optional)
+└─ InputGroup.Button (optional)
 ```
 
 | Part                             | Role                                                         |
 | -------------------------------- | ------------------------------------------------------------ |
 | `InputGroup` / `InputGroup.Root` | Ark factory root for shared layout, border, focus, and size. |
-| `InputGroupInput` / `.Input`     | Ark-backed native input and form value owner.                |
-| `InputGroupAddon` / `.Addon`     | Filled presentational prefix or suffix.                      |
-| `InputGroupText` / `.Text`       | Unfilled inline presentational text.                         |
-| `InputGroupButton` / `.Button`   | Native button action with grouped visual defaults.           |
+| `InputGroup.Input`               | Ark-backed native input and form value owner.                |
+| `InputGroup.Addon`               | Filled presentational prefix or suffix.                      |
+| `InputGroup.Text`                | Unfilled inline presentational text.                         |
+| `InputGroup.Button`              | Native button action with grouped visual defaults.           |
 
 ## Composition
 
 ### Recommended composition
 
-Use exactly one `InputGroupInput`. Place addons, text, or buttons before or after it. Put the
+Use exactly one `InputGroup.Input`. Place addons, text, or buttons before or after it. Put the
 composition inside `Field` when it needs a label, helper text, error text, ids, or shared state.
 
-`InputGroupInput` uses native input events. Controlled values use `value` and `onChange(event)`.
+`InputGroup.Input` uses native input events. Controlled values use `value` and `onChange(event)`.
 The root `size` is inherited by the input and button.
 
 ### When to go custom
 
-`InputGroup`, `InputGroupAddon`, and `InputGroupText` support Ark `asChild`. The root child must
+`InputGroup`, `InputGroup.Addon`, and `InputGroup.Text` support Ark `asChild`. The root child must
 remain a container; addon and text children should remain presentational and accept forwarded props
 and refs.
 
-Use `InputGroupButton` for actions instead of making an addon interactive. Use `role="group"` with
+Use `InputGroup.Button` for actions instead of making an addon interactive. Use `role="group"` with
 an accessible name only when the standalone composition itself needs grouped semantics.
 
 ### Default props
 
-| Part / prop                | Default             |
-| -------------------------- | ------------------- |
-| `InputGroup.size`          | `md`                |
-| `InputGroupInput.size`     | inherited from root |
-| `InputGroupButton.size`    | inherited from root |
-| `InputGroupButton.variant` | `ghost`             |
-| `InputGroupButton.type`    | `button`            |
+| Part / prop                 | Default             |
+| --------------------------- | ------------------- |
+| `InputGroup.size`           | `md`                |
+| `InputGroup.Input.size`     | inherited from root |
+| `InputGroup.Button.size`    | inherited from root |
+| `InputGroup.Button.variant` | `ghost`             |
+| `InputGroup.Button.type`    | `button`            |
 
 ### Behavioral notes
 
@@ -178,7 +178,7 @@ Use a grouped button for an action tied to the native input value.
 
   <Preview.Code>
     {`
-      import { Field, InputGroup, InputGroupButton, InputGroupInput } from "@moduix/react";
+      import { Field, InputGroup } from "@moduix/react";
       import { useState } from "react";
 
       const initialInviteEmail = "";
@@ -190,13 +190,13 @@ Use a grouped button for an action tied to the native input value.
           <Field className="input-group-demo-field">
             <Field.Label>Invite by email</Field.Label>
             <InputGroup>
-              <InputGroupInput
+              <InputGroup.Input
                 value={value}
                 onChange={(event) => setValue(event.currentTarget.value)}
                 type="email"
                 placeholder="name@example.com"
               />
-              <InputGroupButton disabled={!value}>Send</InputGroupButton>
+              <InputGroup.Button disabled={!value}>Send</InputGroup.Button>
             </InputGroup>
           </Field>
         );
@@ -229,16 +229,16 @@ Mix a filled addon with plain text when the two sides have different visual weig
 
   <Preview.Code>
     {`
-      import { Field, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "@moduix/react";
+      import { Field, InputGroup } from "@moduix/react";
 
       export function BudgetInputGroupDemo() {
         return (
           <Field className="input-group-demo-field">
             <Field.Label>Monthly budget</Field.Label>
             <InputGroup>
-              <InputGroupAddon>{currency.symbol}</InputGroupAddon>
-              <InputGroupInput inputMode="decimal" placeholder="2500" />
-              <InputGroupText>{currency.code}</InputGroupText>
+              <InputGroup.Addon>{currency.symbol}</InputGroup.Addon>
+              <InputGroup.Input inputMode="decimal" placeholder="2500" />
+              <InputGroup.Text>{currency.code}</InputGroup.Text>
             </InputGroup>
           </Field>
         );
@@ -264,7 +264,7 @@ Mix a filled addon with plain text when the two sides have different visual weig
 
 ### Field State
 
-Set invalid state on `Field`; Ark applies the state and ARIA contract to `InputGroupInput`, and the
+Set invalid state on `Field`; Ark applies the state and ARIA contract to `InputGroup.Input`, and the
 shell reacts to that input state.
 
 <Preview>
@@ -272,7 +272,7 @@ shell reacts to that input state.
 
   <Preview.Code>
     {`
-      import { Field, InputGroup, InputGroupInput, InputGroupText } from "@moduix/react";
+      import { Field, InputGroup } from "@moduix/react";
 
       const domainSuffix = ".test.com";
       const domainErrorMessage = "Please enter a valid domain.";
@@ -282,8 +282,8 @@ shell reacts to that input state.
           <Field className="input-group-demo-field" invalid>
             <Field.Label>Domain</Field.Label>
             <InputGroup>
-              <InputGroupInput placeholder="company" />
-              <InputGroupText>{domainSuffix}</InputGroupText>
+              <InputGroup.Input placeholder="company" />
+              <InputGroup.Text>{domainSuffix}</InputGroup.Text>
             </InputGroup>
             <Field.ErrorText>{domainErrorMessage}</Field.ErrorText>
           </Field>
@@ -319,16 +319,16 @@ also become unavailable.
 
   <Preview.Code>
     {`
-      import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@moduix/react";
+      import { InputGroup } from "@moduix/react";
 
       const workspaceHandle = "maps";
 
       export function DisabledInputGroupDemo() {
         return (
           <InputGroup role="group" aria-label="Workspace handle">
-            <InputGroupAddon>@</InputGroupAddon>
-            <InputGroupInput disabled value={workspaceHandle} />
-            <InputGroupButton disabled>Copy</InputGroupButton>
+            <InputGroup.Addon>@</InputGroup.Addon>
+            <InputGroup.Input disabled value={workspaceHandle} />
+            <InputGroup.Button disabled>Copy</InputGroup.Button>
           </InputGroup>
         );
       }
@@ -360,15 +360,15 @@ Set size once on the root so the input, addon, text, and button stay aligned.
 
   <Preview.Code>
     {`
-      import { InputGroup, InputGroupAddon, InputGroupInput } from "@moduix/react";
+      import { InputGroup } from "@moduix/react";
 
       export function InputGroupSizesDemo() {
         return (
           <div className="input-group-demo-stack">
             {inputGroupSizes.map((size) => (
               <InputGroup key={size} size={size}>
-                <InputGroupAddon>@</InputGroupAddon>
-                <InputGroupInput aria-label={size + " workspace"} />
+                <InputGroup.Addon>@</InputGroup.Addon>
+                <InputGroup.Input aria-label={size + " workspace"} />
               </InputGroup>
             ))}
           </div>
@@ -405,7 +405,7 @@ size context.
 
   <Preview.Code>
     {`
-      import { Field, InputGroup, InputGroupAddon, InputGroupInput } from "@moduix/react";
+      import { Field, InputGroup } from "@moduix/react";
 
       const repositoryOwner = "moduix/";
 
@@ -415,8 +415,8 @@ size context.
             <Field.Label>Repository</Field.Label>
             <InputGroup asChild>
               <div>
-                <InputGroupAddon>{repositoryOwner}</InputGroupAddon>
-                <InputGroupInput placeholder="components" />
+                <InputGroup.Addon>{repositoryOwner}</InputGroup.Addon>
+                <InputGroup.Input placeholder="components" />
               </div>
             </InputGroup>
           </Field>
@@ -450,16 +450,16 @@ Use root variables for the merged shell and part classes for local addon or butt
 
   <Preview.Code>
     {`
-      import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@moduix/react";
+      import { InputGroup } from "@moduix/react";
 
       const customHandle = "custom-group";
 
       export function CustomInputGroupDemo() {
         return (
           <InputGroup className="input-group-demo-custom-group">
-            <InputGroupAddon className="input-group-demo-custom-addon">@</InputGroupAddon>
-            <InputGroupInput placeholder={customHandle} />
-            <InputGroupButton className="input-group-demo-custom-button">Check</InputGroupButton>
+            <InputGroup.Addon className="input-group-demo-custom-addon">@</InputGroup.Addon>
+            <InputGroup.Input placeholder={customHandle} />
+            <InputGroup.Button className="input-group-demo-custom-button">Check</InputGroup.Button>
           </InputGroup>
         );
       }

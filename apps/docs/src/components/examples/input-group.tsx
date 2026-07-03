@@ -1,11 +1,4 @@
-import {
-  Field,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-  InputGroupText,
-} from '@moduix/react';
+import { Field, InputGroup } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -161,8 +154,8 @@ export function InputGroupExample(props: ComponentProps<typeof InputGroup>) {
     <Field className="input-group-demo-field">
       <Field.Label>Workspace</Field.Label>
       <InputGroup {...props}>
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput placeholder="maps" />
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input placeholder="maps" />
       </InputGroup>
     </Field>
   );
@@ -175,13 +168,13 @@ export function InputGroupWithActionExample() {
     <Field className="input-group-demo-field">
       <Field.Label>Invite by email</Field.Label>
       <InputGroup>
-        <InputGroupInput
+        <InputGroup.Input
           value={value}
           onChange={(event) => setValue(event.currentTarget.value)}
           type="email"
           placeholder="name@example.com"
         />
-        <InputGroupButton disabled={!value}>Send</InputGroupButton>
+        <InputGroup.Button disabled={!value}>Send</InputGroup.Button>
       </InputGroup>
     </Field>
   );
@@ -192,9 +185,9 @@ export function InputGroupPrefixSuffixExample() {
     <Field className="input-group-demo-field">
       <Field.Label>Monthly budget</Field.Label>
       <InputGroup>
-        <InputGroupAddon className="input-group-demo-currency">$</InputGroupAddon>
-        <InputGroupInput inputMode="decimal" placeholder="2500" />
-        <InputGroupText>USD</InputGroupText>
+        <InputGroup.Addon className="input-group-demo-currency">$</InputGroup.Addon>
+        <InputGroup.Input inputMode="decimal" placeholder="2500" />
+        <InputGroup.Text>USD</InputGroup.Text>
       </InputGroup>
     </Field>
   );
@@ -206,8 +199,8 @@ export function InputGroupAsChildExample() {
       <Field.Label>Repository</Field.Label>
       <InputGroup asChild>
         <div>
-          <InputGroupAddon>moduix/</InputGroupAddon>
-          <InputGroupInput placeholder="components" />
+          <InputGroup.Addon>moduix/</InputGroup.Addon>
+          <InputGroup.Input placeholder="components" />
         </div>
       </InputGroup>
     </Field>
@@ -218,24 +211,24 @@ export function InputGroupSizesExample() {
   return (
     <div className="input-group-demo-stack">
       <InputGroup size="xs">
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput placeholder="Extra-small group" />
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input placeholder="Extra-small group" />
       </InputGroup>
       <InputGroup size="sm">
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput placeholder="Small group" />
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input placeholder="Small group" />
       </InputGroup>
       <InputGroup size="md">
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput placeholder="Medium group" />
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input placeholder="Medium group" />
       </InputGroup>
       <InputGroup size="lg">
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput placeholder="Large group" />
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input placeholder="Large group" />
       </InputGroup>
       <InputGroup size="xl">
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput placeholder="Extra-large group" />
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input placeholder="Extra-large group" />
       </InputGroup>
     </div>
   );
@@ -244,9 +237,9 @@ export function InputGroupSizesExample() {
 export function DisabledInputGroupExample() {
   return (
     <InputGroup className="input-group-demo-group" role="group" aria-label="Workspace handle">
-      <InputGroupAddon>@</InputGroupAddon>
-      <InputGroupInput disabled value="maps" />
-      <InputGroupButton disabled>Copy</InputGroupButton>
+      <InputGroup.Addon>@</InputGroup.Addon>
+      <InputGroup.Input disabled value="maps" />
+      <InputGroup.Button disabled>Copy</InputGroup.Button>
     </InputGroup>
   );
 }
@@ -256,8 +249,8 @@ export function InputGroupFieldValidationExample() {
     <Field className="input-group-demo-field" invalid>
       <Field.Label>Domain</Field.Label>
       <InputGroup>
-        <InputGroupInput placeholder="company" />
-        <InputGroupText>.test.com</InputGroupText>
+        <InputGroup.Input placeholder="company" />
+        <InputGroup.Text>.test.com</InputGroup.Text>
       </InputGroup>
       <Field.ErrorText>Please enter a domain.</Field.ErrorText>
     </Field>
@@ -267,9 +260,9 @@ export function InputGroupFieldValidationExample() {
 export function CustomStylesInputGroupExample() {
   return (
     <InputGroup className="input-group-demo-custom-group">
-      <InputGroupAddon className="input-group-demo-custom-addon">@</InputGroupAddon>
-      <InputGroupInput placeholder="custom-group" />
-      <InputGroupButton className="input-group-demo-custom-button">Check</InputGroupButton>
+      <InputGroup.Addon className="input-group-demo-custom-addon">@</InputGroup.Addon>
+      <InputGroup.Input placeholder="custom-group" />
+      <InputGroup.Button className="input-group-demo-custom-button">Check</InputGroup.Button>
     </InputGroup>
   );
 }

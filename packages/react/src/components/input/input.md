@@ -43,7 +43,6 @@ Field.Root (optional)
 ```
 
 - `Input` / `Input.Root` -> `data-slot="input-root"`, `data-scope="field"`, `data-part="input"`
-- Exported types: `InputProps`, `InputSize`
 
 ## Composition
 

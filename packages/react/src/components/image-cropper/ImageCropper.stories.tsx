@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
+import { ImageCropper as ArkImageCropper, useImageCropper } from '@ark-ui/react/image-cropper';
 import { useState } from 'react';
 import {
   FlipHorizontalIcon,
@@ -10,7 +11,7 @@ import {
   ZoomOutIcon,
 } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
-import { ImageCropper, useImageCropper } from './ImageCropper';
+import { ImageCropper } from './ImageCropper';
 import styles from './ImageCropper.stories.module.css';
 
 const sampleImage =
@@ -96,7 +97,7 @@ export const TransformControls: Story = {
   render: () => (
     <div className={styles.stack}>
       <ImageCropper>
-        <ImageCropper.Context>
+        <ArkImageCropper.Context>
           {(context) => (
             <div className={styles.toolbar}>
               <button
@@ -149,7 +150,7 @@ export const TransformControls: Story = {
               </button>
             </div>
           )}
-        </ImageCropper.Context>
+        </ArkImageCropper.Context>
         <ImageCropper.Viewport>
           <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
           <ImageCropper.Selection>

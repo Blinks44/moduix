@@ -1,9 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import {
-  ImageCropper as ImageCropperPrimitive,
-  useImageCropper,
-  useImageCropperContext,
-} from '@ark-ui/react/image-cropper';
+import { ImageCropper as ImageCropperPrimitive } from '@ark-ui/react/image-cropper';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -107,8 +103,6 @@ const ImageCropperHandle = forwardRef<
   );
 });
 
-const ImageCropperContext = ImageCropperPrimitive.Context;
-
 const ImageCropper = Object.assign(ImageCropperRoot, {
   Root: ImageCropperRoot,
   RootProvider: ImageCropperRootProvider,
@@ -117,34 +111,7 @@ const ImageCropper = Object.assign(ImageCropperRoot, {
   Selection: ImageCropperSelection,
   Grid: ImageCropperGrid,
   Handle: ImageCropperHandle,
-  Context: ImageCropperContext,
   handles: ImageCropperPrimitive.handles,
 });
 
-export { ImageCropper, useImageCropper, useImageCropperContext };
-export type {
-  ImageCropperContextProps,
-  ImageCropperCropChangeDetails,
-  ImageCropperFlipChangeDetails,
-  ImageCropperFlipState,
-  ImageCropperGridBaseProps,
-  ImageCropperGridProps,
-  ImageCropperHandleBaseProps,
-  ImageCropperHandlePosition,
-  ImageCropperHandleProps,
-  ImageCropperImageBaseProps,
-  ImageCropperImageProps,
-  ImageCropperRootBaseProps,
-  ImageCropperRootProps,
-  ImageCropperRootProviderBaseProps,
-  ImageCropperRootProviderProps,
-  ImageCropperRotationChangeDetails,
-  ImageCropperSelectionBaseProps,
-  ImageCropperSelectionProps,
-  UseImageCropperContext,
-  UseImageCropperProps,
-  UseImageCropperReturn,
-  ImageCropperViewportBaseProps,
-  ImageCropperViewportProps,
-  ImageCropperZoomChangeDetails,
-} from '@ark-ui/react/image-cropper';
+export { ImageCropper };

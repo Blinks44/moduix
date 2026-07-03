@@ -28,51 +28,43 @@ intentionally.
 - `InputGroup` is the short root form and maps to `InputGroup.Root`.
 - `InputGroup.Root` renders an Ark factory `div`, owns visual size context, and supports
   `asChild`.
-- `InputGroupInput` renders `Input`, inherits group size, and accepts native `onChange(event)`.
-- `InputGroupAddon` and `InputGroupText` render Ark factory `span` elements and support `asChild`.
-- `InputGroupButton` renders `Button`, inherits group size, defaults to `variant="ghost"` and
+- `InputGroup.Input` renders `Input`, inherits group size, and accepts native `onChange(event)`.
+- `InputGroup.Addon` and `InputGroup.Text` render Ark factory `span` elements and support `asChild`.
+- `InputGroup.Button` renders `Button`, inherits group size, defaults to `variant="ghost"` and
   `type="button"`.
-- The `InputGroup` namespace also exposes `Input`, `Addon`, `Text`, and `Button` aliases for the
-  named parts.
-- One `InputGroupInput` per group is the supported composition.
+- One `InputGroup.Input` per group is the supported composition.
 
 ## Anatomy and exported parts
 
 ```text
 InputGroup / InputGroup.Root
-├─ InputGroupAddon / InputGroup.Addon (optional)
-├─ InputGroupInput / InputGroup.Input
-├─ InputGroupText / InputGroup.Text (optional)
-└─ InputGroupButton / InputGroup.Button (optional)
+├─ InputGroup.Addon (optional)
+├─ InputGroup.Input
+├─ InputGroup.Text (optional)
+└─ InputGroup.Button (optional)
 ```
 
-| Part                                     | Stable slot          |
-| ---------------------------------------- | -------------------- |
-| `InputGroup` / `InputGroup.Root`         | `input-group-root`   |
-| `InputGroupInput` / `InputGroup.Input`   | `input-group-input`  |
-| `InputGroupAddon` / `InputGroup.Addon`   | `input-group-addon`  |
-| `InputGroupText` / `InputGroup.Text`     | `input-group-text`   |
-| `InputGroupButton` / `InputGroup.Button` | `input-group-button` |
+| Part                             | Stable slot          |
+| -------------------------------- | -------------------- |
+| `InputGroup` / `InputGroup.Root` | `input-group-root`   |
+| `InputGroup.Input`               | `input-group-input`  |
+| `InputGroup.Addon`               | `input-group-addon`  |
+| `InputGroup.Text`                | `input-group-text`   |
+| `InputGroup.Button`              | `input-group-button` |
 
 ## Composition
 
 ```tsx
-import {
-  Field,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from '@moduix/react';
+import { Field, InputGroup } from '@moduix/react';
 
 export function WorkspaceField() {
   return (
     <Field>
       <Field.Label>Workspace</Field.Label>
       <InputGroup>
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput name="workspace" />
-        <InputGroupButton>Check</InputGroupButton>
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input name="workspace" />
+        <InputGroup.Button>Check</InputGroup.Button>
       </InputGroup>
     </Field>
   );
@@ -82,13 +74,13 @@ export function WorkspaceField() {
 Use `asChild` only with one semantic child that can receive the part props and ref. The root child
 must remain a container; addon/text children should remain presentational.
 
-Use `Editable` instead of composing manual inline editing around `InputGroupInput`. `InputGroup`
+Use `Editable` instead of composing manual inline editing around `InputGroup.Input`. `InputGroup`
 should stay focused on ordinary input composition with addons, text, and actions.
 
 ## Upstream feature coverage
 
 - Ark factory composition: supported on root, addon, and text.
-- Ark Field integration: inherited by `InputGroupInput`.
+- Ark Field integration: inherited by `InputGroup.Input`.
 - Ark ref guidance: refs forward to the rendered root, input, addon, text, and button elements.
 - Native controlled/uncontrolled input: `value`, `defaultValue`, and `onChange(event)`.
 - Field and Fieldset state: invalid, disabled, required, and read-only state reaches the nested
@@ -116,7 +108,7 @@ should stay focused on ordinary input composition with addons, text, and actions
 - Group size defaults to `md` and is exposed as `data-size`.
 - `className` is supported on every exported part.
 - Use stable `data-slot` hooks, `data-scope`/`data-part` on factory parts, Ark field attributes on
-  `InputGroupInput`, native state selectors, and public `--input-group-*` variables.
+  `InputGroup.Input`, native state selectors, and public `--input-group-*` variables.
 - The group exposes no Ark runtime CSS variables.
 
 ## Intentional sugar and differences from upstream
@@ -135,6 +127,8 @@ should stay focused on ordinary input composition with addons, text, and actions
 
 ## Local changelog
 
+- 2026-07-03: Simplified the public surface to the `InputGroup.*` namespace API and removed
+  duplicate standalone part exports and prop aliases.
 - 2026-06-25: Added `InputGroup.Root` and namespace part aliases, aligned factory data attributes,
   and made the grouped button's `input-group-button` slot render on the actual button.
 - 2026-06-22: Removed shell focus redirection from `InputGroup`; the root now stays a passive
