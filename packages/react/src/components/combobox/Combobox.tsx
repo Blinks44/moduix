@@ -21,8 +21,6 @@ import styles from './Combobox.module.css';
 type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> & OverlayPortalProps;
 type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProviderProps<T> &
   OverlayPortalProps;
-type ComboboxRootComponent = ArkComboboxRootComponent<OverlayPortalProps>;
-type ComboboxRootProviderComponent = ArkComboboxRootProviderComponent<OverlayPortalProps>;
 
 const ComboboxRoot = forwardRef(function ComboboxRoot<T extends CollectionItem>(
   { className, portalled, portalRef, ...props }: ComboboxRootProps<T>,
@@ -38,7 +36,7 @@ const ComboboxRoot = forwardRef(function ComboboxRoot<T extends CollectionItem>(
       />
     </OverlayPortalProvider>
   );
-}) as ComboboxRootComponent;
+}) as ArkComboboxRootComponent<OverlayPortalProps>;
 
 const ComboboxRootProvider = forwardRef(function ComboboxRootProvider<T extends CollectionItem>(
   { className, portalled, portalRef, ...props }: ComboboxRootProviderProps<T>,
@@ -54,7 +52,7 @@ const ComboboxRootProvider = forwardRef(function ComboboxRootProvider<T extends 
       />
     </OverlayPortalProvider>
   );
-}) as ComboboxRootProviderComponent;
+}) as ArkComboboxRootProviderComponent<OverlayPortalProps>;
 
 const ComboboxLabel = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.Label>,

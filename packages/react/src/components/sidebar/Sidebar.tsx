@@ -10,6 +10,25 @@ import { Splitter, useSplitterContext } from '../splitter';
 import styles from './Sidebar.module.css';
 
 type SidebarSide = 'left' | 'right';
+type SidebarState = 'collapsed' | 'expanded';
+type SplitterRootProps = ComponentProps<typeof Splitter.Root>;
+type SplitterPanelProps = ComponentProps<typeof Splitter.Panel>;
+type SplitterResizeTriggerProps = ComponentProps<typeof Splitter.ResizeTrigger>;
+type SidebarConfig = {
+  panelId: string;
+  side: SidebarSide;
+};
+type SidebarRootProps = Omit<SplitterRootProps, 'orientation' | 'panels'> & {
+  panelId?: string;
+  panels?: SplitterRootProps['panels'];
+  side?: SidebarSide;
+};
+type SidebarPanelProps = Omit<SplitterPanelProps, 'id'> & {
+  id?: SplitterPanelProps['id'];
+};
+type SidebarResizeTriggerProps = Omit<SplitterResizeTriggerProps, 'id'> & {
+  id?: SplitterResizeTriggerProps['id'];
+};
 
 const sidebarPanel = {
   id: 'sidebar',
@@ -26,44 +45,48 @@ const defaultPanelsBySide = {
   right: [contentPanel, sidebarPanel],
 } satisfies Record<SidebarSide, SplitterPanelData[]>;
 
-const defaultSizeLeft = ['16rem'];
-const defaultSizeRight: NonNullable<ComponentProps<typeof Splitter.Root>['defaultSize']> = [];
-defaultSizeRight[1] = '16rem';
-
-const defaultSizeBySide = {
-  left: defaultSizeLeft,
-  right: defaultSizeRight,
-} satisfies Record<SidebarSide, NonNullable<ComponentProps<typeof Splitter.Root>['defaultSize']>>;
-
-const SidebarConfigContext = createContext({
+const SidebarConfigContext = createContext<SidebarConfig>({
   panelId: 'sidebar',
-  side: 'left' as SidebarSide,
+  side: 'left',
 });
 
-type SidebarRootProps = Omit<
-  ComponentProps<typeof Splitter.Root>,
-  'orientation' | 'panels' | 'side'
-> & {
-  panelId?: string;
-  panels?: ComponentProps<typeof Splitter.Root>['panels'];
-  side?: SidebarSide;
-};
+function getDefaultSidebarSize(side: SidebarSide) {
+  if (side === 'left') {
+    return ['16rem'];
+  }
+
+  const defaultSize: string[] = [];
+  defaultSize[1] = '16rem';
+  return defaultSize;
+}
+
+function getSidebarState(collapsed: boolean): SidebarState {
+  return collapsed ? 'collapsed' : 'expanded';
+}
+
+function toggleSidebarPanel(splitter: ReturnType<typeof useSplitterContext>, panelId: string) {
+  if (splitter.isPanelCollapsed(panelId)) {
+    splitter.expandPanel(panelId);
+    return;
+  }
+
+  splitter.collapsePanel(panelId);
+}
 
 const SidebarRoot = forwardRef<ComponentRef<typeof Splitter.Root>, SidebarRootProps>(
   function SidebarRoot(
     { className, panels, defaultSize: initialSize, panelId = 'sidebar', side = 'left', ...props },
     ref,
   ) {
-    const resolvedSide: SidebarSide = side === 'right' ? 'right' : 'left';
-    const resolvedPanels = panels ?? defaultPanelsBySide[resolvedSide];
+    const resolvedPanels = panels ?? defaultPanelsBySide[side];
 
     return (
-      <SidebarConfigContext.Provider value={{ panelId, side: resolvedSide }}>
+      <SidebarConfigContext.Provider value={{ panelId, side }}>
         <Splitter.Root
           ref={ref}
           panels={resolvedPanels}
-          defaultSize={initialSize ?? defaultSizeBySide[resolvedSide]}
-          data-side={resolvedSide}
+          defaultSize={initialSize ?? getDefaultSidebarSize(side)}
+          data-side={side}
           data-slot="sidebar-root"
           className={clsx(styles.root, normalizeClassName(className))}
           {...props}
@@ -82,64 +105,52 @@ function useSidebar() {
   return {
     collapsed,
     side: config.side,
-    state: collapsed ? ('collapsed' as const) : ('expanded' as const),
-    toggleSidebar: () => {
-      if (splitter.isPanelCollapsed(config.panelId)) splitter.expandPanel(config.panelId);
-      else splitter.collapsePanel(config.panelId);
-    },
+    state: getSidebarState(collapsed),
+    toggleSidebar: () => toggleSidebarPanel(splitter, config.panelId),
   };
 }
 
-const SidebarPanel = forwardRef<
-  ComponentRef<typeof Splitter.Panel>,
-  Omit<ComponentProps<typeof Splitter.Panel>, 'id'> & {
-    id?: ComponentProps<typeof Splitter.Panel>['id'];
-  }
->(function SidebarPanel({ className, id, ...props }, ref) {
-  const { panelId, side } = useContext(SidebarConfigContext);
-  const sidebar = useSplitterContext();
-  const resolvedId = id ?? panelId;
-  const collapsed = sidebar.isPanelCollapsed(resolvedId);
-  const state = collapsed ? 'collapsed' : 'expanded';
+const SidebarPanel = forwardRef<ComponentRef<typeof Splitter.Panel>, SidebarPanelProps>(
+  function SidebarPanel({ className, id, ...props }, ref) {
+    const { panelId, side } = useContext(SidebarConfigContext);
+    const sidebar = useSplitterContext();
+    const resolvedId = id ?? panelId;
+    const collapsed = sidebar.isPanelCollapsed(resolvedId);
 
-  return (
-    <Splitter.Panel
-      ref={ref}
-      id={resolvedId}
-      data-side={side}
-      data-slot="sidebar-panel"
-      data-state={state}
-      className={clsx(styles.panel, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
+    return (
+      <Splitter.Panel
+        ref={ref}
+        id={resolvedId}
+        data-side={side}
+        data-slot="sidebar-panel"
+        data-state={getSidebarState(collapsed)}
+        className={clsx(styles.panel, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-const SidebarInset = forwardRef<
-  ComponentRef<typeof Splitter.Panel>,
-  Omit<ComponentProps<typeof Splitter.Panel>, 'id'> & {
-    id?: ComponentProps<typeof Splitter.Panel>['id'];
-  }
->(function SidebarInset({ className, id = 'content', ...props }, ref) {
-  const { side } = useContext(SidebarConfigContext);
+const SidebarInset = forwardRef<ComponentRef<typeof Splitter.Panel>, SidebarPanelProps>(
+  function SidebarInset({ className, id = 'content', ...props }, ref) {
+    const { side } = useContext(SidebarConfigContext);
 
-  return (
-    <Splitter.Panel
-      ref={ref}
-      id={id}
-      data-side={side}
-      data-slot="sidebar-inset"
-      className={clsx(styles.inset, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
+    return (
+      <Splitter.Panel
+        ref={ref}
+        id={id}
+        data-side={side}
+        data-slot="sidebar-inset"
+        className={clsx(styles.inset, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 const SidebarResizeTrigger = forwardRef<
   ComponentRef<typeof Splitter.ResizeTrigger>,
-  Omit<ComponentProps<typeof Splitter.ResizeTrigger>, 'id'> & {
-    id?: ComponentProps<typeof Splitter.ResizeTrigger>['id'];
-  }
+  SidebarResizeTriggerProps
 >(function SidebarResizeTrigger(
   { className, id, 'aria-label': ariaLabel = 'Resize sidebar', ...props },
   ref,
@@ -180,8 +191,7 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
       onClick?.(event);
       if (event.defaultPrevented) return;
 
-      if (sidebar.isPanelCollapsed(config.panelId)) sidebar.expandPanel(config.panelId);
-      else sidebar.collapsePanel(config.panelId);
+      toggleSidebarPanel(sidebar, config.panelId);
     };
 
     return (
@@ -194,7 +204,7 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
         data-part="trigger"
         data-side={config.side}
         data-slot="sidebar-trigger"
-        data-state={collapsed ? 'collapsed' : 'expanded'}
+        data-state={getSidebarState(collapsed)}
         className={clsx(styles.trigger, normalizeClassName(className))}
         onClick={handleClick}
         {...props}

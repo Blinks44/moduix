@@ -62,17 +62,17 @@ function resolveImage(
 
   const imageNode =
     matchedNode instanceof HTMLImageElement ? matchedNode : matchedNode.querySelector('img');
-  if (!(imageNode instanceof HTMLImageElement) || !rootNode.contains(imageNode)) {
+  if (!(imageNode instanceof HTMLImageElement)) {
     return null;
   }
 
-  const source = imageNode.dataset.lightboxSrc ?? imageNode.currentSrc ?? imageNode.src;
-  if (!source) {
+  const src = imageNode.dataset.lightboxSrc ?? imageNode.currentSrc ?? imageNode.src;
+  if (!src) {
     return null;
   }
 
   return {
-    src: source,
+    src,
     alt: imageNode.alt || undefined,
     element: imageNode,
   };
@@ -285,7 +285,7 @@ function LightboxBind({
       setOpen(true);
     };
 
-    const handlePreload = (target: EventTarget | null) => {
+    const preloadFromTarget = (target: EventTarget | null) => {
       const nextImage = resolveImage(target, selector, rootNode);
       if (!nextImage) {
         return;
@@ -295,11 +295,11 @@ function LightboxBind({
     };
 
     const handlePointerEnter = (event: PointerEvent) => {
-      handlePreload(event.target);
+      preloadFromTarget(event.target);
     };
 
     const handleFocusIn = (event: FocusEvent) => {
-      handlePreload(event.target);
+      preloadFromTarget(event.target);
     };
 
     rootNode.addEventListener('click', handleClick);
