@@ -216,6 +216,7 @@ The resize line keeps the normal Splitter border color. Hover, focus, and drag o
 
 ## Local changelog
 
+- 2026-07-03: Kept the visual/navigation parts and `useSidebar()` sugar, but stopped exporting the internal `SidebarSide` type alias from the public package surface.
 - 2026-07-01: Rounded the default expanded and maximum widths to `16rem` and `18rem`, and
   documented `ScrollArea` as an opt-in content composition.
 - 2026-07-01: Kept fixed `sidebar`/`content` ids for a smaller root API, reset reserved scrollbar

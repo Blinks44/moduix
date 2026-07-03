@@ -2,7 +2,6 @@ import type { ComponentProps, ComponentRef } from 'react';
 import {
   SignaturePad as SignaturePadPrimitive,
   useSignaturePad,
-  useSignaturePadContext,
 } from '@ark-ui/react/signature-pad';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
@@ -120,8 +119,6 @@ const SignaturePadHiddenInput = forwardRef<
   );
 });
 
-const SignaturePadContext = SignaturePadPrimitive.Context;
-
 const SignaturePad = Object.assign(SignaturePadRoot, {
   Root: SignaturePadRoot,
   RootProvider: SignaturePadRootProvider,
@@ -131,32 +128,6 @@ const SignaturePad = Object.assign(SignaturePadRoot, {
   Guide: SignaturePadGuide,
   ClearTrigger: SignaturePadClearTrigger,
   HiddenInput: SignaturePadHiddenInput,
-  Context: SignaturePadContext,
 });
 
-export { SignaturePad, useSignaturePad, useSignaturePadContext };
-export type {
-  SignaturePadClearTriggerBaseProps,
-  SignaturePadClearTriggerProps,
-  SignaturePadContextProps,
-  SignaturePadControlBaseProps,
-  SignaturePadControlProps,
-  SignaturePadDrawDetails,
-  SignaturePadDrawEndDetails,
-  SignaturePadDrawingOptions,
-  SignaturePadGuideBaseProps,
-  SignaturePadGuideProps,
-  SignaturePadHiddenInputBaseProps,
-  SignaturePadHiddenInputProps,
-  SignaturePadLabelBaseProps,
-  SignaturePadLabelProps,
-  SignaturePadRootBaseProps,
-  SignaturePadRootProps,
-  SignaturePadRootProviderBaseProps,
-  SignaturePadRootProviderProps,
-  SignaturePadSegmentBaseProps,
-  SignaturePadSegmentProps,
-  UseSignaturePadContext,
-  UseSignaturePadProps,
-  UseSignaturePadReturn,
-} from '@ark-ui/react/signature-pad';
+export { SignaturePad, useSignaturePad };

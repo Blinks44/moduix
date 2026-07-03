@@ -132,7 +132,6 @@ SignaturePad.RootProvider
 | `SignaturePad.ClearTrigger`          | Native button that clears paths; Ark hides it while empty.     |
 | `SignaturePad.Guide`                 | Non-interactive baseline inside the control.                   |
 | `SignaturePad.HiddenInput`           | Native form input when the current paths need form submission. |
-| `SignaturePad.Context`               | Render-prop access to the current Ark signature pad API.       |
 
 ## Composition
 
@@ -148,8 +147,9 @@ signature outside the Ark tree. Use `RootProvider` when controls outside the com
 access to `paths`, `clear()`, or `getDataUrl()`.
 
 Use `HiddenInput` when the signature should participate in native form submission. Keep it inside
-the same `SignaturePad` tree so `SignaturePad.Context` can read the current Ark state. `name` gives
-that hidden input its field name; it does not create a native value by itself.
+the same `SignaturePad` tree and read current paths with `useSignaturePadContext()` from
+`@ark-ui/react/signature-pad` when the hidden value comes from live Ark state. `name` gives that
+hidden input its field name; it does not create a native value by itself.
 
 Use `drawing` for stroke-level customization. `drawing.size` changes stroke width,
 `drawing.simulatePressure` controls pressure simulation, and `drawing.fill` sets the stroke color.
@@ -179,10 +179,11 @@ Use `defaultPaths` for an initial uncontrolled signature. Use `paths` with `onDr
 the signature must stay in application state. `onDrawEnd(details)` fires after a stroke ends or the
 signature is cleared and exposes `details.getDataUrl(type, quality?)`.
 
-Set `name` on the root and render `HiddenInput` from `SignaturePad.Context` when native form
-submission is needed. Wrap with `Field.Root` when helper text, error text, required state, or
-disabled state should be shared with surrounding form UI. `Field` invalid state controls field
-messaging and descriptions; it does not add `data-invalid` to the signature pad parts.
+Set `name` on the root and render `HiddenInput` from a child that calls
+`useSignaturePadContext()` from `@ark-ui/react/signature-pad` when native form submission is
+needed. Wrap with `Field.Root` when helper text, error text, required state, or disabled state
+should be shared with surrounding form UI. `Field` invalid state controls field messaging and
+descriptions; it does not add `data-invalid` to the signature pad parts.
 
 `Control` is keyboard-focusable and exposes `role="application"` with
 `aria-roledescription="signature pad"`. Drawing uses pointer and touch input rather than arrow-key
@@ -338,6 +339,14 @@ messaging belongs to the same form control.
     {`
       import { Field, RotateCcwIcon, SignaturePad } from "@moduix/react";
 
+      import { useSignaturePadContext } from "@ark-ui/react/signature-pad";
+
+      function SignaturePadHiddenValue() {
+        const signaturePad = useSignaturePadContext();
+
+        return <SignaturePad.HiddenInput value={signaturePad.paths.join(" ")} />;
+      }
+
       export function FieldSignaturePadDemo() {
         return (
           <Field className="signature-pad-field" invalid required>
@@ -346,13 +355,11 @@ messaging belongs to the same form control.
               <SignaturePad.Control>
                 <SignaturePad.Segment />
                 <SignaturePad.ClearTrigger>
-                  <RotateCcwIcon aria-hidden="true" />
-                </SignaturePad.ClearTrigger>
-                <SignaturePad.Guide />
-              </SignaturePad.Control>
-              <SignaturePad.Context>
-                {(api) => <SignaturePad.HiddenInput value={api.paths.join(" ")} />}
-              </SignaturePad.Context>
+                <RotateCcwIcon aria-hidden="true" />
+              </SignaturePad.ClearTrigger>
+              <SignaturePad.Guide />
+            </SignaturePad.Control>
+              <SignaturePadHiddenValue />
             </SignaturePad>
             <Field.HelperText>Use pointer or touch input to add a signature.</Field.HelperText>
             <Field.ErrorText>Signature is required.</Field.ErrorText>

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
+import { useSignaturePadContext } from '@ark-ui/react/signature-pad';
 import { useState } from 'react';
 import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { Field } from '../field';
@@ -17,6 +18,12 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
+
+function SignaturePadHiddenValue() {
+  const signaturePad = useSignaturePadContext();
+
+  return <SignaturePad.HiddenInput value={signaturePad.paths.join(' ')} />;
+}
 
 function SignaturePadParts(props: ComponentProps<typeof SignaturePad.Root>) {
   return (
@@ -66,9 +73,7 @@ export const WithField: Story = {
           </SignaturePad.ClearTrigger>
           <SignaturePad.Guide />
         </SignaturePad.Control>
-        <SignaturePad.Context>
-          {(api) => <SignaturePad.HiddenInput value={api.paths.join(' ')} />}
-        </SignaturePad.Context>
+        <SignaturePadHiddenValue />
       </SignaturePad>
       <Field.HelperText>Use a pointer or touch input to sign.</Field.HelperText>
       <Field.ErrorText>Signature is required.</Field.ErrorText>

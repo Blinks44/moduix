@@ -19,7 +19,7 @@ Preserve Ark callback detail objects for `onDraw(details)` and `onDrawEnd(detail
 
 `SignaturePad` is the styled alias for `SignaturePad.Root`. It supports all Ark root props, including `defaultPaths`, controlled `paths`, `drawing`, `name`, `disabled`, `readOnly`, `required`, `ids`, `translations`, `onDraw`, and `onDrawEnd`.
 
-`useSignaturePad()` with `SignaturePad.RootProvider` is exported for state that must be created outside the rendered tree. `useSignaturePadContext()` and `SignaturePad.Context` expose the current Ark API inside the tree.
+`useSignaturePad()` with `SignaturePad.RootProvider` is exported for state that must be created outside the rendered tree. For advanced in-tree state reads, import `useSignaturePadContext()` directly from `@ark-ui/react/signature-pad`.
 
 For native form submission, render `SignaturePad.HiddenInput value={...}` inside the same tree. `name` only gives the hidden input its form field name; it does not create a native value without `HiddenInput`.
 
@@ -48,7 +48,6 @@ SignaturePad.RootProvider
 | `SignaturePad.Guide`                 | `data-slot="signature-pad-guide"`         | Non-interactive baseline.                                   |
 | `SignaturePad.ClearTrigger`          | `data-slot="signature-pad-clear-trigger"` | Native button hidden by Ark while empty or drawing.         |
 | `SignaturePad.HiddenInput`           | `data-slot="signature-pad-hidden-input"`  | Native form value when rendered with a `value`.             |
-| `SignaturePad.Context`               | -                                         | Render-prop access to Ark API.                              |
 
 ## Composition
 
@@ -80,7 +79,7 @@ export function SignaturePadDemo() {
 - Form usage uses `name`, `required`, and `HiddenInput`; render `HiddenInput value={...}` when the form needs a native value.
 - `Field.Root` context carries `disabled`, `required`, `readOnly`, and shared ids into `SignaturePad`. `Field` invalid state controls helper/error messaging and `HiddenInput` descriptions, but Ark does not add `data-invalid` to signature pad parts.
 - `Fieldset.Root` disabled state reaches `SignaturePad` through nested `Field.Root`, matching Ark's field/fieldset model. Set required, read-only, and invalid messaging state on `Field.Root` when those states belong to one signature field.
-- `RootProvider`, `Context`, `useSignaturePad`, and `useSignaturePadContext` are exported.
+- `RootProvider` and `useSignaturePad()` are exported. Import advanced context helpers directly from Ark when needed.
 
 ## Accessibility and state
 
@@ -116,5 +115,6 @@ Keep `HiddenInput` available even when examples omit it. Do not replace `paths`/
 
 ## Local changelog
 
+- 2026-07-03: Kept `RootProvider` and `useSignaturePad()`, removed moduix re-exports of Ark context APIs and Ark type aliases, and documented direct Ark imports for advanced state reads.
 - 2026-06-27: Tightened the Field/HiddenInput contract, documented `segmentPath` data attributes, and aligned the default shadow token.
 - 2026-06-22: Added the initial Ark-backed `SignaturePad` wrapper, CSS Module defaults, exports, stories, docs, and registry metadata.

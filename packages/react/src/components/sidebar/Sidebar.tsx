@@ -9,7 +9,7 @@ import type { SplitterPanelData } from '../splitter';
 import { Splitter, useSplitterContext } from '../splitter';
 import styles from './Sidebar.module.css';
 
-export type SidebarSide = 'left' | 'right';
+type SidebarSide = 'left' | 'right';
 
 const sidebarPanel = {
   id: 'sidebar',

@@ -59,4 +59,3 @@ const SimpleGrid = Object.assign(SimpleGridRoot, {
 });
 
 export { SimpleGrid };
-export type { SimpleGridRootProps };

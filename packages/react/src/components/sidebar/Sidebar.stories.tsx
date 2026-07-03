@@ -17,7 +17,7 @@ import { Menu } from '../menu';
 import { ScrollArea } from '../scroll-area';
 import { Select } from '../select';
 import { Tooltip } from '../tooltip';
-import { Sidebar, useSidebar, type SidebarSide } from './Sidebar';
+import { Sidebar, useSidebar } from './Sidebar';
 import styles from './Sidebar.stories.module.css';
 
 const meta = {
@@ -31,6 +31,7 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
+type SidebarSide = NonNullable<ComponentProps<typeof Sidebar.Root>['side']>;
 
 const workspaces = createListCollection({
   items: [

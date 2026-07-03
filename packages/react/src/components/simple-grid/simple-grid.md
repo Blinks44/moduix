@@ -119,6 +119,7 @@ query layouts, omit `columns` and `minChildWidth`, then set `grid-template-colum
 
 ## Local changelog
 
+- 2026-07-03: Removed the public `SimpleGridRootProps` alias; the component keeps the same root-only API while Ark and React can supply props typing directly.
 - 2026-06-30: Inlined the private fixed/auto-fit mode types into `SimpleGridRootProps` and clarified
   stylesheet versus inline-style precedence.
 - 2026-06-30: Added `SimpleGrid` with fixed columns, intrinsic auto-fit columns, independent gaps,

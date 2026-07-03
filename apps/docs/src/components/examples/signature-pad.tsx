@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react';
+import { useSignaturePadContext } from '@ark-ui/react/signature-pad';
 import { Button, Field, RotateCcwIcon, SignaturePad, useSignaturePad } from '@moduix/react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
@@ -295,6 +296,12 @@ export function DrawingSignaturePadExample() {
   return <SignaturePadParts drawing={{ fill: '#2563eb', size: 4, simulatePressure: false }} />;
 }
 
+function SignaturePadHiddenValue() {
+  const signaturePad = useSignaturePadContext();
+
+  return <SignaturePad.HiddenInput value={signaturePad.paths.join(' ')} />;
+}
+
 export function FieldSignaturePadExample() {
   return (
     <Field className={styles.field} invalid required>
@@ -313,9 +320,7 @@ export function FieldSignaturePadExample() {
           </SignaturePad.ClearTrigger>
           <SignaturePad.Guide />
         </SignaturePad.Control>
-        <SignaturePad.Context>
-          {(api) => <SignaturePad.HiddenInput value={api.paths.join(' ')} />}
-        </SignaturePad.Context>
+        <SignaturePadHiddenValue />
       </SignaturePad>
       <Field.HelperText>Use pointer or touch input to add a signature.</Field.HelperText>
       <Field.ErrorText>Signature is required.</Field.ErrorText>
