@@ -97,19 +97,18 @@ Timer.Root
    └─ Timer.ActionTrigger
 
 Timer.RootProvider
-└─ same part tree connected to useTimer()
+└─ same part tree connected to Ark useTimer()
 ```
 
 | Part                   | Role                                                                    |
 | ---------------------- | ----------------------------------------------------------------------- |
 | `Timer` / `Timer.Root` | Owns the Ark timer state, ids, interval, and callbacks.                 |
-| `Timer.RootProvider`   | Connects parts to timer state created with `useTimer()`.                |
+| `Timer.RootProvider`   | Connects parts to timer state created with Ark `useTimer()`.            |
 | `Timer.Area`           | Groups the visible time parts.                                          |
 | `Timer.Item`           | Renders a formatted time unit such as `hours`, `minutes`, or `seconds`. |
 | `Timer.Separator`      | Renders separators between time units.                                  |
 | `Timer.Control`        | Groups action triggers.                                                 |
 | `Timer.ActionTrigger`  | Dispatches `start`, `pause`, `resume`, `reset`, or `restart`.           |
-| `Timer.Context`        | Render-prop access to the Ark timer API.                                |
 
 ## Composition
 
@@ -123,10 +122,10 @@ or remaining time should not be zero. Use `countdown` with `startMs` for a count
 
 ### When to go custom
 
-Use `Timer.RootProvider` with `useTimer()` when the timer API must be created outside the rendered
-subtree. Use `Timer.Context` or `useTimerContext()` when nearby UI needs access to `running`,
-`paused`, `time`, `formattedTime`, `progressPercent`, or the programmatic `start()`, `pause()`,
-`resume()`, `reset()`, and `restart()` methods.
+Use `Timer.RootProvider` with Ark `useTimer()` when the timer API must be created outside the
+rendered subtree. Use Ark `Timer.Context` or `useTimerContext()` when nearby UI needs access to
+`running`, `paused`, `time`, `formattedTime`, `progressPercent`, or the programmatic `start()`,
+`pause()`, `resume()`, `reset()`, and `restart()` methods.
 
 Use `interval` for sub-second displays. Keep the interval as coarse as the UI allows; the default
 Ark interval is `1000`.
@@ -212,8 +211,9 @@ Switch between work and break durations from `onComplete` when a timer cycle sho
 
 ### Root Provider
 
-Create the timer with `useTimer()` when state and methods need to be read outside the visible part
-tree.
+Create the timer with Ark `useTimer()` when state and methods need to be read outside the visible
+part tree. `Timer.RootProvider` stays on `moduix`, while the advanced state hook and context come
+directly from `@ark-ui/react/timer`.
 
 <Preview>
   <RootProviderTimerExample />

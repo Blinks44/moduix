@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "packages/react/src/components/textarea/Textarea.tsx",
-      "content": "import type { ComponentProps, ComponentRef } from 'react';\nimport { Field as FieldPrimitive } from '@ark-ui/react/field';\nimport { clsx } from 'clsx';\nimport { forwardRef } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './Textarea.module.css';\n\ntype TextareaProps = ComponentProps<typeof FieldPrimitive.Textarea>;\n\nconst Textarea = forwardRef<ComponentRef<typeof FieldPrimitive.Textarea>, TextareaProps>(\n  function Textarea({ autoresize, className, ...props }, ref) {\n    return (\n      <FieldPrimitive.Textarea\n        ref={ref}\n        {...props}\n        data-scope=\"field\"\n        data-part=\"textarea\"\n        data-slot=\"textarea-root\"\n        data-autoresize={autoresize ? '' : undefined}\n        autoresize={autoresize}\n        className={clsx(styles.root, normalizeClassName(className))}\n      />\n    );\n  },\n);\n\nexport { Textarea };\nexport type { TextareaProps };",
+      "content": "import type { ComponentProps, ComponentRef } from 'react';\nimport { Field as FieldPrimitive } from '@ark-ui/react/field';\nimport { clsx } from 'clsx';\nimport { forwardRef } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './Textarea.module.css';\n\nconst Textarea = forwardRef<\n  ComponentRef<typeof FieldPrimitive.Textarea>,\n  ComponentProps<typeof FieldPrimitive.Textarea>\n>(function Textarea({ autoresize, className, ...props }, ref) {\n  return (\n    <FieldPrimitive.Textarea\n      ref={ref}\n      {...props}\n      data-scope=\"field\"\n      data-part=\"textarea\"\n      data-slot=\"textarea-root\"\n      data-autoresize={autoresize ? '' : undefined}\n      className={clsx(styles.root, normalizeClassName(className))}\n      autoresize={autoresize}\n    />\n  );\n});\n\nexport { Textarea };",
       "type": "registry:component",
       "target": "@components/moduix/textarea/Textarea.tsx"
     },
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/textarea/index.ts",
-      "content": "export { Textarea } from './Textarea';\nexport type { TextareaProps } from './Textarea';",
+      "content": "export { Textarea } from './Textarea';",
       "type": "registry:component",
       "target": "@components/moduix/textarea/index.ts"
     }

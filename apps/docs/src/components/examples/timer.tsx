@@ -1,4 +1,5 @@
-import { PauseIcon, PlayIcon, RotateCcwIcon, Timer, useTimer } from '@moduix/react';
+import { Timer as TimerPrimitive, useTimer } from '@ark-ui/react/timer';
+import { PauseIcon, PlayIcon, RotateCcwIcon, Timer } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -331,16 +332,17 @@ export const timerPomodoroCode = `
 `;
 
 export const timerRootProviderCode = `
-  import { PauseIcon, PlayIcon, RotateCcwIcon, Timer, useTimer } from "@moduix/react";
+  import { Timer as TimerPrimitive, useTimer } from "@ark-ui/react/timer";
+  import { PauseIcon, PlayIcon, RotateCcwIcon, Timer } from "@moduix/react";
 
   export function RootProviderTimerDemo() {
     const timer = useTimer({ targetMs: 60 * 60 * 1000 });
 
     return (
       <Timer.RootProvider value={timer}>
-        <Timer.Context>
+        <TimerPrimitive.Context>
           {(api) => <p className="timer-note">Progress: {api.progressPercent.toFixed(0)}%</p>}
-        </Timer.Context>
+        </TimerPrimitive.Context>
         <Timer.Area>
           <span className="timer-item-group">
             <Timer.Item type="hours" />
@@ -552,9 +554,9 @@ export function RootProviderTimerExample() {
 
   return (
     <Timer.RootProvider value={timer}>
-      <Timer.Context>
+      <TimerPrimitive.Context>
         {(api) => <p className="timer-note">Progress: {api.progressPercent.toFixed(0)}%</p>}
-      </Timer.Context>
+      </TimerPrimitive.Context>
       <Timer.Area>
         <TimerItemGroup type="hours" label="hours" />
         <Timer.Separator>:</Timer.Separator>

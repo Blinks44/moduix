@@ -35,13 +35,13 @@ Ark anatomy:
 - `Timer` is the same component as `Timer.Root`.
 - `Timer.Root` accepts Ark timer props including `autoStart`, `countdown`, `startMs`,
   `targetMs`, `interval`, `ids`, `translations`, `onTick`, and `onComplete`.
-- `Timer.RootProvider` accepts a `value` from `useTimer()` for externally created timer state.
+- `Timer.RootProvider` accepts a `value` from Ark `useTimer()` for externally created timer state.
 - `Timer.ActionTrigger` requires Ark's `action` prop: `start`, `pause`, `resume`, `reset`, or
   `restart`.
 - `Timer.Item` requires `type`, matching Ark time parts such as `days`, `hours`, `minutes`,
   `seconds`, and `milliseconds`.
-- `useTimer` and `useTimerContext` are re-exported directly from Ark.
-- Ark part, context, and hook types are re-exported for typed composition.
+- Advanced Ark state hooks and context APIs are not re-exported from moduix; import them directly
+  from `@ark-ui/react/timer` when `RootProvider` composition needs them.
 
 ## Anatomy and exported parts
 
@@ -54,19 +54,18 @@ Timer.Root
    └─ Timer.ActionTrigger
 
 Timer.RootProvider
-└─ same part tree connected to useTimer()
+└─ same part tree connected to Ark useTimer()
 ```
 
 | Export                 | `data-slot`            | Notes                                                      |
 | ---------------------- | ---------------------- | ---------------------------------------------------------- |
 | `Timer` / `Timer.Root` | `timer-root`           | Owns Ark timer state and ids.                              |
-| `Timer.RootProvider`   | `timer-root-provider`  | Connects parts to `useTimer()` state.                      |
+| `Timer.RootProvider`   | `timer-root-provider`  | Connects parts to Ark `useTimer()` state.                  |
 | `Timer.Area`           | `timer-area`           | Groups visible time parts.                                 |
 | `Timer.Item`           | `timer-item`           | Renders one formatted time unit and keeps Ark `data-type`. |
 | `Timer.Separator`      | `timer-separator`      | Visual separator between items.                            |
 | `Timer.Control`        | `timer-control`        | Groups action triggers.                                    |
 | `Timer.ActionTrigger`  | `timer-action-trigger` | Button that dispatches an Ark timer action.                |
-| `Timer.Context`        | none                   | Render-prop access to Ark timer API.                       |
 
 ## Composition
 
@@ -95,8 +94,9 @@ Timer.RootProvider
 - Events are supported through Ark `onTick(details)` and `onComplete()`.
 - Pomodoro-style flows are supported by remounting/changing timer props or controlling state
   outside the component.
-- Root provider usage is supported with `useTimer()` and `Timer.RootProvider`.
-- Programmatic controls are available from `Timer.Context` and `useTimerContext()`.
+- Root provider usage is supported with Ark `useTimer()` and `Timer.RootProvider`.
+- Programmatic controls and state reads stay available through Ark `Timer.Context` and
+  `useTimerContext()` when imported directly from `@ark-ui/react/timer`.
 
 Timer does not expose a separate controlled `value` prop because Ark Timer is action-driven rather
 than controlled by a React value. Use `RootProvider` when state must be created outside the tree.
@@ -130,6 +130,9 @@ moduix adds styled button defaults for `Timer.ActionTrigger`, default SVG icon s
 actions, centered root layout, tabular numeric display for `Timer.Area`, and stable `data-slot`
 selectors. It does not rename Ark props, add hidden controls, or add state outside Ark.
 
+`Timer.RootProvider` remains public, but moduix intentionally does not mirror Ark's hook or context
+exports. Import those directly from Ark when an advanced state-owner flow needs them.
+
 ## Agent notes
 
 Do not implement a custom interval, pause/resume state, or progress calculation in the wrapper.
@@ -139,6 +142,8 @@ Keep future additions as explicit parts or style hooks unless Ark adds new timer
 
 - 2026-06-29: Preserved Ark's action-trigger `hidden` state, aligned typography and focus styling,
   exported Ark part/context types, and completed public API and CSS-variable documentation.
+- 2026-07-03: Removed duplicate hook, context, and type re-exports from the moduix surface while
+  keeping `Timer.RootProvider` for Ark-owned external state.
 - 2026-06-23: Added `Timer` as an Ark UI wrapper with CSS Modules, Storybook examples, docs, and
   registry support.
 - 2026-06-23: Aligned examples with Ark's icon action triggers and labeled time item composition;

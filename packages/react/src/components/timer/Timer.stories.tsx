@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Timer as TimerPrimitive, useTimer } from '@ark-ui/react/timer';
 import { useState, type ComponentProps } from 'react';
 import { PauseIcon, PlayIcon, RotateCcwIcon } from '@/lib/moduix/icons/ui';
-import { Timer, useTimer } from './Timer';
+import { Timer } from './Timer';
 import styles from './Timer.stories.module.css';
 
 const meta = {
@@ -165,9 +166,9 @@ export const RootProvider: Story = {
 
     return (
       <Timer.RootProvider value={timer}>
-        <Timer.Context>
+        <TimerPrimitive.Context>
           {(api) => <p className={styles.status}>Progress: {api.progressPercent.toFixed(0)}%</p>}
-        </Timer.Context>
+        </TimerPrimitive.Context>
         <ShortTimerValue />
         <TimerControls />
       </Timer.RootProvider>

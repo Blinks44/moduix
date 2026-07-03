@@ -115,6 +115,8 @@ Public CSS variables from `theme.css`:
 - Chakra `variant`, `size`, and style-prop APIs are intentionally not mirrored.
 - Manual read-only/editing controls are intentionally not documented for `Textarea`; use `Editable`
   for that behavior.
+- Duplicate `TextareaProps` re-exports are intentionally omitted; when a consumer needs the exact
+  upstream prop type they can derive it from the component or import Ark types directly.
 
 ## Agent notes
 
@@ -126,6 +128,8 @@ Public CSS variables from `theme.css`:
 ## Local changelog
 
 - 2026-06-27: Protected Ark/moduix data hooks from rest-prop overrides, aligned the validation example with Ark `Field invalid`, and refreshed docs wording for the no-dedicated-primitive contract.
+- 2026-07-03: Removed duplicate `TextareaProps` exports to keep the public surface aligned with the
+  simplified root-only component pattern.
 - 2026-06-22: Removed the manual read-only/editing story and docs path; inline editing now belongs
   to `Editable`.
 - 2026-06-21: Migrated implementation to Ark `Field.Textarea`; replaced `autoResize` with `autoresize` and removed `onValueChange`.

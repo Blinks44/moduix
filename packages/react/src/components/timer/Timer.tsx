@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Timer as TimerPrimitive, useTimer, useTimerContext } from '@ark-ui/react/timer';
+import { Timer as TimerPrimitive } from '@ark-ui/react/timer';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -103,8 +103,6 @@ const TimerActionTrigger = forwardRef<
   );
 });
 
-const TimerContext = TimerPrimitive.Context;
-
 const Timer = Object.assign(TimerRoot, {
   Root: TimerRoot,
   RootProvider: TimerRootProvider,
@@ -113,20 +111,6 @@ const Timer = Object.assign(TimerRoot, {
   Separator: TimerSeparator,
   Control: TimerControl,
   ActionTrigger: TimerActionTrigger,
-  Context: TimerContext,
 });
 
-export { Timer, useTimer, useTimerContext };
-export type {
-  TimerActionTriggerProps,
-  TimerAreaProps,
-  TimerContextProps,
-  TimerControlProps,
-  TimerItemProps,
-  TimerRootProps,
-  TimerRootProviderProps,
-  TimerSeparatorProps,
-  UseTimerContext,
-  UseTimerProps,
-  UseTimerReturn,
-} from '@ark-ui/react/timer';
+export { Timer };

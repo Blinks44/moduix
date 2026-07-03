@@ -58,15 +58,6 @@ Text / Text.Root
 | -------------------- | ----------- | ----------------------------------------------- |
 | `Text` / `Text.Root` | `text-root` | Ark factory root with typography styling hooks. |
 
-Exported types:
-
-- `TextRootProps`
-- `TextElement`
-- `TextSize`
-- `TextWeight`
-- `TextTone`
-- `TextAlign`
-
 ## Composition
 
 Canonical usage:
@@ -173,7 +164,8 @@ moduix adds a constrained semantic `as` union, visual `tone` presets, default va
 and `strong`, stable `data-slot`, and theme variables.
 
 There is no legacy `render` prop. Custom host composition now uses Ark-style `asChild`.
-`TextProps` was replaced by the Ark-shaped `TextRootProps`.
+Advanced consumers should derive prop details from the component itself or import Ark utility types
+directly when they need upstream typing helpers.
 
 ## Agent notes
 
@@ -189,6 +181,8 @@ There is no legacy `render` prop. Custom host composition now uses Ark-style `as
 - 2026-06-27: Re-audited the local Ark factory contract, simplified default variant resolution,
   preserved root data hooks after passthrough props, aligned docs API text with local-only
   components, and fixed `lineClamp` when `truncate` is also present.
+- 2026-07-03: Dropped duplicate public type exports so `Text` matches the smaller callable-root
+  surface used by other simplified components.
 - 2026-06-21: Migrated `Text` from legacy `useRender` to Ark factory, replaced `render` with
   `asChild`, added `Text.Root`, forwarded refs, Ark-style root data attributes, and Chakra-informed
   `truncate` / `lineClamp` props.

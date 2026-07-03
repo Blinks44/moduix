@@ -20,7 +20,7 @@ type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type TextWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 type TextTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
 type TextAlign = 'left' | 'center' | 'right';
-type TextRootProps = HTMLArkProps<'p'> & {
+type TextProps = HTMLArkProps<'p'> & {
   as?: TextElement;
   size?: TextSize;
   weight?: TextWeight;
@@ -30,7 +30,7 @@ type TextRootProps = HTMLArkProps<'p'> & {
   lineClamp?: number;
 };
 
-const TextRoot = forwardRef<ComponentRef<typeof ark.p>, TextRootProps>(function TextRoot(
+const TextRoot = forwardRef<ComponentRef<typeof ark.p>, TextProps>(function TextRoot(
   {
     as,
     asChild,
@@ -79,4 +79,3 @@ const Text = Object.assign(TextRoot, {
 });
 
 export { Text };
-export type { TextAlign, TextElement, TextRootProps, TextSize, TextTone, TextWeight };
