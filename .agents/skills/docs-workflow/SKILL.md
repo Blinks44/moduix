@@ -24,7 +24,7 @@ Use this skill for work in `apps/docs`.
 
 - Import public components from `moduix`. Do not duplicate library components inside the docs app.
 - Document the shipped public API only. Remove stale props, examples, styling hooks, and obsolete guidance in the same task.
-- Keep MDX consumer-facing. Put interactive logic, bulky example data, and `cssProperties` arrays in example `.tsx` files.
+- Keep MDX consumer-facing. Put interactive logic and `cssProperties` arrays in example `.tsx` files, but keep the visible snippet data setup inside `Preview.Code`.
 - Prefer `as T` over `useState<T>()` in MDX.
 - Prefer short, production-like examples over exhaustive configuration demos.
 - Keep demo styles in colocated CSS Modules when that is clearer than inline styles.
@@ -107,7 +107,12 @@ Inside `## Styling`, always use:
 
 - Put component code in `Preview.Code`.
 - Put example-local CSS in `Preview.CSS`.
-- Put arrays, mock payloads, and other setup data in `Preview.Data`.
+- Use Fumadocs `<include>` for `Preview.Code` when it meaningfully reduces MDX noise; keep the
+  snippet in a docs-local `_snippets/` file and include a named region.
+- Do not use `Preview.Data` on component pages by default. Put arrays, mock payloads, and other
+  setup data directly in the visible `Preview.Code` snippet so the snippet stays self-contained.
+- Do not use `<include>` by default for `Preview.CSS`. Prefer inline content or exports from the
+  example module unless the content is genuinely large and reused.
 - Keep snippets self-contained and consumer-facing.
 - Prefer the Ark UI documentation style: one complete component per visible snippet, with the relevant parts inlined.
   Do not make readers jump between hidden helper components just to understand the example. Keep helpers in the docs

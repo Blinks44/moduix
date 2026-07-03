@@ -18,33 +18,11 @@ Use Ark-style parts: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`
 <Preview>
   <AccordionDocs.AccordionExample defaultValue={["what-is-ark-ui"]} />
 
-  <Preview.Code>
-    {`
-      import { Accordion } from "@moduix/react";
-
-      export function AccordionDemo() {
-        return (
-          <Accordion defaultValue={["what-is-ark-ui"]}>
-            {items.map((item) => (
-              <Accordion.Item key={item.value} value={item.value}>
-                <Accordion.ItemTrigger>
-                  {item.title}
-                  <Accordion.ItemIndicator />
-                </Accordion.ItemTrigger>
-                <Accordion.ItemContent>
-                  <div className="accordion-panel-content">{item.description}</div>
-                </Accordion.ItemContent>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/accordion/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn
@@ -134,31 +112,9 @@ Use `multiple` when several sections should stay open at the same time instead o
 <Preview>
   <AccordionDocs.MultipleAccordionExample />
   <Preview.Code>
-    {`
-      import { Accordion } from "@moduix/react";
-
-      export function MultipleAccordionDemo() {
-        return (
-          <Accordion multiple defaultValue={["what-is-ark-ui", "can-i-use-it"]}>
-            {items.map((item) => (
-              <Accordion.Item key={item.value} value={item.value}>
-                <Accordion.ItemTrigger>
-                  {item.title}
-                  <Accordion.ItemIndicator />
-                </Accordion.ItemTrigger>
-                <Accordion.ItemContent>
-                  <div className="accordion-panel-content">{item.description}</div>
-                </Accordion.ItemContent>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/accordion/multiple.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Controlled
@@ -168,34 +124,9 @@ Control `value` from React state when the open items need to stay in sync with r
 <Preview>
   <AccordionDocs.ControlledAccordionExample />
   <Preview.Code>
-    {`
-      import { Accordion } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledAccordionDemo() {
-        const [value, setValue] = useState(["getting-started"] as string[]);
-
-        return (
-          <Accordion value={value} onValueChange={(details) => setValue(details.value)}>
-            {items.map((item) => (
-              <Accordion.Item key={item.value} value={item.value}>
-                <Accordion.ItemTrigger>
-                  {item.title}
-                  <Accordion.ItemIndicator />
-                </Accordion.ItemTrigger>
-                <Accordion.ItemContent>
-                  <div className="accordion-panel-content">{item.description}</div>
-                </Accordion.ItemContent>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/accordion/controlled.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -206,39 +137,9 @@ the rendered accordion tree. Do not render `Accordion.Root` for the same store.
 <Preview>
   <AccordionDocs.RootProviderAccordionExample />
   <Preview.Code>
-    {`
-      import { useAccordion } from "@ark-ui/react/accordion";
-      import { Accordion } from "@moduix/react";
-
-      export function RootProviderAccordionDemo() {
-        const accordion = useAccordion({ defaultValue: ["what-is-ark-ui"] });
-
-        return (
-          <>
-            <div className="accordion-provider-stack">
-              <div className="accordion-state">Open sections: {accordion.value.join(", ")}</div>
-              <Accordion.RootProvider value={accordion}>
-                {items.map((item) => (
-                  <Accordion.Item key={item.value} value={item.value}>
-                    <Accordion.ItemTrigger>
-                      {item.title}
-                      <Accordion.ItemIndicator />
-                    </Accordion.ItemTrigger>
-                    <Accordion.ItemContent>
-                      <div className="accordion-panel-content">{item.description}</div>
-                    </Accordion.ItemContent>
-                  </Accordion.Item>
-                ))}
-              </Accordion.RootProvider>
-            </div>
-          </>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/accordion/root-provider.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Collapsible
@@ -248,31 +149,9 @@ Add `collapsible` when the currently open item should be allowed to close withou
 <Preview>
   <AccordionDocs.CollapsibleAccordionExample />
   <Preview.Code>
-    {`
-      import { Accordion } from "@moduix/react";
-
-      export function CollapsibleAccordionDemo() {
-        return (
-          <Accordion collapsible defaultValue={["what-is-ark-ui"]}>
-            {items.map((item) => (
-              <Accordion.Item key={item.value} value={item.value}>
-                <Accordion.ItemTrigger>
-                  {item.title}
-                  <Accordion.ItemIndicator />
-                </Accordion.ItemTrigger>
-                <Accordion.ItemContent>
-                  <div className="accordion-panel-content">{item.description}</div>
-                </Accordion.ItemContent>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/accordion/collapsible.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Horizontal
@@ -282,31 +161,9 @@ Switch to `orientation="horizontal"` when the accordion should follow a horizont
 <Preview>
   <AccordionDocs.HorizontalAccordionExample />
   <Preview.Code>
-    {`
-      import { Accordion } from "@moduix/react";
-
-      export function HorizontalAccordionDemo() {
-        return (
-          <Accordion orientation="horizontal" defaultValue={["what-is-ark-ui"]}>
-            {items.map((item) => (
-              <Accordion.Item key={item.value} value={item.value}>
-                <Accordion.ItemTrigger>
-                  {item.title}
-                  <Accordion.ItemIndicator />
-                </Accordion.ItemTrigger>
-                <Accordion.ItemContent>
-                  <div className="accordion-panel-content">{item.description}</div>
-                </Accordion.ItemContent>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/accordion/horizontal.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Lazy Mount
@@ -316,31 +173,9 @@ Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and s
 <Preview>
   <AccordionDocs.LazyMountAccordionExample />
   <Preview.Code>
-    {`
-      import { Accordion } from "@moduix/react";
-
-      export function LazyMountAccordionDemo() {
-        return (
-          <Accordion lazyMount unmountOnExit>
-            {items.map((item) => (
-              <Accordion.Item key={item.value} value={item.value}>
-                <Accordion.ItemTrigger>
-                  {item.title}
-                  <Accordion.ItemIndicator />
-                </Accordion.ItemTrigger>
-                <Accordion.ItemContent>
-                  <div className="accordion-panel-content">{item.description}</div>
-                </Accordion.ItemContent>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/accordion/lazy-mount.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Disabled Item
@@ -350,35 +185,9 @@ Set `disabled` on an item when it should stay visible in the list but remain una
 <Preview>
   <AccordionDocs.DisabledItemAccordionExample />
   <Preview.Code>
-    {`
-      import { Accordion } from "@moduix/react";
-
-      export function DisabledItemAccordionDemo() {
-        return (
-          <Accordion defaultValue={["what-is-ark-ui"]}>
-            {items.map((item) => (
-              <Accordion.Item
-                key={item.value}
-                value={item.value}
-                disabled={item.value === "getting-started"}
-              >
-                <Accordion.ItemTrigger>
-                  {item.title}
-                  <Accordion.ItemIndicator />
-                </Accordion.ItemTrigger>
-                <Accordion.ItemContent>
-                  <div className="accordion-panel-content">{item.description}</div>
-                </Accordion.ItemContent>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/accordion/disabled-item.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### With Slider
@@ -389,46 +198,11 @@ explicit so keyboard handling and hidden form inputs stay owned by the correct c
 <Preview>
   <AccordionDocs.WithSliderAccordionExample />
 
-  <Preview.Code>
-    {`
-      import { Accordion, Slider } from "@moduix/react";
-
-      export function WithSliderAccordionDemo() {
-        return (
-          <Accordion defaultValue={["what-is-ark-ui"]}>
-            {items.map((item) => (
-              <Accordion.Item key={item.value} value={item.value}>
-                <Accordion.ItemTrigger>
-                  {item.title}
-                  <Accordion.ItemIndicator />
-                </Accordion.ItemTrigger>
-                <Accordion.ItemContent>
-                  <div className="accordion-panel-content">
-                    <span>{item.description}</span>
-                    <Slider defaultValue={[40]}>
-                      <Slider.Label>{item.title} priority</Slider.Label>
-                      <Slider.Control>
-                        <Slider.Track>
-                          <Slider.Range />
-                        </Slider.Track>
-                        <Slider.Thumb index={0}>
-                          <Slider.HiddenInput />
-                        </Slider.Thumb>
-                      </Slider.Control>
-                    </Slider>
-                  </div>
-                </Accordion.ItemContent>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/accordion/with-slider.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
-  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -438,35 +212,11 @@ Override the indicator content or local CSS variables when the accordion should 
 <Preview>
   <AccordionDocs.CustomStylingAccordionExample />
 
-  <Preview.Code>
-    {`
-      import { Accordion, ChevronDownIcon } from "@moduix/react";
-
-      export function CustomStylingAccordionDemo() {
-        return (
-          <Accordion defaultValue={["what-is-ark-ui"]}>
-            {items.map((item) => (
-              <Accordion.Item key={item.value} value={item.value}>
-                <Accordion.ItemTrigger>
-                  {item.title}
-                  <Accordion.ItemIndicator className="accordion-custom-icon">
-                    <ChevronDownIcon />
-                  </Accordion.ItemIndicator>
-                </Accordion.ItemTrigger>
-                <Accordion.ItemContent>
-                  <div className="accordion-panel-content">{item.description}</div>
-                </Accordion.ItemContent>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/accordion/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{AccordionDocs.accordionCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{AccordionDocs.accordionItemsData}</Preview.Data>
 </Preview>
 
 ## Styling
