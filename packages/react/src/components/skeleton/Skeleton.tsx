@@ -5,26 +5,19 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Skeleton.module.css';
 
-function toCssValue(value: number | string | undefined) {
-  if (typeof value === 'number') {
-    return `${value}px`;
-  }
-
-  return value;
-}
-
-export type SkeletonVariant = 'pulse' | 'none';
-
-export type SkeletonRootProps = HTMLArkProps<'div'> & {
+type SkeletonProps = HTMLArkProps<'div'> & {
   loading?: boolean;
-  variant?: SkeletonVariant;
+  variant?: 'pulse' | 'none';
   width?: number | string;
   height?: number | string;
   boxSize?: number | string;
   borderRadius?: number | string;
 };
 
-const SkeletonRoot = forwardRef<HTMLDivElement, SkeletonRootProps>(function SkeletonRoot(
+const toCssValue = (value: number | string | undefined) =>
+  typeof value === 'number' ? `${value}px` : value;
+
+const SkeletonRoot = forwardRef<HTMLDivElement, SkeletonProps>(function SkeletonRoot(
   {
     'aria-hidden': ariaHidden,
     asChild,

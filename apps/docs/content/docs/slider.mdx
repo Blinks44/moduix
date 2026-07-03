@@ -149,7 +149,6 @@ Slider / Slider.Root
 | `Slider.HiddenInput`                   | Native input for form submission and reset behavior.        |
 | `Slider.MarkerGroup` / `Slider.Marker` | Optional tick mark group and individual mark.               |
 | `Slider.DraggingIndicator`             | Optional value bubble while dragging.                       |
-| `Slider.Context`                       | Render-prop access to Ark slider state.                     |
 
 ## Composition
 
@@ -163,8 +162,8 @@ per value, and `HiddenInput` inside each thumb when forms or resets matter.
 ### When to go custom
 
 Use `asChild` when a part must render a custom host element, but keep a single semantic child that
-can receive Ark props. Use `Slider.Context` for inline state reads and `useSlider` with
-`Slider.RootProvider` when state must be owned outside the rendered tree.
+can receive Ark props. For advanced state access, import `useSliderContext` or `useSlider` directly
+from `@ark-ui/react/slider` and pair them with `Slider.RootProvider`.
 
 ### Default props
 
@@ -357,7 +356,8 @@ Use `disabled` to keep the value visible while preventing interaction.
 
 ### Context
 
-Use `Slider.Context` for inline reads of Ark state such as `value`, `dragging`, and focus state.
+Use Ark's `useSliderContext` hook inside a child component when you need inline reads of slider
+state such as `value`, `dragging`, and focus state.
 
 <Preview>
   <ContextSliderExample />
@@ -369,7 +369,8 @@ Use `Slider.Context` for inline reads of Ark state such as `value`, `dragging`, 
 
 ### Root Provider
 
-Use `useSlider` with `Slider.RootProvider` when state must be owned outside the rendered tree.
+Use Ark's `useSlider` hook with `Slider.RootProvider` when state must be owned outside the rendered
+tree.
 
 <Preview>
   <RootProviderSliderExample />

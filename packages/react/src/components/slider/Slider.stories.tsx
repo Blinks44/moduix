@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useSlider, useSliderContext } from '@ark-ui/react/slider';
 import { useState } from 'react';
 import { Button } from '../button';
-import { Slider, useSlider } from './Slider';
+import { Slider } from './Slider';
 import styles from './Slider.stories.module.css';
 
 const meta = {
@@ -210,14 +211,7 @@ export const Context: Story = {
   render: () => {
     return (
       <Slider defaultValue={[40]}>
-        <Slider.Context>
-          {(context) => (
-            <div className={styles.header}>
-              <Slider.Label>Dragging: {String(context.dragging)}</Slider.Label>
-              <span className={styles.value}>{context.value.join(', ')}</span>
-            </div>
-          )}
-        </Slider.Context>
+        <SliderContextStatus />
         <Slider.Control>
           <Slider.Track>
             <Slider.Range />
@@ -230,6 +224,17 @@ export const Context: Story = {
     );
   },
 };
+
+function SliderContextStatus() {
+  const slider = useSliderContext();
+
+  return (
+    <div className={styles.header}>
+      <Slider.Label>Dragging: {String(slider.dragging)}</Slider.Label>
+      <span className={styles.value}>{slider.value.join(', ')}</span>
+    </div>
+  );
+}
 
 export const RootProvider: Story = {
   render: () => {

@@ -5,21 +5,20 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Spinner.module.css';
 
-type SpinnerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type SpinnerRootProps = HTMLArkProps<'span'> & {
-  size?: SpinnerSize;
+type SpinnerProps = HTMLArkProps<'span'> & {
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   decorative?: boolean;
 };
 
-const SpinnerRoot = forwardRef<HTMLSpanElement, SpinnerRootProps>(function SpinnerRoot(
+const SpinnerRoot = forwardRef<HTMLSpanElement, SpinnerProps>(function SpinnerRoot(
   {
     asChild,
-    className,
-    size = 'md',
-    decorative = false,
     children,
+    className,
+    decorative = false,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledBy,
+    size = 'md',
     ...props
   },
   ref,
@@ -72,4 +71,3 @@ const Spinner = Object.assign(SpinnerRoot, {
 });
 
 export { Spinner };
-export type { SpinnerRootProps, SpinnerSize };

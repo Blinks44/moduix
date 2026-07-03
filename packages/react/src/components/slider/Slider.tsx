@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Slider as SliderPrimitive, useSlider, useSliderContext } from '@ark-ui/react/slider';
+import { Slider as SliderPrimitive } from '@ark-ui/react/slider';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -173,8 +173,6 @@ const SliderDraggingIndicator = forwardRef<
   );
 });
 
-const SliderContext = SliderPrimitive.Context;
-
 const Slider = Object.assign(SliderRoot, {
   Root: SliderRoot,
   RootProvider: SliderRootProvider,
@@ -188,39 +186,6 @@ const Slider = Object.assign(SliderRoot, {
   MarkerGroup: SliderMarkerGroup,
   Marker: SliderMarker,
   DraggingIndicator: SliderDraggingIndicator,
-  Context: SliderContext,
 });
 
-export { Slider, useSlider, useSliderContext };
-export type {
-  SliderContextProps,
-  SliderControlBaseProps,
-  SliderControlProps,
-  SliderDraggingIndicatorBaseProps,
-  SliderDraggingIndicatorProps,
-  SliderFocusChangeDetails,
-  SliderHiddenInputBaseProps,
-  SliderHiddenInputProps,
-  SliderLabelBaseProps,
-  SliderLabelProps,
-  SliderMarkerBaseProps,
-  SliderMarkerGroupBaseProps,
-  SliderMarkerGroupProps,
-  SliderMarkerProps,
-  SliderRangeBaseProps,
-  SliderRangeProps,
-  SliderRootBaseProps,
-  SliderRootProps,
-  SliderRootProviderBaseProps,
-  SliderRootProviderProps,
-  SliderThumbBaseProps,
-  SliderThumbProps,
-  SliderTrackBaseProps,
-  SliderTrackProps,
-  SliderValueChangeDetails,
-  SliderValueTextBaseProps,
-  SliderValueTextProps,
-  UseSliderContext,
-  UseSliderProps,
-  UseSliderReturn,
-} from '@ark-ui/react/slider';
+export { Slider };

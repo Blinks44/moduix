@@ -49,11 +49,6 @@ Spinner / Spinner.Root
 | indicator                  | `data-slot="spinner-indicator"` | Internal rotating wrapper that owns size and animation.    |
 | ring                       | `data-slot="spinner-ring"`      | Internal default ring, omitted when custom children exist. |
 
-Public exported types:
-
-- `SpinnerRootProps`
-- `SpinnerSize`
-
 ## Composition
 
 Use the short root form for normal consumers:
@@ -147,6 +142,8 @@ The default non-decorative path announces a loading status. Prefer `decorative` 
 
 ## Local changelog
 
+- 2026-07-03: Stopped exporting `SpinnerRootProps` and `SpinnerSize`; docs and examples now infer
+  props from `Spinner` directly to keep the public surface smaller.
 - 2026-06-27: Re-audited the local Ark factory contract, simplified `asChild` examples to reuse public data hooks, aligned docs API text, and removed non-token ring thickness overrides from examples.
 - 2026-06-21: Migrated `Spinner` to an Ark-style root-only component with `@ark-ui/react/factory`, `asChild`, `Spinner.Root`, `data-scope="spinner"`, `data-part` styling hooks, docs examples with Code/Styles/Data tabs, and the `SpinnerRootProps` public type.
 - 2026-06-03: Rewrote the local documentation around the actual moduix `Spinner` contract, documented semantics/composition/styling hooks, exposed the default ring as `data-slot="spinner-ring"`, added public prop and size type exports, and added `--spinner-animation` while disabling motion under `prefers-reduced-motion`.

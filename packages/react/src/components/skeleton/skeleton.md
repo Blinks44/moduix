@@ -139,6 +139,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-03: Stopped exporting `SkeletonRootProps` and `SkeletonVariant`; keep the public surface
+  on the component itself and preserve the same runtime behavior.
 - 2026-06-27: Audited the Ark factory migration, simplified loading-state CSS, fixed the anatomy
   hook table, and synchronized docs example data with rendered examples.
 - 2026-06-20: Migrated `Skeleton` to an Ark-style factory wrapper, added `Skeleton.Root`,

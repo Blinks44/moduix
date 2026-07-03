@@ -1,4 +1,5 @@
-import { Spinner, type SpinnerRootProps } from '@moduix/react';
+import type { ComponentProps } from 'react';
+import { Spinner } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './spinner.module.css';
@@ -73,7 +74,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function SpinnerExample(props: SpinnerRootProps) {
+export function SpinnerExample(props: ComponentProps<typeof Spinner>) {
   return <Spinner {...props} />;
 }
 

@@ -1,4 +1,5 @@
-import { Button, Slider, useSlider } from '@moduix/react';
+import { useSlider, useSliderContext } from '@ark-ui/react/slider';
+import { Button, Slider } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -532,19 +533,24 @@ export function DisabledSliderDemo() {
 `;
 
 export const sliderContextCode = `
+import { useSliderContext } from "@ark-ui/react/slider";
 import { Slider } from "@moduix/react";
+
+function SliderStatus() {
+  const slider = useSliderContext();
+
+  return (
+    <div className="slider-header">
+      <Slider.Label>Dragging: {String(slider.dragging)}</Slider.Label>
+      <span className="slider-value">{slider.value.join(", ")}</span>
+    </div>
+  );
+}
 
 export function ContextSliderDemo() {
   return (
     <Slider defaultValue={[40]}>
-      <Slider.Context>
-        {(context) => (
-          <div className="slider-header">
-            <Slider.Label>Dragging: {String(context.dragging)}</Slider.Label>
-            <span className="slider-value">{context.value.join(", ")}</span>
-          </div>
-        )}
-      </Slider.Context>
+      <SliderStatus />
       <Slider.Control>
         <Slider.Track>
           <Slider.Range />
@@ -559,7 +565,8 @@ export function ContextSliderDemo() {
 `;
 
 export const sliderRootProviderCode = `
-import { Button, Slider, useSlider } from "@moduix/react";
+import { useSlider } from "@ark-ui/react/slider";
+import { Button, Slider } from "@moduix/react";
 
 export function RootProviderSliderDemo() {
   const slider = useSlider({ defaultValue: [40] });
@@ -820,14 +827,7 @@ export function DisabledSliderExample() {
 export function ContextSliderExample() {
   return (
     <Slider defaultValue={[40]}>
-      <Slider.Context>
-        {(context) => (
-          <div className={styles.header}>
-            <Slider.Label>Dragging: {String(context.dragging)}</Slider.Label>
-            <span className={styles.value}>{context.value.join(', ')}</span>
-          </div>
-        )}
-      </Slider.Context>
+      <SliderContextStatus />
       <SliderControlExample />
     </Slider>
   );
@@ -862,5 +862,16 @@ export function CustomStylingSliderExample() {
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
+  );
+}
+
+function SliderContextStatus() {
+  const slider = useSliderContext();
+
+  return (
+    <div className={styles.header}>
+      <Slider.Label>Dragging: {String(slider.dragging)}</Slider.Label>
+      <span className={styles.value}>{slider.value.join(', ')}</span>
+    </div>
   );
 }

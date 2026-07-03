@@ -11,8 +11,8 @@ Upstream docs:
 
 ## Upstream model to preserve
 
-- Preserve Ark parts: `Root`, `RootProvider`, `Context`, `Label`, `ValueText`, `Control`,
-  `Track`, `Range`, `Thumb`, `HiddenInput`, `MarkerGroup`, `Marker`, and `DraggingIndicator`.
+- Preserve Ark parts: `Root`, `RootProvider`, `Label`, `ValueText`, `Control`, `Track`, `Range`,
+  `Thumb`, `HiddenInput`, `MarkerGroup`, `Marker`, and `DraggingIndicator`.
 - Preserve Ark `number[]` value state, controlled/uncontrolled props, callback detail objects,
   keyboard behavior, pointer dragging, `HiddenInput`, IDs, refs, `asChild`, and orientation state.
 - `RootProvider` owns an externally created `useSlider` instance and must not be nested with a
@@ -22,12 +22,13 @@ Upstream docs:
 
 - `Slider` is the styled root and is equivalent to `Slider.Root`.
 - All DOM parts are thin wrappers over the corresponding Ark parts and forward refs.
-- `Slider.Context`, `useSlider`, and `useSliderContext` expose the Ark state API without remapping.
 - `value`, `defaultValue`, `min`, `max`, `step`, `origin`, `orientation`,
   `minStepsBetweenThumbs`, `thumbAlignment`, `thumbCollisionBehavior`, `disabled`, `invalid`,
   `readOnly`, `name`, `form`, `ids`, `thumbSize`, `onValueChange(details)`,
   `onValueChangeEnd(details)`, and `onFocusChange(details)` pass through unchanged.
 - Values are arrays. Single-thumb sliders use `[value]`, not a bare number.
+- Advanced state access stays Ark-native: import `useSlider` and `useSliderContext` directly from
+  `@ark-ui/react/slider` when you need `RootProvider` or inline state reads.
 
 ## Anatomy and exported parts
 
@@ -62,13 +63,6 @@ Externally owned state replaces `Root` with `RootProvider`.
 | `Slider.Marker`            | `slider-marker`             |
 | `Slider.DraggingIndicator` | `slider-dragging-indicator` |
 
-`Slider.Context` does not render a DOM element and therefore has no `data-slot`.
-
-Ark part prop types are re-exported with their upstream names, including `SliderRootProps`,
-`SliderRootProviderProps`, `SliderControlProps`, `SliderTrackProps`, `SliderRangeProps`,
-`SliderThumbProps`, `SliderHiddenInputProps`, `SliderMarkerGroupProps`, `SliderMarkerProps`, and
-`SliderDraggingIndicatorProps`.
-
 ## Composition
 
 ```tsx
@@ -97,8 +91,8 @@ export function VolumeSlider() {
 - Official examples covered in docs/stories: basic, range, min/max, step, change events, vertical,
   with marks, dragging indicator, context, root provider, center origin, thumb alignment, thumb
   collision, thumb overlap, disabled, and custom styling.
-- `RootProvider` accepts the return value of `useSlider`.
-- `Context` exposes Ark state such as `value`, `dragging`, and focus state.
+- `RootProvider` accepts the return value of Ark's `useSlider`.
+- Inline state reads still work through Ark's `useSliderContext` hook inside slider children.
 - Marker state, dragging indicator state, orientation, invalid, disabled, read-only, and focus
   attributes pass through for styling.
 
@@ -138,6 +132,8 @@ export function VolumeSlider() {
 - Ark is headless; moduix provides default visuals and stable `data-slot` hooks.
 - The public API is namespace-first: `Slider` with attached parts. Flat aliases such as
   `SliderRoot`, `SliderValue`, `SliderIndicator`, and `SliderThumb` are intentionally not exported.
+- `RootProvider` stays on the moduix surface, but advanced Ark state hooks and renderless context
+  APIs are intentionally not re-exported. Import them from `@ark-ui/react/slider` when needed.
 - legacy props were removed. Use `ValueText` instead of `Value`, `Range` instead of `Indicator`,
   `onValueChangeEnd(details)` instead of `onValueCommitted`, `minStepsBetweenThumbs` instead of
   `minStepsBetweenValues`, and Ark `number[]` values instead of `number`.
@@ -154,6 +150,9 @@ export function VolumeSlider() {
 
 ## Local changelog
 
+- 2026-07-03: Removed `Slider.Context`, `useSlider`, `useSliderContext`, and Ark type re-exports
+  from the moduix public surface; keep `RootProvider` and use Ark imports directly for advanced
+  state workflows.
 - 2026-06-27: Finished Ark migration audit; added missing Ark part prop type exports, documented
   `thumbSize`, and simplified the controlled docs example.
 - 2026-06-20: Migrated to Ark UI React; replaced the flat legacy-compatible API with
