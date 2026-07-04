@@ -4,16 +4,7 @@ description: A native scroll container with custom Ark UI scrollbars.
 icon: Component
 ---
 
-import {
-  BothDirectionsScrollAreaExample,
-  CustomStylingScrollAreaExample,
-  FadeScrollAreaExample,
-  HorizontalScrollAreaExample,
-  NestedScrollAreaExample,
-  RootProviderScrollAreaExample,
-  ScrollAreaCssPropertiesPanel,
-  ScrollAreaExample,
-} from '@/components/examples/scroll-area';
+import * as ScrollAreaDocs from '@/components/examples/scroll-area';
 
 ## API Reference
 
@@ -27,37 +18,11 @@ scrollbar parts provide the styled controls. Moduix adds one small extra: `fade`
 top and bottom mask to the viewport using Ark overflow measurements.
 
 <Preview>
-  <ScrollAreaExample />
+  <ScrollAreaDocs.ScrollAreaExample />
 
-  <Preview.Code>
-    {`
-      import { ScrollArea } from "@moduix/react";
-
-      export function ScrollAreaDemo() {
-        return (
-          <ScrollArea className="root">
-            <ScrollArea.Viewport>
-              <ScrollArea.Content>
-                <div className="textContent">
-                  {sections.map((item) => (
-                    <section key={item.title}>
-                      <h3>{item.title}</h3>
-                      <p className="paragraph">{item.body}</p>
-                    </section>
-                  ))}
-                </div>
-              </ScrollArea.Content>
-            </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar>
-              <ScrollArea.Thumb />
-            </ScrollArea.Scrollbar>
-            <ScrollArea.Corner />
-          </ScrollArea>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/scroll-area/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -86,75 +51,11 @@ top and bottom mask to the viewport using Ark overflow measurements.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const sections = [
-        {
-          title: "Overview",
-          body: "Use ScrollArea when content needs a bounded viewport without giving up native scrolling behavior.",
-        },
-        {
-          title: "Dense panels",
-          body: "Long settings forms, sidebars, drawers, and inspectors often need a stable frame with scrollable content inside.",
-        },
-        {
-          title: "Readable overflow",
-          body: "A visible scrollbar makes it clear that more content exists outside the current viewport.",
-        },
-        {
-          title: "Keyboard support",
-          body: "The viewport remains focusable, so keyboard scrolling works without extra wrapper logic.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Scroll Area` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-scroll-area
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-scroll-area
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-scroll-area
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-scroll-area
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-scroll-area
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Scroll Area` depends on.
+<ShadcnInstall packageName="react-scroll-area" />
 
 ## Anatomy
 
@@ -216,30 +117,11 @@ state object.
 Use a horizontal scrollbar when the content is intentionally wider than the frame.
 
 <Preview>
-  <HorizontalScrollAreaExample />
+  <ScrollAreaDocs.HorizontalScrollAreaExample />
 
-  <Preview.Code>
-    {`
-      import { ScrollArea } from "@moduix/react";
-
-      export function HorizontalScrollAreaDemo() {
-        return (
-          <ScrollArea className="horizontalRoot">
-            <ScrollArea.Viewport>
-              <ScrollArea.Content>
-                <p className="wideParagraph">{copy}</p>
-              </ScrollArea.Content>
-            </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar orientation="horizontal">
-              <ScrollArea.Thumb />
-            </ScrollArea.Scrollbar>
-            <ScrollArea.Corner />
-          </ScrollArea>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/scroll-area/horizontal.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -263,12 +145,6 @@ Use a horizontal scrollbar when the content is intentionally wider than the fram
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const copy = "Long single-line or wide content can stay in one native scroll viewport while the custom horizontal track remains visible only when x-axis overflow exists.";
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Fade
@@ -277,37 +153,11 @@ Use `fade` when long vertical content should hint that more content exists above
 current viewport without introducing another wrapper.
 
 <Preview>
-  <FadeScrollAreaExample />
+  <ScrollAreaDocs.FadeScrollAreaExample />
 
-  <Preview.Code>
-    {`
-      import { ScrollArea } from "@moduix/react";
-
-      export function FadeScrollAreaDemo() {
-        return (
-          <ScrollArea className="root" fade>
-            <ScrollArea.Viewport>
-              <ScrollArea.Content>
-                <div className="textContent">
-                  {sections.map((item) => (
-                    <section key={item.title}>
-                      <h3>{item.title}</h3>
-                      <p className="paragraph">{item.body}</p>
-                    </section>
-                  ))}
-                </div>
-              </ScrollArea.Content>
-            </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar>
-              <ScrollArea.Thumb />
-            </ScrollArea.Scrollbar>
-            <ScrollArea.Corner />
-          </ScrollArea>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/scroll-area/fade.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -337,16 +187,6 @@ current viewport without introducing another wrapper.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const sections = [
-        { title: "Overview", body: "The mask becomes shallower near the top and bottom because it uses Ark's measured overflow distances." },
-        { title: "Long content", body: "Use it for settings panels, drawers, and release notes where scrollbar visibility alone is too subtle." },
-        { title: "Tuning", body: "Adjust --scroll-area-fade-size, --scroll-area-fade-start-size, and --scroll-area-fade-end-size on the root." },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Both Directions
@@ -354,39 +194,11 @@ current viewport without introducing another wrapper.
 Render vertical and horizontal scrollbars when content can overflow on both axes.
 
 <Preview>
-  <BothDirectionsScrollAreaExample />
+  <ScrollAreaDocs.BothDirectionsScrollAreaExample />
 
-  <Preview.Code>
-    {`
-      import { ScrollArea } from "@moduix/react";
-
-      export function BothDirectionsScrollAreaDemo() {
-        return (
-          <ScrollArea className="root">
-            <ScrollArea.Viewport>
-              <ScrollArea.Content>
-                <div className="gridContent">
-                  {cells.map((cell) => (
-                    <div key={cell} className="cell">
-                      {cell}
-                    </div>
-                  ))}
-                </div>
-              </ScrollArea.Content>
-            </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar>
-              <ScrollArea.Thumb />
-            </ScrollArea.Scrollbar>
-            <ScrollArea.Scrollbar orientation="horizontal">
-              <ScrollArea.Thumb />
-            </ScrollArea.Scrollbar>
-            <ScrollArea.Corner />
-          </ScrollArea>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/scroll-area/both-directions.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -420,12 +232,6 @@ Render vertical and horizontal scrollbars when content can overflow on both axes
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const cells = Array.from({ length: 96 }, (_, index) => index + 1);
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Nested
@@ -434,53 +240,11 @@ Nested scroll areas use the same composition. Keep each root, viewport, content,
 complete so Ark can measure each area independently.
 
 <Preview>
-  <NestedScrollAreaExample />
+  <ScrollAreaDocs.NestedScrollAreaExample />
 
-  <Preview.Code>
-    {`
-      import { ScrollArea } from "@moduix/react";
-
-      export function NestedScrollAreaDemo() {
-        return (
-          <ScrollArea className="root">
-            <ScrollArea.Viewport>
-              <ScrollArea.Content>
-                <div className="textContent">
-                  <section>
-                    <h3>Outer release notes</h3>
-                    <p className="paragraph">{sections[0].body}</p>
-                  </section>
-                  <ScrollArea className="nestedRoot">
-                    <ScrollArea.Viewport>
-                      <ScrollArea.Content>
-                        <div className="textContent">
-                          {sections.map((item) => (
-                            <section key={item.title}>
-                              <h3>{item.title}</h3>
-                              <p className="paragraph">{item.body}</p>
-                            </section>
-                          ))}
-                        </div>
-                      </ScrollArea.Content>
-                    </ScrollArea.Viewport>
-                    <ScrollArea.Scrollbar>
-                      <ScrollArea.Thumb />
-                    </ScrollArea.Scrollbar>
-                    <ScrollArea.Corner />
-                  </ScrollArea>
-                </div>
-              </ScrollArea.Content>
-            </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar>
-              <ScrollArea.Thumb />
-            </ScrollArea.Scrollbar>
-            <ScrollArea.Corner />
-          </ScrollArea>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/scroll-area/nested.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -516,15 +280,6 @@ complete so Ark can measure each area independently.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const sections = [
-        { title: "Outer release notes", body: "The outer viewport can contain normal content and another complete ScrollArea tree." },
-        { title: "Nested details", body: "The nested root owns its own measurements, overflow state, and scrollbar parts." },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -533,50 +288,11 @@ Use Ark `useScrollArea()` with `ScrollArea.RootProvider` when external controls 
 scrolling API.
 
 <Preview>
-  <RootProviderScrollAreaExample />
+  <ScrollAreaDocs.RootProviderScrollAreaExample />
 
-  <Preview.Code>
-    {`
-      import { useScrollArea } from "@ark-ui/react/scroll-area";
-      import { Button, ScrollArea } from "@moduix/react";
-
-      export function RootProviderScrollAreaDemo() {
-        const scrollArea = useScrollArea();
-
-        return (
-          <div className="providerStack">
-            <div className="actions">
-              <Button onClick={() => scrollArea.scrollToEdge({ edge: "top" })}>
-                Top
-              </Button>
-              <Button onClick={() => scrollArea.scrollToEdge({ edge: "bottom" })}>
-                Bottom
-              </Button>
-            </div>
-            <ScrollArea.RootProvider value={scrollArea} className="root">
-              <ScrollArea.Viewport>
-                <ScrollArea.Content>
-                  <div className="textContent">
-                    {sections.map((item) => (
-                      <section key={item.title}>
-                        <h3>{item.title}</h3>
-                        <p className="paragraph">{item.body}</p>
-                      </section>
-                    ))}
-                  </div>
-                </ScrollArea.Content>
-              </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar>
-                <ScrollArea.Thumb />
-              </ScrollArea.Scrollbar>
-              <ScrollArea.Corner />
-            </ScrollArea.RootProvider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/scroll-area/root-provider.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -616,15 +332,6 @@ scrolling API.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const sections = [
-        { title: "Overview", body: "External controls can call the same scroll area API that Ark provides to the root provider." },
-        { title: "Scroll targets", body: "Use scrollToEdge for simple top and bottom controls, or the lower-level scroll methods for custom targets." },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -633,39 +340,11 @@ Customize the Moduix visual layer with CSS variables and per-part classes while 
 composition and state attributes intact.
 
 <Preview>
-  <CustomStylingScrollAreaExample />
+  <ScrollAreaDocs.CustomStylingScrollAreaExample />
 
-  <Preview.Code>
-    {`
-      import { ScrollArea } from "@moduix/react";
-
-      export function CustomStylingScrollAreaDemo() {
-        return (
-          <ScrollArea className="customRoot">
-            <ScrollArea.Viewport>
-              <ScrollArea.Content>
-                <div className="gridContent">
-                  {cells.map((cell) => (
-                    <div key={cell} className="cell">
-                      {cell}
-                    </div>
-                  ))}
-                </div>
-              </ScrollArea.Content>
-            </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar>
-              <ScrollArea.Thumb />
-            </ScrollArea.Scrollbar>
-            <ScrollArea.Scrollbar orientation="horizontal" className="accentScrollbar">
-              <ScrollArea.Thumb className="accentThumb" />
-            </ScrollArea.Scrollbar>
-            <ScrollArea.Corner className="customCorner" />
-          </ScrollArea>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/scroll-area/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -712,12 +391,6 @@ composition and state attributes intact.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const cells = Array.from({ length: 96 }, (_, index) => index + 1);
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Styling
@@ -732,7 +405,7 @@ grows by `2px` across its track on hover or drag; customize that amount with
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <ScrollAreaCssPropertiesPanel />
+      <ScrollAreaDocs.ScrollAreaCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

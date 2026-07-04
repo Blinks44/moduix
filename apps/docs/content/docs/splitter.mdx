@@ -4,39 +4,7 @@ description: A resizable layout primitive for dividing an interface into panels.
 icon: Component
 ---
 
-import {
-  BasicSplitterExample,
-  CollapsibleSplitterExample,
-  ControlledSplitterExample,
-  CustomStylingSplitterExample,
-  DynamicCollapsibleSplitterExample,
-  MultiplePanelsSplitterExample,
-  NestedSplitterExample,
-  ResizeIndicatorSplitterExample,
-  RootProviderSplitterExample,
-  SplitterCssPropertiesPanel,
-  VerticalSplitterExample,
-  splitterBasicCode,
-  splitterCollapsibleCode,
-  splitterCollapsibleData,
-  splitterControlledCode,
-  splitterCustomStylingCode,
-  splitterCustomStylingCss,
-  splitterDynamicCollapsibleCode,
-  splitterExampleCss,
-  splitterMultipleCode,
-  splitterNestedCode,
-  splitterNestedCss,
-  splitterNestedData,
-  splitterNoData,
-  splitterPanelsData,
-  splitterResizeIndicatorCode,
-  splitterRootProviderCode,
-  splitterStackCss,
-  splitterThreePanelsData,
-  splitterVerticalCode,
-  splitterVerticalCss,
-} from '@/components/examples/splitter';
+import * as SplitterDocs from '@/components/examples/splitter';
 
 ## API Reference
 
@@ -49,55 +17,18 @@ Use Ark-style parts: `Splitter.Root`, `Splitter.Panel`, `Splitter.ResizeTrigger`
 match that array.
 
 <Preview>
-  <BasicSplitterExample />
+  <SplitterDocs.BasicSplitterExample />
 
-  <Preview.Code>{splitterBasicCode}</Preview.Code>
-  <Preview.CSS>{splitterExampleCss}</Preview.CSS>
-  <Preview.Data>{splitterPanelsData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/splitter/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SplitterDocs.splitterExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Splitter` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-splitter
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-splitter
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-splitter
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-splitter
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-splitter
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-splitter" />
 
 ## Anatomy
 
@@ -166,11 +97,13 @@ and `onExpand(details)`. `onResizeStart` is called when a resize begins.
 Control panel sizes from React state and update that state from `details.size`.
 
 <Preview>
-  <ControlledSplitterExample />
+  <SplitterDocs.ControlledSplitterExample />
 
-  <Preview.Code>{splitterControlledCode}</Preview.Code>
-  <Preview.CSS>{splitterStackCss}</Preview.CSS>
-  <Preview.Data>{splitterPanelsData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/splitter/controlled.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SplitterDocs.splitterStackCss}</Preview.CSS>
+  
 </Preview>
 
 ### Vertical
@@ -178,11 +111,13 @@ Control panel sizes from React state and update that state from `details.size`.
 Set `orientation="vertical"` and give the root a stable height so stacked panels have room to resize.
 
 <Preview>
-  <VerticalSplitterExample />
+  <SplitterDocs.VerticalSplitterExample />
 
-  <Preview.Code>{splitterVerticalCode}</Preview.Code>
-  <Preview.CSS>{splitterVerticalCss}</Preview.CSS>
-  <Preview.Data>{splitterPanelsData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/splitter/vertical.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SplitterDocs.splitterVerticalCss}</Preview.CSS>
+  
 </Preview>
 
 ### Collapsible Panels
@@ -191,11 +126,13 @@ Set `collapsible` and `collapsedSize` on a panel definition when a panel can shr
 rail.
 
 <Preview>
-  <CollapsibleSplitterExample />
+  <SplitterDocs.CollapsibleSplitterExample />
 
-  <Preview.Code>{splitterCollapsibleCode}</Preview.Code>
-  <Preview.CSS>{splitterExampleCss}</Preview.CSS>
-  <Preview.Data>{splitterCollapsibleData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/splitter/collapsible-panels.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SplitterDocs.splitterExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Multiple Panels
@@ -203,11 +140,13 @@ rail.
 Add another `Panel` and another adjacent `ResizeTrigger` for three-panel layouts.
 
 <Preview>
-  <MultiplePanelsSplitterExample />
+  <SplitterDocs.MultiplePanelsSplitterExample />
 
-  <Preview.Code>{splitterMultipleCode}</Preview.Code>
-  <Preview.CSS>{splitterExampleCss}</Preview.CSS>
-  <Preview.Data>{splitterThreePanelsData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/splitter/multiple-panels.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SplitterDocs.splitterExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -216,11 +155,13 @@ Use `useSplitter()` from Ark with `Splitter.RootProvider` when controls outside 
 to the same splitter API.
 
 <Preview>
-  <RootProviderSplitterExample />
+  <SplitterDocs.RootProviderSplitterExample />
 
-  <Preview.Code>{splitterRootProviderCode}</Preview.Code>
-  <Preview.CSS>{splitterStackCss}</Preview.CSS>
-  <Preview.Data>{splitterPanelsData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/splitter/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SplitterDocs.splitterStackCss}</Preview.CSS>
+  
 </Preview>
 
 ### Resize Indicator
@@ -229,11 +170,13 @@ Place `Splitter.ResizeTriggerIndicator` inside the trigger when the handle needs
 affordance.
 
 <Preview>
-  <ResizeIndicatorSplitterExample />
+  <SplitterDocs.ResizeIndicatorSplitterExample />
 
-  <Preview.Code>{splitterResizeIndicatorCode}</Preview.Code>
-  <Preview.CSS>{splitterExampleCss}</Preview.CSS>
-  <Preview.Data>{splitterPanelsData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/splitter/resize-indicator.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SplitterDocs.splitterExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Dynamic Collapsible
@@ -242,11 +185,13 @@ Programmatic collapse and expand methods work well for responsive sidebars that 
 available width.
 
 <Preview>
-  <DynamicCollapsibleSplitterExample />
+  <SplitterDocs.DynamicCollapsibleSplitterExample />
 
-  <Preview.Code>{splitterDynamicCollapsibleCode}</Preview.Code>
-  <Preview.CSS>{splitterExampleCss}</Preview.CSS>
-  <Preview.Data>{splitterNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/splitter/dynamic-collapsible.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SplitterDocs.splitterExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Nested
@@ -255,11 +200,13 @@ Share a registry between nested splitters to support multi-drag behavior at hori
 handle intersections.
 
 <Preview>
-  <NestedSplitterExample />
+  <SplitterDocs.NestedSplitterExample />
 
-  <Preview.Code>{splitterNestedCode}</Preview.Code>
-  <Preview.CSS>{splitterNestedCss}</Preview.CSS>
-  <Preview.Data>{splitterNestedData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/splitter/nested.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SplitterDocs.splitterNestedCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -267,11 +214,13 @@ handle intersections.
 Customize visuals with CSS variables, `className`, `data-slot` hooks, and Ark state attributes.
 
 <Preview>
-  <CustomStylingSplitterExample />
+  <SplitterDocs.CustomStylingSplitterExample />
 
-  <Preview.Code>{splitterCustomStylingCode}</Preview.Code>
-  <Preview.CSS>{splitterCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{splitterPanelsData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/splitter/custom-styling.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SplitterDocs.splitterCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -293,7 +242,7 @@ into a different active color.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <SplitterCssPropertiesPanel />
+      <SplitterDocs.SplitterCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

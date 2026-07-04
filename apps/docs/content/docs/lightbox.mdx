@@ -4,23 +4,7 @@ description: Ark UI dialog composition for image-first modal previews.
 icon: Component
 ---
 
-import {
-  ClickToCloseLightboxExample,
-  ControlledLightboxExample,
-  BoundLightboxExample,
-  CustomizedLightboxExample,
-  FocusLightboxExample,
-  GalleryLightboxExample,
-  LazyMountLightboxExample,
-  LightboxCssPropertiesPanel,
-  LightboxExample,
-  MultipleTriggersLightboxExample,
-  NonModalLightboxExample,
-  RootProviderLightboxExample,
-  lightboxEmptyData,
-  lightboxExampleCss,
-  lightboxImagesData,
-} from '@/components/examples/lightbox';
+import * as LightboxDocs from '@/components/examples/lightbox';
 
 ## API Reference
 
@@ -49,76 +33,18 @@ Compose the explicit Ark UI dialog structure: `Lightbox`, `Lightbox.Trigger`,
 semantic trigger element.
 
 <Preview>
-  <LightboxExample />
+  <LightboxDocs.LightboxExample />
 
   <Preview.Code>
-    {`
-      import { Lightbox } from "@moduix/react";
-
-      export function LightboxDemo() {
-        return (
-          <Lightbox>
-            <Lightbox.Trigger asChild>
-              <button type="button" className="lightbox-trigger">
-                <img src={images[0].thumbnail} alt={images[0].alt} />
-              </button>
-            </Lightbox.Trigger>
-            <Lightbox.Backdrop />
-            <Lightbox.Positioner>
-              <Lightbox.CloseIcon />
-              <Lightbox.Content aria-label={images[0].alt}>
-                <Lightbox.Image src={images[0].src} alt={images[0].alt} />
-              </Lightbox.Content>
-            </Lightbox.Positioner>
-          </Lightbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
-  <Preview.Data>{lightboxImagesData}</Preview.Data>
+  <include lang="tsx">./_snippets/lightbox/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-lightbox
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-lightbox
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-lightbox
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-lightbox
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-lightbox
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-lightbox" />
 
 ## Anatomy
 
@@ -221,36 +147,13 @@ Other inherited Dialog props pass through unchanged, including `id`, `ids`, `ini
 Use the Ark `onOpenChange(details)` callback when synchronizing lightbox state with React.
 
 <Preview>
-  <ControlledLightboxExample />
+  <LightboxDocs.ControlledLightboxExample />
 
   <Preview.Code>
-    {`
-      import { Lightbox } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledLightboxDemo() {
-        const [open, setOpen] = useState(false);
-
-        return (
-          <Lightbox open={open} onOpenChange={(details) => setOpen(details.open)}>
-            <Lightbox.Trigger className="lightbox-button">
-              Open controlled lightbox
-            </Lightbox.Trigger>
-            <Lightbox.Backdrop />
-            <Lightbox.Positioner>
-              <Lightbox.CloseIcon />
-              <Lightbox.Content aria-label={images[1].alt}>
-                <Lightbox.Image src={images[1].src} alt={images[1].alt} />
-              </Lightbox.Content>
-            </Lightbox.Positioner>
-          </Lightbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
-  <Preview.Data>{lightboxImagesData}</Preview.Data>
+  <include lang="tsx">./_snippets/lightbox/controlled.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Multiple Triggers
@@ -259,46 +162,13 @@ Use `Trigger.value` and `onTriggerValueChange(details)` for gallery thumbnails. 
 not maintain a hidden image registry.
 
 <Preview>
-  <MultipleTriggersLightboxExample />
+  <LightboxDocs.MultipleTriggersLightboxExample />
 
   <Preview.Code>
-    {`
-      import { Lightbox } from "@moduix/react";
-      import { useState } from "react";
-
-      export function MultipleTriggersLightboxDemo() {
-        const [activeImage, setActiveImage] = useState(images[0]);
-
-        return (
-          <Lightbox
-            onTriggerValueChange={(details) => {
-              setActiveImage(images.find((image) => image.id === details.value) ?? images[0]);
-            }}
-          >
-            <div className="lightbox-gallery">
-              {images.map((image) => (
-                <Lightbox.Trigger key={image.id} value={image.id} asChild>
-                  <button type="button" className="lightbox-gallery-trigger">
-                    <img src={image.thumbnail} alt={image.alt} />
-                  </button>
-                </Lightbox.Trigger>
-              ))}
-            </div>
-            <Lightbox.Backdrop />
-            <Lightbox.Positioner>
-              <Lightbox.CloseIcon />
-              <Lightbox.Content aria-label={activeImage.alt}>
-                <Lightbox.Image src={activeImage.src} alt={activeImage.alt} />
-              </Lightbox.Content>
-            </Lightbox.Positioner>
-          </Lightbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
-  <Preview.Data>{lightboxImagesData}</Preview.Data>
+  <include lang="tsx">./_snippets/lightbox/multiple-triggers.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Gallery
@@ -308,75 +178,13 @@ compose `Carousel` inside `Lightbox.Gallery`. Use `Lightbox.Trigger value` to ch
 slide and keep `Carousel` page state in sync as the user navigates.
 
 <Preview>
-  <GalleryLightboxExample />
+  <LightboxDocs.GalleryLightboxExample />
 
   <Preview.Code>
-    {`
-      import { Carousel, Lightbox } from "@moduix/react";
-      import { useState } from "react";
-
-      export function GalleryLightboxDemo() {
-        const [activeIndex, setActiveIndex] = useState(0);
-        const activeImage = images[activeIndex] ?? images[0];
-
-        return (
-          <Lightbox
-            onTriggerValueChange={(details) => {
-              const nextIndex = images.findIndex((image) => image.id === details.value);
-              setActiveIndex(nextIndex >= 0 ? nextIndex : 0);
-            }}
-          >
-            <div className="lightbox-gallery">
-              {images.map((image) => (
-                <Lightbox.Trigger key={image.id} value={image.id} asChild>
-                  <button type="button" className="lightbox-gallery-trigger">
-                    <img src={image.thumbnail} alt={image.alt} />
-                  </button>
-                </Lightbox.Trigger>
-              ))}
-            </div>
-
-            <Lightbox.Backdrop />
-            <Lightbox.Positioner>
-              <Lightbox.CloseIcon />
-              <Lightbox.Content aria-label={activeImage.alt}>
-                <Lightbox.Gallery>
-                  <Carousel.Root
-                    page={activeIndex}
-                    onPageChange={(details) => setActiveIndex(details.page)}
-                    slideCount={images.length}
-                  >
-                    <Carousel.Control>
-                      <Carousel.PrevTrigger />
-                      <Carousel.ItemGroup aria-label="Server-driven image carousel">
-                        {images.map((image, index) => (
-                          <Carousel.Item key={image.id} index={index}>
-                            <img src={image.src} alt={image.alt} />
-                          </Carousel.Item>
-                        ))}
-                      </Carousel.ItemGroup>
-                      <Carousel.NextTrigger />
-                    </Carousel.Control>
-
-                    <Carousel.IndicatorGroup>
-                      {images.map((image, index) => (
-                        <Carousel.Indicator key={image.id} index={index}>
-                          <img src={image.thumbnail} alt="" />
-                        </Carousel.Indicator>
-                      ))}
-                    </Carousel.IndicatorGroup>
-                  </Carousel.Root>
-                </Lightbox.Gallery>
-              </Lightbox.Content>
-            </Lightbox.Positioner>
-          </Lightbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
-  <Preview.Data>{lightboxImagesData}</Preview.Data>
+  <include lang="tsx">./_snippets/lightbox/gallery.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Bind CMS Content
@@ -392,54 +200,13 @@ Lightbox. If your server already returns a real image array, prefer the
 `Lightbox.Gallery + Carousel` composition above.
 
 <Preview>
-  <BoundLightboxExample />
+  <LightboxDocs.BoundLightboxExample />
 
   <Preview.Code>
-    {`
-      import { Lightbox } from "@moduix/react";
-      import type { LightboxImageSelectDetails } from "@moduix/react";
-      import { useRef, useState } from "react";
-
-      export function CmsLightboxDemo() {
-        const rootRef = useRef<HTMLDivElement | null>(null);
-        const [activeImage, setActiveImage] = useState(
-          null as LightboxImageSelectDetails | null
-        );
-
-        return (
-          <>
-            <div ref={rootRef} className="lightbox-gallery">
-              {images.map((image) => (
-                <button key={image.id} type="button" className="lightbox-gallery-trigger">
-                  <img src={image.thumbnail} data-lightbox-src={image.src} alt={image.alt} />
-                </button>
-              ))}
-            </div>
-
-            <Lightbox lazyMount unmountOnExit>
-              <Lightbox.Bind
-                rootRef={rootRef}
-                selector="button"
-                onImageSelect={setActiveImage}
-              />
-              <Lightbox.Backdrop />
-              <Lightbox.Positioner>
-                <Lightbox.CloseIcon />
-                <Lightbox.Content aria-label={activeImage?.alt ?? "Image preview"}>
-                  {activeImage ? (
-                    <Lightbox.Image src={activeImage.src} alt={activeImage.alt ?? ""} />
-                  ) : null}
-                </Lightbox.Content>
-              </Lightbox.Positioner>
-            </Lightbox>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
-  <Preview.Data>{lightboxImagesData}</Preview.Data>
+  <include lang="tsx">./_snippets/lightbox/bind-cms-content.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Focus and IDs
@@ -448,52 +215,13 @@ Use Ark `initialFocusEl`, `finalFocusEl`, and `ids` when a lightbox needs explic
 stable element ids for external accessibility composition.
 
 <Preview>
-  <FocusLightboxExample />
+  <LightboxDocs.FocusLightboxExample />
 
   <Preview.Code>
-    {`
-      import { Lightbox } from "@moduix/react";
-      import { useRef } from "react";
-
-      export function FocusLightboxDemo() {
-        const closeRef = useRef<HTMLButtonElement | null>(null);
-        const triggerRef = useRef<HTMLButtonElement | null>(null);
-
-        return (
-          <>
-            <button ref={triggerRef} type="button" className="lightbox-button">
-              Focus returns here
-            </button>
-            <Lightbox
-              initialFocusEl={() => closeRef.current}
-              finalFocusEl={() => triggerRef.current}
-              ids={{
-                content: "lightbox-focus-content",
-                title: "lightbox-focus-title",
-              }}
-            >
-              <Lightbox.Trigger className="lightbox-button">
-                Open focus-managed lightbox
-              </Lightbox.Trigger>
-              <Lightbox.Backdrop />
-              <Lightbox.Positioner>
-                <Lightbox.CloseIcon ref={closeRef} />
-                <Lightbox.Content>
-                  <Lightbox.Title className="lightbox-status">
-                    Mountain ridge at sunset
-                  </Lightbox.Title>
-                  <Lightbox.Image src={images[0].src} alt={images[0].alt} />
-                </Lightbox.Content>
-              </Lightbox.Positioner>
-            </Lightbox>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
-  <Preview.Data>{lightboxImagesData}</Preview.Data>
+  <include lang="tsx">./_snippets/lightbox/focus-and-ids.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Non Modal
@@ -502,38 +230,13 @@ Set `modal={false}` for rare previews that should leave the page interactive. Pa
 `trapFocus={false}` and `preventScroll={false}` when the background needs to remain reachable.
 
 <Preview>
-  <NonModalLightboxExample />
+  <LightboxDocs.NonModalLightboxExample />
 
   <Preview.Code>
-    {`
-      import { Lightbox } from "@moduix/react";
-
-      export function NonModalLightboxDemo() {
-        return (
-          <>
-            <Lightbox modal={false} trapFocus={false} preventScroll={false}>
-              <Lightbox.Trigger className="lightbox-button">
-                Open non-modal lightbox
-              </Lightbox.Trigger>
-              <Lightbox.Backdrop />
-              <Lightbox.Positioner>
-                <Lightbox.CloseIcon />
-                <Lightbox.Content aria-label={images[2].alt}>
-                  <Lightbox.Image src={images[2].src} alt={images[2].alt} />
-                </Lightbox.Content>
-              </Lightbox.Positioner>
-            </Lightbox>
-            <button type="button" className="lightbox-button">
-              Background action
-            </button>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
-  <Preview.Data>{lightboxImagesData}</Preview.Data>
+  <include lang="tsx">./_snippets/lightbox/non-modal.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider and Context
@@ -542,45 +245,13 @@ Create state with Ark `useDialog()` when the opener is outside the root. Read in
 Ark `useDialogContext()` inside a child component.
 
 <Preview>
-  <RootProviderLightboxExample />
+  <LightboxDocs.RootProviderLightboxExample />
 
   <Preview.Code>
-    {`
-      import { useDialog, useDialogContext } from "@ark-ui/react/dialog";
-      import { Lightbox } from "@moduix/react";
-
-      function LightboxStatus() {
-        const dialog = useDialogContext();
-
-        return <>Preview is {dialog.open ? "open" : "closed"}</>;
-      }
-
-      export function LightboxStateDemo() {
-        const lightbox = useDialog();
-
-        return (
-          <>
-            <button type="button" onClick={() => lightbox.setOpen(true)}>
-              Lightbox is {lightbox.open ? "open" : "closed"}
-            </button>
-            <Lightbox.RootProvider value={lightbox}>
-              <Lightbox.Backdrop />
-              <Lightbox.Positioner>
-                <Lightbox.CloseIcon />
-                <Lightbox.Content aria-label={images[2].alt}>
-                  <Lightbox.Image src={images[2].src} alt={images[2].alt} />
-                  <LightboxStatus />
-                </Lightbox.Content>
-              </Lightbox.Positioner>
-            </Lightbox.RootProvider>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
-  <Preview.Data>{lightboxImagesData}</Preview.Data>
+  <include lang="tsx">./_snippets/lightbox/root-provider-and-context.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Lazy Mount
@@ -589,31 +260,13 @@ Use Ark presence props for heavy media. `lazyMount` delays rendering until the f
 `unmountOnExit` removes the overlay after close animations finish.
 
 <Preview>
-  <LazyMountLightboxExample />
+  <LightboxDocs.LazyMountLightboxExample />
 
   <Preview.Code>
-    {`
-      import { Lightbox } from "@moduix/react";
-
-      export function LazyLightboxDemo() {
-        return (
-          <Lightbox lazyMount unmountOnExit>
-            <Lightbox.Trigger className="lightbox-button">Open lazy lightbox</Lightbox.Trigger>
-            <Lightbox.Backdrop />
-            <Lightbox.Positioner>
-              <Lightbox.CloseIcon />
-              <Lightbox.Content aria-label={images[0].alt}>
-                <Lightbox.Image src={images[0].src} alt={images[0].alt} />
-              </Lightbox.Content>
-            </Lightbox.Positioner>
-          </Lightbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
-  <Preview.Data>{lightboxImagesData}</Preview.Data>
+  <include lang="tsx">./_snippets/lightbox/lazy-mount.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Click To Close Image
@@ -622,33 +275,13 @@ Use `Lightbox.Image closeOnClick` when clicking the previewed image should dismi
 close icon remains available and keeps the same Ark close semantics.
 
 <Preview>
-  <ClickToCloseLightboxExample />
+  <LightboxDocs.ClickToCloseLightboxExample />
 
   <Preview.Code>
-    {`
-      import { Lightbox } from "@moduix/react";
-
-      export function ClickToCloseLightboxDemo() {
-        return (
-          <Lightbox>
-            <Lightbox.Trigger className="lightbox-button">
-              Open click-to-close lightbox
-            </Lightbox.Trigger>
-            <Lightbox.Backdrop />
-            <Lightbox.Positioner>
-              <Lightbox.CloseIcon />
-              <Lightbox.Content aria-label={images[1].alt}>
-                <Lightbox.Image src={images[1].src} alt={images[1].alt} closeOnClick />
-              </Lightbox.Content>
-            </Lightbox.Positioner>
-          </Lightbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
-  <Preview.Data>{lightboxImagesData}</Preview.Data>
+  <include lang="tsx">./_snippets/lightbox/click-to-close-image.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -657,31 +290,13 @@ Customize the backdrop, content sizing, media radius, and close icon through cla
 `--lightbox-*` variables while keeping Ark parts intact.
 
 <Preview>
-  <CustomizedLightboxExample />
+  <LightboxDocs.CustomizedLightboxExample />
 
   <Preview.Code>
-    {`
-      import { Lightbox } from "@moduix/react";
-
-      export function StyledLightboxDemo() {
-        return (
-          <Lightbox>
-            <Lightbox.Trigger className="lightbox-button">Open styled lightbox</Lightbox.Trigger>
-            <Lightbox.Backdrop className="lightbox-custom-backdrop" />
-            <Lightbox.Positioner>
-              <Lightbox.CloseIcon className="lightbox-custom-close" />
-              <Lightbox.Content className="lightbox-custom-content" aria-label={images[1].alt}>
-                <Lightbox.Image src={images[1].src} alt={images[1].alt} />
-              </Lightbox.Content>
-            </Lightbox.Positioner>
-          </Lightbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{lightboxExampleCss}</Preview.CSS>
-  <Preview.Data>{lightboxImagesData}</Preview.Data>
+  <include lang="tsx">./_snippets/lightbox/custom-styling.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -691,7 +306,7 @@ Customize the backdrop, content sizing, media radius, and close icon through cla
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <LightboxCssPropertiesPanel />
+      <LightboxDocs.LightboxCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

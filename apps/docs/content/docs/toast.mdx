@@ -4,27 +4,7 @@ description: A notification region for temporary messages, actions, and contextu
 icon: Component
 ---
 
-import {
-  ActionToastExample,
-  CustomToastExample,
-  DurationToastExample,
-  ExpandedToastExample,
-  MaxToastsToastExample,
-  PlacementToastExample,
-  PromiseToastExample,
-  ToastCssPropertiesPanel,
-  ToastExample,
-  ToastTypesExample,
-  UpdateToastExample,
-  toastBasicData,
-  toastDurationData,
-  toastExampleCss,
-  toastExpandedData,
-  toastMaxData,
-  toastPlacementData,
-  toastPromiseData,
-  toastTypesData,
-} from '@/components/examples/toast';
+import * as ToastDocs from '@/components/examples/toast';
 
 ## API Reference
 
@@ -36,90 +16,19 @@ Create a toaster store with `createToaster()`, enqueue messages through that sto
 store with `Toaster`.
 
 <Preview>
-  <ToastExample />
+  <ToastDocs.ToastExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/basic.tsx#demo</include>
+</Preview.Code>
 
-      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 24 });
-
-      export function App() {
-        return (
-          <>
-            <Button
-              onClick={() =>
-                toaster.create({
-                  title: "Scheduled for tomorrow",
-                  description: "Your meeting has been scheduled for tomorrow at 10am.",
-                  type: "info",
-                })
-              }
-            >
-              Schedule meeting
-            </Button>
-            <Toaster toaster={toaster}>
-              {(toast) => (
-                <Toast key={toast.id}>
-                  <Toast.Title />
-                  <Toast.Description />
-                  {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                </Toast>
-              )}
-            </Toaster>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{toastExampleCss}</Preview.CSS>
-  <Preview.Data>{toastBasicData}</Preview.Data>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Toast` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-toast
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-toast
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-toast
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-toast
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-toast
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-toast" />
 
 ## Anatomy
 
@@ -207,52 +116,14 @@ advanced state hook to Ark.
 Use `action: { label, onClick }` when the toast should expose one direct follow-up action.
 
 <Preview>
-  <ActionToastExample />
+  <ToastDocs.ActionToastExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/action.tsx#demo</include>
+</Preview.Code>
 
-      const toaster = createToaster({ placement: "bottom-end", gap: 24 });
-
-      export function App() {
-        return (
-          <>
-            <Button
-              onClick={() =>
-                toaster.create({
-                  title: "Event has been created",
-                  description: "We have sent you an email with the event details.",
-                  type: "info",
-                  action: {
-                    label: "Undo",
-                    onClick: () => toaster.info({ description: "Event restored to draft." }),
-                  },
-                })
-              }
-            >
-              Create event
-            </Button>
-            <Toaster toaster={toaster}>
-              {(toast) => (
-                <Toast key={toast.id}>
-                  <Toast.Title />
-                  <Toast.Description />
-                  {toast.action ? (
-                    <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger>
-                  ) : null}
-                </Toast>
-              )}
-            </Toaster>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{toastExampleCss}</Preview.CSS>
-  <Preview.Data>{toastBasicData}</Preview.Data>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Duration
@@ -261,52 +132,14 @@ Set `duration` per toast when a notification should dismiss faster, slower, or o
 dismissal.
 
 <Preview>
-  <DurationToastExample />
+  <ToastDocs.DurationToastExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/duration.tsx#demo</include>
+</Preview.Code>
 
-      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
-
-      export function App() {
-        return (
-          <>
-            {durations.map((duration) => (
-              <Button
-                key={duration.label}
-                onClick={() =>
-                  toaster.info({
-                    title: "Reminder set",
-                    description:
-                      duration.value === Infinity
-                        ? "This notification will stay until dismissed."
-                        : \`This notification will disappear in \${duration.label}.\`,
-                    duration: duration.value,
-                  })
-                }
-              >
-                {duration.label}
-              </Button>
-            ))}
-            <Toaster toaster={toaster}>
-              {(toast) => (
-                <Toast key={toast.id}>
-                  <Toast.Title />
-                  <Toast.Description />
-                  {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                </Toast>
-              )}
-            </Toaster>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{toastExampleCss}</Preview.CSS>
-  <Preview.Data>{toastDurationData}</Preview.Data>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Max Visible
@@ -314,54 +147,14 @@ dismissal.
 Set `max` on the toaster store when bursts should queue instead of filling the screen.
 
 <Preview>
-  <MaxToastsToastExample />
+  <ToastDocs.MaxToastsToastExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/max-visible.tsx#demo</include>
+</Preview.Code>
 
-      const toaster = createToaster({ max: 3, overlap: true, placement: "bottom-end", gap: 16 });
-
-      export function App() {
-        return (
-          <>
-            <Button
-              onClick={() =>
-                toaster.info({
-                  title: "New notification",
-                  description: "You have a new message in your inbox.",
-                })
-              }
-            >
-              Add notification
-            </Button>
-            <Button
-              onClick={() => {
-                messages.forEach((description) => {
-                  toaster.info({ title: "Notification", description });
-                });
-              }}
-            >
-              Add 5 notifications
-            </Button>
-            <Toaster toaster={toaster}>
-              {(toast) => (
-                <Toast key={toast.id}>
-                  <Toast.Title />
-                  <Toast.Description />
-                  {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                </Toast>
-              )}
-            </Toaster>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{toastExampleCss}</Preview.CSS>
-  <Preview.Data>{toastMaxData}</Preview.Data>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Placement
@@ -369,54 +162,14 @@ Set `max` on the toaster store when bursts should queue instead of filling the s
 Choose one of Ark's six placements when the toast group needs to appear on a specific viewport edge.
 
 <Preview>
-  <PlacementToastExample />
+  <ToastDocs.PlacementToastExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/placement.tsx#demo</include>
+</Preview.Code>
 
-      export function App() {
-        const [placement, setPlacement] = useState<(typeof placements)[number]>("bottom-end");
-        const toaster = toasters[placement];
-
-        return (
-          <>
-            {placements.map((item) => (
-              <Button key={item} onClick={() => setPlacement(item)}>
-                {item}
-              </Button>
-            ))}
-            <Button
-              onClick={() =>
-                toaster.info({
-                  title: "Notification",
-                  description: \`This toast appears at \${placement}.\`,
-                })
-              }
-            >
-              Show {placement}
-            </Button>
-            {placements.map((item) => (
-              <Toaster key={item} toaster={toasters[item]}>
-                {(toast) => (
-                  <Toast key={toast.id}>
-                    <Toast.Title />
-                    <Toast.Description />
-                    {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                  </Toast>
-                )}
-              </Toaster>
-            ))}
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{toastExampleCss}</Preview.CSS>
-  <Preview.Data>{toastPlacementData}</Preview.Data>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Promise Toast
@@ -424,55 +177,14 @@ Choose one of Ark's six placements when the toast group needs to appear on a spe
 Use `toaster.promise()` to transition one toast from loading to success or error.
 
 <Preview>
-  <PromiseToastExample />
+  <ToastDocs.PromiseToastExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/promise-toast.tsx#demo</include>
+</Preview.Code>
 
-      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
-
-      export function App() {
-        return (
-          <>
-            <Button
-              onClick={() =>
-                toaster.promise(uploadFile, {
-                  loading: {
-                    title: "Uploading file...",
-                    description: "Please wait while we upload your document.",
-                  },
-                  success: {
-                    title: "Upload complete",
-                    description: "Your file has been uploaded successfully.",
-                  },
-                  error: {
-                    title: "Upload failed",
-                    description: "Could not upload the file. Please try again.",
-                  },
-                })
-              }
-            >
-              Upload file
-            </Button>
-            <Toaster toaster={toaster}>
-              {(toast) => (
-                <Toast key={toast.id}>
-                  <Toast.Title />
-                  <Toast.Description />
-                  {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                </Toast>
-              )}
-            </Toaster>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{toastExampleCss}</Preview.CSS>
-  <Preview.Data>{toastPromiseData}</Preview.Data>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Types
@@ -481,48 +193,14 @@ Use the typed toaster helpers for status-specific variants. moduix styles `info`
 `warning`, `error`, and `destructive` through `data-type`.
 
 <Preview>
-  <ToastTypesExample />
+  <ToastDocs.ToastTypesExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/types.tsx#demo</include>
+</Preview.Code>
 
-      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 });
-
-      export function App() {
-        return (
-          <>
-            {types.map((type) => (
-              <Button
-                key={type}
-                onClick={() =>
-                  toaster[type]({
-                    title: type === "info" ? "Update available" : \`\${type} toast\`,
-                    description: \`This notification uses the \${type} status style.\`,
-                  })
-                }
-              >
-                {type}
-              </Button>
-            ))}
-            <Toaster toaster={toaster}>
-              {(toast) => (
-                <Toast key={toast.id}>
-                  <Toast.Title />
-                  <Toast.Description />
-                  {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                </Toast>
-              )}
-            </Toaster>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{toastExampleCss}</Preview.CSS>
-  <Preview.Data>{toastTypesData}</Preview.Data>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Update
@@ -531,61 +209,14 @@ Keep the created toast id and pass it to `toaster.update()` when an existing not
 change in place.
 
 <Preview>
-  <UpdateToastExample />
+  <ToastDocs.UpdateToastExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
-      import { useRef } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/update.tsx#demo</include>
+</Preview.Code>
 
-      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 24 });
-
-      export function App() {
-        const idRef = useRef<string | undefined>(undefined);
-
-        return (
-          <>
-            <Button
-              onClick={() => {
-                idRef.current = toaster.create({
-                  title: "Sending message...",
-                  description: "Please wait while we deliver your message.",
-                  type: "loading",
-                });
-              }}
-            >
-              Send message
-            </Button>
-            <Button
-              onClick={() => {
-                if (idRef.current) {
-                  toaster.update(idRef.current, {
-                    title: "Message sent",
-                    description: "Your message has been delivered successfully.",
-                    type: "success",
-                  });
-                }
-              }}
-            >
-              Mark as sent
-            </Button>
-            <Toaster toaster={toaster}>
-              {(toast) => (
-                <Toast key={toast.id}>
-                  <Toast.Title />
-                  <Toast.Description />
-                </Toast>
-              )}
-            </Toaster>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{toastExampleCss}</Preview.CSS>
-  <Preview.Data>{toastBasicData}</Preview.Data>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Always Expanded
@@ -594,49 +225,14 @@ Set `overlap: false` when every toast should remain fully visible instead of col
 overlapping stack. This is an additional Ark store configuration, not a separate component mode.
 
 <Preview>
-  <ExpandedToastExample />
+  <ToastDocs.ExpandedToastExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Toast, Toaster, createToaster } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/always-expanded.tsx#demo</include>
+</Preview.Code>
 
-      const toaster = createToaster({
-        placement: "bottom-end",
-        overlap: false,
-        gap: 16,
-      });
-
-      export function App() {
-        return (
-          <>
-            <Button
-              onClick={() =>
-                toaster.info({
-                  title: "Expanded toast",
-                  description: "Each notification remains fully visible in the stack.",
-                })
-              }
-            >
-              Create expanded toast
-            </Button>
-            <Toaster toaster={toaster}>
-              {(toast) => (
-                <Toast key={toast.id}>
-                  <Toast.Title />
-                  <Toast.Description />
-                  {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-                </Toast>
-              )}
-            </Toaster>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{toastExampleCss}</Preview.CSS>
-  <Preview.Data>{toastExpandedData}</Preview.Data>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Composition
@@ -645,52 +241,14 @@ Customize the render prop when the toast surface needs icons, a different intern
 component-specific CSS variables.
 
 <Preview>
-  <CustomToastExample />
+  <ToastDocs.CustomToastExample />
 
-  <Preview.Code>
-    {`
-      import { Button, CloseIcon, Toast, Toaster, createToaster } from "@moduix/react";
-import { Info as InfoIcon } from "lucide-react";
-      import styles from "./toast.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/custom-composition.tsx#demo</include>
+</Preview.Code>
 
-      const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 24 });
-
-      export function App() {
-        return (
-          <>
-            <Button
-              onClick={() =>
-                toaster.success({
-                  title: "Workspace synced",
-                  description: "Map edits are available to everyone.",
-                })
-              }
-            >
-              Create custom toast
-            </Button>
-            <Toaster toaster={toaster}>
-              {(toast) => (
-                <Toast key={toast.id} className={styles.customToast}>
-                  <div className={styles.customContent}>
-                    <InfoIcon className={styles.customIcon} />
-                    <Toast.Title />
-                    <Toast.Description />
-                  </div>
-                  <Toast.CloseTrigger>
-                    <CloseIcon className={styles.closeIcon} />
-                  </Toast.CloseTrigger>
-                </Toast>
-              )}
-            </Toaster>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{toastExampleCss}</Preview.CSS>
-  <Preview.Data>{toastBasicData}</Preview.Data>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -703,7 +261,7 @@ from `theme.css`.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <ToastCssPropertiesPanel />
+      <ToastDocs.ToastCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

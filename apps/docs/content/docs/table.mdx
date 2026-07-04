@@ -4,21 +4,7 @@ description: A native table primitive with small sugar for bordered overflow she
 icon: Component
 ---
 
-import {
-  ColumnGroupTableExample,
-  CustomCompositionTableExample,
-  EmptyTableExample,
-  NumericTableExample,
-  StickyTableExample,
-  StripedTableExample,
-  TableCaptionExample,
-  TableCssPropertiesPanel,
-  TableExample,
-  TableInCardExample,
-  TableRowActionsExample,
-  TableSizesAndVariantsExample,
-  TableWithScrollAreaExample,
-} from '@/components/examples/table';
+import * as TableDocs from '@/components/examples/table';
 
 ## API Reference
 
@@ -33,60 +19,11 @@ Start with `Table.ScrollArea`, `Table`, `Table.Header`, `Table.Body`, and the na
 parts. This is the recommended path for invoices, summaries, and admin-style read-only datasets.
 
 <Preview>
-  <TableExample />
+  <TableDocs.TableExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Badge,
-        Table,
-      } from "@moduix/react";
-
-      export function TableDemo() {
-        return (
-          <Table.ScrollArea className={styles.shell}>
-            <Table className={styles.table}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.ColumnHeader>Invoice</Table.ColumnHeader>
-                  <Table.ColumnHeader>Status</Table.ColumnHeader>
-                  <Table.ColumnHeader>Method</Table.ColumnHeader>
-                  <Table.ColumnHeader numeric>Amount</Table.ColumnHeader>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {invoices.map((invoice) => (
-                  <Table.Row key={invoice.id}>
-                    <Table.Cell>{invoice.id}</Table.Cell>
-                    <Table.Cell>
-                      <Badge variant={invoice.status === "Paid" ? "secondary" : "outline"}>
-                        {invoice.status}
-                      </Badge>
-                    </Table.Cell>
-                    <Table.Cell>{invoice.method}</Table.Cell>
-                    <Table.Cell numeric>{invoice.amount}</Table.Cell>
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table>
-          </Table.ScrollArea>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const invoices = [
-        { id: "INV001", status: "Paid", method: "Credit Card", amount: "$250.00" },
-        { id: "INV002", status: "Pending", method: "PayPal", amount: "$150.00" },
-        { id: "INV003", status: "Unpaid", method: "Bank Transfer", amount: "$350.00" },
-        { id: "INV004", status: "Paid", method: "Credit Card", amount: "$450.00" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -101,49 +38,7 @@ parts. This is the recommended path for invoices, summaries, and admin-style rea
 
 ## Install with shadcn
 
-If you want `Table` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-table
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-table
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-table
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-table
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-table
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Table` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-table" />
 
 ## Anatomy
 
@@ -237,60 +132,11 @@ Use `Table.Caption side="top"` when the label reads better before the data, and 
 totals or summaries.
 
 <Preview>
-  <TableCaptionExample />
+  <TableDocs.TableCaptionExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Table,
-      } from "@moduix/react";
-
-      <Table.ScrollArea className={styles.shell}>
-        <Table className={styles.table}>
-          <Table.Caption side="top">
-            A list of recent invoices for the current billing cycle.
-          </Table.Caption>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeader>Invoice</Table.ColumnHeader>
-              <Table.ColumnHeader>Status</Table.ColumnHeader>
-              <Table.ColumnHeader>Method</Table.ColumnHeader>
-              <Table.ColumnHeader numeric>Amount</Table.ColumnHeader>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {invoices.map((invoice) => (
-              <Table.Row key={invoice.id}>
-                <Table.Cell>{invoice.id}</Table.Cell>
-                <Table.Cell>{invoice.status}</Table.Cell>
-                <Table.Cell>{invoice.method}</Table.Cell>
-                <Table.Cell numeric>{invoice.amount}</Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-          <Table.Footer>
-            <Table.Row>
-              <Table.Cell colSpan={3}>Total</Table.Cell>
-              <Table.Cell numeric>$1,200.00</Table.Cell>
-            </Table.Row>
-          </Table.Footer>
-        </Table>
-      </Table.ScrollArea>
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const invoices = [
-        { id: "INV001", status: "Paid", method: "Credit Card", amount: "$250.00" },
-        { id: "INV002", status: "Pending", method: "PayPal", amount: "$150.00" },
-        { id: "INV003", status: "Unpaid", method: "Bank Transfer", amount: "$350.00" },
-        { id: "INV004", status: "Paid", method: "Credit Card", amount: "$450.00" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/caption-and-footer.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -311,50 +157,11 @@ totals or summaries.
 Use `numeric` on both the header and the cells for the common aligned-metrics case.
 
 <Preview>
-  <NumericTableExample />
+  <TableDocs.NumericTableExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Table,
-      } from "@moduix/react";
-
-      <Table.ScrollArea className={styles.shell}>
-        <Table className={styles.table}>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeader>Service</Table.ColumnHeader>
-              <Table.ColumnHeader numeric>Requests</Table.ColumnHeader>
-              <Table.ColumnHeader numeric>Error rate</Table.ColumnHeader>
-              <Table.ColumnHeader numeric>Latency</Table.ColumnHeader>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {metrics.map((metric) => (
-              <Table.Row key={metric.service}>
-                <Table.Cell>{metric.service}</Table.Cell>
-                <Table.Cell numeric>{metric.requests}</Table.Cell>
-                <Table.Cell numeric>{metric.errorRate}</Table.Cell>
-                <Table.Cell numeric>{metric.latency}</Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-      </Table.ScrollArea>
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const metrics = [
-        { service: "Search API", requests: "1,204,122", errorRate: "0.12%", latency: "128 ms" },
-        { service: "Billing API", requests: "248,421", errorRate: "0.04%", latency: "96 ms" },
-        { service: "Docs site", requests: "82,304", errorRate: "0.00%", latency: "42 ms" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/numeric-columns.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -376,50 +183,11 @@ Use `striped` when long read-only bodies need stronger row separation without sw
 opinionated table abstraction.
 
 <Preview>
-  <StripedTableExample />
+  <TableDocs.StripedTableExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Table,
-      } from "@moduix/react";
-
-      <Table.ScrollArea className={styles.shell}>
-        <Table striped interactive className={styles.table}>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeader>Project</Table.ColumnHeader>
-              <Table.ColumnHeader>Owner</Table.ColumnHeader>
-              <Table.ColumnHeader>Updated</Table.ColumnHeader>
-              <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {projects.map((project, index) => (
-              <Table.Row key={project.name}>
-                <Table.Cell>{project.name}</Table.Cell>
-                <Table.Cell>{project.owner}</Table.Cell>
-                <Table.Cell>{project.updated}</Table.Cell>
-                <Table.Cell numeric>{index + 1}</Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-      </Table.ScrollArea>
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const projects = [
-        { name: "Docs redesign", owner: "Product Design", updated: "2 hours ago" },
-        { name: "Billing migration", owner: "Growth", updated: "Yesterday" },
-        { name: "Command palette", owner: "Platform", updated: "Today" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/striped-rows.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -441,48 +209,11 @@ Use `size` for density and `variant` for divider style. `Table` keeps these as v
 native root instead of adding extra state.
 
 <Preview>
-  <TableSizesAndVariantsExample />
+  <TableDocs.TableSizesAndVariantsExample />
 
-  <Preview.Code>
-    {`
-      import { Table } from "@moduix/react";
-
-      {(["sm", "md", "lg"] as const).map((size) => (
-        <Table.ScrollArea key={size} className={styles.shell}>
-          <Table size={size} variant={size === "md" ? "outline" : "line"}>
-            <Table.Caption side="top">{size.toUpperCase()} project summary</Table.Caption>
-            <Table.Header>
-              <Table.Row>
-                <Table.ColumnHeader>Project</Table.ColumnHeader>
-                <Table.ColumnHeader>Owner</Table.ColumnHeader>
-                <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {projects.map((project, index) => (
-                <Table.Row key={project.name}>
-                  <Table.Cell>{project.name}</Table.Cell>
-                  <Table.Cell>{project.owner}</Table.Cell>
-                  <Table.Cell numeric>{index + 1}</Table.Cell>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
-        </Table.ScrollArea>
-      ))}
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const projects = [
-        { name: "Docs redesign", owner: "Product Design" },
-        { name: "Billing migration", owner: "Growth" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/sizes-and-variants.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -500,51 +231,11 @@ Use `Table.ColumnGroup` and `Table.Column` for native column widths, and `showCo
 column separation needs to be visible.
 
 <Preview>
-  <ColumnGroupTableExample />
+  <TableDocs.ColumnGroupTableExample />
 
-  <Preview.Code>
-    {`
-      import { Table } from "@moduix/react";
-
-      <Table.ScrollArea className={styles.shell}>
-        <Table showColumnBorder className={styles.table}>
-          <Table.ColumnGroup>
-            <Table.Column htmlWidth="42%" />
-            <Table.Column htmlWidth="28%" />
-            <Table.Column htmlWidth="30%" />
-          </Table.ColumnGroup>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeader>Product</Table.ColumnHeader>
-              <Table.ColumnHeader>Category</Table.ColumnHeader>
-              <Table.ColumnHeader numeric>Price</Table.ColumnHeader>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {products.map((product) => (
-              <Table.Row key={product.name}>
-                <Table.Cell>{product.name}</Table.Cell>
-                <Table.Cell>{product.category}</Table.Cell>
-                <Table.Cell numeric>{product.price}</Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-      </Table.ScrollArea>
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const products = [
-        { name: "Laptop", category: "Electronics", price: "$999.99" },
-        { name: "Coffee Maker", category: "Home Appliances", price: "$49.99" },
-        { name: "Desk Chair", category: "Furniture", price: "$150.00" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/column-group-and-borders.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -566,50 +257,11 @@ Use `stickyHeader` on the root and `data-sticky="start" | "end"` on cells when a
 vertically scrolling table needs persistent context.
 
 <Preview>
-  <StickyTableExample />
+  <TableDocs.StickyTableExample />
 
-  <Preview.Code>
-    {`
-      import { Table } from "@moduix/react";
-
-      <Table.ScrollArea className={styles.stickyShell}>
-        <Table stickyHeader interactive className={styles.wideTable}>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeader data-sticky="start">Project</Table.ColumnHeader>
-              <Table.ColumnHeader>Owner</Table.ColumnHeader>
-              <Table.ColumnHeader>Environment</Table.ColumnHeader>
-              <Table.ColumnHeader>Updated</Table.ColumnHeader>
-              <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {rows.map((row, index) => (
-              <Table.Row key={row.name}>
-                <Table.Cell data-sticky="start">{row.name}</Table.Cell>
-                <Table.Cell>{row.owner}</Table.Cell>
-                <Table.Cell>{row.environment}</Table.Cell>
-                <Table.Cell>{row.updated}</Table.Cell>
-                <Table.Cell numeric>{index + 1}</Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-      </Table.ScrollArea>
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const rows = [
-        { name: "Docs redesign", owner: "Product Design", environment: "Production", updated: "2 hours ago" },
-        { name: "Billing migration", owner: "Growth", environment: "Staging", updated: "Yesterday" },
-        { name: "Command palette", owner: "Platform", environment: "Preview", updated: "Today" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/sticky-header-and-column.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -631,48 +283,11 @@ vertically scrolling table needs persistent context.
 Use `Table.Empty` when a body would otherwise render no rows.
 
 <Preview>
-  <EmptyTableExample />
+  <TableDocs.EmptyTableExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Table,
-      } from "@moduix/react";
-
-      export function EmptyStateTableDemo() {
-        return (
-          <Table.ScrollArea className={styles.shell}>
-            <Table>
-              <Table.Caption side="top">
-                Projects filtered by the current workspace query.
-              </Table.Caption>
-              <Table.Header>
-                <Table.Row>
-                  <Table.ColumnHeader>Project</Table.ColumnHeader>
-                  <Table.ColumnHeader>Owner</Table.ColumnHeader>
-                  <Table.ColumnHeader>Updated</Table.ColumnHeader>
-                  <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                <Table.Empty colSpan={columnCount}>
-                  No projects matched the current filters.
-                </Table.Empty>
-              </Table.Body>
-            </Table>
-          </Table.ScrollArea>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const columnCount = 4;
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/empty-state.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -693,55 +308,11 @@ Use `Table.Empty` when a body would otherwise render no rows.
 `Table.ScrollArea` fits naturally inside `Card.Body` when the table should live on a card surface.
 
 <Preview>
-  <TableInCardExample />
+  <TableDocs.TableInCardExample />
 
-  <Preview.Code>
-    {`
-      import { Card, Table } from "@moduix/react";
-
-      <Card>
-        <Card.Header>
-          <Card.Title>Projects</Card.Title>
-        </Card.Header>
-        <Card.Body className={styles.cardContent}>
-          <Table.ScrollArea>
-            <Table className={styles.table}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.ColumnHeader>Project</Table.ColumnHeader>
-                  <Table.ColumnHeader>Owner</Table.ColumnHeader>
-                  <Table.ColumnHeader>Updated</Table.ColumnHeader>
-                  <Table.ColumnHeader>Health</Table.ColumnHeader>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {projects.map((project) => (
-                  <Table.Row key={project.name}>
-                    <Table.Cell>{project.name}</Table.Cell>
-                    <Table.Cell>{project.owner}</Table.Cell>
-                    <Table.Cell>{project.updated}</Table.Cell>
-                    <Table.Cell>{project.issues}</Table.Cell>
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table>
-          </Table.ScrollArea>
-        </Card.Body>
-      </Card>
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const projects = [
-        { name: "Docs redesign", owner: "Product Design", updated: "2 hours ago", issues: "3 open" },
-        { name: "Billing migration", owner: "Growth", updated: "Yesterday", issues: "1 blocked" },
-        { name: "Command palette", owner: "Platform", updated: "Today", issues: "Healthy" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/inside-card.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -768,88 +339,11 @@ Use the last column for row-specific actions when the dataset needs lightweight 
 `Menu` fits this case cleanly without changing the native table structure.
 
 <Preview>
-  <TableRowActionsExample />
+  <TableDocs.TableRowActionsExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-        Table,
-      } from "@moduix/react";
-
-      function RowActionsMenu({ itemName }) {
-        return (
-          <Menu positioning={{ placement: "bottom-end" }}>
-            <Menu.Trigger asChild>
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                className={styles.actionTrigger}
-                aria-label={\`Open actions for \${itemName}\`}
-              >
-                <span aria-hidden className={styles.actionEllipsis}>...</span>
-              </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content>
-                <Menu.Item value="open">Open project</Menu.Item>
-                <Menu.Item value="copy-link">Copy link</Menu.Item>
-                <Menu.Item value="duplicate">Duplicate</Menu.Item>
-                <Menu.Separator />
-                <Menu.Item value="archive" tone="destructive">
-                  Archive
-                </Menu.Item>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-
-      export function TableRowActionsDemo() {
-        return (
-          <Table.ScrollArea className={styles.shell}>
-            <Table className={styles.table}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.ColumnHeader>Project</Table.ColumnHeader>
-                  <Table.ColumnHeader>Owner</Table.ColumnHeader>
-                  <Table.ColumnHeader>Environment</Table.ColumnHeader>
-                  <Table.ColumnHeader>Updated</Table.ColumnHeader>
-                  <Table.ColumnHeader className={styles.actionsHead}>Actions</Table.ColumnHeader>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {rows.map((row) => (
-                  <Table.Row key={row.name}>
-                    <Table.Cell>{row.name}</Table.Cell>
-                    <Table.Cell>{row.owner}</Table.Cell>
-                    <Table.Cell>{row.environment}</Table.Cell>
-                    <Table.Cell>{row.updated}</Table.Cell>
-                    <Table.Cell className={styles.actionsCell}>
-                      <RowActionsMenu itemName={row.name} />
-                    </Table.Cell>
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table>
-          </Table.ScrollArea>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const rows = [
-        { name: "Docs redesign", owner: "Product Design", environment: "Production", updated: "2 hours ago" },
-        { name: "Billing migration", owner: "Growth", environment: "Staging", updated: "Yesterday" },
-        { name: "Command palette", owner: "Platform", environment: "Preview", updated: "Today" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/row-actions-with-menu.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -890,51 +384,11 @@ Use the last column for row-specific actions when the dataset needs lightweight 
 Skip `Table.ScrollArea` when the surrounding layout already owns the shell or scrolling behavior.
 
 <Preview>
-  <CustomCompositionTableExample />
+  <TableDocs.CustomCompositionTableExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Table,
-      } from "@moduix/react";
-
-      <div className={styles.shell}>
-        <Table className={styles.table}>
-          <Table.Caption side="bottom">
-            This version uses a plain wrapper instead of Table.ScrollArea.
-          </Table.Caption>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeader>Plan</Table.ColumnHeader>
-              <Table.ColumnHeader>Seats</Table.ColumnHeader>
-              <Table.ColumnHeader numeric>Monthly cost</Table.ColumnHeader>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {plans.map((plan) => (
-              <Table.Row key={plan.name}>
-                <Table.Cell>{plan.name}</Table.Cell>
-                <Table.Cell>{plan.seats}</Table.Cell>
-                <Table.Cell numeric>{plan.cost}</Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-      </div>
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const plans = [
-        { name: "Starter", seats: "Up to 5", cost: "$19" },
-        { name: "Team", seats: "Up to 25", cost: "$79" },
-        { name: "Enterprise", seats: "Custom", cost: "Contact sales" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/custom-composition.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -962,64 +416,11 @@ behavior, or the scroll area API. Keep the `ScrollArea` structure explicit so th
 and lightweight.
 
 <Preview>
-  <TableWithScrollAreaExample />
+  <TableDocs.TableWithScrollAreaExample />
 
-  <Preview.Code>
-    {`
-      import {
-        ScrollArea,
-        Table,
-      } from "@moduix/react";
-
-      <ScrollArea className={styles.scrollArea}>
-        <ScrollArea.Viewport>
-          <ScrollArea.Content>
-            <Table className={styles.wideTable}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.ColumnHeader>Project</Table.ColumnHeader>
-                  <Table.ColumnHeader>Owner</Table.ColumnHeader>
-                  <Table.ColumnHeader>Environment</Table.ColumnHeader>
-                  <Table.ColumnHeader>Updated</Table.ColumnHeader>
-                  <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {Array.from({ length: 12 }, (_, index) => rows[index % rows.length]).map((row, index) => (
-                  <Table.Row key={\`\${row.name}-\${index}\`}>
-                    <Table.Cell>{row.name}</Table.Cell>
-                    <Table.Cell>{row.owner}</Table.Cell>
-                    <Table.Cell>{row.environment}</Table.Cell>
-                    <Table.Cell>{row.updated}</Table.Cell>
-                    <Table.Cell numeric>{index + 1}</Table.Cell>
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table>
-          </ScrollArea.Content>
-        </ScrollArea.Viewport>
-        <ScrollArea.Scrollbar>
-          <ScrollArea.Thumb />
-        </ScrollArea.Scrollbar>
-        <ScrollArea.Scrollbar orientation="horizontal">
-          <ScrollArea.Thumb />
-        </ScrollArea.Scrollbar>
-        <ScrollArea.Corner />
-      </ScrollArea>
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const rows = [
-        { name: "Docs redesign", owner: "Product Design", environment: "Production", updated: "2 hours ago" },
-        { name: "Billing migration", owner: "Growth", environment: "Staging", updated: "Yesterday" },
-        { name: "Command palette", owner: "Platform", environment: "Preview", updated: "Today" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/with-scrollarea.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -1051,7 +452,7 @@ attributes, and the `--table-*` CSS variables shown below.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <TableCssPropertiesPanel />
+      <TableDocs.TableCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

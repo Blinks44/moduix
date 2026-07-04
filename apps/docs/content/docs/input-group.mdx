@@ -4,17 +4,7 @@ description: An Ark-style composition for one input with inline addons, text, an
 icon: Component
 ---
 
-import {
-  InputGroupAsChildExample,
-  CustomStylesInputGroupExample,
-  DisabledInputGroupExample,
-  InputGroupCssPropertiesPanel,
-  InputGroupExample,
-  InputGroupFieldValidationExample,
-  InputGroupPrefixSuffixExample,
-  InputGroupSizesExample,
-  InputGroupWithActionExample,
-} from '@/components/examples/input-group';
+import * as InputGroupDocs from '@/components/examples/input-group';
 
 ## API Reference
 
@@ -36,28 +26,11 @@ Ark UI does not ship a dedicated input-group primitive. Moduix builds this compo
 Compose one grouped input with only the presentational parts the field needs.
 
 <Preview>
-  <InputGroupExample />
+  <InputGroupDocs.InputGroupExample />
 
-  <Preview.Code>
-    {`
-      import { Field, InputGroup } from "@moduix/react";
-
-      const workspacePrefix = "@";
-
-      export function InputGroupDemo() {
-        return (
-          <Field className="input-group-demo-field">
-            <Field.Label>Workspace</Field.Label>
-            <InputGroup>
-              <InputGroup.Addon>{workspacePrefix}</InputGroup.Addon>
-              <InputGroup.Input name="workspace" placeholder="maps" />
-            </InputGroup>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input-group/basic.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -67,52 +40,11 @@ Compose one grouped input with only the presentational parts the field needs.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const workspacePrefix = "@";
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-input-group
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-input-group
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-input-group
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-input-group
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-input-group
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-input-group" />
 
 ## Anatomy
 
@@ -174,36 +106,11 @@ an accessible name only when the standalone composition itself needs grouped sem
 Use a grouped button for an action tied to the native input value.
 
 <Preview>
-  <InputGroupWithActionExample />
+  <InputGroupDocs.InputGroupWithActionExample />
 
-  <Preview.Code>
-    {`
-      import { Field, InputGroup } from "@moduix/react";
-      import { useState } from "react";
-
-      const initialInviteEmail = "";
-
-      export function InputGroupWithActionDemo() {
-        const [value, setValue] = useState(initialInviteEmail);
-
-        return (
-          <Field className="input-group-demo-field">
-            <Field.Label>Invite by email</Field.Label>
-            <InputGroup>
-              <InputGroup.Input
-                value={value}
-                onChange={(event) => setValue(event.currentTarget.value)}
-                type="email"
-                placeholder="name@example.com"
-              />
-              <InputGroup.Button disabled={!value}>Send</InputGroup.Button>
-            </InputGroup>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input-group/with-action.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -213,11 +120,6 @@ Use a grouped button for an action tied to the native input value.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const initialInviteEmail = "";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Prefix and Suffix
@@ -225,27 +127,11 @@ Use a grouped button for an action tied to the native input value.
 Mix a filled addon with plain text when the two sides have different visual weight.
 
 <Preview>
-  <InputGroupPrefixSuffixExample />
+  <InputGroupDocs.InputGroupPrefixSuffixExample />
 
-  <Preview.Code>
-    {`
-      import { Field, InputGroup } from "@moduix/react";
-
-      export function BudgetInputGroupDemo() {
-        return (
-          <Field className="input-group-demo-field">
-            <Field.Label>Monthly budget</Field.Label>
-            <InputGroup>
-              <InputGroup.Addon>{currency.symbol}</InputGroup.Addon>
-              <InputGroup.Input inputMode="decimal" placeholder="2500" />
-              <InputGroup.Text>{currency.code}</InputGroup.Text>
-            </InputGroup>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input-group/prefix-and-suffix.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -255,11 +141,6 @@ Mix a filled addon with plain text when the two sides have different visual weig
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const currency = { symbol: "$", code: "USD" };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Field State
@@ -268,30 +149,11 @@ Set invalid state on `Field`; Ark applies the state and ARIA contract to `InputG
 shell reacts to that input state.
 
 <Preview>
-  <InputGroupFieldValidationExample />
+  <InputGroupDocs.InputGroupFieldValidationExample />
 
-  <Preview.Code>
-    {`
-      import { Field, InputGroup } from "@moduix/react";
-
-      const domainSuffix = ".test.com";
-      const domainErrorMessage = "Please enter a valid domain.";
-
-      export function InvalidDomainDemo() {
-        return (
-          <Field className="input-group-demo-field" invalid>
-            <Field.Label>Domain</Field.Label>
-            <InputGroup>
-              <InputGroup.Input placeholder="company" />
-              <InputGroup.Text>{domainSuffix}</InputGroup.Text>
-            </InputGroup>
-            <Field.ErrorText>{domainErrorMessage}</Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input-group/field-state.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -301,12 +163,6 @@ shell reacts to that input state.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const domainSuffix = ".test.com";
-      const domainErrorMessage = "Please enter a valid domain.";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Disabled
@@ -315,26 +171,11 @@ Disabled state remains on the native input. Disable related actions explicitly w
 also become unavailable.
 
 <Preview>
-  <DisabledInputGroupExample />
+  <InputGroupDocs.DisabledInputGroupExample />
 
-  <Preview.Code>
-    {`
-      import { InputGroup } from "@moduix/react";
-
-      const workspaceHandle = "maps";
-
-      export function DisabledInputGroupDemo() {
-        return (
-          <InputGroup role="group" aria-label="Workspace handle">
-            <InputGroup.Addon>@</InputGroup.Addon>
-            <InputGroup.Input disabled value={workspaceHandle} />
-            <InputGroup.Button disabled>Copy</InputGroup.Button>
-          </InputGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input-group/disabled.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -344,11 +185,6 @@ also become unavailable.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const workspaceHandle = "maps";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Sizes
@@ -356,27 +192,11 @@ also become unavailable.
 Set size once on the root so the input, addon, text, and button stay aligned.
 
 <Preview>
-  <InputGroupSizesExample />
+  <InputGroupDocs.InputGroupSizesExample />
 
-  <Preview.Code>
-    {`
-      import { InputGroup } from "@moduix/react";
-
-      export function InputGroupSizesDemo() {
-        return (
-          <div className="input-group-demo-stack">
-            {inputGroupSizes.map((size) => (
-              <InputGroup key={size} size={size}>
-                <InputGroup.Addon>@</InputGroup.Addon>
-                <InputGroup.Input aria-label={size + " workspace"} />
-              </InputGroup>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input-group/sizes.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -388,11 +208,6 @@ Set size once on the root so the input, addon, text, and button stay aligned.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const inputGroupSizes = ["xs", "sm", "md", "lg", "xl"] as const;
-    `}
-  </Preview.Data>
 </Preview>
 
 ### As Child
@@ -401,30 +216,11 @@ Use `asChild` when the root must render a custom container while keeping the gro
 size context.
 
 <Preview>
-  <InputGroupAsChildExample />
+  <InputGroupDocs.InputGroupAsChildExample />
 
-  <Preview.Code>
-    {`
-      import { Field, InputGroup } from "@moduix/react";
-
-      const repositoryOwner = "moduix/";
-
-      export function InputGroupAsChildDemo() {
-        return (
-          <Field className="input-group-demo-field">
-            <Field.Label>Repository</Field.Label>
-            <InputGroup asChild>
-              <div>
-                <InputGroup.Addon>{repositoryOwner}</InputGroup.Addon>
-                <InputGroup.Input placeholder="components" />
-              </div>
-            </InputGroup>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input-group/as-child.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -434,11 +230,6 @@ size context.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const repositoryOwner = "moduix/";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -446,26 +237,11 @@ size context.
 Use root variables for the merged shell and part classes for local addon or button styling.
 
 <Preview>
-  <CustomStylesInputGroupExample />
+  <InputGroupDocs.CustomStylesInputGroupExample />
 
-  <Preview.Code>
-    {`
-      import { InputGroup } from "@moduix/react";
-
-      const customHandle = "custom-group";
-
-      export function CustomInputGroupDemo() {
-        return (
-          <InputGroup className="input-group-demo-custom-group">
-            <InputGroup.Addon className="input-group-demo-custom-addon">@</InputGroup.Addon>
-            <InputGroup.Input placeholder={customHandle} />
-            <InputGroup.Button className="input-group-demo-custom-button">Check</InputGroup.Button>
-          </InputGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input-group/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -485,11 +261,6 @@ Use root variables for the merged shell and part classes for local addon or butt
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const customHandle = "custom-group";
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Styling
@@ -499,7 +270,7 @@ Use root variables for the merged shell and part classes for local addon or butt
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <InputGroupCssPropertiesPanel />
+      <InputGroupDocs.InputGroupCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

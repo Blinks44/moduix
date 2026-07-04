@@ -4,24 +4,7 @@ description: An Ark UI signature pad for handwritten pointer and touch input.
 icon: Component
 ---
 
-import {
-  ControlledSignaturePadExample,
-  CustomStylingSignaturePadExample,
-  DrawingSignaturePadExample,
-  FieldSignaturePadExample,
-  ImagePreviewSignaturePadExample,
-  RootProviderSignaturePadExample,
-  SignaturePadCssPropertiesPanel,
-  SignaturePadExample,
-  signaturePadBasicData,
-  signaturePadControlledData,
-  signaturePadCustomStylingCss,
-  signaturePadDrawingData,
-  signaturePadExampleCss,
-  signaturePadFieldData,
-  signaturePadPreviewCss,
-  signaturePadPreviewData,
-} from '@/components/examples/signature-pad';
+import * as SignaturePadDocs from '@/components/examples/signature-pad';
 
 ## API Reference
 
@@ -34,78 +17,19 @@ surface, `Segment` renders the SVG paths, `ClearTrigger` clears the paths, and `
 baseline.
 
 <Preview>
-  <SignaturePadExample />
+  <SignaturePadDocs.SignaturePadExample />
 
-  <Preview.Code>
-    {`
-      import { RotateCcwIcon, SignaturePad } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function SignaturePadDemo() {
-        return (
-          <SignaturePad
-            translations={signaturePadTranslations}
-          >
-            <SignaturePad.Label>Sign below</SignaturePad.Label>
-            <SignaturePad.Control>
-              <SignaturePad.Segment />
-              <SignaturePad.ClearTrigger>
-                <RotateCcwIcon aria-hidden="true" />
-              </SignaturePad.ClearTrigger>
-              <SignaturePad.Guide />
-            </SignaturePad.Control>
-          </SignaturePad>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{signaturePadExampleCss}</Preview.CSS>
-  <Preview.Data>{signaturePadBasicData}</Preview.Data>
+  <Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `SignaturePad` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-signature-pad
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-signature-pad
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-signature-pad
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-signature-pad
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-signature-pad
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-signature-pad" />
 
 ## Anatomy
 
@@ -197,50 +121,16 @@ behavior.
 Use `onDrawEnd` to export the signature and show a preview before saving it.
 
 <Preview>
-  <ImagePreviewSignaturePadExample />
+  <SignaturePadDocs.ImagePreviewSignaturePadExample />
 
-  <Preview.Code>
-    {`
-      import { RotateCcwIcon, SignaturePad } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ImagePreviewSignaturePadDemo() {
-        const [imageUrl, setImageUrl] = useState("");
-
-        return (
-          <div className="signature-pad-stack">
-            <SignaturePad
-              onDrawEnd={(details) => {
-                void details.getDataUrl(imageType).then(setImageUrl);
-              }}
-            >
-              <SignaturePad.Label>Sign below</SignaturePad.Label>
-              <SignaturePad.Control>
-                <SignaturePad.Segment />
-                <SignaturePad.ClearTrigger>
-                  <RotateCcwIcon aria-hidden="true" />
-                </SignaturePad.ClearTrigger>
-                <SignaturePad.Guide />
-              </SignaturePad.Control>
-            </SignaturePad>
-            {imageUrl ? (
-              <img src={imageUrl} alt="Signature preview" className="signature-pad-preview" />
-            ) : (
-              <div className="signature-pad-preview-placeholder">
-                Preview appears after signing
-              </div>
-            )}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/image-preview.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
-    {signaturePadExampleCss + '\n' + signaturePadPreviewCss}
+    {SignaturePadDocs.signaturePadExampleCss + '\n' + SignaturePadDocs.signaturePadPreviewCss}
   </Preview.CSS>
-  <Preview.Data>{signaturePadPreviewData}</Preview.Data>
+  
 </Preview>
 
 ### Controlled
@@ -249,46 +139,14 @@ Control `paths` when the signature must stay synchronized with surrounding state
 autosave logic.
 
 <Preview>
-  <ControlledSignaturePadExample />
+  <SignaturePadDocs.ControlledSignaturePadExample />
 
-  <Preview.Code>
-    {`
-      import { Button, RotateCcwIcon, SignaturePad } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/controlled.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledSignaturePadDemo() {
-        const [paths, setPaths] = useState(initialSignaturePaths);
-
-        return (
-          <div className="signature-pad-stack">
-            <SignaturePad paths={paths} onDraw={(details) => setPaths(details.paths)}>
-              <SignaturePad.Label>Sign below</SignaturePad.Label>
-              <SignaturePad.Control>
-                <SignaturePad.Segment />
-                <SignaturePad.ClearTrigger>
-                  <RotateCcwIcon aria-hidden="true" />
-                </SignaturePad.ClearTrigger>
-                <SignaturePad.Guide />
-              </SignaturePad.Control>
-            </SignaturePad>
-            <div className="signature-pad-actions">
-              <Button size="sm" variant="outline" onClick={() => setPaths(initialSignaturePaths)}>
-                Restore
-              </Button>
-              <Button size="sm" variant="outline" onClick={() => setPaths([])}>
-                Clear
-              </Button>
-            </div>
-            <output className="signature-pad-status">Paths: {paths.length}</output>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{signaturePadExampleCss}</Preview.CSS>
-  <Preview.Data>{signaturePadControlledData}</Preview.Data>
+  <Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Drawing
@@ -297,34 +155,14 @@ Pass `drawing` when stroke width, stroke color, or pressure behavior needs to di
 defaults.
 
 <Preview>
-  <DrawingSignaturePadExample />
+  <SignaturePadDocs.DrawingSignaturePadExample />
 
-  <Preview.Code>
-    {`
-      import { RotateCcwIcon, SignaturePad } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/drawing.tsx#demo</include>
+</Preview.Code>
 
-      export function DrawingSignaturePadDemo() {
-        return (
-          <SignaturePad
-            drawing={drawing}
-          >
-            <SignaturePad.Label>Sign below</SignaturePad.Label>
-            <SignaturePad.Control>
-              <SignaturePad.Segment />
-              <SignaturePad.ClearTrigger>
-                <RotateCcwIcon aria-hidden="true" />
-              </SignaturePad.ClearTrigger>
-              <SignaturePad.Guide />
-            </SignaturePad.Control>
-          </SignaturePad>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{signaturePadExampleCss}</Preview.CSS>
-  <Preview.Data>{signaturePadDrawingData}</Preview.Data>
+  <Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Field
@@ -333,45 +171,14 @@ Use `Field` around the signature pad when helper text, error text, required stat
 messaging belongs to the same form control.
 
 <Preview>
-  <FieldSignaturePadExample />
+  <SignaturePadDocs.FieldSignaturePadExample />
 
-  <Preview.Code>
-    {`
-      import { Field, RotateCcwIcon, SignaturePad } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/field.tsx#demo</include>
+</Preview.Code>
 
-      import { useSignaturePadContext } from "@ark-ui/react/signature-pad";
-
-      function SignaturePadHiddenValue() {
-        const signaturePad = useSignaturePadContext();
-
-        return <SignaturePad.HiddenInput value={signaturePad.paths.join(" ")} />;
-      }
-
-      export function FieldSignaturePadDemo() {
-        return (
-          <Field className="signature-pad-field" invalid required>
-            <SignaturePad name={signatureName}>
-              <SignaturePad.Label>Sign below</SignaturePad.Label>
-              <SignaturePad.Control>
-                <SignaturePad.Segment />
-                <SignaturePad.ClearTrigger>
-                <RotateCcwIcon aria-hidden="true" />
-              </SignaturePad.ClearTrigger>
-              <SignaturePad.Guide />
-            </SignaturePad.Control>
-              <SignaturePadHiddenValue />
-            </SignaturePad>
-            <Field.HelperText>Use pointer or touch input to add a signature.</Field.HelperText>
-            <Field.ErrorText>Signature is required.</Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{signaturePadExampleCss}</Preview.CSS>
-  <Preview.Data>{signaturePadFieldData}</Preview.Data>
+  <Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -381,41 +188,14 @@ access to paths, `clear()`, or `getDataUrl()`. Pass root options such as `transl
 `drawing` to `useSignaturePad(...)`.
 
 <Preview>
-  <RootProviderSignaturePadExample />
+  <SignaturePadDocs.RootProviderSignaturePadExample />
 
-  <Preview.Code>
-    {`
-      import { RotateCcwIcon, SignaturePad, useSignaturePad } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      export function RootProviderSignaturePadDemo() {
-        const signaturePad = useSignaturePad({
-          translations: signaturePadTranslations,
-        });
-
-        return (
-          <div className="signature-pad-stack">
-            <SignaturePad.RootProvider value={signaturePad}>
-              <SignaturePad.Label>Sign below</SignaturePad.Label>
-              <SignaturePad.Control>
-                <SignaturePad.Segment />
-                <SignaturePad.ClearTrigger>
-                  <RotateCcwIcon aria-hidden="true" />
-                </SignaturePad.ClearTrigger>
-                <SignaturePad.Guide />
-              </SignaturePad.Control>
-            </SignaturePad.RootProvider>
-            <output className="signature-pad-status">
-              Paths: {signaturePad.paths.length}
-            </output>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{signaturePadExampleCss}</Preview.CSS>
-  <Preview.Data>{signaturePadBasicData}</Preview.Data>
+  <Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -424,35 +204,14 @@ Customize the pad with CSS variables and part `className` values. Explicit `draw
 wins over the CSS default stroke color.
 
 <Preview>
-  <CustomStylingSignaturePadExample />
+  <SignaturePadDocs.CustomStylingSignaturePadExample />
 
-  <Preview.Code>
-    {`
-      import { RotateCcwIcon, SignaturePad } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomStylingSignaturePadDemo() {
-        return (
-          <SignaturePad
-            className="signature-pad-custom"
-            translations={signaturePadTranslations}
-          >
-            <SignaturePad.Label>Sign below</SignaturePad.Label>
-            <SignaturePad.Control>
-              <SignaturePad.Segment />
-              <SignaturePad.ClearTrigger>
-                <RotateCcwIcon aria-hidden="true" />
-              </SignaturePad.ClearTrigger>
-              <SignaturePad.Guide />
-            </SignaturePad.Control>
-          </SignaturePad>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{signaturePadCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{signaturePadBasicData}</Preview.Data>
+  <Preview.CSS>{SignaturePadDocs.signaturePadCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -462,7 +221,7 @@ wins over the CSS default stroke color.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <SignaturePadCssPropertiesPanel />
+      <SignaturePadDocs.SignaturePadCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

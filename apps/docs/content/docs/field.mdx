@@ -4,22 +4,7 @@ description: Ark UI field context for labels, helper text, errors, and form-cont
 icon: Component
 ---
 
-import {
-  FieldCheckboxExample,
-  FieldControlledInvalidExample,
-  FieldCssPropertiesPanel,
-  FieldCustomStylesExample,
-  FieldDisabledExample,
-  FieldExample,
-  FieldItemExample,
-  FieldInvalidExample,
-  FieldRadioGroupExample,
-  FieldReadOnlyExample,
-  FieldRootProviderExample,
-  FieldSelectExample,
-  FieldTextareaAutoresizeExample,
-  FieldTextareaExample,
-} from '@/components/examples/field';
+import * as FieldDocs from '@/components/examples/field';
 
 ## API Reference
 
@@ -39,82 +24,19 @@ Use `Field` when one control needs a visible label, helper text, error text, or 
 Start with Ark parts: `Field`, `Field.Label`, one control part, and optional helper or error text.
 
 <Preview>
-  <FieldExample />
+  <FieldDocs.FieldExample />
 
-  <Preview.Code>
-    {`
-      import { Field } from "@moduix/react";
-
-      export function FieldDemo() {
-        return (
-          <Field required>
-            <Field.Label>
-              Name
-              <Field.RequiredIndicator />
-            </Field.Label>
-            <Field.Input placeholder="Enter your name" />
-            <Field.HelperText>Visible on your public profile.</Field.HelperText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const label = "Name";
-      const placeholder = "Enter your name";
-      const helperText = "Visible on your public profile.";
-      const required = true;
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Field` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-field
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-field
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-field
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-field
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-field
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-field" />
 
 ## Anatomy
 
@@ -176,28 +98,14 @@ rendered node.
 Set `invalid` on the root when validation is owned by application state or a form library.
 
 <Preview>
-  <FieldInvalidExample />
+  <FieldDocs.FieldInvalidExample />
 
-  <Preview.Code>
-    {`
-      import { Field } from "@moduix/react";
-
-      export function InvalidFieldDemo() {
-        return (
-          <Field invalid required>
-            <Field.Label>Email</Field.Label>
-            <Field.Input type="email" placeholder="name@example.com" />
-            <Field.HelperText>Use your work email.</Field.HelperText>
-            <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/invalid.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>{`const error = "Enter a valid email address.";`}</Preview.Data>
+  
 </Preview>
 
 ### Controlled Invalid
@@ -205,36 +113,14 @@ Set `invalid` on the root when validation is owned by application state or a for
 Derive `invalid` from local state when the field should update as the user types.
 
 <Preview>
-  <FieldControlledInvalidExample />
+  <FieldDocs.FieldControlledInvalidExample />
 
-  <Preview.Code>
-    {`
-      import { Field } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledInvalidFieldDemo() {
-        const [value, setValue] = useState("");
-        const invalid = value.length > 0 && value.length < 3;
-
-        return (
-          <Field invalid={invalid}>
-            <Field.Label>Username</Field.Label>
-            <Field.Input
-              value={value}
-              onChange={(event) => setValue(event.currentTarget.value)}
-              placeholder="e.g. vinny"
-            />
-            <Field.HelperText>Use at least 3 characters.</Field.HelperText>
-            <Field.ErrorText>Username must be at least 3 characters.</Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/controlled-invalid.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>{`const minLength = 3;`}</Preview.Data>
+  
 </Preview>
 
 ### Textarea
@@ -242,34 +128,14 @@ Derive `invalid` from local state when the field should update as the user types
 Use `Field.Textarea` when the field owns a multiline native textarea.
 
 <Preview>
-  <FieldTextareaExample />
+  <FieldDocs.FieldTextareaExample />
 
-  <Preview.Code>
-    {`
-      import { Field } from "@moduix/react";
-
-      export function TextareaFieldDemo() {
-        return (
-          <Field>
-            <Field.Label>Summary</Field.Label>
-            <Field.Textarea placeholder="Describe the request" />
-            <Field.HelperText>Use a short operational summary.</Field.HelperText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/textarea.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const label = "Summary";
-      const placeholder = "Describe the request";
-      const helperText = "Use a short operational summary.";
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Textarea Autoresize
@@ -277,34 +143,14 @@ Use `Field.Textarea` when the field owns a multiline native textarea.
 Pass `autoresize` to let Ark keep the textarea height in sync with its content.
 
 <Preview>
-  <FieldTextareaAutoresizeExample />
+  <FieldDocs.FieldTextareaAutoresizeExample />
 
-  <Preview.Code>
-    {`
-      import { Field } from "@moduix/react";
-
-      export function TextareaAutoresizeFieldDemo() {
-        return (
-          <Field>
-            <Field.Label>Details</Field.Label>
-            <Field.Textarea autoresize placeholder="Add extra context" />
-            <Field.HelperText>The textarea grows as the user types.</Field.HelperText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/textarea-autoresize.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const label = "Details";
-      const autoresize = true;
-      const helperText = "The textarea grows as the user types.";
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Select
@@ -312,42 +158,14 @@ Pass `autoresize` to let Ark keep the textarea height in sync with its content.
 Use `Field.Select` for native select controls that should receive field ids and state props.
 
 <Preview>
-  <FieldSelectExample />
+  <FieldDocs.FieldSelectExample />
 
-  <Preview.Code>
-    {`
-      import { Field } from "@moduix/react";
-
-      export function SelectFieldDemo() {
-        return (
-          <Field required>
-            <Field.Label>Priority</Field.Label>
-            <Field.Select defaultValue="">
-              <option value="" disabled>Select priority</option>
-              {priorityOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </Field.Select>
-            <Field.HelperText>Used for triage queues.</Field.HelperText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/select.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const priorityOptions = [
-        { label: "Low", value: "low" },
-        { label: "Normal", value: "normal" },
-        { label: "High", value: "high" },
-      ];
-    `}
-  </Preview.Data>
+  
 </Preview>
 
 ### Checkbox
@@ -356,35 +174,14 @@ Use `Field` with `Checkbox` when the field owns shared helper text, error text, 
 around a single checkbox control.
 
 <Preview>
-  <FieldCheckboxExample />
+  <FieldDocs.FieldCheckboxExample />
 
-  <Preview.Code>
-    {`
-      import { Checkbox, Field } from "@moduix/react";
-
-      export function CheckboxFieldDemo() {
-        return (
-          <Field required>
-            <Checkbox.Root>
-              <Checkbox.HiddenInput />
-              <Checkbox.Control>
-                <Checkbox.Indicator />
-              </Checkbox.Control>
-              <Checkbox.Label>Accept support access</Checkbox.Label>
-            </Checkbox.Root>
-            <Field.HelperText>
-              Required before the team can inspect workspace data.
-            </Field.HelperText>
-            <Field.ErrorText>Support access must be enabled.</Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/checkbox.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>{`const required = true;`}</Preview.Data>
+  
 </Preview>
 
 ### Item Target
@@ -393,37 +190,11 @@ Use `Field.Item value` with root `target` when one field label should point to a
 inside a grouped control row.
 
 <Preview>
-  <FieldItemExample />
+  <FieldDocs.FieldItemExample />
 
-  <Preview.Code>
-    {`
-      import { Field } from "@moduix/react";
-
-      export function ItemFieldDemo() {
-        return (
-          <Field target="amount">
-            <Field.Label>Amount</Field.Label>
-            <div className="inlineControls">
-              <Field.Item value="currency">
-                <Field.Select aria-label="Currency" defaultValue="USD">
-                  {currencyOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </Field.Select>
-              </Field.Item>
-              <Field.Item value="amount">
-                <Field.Input inputMode="decimal" placeholder="0.00" />
-              </Field.Item>
-            </div>
-            <Field.HelperText>The root label targets the amount input.</Field.HelperText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/item-target.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -434,15 +205,7 @@ inside a grouped control row.
       }
     `}
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const currencyOptions = [
-        { label: "USD", value: "USD" },
-        { label: "EUR", value: "EUR" },
-        { label: "GBP", value: "GBP" },
-      ];
-    `}
-  </Preview.Data>
+  
 </Preview>
 
 ### RadioGroup
@@ -451,40 +214,14 @@ Use `Field` with `RadioGroup` when one field label, helper text, or error messag
 the whole choice set instead of individual native radio inputs.
 
 <Preview>
-  <FieldRadioGroupExample />
+  <FieldDocs.FieldRadioGroupExample />
 
-  <Preview.Code>
-    {`
-      import { Field, RadioGroup } from "@moduix/react";
-
-      export function RadioGroupFieldDemo() {
-        return (
-          <Field>
-            <Field.Label>Account type</Field.Label>
-            <RadioGroup defaultValue="team" aria-label="Account type">
-              <RadioGroup.Item value="personal">
-                <RadioGroup.ItemHiddenInput />
-                <RadioGroup.ItemControl />
-                <RadioGroup.ItemText>Personal account</RadioGroup.ItemText>
-              </RadioGroup.Item>
-              <RadioGroup.Item value="team">
-                <RadioGroup.ItemHiddenInput />
-                <RadioGroup.ItemControl />
-                <RadioGroup.ItemText>Team account</RadioGroup.ItemText>
-              </RadioGroup.Item>
-            </RadioGroup>
-            <Field.HelperText>
-              Choose the default account context for new projects.
-            </Field.HelperText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/radiogroup.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>{`const defaultValue = "team";`}</Preview.Data>
+  
 </Preview>
 
 ### Root Provider
@@ -493,32 +230,14 @@ Use `useField` with `Field.RootProvider` when the field state must be owned outs
 tree.
 
 <Preview>
-  <FieldRootProviderExample />
+  <FieldDocs.FieldRootProviderExample />
 
-  <Preview.Code>
-    {`
-      import { useField } from "@ark-ui/react/field";
-      import { Field } from "@moduix/react";
-
-      export function RootProviderFieldDemo() {
-        const field = useField({ id: "root-provider-field", required: true });
-
-        return (
-          <Field.RootProvider value={field}>
-            <Field.Label>Project key</Field.Label>
-            <Field.Input placeholder="MAPS" />
-            <Field.HelperText>
-              The field state is created outside the rendered tree.
-            </Field.HelperText>
-          </Field.RootProvider>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/root-provider.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>{`const fieldId = "root-provider-field";`}</Preview.Data>
+  
 </Preview>
 
 ### Disabled
@@ -526,29 +245,14 @@ tree.
 Set `disabled` on the root to propagate disabled state to Ark field parts.
 
 <Preview>
-  <FieldDisabledExample />
+  <FieldDocs.FieldDisabledExample />
 
-  <Preview.Code>
-    {`
-      import { Field } from "@moduix/react";
-
-      export function DisabledFieldDemo() {
-        return (
-          <Field disabled>
-            <Field.Label>Organization</Field.Label>
-            <Field.Input placeholder="Acme Inc." />
-            <Field.HelperText>
-              This field is currently managed by your workspace.
-            </Field.HelperText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/disabled.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>{`const disabled = true;`}</Preview.Data>
+  
 </Preview>
 
 ### Read Only
@@ -556,29 +260,14 @@ Set `disabled` on the root to propagate disabled state to Ark field parts.
 Set `readOnly` on the root when the control value can be copied but not edited.
 
 <Preview>
-  <FieldReadOnlyExample />
+  <FieldDocs.FieldReadOnlyExample />
 
-  <Preview.Code>
-    {`
-      import { Field } from "@moduix/react";
-
-      export function ReadOnlyFieldDemo() {
-        return (
-          <Field readOnly>
-            <Field.Label>Workspace key</Field.Label>
-            <Field.Input defaultValue="MAPS" />
-            <Field.HelperText>
-              Read-only state is propagated to the input.
-            </Field.HelperText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/read-only.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  <Preview.Data>{`const readOnly = true;`}</Preview.Data>
+  
 </Preview>
 
 ### Custom Styling
@@ -587,27 +276,11 @@ Pass `className` to the parts that need overrides and keep state styling on Ark 
 `data-invalid` and `data-disabled`.
 
 <Preview>
-  <FieldCustomStylesExample />
+  <FieldDocs.FieldCustomStylesExample />
 
-  <Preview.Code>
-    {`
-      import { Field } from "@moduix/react";
-
-      export function CustomStylesFieldDemo() {
-        return (
-          <Field invalid className="customField">
-            <Field.Label className="customLabel">Project key</Field.Label>
-            <Field.Input required placeholder="MAPS" className="customControl" />
-            <Field.HelperText>Use three to five uppercase letters.</Field.HelperText>
-            <Field.ErrorText className="customError">
-              Please enter a project key.
-            </Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -627,7 +300,7 @@ Pass `className` to the parts that need overrides and keep state styling on Ark 
     `}
 
   </Preview.CSS>
-  <Preview.Data>{`const projectKey = "MAPS";`}</Preview.Data>
+  
 </Preview>
 
 ## Styling
@@ -640,7 +313,7 @@ moduix `data-slot="field-*"` hooks, and the public `--field-*` CSS variables sho
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <FieldCssPropertiesPanel />
+      <FieldDocs.FieldCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

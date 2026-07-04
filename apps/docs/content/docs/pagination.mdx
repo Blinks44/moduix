@@ -4,24 +4,7 @@ description: Page navigation built on the Ark UI pagination primitive.
 icon: Component
 ---
 
-import {
-  PaginationContextExample,
-  PaginationControlledExample,
-  PaginationCssPropertiesPanel,
-  PaginationCustomStylingExample,
-  PaginationCustomizedExample,
-  PaginationDataSlicingExample,
-  PaginationExample,
-  PaginationLinkExample,
-  PaginationPageRangeExample,
-  PaginationPageSizeControlExample,
-  PaginationRootProviderExample,
-  PaginationWithEdgesExample,
-  paginationCustomStylingCss,
-  paginationExampleCss,
-  paginationNoData,
-  paginationUsersData,
-} from '@/components/examples/pagination';
+import * as PaginationDocs from '@/components/examples/pagination';
 
 ## API Reference
 
@@ -33,82 +16,18 @@ Use `Pagination` as the short root form for Ark `Pagination.Root`. Render page b
 `Pagination.Context`, which exposes Ark's computed `pages` array.
 
 <Preview>
-  <PaginationExample />
+  <PaginationDocs.PaginationExample />
 
   <Preview.Code>
-    {`
-      import { Pagination } from "@moduix/react";
-
-      export function PaginationDemo() {
-        return (
-          <Pagination className="pagination-demo" count={200} pageSize={10} siblingCount={2}>
-            <Pagination.PrevTrigger />
-            <Pagination.Context>
-              {(pagination) =>
-                pagination.pages.map((page, index) =>
-                  page.type === "page" ? (
-                    <Pagination.Item key={index} {...page}>
-                      {page.value}
-                    </Pagination.Item>
-                  ) : (
-                    <Pagination.Ellipsis key={index} index={index} />
-                  ),
-                )
-              }
-            </Pagination.Context>
-            <Pagination.NextTrigger />
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>{paginationNoData}</Preview.Data>
+  <include lang="tsx">./_snippets/pagination/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Pagination` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-pagination
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-pagination
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-pagination
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-pagination
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-pagination
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-pagination" />
 
 ## Anatomy
 
@@ -182,51 +101,13 @@ translations, and link URL generation.
 Control the active page with Ark's `page` and `onPageChange(details)` props.
 
 <Preview>
-  <PaginationControlledExample />
+  <PaginationDocs.PaginationControlledExample />
 
   <Preview.Code>
-    {`
-      import { Pagination } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledPaginationDemo() {
-        const [page, setPage] = useState(5);
-
-        return (
-          <div className="pagination-stack">
-            <Pagination
-              className="pagination-demo"
-              count={200}
-              page={page}
-              pageSize={10}
-              siblingCount={2}
-              onPageChange={(details) => setPage(details.page)}
-            >
-              <Pagination.PrevTrigger />
-              <Pagination.Context>
-                {(pagination) =>
-                  pagination.pages.map((page, index) =>
-                    page.type === "page" ? (
-                      <Pagination.Item key={index} {...page}>
-                        {page.value}
-                      </Pagination.Item>
-                    ) : (
-                      <Pagination.Ellipsis key={index} index={index} />
-                    ),
-                  )
-                }
-              </Pagination.Context>
-              <Pagination.NextTrigger />
-            </Pagination>
-            <p className="pagination-muted">Current page: {page}</p>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>{`const initialPage = 5;`}</Preview.Data>
+  <include lang="tsx">./_snippets/pagination/controlled.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Context
@@ -235,44 +116,13 @@ Use `Pagination.Context` when custom controls need access to page helpers such a
 `goToFirstPage()` or `goToLastPage()`.
 
 <Preview>
-  <PaginationContextExample />
+  <PaginationDocs.PaginationContextExample />
 
   <Preview.Code>
-    {`
-      import { Pagination } from "@moduix/react";
-
-      export function PaginationContextDemo() {
-        return (
-          <Pagination count={200} pageSize={10}>
-            <Pagination.Context>
-              {(pagination) => (
-                <div className="pagination-row">
-                  <button type="button" onClick={() => pagination.goToFirstPage()}>
-                    First
-                  </button>
-                  <button type="button" onClick={() => pagination.goToPrevPage()}>
-                    Prev
-                  </button>
-                  <span className="pagination-muted">
-                    Page {pagination.page} of {pagination.totalPages}
-                  </span>
-                  <button type="button" onClick={() => pagination.goToNextPage()}>
-                    Next
-                  </button>
-                  <button type="button" onClick={() => pagination.goToLastPage()}>
-                    Last
-                  </button>
-                </div>
-              )}
-            </Pagination.Context>
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>{paginationNoData}</Preview.Data>
+  <include lang="tsx">./_snippets/pagination/context.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Customized
@@ -281,48 +131,13 @@ Use `translations` for accessible labels and adjust the computed window with `si
 `boundaryCount`, and page-size props.
 
 <Preview>
-  <PaginationCustomizedExample />
+  <PaginationDocs.PaginationCustomizedExample />
 
   <Preview.Code>
-    {`
-      import { Pagination } from "@moduix/react";
-
-      export function CustomizedPaginationDemo() {
-        return (
-          <Pagination
-            className="pagination-demo"
-            count={400}
-            pageSize={20}
-            siblingCount={3}
-            translations={{
-              nextTriggerLabel: "Next page",
-              prevTriggerLabel: "Previous page",
-              itemLabel: (details) => \`Page \${details.page}\`,
-            }}
-          >
-            <Pagination.PrevTrigger />
-            <Pagination.Context>
-              {(pagination) =>
-                pagination.pages.map((page, index) =>
-                  page.type === "page" ? (
-                    <Pagination.Item key={index} {...page}>
-                      {page.value}
-                    </Pagination.Item>
-                  ) : (
-                    <Pagination.Ellipsis key={index} index={index} />
-                  ),
-                )
-              }
-            </Pagination.Context>
-            <Pagination.NextTrigger />
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>{`const siblingCount = 3;`}</Preview.Data>
+  <include lang="tsx">./_snippets/pagination/customized.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Data Slicing
@@ -331,50 +146,13 @@ Read `pagination.slice(data)` from context when the current page should render a
 of an array.
 
 <Preview>
-  <PaginationDataSlicingExample />
+  <PaginationDocs.PaginationDataSlicingExample />
 
   <Preview.Code>
-    {`
-      import { Pagination } from "@moduix/react";
-
-      export function PaginationDataSlicingDemo() {
-        return (
-          <Pagination count={users.length} pageSize={4}>
-            <Pagination.Context>
-              {(pagination) => (
-                <div className="pagination-stack">
-                  <div className="pagination-users">
-                    {pagination.slice(users).map((user) => (
-                      <div key={user.id} className="pagination-user">
-                        <strong>{user.name}</strong>
-                        <span className="pagination-muted">{user.email}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="pagination-row">
-                    <Pagination.PrevTrigger />
-                    {pagination.pages.map((page, index) =>
-                      page.type === "page" ? (
-                        <Pagination.Item key={index} {...page}>
-                          {page.value}
-                        </Pagination.Item>
-                      ) : (
-                        <Pagination.Ellipsis key={index} index={index} />
-                      ),
-                    )}
-                    <Pagination.NextTrigger />
-                  </div>
-                </div>
-              )}
-            </Pagination.Context>
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>{paginationUsersData}</Preview.Data>
+  <include lang="tsx">./_snippets/pagination/data-slicing.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Link
@@ -382,45 +160,13 @@ of an array.
 Use `type="link"` with `getPageUrl(details)` when page changes should be real navigation.
 
 <Preview>
-  <PaginationLinkExample />
+  <PaginationDocs.PaginationLinkExample />
 
   <Preview.Code>
-    {`
-      import { Pagination } from "@moduix/react";
-
-      export function LinkPaginationDemo() {
-        return (
-          <Pagination
-            className="pagination-demo"
-            count={200}
-            pageSize={10}
-            siblingCount={2}
-            type="link"
-            getPageUrl={(details) => \`?page=\${details.page}\`}
-          >
-            <Pagination.PrevTrigger />
-            <Pagination.Context>
-              {(pagination) =>
-                pagination.pages.map((page, index) =>
-                  page.type === "page" ? (
-                    <Pagination.Item key={index} {...page}>
-                      {page.value}
-                    </Pagination.Item>
-                  ) : (
-                    <Pagination.Ellipsis key={index} index={index} />
-                  ),
-                )
-              }
-            </Pagination.Context>
-            <Pagination.NextTrigger />
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>{`const getPageUrl = ({ page }: { page: number }) => \`?page=\${page}\`;`}</Preview.Data>
+  <include lang="tsx">./_snippets/pagination/link.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Page Range
@@ -428,46 +174,13 @@ Use `type="link"` with `getPageUrl(details)` when page changes should be real na
 Use `pagination.pageRange` when nearby UI should describe the visible item range.
 
 <Preview>
-  <PaginationPageRangeExample />
+  <PaginationDocs.PaginationPageRangeExample />
 
   <Preview.Code>
-    {`
-      import { Pagination } from "@moduix/react";
-
-      export function PaginationPageRangeDemo() {
-        return (
-          <Pagination count={200} pageSize={10}>
-            <Pagination.Context>
-              {(pagination) => (
-                <div className="pagination-stack">
-                  <div className="pagination-row">
-                    <Pagination.PrevTrigger />
-                    {pagination.pages.map((page, index) =>
-                      page.type === "page" ? (
-                        <Pagination.Item key={index} {...page}>
-                          {page.value}
-                        </Pagination.Item>
-                      ) : (
-                        <Pagination.Ellipsis key={index} index={index} />
-                      ),
-                    )}
-                    <Pagination.NextTrigger />
-                  </div>
-                  <p className="pagination-muted">
-                    Showing {pagination.pageRange.start + 1}-{pagination.pageRange.end} of{" "}
-                    {pagination.count} results
-                  </p>
-                </div>
-              )}
-            </Pagination.Context>
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>{paginationNoData}</Preview.Data>
+  <include lang="tsx">./_snippets/pagination/page-range.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Page Size Control
@@ -475,99 +188,13 @@ Use `pagination.pageRange` when nearby UI should describe the visible item range
 Call `pagination.setPageSize(nextSize)` from context to let a separate control update page size.
 
 <Preview>
-  <PaginationPageSizeControlExample />
+  <PaginationDocs.PaginationPageSizeControlExample />
 
   <Preview.Code>
-    {`
-      import { createListCollection } from "@ark-ui/react/collection";
-      import { Pagination, Select } from "@moduix/react";
-
-      const pageSizes = createListCollection({
-        items: [
-          { label: "5", value: "5" },
-          { label: "10", value: "10" },
-          { label: "20", value: "20" },
-          { label: "50", value: "50" },
-        ],
-      });
-
-      export function PaginationPageSizeControlDemo() {
-        return (
-          <Pagination count={200} defaultPageSize={10}>
-            <Pagination.Context>
-              {(pagination) => (
-                <div className="pagination-stack">
-                  <div className="pagination-row">
-                    <Select
-                      className="pagination-page-size-select"
-                      collection={pageSizes}
-                      value={[String(pagination.pageSize)]}
-                      positioning={{ sameWidth: true }}
-                      onValueChange={(details) => {
-                        const nextValue = details.value[0];
-                        if (nextValue) pagination.setPageSize(Number(nextValue));
-                      }}
-                    >
-                      <Select.Label>Items per page</Select.Label>
-                      <Select.Control>
-                        <Select.Trigger>
-                          <Select.ValueText placeholder="Page size" />
-                        </Select.Trigger>
-                        <Select.Indicators>
-                          <Select.Indicator />
-                        </Select.Indicators>
-                      </Select.Control>
-                      <Select.Positioner>
-                        <Select.Content>
-                          {pageSizes.items.map((item) => (
-                            <Select.Item key={item.value} item={item}>
-                              <Select.ItemText>{item.label}</Select.ItemText>
-                              <Select.ItemIndicator />
-                            </Select.Item>
-                          ))}
-                        </Select.Content>
-                      </Select.Positioner>
-                      <Select.HiddenSelect />
-                    </Select>
-                  </div>
-                  <div className="pagination-row">
-                    <Pagination.PrevTrigger />
-                    {pagination.pages.map((page, index) =>
-                      page.type === "page" ? (
-                        <Pagination.Item key={index} {...page}>
-                          {page.value}
-                        </Pagination.Item>
-                      ) : (
-                        <Pagination.Ellipsis key={index} index={index} />
-                      ),
-                    )}
-                    <Pagination.NextTrigger />
-                  </div>
-                  <p className="pagination-muted">
-                    Page {pagination.page} of {pagination.totalPages}
-                  </p>
-                </div>
-              )}
-            </Pagination.Context>
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const pageSizes = createListCollection({
-        items: [
-          { label: "5", value: "5" },
-          { label: "10", value: "10" },
-          { label: "20", value: "20" },
-          { label: "50", value: "50" },
-        ],
-      });
-    `}
-  </Preview.Data>
+  <include lang="tsx">./_snippets/pagination/page-size-control.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -576,46 +203,13 @@ Use Ark `usePagination()` with `Pagination.RootProvider` when state needs to be 
 rendered root.
 
 <Preview>
-  <PaginationRootProviderExample />
+  <PaginationDocs.PaginationRootProviderExample />
 
   <Preview.Code>
-    {`
-      import { usePagination } from "@ark-ui/react/pagination";
-      import { Pagination } from "@moduix/react";
-
-      export function RootProviderPaginationDemo() {
-        const pagination = usePagination({ count: 200, pageSize: 10, siblingCount: 2 });
-
-        return (
-          <div className="pagination-stack">
-            <button type="button" onClick={() => pagination.goToNextPage()}>
-              Next page
-            </button>
-            <Pagination.RootProvider className="pagination-demo" value={pagination}>
-              <Pagination.PrevTrigger />
-              <Pagination.Context>
-                {(pagination) =>
-                  pagination.pages.map((page, index) =>
-                    page.type === "page" ? (
-                      <Pagination.Item key={index} {...page}>
-                        {page.value}
-                      </Pagination.Item>
-                    ) : (
-                      <Pagination.Ellipsis key={index} index={index} />
-                    ),
-                  )
-                }
-              </Pagination.Context>
-              <Pagination.NextTrigger />
-            </Pagination.RootProvider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>{paginationNoData}</Preview.Data>
+  <include lang="tsx">./_snippets/pagination/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### With Edges
@@ -623,40 +217,13 @@ rendered root.
 Add `FirstTrigger` and `LastTrigger` when users need explicit jumps to the first and last page.
 
 <Preview>
-  <PaginationWithEdgesExample />
+  <PaginationDocs.PaginationWithEdgesExample />
 
   <Preview.Code>
-    {`
-      import { Pagination } from "@moduix/react";
-
-      export function PaginationWithEdgesDemo() {
-        return (
-          <Pagination className="pagination-demo" count={400} pageSize={20} siblingCount={2}>
-            <Pagination.FirstTrigger />
-            <Pagination.PrevTrigger />
-            <Pagination.Context>
-              {(pagination) =>
-                pagination.pages.map((page, index) =>
-                  page.type === "page" ? (
-                    <Pagination.Item key={index} {...page}>
-                      {page.value}
-                    </Pagination.Item>
-                  ) : (
-                    <Pagination.Ellipsis key={index} index={index} />
-                  ),
-                )
-              }
-            </Pagination.Context>
-            <Pagination.NextTrigger />
-            <Pagination.LastTrigger />
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{paginationExampleCss}</Preview.CSS>
-  <Preview.Data>{paginationNoData}</Preview.Data>
+  <include lang="tsx">./_snippets/pagination/with-edges.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -665,38 +232,13 @@ Style Ark parts with `className`, `data-slot`, Ark `data-selected` and `data-dis
 attributes, and the public `--pagination-*` variables.
 
 <Preview>
-  <PaginationCustomStylingExample />
+  <PaginationDocs.PaginationCustomStylingExample />
 
   <Preview.Code>
-    {`
-      import { Pagination } from "@moduix/react";
-
-      export function CustomPaginationDemo() {
-        return (
-          <Pagination className="custom-pagination" count={200} defaultPage={5} pageSize={10}>
-            <Pagination.PrevTrigger />
-            <Pagination.Context>
-              {(pagination) =>
-                pagination.pages.map((page, index) =>
-                  page.type === "page" ? (
-                    <Pagination.Item key={index} {...page}>
-                      {page.value}
-                    </Pagination.Item>
-                  ) : (
-                    <Pagination.Ellipsis key={index} index={index} />
-                  ),
-                )
-              }
-            </Pagination.Context>
-            <Pagination.NextTrigger />
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{paginationCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{paginationNoData}</Preview.Data>
+  <include lang="tsx">./_snippets/pagination/custom-styling.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -708,7 +250,7 @@ Moduix keeps Ark's state attributes and adds stable `data-slot` hooks for local 
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <PaginationCssPropertiesPanel />
+      <PaginationDocs.PaginationCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

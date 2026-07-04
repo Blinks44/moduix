@@ -4,28 +4,7 @@ description: A circular progressbar for determinate or indeterminate progress.
 icon: Component
 ---
 
-import {
-  ControlledProgressCircularExample,
-  CustomStylingProgressCircularExample,
-  IndeterminateProgressCircularExample,
-  InitialValueProgressCircularExample,
-  MinMaxProgressCircularExample,
-  ProgressCircularCssPropertiesPanel,
-  ProgressCircularExample,
-  RootProviderProgressCircularExample,
-  StateViewsProgressCircularExample,
-  ValueTextProgressCircularExample,
-  progressCircularBasicData,
-  progressCircularControlledData,
-  progressCircularCustomStylingData,
-  progressCircularCustomStylingCss,
-  progressCircularIndeterminateData,
-  progressCircularInitialValueData,
-  progressCircularMinMaxData,
-  progressCircularExampleCss,
-  progressCircularRootProviderData,
-  progressCircularStateViewsData,
-} from '@/components/examples/progress-circular';
+import * as ProgressCircularDocs from '@/components/examples/progress-circular';
 
 ## API Reference
 
@@ -42,76 +21,19 @@ Use Ark-style parts: `ProgressCircular.Root`, `ProgressCircular.Circle`,
 `ProgressCircular.CircleTrack`, `ProgressCircular.CircleRange`, and `ProgressCircular.ValueText`.
 
 <Preview>
-  <ProgressCircularExample />
+  <ProgressCircularDocs.ProgressCircularExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressCircular } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function ProgressCircularDemo() {
-        return (
-          <ProgressCircular defaultValue={42}>
-            <ProgressCircular.Label>Export data</ProgressCircular.Label>
-            <div className="progress-circular-circle-container">
-              <ProgressCircular.Circle>
-                <ProgressCircular.CircleTrack />
-                <ProgressCircular.CircleRange />
-              </ProgressCircular.Circle>
-              <ProgressCircular.ValueText />
-            </div>
-          </ProgressCircular>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularBasicData}</Preview.Data>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `ProgressCircular` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-progress-circular
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-progress-circular
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-progress-circular
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-progress-circular
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-progress-circular
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-progress-circular" />
 
 ## Anatomy
 
@@ -189,55 +111,14 @@ the tree, or provide `aria-label`/`aria-labelledby` when composing without `Prog
 Keep `value` in React state when circular progress mirrors another control or external task state.
 
 <Preview>
-  <ControlledProgressCircularExample />
+  <ProgressCircularDocs.ControlledProgressCircularExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressCircular, Slider } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/controlled.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledProgressCircularDemo() {
-        const [value, setValue] = useState(42 as number | null);
-
-        return (
-          <div className="progress-circular-stack">
-            <ProgressCircular value={value} onValueChange={(details) => setValue(details.value)}>
-              <ProgressCircular.Label>Upload status</ProgressCircular.Label>
-              <div className="progress-circular-circle-container">
-                <ProgressCircular.Circle>
-                  <ProgressCircular.CircleTrack />
-                  <ProgressCircular.CircleRange />
-                </ProgressCircular.Circle>
-                <ProgressCircular.ValueText />
-              </div>
-            </ProgressCircular>
-            <Slider
-              className="progress-circular-slider"
-              min={0}
-              max={100}
-              value={[value ?? 0]}
-              onValueChange={(details) => setValue(details.value[0] ?? 0)}
-            >
-              <Slider.Label>Progress value</Slider.Label>
-              <Slider.ValueText />
-              <Slider.Control>
-                <Slider.Track>
-                  <Slider.Range />
-                </Slider.Track>
-                <Slider.Thumb index={0} aria-label="Progress value">
-                  <Slider.HiddenInput />
-                </Slider.Thumb>
-              </Slider.Control>
-            </Slider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularControlledData}</Preview.Data>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Initial Value
@@ -245,32 +126,14 @@ Keep `value` in React state when circular progress mirrors another control or ex
 Use `defaultValue` to set the initial uncontrolled progress value.
 
 <Preview>
-  <InitialValueProgressCircularExample />
+  <ProgressCircularDocs.InitialValueProgressCircularExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressCircular } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/initial-value.tsx#demo</include>
+</Preview.Code>
 
-      export function InitialValueProgressCircularDemo() {
-        return (
-          <ProgressCircular defaultValue={70}>
-            <ProgressCircular.Label>Import data</ProgressCircular.Label>
-            <div className="progress-circular-circle-container">
-              <ProgressCircular.Circle>
-                <ProgressCircular.CircleTrack />
-                <ProgressCircular.CircleRange />
-              </ProgressCircular.Circle>
-              <ProgressCircular.ValueText />
-            </div>
-          </ProgressCircular>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularInitialValueData}</Preview.Data>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Min Max
@@ -278,32 +141,14 @@ Use `defaultValue` to set the initial uncontrolled progress value.
 Use `min` and `max` when the value does not use the default `0` to `100` range.
 
 <Preview>
-  <MinMaxProgressCircularExample />
+  <ProgressCircularDocs.MinMaxProgressCircularExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressCircular } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/min-max.tsx#demo</include>
+</Preview.Code>
 
-      export function MinMaxProgressCircularDemo() {
-        return (
-          <ProgressCircular defaultValue={420} min={200} max={800}>
-            <ProgressCircular.Label>Requests per minute</ProgressCircular.Label>
-            <div className="progress-circular-circle-container">
-              <ProgressCircular.Circle>
-                <ProgressCircular.CircleTrack />
-                <ProgressCircular.CircleRange />
-              </ProgressCircular.Circle>
-              <ProgressCircular.ValueText />
-            </div>
-          </ProgressCircular>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularMinMaxData}</Preview.Data>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Indeterminate
@@ -311,32 +156,14 @@ Use `min` and `max` when the value does not use the default `0` to `100` range.
 Pass `defaultValue={null}` or `value={null}` when progress is running but completion is unknown.
 
 <Preview>
-  <IndeterminateProgressCircularExample />
+  <ProgressCircularDocs.IndeterminateProgressCircularExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressCircular } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/indeterminate.tsx#demo</include>
+</Preview.Code>
 
-      export function IndeterminateProgressCircularDemo() {
-        return (
-          <ProgressCircular defaultValue={null}>
-            <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
-            <div className="progress-circular-circle-container">
-              <ProgressCircular.Circle>
-                <ProgressCircular.CircleTrack />
-                <ProgressCircular.CircleRange />
-              </ProgressCircular.Circle>
-              <ProgressCircular.ValueText />
-            </div>
-          </ProgressCircular>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularIndeterminateData}</Preview.Data>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Value Text
@@ -344,39 +171,14 @@ Pass `defaultValue={null}` or `value={null}` when progress is running but comple
 Use `translations.value(details)` when the formatted percent is not the wording users need.
 
 <Preview>
-  <ValueTextProgressCircularExample />
+  <ProgressCircularDocs.ValueTextProgressCircularExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressCircular } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/value-text.tsx#demo</include>
+</Preview.Code>
 
-      export function ValueTextProgressCircularDemo() {
-        return (
-          <ProgressCircular
-            translations={{
-              value({ value, max }) {
-                if (value === null) return "Loading...";
-                return \`\${value} of \${max}\`;
-              },
-            }}
-          >
-            <ProgressCircular.Label>Migration</ProgressCircular.Label>
-            <div className="progress-circular-circle-container">
-              <ProgressCircular.Circle>
-                <ProgressCircular.CircleTrack />
-                <ProgressCircular.CircleRange />
-              </ProgressCircular.Circle>
-              <ProgressCircular.ValueText />
-            </div>
-          </ProgressCircular>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{`const fallbackText = 'Loading...';`}</Preview.Data>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -384,35 +186,14 @@ Use `translations.value(details)` when the formatted percent is not the wording 
 Create the Ark progress store outside the rendered tree when another component needs to own state.
 
 <Preview>
-  <RootProviderProgressCircularExample />
+  <ProgressCircularDocs.RootProviderProgressCircularExample />
 
-  <Preview.Code>
-    {`
-      import { useProgress } from "@ark-ui/react/progress";
-      import { ProgressCircular } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      export function RootProviderProgressCircularDemo() {
-        const progress = useProgress({ defaultValue: 58 });
-
-        return (
-          <ProgressCircular.RootProvider value={progress}>
-            <ProgressCircular.Label>Team rollout</ProgressCircular.Label>
-            <div className="progress-circular-circle-container">
-              <ProgressCircular.Circle>
-                <ProgressCircular.CircleTrack />
-                <ProgressCircular.CircleRange />
-              </ProgressCircular.Circle>
-              <ProgressCircular.ValueText />
-            </div>
-          </ProgressCircular.RootProvider>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularRootProviderData}</Preview.Data>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### State Views
@@ -421,41 +202,14 @@ Use `ProgressCircular.View` when supporting text or UI should switch with the Ar
 instead of duplicating state checks outside the component.
 
 <Preview>
-  <StateViewsProgressCircularExample />
+  <ProgressCircularDocs.StateViewsProgressCircularExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressCircular } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/state-views.tsx#demo</include>
+</Preview.Code>
 
-      export function StateViewsProgressCircularDemo() {
-        return (
-          <ProgressCircular defaultValue={null}>
-            <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
-            <div className="progress-circular-circle-container">
-              <ProgressCircular.Circle>
-                <ProgressCircular.CircleTrack />
-                <ProgressCircular.CircleRange />
-              </ProgressCircular.Circle>
-              <ProgressCircular.ValueText />
-            </div>
-            <ProgressCircular.View className="progress-circular-state" state="indeterminate">
-              {progressCircularStateMessages.indeterminate}
-            </ProgressCircular.View>
-            <ProgressCircular.View className="progress-circular-state" state="loading">
-              {progressCircularStateMessages.loading}
-            </ProgressCircular.View>
-            <ProgressCircular.View className="progress-circular-state" state="complete">
-              {progressCircularStateMessages.complete}
-            </ProgressCircular.View>
-          </ProgressCircular>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressCircularExampleCss}</Preview.CSS>
-  <Preview.Data>{progressCircularStateViewsData}</Preview.Data>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -463,32 +217,14 @@ instead of duplicating state checks outside the component.
 Override public CSS variables and target SVG `data-slot` hooks when only the visuals need to change.
 
 <Preview>
-  <CustomStylingProgressCircularExample />
+  <ProgressCircularDocs.CustomStylingProgressCircularExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressCircular } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomStylingProgressCircularDemo() {
-        return (
-          <ProgressCircular defaultValue={72} className="progress-circular-custom">
-            <ProgressCircular.Label>Monthly quota</ProgressCircular.Label>
-            <div className="progress-circular-circle-container">
-              <ProgressCircular.Circle>
-                <ProgressCircular.CircleTrack />
-                <ProgressCircular.CircleRange />
-              </ProgressCircular.Circle>
-              <ProgressCircular.ValueText />
-            </div>
-          </ProgressCircular>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressCircularCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{progressCircularCustomStylingData}</Preview.Data>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -501,7 +237,7 @@ data attributes, Ark SVG variables, and moduix `data-slot` hooks.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <ProgressCircularCssPropertiesPanel />
+      <ProgressCircularDocs.ProgressCircularCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

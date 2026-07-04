@@ -4,29 +4,7 @@ description: Ark UI in-place text editing with preview, input, controls, and for
 icon: Component
 ---
 
-import {
-  ControlledEditableExample,
-  ContextEditableExample,
-  CustomStylesEditableExample,
-  EditableControlsExample,
-  EditableCssPropertiesPanel,
-  EditableExample,
-  EditableGuidesExample,
-  FieldEditableExample,
-  RootProviderEditableExample,
-  TextareaEditableExample,
-  editableBasicCode,
-  editableContextCode,
-  editableControlledCode,
-  editableControlsCode,
-  editableCustomStylesCode,
-  editableExampleCss,
-  editableFieldCode,
-  editableGuidesCode,
-  editableNoData,
-  editableRootProviderCode,
-  editableTextareaCode,
-} from '@/components/examples/editable';
+import * as EditableDocs from '@/components/examples/editable';
 
 ## API Reference
 
@@ -48,55 +26,18 @@ attributes, and default icons for edit, submit, and cancel triggers.
 The moduix default enters edit mode on double-click to reduce accidental edits.
 
 <Preview>
-  <EditableExample />
+  <EditableDocs.EditableExample />
 
-  <Preview.Code>{editableBasicCode}</Preview.Code>
-  <Preview.CSS>{editableExampleCss}</Preview.CSS>
-  <Preview.Data>{editableNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/editable/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Editable` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-editable
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-editable
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-editable
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-editable
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-editable
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-editable" />
 
 ## Anatomy
 
@@ -169,11 +110,13 @@ submission.
 Control the value with `value` and `onValueChange` when application state is the source of truth.
 
 <Preview>
-  <ControlledEditableExample />
+  <EditableDocs.ControlledEditableExample />
 
-  <Preview.Code>{editableControlledCode}</Preview.Code>
-  <Preview.CSS>{editableExampleCss}</Preview.CSS>
-  <Preview.Data>{`const initialValue = "Downtown route";`}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/editable/controlled.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -183,11 +126,13 @@ editable state methods. Pass `activationMode: 'dblclick'` to the hook if you wan
 activation behavior as the moduix root component.
 
 <Preview>
-  <RootProviderEditableExample />
+  <EditableDocs.RootProviderEditableExample />
 
-  <Preview.Code>{editableRootProviderCode}</Preview.Code>
-  <Preview.CSS>{editableExampleCss}</Preview.CSS>
-  <Preview.Data>{editableNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/editable/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Context
@@ -196,11 +141,13 @@ Use Ark `Editable.Context` for one-off state reads inside the part tree, such as
 for editing hints, while keeping the moduix visual parts for the actual UI.
 
 <Preview>
-  <ContextEditableExample />
+  <EditableDocs.ContextEditableExample />
 
-  <Preview.Code>{editableContextCode}</Preview.Code>
-  <Preview.CSS>{editableExampleCss}</Preview.CSS>
-  <Preview.Data>{editableNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/editable/context.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Controls
@@ -209,11 +156,13 @@ Use Ark `Editable.Context` to show edit, submit, or cancel controls based on the
 state. This example sets `submitMode="none"` so explicit controls own commit and revert.
 
 <Preview>
-  <EditableControlsExample />
+  <EditableDocs.EditableControlsExample />
 
-  <Preview.Code>{editableControlsCode}</Preview.Code>
-  <Preview.CSS>{editableExampleCss}</Preview.CSS>
-  <Preview.Data>{editableNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/editable/custom-controls.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Textarea
@@ -222,11 +171,13 @@ Render `Editable.Input` as a textarea for multi-line content. Keep the child sem
 textarea-only sizing in CSS.
 
 <Preview>
-  <TextareaEditableExample />
+  <EditableDocs.TextareaEditableExample />
 
-  <Preview.Code>{editableTextareaCode}</Preview.Code>
-  <Preview.CSS>{editableExampleCss}</Preview.CSS>
-  <Preview.Data>{`const shortcut = "Cmd/Ctrl + Enter";`}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/editable/textarea.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Field
@@ -235,11 +186,13 @@ Wrap the editable with `Field` when validation state and error text live outside
 surface.
 
 <Preview>
-  <FieldEditableExample />
+  <EditableDocs.FieldEditableExample />
 
-  <Preview.Code>{editableFieldCode}</Preview.Code>
-  <Preview.CSS>{editableExampleCss}</Preview.CSS>
-  <Preview.Data>{`const error = "Bio is required.";`}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/editable/field.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Guides
@@ -250,11 +203,13 @@ This example switches `activationMode` to `click` to show how to opt out of the 
 default.
 
 <Preview>
-  <EditableGuidesExample />
+  <EditableDocs.EditableGuidesExample />
 
-  <Preview.Code>{editableGuidesCode}</Preview.Code>
-  <Preview.CSS>{editableExampleCss}</Preview.CSS>
-  <Preview.Data>{`const maxLength = 24;`}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/editable/guides.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -263,11 +218,13 @@ Override the public CSS variables or target `data-slot` hooks when a specific ed
 visual treatment.
 
 <Preview>
-  <CustomStylesEditableExample />
+  <EditableDocs.CustomStylesEditableExample />
 
-  <Preview.Code>{editableCustomStylesCode}</Preview.Code>
-  <Preview.CSS>{editableExampleCss}</Preview.CSS>
-  <Preview.Data>{editableNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/editable/custom-styling.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -277,7 +234,7 @@ visual treatment.
 <div className="not-prose">
   <Tabs items={['CSS Variables']}>
     <Tab value="CSS Variables" className="max-h-150 overflow-auto">
-      <EditableCssPropertiesPanel />
+      <EditableDocs.EditableCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

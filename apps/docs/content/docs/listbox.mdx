@@ -4,21 +4,7 @@ description: Ark UI listbox composition for visible single, multiple, and extend
 icon: Component
 ---
 
-import {
-  ControlledListboxExample,
-  DisabledItemListboxExample,
-  ExtendedSelectListboxExample,
-  FilteringListboxExample,
-  GridListboxExample,
-  GroupedListboxExample,
-  HorizontalListboxExample,
-  ListboxCssPropertiesPanel,
-  ListboxExample,
-  MultipleListboxExample,
-  RootProviderListboxExample,
-  SelectAllListboxExample,
-  ValueTextListboxExample,
-} from '@/components/examples/listbox';
+import * as ListboxDocs from '@/components/examples/listbox';
 
 ## API Reference
 
@@ -30,39 +16,11 @@ Use `Listbox` for a visible collection where users pick one or more items withou
 Pass a `collection`, render `Content`, and pass each item through `Listbox.Item item={item}`.
 
 <Preview>
-  <ListboxExample />
+  <ListboxDocs.ListboxExample />
 
-  <Preview.Code>
-    {`
-      import { createListCollection } from "@ark-ui/react/collection";
-      import { Listbox } from "@moduix/react";
-
-      const countries = createListCollection({
-        items: [
-          { label: "United States", value: "us" },
-          { label: "United Kingdom", value: "uk" },
-          { label: "Canada", value: "ca" },
-        ],
-      });
-
-      export function ListboxDemo() {
-        return (
-          <Listbox collection={countries}>
-            <Listbox.Label>Select country</Listbox.Label>
-            <Listbox.Content>
-              {countries.items.map((item) => (
-                <Listbox.Item key={item.value} item={item}>
-                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                  <Listbox.ItemIndicator />
-                </Listbox.Item>
-              ))}
-            </Listbox.Content>
-          </Listbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/listbox/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -73,62 +31,11 @@ Pass a `collection`, render `Content`, and pass each item through `Listbox.Item 
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const countries = createListCollection({
-        items: [
-          { label: "United States", value: "us" },
-          { label: "United Kingdom", value: "uk" },
-          { label: "Canada", value: "ca" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
 </Preview>
 
-## Install With Shadcn (Optional)
+## Install with shadcn
 
-If you want `Listbox` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-listbox
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-listbox
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-listbox
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-listbox
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-listbox
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-listbox" />
 
 ## Anatomy
 
@@ -217,53 +124,13 @@ typeahead, Home/End behavior, disabled item handling, and orientation-specific a
 Control the selected string array from React state and update it from `details.value`.
 
 <Preview>
-  <ControlledListboxExample />
+  <ListboxDocs.ControlledListboxExample />
 
   <Preview.Code>
-    {`
-      import { useState } from "react";
-      import { Listbox } from "@moduix/react";
-
-      export function ControlledListboxDemo() {
-        const [value, setValue] = useState(["md"]);
-
-        return (
-          <Listbox
-            collection={sizes}
-            value={value}
-            onValueChange={(details) => setValue(details.value)}
-          >
-            <Listbox.Label>Select size</Listbox.Label>
-            <Listbox.Content>
-              {sizes.items.map((item) => (
-                <Listbox.Item key={item.value} item={item}>
-                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                  <Listbox.ItemIndicator />
-                </Listbox.Item>
-              ))}
-            </Listbox.Content>
-          </Listbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/listbox/controlled.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-item"][data-selected] { color: var(--listbox-item-selected-color); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const sizes = createListCollection({
-        items: [
-          { label: "Small", value: "sm" },
-          { label: "Medium", value: "md" },
-          { label: "Large", value: "lg" },
-          { label: "Extra Large", value: "xl" },
-        ],
-      });
-
-      const value = ["md"];
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Root Provider
@@ -272,50 +139,13 @@ Use Ark `useListbox` with `Listbox.RootProvider` when external controls need dir
 listbox API.
 
 <Preview>
-  <RootProviderListboxExample />
+  <ListboxDocs.RootProviderListboxExample />
 
   <Preview.Code>
-    {`
-      import { useListbox } from "@ark-ui/react/listbox";
-      import { Button, Listbox } from "@moduix/react";
-
-      export function RootProviderListboxDemo() {
-        const listbox = useListbox({ collection: priorities });
-
-        return (
-          <>
-            <Button onClick={() => listbox.setValue(["high"])}>Set to high</Button>
-            <Listbox.RootProvider value={listbox}>
-              <Listbox.Label>Select priority</Listbox.Label>
-              <Listbox.Content>
-                {priorities.items.map((item) => (
-                  <Listbox.Item key={item.value} item={item}>
-                    <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                    <Listbox.ItemIndicator />
-                  </Listbox.Item>
-                ))}
-              </Listbox.Content>
-            </Listbox.RootProvider>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/listbox/root-provider.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-root"] { gap: var(--listbox-root-gap); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const priorities = createListCollection({
-        items: [
-          { label: "Low", value: "low" },
-          { label: "Medium", value: "medium" },
-          { label: "High", value: "high" },
-          { label: "Critical", value: "critical" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Disabled Item
@@ -323,44 +153,13 @@ listbox API.
 Disable individual items through the collection item `disabled` field or `isItemDisabled`.
 
 <Preview>
-  <DisabledItemListboxExample />
+  <ListboxDocs.DisabledItemListboxExample />
 
   <Preview.Code>
-    {`
-      import { Listbox } from "@moduix/react";
-
-      export function DisabledItemListboxDemo() {
-        return (
-          <Listbox collection={plans}>
-            <Listbox.Label>Select plan</Listbox.Label>
-            <Listbox.Content>
-              {plans.items.map((item) => (
-                <Listbox.Item key={item.value} item={item}>
-                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                  <Listbox.ItemIndicator />
-                </Listbox.Item>
-              ))}
-            </Listbox.Content>
-          </Listbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/listbox/disabled-item.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-item"][data-disabled] { opacity: var(--listbox-disabled-opacity); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const plans = createListCollection({
-        items: [
-          { label: "Free", value: "free" },
-          { label: "Pro", value: "pro" },
-          { label: "Enterprise", value: "enterprise", disabled: true },
-          { label: "Custom", value: "custom" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Multiple
@@ -368,48 +167,13 @@ Disable individual items through the collection item `disabled` field or `isItem
 Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
 
 <Preview>
-  <MultipleListboxExample />
+  <ListboxDocs.MultipleListboxExample />
 
   <Preview.Code>
-    {`
-      import { Listbox } from "@moduix/react";
-
-      export function MultipleListboxDemo() {
-        return (
-          <Listbox collection={days} selectionMode="multiple" defaultValue={["mon", "wed", "fri"]}>
-            <Listbox.Label>Select days</Listbox.Label>
-            <Listbox.Content>
-              {days.items.map((item) => (
-                <Listbox.Item key={item.value} item={item}>
-                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                  <Listbox.ItemIndicator />
-                </Listbox.Item>
-              ))}
-            </Listbox.Content>
-            <Listbox.ValueText />
-          </Listbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/listbox/multiple.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-value-text"] { color: var(--listbox-value-text-color); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const days = createListCollection({
-        items: [
-          { label: "Monday", value: "mon" },
-          { label: "Tuesday", value: "tue" },
-          { label: "Wednesday", value: "wed" },
-          { label: "Thursday", value: "thu" },
-          { label: "Friday", value: "fri" },
-          { label: "Saturday", value: "sat" },
-          { label: "Sunday", value: "sun" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Grouping
@@ -417,55 +181,13 @@ Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
 Use `groupBy` on the collection and render `ItemGroup` plus `ItemGroupLabel`.
 
 <Preview>
-  <GroupedListboxExample />
+  <ListboxDocs.GroupedListboxExample />
 
   <Preview.Code>
-    {`
-      import { Listbox } from "@moduix/react";
-
-      export function GroupedListboxDemo() {
-        return (
-          <Listbox collection={regions}>
-            <Listbox.Label>Select region</Listbox.Label>
-            <Listbox.Content>
-              {regions.group().map(([region, items]) => (
-                <Listbox.ItemGroup key={region} id={region}>
-                  <Listbox.ItemGroupLabel>{region}</Listbox.ItemGroupLabel>
-                  {items.map((item) => (
-                    <Listbox.Item key={item.value} item={item}>
-                      <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                      <Listbox.ItemIndicator />
-                    </Listbox.Item>
-                  ))}
-                </Listbox.ItemGroup>
-              ))}
-            </Listbox.Content>
-          </Listbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/listbox/grouping.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-item-group-label"] { color: var(--listbox-item-group-label-color); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const regions = createListCollection({
-        items: [
-          { label: "New York", value: "nyc", region: "North America" },
-          { label: "Los Angeles", value: "lax", region: "North America" },
-          { label: "Toronto", value: "yyz", region: "North America" },
-          { label: "London", value: "lhr", region: "Europe" },
-          { label: "Paris", value: "cdg", region: "Europe" },
-          { label: "Berlin", value: "ber", region: "Europe" },
-          { label: "Tokyo", value: "nrt", region: "Asia Pacific" },
-          { label: "Singapore", value: "sin", region: "Asia Pacific" },
-          { label: "Sydney", value: "syd", region: "Asia Pacific" },
-        ],
-        groupBy: (item) => item.region,
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Extended Selection
@@ -473,46 +195,13 @@ Use `groupBy` on the collection and render `ItemGroup` plus `ItemGroupLabel`.
 Use `selectionMode="extended"` when users should select multiple items with platform modifier keys.
 
 <Preview>
-  <ExtendedSelectListboxExample />
+  <ListboxDocs.ExtendedSelectListboxExample />
 
   <Preview.Code>
-    {`
-      import { Listbox } from "@moduix/react";
-
-      export function ExtendedListboxDemo() {
-        return (
-          <Listbox collection={frameworks} selectionMode="extended">
-            <Listbox.Label>Hold Cmd or Ctrl to select multiple</Listbox.Label>
-            <Listbox.Content>
-              {frameworks.items.map((item) => (
-                <Listbox.Item key={item.value} item={item}>
-                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                  <Listbox.ItemIndicator />
-                </Listbox.Item>
-              ))}
-            </Listbox.Content>
-          </Listbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/listbox/extended-selection.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-item"][data-highlighted] { background: var(--listbox-highlight-bg); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const frameworks = createListCollection({
-        items: [
-          { label: "React", value: "react" },
-          { label: "Vue", value: "vue" },
-          { label: "Angular", value: "angular" },
-          { label: "Svelte", value: "svelte" },
-          { label: "Solid", value: "solid" },
-          { label: "Preact", value: "preact" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Horizontal
@@ -520,36 +209,11 @@ Use `selectionMode="extended"` when users should select multiple items with plat
 Set `orientation="horizontal"` for horizontal layout and left/right keyboard navigation.
 
 <Preview>
-  <HorizontalListboxExample />
+  <ListboxDocs.HorizontalListboxExample />
 
   <Preview.Code>
-    {`
-      import { Listbox } from "@moduix/react";
-      import styles from "./listbox.module.css";
-
-      export function HorizontalListboxDemo() {
-        return (
-          <Listbox collection={albums} orientation="horizontal" className={styles.horizontalRoot}>
-            <Listbox.Label>Select album</Listbox.Label>
-            <Listbox.Content>
-              {albums.items.map((item) => (
-                <Listbox.Item key={item.title} item={item}>
-                  <Listbox.ItemText>
-                    <Listbox.ItemTextContent className={styles.albumText}>
-                      <Listbox.ItemTextLabel>{item.title}</Listbox.ItemTextLabel>
-                      <span className={styles.artist}>{item.artist}</span>
-                    </Listbox.ItemTextContent>
-                  </Listbox.ItemText>
-                  <Listbox.ItemIndicator />
-                </Listbox.Item>
-              ))}
-            </Listbox.Content>
-          </Listbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/listbox/horizontal.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .horizontalRoot {
@@ -566,22 +230,7 @@ Set `orientation="horizontal"` for horizontal layout and left/right keyboard nav
     `}
 
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const albums = createListCollection({
-        items: [
-          { title: "Midnight Dreams", artist: "Luna Ray" },
-          { title: "Neon Skyline", artist: "The Electric" },
-          { title: "Acoustic Sessions", artist: "Sarah Woods" },
-          { title: "Urban Echoes", artist: "Metro Collective" },
-          { title: "Summer Vibes", artist: "Coastal Waves" },
-        ],
-        itemToValue: (item) => item.title,
-        itemToString: (item) => item.title,
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Grid
@@ -591,45 +240,15 @@ Pass a grid collection to get grid keyboard navigation. Ark exposes `data-layout
 inline check indicator to keep cells compact.
 
 <Preview>
-  <GridListboxExample />
+  <ListboxDocs.GridListboxExample />
 
   <Preview.Code>
-    {`
-      import { Listbox } from "@moduix/react";
-
-      export function GridListboxDemo() {
-        return (
-          <Listbox collection={colors}>
-            <Listbox.Label>Pick a color</Listbox.Label>
-            <Listbox.Content>
-              {colors.items.map((item) => (
-                <Listbox.Item key={item.value} item={item}>
-                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                </Listbox.Item>
-              ))}
-            </Listbox.Content>
-          </Listbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/listbox/grid.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-content"][data-layout="grid"] { grid-template-columns: repeat(var(--column-count), minmax(0, 1fr)); }
 [data-slot="listbox-content"][data-layout="grid"] [data-slot="listbox-item"] { justify-items: center; text-align: center; }
 [data-slot="listbox-content"][data-layout="grid"] [data-selected] { background: var(--listbox-grid-selected-bg); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const colors = createGridCollection({
-        items: [
-          { label: "Red", value: "red" },
-          { label: "Green", value: "green" },
-          { label: "Blue", value: "blue" },
-        ],
-        columnCount: 3,
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Filtering
@@ -637,57 +256,13 @@ inline check indicator to keep cells compact.
 Use `Listbox.Input` with `useListCollection`. Turn off typeahead when text input owns search.
 
 <Preview>
-  <FilteringListboxExample />
+  <ListboxDocs.FilteringListboxExample />
 
   <Preview.Code>
-    {`
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { Listbox } from "@moduix/react";
-
-      export function FilteringListboxDemo() {
-        const { collection, filter } = useListCollection({
-          initialItems: frameworks,
-          filter: (itemText, filterText) =>
-            itemText.toLowerCase().includes(filterText.toLowerCase()),
-        });
-
-        return (
-          <Listbox collection={collection} typeahead={false}>
-            <Listbox.Label>Select framework</Listbox.Label>
-            <Listbox.Input
-              placeholder="Filter frameworks"
-              onChange={(event) => filter(event.target.value)}
-            />
-            <Listbox.Content>
-              {collection.items.map((item) => (
-                <Listbox.Item key={item.value} item={item}>
-                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                  <Listbox.ItemIndicator />
-                </Listbox.Item>
-              ))}
-              <Listbox.Empty>No frameworks found</Listbox.Empty>
-            </Listbox.Content>
-          </Listbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/listbox/filtering.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-root"] { gap: var(--listbox-root-gap); }`}</Preview.CSS>
-  <Preview.Data>{`
-const frameworks = [
-  { label: "React", value: "react" },
-  { label: "Vue", value: "vue" },
-  { label: "Angular", value: "angular" },
-  { label: "Svelte", value: "svelte" },
-  { label: "Solid", value: "solid" },
-  { label: "Next.js", value: "nextjs" },
-  { label: "Nuxt.js", value: "nuxtjs" },
-  { label: "Remix", value: "remix" },
-  { label: "Gatsby", value: "gatsby" },
-  { label: "Preact", value: "preact" },
-];
-`}</Preview.Data>
+  
 </Preview>
 
 ### Select All
@@ -695,61 +270,13 @@ const frameworks = [
 Use Ark `useListboxContext` inside a child component to implement select-all controls.
 
 <Preview>
-  <SelectAllListboxExample />
+  <ListboxDocs.SelectAllListboxExample />
 
   <Preview.Code>
-    {`
-      import { useListboxContext } from "@ark-ui/react/listbox";
-      import { Button, Listbox } from "@moduix/react";
-
-      function SelectAllTrigger() {
-        const listbox = useListboxContext();
-        const allValues = days.items.map((item) => item.value);
-        const allSelected = listbox.value.length === allValues.length;
-
-        return (
-          <Button onClick={() => listbox.setValue(allSelected ? [] : allValues)}>
-            {allSelected ? "Clear all" : "Select all"}
-          </Button>
-        );
-      }
-
-      export function SelectAllListboxDemo() {
-        return (
-          <Listbox collection={days} selectionMode="multiple">
-            <Listbox.Label>Select days</Listbox.Label>
-            <SelectAllTrigger />
-            <Listbox.Content>
-              {days.items.map((item) => (
-                <Listbox.Item key={item.value} item={item}>
-                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                  <Listbox.ItemIndicator />
-                </Listbox.Item>
-              ))}
-            </Listbox.Content>
-          </Listbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/listbox/select-all.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-root"] { width: var(--listbox-width); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const days = createListCollection({
-        items: [
-          { label: "Monday", value: "mon" },
-          { label: "Tuesday", value: "tue" },
-          { label: "Wednesday", value: "wed" },
-          { label: "Thursday", value: "thu" },
-          { label: "Friday", value: "fri" },
-          { label: "Saturday", value: "sat" },
-          { label: "Sunday", value: "sun" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Value Text
@@ -757,46 +284,13 @@ Use Ark `useListboxContext` inside a child component to implement select-all con
 Render `ValueText` when the selected value summary should stay visible near the list.
 
 <Preview>
-  <ValueTextListboxExample />
+  <ListboxDocs.ValueTextListboxExample />
 
   <Preview.Code>
-    {`
-      import { Listbox } from "@moduix/react";
-
-      export function ValueTextListboxDemo() {
-        return (
-          <Listbox collection={countries} defaultValue={["ca"]}>
-            <Listbox.Label>Select country</Listbox.Label>
-            <Listbox.Content>
-              {countries.items.map((item) => (
-                <Listbox.Item key={item.value} item={item}>
-                  <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                  <Listbox.ItemIndicator />
-                </Listbox.Item>
-              ))}
-            </Listbox.Content>
-            <Listbox.ValueText placeholder="No country selected" />
-          </Listbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/listbox/value-text.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-value-text"] { font-size: var(--listbox-value-text-font-size); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const countries = createListCollection({
-        items: [
-          { label: "United States", value: "us" },
-          { label: "United Kingdom", value: "uk" },
-          { label: "Canada", value: "ca" },
-        ],
-      });
-
-      const defaultValue = ["ca"];
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ## Styling
@@ -809,7 +303,7 @@ Style `Listbox` through `className`, stable `data-slot="listbox-*"` hooks, Ark
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <ListboxCssPropertiesPanel />
+      <ListboxDocs.ListboxCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

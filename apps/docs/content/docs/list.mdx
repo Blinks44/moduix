@@ -4,24 +4,7 @@ description: A semantic list wrapper built with Ark-style composition, moduix sp
 icon: Component
 ---
 
-import {
-  CustomCompositionListExample,
-  customStyleItemsData,
-  ListCssPropertiesPanel,
-  listCustomStylingCss,
-  ListExample,
-  listItemsData,
-  listNoopCss,
-  listToneExampleCss,
-  MarkerlessListExample,
-  markerlessListItemsData,
-  NativeItemsListExample,
-  nativeListItemsData,
-  OrderedListExample,
-  orderedListItemsData,
-  ToneListExample,
-  toneListItemsData,
-} from '@/components/examples/list';
+import * as ListDocs from '@/components/examples/list';
 
 ## API Reference
 
@@ -35,72 +18,19 @@ Ark UI does not ship a dedicated list primitive. Moduix builds this component wi
 Start with `List` and `List.Item`. This is the recommended path when you want native list semantics with moduix spacing, typography, and marker tokens.
 
 <Preview>
-  <ListExample />
+  <ListDocs.ListExample />
 
-  <Preview.Code>
-    {`
-      import { List } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/list/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function ListDemo() {
-        return (
-          <List>
-            <List.Item>Use semantic list markup for grouped content.</List.Item>
-            <List.Item>Keep spacing and typography on the library scale.</List.Item>
-            <List.Item>Style markers with CSS variables or native ::marker selectors.</List.Item>
-          </List>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{listNoopCss}</Preview.CSS>
-  <Preview.Data>{listItemsData}</Preview.Data>
+  <Preview.CSS>{ListDocs.listNoopCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `List` to become part of your own project source instead of staying in `node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-list
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-list
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-list
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-list
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-list
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `List` depends on, such as styles and small utilities.
+<ShadcnInstall packageName="react-list" />
 
 ## Anatomy
 
@@ -152,27 +82,14 @@ Keep items as direct `li` descendants. The built-in spacing and marker styling a
 Use `as="ol"` to render an ordered list while keeping the moduix root styling contract.
 
 <Preview>
-  <OrderedListExample />
+  <ListDocs.OrderedListExample />
 
-  <Preview.Code>
-    {`
-      import { List } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/list/ordered.tsx#demo</include>
+</Preview.Code>
 
-      export function OrderedListDemo() {
-        return (
-          <List as="ol" start={3}>
-            <List.Item>Prepare the release notes.</List.Item>
-            <List.Item>Publish the package.</List.Item>
-            <List.Item>Announce the release.</List.Item>
-          </List>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{listNoopCss}</Preview.CSS>
-  <Preview.Data>{orderedListItemsData}</Preview.Data>
+  <Preview.CSS>{ListDocs.listNoopCss}</Preview.CSS>
+  
 </Preview>
 
 ### Markerless
@@ -180,27 +97,14 @@ Use `as="ol"` to render an ordered list while keeping the moduix root styling co
 Use `marker="none"` when you need list semantics without visible markers.
 
 <Preview>
-  <MarkerlessListExample />
+  <ListDocs.MarkerlessListExample />
 
-  <Preview.Code>
-    {`
-      import { List } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/list/markerless.tsx#demo</include>
+</Preview.Code>
 
-      export function MarkerlessListDemo() {
-        return (
-          <List marker="none">
-            <List.Item>Semantics stay intact without visible markers.</List.Item>
-            <List.Item>Useful for grouped metadata or key-value blocks.</List.Item>
-            <List.Item>Spacing and text tokens still come from the root.</List.Item>
-          </List>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{listNoopCss}</Preview.CSS>
-  <Preview.Data>{markerlessListItemsData}</Preview.Data>
+  <Preview.CSS>{ListDocs.listNoopCss}</Preview.CSS>
+  
 </Preview>
 
 ### Native Items
@@ -208,27 +112,14 @@ Use `marker="none"` when you need list semantics without visible markers.
 Use native `li` elements when you do not need the exported `List.Item` slot.
 
 <Preview>
-  <NativeItemsListExample />
+  <ListDocs.NativeItemsListExample />
 
-  <Preview.Code>
-    {`
-      import { List } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/list/native-items.tsx#demo</include>
+</Preview.Code>
 
-      export function NativeItemsListDemo() {
-        return (
-          <List>
-            <li>Use native li elements when a wrapper component is unnecessary.</li>
-            <li>The root still controls spacing, marker style, size, and tone.</li>
-            <li>Reach for List.Item when you want the stable item slot.</li>
-          </List>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{listNoopCss}</Preview.CSS>
-  <Preview.Data>{nativeListItemsData}</Preview.Data>
+  <Preview.CSS>{ListDocs.listNoopCss}</Preview.CSS>
+  
 </Preview>
 
 ### Tone
@@ -236,39 +127,14 @@ Use native `li` elements when you do not need the exported `List.Item` slot.
 Use `tone` when the list should inherit a semantic text color.
 
 <Preview>
-  <ToneListExample />
+  <ListDocs.ToneListExample />
 
-  <Preview.Code>
-    {`
-      import { List } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/list/tone.tsx#demo</include>
+</Preview.Code>
 
-      export function ListToneDemo() {
-        return (
-          <div className="list-demo-tones">
-            <List tone="default">
-              <List.Item>Default list tone</List.Item>
-            </List>
-            <List tone="muted">
-              <List.Item>Muted list tone</List.Item>
-            </List>
-            <List tone="subtle">
-              <List.Item>Subtle list tone</List.Item>
-            </List>
-            <List tone="primary">
-              <List.Item>Primary list tone</List.Item>
-            </List>
-            <List tone="destructive">
-              <List.Item>Destructive list tone</List.Item>
-            </List>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{listToneExampleCss}</Preview.CSS>
-  <Preview.Data>{toneListItemsData}</Preview.Data>
+  <Preview.CSS>{ListDocs.listToneExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Composition
@@ -276,33 +142,14 @@ Use `tone` when the list should inherit a semantic text color.
 Use `List.Item asChild` when the item slot should stay public but the caller needs to own the rendered `li`.
 
 <Preview>
-  <CustomCompositionListExample />
+  <ListDocs.CustomCompositionListExample />
 
-  <Preview.Code>
-    {`
-      import { List } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/list/custom-composition.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomCompositionListDemo() {
-        return (
-          <List className="list-demo-accent">
-            <List.Item asChild>
-              <li className="list-demo-accent-item">Native markers stay available for per-item styling.</li>
-            </List.Item>
-            <List.Item asChild>
-              <li className="list-demo-accent-item">Root CSS variables still control spacing and indentation.</li>
-            </List.Item>
-            <List.Item asChild>
-              <li className="list-demo-accent-item">asChild keeps the slot contract while handing markup to the caller.</li>
-            </List.Item>
-          </List>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{listCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{customStyleItemsData}</Preview.Data>
+  <Preview.CSS>{ListDocs.listCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -314,7 +161,7 @@ Style `List` through `className`, the exported Ark-style `data-*` hooks, native 
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <ListCssPropertiesPanel />
+      <ListDocs.ListCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

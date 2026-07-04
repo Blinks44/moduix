@@ -4,18 +4,7 @@ description: A typography root for body copy, inline text, supporting descriptio
 icon: Component
 ---
 
-import {
-  TextAlignExample,
-  TextClassNameExample,
-  TextCssPropertiesPanel,
-  TextCustomElementExample,
-  TextElementsExample,
-  TextExample,
-  TextSizesExample,
-  TextTonesExample,
-  TextTruncationExample,
-  TextWeightsExample,
-} from '@/components/examples/text';
+import * as TextDocs from '@/components/examples/text';
 
 ## API Reference
 
@@ -39,27 +28,11 @@ Start with the default `p` root. Use `as` only when the semantic HTML tag should
 same text styling contract stays in place.
 
 <Preview>
-  <TextExample />
+  <TextDocs.TextExample />
 
-  <Preview.Code>
-    {`
-      import { Text } from "@moduix/react";
-
-      export function TextDemo() {
-        return (
-          <div className={styles.stack}>
-            <Text>
-              Use text to describe interface state and supporting details.
-            </Text>
-            <Text as="small" tone="muted">
-              Last updated 2 minutes ago
-            </Text>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/text/basic.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -73,55 +46,11 @@ same text styling contract stays in place.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const updatedAt = "Last updated 2 minutes ago";
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Text` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-text
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-text
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-text
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-text
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-text
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-text" />
 
 ## Anatomy
 
@@ -176,29 +105,11 @@ constraints; the surrounding layout owns any disclosure behavior.
 Use `as` for common semantic tags without leaving the typography scale.
 
 <Preview>
-  <TextElementsExample />
+  <TextDocs.TextElementsExample />
 
-  <Preview.Code>
-    {`
-      import { Text } from "@moduix/react";
-
-      export function TextSemanticsDemo() {
-        return (
-          <div className={styles.stack}>
-            <Text>Paragraph text rendered as p.</Text>
-            <Text as="span">Inline text rendered as span.</Text>
-            <Text as="small" tone="muted">
-              Small supporting text rendered as small.
-            </Text>
-            <Text as="strong">Important text rendered as strong.</Text>
-            <Text as="em">Emphasized text rendered as em.</Text>
-            <Text as="div">Block text rendered as div.</Text>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/text/semantics.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -212,11 +123,6 @@ Use `as` for common semantic tags without leaving the typography scale.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const elements = ["p", "span", "small", "strong", "em", "div"] as const;
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Tone
@@ -224,26 +130,11 @@ Use `as` for common semantic tags without leaving the typography scale.
 Use `tone` to match the role of the copy without local color classes.
 
 <Preview>
-  <TextTonesExample />
+  <TextDocs.TextTonesExample />
 
-  <Preview.Code>
-    {`
-      import { Text } from "@moduix/react";
-
-      export function TextTonesDemo() {
-        return (
-          <div className={styles.stack}>
-            <Text tone="default">Default tone</Text>
-            <Text tone="muted">Muted tone</Text>
-            <Text tone="subtle">Subtle tone</Text>
-            <Text tone="primary">Primary tone</Text>
-            <Text tone="destructive">Destructive tone</Text>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/text/tone.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -257,11 +148,6 @@ Use `tone` to match the role of the copy without local color classes.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const tones = ["default", "muted", "subtle", "primary", "destructive"] as const;
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Size
@@ -270,26 +156,11 @@ Use `size` when the visual hierarchy should shift without switching to a differe
 component.
 
 <Preview>
-  <TextSizesExample />
+  <TextDocs.TextSizesExample />
 
-  <Preview.Code>
-    {`
-      import { Text } from "@moduix/react";
-
-      export function TextSizesDemo() {
-        return (
-          <div className={styles.stack}>
-            <Text size="xl">Extra-large text</Text>
-            <Text size="lg">Large text</Text>
-            <Text size="md">Medium text</Text>
-            <Text size="sm">Small text</Text>
-            <Text size="xs">Extra-small text</Text>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/text/size.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -303,9 +174,6 @@ component.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`const defaultSize = "md";`}
-  </Preview.Data>
 </Preview>
 
 ### Weight
@@ -313,25 +181,11 @@ component.
 Use `weight` when the emphasis should stay within the same semantic element.
 
 <Preview>
-  <TextWeightsExample />
+  <TextDocs.TextWeightsExample />
 
-  <Preview.Code>
-    {`
-      import { Text } from "@moduix/react";
-
-      export function TextWeightsDemo() {
-        return (
-          <div className={styles.stack}>
-            <Text weight="regular">Regular weight</Text>
-            <Text weight="medium">Medium weight</Text>
-            <Text weight="semibold">Semibold weight</Text>
-            <Text weight="bold">Bold weight</Text>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/text/weight.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -345,9 +199,6 @@ Use `weight` when the emphasis should stay within the same semantic element.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`const strongestWeight = "bold";`}
-  </Preview.Data>
 </Preview>
 
 ### Alignment
@@ -355,24 +206,11 @@ Use `weight` when the emphasis should stay within the same semantic element.
 Use `align` when alignment belongs to the text itself instead of the surrounding layout container.
 
 <Preview>
-  <TextAlignExample />
+  <TextDocs.TextAlignExample />
 
-  <Preview.Code>
-    {`
-      import { Text } from "@moduix/react";
-
-      export function TextAlignDemo() {
-        return (
-          <div className={styles.aligned}>
-            <Text align="left">Left aligned text.</Text>
-            <Text align="center">Center aligned text.</Text>
-            <Text align="right">Right aligned text.</Text>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/text/alignment.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -386,11 +224,6 @@ Use `align` when alignment belongs to the text itself instead of the surrounding
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const alignments = ["left", "center", "right"] as const;
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Truncation
@@ -399,28 +232,11 @@ Use `truncate` for a single-line ellipsis and `lineClamp` for dense multi-line p
 surrounding layout owns expansion or disclosure.
 
 <Preview>
-  <TextTruncationExample />
+  <TextDocs.TextTruncationExample />
 
-  <Preview.Code>
-    {`
-      import { Text } from "@moduix/react";
-
-      export function TextTruncationDemo() {
-        return (
-          <div className={styles.narrow}>
-            <Text truncate>
-              Release notes for the weekly platform update are ready for review.
-            </Text>
-            <Text lineClamp={2}>
-              Longer interface copy can be clamped when it appears inside dense cards,
-              tables, or constrained previews where the surrounding layout owns disclosure.
-            </Text>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/text/truncation.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -433,11 +249,6 @@ surrounding layout owns expansion or disclosure.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const clampLines = 2;
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Custom Composition
@@ -446,24 +257,11 @@ Use `asChild` when the root should be a custom host element instead of one of th
 values. The child must be a single element that can accept the forwarded props and ref.
 
 <Preview>
-  <TextCustomElementExample />
+  <TextDocs.TextCustomElementExample />
 
-  <Preview.Code>
-    {`
-      import { Text } from "@moduix/react";
-
-      export function TextCustomElementDemo() {
-        return (
-          <Text asChild tone="primary" weight="medium">
-            <a className={styles.link} href="/docs">
-              Read the documentation
-            </a>
-          </Text>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/text/custom-composition.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -478,11 +276,6 @@ values. The child must be a single element that can accept the forwarded props a
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const href = "/docs";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -490,22 +283,11 @@ values. The child must be a single element that can accept the forwarded props a
 Pass `className` when styling the root with local CSS variables.
 
 <Preview>
-  <TextClassNameExample />
+  <TextDocs.TextClassNameExample />
 
-  <Preview.Code>
-    {`
-      import { Text } from "@moduix/react";
-
-      export function TextClassNameDemo() {
-        return (
-          <Text className={styles.customText}>
-            Customized body copy with local CSS variables.
-          </Text>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/text/custom-styling.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -518,11 +300,6 @@ Pass `className` when styling the root with local CSS variables.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const overrideScope = "local className";
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Styling
@@ -535,7 +312,7 @@ variables defined in `theme.css`.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <TextCssPropertiesPanel />
+      <TextDocs.TextCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

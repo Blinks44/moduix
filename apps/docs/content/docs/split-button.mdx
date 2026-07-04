@@ -4,23 +4,7 @@ description: A grouped primary action and Ark Menu dropdown trigger built from m
 icon: Component
 ---
 
-import {
-  SplitButtonControlledExample,
-  SplitButtonCustomPositioningExample,
-  SplitButtonExample,
-  SplitButtonIconExample,
-  SplitButtonLinkActionExample,
-  SplitButtonMenuCompositionExample,
-  SplitButtonSizesExample,
-  SplitButtonStylingExample,
-  SplitButtonVariantsExample,
-  splitButtonCustomStylingCss,
-  splitButtonExampleCss,
-  splitButtonItemsData,
-  splitButtonMenuCompositionData,
-  splitButtonSizesData,
-  splitButtonVariantsData,
-} from '@/components/examples/split-button';
+import * as SplitButtonDocs from '@/components/examples/split-button';
 
 ## API Reference
 
@@ -36,81 +20,19 @@ Use `SplitButton` as the short root form, then keep the Ark-style structure visi
 `SplitButton.Content`.
 
 <Preview>
-  <SplitButtonExample />
+  <SplitButtonDocs.SplitButtonExample />
 
-  <Preview.Code>
-    {`
-      import { Menu, SplitButton } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function SplitButtonDemo() {
-        return (
-          <SplitButton>
-            <SplitButton.Action>Save Changes</SplitButton.Action>
-            <SplitButton.Trigger />
-            <SplitButton.Positioner>
-              <SplitButton.Content>
-                {items.slice(0, 2).map((item) => (
-                  <Menu.Item key={item.value} value={item.value}>
-                    {item.label}
-                  </Menu.Item>
-                ))}
-                <Menu.Separator />
-                <Menu.Item value={items[2].value}>{items[2].label}</Menu.Item>
-              </SplitButton.Content>
-            </SplitButton.Positioner>
-          </SplitButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{splitButtonExampleCss}</Preview.CSS>
-  <Preview.Data>{splitButtonItemsData}</Preview.Data>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Split Button` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-split-button
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-split-button
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-split-button
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-split-button
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-split-button
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-split-button" />
 
 ## Anatomy
 
@@ -194,36 +116,14 @@ When the menu itself needs advanced state access, compose directly with `Menu.Ro
 Use the root `variant` when both grouped buttons should share the same visual tone.
 
 <Preview>
-  <SplitButtonVariantsExample />
+  <SplitButtonDocs.SplitButtonVariantsExample />
 
-  <Preview.Code>
-    {`
-      import { Menu, SplitButton } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/variants.tsx#demo</include>
+</Preview.Code>
 
-      export function SplitButtonVariantsDemo() {
-        return (
-          <div className="row">
-            {variants.map((variant) => (
-              <SplitButton key={variant} variant={variant}>
-                <SplitButton.Action>{variant}</SplitButton.Action>
-                <SplitButton.Trigger />
-                <SplitButton.Positioner>
-                  <SplitButton.Content>
-                    <Menu.Item value={\`\${variant}-edit\`}>Edit</Menu.Item>
-                    <Menu.Item value={\`\${variant}-duplicate\`}>Duplicate</Menu.Item>
-                  </SplitButton.Content>
-                </SplitButton.Positioner>
-              </SplitButton>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{splitButtonExampleCss}</Preview.CSS>
-  <Preview.Data>{splitButtonVariantsData}</Preview.Data>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Sizes
@@ -231,36 +131,14 @@ Use the root `variant` when both grouped buttons should share the same visual to
 Use the root `size` when both sides should scale together.
 
 <Preview>
-  <SplitButtonSizesExample />
+  <SplitButtonDocs.SplitButtonSizesExample />
 
-  <Preview.Code>
-    {`
-      import { Menu, SplitButton } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/sizes.tsx#demo</include>
+</Preview.Code>
 
-      export function SplitButtonSizesDemo() {
-        return (
-          <div className="row">
-            {sizes.map((size) => (
-              <SplitButton key={size} size={size} variant="outline">
-                <SplitButton.Action>{size}</SplitButton.Action>
-                <SplitButton.Trigger />
-                <SplitButton.Positioner>
-                  <SplitButton.Content>
-                    <Menu.Item value={\`\${size}-create\`}>Create</Menu.Item>
-                    <Menu.Item value={\`\${size}-create-open\`}>Create and Open</Menu.Item>
-                  </SplitButton.Content>
-                </SplitButton.Positioner>
-              </SplitButton>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{splitButtonExampleCss}</Preview.CSS>
-  <Preview.Data>{splitButtonSizesData}</Preview.Data>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### With Icons
@@ -269,46 +147,14 @@ Add an icon to the primary side when it clarifies the default action without rep
 label.
 
 <Preview>
-  <SplitButtonIconExample />
+  <SplitButtonDocs.SplitButtonIconExample />
 
-  <Preview.Code>
-    {`
-      import { Menu, PlusIcon, SplitButton } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/with-icons.tsx#demo</include>
+</Preview.Code>
 
-      export function SplitButtonIconsDemo() {
-        return (
-          <SplitButton>
-            <SplitButton.Action>
-              <PlusIcon />
-              Create Item
-            </SplitButton.Action>
-            <SplitButton.Trigger aria-label="More create actions" />
-            <SplitButton.Positioner>
-              <SplitButton.Content>
-                <Menu.Item value="create-blank">Create Blank</Menu.Item>
-                <Menu.Item value="create-template">Create From Template</Menu.Item>
-                <Menu.Separator />
-                <Menu.Item value="import-existing">Import Existing</Menu.Item>
-              </SplitButton.Content>
-            </SplitButton.Positioner>
-          </SplitButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{splitButtonExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const createItems = [
-        { value: "create-blank", label: "Create Blank" },
-        { value: "create-template", label: "Create From Template" },
-        { value: "import-existing", label: "Import Existing" },
-      ];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Controlled Menu State
@@ -316,39 +162,14 @@ label.
 Use the same controlled open-state contract as Ark Menu when outside state should own the dropdown.
 
 <Preview>
-  <SplitButtonControlledExample />
+  <SplitButtonDocs.SplitButtonControlledExample />
 
-  <Preview.Code>
-    {`
-      import { Menu, SplitButton } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/controlled-menu-state.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledSplitButton() {
-        const [open, setOpen] = useState(false);
-
-        return (
-          <SplitButton open={open} onOpenChange={(details) => setOpen(details.open)} variant="outline">
-            <SplitButton.Action>Share</SplitButton.Action>
-            <SplitButton.Trigger aria-label="More share actions" />
-            <SplitButton.Positioner>
-              <SplitButton.Content>
-                <Menu.Item value="copy-link">Copy Link</Menu.Item>
-                <Menu.Item value="invite-email">Invite by Email</Menu.Item>
-                <Menu.Separator />
-                <Menu.Item value="close-menu" onSelect={() => setOpen(false)}>
-                  Close Menu
-                </Menu.Item>
-              </SplitButton.Content>
-            </SplitButton.Positioner>
-          </SplitButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{splitButtonExampleCss}</Preview.CSS>
-  <Preview.Data>{`const initialOpen = false;`}</Preview.Data>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Positioning
@@ -357,32 +178,14 @@ Configure popup placement with the Ark `positioning` root prop while keeping the
 parts explicit.
 
 <Preview>
-  <SplitButtonCustomPositioningExample />
+  <SplitButtonDocs.SplitButtonCustomPositioningExample />
 
-  <Preview.Code>
-    {`
-      import { Menu, SplitButton } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/positioning.tsx#demo</include>
+</Preview.Code>
 
-      export function SplitButtonPositioningDemo() {
-        return (
-          <SplitButton positioning={{ placement: "bottom-start", gutter: 8 }} variant="outline">
-            <SplitButton.Action>Export</SplitButton.Action>
-            <SplitButton.Trigger aria-label="More export actions" />
-            <SplitButton.Positioner>
-              <SplitButton.Content>
-                <Menu.Item value="export-pdf">Export PDF</Menu.Item>
-                <Menu.Item value="export-csv">Export CSV</Menu.Item>
-              </SplitButton.Content>
-            </SplitButton.Positioner>
-          </SplitButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{splitButtonExampleCss}</Preview.CSS>
-  <Preview.Data>{`const positioning = { placement: "bottom-start", gutter: 8 };`}</Preview.Data>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Menu Composition
@@ -391,41 +194,14 @@ Use shared `Menu.*` parts inside `SplitButton.Content` when secondary actions ne
 separators, checkbox items, radio items, or link rows.
 
 <Preview>
-  <SplitButtonMenuCompositionExample />
+  <SplitButtonDocs.SplitButtonMenuCompositionExample />
 
-  <Preview.Code>
-    {`
-      import { Menu, SplitButton } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/menu-composition.tsx#demo</include>
+</Preview.Code>
 
-      export function SplitButtonMenuCompositionDemo() {
-        return (
-          <SplitButton variant="outline">
-            <SplitButton.Action>Copy</SplitButton.Action>
-            <SplitButton.Trigger aria-label="More copy actions" />
-            <SplitButton.Positioner>
-              <SplitButton.Content>
-                <Menu.ItemGroup>
-                  <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
-                  <Menu.Item value="copy">Copy</Menu.Item>
-                  <Menu.Item value="duplicate">Duplicate</Menu.Item>
-                </Menu.ItemGroup>
-                <Menu.Separator />
-                <Menu.ItemGroup>
-                  <Menu.ItemGroupLabel>Export</Menu.ItemGroupLabel>
-                  <Menu.Item value="export-pdf">Export PDF</Menu.Item>
-                  <Menu.Item value="export-csv">Export CSV</Menu.Item>
-                </Menu.ItemGroup>
-              </SplitButton.Content>
-            </SplitButton.Positioner>
-          </SplitButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{splitButtonExampleCss}</Preview.CSS>
-  <Preview.Data>{splitButtonMenuCompositionData}</Preview.Data>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -433,41 +209,14 @@ separators, checkbox items, radio items, or link rows.
 Use root `className` and stable `data-slot` hooks when the grouped control needs a custom tone.
 
 <Preview>
-  <SplitButtonStylingExample />
+  <SplitButtonDocs.SplitButtonStylingExample />
 
-  <Preview.Code>
-    {`
-      import { Menu, SplitButton } from "@moduix/react";
-      import styles from "./split-button.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-      export function SplitButtonStylingDemo() {
-        return (
-          <SplitButton className={styles.brandSplitButton} variant="outline">
-            <SplitButton.Action>Review</SplitButton.Action>
-            <SplitButton.Trigger aria-label="More review actions" />
-            <SplitButton.Positioner>
-              <SplitButton.Content>
-                <Menu.Item value="approve">Approve</Menu.Item>
-                <Menu.Item value="request-changes">Request Changes</Menu.Item>
-              </SplitButton.Content>
-            </SplitButton.Positioner>
-          </SplitButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{splitButtonCustomStylingCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const reviewActions = [
-        { value: "approve", label: "Approve" },
-        { value: "request-changes", label: "Request Changes" },
-      ];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{SplitButtonDocs.splitButtonCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ### Link Action
@@ -475,46 +224,14 @@ Use root `className` and stable `data-slot` hooks when the grouped control needs
 Use `asChild` on `SplitButton.Action` when the primary action should render as a link.
 
 <Preview>
-  <SplitButtonLinkActionExample />
+  <SplitButtonDocs.SplitButtonLinkActionExample />
 
-  <Preview.Code>
-    {`
-      import { Menu, SplitButton } from "@moduix/react";
-import { ArrowUpRight as ArrowUpRightIcon } from "lucide-react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/link-action.tsx#demo</include>
+</Preview.Code>
 
-      export function SplitButtonLinkActionDemo() {
-        return (
-          <SplitButton variant="outline">
-            <SplitButton.Action asChild>
-              <a href="#split-button">
-                Open Docs
-                <ArrowUpRightIcon />
-              </a>
-            </SplitButton.Action>
-            <SplitButton.Trigger aria-label="More docs actions" />
-            <SplitButton.Positioner>
-              <SplitButton.Content>
-                <Menu.Item value="copy-link">Copy Link</Menu.Item>
-                <Menu.Item value="open-new-tab">Open in New Tab</Menu.Item>
-              </SplitButton.Content>
-            </SplitButton.Positioner>
-          </SplitButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{splitButtonExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const docsActions = [
-        { value: "copy-link", label: "Copy Link" },
-        { value: "open-new-tab", label: "Open in New Tab" },
-      ];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling

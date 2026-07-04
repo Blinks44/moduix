@@ -4,19 +4,7 @@ description: A guided product walkthrough built on Ark UI tour state and overlay
 icon: Component
 ---
 
-import {
-  AsyncStepTourExample,
-  EventsTourExample,
-  KeyboardTourExample,
-  MixedTypesTourExample,
-  ProgressTourExample,
-  SkipTourExample,
-  TourCssPropertiesPanel,
-  TourExample,
-  WaitForClickTourExample,
-  WaitForElementTourExample,
-  WaitForInputTourExample,
-} from '@/components/examples/tour';
+import * as TourDocs from '@/components/examples/tour';
 
 ## API Reference
 
@@ -29,51 +17,11 @@ parts explicit. Steps can provide `title`, `description`, targets, actions, back
 settings.
 
 <Preview>
-  <TourExample />
+  <TourDocs.TourExample />
 
-  <Preview.Code>
-    {`
-      import type { TourStepDetails } from "@ark-ui/react/tour";
-      import { Button, CloseIcon, Tour, useTour } from "@moduix/react";
-
-      export function TourDemo() {
-        const tour = useTour({ steps });
-
-        return (
-          <>
-            <Button onClick={() => tour.start()}>Start tour</Button>
-            <Button id="tour-basic-upload" variant="outline">Upload</Button>
-
-            <Tour tour={tour} lazyMount unmountOnExit>
-              <Tour.Backdrop />
-              <Tour.Spotlight />
-              <Tour.Positioner>
-                <Tour.Content>
-                  <Tour.Arrow />
-                  <Tour.CloseTrigger>
-                    <CloseIcon />
-                  </Tour.CloseTrigger>
-                  <Tour.Title />
-                  <Tour.Description />
-                  <Tour.ProgressText />
-                  <Tour.Control>
-                    <Tour.Actions>
-                      {(actions) =>
-                        actions.map((action) => (
-                          <Tour.ActionTrigger key={action.label} action={action} />
-                        ))
-                      }
-                    </Tour.Actions>
-                  </Tour.Control>
-                </Tour.Content>
-              </Tour.Positioner>
-            </Tour>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tour/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -91,85 +39,11 @@ settings.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const steps = [
-        {
-          id: "welcome",
-          type: "dialog",
-          title: "Welcome to the workspace",
-          description: "Start with a dialog step, then move to a highlighted page control.",
-          actions: [{ label: "Start", action: "next" }],
-          backdrop: true,
-        },
-        {
-          id: "upload",
-          type: "tooltip",
-          title: "Upload files",
-          description: "Tooltip steps are anchored to target elements.",
-          target: () => document.querySelector("#tour-basic-upload") as HTMLElement | null,
-          actions: [
-            { label: "Back", action: "prev" },
-            { label: "Next", action: "next" },
-          ],
-          backdrop: true,
-          arrow: true,
-        },
-        {
-          id: "complete",
-          type: "dialog",
-          title: "You are ready",
-          description: "Dismiss the tour when the walkthrough is complete.",
-          actions: [{ label: "Finish", action: "dismiss" }],
-          backdrop: true,
-        },
-      ] satisfies TourStepDetails[];
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Tour` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-tour
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-tour
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-tour
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-tour
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-tour
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-tour" />
 
 ## Anatomy
 
@@ -256,19 +130,11 @@ Use dialog steps for broad context, tooltip steps for target-specific guidance, 
 for viewport-level notes.
 
 <Preview>
-  <MixedTypesTourExample />
+  <TourDocs.MixedTypesTourExample />
   <Preview.Code>
-    {`
-      const tour = useTour({ steps });
-    `}
+    <include lang="tsx">./_snippets/tour/mixed-types.tsx#demo</include>
   </Preview.Code>
-  <Preview.Data>{`
-      const steps = [
-        { id: "dialog", type: "dialog", title: "Mixed step types", description: "Start centered.", actions: [{ label: "Next", action: "next" }], backdrop: true },
-        { id: "tooltip", type: "tooltip", title: "Anchored tooltip", description: "Follows a target.", target: () => document.querySelector("#tour-mixed-target") as HTMLElement | null, actions: [{ label: "Back", action: "prev" }, { label: "Next", action: "next" }], arrow: true },
-        { id: "floating", type: "floating", placement: "bottom-end", title: "Floating note", description: "Sits in the viewport.", actions: [{ label: "Back", action: "prev" }, { label: "Done", action: "dismiss" }] },
-      ] satisfies TourStepDetails[];
-  `}</Preview.Data>
+
   <Preview.CSS>{`      .target { border: var(--border-width-sm) solid var(--color-border); }`}</Preview.CSS>
 </Preview>
 
@@ -278,21 +144,11 @@ Use `onStepChange` and `onStatusChange` for analytics, logging, or external UI t
 tour lifecycle.
 
 <Preview>
-  <EventsTourExample />
+  <TourDocs.EventsTourExample />
   <Preview.Code>
-    {`
-      const tour = useTour({
-        steps,
-        onStepChange: (details) => {
-          console.log(details.stepId, details.stepIndex, details.progress);
-        },
-        onStatusChange: (details) => {
-          console.log(details.status);
-        },
-      });
-    `}
+    <include lang="tsx">./_snippets/tour/events.tsx#demo</include>
   </Preview.Code>
-  <Preview.Data>{`const statuses = ["idle", "started", "skipped", "completed", "dismissed", "not-found"] as const;`}</Preview.Data>
+
   <Preview.CSS>{`      .log { font-family: var(--font-mono); font-size: var(--text-xs); }`}</Preview.CSS>
 </Preview>
 
@@ -302,25 +158,11 @@ Arrow-key navigation is enabled by default. Disable `keyboardNavigation` only wh
 custom keyboard handling that should own Left and Right.
 
 <Preview>
-  <KeyboardTourExample />
+  <TourDocs.KeyboardTourExample />
   <Preview.Code>
-    {`
-      const tour = useTour({
-        steps,
-        keyboardNavigation: true,
-        translations: {
-          progressText: ({ current, total }) => \`\${current + 1} / \${total}\`,
-        },
-      });
-    `}
+    <include lang="tsx">./_snippets/tour/keyboard-navigation.tsx#demo</include>
   </Preview.Code>
-  <Preview.Data>
-    {`
-      const keyboardNavigation = true;
-      const progressText = ({ current, total }) => String(current + 1) + " / " + String(total);
-    `}
 
-  </Preview.Data>
   <Preview.CSS>{`      .note { color: var(--color-muted-foreground); }`}</Preview.CSS>
 </Preview>
 
@@ -330,25 +172,11 @@ Render custom progress from `tour.getProgressPercent()` and keep `Tour.ProgressT
 localized text.
 
 <Preview>
-  <ProgressTourExample />
+  <TourDocs.ProgressTourExample />
   <Preview.Code>
-    {`
-      <Tour.Content>
-        <Tour.ProgressText />
-        <Tour.Title />
-        <Tour.Description />
-        <div className={styles.progressTrack}>
-          <div className={styles.progressFill} style={{ width: \`\${tour.getProgressPercent()}%\` }} />
-        </div>
-      </Tour.Content>
-    `}
+    <include lang="tsx">./_snippets/tour/progress-bar.tsx#demo</include>
   </Preview.Code>
-  <Preview.Data>
-    {`
-      const totalSteps = 3;
-    `}
 
-  </Preview.Data>
   <Preview.CSS>{`      .progressFill { height: 100%; background: var(--color-primary); }`}</Preview.CSS>
 </Preview>
 
@@ -357,27 +185,11 @@ localized text.
 Use a dismiss action for optional walkthroughs when users should be able to exit early.
 
 <Preview>
-  <SkipTourExample />
+  <TourDocs.SkipTourExample />
   <Preview.Code>
-    {`
-      const tour = useTour({ steps });
-    `}
+    <include lang="tsx">./_snippets/tour/skip-tour.tsx#demo</include>
   </Preview.Code>
-  <Preview.Data>{`
-      const steps = [
-        {
-          id: "intro",
-          type: "dialog",
-          title: "Optional walkthrough",
-          description: "Use a dismiss action when the tour is helpful but not required.",
-          actions: [
-            { label: "Skip tour", action: "dismiss" },
-            { label: "Continue", action: "next" },
-          ],
-          backdrop: true,
-        },
-      ] satisfies TourStepDetails[];
-  `}</Preview.Data>
+
   <Preview.CSS>{`      .note { font-size: var(--text-sm); }`}</Preview.CSS>
 </Preview>
 
@@ -386,26 +198,11 @@ Use a dismiss action for optional walkthroughs when users should be able to exit
 Wait helpers let a step pause until the user completes a real DOM interaction.
 
 <Preview>
-  <WaitForInputTourExample />
+  <TourDocs.WaitForInputTourExample />
   <Preview.Code>
-    {`
-      {
-        id: "name",
-        type: "tooltip",
-        title: "Enter a name",
-        target: () => document.querySelector("#tour-wait-name") as HTMLInputElement | null,
-        effect({ next, show, target }) {
-          show();
-          const [promise, cancel] = waitForEvent(target as HTMLInputElement, "input", {
-            predicate: (element) => element.value.trim().length >= 2,
-          });
-          promise.then(() => next());
-          return cancel;
-        },
-      }
-    `}
+    <include lang="tsx">./_snippets/tour/wait-for-input.tsx#demo</include>
   </Preview.Code>
-  <Preview.Data>{`const minLength = 2;`}</Preview.Data>
+
   <Preview.CSS>{`      .input:focus-visible { outline: var(--border-width-sm) solid var(--color-ring); }`}</Preview.CSS>
 </Preview>
 
@@ -415,25 +212,11 @@ Use `waitForEvent` with a click event when the tour should advance after a real 
 interaction.
 
 <Preview>
-  <WaitForClickTourExample />
+  <TourDocs.WaitForClickTourExample />
   <Preview.Code>
-    {`
-      {
-        id: "click-target",
-        type: "tooltip",
-        title: "Click the target",
-        target: () => document.querySelector("#tour-wait-click") as HTMLButtonElement | null,
-        effect({ next, show, target }) {
-          show();
-          const [promise, cancel] = waitForEvent(target as HTMLButtonElement, "click");
-          promise.then(() => next());
-          return cancel;
-        },
-        arrow: true,
-      }
-    `}
+    <include lang="tsx">./_snippets/tour/wait-for-click.tsx#demo</include>
   </Preview.Code>
-  <Preview.Data>{`const eventType = "click";`}</Preview.Data>
+
   <Preview.CSS>{`      .demo { gap: var(--spacing-4); }`}</Preview.CSS>
 </Preview>
 
@@ -442,28 +225,11 @@ interaction.
 Use `waitForElement` when a later step targets content that appears after the tour has started.
 
 <Preview>
-  <WaitForElementTourExample />
+  <TourDocs.WaitForElementTourExample />
   <Preview.Code>
-    {`
-      {
-        id: "new-item",
-        type: "tooltip",
-        title: "New item added",
-        target: () => document.querySelector("[data-tour-new-item]") as HTMLElement | null,
-        effect({ show }) {
-          const [promise, cancel] = waitForElement(
-            () => document.querySelector("[data-tour-new-item]") as HTMLElement | null,
-            { timeout: 5000 },
-          );
-          promise.then(() => show());
-          return cancel;
-        },
-        actions: [{ label: "Done", action: "dismiss" }],
-        arrow: true,
-      }
-    `}
+    <include lang="tsx">./_snippets/tour/wait-for-element.tsx#demo</include>
   </Preview.Code>
-  <Preview.Data>{`const timeout = 5000;`}</Preview.Data>
+
   <Preview.CSS>{`      .listItem[data-tour-new-item] { border-color: var(--color-primary); }`}</Preview.CSS>
 </Preview>
 
@@ -473,23 +239,11 @@ Use a step `effect` to fetch or prepare content, call `update`, then call `show`
 ready.
 
 <Preview>
-  <AsyncStepTourExample />
+  <TourDocs.AsyncStepTourExample />
   <Preview.Code>
-    {`
-      const asyncStep = {
-        effect({ show, update }) {
-          const controller = new AbortController();
-          const [promise, cancel] = waitForPromise(loadDetails(), controller, delayMs);
-          promise.then((details) => {
-            update(details);
-            show();
-          });
-          return cancel;
-        },
-      };
-    `}
+    <include lang="tsx">./_snippets/tour/async-step.tsx#demo</include>
   </Preview.Code>
-  <Preview.Data>{`const delayMs = 1500;`}</Preview.Data>
+
   <Preview.CSS>{`      .target { background: var(--color-muted); }`}</Preview.CSS>
 </Preview>
 
@@ -501,7 +255,7 @@ ready.
   <Tabs items={['CSS Variables']}>
     <Tab value="CSS Variables">
       <div className="max-h-[420px] overflow-y-auto rounded-md border">
-        <TourCssPropertiesPanel />
+        <TourDocs.TourCssPropertiesPanel />
       </div>
     </Tab>
   </Tabs>

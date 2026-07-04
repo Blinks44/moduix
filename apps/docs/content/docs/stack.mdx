@@ -4,17 +4,7 @@ description: A small Ark-aligned flex layout primitive for vertical and horizont
 icon: Component
 ---
 
-import {
-  StackCssPropertiesPanel,
-  StackExample,
-  StackFillExample,
-  StackResponsiveDirectionExample,
-  StackRowExample,
-  StackSemanticExample,
-  StackSeparatorExample,
-  StackSkeletonExample,
-  StackWrapExample,
-} from '@/components/examples/stack';
+import * as StackDocs from '@/components/examples/stack';
 
 ## API Reference
 
@@ -30,29 +20,11 @@ Start with `Stack` when one flex container is enough and the layout only needs d
 common alignment.
 
 <Preview>
-  <StackExample />
+  <StackDocs.StackExample />
 
-  <Preview.Code>
-    {`
-      import { Heading, Stack, Text } from "@moduix/react";
-      import styles from "./stack.module.css";
-
-      export function StackDemo() {
-        return (
-          <Stack gap={12} className={styles.panel}>
-            <Heading as="h3" size="md">
-              Project updates
-            </Heading>
-            <Text tone="muted">
-              Use Stack when the layout intent is just flex direction, spacing, and alignment.
-            </Text>
-            <Text tone="muted">Keep custom layout rules in local CSS.</Text>
-          </Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/stack/basic.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -66,62 +38,11 @@ common alignment.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const title = "Project updates";
-      const messages = [
-        "Use Stack when the layout intent is just flex direction, spacing, and alignment.",
-        "Keep custom layout rules in local CSS.",
-      ];
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Stack` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-stack
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-stack
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-stack
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-stack
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-stack
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Stack` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-stack" />
 
 ## Anatomy
 
@@ -192,24 +113,11 @@ properties.
 Use `direction="row"` and alignment props for inline layouts.
 
 <Preview>
-  <StackRowExample />
+  <StackDocs.StackRowExample />
 
-  <Preview.Code>
-    {`
-      import { Stack, Text } from "@moduix/react";
-      import styles from "./stack.module.css";
-
-      export function StackRowDemo() {
-        return (
-          <Stack direction="row" align="center" justify="space-between" gap={12} className={styles.row}>
-            <Text weight="semibold">Status</Text>
-            <Text tone="muted">Ready to publish</Text>
-          </Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/stack/row-layout.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -223,14 +131,6 @@ Use `direction="row"` and alignment props for inline layouts.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const status = {
-        label: "Status",
-        value: "Ready to publish",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Wrapped Items
@@ -238,26 +138,11 @@ Use `direction="row"` and alignment props for inline layouts.
 Use `wrap="wrap"` when items should flow to the next line.
 
 <Preview>
-  <StackWrapExample />
+  <StackDocs.StackWrapExample />
 
-  <Preview.Code>
-    {`
-      import { Stack } from "@moduix/react";
-      import styles from "./stack.module.css";
-
-      export function StackWrapDemo() {
-        return (
-          <Stack direction="row" gap={8} wrap="wrap" className={styles.wrap}>
-            <div className={styles.pill}>Design</div>
-            <div className={styles.pill}>Engineering</div>
-            <div className={styles.pill}>Docs</div>
-            <div className={styles.pill}>Release</div>
-          </Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/stack/wrapped-items.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -279,11 +164,6 @@ Use `wrap="wrap"` when items should flow to the next line.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const teams = ["Design", "Engineering", "Docs", "Release"];
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Separator
@@ -292,31 +172,11 @@ Pass a `Separator` node when a horizontal or vertical stack needs a repeated vis
 children.
 
 <Preview>
-  <StackSeparatorExample />
+  <StackDocs.StackSeparatorExample />
 
-  <Preview.Code>
-    {`
-      import { Separator, Stack, Text } from "@moduix/react";
-      import styles from "./stack.module.css";
-
-      export function StackSeparatorDemo() {
-        return (
-          <Stack
-            direction="row"
-            align="center"
-            gap={10}
-            separator={<Separator orientation="vertical" aria-hidden="true" />}
-            className={styles.row}
-          >
-            <Text weight="semibold">Design</Text>
-            <Text tone="muted">Engineering</Text>
-            <Text tone="muted">Docs</Text>
-          </Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/stack/separator.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -332,12 +192,6 @@ children.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const departments = ["Design", "Engineering", "Docs"];
-      const separatorOrientation = "vertical";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Growing Child Stack
@@ -345,27 +199,11 @@ children.
 Use `fill` when a nested stack should take the remaining space in a flex row.
 
 <Preview>
-  <StackFillExample />
+  <StackDocs.StackFillExample />
 
-  <Preview.Code>
-    {`
-      import { Skeleton, Stack } from "@moduix/react";
-      import styles from "./stack.module.css";
-
-      export function StackFillDemo() {
-        return (
-          <Stack direction="row" align="center" gap={12} className={styles.row}>
-            <Skeleton boxSize={40} borderRadius="var(--radius-full)" />
-            <Stack gap={8} fill>
-              <Skeleton width="48%" height={16} />
-              <Skeleton height={14} />
-            </Stack>
-          </Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/stack/growing-child-stack.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -379,15 +217,6 @@ Use `fill` when a nested stack should take the remaining space in a flex row.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const avatarSize = 40;
-      const lines = [
-        { width: "48%", height: 16 },
-        { width: "100%", height: 14 },
-      ];
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Responsive Direction
@@ -395,28 +224,11 @@ Use `fill` when a nested stack should take the remaining space in a flex row.
 Use responsive `direction` when the layout only needs a column-on-mobile and row-on-desktop switch.
 
 <Preview>
-  <StackResponsiveDirectionExample />
+  <StackDocs.StackResponsiveDirectionExample />
 
-  <Preview.Code>
-    {`
-      import { Stack, Text } from "@moduix/react";
-      import styles from "./stack.module.css";
-
-      export function StackResponsiveDirectionDemo() {
-        return (
-          <Stack
-            direction={{ mobile: "column", desktop: "row" }}
-            gap={12}
-            className={styles.row}
-          >
-            <Text weight="semibold">Adaptive layout</Text>
-            <Text tone="muted">Column on mobile, row from desktop width.</Text>
-          </Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/stack/responsive-direction.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -430,12 +242,6 @@ Use responsive `direction` when the layout only needs a column-on-mobile and row
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const direction = { mobile: "column", desktop: "row" };
-      const content = ["Adaptive layout", "Column on mobile, row from desktop width."];
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Semantic Element
@@ -443,30 +249,11 @@ Use responsive `direction` when the layout only needs a column-on-mobile and row
 Use Ark `asChild` when the layout wrapper should also describe document structure.
 
 <Preview>
-  <StackSemanticExample />
+  <StackDocs.StackSemanticExample />
 
-  <Preview.Code>
-    {`
-      import { Heading, Stack, Text } from "@moduix/react";
-      import styles from "./stack.module.css";
-
-      export function StackSemanticDemo() {
-        return (
-          <Stack asChild gap={12} className={styles.panel}>
-            <section>
-              <Heading as="h3" size="md">
-                Rendered as section
-              </Heading>
-              <Text tone="muted">
-                Use asChild when the layout wrapper should also carry document semantics.
-              </Text>
-            </section>
-          </Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/stack/semantic-element.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -480,12 +267,6 @@ Use Ark `asChild` when the layout wrapper should also describe document structur
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const hostElement = "section";
-      const title = "Rendered as section";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Loading Layout
@@ -493,28 +274,11 @@ Use Ark `asChild` when the layout wrapper should also describe document structur
 Use `Stack` with `Skeleton` when the loading state only needs flex composition and spacing.
 
 <Preview>
-  <StackSkeletonExample />
+  <StackDocs.StackSkeletonExample />
 
-  <Preview.Code>
-    {`
-      import { Skeleton, Stack } from "@moduix/react";
-      import styles from "./stack.module.css";
-
-      export function StackSkeletonDemo() {
-        return (
-          <Stack gap={16} className={styles.skeletonCard}>
-            <Skeleton height={144} borderRadius="var(--radius-lg)" />
-            <Stack gap={12}>
-              <Skeleton width="62%" height={18} />
-              <Skeleton height={14} />
-              <Skeleton width="78%" height={14} />
-            </Stack>
-          </Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/stack/loading-layout.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -524,18 +288,6 @@ Use `Stack` with `Skeleton` when the loading state only needs flex composition a
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const skeleton = {
-        mediaHeight: 144,
-        lines: [
-          { width: "62%", height: 18 },
-          { width: "100%", height: 14 },
-          { width: "78%", height: 14 },
-        ],
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Styling
@@ -548,7 +300,7 @@ values for these variables when provided, and the `style` prop can still overrid
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <StackCssPropertiesPanel />
+      <StackDocs.StackCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

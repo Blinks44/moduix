@@ -4,13 +4,7 @@ description: Motion token recipes for fade, slide, zoom, and directional appeara
 icon: Sparkles
 ---
 
-import {
-  AnimationMotionPlaygroundPanel,
-  AnimationMotionPropertiesPanel,
-  MotionPlaygroundExample,
-  MotionRecipesExample,
-  animationMotionCssProperties,
-} from '@/components/examples/animations';
+import * as AnimationDocs from '@/components/examples/animations';
 
 # Animations
 
@@ -33,33 +27,15 @@ part-specific name.
 The preview uses Ark-aligned `Popover.Content` composition and CSS animations tied to its
 `data-state` attribute.
 
-<Preview cssProperties={animationMotionCssProperties} cssVariableScope="root">
-  <MotionPlaygroundExample />
+<Preview cssProperties={AnimationDocs.animationMotionCssProperties} cssVariableScope="root">
+  <AnimationDocs.MotionPlaygroundExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Popover } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/animations/live-preview.tsx#demo</include>
+</Preview.Code>
 
-      export function MotionPlaygroundDemo() {
-        return (
-          <Popover positioning={{ gutter: 12 }}>
-            <Popover.Trigger asChild>
-              <Button>Open motion playground</Button>
-            </Popover.Trigger>
-            <Popover.Positioner>
-              <Popover.Content>
-                Tune the motion tokens in the Playground tab.
-              </Popover.Content>
-            </Popover.Positioner>
-          </Popover>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSSProperties>{(context) => <AnimationMotionPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <AnimationMotionPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  <Preview.CSSProperties>{(context) => <AnimationDocs.AnimationMotionPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <AnimationDocs.AnimationMotionPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Ready Recipes
@@ -171,7 +147,7 @@ Apply these variables to `Popover.Content` through `className`.
 ### Recipe Gallery
 
 <Preview>
-  <MotionRecipesExample />
+  <AnimationDocs.MotionRecipesExample />
 </Preview>
 
 ## Usage Rules

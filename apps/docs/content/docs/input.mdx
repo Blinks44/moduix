@@ -4,18 +4,7 @@ description: An Ark Field input wrapper with native events, form semantics, and 
 icon: Component
 ---
 
-import {
-  ControlledInputExample,
-  CustomStylesInputExample,
-  DisabledAndReadOnlyInputExample,
-  InputAsChildExample,
-  InputCssPropertiesPanel,
-  InputExample,
-  InputFieldValidationExample,
-  InputNativeAttributesExample,
-  InputSizesExample,
-  StandaloneInputExample,
-} from '@/components/examples/input';
+import * as InputDocs from '@/components/examples/input';
 
 ## API Reference
 
@@ -39,24 +28,11 @@ Ark UI does not ship a dedicated input primitive. Moduix builds this component w
 Use `Input` inside `Field` so Ark can connect the label, helper text, ids, and form state.
 
 <Preview>
-  <InputExample />
+  <InputDocs.InputExample />
 
-  <Preview.Code>
-    {`
-      import { Field, Input } from "@moduix/react";
-
-      export function InputDemo() {
-        return (
-          <Field className="input-demo-field">
-            <Field.Label>Name</Field.Label>
-            <Field.HelperText>Used in your public workspace profile.</Field.HelperText>
-            <Input name="name" placeholder="Enter your name" />
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input/basic.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -66,55 +42,11 @@ Use `Input` inside `Field` so Ark can connect the label, helper text, ids, and f
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const profileField = {
-        name: "name",
-        placeholder: "Enter your name",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-input
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-input
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-input
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-input
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-input
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-input" />
 
 ## Anatomy
 
@@ -167,30 +99,11 @@ component that owns the correct Ark control primitive.
 Use the native change event when React owns the current value.
 
 <Preview>
-  <ControlledInputExample />
+  <InputDocs.ControlledInputExample />
 
-  <Preview.Code>
-    {`
-      import { Field, Input } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledInputDemo() {
-        const [value, setValue] = useState("");
-
-        return (
-          <Field className="input-demo-field">
-            <Field.Label>Username</Field.Label>
-            <Input
-              value={value}
-              onChange={(event) => setValue(event.currentTarget.value)}
-              placeholder="Type to control value"
-            />
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input/controlled.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -200,11 +113,6 @@ Use the native change event when React owns the current value.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const initialValue = "";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Field State
@@ -213,24 +121,11 @@ Put invalid state on `Field`; Ark applies `aria-invalid` and `data-invalid` to t
 connects the error text.
 
 <Preview>
-  <InputFieldValidationExample />
+  <InputDocs.InputFieldValidationExample />
 
-  <Preview.Code>
-    {`
-      import { Field, Input } from "@moduix/react";
-
-      export function InvalidInputDemo() {
-        return (
-          <Field className="input-demo-field" invalid>
-            <Field.Label>Email</Field.Label>
-            <Input type="email" placeholder="name@example.com" />
-            <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input/field-state.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -240,11 +135,6 @@ connects the error text.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const invalidEmail = "not-an-email";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Disabled and Readonly
@@ -252,23 +142,11 @@ connects the error text.
 Use native props directly or place them on `Field.Root` when the full field should share state.
 
 <Preview>
-  <DisabledAndReadOnlyInputExample />
+  <InputDocs.DisabledAndReadOnlyInputExample />
 
-  <Preview.Code>
-    {`
-      import { Input } from "@moduix/react";
-
-      export function InputStatesDemo() {
-        return (
-          <div className="input-demo-stack">
-            <Input disabled aria-label="Disabled input" placeholder="Disabled input" />
-            <Input readOnly aria-label="Read-only workspace" value="Assigned workspace" />
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input/disabled-and-readonly.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -280,11 +158,6 @@ Use native props directly or place them on `Field.Root` when the full field shou
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const assignedWorkspace = "Assigned workspace";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Native Attributes
@@ -293,30 +166,11 @@ Native attributes continue to control browser validation, keyboard, autocomplete
 submission. Use `htmlSize` only for character-based width.
 
 <Preview>
-  <InputNativeAttributesExample />
+  <InputDocs.InputNativeAttributesExample />
 
-  <Preview.Code>
-    {`
-      import { Field, Input } from "@moduix/react";
-
-      export function SecurityCodeDemo() {
-        return (
-          <Field className="input-demo-field">
-            <Field.Label>Security code</Field.Label>
-            <Input
-              htmlSize={8}
-              inputMode="numeric"
-              maxLength={6}
-              name="security-code"
-              autoComplete="one-time-code"
-              placeholder="000000"
-            />
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input/native-attributes.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -326,11 +180,6 @@ submission. Use `htmlSize` only for character-based width.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const securityCodeLength = 6;
-    `}
-  </Preview.Data>
 </Preview>
 
 ### As Child
@@ -338,25 +187,11 @@ submission. Use `htmlSize` only for character-based width.
 Use `asChild` for a custom input host while preserving one semantic, focusable input element.
 
 <Preview>
-  <InputAsChildExample />
+  <InputDocs.InputAsChildExample />
 
-  <Preview.Code>
-    {`
-      import { Field, Input } from "@moduix/react";
-
-      export function InputAsChildDemo() {
-        return (
-          <Field className="input-demo-field">
-            <Field.Label>Repository</Field.Label>
-            <Input asChild>
-              <input name="repository" placeholder="owner/project" />
-            </Input>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input/as-child.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -366,11 +201,6 @@ Use `asChild` for a custom input host while preserving one semantic, focusable i
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const repositoryPlaceholder = "owner/project";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Sizes
@@ -378,26 +208,11 @@ Use `asChild` for a custom input host while preserving one semantic, focusable i
 The moduix `size` prop changes visual density without replacing the native `size` attribute.
 
 <Preview>
-  <InputSizesExample />
+  <InputDocs.InputSizesExample />
 
-  <Preview.Code>
-    {`
-      import { Input } from "@moduix/react";
-
-      export function InputSizesDemo() {
-        return (
-          <div className="input-demo-stack">
-            <Input size="xs" aria-label="Extra-small input" placeholder="Extra-small input" />
-            <Input size="sm" aria-label="Small input" placeholder="Small input" />
-            <Input size="md" aria-label="Medium input" placeholder="Medium input" />
-            <Input size="lg" aria-label="Large input" placeholder="Large input" />
-            <Input size="xl" aria-label="Extra-large input" placeholder="Extra-large input" />
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input/sizes.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -409,11 +224,6 @@ The moduix `size` prop changes visual density without replacing the native `size
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const inputSizes = ["xs", "sm", "md", "lg", "xl"] as const;
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Standalone Input
@@ -422,24 +232,11 @@ Outside `Field`, provide an accessible name explicitly. Native state props still
 no field context to supply ids or helper/error relationships.
 
 <Preview>
-  <StandaloneInputExample />
+  <InputDocs.StandaloneInputExample />
 
-  <Preview.Code>
-    {`
-      import { Input } from "@moduix/react";
-
-      export function StandaloneInputDemo() {
-        return (
-          <Input
-            className="input-demo-standalone"
-            aria-label="Search projects"
-            placeholder="Search projects"
-          />
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input/standalone-input.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -449,11 +246,6 @@ no field context to supply ids or helper/error relationships.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const accessibleName = "Search projects";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -461,23 +253,11 @@ no field context to supply ids or helper/error relationships.
 Use `className`, public CSS variables, Ark anatomy attributes, and native state selectors.
 
 <Preview>
-  <CustomStylesInputExample />
+  <InputDocs.CustomStylesInputExample />
 
-  <Preview.Code>
-    {`
-      import { Field, Input } from "@moduix/react";
-
-      export function CustomInputDemo() {
-        return (
-          <Field className="input-demo-field">
-            <Field.Label>Project key</Field.Label>
-            <Input placeholder="MAPS" className="input-demo-custom-input" />
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/input/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -493,11 +273,6 @@ Use `className`, public CSS variables, Ark anatomy attributes, and native state 
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const projectKey = "MAPS";
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Styling
@@ -507,7 +282,7 @@ Use `className`, public CSS variables, Ark anatomy attributes, and native state 
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <InputCssPropertiesPanel />
+      <InputDocs.InputCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

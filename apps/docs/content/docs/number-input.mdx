@@ -4,22 +4,7 @@ description: A numeric input with Ark UI stepper controls, formatting, validatio
 icon: Component
 ---
 
-import {
-  ControlledNumberInputExample,
-  CustomIconsNumberInputExample,
-  FormattedNumberInputExample,
-  FractionDigitsNumberInputExample,
-  MinMaxNumberInputExample,
-  MouseWheelNumberInputExample,
-  NumberInputCssPropertiesPanel,
-  NumberInputExample,
-  NumberInputFieldExample,
-  NumberInputScrubberExample,
-  RootProviderNumberInputExample,
-  ValueTextNumberInputExample,
-  numberInputExampleCss,
-  numberInputNoData,
-} from '@/components/examples/number-input';
+import * as NumberInputDocs from '@/components/examples/number-input';
 
 ## API Reference
 
@@ -31,74 +16,19 @@ Use Ark-style parts: `NumberInput.Root`, `NumberInput.Label`, `NumberInput.Contr
 `NumberInput.Input`, `NumberInput.IncrementTrigger`, and `NumberInput.DecrementTrigger`.
 
 <Preview>
-  <NumberInputExample />
+  <NumberInputDocs.NumberInputExample />
 
-  <Preview.Code>
-    {`
-      import { NumberInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function NumberInputDemo() {
-        return (
-          <NumberInput defaultValue="100">
-            <NumberInput.Label>Amount</NumberInput.Label>
-            <NumberInput.Control>
-              <NumberInput.DecrementTrigger />
-              <NumberInput.Input />
-              <NumberInput.IncrementTrigger />
-            </NumberInput.Control>
-          </NumberInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{numberInputExampleCss}</Preview.CSS>
-  <Preview.Data>{numberInputNoData}</Preview.Data>
+  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Number Input` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-number-input
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-number-input
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-number-input
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-number-input
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-number-input
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-number-input" />
 
 ## Anatomy
 
@@ -164,36 +94,14 @@ the parsed number.
 Keep controlled state as a string and read `details.value` in `onValueChange`.
 
 <Preview>
-  <ControlledNumberInputExample />
+  <NumberInputDocs.ControlledNumberInputExample />
 
-  <Preview.Code>
-    {`
-      import { NumberInput } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/controlled.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledNumberInputDemo() {
-        const [value, setValue] = useState("24");
-
-        return (
-          <div>
-            <NumberInput value={value} onValueChange={(details) => setValue(details.value)}>
-              <NumberInput.Label>Controlled value</NumberInput.Label>
-              <NumberInput.Control>
-                <NumberInput.DecrementTrigger />
-                <NumberInput.Input />
-                <NumberInput.IncrementTrigger />
-              </NumberInput.Control>
-            </NumberInput>
-            <div className="number-input-state">Current value: {value || "empty"}</div>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{numberInputExampleCss}</Preview.CSS>
-  <Preview.Data>{numberInputNoData}</Preview.Data>
+  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Min and Max
@@ -201,30 +109,14 @@ Keep controlled state as a string and read `details.value` in `onValueChange`.
 Use `min`, `max`, and `step` to constrain typing, keyboard, trigger, and scrub interactions.
 
 <Preview>
-  <MinMaxNumberInputExample />
+  <NumberInputDocs.MinMaxNumberInputExample />
 
-  <Preview.Code>
-    {`
-      import { NumberInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/min-and-max.tsx#demo</include>
+</Preview.Code>
 
-      export function MinMaxNumberInputDemo() {
-        return (
-          <NumberInput defaultValue="10" min={0} max={20} step={2}>
-            <NumberInput.Label>Quantity (0-20, step 2)</NumberInput.Label>
-            <NumberInput.Control>
-              <NumberInput.DecrementTrigger />
-              <NumberInput.Input />
-              <NumberInput.IncrementTrigger />
-            </NumberInput.Control>
-          </NumberInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{numberInputExampleCss}</Preview.CSS>
-  <Preview.Data>{numberInputNoData}</Preview.Data>
+  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Precision
@@ -233,34 +125,14 @@ Use `formatOptions` with `Intl.NumberFormatOptions` when the visible value needs
 fraction digits.
 
 <Preview>
-  <FractionDigitsNumberInputExample />
+  <NumberInputDocs.FractionDigitsNumberInputExample />
 
-  <Preview.Code>
-    {`
-      import { NumberInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/precision.tsx#demo</include>
+</Preview.Code>
 
-      export function FractionDigitsNumberInputDemo() {
-        return (
-          <NumberInput
-            defaultValue="12.5"
-            step={0.25}
-            formatOptions={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }}
-          >
-            <NumberInput.Label>Hours</NumberInput.Label>
-            <NumberInput.Control>
-              <NumberInput.DecrementTrigger />
-              <NumberInput.Input />
-              <NumberInput.IncrementTrigger />
-            </NumberInput.Control>
-          </NumberInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{numberInputExampleCss}</Preview.CSS>
-  <Preview.Data>{numberInputNoData}</Preview.Data>
+  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Scrubbing
@@ -268,31 +140,14 @@ fraction digits.
 Render `NumberInput.Scrubber` when pointer dragging should change the value.
 
 <Preview>
-  <NumberInputScrubberExample />
+  <NumberInputDocs.NumberInputScrubberExample />
 
-  <Preview.Code>
-    {`
-      import { NumberInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/scrubbing.tsx#demo</include>
+</Preview.Code>
 
-      export function NumberInputScrubberDemo() {
-        return (
-          <NumberInput defaultValue="250">
-            <NumberInput.Label>Drag to scrub</NumberInput.Label>
-            <NumberInput.Control>
-              <NumberInput.Scrubber>Drag</NumberInput.Scrubber>
-              <NumberInput.DecrementTrigger />
-              <NumberInput.Input />
-              <NumberInput.IncrementTrigger />
-            </NumberInput.Control>
-          </NumberInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{numberInputExampleCss}</Preview.CSS>
-  <Preview.Data>{numberInputNoData}</Preview.Data>
+  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Value text
@@ -300,31 +155,14 @@ Render `NumberInput.Scrubber` when pointer dragging should change the value.
 Use `NumberInput.ValueText` when the formatted value should also be visible outside the editable input.
 
 <Preview>
-  <ValueTextNumberInputExample />
+  <NumberInputDocs.ValueTextNumberInputExample />
 
-  <Preview.Code>
-    {`
-      import { NumberInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/value-text.tsx#demo</include>
+</Preview.Code>
 
-      export function ValueTextNumberInputDemo() {
-        return (
-          <NumberInput defaultValue="42">
-            <NumberInput.Label>Value preview</NumberInput.Label>
-            <NumberInput.Control>
-              <NumberInput.DecrementTrigger />
-              <NumberInput.Input />
-              <NumberInput.IncrementTrigger />
-            </NumberInput.Control>
-            <NumberInput.ValueText />
-          </NumberInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{numberInputExampleCss}</Preview.CSS>
-  <Preview.Data>{numberInputNoData}</Preview.Data>
+  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Mouse Wheel
@@ -332,30 +170,14 @@ Use `NumberInput.ValueText` when the formatted value should also be visible outs
 Set `allowMouseWheel` when wheel-based value changes are intentional for the workflow.
 
 <Preview>
-  <MouseWheelNumberInputExample />
+  <NumberInputDocs.MouseWheelNumberInputExample />
 
-  <Preview.Code>
-    {`
-      import { NumberInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/mouse-wheel.tsx#demo</include>
+</Preview.Code>
 
-      export function MouseWheelNumberInputDemo() {
-        return (
-          <NumberInput defaultValue="5" allowMouseWheel>
-            <NumberInput.Label>Mouse wheel enabled</NumberInput.Label>
-            <NumberInput.Control>
-              <NumberInput.DecrementTrigger />
-              <NumberInput.Input />
-              <NumberInput.IncrementTrigger />
-            </NumberInput.Control>
-          </NumberInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{numberInputExampleCss}</Preview.CSS>
-  <Preview.Data>{numberInputNoData}</Preview.Data>
+  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Formatting
@@ -363,35 +185,14 @@ Set `allowMouseWheel` when wheel-based value changes are intentional for the wor
 Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
 
 <Preview>
-  <FormattedNumberInputExample />
+  <NumberInputDocs.FormattedNumberInputExample />
 
-  <Preview.Code>
-    {`
-      import { NumberInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/formatting.tsx#demo</include>
+</Preview.Code>
 
-      export function FormattedNumberInputDemo() {
-        return (
-          <NumberInput
-            defaultValue="1250"
-            min={0}
-            step={50}
-            formatOptions={{ style: "currency", currency: "USD", maximumFractionDigits: 0 }}
-          >
-            <NumberInput.Label>Price</NumberInput.Label>
-            <NumberInput.Control>
-              <NumberInput.DecrementTrigger />
-              <NumberInput.Input />
-              <NumberInput.IncrementTrigger />
-            </NumberInput.Control>
-          </NumberInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{numberInputExampleCss}</Preview.CSS>
-  <Preview.Data>{numberInputNoData}</Preview.Data>
+  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Field
@@ -399,33 +200,14 @@ Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
 Compose with `Field` when form state, error text, and accessibility metadata should be shared.
 
 <Preview>
-  <NumberInputFieldExample />
+  <NumberInputDocs.NumberInputFieldExample />
 
-  <Preview.Code>
-    {`
-      import { Field, NumberInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/field.tsx#demo</include>
+</Preview.Code>
 
-      export function NumberInputFieldDemo() {
-        return (
-          <Field invalid>
-            <NumberInput min={1} max={10} required>
-              <NumberInput.Label>Items</NumberInput.Label>
-              <NumberInput.Control>
-                <NumberInput.DecrementTrigger />
-                <NumberInput.Input />
-                <NumberInput.IncrementTrigger />
-              </NumberInput.Control>
-            </NumberInput>
-            <Field.ErrorText>Value should be between 1 and 10.</Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{numberInputExampleCss}</Preview.CSS>
-  <Preview.Data>{numberInputNoData}</Preview.Data>
+  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -434,43 +216,14 @@ Use Ark `useNumberInput()` with `NumberInput.RootProvider` when state must be cr
 rendered part tree.
 
 <Preview>
-  <RootProviderNumberInputExample />
+  <NumberInputDocs.RootProviderNumberInputExample />
 
-  <Preview.Code>
-    {`
-      import { useNumberInput } from "@ark-ui/react/number-input";
-      import { NumberInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      export function RootProviderNumberInputDemo() {
-        const numberInput = useNumberInput({ defaultValue: "3", min: 1, max: 10 });
-
-        return (
-          <div>
-            <NumberInput.RootProvider value={numberInput}>
-              <NumberInput.Label>Guests</NumberInput.Label>
-              <NumberInput.Control>
-                <NumberInput.DecrementTrigger />
-                <NumberInput.Input />
-                <NumberInput.IncrementTrigger />
-              </NumberInput.Control>
-            </NumberInput.RootProvider>
-            <div className="number-input-root-provider-actions">
-              <button type="button" onClick={() => numberInput.setToMin()}>
-                Min
-              </button>
-              <button type="button" onClick={() => numberInput.setToMax()}>
-                Max
-              </button>
-            </div>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{numberInputExampleCss}</Preview.CSS>
-  <Preview.Data>{numberInputNoData}</Preview.Data>
+  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Icons
@@ -478,34 +231,14 @@ rendered part tree.
 The trigger parts render moduix plus and minus icons by default. Provide children to replace them.
 
 <Preview>
-  <CustomIconsNumberInputExample />
+  <NumberInputDocs.CustomIconsNumberInputExample />
 
-  <Preview.Code>
-    {`
-      import { ChevronDownIcon, ChevronUpIcon, NumberInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/custom-icons.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomIconsNumberInputDemo() {
-        return (
-          <NumberInput defaultValue="8">
-            <NumberInput.Label>Floors</NumberInput.Label>
-            <NumberInput.Control>
-              <NumberInput.DecrementTrigger className="number-input-custom-button">
-                <ChevronDownIcon />
-              </NumberInput.DecrementTrigger>
-              <NumberInput.Input className="number-input-custom-input" />
-              <NumberInput.IncrementTrigger className="number-input-custom-button">
-                <ChevronUpIcon />
-              </NumberInput.IncrementTrigger>
-            </NumberInput.Control>
-          </NumberInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{numberInputExampleCss}</Preview.CSS>
-  <Preview.Data>{numberInputNoData}</Preview.Data>
+  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### CSS Properties
@@ -513,7 +246,7 @@ The trigger parts render moduix plus and minus icons by default. Provide childre
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <NumberInputCssPropertiesPanel />
+      <NumberInputDocs.NumberInputCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

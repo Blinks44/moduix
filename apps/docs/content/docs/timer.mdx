@@ -4,26 +4,7 @@ description: A stopwatch or countdown timer with explicit Ark controls.
 icon: Component
 ---
 
-import {
-  CountdownTimerExample,
-  CustomStylingTimerExample,
-  EventsTimerExample,
-  IntervalTimerExample,
-  PomodoroTimerExample,
-  RootProviderTimerExample,
-  TimerCssPropertiesPanel,
-  TimerExample,
-  timerBasicCode,
-  timerCountdownCode,
-  timerCustomStylingCode,
-  timerCustomStylingCss,
-  timerData,
-  timerEventsCode,
-  timerExampleCss,
-  timerIntervalCode,
-  timerPomodoroCode,
-  timerRootProviderCode,
-} from '@/components/examples/timer';
+import * as TimerDocs from '@/components/examples/timer';
 
 ## API Reference
 
@@ -36,55 +17,18 @@ Use Ark-style parts: `Timer.Root`, `Timer.Area`, `Timer.Item`, `Timer.Separator`
 when the time units should be visible.
 
 <Preview>
-  <TimerExample />
+  <TimerDocs.TimerExample />
 
-  <Preview.Code>{timerBasicCode}</Preview.Code>
-  <Preview.CSS>{timerExampleCss}</Preview.CSS>
-  <Preview.Data>{timerData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/timer/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{TimerDocs.timerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Timer` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-timer
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-timer
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-timer
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-timer
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-timer
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-timer" />
 
 ## Anatomy
 
@@ -166,11 +110,13 @@ Ark timer machine.
 Set `countdown` and `startMs` when the display should decrement toward zero.
 
 <Preview>
-  <CountdownTimerExample />
+  <TimerDocs.CountdownTimerExample />
 
-  <Preview.Code>{timerCountdownCode}</Preview.Code>
-  <Preview.CSS>{timerExampleCss}</Preview.CSS>
-  <Preview.Data>{timerData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/timer/countdown.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{TimerDocs.timerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Interval
@@ -178,11 +124,13 @@ Set `countdown` and `startMs` when the display should decrement toward zero.
 Use `interval` with a `milliseconds` item when the UI needs sub-second updates.
 
 <Preview>
-  <IntervalTimerExample />
+  <TimerDocs.IntervalTimerExample />
 
-  <Preview.Code>{timerIntervalCode}</Preview.Code>
-  <Preview.CSS>{timerExampleCss}</Preview.CSS>
-  <Preview.Data>{timerData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/timer/interval.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{TimerDocs.timerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Events
@@ -190,11 +138,13 @@ Use `interval` with a `milliseconds` item when the UI needs sub-second updates.
 Use `onTick` and `onComplete` for side effects that should follow the Ark timer lifecycle.
 
 <Preview>
-  <EventsTimerExample />
+  <TimerDocs.EventsTimerExample />
 
-  <Preview.Code>{timerEventsCode}</Preview.Code>
-  <Preview.CSS>{timerExampleCss}</Preview.CSS>
-  <Preview.Data>{timerData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/timer/events.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{TimerDocs.timerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Pomodoro
@@ -202,11 +152,13 @@ Use `onTick` and `onComplete` for side effects that should follow the Ark timer 
 Switch between work and break durations from `onComplete` when a timer cycle should advance.
 
 <Preview>
-  <PomodoroTimerExample />
+  <TimerDocs.PomodoroTimerExample />
 
-  <Preview.Code>{timerPomodoroCode}</Preview.Code>
-  <Preview.CSS>{timerExampleCss}</Preview.CSS>
-  <Preview.Data>{timerData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/timer/pomodoro.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{TimerDocs.timerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -216,11 +168,13 @@ part tree. `Timer.RootProvider` stays on `moduix`, while the advanced state hook
 directly from `@ark-ui/react/timer`.
 
 <Preview>
-  <RootProviderTimerExample />
+  <TimerDocs.RootProviderTimerExample />
 
-  <Preview.Code>{timerRootProviderCode}</Preview.Code>
-  <Preview.CSS>{timerExampleCss}</Preview.CSS>
-  <Preview.Data>{timerData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/timer/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{TimerDocs.timerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -229,11 +183,13 @@ Customize Timer with CSS variables, `className`, `data-slot` hooks, and Ark `dat
 attributes.
 
 <Preview>
-  <CustomStylingTimerExample />
+  <TimerDocs.CustomStylingTimerExample />
 
-  <Preview.Code>{timerCustomStylingCode}</Preview.Code>
-  <Preview.CSS>{timerCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{timerData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/timer/custom-styling.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{TimerDocs.timerCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -246,7 +202,7 @@ Ark attributes remain available for part-specific styling.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <TimerCssPropertiesPanel />
+      <TimerDocs.TimerCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

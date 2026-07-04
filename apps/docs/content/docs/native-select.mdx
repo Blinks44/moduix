@@ -4,12 +4,7 @@ description: A styled native select for simple option lists and platform-native 
 icon: Component
 ---
 
-import {
-  NativeSelectCssPropertiesPanel,
-  NativeSelectExample,
-  NativeSelectFieldExample,
-  NativeSelectMultipleExample,
-} from '@/components/examples/native-select';
+import * as NativeSelectDocs from '@/components/examples/native-select';
 
 ## API Reference
 
@@ -30,83 +25,17 @@ or controlled popup behavior.
 Render native `option` or `optgroup` children and use normal select props.
 
 <Preview>
-  <NativeSelectExample />
+  <NativeSelectDocs.NativeSelectExample />
 
-  <Preview.Code>
-    {`
-      import { NativeSelect } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/native-select/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function NativeSelectDemo() {
-        return (
-          <NativeSelect defaultValue="">
-            {frameworkOptions.map((option) => (
-              <option key={option.value} value={option.value} disabled={option.disabled}>
-                {option.label}
-              </option>
-            ))}
-          </NativeSelect>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const frameworkOptions = [
-        { value: "", label: "Choose framework", disabled: true },
-        { value: "react", label: "React" },
-        { value: "vue", label: "Vue" },
-        { value: "svelte", label: "Svelte" },
-      ];
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `NativeSelect` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-native-select
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-native-select
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-native-select
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-native-select
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-native-select
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `NativeSelect` depends on.
+<ShadcnInstall packageName="react-native-select" />
 
 ## Anatomy
 
@@ -170,30 +99,11 @@ must be controlled by the application. Keep `NativeSelect` for browser-owned sel
 Use `Field` for accessible labels, descriptions, error text, and shared form state.
 
 <Preview>
-  <NativeSelectFieldExample />
+  <NativeSelectDocs.NativeSelectFieldExample />
 
-  <Preview.Code>
-    {`
-      import { Field, NativeSelect } from "@moduix/react";
-
-      export function NativeSelectFieldDemo() {
-        return (
-          <Field.Root className="nativeSelectFieldDemo" invalid required>
-            <Field.Label>Framework</Field.Label>
-            <NativeSelect defaultValue="" name="framework">
-              {frameworkOptions.map((option) => (
-                <option key={option.value} value={option.value} disabled={option.disabled}>
-                  {option.label}
-                </option>
-              ))}
-            </NativeSelect>
-            <Field.ErrorText>Select a framework.</Field.ErrorText>
-          </Field.Root>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/native-select/field-integration.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -204,16 +114,6 @@ Use `Field` for accessible labels, descriptions, error text, and shared form sta
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const frameworkOptions = [
-        { value: "", label: "Choose framework", disabled: true },
-        { value: "react", label: "React" },
-        { value: "vue", label: "Vue" },
-        { value: "svelte", label: "Svelte" },
-      ];
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Multiple Selection
@@ -221,39 +121,12 @@ Use `Field` for accessible labels, descriptions, error text, and shared form sta
 Native `multiple` and `size` props turn the control into a browser-managed option list.
 
 <Preview>
-  <NativeSelectMultipleExample />
+  <NativeSelectDocs.NativeSelectMultipleExample />
 
-  <Preview.Code>
-    {`
-      import { NativeSelect } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/native-select/multiple-selection.tsx#demo</include>
+</Preview.Code>
 
-      export function NativeSelectMultipleDemo() {
-        return (
-          <NativeSelect defaultValue={selectedFrameworks} multiple size={3} aria-label="Frameworks">
-            {frameworkOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </NativeSelect>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const frameworkOptions = [
-        { value: "react", label: "React" },
-        { value: "vue", label: "Vue" },
-        { value: "svelte", label: "Svelte" },
-      ];
-
-      const selectedFrameworks = ["react", "vue"];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Styling
@@ -267,7 +140,7 @@ transitions. Its default padding and indicator geometry follow the shared 4px sp
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <NativeSelectCssPropertiesPanel />
+      <NativeSelectDocs.NativeSelectCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

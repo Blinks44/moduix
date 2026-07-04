@@ -4,41 +4,7 @@ description: Ark UI tree view composition for hierarchical folders, files, and n
 icon: Component
 ---
 
-import {
-  AsyncTreeViewExample,
-  CheckboxTreeViewExample,
-  ControlledExpandedTreeViewExample,
-  ControlledSelectedTreeViewExample,
-  CustomStyledTreeViewExample,
-  DisabledNodeTreeViewExample,
-  ExpandCollapseTreeViewExample,
-  FilteringTreeViewExample,
-  LazyMountTreeViewExample,
-  LinksTreeViewExample,
-  RenameTreeViewExample,
-  RootProviderTreeViewExample,
-  TreeViewCssPropertiesPanel,
-  TreeViewExample,
-  treeViewAsyncCode,
-  treeViewAsyncData,
-  treeViewBasicCode,
-  treeViewCheckboxCode,
-  treeViewControlledExpandedCode,
-  treeViewControlledSelectedCode,
-  treeViewCustomStylingCode,
-  treeViewCustomStylingCss,
-  treeViewData,
-  treeViewDisabledCode,
-  treeViewDisabledData,
-  treeViewExampleCss,
-  treeViewExpandCollapseCode,
-  treeViewFilteringCode,
-  treeViewLazyMountCode,
-  treeViewLinksCode,
-  treeViewLinksData,
-  treeViewRenameCode,
-  treeViewRootProviderCode,
-} from '@/components/examples/tree-view';
+import * as TreeViewDocs from '@/components/examples/tree-view';
 
 ## API Reference
 
@@ -50,56 +16,19 @@ Start with `TreeView`, pass a `createTreeCollection` result, and render each rec
 `NodeProvider`. Use branches for nodes with children and items for leaves.
 
 <Preview>
-  <TreeViewExample />
+  <TreeViewDocs.TreeViewExample />
 
-<Preview.Code>{treeViewBasicCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/basic.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{treeViewExampleCss}</Preview.CSS>
-  <Preview.Data>{treeViewData}</Preview.Data>
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Install With Shadcn (Optional)
+## Install with shadcn
 
-If you want `TreeView` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-tree-view
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-tree-view
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-tree-view
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-tree-view
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-tree-view
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-tree-view" />
 
 ## Anatomy
 
@@ -192,12 +121,14 @@ moduix-specific prop.
 Control expanded branch values with `expandedValue` and update from `details.expandedValue`.
 
 <Preview>
-  <ControlledExpandedTreeViewExample />
+  <TreeViewDocs.ControlledExpandedTreeViewExample />
 
-<Preview.Code>{treeViewControlledExpandedCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/controlled-expanded.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{treeViewExampleCss}</Preview.CSS>
-  <Preview.Data>{treeViewData}</Preview.Data>
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Controlled Selected
@@ -205,12 +136,14 @@ Control expanded branch values with `expandedValue` and update from `details.exp
 Control selected nodes with `selectedValue` and update from `details.selectedValue`.
 
 <Preview>
-  <ControlledSelectedTreeViewExample />
+  <TreeViewDocs.ControlledSelectedTreeViewExample />
 
-<Preview.Code>{treeViewControlledSelectedCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/controlled-selected.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{treeViewExampleCss}</Preview.CSS>
-  <Preview.Data>{treeViewData}</Preview.Data>
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Checkbox Tree
@@ -219,12 +152,14 @@ Add `NodeCheckbox` inside branch controls and items when users need checked, unc
 indeterminate node state.
 
 <Preview>
-  <CheckboxTreeViewExample />
+  <TreeViewDocs.CheckboxTreeViewExample />
 
-<Preview.Code>{treeViewCheckboxCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/checkbox-tree.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{treeViewExampleCss}</Preview.CSS>
-  <Preview.Data>{treeViewData}</Preview.Data>
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Disabled Node
@@ -233,12 +168,14 @@ Nodes with `disabled: true` in the collection keep their Ark disabled state and 
 `data-disabled` on the rendered row.
 
 <Preview>
-  <DisabledNodeTreeViewExample />
+  <TreeViewDocs.DisabledNodeTreeViewExample />
 
-<Preview.Code>{treeViewDisabledCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/disabled-node.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{treeViewExampleCss}</Preview.CSS>
-  <Preview.Data>{treeViewDisabledData}</Preview.Data>
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Expand And Collapse All
@@ -247,12 +184,14 @@ Use Ark `useTreeView()` with `TreeView.RootProvider` when controls outside the n
 expand or collapse every branch.
 
 <Preview>
-  <ExpandCollapseTreeViewExample />
+  <TreeViewDocs.ExpandCollapseTreeViewExample />
 
-<Preview.Code>{treeViewExpandCollapseCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/expand-and-collapse-all.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{treeViewExampleCss}</Preview.CSS>
-  <Preview.Data>{treeViewData}</Preview.Data>
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Filtering
@@ -260,12 +199,14 @@ expand or collapse every branch.
 Filter the Ark collection before rendering. The recursive node composition stays the same.
 
 <Preview>
-  <FilteringTreeViewExample />
+  <TreeViewDocs.FilteringTreeViewExample />
 
-<Preview.Code>{treeViewFilteringCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/filtering.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{treeViewExampleCss}</Preview.CSS>
-  <Preview.Data>{treeViewData}</Preview.Data>
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Async Loading
@@ -274,12 +215,14 @@ Use `loadChildren` for branches whose children are not present yet, then replace
 state with the collection from `onLoadChildrenComplete`.
 
 <Preview>
-  <AsyncTreeViewExample />
+  <TreeViewDocs.AsyncTreeViewExample />
 
-<Preview.Code>{treeViewAsyncCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/async-loading.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{treeViewExampleCss}</Preview.CSS>
-  <Preview.Data>{treeViewAsyncData}</Preview.Data>
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Lazy Mount
@@ -287,12 +230,14 @@ state with the collection from `onLoadChildrenComplete`.
 Use `lazyMount` and `unmountOnExit` when branch content should mount only while it is visible.
 
 <Preview>
-  <LazyMountTreeViewExample />
+  <TreeViewDocs.LazyMountTreeViewExample />
 
-<Preview.Code>{treeViewLazyMountCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/lazy-mount.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{treeViewExampleCss}</Preview.CSS>
-  <Preview.Data>{treeViewData}</Preview.Data>
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Rename Node
@@ -301,12 +246,14 @@ Enable rename with `canRename`, render `NodeRenameInput` while the node is renam
 collection in `onRenameComplete`.
 
 <Preview>
-  <RenameTreeViewExample />
+  <TreeViewDocs.RenameTreeViewExample />
 
-<Preview.Code>{treeViewRenameCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/rename-node.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{treeViewExampleCss}</Preview.CSS>
-  <Preview.Data>{treeViewData}</Preview.Data>
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -314,12 +261,14 @@ collection in `onRenameComplete`.
 Use Ark `useTreeView` with `TreeView.RootProvider` when state must be owned outside the rendered tree.
 
 <Preview>
-  <RootProviderTreeViewExample />
+  <TreeViewDocs.RootProviderTreeViewExample />
 
-<Preview.Code>{treeViewRootProviderCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/root-provider.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{treeViewExampleCss}</Preview.CSS>
-  <Preview.Data>{treeViewData}</Preview.Data>
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Links
@@ -327,12 +276,14 @@ Use Ark `useTreeView` with `TreeView.RootProvider` when state must be owned outs
 Use `asChild` on `TreeView.Item` to make leaf rows real links while preserving tree behavior.
 
 <Preview>
-  <LinksTreeViewExample />
+  <TreeViewDocs.LinksTreeViewExample />
 
-<Preview.Code>{treeViewLinksCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/links.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{treeViewExampleCss}</Preview.CSS>
-  <Preview.Data>{treeViewLinksData}</Preview.Data>
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -341,12 +292,14 @@ Override `--tree-view-*` variables or target stable `data-slot` hooks for produc
 indentation, and selection color.
 
 <Preview>
-  <CustomStyledTreeViewExample />
+  <TreeViewDocs.CustomStyledTreeViewExample />
 
-<Preview.Code>{treeViewCustomStylingCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{treeViewCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{treeViewData}</Preview.Data>
+  <Preview.CSS>{TreeViewDocs.treeViewCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -359,7 +312,7 @@ data attributes and moduix `data-slot` hooks.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <TreeViewCssPropertiesPanel />
+      <TreeViewDocs.TreeViewCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

@@ -4,16 +4,7 @@ description: A semantic heading primitive with Ark factory composition and modui
 icon: Component
 ---
 
-import {
-  CustomStylingHeadingExample,
-  HeadingCustomHostExample,
-  HeadingCssPropertiesPanel,
-  HeadingElementsExample,
-  HeadingExample,
-  HeadingSemanticLevelExample,
-  HeadingSizesExample,
-  HeadingWeightsExample,
-} from '@/components/examples/heading';
+import * as HeadingDocs from '@/components/examples/heading';
 
 ## API Reference
 
@@ -28,19 +19,11 @@ Ark UI does not ship a dedicated heading primitive. Moduix builds this component
 tied to the document outline.
 
 <Preview>
-  <HeadingExample />
+  <HeadingDocs.HeadingExample />
 
-  <Preview.Code>
-    {`
-      import { Heading } from "@moduix/react";
-      import styles from "./heading.module.css";
-
-      export function HeadingDemo() {
-        return <Heading className={styles.demo}>{headingText}</Heading>;
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -51,55 +34,11 @@ tied to the document outline.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const headingText = "Build reliable interfaces";
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-Install the source component from the moduix registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-heading
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-heading
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-heading
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-heading
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-heading
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-heading" />
 
 ## Anatomy
 
@@ -161,23 +100,11 @@ Keep document structure and visual emphasis independent by choosing a semantic l
 explicit visual size.
 
 <Preview>
-  <HeadingSemanticLevelExample />
+  <HeadingDocs.HeadingSemanticLevelExample />
 
-  <Preview.Code>
-    {`
-      import { Heading } from "@moduix/react";
-      import styles from "./heading.module.css";
-
-      export function SemanticHeadingDemo() {
-        return (
-          <Heading as="h2" size="2xl" className={styles.demo}>
-            {headingText}
-          </Heading>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/semantic-level-and-visual-size.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -188,12 +115,6 @@ explicit visual size.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const headingText = "Page title rendered as h2";
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Host
@@ -201,23 +122,11 @@ explicit visual size.
 Use `asChild` for Ark factory composition when a semantic heading element must be supplied directly.
 
 <Preview>
-  <HeadingCustomHostExample />
+  <HeadingDocs.HeadingCustomHostExample />
 
-  <Preview.Code>
-    {`
-      import { Heading } from "@moduix/react";
-      import styles from "./heading.module.css";
-
-      export function CustomHostHeadingDemo() {
-        return (
-          <Heading asChild size="xl" className={styles.customHost}>
-            <h2>{headingText}</h2>
-          </Heading>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/custom-host.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -228,12 +137,6 @@ Use `asChild` for Ark factory composition when a semantic heading element must b
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const headingText = "Factory-composed heading";
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Heading Levels
@@ -241,28 +144,11 @@ Use `asChild` for Ark factory composition when a semantic heading element must b
 Use `as` for `h2` through `h6`. The default visual scale follows the actual heading element.
 
 <Preview>
-  <HeadingElementsExample />
+  <HeadingDocs.HeadingElementsExample />
 
-  <Preview.Code>
-    {`
-      import { Heading } from "@moduix/react";
-      import styles from "./heading.module.css";
-
-      export function HeadingLevelsDemo() {
-        return (
-          <div className={styles.stack}>
-            <Heading>{headingLevels[0].label}</Heading>
-            <Heading as="h2">{headingLevels[1].label}</Heading>
-            <Heading as="h3">{headingLevels[2].label}</Heading>
-            <Heading as="h4">{headingLevels[3].label}</Heading>
-            <Heading as="h5">{headingLevels[4].label}</Heading>
-            <Heading as="h6">{headingLevels[5].label}</Heading>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/heading-levels.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -277,19 +163,6 @@ Use `as` for `h2` through `h6`. The default visual scale follows the actual head
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const headingLevels = [
-        { level: 1, label: "Heading level 1" },
-        { level: 2, label: "Heading level 2" },
-        { level: 3, label: "Heading level 3" },
-        { level: 4, label: "Heading level 4" },
-        { level: 5, label: "Heading level 5" },
-        { level: 6, label: "Heading level 6" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Visual Sizes
@@ -297,27 +170,11 @@ Use `as` for `h2` through `h6`. The default visual scale follows the actual head
 Use `size` when multiple headings share one semantic level but need different visual emphasis.
 
 <Preview>
-  <HeadingSizesExample />
+  <HeadingDocs.HeadingSizesExample />
 
-  <Preview.Code>
-    {`
-      import { Heading } from "@moduix/react";
-      import styles from "./heading.module.css";
-
-      export function HeadingSizesDemo() {
-        return (
-          <div className={styles.stack}>
-            {headingSizes.map((item) => (
-              <Heading key={item.size} as="h2" size={item.size}>
-                {item.label}
-              </Heading>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/visual-sizes.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -332,19 +189,6 @@ Use `size` when multiple headings share one semantic level but need different vi
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const headingSizes = [
-        { size: "2xl", label: "Extra-large heading" },
-        { size: "xl", label: "Large heading" },
-        { size: "lg", label: "Medium-large heading" },
-        { size: "md", label: "Medium heading" },
-        { size: "sm", label: "Small heading" },
-        { size: "xs", label: "Extra-small heading" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Weights
@@ -352,27 +196,11 @@ Use `size` when multiple headings share one semantic level but need different vi
 Use `weight` for the built-in typography emphasis presets.
 
 <Preview>
-  <HeadingWeightsExample />
+  <HeadingDocs.HeadingWeightsExample />
 
-  <Preview.Code>
-    {`
-      import { Heading } from "@moduix/react";
-      import styles from "./heading.module.css";
-
-      export function HeadingWeightsDemo() {
-        return (
-          <div className={styles.stack}>
-            {headingWeights.map((item) => (
-              <Heading key={item.weight} as="h2" weight={item.weight}>
-                {item.label}
-              </Heading>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/weights.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -387,17 +215,6 @@ Use `weight` for the built-in typography emphasis presets.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const headingWeights = [
-        { weight: "regular", label: "Regular weight" },
-        { weight: "medium", label: "Medium weight" },
-        { weight: "semibold", label: "Semibold weight" },
-        { weight: "bold", label: "Bold weight" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -405,23 +222,11 @@ Use `weight` for the built-in typography emphasis presets.
 Pass `className` to override public typography variables on one heading.
 
 <Preview>
-  <CustomStylingHeadingExample />
+  <HeadingDocs.CustomStylingHeadingExample />
 
-  <Preview.Code>
-    {`
-      import { Heading } from "@moduix/react";
-      import styles from "./heading.module.css";
-
-      export function CustomHeadingDemo() {
-        return (
-          <Heading as="h2" className={styles.custom}>
-            {headingText}
-          </Heading>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -435,12 +240,6 @@ Pass `className` to override public typography variables on one heading.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const headingText = "Customized heading";
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Styling
@@ -450,7 +249,7 @@ Pass `className` to override public typography variables on one heading.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <HeadingCssPropertiesPanel />
+      <HeadingDocs.HeadingCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

@@ -4,20 +4,7 @@ description: An accessible edge panel with swipe gestures, snap points, and stac
 icon: Component
 ---
 
-import {
-  ControlledDrawerExample,
-  DragControlsDrawerExample,
-  DrawerCssPropertiesPanel,
-  DrawerExample,
-  IndentDrawerExample,
-  MultipleTriggersDrawerExample,
-  NestedDrawerExample,
-  NonModalDrawerExample,
-  RootProviderDrawerExample,
-  ScrollableDrawerExample,
-  SnapPointsDrawerExample,
-  SwipeDirectionDrawerExample,
-} from '@/components/examples/drawer';
+import * as DrawerDocs from '@/components/examples/drawer';
 
 ## API Reference
 
@@ -35,43 +22,11 @@ Compose the Ark structural parts explicitly. `Drawer.Content` is the real intera
 `Drawer.Positioner` aligns it and `Drawer.Backdrop` provides the modal layer.
 
 <Preview>
-  <DrawerExample />
+  <DrawerDocs.DrawerExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Drawer } from "@moduix/react";
-
-      export function DrawerDemo() {
-        return (
-          <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
-            <Drawer.Trigger asChild>
-              <Button>{copy.trigger}</Button>
-            </Drawer.Trigger>
-            <Drawer.Backdrop />
-            <Drawer.Positioner>
-              <Drawer.Content className="drawer-content">
-                <Drawer.Grabber>
-                  <Drawer.GrabberIndicator />
-                </Drawer.Grabber>
-                <Drawer.Header>
-                  <Drawer.Title>{copy.title}</Drawer.Title>
-                  <Drawer.CloseIcon />
-                  <Drawer.Description>{copy.description}</Drawer.Description>
-                </Drawer.Header>
-                <Drawer.Body>{copy.body}</Drawer.Body>
-                <Drawer.Footer>
-                  <Drawer.CloseTrigger asChild>
-                    <Button variant="outline">Close</Button>
-                  </Drawer.CloseTrigger>
-                </Drawer.Footer>
-              </Drawer.Content>
-            </Drawer.Positioner>
-          </Drawer>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/drawer/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -82,59 +37,11 @@ Compose the Ark structural parts explicitly. `Drawer.Content` is the real intera
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const copy = {
-        trigger: "Open drawer",
-        title: "Notifications",
-        description: "You are all caught up. Good job!",
-        body: "Bottom drawers are draggable by default.",
-      };
-      const snapPoints = [0.18, 1];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-drawer
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-drawer
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-drawer
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-drawer
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-drawer
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-drawer" />
 
 ## Anatomy
 
@@ -240,36 +147,11 @@ Wrap coordinated indent surfaces in `Drawer.Stack`, then render `Drawer.IndentBa
 Use logical `start` and `end` values for side drawers so the same code works in LTR and RTL.
 
 <Preview>
-  <SwipeDirectionDrawerExample />
+  <DrawerDocs.SwipeDirectionDrawerExample />
 
   <Preview.Code>
-    {`
-      import { Button, Drawer } from "@moduix/react";
-
-      export function SwipeDirectionDrawerDemo() {
-        return (
-          <Drawer swipeDirection={direction}>
-            <Drawer.Trigger asChild>
-              <Button>Open right drawer</Button>
-            </Drawer.Trigger>
-            <Drawer.Backdrop />
-            <Drawer.Positioner>
-              <Drawer.Content className="side-drawer">
-                <Drawer.Header>
-                  <Drawer.Title>Details</Drawer.Title>
-                  <Drawer.CloseIcon />
-                  <Drawer.Description>
-                    Logical end resolves to the right in LTR.
-                  </Drawer.Description>
-                </Drawer.Header>
-              </Drawer.Content>
-            </Drawer.Positioner>
-          </Drawer>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/drawer/swipe-direction.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .side-drawer {
@@ -278,7 +160,7 @@ Use logical `start` and `end` values for side drawers so the same code works in 
     `}
 
   </Preview.CSS>
-  <Preview.Data>{`const direction = "end" as const;`}</Preview.Data>
+  
 </Preview>
 
 ### Snap Points
@@ -286,41 +168,13 @@ Use logical `start` and `end` values for side drawers so the same code works in 
 Define intermediate positions on the root and choose the initial position with `defaultSnapPoint`.
 
 <Preview>
-  <SnapPointsDrawerExample />
+  <DrawerDocs.SnapPointsDrawerExample />
 
   <Preview.Code>
-    {`
-      import { Button, Drawer } from "@moduix/react";
-
-      export function SnapPointsDrawerDemo() {
-        return (
-          <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[1]}>
-            <Drawer.Trigger asChild>
-              <Button>Open with snap points</Button>
-            </Drawer.Trigger>
-            <Drawer.Backdrop />
-            <Drawer.Positioner>
-              <Drawer.Content className="snap-drawer">
-                <Drawer.Grabber>
-                  <Drawer.GrabberIndicator />
-                </Drawer.Grabber>
-                <Drawer.Header>
-                  <Drawer.Title>Snap points</Drawer.Title>
-                  <Drawer.CloseIcon />
-                  <Drawer.Description>
-                    Drag between 25%, 50%, and 100% of the viewport.
-                  </Drawer.Description>
-                </Drawer.Header>
-              </Drawer.Content>
-            </Drawer.Positioner>
-          </Drawer>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/drawer/snap-points.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`.snap-drawer { --drawer-max-height: 100dvh; }`}</Preview.CSS>
-  <Preview.Data>{`const snapPoints = [0.25, 0.5, 1];`}</Preview.Data>
+  
 </Preview>
 
 ### Non-Modal
@@ -328,43 +182,13 @@ Define intermediate positions on the root and choose the initial position with `
 Set `modal={false}` when the page must remain interactive while the drawer is open.
 
 <Preview>
-  <NonModalDrawerExample />
+  <DrawerDocs.NonModalDrawerExample />
 
   <Preview.Code>
-    {`
-      import { Button, Drawer } from "@moduix/react";
-
-      export function NonModalDrawerDemo() {
-        return (
-          <Drawer modal={modal} snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
-            <Drawer.Trigger asChild>
-              <Button>Open non-modal drawer</Button>
-            </Drawer.Trigger>
-            <Drawer.Positioner>
-              <Drawer.Content className="non-modal-drawer">
-                <Drawer.Header>
-                  <Drawer.Title>Non-modal drawer</Drawer.Title>
-                  <Drawer.CloseIcon />
-                  <Drawer.Description>
-                    The page remains interactive while this drawer is open.
-                  </Drawer.Description>
-                </Drawer.Header>
-              </Drawer.Content>
-            </Drawer.Positioner>
-          </Drawer>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/drawer/non-modal.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`.non-modal-drawer { --drawer-shadow: var(--shadow-xl); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const modal = false;
-      const snapPoints = [0.18, 1];
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Controlled
@@ -372,52 +196,13 @@ Set `modal={false}` when the page must remain interactive while the drawer is op
 Read `details.open` from the Ark callback instead of expecting a boolean callback argument.
 
 <Preview>
-  <ControlledDrawerExample />
+  <DrawerDocs.ControlledDrawerExample />
 
   <Preview.Code>
-    {`
-      import { Button, Drawer } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledDrawerDemo() {
-        const [open, setOpen] = useState(initialOpen);
-
-        return (
-          <>
-            <Button type="button" onClick={() => setOpen((value) => !value)}>
-              {open ? "Close" : "Open"} drawer
-            </Button>
-            <Drawer
-              open={open}
-              snapPoints={snapPoints}
-              defaultSnapPoint={snapPoints[0]}
-              onOpenChange={(details) => setOpen(details.open)}
-            >
-              <Drawer.Backdrop />
-              <Drawer.Positioner>
-                <Drawer.Content className="controlled-drawer">
-                  <Drawer.Header>
-                    <Drawer.Title>Controlled drawer</Drawer.Title>
-                    <Drawer.CloseIcon />
-                    <Drawer.Description>Open: {String(open)}</Drawer.Description>
-                  </Drawer.Header>
-                </Drawer.Content>
-              </Drawer.Positioner>
-            </Drawer>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/drawer/controlled.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`.controlled-drawer { --drawer-width: min(100%, 48rem); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const initialOpen = false;
-      const snapPoints = [0.18, 1];
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Scrollable
@@ -426,54 +211,11 @@ Keep long content in `Drawer.Body`, and use `ScrollArea` when the drawer should 
 scroll container while the grabber and header stay fixed.
 
 <Preview>
-  <ScrollableDrawerExample />
+  <DrawerDocs.ScrollableDrawerExample />
 
   <Preview.Code>
-    {`
-      import { Button, Drawer, ScrollArea } from "@moduix/react";
-
-      export function ScrollableDrawerDemo() {
-        return (
-          <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
-            <Drawer.Trigger asChild>
-              <Button>Open scrollable drawer</Button>
-            </Drawer.Trigger>
-            <Drawer.Backdrop />
-            <Drawer.Positioner>
-              <Drawer.Content>
-                <Drawer.Grabber>
-                  <Drawer.GrabberIndicator />
-                </Drawer.Grabber>
-                <Drawer.Header>
-                  <Drawer.Title>Scrollable drawer</Drawer.Title>
-                  <Drawer.CloseIcon />
-                </Drawer.Header>
-                <Drawer.Body className="scroll-region">
-                  <ScrollArea className="scroll-area">
-                    <ScrollArea.Viewport className="scroll-viewport">
-                      <ScrollArea.Content className="scroll-body">
-                        {sections.map((section) => (
-                          <section key={section.title}>
-                            <h3>{section.title}</h3>
-                            <p>{section.body}</p>
-                          </section>
-                        ))}
-                      </ScrollArea.Content>
-                    </ScrollArea.Viewport>
-                    <ScrollArea.Scrollbar>
-                      <ScrollArea.Thumb />
-                    </ScrollArea.Scrollbar>
-                    <ScrollArea.Corner />
-                  </ScrollArea>
-                </Drawer.Body>
-              </Drawer.Content>
-            </Drawer.Positioner>
-          </Drawer>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/drawer/scrollable.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .scroll-region {
@@ -499,16 +241,7 @@ scroll container while the grabber and header stay fixed.
     `}
 
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const sections = [
-        { title: "Overview", body: "Drawer content can scroll independently." },
-        { title: "Details", body: "The grabber and header remain visible." },
-      ];
-      const snapPoints = [0.18, 1];
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Drag Controls
@@ -517,44 +250,11 @@ Combine `draggable={false}` and `data-no-drag` when only the grabber should move
 specific interactive regions must never start a drag.
 
 <Preview>
-  <DragControlsDrawerExample />
+  <DrawerDocs.DragControlsDrawerExample />
 
   <Preview.Code>
-    {`
-      import { Button, Drawer } from "@moduix/react";
-
-      export function DragControlsDrawerDemo() {
-        return (
-          <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
-            <Drawer.Trigger asChild>
-              <Button>Open drawer</Button>
-            </Drawer.Trigger>
-            <Drawer.Backdrop />
-            <Drawer.Positioner>
-              <Drawer.Content draggable={dragConfig.content}>
-                <Drawer.Grabber>
-                  <Drawer.GrabberIndicator />
-                </Drawer.Grabber>
-                <Drawer.Header>
-                  <Drawer.Title>Drag controls</Drawer.Title>
-                  <Drawer.CloseIcon />
-                  <Drawer.Description>
-                    Content dragging is disabled; the grabber remains draggable.
-                  </Drawer.Description>
-                </Drawer.Header>
-                <Drawer.Body>
-                  <div data-no-drag className="no-drag-area">
-                    Interactive content
-                  </div>
-                </Drawer.Body>
-              </Drawer.Content>
-            </Drawer.Positioner>
-          </Drawer>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/drawer/drag-controls.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .no-drag-area {
@@ -565,13 +265,7 @@ specific interactive regions must never start a drag.
     `}
 
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const dragConfig = { content: false };
-      const snapPoints = [0.18, 1];
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Multiple Triggers
@@ -580,57 +274,13 @@ Assign each trigger a `value` to share one drawer across a list. The callback id
 trigger is current.
 
 <Preview>
-  <MultipleTriggersDrawerExample />
+  <DrawerDocs.MultipleTriggersDrawerExample />
 
   <Preview.Code>
-    {`
-      import type { DrawerTriggerValueChangeDetails } from "@ark-ui/react/drawer";
-      import { Button, Drawer } from "@moduix/react";
-      import { useState } from "react";
-
-      export function MultipleTriggersDrawerDemo() {
-        const [activeUser, setActiveUser] = useState(null as (typeof users)[number] | null);
-        const handleTriggerValueChange = (details: DrawerTriggerValueChangeDetails) => {
-          setActiveUser(users.find((user) => user.id === details.value) ?? null);
-        };
-
-        return (
-          <Drawer swipeDirection="end" onTriggerValueChange={handleTriggerValueChange}>
-            <div className="trigger-group">
-              {users.map((user) => (
-                <Drawer.Trigger key={user.id} value={user.id} asChild>
-                  <Button variant="outline">Edit {user.name}</Button>
-                </Drawer.Trigger>
-              ))}
-            </div>
-            <Drawer.Backdrop />
-            <Drawer.Positioner>
-              <Drawer.Content>
-                <Drawer.Header>
-                  <Drawer.Title>Edit user</Drawer.Title>
-                  <Drawer.CloseIcon />
-                  <Drawer.Description>{activeUser?.email}</Drawer.Description>
-                </Drawer.Header>
-                {activeUser ? <Drawer.Body>Selected: {activeUser.name}</Drawer.Body> : null}
-              </Drawer.Content>
-            </Drawer.Positioner>
-          </Drawer>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/drawer/multiple-triggers.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`.trigger-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const users = [
-        { id: "1", name: "Alice Johnson", email: "alice@example.com" },
-        { id: "2", name: "Bob Smith", email: "bob@example.com" },
-        { id: "3", name: "Carol Davis", email: "carol@example.com" },
-      ];
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Root Provider
@@ -639,47 +289,11 @@ Use `useDrawer` when buttons outside the component tree must open the drawer or 
 points.
 
 <Preview>
-  <RootProviderDrawerExample />
+  <DrawerDocs.RootProviderDrawerExample />
 
   <Preview.Code>
-    {`
-      import { useDrawer } from "@ark-ui/react/drawer";
-      import { Button, Drawer } from "@moduix/react";
-
-      export function RootProviderDrawerDemo() {
-        const drawer = useDrawer({
-          defaultSnapPoint: snapPoints[1],
-          snapPoints,
-        });
-
-        return (
-          <div className="provider-demo">
-            <div className="provider-actions">
-              <Button onClick={() => drawer.setOpen(true)}>Open via API</Button>
-              <Button variant="outline" onClick={() => drawer.setSnapPoint(1)}>
-                Set 100%
-              </Button>
-            </div>
-            <Drawer.RootProvider value={drawer}>
-              <Drawer.Backdrop />
-              <Drawer.Positioner>
-                <Drawer.Content>
-                  <Drawer.Header>
-                    <Drawer.Title>Root provider</Drawer.Title>
-                    <Drawer.CloseIcon />
-                    <Drawer.Description>
-                      Active snap point: {String(drawer.snapPoint)}
-                    </Drawer.Description>
-                  </Drawer.Header>
-                </Drawer.Content>
-              </Drawer.Positioner>
-            </Drawer.RootProvider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/drawer/root-provider.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .provider-demo {
@@ -694,7 +308,7 @@ points.
     `}
 
   </Preview.CSS>
-  <Preview.Data>{`const snapPoints = [0.25, 0.5, 1];`}</Preview.Data>
+  
 </Preview>
 
 ### Nested
@@ -704,80 +318,11 @@ trees so each surface keeps its own open state and focus lifecycle. The parent s
 behind the active drawer while leaving a visible edge.
 
 <Preview>
-  <NestedDrawerExample />
+  <DrawerDocs.NestedDrawerExample />
 
   <Preview.Code>
-    {`
-      import { useDrawer } from "@ark-ui/react/drawer";
-      import { Button, Drawer } from "@moduix/react";
-
-      export function NestedDrawerDemo() {
-        const accountDrawer = useDrawer({
-          snapPoints,
-          defaultSnapPoint: snapPoints[0],
-        });
-        const securityDrawer = useDrawer({
-          snapPoints,
-          defaultSnapPoint: snapPoints[0],
-        });
-
-        return (
-          <div className="nested-demo">
-            <Button onClick={() => accountDrawer.setOpen(true)}>Open account drawer</Button>
-            <Drawer.RootProvider value={accountDrawer}>
-              <Drawer.Backdrop />
-              <Drawer.Positioner>
-                <Drawer.Content>
-                  <Drawer.Grabber>
-                    <Drawer.GrabberIndicator />
-                  </Drawer.Grabber>
-                  <Drawer.Header>
-                    <Drawer.Title>Account</Drawer.Title>
-                    <Drawer.CloseIcon />
-                    <Drawer.Description>Review account preferences.</Drawer.Description>
-                  </Drawer.Header>
-                  <Drawer.Body>
-                    <Button variant="outline" onClick={() => securityDrawer.setOpen(true)}>
-                      Security settings
-                    </Button>
-                  </Drawer.Body>
-                </Drawer.Content>
-              </Drawer.Positioner>
-            </Drawer.RootProvider>
-            <Drawer.RootProvider value={securityDrawer}>
-              <Drawer.Positioner>
-                <Drawer.Content>
-                  <Drawer.Grabber>
-                    <Drawer.GrabberIndicator />
-                  </Drawer.Grabber>
-                  <Drawer.Header>
-                    <Drawer.Title>Security</Drawer.Title>
-                    <Drawer.CloseIcon />
-                    <Drawer.Description>
-                      Nested drawers keep their own focus state.
-                    </Drawer.Description>
-                  </Drawer.Header>
-                  <Drawer.Body>
-                    <ul className="nested-list">
-                      {items.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </Drawer.Body>
-                  <Drawer.Footer>
-                    <Drawer.CloseTrigger asChild>
-                      <Button variant="outline">Done</Button>
-                    </Drawer.CloseTrigger>
-                  </Drawer.Footer>
-                </Drawer.Content>
-              </Drawer.Positioner>
-            </Drawer.RootProvider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/drawer/nested.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .nested-demo {
@@ -794,17 +339,7 @@ behind the active drawer while leaving a visible edge.
     `}
 
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const items = [
-        "Passkeys enabled",
-        "Two-factor authentication on",
-        "3 signed-in devices",
-      ];
-      const snapPoints = [0.42, 1];
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Indent Background
@@ -813,43 +348,11 @@ behind the active drawer while leaving a visible edge.
 progress.
 
 <Preview>
-  <IndentDrawerExample />
+  <DrawerDocs.IndentDrawerExample />
 
   <Preview.Code>
-    {`
-      import { Button, Drawer } from "@moduix/react";
-
-      export function IndentDrawerDemo() {
-        return (
-          <Drawer.Stack>
-            <div className="indent-stage">
-              <Drawer.IndentBackground />
-              <Drawer modal={false} snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
-                <Drawer.Indent className="indent-surface">
-                  <Drawer.Trigger asChild>
-                    <Button>{copy.trigger}</Button>
-                  </Drawer.Trigger>
-                </Drawer.Indent>
-                <Drawer.Backdrop />
-                <Drawer.Positioner>
-                  <Drawer.Content>
-                    <Drawer.Grabber>
-                      <Drawer.GrabberIndicator />
-                    </Drawer.Grabber>
-                    <Drawer.Header>
-                      <Drawer.Title>{copy.title}</Drawer.Title>
-                      <Drawer.CloseIcon />
-                    </Drawer.Header>
-                  </Drawer.Content>
-                </Drawer.Positioner>
-              </Drawer>
-            </div>
-          </Drawer.Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/drawer/indent-background.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .indent-stage {
@@ -868,16 +371,7 @@ progress.
     `}
 
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const copy = {
-        trigger: "Open indented drawer",
-        title: "Indent effect",
-      };
-      const snapPoints = [0.18, 1];
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ## Styling
@@ -887,7 +381,7 @@ progress.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <DrawerCssPropertiesPanel />
+      <DrawerDocs.DrawerCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

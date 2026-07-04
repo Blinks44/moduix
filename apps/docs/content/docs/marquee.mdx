@@ -4,23 +4,7 @@ description: A continuous Ark UI scroller for logos, announcements, and repeated
 icon: Component
 ---
 
-import {
-  AutoFillMarqueeExample,
-  CustomStylingMarqueeExample,
-  EdgesMarqueeExample,
-  FiniteLoopsMarqueeExample,
-  MarqueeCssPropertiesPanel,
-  MarqueeExample,
-  PauseOnInteractionMarqueeExample,
-  ProgrammaticMarqueeExample,
-  ReverseMarqueeExample,
-  SpeedMarqueeExample,
-  VerticalMarqueeExample,
-  marqueeCustomStylingCss,
-  marqueeData,
-  marqueeExampleCss,
-  marqueeVerticalCss,
-} from '@/components/examples/marquee';
+import * as MarqueeDocs from '@/components/examples/marquee';
 
 ## API Reference
 
@@ -33,78 +17,19 @@ a descriptive label with `aria-label` or `translations.root`, especially when th
 informational. The root is visually neutral by default, so the basic example only sets width.
 
 <Preview>
-  <MarqueeExample />
+  <MarqueeDocs.MarqueeExample />
 
-  <Preview.Code>
-    {`
-      import { Marquee } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/marquee/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function MarqueeDemo() {
-        return (
-          <Marquee aria-label="Partner logos" className="marquee-root">
-            <Marquee.Viewport>
-              <Marquee.Content>
-                {partners.map((item) => (
-                  <Marquee.Item key={item.name} className="marquee-item">
-                    <span>{item.mark}</span>
-                    <span>{item.name}</span>
-                  </Marquee.Item>
-                ))}
-              </Marquee.Content>
-            </Marquee.Viewport>
-          </Marquee>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{marqueeExampleCss}</Preview.CSS>
-  <Preview.Data>{marqueeData}</Preview.Data>
+  <Preview.CSS>{MarqueeDocs.marqueeExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Marquee` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-marquee
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-marquee
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-marquee
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-marquee
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-marquee
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-marquee" />
 
 ## Anatomy
 
@@ -190,34 +115,14 @@ Use `autoFill` when the available content is shorter than the viewport. `spacing
 between duplicated content instances.
 
 <Preview>
-  <AutoFillMarqueeExample />
+  <MarqueeDocs.AutoFillMarqueeExample />
 
-  <Preview.Code>
-    {`
-      import { Marquee } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/marquee/auto-fill.tsx#demo</include>
+</Preview.Code>
 
-      export function AutoFillMarqueeDemo() {
-        return (
-          <Marquee aria-label="Partner logos" autoFill spacing="2rem" className="marquee-root">
-            <Marquee.Viewport>
-              <Marquee.Content>
-                {partners.map((item) => (
-                  <Marquee.Item key={item.name} className="marquee-item">
-                    <span>{item.mark}</span>
-                    <span>{item.name}</span>
-                  </Marquee.Item>
-                ))}
-              </Marquee.Content>
-            </Marquee.Viewport>
-          </Marquee>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{marqueeExampleCss}</Preview.CSS>
-  <Preview.Data>{marqueeData}</Preview.Data>
+  <Preview.CSS>{MarqueeDocs.marqueeExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Reverse
@@ -226,34 +131,14 @@ Use `reverse` when the content should move opposite the configured side without 
 orientation.
 
 <Preview>
-  <ReverseMarqueeExample />
+  <MarqueeDocs.ReverseMarqueeExample />
 
-  <Preview.Code>
-    {`
-      import { Marquee } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/marquee/reverse.tsx#demo</include>
+</Preview.Code>
 
-      export function ReverseMarqueeDemo() {
-        return (
-          <Marquee aria-label="Partner logos" reverse className="marquee-root">
-            <Marquee.Viewport>
-              <Marquee.Content>
-                {partners.map((item) => (
-                  <Marquee.Item key={item.name} className="marquee-item">
-                    <span>{item.mark}</span>
-                    <span>{item.name}</span>
-                  </Marquee.Item>
-                ))}
-              </Marquee.Content>
-            </Marquee.Viewport>
-          </Marquee>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{marqueeExampleCss}</Preview.CSS>
-  <Preview.Data>{marqueeData}</Preview.Data>
+  <Preview.CSS>{MarqueeDocs.marqueeExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Vertical
@@ -262,34 +147,14 @@ Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
 `--marquee-vertical-height` by default so the viewport has a stable block size.
 
 <Preview>
-  <VerticalMarqueeExample />
+  <MarqueeDocs.VerticalMarqueeExample />
 
-  <Preview.Code>
-    {`
-      import { Marquee } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/marquee/vertical.tsx#demo</include>
+</Preview.Code>
 
-      export function VerticalMarqueeDemo() {
-        return (
-          <Marquee aria-label="Partner logos" side="bottom" className="marquee-vertical">
-            <Marquee.Viewport>
-              <Marquee.Content>
-                {partners.map((item) => (
-                  <Marquee.Item key={item.name} className="marquee-item">
-                    <span>{item.mark}</span>
-                    <span>{item.name}</span>
-                  </Marquee.Item>
-                ))}
-              </Marquee.Content>
-            </Marquee.Viewport>
-          </Marquee>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{marqueeVerticalCss}</Preview.CSS>
-  <Preview.Data>{marqueeData}</Preview.Data>
+  <Preview.CSS>{MarqueeDocs.marqueeVerticalCss}</Preview.CSS>
+  
 </Preview>
 
 ### Speed
@@ -297,48 +162,14 @@ Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
 Control motion with `speed`, measured in pixels per second. Lower values are easier to read.
 
 <Preview>
-  <SpeedMarqueeExample />
+  <MarqueeDocs.SpeedMarqueeExample />
 
-  <Preview.Code>
-    {`
-      import { Marquee } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/marquee/speed.tsx#demo</include>
+</Preview.Code>
 
-      export function SpeedMarqueeDemo() {
-        return (
-          <div className="marquee-stack">
-            <Marquee aria-label="Slow partner logos" speed={25} className="marquee-root">
-              <Marquee.Viewport>
-                <Marquee.Content>
-                  {partners.map((item) => (
-                    <Marquee.Item key={item.name} className="marquee-item">
-                      <span>{item.mark}</span>
-                      <span>{item.name}</span>
-                    </Marquee.Item>
-                  ))}
-                </Marquee.Content>
-              </Marquee.Viewport>
-            </Marquee>
-            <Marquee aria-label="Fast partner logos" speed={100} className="marquee-root">
-              <Marquee.Viewport>
-                <Marquee.Content>
-                  {partners.map((item) => (
-                    <Marquee.Item key={item.name} className="marquee-item">
-                      <span>{item.mark}</span>
-                      <span>{item.name}</span>
-                    </Marquee.Item>
-                  ))}
-                </Marquee.Content>
-              </Marquee.Viewport>
-            </Marquee>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{marqueeExampleCss}</Preview.CSS>
-  <Preview.Data>{marqueeData}</Preview.Data>
+  <Preview.CSS>{MarqueeDocs.marqueeExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Pause on Interaction
@@ -346,34 +177,14 @@ Control motion with `speed`, measured in pixels per second. Lower values are eas
 Use `pauseOnInteraction` to pause while the user hovers the marquee or focuses content inside it.
 
 <Preview>
-  <PauseOnInteractionMarqueeExample />
+  <MarqueeDocs.PauseOnInteractionMarqueeExample />
 
-  <Preview.Code>
-    {`
-      import { Marquee } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/marquee/pause-on-interaction.tsx#demo</include>
+</Preview.Code>
 
-      export function PauseOnInteractionMarqueeDemo() {
-        return (
-          <Marquee aria-label="Partner logos" pauseOnInteraction className="marquee-root">
-            <Marquee.Viewport>
-              <Marquee.Content>
-                {partners.map((item) => (
-                  <Marquee.Item key={item.name} className="marquee-item">
-                    <span>{item.mark}</span>
-                    <span>{item.name}</span>
-                  </Marquee.Item>
-                ))}
-              </Marquee.Content>
-            </Marquee.Viewport>
-          </Marquee>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{marqueeExampleCss}</Preview.CSS>
-  <Preview.Data>{marqueeData}</Preview.Data>
+  <Preview.CSS>{MarqueeDocs.marqueeExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Programmatic Control
@@ -382,50 +193,14 @@ Use Ark `useMarquee()` and `Marquee.RootProvider` when external controls need to
 restart playback.
 
 <Preview>
-  <ProgrammaticMarqueeExample />
+  <MarqueeDocs.ProgrammaticMarqueeExample />
 
-  <Preview.Code>
-    {`
-      import { useMarquee } from "@ark-ui/react/marquee";
-      import { Button, Marquee } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/marquee/programmatic-control.tsx#demo</include>
+</Preview.Code>
 
-      export function ProgrammaticMarqueeDemo() {
-        const marquee = useMarquee({ translations: { root: "Partner logos" } });
-
-        return (
-          <div className="marquee-stack">
-            <div className="marquee-actions">
-              <Button size="sm" variant="outline" onClick={() => marquee.pause()}>
-                Pause
-              </Button>
-              <Button size="sm" variant="outline" onClick={() => marquee.resume()}>
-                Resume
-              </Button>
-              <Button size="sm" variant="outline" onClick={() => marquee.restart()}>
-                Restart
-              </Button>
-            </div>
-            <Marquee.RootProvider value={marquee} className="marquee-root">
-              <Marquee.Viewport>
-                <Marquee.Content>
-                  {partners.map((item) => (
-                    <Marquee.Item key={item.name} className="marquee-item">
-                      <span>{item.mark}</span>
-                      <span>{item.name}</span>
-                    </Marquee.Item>
-                  ))}
-                </Marquee.Content>
-              </Marquee.Viewport>
-            </Marquee.RootProvider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{marqueeExampleCss}</Preview.CSS>
-  <Preview.Data>{marqueeData}</Preview.Data>
+  <Preview.CSS>{MarqueeDocs.marqueeExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Finite Loops
@@ -434,50 +209,14 @@ Set `loopCount` for finite playback. `onLoopComplete` fires after each loop and 
 after the final loop.
 
 <Preview>
-  <FiniteLoopsMarqueeExample />
+  <MarqueeDocs.FiniteLoopsMarqueeExample />
 
-  <Preview.Code>
-    {`
-      import { Marquee } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/marquee/finite-loops.tsx#demo</include>
+</Preview.Code>
 
-      export function FiniteLoopsMarqueeDemo() {
-        const [loops, setLoops] = useState(0);
-        const [completed, setCompleted] = useState(0);
-
-        return (
-          <div className="marquee-stack">
-            <Marquee
-              aria-label="Partner logos"
-              loopCount={3}
-              onLoopComplete={() => setLoops((value) => value + 1)}
-              onComplete={() => setCompleted((value) => value + 1)}
-              className="marquee-root"
-            >
-              <Marquee.Viewport>
-                <Marquee.Content>
-                  {partners.map((item) => (
-                    <Marquee.Item key={item.name} className="marquee-item">
-                      <span>{item.mark}</span>
-                      <span>{item.name}</span>
-                    </Marquee.Item>
-                  ))}
-                </Marquee.Content>
-              </Marquee.Viewport>
-            </Marquee>
-            <div className="marquee-status">
-              <span>Loops: {loops}</span>
-              <span>Completed: {completed}</span>
-            </div>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{marqueeExampleCss}</Preview.CSS>
-  <Preview.Data>{marqueeData}</Preview.Data>
+  <Preview.CSS>{MarqueeDocs.marqueeExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Edges
@@ -486,36 +225,14 @@ Add `Marquee.Edge` on the sides that should fade into the page background. The e
 decorative and does not receive pointer events.
 
 <Preview>
-  <EdgesMarqueeExample />
+  <MarqueeDocs.EdgesMarqueeExample />
 
-  <Preview.Code>
-    {`
-      import { Marquee } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/marquee/edges.tsx#demo</include>
+</Preview.Code>
 
-      export function EdgesMarqueeDemo() {
-        return (
-          <Marquee aria-label="Partner logos" className="marquee-root">
-            <Marquee.Edge side="start" />
-            <Marquee.Viewport>
-              <Marquee.Content>
-                {partners.map((item) => (
-                  <Marquee.Item key={item.name} className="marquee-item">
-                    <span>{item.mark}</span>
-                    <span>{item.name}</span>
-                  </Marquee.Item>
-                ))}
-              </Marquee.Content>
-            </Marquee.Viewport>
-            <Marquee.Edge side="end" />
-          </Marquee>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{marqueeExampleCss}</Preview.CSS>
-  <Preview.Data>{marqueeData}</Preview.Data>
+  <Preview.CSS>{MarqueeDocs.marqueeExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -524,41 +241,14 @@ Use `className`, CSS variables, Ark data attributes, and `data-slot` hooks for v
 example adds the framed surface treatment that the root intentionally does not apply by default.
 
 <Preview>
-  <CustomStylingMarqueeExample />
+  <MarqueeDocs.CustomStylingMarqueeExample />
 
-  <Preview.Code>
-    {`
-      import { Marquee } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/marquee/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomStylingMarqueeDemo() {
-        return (
-          <Marquee
-            aria-label="Partner logos"
-            autoFill
-            pauseOnInteraction
-            className="marquee-custom"
-          >
-            <Marquee.Edge side="start" />
-            <Marquee.Viewport>
-              <Marquee.Content>
-                {partners.map((item) => (
-                  <Marquee.Item key={item.name} className="marquee-item">
-                    <span>{item.mark}</span>
-                    <span>{item.name}</span>
-                  </Marquee.Item>
-                ))}
-              </Marquee.Content>
-            </Marquee.Viewport>
-            <Marquee.Edge side="end" />
-          </Marquee>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{marqueeCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{marqueeData}</Preview.Data>
+  <Preview.CSS>{MarqueeDocs.marqueeCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -571,7 +261,7 @@ CSS variables and part classes; keep Ark state attributes for behavioral styling
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <MarqueeCssPropertiesPanel />
+      <MarqueeDocs.MarqueeCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

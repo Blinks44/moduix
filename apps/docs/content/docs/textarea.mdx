@@ -4,16 +4,7 @@ description: A native multi-line input with Field integration and moduix styling
 icon: Component
 ---
 
-import {
-  AutoResizeTextareaExample,
-  ControlledTextareaExample,
-  CustomStylesTextareaExample,
-  DisabledAndReadOnlyTextareaExample,
-  FieldValidationTextareaExample,
-  NativeAttributesTextareaExample,
-  TextareaCssPropertiesPanel,
-  TextareaExample,
-} from '@/components/examples/textarea';
+import * as TextareaDocs from '@/components/examples/textarea';
 
 ## API Reference
 
@@ -40,26 +31,11 @@ Start with `Textarea` inside `Field`. This is the recommended path for ordinary 
 and issue or note entry.
 
 <Preview>
-  <TextareaExample />
+  <TextareaDocs.TextareaExample />
 
-  <Preview.Code>
-    {`
-      import { Field, Textarea } from "@moduix/react";
-
-      export function TextareaDemo() {
-        return (
-          <Field className={styles.field}>
-            <Field.Label>Comment</Field.Label>
-            <Field.HelperText>
-              Included in the issue summary visible to the whole team.
-            </Field.HelperText>
-            <Textarea placeholder="Write a short comment" />
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/textarea/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -70,54 +46,11 @@ and issue or note entry.
 
   </Preview.CSS>
 
-  <Preview.Data>{`const helperText = "Included in the issue summary visible to the whole team.";`}</Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Textarea` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-textarea
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-textarea
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-textarea
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-textarea
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-textarea
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Textarea` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-textarea" />
 
 ## Anatomy
 
@@ -176,30 +109,11 @@ Use `Editable` instead of composing custom read-only/editing controls around `Te
 Use `value` and native `onChange` when content should stay in React state.
 
 <Preview>
-  <ControlledTextareaExample />
+  <TextareaDocs.ControlledTextareaExample />
 
-  <Preview.Code>
-    {`
-      import { Field, Textarea } from "@moduix/react";
-      import { useState } from "react";
-
-      function ControlledTextarea() {
-        const [value, setValue] = useState("");
-
-        return (
-          <Field className={styles.field}>
-            <Field.Label>Feedback</Field.Label>
-            <Textarea
-              value={value}
-              onChange={(event) => setValue(event.currentTarget.value)}
-              placeholder="Type to control value"
-            />
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/textarea/controlled.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -210,7 +124,6 @@ Use `value` and native `onChange` when content should stay in React state.
 
   </Preview.CSS>
 
-  <Preview.Data>{`const initialValue = "";`}</Preview.Data>
 </Preview>
 
 ### Native Attributes
@@ -218,29 +131,11 @@ Use `value` and native `onChange` when content should stay in React state.
 Use native textarea props for sizing, browser behavior, and form submission.
 
 <Preview>
-  <NativeAttributesTextareaExample />
+  <TextareaDocs.NativeAttributesTextareaExample />
 
-  <Preview.Code>
-    {`
-      import { Field, Textarea } from "@moduix/react";
-
-      export function TextareaNativeAttributesDemo() {
-        return (
-          <Field className={styles.field}>
-            <Field.Label>Notes</Field.Label>
-            <Textarea
-              name="notes"
-              rows={6}
-              maxLength={280}
-              spellCheck={false}
-              placeholder="Add enough context for the next person reading this."
-            />
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/textarea/native-attributes.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -251,16 +146,6 @@ Use native textarea props for sizing, browser behavior, and form submission.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const nativeProps = {
-        name: "notes",
-        rows: 6,
-        maxLength: 280,
-        spellCheck: false,
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Auto Resize
@@ -268,26 +153,11 @@ Use native textarea props for sizing, browser behavior, and form submission.
 Use Ark `autoresize` when the textarea should grow with its content.
 
 <Preview>
-  <AutoResizeTextareaExample />
+  <TextareaDocs.AutoResizeTextareaExample />
 
-  <Preview.Code>
-    {`
-      import { Field, Textarea } from "@moduix/react";
-
-      export function AutoResizeTextareaDemo() {
-        return (
-          <Field className={styles.field}>
-            <Field.Label>Issue description</Field.Label>
-            <Textarea
-              autoresize
-              placeholder="Start typing a longer description. Height grows with content."
-            />
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/textarea/auto-resize.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -298,13 +168,6 @@ Use Ark `autoresize` when the textarea should grow with its content.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const autoresize = true;
-      const placeholder = "Start typing a longer description. Height grows with content.";
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Field Validation
@@ -313,28 +176,11 @@ Put invalid state on `Field`; Ark applies `aria-invalid` and `data-invalid` to t
 connects the error text.
 
 <Preview>
-  <FieldValidationTextareaExample />
+  <TextareaDocs.FieldValidationTextareaExample />
 
-  <Preview.Code>
-    {`
-      import { Field, Textarea } from "@moduix/react";
-
-      export function TextareaFieldValidationDemo() {
-        return (
-          <Field className={styles.field} invalid required>
-            <Field.Label>Details</Field.Label>
-            <Textarea minLength={10} placeholder="Add at least 10 characters" />
-            <Field.HelperText>
-              Include enough detail for the team to reproduce the issue.
-            </Field.HelperText>
-            <Field.ErrorText>Please provide details.</Field.ErrorText>
-            <Field.ErrorText>Enter at least 10 characters.</Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/textarea/field-validation.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -345,15 +191,6 @@ connects the error text.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const validation = {
-        invalid: true,
-        required: true,
-        minLength: 10,
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Disabled and Readonly
@@ -361,23 +198,11 @@ connects the error text.
 Set `disabled` or `readOnly` based on interaction requirements.
 
 <Preview>
-  <DisabledAndReadOnlyTextareaExample />
+  <TextareaDocs.DisabledAndReadOnlyTextareaExample />
 
-  <Preview.Code>
-    {`
-      import { Textarea } from "@moduix/react";
-
-      export function DisabledAndReadonlyTextareaDemo() {
-        return (
-          <div className={styles.stack}>
-            <Textarea aria-label="Disabled textarea" disabled placeholder="Disabled textarea" />
-            <Textarea aria-label="Read-only textarea" readOnly value="Read-only text value" />
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/textarea/disabled-and-readonly.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -390,14 +215,6 @@ Set `disabled` or `readOnly` based on interaction requirements.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const states = {
-        disabledPlaceholder: "Disabled textarea",
-        readOnlyValue: "Read-only text value",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -405,23 +222,11 @@ Set `disabled` or `readOnly` based on interaction requirements.
 Pass `className` when the textarea root needs local styling overrides.
 
 <Preview>
-  <CustomStylesTextareaExample />
+  <TextareaDocs.CustomStylesTextareaExample />
 
-  <Preview.Code>
-    {`
-      import { Field, Textarea } from "@moduix/react";
-
-      export function CustomTextareaDemo() {
-        return (
-          <Field className={styles.field}>
-            <Field.Label>Notes</Field.Label>
-            <Textarea className={styles.customTextarea} placeholder="Styled textarea" />
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/textarea/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -439,14 +244,6 @@ Pass `className` when the textarea root needs local styling overrides.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const customTextareaTokens = {
-        border: "color-mix(in srgb, var(--color-primary) 45%, transparent)",
-        background: "color-mix(in srgb, var(--color-primary) 5%, transparent)",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Styling
@@ -459,7 +256,7 @@ variables defined in `theme.css`.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <TextareaCssPropertiesPanel />
+      <TextareaDocs.TextareaCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

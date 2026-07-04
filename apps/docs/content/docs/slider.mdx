@@ -4,52 +4,7 @@ description: A control for selecting one value or a range of values.
 icon: Component
 ---
 
-import {
-  CenterOriginSliderExample,
-  ContextSliderExample,
-  ControlledSliderExample,
-  CustomStylingSliderExample,
-  DisabledSliderExample,
-  DraggingIndicatorSliderExample,
-  EventsSliderExample,
-  MarksSliderExample,
-  MinMaxSliderExample,
-  RangeSliderExample,
-  RootProviderSliderExample,
-  SliderCssPropertiesPanel,
-  SliderExample,
-  StepSliderExample,
-  ThumbAlignmentSliderExample,
-  ThumbCollisionSliderExample,
-  ThumbOverlapSliderExample,
-  VerticalSliderExample,
-  sliderBasicCode,
-  sliderCenterOriginCode,
-  sliderContextCode,
-  sliderContextCss,
-  sliderControlledCode,
-  sliderCustomStylingCode,
-  sliderCustomStylingCss,
-  sliderDisabledCode,
-  sliderDraggingIndicatorCode,
-  sliderEventsCode,
-  sliderEventsCss,
-  sliderHeaderCss,
-  sliderMarksCode,
-  sliderMarksData,
-  sliderMinMaxCode,
-  sliderNoCss,
-  sliderNoData,
-  sliderRangeCode,
-  sliderRootProviderCode,
-  sliderStackCss,
-  sliderStepCode,
-  sliderThumbAlignmentCode,
-  sliderThumbCollisionCode,
-  sliderThumbOverlapCode,
-  sliderVerticalCode,
-  sliderVerticalCss,
-} from '@/components/examples/slider';
+import * as SliderDocs from '@/components/examples/slider';
 
 ## API Reference
 
@@ -70,55 +25,18 @@ input.
 inside each thumb when the value should participate in forms and resets.
 
 <Preview>
-  <SliderExample />
+  <SliderDocs.SliderExample />
 
-  <Preview.Code>{sliderBasicCode}</Preview.Code>
-  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Slider` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-slider
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-slider
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-slider
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-slider
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-slider
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-slider" />
 
 ## Anatomy
 
@@ -201,11 +119,13 @@ Ark.
 Pass an array with one value per thumb and render matching `Slider.Thumb` parts.
 
 <Preview>
-  <RangeSliderExample />
+  <SliderDocs.RangeSliderExample />
 
-  <Preview.Code>{sliderRangeCode}</Preview.Code>
-  <Preview.CSS>{sliderNoCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/range.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderNoCss}</Preview.CSS>
+  
 </Preview>
 
 ### Min and Max
@@ -213,11 +133,13 @@ Pass an array with one value per thumb and render matching `Slider.Thumb` parts.
 Use `min` and `max` for domains that do not start at `0` or end at `100`.
 
 <Preview>
-  <MinMaxSliderExample />
+  <SliderDocs.MinMaxSliderExample />
 
-  <Preview.Code>{sliderMinMaxCode}</Preview.Code>
-  <Preview.CSS>{sliderNoCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/min-and-max.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderNoCss}</Preview.CSS>
+  
 </Preview>
 
 ### Step
@@ -225,11 +147,13 @@ Use `min` and `max` for domains that do not start at `0` or end at `100`.
 Use `step` for fractional or constrained increments.
 
 <Preview>
-  <StepSliderExample />
+  <SliderDocs.StepSliderExample />
 
-  <Preview.Code>{sliderStepCode}</Preview.Code>
-  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/step.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
+  
 </Preview>
 
 ### Controlled
@@ -237,11 +161,13 @@ Use `step` for fractional or constrained increments.
 Control the value from React state by storing Ark's `details.value` array.
 
 <Preview>
-  <ControlledSliderExample />
+  <SliderDocs.ControlledSliderExample />
 
-  <Preview.Code>{sliderControlledCode}</Preview.Code>
-  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/controlled.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
+  
 </Preview>
 
 ### Change Events
@@ -250,11 +176,13 @@ Use `onValueChange` for live updates and `onValueChangeEnd` when a drag or keybo
 committed.
 
 <Preview>
-  <EventsSliderExample />
+  <SliderDocs.EventsSliderExample />
 
-  <Preview.Code>{sliderEventsCode}</Preview.Code>
-  <Preview.CSS>{sliderEventsCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/change-events.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderEventsCss}</Preview.CSS>
+  
 </Preview>
 
 ### Vertical
@@ -262,11 +190,13 @@ committed.
 Set `orientation="vertical"` and give the root a stable height.
 
 <Preview>
-  <VerticalSliderExample />
+  <SliderDocs.VerticalSliderExample />
 
-  <Preview.Code>{sliderVerticalCode}</Preview.Code>
-  <Preview.CSS>{sliderVerticalCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/vertical.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderVerticalCss}</Preview.CSS>
+  
 </Preview>
 
 ### Center Origin
@@ -274,11 +204,13 @@ Set `orientation="vertical"` and give the root a stable height.
 Set `origin="center"` when the selected value represents a positive or negative offset.
 
 <Preview>
-  <CenterOriginSliderExample />
+  <SliderDocs.CenterOriginSliderExample />
 
-  <Preview.Code>{sliderCenterOriginCode}</Preview.Code>
-  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/center-origin.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
+  
 </Preview>
 
 ### Marks
@@ -287,11 +219,13 @@ Use `Slider.MarkerGroup` and `Slider.Marker` to render tick marks. Ark marks exp
 `data-state="under-value | at-value | over-value"` for styling.
 
 <Preview>
-  <MarksSliderExample />
+  <SliderDocs.MarksSliderExample />
 
-  <Preview.Code>{sliderMarksCode}</Preview.Code>
-  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
-  <Preview.Data>{sliderMarksData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/marks.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
+  
 </Preview>
 
 ### Dragging Indicator
@@ -299,11 +233,13 @@ Use `Slider.MarkerGroup` and `Slider.Marker` to render tick marks. Ark marks exp
 Place `Slider.DraggingIndicator` inside a thumb to show the active value while dragging.
 
 <Preview>
-  <DraggingIndicatorSliderExample />
+  <SliderDocs.DraggingIndicatorSliderExample />
 
-  <Preview.Code>{sliderDraggingIndicatorCode}</Preview.Code>
-  <Preview.CSS>{sliderNoCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/dragging-indicator.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderNoCss}</Preview.CSS>
+  
 </Preview>
 
 ### Thumb Alignment
@@ -311,11 +247,13 @@ Place `Slider.DraggingIndicator` inside a thumb to show the active value while d
 Use `thumbAlignment="center"` when the thumb should extend beyond the track edges.
 
 <Preview>
-  <ThumbAlignmentSliderExample />
+  <SliderDocs.ThumbAlignmentSliderExample />
 
-  <Preview.Code>{sliderThumbAlignmentCode}</Preview.Code>
-  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/thumb-alignment.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
+  
 </Preview>
 
 ### Thumb Collision
@@ -323,11 +261,13 @@ Use `thumbAlignment="center"` when the thumb should extend beyond the track edge
 Use `thumbCollisionBehavior="push"` or `"swap"` to change how range thumbs behave when they meet.
 
 <Preview>
-  <ThumbCollisionSliderExample />
+  <SliderDocs.ThumbCollisionSliderExample />
 
-  <Preview.Code>{sliderThumbCollisionCode}</Preview.Code>
-  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/thumb-collision.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
+  
 </Preview>
 
 ### Thumb Overlap
@@ -335,11 +275,13 @@ Use `thumbCollisionBehavior="push"` or `"swap"` to change how range thumbs behav
 Use `minStepsBetweenThumbs` to keep a minimum gap between range thumbs.
 
 <Preview>
-  <ThumbOverlapSliderExample />
+  <SliderDocs.ThumbOverlapSliderExample />
 
-  <Preview.Code>{sliderThumbOverlapCode}</Preview.Code>
-  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/thumb-overlap.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
+  
 </Preview>
 
 ### Disabled
@@ -347,11 +289,13 @@ Use `minStepsBetweenThumbs` to keep a minimum gap between range thumbs.
 Use `disabled` to keep the value visible while preventing interaction.
 
 <Preview>
-  <DisabledSliderExample />
+  <SliderDocs.DisabledSliderExample />
 
-  <Preview.Code>{sliderDisabledCode}</Preview.Code>
-  <Preview.CSS>{sliderHeaderCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/disabled.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
+  
 </Preview>
 
 ### Context
@@ -360,11 +304,13 @@ Use Ark's `useSliderContext` hook inside a child component when you need inline 
 state such as `value`, `dragging`, and focus state.
 
 <Preview>
-  <ContextSliderExample />
+  <SliderDocs.ContextSliderExample />
 
-  <Preview.Code>{sliderContextCode}</Preview.Code>
-  <Preview.CSS>{sliderContextCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/context.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderContextCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -373,11 +319,13 @@ Use Ark's `useSlider` hook with `Slider.RootProvider` when state must be owned o
 tree.
 
 <Preview>
-  <RootProviderSliderExample />
+  <SliderDocs.RootProviderSliderExample />
 
-  <Preview.Code>{sliderRootProviderCode}</Preview.Code>
-  <Preview.CSS>{sliderStackCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderStackCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -385,11 +333,13 @@ tree.
 Customize visuals with CSS variables, `className`, `data-slot` hooks, and Ark state attributes.
 
 <Preview>
-  <CustomStylingSliderExample />
+  <SliderDocs.CustomStylingSliderExample />
 
-  <Preview.Code>{sliderCustomStylingCode}</Preview.Code>
-  <Preview.CSS>{sliderCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{sliderNoData}</Preview.Data>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/custom-styling.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -402,7 +352,7 @@ variables, and the public Moduix CSS variables below.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <SliderCssPropertiesPanel />
+      <SliderDocs.SliderCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

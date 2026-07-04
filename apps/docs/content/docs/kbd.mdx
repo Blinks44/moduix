@@ -4,15 +4,7 @@ description: A compact keycap for keyboard shortcuts and command hints.
 icon: Component
 ---
 
-import {
-  CustomStylingKbdExample,
-  KbdAsChildExample,
-  KbdDenseExample,
-  KbdCssPropertiesPanel,
-  KbdExample,
-  KbdSingleKeyExample,
-  KbdShortcutListExample,
-} from '@/components/examples/kbd';
+import * as KbdDocs from '@/components/examples/kbd';
 
 ## API Reference
 
@@ -26,30 +18,11 @@ Ark UI does not ship a dedicated kbd primitive. Moduix builds this component wit
 Start with `Kbd` for one key and `Kbd.Group` when several keys form one shortcut.
 
 <Preview>
-  <KbdExample />
+  <KbdDocs.KbdExample />
 
-  <Preview.Code>
-    {`
-      import { Kbd } from "@moduix/react";
-      import { Fragment } from "react";
-
-      export function KbdDemo() {
-        return (
-          <div className="kbd-demo-shortcut">
-            <Kbd.Group aria-label={shortcut.label}>
-              {shortcut.keys.map((key, index) => (
-                <Fragment key={key}>
-                  {index > 0 && "+"}
-                  <Kbd>{key}</Kbd>
-                </Fragment>
-              ))}
-            </Kbd.Group>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/kbd/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -60,62 +33,11 @@ Start with `Kbd` for one key and `Kbd.Group` when several keys form one shortcut
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const shortcut = {
-        label: "Command K",
-        keys: ["Cmd", "K"],
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Kbd` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-kbd
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-kbd
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-kbd
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-kbd
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-kbd
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Kbd` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-kbd" />
 
 ## Anatomy
 
@@ -161,18 +83,11 @@ composition behavior. The child must be one element and must preserve keyboard-i
 Use `Kbd` directly when the UI refers to one key.
 
 <Preview>
-  <KbdSingleKeyExample />
+  <KbdDocs.KbdSingleKeyExample />
 
-  <Preview.Code>
-    {`
-      import { Kbd } from "@moduix/react";
-
-      export function KbdSingleKeyDemo() {
-        return <Kbd>{key}</Kbd>;
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/kbd/single-key.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -183,12 +98,6 @@ Use `Kbd` directly when the UI refers to one key.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const key = "Esc";
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Element
@@ -196,22 +105,11 @@ Use `Kbd` directly when the UI refers to one key.
 Use `asChild` to merge Kbd props into one semantic child when another layer owns the element.
 
 <Preview>
-  <KbdAsChildExample />
+  <KbdDocs.KbdAsChildExample />
 
-  <Preview.Code>
-    {`
-      import { Kbd } from "@moduix/react";
-
-      export function KbdAsChildDemo() {
-        return (
-          <Kbd asChild>
-            <kbd title={key.title}>{key.label}</kbd>
-          </Kbd>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/kbd/custom-element.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -222,15 +120,6 @@ Use `asChild` to merge Kbd props into one semantic child when another layer owns
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const key = {
-        label: "Esc",
-        title: "Escape",
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Shortcut List
@@ -238,35 +127,11 @@ Use `asChild` to merge Kbd props into one semantic child when another layer owns
 Use plain composition when shortcuts need to sit next to surrounding copy.
 
 <Preview>
-  <KbdShortcutListExample />
+  <KbdDocs.KbdShortcutListExample />
 
-  <Preview.Code>
-    {`
-      import { Kbd } from "@moduix/react";
-      import { Fragment } from "react";
-
-      export function KbdShortcutListDemo() {
-        return (
-          <div className="kbd-demo-shortcut-list">
-            {shortcuts.map((shortcut) => (
-              <div key={shortcut.label} className="kbd-demo-shortcut-row">
-                <Kbd.Group aria-label={shortcut.label}>
-                  {shortcut.keys.map((key, index) => (
-                    <Fragment key={key}>
-                      {index > 0 && "+"}
-                      <Kbd>{key}</Kbd>
-                    </Fragment>
-                  ))}
-                </Kbd.Group>
-                {shortcut.description}
-              </div>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/kbd/shortcut-list.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -288,28 +153,6 @@ Use plain composition when shortcuts need to sit next to surrounding copy.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const shortcuts = [
-        {
-          label: "Command K",
-          keys: ["Cmd", "K"],
-          description: "Open command menu",
-        },
-        {
-          label: "Shift question mark",
-          keys: ["Shift", "?"],
-          description: "Show shortcuts",
-        },
-        {
-          label: "Escape",
-          keys: ["Esc"],
-          description: "Close overlay",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Compact Density
@@ -317,26 +160,11 @@ Use plain composition when shortcuts need to sit next to surrounding copy.
 Use local CSS variables for one-off density or tone changes instead of extra component props.
 
 <Preview>
-  <KbdDenseExample />
+  <KbdDocs.KbdDenseExample />
 
-  <Preview.Code>
-    {`
-      import { Kbd } from "@moduix/react";
-
-      export function KbdDenseDemo() {
-        return (
-          <div className="kbd-demo-row">
-            {keys.map((key) => (
-              <Kbd key={key} className="kbd-demo-dense">
-                {key}
-              </Kbd>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/kbd/compact-density.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -356,12 +184,6 @@ Use local CSS variables for one-off density or tone changes instead of extra com
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const keys = ["Esc", "Ctrl", "/"];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -369,28 +191,11 @@ Use local CSS variables for one-off density or tone changes instead of extra com
 Use `className` and CSS variables when the default keycap needs to match product-specific styling.
 
 <Preview>
-  <CustomStylingKbdExample />
+  <KbdDocs.CustomStylingKbdExample />
 
-  <Preview.Code>
-    {`
-      import { Kbd } from "@moduix/react";
-      import { Fragment } from "react";
-
-      export function CustomKbdDemo() {
-        return (
-          <Kbd.Group aria-label={shortcut.label} className="kbd-demo-custom-group">
-            {shortcut.keys.map((key, index) => (
-              <Fragment key={key}>
-                {index > 0 && "+"}
-                <Kbd className="kbd-demo-custom-key">{key}</Kbd>
-              </Fragment>
-            ))}
-          </Kbd.Group>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/kbd/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -412,15 +217,6 @@ Use `className` and CSS variables when the default keycap needs to match product
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const shortcut = {
-        label: "Command K",
-        keys: ["Cmd", "K"],
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Styling
@@ -433,7 +229,7 @@ Style `Kbd` and `Kbd.Group` through `className`, Ark anatomy attributes, stable 
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <KbdCssPropertiesPanel />
+      <KbdDocs.KbdCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

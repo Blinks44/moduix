@@ -4,49 +4,7 @@ description: Ark UI calendar picker for editable, popup, inline, range, and mult
 icon: Component
 ---
 
-import {
-  ControlledDatePickerExample,
-  CustomStylesDatePickerExample,
-  DatePickerCssPropertiesPanel,
-  DatePickerExample,
-  DatePickerWithTimeExample,
-  DefaultViewDatePickerExample,
-  FieldDatePickerExample,
-  InlineDatePickerExample,
-  LocaleDatePickerExample,
-  MinMaxDatePickerExample,
-  MonthPickerExample,
-  MonthYearSelectDatePickerExample,
-  MultipleDatePickerExample,
-  MultipleMonthsDatePickerExample,
-  PresetDatePickerExample,
-  RangeDatePickerExample,
-  RootProviderDatePickerExample,
-  SelectTodayDatePickerExample,
-  YearPickerExample,
-  datePickerBasicCode,
-  datePickerControlledCode,
-  datePickerCustomStylesCode,
-  datePickerDefaultViewCode,
-  datePickerExampleCss,
-  datePickerFieldStateCode,
-  datePickerInlineCode,
-  datePickerLocaleCode,
-  datePickerMinMaxCode,
-  datePickerMonthPickerCode,
-  datePickerMonthYearSelectCode,
-  datePickerMultipleCode,
-  datePickerMultipleMonthsCode,
-  datePickerNoData,
-  datePickerPresetsCode,
-  datePickerRangeData,
-  datePickerRangeCode,
-  datePickerRootProviderCode,
-  datePickerSelectTodayCode,
-  datePickerValidationData,
-  datePickerWithTimeCode,
-  datePickerYearPickerCode,
-} from '@/components/examples/date-picker';
+import * as DatePickerDocs from '@/components/examples/date-picker';
 
 ## API Reference
 
@@ -65,56 +23,19 @@ views with `ArkDatePicker.Context` from `@ark-ui/react/date-picker`. The wrapper
 `data-slot` attributes, and default icons for trigger buttons.
 
 <Preview>
-  <DatePickerExample />
+  <DatePickerDocs.DatePickerExample />
 
-<Preview.Code>{datePickerBasicCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/basic.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{datePickerNoData}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Install With Shadcn (Optional)
+## Install with shadcn
 
-If you want `Date Picker` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-date-picker
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-date-picker
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-date-picker
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-date-picker
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-date-picker
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-date-picker" />
 
 ## Anatomy
 
@@ -188,12 +109,14 @@ Use `min`, `max`, and `isDateUnavailable(date, locale)` for unavailable dates. U
 Control the selected `DateValue[]` and update it from `details.value`.
 
 <Preview>
-  <ControlledDatePickerExample />
+  <DatePickerDocs.ControlledDatePickerExample />
 
-<Preview.Code>{datePickerControlledCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/controlled.tsx#demo</include>
+</Preview.Code>
 
-<Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{`const initialValue = [parseDate('2026-06-22')];`}</Preview.Data>
+<Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Default View And Fixed Weeks
@@ -202,12 +125,14 @@ Use `defaultView` to open on a different panel. Add `fixedWeeks` when the day vi
 stable six-row height while users navigate between months.
 
 <Preview>
-  <DefaultViewDatePickerExample />
+  <DatePickerDocs.DefaultViewDatePickerExample />
 
-<Preview.Code>{datePickerDefaultViewCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/default-view-and-fixed-weeks.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{`const defaultView = 'month';\nconst fixedWeeks = true;`}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Range
@@ -217,12 +142,14 @@ input formatting. Ark renders ranges through two indexed inputs, one for the sta
 the end date.
 
 <Preview>
-  <RangeDatePickerExample />
+  <DatePickerDocs.RangeDatePickerExample />
 
-<Preview.Code>{datePickerRangeCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/range.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{datePickerRangeData}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Multiple
@@ -232,12 +159,14 @@ try to squeeze multiple values into one text input; use `ArkDatePicker.Context` 
 selected-date chips and call `datePicker.setValue()` when a chip is removed.
 
 <Preview>
-  <MultipleDatePickerExample />
+  <DatePickerDocs.MultipleDatePickerExample />
 
-<Preview.Code>{datePickerMultipleCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/multiple.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{`const maxSelectedDates = 3;`}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Multiple Months
@@ -245,12 +174,14 @@ selected-date chips and call `datePicker.setValue()` when a chip is removed.
 Set `numOfMonths` when users need more context while choosing dates.
 
 <Preview>
-  <MultipleMonthsDatePickerExample />
+  <DatePickerDocs.MultipleMonthsDatePickerExample />
 
-<Preview.Code>{datePickerMultipleMonthsCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/multiple-months.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{`const numOfMonths = 2;`}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Month And Year Select
@@ -260,12 +191,14 @@ moduix `Select` with `ArkDatePicker.Context` instead, so the header matches the 
 while still updating Ark's focused date.
 
 <Preview>
-  <MonthYearSelectDatePickerExample />
+  <DatePickerDocs.MonthYearSelectDatePickerExample />
 
-<Preview.Code>{datePickerMonthYearSelectCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/month-and-year-select.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{datePickerNoData}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Presets
@@ -274,12 +207,14 @@ while still updating Ark's focused date.
 `DateValue[]`. Use range mode with two indexed inputs so the selected preset displays both dates.
 
 <Preview>
-  <PresetDatePickerExample />
+  <DatePickerDocs.PresetDatePickerExample />
 
-<Preview.Code>{datePickerPresetsCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/presets.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{`const presets = ['last7Days', 'last30Days'];`}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Min, Max, And Unavailable
@@ -288,12 +223,14 @@ Use `min`, `max`, and `isDateUnavailable` for validation rules that should affec
 calendar cells.
 
 <Preview>
-  <MinMaxDatePickerExample />
+  <DatePickerDocs.MinMaxDatePickerExample />
 
-<Preview.Code>{datePickerMinMaxCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/min-max-and-unavailable.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{datePickerValidationData}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Locale And Format
@@ -301,12 +238,14 @@ calendar cells.
 `locale`, `startOfWeek`, `format`, and `parse` pass through to Ark.
 
 <Preview>
-  <LocaleDatePickerExample />
+  <DatePickerDocs.LocaleDatePickerExample />
 
-<Preview.Code>{datePickerLocaleCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/locale-and-format.tsx#demo</include>
+</Preview.Code>
 
-<Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{`const locale = 'de-DE';`}</Preview.Data>
+<Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Month Picker
@@ -315,12 +254,14 @@ Set `defaultView="month"` and `minView="month"` for month-only selection. Use `f
 when the input should accept a month/year string.
 
 <Preview>
-  <MonthPickerExample />
+  <DatePickerDocs.MonthPickerExample />
 
-<Preview.Code>{datePickerMonthPickerCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/month-picker.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{`const pattern = 'mm/yyyy';`}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Year Picker
@@ -329,12 +270,14 @@ Set `defaultView="year"` and `minView="year"` for year-only selection. The same 
 contract keeps keyboard input aligned with the calendar view.
 
 <Preview>
-  <YearPickerExample />
+  <DatePickerDocs.YearPickerExample />
 
-<Preview.Code>{datePickerYearPickerCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/year-picker.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{`const pattern = 'yyyy';`}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Inline And Week Numbers
@@ -343,12 +286,14 @@ Set `inline` when the calendar should stay in the layout. Inline calendars rende
 directly without `Positioner`.
 
 <Preview>
-  <InlineDatePickerExample />
+  <DatePickerDocs.InlineDatePickerExample />
 
-<Preview.Code>{datePickerInlineCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/inline-and-week-numbers.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{`const showWeekNumbers = true;`}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Field State
@@ -357,12 +302,14 @@ directly without `Positioner`.
 root when you are not composing through `Field`.
 
 <Preview>
-  <FieldDatePickerExample />
+  <DatePickerDocs.FieldDatePickerExample />
 
-<Preview.Code>{datePickerFieldStateCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/field-state.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{datePickerNoData}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -370,12 +317,14 @@ root when you are not composing through `Field`.
 Use Ark `useDatePicker()` when the calendar state must be shared with external controls.
 
 <Preview>
-  <RootProviderDatePickerExample />
+  <DatePickerDocs.RootProviderDatePickerExample />
 
-<Preview.Code>{datePickerRootProviderCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/root-provider.tsx#demo</include>
+</Preview.Code>
 
-<Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{`const datePicker = useDatePicker({ defaultValue: [today('UTC')] });`}</Preview.Data>
+<Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Select Today
@@ -383,12 +332,14 @@ Use Ark `useDatePicker()` when the calendar state must be shared with external c
 Use `ArkDatePicker.Context` when a nearby control needs to call Ark helpers such as `selectToday()`.
 
 <Preview>
-  <SelectTodayDatePickerExample />
+  <DatePickerDocs.SelectTodayDatePickerExample />
 
-<Preview.Code>{datePickerSelectTodayCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/select-today.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{`datePicker.selectToday();`}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### With Time
@@ -397,12 +348,14 @@ Keep time in the selected `DateValue` by storing `CalendarDateTime` values and u
 field separately from Ark's date grid.
 
 <Preview>
-  <DatePickerWithTimeExample />
+  <DatePickerDocs.DatePickerWithTimeExample />
 
-<Preview.Code>{datePickerWithTimeCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/with-time.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{`const value = new CalendarDateTime(2026, 6, 22, 14, 30);`}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styles
@@ -410,12 +363,14 @@ field separately from Ark's date grid.
 Override public `--date-picker-*` variables on the root or any wrapper.
 
 <Preview>
-  <CustomStylesDatePickerExample />
+  <DatePickerDocs.CustomStylesDatePickerExample />
 
-<Preview.Code>{datePickerCustomStylesCode}</Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/custom-styles.tsx#demo</include>
+</Preview.Code>
 
-  <Preview.CSS>{datePickerExampleCss}</Preview.CSS>
-  <Preview.Data>{datePickerNoData}</Preview.Data>
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -425,7 +380,7 @@ Override public `--date-picker-*` variables on the root or any wrapper.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <DatePickerCssPropertiesPanel />
+      <DatePickerDocs.DatePickerCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

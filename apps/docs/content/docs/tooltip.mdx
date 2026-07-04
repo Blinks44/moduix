@@ -4,19 +4,7 @@ description: A label that provides information on hover or focus.
 icon: Component
 ---
 
-import {
-  ArrowTooltipExample,
-  ContextTooltipExample,
-  ControlledTooltipExample,
-  CustomStylingTooltipExample,
-  DelayTooltipExample,
-  MultipleTriggersTooltipExample,
-  PositioningTooltipExample,
-  RootProviderTooltipExample,
-  TooltipCssPropertiesPanel,
-  TooltipExample,
-  WithinFixedTooltipExample,
-} from '@/components/examples/tooltip';
+import * as TooltipDocs from '@/components/examples/tooltip';
 
 ## API Reference
 
@@ -37,46 +25,11 @@ Start with the Ark part tree: `Tooltip`, `Tooltip.Trigger`,
 tooltips do not replace `aria-label` or visible text.
 
 <Preview>
-  <TooltipExample />
+  <TooltipDocs.TooltipExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Tooltip } from "@moduix/react";
-import { Bell as BellIcon } from "lucide-react";
-      import styles from "./tooltip-demo.module.css";
-
-      export function TooltipDemo() {
-        return (
-          <Tooltip>
-            <Tooltip.Trigger asChild aria-label="Notifications">
-              <Button>
-                <span className={styles.triggerContent}>
-                  <BellIcon className={styles.icon} />
-                  Notifications
-                </span>
-              </Button>
-            </Tooltip.Trigger>
-            <Tooltip.Positioner>
-              <Tooltip.Content>Notifications</Tooltip.Content>
-            </Tooltip.Positioner>
-          </Tooltip>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const trigger = {
-        label: "Notifications",
-        icon: "BellIcon",
-      };
-
-      const content = "Notifications";
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tooltip/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -97,49 +50,7 @@ import { Bell as BellIcon } from "lucide-react";
 
 ## Install with shadcn
 
-If you want `Tooltip` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-tooltip
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-tooltip
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-tooltip
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-tooltip
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-tooltip
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Tooltip` depends on, such
-as styles and small utilities.
+<ShadcnInstall packageName="react-tooltip" />
 
 ## Anatomy
 
@@ -236,34 +147,11 @@ Render `Tooltip.Arrow` as the first child of `Tooltip.Content` when the surface 
 The wrapper renders `Tooltip.ArrowTip` for the default arrow shape.
 
 <Preview>
-  <ArrowTooltipExample />
+  <TooltipDocs.ArrowTooltipExample />
 
-  <Preview.Code>
-    {`
-      import { Tooltip } from "@moduix/react";
-
-      export function ArrowTooltipDemo() {
-        return (
-          <Tooltip>
-            <Tooltip.Trigger>Hover or focus</Tooltip.Trigger>
-            <Tooltip.Positioner>
-              <Tooltip.Content>
-                <Tooltip.Arrow />
-                Tooltip with arrow
-              </Tooltip.Content>
-            </Tooltip.Positioner>
-          </Tooltip>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.Data>
-  {`
-      const content = "Tooltip with arrow";
-    `}
-</Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tooltip/arrow.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`      /* The default moduix tooltip styles are used. */`}
@@ -276,37 +164,11 @@ The wrapper renders `Tooltip.ArrowTip` for the default arrow shape.
 Use `openDelay` and `closeDelay` on the root to tune hover and focus timing.
 
 <Preview>
-  <DelayTooltipExample />
+  <TooltipDocs.DelayTooltipExample />
 
-  <Preview.Code>
-    {`
-      import { Tooltip } from "@moduix/react";
-
-      export function DelayTooltipDemo() {
-        return (
-          <Tooltip closeDelay={0} openDelay={0}>
-            <Tooltip.Trigger>Immediate tooltip</Tooltip.Trigger>
-            <Tooltip.Positioner>
-              <Tooltip.Content>No open or close delay</Tooltip.Content>
-            </Tooltip.Positioner>
-          </Tooltip>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const delays = {
-        openDelay: 0,
-        closeDelay: 0,
-      };
-
-      const content = "No open or close delay";
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tooltip/delay.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`      /* The default moduix tooltip styles are used. */`}
@@ -319,56 +181,11 @@ Use `openDelay` and `closeDelay` on the root to tune hover and focus timing.
 Pass Ark positioning options to `Tooltip`, including placement and offset values.
 
 <Preview>
-  <PositioningTooltipExample />
+  <TooltipDocs.PositioningTooltipExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Tooltip } from "@moduix/react";
-      import { useState } from "react";
-      import styles from "./tooltip-demo.module.css";
-
-      type TooltipPlacement = (typeof tooltipPlacements)[number];
-
-      export function PositioningTooltipDemo() {
-        const [placement, setPlacement] = useState("top" as TooltipPlacement);
-
-        return (
-          <div className={styles.stack}>
-            <div className={styles.sideButtons}>
-              {tooltipPlacements.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  className={styles.sideButton}
-                  data-active={item === placement || undefined}
-                  onClick={() => setPlacement(item)}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-
-            <Tooltip positioning={{ placement, offset: { mainAxis: 12 } }}>
-              <Tooltip.Trigger asChild aria-label={\`Tooltip placement: \${placement}\`}>
-                <Button>Hover or focus</Button>
-              </Tooltip.Trigger>
-              <Tooltip.Positioner>
-                <Tooltip.Content>Placement: {placement}</Tooltip.Content>
-              </Tooltip.Positioner>
-            </Tooltip>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.Data>
-  {`
-      const tooltipPlacements = ["top", "right", "bottom", "left"] as const;
-      const offset = { mainAxis: 12 };
-    `}
-</Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tooltip/positioning.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -420,41 +237,11 @@ Pass Ark positioning options to `Tooltip`, including placement and offset values
 Control open state with `open` and `onOpenChange(details)`.
 
 <Preview>
-  <ControlledTooltipExample />
+  <TooltipDocs.ControlledTooltipExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Tooltip } from "@moduix/react";
-      import { useState } from "react";
-      import styles from "./tooltip-demo.module.css";
-
-      export function ControlledTooltipDemo() {
-        const [open, setOpen] = useState(false);
-
-        return (
-          <div className={styles.stack}>
-            <Button variant="outline" onClick={() => setOpen((value) => !value)}>
-              Toggle
-            </Button>
-            <Tooltip open={open} onOpenChange={(details) => setOpen(details.open)}>
-              <Tooltip.Trigger>Controlled tooltip</Tooltip.Trigger>
-              <Tooltip.Positioner>
-                <Tooltip.Content>Open: {String(open)}</Tooltip.Content>
-              </Tooltip.Positioner>
-            </Tooltip>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.Data>
-  {`
-      const initialOpen = false;
-      const toggleLabel = "Toggle";
-    `}
-</Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tooltip/controlled.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -474,38 +261,11 @@ Control open state with `open` and `onOpenChange(details)`.
 Use Ark `useTooltipContext()` when content needs inline access to the current tooltip state.
 
 <Preview>
-  <ContextTooltipExample />
+  <TooltipDocs.ContextTooltipExample />
 
-  <Preview.Code>
-    {`
-      import { useTooltipContext } from "@ark-ui/react/tooltip";
-      import { Tooltip } from "@moduix/react";
-
-      function TooltipStateContent() {
-        const tooltip = useTooltipContext();
-
-        return <Tooltip.Content>Open from context: {tooltip.open.toString()}</Tooltip.Content>;
-      }
-
-      export function ContextTooltipDemo() {
-        return (
-          <Tooltip>
-            <Tooltip.Trigger>Context tooltip</Tooltip.Trigger>
-            <Tooltip.Positioner>
-              <TooltipStateContent />
-            </Tooltip.Positioner>
-          </Tooltip>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.Data>
-  {`
-      const content = "Open from context: false";
-    `}
-</Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tooltip/context.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`      /* The default moduix tooltip styles are used. */`}
@@ -519,39 +279,11 @@ Use Ark `useTooltip()` with `Tooltip.RootProvider` when tooltip state must be ow
 rendered tooltip subtree.
 
 <Preview>
-  <RootProviderTooltipExample />
+  <TooltipDocs.RootProviderTooltipExample />
 
-  <Preview.Code>
-    {`
-      import { useTooltip } from "@ark-ui/react/tooltip";
-      import { Tooltip } from "@moduix/react";
-      import styles from "./tooltip-demo.module.css";
-
-      export function RootProviderTooltipDemo() {
-        const tooltip = useTooltip();
-
-        return (
-          <div className={styles.stack}>
-            <output className={styles.output}>Open: {String(tooltip.open)}</output>
-            <Tooltip.RootProvider value={tooltip}>
-              <Tooltip.Trigger>RootProvider tooltip</Tooltip.Trigger>
-              <Tooltip.Positioner>
-                <Tooltip.Content>State is owned outside the tree.</Tooltip.Content>
-              </Tooltip.Positioner>
-            </Tooltip.RootProvider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.Data>
-  {`
-      const tooltip = useTooltip();
-      const outputLabel = "Open";
-    `}
-</Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tooltip/root-provider.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -578,68 +310,11 @@ Use trigger `value` and `onTriggerValueChange(details)` to drive one tooltip fro
 triggers.
 
 <Preview>
-  <MultipleTriggersTooltipExample />
+  <TooltipDocs.MultipleTriggersTooltipExample />
 
-  <Preview.Code>
-    {`
-      import { Button, PlusIcon, Tooltip } from "@moduix/react";
-import { Info as InfoIcon, Share as ShareIcon } from "lucide-react";
-      import { useState } from "react";
-      import styles from "./tooltip-demo.module.css";
-
-      export function MultipleTriggersTooltipDemo() {
-        const [activeTool, setActiveTool] =
-          useState<(typeof tooltipTools)[number] | null>(null);
-
-        return (
-          <Tooltip
-            onTriggerValueChange={(details) => {
-              setActiveTool(
-                tooltipTools.find((tool) => tool.id === details.value) ?? null,
-              );
-            }}
-          >
-            <div className={styles.toolbar}>
-              {tooltipTools.map((tool) => (
-                <Tooltip.Trigger
-                  key={tool.id}
-                  value={tool.id}
-                  asChild
-                  aria-label={tool.label}
-                >
-                  <Button variant="ghost" size="icon-md">
-                    <tool.icon className={styles.icon} />
-                  </Button>
-                </Tooltip.Trigger>
-              ))}
-            </div>
-            <Tooltip.Positioner>
-              <Tooltip.Content>
-                {activeTool ? (
-                  <>
-                    {activeTool.label}{" "}
-                    <span className={styles.shortcut}>{activeTool.shortcut}</span>
-                  </>
-                ) : null}
-              </Tooltip.Content>
-            </Tooltip.Positioner>
-          </Tooltip>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const tooltipTools = [
-        { id: "create", label: "Create", shortcut: "Ctrl+N", icon: PlusIcon },
-        { id: "share", label: "Share", shortcut: "Ctrl+S", icon: ShareIcon },
-        { id: "details", label: "Details", shortcut: "Ctrl+I", icon: InfoIcon },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tooltip/multiple-triggers.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -673,35 +348,11 @@ import { Info as InfoIcon, Share as ShareIcon } from "lucide-react";
 Set `positioning.strategy` to `"fixed"` when the tooltip is anchored inside fixed-position layout.
 
 <Preview>
-  <WithinFixedTooltipExample />
+  <TooltipDocs.WithinFixedTooltipExample />
 
-  <Preview.Code>
-    {`
-      import { Tooltip } from "@moduix/react";
-      import styles from "./tooltip-demo.module.css";
-
-      export function WithinFixedTooltipDemo() {
-        return (
-          <div className={styles.fixedContainer}>
-            <Tooltip positioning={{ strategy: "fixed" }}>
-              <Tooltip.Trigger>Fixed strategy</Tooltip.Trigger>
-              <Tooltip.Positioner>
-                <Tooltip.Content>Positioned from a fixed container.</Tooltip.Content>
-              </Tooltip.Positioner>
-            </Tooltip>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.Data>
-  {`
-      const positioning = { strategy: "fixed" };
-      const content = "Positioned from a fixed container.";
-    `}
-</Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tooltip/within-fixed-containers.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -725,41 +376,11 @@ Customize trigger, content, positioner, and arrow styling through public classes
 Ark state attributes without changing the part tree.
 
 <Preview>
-  <CustomStylingTooltipExample />
+  <TooltipDocs.CustomStylingTooltipExample />
 
-  <Preview.Code>
-    {`
-      import { Tooltip } from "@moduix/react";
-      import styles from "./tooltip-demo.module.css";
-
-      export function CustomStylingTooltipDemo() {
-        return (
-          <Tooltip>
-            <Tooltip.Trigger
-              aria-label="Custom styled tooltip"
-              className={styles.customTrigger}
-            >
-              Custom style
-            </Tooltip.Trigger>
-            <Tooltip.Positioner className={styles.customPositioner}>
-              <Tooltip.Content className={styles.customContent}>
-                <Tooltip.Arrow className={styles.customArrow} />
-                Styled through explicit Ark parts
-              </Tooltip.Content>
-            </Tooltip.Positioner>
-          </Tooltip>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.Data>
-  {`
-      const triggerLabel = "Custom styled tooltip";
-      const content = "Styled through explicit Ark parts";
-    `}
-</Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/tooltip/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -802,7 +423,7 @@ Ark state attributes without changing the part tree.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <TooltipCssPropertiesPanel />
+      <TooltipDocs.TooltipCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

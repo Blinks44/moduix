@@ -4,19 +4,7 @@ description: A compact loading indicator with status semantics, size control, an
 icon: Component
 ---
 
-import {
-  SpinnerAsChildExample,
-  SpinnerCssPropertiesPanel,
-  SpinnerCustomIndicatorExample,
-  SpinnerExample,
-  SpinnerInlineExample,
-  SpinnerSizesExample,
-  SpinnerStylingExample,
-  spinnerAsChildCss,
-  spinnerInlineCss,
-  spinnerRowCss,
-  spinnerStylingCss,
-} from '@/components/examples/spinner';
+import * as SpinnerDocs from '@/components/examples/spinner';
 
 ## API Reference
 
@@ -32,68 +20,19 @@ states. The default path announces loading automatically with `role="status"` an
 `aria-label="Loading"`.
 
 <Preview>
-  <SpinnerExample />
+  <SpinnerDocs.SpinnerExample />
 
-  <Preview.Code>
-    {`
-      import { Spinner } from "@moduix/react";
-
-      export function SpinnerDemo() {
-        return <Spinner />;
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/spinner/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{`/* No extra styles required. */`}</Preview.CSS>
-  <Preview.Data>{`const statusLabel = "Loading";`}</Preview.Data>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Spinner` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-spinner
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-spinner
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-spinner
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-spinner
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-spinner
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Spinner` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-spinner" />
 
 ## Anatomy
 
@@ -160,27 +99,14 @@ root props into the single child, so the child owns its visual contents.
 Use `decorative` when visible text next to the spinner already says what is happening.
 
 <Preview>
-  <SpinnerInlineExample />
+  <SpinnerDocs.SpinnerInlineExample />
 
-  <Preview.Code>
-    {`
-      import { Spinner } from "@moduix/react";
-      import styles from "./spinner.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/spinner/inline-loading-text.tsx#demo</include>
+</Preview.Code>
 
-      export function SpinnerInlineDemo() {
-        return (
-          <div className={styles.inline}>
-            <Spinner decorative size="sm" />
-            <span className={styles.muted}>Saving changes</span>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{spinnerInlineCss}</Preview.CSS>
-  <Preview.Data>{`const statusText = "Saving changes";`}</Preview.Data>
+  <Preview.CSS>{SpinnerDocs.spinnerInlineCss}</Preview.CSS>
+  
 </Preview>
 
 ### Sizes
@@ -188,28 +114,14 @@ Use `decorative` when visible text next to the spinner already says what is happ
 Use smaller sizes inside compact controls and larger sizes for standalone loading states.
 
 <Preview>
-  <SpinnerSizesExample />
+  <SpinnerDocs.SpinnerSizesExample />
 
-  <Preview.Code>
-    {`
-      import { Spinner } from "@moduix/react";
-      import styles from "./spinner.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/spinner/sizes.tsx#demo</include>
+</Preview.Code>
 
-      export function SpinnerSizesDemo() {
-        return (
-          <div className={styles.row}>
-            {sizes.map((size) => (
-              <Spinner key={size} decorative size={size} />
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{spinnerRowCss}</Preview.CSS>
-  <Preview.Data>{`const sizes = ["xs", "sm", "md", "lg", "xl"] as const;`}</Preview.Data>
+  <Preview.CSS>{SpinnerDocs.spinnerRowCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -217,22 +129,14 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
 Use `className` and `--spinner-*` variables for one-off color and ring overrides.
 
 <Preview>
-  <SpinnerStylingExample />
+  <SpinnerDocs.SpinnerStylingExample />
 
-  <Preview.Code>
-    {`
-      import { Spinner } from "@moduix/react";
-      import styles from "./spinner.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/spinner/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-      export function SpinnerStylingDemo() {
-        return <Spinner decorative size="lg" className={styles.brandSpinner} />;
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{spinnerStylingCss}</Preview.CSS>
-  <Preview.Data>{`const size = "lg";`}</Preview.Data>
+  <Preview.CSS>{SpinnerDocs.spinnerStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ### As Child
@@ -241,30 +145,14 @@ Use `asChild` when another semantic element needs to become the spinner root. Th
 root attributes and class name, so it must render the visual indicator itself.
 
 <Preview>
-  <SpinnerAsChildExample />
+  <SpinnerDocs.SpinnerAsChildExample />
 
-  <Preview.Code>
-    {`
-      import { Spinner } from "@moduix/react";
-      import styles from "./spinner.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/spinner/as-child.tsx#demo</include>
+</Preview.Code>
 
-      export function SpinnerAsChildDemo() {
-        return (
-          <Spinner asChild size="lg" aria-label="Loading report">
-            <span className={styles.customSpinnerHost}>
-              <span data-scope="spinner" data-part="indicator" data-slot="spinner-indicator">
-                <span data-scope="spinner" data-part="ring" data-slot="spinner-ring" />
-              </span>
-            </span>
-          </Spinner>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{spinnerAsChildCss}</Preview.CSS>
-  <Preview.Data>{`const statusLabel = "Loading report";`}</Preview.Data>
+  <Preview.CSS>{SpinnerDocs.spinnerAsChildCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Indicator
@@ -273,32 +161,14 @@ Pass custom `children` when the default ring should be replaced but the size and
 should stay the same.
 
 <Preview>
-  <SpinnerCustomIndicatorExample />
+  <SpinnerDocs.SpinnerCustomIndicatorExample />
 
-  <Preview.Code>
-    {`
-      import { Spinner } from "@moduix/react";
-
-      export function SpinnerCustomIndicatorDemo() {
-        return (
-          <Spinner size="lg" aria-label="Syncing">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M12 3v4M12 17v4M3 12h4M17 12h4M5.64 5.64l2.83 2.83M15.53 15.53l2.83 2.83M18.36 5.64l-2.83 2.83M8.47 15.53l-2.83 2.83"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-          </Spinner>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/spinner/custom-indicator.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{`/* No extra styles required. */`}</Preview.CSS>
-  <Preview.Data>{`const statusLabel = "Syncing";`}</Preview.Data>
+  
 </Preview>
 
 ## Styling
@@ -311,7 +181,7 @@ hooks, `data-size`, and the public `--spinner-*` variables from `theme.css`.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <SpinnerCssPropertiesPanel />
+      <SpinnerDocs.SpinnerCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

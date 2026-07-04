@@ -4,15 +4,7 @@ description: Separates related content or groups with an accessible horizontal o
 icon: Component
 ---
 
-import {
-  SeparatorAsChildExample,
-  SeparatorCssPropertiesPanel,
-  SeparatorExample,
-  SeparatorSizesExample,
-  SeparatorVariantsExample,
-  StyledSeparatorExample,
-  VerticalSeparatorExample,
-} from '@/components/examples/separator';
+import * as SeparatorDocs from '@/components/examples/separator';
 
 ## API Reference
 
@@ -26,27 +18,11 @@ Ark UI does not ship a dedicated separator primitive. Moduix builds this compone
 Use `Separator` when the line itself communicates structure between related content.
 
 <Preview>
-  <SeparatorExample />
+  <SeparatorDocs.SeparatorExample />
 
   <Preview.Code>
-    {`
-      import { Separator } from "@moduix/react";
-      import styles from "./separator-demo.module.css";
-
-      export function SeparatorDemo() {
-        return (
-          <div className={styles.card}>
-            <div className={styles.stack}>
-              <span className={styles.text}>{sections[0]}</span>
-              <Separator />
-              <span className={styles.text}>{sections[1]}</span>
-            </div>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/separator/basic.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .card {
@@ -70,58 +46,12 @@ Use `Separator` when the line itself communicates structure between related cont
     `}
 
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const sections = ["Account settings", "Billing details"];
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Separator` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-separator
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-separator
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-separator
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-separator
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-separator
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Separator` depends on.
+<ShadcnInstall packageName="react-separator" />
 
 ## Anatomy
 
@@ -178,31 +108,11 @@ that can receive the merged role, ARIA, data attributes, class name, and ref.
 Use `orientation="vertical"` for inline groups such as navigation actions.
 
 <Preview>
-  <VerticalSeparatorExample />
+  <SeparatorDocs.VerticalSeparatorExample />
 
   <Preview.Code>
-    {`
-      import { Separator } from "@moduix/react";
-      import styles from "./separator-demo.module.css";
-
-      export function VerticalSeparatorDemo() {
-        return (
-          <nav className={styles.nav} aria-label="Main navigation">
-            {navigationItems.slice(0, 2).map((item) => (
-              <a key={item} href="#" className={styles.link}>
-                {item}
-              </a>
-            ))}
-            <Separator orientation="vertical" />
-            <a href="#" className={styles.link}>
-              {navigationItems[2]}
-            </a>
-          </nav>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/separator/vertical.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .nav {
@@ -221,12 +131,7 @@ Use `orientation="vertical"` for inline groups such as navigation actions.
     `}
 
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const navigationItems = ["Home", "Pricing", "Sign in"];
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Variants
@@ -234,28 +139,11 @@ Use `orientation="vertical"` for inline groups such as navigation actions.
 Use `variant` when the separator needs a solid, dashed, or dotted stroke.
 
 <Preview>
-  <SeparatorVariantsExample />
+  <SeparatorDocs.SeparatorVariantsExample />
 
   <Preview.Code>
-    {`
-      import { Separator } from "@moduix/react";
-      import styles from "./separator-demo.module.css";
-
-      export function SeparatorVariantsDemo() {
-        return (
-          <div className={styles.section}>
-            {variants.map((variant) => (
-              <div key={variant} className={styles.exampleRow}>
-                <span className={styles.text}>{variant}</span>
-                <Separator variant={variant} />
-              </div>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/separator/variants.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .section {
@@ -279,12 +167,7 @@ Use `variant` when the separator needs a solid, dashed, or dotted stroke.
     `}
 
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const variants = ["solid", "dashed", "dotted"] as const;
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Sizes
@@ -292,28 +175,11 @@ Use `variant` when the separator needs a solid, dashed, or dotted stroke.
 Use `size` to select the recipe thickness before applying any custom CSS variable overrides.
 
 <Preview>
-  <SeparatorSizesExample />
+  <SeparatorDocs.SeparatorSizesExample />
 
   <Preview.Code>
-    {`
-      import { Separator } from "@moduix/react";
-      import styles from "./separator-demo.module.css";
-
-      export function SeparatorSizesDemo() {
-        return (
-          <div className={styles.section}>
-            {sizes.map((size) => (
-              <div key={size} className={styles.exampleRow}>
-                <span className={styles.text}>{size}</span>
-                <Separator size={size} />
-              </div>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/separator/sizes.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .section {
@@ -337,12 +203,7 @@ Use `size` to select the recipe thickness before applying any custom CSS variabl
     `}
 
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const sizes = ["xs", "sm", "md", "lg"] as const;
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### As Child
@@ -350,27 +211,11 @@ Use `size` to select the recipe thickness before applying any custom CSS variabl
 Use `asChild` to render a native host while keeping the moduix separator styling hooks.
 
 <Preview>
-  <SeparatorAsChildExample />
+  <SeparatorDocs.SeparatorAsChildExample />
 
   <Preview.Code>
-    {`
-      import { Separator } from "@moduix/react";
-      import styles from "./separator-demo.module.css";
-
-      export function SeparatorAsChildDemo() {
-        return (
-          <div className={styles.section}>
-            <span className={styles.text}>{labels[0]}</span>
-            <Separator asChild>
-              <hr className={styles.nativeRule} />
-            </Separator>
-            <span className={styles.text}>{labels[1]}</span>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/separator/as-child.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .section {
@@ -390,12 +235,7 @@ Use `asChild` to render a native host while keeping the moduix separator styling
     `}
 
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const labels = ["Before native rule", "After native rule"];
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Custom Styling
@@ -404,25 +244,11 @@ Use `className` or `--separator-*` custom properties when the divider needs stro
 or a fixed length.
 
 <Preview>
-  <StyledSeparatorExample />
+  <SeparatorDocs.StyledSeparatorExample />
 
   <Preview.Code>
-    {`
-      import { Separator } from "@moduix/react";
-      import styles from "./separator-demo.module.css";
-
-      export function CustomSeparatorDemo() {
-        return (
-          <div className={styles.section}>
-            <span className={styles.text}>{steps[0]}</span>
-            <Separator className={styles.customSeparator} />
-            <span className={styles.text}>{steps[1]}</span>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/separator/custom-styling.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .section {
@@ -444,12 +270,7 @@ or a fixed length.
     `}
 
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const steps = ["Completed profile", "Next step: billing details"];
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ## Styling
@@ -462,7 +283,7 @@ border style, thickness, and orientation-specific length.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <SeparatorCssPropertiesPanel />
+      <SeparatorDocs.SeparatorCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

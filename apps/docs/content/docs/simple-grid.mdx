@@ -4,14 +4,7 @@ description: An Ark-aligned equal-column grid that can adapt automatically to it
 icon: Component
 ---
 
-import {
-  SimpleGridColumnsExample,
-  SimpleGridExample,
-  SimpleGridSemanticExample,
-  simpleGridDestinationsData,
-  simpleGridMetricsData,
-  simpleGridPlansData,
-} from '@/components/examples/simple-grid';
+import * as SimpleGridDocs from '@/components/examples/simple-grid';
 
 ## API Reference
 
@@ -29,37 +22,11 @@ available width changes. The component handles `auto-fit`, `minmax()`, and narro
 internally.
 
 <Preview>
-  <SimpleGridExample />
+  <SimpleGridDocs.SimpleGridExample />
 
-  <Preview.Code>
-    {`
-      import { Card, SimpleGrid, Text } from "@moduix/react";
-      import styles from "./simple-grid.module.css";
-
-      export function SimpleGridDemo() {
-        return (
-          <SimpleGrid
-            minChildWidth="18rem"
-            gap="var(--spacing-4)"
-            className={\`\${styles.simpleGridDemoGrid} \${styles.simpleGridDemoCards}\`}
-          >
-            {plans.map((plan) => (
-              <Card key={plan.name} size="sm">
-                <Card.Header>
-                  <Card.Title>{plan.name}</Card.Title>
-                  <Card.Description>{plan.description}</Card.Description>
-                </Card.Header>
-                <Card.Body>
-                  <Text size="xl" weight="semibold">{plan.price}</Text>
-                </Card.Body>
-              </Card>
-            ))}
-          </SimpleGrid>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/simple-grid/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -77,54 +44,11 @@ internally.
 
   </Preview.CSS>
 
-  <Preview.Data>{simpleGridPlansData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `SimpleGrid` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-simple-grid
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-simple-grid
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-simple-grid
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-simple-grid
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-simple-grid
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `SimpleGrid` depends on,
-such as styles and small utilities.
+<ShadcnInstall packageName="react-simple-grid" />
 
 ## Anatomy
 
@@ -193,34 +117,11 @@ when `grid-template-columns` is owned by the stylesheet.
 Use `columns` when a compact dashboard should always render an exact number of equal tracks.
 
 <Preview>
-  <SimpleGridColumnsExample />
+  <SimpleGridDocs.SimpleGridColumnsExample />
 
-  <Preview.Code>
-    {`
-      import { SimpleGrid, Text } from "@moduix/react";
-      import styles from "./simple-grid.module.css";
-
-      export function FixedColumnsDemo() {
-        return (
-          <SimpleGrid
-            columns={4}
-            gap="var(--spacing-3)"
-            className={\`\${styles.simpleGridDemoGrid} \${styles.simpleGridDemoMetrics}\`}
-          >
-            {metrics.map((metric) => (
-              <div key={metric.label} className={styles.simpleGridDemoMetric}>
-                <Text size="xl" weight="semibold">
-                  {metric.value}
-                </Text>
-                <Text tone="muted" size="sm">{metric.label}</Text>
-              </div>
-            ))}
-          </SimpleGrid>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/simple-grid/fixed-columns.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -247,7 +148,6 @@ Use `columns` when a compact dashboard should always render an exact number of e
 
   </Preview.CSS>
 
-  <Preview.Data>{simpleGridMetricsData}</Preview.Data>
 </Preview>
 
 ### Media Gallery
@@ -255,42 +155,11 @@ Use `columns` when a compact dashboard should always render an exact number of e
 Combine intrinsic columns with Ark `asChild` when a media grid should also carry list semantics.
 
 <Preview>
-  <SimpleGridSemanticExample />
+  <SimpleGridDocs.SimpleGridSemanticExample />
 
-  <Preview.Code>
-    {`
-      import { SimpleGrid, Text } from "@moduix/react";
-      import styles from "./simple-grid.module.css";
-
-      export function MediaGalleryDemo() {
-        return (
-          <SimpleGrid
-            asChild
-            minChildWidth="10rem"
-            gap="var(--spacing-3)"
-            className={\`\${styles.simpleGridDemoGrid} \${styles.simpleGridDemoGallery}\`}
-          >
-            <ul aria-label="Travel destinations">
-              {destinations.map((destination) => (
-                <li key={destination.name} className={styles.simpleGridDemoGalleryItem}>
-                  <img
-                    src={destination.image}
-                    alt={destination.alt}
-                    loading="lazy"
-                    className={styles.simpleGridDemoImage}
-                  />
-                  <Text as="span" size="sm" weight="medium" className={styles.simpleGridDemoCaption}>
-                    {destination.name}
-                  </Text>
-                </li>
-              ))}
-            </ul>
-          </SimpleGrid>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/simple-grid/media-gallery.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -330,7 +199,6 @@ Combine intrinsic columns with Ark `asChild` when a media grid should also carry
 
   </Preview.CSS>
 
-  <Preview.Data>{simpleGridDestinationsData}</Preview.Data>
 </Preview>
 
 ## Styling

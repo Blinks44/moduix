@@ -4,25 +4,7 @@ description: Ark UI radio-group composition for selecting one value from a visib
 icon: Component
 ---
 
-import {
-  ControlledRadioGroupExample,
-  DisabledRadioGroupExample,
-  RadioGroupAsChildExample,
-  RadioGroupCssPropertiesPanel,
-  RadioGroupCustomStylingExample,
-  RadioGroupExample,
-  RadioGroupFieldsetExample,
-  RadioGroupIndicatorExample,
-  RadioGroupInitialValueExample,
-  RadioGroupOrientationExample,
-  RadioGroupRootProviderExample,
-  RadioGroupSizesExample,
-  radioGroupAsChildCss,
-  radioGroupCustomStylingCss,
-  radioGroupExampleCss,
-  radioGroupFrameworksData,
-  radioGroupIndicatorCss,
-} from '@/components/examples/radio-group';
+import * as RadioGroupDocs from '@/components/examples/radio-group';
 
 ## API Reference
 
@@ -34,76 +16,19 @@ Use `RadioGroup` with Ark-style item parts and keep `RadioGroup.ItemHiddenInput`
 form-backed item.
 
 <Preview>
-  <RadioGroupExample />
+  <RadioGroupDocs.RadioGroupExample />
 
-  <Preview.Code>
-    {`
-      import { RadioGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/radio-group/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function RadioGroupDemo() {
-        return (
-          <RadioGroup defaultValue="React">
-            <RadioGroup.Label>Framework</RadioGroup.Label>
-            {frameworks.map((framework) => (
-              <RadioGroup.Item key={framework} value={framework}>
-                <RadioGroup.ItemControl />
-                <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-                <RadioGroup.ItemHiddenInput />
-              </RadioGroup.Item>
-            ))}
-          </RadioGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
-  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{RadioGroupDocs.radioGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `RadioGroup` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-radio-group
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-radio-group
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-radio-group
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-radio-group
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-radio-group
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-radio-group" />
 
 ## Anatomy
 
@@ -168,32 +93,14 @@ navigation, and `onValueChange(details)` callback shape.
 Set `defaultValue` when the initial checked item is known but the group can manage later updates.
 
 <Preview>
-  <RadioGroupInitialValueExample />
+  <RadioGroupDocs.RadioGroupInitialValueExample />
 
-  <Preview.Code>
-    {`
-      import { RadioGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/radio-group/initial-value.tsx#demo</include>
+</Preview.Code>
 
-      export function InitialValueDemo() {
-        return (
-          <RadioGroup defaultValue="Solid">
-            <RadioGroup.Label>Framework</RadioGroup.Label>
-            {frameworks.map((framework) => (
-              <RadioGroup.Item key={framework} value={framework}>
-                <RadioGroup.ItemControl />
-                <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-                <RadioGroup.ItemHiddenInput />
-              </RadioGroup.Item>
-            ))}
-          </RadioGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
-  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{RadioGroupDocs.radioGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Controlled
@@ -201,35 +108,14 @@ Set `defaultValue` when the initial checked item is known but the group can mana
 Use `value` with `onValueChange(details)` when selected value is owned by surrounding UI.
 
 <Preview>
-  <ControlledRadioGroupExample />
+  <RadioGroupDocs.ControlledRadioGroupExample />
 
-  <Preview.Code>
-    {`
-      import { RadioGroup } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/radio-group/controlled.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledRadioGroupDemo() {
-        const [value, setValue] = useState(null as string | null);
-
-        return (
-          <RadioGroup value={value} onValueChange={(details) => setValue(details.value)}>
-            <RadioGroup.Label>Framework</RadioGroup.Label>
-            {frameworks.map((framework) => (
-              <RadioGroup.Item key={framework} value={framework}>
-                <RadioGroup.ItemControl />
-                <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-                <RadioGroup.ItemHiddenInput />
-              </RadioGroup.Item>
-            ))}
-          </RadioGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
-  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{RadioGroupDocs.radioGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -238,40 +124,14 @@ Use `RootProvider` when an Ark `useRadioGroup()` store needs to be shared with c
 radio tree.
 
 <Preview>
-  <RadioGroupRootProviderExample />
+  <RadioGroupDocs.RadioGroupRootProviderExample />
 
-  <Preview.Code>
-    {`
-      import { useRadioGroup } from "@ark-ui/react/radio-group";
-      import { RadioGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/radio-group/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      export function RadioGroupRootProviderDemo() {
-        const radioGroup = useRadioGroup({ defaultValue: "React" });
-
-        return (
-          <div className="radio-stack">
-            <RadioGroup.RootProvider value={radioGroup}>
-              <RadioGroup.Label>Framework</RadioGroup.Label>
-              {frameworks.map((framework) => (
-                <RadioGroup.Item key={framework} value={framework}>
-                  <RadioGroup.ItemControl />
-                  <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-                  <RadioGroup.ItemHiddenInput />
-                </RadioGroup.Item>
-              ))}
-            </RadioGroup.RootProvider>
-            <button className="radio-button" type="button" onClick={() => radioGroup.setValue("Solid")}>
-              Set to Solid
-            </button>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
-  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{RadioGroupDocs.radioGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Disabled
@@ -279,32 +139,14 @@ radio tree.
 Set `disabled` on the root to make every item unavailable while keeping the selected value visible.
 
 <Preview>
-  <DisabledRadioGroupExample />
+  <RadioGroupDocs.DisabledRadioGroupExample />
 
-  <Preview.Code>
-    {`
-      import { RadioGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/radio-group/disabled.tsx#demo</include>
+</Preview.Code>
 
-      export function DisabledRadioGroupDemo() {
-        return (
-          <RadioGroup defaultValue="React" disabled>
-            <RadioGroup.Label>Framework</RadioGroup.Label>
-            {frameworks.map((framework) => (
-              <RadioGroup.Item key={framework} value={framework}>
-                <RadioGroup.ItemControl />
-                <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-                <RadioGroup.ItemHiddenInput />
-              </RadioGroup.Item>
-            ))}
-          </RadioGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
-  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{RadioGroupDocs.radioGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Orientation
@@ -312,34 +154,14 @@ Set `disabled` on the root to make every item unavailable while keeping the sele
 Set `orientation="horizontal"` when arrow-key behavior and layout should follow a horizontal group.
 
 <Preview>
-  <RadioGroupOrientationExample />
+  <RadioGroupDocs.RadioGroupOrientationExample />
 
-  <Preview.Code>
-    {`
-      import { RadioGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/radio-group/orientation.tsx#demo</include>
+</Preview.Code>
 
-      export function RadioGroupOrientationDemo() {
-        return (
-          <RadioGroup orientation="horizontal" defaultValue="React">
-            <RadioGroup.Label>Framework</RadioGroup.Label>
-            <div className="radio-inline-items">
-              {frameworks.map((framework) => (
-                <RadioGroup.Item key={framework} value={framework}>
-                  <RadioGroup.ItemControl />
-                  <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-                  <RadioGroup.ItemHiddenInput />
-                </RadioGroup.Item>
-              ))}
-            </div>
-          </RadioGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
-  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{RadioGroupDocs.radioGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### With Fieldset
@@ -347,34 +169,14 @@ Set `orientation="horizontal"` when arrow-key behavior and layout should follow 
 Wrap the group in `Fieldset` when several radio items share a form section legend.
 
 <Preview>
-  <RadioGroupFieldsetExample />
+  <RadioGroupDocs.RadioGroupFieldsetExample />
 
-  <Preview.Code>
-    {`
-      import { Fieldset, RadioGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/radio-group/with-fieldset.tsx#demo</include>
+</Preview.Code>
 
-      export function RadioGroupFieldsetDemo() {
-        return (
-          <Fieldset>
-            <Fieldset.Legend>Select a framework</Fieldset.Legend>
-            <RadioGroup defaultValue="React">
-              {frameworks.map((framework) => (
-                <RadioGroup.Item key={framework} value={framework}>
-                  <RadioGroup.ItemControl />
-                  <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-                  <RadioGroup.ItemHiddenInput />
-                </RadioGroup.Item>
-              ))}
-            </RadioGroup>
-          </Fieldset>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
-  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{RadioGroupDocs.radioGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Sizes
@@ -382,37 +184,14 @@ Wrap the group in `Fieldset` when several radio items share a form section legen
 Use the moduix `size` prop on `ItemControl` when the radio control needs a different diameter.
 
 <Preview>
-  <RadioGroupSizesExample />
+  <RadioGroupDocs.RadioGroupSizesExample />
 
-  <Preview.Code>
-    {`
-      import { RadioGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/radio-group/sizes.tsx#demo</include>
+</Preview.Code>
 
-      export function RadioGroupSizesDemo() {
-        return (
-          <RadioGroup defaultValue="md">
-            <RadioGroup.Label>Control Size</RadioGroup.Label>
-            {["xs", "sm", "md", "lg", "xl"].map((size) => (
-              <RadioGroup.Item key={size} value={size}>
-                <RadioGroup.ItemControl size={size} />
-                <RadioGroup.ItemText>{size.toUpperCase()}</RadioGroup.ItemText>
-                <RadioGroup.ItemHiddenInput />
-              </RadioGroup.Item>
-            ))}
-          </RadioGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{radioGroupExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const sizes = ["xs", "sm", "md", "lg", "xl"];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{RadioGroupDocs.radioGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### asChild
@@ -420,34 +199,14 @@ Use the moduix `size` prop on `ItemControl` when the radio control needs a diffe
 Use `RadioGroup.Item asChild` when a custom label layout should own the item DOM node.
 
 <Preview>
-  <RadioGroupAsChildExample />
+  <RadioGroupDocs.RadioGroupAsChildExample />
 
-  <Preview.Code>
-    {`
-      import { RadioGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/radio-group/aschild.tsx#demo</include>
+</Preview.Code>
 
-      export function RadioGroupAsChildDemo() {
-        return (
-          <RadioGroup defaultValue="React">
-            <RadioGroup.Label>Framework</RadioGroup.Label>
-            {frameworks.map((framework) => (
-              <RadioGroup.Item key={framework} value={framework} asChild>
-                <label className="radio-card-item">
-                  <RadioGroup.ItemControl />
-                  <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-                  <RadioGroup.ItemHiddenInput />
-                </label>
-              </RadioGroup.Item>
-            ))}
-          </RadioGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{radioGroupAsChildCss}</Preview.CSS>
-  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{RadioGroupDocs.radioGroupAsChildCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -455,32 +214,14 @@ Use `RadioGroup.Item asChild` when a custom label layout should own the item DOM
 Pass `className` to the Ark part that owns the visual concern and style Ark state attributes.
 
 <Preview>
-  <RadioGroupCustomStylingExample />
+  <RadioGroupDocs.RadioGroupCustomStylingExample />
 
-  <Preview.Code>
-    {`
-      import { RadioGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/radio-group/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-      export function StyledRadioGroupDemo() {
-        return (
-          <RadioGroup defaultValue="React" className="radio-custom-root">
-            <RadioGroup.Label className="radio-custom-label">Styled Framework</RadioGroup.Label>
-            {frameworks.map((framework) => (
-              <RadioGroup.Item key={framework} value={framework} className="radio-custom-item">
-                <RadioGroup.ItemControl className="radio-custom-control" />
-                <RadioGroup.ItemText className="radio-custom-text">{framework}</RadioGroup.ItemText>
-                <RadioGroup.ItemHiddenInput />
-              </RadioGroup.Item>
-            ))}
-          </RadioGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{radioGroupCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{RadioGroupDocs.radioGroupCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ### Indicator
@@ -490,35 +231,14 @@ Keep non-item content outside the same positioning context so the indicator trac
 exactly.
 
 <Preview>
-  <RadioGroupIndicatorExample />
+  <RadioGroupDocs.RadioGroupIndicatorExample />
 
-  <Preview.Code>
-    {`
-      import { RadioGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/radio-group/indicator.tsx#demo</include>
+</Preview.Code>
 
-      export function RadioGroupIndicatorDemo() {
-        return (
-          <div className="radio-indicator-stack">
-            <div>Framework</div>
-            <RadioGroup aria-label="Framework" defaultValue="React" className="radio-indicator-root">
-              <RadioGroup.Indicator className="radio-group-indicator" />
-              {frameworks.map((framework) => (
-                <RadioGroup.Item key={framework} value={framework}>
-                  <RadioGroup.ItemControl />
-                  <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-                  <RadioGroup.ItemHiddenInput />
-                </RadioGroup.Item>
-              ))}
-            </RadioGroup>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{radioGroupIndicatorCss}</Preview.CSS>
-  <Preview.Data>{radioGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{RadioGroupDocs.radioGroupIndicatorCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -531,7 +251,7 @@ Style `RadioGroup` through `className`, stable `data-slot="radio-group-*"` hooks
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <RadioGroupCssPropertiesPanel />
+      <RadioGroupDocs.RadioGroupCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

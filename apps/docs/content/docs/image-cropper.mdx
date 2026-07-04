@@ -4,28 +4,7 @@ description: Ark UI image-cropper composition for cropping and transforming imag
 icon: Component
 ---
 
-import {
-  AspectRatioImageCropperExample,
-  CircleImageCropperExample,
-  ControlledZoomImageCropperExample,
-  CropPreviewImageCropperExample,
-  CustomStylingImageCropperExample,
-  EventsImageCropperExample,
-  FixedImageCropperExample,
-  ImageCropperCssPropertiesPanel,
-  ImageCropperExample,
-  InitialCropImageCropperExample,
-  RootProviderImageCropperExample,
-  SizeLimitImageCropperExample,
-  TransformImageCropperExample,
-  imageCropperAspectRatiosData,
-  imageCropperCustomStylingCss,
-  imageCropperExampleCss,
-  imageCropperInitialCropData,
-  imageCropperSampleImageData,
-  imageCropperSizeLimitsData,
-  imageCropperZoomLimitsData,
-} from '@/components/examples/image-cropper';
+import * as ImageCropperDocs from '@/components/examples/image-cropper';
 
 ## API Reference
 
@@ -37,44 +16,19 @@ Use the explicit Ark part tree: `ImageCropper`, `ImageCropper.Viewport`, `ImageC
 `ImageCropper.Selection`, grids, and handles.
 
 <Preview>
-  <ImageCropperExample />
+  <ImageCropperDocs.ImageCropperExample />
 
-  <Preview.Code>
-    {`
-      import { ImageCropper } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function ImageCropperDemo() {
-        return (
-          <ImageCropper>
-            <ImageCropper.Viewport>
-              <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-              <ImageCropper.Selection>
-                <ImageCropper.Grid axis="horizontal" />
-                <ImageCropper.Grid axis="vertical" />
-                {ImageCropper.handles.map((position) => (
-                  <ImageCropper.Handle key={position} position={position} />
-                ))}
-              </ImageCropper.Selection>
-            </ImageCropper.Viewport>
-          </ImageCropper>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{imageCropperExampleCss}</Preview.CSS>
-  <Preview.Data>{imageCropperSampleImageData}</Preview.Data>
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `ImageCropper` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-image-cropper
-```
+<ShadcnInstall packageName="react-image-cropper" />
 
 ## Anatomy
 
@@ -141,52 +95,14 @@ Ark detail objects through `onCropChange`, `onZoomChange`, `onRotationChange`, a
 Change `aspectRatio` from React state when users choose a required output shape.
 
 <Preview>
-  <AspectRatioImageCropperExample />
+  <ImageCropperDocs.AspectRatioImageCropperExample />
 
-  <Preview.Code>
-    {`
-      import { ImageCropper } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/aspect-ratio.tsx#demo</include>
+</Preview.Code>
 
-      export function AspectRatioImageCropperDemo() {
-        const [aspectRatio, setAspectRatio] = useState(16 / 9);
-
-        return (
-          <div className="cropper-stack">
-            <div className="cropper-toolbar">
-              {aspectRatios.map((aspect) => (
-                <button
-                  className="cropper-button"
-                  type="button"
-                  key={aspect.label}
-                  data-state={aspectRatio === aspect.value ? "checked" : undefined}
-                  onClick={() => setAspectRatio(aspect.value)}
-                >
-                  {aspect.label}
-                </button>
-              ))}
-            </div>
-            <ImageCropper aspectRatio={aspectRatio}>
-              <ImageCropper.Viewport>
-                <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-                <ImageCropper.Selection>
-                  <ImageCropper.Grid axis="horizontal" />
-                  <ImageCropper.Grid axis="vertical" />
-                  {ImageCropper.handles.map((position) => (
-                    <ImageCropper.Handle key={position} position={position} />
-                  ))}
-                </ImageCropper.Selection>
-              </ImageCropper.Viewport>
-            </ImageCropper>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{imageCropperExampleCss}</Preview.CSS>
-  <Preview.Data>{`${imageCropperSampleImageData}\n${imageCropperAspectRatiosData}`}</Preview.Data>
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Circle Crop
@@ -194,34 +110,14 @@ Change `aspectRatio` from React state when users choose a required output shape.
 Use `cropShape="circle"` with a square aspect ratio for avatars and profile images.
 
 <Preview>
-  <CircleImageCropperExample />
+  <ImageCropperDocs.CircleImageCropperExample />
 
-  <Preview.Code>
-    {`
-      import { ImageCropper } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/circle-crop.tsx#demo</include>
+</Preview.Code>
 
-      export function CircleImageCropperDemo() {
-        return (
-          <ImageCropper cropShape="circle" aspectRatio={1}>
-            <ImageCropper.Viewport>
-              <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-              <ImageCropper.Selection>
-                <ImageCropper.Grid axis="horizontal" />
-                <ImageCropper.Grid axis="vertical" />
-                {ImageCropper.handles.map((position) => (
-                  <ImageCropper.Handle key={position} position={position} />
-                ))}
-              </ImageCropper.Selection>
-            </ImageCropper.Viewport>
-          </ImageCropper>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{imageCropperExampleCss}</Preview.CSS>
-  <Preview.Data>{imageCropperSampleImageData}</Preview.Data>
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Initial Crop
@@ -229,34 +125,14 @@ Use `cropShape="circle"` with a square aspect ratio for avatars and profile imag
 Pass `initialCrop` when the cropper should open with a known pixel selection.
 
 <Preview>
-  <InitialCropImageCropperExample />
+  <ImageCropperDocs.InitialCropImageCropperExample />
 
-  <Preview.Code>
-    {`
-      import { ImageCropper } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/initial-crop.tsx#demo</include>
+</Preview.Code>
 
-      export function InitialCropImageCropperDemo() {
-        return (
-          <ImageCropper initialCrop={initialCrop}>
-            <ImageCropper.Viewport>
-              <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-              <ImageCropper.Selection>
-                <ImageCropper.Grid axis="horizontal" />
-                <ImageCropper.Grid axis="vertical" />
-                {ImageCropper.handles.map((position) => (
-                  <ImageCropper.Handle key={position} position={position} />
-                ))}
-              </ImageCropper.Selection>
-            </ImageCropper.Viewport>
-          </ImageCropper>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{imageCropperExampleCss}</Preview.CSS>
-  <Preview.Data>{`${imageCropperSampleImageData}\n${imageCropperInitialCropData}`}</Preview.Data>
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Controlled Zoom
@@ -264,63 +140,14 @@ Pass `initialCrop` when the cropper should open with a known pixel selection.
 Control `zoom` with `onZoomChange` and bound the interaction with `minZoom` and `maxZoom`.
 
 <Preview>
-  <ControlledZoomImageCropperExample />
+  <ImageCropperDocs.ControlledZoomImageCropperExample />
 
-  <Preview.Code>
-    {`
-      import { ImageCropper, ZoomInIcon, ZoomOutIcon } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/controlled-zoom.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledZoomImageCropperDemo() {
-        const [zoom, setZoom] = useState(1);
-
-        return (
-          <div className="cropper-stack">
-            <div className="cropper-toolbar">
-              <button
-                className="cropper-button cropper-icon-button"
-                type="button"
-                aria-label="Zoom out"
-                onClick={() => setZoom((value) => Math.max(minZoom, value - 0.1))}
-              >
-                <ZoomOutIcon />
-              </button>
-              <output className="cropper-output">{zoom.toFixed(1)}x</output>
-              <button
-                className="cropper-button cropper-icon-button"
-                type="button"
-                aria-label="Zoom in"
-                onClick={() => setZoom((value) => Math.min(maxZoom, value + 0.1))}
-              >
-                <ZoomInIcon />
-              </button>
-            </div>
-            <ImageCropper
-              zoom={zoom}
-              minZoom={minZoom}
-              maxZoom={maxZoom}
-              onZoomChange={(details) => setZoom(details.zoom)}
-            >
-              <ImageCropper.Viewport>
-                <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-                <ImageCropper.Selection>
-                  <ImageCropper.Grid axis="horizontal" />
-                  <ImageCropper.Grid axis="vertical" />
-                  {ImageCropper.handles.map((position) => (
-                    <ImageCropper.Handle key={position} position={position} />
-                  ))}
-                </ImageCropper.Selection>
-              </ImageCropper.Viewport>
-            </ImageCropper>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{imageCropperExampleCss}</Preview.CSS>
-  <Preview.Data>{`${imageCropperSampleImageData}\n${imageCropperZoomLimitsData}`}</Preview.Data>
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Rotation, Flip, And Reset
@@ -328,111 +155,14 @@ Control `zoom` with `onZoomChange` and bound the interaction with `minZoom` and 
 Read Ark context inside the root for toolbar actions such as zoom, rotate, flip, and reset.
 
 <Preview>
-  <TransformImageCropperExample />
+  <ImageCropperDocs.TransformImageCropperExample />
 
-  <Preview.Code>
-    {`
-      import {
-        ImageCropper as ArkImageCropper,
-        FlipHorizontalIcon,
-        ImageCropper,
-        RestartIcon,
-        RotateCcwIcon,
-        RotateCwIcon,
-        ZoomInIcon,
-        ZoomOutIcon,
-      } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/rotation-flip-and-reset.tsx#demo</include>
+</Preview.Code>
 
-      export function TransformImageCropperDemo() {
-        const [rotation, setRotation] = useState(0);
-        const [flip, setFlip] = useState({ horizontal: false, vertical: false });
-
-        return (
-          <div className="cropper-stack">
-            <ImageCropper
-              rotation={rotation}
-              flip={flip}
-              onRotationChange={(details) => setRotation(details.rotation)}
-              onFlipChange={(details) => setFlip(details.flip)}
-            >
-              <ArkImageCropper.Context>
-                {(context) => (
-                  <div className="cropper-toolbar">
-                    <button
-                      className="cropper-button cropper-icon-button"
-                      type="button"
-                      aria-label="Zoom out"
-                      onClick={() => context.zoomBy(-0.1)}
-                    >
-                      <ZoomOutIcon />
-                    </button>
-                    <button
-                      className="cropper-button cropper-icon-button"
-                      type="button"
-                      aria-label="Zoom in"
-                      onClick={() => context.zoomBy(0.1)}
-                    >
-                      <ZoomInIcon />
-                    </button>
-                    <button
-                      className="cropper-button cropper-icon-button"
-                      type="button"
-                      aria-label="Rotate counterclockwise"
-                      onClick={() => context.rotateBy(-90)}
-                    >
-                      <RotateCcwIcon />
-                    </button>
-                    <button
-                      className="cropper-button cropper-icon-button"
-                      type="button"
-                      aria-label="Rotate clockwise"
-                      onClick={() => context.rotateBy(90)}
-                    >
-                      <RotateCwIcon />
-                    </button>
-                    <button
-                      className="cropper-button cropper-icon-button"
-                      type="button"
-                      aria-label="Flip horizontally"
-                      onClick={() => context.flipHorizontally()}
-                    >
-                      <FlipHorizontalIcon />
-                    </button>
-                    <button
-                      className="cropper-button cropper-icon-button"
-                      type="button"
-                      aria-label="Reset crop"
-                      onClick={() => context.reset()}
-                    >
-                      <RestartIcon />
-                    </button>
-                  </div>
-                )}
-              </ArkImageCropper.Context>
-              <ImageCropper.Viewport>
-                <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-                <ImageCropper.Selection>
-                  <ImageCropper.Grid axis="horizontal" />
-                  <ImageCropper.Grid axis="vertical" />
-                  {ImageCropper.handles.map((position) => (
-                    <ImageCropper.Handle key={position} position={position} />
-                  ))}
-                </ImageCropper.Selection>
-              </ImageCropper.Viewport>
-            </ImageCropper>
-            <output className="cropper-output">
-              rotation: {rotation}deg, horizontal flip: {String(flip.horizontal)}
-            </output>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{imageCropperExampleCss}</Preview.CSS>
-  <Preview.Data>{imageCropperSampleImageData}</Preview.Data>
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Min And Max Size
@@ -440,34 +170,14 @@ Read Ark context inside the root for toolbar actions such as zoom, rotate, flip,
 Constrain selection resizing with `minWidth`, `minHeight`, `maxWidth`, and `maxHeight`.
 
 <Preview>
-  <SizeLimitImageCropperExample />
+  <ImageCropperDocs.SizeLimitImageCropperExample />
 
-  <Preview.Code>
-    {`
-      import { ImageCropper } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/min-and-max-size.tsx#demo</include>
+</Preview.Code>
 
-      export function SizeLimitImageCropperDemo() {
-        return (
-          <ImageCropper minWidth={96} minHeight={72} maxWidth={320} maxHeight={240}>
-            <ImageCropper.Viewport>
-              <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-              <ImageCropper.Selection>
-                <ImageCropper.Grid axis="horizontal" />
-                <ImageCropper.Grid axis="vertical" />
-                {ImageCropper.handles.map((position) => (
-                  <ImageCropper.Handle key={position} position={position} />
-                ))}
-              </ImageCropper.Selection>
-            </ImageCropper.Viewport>
-          </ImageCropper>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{imageCropperExampleCss}</Preview.CSS>
-  <Preview.Data>{`${imageCropperSampleImageData}\n${imageCropperSizeLimitsData}`}</Preview.Data>
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Fixed Crop Area
@@ -475,39 +185,14 @@ Constrain selection resizing with `minWidth`, `minHeight`, `maxWidth`, and `maxH
 Use `fixedCropArea` when the selection should stay fixed while the image moves underneath.
 
 <Preview>
-  <FixedImageCropperExample />
+  <ImageCropperDocs.FixedImageCropperExample />
 
-  <Preview.Code>
-    {`
-      import { ImageCropper } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/fixed-crop-area.tsx#demo</include>
+</Preview.Code>
 
-      export function FixedImageCropperDemo() {
-        return (
-          <ImageCropper
-            fixedCropArea
-            cropShape="circle"
-            aspectRatio={1}
-            initialCrop={{ x: 112, y: 64, width: 220, height: 220 }}
-          >
-            <ImageCropper.Viewport>
-              <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-              <ImageCropper.Selection>
-                <ImageCropper.Grid axis="horizontal" />
-                <ImageCropper.Grid axis="vertical" />
-                {ImageCropper.handles.map((position) => (
-                  <ImageCropper.Handle key={position} position={position} />
-                ))}
-              </ImageCropper.Selection>
-            </ImageCropper.Viewport>
-          </ImageCropper>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{imageCropperExampleCss}</Preview.CSS>
-  <Preview.Data>{imageCropperSampleImageData}</Preview.Data>
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Crop Preview
@@ -516,50 +201,14 @@ Create the cropper with Ark `useImageCropper` when another control needs to call
 `getCroppedImage()`.
 
 <Preview>
-  <CropPreviewImageCropperExample />
+  <ImageCropperDocs.CropPreviewImageCropperExample />
 
-  <Preview.Code>
-    {`
-      import { useImageCropper } from "@ark-ui/react/image-cropper";
-      import { Button, ImageCropper } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/crop-preview.tsx#demo</include>
+</Preview.Code>
 
-      export function CropPreviewImageCropperDemo() {
-        const imageCropper = useImageCropper({ cropShape: "circle", aspectRatio: 1 });
-        const [preview, setPreview] = useState(null as string | null);
-
-        const handleCrop = async () => {
-          const result = await imageCropper.getCroppedImage({ output: "dataUrl" });
-          if (typeof result === "string") setPreview(result);
-        };
-
-        return (
-          <div className="cropper-stack">
-            <ImageCropper.RootProvider value={imageCropper}>
-              <ImageCropper.Viewport>
-                <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-                <ImageCropper.Selection>
-                  <ImageCropper.Grid axis="horizontal" />
-                  <ImageCropper.Grid axis="vertical" />
-                  {ImageCropper.handles.map((position) => (
-                    <ImageCropper.Handle key={position} position={position} />
-                  ))}
-                </ImageCropper.Selection>
-              </ImageCropper.Viewport>
-            </ImageCropper.RootProvider>
-            <Button type="button" onClick={handleCrop}>
-              Crop image
-            </Button>
-            <div className="cropper-preview">{preview ? <img src={preview} alt="" /> : null}</div>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{imageCropperExampleCss}</Preview.CSS>
-  <Preview.Data>{imageCropperSampleImageData}</Preview.Data>
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Events
@@ -567,47 +216,14 @@ Create the cropper with Ark `useImageCropper` when another control needs to call
 Use Ark detail objects to sync crop and zoom state with external UI.
 
 <Preview>
-  <EventsImageCropperExample />
+  <ImageCropperDocs.EventsImageCropperExample />
 
-  <Preview.Code>
-    {`
-      import { ImageCropper } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/events.tsx#demo</include>
+</Preview.Code>
 
-      export function EventsImageCropperDemo() {
-        const [crop, setCrop] = useState({ x: 0, y: 0, width: 0, height: 0 });
-        const [zoom, setZoom] = useState(1);
-
-        return (
-          <div className="cropper-stack">
-            <ImageCropper
-              onCropChange={(details) => setCrop(details.crop)}
-              onZoomChange={(details) => setZoom(details.zoom)}
-            >
-              <ImageCropper.Viewport>
-                <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-                <ImageCropper.Selection>
-                  <ImageCropper.Grid axis="horizontal" />
-                  <ImageCropper.Grid axis="vertical" />
-                  {ImageCropper.handles.map((position) => (
-                    <ImageCropper.Handle key={position} position={position} />
-                  ))}
-                </ImageCropper.Selection>
-              </ImageCropper.Viewport>
-            </ImageCropper>
-            <output className="cropper-output">
-              zoom: {zoom.toFixed(2)}x, crop: {Math.round(crop.x)}, {Math.round(crop.y)},{" "}
-              {Math.round(crop.width)} x {Math.round(crop.height)}
-            </output>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{imageCropperExampleCss}</Preview.CSS>
-  <Preview.Data>{imageCropperSampleImageData}</Preview.Data>
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -616,47 +232,14 @@ Use `RootProvider` with an Ark `useImageCropper` instance when a toolbar or work
 outside the rendered root.
 
 <Preview>
-  <RootProviderImageCropperExample />
+  <ImageCropperDocs.RootProviderImageCropperExample />
 
-  <Preview.Code>
-    {`
-      import { useImageCropper } from "@ark-ui/react/image-cropper";
-      import { ImageCropper, RestartIcon } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      export function RootProviderImageCropperDemo() {
-        const imageCropper = useImageCropper({ aspectRatio: 16 / 9 });
-
-        return (
-          <div className="cropper-stack">
-            <ImageCropper.RootProvider value={imageCropper}>
-              <ImageCropper.Viewport>
-                <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-                <ImageCropper.Selection>
-                  <ImageCropper.Grid axis="horizontal" />
-                  <ImageCropper.Grid axis="vertical" />
-                  {ImageCropper.handles.map((position) => (
-                    <ImageCropper.Handle key={position} position={position} />
-                  ))}
-                </ImageCropper.Selection>
-              </ImageCropper.Viewport>
-            </ImageCropper.RootProvider>
-            <button
-              className="cropper-button cropper-icon-button"
-              type="button"
-              aria-label="Reset crop"
-              onClick={() => imageCropper.reset()}
-            >
-              <RestartIcon />
-            </button>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{imageCropperExampleCss}</Preview.CSS>
-  <Preview.Data>{imageCropperSampleImageData}</Preview.Data>
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -664,37 +247,14 @@ outside the rendered root.
 Override `--image-cropper-*` variables from a root class to change the selection and handle theme.
 
 <Preview>
-  <CustomStylingImageCropperExample />
+  <ImageCropperDocs.CustomStylingImageCropperExample />
 
-  <Preview.Code>
-    {`
-      import { ImageCropper } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomStylingImageCropperDemo() {
-        return (
-          <ImageCropper
-            className="cropper-custom"
-            initialCrop={{ x: 96, y: 72, width: 260, height: 180 }}
-          >
-            <ImageCropper.Viewport>
-              <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-              <ImageCropper.Selection>
-                <ImageCropper.Grid axis="horizontal" />
-                <ImageCropper.Grid axis="vertical" />
-                {ImageCropper.handles.map((position) => (
-                  <ImageCropper.Handle key={position} position={position} />
-                ))}
-              </ImageCropper.Selection>
-            </ImageCropper.Viewport>
-          </ImageCropper>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{`${imageCropperExampleCss}\n${imageCropperCustomStylingCss}`}</Preview.CSS>
-  <Preview.Data>{imageCropperSampleImageData}</Preview.Data>
+  <Preview.CSS>{`${ImageCropperDocs.imageCropperExampleCss}\n${ImageCropperDocs.imageCropperCustomStylingCss}`}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -704,7 +264,7 @@ Override `--image-cropper-*` variables from a root class to change the selection
 <div className="not-prose">
   <Tabs items={['CSS Variables']}>
     <Tab className="max-h-150 overflow-auto">
-      <ImageCropperCssPropertiesPanel />
+      <ImageCropperDocs.ImageCropperCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

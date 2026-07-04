@@ -4,25 +4,7 @@ description: Group related controls with Ark UI fieldset semantics, descriptions
 icon: Component
 ---
 
-import {
-  CustomStylesFieldsetExample,
-  FieldsetCheckboxExample,
-  FieldsetCssPropertiesPanel,
-  FieldsetDisabledExample,
-  FieldsetExample,
-  FieldsetInvalidExample,
-  FieldsetPhoneInputExample,
-  FieldsetRootProviderExample,
-  FieldsetWithFieldExample,
-  fieldsetCountryCodesData,
-  fieldsetCustomStylingCss,
-  fieldsetDisabledData,
-  fieldsetEmptyData,
-  fieldsetExampleCss,
-  fieldsetInvalidData,
-  fieldsetPhoneInputCss,
-  fieldsetPreferencesData,
-} from '@/components/examples/fieldset';
+import * as FieldsetDocs from '@/components/examples/fieldset';
 
 ## API Reference
 
@@ -39,76 +21,18 @@ Compose `Fieldset.Root`, `Fieldset.Legend`, optional helper or error text, and t
 The short `<Fieldset>` form is equivalent to `<Fieldset.Root>`.
 
 <Preview>
-  <FieldsetExample />
+  <FieldsetDocs.FieldsetExample />
 
   <Preview.Code>
-    {`
-      import { Field, Fieldset } from "@moduix/react";
-
-      export function ContactDetails() {
-        return (
-          <Fieldset className="fieldset">
-            <Fieldset.Legend>Contact details</Fieldset.Legend>
-            <Field>
-              <Field.Label>Name</Field.Label>
-              <Field.Input name="name" />
-            </Field>
-            <Field>
-              <Field.Label>Email</Field.Label>
-              <Field.Input name="email" type="email" />
-            </Field>
-            <Fieldset.HelperText>
-              We only use these details to contact you.
-            </Fieldset.HelperText>
-          </Fieldset>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{fieldsetExampleCss}</Preview.CSS>
-  <Preview.Data>{fieldsetEmptyData}</Preview.Data>
+  <include lang="tsx">./_snippets/fieldset/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-fieldset
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-fieldset
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-fieldset
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-fieldset
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-fieldset
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-fieldset" />
 
 ## Anatomy
 
@@ -168,33 +92,13 @@ outside the rendered tree. Do not wrap a provider in `Fieldset.Root` for the sam
 Nest `Field` components when each control also needs an individual label or description.
 
 <Preview>
-  <FieldsetWithFieldExample />
+  <FieldsetDocs.FieldsetWithFieldExample />
 
   <Preview.Code>
-    {`
-      import { Field, Fieldset } from "@moduix/react";
-
-      export function PersonalInformation() {
-        return (
-          <Fieldset className="fieldset">
-            <Fieldset.Legend>Personal information</Fieldset.Legend>
-            <Field>
-              <Field.Label>First name</Field.Label>
-              <Field.Input />
-              <Field.HelperText>As it appears on your ID.</Field.HelperText>
-            </Field>
-            <Field>
-              <Field.Label>Last name</Field.Label>
-              <Field.Input />
-            </Field>
-          </Fieldset>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{fieldsetExampleCss}</Preview.CSS>
-  <Preview.Data>{fieldsetEmptyData}</Preview.Data>
+  <include lang="tsx">./_snippets/fieldset/field.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Disabled
@@ -203,35 +107,13 @@ Set `disabled` on the root to disable native descendants and pass disabled state
 controls that consume fieldset context.
 
 <Preview>
-  <FieldsetDisabledExample />
+  <FieldsetDocs.FieldsetDisabledExample />
 
   <Preview.Code>
-    {`
-      import { Field, Fieldset } from "@moduix/react";
-
-      export function DisabledFieldset() {
-        return (
-          <Fieldset className="fieldset" disabled>
-            <Fieldset.Legend>Shipping address</Fieldset.Legend>
-            <Fieldset.HelperText>
-              Your address cannot be changed after order confirmation.
-            </Fieldset.HelperText>
-            <Field>
-              <Field.Label>Street</Field.Label>
-              <Field.Input defaultValue="123 Main St" />
-            </Field>
-            <Field>
-              <Field.Label>City</Field.Label>
-              <Field.Input defaultValue="San Francisco" />
-            </Field>
-          </Fieldset>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{fieldsetExampleCss}</Preview.CSS>
-  <Preview.Data>{fieldsetDisabledData}</Preview.Data>
+  <include lang="tsx">./_snippets/fieldset/disabled.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Invalid
@@ -240,35 +122,13 @@ Set `invalid` on the fieldset for group-level validation. Set `invalid` on neste
 components when individual controls also need invalid styling and ARIA state.
 
 <Preview>
-  <FieldsetInvalidExample />
+  <FieldsetDocs.FieldsetInvalidExample />
 
   <Preview.Code>
-    {`
-      import { Field, Fieldset } from "@moduix/react";
-
-      export function InvalidFieldset() {
-        return (
-          <Fieldset className="fieldset" invalid>
-            <Fieldset.Legend>Account information</Fieldset.Legend>
-            <Fieldset.ErrorText>Please fix the errors below to continue.</Fieldset.ErrorText>
-            <Field invalid>
-              <Field.Label>Username</Field.Label>
-              <Field.Input defaultValue="jo" />
-              <Field.ErrorText>Username must be at least 3 characters.</Field.ErrorText>
-            </Field>
-            <Field invalid>
-              <Field.Label>Email</Field.Label>
-              <Field.Input type="email" defaultValue="invalid-email" />
-              <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
-            </Field>
-          </Fieldset>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{fieldsetExampleCss}</Preview.CSS>
-  <Preview.Data>{fieldsetInvalidData}</Preview.Data>
+  <include lang="tsx">./_snippets/fieldset/invalid.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Checkbox
@@ -277,33 +137,13 @@ Use the fieldset legend as the shared name for a related set of Ark checkbox con
 `Checkbox.HiddenInput` for native form submission and reset behavior.
 
 <Preview>
-  <FieldsetCheckboxExample />
+  <FieldsetDocs.FieldsetCheckboxExample />
 
   <Preview.Code>
-    {`
-      import { Checkbox, Fieldset } from "@moduix/react";
-
-      export function EmailPreferences() {
-        return (
-          <Fieldset className="fieldset">
-            <Fieldset.Legend>Email preferences</Fieldset.Legend>
-            {preferences.map((preference) => (
-              <Checkbox key={preference.value} value={preference.value}>
-                <Checkbox.Control>
-                  <Checkbox.Indicator />
-                </Checkbox.Control>
-                <Checkbox.Label>{preference.label}</Checkbox.Label>
-                <Checkbox.HiddenInput />
-              </Checkbox>
-            ))}
-          </Fieldset>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{fieldsetExampleCss}</Preview.CSS>
-  <Preview.Data>{fieldsetPreferencesData}</Preview.Data>
+  <include lang="tsx">./_snippets/fieldset/checkbox.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -312,32 +152,13 @@ Create fieldset state outside the rendered tree when sibling controls or reusabl
 to coordinate with it.
 
 <Preview>
-  <FieldsetRootProviderExample />
+  <FieldsetDocs.FieldsetRootProviderExample />
 
   <Preview.Code>
-    {`
-      import { useFieldset } from "@ark-ui/react/fieldset";
-      import { Field, Fieldset } from "@moduix/react";
-
-      export function ExternalFieldsetState() {
-        const fieldset = useFieldset({ invalid: true });
-
-        return (
-          <Fieldset.RootProvider value={fieldset} className="fieldset">
-            <Fieldset.Legend>Contact details</Fieldset.Legend>
-            <Field>
-              <Field.Label>Email</Field.Label>
-              <Field.Input type="email" defaultValue="invalid-address" />
-            </Field>
-            <Fieldset.ErrorText>Enter a valid email address.</Fieldset.ErrorText>
-          </Fieldset.RootProvider>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{fieldsetExampleCss}</Preview.CSS>
-  <Preview.Data>{fieldsetEmptyData}</Preview.Data>
+  <include lang="tsx">./_snippets/fieldset/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Input with Select
@@ -346,67 +167,13 @@ Group a country-code selector and phone input under one legend when both control
 logical value.
 
 <Preview>
-  <FieldsetPhoneInputExample />
+  <FieldsetDocs.FieldsetPhoneInputExample />
 
   <Preview.Code>
-    {`
-      import { createListCollection } from "@ark-ui/react/collection";
-      import { Field, Fieldset, Select } from "@moduix/react";
-
-      const countryCodes = createListCollection({
-        items: [
-          { label: "+1", value: "+1" },
-          { label: "+44", value: "+44" },
-          { label: "+49", value: "+49" },
-          { label: "+41", value: "+41" },
-        ],
-      });
-
-      export function PhoneInput() {
-        return (
-          <Fieldset className="fieldset">
-            <Fieldset.Legend>Mobile number</Fieldset.Legend>
-            <div className="phone-input">
-              <Select
-                className="country-code"
-                collection={countryCodes}
-                defaultValue={["+1"]}
-              >
-                <Select.Label>Code</Select.Label>
-                <Select.Control>
-                  <Select.Trigger>
-                    <Select.ValueText />
-                  </Select.Trigger>
-                  <Select.Indicators>
-                    <Select.Indicator />
-                  </Select.Indicators>
-                </Select.Control>
-                <Select.Positioner>
-                  <Select.Content>
-                    {countryCodes.items.map((item) => (
-                      <Select.Item key={item.value} item={item}>
-                        <Select.ItemText>{item.label}</Select.ItemText>
-                        <Select.ItemIndicator />
-                      </Select.Item>
-                    ))}
-                  </Select.Content>
-                </Select.Positioner>
-                <Select.HiddenSelect name="countryCode" />
-              </Select>
-              <Field>
-                <Field.Label>Phone</Field.Label>
-                <Field.Input type="tel" aria-label="Phone number" />
-              </Field>
-            </div>
-            <Fieldset.HelperText>Include the area code.</Fieldset.HelperText>
-          </Fieldset>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{fieldsetPhoneInputCss}</Preview.CSS>
-  <Preview.Data>{fieldsetCountryCodesData}</Preview.Data>
+  <include lang="tsx">./_snippets/fieldset/input-with-select.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetPhoneInputCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -415,29 +182,13 @@ Override the public CSS variables or target Ark `data-scope`, `data-part`, `data
 `data-invalid` attributes for state-aware styling.
 
 <Preview>
-  <CustomStylesFieldsetExample />
+  <FieldsetDocs.CustomStylesFieldsetExample />
 
   <Preview.Code>
-    {`
-      import { Field, Fieldset } from "@moduix/react";
-
-      export function StyledFieldset() {
-        return (
-          <Fieldset className="fieldset custom-fieldset">
-            <Fieldset.Legend>Styled fieldset</Fieldset.Legend>
-            <Field>
-              <Field.Label>Project name</Field.Label>
-              <Field.Input placeholder="Maps Platform" />
-            </Field>
-            <Fieldset.HelperText>Visible to project members.</Fieldset.HelperText>
-          </Fieldset>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{fieldsetCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{fieldsetEmptyData}</Preview.Data>
+  <include lang="tsx">./_snippets/fieldset/custom-styling.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -447,7 +198,7 @@ Override the public CSS variables or target Ark `data-scope`, `data-part`, `data
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <FieldsetCssPropertiesPanel />
+      <FieldsetDocs.FieldsetCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

@@ -4,23 +4,7 @@ description: Ark UI select composition for choosing one or more values from a po
 icon: Component
 ---
 
-import {
-  ControlledSelectExample,
-  CustomItemSelectExample,
-  DynamicItemsSelectExample,
-  FieldSelectExample,
-  FormSelectExample,
-  GroupedSelectExample,
-  LazyMountSelectExample,
-  MaxSelectionSelectExample,
-  MultipleSelectExample,
-  OverflowSelectExample,
-  RootProviderSelectExample,
-  SelectAllExample,
-  SelectCssPropertiesPanel,
-  SelectExample,
-  SelectOnHighlightExample,
-} from '@/components/examples/select';
+import * as SelectDocs from '@/components/examples/select';
 
 ## API Reference
 
@@ -40,45 +24,11 @@ Start with `Select`, pass a `collection`, render the visible field through `Labe
 Keep `HiddenSelect` in the tree for native form submission and browser autofill.
 
 <Preview>
-  <SelectExample />
+  <SelectDocs.SelectExample />
 
-  <Preview.Code>
-    {`
-      import { Select } from "@moduix/react";
-
-      export function SelectDemo() {
-        return (
-          <Select collection={fruits}>
-            <Select.Label>Choose fruit</Select.Label>
-            <Select.Control>
-              <Select.Trigger>
-                <Select.ValueText placeholder="Select an option" />
-              </Select.Trigger>
-              <Select.Indicators>
-                <Select.ClearTrigger aria-label="Clear selection" />
-                <Select.Indicator />
-              </Select.Indicators>
-            </Select.Control>
-            <Select.Positioner>
-              <Select.Content>
-                <Select.ItemGroup>
-                  <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
-                  {fruits.items.map((item) => (
-                    <Select.Item key={item.value} item={item}>
-                      <Select.ItemText>{item.label}</Select.ItemText>
-                      <Select.ItemIndicator />
-                    </Select.Item>
-                  ))}
-                </Select.ItemGroup>
-              </Select.Content>
-            </Select.Positioner>
-            <Select.HiddenSelect />
-          </Select>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/select/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -89,62 +39,11 @@ Keep `HiddenSelect` in the tree for native form submission and browser autofill.
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const fruits = createListCollection({
-        items: [
-          { label: "Apple", value: "apple" },
-          { label: "Banana", value: "banana" },
-          { label: "Blueberry", value: "blueberry" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Select` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-select
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-select
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-select
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-select
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-select
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-select" />
 
 ## Anatomy
 
@@ -241,57 +140,13 @@ very large virtualized collections, compose a lightweight hidden input with Ark
 Control the selected string array from React state and update it from `details.value`.
 
 <Preview>
-  <ControlledSelectExample />
+  <SelectDocs.ControlledSelectExample />
 
   <Preview.Code>
-    {`
-      const [value, setValue] = useState(["light"]);
-
-      <Select
-        collection={themes}
-        value={value}
-        onValueChange={(details) => setValue(details.value)}
-      >
-        <Select.Label>Theme</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select theme" />
-          </Select.Trigger>
-          <Select.Indicators>
-            <Select.ClearTrigger aria-label="Clear selection" />
-            <Select.Indicator />
-          </Select.Indicators>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
-            {themes.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-        <Select.HiddenSelect />
-      </Select>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/select/controlled.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="select-root"] { --select-width: 14rem; }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const value = ["light"];
-
-      const themes = createListCollection({
-        items: [
-          { label: "System", value: "system" },
-          { label: "Light", value: "light" },
-          { label: "Dark", value: "dark" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Root Provider
@@ -300,68 +155,13 @@ Use Ark `useSelect` with `Select.RootProvider` when state needs to be read or co
 the rendered select tree.
 
 <Preview>
-  <RootProviderSelectExample />
+  <SelectDocs.RootProviderSelectExample />
 
   <Preview.Code>
-    {`
-      import { useSelect } from "@ark-ui/react/select";
-      import { Select } from "@moduix/react";
-
-      export function SelectRootProviderDemo() {
-        const select = useSelect({ collection: fruits, defaultValue: ["banana"] });
-
-        return (
-          <>
-            <output>Selected: {select.valueAsString}</output>
-            <Select.RootProvider value={select}>
-              <Select.Label>Choose fruit</Select.Label>
-              <Select.Control>
-                <Select.Trigger>
-                  <Select.ValueText placeholder="Select an option" />
-                </Select.Trigger>
-                <Select.Indicators>
-                  <Select.ClearTrigger aria-label="Clear selection" />
-                  <Select.Indicator />
-                </Select.Indicators>
-              </Select.Control>
-              <Select.Positioner>
-                <Select.Content>
-                  {fruits.items.map((item) => (
-                    <Select.Item key={item.value} item={item}>
-                      <Select.ItemText>{item.label}</Select.ItemText>
-                      <Select.ItemIndicator />
-                    </Select.Item>
-                  ))}
-                </Select.Content>
-              </Select.Positioner>
-              <Select.HiddenSelect />
-            </Select.RootProvider>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/select/root-provider.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="select-root-provider"] { --select-width: 14rem; }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const fruits = createListCollection({
-        items: [
-          { label: "Apple", value: "apple" },
-          { label: "Banana", value: "banana" },
-          { label: "Blueberry", value: "blueberry" },
-          { label: "Grape", value: "grape" },
-          { label: "Kiwi", value: "kiwi" },
-          { label: "Mango", value: "mango" },
-          { label: "Orange", value: "orange" },
-          { label: "Pineapple", value: "pineapple" },
-          { label: "Strawberry", value: "strawberry" },
-          { label: "Watermelon", value: "watermelon" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Multiple
@@ -370,52 +170,13 @@ Set `multiple` to allow several selected values. `ValueText` renders the selecte
 the collection.
 
 <Preview>
-  <MultipleSelectExample />
+  <SelectDocs.MultipleSelectExample />
 
   <Preview.Code>
-    {`
-      <Select collection={languages} multiple defaultValue={["javascript", "typescript"]}>
-        <Select.Label>Languages</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select languages" />
-          </Select.Trigger>
-          <Select.Indicators>
-            <Select.ClearTrigger aria-label="Clear selection" />
-            <Select.Indicator />
-          </Select.Indicators>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
-            {languages.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-        <Select.HiddenSelect />
-      </Select>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/select/multiple.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="select-item"][data-state="checked"] { font-weight: var(--weight-semibold); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const languages = createListCollection({
-        items: [
-          { label: "C#", value: "csharp" },
-          { label: "Go", value: "go" },
-          { label: "JavaScript", value: "javascript" },
-          { label: "Python", value: "python" },
-          { label: "Rust", value: "rust" },
-          { label: "TypeScript", value: "typescript" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Grouping
@@ -424,41 +185,13 @@ Use `groupBy` on the collection and render `collection.group()` with `ItemGroup`
 `ItemGroupLabel`.
 
 <Preview>
-  <GroupedSelectExample />
+  <SelectDocs.GroupedSelectExample />
 
   <Preview.Code>
-    {`
-      {produce.group().map(([type, group]) => (
-        <Select.ItemGroup key={type}>
-          <Select.ItemGroupLabel>{type}</Select.ItemGroupLabel>
-          {group.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
-          ))}
-        </Select.ItemGroup>
-      ))}
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/select/grouping.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="select-item-group-label"] { color: var(--color-muted-foreground); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const produce = createListCollection({
-        items: [
-          { label: "Apple", value: "apple", type: "Fruits" },
-          { label: "Mango", value: "mango", type: "Fruits" },
-          { label: "Orange", value: "orange", type: "Fruits" },
-          { label: "Broccoli", value: "broccoli", type: "Vegetables" },
-          { label: "Carrot", value: "carrot", type: "Vegetables" },
-          { label: "Spinach", value: "spinach", type: "Vegetables" },
-        ],
-        groupBy: (item) => item.type,
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Field
@@ -467,53 +200,13 @@ Wrap `Select` in `Field.Root` when label, helper text, invalid, required, or dis
 to a form field.
 
 <Preview>
-  <FieldSelectExample />
+  <SelectDocs.FieldSelectExample />
 
   <Preview.Code>
-    {`
-      <Field.Root required>
-        <Select collection={frameworks} name="framework">
-          <Select.Label>Framework</Select.Label>
-          <Select.Control>
-            <Select.Trigger>
-              <Select.ValueText placeholder="Select framework" />
-            </Select.Trigger>
-            <Select.Indicators>
-              <Select.ClearTrigger aria-label="Clear selection" />
-              <Select.Indicator />
-            </Select.Indicators>
-          </Select.Control>
-          <Select.Positioner>
-            <Select.Content>
-              {frameworks.items.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Positioner>
-          <Select.HiddenSelect />
-        </Select>
-        <Field.HelperText>Pick the framework used by this project.</Field.HelperText>
-      </Field.Root>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/select/field.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="select-label"][data-required]::after { content: " *"; }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const frameworks = createListCollection({
-        items: [
-          { label: "React", value: "react" },
-          { label: "Solid", value: "solid" },
-          { label: "Vue", value: "vue" },
-          { label: "Svelte", value: "svelte", disabled: true },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Form Usage
@@ -521,54 +214,13 @@ to a form field.
 `HiddenSelect` keeps native submission working. Read submitted values from `FormData`.
 
 <Preview>
-  <FormSelectExample />
+  <SelectDocs.FormSelectExample />
 
   <Preview.Code>
-    {`
-      <form onSubmit={handleSubmit}>
-        <Select collection={themes} name="theme" required>
-          <Select.Label>Theme</Select.Label>
-          <Select.Control>
-            <Select.Trigger>
-              <Select.ValueText placeholder="Select theme" />
-            </Select.Trigger>
-            <Select.Indicators>
-              <Select.ClearTrigger aria-label="Clear selection" />
-              <Select.Indicator />
-            </Select.Indicators>
-          </Select.Control>
-          <Select.Positioner>
-            <Select.Content>
-              {themes.items.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Positioner>
-          <Select.HiddenSelect />
-        </Select>
-        <button type="submit">Submit</button>
-      </form>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/select/form-usage.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`form [data-slot="select-root"] { --select-width: 16rem; }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const themes = createListCollection({
-        items: [
-          { label: "System", value: "system" },
-          { label: "Light", value: "light" },
-          { label: "Dark", value: "dark" },
-        ],
-      });
-
-      const fieldName = "theme";
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Lazy Mount
@@ -576,56 +228,13 @@ to a form field.
 Use `lazyMount` and `unmountOnExit` when popup content should only exist while the select is used.
 
 <Preview>
-  <LazyMountSelectExample />
+  <SelectDocs.LazyMountSelectExample />
 
   <Preview.Code>
-    {`
-      <Select collection={fruits} lazyMount unmountOnExit>
-        <Select.Label>Choose fruit</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select an option" />
-          </Select.Trigger>
-          <Select.Indicators>
-            <Select.ClearTrigger aria-label="Clear selection" />
-            <Select.Indicator />
-          </Select.Indicators>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
-            {fruits.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-        <Select.HiddenSelect />
-      </Select>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/select/lazy-mount.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="select-content"] { --select-content-closed-scale: 0.96; }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const fruits = createListCollection({
-        items: [
-          { label: "Apple", value: "apple" },
-          { label: "Banana", value: "banana" },
-          { label: "Blueberry", value: "blueberry" },
-          { label: "Grape", value: "grape" },
-          { label: "Kiwi", value: "kiwi" },
-          { label: "Mango", value: "mango" },
-          { label: "Orange", value: "orange" },
-          { label: "Pineapple", value: "pineapple" },
-          { label: "Strawberry", value: "strawberry" },
-          { label: "Watermelon", value: "watermelon" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Select On Highlight
@@ -633,66 +242,13 @@ Use `lazyMount` and `unmountOnExit` when popup content should only exist while t
 Use `onHighlightChange(details)` when moving through options should immediately update selection.
 
 <Preview>
-  <SelectOnHighlightExample />
+  <SelectDocs.SelectOnHighlightExample />
 
   <Preview.Code>
-    {`
-      import { useSelect } from "@ark-ui/react/select";
-      import { Select } from "@moduix/react";
-
-      const select = useSelect({
-        collection: fruits,
-        onHighlightChange({ highlightedValue }) {
-          if (highlightedValue) select.selectValue(highlightedValue);
-        },
-      });
-
-      <Select.RootProvider value={select}>
-        <Select.Label>Choose fruit</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select an option" />
-          </Select.Trigger>
-          <Select.Indicators>
-            <Select.ClearTrigger aria-label="Clear selection" />
-            <Select.Indicator />
-          </Select.Indicators>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
-            {fruits.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-        <Select.HiddenSelect />
-      </Select.RootProvider>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/select/select-on-highlight.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="select-item"][data-highlighted] { color: var(--select-highlight-color); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const fruits = createListCollection({
-        items: [
-          { label: "Apple", value: "apple" },
-          { label: "Banana", value: "banana" },
-          { label: "Blueberry", value: "blueberry" },
-          { label: "Grape", value: "grape" },
-          { label: "Kiwi", value: "kiwi" },
-          { label: "Mango", value: "mango" },
-          { label: "Orange", value: "orange" },
-          { label: "Pineapple", value: "pineapple" },
-          { label: "Strawberry", value: "strawberry" },
-          { label: "Watermelon", value: "watermelon" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Max Selection
@@ -700,61 +256,13 @@ Use `onHighlightChange(details)` when moving through options should immediately 
 Limit multiple selection by rejecting oversized value arrays and marking remaining items disabled.
 
 <Preview>
-  <MaxSelectionSelectExample />
+  <SelectDocs.MaxSelectionSelectExample />
 
   <Preview.Code>
-    {`
-      <Select
-        collection={collection}
-        multiple
-        value={value}
-        onValueChange={(details) => {
-          if (details.value.length <= 3) setValue(details.value);
-        }}
-      >
-        <Select.Label>Languages</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select up to 3" />
-          </Select.Trigger>
-          <Select.Indicators>
-            <Select.ClearTrigger aria-label="Clear selection" />
-            <Select.Indicator />
-          </Select.Indicators>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
-            {collection.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-        <Select.HiddenSelect />
-      </Select>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/select/max-selection.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="select-item"][data-disabled] { opacity: var(--opacity-disabled); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const value = ["javascript"];
-
-      const collection = createListCollection({
-        items: [
-          { label: "C#", value: "csharp", disabled: false },
-          { label: "Go", value: "go", disabled: false },
-          { label: "JavaScript", value: "javascript", disabled: false },
-          { label: "Python", value: "python", disabled: false },
-          { label: "Rust", value: "rust", disabled: false },
-          { label: "TypeScript", value: "typescript", disabled: false },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Select All
@@ -762,53 +270,11 @@ Limit multiple selection by rejecting oversized value arrays and marking remaini
 Read root state with Ark `Select.Context` and call `selectAll()` for bulk selection.
 
 <Preview>
-  <SelectAllExample />
+  <SelectDocs.SelectAllExample />
 
   <Preview.Code>
-    {`
-      import { Select as ArkSelect } from "@ark-ui/react/select";
-      import { Select } from "@moduix/react";
-
-      <Select collection={languages} multiple>
-        <Select.Label>Languages</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select languages" />
-          </Select.Trigger>
-          <Select.Indicators>
-            <Select.ClearTrigger aria-label="Clear selection" />
-            <Select.Indicator />
-          </Select.Indicators>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
-            <ArkSelect.Context>
-              {(select) => (
-                <button
-                  className="select-bulk-action"
-                  type="button"
-                  onClick={() => {
-                    select.selectAll();
-                    select.setOpen(false);
-                  }}
-                >
-                  Select all
-                </button>
-              )}
-            </ArkSelect.Context>
-            {languages.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-        <Select.HiddenSelect />
-      </Select>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/select/select-all.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .select-bulk-action {
@@ -817,21 +283,7 @@ Read root state with Ark `Select.Context` and call `selectAll()` for bulk select
       }
     `}
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const languages = createListCollection({
-        items: [
-          { label: "C#", value: "csharp" },
-          { label: "Go", value: "go" },
-          { label: "JavaScript", value: "javascript" },
-          { label: "Python", value: "python" },
-          { label: "Rust", value: "rust" },
-          { label: "TypeScript", value: "typescript" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Overflow
@@ -839,59 +291,13 @@ Read root state with Ark `Select.Context` and call `selectAll()` for bulk select
 Use `positioning.fitViewport` and the exposed `--available-height` variable for long lists.
 
 <Preview>
-  <OverflowSelectExample />
+  <SelectDocs.OverflowSelectExample />
 
   <Preview.Code>
-    {`
-      <Select
-        collection={fruits}
-        positioning={{ fitViewport: true, placement: "bottom-start", sameWidth: true }}
-      >
-        <Select.Label>Choose fruit</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select an option" />
-          </Select.Trigger>
-          <Select.Indicators>
-            <Select.ClearTrigger aria-label="Clear selection" />
-            <Select.Indicator />
-          </Select.Indicators>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
-            {fruits.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-        <Select.HiddenSelect />
-      </Select>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/select/overflow.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="select-content"] { max-height: min(24rem, var(--available-height)); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const fruits = createListCollection({
-        items: [
-          { label: "Apple", value: "apple" },
-          { label: "Banana", value: "banana" },
-          { label: "Blueberry", value: "blueberry" },
-          { label: "Grape", value: "grape" },
-          { label: "Kiwi", value: "kiwi" },
-          { label: "Mango", value: "mango" },
-          { label: "Orange", value: "orange" },
-          { label: "Pineapple", value: "pineapple" },
-          { label: "Strawberry", value: "strawberry" },
-          { label: "Watermelon", value: "watermelon" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Dynamic Items
@@ -899,62 +305,13 @@ Use `positioning.fitViewport` and the exposed `--available-height` variable for 
 Recreate or update the collection when the available items change.
 
 <Preview>
-  <DynamicItemsSelectExample />
+  <SelectDocs.DynamicItemsSelectExample />
 
   <Preview.Code>
-    {`
-      const collection = createListCollection({
-        items: fruits.items.filter((item) => item.label.toLowerCase().includes(query)),
-      });
-
-      <Select collection={collection}>
-        <Select.Label>Choose fruit</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select an option" />
-          </Select.Trigger>
-          <Select.Indicators>
-            <Select.ClearTrigger aria-label="Clear selection" />
-            <Select.Indicator />
-          </Select.Indicators>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
-            {collection.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-        <Select.HiddenSelect />
-      </Select>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/select/dynamic-items.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`input + [data-slot="select-root"] { margin-top: var(--spacing-3); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const query = "";
-
-      const fruits = createListCollection({
-        items: [
-          { label: "Apple", value: "apple" },
-          { label: "Banana", value: "banana" },
-          { label: "Blueberry", value: "blueberry" },
-          { label: "Grape", value: "grape" },
-          { label: "Kiwi", value: "kiwi" },
-          { label: "Mango", value: "mango" },
-          { label: "Orange", value: "orange" },
-          { label: "Pineapple", value: "pineapple" },
-          { label: "Strawberry", value: "strawberry" },
-          { label: "Watermelon", value: "watermelon" },
-        ],
-      });
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ### Custom Item Layout
@@ -963,32 +320,13 @@ Use the moduix leaf helpers inside `ItemText` when items need a stable icon and 
 layout. These helpers are plain spans; selection behavior stays on Ark `Select.Item`.
 
 <Preview>
-  <CustomItemSelectExample />
+  <SelectDocs.CustomItemSelectExample />
 
   <Preview.Code>
-    {`
-      <Select.Item item={item}>
-        <Select.ItemText>
-          <Select.ItemTextContent>
-            <Select.ItemTextIcon aria-hidden>i</Select.ItemTextIcon>
-            <Select.ItemTextLabel>{item.label}</Select.ItemTextLabel>
-          </Select.ItemTextContent>
-        </Select.ItemText>
-        <Select.ItemIndicator />
-      </Select.Item>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/select/custom-item-layout.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{`[data-slot="select-item-text-content"] { gap: var(--spacing-2); }`}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const item = {
-        label: "Apple",
-        value: "apple",
-      };
-    `}
-
-  </Preview.Data>
+  
 </Preview>
 
 ## Styling
@@ -1001,7 +339,7 @@ public `--select-*` CSS variables shown below.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <SelectCssPropertiesPanel />
+      <SelectDocs.SelectCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

@@ -4,28 +4,7 @@ description: A loading placeholder block for text, cards, media objects, and cus
 icon: Component
 ---
 
-import {
-  SkeletonAsChildExample,
-  SkeletonCardExample,
-  SkeletonClassNameExample,
-  SkeletonCompositionExample,
-  SkeletonCssPropertiesPanel,
-  SkeletonExample,
-  SkeletonLoadedExample,
-  SkeletonMediaObjectExample,
-  SkeletonStaticExample,
-  SkeletonVariantsExample,
-  skeletonAsChildData,
-  skeletonCardData,
-  skeletonCompositionData,
-  skeletonCustomStylingData,
-  skeletonCustomStylingCss,
-  skeletonExampleData,
-  skeletonLoadedData,
-  skeletonMediaObjectData,
-  skeletonStaticData,
-  skeletonVariantsData,
-} from '@/components/examples/skeleton';
+import * as SkeletonDocs from '@/components/examples/skeleton';
 
 ## API Reference
 
@@ -39,24 +18,11 @@ Ark UI does not ship a dedicated skeleton primitive. Moduix builds this componen
 Use a few line skeletons for the common text-loading case.
 
 <Preview>
-  <SkeletonExample />
+  <SkeletonDocs.SkeletonExample />
 
-  <Preview.Code>
-    {`
-      import { Skeleton, Stack } from "@moduix/react";
-
-      export function SkeletonDemo() {
-        return (
-          <Stack gap={10} className="skeleton-stack">
-            {lines.map((line) => (
-              <Skeleton key={line.width} width={line.width} height={line.height} />
-            ))}
-          </Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/skeleton/basic.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -66,51 +32,11 @@ Use a few line skeletons for the common text-loading case.
     `}
 </Preview.CSS>
 
-  <Preview.Data>{skeletonExampleData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Skeleton` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-skeleton
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-skeleton
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-skeleton
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-skeleton
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-skeleton
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-skeleton" />
 
 ## Anatomy
 
@@ -169,28 +95,11 @@ surfaces, apply `className`, `style`, or the public CSS variables.
 Use a larger block plus shorter text lines to reserve card layout while content is loading.
 
 <Preview>
-  <SkeletonCardExample />
+  <SkeletonDocs.SkeletonCardExample />
 
-  <Preview.Code>
-    {`
-      import { Skeleton, Stack } from "@moduix/react";
-      import styles from "./skeleton-card-demo.module.css";
-
-      export function SkeletonCardDemo() {
-        return (
-          <Stack gap={16} className={styles.card}>
-            <Skeleton height={cardSkeleton.mediaHeight} borderRadius="var(--radius-lg)" />
-            <Stack gap={12}>
-              <Skeleton width={cardSkeleton.titleWidth} height={20} />
-              <Skeleton height={14} />
-              <Skeleton width={cardSkeleton.bodyWidth} height={14} />
-            </Stack>
-          </Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/skeleton/card.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -200,7 +109,6 @@ Use a larger block plus shorter text lines to reserve card layout while content 
     `}
 </Preview.CSS>
 
-  <Preview.Data>{skeletonCardData}</Preview.Data>
 </Preview>
 
 ### Media Object
@@ -208,28 +116,11 @@ Use a larger block plus shorter text lines to reserve card layout while content 
 Use `boxSize` with a full radius for avatar placeholders, then compose text lines beside it.
 
 <Preview>
-  <SkeletonMediaObjectExample />
+  <SkeletonDocs.SkeletonMediaObjectExample />
 
-  <Preview.Code>
-    {`
-      import { Skeleton, Stack } from "@moduix/react";
-      import styles from "./skeleton-media-object-demo.module.css";
-
-      export function SkeletonMediaObjectDemo() {
-        return (
-          <Stack direction="row" align="center" gap={12} className={styles.mediaObject}>
-            <Skeleton boxSize={userRowSkeleton.avatarSize} borderRadius="var(--radius-full)" />
-            <Stack gap={8} fill>
-              <Skeleton width={userRowSkeleton.titleWidth} height={16} />
-              <Skeleton height={14} />
-              <Skeleton width={userRowSkeleton.bodyWidth} height={14} />
-            </Stack>
-          </Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/skeleton/media-object.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -239,7 +130,6 @@ Use `boxSize` with a full radius for avatar placeholders, then compose text line
     `}
 </Preview.CSS>
 
-  <Preview.Data>{skeletonMediaObjectData}</Preview.Data>
 </Preview>
 
 ### Responsive Layout
@@ -247,31 +137,11 @@ Use `boxSize` with a full radius for avatar placeholders, then compose text line
 Keep responsive layout logic in wrapper markup while each `Skeleton` stays a visual building block.
 
 <Preview>
-  <SkeletonCompositionExample />
+  <SkeletonDocs.SkeletonCompositionExample />
 
-  <Preview.Code>
-    {`
-      import { Skeleton, Stack } from "@moduix/react";
-      import styles from "./skeleton-layout-demo.module.css";
-
-      export function SkeletonCompositionDemo() {
-        return (
-          <Stack gap={12} className={styles.layoutExample}>
-            {announcements.map((item) => (
-              <Stack key={item.titleWidth} direction={{ mobile: "column", desktop: "row" }} gap={12}>
-                <Skeleton width={72} height={48} />
-                <Stack gap={8} fill>
-                  <Skeleton width={item.titleWidth} height={14} />
-                  <Skeleton height={14} />
-                </Stack>
-              </Stack>
-            ))}
-          </Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/skeleton/responsive-layout.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -282,7 +152,6 @@ Keep responsive layout logic in wrapper markup while each `Skeleton` stays a vis
     `}
 </Preview.CSS>
 
-  <Preview.Data>{skeletonCompositionData}</Preview.Data>
 </Preview>
 
 ### Variants
@@ -290,25 +159,11 @@ Keep responsive layout logic in wrapper markup while each `Skeleton` stays a vis
 Use `variant` to choose between pulse and static placeholder rendering.
 
 <Preview>
-  <SkeletonVariantsExample />
+  <SkeletonDocs.SkeletonVariantsExample />
 
-  <Preview.Code>
-    {`
-      import { Skeleton, Stack } from "@moduix/react";
-      import styles from "./skeleton-variants-demo.module.css";
-
-      export function SkeletonVariantsDemo() {
-        return (
-          <Stack gap={12} className={styles.stack}>
-            {variants.map((variant) => (
-              <Skeleton key={variant} height={18} variant={variant} />
-            ))}
-          </Stack>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/skeleton/variants.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -318,7 +173,6 @@ Use `variant` to choose between pulse and static placeholder rendering.
     `}
 </Preview.CSS>
 
-  <Preview.Data>{skeletonVariantsData}</Preview.Data>
 </Preview>
 
 ### Static
@@ -326,26 +180,11 @@ Use `variant` to choose between pulse and static placeholder rendering.
 Pass `variant="none"` when the loading state is dense or motion should stay quieter.
 
 <Preview>
-  <SkeletonStaticExample />
+  <SkeletonDocs.SkeletonStaticExample />
 
-  <Preview.Code>
-    {`
-      import { Skeleton } from "@moduix/react";
-      import styles from "./static-skeleton-demo.module.css";
-
-      export function StaticSkeletonDemo() {
-        return (
-          <Skeleton
-            width={staticSkeleton.width}
-            height={staticSkeleton.height}
-            variant={staticSkeleton.variant}
-            className={styles.staticSkeleton}
-          />
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/skeleton/static.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -355,7 +194,6 @@ Pass `variant="none"` when the loading state is dense or motion should stay quie
     `}
 </Preview.CSS>
 
-  <Preview.Data>{skeletonStaticData}</Preview.Data>
 </Preview>
 
 ### Loaded Content
@@ -363,30 +201,11 @@ Pass `variant="none"` when the loading state is dense or motion should stay quie
 Use `loading` to keep the same host in place while switching from placeholder to real content.
 
 <Preview>
-  <SkeletonLoadedExample />
+  <SkeletonDocs.SkeletonLoadedExample />
 
-  <Preview.Code>
-    {`
-      import { Skeleton } from "@moduix/react";
-      import styles from "./loaded-skeleton-demo.module.css";
-
-      export function LoadedSkeletonDemo() {
-        return (
-          <div className={styles.loadedGrid}>
-            <Skeleton loading className={styles.loadedContent}>
-              <strong>{profile.name}</strong>
-              <span>{profile.role}</span>
-            </Skeleton>
-            <Skeleton loading={false} className={styles.loadedContent}>
-              <strong>{profile.name}</strong>
-              <span>{profile.role}</span>
-            </Skeleton>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/skeleton/loaded-content.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -407,7 +226,6 @@ Use `loading` to keep the same host in place while switching from placeholder to
 
 </Preview.CSS>
 
-  <Preview.Data>{skeletonLoadedData}</Preview.Data>
 </Preview>
 
 ### Custom Host
@@ -415,23 +233,11 @@ Use `loading` to keep the same host in place while switching from placeholder to
 Use `asChild` when a semantic element such as `section` should own the DOM node.
 
 <Preview>
-  <SkeletonAsChildExample />
+  <SkeletonDocs.SkeletonAsChildExample />
 
-  <Preview.Code>
-    {`
-      import { Skeleton } from "@moduix/react";
-      import styles from "./skeleton-as-child-demo.module.css";
-
-      export function SkeletonAsChildDemo() {
-        return (
-          <Skeleton asChild height={72} borderRadius="var(--radius-lg)" className={styles.asChild}>
-            <section aria-label={loadingRegion.label} />
-          </Skeleton>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/skeleton/custom-host.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -441,7 +247,6 @@ Use `asChild` when a semantic element such as `section` should own the DOM node.
     `}
 </Preview.CSS>
 
-  <Preview.Data>{skeletonAsChildData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -449,29 +254,14 @@ Use `asChild` when a semantic element such as `section` should own the DOM node.
 Use `className` and the public CSS variables when the surface needs local styling overrides.
 
 <Preview>
-  <SkeletonClassNameExample />
+  <SkeletonDocs.SkeletonClassNameExample />
 
-  <Preview.Code>
-    {`
-      import { Skeleton, Stack } from "@moduix/react";
-      import styles from "./custom-skeleton-demo.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/skeleton/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomSkeletonDemo() {
-        return (
-          <Stack gap={10} className={styles.customBlock}>
-            {customLines.map((width) => (
-              <Skeleton key={width} className={styles.customSkeleton} width={width} height={18} />
-            ))}
-          </Stack>
-        );
-      }
-    `}
+<Preview.CSS>{SkeletonDocs.skeletonCustomStylingCss}</Preview.CSS>
 
-  </Preview.Code>
-
-<Preview.CSS>{skeletonCustomStylingCss}</Preview.CSS>
-
-  <Preview.Data>{skeletonCustomStylingData}</Preview.Data>
 </Preview>
 
 ## Styling
@@ -484,7 +274,7 @@ radius, and motion.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <SkeletonCssPropertiesPanel />
+      <SkeletonDocs.SkeletonCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

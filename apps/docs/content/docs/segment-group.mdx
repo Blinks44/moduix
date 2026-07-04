@@ -4,26 +4,7 @@ description: Ark UI segment-group composition for choosing one value from a comp
 icon: Component
 ---
 
-import {
-  ConditionalSegmentGroupExample,
-  ControlledSegmentGroupExample,
-  DisabledSegmentGroupExample,
-  FormSegmentGroupExample,
-  InvalidSegmentGroupExample,
-  SegmentGroupAsChildExample,
-  SegmentGroupCssPropertiesPanel,
-  SegmentGroupCustomStylingExample,
-  SegmentGroupExample,
-  SegmentGroupRootProviderExample,
-  VerticalSegmentGroupExample,
-  segmentGroupAsChildCss,
-  segmentGroupCustomStylingCss,
-  segmentGroupExampleCss,
-  segmentGroupFormExampleCss,
-  segmentGroupFrameworksData,
-  segmentGroupVerticalCss,
-  segmentGroupViewsData,
-} from '@/components/examples/segment-group';
+import * as SegmentGroupDocs from '@/components/examples/segment-group';
 
 ## API Reference
 
@@ -46,76 +27,19 @@ Use Ark-style parts: `SegmentGroup`, `SegmentGroup.Indicator`, `SegmentGroup.Ite
 `SegmentGroup.ItemText`, `SegmentGroup.ItemControl`, and `SegmentGroup.ItemHiddenInput`.
 
 <Preview>
-  <SegmentGroupExample />
+  <SegmentGroupDocs.SegmentGroupExample />
 
-  <Preview.Code>
-    {`
-      import { SegmentGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/segment-group/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function SegmentGroupDemo() {
-        return (
-          <SegmentGroup aria-label="Framework" defaultValue="React">
-            <SegmentGroup.Indicator />
-            {frameworks.map((framework) => (
-              <SegmentGroup.Item key={framework} value={framework}>
-                <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
-                <SegmentGroup.ItemControl />
-                <SegmentGroup.ItemHiddenInput />
-              </SegmentGroup.Item>
-            ))}
-          </SegmentGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{segmentGroupExampleCss}</Preview.CSS>
-  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{SegmentGroupDocs.segmentGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `SegmentGroup` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-segment-group
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-segment-group
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-segment-group
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-segment-group
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-segment-group
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-segment-group" />
 
 ## Anatomy
 
@@ -183,42 +107,14 @@ state, ids, form submission, and form reset synchronization.
 Control the selected value from React state and update it from `details.value`.
 
 <Preview>
-  <ControlledSegmentGroupExample />
+  <SegmentGroupDocs.ControlledSegmentGroupExample />
 
-  <Preview.Code>
-    {`
-      import { SegmentGroup } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/segment-group/controlled.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledSegmentGroupDemo() {
-        const [value, setValue] = useState("React" as string | null);
-
-        return (
-          <div className="segment-stack">
-            <SegmentGroup
-              aria-label="Framework"
-              value={value}
-              onValueChange={(details) => setValue(details.value)}
-            >
-              <SegmentGroup.Indicator />
-              {frameworks.map((framework) => (
-                <SegmentGroup.Item key={framework} value={framework}>
-                  <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
-                  <SegmentGroup.ItemControl />
-                  <SegmentGroup.ItemHiddenInput />
-                </SegmentGroup.Item>
-              ))}
-            </SegmentGroup>
-            <output className="segment-output">selected: {value ?? "none"}</output>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{segmentGroupExampleCss}</Preview.CSS>
-  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{SegmentGroupDocs.segmentGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -227,41 +123,14 @@ Use `RootProvider` when state from Ark `useSegmentGroup()` needs to be shared wi
 outside the segment tree.
 
 <Preview>
-  <SegmentGroupRootProviderExample />
+  <SegmentGroupDocs.SegmentGroupRootProviderExample />
 
-  <Preview.Code>
-    {`
-      import { useSegmentGroup } from "@ark-ui/react/segment-group";
-      import { SegmentGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/segment-group/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      export function SegmentGroupRootProviderDemo() {
-        const segmentGroup = useSegmentGroup({ defaultValue: "React" });
-
-        return (
-          <div className="segment-stack">
-            <SegmentGroup.RootProvider aria-label="Framework" value={segmentGroup}>
-              <SegmentGroup.Indicator />
-              {frameworks.map((framework) => (
-                <SegmentGroup.Item key={framework} value={framework}>
-                  <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
-                  <SegmentGroup.ItemControl />
-                  <SegmentGroup.ItemHiddenInput />
-                </SegmentGroup.Item>
-              ))}
-            </SegmentGroup.RootProvider>
-            <button className="segment-button" type="button" onClick={() => segmentGroup.setValue("Solid")}>
-              Set to Solid
-            </button>
-            <output className="segment-output">selected: {segmentGroup.value ?? "none"}</output>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{segmentGroupExampleCss}</Preview.CSS>
-  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{SegmentGroupDocs.segmentGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Disabled
@@ -269,32 +138,14 @@ outside the segment tree.
 Set `disabled` on an item when only one segment should be unavailable.
 
 <Preview>
-  <DisabledSegmentGroupExample />
+  <SegmentGroupDocs.DisabledSegmentGroupExample />
 
-  <Preview.Code>
-    {`
-      import { SegmentGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/segment-group/disabled.tsx#demo</include>
+</Preview.Code>
 
-      export function DisabledSegmentGroupDemo() {
-        return (
-          <SegmentGroup aria-label="Framework" defaultValue="React">
-            <SegmentGroup.Indicator />
-            {frameworks.map((framework) => (
-              <SegmentGroup.Item key={framework} value={framework} disabled={framework === "Svelte"}>
-                <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
-                <SegmentGroup.ItemControl />
-                <SegmentGroup.ItemHiddenInput />
-              </SegmentGroup.Item>
-            ))}
-          </SegmentGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{segmentGroupExampleCss}</Preview.CSS>
-  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{SegmentGroupDocs.segmentGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Conditional Mount
@@ -303,42 +154,14 @@ Segment groups can mount conditionally; Ark recalculates item geometry for the i
 group appears.
 
 <Preview>
-  <ConditionalSegmentGroupExample />
+  <SegmentGroupDocs.ConditionalSegmentGroupExample />
 
-  <Preview.Code>
-    {`
-      import { SegmentGroup } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/segment-group/conditional-mount.tsx#demo</include>
+</Preview.Code>
 
-      export function ConditionalSegmentGroupDemo() {
-        const [visible, setVisible] = useState(true);
-
-        return (
-          <div className="segment-stack">
-            <button className="segment-button" type="button" onClick={() => setVisible((value) => !value)}>
-              {visible ? "Hide" : "Show"}
-            </button>
-            {visible ? (
-              <SegmentGroup aria-label="Framework" defaultValue="React">
-                <SegmentGroup.Indicator />
-                {frameworks.map((framework) => (
-                  <SegmentGroup.Item key={framework} value={framework}>
-                    <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
-                    <SegmentGroup.ItemControl />
-                    <SegmentGroup.ItemHiddenInput />
-                  </SegmentGroup.Item>
-                ))}
-              </SegmentGroup>
-            ) : null}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{segmentGroupExampleCss}</Preview.CSS>
-  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{SegmentGroupDocs.segmentGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Vertical Orientation
@@ -346,37 +169,14 @@ group appears.
 Set `orientation="vertical"` when arrow-key behavior and layout should follow a vertical list.
 
 <Preview>
-  <VerticalSegmentGroupExample />
+  <SegmentGroupDocs.VerticalSegmentGroupExample />
 
-  <Preview.Code>
-    {`
-      import { SegmentGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/segment-group/vertical-orientation.tsx#demo</include>
+</Preview.Code>
 
-      export function VerticalSegmentGroupDemo() {
-        return (
-          <SegmentGroup
-            aria-label="View"
-            defaultValue="List"
-            orientation="vertical"
-            className="segment-vertical"
-          >
-            <SegmentGroup.Indicator />
-            {views.map((view) => (
-              <SegmentGroup.Item key={view} value={view}>
-                <SegmentGroup.ItemText>{view}</SegmentGroup.ItemText>
-                <SegmentGroup.ItemControl />
-                <SegmentGroup.ItemHiddenInput />
-              </SegmentGroup.Item>
-            ))}
-          </SegmentGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{segmentGroupVerticalCss}</Preview.CSS>
-  <Preview.Data>{segmentGroupViewsData}</Preview.Data>
+  <Preview.CSS>{SegmentGroupDocs.segmentGroupVerticalCss}</Preview.CSS>
+  
 </Preview>
 
 ### Form Submission
@@ -385,46 +185,14 @@ Pass `name` to the root and keep `ItemHiddenInput` in every item to submit the s
 native form data.
 
 <Preview>
-  <FormSegmentGroupExample />
+  <SegmentGroupDocs.FormSegmentGroupExample />
 
-  <Preview.Code>
-    {`
-      import { SegmentGroup } from "@moduix/react";
-      import { useState, type FormEvent } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/segment-group/form-submission.tsx#demo</include>
+</Preview.Code>
 
-      export function FormSegmentGroupDemo() {
-        const [submitted, setSubmitted] = useState("none");
-
-        const handleSubmit = (event: FormEvent) => {
-          event.preventDefault();
-          const form = event.currentTarget as HTMLFormElement;
-          const formData = new FormData(form);
-          setSubmitted(String(formData.get("framework") ?? "none"));
-        };
-
-        return (
-          <form className="segment-form" onSubmit={handleSubmit}>
-            <SegmentGroup aria-label="Framework" name="framework" defaultValue="React">
-              <SegmentGroup.Indicator />
-              {frameworks.map((framework) => (
-                <SegmentGroup.Item key={framework} value={framework}>
-                  <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
-                  <SegmentGroup.ItemControl />
-                  <SegmentGroup.ItemHiddenInput />
-                </SegmentGroup.Item>
-              ))}
-            </SegmentGroup>
-            <button className="segment-button" type="submit">Submit</button>
-            <output className="segment-output">submitted: {submitted}</output>
-          </form>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{segmentGroupFormExampleCss}</Preview.CSS>
-  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{SegmentGroupDocs.segmentGroupFormExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Invalid
@@ -433,32 +201,14 @@ Set `invalid` on the root when validation fails. Pair it with `required` and `na
 participates in native form validation.
 
 <Preview>
-  <InvalidSegmentGroupExample />
+  <SegmentGroupDocs.InvalidSegmentGroupExample />
 
-  <Preview.Code>
-    {`
-      import { SegmentGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/segment-group/invalid.tsx#demo</include>
+</Preview.Code>
 
-      export function InvalidSegmentGroupDemo() {
-        return (
-          <SegmentGroup aria-label="Framework" name="framework" defaultValue="React" invalid required>
-            <SegmentGroup.Indicator />
-            {frameworks.map((framework) => (
-              <SegmentGroup.Item key={framework} value={framework}>
-                <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
-                <SegmentGroup.ItemControl />
-                <SegmentGroup.ItemHiddenInput />
-              </SegmentGroup.Item>
-            ))}
-          </SegmentGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{segmentGroupExampleCss}</Preview.CSS>
-  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{SegmentGroupDocs.segmentGroupExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### asChild
@@ -466,43 +216,14 @@ participates in native form validation.
 Use `SegmentGroup.Item asChild` when a custom label layout should own the item DOM node.
 
 <Preview>
-  <SegmentGroupAsChildExample />
+  <SegmentGroupDocs.SegmentGroupAsChildExample />
 
-  <Preview.Code>
-    {`
-      import { SegmentGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/segment-group/aschild.tsx#demo</include>
+</Preview.Code>
 
-      export function SegmentGroupAsChildDemo() {
-        return (
-          <SegmentGroup aria-label="Billing cycle" defaultValue="Monthly">
-            <SegmentGroup.Indicator />
-            {[
-              ["Monthly", "Pay monthly"],
-              ["Annual", "Save 20%"],
-            ].map(([item, description]) => (
-              <SegmentGroup.Item key={item} value={item} asChild>
-                <label className="segment-card-item">
-                  <SegmentGroup.ItemText className="segment-card-title">{item}</SegmentGroup.ItemText>
-                  <span className="segment-card-description">{description}</span>
-                  <SegmentGroup.ItemControl />
-                  <SegmentGroup.ItemHiddenInput />
-                </label>
-              </SegmentGroup.Item>
-            ))}
-          </SegmentGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{segmentGroupAsChildCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const billingCycles = ["Monthly", "Annual"];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{SegmentGroupDocs.segmentGroupAsChildCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -511,32 +232,14 @@ Pass `className` to the Ark part that owns the visual concern and style public C
 Ark state attributes.
 
 <Preview>
-  <SegmentGroupCustomStylingExample />
+  <SegmentGroupDocs.SegmentGroupCustomStylingExample />
 
-  <Preview.Code>
-    {`
-      import { SegmentGroup } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/segment-group/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-      export function StyledSegmentGroupDemo() {
-        return (
-          <SegmentGroup aria-label="Framework" defaultValue="React" className="segment-custom-root">
-            <SegmentGroup.Indicator />
-            {frameworks.map((framework) => (
-              <SegmentGroup.Item key={framework} value={framework} className="segment-custom-item">
-                <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
-                <SegmentGroup.ItemControl />
-                <SegmentGroup.ItemHiddenInput />
-              </SegmentGroup.Item>
-            ))}
-          </SegmentGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{segmentGroupCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{segmentGroupFrameworksData}</Preview.Data>
+  <Preview.CSS>{SegmentGroupDocs.segmentGroupCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -549,7 +252,7 @@ Style `SegmentGroup` through `className`, stable `data-slot="segment-group-*"` h
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <SegmentGroupCssPropertiesPanel />
+      <SegmentGroupDocs.SegmentGroupCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

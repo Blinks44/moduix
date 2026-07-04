@@ -4,24 +4,7 @@ description: Guide users through a multi-step process with Ark UI state and navi
 icon: Component
 ---
 
-import {
-  AsChildStepsExample,
-  ControlledStepsExample,
-  CustomStylesStepsExample,
-  ProgressStepsExample,
-  RootProviderStepsExample,
-  StepsCssPropertiesPanel,
-  StepsExample,
-  VerticalStepsExample,
-  asChildStepsCss,
-  controlledStepsCss,
-  customStylesStepsCss,
-  progressStepsCss,
-  rootProviderStepsCss,
-  stepsExampleCss,
-  stepsItemsData,
-  verticalStepsCss,
-} from '@/components/examples/steps';
+import * as StepsDocs from '@/components/examples/steps';
 
 ## API Reference
 
@@ -32,98 +15,19 @@ import {
 Use `Steps` with a `count`, a `Steps.List` of zero-based `Steps.Item index={...}` parts, matching `Steps.Content index={...}` panels, and the built-in previous/next triggers.
 
 <Preview>
-  <StepsExample />
+  <StepsDocs.StepsExample />
 
-  <Preview.Code>
-    {`
-      import { Steps } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/steps/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function StepsDemo() {
-        return (
-          <Steps count={items.length}>
-            <Steps.List>
-              {items.map((item, index) => (
-                <Steps.Item key={item.title} index={index}>
-                  <Steps.Trigger>
-                    <Steps.Indicator />
-                    <span className="stepText">
-                      <span className="stepTitle">{item.title}</span>
-                      <span className="stepDescription">{item.description}</span>
-                    </span>
-                  </Steps.Trigger>
-                  <Steps.Separator />
-                </Steps.Item>
-              ))}
-            </Steps.List>
-
-            {items.map((item, index) => (
-              <Steps.Content key={item.title} index={index}>
-                {item.title} - {item.description}
-              </Steps.Content>
-            ))}
-
-            <Steps.CompletedContent>
-              Steps complete. The workspace is ready.
-            </Steps.CompletedContent>
-
-            <div className="actions">
-              <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-              <Steps.NextTrigger>Next</Steps.NextTrigger>
-            </div>
-          </Steps>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{stepsExampleCss}</Preview.CSS>
-  <Preview.Data>{stepsItemsData}</Preview.Data>
+  <Preview.CSS>{StepsDocs.stepsExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Steps` to become part of your own project source instead of staying in `node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-steps
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-steps
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-steps
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-steps
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-steps
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Steps` depends on, such as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-steps" />
 
 ## Anatomy
 
@@ -202,63 +106,14 @@ Use `asChild` on `Steps.Trigger`, `Steps.PrevTrigger`, or `Steps.NextTrigger` wh
 Control `step` from React state when the active step must stay synchronized with routing, validation, or surrounding UI.
 
 <Preview>
-  <ControlledStepsExample />
+  <StepsDocs.ControlledStepsExample />
 
-  <Preview.Code>
-    {`
-      import { Steps } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/steps/controlled.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledStepsDemo() {
-        const [step, setStep] = useState(1);
-
-        return (
-          <div className="stack">
-            <output className="output">Current step: {step + 1}</output>
-            <Steps
-              count={items.length}
-              step={step}
-              onStepChange={(details) => setStep(details.step)}
-            >
-              <Steps.List>
-                {items.map((item, index) => (
-                  <Steps.Item key={item.title} index={index}>
-                    <Steps.Trigger>
-                      <Steps.Indicator />
-                      <span className="stepText">
-                        <span className="stepTitle">{item.title}</span>
-                        <span className="stepDescription">{item.description}</span>
-                      </span>
-                    </Steps.Trigger>
-                    <Steps.Separator />
-                  </Steps.Item>
-                ))}
-              </Steps.List>
-
-              {items.map((item, index) => (
-                <Steps.Content key={item.title} index={index}>
-                  {item.title} - {item.description}
-                </Steps.Content>
-              ))}
-
-              <Steps.CompletedContent>
-                Steps complete. The workspace is ready.
-              </Steps.CompletedContent>
-
-              <div className="actions">
-                <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-                <Steps.NextTrigger>Next</Steps.NextTrigger>
-              </div>
-            </Steps>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{controlledStepsCss}</Preview.CSS>
-  <Preview.Data>{stepsItemsData}</Preview.Data>
+  <Preview.CSS>{StepsDocs.controlledStepsCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -266,59 +121,14 @@ Control `step` from React state when the active step must stay synchronized with
 Use Ark `useSteps()` with `Steps.RootProvider` when controls outside the rendered tree need access to the same Ark store.
 
 <Preview>
-  <RootProviderStepsExample />
+  <StepsDocs.RootProviderStepsExample />
 
-  <Preview.Code>
-    {`
-      import { useSteps } from "@ark-ui/react/steps";
-      import { Steps } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/steps/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      export function RootProviderStepsDemo() {
-        const steps = useSteps({ count: items.length });
-
-        return (
-          <div className="stack">
-            <output className="output">Current step: {steps.value + 1}</output>
-            <Steps.RootProvider value={steps}>
-              <Steps.List>
-                {items.map((item, index) => (
-                  <Steps.Item key={item.title} index={index}>
-                    <Steps.Trigger>
-                      <Steps.Indicator />
-                      <span className="stepText">
-                        <span className="stepTitle">{item.title}</span>
-                        <span className="stepDescription">{item.description}</span>
-                      </span>
-                    </Steps.Trigger>
-                    <Steps.Separator />
-                  </Steps.Item>
-                ))}
-              </Steps.List>
-
-              {items.map((item, index) => (
-                <Steps.Content key={item.title} index={index}>
-                  {item.title} - {item.description}
-                </Steps.Content>
-              ))}
-
-              <Steps.CompletedContent>
-                Steps complete. The workspace is ready.
-              </Steps.CompletedContent>
-
-              <div className="actions">
-                <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-                <Steps.NextTrigger>Next</Steps.NextTrigger>
-              </div>
-            </Steps.RootProvider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{rootProviderStepsCss}</Preview.CSS>
-  <Preview.Data>{stepsItemsData}</Preview.Data>
+  <Preview.CSS>{StepsDocs.rootProviderStepsCss}</Preview.CSS>
+  
 </Preview>
 
 ### Vertical
@@ -326,49 +136,14 @@ Use Ark `useSteps()` with `Steps.RootProvider` when controls outside the rendere
 Set `orientation="vertical"` when the step list should stack beside the active content panel.
 
 <Preview>
-  <VerticalStepsExample />
+  <StepsDocs.VerticalStepsExample />
 
-  <Preview.Code>
-    {`
-      <div className="vertical">
-        <Steps count={items.length} defaultStep={1} orientation="vertical">
-          <Steps.List>
-            {items.map((item, index) => (
-              <Steps.Item key={item.title} index={index}>
-                <Steps.Trigger>
-                  <Steps.Indicator />
-                  <span className="stepText">
-                    <span className="stepTitle">{item.title}</span>
-                    <span className="stepDescription">{item.description}</span>
-                  </span>
-                </Steps.Trigger>
-                <Steps.Separator />
-              </Steps.Item>
-            ))}
-          </Steps.List>
+<Preview.Code>
+  <include lang="tsx">./_snippets/steps/vertical.tsx#demo</include>
+</Preview.Code>
 
-          {items.map((item, index) => (
-            <Steps.Content key={item.title} index={index}>
-              {item.title} - {item.description}
-            </Steps.Content>
-          ))}
-
-          <Steps.CompletedContent>
-            Steps complete. The workspace is ready.
-          </Steps.CompletedContent>
-
-          <div className="actions">
-            <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-            <Steps.NextTrigger>Next</Steps.NextTrigger>
-          </div>
-        </Steps>
-      </div>
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{verticalStepsCss}</Preview.CSS>
-  <Preview.Data>{stepsItemsData}</Preview.Data>
+  <Preview.CSS>{StepsDocs.verticalStepsCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Composition
@@ -376,48 +151,14 @@ Set `orientation="vertical"` when the step list should stack beside the active c
 Use `asChild` when a step trigger should render as another semantic element, such as an anchor or router link.
 
 <Preview>
-  <AsChildStepsExample />
+  <StepsDocs.AsChildStepsExample />
 
-  <Preview.Code>
-    {`
-      <Steps count={items.length} defaultStep={1} linear={false}>
-        <Steps.List>
-          {items.map((item, index) => (
-            <Steps.Item key={item.title} index={index}>
-              <Steps.Trigger asChild>
-                <a href={\`#step-\${index + 1}\`}>
-                  <Steps.Indicator />
-                  <span className="stepText">
-                    <span className="stepTitle">{item.title}</span>
-                  </span>
-                </a>
-              </Steps.Trigger>
-              <Steps.Separator />
-            </Steps.Item>
-          ))}
-        </Steps.List>
+<Preview.Code>
+  <include lang="tsx">./_snippets/steps/custom-composition.tsx#demo</include>
+</Preview.Code>
 
-        {items.map((item, index) => (
-          <Steps.Content key={item.title} index={index}>
-            {item.title} - {item.description}
-          </Steps.Content>
-        ))}
-
-        <Steps.CompletedContent>
-          Steps complete. The workspace is ready.
-        </Steps.CompletedContent>
-
-        <div className="actions">
-          <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-          <Steps.NextTrigger>Next</Steps.NextTrigger>
-        </div>
-      </Steps>
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{asChildStepsCss}</Preview.CSS>
-  <Preview.Data>{stepsItemsData}</Preview.Data>
+  <Preview.CSS>{StepsDocs.asChildStepsCss}</Preview.CSS>
+  
 </Preview>
 
 ### Progress
@@ -425,48 +166,14 @@ Use `asChild` when a step trigger should render as another semantic element, suc
 Add `Steps.Progress` when the flow should expose a progressbar in addition to the step list.
 
 <Preview>
-  <ProgressStepsExample />
+  <StepsDocs.ProgressStepsExample />
 
-  <Preview.Code>
-    {`
-      <Steps count={items.length} defaultStep={1}>
-        <Steps.Progress />
-        <Steps.List>
-          {items.map((item, index) => (
-            <Steps.Item key={item.title} index={index}>
-              <Steps.Trigger>
-                <Steps.Indicator />
-                <span className="stepText">
-                  <span className="stepTitle">{item.title}</span>
-                  <span className="stepDescription">{item.description}</span>
-                </span>
-              </Steps.Trigger>
-              <Steps.Separator />
-            </Steps.Item>
-          ))}
-        </Steps.List>
+<Preview.Code>
+  <include lang="tsx">./_snippets/steps/progress.tsx#demo</include>
+</Preview.Code>
 
-        {items.map((item, index) => (
-          <Steps.Content key={item.title} index={index}>
-            {item.title} - {item.description}
-          </Steps.Content>
-        ))}
-
-        <Steps.CompletedContent>
-          Steps complete. The workspace is ready.
-        </Steps.CompletedContent>
-
-        <div className="actions">
-          <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-          <Steps.NextTrigger>Next</Steps.NextTrigger>
-        </div>
-      </Steps>
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressStepsCss}</Preview.CSS>
-  <Preview.Data>{stepsItemsData}</Preview.Data>
+  <Preview.CSS>{StepsDocs.progressStepsCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -474,48 +181,14 @@ Add `Steps.Progress` when the flow should expose a progressbar in addition to th
 Override `--steps-*` tokens or target Ark data attributes when one flow needs a local visual treatment.
 
 <Preview>
-  <CustomStylesStepsExample />
+  <StepsDocs.CustomStylesStepsExample />
 
-  <Preview.Code>
-    {`
-      <Steps className="customSteps" count={items.length} defaultStep={2}>
-        <Steps.Progress />
-        <Steps.List>
-          {items.map((item, index) => (
-            <Steps.Item key={item.title} index={index}>
-              <Steps.Trigger>
-                <Steps.Indicator />
-                <span className="stepText">
-                  <span className="stepTitle">{item.title}</span>
-                  <span className="stepDescription">{item.description}</span>
-                </span>
-              </Steps.Trigger>
-              <Steps.Separator />
-            </Steps.Item>
-          ))}
-        </Steps.List>
+<Preview.Code>
+  <include lang="tsx">./_snippets/steps/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-        {items.map((item, index) => (
-          <Steps.Content key={item.title} index={index}>
-            {item.title} - {item.description}
-          </Steps.Content>
-        ))}
-
-        <Steps.CompletedContent>
-          Steps complete. The workspace is ready.
-        </Steps.CompletedContent>
-
-        <div className="actions">
-          <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-          <Steps.NextTrigger>Next</Steps.NextTrigger>
-        </div>
-      </Steps>
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{customStylesStepsCss}</Preview.CSS>
-  <Preview.Data>{stepsItemsData}</Preview.Data>
+  <Preview.CSS>{StepsDocs.customStylesStepsCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -527,7 +200,7 @@ Style `Steps` through `className`, Ark `data-scope="steps"` / `data-part="..."`,
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <StepsCssPropertiesPanel />
+      <StepsDocs.StepsCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

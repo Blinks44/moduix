@@ -4,23 +4,7 @@ description: A segmented Ark UI date input for single dates, ranges, locale-awar
 icon: Component
 ---
 
-import {
-  ControlledDateInputExample,
-  CustomStylesDateInputExample,
-  DateInputCssPropertiesPanel,
-  DateInputExample,
-  DateInputFieldExample,
-  DisabledReadOnlyDateInputExample,
-  GranularityDateInputExample,
-  LocaleDateInputExample,
-  MinMaxDateInputExample,
-  RangeDateInputExample,
-  RootProviderDateInputExample,
-  dateInputExampleCss,
-  dateInputNoData,
-  dateInputRangeData,
-  dateInputValidationData,
-} from '@/components/examples/date-input';
+import * as DateInputDocs from '@/components/examples/date-input';
 
 ## API Reference
 
@@ -38,85 +22,19 @@ Render date segments through Ark `DateInputSegmentContext`. Ark controls segment
 editing, focus, placeholders, and form synchronization, while moduix keeps the styled visual parts.
 
 <Preview>
-  <DateInputExample />
+  <DateInputDocs.DateInputExample />
 
-  <Preview.Code>
-    {`
-      import { CalendarDate } from "@internationalized/date";
-      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
-      import { DateInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/basic.tsx#demo</include>
+</Preview.Code>
 
-      function DateInputSegments() {
-        return (
-          <DateInput.SegmentGroup>
-            <DateInputSegmentContext>
-              {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInputSegmentContext>
-          </DateInput.SegmentGroup>
-        );
-      }
-
-      export function DateInputDemo() {
-        return (
-          <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]} name="release-date">
-            <DateInput.Label>Release date</DateInput.Label>
-            <DateInput.Control>
-              <DateInputSegments />
-            </DateInput.Control>
-            <DateInput.HiddenInput />
-          </DateInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{dateInputExampleCss}</Preview.CSS>
-  <Preview.Data>{dateInputNoData}</Preview.Data>
+  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Date Input` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-date-input
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-date-input
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-date-input
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-date-input
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-date-input
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-date-input" />
 
 ## Anatomy
 
@@ -190,52 +108,14 @@ Use `ids` when an external label, helper text, or another component must share e
 Control the selected date array and update it from `details.value`.
 
 <Preview>
-  <ControlledDateInputExample />
+  <DateInputDocs.ControlledDateInputExample />
 
-  <Preview.Code>
-    {`
-      import { CalendarDate } from "@internationalized/date";
-      import {
-        DateInputSegmentContext,
-        type DateInputDateValue,
-      } from "@ark-ui/react/date-input";
-      import { DateInput } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/controlled.tsx#demo</include>
+</Preview.Code>
 
-      function DateInputSegments() {
-        return (
-          <DateInput.SegmentGroup>
-            <DateInputSegmentContext>
-              {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInputSegmentContext>
-          </DateInput.SegmentGroup>
-        );
-      }
-
-      export function ControlledDateInputDemo() {
-        const [value, setValue] = useState([
-          new CalendarDate(2026, 6, 22),
-        ] as DateInputDateValue[]);
-
-        return (
-          <div>
-            <DateInput value={value} onValueChange={(details) => setValue(details.value)}>
-              <DateInput.Label>Controlled date</DateInput.Label>
-              <DateInput.Control>
-                <DateInputSegments />
-              </DateInput.Control>
-              <DateInput.HiddenInput />
-            </DateInput>
-            <div className="date-input-state">Current value: {value[0]?.toString() ?? "empty"}</div>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{dateInputExampleCss}</Preview.CSS>
-  <Preview.Data>{dateInputNoData}</Preview.Data>
+  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Range
@@ -243,43 +123,14 @@ Control the selected date array and update it from `details.value`.
 Use `selectionMode="range"` and pass `index` to the segment group and hidden input for each date.
 
 <Preview>
-  <RangeDateInputExample />
+  <DateInputDocs.RangeDateInputExample />
 
-  <Preview.Code>
-    {`
-      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
-      import { DateInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/range.tsx#demo</include>
+</Preview.Code>
 
-      function DateInputSegments({ index }: { index?: number }) {
-        return (
-          <DateInput.SegmentGroup index={index}>
-            <DateInputSegmentContext>
-              {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInputSegmentContext>
-          </DateInput.SegmentGroup>
-        );
-      }
-
-      export function RangeDateInputDemo() {
-        return (
-          <DateInput selectionMode="range" defaultValue={defaultRange}>
-            <DateInput.Label>Travel dates</DateInput.Label>
-            <DateInput.Control className="date-input-range-control">
-              <DateInputSegments index={0} />
-              <DateInput.Separator>to</DateInput.Separator>
-              <DateInputSegments index={1} />
-            </DateInput.Control>
-            <DateInput.HiddenInput index={0} name="check-in" />
-            <DateInput.HiddenInput index={1} name="check-out" />
-          </DateInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{dateInputExampleCss}</Preview.CSS>
-  <Preview.Data>{dateInputRangeData}</Preview.Data>
+  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Min, Max, and Unavailable Dates
@@ -287,46 +138,14 @@ Use `selectionMode="range"` and pass `index` to the segment group and hidden inp
 Use `min`, `max`, and `isDateUnavailable` to mark committed dates outside business rules invalid.
 
 <Preview>
-  <MinMaxDateInputExample />
+  <DateInputDocs.MinMaxDateInputExample />
 
-  <Preview.Code>
-    {`
-      import { CalendarDate } from "@internationalized/date";
-      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
-      import { DateInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/min-max-and-unavailable-dates.tsx#demo</include>
+</Preview.Code>
 
-      function DateInputSegments() {
-        return (
-          <DateInput.SegmentGroup>
-            <DateInputSegmentContext>
-              {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInputSegmentContext>
-          </DateInput.SegmentGroup>
-        );
-      }
-
-      export function MinMaxDateInputDemo() {
-        return (
-          <DateInput
-            defaultValue={[new CalendarDate(2026, 6, 24)]}
-            min={minDate}
-            max={maxDate}
-            isDateUnavailable={(date) => date.day === unavailableDay}
-          >
-            <DateInput.Label>Booking date</DateInput.Label>
-            <DateInput.Control>
-              <DateInputSegments />
-            </DateInput.Control>
-            <DateInput.HiddenInput />
-          </DateInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{dateInputExampleCss}</Preview.CSS>
-  <Preview.Data>{dateInputValidationData}</Preview.Data>
+  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Disabled and Read Only
@@ -335,51 +154,14 @@ Use `disabled` to prevent interaction. Use `readOnly` when the value should rema
 editable.
 
 <Preview>
-  <DisabledReadOnlyDateInputExample />
+  <DateInputDocs.DisabledReadOnlyDateInputExample />
 
-  <Preview.Code>
-    {`
-      import { CalendarDate } from "@internationalized/date";
-      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
-      import { DateInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/disabled-and-read-only.tsx#demo</include>
+</Preview.Code>
 
-      function DateInputSegments() {
-        return (
-          <DateInput.SegmentGroup>
-            <DateInputSegmentContext>
-              {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInputSegmentContext>
-          </DateInput.SegmentGroup>
-        );
-      }
-
-      export function DisabledReadOnlyDateInputDemo() {
-        return (
-          <div className="date-input-state-grid">
-            <DateInput disabled defaultValue={[new CalendarDate(2026, 6, 22)]}>
-              <DateInput.Label>Disabled date</DateInput.Label>
-              <DateInput.Control>
-                <DateInputSegments />
-              </DateInput.Control>
-              <DateInput.HiddenInput name="disabled-date" />
-            </DateInput>
-
-            <DateInput readOnly defaultValue={[new CalendarDate(2026, 6, 22)]}>
-              <DateInput.Label>Read-only date</DateInput.Label>
-              <DateInput.Control>
-                <DateInputSegments />
-              </DateInput.Control>
-              <DateInput.HiddenInput name="read-only-date" />
-            </DateInput>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{dateInputExampleCss}</Preview.CSS>
-  <Preview.Data>{dateInputNoData}</Preview.Data>
+  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Locale
@@ -388,41 +170,14 @@ Set `locale`, `timeZone`, `hourCycle`, or `granularity` on the root when segment
 need to match regional expectations.
 
 <Preview>
-  <LocaleDateInputExample />
+  <DateInputDocs.LocaleDateInputExample />
 
-  <Preview.Code>
-    {`
-      import { CalendarDate } from "@internationalized/date";
-      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
-      import { DateInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/locale.tsx#demo</include>
+</Preview.Code>
 
-      function DateInputSegments() {
-        return (
-          <DateInput.SegmentGroup>
-            <DateInputSegmentContext>
-              {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInputSegmentContext>
-          </DateInput.SegmentGroup>
-        );
-      }
-
-      export function LocaleDateInputDemo() {
-        return (
-          <DateInput locale="de-DE" defaultValue={[new CalendarDate(2026, 12, 5)]}>
-            <DateInput.Label>German locale</DateInput.Label>
-            <DateInput.Control>
-              <DateInputSegments />
-            </DateInput.Control>
-            <DateInput.HiddenInput />
-          </DateInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{dateInputExampleCss}</Preview.CSS>
-  <Preview.Data>{dateInputNoData}</Preview.Data>
+  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Granularity
@@ -430,45 +185,14 @@ need to match regional expectations.
 Set `granularity` when the input should include time segments.
 
 <Preview>
-  <GranularityDateInputExample />
+  <DateInputDocs.GranularityDateInputExample />
 
-  <Preview.Code>
-    {`
-      import { CalendarDateTime } from "@internationalized/date";
-      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
-      import { DateInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/granularity.tsx#demo</include>
+</Preview.Code>
 
-      function DateInputSegments() {
-        return (
-          <DateInput.SegmentGroup>
-            <DateInputSegmentContext>
-              {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInputSegmentContext>
-          </DateInput.SegmentGroup>
-        );
-      }
-
-      export function GranularityDateInputDemo() {
-        return (
-          <DateInput
-            granularity="minute"
-            hourCycle={24}
-            defaultValue={[new CalendarDateTime(2026, 12, 5, 14, 30)]}
-          >
-            <DateInput.Label>Date and time</DateInput.Label>
-            <DateInput.Control>
-              <DateInputSegments />
-            </DateInput.Control>
-            <DateInput.HiddenInput name="scheduled-at" />
-          </DateInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{dateInputExampleCss}</Preview.CSS>
-  <Preview.Data>{dateInputNoData}</Preview.Data>
+  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Field State
@@ -477,43 +201,14 @@ Use `Field` around date input for surrounding form text. Pass `required`, `disab
 to `DateInput` when Ark state attributes should appear on the date input itself.
 
 <Preview>
-  <DateInputFieldExample />
+  <DateInputDocs.DateInputFieldExample />
 
-  <Preview.Code>
-    {`
-      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
-      import { DateInput, Field } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/field-state.tsx#demo</include>
+</Preview.Code>
 
-      function DateInputSegments() {
-        return (
-          <DateInput.SegmentGroup>
-            <DateInputSegmentContext>
-              {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInputSegmentContext>
-          </DateInput.SegmentGroup>
-        );
-      }
-
-      export function DateInputFieldDemo() {
-        return (
-          <Field invalid>
-            <DateInput required invalid>
-              <DateInput.Label>Deadline</DateInput.Label>
-              <DateInput.Control>
-                <DateInputSegments />
-              </DateInput.Control>
-              <DateInput.HiddenInput name="deadline" />
-            </DateInput>
-            <Field.ErrorText>Enter a valid deadline.</Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{dateInputExampleCss}</Preview.CSS>
-  <Preview.Data>{dateInputNoData}</Preview.Data>
+  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -522,49 +217,14 @@ Use Ark `useDateInput()` with `DateInput.RootProvider` when state actions need t
 rendered root tree.
 
 <Preview>
-  <RootProviderDateInputExample />
+  <DateInputDocs.RootProviderDateInputExample />
 
-  <Preview.Code>
-    {`
-      import { today } from "@internationalized/date";
-      import { DateInputSegmentContext, useDateInput } from "@ark-ui/react/date-input";
-      import { DateInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      function DateInputSegments() {
-        return (
-          <DateInput.SegmentGroup>
-            <DateInputSegmentContext>
-              {(segment) => <DateInput.Segment segment={segment} />}
-            </DateInputSegmentContext>
-          </DateInput.SegmentGroup>
-        );
-      }
-
-      export function RootProviderDateInputDemo() {
-        const dateInput = useDateInput({ defaultValue: [today("UTC")] });
-
-        return (
-          <div>
-            <DateInput.RootProvider value={dateInput}>
-              <DateInput.Label>Report date</DateInput.Label>
-              <DateInput.Control>
-                <DateInputSegments />
-              </DateInput.Control>
-              <DateInput.HiddenInput name="report-date" />
-            </DateInput.RootProvider>
-            <div className="date-input-root-provider-actions">
-              <button type="button" onClick={() => dateInput.clearValue()}>Clear</button>
-              <button type="button" onClick={() => dateInput.focus()}>Focus</button>
-            </div>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{dateInputExampleCss}</Preview.CSS>
-  <Preview.Data>{dateInputNoData}</Preview.Data>
+  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -574,37 +234,14 @@ attributes such as `data-invalid`, `data-disabled`, `data-readonly`, and
 `data-placeholder-shown`.
 
 <Preview>
-  <CustomStylesDateInputExample />
+  <DateInputDocs.CustomStylesDateInputExample />
 
-  <Preview.Code>
-    {`
-      import { CalendarDate } from "@internationalized/date";
-      import { DateInputSegmentContext } from "@ark-ui/react/date-input";
-      import { DateInput } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomDateInputDemo() {
-        return (
-          <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]}>
-            <DateInput.Label>Styled date</DateInput.Label>
-            <DateInput.Control className="date-input-custom-control">
-              <DateInput.SegmentGroup>
-                <DateInputSegmentContext>
-                  {(segment) => (
-                    <DateInput.Segment segment={segment} className="date-input-custom-segment" />
-                  )}
-                </DateInputSegmentContext>
-              </DateInput.SegmentGroup>
-            </DateInput.Control>
-            <DateInput.HiddenInput />
-          </DateInput>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{dateInputExampleCss}</Preview.CSS>
-  <Preview.Data>{dateInputNoData}</Preview.Data>
+  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -614,7 +251,7 @@ attributes such as `data-invalid`, `data-disabled`, `data-readonly`, and
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <DateInputCssPropertiesPanel />
+      <DateInputDocs.DateInputCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

@@ -4,26 +4,7 @@ description: Resizable and collapsible application navigation built on the Ark U
 icon: Component
 ---
 
-import {
-  BasicSidebarExample,
-  CustomSizesSidebarExample,
-  CustomStylingSidebarExample,
-  InteractiveSidebarExample,
-  RightSidebarExample,
-  ScrollAreaSidebarExample,
-  SidebarCssPropertiesPanel,
-  WorkspaceSelectSidebarExample,
-  sidebarCustomSizesCode,
-  sidebarCustomCss,
-  sidebarExampleCss,
-  sidebarInteractiveCode,
-  sidebarRightCode,
-  sidebarScrollAreaCode,
-  sidebarScrollAreaCss,
-  sidebarSimpleCode,
-  sidebarSimpleCss,
-  sidebarWorkspaceSelectCode,
-} from '@/components/examples/sidebar';
+import * as SidebarDocs from '@/components/examples/sidebar';
 
 ## API Reference
 
@@ -51,54 +32,17 @@ example keeps the layout and navigation structure visible and composes Tooltip d
 icon button.
 
 <Preview>
-  <BasicSidebarExample />
+  <SidebarDocs.BasicSidebarExample />
 
-  <Preview.Code>{sidebarSimpleCode}</Preview.Code>
-  <Preview.CSS>{sidebarSimpleCss}</Preview.CSS>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/sidebar/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SidebarDocs.sidebarSimpleCss}</Preview.CSS>
 </Preview>
 
 ## Install with shadcn
 
-Install `Sidebar` and its required Splitter dependency from the moduix GitHub registry. Add Avatar,
-Collapsible, Menu, Select, or Tooltip separately when the application composition uses them.
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-sidebar
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-sidebar
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-sidebar
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-sidebar
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-sidebar
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-sidebar" />
 
 ## Anatomy
 
@@ -201,10 +145,12 @@ positioning, and animation remain owned by the corresponding moduix primitives. 
 project list and additional navigation groups also demonstrate scrolling inside `Sidebar.Content`.
 
 <Preview>
-  <InteractiveSidebarExample />
+  <SidebarDocs.InteractiveSidebarExample />
 
-  <Preview.Code>{sidebarInteractiveCode}</Preview.Code>
-  <Preview.CSS>{sidebarExampleCss}</Preview.CSS>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/sidebar/nested-navigation-and-account-menu.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SidebarDocs.sidebarExampleCss}</Preview.CSS>
 </Preview>
 
 ### Workspace Select
@@ -215,10 +161,12 @@ The example combines the workspace switcher with regular navigation, a scrollabl
 and an account menu.
 
 <Preview>
-  <WorkspaceSelectSidebarExample />
+  <SidebarDocs.WorkspaceSelectSidebarExample />
 
-  <Preview.Code>{sidebarWorkspaceSelectCode}</Preview.Code>
-  <Preview.CSS>{sidebarExampleCss}</Preview.CSS>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/sidebar/workspace-select.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SidebarDocs.sidebarExampleCss}</Preview.CSS>
 </Preview>
 
 ### Custom Sizes
@@ -228,10 +176,12 @@ constraints while preserving controlled size and resize callbacks. The complete 
 usable while dragging between the custom minimum and maximum widths.
 
 <Preview>
-  <CustomSizesSidebarExample />
+  <SidebarDocs.CustomSizesSidebarExample />
 
-  <Preview.Code>{sidebarCustomSizesCode}</Preview.Code>
-  <Preview.CSS>{sidebarSimpleCss}</Preview.CSS>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/sidebar/custom-sizes.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SidebarDocs.sidebarSimpleCss}</Preview.CSS>
 </Preview>
 
 ### Custom Scroll Area
@@ -241,10 +191,12 @@ application needs a styled thumb and optional edge fade. Disable the outer overf
 `ScrollArea.Viewport` remains the only scroll container.
 
 <Preview>
-  <ScrollAreaSidebarExample />
+  <SidebarDocs.ScrollAreaSidebarExample />
 
-  <Preview.Code>{sidebarScrollAreaCode}</Preview.Code>
-  <Preview.CSS>{sidebarScrollAreaCss}</Preview.CSS>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/sidebar/custom-scroll-area.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SidebarDocs.sidebarScrollAreaCss}</Preview.CSS>
 </Preview>
 
 ### Right Sidebar
@@ -254,10 +206,12 @@ Sidebar chooses the matching panel model, trigger id, floating position, and che
 Inspector example includes grouped tools, activity links, internal scrolling, and a footer menu.
 
 <Preview>
-  <RightSidebarExample />
+  <SidebarDocs.RightSidebarExample />
 
-  <Preview.Code>{sidebarRightCode}</Preview.Code>
-  <Preview.CSS>{sidebarSimpleCss}</Preview.CSS>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/sidebar/right-sidebar.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SidebarDocs.sidebarSimpleCss}</Preview.CSS>
 </Preview>
 
 ### Custom Styling
@@ -265,10 +219,12 @@ Inspector example includes grouped tools, activity links, internal scrolling, an
 Theme the surface, active navigation, border, and floating trigger through public variables.
 
 <Preview>
-  <CustomStylingSidebarExample />
+  <SidebarDocs.CustomStylingSidebarExample />
 
-  <Preview.Code>{sidebarSimpleCode}</Preview.Code>
-  <Preview.CSS>{sidebarCustomCss}</Preview.CSS>
+  <Preview.Code>
+  <include lang="tsx">./_snippets/sidebar/custom-styling.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SidebarDocs.sidebarCustomCss}</Preview.CSS>
 </Preview>
 
 ## Styling
@@ -296,7 +252,7 @@ product needs stronger feedback.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <SidebarCssPropertiesPanel />
+      <SidebarDocs.SidebarCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

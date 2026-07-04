@@ -4,18 +4,7 @@ description: A set of two-state buttons that share selected values.
 icon: Component
 ---
 
-import {
-  ControlledToggleGroupExample,
-  CustomStylesToggleGroupExample,
-  ToggleGroupCssPropertiesPanel,
-  ToggleGroupDisabledExample,
-  ToggleGroupExample,
-  ToggleGroupIconExample,
-  ToggleGroupMultipleExample,
-  ToggleGroupRootProviderExample,
-  ToggleGroupVariantsExample,
-  ToggleGroupVerticalExample,
-} from '@/components/examples/toggle-group';
+import * as ToggleGroupDocs from '@/components/examples/toggle-group';
 
 ## API Reference
 
@@ -35,26 +24,11 @@ Use `ToggleGroup` when several pressed buttons belong to one shared value set.
 Start with the short root form `<ToggleGroup>` and add Ark-aligned `ToggleGroup.Item` children.
 
 <Preview>
-  <ToggleGroupExample />
+  <ToggleGroupDocs.ToggleGroupExample />
 
-  <Preview.Code>
-    {`
-      import { ToggleGroup } from "@moduix/react";
-
-      export function ToggleGroupDemo() {
-        return (
-          <ToggleGroup defaultValue={["left"]} aria-label="Text alignment">
-            {alignmentItems.map((item) => (
-              <ToggleGroup.Item key={item.value} value={item.value}>
-                {item.label}
-              </ToggleGroup.Item>
-            ))}
-          </ToggleGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/basic.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -64,62 +38,11 @@ Start with the short root form `<ToggleGroup>` and add Ark-aligned `ToggleGroup.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const alignmentItems = [
-        { value: "left", label: "Left" },
-        { value: "center", label: "Center" },
-        { value: "right", label: "Right" },
-      ];
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Toggle Group` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-toggle-group
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-toggle-group
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-toggle-group
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-toggle-group
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-toggle-group
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Toggle Group` depends on,
-such as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-toggle-group" />
 
 ## Anatomy
 
@@ -197,37 +120,11 @@ state instance.
 Control `value` from React state when the group needs to stay in sync with surrounding UI.
 
 <Preview>
-  <ControlledToggleGroupExample />
+  <ToggleGroupDocs.ControlledToggleGroupExample />
 
-  <Preview.Code>
-    {`
-      import { ToggleGroup } from "@moduix/react";
-      import { useState } from "react";
-      import styles from "./toggle-group.module.css";
-
-      export function ControlledToggleGroupDemo() {
-        const [value, setValue] = useState(["left"] as string[]);
-
-        return (
-          <div className={styles.stack}>
-            <ToggleGroup
-              value={value}
-              onValueChange={(details) => setValue(details.value)}
-              aria-label="Text alignment"
-            >
-              {alignmentItems.map((item) => (
-                <ToggleGroup.Item key={item.value} value={item.value}>
-                  {item.label}
-                </ToggleGroup.Item>
-              ))}
-            </ToggleGroup>
-            <span className={styles.hint}>Current value: {value.join(", ") || "empty"}</span>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/controlled.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -247,15 +144,6 @@ Control `value` from React state when the group needs to stay in sync with surro
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const alignmentItems = [
-        { value: "left", label: "Left" },
-        { value: "center", label: "Center" },
-        { value: "right", label: "Right" },
-      ];
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -263,35 +151,11 @@ Control `value` from React state when the group needs to stay in sync with surro
 Use `ToggleGroup.RootProvider` when the state instance must be shared before the root is rendered.
 
 <Preview>
-  <ToggleGroupRootProviderExample />
+  <ToggleGroupDocs.ToggleGroupRootProviderExample />
 
-  <Preview.Code>
-    {`
-      import { useToggleGroup } from "@ark-ui/react/toggle-group";
-      import { ToggleGroup } from "@moduix/react";
-      import styles from "./toggle-group.module.css";
-
-      export function RootProviderToggleGroupDemo() {
-        const toggleGroup = useToggleGroup({ defaultValue: ["left"] });
-
-        return (
-          <div className={styles.stack}>
-            <span className={styles.hint}>
-              Current value: {toggleGroup.value.join(", ") || "empty"}
-            </span>
-            <ToggleGroup.RootProvider value={toggleGroup} aria-label="Text alignment">
-              {alignmentItems.map((item) => (
-                <ToggleGroup.Item key={item.value} value={item.value}>
-                  {item.label}
-                </ToggleGroup.Item>
-              ))}
-            </ToggleGroup.RootProvider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/root-provider.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -311,18 +175,6 @@ Use `ToggleGroup.RootProvider` when the state instance must be shared before the
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const alignmentItems = [
-        { value: "left", label: "Left" },
-        { value: "center", label: "Center" },
-        { value: "right", label: "Right" },
-      ];
-
-      const toggleGroup = useToggleGroup({ defaultValue: ["left"] });
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Multiple Selection
@@ -330,36 +182,11 @@ Use `ToggleGroup.RootProvider` when the state instance must be shared before the
 Use `multiple` when several options can stay pressed at the same time.
 
 <Preview>
-  <ToggleGroupMultipleExample />
+  <ToggleGroupDocs.ToggleGroupMultipleExample />
 
-  <Preview.Code>
-    {`
-      import { ToggleGroup } from "@moduix/react";
-      import styles from "./toggle-group.module.css";
-
-      export function MultipleToggleGroupDemo() {
-        return (
-          <ToggleGroup
-            multiple
-            defaultValue={["bold", "italic"]}
-            aria-label="Text formatting"
-            size="md"
-          >
-            <ToggleGroup.Item value="bold" aria-label="Bold">
-              <strong>B</strong>
-            </ToggleGroup.Item>
-            <ToggleGroup.Item value="italic" aria-label="Italic">
-              <em>I</em>
-            </ToggleGroup.Item>
-            <ToggleGroup.Item value="underline" aria-label="Underline">
-              <span className={styles.underline}>U</span>
-            </ToggleGroup.Item>
-          </ToggleGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/multiple-selection.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -371,7 +198,6 @@ Use `multiple` when several options can stay pressed at the same time.
 
 </Preview.CSS>
 
-  <Preview.Data>{`const defaultValue = ["bold", "italic"];`}</Preview.Data>
 </Preview>
 
 ### Variants
@@ -379,31 +205,11 @@ Use `multiple` when several options can stay pressed at the same time.
 Set `variant` on the group when every item should share the same visual treatment.
 
 <Preview>
-  <ToggleGroupVariantsExample />
+  <ToggleGroupDocs.ToggleGroupVariantsExample />
 
-  <Preview.Code>
-    {`
-      import { ToggleGroup } from "@moduix/react";
-      import styles from "./toggle-group.module.css";
-
-      export function ToggleGroupVariantsDemo() {
-        return (
-          <div className={styles.stack}>
-            <ToggleGroup defaultValue={["one"]} aria-label="Default variant">
-              {items.map((item) => <ToggleGroup.Item key={item.value} value={item.value}>{item.label}</ToggleGroup.Item>)}
-            </ToggleGroup>
-            <ToggleGroup defaultValue={["one"]} aria-label="Outline variant" variant="outline">
-              {items.map((item) => <ToggleGroup.Item key={item.value} value={item.value}>{item.label}</ToggleGroup.Item>)}
-            </ToggleGroup>
-            <ToggleGroup defaultValue={["one"]} aria-label="Ghost variant" variant="ghost">
-              {items.map((item) => <ToggleGroup.Item key={item.value} value={item.value}>{item.label}</ToggleGroup.Item>)}
-            </ToggleGroup>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/variants.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -416,15 +222,6 @@ Set `variant` on the group when every item should share the same visual treatmen
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const items = [
-        { value: "one", label: "One" },
-        { value: "two", label: "Two" },
-        { value: "three", label: "Three" },
-      ];
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Icons
@@ -432,37 +229,11 @@ Set `variant` on the group when every item should share the same visual treatmen
 Pass icons as regular children. Icon-only items should always include an accessible label.
 
 <Preview>
-  <ToggleGroupIconExample />
+  <ToggleGroupDocs.ToggleGroupIconExample />
 
-  <Preview.Code>
-    {`
-      import { ToggleGroup } from "@moduix/react";
-      import { AlignCenterIcon, AlignLeftIcon, AlignRightIcon } from "lucide-react";
-      import styles from "./toggle-group.module.css";
-
-      export function IconToggleGroupDemo() {
-        return (
-          <ToggleGroup
-            defaultValue={["left"]}
-            aria-label="Text alignment"
-            size="md"
-            className={styles.iconGroup}
-          >
-            <ToggleGroup.Item value="left" aria-label="Align left">
-              <AlignLeftIcon />
-            </ToggleGroup.Item>
-            <ToggleGroup.Item value="center" aria-label="Align center">
-              <AlignCenterIcon />
-            </ToggleGroup.Item>
-            <ToggleGroup.Item value="right" aria-label="Align right">
-              <AlignRightIcon />
-            </ToggleGroup.Item>
-          </ToggleGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/icons.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -472,7 +243,6 @@ Pass icons as regular children. Icon-only items should always include an accessi
     `}
 </Preview.CSS>
 
-  <Preview.Data>{`const defaultValue = ["left"];`}</Preview.Data>
 </Preview>
 
 ### Vertical
@@ -480,26 +250,11 @@ Pass icons as regular children. Icon-only items should always include an accessi
 Set `orientation="vertical"` when the choices should stack in a column.
 
 <Preview>
-  <ToggleGroupVerticalExample />
+  <ToggleGroupDocs.ToggleGroupVerticalExample />
 
-  <Preview.Code>
-    {`
-      import { ToggleGroup } from "@moduix/react";
-
-      export function VerticalToggleGroupDemo() {
-        return (
-          <ToggleGroup defaultValue={["list"]} orientation="vertical" aria-label="View mode" variant="outline">
-            {viewItems.map((item) => (
-              <ToggleGroup.Item key={item.value} value={item.value}>
-                {item.label}
-              </ToggleGroup.Item>
-            ))}
-          </ToggleGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/vertical.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -509,15 +264,6 @@ Set `orientation="vertical"` when the choices should stack in a column.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const viewItems = [
-        { value: "list", label: "List" },
-        { value: "grid", label: "Grid" },
-        { value: "map", label: "Map" },
-      ];
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Disabled
@@ -525,32 +271,11 @@ Set `orientation="vertical"` when the choices should stack in a column.
 Use `disabled` on the group or on a specific item to prevent interaction.
 
 <Preview>
-  <ToggleGroupDisabledExample />
+  <ToggleGroupDocs.ToggleGroupDisabledExample />
 
-  <Preview.Code>
-    {`
-      import { ToggleGroup } from "@moduix/react";
-      import styles from "./toggle-group.module.css";
-
-      export function DisabledToggleGroupDemo() {
-        return (
-          <div className={styles.row}>
-            <ToggleGroup defaultValue={["one"]} aria-label="Disabled group" disabled>
-              <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-              <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-            </ToggleGroup>
-            <ToggleGroup defaultValue={["one"]} aria-label="Disabled item">
-              <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-              <ToggleGroup.Item value="two" disabled>
-                Two
-              </ToggleGroup.Item>
-            </ToggleGroup>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/disabled.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -564,12 +289,6 @@ Use `disabled` on the group or on a specific item to prevent interaction.
     `}
 </Preview.CSS>
 
-  <Preview.Data>
-    {`
-      const disabledGroupDefault = ["one"];
-      const disabledItemValue = "two";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -578,25 +297,11 @@ Use `className`, `--toggle-group-*`, and inherited `--toggle-*` variables when t
 structure is right but the surface styling needs to change.
 
 <Preview>
-  <CustomStylesToggleGroupExample />
+  <ToggleGroupDocs.CustomStylesToggleGroupExample />
 
-  <Preview.Code>
-    {`
-      import { ToggleGroup } from "@moduix/react";
-      import styles from "./toggle-group.module.css";
-
-      export function CustomStylingToggleGroupDemo() {
-        return (
-          <ToggleGroup defaultValue={["day"]} aria-label="Schedule density" className={styles.customGroup}>
-            <ToggleGroup.Item value="day" className={styles.customItem}>Day</ToggleGroup.Item>
-            <ToggleGroup.Item value="week" className={styles.customItem}>Week</ToggleGroup.Item>
-            <ToggleGroup.Item value="month" className={styles.customItem}>Month</ToggleGroup.Item>
-          </ToggleGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -619,7 +324,6 @@ structure is right but the surface styling needs to change.
 
   </Preview.CSS>
 
-  <Preview.Data>{`const defaultValue = ["day"];`}</Preview.Data>
 </Preview>
 
 ## Styling
@@ -632,7 +336,7 @@ behavioral styling.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <ToggleGroupCssPropertiesPanel />
+      <ToggleGroupDocs.ToggleGroupCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

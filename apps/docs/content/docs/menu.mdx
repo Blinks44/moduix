@@ -4,28 +4,7 @@ description: A trigger-anchored list of actions, links, choices, and nested comm
 icon: Component
 ---
 
-import {
-  CheckboxItemsMenuExample,
-  ContextLazyMountMenuExample,
-  ContextMenuExample,
-  ControlledMenuExample,
-  CustomStylingMenuExample,
-  GroupMenuExample,
-  IndicatorRightMenuExample,
-  ItemContextMenuExample,
-  LinkItemsMenuExample,
-  MenuCssPropertiesPanel,
-  MenuExample,
-  MultipleTriggersMenuExample,
-  NestedMenuExample,
-  RadioItemsMenuExample,
-  RootProviderMenuExample,
-  SelectEventMenuExample,
-  menuCustomStylingCss,
-  menuExampleCss,
-  menuItemsData,
-  menuMessagesData,
-} from '@/components/examples/menu';
+import * as MenuDocs from '@/components/examples/menu';
 
 ## API Reference
 
@@ -45,83 +24,18 @@ Start with the Ark part tree: `Menu`, `Menu.Trigger`, `Menu.Positioner`, and `Me
 Items use stable `value` identifiers for selection and typeahead.
 
 <Preview>
-  <MenuExample />
+  <MenuDocs.MenuExample />
 
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-      } from "@moduix/react";
-
-      export function MenuDemo() {
-        return (
-          <Menu>
-            <Menu.Trigger asChild>
-              <Button>
-                File
-                <Menu.Indicator />
-              </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className="menu-content">
-                <Menu.Arrow />
-                {fileItems.map((item) => (
-                  <Menu.Item key={item.value} value={item.value}>
-                    {item.label}
-                  </Menu.Item>
-                ))}
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <include lang="tsx">./_snippets/menu/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-menu
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-menu
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-menu
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-menu
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-menu
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-menu" />
 
 ## Anatomy
 
@@ -224,39 +138,11 @@ Nested menus are regular `Menu` roots inside the parent content. The nested root
 Control `open` with `onOpenChange(details)` when another control needs to drive the menu.
 
 <Preview>
-  <ControlledMenuExample />
+  <MenuDocs.ControlledMenuExample />
   <Preview.Code>
-    {`
-      import { Button, Menu } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledMenuDemo() {
-        const [open, setOpen] = useState(false);
-
-        return (
-          <Menu open={open} onOpenChange={(details) => setOpen(details.open)}>
-            <Button onClick={() => setOpen((value) => !value)}>Toggle</Button>
-            <Menu.Trigger asChild>
-              <Button>
-                Actions
-                <Menu.Indicator />
-              </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className="menu-content">
-                <Menu.Item value="edit">Edit</Menu.Item>
-                <Menu.Item value="duplicate">Duplicate</Menu.Item>
-                <Menu.Item value="archive">Archive</Menu.Item>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/controlled.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
 ### Root Provider
@@ -265,39 +151,11 @@ Use Ark `useMenu` and `Menu.RootProvider` when code outside the rendered tree ne
 API.
 
 <Preview>
-  <RootProviderMenuExample />
+  <MenuDocs.RootProviderMenuExample />
   <Preview.Code>
-    {`
-      import { useMenu } from "@ark-ui/react/menu";
-      import { Button, Menu } from "@moduix/react";
-
-      export function RootProviderMenuDemo() {
-        const menu = useMenu();
-
-        return (
-          <Menu.RootProvider value={menu}>
-            <Button onClick={() => menu.api.setHighlightedValue("copy")}>Highlight Copy</Button>
-            <Menu.Trigger asChild>
-              <Button>
-                Edit
-                <Menu.Indicator />
-              </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className="menu-content">
-                <Menu.Item value="cut">Cut</Menu.Item>
-                <Menu.Item value="copy">Copy</Menu.Item>
-                <Menu.Item value="paste">Paste</Menu.Item>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu.RootProvider>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/root-provider.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
 ### Grouping
@@ -305,45 +163,11 @@ API.
 Use `Menu.ItemGroup` and `Menu.ItemGroupLabel` to organize related menu rows.
 
 <Preview>
-  <GroupMenuExample />
+  <MenuDocs.GroupMenuExample />
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-      } from "@moduix/react";
-
-      export function GroupingMenuDemo() {
-        return (
-          <Menu>
-            <Menu.Trigger asChild>
-              <Button>
-                Edit
-                <Menu.Indicator />
-              </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className="menu-content">
-                <Menu.ItemGroup>
-                  <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
-                  <Menu.Item value="cut">Cut</Menu.Item>
-                  <Menu.Item value="copy">Copy</Menu.Item>
-                </Menu.ItemGroup>
-                <Menu.Separator />
-                <Menu.ItemGroup>
-                  <Menu.ItemGroupLabel>Selection</Menu.ItemGroupLabel>
-                  <Menu.Item value="select-all">Select All</Menu.Item>
-                </Menu.ItemGroup>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/grouping.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
 ### Links
@@ -351,38 +175,11 @@ Use `Menu.ItemGroup` and `Menu.ItemGroupLabel` to organize related menu rows.
 Use `Menu.Item asChild` for anchors so the link itself receives menu semantics.
 
 <Preview>
-  <LinkItemsMenuExample />
+  <MenuDocs.LinkItemsMenuExample />
   <Preview.Code>
-    {`
-      import { Button, Menu } from "@moduix/react";
-
-      export function LinkItemsMenuDemo() {
-        return (
-          <Menu>
-            <Menu.Trigger asChild>
-              <Button>
-                Help
-                <Menu.Indicator />
-              </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className="menu-content">
-                <Menu.Item value="docs" asChild>
-                  <a href="#menu-docs">Documentation</a>
-                </Menu.Item>
-                <Menu.Item value="github" asChild>
-                  <a href="https://github.com/Blinks44/moduix">GitHub</a>
-                </Menu.Item>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/links.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
 ### Checkbox Items
@@ -390,42 +187,11 @@ Use `Menu.Item asChild` for anchors so the link itself receives menu semantics.
 Checkbox items keep boolean state while preserving menu navigation and typeahead.
 
 <Preview>
-  <CheckboxItemsMenuExample />
+  <MenuDocs.CheckboxItemsMenuExample />
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-      } from "@moduix/react";
-      import { useState } from "react";
-
-      export function CheckboxItemsMenuDemo() {
-        const [showToolbar, setShowToolbar] = useState(true);
-
-        return (
-          <Menu>
-            <Menu.Trigger asChild>
-              <Button>
-                View
-                <Menu.Indicator />
-              </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className="menu-content">
-                <Menu.CheckboxItem checked={showToolbar} value="toolbar" onCheckedChange={setShowToolbar}>
-                  <Menu.ItemIndicator />
-                  <Menu.ItemText>Show Toolbar</Menu.ItemText>
-                </Menu.CheckboxItem>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/checkbox-items.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
 ### Radio Items
@@ -433,51 +199,11 @@ Checkbox items keep boolean state while preserving menu navigation and typeahead
 Use `Menu.RadioItemGroup` for one selected value inside a menu.
 
 <Preview>
-  <RadioItemsMenuExample />
+  <MenuDocs.RadioItemsMenuExample />
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-      } from "@moduix/react";
-      import { useState } from "react";
-
-      export function RadioItemsMenuDemo() {
-        const [sortBy, setSortBy] = useState("date");
-
-        return (
-          <Menu>
-            <Menu.Trigger asChild>
-              <Button>
-                Sort
-                <Menu.Indicator />
-              </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className="menu-content">
-                <Menu.ItemGroup>
-                  <Menu.ItemGroupLabel>Sort By</Menu.ItemGroupLabel>
-                  <Menu.RadioItemGroup value={sortBy} onValueChange={(details) => setSortBy(details.value)}>
-                    <Menu.RadioItem value="name">
-                      <Menu.ItemIndicator />
-                      <Menu.ItemText>Name</Menu.ItemText>
-                    </Menu.RadioItem>
-                    <Menu.RadioItem value="date">
-                      <Menu.ItemIndicator />
-                      <Menu.ItemText>Date Modified</Menu.ItemText>
-                    </Menu.RadioItem>
-                  </Menu.RadioItemGroup>
-                </Menu.ItemGroup>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/radio-items.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
 ### Context Menu
@@ -485,30 +211,11 @@ Use `Menu.RadioItemGroup` for one selected value inside a menu.
 Use `Menu.ContextTrigger` for right-click and long-press context menus.
 
 <Preview>
-  <ContextMenuExample />
+  <MenuDocs.ContextMenuExample />
   <Preview.Code>
-    {`
-      import { Menu } from "@moduix/react";
-
-      export function ContextMenuDemo() {
-        return (
-          <Menu>
-            <Menu.ContextTrigger className="menu-context-trigger">Right click here</Menu.ContextTrigger>
-            <Menu.Positioner>
-              <Menu.Content className="menu-content">
-                <Menu.Item value="cut">Cut</Menu.Item>
-                <Menu.Item value="copy">Copy</Menu.Item>
-                <Menu.Item value="paste">Paste</Menu.Item>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/context-menu.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
 ### Lazy Mounted Context Menu
@@ -517,35 +224,11 @@ Use Ark `lazyMount` and `unmountOnExit` when context menu content should mount o
 is present.
 
 <Preview>
-  <ContextLazyMountMenuExample />
+  <MenuDocs.ContextLazyMountMenuExample />
   <Preview.Code>
-    {`
-      import { Menu } from "@moduix/react";
-
-      export function ContextLazyMountMenuDemo() {
-        return (
-          <Menu lazyMount unmountOnExit>
-            <Menu.ContextTrigger className="menu-context-trigger">
-              Right click lazy mounted content
-            </Menu.ContextTrigger>
-            <Menu.Positioner>
-              <Menu.Content className="menu-content">
-                <Menu.Item value="cut">Cut</Menu.Item>
-                <Menu.Item value="copy">Copy</Menu.Item>
-                <Menu.Item value="paste">Paste</Menu.Item>
-                <Menu.Item value="delete" tone="destructive">
-                  Delete
-                </Menu.Item>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/lazy-mounted-context-menu.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
 ### Nested
@@ -553,48 +236,11 @@ is present.
 Render a nested `Menu` and open it from `Menu.TriggerItem`.
 
 <Preview>
-  <NestedMenuExample />
+  <MenuDocs.NestedMenuExample />
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-      } from "@moduix/react";
-
-      export function NestedMenuDemo() {
-        return (
-          <Menu>
-            <Menu.Trigger asChild>
-              <Button>
-                File
-                <Menu.Indicator />
-              </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className="menu-content">
-                <Menu.Item value="open">Open...</Menu.Item>
-                <Menu>
-                  <Menu.TriggerItem>
-                    Share
-                    <Menu.TriggerItemIcon />
-                  </Menu.TriggerItem>
-                  <Menu.Positioner>
-                    <Menu.Content className="menu-content">
-                      <Menu.Item value="email">Email</Menu.Item>
-                      <Menu.Item value="message">Message</Menu.Item>
-                    </Menu.Content>
-                  </Menu.Positioner>
-                </Menu>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/nested.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
 ### Multiple Triggers
@@ -602,34 +248,11 @@ Render a nested `Menu` and open it from `Menu.TriggerItem`.
 Pass a `value` to each `Menu.Trigger` when one menu is shared across multiple trigger elements.
 
 <Preview>
-  <MultipleTriggersMenuExample />
+  <MenuDocs.MultipleTriggersMenuExample />
   <Preview.Code>
-    {`
-      import { Menu } from "@moduix/react";
-import { Map as MapIcon } from "lucide-react";
-
-      export function MultipleTriggersMenuDemo() {
-        return (
-          <Menu>
-            {messages.map((message) => (
-              <Menu.Trigger key={message.id} value={message.id} aria-label="Open menu">
-                <MapIcon />
-              </Menu.Trigger>
-            ))}
-            <Menu.Positioner>
-              <Menu.Content className="menu-content">
-                <Menu.Item value="reply">Reply</Menu.Item>
-                <Menu.Item value="archive">Archive</Menu.Item>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/multiple-triggers.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuMessagesData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
 ### Select Event
@@ -637,40 +260,11 @@ import { Map as MapIcon } from "lucide-react";
 Use root `onSelect(details)` when the menu should react to any item selection.
 
 <Preview>
-  <SelectEventMenuExample />
+  <MenuDocs.SelectEventMenuExample />
   <Preview.Code>
-    {`
-      import { Button, Menu } from "@moduix/react";
-      import { useState } from "react";
-
-      export function SelectEventMenuDemo() {
-        const [selected, setSelected] = useState("Nothing selected");
-
-        return (
-          <>
-            <Menu onSelect={(details) => setSelected(details.value)}>
-              <Menu.Trigger asChild>
-                <Button>
-                  Actions
-                  <Menu.Indicator />
-                </Button>
-              </Menu.Trigger>
-              <Menu.Positioner>
-                <Menu.Content className="menu-content">
-                  <Menu.Item value="edit">Edit</Menu.Item>
-                  <Menu.Item value="archive">Archive</Menu.Item>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Menu>
-            <span>{selected}</span>
-          </>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/select-event.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
 ### Item Context
@@ -678,42 +272,11 @@ Use root `onSelect(details)` when the menu should react to any item selection.
 Use Ark `Menu.ItemContext` for inline access to item state such as `highlighted`.
 
 <Preview>
-  <ItemContextMenuExample />
+  <MenuDocs.ItemContextMenuExample />
   <Preview.Code>
-    {`
-      import { Menu as ArkMenu } from "@ark-ui/react/menu";
-      import { Button, Menu } from "@moduix/react";
-
-      export function ItemContextMenuDemo() {
-        return (
-          <Menu>
-            <Menu.Trigger asChild>
-              <Button>
-                Settings
-                <Menu.Indicator />
-              </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className="menu-content">
-                <Menu.Item value="profile">
-                  <ArkMenu.ItemContext>
-                    {(item) => (
-                      <span style={{ fontWeight: item.highlighted ? "var(--weight-semibold)" : undefined }}>
-                        Profile Settings
-                      </span>
-                    )}
-                  </ArkMenu.ItemContext>
-                </Menu.Item>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/item-context.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
 ### Indicator Placement
@@ -721,47 +284,11 @@ Use Ark `Menu.ItemContext` for inline access to item state such as `highlighted`
 moduix adds `indicator="start" | "end" | "none"` on checkbox and radio rows for layout control.
 
 <Preview>
-  <IndicatorRightMenuExample />
+  <MenuDocs.IndicatorRightMenuExample />
   <Preview.Code>
-    {`
-      import { Button, Menu } from "@moduix/react";
-import { Map as MapIcon } from "lucide-react";
-      import { useState } from "react";
-
-      export function IndicatorRightMenuDemo() {
-        const [showSearch, setShowSearch] = useState(true);
-
-        return (
-          <Menu>
-            <Menu.Trigger asChild>
-              <Button>
-                View
-                <Menu.Indicator />
-              </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className="menu-content">
-                <Menu.CheckboxItem checked={showSearch} value="search" onCheckedChange={setShowSearch} indicator="end">
-                  <Menu.ItemText>
-                    <Menu.ItemTextContent>
-                      <Menu.ItemTextIcon>
-                        <MapIcon />
-                      </Menu.ItemTextIcon>
-                      <Menu.ItemTextLabel>Search</Menu.ItemTextLabel>
-                    </Menu.ItemTextContent>
-                  </Menu.ItemText>
-                  <Menu.ItemIndicator />
-                </Menu.CheckboxItem>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/indicator-placement.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuExampleCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
 ### Custom Styling
@@ -770,36 +297,11 @@ Customize visuals through `className`, `data-slot`, Ark state attributes, and `-
 variables without changing the Ark part tree.
 
 <Preview>
-  <CustomStylingMenuExample />
+  <MenuDocs.CustomStylingMenuExample />
   <Preview.Code>
-    {`
-      import { Button, Menu } from "@moduix/react";
-      import styles from "./menu.module.css";
-
-      export function CustomStylingMenuDemo() {
-        return (
-          <Menu positioning={{ placement: "right-start", gutter: 12 }}>
-            <Menu.Trigger asChild>
-              <Button>
-                Export
-                <Menu.Indicator />
-              </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className={styles.customContent}>
-                <Menu.Arrow />
-                <Menu.Item value="png">Export PNG</Menu.Item>
-                <Menu.Item value="pdf">Export PDF</Menu.Item>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/custom-styling.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{menuCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{menuItemsData}</Preview.Data>
+  <Preview.CSS>{MenuDocs.menuCustomStylingCss}</Preview.CSS>
 </Preview>
 
 ## Styling
@@ -810,7 +312,7 @@ variables without changing the Ark part tree.
   <Tabs items={['CSS Variables']}>
     <Tab value="CSS Variables">
       <div style={{ maxHeight: '28rem', overflow: 'auto' }}>
-        <MenuCssPropertiesPanel />
+        <MenuDocs.MenuCssPropertiesPanel />
       </div>
     </Tab>
   </Tabs>

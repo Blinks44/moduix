@@ -4,25 +4,7 @@ description: An Ark UI QR code primitive with SVG output, overlays, and image do
 icon: Component
 ---
 
-import {
-  ControlledQrCodeExample,
-  CustomStylingQrCodeExample,
-  DownloadQrCodeExample,
-  ErrorCorrectionQrCodeExample,
-  FillQrCodeExample,
-  OverlayQrCodeExample,
-  QrCodeCssPropertiesPanel,
-  QrCodeExample,
-  RootProviderQrCodeExample,
-  qrCodeBasicData,
-  qrCodeControlledData,
-  qrCodeCustomStylingCss,
-  qrCodeErrorCorrectionData,
-  qrCodeExampleCss,
-  qrCodeFillCss,
-  qrCodeFillData,
-  qrCodeOverlayCss,
-} from '@/components/examples/qr-code';
+import * as QrCodeDocs from '@/components/examples/qr-code';
 
 ## API Reference
 
@@ -34,71 +16,19 @@ Use `QrCode` as the Ark root, then render `Frame` and `Pattern` explicitly. The 
 encoded value and `Frame` renders the generated SVG.
 
 <Preview>
-  <QrCodeExample />
+  <QrCodeDocs.QrCodeExample />
 
-  <Preview.Code>
-    {`
-      import { QrCode } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/qr-code/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function QrCodeDemo() {
-        return (
-          <QrCode defaultValue="https://moduix.dev/docs/qr-code" className="qr-code-root">
-            <QrCode.Frame>
-              <QrCode.Pattern />
-            </QrCode.Frame>
-          </QrCode>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{qrCodeExampleCss}</Preview.CSS>
-  <Preview.Data>{qrCodeBasicData}</Preview.Data>
+  <Preview.CSS>{QrCodeDocs.qrCodeExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `QrCode` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-qr-code
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-qr-code
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-qr-code
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-qr-code
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-qr-code
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-qr-code" />
 
 ## Anatomy
 
@@ -174,44 +104,14 @@ it in adjacent text or label the surrounding UI with meaningful copy.
 Control `value` when the QR code should stay in sync with external selection or surrounding UI.
 
 <Preview>
-  <ControlledQrCodeExample />
+  <QrCodeDocs.ControlledQrCodeExample />
 
-  <Preview.Code>
-    {`
-      import { Button, QrCode } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/qr-code/controlled.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledQrCodeDemo() {
-        const [value, setValue] = useState("https://ark-ui.com");
-
-        return (
-          <div className="qr-code-stack">
-            <QrCode value={value} onValueChange={(details) => setValue(details.value)}>
-              <QrCode.Frame>
-                <QrCode.Pattern />
-              </QrCode.Frame>
-            </QrCode>
-            <div className="qr-code-actions">
-              {destinations.map((destination) => (
-                <Button
-                  key={destination}
-                  size="sm"
-                  variant="outline"
-                  onClick={() => setValue(destination)}
-                >
-                  {new URL(destination).hostname}
-                </Button>
-              ))}
-            </div>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{qrCodeExampleCss}</Preview.CSS>
-  <Preview.Data>{qrCodeControlledData}</Preview.Data>
+  <Preview.CSS>{QrCodeDocs.qrCodeExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Download
@@ -219,30 +119,14 @@ Control `value` when the QR code should stay in sync with external selection or 
 Add `DownloadTrigger` when users need to save the generated QR code as an image.
 
 <Preview>
-  <DownloadQrCodeExample />
+  <QrCodeDocs.DownloadQrCodeExample />
 
-  <Preview.Code>
-    {`
-      import { QrCode } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/qr-code/download.tsx#demo</include>
+</Preview.Code>
 
-      export function DownloadQrCodeDemo() {
-        return (
-          <QrCode defaultValue="https://moduix.dev/docs/qr-code" className="qr-code-root">
-            <QrCode.Frame>
-              <QrCode.Pattern />
-            </QrCode.Frame>
-            <QrCode.DownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png">
-              Download PNG
-            </QrCode.DownloadTrigger>
-          </QrCode>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{qrCodeExampleCss}</Preview.CSS>
-  <Preview.Data>{qrCodeBasicData}</Preview.Data>
+  <Preview.CSS>{QrCodeDocs.qrCodeExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Error Correction
@@ -251,49 +135,14 @@ Set `encoding.ecc` to choose the QR error correction level. Higher levels are us
 code has an overlay or must tolerate more damage.
 
 <Preview>
-  <ErrorCorrectionQrCodeExample />
+  <QrCodeDocs.ErrorCorrectionQrCodeExample />
 
-  <Preview.Code>
-    {`
-      import { Button, QrCode } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/qr-code/error-correction.tsx#demo</include>
+</Preview.Code>
 
-      type ErrorLevel = "L" | "M" | "Q" | "H";
-
-      export function ErrorCorrectionQrCodeDemo() {
-        const [errorLevel, setErrorLevel] = useState("L" as ErrorLevel);
-
-        return (
-          <div className="qr-code-stack">
-            <QrCode
-              defaultValue="https://moduix.dev/docs/qr-code"
-              encoding={{ ecc: errorLevel }}
-            >
-              <QrCode.Frame>
-                <QrCode.Pattern />
-              </QrCode.Frame>
-            </QrCode>
-            <div className="qr-code-actions">
-              {errorLevels.map((level) => (
-                <Button
-                  key={level}
-                  size="sm"
-                  variant={level === errorLevel ? "default" : "outline"}
-                  onClick={() => setErrorLevel(level)}
-                >
-                  {level}
-                </Button>
-              ))}
-            </div>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{qrCodeExampleCss}</Preview.CSS>
-  <Preview.Data>{qrCodeErrorCorrectionData}</Preview.Data>
+  <Preview.CSS>{QrCodeDocs.qrCodeExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Fill
@@ -301,31 +150,14 @@ code has an overlay or must tolerate more damage.
 Customize the SVG color through `className`, inline styles, or `--qr-code-fill`.
 
 <Preview>
-  <FillQrCodeExample />
+  <QrCodeDocs.FillQrCodeExample />
 
-  <Preview.Code>
-    {`
-      import { QrCode } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/qr-code/fill.tsx#demo</include>
+</Preview.Code>
 
-      export function FillQrCodeDemo() {
-        return (
-          <div className="qr-code-grid">
-            {fills.map((fill) => (
-              <QrCode key={fill.label} defaultValue="https://moduix.dev/docs/qr-code">
-                <QrCode.Frame className={fill.className}>
-                  <QrCode.Pattern />
-                </QrCode.Frame>
-              </QrCode>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{qrCodeFillCss}</Preview.CSS>
-  <Preview.Data>{qrCodeFillData}</Preview.Data>
+  <Preview.CSS>{QrCodeDocs.qrCodeFillCss}</Preview.CSS>
+  
 </Preview>
 
 ### Overlay
@@ -334,28 +166,14 @@ Use `QrCode.Overlay` for a compact logo or text mark. Pair it with high error co
 code remains scannable.
 
 <Preview>
-  <OverlayQrCodeExample />
+  <QrCodeDocs.OverlayQrCodeExample />
 
-  <Preview.Code>
-    {`
-      import { QrCode } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/qr-code/overlay.tsx#demo</include>
+</Preview.Code>
 
-      export function OverlayQrCodeDemo() {
-        return (
-          <QrCode defaultValue="https://moduix.dev/docs/qr-code" encoding={{ ecc: "H" }}>
-            <QrCode.Frame className="qr-code-brand">
-              <QrCode.Pattern />
-            </QrCode.Frame>
-            <QrCode.Overlay className="qr-code-overlay">MX</QrCode.Overlay>
-          </QrCode>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{qrCodeOverlayCss}</Preview.CSS>
-  <Preview.Data>{qrCodeBasicData}</Preview.Data>
+  <Preview.CSS>{QrCodeDocs.qrCodeOverlayCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -363,33 +181,14 @@ code remains scannable.
 Use Ark `useQrCode()` with `QrCode.RootProvider` when state is created outside the rendered tree.
 
 <Preview>
-  <RootProviderQrCodeExample />
+  <QrCodeDocs.RootProviderQrCodeExample />
 
-  <Preview.Code>
-    {`
-      import { useQrCode } from "@ark-ui/react/qr-code";
-      import { QrCode } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/qr-code/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      export function RootProviderQrCodeDemo() {
-        const qrCode = useQrCode({ value: "https://moduix.dev/docs/qr-code" });
-
-        return (
-          <div className="qr-code-stack">
-            <QrCode.RootProvider value={qrCode}>
-              <QrCode.Frame>
-                <QrCode.Pattern />
-              </QrCode.Frame>
-            </QrCode.RootProvider>
-            <output className="qr-code-status">{qrCode.value}</output>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{qrCodeExampleCss}</Preview.CSS>
-  <Preview.Data>{qrCodeBasicData}</Preview.Data>
+  <Preview.CSS>{QrCodeDocs.qrCodeExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -397,35 +196,14 @@ Use Ark `useQrCode()` with `QrCode.RootProvider` when state is created outside t
 Override `--qr-code-*` variables for size, fill, overlay surface, and download trigger styling.
 
 <Preview>
-  <CustomStylingQrCodeExample />
+  <QrCodeDocs.CustomStylingQrCodeExample />
 
-  <Preview.Code>
-    {`
-      import { QrCode } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/qr-code/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomStylingQrCodeDemo() {
-        return (
-          <QrCode
-            className="qr-code-custom"
-            defaultValue="https://moduix.dev/docs/qr-code"
-            encoding={{ ecc: "H" }}
-          >
-            <QrCode.Frame>
-              <QrCode.Pattern />
-            </QrCode.Frame>
-            <QrCode.Overlay className="qr-code-overlay">MX</QrCode.Overlay>
-            <QrCode.DownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png">
-              Download PNG
-            </QrCode.DownloadTrigger>
-          </QrCode>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{qrCodeCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{qrCodeBasicData}</Preview.Data>
+  <Preview.CSS>{QrCodeDocs.qrCodeCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -438,7 +216,7 @@ classes. Ark also sets runtime variables on the root for generated frame dimensi
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <QrCodeCssPropertiesPanel />
+      <QrCodeDocs.QrCodeCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

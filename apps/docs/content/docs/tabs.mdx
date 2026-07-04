@@ -4,24 +4,7 @@ description: A set of tab triggers that switch between related content panels on
 icon: Component
 ---
 
-import {
-  ControlledTabsExample,
-  CustomStylingTabsExample,
-  DisabledTabTabsExample,
-  IconTabsExample,
-  IndicatorTabsExample,
-  LazyMountTabsExample,
-  LineTabsExample,
-  LinkTabsExample,
-  ManualActivationTabsExample,
-  RootProviderTabsExample,
-  TabsCssPropertiesPanel,
-  TabsExample,
-  VerticalTabsExample,
-  tabsCustomStylingCss,
-  tabsExampleCss,
-  tabsItemsData,
-} from '@/components/examples/tabs';
+import * as TabsDocs from '@/components/examples/tabs';
 
 ## API Reference
 
@@ -41,82 +24,19 @@ Use Ark-style parts: `Tabs.Root`, `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator`,
 `Tabs.Content`. The short `<Tabs>` form is the same root component.
 
 <Preview>
-  <TabsExample />
+  <TabsDocs.TabsExample />
 
-  <Preview.Code>
-    {`
-      import { Tabs } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function TabsDemo() {
-        return (
-          <Tabs defaultValue="overview">
-            <Tabs.List>
-              {items.map((item) => (
-                <Tabs.Trigger key={item.value} value={item.value}>
-                  {item.title}
-                </Tabs.Trigger>
-              ))}
-              <Tabs.Indicator />
-            </Tabs.List>
-
-            {items.map((item) => (
-              <Tabs.Content key={item.value} value={item.value}>
-                {item.content}
-              </Tabs.Content>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{tabsExampleCss}</Preview.CSS>
-  <Preview.Data>{tabsItemsData}</Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `Tabs` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-tabs
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-tabs
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-tabs
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-tabs
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-tabs
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-tabs" />
 
 ## Anatomy
 
@@ -185,41 +105,14 @@ tree. Do not render `Tabs.Root` around the same state instance.
 Control the selected tab from React state when the active panel coordinates with other UI.
 
 <Preview>
-  <ControlledTabsExample />
+  <TabsDocs.ControlledTabsExample />
 
-  <Preview.Code>
-    {`
-      import { Tabs } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/controlled-value.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledTabsDemo() {
-        const [value, setValue] = useState("projects");
-
-        return (
-          <Tabs value={value} onValueChange={(details) => setValue(details.value)}>
-            <Tabs.List>
-              {items.map((item) => (
-                <Tabs.Trigger key={item.value} value={item.value}>
-                  {item.title}
-                </Tabs.Trigger>
-              ))}
-              <Tabs.Indicator />
-            </Tabs.List>
-
-            {items.map((item) => (
-              <Tabs.Content key={item.value} value={item.value}>
-                {item.content}
-              </Tabs.Content>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{tabsExampleCss}</Preview.CSS>
-  <Preview.Data>{tabsItemsData}</Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Disabled Tab
@@ -227,37 +120,14 @@ Control the selected tab from React state when the active panel coordinates with
 Disable triggers that are visible but not available yet.
 
 <Preview>
-  <DisabledTabTabsExample />
+  <TabsDocs.DisabledTabTabsExample />
 
-  <Preview.Code>
-    {`
-      import { Tabs } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/disabled-tab.tsx#demo</include>
+</Preview.Code>
 
-      export function DisabledTabTabsDemo() {
-        return (
-          <Tabs defaultValue="overview">
-            <Tabs.List>
-              <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
-              <Tabs.Trigger value="projects" disabled>
-                Projects
-              </Tabs.Trigger>
-              <Tabs.Trigger value="account">Account</Tabs.Trigger>
-            </Tabs.List>
-
-            {items.map((item) => (
-              <Tabs.Content key={item.value} value={item.value}>
-                {item.content}
-              </Tabs.Content>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{tabsExampleCss}</Preview.CSS>
-  <Preview.Data>{tabsItemsData}</Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Indicator
@@ -265,38 +135,14 @@ Disable triggers that are visible but not available yet.
 Add `Tabs.Indicator` inside `Tabs.List` when you want an animated active-trigger highlight.
 
 <Preview>
-  <IndicatorTabsExample />
+  <TabsDocs.IndicatorTabsExample />
 
-  <Preview.Code>
-    {`
-      import { Tabs } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/indicator.tsx#demo</include>
+</Preview.Code>
 
-      export function IndicatorTabsDemo() {
-        return (
-          <Tabs defaultValue="overview">
-            <Tabs.List>
-              {items.map((item) => (
-                <Tabs.Trigger key={item.value} value={item.value}>
-                  {item.title}
-                </Tabs.Trigger>
-              ))}
-              <Tabs.Indicator />
-            </Tabs.List>
-
-            {items.map((item) => (
-              <Tabs.Content key={item.value} value={item.value}>
-                {item.content}
-              </Tabs.Content>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{tabsExampleCss}</Preview.CSS>
-  <Preview.Data>{tabsItemsData}</Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Lazy Mount
@@ -304,38 +150,14 @@ Add `Tabs.Indicator` inside `Tabs.List` when you want an animated active-trigger
 Use `lazyMount` and `unmountOnExit` when inactive content should not stay in the DOM.
 
 <Preview>
-  <LazyMountTabsExample />
+  <TabsDocs.LazyMountTabsExample />
 
-  <Preview.Code>
-    {`
-      import { Tabs } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/lazy-mount.tsx#demo</include>
+</Preview.Code>
 
-      export function LazyMountTabsDemo() {
-        return (
-          <Tabs defaultValue="overview" lazyMount unmountOnExit>
-            <Tabs.List>
-              {items.map((item) => (
-                <Tabs.Trigger key={item.value} value={item.value}>
-                  {item.title}
-                </Tabs.Trigger>
-              ))}
-              <Tabs.Indicator />
-            </Tabs.List>
-
-            {items.map((item) => (
-              <Tabs.Content key={item.value} value={item.value}>
-                {item.content}
-              </Tabs.Content>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{tabsExampleCss}</Preview.CSS>
-  <Preview.Data>{tabsItemsData}</Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Links
@@ -343,37 +165,14 @@ Use `lazyMount` and `unmountOnExit` when inactive content should not stay in the
 Use `asChild` when triggers should render anchors or router links.
 
 <Preview>
-  <LinkTabsExample />
+  <TabsDocs.LinkTabsExample />
 
-  <Preview.Code>
-    {`
-      import { Tabs } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/links.tsx#demo</include>
+</Preview.Code>
 
-      export function LinkTabsDemo() {
-        return (
-          <Tabs defaultValue="overview">
-            <Tabs.List>
-              {items.map((item) => (
-                <Tabs.Trigger key={item.value} value={item.value} asChild>
-                  <a href={"#" + item.value}>{item.title}</a>
-                </Tabs.Trigger>
-              ))}
-            </Tabs.List>
-
-            {items.map((item) => (
-              <Tabs.Content key={item.value} value={item.value}>
-                <span id={item.value}>{item.content}</span>
-              </Tabs.Content>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{tabsExampleCss}</Preview.CSS>
-  <Preview.Data>{tabsItemsData}</Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Manual Activation
@@ -382,37 +181,14 @@ Set `activationMode="manual"` when arrow-key focus should move without selecting
 Enter, or Space.
 
 <Preview>
-  <ManualActivationTabsExample />
+  <TabsDocs.ManualActivationTabsExample />
 
-  <Preview.Code>
-    {`
-      import { Tabs } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/manual-activation.tsx#demo</include>
+</Preview.Code>
 
-      export function ManualActivationTabsDemo() {
-        return (
-          <Tabs defaultValue="overview" activationMode="manual">
-            <Tabs.List>
-              {items.map((item) => (
-                <Tabs.Trigger key={item.value} value={item.value}>
-                  {item.title}
-                </Tabs.Trigger>
-              ))}
-            </Tabs.List>
-
-            {items.map((item) => (
-              <Tabs.Content key={item.value} value={item.value}>
-                {item.content}
-              </Tabs.Content>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{tabsExampleCss}</Preview.CSS>
-  <Preview.Data>{tabsItemsData}</Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -421,43 +197,14 @@ Create state with Ark `useTabs()` when the selected value must be read before re
 tree.
 
 <Preview>
-  <RootProviderTabsExample />
+  <TabsDocs.RootProviderTabsExample />
 
-  <Preview.Code>
-    {`
-      import { useTabs } from "@ark-ui/react/tabs";
-      import { Tabs } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      export function RootProviderTabsDemo() {
-        const tabs = useTabs({ defaultValue: "overview" });
-
-        return (
-          <div>
-            <output>selected: {tabs.value}</output>
-            <Tabs.RootProvider value={tabs}>
-              <Tabs.List>
-                {items.map((item) => (
-                  <Tabs.Trigger key={item.value} value={item.value}>
-                    {item.title}
-                  </Tabs.Trigger>
-                ))}
-              </Tabs.List>
-
-              {items.map((item) => (
-                <Tabs.Content key={item.value} value={item.value}>
-                  {item.content}
-                </Tabs.Content>
-              ))}
-            </Tabs.RootProvider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{tabsExampleCss}</Preview.CSS>
-  <Preview.Data>{tabsItemsData}</Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Vertical
@@ -465,37 +212,14 @@ tree.
 Use `orientation="vertical"` when the trigger list should sit beside the active content.
 
 <Preview>
-  <VerticalTabsExample />
+  <TabsDocs.VerticalTabsExample />
 
-  <Preview.Code>
-    {`
-      import { Tabs } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/vertical.tsx#demo</include>
+</Preview.Code>
 
-      export function VerticalTabsDemo() {
-        return (
-          <Tabs defaultValue="overview" orientation="vertical">
-            <Tabs.List>
-              {items.map((item) => (
-                <Tabs.Trigger key={item.value} value={item.value}>
-                  {item.title}
-                </Tabs.Trigger>
-              ))}
-            </Tabs.List>
-
-            {items.map((item) => (
-              <Tabs.Content key={item.value} value={item.value}>
-                {item.content}
-              </Tabs.Content>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{tabsExampleCss}</Preview.CSS>
-  <Preview.Data>{tabsItemsData}</Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Line
@@ -504,38 +228,14 @@ Use moduix `variant="line"` when the indicator should sit on the active edge ins
 trigger.
 
 <Preview>
-  <LineTabsExample />
+  <TabsDocs.LineTabsExample />
 
-  <Preview.Code>
-    {`
-      import { Tabs } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/line.tsx#demo</include>
+</Preview.Code>
 
-      export function LineTabsDemo() {
-        return (
-          <Tabs defaultValue="overview" variant="line">
-            <Tabs.List>
-              {items.map((item) => (
-                <Tabs.Trigger key={item.value} value={item.value}>
-                  {item.title}
-                </Tabs.Trigger>
-              ))}
-              <Tabs.Indicator />
-            </Tabs.List>
-
-            {items.map((item) => (
-              <Tabs.Content key={item.value} value={item.value}>
-                {item.content}
-              </Tabs.Content>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{tabsExampleCss}</Preview.CSS>
-  <Preview.Data>{tabsItemsData}</Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Icons
@@ -543,45 +243,14 @@ trigger.
 Compose icons and labels directly inside `Tabs.Trigger`.
 
 <Preview>
-  <IconTabsExample />
+  <TabsDocs.IconTabsExample />
 
-  <Preview.Code>
-    {`
-      import { Tabs } from "@moduix/react";
-import { Handshake as HandshakeIcon, Map as MapIcon, Gift as PresentIcon } from "lucide-react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/custom-icons.tsx#demo</include>
+</Preview.Code>
 
-      export function IconTabsDemo() {
-        return (
-          <Tabs defaultValue="overview">
-            <Tabs.List>
-              <Tabs.Trigger value="overview">
-                <HandshakeIcon />
-                <span>Overview</span>
-              </Tabs.Trigger>
-              <Tabs.Trigger value="projects">
-                <PresentIcon />
-                <span>Projects</span>
-              </Tabs.Trigger>
-              <Tabs.Trigger value="account">
-                <MapIcon />
-                <span>Account</span>
-              </Tabs.Trigger>
-            </Tabs.List>
-
-            {items.map((item) => (
-              <Tabs.Content key={item.value} value={item.value}>
-                {item.content}
-              </Tabs.Content>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{tabsExampleCss}</Preview.CSS>
-  <Preview.Data>{tabsItemsData}</Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -590,47 +259,14 @@ Use `className`, `Tabs.Indicator`, and CSS variables when the default styling ne
 lighter inline layout.
 
 <Preview>
-  <CustomStylingTabsExample />
+  <TabsDocs.CustomStylingTabsExample />
 
-  <Preview.Code>
-    {`
-      import { Tabs } from "@moduix/react";
-      import styles from "./custom-styling-tabs-demo.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomStylingTabsDemo() {
-        return (
-          <Tabs defaultValue="name" className={styles.inlineRoot}>
-            <Tabs.List className={styles.inlineList}>
-              {fields.map((field) => (
-                <Tabs.Trigger key={field.value} value={field.value} className={styles.inlineTrigger}>
-                  {field.label}
-                </Tabs.Trigger>
-              ))}
-              <Tabs.Indicator className={styles.inlineIndicator} />
-            </Tabs.List>
-            {fields.map((field) => (
-              <Tabs.Content key={field.value} value={field.value} className={styles.inlineContent}>
-                <input
-                  className={styles.inlineInput}
-                  placeholder={field.placeholder}
-                  aria-label={field.placeholder}
-                />
-              </Tabs.Content>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{tabsCustomStylingCss}</Preview.CSS>
-  <Preview.Data>
-    {`const fields = [
-  { value: "name", label: "Name", placeholder: "Full name" },
-  { value: "email", label: "Email", placeholder: "Email" },
-];`}
-  </Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -643,7 +279,7 @@ Style `Tabs` through `className`, stable `data-slot="tabs-*"` hooks, Ark `data-s
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <TabsCssPropertiesPanel />
+      <TabsDocs.TabsCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>

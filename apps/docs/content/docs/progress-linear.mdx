@@ -4,31 +4,7 @@ description: A linear progressbar for determinate or indeterminate progress.
 icon: Component
 ---
 
-import {
-  ControlledProgressLinearExample,
-  CustomStylingProgressLinearExample,
-  IndeterminateProgressLinearExample,
-  InitialValueProgressLinearExample,
-  MinMaxProgressLinearExample,
-  ProgressLinearCssPropertiesPanel,
-  ProgressLinearExample,
-  RootProviderProgressLinearExample,
-  ValueTextProgressLinearExample,
-  VerticalProgressLinearExample,
-  progressLinearBasicData,
-  progressLinearControlledData,
-  progressLinearCustomStylingData,
-  progressLinearCustomStylingCss,
-  progressLinearExampleCss,
-  progressLinearIndeterminateData,
-  progressLinearInitialValueData,
-  progressLinearMinMaxData,
-  progressLinearRootProviderData,
-  progressLinearStateViewsData,
-  progressLinearValueTextData,
-  progressLinearVerticalCss,
-  progressLinearVerticalData,
-} from '@/components/examples/progress-linear';
+import * as ProgressLinearDocs from '@/components/examples/progress-linear';
 import { ProgressLinear } from '@moduix/react';
 
 ## API Reference
@@ -46,73 +22,19 @@ Use Ark-style parts: `ProgressLinear.Root`, `ProgressLinear.Label`,
 `ProgressLinear.ValueText`, `ProgressLinear.Track`, and `ProgressLinear.Range`.
 
 <Preview>
-  <ProgressLinearExample />
+  <ProgressLinearDocs.ProgressLinearExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressLinear } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function ProgressLinearDemo() {
-        return (
-          <ProgressLinear defaultValue={24}>
-            <ProgressLinear.Label>Export data</ProgressLinear.Label>
-            <ProgressLinear.ValueText />
-            <ProgressLinear.Track>
-              <ProgressLinear.Range />
-            </ProgressLinear.Track>
-          </ProgressLinear>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearBasicData}</Preview.Data>
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ## Install with shadcn
 
-If you want `ProgressLinear` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-progress-linear
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-progress-linear
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-progress-linear
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-progress-linear
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-progress-linear
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-progress-linear" />
 
 ## Anatomy
 
@@ -191,52 +113,14 @@ the tree, or provide `aria-label`/`aria-labelledby` when composing without `Prog
 Keep `value` in React state when progress mirrors another control or external task state.
 
 <Preview>
-  <ControlledProgressLinearExample />
+  <ProgressLinearDocs.ControlledProgressLinearExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressLinear, Slider } from "@moduix/react";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/controlled.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledProgressLinearDemo() {
-        const [value, setValue] = useState(45);
-
-        return (
-          <div className="progress-linear-stack">
-            <ProgressLinear value={value} onValueChange={(details) => setValue(details.value)}>
-              <ProgressLinear.Label>Upload status</ProgressLinear.Label>
-              <ProgressLinear.ValueText />
-              <ProgressLinear.Track>
-                <ProgressLinear.Range />
-              </ProgressLinear.Track>
-            </ProgressLinear>
-            <Slider
-              className="progress-linear-slider"
-              min={0}
-              max={100}
-              value={[value]}
-              onValueChange={(details) => setValue(details.value[0] ?? 0)}
-            >
-              <Slider.Label>Progress value</Slider.Label>
-              <Slider.ValueText />
-              <Slider.Control>
-                <Slider.Track>
-                  <Slider.Range />
-                </Slider.Track>
-                <Slider.Thumb index={0} aria-label="Progress value">
-                  <Slider.HiddenInput />
-                </Slider.Thumb>
-              </Slider.Control>
-            </Slider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearControlledData}</Preview.Data>
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Initial Value
@@ -244,29 +128,14 @@ Keep `value` in React state when progress mirrors another control or external ta
 Use `defaultValue` to set the initial uncontrolled progress value.
 
 <Preview>
-  <InitialValueProgressLinearExample />
+  <ProgressLinearDocs.InitialValueProgressLinearExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressLinear } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/initial-value.tsx#demo</include>
+</Preview.Code>
 
-      export function InitialValueProgressLinearDemo() {
-        return (
-          <ProgressLinear defaultValue={70}>
-            <ProgressLinear.Label>Import data</ProgressLinear.Label>
-            <ProgressLinear.ValueText />
-            <ProgressLinear.Track>
-              <ProgressLinear.Range />
-            </ProgressLinear.Track>
-          </ProgressLinear>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearInitialValueData}</Preview.Data>
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Min Max
@@ -274,29 +143,14 @@ Use `defaultValue` to set the initial uncontrolled progress value.
 Use `min` and `max` when the value does not use the default `0` to `100` range.
 
 <Preview>
-  <MinMaxProgressLinearExample />
+  <ProgressLinearDocs.MinMaxProgressLinearExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressLinear } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/min-max.tsx#demo</include>
+</Preview.Code>
 
-      export function MinMaxProgressLinearDemo() {
-        return (
-          <ProgressLinear defaultValue={420} min={200} max={800}>
-            <ProgressLinear.Label>Requests per minute</ProgressLinear.Label>
-            <ProgressLinear.ValueText />
-            <ProgressLinear.Track>
-              <ProgressLinear.Range />
-            </ProgressLinear.Track>
-          </ProgressLinear>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearMinMaxData}</Preview.Data>
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Indeterminate
@@ -304,29 +158,14 @@ Use `min` and `max` when the value does not use the default `0` to `100` range.
 Pass `defaultValue={null}` or `value={null}` when progress is running but completion is unknown.
 
 <Preview>
-  <IndeterminateProgressLinearExample />
+  <ProgressLinearDocs.IndeterminateProgressLinearExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressLinear } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/indeterminate.tsx#demo</include>
+</Preview.Code>
 
-      export function IndeterminateProgressLinearDemo() {
-        return (
-          <ProgressLinear defaultValue={null}>
-            <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
-            <ProgressLinear.ValueText />
-            <ProgressLinear.Track>
-              <ProgressLinear.Range />
-            </ProgressLinear.Track>
-          </ProgressLinear>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearIndeterminateData}</Preview.Data>
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Vertical
@@ -334,33 +173,14 @@ Pass `defaultValue={null}` or `value={null}` when progress is running but comple
 Set `orientation="vertical"` when the track should fill upward instead of from left to right.
 
 <Preview>
-  <VerticalProgressLinearExample />
+  <ProgressLinearDocs.VerticalProgressLinearExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressLinear } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/vertical.tsx#demo</include>
+</Preview.Code>
 
-      export function VerticalProgressLinearDemo() {
-        return (
-          <ProgressLinear
-            defaultValue={42}
-            orientation="vertical"
-            className="progress-linear-vertical"
-          >
-            <ProgressLinear.Label>Indexing files</ProgressLinear.Label>
-            <ProgressLinear.ValueText />
-            <ProgressLinear.Track>
-              <ProgressLinear.Range />
-            </ProgressLinear.Track>
-          </ProgressLinear>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressLinearVerticalCss}</Preview.CSS>
-  <Preview.Data>{progressLinearVerticalData}</Preview.Data>
+  <Preview.CSS>{ProgressLinearDocs.progressLinearVerticalCss}</Preview.CSS>
+  
 </Preview>
 
 ### Value Text
@@ -368,36 +188,14 @@ Set `orientation="vertical"` when the track should fill upward instead of from l
 Use `translations.value(details)` when the formatted percent is not the wording users need.
 
 <Preview>
-  <ValueTextProgressLinearExample />
+  <ProgressLinearDocs.ValueTextProgressLinearExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressLinear } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/value-text.tsx#demo</include>
+</Preview.Code>
 
-      export function ValueTextProgressLinearDemo() {
-        return (
-          <ProgressLinear
-            translations={{
-              value({ value, max }) {
-                if (value === null) return "Loading...";
-                return \`\${value} of \${max} items loaded\`;
-              },
-            }}
-          >
-            <ProgressLinear.Label>Migration</ProgressLinear.Label>
-            <ProgressLinear.ValueText />
-            <ProgressLinear.Track>
-              <ProgressLinear.Range />
-            </ProgressLinear.Track>
-          </ProgressLinear>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearValueTextData}</Preview.Data>
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Root Provider
@@ -405,32 +203,14 @@ Use `translations.value(details)` when the formatted percent is not the wording 
 Create the Ark progress store outside the rendered tree when another component needs to own state.
 
 <Preview>
-  <RootProviderProgressLinearExample />
+  <ProgressLinearDocs.RootProviderProgressLinearExample />
 
-  <Preview.Code>
-    {`
-      import { useProgress } from "@ark-ui/react/progress";
-      import { ProgressLinear } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      export function RootProviderProgressLinearDemo() {
-        const progress = useProgress({ defaultValue: 58 });
-
-        return (
-          <ProgressLinear.RootProvider value={progress}>
-            <ProgressLinear.Label>Team rollout</ProgressLinear.Label>
-            <ProgressLinear.ValueText />
-            <ProgressLinear.Track>
-              <ProgressLinear.Range />
-            </ProgressLinear.Track>
-          </ProgressLinear.RootProvider>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearRootProviderData}</Preview.Data>
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### State Views
@@ -450,32 +230,12 @@ instead of duplicating state checks outside the component.
     <ProgressLinear.View state="complete">Export complete</ProgressLinear.View>
   </ProgressLinear>
 
-  <Preview.Code>
-    {`
-      import { ProgressLinear } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/state-views.tsx#demo</include>
+</Preview.Code>
 
-      export function StateViewsProgressLinearDemo() {
-        return (
-          <ProgressLinear defaultValue={null}>
-            <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
-            <ProgressLinear.ValueText />
-            <ProgressLinear.Track>
-              <ProgressLinear.Range />
-            </ProgressLinear.Track>
-            <ProgressLinear.View state="indeterminate">
-              Waiting for source data
-            </ProgressLinear.View>
-            <ProgressLinear.View state="loading">Transfer in progress</ProgressLinear.View>
-            <ProgressLinear.View state="complete">Export complete</ProgressLinear.View>
-          </ProgressLinear>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressLinearExampleCss}</Preview.CSS>
-  <Preview.Data>{progressLinearStateViewsData}</Preview.Data>
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Custom Styling
@@ -483,29 +243,14 @@ instead of duplicating state checks outside the component.
 Override public CSS variables and target `data-slot` hooks when only the visuals need to change.
 
 <Preview>
-  <CustomStylingProgressLinearExample />
+  <ProgressLinearDocs.CustomStylingProgressLinearExample />
 
-  <Preview.Code>
-    {`
-      import { ProgressLinear } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/custom-styling.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomStylingProgressLinearDemo() {
-        return (
-          <ProgressLinear defaultValue={72} className="progress-linear-custom">
-            <ProgressLinear.Label>Monthly quota</ProgressLinear.Label>
-            <ProgressLinear.ValueText />
-            <ProgressLinear.Track>
-              <ProgressLinear.Range />
-            </ProgressLinear.Track>
-          </ProgressLinear>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{progressLinearCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{progressLinearCustomStylingData}</Preview.Data>
+  <Preview.CSS>{ProgressLinearDocs.progressLinearCustomStylingCss}</Preview.CSS>
+  
 </Preview>
 
 ## Styling
@@ -518,7 +263,7 @@ data attributes and moduix `data-slot` hooks.
 <div className="not-prose">
   <Tabs items={['CSS Variables']} className="mb-0 mt-3">
     <Tab className="max-h-150 overflow-auto">
-      <ProgressLinearCssPropertiesPanel />
+      <ProgressLinearDocs.ProgressLinearCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>
