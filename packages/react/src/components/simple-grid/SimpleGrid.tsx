@@ -1,38 +1,50 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
+import type { CSSProperties } from 'react';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
-import styles from './SimpleGrid.module.css';
 
-type SimpleGridRootProps = HTMLArkProps<'div'> &
-  (
-    | {
-        columns?: number;
-        minChildWidth?: never;
-      }
-    | {
-        columns?: never;
-        minChildWidth: number | string;
-      }
-  ) & {
-    gap?: number | string;
-    rowGap?: number | string;
-    columnGap?: number | string;
-  };
+type SimpleGridRootProps = HTMLArkProps<'div'> & {
+  columns?: number;
+  minChildWidth?: number | string;
+  gap?: number | string;
+  rowGap?: number | string;
+  columnGap?: number | string;
+};
 
 const SimpleGridRoot = forwardRef<HTMLDivElement, SimpleGridRootProps>(function SimpleGridRoot(
   { asChild, className, style, columns, minChildWidth, gap, rowGap, columnGap, ...props },
   ref,
 ) {
-  const templateColumns =
-    minChildWidth == null
-      ? columns == null
-        ? undefined
-        : `repeat(${columns}, minmax(0, 1fr))`
-      : `repeat(auto-fit, minmax(min(100%, ${
-          typeof minChildWidth === 'number' ? `${minChildWidth}px` : minChildWidth
-        }), 1fr))`;
+  let gridTemplateColumns = 'minmax(0, 1fr)';
+
+  if (columns != null) {
+    gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;
+  }
+
+  if (minChildWidth != null) {
+    const width = typeof minChildWidth === 'number' ? `${minChildWidth}px` : minChildWidth;
+    gridTemplateColumns = `repeat(auto-fit, minmax(min(100%, ${width}), 1fr))`;
+  }
+
+  const rootStyle: CSSProperties = {
+    display: 'grid',
+    gridTemplateColumns,
+    ...style,
+  };
+
+  if (gap != null) {
+    rootStyle.gap = gap;
+  }
+
+  if (rowGap != null) {
+    rootStyle.rowGap = rowGap;
+  }
+
+  if (columnGap != null) {
+    rootStyle.columnGap = columnGap;
+  }
 
   return (
     <ark.div
@@ -42,14 +54,8 @@ const SimpleGridRoot = forwardRef<HTMLDivElement, SimpleGridRootProps>(function 
       data-scope="simple-grid"
       data-part="root"
       data-slot="simple-grid-root"
-      className={clsx(styles.root, normalizeClassName(className))}
-      style={{
-        gridTemplateColumns: templateColumns,
-        gap,
-        rowGap,
-        columnGap,
-        ...style,
-      }}
+      className={clsx(normalizeClassName(className))}
+      style={rootStyle}
     />
   );
 });

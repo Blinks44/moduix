@@ -1,6 +1,0 @@
-@layer ui.components {
-  .root {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-  }
-}

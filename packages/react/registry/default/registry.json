@@ -1561,11 +1561,6 @@
           "type": "registry:component"
         },
         {
-          "path": "packages/react/src/components/simple-grid/SimpleGrid.module.css",
-          "target": "@components/moduix/simple-grid/SimpleGrid.module.css",
-          "type": "registry:file"
-        },
-        {
           "path": "packages/react/src/components/simple-grid/index.ts",
           "target": "@components/moduix/simple-grid/index.ts",
           "type": "registry:component"

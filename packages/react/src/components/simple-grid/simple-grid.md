@@ -25,7 +25,7 @@ It has one root part and no provider, context, state machine, or item wrappers.
   `repeat(columns, minmax(0, 1fr))`.
 - `minChildWidth` creates an intrinsic responsive grid with `auto-fit`. Numeric values are treated
   as pixels.
-- `columns` and `minChildWidth` are mutually exclusive.
+- `minChildWidth` takes priority over `columns` when both are provided.
 - When neither layout prop is provided, the root renders one column.
 - `gap`, `rowGap`, and `columnGap` accept CSS lengths. Numeric values use React's pixel semantics.
 - The component does not define breakpoints, responsive object props, grid items, spans, or areas.
@@ -98,10 +98,10 @@ element. The forwarded ref targets the rendered root.
 | `className`     | -               | Applied to the root                         |
 | `style`         | -               | Applied last as the instance override       |
 
-The component CSS only sets `display: grid` and the one-column fallback. Layout props are written
-as inline CSS properties and take precedence over stylesheet declarations. For media or container
-query layouts, omit `columns` and `minChildWidth`, then set `grid-template-columns` through
-`className`. The `style` prop is merged last and remains the final per-instance override.
+The component writes `display: grid`, the one-column fallback, and any provided layout props as
+inline styles on the root. For media or container query layouts, omit `columns` and
+`minChildWidth`, then set `grid-template-columns` through `className`. The `style` prop is merged
+last and remains the final per-instance override.
 
 ## Intentional sugar and differences from upstream
 
@@ -113,12 +113,16 @@ query layouts, omit `columns` and `minChildWidth`, then set `grid-template-colum
 ## Agent notes
 
 - Keep the component root-only and stateless.
-- Keep `columns` and `minChildWidth` mutually exclusive.
+- Keep `minChildWidth` as the higher-priority layout mode when both props are present.
 - Preserve the `min(100%, minChildWidth)` guard so narrow containers do not overflow.
 - Do not add breakpoint props or Grid item APIs without a separate library-wide styling decision.
 
 ## Local changelog
 
+- 2026-07-04: Moved the base `display: grid` and one-column fallback from the CSS module into inline
+  root styles so layout and gaps do not depend on a separate component CSS chunk.
+- 2026-07-04: Simplified the props and layout resolution so `minChildWidth` wins over `columns`
+  at runtime instead of encoding that rule through a more complex union type.
 - 2026-07-03: Removed the public `SimpleGridRootProps` alias; the component keeps the same root-only API while Ark and React can supply props typing directly.
 - 2026-06-30: Inlined the private fixed/auto-fit mode types into `SimpleGridRootProps` and clarified
   stylesheet versus inline-style precedence.
