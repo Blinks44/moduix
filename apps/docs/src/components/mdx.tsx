@@ -2,6 +2,7 @@ import type { MDXComponents } from 'mdx/types';
 import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock.core';
 import * as TabsComponents from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
+import * as React from 'react';
 import { docsShikiOptions, getDocsShikiHighlighter } from '@/lib/shiki';
 import {
   CSSPropertiesReferenceTable,
@@ -108,10 +109,35 @@ function CssPropertiesSection({ properties }: { properties: CssPropertyInput[] }
   );
 }
 
+function MdxPre(props: React.ComponentProps<'pre'>) {
+  if (!React.isValidElement<{ className?: string; children?: string }>(props.children)) {
+    return defaultMdxComponents.pre(props);
+  }
+
+  const { className = '', children: code } = props.children.props;
+
+  if (typeof code !== 'string' || !code) {
+    return defaultMdxComponents.pre(props);
+  }
+
+  return (
+    <DynamicCodeBlock
+      lang={className.match(/language-([a-z0-9-]+)/i)?.[1] ?? docsShikiOptions.fallbackLanguage}
+      code={code}
+      highlighter={getDocsShikiHighlighter}
+      options={docsShikiOptions}
+      codeblock={{
+        allowCopy: true,
+      }}
+    />
+  );
+}
+
 export function getMDXComponents(components?: MDXComponents) {
   return {
     ...defaultMdxComponents,
     ...TabsComponents,
+    pre: MdxPre,
     CssPropertiesSection,
     PrimitiveReference,
     Preview,
