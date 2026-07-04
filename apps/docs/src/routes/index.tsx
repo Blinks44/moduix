@@ -19,7 +19,7 @@ const highlights = [
   },
   {
     icon: Code2,
-    label: 'Typed React API',
+    label: 'Typed parts API',
   },
   {
     icon: PackageCheck,
@@ -49,8 +49,7 @@ function Home() {
               moduix
             </h1>
             <p className={styles.lead}>
-              A precise React component library for teams shipping calm, consistent product
-              interfaces.
+              A precise component system for teams shipping calm, consistent product interfaces.
             </p>
             <FrameworkSupport />
             <div className={styles.actions}>

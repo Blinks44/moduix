@@ -1,7 +1,7 @@
 # moduix docs
 
-`apps/docs` is the documentation site for the `moduix` React component library from
-`packages/react`.
+`apps/docs` is the documentation site for the `moduix` component system. Today it primarily
+documents the shipped `packages/react` package and its registry install flow.
 
 It contains user-facing guides, component pages, usage examples, install guidance, and API
 references for the current shipped library.

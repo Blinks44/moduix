@@ -1,18 +1,24 @@
 ---
 title: Composition Patterns
-description: Common rules for Ark-aligned parts, explicit structure, and product-level wrappers.
+description: Common rules for explicit parts, product wrappers, re-exports, and custom styling.
 icon: Blocks
 ---
 
 # Composition Patterns
 
-moduix components expose typed parts that stay close to their underlying primitive contracts.
-Multi-part Ark UI components use namespace APIs such as `Dialog.Root`, `Dialog.Trigger`, and
-`Dialog.Content`.
+moduix is built around explicit parts. Instead of hiding behavior behind one large component with a
+dozen styling props, most multi-part components keep their structure visible with APIs such as
+`Dialog.Root`, `Dialog.Trigger`, and `Dialog.Content`.
+
+That gives you three useful levels of control:
+
+- use the package directly and style the shipped parts
+- re-export the parts behind product-specific names
+- wrap selected parts with your own classes, layout, or design tokens
 
 These patterns are the same whether you consume the package or install source through the registry.
 
-## Keep the primitive structure visible
+## Start from the documented part tree
 
 Start with the component's documented part tree. Use `className`, CSS variables, `data-slot`, and
 Ark state attributes for styling. Use `asChild` when one semantic child must own the rendered node.
@@ -31,7 +37,7 @@ Root
 `Portal`, `Backdrop`, `Positioner`, and `Content` remain visible so applications can independently
 configure mount targets, overlays, scrolling, layout, and surface styling.
 
-## Infrastructure parts
+## What the structural parts are for
 
 | Part         | Responsibility                                                                 |
 | ------------ | ------------------------------------------------------------------------------ |
@@ -44,7 +50,7 @@ configure mount targets, overlays, scrolling, layout, and surface styling.
 Do not hide these nodes inside product wrappers unless the product contract intentionally removes
 their override points.
 
-## State and callbacks
+## Keep state and callbacks close to the primitive
 
 Keep Ark callback detail objects intact. For example, dialog open state uses
 `onOpenChange(details)` and reads `details.open`.
@@ -57,21 +63,54 @@ Use component context for state access:
 
 Do not render `Root` and `RootProvider` for the same state instance.
 
-## Product wrapper example
+## Re-export the product API first
 
-A product design system can wrap moduix parts without replacing the Ark composition model:
+If your product wants shorter imports or a more branded surface, start with re-exports before
+writing new abstractions. Re-exporting keeps the original behavior intact while giving your
+application a stable local API.
 
 ```tsx
 import type { ComponentProps } from 'react';
-import { clsx } from 'clsx';
 import { Dialog as DialogBase } from '@moduix/react';
-import styles from './AppDialog.module.css';
 
 export const Dialog = DialogBase.Root;
+export const DialogTrigger = DialogBase.Trigger;
+export const DialogBackdrop = DialogBase.Backdrop;
+export const DialogPositioner = DialogBase.Positioner;
+export const DialogContent = DialogBase.Content;
+export const DialogTitle = DialogBase.Title;
+export const DialogDescription = DialogBase.Description;
+export const DialogCloseTrigger = DialogBase.CloseTrigger;
 
-export function DialogTrigger(props: ComponentProps<typeof DialogBase.Trigger>) {
-  return <DialogBase.Trigger {...props} />;
+export function ProductDialog(props: ComponentProps<typeof DialogBase.Root>) {
+  return <DialogBase.Root {...props} />;
 }
+```
+
+This is the lowest-risk customization path:
+
+- consumers import from your product layer instead of directly from `moduix`
+- Ark behavior stays untouched
+- moving from package usage to copy-owned usage stays straightforward
+- wrappers can be added later only where they are actually needed
+
+## Add wrappers only on the parts that need product styling
+
+When design requirements go beyond a few utility classes, wrap only the parts that need custom
+styling. Keep the structure visible, and forward the rest of the props unchanged.
+
+<div className="not-prose">
+  <Tabs items={['Code', 'Styles']} className="mb-0 mt-3">
+    <Tab value="Code">
+
+```tsx
+import type { ComponentProps, ReactNode } from 'react';
+import { clsx } from 'clsx';
+import { Dialog as DialogBase } from '@moduix/react';
+import styles from './ProductDialog.module.css';
+
+export const Dialog = DialogBase.Root;
+export const DialogTrigger = DialogBase.Trigger;
 
 export function DialogBackdrop({
   className,
@@ -80,29 +119,57 @@ export function DialogBackdrop({
   return <DialogBase.Backdrop className={clsx(styles.backdrop, className)} {...props} />;
 }
 
-export function DialogPositioner({
-  className,
-  ...props
-}: ComponentProps<typeof DialogBase.Positioner>) {
-  return <DialogBase.Positioner className={clsx(styles.positioner, className)} {...props} />;
+export function DialogPositioner(props: ComponentProps<typeof DialogBase.Positioner>) {
+  return <DialogBase.Positioner {...props} />;
 }
 
 export function DialogContent({ className, ...props }: ComponentProps<typeof DialogBase.Content>) {
   return <DialogBase.Content className={clsx(styles.content, className)} {...props} />;
 }
 
-export function AppDialog({ children }: { children: React.ReactNode }) {
+export function ProductDialog({ children }: { children: ReactNode }) {
   return (
     <DialogBase.Root>
-      <DialogTrigger>Open</DialogTrigger>
+      <DialogBase.Trigger>Open</DialogBase.Trigger>
       <DialogBackdrop />
-      <DialogPositioner>
+      <DialogBase.Positioner>
         <DialogContent>{children}</DialogContent>
-      </DialogPositioner>
+      </DialogBase.Positioner>
     </DialogBase.Root>
   );
 }
 ```
 
-This keeps product styling local while preserving Ark focus management, accessibility, lifecycle,
-state attributes, and structural override points.
+    </Tab>
+    <Tab value="Styles">
+
+```css
+.backdrop {
+  background: color-mix(in srgb, var(--color-black) 56%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.content {
+  border: 1px solid var(--border-color-subtle);
+  border-radius: 20px;
+  box-shadow: 0 24px 80px rgb(15 23 42 / 0.18);
+}
+```
+
+    </Tab>
+
+  </Tabs>
+</div>
+
+This is the practical replacement for the old repeated `Custom Styling` examples:
+
+- keep one documented structural example
+- show where classes belong
+- leave component-specific visual decisions in the product codebase
+
+## A simple rule for choosing the right level
+
+- Only need usage? Stay on the shipped parts.
+- Need product import paths? Re-export first.
+- Need repeated product visuals? Wrap the specific parts that own those visuals.
+- Need different behavior? Drop to the explicit part tree instead of inventing new top-level props.
