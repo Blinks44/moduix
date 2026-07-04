@@ -65,10 +65,11 @@ Less useful:
 - `accordionItemsData` when it only duplicates the array already needed in the snippet
 - many page-only helper wrappers with no behavior of their own
 
-4. Use Fumadocs `<include>` selectively
+4. Use Fumadocs `<include>` for component-page examples
 
-Use `<include>` for `Preview.Code` when a snippet is long enough that keeping it inline makes the
-MDX page noisy.
+For component pages in `apps/docs/content/docs/*.mdx`, use `<include>` for `Preview.Code` on every
+consumer-facing example, not only the long ones. This is required for authoring consistency across
+the page.
 
 Keep the snippet in a docs-local `_snippets/` file and include a named region:
 
@@ -78,16 +79,23 @@ Keep the snippet in a docs-local `_snippets/` file and include a named region:
 </Preview.Code>
 ```
 
-Do not use `Preview.Data` on component pages by default. Move the required data into the code
-snippet itself and include that snippet with `<include>`.
+Do not use `Preview.Data` on component pages. Move the required data into the code snippet itself
+and include that snippet with `<include>`.
 
 Keep `Preview.CSS` separate when local example styles add clarity, but keep the visible data setup
 inside the code snippet.
 
-5. `basic.tsx` snippets are required for component-page Basic examples
+5. Snippet files are required for all component-page examples
 
-For component pages in `apps/docs/content/docs/*.mdx`, the `## Basic` example must use a docs-local
-snippet file at `./_snippets/<component>/basic.tsx` and include it in `Preview.Code`.
+For component pages in `apps/docs/content/docs/*.mdx`, every example with `Preview.Code` must use a
+docs-local snippet file in `./_snippets/<component>/` and include it in `Preview.Code`.
+
+Use `basic.tsx` for the `## Basic` section and a stable, heading-based filename for the rest, for
+example:
+
+- `./_snippets/accordion/basic.tsx`
+- `./_snippets/accordion/custom-styling.tsx`
+- `./_snippets/accordion/root-provider.tsx`
 
 Required pattern:
 
@@ -97,11 +105,11 @@ Required pattern:
 </Preview.Code>
 ```
 
-The snippet must be self-contained and consumer-facing:
+Every snippet must be self-contained and consumer-facing:
 
 - keep example data inside the snippet
 - use `//#region demo` / `//#endregion`
-- do not use `Preview.Data` for the Basic example
+- do not use `Preview.Data`
 - keep `Preview.CSS` in MDX only when separate CSS still improves readability
 
 Treat this as mandatory authoring structure, not an optional cleanup, when simplifying component
@@ -117,7 +125,7 @@ Do not simplify by hiding the documented component structure.
 - Use `Preview.CSS` only for example-local styles that are worth reading separately.
 - Only factor out the surrounding authoring boilerplate.
 - Prefer `include` for code snippets; avoid spreading small fixtures across extra files and tabs.
-- For `## Basic` on component pages, use the required `./_snippets/<component>/basic.tsx` include
+- For all examples on component pages, use required `./_snippets/<component>/*.tsx` includes
   instead of inline MDX code.
 
 ## Workflow
@@ -126,7 +134,7 @@ Do not simplify by hiding the documented component structure.
 2. Check whether the repetition already appears on other pages.
 3. Extract the smallest shared helper that removes the repetition.
 4. Prefer self-contained snippets over separate fixture exports.
-5. Apply the helper to one real page first.
+5. Convert every `Preview.Code` in scope to an include-based snippet, not only the first one.
 6. Review whether the page became shorter, the import surface smaller, and the authoring path more direct.
 
 ## Done criteria

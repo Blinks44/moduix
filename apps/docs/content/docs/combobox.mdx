@@ -136,66 +136,11 @@ Enter can select it without an extra arrow-key press.
 <Preview>
   <ComboboxDocs.AutoHighlightComboboxExample />
 
-  <Preview.Code>
-    {`
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox } from "@moduix/react";
-
-      export function AutoHighlightComboboxDemo() {
-        const { contains } = useFilter({ sensitivity: "base" });
-        const { collection, filter } = useListCollection({
-          initialItems: departments,
-          filter: contains,
-        });
-
-        return (
-          <Combobox
-            collection={collection}
-            inputBehavior="autohighlight"
-            onInputValueChange={(details) => filter(details.inputValue)}
-          >
-            <Combobox.Label>Department</Combobox.Label>
-            <Combobox.Control>
-              <Combobox.Input placeholder="e.g. Engineering" />
-              <Combobox.ClearTrigger aria-label="Clear selection" />
-              <Combobox.Trigger aria-label="Open options" />
-            </Combobox.Control>
-            <Combobox.Positioner>
-              <Combobox.Content>
-                <Combobox.Empty>No departments found.</Combobox.Empty>
-                <Combobox.List>
-                  {collection.items.map((item) => (
-                    <Combobox.Item key={item.value} item={item}>
-                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                      <Combobox.ItemIndicator />
-                    </Combobox.Item>
-                  ))}
-                </Combobox.List>
-              </Combobox.Content>
-            </Combobox.Positioner>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/auto-highlight.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const departments = [
-        { label: "Engineering", value: "engineering" },
-        { label: "Marketing", value: "marketing" },
-        { label: "Sales", value: "sales" },
-        { label: "Finance", value: "finance" },
-        { label: "Human Resources", value: "human-resources" },
-        { label: "Operations", value: "operations" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Inline Autocomplete
@@ -206,66 +151,11 @@ first matching item while preserving Ark keyboard navigation.
 <Preview>
   <ComboboxDocs.InlineAutocompleteComboboxExample />
 
-  <Preview.Code>
-    {`
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox } from "@moduix/react";
-
-      export function InlineAutocompleteComboboxDemo() {
-        const { startsWith } = useFilter({ sensitivity: "base" });
-        const { collection, filter } = useListCollection({
-          initialItems: seaCreatures,
-          filter: startsWith,
-        });
-
-        return (
-          <Combobox
-            collection={collection}
-            inputBehavior="autocomplete"
-            onInputValueChange={(details) => filter(details.inputValue)}
-          >
-            <Combobox.Label>Sea creature</Combobox.Label>
-            <Combobox.Control>
-              <Combobox.Input placeholder="e.g. Dolphin" />
-              <Combobox.ClearTrigger aria-label="Clear selection" />
-              <Combobox.Trigger aria-label="Open options" />
-            </Combobox.Control>
-            <Combobox.Positioner>
-              <Combobox.Content>
-                <Combobox.Empty>No creatures found.</Combobox.Empty>
-                <Combobox.List>
-                  {collection.items.map((item) => (
-                    <Combobox.Item key={item.value} item={item}>
-                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                      <Combobox.ItemIndicator />
-                    </Combobox.Item>
-                  ))}
-                </Combobox.List>
-              </Combobox.Content>
-            </Combobox.Positioner>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/inline-autocomplete.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const seaCreatures = [
-        { label: "Whale", value: "whale" },
-        { label: "Dolphin", value: "dolphin" },
-        { label: "Shark", value: "shark" },
-        { label: "Octopus", value: "octopus" },
-        { label: "Jellyfish", value: "jellyfish" },
-        { label: "Seahorse", value: "seahorse" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Links
@@ -276,77 +166,11 @@ as a native link. `selectionBehavior="preserve"` keeps the search text visible d
 <Preview>
   <ComboboxDocs.LinksComboboxExample />
 
-  <Preview.Code>
-    {`
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox } from "@moduix/react";
-
-      export function LinksComboboxDemo() {
-        const { contains } = useFilter({ sensitivity: "base" });
-        const { collection, filter } = useListCollection({
-          initialItems: developerResources,
-          filter: contains,
-        });
-
-        return (
-          <Combobox
-            collection={collection}
-            selectionBehavior="preserve"
-            onInputValueChange={(details) => filter(details.inputValue)}
-          >
-            <Combobox.Label>Developer resources</Combobox.Label>
-            <Combobox.Control>
-              <Combobox.Input placeholder="e.g. GitHub" />
-              <Combobox.Trigger aria-label="Open options" />
-            </Combobox.Control>
-            <Combobox.Positioner>
-              <Combobox.Content>
-                <Combobox.List>
-                  {collection.items.map((item) => (
-                    <Combobox.Item key={item.value} item={item} asChild>
-                      <a href={item.href} target="_blank" rel="noreferrer">
-                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </a>
-                    </Combobox.Item>
-                  ))}
-                </Combobox.List>
-              </Combobox.Content>
-            </Combobox.Positioner>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/links.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const developerResources = [
-        { label: "GitHub", href: "https://github.com", value: "github" },
-        {
-          label: "Stack Overflow",
-          href: "https://stackoverflow.com",
-          value: "stack-overflow",
-        },
-        {
-          label: "MDN Web Docs",
-          href: "https://developer.mozilla.org",
-          value: "mdn",
-        },
-        { label: "npm", href: "https://www.npmjs.com", value: "npm" },
-        {
-          label: "TypeScript",
-          href: "https://www.typescriptlang.org",
-          value: "typescript",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Dynamic
@@ -357,64 +181,11 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
 <Preview>
   <ComboboxDocs.DynamicComboboxExample />
 
-  <Preview.Code>
-    {`
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { Combobox } from "@moduix/react";
-
-      export function DynamicComboboxDemo() {
-        const { collection, set } = useListCollection({
-          initialItems: [] as string[],
-        });
-
-        return (
-          <Combobox
-            collection={collection}
-            onInputValueChange={(details) => {
-              if (details.reason !== "input-change") {
-                return;
-              }
-
-              const name = details.inputValue.trim();
-              set(
-                name
-                  ? domains.map((domain) => \`\${name}@\${domain}\`)
-                  : [],
-              );
-            }}
-          >
-            <Combobox.Label>Email</Combobox.Label>
-            <Combobox.Control>
-              <Combobox.Input placeholder="e.g. alex" />
-              <Combobox.Trigger aria-label="Open options" />
-            </Combobox.Control>
-            <Combobox.Positioner>
-              <Combobox.Content>
-                <Combobox.List>
-                  {collection.items.map((item) => (
-                    <Combobox.Item key={item} item={item}>
-                      <Combobox.ItemText>{item}</Combobox.ItemText>
-                      <Combobox.ItemIndicator />
-                    </Combobox.Item>
-                  ))}
-                </Combobox.List>
-              </Combobox.Content>
-            </Combobox.Positioner>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/dynamic.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const domains = ["gmail.com", "outlook.com", "proton.me"];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Creatable
@@ -425,126 +196,11 @@ replace that sentinel value with the user-entered value after selection.
 <Preview>
   <ComboboxDocs.CreatableComboboxExample />
 
-  <Preview.Code>
-    {`
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox } from "@moduix/react";
-      import { useState } from "react";
-      import { flushSync } from "react-dom";
-
-      const createOptionValue = "__create-option__";
-
-      export function CreatableComboboxDemo() {
-        const { contains } = useFilter({ sensitivity: "base" });
-        const { collection, filter, remove, update, upsert } =
-          useListCollection({
-            initialItems: issueLabels,
-            filter: contains,
-          });
-        const [inputValue, setInputValue] = useState("");
-        const [value, setValue] = useState([] as string[]);
-
-        return (
-          <Combobox
-            collection={collection}
-            inputValue={inputValue}
-            value={value}
-            allowCustomValue
-            onInputValueChange={(details) => {
-              const nextInputValue = details.inputValue;
-
-              if (
-                details.reason === "input-change" ||
-                details.reason === "item-select"
-              ) {
-                const hasExactMatch = collection.items.some(
-                  (item) =>
-                    item.label.toLowerCase() === nextInputValue.toLowerCase(),
-                );
-
-                flushSync(() => {
-                  if (nextInputValue.trim() && !hasExactMatch) {
-                    upsert(createOptionValue, {
-                      label: nextInputValue,
-                      value: createOptionValue,
-                    });
-                  } else {
-                    remove(createOptionValue);
-                  }
-                });
-                filter(nextInputValue);
-              }
-
-              setInputValue(nextInputValue);
-            }}
-            onOpenChange={(details) => {
-              if (details.reason === "trigger-click") {
-                filter("");
-              }
-            }}
-            onValueChange={(details) => {
-              setValue(
-                details.value.map((item) =>
-                  item === createOptionValue ? inputValue : item,
-                ),
-              );
-
-              if (details.value.includes(createOptionValue)) {
-                update(createOptionValue, {
-                  label: inputValue,
-                  value: inputValue,
-                  created: true,
-                });
-              }
-            }}
-          >
-            <Combobox.Label>Issue label</Combobox.Label>
-            <Combobox.Control>
-              <Combobox.Input placeholder="e.g. Accessibility" />
-              <Combobox.ClearTrigger aria-label="Clear selection" />
-              <Combobox.Trigger aria-label="Open options" />
-            </Combobox.Control>
-            <Combobox.Positioner>
-              <Combobox.Content>
-                <Combobox.List>
-                  {collection.items.map((item) => (
-                    <Combobox.Item key={item.value} item={item}>
-                      <Combobox.ItemText>
-                        {item.value === createOptionValue
-                          ? \`Create "\${item.label}"\`
-                          : \`\${item.label}\${item.created ? " (new)" : ""}\`}
-                      </Combobox.ItemText>
-                      <Combobox.ItemIndicator />
-                    </Combobox.Item>
-                  ))}
-                </Combobox.List>
-              </Combobox.Content>
-            </Combobox.Positioner>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/creatable.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const issueLabels = [
-        { label: "Bug", value: "bug" },
-        { label: "Feature", value: "feature" },
-        { label: "Enhancement", value: "enhancement" },
-        { label: "Documentation", value: "documentation" },
-      ] as Array<{
-        label: string;
-        value: string;
-        created?: boolean;
-      }>;
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Limit Results
@@ -555,74 +211,11 @@ popup harder to scan. Filtering still runs against the complete initial collecti
 <Preview>
   <ComboboxDocs.LimitComboboxExample />
 
-  <Preview.Code>
-    {`
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox } from "@moduix/react";
-
-      export function LimitComboboxDemo() {
-        const { contains } = useFilter({ sensitivity: "base" });
-        const { collection, filter } = useListCollection({
-          initialItems: cities,
-          filter: contains,
-          limit: 5,
-        });
-
-        return (
-          <Combobox
-            collection={collection}
-            onInputValueChange={(details) => filter(details.inputValue)}
-          >
-            <Combobox.Label>City</Combobox.Label>
-            <Combobox.Control>
-              <Combobox.Input placeholder="e.g. San" />
-              <Combobox.Trigger aria-label="Open options" />
-            </Combobox.Control>
-            <Combobox.Positioner>
-              <Combobox.Content>
-                <Combobox.Empty>No cities found.</Combobox.Empty>
-                <Combobox.List>
-                  {collection.items.map((item) => (
-                    <Combobox.Item key={item.value} item={item}>
-                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                      <Combobox.ItemIndicator />
-                    </Combobox.Item>
-                  ))}
-                </Combobox.List>
-              </Combobox.Content>
-            </Combobox.Positioner>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/limit-results.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const cities = [
-        "New York",
-        "Los Angeles",
-        "Chicago",
-        "Houston",
-        "Phoenix",
-        "Philadelphia",
-        "San Antonio",
-        "San Diego",
-        "Dallas",
-        "San Jose",
-        "Austin",
-        "Jacksonville",
-      ].map((label) => ({
-        label,
-        value: label.toLowerCase().replaceAll(" ", "-"),
-      }));
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Virtualized
@@ -633,92 +226,9 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
 <Preview>
   <ComboboxDocs.VirtualizedComboboxExample />
 
-  <Preview.Code>
-    {`
-      import { useVirtualizer } from "@tanstack/react-virtual";
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox } from "@moduix/react";
-      import { useRef } from "react";
-      import { flushSync } from "react-dom";
-
-      export function VirtualizedComboboxDemo() {
-        const scrollRef = useRef(null as HTMLDivElement | null);
-        const { contains } = useFilter({ sensitivity: "base" });
-        const { collection, filter, reset } = useListCollection({
-          initialItems: results,
-          filter: contains,
-        });
-        const virtualizer = useVirtualizer({
-          count: collection.size,
-          getScrollElement: () => scrollRef.current,
-          estimateSize: () => 32,
-          overscan: 8,
-        });
-
-        return (
-          <Combobox
-            collection={collection}
-            onInputValueChange={(details) => filter(details.inputValue)}
-            scrollToIndexFn={(details) => {
-              flushSync(() => {
-                virtualizer.scrollToIndex(details.index, {
-                  align: "center",
-                  behavior: "auto",
-                });
-              });
-            }}
-          >
-            <Combobox.Label>Large dataset</Combobox.Label>
-            <Combobox.Control>
-              <Combobox.Input placeholder="Search 1,000 results" />
-              <Combobox.Trigger
-                aria-label="Open options"
-                onClick={reset}
-              />
-            </Combobox.Control>
-            <Combobox.Positioner>
-              <Combobox.Content className="virtualContent">
-                <Combobox.Empty>No results found.</Combobox.Empty>
-                <div ref={scrollRef} className="virtualScroller">
-                  <Combobox.List
-                    className="virtualList"
-                    style={{ height: virtualizer.getTotalSize(), width: "100%" }}
-                  >
-                    {virtualizer.getVirtualItems().map((virtualItem) => {
-                      const item = collection.items[virtualItem.index];
-
-                      return (
-                        <Combobox.Item
-                          key={item.value}
-                          item={item}
-                          aria-setsize={collection.size}
-                          aria-posinset={virtualItem.index + 1}
-                          className="virtualItem"
-                          style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: virtualItem.size,
-                            transform: \`translateY(\${virtualItem.start}px)\`,
-                          }}
-                        >
-                          <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                          <Combobox.ItemIndicator />
-                        </Combobox.Item>
-                      );
-                    })}
-                  </Combobox.List>
-                </div>
-              </Combobox.Content>
-            </Combobox.Positioner>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/virtualized.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -745,16 +255,6 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const results = Array.from({ length: 1000 }, (_, index) => ({
-        label: \`Result \${String(index + 1).padStart(4, "0")}\`,
-        value: \`result-\${index + 1}\`,
-      }));
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Controlled
@@ -764,70 +264,11 @@ Control the selected string array and read the next value from `details.value`.
 <Preview>
   <ComboboxDocs.ControlledComboboxExample />
 
-  <Preview.Code>
-    {`
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledComboboxDemo() {
-        const { contains } = useFilter({ sensitivity: "base" });
-        const { collection, filter } = useListCollection({
-          initialItems: fruits,
-          filter: contains,
-        });
-        const [value, setValue] = useState(["mango"]);
-
-        return (
-          <div>
-            <Combobox
-              collection={collection}
-              value={value}
-              onInputValueChange={(details) => filter(details.inputValue)}
-              onValueChange={(details) => setValue(details.value)}
-            >
-              <Combobox.Label>Choose fruit</Combobox.Label>
-              <Combobox.Control>
-                <Combobox.Input />
-                <Combobox.ClearTrigger aria-label="Clear selection" />
-                <Combobox.Trigger aria-label="Open options" />
-              </Combobox.Control>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.Empty>No fruits found.</Combobox.Empty>
-                  <Combobox.List>
-                    {collection.items.map((item) => (
-                      <Combobox.Item key={item.value} item={item}>
-                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Combobox>
-            <span>Selected: {value[0] ?? "none"}</span>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/controlled.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const fruits = [
-        { label: "Apple", value: "apple" },
-        { label: "Banana", value: "banana" },
-        { label: "Mango", value: "mango" },
-        { label: "Orange", value: "orange" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Objects and Grouping
@@ -838,79 +279,11 @@ Map object labels and values on the collection, then render Ark item groups from
 <Preview>
   <ComboboxDocs.GroupedComboboxExample />
 
-  <Preview.Code>
-    {`
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox } from "@moduix/react";
-
-      export function GroupedComboboxDemo() {
-        const { contains } = useFilter({ sensitivity: "base" });
-        const { collection, filter } = useListCollection({
-          initialItems: countries,
-          itemToString: (item) => item.country,
-          itemToValue: (item) => item.code,
-          filter: contains,
-          groupBy: (item) => item.continent,
-        });
-
-        return (
-          <Combobox
-            collection={collection}
-            onInputValueChange={(details) => filter(details.inputValue)}
-          >
-            <Combobox.Label>Country</Combobox.Label>
-            <Combobox.Control>
-              <Combobox.Input placeholder="e.g. Canada" />
-              <Combobox.ClearTrigger aria-label="Clear selection" />
-              <Combobox.Trigger aria-label="Open options" />
-            </Combobox.Control>
-            <Combobox.Positioner>
-              <Combobox.Content>
-                <Combobox.Empty>No countries found.</Combobox.Empty>
-                {collection.group().map(([continent, items]) => (
-                  <Combobox.ItemGroup key={continent}>
-                    <Combobox.ItemGroupLabel>
-                      {continent}
-                    </Combobox.ItemGroupLabel>
-                    {items.map((item) => (
-                      <Combobox.Item key={item.code} item={item}>
-                        <Combobox.ItemText>
-                          {item.country}
-                        </Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.ItemGroup>
-                ))}
-              </Combobox.Content>
-            </Combobox.Positioner>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/custom-objects-and-grouping.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const countries = [
-        { country: "Canada", code: "CA", continent: "North America" },
-        {
-          country: "United States",
-          code: "US",
-          continent: "North America",
-        },
-        { country: "Germany", code: "DE", continent: "Europe" },
-        { country: "France", code: "FR", continent: "Europe" },
-        { country: "Japan", code: "JP", continent: "Asia" },
-        { country: "South Korea", code: "KR", continent: "Asia" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Multiple
@@ -921,64 +294,9 @@ rather than combobox parts.
 <Preview>
   <ComboboxDocs.MultipleComboboxExample />
 
-  <Preview.Code>
-    {`
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox } from "@moduix/react";
-      import { useState } from "react";
-
-      export function MultipleComboboxDemo() {
-        const { contains } = useFilter({ sensitivity: "base" });
-        const { collection, filter } = useListCollection({
-          initialItems: fruits,
-          filter: contains,
-        });
-        const [value, setValue] = useState([]);
-        const selectedItems = fruits.filter((item) => value.includes(item.value));
-
-        return (
-          <Combobox
-            collection={collection}
-            value={value}
-            onValueChange={(details) => setValue(details.value)}
-            onInputValueChange={(details) => filter(details.inputValue)}
-            multiple
-          >
-            <Combobox.Label>Fruits</Combobox.Label>
-            <div className="tags">
-              {selectedItems.length === 0 ? (
-                <span className="note">None selected</span>
-              ) : null}
-              {selectedItems.map((item) => (
-                <span key={item.value} className="tag">
-                  {item.label}
-                </span>
-              ))}
-            </div>
-            <Combobox.Control>
-              <Combobox.Input placeholder="Search fruits" />
-              <Combobox.Trigger aria-label="Open options" />
-            </Combobox.Control>
-            <Combobox.Positioner>
-              <Combobox.Content>
-                <Combobox.Empty>No fruits found.</Combobox.Empty>
-                <Combobox.List>
-                  {collection.items.map((item) => (
-                    <Combobox.Item key={item.value} item={item}>
-                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                      <Combobox.ItemIndicator />
-                    </Combobox.Item>
-                  ))}
-                </Combobox.List>
-              </Combobox.Content>
-            </Combobox.Positioner>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/multiple.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -1005,18 +323,6 @@ rather than combobox parts.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const fruits = [
-        { label: "Apple", value: "apple" },
-        { label: "Banana", value: "banana" },
-        { label: "Mango", value: "mango" },
-        { label: "Orange", value: "orange" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Async Search
@@ -1027,99 +333,11 @@ from machine-driven input updates.
 <Preview>
   <ComboboxDocs.AsyncSearchComboboxExample />
 
-  <Preview.Code>
-    {`
-      import { createListCollection } from "@ark-ui/react/collection";
-      import { Combobox } from "@moduix/react";
-      import { useEffect, useMemo, useState } from "react";
-
-      export function AsyncSearchComboboxDemo() {
-        const [query, setQuery] = useState("");
-        const [items, setItems] = useState([] as typeof fruits);
-        const [loading, setLoading] = useState(false);
-
-        useEffect(() => {
-          if (!query) {
-            setItems([]);
-            setLoading(false);
-            return;
-          }
-
-          setLoading(true);
-          const timeout = window.setTimeout(() => {
-            setItems(
-              fruits.filter((item) =>
-                item.label.toLowerCase().includes(query.toLowerCase()),
-              ),
-            );
-            setLoading(false);
-          }, 300);
-
-          return () => window.clearTimeout(timeout);
-        }, [query]);
-
-        const collection = useMemo(
-          () => createListCollection({ items }),
-          [items],
-        );
-
-        return (
-          <Combobox
-            collection={collection}
-            inputValue={query}
-            onInputValueChange={(details) => {
-              if (
-                details.reason === "input-change" ||
-                details.inputValue === ""
-              ) {
-                setQuery(details.inputValue);
-              }
-            }}
-          >
-            <Combobox.Label>Search fruit</Combobox.Label>
-            <Combobox.Control>
-              <Combobox.Input placeholder="Start typing" />
-              <Combobox.ClearTrigger aria-label="Clear search" />
-              <Combobox.Trigger aria-label="Open options" />
-            </Combobox.Control>
-            <Combobox.Positioner>
-              <Combobox.Content>
-                {loading ? <div>Searching…</div> : null}
-                {!loading && query && collection.items.length === 0 ? (
-                  <div>No results found.</div>
-                ) : null}
-                <Combobox.List>
-                  {collection.items.map((item) => (
-                    <Combobox.Item key={item.value} item={item}>
-                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                      <Combobox.ItemIndicator />
-                    </Combobox.Item>
-                  ))}
-                </Combobox.List>
-              </Combobox.Content>
-            </Combobox.Positioner>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/async-search.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const fruits = [
-        { label: "Apple", value: "apple" },
-        { label: "Banana", value: "banana" },
-        { label: "Mango", value: "mango" },
-        { label: "Orange", value: "orange" },
-        { label: "Pineapple", value: "pineapple" },
-        { label: "Strawberry", value: "strawberry" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -1131,61 +349,11 @@ configuration.
 <Preview>
   <ComboboxDocs.RootProviderComboboxExample />
 
-  <Preview.Code>
-    {`
-      import { createListCollection } from "@ark-ui/react/collection";
-      import { useCombobox } from "@ark-ui/react/combobox";
-      import { Combobox } from "@moduix/react";
-
-      const collection = createListCollection({ items: jobTitles });
-
-      export function RootProviderComboboxDemo() {
-        const combobox = useCombobox({ collection });
-
-        return (
-          <div>
-            <button type="button" onClick={() => combobox.focus()}>
-              Focus
-            </button>
-            <Combobox.RootProvider value={combobox}>
-              <Combobox.Label>Job title</Combobox.Label>
-              <Combobox.Control>
-                <Combobox.Input />
-                <Combobox.ClearTrigger aria-label="Clear selection" />
-                <Combobox.Trigger aria-label="Open options" />
-              </Combobox.Control>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.List>
-                    {collection.items.map((item) => (
-                      <Combobox.Item key={item.value} item={item}>
-                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
-                    ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
-            </Combobox.RootProvider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/root-provider.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const jobTitles = [
-        { label: "Designer", value: "designer" },
-        { label: "Developer", value: "developer" },
-        { label: "Product Manager", value: "product-manager" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Styling

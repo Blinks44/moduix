@@ -107,35 +107,11 @@ Control the value when the text field should stay in sync with surrounding UI or
 <Preview>
   <ClipboardDocs.ControlledClipboardExample />
 
-  <Preview.Code>
-    {`
-      import { Clipboard } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledClipboardDemo() {
-        const [value, setValue] = useState("https://ark-ui.com");
-
-        return (
-          <Clipboard
-            value={value}
-            onValueChange={(details) => setValue(details.value)}
-          >
-            <Clipboard.Label>Share URL</Clipboard.Label>
-            <Clipboard.Control>
-              <Clipboard.Input />
-              <Clipboard.Trigger aria-label="Copy URL">
-                <Clipboard.Indicator />
-              </Clipboard.Trigger>
-            </Clipboard.Control>
-          </Clipboard>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/clipboard/controlled.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
-  <Preview.Data>{ClipboardDocs.clipboardControlledData}</Preview.Data>
 </Preview>
 
 ### Copy Status
@@ -146,39 +122,11 @@ introducing a separate clipboard abstraction.
 <Preview>
   <ClipboardDocs.CopyStatusClipboardExample />
 
-  <Preview.Code>
-    {`
-      import { Clipboard } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ClipboardStatusDemo() {
-        const [copyCount, setCopyCount] = useState(0);
-
-        return (
-          <Clipboard
-            defaultValue="maps-platform-token"
-            onStatusChange={(details) => {
-              if (details.copied) {
-                setCopyCount((value) => value + 1);
-              }
-            }}
-          >
-            <Clipboard.Control>
-              <Clipboard.Trigger>
-                <Clipboard.Indicator />
-                <Clipboard.ValueText />
-              </Clipboard.Trigger>
-            </Clipboard.Control>
-            <p>Copied {copyCount} times</p>
-          </Clipboard>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/clipboard/copy-status.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
-  <Preview.Data>{ClipboardDocs.clipboardCopyStatusData}</Preview.Data>
 </Preview>
 
 ### Timeout
@@ -188,29 +136,11 @@ Set `timeout` when copied state should remain visible for longer than the Ark de
 <Preview>
   <ClipboardDocs.TimeoutClipboardExample />
 
-  <Preview.Code>
-    {`
-      import { Clipboard } from "@moduix/react";
-
-      export function TimeoutClipboardDemo() {
-        return (
-          <Clipboard defaultValue="workspace-secret" timeout={5000}>
-            <Clipboard.Label>Five second copied state</Clipboard.Label>
-            <Clipboard.Control>
-              <Clipboard.Input readOnly />
-              <Clipboard.Trigger aria-label="Copy workspace secret">
-                <Clipboard.Indicator />
-              </Clipboard.Trigger>
-            </Clipboard.Control>
-          </Clipboard>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/clipboard/timeout.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
-  <Preview.Data>{ClipboardDocs.clipboardTimeoutData}</Preview.Data>
 </Preview>
 
 ### Value Text
@@ -220,28 +150,11 @@ Use `Clipboard.ValueText` when the copied value should read like inline content 
 <Preview>
   <ClipboardDocs.ValueTextClipboardExample />
 
-  <Preview.Code>
-    {`
-      import { Clipboard } from "@moduix/react";
-
-      export function ValueTextClipboardDemo() {
-        return (
-          <Clipboard defaultValue="moduix/clipboard">
-            <Clipboard.Control>
-              <Clipboard.ValueText />
-              <Clipboard.Trigger aria-label="Copy package name">
-                <Clipboard.Indicator />
-              </Clipboard.Trigger>
-            </Clipboard.Control>
-          </Clipboard>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/clipboard/value-text.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
-  <Preview.Data>{ClipboardDocs.clipboardValueTextData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -252,37 +165,11 @@ rendered tree but the visible parts should stay Ark-shaped.
 <Preview>
   <ClipboardDocs.RootProviderClipboardExample />
 
-  <Preview.Code>
-    {`
-      import { useClipboard } from "@ark-ui/react/clipboard";
-      import { Clipboard } from "@moduix/react";
-
-      export function RootProviderClipboardDemo() {
-        const clipboard = useClipboard({
-          defaultValue: "https://moduix.dev/docs/clipboard",
-        });
-
-        return (
-          <>
-            <p>Copied: {String(clipboard.copied)}</p>
-            <Clipboard.RootProvider value={clipboard}>
-              <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
-              <Clipboard.Control>
-                <Clipboard.Input readOnly />
-                <Clipboard.Trigger aria-label="Copy provider value">
-                  <Clipboard.Indicator />
-                </Clipboard.Trigger>
-              </Clipboard.Control>
-            </Clipboard.RootProvider>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/clipboard/root-provider.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
-  <Preview.Data>{ClipboardDocs.clipboardRootProviderData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -293,32 +180,11 @@ feedback. The default moduix styling does not darken the input or trigger after 
 <Preview>
   <ClipboardDocs.CustomStylingClipboardExample />
 
-  <Preview.Code>
-    {`
-      import { Clipboard } from "@moduix/react";
-
-      export function StyledClipboardDemo() {
-        return (
-          <Clipboard defaultValue="workspace-secret">
-            <Clipboard.Label>Styled copied state</Clipboard.Label>
-            <Clipboard.Control>
-              <Clipboard.Input readOnly className="clipboard-custom-input" />
-              <Clipboard.Trigger
-                className="clipboard-custom-trigger"
-                aria-label="Copy workspace secret"
-              >
-                <Clipboard.Indicator />
-              </Clipboard.Trigger>
-            </Clipboard.Control>
-          </Clipboard>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/clipboard/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{ClipboardDocs.clipboardCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{ClipboardDocs.clipboardCustomStylingData}</Preview.Data>
 </Preview>
 
 ## Styling

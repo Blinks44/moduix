@@ -102,18 +102,9 @@ Use `defaultChecked` when the checkbox should start checked and then manage its 
   <CheckboxDocs.CheckboxDefaultCheckedExample />
 
   <Preview.Code>
-    {`
-      <Checkbox defaultChecked>
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
-        <Checkbox.Label>Enable notifications</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox>
-    `}
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/default-checked.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{CheckboxDocs.checkboxLabelsData}</Preview.Data>
 </Preview>
 
 ### Controlled
@@ -124,28 +115,9 @@ Control `checked` from React state when the checkbox should coordinate with othe
   <CheckboxDocs.ControlledCheckboxExample />
 
   <Preview.Code>
-    {`
-      import { Checkbox } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledCheckboxDemo() {
-        const [checked, setChecked] = useState(true);
-
-        return (
-          <Checkbox checked={checked} onCheckedChange={(details) => setChecked(details.checked === true)}>
-            <Checkbox.Control>
-              <Checkbox.Indicator />
-            </Checkbox.Control>
-            <Checkbox.Label>{checked ? "Enabled" : "Disabled"}</Checkbox.Label>
-            <Checkbox.HiddenInput />
-          </Checkbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/controlled.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{`const initialChecked = true;`}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -157,33 +129,9 @@ the state hook from Ark UI directly.
   <CheckboxDocs.CheckboxRootProviderExample />
 
   <Preview.Code>
-    {`
-      import { useCheckbox } from "@ark-ui/react/checkbox";
-      import { Checkbox } from "@moduix/react";
-
-      export function RootProviderCheckboxDemo() {
-        const checkbox = useCheckbox({ defaultChecked: true });
-
-        return (
-          <>
-            <Checkbox.RootProvider value={checkbox}>
-              <Checkbox.Control>
-                <Checkbox.Indicator />
-              </Checkbox.Control>
-              <Checkbox.Label>Managed outside the tree</Checkbox.Label>
-              <Checkbox.HiddenInput />
-            </Checkbox.RootProvider>
-            <button type="button" onClick={() => checkbox.setChecked(!checkbox.checked)}>
-              {checkbox.checked ? "Uncheck" : "Check"}
-            </button>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/root-provider.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{`const initialChecked = true;`}</Preview.Data>
 </Preview>
 
 ### Disabled
@@ -194,18 +142,9 @@ Use `disabled` when the option is unavailable and should not accept focus or inp
   <CheckboxDocs.CheckboxDisabledExample />
 
   <Preview.Code>
-    {`
-      <Checkbox disabled>
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
-        <Checkbox.Label>Receive weekly summary</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox>
-    `}
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/disabled.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{CheckboxDocs.checkboxLabelsData}</Preview.Data>
 </Preview>
 
 ### Read Only
@@ -216,18 +155,9 @@ Use `readOnly` when the value should remain visible but user interaction should 
   <CheckboxDocs.CheckboxReadOnlyExample />
 
   <Preview.Code>
-    {`
-      <Checkbox readOnly defaultChecked>
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
-        <Checkbox.Label>Preserve existing setting</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox>
-    `}
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/read-only.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{CheckboxDocs.checkboxLabelsData}</Preview.Data>
 </Preview>
 
 ### Indeterminate
@@ -238,19 +168,9 @@ Use the indeterminate state when one checkbox reflects a partial selection inste
   <CheckboxDocs.CheckboxIndeterminateExample />
 
   <Preview.Code>
-    {`
-      <Checkbox checked="indeterminate">
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-          <Checkbox.Indicator indeterminate />
-        </Checkbox.Control>
-        <Checkbox.Label>Select all team members</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox>
-    `}
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/indeterminate.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{`const checked = 'indeterminate';`}</Preview.Data>
 </Preview>
 
 ### With Field
@@ -261,29 +181,9 @@ Use `Field` around one checkbox when it needs helper text, validation text, or s
   <CheckboxDocs.CheckboxWithFieldExample />
 
   <Preview.Code>
-    {`
-      import { Checkbox, Field } from "@moduix/react";
-
-      export function CheckboxFieldDemo() {
-        return (
-          <Field className="checkbox-field">
-            <Checkbox required name="terms" value="accepted">
-              <Checkbox.Control>
-                <Checkbox.Indicator />
-              </Checkbox.Control>
-              <Checkbox.Label>Accept terms</Checkbox.Label>
-              <Checkbox.HiddenInput />
-            </Checkbox>
-            <Field.HelperText>Required to continue.</Field.HelperText>
-            <Field.ErrorText>Please accept the terms.</Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/with-field.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{`const fieldName = 'terms';`}</Preview.Data>
 </Preview>
 
 ### With Form
@@ -294,31 +194,9 @@ Pass `name` and `value` to `Checkbox.Root` so the hidden input submits with nati
   <CheckboxDocs.CheckboxWithFormExample />
 
   <Preview.Code>
-    {`
-      <form onSubmit={(event) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        console.log(formData.get("terms"));
-      }}>
-        <Checkbox name="terms" value="accepted">
-          <Checkbox.Control>
-            <Checkbox.Indicator />
-          </Checkbox.Control>
-          <Checkbox.Label>I agree to the terms and conditions</Checkbox.Label>
-          <Checkbox.HiddenInput />
-        </Checkbox>
-        <button type="submit">Submit</button>
-      </form>
-    `}
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/with-form.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const name = "terms";
-      const value = "accepted";
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Sizes
@@ -329,24 +207,9 @@ Apply moduix `size` to match checkbox density to the surrounding form or setting
   <CheckboxDocs.CheckboxSizesExample />
 
   <Preview.Code>
-    {`
-      <Checkbox size="lg" defaultChecked>
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
-        <Checkbox.Label>Large</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox>
-    `}
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/sizes.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>
-    {`
-      const size = "lg";
-      const defaultChecked = true;
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Indicator
@@ -357,20 +220,9 @@ Replace the default checkmark when the product needs a different icon treatment 
   <CheckboxDocs.CustomIndicatorCheckboxExample />
 
   <Preview.Code>
-    {`
-      <Checkbox defaultChecked>
-        <Checkbox.Control>
-          <Checkbox.Indicator>
-            <CustomPlusIcon />
-          </Checkbox.Indicator>
-        </Checkbox.Control>
-        <Checkbox.Label>Use a custom indicator icon</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox>
-    `}
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/custom-indicator.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{`const icon = 'custom plus';`}</Preview.Data>
 </Preview>
 
 ### Group
@@ -381,22 +233,9 @@ Use `Checkbox.Group` when several options belong to one shared array of selected
   <CheckboxDocs.CheckboxGroupExample />
 
   <Preview.Code>
-    {`
-      <Checkbox.Group defaultValue={["email"]} name="notifications">
-        {options.map((option) => (
-          <Checkbox key={option.value} value={option.value}>
-            <Checkbox.Control>
-              <Checkbox.Indicator />
-            </Checkbox.Control>
-            <Checkbox.Label>{option.label}</Checkbox.Label>
-            <Checkbox.HiddenInput />
-          </Checkbox>
-        ))}
-      </Checkbox.Group>
-    `}
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/group.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{CheckboxDocs.notificationOptionsData}</Preview.Data>
 </Preview>
 
 ### Controlled Group
@@ -407,25 +246,9 @@ Control the group value from React state when selected options need to drive fil
   <CheckboxDocs.ControlledCheckboxGroupExample />
 
   <Preview.Code>
-    {`
-      const [value, setValue] = useState(["push"] as string[]);
-
-      <Checkbox.Group value={value} onValueChange={setValue} name="notifications">
-        {options.map((option) => (
-          <Checkbox key={option.value} value={option.value}>
-            <Checkbox.Control>
-              <Checkbox.Indicator />
-            </Checkbox.Control>
-            <Checkbox.Label>{option.label}</Checkbox.Label>
-            <Checkbox.HiddenInput />
-          </Checkbox>
-        ))}
-      </Checkbox.Group>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/controlled-group.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{CheckboxDocs.notificationOptionsData}</Preview.Data>
 </Preview>
 
 ### Invalid Group
@@ -436,22 +259,9 @@ Mark the group invalid when the whole set participates in validation and require
   <CheckboxDocs.CheckboxGroupInvalidExample />
 
   <Preview.Code>
-    {`
-      <Checkbox.Group invalid defaultValue={["email"]} name="notifications">
-        {options.map((option) => (
-          <Checkbox key={option.value} value={option.value}>
-            <Checkbox.Control>
-              <Checkbox.Indicator />
-            </Checkbox.Control>
-            <Checkbox.Label>{option.label}</Checkbox.Label>
-            <Checkbox.HiddenInput />
-          </Checkbox>
-        ))}
-      </Checkbox.Group>
-    `}
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/invalid-group.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{CheckboxDocs.notificationOptionsData}</Preview.Data>
 </Preview>
 
 ### Max Selected
@@ -462,22 +272,9 @@ Use `maxSelectedValues` when only a fixed number of options can be selected.
   <CheckboxDocs.CheckboxGroupMaxSelectedExample />
 
   <Preview.Code>
-    {`
-      <Checkbox.Group defaultValue={["react", "solid"]} maxSelectedValues={2} name="frameworks">
-        {options.map((option) => (
-          <Checkbox key={option.value} value={option.value}>
-            <Checkbox.Control>
-              <Checkbox.Indicator />
-            </Checkbox.Control>
-            <Checkbox.Label>{option.label}</Checkbox.Label>
-            <Checkbox.HiddenInput />
-          </Checkbox>
-        ))}
-      </Checkbox.Group>
-    `}
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/max-selected.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{CheckboxDocs.frameworkOptionsWithSvelteData}</Preview.Data>
 </Preview>
 
 ### Select All
@@ -488,28 +285,9 @@ Compose a parent checkbox and a controlled group when one control should toggle 
   <CheckboxDocs.CheckboxGroupSelectAllExample />
 
   <Preview.Code>
-    {`
-      const [value, setValue] = useState(["react"] as string[]);
-      const allValues = options.map((option) => option.value);
-      const allSelected = value.length === allValues.length;
-      const indeterminate = value.length > 0 && value.length < allValues.length;
-
-      <Checkbox
-        checked={indeterminate ? "indeterminate" : allSelected}
-        onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}
-      >
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-          <Checkbox.Indicator indeterminate />
-        </Checkbox.Control>
-        <Checkbox.Label>Select all</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/select-all.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{CheckboxDocs.frameworkOptionsData}</Preview.Data>
 </Preview>
 
 ### Group With Form
@@ -520,28 +298,9 @@ Use `Checkbox.Group` inside a form and read selected values with `FormData.getAl
   <CheckboxDocs.CheckboxGroupWithFormExample />
 
   <Preview.Code>
-    {`
-      <form onSubmit={(event) => {
-        event.preventDefault();
-        console.log(new FormData(event.currentTarget).getAll("framework"));
-      }}>
-        <Checkbox.Group defaultValue={["react"]} name="framework">
-          {options.map((option) => (
-            <Checkbox key={option.value} value={option.value}>
-              <Checkbox.Control>
-                <Checkbox.Indicator />
-              </Checkbox.Control>
-              <Checkbox.Label>{option.label}</Checkbox.Label>
-              <Checkbox.HiddenInput />
-            </Checkbox>
-          ))}
-        </Checkbox.Group>
-        <button type="submit">Submit</button>
-      </form>
-    `}
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/group-with-form.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{CheckboxDocs.frameworkOptionsData}</Preview.Data>
 </Preview>
 
 ### Group With Fieldset
@@ -552,32 +311,9 @@ Wrap the group in `Fieldset` when the checkbox set is one semantic form field wi
   <CheckboxDocs.CheckboxGroupFieldsetExample />
 
   <Preview.Code>
-    {`
-      import { Checkbox, Fieldset } from "@moduix/react";
-
-      export function CheckboxGroupFieldsetDemo() {
-        return (
-          <Fieldset className="checkbox-fieldset">
-            <Fieldset.Legend>Frameworks</Fieldset.Legend>
-            <Checkbox.Group defaultValue={["react"]} name="frameworks">
-              {options.map((option) => (
-                <Checkbox key={option.value} value={option.value}>
-                  <Checkbox.Control>
-                    <Checkbox.Indicator />
-                  </Checkbox.Control>
-                  <Checkbox.Label>{option.label}</Checkbox.Label>
-                  <Checkbox.HiddenInput />
-                </Checkbox>
-              ))}
-            </Checkbox.Group>
-          </Fieldset>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/group-with-fieldset.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxExampleCss}</Preview.CSS>
-  <Preview.Data>{CheckboxDocs.frameworkOptionsData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -588,24 +324,9 @@ Use local classes and CSS variables when the checkbox visuals need a custom tone
   <CheckboxDocs.CustomStylingCheckboxExample />
 
   <Preview.Code>
-    {`
-      <Checkbox.Group defaultValue={["email"]} name="styled-channels" className="checkbox-custom-group">
-        {options.map((option) => (
-          <Checkbox key={option.value} value={option.value} className="checkbox-custom-root">
-            <Checkbox.Control className="checkbox-custom-control">
-              <Checkbox.Indicator>
-                <CustomPlusIcon className="checkbox-custom-icon" />
-              </Checkbox.Indicator>
-            </Checkbox.Control>
-            <Checkbox.Label className="checkbox-custom-label">{option.label}</Checkbox.Label>
-            <Checkbox.HiddenInput />
-          </Checkbox>
-        ))}
-      </Checkbox.Group>
-    `}
-  </Preview.Code>
+  <include lang="tsx">./_snippets/checkbox/custom-styling.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{CheckboxDocs.checkboxCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{CheckboxDocs.notificationOptionsData}</Preview.Data>
 </Preview>
 
 ## Styling

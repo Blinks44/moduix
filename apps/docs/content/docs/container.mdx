@@ -111,24 +111,9 @@ preserving the selected gutter.
 <Preview>
   <ContainerDocs.ContainerSizesExample />
 
-  <Preview.Code>
-    {`
-      import { Container, Text } from "@moduix/react";
-
-      export function ContainerSizesDemo() {
-        return (
-          <div className="stack">
-            {containerSizes.map((size) => (
-              <Container key={size.value} size={size.value} className="container">
-                <Text>{size.label}: size="{size.value}"</Text>
-              </Container>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/container/sizes.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -147,20 +132,6 @@ preserving the selected gutter.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const containerSizes = [
-        { value: "xs", label: "Extra small" },
-        { value: "sm", label: "Small" },
-        { value: "md", label: "Medium" },
-        { value: "lg", label: "Large" },
-        { value: "xl", label: "Extra large" },
-        { value: "full", label: "Full width" },
-      ] as const;
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Gutters
@@ -170,24 +141,9 @@ Use `gutter` to control responsive inline padding.
 <Preview>
   <ContainerDocs.ContainerGuttersExample />
 
-  <Preview.Code>
-    {`
-      import { Container, Text } from "@moduix/react";
-
-      export function ContainerGuttersDemo() {
-        return (
-          <div className="stack">
-            {containerGutters.map((gutter) => (
-              <Container key={gutter.value} gutter={gutter.value} className="container">
-                <Text>{gutter.label}</Text>
-              </Container>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/container/gutters.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -206,18 +162,6 @@ Use `gutter` to control responsive inline padding.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const containerGutters = [
-        { value: "none", label: "No gutter" },
-        { value: "sm", label: "Small gutter" },
-        { value: "md", label: "Medium gutter" },
-        { value: "lg", label: "Large gutter" },
-      ] as const;
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Semantic Element
@@ -227,23 +171,9 @@ Use `asChild` when the layout wrapper should also describe document structure.
 <Preview>
   <ContainerDocs.ContainerSemanticExample />
 
-  <Preview.Code>
-    {`
-      import { Container, Heading, Text } from "@moduix/react";
-
-      export function ContainerSemanticDemo() {
-        return (
-          <Container asChild size="md" className="container">
-            <main>
-              <Heading as="h3" size="lg">{semanticContent.title}</Heading>
-              <Text tone="muted">{semanticContent.description}</Text>
-            </main>
-          </Container>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/container/semantic-element.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -259,16 +189,6 @@ Use `asChild` when the layout wrapper should also describe document structure.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const semanticContent = {
-        title: "Main content area",
-        description: "Use asChild when the wrapper should carry semantic meaning.",
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### With Bleed
@@ -278,24 +198,9 @@ Keep the text column constrained and let only the wider child opt out.
 <Preview>
   <ContainerDocs.ContainerBleedExample />
 
-  <Preview.Code>
-    {`
-      import { Bleed, Container, Heading, Text } from "@moduix/react";
-
-      export function ContainerBleedDemo() {
-        return (
-          <Container className="container">
-            <Heading as="h3" size="lg">{bleedContent.title}</Heading>
-            <Text tone="muted">{bleedContent.description}</Text>
-            <Bleed.Root inline="md">
-              <div className="bleedSurface">{bleedContent.callout}</div>
-            </Bleed.Root>
-          </Container>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/container/with-bleed.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -317,18 +222,6 @@ Keep the text column constrained and let only the wider child opt out.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const bleedContent = {
-        title: "Article body",
-        description:
-          "Keep the reading width constrained, then use Bleed for content that should stretch wider.",
-        callout: "Bleed content escapes the constrained column.",
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -338,20 +231,9 @@ Pass `className` when styling the root or overriding container variables locally
 <Preview>
   <ContainerDocs.CustomStylingContainerExample />
 
-  <Preview.Code>
-    {`
-      import { Container, Text } from "@moduix/react";
-
-      export function CustomStyledContainerDemo() {
-        return (
-          <Container className="customContainer">
-            <Text weight="semibold">{customContent.label}</Text>
-          </Container>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/container/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -369,15 +251,6 @@ Pass `className` when styling the root or overriding container variables locally
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const customContent = {
-        label: "Customized max width and gutters",
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Styling

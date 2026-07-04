@@ -141,50 +141,9 @@ Use controlled state when the selected color must stay in sync with application 
   <ColorPickerDocs.ControlledColorPickerExample />
 
   <Preview.Code>
-    {`
-      import { ColorPicker, parseColor } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledColorPickerDemo() {
-        const [value, setValue] = useState(() => parseColor("#16a34a"));
-
-        return (
-          <ColorPicker value={value} onValueChange={(details) => setValue(details.value)}>
-            <ColorPicker.Label>Color</ColorPicker.Label>
-            <ColorPicker.Control>
-              <ColorPicker.ChannelInput channel="hex" />
-              <ColorPicker.ChannelInput channel="alpha" />
-              <ColorPicker.Trigger aria-label="Open color picker">
-                <ColorPicker.TransparencyGrid />
-                <ColorPicker.ValueSwatch />
-              </ColorPicker.Trigger>
-            </ColorPicker.Control>
-            <ColorPicker.Positioner>
-              <ColorPicker.Content>
-                <ColorPicker.Area>
-                  <ColorPicker.AreaBackground />
-                  <ColorPicker.AreaThumb />
-                </ColorPicker.Area>
-                <ColorPicker.ChannelSlider channel="hue">
-                  <ColorPicker.ChannelSliderTrack />
-                  <ColorPicker.ChannelSliderThumb />
-                </ColorPicker.ChannelSlider>
-                <ColorPicker.ChannelSlider channel="alpha">
-                  <ColorPicker.TransparencyGrid />
-                  <ColorPicker.ChannelSliderTrack />
-                  <ColorPicker.ChannelSliderThumb />
-                </ColorPicker.ChannelSlider>
-              </ColorPicker.Content>
-            </ColorPicker.Positioner>
-            <ColorPicker.HiddenInput />
-          </ColorPicker>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/controlled.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerControlledData}</Preview.Data>
 </Preview>
 
 ### Disabled
@@ -196,30 +155,9 @@ the current color visible.
   <ColorPickerDocs.DisabledColorPickerExample />
 
   <Preview.Code>
-    {`
-      import { ColorPicker, parseColor } from "@moduix/react";
-
-      export function DisabledColorPickerDemo() {
-        return (
-          <ColorPicker disabled defaultValue={parseColor("#64748b")}>
-            <ColorPicker.Label>Color</ColorPicker.Label>
-            <ColorPicker.Control>
-              <ColorPicker.ChannelInput channel="hex" />
-              <ColorPicker.ChannelInput channel="alpha" />
-              <ColorPicker.Trigger aria-label="Open color picker">
-                <ColorPicker.TransparencyGrid />
-                <ColorPicker.ValueSwatch />
-              </ColorPicker.Trigger>
-            </ColorPicker.Control>
-            <ColorPicker.HiddenInput />
-          </ColorPicker>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/disabled.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerEmptyData}</Preview.Data>
 </Preview>
 
 ### Form Usage
@@ -231,35 +169,9 @@ with native form data.
   <ColorPickerDocs.FormUsageColorPickerExample />
 
   <Preview.Code>
-    {`
-      import { ColorPicker, parseColor } from "@moduix/react";
-
-      export function FormUsageColorPickerDemo() {
-        return (
-          <form className="color-picker-form">
-            <ColorPicker name="accent" defaultValue={parseColor("#eb5e41")}>
-              <ColorPicker.Label>Color</ColorPicker.Label>
-              <ColorPicker.Control>
-                <ColorPicker.ChannelInput channel="hex" />
-                <ColorPicker.ChannelInput channel="alpha" />
-                <ColorPicker.Trigger aria-label="Open color picker">
-                  <ColorPicker.TransparencyGrid />
-                  <ColorPicker.ValueSwatch />
-                </ColorPicker.Trigger>
-              </ColorPicker.Control>
-              <ColorPicker.HiddenInput />
-            </ColorPicker>
-            <button className="color-picker-submit" type="submit">
-              Submit
-            </button>
-          </form>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/form-usage.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerFormCss}</Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerFormData}</Preview.Data>
 </Preview>
 
 ### Field State
@@ -271,34 +183,9 @@ field container and should expose the same state through Ark data attributes.
   <ColorPickerDocs.FieldStateColorPickerExample />
 
   <Preview.Code>
-    {`
-      import { ColorPicker, Field, parseColor } from "@moduix/react";
-
-      export function FieldStateColorPickerDemo() {
-        return (
-          <Field className="color-picker-field">
-            <ColorPicker name="accent" required invalid defaultValue={parseColor("#eb5e41")}>
-              <ColorPicker.Label>Accent color</ColorPicker.Label>
-              <ColorPicker.Control>
-                <ColorPicker.ChannelInput channel="hex" />
-                <ColorPicker.ChannelInput channel="alpha" />
-                <ColorPicker.Trigger aria-label="Open color picker">
-                  <ColorPicker.TransparencyGrid />
-                  <ColorPicker.ValueSwatch />
-                </ColorPicker.Trigger>
-              </ColorPicker.Control>
-              <ColorPicker.HiddenInput />
-            </ColorPicker>
-            <Field.HelperText>Used for generated charts and callouts.</Field.HelperText>
-            <Field.ErrorText>Choose an accent color.</Field.ErrorText>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/field-state.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerFieldCss}</Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerFieldData}</Preview.Data>
 </Preview>
 
 ### Input Only
@@ -310,26 +197,9 @@ heavy for the interface.
   <ColorPickerDocs.InputOnlyColorPickerExample />
 
   <Preview.Code>
-    {`
-      import { ColorPicker, parseColor } from "@moduix/react";
-
-      export function InputOnlyColorPickerDemo() {
-        return (
-          <ColorPicker defaultValue={parseColor("#0f172a")}>
-            <ColorPicker.Label>Hex color</ColorPicker.Label>
-            <ColorPicker.Control>
-              <ColorPicker.ChannelInput channel="hex" />
-              <ColorPicker.ChannelInput channel="alpha" />
-            </ColorPicker.Control>
-            <ColorPicker.HiddenInput />
-          </ColorPicker>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/input-only.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerEmptyData}</Preview.Data>
 </Preview>
 
 ### Slider Only
@@ -340,34 +210,9 @@ Use slider-only composition when direct manipulation matters but typed channel i
   <ColorPickerDocs.SliderOnlyColorPickerExample />
 
   <Preview.Code>
-    {`
-      import { ColorPicker, parseColor } from "@moduix/react";
-
-      export function SliderOnlyColorPickerDemo() {
-        return (
-          <ColorPicker inline defaultValue={parseColor("#2563eb")}>
-            <ColorPicker.Label>Channels</ColorPicker.Label>
-            <ColorPicker.Area>
-              <ColorPicker.AreaBackground />
-              <ColorPicker.AreaThumb />
-            </ColorPicker.Area>
-            <ColorPicker.ChannelSlider channel="hue">
-              <ColorPicker.ChannelSliderTrack />
-              <ColorPicker.ChannelSliderThumb />
-            </ColorPicker.ChannelSlider>
-            <ColorPicker.ChannelSlider channel="alpha">
-              <ColorPicker.TransparencyGrid />
-              <ColorPicker.ChannelSliderTrack />
-              <ColorPicker.ChannelSliderThumb />
-            </ColorPicker.ChannelSlider>
-          </ColorPicker>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/slider-only.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerEmptyData}</Preview.Data>
 </Preview>
 
 ### Swatch Only
@@ -379,31 +224,9 @@ be unnecessary.
   <ColorPickerDocs.SwatchOnlyColorPickerExample />
 
   <Preview.Code>
-    {`
-      import { ColorPicker, parseColor } from "@moduix/react";
-
-      export function SwatchOnlyColorPickerDemo() {
-        return (
-          <ColorPicker inline defaultValue={parseColor("#f97316")}>
-            <ColorPicker.Label>Brand color</ColorPicker.Label>
-            <ColorPicker.SwatchGroup>
-              {swatches.map((color) => (
-                <ColorPicker.SwatchTrigger key={color} value={color}>
-                  <ColorPicker.Swatch value={color}>
-                    <ColorPicker.SwatchIndicator />
-                  </ColorPicker.Swatch>
-                </ColorPicker.SwatchTrigger>
-              ))}
-            </ColorPicker.SwatchGroup>
-            <ColorPicker.HiddenInput />
-          </ColorPicker>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/swatch-only.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerSwatchesData}</Preview.Data>
 </Preview>
 
 ### Swatches
@@ -415,47 +238,9 @@ editing. `closeOnSelect` follows Ark behavior and closes the popup after a swatc
   <ColorPickerDocs.SwatchesColorPickerExample />
 
   <Preview.Code>
-    {`
-      import { ColorPicker, parseColor } from "@moduix/react";
-
-      export function SwatchesColorPickerDemo() {
-        return (
-          <ColorPicker defaultValue={parseColor("#f97316")} closeOnSelect>
-            <ColorPicker.Label>Color</ColorPicker.Label>
-            <ColorPicker.Control>
-              <ColorPicker.ChannelInput channel="hex" />
-              <ColorPicker.ChannelInput channel="alpha" />
-              <ColorPicker.Trigger aria-label="Open color picker">
-                <ColorPicker.TransparencyGrid />
-                <ColorPicker.ValueSwatch />
-              </ColorPicker.Trigger>
-            </ColorPicker.Control>
-            <ColorPicker.Positioner>
-              <ColorPicker.Content>
-                <ColorPicker.Area>
-                  <ColorPicker.AreaBackground />
-                  <ColorPicker.AreaThumb />
-                </ColorPicker.Area>
-                <ColorPicker.SwatchGroup>
-                  {swatches.map((color) => (
-                    <ColorPicker.SwatchTrigger key={color} value={color}>
-                      <ColorPicker.Swatch value={color}>
-                        <ColorPicker.SwatchIndicator />
-                      </ColorPicker.Swatch>
-                    </ColorPicker.SwatchTrigger>
-                  ))}
-                </ColorPicker.SwatchGroup>
-              </ColorPicker.Content>
-            </ColorPicker.Positioner>
-            <ColorPicker.HiddenInput />
-          </ColorPicker>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/swatches.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerSwatchesData}</Preview.Data>
 </Preview>
 
 ### Value Swatch
@@ -466,30 +251,13 @@ the full picker.
 <Preview>
   <ColorPickerDocs.ValueSwatchColorPickerExample />
 
-  <Preview.Code>
-    {`
-      import { ColorPicker, parseColor } from "@moduix/react";
-
-      export function ValueSwatchColorPickerDemo() {
-        return (
-          <ColorPicker defaultValue={parseColor("#dc2626")}>
-            <ColorPicker.Label>Current color</ColorPicker.Label>
-            <div className="color-picker-value-swatch">
-              <ColorPicker.TransparencyGrid />
-              <ColorPicker.ValueSwatch />
-            </div>
-            <ColorPicker.ValueText format="hex" />
-          </ColorPicker>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/value-swatch.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {ColorPickerDocs.colorPickerValueSwatchCss}
   </Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerEmptyData}</Preview.Data>
 </Preview>
 
 ### Inline
@@ -499,48 +267,13 @@ Use `inline` for settings panels where the color tools should stay visible witho
 <Preview>
   <ColorPickerDocs.InlineColorPickerExample />
 
-  <Preview.Code>
-    {`
-      import { ColorPicker, parseColor } from "@moduix/react";
-
-      export function InlineColorPickerDemo() {
-        return (
-          <ColorPicker inline defaultValue={parseColor("#2563eb")}>
-            <div className="color-picker-value-row">
-              <ColorPicker.Label>Inline color</ColorPicker.Label>
-              <ColorPicker.ValueText format="hex" />
-            </div>
-            <ColorPicker.Area>
-              <ColorPicker.AreaBackground />
-              <ColorPicker.AreaThumb />
-            </ColorPicker.Area>
-            <ColorPicker.ChannelSlider channel="hue">
-              <ColorPicker.ChannelSliderTrack />
-              <ColorPicker.ChannelSliderThumb />
-            </ColorPicker.ChannelSlider>
-            <ColorPicker.ChannelSlider channel="alpha">
-              <ColorPicker.TransparencyGrid />
-              <ColorPicker.ChannelSliderTrack />
-              <ColorPicker.ChannelSliderThumb />
-            </ColorPicker.ChannelSlider>
-            <ColorPicker.View format="rgba">
-              <div className="color-picker-input-row">
-                <ColorPicker.ChannelInput channel="hex" />
-                <ColorPicker.ChannelInput channel="alpha" />
-              </div>
-            </ColorPicker.View>
-            <ColorPicker.HiddenInput />
-          </ColorPicker>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/inline.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {ColorPickerDocs.colorPickerInlineCss}
   </Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerEmptyData}</Preview.Data>
 </Preview>
 
 ### Open Controlled
@@ -551,46 +284,9 @@ Use controlled `open` state when another control or workflow owns whether the po
   <ColorPickerDocs.OpenControlledColorPickerExample />
 
   <Preview.Code>
-    {`
-      import { ColorPicker, parseColor } from "@moduix/react";
-      import { useState } from "react";
-
-      export function OpenControlledColorPickerDemo() {
-        const [open, setOpen] = useState(false);
-
-        return (
-          <ColorPicker
-            defaultValue={parseColor("#14b8a6")}
-            open={open}
-            onOpenChange={(details) => setOpen(details.open)}
-          >
-            <ColorPicker.Label>Open controlled</ColorPicker.Label>
-            <ColorPicker.Control>
-              <ColorPicker.ChannelInput channel="hex" />
-              <ColorPicker.Trigger aria-label="Open color picker">
-                <ColorPicker.TransparencyGrid />
-                <ColorPicker.ValueSwatch />
-              </ColorPicker.Trigger>
-            </ColorPicker.Control>
-            <ColorPicker.Positioner>
-              <ColorPicker.Content>
-                <ColorPicker.Area>
-                  <ColorPicker.AreaBackground />
-                  <ColorPicker.AreaThumb />
-                </ColorPicker.Area>
-              </ColorPicker.Content>
-            </ColorPicker.Positioner>
-            <button type="button" onClick={() => setOpen((current) => !current)}>
-              {open ? "Close" : "Open"}
-            </button>
-          </ColorPicker>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/open-controlled.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerOpenControlledData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -602,44 +298,9 @@ the rendered tree and shared with nearby controls.
   <ColorPickerDocs.RootProviderColorPickerExample />
 
   <Preview.Code>
-    {`
-      import { useColorPicker } from "@ark-ui/react/color-picker";
-      import { ColorPicker, parseColor } from "@moduix/react";
-
-      export function RootProviderColorPickerDemo() {
-        const colorPicker = useColorPicker({ defaultValue: parseColor("#9333ea") });
-
-        return (
-          <ColorPicker.RootProvider value={colorPicker}>
-            <div className="color-picker-value-row">
-              <ColorPicker.Label>Provider color</ColorPicker.Label>
-              <ColorPicker.ValueText format="hex" />
-            </div>
-            <ColorPicker.Control>
-              <ColorPicker.ChannelInput channel="hex" />
-              <ColorPicker.ChannelInput channel="alpha" />
-              <ColorPicker.Trigger aria-label="Open color picker">
-                <ColorPicker.TransparencyGrid />
-                <ColorPicker.ValueSwatch />
-              </ColorPicker.Trigger>
-            </ColorPicker.Control>
-            <ColorPicker.Positioner>
-              <ColorPicker.Content>
-                <ColorPicker.Area>
-                  <ColorPicker.AreaBackground />
-                  <ColorPicker.AreaThumb />
-                </ColorPicker.Area>
-              </ColorPicker.Content>
-            </ColorPicker.Positioner>
-            <ColorPicker.HiddenInput />
-          </ColorPicker.RootProvider>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/root-provider.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerEmptyData}</Preview.Data>
 </Preview>
 
 ### Format Views
@@ -651,53 +312,9 @@ channel input groups without changing the picker structure.
   <ColorPickerDocs.FormatColorPickerExample />
 
   <Preview.Code>
-    {`
-      import { ColorPicker, parseColor } from "@moduix/react";
-      import { useState } from "react";
-
-      export function FormatColorPickerDemo() {
-        const [format, setFormat] = useState("rgba");
-
-        return (
-          <ColorPicker
-            inline
-            defaultValue={parseColor("#9333ea")}
-            format={format}
-            onFormatChange={(details) => setFormat(details.format)}
-          >
-            <div className="color-picker-value-row">
-              <ColorPicker.Label>Format</ColorPicker.Label>
-              <ColorPicker.FormatSelect aria-label="Color format">
-                <option value="rgba">RGBA</option>
-                <option value="hsla">HSLA</option>
-              </ColorPicker.FormatSelect>
-            </div>
-            <ColorPicker.Area>
-              <ColorPicker.AreaBackground />
-              <ColorPicker.AreaThumb />
-            </ColorPicker.Area>
-            <ColorPicker.View format="rgba">
-              <div className="color-picker-input-row">
-                <ColorPicker.ChannelInput channel="hex" />
-                <ColorPicker.ChannelInput channel="alpha" />
-              </div>
-            </ColorPicker.View>
-            <ColorPicker.View format="hsla">
-              <div className="color-picker-input-row">
-                <ColorPicker.ChannelInput channel="hue" />
-                <ColorPicker.ChannelInput channel="saturation" />
-                <ColorPicker.ChannelInput channel="lightness" />
-              </div>
-            </ColorPicker.View>
-            <ColorPicker.HiddenInput />
-          </ColorPicker>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/format-views.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerFormatData}</Preview.Data>
 </Preview>
 
 ### Inside Dialog
@@ -709,53 +326,9 @@ layer above the dialog content.
   <ColorPickerDocs.InsideDialogColorPickerExample />
 
   <Preview.Code>
-    {`
-      import { ColorPicker, Dialog, parseColor } from "@moduix/react";
-
-      export function InsideDialogColorPickerDemo() {
-        return (
-          <Dialog.Root>
-            <Dialog.Trigger className="color-picker-dialog-trigger">Open dialog</Dialog.Trigger>
-            <Dialog.Backdrop />
-            <Dialog.Positioner>
-              <Dialog.Content>
-                <Dialog.CloseIcon />
-                <Dialog.Title>Choose a color</Dialog.Title>
-                <Dialog.Description>
-                  The color picker positioner is portalled automatically for correct layering.
-                </Dialog.Description>
-                <div className="color-picker-dialog-body">
-                  <ColorPicker defaultValue={parseColor("#eb5e41")}>
-                    <ColorPicker.Label>Color</ColorPicker.Label>
-                    <ColorPicker.Control>
-                      <ColorPicker.ChannelInput channel="hex" />
-                      <ColorPicker.ChannelInput channel="alpha" />
-                      <ColorPicker.Trigger aria-label="Open color picker">
-                        <ColorPicker.TransparencyGrid />
-                        <ColorPicker.ValueSwatch />
-                      </ColorPicker.Trigger>
-                    </ColorPicker.Control>
-                    <ColorPicker.Positioner>
-                      <ColorPicker.Content>
-                        <ColorPicker.Area>
-                          <ColorPicker.AreaBackground />
-                          <ColorPicker.AreaThumb />
-                        </ColorPicker.Area>
-                      </ColorPicker.Content>
-                    </ColorPicker.Positioner>
-                    <ColorPicker.HiddenInput />
-                  </ColorPicker>
-                </div>
-              </Dialog.Content>
-            </Dialog.Positioner>
-          </Dialog.Root>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/inside-dialog.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerDialogCss}</Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerDialogData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -765,52 +338,11 @@ Use CSS variables on the root for color, sizing, focus ring, popup shadow, and s
 <Preview>
   <ColorPickerDocs.CustomStylingColorPickerExample />
 
-  <Preview.Code>
-    {`
-      import { ColorPicker, parseColor } from "@moduix/react";
-
-      export function CustomColorPickerDemo() {
-        return (
-          <ColorPicker
-            className="docs-color-picker-custom"
-            defaultValue={parseColor("#0ea5e9")}
-          >
-            <ColorPicker.Label>Color</ColorPicker.Label>
-            <ColorPicker.Control>
-              <ColorPicker.ChannelInput channel="hex" />
-              <ColorPicker.ChannelInput channel="alpha" />
-              <ColorPicker.Trigger aria-label="Open color picker">
-                <ColorPicker.TransparencyGrid />
-                <ColorPicker.ValueSwatch />
-              </ColorPicker.Trigger>
-            </ColorPicker.Control>
-            <ColorPicker.Positioner>
-              <ColorPicker.Content>
-                <ColorPicker.Area>
-                  <ColorPicker.AreaBackground />
-                  <ColorPicker.AreaThumb />
-                </ColorPicker.Area>
-                <ColorPicker.SwatchGroup>
-                  {swatches.map((color) => (
-                    <ColorPicker.SwatchTrigger key={color} value={color}>
-                      <ColorPicker.Swatch value={color}>
-                        <ColorPicker.SwatchIndicator />
-                      </ColorPicker.Swatch>
-                    </ColorPicker.SwatchTrigger>
-                  ))}
-                </ColorPicker.SwatchGroup>
-              </ColorPicker.Content>
-            </ColorPicker.Positioner>
-            <ColorPicker.HiddenInput />
-          </ColorPicker>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{ColorPickerDocs.colorPickerCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{ColorPickerDocs.colorPickerSwatchesData}</Preview.Data>
 </Preview>
 
 ## Styling

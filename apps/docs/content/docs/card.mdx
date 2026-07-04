@@ -101,28 +101,9 @@ Use the Chakra-aligned variants to communicate surface hierarchy.
 <Preview>
   <CardDocs.CardVariantsExample />
 
-  <Preview.Code>
-    {`
-      import { Card } from "@moduix/react";
-
-      export function CardVariantsDemo() {
-        return (
-          <div className="cards">
-            {variants.map((variant) => (
-              <Card key={variant} className="card" variant={variant}>
-                <Card.Header>
-                  <Card.Title>{variant}</Card.Title>
-                  <Card.Description>{descriptions[variant]}</Card.Description>
-                </Card.Header>
-                <Card.Body>Use variants to communicate surface hierarchy.</Card.Body>
-              </Card>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/variants.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -138,17 +119,6 @@ Use the Chakra-aligned variants to communicate surface hierarchy.
     `}
 
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const variants = ["elevated", "outline", "subtle"] as const;
-      const descriptions = {
-        elevated: "Raised above nearby content.",
-        outline: "Separated with a visible border.",
-        subtle: "Grouped with a muted background.",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Sizes
@@ -158,28 +128,9 @@ Use `sm`, `md`, and `lg` to change card padding and title scale.
 <Preview>
   <CardDocs.CardSizesExample />
 
-  <Preview.Code>
-    {`
-      import { Card } from "@moduix/react";
-
-      export function CardSizesDemo() {
-        return (
-          <div className="cards">
-            {sizes.map((size) => (
-              <Card key={size} className="card" size={size}>
-                <Card.Header>
-                  <Card.Title>Card {size}</Card.Title>
-                  <Card.Description>{descriptions[size]}</Card.Description>
-                </Card.Header>
-                <Card.Body>Shared content with size-specific density.</Card.Body>
-              </Card>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/sizes.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -195,17 +146,6 @@ Use `sm`, `md`, and `lg` to change card padding and title scale.
     `}
 
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const sizes = ["sm", "md", "lg"] as const;
-      const descriptions = {
-        sm: "Compact supporting content.",
-        md: "Default product content.",
-        lg: "Prominent standalone content.",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Within Form
@@ -215,37 +155,9 @@ Compose the root as a form when the card groups related fields and actions.
 <Preview>
   <CardDocs.CardFormExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Card, Input } from "@moduix/react";
-
-      export function CardFormDemo() {
-        return (
-          <Card asChild>
-            <form>
-              <Card.Header>
-                <Card.Title>{copy.title}</Card.Title>
-                <Card.Description>{copy.description}</Card.Description>
-              </Card.Header>
-              <Card.Body>
-                {fields.map((field) => (
-                  <label key={field.name}>
-                    {field.label}
-                    <Input name={field.name} />
-                  </label>
-                ))}
-              </Card.Body>
-              <Card.Footer>
-                <Button type="reset" variant="outline">Cancel</Button>
-                <Button type="submit">Create account</Button>
-              </Card.Footer>
-            </form>
-          </Card>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/within-form.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -261,19 +173,6 @@ Compose the root as a form when the card groups related fields and actions.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const copy = {
-        title: "Create account",
-        description: "Enter the contact details for the new member.",
-      };
-      const fields = [
-        { label: "First name", name: "firstName" },
-        { label: "Last name", name: "lastName" },
-      ];
-    `}
-  </Preview.Data>
 </Preview>
 
 ### With Image
@@ -283,28 +182,9 @@ Place media before the named parts when it should span the card width.
 <Preview>
   <CardDocs.CardWithImageExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Card } from "@moduix/react";
-
-      export function CardWithImageDemo() {
-        return (
-          <Card>
-            <img className="image" src={product.image} alt={product.imageAlt} />
-            <Card.Header>
-              <Card.Title>{product.title}</Card.Title>
-              <Card.Description>{product.description}</Card.Description>
-            </Card.Header>
-            <Card.Body>{product.capacity}% allocated</Card.Body>
-            <Card.Footer>
-              <Button variant="outline">Open report</Button>
-            </Card.Footer>
-          </Card>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/with-image.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -316,18 +196,6 @@ Place media before the named parts when it should span the card width.
       }
     `}
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const product = {
-        title: "Warehouse capacity",
-        description: "North region allocation for the next planning cycle.",
-        capacity: 72,
-        image: "/warehouse.jpg",
-        imageAlt: "A warehouse with neatly stacked delivery boxes.",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Horizontal
@@ -337,28 +205,9 @@ Use consumer layout CSS to create a horizontal card without adding a presentatio
 <Preview>
   <CardDocs.CardHorizontalExample />
 
-  <Preview.Code>
-    {`
-      import { Badge, Button, Card } from "@moduix/react";
-
-      export function HorizontalCardDemo() {
-        return (
-          <Card className="horizontalCard">
-            <img className="image" src={item.image} alt={item.imageAlt} />
-            <div className="content">
-              <Card.Header>
-                <Card.Title>{item.title}</Card.Title>
-                <Card.Description>{item.description}</Card.Description>
-              </Card.Header>
-              <Card.Body><Badge variant="secondary">{item.badge}</Badge></Card.Body>
-              <Card.Footer><Button>{item.action}</Button></Card.Footer>
-            </div>
-          </Card>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/horizontal.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -382,19 +231,6 @@ Use consumer layout CSS to create a horizontal card without adding a presentatio
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const item = {
-        title: "The perfect latte",
-        description: "Espresso balanced with steamed milk and a light foam.",
-        badge: "Hot",
-        action: "Buy latte",
-        image: "/latte.jpg",
-        imageAlt: "Caffè latte in a ceramic cup.",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### With Avatar
@@ -404,33 +240,9 @@ Compose profile media inside the header when identity is the card's subject.
 <Preview>
   <CardDocs.CardAvatarExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Card } from "@moduix/react";
-
-      export function CardAvatarDemo() {
-        return (
-          <Card>
-            <Card.Header>
-              <div className="profile">
-                <span aria-hidden="true" className="avatar">{person.initials}</span>
-                <div>
-                  <Card.Title>{person.name}</Card.Title>
-                  <Card.Description>{person.handle}</Card.Description>
-                </div>
-              </div>
-            </Card.Header>
-            <Card.Body>{person.message}</Card.Body>
-            <Card.Footer>
-              <Button variant="outline">Decline</Button>
-              <Button>Approve</Button>
-            </Card.Footer>
-          </Card>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/with-avatar.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -452,17 +264,6 @@ Compose profile media inside the header when identity is the card's subject.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const person = {
-        initials: "NF",
-        name: "Nate Foss",
-        handle: "@natefoss",
-        message: "Nate has requested to join your team.",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Header Action
@@ -472,25 +273,9 @@ Compose profile media inside the header when identity is the card's subject.
 <Preview>
   <CardDocs.CardWithActionExample />
 
-  <Preview.Code>
-    {`
-      import { Badge, Card } from "@moduix/react";
-
-      export function CardActionDemo() {
-        return (
-          <Card>
-            <Card.Header>
-              <Card.Title>{incident.title}</Card.Title>
-              <Card.Description>{incident.description}</Card.Description>
-              <Card.Action><Badge variant="secondary">{incident.status}</Badge></Card.Action>
-            </Card.Header>
-            <Card.Body>{incident.summary}</Card.Body>
-          </Card>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/header-action.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -499,17 +284,6 @@ Compose profile media inside the header when identity is the card's subject.
       }
     `}
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const incident = {
-        title: "Incident response",
-        description: "Owner rotation and escalation readiness.",
-        status: "Stable",
-        summary: "18 min median response · 99.97% service uptime",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Root as Link
@@ -519,26 +293,9 @@ Use `asChild` when the entire card is one navigation target and contains no nest
 <Preview>
   <CardDocs.CardAsLinkExample />
 
-  <Preview.Code>
-    {`
-      import { Card } from "@moduix/react";
-
-      export function LinkedCardDemo() {
-        return (
-          <Card asChild>
-            <a href={report.href}>
-              <Card.Header>
-                <Card.Title>{report.title}</Card.Title>
-                <Card.Description>{report.description}</Card.Description>
-              </Card.Header>
-              <Card.Body>{report.summary}</Card.Body>
-            </a>
-          </Card>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/root-as-link.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -547,17 +304,6 @@ Use `asChild` when the entire card is one navigation target and contains no nest
       }
     `}
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const report = {
-        href: "/reports/release-health",
-        title: "Release health",
-        description: "Summary for the current production rollout.",
-        summary: "98.4% successful sessions",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Overlay Link
@@ -567,29 +313,9 @@ Use `Card.Link` when navigation and independent actions must coexist.
 <Preview>
   <CardDocs.CardLinkWithActionsExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Card } from "@moduix/react";
-
-      export function OverlayLinkCardDemo() {
-        return (
-          <Card>
-            <Card.Header>
-              <Card.Title>
-                <Card.Link href={incident.href}>{incident.title}</Card.Link>
-              </Card.Title>
-              <Card.Description>{incident.description}</Card.Description>
-              <Card.Action>
-                <Button variant="outline" size="sm">Acknowledge</Button>
-              </Card.Action>
-            </Card.Header>
-            <Card.Body>{incident.summary}</Card.Body>
-          </Card>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/overlay-link.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -598,17 +324,6 @@ Use `Card.Link` when navigation and independent actions must coexist.
       }
     `}
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const incident = {
-        href: "/incidents/response",
-        title: "Incident response",
-        description: "Owner rotation and escalation readiness.",
-        summary: "18 min median response",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -618,24 +333,9 @@ Override public variables or target stable part hooks without changing the compo
 <Preview>
   <CardDocs.CardCustomStylingExample />
 
-  <Preview.Code>
-    {`
-      import { Card } from "@moduix/react";
-
-      export function CustomCardDemo() {
-        return (
-          <Card className="customCard">
-            <Card.Header>
-              <Card.Title>{metric.title}</Card.Title>
-              <Card.Description>{metric.description}</Card.Description>
-            </Card.Header>
-            <Card.Body>{metric.value}%</Card.Body>
-          </Card>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/custom-styling.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -647,16 +347,6 @@ Override public variables or target stable part hooks without changing the compo
       }
     `}
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const metric = {
-        title: "System load",
-        description: "Aggregated worker utilization across the current batch.",
-        value: 64,
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Styling

@@ -98,35 +98,11 @@ Set `defaultOpen` for an uncontrolled disclosure that starts expanded.
 <Preview>
   <CollapsibleDocs.CollapsibleExample defaultOpen />
 
-  <Preview.Code>
-    {`
-      import { Collapsible } from "@moduix/react";
-
-      export function DefaultOpenCollapsibleDemo() {
-        return (
-          <Collapsible defaultOpen>
-            <Collapsible.Trigger>
-              Recovery keys
-              <Collapsible.Indicator />
-            </Collapsible.Trigger>
-            <Collapsible.Content>
-              <div className="collapsible-content-body">
-                <ul className="collapsible-keys-list">
-                  {recoveryKeys.map((key) => (
-                    <li key={key}>{key}</li>
-                  ))}
-                </ul>
-              </div>
-            </Collapsible.Content>
-          </Collapsible>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/collapsible/default-open.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Controlled
@@ -136,42 +112,11 @@ Use `open` with the Ark `onOpenChange(details)` callback when surrounding UI own
 <Preview>
   <CollapsibleDocs.ControlledCollapsibleExample />
 
-  <Preview.Code>
-    {`
-      import { Collapsible } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledCollapsibleDemo() {
-        const [open, setOpen] = useState(false);
-
-        return (
-          <Collapsible
-            open={open}
-            onOpenChange={(details) => setOpen(details.open)}
-          >
-            <Collapsible.Trigger>
-              Recovery keys
-              <Collapsible.Indicator />
-            </Collapsible.Trigger>
-            <Collapsible.Content>
-              <div className="collapsible-content-body">
-                <ul className="collapsible-keys-list">
-                  {recoveryKeys.map((key) => (
-                    <li key={key}>{key}</li>
-                  ))}
-                </ul>
-              </div>
-            </Collapsible.Content>
-            <span className="collapsible-state">Current state: {open ? "open" : "closed"}</span>
-          </Collapsible>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/collapsible/controlled.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Disabled
@@ -181,35 +126,11 @@ Set `disabled` on the root to keep the disclosure visible but unavailable.
 <Preview>
   <CollapsibleDocs.DisabledCollapsibleExample />
 
-  <Preview.Code>
-    {`
-      import { Collapsible } from "@moduix/react";
-
-      export function DisabledCollapsibleDemo() {
-        return (
-          <Collapsible disabled>
-            <Collapsible.Trigger>
-              Recovery keys
-              <Collapsible.Indicator />
-            </Collapsible.Trigger>
-            <Collapsible.Content>
-              <div className="collapsible-content-body">
-                <ul className="collapsible-keys-list">
-                  {recoveryKeys.map((key) => (
-                    <li key={key}>{key}</li>
-                  ))}
-                </ul>
-              </div>
-            </Collapsible.Content>
-          </Collapsible>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/collapsible/disabled.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Lazy Mount
@@ -219,35 +140,11 @@ Combine `lazyMount` and `unmountOnExit` when closed content should not remain in
 <Preview>
   <CollapsibleDocs.LazyMountCollapsibleExample />
 
-  <Preview.Code>
-    {`
-      import { Collapsible } from "@moduix/react";
-
-      export function LazyMountCollapsibleDemo() {
-        return (
-          <Collapsible lazyMount unmountOnExit>
-            <Collapsible.Trigger>
-              Recovery keys
-              <Collapsible.Indicator />
-            </Collapsible.Trigger>
-            <Collapsible.Content>
-              <div className="collapsible-content-body">
-                <ul className="collapsible-keys-list">
-                  {recoveryKeys.map((key) => (
-                    <li key={key}>{key}</li>
-                  ))}
-                </ul>
-              </div>
-            </Collapsible.Content>
-          </Collapsible>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/collapsible/lazy-mount.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Partial Collapse
@@ -257,33 +154,11 @@ Use `collapsedHeight` or `collapsedWidth` to leave part of the content visible w
 <Preview>
   <CollapsibleDocs.PartialCollapseCollapsibleExample />
 
-  <Preview.Code>
-    {`
-      import { Collapsible } from "@moduix/react";
-
-      export function PartialCollapseCollapsibleDemo() {
-        return (
-          <Collapsible collapsedHeight="3rem">
-            <Collapsible.Trigger>
-              Read more
-              <Collapsible.Indicator />
-            </Collapsible.Trigger>
-            <Collapsible.Content>
-              <div className="collapsible-content-body">
-                {paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
-            </Collapsible.Content>
-          </Collapsible>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/collapsible/partial-collapse.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{CollapsibleDocs.collapsibleLongContentData}</Preview.Data>
 </Preview>
 
 ### Nested
@@ -293,46 +168,11 @@ Nest independent roots when a disclosed section contains another optional detail
 <Preview>
   <CollapsibleDocs.NestedCollapsibleExample />
 
-  <Preview.Code>
-    {`
-      import { Collapsible } from "@moduix/react";
-
-      export function NestedCollapsibleDemo() {
-        return (
-          <Collapsible>
-            <Collapsible.Trigger>
-              Account security
-              <Collapsible.Indicator />
-            </Collapsible.Trigger>
-            <Collapsible.Content>
-              <div className="collapsible-nested-content">
-                <p>Security options for this account.</p>
-                <Collapsible className="collapsible-nested-root">
-                  <Collapsible.Trigger>
-                    Recovery keys
-                    <Collapsible.Indicator />
-                  </Collapsible.Trigger>
-                  <Collapsible.Content>
-                    <div className="collapsible-content-body">
-                      <ul className="collapsible-keys-list">
-                        {recoveryKeys.map((key) => (
-                          <li key={key}>{key}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </Collapsible.Content>
-                </Collapsible>
-              </div>
-            </Collapsible.Content>
-          </Collapsible>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/collapsible/nested.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -343,43 +183,11 @@ state.
 <Preview>
   <CollapsibleDocs.RootProviderCollapsibleExample />
 
-  <Preview.Code>
-    {`
-      import { useCollapsible } from "@ark-ui/react/collapsible";
-      import { Collapsible } from "@moduix/react";
-
-      export function RootProviderCollapsibleDemo() {
-        const collapsible = useCollapsible();
-
-        return (
-          <div className="collapsible-provider-layout">
-            <output>
-              open: {String(collapsible.open)}, visible: {String(collapsible.visible)}
-            </output>
-            <Collapsible.RootProvider value={collapsible}>
-              <Collapsible.Trigger>
-                Recovery keys
-                <Collapsible.Indicator />
-              </Collapsible.Trigger>
-              <Collapsible.Content>
-                <div className="collapsible-content-body">
-                  <ul className="collapsible-keys-list">
-                    {recoveryKeys.map((key) => (
-                      <li key={key}>{key}</li>
-                    ))}
-                  </ul>
-                </div>
-              </Collapsible.Content>
-            </Collapsible.RootProvider>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/collapsible/root-provider.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Custom Composition
@@ -389,39 +197,11 @@ Use `asChild` to compose the trigger behavior onto a consumer-owned button.
 <Preview>
   <CollapsibleDocs.CustomCompositionCollapsibleExample />
 
-  <Preview.Code>
-    {`
-      import { ChevronDownIcon, Collapsible } from "@moduix/react";
-
-      export function CustomCompositionCollapsibleDemo() {
-        return (
-          <Collapsible>
-            <Collapsible.Trigger asChild>
-              <button type="button" className="collapsible-custom-trigger">
-                Styled recovery keys
-                <Collapsible.Indicator className="collapsible-custom-indicator">
-                  <ChevronDownIcon />
-                </Collapsible.Indicator>
-              </button>
-            </Collapsible.Trigger>
-            <Collapsible.Content>
-              <div className="collapsible-custom-content-body">
-                <ul className="collapsible-keys-list">
-                  {recoveryKeys.map((key) => (
-                    <li key={key}>{key}</li>
-                  ))}
-                </ul>
-              </div>
-            </Collapsible.Content>
-          </Collapsible>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/collapsible/custom-composition.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CollapsibleDocs.collapsibleCustomCompositionCss}</Preview.CSS>
-  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ## Styling

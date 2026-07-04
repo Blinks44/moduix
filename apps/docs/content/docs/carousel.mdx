@@ -110,45 +110,11 @@ Control the current page when carousel state must stay in sync with external nav
 <Preview>
   <CarouselDocs.ControlledCarouselExample />
 
-  <Preview.Code>
-    {`
-      import { Carousel } from "@moduix/react";
-      import { useState } from "react";
-
-      export function ControlledCarousel() {
-        const [page, setPage] = useState(1);
-
-        return (
-          <Carousel
-            slideCount={slides.length}
-            page={page}
-            onPageChange={(details) => setPage(details.page)}
-          >
-            <Carousel.Control>
-              <Carousel.PrevTrigger />
-              <Carousel.ItemGroup aria-label="Controlled gallery">
-                {slides.map((slide, index) => (
-                  <Carousel.Item key={slide.id} index={index}>
-                    <img src={slide.src} alt={slide.alt} />
-                  </Carousel.Item>
-                ))}
-              </Carousel.ItemGroup>
-              <Carousel.NextTrigger />
-            </Carousel.Control>
-            <Carousel.IndicatorGroup>
-              {slides.map((_, index) => (
-                <Carousel.Indicator key={index} index={index} />
-              ))}
-            </Carousel.IndicatorGroup>
-          </Carousel>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/carousel/controlled.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CarouselDocs.carouselExampleCss}</Preview.CSS>
-  <Preview.Data>{CarouselDocs.carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Dynamic
@@ -158,57 +124,11 @@ Update `slideCount` alongside the rendered items when slides can be added or rem
 <Preview>
   <CarouselDocs.DynamicSlidesCarouselExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Carousel, PlusIcon } from "@moduix/react";
-      import { useState } from "react";
-
-      export function DynamicSlidesCarousel() {
-        const [count, setCount] = useState(4);
-        const [page, setPage] = useState(0);
-        const visibleSlides = slides.slice(0, count);
-
-        return (
-          <>
-            <Carousel
-              slideCount={visibleSlides.length}
-              page={page}
-              onPageChange={(details) => setPage(details.page)}
-            >
-              <Carousel.ItemGroup aria-label="Dynamic gallery">
-                {visibleSlides.map((slide, index) => (
-                  <Carousel.Item key={slide.id} index={index}>
-                    <img src={slide.src} alt={slide.alt} />
-                  </Carousel.Item>
-                ))}
-              </Carousel.ItemGroup>
-              <Carousel.Control>
-                <Carousel.PrevTrigger />
-                <Carousel.IndicatorGroup>
-                  {visibleSlides.map((_, index) => (
-                    <Carousel.Indicator key={index} index={index} />
-                  ))}
-                </Carousel.IndicatorGroup>
-                <Carousel.NextTrigger />
-              </Carousel.Control>
-            </Carousel>
-
-            <Button
-              variant="outline"
-              onClick={() => setCount((currentCount) => Math.min(slides.length, currentCount + 1))}
-            >
-              <PlusIcon />
-              Add slide
-            </Button>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/carousel/dynamic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CarouselDocs.carouselExampleCss}</Preview.CSS>
-  <Preview.Data>{CarouselDocs.carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Pause On Hover
@@ -218,48 +138,11 @@ Pause autoplay on pointer hover when readers need time to inspect slide content 
 <Preview>
   <CarouselDocs.PauseOnHoverCarouselExample />
 
-  <Preview.Code>
-    {`
-      import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
-      import { Carousel } from "@moduix/react";
-
-      export function PauseOnHoverCarousel() {
-        return (
-          <Carousel autoplay loop slideCount={slides.length}>
-            <ArkCarousel.Context>
-              {({ isPlaying }) => <p>Autoplay: {isPlaying ? "playing" : "paused"}</p>}
-            </ArkCarousel.Context>
-
-            <ArkCarousel.Context>
-              {(api) => (
-                <Carousel.ItemGroup
-                  aria-label="Pause on hover gallery"
-                  onPointerOver={() => api.pause()}
-                  onPointerLeave={() => api.play()}
-                >
-                  {slides.map((slide, index) => (
-                    <Carousel.Item key={slide.id} index={index}>
-                      <img src={slide.src} alt={slide.alt} />
-                    </Carousel.Item>
-                  ))}
-                </Carousel.ItemGroup>
-              )}
-            </ArkCarousel.Context>
-
-            <Carousel.IndicatorGroup>
-              {slides.map((_, index) => (
-                <Carousel.Indicator key={index} index={index} />
-              ))}
-            </Carousel.IndicatorGroup>
-          </Carousel>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/carousel/pause-on-hover.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CarouselDocs.carouselExampleCss}</Preview.CSS>
-  <Preview.Data>{CarouselDocs.carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -269,41 +152,11 @@ Use `Carousel.RootProvider` when the carousel store should be created outside th
 <Preview>
   <CarouselDocs.RootProviderCarouselExample />
 
-  <Preview.Code>
-    {`
-      import { useCarousel } from "@ark-ui/react/carousel";
-      import { Carousel } from "@moduix/react";
-
-      export function RootProviderCarousel() {
-        const carousel = useCarousel({ slideCount: slides.length });
-
-        return (
-          <Carousel.RootProvider value={carousel}>
-            <Carousel.Control>
-              <Carousel.PrevTrigger />
-              <Carousel.ItemGroup aria-label="Root provider gallery">
-                {slides.map((slide, index) => (
-                  <Carousel.Item key={slide.id} index={index}>
-                    <img src={slide.src} alt={slide.alt} />
-                  </Carousel.Item>
-                ))}
-              </Carousel.ItemGroup>
-              <Carousel.NextTrigger />
-            </Carousel.Control>
-            <Carousel.IndicatorGroup>
-              {slides.map((_, index) => (
-                <Carousel.Indicator key={index} index={index} />
-              ))}
-            </Carousel.IndicatorGroup>
-          </Carousel.RootProvider>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/carousel/root-provider.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CarouselDocs.carouselExampleCss}</Preview.CSS>
-  <Preview.Data>{CarouselDocs.carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Scroll to Slide
@@ -313,43 +166,11 @@ Call the carousel API from context when another control should jump directly to 
 <Preview>
   <CarouselDocs.ScrollToCarouselExample />
 
-  <Preview.Code>
-    {`
-      import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
-      import { Button, Carousel } from "@moduix/react";
-
-      export function ScrollToCarousel() {
-        return (
-          <Carousel slideCount={slides.length}>
-            <ArkCarousel.Context>
-              {(api) => (
-                <Button variant="outline" onClick={() => api.scrollToIndex(3)}>
-                  Go to slide 4
-                </Button>
-              )}
-            </ArkCarousel.Context>
-
-            <Carousel.ItemGroup aria-label="Scroll to gallery">
-              {slides.map((slide, index) => (
-                <Carousel.Item key={slide.id} index={index}>
-                  <img src={slide.src} alt={slide.alt} />
-                </Carousel.Item>
-              ))}
-            </Carousel.ItemGroup>
-
-            <Carousel.Control>
-              <Carousel.PrevTrigger />
-              <Carousel.NextTrigger />
-            </Carousel.Control>
-          </Carousel>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/carousel/scroll-to-slide.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CarouselDocs.carouselExampleCss}</Preview.CSS>
-  <Preview.Data>{CarouselDocs.carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Slides Per Page
@@ -359,45 +180,11 @@ Increase `slidesPerPage` when the layout should preview multiple items at once i
 <Preview>
   <CarouselDocs.SlidesPerPageCarouselExample />
 
-  <Preview.Code>
-    {`
-      import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
-      import { Carousel } from "@moduix/react";
-
-      export function SlidesPerPageCarousel() {
-        return (
-          <Carousel slideCount={slides.length} slidesPerPage={2} spacing="var(--spacing-3)">
-            <Carousel.Control>
-              <Carousel.PrevTrigger />
-              <Carousel.NextTrigger />
-            </Carousel.Control>
-
-            <Carousel.ItemGroup aria-label="Two-up gallery">
-              {slides.map((slide, index) => (
-                <Carousel.Item key={slide.id} index={index}>
-                  <img src={slide.src} alt={slide.alt} />
-                </Carousel.Item>
-              ))}
-            </Carousel.ItemGroup>
-
-            <ArkCarousel.Context>
-              {(api) => (
-                <Carousel.IndicatorGroup>
-                  {api.pageSnapPoints.map((_, index) => (
-                    <Carousel.Indicator key={index} index={index} />
-                  ))}
-                </Carousel.IndicatorGroup>
-              )}
-            </ArkCarousel.Context>
-          </Carousel>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/carousel/slides-per-page.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CarouselDocs.carouselExampleCss}</Preview.CSS>
-  <Preview.Data>{CarouselDocs.carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Spacing
@@ -407,44 +194,11 @@ Tune `spacing` when adjacent slides need more separation for editorial layouts, 
 <Preview>
   <CarouselDocs.SpacingCarouselExample />
 
-  <Preview.Code>
-    {`
-      import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
-      import { Carousel } from "@moduix/react";
-
-      export function SpacingCarousel() {
-        return (
-          <Carousel slideCount={slides.length} slidesPerPage={1.5} spacing="3rem">
-            <Carousel.ItemGroup aria-label="Spaced gallery">
-              {slides.map((slide, index) => (
-                <Carousel.Item key={slide.id} index={index}>
-                  <img src={slide.src} alt={slide.alt} />
-                </Carousel.Item>
-              ))}
-            </Carousel.ItemGroup>
-
-            <Carousel.Control>
-              <Carousel.PrevTrigger />
-              <ArkCarousel.Context>
-                {(api) => (
-                  <Carousel.IndicatorGroup>
-                    {api.pageSnapPoints.map((_, index) => (
-                      <Carousel.Indicator key={index} index={index} />
-                    ))}
-                  </Carousel.IndicatorGroup>
-                )}
-              </ArkCarousel.Context>
-              <Carousel.NextTrigger />
-            </Carousel.Control>
-          </Carousel>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/carousel/spacing.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CarouselDocs.carouselExampleCss}</Preview.CSS>
-  <Preview.Data>{CarouselDocs.carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Thumbnail Indicators
@@ -454,41 +208,11 @@ Render custom indicator content when the pager itself should preview the slides 
 <Preview>
   <CarouselDocs.ThumbnailIndicatorCarouselExample />
 
-  <Preview.Code>
-    {`
-      import { Carousel } from "@moduix/react";
-
-      export function ThumbnailIndicatorCarousel() {
-        return (
-          <Carousel slideCount={slides.length}>
-            <Carousel.Control>
-              <Carousel.PrevTrigger />
-              <Carousel.ItemGroup aria-label="Gallery with thumbnails">
-                {slides.map((slide, index) => (
-                  <Carousel.Item key={slide.id} index={index}>
-                    <img src={slide.src} alt={slide.alt} />
-                  </Carousel.Item>
-                ))}
-              </Carousel.ItemGroup>
-              <Carousel.NextTrigger />
-            </Carousel.Control>
-
-            <Carousel.IndicatorGroup>
-              {slides.map((slide, index) => (
-                <Carousel.Indicator key={slide.id} index={index}>
-                  <img src={slide.src} alt={slide.alt} />
-                </Carousel.Indicator>
-              ))}
-            </Carousel.IndicatorGroup>
-          </Carousel>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/carousel/thumbnail-indicators.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CarouselDocs.carouselExampleCss}</Preview.CSS>
-  <Preview.Data>{CarouselDocs.carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Variable Sizes
@@ -498,50 +222,11 @@ Enable `autoSize` when slide widths should follow their content rather than a fi
 <Preview>
   <CarouselDocs.VariableSizeCarouselExample />
 
-  <Preview.Code>
-    {`
-      import { Carousel as ArkCarousel } from "@ark-ui/react/carousel";
-      import { Carousel } from "@moduix/react";
-
-      export function VariableSizeCarousel() {
-        return (
-          <Carousel
-            autoSize
-            slideCount={slides.length}
-            spacing="var(--spacing-3)"
-            padding="var(--spacing-4)"
-          >
-            <Carousel.Control>
-              <Carousel.PrevTrigger />
-              <Carousel.NextTrigger />
-            </Carousel.Control>
-
-            <Carousel.ItemGroup aria-label="Variable size gallery">
-              {slides.map((slide, index) => (
-                <Carousel.Item key={slide.id} index={index} snapAlign="center">
-                  <img src={slide.src} alt={slide.alt} style={{ width: slide.width }} />
-                </Carousel.Item>
-              ))}
-            </Carousel.ItemGroup>
-
-            <ArkCarousel.Context>
-              {(api) => (
-                <Carousel.IndicatorGroup>
-                  {api.pageSnapPoints.map((_, index) => (
-                    <Carousel.Indicator key={index} index={index} />
-                  ))}
-                </Carousel.IndicatorGroup>
-              )}
-            </ArkCarousel.Context>
-          </Carousel>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/carousel/variable-sizes.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CarouselDocs.carouselExampleCss}</Preview.CSS>
-  <Preview.Data>{CarouselDocs.carouselVariableSlidesData}</Preview.Data>
 </Preview>
 
 ### Autoplay
@@ -551,37 +236,11 @@ Use autoplay for passive galleries and pair it with visible controls so users ca
 <Preview>
   <CarouselDocs.AutoplayCarouselExample />
 
-  <Preview.Code>
-    {`
-      import { Carousel } from "@moduix/react";
-
-      export function AutoplayCarousel() {
-        return (
-          <Carousel autoplay={{ delay: 3500 }} loop slideCount={slides.length}>
-            <Carousel.ItemGroup aria-label="Autoplay gallery">
-              {slides.map((slide, index) => (
-                <Carousel.Item key={slide.id} index={index}>
-                  <img src={slide.src} alt={slide.alt} />
-                </Carousel.Item>
-              ))}
-            </Carousel.ItemGroup>
-
-            <Carousel.Control>
-              <Carousel.PrevTrigger />
-              <Carousel.AutoplayTrigger>
-                <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
-              </Carousel.AutoplayTrigger>
-              <Carousel.NextTrigger />
-            </Carousel.Control>
-          </Carousel>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/carousel/autoplay.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CarouselDocs.carouselExampleCss}</Preview.CSS>
-  <Preview.Data>{CarouselDocs.carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Loop
@@ -591,41 +250,11 @@ Turn on `loop` when the carousel should wrap seamlessly from the last slide back
 <Preview>
   <CarouselDocs.LoopCarouselExample />
 
-  <Preview.Code>
-    {`
-      import { Carousel } from "@moduix/react";
-
-      export function LoopCarousel() {
-        return (
-          <Carousel loop slideCount={slides.length}>
-            <Carousel.Control>
-              <Carousel.PrevTrigger />
-              <Carousel.ItemGroup aria-label="Loop gallery">
-                {slides.map((slide, index) => (
-                  <Carousel.Item key={slide.id} index={index}>
-                    <img src={slide.src} alt={slide.alt} />
-                  </Carousel.Item>
-                ))}
-              </Carousel.ItemGroup>
-              <Carousel.NextTrigger />
-            </Carousel.Control>
-
-            <Carousel.IndicatorGroup>
-              {slides.map((_, index) => (
-                <Carousel.Indicator key={index} index={index} />
-              ))}
-            </Carousel.IndicatorGroup>
-
-            <Carousel.ProgressText />
-          </Carousel>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/carousel/loop.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CarouselDocs.carouselExampleCss}</Preview.CSS>
-  <Preview.Data>{CarouselDocs.carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Mouse Drag
@@ -635,41 +264,11 @@ Allow mouse drag when desktop users should be able to scrub through slides with 
 <Preview>
   <CarouselDocs.MouseDragCarouselExample />
 
-  <Preview.Code>
-    {`
-      import { Carousel } from "@moduix/react";
-
-      export function MouseDragCarousel() {
-        return (
-          <Carousel allowMouseDrag slideCount={slides.length}>
-            <Carousel.Control>
-              <Carousel.PrevTrigger />
-              <Carousel.ItemGroup aria-label="Mouse draggable gallery">
-                {slides.map((slide, index) => (
-                  <Carousel.Item key={slide.id} index={index}>
-                    <img src={slide.src} alt={slide.alt} />
-                  </Carousel.Item>
-                ))}
-              </Carousel.ItemGroup>
-              <Carousel.NextTrigger />
-            </Carousel.Control>
-
-            <Carousel.IndicatorGroup>
-              {slides.map((_, index) => (
-                <Carousel.Indicator key={index} index={index} />
-              ))}
-            </Carousel.IndicatorGroup>
-
-            <Carousel.ProgressText />
-          </Carousel>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/carousel/mouse-drag.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CarouselDocs.carouselExampleCss}</Preview.CSS>
-  <Preview.Data>{CarouselDocs.carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Vertical
@@ -679,39 +278,11 @@ Switch to a vertical orientation when the carousel should stack movement and con
 <Preview>
   <CarouselDocs.VerticalCarouselExample />
 
-  <Preview.Code>
-    {`
-      import { Carousel } from "@moduix/react";
-
-      export function VerticalCarousel() {
-        return (
-          <Carousel orientation="vertical" slideCount={slides.length}>
-            <Carousel.ItemGroup aria-label="Vertical gallery">
-              {slides.map((slide, index) => (
-                <Carousel.Item key={slide.id} index={index}>
-                  <img src={slide.src} alt={slide.alt} />
-                </Carousel.Item>
-              ))}
-            </Carousel.ItemGroup>
-
-            <Carousel.Control>
-              <Carousel.PrevTrigger />
-              <Carousel.IndicatorGroup>
-                {slides.map((_, index) => (
-                  <Carousel.Indicator key={index} index={index} />
-                ))}
-              </Carousel.IndicatorGroup>
-              <Carousel.NextTrigger />
-            </Carousel.Control>
-          </Carousel>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/carousel/vertical.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>{CarouselDocs.carouselExampleCss}</Preview.CSS>
-  <Preview.Data>{CarouselDocs.carouselSlidesData}</Preview.Data>
 </Preview>
 
 ## Styling

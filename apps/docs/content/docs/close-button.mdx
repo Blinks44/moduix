@@ -130,30 +130,9 @@ Replace the default glyph through `children` while keeping the root button and s
 <Preview>
   <CloseButtonDocs.CloseButtonCustomChildrenExample />
 
-  <Preview.Code>
-    {`
-      import { CloseButton } from "@moduix/react";
-
-      function CircleXIcon() {
-        return (
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor">
-            <circle cx="12" cy="12" r="10" />
-            <path d="m15 9-6 6" />
-            <path d="m9 9 6 6" />
-          </svg>
-        );
-      }
-
-      export function CloseButtonCustomChildrenDemo() {
-        return (
-          <CloseButton className="customChildrenButton" aria-label="Close panel">
-            <CircleXIcon />
-          </CloseButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/close-button/custom-children.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -164,16 +143,6 @@ Replace the default glyph through `children` while keeping the root button and s
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const customChildrenDemo = {
-        closeLabel: "Close panel",
-        iconViewBox: "0 0 24 24",
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### As Child
@@ -184,32 +153,9 @@ Close Button styling and data hooks.
 <Preview>
   <CloseButtonDocs.CloseButtonAsChildExample />
 
-  <Preview.Code>
-    {`
-      import { CloseButton } from "@moduix/react";
-
-      function CircleXIcon() {
-        return (
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor">
-            <circle cx="12" cy="12" r="10" />
-            <path d="m15 9-6 6" />
-            <path d="m9 9 6 6" />
-          </svg>
-        );
-      }
-
-      export function CloseButtonAsChildDemo() {
-        return (
-          <CloseButton asChild className="asChildButton" aria-label="Close composed panel">
-            <button>
-              <CircleXIcon />
-            </button>
-          </CloseButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/close-button/as-child.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -220,16 +166,6 @@ Close Button styling and data hooks.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const asChildDemo = {
-        closeLabel: "Close composed panel",
-        childElement: "button",
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -239,16 +175,9 @@ Style the root through `className` and the public `--close-button-*` variables.
 <Preview>
   <CloseButtonDocs.CloseButtonCustomStylingExample />
 
-  <Preview.Code>
-    {`
-      import { CloseButton } from "@moduix/react";
-
-      export function CloseButtonCustomStylingDemo() {
-        return <CloseButton className="customButton" aria-label="Close message" />;
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/close-button/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -263,20 +192,6 @@ Style the root through `className` and the public `--close-button-*` variables.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const customStylingTokens = {
-        "--close-button-size": "2.5rem",
-        "--close-button-icon-size": "1rem",
-        "--close-button-bg": "var(--color-primary)",
-        "--close-button-bg-hover": "var(--color-foreground)",
-        "--close-button-color": "var(--color-primary-foreground)",
-        "--close-button-color-hover": "var(--color-primary-foreground)",
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Disabled State
@@ -287,22 +202,9 @@ discoverable while refusing activation.
 <Preview>
   <CloseButtonDocs.CloseButtonDisabledExample />
 
-  <Preview.Code>
-    {`
-      import { CloseButton } from "@moduix/react";
-
-      export function CloseButtonDisabledDemo() {
-        return (
-          <CloseButton
-            className="disabledCloseButton"
-            aria-disabled="true"
-            aria-label="Close unavailable message"
-          />
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/close-button/disabled-state.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -312,16 +214,6 @@ discoverable while refusing activation.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const disabledDemo = {
-        closeLabel: "Close unavailable message",
-        disabledState: "aria-disabled",
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Styling
