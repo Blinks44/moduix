@@ -45,6 +45,34 @@ Small DX sugar is acceptable only when it removes repeated production boilerplat
 - For components without a dedicated Ark primitive, use Ark factory/composition patterns or native DOM semantics, and document the component as a moduix-owned contract.
 - Keep stories, local markdown, public docs, package barrels, and registry artifacts synchronized with the shipped API.
 
+## Simplification Rules
+
+Use these rules when the task includes API reduction, readability cleanup, or implementation simplification:
+
+- Preserve the callable root assembled with `Object.assign`. Both `<Component>` and `<Component.Root>` remain supported.
+- Preserve `RootProvider` when Ark exposes it. Keep the shared root styling, refs, portal configuration, and `data-slot`
+  behavior for externally owned Ark state.
+- Preserve every meaningful visual or structural part. Do not remove controls, labels, triggers, groups, indicators,
+  positioners, content parts, empty states, or similar styling/composition access points just because their use case is
+  less common.
+- Remove duplicate public type aliases or re-exports that only mirror Ark when the task is explicitly simplifying the
+  public API. Keep only the minimum private types needed for refs and inference.
+- Prefer removing advanced state-machine surface area such as `Context`, `ItemContext`, `useComponent`, and
+  `use*Context` from the moduix public API when ordinary usage does not need them, but only as an intentional
+  contract change with dependent code, docs, and barrels updated in the same task.
+- Preserve narrow sugar that removes repeated boilerplate without hiding structure, such as default icons or shared
+  portal transport.
+- Keep wrappers explicit. Do not replace repeated part wrappers with factories, configuration maps, HOCs, or generic
+  builders just to reduce line count.
+- Simplify implementation shape, not only exports. Prefer direct literals, direct conditionals, small local helpers,
+  and one obvious source of truth for small behaviors.
+- Treat type-heavy plumbing, duplicated state transitions, sparse arrays built by mutation, and normalization branches
+  that only restate the incoming union as simplification targets.
+- When Ark is awkward, isolate that awkwardness in one clear helper or comment instead of spreading it across more
+  aliases, casts, and derived types.
+- Preserve necessary complexity when it protects a real contract such as generic inference, controlled behavior, or a
+  genuine product-specific behavior model.
+
 ## Ark Contract Rules
 
 - Use Ark React primitives from `@ark-ui/react/<component>` as the behavior source for Ark-backed components.
@@ -56,15 +84,24 @@ Small DX sugar is acceptable only when it removes repeated production boilerplat
   invalid focus, imperative measurement, and trigger/control integration.
 - Use `Component.Context` for one-off inline state reads, `use*Context` hooks for reusable child parts, and
   `useComponent` plus `RootProvider` only for state controlled outside the rendered tree.
-- If the Ark namespace exports `RootProvider`, `Context`, `ItemContext`, hooks, or related public types, mirror that
-  surface through the moduix component and its `index.ts` barrel unless there is a documented reason to hide it.
-  Check docs examples against imports from `moduix`, not only local component imports.
+- If the Ark namespace exports `RootProvider`, `Context`, `ItemContext`, hooks, or related public types, preserve the
+  current moduix surface unless the task explicitly simplifies that contract. Check docs examples against imports from
+  `moduix`, not only local component imports.
 - When using `RootProvider`, skip the matching `Root` for that same instance.
 - Use `asChild` for custom host components on Ark parts. The child must be a single element and must keep required
   accessibility and interaction semantics.
 - Use the `ark` factory for local standalone polymorphic elements that should behave like Ark elements.
 - Use Ark `ids` props when separate Ark components must share accessibility or interaction IDs.
 - Do not introduce `render` prop contracts, local state handles, or converted callbacks.
+
+## Typing Rules
+
+- When wrapping Ark primitive parts, prefer `ComponentRef<typeof Primitive.Part>` for refs and
+  `ComponentProps<typeof Primitive.Part>` for props.
+- When wrapping `ark.*` factory elements such as `ark.div`, `ark.button`, or `ark.a`, prefer
+  `HTMLArkProps<'div'>`, `HTMLArkProps<'button'>`, and the matching intrinsic form for props.
+- Do not rewrite `ark.*` wrappers to `ComponentProps<typeof ark.div>`-style typing only for visual
+  consistency with primitive wrappers.
 
 ## Core Rules
 

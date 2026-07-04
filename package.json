@@ -36,13 +36,13 @@
   },
   "engines": {
     "node": "24.x",
-    "npm": "11.17.x"
+    "npm": "11.16.x"
   },
-  "packageManager": "npm@11.17.0",
+  "packageManager": "npm@11.16.0",
   "allowScripts": {
-    "esbuild@0.28.1": true,
-    "fsevents@2.3.3": true,
-    "sharp@0.34.5": true,
-    "workerd@1.20260625.1": true
+    "esbuild": true,
+    "fsevents": true,
+    "sharp": true,
+    "workerd": true
   }
 }

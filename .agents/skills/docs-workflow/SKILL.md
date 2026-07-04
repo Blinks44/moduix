@@ -25,6 +25,8 @@ Use this skill for work in `apps/docs`.
 - Import public components from `moduix`. Do not duplicate library components inside the docs app.
 - Document the shipped public API only. Remove stale props, examples, styling hooks, and obsolete guidance in the same task.
 - Keep MDX consumer-facing. Put interactive logic and `cssProperties` arrays in example `.tsx` files, but keep the visible snippet data setup inside `Preview.Code`.
+- Remove repeated docs-only ceremony with small local helpers, not page builders, generators, or hidden DSLs.
+- Prefer namespace imports in MDX when a page would otherwise accumulate long named imports from one examples module.
 - Prefer `as T` over `useState<T>()` in MDX.
 - Prefer short, production-like examples over exhaustive configuration demos.
 - Keep demo styles in colocated CSS Modules when that is clearer than inline styles.
@@ -107,13 +109,16 @@ Inside `## Styling`, always use:
 
 - Put component code in `Preview.Code`.
 - Put example-local CSS in `Preview.CSS`.
-- Use Fumadocs `<include>` for `Preview.Code` when it meaningfully reduces MDX noise; keep the
-  snippet in a docs-local `_snippets/` file and include a named region.
-- Do not use `Preview.Data` on component pages by default. Put arrays, mock payloads, and other
-  setup data directly in the visible `Preview.Code` snippet so the snippet stays self-contained.
+- On component pages in `apps/docs/content/docs/*.mdx`, every `Preview.Code` must use a docs-local
+  snippet file in `./_snippets/<component>/` with a named region include.
+- Use `basic.tsx` for the `## Basic` section and stable heading-based filenames for the rest, such
+  as `custom-styling.tsx` or `root-provider.tsx`.
+- Do not use `Preview.Data` on component pages. Put arrays, mock payloads, and other setup data
+  directly in the visible `Preview.Code` snippet so the snippet stays self-contained.
 - Do not use `<include>` by default for `Preview.CSS`. Prefer inline content or exports from the
   example module unless the content is genuinely large and reused.
-- Keep snippets self-contained and consumer-facing.
+- Keep snippets self-contained and consumer-facing. Use `//#region demo` / `//#endregion` in the
+  snippet file so the visible region stays stable.
 - Prefer the Ark UI documentation style: one complete component per visible snippet, with the relevant parts inlined.
   Do not make readers jump between hidden helper components just to understand the example. Keep helpers in the docs
   source only when needed for maintainability, and inline them in the displayed snippet unless the helper itself is the
@@ -133,6 +138,10 @@ Inside `## Styling`, always use:
 - Do not attach `Preview.CSSProperties` or `Preview.CSSPlayground` to the `Basic` example.
 - Prefer removing `Playground` from component pages unless a task explicitly needs interactive token editing.
 - Do not add a preview canvas inside `Styling`.
+- Keep small example fixtures in the visible snippet instead of extracting page-only data constants or
+  wrapper components that add no behavior of their own.
+- Extract only narrow repeated wrapper UI, such as shared install tabs or CSS-properties chrome, into
+  docs-local helpers. Do not hide the documented component composition behind docs abstractions.
 
 ## CSS Properties
 
