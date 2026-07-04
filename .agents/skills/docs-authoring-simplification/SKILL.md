@@ -84,6 +84,29 @@ snippet itself and include that snippet with `<include>`.
 Keep `Preview.CSS` separate when local example styles add clarity, but keep the visible data setup
 inside the code snippet.
 
+5. `basic.tsx` snippets are required for component-page Basic examples
+
+For component pages in `apps/docs/content/docs/*.mdx`, the `## Basic` example must use a docs-local
+snippet file at `./_snippets/<component>/basic.tsx` and include it in `Preview.Code`.
+
+Required pattern:
+
+```mdx
+<Preview.Code>
+  <include lang="tsx">./_snippets/accordion/basic.tsx#demo</include>
+</Preview.Code>
+```
+
+The snippet must be self-contained and consumer-facing:
+
+- keep example data inside the snippet
+- use `//#region demo` / `//#endregion`
+- do not use `Preview.Data` for the Basic example
+- keep `Preview.CSS` in MDX only when separate CSS still improves readability
+
+Treat this as mandatory authoring structure, not an optional cleanup, when simplifying component
+documentation.
+
 ## Preserve docs clarity
 
 Do not simplify by hiding the documented component structure.
@@ -94,6 +117,8 @@ Do not simplify by hiding the documented component structure.
 - Use `Preview.CSS` only for example-local styles that are worth reading separately.
 - Only factor out the surrounding authoring boilerplate.
 - Prefer `include` for code snippets; avoid spreading small fixtures across extra files and tabs.
+- For `## Basic` on component pages, use the required `./_snippets/<component>/basic.tsx` include
+  instead of inline MDX code.
 
 ## Workflow
 

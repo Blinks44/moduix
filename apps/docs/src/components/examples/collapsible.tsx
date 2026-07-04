@@ -96,7 +96,7 @@ export const collapsibleLongContentData = `const paragraphs = [
   'Use partial collapse when a short preview should stay visible while the rest of the content is inert.',
 ];`;
 
-const collapsibleOverrideCssProperties: CssPropertyInput[] = [
+export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ['--collapsible-color', 'var(--color-foreground)', 'Controls root text color.'],
   ['--collapsible-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--collapsible-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],

@@ -4,21 +4,7 @@ description: A disclosure control that opens and closes a single content region.
 icon: Component
 ---
 
-import {
-  CollapsibleCssPropertiesPanel,
-  CollapsibleExample,
-  ControlledCollapsibleExample,
-  CustomCompositionCollapsibleExample,
-  DisabledCollapsibleExample,
-  LazyMountCollapsibleExample,
-  NestedCollapsibleExample,
-  PartialCollapseCollapsibleExample,
-  RootProviderCollapsibleExample,
-  collapsibleCustomCompositionCss,
-  collapsibleExampleCss,
-  collapsibleLongContentData,
-  recoveryKeysData,
-} from '@/components/examples/collapsible';
+import * as CollapsibleDocs from '@/components/examples/collapsible';
 
 ## API Reference
 
@@ -30,80 +16,18 @@ Use `Collapsible` with the Ark-shaped `Trigger`, `Indicator`, and `Content` part
 disclosure.
 
 <Preview>
-  <CollapsibleExample />
+  <CollapsibleDocs.CollapsibleExample />
 
-  <Preview.Code>
-    {`
-      import { Collapsible } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/collapsible/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function CollapsibleDemo() {
-        return (
-          <Collapsible>
-            <Collapsible.Trigger>
-              Recovery keys
-              <Collapsible.Indicator />
-            </Collapsible.Trigger>
-            <Collapsible.Content>
-              <div className="collapsible-content-body">
-                <ul className="collapsible-keys-list">
-                  {recoveryKeys.map((key) => (
-                    <li key={key}>{key}</li>
-                  ))}
-                </ul>
-              </div>
-            </Collapsible.Content>
-          </Collapsible>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{recoveryKeysData}</Preview.Data>
+  <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
 </Preview>
 
 ## Install with shadcn
 
-Install the component source from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-collapsible
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-collapsible
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-collapsible
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-collapsible
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-collapsible
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-collapsible" />
 
 ## Anatomy
 
@@ -172,7 +96,7 @@ custom children.
 Set `defaultOpen` for an uncontrolled disclosure that starts expanded.
 
 <Preview>
-  <CollapsibleExample defaultOpen />
+  <CollapsibleDocs.CollapsibleExample defaultOpen />
 
   <Preview.Code>
     {`
@@ -201,8 +125,8 @@ Set `defaultOpen` for an uncontrolled disclosure that starts expanded.
 
   </Preview.Code>
 
-  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{recoveryKeysData}</Preview.Data>
+  <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Controlled
@@ -210,7 +134,7 @@ Set `defaultOpen` for an uncontrolled disclosure that starts expanded.
 Use `open` with the Ark `onOpenChange(details)` callback when surrounding UI owns the state.
 
 <Preview>
-  <ControlledCollapsibleExample />
+  <CollapsibleDocs.ControlledCollapsibleExample />
 
   <Preview.Code>
     {`
@@ -246,8 +170,8 @@ Use `open` with the Ark `onOpenChange(details)` callback when surrounding UI own
 
   </Preview.Code>
 
-  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{recoveryKeysData}</Preview.Data>
+  <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Disabled
@@ -255,7 +179,7 @@ Use `open` with the Ark `onOpenChange(details)` callback when surrounding UI own
 Set `disabled` on the root to keep the disclosure visible but unavailable.
 
 <Preview>
-  <DisabledCollapsibleExample />
+  <CollapsibleDocs.DisabledCollapsibleExample />
 
   <Preview.Code>
     {`
@@ -284,8 +208,8 @@ Set `disabled` on the root to keep the disclosure visible but unavailable.
 
   </Preview.Code>
 
-  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{recoveryKeysData}</Preview.Data>
+  <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Lazy Mount
@@ -293,7 +217,7 @@ Set `disabled` on the root to keep the disclosure visible but unavailable.
 Combine `lazyMount` and `unmountOnExit` when closed content should not remain in the DOM.
 
 <Preview>
-  <LazyMountCollapsibleExample />
+  <CollapsibleDocs.LazyMountCollapsibleExample />
 
   <Preview.Code>
     {`
@@ -322,8 +246,8 @@ Combine `lazyMount` and `unmountOnExit` when closed content should not remain in
 
   </Preview.Code>
 
-  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{recoveryKeysData}</Preview.Data>
+  <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Partial Collapse
@@ -331,7 +255,7 @@ Combine `lazyMount` and `unmountOnExit` when closed content should not remain in
 Use `collapsedHeight` or `collapsedWidth` to leave part of the content visible while closed.
 
 <Preview>
-  <PartialCollapseCollapsibleExample />
+  <CollapsibleDocs.PartialCollapseCollapsibleExample />
 
   <Preview.Code>
     {`
@@ -358,8 +282,8 @@ Use `collapsedHeight` or `collapsedWidth` to leave part of the content visible w
 
   </Preview.Code>
 
-  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{collapsibleLongContentData}</Preview.Data>
+  <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{CollapsibleDocs.collapsibleLongContentData}</Preview.Data>
 </Preview>
 
 ### Nested
@@ -367,7 +291,7 @@ Use `collapsedHeight` or `collapsedWidth` to leave part of the content visible w
 Nest independent roots when a disclosed section contains another optional detail.
 
 <Preview>
-  <NestedCollapsibleExample />
+  <CollapsibleDocs.NestedCollapsibleExample />
 
   <Preview.Code>
     {`
@@ -407,8 +331,8 @@ Nest independent roots when a disclosed section contains another optional detail
 
   </Preview.Code>
 
-  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{recoveryKeysData}</Preview.Data>
+  <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -417,7 +341,7 @@ Create the state machine with Ark `useCollapsible` when code outside the rendere
 state.
 
 <Preview>
-  <RootProviderCollapsibleExample />
+  <CollapsibleDocs.RootProviderCollapsibleExample />
 
   <Preview.Code>
     {`
@@ -454,8 +378,8 @@ state.
 
   </Preview.Code>
 
-  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
-  <Preview.Data>{recoveryKeysData}</Preview.Data>
+  <Preview.CSS>{CollapsibleDocs.collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Custom Composition
@@ -463,7 +387,7 @@ state.
 Use `asChild` to compose the trigger behavior onto a consumer-owned button.
 
 <Preview>
-  <CustomCompositionCollapsibleExample />
+  <CollapsibleDocs.CustomCompositionCollapsibleExample />
 
   <Preview.Code>
     {`
@@ -496,21 +420,15 @@ Use `asChild` to compose the trigger behavior onto a consumer-owned button.
 
   </Preview.Code>
 
-  <Preview.CSS>{collapsibleCustomCompositionCss}</Preview.CSS>
-  <Preview.Data>{recoveryKeysData}</Preview.Data>
+  <Preview.CSS>{CollapsibleDocs.collapsibleCustomCompositionCss}</Preview.CSS>
+  <Preview.Data>{CollapsibleDocs.recoveryKeysData}</Preview.Data>
 </Preview>
 
 ## Styling
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <CollapsibleCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
 
 ### Styling hooks
 

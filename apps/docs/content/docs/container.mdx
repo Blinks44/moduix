@@ -4,15 +4,7 @@ description: A responsive layout primitive for consistent content width and flui
 icon: Component
 ---
 
-import {
-  ContainerBleedExample,
-  ContainerCssPropertiesPanel,
-  ContainerExample,
-  ContainerGuttersExample,
-  ContainerSemanticExample,
-  ContainerSizesExample,
-  CustomStylingContainerExample,
-} from '@/components/examples/container';
+import * as ContainerDocs from '@/components/examples/container';
 
 ## API Reference
 
@@ -27,25 +19,11 @@ Use `Container` when the main concern is readable inline width. It centers a con
 applies responsive inline gutters, and stays out of vertical spacing decisions.
 
 <Preview cssVariableScope="local">
-  <ContainerExample />
+  <ContainerDocs.ContainerExample />
 
-  <Preview.Code>
-    {`
-      import { Container, Heading, Text } from "@moduix/react";
-
-      export function ContainerDemo() {
-        return (
-          <Container className="container">
-            <Heading as="h3" size="lg">
-              {containerContent.title}
-            </Heading>
-            <Text tone="muted">{containerContent.description}</Text>
-          </Container>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/container/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -61,60 +39,11 @@ applies responsive inline gutters, and stays out of vertical spacing decisions.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const containerContent = {
-        title: "Responsive page content",
-        description: "The content column stays readable while inline gutters fluidly adapt.",
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Container` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-container
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-container
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-container
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-container
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-container
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-container" />
 
 This install path also pulls in the shared moduix foundation files that `Container` depends on, such
 as styles, icons, and small utilities.
@@ -180,7 +109,7 @@ Use `size` to choose the content column width. `full` fills the available inline
 preserving the selected gutter.
 
 <Preview>
-  <ContainerSizesExample />
+  <ContainerDocs.ContainerSizesExample />
 
   <Preview.Code>
     {`
@@ -239,7 +168,7 @@ preserving the selected gutter.
 Use `gutter` to control responsive inline padding.
 
 <Preview>
-  <ContainerGuttersExample />
+  <ContainerDocs.ContainerGuttersExample />
 
   <Preview.Code>
     {`
@@ -296,7 +225,7 @@ Use `gutter` to control responsive inline padding.
 Use `asChild` when the layout wrapper should also describe document structure.
 
 <Preview>
-  <ContainerSemanticExample />
+  <ContainerDocs.ContainerSemanticExample />
 
   <Preview.Code>
     {`
@@ -347,7 +276,7 @@ Use `asChild` when the layout wrapper should also describe document structure.
 Keep the text column constrained and let only the wider child opt out.
 
 <Preview>
-  <ContainerBleedExample />
+  <ContainerDocs.ContainerBleedExample />
 
   <Preview.Code>
     {`
@@ -407,7 +336,7 @@ Keep the text column constrained and let only the wider child opt out.
 Pass `className` when styling the root or overriding container variables locally.
 
 <Preview>
-  <CustomStylingContainerExample />
+  <ContainerDocs.CustomStylingContainerExample />
 
   <Preview.Code>
     {`
@@ -458,13 +387,7 @@ scale. Use `className` for local block styling such as padding, borders, or back
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <ContainerCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties} />
 
 ### Styling hooks
 

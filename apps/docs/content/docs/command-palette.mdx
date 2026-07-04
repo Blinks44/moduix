@@ -4,13 +4,7 @@ description: A dialog-based command surface with Ark Combobox search and keyboar
 icon: Component
 ---
 
-import {
-  CommandPaletteActionsExample,
-  CommandPaletteCssPropertiesPanel,
-  CommandPaletteExample,
-  CommandPaletteShortcutExample,
-  ControlledCommandPaletteExample,
-} from '@/components/examples/command-palette';
+import * as CommandPaletteDocs from '@/components/examples/command-palette';
 
 ## API Reference
 
@@ -25,168 +19,24 @@ with Ark [`Combobox`](https://ark-ui.com/docs/components/combobox) for behavior.
 Use the explicit dialog structure and place `CommandPalette.Combobox` inside `CommandPalette.Content`. The collection stays outside the rendered tree, matching Ark Combobox examples.
 
 <Preview>
-  <CommandPaletteExample />
+  <CommandPaletteDocs.CommandPaletteExample />
 
-  <Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/command-palette/basic.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
     {`
-      import {
-        Button,
-        CommandPalette,
-      } from "@moduix/react";
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { useFilter } from "@ark-ui/react/locale";
-
-      export function CommandPaletteDemo() {
-        const { contains } = useFilter({ sensitivity: "base" });
-        const { collection, filter } = useListCollection({
-          initialItems: commandItems,
-          itemToString: (item) => \`\${item.label} \${item.description} \${item.section}\`,
-          itemToValue: (item) => item.id,
-          filter: contains,
-          groupBy: (item) => item.section,
-        });
-
-        return (
-          <CommandPalette
-            aria-label="Command palette"
-            shortcut="alt+k"
-            onOpenChange={(details) => {
-              if (!details.open) {
-                filter("");
-              }
-            }}
-          >
-            <CommandPalette.Trigger asChild>
-              <Button>Open palette</Button>
-            </CommandPalette.Trigger>
-            <CommandPalette.Backdrop />
-            <CommandPalette.Positioner>
-              <CommandPalette.Content className="commandPalette">
-                <CommandPalette.Combobox
-                  collection={collection}
-                  onInputValueChange={(details) => filter(details.inputValue)}
-                >
-                  <CommandPalette.Control>
-                    <CommandPalette.Input
-                      aria-label="Search commands"
-                      placeholder="Search commands, pages, and settings..."
-                    />
-                    <CommandPalette.ClearTrigger aria-label="Clear search" />
-                  </CommandPalette.Control>
-                  <CommandPalette.List>
-                    <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
-                    {collection.group().map(([section, items]) => (
-                      <CommandPalette.ItemGroup key={section}>
-                        <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
-                        {items.map((item) => (
-                          <CommandPalette.Item key={item.id} item={item}>
-                            <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
-                            <CommandPalette.ItemText>
-                              <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                              <CommandPalette.ItemDescription>
-                                {item.description}
-                              </CommandPalette.ItemDescription>
-                            </CommandPalette.ItemText>
-                            {item.shortcut ? (
-                              <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
-                            ) : null}
-                          </CommandPalette.Item>
-                        ))}
-                      </CommandPalette.ItemGroup>
-                    ))}
-                  </CommandPalette.List>
-                  <CommandPalette.Footer>
-                    <span>
-                      <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
-                    </span>
-                    <span>
-                      <CommandPalette.Kbd>Esc</CommandPalette.Kbd> close
-                    </span>
-                  </CommandPalette.Footer>
-                </CommandPalette.Combobox>
-              </CommandPalette.Content>
-            </CommandPalette.Positioner>
-          </CommandPalette>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.CSS>
-  {`
       .commandPalette {
         --command-palette-width: 37.5rem;
       }
     `}
-</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const commandItems = [
-        {
-          id: "new-project",
-          section: "Create",
-          label: "New project",
-          description: "Start a blank workspace",
-          shortcut: "N",
-          icon: <PlusIcon />,
-        },
-        {
-          id: "recent",
-          section: "Navigate",
-          label: "Open recent work",
-          description: "Jump back to a recently edited file",
-          shortcut: "R",
-          icon: <ArrowUpRightIcon />,
-        },
-      ];
-    `}
-  </Preview.Data>
+  </Preview.CSS>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Command Palette` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-command-palette
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-command-palette
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-command-palette
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-command-palette
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-command-palette
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-command-palette" />
 
 ## Anatomy
 
@@ -268,7 +118,7 @@ The shortcut listener is opt-in because documentation pages and complex applicat
 Attach execution behavior to items and let `CommandPalette.Combobox` close the dialog on selection.
 
 <Preview>
-  <CommandPaletteActionsExample />
+  <CommandPaletteDocs.CommandPaletteActionsExample />
 
   <Preview.Code>
     {`
@@ -390,7 +240,7 @@ Attach execution behavior to items and let `CommandPalette.Combobox` close the d
 Control `open` from React state when the palette must coordinate with surrounding UI.
 
 <Preview>
-  <ControlledCommandPaletteExample />
+  <CommandPaletteDocs.ControlledCommandPaletteExample />
 
   <Preview.Code>
     {`
@@ -505,7 +355,7 @@ Control `open` from React state when the palette must coordinate with surroundin
 Enable the listener when a palette should open from a global command key. The live preview opens from the button so this docs page keeps a single active `Alt+K` listener.
 
 <Preview>
-  <CommandPaletteShortcutExample />
+  <CommandPaletteDocs.CommandPaletteShortcutExample />
 
 <Preview.Code>
   {`
@@ -586,13 +436,7 @@ Use CSS variables on the trigger, backdrop, content, list, and item parts when t
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <CommandPaletteCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={CommandPaletteDocs.commandPaletteOverrideCssProperties} />
 
 ### Styling hooks
 

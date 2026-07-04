@@ -4,14 +4,7 @@ description: An icon-only button for dismissing overlays, notifications, and oth
 icon: Component
 ---
 
-import {
-  CloseButtonAsChildExample,
-  CloseButtonCssPropertiesPanel,
-  CloseButtonCustomChildrenExample,
-  CloseButtonCustomStylingExample,
-  CloseButtonDisabledExample,
-  CloseButtonExample,
-} from '@/components/examples/close-button';
+import * as CloseButtonDocs from '@/components/examples/close-button';
 
 ## API Reference
 
@@ -26,26 +19,11 @@ Use `CloseButton` when the control itself performs a dismiss or close action. It
 button semantics and a default close glyph, but it does not manage overlay state by itself.
 
 <Preview>
-  <CloseButtonExample />
+  <CloseButtonDocs.CloseButtonExample />
 
-  <Preview.Code>
-    {`
-      import { CloseButton } from "@moduix/react";
-
-      export function CloseButtonDemo() {
-        return (
-          <div className="surface">
-            <div className="content">
-              <p className="title">Draft saved</p>
-              <p className="description">The notification can be dismissed.</p>
-            </div>
-            <CloseButton aria-label="Dismiss notification" />
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/close-button/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -86,61 +64,11 @@ button semantics and a default close glyph, but it does not manage overlay state
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const closeButtonDemoCopy = {
-        title: "Draft saved",
-        description: "The notification can be dismissed.",
-        closeLabel: "Dismiss notification",
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Close Button` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-close-button
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-close-button
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-close-button
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-close-button
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-close-button
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-close-button" />
 
 This install path also pulls in the shared moduix foundation files that `Close Button` depends on,
 such as styles, icons, and small utilities.
@@ -200,7 +128,7 @@ dismissal state and focus lifecycle.
 Replace the default glyph through `children` while keeping the root button and styling contract.
 
 <Preview>
-  <CloseButtonCustomChildrenExample />
+  <CloseButtonDocs.CloseButtonCustomChildrenExample />
 
   <Preview.Code>
     {`
@@ -254,7 +182,7 @@ Use `asChild` when an existing button component must own the rendered element wh
 Close Button styling and data hooks.
 
 <Preview>
-  <CloseButtonAsChildExample />
+  <CloseButtonDocs.CloseButtonAsChildExample />
 
   <Preview.Code>
     {`
@@ -309,7 +237,7 @@ Close Button styling and data hooks.
 Style the root through `className` and the public `--close-button-*` variables.
 
 <Preview>
-  <CloseButtonCustomStylingExample />
+  <CloseButtonDocs.CloseButtonCustomStylingExample />
 
   <Preview.Code>
     {`
@@ -357,7 +285,7 @@ Use native `disabled` for regular buttons or `aria-disabled="true"` when the con
 discoverable while refusing activation.
 
 <Preview>
-  <CloseButtonDisabledExample />
+  <CloseButtonDocs.CloseButtonDisabledExample />
 
   <Preview.Code>
     {`
@@ -400,13 +328,7 @@ discoverable while refusing activation.
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <CloseButtonCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties} />
 
 ### Styling hooks
 

@@ -4,20 +4,7 @@ description: A composable surface for content related to a single subject.
 icon: Component
 ---
 
-import {
-  CardAsLinkExample,
-  CardAvatarExample,
-  CardCssPropertiesPanel,
-  CardCustomStylingExample,
-  CardExample,
-  CardFormExample,
-  CardHorizontalExample,
-  CardLinkWithActionsExample,
-  CardSizesExample,
-  CardVariantsExample,
-  CardWithActionExample,
-  CardWithImageExample,
-} from '@/components/examples/card';
+import * as CardDocs from '@/components/examples/card';
 
 ## API Reference
 
@@ -31,89 +18,24 @@ Ark UI does not ship a dedicated card primitive. Moduix builds this component wi
 Use the callable `<Card />` root with namespaced parts for the standard card composition.
 
 <Preview>
-  <CardExample />
+  <CardDocs.CardExample />
 
-  <Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/basic.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
     {`
-      import { Button, Card } from "@moduix/react";
-
-      export function CardDemo() {
-        return (
-          <Card className="card">
-            <Card.Header>
-              <Card.Title>{content.title}</Card.Title>
-              <Card.Description>{content.description}</Card.Description>
-            </Card.Header>
-            <Card.Body>{content.summary}</Card.Body>
-            <Card.Footer>
-              <Button variant="outline">View log</Button>
-              <Button>Promote release</Button>
-            </Card.Footer>
-          </Card>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.CSS>
-  {`
       .card {
         width: min(24rem, calc(100vw - var(--spacing-8)));
       }
     `}
-</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const content = {
-        title: "Release health",
-        description: "Summary for the current production rollout.",
-        summary: "98.4% successful sessions · 12 checks passed",
-      };
-    `}
-  </Preview.Data>
+  </Preview.CSS>
 </Preview>
 
 ## Install with shadcn
 
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-card
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-card
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-card
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-card
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-card
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-card" />
 
 ## Anatomy
 
@@ -177,7 +99,7 @@ independent controls. `Card.Action` only provides layout and does not create ARI
 Use the Chakra-aligned variants to communicate surface hierarchy.
 
 <Preview>
-  <CardVariantsExample />
+  <CardDocs.CardVariantsExample />
 
   <Preview.Code>
     {`
@@ -234,7 +156,7 @@ Use the Chakra-aligned variants to communicate surface hierarchy.
 Use `sm`, `md`, and `lg` to change card padding and title scale.
 
 <Preview>
-  <CardSizesExample />
+  <CardDocs.CardSizesExample />
 
   <Preview.Code>
     {`
@@ -291,7 +213,7 @@ Use `sm`, `md`, and `lg` to change card padding and title scale.
 Compose the root as a form when the card groups related fields and actions.
 
 <Preview>
-  <CardFormExample />
+  <CardDocs.CardFormExample />
 
   <Preview.Code>
     {`
@@ -359,7 +281,7 @@ Compose the root as a form when the card groups related fields and actions.
 Place media before the named parts when it should span the card width.
 
 <Preview>
-  <CardWithImageExample />
+  <CardDocs.CardWithImageExample />
 
   <Preview.Code>
     {`
@@ -413,7 +335,7 @@ Place media before the named parts when it should span the card width.
 Use consumer layout CSS to create a horizontal card without adding a presentation-specific prop.
 
 <Preview>
-  <CardHorizontalExample />
+  <CardDocs.CardHorizontalExample />
 
   <Preview.Code>
     {`
@@ -480,7 +402,7 @@ Use consumer layout CSS to create a horizontal card without adding a presentatio
 Compose profile media inside the header when identity is the card's subject.
 
 <Preview>
-  <CardAvatarExample />
+  <CardDocs.CardAvatarExample />
 
   <Preview.Code>
     {`
@@ -548,7 +470,7 @@ Compose profile media inside the header when identity is the card's subject.
 `Card.Action` is moduix sugar for a compact trailing status or control.
 
 <Preview>
-  <CardWithActionExample />
+  <CardDocs.CardWithActionExample />
 
   <Preview.Code>
     {`
@@ -595,7 +517,7 @@ Compose profile media inside the header when identity is the card's subject.
 Use `asChild` when the entire card is one navigation target and contains no nested controls.
 
 <Preview>
-  <CardAsLinkExample />
+  <CardDocs.CardAsLinkExample />
 
   <Preview.Code>
     {`
@@ -643,7 +565,7 @@ Use `asChild` when the entire card is one navigation target and contains no nest
 Use `Card.Link` when navigation and independent actions must coexist.
 
 <Preview>
-  <CardLinkWithActionsExample />
+  <CardDocs.CardLinkWithActionsExample />
 
   <Preview.Code>
     {`
@@ -694,7 +616,7 @@ Use `Card.Link` when navigation and independent actions must coexist.
 Override public variables or target stable part hooks without changing the composition.
 
 <Preview>
-  <CardCustomStylingExample />
+  <CardDocs.CardCustomStylingExample />
 
   <Preview.Code>
     {`
@@ -741,13 +663,7 @@ Override public variables or target stable part hooks without changing the compo
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <CardCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={CardDocs.cardOverrideCssProperties} />
 
 ### Styling hooks
 

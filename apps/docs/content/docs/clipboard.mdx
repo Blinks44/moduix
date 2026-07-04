@@ -4,25 +4,7 @@ description: An Ark-style clipboard composition for displaying, editing, and cop
 icon: Component
 ---
 
-import {
-  ClipboardCssPropertiesPanel,
-  ClipboardExample,
-  ControlledClipboardExample,
-  CopyStatusClipboardExample,
-  CustomStylingClipboardExample,
-  RootProviderClipboardExample,
-  TimeoutClipboardExample,
-  ValueTextClipboardExample,
-  clipboardBasicData,
-  clipboardControlledData,
-  clipboardCopyStatusData,
-  clipboardCustomStylingData,
-  clipboardCustomStylingCss,
-  clipboardExampleCss,
-  clipboardRootProviderData,
-  clipboardTimeoutData,
-  clipboardValueTextData,
-} from '@/components/examples/clipboard';
+import * as ClipboardDocs from '@/components/examples/clipboard';
 
 ## API Reference
 
@@ -34,75 +16,18 @@ Use the Ark composition path directly: `Clipboard.Root`, `Clipboard.Label`, `Cli
 `Clipboard.Input`, `Clipboard.Trigger`, and `Clipboard.Indicator`.
 
 <Preview>
-  <ClipboardExample />
+  <ClipboardDocs.ClipboardExample />
 
-  <Preview.Code>
-    {`
-      import { Clipboard } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/clipboard/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function ClipboardDemo() {
-        return (
-          <Clipboard defaultValue="https://moduix.dev/docs/clipboard">
-            <Clipboard.Label>Copy this link</Clipboard.Label>
-            <Clipboard.Control>
-              <Clipboard.Input readOnly />
-              <Clipboard.Trigger aria-label="Copy link">
-                <Clipboard.Indicator />
-              </Clipboard.Trigger>
-            </Clipboard.Control>
-          </Clipboard>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
-  <Preview.Data>{clipboardBasicData}</Preview.Data>
+  <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Clipboard` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-clipboard
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-clipboard
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-clipboard
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-clipboard
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-clipboard
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-clipboard" />
 
 This install path also pulls in the shared moduix foundation files that `Clipboard` depends on,
 such as styles, icons, and small utilities.
@@ -180,7 +105,7 @@ part tree visible instead of hiding it behind a convenience wrapper.
 Control the value when the text field should stay in sync with surrounding UI or an external source.
 
 <Preview>
-  <ControlledClipboardExample />
+  <ClipboardDocs.ControlledClipboardExample />
 
   <Preview.Code>
     {`
@@ -209,8 +134,8 @@ Control the value when the text field should stay in sync with surrounding UI or
 
   </Preview.Code>
 
-  <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
-  <Preview.Data>{clipboardControlledData}</Preview.Data>
+  <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
+  <Preview.Data>{ClipboardDocs.clipboardControlledData}</Preview.Data>
 </Preview>
 
 ### Copy Status
@@ -219,7 +144,7 @@ Use `onStatusChange(details)` when surrounding UI should react to successful cop
 introducing a separate clipboard abstraction.
 
 <Preview>
-  <CopyStatusClipboardExample />
+  <ClipboardDocs.CopyStatusClipboardExample />
 
   <Preview.Code>
     {`
@@ -252,8 +177,8 @@ introducing a separate clipboard abstraction.
 
   </Preview.Code>
 
-  <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
-  <Preview.Data>{clipboardCopyStatusData}</Preview.Data>
+  <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
+  <Preview.Data>{ClipboardDocs.clipboardCopyStatusData}</Preview.Data>
 </Preview>
 
 ### Timeout
@@ -261,7 +186,7 @@ introducing a separate clipboard abstraction.
 Set `timeout` when copied state should remain visible for longer than the Ark default.
 
 <Preview>
-  <TimeoutClipboardExample />
+  <ClipboardDocs.TimeoutClipboardExample />
 
   <Preview.Code>
     {`
@@ -284,8 +209,8 @@ Set `timeout` when copied state should remain visible for longer than the Ark de
 
   </Preview.Code>
 
-  <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
-  <Preview.Data>{clipboardTimeoutData}</Preview.Data>
+  <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
+  <Preview.Data>{ClipboardDocs.clipboardTimeoutData}</Preview.Data>
 </Preview>
 
 ### Value Text
@@ -293,7 +218,7 @@ Set `timeout` when copied state should remain visible for longer than the Ark de
 Use `Clipboard.ValueText` when the copied value should read like inline content instead of an input.
 
 <Preview>
-  <ValueTextClipboardExample />
+  <ClipboardDocs.ValueTextClipboardExample />
 
   <Preview.Code>
     {`
@@ -315,8 +240,8 @@ Use `Clipboard.ValueText` when the copied value should read like inline content 
 
   </Preview.Code>
 
-  <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
-  <Preview.Data>{clipboardValueTextData}</Preview.Data>
+  <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
+  <Preview.Data>{ClipboardDocs.clipboardValueTextData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -325,7 +250,7 @@ Use Ark `useClipboard()` with `Clipboard.RootProvider` when clipboard state belo
 rendered tree but the visible parts should stay Ark-shaped.
 
 <Preview>
-  <RootProviderClipboardExample />
+  <ClipboardDocs.RootProviderClipboardExample />
 
   <Preview.Code>
     {`
@@ -356,8 +281,8 @@ rendered tree but the visible parts should stay Ark-shaped.
 
   </Preview.Code>
 
-  <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
-  <Preview.Data>{clipboardRootProviderData}</Preview.Data>
+  <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
+  <Preview.Data>{ClipboardDocs.clipboardRootProviderData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -366,7 +291,7 @@ Target `data-copied` and `className` on the real Ark parts when copied state nee
 feedback. The default moduix styling does not darken the input or trigger after copy.
 
 <Preview>
-  <CustomStylingClipboardExample />
+  <ClipboardDocs.CustomStylingClipboardExample />
 
   <Preview.Code>
     {`
@@ -392,21 +317,15 @@ feedback. The default moduix styling does not darken the input or trigger after 
 
   </Preview.Code>
 
-  <Preview.CSS>{clipboardCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{clipboardCustomStylingData}</Preview.Data>
+  <Preview.CSS>{ClipboardDocs.clipboardCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{ClipboardDocs.clipboardCustomStylingData}</Preview.Data>
 </Preview>
 
 ## Styling
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <ClipboardCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={ClipboardDocs.clipboardOverrideCssProperties} />
 
 ### Styling hooks
 

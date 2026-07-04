@@ -4,23 +4,7 @@ description: A filterable input for selecting one or more values from an Ark UI 
 icon: Component
 ---
 
-import {
-  AsyncSearchComboboxExample,
-  AutoHighlightComboboxExample,
-  ComboboxCssPropertiesPanel,
-  ComboboxExample,
-  ControlledComboboxExample,
-  CreatableComboboxExample,
-  DynamicComboboxExample,
-  GroupedComboboxExample,
-  InlineAutocompleteComboboxExample,
-  LimitComboboxExample,
-  LinksComboboxExample,
-  MultipleComboboxExample,
-  RootProviderComboboxExample,
-  VirtualizedComboboxExample,
-  comboboxExampleCss,
-} from '@/components/examples/combobox';
+import * as ComboboxDocs from '@/components/examples/combobox';
 
 ## API Reference
 
@@ -37,107 +21,18 @@ Create an Ark `ListCollection`, pass it to `Combobox.Root`, and keep the popup s
 `onInputValueChange` receives an Ark details object.
 
 <Preview>
-  <ComboboxExample />
+  <ComboboxDocs.ComboboxExample />
 
-  <Preview.Code>
-    {`
-      import { useListCollection } from "@ark-ui/react/collection";
-      import { useFilter } from "@ark-ui/react/locale";
-      import { Combobox } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function ComboboxDemo() {
-        const { contains } = useFilter({ sensitivity: "base" });
-        const { collection, filter } = useListCollection({
-          initialItems: fruits,
-          filter: contains,
-        });
-
-        return (
-          <Combobox
-            collection={collection}
-            onInputValueChange={(details) => filter(details.inputValue)}
-          >
-            <Combobox.Label>Choose fruit</Combobox.Label>
-            <Combobox.Control>
-              <Combobox.Input placeholder="e.g. Mango" />
-              <Combobox.ClearTrigger aria-label="Clear selection" />
-              <Combobox.Trigger aria-label="Open options" />
-            </Combobox.Control>
-            <Combobox.Positioner>
-              <Combobox.Content>
-                <Combobox.Empty>No fruits found.</Combobox.Empty>
-                <Combobox.List>
-                  {collection.items.map((item) => (
-                    <Combobox.Item key={item.value} item={item}>
-                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                      <Combobox.ItemIndicator />
-                    </Combobox.Item>
-                  ))}
-                </Combobox.List>
-              </Combobox.Content>
-            </Combobox.Positioner>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const fruits = [
-        { label: "Apple", value: "apple" },
-        { label: "Banana", value: "banana" },
-        { label: "Mango", value: "mango" },
-      ];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 </Preview>
 
 ## Install with shadcn
 
-Install the registry source when the component should live in your application:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-combobox
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-combobox
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-combobox
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-combobox
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-combobox
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-combobox" />
 
 ## Anatomy
 
@@ -239,7 +134,7 @@ Set `inputBehavior="autohighlight"` to highlight the first matching item while t
 Enter can select it without an extra arrow-key press.
 
 <Preview>
-  <AutoHighlightComboboxExample />
+  <ComboboxDocs.AutoHighlightComboboxExample />
 
   <Preview.Code>
     {`
@@ -286,7 +181,7 @@ Enter can select it without an extra arrow-key press.
 
   </Preview.Code>
 
-<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -309,7 +204,7 @@ Set `inputBehavior="autocomplete"` and filter with `startsWith` to complete the 
 first matching item while preserving Ark keyboard navigation.
 
 <Preview>
-  <InlineAutocompleteComboboxExample />
+  <ComboboxDocs.InlineAutocompleteComboboxExample />
 
   <Preview.Code>
     {`
@@ -356,7 +251,7 @@ first matching item while preserving Ark keyboard navigation.
 
   </Preview.Code>
 
-<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -379,7 +274,7 @@ Use `asChild` on `Combobox.Item` to preserve combobox keyboard behavior while re
 as a native link. `selectionBehavior="preserve"` keeps the search text visible during navigation.
 
 <Preview>
-  <LinksComboboxExample />
+  <ComboboxDocs.LinksComboboxExample />
 
   <Preview.Code>
     {`
@@ -426,7 +321,7 @@ as a native link. `selectionBehavior="preserve"` keeps the search text visible d
 
   </Preview.Code>
 
-<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -460,7 +355,7 @@ Build the collection from the current input when suggestions do not exist until 
 typing. Check `details.reason` to avoid rebuilding it after selection-driven input changes.
 
 <Preview>
-  <DynamicComboboxExample />
+  <ComboboxDocs.DynamicComboboxExample />
 
   <Preview.Code>
     {`
@@ -512,7 +407,7 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
 
   </Preview.Code>
 
-<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -528,7 +423,7 @@ Combine `allowCustomValue` with collection mutation to expose a temporary “Cre
 replace that sentinel value with the user-entered value after selection.
 
 <Preview>
-  <CreatableComboboxExample />
+  <ComboboxDocs.CreatableComboboxExample />
 
   <Preview.Code>
     {`
@@ -633,7 +528,7 @@ replace that sentinel value with the user-entered value after selection.
 
   </Preview.Code>
 
-<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -658,7 +553,7 @@ Set `limit` on `useListCollection` when the full matching set is unnecessary or 
 popup harder to scan. Filtering still runs against the complete initial collection.
 
 <Preview>
-  <LimitComboboxExample />
+  <ComboboxDocs.LimitComboboxExample />
 
   <Preview.Code>
     {`
@@ -704,7 +599,7 @@ popup harder to scan. Filtering still runs against the complete initial collecti
 
   </Preview.Code>
 
-<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -736,7 +631,7 @@ For large collections, render only visible rows with TanStack Virtual and connec
 navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on virtual rows.
 
 <Preview>
-  <VirtualizedComboboxExample />
+  <ComboboxDocs.VirtualizedComboboxExample />
 
   <Preview.Code>
     {`
@@ -867,7 +762,7 @@ navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on
 Control the selected string array and read the next value from `details.value`.
 
 <Preview>
-  <ControlledComboboxExample />
+  <ComboboxDocs.ControlledComboboxExample />
 
   <Preview.Code>
     {`
@@ -920,7 +815,7 @@ Control the selected string array and read the next value from `details.value`.
 
   </Preview.Code>
 
-<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -941,7 +836,7 @@ Map object labels and values on the collection, then render Ark item groups from
 `collection.group()`.
 
 <Preview>
-  <GroupedComboboxExample />
+  <ComboboxDocs.GroupedComboboxExample />
 
   <Preview.Code>
     {`
@@ -997,7 +892,7 @@ Map object labels and values on the collection, then render Ark item groups from
 
   </Preview.Code>
 
-<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -1024,7 +919,7 @@ Enable `multiple` and render selected objects from controlled `value`. Tags are 
 rather than combobox parts.
 
 <Preview>
-  <MultipleComboboxExample />
+  <ComboboxDocs.MultipleComboboxExample />
 
   <Preview.Code>
     {`
@@ -1130,7 +1025,7 @@ Replace collection items from an async result and use `details.reason` to distin
 from machine-driven input updates.
 
 <Preview>
-  <AsyncSearchComboboxExample />
+  <ComboboxDocs.AsyncSearchComboboxExample />
 
   <Preview.Code>
     {`
@@ -1210,7 +1105,7 @@ from machine-driven input updates.
 
   </Preview.Code>
 
-<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -1234,7 +1129,7 @@ state before the root renders. `Combobox.RootProvider` preserves the moduix root
 configuration.
 
 <Preview>
-  <RootProviderComboboxExample />
+  <ComboboxDocs.RootProviderComboboxExample />
 
   <Preview.Code>
     {`
@@ -1279,7 +1174,7 @@ configuration.
 
   </Preview.Code>
 
-<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -1297,13 +1192,7 @@ configuration.
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <ComboboxCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={ComboboxDocs.comboboxOverrideCssProperties} />
 
 ### Styling hooks
 

@@ -4,40 +4,7 @@ description: A composed Ark UI color picker for color fields, channel controls, 
 icon: Component
 ---
 
-import {
-  ColorPickerCssPropertiesPanel,
-  ColorPickerExample,
-  ControlledColorPickerExample,
-  CustomStylingColorPickerExample,
-  DisabledColorPickerExample,
-  FieldStateColorPickerExample,
-  FormatColorPickerExample,
-  FormUsageColorPickerExample,
-  InlineColorPickerExample,
-  InputOnlyColorPickerExample,
-  InsideDialogColorPickerExample,
-  OpenControlledColorPickerExample,
-  RootProviderColorPickerExample,
-  SliderOnlyColorPickerExample,
-  SwatchOnlyColorPickerExample,
-  SwatchesColorPickerExample,
-  ValueSwatchColorPickerExample,
-  colorPickerControlledData,
-  colorPickerCustomStylingCss,
-  colorPickerDialogCss,
-  colorPickerDialogData,
-  colorPickerEmptyData,
-  colorPickerExampleCss,
-  colorPickerFieldCss,
-  colorPickerFieldData,
-  colorPickerFormatData,
-  colorPickerFormCss,
-  colorPickerFormData,
-  colorPickerInlineCss,
-  colorPickerOpenControlledData,
-  colorPickerSwatchesData,
-  colorPickerValueSwatchCss,
-} from '@/components/examples/color-picker';
+import * as ColorPickerDocs from '@/components/examples/color-picker';
 
 ## API Reference
 
@@ -55,108 +22,18 @@ positioner, content panel, color area, channel sliders, optional swatches, and a
 forms.
 
 <Preview>
-  <ColorPickerExample />
+  <ColorPickerDocs.ColorPickerExample />
 
-  <Preview.Code>
-    {`
-      import { ColorPicker, parseColor } from "@moduix/react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function ColorPickerDemo() {
-        return (
-          <ColorPicker defaultValue={parseColor("#eb5e41")}>
-            <ColorPicker.Label>Color</ColorPicker.Label>
-            <ColorPicker.Control>
-              <ColorPicker.ChannelInput channel="hex" />
-              <ColorPicker.ChannelInput channel="alpha" />
-              <ColorPicker.Trigger aria-label="Open color picker">
-                <ColorPicker.TransparencyGrid />
-                <ColorPicker.ValueSwatch />
-              </ColorPicker.Trigger>
-            </ColorPicker.Control>
-            <ColorPicker.Positioner>
-              <ColorPicker.Content>
-                <ColorPicker.Area>
-                  <ColorPicker.AreaBackground />
-                  <ColorPicker.AreaThumb />
-                </ColorPicker.Area>
-                <div className="color-picker-slider-group">
-                  <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
-                  <div className="color-picker-channel-sliders">
-                    <ColorPicker.ChannelSlider channel="hue">
-                      <ColorPicker.ChannelSliderTrack />
-                      <ColorPicker.ChannelSliderThumb />
-                    </ColorPicker.ChannelSlider>
-                    <ColorPicker.ChannelSlider channel="alpha">
-                      <ColorPicker.TransparencyGrid />
-                      <ColorPicker.ChannelSliderTrack />
-                      <ColorPicker.ChannelSliderThumb />
-                    </ColorPicker.ChannelSlider>
-                  </div>
-                </div>
-                <ColorPicker.SwatchGroup>
-                  {swatches.map((color) => (
-                    <ColorPicker.SwatchTrigger key={color} value={color}>
-                      <ColorPicker.Swatch value={color}>
-                        <ColorPicker.SwatchIndicator />
-                      </ColorPicker.Swatch>
-                    </ColorPicker.SwatchTrigger>
-                  ))}
-                </ColorPicker.SwatchGroup>
-              </ColorPicker.Content>
-            </ColorPicker.Positioner>
-            <ColorPicker.HiddenInput />
-          </ColorPicker>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>{colorPickerExampleCss}</Preview.CSS>
-  <Preview.Data>{colorPickerSwatchesData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
 </Preview>
 
 ## Install with shadcn
 
-Install the registry source when the component should live in your application:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-color-picker
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-color-picker
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-color-picker
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-color-picker
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-color-picker
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-color-picker" />
 
 This install path also pulls in the shared moduix foundation files that `ColorPicker` depends on,
 such as styles, icons, and small utilities.
@@ -261,7 +138,7 @@ must stay a single element and preserve the required focus and interaction behav
 Use controlled state when the selected color must stay in sync with application state.
 
 <Preview>
-  <ControlledColorPickerExample />
+  <ColorPickerDocs.ControlledColorPickerExample />
 
   <Preview.Code>
     {`
@@ -306,8 +183,8 @@ Use controlled state when the selected color must stay in sync with application 
     `}
 
   </Preview.Code>
-  <Preview.CSS>{colorPickerExampleCss}</Preview.CSS>
-  <Preview.Data>{colorPickerControlledData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
+  <Preview.Data>{ColorPickerDocs.colorPickerControlledData}</Preview.Data>
 </Preview>
 
 ### Disabled
@@ -316,7 +193,7 @@ Use `disabled` on the root when every color picker part should become non-intera
 the current color visible.
 
 <Preview>
-  <DisabledColorPickerExample />
+  <ColorPickerDocs.DisabledColorPickerExample />
 
   <Preview.Code>
     {`
@@ -341,8 +218,8 @@ the current color visible.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{colorPickerExampleCss}</Preview.CSS>
-  <Preview.Data>{colorPickerEmptyData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
+  <Preview.Data>{ColorPickerDocs.colorPickerEmptyData}</Preview.Data>
 </Preview>
 
 ### Form Usage
@@ -351,7 +228,7 @@ Use `name` on `ColorPicker.Root` and keep `HiddenInput` mounted when the value s
 with native form data.
 
 <Preview>
-  <FormUsageColorPickerExample />
+  <ColorPickerDocs.FormUsageColorPickerExample />
 
   <Preview.Code>
     {`
@@ -381,8 +258,8 @@ with native form data.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{colorPickerFormCss}</Preview.CSS>
-  <Preview.Data>{colorPickerFormData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerFormCss}</Preview.CSS>
+  <Preview.Data>{ColorPickerDocs.colorPickerFormData}</Preview.Data>
 </Preview>
 
 ### Field State
@@ -391,7 +268,7 @@ Use root form-state props such as `required` and `invalid` when the picker is re
 field container and should expose the same state through Ark data attributes.
 
 <Preview>
-  <FieldStateColorPickerExample />
+  <ColorPickerDocs.FieldStateColorPickerExample />
 
   <Preview.Code>
     {`
@@ -420,8 +297,8 @@ field container and should expose the same state through Ark data attributes.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{colorPickerFieldCss}</Preview.CSS>
-  <Preview.Data>{colorPickerFieldData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerFieldCss}</Preview.CSS>
+  <Preview.Data>{ColorPickerDocs.colorPickerFieldData}</Preview.Data>
 </Preview>
 
 ### Input Only
@@ -430,7 +307,7 @@ Use only channel inputs when typed color entry matters and the visual area or po
 heavy for the interface.
 
 <Preview>
-  <InputOnlyColorPickerExample />
+  <ColorPickerDocs.InputOnlyColorPickerExample />
 
   <Preview.Code>
     {`
@@ -451,8 +328,8 @@ heavy for the interface.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{colorPickerInlineCss}</Preview.CSS>
-  <Preview.Data>{colorPickerEmptyData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
+  <Preview.Data>{ColorPickerDocs.colorPickerEmptyData}</Preview.Data>
 </Preview>
 
 ### Slider Only
@@ -460,7 +337,7 @@ heavy for the interface.
 Use slider-only composition when direct manipulation matters but typed channel input is unnecessary.
 
 <Preview>
-  <SliderOnlyColorPickerExample />
+  <ColorPickerDocs.SliderOnlyColorPickerExample />
 
   <Preview.Code>
     {`
@@ -489,8 +366,8 @@ Use slider-only composition when direct manipulation matters but typed channel i
     `}
 
   </Preview.Code>
-  <Preview.CSS>{colorPickerInlineCss}</Preview.CSS>
-  <Preview.Data>{colorPickerEmptyData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
+  <Preview.Data>{ColorPickerDocs.colorPickerEmptyData}</Preview.Data>
 </Preview>
 
 ### Swatch Only
@@ -499,7 +376,7 @@ Use swatch-only composition when a preset palette is enough and the area, slider
 be unnecessary.
 
 <Preview>
-  <SwatchOnlyColorPickerExample />
+  <ColorPickerDocs.SwatchOnlyColorPickerExample />
 
   <Preview.Code>
     {`
@@ -525,8 +402,8 @@ be unnecessary.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{colorPickerInlineCss}</Preview.CSS>
-  <Preview.Data>{colorPickerSwatchesData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
+  <Preview.Data>{ColorPickerDocs.colorPickerSwatchesData}</Preview.Data>
 </Preview>
 
 ### Swatches
@@ -535,7 +412,7 @@ Use popup swatches when the picker should offer a curated set of colors in addit
 editing. `closeOnSelect` follows Ark behavior and closes the popup after a swatch is chosen.
 
 <Preview>
-  <SwatchesColorPickerExample />
+  <ColorPickerDocs.SwatchesColorPickerExample />
 
   <Preview.Code>
     {`
@@ -577,8 +454,8 @@ editing. `closeOnSelect` follows Ark behavior and closes the popup after a swatc
     `}
 
   </Preview.Code>
-  <Preview.CSS>{colorPickerExampleCss}</Preview.CSS>
-  <Preview.Data>{colorPickerSwatchesData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
+  <Preview.Data>{ColorPickerDocs.colorPickerSwatchesData}</Preview.Data>
 </Preview>
 
 ### Value Swatch
@@ -587,7 +464,7 @@ Use `ValueSwatch` and `ValueText` when adjacent UI needs to show the selected co
 the full picker.
 
 <Preview>
-  <ValueSwatchColorPickerExample />
+  <ColorPickerDocs.ValueSwatchColorPickerExample />
 
   <Preview.Code>
     {`
@@ -610,9 +487,9 @@ the full picker.
   </Preview.Code>
 
   <Preview.CSS>
-    {colorPickerValueSwatchCss}
+    {ColorPickerDocs.colorPickerValueSwatchCss}
   </Preview.CSS>
-  <Preview.Data>{colorPickerEmptyData}</Preview.Data>
+  <Preview.Data>{ColorPickerDocs.colorPickerEmptyData}</Preview.Data>
 </Preview>
 
 ### Inline
@@ -620,7 +497,7 @@ the full picker.
 Use `inline` for settings panels where the color tools should stay visible without a popup trigger.
 
 <Preview>
-  <InlineColorPickerExample />
+  <ColorPickerDocs.InlineColorPickerExample />
 
   <Preview.Code>
     {`
@@ -661,9 +538,9 @@ Use `inline` for settings panels where the color tools should stay visible witho
   </Preview.Code>
 
   <Preview.CSS>
-    {colorPickerInlineCss}
+    {ColorPickerDocs.colorPickerInlineCss}
   </Preview.CSS>
-  <Preview.Data>{colorPickerEmptyData}</Preview.Data>
+  <Preview.Data>{ColorPickerDocs.colorPickerEmptyData}</Preview.Data>
 </Preview>
 
 ### Open Controlled
@@ -671,7 +548,7 @@ Use `inline` for settings panels where the color tools should stay visible witho
 Use controlled `open` state when another control or workflow owns whether the popup is visible.
 
 <Preview>
-  <OpenControlledColorPickerExample />
+  <ColorPickerDocs.OpenControlledColorPickerExample />
 
   <Preview.Code>
     {`
@@ -712,8 +589,8 @@ Use controlled `open` state when another control or workflow owns whether the po
     `}
 
   </Preview.Code>
-  <Preview.CSS>{colorPickerExampleCss}</Preview.CSS>
-  <Preview.Data>{colorPickerOpenControlledData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
+  <Preview.Data>{ColorPickerDocs.colorPickerOpenControlledData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -722,7 +599,7 @@ Use Ark `useColorPicker` with `RootProvider` when the color picker state must be
 the rendered tree and shared with nearby controls.
 
 <Preview>
-  <RootProviderColorPickerExample />
+  <ColorPickerDocs.RootProviderColorPickerExample />
 
   <Preview.Code>
     {`
@@ -761,8 +638,8 @@ the rendered tree and shared with nearby controls.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{colorPickerExampleCss}</Preview.CSS>
-  <Preview.Data>{colorPickerEmptyData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
+  <Preview.Data>{ColorPickerDocs.colorPickerEmptyData}</Preview.Data>
 </Preview>
 
 ### Format Views
@@ -771,7 +648,7 @@ Use `format`, `onFormatChange`, `FormatSelect`, and `View` when users should swi
 channel input groups without changing the picker structure.
 
 <Preview>
-  <FormatColorPickerExample />
+  <ColorPickerDocs.FormatColorPickerExample />
 
   <Preview.Code>
     {`
@@ -819,8 +696,8 @@ channel input groups without changing the picker structure.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{colorPickerInlineCss}</Preview.CSS>
-  <Preview.Data>{colorPickerFormatData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
+  <Preview.Data>{ColorPickerDocs.colorPickerFormatData}</Preview.Data>
 </Preview>
 
 ### Inside Dialog
@@ -829,7 +706,7 @@ When a picker lives inside a dialog, keep the default portalled behavior so its 
 layer above the dialog content.
 
 <Preview>
-  <InsideDialogColorPickerExample />
+  <ColorPickerDocs.InsideDialogColorPickerExample />
 
   <Preview.Code>
     {`
@@ -877,8 +754,8 @@ layer above the dialog content.
     `}
 
   </Preview.Code>
-  <Preview.CSS>{colorPickerDialogCss}</Preview.CSS>
-  <Preview.Data>{colorPickerDialogData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerDialogCss}</Preview.CSS>
+  <Preview.Data>{ColorPickerDocs.colorPickerDialogData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -886,7 +763,7 @@ layer above the dialog content.
 Use CSS variables on the root for color, sizing, focus ring, popup shadow, and swatch defaults.
 
 <Preview>
-  <CustomStylingColorPickerExample />
+  <ColorPickerDocs.CustomStylingColorPickerExample />
 
   <Preview.Code>
     {`
@@ -932,8 +809,8 @@ Use CSS variables on the root for color, sizing, focus ring, popup shadow, and s
 
   </Preview.Code>
 
-  <Preview.CSS>{colorPickerCustomStylingCss}</Preview.CSS>
-  <Preview.Data>{colorPickerSwatchesData}</Preview.Data>
+  <Preview.CSS>{ColorPickerDocs.colorPickerCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{ColorPickerDocs.colorPickerSwatchesData}</Preview.Data>
 </Preview>
 
 ## Styling
@@ -944,13 +821,7 @@ below.
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <ColorPickerCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
 
 ### Styling hooks
 
