@@ -4,16 +4,7 @@ description: A compact status label for short metadata such as state, category, 
 icon: Component
 ---
 
-import {
-  BadgeAsChildExample,
-  BadgeCssPropertiesPanel,
-  BadgeExample,
-  BadgeTruncatedExample,
-  BadgeVariantsExample,
-  BadgeWithDotExample,
-  BadgeWithIconExample,
-  CustomBadgeExample,
-} from '@/components/examples/badge';
+import * as BadgeDocs from '@/components/examples/badge';
 
 ## API Reference
 
@@ -36,22 +27,11 @@ Start with `Badge` only. Add `variant` when the default tone is not enough, and 
 only when the status needs a grouped indicator.
 
 <Preview>
-  <BadgeExample />
+  <BadgeDocs.BadgeExample />
 
-  <Preview.Code>
-    {`
-      import { Badge } from "@moduix/react";
-
-      export function BadgeDemo() {
-        return (
-          <div className="badge-demo-basic">
-            <Badge>{label}</Badge>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -61,60 +41,11 @@ only when the status needs a grouped indicator.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const label = "New";
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Badge` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-badge
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-badge
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-badge
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-badge
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-badge
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Badge` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-badge" />
 
 ## Anatomy
 
@@ -178,26 +109,11 @@ different tone.
 Use the built-in variants for the common visual tones.
 
 <Preview>
-  <BadgeVariantsExample />
+  <BadgeDocs.BadgeVariantsExample />
 
-  <Preview.Code>
-    {`
-      import { Badge } from "@moduix/react";
-
-      export function BadgeVariantsDemo() {
-        return (
-          <div className="badge-demo-row">
-            {variants.map((variant) => (
-              <Badge key={variant} variant={variant}>
-                {variant}
-              </Badge>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/variants.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -210,11 +126,6 @@ Use the built-in variants for the common visual tones.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`const highlightedVariant = "destructive";`}
-
-  </Preview.Data>
 </Preview>
 
 ### With Dot
@@ -222,27 +133,11 @@ Use the built-in variants for the common visual tones.
 Add `Badge.Dot` when label and status indicator should stay visually grouped.
 
 <Preview>
-  <BadgeWithDotExample />
+  <BadgeDocs.BadgeWithDotExample />
 
-  <Preview.Code>
-    {`
-      import { Badge } from "@moduix/react";
-
-      export function BadgeWithDotDemo() {
-        return (
-          <div className="badge-demo-row">
-            {statuses.map((status) => (
-              <Badge key={status.label} variant={status.variant}>
-                <Badge.Dot />
-                {status.label}
-              </Badge>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/with-dot.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -255,17 +150,6 @@ Add `Badge.Dot` when label and status indicator should stay visually grouped.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const statuses = [
-        { label: "Online", variant: "default" },
-        { label: "Draft", variant: "secondary" },
-        { label: "Failed", variant: "destructive" },
-      ] as const;
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### With Icon
@@ -273,33 +157,11 @@ Add `Badge.Dot` when label and status indicator should stay visually grouped.
 Place an inline icon next to the label when the metadata needs a second visual cue.
 
 <Preview>
-  <BadgeWithIconExample />
+  <BadgeDocs.BadgeWithIconExample />
 
-  <Preview.Code>
-    {`
-      import { Badge, ChevronRightIcon } from "@moduix/react";
-
-      export function BadgeWithIconDemo() {
-        return (
-          <div className="badge-demo-row">
-            <Badge variant="default">
-              {labels.release}
-              <ChevronRightIcon />
-            </Badge>
-            <Badge variant="secondary">
-              {labels.details}
-              <ChevronRightIcon />
-            </Badge>
-            <Badge variant="outline">
-              {labels.more}
-              <ChevronRightIcon />
-            </Badge>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/with-icon.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -312,17 +174,6 @@ Place an inline icon next to the label when the metadata needs a second visual c
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const labels = {
-        release: "Release",
-        details: "Details",
-        more: "Read more",
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Composition
@@ -331,24 +182,11 @@ Use `asChild` when a single semantic child should receive the badge props and st
 interaction behavior and provide visible hover and keyboard-focus states.
 
 <Preview>
-  <BadgeAsChildExample />
+  <BadgeDocs.BadgeAsChildExample />
 
-  <Preview.Code>
-    {`
-      import { Badge } from "@moduix/react";
-
-      export function BadgeAsChildDemo() {
-        return (
-          <Badge asChild variant="outline">
-            <a className="badge-demo-link" href={link.href}>
-              {link.label}
-            </a>
-          </Badge>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/custom-composition.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -366,16 +204,6 @@ interaction behavior and provide visible hover and keyboard-focus states.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const link = {
-        href: "#styling",
-        label: "Badge styling guidance",
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Long Labels
@@ -383,25 +211,11 @@ interaction behavior and provide visible hover and keyboard-focus states.
 Badges truncate long labels by default. Add `title` when the full text should still be available.
 
 <Preview>
-  <BadgeTruncatedExample />
+  <BadgeDocs.BadgeTruncatedExample />
 
-  <Preview.Code>
-    {`
-      import { Badge } from "@moduix/react";
-
-      export function BadgeTruncatedDemo() {
-        return (
-          <Badge
-            className="badge-demo-constrained"
-            title={label}
-          >
-            {label}
-          </Badge>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/long-labels.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -411,13 +225,6 @@ Badges truncate long labels by default. Add `title` when the full text should st
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const label = "Ready for stakeholder review after legal approval";
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -425,28 +232,11 @@ Badges truncate long labels by default. Add `title` when the full text should st
 Use local CSS variables when a surface needs custom sizing or a different tone.
 
 <Preview>
-  <CustomBadgeExample />
+  <BadgeDocs.CustomBadgeExample />
 
-  <Preview.Code>
-    {`
-      import { Badge } from "@moduix/react";
-
-      export function CustomBadgeDemo() {
-        return (
-          <div className="badge-demo-row">
-            <Badge className="badge-demo-small">{labels.small}</Badge>
-            <Badge>{labels.default}</Badge>
-            <Badge className="badge-demo-large">{labels.large}</Badge>
-            <Badge className="badge-demo-custom">
-              <Badge.Dot />
-              {labels.custom}
-            </Badge>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -485,18 +275,6 @@ Use local CSS variables when a surface needs custom sizing or a different tone.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const labels = {
-        small: "Small",
-        default: "Default",
-        large: "Large",
-        custom: "Priority",
-      };
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Styling
@@ -505,13 +283,7 @@ Prefer built-in variants first, then local CSS variables for one-off sizing and 
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <BadgeCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={BadgeDocs.badgeCssProperties} />
 
 ### Styling hooks
 

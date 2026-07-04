@@ -1,6 +1,5 @@
 import { Bleed, Text } from '@moduix/react';
 import type { CssProperty } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
 
 const basicContent = {
   before: 'Container content stays constrained.',
@@ -27,32 +26,6 @@ const semanticContent = {
 const customContent = {
   surface: 'Customized bleed amount.',
 };
-
-export const bleedBasicData = `const content = {
-  before: 'Container content stays constrained.',
-  surface: 'This block bleeds to the viewport edges.',
-  after: 'Following content returns to the container width.',
-};`;
-
-export const bleedInlineAmountsData = `const inlineAmounts = [
-  { label: 'Small inline bleed', value: 'sm' },
-  { label: 'Large inline bleed', value: 'lg' },
-  { label: 'Full inline bleed', value: 'full' },
-] as const;`;
-
-export const bleedBlockData = `const content = {
-  before: 'Container padding above.',
-  surface: 'Inline and block bleed',
-  after: 'Container padding below.',
-};`;
-
-export const bleedSemanticData = `const content = {
-  caption: 'Full-width media with a constrained parent.',
-};`;
-
-export const bleedCustomStylingData = `const content = {
-  surface: 'Customized bleed amount.',
-};`;
 
 export const bleedCssProperties: CssProperty[] = [
   {
@@ -116,10 +89,6 @@ export const bleedCssProperties: CssProperty[] = [
     description: 'Controls extra-large inline bleed.',
   },
 ];
-
-export function BleedCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={bleedCssProperties} />;
-}
 
 export function BleedExample() {
   return (

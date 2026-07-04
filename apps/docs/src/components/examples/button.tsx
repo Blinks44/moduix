@@ -1,8 +1,7 @@
 import { Button, PlusIcon, Spinner } from '@moduix/react';
 import { ArrowUpRight as ArrowUpRightIcon, Star as StarIcon } from 'lucide-react';
 import { useRef, useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
 import styles from './button.module.css';
 
 const buttonLabels = {
@@ -34,7 +33,7 @@ const iconSizes = [
   { label: 'Large favorite', size: 'icon-lg' },
 ] as const;
 
-const buttonCssProperties: CssPropertyInput[] = [
+export const buttonCssProperties: CssPropertyInput[] = [
   ['--button-border-width', 'var(--border-width-sm)', 'Controls base button border width.'],
   ['--button-color', 'var(--color-foreground)', 'Controls base button text and icon color.'],
   ['--button-content-gap', 'var(--spacing-2)', 'Controls spacing between text and icons.'],
@@ -186,24 +185,6 @@ const buttonCssProperties: CssPropertyInput[] = [
     'Controls transition timing for interactive states.',
   ],
 ];
-
-export function ButtonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <div className="space-y-2">
-      <CSSPropertiesReferenceTable
-        properties={buttonCssProperties.map((property) =>
-          'name' in property
-            ? property
-            : {
-                name: property[0],
-                defaultValue: property[1],
-                description: property[2],
-              },
-        )}
-      />
-    </div>
-  );
-}
 
 export function ButtonExample(props: ComponentProps<typeof Button>) {
   return (

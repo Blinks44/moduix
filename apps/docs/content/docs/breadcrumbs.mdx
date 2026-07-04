@@ -4,14 +4,7 @@ description: Ark-native semantic path navigation built from small composition pa
 icon: Component
 ---
 
-import {
-  BreadcrumbsCollapsedExample,
-  BreadcrumbsCssPropertiesPanel,
-  BreadcrumbsCustomSeparatorExample,
-  BreadcrumbsExample,
-  BreadcrumbsFrameworkLinkExample,
-  BreadcrumbsLongLabelExample,
-} from '@/components/examples/breadcrumbs';
+import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs';
 
 ## API Reference
 
@@ -26,36 +19,10 @@ Start with explicit semantic parts when the application already knows the visibl
 for navigable ancestors and `Breadcrumbs.Page` for the current page.
 
 <Preview>
-  <BreadcrumbsExample />
+  <BreadcrumbsDocs.BreadcrumbsExample />
 
   <Preview.Code>
-    {`
-      import { Fragment } from "react";
-      import {
-        Breadcrumbs,
-      } from "@moduix/react";
-
-      export function BreadcrumbsDemo() {
-        return (
-          <Breadcrumbs className="breadcrumbs-preview">
-            <Breadcrumbs.List>
-              {pathItems.map((item) => (
-                <Fragment key={item.href}>
-                  <Breadcrumbs.Item>
-                    <Breadcrumbs.Link href={item.href}>{item.label}</Breadcrumbs.Link>
-                  </Breadcrumbs.Item>
-                  <Breadcrumbs.Separator />
-                </Fragment>
-              ))}
-              <Breadcrumbs.Item>
-                <Breadcrumbs.Page>{currentPage}</Breadcrumbs.Page>
-              </Breadcrumbs.Item>
-            </Breadcrumbs.List>
-          </Breadcrumbs>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/breadcrumbs/basic.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>
     {`
@@ -64,64 +31,11 @@ for navigable ancestors and `Breadcrumbs.Page` for the current page.
       }
     `}
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const pathItems = [
-        { href: "/", label: "Home" },
-        { href: "/docs/breadcrumbs", label: "Breadcrumbs" },
-      ] as const;
-
-      const currentPage = "Go Developer";
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-If you want `Breadcrumbs` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-breadcrumbs
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-breadcrumbs
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-breadcrumbs
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-breadcrumbs
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-breadcrumbs
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Breadcrumbs` depends on,
-such as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-breadcrumbs" />
 
 ## Anatomy
 
@@ -187,40 +101,10 @@ Replace the default slash with an icon or symbol while keeping separators as exp
 items.
 
 <Preview>
-  <BreadcrumbsCustomSeparatorExample />
+  <BreadcrumbsDocs.BreadcrumbsCustomSeparatorExample />
 
   <Preview.Code>
-    {`
-      import {
-        Breadcrumbs,
-        SeparatorMarkIcon,
-      } from "@moduix/react";
-
-      export function BreadcrumbsSeparatorDemo() {
-        return (
-          <Breadcrumbs>
-            <Breadcrumbs.List>
-              <Breadcrumbs.Item>
-                <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
-              </Breadcrumbs.Item>
-              <Breadcrumbs.Separator>
-                <SeparatorMarkIcon className="separator-icon" style={separatorIconStyle} />
-              </Breadcrumbs.Separator>
-              <Breadcrumbs.Item>
-                <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
-              </Breadcrumbs.Item>
-              <Breadcrumbs.Separator>
-                <SeparatorMarkIcon className="separator-icon" style={separatorIconStyle} />
-              </Breadcrumbs.Separator>
-              <Breadcrumbs.Item>
-                <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-              </Breadcrumbs.Item>
-            </Breadcrumbs.List>
-          </Breadcrumbs>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/breadcrumbs/custom-separator.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>
     {`
@@ -229,14 +113,6 @@ items.
       }
     `}
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const separatorIconStyle = {
-        width: "0.75rem",
-        height: "0.25rem",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Collapsed Path
@@ -244,53 +120,10 @@ items.
 Compose with the migrated Ark `Menu` parts when hidden middle segments need disclosure behavior.
 
 <Preview>
-  <BreadcrumbsCollapsedExample />
+  <BreadcrumbsDocs.BreadcrumbsCollapsedExample />
 
   <Preview.Code>
-    {`
-      import {
-        Breadcrumbs,
-        Menu,
-      } from "@moduix/react";
-
-      export function BreadcrumbsCollapsedDemo() {
-        return (
-          <Breadcrumbs>
-            <Breadcrumbs.List>
-              <Breadcrumbs.Item>
-                <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
-              </Breadcrumbs.Item>
-              <Breadcrumbs.Separator />
-              <Breadcrumbs.Item>
-                <Menu positioning={{ placement: "bottom-start" }}>
-                  <Menu.Trigger aria-label="Show hidden path items" className="collapsed-menu-trigger">
-                    <Breadcrumbs.Ellipsis />
-                  </Menu.Trigger>
-                  <Menu.Positioner>
-                    <Menu.Content className="collapsed-menu-content">
-                      {collapsedItems.map((item) => (
-                        <Menu.Item key={item.href} value={item.href} asChild>
-                          <a href={item.href}>{item.label}</a>
-                        </Menu.Item>
-                      ))}
-                    </Menu.Content>
-                  </Menu.Positioner>
-                </Menu>
-              </Breadcrumbs.Item>
-              <Breadcrumbs.Separator />
-              <Breadcrumbs.Item>
-                <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
-              </Breadcrumbs.Item>
-              <Breadcrumbs.Separator />
-              <Breadcrumbs.Item>
-                <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-              </Breadcrumbs.Item>
-            </Breadcrumbs.List>
-          </Breadcrumbs>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/breadcrumbs/collapsed-path.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>
     {`
@@ -313,15 +146,6 @@ Compose with the migrated Ark `Menu` parts when hidden middle segments need disc
     `}
 
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const collapsedItems = [
-        { href: "/docs", label: "Docs" },
-        { href: "/docs/quick-start", label: "Quick Start" },
-        { href: "/docs/composition-patterns", label: "Composition Patterns" },
-      ] as const;
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Long Current Label
@@ -329,39 +153,10 @@ Compose with the migrated Ark `Menu` parts when hidden middle segments need disc
 Wrap the current page content with your own element when you need extra attributes such as `title`.
 
 <Preview>
-  <BreadcrumbsLongLabelExample />
+  <BreadcrumbsDocs.BreadcrumbsLongLabelExample />
 
   <Preview.Code>
-    {`
-      import {
-        Breadcrumbs,
-      } from "@moduix/react";
-
-      export function BreadcrumbsLongLabelDemo() {
-        return (
-          <Breadcrumbs className="breadcrumbs-long-label">
-            <Breadcrumbs.List>
-              <Breadcrumbs.Item>
-                <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
-              </Breadcrumbs.Item>
-              <Breadcrumbs.Separator />
-              <Breadcrumbs.Item>
-                <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
-              </Breadcrumbs.Item>
-              <Breadcrumbs.Separator />
-              <Breadcrumbs.Item>
-                <Breadcrumbs.Page>
-                  <span title={currentPage}>
-                    {currentPage}
-                  </span>
-                </Breadcrumbs.Page>
-              </Breadcrumbs.Item>
-            </Breadcrumbs.List>
-          </Breadcrumbs>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/breadcrumbs/long-current-label.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>
     {`
@@ -370,12 +165,6 @@ Wrap the current page content with your own element when you need extra attribut
       }
     `}
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const currentPage =
-        "Go lang developer to production team with cross-functional ownership and platform support";
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Framework Link
@@ -383,39 +172,10 @@ Wrap the current page content with your own element when you need extra attribut
 Use Ark `asChild` when the app standardizes on framework links.
 
 <Preview>
-  <BreadcrumbsFrameworkLinkExample />
+  <BreadcrumbsDocs.BreadcrumbsFrameworkLinkExample />
 
   <Preview.Code>
-    {`
-      import Link from "next/link";
-      import { Fragment } from "react";
-      import {
-        Breadcrumbs,
-      } from "@moduix/react";
-
-      export function BreadcrumbsWithNextLinkDemo() {
-        return (
-          <Breadcrumbs>
-            <Breadcrumbs.List>
-              {pathItems.map((item) => (
-                <Fragment key={item.href}>
-                  <Breadcrumbs.Item>
-                    <Breadcrumbs.Link asChild>
-                      <Link href={item.href}>{item.label}</Link>
-                    </Breadcrumbs.Link>
-                  </Breadcrumbs.Item>
-                  <Breadcrumbs.Separator />
-                </Fragment>
-              ))}
-              <Breadcrumbs.Item>
-                <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-              </Breadcrumbs.Item>
-            </Breadcrumbs.List>
-          </Breadcrumbs>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/breadcrumbs/framework-link.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>
     {`
@@ -424,15 +184,6 @@ Use Ark `asChild` when the app standardizes on framework links.
       }
     `}
   </Preview.CSS>
-  <Preview.Data>
-    {`
-      const pathItems = [
-        { href: "/", label: "Home" },
-        { href: "/docs", label: "Docs" },
-        { href: "/docs/breadcrumbs", label: "Breadcrumbs" },
-      ] as const;
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Styling
@@ -443,13 +194,7 @@ ring, separators, and ellipsis sizing.
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <BreadcrumbsCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties} />
 
 ### Styling hooks
 

@@ -1,7 +1,6 @@
 import type { ComponentProps } from 'react';
 import { Badge, ChevronRightIcon } from '@moduix/react';
 import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './badge.module.css';
 
 type BadgeVariant = NonNullable<ComponentProps<typeof Badge>['variant']>;
@@ -30,7 +29,7 @@ const customBadgeLabels = {
   custom: 'Priority',
 };
 
-const badgeCssProperties: CssPropertyInput[] = [
+export const badgeCssProperties: CssPropertyInput[] = [
   ['--badge-bg', 'var(--color-primary)', 'Controls badge background color.'],
   ['--badge-border-color', 'transparent', 'Controls badge border color.'],
   ['--badge-border-width', 'var(--border-width-sm)', 'Controls badge border width.'],
@@ -46,16 +45,6 @@ const badgeCssProperties: CssPropertyInput[] = [
   ['--badge-padding-y', '0', 'Controls vertical badge padding.'],
   ['--badge-radius', 'var(--radius-full)', 'Controls badge border radius.'],
 ];
-
-export function BadgeCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={badgeCssProperties.map(normalizeCssProperty)} />;
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}
 
 export function BadgeExample() {
   return (

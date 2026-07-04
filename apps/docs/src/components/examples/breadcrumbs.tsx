@@ -1,7 +1,6 @@
 import type { ComponentProps, CSSProperties } from 'react';
 import { Breadcrumbs, Menu, SeparatorMarkIcon } from '@moduix/react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
 
 const collapsedItems = [
   { href: '/docs', label: 'Docs' },
@@ -41,7 +40,7 @@ const collapsedMenuContentStyle: CssVariables = {
   '--menu-item-padding-y': '0.25rem',
 };
 
-export const breadcrumbsOverrideCssProperties: CssPropertyInput[] = [
+export const breadcrumbsCssProperties: CssPropertyInput[] = [
   ['--breadcrumbs-color', 'var(--color-muted-foreground)', 'Controls base breadcrumbs text color.'],
   ['--breadcrumbs-ellipsis-color', 'var(--color-muted-foreground)', 'Controls ellipsis color.'],
   ['--breadcrumbs-ellipsis-radius', 'var(--radius-sm)', 'Controls ellipsis radius.'],
@@ -90,22 +89,6 @@ export const breadcrumbsOverrideCssProperties: CssPropertyInput[] = [
   ['--breadcrumbs-separator-color', 'var(--color-muted-foreground)', 'Controls separator color.'],
   ['--breadcrumbs-separator-font-size', '0.875em', 'Controls separator font size.'],
 ];
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
-}
-
-export function BreadcrumbsCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={breadcrumbsOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
 
 export function BreadcrumbsExample(props: ComponentProps<typeof Breadcrumbs>) {
   return (

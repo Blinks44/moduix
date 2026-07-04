@@ -4,18 +4,7 @@ description: A styled action control built with the Ark factory composition mode
 icon: Component
 ---
 
-import {
-  ButtonCssPropertiesPanel,
-  ButtonDisabledExample,
-  ButtonExample,
-  ButtonIconExample,
-  ButtonLinkCompositionExample,
-  ButtonLoadingExample,
-  ButtonRefExample,
-  ButtonSizesExample,
-  ButtonVariantsExample,
-  CustomStylingButtonExample,
-} from '@/components/examples/button';
+import * as ButtonDocs from '@/components/examples/button';
 
 ## API Reference
 
@@ -30,18 +19,11 @@ Use the short `<Button />` form for normal actions. `Button.Root` is the equival
 form.
 
 <Preview>
-  <ButtonExample />
+  <ButtonDocs.ButtonExample />
 
-  <Preview.Code>
-    {`
-      import { Button } from "@moduix/react";
-
-      export function ButtonDemo() {
-        return <Button>{labels.save}</Button>;
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/button/basic.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -51,53 +33,11 @@ form.
       }
     `}
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const labels = { save: "Save Changes" };
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn
 
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/react-button
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-button
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/react-button
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-button
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/react-button
-```
-
-  </Tab>
-</Tabs>
+<ShadcnInstall packageName="react-button" />
 
 ## Anatomy
 
@@ -155,26 +95,11 @@ code must also prevent navigation or activation.
 Use variants to communicate action priority and intent.
 
 <Preview>
-  <ButtonVariantsExample />
+  <ButtonDocs.ButtonVariantsExample />
 
-  <Preview.Code>
-    {`
-      import { Button } from "@moduix/react";
-
-      export function ButtonVariantsDemo() {
-        return (
-          <div className="button-demo-row">
-            {variants.map((variant) => (
-              <Button key={variant} variant={variant}>
-                {variant}
-              </Button>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/button/variants.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -186,20 +111,6 @@ Use variants to communicate action priority and intent.
       }
     `}
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const variants = [
-        "default",
-        "outline",
-        "secondary",
-        "destructive",
-        "destructive-outline",
-        "ghost",
-        "link",
-      ] as const;
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Sizes
@@ -207,37 +118,11 @@ Use variants to communicate action priority and intent.
 Text and icon-only sizes share the same root API.
 
 <Preview>
-  <ButtonSizesExample />
+  <ButtonDocs.ButtonSizesExample />
 
-  <Preview.Code>
-    {`
-      import { Button } from "@moduix/react";
-import { Star as StarIcon } from "lucide-react";
-
-      export function ButtonSizesDemo() {
-        return (
-          <div className="button-demo-row">
-            {sizes.map((size) => (
-              <Button key={size} size={size}>
-                {size}
-              </Button>
-            ))}
-            {iconSizes.map((item) => (
-              <Button
-                key={item.size}
-                size={item.size}
-                variant="outline"
-                aria-label={item.label}
-              >
-                <StarIcon />
-              </Button>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/button/sizes.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -249,17 +134,6 @@ import { Star as StarIcon } from "lucide-react";
       }
     `}
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
-      const iconSizes = [
-        { label: "Small favorite", size: "icon-sm" },
-        { label: "Favorite", size: "icon-md" },
-        { label: "Large favorite", size: "icon-lg" },
-      ] as const;
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Icons
@@ -268,33 +142,11 @@ Icons can appear before or after text. Icon-only controls use an `icon-*` size a
 name.
 
 <Preview>
-  <ButtonIconExample />
+  <ButtonDocs.ButtonIconExample />
 
-  <Preview.Code>
-    {`
-      import { Button, PlusIcon } from "@moduix/react";
-import { ArrowUpRight as ArrowUpRightIcon, Star as StarIcon } from "lucide-react";
-
-      export function ButtonIconsDemo() {
-        return (
-          <div className="button-demo-row">
-            <Button>
-              <PlusIcon />
-              {labels.create}
-            </Button>
-            <Button size="icon-md" variant="outline" aria-label={labels.favorite}>
-              <StarIcon />
-            </Button>
-            <Button variant="link">
-              {labels.docs}
-              <ArrowUpRightIcon />
-            </Button>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/button/icons.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -306,16 +158,6 @@ import { ArrowUpRight as ArrowUpRightIcon, Star as StarIcon } from "lucide-react
       }
     `}
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const labels = {
-        create: "Create Item",
-        docs: "Open Button Docs",
-        favorite: "Favorites",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Disabled
@@ -324,27 +166,11 @@ Use native `disabled` for buttons. Composed links need both `aria-disabled` and 
 activation prevention.
 
 <Preview>
-  <ButtonDisabledExample />
+  <ButtonDocs.ButtonDisabledExample />
 
-  <Preview.Code>
-    {`
-      import { Button } from "@moduix/react";
-
-      export function ButtonDisabledDemo() {
-        return (
-          <div className="button-demo-row">
-            <Button disabled>{labels.button}</Button>
-            <Button asChild aria-disabled="true" variant="outline">
-              <a href="#button" onClick={(event) => event.preventDefault()}>
-                {labels.link}
-              </a>
-            </Button>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/button/disabled.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -356,15 +182,6 @@ activation prevention.
       }
     `}
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const labels = {
-        button: "Disabled",
-        link: "Disabled Link",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Pending State
@@ -373,39 +190,11 @@ Compose pending content explicitly so product code controls the label, spinner, 
 lifecycle.
 
 <Preview>
-  <ButtonLoadingExample />
+  <ButtonDocs.ButtonLoadingExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Spinner } from "@moduix/react";
-      import { useState } from "react";
-
-      export function PendingButton() {
-        const [pending, setPending] = useState(false);
-
-        return (
-          <Button
-            disabled={pending}
-            aria-busy={pending || undefined}
-            onClick={() => {
-              setPending(true);
-              setTimeout(() => setPending(false), delay);
-            }}
-          >
-            {pending ? (
-              <>
-                <Spinner decorative size="sm" />
-                {labels.pending}
-              </>
-            ) : (
-              labels.idle
-            )}
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/button/pending-state.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -414,16 +203,6 @@ lifecycle.
       }
     `}
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const delay = 1800;
-      const labels = {
-        idle: "Save Changes",
-        pending: "Saving",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### AsChild Link
@@ -431,22 +210,11 @@ lifecycle.
 Use `asChild` for navigation so the anchor retains link semantics while receiving button styling.
 
 <Preview>
-  <ButtonLinkCompositionExample />
+  <ButtonDocs.ButtonLinkCompositionExample />
 
-  <Preview.Code>
-    {`
-      import { Button } from "@moduix/react";
-
-      export function ButtonLinkDemo() {
-        return (
-          <Button asChild variant="outline">
-            <a href={link.href}>{link.label}</a>
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/button/as-child-link.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -455,15 +223,6 @@ Use `asChild` for navigation so the anchor retains link semantics while receivin
       }
     `}
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const link = {
-        href: "#button",
-        label: "Open Button Docs",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Ref
@@ -471,28 +230,11 @@ Use `asChild` for navigation so the anchor retains link semantics while receivin
 The forwarded ref points at the rendered root and can be used for imperative focus or measurement.
 
 <Preview>
-  <ButtonRefExample />
+  <ButtonDocs.ButtonRefExample />
 
-  <Preview.Code>
-    {`
-      import { Button } from "@moduix/react";
-      import { useRef } from "react";
-
-      export function ButtonRefDemo() {
-        const buttonRef = useRef(null as HTMLButtonElement | null);
-
-        return (
-          <div className="button-demo-row">
-            <Button ref={buttonRef}>{labels.target}</Button>
-            <Button variant="outline" onClick={() => buttonRef.current?.focus()}>
-              {labels.trigger}
-            </Button>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/button/ref.tsx#demo</include>
+</Preview.Code>
 
 <Preview.CSS>
   {`
@@ -504,15 +246,6 @@ The forwarded ref points at the rendered root and can be used for imperative foc
       }
     `}
 </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const labels = {
-        target: "Focus target",
-        trigger: "Focus first button",
-      };
-    `}
-  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -520,23 +253,11 @@ The forwarded ref points at the rendered root and can be used for imperative foc
 Use `className`, CSS variables, and stable data hooks for local visual changes.
 
 <Preview>
-  <CustomStylingButtonExample />
+  <ButtonDocs.CustomStylingButtonExample />
 
-  <Preview.Code>
-    {`
-      import { Button, Spinner } from "@moduix/react";
-
-      export function CustomStylingButtonDemo() {
-        return (
-          <Button className="customButton" disabled aria-busy>
-            <Spinner decorative size="sm" className="customSpinner" />
-            {labels.pending}
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/button/custom-styling.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -553,25 +274,13 @@ Use `className`, CSS variables, and stable data hooks for local visual changes.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const labels = { pending: "Publishing" };
-    `}
-  </Preview.Data>
 </Preview>
 
 ## Styling
 
 ### CSS Properties
 
-<div className="not-prose">
-  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
-    <Tab className="max-h-150 overflow-auto">
-      <ButtonCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={ButtonDocs.buttonCssProperties} />
 
 ### Styling hooks
 
