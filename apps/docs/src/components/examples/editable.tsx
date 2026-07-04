@@ -361,23 +361,6 @@ export function EditableGuidesExample() {
   );
 }
 
-export function CustomStylesEditableExample() {
-  return (
-    <div style={centeredExampleStyle}>
-      <Editable defaultValue="Custom area">
-        <Editable.Label>Styled editable</Editable.Label>
-        <Editable.Area className="editable-custom-area">
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Control>
-          <Editable.EditTrigger />
-        </Editable.Control>
-      </Editable>
-    </div>
-  );
-}
-
 export const editableBasicCode = `
   import { Editable as EditablePrimitive } from "@ark-ui/react/editable";
   import { Editable } from "@moduix/react";
@@ -609,25 +592,6 @@ export const editableGuidesCode = `
       >
         <Editable.Label>Auto-resizing name</Editable.Label>
         <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Control>
-          <Editable.EditTrigger />
-        </Editable.Control>
-      </Editable>
-    );
-  }
-`;
-
-export const editableCustomStylesCode = `
-  import { Editable } from "@moduix/react";
-
-  export function CustomStylesEditableDemo() {
-    return (
-      <Editable defaultValue="Custom area">
-        <Editable.Label>Styled editable</Editable.Label>
-        <Editable.Area className="editable-custom-area">
           <Editable.Input />
           <Editable.Preview />
         </Editable.Area>

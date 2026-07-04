@@ -31,10 +31,6 @@ export const clipboardRootProviderData = `
   const clipboardValue = "https://moduix.dev/docs/clipboard";
 `;
 
-export const clipboardCustomStylingData = `
-  const clipboardValue = "workspace-secret";
-`;
-
 export const clipboardExampleCss = `
   .clipboard-demo {
     width: min(24rem, 100%);
@@ -86,26 +82,6 @@ export const clipboardExampleCss = `
     color: var(--color-muted-foreground);
     font-size: var(--text-sm);
     line-height: var(--line-height-text-sm);
-  }
-`;
-
-export const clipboardCustomStylingCss = `
-  .clipboard-demo {
-    width: min(24rem, 100%);
-  }
-
-  .clipboard-demo-root {
-    margin-inline: auto;
-  }
-
-  .clipboard-custom-input[data-copied] {
-    border-color: color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
-  }
-
-  .clipboard-custom-trigger[data-copied] {
-    border-color: color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
-    background-color: color-mix(in srgb, var(--color-primary) 4%, var(--color-background));
-    color: color-mix(in srgb, var(--color-primary) 70%, var(--color-foreground));
   }
 `;
 
@@ -460,27 +436,5 @@ export function RootProviderClipboardExample() {
         </Clipboard.RootProvider>
       </div>
     </ClipboardExampleFrame>
-  );
-}
-
-export function CustomStylingClipboardExample() {
-  return (
-    <>
-      <style>{clipboardCustomStylingCss}</style>
-      <div className="clipboard-demo">
-        <Clipboard.Root className="clipboard-demo-root" defaultValue="workspace-secret">
-          <Clipboard.Label>Styled copied state</Clipboard.Label>
-          <Clipboard.Control>
-            <Clipboard.Input readOnly className="clipboard-custom-input" />
-            <Clipboard.Trigger
-              className="clipboard-custom-trigger"
-              aria-label="Copy workspace secret"
-            >
-              <Clipboard.Indicator />
-            </Clipboard.Trigger>
-          </Clipboard.Control>
-        </Clipboard.Root>
-      </div>
-    </>
   );
 }

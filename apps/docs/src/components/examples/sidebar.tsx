@@ -1520,21 +1520,6 @@ export function RightSidebarExample() {
   );
 }
 
-export function CustomStylingSidebarExample() {
-  return (
-    <Sidebar className={`${styles.demo} ${styles.custom}`}>
-      <Sidebar.Panel>
-        <SimpleSidebarNavigation />
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
-        <MainContent />
-      </Sidebar.Inset>
-    </Sidebar>
-  );
-}
-
 export function InteractiveSidebarExample() {
   return (
     <Sidebar className={styles.demo}>

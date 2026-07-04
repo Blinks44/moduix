@@ -100,10 +100,10 @@ Inside `## Styling`, always use:
 - Use `Custom Composition` only as an example label inside `Examples` when a low-level escape hatch is worth showing.
 - If an example is named `Custom Composition`, it must show the real low-level composition path rather than only
   styling a high-level sugar wrapper.
-- Use `Custom Styling` when the example is only about `className`, local CSS overrides, `--component-*` variables, or
-  targeting public slots/state attributes without changing the rendered structure.
-- If a component has no meaningful composition escape hatch beyond its normal public path, prefer `Custom Styling` and
-  do not add a placeholder `Custom Composition` example.
+- Do not add styling-only examples whose only purpose is `className`, local CSS overrides, `--component-*` variables,
+  or targeting public slots/state attributes without changing the public behavior or composition.
+- If a component has no meaningful composition escape hatch beyond its normal public path, do not add a placeholder
+  `Custom Composition` example just to fill out the page.
 
 ## Preview Rules
 
@@ -112,7 +112,7 @@ Inside `## Styling`, always use:
 - On component pages in `apps/docs/content/docs/*.mdx`, every `Preview.Code` must use a docs-local
   snippet file in `./_snippets/<component>/` with a named region include.
 - Use `basic.tsx` for the `## Basic` section and stable heading-based filenames for the rest, such
-  as `custom-styling.tsx` or `root-provider.tsx`.
+  as `root-provider.tsx` or `controlled.tsx`.
 - Do not use `Preview.Data` on component pages. Put arrays, mock payloads, and other setup data
   directly in the visible `Preview.Code` snippet so the snippet stays self-contained.
 - Do not use `<include>` by default for `Preview.CSS`. Prefer inline content or exports from the

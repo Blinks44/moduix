@@ -161,31 +161,6 @@ export const sliderContextCss = `
 }
 `;
 
-export const sliderCustomStylingCss = `
-.slider-custom {
-  --slider-width: 16rem;
-}
-
-.slider-custom-track {
-  --slider-track-size: 0.625rem;
-  --slider-track-bg: color-mix(in oklab, var(--color-chart-4) 18%, var(--color-muted));
-}
-
-.slider-custom-range {
-  --slider-range-bg: var(--color-chart-4);
-}
-
-.slider-custom-control {
-  --slider-control-size: 1.5rem;
-}
-
-.slider-custom-thumb {
-  --slider-thumb-size: 1.25rem;
-  --slider-thumb-bg: var(--color-chart-4);
-  --slider-thumb-border-color: var(--color-background);
-}
-`;
-
 export const sliderBasicCode = `
 import { Slider } from "@moduix/react";
 
@@ -591,27 +566,6 @@ export function RootProviderSliderDemo() {
 }
 `;
 
-export const sliderCustomStylingCode = `
-import { Slider } from "@moduix/react";
-
-export function CustomStylingSliderDemo() {
-  return (
-    <Slider defaultValue={[56]} className="slider-custom">
-      <Slider.Label>Temperature</Slider.Label>
-      <Slider.ValueText />
-      <Slider.Control className="slider-custom-control">
-        <Slider.Track className="slider-custom-track">
-          <Slider.Range className="slider-custom-range" />
-        </Slider.Track>
-        <Slider.Thumb index={0} aria-label="Temperature" className="slider-custom-thumb">
-          <Slider.HiddenInput />
-        </Slider.Thumb>
-      </Slider.Control>
-    </Slider>
-  );
-}
-`;
-
 export function SliderCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
@@ -845,23 +799,6 @@ export function RootProviderSliderExample() {
         <SliderControlExample />
       </Slider.RootProvider>
     </div>
-  );
-}
-
-export function CustomStylingSliderExample() {
-  return (
-    <Slider defaultValue={[56]} className={styles.customSlider}>
-      <Slider.Label>Temperature</Slider.Label>
-      <Slider.ValueText />
-      <Slider.Control className={styles.customControl}>
-        <Slider.Track className={styles.customTrack}>
-          <Slider.Range className={styles.customRange} />
-        </Slider.Track>
-        <Slider.Thumb index={0} aria-label="Temperature" className={styles.customThumb}>
-          <Slider.HiddenInput />
-        </Slider.Thumb>
-      </Slider.Control>
-    </Slider>
   );
 }
 

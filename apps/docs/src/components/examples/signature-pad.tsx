@@ -61,33 +61,6 @@ export const signaturePadPreviewCss = `
   }
 `;
 
-export const signaturePadCustomStylingCss = `
-  .signature-pad-custom {
-    --signature-pad-bg: color-mix(
-      in srgb,
-      var(--color-primary) 7%,
-      var(--color-background)
-    );
-    --signature-pad-border-color: color-mix(
-      in srgb,
-      var(--color-primary) 42%,
-      var(--color-border)
-    );
-    --signature-pad-focus-border-color: var(--color-primary);
-    --signature-pad-focus-ring-color: color-mix(
-      in srgb,
-      var(--color-primary) 24%,
-      transparent
-    );
-    --signature-pad-stroke-color: var(--color-primary);
-    --signature-pad-guide-color: color-mix(
-      in srgb,
-      var(--color-primary) 45%,
-      transparent
-    );
-  }
-`;
-
 export const signaturePadBasicData = `const signaturePadTranslations = {
   control: 'Signature drawing area',
   clearTrigger: 'Clear signature',
@@ -351,8 +324,4 @@ export function RootProviderSignaturePadExample() {
       <output className={styles.status}>Paths: {signaturePad.paths.length}</output>
     </div>
   );
-}
-
-export function CustomStylingSignaturePadExample() {
-  return <SignaturePadParts className={styles.customPad} />;
 }

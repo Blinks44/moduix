@@ -186,39 +186,6 @@ Use local CSS variables for one-off density or tone changes instead of extra com
 
 </Preview>
 
-### Custom Styling
-
-Use `className` and CSS variables when the default keycap needs to match product-specific styling.
-
-<Preview>
-  <KbdDocs.CustomStylingKbdExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/kbd/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .kbd-demo-custom-group {
-        --kbd-group-gap: var(--spacing-2);
-      }
-
-      .kbd-demo-custom-key {
-        --kbd-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
-        --kbd-border-color: color-mix(in oklab, var(--color-primary) 32%, transparent);
-        --kbd-color: var(--color-primary);
-        --kbd-height: 2rem;
-        --kbd-min-width: 2rem;
-        --kbd-padding-x: var(--spacing-3);
-        --kbd-radius: var(--radius-md);
-        --kbd-shadow: inset 0 -1px 0 color-mix(in oklab, var(--color-primary) 22%, transparent);
-      }
-    `}
-
-  </Preview.CSS>
-
-</Preview>
-
 ## Styling
 
 Style `Kbd` and `Kbd.Group` through `className`, Ark anatomy attributes, stable `data-slot` hooks, and the public

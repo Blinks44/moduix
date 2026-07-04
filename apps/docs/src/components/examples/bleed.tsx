@@ -23,10 +23,6 @@ const semanticContent = {
   caption: 'Full-width media with a constrained parent.',
 };
 
-const customContent = {
-  surface: 'Customized bleed amount.',
-};
-
 export const bleedCssProperties: CssProperty[] = [
   {
     name: '--bleed-block-xs',
@@ -136,16 +132,6 @@ export function BleedSemanticExample() {
             {semanticContent.caption}
           </Text>
         </figure>
-      </Bleed>
-    </div>
-  );
-}
-
-export function CustomStylingBleedExample() {
-  return (
-    <div className="bleed-demo-container">
-      <Bleed className="bleed-demo-custom-surface">
-        <Text weight="semibold">{customContent.surface}</Text>
       </Bleed>
     </div>
   );

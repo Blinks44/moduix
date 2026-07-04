@@ -217,35 +217,6 @@ Set `disabled` or `readOnly` based on interaction requirements.
 
 </Preview>
 
-### Custom Styling
-
-Pass `className` when the textarea root needs local styling overrides.
-
-<Preview>
-  <TextareaDocs.CustomStylesTextareaExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/textarea/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .field {
-        width: min(28rem, calc(100vw - var(--spacing-8)));
-      }
-
-      .customTextarea {
-        border-color: color-mix(in srgb, var(--color-primary) 45%, transparent);
-        background-color: color-mix(in srgb, var(--color-primary) 5%, transparent);
-        color: var(--color-primary);
-        resize: none;
-      }
-    `}
-
-  </Preview.CSS>
-
-</Preview>
-
 ## Styling
 
 Style `Textarea` through `className`, `data-slot="textarea-root"`, and the public `--textarea-*`

@@ -210,29 +210,6 @@ Use Ark presence props when the panel should mount only after first open and unm
   <Preview.CSS>{``}</Preview.CSS>
 </Preview>
 
-### Custom Styling
-
-Override the public Moduix variables without changing the Ark composition.
-
-<Preview>
-  <FloatingPanelDocs.CustomFloatingPanelExample />
-  <Preview.Code>
-    <include lang="tsx">./_snippets/floating-panel/custom-styling.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>
-    {`
-      .customPanel {
-        --floating-panel-bg: var(--color-primary);
-        --floating-panel-color: var(--color-primary-foreground);
-        --floating-panel-border-color: color-mix(in oklab, var(--color-primary), black 18%);
-        --floating-panel-header-bg: color-mix(in oklab, var(--color-primary), white 12%);
-        --floating-panel-radius: var(--radius-lg);
-        --floating-panel-shadow: var(--shadow-xl);
-      }
-    `}
-  </Preview.CSS>
-</Preview>
-
 ## Styling
 
 ### CSS Properties

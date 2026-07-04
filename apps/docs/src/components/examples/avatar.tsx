@@ -60,23 +60,6 @@ export const avatarCompositionCss = `
   }
 `;
 
-export const avatarCustomStylingCss = `
-  .docs-avatar-ring {
-    box-shadow:
-      0 0 0 2px var(--color-background),
-      0 0 0 4px color-mix(in srgb, var(--color-primary) 30%, transparent);
-  }
-
-  .docs-avatar-saturated-image {
-    filter: saturate(1.1) contrast(1.05);
-  }
-
-  .docs-avatar-uppercase {
-    letter-spacing: 0;
-    text-transform: uppercase;
-  }
-`;
-
 export const avatarFallbackCss = `
   .docs-avatar-icon {
     --avatar-bg: var(--color-accent);

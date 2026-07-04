@@ -240,41 +240,6 @@ keyboard and click behavior.
   </Preview.CSS>
 </Preview>
 
-### Custom Styling
-
-Use local CSS variables when a token needs custom tone or spacing without changing the public API.
-
-<Preview>
-  <TagDocs.CustomTagExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/tag/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customSoft {
-        --tag-bg: color-mix(in oklab, var(--color-primary) 16%, var(--color-background));
-        --tag-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
-        --tag-color: var(--color-primary);
-        --tag-close-trigger-bg-hover: color-mix(in oklab, var(--color-primary) 18%, transparent);
-      }
-
-      .customOutline {
-        --tag-border-color: color-mix(in oklab, var(--color-foreground) 18%, transparent);
-      }
-
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ## Styling
 
 Prefer built-in variants first, then local CSS variables for one-off sizing and tone changes.

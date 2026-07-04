@@ -1,6 +1,6 @@
 import type { ComponentProps, ReactNode } from 'react';
 import { Menu as ArkMenu, useMenu } from '@ark-ui/react/menu';
-import { Button, ChevronDownIcon, CheckIcon, Menu } from '@moduix/react';
+import { Button, Menu } from '@moduix/react';
 import { Info as InfoIcon, Map as MapIcon } from 'lucide-react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
@@ -26,17 +26,6 @@ export const menuExampleCss = `.menu-content {
 
 .menu-context-trigger {
   width: 16rem;
-}`;
-
-export const menuCustomStylingCss = `.custom-content {
-  --menu-popup-bg: var(--color-background);
-  --menu-popup-border-color: var(--color-primary);
-  --menu-popup-shadow: var(--shadow-lg);
-  --menu-highlight-bg: var(--color-primary);
-  --menu-highlight-color: var(--color-primary-foreground);
-  --menu-separator-color: var(--color-primary);
-  --menu-item-padding-x-start: var(--spacing-3);
-  --menu-item-padding-x-end: var(--spacing-3);
 }`;
 
 export const menuOverrideCssProperties: CssPropertyInput[] = [
@@ -589,32 +578,6 @@ export function IndicatorRightMenuExample() {
           </Menu.ItemText>
           <Menu.ItemIndicator />
         </Menu.CheckboxItem>
-      </PositionedContent>
-    </Menu>
-  );
-}
-
-export function CustomStylingMenuExample() {
-  return (
-    <Menu positioning={{ placement: 'right-start', gutter: 12 }}>
-      <MenuButtonTrigger>
-        Export
-        <Menu.Indicator />
-      </MenuButtonTrigger>
-      <PositionedContent className={styles.customContent}>
-        <Menu.Arrow />
-        <Menu.Item value="png">
-          <CheckIcon />
-          Export PNG
-          <Menu.ItemShortcut>Shift+P</Menu.ItemShortcut>
-        </Menu.Item>
-        <Menu.Item value="pdf">
-          <ChevronDownIcon />
-          Export PDF
-          <Menu.ItemShortcut>Shift+D</Menu.ItemShortcut>
-        </Menu.Item>
-        <Menu.Separator />
-        <Menu.Item value="copy-link">Copy share link</Menu.Item>
       </PositionedContent>
     </Menu>
   );

@@ -326,29 +326,6 @@ Use `Card.Link` when navigation and independent actions must coexist.
 </Preview.CSS>
 </Preview>
 
-### Custom Styling
-
-Override public variables or target stable part hooks without changing the composition.
-
-<Preview>
-  <CardDocs.CardCustomStylingExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/card/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .customCard {
-        --card-bg: color-mix(in oklab, var(--color-card) 94%, var(--color-primary));
-        --card-border-color: color-mix(in oklab, var(--color-primary) 35%, var(--color-border));
-        --card-radius: var(--radius-md);
-        --card-shadow: var(--shadow-md);
-      }
-    `}
-</Preview.CSS>
-</Preview>
-
 ## Styling
 
 ### CSS Properties

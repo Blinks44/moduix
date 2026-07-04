@@ -210,23 +210,3 @@ export function ToggleGroupDisabledExample() {
     </div>
   );
 }
-
-export function CustomStylesToggleGroupExample() {
-  return (
-    <ToggleGroup
-      defaultValue={['day']}
-      aria-label="Schedule density"
-      className={styles.customGroup}
-    >
-      <ToggleGroup.Item value="day" className={styles.customItem}>
-        Day
-      </ToggleGroup.Item>
-      <ToggleGroup.Item value="week" className={styles.customItem}>
-        Week
-      </ToggleGroup.Item>
-      <ToggleGroup.Item value="month" className={styles.customItem}>
-        Month
-      </ToggleGroup.Item>
-    </ToggleGroup>
-  );
-}

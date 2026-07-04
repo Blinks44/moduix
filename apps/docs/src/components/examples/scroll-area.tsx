@@ -230,28 +230,3 @@ export function RootProviderScrollAreaExample() {
     </div>
   );
 }
-
-export function CustomStylingScrollAreaExample() {
-  return (
-    <ScrollArea className={styles.customRoot}>
-      <ScrollArea.Viewport>
-        <ScrollArea.Content>
-          <div className={styles.gridContent}>
-            {Array.from({ length: 96 }, (_, index) => (
-              <div key={index} className={styles.cell}>
-                {index + 1}
-              </div>
-            ))}
-          </div>
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar>
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Scrollbar orientation="horizontal" className={styles.accentScrollbar}>
-        <ScrollArea.Thumb className={styles.accentThumb} />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Corner className={styles.customCorner} />
-    </ScrollArea>
-  );
-}

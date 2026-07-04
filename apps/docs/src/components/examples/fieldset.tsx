@@ -30,24 +30,6 @@ export const fieldsetPhoneInputCss = `
   }
 `;
 
-export const fieldsetCustomStylingCss = `
-  .fieldset {
-    width: min(20rem, 100%);
-    margin-inline: auto;
-  }
-
-  .custom-fieldset {
-    --fieldset-border-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
-    --fieldset-border-width: var(--border-width-sm);
-    --fieldset-padding: var(--spacing-4);
-    --fieldset-radius: var(--radius-lg);
-    --fieldset-legend-color: var(--color-primary);
-    --fieldset-legend-margin: 0 0 0 var(--spacing-2);
-    --fieldset-legend-padding: 0 var(--spacing-2);
-    --fieldset-helper-text-color: var(--color-primary);
-  }
-`;
-
 const preferences = [
   { label: 'Product updates', value: 'product' },
   { label: 'Marketing emails', value: 'marketing' },
@@ -268,19 +250,6 @@ export function FieldsetPhoneInputExample() {
         </Field>
       </div>
       <Fieldset.HelperText>Include the area code.</Fieldset.HelperText>
-    </Fieldset>
-  );
-}
-
-export function CustomStylesFieldsetExample() {
-  return (
-    <Fieldset className={`${styles.fieldset} ${styles.customFieldset}`}>
-      <Fieldset.Legend>Styled fieldset</Fieldset.Legend>
-      <Field>
-        <Field.Label>Project name</Field.Label>
-        <Field.Input placeholder="Maps Platform" />
-      </Field>
-      <Fieldset.HelperText>Visible to project members.</Fieldset.HelperText>
     </Fieldset>
   );
 }

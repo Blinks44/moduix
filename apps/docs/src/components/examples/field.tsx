@@ -298,14 +298,3 @@ export function FieldItemExample() {
     </Field>
   );
 }
-
-export function FieldCustomStylesExample() {
-  return (
-    <Field invalid className={styles.customField}>
-      <Field.Label className={styles.customLabel}>Project key</Field.Label>
-      <Field.Input required placeholder="MAPS" className={styles.customControl} />
-      <Field.HelperText>Use three to five uppercase letters.</Field.HelperText>
-      <Field.ErrorText className={styles.customError}>Please enter a project key.</Field.ErrorText>
-    </Field>
-  );
-}

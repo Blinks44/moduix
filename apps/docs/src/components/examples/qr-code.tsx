@@ -67,22 +67,6 @@ export const qrCodeOverlayCss = `
   }
 `;
 
-export const qrCodeCustomStylingCss = `
-  .qr-code-custom {
-    --qr-code-size: 10rem;
-    --qr-code-fill: var(--color-primary);
-    --qr-code-overlay-bg: var(--color-card);
-    --qr-code-download-trigger-bg: var(--color-primary);
-    --qr-code-download-trigger-bg-hover: color-mix(
-      in srgb,
-      var(--color-primary) 88%,
-      black
-    );
-    --qr-code-download-trigger-border-color: transparent;
-    --qr-code-download-trigger-color: var(--color-primary-foreground);
-  }
-`;
-
 export const qrCodeBasicData = `const qrValue = 'https://moduix.dev/docs/qr-code';`;
 
 export const qrCodeControlledData = `const destinations = [
@@ -333,19 +317,5 @@ export function RootProviderQrCodeExample() {
       </QrCode.RootProvider>
       <output className={styles.status}>{qrCode.value}</output>
     </div>
-  );
-}
-
-export function CustomStylingQrCodeExample() {
-  return (
-    <QrCode className={styles.customRoot} defaultValue={qrValue} encoding={{ ecc: 'H' }}>
-      <QrCode.Frame>
-        <QrCode.Pattern />
-      </QrCode.Frame>
-      <QrCode.Overlay className={styles.overlay}>MX</QrCode.Overlay>
-      <QrCode.DownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png">
-        Download PNG
-      </QrCode.DownloadTrigger>
-    </QrCode>
   );
 }

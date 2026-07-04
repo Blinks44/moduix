@@ -248,34 +248,6 @@ The forwarded ref points at the rendered root and can be used for imperative foc
 </Preview.CSS>
 </Preview>
 
-### Custom Styling
-
-Use `className`, CSS variables, and stable data hooks for local visual changes.
-
-<Preview>
-  <ButtonDocs.CustomStylingButtonExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/button/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customButton {
-        --button-radius: var(--radius-full);
-        --button-default-bg: var(--color-foreground);
-        --button-default-border-color: var(--color-foreground);
-        box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
-      }
-
-      .customSpinner {
-        color: currentColor;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ## Styling
 
 ### CSS Properties

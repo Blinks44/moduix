@@ -404,22 +404,3 @@ export function CardLinkWithActionsExample() {
     </Card>
   );
 }
-
-export function CardCustomStylingExample() {
-  return (
-    <Card className={styles.customCard}>
-      <Card.Header>
-        <Card.Title>System load</Card.Title>
-        <Card.Description>Aggregated worker utilization across the current batch.</Card.Description>
-      </Card.Header>
-      <Card.Body>
-        <div className={styles.capacity}>
-          <span>64%</span>
-          <div className={styles.capacityBar}>
-            <div className={styles.capacityFill} />
-          </div>
-        </div>
-      </Card.Body>
-    </Card>
-  );
-}

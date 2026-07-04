@@ -356,16 +356,6 @@ export const treeViewExampleCss = `
   }
 `;
 
-export const treeViewCustomStylingCss = `
-  .tree-view-demo {
-    --tree-view-width: 24rem;
-    --tree-view-indent: 1.25rem;
-    --tree-view-item-selected-bg: var(--color-primary);
-    --tree-view-item-selected-color: var(--color-primary-foreground);
-    --tree-view-indent-guide-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
-  }
-`;
-
 const treeViewCoreImportsCode = `import { useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
 import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`;
 
@@ -959,25 +949,6 @@ export const treeViewLinksCode = createTreeViewCode({
       <TreeView.Label>Documentation</TreeView.Label>
       <TreeView.Tree>
         ${createTreeNodesCode({ source: 'linksCollection', component: 'LinkFileTreeNode' })}
-      </TreeView.Tree>
-    </TreeView>
-  );
-}`,
-});
-
-export const treeViewCustomStylingCode = createTreeViewCode({
-  imports: `${treeViewCoreImportsCode}
-import styles from "./tree-view-demo.module.css";`,
-  demo: `export function CustomStyledTreeDemo() {
-  return (
-    <TreeView
-      collection={collection}
-      defaultExpandedValue={["src", "src/components"]}
-      className={styles.root}
-    >
-      <TreeView.Label>Custom styled files</TreeView.Label>
-      <TreeView.Tree>
-        ${createTreeNodesCode()}
       </TreeView.Tree>
     </TreeView>
   );

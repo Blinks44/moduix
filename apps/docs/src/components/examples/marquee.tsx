@@ -73,39 +73,6 @@ export const marqueeVerticalCss = `
   }
 `;
 
-export const marqueeCustomStylingCss = `
-  .marquee-custom {
-    --marquee-width: 34rem;
-    --marquee-edge-size: 25%;
-    --marquee-edge-color: var(--color-card);
-    padding-block: var(--spacing-3);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background-color: var(--color-card);
-  }
-
-  .marquee-item {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-2);
-    min-width: max-content;
-    padding: var(--spacing-2) var(--spacing-3);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    background-color: var(--color-muted);
-    color: var(--color-foreground);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
-    line-height: var(--line-height-text-sm);
-    white-space: nowrap;
-  }
-
-  .marquee-custom [data-slot="marquee-item"] {
-    border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-border));
-    background-color: color-mix(in srgb, var(--color-primary) 10%, var(--color-card));
-  }
-`;
-
 export const marqueeData = `const partners = [
   { name: 'Atlas', mark: 'AT' },
   { name: 'Beacon', mark: 'BC' },
@@ -293,26 +260,6 @@ export function EdgesMarqueeExample() {
       aria-label="Partner logos"
       translations={{ root: 'Partner logos' }}
       className={styles.root}
-    >
-      <Marquee.Edge side="start" />
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <MarqueeItems />
-        </Marquee.Content>
-      </Marquee.Viewport>
-      <Marquee.Edge side="end" />
-    </Marquee>
-  );
-}
-
-export function CustomStylingMarqueeExample() {
-  return (
-    <Marquee
-      aria-label="Partner logos"
-      translations={{ root: 'Partner logos' }}
-      autoFill
-      pauseOnInteraction
-      className={styles.customRoot}
     >
       <Marquee.Edge side="start" />
       <Marquee.Viewport>

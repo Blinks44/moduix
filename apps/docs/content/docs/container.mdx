@@ -224,35 +224,6 @@ Keep the text column constrained and let only the wider child opt out.
   </Preview.CSS>
 </Preview>
 
-### Custom Styling
-
-Pass `className` when styling the root or overriding container variables locally.
-
-<Preview>
-  <ContainerDocs.CustomStylingContainerExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/container/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customContainer {
-        padding-block: var(--spacing-4);
-        border-block: var(--border-width-sm) dashed var(--color-border);
-        background-color: var(--color-muted);
-        --container-gutter-md: clamp(1.25rem, 6vw, 4rem);
-        --container-max-width-lg: 54rem;
-      }
-
-      .customContainer > * {
-        max-width: 42rem;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ## Styling
 
 Use CSS variables on the root when a page shell needs different gutter math or a different width

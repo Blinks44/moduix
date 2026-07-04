@@ -536,19 +536,3 @@ export function TagsInputRootProviderExample() {
     </div>
   );
 }
-
-export function TagsInputCustomStylingExample() {
-  return (
-    <TagsInput className={styles.customRoot} defaultValue={['Design', 'API']}>
-      <TagsInput.Label>Workstreams</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Context>
-          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-        </TagsInput.Context>
-        <TagsInput.Input placeholder="Add workstream" />
-        <TagsInput.ClearTrigger aria-label="Clear workstreams" />
-      </TagsInput.Control>
-      <TagsInput.HiddenInput />
-    </TagsInput>
-  );
-}

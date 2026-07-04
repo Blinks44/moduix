@@ -90,7 +90,7 @@ export const listToneExampleCss = `
   }
 `;
 
-export const listCustomStylingCss = `
+export const listCustomCompositionCss = `
   .list-demo-accent {
     max-width: min(32rem, calc(100vw - var(--spacing-8)));
     --list-padding-x: var(--spacing-6);

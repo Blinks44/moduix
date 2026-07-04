@@ -319,31 +319,6 @@ allowing custom tags.
 
 </Preview>
 
-### Custom Styling
-
-Customize the visible token treatment with CSS variables while keeping Ark data attributes and part
-composition intact.
-
-<Preview>
-  <TagsInputDocs.TagsInputCustomStylingExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/tags-input/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customRoot {
-        --tags-input-item-bg: color-mix(in oklab, var(--color-primary) 14%, var(--color-background));
-        --tags-input-item-border-color: color-mix(in oklab, var(--color-primary) 28%, transparent);
-        --tags-input-item-color: var(--color-primary);
-      }
-    `}
-
-  </Preview.CSS>
-
-</Preview>
-
 ## Styling
 
 ### CSS Properties

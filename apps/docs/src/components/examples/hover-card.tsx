@@ -245,26 +245,6 @@ export function MultipleTriggersHoverCardExample() {
   );
 }
 
-export function CustomStylingHoverCardExample() {
-  return (
-    <HoverCard positioning={{ placement: 'bottom-start', gutter: 10 }}>
-      <p className="hover-card-example__paragraph">
-        Liked by{' '}
-        <HoverCard.Trigger className="hover-card-example__custom-trigger" asChild>
-          <a href="#profile">@sarah_chen</a>
-        </HoverCard.Trigger>{' '}
-        and 3 others
-      </p>
-      <HoverCard.Positioner>
-        <HoverCard.Content className="hover-card-example__custom-content">
-          <HoverCard.Arrow />
-          <ProfileCard profile={hoverCardProfiles[0]} />
-        </HoverCard.Content>
-      </HoverCard.Positioner>
-    </HoverCard>
-  );
-}
-
 function HoverCardSurface({ profile }: { profile: Profile }) {
   return (
     <HoverCard.Positioner>

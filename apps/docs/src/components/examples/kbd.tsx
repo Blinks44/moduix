@@ -23,7 +23,6 @@ const kbdShortcutListData = [
 ];
 
 const kbdDenseData = ['Esc', 'Ctrl', '/'];
-const kbdCustomData = { label: 'Command K', keys: ['Cmd', 'K'] };
 
 export const kbdOverrideCssProperties: CssPropertyInput[] = [
   ['--kbd-bg', 'var(--color-muted)', 'Controls key background color.'],
@@ -112,19 +111,6 @@ export function KbdDenseExample() {
         </Kbd>
       ))}
     </div>
-  );
-}
-
-export function CustomStylingKbdExample() {
-  return (
-    <Kbd.Group aria-label={kbdCustomData.label} className={styles.customGroup}>
-      {kbdCustomData.keys.map((key, index) => (
-        <Fragment key={key}>
-          {index > 0 && '+'}
-          <Kbd className={styles.customKey}>{key}</Kbd>
-        </Fragment>
-      ))}
-    </Kbd.Group>
   );
 }
 

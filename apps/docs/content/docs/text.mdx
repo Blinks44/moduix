@@ -278,30 +278,6 @@ values. The child must be a single element that can accept the forwarded props a
 
 </Preview>
 
-### Custom Styling
-
-Pass `className` when styling the root with local CSS variables.
-
-<Preview>
-  <TextDocs.TextClassNameExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/text/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .customText {
-        --text-default-color: var(--color-primary);
-        --text-font-size-md: var(--text-lg);
-        --text-line-height-md: var(--line-height-text-lg);
-        --text-font-weight-regular: var(--weight-medium);
-      }
-    `}
-</Preview.CSS>
-
-</Preview>
-
 ## Styling
 
 Style `Text` through `className`, Ark-style root data attributes, and the public `--text-*` CSS

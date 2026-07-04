@@ -211,11 +211,3 @@ export function HeadingCustomHostExample() {
     </Heading>
   );
 }
-
-export function CustomStylingHeadingExample() {
-  return (
-    <Heading as="h2" className={styles.custom}>
-      Customized heading
-    </Heading>
-  );
-}

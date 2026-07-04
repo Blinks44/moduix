@@ -67,10 +67,6 @@ export function CloseButtonAsChildExample() {
   );
 }
 
-export function CloseButtonCustomStylingExample() {
-  return <CloseButton className={styles.customButton} aria-label="Close message" />;
-}
-
 export function CloseButtonDisabledExample() {
   return (
     <CloseButton

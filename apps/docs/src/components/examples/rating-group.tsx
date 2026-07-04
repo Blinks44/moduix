@@ -26,15 +26,6 @@ export const ratingGroupExampleCss = `
   }
 `;
 
-export const ratingGroupCustomStylingCss = `
-  .rating-group-custom {
-    --rating-group-active-color: #f59e0b;
-    --rating-group-color: color-mix(in srgb, #f59e0b 35%, var(--color-muted-foreground));
-    --rating-group-focus-ring-color: #f59e0b;
-    --rating-group-gap: var(--spacing-2);
-  }
-`;
-
 export const ratingGroupCustomIconCss = `
   .rating-group-custom-icon {
     color: var(--rating-group-active-color, var(--color-primary));
@@ -307,18 +298,6 @@ export function RatingGroupSizesExample() {
         </RatingGroup.Control>
       </RatingGroup>
     </div>
-  );
-}
-
-export function CustomStylesRatingGroupExample() {
-  return (
-    <RatingGroup className="rating-group-custom" defaultValue={5}>
-      <RatingGroup.Label>Styled rating</RatingGroup.Label>
-      <RatingGroup.Control>
-        <RatingGroupItems />
-        <RatingGroup.HiddenInput />
-      </RatingGroup.Control>
-    </RatingGroup>
   );
 }
 

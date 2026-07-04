@@ -329,20 +329,6 @@ export function PasswordInputValidationExample() {
   );
 }
 
-export function PasswordInputCustomStylingExample() {
-  return (
-    <PasswordInput className="password-input-demo-custom">
-      <PasswordInput.Label>Workspace secret</PasswordInput.Label>
-      <PasswordInput.Control>
-        <PasswordInput.Input defaultValue="readonly-secret" readOnly />
-        <PasswordInput.VisibilityTrigger>
-          <PasswordInput.Indicator />
-        </PasswordInput.VisibilityTrigger>
-      </PasswordInput.Control>
-    </PasswordInput>
-  );
-}
-
 function getPasswordStrength(password: string) {
   if (!password) return null;
   if (password.length >= 10 && /[0-9]/.test(password) && /[^a-zA-Z0-9]/.test(password)) {

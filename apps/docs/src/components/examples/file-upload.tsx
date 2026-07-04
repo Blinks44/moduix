@@ -74,22 +74,6 @@ export const fileUploadExampleCss = `
 
 `;
 
-export const fileUploadCustomStylingCss = `
-  .file-upload-custom-dropzone {
-    border-color: var(--color-primary);
-    background-color: color-mix(in oklab, var(--color-primary) 5%, var(--color-background));
-  }
-
-  .file-upload-custom-dropzone[data-dragging] {
-    background-color: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
-  }
-
-  .file-upload-custom-trigger {
-    background-color: var(--color-foreground);
-    color: var(--color-background);
-  }
-`;
-
 export const fileUploadBasicData = `
   const maxFiles = 3;
 `;
@@ -152,10 +136,6 @@ export const fileUploadMediaCaptureData = `
 
 export const fileUploadTransformData = `
   const accept = "image/*";
-`;
-
-export const fileUploadCustomStylingData = `
-  const maxFiles = 2;
 `;
 
 export const fileUploadOverrideCssProperties: CssPropertyInput[] = [
@@ -703,26 +683,6 @@ export function FileUploadTransformFilesExample() {
       <FileUpload.Trigger>Choose images</FileUpload.Trigger>
       <FileUpload.ItemGroup>
         <CompactAcceptedFileItems />
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
-    </FileUpload.Root>
-  );
-}
-
-export function CustomStylingFileUploadExample() {
-  return (
-    <FileUpload.Root className={styles.demo} maxFiles={2}>
-      <FileUpload.Label>Brand assets</FileUpload.Label>
-      <FileUpload.Dropzone className={styles.customDropzone} disableClick>
-        <FileUpload.DropzoneIcon />
-        <div className={styles.dropzoneContent}>
-          <span className={styles.dropzoneTitle}>Drop files here</span>
-          <span className={styles.dropzoneDescription}>SVG, PNG, or PDF</span>
-          <FileUpload.Trigger className={styles.customTrigger}>Browse files</FileUpload.Trigger>
-        </div>
-      </FileUpload.Dropzone>
-      <FileUpload.ItemGroup>
-        <AcceptedFileItems />
       </FileUpload.ItemGroup>
       <FileUpload.HiddenInput />
     </FileUpload.Root>

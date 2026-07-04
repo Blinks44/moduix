@@ -419,16 +419,3 @@ export function ProgressStepsExample() {
     </div>
   );
 }
-
-export function CustomStylesStepsExample() {
-  return (
-    <div className={styles.stack}>
-      <Steps count={stepsItems.length} className={styles.customSteps} defaultStep={2}>
-        <Steps.Progress />
-        <StepsList />
-        <StepsPanels />
-        <StepsActions />
-      </Steps>
-    </div>
-  );
-}

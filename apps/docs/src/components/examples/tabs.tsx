@@ -57,41 +57,6 @@ export const tabsExampleCss = `.tabs-demo {
   }
 }`;
 
-export const tabsCustomStylingCss = `.inline-tabs {
-  --tabs-bg: transparent;
-  --tabs-border-color: transparent;
-  --tabs-border-width: 0;
-  --tabs-gap: var(--spacing-4);
-  --tabs-list-bg: transparent;
-  --tabs-list-border-width: 0;
-  --tabs-list-padding: 0;
-  --tabs-list-padding-x: 0;
-  --tabs-list-padding-y: 0;
-  display: flex;
-  flex-direction: row;
-  width: 22rem;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--tabs-gap);
-}
-
-.inline-tabs-trigger {
-  --tabs-tab-radius: var(--radius-sm);
-}
-
-.inline-tabs-indicator {
-  position: absolute;
-  bottom: 0;
-  width: var(--width);
-  height: var(--border-width-md);
-  border-radius: var(--radius-full);
-  background: var(--color-foreground);
-  translate: none;
-  transition:
-    left var(--tabs-line-indicator-transition, var(--transition-default)),
-    width var(--tabs-line-indicator-transition, var(--transition-default));
-}`;
-
 export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--tabs-bg', 'var(--color-background)', 'Controls the content background color.'],
   ['--tabs-border-color', 'var(--color-border)', 'Controls the content border color.'],
@@ -345,27 +310,5 @@ export function RootProviderTabsExample() {
         <TabsItems />
       </Tabs.RootProvider>
     </div>
-  );
-}
-
-export function CustomStylingTabsExample() {
-  return (
-    <Tabs defaultValue="name" className={styles.inlineRoot}>
-      <Tabs.List className={styles.inlineList}>
-        <Tabs.Trigger value="name" className={styles.inlineTrigger}>
-          Name
-        </Tabs.Trigger>
-        <Tabs.Trigger value="email" className={styles.inlineTrigger}>
-          Email
-        </Tabs.Trigger>
-        <Tabs.Indicator className={styles.inlineIndicator} />
-      </Tabs.List>
-      <Tabs.Content value="name" className={styles.inlineContent}>
-        <input className={styles.inlineInput} placeholder="Full name" aria-label="Full name" />
-      </Tabs.Content>
-      <Tabs.Content value="email" className={styles.inlineContent}>
-        <input className={styles.inlineInput} placeholder="Email" aria-label="Email" />
-      </Tabs.Content>
-    </Tabs>
   );
 }

@@ -39,29 +39,6 @@ export const radioGroupExampleCss = `
 }
 `;
 
-export const radioGroupCustomStylingCss = `
-.radio-custom-root {
-  gap: var(--spacing-3);
-}
-
-.radio-custom-label,
-.radio-custom-text {
-  color: var(--color-primary);
-}
-
-.radio-custom-item {
-  gap: var(--spacing-3);
-}
-
-.radio-custom-control {
-  border-color: var(--color-primary);
-}
-
-.radio-custom-control[data-state="checked"] {
-  background-color: var(--color-primary);
-}
-`;
-
 export const radioGroupAsChildCss = `
 .radio-card-item {
   display: grid;
@@ -281,21 +258,6 @@ export function RadioGroupAsChildExample() {
             <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
             <RadioGroup.ItemHiddenInput />
           </label>
-        </RadioGroup.Item>
-      ))}
-    </RadioGroup>
-  );
-}
-
-export function RadioGroupCustomStylingExample() {
-  return (
-    <RadioGroup defaultValue="React" className="radio-custom-root">
-      <RadioGroup.Label className="radio-custom-label">Styled Framework</RadioGroup.Label>
-      {frameworks.map((framework) => (
-        <RadioGroup.Item key={framework} value={framework} className="radio-custom-item">
-          <RadioGroup.ItemControl className="radio-custom-control" />
-          <RadioGroup.ItemText className="radio-custom-text">{framework}</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
         </RadioGroup.Item>
       ))}
     </RadioGroup>

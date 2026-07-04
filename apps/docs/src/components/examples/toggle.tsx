@@ -243,12 +243,3 @@ export function ToggleAsChildExample() {
     </Toggle>
   );
 }
-
-export function CustomStylesToggleExample() {
-  return (
-    <Toggle className={styles.customToggle} variant="outline" defaultPressed>
-      <CheckIcon />
-      Styled with className
-    </Toggle>
-  );
-}

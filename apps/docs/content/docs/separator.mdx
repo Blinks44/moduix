@@ -238,41 +238,6 @@ Use `asChild` to render a native host while keeping the moduix separator styling
   
 </Preview>
 
-### Custom Styling
-
-Use `className` or `--separator-*` custom properties when the divider needs stronger visual weight
-or a fixed length.
-
-<Preview>
-  <SeparatorDocs.StyledSeparatorExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/separator/custom-styling.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      .section {
-        display: grid;
-        gap: var(--spacing-2);
-      }
-
-      .text {
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-
-      .customSeparator {
-        --separator-color: var(--color-primary);
-        --separator-thickness: 2px;
-        --separator-length-horizontal: 8rem;
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
 ## Styling
 
 `Separator` exposes Ark-style part selectors and a small `--separator-*` CSS contract for color,

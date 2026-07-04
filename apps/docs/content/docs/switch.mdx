@@ -304,29 +304,6 @@ Use moduix `size` to match different form densities without changing the Ark par
   
 </Preview>
 
-### Custom Styling
-
-Compose `Switch.Thumb` when the thumb needs custom content or separate styling hooks.
-
-<Preview>
-  <SwitchDocs.CustomIconSwitchExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/switch/custom-styling.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      .customIconThumb {
-        --switch-thumb-color-checked: var(--color-primary);
-        --switch-thumb-color-unchecked: var(--color-muted-foreground);
-        --switch-thumb-icon-size: 0.75rem;
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
 ### As Child
 
 Use `asChild` when a custom root element needs to own the DOM node while Ark keeps the switch

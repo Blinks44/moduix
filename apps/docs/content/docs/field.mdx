@@ -270,39 +270,6 @@ Set `readOnly` on the root when the control value can be copied but not edited.
   
 </Preview>
 
-### Custom Styling
-
-Pass `className` to the parts that need overrides and keep state styling on Ark attributes such as
-`data-invalid` and `data-disabled`.
-
-<Preview>
-  <FieldDocs.FieldCustomStylesExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/field/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customField {
-        width: min(20rem, 100%);
-        gap: var(--spacing-2);
-      }
-
-      .customLabel,
-      .customError {
-        color: var(--color-primary);
-      }
-
-      .customControl[data-invalid] {
-        border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
 ## Styling
 
 Style `Field` through `className`, Ark `data-scope="field"` / `data-part="..."` attributes,

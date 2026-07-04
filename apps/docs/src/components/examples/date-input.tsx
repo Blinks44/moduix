@@ -422,23 +422,3 @@ export function RootProviderDateInputExample() {
     </div>
   );
 }
-
-export function CustomStylesDateInputExample() {
-  return (
-    <div style={centeredExampleStyle}>
-      <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]}>
-        <DateInput.Label>Styled date</DateInput.Label>
-        <DateInput.Control className="date-input-custom-control">
-          <DateInput.SegmentGroup>
-            <DateInputSegmentContext>
-              {(segment) => (
-                <DateInput.Segment segment={segment} className="date-input-custom-segment" />
-              )}
-            </DateInputSegmentContext>
-          </DateInput.SegmentGroup>
-        </DateInput.Control>
-        <DateInput.HiddenInput />
-      </DateInput>
-    </div>
-  );
-}

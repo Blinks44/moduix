@@ -359,19 +359,3 @@ export function MultipleTriggersPopoverExample() {
     </Popover>
   );
 }
-
-export function CustomStylingPopoverExample() {
-  return (
-    <Popover positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild>
-        <Button>Open styled popover</Button>
-      </Popover.Trigger>
-      <PopoverSurface
-        arrow
-        className={styles.customContent}
-        title="Custom styling"
-        description="The Ark structure stays unchanged while moduix variables change the surface."
-      />
-    </Popover>
-  );
-}

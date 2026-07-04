@@ -142,13 +142,6 @@ export const imageCropperExampleCss = `
 }
 `;
 
-export const imageCropperCustomStylingCss = `
-.cropper-custom {
-  --image-cropper-selection-border-color: var(--color-destructive);
-  --image-cropper-selection-overlay-bg: rgb(15 23 42 / 55%);
-}
-`;
-
 export const imageCropperOverrideCssProperties: CssPropertyInput[] = [
   ['--image-cropper-border-color', 'var(--color-border)', 'Controls the viewport border color.'],
   ['--image-cropper-border-width', 'var(--border-width-sm)', 'Controls the viewport border width.'],
@@ -508,14 +501,5 @@ export function RootProviderImageCropperExample() {
         <RestartIcon />
       </button>
     </div>
-  );
-}
-
-export function CustomStylingImageCropperExample() {
-  return (
-    <ImageCropperCanvas
-      className="cropper-custom"
-      initialCrop={{ x: 96, y: 72, width: 260, height: 180 }}
-    />
   );
 }

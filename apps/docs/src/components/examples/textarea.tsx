@@ -132,12 +132,3 @@ export function FieldValidationTextareaExample() {
     </Field>
   );
 }
-
-export function CustomStylesTextareaExample() {
-  return (
-    <Field className={styles.field}>
-      <Field.Label>Notes</Field.Label>
-      <Textarea className={styles.customTextarea} placeholder="Styled textarea" />
-    </Field>
-  );
-}

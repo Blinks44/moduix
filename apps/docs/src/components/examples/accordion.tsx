@@ -1,5 +1,5 @@
 import { useAccordion } from '@ark-ui/react/accordion';
-import { Accordion, ChevronDownIcon, Slider } from '@moduix/react';
+import { Accordion, Slider } from '@moduix/react';
 import { useState, type ComponentProps, type ReactNode } from 'react';
 import type { CssPropertyInput } from '../preview';
 
@@ -28,18 +28,6 @@ export const accordionExampleCss = `
     line-height: var(--line-height-text-sm);
   }
 
-`;
-
-export const accordionCustomStylingCss = `
-  .accordion-panel-content {
-    display: grid;
-    gap: var(--spacing-3);
-    padding: var(--spacing-3);
-  }
-
-  .accordion-custom-icon {
-    --accordion-icon-open-transform: rotate(180deg);
-  }
 `;
 
 const accordionItems = [
@@ -286,17 +274,6 @@ export function WithSliderAccordionExample() {
             </Accordion.ItemContent>
           </Accordion.Item>
         ))}
-      </Accordion.Root>
-    </>
-  );
-}
-
-export function CustomStylingAccordionExample() {
-  return (
-    <>
-      <style>{accordionCustomStylingCss}</style>
-      <Accordion.Root defaultValue={['what-is-ark-ui']}>
-        <AccordionItems icon={<ChevronDownIcon />} iconClassName="accordion-custom-icon" />
       </Accordion.Root>
     </>
   );

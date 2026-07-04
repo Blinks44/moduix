@@ -94,21 +94,6 @@ export const skeletonLoadedData = `const profile = {
 
 const customLines = ['100%', '78%', '52%'];
 
-export const skeletonCustomStylingData = `const customLines = ['100%', '78%', '52%'];`;
-
-export const skeletonCustomStylingCss = `
-  .customBlock {
-    width: min(20rem, calc(100vw - var(--spacing-8)));
-    --skeleton-bg: var(--color-primary);
-    --skeleton-border-radius: var(--radius-full);
-    --skeleton-animation: none;
-  }
-
-  .customSkeleton {
-    opacity: 0.28;
-  }
-`;
-
 export function SkeletonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable

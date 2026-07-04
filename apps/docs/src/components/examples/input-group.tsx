@@ -256,13 +256,3 @@ export function InputGroupFieldValidationExample() {
     </Field>
   );
 }
-
-export function CustomStylesInputGroupExample() {
-  return (
-    <InputGroup className="input-group-demo-custom-group">
-      <InputGroup.Addon className="input-group-demo-custom-addon">@</InputGroup.Addon>
-      <InputGroup.Input placeholder="custom-group" />
-      <InputGroup.Button className="input-group-demo-custom-button">Check</InputGroup.Button>
-    </InputGroup>
-  );
-}

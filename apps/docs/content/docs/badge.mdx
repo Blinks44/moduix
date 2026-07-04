@@ -227,56 +227,6 @@ Badges truncate long labels by default. Add `title` when the full text should st
   </Preview.CSS>
 </Preview>
 
-### Custom Styling
-
-Use local CSS variables when a surface needs custom sizing or a different tone.
-
-<Preview>
-  <BadgeDocs.CustomBadgeExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/badge/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .badge-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--spacing-2);
-      }
-
-      .badge-demo-custom {
-        --badge-bg: color-mix(in oklab, var(--color-primary) 20%, var(--color-background));
-        --badge-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
-        --badge-color: var(--color-primary);
-        --badge-dot-size: 0.5rem;
-        --badge-height: 1.5rem;
-        --badge-padding-x: var(--spacing-3);
-        --badge-radius: var(--radius-sm);
-      }
-
-      .badge-demo-small {
-        --badge-height: 1rem;
-        --badge-font-size: var(--text-xs);
-        --badge-icon-size: 0.75rem;
-        --badge-line-height: var(--line-height-text-xs);
-        --badge-padding-x: 0.5rem;
-      }
-
-      .badge-demo-large {
-        --badge-height: 2rem;
-        --badge-font-size: var(--text-sm);
-        --badge-icon-size: 1rem;
-        --badge-line-height: var(--line-height-text-sm);
-        --badge-padding-x: 1rem;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ## Styling
 
 Prefer built-in variants first, then local CSS variables for one-off sizing and tone changes.

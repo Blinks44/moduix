@@ -36,19 +36,6 @@ export const splitButtonExampleCss = `
 }
 `;
 
-export const splitButtonCustomStylingCss = `
-.brandSplitButton [data-slot='split-button-action'],
-.brandSplitButton [data-slot='split-button-trigger'] {
-  border-color: color-mix(in oklab, var(--color-primary) 32%, var(--color-border));
-  background-color: color-mix(in oklab, var(--color-primary) 8%, var(--color-background));
-  color: var(--color-primary);
-}
-
-.brandSplitButton [data-slot='split-button-trigger']::before {
-  opacity: 0.28;
-}
-`;
-
 export const splitButtonItemsData = `
 const items = [
   { value: "save-draft", label: "Save as Draft" },

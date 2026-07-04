@@ -134,24 +134,6 @@ export const splitterNestedCss = `
 }
 `;
 
-export const splitterCustomStylingCss = `
-.splitter-custom {
-  --splitter-width: min(56rem, 100%);
-  --splitter-height: 28rem;
-  --splitter-bg: color-mix(in oklab, var(--color-primary) 3%, var(--color-card));
-  --splitter-border-color: color-mix(in oklab, var(--color-foreground) 16%, var(--color-border));
-  --splitter-panel-bg: color-mix(in oklab, var(--color-primary) 4%, var(--color-background));
-  --splitter-resize-trigger-line-color: color-mix(in oklab, var(--color-foreground) 24%, transparent);
-  --splitter-resize-trigger-indicator-border-color: color-mix(in oklab, var(--color-foreground) 24%, var(--color-border));
-}
-
-.splitter-panel {
-  display: grid;
-  place-items: center;
-  font-weight: var(--weight-medium);
-}
-`;
-
 export const splitterBasicCode = `
 import { Splitter } from "@moduix/react";
 
@@ -409,26 +391,6 @@ export function NestedSplitterDemo() {
             Bottom
           </Splitter.Panel>
         </Splitter>
-      </Splitter.Panel>
-    </Splitter>
-  );
-}
-`;
-
-export const splitterCustomStylingCode = `
-import { Splitter } from "@moduix/react";
-
-export function CustomStylingSplitterDemo() {
-  return (
-    <Splitter panels={panels} defaultSize={[42, 58]} className="splitter-custom">
-      <Splitter.Panel id="a" className="splitter-panel">
-        A
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
-      <Splitter.Panel id="b" className="splitter-panel">
-        B
       </Splitter.Panel>
     </Splitter>
   );
@@ -786,22 +748,6 @@ export function NestedSplitterExample() {
             Bottom
           </Splitter.Panel>
         </Splitter>
-      </Splitter.Panel>
-    </Splitter>
-  );
-}
-
-export function CustomStylingSplitterExample() {
-  return (
-    <Splitter panels={panels} defaultSize={[42, 58]} className={styles.custom}>
-      <Splitter.Panel id="a" className={styles.panel}>
-        A
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
-      <Splitter.Panel id="b" className={styles.panel}>
-        B
       </Splitter.Panel>
     </Splitter>
   );

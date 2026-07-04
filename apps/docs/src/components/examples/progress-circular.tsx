@@ -37,23 +37,6 @@ export const progressCircularExampleCss = `
   }
 `;
 
-export const progressCircularCustomStylingCss = `
-  .progress-circular-custom {
-    --progress-circular-size: 4rem;
-    --progress-circular-thickness: 0.4rem;
-    --progress-circular-track-bg: var(--color-accent);
-    --progress-circular-range-bg: var(--color-chart-2);
-  }
-
-  .progress-circular-custom [data-slot="progress-circular-circle-track"] {
-    stroke: color-mix(in oklab, var(--color-primary), transparent 75%);
-  }
-
-  .progress-circular-custom [data-slot="progress-circular-circle-range"] {
-    filter: drop-shadow(0 0 0.25rem color-mix(in oklab, var(--color-chart-2), transparent 45%));
-  }
-`;
-
 const progressCircularStateMessages = {
   indeterminate: 'Waiting for source data',
   loading: 'Transfer in progress',
@@ -75,8 +58,6 @@ const max = 800;
 export const progressCircularIndeterminateData = `const defaultValue = null;`;
 
 export const progressCircularRootProviderData = `const defaultValue = 58;`;
-
-export const progressCircularCustomStylingData = `const defaultValue = 72;`;
 
 export const progressCircularStateViewsData = `const defaultValue = null;
 
@@ -269,15 +250,6 @@ export function StateViewsProgressCircularExample() {
       <ProgressCircular.View className="progress-circular-state" state="complete">
         {progressCircularStateMessages.complete}
       </ProgressCircular.View>
-    </ProgressCircular>
-  );
-}
-
-export function CustomStylingProgressCircularExample() {
-  return (
-    <ProgressCircular defaultValue={72} className="progress-circular-custom">
-      <ProgressCircular.Label>Monthly quota</ProgressCircular.Label>
-      <ProgressCircularParts />
     </ProgressCircular>
   );
 }

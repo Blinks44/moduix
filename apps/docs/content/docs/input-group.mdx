@@ -232,37 +232,6 @@ size context.
 
 </Preview>
 
-### Custom Styling
-
-Use root variables for the merged shell and part classes for local addon or button styling.
-
-<Preview>
-  <InputGroupDocs.CustomStylesInputGroupExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/input-group/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .input-group-demo-custom-group {
-        --input-group-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
-        --input-group-focus-ring-color: var(--color-primary);
-        --input-group-radius: var(--radius-lg);
-
-        width: min(24rem, 100%);
-      }
-
-      .input-group-demo-custom-addon,
-      .input-group-demo-custom-button {
-        color: var(--color-primary);
-      }
-    `}
-
-  </Preview.CSS>
-
-</Preview>
-
 ## Styling
 
 ### CSS Properties

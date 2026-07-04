@@ -248,33 +248,6 @@ no field context to supply ids or helper/error relationships.
 
 </Preview>
 
-### Custom Styling
-
-Use `className`, public CSS variables, Ark anatomy attributes, and native state selectors.
-
-<Preview>
-  <InputDocs.CustomStylesInputExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/input/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .input-demo-custom-input {
-        --input-border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-        --input-bg: color-mix(in srgb, var(--color-primary) 5%, transparent);
-        --input-focus-ring-color: var(--color-primary);
-
-        color: var(--color-primary);
-        text-transform: uppercase;
-      }
-    `}
-
-  </Preview.CSS>
-
-</Preview>
-
 ## Styling
 
 ### CSS Properties

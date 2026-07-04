@@ -298,12 +298,3 @@ export function ButtonLoadingExample() {
     </Button>
   );
 }
-
-export function CustomStylingButtonExample() {
-  return (
-    <Button className="customButton" disabled aria-busy>
-      <Spinner decorative size="sm" className="customSpinner" />
-      {buttonLabels.publishing}
-    </Button>
-  );
-}

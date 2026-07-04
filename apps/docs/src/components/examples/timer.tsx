@@ -26,16 +26,6 @@ export const timerExampleCss = `
   }
 `;
 
-export const timerCustomStylingCss = `
-  .timer-custom {
-    --timer-area-font-size: var(--text-3xl);
-    --timer-item-color: var(--color-primary);
-    --timer-separator-color: var(--color-chart-2);
-    --timer-action-trigger-bg: var(--color-muted);
-    --timer-action-trigger-border-color: transparent;
-  }
-`;
-
 export const timerData = `const timerDurations = {
   basic: 60 * 60 * 1000,
   elapsedStart: 40 * 60 * 1000,
@@ -375,39 +365,6 @@ export const timerRootProviderCode = `
   }
 `;
 
-export const timerCustomStylingCode = `
-  import { PauseIcon, PlayIcon, RotateCcwIcon, Timer } from "@moduix/react";
-
-  export function CustomStylingTimerDemo() {
-    return (
-      <Timer className="timer-custom" targetMs={15 * 60 * 1000}>
-        <Timer.Area>
-          <span className="timer-item-group">
-            <Timer.Item type="minutes" />
-            <span className="timer-item-label">minutes</span>
-          </span>
-          <Timer.Separator>:</Timer.Separator>
-          <span className="timer-item-group">
-            <Timer.Item type="seconds" />
-            <span className="timer-item-label">seconds</span>
-          </span>
-        </Timer.Area>
-        <Timer.Control>
-          <Timer.ActionTrigger action="start">
-            <PlayIcon /> Start
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="pause">
-            <PauseIcon /> Pause
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="reset">
-            <RotateCcwIcon /> Reset
-          </Timer.ActionTrigger>
-        </Timer.Control>
-      </Timer>
-    );
-  }
-`;
-
 function TimerItemGroup({
   label,
   type,
@@ -566,14 +523,5 @@ export function RootProviderTimerExample() {
       </Timer.Area>
       <TimerControls />
     </Timer.RootProvider>
-  );
-}
-
-export function CustomStylingTimerExample() {
-  return (
-    <Timer className="timer-custom" targetMs={15 * 60 * 1000}>
-      <ShortTimerValue />
-      <TimerControls />
-    </Timer>
   );
 }

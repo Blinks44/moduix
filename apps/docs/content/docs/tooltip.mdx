@@ -370,52 +370,6 @@ Set `positioning.strategy` to `"fixed"` when the tooltip is anchored inside fixe
   </Preview.CSS>
 </Preview>
 
-### Custom Styling
-
-Customize trigger, content, positioner, and arrow styling through public classes, CSS variables, and
-Ark state attributes without changing the part tree.
-
-<Preview>
-  <TooltipDocs.CustomStylingTooltipExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/tooltip/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customContent {
-        --tooltip-bg: var(--color-primary);
-        --tooltip-color: var(--color-primary-foreground);
-        --tooltip-border-color: color-mix(in oklab, var(--color-primary), black 18%);
-        --tooltip-arrow-background: var(--tooltip-bg);
-        --tooltip-arrow-stroke-color: var(--tooltip-border-color);
-        --tooltip-padding-x: var(--spacing-3);
-        --tooltip-padding-y: var(--spacing-2);
-        min-width: 10rem;
-        text-align: left;
-      }
-
-      .customPositioner {
-        filter: drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.14));
-      }
-
-      .customTrigger {
-        --tooltip-trigger-bg: var(--color-primary);
-        --tooltip-trigger-bg-hover: color-mix(in oklab, var(--color-primary), white 10%);
-        --tooltip-trigger-bg-active: color-mix(in oklab, var(--color-primary), black 12%);
-        --tooltip-trigger-border-color: color-mix(in oklab, var(--color-primary), black 18%);
-        --tooltip-trigger-color: var(--color-primary-foreground);
-      }
-
-      .customArrow {
-        --tooltip-arrow-size: 0.75rem;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ## Styling
 
 ### CSS Properties

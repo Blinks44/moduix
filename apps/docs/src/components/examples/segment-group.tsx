@@ -85,18 +85,6 @@ export const segmentGroupAsChildCss = `
 }
 `;
 
-export const segmentGroupCustomStylingCss = `
-.segment-custom-root {
-  --segment-group-bg: var(--color-background);
-  --segment-group-border-color: var(--color-primary);
-  --segment-group-indicator-bg: var(--color-primary);
-}
-
-.segment-custom-item {
-  --segment-group-item-color-checked: var(--color-primary-foreground);
-}
-`;
-
 export const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--segment-group-bg', 'var(--color-muted)', 'Controls the root background.'],
   ['--segment-group-border-color', 'var(--color-border)', 'Controls the root border color.'],
@@ -338,21 +326,6 @@ export function SegmentGroupAsChildExample() {
             <SegmentGroup.ItemControl />
             <SegmentGroup.ItemHiddenInput />
           </label>
-        </SegmentGroup.Item>
-      ))}
-    </SegmentGroup>
-  );
-}
-
-export function SegmentGroupCustomStylingExample() {
-  return (
-    <SegmentGroup aria-label="Framework" defaultValue="React" className="segment-custom-root">
-      <SegmentGroup.Indicator />
-      {frameworks.map((framework) => (
-        <SegmentGroup.Item key={framework} value={framework} className="segment-custom-item">
-          <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
-          <SegmentGroup.ItemControl />
-          <SegmentGroup.ItemHiddenInput />
         </SegmentGroup.Item>
       ))}
     </SegmentGroup>

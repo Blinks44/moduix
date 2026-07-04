@@ -77,7 +77,7 @@ export const checkboxExampleCss = `
   }
 `;
 
-export const checkboxCustomStylingCss = `
+export const checkboxCustomIndicatorCss = `
   .checkbox-custom-group,
   .checkbox-custom-root {
     gap: var(--spacing-3);
@@ -500,24 +500,5 @@ export function CheckboxGroupFieldsetExample() {
         <FrameworkCheckboxes />
       </Checkbox.Group>
     </Fieldset>
-  );
-}
-
-export function CustomStylingCheckboxExample() {
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.groupHeading}>Styled Channels</div>
-      <Checkbox.Group
-        defaultValue={['email']}
-        className={styles.customGroup}
-        name="styled-channels"
-      >
-        {notificationOptions.map((option) => (
-          <CheckboxItem key={option.value} value={option.value} indicator="custom" customStyled>
-            {option.label}
-          </CheckboxItem>
-        ))}
-      </Checkbox.Group>
-    </div>
   );
 }

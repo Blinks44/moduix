@@ -160,15 +160,6 @@ export function InputFieldValidationExample() {
   );
 }
 
-export function CustomStylesInputExample() {
-  return (
-    <Field className="input-demo-field">
-      <Field.Label>Project key</Field.Label>
-      <Input placeholder="MAPS" className="input-demo-custom-input" />
-    </Field>
-  );
-}
-
 export function StandaloneInputExample() {
   return (
     <div className="input-demo-field">

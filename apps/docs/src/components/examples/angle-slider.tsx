@@ -70,22 +70,6 @@ export const angleSliderRootProviderCss = `
   }
 `;
 
-export const angleSliderCustomStylingCss = `
-  .docs-angle-slider-spotlight {
-    --angle-slider-color: var(--color-chart-5);
-    --angle-slider-control-bg: color-mix(in oklab, var(--color-chart-5) 10%, var(--color-card));
-    --angle-slider-center-dot-color: var(--color-chart-5);
-    --angle-slider-indicator-bg: var(--color-chart-5);
-    --angle-slider-size: 10rem;
-    --angle-slider-thumb-bg: var(--color-chart-5);
-    --angle-slider-thumb-border-color: var(--color-background);
-    --angle-slider-thumb-line-width: 0.25rem;
-    --angle-slider-thumb-size: 1.125rem;
-    --angle-slider-track-bg: color-mix(in oklab, var(--color-chart-5) 18%, var(--color-muted));
-    --angle-slider-track-border-color: transparent;
-  }
-`;
-
 export const angleSliderOverrideCssProperties: CssPropertyInput[] = [
   ['--angle-slider-color', 'var(--color-foreground)', 'Controls the default dial text color.'],
   [
@@ -327,22 +311,6 @@ export function RootProviderAngleSliderExample() {
           Set to 90°
         </button>
       </div>
-    </>
-  );
-}
-
-export function CustomStylingAngleSliderExample() {
-  return (
-    <>
-      <style>{angleSliderCustomStylingCss}</style>
-      <AngleSlider.Root
-        defaultValue={315}
-        aria-label="Spotlight direction"
-        className="docs-angle-slider-spotlight"
-      >
-        <AngleSlider.Label>Spotlight</AngleSlider.Label>
-        <AngleSliderParts />
-      </AngleSlider.Root>
     </>
   );
 }

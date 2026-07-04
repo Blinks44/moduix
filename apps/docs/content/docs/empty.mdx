@@ -148,50 +148,6 @@ The visual slot is optional, so plain text-only empty states stay simple.
 
 </Preview>
 
-### Custom Styling
-
-Override the `--empty-*` tokens on a single empty state when it should align with a more specific
-screen tone.
-
-<Preview>
-  <EmptyDocs.EmptyCustomStylesExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/empty/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .custom-empty {
-        width: min(28rem, 100%);
-        --empty-bg: color-mix(
-          in oklab,
-          var(--color-primary) 8%,
-          var(--color-card)
-        );
-        --empty-border-color: color-mix(
-          in oklab,
-          var(--color-primary) 28%,
-          var(--color-border)
-        );
-        --empty-icon-bg: color-mix(
-          in oklab,
-          var(--color-primary) 14%,
-          var(--color-background)
-        );
-        --empty-icon-color: var(--color-primary);
-        --empty-shadow: var(--shadow-md);
-      }
-
-      .custom-icon {
-        --empty-icon-size: 1.75rem;
-      }
-    `}
-
-  </Preview.CSS>
-
-</Preview>
-
 ## Styling
 
 Style `Empty` through `className`, Ark `data-scope="empty"` / `data-part` selectors, stable

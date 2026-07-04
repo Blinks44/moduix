@@ -23,13 +23,6 @@ const searchResultsEmpty = {
   action: 'Clear filters',
 };
 
-const teamInviteEmpty = {
-  title: 'Invite your team',
-  description:
-    'Shared projects, comments, and approvals appear here after the first teammate joins.',
-  action: 'Send invite',
-};
-
 export const emptyDeploymentData = `const emptyState = {
   title: 'No deployments yet',
   description: 'Connect a repository to start tracking release status and deployment history.',
@@ -208,23 +201,6 @@ export function EmptyWithoutIconExample() {
       </Empty.Content>
       <Empty.Actions>
         <Button variant="outline">{searchResultsEmpty.action}</Button>
-      </Empty.Actions>
-    </Empty>
-  );
-}
-
-export function EmptyCustomStylesExample() {
-  return (
-    <Empty className={styles.customEmpty}>
-      <Empty.Icon className={styles.customIcon}>
-        <ComputerIcon />
-      </Empty.Icon>
-      <Empty.Content>
-        <Empty.Title>{teamInviteEmpty.title}</Empty.Title>
-        <Empty.Description>{teamInviteEmpty.description}</Empty.Description>
-      </Empty.Content>
-      <Empty.Actions>
-        <Button>{teamInviteEmpty.action}</Button>
       </Empty.Actions>
     </Empty>
   );

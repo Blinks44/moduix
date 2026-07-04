@@ -80,10 +80,6 @@ const bleedContent = {
   callout: 'Bleed content escapes the constrained column.',
 };
 
-const customContent = {
-  label: 'Customized max width and gutters',
-};
-
 export function ContainerCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return <CSSPropertiesReferenceTable properties={containerOverrideCssProperties} />;
 }
@@ -141,16 +137,6 @@ export function ContainerSemanticExample() {
           </Heading>
           <Text tone="muted">{semanticContent.description}</Text>
         </main>
-      </Container>
-    </div>
-  );
-}
-
-export function CustomStylingContainerExample() {
-  return (
-    <div className={styles.viewport}>
-      <Container className={styles.customContainer}>
-        <Text weight="semibold">{customContent.label}</Text>
       </Container>
     </div>
   );

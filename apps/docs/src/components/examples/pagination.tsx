@@ -76,15 +76,6 @@ export const paginationExampleCss = `
   }
 `;
 
-export const paginationCustomStylingCss = `
-  .custom-pagination {
-    --pagination-item-radius: var(--radius-sm);
-    --pagination-item-bg-selected: var(--color-primary);
-    --pagination-item-color-selected: var(--color-primary-foreground);
-    --pagination-item-border-color-selected: var(--color-primary);
-  }
-`;
-
 export const paginationUsersData = `const users = [
   { id: 1, name: 'Emma Wilson', email: 'emma@example.com' },
   { id: 2, name: 'Liam Johnson', email: 'liam@example.com' },
@@ -442,16 +433,6 @@ export function PaginationWithEdgesExample() {
       <PaginationItems />
       <Pagination.NextTrigger />
       <Pagination.LastTrigger />
-    </Pagination>
-  );
-}
-
-export function PaginationCustomStylingExample() {
-  return (
-    <Pagination className="custom-pagination" count={200} defaultPage={5} pageSize={10}>
-      <Pagination.PrevTrigger />
-      <PaginationItems />
-      <Pagination.NextTrigger />
     </Pagination>
   );
 }

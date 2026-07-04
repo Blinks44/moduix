@@ -333,20 +333,6 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
 
 const colorPickerCssProperties = colorPickerOverrideCssProperties.map(normalizeCssProperty);
 
-export const colorPickerCustomStylingCss = `
-  .docs-color-picker-custom {
-    --color-picker-width: 18rem;
-    --color-picker-focus-ring-color: var(--color-chart-4);
-    --color-picker-content-shadow: var(--shadow-md);
-    --color-picker-thumb-outer-ring-color: color-mix(
-      in oklab,
-      var(--color-chart-4) 48%,
-      transparent
-    );
-    --color-picker-action-color-hover: var(--color-chart-4);
-  }
-`;
-
 function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
@@ -640,17 +626,6 @@ export function FormatColorPickerExample() {
       </ColorPicker.View>
       <ColorPicker.HiddenInput />
     </ColorPicker.Root>
-  );
-}
-
-export function CustomStylingColorPickerExample() {
-  return (
-    <>
-      <style>{colorPickerCustomStylingCss}</style>
-      <ColorPicker.Root className="docs-color-picker-custom" defaultValue={parseColor('#0ea5e9')}>
-        <PickerField colors={['#0ea5e9', '#14b8a6', '#84cc16', '#f59e0b']} />
-      </ColorPicker.Root>
-    </>
   );
 }
 

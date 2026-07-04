@@ -15,23 +15,6 @@ export const progressLinearExampleCss = `
   }
 `;
 
-export const progressLinearCustomStylingCss = `
-  .progress-linear-custom {
-    --progress-linear-width: 16rem;
-    --progress-linear-track-height: 0.75rem;
-    --progress-linear-track-bg: var(--color-accent);
-  }
-
-  .progress-linear-custom [data-slot="progress-linear-track"] {
-    box-shadow: inset 0 0 0 var(--border-width-md)
-      color-mix(in oklab, var(--color-primary), transparent 75%);
-  }
-
-  .progress-linear-custom [data-slot="progress-linear-range"] {
-    background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
-  }
-`;
-
 export const progressLinearVerticalCss = `
   .progress-linear-vertical {
     --progress-linear-height: 10rem;
@@ -62,8 +45,6 @@ export const progressLinearValueTextData = `const fallbackText = 'Loading...';`;
 export const progressLinearRootProviderData = `const defaultValue = 58;`;
 
 export const progressLinearStateViewsData = `const defaultValue = null;`;
-
-export const progressLinearCustomStylingData = `const defaultValue = 72;`;
 
 export const progressLinearCssProperties: CssPropertyInput[] = [
   ['--progress-linear-color', 'var(--color-foreground)', 'Controls root text color.'],
@@ -252,14 +233,5 @@ export function RootProviderProgressLinearExample() {
       <ProgressLinear.Label>Team rollout</ProgressLinear.Label>
       <ProgressLinearParts />
     </ProgressLinear.RootProvider>
-  );
-}
-
-export function CustomStylingProgressLinearExample() {
-  return (
-    <ProgressLinear defaultValue={72} className="progress-linear-custom">
-      <ProgressLinear.Label>Monthly quota</ProgressLinear.Label>
-      <ProgressLinearParts />
-    </ProgressLinear>
   );
 }

@@ -168,32 +168,6 @@ Close Button styling and data hooks.
   </Preview.CSS>
 </Preview>
 
-### Custom Styling
-
-Style the root through `className` and the public `--close-button-*` variables.
-
-<Preview>
-  <CloseButtonDocs.CloseButtonCustomStylingExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/close-button/custom-styling.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customButton {
-        --close-button-size: 2.5rem;
-        --close-button-icon-size: 1rem;
-        --close-button-bg: var(--color-primary);
-        --close-button-bg-hover: var(--color-foreground);
-        --close-button-color: var(--color-primary-foreground);
-        --close-button-color-hover: var(--color-primary-foreground);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ### Disabled State
 
 Use native `disabled` for regular buttons or `aria-disabled="true"` when the control should remain
