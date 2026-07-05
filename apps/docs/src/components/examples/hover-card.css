@@ -6,10 +6,25 @@
   line-height: var(--line-height-text-md);
 }
 
-.hover-card-example__paragraph a {
+.hover-card-example__paragraph [data-slot='hover-card-trigger'] {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-1);
+  padding: 0 var(--spacing-1);
+  border-radius: var(--radius-sm);
+  background: color-mix(in oklab, currentColor, transparent 96%);
+  text-decoration: none;
+  transition: background-color var(--transition-default);
+
+  @media (hover: hover) {
+    &:hover {
+      background: color-mix(in oklab, currentColor, transparent 93%);
+    }
+  }
+
+  &[data-state='open'] {
+    background: color-mix(in oklab, currentColor, transparent 91%);
+  }
 }
 
 .hover-card-example__paragraph svg {
