@@ -4,134 +4,77 @@ description: A compact keycap for keyboard shortcuts and command hints.
 icon: Component
 ---
 
-import {
-  CustomCompositionKbdExample,
-  KbdDenseExample,
-  KbdCssPlaygroundPanel,
-  KbdCssPropertiesPanel,
-  KbdExample,
-  KbdSingleKeyExample,
-  KbdShortcutListExample,
-  kbdPlaygroundCssProperties,
-} from '@/components/examples/kbd';
+import * as KbdDocs from '@/components/examples/kbd';
 
 ## API Reference
 
-`Kbd` is a standalone moduix component and does not wrap a Base UI primitive.
-Because Base UI does not ship a dedicated keyboard-key primitive, moduix keeps this component as a
-thin styled wrapper around native `<kbd>` elements. Use `Kbd` for a single key and `KbdGroup`
-when several keys should read as one shortcut.
+Ark UI does not ship a dedicated kbd primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Basic
 
-<Preview cssProperties={kbdPlaygroundCssProperties} cssVariableScope="local">
-  <KbdExample />
+Start with `Kbd` for one key and `Kbd.Group` when several keys form one shortcut.
 
-  <Preview.Code>
+<Preview>
+  <KbdDocs.KbdExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/kbd/basic.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
     {`
-      import { Kbd, KbdGroup } from "moduix";
-
-      export function KbdDemo() {
-        return (
-          <KbdGroup aria-label="Command K">
-            <Kbd>Cmd</Kbd>
-            +
-            <Kbd>K</Kbd>
-          </KbdGroup>
-        );
+      .kbd-demo-shortcut {
+        display: inline-flex;
       }
     `}
 
-  </Preview.Code>
-  <Preview.CSSProperties>{(context) => <KbdCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <KbdCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  </Preview.CSS>
+
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Kbd` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/kbd
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/kbd
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/kbd
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/kbd
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/kbd
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Kbd` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-kbd" />
 
 ## Anatomy
 
-Use `Kbd` for a single key label. Use `KbdGroup` to keep multi-key shortcuts aligned and preserve
-group-level keyboard semantics.
+The normal consumer path is short:
 
 ```text
-KbdGroup
-└─ Kbd
-└─ Kbd
+Kbd.Group
+├─ Kbd / Kbd.Root
+├─ +
+└─ Kbd / Kbd.Root
 ```
 
-```tsx
-<KbdGroup aria-label="Command K">
-  <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-</KbdGroup>
-```
-
-| Part       | Element | Data attributes         | Role                                                 |
-| ---------- | ------- | ----------------------- | ---------------------------------------------------- |
-| `Kbd`      | `kbd`   | `data-slot="kbd-root"`  | Root keycap slot. Applies the shared keycap styling. |
-| `KbdGroup` | `kbd`   | `data-slot="kbd-group"` | Inline wrapper for keyboard shortcut combinations.   |
+| Part               | Role                                                    |
+| ------------------ | ------------------------------------------------------- |
+| `Kbd` / `Kbd.Root` | Polymorphic keycap root; renders `kbd` by default.      |
+| `Kbd.Group`        | Polymorphic semantic wrapper for shortcut combinations. |
 
 ## Composition
 
-Pass `className` to `Kbd` or `KbdGroup` for targeted overrides. `Kbd` accepts native `kbd` props,
-and `KbdGroup` accepts native `kbd` props.
+### Recommended composition
 
-There is no extra variant or size API. For denser layouts or product-specific visuals, use
-`className` and the public `--kbd-*` CSS variables.
+Use `Kbd` as the root shorthand and `Kbd.Group` for shortcut hints, command menus, and inline help.
 
-Separators such as `+` or `/` stay in plain composition. There is no dedicated separator part or
-helper prop.
+Both parts accept `HTMLArkProps<'kbd'>`, forward refs to the rendered element, and support `asChild`.
+There is no variant, size, separator, callback, or state API.
 
-## UX and Accessibility
+### When to go custom
 
-`Kbd` and `KbdGroup` are static shortcut labels, not interactive controls. Prefer short visible key
-labels and add `aria-label` to `KbdGroup` when abbreviations or symbols need a clearer spoken form.
-There is no keyboard behavior, focus management, disabled state, or controlled state because the
-component only renders native shortcut semantics.
+Use `asChild` when an existing semantic `<kbd>` element must receive the moduix styles and Ark
+composition behavior. The child must be one element and must preserve keyboard-input semantics.
+
+### Behavioral notes
+
+- `Kbd`, `Kbd.Root`, and `Kbd.Group` are static shortcut labels, not interactive controls.
+- Separators such as `+`, `/`, or `then` stay in plain composition as normal text.
+- Add `aria-label` to `Kbd.Group` when abbreviations or symbols need a clearer spoken form.
+- The parts expose `data-scope="kbd"`, `data-part`, and stable `data-slot` attributes.
 
 ## Examples
 
@@ -140,60 +83,76 @@ component only renders native shortcut semantics.
 Use `Kbd` directly when the UI refers to one key.
 
 <Preview>
-  <KbdSingleKeyExample />
+  <KbdDocs.KbdSingleKeyExample />
 
-  <Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/kbd/single-key.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
     {`
-      import { Kbd } from "moduix";
-
-      export function KbdSingleKeyDemo() {
-        return <Kbd>Esc</Kbd>;
+      [data-scope="kbd"][data-part="root"] {
+        vertical-align: middle;
       }
     `}
 
-  </Preview.Code>
+  </Preview.CSS>
+
+</Preview>
+
+### Custom Element
+
+Use `asChild` to merge Kbd props into one semantic child when another layer owns the element.
+
+<Preview>
+  <KbdDocs.KbdAsChildExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/kbd/custom-element.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      [data-slot="kbd-root"] {
+        cursor: default;
+      }
+    `}
+
+  </Preview.CSS>
+
 </Preview>
 
 ### Shortcut List
 
-Use plain composition when keys need to sit next to surrounding copy.
+Use plain composition when shortcuts need to sit next to surrounding copy.
 
 <Preview>
-  <KbdShortcutListExample />
+  <KbdDocs.KbdShortcutListExample />
 
-  <Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/kbd/shortcut-list.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
     {`
-      import { Kbd, KbdGroup } from "moduix";
+      .kbd-demo-shortcut-list {
+        display: grid;
+        gap: var(--spacing-3);
+      }
 
-      export function KbdShortcutListDemo() {
-        return (
-          <div>
-            <div>
-              <KbdGroup aria-label="Command K">
-                <Kbd>Cmd</Kbd>
-                +
-                <Kbd>K</Kbd>
-              </KbdGroup>
-              Open command menu
-            </div>
-            <div>
-              <KbdGroup aria-label="Shift question mark">
-                <Kbd>Shift</Kbd>
-                +
-                <Kbd>?</Kbd>
-              </KbdGroup>
-              Show shortcuts
-            </div>
-            <div>
-              <Kbd>Esc</Kbd>
-              Close overlay
-            </div>
-          </div>
-        );
+      .kbd-demo-shortcut-row {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        align-items: center;
+        gap: var(--spacing-3);
+        color: var(--color-muted-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
       }
     `}
 
-  </Preview.Code>
+  </Preview.CSS>
+
 </Preview>
 
 ### Compact Density
@@ -201,81 +160,50 @@ Use plain composition when keys need to sit next to surrounding copy.
 Use local CSS variables for one-off density or tone changes instead of extra component props.
 
 <Preview>
-  <KbdDenseExample />
+  <KbdDocs.KbdDenseExample />
 
-  <Preview.Code>
-    {`
-      import { Kbd } from "moduix";
-      import styles from "./kbd-demo.module.css";
-
-      export function KbdDenseDemo() {
-        return (
-          <>
-            <Kbd className={styles.dense}>Esc</Kbd>
-            <Kbd className={styles.dense}>Ctrl</Kbd>
-            <Kbd className={styles.dense}>/</Kbd>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/kbd/compact-density.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
-      .dense {
+      .kbd-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-2);
+      }
+
+      .kbd-demo-dense {
         --kbd-height: 1.25rem;
-        --kbd-font-size: 0.6875rem;
-        --kbd-line-height: 1rem;
         --kbd-min-width: 1.25rem;
-        --kbd-padding-x: 0.375rem;
+        --kbd-padding-x: var(--spacing-1);
       }
     `}
 
   </Preview.CSS>
+
 </Preview>
 
-### Custom Composition
+## Styling
 
-Use `className` and CSS variables when the default keycap needs to match product-specific styling.
+Style `Kbd` and `Kbd.Group` through `className`, Ark anatomy attributes, stable `data-slot` hooks, and the public
+`--kbd-*` CSS variables shown below.
 
-<Preview>
-  <CustomCompositionKbdExample />
+### CSS Properties
 
-  <Preview.Code>
-    {`
-      import { Kbd, KbdGroup } from "moduix";
-      import styles from "./custom-kbd-demo.module.css";
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <KbdDocs.KbdCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
 
-      export function CustomKbdDemo() {
-        return (
-          <KbdGroup aria-label="Command K" className={styles.customGroup}>
-            <Kbd className={styles.customKbd}>Cmd</Kbd>
-            +
-            <Kbd className={styles.customKbd}>K</Kbd>
-          </KbdGroup>
-        );
-      }
-    `}
+### Styling hooks
 
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customGroup {
-        --kbd-group-gap: 0.375rem;
-      }
-
-      .customKbd {
-        --kbd-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
-        --kbd-border-color: color-mix(in oklab, var(--color-primary) 32%, transparent);
-        --kbd-color: var(--color-primary);
-        --kbd-height: 1.625rem;
-        --kbd-min-width: 1.625rem;
-        --kbd-radius: var(--radius-md);
-        --kbd-shadow: inset 0 -1px 0 color-mix(in oklab, var(--color-primary) 22%, transparent);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
+- `data-slot="kbd-root"` targets the individual keycap element
+- `data-slot="kbd-group"` targets the inline semantic wrapper for grouped shortcuts
+- `[data-scope="kbd"][data-part="root"]` and `[data-part="group"]` expose Ark-style anatomy selectors
+- `Kbd.Group` inherits text styles for separators, and `--kbd-group-separator-color` controls their color

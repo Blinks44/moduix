@@ -4,400 +4,221 @@ description: A vertically stacked set of interactive headings that each reveal a
 icon: Component
 ---
 
-import {
-  AccordionCssPlaygroundPanel,
-  AccordionCssPropertiesPanel,
-  AccordionExample,
-  ControlledAccordionExample,
-  CustomCompositionAccordionExample,
-  DisabledItemAccordionExample,
-  MultipleAccordionExample,
-  accordionPlaygroundCssProperties,
-} from '@/components/examples/accordion';
+import * as AccordionDocs from '@/components/examples/accordion';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/accordion" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/accordion" />
 
 ## Basic
 
-<Preview cssProperties={accordionPlaygroundCssProperties}>
-  <AccordionExample defaultValue={["what-is-base-ui"]} />
+Use Ark-style parts: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`,
+`Accordion.ItemIndicator`, and `Accordion.ItemContent`.
 
-  <Preview.Code>
-    {`
-      import {
-        Accordion,
-        AccordionHeader,
-        AccordionItem,
-        AccordionPanel,
-        AccordionTrigger,
-        AccordionTriggerIcon,
-      } from "moduix";
+<Preview>
+  <AccordionDocs.AccordionExample defaultValue={["what-is-ark-ui"]} />
 
-      export function AccordionDemo() {
-        return (
-          <Accordion defaultValue={["what-is-base-ui"]}>
-            {items.map((item) => (
-              <AccordionItem key={item.value} value={item.value}>
-                <AccordionHeader>
-                  <AccordionTrigger>
-                    {item.title}
-                    <AccordionTriggerIcon />
-                  </AccordionTrigger>
-                </AccordionHeader>
-                <AccordionPanel>
-                  <div className={styles.panelContent}>{item.description}</div>
-                </AccordionPanel>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
+<Preview.Code>
+  <include lang="tsx">./_snippets/accordion/basic.tsx#demo</include>
+</Preview.Code>
 
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .panelContent {
-        padding: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-
-<Preview.Data>
-  {`
-      const items = [
-        {
-          value: "what-is-base-ui",
-          title: "What is Base UI?",
-          description: "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
-        },
-        {
-          value: "getting-started",
-          title: "How do I get started?",
-          description: "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
-        },
-        {
-          value: "can-i-use-it",
-          title: "Can I use it for my project?",
-          description: "Of course. Base UI is free and open source.",
-        },
-      ];
-    `}
-</Preview.Data>
-
-<Preview.CSSProperties>
-  {(context) => <AccordionCssPropertiesPanel {...context} />}
-</Preview.CSSProperties>
-
-  <Preview.CSSPlayground>
-    {(context) => <AccordionCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Accordion` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/accordion
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/accordion
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/accordion
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/accordion
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/accordion
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Accordion` depends on, such
-as styles, icons, and small utilities.
-
-The default path is explicit composition: `Accordion` owns state, each `AccordionItem` pairs one
-`AccordionTrigger` with one `AccordionPanel`, and `AccordionTriggerIcon` stays optional.
+<ShadcnInstall packageName="react-accordion" />
 
 ## Anatomy
 
 ```text
-Accordion
-└─ AccordionItem[value]
-   ├─ AccordionHeader
-   │  └─ AccordionTrigger
-   │     ├─ label
-   │     └─ AccordionTriggerIcon (optional)
-   └─ AccordionPanel
+Accordion.Root
+└─ Accordion.Item[value]
+   ├─ Accordion.ItemTrigger
+   │  ├─ label
+   │  └─ Accordion.ItemIndicator (optional)
+   └─ Accordion.ItemContent
       └─ content
+
+Accordion.RootProvider
+└─ same item tree connected to a useAccordion() store
 ```
 
-| Part                   | Role                                                                                                             |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `Accordion`            | Root state machine. Controls open values, keyboard navigation, `multiple`, `disabled`, and `orientation`.        |
-| `AccordionItem`        | One collapsible row. Its `value` identifies the row for `defaultValue`, controlled `value`, and change handlers. |
-| `AccordionHeader`      | Semantic heading wrapper for a trigger. Use `render` when the heading element needs to change.                   |
-| `AccordionTrigger`     | Interactive button that opens or closes the matching panel.                                                      |
-| `AccordionTriggerIcon` | Optional helper that renders the default plus icon. Replace its children or omit it when you want a custom cue.  |
-| `AccordionPanel`       | The collapsible content region. Put padding/content wrappers inside it so panel height animations stay clean.    |
+| Part                           | Role                                                                                      |
+| ------------------------------ | ----------------------------------------------------------------------------------------- |
+| `Accordion` / `Accordion.Root` | Controls accordion state and keyboard behavior.                                           |
+| `Accordion.RootProvider`       | Connects parts to state created with `useAccordion()`.                                    |
+| `Accordion.Item`               | One collapsible item with a required `value`.                                             |
+| `Accordion.ItemTrigger`        | Interactive button that opens or closes the item.                                         |
+| `Accordion.ItemIndicator`      | Visual open/close cue. Defaults to the moduix plus icon when no children are provided.    |
+| `Accordion.ItemContent`        | Collapsible content region. Keep spacing wrappers inside for clean `--height` animations. |
 
 ## Composition
 
-Use `Accordion` for state props such as `value`, `defaultValue`, `onValueChange`, `multiple`,
-`disabled`, `orientation`, and `loopFocus`. Use `keepMounted` or `hiddenUntilFound` on the root or
-panel when closed content must remain searchable or stay mounted for app logic.
+### Recommended composition
 
-Style the exported parts directly with `className`. By default the root uses a compact
-`--accordion-width` of `22rem` with `--accordion-max-width: 100%`. Override either variable, or set
-width through `className`, when the surrounding layout needs a different size.
+`Accordion.Root` owns keyboard navigation, focus movement, and open item state. Use it for
+`value`, `defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `multiple`,
+`collapsible`, `orientation`, `lazyMount`, `unmountOnExit`, and `ids`.
 
-When `AccordionTrigger` uses the `render` prop, the custom rendered element owns its styling and the
-default trigger CSS is not applied.
+Stay with `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`, `Accordion.ItemIndicator`,
+and `Accordion.ItemContent` for the standard Ark composition path.
 
-```tsx
-<Accordion defaultValue={['shipping']}>
-  <AccordionItem value="shipping">
-    <AccordionHeader render={<h3 />}>
-      <AccordionTrigger>
-        Shipping details
-        <AccordionTriggerIcon />
-      </AccordionTrigger>
-    </AccordionHeader>
-    <AccordionPanel keepMounted>
-      <div className={styles.panelContent}>Delivery times, prices, and tracking options.</div>
-    </AccordionPanel>
-  </AccordionItem>
-</Accordion>
-```
+### When to go custom
 
-| Prop          | Default    | Values                   |
-| ------------- | ---------- | ------------------------ |
-| `multiple`    | `false`    | `true`, `false`          |
-| `disabled`    | `false`    | `true`, `false`          |
-| `orientation` | `vertical` | `vertical`, `horizontal` |
-| `loopFocus`   | `true`     | `true`, `false`          |
+`value` and `defaultValue` are always arrays, including single-open mode. `onValueChange` follows
+the Ark callback shape and exposes the current item values as `details.value`.
+
+Use the Ark `RootProvider` and `useAccordion()` pattern when accordion state must be created
+outside the rendered subtree.
+
+Import Ark context parts and hooks directly from `@ark-ui/react/accordion` when surrounding UI
+needs to read root or item state.
+
+`Accordion.Item` requires a stable `value`. Use `disabled` on the item when one section should stay
+present but unavailable.
+
+`Accordion.ItemIndicator` is optional. In moduix it renders `PlusIcon` by default when no children
+are provided, but you can replace the indicator content entirely.
+
+Use `asChild` only when another element must own the rendered node. Keep the Ark part tree visible
+instead of hiding it behind convenience wrappers.
+
+### Default Props
+
+| Prop                   | Default    | Notes                                                 |
+| ---------------------- | ---------- | ----------------------------------------------------- |
+| `collapsible`          | `false`    | Keeps one expanded item open until another is chosen. |
+| `lazyMount`            | `false`    | Mounts item content immediately.                      |
+| `multiple`             | `false`    | Allows a single expanded item by default.             |
+| `orientation`          | `vertical` | Uses vertical keyboard and layout behavior.           |
+| `unmountOnExit`        | `false`    | Keeps collapsed content mounted.                      |
+| `value`/`defaultValue` | `[]`       | Values are string arrays, including single-open mode. |
+
+### Behavioral notes
+
+Keep spacing wrappers inside `Accordion.ItemContent` instead of on the content part itself. Ark
+measurement variables drive the open/close animation: `--height` for vertical accordions and
+`--width` for horizontal accordions.
+
+All exported parts support `asChild` for cases where another element must own the rendered node.
 
 ## Examples
 
 ### Multiple
 
-Use `multiple` to allow several items to stay open at once.
+Use `multiple` when several sections should stay open at the same time instead of collapsing to a single active item.
 
 <Preview>
-  <MultipleAccordionExample />
-
+  <AccordionDocs.MultipleAccordionExample />
   <Preview.Code>
-    {`
-      import {
-        Accordion,
-        AccordionHeader,
-        AccordionItem,
-        AccordionPanel,
-        AccordionTrigger,
-        AccordionTriggerIcon,
-      } from "moduix";
-
-      export function MultipleAccordionDemo() {
-        return (
-          <Accordion
-            multiple
-            defaultValue={["what-is-base-ui", "can-i-use-it"]}
-          >
-            {items.map((item) => (
-              <AccordionItem key={item.value} value={item.value}>
-                <AccordionHeader>
-                  <AccordionTrigger>
-                    {item.title}
-                    <AccordionTriggerIcon />
-                  </AccordionTrigger>
-                </AccordionHeader>
-                <AccordionPanel>
-                  <div className={styles.panelContent}>{item.description}</div>
-                </AccordionPanel>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/accordion/multiple.tsx#demo</include>
   </Preview.Code>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
 </Preview>
 
 ### Controlled
 
-Control `value` from React state when the open panels need to coordinate with surrounding UI.
+Control `value` from React state when the open items need to stay in sync with routing, filters, or surrounding UI.
 
 <Preview>
-  <ControlledAccordionExample />
-
+  <AccordionDocs.ControlledAccordionExample />
   <Preview.Code>
-    {`
-      import {
-        Accordion,
-        AccordionHeader,
-        AccordionItem,
-        AccordionPanel,
-        AccordionTrigger,
-        AccordionTriggerIcon,
-      } from "moduix";
-      import { useState } from "react";
-
-      export function ControlledAccordionDemo() {
-        const [value, setValue] = useState(["getting-started"] as string[]);
-
-        return (
-          <Accordion value={value} onValueChange={setValue}>
-            {items.map((item) => (
-              <AccordionItem key={item.value} value={item.value}>
-                <AccordionHeader>
-                  <AccordionTrigger>
-                    {item.title}
-                    <AccordionTriggerIcon />
-                  </AccordionTrigger>
-                </AccordionHeader>
-                <AccordionPanel>
-                  <div className={styles.panelContent}>{item.description}</div>
-                </AccordionPanel>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/accordion/controlled.tsx#demo</include>
   </Preview.Code>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+</Preview>
+
+### Root Provider
+
+Use `useAccordion()` with `Accordion.RootProvider` when the state store must be created outside
+the rendered accordion tree. Do not render `Accordion.Root` for the same store.
+
+<Preview>
+  <AccordionDocs.RootProviderAccordionExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/accordion/root-provider.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+</Preview>
+
+### Collapsible
+
+Add `collapsible` when the currently open item should be allowed to close without selecting another item first.
+
+<Preview>
+  <AccordionDocs.CollapsibleAccordionExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/accordion/collapsible.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+</Preview>
+
+### Horizontal
+
+Switch to `orientation="horizontal"` when the accordion should follow a horizontal interaction pattern.
+
+<Preview>
+  <AccordionDocs.HorizontalAccordionExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/accordion/horizontal.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+</Preview>
+
+### Lazy Mount
+
+Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and should only render while needed.
+
+<Preview>
+  <AccordionDocs.LazyMountAccordionExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/accordion/lazy-mount.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
 </Preview>
 
 ### Disabled Item
 
-Set `disabled` on an item to keep it visible while blocking interaction.
+Set `disabled` on an item when it should stay visible in the list but remain unavailable for interaction.
 
 <Preview>
-  <DisabledItemAccordionExample />
-
+  <AccordionDocs.DisabledItemAccordionExample />
   <Preview.Code>
-    {`
-      import {
-        Accordion,
-        AccordionHeader,
-        AccordionItem,
-        AccordionPanel,
-        AccordionTrigger,
-        AccordionTriggerIcon,
-      } from "moduix";
-
-      export function DisabledItemAccordionDemo() {
-        return (
-          <Accordion defaultValue={["what-is-base-ui"]}>
-            {items.map((item) => (
-              <AccordionItem
-                key={item.value}
-                value={item.value}
-                disabled={item.value === "getting-started"}
-              >
-                <AccordionHeader>
-                  <AccordionTrigger>
-                    {item.title}
-                    <AccordionTriggerIcon />
-                  </AccordionTrigger>
-                </AccordionHeader>
-                <AccordionPanel>
-                  <div className={styles.panelContent}>{item.description}</div>
-                </AccordionPanel>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/accordion/disabled-item.tsx#demo</include>
   </Preview.Code>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
 </Preview>
 
-## Custom Composition
+### With Slider
 
-`AccordionTriggerIcon` is narrow sugar for the common visual affordance. Keep it when the default
-plus icon works, replace its children when the UI needs a different cue, or omit it entirely.
+Accordion content can host another Ark-based composite widget. Keep each primitive's part tree
+explicit so keyboard handling and hidden form inputs stay owned by the correct component.
 
 <Preview>
-  <CustomCompositionAccordionExample />
+  <AccordionDocs.WithSliderAccordionExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Accordion,
-        AccordionHeader,
-        AccordionItem,
-        AccordionPanel,
-        AccordionTrigger,
-        AccordionTriggerIcon,
-        ChevronDownIcon,
-      } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/accordion/with-slider.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomCompositionAccordionDemo() {
-        return (
-          <Accordion defaultValue={["what-is-base-ui"]}>
-            {items.map((item) => (
-              <AccordionItem key={item.value} value={item.value}>
-                <AccordionHeader>
-                  <AccordionTrigger>
-                    {item.title}
-                    <AccordionTriggerIcon className={styles.customIcon}>
-                      <ChevronDownIcon />
-                    </AccordionTriggerIcon>
-                  </AccordionTrigger>
-                </AccordionHeader>
-                <AccordionPanel>
-                  <div className={styles.panelContent}>{item.description}</div>
-                </AccordionPanel>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .panelContent {
-        padding: var(--spacing-3);
-      }
-
-      .customIcon {
-        --accordion-icon-open-transform: rotate(180deg);
-      }
-    `}
-
-  </Preview.CSS>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
 </Preview>
+
+## Styling
+
+Use `className` on exported parts for structural styling changes. For state styling, prefer Ark
+data attributes (`data-state`, `data-disabled`, `data-orientation`) and moduix `data-slot` hooks.
+
+### CSS Properties
+
+<CssPropertiesSection properties={AccordionDocs.accordionOverrideCssProperties} />
+
+### Styling hooks
+
+- `data-slot="accordion-root"`, `accordion-root-provider`, `accordion-item`,
+  `accordion-item-trigger`, `accordion-item-indicator`, and `accordion-item-content`.
+- Ark anatomy hooks: `data-scope="accordion"` and `data-part="root|item|item-trigger|item-indicator|item-content"`.
+- Ark state hooks: `data-state="open|closed"`, `data-disabled`, `data-focus`,
+  `data-controls`, and `data-orientation="horizontal|vertical"`.
+- Ark content variables: `--height` for vertical animation and `--width` for horizontal animation.

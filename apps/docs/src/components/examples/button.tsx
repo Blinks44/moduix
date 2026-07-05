@@ -1,11 +1,39 @@
-import type { ComponentProps } from 'react';
-import { ArrowUpRightIcon, Button, PlusIcon, Spinner, StarIcon } from 'moduix';
-import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { Button, PlusIcon, Spinner } from '@moduix/react';
+import { ArrowUpRight as ArrowUpRightIcon, Star as StarIcon } from 'lucide-react';
+import { useRef, useState, type ComponentProps } from 'react';
+import type { CssPropertyInput } from '../preview';
 import styles from './button.module.css';
 
-const buttonCssProperties: CssPropertyInput[] = [
+const buttonLabels = {
+  basic: 'Save Changes',
+  create: 'Create Item',
+  disabled: 'Disabled',
+  disabledLink: 'Disabled Link',
+  favorite: 'Favorites',
+  focusTarget: 'Focus target',
+  focusTrigger: 'Focus first button',
+  link: 'Open Button Docs',
+  loading: 'Saving',
+  loadingIdle: 'Save Changes',
+  publishing: 'Publishing',
+};
+const variants = [
+  'default',
+  'outline',
+  'secondary',
+  'destructive',
+  'destructive-outline',
+  'ghost',
+  'link',
+] as const;
+const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+const iconSizes = [
+  { label: 'Small favorite', size: 'icon-sm' },
+  { label: 'Favorite', size: 'icon-md' },
+  { label: 'Large favorite', size: 'icon-lg' },
+] as const;
+
+export const buttonCssProperties: CssPropertyInput[] = [
   ['--button-border-width', 'var(--border-width-sm)', 'Controls base button border width.'],
   ['--button-color', 'var(--color-foreground)', 'Controls base button text and icon color.'],
   ['--button-content-gap', 'var(--spacing-2)', 'Controls spacing between text and icons.'],
@@ -158,59 +186,22 @@ const buttonCssProperties: CssPropertyInput[] = [
   ],
 ];
 
-export const buttonOverrideCssProperties: CssPropertyInput[] = buttonCssProperties;
-
-export const buttonPlaygroundCssProperties: CssPropertyInput[] = buttonCssProperties;
-
-export function ButtonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <div className="space-y-2">
-      <CSSPropertiesReferenceTable
-        properties={buttonOverrideCssProperties.map(normalizeCssProperty)}
-      />
-    </div>
-  );
-}
-
-export function ButtonCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <div className="space-y-2">
-      <CSSPropertiesEditor
-        properties={buttonPlaygroundCssProperties.map(normalizeCssProperty)}
-        values={values}
-        onChange={onChange}
-        onReset={onReset}
-      />
-    </div>
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
-}
-
 export function ButtonExample(props: ComponentProps<typeof Button>) {
-  return <Button {...props}>Save Changes</Button>;
+  return (
+    <div className={styles.row}>
+      <Button {...props}>{buttonLabels.basic}</Button>
+    </div>
+  );
 }
 
 export function ButtonVariantsExample() {
   return (
     <div className={styles.row}>
-      <Button>Default</Button>
-      <Button variant="outline">Outline</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="destructive">Destructive</Button>
-      <Button variant="destructive-outline">Destructive Outline</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="link">Link</Button>
+      {variants.map((variant) => (
+        <Button key={variant} variant={variant}>
+          {variant}
+        </Button>
+      ))}
     </div>
   );
 }
@@ -218,20 +209,16 @@ export function ButtonVariantsExample() {
 export function ButtonSizesExample() {
   return (
     <div className={styles.row}>
-      <Button size="xs">Extra-small</Button>
-      <Button size="sm">Small</Button>
-      <Button size="md">Medium</Button>
-      <Button size="lg">Large</Button>
-      <Button size="xl">Extra-large</Button>
-      <Button size="icon-sm" variant="outline" aria-label="Small favorite">
-        <StarIcon />
-      </Button>
-      <Button size="icon-md" variant="outline" aria-label="Favorite">
-        <StarIcon />
-      </Button>
-      <Button size="icon-lg" variant="outline" aria-label="Large favorite">
-        <StarIcon />
-      </Button>
+      {sizes.map((size) => (
+        <Button key={size} size={size}>
+          {size}
+        </Button>
+      ))}
+      {iconSizes.map((item) => (
+        <Button key={item.size} size={item.size} variant="outline" aria-label={item.label}>
+          <StarIcon />
+        </Button>
+      ))}
     </div>
   );
 }
@@ -241,13 +228,13 @@ export function ButtonIconExample() {
     <div className={styles.row}>
       <Button>
         <PlusIcon />
-        Create Item
+        {buttonLabels.create}
       </Button>
-      <Button size="icon-md" variant="outline" aria-label="Favorites">
+      <Button size="icon-md" variant="outline" aria-label={buttonLabels.favorite}>
         <StarIcon />
       </Button>
       <Button variant="link">
-        Open Docs
+        {buttonLabels.link}
         <ArrowUpRightIcon />
       </Button>
     </div>
@@ -257,9 +244,11 @@ export function ButtonIconExample() {
 export function ButtonDisabledExample() {
   return (
     <div className={styles.row}>
-      <Button disabled>Disabled</Button>
-      <Button disabled focusableWhenDisabled variant="outline">
-        Focusable Disabled
+      <Button disabled>{buttonLabels.disabled}</Button>
+      <Button asChild aria-disabled="true" variant="outline">
+        <a href="#button" onClick={(event) => event.preventDefault()}>
+          {buttonLabels.disabledLink}
+        </a>
       </Button>
     </div>
   );
@@ -267,9 +256,22 @@ export function ButtonDisabledExample() {
 
 export function ButtonLinkCompositionExample() {
   return (
-    <Button render={<a href="#button" />} nativeButton={false} variant="outline">
-      Open Button Docs
+    <Button asChild variant="outline">
+      <a href="#button">{buttonLabels.link}</a>
     </Button>
+  );
+}
+
+export function ButtonRefExample() {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  return (
+    <div className={styles.row}>
+      <Button ref={buttonRef}>{buttonLabels.focusTarget}</Button>
+      <Button variant="outline" onClick={() => buttonRef.current?.focus()}>
+        {buttonLabels.focusTrigger}
+      </Button>
+    </div>
   );
 }
 
@@ -279,7 +281,6 @@ export function ButtonLoadingExample() {
   return (
     <Button
       disabled={pending}
-      focusableWhenDisabled
       aria-busy={pending || undefined}
       onClick={() => {
         setPending(true);
@@ -289,20 +290,11 @@ export function ButtonLoadingExample() {
       {pending ? (
         <>
           <Spinner decorative size="sm" />
-          Saving
+          {buttonLabels.loading}
         </>
       ) : (
-        'Save Changes'
+        buttonLabels.loadingIdle
       )}
-    </Button>
-  );
-}
-
-export function CustomCompositionButtonExample() {
-  return (
-    <Button className={styles.customButton} disabled focusableWhenDisabled aria-busy>
-      <Spinner decorative size="sm" className={styles.customSpinner} />
-      Publishing
     </Button>
   );
 }

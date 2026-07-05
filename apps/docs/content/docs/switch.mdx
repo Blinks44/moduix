@@ -1,190 +1,146 @@
 ---
 title: Switch
-description: A composable switch control for turning a setting on or off.
+description: A composable Ark UI switch control for turning a setting on or off.
 icon: Component
 ---
 
-import {
-  ControlledSwitchExample,
-  CustomIconSwitchExample,
-  SwitchCssPlaygroundPanel,
-  SwitchCssPropertiesPanel,
-  SwitchDisabledExample,
-  SwitchExample,
-  SwitchFormIntegrationExample,
-  SwitchNativeButtonRenderCallbackExample,
-  SwitchReadOnlyExample,
-  SwitchSiblingLabelNativeButtonExample,
-  SwitchSizesExample,
-  switchPlaygroundCssProperties,
-} from '@/components/examples/switch';
+import * as SwitchDocs from '@/components/examples/switch';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/switch" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/switch" />
+
+## Choosing the right component
+
+Use `Switch` for immediate on/off settings where changing the control should toggle one boolean
+state.
+
+- Choose **`Switch`** for settings such as notifications, reminders, or feature flags.
+- Choose **`Checkbox`** when the control behaves like a submitted selection rather than an immediate
+  setting toggle.
+- Choose **`RadioGroup`** when users must choose one option from several mutually exclusive values.
 
 ## Basic
 
-<Preview cssProperties={switchPlaygroundCssProperties}>
-  <SwitchExample />
+Start with the Ark anatomy: root label, visual control, thumb, text label, and hidden input. The
+short `<Switch>` export is the same root part as `Switch.Root`.
+
+<Preview>
+  <SwitchDocs.SwitchExample />
 
   <Preview.Code>
+  <include lang="tsx">./_snippets/switch/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>
     {`
-      import { Switch, SwitchField, SwitchLabel } from "moduix";
-
-      export function SwitchDemo() {
-        return (
-          <SwitchField>
-            <Switch defaultChecked />
-            <SwitchLabel>Enable notifications</SwitchLabel>
-          </SwitchField>
-        );
+      [data-slot="switch-root"] {
+        --switch-bg-checked: var(--color-primary);
       }
     `}
 
-  </Preview.Code>
-  <Preview.CSSProperties>{(context) => <SwitchCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <SwitchCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  </Preview.CSS>
+  
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Switch` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/switch
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/switch
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/switch
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/switch
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/switch
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Switch` depends on, such
-as styles, icons, and small utilities.
-
-`Switch` is a thin styled wrapper over the Base UI switch root. It keeps the default path short by
-rendering `SwitchThumb` for you, while still exporting the thumb for explicit composition.
+<ShadcnInstall packageName="react-switch" />
 
 ## Anatomy
 
-Use `SwitchField` when the switch and label can live inside one wrapping `<label>`.
-
 ```text
-SwitchField
-├─ Switch
-│  └─ SwitchThumb
-└─ SwitchLabel
+Switch / Switch.Root
+├─ Switch.Control
+│  └─ Switch.Thumb
+├─ Switch.Label
+└─ Switch.HiddenInput
 ```
 
-```tsx
-<SwitchField>
-  <Switch defaultChecked />
-  <SwitchLabel>Enable notifications</SwitchLabel>
-</SwitchField>
-```
+| Part                     | Role                                                                 |
+| ------------------------ | -------------------------------------------------------------------- |
+| `Switch` / `Switch.Root` | Root label element. Owns checked state, ids, form props, and `size`. |
+| `Switch.Control`         | Visual track and focus ring target. Auto-renders `Switch.Thumb`.     |
+| `Switch.Thumb`           | Movable thumb for default visuals or custom thumb content.           |
+| `Switch.Label`           | Ark label text connected to the switch.                              |
+| `Switch.HiddenInput`     | Native input for form submission, reset, validation, and name/value. |
+| `Switch.RootProvider`    | Root label driven by an external Ark `useSwitch()` state instance.   |
 
-| Part          | Role                                                                 |
-| ------------- | -------------------------------------------------------------------- |
-| `Switch`      | Interactive root. Handles checked state, form props, and `size`.     |
-| `SwitchThumb` | Optional thumb part for custom thumb content or primitive props.     |
-| `SwitchField` | Optional wrapping label for the common inline field pattern.         |
-| `SwitchLabel` | Optional text wrapper that inherits the switch label styling tokens. |
+Advanced Ark state helpers such as `Switch.Context`, `useSwitchContext`, and `useSwitch` are
+imported directly from `@ark-ui/react/switch` when needed.
 
 ## Composition
 
-Use `defaultChecked` for uncontrolled mode and `checked` with `onCheckedChange` for controlled
-mode. `Switch` forwards the Base UI root props, so form props such as `name`, `value`,
-`uncheckedValue`, `required`, `readOnly`, `form`, `inputRef`, `nativeButton`, and `render`
-continue to work without extra wrapper API.
+### Recommended composition
 
-`size` is the only component-specific DX sugar. It scales the track and default thumb without
-changing the composition model.
+Keep the Ark part tree visible. Render `Switch.Control`, `Switch.Label`, and
+`Switch.HiddenInput` inside `Switch` / `Switch.Root`.
 
-When the default thumb is enough, render `<Switch />` directly. When the thumb needs custom content
-or custom primitive props, compose `SwitchThumb` explicitly through `children`.
+`Switch.Control` renders the default `Switch.Thumb` when its children are omitted. Compose
+`Switch.Thumb` directly when the thumb needs custom content or styling.
 
-For sibling-label layouts, switch the root to a native button:
+### When to go custom
 
-```tsx
-<div>
-  <Switch id="product-updates" nativeButton render={<button />} />
-  <label htmlFor="product-updates">Receive product updates</label>
-</div>
-```
+Use `asChild` only when the root must render a custom host element. Ark renders the root as a
+`label`; the direct `asChild` element must stay label-compatible so the switch keeps a valid
+accessible name.
 
-Style the public parts with `className` and the `--switch-*` CSS variables.
+Import `Switch.Context`, `useSwitchContext`, or `useSwitch` from `@ark-ui/react/switch` when
+surrounding UI needs to read or own the Ark switch state.
 
-### Defaults
+### Default props
 
-| Prop        | Default    | Values/Notes                               |
-| ----------- | ---------- | ------------------------------------------ |
-| `size`      | `md`       | `xs`, `sm`, `md`, `lg`, `xl`               |
-| `className` | undefined  | Root class name or state callback          |
-| `children`  | auto thumb | Compose `SwitchThumb` manually when needed |
+| Prop        | Default     | Notes                                       |
+| ----------- | ----------- | ------------------------------------------- |
+| `size`      | `md`        | moduix sugar: `xs`, `sm`, `md`, `lg`, `xl`. |
+| `value`     | `on`        | Ark hidden input value for form submission. |
+| `children`  | `undefined` | Compose Ark parts explicitly.               |
+| `className` | `undefined` | Applied to the Ark root label.              |
+
+### Behavioral notes
+
+- Use `defaultChecked` for uncontrolled mode and `checked` with
+  `onCheckedChange(details)` for controlled mode.
+- `details.checked` is the next boolean state. The old raw boolean callback is removed.
+- Include `Switch.HiddenInput` when the switch participates in native forms or form reset.
+- Import `Switch.Context`, `useSwitchContext`, or `useSwitch` from `@ark-ui/react/switch` for
+  advanced state reads instead of wrapper-level callback adapters.
+- Use `asChild` for a custom root host. The child must remain a single semantic label-compatible
+  element.
 
 ## Examples
+
+### Initial Checked
+
+Use `defaultChecked` when the first render should start enabled but the switch can manage itself
+afterward.
+
+<Preview>
+  <SwitchDocs.SwitchInitialCheckedExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/switch/initial-checked.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>
+    {`
+      [data-slot="switch-root"] {
+        width: fit-content;
+      }
+    `}
+
+  </Preview.CSS>
+  
+</Preview>
 
 ### Controlled
 
 Use controlled mode when the switch needs to coordinate with surrounding UI.
 
 <Preview>
-  <ControlledSwitchExample />
+  <SwitchDocs.ControlledSwitchExample />
 
   <Preview.Code>
-    {`
-      import { Switch, SwitchField, SwitchLabel } from "moduix";
-      import { useState } from "react";
-      import styles from "./switch-demo.module.css";
-
-      export function ControlledSwitchDemo() {
-        const [checked, setChecked] = useState(true);
-
-        return (
-          <div className={styles.stack}>
-            <SwitchField>
-              <Switch checked={checked} onCheckedChange={setChecked} />
-              <SwitchLabel>{checked ? "On" : "Off"}</SwitchLabel>
-            </SwitchField>
-            <span className={styles.hint}>Current value: {String(checked)}</span>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
+  <include lang="tsx">./_snippets/switch/controlled.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .stack {
@@ -202,60 +158,7 @@ Use controlled mode when the switch needs to coordinate with surrounding UI.
     `}
 
   </Preview.CSS>
-</Preview>
-
-### Sizes
-
-Use `size` to match different form densities.
-
-<Preview>
-  <SwitchSizesExample />
-
-  <Preview.Code>
-    {`
-      import { Switch, SwitchField, SwitchLabel } from "moduix";
-      import styles from "./switch-demo.module.css";
-
-      export function SwitchSizesDemo() {
-        return (
-          <div className={styles.stack}>
-            <SwitchField>
-              <Switch size="xs" defaultChecked />
-              <SwitchLabel>Extra-small</SwitchLabel>
-            </SwitchField>
-            <SwitchField>
-              <Switch size="sm" defaultChecked />
-              <SwitchLabel>Small</SwitchLabel>
-            </SwitchField>
-            <SwitchField>
-              <Switch size="md" defaultChecked />
-              <SwitchLabel>Medium</SwitchLabel>
-            </SwitchField>
-            <SwitchField>
-              <Switch size="lg" defaultChecked />
-              <SwitchLabel>Large</SwitchLabel>
-            </SwitchField>
-            <SwitchField>
-              <Switch size="xl" defaultChecked />
-              <SwitchLabel>Extra-large</SwitchLabel>
-            </SwitchField>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-3);
-      }
-    `}
-  </Preview.CSS>
+  
 </Preview>
 
 ### Disabled
@@ -263,31 +166,11 @@ Use `size` to match different form densities.
 Use `disabled` to prevent interaction while preserving the current visual state.
 
 <Preview>
-  <SwitchDisabledExample />
+  <SwitchDocs.SwitchDisabledExample />
 
   <Preview.Code>
-    {`
-      import { Switch, SwitchField, SwitchLabel } from "moduix";
-      import styles from "./switch-demo.module.css";
-
-      export function DisabledSwitchDemo() {
-        return (
-          <div className={styles.stack}>
-            <SwitchField>
-              <Switch disabled />
-              <SwitchLabel>Enable dark mode</SwitchLabel>
-            </SwitchField>
-            <SwitchField>
-              <Switch defaultChecked disabled />
-              <SwitchLabel>Keep me signed in</SwitchLabel>
-            </SwitchField>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
+  <include lang="tsx">./_snippets/switch/disabled.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .stack {
@@ -297,7 +180,9 @@ Use `disabled` to prevent interaction while preserving the current visual state.
         gap: var(--spacing-3);
       }
     `}
+
   </Preview.CSS>
+  
 </Preview>
 
 ### Read Only
@@ -305,31 +190,11 @@ Use `disabled` to prevent interaction while preserving the current visual state.
 Use `readOnly` when the current state should stay visible but should not be changed by the user.
 
 <Preview>
-  <SwitchReadOnlyExample />
+  <SwitchDocs.SwitchReadOnlyExample />
 
   <Preview.Code>
-    {`
-      import { Switch, SwitchField, SwitchLabel } from "moduix";
-      import styles from "./switch-demo.module.css";
-
-      export function ReadOnlySwitchDemo() {
-        return (
-          <div className={styles.stack}>
-            <SwitchField>
-              <Switch readOnly />
-              <SwitchLabel>Managed by policy</SwitchLabel>
-            </SwitchField>
-            <SwitchField>
-              <Switch defaultChecked readOnly />
-              <SwitchLabel>Always on</SwitchLabel>
-            </SwitchField>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
+  <include lang="tsx">./_snippets/switch/read-only.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .stack {
@@ -339,166 +204,117 @@ Use `readOnly` when the current state should stay visible but should not be chan
         gap: var(--spacing-3);
       }
     `}
+
   </Preview.CSS>
+  
 </Preview>
 
-### Sibling Label
+### Context
 
-Use `nativeButton` with `render={<button />}` for sibling `label` + `htmlFor` / `id`.
+Import `useSwitchContext` from `@ark-ui/react/switch` when a nearby label or supporting element
+should read the live switch state.
 
 <Preview>
-  <SwitchSiblingLabelNativeButtonExample />
+  <SwitchDocs.SwitchContextExample />
 
   <Preview.Code>
-    {`
-      import { Switch } from "moduix";
-      import { useId } from "react";
-      import styles from "./switch-demo.module.css";
-
-      export function SiblingLabelSwitchDemo() {
-        const id = useId();
-
-        return (
-          <div className={styles.siblingRow}>
-            <Switch nativeButton render={<button />} id={id} defaultChecked />
-            <label htmlFor={id} className={styles.label}>
-              Receive product updates
-            </label>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
+  <include lang="tsx">./_snippets/switch/context.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
-      .siblingRow {
-        display: flex;
-        align-items: center;
-        gap: var(--switch-gap, var(--spacing-2));
-      }
-
       .label {
         color: var(--switch-label-color, var(--color-foreground));
-        font-size: var(--switch-label-font-size, var(--text-sm));
-        font-weight: var(--switch-label-font-weight, var(--weight-medium));
-        line-height: var(--switch-label-line-height, var(--line-height-text-sm));
       }
     `}
 
   </Preview.CSS>
+  
+</Preview>
+
+### Root Provider
+
+Import `useSwitch` from `@ark-ui/react/switch` and pair it with `Switch.RootProvider` when state
+must be owned outside the rendered switch tree.
+
+<Preview>
+  <SwitchDocs.SwitchRootProviderExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/switch/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+  
 </Preview>
 
 ### Form Integration
 
-Use `Field` when the switch participates in form labeling, validation, or submission.
+Use `Field` with `Switch.HiddenInput` when the switch participates in form labeling, validation, or
+submission.
 
 <Preview>
-  <SwitchFormIntegrationExample />
+  <SwitchDocs.SwitchFormIntegrationExample />
 
   <Preview.Code>
-    {`
-      import { Field, FieldLabel, Switch, SwitchLabel } from "moduix";
-
-      export function SwitchFormDemo() {
-        return (
-          <Field name="notifications">
-            <FieldLabel>
-              <Switch defaultChecked />
-              <SwitchLabel>Notifications</SwitchLabel>
-            </FieldLabel>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Custom Thumb
-
-Compose `SwitchThumb` when the thumb needs custom content or separate styling hooks.
-
-<Preview>
-  <CustomIconSwitchExample />
-
-  <Preview.Code>
-    {`
-      import { Switch, SwitchField, SwitchLabel, SwitchThumb } from "moduix";
-      import type { ComponentProps } from "react";
-      import styles from "./switch-demo.module.css";
-
-      function PowerIcon(props: ComponentProps<"svg">) {
-        return (
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
-            <path
-              d="M8 2.5V7M5.1 4.3A5 5 0 1 0 10.9 4.3"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-            />
-          </svg>
-        );
-      }
-
-      export function CustomIconSwitchDemo() {
-        return (
-          <SwitchField>
-            <Switch defaultChecked>
-              <SwitchThumb className={styles.customIconThumb}>
-                <PowerIcon />
-              </SwitchThumb>
-            </Switch>
-            <SwitchLabel>Use custom thumb icon</SwitchLabel>
-          </SwitchField>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
+  <include lang="tsx">./_snippets/switch/form-integration.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
-      .customIconThumb {
-        --switch-thumb-color-checked: var(--color-primary);
-        --switch-thumb-color-unchecked: var(--color-muted-foreground);
-        --switch-thumb-icon-size: 0.75rem;
+      .formField {
+        width: fit-content;
+        max-width: min(20rem, 100%);
+        align-self: center;
       }
     `}
+
   </Preview.CSS>
+  
 </Preview>
 
-## Custom Composition
+### Sizes
 
-Use the render callback when a native-button switch must stay inside a wrapping label.
+Use moduix `size` to match different form densities without changing the Ark part tree.
 
 <Preview>
-  <SwitchNativeButtonRenderCallbackExample />
+  <SwitchDocs.SwitchSizesExample />
 
   <Preview.Code>
+  <include lang="tsx">./_snippets/switch/sizes.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>
     {`
-      import { Switch } from "moduix";
-      import styles from "./switch-demo.module.css";
-
-      export function NativeButtonSwitchDemo() {
-        return (
-          <Switch
-            defaultChecked
-            nativeButton
-            render={(buttonProps) => (
-              <label className={styles.siblingRow}>
-                <button {...buttonProps} />
-                <span className={styles.label}>Enable reminders</span>
-              </label>
-            )}
-          />
-        );
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
       }
     `}
 
-  </Preview.Code>
+  </Preview.CSS>
+  
+</Preview>
 
+### As Child
+
+Use `asChild` when a custom root element needs to own the DOM node while Ark keeps the switch
+behavior.
+
+<Preview>
+  <SwitchDocs.SwitchAsChildExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/switch/as-child.tsx#demo</include>
+</Preview.Code>
   <Preview.CSS>
     {`
       .siblingRow {
@@ -516,4 +332,33 @@ Use the render callback when a native-button switch must stay inside a wrapping 
     `}
 
   </Preview.CSS>
+  
 </Preview>
+
+## Styling
+
+Style `Switch` through `className`, public `data-slot` hooks, Ark state attributes, and the public
+`--switch-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <SwitchDocs.SwitchCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `Switch` and `Switch.RootProvider` expose `data-slot="switch-root"` /
+  `data-slot="switch-root-provider"` and write moduix `data-size`.
+- `Switch.Control` exposes `data-slot="switch-control"` and receives Ark state attributes such as
+  `data-state`, `data-focus-visible`, `data-hover`, `data-disabled`, `data-readonly`,
+  `data-invalid`, and `data-required`.
+- `Switch.Thumb` exposes `data-slot="switch-thumb"` and receives the same Ark state attributes for
+  thumb movement and custom content styling.
+- `Switch.Label` exposes `data-slot="switch-label"` for typography overrides.
+- `Switch.HiddenInput` exposes `data-slot="switch-hidden-input"` for inspection hooks, but it should
+  remain visually hidden by Ark.

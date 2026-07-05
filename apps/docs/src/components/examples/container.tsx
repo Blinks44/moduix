@@ -1,52 +1,87 @@
 import type { ComponentProps } from 'react';
-import { Bleed, Container, Heading, Text } from 'moduix';
+import { Bleed, Container, Heading, Text } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './container.module.css';
 
-export const containerOverrideCssProperties: CssPropertyInput[] = [
-  ['--container-gutter-sm', 'clamp(0.75rem, 3vw, 1.5rem)', 'Controls small inline gutters.'],
-  ['--container-gutter-md', 'clamp(1rem, 4vw, 2rem)', 'Controls medium inline gutters.'],
-  ['--container-gutter-lg', 'clamp(1.5rem, 5vw, 3rem)', 'Controls large inline gutters.'],
-  ['--container-max-width-xs', '40rem', 'Controls the `xs` content width.'],
-  ['--container-max-width-sm', '48rem', 'Controls the `sm` content width.'],
-  ['--container-max-width-md', '64rem', 'Controls the `md` content width.'],
-  ['--container-max-width-lg', '72rem', 'Controls the `lg` content width.'],
-  ['--container-max-width-xl', '90rem', 'Controls the `xl` content width.'],
-];
+export const containerOverrideCssProperties = [
+  {
+    name: '--container-gutter-sm',
+    defaultValue: 'clamp(0.75rem, 3vw, 1.5rem)',
+    description: 'Controls small inline gutters.',
+  },
+  {
+    name: '--container-gutter-md',
+    defaultValue: 'clamp(1rem, 4vw, 2rem)',
+    description: 'Controls medium inline gutters.',
+  },
+  {
+    name: '--container-gutter-lg',
+    defaultValue: 'clamp(1.5rem, 5vw, 3rem)',
+    description: 'Controls large inline gutters.',
+  },
+  {
+    name: '--container-max-width-xs',
+    defaultValue: '40rem',
+    description: 'Controls the `xs` content width.',
+  },
+  {
+    name: '--container-max-width-sm',
+    defaultValue: '48rem',
+    description: 'Controls the `sm` content width.',
+  },
+  {
+    name: '--container-max-width-md',
+    defaultValue: '64rem',
+    description: 'Controls the `md` content width.',
+  },
+  {
+    name: '--container-max-width-lg',
+    defaultValue: '72rem',
+    description: 'Controls the `lg` content width.',
+  },
+  {
+    name: '--container-max-width-xl',
+    defaultValue: '90rem',
+    description: 'Controls the `xl` content width.',
+  },
+] satisfies CssPropertyInput[];
 
-export const containerPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--container-gutter-md', 'clamp(1rem, 4vw, 2rem)', 'Controls medium inline gutters.'],
-  ['--container-max-width-lg', '72rem', 'Controls the `lg` content width.'],
-];
+const containerContent = {
+  title: 'Responsive page content',
+  description: 'The content column stays readable while inline gutters fluidly adapt.',
+};
+
+const containerSizes = [
+  { value: 'xs', label: 'Extra small' },
+  { value: 'sm', label: 'Small' },
+  { value: 'md', label: 'Medium' },
+  { value: 'lg', label: 'Large' },
+  { value: 'xl', label: 'Extra large' },
+  { value: 'full', label: 'Full width' },
+] as const;
+
+const containerGutters = [
+  { value: 'none', label: 'No gutter' },
+  { value: 'sm', label: 'Small gutter' },
+  { value: 'md', label: 'Medium gutter' },
+  { value: 'lg', label: 'Large gutter' },
+] as const;
+
+const semanticContent = {
+  title: 'Main content area',
+  description: 'Use asChild when the wrapper should carry semantic meaning.',
+};
+
+const bleedContent = {
+  title: 'Article body',
+  description:
+    'Keep the reading width constrained, then use Bleed for elements that should stretch wider.',
+  callout: 'Bleed content escapes the constrained column.',
+};
 
 export function ContainerCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={containerOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function ContainerCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={containerPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
+  return <CSSPropertiesReferenceTable properties={containerOverrideCssProperties} />;
 }
 
 export function ContainerExample(props: ComponentProps<typeof Container>) {
@@ -54,11 +89,9 @@ export function ContainerExample(props: ComponentProps<typeof Container>) {
     <div className={styles.viewport}>
       <Container className={styles.container} {...props}>
         <Heading as="h3" size="lg">
-          Responsive page content
+          {containerContent.title}
         </Heading>
-        <Text tone="muted">
-          The content column stays readable while inline gutters fluidly adapt to viewport width.
-        </Text>
+        <Text tone="muted">{containerContent.description}</Text>
       </Container>
     </div>
   );
@@ -68,9 +101,11 @@ export function ContainerSizesExample() {
   return (
     <div className={styles.viewport}>
       <div className={styles.stack}>
-        {(['xs', 'sm', 'md', 'lg', 'xl', 'full'] as const).map((size) => (
-          <Container key={size} size={size} className={styles.container}>
-            <Text weight="semibold">size=&quot;{size}&quot;</Text>
+        {containerSizes.map((size) => (
+          <Container key={size.value} size={size.value} className={styles.container}>
+            <Text weight="semibold">
+              {size.label}: size=&quot;{size.value}&quot;
+            </Text>
           </Container>
         ))}
       </div>
@@ -82,9 +117,9 @@ export function ContainerGuttersExample() {
   return (
     <div className={styles.viewport}>
       <div className={styles.stack}>
-        {(['none', 'sm', 'md', 'lg'] as const).map((gutter) => (
-          <Container key={gutter} gutter={gutter} className={styles.container}>
-            <Text weight="semibold">gutter=&quot;{gutter}&quot;</Text>
+        {containerGutters.map((gutter) => (
+          <Container key={gutter.value} gutter={gutter.value} className={styles.container}>
+            <Text weight="semibold">{gutter.label}</Text>
           </Container>
         ))}
       </div>
@@ -95,21 +130,13 @@ export function ContainerGuttersExample() {
 export function ContainerSemanticExample() {
   return (
     <div className={styles.viewport}>
-      <Container as="main" size="md" className={styles.container}>
-        <Heading as="h3" size="lg">
-          Main content area
-        </Heading>
-        <Text tone="muted">Use `as` when the wrapper should carry semantic meaning.</Text>
-      </Container>
-    </div>
-  );
-}
-
-export function CustomCompositionContainerExample() {
-  return (
-    <div className={styles.viewport}>
-      <Container className={styles.customContainer}>
-        <Text weight="semibold">Customized max width and gutters</Text>
+      <Container asChild size="md" className={styles.container}>
+        <main>
+          <Heading as="h3" size="lg">
+            {semanticContent.title}
+          </Heading>
+          <Text tone="muted">{semanticContent.description}</Text>
+        </main>
       </Container>
     </div>
   );
@@ -120,15 +147,12 @@ export function ContainerBleedExample() {
     <div className={styles.viewport}>
       <Container className={styles.container}>
         <Heading as="h3" size="lg">
-          Article body
+          {bleedContent.title}
         </Heading>
-        <Text tone="muted">
-          Keep the reading width constrained, then use `Bleed` for elements that should stretch
-          wider.
-        </Text>
-        <Bleed inline="md">
-          <div className={styles.bleedSurface}>Bleed content escapes the constrained column.</div>
-        </Bleed>
+        <Text tone="muted">{bleedContent.description}</Text>
+        <Bleed.Root inline="md">
+          <div className={styles.bleedSurface}>{bleedContent.callout}</div>
+        </Bleed.Root>
       </Container>
     </div>
   );

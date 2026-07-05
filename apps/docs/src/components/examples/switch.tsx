@@ -1,8 +1,17 @@
-import { Field, FieldLabel, Switch, SwitchField, SwitchLabel, SwitchThumb } from 'moduix';
-import { useId, useState, type ComponentProps } from 'react';
+import { useSwitch, useSwitchContext } from '@ark-ui/react/switch';
+import { Button, Field, Switch } from '@moduix/react';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './switch.module.css';
+
+export const switchSizeOptions = [
+  { label: 'Extra-small', value: 'xs' },
+  { label: 'Small', value: 'sm' },
+  { label: 'Medium', value: 'md' },
+  { label: 'Large', value: 'lg' },
+  { label: 'Extra-large', value: 'xl' },
+] as const;
 
 export const switchOverrideCssProperties: CssPropertyInput[] = [
   ['--switch-bg', 'var(--color-muted)', 'Controls unchecked background color.'],
@@ -20,7 +29,7 @@ export const switchOverrideCssProperties: CssPropertyInput[] = [
   ['--switch-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   ['--switch-focus-ring-offset', 'var(--border-width-sm)', 'Controls focus ring offset.'],
   ['--switch-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
-  ['--switch-gap', 'var(--spacing-2)', 'Controls spacing between switch and label.'],
+  ['--switch-gap', 'var(--spacing-2)', 'Controls spacing between switch control and label.'],
   ['--switch-height-xs', '1rem', 'Controls switch height for the xs size.'],
   ['--switch-height-sm', '1.25rem', 'Controls switch height for the sm size.'],
   ['--switch-height-md', '1.5rem', 'Controls switch height for the md size.'],
@@ -63,11 +72,11 @@ export const switchOverrideCssProperties: CssPropertyInput[] = [
   ['--switch-thumb-icon-size', '65%', 'Controls custom thumb icon size.'],
   ['--switch-thumb-radius', 'var(--radius-full)', 'Controls thumb corner radius.'],
   ['--switch-thumb-shadow', 'var(--shadow-sm)', 'Controls thumb shadow.'],
-  ['--switch-thumb-size-xs', '0.625rem', 'Controls thumb size for the xs switch size.'],
-  ['--switch-thumb-size-sm', '0.875rem', 'Controls thumb size for the sm switch size.'],
-  ['--switch-thumb-size-md', '1.125rem', 'Controls thumb size for the md switch size.'],
-  ['--switch-thumb-size-lg', '1.375rem', 'Controls thumb size for the lg switch size.'],
-  ['--switch-thumb-size-xl', '1.625rem', 'Controls thumb size for the xl switch size.'],
+  ['--switch-thumb-size-xs', '0.75rem', 'Controls thumb size for the xs switch size.'],
+  ['--switch-thumb-size-sm', '1rem', 'Controls thumb size for the sm switch size.'],
+  ['--switch-thumb-size-md', '1.25rem', 'Controls thumb size for the md switch size.'],
+  ['--switch-thumb-size-lg', '1.5rem', 'Controls thumb size for the lg switch size.'],
+  ['--switch-thumb-size-xl', '1.75rem', 'Controls thumb size for the xl switch size.'],
   [
     '--switch-thumb-transition',
     'var(--switch-transition, var(--transition-default))',
@@ -80,42 +89,16 @@ export const switchOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--switch-transition', 'var(--transition-default)', 'Controls state transition timing.'],
   ['--switch-width-xs', '1.75rem', 'Controls switch width for the xs size.'],
-  ['--switch-width-sm', '2rem', 'Controls switch width for the sm size.'],
-  ['--switch-width-md', '2.5rem', 'Controls switch width for the md size.'],
-  ['--switch-width-lg', '3rem', 'Controls switch width for the lg size.'],
-  ['--switch-width-xl', '3.5rem', 'Controls switch width for the xl size.'],
-];
-export const switchPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--switch-bg', 'var(--color-muted)', 'Controls unchecked background color.'],
-  ['--switch-bg-checked', 'var(--color-primary)', 'Controls checked background color.'],
-  ['--switch-bg-hover', 'var(--color-accent)', 'Controls unchecked hover background color.'],
-  ['--switch-border-color', 'var(--color-border)', 'Controls unchecked border color.'],
-  ['--switch-border-color-checked', 'var(--color-primary)', 'Controls checked border color.'],
-  ['--switch-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--switch-thumb-bg', 'var(--color-background)', 'Controls thumb background color.'],
-  ['--switch-thumb-color', 'var(--color-muted)', 'Controls thumb content color.'],
-  ['--switch-label-color', 'var(--color-foreground)', 'Controls label text color.'],
+  ['--switch-width-sm', '2.25rem', 'Controls switch width for the sm size.'],
+  ['--switch-width-md', '2.75rem', 'Controls switch width for the md size.'],
+  ['--switch-width-lg', '3.25rem', 'Controls switch width for the lg size.'],
+  ['--switch-width-xl', '3.75rem', 'Controls switch width for the xl size.'],
 ];
 
 export function SwitchCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
       properties={switchOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function SwitchCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={switchPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }
@@ -139,38 +122,42 @@ function PowerIcon(props: ComponentProps<'svg'>) {
   );
 }
 
+function SwitchContextLabel() {
+  const switchApi = useSwitchContext();
+
+  return <Switch.Label>Feature is {switchApi.checked ? 'enabled' : 'disabled'}</Switch.Label>;
+}
+
 export function SwitchExample(props: ComponentProps<typeof Switch>) {
   return (
-    <SwitchField>
-      <Switch defaultChecked {...props} />
-      <SwitchLabel>Enable notifications</SwitchLabel>
-    </SwitchField>
+    <Switch defaultChecked {...props}>
+      <Switch.Control />
+      <Switch.Label>Enable notifications</Switch.Label>
+      <Switch.HiddenInput />
+    </Switch>
+  );
+}
+
+export function SwitchInitialCheckedExample() {
+  return (
+    <Switch defaultChecked>
+      <Switch.Control />
+      <Switch.Label>Start enabled</Switch.Label>
+      <Switch.HiddenInput />
+    </Switch>
   );
 }
 
 export function SwitchSizesExample() {
   return (
     <div className={styles.stack}>
-      <SwitchField>
-        <Switch size="xs" defaultChecked />
-        <SwitchLabel>Extra-small</SwitchLabel>
-      </SwitchField>
-      <SwitchField>
-        <Switch size="sm" defaultChecked />
-        <SwitchLabel>Small</SwitchLabel>
-      </SwitchField>
-      <SwitchField>
-        <Switch size="md" defaultChecked />
-        <SwitchLabel>Medium</SwitchLabel>
-      </SwitchField>
-      <SwitchField>
-        <Switch size="lg" defaultChecked />
-        <SwitchLabel>Large</SwitchLabel>
-      </SwitchField>
-      <SwitchField>
-        <Switch size="xl" defaultChecked />
-        <SwitchLabel>Extra-large</SwitchLabel>
-      </SwitchField>
+      {switchSizeOptions.map((item) => (
+        <Switch key={item.value} size={item.value} defaultChecked>
+          <Switch.Control />
+          <Switch.Label>{item.label}</Switch.Label>
+          <Switch.HiddenInput />
+        </Switch>
+      ))}
     </div>
   );
 }
@@ -178,14 +165,16 @@ export function SwitchSizesExample() {
 export function SwitchDisabledExample() {
   return (
     <div className={styles.stack}>
-      <SwitchField>
-        <Switch disabled />
-        <SwitchLabel>Enable dark mode</SwitchLabel>
-      </SwitchField>
-      <SwitchField>
-        <Switch defaultChecked disabled />
-        <SwitchLabel>Keep me signed in</SwitchLabel>
-      </SwitchField>
+      <Switch disabled>
+        <Switch.Control />
+        <Switch.Label>Enable dark mode</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
+      <Switch defaultChecked disabled>
+        <Switch.Control />
+        <Switch.Label>Keep me signed in</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
     </div>
   );
 }
@@ -195,10 +184,11 @@ export function ControlledSwitchExample() {
 
   return (
     <div className={styles.stack}>
-      <SwitchField>
-        <Switch checked={checked} onCheckedChange={setChecked} />
-        <SwitchLabel>{checked ? 'On' : 'Off'}</SwitchLabel>
-      </SwitchField>
+      <Switch checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
+        <Switch.Control />
+        <Switch.Label>{checked ? 'On' : 'Off'}</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
       <span className={styles.hint}>Current value: {String(checked)}</span>
     </div>
   );
@@ -207,66 +197,83 @@ export function ControlledSwitchExample() {
 export function SwitchReadOnlyExample() {
   return (
     <div className={styles.stack}>
-      <SwitchField>
-        <Switch readOnly />
-        <SwitchLabel>Managed by policy</SwitchLabel>
-      </SwitchField>
-      <SwitchField>
-        <Switch defaultChecked readOnly />
-        <SwitchLabel>Always on</SwitchLabel>
-      </SwitchField>
+      <Switch readOnly>
+        <Switch.Control />
+        <Switch.Label>Managed by policy</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
+      <Switch defaultChecked readOnly>
+        <Switch.Control />
+        <Switch.Label>Always on</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
     </div>
+  );
+}
+
+export function SwitchContextExample() {
+  return (
+    <Switch defaultChecked>
+      <Switch.Control />
+      <SwitchContextLabel />
+      <Switch.HiddenInput />
+    </Switch>
+  );
+}
+
+export function SwitchRootProviderExample() {
+  const switchApi = useSwitch({ defaultChecked: true });
+
+  return (
+    <div className={styles.stack}>
+      <Button variant="outline" onClick={() => switchApi.toggleChecked()}>
+        Toggle externally
+      </Button>
+      <Switch.RootProvider value={switchApi}>
+        <Switch.Control />
+        <Switch.Label>External state owner</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch.RootProvider>
+    </div>
+  );
+}
+
+export function SwitchAsChildExample() {
+  return (
+    <Switch asChild defaultChecked>
+      <label className={styles.siblingRow}>
+        <Switch.Control />
+        <span className={styles.label}>Enable reminders</span>
+        <Switch.HiddenInput />
+      </label>
+    </Switch>
   );
 }
 
 export function CustomIconSwitchExample() {
   return (
-    <SwitchField>
-      <Switch defaultChecked>
-        <SwitchThumb className={styles.customIconThumb}>
+    <Switch defaultChecked>
+      <Switch.Control>
+        <Switch.Thumb className={styles.customIconThumb}>
           <PowerIcon />
-        </SwitchThumb>
-      </Switch>
-      <SwitchLabel>Use custom thumb icon</SwitchLabel>
-    </SwitchField>
-  );
-}
-
-export function SwitchSiblingLabelNativeButtonExample() {
-  const id = useId();
-
-  return (
-    <div className={styles.siblingRow}>
-      <Switch nativeButton render={<button />} id={id} defaultChecked />
-      <label htmlFor={id} className={styles.label}>
-        Receive product updates
-      </label>
-    </div>
-  );
-}
-
-export function SwitchNativeButtonRenderCallbackExample() {
-  return (
-    <Switch
-      defaultChecked
-      nativeButton
-      render={(buttonProps) => (
-        <label className={styles.siblingRow}>
-          <button {...buttonProps} />
-          <span className={styles.label}>Enable reminders</span>
-        </label>
-      )}
-    />
+        </Switch.Thumb>
+      </Switch.Control>
+      <Switch.Label>Use custom thumb icon</Switch.Label>
+      <Switch.HiddenInput />
+    </Switch>
   );
 }
 
 export function SwitchFormIntegrationExample() {
   return (
-    <Field name="notifications" className={styles.formField}>
-      <FieldLabel>
-        <Switch defaultChecked />
-        <SwitchLabel>Notifications</SwitchLabel>
-      </FieldLabel>
+    <Field invalid className={styles.formField}>
+      <Switch defaultChecked name="notifications" required>
+        <Switch.Control />
+        <Switch.Label>Notifications</Switch.Label>
+        <Switch.HiddenInput />
+      </Switch>
+      <Field.HelperText>Used for product and account updates.</Field.HelperText>
+      <Field.ErrorText>Notification preference is required.</Field.ErrorText>
     </Field>
   );
 }

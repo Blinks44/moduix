@@ -1,0 +1,65 @@
+@layer ui.stories {
+  .root,
+  .horizontalRoot {
+    width: 24rem;
+    max-width: calc(100vw - 2rem);
+    height: 13rem;
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .horizontalRoot {
+    height: auto;
+  }
+
+  .textContent {
+    display: grid;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3);
+    padding-right: var(--spacing-6);
+  }
+
+  .paragraph,
+  .wideParagraph {
+    margin: 0;
+    color: var(--color-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+
+  .wideParagraph {
+    width: 50rem;
+    padding: var(--spacing-3);
+    padding-bottom: var(--spacing-6);
+  }
+
+  .gridContent {
+    display: grid;
+    grid-template-columns: repeat(12, 5rem);
+    grid-template-rows: repeat(8, 5rem);
+    width: max-content;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3);
+  }
+
+  .cell {
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-muted);
+    color: var(--color-foreground);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+
+  .providerStack {
+    display: grid;
+    gap: var(--spacing-3);
+  }
+
+  .actions {
+    display: flex;
+    gap: var(--spacing-2);
+    justify-content: flex-end;
+  }
+}

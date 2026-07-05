@@ -1,0 +1,48 @@
+@layer ui.storybook {
+  .stack {
+    width: 20rem;
+  }
+
+  .card {
+    width: 20rem;
+  }
+
+  .mediaObject {
+    width: 24rem;
+  }
+
+  .layoutExample {
+    width: 24rem;
+    padding-block: var(--spacing-1);
+  }
+
+  .customBlock {
+    width: 20rem;
+    --skeleton-bg: var(--color-primary);
+    --skeleton-border-radius: var(--radius-full);
+    --skeleton-animation: none;
+  }
+
+  .customSkeleton {
+    opacity: 0.28;
+  }
+
+  .loadedContent {
+    display: grid;
+    width: 20rem;
+    min-height: 4.5rem;
+    gap: var(--spacing-1);
+    padding: var(--spacing-4);
+    border: var(--border-width-sm) solid var(--color-border);
+
+    & span {
+      color: var(--color-muted-foreground);
+      font-size: var(--text-sm);
+      line-height: var(--line-height-text-sm);
+    }
+  }
+
+  .asChild {
+    width: 20rem;
+  }
+}

@@ -1,0 +1,108 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    width: 100%;
+    min-width: 0;
+    gap: var(--alert-gap, var(--spacing-3));
+    border: var(--alert-border-width, var(--border-width-sm)) solid
+      var(--alert-border-color, var(--alert-border-color-default, var(--color-border)));
+    border-radius: var(--alert-radius, var(--radius-lg));
+    padding: var(--alert-padding, var(--spacing-4));
+    background-color: var(--alert-bg, var(--alert-bg-default, var(--color-card)));
+    color: var(--alert-color, var(--alert-color-default, var(--color-card-foreground)));
+    box-shadow: var(--alert-shadow, none);
+
+    &[data-status='neutral'] {
+      --alert-bg-default: var(--color-card);
+      --alert-border-color-default: var(--color-border);
+      --alert-color-default: var(--color-card-foreground);
+      --alert-indicator-color-default: var(--color-muted-foreground);
+    }
+
+    &[data-status='info'] {
+      --alert-bg-default: color-mix(in oklab, var(--color-primary) 4%, var(--color-background));
+      --alert-border-color-default: color-mix(in oklab, var(--color-primary) 32%, transparent);
+      --alert-color-default: var(--color-foreground);
+      --alert-indicator-color-default: var(--color-primary);
+    }
+
+    &[data-status='success'] {
+      --alert-bg-default: color-mix(in oklab, var(--color-success) 10%, var(--color-background));
+      --alert-border-color-default: color-mix(in oklab, var(--color-success) 34%, transparent);
+      --alert-color-default: var(--color-foreground);
+      --alert-indicator-color-default: var(--color-success);
+    }
+
+    &[data-status='warning'] {
+      --alert-bg-default: color-mix(in oklab, var(--color-warning) 13%, var(--color-background));
+      --alert-border-color-default: color-mix(in oklab, var(--color-warning) 38%, transparent);
+      --alert-color-default: var(--color-foreground);
+      --alert-indicator-color-default: var(--color-warning);
+    }
+
+    &[data-status='error'] {
+      --alert-bg-default: color-mix(in oklab, var(--color-destructive) 9%, var(--color-background));
+      --alert-border-color-default: color-mix(in oklab, var(--color-destructive) 35%, transparent);
+      --alert-color-default: var(--color-foreground);
+      --alert-indicator-color-default: var(--color-destructive);
+    }
+
+    &:not(:has([data-part='indicator'])) {
+      [data-part='content'] {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+
+  .indicator {
+    display: inline-flex;
+    width: var(--alert-indicator-size, 1rem);
+    height: var(--alert-indicator-size, 1rem);
+    align-items: center;
+    justify-content: center;
+    color: var(--alert-indicator-color, var(--alert-indicator-color-default, currentColor));
+    margin-block-start: var(--alert-indicator-offset, 0.125rem);
+
+    & :where(svg) {
+      width: var(--alert-indicator-size, 1rem);
+      height: var(--alert-indicator-size, 1rem);
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+  }
+
+  .content {
+    display: grid;
+    min-width: 0;
+    gap: var(--alert-content-gap, var(--spacing-1));
+  }
+
+  .title {
+    margin: 0;
+    min-width: 0;
+    color: var(--alert-title-color, var(--alert-color, var(--alert-color-default)));
+    font-size: var(--alert-title-font-size, var(--text-sm));
+    font-weight: var(--alert-title-font-weight, var(--weight-semibold));
+    line-height: var(--alert-title-line-height, var(--line-height-text-sm));
+    overflow-wrap: anywhere;
+  }
+
+  .description {
+    min-width: 0;
+    color: var(--alert-description-color, var(--color-muted-foreground));
+    font-size: var(--alert-description-font-size, var(--text-sm));
+    line-height: var(--alert-description-line-height, var(--line-height-text-sm));
+    overflow-wrap: anywhere;
+
+    & > :first-child {
+      margin-top: 0;
+    }
+
+    & > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}

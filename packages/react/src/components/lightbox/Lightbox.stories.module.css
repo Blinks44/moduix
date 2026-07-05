@@ -1,0 +1,87 @@
+@layer ui.components {
+  .stack {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .imageTrigger,
+  .galleryTrigger {
+    display: block;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: zoom-in;
+
+    img {
+      display: block;
+      object-fit: cover;
+    }
+  }
+
+  .imageTrigger {
+    border-radius: var(--radius-md);
+
+    img {
+      width: 17.5rem;
+      aspect-ratio: 16 / 10;
+      border-radius: inherit;
+    }
+  }
+
+  .textTrigger {
+    border: 0;
+    border-radius: var(--radius-md);
+    background: var(--color-muted);
+    padding: var(--spacing-3) var(--spacing-4);
+    color: var(--color-foreground);
+    font: inherit;
+  }
+
+  .gallery {
+    display: grid;
+    width: min(30rem, calc(100vw - var(--spacing-8)));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-3);
+  }
+
+  .galleryTrigger {
+    width: 100%;
+    border-radius: var(--radius-sm);
+
+    img {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: inherit;
+    }
+  }
+
+  .status {
+    position: absolute;
+    inset-block-end: var(--spacing-3);
+    inset-inline-start: 50%;
+    translate: -50% 0;
+    border-radius: var(--radius-sm);
+    background: rgb(0 0 0 / 0.65);
+    padding: var(--spacing-1) var(--spacing-2);
+    color: white;
+    font-size: var(--text-sm);
+  }
+
+  .customBackdrop {
+    --lightbox-backdrop-bg: rgb(15 23 42 / 0.72);
+  }
+
+  .customContent {
+    --lightbox-content-max-width: 72vw;
+    --lightbox-content-max-height: 72dvh;
+    --lightbox-media-radius: var(--radius-lg);
+  }
+
+  .customCloseIcon {
+    --lightbox-close-icon-bg: var(--color-muted);
+    --lightbox-close-icon-bg-hover: var(--color-accent);
+    --lightbox-close-icon-radius: var(--radius-md);
+  }
+}

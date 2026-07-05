@@ -1,0 +1,202 @@
+---
+title: Timer
+description: A stopwatch or countdown timer with explicit Ark controls.
+icon: Component
+---
+
+import * as TimerDocs from '@/components/examples/timer';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/timer" />
+
+## Basic
+
+Use Ark-style parts: `Timer.Root`, `Timer.Area`, `Timer.Item`, `Timer.Separator`,
+`Timer.Control`, and `Timer.ActionTrigger`. Add labels with normal markup around `Timer.Item`
+when the time units should be visible.
+
+<Preview>
+  <TimerDocs.TimerExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/timer/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{TimerDocs.timerExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Install with shadcn
+
+<ShadcnInstall packageName="react-timer" />
+
+## Anatomy
+
+```text
+Timer.Root
+├─ Timer.Area
+│  ├─ Timer.Item
+│  └─ Timer.Separator
+└─ Timer.Control
+   └─ Timer.ActionTrigger
+
+Timer.RootProvider
+└─ same part tree connected to Ark useTimer()
+```
+
+| Part                   | Role                                                                    |
+| ---------------------- | ----------------------------------------------------------------------- |
+| `Timer` / `Timer.Root` | Owns the Ark timer state, ids, interval, and callbacks.                 |
+| `Timer.RootProvider`   | Connects parts to timer state created with Ark `useTimer()`.            |
+| `Timer.Area`           | Groups the visible time parts.                                          |
+| `Timer.Item`           | Renders a formatted time unit such as `hours`, `minutes`, or `seconds`. |
+| `Timer.Separator`      | Renders separators between time units.                                  |
+| `Timer.Control`        | Groups action triggers.                                                 |
+| `Timer.ActionTrigger`  | Dispatches `start`, `pause`, `resume`, `reset`, or `restart`.           |
+
+## Composition
+
+### Recommended composition
+
+`Timer` is the short root form. It is equivalent to `Timer.Root`, and the child parts stay
+explicit so the rendered anatomy matches Ark UI.
+
+Use `targetMs` for a stopwatch that stops at a target time. Use `startMs` when the initial elapsed
+or remaining time should not be zero. Use `countdown` with `startMs` for a countdown timer.
+
+### When to go custom
+
+Use `Timer.RootProvider` with Ark `useTimer()` when the timer API must be created outside the
+rendered subtree. Use Ark `Timer.Context` or `useTimerContext()` when nearby UI needs access to
+`running`, `paused`, `time`, `formattedTime`, `progressPercent`, or the programmatic `start()`,
+`pause()`, `resume()`, `reset()`, and `restart()` methods.
+
+Use `interval` for sub-second displays. Keep the interval as coarse as the UI allows; the default
+Ark interval is `1000`.
+
+### Default props
+
+| Prop              | Default   | Notes                                                               |
+| ----------------- | --------- | ------------------------------------------------------------------- |
+| `autoStart`       | `false`   | Starts the timer on mount.                                          |
+| `countdown`       | `false`   | Counts down instead of up.                                          |
+| `startMs`         | `0`       | Initial duration in milliseconds.                                   |
+| `targetMs`        | —         | Target duration in milliseconds.                                    |
+| `interval`        | `1000`    | Tick interval in milliseconds.                                      |
+| `ids`             | generated | Overrides the root and area ids.                                    |
+| `translations`    | built in  | Customizes the accessible area label through `areaLabel`.           |
+| `onTick(details)` | —         | Receives the current value, numeric time, and formatted time parts. |
+| `onComplete()`    | —         | Runs when the timer reaches its target.                             |
+
+### Behavioral notes
+
+`Timer.ActionTrigger` renders a button by default, so keyboard activation follows native button
+behavior. Ark hides state-dependent start, pause, resume, and reset actions when they are not
+available; `restart` remains available when rendered. Timer does not use roving focus or composite
+keyboard navigation.
+
+All exported parts support `asChild` through Ark polymorphic composition. Keep replacement
+children semantic, especially for `Timer.ActionTrigger`.
+
+`Timer.Item` preserves Ark `data-scope="timer"`, `data-part="item"`, `data-type`, and `--value`.
+Unit labels are plain composition around items. moduix adds centered root layout, stable
+`data-slot` hooks, SVG icon sizing inside action triggers, and CSS defaults without changing the
+Ark timer machine.
+
+## Examples
+
+### Countdown
+
+Set `countdown` and `startMs` when the display should decrement toward zero.
+
+<Preview>
+  <TimerDocs.CountdownTimerExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/timer/countdown.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{TimerDocs.timerExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Interval
+
+Use `interval` with a `milliseconds` item when the UI needs sub-second updates.
+
+<Preview>
+  <TimerDocs.IntervalTimerExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/timer/interval.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{TimerDocs.timerExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Events
+
+Use `onTick` and `onComplete` for side effects that should follow the Ark timer lifecycle.
+
+<Preview>
+  <TimerDocs.EventsTimerExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/timer/events.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{TimerDocs.timerExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Pomodoro
+
+Switch between work and break durations from `onComplete` when a timer cycle should advance.
+
+<Preview>
+  <TimerDocs.PomodoroTimerExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/timer/pomodoro.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{TimerDocs.timerExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Root Provider
+
+Create the timer with Ark `useTimer()` when state and methods need to be read outside the visible
+part tree. `Timer.RootProvider` stays on `moduix`, while the advanced state hook and context come
+directly from `@ark-ui/react/timer`.
+
+<Preview>
+  <TimerDocs.RootProviderTimerExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/timer/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{TimerDocs.timerExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Styling
+
+Use `className` on exported parts for structural overrides and CSS variables for visual defaults.
+Ark attributes remain available for part-specific styling.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <TimerDocs.TimerCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="timer-root"`, `timer-root-provider`, `timer-area`, `timer-item`,
+  `timer-separator`, `timer-control`, and `timer-action-trigger`.
+- Ark anatomy hooks: `data-scope="timer"` and
+  `data-part="root|area|item|separator|control|action-trigger"`.
+- `Timer.Item` exposes `data-type` and Ark's `--value` runtime variable.
+- Ark applies `hidden` to action triggers that do not match the current timer state.

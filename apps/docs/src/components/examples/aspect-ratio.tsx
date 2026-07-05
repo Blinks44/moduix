@@ -1,7 +1,5 @@
-import type { ComponentProps } from 'react';
-import { AspectRatio, Card } from 'moduix';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { AspectRatio, Card } from '@moduix/react';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './aspect-ratio.module.css';
 
 const imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80';
@@ -10,47 +8,115 @@ const gridLandscapeImageUrl =
 const gridPortraitImageUrl =
   'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=720&h=1200&q=80';
 
-export const aspectRatioOverrideCssProperties: CssPropertyInput[] = [
-  ['--aspect-ratio-radius', 'var(--radius-md)', 'Controls the root border radius.'],
+export const aspectRatioCssProperties = [
+  {
+    name: '--aspect-ratio-radius' as const,
+    defaultValue: 'var(--radius-md)',
+    description: 'Controls the root border radius.',
+  },
 ];
-export const aspectRatioPlaygroundCssProperties = aspectRatioOverrideCssProperties;
 
-export function AspectRatioCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={aspectRatioOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
+export const aspectRatioImageCss = `
+.aspect-ratio-demo {
+  width: min(30rem, calc(100vw - var(--spacing-8)));
 }
 
-export function AspectRatioCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={aspectRatioPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
+.aspect-ratio-demo__image {
+  object-fit: cover;
+}
+`;
+
+export const aspectRatioNarrowImageCss = `
+.aspect-ratio-demo {
+  width: min(15rem, calc(100vw - var(--spacing-8)));
 }
 
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
+.aspect-ratio-demo__image {
+  object-fit: cover;
+}
+`;
+
+export const aspectRatioGridCss = `
+.aspect-ratio-grid {
+  display: grid;
+  width: min(42rem, calc(100vw - var(--spacing-8)));
+  gap: var(--spacing-4);
+  align-items: start;
 }
 
-export function AspectRatioExample({
-  ratio = 'video',
-  ...props
-}: ComponentProps<typeof AspectRatio>) {
+@media (min-width: 40rem) {
+  .aspect-ratio-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.aspect-ratio-grid__card {
+  overflow: hidden;
+  --card-radius: var(--radius-lg);
+}
+
+.aspect-ratio-grid__media {
+  --aspect-ratio-radius: 0;
+}
+
+.aspect-ratio-grid__image {
+  object-fit: cover;
+}
+
+.aspect-ratio-grid__body {
+  display: grid;
+  gap: var(--spacing-2);
+  padding: var(--spacing-5);
+}
+
+.aspect-ratio-grid__title {
+  margin: 0;
+  color: var(--color-foreground);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  line-height: var(--line-height-text-md);
+}
+
+.aspect-ratio-grid__description {
+  margin: 0;
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+}
+`;
+
+export const aspectRatioFrameCss = `
+.aspect-ratio-demo {
+  width: min(30rem, calc(100vw - var(--spacing-8)));
+}
+
+.aspect-ratio-demo__frame {
+  border: 0;
+}
+`;
+
+export const aspectRatioRoundedCss = `
+.aspect-ratio-demo {
+  width: min(30rem, calc(100vw - var(--spacing-8)));
+}
+
+.aspect-ratio-demo__rounded {
+  --aspect-ratio-radius: var(--radius-xl);
+}
+
+.aspect-ratio-demo__image {
+  object-fit: cover;
+}
+`;
+
+export function AspectRatioCssPropertiesPanel() {
+  return <CSSPropertiesReferenceTable properties={aspectRatioCssProperties} />;
+}
+
+export function AspectRatioExample() {
   return (
     <div className={styles.container}>
-      <AspectRatio ratio={ratio} {...props}>
+      <AspectRatio ratio={16 / 9}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
       </AspectRatio>
     </div>
@@ -60,7 +126,7 @@ export function AspectRatioExample({
 export function AspectRatioSquareExample() {
   return (
     <div className={styles.container}>
-      <AspectRatio ratio="square">
+      <AspectRatio ratio={1}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
       </AspectRatio>
     </div>
@@ -70,7 +136,7 @@ export function AspectRatioSquareExample() {
 export function AspectRatioPortraitExample() {
   return (
     <div className={styles.narrowContainer}>
-      <AspectRatio ratio="portrait">
+      <AspectRatio ratio={9 / 16}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
       </AspectRatio>
     </div>
@@ -80,7 +146,7 @@ export function AspectRatioPortraitExample() {
 export function AspectRatioPhotoExample() {
   return (
     <div className={styles.container}>
-      <AspectRatio ratio="photo">
+      <AspectRatio ratio={4 / 3}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
       </AspectRatio>
     </div>
@@ -91,7 +157,7 @@ export function AspectRatioCardGridExample() {
   return (
     <div className={styles.cardGrid}>
       <Card className={styles.newsCard}>
-        <AspectRatio ratio="video" className={styles.newsMedia}>
+        <AspectRatio ratio={16 / 9} className={styles.newsMedia}>
           <img src={gridLandscapeImageUrl} alt="Evening city skyline" className={styles.image} />
         </AspectRatio>
         <div className={styles.newsBody}>
@@ -104,7 +170,7 @@ export function AspectRatioCardGridExample() {
       </Card>
 
       <Card className={styles.newsCard}>
-        <AspectRatio ratio="video" className={styles.newsMedia}>
+        <AspectRatio ratio={16 / 9} className={styles.newsMedia}>
           <img
             src={gridPortraitImageUrl}
             alt="Reporter portrait on a street background"
@@ -128,7 +194,7 @@ export function AspectRatioCardGridExample() {
 export function AspectRatioCustomRatioExample() {
   return (
     <div className={styles.container}>
-      <AspectRatio ratio={2.35}>
+      <AspectRatio ratio={2}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
       </AspectRatio>
     </div>
@@ -138,7 +204,7 @@ export function AspectRatioCustomRatioExample() {
 export function AspectRatioEmbedExample() {
   return (
     <div className={styles.container}>
-      <AspectRatio ratio="video">
+      <AspectRatio ratio={16 / 9}>
         <iframe
           src="https://www.youtube.com/embed/dQw4w9WgXcQ"
           title="Video embed"
@@ -151,10 +217,22 @@ export function AspectRatioEmbedExample() {
   );
 }
 
+export function AspectRatioAsChildExample() {
+  return (
+    <div className={styles.container}>
+      <AspectRatio ratio={16 / 9} asChild>
+        <figure>
+          <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
+        </figure>
+      </AspectRatio>
+    </div>
+  );
+}
+
 export function AspectRatioCustomRadiusExample() {
   return (
     <div className={styles.container}>
-      <AspectRatio ratio="video" className={styles.roundedFrame}>
+      <AspectRatio ratio={16 / 9} className={styles.roundedFrame}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
       </AspectRatio>
     </div>

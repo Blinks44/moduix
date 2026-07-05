@@ -1,874 +1,317 @@
 ---
 title: Menu
-description: A dropdown list of actions with keyboard navigation and nested menu support.
+description: A trigger-anchored list of actions, links, choices, and nested commands.
 icon: Component
 ---
 
-import {
-  MenuCssPlaygroundPanel,
-  MenuCssPropertiesPanel,
-  CustomCompositionMenuExample,
-  DetachedTriggerMenuExample,
-  GroupsAndControlsMenuExample,
-  IndicatorRightMenuExample,
-  LinkItemsMenuExample,
-  MenuExample,
-  NestedMenuExample,
-  OpenAlertDialogMenuExample,
-  OpenOnHoverMenuExample,
-  PositionedMenuExample,
-  ShortcutsMenuExample,
-  WithArrowMenuExample,
-  menuPlaygroundCssProperties,
-} from '@/components/examples/menu';
+import * as MenuDocs from '@/components/examples/menu';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/menu" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/menu" />
+
+## Choosing the right component
+
+Use `Menu` for trigger-anchored command lists, context menus, lightweight selections, and nested
+actions.
+
+- Choose **`Menu`** for overflow actions, row actions, and command lists opened from a button or
+  context trigger.
 
 ## Basic
 
-`MenuContent` already renders the portal, positioner, and popup. In the common case, compose only the trigger, content, and items.
+Start with the Ark part tree: `Menu`, `Menu.Trigger`, `Menu.Positioner`, and `Menu.Content`.
+Items use stable `value` identifiers for selection and typeahead.
 
-<Preview cssProperties={menuPlaygroundCssProperties}>
-  <MenuExample />
+<Preview>
+  <MenuDocs.MenuExample />
 
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-        MenuTrigger,
-        MenuTriggerIcon,
-        MenuContent,
-        MenuItem,
-        MenuSeparator,
-      } from "moduix";
-
-      export function MenuDemo() {
-        return (
-          <Menu>
-            <MenuTrigger render={<Button />}>
-              Song
-              <MenuTriggerIcon />
-            </MenuTrigger>
-            <MenuContent>
-              <MenuItem closeOnClick>Add to Library</MenuItem>
-              <MenuItem closeOnClick>Add to Playlist</MenuItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick>Play Next</MenuItem>
-              <MenuItem closeOnClick>Play Last</MenuItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick disabled>
-                Share
-              </MenuItem>
-            </MenuContent>
-          </Menu>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSSProperties>{(context) => <MenuCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <MenuCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  <include lang="tsx">./_snippets/menu/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Menu` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/menu
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/menu
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/menu
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/menu
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/menu
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Menu` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-menu" />
 
 ## Anatomy
 
-Menu is built from a trigger and popup content. Keep items and nested branches inside `MenuContent` so focus management, keyboard navigation, and close behavior stay on the root.
-
 ```text
 Menu
-├─ MenuTrigger
-│  └─ MenuTriggerIcon
-└─ MenuContent
-   ├─ MenuItem
-   ├─ MenuSeparator
-   └─ MenuSubmenu
-      ├─ MenuSubmenuTrigger
-      │  └─ MenuSubmenuTriggerIcon
-      └─ MenuSubmenuContent
-         └─ MenuItem
+├─ Menu.Trigger
+│  └─ Menu.Indicator
+├─ Menu.ContextTrigger
+├─ Overlay subtree (automatically portalled)
+│  └─ Menu.Positioner
+│     └─ Menu.Content
+│        ├─ Menu.Arrow
+│        │  └─ Menu.ArrowTip
+│        ├─ Menu.Item
+│        ├─ Menu.CheckboxItem
+│        │  ├─ Menu.ItemIndicator
+│        │  └─ Menu.ItemText
+│        ├─ Menu.RadioItemGroup
+│        │  └─ Menu.RadioItem
+│        ├─ Menu.ItemGroup
+│        │  └─ Menu.ItemGroupLabel
+│        └─ Menu
+│           └─ Menu.TriggerItem
 ```
 
-```tsx
-<Menu>
-  <MenuTrigger>
-    Song
-    <MenuTriggerIcon />
-  </MenuTrigger>
-  <MenuContent>
-    <MenuItem closeOnClick>Add to Library</MenuItem>
-    <MenuSubmenu>
-      <MenuSubmenuTrigger>
-        Add to Playlist
-        <MenuSubmenuTriggerIcon />
-      </MenuSubmenuTrigger>
-      <MenuSubmenuContent>
-        <MenuItem closeOnClick>Get Up!</MenuItem>
-      </MenuSubmenuContent>
-    </MenuSubmenu>
-  </MenuContent>
-</Menu>
-```
-
-| Part                    | Role                                                                                      |
-| ----------------------- | ----------------------------------------------------------------------------------------- |
-| `Menu`                  | Root state and interactions.                                                              |
-| `MenuTrigger`           | Control that opens the menu. Supports props such as `openOnHover`, `delay`, and `handle`. |
-| `MenuTriggerIcon`       | Optional trigger icon. Renders the default icon or your custom children.                  |
-| `MenuContent`           | Default popup wrapper. Renders `MenuPortal`, `MenuPositioner`, and `MenuPopup`.           |
-| `MenuPortal`            | Low-level escape hatch for custom portal composition.                                     |
-| `MenuBackdrop`          | Optional backdrop for advanced compositions.                                              |
-| `MenuPositioner`        | Low-level positioning part for custom layout and collision tuning.                        |
-| `MenuPopup`             | Visible popup surface.                                                                    |
-| `MenuArrow`             | Optional pointer from popup to trigger.                                                   |
-| `MenuViewport`          | Optional viewport when you need manual popup content structure.                           |
-| `MenuItem`              | Action row with disabled state and optional `closeOnClick`.                               |
-| `MenuLinkItem`          | Link-style item that keeps menu behavior.                                                 |
-| `MenuSeparator`         | Divider between related items.                                                            |
-| `MenuSubmenu*`          | Nested branch for secondary actions (`Trigger`, `TriggerIcon`, `Content`).                |
-| `MenuGroup*` / controls | Group labels, radio groups/items, checkbox items, and indicator slots.                    |
+| Part                  | Role                                                        |
+| --------------------- | ----------------------------------------------------------- |
+| `Menu` / `Menu.Root`  | Ark root for open state, positioning, typeahead, dismissal. |
+| `Menu.RootProvider`   | Renders a menu from a `useMenu` state instance.             |
+| `Menu.Trigger`        | Button trigger; use `asChild` for a custom host.            |
+| `Menu.Indicator`      | Ark state-aware trigger indicator.                          |
+| `Menu.ContextTrigger` | Right-click and long-press trigger for context menus.       |
+| `Menu.Positioner`     | Floating layer positioner.                                  |
+| `Menu.Content`        | Popup surface with menu role and item collection.           |
+| `Menu.Item`           | Command row.                                                |
+| `Menu.CheckboxItem`   | Boolean option item.                                        |
+| `Menu.RadioItemGroup` | Exclusive value group for radio items.                      |
+| `Menu.RadioItem`      | Exclusive option item.                                      |
+| `Menu.TriggerItem`    | Row that opens a nested `Menu`.                             |
+| `Menu.ItemIndicator`  | Check indicator for checkbox and radio rows.                |
 
 ## Composition
 
-Use `Menu` for root behavior such as `open`, `defaultOpen`, `onOpenChange`, and `handle`.
+The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
 
-`MenuContent` is the simple path. It styles the visible popup through `className`, forwards Base UI popup props, accepts the common positioning props directly, and keeps the structural parts internal. Use `showArrow` only when the popup should visually point to its trigger.
+### Recommended composition
 
-### Defaults
-
-| Prop         | Default | Values          |
-| ------------ | ------- | --------------- |
-| `showArrow`  | `false` | `true`, `false` |
-| `sideOffset` | `8`     | `number`        |
-
-For `MenuSubmenuContent`, defaults are tuned for nested alignment:
-
-| Prop          | Default                 | Values                           |
-| ------------- | ----------------------- | -------------------------------- |
-| `showArrow`   | `false`                 | `true`, `false`                  |
-| `sideOffset`  | `({ side }) => 4 \| -4` | `number \| ({ side }) => number` |
-| `alignOffset` | `({ side }) => 4 \| -4` | `number \| ({ side }) => number` |
+Keep popup structure explicit. `Menu.Content` is the actual Ark content part; it no longer hides
+`Menu.Positioner`.
 
 ```tsx
-<MenuContent showArrow side="right" align="start" sideOffset={12} />
+<Menu positioning={{ placement: 'bottom-start', gutter: 8 }}>
+  <Menu.Trigger asChild>
+    <Button>
+      Actions
+      <Menu.Indicator />
+    </Button>
+  </Menu.Trigger>
+  <Menu.Positioner>
+    <Menu.Content className="menu-content">
+      <Menu.Item value="edit">Edit</Menu.Item>
+    </Menu.Content>
+  </Menu.Positioner>
+</Menu>
 ```
+
+### When to go custom
+
+Use `asChild` when the trigger or item must render as another semantic element. For links, put
+`asChild` on `Menu.Item` and make the anchor the single child so Ark can apply the correct ARIA,
+focus, and keyboard behavior.
+
+Nested menus are regular `Menu` roots inside the parent content. The nested root uses
+`Menu.TriggerItem`, then its own `Menu.Positioner` and `Menu.Content`.
+
+### Default props
+
+| Surface                           | Default | Notes                                                  |
+| --------------------------------- | ------- | ------------------------------------------------------ |
+| `Menu` / `Menu.Root`              | —       | No additional behavioral defaults; Ark defaults apply. |
+| `Menu.CheckboxItem` / `RadioItem` | `start` | `indicator` controls the indicator column position.    |
+
+### Behavioral notes
+
+- `open`, `defaultOpen`, `onOpenChange(details)`, `highlightedValue`,
+  `onHighlightChange(details)`, `onSelect(details)`, `closeOnSelect`, `ids`, `lazyMount`,
+  `unmountOnExit`, and `present` follow Ark directly.
+- Use `value`, not a custom `id`, for menu item identity.
+- `Menu.CheckboxItem.onCheckedChange` receives the next boolean checked state.
+- `Menu.RadioItemGroup.onValueChange` receives `details.value`.
+- `Menu.RootProvider` must be used with a `useMenu` instance instead of rendering a second `Menu`
+  root for the same state.
+- `Menu.Indicator` mirrors Ark's indicator part. `Menu.TriggerIcon`, `Menu.TriggerItemIcon`,
+  `Menu.ItemShortcut`, and item text helpers are moduix leaf sugar only.
 
 ## Examples
 
-### With Arrow
+### Controlled
 
-Set `showArrow` when the popup should appear with a pointer.
-
-<Preview>
-  <WithArrowMenuExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-        MenuTrigger,
-        MenuTriggerIcon,
-        MenuContent,
-        MenuItem,
-        MenuSeparator,
-      } from "moduix";
-
-      export function WithArrowMenu() {
-        return (
-          <Menu>
-            <MenuTrigger render={<Button />}>
-              Song
-              <MenuTriggerIcon />
-            </MenuTrigger>
-            <MenuContent showArrow>
-              <MenuItem closeOnClick>Add to Library</MenuItem>
-              <MenuItem closeOnClick>Add to Playlist</MenuItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick>Play Next</MenuItem>
-            </MenuContent>
-          </Menu>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Groups And Controls
-
-Use groups, radio items, and checkbox items when the menu changes application state.
+Control `open` with `onOpenChange(details)` when another control needs to drive the menu.
 
 <Preview>
-  <GroupsAndControlsMenuExample />
-
+  <MenuDocs.ControlledMenuExample />
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-        MenuTrigger,
-        MenuTriggerIcon,
-        MenuContent,
-        MenuGroup,
-        MenuGroupLabel,
-        MenuRadioGroup,
-        MenuRadioItem,
-        MenuRadioItemIndicator,
-        MenuItemText,
-        MenuSeparator,
-        MenuCheckboxItem,
-        MenuCheckboxItemIndicator,
-      } from "moduix";
-      import { useState } from "react";
-
-      export function GroupsAndControlsMenu() {
-        const [sortBy, setSortBy] = useState("date");
-        const [showMinimap, setShowMinimap] = useState(true);
-
-        return (
-          <Menu>
-            <MenuTrigger render={<Button />}>
-              View
-              <MenuTriggerIcon />
-            </MenuTrigger>
-            <MenuContent>
-              <MenuGroup>
-                <MenuGroupLabel>Sort</MenuGroupLabel>
-                <MenuRadioGroup value={sortBy} onValueChange={setSortBy}>
-                  <MenuRadioItem value="date">
-                    <MenuRadioItemIndicator />
-                    <MenuItemText>Date</MenuItemText>
-                  </MenuRadioItem>
-                  <MenuRadioItem value="name">
-                    <MenuRadioItemIndicator />
-                    <MenuItemText>Name</MenuItemText>
-                  </MenuRadioItem>
-                </MenuRadioGroup>
-              </MenuGroup>
-              <MenuSeparator />
-              <MenuGroup>
-                <MenuGroupLabel>Workspace</MenuGroupLabel>
-                <MenuCheckboxItem checked={showMinimap} onCheckedChange={setShowMinimap}>
-                  <MenuCheckboxItemIndicator />
-                  <MenuItemText>Minimap</MenuItemText>
-                </MenuCheckboxItem>
-              </MenuGroup>
-            </MenuContent>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/controlled.tsx#demo</include>
   </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
-### Shortcuts
+### Root Provider
 
-Use `MenuItemShortcut` for shortcut text that aligns to the end of each item.
+Use Ark `useMenu` and `Menu.RootProvider` when code outside the rendered tree needs access to the menu
+API.
 
 <Preview>
-  <ShortcutsMenuExample />
-
+  <MenuDocs.RootProviderMenuExample />
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-        MenuTrigger,
-        MenuTriggerIcon,
-        MenuContent,
-        MenuItem,
-        MenuItemShortcut,
-        MenuSeparator,
-      } from "moduix";
-
-      export function ShortcutsMenu() {
-        return (
-          <Menu>
-            <MenuTrigger render={<Button />}>
-              Edit
-              <MenuTriggerIcon />
-            </MenuTrigger>
-            <MenuContent>
-              <MenuItem closeOnClick>
-                Copy
-                <MenuItemShortcut>Ctrl+C</MenuItemShortcut>
-              </MenuItem>
-              <MenuItem closeOnClick>
-                Paste
-                <MenuItemShortcut>Ctrl+V</MenuItemShortcut>
-              </MenuItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick>
-                Rename
-                <MenuItemShortcut>F2</MenuItemShortcut>
-              </MenuItem>
-            </MenuContent>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/root-provider.tsx#demo</include>
   </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
-### Indicator Right With Icon
+### Grouping
 
-Use `indicator="end"` to align checkbox and radio indicators to the end. Text and icon slots accept
-custom content and `className`. Use `indicator="none"` when the selected row should rely on
-background-only highlighting and no indicator column should be reserved.
+Use `Menu.ItemGroup` and `Menu.ItemGroupLabel` to organize related menu rows.
 
 <Preview>
-  <IndicatorRightMenuExample />
-
+  <MenuDocs.GroupMenuExample />
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-        MenuTrigger,
-        MenuTriggerIcon,
-        MenuContent,
-        MenuCheckboxItem,
-        MenuItemText,
-        MenuItemTextContent,
-        MenuItemTextIcon,
-        InfoIcon,
-        MenuItemTextLabel,
-        MenuCheckboxItemIndicator,
-      } from "moduix";
-      import { useState } from "react";
-
-      export function IndicatorRightMenu() {
-        const [showMinimap, setShowMinimap] = useState(true);
-
-        return (
-          <Menu>
-            <MenuTrigger render={<Button />}>
-              View
-              <MenuTriggerIcon />
-            </MenuTrigger>
-            <MenuContent>
-              <MenuCheckboxItem checked={showMinimap} onCheckedChange={setShowMinimap} indicator="end">
-                <MenuItemText>
-                  <MenuItemTextContent>
-                    <MenuItemTextIcon>
-                      <InfoIcon />
-                    </MenuItemTextIcon>
-                    <MenuItemTextLabel>Minimap</MenuItemTextLabel>
-                  </MenuItemTextContent>
-                </MenuItemText>
-                <MenuCheckboxItemIndicator />
-              </MenuCheckboxItem>
-            </MenuContent>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/grouping.tsx#demo</include>
   </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
-```tsx
-<MenuCheckboxItem checked={showSearch} onCheckedChange={setShowSearch} indicator="none">
-  <MenuItemText>Search</MenuItemText>
-</MenuCheckboxItem>
-```
+### Links
+
+Use `Menu.Item asChild` for anchors so the link itself receives menu semantics.
+
+<Preview>
+  <MenuDocs.LinkItemsMenuExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/menu/links.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
+</Preview>
+
+### Checkbox Items
+
+Checkbox items keep boolean state while preserving menu navigation and typeahead.
+
+<Preview>
+  <MenuDocs.CheckboxItemsMenuExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/menu/checkbox-items.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
+</Preview>
+
+### Radio Items
+
+Use `Menu.RadioItemGroup` for one selected value inside a menu.
+
+<Preview>
+  <MenuDocs.RadioItemsMenuExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/menu/radio-items.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
+</Preview>
+
+### Context Menu
+
+Use `Menu.ContextTrigger` for right-click and long-press context menus.
+
+<Preview>
+  <MenuDocs.ContextMenuExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/menu/context-menu.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
+</Preview>
+
+### Lazy Mounted Context Menu
+
+Use Ark `lazyMount` and `unmountOnExit` when context menu content should mount only while the menu
+is present.
+
+<Preview>
+  <MenuDocs.ContextLazyMountMenuExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/menu/lazy-mounted-context-menu.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
+</Preview>
 
 ### Nested
 
-Use `MenuSubmenu` with `MenuSubmenuTrigger` and `MenuSubmenuContent` for nested actions.
+Render a nested `Menu` and open it from `Menu.TriggerItem`.
 
 <Preview>
-  <NestedMenuExample />
-
+  <MenuDocs.NestedMenuExample />
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-        MenuTrigger,
-        MenuTriggerIcon,
-        MenuContent,
-        MenuItem,
-        MenuSubmenu,
-        MenuSubmenuTrigger,
-        MenuSubmenuTriggerIcon,
-        MenuSubmenuContent,
-        MenuSeparator,
-      } from "moduix";
-
-      export function NestedMenu() {
-        return (
-          <Menu>
-            <MenuTrigger render={<Button />}>
-              Song
-              <MenuTriggerIcon />
-            </MenuTrigger>
-            <MenuContent>
-              <MenuItem closeOnClick>Add to Library</MenuItem>
-              <MenuSubmenu>
-                <MenuSubmenuTrigger>
-                  Add to Playlist
-                  <MenuSubmenuTriggerIcon />
-                </MenuSubmenuTrigger>
-                <MenuSubmenuContent>
-                  <MenuItem closeOnClick>Get Up!</MenuItem>
-                  <MenuItem closeOnClick>Inside Out</MenuItem>
-                  <MenuItem closeOnClick>Night Beats</MenuItem>
-                  <MenuSeparator />
-                  <MenuItem closeOnClick>New Playlist...</MenuItem>
-                </MenuSubmenuContent>
-              </MenuSubmenu>
-            </MenuContent>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/nested.tsx#demo</include>
   </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
-### Open On Hover
+### Multiple Triggers
 
-Use `openOnHover` when the trigger should behave like a hover menu while keeping keyboard support.
+Pass a `value` to each `Menu.Trigger` when one menu is shared across multiple trigger elements.
 
 <Preview>
-  <OpenOnHoverMenuExample />
-
+  <MenuDocs.MultipleTriggersMenuExample />
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-        MenuTrigger,
-        MenuTriggerIcon,
-        MenuContent,
-        MenuItem,
-        MenuSeparator,
-      } from "moduix";
-
-      export function OpenOnHoverMenu() {
-        return (
-          <Menu>
-            <MenuTrigger render={<Button />} openOnHover delay={120}>
-              Add to playlist
-              <MenuTriggerIcon />
-            </MenuTrigger>
-            <MenuContent>
-              <MenuItem closeOnClick>Get Up!</MenuItem>
-              <MenuItem closeOnClick>Inside Out</MenuItem>
-              <MenuItem closeOnClick>Night Beats</MenuItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick>New Playlist...</MenuItem>
-            </MenuContent>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/multiple-triggers.tsx#demo</include>
   </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
-### Positioning
+### Select Event
 
-Use `side`, `align`, and offset props on `MenuContent` to position the popup. Add `showArrow` when the popup should visually point to the trigger.
+Use root `onSelect(details)` when the menu should react to any item selection.
 
 <Preview>
-  <PositionedMenuExample />
-
+  <MenuDocs.SelectEventMenuExample />
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-        MenuTrigger,
-        MenuTriggerIcon,
-        MenuContent,
-        MenuItem,
-        MenuSeparator,
-      } from "moduix";
-      import styles from "./menu.module.css";
-
-      export function PositionedMenu() {
-        return (
-          <Menu>
-            <MenuTrigger render={<Button />}>
-              Export
-              <MenuTriggerIcon />
-            </MenuTrigger>
-            <MenuContent showArrow side="right" align="start" sideOffset={12}>
-              <MenuItem closeOnClick>Export PNG</MenuItem>
-              <MenuItem closeOnClick>Export PDF</MenuItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick>Copy share link</MenuItem>
-            </MenuContent>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/select-event.tsx#demo</include>
   </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
-### Open Alert Dialog
+### Item Context
 
-Open a dialog from a menu item by closing the menu on click and updating dialog state in the item handler.
+Use Ark `Menu.ItemContext` for inline access to item state such as `highlighted`.
 
 <Preview>
-  <OpenAlertDialogMenuExample />
-
+  <MenuDocs.ItemContextMenuExample />
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-        MenuTrigger,
-        MenuTriggerIcon,
-        MenuContent,
-        MenuItem,
-        MenuSeparator,
-        AlertDialog,
-        AlertDialogAction,
-        AlertDialogCancel,
-        AlertDialogContent,
-        AlertDialogDescription,
-        AlertDialogFooter,
-        AlertDialogHeader,
-        AlertDialogTitle,
-      } from "moduix";
-      import { useState, Fragment } from "react";
-
-      export function OpenAlertDialogMenu() {
-        const [dialogOpen, setDialogOpen] = useState(false);
-
-        return (
-          <Fragment>
-            <Menu>
-              <MenuTrigger render={<Button />}>
-                Project
-                <MenuTriggerIcon />
-              </MenuTrigger>
-              <MenuContent>
-                <MenuItem closeOnClick>Rename</MenuItem>
-                <MenuItem closeOnClick>Duplicate</MenuItem>
-                <MenuSeparator />
-                <MenuItem
-                  closeOnClick
-                  onClick={() => {
-                    setDialogOpen(true);
-                  }}
-                >
-                  Delete...
-                </MenuItem>
-              </MenuContent>
-            </Menu>
-
-            <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Delete project?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone and will permanently remove all environments.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Delete</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </Fragment>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/item-context.tsx#demo</include>
   </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
-### Link Items
+### Indicator Placement
 
-Use `MenuLinkItem` for navigation items that should render as links.
+moduix adds `indicator="start" | "end" | "none"` on checkbox and radio rows for layout control.
 
 <Preview>
-  <LinkItemsMenuExample />
-
+  <MenuDocs.IndicatorRightMenuExample />
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-        MenuTrigger,
-        MenuTriggerIcon,
-        MenuContent,
-        MenuLinkItem,
-        MenuSeparator,
-        MenuItem,
-      } from "moduix";
-
-      export function LinkItemsMenu() {
-        return (
-          <Menu>
-            <MenuTrigger render={<Button />}>
-              Navigate
-              <MenuTriggerIcon />
-            </MenuTrigger>
-            <MenuContent>
-              <MenuLinkItem href="#projects">Projects</MenuLinkItem>
-              <MenuLinkItem href="#teams">Teams</MenuLinkItem>
-              <MenuLinkItem href="#billing">Billing</MenuLinkItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick>Copy Link</MenuItem>
-            </MenuContent>
-          </Menu>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/menu/indicator-placement.tsx#demo</include>
   </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
-### Detached Trigger
+## Styling
 
-Use `createMenuHandle` when the trigger and root need to be rendered in different places.
+### CSS Properties
 
-<Preview>
-  <DetachedTriggerMenuExample />
+<div className="not-prose">
+  <Tabs items={['CSS Variables']}>
+    <Tab value="CSS Variables">
+      <div style={{ maxHeight: '28rem', overflow: 'auto' }}>
+        <MenuDocs.MenuCssPropertiesPanel />
+      </div>
+    </Tab>
+  </Tabs>
+</div>
 
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        createMenuHandle,
-        MenuTrigger,
-        MenuTriggerIcon,
-        Menu,
-        MenuContent,
-        MenuItem,
-        MenuSeparator,
-      } from "moduix";
-      import { useMemo, Fragment } from "react";
+### Styling hooks
 
-      export function DetachedTriggerMenu() {
-        const menuHandle = useMemo(() => createMenuHandle(), []);
-
-        return (
-          <Fragment>
-            <div className={styles.detachedTrigger}>
-              <MenuTrigger render={<Button />} handle={menuHandle}>
-                Actions
-                <MenuTriggerIcon />
-              </MenuTrigger>
-            </div>
-
-            <Menu handle={menuHandle}>
-              <MenuContent>
-                <MenuItem closeOnClick>Edit</MenuItem>
-                <MenuItem closeOnClick>Share</MenuItem>
-                <MenuSeparator />
-                <MenuItem closeOnClick>Archive</MenuItem>
-              </MenuContent>
-            </Menu>
-          </Fragment>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .detachedTrigger {
-        display: flex;
-        justify-content: center;
-        margin-bottom: var(--spacing-4);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Custom Composition
-
-Use the low-level parts when you need a custom backdrop, manual viewport, or full control over popup structure.
-
-<Preview>
-  <CustomCompositionMenuExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        ChevronDownIcon,
-        InfoIcon,
-        MapIcon,
-        Menu,
-        MenuArrow,
-        MenuBackdrop,
-        MenuItem,
-        MenuItemTextContent,
-        MenuItemTextIcon,
-        MenuItemTextLabel,
-        MenuPopup,
-        MenuPortal,
-        MenuPositioner,
-        MenuSubmenu,
-        MenuSubmenuContent,
-        MenuSubmenuTrigger,
-        MenuSubmenuTriggerIcon,
-        MenuTrigger,
-        MenuTriggerIcon,
-        MenuViewport,
-      } from "moduix";
-
-      export function CustomCompositionMenu() {
-        return (
-          <Menu>
-            <MenuTrigger render={<Button />} className={styles.customTrigger}>
-              Places
-              <MenuTriggerIcon className={styles.customTriggerIcon}>
-                <ChevronDownIcon />
-              </MenuTriggerIcon>
-            </MenuTrigger>
-            <MenuPortal>
-              <MenuBackdrop className={styles.customBackdrop} />
-              <MenuPositioner className={styles.customPositioner} sideOffset={12}>
-                <MenuPopup className={styles.customPopup}>
-                  <MenuArrow className={styles.customArrow} />
-                  <MenuViewport className={styles.customViewport}>
-                    <MenuItem closeOnClick className={styles.customItem}>
-                      <MenuItemTextContent>
-                        <MenuItemTextIcon>
-                          <MapIcon />
-                        </MenuItemTextIcon>
-                        <MenuItemTextLabel>Open map</MenuItemTextLabel>
-                      </MenuItemTextContent>
-                    </MenuItem>
-                    <MenuSubmenu>
-                      <MenuSubmenuTrigger className={styles.customItem}>
-                        <MenuItemTextContent>
-                          <MenuItemTextIcon>
-                            <InfoIcon />
-                          </MenuItemTextIcon>
-                          <MenuItemTextLabel>More</MenuItemTextLabel>
-                        </MenuItemTextContent>
-                        <MenuSubmenuTriggerIcon>
-                          <ChevronDownIcon />
-                        </MenuSubmenuTriggerIcon>
-                      </MenuSubmenuTrigger>
-                      <MenuSubmenuContent>
-                        <MenuItem closeOnClick className={styles.customItem}>
-                          Nearby
-                        </MenuItem>
-                        <MenuItem closeOnClick className={styles.customItem}>
-                          Routes
-                        </MenuItem>
-                      </MenuSubmenuContent>
-                    </MenuSubmenu>
-                  </MenuViewport>
-                </MenuPopup>
-              </MenuPositioner>
-            </MenuPortal>
-          </Menu>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customTrigger {
-        border-color: var(--color-primary);
-        background:
-          linear-gradient(var(--color-background), var(--color-background)) padding-box,
-          linear-gradient(135deg, var(--color-primary), var(--color-ring)) border-box;
-        color: var(--color-primary);
-      }
-
-      .customTriggerIcon {
-        --menu-trigger-icon-size: 0.875rem;
-      }
-
-      .customBackdrop {
-        background-color: rgb(0 0 0 / 0.08);
-        backdrop-filter: blur(0.125rem);
-      }
-
-      .customPositioner {
-        z-index: var(--z-popup);
-      }
-
-      .customPopup {
-        --menu-popup-min-width: 13rem;
-        --menu-popup-bg: var(--color-background);
-        --menu-popup-border-color: var(--color-primary);
-        --menu-popup-shadow: var(--shadow-lg);
-        --menu-highlight-bg: var(--color-primary);
-        --menu-highlight-color: var(--color-primary-foreground);
-        --menu-separator-color: var(--color-primary);
-      }
-
-      .customViewport {
-        max-height: 18rem;
-        overflow-y: auto;
-      }
-
-      .customItem {
-        --menu-item-padding-x-start: var(--spacing-3);
-        --menu-item-padding-x-end: var(--spacing-3);
-        --menu-item-text-icon-color: var(--color-primary);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
+- Ark attributes: `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,
+  `[data-part='content']`, `[data-part='item']`, `[data-part='option-item']`,
+  `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`,
+  `[data-highlighted]`, `[data-disabled]`, `[data-placement]`, and `[data-side]`.
+- Ark variables: `--reference-width`, `--available-width`, `--available-height`,
+  `--transform-origin`, `--layer-index`, `--arrow-size`, and `--arrow-background`.
+- moduix hooks: `data-slot="menu-trigger"`, `menu-content`, `menu-item`, `menu-checkbox-item`,
+  `menu-radio-item`, `menu-trigger-item`, `menu-item-indicator`, and `menu-item-shortcut`.

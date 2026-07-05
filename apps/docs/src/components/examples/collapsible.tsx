@@ -1,14 +1,100 @@
-import {
-  Collapsible,
-  CollapsiblePanel,
-  CollapsibleTrigger,
-  CollapsibleTriggerIcon,
-  ChevronDownIcon,
-} from 'moduix';
+import { useCollapsible } from '@ark-ui/react/collapsible';
+import { ChevronDownIcon, Collapsible } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './collapsible.module.css';
+import { CSSPropertiesReferenceTable } from '../preview';
+
+export const collapsibleExampleCss = `
+  .collapsible-content-body {
+    padding-block: var(--spacing-2);
+    padding-inline: var(--spacing-2);
+  }
+
+  .collapsible-keys-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+    margin: 0;
+    padding-inline-start: var(--spacing-2);
+  }
+
+  .collapsible-state {
+    margin-top: var(--spacing-2);
+    color: var(--color-muted-foreground);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-text-xs);
+  }
+
+  .collapsible-provider-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .collapsible-nested-content {
+    padding: var(--spacing-2);
+  }
+
+  .collapsible-nested-content > p {
+    margin: 0 0 var(--spacing-2);
+  }
+
+  .collapsible-nested-root {
+    width: 100%;
+  }
+`;
+
+export const collapsibleCustomCompositionCss = `
+  .collapsible-custom-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-2);
+    width: 100%;
+    padding: var(--spacing-2) var(--spacing-3);
+    border: 0;
+    border-radius: var(--radius-md);
+    background-color: var(--color-muted);
+    color: var(--color-foreground);
+  }
+
+  .collapsible-custom-trigger:hover {
+    background-color: var(--color-accent);
+  }
+
+  .collapsible-custom-indicator {
+    --collapsible-indicator-open-transform: rotate(180deg);
+    color: var(--color-primary);
+  }
+
+  .collapsible-custom-content-body {
+    margin-top: var(--spacing-1);
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--radius-md);
+    background-color: var(--color-muted);
+    color: var(--color-muted-foreground);
+  }
+
+  .collapsible-keys-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+    margin: 0;
+    padding-inline-start: var(--spacing-2);
+  }
+`;
+
+export const recoveryKeysData = `const recoveryKeys = [
+  'alien-bean-pasta',
+  'wild-irish-burrito',
+  'horse-battery-staple',
+];`;
+
+export const collapsibleLongContentData = `const paragraphs = [
+  'Ark UI is a headless component library for building accessible, high-quality UI components for React, Solid, Vue, and Svelte.',
+  'Built on top of Zag.js state machines, Ark UI keeps behavior consistent while leaving styling under your control.',
+  'Use partial collapse when a short preview should stay visible while the rest of the content is inert.',
+];`;
 
 export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ['--collapsible-color', 'var(--color-foreground)', 'Controls root text color.'],
@@ -26,22 +112,30 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--collapsible-max-width', '100%', 'Controls root max width.'],
   [
-    '--collapsible-icon-open-transform',
+    '--collapsible-indicator-open-transform',
     'rotate(90deg)',
-    'Controls icon transform when the panel is open.',
+    'Controls indicator transform while open.',
   ],
-  ['--collapsible-icon-size', '0.75rem', 'Controls trigger icon size.'],
-  ['--collapsible-icon-transition', 'var(--transition-default)', 'Controls icon transition.'],
-  ['--collapsible-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
-  ['--collapsible-panel-font-size', 'var(--text-sm)', 'Controls panel font size.'],
-  ['--collapsible-panel-height', 'auto (runtime)', 'Current panel height used for animation.'],
-  ['--collapsible-panel-line-height', 'var(--line-height-text-sm)', 'Controls panel line height.'],
+  ['--collapsible-indicator-size', '0.75rem', 'Controls indicator size.'],
   [
-    '--collapsible-panel-transition',
+    '--collapsible-indicator-transition',
     'var(--transition-default)',
-    'Controls panel open and close transition.',
+    'Controls indicator transition.',
   ],
-  ['--collapsible-panel-width', 'auto (runtime)', 'Current panel width set by Base UI runtime.'],
+  ['--collapsible-content-color', 'var(--color-muted-foreground)', 'Controls content color.'],
+  ['--collapsible-content-closed-opacity', '0.01', 'Controls content opacity while closed.'],
+  ['--collapsible-content-font-size', 'var(--text-sm)', 'Controls content font size.'],
+  [
+    '--collapsible-content-line-height',
+    'var(--line-height-text-sm)',
+    'Controls content line height.',
+  ],
+  ['--collapsible-content-open-opacity', '1', 'Controls content opacity while open.'],
+  [
+    '--collapsible-content-transition',
+    'var(--transition-default)',
+    'Controls content open and close animation.',
+  ],
   ['--collapsible-trigger-bg', 'transparent', 'Controls trigger background color.'],
   [
     '--collapsible-trigger-bg-active',
@@ -72,33 +166,12 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ['--collapsible-width', '14rem', 'Controls root width.'],
 ];
 
-export const collapsiblePlaygroundCssProperties: CssPropertyInput[] = [
-  ...collapsibleOverrideCssProperties,
-];
+const collapsibleCssProperties = collapsibleOverrideCssProperties.map(normalizeCssProperty);
 
 export function CollapsibleCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <CSSPropertiesReferenceTable
-        properties={collapsibleOverrideCssProperties.map(normalizeCssProperty)}
-      />
-    </div>
-  );
-}
-
-export function CollapsibleCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <div className="space-y-2">
-      <CSSPropertiesEditor
-        properties={collapsiblePlaygroundCssProperties.map(normalizeCssProperty)}
-        values={values}
-        onChange={onChange}
-        onReset={onReset}
-      />
+      <CSSPropertiesReferenceTable properties={collapsibleCssProperties} />
     </div>
   );
 }
@@ -113,20 +186,34 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
 
+const paragraphs = [
+  'Ark UI is a headless component library for building accessible, high-quality UI components for React, Solid, Vue, and Svelte.',
+  'Built on top of Zag.js state machines, Ark UI keeps behavior consistent while leaving styling under your control.',
+  'Use partial collapse when a short preview should stay visible while the rest of the content is inert.',
+];
+
+function RecoveryKeys() {
+  return (
+    <ul className="collapsible-keys-list">
+      {recoveryKeys.map((key) => (
+        <li key={key}>{key}</li>
+      ))}
+    </ul>
+  );
+}
+
 export function CollapsibleExample(props: ComponentProps<typeof Collapsible>) {
   return (
     <Collapsible {...props}>
-      <CollapsibleTrigger>
+      <Collapsible.Trigger>
         Recovery keys
-        <CollapsibleTriggerIcon />
-      </CollapsibleTrigger>
-      <CollapsiblePanel>
-        <ul className={styles.keysList}>
-          {recoveryKeys.map((key) => (
-            <li key={key}>{key}</li>
-          ))}
-        </ul>
-      </CollapsiblePanel>
+        <Collapsible.Indicator />
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        <div className="collapsible-content-body">
+          <RecoveryKeys />
+        </div>
+      </Collapsible.Content>
     </Collapsible>
   );
 }
@@ -135,19 +222,17 @@ export function ControlledCollapsibleExample() {
   const [open, setOpen] = useState(false);
 
   return (
-    <Collapsible open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger>
+    <Collapsible open={open} onOpenChange={(details) => setOpen(details.open)}>
+      <Collapsible.Trigger>
         Recovery keys
-        <CollapsibleTriggerIcon />
-      </CollapsibleTrigger>
-      <CollapsiblePanel>
-        <ul className={styles.keysList}>
-          {recoveryKeys.map((key) => (
-            <li key={key}>{key}</li>
-          ))}
-        </ul>
-      </CollapsiblePanel>
-      <span className={styles.status}>Current state: {open ? 'open' : 'closed'}</span>
+        <Collapsible.Indicator />
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        <div className="collapsible-content-body">
+          <RecoveryKeys />
+        </div>
+      </Collapsible.Content>
+      <span className="collapsible-state">Current state: {open ? 'open' : 'closed'}</span>
     </Collapsible>
   );
 }
@@ -155,57 +240,119 @@ export function ControlledCollapsibleExample() {
 export function DisabledCollapsibleExample() {
   return (
     <Collapsible disabled>
-      <CollapsibleTrigger>
+      <Collapsible.Trigger>
         Recovery keys
-        <CollapsibleTriggerIcon />
-      </CollapsibleTrigger>
-      <CollapsiblePanel>
-        <ul className={styles.keysList}>
-          {recoveryKeys.map((key) => (
-            <li key={key}>{key}</li>
-          ))}
-        </ul>
-      </CollapsiblePanel>
+        <Collapsible.Indicator />
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        <div className="collapsible-content-body">
+          <RecoveryKeys />
+        </div>
+      </Collapsible.Content>
     </Collapsible>
   );
 }
 
-export function HiddenUntilFoundCollapsibleExample() {
+export function LazyMountCollapsibleExample() {
+  return (
+    <Collapsible lazyMount unmountOnExit>
+      <Collapsible.Trigger>
+        Recovery keys
+        <Collapsible.Indicator />
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        <div className="collapsible-content-body">
+          <RecoveryKeys />
+        </div>
+      </Collapsible.Content>
+    </Collapsible>
+  );
+}
+
+export function PartialCollapseCollapsibleExample() {
+  return (
+    <Collapsible collapsedHeight="3rem">
+      <Collapsible.Trigger>
+        Read more
+        <Collapsible.Indicator />
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        <div className="collapsible-content-body">
+          {paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+      </Collapsible.Content>
+    </Collapsible>
+  );
+}
+
+export function NestedCollapsibleExample() {
   return (
     <Collapsible>
-      <CollapsibleTrigger>
-        Searchable recovery keys
-        <CollapsibleTriggerIcon />
-      </CollapsibleTrigger>
-      <CollapsiblePanel hiddenUntilFound>
-        <ul className={styles.keysList}>
-          {recoveryKeys.map((key) => (
-            <li key={key}>{key}</li>
-          ))}
-        </ul>
-      </CollapsiblePanel>
+      <Collapsible.Trigger>
+        Account security
+        <Collapsible.Indicator />
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        <div className="collapsible-nested-content">
+          <p>Security options for this account.</p>
+          <Collapsible className="collapsible-nested-root">
+            <Collapsible.Trigger>
+              Recovery keys
+              <Collapsible.Indicator />
+            </Collapsible.Trigger>
+            <Collapsible.Content>
+              <div className="collapsible-content-body">
+                <RecoveryKeys />
+              </div>
+            </Collapsible.Content>
+          </Collapsible>
+        </div>
+      </Collapsible.Content>
     </Collapsible>
+  );
+}
+
+export function RootProviderCollapsibleExample() {
+  const collapsible = useCollapsible();
+
+  return (
+    <div className="collapsible-provider-layout">
+      <output>
+        open: {String(collapsible.open)}, visible: {String(collapsible.visible)}
+      </output>
+      <Collapsible.RootProvider value={collapsible}>
+        <Collapsible.Trigger>
+          Recovery keys
+          <Collapsible.Indicator />
+        </Collapsible.Trigger>
+        <Collapsible.Content>
+          <div className="collapsible-content-body">
+            <RecoveryKeys />
+          </div>
+        </Collapsible.Content>
+      </Collapsible.RootProvider>
+    </div>
   );
 }
 
 export function CustomCompositionCollapsibleExample() {
   return (
     <Collapsible>
-      <CollapsibleTrigger render={<div />} nativeButton={false} className={styles.customTrigger}>
-        <span className={styles.triggerLabel}>Styled recovery keys</span>
-        <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
-          <ChevronDownIcon />
-        </CollapsibleTriggerIcon>
-      </CollapsibleTrigger>
-      <CollapsiblePanel className={styles.customPanel}>
-        <div className={styles.customPanelContent}>
-          <ul className={styles.keysList}>
-            {recoveryKeys.map((key) => (
-              <li key={key}>{key}</li>
-            ))}
-          </ul>
+      <Collapsible.Trigger asChild>
+        <button type="button" className="collapsible-custom-trigger">
+          Styled recovery keys
+          <Collapsible.Indicator className="collapsible-custom-indicator">
+            <ChevronDownIcon />
+          </Collapsible.Indicator>
+        </button>
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        <div className="collapsible-custom-content-body">
+          <RecoveryKeys />
         </div>
-      </CollapsiblePanel>
+      </Collapsible.Content>
     </Collapsible>
   );
 }

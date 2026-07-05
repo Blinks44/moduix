@@ -1,0 +1,177 @@
+@layer ui.components {
+  .scrollArea {
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    isolation: isolate;
+    border: var(--table-scroll-area-border-width, var(--table-border-width, var(--border-width-sm)))
+      solid var(--table-scroll-area-border-color, var(--table-border-color, var(--color-border)));
+    border-radius: var(--table-scroll-area-radius, var(--radius-lg));
+    background-color: var(--table-scroll-area-bg, var(--color-card));
+    box-shadow: var(--table-scroll-area-shadow, none);
+  }
+
+  .root {
+    --table-cell-padding-x-default: var(--table-cell-padding-x, var(--spacing-4));
+    --table-cell-padding-y-default: var(--table-cell-padding-y, var(--spacing-3));
+    --table-empty-padding-y-default: calc(var(--table-cell-padding-y-default) * 2);
+
+    box-sizing: border-box;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: var(--table-color, var(--color-foreground));
+    font-family: var(--table-font-family, inherit);
+    font-size: var(--table-font-size, var(--text-sm));
+    line-height: var(--table-line-height, var(--line-height-text-sm));
+    text-align: left;
+    isolation: isolate;
+
+    &[data-size='sm'] {
+      --table-cell-padding-x-default: var(--table-cell-padding-x, var(--spacing-3));
+      --table-cell-padding-y-default: var(--table-cell-padding-y, var(--spacing-2));
+      font-size: var(--table-font-size-sm, var(--text-xs));
+      line-height: var(--table-line-height-sm, var(--line-height-text-xs));
+    }
+
+    &[data-size='lg'] {
+      --table-cell-padding-x-default: var(--table-cell-padding-x, var(--spacing-5));
+      --table-cell-padding-y-default: var(--table-cell-padding-y, var(--spacing-4));
+      font-size: var(--table-font-size-lg, var(--text-md));
+      line-height: var(--table-line-height-lg, var(--line-height-text-md));
+    }
+
+    &[data-variant='outline'] {
+      border: var(--table-border-width, var(--border-width-sm)) solid
+        var(--table-border-color, var(--color-border));
+    }
+  }
+
+  .caption {
+    box-sizing: border-box;
+    color: var(--table-caption-color, var(--color-muted-foreground));
+    font-size: var(--table-caption-font-size, var(--text-sm));
+    line-height: var(--table-caption-line-height, var(--line-height-text-sm));
+    padding-inline: var(--table-caption-padding-x, var(--table-cell-padding-x-default));
+    text-align: left;
+    text-wrap: pretty;
+
+    &[data-side='top'] {
+      caption-side: top;
+      padding-block: var(--table-caption-padding-edge, var(--spacing-2))
+        var(--table-caption-padding-y, var(--spacing-3));
+    }
+
+    &[data-side='bottom'] {
+      caption-side: bottom;
+      padding-block: var(--table-caption-padding-y, var(--spacing-3))
+        var(--table-caption-padding-edge, var(--spacing-2));
+    }
+  }
+
+  .row {
+    transition: var(--table-row-transition, background-color var(--transition-default));
+  }
+
+  .header .row,
+  .body .row {
+    border-bottom: var(--table-border-width, var(--border-width-sm)) solid
+      var(--table-border-color, var(--color-border));
+  }
+
+  .root[data-striped] .body .row:nth-child(even):not(.emptyRow) {
+    background-color: var(
+      --table-row-bg-striped,
+      color-mix(in oklab, var(--color-muted) 35%, transparent)
+    );
+  }
+
+  .root[data-interactive] .body .row:not(.emptyRow):hover {
+    background-color: var(--table-row-bg-hover, var(--color-muted));
+  }
+
+  .root[data-show-column-border] :is(.columnHeader, .cell):not(:last-child) {
+    border-inline-end: var(
+        --table-column-border-width,
+        var(--table-border-width, var(--border-width-sm))
+      )
+      solid var(--table-column-border-color, var(--table-border-color, var(--color-border)));
+  }
+
+  .root[data-sticky-header] .header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--table-sticky-header-z-index, 3);
+    background-color: var(--table-sticky-header-bg, var(--table-scroll-area-bg, var(--color-card)));
+  }
+
+  .body .row:last-child {
+    border-bottom: 0;
+  }
+
+  .footer {
+    border-top: var(--table-border-width, var(--border-width-sm)) solid
+      var(--table-border-color, var(--color-border));
+    background-color: var(--table-footer-bg, var(--color-muted));
+    color: var(--table-footer-color, var(--table-color, var(--color-foreground)));
+    font-weight: var(--table-footer-font-weight, var(--weight-medium));
+  }
+
+  .columnHeader,
+  .cell {
+    position: relative;
+    z-index: 0;
+    padding-block: var(--table-cell-padding-y-default);
+    padding-inline: var(--table-cell-padding-x-default);
+    vertical-align: middle;
+
+    &[data-sticky='start'] {
+      position: sticky;
+      inset-inline-start: 0;
+      z-index: var(--table-sticky-column-z-index, 2);
+      background-color: var(
+        --table-sticky-column-bg,
+        var(--table-scroll-area-bg, var(--color-card))
+      );
+    }
+
+    &[data-sticky='end'] {
+      position: sticky;
+      inset-inline-end: 0;
+      z-index: var(--table-sticky-column-z-index, 2);
+      background-color: var(
+        --table-sticky-column-bg,
+        var(--table-scroll-area-bg, var(--color-card))
+      );
+    }
+  }
+
+  .root[data-sticky-header] .header .columnHeader[data-sticky] {
+    z-index: var(--table-sticky-intersection-z-index, 4);
+  }
+
+  .columnHeader {
+    color: var(--table-column-header-color, var(--color-muted-foreground));
+    font-weight: var(--table-column-header-font-weight, var(--weight-medium));
+    text-align: inherit;
+    white-space: nowrap;
+  }
+
+  .cell {
+    color: inherit;
+  }
+
+  .numeric {
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .empty {
+    padding-block: var(--table-empty-padding-y, var(--table-empty-padding-y-default));
+    color: var(--table-empty-color, var(--color-muted-foreground));
+    text-align: center;
+  }
+}

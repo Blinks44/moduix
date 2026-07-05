@@ -463,9 +463,9 @@
 
 .heroProgress {
   width: 100%;
-  --progress-width: 100%;
+  --progress-linear-width: 100%;
 
-  :global([data-slot='progress-indicator']) {
+  :global([data-slot='progress-linear-range']) {
     background: linear-gradient(90deg, var(--color-fd-primary), var(--moduix-home-brand));
   }
 }
@@ -486,12 +486,8 @@
 
 .heroSelect {
   width: 100%;
-  max-width: 16rem;
+  max-width: calc(16rem - 50px);
   --select-width: 100%;
-}
-
-.heroSelectTrigger {
-  min-width: 150px;
 }
 
 .floatPanel {

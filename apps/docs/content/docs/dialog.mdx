@@ -1,666 +1,283 @@
 ---
 title: Dialog
-description: A modal dialog that opens above the page for focused tasks and contextual workflows.
+description: A modal window that appears above the main content for focused workflows.
 icon: Component
 ---
 
-import {
-  DialogCssPlaygroundPanel,
-  DialogCssPropertiesPanel,
-  ControlledDialogExample,
-  CustomCompositionDialogExample,
-  DialogExample,
-  DialogHandleExample,
-  NonModalDialogExample,
-  NestedDialogExample,
-  ScrollableDialogExample,
-  TrapFocusDialogExample,
-  dialogPlaygroundCssProperties,
-} from '@/components/examples/dialog';
+import * as DialogDocs from '@/components/examples/dialog';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/dialog" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/dialog" />
 
-`DialogContent` is the recommended default path. It keeps the visible structure short while still
-leaving `DialogPortal`, `DialogBackdrop`, `DialogViewport`, and `DialogPopup` available for custom
-composition when the workflow needs it.
+## Choosing the right component
+
+Use `Dialog` for focused forms, confirmations, details, and secondary workflows that stay in the
+current page context. Use `Drawer` when the surface should remain attached to a viewport edge.
 
 ## Basic
 
-<Preview cssProperties={dialogPlaygroundCssProperties}>
-  <DialogExample />
+Compose the explicit Ark UI structure: `Dialog.Root`, `Dialog.Backdrop`,
+`Dialog.Positioner`, and `Dialog.Content`.
+
+<Preview>
+  <DialogDocs.DialogExample />
 
   <Preview.Code>
-    {`
-      import {
-        Dialog,
-        DialogTrigger,
-        Button,
-        DialogContent,
-        DialogCloseIcon,
-        DialogHeader,
-        DialogTitle,
-        DialogDescription,
-        DialogFooter,
-        DialogClose,
-      } from "moduix";
-
-      export function DialogDemo() {
-        return (
-          <Dialog>
-            <DialogTrigger render={<Button />}>View notifications</DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Notifications</DialogTitle>
-                <DialogCloseIcon />
-                <DialogDescription>You are all caught up. Good job!</DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSSProperties>{(context) => <DialogCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <DialogCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  <include lang="tsx">./_snippets/dialog/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Dialog` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/dialog
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/dialog
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/dialog
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/dialog
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/dialog
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Dialog` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-dialog" />
 
 ## Anatomy
 
-`DialogContent` is the default high-level path. It renders `DialogPortal`, `DialogBackdrop`,
-`DialogViewport`, and `DialogPopup` for you. Those same parts stay available when you need to take
-over the DOM structure yourself.
-
 ```text
-Dialog
-├─ DialogTrigger
-└─ DialogContent
-   ├─ portal (service slot)
-   │  ├─ backdrop (service slot)
-   │  └─ viewport (service slot)
-   │     └─ popup surface
-   │        ├─ DialogCloseIcon (optional)
-   │        ├─ DialogHeader
-   │        │  ├─ DialogTitle
-   │        │  └─ DialogDescription (optional)
-   │        ├─ DialogBody (optional)
-   │        └─ DialogFooter (optional)
-   │           └─ DialogClose
+Dialog.Root
+├─ Dialog.Trigger
+└─ Overlay subtree (automatically portalled)
+   ├─ Dialog.Backdrop
+   └─ Dialog.Positioner
+      └─ Dialog.Content
+         ├─ Dialog.CloseTrigger or Dialog.CloseIcon
+         ├─ Dialog.Title
+         ├─ Dialog.Description
+         ├─ Dialog.Header (moduix layout sugar)
+         ├─ Dialog.Body (moduix layout sugar)
+         └─ Dialog.Footer (moduix layout sugar)
+
+Dialog.RootProvider
+└─ the same automatically portalled content tree connected to Ark useDialog()
 ```
 
-```tsx
-<Dialog>
-  <DialogTrigger render={<Button />}>Edit profile</DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Edit profile</DialogTitle>
-      <DialogCloseIcon />
-      <DialogDescription>Update your public information.</DialogDescription>
-    </DialogHeader>
-    <DialogBody>
-      <p>Profile fields and form controls go here.</p>
-    </DialogBody>
-    <DialogFooter>
-      <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
-      <DialogClose render={<Button />}>Save</DialogClose>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
-```
+| Part                     | Role                                                             |
+| ------------------------ | ---------------------------------------------------------------- |
+| `Dialog` / `Dialog.Root` | Owns dialog open state, focus lifecycle, and dismissal behavior. |
+| `Dialog.Trigger`         | Opens the dialog.                                                |
+| `Dialog.Backdrop`        | Optional modal backdrop layer.                                   |
+| `Dialog.Positioner`      | Floating positioner for content placement.                       |
+| `Dialog.Content`         | Dialog surface container.                                        |
+| `Dialog.Title`           | Accessible dialog title.                                         |
+| `Dialog.Description`     | Accessible supporting description.                               |
+| `Dialog.CloseTrigger`    | Closes the dialog.                                               |
+| `Dialog.RootProvider`    | Connects parts to state created with Ark `useDialog()`.          |
 
-| Part                | Role                                                                                               |
-| ------------------- | -------------------------------------------------------------------------------------------------- |
-| `Dialog`            | Root state and interaction model. Use `open`, `defaultOpen`, `onOpenChange`, and `modal` here.     |
-| `DialogTrigger`     | Opens the dialog from user interaction. Use `handle` when the trigger lives outside the tree.      |
-| `DialogContent`     | Popup container. It renders the internal `portal`, `backdrop`, and `viewport` slots automatically. |
-| `DialogPortal`      | Optional escape hatch for portal placement and mount behavior.                                     |
-| `DialogBackdrop`    | Optional styled backdrop part for manual composition.                                              |
-| `DialogViewport`    | Optional positioning and scroll container for manual composition.                                  |
-| `DialogPopup`       | Optional popup surface for manual composition.                                                     |
-| `DialogHeader`      | Groups title-level content at the top of the popup.                                                |
-| `DialogTitle`       | Accessible dialog title announced by assistive technology.                                         |
-| `DialogDescription` | Optional supporting text announced with the title.                                                 |
-| `DialogBody`        | Optional content region for forms, text, or custom layout.                                         |
-| `DialogFooter`      | Optional actions row for submit/cancel buttons.                                                    |
-| `DialogCloseIcon`   | Optional icon-only close button. Pass children to replace the default icon.                        |
-| `DialogClose`       | Closes the dialog from action buttons while preserving built-in behavior.                          |
-
-For the common case, keep the structure high-level and style the visible parts with `className`
-(`DialogContent`, `DialogHeader`, `DialogBody`, `DialogFooter`). Reach for the low-level parts only
-when you need to change portal behavior, backdrop presence, viewport behavior, or popup structure.
+Import Ark `useDialog()` and `useDialogContext()` directly from `@ark-ui/react/dialog` when dialog
+state must live outside the rendered tree or be read inside reusable children.
 
 ## Composition
 
-`Dialog` owns root behavior: `open`, `defaultOpen`, `onOpenChange`, `modal`, plus the matching Base
-UI passthrough props such as `onOpenChangeComplete`, `disablePointerDismissal`, `actionsRef`,
-`handle`, `triggerId`, and `defaultTriggerId`.
+The root portals `Backdrop` and `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
 
-`DialogContent` stays thin: it accepts the popup props from Base UI, applies the library styles,
-and renders the default portal/backdrop/viewport/popup stack. When `modal` allows outside pointer
-interaction (`false` or `"trap-focus"`), it also skips the backdrop and makes the viewport ignore
-outside pointer events for you. `DialogTrigger`, `DialogClose`, `DialogCloseIcon`, `DialogTitle`,
-and `DialogDescription` also accept their matching Base UI primitive props, including `render`
-where Base UI supports element replacement.
+### Recommended composition
 
-When you need deeper control, compose `DialogPortal`, `DialogBackdrop`, `DialogViewport`, and
-`DialogPopup` directly. That is the path for custom portal behavior (`keepMounted`, `container`),
-explicit backdrop control, or custom viewport behavior.
+Keep `Backdrop`, `Positioner`, and `Content` explicit. This preserves structural override
+points and matches Ark UI directly. Omit `Backdrop` for non-modal dialogs.
+
+Use `Dialog.Trigger asChild` and `Dialog.CloseTrigger asChild` with one semantic button child.
+`Dialog.CloseIcon` is moduix sugar that composes Ark `CloseTrigger` with the library close button.
+
+### When to go custom
+
+Use `open` with `onOpenChange(details)` for React-controlled state. The callback receives an Ark
+detail object, so read `details.open`.
+
+Use Ark `useDialog()` with `Dialog.RootProvider` when state and methods must live outside the rendered
+dialog tree. Do not render `Dialog.Root` for the same store.
+
+Use `ids` when separately composed parts need stable shared accessibility IDs. Use
+`initialFocusEl` and `finalFocusEl` for explicit focus targets. `role="alertdialog"` models
+destructive or critical confirmation flows.
+
+Use `lazyMount` and `unmountOnExit` instead of conditionally rendering the root. Use `present` only
+when JavaScript-driven exit animation needs to control mounted state.
+
+### Default props
+
+| Surface                  | Default | Notes                                                  |
+| ------------------------ | ------- | ------------------------------------------------------ |
+| `Dialog` / `Dialog.Root` | —       | No additional behavioral defaults; Ark defaults apply. |
+
+### Behavioral notes
+
+- Modal dialogs trap focus, prevent background scrolling, hide underlying content from assistive
+  technology, and restore focus after close.
+- `modal={false}` disables focus trapping and scroll prevention and should omit the backdrop.
+- `closeOnEscape`, `closeOnInteractOutside`, `trapFocus`, `preventScroll`, `restoreFocus`,
+  `persistentElements`, and the outside-interaction callbacks pass through to Ark UI.
+- `Dialog.Title` or root `aria-label` is required for an accessible name.
+- Nested content receives `data-has-nested` and `--nested-layer-count`. Moduix uses those hooks to
+  scale the parent down and offset it downward so the active nested dialog still reads as layered.
+- Open-from-menu and rapid state changes use the controlled `open` contract. Unsaved-change
+  confirmation uses two Ark `useDialog()` stores and intercepts the parent store's `onOpenChange`.
 
 ## Examples
 
 ### Controlled
 
-Control the open state from React when the dialog needs to coordinate with other UI.
+Use the Ark detail object when synchronizing dialog state with React.
 
 <Preview>
-  <ControlledDialogExample />
-
+  <DialogDocs.ControlledDialogExample />
   <Preview.Code>
-    {`
-      import {
-        Button,
-        Dialog,
-        DialogContent,
-        DialogHeader,
-        DialogTitle,
-        DialogDescription,
-        DialogFooter,
-        DialogClose,
-      } from "moduix";
-      import { useState, Fragment } from "react";
-
-      export function ControlledDialogDemo() {
-        const [open, setOpen] = useState(false);
-
-        return (
-          <Fragment>
-            <Button type="button" onClick={() => setOpen(true)}>
-              Open controlled dialog
-            </Button>
-            <Dialog open={open} onOpenChange={setOpen}>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Publish changes?</DialogTitle>
-                  <DialogDescription>
-                    This will make the latest version visible to all users.
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter>
-                  <DialogClose render={<Button variant="outline" />}>Back to editing</DialogClose>
-                  <DialogClose render={<Button />}>Publish</DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </Fragment>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/dialog/controlled.tsx#demo</include>
   </Preview.Code>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
 </Preview>
 
-### Handle
+### Root Provider and Ark Context Hooks
 
-Use `createDialogHandle` when the trigger lives outside the dialog tree or the dialog opens
-programmatically.
+Create state with Ark `useDialog()` when controls live outside the dialog, and read dialog state in
+child components with Ark `useDialogContext()`.
 
 <Preview>
-  <DialogHandleExample />
+  <div className="dialog-stack">
+    <DialogDocs.RootProviderDialogExample />
+    <DialogDocs.ContextDialogExample />
+  </div>
 
   <Preview.Code>
-    {`
-      import {
-        createDialogHandle,
-        DialogTrigger,
-        Button,
-        Dialog,
-        DialogContent,
-        DialogHeader,
-        DialogTitle,
-        DialogDescription,
-        DialogFooter,
-        DialogClose,
-      } from "moduix";
-      import { useMemo, Fragment } from "react";
-
-      export function DialogHandleDemo() {
-        const dialogHandle = useMemo(() => createDialogHandle(), []);
-
-        return (
-          <Fragment>
-            <DialogTrigger handle={dialogHandle} render={<Button variant="outline" />}>
-              Open from detached trigger
-            </DialogTrigger>
-            <Button type="button" onClick={() => dialogHandle.open(null)}>
-              Open programmatically
-            </Button>
-
-            <Dialog handle={dialogHandle}>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Detached trigger</DialogTitle>
-                  <DialogDescription>
-                    This dialog is connected via createDialogHandle().
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter>
-                  <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </Fragment>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/dialog/root-provider-and-ark-context-hooks.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
+  
 </Preview>
 
-### Scrollable Content
+### Alert Dialog
 
-Place `ScrollArea` inside `DialogBody` when the header and footer should remain visible while only
-the body content scrolls.
+Use `role="alertdialog"` for critical decisions and keep the safest action available as a close
+trigger.
 
 <Preview>
-  <ScrollableDialogExample />
-
+  <DialogDocs.AlertDialogExample />
   <Preview.Code>
-    {`
-      import {
-        Dialog,
-        DialogTrigger,
-        Button,
-        DialogContent,
-        DialogHeader,
-        DialogTitle,
-        DialogCloseIcon,
-        DialogDescription,
-        DialogBody,
-        DialogFooter,
-        DialogClose,
-        ScrollArea,
-      } from "moduix";
-
-      export function ScrollableDialogDemo() {
-        return (
-          <Dialog>
-            <DialogTrigger render={<Button />}>Open long content</DialogTrigger>
-            <DialogContent className={styles.scrollPopup}>
-              <DialogHeader>
-                <DialogTitle>Release checklist</DialogTitle>
-                <DialogCloseIcon />
-                <DialogDescription>
-                  Review all items before publishing to production.
-                </DialogDescription>
-              </DialogHeader>
-              <DialogBody className={styles.scrollBody}>
-                <ScrollArea className={styles.scrollArea}>
-                  <div className={styles.scrollContent}>
-                    {sections.map((item) => (
-                      <section key={item.title}>
-                        <h3>{item.title}</h3>
-                        <p>{item.body}</p>
-                      </section>
-                    ))}
-                  </div>
-                </ScrollArea>
-              </DialogBody>
-              <DialogFooter>
-                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/dialog/alert-dialog.tsx#demo</include>
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .scrollPopup {
-        display: flex;
-        flex-direction: column;
-        height: min(42rem, calc(100dvh - var(--spacing-10)));
-        overflow: hidden;
-      }
-
-      .scrollBody {
-        min-height: 0;
-        flex: 1;
-        overflow: hidden;
-      }
-
-      .scrollArea {
-        height: 100%;
-        min-height: 0;
-      }
-
-      .scrollContent {
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-5);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const sections = [
-        {
-          title: "Database migrations",
-          body: "Confirm migration scripts are idempotent and have rollback steps.",
-        },
-        {
-          title: "Monitoring",
-          body: "Check that the dashboard includes new API endpoints.",
-        },
-        {
-          title: "Analytics",
-          body: "Verify onboarding funnel events are firing.",
-        },
-        {
-          title: "Staging",
-          body: "Run smoke tests with a production-like dataset.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
 </Preview>
 
-### Nested
+### Mounting and Focus Lifecycle
 
-Dialogs can be nested. The parent popup receives Base UI nested-dialog attributes and CSS variables,
-so it can visually recede while the child dialog is active.
+Ark UI supports lazy mounting and explicit initial and final focus targets through root props.
 
 <Preview>
-  <NestedDialogExample />
+  <div className="dialog-stack">
+    <DialogDocs.LazyMountDialogExample />
+    <DialogDocs.InitialFocusDialogExample />
+    <DialogDocs.FinalFocusDialogExample />
+  </div>
 
   <Preview.Code>
-    {`
-      import {
-        Dialog,
-        DialogTrigger,
-        Button,
-        DialogContent,
-        DialogHeader,
-        DialogTitle,
-        DialogDescription,
-        DialogFooter,
-        DialogClose,
-      } from "moduix";
-
-      export function NestedDialogDemo() {
-        return (
-          <Dialog>
-            <DialogTrigger render={<Button />}>View notifications</DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Notifications</DialogTitle>
-                <DialogDescription>You are all caught up. Good job!</DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <Dialog>
-                  <DialogTrigger render={<Button variant="outline" />}>Customize</DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Customize notifications</DialogTitle>
-                      <DialogDescription>Review your settings here.</DialogDescription>
-                    </DialogHeader>
-                    <DialogFooter>
-                      <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
-                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/dialog/mounting-and-focus-lifecycle.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Non-Modal
 
-Set `modal={false}` when the dialog should not trap focus, lock page scroll, or block pointer
-interaction with the rest of the page. `DialogContent` handles the pointer-event behavior and skips
-the backdrop automatically.
+Set `modal={false}` and omit the backdrop when outside interaction should remain available.
 
 <Preview>
-  <NonModalDialogExample />
-
+  <DialogDocs.NonModalDialogExample />
   <Preview.Code>
-    {`
-      import {
-        Dialog,
-        DialogTrigger,
-        Button,
-        DialogCloseIcon,
-        DialogContent,
-        DialogHeader,
-        DialogTitle,
-        DialogDescription,
-        DialogFooter,
-        DialogClose,
-      } from "moduix";
-
-      export function NonModalDialogDemo() {
-        return (
-          <Dialog modal={false}>
-            <DialogTrigger render={<Button />}>Open non-modal dialog</DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Non-modal dialog</DialogTitle>
-                <DialogCloseIcon />
-                <DialogDescription>
-                  The page remains interactive because modal behavior and backdrop are disabled.
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/dialog/non-modal.tsx#demo</include>
   </Preview.Code>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
 </Preview>
 
-### Trap Focus Without Blocking the Page
+### Inside and Outside Scroll
 
-Set `modal="trap-focus"` when focus should stay inside the dialog but the rest of the page should
-remain scrollable and clickable. `DialogContent` uses the same backdrop-free path here as it does
-for non-modal dialogs.
+Scroll the body for a fixed header/footer layout, or scroll the positioner when content should
+extend beyond the viewport.
 
 <Preview>
-  <TrapFocusDialogExample />
+  <div className="dialog-stack">
+    <DialogDocs.ScrollableDialogExample />
+    <DialogDocs.OutsideScrollDialogExample />
+  </div>
 
   <Preview.Code>
-    {`
-      import {
-        Dialog,
-        DialogTrigger,
-        Button,
-        DialogCloseIcon,
-        DialogContent,
-        DialogHeader,
-        DialogTitle,
-        DialogDescription,
-        DialogFooter,
-        DialogClose,
-      } from "moduix";
-
-      export function TrapFocusDialogDemo() {
-        return (
-          <Dialog modal="trap-focus">
-            <DialogTrigger render={<Button />}>Open focus-trapped dialog</DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Focus stays inside the dialog</DialogTitle>
-                <DialogCloseIcon />
-                <DialogDescription>
-                  Outside content remains clickable, but keyboard focus stays trapped until the
-                  dialog closes.
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/dialog/inside-and-outside-scroll.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
+  
 </Preview>
 
-### Custom Composition
+### Nested
 
-Use the low-level parts when you need custom portal behavior, explicit backdrop control, or viewport
-styling that should not be baked into `DialogContent`.
+Use separate Ark `useDialog()` stores for nested layers. Ark UI provides stack-aware state and CSS
+variables to the parent content; moduix uses them for a receding parent effect that stacks downward.
 
 <Preview>
-  <CustomCompositionDialogExample />
-
+  <DialogDocs.NestedDialogExample />
   <Preview.Code>
-    {`
-      import {
-        Dialog,
-        DialogBackdrop,
-        DialogTrigger,
-        Button,
-        DialogCloseIcon,
-        DialogPopup,
-        DialogPortal,
-        DialogHeader,
-        DialogTitle,
-        DialogDescription,
-        DialogBody,
-        DialogFooter,
-        DialogClose,
-        DialogViewport,
-      } from "moduix";
-
-      export function CustomCompositionDialogDemo() {
-        return (
-          <Dialog>
-            <DialogTrigger render={<Button />}>Open custom composition</DialogTrigger>
-            <DialogPortal keepMounted>
-              <DialogBackdrop className={styles.customBackdrop} forceRender />
-              <DialogViewport className={styles.customViewport}>
-                <DialogPopup className={styles.customPopup}>
-                  <DialogCloseIcon
-                    aria-label="Close profile dialog"
-                    className={styles.customCloseIcon}
-                  />
-                  <DialogHeader>
-                    <DialogTitle>Edit profile</DialogTitle>
-                    <DialogDescription>
-                      Portal, backdrop, viewport, popup, and close icon are composed explicitly.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <DialogBody>
-                    <p>Update the public profile fields and save changes.</p>
-                  </DialogBody>
-                  <DialogFooter>
-                    <DialogClose render={<Button />}>Save</DialogClose>
-                  </DialogFooter>
-                </DialogPopup>
-              </DialogViewport>
-            </DialogPortal>
-          </Dialog>
-        );
-      }
-    `}
-
+    <include lang="tsx">./_snippets/dialog/nested.tsx#demo</include>
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customBackdrop {
-        background-color: rgb(15 23 42 / 0.56);
-      }
-
-      .customViewport {
-        align-items: start;
-        padding-top: var(--spacing-10);
-      }
-
-      .customPopup {
-        position: relative;
-        overflow: visible;
-        --dialog-width: 26rem;
-        --dialog-padding: var(--spacing-5);
-      }
-
-      .customCloseIcon {
-        position: absolute;
-        top: var(--spacing-4);
-        right: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--dialog-border-color, var(--color-border));
-        background-color: var(--dialog-bg, var(--color-popover));
-        --dialog-close-icon-color: var(--color-muted-foreground);
-      }
-    `}
-
-  </Preview.CSS>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
 </Preview>
+
+### Open from Menu
+
+Control `open` from a menu item when a contextual action needs a confirmation dialog.
+
+<Preview>
+  <DialogDocs.OpenFromMenuDialogExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/dialog/open-from-menu.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
+</Preview>
+
+### Multiple Triggers
+
+Give each trigger a `value` and react to `onTriggerValueChange(details)` when one dialog edits
+different records.
+
+<Preview>
+  <DialogDocs.MultipleTriggersDialogExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/dialog/multiple-triggers.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
+</Preview>
+
+### Confirmation
+
+Intercept the parent dialog close request when unsaved changes should be confirmed first.
+
+<Preview>
+  <DialogDocs.ConfirmationDialogExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/dialog/confirmation.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <DialogDocs.DialogCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- Moduix slots: `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`, `dialog-content`,
+  `dialog-title`, `dialog-description`, `dialog-close-trigger`, `dialog-close-icon`,
+  `dialog-header`, `dialog-body`, and `dialog-footer`.
+- Ark anatomy: `data-scope="dialog"` with `data-part="trigger|backdrop|positioner|content|title|description|close-trigger"`.
+- State: `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current`, and
+  `data-value`.
+- Runtime variables: `--layer-index` and `--nested-layer-count`.
+- `Dialog.CloseIcon` is absolutely positioned against `Dialog.Content`; its placement does not
+  depend on `Dialog.Header`.

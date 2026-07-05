@@ -1,0 +1,1 @@
+export { FloatingPanel, resizeTriggerAxes } from './FloatingPanel';

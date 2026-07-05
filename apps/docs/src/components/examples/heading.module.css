@@ -1,3 +1,7 @@
+.demo {
+  max-width: 28rem;
+}
+
 .stack {
   display: flex;
   width: fit-content;
@@ -6,9 +10,13 @@
   gap: var(--spacing-3);
 }
 
-.customHeading {
+.custom {
   --heading-color: var(--color-primary);
-  --heading-font-size-xl: var(--text-3xl);
-  --heading-line-height-xl: var(--line-height-text-3xl);
-  --heading-font-weight-semibold: var(--weight-bold);
+  --heading-font-size: var(--text-3xl);
+  --heading-line-height: var(--line-height-text-3xl);
+  --heading-font-weight: var(--weight-bold);
+}
+
+.customHost {
+  max-width: 28rem;
 }

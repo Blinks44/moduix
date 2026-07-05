@@ -1,0 +1,26 @@
+@layer ui.storybook {
+  .demoRoot {
+    width: 22rem;
+
+    @media (min-width: 32rem) {
+      width: 32rem;
+    }
+  }
+
+  .panelContent {
+    display: grid;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3);
+  }
+
+  .state {
+    margin-top: var(--spacing-3);
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+
+  .customIcon {
+    --accordion-icon-open-transform: rotate(180deg);
+  }
+}

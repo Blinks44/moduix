@@ -4,93 +4,51 @@ import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import react from '@vitejs/plugin-react';
 import mdx from 'fumadocs-mdx/vite';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 
-const dirname = path.dirname(fileURLToPath(import.meta.url));
-const uiPackageDir = path.resolve(dirname, '../../packages/ui');
+export default defineConfig(({ command }) => {
+  const isDev = command === 'serve';
 
-const baseUiOptimizeDeps = [
-  '@base-ui/react/accordion',
-  '@base-ui/react/alert-dialog',
-  '@base-ui/react/autocomplete',
-  '@base-ui/react/avatar',
-  '@base-ui/react/button',
-  '@base-ui/react/checkbox',
-  '@base-ui/react/checkbox-group',
-  '@base-ui/react/collapsible',
-  '@base-ui/react/combobox',
-  '@base-ui/react/context-menu',
-  '@base-ui/react/dialog',
-  '@base-ui/react/drawer',
-  '@base-ui/react/field',
-  '@base-ui/react/fieldset',
-  '@base-ui/react/form',
-  '@base-ui/react/input',
-  '@base-ui/react/menu',
-  '@base-ui/react/menubar',
-  '@base-ui/react/merge-props',
-  '@base-ui/react/meter',
-  '@base-ui/react/navigation-menu',
-  '@base-ui/react/number-field',
-  '@base-ui/react/otp-field',
-  '@base-ui/react/popover',
-  '@base-ui/react/preview-card',
-  '@base-ui/react/progress',
-  '@base-ui/react/radio',
-  '@base-ui/react/radio-group',
-  '@base-ui/react/scroll-area',
-  '@base-ui/react/select',
-  '@base-ui/react/separator',
-  '@base-ui/react/slider',
-  '@base-ui/react/switch',
-  '@base-ui/react/tabs',
-  '@base-ui/react/toast',
-  '@base-ui/react/toggle',
-  '@base-ui/react/toggle-group',
-  '@base-ui/react/toolbar',
-  '@base-ui/react/tooltip',
-  '@base-ui/react/unstable-use-media-query',
-  '@base-ui/react/use-render',
-  'clsx',
-  'tslib/tslib.es6.js',
-];
-
-export default defineConfig({
-  server: {
-    port: 3000,
-    host: '0.0.0.0',
-  },
-  plugins: [
-    cloudflare({ viteEnvironment: { name: 'ssr' } }),
-    mdx(),
-    tailwindcss(),
-    tanstackStart({
-      prerender: {
-        enabled: true,
-        // Reduce flakiness of local prerender crawler in CI/local runs.
-        concurrency: 1,
-        retryCount: 5,
-        retryDelay: 250,
-      },
-    }),
-    react(),
-  ],
-  resolve: {
-    alias: [
-      { find: 'moduix/style.css', replacement: path.resolve(uiPackageDir, 'src/style.ts') },
-      { find: 'moduix/reset.css', replacement: path.resolve(uiPackageDir, 'src/reset.ts') },
-      { find: 'moduix', replacement: path.resolve(uiPackageDir, 'src/index.ts') },
-    ],
-    tsconfigPaths: true,
-    dedupe: ['react', 'react-dom'],
-  },
-  optimizeDeps: {
-    include: baseUiOptimizeDeps,
-  },
-  ssr: {
-    optimizeDeps: {
-      include: baseUiOptimizeDeps,
+  return {
+    server: {
+      port: 3000,
+      host: '0.0.0.0',
     },
-  },
+    plugins: [
+      ...(!isDev ? [cloudflare({ viteEnvironment: { name: 'ssr' } })] : []),
+      mdx(),
+      tailwindcss(),
+      tanstackStart({
+        prerender: {
+          enabled: !isDev,
+          // Reduce flakiness of local prerender crawler in CI/local runs.
+          concurrency: 1,
+          retryCount: 5,
+          retryDelay: 250,
+        },
+      }),
+      react(),
+    ],
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+      },
+      dedupe: ['react', 'react-dom', '@ark-ui/react'],
+      tsconfigPaths: true,
+    },
+    optimizeDeps: {
+      include: ['@ark-ui/react/locale', '@internationalized/date', '@tanstack/react-virtual'],
+    },
+    environments: {
+      ssr: {
+        optimizeDeps: {
+          include: [
+            'fumadocs-ui/components/dialog/search-default',
+            '@tanstack/react-form',
+            'react-hook-form',
+          ],
+        },
+      },
+    },
+  };
 });

@@ -1,0 +1,263 @@
+---
+title: Image Cropper
+description: Ark UI image-cropper composition for cropping and transforming images.
+icon: Component
+---
+
+import * as ImageCropperDocs from '@/components/examples/image-cropper';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/image-cropper" />
+
+## Basic
+
+Use the explicit Ark part tree: `ImageCropper`, `ImageCropper.Viewport`, `ImageCropper.Image`,
+`ImageCropper.Selection`, grids, and handles.
+
+<Preview>
+  <ImageCropperDocs.ImageCropperExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/basic.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Install with shadcn
+
+<ShadcnInstall packageName="react-image-cropper" />
+
+## Anatomy
+
+```tsx
+<ImageCropper>
+  <ImageCropper.Viewport>
+    <ImageCropper.Image />
+    <ImageCropper.Selection>
+      <ImageCropper.Grid />
+      <ImageCropper.Handle />
+    </ImageCropper.Selection>
+  </ImageCropper.Viewport>
+</ImageCropper>
+```
+
+| Part                                 | Role                                                                                 |
+| ------------------------------------ | ------------------------------------------------------------------------------------ |
+| `ImageCropper` / `ImageCropper.Root` | Root group that owns crop state, transforms, ARIA labels, and runtime CSS variables. |
+| `ImageCropper.RootProvider`          | Root rendered from a `useImageCropper` instance created outside the tree.            |
+| `ImageCropper.Viewport`              | Panning surface and clipped image viewport.                                          |
+| `ImageCropper.Image`                 | Transformed image element controlled by Ark.                                         |
+| `ImageCropper.Selection`             | Focusable crop selection and keyboard interaction target.                            |
+| `ImageCropper.Grid`                  | Horizontal or vertical crop guide lines.                                             |
+| `ImageCropper.Handle`                | Resize handle for each `ImageCropper.handles` position.                              |
+
+## Composition
+
+### Recommended composition
+
+Render the full cropper anatomy so users can style and rearrange the visible parts without losing
+Ark behavior. Use `ImageCropper.handles` to render every handle position.
+
+### When to go custom
+
+Use `ArkImageCropper.Context` from `@ark-ui/react/image-cropper` for toolbars inside the root. Use
+Ark `useImageCropper` with `ImageCropper.RootProvider` when controls, crop preview, or form
+integration need the cropper API outside the root subtree. Keep `RootProvider` separate from
+`ImageCropper.Root` for the same state instance.
+
+### Default props
+
+| Prop                     | Default                                  | Notes                                                        |
+| ------------------------ | ---------------------------------------- | ------------------------------------------------------------ |
+| `cropShape`              | `"rectangle"`                            | Use `"circle"` for avatar-style cropping.                    |
+| `defaultZoom`            | `1`                                      | Initial image zoom.                                          |
+| `defaultRotation`        | `0`                                      | Initial image rotation in degrees.                           |
+| `defaultFlip`            | `{ horizontal: false, vertical: false }` | Initial flip state.                                          |
+| `minZoom`                | `1`                                      | Minimum zoom factor.                                         |
+| `maxZoom`                | `5`                                      | Maximum zoom factor.                                         |
+| `minWidth` / `minHeight` | `40`                                     | Minimum crop selection size.                                 |
+| `fixedCropArea`          | `false`                                  | When true, users pan the image underneath a fixed selection. |
+
+### Behavioral notes
+
+Ark manages pointer dragging, panning, wheel zoom, pinch zoom, keyboard movement, generated IDs,
+ARIA labels, and crop output helpers. Arrow keys move the selection, `Alt` plus arrow keys resizes,
+`Shift` and `Ctrl`/`Cmd` use the nudge-step props, and `+` / `-` zoom. Controlled state preserves
+Ark detail objects through `onCropChange`, `onZoomChange`, `onRotationChange`, and `onFlipChange`.
+
+## Examples
+
+### Aspect Ratio
+
+Change `aspectRatio` from React state when users choose a required output shape.
+
+<Preview>
+  <ImageCropperDocs.AspectRatioImageCropperExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/aspect-ratio.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Circle Crop
+
+Use `cropShape="circle"` with a square aspect ratio for avatars and profile images.
+
+<Preview>
+  <ImageCropperDocs.CircleImageCropperExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/circle-crop.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Initial Crop
+
+Pass `initialCrop` when the cropper should open with a known pixel selection.
+
+<Preview>
+  <ImageCropperDocs.InitialCropImageCropperExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/initial-crop.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Controlled Zoom
+
+Control `zoom` with `onZoomChange` and bound the interaction with `minZoom` and `maxZoom`.
+
+<Preview>
+  <ImageCropperDocs.ControlledZoomImageCropperExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/controlled-zoom.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Rotation, Flip, And Reset
+
+Read Ark context inside the root for toolbar actions such as zoom, rotate, flip, and reset.
+
+<Preview>
+  <ImageCropperDocs.TransformImageCropperExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/rotation-flip-and-reset.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Min And Max Size
+
+Constrain selection resizing with `minWidth`, `minHeight`, `maxWidth`, and `maxHeight`.
+
+<Preview>
+  <ImageCropperDocs.SizeLimitImageCropperExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/min-and-max-size.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Fixed Crop Area
+
+Use `fixedCropArea` when the selection should stay fixed while the image moves underneath.
+
+<Preview>
+  <ImageCropperDocs.FixedImageCropperExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/fixed-crop-area.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Crop Preview
+
+Create the cropper with Ark `useImageCropper` when another control needs to call
+`getCroppedImage()`.
+
+<Preview>
+  <ImageCropperDocs.CropPreviewImageCropperExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/crop-preview.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Events
+
+Use Ark detail objects to sync crop and zoom state with external UI.
+
+<Preview>
+  <ImageCropperDocs.EventsImageCropperExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/events.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Root Provider
+
+Use `RootProvider` with an Ark `useImageCropper` instance when a toolbar or workflow owns the cropper
+outside the rendered root.
+
+<Preview>
+  <ImageCropperDocs.RootProviderImageCropperExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/image-cropper/root-provider.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ImageCropperDocs.imageCropperExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']}>
+    <Tab className="max-h-150 overflow-auto">
+      <ImageCropperDocs.ImageCropperCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Target stable `data-slot` hooks such as `image-cropper-root`, `image-cropper-viewport`,
+`image-cropper-image`, `image-cropper-selection`, `image-cropper-grid`, and
+`image-cropper-handle`. Ark also exposes `data-scope="image-cropper"`, `data-part` values,
+`data-shape`, `data-ready`, `data-disabled`, `data-dragging`, `data-panning`, `data-axis`, and
+`data-position`.

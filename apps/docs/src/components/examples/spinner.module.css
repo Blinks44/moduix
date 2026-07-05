@@ -14,6 +14,12 @@
   color: var(--color-muted-foreground);
 }
 
-.brand {
+.brandSpinner {
+  --spinner-color: var(--color-primary);
+  --spinner-ring-border-width: var(--border-width-lg);
+  --spinner-ring-track-color: color-mix(in oklab, var(--color-primary) 22%, transparent 40%);
+}
+
+.customSpinnerHost {
   color: var(--color-primary);
 }

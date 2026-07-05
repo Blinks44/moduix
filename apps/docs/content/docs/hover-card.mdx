@@ -1,0 +1,206 @@
+---
+title: Hover Card
+description: Ark UI hover card composition for rich previews shown from hover or focus triggers.
+icon: Component
+---
+
+import * as HoverCardDocs from '@/components/examples/hover-card';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/hover-card" />
+
+## Basic
+
+Use the Ark part tree directly: render `HoverCard.Trigger` near the hovered content, then render
+`HoverCard.Positioner` and `HoverCard.Content`. `HoverCard.Arrow` renders the moduix default
+`ArrowTip` when no children are passed.
+
+<Preview>
+  <HoverCardDocs.HoverCardExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/hover-card/basic.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-max-width: 18rem; }`}</Preview.CSS>
+  
+</Preview>
+
+## Install with shadcn
+
+<ShadcnInstall packageName="react-hover-card" />
+
+## Anatomy
+
+```text
+HoverCard / HoverCard.Root
+├─ HoverCard.Trigger
+└─ Overlay subtree (automatically portalled)
+   └─ HoverCard.Positioner
+      └─ HoverCard.Content
+         └─ HoverCard.Arrow
+            └─ HoverCard.ArrowTip
+
+HoverCard.RootProvider
+└─ same part tree connected to an Ark useHoverCard() store
+```
+
+| Part                           | Role                                                                     |
+| ------------------------------ | ------------------------------------------------------------------------ |
+| `HoverCard` / `HoverCard.Root` | Root state, delays, positioning, ids, presence, and outside interaction. |
+| `HoverCard.RootProvider`       | Renders a hover card tree from state returned by Ark `useHoverCard`.     |
+| `HoverCard.Trigger`            | Hover and focus target. Use `asChild` for links or custom hosts.         |
+| `HoverCard.Positioner`         | Floating layer that exposes Ark positioning CSS variables.               |
+| `HoverCard.Content`            | Visible popup surface and dismissable layer.                             |
+| `HoverCard.Arrow`              | Positioned arrow wrapper. Defaults to `HoverCard.ArrowTip`.              |
+| `HoverCard.ArrowTip`           | Arrow tip element styled through Ark arrow variables.                    |
+
+## Composition
+
+The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+
+### Recommended composition
+
+Keep the popup structure explicit. Configure placement, gutters, collision behavior, delays, ids,
+controlled state, lazy mounting, and presence on `HoverCard`; style and animate the surface on
+`HoverCard.Content`.
+
+### When to go custom
+
+Use `asChild` on `HoverCard.Trigger` when the trigger should be a real link or your own semantic
+button. Use `HoverCard.ArrowTip` directly when the default arrow tip needs custom markup. Use
+`HoverCard.RootProvider` only when state created with Ark `useHoverCard()` must be shared outside
+the rendered tree. For inline state reads, import Ark `HoverCard.Context` or `useHoverCardContext`
+directly from `@ark-ui/react/hover-card`.
+
+### Default props
+
+| Prop                   | Default | Notes                                                              |
+| ---------------------- | ------- | ------------------------------------------------------------------ |
+| `closeDelay`           | `300`   | Time in ms from pointer leaving trigger/content until close.       |
+| `openDelay`            | `600`   | Time in ms from pointer entering trigger until open.               |
+| `lazyMount`            | `false` | Defers content mounting until first open.                          |
+| `unmountOnExit`        | `false` | Removes content after close when enabled.                          |
+| `skipAnimationOnMount` | `false` | Allows initial presence animation by default.                      |
+| `positioning`          | -       | Ark floating positioning options such as `placement` and `gutter`. |
+
+### Behavioral notes
+
+`onOpenChange` receives Ark detail objects such as `{ open }`; use `details.open` instead of the
+old boolean callback shape. Multiple triggers use `Trigger value` plus `onTriggerValueChange`.
+`ids` can pin trigger, content, positioner, and arrow IDs for composed accessibility. Animations are
+tied to `data-state='open' | 'closed'`; `present` is available for externally controlled presence.
+
+## Examples
+
+### Controlled
+
+Control the open state with `open` and `onOpenChange(details)`.
+
+<Preview>
+  <HoverCardDocs.ControlledHoverCardExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/hover-card/controlled.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{`[data-slot="hover-card-trigger"][data-state="open"] { text-decoration-color: currentColor; }`}</Preview.CSS>
+  
+</Preview>
+
+### Root Provider
+
+Create the machine state with Ark `useHoverCard()` when external controls need to read or update
+it.
+
+<Preview>
+  <HoverCardDocs.RootProviderHoverCardExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/hover-card/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-max-width: 18rem; }`}</Preview.CSS>
+  
+</Preview>
+
+### Delay
+
+Tune hover timing with `openDelay` and `closeDelay` on the root.
+
+<Preview>
+  <HoverCardDocs.DelayHoverCardExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/hover-card/delay.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-transition: 160ms; }`}</Preview.CSS>
+  
+</Preview>
+
+### Positioning
+
+Pass Ark positioning options through the `positioning` prop.
+
+<Preview>
+  <HoverCardDocs.PositioningHoverCardExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/hover-card/positioning.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-min-width: 12rem; }`}</Preview.CSS>
+  
+</Preview>
+
+### Context
+
+For inline state reads, import Ark `HoverCard.Context` directly and keep the moduix part tree for
+the visible structure.
+
+<Preview>
+  <HoverCardDocs.ContextHoverCardExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/hover-card/context.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{`[data-slot="hover-card-trigger"] svg { width: 1em; height: 1em; }`}</Preview.CSS>
+  
+</Preview>
+
+### Multiple Triggers
+
+Share one content surface across trigger values with `Trigger value` and
+`onTriggerValueChange(details)`.
+
+<Preview>
+  <HoverCardDocs.MultipleTriggersHoverCardExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/hover-card/multiple-triggers.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{`[data-slot="hover-card-trigger"][data-current] { font-weight: var(--weight-semibold); }`}</Preview.CSS>
+  
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']}>
+    <Tab value="CSS Variables">
+      <div style={{ maxHeight: '24rem', overflow: 'auto' }}>
+        <HoverCardDocs.HoverCardCssPropertiesPanel />
+      </div>
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use `data-slot="hover-card-trigger"`, `data-slot="hover-card-positioner"`,
+`data-slot="hover-card-content"`, `data-slot="hover-card-arrow"`, and
+`data-slot="hover-card-arrow-tip"`. Ark also exposes `data-scope="hover-card"`,
+`data-part`, `data-state`, `data-placement`, `data-side`, `data-value`, and `data-current`.
+Positioning and animation styles can use Ark variables including `--available-width`,
+`--available-height`, `--reference-width`, `--reference-height`, `--transform-origin`,
+`--layer-index`, `--arrow-size`, `--arrow-background`, and `--arrow-offset`.

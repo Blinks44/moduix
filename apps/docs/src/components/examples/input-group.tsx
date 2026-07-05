@@ -1,20 +1,7 @@
-import {
-  Field,
-  FieldError,
-  FieldLabel,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-  InputGroupText,
-  CheckIcon,
-  CloseIcon,
-  PencilIcon,
-} from 'moduix';
-import { useEffect, useRef, useState, type ComponentProps } from 'react';
+import { Field, InputGroup } from '@moduix/react';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './input-group.module.css';
 
 export const inputGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--input-group-addon-bg', 'var(--color-muted)', 'Controls addon background color.'],
@@ -45,14 +32,22 @@ export const inputGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--input-group-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--input-group-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   ['--input-group-focus-ring-offset', '-1px', 'Controls focus ring offset.'],
-  ['--input-group-focus-ring-width', 'depends on border width', 'Controls focus ring width.'],
+  [
+    '--input-group-focus-ring-width',
+    'var(--input-group-border-width, var(--border-width-sm))',
+    'Controls focus ring width.',
+  ],
   ['--input-group-font-size', 'var(--text-md)', 'Controls default font size.'],
   ['--input-group-font-size-xs', 'var(--text-xs)', 'Controls font size for `xs`.'],
   ['--input-group-font-size-sm', 'var(--text-sm)', 'Controls font size for `sm`.'],
   ['--input-group-font-size-md', 'var(--text-md)', 'Controls font size for `md`.'],
   ['--input-group-font-size-lg', 'var(--text-lg)', 'Controls font size for `lg`.'],
   ['--input-group-font-size-xl', 'var(--text-lg)', 'Controls font size for `xl`.'],
-  ['--input-group-height', 'var(--input-group-height-md)', 'Controls group height.'],
+  [
+    '--input-group-height',
+    'var(--input-group-height-md, var(--size-lg))',
+    'Controls group height.',
+  ],
   ['--input-group-height-xs', 'var(--size-sm)', 'Controls height for `xs`.'],
   ['--input-group-height-sm', '2rem', 'Controls height for `sm`.'],
   ['--input-group-height-md', 'var(--size-lg)', 'Controls height for `md`.'],
@@ -106,7 +101,11 @@ export const inputGroupPlaygroundCssProperties: CssPropertyInput[] = [
   ['--input-group-bg', 'var(--color-background)', 'Controls group background color.'],
   ['--input-group-border-color', 'var(--color-border)', 'Controls group border color.'],
   ['--input-group-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--input-group-height', 'var(--input-group-height-md)', 'Controls group height.'],
+  [
+    '--input-group-height',
+    'var(--input-group-height-md, var(--size-lg))',
+    'Controls group height.',
+  ],
   ['--input-group-input-padding-x', '0.875rem', 'Controls input inline padding.'],
   ['--input-group-radius', 'var(--radius-md)', 'Controls group border radius.'],
   [
@@ -145,19 +144,18 @@ export function InputGroupCssPlaygroundPanel({
   );
 }
 
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}
+const normalizeCssProperty = (property: CssPropertyInput) =>
+  'name' in property
+    ? property
+    : { name: property[0], defaultValue: property[1], description: property[2] };
 
 export function InputGroupExample(props: ComponentProps<typeof InputGroup>) {
   return (
-    <Field className={styles.field}>
-      <FieldLabel>Workspace</FieldLabel>
+    <Field className="input-group-demo-field">
+      <Field.Label>Workspace</Field.Label>
       <InputGroup {...props}>
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput placeholder="maps" />
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input placeholder="maps" />
       </InputGroup>
     </Field>
   );
@@ -167,73 +165,16 @@ export function InputGroupWithActionExample() {
   const [value, setValue] = useState('');
 
   return (
-    <Field className={styles.field}>
-      <FieldLabel>Invite by email</FieldLabel>
+    <Field className="input-group-demo-field">
+      <Field.Label>Invite by email</Field.Label>
       <InputGroup>
-        <InputGroupInput
+        <InputGroup.Input
           value={value}
-          onValueChange={setValue}
+          onChange={(event) => setValue(event.currentTarget.value)}
           type="email"
           placeholder="name@example.com"
         />
-        <InputGroupButton disabled={!value}>Send</InputGroupButton>
-      </InputGroup>
-    </Field>
-  );
-}
-
-export function InputGroupInlineEditingExample() {
-  const [editing, setEditing] = useState(false);
-  const [value, setValue] = useState('Workspace display name');
-  const [draft, setDraft] = useState(value);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    if (editing) {
-      inputRef.current?.focus();
-    }
-  }, [editing]);
-
-  const handleEdit = () => {
-    setDraft(value);
-    setEditing(true);
-  };
-
-  const handleCancel = () => {
-    setDraft(value);
-    setEditing(false);
-  };
-
-  const handleSave = () => {
-    setValue(draft);
-    setEditing(false);
-  };
-
-  return (
-    <Field className={styles.field}>
-      <FieldLabel>Display name</FieldLabel>
-      <InputGroup>
-        <InputGroupInput
-          aria-label="Display name"
-          ref={inputRef}
-          readOnly={!editing}
-          value={editing ? draft : value}
-          onValueChange={setDraft}
-        />
-        {editing ? (
-          <>
-            <InputGroupButton aria-label="Cancel editing" size="icon-md" onClick={handleCancel}>
-              <CloseIcon />
-            </InputGroupButton>
-            <InputGroupButton aria-label="Save changes" size="icon-md" onClick={handleSave}>
-              <CheckIcon />
-            </InputGroupButton>
-          </>
-        ) : (
-          <InputGroupButton aria-label="Edit display name" size="icon-md" onClick={handleEdit}>
-            <PencilIcon />
-          </InputGroupButton>
-        )}
+        <InputGroup.Button disabled={!value}>Send</InputGroup.Button>
       </InputGroup>
     </Field>
   );
@@ -241,12 +182,26 @@ export function InputGroupInlineEditingExample() {
 
 export function InputGroupPrefixSuffixExample() {
   return (
-    <Field className={styles.field}>
-      <FieldLabel>Monthly budget</FieldLabel>
+    <Field className="input-group-demo-field">
+      <Field.Label>Monthly budget</Field.Label>
       <InputGroup>
-        <InputGroupAddon className={styles.currency}>$</InputGroupAddon>
-        <InputGroupInput inputMode="decimal" placeholder="2500" />
-        <InputGroupText>USD</InputGroupText>
+        <InputGroup.Addon className="input-group-demo-currency">$</InputGroup.Addon>
+        <InputGroup.Input inputMode="decimal" placeholder="2500" />
+        <InputGroup.Text>USD</InputGroup.Text>
+      </InputGroup>
+    </Field>
+  );
+}
+
+export function InputGroupAsChildExample() {
+  return (
+    <Field className="input-group-demo-field">
+      <Field.Label>Repository</Field.Label>
+      <InputGroup asChild>
+        <div>
+          <InputGroup.Addon>moduix/</InputGroup.Addon>
+          <InputGroup.Input placeholder="components" />
+        </div>
       </InputGroup>
     </Field>
   );
@@ -254,26 +209,26 @@ export function InputGroupPrefixSuffixExample() {
 
 export function InputGroupSizesExample() {
   return (
-    <div className={styles.stack}>
+    <div className="input-group-demo-stack">
       <InputGroup size="xs">
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput placeholder="Extra-small group" />
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input placeholder="Extra-small group" />
       </InputGroup>
       <InputGroup size="sm">
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput placeholder="Small group" />
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input placeholder="Small group" />
       </InputGroup>
       <InputGroup size="md">
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput placeholder="Medium group" />
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input placeholder="Medium group" />
       </InputGroup>
       <InputGroup size="lg">
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput placeholder="Large group" />
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input placeholder="Large group" />
       </InputGroup>
       <InputGroup size="xl">
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput placeholder="Extra-large group" />
+        <InputGroup.Addon>@</InputGroup.Addon>
+        <InputGroup.Input placeholder="Extra-large group" />
       </InputGroup>
     </div>
   );
@@ -281,33 +236,23 @@ export function InputGroupSizesExample() {
 
 export function DisabledInputGroupExample() {
   return (
-    <InputGroup className={styles.group} role="group" aria-label="Workspace handle">
-      <InputGroupAddon>@</InputGroupAddon>
-      <InputGroupInput disabled value="maps" />
-      <InputGroupButton disabled>Copy</InputGroupButton>
+    <InputGroup className="input-group-demo-group" role="group" aria-label="Workspace handle">
+      <InputGroup.Addon>@</InputGroup.Addon>
+      <InputGroup.Input disabled value="maps" />
+      <InputGroup.Button disabled>Copy</InputGroup.Button>
     </InputGroup>
   );
 }
 
 export function InputGroupFieldValidationExample() {
   return (
-    <Field className={styles.field} validationMode="onBlur">
-      <FieldLabel>Domain</FieldLabel>
+    <Field className="input-group-demo-field" invalid>
+      <Field.Label>Domain</Field.Label>
       <InputGroup>
-        <InputGroupInput required placeholder="company" />
-        <InputGroupText>.test.com</InputGroupText>
+        <InputGroup.Input placeholder="company" />
+        <InputGroup.Text>.test.com</InputGroup.Text>
       </InputGroup>
-      <FieldError match="valueMissing">Please enter a domain.</FieldError>
+      <Field.ErrorText>Please enter a domain.</Field.ErrorText>
     </Field>
-  );
-}
-
-export function CustomStylesInputGroupExample() {
-  return (
-    <InputGroup className={styles.customGroup}>
-      <InputGroupAddon className={styles.customAddon}>@</InputGroupAddon>
-      <InputGroupInput placeholder="custom-group" />
-      <InputGroupButton className={styles.customButton}>Check</InputGroupButton>
-    </InputGroup>
   );
 }

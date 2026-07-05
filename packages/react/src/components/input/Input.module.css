@@ -1,0 +1,87 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    width: var(--input-width, 100%);
+    max-width: var(--input-max-width, none);
+    min-height: var(--input-height, var(--input-height-md, var(--size-lg)));
+    margin: 0;
+    border: var(--input-border-width, var(--border-width-sm)) var(--input-border-style, solid)
+      var(--input-border-color, var(--color-border));
+    border-radius: var(--input-radius, var(--radius-md));
+    padding: var(--input-padding-y, var(--input-padding-y-md, var(--spacing-2)))
+      var(--input-padding-x, var(--input-padding-x-md, var(--spacing-3)));
+    background-color: var(--input-bg, var(--color-background));
+    color: var(--input-color, var(--color-foreground));
+    font: inherit;
+    font-size: var(--input-font-size, var(--input-font-size-md, var(--text-md)));
+    line-height: var(--input-line-height, var(--input-line-height-md, var(--line-height-text-md)));
+    outline: var(--input-focus-ring-width, var(--input-border-width, var(--border-width-sm))) solid
+      transparent;
+    outline-offset: var(
+      --input-focus-ring-offset,
+      calc(0px - var(--input-border-width, var(--border-width-sm)))
+    );
+    transition:
+      border-color var(--input-transition, var(--transition-default)),
+      outline-color var(--input-transition, var(--transition-default)),
+      opacity var(--input-transition, var(--transition-default));
+
+    &::placeholder {
+      color: var(--input-placeholder-color, var(--color-muted-foreground));
+    }
+
+    &:focus-visible {
+      outline-color: var(--input-focus-ring-color, var(--color-ring));
+    }
+
+    &:is([data-invalid], [aria-invalid='true']) {
+      border-color: var(--input-border-color-invalid, var(--color-destructive));
+
+      &:focus-visible {
+        outline-color: var(--input-border-color-invalid, var(--color-destructive));
+      }
+    }
+
+    &:is([data-disabled], :disabled) {
+      pointer-events: none;
+      opacity: var(--input-disabled-opacity, var(--opacity-disabled));
+    }
+
+    &:is(:read-only, [data-readonly]) {
+      background-color: var(--input-readonly-bg, var(--input-bg, var(--color-background)));
+      color: var(--input-readonly-color, var(--input-color, var(--color-foreground)));
+    }
+
+    &[data-size='xs'] {
+      --input-height: var(--input-height-xs, var(--size-xs));
+      --input-padding-x: var(--input-padding-x-xs, var(--spacing-2));
+      --input-padding-y: var(--input-padding-y-xs, var(--spacing-1));
+      --input-font-size: var(--input-font-size-xs, var(--text-xs));
+      --input-line-height: var(--input-line-height-xs, var(--line-height-text-xs));
+    }
+
+    &[data-size='sm'] {
+      --input-height: var(--input-height-sm, var(--size-sm));
+      --input-padding-x: var(--input-padding-x-sm, var(--spacing-2));
+      --input-padding-y: var(--input-padding-y-sm, var(--spacing-1));
+      --input-font-size: var(--input-font-size-sm, var(--text-sm));
+      --input-line-height: var(--input-line-height-sm, var(--line-height-text-sm));
+    }
+
+    &[data-size='lg'] {
+      --input-height: var(--input-height-lg, var(--size-xl));
+      --input-padding-x: var(--input-padding-x-lg, var(--spacing-4));
+      --input-padding-y: var(--input-padding-y-lg, var(--spacing-2));
+      --input-font-size: var(--input-font-size-lg, var(--text-lg));
+      --input-line-height: var(--input-line-height-lg, var(--line-height-text-lg));
+    }
+
+    &[data-size='xl'] {
+      --input-height: var(--input-height-xl, 3.5rem);
+      --input-padding-x: var(--input-padding-x-xl, var(--spacing-4));
+      --input-padding-y: var(--input-padding-y-xl, var(--spacing-3));
+      --input-font-size: var(--input-font-size-xl, var(--text-lg));
+      --input-line-height: var(--input-line-height-xl, var(--line-height-text-lg));
+    }
+  }
+}

@@ -1,0 +1,126 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--signature-pad-gap, var(--spacing-2));
+    width: var(--signature-pad-width, 17.5rem);
+    max-width: var(--signature-pad-max-width, 100%);
+    color: var(--signature-pad-color, var(--color-foreground));
+
+    &[data-disabled] {
+      opacity: var(--signature-pad-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .label {
+    color: var(--signature-pad-label-color, var(--color-foreground));
+    font-size: var(--signature-pad-label-font-size, var(--text-sm));
+    font-weight: var(--signature-pad-label-font-weight, var(--weight-medium));
+    line-height: var(--signature-pad-label-line-height, var(--line-height-text-sm));
+    user-select: none;
+
+    &[data-disabled] {
+      opacity: var(--signature-pad-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .control {
+    box-sizing: border-box;
+    width: var(--signature-pad-control-width, 100%);
+    min-width: var(--signature-pad-control-min-width, 0);
+    height: var(--signature-pad-control-height, var(--signature-pad-height, 10rem));
+    min-height: var(--signature-pad-control-min-height, 10rem);
+    border: var(--signature-pad-border-width, var(--border-width-sm)) solid
+      var(--signature-pad-border-color, var(--color-border));
+    border-radius: var(--signature-pad-radius, var(--radius-md));
+    background-color: var(--signature-pad-bg, var(--color-background));
+    color: var(--signature-pad-stroke-color, var(--color-foreground));
+    box-shadow: var(--signature-pad-shadow, var(--shadow-sm));
+    outline: none;
+    overflow: hidden;
+    transition:
+      border-color var(--signature-pad-transition, var(--transition-default)),
+      box-shadow var(--signature-pad-transition, var(--transition-default)),
+      opacity var(--signature-pad-transition, var(--transition-default));
+
+    &[data-disabled] {
+      cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      border-color: var(--signature-pad-focus-border-color, var(--color-ring));
+      box-shadow: 0 0 0 var(--signature-pad-focus-ring-width, var(--border-width-md))
+        var(--signature-pad-focus-ring-color, var(--color-ring));
+    }
+  }
+
+  .segment {
+    fill: var(--signature-pad-stroke-color, currentColor);
+  }
+
+  .guide {
+    position: absolute;
+    right: var(--signature-pad-guide-inset-x, var(--spacing-6));
+    bottom: var(--signature-pad-guide-bottom, var(--spacing-8));
+    left: var(--signature-pad-guide-inset-x, var(--spacing-6));
+    border-bottom: var(--signature-pad-guide-border-width, var(--border-width-sm)) dashed
+      var(--signature-pad-guide-color, var(--color-border));
+    pointer-events: none;
+
+    &[data-disabled] {
+      opacity: var(--signature-pad-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .clearTrigger {
+    position: absolute;
+    top: var(--signature-pad-clear-trigger-offset, var(--spacing-2));
+    right: var(--signature-pad-clear-trigger-offset, var(--spacing-2));
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--signature-pad-clear-trigger-size, var(--size-md));
+    height: var(--signature-pad-clear-trigger-size, var(--size-md));
+    border: var(--signature-pad-clear-trigger-border-width, 0) solid
+      var(--signature-pad-clear-trigger-border-color, transparent);
+    border-radius: var(--signature-pad-clear-trigger-radius, var(--radius-sm));
+    background-color: var(--signature-pad-clear-trigger-bg, transparent);
+    color: var(--signature-pad-clear-trigger-color, var(--color-muted-foreground));
+    appearance: none;
+    font: inherit;
+    line-height: 0;
+    cursor: pointer;
+    transition:
+      background-color var(--signature-pad-transition, var(--transition-default)),
+      color var(--signature-pad-transition, var(--transition-default)),
+      opacity var(--signature-pad-transition, var(--transition-default)),
+      box-shadow var(--signature-pad-transition, var(--transition-default));
+  }
+
+  .clearTrigger :where(svg) {
+    width: var(--signature-pad-clear-trigger-icon-size, 1rem);
+    height: var(--signature-pad-clear-trigger-icon-size, 1rem);
+    flex-shrink: 0;
+  }
+
+  @media (hover: hover) {
+    .clearTrigger:hover:not(:disabled, [data-disabled]) {
+      background-color: var(--signature-pad-clear-trigger-bg-hover, var(--color-accent));
+      color: var(--signature-pad-clear-trigger-color-hover, var(--color-foreground));
+    }
+  }
+
+  .clearTrigger:focus-visible {
+    outline: var(--signature-pad-clear-trigger-focus-ring-width, var(--border-width-md)) solid
+      var(--signature-pad-clear-trigger-focus-ring-color, var(--color-ring));
+    outline-offset: var(--signature-pad-clear-trigger-focus-ring-offset, var(--spacing-1));
+  }
+
+  .clearTrigger:disabled,
+  .clearTrigger[data-disabled] {
+    pointer-events: none;
+    opacity: var(--signature-pad-disabled-opacity, var(--opacity-disabled));
+  }
+}

@@ -1,0 +1,245 @@
+@layer ui.components {
+  .trigger,
+  .closeTrigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--dialog-control-height, var(--size-lg));
+    margin: 0;
+    padding: var(--dialog-control-padding-y, 0.5rem) var(--dialog-control-padding-x, 0.875rem);
+    border: var(--dialog-control-border-width, var(--border-width-sm)) solid
+      var(--dialog-control-border-color, var(--color-border));
+    border-radius: var(--dialog-control-radius, var(--radius-md));
+    background-color: var(--dialog-control-bg, var(--color-background));
+    color: var(--dialog-control-color, var(--color-foreground));
+    font: inherit;
+    font-size: var(--dialog-control-font-size, var(--text-md));
+    line-height: var(--dialog-control-line-height, var(--line-height-text-md));
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background-color var(--transition-default),
+      border-color var(--transition-default),
+      color var(--transition-default);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--dialog-control-bg-hover, var(--color-accent));
+      }
+    }
+
+    &:focus-visible {
+      outline: var(
+          --dialog-focus-ring-width,
+          var(--dialog-control-border-width, var(--border-width-sm))
+        )
+        solid var(--dialog-focus-ring-color, var(--color-ring));
+      outline-offset: calc(
+        var(--dialog-focus-ring-width, var(--dialog-control-border-width, var(--border-width-sm))) *
+          -1
+      );
+    }
+
+    &[data-disabled],
+    &[disabled] {
+      pointer-events: none;
+      opacity: var(--opacity-disabled);
+    }
+  }
+
+  .backdrop {
+    position: fixed;
+    z-index: calc(var(--z-backdrop) + var(--layer-index, 0));
+    inset: 0;
+    min-height: 100dvh;
+    background-color: var(--dialog-backdrop-bg, var(--backdrop-bg, var(--color-overlay)));
+    backdrop-filter: var(--backdrop-filter, blur(var(--dialog-backdrop-blur, 4px)));
+
+    &[data-state='open'] {
+      animation: dialog-backdrop-in var(--dialog-backdrop-transition, var(--transition-default));
+    }
+
+    &[data-state='closed'] {
+      animation: dialog-backdrop-out var(--dialog-backdrop-transition, var(--transition-default));
+    }
+  }
+
+  .positioner {
+    box-sizing: border-box;
+    position: fixed;
+    z-index: calc(var(--z-modal) + var(--layer-index, 0));
+    inset: 0;
+    display: grid;
+    place-items: center;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable both-edges;
+    padding: var(--dialog-positioner-padding, var(--spacing-4));
+  }
+
+  .content {
+    box-sizing: border-box;
+    position: relative;
+    width: min(
+      var(--dialog-width, 28rem),
+      var(--dialog-max-width, calc(100vw - var(--spacing-8, 2rem)))
+    );
+    max-width: 100%;
+    max-height: calc(100dvh - var(--spacing-8, 2rem));
+    padding: var(--dialog-padding, var(--spacing-6));
+    border: var(--dialog-border-width, var(--border-width-sm)) solid
+      var(--dialog-border-color, var(--color-border));
+    border-radius: var(--dialog-radius, var(--radius-lg));
+    outline: 0;
+    background-color: var(--dialog-bg, var(--color-popover));
+    color: var(--dialog-color, var(--color-popover-foreground));
+    box-shadow: var(--dialog-shadow, var(--shadow-lg));
+    transform-origin: center top;
+    scale: 1;
+    translate: 0 0;
+    transition:
+      scale var(--dialog-nested-transition, var(--dialog-transition, var(--transition-default))),
+      translate var(--dialog-nested-transition, var(--dialog-transition, var(--transition-default)));
+
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      border-radius: inherit;
+      background-color: var(--dialog-nested-overlay-bg, rgb(0 0 0 / 0.05));
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity
+        var(--dialog-nested-transition, var(--dialog-transition, var(--transition-default)));
+    }
+
+    &[data-has-nested] {
+      scale: calc(1 - var(--dialog-nested-scale-step, 0.05) * var(--nested-layer-count, 0));
+      translate: 0
+        calc(var(--dialog-nested-translate-step, var(--spacing-10)) * var(--nested-layer-count, 0));
+
+      &::after {
+        opacity: 1;
+      }
+    }
+
+    &[data-state='open'] {
+      animation: dialog-content-in var(--dialog-transition, var(--transition-default));
+    }
+
+    &[data-state='closed'] {
+      animation: dialog-content-out var(--dialog-transition, var(--transition-default));
+    }
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: var(--dialog-header-gap, var(--spacing-1));
+
+    & > [data-slot='dialog-title'] {
+      grid-column: 1;
+    }
+
+    & > [data-slot='dialog-close-trigger'] {
+      grid-column: 2;
+      justify-self: end;
+    }
+
+    & > [data-slot='dialog-description'] {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .title {
+    margin: 0;
+    color: var(--dialog-title-color, var(--dialog-color, var(--color-popover-foreground)));
+    font-size: var(--dialog-title-font-size, var(--text-lg));
+    font-weight: var(--dialog-title-font-weight, var(--weight-semibold));
+    line-height: var(--dialog-title-line-height, var(--line-height-text-lg));
+  }
+
+  .description,
+  .body {
+    color: var(
+      --dialog-description-color,
+      var(--dialog-muted-color, var(--color-muted-foreground))
+    );
+    font-size: var(--dialog-description-font-size, var(--text-md));
+    line-height: var(--dialog-description-line-height, var(--line-height-text-md));
+  }
+
+  .description {
+    margin: 0;
+  }
+
+  .body {
+    margin: var(--dialog-content-margin, var(--spacing-4) 0 0);
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--dialog-footer-gap, var(--spacing-2));
+    margin-top: var(--dialog-footer-margin-top, var(--spacing-6));
+  }
+
+  .closeIcon {
+    --close-button-size: var(--dialog-close-icon-size, 1.75rem);
+    --close-button-radius: var(--dialog-close-icon-radius, var(--radius-md));
+    --close-button-color: var(
+      --dialog-close-icon-color,
+      var(--dialog-muted-color, var(--color-muted-foreground))
+    );
+    --close-button-color-hover: var(
+      --dialog-close-icon-color-hover,
+      var(--dialog-close-icon-color, var(--dialog-color, var(--color-popover-foreground)))
+    );
+    --close-button-bg: var(--dialog-close-icon-bg, transparent);
+    --close-button-bg-hover: var(--dialog-close-icon-bg-hover, var(--color-accent));
+    --close-button-focus-ring-color: var(
+      --dialog-close-icon-focus-ring-color,
+      var(--dialog-focus-ring-color, var(--color-ring))
+    );
+    --close-button-icon-size: var(--dialog-close-icon-glyph-size, 0.75rem);
+    position: absolute;
+    z-index: 2;
+    inset-block-start: var(--dialog-close-icon-inset-block-start, var(--spacing-4));
+    inset-inline-end: var(--dialog-close-icon-inset-inline-end, var(--spacing-4));
+  }
+
+  @keyframes dialog-backdrop-in {
+    from {
+      opacity: var(--dialog-backdrop-starting-opacity, 0);
+      backdrop-filter: var(--dialog-backdrop-starting-blur, none);
+    }
+  }
+
+  @keyframes dialog-backdrop-out {
+    to {
+      opacity: var(--dialog-backdrop-ending-opacity, 0);
+      backdrop-filter: var(--dialog-backdrop-ending-blur, none);
+    }
+  }
+
+  @keyframes dialog-content-in {
+    from {
+      opacity: var(--dialog-content-starting-opacity, 0);
+      translate: var(--dialog-content-starting-translate-x, 0)
+        var(--dialog-content-starting-translate-y, 0);
+      scale: var(--dialog-content-starting-scale, var(--scale-popup));
+    }
+  }
+
+  @keyframes dialog-content-out {
+    to {
+      opacity: var(--dialog-content-ending-opacity, 0);
+      translate: var(--dialog-content-ending-translate-x, 0)
+        var(--dialog-content-ending-translate-y, 0);
+      scale: var(--dialog-content-ending-scale, var(--scale-popup));
+    }
+  }
+}

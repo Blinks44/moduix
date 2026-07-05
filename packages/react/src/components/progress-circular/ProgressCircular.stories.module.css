@@ -1,0 +1,38 @@
+.stack {
+  display: grid;
+  justify-items: center;
+  gap: var(--spacing-4);
+}
+
+.slider {
+  width: 12rem;
+}
+
+.circleContainer {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+}
+
+.circleContainer [data-slot='progress-circular-circle'] {
+  grid-area: 1 / 1;
+}
+
+.circleContainer [data-slot='progress-circular-value-text'] {
+  grid-area: 1 / 1;
+}
+
+.customProgress {
+  --progress-circular-size: 4rem;
+  --progress-circular-thickness: 0.4rem;
+  --progress-circular-track-bg: var(--color-accent);
+  --progress-circular-range-bg: var(--color-chart-2);
+}
+
+.customProgress [data-slot='progress-circular-circle-track'] {
+  stroke: color-mix(in oklab, var(--color-primary), transparent 75%);
+}
+
+.customProgress [data-slot='progress-circular-circle-range'] {
+  filter: drop-shadow(0 0 0.25rem color-mix(in oklab, var(--color-chart-2), transparent 45%));
+}

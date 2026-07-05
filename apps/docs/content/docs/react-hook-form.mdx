@@ -1,0 +1,90 @@
+---
+title: React Hook Form
+description: Integrate moduix native and compound controls with React Hook Form.
+icon: Braces
+---
+
+import * as FormsDocs from '@/components/examples/forms';
+
+# React Hook Form
+
+Use `register` for parts that render a native input. Use `Controller` when an Ark component exposes
+controlled values and detail callbacks.
+
+```bash
+npm install react-hook-form
+```
+
+## Mapping
+
+| Control                                         | React Hook Form wiring                                                    |
+| ----------------------------------------------- | ------------------------------------------------------------------------- |
+| `Field.Input`, `Field.Textarea`, `Field.Select` | Spread `register(name, rules)` onto the native control.                   |
+| `Select`                                        | Use `Controller`; map a scalar string to Ark's string-array `value`.      |
+| `Combobox`                                      | Use `Controller`; map `value` and keep filtering in `onInputValueChange`. |
+| `Checkbox`                                      | Use `Controller`; map `details.checked === true` to a boolean.            |
+
+Always provide `defaultValues` for controlled fields. React Hook Form uses them for initial state,
+dirty checks, and `reset()`.
+
+For shared or cross-field validation, add a schema resolver. The component mapping below stays the
+same.
+
+## Complete form
+
+The form combines registered `Input` and `Textarea` controls with controlled `Select`, `Combobox`,
+and `Checkbox`. `noValidate` lets React Hook Form own the error messages in this demo. Omit it when
+you intentionally want the browser's native validation UI.
+
+<Preview>
+  <FormsDocs.ReactHookFormExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/react-hook-form/complete-form.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .form {
+        width: min(24rem, 100%);
+        margin-inline: auto;
+      }
+
+      .fields {
+        display: grid;
+        gap: var(--spacing-4);
+      }
+
+      .fields [data-slot="field-root"],
+      .fields [data-slot="select-root"],
+      .fields [data-slot="combobox-root"] {
+        width: 100%;
+      }
+
+      .fields [data-slot="select-root"] {
+        --select-width: 100%;
+      }
+
+      .fields [data-slot="combobox-root"] {
+        --combobox-width: 100%;
+      }
+
+      .submit {
+        width: 100%;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Important details
+
+- Do not spread a `Controller` field object onto `Select` or `Combobox`; their callback and value
+  shapes are not native input events.
+- For single selection, pass `field.value ? [field.value] : []` and read
+  `details.value[0] ?? ""`.
+- Call `field.onBlur` from `Select.onInteractOutside` or `Combobox.Input.onBlur`.
+- Forward `field.ref` to `Select.Trigger` or `Combobox.Input`. This lets React Hook Form focus the
+  first invalid field.
+- Keep `Select.HiddenSelect` mounted for native semantics, autofill, and reset synchronization.
+- Keep `Checkbox.HiddenInput` mounted and map its checked state to a boolean field value.

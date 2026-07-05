@@ -1,16 +1,9 @@
 import type { ComponentProps } from 'react';
-import {
-  ScrollArea,
-  ScrollAreaContent,
-  ScrollAreaCorner,
-  ScrollAreaRoot,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-  ScrollAreaViewport,
-} from 'moduix';
+import { useScrollArea } from '@ark-ui/react/scroll-area';
+import { Button, ScrollArea } from '@moduix/react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './scroll-area.module.css';
 
 export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
@@ -25,30 +18,28 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   [
     '--scroll-area-fade-end-size',
     'var(--scroll-area-fade-size, var(--spacing-10))',
-    'Controls vertical end fade.',
+    'Controls the bottom fade depth when `fade` is enabled.',
   ],
   [
-    '--scroll-area-fade-inline-end-size',
-    'var(--scroll-area-fade-size, var(--spacing-10))',
-    'Controls horizontal end fade.',
+    '--scroll-area-fade-size',
+    'var(--spacing-10)',
+    'Controls the default top and bottom fade depth when `fade` is enabled.',
   ],
-  [
-    '--scroll-area-fade-inline-start-size',
-    'var(--scroll-area-fade-size, var(--spacing-10))',
-    'Controls horizontal start fade.',
-  ],
-  ['--scroll-area-fade-size', 'var(--spacing-10)', 'Controls the default fade size.'],
   [
     '--scroll-area-fade-start-size',
     'var(--scroll-area-fade-size, var(--spacing-10))',
-    'Controls vertical start fade.',
+    'Controls the top fade depth when `fade` is enabled.',
   ],
   [
     '--scroll-area-focus-ring-color',
     'var(--color-ring)',
     'Controls the viewport focus ring color.',
   ],
-  ['--scroll-area-focus-ring-offset', '-1px', 'Controls the viewport focus ring offset.'],
+  [
+    '--scroll-area-focus-ring-offset',
+    'calc(var(--scroll-area-focus-ring-width, var(--border-width-sm)) * -1)',
+    'Controls the viewport focus ring offset.',
+  ],
   [
     '--scroll-area-focus-ring-width',
     'var(--border-width-sm)',
@@ -60,33 +51,28 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   ['--scroll-area-scrollbar-hidden-opacity', '0', 'Controls hidden scrollbar opacity.'],
   [
     '--scroll-area-scrollbar-hit-area-size',
-    '1.25rem',
+    'var(--spacing-5)',
     'Controls the invisible pointer hit area around the scrollbar.',
   ],
   [
     '--scroll-area-scrollbar-margin',
-    'calc(var(--spacing-1) / 2)',
+    'var(--spacing-1)',
     'Controls spacing between scrollbar and viewport edge.',
   ],
   ['--scroll-area-scrollbar-padding', '0', 'Controls scrollbar track padding.'],
   ['--scroll-area-scrollbar-radius', 'var(--radius-md)', 'Controls scrollbar track radius.'],
-  ['--scroll-area-scrollbar-size', '0.375rem', 'Controls the scrollbar track thickness.'],
+  ['--scroll-area-scrollbar-size', 'var(--spacing-1)', 'Controls the scrollbar track thickness.'],
   ['--scroll-area-scrollbar-visible-opacity', '1', 'Controls visible scrollbar opacity.'],
   ['--scroll-area-thumb-bg', 'var(--color-border)', 'Controls the draggable thumb color.'],
+  [
+    '--scroll-area-thumb-hover-increase',
+    '2px',
+    'Controls how much the thumb grows across its track on hover and drag.',
+  ],
   ['--scroll-area-thumb-min-size', '1.5rem', 'Controls the minimum draggable thumb size.'],
   ['--scroll-area-thumb-radius', 'var(--radius-full)', 'Controls the thumb border radius.'],
   ['--scroll-area-transition', 'var(--transition-default)', 'Controls scrollbar fade timing.'],
   ['--scroll-area-width', '100%', 'Controls the root width.'],
-];
-
-export const scrollAreaPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--scroll-area-bg', 'transparent', 'Controls viewport background color.'],
-  ['--scroll-area-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--scroll-area-content-padding', '0', 'Controls content slot padding.'],
-  ['--scroll-area-focus-ring-color', 'var(--color-ring)', 'Controls viewport focus ring color.'],
-  ['--scroll-area-radius', 'var(--radius-md)', 'Controls viewport border radius.'],
-  ['--scroll-area-scrollbar-bg', 'transparent', 'Controls scrollbar track background color.'],
-  ['--scroll-area-thumb-bg', 'var(--color-border)', 'Controls draggable thumb color.'],
 ];
 
 export function ScrollAreaCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -97,90 +83,150 @@ export function ScrollAreaCssPropertiesPanel(_context: CSSPropertiesEditorContex
   );
 }
 
-export function ScrollAreaCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={scrollAreaPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
-}
-
 function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
 }
 
+function TextContent() {
+  return (
+    <div className={styles.textContent}>
+      {insideScrollSections.map((item) => (
+        <section key={item.title}>
+          <h3>{item.title}</h3>
+          <p className={styles.paragraph}>{item.body}</p>
+        </section>
+      ))}
+    </div>
+  );
+}
+
 export function ScrollAreaExample(props: ComponentProps<typeof ScrollArea>) {
   return (
     <ScrollArea {...props} className={styles.root}>
-      <div className={styles.textContent}>
-        {insideScrollSections.map((item) => (
-          <section key={item.title}>
-            <h3>{item.title}</h3>
-            <p className={styles.paragraph}>{item.body}</p>
-          </section>
-        ))}
-      </div>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <TextContent />
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
     </ScrollArea>
   );
 }
 
-export function BothScrollbarsScrollAreaExample() {
+export function HorizontalScrollAreaExample() {
   return (
-    <ScrollArea scrollbars="both" className={styles.sizedRoot}>
-      <div className={styles.gridContent}>
-        {Array.from({ length: 96 }, (_, index) => (
-          <div key={index} className={styles.cell}>
-            {index + 1}
+    <ScrollArea className={styles.horizontalRoot}>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <p className={styles.wideParagraph}>{insideScrollSections[0]?.body}</p>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar orientation="horizontal">
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
+    </ScrollArea>
+  );
+}
+
+export function FadeScrollAreaExample() {
+  return <ScrollAreaExample fade />;
+}
+
+export function BothDirectionsScrollAreaExample() {
+  return (
+    <ScrollArea className={styles.root}>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <div className={styles.gridContent}>
+            {Array.from({ length: 96 }, (_, index) => (
+              <div key={index} className={styles.cell}>
+                {index + 1}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Scrollbar orientation="horizontal">
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
     </ScrollArea>
   );
 }
 
-export function GradientFadeScrollAreaExample() {
+export function NestedScrollAreaExample() {
   return (
-    <ScrollArea fade className={styles.sizedRoot}>
-      <div className={styles.textContent}>
-        {insideScrollSections.map((item) => (
-          <section key={item.title}>
-            <h3>{item.title}</h3>
-            <p className={styles.paragraph}>{item.body}</p>
-          </section>
-        ))}
-      </div>
+    <ScrollArea className={styles.root}>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <div className={styles.textContent}>
+            <section>
+              <h3>Outer release notes</h3>
+              <p className={styles.paragraph}>{insideScrollSections[0]?.body}</p>
+            </section>
+            <ScrollArea className={styles.nestedRoot}>
+              <ScrollArea.Viewport>
+                <ScrollArea.Content>
+                  <TextContent />
+                </ScrollArea.Content>
+              </ScrollArea.Viewport>
+              <ScrollArea.Scrollbar>
+                <ScrollArea.Thumb />
+              </ScrollArea.Scrollbar>
+              <ScrollArea.Corner />
+            </ScrollArea>
+          </div>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
     </ScrollArea>
   );
 }
 
-export function CustomCompositionScrollAreaExample() {
+export function RootProviderScrollAreaExample() {
+  const scrollArea = useScrollArea();
+
   return (
-    <ScrollAreaRoot className={styles.customRoot} data-fade="both" overflowEdgeThreshold={28}>
-      <ScrollAreaViewport className={styles.customViewport}>
-        <ScrollAreaContent className={styles.customContent}>
-          {Array.from({ length: 80 }, (_, index) => (
-            <div key={index} className={styles.customCell}>
-              {index + 1}
-            </div>
-          ))}
-        </ScrollAreaContent>
-      </ScrollAreaViewport>
-      <ScrollAreaScrollbar className={styles.customVerticalScrollbar} keepMounted>
-        <ScrollAreaThumb className={styles.customVerticalThumb} />
-      </ScrollAreaScrollbar>
-      <ScrollAreaScrollbar orientation="horizontal" className={styles.customHorizontalScrollbar}>
-        <ScrollAreaThumb className={styles.customHorizontalThumb} />
-      </ScrollAreaScrollbar>
-      <ScrollAreaCorner className={styles.customCorner} />
-    </ScrollAreaRoot>
+    <div className={styles.providerStack}>
+      <div className={styles.actions}>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => scrollArea.scrollToEdge({ edge: 'top' })}
+        >
+          Top
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => scrollArea.scrollToEdge({ edge: 'bottom' })}
+        >
+          Bottom
+        </Button>
+      </div>
+      <ScrollArea.RootProvider value={scrollArea} className={styles.root}>
+        <ScrollArea.Viewport>
+          <ScrollArea.Content>
+            <TextContent />
+          </ScrollArea.Content>
+        </ScrollArea.Viewport>
+        <ScrollArea.Scrollbar>
+          <ScrollArea.Thumb />
+        </ScrollArea.Scrollbar>
+        <ScrollArea.Corner />
+      </ScrollArea.RootProvider>
+    </div>
   );
 }

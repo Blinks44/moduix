@@ -1,258 +1,172 @@
-import {
-  ChevronDownIcon,
-  InfoIcon,
-  Select,
-  SelectArrow,
-  SelectBackdrop,
-  SelectContent,
-  SelectField,
-  SelectGroup,
-  SelectGroupLabel,
-  SelectIcon,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
-  SelectItemTextContent,
-  SelectItemTextIcon,
-  SelectItemTextLabel,
-  SelectLabel,
-  SelectList,
-  SelectPopup,
-  SelectPortal,
-  SelectPositioner,
-  SelectScrollDownArrow,
-  SelectScrollUpArrow,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from 'moduix';
-import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './select.module.css';
+import type { ReactNode } from 'react';
+import { createListCollection } from '@ark-ui/react/collection';
+import { Select as ArkSelect, useSelect } from '@ark-ui/react/select';
+import { Field, Select } from '@moduix/react';
+import { useMemo, useState } from 'react';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 
 interface OptionItem {
   label: string;
   value: string;
+  disabled?: boolean;
 }
 
-interface OptionGroup {
-  label: string;
-  items: OptionItem[];
+interface GroupedOption extends OptionItem {
+  type: string;
 }
 
-interface Assignee {
-  id: string;
-  name: string;
-  role: string;
-}
+const fruits = createListCollection<OptionItem>({
+  items: [
+    { label: 'Apple', value: 'apple' },
+    { label: 'Banana', value: 'banana' },
+    { label: 'Blueberry', value: 'blueberry' },
+    { label: 'Grape', value: 'grape' },
+    { label: 'Kiwi', value: 'kiwi' },
+    { label: 'Mango', value: 'mango' },
+    { label: 'Orange', value: 'orange' },
+    { label: 'Pineapple', value: 'pineapple' },
+    { label: 'Strawberry', value: 'strawberry' },
+    { label: 'Watermelon', value: 'watermelon' },
+  ],
+});
 
-const fruits: OptionItem[] = [
-  { label: 'Apple', value: 'apple' },
-  { label: 'Banana', value: 'banana' },
-  { label: 'Blueberry', value: 'blueberry' },
-  { label: 'Grape', value: 'grape' },
-  { label: 'Kiwi', value: 'kiwi' },
-  { label: 'Mango', value: 'mango' },
-  { label: 'Orange', value: 'orange' },
-  { label: 'Pineapple', value: 'pineapple' },
-  { label: 'Strawberry', value: 'strawberry' },
-  { label: 'Watermelon', value: 'watermelon' },
-];
+const produce = createListCollection<GroupedOption>({
+  items: [
+    { label: 'Apple', value: 'apple', type: 'Fruits' },
+    { label: 'Mango', value: 'mango', type: 'Fruits' },
+    { label: 'Orange', value: 'orange', type: 'Fruits' },
+    { label: 'Broccoli', value: 'broccoli', type: 'Vegetables' },
+    { label: 'Carrot', value: 'carrot', type: 'Vegetables' },
+    { label: 'Spinach', value: 'spinach', type: 'Vegetables' },
+  ],
+  groupBy: (item) => item.type,
+});
 
-const groupedOptions: OptionGroup[] = [
-  {
-    label: 'Fruits',
-    items: [
-      { label: 'Apple', value: 'apple' },
-      { label: 'Mango', value: 'mango' },
-      { label: 'Orange', value: 'orange' },
-    ],
-  },
-  {
-    label: 'Vegetables',
-    items: [
-      { label: 'Broccoli', value: 'broccoli' },
-      { label: 'Carrot', value: 'carrot' },
-      { label: 'Spinach', value: 'spinach' },
-    ],
-  },
-];
+const frameworks = createListCollection<OptionItem>({
+  items: [
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte', disabled: true },
+  ],
+});
 
-const themeOptions: OptionItem[] = [
-  { label: 'System', value: 'system' },
-  { label: 'Light', value: 'light' },
-  { label: 'Dark', value: 'dark' },
-];
+const languages = createListCollection<OptionItem>({
+  items: [
+    { label: 'C#', value: 'csharp' },
+    { label: 'Go', value: 'go' },
+    { label: 'JavaScript', value: 'javascript' },
+    { label: 'Python', value: 'python' },
+    { label: 'Rust', value: 'rust' },
+    { label: 'TypeScript', value: 'typescript' },
+  ],
+});
 
-const clearableThemeOptions: Array<{ label: string; value: string | null }> = [
-  { label: 'Select theme', value: null },
-  ...themeOptions,
-];
-
-const groupedLabelByValue = Object.fromEntries(
-  groupedOptions.flatMap((group) => group.items.map((item) => [item.value, item.label])),
-) as Record<string, string>;
-
-const languages = {
-  csharp: 'C#',
-  go: 'Go',
-  javascript: 'JavaScript',
-  python: 'Python',
-  rust: 'Rust',
-  typescript: 'TypeScript',
-} as const;
-
-type Language = keyof typeof languages;
-
-const languageValues = Object.keys(languages) as Language[];
-
-const assignees: Assignee[] = [
-  { id: 'u-1', name: 'Leslie Alexander', role: 'Product Manager' },
-  { id: 'u-2', name: 'Kathryn Murphy', role: 'Marketing Lead' },
-  { id: 'u-3', name: 'Courtney Henry', role: 'Design Systems' },
-  { id: 'u-4', name: 'Michael Foster', role: 'Frontend Engineer' },
-];
+const themes = createListCollection<OptionItem>({
+  items: [
+    { label: 'System', value: 'system' },
+    { label: 'Light', value: 'light' },
+    { label: 'Dark', value: 'dark' },
+  ],
+});
 
 export const selectOverrideCssProperties: CssPropertyInput[] = [
-  ['--select-arrow-height', '0.625rem', 'Controls popup arrow height.'],
-  ['--select-arrow-inline-offset', '0.8125rem', 'Controls popup arrow inline offset.'],
-  ['--select-arrow-size', '0.5rem', 'Controls popup arrow side offset size.'],
-  [
-    '--select-arrow-stroke-color',
-    'var(--select-popup-border-color)',
-    'Controls popup arrow stroke color.',
-  ],
-  ['--select-arrow-width', '1.25rem', 'Controls popup arrow width.'],
-  ['--select-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop color.'],
-  ['--select-backdrop-blur', '4px', 'Controls backdrop blur.'],
-  [
-    '--select-backdrop-transition',
-    'var(--transition-default)',
-    'Controls backdrop transition timing.',
-  ],
+  ['--select-action-bg', 'transparent', 'Controls clear and indicator button background.'],
+  ['--select-action-bg-hover', 'var(--color-muted)', 'Controls clear trigger hover background.'],
+  ['--select-action-color-hover', 'var(--color-foreground)', 'Controls clear trigger hover color.'],
+  ['--select-action-gap', '0.125rem', 'Controls spacing between clear and indicator controls.'],
+  ['--select-action-offset-right', '0.5rem', 'Controls inline offset for trigger actions.'],
+  ['--select-action-radius', 'var(--radius-sm)', 'Controls clear trigger radius.'],
+  ['--select-action-size', '1.5rem', 'Controls clear and indicator control size.'],
   ['--select-bg', 'var(--color-background)', 'Controls trigger background.'],
-  ['--select-bg-active', 'var(--color-muted)', 'Controls trigger background when popup is open.'],
+  ['--select-bg-active', 'var(--color-muted)', 'Controls trigger background when open.'],
   ['--select-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
   ['--select-border-color', 'var(--color-border)', 'Controls trigger border color.'],
-  ['--select-border-width', 'var(--border-width-sm)', 'Controls trigger border width.'],
-  ['--select-color', 'var(--color-foreground)', 'Controls main text color.'],
-  ['--select-control-height', 'var(--size-lg)', 'Controls trigger minimum height.'],
+  ['--select-border-width', 'var(--border-width-sm)', 'Controls control border width.'],
+  ['--select-color', 'var(--color-foreground)', 'Controls root text color.'],
+  ['--select-content-bg', 'var(--color-popover)', 'Controls popup content background.'],
+  ['--select-content-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--select-content-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
+  ['--select-content-closed-opacity', '0', 'Controls closed-state animation opacity.'],
+  ['--select-content-closed-scale', 'var(--scale-popup)', 'Controls closed-state animation scale.'],
+  ['--select-content-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
+  ['--select-content-max-height', '24rem', 'Controls popup maximum height.'],
+  ['--select-content-padding-y', 'var(--spacing-1)', 'Controls popup vertical padding.'],
+  ['--select-content-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  ['--select-control-height', 'var(--size-lg)', 'Controls trigger height.'],
   ['--select-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
-  ['--select-field-gap', '0.375rem', 'Controls field gap between label and trigger.'],
   ['--select-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--select-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
+  ['--select-highlight-bg', 'var(--color-accent)', 'Controls highlighted item background.'],
   [
-    '--select-focus-ring-offset',
-    'calc(var(--select-focus-ring-width, var(--select-border-width, var(--border-width-sm))) * -1)',
-    'Controls focus ring offset.',
+    '--select-highlight-color',
+    'var(--color-accent-foreground)',
+    'Controls highlighted item text color.',
   ],
-  ['--select-focus-ring-width', 'var(--select-border-width)', 'Controls focus ring width.'],
-  ['--select-group-label-bg', 'var(--select-popup-bg)', 'Controls group label background.'],
-  ['--select-group-label-color', 'var(--color-muted-foreground)', 'Controls group label color.'],
-  ['--select-group-label-font-size', 'var(--text-xs)', 'Controls group label font size.'],
+  ['--select-icon-color', 'var(--color-muted-foreground)', 'Controls trigger action icon color.'],
+  ['--select-icon-size', '1rem', 'Controls trigger action icon size.'],
+  ['--select-invalid-color', 'var(--color-destructive)', 'Controls invalid border and ring color.'],
+  ['--select-item-border-color', 'transparent', 'Controls item border color.'],
+  ['--select-item-border-width', '0', 'Controls item border width.'],
+  ['--select-item-checked-color', 'var(--select-item-color)', 'Controls selected item color.'],
+  ['--select-item-color', 'var(--color-foreground)', 'Controls item text color.'],
   [
-    '--select-group-label-font-weight',
+    '--select-item-disabled-color',
+    'var(--color-muted-foreground)',
+    'Controls disabled item color.',
+  ],
+  ['--select-item-font-size', 'var(--text-sm)', 'Controls item font size.'],
+  ['--select-item-gap', 'var(--spacing-2)', 'Controls item content gap.'],
+  ['--select-item-group-gap', 'var(--spacing-2)', 'Controls gap between item groups.'],
+  [
+    '--select-item-group-label-color',
+    'var(--color-muted-foreground)',
+    'Controls group label color.',
+  ],
+  ['--select-item-group-label-font-size', 'var(--text-xs)', 'Controls group label font size.'],
+  [
+    '--select-item-group-label-font-weight',
     'var(--weight-semibold)',
-    'Controls group label font weight.',
+    'Controls group label weight.',
   ],
   [
-    '--select-group-label-line-height',
+    '--select-item-group-label-line-height',
     'var(--line-height-text-xs)',
     'Controls group label line height.',
   ],
-  ['--select-group-label-padding-bottom', '0.35rem', 'Controls group label bottom padding.'],
-  ['--select-group-label-padding-top', '0.35rem', 'Controls group label top padding.'],
-  ['--select-group-label-padding-x', '0.625rem', 'Controls group label horizontal padding.'],
-  ['--select-group-padding-bottom', 'var(--spacing-1)', 'Controls group bottom padding.'],
-  ['--select-highlight-bg', 'var(--color-foreground)', 'Controls highlighted item background.'],
-  ['--select-highlight-color', 'var(--color-background)', 'Controls highlighted item text color.'],
-  ['--select-highlight-inset-x', 'var(--spacing-1)', 'Controls highlighted item horizontal inset.'],
-  ['--select-highlight-radius', 'var(--radius-sm)', 'Controls highlighted item radius.'],
-  ['--select-icon-color', 'var(--color-muted-foreground)', 'Controls trigger icon color.'],
-  ['--select-icon-size', '0.875rem', 'Controls trigger icon wrapper size.'],
-  ['--select-icon-svg-size', '1rem', 'Controls trigger icon SVG size.'],
-  [
-    '--select-check-padding-x-start',
-    '0.625rem',
-    'Controls item start padding when the indicator column is reserved.',
-  ],
-  ['--select-item-color', 'var(--color-foreground)', 'Controls item text color.'],
-  ['--select-item-font-size', 'var(--text-sm)', 'Controls item font size.'],
-  ['--select-item-gap', '0.5rem', 'Controls item grid gap.'],
-  ['--select-item-indicator-icon-size', '0.75rem', 'Controls item indicator icon size.'],
-  ['--select-item-indicator-size', '0.75rem', 'Controls item indicator slot size.'],
+  ['--select-item-group-label-padding-x', '0.625rem', 'Controls group label horizontal padding.'],
+  ['--select-item-group-label-padding-y', '0.375rem', 'Controls group label vertical padding.'],
+  ['--select-item-indicator-color', 'currentColor', 'Controls selected indicator color.'],
+  ['--select-item-indicator-icon-size', '0.75rem', 'Controls selected indicator icon size.'],
+  ['--select-item-indicator-size', '0.875rem', 'Controls selected indicator box size.'],
+  ['--select-item-inset-x', 'var(--spacing-2)', 'Controls item horizontal inset.'],
   ['--select-item-line-height', 'var(--line-height-text-sm)', 'Controls item line height.'],
   ['--select-item-min-height', '2rem', 'Controls item minimum height.'],
-  ['--select-item-padding-x-end', '1rem', 'Controls item end padding.'],
-  [
-    '--select-item-padding-x-start',
-    '1rem',
-    'Controls item start padding when `indicator="none"` is used.',
-  ],
-  ['--select-item-padding-y', '0.5rem', 'Controls item vertical padding.'],
-  ['--select-item-radius', '0', 'Controls item radius.'],
-  ['--select-item-text-content-gap', 'var(--spacing-2)', 'Controls item text content gap.'],
-  ['--select-item-text-icon-color', 'currentColor', 'Controls item text icon color.'],
-  ['--select-item-text-icon-size', '1rem', 'Controls item text icon size.'],
+  ['--select-item-padding-x', '0.625rem', 'Controls item horizontal padding.'],
+  ['--select-item-padding-y', 'var(--spacing-2)', 'Controls item vertical padding.'],
+  ['--select-item-radius', 'var(--radius-sm)', 'Controls item radius.'],
+  ['--select-item-text-content-gap', 'var(--spacing-2)', 'Controls rich item text gap.'],
+  ['--select-item-text-icon-color', 'currentColor', 'Controls rich item icon color.'],
+  ['--select-item-text-icon-size', '1rem', 'Controls rich item icon size.'],
+  ['--select-label-color', 'var(--select-color)', 'Controls label color.'],
   ['--select-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
   ['--select-label-font-weight', 'var(--weight-medium)', 'Controls label font weight.'],
   ['--select-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
-  ['--select-list-max-height', 'var(--select-popup-max-height)', 'Controls list max height.'],
-  ['--select-list-padding-y', '0.25rem', 'Controls list vertical padding.'],
-  ['--select-list-scroll-padding-y', '0.25rem', 'Controls list scroll padding.'],
-  ['--select-overlap-offset', '1rem', 'Controls overlap offset for static side positioning.'],
+  ['--select-max-width', '100%', 'Controls root maximum width.'],
   ['--select-placeholder-color', 'var(--color-muted-foreground)', 'Controls placeholder color.'],
-  ['--select-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
-  ['--select-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--select-popup-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
-  ['--select-popup-max-height', '24rem', 'Controls popup max height.'],
   ['--select-radius', 'var(--radius-md)', 'Controls trigger and popup radius.'],
-  ['--select-scroll-arrow-color', 'var(--select-color)', 'Controls scroll arrow color.'],
-  ['--select-scroll-arrow-height', '1rem', 'Controls scroll arrow height.'],
-  ['--select-scroll-arrow-icon-size', '0.875rem', 'Controls scroll arrow icon size.'],
-  ['--select-scroll-arrow-z-index', '1', 'Controls scroll arrow stacking order.'],
-  ['--select-separator-color', 'var(--select-border-color)', 'Controls separator color.'],
-  ['--select-separator-margin-x', '1rem', 'Controls separator horizontal margin.'],
-  ['--select-separator-margin-y', '0.375rem', 'Controls separator vertical margin.'],
-  ['--select-separator-thickness', 'var(--border-width-sm)', 'Controls separator thickness.'],
-  ['--select-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--select-trigger-gap', '0.75rem', 'Controls trigger content gap.'],
-  ['--select-trigger-padding-x', '0.875rem', 'Controls trigger horizontal padding.'],
-  ['--select-width', '14rem', 'Controls trigger and popup anchor width.'],
-];
-export const selectPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--select-bg', 'var(--color-background)', 'Controls trigger background.'],
-  ['--select-bg-active', 'var(--color-muted)', 'Controls trigger background when open.'],
-  ['--select-bg-hover', 'var(--color-accent)', 'Controls trigger background on hover.'],
-  ['--select-border-color', 'var(--color-border)', 'Controls trigger border color.'],
-  ['--select-color', 'var(--color-foreground)', 'Controls primary text color.'],
-  ['--select-focus-ring-color', 'var(--color-ring)', 'Controls keyboard focus ring color.'],
-  ['--select-highlight-bg', 'var(--color-foreground)', 'Controls highlighted item background.'],
-  ['--select-highlight-color', 'var(--color-background)', 'Controls highlighted item text color.'],
-  ['--select-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
-  ['--select-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--select-radius', 'var(--radius-md)', 'Controls trigger and popup radius.'],
+  ['--select-root-gap', '0.375rem', 'Controls gap between label and control.'],
+  ['--select-transition', 'var(--transition-default)', 'Controls interactive transition timing.'],
+  ['--select-trigger-padding-x-end', '4.25rem', 'Controls trigger end padding.'],
+  ['--select-trigger-padding-x-start', '0.875rem', 'Controls trigger start padding.'],
+  ['--select-width', '14rem', 'Controls root width.'],
 ];
 
-export function SelectCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function SelectCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={selectOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function SelectCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={selectPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }
@@ -263,304 +177,365 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function renderMultipleValue(value: Language[]) {
-  if (value.length === 0) {
-    return 'Select languages';
-  }
-
-  const first = languages[value[0]];
-  const suffix = value.length > 1 ? ` (+${value.length - 1})` : '';
-
-  return `${first}${suffix}`;
+function SelectControl({ placeholder = 'Select an option' }: { placeholder?: string }) {
+  return (
+    <Select.Control>
+      <Select.Trigger>
+        <Select.ValueText placeholder={placeholder} />
+      </Select.Trigger>
+      <Select.Indicators>
+        <Select.ClearTrigger aria-label="Clear selection" />
+        <Select.Indicator />
+      </Select.Indicators>
+    </Select.Control>
+  );
 }
 
-function FruitItems({ indicator = 'start' }: { indicator?: 'start' | 'end' }) {
+function SelectPopupContent({ children }: { children: ReactNode }) {
   return (
-    <>
-      {fruits.map((item) => (
-        <SelectItem key={item.value} value={item.value} indicator={indicator}>
-          {indicator === 'start' ? <SelectItemIndicator /> : null}
-          <SelectItemText>{item.label}</SelectItemText>
-          {indicator === 'end' ? <SelectItemIndicator /> : null}
-        </SelectItem>
-      ))}
-    </>
+    <Select.Positioner>
+      <Select.Content>{children}</Select.Content>
+    </Select.Positioner>
   );
+}
+
+function FruitItems() {
+  return fruits.items.map((item) => (
+    <Select.Item key={item.value} item={item}>
+      <Select.ItemText>{item.label}</Select.ItemText>
+      <Select.ItemIndicator />
+    </Select.Item>
+  ));
 }
 
 export function SelectExample() {
   return (
-    <Select items={fruits}>
-      <SelectField>
-        <SelectLabel>Choose fruit</SelectLabel>
-        <SelectTrigger>
-          <SelectValue placeholder="Select an option" />
-          <SelectIcon />
-        </SelectTrigger>
-      </SelectField>
-
-      <SelectContent>
-        <SelectList>
+    <Select collection={fruits}>
+      <Select.Label>Choose fruit</Select.Label>
+      <SelectControl />
+      <SelectPopupContent>
+        <Select.ItemGroup>
+          <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
           <FruitItems />
-        </SelectList>
-      </SelectContent>
+        </Select.ItemGroup>
+      </SelectPopupContent>
+      <Select.HiddenSelect />
     </Select>
   );
 }
 
-export function SelectArrowExample() {
+export function ControlledSelectExample() {
+  const [value, setValue] = useState<string[]>(['light']);
+
   return (
-    <Select items={fruits}>
-      <SelectField>
-        <SelectLabel>Choose fruit</SelectLabel>
-        <SelectTrigger>
-          <SelectValue placeholder="Select an option" />
-          <SelectIcon />
-        </SelectTrigger>
-      </SelectField>
-
-      <SelectContent showArrow alignItemWithTrigger={false}>
-        <SelectList>
-          <FruitItems />
-        </SelectList>
-      </SelectContent>
-    </Select>
-  );
-}
-
-export function ScrollableSelectExample() {
-  return (
-    <Select items={fruits}>
-      <SelectField>
-        <SelectLabel>Choose fruit</SelectLabel>
-        <SelectTrigger>
-          <SelectValue placeholder="Select an option" />
-          <SelectIcon />
-        </SelectTrigger>
-      </SelectField>
-
-      <SelectContent>
-        <SelectScrollUpArrow />
-        <SelectList>
-          <FruitItems />
-        </SelectList>
-        <SelectScrollDownArrow />
-      </SelectContent>
-    </Select>
-  );
-}
-
-export function IndicatorRightSelectExample() {
-  return (
-    <Select items={fruits}>
-      <SelectField>
-        <SelectLabel>Choose fruit</SelectLabel>
-        <SelectTrigger>
-          <SelectValue placeholder="Select an option" />
-          <SelectIcon>
-            <ChevronDownIcon className={styles.customTriggerIcon} />
-          </SelectIcon>
-        </SelectTrigger>
-      </SelectField>
-
-      <SelectContent>
-        <SelectList>
-          {fruits.map((item) => (
-            <SelectItem key={item.value} value={item.value} indicator="end">
-              <SelectItemText>
-                <SelectItemTextContent>
-                  <SelectItemTextIcon>
-                    <InfoIcon className={styles.statusIcon} />
-                  </SelectItemTextIcon>
-                  <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
-                </SelectItemTextContent>
-              </SelectItemText>
-              <SelectItemIndicator />
-            </SelectItem>
+    <div>
+      <Select
+        collection={themes}
+        value={value}
+        onValueChange={(details) => setValue(details.value)}
+      >
+        <Select.Label>Theme</Select.Label>
+        <SelectControl placeholder="Select theme" />
+        <SelectPopupContent>
+          {themes.items.map((item) => (
+            <Select.Item key={item.value} item={item}>
+              <Select.ItemText>{item.label}</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
           ))}
-        </SelectList>
-      </SelectContent>
+        </SelectPopupContent>
+        <Select.HiddenSelect />
+      </Select>
+      <p>Current value: {value[0] ?? 'none'}</p>
+    </div>
+  );
+}
+
+export function RootProviderSelectExample() {
+  const select = useSelect({ collection: fruits, defaultValue: ['banana'] });
+
+  return (
+    <div>
+      <output>Selected: {select.valueAsString}</output>
+      <Select.RootProvider value={select}>
+        <Select.Label>Choose fruit</Select.Label>
+        <SelectControl />
+        <SelectPopupContent>
+          <FruitItems />
+        </SelectPopupContent>
+        <Select.HiddenSelect />
+      </Select.RootProvider>
+    </div>
+  );
+}
+
+export function MultipleSelectExample() {
+  return (
+    <Select collection={languages} multiple defaultValue={['javascript', 'typescript']}>
+      <Select.Label>Languages</Select.Label>
+      <SelectControl placeholder="Select languages" />
+      <SelectPopupContent>
+        {languages.items.map((item) => (
+          <Select.Item key={item.value} item={item}>
+            <Select.ItemText>{item.label}</Select.ItemText>
+            <Select.ItemIndicator />
+          </Select.Item>
+        ))}
+      </SelectPopupContent>
+      <Select.HiddenSelect />
     </Select>
   );
 }
 
 export function GroupedSelectExample() {
   return (
-    <Select>
-      <SelectField>
-        <SelectLabel>Choose produce</SelectLabel>
-        <SelectTrigger>
-          <SelectValue placeholder="Select item">
-            {(value) =>
-              typeof value === 'string' ? (groupedLabelByValue[value] ?? value) : 'Select item'
-            }
-          </SelectValue>
-          <SelectIcon />
-        </SelectTrigger>
-      </SelectField>
-
-      <SelectContent>
-        <SelectList>
-          {groupedOptions.map((group, index) => (
-            <SelectGroup key={group.label}>
-              {index > 0 ? <SelectSeparator /> : null}
-              <SelectGroupLabel>{group.label}</SelectGroupLabel>
-              {group.items.map((item) => (
-                <SelectItem key={item.value} value={item.value}>
-                  <SelectItemIndicator />
-                  <SelectItemText>{item.label}</SelectItemText>
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          ))}
-        </SelectList>
-      </SelectContent>
+    <Select collection={produce}>
+      <Select.Label>Choose produce</Select.Label>
+      <SelectControl placeholder="Select item" />
+      <SelectPopupContent>
+        {produce.group().map(([type, group]) => (
+          <Select.ItemGroup key={type}>
+            <Select.ItemGroupLabel>{type}</Select.ItemGroupLabel>
+            {group.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.ItemGroup>
+        ))}
+      </SelectPopupContent>
+      <Select.HiddenSelect />
     </Select>
   );
 }
 
-export function MultipleSelectExample() {
+export function FieldSelectExample() {
   return (
-    <Select<Language, true> multiple defaultValue={['javascript', 'typescript']}>
-      <SelectField>
-        <SelectLabel>Languages</SelectLabel>
-        <SelectTrigger>
-          <SelectValue>{renderMultipleValue}</SelectValue>
-          <SelectIcon />
-        </SelectTrigger>
-      </SelectField>
-
-      <SelectContent alignItemWithTrigger={false}>
-        <SelectList>
-          {languageValues.map((value) => (
-            <SelectItem key={value} value={value}>
-              <SelectItemIndicator />
-              <SelectItemText>{languages[value]}</SelectItemText>
-            </SelectItem>
+    <Field.Root required>
+      <Select collection={frameworks} name="framework">
+        <Select.Label>Framework</Select.Label>
+        <SelectControl placeholder="Select framework" />
+        <SelectPopupContent>
+          {frameworks.items.map((item) => (
+            <Select.Item key={item.value} item={item}>
+              <Select.ItemText>{item.label}</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
           ))}
-        </SelectList>
-      </SelectContent>
+        </SelectPopupContent>
+        <Select.HiddenSelect />
+      </Select>
+      <Field.HelperText>Pick the framework used by this project.</Field.HelperText>
+    </Field.Root>
+  );
+}
+
+export function FormSelectExample() {
+  const [submitted, setSubmitted] = useState('Nothing submitted');
+
+  return (
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        setSubmitted(String(data.get('theme') ?? ''));
+      }}
+    >
+      <Select collection={themes} name="theme" required>
+        <Select.Label>Theme</Select.Label>
+        <SelectControl placeholder="Select theme" />
+        <SelectPopupContent>
+          {themes.items.map((item) => (
+            <Select.Item key={item.value} item={item}>
+              <Select.ItemText>{item.label}</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
+          ))}
+        </SelectPopupContent>
+        <Select.HiddenSelect />
+      </Select>
+      <button type="submit">Submit</button>
+      <output>{submitted}</output>
+    </form>
+  );
+}
+
+export function LazyMountSelectExample() {
+  return (
+    <Select collection={fruits} lazyMount unmountOnExit>
+      <Select.Label>Choose fruit</Select.Label>
+      <SelectControl />
+      <SelectPopupContent>
+        <FruitItems />
+      </SelectPopupContent>
+      <Select.HiddenSelect />
     </Select>
   );
 }
 
-export function ControlledSelectExample() {
-  const [value, setValue] = useState<string | null>('light');
+export function SelectOnHighlightExample() {
+  const select = useSelect({
+    collection: fruits,
+    onHighlightChange({ highlightedValue }) {
+      if (highlightedValue) {
+        select.selectValue(highlightedValue);
+      }
+    },
+  });
+
+  return (
+    <Select.RootProvider value={select}>
+      <Select.Label>Choose fruit</Select.Label>
+      <SelectControl />
+      <SelectPopupContent>
+        <FruitItems />
+      </SelectPopupContent>
+      <Select.HiddenSelect />
+    </Select.RootProvider>
+  );
+}
+
+export function MaxSelectionSelectExample() {
+  const [value, setValue] = useState<string[]>(['javascript']);
+  const collection = useMemo(
+    () =>
+      createListCollection({
+        items: languages.items.map((item) => ({
+          ...item,
+          disabled: value.length >= 3 && !value.includes(item.value),
+        })),
+      }),
+    [value],
+  );
+
+  return (
+    <Select
+      collection={collection}
+      multiple
+      value={value}
+      onValueChange={(details) => {
+        if (details.value.length <= 3) setValue(details.value);
+      }}
+    >
+      <Select.Label>Languages</Select.Label>
+      <SelectControl placeholder="Select up to 3" />
+      <SelectPopupContent>
+        {collection.items.map((item) => (
+          <Select.Item key={item.value} item={item}>
+            <Select.ItemText>{item.label}</Select.ItemText>
+            <Select.ItemIndicator />
+          </Select.Item>
+        ))}
+      </SelectPopupContent>
+      <Select.HiddenSelect />
+    </Select>
+  );
+}
+
+export function SelectAllExample() {
+  return (
+    <Select collection={languages} multiple>
+      <Select.Label>Languages</Select.Label>
+      <SelectControl placeholder="Select languages" />
+      <SelectPopupContent>
+        <ArkSelect.Context>
+          {(select) => (
+            <button
+              className="select-bulk-action"
+              type="button"
+              onClick={() => {
+                select.selectAll();
+                select.setOpen(false);
+              }}
+            >
+              Select all
+            </button>
+          )}
+        </ArkSelect.Context>
+        {languages.items.map((item) => (
+          <Select.Item key={item.value} item={item}>
+            <Select.ItemText>{item.label}</Select.ItemText>
+            <Select.ItemIndicator />
+          </Select.Item>
+        ))}
+      </SelectPopupContent>
+      <Select.HiddenSelect />
+    </Select>
+  );
+}
+
+export function OverflowSelectExample() {
+  return (
+    <Select
+      collection={fruits}
+      positioning={{ fitViewport: true, placement: 'bottom-start', sameWidth: true }}
+    >
+      <Select.Label>Choose fruit</Select.Label>
+      <SelectControl />
+      <SelectPopupContent>
+        <FruitItems />
+      </SelectPopupContent>
+      <Select.HiddenSelect />
+    </Select>
+  );
+}
+
+export function DynamicItemsSelectExample() {
+  const [query, setQuery] = useState('');
+  const collection = useMemo(
+    () =>
+      createListCollection({
+        items: fruits.items.filter((item) =>
+          item.label.toLowerCase().includes(query.toLowerCase()),
+        ),
+      }),
+    [query],
+  );
 
   return (
     <div>
-      <Select value={value} onValueChange={setValue} items={themeOptions}>
-        <SelectField>
-          <SelectLabel>Theme</SelectLabel>
-          <SelectTrigger>
-            <SelectValue placeholder="Select theme" />
-            <SelectIcon />
-          </SelectTrigger>
-        </SelectField>
-
-        <SelectContent>
-          <SelectList>
-            {themeOptions.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
-                <SelectItemIndicator />
-                <SelectItemText>{item.label}</SelectItemText>
-              </SelectItem>
-            ))}
-          </SelectList>
-        </SelectContent>
+      <input
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        placeholder="Filter fruits"
+      />
+      <Select collection={collection}>
+        <Select.Label>Choose fruit</Select.Label>
+        <SelectControl />
+        <SelectPopupContent>
+          {collection.items.map((item) => (
+            <Select.Item key={item.value} item={item}>
+              <Select.ItemText>{item.label}</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
+          ))}
+        </SelectPopupContent>
+        <Select.HiddenSelect />
       </Select>
-
-      <p>Current value: {value ?? 'none'}</p>
     </div>
   );
 }
 
-export function ClearableSelectExample() {
+export function CustomItemSelectExample() {
   return (
-    <Select items={clearableThemeOptions}>
-      <SelectField>
-        <SelectLabel>Theme</SelectLabel>
-        <SelectTrigger>
-          <SelectValue />
-          <SelectIcon />
-        </SelectTrigger>
-      </SelectField>
-
-      <SelectContent>
-        <SelectList>
-          {clearableThemeOptions.map((item) => (
-            <SelectItem key={item.label} value={item.value}>
-              <SelectItemIndicator />
-              <SelectItemText>{item.label}</SelectItemText>
-            </SelectItem>
-          ))}
-        </SelectList>
-      </SelectContent>
-    </Select>
-  );
-}
-
-export function ObjectValuesSelectExample() {
-  return (
-    <Select<Assignee>
-      items={assignees.map((assignee) => ({ value: assignee, label: assignee.name }))}
-      itemToStringLabel={(assignee) => assignee.name}
-      itemToStringValue={(assignee) => assignee.id}
-    >
-      <SelectField>
-        <SelectLabel>Assignee</SelectLabel>
-        <SelectTrigger>
-          <SelectValue placeholder="Select assignee" />
-          <SelectIcon />
-        </SelectTrigger>
-      </SelectField>
-
-      <SelectContent>
-        <SelectList>
-          {assignees.map((assignee) => (
-            <SelectItem key={assignee.id} value={assignee}>
-              <SelectItemIndicator />
-              <SelectItemText>
-                <span className={styles.assigneeItemText}>
-                  <span className={styles.assigneeName}>{assignee.name}</span>
-                  <span className={styles.assigneeRole}>{assignee.role}</span>
-                </span>
-              </SelectItemText>
-            </SelectItem>
-          ))}
-        </SelectList>
-      </SelectContent>
-    </Select>
-  );
-}
-
-export function CustomCompositionSelectExample() {
-  return (
-    <Select items={fruits}>
-      <SelectField>
-        <SelectLabel>Choose fruit</SelectLabel>
-        <SelectTrigger className={styles.customTrigger}>
-          <SelectValue placeholder="Select an option" />
-          <SelectIcon />
-        </SelectTrigger>
-      </SelectField>
-
-      <SelectPortal>
-        <SelectBackdrop className={styles.customBackdrop} />
-        <SelectPositioner
-          alignItemWithTrigger={false}
-          sideOffset={8}
-          sticky
-          className={styles.customPositioner}
-        >
-          <SelectPopup className={styles.customPopup}>
-            <SelectArrow className={styles.customArrow} />
-            <SelectList>
-              <FruitItems />
-            </SelectList>
-          </SelectPopup>
-        </SelectPositioner>
-      </SelectPortal>
+    <Select collection={fruits}>
+      <Select.Label>Choose fruit</Select.Label>
+      <SelectControl />
+      <SelectPopupContent>
+        {fruits.items.map((item) => (
+          <Select.Item key={item.value} item={item}>
+            <Select.ItemText>
+              <Select.ItemTextContent>
+                <Select.ItemTextIcon aria-hidden>i</Select.ItemTextIcon>
+                <Select.ItemTextLabel>{item.label}</Select.ItemTextLabel>
+              </Select.ItemTextContent>
+            </Select.ItemText>
+            <Select.ItemIndicator />
+          </Select.Item>
+        ))}
+      </SelectPopupContent>
+      <Select.HiddenSelect />
     </Select>
   );
 }

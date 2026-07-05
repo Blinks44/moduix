@@ -1,311 +1,239 @@
 ---
 title: Heading
-description: A typography primitive for semantic headings with library sizing and weight tokens.
+description: A semantic heading primitive with Ark factory composition and moduix typography tokens.
 icon: Component
 ---
 
-import {
-  CustomCompositionHeadingExample,
-  HeadingCssPlaygroundPanel,
-  HeadingCssPropertiesPanel,
-  HeadingElementsExample,
-  HeadingExample,
-  HeadingSemanticLevelExample,
-  HeadingSizesExample,
-  HeadingWeightsExample,
-  headingPlaygroundCssProperties,
-} from '@/components/examples/heading';
+import * as HeadingDocs from '@/components/examples/heading';
 
-## Overview
+## API Reference
 
-`Heading` is a thin styled wrapper around native `h1`-`h6` elements.
-
-Base UI does not ship a standalone heading primitive, so this component stays close to plain HTML:
-`as` controls semantics, `size` controls visual scale, and `weight` provides the built-in emphasis
-presets.
+Ark UI does not ship a dedicated heading primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Basic
 
-<Preview cssProperties={headingPlaygroundCssProperties}>
-  <HeadingExample />
+`Heading` renders an `h1` by default. Use it for page titles and keep the semantic heading level
+tied to the document outline.
 
-  <Preview.Code>
+<Preview>
+  <HeadingDocs.HeadingExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/basic.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
     {`
-      import { Heading } from "moduix";
-
-      export function HeadingDemo() {
-        return <Heading>Build reliable interfaces</Heading>;
+      .demo {
+        max-width: 28rem;
       }
     `}
 
-  </Preview.Code>
-  <Preview.CSSProperties>{(context) => <HeadingCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <HeadingCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  </Preview.CSS>
+
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Heading` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/heading
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/heading
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/heading
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/heading
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/heading
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Heading` depends on, such
-as styles, icons, and small utilities.
-
-Use the default `h1` when the heading is the page or section title. Reach for `size` only when the
-visual hierarchy should differ from the semantic outline.
+<ShadcnInstall packageName="react-heading" />
 
 ## Anatomy
 
-`Heading` renders a single styled heading element.
+`Heading` is a root-only component. `Heading.Root` is the equivalent Ark-aligned namespace form.
 
 ```text
-Heading
+Heading / Heading.Root
 └─ text or inline content
 ```
 
-| Part      | Role                                                     |
-| --------- | -------------------------------------------------------- |
-| `Heading` | Semantic heading root with design-system heading styles. |
-
-The root element exposes `data-slot="heading-root"` for targeted styling.
+| Part                       | Role                                                    |
+| -------------------------- | ------------------------------------------------------- |
+| `Heading` / `Heading.Root` | Native semantic heading with moduix typography styling. |
 
 ## Composition
 
-Keep semantics and presentation separate:
+### Recommended composition
 
-- use `as` for document outline
-- use `size` when visual scale should differ from the heading level
-- use `weight` for the built-in typography presets
-- use `className` or CSS variables for one-off visual overrides
+Use `<Heading>` for an `h1`. For another semantic level, pass `as="h2"` through `as="h6"`:
 
-`Heading` has no internal slots or structural composition. The rendered heading element is already
-the full public surface.
+```tsx
+<Heading as="h2" size="2xl">
+  Page title rendered as h2
+</Heading>
+```
 
-### Defaults
+Use `asChild` only when a semantic heading child must own the DOM node while receiving the
+component props, class name, data attributes, and forwarded ref.
 
-| Prop     | Default    | Values                                  |
-| -------- | ---------- | --------------------------------------- |
-| `as`     | `h1`       | `h1`, `h2`, `h3`, `h4`, `h5`, `h6`      |
-| `size`   | by `as`    | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
-| `weight` | `semibold` | `regular`, `medium`, `semibold`, `bold` |
+### When to go custom
 
-Default `size` mapping by `as`: `h1 -> 2xl`, `h2 -> xl`, `h3 -> lg`, `h4 -> md`, `h5 -> sm`,
-`h6 -> xs`.
+Use `className` and the public `--heading-*` variables for visual overrides. Use `Text` instead when
+the content is body copy or general typography rather than a document heading.
+
+### Default props
+
+| Entry       | Default             | Values / Notes                          |
+| ----------- | ------------------- | --------------------------------------- |
+| element     | `h1`                | Use `as` for `h2` through `h6`          |
+| `size`      | by rendered element | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
+| `weight`    | `semibold`          | `regular`, `medium`, `semibold`, `bold` |
+| `asChild`   | `false`             | Ark factory composition                 |
+| `className` | -                   | Applied to the rendered heading root    |
+
+### Behavioral notes
+
+- Default visual sizes follow the rendered element: `h1 -> 2xl`, `h2 -> xl`, `h3 -> lg`,
+  `h4 -> md`, `h5 -> sm`, and `h6 -> xs`.
+- An explicit `size` overrides the element-based default without changing semantics.
+- The root forwards its ref to the rendered heading element.
+- Native headings need no additional ARIA. Do not use a non-heading child with `asChild`.
+- `Heading` is stateless and has no callbacks, keyboard behavior, providers, or context hooks.
 
 ## Examples
 
 ### Semantic Level and Visual Size
 
-Keep document structure and visual emphasis independent by combining `as` and `size`.
+Keep document structure and visual emphasis independent by choosing a semantic level and applying an
+explicit visual size.
 
 <Preview>
-  <HeadingSemanticLevelExample />
+  <HeadingDocs.HeadingSemanticLevelExample />
 
-  <Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/semantic-level-and-visual-size.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
     {`
-      import { Heading } from "moduix";
-
-      export function SemanticHeadingDemo() {
-        return (
-          <Heading as="h2" size="2xl">
-            Page title rendered as h2
-          </Heading>
-        );
+      .demo {
+        max-width: 28rem;
       }
     `}
 
-  </Preview.Code>
+  </Preview.CSS>
+
+</Preview>
+
+### Custom Host
+
+Use `asChild` for Ark factory composition when a semantic heading element must be supplied directly.
+
+<Preview>
+  <HeadingDocs.HeadingCustomHostExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/custom-host.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customHost {
+        max-width: 28rem;
+      }
+    `}
+
+  </Preview.CSS>
+
 </Preview>
 
 ### Heading Levels
 
-Use `as` to pick the semantic level. Each level maps to a sensible default visual size.
+Use `as` for `h2` through `h6`. The default visual scale follows the actual heading element.
 
 <Preview>
-  <HeadingElementsExample />
+  <HeadingDocs.HeadingElementsExample />
 
-  <Preview.Code>
-    {`
-      import { Heading } from "moduix";
-
-      export function HeadingLevelsDemo() {
-        return (
-          <div className={styles.stack}>
-            <Heading as="h1">Heading level 1</Heading>
-            <Heading as="h2">Heading level 2</Heading>
-            <Heading as="h3">Heading level 3</Heading>
-            <Heading as="h4">Heading level 4</Heading>
-            <Heading as="h5">Heading level 5</Heading>
-            <Heading as="h6">Heading level 6</Heading>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/heading-levels.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
       .stack {
         display: flex;
-        width: min(32rem, calc(100vw - var(--spacing-8)));
+        width: fit-content;
+        max-width: min(32rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-3);
       }
     `}
 
   </Preview.CSS>
+
 </Preview>
 
 ### Visual Sizes
 
-Use `size` when the same semantic level needs different visual density across layouts.
+Use `size` when multiple headings share one semantic level but need different visual emphasis.
 
 <Preview>
-  <HeadingSizesExample />
+  <HeadingDocs.HeadingSizesExample />
 
-  <Preview.Code>
-    {`
-      import { Heading } from "moduix";
-
-      export function HeadingSizesDemo() {
-        return (
-          <div className={styles.stack}>
-            <Heading as="h2" size="2xl">Extra-large heading</Heading>
-            <Heading as="h2" size="xl">Large heading</Heading>
-            <Heading as="h2" size="lg">Medium-large heading</Heading>
-            <Heading as="h2" size="md">Medium heading</Heading>
-            <Heading as="h2" size="sm">Small heading</Heading>
-            <Heading as="h2" size="xs">Extra-small heading</Heading>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/visual-sizes.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
       .stack {
         display: flex;
-        width: min(32rem, calc(100vw - var(--spacing-8)));
+        width: fit-content;
+        max-width: min(32rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-3);
       }
     `}
 
   </Preview.CSS>
+
 </Preview>
 
 ### Weights
 
-Use `weight` for the common emphasis presets without writing custom CSS.
+Use `weight` for the built-in typography emphasis presets.
 
 <Preview>
-  <HeadingWeightsExample />
+  <HeadingDocs.HeadingWeightsExample />
 
-  <Preview.Code>
-    {`
-      import { Heading } from "moduix";
-
-      export function HeadingWeightsDemo() {
-        return (
-          <div className={styles.stack}>
-            <Heading as="h2" weight="regular">Regular weight</Heading>
-            <Heading as="h2" weight="medium">Medium weight</Heading>
-            <Heading as="h2" weight="semibold">Semibold weight</Heading>
-            <Heading as="h2" weight="bold">Bold weight</Heading>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/weights.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
       .stack {
         display: flex;
-        width: min(32rem, calc(100vw - var(--spacing-8)));
+        width: fit-content;
+        max-width: min(32rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-3);
       }
     `}
 
   </Preview.CSS>
+
 </Preview>
 
-## Custom Composition
+## Styling
 
-`Heading` is already the full structure, so the escape hatch is direct styling on the root element.
-Pass `className` when you need one-off presentation changes such as a different color or a scoped
-token override.
+### CSS Properties
 
-<Preview>
-  <CustomCompositionHeadingExample />
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <HeadingDocs.HeadingCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
 
-  <Preview.Code>
-    {`
-      import { Heading } from "moduix";
+### Styling hooks
 
-      export function CustomHeadingDemo() {
-        return (
-          <Heading as="h2" className={styles.customHeading}>
-            Customized heading
-          </Heading>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customHeading {
-        --heading-color: var(--color-primary);
-        --heading-font-size-xl: var(--text-3xl);
-        --heading-line-height-xl: var(--line-height-text-3xl);
-        --heading-font-weight-semibold: var(--weight-bold);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
+- `data-scope="heading"` identifies the Ark-aligned component scope.
+- `data-part="root"` identifies the single root part.
+- `data-slot="heading-root"` is the stable moduix selector.
+- `data-size` is present when `size` is explicitly set.
+- `data-weight` reflects `regular`, `medium`, `semibold`, or `bold`.
+- Use `className` and `--heading-*` variables for scoped visual overrides.

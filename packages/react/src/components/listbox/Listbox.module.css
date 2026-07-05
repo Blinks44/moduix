@@ -1,0 +1,278 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: flex;
+    width: var(--listbox-width, 16rem);
+    max-width: var(--listbox-max-width, 100%);
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--listbox-root-gap, var(--spacing-3));
+    color: var(--listbox-color, var(--color-foreground));
+
+    &[data-disabled] {
+      opacity: var(--listbox-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .label {
+    color: var(--listbox-label-color, var(--listbox-color, var(--color-foreground)));
+    font-size: var(--listbox-label-font-size, var(--text-sm));
+    font-weight: var(--listbox-label-font-weight, var(--weight-medium));
+    line-height: var(--listbox-label-line-height, var(--line-height-text-sm));
+    user-select: none;
+  }
+
+  .input {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: var(--listbox-input-height, var(--size-lg));
+    margin: 0;
+    border: var(--listbox-input-border-width, var(--listbox-border-width, var(--border-width-sm)))
+      solid var(--listbox-input-border-color, var(--listbox-border-color, var(--color-border)));
+    border-radius: var(--listbox-input-radius, var(--listbox-radius, var(--radius-md)));
+    padding: var(--listbox-input-padding-y, var(--spacing-2))
+      var(--listbox-input-padding-x, var(--spacing-3));
+    background-color: var(--listbox-input-bg, var(--color-background));
+    color: var(--listbox-input-color, var(--listbox-color, var(--color-foreground)));
+    font: inherit;
+    font-size: var(--listbox-input-font-size, var(--text-md));
+    line-height: var(--listbox-input-line-height, var(--line-height-text-md));
+    outline: var(
+        --listbox-input-focus-ring-width,
+        var(--listbox-focus-ring-width, var(--border-width-sm))
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(
+          --listbox-input-focus-ring-width,
+          var(--listbox-focus-ring-width, var(--border-width-sm))
+        ) *
+        -1
+    );
+    transition:
+      border-color var(--listbox-transition, var(--transition-default)),
+      outline-color var(--listbox-transition, var(--transition-default)),
+      opacity var(--listbox-transition, var(--transition-default));
+
+    &::placeholder {
+      color: var(--listbox-placeholder-color, var(--color-muted-foreground));
+    }
+
+    &:focus-visible {
+      border-color: var(
+        --listbox-input-focus-ring-color,
+        var(--listbox-focus-ring-color, var(--color-ring))
+      );
+      outline-color: var(
+        --listbox-input-focus-ring-color,
+        var(--listbox-focus-ring-color, var(--color-ring))
+      );
+    }
+
+    &[data-disabled],
+    &[disabled] {
+      opacity: var(--listbox-disabled-opacity, var(--opacity-disabled));
+      cursor: default;
+    }
+  }
+
+  .content {
+    box-sizing: border-box;
+    display: flex;
+    min-height: 0;
+    max-height: var(--listbox-content-max-height, 14rem);
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: var(--listbox-border-width, var(--border-width-sm)) solid
+      var(--listbox-border-color, var(--color-border));
+    border-radius: var(--listbox-radius, var(--radius-md));
+    padding-block: var(--listbox-content-padding-y, var(--spacing-1));
+    background-color: var(--listbox-bg, var(--color-background));
+    color: var(--listbox-color, var(--color-foreground));
+    outline: var(--listbox-focus-ring-width, var(--border-width-sm)) solid transparent;
+    outline-offset: calc(var(--listbox-focus-ring-width, var(--border-width-sm)) * -1);
+    overscroll-behavior: auto;
+    scrollbar-gutter: stable;
+    scroll-padding-block: var(--listbox-content-padding-y, var(--spacing-1));
+    transition:
+      border-color var(--listbox-transition, var(--transition-default)),
+      outline-color var(--listbox-transition, var(--transition-default));
+
+    &[data-layout='grid'] {
+      display: grid;
+      grid-template-columns: repeat(var(--column-count), minmax(0, 1fr));
+      gap: var(--listbox-grid-gap, var(--spacing-1));
+      padding: var(--listbox-grid-padding, var(--spacing-2));
+    }
+
+    &[data-orientation='horizontal']:not([data-layout='grid']) {
+      flex-direction: row;
+      gap: var(--listbox-horizontal-gap, var(--spacing-2));
+      max-height: var(--listbox-horizontal-content-max-height, none);
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-inline: var(--listbox-content-padding-y, var(--spacing-1));
+    }
+  }
+
+  .empty {
+    padding-block: var(--listbox-empty-padding-y, var(--spacing-3));
+    padding-inline: var(--listbox-empty-padding-x, var(--spacing-3));
+    color: var(--listbox-empty-color, var(--color-muted-foreground));
+    font-size: var(--listbox-empty-font-size, var(--text-sm));
+    line-height: var(--listbox-empty-line-height, var(--line-height-text-sm));
+    text-align: center;
+  }
+
+  .itemGroup {
+    display: flex;
+    flex-direction: column;
+
+    & + & {
+      margin-top: var(--listbox-item-group-gap, var(--spacing-2));
+    }
+  }
+
+  .itemGroupLabel {
+    padding-block: var(--listbox-item-group-label-padding-y, var(--spacing-1));
+    padding-inline: var(--listbox-item-group-label-padding-x, var(--spacing-2));
+    color: var(--listbox-item-group-label-color, var(--color-muted-foreground));
+    font-size: var(--listbox-item-group-label-font-size, var(--text-xs));
+    font-weight: var(--listbox-item-group-label-font-weight, var(--weight-semibold));
+    line-height: var(--listbox-item-group-label-line-height, var(--line-height-text-xs));
+    user-select: none;
+  }
+
+  .item {
+    position: relative;
+    box-sizing: border-box;
+    display: grid;
+    width: calc(100% - var(--listbox-item-inset-x, var(--spacing-2)));
+    min-height: var(--listbox-item-min-height, 2rem);
+    grid-template-columns: minmax(0, 1fr) var(--listbox-item-indicator-size, 1rem);
+    align-items: center;
+    gap: var(--listbox-item-gap, var(--spacing-2));
+    margin-inline: calc(var(--listbox-item-inset-x, var(--spacing-2)) / 2);
+    border: var(--listbox-item-border-width, 0) solid var(--listbox-item-border-color, transparent);
+    border-radius: var(--listbox-item-radius, var(--radius-sm));
+    padding-block: var(--listbox-item-padding-y, var(--spacing-2));
+    padding-inline: var(--listbox-item-padding-x, var(--spacing-3));
+    background-color: var(--listbox-item-bg, transparent);
+    color: var(--listbox-item-color, var(--listbox-color, var(--color-foreground)));
+    font: inherit;
+    font-size: var(--listbox-item-font-size, var(--text-sm));
+    line-height: var(--listbox-item-line-height, var(--line-height-text-sm));
+    outline: 0;
+    user-select: none;
+    cursor: pointer;
+    transition:
+      background-color var(--listbox-transition, var(--transition-default)),
+      color var(--listbox-transition, var(--transition-default));
+
+    @media (hover: hover) {
+      &:not([data-disabled]):hover {
+        background-color: var(--listbox-hover-bg, var(--listbox-highlight-bg, var(--color-accent)));
+        color: var(
+          --listbox-hover-color,
+          var(--listbox-highlight-color, var(--color-accent-foreground))
+        );
+      }
+    }
+
+    &[data-highlighted] {
+      background-color: var(--listbox-highlight-bg, var(--color-accent));
+      color: var(--listbox-highlight-color, var(--color-accent-foreground));
+    }
+
+    &[data-selected] {
+      color: var(--listbox-item-selected-color, var(--listbox-item-color, var(--color-foreground)));
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+      color: var(--listbox-item-disabled-color, var(--color-muted-foreground));
+      opacity: var(--listbox-disabled-opacity, var(--opacity-disabled));
+      cursor: default;
+    }
+  }
+
+  .content[data-orientation='horizontal']:not([data-layout='grid']) .item {
+    width: var(--listbox-horizontal-item-width, 11rem);
+    min-width: var(--listbox-horizontal-item-width, 11rem);
+    align-items: flex-start;
+  }
+
+  .content[data-layout='grid'] .item {
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    margin-inline: 0;
+    text-align: center;
+
+    &[data-selected] {
+      background-color: var(--listbox-grid-selected-bg, var(--color-muted));
+      color: var(--listbox-grid-selected-color, var(--color-foreground));
+    }
+  }
+
+  .itemText {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .itemIndicator {
+    display: inline-flex;
+    width: var(--listbox-item-indicator-size, 1rem);
+    height: var(--listbox-item-indicator-size, 1rem);
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--listbox-item-indicator-color, currentColor);
+
+    & > svg {
+      width: var(--listbox-item-indicator-icon-size, 0.75rem);
+      height: var(--listbox-item-indicator-icon-size, 0.75rem);
+    }
+
+    &[data-state='unchecked'] {
+      visibility: hidden;
+    }
+  }
+
+  .valueText {
+    color: var(--listbox-value-text-color, var(--color-muted-foreground));
+    font-size: var(--listbox-value-text-font-size, var(--text-sm));
+    line-height: var(--listbox-value-text-line-height, var(--line-height-text-sm));
+  }
+
+  .itemTextContent {
+    display: inline-flex;
+    max-width: 100%;
+    min-width: 0;
+    align-items: center;
+    gap: var(--listbox-item-text-content-gap, var(--spacing-2));
+    vertical-align: top;
+  }
+
+  .itemTextIcon {
+    display: inline-flex;
+    width: var(--listbox-item-text-icon-size, 1rem);
+    height: var(--listbox-item-text-icon-size, 1rem);
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--listbox-item-text-icon-color, currentColor);
+  }
+
+  .itemTextLabel {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

@@ -4,62 +4,26 @@ description: A composed empty-state surface for no-results, no-data, and first-r
 icon: Component
 ---
 
-import {
-  EmptyCssPlaygroundPanel,
-  EmptyCssPropertiesPanel,
-  EmptyCustomStylesExample,
-  EmptyExample,
-  EmptyWithoutActionsExample,
-  EmptyWithoutIconExample,
-  emptyPlaygroundCssProperties,
-} from '@/components/examples/empty';
+import * as EmptyDocs from '@/components/examples/empty';
 
 ## API Reference
 
-`Empty` does not wrap a Base UI primitive. It is a standalone moduix presentational component built for
-empty-state layouts.
+Ark UI does not ship a dedicated empty primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance
 
 ## Basic
 
-<Preview cssProperties={emptyPlaygroundCssProperties} cssVariableScope="local">
-  <EmptyExample />
+Start with the callable `<Empty />` root and namespaced parts. Add `Empty.Icon` and
+`Empty.Actions` only when the state needs a visual cue or an explicit next step.
 
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        ComputerIcon,
-        Empty,
-        EmptyActions,
-        EmptyContent,
-        EmptyDescription,
-        EmptyIcon,
-        EmptyTitle,
-      } from "moduix";
+<Preview>
+  <EmptyDocs.EmptyExample />
 
-      export function EmptyDemo() {
-        return (
-          <Empty className={styles.empty}>
-            <EmptyIcon>
-              <ComputerIcon />
-            </EmptyIcon>
-            <EmptyContent>
-              <EmptyTitle>No deployments yet</EmptyTitle>
-              <EmptyDescription>
-                Connect a repository to start tracking release status and
-                deployment history.
-              </EmptyDescription>
-            </EmptyContent>
-            <EmptyActions>
-              <Button>Connect repository</Button>
-              <Button variant="outline">Read setup guide</Button>
-            </EmptyActions>
-          </Empty>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/empty/basic.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -69,127 +33,97 @@ empty-state layouts.
     `}
 
   </Preview.CSS>
-  <Preview.CSSProperties>{(context) => <EmptyCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <EmptyCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Empty` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/empty
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/empty
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/empty
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/empty
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/empty
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Empty` depends on, such
-as styles, icons, and small utilities.
-
-`Empty` gives missing-data states a consistent surface, optional icon slot, and wrapping actions row
-without locking consumers into high-level props like `title`, `description`, or `primaryAction`.
+<ShadcnInstall packageName="react-empty" />
 
 ## Anatomy
 
 ```text
 Empty
-├─ EmptyIcon (optional)
-├─ EmptyContent
-│  ├─ EmptyTitle
-│  └─ EmptyDescription
-└─ EmptyActions (optional)
+├─ Empty.Icon (optional)
+├─ Empty.Content
+│  ├─ Empty.Title
+│  └─ Empty.Description
+└─ Empty.Actions (optional)
 ```
 
-| Part               | Role                                                               |
-| ------------------ | ------------------------------------------------------------------ |
-| `Empty`            | Root surface that owns padding, border, background, and alignment. |
-| `EmptyIcon`        | Optional icon or small visual affordance container.                |
-| `EmptyContent`     | Groups text content with tighter inner spacing.                    |
-| `EmptyTitle`       | Main empty-state heading.                                          |
-| `EmptyDescription` | Supporting description block for one or more text nodes.           |
-| `EmptyActions`     | Optional wrapping row for actions.                                 |
+| Part                   | Role                                                               |
+| ---------------------- | ------------------------------------------------------------------ |
+| `Empty` / `Empty.Root` | Root surface that owns padding, border, background, and alignment. |
+| `Empty.Icon`           | Optional icon or small visual affordance container.                |
+| `Empty.Content`        | Groups text content with tighter inner spacing.                    |
+| `Empty.Title`          | Main empty-state heading.                                          |
+| `Empty.Description`    | Supporting description block for one or more text nodes.           |
+| `Empty.Actions`        | Optional wrapping row for actions.                                 |
 
 ## Composition
 
-Use the component parts directly instead of passing a bag of content props. That keeps the common path
-simple while leaving room for richer descriptions, custom buttons, links, or omitted sections.
+### Recommended composition
 
-`EmptyDescription` renders a `div`, not a `p`, so it can safely contain block content when needed.
-`EmptyTitle` renders `h3` by default and accepts `as` when the page outline needs another heading
-level.
+Stay with the exported parts for most empty states:
+
+- `Empty` for the surface and centered layout
+- `Empty.Content` for the text stack
+- `Empty.Title` for the heading
+- `Empty.Description` for supporting copy
+- `Empty.Icon` and `Empty.Actions` only when they add value
+
+This keeps the common path explicit and leaves room for richer descriptions, links, or custom
+buttons without introducing a configuration API.
+
+### When to go custom
+
+`Empty` does not hide a lower-level primitive layer. Customization usually means changing structure
+with normal component composition:
+
+- omit `Empty.Icon` or `Empty.Actions`
+- add richer markup inside `Empty.Description`
+- change the heading level with `Empty.Title asChild`
+- apply `className` and `--empty-*` variables on the parts that own the visual concern
+
+### Default props
+
+| Surface                | Default | Notes                                                  |
+| ---------------------- | ------- | ------------------------------------------------------ |
+| `Empty` / `Empty.Root` | —       | No additional behavioral defaults; Ark defaults apply. |
+
+### Behavioral notes
+
+- `Empty.Title` renders `h3` by default and accepts Ark factory `asChild` for document outline
+  control.
+- `Empty.Description` renders a `div`, not a `p`, so it can safely contain block content.
+- Every part forwards its ref to the rendered DOM element and accepts Ark factory `asChild` with a
+  single semantic child.
+- Parts render `data-scope="empty"` and matching `data-part` attributes for Ark-style styling,
+  plus stable `data-slot="empty-*"` hooks for moduix overrides.
+- `Empty.Actions` centers and wraps its children, so paired actions stay readable in narrow layouts.
 
 ## Examples
 
 ### Without Actions
 
-Omit `EmptyActions` when the state is only informational.
+Omit `Empty.Actions` when the state is only informational.
 
 <Preview>
-  <EmptyWithoutActionsExample />
+  <EmptyDocs.EmptyWithoutActionsExample />
 
-  <Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/empty/without-actions.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
     {`
-      import {
-        Empty,
-        EmptyContent,
-        EmptyDescription,
-        EmptyIcon,
-        EmptyTitle,
-        MapIcon,
-      } from "moduix";
-
-      export function SavedPlacesEmptyState() {
-        return (
-          <Empty className={styles.empty}>
-            <EmptyIcon>
-              <MapIcon />
-            </EmptyIcon>
-            <EmptyContent>
-              <EmptyTitle>No saved places</EmptyTitle>
-              <EmptyDescription>
-                Save frequently used destinations to keep them close to your
-                workspace.
-              </EmptyDescription>
-            </EmptyContent>
-          </Empty>
-        );
+      .empty {
+        width: min(28rem, 100%);
       }
     `}
 
-  </Preview.Code>
+  </Preview.CSS>
+
 </Preview>
 
 ### Without Icon
@@ -197,111 +131,49 @@ Omit `EmptyActions` when the state is only informational.
 The visual slot is optional, so plain text-only empty states stay simple.
 
 <Preview>
-  <EmptyWithoutIconExample />
+  <EmptyDocs.EmptyWithoutIconExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        Empty,
-        EmptyActions,
-        EmptyContent,
-        EmptyDescription,
-        EmptyTitle,
-      } from "moduix";
-
-      export function SearchResultsEmptyState() {
-        return (
-          <Empty className={styles.empty}>
-            <EmptyContent>
-              <EmptyTitle>No results found</EmptyTitle>
-              <EmptyDescription>
-                Try changing the search query or clearing one of the active
-                filters.
-              </EmptyDescription>
-            </EmptyContent>
-            <EmptyActions>
-              <Button variant="outline">Clear filters</Button>
-            </EmptyActions>
-          </Empty>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Custom Styles
-
-Override the `--empty-*` tokens on a single empty state when it should align with a more specific
-screen tone.
-
-<Preview>
-  <EmptyCustomStylesExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        ComputerIcon,
-        Empty,
-        EmptyActions,
-        EmptyContent,
-        EmptyDescription,
-        EmptyIcon,
-        EmptyTitle,
-      } from "moduix";
-      import styles from "./empty.module.css";
-
-      export function TeamInviteEmptyState() {
-        return (
-          <Empty className={styles.customEmpty}>
-            <EmptyIcon className={styles.customIcon}>
-              <ComputerIcon />
-            </EmptyIcon>
-            <EmptyContent>
-              <EmptyTitle>Invite your team</EmptyTitle>
-              <EmptyDescription>
-                Shared projects, comments, and approvals appear here after the
-                first teammate joins.
-              </EmptyDescription>
-            </EmptyContent>
-            <EmptyActions>
-              <Button>Send invite</Button>
-            </EmptyActions>
-          </Empty>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/empty/without-icon.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
-      .customEmpty {
-        --empty-bg: color-mix(
-          in oklab,
-          var(--color-primary) 8%,
-          var(--color-card)
-        );
-        --empty-border-color: color-mix(
-          in oklab,
-          var(--color-primary) 28%,
-          var(--color-border)
-        );
-        --empty-icon-bg: color-mix(
-          in oklab,
-          var(--color-primary) 14%,
-          var(--color-background)
-        );
-        --empty-icon-color: var(--color-primary);
-        --empty-shadow: var(--shadow-md);
-      }
-
-      .customIcon {
-        --empty-icon-size: 1.75rem;
+      .empty {
+        width: min(28rem, 100%);
       }
     `}
 
   </Preview.CSS>
+
 </Preview>
+
+## Styling
+
+Style `Empty` through `className`, Ark `data-scope="empty"` / `data-part` selectors, stable
+`data-slot="empty-*"` hooks, and the public `--empty-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <EmptyDocs.EmptyCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Target the part that owns the visual concern:
+
+- `[data-scope="empty"][data-part="root"]` / `data-slot="empty-root"` for surface layout, border,
+  background, and shadow overrides
+- `[data-scope="empty"][data-part="icon"]` / `data-slot="empty-icon"` for icon container sizing,
+  padding, and colors
+- `[data-scope="empty"][data-part="content"]` / `data-slot="empty-content"` for text stack width
+  and spacing
+- `[data-scope="empty"][data-part="title"]` and
+  `[data-scope="empty"][data-part="description"]` for typography
+- `[data-scope="empty"][data-part="actions"]` / `data-slot="empty-actions"` for action row spacing
+  and alignment

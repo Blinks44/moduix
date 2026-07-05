@@ -6,6 +6,20 @@
   min-width: 40rem;
 }
 
+.wideTable {
+  min-width: 56rem;
+}
+
+.stack {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.stickyScrollArea {
+  width: min(44rem, calc(100vw - var(--spacing-8)));
+  max-height: 18rem;
+}
+
 .card {
   width: min(44rem, calc(100vw - var(--spacing-8)));
 }
@@ -13,6 +27,30 @@
 .cardContent {
   min-width: 0;
   padding-top: 0;
+}
+
+.actionsHead {
+  width: 1%;
+  text-align: right;
+}
+
+.actionsCell {
+  width: 1%;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.actionTrigger {
+  --button-size-icon-sm: 1.25rem;
+  --button-focus-ring-width: var(--border-width-sm);
+
+  margin-inline-start: auto;
+  border-radius: var(--radius-sm);
+}
+
+.actionEllipsis {
+  font-weight: var(--weight-medium);
+  line-height: 1;
 }
 
 .code {
@@ -33,4 +71,14 @@
   border: var(--border-width-sm) dashed var(--color-border);
   border-radius: var(--radius-lg);
   background-color: color-mix(in srgb, var(--color-muted) 35%, transparent);
+}
+
+.scrollArea {
+  --scroll-area-height: 16rem;
+  --scroll-area-radius: var(--radius-lg);
+  --scroll-area-bg: var(--color-card);
+
+  width: min(44rem, calc(100vw - var(--spacing-8)));
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-lg);
 }

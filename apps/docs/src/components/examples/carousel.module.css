@@ -1,0 +1,110 @@
+.carousel {
+  width: min(100%, 42rem);
+}
+
+.wideCarousel {
+  width: min(100%, 48rem);
+}
+
+.verticalCarousel {
+  --carousel-height: 28rem;
+  width: min(100%, 38rem);
+}
+
+.exampleStack {
+  display: grid;
+  gap: var(--spacing-3);
+  justify-items: start;
+}
+
+.toolbar,
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  justify-content: space-between;
+}
+
+.statusRow {
+  flex-wrap: wrap;
+}
+
+.compactControls {
+  justify-content: center;
+}
+
+.statusText,
+.output {
+  margin: 0;
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.slide {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 21rem;
+  margin: 0;
+  border: var(--border-width-sm) solid color-mix(in oklab, var(--color-border) 88%, black 12%);
+  border-radius: var(--radius-xl);
+  background: color-mix(in oklab, var(--color-secondary) 30%, var(--color-card) 70%);
+  box-shadow: var(--shadow-sm);
+}
+
+.shortSlide {
+  height: 15rem;
+}
+
+.variableSlide {
+  height: 15rem;
+}
+
+.verticalSlide {
+  height: 100%;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnailGroup {
+  flex-wrap: wrap;
+}
+
+.thumbnailIndicator {
+  overflow: hidden;
+  width: 5rem;
+  height: 3rem;
+  padding: 0;
+  border: var(--border-width-sm) solid transparent;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  opacity: 0.65;
+  transition:
+    border-color var(--transition-fast),
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &[data-current] {
+    border-color: var(--color-primary);
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+}
+
+.thumbnailImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

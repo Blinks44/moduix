@@ -1,0 +1,55 @@
+@layer ui.docs {
+  .root {
+    --tree-view-width: 22rem;
+  }
+
+  .customRoot {
+    --tree-view-width: 24rem;
+    --tree-view-indent: 1.25rem;
+    --tree-view-item-selected-bg: var(--color-primary);
+    --tree-view-item-selected-color: var(--color-primary-foreground);
+    --tree-view-indent-guide-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
+  }
+
+  .stack {
+    display: grid;
+    gap: var(--spacing-3);
+  }
+
+  .output {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+
+  .searchInput {
+    box-sizing: border-box;
+    width: min(100%, 22rem);
+    min-height: var(--size-lg);
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.5rem 0.875rem;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font: inherit;
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+    outline: var(--border-width-sm) solid transparent;
+    outline-offset: calc(var(--border-width-sm) * -1);
+
+    &:focus-visible {
+      border-color: var(--color-ring);
+      outline-color: var(--color-ring);
+    }
+  }
+
+  .loadingIcon {
+    animation: tree-view-example-spin 1s linear infinite;
+  }
+
+  @keyframes tree-view-example-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

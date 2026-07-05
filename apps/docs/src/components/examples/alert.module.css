@@ -1,3 +1,7 @@
+.demo {
+  max-width: 32rem;
+}
+
 .stack {
   display: grid;
   width: min(38rem, 100%);
@@ -7,7 +11,7 @@
 .customAlert {
   --alert-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
   --alert-border-color: color-mix(in oklab, var(--color-primary) 38%, transparent);
-  --alert-icon-color: var(--color-primary);
+  --alert-indicator-color: var(--color-primary);
   --alert-radius: var(--radius-md);
   --alert-shadow: var(--shadow-sm);
 

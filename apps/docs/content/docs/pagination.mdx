@@ -1,430 +1,252 @@
 ---
 title: Pagination
-description: Composable page navigation built on the Base UI toolbar primitive.
+description: Page navigation built on the Ark UI pagination primitive.
 icon: Component
 ---
 
-import {
-  PaginationClassNameExample,
-  PaginationCompactExample,
-  PaginationControlledExample,
-  PaginationCssPlaygroundPanel,
-  PaginationCssPropertiesPanel,
-  PaginationDensityExample,
-  PaginationExample,
-  paginationPlaygroundCssProperties,
-} from '@/components/examples/pagination';
+import * as PaginationDocs from '@/components/examples/pagination';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/toolbar" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/pagination" />
 
-## Default Path
+## Basic
 
-Use `Pagination` with `usePagination` when the page window should be calculated for you.
+Use `Pagination` as the short root form for Ark `Pagination.Root`. Render page buttons from
+`Pagination.Context`, which exposes Ark's computed `pages` array.
 
-<Preview cssProperties={paginationPlaygroundCssProperties}>
-  <PaginationExample />
+<Preview>
+  <PaginationDocs.PaginationExample />
 
   <Preview.Code>
-    {`
-      import {
-        Pagination,
-        PaginationContent,
-        PaginationEllipsis,
-        PaginationItem,
-        PaginationLink,
-        PaginationNext,
-        PaginationPrevious,
-        usePagination,
-      } from "moduix";
-      import { useState } from "react";
-
-      export function PaginationDemo() {
-        const [page, setPage] = useState(5);
-        const pagination = usePagination({ count: 10, page });
-
-        return (
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  aria-disabled={!pagination.canPreviousPage || undefined}
-                  onClick={() => {
-                    if (pagination.canPreviousPage) {
-                      setPage(pagination.previousPage);
-                    }
-                  }}
-                />
-              </PaginationItem>
-              {pagination.items.map((item, index) => (
-                <PaginationItem key={String(item) + "-" + index}>
-                  {typeof item !== "number" ? (
-                    <PaginationEllipsis />
-                  ) : (
-                    <PaginationLink
-                      isActive={item === pagination.page}
-                      onClick={() => setPage(item)}
-                    >
-                      {item}
-                    </PaginationLink>
-                  )}
-                </PaginationItem>
-              ))}
-              <PaginationItem>
-                <PaginationNext
-                  aria-disabled={!pagination.canNextPage || undefined}
-                  onClick={() => {
-                    if (pagination.canNextPage) {
-                      setPage(pagination.nextPage);
-                    }
-                  }}
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSSProperties>
-    {(context) => <PaginationCssPropertiesPanel {...context} />}
-  </Preview.CSSProperties>
-  <Preview.CSSPlayground>
-    {(context) => <PaginationCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
+  <include lang="tsx">./_snippets/pagination/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Pagination` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/pagination
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/pagination
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/pagination
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/pagination
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/pagination
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Pagination` depends on, such
-as styles, icons, and small utilities.
-
-When `href` and `render` are omitted, `PaginationLink`, `PaginationPrevious`, and
-`PaginationNext` render native `button` elements automatically. Use that path for client-side page
-state, tables, and filtered lists.
+<ShadcnInstall packageName="react-pagination" />
 
 ## Anatomy
 
 ```text
-Pagination
-└─ PaginationContent
-   ├─ PaginationItem
-   │  └─ PaginationPrevious
-   ├─ PaginationItem
-   │  └─ PaginationLink
-   ├─ PaginationItem
-   │  └─ PaginationEllipsis
-   └─ PaginationItem
-      └─ PaginationNext
+Pagination.Root
+├─ Pagination.FirstTrigger (optional)
+├─ Pagination.PrevTrigger
+├─ Pagination.Context (optional render-prop access)
+│  ├─ Pagination.Item
+│  └─ Pagination.Ellipsis
+├─ Pagination.NextTrigger
+└─ Pagination.LastTrigger (optional)
+
+Pagination.RootProvider
+└─ same trigger, item, ellipsis, and context tree connected to usePagination()
 ```
 
-| Part                 | Role                                                               |
-| -------------------- | ------------------------------------------------------------------ |
-| `Pagination`         | Navigation landmark.                                               |
-| `PaginationContent`  | Base UI toolbar root for keyboard navigation and item arrangement. |
-| `PaginationItem`     | Lightweight wrapper for one pagination element.                    |
-| `PaginationLink`     | Page control with active styling via `isActive`.                   |
-| `PaginationPrevious` | Previous-page shortcut with a default icon-only control.           |
-| `PaginationNext`     | Next-page shortcut with a default icon-only control.               |
-| `PaginationEllipsis` | Non-interactive collapsed-range marker.                            |
+| Part                             | Role                                                            |
+| -------------------------------- | --------------------------------------------------------------- |
+| `Pagination` / `Pagination.Root` | Navigation root that owns page and page-size state.             |
+| `Pagination.RootProvider`        | Connects parts to state created with `usePagination()`.         |
+| `Pagination.Context`             | Reads root state and helpers through an Ark render prop.        |
+| `Pagination.Item`                | Interactive page item. Receives `{ type: 'page', value }`.      |
+| `Pagination.Ellipsis`            | Non-interactive collapsed-range marker with a required `index`. |
+| `Pagination.PrevTrigger`         | Moves to the previous page and disables itself at the start.    |
+| `Pagination.NextTrigger`         | Moves to the next page and disables itself at the end.          |
+| `Pagination.FirstTrigger`        | Moves to the first page and disables itself at the start.       |
+| `Pagination.LastTrigger`         | Moves to the last page and disables itself at the end.          |
 
 ## Composition
 
-`Pagination` stays thin on purpose:
+### Recommended composition
 
-- `usePagination` handles range generation only
-- URL mapping stays in consumer code
-- routing stays in consumer code
-- visible layout stays explicit in JSX
+`Pagination.Root` owns keyboard behavior, current page, page size, disabled trigger state, page range
+calculation, and accessible labels. Use `count` for the total number of data items, not the number
+of pages. Pair it with `pageSize` or `defaultPageSize` so Ark can calculate `totalPages`.
 
-Use these paths:
+`Pagination.Item` expects the page object returned by `pagination.pages`. Pass the object through
+with `{...page}` so Ark can set the correct selected state, labels, and event handlers.
 
-| Pattern                | Best fit                                              |
-| ---------------------- | ----------------------------------------------------- |
-| default button path    | Local state, client-side tables, filtered collections |
-| `href="/items?page=4"` | Plain links and SSR-first pages                       |
-| `render={<Link />}`    | Router-specific link components                       |
+### When to go custom
 
-`PaginationPrevious` and `PaginationNext` are icon-only by default. Pass `children` when the UI
-needs text labels or a custom layout.
+Use `Pagination.Context` for inline reads. When state must be created outside the rendered
+pagination tree, import Ark `usePagination()` or `usePaginationContext()` directly and pair that
+state with `Pagination.RootProvider`. Set `type="link"` and provide `getPageUrl(details)` when
+pagination should render navigational links.
+
+### Default props
+
+| Prop              | Default      | Notes                                                       |
+| ----------------- | ------------ | ----------------------------------------------------------- |
+| `aria-label`      | `Pagination` | Moduix root default for the navigation landmark.            |
+| `defaultPage`     | `1`          | Ark initial active page when uncontrolled.                  |
+| `defaultPageSize` | `10`         | Ark initial items per page when uncontrolled.               |
+| `siblingCount`    | `1`          | Ark pages shown beside the active page.                     |
+| `boundaryCount`   | `1`          | Ark pages shown at the beginning and end of the page range. |
+| `type`            | `button`     | Use `link` with `getPageUrl(details)` for anchors.          |
+
+### Behavioral notes
+
+Use `defaultPage` and `defaultPageSize` for uncontrolled state. Use `page`, `pageSize`,
+`onPageChange(details)`, and `onPageSizeChange(details)` for controlled state. Callback detail
+objects are the Ark objects; read `details.page` or `details.pageSize` without remapping. Ark
+preserves keyboard behavior, selected item semantics, disabled trigger state, `ids`, `asChild`,
+translations, and link URL generation.
 
 ## Examples
 
-### Controlled State
+### Controlled
 
-The default button path keeps client-side pagination short.
-
-<Preview>
-  <PaginationControlledExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Pagination,
-        PaginationContent,
-        PaginationEllipsis,
-        PaginationItem,
-        PaginationLink,
-        PaginationNext,
-        PaginationPrevious,
-        usePagination,
-      } from "moduix";
-      import { useState } from "react";
-
-      export function PaginationControlledDemo() {
-        const [page, setPage] = useState(5);
-        const pagination = usePagination({ count: 10, page });
-
-        return (
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  aria-disabled={!pagination.canPreviousPage || undefined}
-                  onClick={() => {
-                    if (pagination.canPreviousPage) {
-                      setPage(pagination.previousPage);
-                    }
-                  }}
-                />
-              </PaginationItem>
-              {pagination.items.map((item, index) => (
-                <PaginationItem key={String(item) + "-" + index}>
-                  {typeof item !== "number" ? (
-                    <PaginationEllipsis />
-                  ) : (
-                    <PaginationLink
-                      isActive={item === pagination.page}
-                      onClick={() => setPage(item)}
-                    >
-                      {item}
-                    </PaginationLink>
-                  )}
-                </PaginationItem>
-              ))}
-              <PaginationItem>
-                <PaginationNext
-                  aria-disabled={!pagination.canNextPage || undefined}
-                  onClick={() => {
-                    if (pagination.canNextPage) {
-                      setPage(pagination.nextPage);
-                    }
-                  }}
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Range Density
-
-Tune `siblingCount` and `boundaryCount` on `usePagination` when the page window should be denser or
-wider.
+Control the active page with Ark's `page` and `onPageChange(details)` props.
 
 <Preview>
-  <PaginationDensityExample />
+  <PaginationDocs.PaginationControlledExample />
 
   <Preview.Code>
-    {`
-      const pagination = usePagination({
-        count: 24,
-        page,
-        siblingCount: 2,
-        boundaryCount: 2,
-      });
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/pagination/controlled.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
-### Styling
+### Context
 
-Style the composed parts with `className` on `Pagination` and the public `--pagination-*`
-variables.
+Use `Pagination.Context` when custom controls need access to page helpers such as
+`goToFirstPage()` or `goToLastPage()`.
 
 <Preview>
-  <PaginationClassNameExample />
+  <PaginationDocs.PaginationContextExample />
 
   <Preview.Code>
-    {`
-      <Pagination className={styles.customPagination}>
-        <PaginationContent>{/* items */}</PaginationContent>
-      </Pagination>
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customPagination {
-        --pagination-item-radius: var(--radius-sm);
-        --pagination-item-bg-active: var(--color-primary);
-        --pagination-item-color-active: var(--color-primary-foreground);
-        --pagination-item-border-color-active: var(--color-primary);
-      }
-    `}
-
-  </Preview.CSS>
+  <include lang="tsx">./_snippets/pagination/context.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Custom Composition
+### Customized
 
-### Manual Window
-
-Build a shorter explicit window when the surrounding layout already knows which pages should be
-shown.
+Use `translations` for accessible labels and adjust the computed window with `siblingCount`,
+`boundaryCount`, and page-size props.
 
 <Preview>
-  <PaginationCompactExample />
+  <PaginationDocs.PaginationCustomizedExample />
 
   <Preview.Code>
-    {`
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious onClick={() => setPage((current) => Math.max(current - 1, 1))} />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink onClick={() => setPage(4)}>4</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink isActive={page === 5} onClick={() => setPage(5)}>
-              5
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink onClick={() => setPage(6)}>6</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext onClick={() => setPage((current) => Math.min(current + 1, 10))} />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/pagination/customized.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
 </Preview>
 
-### Router Links
+### Data Slicing
 
-Use `href` for plain anchors and `render={<Link />}` when the app standardizes on a router link
-component.
+Read `pagination.slice(data)` from context when the current page should render a client-side slice
+of an array.
 
-```tsx
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-  usePagination,
-} from 'moduix';
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+<Preview>
+  <PaginationDocs.PaginationDataSlicingExample />
 
-export function PaginationLinks({ pageCount }: { pageCount: number }) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const page = Number(searchParams.get('page') ?? '1');
-  const pagination = usePagination({ count: pageCount, page });
+  <Preview.Code>
+  <include lang="tsx">./_snippets/pagination/data-slicing.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
+</Preview>
 
-  const createHref = (nextPage: number) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('page', String(nextPage));
-    return `${pathname}?${params.toString()}`;
-  };
+### Link
 
-  return (
-    <Pagination>
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious
-            render={<Link href={createHref(pagination.previousPage)} />}
-            aria-disabled={!pagination.canPreviousPage || undefined}
-          />
-        </PaginationItem>
-        {pagination.items.map((item, index) => (
-          <PaginationItem key={String(item) + '-' + index}>
-            {typeof item !== 'number' ? (
-              <PaginationEllipsis />
-            ) : (
-              <PaginationLink
-                render={<Link href={createHref(item)} />}
-                isActive={item === pagination.page}
-              >
-                {item}
-              </PaginationLink>
-            )}
-          </PaginationItem>
-        ))}
-        <PaginationItem>
-          <PaginationNext
-            render={<Link href={createHref(pagination.nextPage)} />}
-            aria-disabled={!pagination.canNextPage || undefined}
-          />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
-  );
-}
-```
+Use `type="link"` with `getPageUrl(details)` when page changes should be real navigation.
 
-`createHref` is just a small consumer helper that turns a page number into the next URL. In this
-example it:
+<Preview>
+  <PaginationDocs.PaginationLinkExample />
 
-- reads the current query string
-- updates only the `page` param
-- preserves the rest of the URL state
-- returns the final `href` string for the router link
+  <Preview.Code>
+  <include lang="tsx">./_snippets/pagination/link.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
+</Preview>
 
-Keep that helper in app code, close to the router you actually use.
+### Page Range
+
+Use `pagination.pageRange` when nearby UI should describe the visible item range.
+
+<Preview>
+  <PaginationDocs.PaginationPageRangeExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/pagination/page-range.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Page Size Control
+
+Call `pagination.setPageSize(nextSize)` from context to let a separate control update page size.
+
+<Preview>
+  <PaginationDocs.PaginationPageSizeControlExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/pagination/page-size-control.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Root Provider
+
+Use Ark `usePagination()` with `Pagination.RootProvider` when state needs to be owned outside the
+rendered root.
+
+<Preview>
+  <PaginationDocs.PaginationRootProviderExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/pagination/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### With Edges
+
+Add `FirstTrigger` and `LastTrigger` when users need explicit jumps to the first and last page.
+
+<Preview>
+  <PaginationDocs.PaginationWithEdgesExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/pagination/with-edges.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Styling
+
+Moduix keeps Ark's state attributes and adds stable `data-slot` hooks for local styling.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <PaginationDocs.PaginationCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-scope="pagination"` and `data-part="item"` on `Pagination.Item`
+- `data-scope="pagination"` and `data-part="prev-trigger"` on `Pagination.PrevTrigger`
+- `data-scope="pagination"` and `data-part="next-trigger"` on `Pagination.NextTrigger`
+- `data-scope="pagination"` and edge trigger parts on first and last triggers
+- `data-selected` on the active page item
+- `data-disabled` on unavailable triggers
+- `data-slot="pagination-root"`, `pagination-root-provider`, `pagination-item`,
+  `pagination-ellipsis`, and trigger-specific slots for Moduix overrides

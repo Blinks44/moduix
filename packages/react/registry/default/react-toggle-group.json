@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "react-toggle-group",
+  "title": "ToggleGroup",
+  "description": "moduix React ToggleGroup component.",
+  "dependencies": ["@ark-ui/react", "clsx"],
+  "registryDependencies": ["Blinks44/moduix/react-core", "Blinks44/moduix/react-toggle"],
+  "files": [
+    {
+      "path": "packages/react/src/components/toggle-group/ToggleGroup.tsx",
+      "content": "import type { ComponentProps, ComponentRef } from 'react';\nimport { ToggleGroup as ToggleGroupPrimitive } from '@ark-ui/react/toggle-group';\nimport { clsx } from 'clsx';\nimport { createContext, forwardRef, useContext } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport toggleStyles from '../toggle/Toggle.module.css';\nimport styles from './ToggleGroup.module.css';\n\ntype ToggleVariant = 'default' | 'outline' | 'ghost';\ntype ToggleSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';\n\nconst defaultToggleGroupStyles = {\n  variant: 'default' as ToggleVariant,\n  size: 'md' as ToggleSize,\n};\n\nconst ToggleGroupStyleContext = createContext<{\n  variant: ToggleVariant;\n  size: ToggleSize;\n}>(defaultToggleGroupStyles);\n\ntype ToggleGroupRootProps = ComponentProps<typeof ToggleGroupPrimitive.Root> & {\n  variant?: ToggleVariant;\n  size?: ToggleSize;\n};\n\ntype ToggleGroupRootProviderProps = ComponentProps<typeof ToggleGroupPrimitive.RootProvider> & {\n  variant?: ToggleVariant;\n  size?: ToggleSize;\n};\n\ntype ToggleGroupItemProps = ComponentProps<typeof ToggleGroupPrimitive.Item> & {\n  variant?: ToggleVariant;\n  size?: ToggleSize;\n};\n\nconst ToggleGroupRoot = forwardRef<\n  ComponentRef<typeof ToggleGroupPrimitive.Root>,\n  ToggleGroupRootProps\n>(function ToggleGroupRoot({ className, variant = 'default', size = 'md', ...props }, ref) {\n  return (\n    <ToggleGroupStyleContext.Provider value={{ variant, size }}>\n      <ToggleGroupPrimitive.Root\n        ref={ref}\n        data-slot=\"toggle-group-root\"\n        data-variant={variant}\n        data-size={size}\n        className={clsx(styles.root, normalizeClassName(className))}\n        {...props}\n      />\n    </ToggleGroupStyleContext.Provider>\n  );\n});\n\nconst ToggleGroupRootProvider = forwardRef<\n  ComponentRef<typeof ToggleGroupPrimitive.RootProvider>,\n  ToggleGroupRootProviderProps\n>(function ToggleGroupRootProvider({ className, variant = 'default', size = 'md', ...props }, ref) {\n  return (\n    <ToggleGroupStyleContext.Provider value={{ variant, size }}>\n      <ToggleGroupPrimitive.RootProvider\n        ref={ref}\n        data-slot=\"toggle-group-root-provider\"\n        data-variant={variant}\n        data-size={size}\n        className={clsx(styles.root, normalizeClassName(className))}\n        {...props}\n      />\n    </ToggleGroupStyleContext.Provider>\n  );\n});\n\nconst ToggleGroupItem = forwardRef<\n  ComponentRef<typeof ToggleGroupPrimitive.Item>,\n  ToggleGroupItemProps\n>(function ToggleGroupItem({ className, variant, size, ...props }, ref) {\n  const inherited = useContext(ToggleGroupStyleContext);\n\n  return (\n    <ToggleGroupPrimitive.Item\n      ref={ref}\n      data-slot=\"toggle-group-item\"\n      data-variant={variant ?? inherited.variant}\n      data-size={size ?? inherited.size}\n      className={clsx(toggleStyles.root, styles.item, normalizeClassName(className))}\n      {...props}\n    />\n  );\n});\n\nconst ToggleGroup = Object.assign(ToggleGroupRoot, {\n  Root: ToggleGroupRoot,\n  RootProvider: ToggleGroupRootProvider,\n  Item: ToggleGroupItem,\n});\n\nexport { ToggleGroup };",
+      "type": "registry:component",
+      "target": "@components/moduix/toggle-group/ToggleGroup.tsx"
+    },
+    {
+      "path": "packages/react/src/components/toggle-group/ToggleGroup.module.css",
+      "content": "@layer ui.components {\n  .root {\n    box-sizing: border-box;\n    display: inline-flex;\n    align-items: center;\n    gap: var(--toggle-group-gap, var(--border-width-sm));\n    padding: var(--toggle-group-padding, var(--border-width-md));\n    border: var(--toggle-group-border-width, var(--border-width-sm)) solid\n      var(--toggle-group-border-color, var(--color-border));\n    border-radius: var(--toggle-group-radius, var(--radius-lg));\n    background-color: var(--toggle-group-bg, var(--color-muted));\n    color: var(--toggle-group-color, var(--color-foreground));\n\n    &[data-orientation='vertical'] {\n      flex-direction: column;\n      align-items: stretch;\n\n      & > .item {\n        width: 100%;\n        justify-content: flex-start;\n      }\n    }\n\n    &[data-variant='ghost'] {\n      --toggle-group-bg: var(--toggle-group-ghost-bg, transparent);\n      --toggle-group-border-color: var(--toggle-group-ghost-border-color, transparent);\n      --toggle-group-padding: var(--toggle-group-ghost-padding, 0);\n    }\n\n    &[data-variant='outline'] {\n      --toggle-group-bg: var(--toggle-group-outline-bg, var(--color-background));\n    }\n  }\n\n  .item {\n    flex: 0 0 auto;\n    border-radius: var(--toggle-group-item-radius, var(--radius-md));\n    --toggle-default-color: var(--toggle-group-color, var(--color-foreground));\n    --toggle-ghost-color: var(--toggle-group-color, var(--color-foreground));\n    --toggle-outline-color: var(--toggle-group-color, var(--color-foreground));\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/moduix/toggle-group/ToggleGroup.module.css"
+    },
+    {
+      "path": "packages/react/src/components/toggle-group/index.ts",
+      "content": "export { ToggleGroup } from './ToggleGroup';",
+      "type": "registry:component",
+      "target": "@components/moduix/toggle-group/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

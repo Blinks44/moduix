@@ -1,364 +1,196 @@
 ---
 title: Fieldset
-description: A composable fieldset for grouping related form controls under one accessible legend.
+description: Group related controls with Ark UI fieldset semantics, descriptions, errors, and shared state.
 icon: Component
 ---
 
-import {
-  CustomStylesFieldsetExample,
-  CustomCompositionFieldsetExample,
-  DisabledFieldsetExample,
-  FieldsetCssPlaygroundPanel,
-  FieldsetCssPropertiesPanel,
-  FieldsetExample,
-  fieldsetPlaygroundCssProperties,
-} from '@/components/examples/fieldset';
+import * as FieldsetDocs from '@/components/examples/fieldset';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/fieldset" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/fieldset" />
+
+## Choosing the right component
+
+Use `Fieldset` for multiple related controls with one legend. Use `Field` for one control with its
+own label, description, and validation message.
 
 ## Basic
 
-<Preview cssProperties={fieldsetPlaygroundCssProperties}>
-  <FieldsetExample />
+Compose `Fieldset.Root`, `Fieldset.Legend`, optional helper or error text, and the related controls.
+The short `<Fieldset>` form is equivalent to `<Fieldset.Root>`.
+
+<Preview>
+  <FieldsetDocs.FieldsetExample />
 
   <Preview.Code>
-    {`
-      import {
-        Fieldset,
-        FieldsetLegend,
-        Field,
-        FieldLabel,
-        FieldControl,
-        FieldError,
-      } from "moduix";
-
-      export function FieldsetDemo() {
-        return (
-          <Fieldset>
-            <FieldsetLegend>Billing details</FieldsetLegend>
-
-            <Field validationMode="onBlur">
-              <FieldLabel>Company</FieldLabel>
-              <FieldControl required placeholder="Enter company name" />
-              <FieldError match="valueMissing">Please enter company name.</FieldError>
-            </Field>
-
-            <Field validationMode="onBlur">
-              <FieldLabel>Tax ID</FieldLabel>
-              <FieldControl required placeholder="Enter tax ID" />
-              <FieldError match="valueMissing">Please enter tax ID.</FieldError>
-            </Field>
-          </Fieldset>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSSProperties>{(context) => <FieldsetCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <FieldsetCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  <include lang="tsx">./_snippets/fieldset/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Fieldset` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/fieldset
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/fieldset
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/fieldset
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/fieldset
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/fieldset
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Fieldset` depends on, such
-as styles, icons, and small utilities.
-
-`Fieldset` keeps the default path short: render one root, put the visible group label in
-`FieldsetLegend`, then place the related controls inside.
+<ShadcnInstall packageName="react-fieldset" />
 
 ## Anatomy
 
-`Fieldset` groups related controls under one semantic legend. Keep the visible group label in
-`FieldsetLegend`, then place related `Field` blocks (or composed rows like radio options) inside the
-same root so native fieldset semantics and disabled behavior stay consistent.
-
 ```text
-Fieldset
-├─ FieldsetLegend
-└─ grouped content
-   ├─ Field
-   │  ├─ FieldLabel
-   │  ├─ FieldControl
-   │  └─ FieldError
-   └─ Field / FieldItem rows (optional)
+Fieldset.Root | Fieldset.RootProvider
+├─ Fieldset.Legend
+├─ grouped controls
+├─ Fieldset.HelperText (optional)
+└─ Fieldset.ErrorText (optional)
 ```
 
-```tsx
-<Fieldset>
-  <FieldsetLegend>Billing details</FieldsetLegend>
-
-  <Field validationMode="onBlur">
-    <FieldLabel>Company</FieldLabel>
-    <FieldControl required placeholder="Enter company name" />
-    <FieldError match="valueMissing">Please enter company name.</FieldError>
-  </Field>
-</Fieldset>
-```
-
-| Part             | Role                                                                                                  |
-| ---------------- | ----------------------------------------------------------------------------------------------------- |
-| `Fieldset`       | Root semantic group. Renders native `fieldset`, carries shared disabled state, and supports `render`. |
-| `FieldsetLegend` | Group label announced for the whole fieldset.                                                         |
-
-`Fieldset` has only two public parts: `Fieldset` and `FieldsetLegend`. There are no extra slot APIs
-or exported helper types to learn. In most cases, keep the native structure and style the visible
-parts with `className` and CSS variables.
+| Part                         | Role                                                                  |
+| ---------------------------- | --------------------------------------------------------------------- |
+| `Fieldset` / `Fieldset.Root` | Creates state and renders a native `fieldset`.                        |
+| `Fieldset.RootProvider`      | Renders externally created `useFieldset` state.                       |
+| `Fieldset.Legend`            | Native `legend` and accessible group name.                            |
+| `Fieldset.HelperText`        | Description linked to the root through `aria-describedby`.            |
+| `Fieldset.ErrorText`         | Polite-live validation message rendered only while `invalid` is true. |
 
 ## Composition
 
-`Fieldset` is a thin wrapper over the Base UI primitive. By default it renders a native
-`fieldset`, forwards Base UI props directly, and exposes only the visible parts that consumers
-actually style.
+### Recommended composition
 
-`Fieldset` and `FieldsetLegend` are the whole component surface. Pass `className` directly to the
-part you want to customize.
+Keep one visible `Fieldset.Legend` inside the root. Pass `disabled`, `invalid`, and `id` directly to
+the root. Ark links the legend, mounted helper text, and active error text to the fieldset.
 
-### Defaults
+Root, provider, legend, helper text, and error text forward refs to their rendered DOM elements.
+Use `asChild` with one semantic child when a custom host must own a part.
 
-| Prop        | Default    | Values                                       |
-| ----------- | ---------- | -------------------------------------------- |
-| `disabled`  | `false`    | `true`, `false`                              |
-| `render`    | `fieldset` | Any valid React element or render callback   |
-| `className` | _not set_  | `string` or `(state) => string \| undefined` |
+### When to go custom
 
-```tsx
-<Fieldset className={styles.fieldset}>
-  <FieldsetLegend className={styles.legend}>Billing details</FieldsetLegend>
-</Fieldset>
-```
+Use `useFieldset` from `@ark-ui/react/fieldset` with `Fieldset.RootProvider` when state is owned
+outside the rendered tree. Do not wrap a provider in `Fieldset.Root` for the same state instance.
 
-Use `render` only when the fieldset semantics need to be composed with another root, such as
-`RadioGroup` or `CheckboxGroup`. That keeps the normal path simple while preserving the Base UI
-escape hatch for grouped selection controls.
+### Default props
+
+| Surface         | Prop       | Default |
+| --------------- | ---------- | ------- |
+| `Fieldset.Root` | `disabled` | `false` |
+| `Fieldset.Root` | `invalid`  | `false` |
+
+### Behavioral notes
+
+- `Fieldset.Legend` renders a native `legend`, unlike the removed legacy wrapper.
+- Native controls inside a disabled fieldset are disabled by the browser.
+- Ark `Field` descendants inherit disabled state from the fieldset. Set `invalid` on nested `Field`
+  components when individual controls need invalid state.
+- `Fieldset.ErrorText` is absent from the DOM until `invalid` is true.
+- Fieldset owns no value, keyboard navigation, callback, or `HiddenInput`.
+- Legacy `render` and flat exports such as `FieldsetLegend` are not supported; use `asChild` and the
+  namespace parts.
 
 ## Examples
 
+### Field
+
+Nest `Field` components when each control also needs an individual label or description.
+
+<Preview>
+  <FieldsetDocs.FieldsetWithFieldExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/fieldset/field.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
+  
+</Preview>
+
 ### Disabled
 
-Use `disabled` on `Fieldset` to prevent interaction with every native control inside the group.
+Set `disabled` on the root to disable native descendants and pass disabled state to Ark-aware
+controls that consume fieldset context.
 
 <Preview>
-  <DisabledFieldsetExample />
+  <FieldsetDocs.FieldsetDisabledExample />
 
   <Preview.Code>
-    {`
-      import {
-        Fieldset,
-        FieldsetLegend,
-        Field,
-        FieldLabel,
-        FieldControl,
-      } from "moduix";
-
-      export function DisabledFieldsetDemo() {
-        return (
-          <Fieldset disabled>
-            <FieldsetLegend>Disabled account details</FieldsetLegend>
-
-            <Field>
-              <FieldLabel>Email</FieldLabel>
-              <FieldControl defaultValue="team@example.com" />
-            </Field>
-
-            <Field>
-              <FieldLabel>Phone</FieldLabel>
-              <FieldControl defaultValue="+1 (555) 123-45-67" />
-            </Field>
-          </Fieldset>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/fieldset/disabled.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
+  
 </Preview>
 
-### Custom Styles
+### Invalid
 
-Pass `className` to `Fieldset`, `FieldsetLegend`, and nested field parts when styling with CSS
-Modules, Tailwind CSS, or CSS-in-JS.
+Set `invalid` on the fieldset for group-level validation. Set `invalid` on nested `Field`
+components when individual controls also need invalid styling and ARIA state.
 
 <Preview>
-  <CustomStylesFieldsetExample />
+  <FieldsetDocs.FieldsetInvalidExample />
 
   <Preview.Code>
-    {`
-      import {
-        Fieldset,
-        FieldsetLegend,
-        Field,
-        FieldLabel,
-        FieldControl,
-        FieldError,
-      } from "moduix";
-
-      export function StyledFieldsetDemo() {
-        return (
-          <Fieldset className={styles.customFieldset}>
-            <FieldsetLegend className={styles.customLegend}>
-              Styled fieldset
-            </FieldsetLegend>
-
-            <Field validationMode="onBlur" className={styles.customField}>
-              <FieldLabel className={styles.customLabel}>Project name</FieldLabel>
-              <FieldControl
-                required
-                placeholder="Maps Platform"
-                className={styles.customControl}
-              />
-              <FieldError className={styles.customError} match="valueMissing">
-                Please enter a project name.
-              </FieldError>
-            </Field>
-          </Fieldset>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customFieldset {
-        max-width: 20rem;
-        gap: var(--spacing-3);
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid color-mix(in srgb, var(--color-primary) 30%, transparent);
-        border-radius: var(--radius-lg);
-      }
-
-      .customLegend {
-        border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-        color: var(--color-primary);
-      }
-
-      .customField {
-        gap: var(--spacing-2);
-      }
-
-      .customLabel,
-      .customError {
-        color: var(--color-primary);
-      }
-
-      .customControl {
-        border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-      }
-
-      .customControl:focus-visible {
-        outline-color: var(--color-primary);
-      }
-    `}
-
-  </Preview.CSS>
+  <include lang="tsx">./_snippets/fieldset/invalid.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Custom Composition
+### Checkbox
 
-Use `render` when the semantic fieldset also needs to be another Base UI root. This is the main
-advanced composition path for radio groups and checkbox groups inside forms.
+Use the fieldset legend as the shared name for a related set of Ark checkbox controls. Keep each
+`Checkbox.HiddenInput` for native form submission and reset behavior.
 
 <Preview>
-  <CustomCompositionFieldsetExample />
+  <FieldsetDocs.FieldsetCheckboxExample />
 
   <Preview.Code>
-    {`
-      import {
-        Field,
-        FieldItem,
-        FieldLabel,
-        Fieldset,
-        FieldsetLegend,
-        Radio,
-        RadioGroup,
-        RadioLabel,
-      } from "moduix";
-
-      export function StorageTypeFieldset() {
-        return (
-          <Field name="storageType">
-            <Fieldset render={<RadioGroup defaultValue="ssd" className={styles.choiceGroup} />}>
-              <FieldsetLegend>Storage type</FieldsetLegend>
-
-              {storageTypes.map((item) => (
-                <FieldItem key={item.value}>
-                  <FieldLabel className={styles.choiceRow}>
-                    <Radio value={item.value} />
-                    <RadioLabel>{item.label}</RadioLabel>
-                  </FieldLabel>
-                </FieldItem>
-              ))}
-            </Fieldset>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const storageTypes = [
-        { value: "ssd", label: "SSD" },
-        { value: "hdd", label: "HDD" },
-      ];
-    `}
-
-  </Preview.Data>
-
-  <Preview.CSS>
-    {`
-      .choiceGroup {
-        gap: var(--spacing-2);
-      }
-
-      .choiceRow {
-        align-items: center;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
+  <include lang="tsx">./_snippets/fieldset/checkbox.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
+  
 </Preview>
+
+### Root Provider
+
+Create fieldset state outside the rendered tree when sibling controls or reusable descendants need
+to coordinate with it.
+
+<Preview>
+  <FieldsetDocs.FieldsetRootProviderExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/fieldset/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Input with Select
+
+Group a country-code selector and phone input under one legend when both controls represent one
+logical value.
+
+<Preview>
+  <FieldsetDocs.FieldsetPhoneInputExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/fieldset/input-with-select.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetPhoneInputCss}</Preview.CSS>
+  
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <FieldsetDocs.FieldsetCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Every DOM part has Ark `data-scope="fieldset"` and a `data-part` matching the anatomy. Root and
+legend expose `data-disabled` and `data-invalid`; moduix also adds `data-slot="fieldset-*"` hooks.
+Use `className` for local overrides and `--fieldset-*` variables for theme-level customization,
+especially legend spacing and root border tokens.

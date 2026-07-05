@@ -1,0 +1,50 @@
+@layer ui.storybook {
+  .stack {
+    display: grid;
+    gap: var(--spacing-3);
+    align-items: flex-start;
+  }
+
+  .actions {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+
+  .hint {
+    margin: 0;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-text-xs);
+  }
+
+  .field {
+    width: 24rem;
+    max-width: 100%;
+  }
+
+  .clearButton {
+    width: max-content;
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.375rem 0.75rem;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font: inherit;
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+    cursor: pointer;
+  }
+
+  .customRoot {
+    --tags-input-item-bg: color-mix(in oklab, var(--color-primary) 14%, var(--color-background));
+    --tags-input-item-border-color: color-mix(in oklab, var(--color-primary) 28%, transparent);
+    --tags-input-item-color: var(--color-primary);
+    --tags-input-item-highlight-ring-color: color-mix(
+      in oklab,
+      var(--color-primary) 70%,
+      transparent
+    );
+    --tags-input-trigger-bg-hover: color-mix(in oklab, var(--color-primary) 16%, transparent);
+  }
+}

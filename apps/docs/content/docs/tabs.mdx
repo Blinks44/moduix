@@ -1,836 +1,286 @@
 ---
 title: Tabs
-description: A set of tab buttons that switch between related panels on the same page.
+description: A set of tab triggers that switch between related content panels on the same page.
 icon: Component
 ---
 
-import {
-  ActivateOnFocusTabsExample,
-  ControlledTabsExample,
-  DisabledTabTabsExample,
-  IconTabsExample,
-  InlineInputsTabsExample,
-  LineTabsExample,
-  LinkTabsExample,
-  TabsCssPlaygroundPanel,
-  TabsCssPropertiesPanel,
-  TabsExample,
-  VerticalTabsExample,
-  tabsPlaygroundCssProperties,
-} from '@/components/examples/tabs';
+import * as TabsDocs from '@/components/examples/tabs';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/tabs" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/tabs" />
 
-## Default Path
+## Choosing the right component
 
-<Preview cssProperties={tabsPlaygroundCssProperties}>
-  <TabsExample />
+Use `Tabs` when users switch between mutually exclusive views that share one page region.
 
-  <Preview.Code>
-    {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
+- Choose **`Tabs`** when one selected trigger should reveal one selected content panel.
+- Choose **`Accordion`** when sections should stay stacked and expand independently.
+- Choose **`ToggleGroup`** when the control changes state or mode, but does not own panel content.
 
-      export function TabsDemo() {
-        return (
-          <Tabs defaultValue="overview">
-            <TabsList>
-              {items.map((item) => (
-                <TabsTab key={item.value} value={item.value}>
-                  {item.title}
-                </TabsTab>
-              ))}
-            </TabsList>
+## Basic
 
-            {items.map((item) => (
-              <TabsPanel key={item.value} value={item.value}>
-                {item.content}
-              </TabsPanel>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
+Use Ark-style parts: `Tabs.Root`, `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator`, and
+`Tabs.Content`. The short `<Tabs>` form is the same root component.
 
-  </Preview.Code>
+<Preview>
+  <TabsDocs.TabsExample />
 
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/basic.tsx#demo</include>
+</Preview.Code>
 
-  </Preview.Data>
-  <Preview.CSSProperties>{(context) => <TabsCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <TabsCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Tabs` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/tabs
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/tabs
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/tabs
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/tabs
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/tabs
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Tabs` depends on, such
-as styles, icons, and small utilities.
-
-`Tabs` keeps the default path small:
-
-- `Tabs` owns selected state and orientation
-- `TabsList` renders the default active indicator for you
-- `TabsTab` and `TabsPanel` stay close to the Base UI primitive API
-
-`Tabs` does not impose layout width. Let the surrounding layout or your own `className` decide how
-wide the control should be.
+<ShadcnInstall packageName="react-tabs" />
 
 ## Anatomy
 
-`Tabs` keeps the default path small: root, list, tabs, and panels.
-`TabsList` renders the default indicator internally. Add `TabsIndicator` only when you need to
-override indicator props or styles directly.
-
 ```text
-Tabs
-├─ TabsList
-│  ├─ TabsTab[value]
-│  │  └─ content
-│  └─ TabsIndicator (optional override)
-└─ TabsPanel[value]
-   └─ content
+Tabs.Root
+├─ Tabs.List
+│  ├─ Tabs.Trigger[value]
+│  ├─ Tabs.Trigger[value]
+│  └─ Tabs.Indicator (optional)
+└─ Tabs.Content[value]
+
+Tabs.RootProvider
+└─ same part tree connected to a useTabs() store
 ```
 
-```tsx
-<Tabs defaultValue="overview">
-  <TabsList>
-    <TabsTab value="overview">Overview</TabsTab>
-    <TabsTab value="projects">Projects</TabsTab>
-  </TabsList>
-  <TabsPanel value="overview">Overview content</TabsPanel>
-  <TabsPanel value="projects">Projects content</TabsPanel>
-</Tabs>
-```
-
-| Part            | Role                                                                                            |
-| --------------- | ----------------------------------------------------------------------------------------------- |
-| `Tabs`          | Root state machine for selected value, orientation, variant, and controlled/uncontrolled state. |
-| `TabsList`      | Groups tabs, owns keyboard list behavior, and renders the default active indicator.             |
-| `TabsIndicator` | Optional low-level escape hatch for custom indicator props or styling.                          |
-| `TabsTab`       | Interactive tab button. Its `value` must match a `TabsPanel` value.                             |
-| `TabsPanel`     | Content region for the active tab. Use `keepMounted` when hidden DOM must stay mounted.         |
+| Part                 | Role                                                            |
+| -------------------- | --------------------------------------------------------------- |
+| `Tabs` / `Tabs.Root` | Controls selected value, focus movement, orientation, and mode. |
+| `Tabs.RootProvider`  | Connects parts to state created with Ark `useTabs()`.           |
+| `Tabs.List`          | Groups tab triggers and owns roving-focus list semantics.       |
+| `Tabs.Trigger`       | Interactive tab button or `asChild` host with a required value. |
+| `Tabs.Indicator`     | Optional active-trigger indicator positioned by Ark variables.  |
+| `Tabs.Content`       | Content region for the matching trigger value.                  |
 
 ## Composition
 
-Use `Tabs` for state props such as `defaultValue`, `value`, `onValueChange`, `orientation`, and
-`variant`.
+### Recommended Composition
 
-Base UI behavior stays on the matching visible parts:
+`Tabs.Root` owns keyboard navigation, focus movement, and selected value. Use it for `value`,
+`defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `activationMode`,
+`orientation`, `loopFocus`, `deselectable`, `lazyMount`, `unmountOnExit`, `ids`, and `navigate`.
 
-- `TabsList`: `activateOnFocus`, `loopFocus`
-- `TabsTab`: `disabled`, `render`, `nativeButton`
-- `TabsPanel`: `keepMounted`
+Keep the Ark part tree visible. `Tabs.Indicator` is optional and should be rendered explicitly when
+you want the active-trigger indicator.
 
-Visible parts accept `className`. For the common case, let `TabsList` render the built-in
-indicator. When you need direct control over indicator props such as `renderBeforeHydration`, or a
-custom indicator class, compose `TabsIndicator` inside `TabsList`. Adding an explicit
-`TabsIndicator` replaces the built-in one for that list.
+### When To Go Custom
 
-### Defaults
+Use `asChild` on `Tabs.Trigger` when a trigger should render a link or router component. The child
+must be a single semantic element that can preserve Ark's keyboard, focus, and ARIA behavior.
 
-| Prop               | Default      | Values                   |
-| ------------------ | ------------ | ------------------------ |
-| `Tabs.variant`     | `default`    | `default`, `line`        |
-| `Tabs.orientation` | `horizontal` | `horizontal`, `vertical` |
+Use Ark `useTabs()` with `Tabs.RootProvider` when tab state must be created outside the rendered
+tree. Do not render `Tabs.Root` around the same state instance.
 
-```tsx
-import { Tabs, TabsIndicator, TabsList, TabsPanel, TabsTab } from 'moduix';
-import styles from './custom-indicator-tabs-demo.module.css';
+### Default Props
 
-export function CustomIndicatorTabsDemo() {
-  return (
-    <Tabs defaultValue="profile" className={styles.root}>
-      <TabsList className={styles.list}>
-        <TabsTab value="profile" className={styles.tab}>
-          Profile
-        </TabsTab>
-        <TabsTab value="security" className={styles.tab}>
-          Security
-        </TabsTab>
-        <TabsIndicator className={styles.indicator} renderBeforeHydration />
-      </TabsList>
-      <TabsPanel value="profile" className={styles.panel}>
-        Profile settings
-      </TabsPanel>
-      <TabsPanel value="security" className={styles.panel}>
-        Security settings
-      </TabsPanel>
-    </Tabs>
-  );
-}
-```
+| Prop                       | Default      | Notes                                                        |
+| -------------------------- | ------------ | ------------------------------------------------------------ |
+| `Tabs.variant`             | `default`    | moduix visual sugar: `default` or `line`.                    |
+| `Tabs.Root.activationMode` | `automatic`  | Focus selects automatically unless set to `manual`.          |
+| `Tabs.Root.orientation`    | `horizontal` | `horizontal` uses arrow left/right; `vertical` uses up/down. |
+| `Tabs.Root.loopFocus`      | `true`       | Roving focus wraps around the trigger list.                  |
+| `Tabs.Root.lazyMount`      | `false`      | Defers content mounting until selected.                      |
+| `Tabs.Root.unmountOnExit`  | `false`      | Removes inactive content when combined with lazy paths.      |
+
+### Behavioral Notes
+
+- `onValueChange` follows Ark and receives `details`; read the selected value from `details.value`.
+- `Tabs.Trigger` and `Tabs.Content` connect through matching string `value` props.
+- `Tabs.List` no longer auto-renders an indicator. Render `Tabs.Indicator` explicitly when needed.
+- Ark controls accessibility attributes, tabpanel relationships, roving focus, and disabled trigger behavior.
 
 ## Examples
 
-### Line
+### Controlled Value
 
-Use `variant="line"` when the indicator should sit on the active edge instead of filling the tab.
-
-<Preview>
-  <LineTabsExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
-      export function LineTabsDemo() {
-        return (
-          <Tabs defaultValue="overview" variant="line">
-            <TabsList>
-              {items.map((item) => (
-                <TabsTab key={item.value} value={item.value}>
-                  {item.title}
-                </TabsTab>
-              ))}
-            </TabsList>
-
-            {items.map((item) => (
-              <TabsPanel key={item.value} value={item.value}>
-                {item.content}
-              </TabsPanel>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Controlled
-
-Control the active tab from React state when the selected panel needs to coordinate with other UI.
+Control the selected tab from React state when the active panel coordinates with other UI.
 
 <Preview>
-  <ControlledTabsExample />
+  <TabsDocs.ControlledTabsExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/controlled-value.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledTabsDemo() {
-        const [value, setValue] = useState("projects");
-
-        return (
-          <Tabs value={value} onValueChange={setValue}>
-            <TabsList>
-              {items.map((item) => (
-                <TabsTab key={item.value} value={item.value}>
-                  {item.title}
-                </TabsTab>
-              ))}
-            </TabsList>
-
-            {items.map((item) => (
-              <TabsPanel key={item.value} value={item.value}>
-                {item.content}
-              </TabsPanel>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Vertical
-
-Use `orientation="vertical"` when the tab list should sit next to the active panel.
-
-<Preview>
-  <VerticalTabsExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
-      export function VerticalTabsDemo() {
-        return (
-          <Tabs defaultValue="overview" orientation="vertical">
-            <TabsList>
-              {items.map((item) => (
-                <TabsTab key={item.value} value={item.value}>
-                  {item.title}
-                </TabsTab>
-              ))}
-            </TabsList>
-
-            {items.map((item) => (
-              <TabsPanel key={item.value} value={item.value}>
-                {item.content}
-              </TabsPanel>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Activate On Focus
-
-Pass `activateOnFocus` to `TabsList` when arrow-key focus should immediately select a tab.
-
-<Preview>
-  <ActivateOnFocusTabsExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
-      export function ActivateOnFocusTabsDemo() {
-        return (
-          <Tabs defaultValue="overview">
-            <TabsList activateOnFocus>
-              {items.map((item) => (
-                <TabsTab key={item.value} value={item.value}>
-                  {item.title}
-                </TabsTab>
-              ))}
-            </TabsList>
-
-            {items.map((item) => (
-              <TabsPanel key={item.value} value={item.value}>
-                {item.content}
-              </TabsPanel>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Links
-
-Use `render` with `nativeButton={false}` when tabs should render as links.
-
-<Preview>
-  <LinkTabsExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
-      export function LinkTabsDemo() {
-        return (
-          <Tabs defaultValue="overview">
-            <TabsList>
-              {items.map((item) => (
-                <TabsTab
-                  key={item.value}
-                  value={item.value}
-                  nativeButton={false}
-                  render={<a href={"#" + item.value} />}
-                >
-                  {item.title}
-                </TabsTab>
-              ))}
-            </TabsList>
-
-            {items.map((item) => (
-              <TabsPanel key={item.value} value={item.value}>
-                <span id={item.value}>{item.content}</span>
-              </TabsPanel>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Custom Icons
-
-Compose tab content directly inside `TabsTab`. The default tab styles already handle icon + label
-layouts.
-
-<Preview>
-  <IconTabsExample />
-
-  <Preview.Code>
-    {`
-      import {
-        HandshakeIcon,
-        MapIcon,
-        PresentIcon,
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
-      export function IconTabsDemo() {
-        return (
-          <Tabs defaultValue="overview">
-            <TabsList>
-              <TabsTab value="overview">
-                <HandshakeIcon />
-                <span>Overview</span>
-              </TabsTab>
-              <TabsTab value="projects">
-                <PresentIcon />
-                <span>Projects</span>
-              </TabsTab>
-              <TabsTab value="account">
-                <MapIcon />
-                <span>Account</span>
-              </TabsTab>
-            </TabsList>
-
-            {items.map((item) => (
-              <TabsPanel key={item.value} value={item.value}>
-                {item.content}
-              </TabsPanel>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Disabled Tab
 
-Disable tabs that are visible but not available yet. Add `keepMounted` when hidden panel DOM must
-stay mounted for forms, measurements, or preserved local state.
+Disable triggers that are visible but not available yet.
 
 <Preview>
-  <DisabledTabTabsExample />
+  <TabsDocs.DisabledTabTabsExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/disabled-tab.tsx#demo</include>
+</Preview.Code>
 
-      export function DisabledTabTabsDemo() {
-        return (
-          <Tabs defaultValue="overview">
-            <TabsList>
-              <TabsTab value="overview">Overview</TabsTab>
-              <TabsTab value="projects" disabled>
-                Projects
-              </TabsTab>
-              <TabsTab value="account">Account</TabsTab>
-            </TabsList>
-
-            {items.map((item) => (
-              <TabsPanel key={item.value} value={item.value} keepMounted>
-                {item.content}
-              </TabsPanel>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
 
-### Custom Composition
+### Indicator
 
-Use `className`, `TabsIndicator`, and CSS variables when the default Tabs styling needs a lighter
-fit for the surrounding layout.
+Add `Tabs.Indicator` inside `Tabs.List` when you want an animated active-trigger highlight.
 
 <Preview>
-  <InlineInputsTabsExample />
+  <TabsDocs.IndicatorTabsExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Tabs,
-        TabsIndicator,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-      import styles from "./inline-inputs-tabs-demo.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/indicator.tsx#demo</include>
+</Preview.Code>
 
-      export function InlineInputsTabsDemo() {
-        return (
-          <Tabs defaultValue="name" className={styles.inlineRoot}>
-            <TabsList className={styles.inlineList}>
-              <TabsTab value="name" className={styles.inlineTab}>
-                Name
-              </TabsTab>
-              <TabsTab value="email" className={styles.inlineTab}>
-                Email
-              </TabsTab>
-              <TabsIndicator className={styles.inlineIndicator} renderBeforeHydration />
-            </TabsList>
-            <TabsPanel value="name" className={styles.inlinePanel}>
-              <input className={styles.inlineInput} placeholder="Full name" aria-label="Full name" />
-            </TabsPanel>
-            <TabsPanel value="email" className={styles.inlinePanel}>
-              <input className={styles.inlineInput} placeholder="Email" aria-label="Email" />
-            </TabsPanel>
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .inlineRoot {
-        --tabs-bg: transparent;
-        --tabs-border-color: transparent;
-        --tabs-border-width: 0;
-        --tabs-gap: var(--spacing-4);
-        --tabs-list-bg: transparent;
-        --tabs-list-border-width: 0;
-        --tabs-list-padding: 0;
-        --tabs-list-padding-x: 0;
-        --tabs-list-padding-y: 0;
-        display: flex;
-        flex-direction: row;
-        width: 22rem;
-        align-items: center;
-        justify-content: space-between;
-        gap: var(--tabs-gap);
-        color: var(--color-foreground);
-
-        @media (min-width: 32rem) {
-          width: 32rem;
-        }
-      }
-
-      .inlineList {
-        position: relative;
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-1);
-        flex-shrink: 0;
-      }
-
-      .inlineTab {
-        height: var(--size-md);
-        margin: 0;
-        appearance: none;
-        border: 0;
-        border-radius: var(--radius-sm);
-        padding-inline: var(--spacing-3);
-        background: transparent;
-        color: var(--color-muted-foreground);
-        font: inherit;
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-        cursor: pointer;
-
-        &[data-active] {
-          color: var(--color-foreground);
-        }
-      }
-
-      .inlineIndicator {
-        position: absolute;
-        top: auto;
-        left: 0;
-        bottom: 0;
-        width: var(--active-tab-width);
-        height: var(--border-width-md);
-        border-radius: var(--radius-full);
-        background: var(--color-foreground);
-        translate: var(--active-tab-left) 0;
-        transition:
-          translate 200ms ease,
-          width 200ms ease;
-      }
-
-      .inlinePanel {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .inlineInput {
-        box-sizing: border-box;
-        width: 100%;
-        height: var(--size-md);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-sm);
-        padding-inline: var(--spacing-2);
-        background: var(--color-background);
-        color: var(--color-foreground);
-        font: inherit;
-        font-size: var(--text-sm);
-      }
-    `}
-
-  </Preview.CSS>
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
 </Preview>
+
+### Lazy Mount
+
+Use `lazyMount` and `unmountOnExit` when inactive content should not stay in the DOM.
+
+<Preview>
+  <TabsDocs.LazyMountTabsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/lazy-mount.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Links
+
+Use `asChild` when triggers should render anchors or router links.
+
+<Preview>
+  <TabsDocs.LinkTabsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/links.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Manual Activation
+
+Set `activationMode="manual"` when arrow-key focus should move without selecting until click,
+Enter, or Space.
+
+<Preview>
+  <TabsDocs.ManualActivationTabsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/manual-activation.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Root Provider
+
+Create state with Ark `useTabs()` when the selected value must be read before rendering the part
+tree.
+
+<Preview>
+  <TabsDocs.RootProviderTabsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/root-provider.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Vertical
+
+Use `orientation="vertical"` when the trigger list should sit beside the active content.
+
+<Preview>
+  <TabsDocs.VerticalTabsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/vertical.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Line
+
+Use moduix `variant="line"` when the indicator should sit on the active edge instead of filling the
+trigger.
+
+<Preview>
+  <TabsDocs.LineTabsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/line.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Custom Icons
+
+Compose icons and labels directly inside `Tabs.Trigger`.
+
+<Preview>
+  <TabsDocs.IconTabsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/custom-icons.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Styling
+
+Style `Tabs` through `className`, stable `data-slot="tabs-*"` hooks, Ark `data-scope` and
+`data-part` attributes, `data-variant`, and the public `--tabs-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <TabsDocs.TabsCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling Hooks
+
+Use the part that owns the visual concern:
+
+- `Tabs.Root` for layout width, overall gap, orientation, and variant-level overrides
+- `Tabs.List` for list chrome, borders, background, and indicator container spacing
+- `Tabs.Trigger` for label layout, icon spacing, selected state, disabled state, and focus styling
+- `Tabs.Indicator` for custom indicator color, size, and transition behavior
+- `Tabs.Content` for content surface, padding, and focus styling
+
+The main public hooks include `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`,
+`data-slot="tabs-list"`, `data-slot="tabs-trigger"`, `data-slot="tabs-indicator"`, and
+`data-slot="tabs-content"`.
+
+Useful Ark hooks include `data-scope="tabs"`, `data-part`, `data-orientation`, `data-selected`,
+`data-disabled`, `data-focus`, and indicator variables `--left`, `--top`, `--width`, and `--height`.

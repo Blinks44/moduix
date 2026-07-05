@@ -1,5 +1,6 @@
 {
   "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["content/docs/_snippets/**/*"],
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,

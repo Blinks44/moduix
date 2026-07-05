@@ -30,7 +30,6 @@
   --toggle-outline-color-pressed: var(--color-primary-foreground);
 }
 
-.customIcon {
-  width: 1rem;
-  height: 1rem;
+.customButton {
+  border-style: dashed;
 }

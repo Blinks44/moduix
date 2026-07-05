@@ -1,13 +1,12 @@
-import type { ComponentProps, ComponentPropsWithoutRef } from 'react';
-import { Text } from 'moduix';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { Text } from '@moduix/react';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './text.module.css';
 
 export const textOverrideCssProperties: CssPropertyInput[] = [
   ['--text-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
   ['--text-destructive-color', 'var(--color-destructive)', 'Controls destructive tone color.'],
-  ['--text-font-family', 'var(--font-sans)', 'Controls text font family.'],
+  ['--text-font-family', 'inherit', 'Controls text font family.'],
   ['--text-font-size-xs', 'var(--text-xs)', 'Controls `xs` text font size.'],
   ['--text-font-size-sm', 'var(--text-sm)', 'Controls `sm` text font size.'],
   ['--text-font-size-md', 'var(--text-md)', 'Controls `md` text font size.'],
@@ -18,6 +17,7 @@ export const textOverrideCssProperties: CssPropertyInput[] = [
   ['--text-font-weight-regular', 'var(--weight-regular)', 'Controls regular text weight.'],
   ['--text-font-weight-semibold', 'var(--weight-semibold)', 'Controls semibold text weight.'],
   ['--text-letter-spacing', '0', 'Controls text letter spacing.'],
+  ['--text-line-clamp', 'set by `lineClamp`', 'Controls the active line clamp count.'],
   ['--text-line-height-xs', 'var(--line-height-text-xs)', 'Controls `xs` text line height.'],
   ['--text-line-height-sm', 'var(--line-height-text-sm)', 'Controls `sm` text line height.'],
   ['--text-line-height-md', 'var(--line-height-text-md)', 'Controls `md` text line height.'],
@@ -27,30 +27,9 @@ export const textOverrideCssProperties: CssPropertyInput[] = [
   ['--text-primary-color', 'var(--color-primary)', 'Controls primary tone color.'],
   ['--text-subtle-color', 'var(--color-secondary-foreground)', 'Controls subtle tone color.'],
 ];
-export const textPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--text-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
-  ['--text-destructive-color', 'var(--color-destructive)', 'Controls destructive tone color.'],
-  ['--text-font-family', 'var(--font-sans)', 'Controls text font family.'],
-  ['--text-letter-spacing', '0', 'Controls text letter spacing.'],
-  ['--text-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
-  ['--text-primary-color', 'var(--color-primary)', 'Controls primary tone color.'],
-  ['--text-subtle-color', 'var(--color-secondary-foreground)', 'Controls subtle tone color.'],
-];
-
-export function TextCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function TextCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable properties={textOverrideCssProperties.map(normalizeCssProperty)} />
-  );
-}
-
-export function TextCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={textPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
   );
 }
 
@@ -60,10 +39,10 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function TextExample(props: ComponentProps<typeof Text>) {
+export function TextExample() {
   return (
     <div className={styles.stack}>
-      <Text {...props}>Use text to describe interface state and supporting details.</Text>
+      <Text>Use text to describe interface state and supporting details.</Text>
       <Text as="small" tone="muted">
         Last updated 2 minutes ago
       </Text>
@@ -86,16 +65,12 @@ export function TextElementsExample() {
   );
 }
 
-type InlineLinkProps = ComponentPropsWithoutRef<'a'>;
-
-function InlineLink(props: InlineLinkProps) {
-  return <a {...props} />;
-}
-
 export function TextCustomElementExample() {
   return (
-    <Text render={<InlineLink href="/docs" />} tone="primary" weight="medium">
-      Read the documentation
+    <Text asChild tone="primary" weight="medium">
+      <a className={styles.link} href="/docs">
+        Read the documentation
+      </a>
     </Text>
   );
 }
@@ -141,6 +116,18 @@ export function TextAlignExample() {
       <Text align="left">Left aligned text.</Text>
       <Text align="center">Center aligned text.</Text>
       <Text align="right">Right aligned text.</Text>
+    </div>
+  );
+}
+
+export function TextTruncationExample() {
+  return (
+    <div className={styles.narrow}>
+      <Text truncate>Release notes for the weekly platform update are ready for review.</Text>
+      <Text lineClamp={2}>
+        Longer interface copy can be clamped when it appears inside dense cards, tables, or
+        constrained previews where the surrounding layout owns disclosure.
+      </Text>
     </div>
   );
 }

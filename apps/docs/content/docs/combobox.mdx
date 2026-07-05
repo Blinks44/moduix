@@ -1,976 +1,374 @@
 ---
 title: Combobox
-description: An input combined with a filterable list of predefined values.
+description: A filterable input for selecting one or more values from an Ark UI collection.
 icon: Component
 ---
 
-import {
-  AsyncSearchComboboxExample,
-  ComboboxExample,
-  ComboboxCssPlaygroundPanel,
-  ComboboxCssPropertiesPanel,
-  CustomCompositionComboboxExample,
-  GroupedComboboxExample,
-  IndicatorRightComboboxExample,
-  InputInsidePopupComboboxExample,
-  MultipleComboboxExample,
-  comboboxPlaygroundCssProperties,
-} from '@/components/examples/combobox';
+import * as ComboboxDocs from '@/components/examples/combobox';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/combobox" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/combobox" />
 
 ## Choosing the right component
 
-Use `Combobox` when users must choose from a known dataset, but typing is useful for searching
-or filtering the available options.
-
-- Choose **`Autocomplete`** when users can enter free-form text and suggestions only help complete the value.
-- Choose **`Combobox`** when users must choose predefined options, but typing helps search or filter the list.
-- Choose **`Select`** when users must choose predefined options and typing in the trigger is not needed.
+Use `Combobox` when users select from known values and typing helps filter the available options.
+Use `Select` when the same predefined choice does not need an editable input.
 
 ## Basic
 
-<Preview cssProperties={comboboxPlaygroundCssProperties}>
-  <ComboboxExample />
+Create an Ark `ListCollection`, pass it to `Combobox.Root`, and keep the popup structure explicit.
+`onInputValueChange` receives an Ark details object.
 
-  <Preview.Code>
-    {`
-      import {
-        Combobox,
-        ComboboxField,
-        ComboboxFieldLabel,
-        ComboboxInputGroup,
-        ComboboxInput,
-        ComboboxControlActions,
-        ComboboxClear,
-        ComboboxTrigger,
-        ComboboxContent,
-        ComboboxEmpty,
-        ComboboxList,
-        ComboboxItem,
-        ComboboxItemIndicator,
-        ComboboxItemText,
-      } from "moduix";
-      import { useId } from "react";
+<Preview>
+  <ComboboxDocs.ComboboxExample />
 
-      export function ComboboxDemo() {
-        const id = useId();
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/basic.tsx#demo</include>
+</Preview.Code>
 
-        return (
-          <Combobox items={fruits} itemToStringLabel={(item) => item.label}>
-            <ComboboxField>
-              <label htmlFor={id}>Choose fruit</label>
-              <ComboboxInputGroup>
-                <ComboboxInput id={id} placeholder="e.g. Mango" />
-                <ComboboxControlActions>
-                  <ComboboxClear aria-label="Clear selection" />
-                  <ComboboxTrigger aria-label="Open options" />
-                </ComboboxControlActions>
-              </ComboboxInputGroup>
-            </ComboboxField>
-
-            <ComboboxContent sideOffset={4}>
-              <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-              <ComboboxList>
-                {(item) => (
-                  <ComboboxItem key={item.id} value={item}>
-                    <ComboboxItemIndicator />
-                    <ComboboxItemText>{item.label}</ComboboxItemText>
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const fruits = [
-        { id: "apple", label: "Apple", value: "apple" },
-        { id: "banana", label: "Banana", value: "banana" },
-        { id: "mango", label: "Mango", value: "mango" },
-      ];
-    `}
-
-  </Preview.Data>
-  <Preview.CSSProperties>
-    {(context) => <ComboboxCssPropertiesPanel {...context} />}
-  </Preview.CSSProperties>
-  <Preview.CSSPlayground>
-    {(context) => <ComboboxCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
+  <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Combobox` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/combobox
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/combobox
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/combobox
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/combobox
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/combobox
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Combobox` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-combobox" />
 
 ## Anatomy
 
-`Combobox` keeps popup infrastructure behind `ComboboxContent`, so the common composition stays
-short and focused on the actual field and list parts.
-
 ```text
-Combobox
-├─ ComboboxField
-│  ├─ label (native)
-│  └─ ComboboxInputGroup
-│     ├─ ComboboxInput
-│     └─ ComboboxControlActions
-│        ├─ ComboboxClear
-│        └─ ComboboxTrigger
-└─ ComboboxContent
-   ├─ ComboboxInlineInputContainer (optional)
-   ├─ ComboboxStatus / ComboboxEmpty
-   └─ ComboboxList
-      ├─ ComboboxGroup / ComboboxCollection
-      ├─ ComboboxRow (for grid lists)
-      ├─ ComboboxSeparator
-      └─ ComboboxItem[value]
-         ├─ ComboboxItemIndicator
-         └─ ComboboxItemText
+Combobox.Root[collection]
+├─ Combobox.Label
+├─ Combobox.Control
+│  ├─ Combobox.Input
+│  ├─ Combobox.ClearTrigger
+│  └─ Combobox.Trigger
+└─ Overlay subtree (automatically portalled)
+   └─ Combobox.Positioner
+      └─ Combobox.Content
+         ├─ Combobox.Empty
+         ├─ Combobox.List
+         │  └─ Combobox.Item[item]
+         │     ├─ Combobox.ItemText
+         │     └─ Combobox.ItemIndicator
+         └─ Combobox.ItemGroup
+            ├─ Combobox.ItemGroupLabel
+            └─ Combobox.Item
 ```
 
-```tsx
-<Combobox items={fruits} itemToStringLabel={(item) => item.label}>
-  <ComboboxField>
-    <label htmlFor={id}>Choose fruit</label>
-    <ComboboxInputGroup>
-      <ComboboxInput id={id} placeholder="e.g. Mango" />
-      <ComboboxControlActions>
-        <ComboboxClear aria-label="Clear selection" />
-        <ComboboxTrigger aria-label="Open options" />
-      </ComboboxControlActions>
-    </ComboboxInputGroup>
-  </ComboboxField>
+| Part                         | Role                                                               |
+| ---------------------------- | ------------------------------------------------------------------ |
+| `Combobox` / `Combobox.Root` | Owns combobox state, filtering, highlighting, and selected values. |
+| `Combobox.Control`           | Wrapper for input and trigger controls.                            |
+| `Combobox.Input`             | Text input that drives search and selection.                       |
+| `Combobox.Trigger`           | Opens and closes the popup list.                                   |
+| `Combobox.ClearTrigger`      | Clears current value and/or input.                                 |
+| `Combobox.Positioner`        | Floating positioner for popup content.                             |
+| `Combobox.Content`           | Popup content container.                                           |
+| `Combobox.List`              | Option list wrapper.                                               |
+| `Combobox.Item`              | Selectable option row.                                             |
+| `Combobox.ItemText`          | Text label slot inside an item.                                    |
+| `Combobox.ItemIndicator`     | Selected/highlight indicator slot for an item.                     |
 
-  <ComboboxContent sideOffset={4}>
-    <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-    <ComboboxList>
-      {(item) => (
-        <ComboboxItem key={item.id} value={item}>
-          <ComboboxItemIndicator />
-          <ComboboxItemText>{item.label}</ComboboxItemText>
-        </ComboboxItem>
-      )}
-    </ComboboxList>
-  </ComboboxContent>
-</Combobox>
-```
-
-| Part                           | Role                                                                                                                    |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `Combobox`                     | Root state machine. Controls selected value, input text, popup open state, filtering, and keyboard navigation.          |
-| `ComboboxField`                | Field wrapper for label and input area. Keep visible form-control pieces here for layout and accessibility semantics.   |
-| `ComboboxInput`                | Search/input control. Drives filtering and exposes input events, placeholder, and focus behavior.                       |
-| `ComboboxInlineInputContainer` | Optional inline search wrapper for the input-inside-popup composition. It adds the divider and nested input treatment.  |
-| `ComboboxControlActions`       | Slot for inline controls such as clear and trigger buttons.                                                             |
-| `ComboboxContent`              | Popup surface. It also owns the default portal and positioner used by the common composition.                           |
-| `ComboboxList`                 | Collection renderer for options or grouped options. Contains `ComboboxItem`, `ComboboxGroup`, and `ComboboxCollection`. |
-| `ComboboxItem`                 | One selectable option. Renders selected state and text/indicator subparts.                                              |
-| `ComboboxChips`                | Multiple-selection chip container used with `multiple` and `ComboboxValue`.                                             |
-
-Most customizations should stay on visible parts such as `ComboboxInput`, `ComboboxItem`,
-`ComboboxItemIndicator`, `ComboboxItemText`, and `ComboboxContent`.
-
-For the standard input path, pair a native `<label htmlFor={id}>` with `ComboboxInput id={id}`.
-Use `ComboboxFieldLabel` only in the trigger-first layout, where Base UI labels the trigger.
+`Combobox.RootProvider` renders the same styled root around state created with Ark `useCombobox`.
+Context parts and hooks remain direct Ark imports.
 
 ## Composition
 
-Use `Combobox` for root state and behavior props such as `value`, `defaultValue`,
-`onValueChange`, `inputValue`, `onInputValueChange`, `open`, `onOpenChange`, `multiple`,
-`filter`, `filteredItems`, `limit`, `grid`, `virtualized`, `modal`, `openOnInputClick`,
-`autoHighlight`, `loopFocus`, `itemToStringLabel`, `itemToStringValue`, and
-`isItemEqualToValue`.
+The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
 
-The moduix wrapper keeps Base UI behavior available while keeping the default popup composition
-compact:
+### Recommended composition
 
-| Base UI capability                      | moduix API                                                                                                                                                                    |
-| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Root state, filtering, forms, grid mode | Pass Base UI root props directly to `Combobox`.                                                                                                                               |
-| Flat items                              | Pass `items` to `Combobox` and render items with a function child on `ComboboxList`.                                                                                          |
-| Grouped items                           | Pass grouped `items`, then render `ComboboxGroup`, `ComboboxGroupLabel`, and `ComboboxCollection`.                                                                            |
-| Async or remote search                  | Pass `filter={null}`, manage `items`, and announce progress with `ComboboxStatus`.                                                                                            |
-| Externally filtered items               | Pass `filteredItems` or combine `useComboboxFilter` with application state.                                                                                                   |
-| Virtualized lists                       | Pass `virtualized`, render custom rows in `ComboboxList`, and read `useComboboxFilteredItems`.                                                                                |
-| Multiple values                         | Pass `multiple` and render chips through `ComboboxValue`, `ComboboxChips`, and `ComboboxChip`.                                                                                |
-| Popup placement                         | Pass `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `collisionAvoidance`, `collisionBoundary`, or `collisionPadding` to `ComboboxContent` for the common case. |
-| Default arrow                           | Use `showArrow` to enable the built-in arrow, or switch to low-level popup parts for a custom arrow.                                                                          |
-| Backdrop or custom structure            | Use the lower-level popup parts only when the popup infrastructure itself needs to change.                                                                                    |
+Use `createListCollection` for a static collection or `useListCollection` when filtering changes
+the rendered items. Object collections should define `itemToString` and `itemToValue`.
 
-For a custom popup stack with your own backdrop or arrow, use the lower-level parts shown in
-`Custom Composition` below.
+Keep `Combobox.Positioner` and `Combobox.Content` visible. `Content` is the actual Ark content part;
+the root only automates the portal boundary.
 
-Every visible part accepts `className` and the Base UI `render` prop where the underlying primitive
-supports it, so the component can be styled with CSS Modules, plain CSS, CSS-in-JS, cascade layers,
-or design-system wrappers. Default icons are only fallbacks: pass children to `ComboboxTrigger`,
-`ComboboxIcon`, `ComboboxClear`, `ComboboxItemIndicator`, and `ComboboxChipRemove` to use your own
-icon set.
+### When to go custom
+
+Use controlled `value` and Ark detail callbacks when adjacent UI needs selected values. When state
+must be created outside the rendered subtree, create it with Ark `useCombobox` and render
+`Combobox.RootProvider`. Context and state hooks remain available directly from
+`@ark-ui/react/combobox`.
+
+Multiple selection does not add a combobox-specific chip API. Render tags or another value summary
+from controlled state, then keep selection behavior on `Combobox.Root multiple`.
+
+Use ordinary elements inside `Combobox.Content` for loading and error status. Ark does not expose a
+combobox `Status` part.
+
+### Default props
+
+| Surface                            | Default               | Notes                                                                 |
+| ---------------------------------- | --------------------- | --------------------------------------------------------------------- |
+| `Combobox.Trigger`                 | moduix chevron icon   | Used when children are omitted.                                       |
+| `Combobox.ClearTrigger`            | moduix close icon     | Used when children are omitted.                                       |
+| `Combobox.ItemIndicator`           | moduix check icon     | Used when children are omitted.                                       |
+| `Combobox` / `Combobox.Root` width | `16rem` (max `100%`)  | Styled root width defaults.                                           |
+| `Combobox.Positioner` variables    | Ark runtime variables | Uses `--reference-width`, `--available-height`, `--transform-origin`. |
+
+### Behavioral notes
+
+- `collection` is required.
+- `value` and `defaultValue` are string arrays, including single selection.
+- `onValueChange(details)` reads the current values from `details.value`.
+- `onInputValueChange(details)` reads input text from `details.inputValue` and its source from
+  `details.reason`.
+- `onOpenChange`, `onHighlightChange`, and `onSelect` keep their Ark detail shapes.
+- All Ark DOM parts preserve `asChild`.
+- The current Ark Combobox package does not expose a `HiddenInput` part. Use the root `name` and
+  `form` props for Ark's built-in form submission behavior.
+- `Combobox.RootProvider` preserves moduix root styling and portal configuration for externally
+  created Ark state. Hooks, context parts, and Ark types are imported directly from
+  `@ark-ui/react/combobox`.
+- Ark `Field.Root` state inheritance remains available when composing with `@ark-ui/react/field`.
+  The current moduix `Field` component has not migrated to the Ark field contract yet and does not provide Ark field
+  context.
 
 ## Examples
 
-### Indicator Right
+### Auto Highlight
 
-Use `indicator="end"` when the selected marker should stay on the right while the leading icon and
-text keep their own layout. Use `indicator="none"` when the selected row should rely on
-background-only highlighting and no indicator column should be reserved.
+Set `inputBehavior="autohighlight"` to highlight the first matching item while the user types, so
+Enter can select it without an extra arrow-key press.
 
 <Preview>
-  <IndicatorRightComboboxExample />
+  <ComboboxDocs.AutoHighlightComboboxExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Combobox,
-        ComboboxField,
-        ComboboxFieldLabel,
-        ComboboxInputGroup,
-        ComboboxInput,
-        ComboboxControlActions,
-        ComboboxClear,
-        ComboboxTrigger,
-        ComboboxContent,
-        ComboboxList,
-        ComboboxItem,
-        ComboboxItemText,
-        ComboboxItemIndicator,
-        InfoIcon,
-      } from "moduix";
-      import styles from "./combobox.module.css";
-      import { useId } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/auto-highlight.tsx#demo</include>
+</Preview.Code>
 
-      export function IndicatorRightComboboxDemo() {
-        const id = useId();
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
+</Preview>
 
-        return (
-          <Combobox items={fruits} itemToStringLabel={(item) => item.label}>
-            <ComboboxField>
-              <label htmlFor={id}>Choose fruit</label>
-              <ComboboxInputGroup>
-                <ComboboxInput id={id} placeholder="e.g. Mango" />
-                <ComboboxControlActions>
-                  <ComboboxClear aria-label="Clear selection" />
-                  <ComboboxTrigger aria-label="Open options" />
-                </ComboboxControlActions>
-              </ComboboxInputGroup>
-            </ComboboxField>
+### Inline Autocomplete
 
-            <ComboboxContent sideOffset={4}>
-              <ComboboxList>
-                {(item) => (
-                  <ComboboxItem key={item.id} value={item} indicator="end">
-                    <ComboboxItemText className={styles.itemTextWithIcon}>
-                      <InfoIcon className={styles.itemIcon} />
-                      <span>{item.label}</span>
-                    </ComboboxItemText>
-                    <ComboboxItemIndicator />
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
-        );
-      }
-    `}
+Set `inputBehavior="autocomplete"` and filter with `startsWith` to complete the input from the
+first matching item while preserving Ark keyboard navigation.
 
-  </Preview.Code>
+<Preview>
+  <ComboboxDocs.InlineAutocompleteComboboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/inline-autocomplete.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
+</Preview>
+
+### Links
+
+Use `asChild` on `Combobox.Item` to preserve combobox keyboard behavior while rendering each result
+as a native link. `selectionBehavior="preserve"` keeps the search text visible during navigation.
+
+<Preview>
+  <ComboboxDocs.LinksComboboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/links.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
+</Preview>
+
+### Dynamic
+
+Build the collection from the current input when suggestions do not exist until the user starts
+typing. Check `details.reason` to avoid rebuilding it after selection-driven input changes.
+
+<Preview>
+  <ComboboxDocs.DynamicComboboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/dynamic.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
+</Preview>
+
+### Creatable
+
+Combine `allowCustomValue` with collection mutation to expose a temporary “Create” item, then
+replace that sentinel value with the user-entered value after selection.
+
+<Preview>
+  <ComboboxDocs.CreatableComboboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/creatable.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
+</Preview>
+
+### Limit Results
+
+Set `limit` on `useListCollection` when the full matching set is unnecessary or would make the
+popup harder to scan. Filtering still runs against the complete initial collection.
+
+<Preview>
+  <ComboboxDocs.LimitComboboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/limit-results.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
+</Preview>
+
+### Virtualized
+
+For large collections, render only visible rows with TanStack Virtual and connect Ark keyboard
+navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on virtual rows.
+
+<Preview>
+  <ComboboxDocs.VirtualizedComboboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/virtualized.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
-      .itemTextWithIcon {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--spacing-2);
+      .virtualContent {
+        overflow: hidden;
       }
 
-      .itemIcon {
-        flex-shrink: 0;
-        width: 1rem;
-        height: 1rem;
+      .virtualScroller {
+        height: min(16rem, var(--available-height, 16rem));
+        overflow: auto;
+      }
+
+      .virtualList {
+        position: relative;
+        overflow: visible;
+      }
+
+      .virtualItem {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
       }
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const fruits = [
-        { id: "apple", label: "Apple", value: "apple" },
-        { id: "banana", label: "Banana", value: "banana" },
-        { id: "mango", label: "Mango", value: "mango" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
-```tsx
-<ComboboxItem value={item} indicator="none">
-  <ComboboxItemText>{item.label}</ComboboxItemText>
-</ComboboxItem>
-```
+### Controlled
 
-### Input Inside Popup
-
-Use `ComboboxFieldTrigger` when the visible field opens a popup that contains the searchable
-input. `ComboboxInlineInputContainer` applies the built-in divider and nested input treatment for
-that composition. In this trigger-first layout, omit `htmlFor` on `ComboboxFieldLabel` so it keeps
-the Base UI trigger-label behavior; no extra input `id` wiring is needed here.
+Control the selected string array and read the next value from `details.value`.
 
 <Preview>
-  <InputInsidePopupComboboxExample />
+  <ComboboxDocs.ControlledComboboxExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Combobox,
-        ComboboxField,
-        ComboboxFieldLabel,
-        ComboboxFieldTrigger,
-        ComboboxValue,
-        ComboboxIcon,
-        ComboboxContent,
-        ComboboxInlineInputContainer,
-        ComboboxInput,
-        ComboboxEmpty,
-        ComboboxList,
-        ComboboxItem,
-        ComboboxItemIndicator,
-        ComboboxItemText,
-      } from "moduix";
-      import styles from "./combobox.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/controlled.tsx#demo</include>
+</Preview.Code>
 
-      export function InputInsidePopupComboboxDemo() {
-        return (
-          <Combobox items={countries} itemToStringLabel={(item) => item.label}>
-            <ComboboxField>
-              <ComboboxFieldLabel>Country</ComboboxFieldLabel>
-              <ComboboxFieldTrigger>
-                <ComboboxValue placeholder="Select country" />
-                <ComboboxIcon />
-              </ComboboxFieldTrigger>
-            </ComboboxField>
-
-            <ComboboxContent sideOffset={4} className={styles.popupWithInlineInput}>
-              <ComboboxInlineInputContainer>
-                <ComboboxInput placeholder="Search country" />
-              </ComboboxInlineInputContainer>
-              <ComboboxEmpty>No countries found.</ComboboxEmpty>
-              <ComboboxList className={styles.listWithInlineInput}>
-                {(item) => (
-                  <ComboboxItem key={item.id} value={item}>
-                    <ComboboxItemIndicator />
-                    <ComboboxItemText>{item.label}</ComboboxItemText>
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .popupWithInlineInput {
-        --inline-input-container-height: calc(
-          var(--combobox-control-height, var(--size-lg)) +
-            var(--spacing-2) +
-            var(--spacing-2) +
-            var(--border-width-sm)
-        );
-      }
-
-      .listWithInlineInput {
-        max-height: min(
-          calc(
-            var(--combobox-list-max-height, var(--combobox-popup-max-height, 24rem)) -
-              var(--inline-input-container-height, 0px)
-          ),
-          calc(var(--available-height) - var(--inline-input-container-height, 0px))
-        );
-        padding-top: 0.375rem;
-        padding-bottom: 0.5rem;
-        scroll-padding-top: 0.375rem;
-        scroll-padding-bottom: 0.5rem;
-      }
-
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const countries = [
-        { id: "de", label: "Germany", value: "germany" },
-        { id: "es", label: "Spain", value: "spain" },
-        { id: "fr", label: "France", value: "france" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 </Preview>
 
-### Grouped
+### Custom Objects and Grouping
 
-Pass grouped data to `Combobox` and render `ComboboxCollection` inside each `ComboboxGroup`.
+Map object labels and values on the collection, then render Ark item groups from
+`collection.group()`.
 
 <Preview>
-  <GroupedComboboxExample />
+  <ComboboxDocs.GroupedComboboxExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Combobox,
-        ComboboxField,
-        ComboboxFieldLabel,
-        ComboboxInputGroup,
-        ComboboxInput,
-        ComboboxControlActions,
-        ComboboxClear,
-        ComboboxTrigger,
-        ComboboxContent,
-        ComboboxEmpty,
-        ComboboxList,
-        ComboboxGroup,
-        ComboboxGroupLabel,
-        ComboboxCollection,
-        ComboboxItem,
-        ComboboxItemIndicator,
-        ComboboxItemText,
-      } from "moduix";
-      import { useId } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/custom-objects-and-grouping.tsx#demo</include>
+</Preview.Code>
 
-      export function GroupedComboboxDemo() {
-        const id = useId();
-
-        return (
-          <Combobox items={groupedProduce} itemToStringLabel={(item) => item.label}>
-            <ComboboxField>
-              <label htmlFor={id}>Select produce</label>
-              <ComboboxInputGroup>
-                <ComboboxInput id={id} placeholder="e.g. Spinach" />
-                <ComboboxControlActions>
-                  <ComboboxClear aria-label="Clear selection" />
-                  <ComboboxTrigger aria-label="Open groups" />
-                </ComboboxControlActions>
-              </ComboboxInputGroup>
-            </ComboboxField>
-
-            <ComboboxContent sideOffset={4}>
-              <ComboboxEmpty>No produce found.</ComboboxEmpty>
-              <ComboboxList>
-                {(group) => (
-                  <ComboboxGroup key={group.value} items={group.items}>
-                    <ComboboxGroupLabel>{group.value}</ComboboxGroupLabel>
-                    <ComboboxCollection>
-                      {(item) => (
-                        <ComboboxItem key={item.id} value={item}>
-                          <ComboboxItemIndicator />
-                          <ComboboxItemText>{item.label}</ComboboxItemText>
-                        </ComboboxItem>
-                      )}
-                    </ComboboxCollection>
-                  </ComboboxGroup>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const groupedProduce = [
-        {
-          value: "Fruits",
-          items: [
-            { id: "fruit-apple", label: "Apple", value: "apple" },
-            { id: "fruit-mango", label: "Mango", value: "mango" },
-          ],
-        },
-        {
-          value: "Vegetables",
-          items: [
-            { id: "veg-carrot", label: "Carrot", value: "carrot" },
-            { id: "veg-spinach", label: "Spinach", value: "spinach" },
-          ],
-        },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 </Preview>
 
 ### Multiple
 
-Use the `multiple` prop and render chips inside `ComboboxValue`. The input remains the main control, so a separate trigger icon is optional.
+Enable `multiple` and render selected objects from controlled `value`. Tags are consumer composition
+rather than combobox parts.
 
 <Preview>
-  <MultipleComboboxExample />
+  <ComboboxDocs.MultipleComboboxExample />
 
-  <Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/multiple.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
     {`
-      import {
-        Combobox,
-        ComboboxField,
-        ComboboxFieldLabel,
-        ComboboxInputGroup,
-        ComboboxChips,
-        ComboboxValue,
-        ComboboxChip,
-        ComboboxChipText,
-        ComboboxChipRemove,
-        ComboboxChipsInput,
-        ComboboxContent,
-        ComboboxEmpty,
-        ComboboxList,
-        ComboboxItem,
-        ComboboxItemIndicator,
-        ComboboxItemText,
-      } from "moduix";
-      import { useId } from "react";
+      .tags {
+        display: flex;
+        min-height: 1.5rem;
+        flex-wrap: wrap;
+        gap: var(--spacing-1);
+      }
 
-      export function MultipleComboboxDemo() {
-        const id = useId();
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        border-radius: var(--radius-sm);
+        padding: var(--spacing-1) var(--spacing-2);
+        background: var(--color-muted);
+        font-size: var(--text-xs);
+      }
 
-        return (
-          <Combobox items={fruits} itemToStringLabel={(item) => item.label} multiple>
-            <ComboboxField>
-              <label htmlFor={id}>Select fruits</label>
-              <ComboboxInputGroup>
-                <ComboboxChips>
-                  <ComboboxValue>
-                    {(value) => (
-                      <>
-                        {value.map((item) => (
-                          <ComboboxChip key={item.id} aria-label={item.label}>
-                            <ComboboxChipText>{item.label}</ComboboxChipText>
-                            <ComboboxChipRemove aria-label={\`Remove \${item.label}\`} />
-                          </ComboboxChip>
-                        ))}
-                        <ComboboxChipsInput
-                          id={id}
-                          placeholder={value.length === 0 ? "Select..." : ""}
-                        />
-                      </>
-                    )}
-                  </ComboboxValue>
-                </ComboboxChips>
-              </ComboboxInputGroup>
-            </ComboboxField>
-
-            <ComboboxContent sideOffset={4}>
-              <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-              <ComboboxList>
-                {(item) => (
-                  <ComboboxItem key={item.id} value={item}>
-                    <ComboboxItemIndicator />
-                    <ComboboxItemText>{item.label}</ComboboxItemText>
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
-        );
+      .note {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
       }
     `}
 
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const fruits = [
-        { id: "apple", label: "Apple", value: "apple" },
-        { id: "banana", label: "Banana", value: "banana" },
-        { id: "mango", label: "Mango", value: "mango" },
-      ];
-    `}
-
-  </Preview.Data>
+  </Preview.CSS>
 </Preview>
 
 ### Async Search
 
-Disable the built-in filter with `filter={null}` when results are loaded from your application state or a remote API.
+Replace collection items from an async result and use `details.reason` to distinguish typed input
+from machine-driven input updates.
 
 <Preview>
-  <AsyncSearchComboboxExample />
+  <ComboboxDocs.AsyncSearchComboboxExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Combobox,
-        ComboboxField,
-        ComboboxFieldLabel,
-        ComboboxInputGroup,
-        ComboboxInput,
-        ComboboxControlActions,
-        ComboboxClear,
-        ComboboxTrigger,
-        ComboboxContent,
-        ComboboxStatus,
-        ComboboxEmpty,
-        ComboboxList,
-        ComboboxItem,
-        ComboboxItemIndicator,
-        ComboboxItemText,
-        useComboboxFilter,
-      } from "moduix";
-      import styles from "./combobox.module.css";
-      import { useId, useMemo, useRef, useState, useTransition } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/async-search.tsx#demo</include>
+</Preview.Code>
 
-      export function AsyncSearchComboboxDemo() {
-        const id = useId();
-        const { contains } = useComboboxFilter();
-        const [searchResults, setSearchResults] = useState([]);
-        const [selectedValue, setSelectedValue] = useState(null);
-        const [searchValue, setSearchValue] = useState("");
-        const [error, setError] = useState(null);
-        const [isPending, startTransition] = useTransition();
-        const abortControllerRef = useRef(null);
-        const trimmedSearchValue = searchValue.trim();
-
-        const items = useMemo(() => {
-          if (!selectedValue || searchResults.some((user) => user.id === selectedValue.id)) {
-            return searchResults;
-          }
-
-          return [...searchResults, selectedValue];
-        }, [searchResults, selectedValue]);
-
-        async function searchUsers(query) {
-          await new Promise((resolve) => setTimeout(resolve, 250));
-
-          if (query === "error") {
-            return { users: [], error: "Failed to fetch people. Try again." };
-          }
-
-          return {
-            users: directoryUsers.filter(
-              (user) =>
-                contains(user.name, query) ||
-                contains(user.username, query) ||
-                contains(user.email, query) ||
-                contains(user.title, query),
-            ),
-            error: null,
-          };
-        }
-
-        const status = isPending
-          ? "Searching..."
-          : error
-            ? error
-            : trimmedSearchValue === ""
-              ? selectedValue ? null : "Start typing to search people..."
-              : searchResults.length === 0
-                ? \`No matches for "\${trimmedSearchValue}".\`
-                : null;
-
-        return (
-          <Combobox
-            items={items}
-            itemToStringLabel={(user) => user.name}
-            filter={null}
-            onOpenChangeComplete={(open) => {
-              if (!open && selectedValue) {
-                setSearchResults([selectedValue]);
-              }
-            }}
-            onValueChange={(nextSelectedValue) => {
-              setSelectedValue(nextSelectedValue);
-              setSearchValue("");
-              setError(null);
-            }}
-            onInputValueChange={(nextSearchValue, { reason }) => {
-              setSearchValue(nextSearchValue);
-
-              if (nextSearchValue === "") {
-                abortControllerRef.current?.abort();
-                setSearchResults([]);
-                setError(null);
-                return;
-              }
-
-              if (reason === "item-press") {
-                return;
-              }
-
-              const controller = new AbortController();
-              abortControllerRef.current?.abort();
-              abortControllerRef.current = controller;
-
-              startTransition(async () => {
-                setError(null);
-                const result = await searchUsers(nextSearchValue);
-
-                if (controller.signal.aborted) {
-                  return;
-                }
-
-                startTransition(() => {
-                  setSearchResults(result.users);
-                  setError(result.error);
-                });
-              });
-            }}
-          >
-            <ComboboxField>
-              <label htmlFor={id}>Assign reviewer</label>
-              <ComboboxInputGroup>
-                <ComboboxInput id={id} placeholder="e.g. Michael" />
-                <ComboboxControlActions>
-                  <ComboboxClear aria-label="Clear selection" />
-                  <ComboboxTrigger aria-label="Open options" />
-                </ComboboxControlActions>
-              </ComboboxInputGroup>
-            </ComboboxField>
-
-            <ComboboxContent sideOffset={4}>
-              <ComboboxStatus>{status}</ComboboxStatus>
-              <ComboboxEmpty>
-                {trimmedSearchValue !== "" && !isPending && searchResults.length === 0
-                  ? "Try a different search term."
-                  : null}
-              </ComboboxEmpty>
-              <ComboboxList>
-                {(user) => (
-                  <ComboboxItem key={user.id} value={user}>
-                    <ComboboxItemIndicator />
-                    <ComboboxItemText className={styles.multilineItemText}>
-                      <span className={styles.itemTitle}>{user.name}</span>
-                      <span className={styles.itemMeta}>
-                        <span>@{user.username}</span>
-                        <span>{user.title}</span>
-                      </span>
-                      <span className={styles.itemMeta}>{user.email}</span>
-                    </ComboboxItemText>
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .multilineItemText {
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-1);
-        white-space: normal;
-      }
-
-      .itemTitle {
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-        font-weight: var(--weight-semibold);
-      }
-
-      .itemMeta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--spacing-2);
-        font-size: var(--text-xs);
-        line-height: var(--line-height-text-xs);
-        color: var(--combobox-empty-color, var(--color-muted-foreground));
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const directoryUsers = [
-        {
-          id: "leslie-alexander",
-          name: "Leslie Alexander",
-          username: "leslie",
-          email: "leslie.alexander@example.com",
-          title: "Product Manager",
-        },
-        {
-          id: "michael-foster",
-          name: "Michael Foster",
-          username: "michael",
-          email: "michael.foster@example.com",
-          title: "Frontend Engineer",
-        },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 </Preview>
 
-### Custom Composition
+### Root Provider
 
-Style each popup part directly when you need custom layering, backdrop, or arrow treatment.
+Create the state with Ark `useCombobox` when external controls need imperative methods or shared
+state before the root renders. `Combobox.RootProvider` preserves the moduix root styling and portal
+configuration.
 
 <Preview>
-  <CustomCompositionComboboxExample />
+  <ComboboxDocs.RootProviderComboboxExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Combobox,
-        ComboboxField,
-        ComboboxFieldLabel,
-        ComboboxInputGroup,
-        ComboboxInput,
-        ComboboxControlActions,
-        ComboboxClear,
-        ComboboxTrigger,
-        ComboboxPortal,
-        ComboboxBackdrop,
-        ComboboxPositioner,
-        ComboboxPopup,
-        ComboboxContent,
-        ComboboxArrow,
-        ComboboxEmpty,
-        ComboboxList,
-        ComboboxItem,
-        ComboboxItemIndicator,
-        ComboboxItemText,
-      } from "moduix";
-      import { useId } from "react";
-      import styles from "./combobox.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomCompositionComboboxDemo() {
-        const id = useId();
-
-        return (
-          <Combobox items={fruits} itemToStringLabel={(item) => item.label}>
-            <ComboboxField>
-              <label htmlFor={id}>Choose fruit</label>
-              <ComboboxInputGroup>
-                <ComboboxInput id={id} placeholder="e.g. Mango" />
-                <ComboboxControlActions>
-                  <ComboboxClear aria-label="Clear selection" />
-                  <ComboboxTrigger aria-label="Open options" />
-                </ComboboxControlActions>
-              </ComboboxInputGroup>
-            </ComboboxField>
-
-            <ComboboxPortal className={styles.portal}>
-              <ComboboxBackdrop className={styles.backdrop} />
-              <ComboboxPositioner className={styles.positioner} sideOffset={8}>
-                <ComboboxPopup className={styles.customPopup}>
-                  <ComboboxArrow className={styles.arrow} />
-                  <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-                  <ComboboxList>
-                    {(item) => (
-                      <ComboboxItem key={item.id} value={item}>
-                        <ComboboxItemIndicator />
-                        <ComboboxItemText>{item.label}</ComboboxItemText>
-                      </ComboboxItem>
-                    )}
-                  </ComboboxList>
-                </ComboboxPopup>
-              </ComboboxPositioner>
-            </ComboboxPortal>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customPopup {
-        --combobox-popup-bg: var(--color-background);
-        --combobox-popup-border-color: var(--color-ring);
-        --combobox-shadow: var(--shadow-xl);
-      }
-
-      .portal {
-        isolation: isolate;
-      }
-
-      .positioner {
-        z-index: var(--z-popup);
-      }
-
-      .backdrop {
-        --combobox-backdrop-bg: var(--color-overlay);
-        --combobox-backdrop-blur: 4px;
-      }
-
-      .arrow {
-        --combobox-arrow-stroke-color: var(--color-border);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const fruits = [
-        { id: "apple", label: "Apple", value: "apple" },
-        { id: "banana", label: "Banana", value: "banana" },
-        { id: "mango", label: "Mango", value: "mango" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 </Preview>
+
+## Styling
+
+### CSS Properties
+
+<CssPropertiesSection properties={ComboboxDocs.comboboxOverrideCssProperties} />
+
+### Styling hooks
+
+- Stable slots include `combobox-root`, `combobox-label`, `combobox-control`, `combobox-input`,
+  `combobox-clear-trigger`, `combobox-trigger`, `combobox-positioner`, `combobox-content`,
+  `combobox-empty`, `combobox-list`, `combobox-item-group`, `combobox-item-group-label`,
+  `combobox-item`, `combobox-item-text`, and `combobox-item-indicator`.
+- Ark state hooks include `data-state="open|closed"`, `data-focus`, `data-invalid`,
+  `data-disabled`, `data-highlighted`, `data-empty`, `data-placement`, and `data-side`.
+- Ark positioning variables include `--reference-width`, `--available-width`,
+  `--available-height`, `--transform-origin`, `--z-index`, and `--layer-index`.

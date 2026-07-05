@@ -1,0 +1,106 @@
+---
+title: Forms
+description: Build accessible native forms with moduix fields and Ark-backed controls.
+icon: ClipboardList
+---
+
+import * as FormsDocs from '@/components/examples/forms';
+
+# Forms
+
+moduix does not own form state. Start with a native `<form>` when browser validation and
+`FormData` are enough. Add a form library when you need richer validation, field state, or
+submission workflows.
+
+| Approach                                 | Best fit                                                                   |
+| ---------------------------------------- | -------------------------------------------------------------------------- |
+| Native `<form>`                          | Simple forms that can use browser validation, submission, and reset.       |
+| [React Hook Form](/docs/react-hook-form) | Mostly uncontrolled inputs with controlled adapters for compound controls. |
+| [TanStack Form](/docs/tanstack-form)     | Explicit controlled fields, reactive form state, and typed validation.     |
+
+## Core rules
+
+1. Wrap one control in `Field` when it needs a label, helper text, error text, or shared
+   `disabled`, `invalid`, `required`, and `readOnly` state.
+2. Use `Fieldset` when several related controls share one legend.
+3. Keep labels visible. A placeholder is an example, not a replacement for a label.
+4. Give submitted controls a `name`.
+5. Keep Ark's native form part mounted. It handles submission, browser validation, autofill, and
+   reset synchronization.
+
+Common native form parts:
+
+| Component    | Keep mounted                                       |
+| ------------ | -------------------------------------------------- |
+| `Checkbox`   | `Checkbox.HiddenInput`                             |
+| `RadioGroup` | `RadioGroup.ItemHiddenInput`                       |
+| `Select`     | `Select.HiddenSelect`                              |
+| `PinInput`   | `PinInput.HiddenInput`                             |
+| `TagsInput`  | `TagsInput.HiddenInput`                            |
+| `FileUpload` | `FileUpload.HiddenInput`                           |
+| `Combobox`   | Set `name` on the root; no extra part is required. |
+
+Do not add a second hidden input. It can submit a competing value and break reset behavior.
+
+## Native form
+
+Native inputs and Ark-backed controls can be submitted together with `FormData`. The card is only
+presentation; the native form still owns submission, validation, and reset behavior.
+
+<Preview>
+  <FormsDocs.NativeFormExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/forms/native-form.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .form {
+        width: min(24rem, 100%);
+        margin-inline: auto;
+      }
+
+      .fields {
+        display: grid;
+        gap: var(--spacing-4);
+      }
+
+      .fields [data-slot="field-root"],
+      .fields [data-slot="select-root"],
+      .fields [data-slot="combobox-root"] {
+        width: 100%;
+      }
+
+      .fields [data-slot="select-root"] {
+        --select-width: 100%;
+      }
+
+      .fields [data-slot="combobox-root"] {
+        --combobox-width: 100%;
+      }
+
+      .submit {
+        width: 100%;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Validation and focus
+
+Set `invalid` on `Field` from the current validation result and render a clear
+`Field.ErrorText`. Ark-aware controls inherit the invalid state through field context.
+
+For native controls, use constraints such as `required`, `minLength`, `pattern`, `min`, and `max`.
+`Field required` forwards required state to Ark-aware controls. If you compose a non-Ark custom
+control, apply its native constraint yourself.
+
+Form libraries need the ref of the element a user can focus:
+
+- `Field.Input`, `Field.Textarea`, or `Field.Select` for native controls
+- `Select.Trigger` for `Select`
+- `Combobox.Input` for `Combobox`
+
+The dedicated integration guides show the corresponding value and blur mappings.

@@ -4,306 +4,105 @@ description: A two-state button for compact on/off actions and saved states.
 icon: Component
 ---
 
-import {
-  ControlledToggleExample,
-  CustomStylesToggleExample,
-  ToggleCssPlaygroundPanel,
-  ToggleCssPropertiesPanel,
-  ToggleDisabledExample,
-  ToggleExample,
-  ToggleIconExample,
-  ToggleRenderCallbackExample,
-  ToggleSizesExample,
-  ToggleVariantsExample,
-  togglePlaygroundCssProperties,
-} from '@/components/examples/toggle';
+import * as ToggleDocs from '@/components/examples/toggle';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/toggle" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/toggle" />
 
-## Default Path
+## Choosing the right component
 
-Use `Toggle` as a single styled button. In most cases you only need children plus Base UI state
-props like `defaultPressed` or `pressed`.
+Use `Toggle` when the control is still a button that exposes a pressed state.
 
-<Preview cssProperties={togglePlaygroundCssProperties}>
-  <ToggleExample />
+- Choose **`Toggle`** for favorites, saved states, formatting actions, and compact toolbar actions.
+- Choose **`Switch`** for settings-like on/off controls that read as a preference row.
+- Choose **`Checkbox`** for submitted list or form selections.
+- Choose **`ToggleGroup`** when several toggles should share one selection model.
 
-  <Preview.Code>
-    {`
-      import { StarIcon, Toggle } from "moduix";
+## Basic
 
-      export function ToggleDemo() {
-        return (
-          <Toggle defaultPressed>
-            <StarIcon />
-            Favorite
-          </Toggle>
-        );
-      }
-    `}
+Start with `Toggle` alone. It is the short form for `Toggle.Root` and keeps Ark pressed-state behavior intact.
 
-  </Preview.Code>
-  <Preview.CSSProperties>{(context) => <ToggleCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <ToggleCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+<Preview>
+  <ToggleDocs.ToggleExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle/basic.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ToggleDocs.toggleBasicCss}</Preview.CSS>
+  
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Toggle` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/toggle
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/toggle
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/toggle
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/toggle
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/toggle
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Toggle` depends on, such
-as styles, icons, and small utilities.
-
-`Toggle` stays intentionally small: one root, three built-in visual variants, and a compact size
-scale for text or icon-only controls.
+<ShadcnInstall packageName="react-toggle" />
 
 ## Anatomy
 
 ```text
-Toggle
-└─ label and/or icon content
+Toggle / Toggle.Root
+└─ Toggle.Indicator (optional)
 ```
 
-| Part     | Role                                                                    |
-| -------- | ----------------------------------------------------------------------- |
-| `Toggle` | Two-state button root that handles pressed, focus, and disabled states. |
+| Part                     | Role                                                                              |
+| ------------------------ | --------------------------------------------------------------------------------- |
+| `Toggle` / `Toggle.Root` | Two-state button root that handles pressed, focus, disabled, and `asChild` state. |
+| `Toggle.Indicator`       | Renders pressed content and optional `fallback` content when the toggle is off.   |
 
 ## Composition
 
-`Toggle` is a thin styled wrapper over the Base UI primitive.
+### Recommended composition
 
-Use these paths:
+Use `Toggle` for the standard root. It forwards refs to the Ark button part and supports
+`pressed`, `defaultPressed`, `onPressedChange(pressed)`, `disabled`, `asChild`, and regular button
+attributes.
 
-| Pattern                            | Best fit                                                  |
-| ---------------------------------- | --------------------------------------------------------- |
-| `defaultPressed`                   | Local uncontrolled saved/favorite toggles                 |
-| `pressed` + `onPressedChange`      | Controlled state coordinated with other UI                |
-| `variant` + `size`                 | Library defaults for common visual treatments             |
-| `className`, `style`, `--toggle-*` | Visual overrides without changing structure               |
-| `render={(props, state) => ...}`   | Advanced composition when markup or icon depends on state |
+`Toggle.Indicator` is optional. Use it when the visible icon or label should change based on
+whether the toggle is pressed.
 
-### Defaults
+### When to go custom
 
-| Prop      | Default   | Values                                                  |
+Use `asChild` when another semantic button must own the rendered element. Keep the child a single
+button-like element so Ark can merge the required props and behavior onto it.
+
+If a custom child part needs direct access to Ark toggle state, import `useToggleContext()` or
+`useToggle()` from `@ark-ui/react/toggle`. moduix keeps the visual parts public and leaves the
+advanced state helpers to Ark.
+
+Use `ToggleGroup` instead of manually coordinating several standalone toggles when multiple pressed
+buttons belong to one shared choice set.
+
+### Default props
+
+| Prop      | Default   | Notes                                                   |
 | --------- | --------- | ------------------------------------------------------- |
-| `variant` | `default` | `default`, `outline`, `ghost`                           |
-| `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
+| `variant` | `default` | moduix visual treatment: `default`, `outline`, `ghost`. |
+| `size`    | `md`      | moduix spacing or icon-only geometry.                   |
 
-Icon-only toggles should always include an accessible label such as `aria-label="Favorite"`.
+### Behavioral notes
+
+- Icon-only toggles need an accessible name such as `aria-label="Favorite"`.
+- `disabled` keeps the current visual state but prevents interaction.
+- Ark writes `data-state="on" | "off"`, `data-pressed`, and `data-disabled` for styling.
+- Ark Toggle does not expose `RootProvider` or a hidden form input.
+- legacy `render` and `nativeButton` are not part of the Ark-backed API; use `asChild`.
 
 ## Examples
-
-### Variants
-
-Use `variant` to match surrounding UI density and emphasis.
-
-<Preview>
-  <ToggleVariantsExample />
-
-  <Preview.Code>
-    {`
-      import { Toggle } from "moduix";
-      import styles from "./toggle.module.css";
-
-      export function ToggleVariantsDemo() {
-        return (
-          <div className={styles.row}>
-            <Toggle>Default</Toggle>
-            <Toggle variant="outline">Outline</Toggle>
-            <Toggle variant="ghost">Ghost</Toggle>
-            <Toggle defaultPressed>Pressed</Toggle>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: var(--spacing-3);
-      }
-    `}
-  </Preview.CSS>
-</Preview>
-
-### Icons
-
-Pass icons as regular children. Use icon-only sizes for compact toolbar or card actions.
-
-<Preview>
-  <ToggleIconExample />
-
-  <Preview.Code>
-    {`
-      import { BellIcon, CheckIcon, StarIcon, Toggle } from "moduix";
-      import styles from "./toggle.module.css";
-
-      export function ToggleIconsDemo() {
-        return (
-          <div className={styles.row}>
-            <Toggle variant="outline">
-              <BellIcon />
-              Alerts
-            </Toggle>
-            <Toggle size="icon-md" variant="outline" aria-label="Favorites">
-              <StarIcon />
-            </Toggle>
-            <Toggle size="icon-md" variant="ghost" aria-label="Enabled" defaultPressed>
-              <CheckIcon />
-            </Toggle>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: var(--spacing-3);
-      }
-    `}
-  </Preview.CSS>
-</Preview>
 
 ### Controlled
 
 Control `pressed` from React state when the toggle participates in app state or analytics.
 
 <Preview>
-  <ControlledToggleExample />
+  <ToggleDocs.ControlledToggleExample />
 
-  <Preview.Code>
-    {`
-      import { BellIcon, Toggle } from "moduix";
-      import { useState } from "react";
-      import styles from "./toggle.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle/controlled.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledToggleDemo() {
-        const [pressed, setPressed] = useState(false);
-
-        return (
-          <div className={styles.stack}>
-            <Toggle pressed={pressed} onPressedChange={setPressed}>
-              <BellIcon />
-              {pressed ? "Notifications on" : "Notifications off"}
-            </Toggle>
-            <span className={styles.hint}>Current value: {String(pressed)}</span>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-3);
-      }
-
-      .hint {
-        color: var(--color-muted-foreground);
-        font-size: var(--text-xs);
-        line-height: var(--line-height-text-xs);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Sizes
-
-Use text sizes for labeled toggles and icon sizes for denser action rows.
-
-<Preview>
-  <ToggleSizesExample />
-
-  <Preview.Code>
-    {`
-      import { Toggle } from "moduix";
-      import styles from "./toggle.module.css";
-
-      export function ToggleSizesDemo() {
-        return (
-          <div className={styles.row}>
-            <Toggle size="xs">Extra-small</Toggle>
-            <Toggle size="sm">Small</Toggle>
-            <Toggle size="md">Medium</Toggle>
-            <Toggle size="lg">Large</Toggle>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: var(--spacing-3);
-      }
-    `}
-  </Preview.CSS>
+  <Preview.CSS>{ToggleDocs.toggleStackCss}</Preview.CSS>
+  
 </Preview>
 
 ### Disabled
@@ -311,143 +110,114 @@ Use text sizes for labeled toggles and icon sizes for denser action rows.
 Use `disabled` to freeze interaction while preserving the current pressed state.
 
 <Preview>
-  <ToggleDisabledExample />
+  <ToggleDocs.ToggleDisabledExample />
 
-  <Preview.Code>
-    {`
-      import { Toggle } from "moduix";
-      import styles from "./toggle.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle/disabled.tsx#demo</include>
+</Preview.Code>
 
-      export function DisabledToggleDemo() {
-        return (
-          <div className={styles.row}>
-            <Toggle disabled>Disabled</Toggle>
-            <Toggle defaultPressed disabled>
-              Pressed
-            </Toggle>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: var(--spacing-3);
-      }
-    `}
-  </Preview.CSS>
+  <Preview.CSS>{ToggleDocs.toggleRowCss}</Preview.CSS>
+  
 </Preview>
 
-### Styling
+### Indicator
 
-Layer custom visuals through `className` and `--toggle-*` variables when the structure stays the
-same.
+Use `Toggle.Indicator` when pressed and unpressed states need different inline content.
 
 <Preview>
-  <CustomStylesToggleExample />
+  <ToggleDocs.ToggleIndicatorExample />
 
-  <Preview.Code>
-    {`
-      import { CheckIcon, Toggle } from "moduix";
-      import styles from "./toggle.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle/indicator.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomStylesToggleDemo() {
-        return (
-          <Toggle className={styles.customToggle} variant="outline" defaultPressed>
-            <CheckIcon />
-            Styled with className
-          </Toggle>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customToggle {
-        --toggle-outline-bg: color-mix(in oklab, var(--color-primary) 8%, transparent);
-        --toggle-outline-bg-hover: color-mix(in oklab, var(--color-primary) 14%, transparent);
-        --toggle-outline-bg-active: color-mix(in oklab, var(--color-primary) 18%, transparent);
-        --toggle-outline-border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
-        --toggle-outline-color: var(--color-primary);
-        --toggle-outline-bg-pressed: var(--color-primary);
-        --toggle-outline-border-color-pressed: var(--color-primary);
-        --toggle-outline-color-pressed: var(--color-primary-foreground);
-      }
-    `}
-  </Preview.CSS>
+  <Preview.CSS>{ToggleDocs.toggleBasicCss}</Preview.CSS>
+  
 </Preview>
 
-## Custom Composition
+### Variants
 
-Use `render` when the visible element or icon should depend on primitive state. Keep this as the
-advanced path; most toggles should stay on normal children.
+Use `variant` to match surrounding UI density and emphasis.
 
 <Preview>
-  <ToggleRenderCallbackExample />
+  <ToggleDocs.ToggleVariantsExample />
 
-  <Preview.Code>
-    {`
-      import { Toggle } from "moduix";
-      import styles from "./toggle.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle/variants.tsx#demo</include>
+</Preview.Code>
 
-      export function ToggleRenderCallbackDemo() {
-        return (
-          <Toggle
-            aria-label="Save article"
-            size="icon-md"
-            variant="outline"
-            render={(buttonProps, state) => (
-              <button type="button" {...buttonProps}>
-                {state.pressed ? (
-                  <BookmarkFilledIcon className={styles.customIcon} />
-                ) : (
-                  <BookmarkIcon className={styles.customIcon} />
-                )}
-              </button>
-            )}
-          />
-        );
-      }
-
-      function BookmarkIcon(props) {
-        return (
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
-            <path
-              d="M4.5 2.75h7v10.5L8 11l-3.5 2.25V2.75Z"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinejoin="round"
-            />
-          </svg>
-        );
-      }
-
-      function BookmarkFilledIcon(props) {
-        return (
-          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false" {...props}>
-            <path d="M4 2.75A.75.75 0 0 1 4.75 2h6.5a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-1.16.63L8 12.03l-2.84 1.85A.75.75 0 0 1 4 13.25V2.75Z" />
-          </svg>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customIcon {
-        width: 1rem;
-        height: 1rem;
-      }
-    `}
-  </Preview.CSS>
+  <Preview.CSS>{ToggleDocs.toggleRowCss}</Preview.CSS>
+  
 </Preview>
+
+### Sizes
+
+Use text sizes for labeled toggles and icon sizes for denser action rows.
+
+<Preview>
+  <ToggleDocs.ToggleSizesExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle/sizes.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ToggleDocs.toggleRowCss}</Preview.CSS>
+  
+</Preview>
+
+### Icons
+
+Pass icons as regular children. Use icon-only sizes for compact actions.
+
+<Preview>
+  <ToggleDocs.ToggleIconExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle/icons.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ToggleDocs.toggleRowCss}</Preview.CSS>
+  
+</Preview>
+
+### asChild
+
+Use `asChild` when another semantic button should receive the Ark toggle behavior.
+
+<Preview>
+  <ToggleDocs.ToggleAsChildExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle/aschild.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ToggleDocs.toggleAsChildCss}</Preview.CSS>
+  
+</Preview>
+
+## Styling
+
+`Toggle` exposes a styled root, an optional indicator part, and the full `--toggle-*` token surface
+for variants, sizes, focus ring, spacing, and icon sizing.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ToggleDocs.ToggleCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="toggle-root"` is the stable selector on the root.
+- `data-slot="toggle-indicator"` is the stable selector on `Toggle.Indicator`.
+- `data-scope="toggle"` and `data-part="root" | "indicator"` come from Ark UI.
+- `data-state="on" | "off"` reflects pressed state on root and indicator.
+- `data-pressed` is present when the toggle is pressed.
+- `data-variant` reflects the moduix visual variant.
+- `data-size` reflects the moduix size, including `icon-sm`, `icon-md`, and `icon-lg`.
+- `data-disabled` drives disabled styles; Ark also preserves the native `disabled` attribute.
+- Descendant `svg` elements are sized through `--toggle-icon-size`.

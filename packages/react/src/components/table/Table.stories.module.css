@@ -1,0 +1,40 @@
+.showcase {
+  width: min(44rem, calc(100vw - var(--spacing-8)));
+}
+
+.table {
+  min-width: 40rem;
+}
+
+.wideTable {
+  min-width: 56rem;
+}
+
+.stack {
+  display: grid;
+  gap: var(--spacing-4);
+  width: min(44rem, calc(100vw - var(--spacing-8)));
+}
+
+.stickyScrollArea {
+  max-height: 18rem;
+}
+
+.card {
+  width: min(44rem, calc(100vw - var(--spacing-8)));
+}
+
+.cardContent {
+  min-width: 0;
+  padding-top: 0;
+}
+
+.code {
+  font-family: var(--font-mono), monospace;
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-medium);
+}
+
+.emphasis {
+  font-weight: var(--weight-medium);
+}

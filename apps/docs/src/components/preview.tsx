@@ -88,6 +88,9 @@ function PreviewRoot({
   }, [normalizedCssProperties]);
   const [cssVariables, setCssVariables] = React.useState(initialCssVariables);
   const resolvedCode = code ? dedentCode(code) : codeContent;
+  const resolvedExampleCss = exampleCssContent
+    ? dedentCode(extractText(exampleCssContent))
+    : undefined;
   const appliedCssVariables = React.useMemo(() => {
     return getAppliedCssVariables(cssVariables, normalizedCssProperties);
   }, [cssVariables, normalizedCssProperties]);
@@ -104,7 +107,7 @@ function PreviewRoot({
   );
   const tabs = [
     resolvedCode ? 'Code' : null,
-    exampleCssContent ? 'Styles' : null,
+    resolvedExampleCss ? 'Styles' : null,
     dataContent ? 'Data' : null,
     resolvedCssContent ? 'CSS Variables' : null,
     resolvedCssPlaygroundContent ? 'Playground' : null,
@@ -134,6 +137,7 @@ function PreviewRoot({
         className="flex min-h-56 items-center overflow-x-hidden overflow-y-hidden rounded-xl border bg-white p-6 dark:bg-fd-card"
         style={cssVariableScope === 'root' ? undefined : appliedCssVariables}
       >
+        {resolvedExampleCss ? <style>{resolvedExampleCss}</style> : null}
         <div className="flex w-full min-w-0 justify-center-safe">
           <div className="flex w-full min-w-0 flex-wrap items-center justify-center gap-3 [&>*]:max-w-full [&>*]:min-w-0">
             {previewChildren}
@@ -148,13 +152,9 @@ function PreviewRoot({
               <DynamicCodeBlock lang={codeLanguage} code={resolvedCode} {...sharedCodeBlockProps} />
             </Tab>
           )}
-          {exampleCssContent && (
+          {resolvedExampleCss && (
             <Tab className="overflow-auto">
-              <DynamicCodeBlock
-                lang="css"
-                code={dedentCode(extractText(exampleCssContent))}
-                {...sharedCodeBlockProps}
-              />
+              <DynamicCodeBlock lang="css" code={resolvedExampleCss} {...sharedCodeBlockProps} />
             </Tab>
           )}
           {dataContent && (
@@ -527,5 +527,6 @@ export {
   PreviewCSSPlayground,
   PreviewData,
   PreviewCSSProperties,
+  normalizeCssProperties,
 };
 export type { CSSPropertiesEditorContext, CssProperty, CssPropertyInput, PreviewProps };

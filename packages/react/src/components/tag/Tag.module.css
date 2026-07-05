@@ -1,0 +1,139 @@
+@layer ui.components {
+  .root {
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    align-items: center;
+    gap: var(--tag-gap, 0.375rem);
+    border: var(--tag-border-width, var(--border-width-sm)) solid
+      var(--tag-border-color, transparent);
+    border-radius: var(--tag-radius, var(--radius-full));
+    background-color: var(--tag-bg, var(--color-primary));
+    color: var(--tag-color, var(--color-primary-foreground));
+    font-size: var(--tag-font-size, var(--text-xs));
+    font-weight: var(--tag-font-weight, var(--weight-medium));
+    line-height: var(--tag-line-height, var(--line-height-text-xs));
+    min-height: var(--tag-height-md, 1.5rem);
+    padding-block: var(--tag-padding-y-md, 0.125rem);
+    padding-inline: var(--tag-padding-x-md, 0.5rem);
+    white-space: nowrap;
+    vertical-align: middle;
+    transition:
+      color var(--tag-transition, var(--transition-default)),
+      background-color var(--tag-transition, var(--transition-default)),
+      border-color var(--tag-transition, var(--transition-default));
+
+    > svg {
+      width: var(--tag-icon-size, 0.75rem);
+      height: var(--tag-icon-size, 0.75rem);
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+
+    &[data-size='sm'] {
+      gap: var(--tag-gap-sm, 0.25rem);
+      min-height: var(--tag-height-sm, 1.25rem);
+      padding-block: var(--tag-padding-y-sm, 0);
+      padding-inline: var(--tag-padding-x-sm, 0.375rem);
+    }
+
+    &[data-variant='secondary'] {
+      background-color: var(--tag-bg, var(--color-secondary));
+      border-color: var(--tag-border-color, transparent);
+      color: var(--tag-color, var(--color-secondary-foreground));
+    }
+
+    &[data-variant='outline'],
+    &[data-variant='ghost'] {
+      background-color: var(--tag-bg, transparent);
+      color: var(--tag-color, var(--color-foreground));
+    }
+
+    &[data-variant='outline'] {
+      border-color: var(--tag-border-color, var(--color-border));
+    }
+
+    &[data-variant='destructive'] {
+      background-color: var(--tag-bg, var(--color-destructive));
+      border-color: var(--tag-border-color, transparent);
+      color: var(--tag-color, var(--color-primary-foreground));
+    }
+  }
+
+  .label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .startElement,
+  .endElement {
+    display: inline-flex;
+    min-width: 0;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    > svg {
+      width: var(--tag-icon-size, 0.75rem);
+      height: var(--tag-icon-size, 0.75rem);
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+  }
+
+  .closeTrigger {
+    display: inline-flex;
+    width: var(--tag-close-trigger-size, 1rem);
+    height: var(--tag-close-trigger-size, 1rem);
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: var(--tag-close-trigger-radius, var(--radius-full));
+    padding: 0;
+    background-color: var(--tag-close-trigger-bg, transparent);
+    color: inherit;
+    cursor: pointer;
+    transition:
+      color var(--tag-transition, var(--transition-default)),
+      background-color var(--tag-transition, var(--transition-default)),
+      box-shadow var(--tag-transition, var(--transition-default));
+
+    > svg {
+      width: var(--tag-close-trigger-icon-size, 0.625rem);
+      height: var(--tag-close-trigger-icon-size, 0.625rem);
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+
+    &:hover {
+      background-color: var(
+        --tag-close-trigger-bg-hover,
+        color-mix(in oklab, currentColor 12%, transparent)
+      );
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow:
+        0 0 0 var(--tag-close-trigger-focus-ring-offset, 0)
+          var(--tag-close-trigger-focus-ring-offset-color, transparent),
+        0 0 0
+          calc(
+            var(--tag-close-trigger-focus-ring-width, var(--border-width-sm)) +
+              var(--tag-close-trigger-focus-ring-offset, 0)
+          )
+          var(--tag-close-trigger-focus-ring-color, var(--color-ring));
+    }
+
+    &[disabled],
+    &[data-disabled] {
+      cursor: default;
+      opacity: var(--tag-disabled-opacity, var(--opacity-disabled));
+      pointer-events: none;
+    }
+  }
+}

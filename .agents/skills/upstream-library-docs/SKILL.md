@@ -1,26 +1,35 @@
 ---
 name: upstream-library-docs
-description: Use when component work needs current Base UI or shadcn reference material from online sources.
+description: Use when component work needs current Ark UI, Chakra UI, or shadcn reference material from online sources.
 ---
 
 # Skill: upstream-library-docs
 
-Use this skill when component work needs upstream Base UI or shadcn references.
+Use this skill when component work needs upstream Ark UI, Chakra UI, or shadcn references.
+
+moduix is already an Ark-backed library. Use upstream docs to verify current primitive behavior
+and keep local contracts aligned with the versions in use.
 
 ## Sources
 
-- Base UI agent index: `https://base-ui.com/llms.txt`
-- Base UI component markdown: `https://base-ui.com/react/components/<primitive-slug>.md`
-- shadcn agent index: `https://ui.shadcn.com/llms.txt`
+- Ark UI index: `https://ark-ui.com/llms.txt`
+- Ark UI component docs: `https://ark-ui.com/docs/components/<component-slug>` and `.mdx`
+- Ark UI guides: `ref`, `forms`, `animation`, `component-state`, `composition`, `styling`
+- Chakra UI component docs: `https://chakra-ui.com/docs/components/<component-slug>` and `.mdx`
+- shadcn index: `https://ui.shadcn.com/llms.txt`
 
 ## Rules
 
 - Read upstream sources online when current primitive or shadcn behavior matters.
-- Use Base UI for primitive behavior, accessibility, state, lifecycle, and low-level API.
-- Use shadcn for composition style, wrapper ergonomics, and docs tone.
+- Prefer the exact component page or guide over top-level docs.
+- Use Ark UI for primitive behavior, accessibility, state, lifecycle, part naming, and low-level API.
+- Use Chakra UI for the higher-level Ark-aligned composition model, overlay ergonomics, and recipe-level defaults.
+- Use shadcn for docs ergonomics, example flow, and narrow convenience patterns, not as the source of truth for hidden structural composition.
 - Do not rely on local snapshots.
 - If an upstream source is unavailable, stop and report it instead of guessing.
 
 ## Local vs Upstream
 
-Upstream sources explain the primitive or external pattern. Local component markdown is the source of truth for `moduix` wrapper behavior that this repo intentionally adds, removes, renames, styles, or constrains.
+Upstream sources explain the primitive or external pattern. Local component markdown and docs explain
+intentional `moduix` wrapper behavior: anything added, removed, renamed, styled, or constrained
+locally belongs there, not in upstream assumptions.

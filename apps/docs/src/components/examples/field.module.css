@@ -1,4 +1,5 @@
-.field {
+.field,
+.customField {
   width: fit-content;
   max-width: min(20rem, 100%);
 }
@@ -10,9 +11,38 @@
   line-height: var(--line-height-text-sm);
 }
 
+.inlineControls {
+  display: grid;
+  grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr);
+  gap: var(--spacing-2);
+  width: 100%;
+}
+
+.customInput {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--field-control-height, var(--size-lg));
+  margin: 0;
+  border: var(--field-control-border-width, var(--border-width-sm))
+    var(--field-control-border-style, solid) var(--field-control-border-color, var(--color-border));
+  border-radius: var(--field-control-radius, var(--radius-md));
+  padding: var(--field-control-padding-y, 0.5rem) var(--field-control-padding-x, 0.875rem);
+  background-color: var(--field-control-bg, var(--color-background));
+  color: var(--field-control-color, var(--color-foreground));
+  font: inherit;
+  outline: var(--field-focus-ring-width, var(--border-width-sm)) solid transparent;
+  outline-offset: var(--field-focus-ring-offset, -1px);
+
+  &:focus-visible {
+    outline-color: var(--field-focus-ring-color, var(--color-ring));
+  }
+
+  &[data-invalid] {
+    border-color: var(--field-control-border-color-invalid, var(--color-destructive));
+  }
+}
+
 .customField {
-  width: fit-content;
-  max-width: min(20rem, 100%);
   gap: var(--spacing-2);
 }
 
@@ -23,8 +53,8 @@
 
 .customControl {
   border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-}
 
-.customControl:focus-visible {
-  outline-color: var(--color-primary);
+  &:focus-visible {
+    outline-color: var(--color-primary);
+  }
 }

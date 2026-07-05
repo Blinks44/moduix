@@ -1,356 +1,315 @@
 ---
 title: Lightbox
-description: An image-focused modal overlay for zoomed preview and dynamic gallery capture.
+description: Ark UI dialog composition for image-first modal previews.
 icon: Component
 ---
 
-import {
-  CustomizedLightboxExample,
-  DynamicLightboxGalleryExample,
-  LightboxCssPlaygroundPanel,
-  LightboxCssPropertiesPanel,
-  LightboxExample,
-  TriggerLightboxExample,
-  lightboxPlaygroundCssProperties,
-} from '@/components/examples/lightbox';
+import * as LightboxDocs from '@/components/examples/lightbox';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/dialog" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/dialog" />
+
+Ark UI does not ship a dedicated `lightbox` primitive. Moduix builds this component on Ark UI
+`Dialog`, follows Ark's [composition](https://ark-ui.com/docs/guides/composition),
+[styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance, and keeps Dialog as the behavior source of
+truth.
+
+## Choosing the right component
+
+Use `Lightbox` when the overlay is primarily about previewing image or media content.
+
+- Choose **`Lightbox`** for zoomed image previews, product image galleries, and media-first modal
+  surfaces.
+- Choose **`Dialog`** when the surface contains general application UI such as forms, actions, or
+  mixed content.
+- Compose **`Carousel` inside `Lightbox.Gallery`** when the preview needs slides or arrows.
 
 ## Basic
 
-<Preview cssProperties={lightboxPlaygroundCssProperties}>
-  <LightboxExample />
+Compose the explicit Ark UI dialog structure: `Lightbox`, `Lightbox.Trigger`,
+`Lightbox.Backdrop`, `Lightbox.Positioner`, and `Lightbox.Content`. Use `asChild` with one
+semantic trigger element.
+
+<Preview>
+  <LightboxDocs.LightboxExample />
 
   <Preview.Code>
-    {`
-      import { Lightbox, LightboxImage, LightboxContent } from "moduix";
-
-      export function LightboxDemo() {
-        return (
-          <Lightbox>
-            <LightboxImage
-              src={thumbnail}
-              fullSrc={fullSize}
-              alt="Mountain ridge at sunset"
-              className={styles.previewImage}
-            />
-            <LightboxContent />
-          </Lightbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`      const thumbnail =
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80";
-      const fullSize =
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90";`}
-
-  </Preview.Data>
-  <Preview.CSSProperties>{(context) => <LightboxCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <LightboxCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  <include lang="tsx">./_snippets/lightbox/basic.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Lightbox` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/lightbox
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/lightbox
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/lightbox
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/lightbox
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/lightbox
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Lightbox` depends on, such
-as styles, icons, and small utilities.
-
-`LightboxContent` stays short by default: when `children` are omitted, it reuses the image data from
-`LightboxImage` and opens `fullSrc` if you provide one.
-
-Use this path for the common single-image preview flow. If the popup content contains controls,
-captions, or anything beyond the image itself, pass explicit `children` to `LightboxContent` or
-compose the low-level parts directly.
+<ShadcnInstall packageName="react-lightbox" />
 
 ## Anatomy
 
-`LightboxContent` already renders the default `portal`, `backdrop`, `viewport`, `popup`, frame,
-and close button, so most usage stays at `Lightbox`, `LightboxImage`, and `LightboxContent`.
-
 ```text
-Lightbox
-├─ LightboxTrigger
-│  └─ LightboxImage (optional helper)
-└─ LightboxContent
-   ├─ portal
-   │  ├─ backdrop
-   │  └─ viewport
-   │     ├─ LightboxCloseButton (optional)
-   │     └─ popup
-   │        └─ LightboxFrame
-   │           └─ image content
+Lightbox / Lightbox.Root
+├─ Lightbox.Trigger
+├─ Lightbox.Bind
+└─ Overlay subtree (automatically portalled)
+   ├─ Lightbox.Backdrop
+   └─ Lightbox.Positioner
+      ├─ Lightbox.CloseTrigger or Lightbox.CloseIcon
+      └─ Lightbox.Content
+         ├─ Lightbox.Header (optional)
+         │  ├─ Lightbox.Title
+         │  └─ Lightbox.Description
+         ├─ Lightbox.Body
+         │  └─ Lightbox.Image
+         └─ Lightbox.Footer (optional)
+
+Lightbox.RootProvider
+└─ the same part tree connected to Ark useDialog()
 ```
 
-```tsx
-<Lightbox>
-  <LightboxImage src={thumbnail} fullSrc={fullSize} alt="Preview image" />
-  <LightboxContent />
-</Lightbox>
-```
-
-| Part              | Role                                                                                                   |
-| ----------------- | ------------------------------------------------------------------------------------------------------ |
-| `Lightbox`        | Root state and behavior (`open`, `defaultOpen`, `onOpenChange`, `modal`, `handle`).                    |
-| `LightboxTrigger` | Opens the preview from any custom trigger composition.                                                 |
-| `LightboxImage`   | Trigger helper for the common thumbnail-to-preview flow. `fullSrc` can point to a larger asset.        |
-| `LightboxContent` | Default high-level wrapper that owns `portal`, `backdrop`, `viewport`, popup, frame, and close button. |
-| `LightboxClose`   | Primitive close part for custom composition inside the popup.                                          |
-| `LightboxGallery` | Dynamic image capture mode for CMS-rendered or unknown image lists.                                    |
+| Part                         | Role                                                                           |
+| ---------------------------- | ------------------------------------------------------------------------------ |
+| `Lightbox` / `Lightbox.Root` | Ark Dialog root for open state, focus lifecycle, dismissal, and accessibility. |
+| `Lightbox.RootProvider`      | Provider for state created with Ark `useDialog()`.                             |
+| `Lightbox.Trigger`           | Ark trigger. Use `asChild` for custom semantic buttons or links.               |
+| `Lightbox.Backdrop`          | Modal backdrop with Ark `data-state` and layer variables.                      |
+| `Lightbox.Positioner`        | Fixed centered overlay container.                                              |
+| `Lightbox.Content`           | Actual Ark dialog content node.                                                |
+| `Lightbox.Title`             | Optional accessible title.                                                     |
+| `Lightbox.Description`       | Optional accessible description.                                               |
+| `Lightbox.CloseTrigger`      | Low-level Ark close trigger.                                                   |
+| `Lightbox.CloseIcon`         | Moduix `CloseButton.Root` sugar over Ark close trigger.                        |
+| `Lightbox.Header` / `Body`   | Optional layout helpers for text and media regions inside the content.         |
+| `Lightbox.Footer`            | Optional layout helper for actions or status below the media.                  |
+| `Lightbox.Image`             | Styled native image with an `HTMLImageElement` ref.                            |
+| `Lightbox.Gallery`           | Layout and styling boundary for a composed `Carousel`.                         |
+| `Lightbox.Bind`              | Zero-render behavior part that binds external image markup to the root.        |
 
 ## Composition
 
-Use the default path when one trigger image opens one preview image.
+The root portals `Backdrop` and `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
 
-Use controlled state on `Lightbox` when outside UI needs to open or close the preview.
+### Recommended composition
 
-Use `LightboxTrigger` when the trigger is not an image.
+Keep the overlay structure explicit. `Lightbox.Content` is the real Ark content part; it does not
+render a backdrop, positioner, image, gallery, or close button for you.
 
-Use `LightboxGallery` when images come from CMS or HTML you do not compose manually. It reads
-`data-lightbox-src` first, then falls back to `currentSrc` or `src`, and it can target a focusable
-wrapper with `selector` when the image is nested inside a button, card, or link-like control.
+Use `Lightbox.Image` for a single image. It renders a native `<img>`, accepts native image props,
+and forwards its ref to the `HTMLImageElement`. `Lightbox.Header`, `Body`, and `Footer` are optional
+layout helpers when the content needs text, media, and actions to stay visually separated.
 
-`LightboxContent` keeps the default path small and supports the common image-preview workflow:
+Use `Lightbox.Gallery` around `Carousel.Root` for a known image collection. It provides the
+lightbox-specific viewport, arrow alignment, media sizing, and indicator layout while Carousel
+continues to own all slide behavior.
 
-### Defaults
+Render `Lightbox.CloseIcon` as a sibling of `Lightbox.Content` inside `Lightbox.Positioner` when
+you want it pinned to the viewport corner. Rendering it inside `Lightbox.Content` makes it inherit
+content transforms during entry and exit motion.
 
-| Part              | Prop                  | Default       | Values / Notes                                   |
-| ----------------- | --------------------- | ------------- | ------------------------------------------------ |
-| `LightboxContent` | `showCloseButton`     | `true`        | `true`, `false`                                  |
-| `LightboxContent` | `closeOnContentClick` | `true`        | `true`, `false`                                  |
-| `LightboxContent` | `closeLabel`          | `Close image` | Accessible label for close controls              |
-| `LightboxGallery` | `selector`            | `img`         | Any selector supported by `Element.closest(...)` |
+### When to go custom
 
-When `closeOnContentClick` is enabled, clicking anywhere inside the content area closes the
-lightbox. Disable it for interactive children such as buttons, links, or media controls.
+Render custom content directly inside `Lightbox.Content` when it is not a single media frame or a
+Carousel gallery. Use `Lightbox.Bind` only when the source markup cannot render
+`Lightbox.Trigger`; structured arrays should use explicit triggers and `Lightbox.Gallery`.
 
-## Styling
+### Default props
 
-Style the visual parts through `className`, `data-slot="lightbox-*"` hooks, and the documented
-`--lightbox-*` CSS variables in the CSS Properties panel.
+| Prop                     | Default    | Notes                                                               |
+| ------------------------ | ---------- | ------------------------------------------------------------------- |
+| `closeOnEscape`          | `true`     | Inherited from Ark Dialog.                                          |
+| `closeOnInteractOutside` | `true`     | Inherited from Ark Dialog.                                          |
+| `defaultOpen`            | `false`    | Uncontrolled initial state.                                         |
+| `modal`                  | `true`     | Prevents outside interaction and hides content below the lightbox.  |
+| `preventScroll`          | `true`     | Locks page scroll while the lightbox is open.                       |
+| `role`                   | `"dialog"` | Use `aria-label`, `Lightbox.Title`, or `ids` for accessible naming. |
+| `trapFocus`              | `true`     | Keeps keyboard focus inside the lightbox while open.                |
+| `lazyMount`              | `false`    | Use with `unmountOnExit` for heavy media.                           |
+| `unmountOnExit`          | `false`    | Removes overlay nodes after exit.                                   |
 
-Most common hooks:
+### Behavioral notes
 
-- `LightboxImage` and `LightboxTrigger` for preview triggers.
-- `LightboxContent` `className` for the popup surface.
-- `LightboxBackdrop`, `LightboxViewport`, `LightboxPopup`, `LightboxFrame`, and
-  `LightboxCloseButton` for advanced composition.
+`onOpenChange` and `onTriggerValueChange` keep Ark detail-object callback shapes. Read
+`details.open` for controlled open state and `details.value` for multiple-trigger galleries.
 
-When the default wrapper is not enough, assemble the lower-level parts manually.
+Use Ark `useDialog()` with `Lightbox.RootProvider` when controls live outside the rendered root.
+Read dialog state in child components with Ark `useDialogContext()`.
+
+`Lightbox.Image closeOnClick` is the supported image-preview shortcut when the image itself should
+dismiss the overlay. `Lightbox.Bind` is the zero-render binding helper for CMS or third-party
+markup you cannot wrap with `Lightbox.Trigger`. It must be rendered inside `Lightbox` and reports
+the selected image through `onImageSelect(details)`. Details contain `src`, optional `alt`, and
+the source `HTMLImageElement` as `element`.
+
+Other inherited Dialog props pass through unchanged, including `id`, `ids`, `initialFocusEl`,
+`finalFocusEl`, `persistentElements`, `restoreFocus`, `present`, `immediate`,
+`skipAnimationOnMount`, and outside-interaction callbacks.
 
 ## Examples
 
-### Custom Trigger
+### Controlled
+
+Use the Ark `onOpenChange(details)` callback when synchronizing lightbox state with React.
 
 <Preview>
-  <TriggerLightboxExample />
+  <LightboxDocs.ControlledLightboxExample />
 
   <Preview.Code>
-    {`
-      import { Lightbox, LightboxContent, LightboxTrigger } from "moduix";
-      
-      export function TriggerLightboxDemo() {
-        return (
-          <Lightbox>
-            <LightboxTrigger className={styles.triggerButton}>Open image</LightboxTrigger>
-            <LightboxContent>
-              <img src={fullSize} alt="Road through forest" className={styles.contentImage} />
-            </LightboxContent>
-          </Lightbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`      const fullSize =
-        "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=90";`}
-
-  </Preview.Data>
+  <include lang="tsx">./_snippets/lightbox/controlled.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
-### Dynamic Gallery Capture
+### Multiple Triggers
+
+Use `Trigger.value` and `onTriggerValueChange(details)` for gallery thumbnails. The component does
+not maintain a hidden image registry.
 
 <Preview>
-  <DynamicLightboxGalleryExample />
+  <LightboxDocs.MultipleTriggersLightboxExample />
 
   <Preview.Code>
-    {`
-      import { LightboxGallery } from "moduix";
-      import { Fragment, useRef } from "react";
-
-      export function DynamicGalleryDemo() {
-        const rootRef = useRef<HTMLDivElement | null>(null);
-
-        return (
-          <Fragment>
-            <div ref={rootRef} className={styles.dynamicRoot}>
-              <button type="button" className={styles.dynamicItem}>
-                <img
-                  src={images.mountain}
-                  data-lightbox-src={images.mountainLarge}
-                  alt="Mountain landscape"
-                  className={styles.dynamicImage}
-                />
-              </button>
-              <button type="button" className={styles.dynamicItem}>
-                <img
-                  src={images.sea}
-                  data-lightbox-src={images.seaLarge}
-                  alt="Sea at sunset"
-                  className={styles.dynamicImage}
-                />
-              </button>
-              <button type="button" className={styles.dynamicItem}>
-                <img
-                  src={images.forest}
-                  data-lightbox-src={images.forestLarge}
-                  alt="Forest and mountain road"
-                  className={styles.dynamicImage}
-                />
-              </button>
-            </div>
-            <LightboxGallery rootRef={rootRef} selector="button" />
-          </Fragment>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`      const images = {
-        mountain:
-          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
-        mountainLarge:
-          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90",
-        sea: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=900&q=80",
-        seaLarge:
-          "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1800&q=90",
-        forest:
-          "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80",
-        forestLarge:
-          "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=90",
-      };`}
-
-  </Preview.Data>
+  <include lang="tsx">./_snippets/lightbox/multiple-triggers.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
-Use a focusable wrapper when delegated gallery items must stay keyboard-accessible. `LightboxGallery`
-does not add `tabIndex` or button semantics to arbitrary CMS markup for you.
+### Gallery
 
-### Customized Surface
-
-Customize popup size, backdrop tone, and close controls by composing the lower-level parts directly.
+When a CMS or API gives you a structured array of images, keep that array in React state and
+compose `Carousel` inside `Lightbox.Gallery`. Use `Lightbox.Trigger value` to choose the initial
+slide and keep `Carousel` page state in sync as the user navigates.
 
 <Preview>
-  <CustomizedLightboxExample />
+  <LightboxDocs.GalleryLightboxExample />
 
   <Preview.Code>
-    {`
-      import {
-        Lightbox,
-        LightboxBackdrop,
-        LightboxClose,
-        LightboxCloseButton,
-        LightboxFrame,
-        LightboxImage,
-        LightboxPopup,
-        LightboxPortal,
-        LightboxViewport,
-      } from "moduix";
-
-      export function CustomizedLightboxDemo() {
-        return (
-          <Lightbox>
-            <LightboxImage src={thumbnail} alt="Road through forest" className={styles.previewImage} />
-            <LightboxPortal>
-              <LightboxBackdrop className={styles.customBackdrop} />
-              <LightboxViewport>
-                <LightboxCloseButton className={styles.customClose} aria-label="Close preview" />
-                <LightboxPopup className={styles.customPopup}>
-                  <LightboxFrame>
-                    <LightboxClose nativeButton={false} render={<div />}>
-                      <img src={fullSize} alt="Road through forest" className={styles.contentImage} />
-                    </LightboxClose>
-                  </LightboxFrame>
-                </LightboxPopup>
-              </LightboxViewport>
-            </LightboxPortal>
-          </Lightbox>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <include lang="tsx">./_snippets/lightbox/gallery.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Custom Composition
+### Bind CMS Content
 
-Use the low-level parts when you need a different portal target, no backdrop, custom layout around
-the image, or a fully custom close affordance.
+Use `Lightbox.Bind` when previewable images come from CMS or third-party markup that you do not
+render directly with `Lightbox.Trigger`. Point it at a container with `rootRef` or `rootSelector`,
+choose a `selector`, and handle the resolved `{ src, alt, element }` through `onImageSelect`.
+`Bind` opens its parent Lightbox but renders no overlay structure, so backdrop, content, close
+controls, and image layout remain fully composable. It reads `data-lightbox-src`, then `currentSrc`,
+then `src`, and preloads that source on pointer hover or keyboard focus. Use a semantic button or
+link as the matched `selector` so native keyboard activation produces the click that opens the
+Lightbox. If your server already returns a real image array, prefer the
+`Lightbox.Gallery + Carousel` composition above.
 
-```tsx
-<Lightbox>
-  <LightboxTrigger render={<button type="button">Open image</button>} />
-  <LightboxPortal>
-    <LightboxBackdrop />
-    <LightboxViewport>
-      <LightboxCloseButton />
-      <LightboxPopup className={styles.popup}>
-        <LightboxFrame>
-          <LightboxClose nativeButton={false} render={<div />}>
-            <img src={fullSize} alt="Preview image" />
-          </LightboxClose>
-        </LightboxFrame>
-      </LightboxPopup>
-    </LightboxViewport>
-  </LightboxPortal>
-</Lightbox>
-```
+<Preview>
+  <LightboxDocs.BoundLightboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/lightbox/bind-cms-content.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Focus and IDs
+
+Use Ark `initialFocusEl`, `finalFocusEl`, and `ids` when a lightbox needs explicit focus targets or
+stable element ids for external accessibility composition.
+
+<Preview>
+  <LightboxDocs.FocusLightboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/lightbox/focus-and-ids.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Non Modal
+
+Set `modal={false}` for rare previews that should leave the page interactive. Pair it with
+`trapFocus={false}` and `preventScroll={false}` when the background needs to remain reachable.
+
+<Preview>
+  <LightboxDocs.NonModalLightboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/lightbox/non-modal.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Root Provider and Context
+
+Create state with Ark `useDialog()` when the opener is outside the root. Read inline state with
+Ark `useDialogContext()` inside a child component.
+
+<Preview>
+  <LightboxDocs.RootProviderLightboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/lightbox/root-provider-and-context.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Lazy Mount
+
+Use Ark presence props for heavy media. `lazyMount` delays rendering until the first open, and
+`unmountOnExit` removes the overlay after close animations finish.
+
+<Preview>
+  <LightboxDocs.LazyMountLightboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/lightbox/lazy-mount.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Click To Close Image
+
+Use `Lightbox.Image closeOnClick` when clicking the previewed image should dismiss the overlay. The
+close icon remains available and keeps the same Ark close semantics.
+
+<Preview>
+  <LightboxDocs.ClickToCloseLightboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/lightbox/click-to-close-image.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <LightboxDocs.LightboxCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- Moduix slots: `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
+  `lightbox-content`, `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`,
+  `lightbox-close-icon`, `lightbox-image`, and `lightbox-gallery`.
+- Ark state and anatomy hooks: `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
+  `data-nested`, `data-has-nested`, `--layer-index`, and `--nested-layer-count`.
+- Local hooks: `Lightbox.Image` exposes `data-slot="lightbox-image"` and optional
+  `data-close-on-click`; `Lightbox.Gallery` exposes `data-slot="lightbox-gallery"` and styles
+  nested Carousel slots.
+- Motion is driven by Ark `data-state`; use `present` only when JavaScript animation control needs
+  to keep the content mounted.

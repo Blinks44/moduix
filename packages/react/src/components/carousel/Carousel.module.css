@@ -1,0 +1,219 @@
+@layer ui.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--carousel-gap, var(--spacing-3));
+    min-width: 0;
+    width: 100%;
+  }
+
+  .root[data-orientation='vertical'] {
+    align-items: stretch;
+    flex-direction: row;
+    height: var(--carousel-height, 24rem);
+  }
+
+  .control {
+    display: flex;
+    align-items: center;
+    gap: var(--carousel-gap, var(--spacing-3));
+    min-width: 0;
+  }
+
+  .control[data-orientation='vertical'] {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .itemGroup {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
+    border-radius: var(--carousel-track-radius, var(--radius-xl));
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &[data-dragging] {
+      cursor: grabbing;
+      user-select: none;
+    }
+  }
+
+  .root[data-orientation='vertical'] > .itemGroup {
+    height: 100%;
+  }
+
+  .item {
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .prevTrigger,
+  .nextTrigger,
+  .autoplayTrigger {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: var(--carousel-control-size, 2.5rem);
+    height: var(--carousel-control-size, 2.5rem);
+    border: var(--border-width-sm) solid
+      var(--carousel-control-border-color, color-mix(in oklab, var(--color-border) 88%, black 12%));
+    border-radius: var(--radius-full);
+    background-color: var(
+      --carousel-control-bg,
+      color-mix(in oklab, var(--color-background) 92%, var(--color-card) 8%)
+    );
+    box-shadow: var(--carousel-control-shadow, var(--shadow-sm));
+    color: var(--carousel-control-color, var(--color-foreground));
+    cursor: pointer;
+    transition:
+      background-color var(--transition-fast),
+      border-color var(--transition-fast),
+      color var(--transition-fast),
+      box-shadow var(--transition-fast),
+      transform var(--transition-fast);
+
+    & svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    &:not(:disabled, [data-disabled]):hover {
+      border-color: var(
+        --carousel-control-border-color-hover,
+        color-mix(in oklab, var(--color-border) 50%, var(--color-foreground) 50%)
+      );
+      background-color: var(--carousel-control-bg-hover, var(--color-accent));
+      box-shadow: var(--carousel-control-shadow-hover, var(--shadow-md));
+      color: var(--carousel-control-color-hover, var(--color-accent-foreground));
+    }
+
+    &:focus-visible {
+      outline: var(--carousel-focus-ring-width, var(--border-width-md)) solid
+        var(--carousel-focus-ring-color, var(--color-ring));
+      outline-offset: var(--carousel-focus-ring-offset, 2px);
+    }
+
+    &:is(:disabled, [data-disabled]) {
+      cursor: not-allowed;
+      opacity: var(--opacity-disabled);
+    }
+
+    &[data-pressed] {
+      border-color: var(
+        --carousel-control-border-color-hover,
+        color-mix(in oklab, var(--color-border) 50%, var(--color-foreground) 50%)
+      );
+      background-color: var(--carousel-control-bg-hover, var(--color-accent));
+      color: var(--carousel-control-color-hover, var(--color-accent-foreground));
+    }
+  }
+
+  .defaultIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .root[data-orientation='vertical'] {
+    .defaultIcon {
+      & svg {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  .indicatorGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--carousel-indicator-gap, var(--spacing-2));
+  }
+
+  .root[data-orientation='vertical'] > .indicatorGroup,
+  .control[data-orientation='vertical'] > .indicatorGroup {
+    flex-direction: column;
+  }
+
+  .indicator {
+    width: var(--carousel-indicator-size, 0.5rem);
+    height: var(--carousel-indicator-size, 0.5rem);
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-full);
+    background-color: var(
+      --carousel-indicator-bg,
+      color-mix(in oklab, var(--color-muted) 84%, var(--color-background) 16%)
+    );
+    cursor: pointer;
+    opacity: 0.88;
+    transition:
+      inline-size var(--transition-fast),
+      block-size var(--transition-fast),
+      background-color var(--transition-fast),
+      opacity var(--transition-fast);
+
+    &:hover {
+      background-color: var(
+        --carousel-indicator-bg-hover,
+        color-mix(in oklab, var(--color-muted) 56%, var(--color-foreground) 44%)
+      );
+    }
+
+    &:focus-visible {
+      outline: var(--carousel-focus-ring-width, var(--border-width-md)) solid
+        var(--carousel-focus-ring-color, var(--color-ring));
+      outline-offset: var(--carousel-focus-ring-offset, 2px);
+    }
+
+    &[data-current] {
+      width: calc(var(--carousel-indicator-size, 0.5rem) * 3);
+      background-color: var(--carousel-indicator-bg-current, var(--color-primary));
+      opacity: 1;
+    }
+
+    &:is(:disabled, [data-disabled], [data-readonly]) {
+      cursor: not-allowed;
+      opacity: var(--opacity-disabled);
+    }
+  }
+
+  .root[data-orientation='vertical'] > .indicatorGroup .indicator,
+  .control[data-orientation='vertical'] > .indicatorGroup .indicator {
+    &[data-current] {
+      width: var(--carousel-indicator-size, 0.5rem);
+      height: calc(var(--carousel-indicator-size, 0.5rem) * 3);
+    }
+  }
+
+  .autoplayTrigger {
+    min-width: 3rem;
+  }
+
+  .autoplayIndicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1rem;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    line-height: var(--line-height-text-xs);
+    text-transform: uppercase;
+  }
+
+  .progressText {
+    color: var(--carousel-progress-text-color, var(--color-muted-foreground));
+    font-size: var(--carousel-progress-text-font-size, var(--text-sm));
+    line-height: var(--line-height-text-sm);
+    font-variant-numeric: tabular-nums;
+  }
+}

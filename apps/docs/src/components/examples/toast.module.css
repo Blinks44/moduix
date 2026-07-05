@@ -48,39 +48,20 @@
 }
 
 .customContent {
+  display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   column-gap: var(--spacing-3);
-  padding-right: 1.75rem;
 }
 
 .customIcon {
   grid-row: span 2;
-  width: 1.125rem;
-  height: 1.125rem;
-  color: currentColor;
-}
-
-.customAnchoredContent {
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  column-gap: var(--spacing-2);
-}
-
-.customAnchoredIcon {
   width: 1rem;
   height: 1rem;
   color: currentColor;
 }
 
 .closeIcon {
-  inline-size: var(--toast-close-icon-size, 1rem);
-  block-size: var(--toast-close-icon-size, 1rem);
+  inline-size: var(--toast-close-icon-size, 12px);
+  block-size: var(--toast-close-icon-size, 12px);
   flex: none;
-}
-
-.anchoredActions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--spacing-2);
 }

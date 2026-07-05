@@ -29,6 +29,9 @@ jobs:
           node-version: 24
           cache: npm
 
+      - name: Setup npm
+        run: npm install --global npm@11.17.0
+
       - name: Install dependencies
         run: npm ci
 
@@ -38,8 +41,17 @@ jobs:
       - name: Check lint
         run: npm run lint:check
 
-      - name: Build UI
-        run: npm run build:ui
+      - name: Build React
+        run: npm run build:react
 
       - name: Check TypeScript
         run: npm run tsc:check
+
+      - name: Build docs
+        run: npm run build:docs
+
+      - name: Build registry
+        run: npm run build:registry
+
+      - name: Check generated registry
+        run: git diff --exit-code -- packages/react/registry/default

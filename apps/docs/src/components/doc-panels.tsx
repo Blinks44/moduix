@@ -3,18 +3,18 @@ import styles from './doc-panels.module.css';
 const quickStartSteps = [
   {
     title: 'Install',
-    body: 'Add moduix and the Base UI peer dependency to the application.',
-    code: 'npm install moduix @base-ui/react',
+    body: 'Add moduix and the current primitive peer dependencies to the application.',
+    code: 'npm install @moduix/react @ark-ui/react',
   },
   {
     title: 'Connect CSS',
     body: 'Import shared tokens and base styles once from the app entry point.',
-    code: "import 'moduix/style.css';",
+    code: "import '@moduix/react/style.css';",
   },
   {
     title: 'Compose',
     body: 'Use named parts and keep layout or product styling in your app.',
-    code: 'import { Button, Dialog } from "moduix";',
+    code: 'import { Button, Dialog } from "@moduix/react";',
   },
 ];
 

@@ -1,0 +1,82 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: grid;
+    justify-items: center;
+    width: 100%;
+    min-width: 0;
+    gap: var(--empty-gap, var(--spacing-4));
+    padding: var(--empty-padding, var(--spacing-8));
+    border: var(--empty-border-width, var(--border-width-sm)) solid
+      var(--empty-border-color, var(--color-border));
+    border-radius: var(--empty-radius, var(--radius-xl));
+    background-color: var(
+      --empty-bg,
+      color-mix(in oklab, var(--color-card) 92%, var(--color-muted))
+    );
+    color: var(--empty-color, var(--color-card-foreground));
+    box-shadow: var(--empty-shadow, none);
+    text-align: center;
+  }
+
+  .icon {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    padding: var(--empty-icon-padding, var(--spacing-3));
+    border-radius: var(--radius-full);
+    background-color: var(--empty-icon-bg, var(--color-muted));
+    color: var(--empty-icon-color, var(--color-muted-foreground));
+
+    &:where(svg),
+    & :where(svg) {
+      width: var(--empty-icon-size, 1.5rem);
+      height: var(--empty-icon-size, 1.5rem);
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+  }
+
+  .content {
+    display: grid;
+    min-width: 0;
+    justify-items: center;
+    gap: var(--empty-content-gap, var(--spacing-1));
+    max-width: var(--empty-content-max-width, 28rem);
+  }
+
+  .title {
+    margin: 0;
+    min-width: 0;
+    color: var(--empty-title-color, currentColor);
+    font-size: var(--empty-title-font-size, var(--text-xl));
+    font-weight: var(--empty-title-font-weight, var(--weight-semibold));
+    line-height: var(--empty-title-line-height, var(--line-height-text-xl));
+    overflow-wrap: anywhere;
+  }
+
+  .description {
+    min-width: 0;
+    color: var(--empty-description-color, var(--color-muted-foreground));
+    font-size: var(--empty-description-font-size, var(--text-sm));
+    line-height: var(--empty-description-line-height, var(--line-height-text-sm));
+    overflow-wrap: anywhere;
+
+    & > :first-child {
+      margin-top: 0;
+    }
+
+    & > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--empty-actions-gap, var(--spacing-2));
+  }
+}

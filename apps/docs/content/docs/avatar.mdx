@@ -1,406 +1,179 @@
 ---
 title: Avatar
-description: Compact identity media with image and fallback slots.
+description: Compact identity media with Ark UI image loading and fallback behavior.
 icon: Component
 ---
 
-import {
-  AvatarCssPlaygroundPanel,
-  AvatarCssPropertiesPanel,
-  AvatarCompositionExample,
-  AvatarCustomFallbackExample,
-  AvatarExample,
-  AvatarFallbackOnlyExample,
-  AvatarImageErrorExample,
-  CustomCompositionAvatarExample,
-  avatarPlaygroundCssProperties,
-} from '@/components/examples/avatar';
+import * as AvatarDocs from '@/components/examples/avatar';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/avatar" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/avatar" />
 
 ## Basic
 
-Use `AvatarImage` and `AvatarFallback` together inside `Avatar`. That is the recommended default
-path and keeps image loading, error handling, and fallback timing on the primitive.
+Compose `Avatar.Root`, `Avatar.Fallback`, and `Avatar.Image`. Keep the fallback mounted so Ark UI
+can switch between it and the image as loading state changes.
 
-<Preview cssProperties={avatarPlaygroundCssProperties}>
-  <AvatarExample />
+<Preview>
+  <AvatarDocs.AvatarExample />
 
-  <Preview.Code>
-    {`
-      import { Avatar, AvatarFallback, AvatarImage } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/avatar/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function AvatarDemo() {
-        return (
-          <Avatar>
-            <AvatarImage src={avatarImage} alt="Alex T." />
-            <AvatarFallback delay={600}>LT</AvatarFallback>
-          </Avatar>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`      const avatarImage =
-        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";`}
-
-  </Preview.Data>
-
-<Preview.CSSProperties>
-  {(context) => <AvatarCssPropertiesPanel {...context} />}
-</Preview.CSSProperties>
-
-  <Preview.CSSPlayground>
-    {(context) => <AvatarCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
+  <Preview.CSS>{AvatarDocs.avatarExampleCss}</Preview.CSS>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Avatar` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/avatar
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/avatar
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/avatar
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/avatar
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/avatar
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Avatar` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-avatar" />
 
 ## Anatomy
 
-`Avatar` keeps the public surface short: one root and two visible slots.
-
 ```text
-Avatar
-├─ AvatarImage
-└─ AvatarFallback
-   └─ initials | icon | custom content
+Avatar.Root | Avatar.RootProvider
+├─ Avatar.Fallback
+└─ Avatar.Image
 ```
 
-| Part             | Role                                                                 |
-| ---------------- | -------------------------------------------------------------------- |
-| `Avatar`         | Root slot. Controls size, shape, shared color, and `render` support. |
-| `AvatarImage`    | Visible image when the source loads successfully.                    |
-| `AvatarFallback` | Fallback content during loading, missing image, or image error.      |
+| Part                     | Role                                                              |
+| ------------------------ | ----------------------------------------------------------------- |
+| `Avatar` / `Avatar.Root` | Creates and owns the Ark UI avatar state.                         |
+| `Avatar.RootProvider`    | Renders an avatar from externally created Ark UI state.           |
+| `Avatar.Fallback`        | Shows initials, an icon, or custom content until the image loads. |
+| `Avatar.Image`           | Shows the native image after a successful load.                   |
 
 ## Composition
 
-`Avatar`, `AvatarImage`, and `AvatarFallback` all accept `className` and preserve the underlying
-Base UI composition API such as `render`.
+### Recommended composition
 
-Use `AvatarFallback delay` when you want to suppress a brief fallback flash during normal image
-loading. Use `size` for token sizes, or root-level CSS variables such as `--avatar-size`,
-`--avatar-font-size`, and `--avatar-line-height` for custom dimensions.
+Use `Avatar.Root` for the normal path. `onStatusChange(details)` reports the Ark loading state,
+while `ids` provides stable IDs for the root, image, and fallback. All DOM parts forward their refs
+and support Ark `asChild`.
 
-| Surface          | Prop                    | Default | Values                       |
-| ---------------- | ----------------------- | ------- | ---------------------------- |
-| `Avatar`         | `render`                | `span`  | Any valid React element      |
-| `Avatar`         | `size`                  | `md`    | `xs`, `sm`, `md`, `lg`, `xl` |
-| `AvatarFallback` | `delay`                 | -       | `number` in milliseconds     |
-| `AvatarImage`    | `onLoadingStatusChange` | -       | `(status) => void`           |
+`Avatar.Image` renders an `img`, so provide meaningful `alt` text when the image conveys identity.
+Use `alt=""` when the surrounding link or button already has the accessible name.
+
+### When to go custom
+
+Use Ark UI's `useAvatar` with `Avatar.RootProvider` when state must be created outside the rendered
+avatar. Import advanced state hooks and context APIs directly from `@ark-ui/react/avatar`. Do not
+render `Avatar.Root` around the same `RootProvider` state instance.
+
+For framework image components, use Ark UI's `useAvatarContext()` directly and preserve Ark's
+hidden/visible behavior.
+
+Use `asChild` with one semantic child when a link, button, or framework component must own a part's
+DOM node.
+
+### Default props
+
+| Surface                              | Prop   | Default | Values                       |
+| ------------------------------------ | ------ | ------- | ---------------------------- |
+| `Avatar.Root`, `Avatar.RootProvider` | `size` | `md`    | `xs`, `sm`, `md`, `lg`, `xl` |
+
+### Behavioral notes
+
+- Ark controls `data-state="visible" | "hidden"` on `Avatar.Image` and `Avatar.Fallback`.
+- `onStatusChange` receives a detail object; read the current value from `details.status`.
+- A missing or failed image keeps the fallback visible.
+- `Avatar.RootProvider` requires the `value` returned by `useAvatar`.
+- Context parts, state hooks, and Ark type aliases are imported directly from
+  `@ark-ui/react/avatar`.
+- moduix adds only visual defaults, stable `data-slot` hooks, CSS variables, and `size`.
 
 ## Examples
 
-### Fallback Only
+### Events
 
-Render initials or short labels when there is no image source.
-
-<Preview>
-  <AvatarFallbackOnlyExample />
-
-  <Preview.Code>
-    {`
-      import { Avatar, AvatarFallback } from "moduix";
-
-      export function AvatarFallbackOnlyDemo() {
-        return (
-          <div className={styles.row}>
-            <Avatar size="xs">
-              <AvatarFallback>XS</AvatarFallback>
-            </Avatar>
-            <Avatar size="sm">
-              <AvatarFallback>SM</AvatarFallback>
-            </Avatar>
-            <Avatar>
-              <AvatarFallback>MD</AvatarFallback>
-            </Avatar>
-            <Avatar size="lg">
-              <AvatarFallback>LG</AvatarFallback>
-            </Avatar>
-            <Avatar size="xl">
-              <AvatarFallback>XL</AvatarFallback>
-            </Avatar>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .row {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Image Error
-
-Keep fallback content in place so the avatar still carries identity when the image fails.
+Use `onStatusChange(details)` when surrounding UI needs to react to the image lifecycle.
 
 <Preview>
-  <AvatarImageErrorExample />
+  <AvatarDocs.AvatarStatusExample />
 
-  <Preview.Code>
-    {`
-      import { Avatar, AvatarFallback, AvatarImage } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/avatar/events.tsx#demo</include>
+</Preview.Code>
 
-      export function AvatarImageErrorDemo() {
-        return (
-          <Avatar>
-            <AvatarImage src="https://example.com/does-not-exist.png" alt="Broken image example" />
-            <AvatarFallback>NA</AvatarFallback>
-          </Avatar>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.CSS>{AvatarDocs.avatarExampleCss}</Preview.CSS>
 </Preview>
 
-## Custom Composition
+### Root Provider
 
-### Interactive Root
-
-Use `render` when the avatar should act as a link or compose with an app-specific element.
+Create state with `useAvatar` when controls outside the avatar need to coordinate with it, then
+render `Avatar.RootProvider` instead of `Avatar.Root`.
 
 <Preview>
-  <AvatarCompositionExample />
+  <AvatarDocs.AvatarRootProviderExample />
 
-  <Preview.Code>
-    {`
-      import { Avatar, AvatarFallback, AvatarImage } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/avatar/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      export function AvatarLinkDemo() {
-        return (
-          <Avatar render={<a href="mailto:alex@example.com" />} size="xl" className={styles.linkAvatar}>
-            <AvatarImage className={styles.linkAvatarImage} src={avatarImage} alt="Alex T." />
-            <AvatarFallback className={styles.linkAvatarFallback} delay={600}>
-              LT
-            </AvatarFallback>
-          </Avatar>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`      const avatarImage =
-        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";`}
-
-  </Preview.Data>
-
-  <Preview.CSS>
-    {`
-      .linkAvatar {
-        text-decoration: none;
-        transition:
-          box-shadow var(--transition-default),
-          transform var(--transition-default);
-      }
-
-      .linkAvatar:hover {
-        box-shadow:
-          0 0 0 2px var(--color-background),
-          0 0 0 4px var(--color-primary);
-        transform: translateY(-1px);
-      }
-
-      .linkAvatarImage {
-        object-position: 50% 35%;
-      }
-
-      .linkAvatarFallback {
-        --avatar-fallback-bg: var(--color-primary);
-        --avatar-fallback-color: var(--color-primary-foreground);
-      }
-    `}
-
-  </Preview.CSS>
+  <Preview.CSS>{AvatarDocs.avatarExampleCss}</Preview.CSS>
 </Preview>
 
-### Per-Slot Styling
+### Sizes and Fallback Only
 
-The root, image, and fallback remain public parts, so you can style them independently without
-adding extra wrapper APIs.
+The moduix `size` shortcut maps common design-token sizes onto either root component. A fallback-only
+avatar is valid when no image source exists.
 
 <Preview>
-  <CustomCompositionAvatarExample />
+  <AvatarDocs.AvatarFallbackOnlyExample />
 
-  <Preview.Code>
-    {`
-      import { Avatar, AvatarFallback, AvatarImage } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/avatar/sizes-and-fallback-only.tsx#demo</include>
+</Preview.Code>
 
-      export function CustomCompositionAvatarDemo() {
-        return (
-          <Avatar size="lg" className={styles.ring}>
-            <AvatarImage className={styles.imageSaturated} src={avatarImage} alt="Alex T." />
-            <AvatarFallback className={styles.uppercase}>LT</AvatarFallback>
-          </Avatar>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`      const avatarImage =
-        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";`}
-
-  </Preview.Data>
-
-  <Preview.CSS>
-    {`
-      .ring {
-        box-shadow:
-          0 0 0 2px var(--color-background),
-          0 0 0 4px var(--color-ring);
-      }
-
-      .imageSaturated {
-        filter: saturate(1.5);
-      }
-
-      .uppercase {
-        text-transform: uppercase;
-      }
-    `}
-
-  </Preview.CSS>
+  <Preview.CSS>{AvatarDocs.avatarExampleCss}</Preview.CSS>
 </Preview>
 
-### Icon Fallback
+### Custom Composition
 
-Pass any React node to `AvatarFallback` when initials are not the right visual fallback.
+Use `asChild` when the avatar itself is the interactive element. The child remains responsible for
+its link or button semantics and accessible name.
 
 <Preview>
-  <AvatarCustomFallbackExample />
+  <AvatarDocs.AvatarCompositionExample />
 
-  <Preview.Code>
-    {`
-      import { Avatar, AvatarFallback, ComputerIcon } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/avatar/custom-composition.tsx#demo</include>
+</Preview.Code>
 
-      export function AvatarIconFallbackDemo() {
-        return (
-          <Avatar size="lg" className={styles.iconAvatar}>
-            <AvatarFallback>
-              <ComputerIcon className={styles.iconAvatarGlyph} />
-            </AvatarFallback>
-          </Avatar>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .iconAvatar {
-        --avatar-bg: var(--color-accent);
-        --avatar-fallback-color: var(--color-accent-foreground);
-      }
-
-      .iconAvatarGlyph {
-        width: 55%;
-        height: 55%;
-      }
-    `}
-
-  </Preview.CSS>
+  <Preview.CSS>{AvatarDocs.avatarCompositionCss}</Preview.CSS>
 </Preview>
 
-## Accessibility
+### Custom Fallback
 
-Treat avatar accessibility as part of the surrounding UI rather than as a fixed rule on the
-component.
+Fallback content can be an icon or another compact identity marker. Add an accessible name when
+the fallback itself conveys information that is not available in nearby text.
 
-- If nearby text already names the person, use `alt=""` and keep initials out of the accessibility
-  tree with `aria-hidden="true"`.
-- If the avatar is the only visible identity cue, provide meaningful `alt` text.
-- If the root is interactive through `render`, give the rendered element an accessible name.
-- If the fallback is icon-only, put the accessible name on the interactive root instead of on the
-  icon.
+<Preview>
+  <AvatarDocs.AvatarCustomFallbackExample />
 
-```tsx
-import { Avatar, AvatarFallback, AvatarImage } from 'moduix';
+<Preview.Code>
+  <include lang="tsx">./_snippets/avatar/custom-fallback.tsx#demo</include>
+</Preview.Code>
 
-export function DecorativeAvatarDemo() {
-  return (
-    <div className={styles.userRow}>
-      <Avatar>
-        <AvatarImage src={avatarImage} alt="" />
-        <AvatarFallback aria-hidden="true">LT</AvatarFallback>
-      </Avatar>
-      <span>Alex Thompson</span>
-    </div>
-  );
-}
-```
+  <Preview.CSS>{AvatarDocs.avatarFallbackCss}</Preview.CSS>
+</Preview>
 
-```tsx
-import { Avatar, AvatarFallback, AvatarImage } from 'moduix';
+## Styling
 
-export function InteractiveAvatarDemo() {
-  return (
-    <Avatar render={<a href="/team/alex-thompson" aria-label="Open Alex Thompson profile" />}>
-      <AvatarImage src={avatarImage} alt="" />
-      <AvatarFallback aria-hidden="true">AT</AvatarFallback>
-    </Avatar>
-  );
-}
-```
+Use `className` and moduix CSS variables for visual changes. Use Ark data attributes when styles
+depend on image state.
+
+### CSS Properties
+
+<CssPropertiesSection properties={AvatarDocs.avatarCssProperties} />
+
+### Styling hooks
+
+- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, and `avatar-fallback`.
+- Ark anatomy hooks: `data-scope="avatar"` and
+  `data-part="root" | "image" | "fallback"`.
+- Ark image state: `data-state="visible" | "hidden"` on `Avatar.Image` and
+  `Avatar.Fallback`.
+- moduix size state: `data-size="xs" | "sm" | "md" | "lg" | "xl"` on
+  `Avatar.Root` and `Avatar.RootProvider`.

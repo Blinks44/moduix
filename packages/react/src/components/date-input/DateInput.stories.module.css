@@ -1,0 +1,27 @@
+.stack {
+  display: grid;
+  gap: var(--spacing-3);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.hint {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+}
+
+.customControl {
+  --date-input-bg: var(--color-muted);
+  --date-input-border-color: var(--color-primary);
+  --date-input-focus-ring-color: var(--color-primary);
+}
+
+.customSegment {
+  --date-input-segment-bg-focus: var(--color-primary);
+  --date-input-segment-color-focus: var(--color-primary-foreground);
+}

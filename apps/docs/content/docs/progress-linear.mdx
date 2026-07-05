@@ -1,0 +1,262 @@
+---
+title: Progress Linear
+description: A linear progressbar for determinate or indeterminate progress.
+icon: Component
+---
+
+import * as ProgressLinearDocs from '@/components/examples/progress-linear';
+import { ProgressLinear } from '@moduix/react';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/progress-linear" />
+
+## Choosing the right component
+
+Choose `ProgressLinear` when the user should compare progress against a clear bar track. Choose
+`ProgressCircular` for compact inline status surfaces.
+
+## Basic
+
+Use Ark-style parts: `ProgressLinear.Root`, `ProgressLinear.Label`,
+`ProgressLinear.ValueText`, `ProgressLinear.Track`, and `ProgressLinear.Range`.
+
+<Preview>
+  <ProgressLinearDocs.ProgressLinearExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/basic.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Install with shadcn
+
+<ShadcnInstall packageName="react-progress-linear" />
+
+## Anatomy
+
+```text
+ProgressLinear.Root
+├─ ProgressLinear.Label
+├─ ProgressLinear.ValueText
+└─ ProgressLinear.Track
+   └─ ProgressLinear.Range
+
+ProgressLinear.RootProvider
+└─ same part tree connected to useProgress() from @ark-ui/react/progress
+```
+
+| Part                                     | Role                                                            |
+| ---------------------------------------- | --------------------------------------------------------------- |
+| `ProgressLinear` / `ProgressLinear.Root` | Owns progress state, formatting, and ids.                       |
+| `ProgressLinear.RootProvider`            | Connects parts to state created with Ark `useProgress()`.       |
+| `ProgressLinear.Label`                   | Visible label for the progressbar.                              |
+| `ProgressLinear.ValueText`               | Visible value text generated from Ark translations.             |
+| `ProgressLinear.Track`                   | Linear rail with progressbar role and ARIA value attributes.    |
+| `ProgressLinear.Range`                   | Filled range that reflects the current percent.                 |
+| `ProgressLinear.View`                    | Conditional view for `indeterminate`, `loading`, or `complete`. |
+
+## Composition
+
+### Recommended composition
+
+`ProgressLinear` is the short root form. It is equivalent to `ProgressLinear.Root`, and the child
+parts stay explicit so the rendered anatomy matches Ark UI.
+
+Use `defaultValue` for uncontrolled progress, `value` with `onValueChange(details)` for controlled
+progress, and `defaultValue={null}` or `value={null}` for indeterminate progress.
+
+### When to go custom
+
+Use `ProgressLinear.RootProvider` with `useProgress()` from `@ark-ui/react/progress` when
+progress state must be created outside the rendered subtree.
+
+Use `translations.value(details)` for custom visible and accessible value text. This replaces the
+old legacy `getAriaValueText` and child render function pattern.
+
+Use `ids` when the label, track, or surrounding layout need stable explicit IDs across a more
+custom tree. Use `ProgressLinear.View` when supporting UI should switch with the Ark progress state
+instead of duplicating state checks outside the component. If you need Ark context APIs or hooks,
+import them directly from `@ark-ui/react/progress`.
+
+### Default props
+
+| Prop            | Default                | Notes                                                  |
+| --------------- | ---------------------- | ------------------------------------------------------ |
+| `defaultValue`  | `50`                   | Initial uncontrolled value.                            |
+| `min`           | `0`                    | Lower bound for percent and ARIA value.                |
+| `max`           | `100`                  | Upper bound for percent and ARIA value.                |
+| `formatOptions` | `{ style: 'percent' }` | Controls `ValueText` formatting.                       |
+| `locale`        | `'en-US'`              | Locale used by `Intl.NumberFormat`.                    |
+| `orientation`   | `'horizontal'`         | Ark orientation. Use `vertical` with a defined height. |
+
+### Behavioral notes
+
+`ProgressLinear.Track` receives the progressbar role and ARIA value attributes from Ark. The root
+stores progress state and exposes `data-state="indeterminate|loading|complete"`. Ark writes
+`data-orientation` on the root, label, track, and range so horizontal and vertical styles can share
+the same part tree.
+
+All exported parts support `asChild` through Ark polymorphic composition. Keep replacement children
+semantic and preserve the progressbar semantics on the track.
+
+`ProgressLinear.ValueText` announces changes with `aria-live="polite"`. Keep the visible label in
+the tree, or provide `aria-label`/`aria-labelledby` when composing without `ProgressLinear.Label`.
+
+## Examples
+
+### Controlled
+
+Keep `value` in React state when progress mirrors another control or external task state.
+
+<Preview>
+  <ProgressLinearDocs.ControlledProgressLinearExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/controlled.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Initial Value
+
+Use `defaultValue` to set the initial uncontrolled progress value.
+
+<Preview>
+  <ProgressLinearDocs.InitialValueProgressLinearExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/initial-value.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Min Max
+
+Use `min` and `max` when the value does not use the default `0` to `100` range.
+
+<Preview>
+  <ProgressLinearDocs.MinMaxProgressLinearExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/min-max.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Indeterminate
+
+Pass `defaultValue={null}` or `value={null}` when progress is running but completion is unknown.
+
+<Preview>
+  <ProgressLinearDocs.IndeterminateProgressLinearExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/indeterminate.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Vertical
+
+Set `orientation="vertical"` when the track should fill upward instead of from left to right.
+
+<Preview>
+  <ProgressLinearDocs.VerticalProgressLinearExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/vertical.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressLinearDocs.progressLinearVerticalCss}</Preview.CSS>
+  
+</Preview>
+
+### Value Text
+
+Use `translations.value(details)` when the formatted percent is not the wording users need.
+
+<Preview>
+  <ProgressLinearDocs.ValueTextProgressLinearExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/value-text.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Root Provider
+
+Create the Ark progress store outside the rendered tree when another component needs to own state.
+
+<Preview>
+  <ProgressLinearDocs.RootProviderProgressLinearExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/root-provider.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### State Views
+
+Use `ProgressLinear.View` when supporting text or UI should switch with the Ark progress state
+instead of duplicating state checks outside the component.
+
+<Preview>
+  <ProgressLinear defaultValue={null}>
+    <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
+    <ProgressLinear.ValueText />
+    <ProgressLinear.Track>
+      <ProgressLinear.Range />
+    </ProgressLinear.Track>
+    <ProgressLinear.View state="indeterminate">Waiting for source data</ProgressLinear.View>
+    <ProgressLinear.View state="loading">Transfer in progress</ProgressLinear.View>
+    <ProgressLinear.View state="complete">Export complete</ProgressLinear.View>
+  </ProgressLinear>
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/state-views.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Styling
+
+Use `className` on exported parts for structural styling changes. For state styling, prefer Ark
+data attributes and moduix `data-slot` hooks.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ProgressLinearDocs.ProgressLinearCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="progress-linear-root"`, `progress-linear-root-provider`,
+  `progress-linear-label`, `progress-linear-value-text`, `progress-linear-track`,
+  `progress-linear-range`, and `progress-linear-view`.
+- Ark hooks: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
+  `data-orientation="horizontal|vertical"`, `data-value`, and `data-max`.

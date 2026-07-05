@@ -1,1 +1,0 @@
-export { Tabs, TabsList, TabsIndicator, TabsTab, TabsPanel } from './Tabs';

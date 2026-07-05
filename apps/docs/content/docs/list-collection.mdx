@@ -1,0 +1,223 @@
+---
+title: List Collection
+description: Create and manage array-backed collections for Select, Combobox, Listbox, and custom lists.
+icon: List
+---
+
+# List Collection
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/collections/list-collection" />
+
+A list collection gives every item a stable string value, display text, disabled state, and
+collection-order operations. It is the normal data source for `Select`, `Combobox`, and `Listbox`.
+
+Import collection helpers directly from Ark UI:
+
+```tsx
+import { createListCollection, useListCollection } from '@ark-ui/react/collection';
+```
+
+## Create a collection
+
+For items with `label` and `value`, Ark infers the required mapping:
+
+```tsx
+const teams = [
+  { label: 'Platform', value: 'platform' },
+  { label: 'Product', value: 'product' },
+  { label: 'Design', value: 'design', disabled: true },
+];
+
+const collection = createListCollection({
+  items: teams,
+});
+```
+
+Pass the same collection object to the component and render its items:
+
+```tsx
+import { Select } from '@moduix/react';
+
+<Select collection={collection}>
+  <Select.Control>
+    <Select.Trigger>
+      <Select.ValueText placeholder="Choose a team" />
+    </Select.Trigger>
+    <Select.Indicators>
+      <Select.Indicator />
+    </Select.Indicators>
+  </Select.Control>
+  <Select.Positioner>
+    <Select.Content>
+      {collection.items.map((item) => (
+        <Select.Item key={item.value} item={item}>
+          <Select.ItemText>{item.label}</Select.ItemText>
+          <Select.ItemIndicator />
+        </Select.Item>
+      ))}
+    </Select.Content>
+  </Select.Positioner>
+  <Select.HiddenSelect />
+</Select>;
+```
+
+## Custom item shapes
+
+Define value, text, and disabled mappings when your data does not use Ark's default keys:
+
+```tsx
+type Team = {
+  id: number;
+  name: string;
+  archived: boolean;
+};
+
+const customTeams: Team[] = [
+  { id: 1, name: 'Platform', archived: false },
+  { id: 2, name: 'Legacy', archived: true },
+];
+
+const collection = createListCollection<Team>({
+  items: customTeams,
+  itemToValue: (item) => String(item.id),
+  itemToString: (item) => item.name,
+  isItemDisabled: (item) => item.archived,
+});
+```
+
+Values exposed by collection components are always strings. Convert numeric IDs at the application
+boundary when necessary.
+
+| Option           | Purpose                                                                   |
+| ---------------- | ------------------------------------------------------------------------- |
+| `items`          | Source iterable.                                                          |
+| `itemToValue`    | Returns the stable string value for an item. Defaults to `item.value`.    |
+| `itemToString`   | Returns searchable and accessible text. Defaults to `item.label`.         |
+| `isItemDisabled` | Returns whether an item is disabled. Defaults to `item.disabled`.         |
+| `groupBy`        | Returns a group key for each item.                                        |
+| `groupSort`      | Sorts group keys with a comparator, explicit order, `'asc'`, or `'desc'`. |
+
+## Read and query
+
+| API                                 | Result                                                         |
+| ----------------------------------- | -------------------------------------------------------------- |
+| `collection.items`                  | Current items in collection order.                             |
+| `collection.size`                   | Number of items.                                               |
+| `getValues(items?)`                 | String values for all or supplied items.                       |
+| `find(value)` / `findMany(values)`  | Items for one or several values.                               |
+| `at(index)`                         | Item at an index, or `null`.                                   |
+| `indexOf(value)`                    | Collection index, or `-1`.                                     |
+| `has(value)` / `hasItem(item)`      | Whether a value or item is present.                            |
+| `getItemValue(item)`                | Normalized string value.                                       |
+| `stringifyItem(item)`               | Display text for an item.                                      |
+| `stringify(value)`                  | Display text for a value.                                      |
+| `stringifyItems(items, separator?)` | Joined text for several items.                                 |
+| `stringifyMany(values, separator?)` | Joined text for several values.                                |
+| `getItemDisabled(item)`             | Normalized disabled state.                                     |
+| `group()`                           | `[groupKey, items]` tuples using the configured group options. |
+
+```tsx
+collection.find('product'); // { label: 'Product', value: 'product' }
+collection.stringify('product'); // 'Product'
+collection.has('unknown'); // false
+```
+
+## Traversal and ranges
+
+```tsx
+collection.firstValue; // 'platform'
+collection.lastValue; // 'product' — disabled items are skipped
+collection.getNextValue('platform'); // 'product'
+collection.getPreviousValue('design'); // 'product'
+collection.getValueRange('platform', 'product'); // ['platform', 'product']
+collection.sort(['design', 'platform']); // ['platform', 'design']
+```
+
+`firstValue`, `lastValue`, `getNextValue`, `getPreviousValue`, and `getValueRange` skip disabled
+items. The next/previous methods accept an optional step and a `clamp` flag. Without clamping,
+moving past an edge returns `null`.
+
+`compareValue(a, b)` compares two values by collection order. `isEqual(other)` compares collection
+items. The collection is iterable, while `toString()` and `toJSON()` provide compact identity and
+summary representations.
+
+The `search(query, options)` method supports typeahead. It needs a persistent search state, the
+current value, and an optional timeout:
+
+```tsx
+const searchState = { keysSoFar: '', timer: -1 };
+
+const nextValue = collection.search('p', {
+  state: searchState,
+  currentValue: null,
+  timeout: 350,
+});
+```
+
+## Immutable updates
+
+Collection update methods return a new collection. Assign or store the result; the original
+collection is unchanged.
+
+```tsx
+const nextCollection = collection
+  .append({ label: 'Support', value: 'support' })
+  .remove('design')
+  .reorder(0, 1);
+```
+
+| API                                      | Operation                                 |
+| ---------------------------------------- | ----------------------------------------- |
+| `copy(items?)` / `setItems(items)`       | Copy the collection or replace all items. |
+| `update(value, item)`                    | Replace an existing item.                 |
+| `upsert(value, item, mode?)`             | Update or append/prepend an item.         |
+| `insert(index, ...items)`                | Insert at an index.                       |
+| `insertBefore(value, ...items)`          | Insert before a value.                    |
+| `insertAfter(value, ...items)`           | Insert after a value.                     |
+| `prepend(...items)` / `append(...items)` | Add items at an edge.                     |
+| `filter(predicate)`                      | Return a filtered collection.             |
+| `remove(...itemsOrValues)`               | Remove items or values.                   |
+| `move(value, index)`                     | Move one value to an index.               |
+| `moveBefore(value, ...values)`           | Move values before another value.         |
+| `moveAfter(value, ...values)`            | Move values after another value.          |
+| `reorder(from, to)`                      | Move an item between numeric indexes.     |
+
+## React-managed collections
+
+Use `useListCollection` when filtering or collection updates should trigger a render:
+
+```tsx
+function useTeams() {
+  return useListCollection({
+    initialItems: teams,
+    filter: (itemText, filterText) =>
+      itemText.toLocaleLowerCase().includes(filterText.toLocaleLowerCase()),
+    limit: 20,
+  });
+}
+```
+
+The hook returns the active `collection` plus `filter`, `set`, `reset`, `clear`, `insert`,
+`insertBefore`, `insertAfter`, `remove`, `move`, `moveBefore`, `moveAfter`, `reorder`, `append`,
+`prepend`, `update`, and `upsert`. `filter('')` restores the unfiltered items; `reset()` restores
+`initialItems`.
+
+For locale-aware matching, use Ark's `useFilter`:
+
+```tsx
+import { useFilter } from '@ark-ui/react/locale';
+
+function useFilteredTeams() {
+  const { contains } = useFilter({ sensitivity: 'base' });
+
+  return useListCollection({
+    initialItems: teams,
+    filter: contains,
+  });
+}
+```
+
+Keep a static `createListCollection` outside the component when the items never change. Use the
+hook only when React must own filtering or mutation.

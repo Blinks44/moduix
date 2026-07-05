@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
-import { CloseButton } from 'moduix';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CloseButton } from '@moduix/react';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './close-button.module.css';
 
 export const closeButtonOverrideCssProperties: CssPropertyInput[] = [
@@ -19,43 +19,22 @@ export const closeButtonOverrideCssProperties: CssPropertyInput[] = [
   ['--close-button-transition', 'var(--transition-default)', 'Controls transition timing.'],
 ];
 
-export const closeButtonPlaygroundCssProperties: CssPropertyInput[] = [
-  ...closeButtonOverrideCssProperties,
-];
+const closeButtonCssProperties = closeButtonOverrideCssProperties.map((property) =>
+  'name' in property
+    ? property
+    : {
+        name: property[0],
+        defaultValue: property[1],
+        description: property[2],
+      },
+);
 
-export function CloseButtonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function CloseButtonCssPropertiesPanel() {
   return (
     <div className="space-y-2">
-      <CSSPropertiesReferenceTable
-        properties={closeButtonOverrideCssProperties.map(normalizeCssProperty)}
-      />
+      <CSSPropertiesReferenceTable properties={closeButtonCssProperties} />
     </div>
   );
-}
-
-export function CloseButtonCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <div className="space-y-2">
-      <CSSPropertiesEditor
-        properties={closeButtonPlaygroundCssProperties.map(normalizeCssProperty)}
-        values={values}
-        onChange={onChange}
-        onReset={onReset}
-      />
-    </div>
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
 }
 
 export function CloseButtonExample(props: ComponentProps<typeof CloseButton>) {
@@ -78,8 +57,24 @@ export function CloseButtonCustomChildrenExample() {
   );
 }
 
-export function CloseButtonCustomCompositionExample() {
-  return <CloseButton className={styles.customButton} aria-label="Close message" />;
+export function CloseButtonAsChildExample() {
+  return (
+    <CloseButton asChild className={styles.asChildButton} aria-label="Close composed panel">
+      <button>
+        <CircleXIcon />
+      </button>
+    </CloseButton>
+  );
+}
+
+export function CloseButtonDisabledExample() {
+  return (
+    <CloseButton
+      className={styles.disabledButton}
+      aria-disabled="true"
+      aria-label="Close unavailable message"
+    />
+  );
 }
 
 function CircleXIcon(props: ComponentProps<'svg'>) {

@@ -1,0 +1,324 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--file-upload-gap, var(--spacing-3));
+    width: var(--file-upload-width, 100%);
+    max-width: var(--file-upload-max-width, 28rem);
+    color: var(--file-upload-color, var(--color-foreground));
+
+    &[data-disabled] {
+      opacity: var(--file-upload-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .label {
+    color: var(--file-upload-label-color, var(--file-upload-color, var(--color-foreground)));
+    font-size: var(--file-upload-label-font-size, var(--text-sm));
+    font-weight: var(--file-upload-label-font-weight, var(--weight-medium));
+    line-height: var(--file-upload-label-line-height, var(--line-height-text-sm));
+
+    &[data-disabled] {
+      opacity: var(--file-upload-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .dropzone {
+    box-sizing: border-box;
+    display: grid;
+    width: 100%;
+    place-items: center;
+    gap: var(--file-upload-dropzone-gap, var(--spacing-3));
+    min-height: var(--file-upload-dropzone-min-height, 8rem);
+    border: var(--file-upload-dropzone-border-width, var(--border-width-sm)) dashed
+      var(--file-upload-dropzone-border-color, var(--color-border));
+    border-radius: var(--file-upload-radius, var(--radius-md));
+    padding: var(--file-upload-dropzone-padding, var(--spacing-5));
+    background-color: var(--file-upload-dropzone-bg, var(--color-background));
+    color: var(--file-upload-dropzone-color, var(--color-muted-foreground));
+    text-align: center;
+    transition:
+      border-color var(--file-upload-transition, var(--transition-default)),
+      background-color var(--file-upload-transition, var(--transition-default)),
+      color var(--file-upload-transition, var(--transition-default)),
+      opacity var(--file-upload-transition, var(--transition-default));
+
+    &[data-dragging] {
+      border-color: var(--file-upload-dropzone-border-color-dragging, var(--color-primary));
+      background-color: var(--file-upload-dropzone-bg-dragging, var(--color-accent));
+      color: var(--file-upload-dropzone-color-dragging, var(--color-foreground));
+    }
+
+    &[data-invalid] {
+      border-color: var(--file-upload-invalid-color, var(--color-destructive));
+    }
+
+    &[data-disabled],
+    &[data-readonly] {
+      cursor: default;
+    }
+  }
+
+  .dropzoneIcon {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--file-upload-dropzone-icon-box-size, 2.5rem);
+    height: var(--file-upload-dropzone-icon-box-size, 2.5rem);
+    border: var(--file-upload-dropzone-icon-border-width, var(--border-width-sm)) solid
+      var(--file-upload-dropzone-icon-border-color, var(--color-border));
+    border-radius: var(--file-upload-dropzone-icon-radius, var(--radius-full));
+    background-color: var(--file-upload-dropzone-icon-bg, var(--color-muted));
+    color: var(--file-upload-dropzone-icon-color, var(--color-foreground));
+
+    & > svg {
+      width: var(--file-upload-dropzone-icon-size, 1rem);
+      height: var(--file-upload-dropzone-icon-size, 1rem);
+    }
+  }
+
+  .trigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--file-upload-trigger-gap, var(--button-content-gap, var(--spacing-2)));
+    min-height: var(--file-upload-trigger-height, var(--button-size-md, var(--size-lg)));
+    border: var(
+        --file-upload-trigger-border-width,
+        var(--button-border-width, var(--border-width-sm))
+      )
+      solid
+      var(
+        --file-upload-trigger-border-color,
+        var(--button-default-border-color, var(--color-primary))
+      );
+    border-radius: var(--file-upload-trigger-radius, var(--button-radius, var(--radius-md)));
+    padding-inline: var(--file-upload-trigger-padding-x, var(--button-padding-x-md, 1rem));
+    background-color: var(--file-upload-trigger-bg, var(--button-default-bg, var(--color-primary)));
+    color: var(
+      --file-upload-trigger-color,
+      var(--button-default-color, var(--color-primary-foreground))
+    );
+    appearance: none;
+    font: inherit;
+    font-size: var(--file-upload-trigger-font-size, var(--button-font-size, var(--text-sm)));
+    font-weight: var(
+      --file-upload-trigger-font-weight,
+      var(--button-font-weight, var(--weight-medium))
+    );
+    line-height: var(
+      --file-upload-trigger-line-height,
+      var(--button-line-height, var(--line-height-text-sm))
+    );
+    user-select: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      border-color
+        var(--file-upload-transition, var(--button-transition, var(--transition-default))),
+      background-color
+        var(--file-upload-transition, var(--button-transition, var(--transition-default))),
+      color var(--file-upload-transition, var(--button-transition, var(--transition-default))),
+      opacity var(--file-upload-transition, var(--button-transition, var(--transition-default)));
+
+    @media (hover: hover) {
+      &:hover:not(:disabled, [data-disabled], [data-readonly]) {
+        background-color: var(
+          --file-upload-trigger-bg-hover,
+          var(--button-default-bg-hover, var(--color-foreground))
+        );
+      }
+    }
+
+    &:focus-visible {
+      outline: var(
+          --file-upload-focus-ring-width,
+          var(--button-focus-ring-width, var(--border-width-md))
+        )
+        solid var(--file-upload-focus-ring-color, var(--button-focus-ring-color, var(--color-ring)));
+      outline-offset: calc(
+        var(
+            --file-upload-trigger-border-width,
+            var(--button-border-width, var(--border-width-sm))
+          ) *
+          -1
+      );
+    }
+
+    &[data-invalid] {
+      border-color: var(--file-upload-invalid-color, var(--color-destructive));
+    }
+
+    &:is(:disabled, [data-disabled], [data-readonly]) {
+      pointer-events: none;
+      opacity: var(--file-upload-disabled-opacity, var(--opacity-disabled));
+      cursor: default;
+    }
+  }
+
+  .itemGroup {
+    display: grid;
+    gap: var(--file-upload-item-group-gap, var(--spacing-2));
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  .item {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: var(--file-upload-item-gap, var(--spacing-3));
+    row-gap: var(--file-upload-item-row-gap, var(--spacing-1));
+    min-height: var(--file-upload-item-min-height, 2.5rem);
+    border: var(--file-upload-item-border-width, var(--border-width-sm)) solid
+      var(--file-upload-item-border-color, var(--color-border));
+    border-radius: var(--file-upload-item-radius, var(--radius-md));
+    padding: var(--file-upload-item-padding-y, var(--spacing-2))
+      var(--file-upload-item-padding-x, var(--spacing-3));
+    background-color: var(--file-upload-item-bg, var(--color-background));
+    color: var(--file-upload-item-color, var(--color-foreground));
+
+    &[data-type='rejected'] {
+      border-color: var(--file-upload-invalid-color, var(--color-destructive));
+    }
+
+    &[data-disabled] {
+      opacity: var(--file-upload-disabled-opacity, var(--opacity-disabled));
+    }
+
+    &:has([data-slot='file-upload-item-preview']) {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      min-height: var(--file-upload-item-preview-min-height, 3rem);
+      padding-block: var(--file-upload-item-preview-padding-y, var(--spacing-2));
+    }
+  }
+
+  .itemPreview {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--file-upload-item-preview-size, 2rem);
+    height: var(--file-upload-item-preview-size, 2rem);
+    border-radius: var(--file-upload-item-preview-radius, var(--radius-sm));
+    background-color: var(--file-upload-item-preview-bg, var(--color-muted));
+    color: var(--file-upload-item-preview-color, var(--color-muted-foreground));
+    overflow: hidden;
+  }
+
+  .itemPreviewImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .itemName {
+    grid-column: 1;
+    min-width: 0;
+    color: var(--file-upload-item-name-color, currentColor);
+    font-size: var(--file-upload-item-name-font-size, var(--text-sm));
+    font-weight: var(--file-upload-item-name-font-weight, var(--weight-medium));
+    line-height: var(--file-upload-item-name-line-height, var(--line-height-text-sm));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .item:has([data-slot='file-upload-item-preview']) .itemName {
+    grid-column: 2;
+  }
+
+  .itemSizeText {
+    grid-column: 1;
+    color: var(--file-upload-item-size-color, var(--color-muted-foreground));
+    font-size: var(--file-upload-item-size-font-size, var(--text-xs));
+    line-height: var(--file-upload-item-size-line-height, var(--line-height-text-xs));
+  }
+
+  .item:has([data-slot='file-upload-item-preview']) .itemSizeText {
+    grid-column: 2;
+  }
+
+  .itemDeleteTrigger,
+  .clearTrigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--file-upload-action-size, 2rem);
+    height: var(--file-upload-action-size, 2rem);
+    border: 0;
+    border-radius: var(--file-upload-action-radius, var(--radius-sm));
+    padding: 0;
+    background-color: var(--file-upload-action-bg, transparent);
+    color: var(--file-upload-action-color, var(--color-muted-foreground));
+    appearance: none;
+    cursor: pointer;
+    transition:
+      background-color var(--file-upload-transition, var(--transition-default)),
+      color var(--file-upload-transition, var(--transition-default)),
+      opacity var(--file-upload-transition, var(--transition-default));
+
+    & > svg {
+      width: var(--file-upload-action-icon-size, 1rem);
+      height: var(--file-upload-action-icon-size, 1rem);
+    }
+
+    @media (hover: hover) {
+      &:hover:not(:disabled, [data-disabled], [data-readonly]) {
+        background-color: var(--file-upload-action-bg-hover, var(--color-muted));
+        color: var(--file-upload-action-color-hover, var(--color-foreground));
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--file-upload-focus-ring-width, var(--border-width-md)) solid
+        var(--file-upload-focus-ring-color, var(--color-ring));
+      outline-offset: var(--file-upload-focus-ring-offset, var(--border-width-sm));
+    }
+
+    &:is(:disabled, [data-disabled], [data-readonly]) {
+      pointer-events: none;
+      opacity: var(--file-upload-disabled-opacity, var(--opacity-disabled));
+      cursor: default;
+    }
+  }
+
+  .itemDeleteTrigger {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .item:has([data-slot='file-upload-item-size-text']) .itemDeleteTrigger,
+  .item:has([data-slot='file-upload-item-preview']) .itemDeleteTrigger {
+    grid-row: 1 / span 2;
+  }
+
+  .item:has([data-slot='file-upload-item-preview']) .itemDeleteTrigger {
+    grid-column: 3;
+  }
+
+  .clearTrigger {
+    align-self: flex-start;
+    gap: var(--file-upload-clear-trigger-gap, var(--spacing-2));
+    width: auto;
+    padding-inline: var(--file-upload-clear-trigger-padding-x, var(--spacing-2));
+    color: var(--file-upload-clear-trigger-color, var(--color-muted-foreground));
+    font: inherit;
+    font-size: var(--file-upload-clear-trigger-font-size, var(--text-sm));
+    line-height: var(--file-upload-clear-trigger-line-height, var(--line-height-text-sm));
+  }
+}

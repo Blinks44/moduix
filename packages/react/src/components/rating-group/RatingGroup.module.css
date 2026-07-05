@@ -1,0 +1,136 @@
+@layer ui.components {
+  .root {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--rating-group-root-gap, var(--spacing-1));
+    color: var(--rating-group-color, var(--color-muted-foreground));
+
+    &[data-size='xs'] {
+      --_rating-group-icon-size: var(--rating-group-icon-size-xs, 0.875rem);
+    }
+
+    &[data-size='sm'] {
+      --_rating-group-icon-size: var(--rating-group-icon-size-sm, 1rem);
+    }
+
+    &[data-size='md'] {
+      --_rating-group-icon-size: var(--rating-group-icon-size-md, 1.25rem);
+    }
+
+    &[data-size='lg'] {
+      --_rating-group-icon-size: var(--rating-group-icon-size-lg, 1.5rem);
+    }
+
+    &[data-size='xl'] {
+      --_rating-group-icon-size: var(--rating-group-icon-size-xl, 1.75rem);
+    }
+  }
+
+  .label {
+    color: var(--rating-group-label-color, var(--color-foreground));
+    font-size: var(--rating-group-label-font-size, var(--text-sm));
+    font-weight: var(--rating-group-label-font-weight, var(--weight-semibold));
+    line-height: var(--rating-group-label-line-height, var(--line-height-text-sm));
+    user-select: none;
+
+    &[data-disabled] {
+      opacity: var(--rating-group-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .control {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--rating-group-gap, var(--spacing-1));
+
+    &[data-disabled] {
+      opacity: var(--rating-group-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    border: 0;
+    border-radius: var(--radius-sm);
+    padding: 0;
+    background-color: transparent;
+    color: inherit;
+    line-height: 0;
+    cursor: pointer;
+    transition:
+      color var(--rating-group-transition, var(--transition-default)),
+      opacity var(--rating-group-transition, var(--transition-default));
+
+    &[data-readonly],
+    &[data-disabled] {
+      cursor: default;
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+    }
+
+    &:focus-visible {
+      outline: var(--rating-group-focus-ring-width, var(--border-width-sm)) solid
+        var(--rating-group-focus-ring-color, var(--color-ring));
+      outline-offset: var(--rating-group-focus-ring-offset, var(--border-width-sm));
+    }
+  }
+
+  .itemIndicator {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--_rating-group-icon-size, var(--rating-group-icon-size-md, 1.25rem));
+    height: var(--_rating-group-icon-size, var(--rating-group-icon-size-md, 1.25rem));
+    color: var(--rating-group-active-color, var(--color-primary));
+
+    & > svg {
+      flex: none;
+      width: 100%;
+      height: 100%;
+      transition:
+        color var(--rating-group-transition, var(--transition-default)),
+        fill var(--rating-group-transition, var(--transition-default)),
+        stroke var(--rating-group-transition, var(--transition-default)),
+        clip-path var(--rating-group-transition, var(--transition-default));
+    }
+
+    &[data-half] .iconFg {
+      clip-path: inset(0 50% 0 0);
+    }
+
+    &:not([data-highlighted]) .iconFg {
+      clip-path: inset(0 100% 0 0);
+    }
+  }
+
+  .item[data-half] .iconFg {
+    clip-path: inset(0 50% 0 0);
+  }
+
+  .item:not([data-highlighted]) .iconFg {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .iconBg {
+    position: absolute;
+    inset: 0;
+    color: var(--rating-group-color, var(--color-muted-foreground));
+    fill: transparent;
+    stroke: currentColor;
+  }
+
+  .iconFg {
+    position: absolute;
+    inset: 0;
+    color: var(--rating-group-active-color, var(--color-primary));
+    fill: currentColor;
+    stroke: currentColor;
+    clip-path: inset(0 0 0 0);
+  }
+}

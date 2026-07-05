@@ -1,0 +1,183 @@
+@layer ui.components {
+  .trigger,
+  .closeTrigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--popover-control-height, var(--size-lg));
+    margin: 0;
+    padding: var(--popover-control-padding-y, 0.5rem) var(--popover-control-padding-x, 0.875rem);
+    border: var(--popover-control-border-width, var(--border-width-sm)) solid
+      var(--popover-control-border-color, var(--color-border));
+    border-radius: var(--popover-control-radius, var(--radius-md));
+    background-color: var(--popover-control-bg, var(--color-background));
+    color: var(--popover-control-color, var(--color-foreground));
+    font: inherit;
+    font-size: var(--popover-control-font-size, var(--text-md));
+    line-height: var(--popover-control-line-height, var(--line-height-text-md));
+    user-select: none;
+    outline: 0;
+    cursor: pointer;
+    transition:
+      background-color var(--popover-transition, var(--transition-default)),
+      border-color var(--popover-transition, var(--transition-default)),
+      color var(--popover-transition, var(--transition-default));
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--popover-control-bg-hover, var(--color-accent));
+      }
+    }
+
+    &:active,
+    &[data-state='open'] {
+      background-color: var(
+        --popover-control-bg-active,
+        var(--popover-control-bg-hover, var(--color-accent))
+      );
+    }
+
+    &:focus-visible {
+      outline: var(
+          --popover-focus-ring-width,
+          var(--popover-control-border-width, var(--border-width-sm))
+        )
+        solid var(--popover-focus-ring-color, var(--color-ring));
+      outline-offset: calc(
+        var(
+            --popover-focus-ring-width,
+            var(--popover-control-border-width, var(--border-width-sm))
+          ) *
+          -1
+      );
+    }
+
+    &[data-disabled],
+    &[disabled] {
+      pointer-events: none;
+      opacity: var(--popover-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .positioner {
+    z-index: var(--z-index, var(--z-popup));
+    max-width: var(--available-width);
+    outline: 0;
+  }
+
+  .content {
+    --popover-close-icon-size-effective: var(--popover-close-icon-size, 1.75rem);
+    --popover-close-icon-offset-effective: var(--popover-close-icon-offset, var(--spacing-3));
+    --popover-header-padding-inline-end-effective: var(
+      --popover-header-padding-inline-end,
+      calc(var(--popover-close-icon-size-effective) + var(--popover-close-icon-offset-effective))
+    );
+    position: relative;
+    z-index: calc(var(--z-popup) + var(--layer-index, 0));
+    box-sizing: border-box;
+    width: var(--popover-width, auto);
+    height: var(--popover-height, auto);
+    min-width: min(var(--popover-min-width, 16rem), var(--available-width));
+    max-width: min(var(--popover-max-width, 28rem), var(--available-width));
+    max-height: min(var(--popover-max-height, 24rem), var(--available-height, 100dvh));
+    overflow: visible;
+    padding: var(--popover-padding-y, 1rem) var(--popover-padding-x, 1rem);
+    border: 0;
+    border-radius: var(--popover-radius, var(--radius-md));
+    background-color: var(--popover-bg, var(--color-popover));
+    color: var(--popover-color, var(--color-popover-foreground));
+    outline: var(--popover-border-width, var(--border-width-sm)) solid
+      var(--popover-border-color, var(--color-border));
+    box-shadow: var(--popover-shadow, var(--shadow-lg));
+    transform-origin: var(--transform-origin);
+
+    &[data-state='open'] {
+      animation: popover-enter var(--popover-transition, var(--duration-fast)) both;
+    }
+
+    &[data-state='closed'] {
+      animation: popover-exit var(--popover-transition, var(--duration-fast)) both;
+    }
+  }
+
+  .arrow {
+    --arrow-size: var(--popover-arrow-size, 0.625rem);
+    --arrow-background: var(--popover-bg, var(--color-popover));
+  }
+
+  .arrowTip {
+    border-top: var(--popover-border-width, var(--border-width-sm)) solid
+      var(--popover-arrow-stroke-color, var(--popover-border-color, var(--color-border)));
+    border-left: var(--popover-border-width, var(--border-width-sm)) solid
+      var(--popover-arrow-stroke-color, var(--popover-border-color, var(--color-border)));
+  }
+
+  .title {
+    margin: 0;
+    color: var(--popover-title-color, var(--popover-color, var(--color-popover-foreground)));
+    font-size: var(--popover-title-font-size, var(--text-md));
+    font-weight: var(--popover-title-font-weight, var(--weight-semibold));
+    line-height: var(--popover-title-line-height, var(--line-height-text-md));
+  }
+
+  .description {
+    margin: var(--popover-description-margin, 0);
+    color: var(--popover-description-color, var(--color-muted-foreground));
+    font-size: var(--popover-description-font-size, var(--text-sm));
+    line-height: var(--popover-description-line-height, var(--line-height-text-sm));
+  }
+
+  .closeIcon {
+    --close-button-size: var(--popover-close-icon-size-effective);
+    --close-button-radius: var(--popover-close-icon-radius, var(--radius-sm));
+    --close-button-icon-size: var(--popover-close-icon-glyph-size, 0.875rem);
+    --close-button-bg: var(--popover-close-icon-bg, transparent);
+    --close-button-bg-hover: var(--popover-close-icon-bg-hover, var(--color-accent));
+    --close-button-color: var(--popover-close-icon-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(
+      --popover-close-icon-color-hover,
+      var(--popover-color, var(--color-popover-foreground))
+    );
+    --close-button-focus-ring-color: var(--popover-close-icon-focus-ring-color, var(--color-ring));
+    position: absolute;
+    inset-block-start: var(--popover-close-icon-offset-effective);
+    inset-inline-end: var(--popover-close-icon-offset-effective);
+  }
+
+  .header {
+    display: grid;
+    gap: var(--popover-header-gap, var(--spacing-1));
+    padding-inline-end: var(--popover-header-padding-inline-end-effective);
+  }
+
+  .body {
+    margin: var(--popover-body-margin, 0);
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: var(--popover-footer-justify, flex-end);
+    gap: var(--popover-footer-gap, var(--spacing-2));
+    margin: var(--popover-footer-margin, var(--spacing-3) 0 0);
+  }
+
+  @keyframes popover-enter {
+    from {
+      opacity: var(--popover-content-starting-opacity, 0);
+      translate: var(--popover-content-starting-translate-x, 0)
+        var(--popover-content-starting-translate-y, 0);
+      scale: var(--popover-content-starting-scale, var(--scale-popup));
+    }
+  }
+
+  @keyframes popover-exit {
+    to {
+      opacity: var(--popover-content-ending-opacity, 0);
+      translate: var(--popover-content-ending-translate-x, 0)
+        var(--popover-content-ending-translate-y, 0);
+      scale: var(--popover-content-ending-scale, var(--scale-popup));
+    }
+  }
+}

@@ -1,0 +1,114 @@
+@layer ui.components {
+  .root {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--date-input-gap, var(--spacing-1));
+    width: var(--date-input-width, auto);
+    max-width: var(--date-input-max-width, none);
+
+    &[data-disabled] {
+      opacity: var(--date-input-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .label {
+    color: var(--date-input-label-color, var(--color-foreground));
+    font-size: var(--date-input-label-font-size, var(--text-sm));
+    font-weight: var(--date-input-label-font-weight, var(--weight-medium));
+    line-height: var(--date-input-label-line-height, var(--line-height-text-sm));
+  }
+
+  .control {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--date-input-control-height, var(--size-lg));
+    border: var(--date-input-border-width, var(--border-width-sm))
+      var(--date-input-border-style, solid) var(--date-input-border-color, var(--color-border));
+    border-radius: var(--date-input-radius, var(--radius-md));
+    padding: var(--date-input-padding-y, 0.5rem) var(--date-input-padding-x, 0.75rem);
+    background-color: var(--date-input-bg, var(--color-background));
+    color: var(--date-input-color, var(--color-foreground));
+    outline: var(
+        --date-input-focus-ring-width,
+        var(--date-input-border-width, var(--border-width-sm))
+      )
+      solid transparent;
+    outline-offset: var(--date-input-focus-ring-offset, -1px);
+    transition:
+      border-color var(--date-input-transition, var(--transition-default)),
+      outline-color var(--date-input-transition, var(--transition-default)),
+      opacity var(--date-input-transition, var(--transition-default));
+
+    &:focus-within,
+    &[data-focus] {
+      outline-color: var(--date-input-focus-ring-color, var(--color-ring));
+    }
+
+    &[data-invalid] {
+      border-color: var(--date-input-border-color-invalid, var(--color-destructive));
+
+      &:focus-within,
+      &[data-focus] {
+        outline-color: var(--date-input-border-color-invalid, var(--color-destructive));
+      }
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+    }
+  }
+
+  .segmentGroup {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--date-input-segment-gap, var(--border-width-md));
+    font-variant-numeric: tabular-nums;
+  }
+
+  .segment {
+    min-width: var(--date-input-segment-min-width, 2ch);
+    border-radius: var(--date-input-segment-radius, var(--radius-sm));
+    padding: var(--date-input-segment-padding-y, 0)
+      var(--date-input-segment-padding-x, var(--spacing-1));
+    color: var(--date-input-segment-color, currentColor);
+    font: inherit;
+    line-height: var(--date-input-segment-line-height, var(--line-height-text-md));
+    text-align: center;
+    outline: 0;
+    cursor: text;
+    transition:
+      background-color var(--date-input-transition, var(--transition-default)),
+      color var(--date-input-transition, var(--transition-default));
+
+    &[data-placeholder-shown] {
+      color: var(--date-input-placeholder-color, var(--color-muted-foreground));
+    }
+
+    &:focus-visible {
+      background-color: var(
+        --date-input-segment-bg-focus,
+        color-mix(in oklab, var(--color-ring) 18%, transparent)
+      );
+      color: var(--date-input-segment-color-focus, var(--color-foreground));
+    }
+
+    &:is([data-readonly], [data-disabled]) {
+      cursor: default;
+    }
+
+    &[data-type='literal'] {
+      min-width: auto;
+      padding-inline: 0;
+      background: transparent;
+      box-shadow: none;
+      color: var(--date-input-separator-color, var(--color-muted-foreground));
+      pointer-events: none;
+    }
+  }
+
+  .separator {
+    color: var(--date-input-separator-color, var(--color-muted-foreground));
+    user-select: none;
+  }
+}

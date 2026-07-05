@@ -1,0 +1,185 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: inline-grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    row-gap: var(--editable-gap, var(--spacing-1));
+    column-gap: var(--editable-control-gap, var(--spacing-1));
+    width: var(--editable-width, auto);
+    max-width: var(--editable-max-width, 100%);
+    color: var(--editable-color, var(--color-foreground));
+
+    &:has(.area[data-disabled]) {
+      opacity: var(--editable-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .label {
+    grid-column: 1 / -1;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--editable-label-gap, var(--spacing-1));
+    color: var(--editable-label-color, var(--color-foreground));
+    font-size: var(--editable-label-font-size, var(--text-sm));
+    font-weight: var(--editable-label-font-weight, var(--weight-medium));
+    line-height: var(--editable-label-line-height, var(--line-height-text-sm));
+
+    &[data-invalid] {
+      color: var(--editable-label-color-invalid, var(--color-destructive));
+    }
+  }
+
+  .area {
+    --_editable-focus-ring-width: var(
+      --editable-focus-ring-width,
+      var(--editable-border-width, var(--border-width-sm))
+    );
+
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    grid-column: 1;
+    width: var(--editable-area-width, 100%);
+    min-width: 0;
+    min-height: var(--editable-area-height, var(--size-lg));
+    border: var(--editable-border-width, var(--border-width-sm)) var(--editable-border-style, solid)
+      var(--editable-border-color, var(--color-border));
+    border-radius: var(--editable-radius, var(--radius-md));
+    padding: var(--editable-padding-y, 0.5rem) var(--editable-padding-x, 0.875rem);
+    background-color: var(--editable-bg, var(--color-background));
+    color: var(--editable-color, var(--color-foreground));
+    outline: var(--_editable-focus-ring-width) solid transparent;
+    outline-offset: calc(var(--_editable-focus-ring-width) * -1);
+    transition:
+      border-color var(--editable-transition, var(--transition-default)),
+      outline-color var(--editable-transition, var(--transition-default)),
+      opacity var(--editable-transition, var(--transition-default));
+
+    &[data-focus] {
+      outline-color: var(--editable-focus-ring-color, var(--color-ring));
+    }
+
+    &:has(
+      .input:is([data-invalid], [aria-invalid='true']),
+      .preview:is([data-invalid], [aria-invalid='true'])
+    ) {
+      border-color: var(--editable-border-color-invalid, var(--color-destructive));
+
+      &[data-focus] {
+        outline-color: var(--editable-border-color-invalid, var(--color-destructive));
+      }
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+    }
+  }
+
+  .input,
+  .preview {
+    box-sizing: border-box;
+    display: block;
+    width: var(--editable-input-width, 100%);
+    min-width: 0;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: var(--editable-font-size, var(--text-md));
+    line-height: var(--editable-line-height, var(--line-height-text-md));
+    outline: 0;
+  }
+
+  .input {
+    appearance: none;
+
+    &::placeholder {
+      color: var(--editable-placeholder-color, var(--color-muted-foreground));
+    }
+
+    &:is(textarea) {
+      min-height: var(--editable-textarea-min-height, 6rem);
+      resize: var(--editable-textarea-resize, vertical);
+    }
+  }
+
+  .preview {
+    min-height: var(--editable-preview-min-height, 1lh);
+    cursor: text;
+
+    &[data-placeholder-shown] {
+      color: var(--editable-placeholder-color, var(--color-muted-foreground));
+    }
+
+    &:is([data-disabled], [data-readonly], [aria-readonly='true']) {
+      cursor: default;
+    }
+  }
+
+  .control {
+    display: inline-flex;
+    grid-column: 2;
+    align-items: center;
+    align-self: var(--editable-control-align, center);
+    gap: var(--editable-control-gap, var(--spacing-1));
+  }
+
+  .trigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--editable-trigger-size, var(--editable-area-height, var(--size-lg)));
+    min-width: var(--editable-trigger-size, var(--editable-area-height, var(--size-lg)));
+    height: var(--editable-trigger-size, var(--editable-area-height, var(--size-lg)));
+    margin: 0;
+    border: var(--editable-trigger-border-width, var(--border-width-sm))
+      var(--editable-trigger-border-style, solid)
+      var(--editable-trigger-border-color, var(--color-border));
+    border-radius: var(--editable-trigger-radius, var(--radius-sm));
+    padding: 0;
+    background-color: var(--editable-trigger-bg, var(--color-background));
+    color: var(--editable-trigger-color, var(--color-foreground));
+    outline: var(--editable-focus-ring-width, var(--border-width-sm)) solid transparent;
+    outline-offset: calc(0px - var(--editable-focus-ring-width, var(--border-width-sm)));
+    cursor: pointer;
+    transition:
+      background-color var(--editable-transition, var(--transition-default)),
+      border-color var(--editable-transition, var(--transition-default)),
+      color var(--editable-transition, var(--transition-default)),
+      outline-color var(--editable-transition, var(--transition-default)),
+      opacity var(--editable-transition, var(--transition-default));
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--editable-trigger-bg-hover, var(--color-accent));
+      }
+    }
+
+    &:active {
+      background-color: var(
+        --editable-trigger-bg-active,
+        var(--editable-trigger-bg-hover, var(--color-accent))
+      );
+    }
+
+    &:focus-visible,
+    &[data-focus] {
+      outline-color: var(--editable-focus-ring-color, var(--color-ring));
+    }
+
+    &:is([data-disabled], :disabled) {
+      pointer-events: none;
+      opacity: var(--editable-disabled-opacity, var(--opacity-disabled));
+    }
+
+    & > svg {
+      width: var(--editable-trigger-icon-size, 0.875rem);
+      height: var(--editable-trigger-icon-size, 0.875rem);
+      flex-shrink: 0;
+    }
+  }
+}

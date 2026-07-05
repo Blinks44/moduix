@@ -1,1 +1,0 @@
-export { Switch, SwitchThumb, SwitchField, SwitchLabel } from './Switch';

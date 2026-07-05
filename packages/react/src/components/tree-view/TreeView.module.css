@@ -1,0 +1,276 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: flex;
+    width: var(--tree-view-width, 20rem);
+    max-width: var(--tree-view-max-width, 100%);
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--tree-view-root-gap, var(--spacing-2));
+    color: var(--tree-view-color, var(--color-foreground));
+
+    &[data-disabled] {
+      opacity: var(--tree-view-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .label {
+    color: var(--tree-view-label-color, var(--tree-view-color, var(--color-foreground)));
+    font-size: var(--tree-view-label-font-size, var(--text-sm));
+    font-weight: var(--tree-view-label-font-weight, var(--weight-medium));
+    line-height: var(--tree-view-label-line-height, var(--line-height-text-sm));
+    user-select: none;
+  }
+
+  .tree {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    color: var(--tree-view-color, var(--color-foreground));
+    font-size: var(--tree-view-item-font-size, var(--text-sm));
+    line-height: var(--tree-view-item-line-height, var(--line-height-text-sm));
+  }
+
+  .branch {
+    position: relative;
+    min-width: 0;
+  }
+
+  .branchControl,
+  .item {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    min-height: var(--tree-view-item-min-height, 2rem);
+    align-items: center;
+    gap: var(--tree-view-item-gap, var(--spacing-2));
+    border: var(--tree-view-item-border-width, 0) solid
+      var(--tree-view-item-border-color, transparent);
+    border-radius: var(--tree-view-item-radius, var(--radius-sm));
+    padding-block: var(--tree-view-item-padding-y, var(--spacing-1));
+    padding-inline-end: var(--tree-view-item-padding-x, var(--spacing-2));
+    padding-inline-start: calc(
+      var(--tree-view-item-padding-x, var(--spacing-2)) +
+        ((var(--depth, 1) - 1) * var(--tree-view-indent, 1rem))
+    );
+    background-color: var(--tree-view-item-bg, transparent);
+    color: var(--tree-view-item-color, var(--tree-view-color, var(--color-foreground)));
+    cursor: pointer;
+    font: inherit;
+    outline: var(--tree-view-focus-ring-width, var(--border-width-sm)) solid transparent;
+    outline-offset: calc(var(--tree-view-focus-ring-width, var(--border-width-sm)) * -1);
+    text-align: start;
+    text-decoration: none;
+    transition:
+      background-color var(--tree-view-transition, var(--transition-default)),
+      color var(--tree-view-transition, var(--transition-default)),
+      outline-color var(--tree-view-transition, var(--transition-default)),
+      opacity var(--tree-view-transition, var(--transition-default));
+    user-select: none;
+
+    &:hover {
+      background-color: var(--tree-view-item-hover-bg, var(--color-accent));
+      color: var(--tree-view-item-hover-color, var(--color-accent-foreground));
+    }
+
+    &:focus-visible,
+    &[data-focus] {
+      outline-color: var(--tree-view-focus-ring-color, var(--color-ring));
+    }
+
+    &[data-selected] {
+      background-color: var(--tree-view-item-selected-bg, var(--color-accent));
+      color: var(--tree-view-item-selected-color, var(--color-accent-foreground));
+    }
+
+    &[data-disabled] {
+      color: var(--tree-view-item-disabled-color, var(--color-muted-foreground));
+      cursor: default;
+      opacity: var(--tree-view-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .branchTrigger,
+  .branchIndicator,
+  .itemIndicator {
+    display: inline-flex;
+    width: var(--tree-view-indicator-size, 1rem);
+    height: var(--tree-view-indicator-size, 1rem);
+    flex: 0 0 var(--tree-view-indicator-size, 1rem);
+    align-items: center;
+    justify-content: center;
+    color: var(--tree-view-indicator-color, currentColor);
+
+    & svg {
+      width: var(--tree-view-indicator-icon-size, 0.875rem);
+      height: var(--tree-view-indicator-icon-size, 0.875rem);
+    }
+  }
+
+  .branchTrigger,
+  .branchIndicator {
+    transition: transform var(--tree-view-transition, var(--transition-default));
+
+    &[data-state='open'] {
+      transform: rotate(90deg);
+    }
+  }
+
+  .branchText,
+  .itemText {
+    display: inline-flex;
+    min-width: 0;
+    flex: 1;
+    align-items: center;
+    gap: var(--tree-view-item-text-gap, var(--spacing-2));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    & svg {
+      width: var(--tree-view-node-icon-size, 1rem);
+      height: var(--tree-view-node-icon-size, 1rem);
+      flex: 0 0 var(--tree-view-node-icon-size, 1rem);
+    }
+  }
+
+  .branchContent {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+
+    &[data-state='open'] {
+      animation:
+        tree-view-slide-down var(--tree-view-content-transition-duration, 150ms) ease-out,
+        tree-view-fade-in var(--tree-view-content-transition-duration, 150ms) ease-out;
+    }
+
+    &[data-state='closed'] {
+      animation:
+        tree-view-slide-up var(--tree-view-content-transition-duration, 150ms) ease-out,
+        tree-view-fade-out var(--tree-view-content-transition-duration, 150ms) ease-out;
+    }
+  }
+
+  .branchIndentGuide {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    width: var(--tree-view-indent-guide-width, var(--border-width-sm));
+    background-color: var(--tree-view-indent-guide-color, var(--color-border));
+    inset-inline-start: calc(
+      var(--tree-view-item-padding-x, var(--spacing-2)) +
+        (((var(--depth, 1) - 1) * var(--tree-view-indent, 1rem))) +
+        (var(--tree-view-indicator-size, 1rem) / 2)
+    );
+  }
+
+  .nodeCheckbox {
+    box-sizing: border-box;
+    display: inline-flex;
+    width: var(--tree-view-checkbox-size, 1rem);
+    height: var(--tree-view-checkbox-size, 1rem);
+    flex: 0 0 var(--tree-view-checkbox-size, 1rem);
+    align-items: center;
+    justify-content: center;
+    border: var(--tree-view-checkbox-border-width, var(--border-width-sm)) solid
+      var(--tree-view-checkbox-border-color, var(--color-border));
+    border-radius: var(--tree-view-checkbox-radius, var(--radius-xs));
+    background-color: var(--tree-view-checkbox-bg, var(--color-background));
+    color: var(--tree-view-checkbox-color, var(--color-primary-foreground));
+    outline: var(--tree-view-focus-ring-width, var(--border-width-sm)) solid transparent;
+    outline-offset: var(--tree-view-checkbox-focus-ring-offset, var(--border-width-sm));
+    transition:
+      background-color var(--tree-view-transition, var(--transition-default)),
+      border-color var(--tree-view-transition, var(--transition-default)),
+      outline-color var(--tree-view-transition, var(--transition-default));
+
+    &[data-state='checked'],
+    &[data-state='indeterminate'] {
+      border-color: var(--tree-view-checkbox-checked-bg, var(--color-primary));
+      background-color: var(--tree-view-checkbox-checked-bg, var(--color-primary));
+    }
+
+    &:focus-visible {
+      outline-color: var(--tree-view-focus-ring-color, var(--color-ring));
+    }
+
+    &[data-disabled] {
+      cursor: default;
+      opacity: var(--tree-view-disabled-opacity, var(--opacity-disabled));
+    }
+
+    & svg {
+      width: var(--tree-view-checkbox-icon-size, 0.75rem);
+      height: var(--tree-view-checkbox-icon-size, 0.75rem);
+    }
+  }
+
+  .nodeCheckboxIndicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nodeRenameInput {
+    box-sizing: border-box;
+    min-width: 0;
+    flex: 1;
+    border: var(--tree-view-rename-input-border-width, var(--border-width-sm)) solid
+      var(--tree-view-rename-input-border-color, var(--color-ring));
+    border-radius: var(--tree-view-rename-input-radius, var(--radius-xs));
+    padding-block: var(--tree-view-rename-input-padding-y, 0);
+    padding-inline: var(--tree-view-rename-input-padding-x, var(--spacing-1));
+    background-color: var(--tree-view-rename-input-bg, var(--color-background));
+    color: var(--tree-view-rename-input-color, var(--color-foreground));
+    font: inherit;
+    outline: var(--tree-view-focus-ring-width, var(--border-width-sm)) solid transparent;
+    outline-offset: calc(var(--tree-view-focus-ring-width, var(--border-width-sm)) * -1);
+
+    &:focus-visible {
+      outline-color: var(--tree-view-focus-ring-color, var(--color-ring));
+    }
+  }
+
+  @keyframes tree-view-slide-down {
+    from {
+      height: 0;
+    }
+
+    to {
+      height: var(--height);
+    }
+  }
+
+  @keyframes tree-view-slide-up {
+    from {
+      height: var(--height);
+    }
+
+    to {
+      height: 0;
+    }
+  }
+
+  @keyframes tree-view-fade-in {
+    from {
+      opacity: 0.01;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes tree-view-fade-out {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0.01;
+    }
+  }
+}

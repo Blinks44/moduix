@@ -1,0 +1,238 @@
+---
+title: Progress Circular
+description: A circular progressbar for determinate or indeterminate progress.
+icon: Component
+---
+
+import * as ProgressCircularDocs from '@/components/examples/progress-circular';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/progress-circular" />
+
+## Choosing the right component
+
+Choose `ProgressCircular` for compact inline status, cards, toolbar badges, and small dashboards.
+Choose `ProgressLinear` when horizontal comparison against a full track matters.
+
+## Basic
+
+Use Ark-style parts: `ProgressCircular.Root`, `ProgressCircular.Circle`,
+`ProgressCircular.CircleTrack`, `ProgressCircular.CircleRange`, and `ProgressCircular.ValueText`.
+
+<Preview>
+  <ProgressCircularDocs.ProgressCircularExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/basic.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Install with shadcn
+
+<ShadcnInstall packageName="react-progress-circular" />
+
+## Anatomy
+
+```text
+ProgressCircular.Root
+├─ ProgressCircular.Label
+├─ ProgressCircular.Circle
+│  ├─ ProgressCircular.CircleTrack
+│  └─ ProgressCircular.CircleRange
+└─ ProgressCircular.ValueText
+
+ProgressCircular.RootProvider
+└─ same part tree connected to useProgress() from @ark-ui/react/progress
+```
+
+| Part                                         | Role                                                            |
+| -------------------------------------------- | --------------------------------------------------------------- |
+| `ProgressCircular` / `ProgressCircular.Root` | Owns progress state, formatting, and ids.                       |
+| `ProgressCircular.RootProvider`              | Connects parts to state created with Ark `useProgress()`.       |
+| `ProgressCircular.Label`                     | Accessible label for the progressbar.                           |
+| `ProgressCircular.Circle`                    | SVG progressbar surface with ARIA value.                        |
+| `ProgressCircular.CircleTrack`               | Background circle.                                              |
+| `ProgressCircular.CircleRange`               | Foreground circle that reflects the current percent/state.      |
+| `ProgressCircular.ValueText`                 | Visible value text generated from Ark translations.             |
+| `ProgressCircular.View`                      | Conditional view for `indeterminate`, `loading`, or `complete`. |
+
+## Composition
+
+### Recommended composition
+
+`ProgressCircular` is the short root form. It is equivalent to `ProgressCircular.Root`, and the SVG
+circle parts stay explicit so the rendered anatomy matches Ark UI.
+
+Use `defaultValue` for uncontrolled progress, `value` with `onValueChange(details)` for controlled
+progress, and `defaultValue={null}` or `value={null}` for indeterminate progress.
+
+### When to go custom
+
+Use `ProgressCircular.RootProvider` with `useProgress()` from `@ark-ui/react/progress` when
+progress state must be created outside the rendered subtree.
+
+Use `translations.value(details)` for custom visible and accessible value text. Wrap the circle and
+value text in your own layout element when the number should sit in the center.
+
+Use `ids` when the label, circle, or surrounding layout need stable explicit IDs across a more
+custom tree. Use `ProgressCircular.View` when supporting UI should switch with the Ark progress
+state instead of duplicating state checks outside the component. If you need Ark context APIs or
+hooks, import them directly from `@ark-ui/react/progress`.
+
+### Default props
+
+| Prop            | Default                | Notes                                   |
+| --------------- | ---------------------- | --------------------------------------- |
+| `defaultValue`  | `50`                   | Initial uncontrolled value.             |
+| `min`           | `0`                    | Lower bound for percent and ARIA value. |
+| `max`           | `100`                  | Upper bound for percent and ARIA value. |
+| `formatOptions` | `{ style: 'percent' }` | Controls `ValueText` formatting.        |
+| `locale`        | `'en-US'`              | Locale used by `Intl.NumberFormat`.     |
+
+### Behavioral notes
+
+`ProgressCircular.Circle` receives the progressbar role and ARIA value attributes from Ark. Ark
+also owns the SVG variables for radius, circumference, percent, and stroke offset.
+
+All exported parts support `asChild` through Ark polymorphic composition. Keep replacement children
+semantic and preserve the progressbar semantics on the circle.
+
+`ProgressCircular.ValueText` announces changes with `aria-live="polite"`. Keep the visible label in
+the tree, or provide `aria-label`/`aria-labelledby` when composing without `ProgressCircular.Label`.
+
+## Examples
+
+### Controlled
+
+Keep `value` in React state when circular progress mirrors another control or external task state.
+
+<Preview>
+  <ProgressCircularDocs.ControlledProgressCircularExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/controlled.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Initial Value
+
+Use `defaultValue` to set the initial uncontrolled progress value.
+
+<Preview>
+  <ProgressCircularDocs.InitialValueProgressCircularExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/initial-value.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Min Max
+
+Use `min` and `max` when the value does not use the default `0` to `100` range.
+
+<Preview>
+  <ProgressCircularDocs.MinMaxProgressCircularExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/min-max.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Indeterminate
+
+Pass `defaultValue={null}` or `value={null}` when progress is running but completion is unknown.
+
+<Preview>
+  <ProgressCircularDocs.IndeterminateProgressCircularExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/indeterminate.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Value Text
+
+Use `translations.value(details)` when the formatted percent is not the wording users need.
+
+<Preview>
+  <ProgressCircularDocs.ValueTextProgressCircularExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/value-text.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Root Provider
+
+Create the Ark progress store outside the rendered tree when another component needs to own state.
+
+<Preview>
+  <ProgressCircularDocs.RootProviderProgressCircularExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/root-provider.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### State Views
+
+Use `ProgressCircular.View` when supporting text or UI should switch with the Ark progress state
+instead of duplicating state checks outside the component.
+
+<Preview>
+  <ProgressCircularDocs.StateViewsProgressCircularExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/state-views.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Styling
+
+Use `className` on exported parts for structural styling changes. For state styling, prefer Ark
+data attributes, Ark SVG variables, and moduix `data-slot` hooks.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ProgressCircularDocs.ProgressCircularCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="progress-circular-root"`, `progress-circular-root-provider`,
+  `progress-circular-label`, `progress-circular-circle`, `progress-circular-circle-track`,
+  `progress-circular-circle-range`, `progress-circular-value-text`, and `progress-circular-view`.
+- Ark hooks: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
+  `data-orientation`, `data-value`, and `data-max`.
+- Ark circle variables: `--size`, `--thickness`, `--radius`, `--circumference`, `--percent`, and
+  stroke offset values generated by Ark.

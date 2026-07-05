@@ -4,146 +4,103 @@ description: A compact status label for short metadata such as state, category, 
 icon: Component
 ---
 
-import {
-  BadgeCssPlaygroundPanel,
-  BadgeCssPropertiesPanel,
-  BadgeExample,
-  BadgeTruncatedExample,
-  BadgeVariantsExample,
-  BadgeWithDotExample,
-  BadgeWithIconExample,
-  CustomBadgeExample,
-  badgePlaygroundCssProperties,
-} from '@/components/examples/badge';
+import * as BadgeDocs from '@/components/examples/badge';
 
 ## API Reference
 
-`Badge` is a standalone moduix component for short status labels, categories, and
-small counters. Use `variant` for the built-in visual styles, and reach for
-`BadgeDot` or direct child icons when a label needs an extra visual cue.
+Ark UI does not ship a dedicated badge primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Choosing the right component
 
-Use `Badge` when the UI is showing **metadata about something else** rather than the selected value
+Use `Badge` when the UI is showing metadata about something else rather than the selected value
 itself.
 
-- Choose **`Badge`** when the UI is showing short metadata such as status, category, version, or count.
+- Choose **`Badge`** for short metadata such as status, category, version, or count.
 - Choose **`Tag`** when the UI is showing selected values, filters, assignments, or labels that belong to the current state of the interface.
-
-## Overview
-
-The default path is intentionally short:
-
-- render `Badge`
-- choose a `variant` when the default tone is not enough
-- add `BadgeDot` only when the status needs a grouped indicator
-- use local CSS variables for one-off styling changes instead of extra props
 
 ## Basic
 
-<Preview cssProperties={badgePlaygroundCssProperties} cssVariableScope="local">
-  <BadgeExample />
+Start with `Badge` only. Add `variant` when the default tone is not enough, and add `Badge.Dot`
+only when the status needs a grouped indicator.
 
-  <Preview.Code>
+<Preview>
+  <BadgeDocs.BadgeExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/basic.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
     {`
-      import { Badge } from "moduix";
-
-      export function BadgeDemo() {
-        return <Badge>New</Badge>;
+      .badge-demo-basic {
+        display: inline-flex;
       }
     `}
 
-  </Preview.Code>
-  <Preview.CSSProperties>{(context) => <BadgeCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <BadgeCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  </Preview.CSS>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Badge` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/badge
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/badge
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/badge
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/badge
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/badge
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Badge` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-badge" />
 
 ## Anatomy
 
 `Badge` keeps the public surface small and exposes only the visible parts.
 
 ```text
-Badge
+Badge.Root
 ├─ content
-├─ BadgeDot (optional)
+├─ Badge.Dot (optional)
 └─ svg icon (optional)
 ```
 
-```tsx
-<Badge>
-  <BadgeDot />
-  Online
-</Badge>
-```
-
-| Part       | Role                                                                                 |
-| ---------- | ------------------------------------------------------------------------------------ |
-| `Badge`    | Root slot. Applies variant, border, spacing, and text truncation.                    |
-| `BadgeDot` | Optional indicator slot. Renders a circular marker that inherits current text color. |
+| Part                   | Role                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------ |
+| `Badge` / `Badge.Root` | Root slot. Applies variant, border, spacing, and text truncation.                    |
+| `Badge.Dot`            | Optional indicator slot. Renders a circular marker that inherits current text color. |
 
 ## Composition
 
-`Badge` stays a plain `span`, so the API remains predictable and easy to style. Pass `className`
-to `Badge` or `BadgeDot` when integrating with CSS Modules, Tailwind CSS, or CSS-in-JS.
+### Recommended composition
 
-Place icons directly before or after the label; direct child `svg` icons inherit `currentColor`
-and use `--badge-icon-size`. The root also accepts standard `span` props such as `title`,
-`aria-*`, and testing attributes.
+Stay with `Badge` directly for most status labels, categories, version pills, and short
+counters.
 
-Keep the visible status in text. `BadgeDot` is decorative and is hidden from assistive
-technology, so color or the dot alone should not be the only signal. Long labels stay on one line
-and are truncated by the root; add `title` when the full value should remain discoverable. For
-one-off size changes, prefer `className` or local CSS variables instead of extra badge props.
+Use `variant` for the built-in tones: `default`, `secondary`, `destructive`, `outline`, `ghost`.
 
-| Prop      | Default   | Values                                                    |
+Place `Badge.Dot` or a direct child icon next to the label when a badge needs an extra visual cue.
+
+`Badge.Root` and `Badge.Dot` forward refs to their rendered DOM elements.
+
+### When to go custom
+
+Use `Badge asChild` when another semantic element must own the DOM node. Ark composition
+requires exactly one child. Interactive children keep their native behavior and must retain a
+visible focus treatment.
+
+Switch to local CSS variables or `className` overrides when the surface needs custom sizing or a
+different tone.
+
+### Default props
+
+| Prop      | Default   | Values / Notes                                            |
 | --------- | --------- | --------------------------------------------------------- |
 | `variant` | `default` | `default`, `secondary`, `destructive`, `outline`, `ghost` |
+| `asChild` | `false`   | Ark factory composition with exactly one child            |
+
+### Behavioral notes
+
+- `Badge.Root` is presentational by default and renders a `span`.
+- `Badge.Dot` is decorative and hidden from assistive technology, so the visible text must carry the status meaning.
+- Long labels stay on one line and are truncated by the root; add `title` when the full value should remain discoverable.
+- Direct child `svg` icons inherit `currentColor` and use `--badge-icon-size`.
+- Numeric content uses tabular figures, and badge text is not selectable by default.
+- Chakra's size recipe is intentionally represented by public CSS variables instead of a `size`
+  prop.
 
 ## Examples
 
@@ -152,36 +109,15 @@ one-off size changes, prefer `className` or local CSS variables instead of extra
 Use the built-in variants for the common visual tones.
 
 <Preview>
-  <BadgeVariantsExample />
+  <BadgeDocs.BadgeVariantsExample />
 
-  <Preview.Code>
-    {`
-      import { Badge } from "moduix";
-      import styles from "./badge-demo.module.css";
-
-      export function BadgeVariantsDemo() {
-        return (
-          <div className={styles.row}>
-            {variants.map((variant) => (
-              <Badge key={variant} variant={variant}>
-                {variant}
-              </Badge>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`      const variants = ["default", "secondary", "destructive", "outline", "ghost"] as const;`}
-
-  </Preview.Data>
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/variants.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
-      .row {
+      .badge-demo-row {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -194,41 +130,18 @@ Use the built-in variants for the common visual tones.
 
 ### With Dot
 
-Add `BadgeDot` when label and status indicator should stay visually grouped.
+Add `Badge.Dot` when label and status indicator should stay visually grouped.
 
 <Preview>
-  <BadgeWithDotExample />
+  <BadgeDocs.BadgeWithDotExample />
 
-  <Preview.Code>
-    {`
-      import { Badge, BadgeDot } from "moduix";
-      import styles from "./badge-demo.module.css";
-
-      export function BadgeWithDotDemo() {
-        return (
-          <div className={styles.row}>
-            <Badge variant="default">
-              <BadgeDot />
-              Online
-            </Badge>
-            <Badge variant="secondary">
-              <BadgeDot />
-              Draft
-            </Badge>
-            <Badge variant="destructive">
-              <BadgeDot />
-              Failed
-            </Badge>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/with-dot.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
-      .row {
+      .badge-demo-row {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -244,42 +157,49 @@ Add `BadgeDot` when label and status indicator should stay visually grouped.
 Place an inline icon next to the label when the metadata needs a second visual cue.
 
 <Preview>
-  <BadgeWithIconExample />
+  <BadgeDocs.BadgeWithIconExample />
 
-  <Preview.Code>
-    {`
-      import { Badge, ChevronRightIcon } from "moduix";
-      import styles from "./badge-demo.module.css";
-
-      export function BadgeWithIconDemo() {
-        return (
-          <div className={styles.row}>
-            <Badge variant="default">
-              Release
-              <ChevronRightIcon />
-            </Badge>
-            <Badge variant="secondary">
-              Details
-              <ChevronRightIcon />
-            </Badge>
-            <Badge variant="outline">
-              Read more
-              <ChevronRightIcon />
-            </Badge>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/with-icon.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
-      .row {
+      .badge-demo-row {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         gap: var(--spacing-2);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Custom Composition
+
+Use `asChild` when a single semantic child should receive the badge props and styling. Keep native
+interaction behavior and provide visible hover and keyboard-focus states.
+
+<Preview>
+  <BadgeDocs.BadgeAsChildExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/custom-composition.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .badge-demo-link {
+        &:hover {
+          --badge-border-color: var(--color-primary);
+          --badge-color: var(--color-primary);
+        }
+
+        &:focus-visible {
+          outline: var(--border-width-md) solid var(--color-ring);
+          outline-offset: var(--spacing-1);
+        }
       }
     `}
 
@@ -291,30 +211,15 @@ Place an inline icon next to the label when the metadata needs a second visual c
 Badges truncate long labels by default. Add `title` when the full text should still be available.
 
 <Preview>
-  <BadgeTruncatedExample />
+  <BadgeDocs.BadgeTruncatedExample />
 
-  <Preview.Code>
-    {`
-      import { Badge } from "moduix";
-      import styles from "./badge-demo.module.css";
-
-      export function BadgeTruncatedDemo() {
-        return (
-          <Badge
-            className={styles.constrained}
-            title="Ready for stakeholder review after legal approval"
-          >
-            Ready for stakeholder review after legal approval
-          </Badge>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/long-labels.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
-      .constrained {
+      .badge-demo-constrained {
         max-width: 14rem;
       }
     `}
@@ -322,70 +227,19 @@ Badges truncate long labels by default. Add `title` when the full text should st
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+## Styling
 
-Use `className` and local CSS variables when a surface needs custom sizing or a different tone.
+Prefer built-in variants first, then local CSS variables for one-off sizing and tone changes.
 
-<Preview>
-  <CustomBadgeExample />
+### CSS Properties
 
-  <Preview.Code>
-    {`
-      import { Badge, BadgeDot } from "moduix";
-      import styles from "./badge-demo.module.css";
+<CssPropertiesSection properties={BadgeDocs.badgeCssProperties} />
 
-      export function CustomBadgeDemo() {
-        return (
-          <div className={styles.row}>
-            <Badge className={styles.small}>Small</Badge>
-            <Badge>Default</Badge>
-            <Badge className={styles.large}>Large</Badge>
-            <Badge className={styles.customBadge}>
-              <BadgeDot />
-              Priority
-            </Badge>
-          </div>
-        );
-      }
-    `}
+### Styling hooks
 
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customBadge {
-        --badge-bg: color-mix(in oklab, var(--color-primary) 20%, var(--color-background));
-        --badge-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
-        --badge-color: var(--color-primary);
-        --badge-dot-size: 0.5rem;
-        --badge-height: 1.625rem;
-        --badge-padding-x: var(--spacing-3);
-        --badge-radius: var(--radius-sm);
-      }
-
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--spacing-2);
-      }
-
-      .small {
-        --badge-height: 1.125rem;
-        --badge-font-size: var(--text-xs);
-        --badge-icon-size: 0.6875rem;
-        --badge-line-height: var(--line-height-text-xs);
-        --badge-padding-x: 0.5rem;
-      }
-
-      .large {
-        --badge-height: 1.5rem;
-        --badge-font-size: var(--text-sm);
-        --badge-icon-size: 0.875rem;
-        --badge-line-height: var(--line-height-text-sm);
-        --badge-padding-x: 0.75rem;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
+- `data-slot="badge-root"` and `data-slot="badge-dot"` are stable selectors on the exported parts.
+- `Badge.Root` also exposes `data-scope="badge"` and `data-part="root"`. `Badge.Dot` exposes `data-part="dot"`.
+- `Badge.Root` writes the selected tone to `data-variant`.
+- Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and are sized with `--badge-icon-size`.
+- There are no Ark-managed states or runtime CSS variables because Badge has no dedicated Ark
+  primitive or behavior machine.

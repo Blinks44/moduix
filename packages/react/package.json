@@ -1,0 +1,76 @@
+{
+  "name": "@moduix/react",
+  "version": "1.1.0",
+  "description": "React implementation of the moduix component system, built on Ark UI primitives.",
+  "keywords": [
+    "accessible",
+    "ark-ui",
+    "component-library",
+    "components",
+    "css-modules",
+    "design-system",
+    "headless",
+    "react",
+    "typescript",
+    "ui"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blinks44/moduix.git",
+    "directory": "packages/react"
+  },
+  "files": [
+    "dist",
+    "LICENSE.md"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/lib/moduix/styles/style.css",
+    "./reset.css": "./dist/lib/moduix/styles/reset.css",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "storybook dev -p 6006 --no-open",
+    "build": "tsdown",
+    "build-storybook": "storybook build",
+    "tsc:check": "tsc -b"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1"
+  },
+  "devDependencies": {
+    "@ark-ui/react": "^5.37.2",
+    "@internationalized/date": "^3.12.2",
+    "@storybook/react-vite": "^10.4.6",
+    "@tsdown/css": "^0.22.3",
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "storybook": "^10.4.6",
+    "tsdown": "^0.22.3",
+    "typescript": "~6.0.3",
+    "vite": "^8.1.0",
+    "vite-plugin-svgr": "^5.2.0"
+  },
+  "peerDependencies": {
+    "@ark-ui/react": "^5.37.2",
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  }
+}

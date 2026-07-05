@@ -1,0 +1,103 @@
+@layer ui.components {
+  .root {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--pin-input-root-gap, var(--spacing-2));
+    width: var(--pin-input-width, auto);
+    max-width: var(--pin-input-max-width, none);
+
+    &[data-disabled] {
+      opacity: var(--pin-input-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .label {
+    color: var(--pin-input-label-color, var(--color-foreground));
+    font-size: var(--pin-input-label-font-size, var(--text-sm));
+    font-weight: var(--pin-input-label-font-weight, var(--weight-medium));
+    line-height: var(--pin-input-label-line-height, var(--line-height-text-sm));
+  }
+
+  .control {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--pin-input-gap, var(--spacing-2));
+  }
+
+  .input {
+    box-sizing: border-box;
+    flex: none;
+    width: var(--pin-input-input-width, var(--pin-input-input-size, 2.5rem));
+    height: var(--pin-input-input-height, var(--pin-input-input-size, 2.5rem));
+    margin: 0;
+    border: var(--pin-input-border-width, var(--border-width-sm)) solid
+      var(--pin-input-border-color, var(--color-border));
+    border-radius: var(--pin-input-radius, var(--radius-md));
+    padding-block: var(--pin-input-input-padding-y, 0);
+    padding-inline: var(--pin-input-input-padding-x, 0);
+    background-color: var(--pin-input-bg, var(--color-background));
+    color: var(--pin-input-color, var(--color-foreground));
+    font: inherit;
+    font-size: var(--pin-input-font-size, var(--text-lg));
+    font-weight: var(--pin-input-font-weight, var(--weight-medium));
+    line-height: var(--pin-input-line-height, var(--line-height-text-lg));
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    outline: var(
+        --pin-input-focus-ring-width,
+        var(--pin-input-border-width, var(--border-width-sm))
+      )
+      solid transparent;
+    outline-offset: var(--pin-input-focus-ring-offset, -1px);
+    transition:
+      border-color var(--pin-input-transition, var(--transition-default)),
+      outline-color var(--pin-input-transition, var(--transition-default)),
+      background-color var(--pin-input-transition, var(--transition-default));
+
+    &::placeholder {
+      color: var(--pin-input-placeholder-color, var(--color-muted-foreground));
+    }
+
+    &:focus-visible {
+      outline-color: var(--pin-input-focus-ring-color, var(--color-ring));
+    }
+
+    &[data-complete] {
+      border-color: var(
+        --pin-input-border-color-complete,
+        var(--pin-input-border-color, var(--color-border))
+      );
+    }
+
+    &[data-invalid] {
+      border-color: var(--pin-input-border-color-invalid, var(--color-destructive));
+
+      &:focus-visible {
+        outline-color: var(--pin-input-border-color-invalid, var(--color-destructive));
+      }
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+    }
+  }
+
+  .separator {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--pin-input-separator-width, var(--pin-input-separator-size, 1rem));
+    height: var(--pin-input-separator-height, var(--pin-input-separator-size, 1rem));
+    color: var(--pin-input-separator-color, var(--color-muted-foreground));
+    line-height: 1;
+    pointer-events: none;
+
+    & > svg {
+      width: 100%;
+      height: 100%;
+      flex: none;
+    }
+  }
+}

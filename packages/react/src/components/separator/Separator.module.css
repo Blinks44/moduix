@@ -1,0 +1,45 @@
+@layer ui.components {
+  .root {
+    display: block;
+    flex-shrink: 0;
+    border: 0;
+    border-color: var(--separator-color, var(--color-border));
+    border-style: var(--separator-border-style, var(--separator-variant-border-style, solid));
+
+    &[data-size='xs'] {
+      --separator-size-thickness: 0.5px;
+    }
+
+    &[data-size='sm'] {
+      --separator-size-thickness: 1px;
+    }
+
+    &[data-size='md'] {
+      --separator-size-thickness: 2px;
+    }
+
+    &[data-size='lg'] {
+      --separator-size-thickness: 3px;
+    }
+
+    &[data-variant='dashed'] {
+      --separator-variant-border-style: dashed;
+    }
+
+    &[data-variant='dotted'] {
+      --separator-variant-border-style: dotted;
+    }
+
+    &[data-orientation='horizontal'] {
+      width: var(--separator-length-horizontal, 100%);
+      height: 0;
+      border-block-start-width: var(--separator-thickness, var(--separator-size-thickness, 1px));
+    }
+
+    &[data-orientation='vertical'] {
+      width: 0;
+      height: var(--separator-length-vertical, 1em);
+      border-inline-start-width: var(--separator-thickness, var(--separator-size-thickness, 1px));
+    }
+  }
+}

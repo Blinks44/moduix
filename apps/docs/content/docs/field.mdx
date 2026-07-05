@@ -1,612 +1,293 @@
 ---
 title: Field
-description: A composable wrapper that labels, describes, and validates form controls.
+description: Ark UI field context for labels, helper text, errors, and form-control state.
 icon: Component
 ---
 
-import {
-  FieldCssPlaygroundPanel,
-  FieldCssPropertiesPanel,
-  FieldCheckboxExample,
-  FieldCustomStylesExample,
-  FieldDisabledExample,
-  FieldExample,
-  FieldInputExample,
-  FieldNumberFieldExample,
-  FieldRadioExample,
-  FieldSwitchExample,
-  FieldValidationMessageExample,
-  FieldValidityExample,
-  fieldPlaygroundCssProperties,
-} from '@/components/examples/field';
+import * as FieldDocs from '@/components/examples/field';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/field" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/field" />
+
+## Choosing the right component
+
+Use `Field` when one control needs a visible label, helper text, error text, or shared
+`disabled`, `invalid`, `required`, and `readOnly` state.
+
+- Choose **`Field`** for one control and its label or descriptive text.
+- Choose **`Fieldset`** when several related fields need one shared legend.
+- Use a standalone control when no field-level ARIA wiring or shared state is needed.
 
 ## Basic
 
-<Preview cssProperties={fieldPlaygroundCssProperties}>
-  <FieldExample />
+Start with Ark parts: `Field`, `Field.Label`, one control part, and optional helper or error text.
 
-  <Preview.Code>
-    {`
-      import {
-        Field,
-        FieldControl,
-        FieldDescription,
-        FieldError,
-        FieldLabel,
-      } from "moduix";
+<Preview>
+  <FieldDocs.FieldExample />
 
-      export function FieldDemo() {
-        return (
-          <Field validationMode="onBlur">
-            <FieldLabel>Name</FieldLabel>
-            <FieldControl required placeholder="Enter your name" />
-            <FieldError match="valueMissing">Please enter your name.</FieldError>
-            <FieldDescription>Visible on your public profile.</FieldDescription>
-          </Field>
-        );
-      }
-    `}
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/basic.tsx#demo</include>
+</Preview.Code>
 
-  </Preview.Code>
-  <Preview.CSSProperties>{(context) => <FieldCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <FieldCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
+  
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Field` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/field
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/field
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/field
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/field
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/field
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Field` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-field" />
 
 ## Anatomy
 
-`Field` keeps the label, one compatible control, helper text, and validation state in the same
-context so IDs and ARIA links stay synchronized.
+`Field` follows Ark UI's field parts and keeps their names in the public moduix API.
 
 ```text
 Field
-├─ FieldLabel
-│  └─ label content / optional control composition
-├─ FieldControl (or another compatible control, for example Input)
-├─ FieldError[match]
-└─ FieldDescription
+├─ Field.Label
+├─ Field.Input | Field.Textarea | Field.Select | custom control
+├─ Field.HelperText
+├─ Field.ErrorText
+└─ Field.RequiredIndicator
 ```
 
-```tsx
-<Field validationMode="onBlur">
-  <FieldLabel>Email</FieldLabel>
-  <FieldControl required type="email" placeholder="name@example.com" />
-  <FieldError match="valueMissing">Please enter your email.</FieldError>
-  <FieldError match="typeMismatch">Enter a valid email address.</FieldError>
-  <FieldDescription>We will only use this for account notifications.</FieldDescription>
-</Field>
-```
-
-| Part               | Role                                                                                            |
-| ------------------ | ----------------------------------------------------------------------------------------------- |
-| `Field`            | Root context. Coordinates validation mode, disabled state, naming, and slot relationships.      |
-| `FieldLabel`       | Accessible label for the field control. Can wrap composed controls like `Switch` or `Checkbox`. |
-| `FieldControl`     | Default text-like control slot that receives invalid/disabled styling hooks.                    |
-| `FieldError`       | Validation message slot filtered by `match` (for example `valueMissing`, `customError`).        |
-| `FieldDescription` | Supplemental helper text linked to the control for assistive technologies.                      |
-| `FieldItem`        | Optional layout wrapper for grouped rows inside the same field, such as radio options.          |
-
-Style only the visible slots (`FieldLabel`, `FieldControl`, `FieldError`,
-`FieldDescription`, and optional `FieldItem`) with `className` and CSS variables.
+| Part                      | Role                                                            |
+| ------------------------- | --------------------------------------------------------------- |
+| `Field` / `Field.Root`    | Root context and default `<div role="group">`.                  |
+| `Field.RootProvider`      | Root powered by a `useField()` instance owned outside the tree. |
+| `Field.Label`             | Label linked to the current control id.                         |
+| `Field.Input`             | Native input wired with field ARIA and state props.             |
+| `Field.Textarea`          | Native textarea; supports Ark `autoresize`.                     |
+| `Field.Select`            | Native select wired with field ARIA and state props.            |
+| `Field.HelperText`        | Helper text included in `aria-describedby`.                     |
+| `Field.ErrorText`         | Error text rendered only when `Field` is `invalid`.             |
+| `Field.RequiredIndicator` | Visual required marker with optional `fallback`.                |
+| `Field.Item`              | Item-scoped field context for grouped controls via `value`.     |
 
 ## Composition
 
-Use `Field` for root-level behavior such as `name`, `validationMode`, `validationDebounceTime`,
-`validate`, `actionsRef`, `invalid`, `dirty`, `touched`, and `disabled`.
+### Recommended composition
 
-The recommended path is short:
+Keep one visible label in the root, render exactly one primary control for the field, and add helper
+or error text when the control needs description or validation feedback.
 
-1. `Field`
-2. `FieldLabel`
-3. one compatible control (`FieldControl`, `Input`, `NumberField`, `Select`, and others)
-4. optional `FieldError`
-5. optional `FieldDescription`
+### When to go custom
 
-`FieldControl` is the default text-like input slot. Replace it with another Base UI-compatible
-control when the field needs a compound or trigger-based input.
+Use `Field.Item value` with root `target` when a field contains multiple native controls and the
+label should point to one of them. Use `asChild` when one semantic input element must own the
+rendered node.
 
-`FieldError` supports two useful paths:
+### Default props
 
-- pass children when the message is fully explicit
-- leave it empty to render the current native or custom validation message
+| Surface                | Default | Notes                                                  |
+| ---------------------- | ------- | ------------------------------------------------------ |
+| `Field` / `Field.Root` | —       | No additional behavioral defaults; Ark defaults apply. |
 
-All visible parts accept `className` and preserve Base UI state data attributes such as
-`data-invalid`, `data-valid`, `data-dirty`, `data-touched`, `data-filled`, `data-focused`, and
-`data-disabled`.
+### Behavioral notes
 
-### Defaults
-
-| Prop                           | Default     | Values                            |
-| ------------------------------ | ----------- | --------------------------------- |
-| `Field.validationMode`         | `onSubmit`  | `onSubmit`, `onBlur`, `onChange`  |
-| `Field.validationDebounceTime` | `0`         | Any `number` (ms)                 |
-| `Field.disabled`               | `false`     | `true`, `false`                   |
-| `FieldLabel.nativeLabel`       | `true`      | `true`, `false`                   |
-| `FieldItem.disabled`           | `false`     | `true`, `false`                   |
-| `FieldError.match`             | `undefined` | `true` or any `ValidityState` key |
+- `Field.ErrorText` is absent from the DOM until the root is `invalid`.
+- `Field.RootProvider` must receive state from `useField()` imported from `@ark-ui/react/field`
+  and should not be nested inside `Field.Root` for the same field instance.
+- `Field` does not render a hidden input; composed controls such as `Checkbox` and `RadioGroup` own
+  their own native form parts.
 
 ## Examples
 
-### Validation Message
+### Invalid
 
-Use `validate` with an empty `FieldError` when the field should render the current custom
-validation message without extra boilerplate.
+Set `invalid` on the root when validation is owned by application state or a form library.
 
 <Preview>
-  <FieldValidationMessageExample />
+  <FieldDocs.FieldInvalidExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Field,
-        FieldControl,
-        FieldDescription,
-        FieldError,
-        FieldLabel,
-      } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/invalid.tsx#demo</include>
+</Preview.Code>
 
-      export function ValidationMessageFieldDemo() {
-        return (
-          <Field
-            validationMode="onBlur"
-            validate={(value) => {
-              if (typeof value !== "string" || value.length < 3) {
-                return "Username must be at least 3 characters.";
-              }
+  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
+  
+</Preview>
 
-              return null;
-            }}
-          >
-            <FieldLabel>Username</FieldLabel>
-            <FieldControl placeholder="e.g. vinny" />
-            <FieldDescription>Use at least 3 characters.</FieldDescription>
-            <FieldError />
-          </Field>
-        );
-      }
-    `}
+### Controlled Invalid
 
-  </Preview.Code>
+Derive `invalid` from local state when the field should update as the user types.
+
+<Preview>
+  <FieldDocs.FieldControlledInvalidExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/controlled-invalid.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
+  
+</Preview>
+
+### Textarea
+
+Use `Field.Textarea` when the field owns a multiline native textarea.
+
+<Preview>
+  <FieldDocs.FieldTextareaExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/textarea.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
+  
+</Preview>
+
+### Textarea Autoresize
+
+Pass `autoresize` to let Ark keep the textarea height in sync with its content.
+
+<Preview>
+  <FieldDocs.FieldTextareaAutoresizeExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/textarea-autoresize.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
+  
+</Preview>
+
+### Select
+
+Use `Field.Select` for native select controls that should receive field ids and state props.
+
+<Preview>
+  <FieldDocs.FieldSelectExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/select.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
+  
 </Preview>
 
 ### Checkbox
 
-Wrap checkbox controls in `Field` when the checkbox needs validation, description, or form naming.
+Use `Field` with `Checkbox` when the field owns shared helper text, error text, or required state
+around a single checkbox control.
 
 <Preview>
-  <FieldCheckboxExample />
+  <FieldDocs.FieldCheckboxExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Field,
-        Checkbox,
-        CheckboxIndicator,
-        FieldDescription,
-        FieldError,
-        FieldLabel,
-      } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/checkbox.tsx#demo</include>
+</Preview.Code>
 
-      export function CheckboxFieldDemo() {
-        return (
-          <Field validationMode="onBlur">
-            <FieldLabel>
-              <Checkbox required name="terms">
-                <CheckboxIndicator />
-              </Checkbox>
-              I agree to the terms
-            </FieldLabel>
-            <FieldError match="valueMissing">Please accept the terms.</FieldError>
-            <FieldDescription>Required to continue.</FieldDescription>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
+  
 </Preview>
 
-### Radio
+### Item Target
 
-Use `FieldItem` to group individual radio rows while keeping each slot available for styling.
+Use `Field.Item value` with root `target` when one field label should point to a specific control
+inside a grouped control row.
 
 <Preview>
-  <FieldRadioExample />
+  <FieldDocs.FieldItemExample />
 
-  <Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/item-target.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
     {`
-      import {
-        Field,
-        FieldError,
-        FieldItem,
-        FieldLabel,
-        Radio,
-        RadioField,
-        RadioGroup,
-        RadioLabel,
-      } from "moduix";
-
-      export function RadioFieldDemo() {
-        return (
-          <Field name="account-type" validationMode="onBlur">
-            <FieldLabel>Account type</FieldLabel>
-            <RadioGroup>
-              <FieldItem>
-                <RadioField>
-                  <Radio value="personal" required />
-                  <RadioLabel>Personal account</RadioLabel>
-                </RadioField>
-              </FieldItem>
-              <FieldItem>
-                <RadioField>
-                  <Radio value="team" />
-                  <RadioLabel>Team account</RadioLabel>
-                </RadioField>
-              </FieldItem>
-            </RadioGroup>
-            <FieldError match="valueMissing">
-              Please choose an account type.
-            </FieldError>
-          </Field>
-        );
+      .inlineControls {
+        display: grid;
+        grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr);
+        gap: var(--spacing-2);
       }
     `}
-
-  </Preview.Code>
+  </Preview.CSS>
+  
 </Preview>
 
-### Switch
+### RadioGroup
 
-Compose `FieldLabel` with switch controls when the label should activate the control.
+Use `Field` with `RadioGroup` when one field label, helper text, or error message should describe
+the whole choice set instead of individual native radio inputs.
 
 <Preview>
-  <FieldSwitchExample />
+  <FieldDocs.FieldRadioGroupExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Field,
-        FieldDescription,
-        FieldLabel,
-        Switch,
-        SwitchLabel,
-      } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/radiogroup.tsx#demo</include>
+</Preview.Code>
 
-      export function SwitchFieldDemo() {
-        return (
-          <Field name="newsletter">
-            <FieldLabel>
-              <Switch />
-              <SwitchLabel>Subscribe to newsletter</SwitchLabel>
-            </FieldLabel>
-            <FieldDescription>We send updates once per week.</FieldDescription>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
+  
 </Preview>
 
-### Input
+### Root Provider
 
-Use any Base UI-compatible input component inside `Field`; `Input` works with labels and validation
-out of the box.
-
-<Preview>
-  <FieldInputExample />
-
-  <Preview.Code>
-    {`
-      import { Field, FieldLabel, Input, FieldError } from "moduix";
-
-      export function InputFieldDemo() {
-        return (
-          <Field validationMode="onBlur">
-            <FieldLabel>Email</FieldLabel>
-            <Input required type="email" placeholder="name@example.com" />
-            <FieldError match="valueMissing">Please enter your email.</FieldError>
-            <FieldError match="typeMismatch">Enter a valid email address.</FieldError>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Number Field
-
-Pair `Field` with compound controls by linking the label with the control id.
+Use `useField` with `Field.RootProvider` when the field state must be owned outside the rendered
+tree.
 
 <Preview>
-  <FieldNumberFieldExample />
+  <FieldDocs.FieldRootProviderExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Field,
-        FieldError,
-        NumberField,
-        FieldLabel,
-      } from "moduix";
-      import { useId } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/root-provider.tsx#demo</include>
+</Preview.Code>
 
-      export function NumberFieldDemo() {
-        const id = useId();
-
-        return (
-          <Field name="quantity" validationMode="onBlur">
-            <FieldLabel htmlFor={id}>Items</FieldLabel>
-            <NumberField id={id} min={1} max={10} required />
-            <FieldError match="valueMissing">Please provide a number.</FieldError>
-            <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
-            <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
+  
 </Preview>
 
 ### Disabled
 
-Set `disabled` on the root to disable the whole field and propagate the disabled state to
-supported controls.
+Set `disabled` on the root to propagate disabled state to Ark field parts.
 
 <Preview>
-  <FieldDisabledExample />
+  <FieldDocs.FieldDisabledExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Field,
-        FieldControl,
-        FieldDescription,
-        FieldLabel,
-      } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/disabled.tsx#demo</include>
+</Preview.Code>
 
-      export function DisabledFieldDemo() {
-        return (
-          <Field disabled>
-            <FieldLabel>Organization</FieldLabel>
-            <FieldControl placeholder="Acme Inc." />
-            <FieldDescription>
-              This field is currently managed by your workspace.
-            </FieldDescription>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
+  
 </Preview>
 
-## Custom Composition
+### Read Only
 
-### Validity State
-
-Use `FieldValidity` when the field needs custom validity-driven UI beyond a normal error message.
+Set `readOnly` on the root when the control value can be copied but not edited.
 
 <Preview>
-  <FieldValidityExample />
+  <FieldDocs.FieldReadOnlyExample />
 
-  <Preview.Code>
-    {`
-      import {
-        Field,
-        FieldControl,
-        FieldError,
-        FieldLabel,
-        FieldValidity,
-      } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/read-only.tsx#demo</include>
+</Preview.Code>
 
-      export function FieldValidityDemo() {
-        return (
-          <Field
-            validationMode="onChange"
-            validate={(value) => {
-              if (typeof value !== "string" || value.length < 3) {
-                return "Username must be at least 3 characters.";
-              }
-
-              return null;
-            }}
-          >
-            <FieldLabel>Username</FieldLabel>
-            <FieldControl placeholder="e.g. vinny" />
-            <FieldError match="customError" />
-            <FieldValidity>
-              {(state) => (
-                <p className={styles.helper}>
-                  {state.validity.valid ? "Looks good." : "Waiting for valid value."}
-                </p>
-              )}
-            </FieldValidity>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .helper {
-        margin: 0;
-        color: var(--color-muted-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-    `}
-
-  </Preview.CSS>
+  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
+  
 </Preview>
 
-### Trigger-Based Controls
+## Styling
 
-Use `FieldLabel nativeLabel={false}` when the visible label should not behave like a native
-`<label>` element for trigger-based controls such as `Select` or `Combobox`.
+Style `Field` through `className`, Ark `data-scope="field"` / `data-part="..."` attributes,
+moduix `data-slot="field-*"` hooks, and the public `--field-*` CSS variables shown below.
 
-```tsx
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-  Select,
-  SelectContent,
-  SelectIcon,
-  SelectItem,
-  SelectItemIndicator,
-  SelectList,
-  SelectItemText,
-  SelectTrigger,
-  SelectValue,
-} from 'moduix';
+### CSS Properties
 
-const assignees = [
-  { label: 'Alice', value: 'alice' },
-  { label: 'Bob', value: 'bob' },
-];
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <FieldDocs.FieldCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
 
-export function TriggerFieldDemo() {
-  return (
-    <Field validationMode="onBlur">
-      <FieldLabel nativeLabel={false} render={<div />}>
-        Assignee
-      </FieldLabel>
-      <Select items={assignees} required>
-        <SelectTrigger>
-          <SelectValue placeholder="Choose assignee" />
-          <SelectIcon />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectList>
-            {assignees.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
-                <SelectItemIndicator />
-                <SelectItemText>{item.label}</SelectItemText>
-              </SelectItem>
-            ))}
-          </SelectList>
-        </SelectContent>
-      </Select>
-      <FieldDescription>Used for review requests.</FieldDescription>
-      <FieldError match="valueMissing">Choose an assignee.</FieldError>
-    </Field>
-  );
-}
-```
+### Styling hooks
 
-### Custom Styles
-
-Pass `className` to the slots that need overrides when styling the field with CSS Modules.
-
-<Preview>
-  <FieldCustomStylesExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Field,
-        FieldControl,
-        FieldDescription,
-        FieldError,
-        FieldLabel,
-      } from "moduix";
-
-      export function CustomStylesFieldDemo() {
-        return (
-          <Field validationMode="onBlur" className={styles.customField}>
-            <FieldLabel className={styles.customLabel}>Project key</FieldLabel>
-            <FieldControl
-              required
-              placeholder="MAPS"
-              className={styles.customControl}
-            />
-            <FieldDescription>Use three to five uppercase letters.</FieldDescription>
-            <FieldError className={styles.customError} match="valueMissing">
-              Please enter a project key.
-            </FieldError>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customField {
-        width: min(20rem, 100%);
-        gap: var(--spacing-2);
-      }
-
-      .customLabel,
-      .customError {
-        color: var(--color-primary);
-      }
-
-      .customControl {
-        border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-      }
-
-      .customControl:focus-visible {
-        outline-color: var(--color-primary);
-      }
-
-    `}
-
-  </Preview.CSS>
-</Preview>
+Ark adds `data-disabled`, `data-invalid`, `data-readonly`, and `data-required` to the relevant
+parts. `Field.ErrorText` is only rendered while the current field context is invalid, and helper or
+error text ids are included in the control's `aria-describedby` when present. Every DOM part also
+keeps a stable `data-slot="field-*"` hook.

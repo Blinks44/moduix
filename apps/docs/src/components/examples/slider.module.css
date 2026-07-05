@@ -3,8 +3,18 @@
   gap: var(--spacing-4);
 }
 
-.range {
-  width: 12rem;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+}
+
+.value,
+.status {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
 }
 
 .verticalContainer {
@@ -17,8 +27,12 @@
   --slider-height: 12rem;
 }
 
+.customSlider {
+  --slider-width: 16rem;
+}
+
 .customControl {
-  --slider-control-padding-y: var(--spacing-3);
+  --slider-control-size: 1.5rem;
 }
 
 .customTrack {
@@ -27,8 +41,8 @@
   --slider-track-border-color: transparent;
 }
 
-.customIndicator {
-  --slider-indicator-bg: var(--color-chart-4);
+.customRange {
+  --slider-range-bg: var(--color-chart-4);
 }
 
 .customThumb {

@@ -1,39 +1,10 @@
+import { createListCollection } from '@ark-ui/react/collection';
+import { Button, Dialog, ProgressLinear, Select, Switch, Tabs } from '@moduix/react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { HomeLayout } from 'fumadocs-ui/layouts/home';
 import { ArrowRight, Code2, Component, Layers3, PackageCheck, Sparkles } from 'lucide-react';
-import {
-  Button,
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  Progress,
-  ProgressLabel,
-  ProgressValue,
-  Select,
-  SelectContent,
-  SelectField,
-  SelectIcon,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
-  SelectLabel,
-  SelectList,
-  SelectTrigger,
-  SelectValue,
-  Switch,
-  SwitchField,
-  SwitchLabel,
-  Tabs,
-  TabsList,
-  TabsPanel,
-  TabsTab,
-} from 'moduix';
 import { useState } from 'react';
+import { FrameworkSupport } from '@/components/framework-support';
 import { baseOptions } from '@/lib/layout.shared';
 import styles from './index.module.css';
 
@@ -48,7 +19,7 @@ const highlights = [
   },
   {
     icon: Code2,
-    label: 'Typed React API',
+    label: 'Typed parts API',
   },
   {
     icon: PackageCheck,
@@ -61,6 +32,7 @@ const workspaceOptions = [
   { label: 'Checkout flow', value: 'checkout-flow' },
   { label: 'Maps widgets', value: 'maps-widgets' },
 ];
+const workspaceCollection = createListCollection({ items: workspaceOptions });
 
 function Home() {
   return (
@@ -71,15 +43,15 @@ function Home() {
           <div className={styles.content}>
             <div className={styles.badge}>
               <Sparkles size={14} aria-hidden="true" />
-              Base UI powered components
+              Ark UI powered components
             </div>
             <h1 id="home-title" className={styles.title}>
               moduix
             </h1>
             <p className={styles.lead}>
-              A precise React component library for teams shipping calm, consistent product
-              interfaces.
+              A precise component system for teams shipping calm, consistent product interfaces.
             </p>
+            <FrameworkSupport />
             <div className={styles.actions}>
               <Link
                 to="/docs/$"
@@ -137,32 +109,34 @@ function Home() {
 function HomeShowcase() {
   const [automationEnabled, setAutomationEnabled] = useState(true);
   const [progressValue, setProgressValue] = useState(72);
-  const [workspaceValue, setWorkspaceValue] = useState<string | null>('design-system');
+  const [workspaceValue, setWorkspaceValue] = useState<string[]>(['design-system']);
 
   const workspaceLabel =
-    workspaceOptions.find((item) => item.value === workspaceValue)?.label ?? 'Select workspace';
+    workspaceOptions.find((item) => item.value === workspaceValue[0])?.label ?? 'Select workspace';
 
-  const handleAutomationChange = (checked: boolean) => {
-    setAutomationEnabled(checked);
-    setProgressValue(checked ? 72 : 38);
+  const handleAutomationChange = (details: { checked: boolean }) => {
+    setAutomationEnabled(details.checked);
+    setProgressValue(details.checked ? 72 : 38);
   };
 
   return (
     <Tabs defaultValue="button" className={styles.showcaseTabs}>
-      <TabsList className={styles.showcaseTabsList}>
-        <TabsTab value="button">Button</TabsTab>
-        <TabsTab value="dialog">Dialog</TabsTab>
-        <TabsTab value="select">Select</TabsTab>
-      </TabsList>
+      <Tabs.List className={styles.showcaseTabsList}>
+        <Tabs.Trigger value="button">Button</Tabs.Trigger>
+        <Tabs.Trigger value="dialog">Dialog</Tabs.Trigger>
+        <Tabs.Trigger value="select">Select</Tabs.Trigger>
+        <Tabs.Indicator />
+      </Tabs.List>
 
-      <TabsPanel value="button" className={styles.showcasePanel}>
+      <Tabs.Content value="button" className={styles.showcasePanel}>
         <Tabs defaultValue="actions" variant="line" className={styles.nestedTabs}>
-          <TabsList className={styles.nestedTabsList}>
-            <TabsTab value="actions">Actions</TabsTab>
-            <TabsTab value="status">Status</TabsTab>
-          </TabsList>
+          <Tabs.List className={styles.nestedTabsList}>
+            <Tabs.Trigger value="actions">Actions</Tabs.Trigger>
+            <Tabs.Trigger value="status">Status</Tabs.Trigger>
+            <Tabs.Indicator />
+          </Tabs.List>
 
-          <TabsPanel value="actions" className={styles.nestedPanel}>
+          <Tabs.Content value="actions" className={styles.nestedPanel}>
             <div className={styles.previewCard}>
               <div className={styles.previewHeader}>
                 <span className={styles.eyebrow}>Release controls</span>
@@ -184,22 +158,30 @@ function HomeShowcase() {
                 </div>
               </div>
             </div>
-          </TabsPanel>
+          </Tabs.Content>
 
-          <TabsPanel value="status" className={styles.nestedPanel}>
+          <Tabs.Content value="status" className={styles.nestedPanel}>
             <div className={styles.previewCard}>
               <div className={styles.previewHeader}>
                 <span className={styles.eyebrow}>Flow health</span>
                 <strong>Toggle and progress in one pass</strong>
               </div>
-              <SwitchField className={styles.switchRow}>
-                <Switch checked={automationEnabled} onCheckedChange={handleAutomationChange} />
-                <SwitchLabel>Auto-review before release</SwitchLabel>
-              </SwitchField>
-              <Progress value={progressValue} className={styles.heroProgress}>
-                <ProgressLabel>Release readiness</ProgressLabel>
-                <ProgressValue />
-              </Progress>
+              <Switch
+                checked={automationEnabled}
+                onCheckedChange={handleAutomationChange}
+                className={styles.switchRow}
+              >
+                <Switch.Control />
+                <Switch.Label>Auto-review before release</Switch.Label>
+                <Switch.HiddenInput />
+              </Switch>
+              <ProgressLinear value={progressValue} className={styles.heroProgress}>
+                <ProgressLinear.Label>Release readiness</ProgressLinear.Label>
+                <ProgressLinear.ValueText />
+                <ProgressLinear.Track>
+                  <ProgressLinear.Range />
+                </ProgressLinear.Track>
+              </ProgressLinear>
               <div className={styles.statusRow}>
                 <span>{automationEnabled ? 'Checks enabled' : 'Manual review only'}</span>
                 <Button
@@ -211,11 +193,11 @@ function HomeShowcase() {
                 </Button>
               </div>
             </div>
-          </TabsPanel>
+          </Tabs.Content>
         </Tabs>
-      </TabsPanel>
+      </Tabs.Content>
 
-      <TabsPanel value="dialog" className={styles.showcasePanel}>
+      <Tabs.Content value="dialog" className={styles.showcasePanel}>
         <div className={styles.previewCard}>
           <div className={styles.previewHeader}>
             <span className={styles.eyebrow}>Approval flow</span>
@@ -225,21 +207,30 @@ function HomeShowcase() {
             The preview stays compact, but the interaction is real and uses the shipped dialog API.
           </p>
           <div className={styles.buttonRow}>
-            <Dialog>
-              <DialogTrigger render={<Button />}>Review changes</DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Publish release?</DialogTitle>
-                  <DialogDescription>
-                    Push the updated components and docs to the shared workspace.
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter>
-                  <DialogClose render={<Button variant="outline" />}>Back</DialogClose>
-                  <DialogClose render={<Button />}>Approve</DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+            <Dialog.Root>
+              <Dialog.Trigger asChild>
+                <Button>Review changes</Button>
+              </Dialog.Trigger>
+              <Dialog.Backdrop />
+              <Dialog.Positioner>
+                <Dialog.Content>
+                  <Dialog.Header>
+                    <Dialog.Title>Publish release?</Dialog.Title>
+                    <Dialog.Description>
+                      Push the updated components and docs to the shared workspace.
+                    </Dialog.Description>
+                  </Dialog.Header>
+                  <Dialog.Footer>
+                    <Dialog.CloseTrigger asChild>
+                      <Button variant="outline">Back</Button>
+                    </Dialog.CloseTrigger>
+                    <Dialog.CloseTrigger asChild>
+                      <Button>Approve</Button>
+                    </Dialog.CloseTrigger>
+                  </Dialog.Footer>
+                </Dialog.Content>
+              </Dialog.Positioner>
+            </Dialog.Root>
             <Button variant="outline">Inspect API</Button>
           </div>
           <div className={styles.miniStats}>
@@ -253,9 +244,9 @@ function HomeShowcase() {
             </div>
           </div>
         </div>
-      </TabsPanel>
+      </Tabs.Content>
 
-      <TabsPanel value="select" className={styles.showcasePanel}>
+      <Tabs.Content value="select" className={styles.showcasePanel}>
         <div className={styles.previewCard}>
           <div className={styles.previewHeader}>
             <span className={styles.eyebrow}>Workspace picker</span>
@@ -263,28 +254,31 @@ function HomeShowcase() {
           </div>
           <div className={styles.heroSelect}>
             <Select
+              collection={workspaceCollection}
               value={workspaceValue}
-              onValueChange={setWorkspaceValue}
-              items={workspaceOptions}
+              onValueChange={(details) => setWorkspaceValue(details.value)}
             >
-              <SelectField>
-                <SelectLabel>Active workspace</SelectLabel>
-                <SelectTrigger className={styles.heroSelectTrigger}>
-                  <SelectValue placeholder="Select workspace" />
-                  <SelectIcon />
-                </SelectTrigger>
-              </SelectField>
+              <Select.Label>Active workspace</Select.Label>
+              <Select.Control>
+                <Select.Trigger>
+                  <Select.ValueText placeholder="Select workspace" />
+                </Select.Trigger>
+                <Select.Indicators>
+                  <Select.Indicator />
+                </Select.Indicators>
+              </Select.Control>
 
-              <SelectContent alignItemWithTrigger={false}>
-                <SelectList>
-                  {workspaceOptions.map((item) => (
-                    <SelectItem key={item.value} value={item.value}>
-                      <SelectItemIndicator />
-                      <SelectItemText>{item.label}</SelectItemText>
-                    </SelectItem>
+              <Select.Positioner>
+                <Select.Content>
+                  {workspaceCollection.items.map((item) => (
+                    <Select.Item key={item.value} item={item}>
+                      <Select.ItemText>{item.label}</Select.ItemText>
+                      <Select.ItemIndicator />
+                    </Select.Item>
                   ))}
-                </SelectList>
-              </SelectContent>
+                </Select.Content>
+              </Select.Positioner>
+              <Select.HiddenSelect />
             </Select>
           </div>
           <div className={styles.miniStats}>
@@ -298,7 +292,7 @@ function HomeShowcase() {
             </div>
           </div>
         </div>
-      </TabsPanel>
+      </Tabs.Content>
     </Tabs>
   );
 }

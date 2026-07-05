@@ -1,0 +1,9 @@
+.customPopup {
+  --menu-popup-min-width: 13rem;
+  --menu-popup-bg: var(--color-background);
+  --menu-popup-border-color: var(--color-primary);
+  --menu-popup-shadow: var(--shadow-lg);
+  --menu-highlight-bg: var(--color-primary);
+  --menu-highlight-color: var(--color-primary-foreground);
+  --menu-separator-color: var(--color-primary);
+}

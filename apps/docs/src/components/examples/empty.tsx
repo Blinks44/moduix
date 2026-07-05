@@ -1,110 +1,179 @@
 import type { ComponentProps } from 'react';
-import {
-  Button,
-  ComputerIcon,
-  Empty,
-  EmptyActions,
-  EmptyContent,
-  EmptyDescription,
-  EmptyIcon,
-  EmptyTitle,
-  MapIcon,
-} from 'moduix';
+import { Button, Empty } from '@moduix/react';
+import { Computer as ComputerIcon, Map as MapIcon } from 'lucide-react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './empty.module.css';
 
-export const emptyOverrideCssProperties: CssPropertyInput[] = [
-  ['--empty-actions-gap', 'var(--spacing-2)', 'Controls spacing between action items.'],
-  [
-    '--empty-bg',
-    'color-mix(in oklab, var(--color-card) 92%, var(--color-muted))',
-    'Controls the empty-state surface background.',
-  ],
-  ['--empty-border-color', 'var(--color-border)', 'Controls the root border color.'],
-  ['--empty-border-width', 'var(--border-width-sm)', 'Controls the root border width.'],
-  ['--empty-color', 'var(--color-card-foreground)', 'Controls the root foreground color.'],
-  ['--empty-content-gap', 'var(--spacing-1)', 'Controls spacing between title and description.'],
-  ['--empty-content-max-width', '28rem', 'Controls maximum width of the text block.'],
-  [
-    '--empty-description-color',
-    'var(--color-muted-foreground)',
-    'Controls description text color.',
-  ],
-  ['--empty-description-font-size', 'var(--text-sm)', 'Controls description font size.'],
-  [
-    '--empty-description-line-height',
-    'var(--line-height-text-sm)',
-    'Controls description line-height.',
-  ],
-  ['--empty-gap', 'var(--spacing-4)', 'Controls spacing between the major sections.'],
-  ['--empty-icon-bg', 'var(--color-muted)', 'Controls the icon container background.'],
-  ['--empty-icon-color', 'var(--color-muted-foreground)', 'Controls the icon color.'],
-  ['--empty-icon-padding', 'var(--spacing-3)', 'Controls the icon container padding.'],
-  ['--empty-icon-size', '1.5rem', 'Controls nested SVG icon size.'],
-  ['--empty-padding', 'var(--spacing-8)', 'Controls root padding.'],
-  ['--empty-radius', 'var(--radius-xl)', 'Controls root border radius.'],
-  ['--empty-shadow', 'none', 'Controls root shadow.'],
-  ['--empty-title-color', 'currentColor', 'Controls title color.'],
-  ['--empty-title-font-size', 'var(--text-xl)', 'Controls title font size.'],
-  ['--empty-title-font-weight', 'var(--weight-semibold)', 'Controls title font weight.'],
-  ['--empty-title-line-height', 'var(--line-height-text-xl)', 'Controls title line-height.'],
-];
+const deploymentEmpty = {
+  title: 'No deployments yet',
+  description: 'Connect a repository to start tracking release status and deployment history.',
+  primaryAction: 'Connect repository',
+  secondaryAction: 'Read setup guide',
+};
 
-export const emptyPlaygroundCssProperties: CssPropertyInput[] = [
-  [
-    '--empty-bg',
-    'color-mix(in oklab, var(--color-card) 92%, var(--color-muted))',
-    'Surface background.',
-  ],
-  ['--empty-border-color', 'var(--color-border)', 'Surface border color.'],
-  ['--empty-gap', 'var(--spacing-4)', 'Gap between major sections.'],
-  ['--empty-icon-bg', 'var(--color-muted)', 'Icon container background.'],
-  ['--empty-icon-color', 'var(--color-muted-foreground)', 'Icon color.'],
-  ['--empty-padding', 'var(--spacing-8)', 'Surface padding.'],
-];
+const savedPlacesEmpty = {
+  title: 'No saved places',
+  description: 'Save frequently used destinations to keep them close to your workspace.',
+};
+
+const searchResultsEmpty = {
+  title: 'No results found',
+  description: 'Try changing the search query or clearing one of the active filters.',
+  action: 'Clear filters',
+};
+
+export const emptyDeploymentData = `const emptyState = {
+  title: 'No deployments yet',
+  description: 'Connect a repository to start tracking release status and deployment history.',
+  primaryAction: 'Connect repository',
+  secondaryAction: 'Read setup guide',
+};`;
+
+export const emptySavedPlacesData = `const emptyState = {
+  title: 'No saved places',
+  description: 'Save frequently used destinations to keep them close to your workspace.',
+};`;
+
+export const emptySearchResultsData = `const emptyState = {
+  title: 'No results found',
+  description: 'Try changing the search query or clearing one of the active filters.',
+  action: 'Clear filters',
+};`;
+
+export const emptyTeamInviteData = `const emptyState = {
+  title: 'Invite your team',
+  description: 'Shared projects, comments, and approvals appear here after the first teammate joins.',
+  action: 'Send invite',
+};`;
+
+export const emptyOverrideCssProperties = [
+  {
+    name: '--empty-actions-gap',
+    defaultValue: 'var(--spacing-2)',
+    description: 'Controls spacing between action items.',
+  },
+  {
+    name: '--empty-bg',
+    defaultValue: 'color-mix(in oklab, var(--color-card) 92%, var(--color-muted))',
+    description: 'Controls the empty-state surface background.',
+  },
+  {
+    name: '--empty-border-color',
+    defaultValue: 'var(--color-border)',
+    description: 'Controls the root border color.',
+  },
+  {
+    name: '--empty-border-width',
+    defaultValue: 'var(--border-width-sm)',
+    description: 'Controls the root border width.',
+  },
+  {
+    name: '--empty-color',
+    defaultValue: 'var(--color-card-foreground)',
+    description: 'Controls the root foreground color.',
+  },
+  {
+    name: '--empty-content-gap',
+    defaultValue: 'var(--spacing-1)',
+    description: 'Controls spacing between title and description.',
+  },
+  {
+    name: '--empty-content-max-width',
+    defaultValue: '28rem',
+    description: 'Controls maximum width of the text block.',
+  },
+  {
+    name: '--empty-description-color',
+    defaultValue: 'var(--color-muted-foreground)',
+    description: 'Controls description text color.',
+  },
+  {
+    name: '--empty-description-font-size',
+    defaultValue: 'var(--text-sm)',
+    description: 'Controls description font size.',
+  },
+  {
+    name: '--empty-description-line-height',
+    defaultValue: 'var(--line-height-text-sm)',
+    description: 'Controls description line-height.',
+  },
+  {
+    name: '--empty-gap',
+    defaultValue: 'var(--spacing-4)',
+    description: 'Controls spacing between the major sections.',
+  },
+  {
+    name: '--empty-icon-bg',
+    defaultValue: 'var(--color-muted)',
+    description: 'Controls the icon container background.',
+  },
+  {
+    name: '--empty-icon-color',
+    defaultValue: 'var(--color-muted-foreground)',
+    description: 'Controls the icon color.',
+  },
+  {
+    name: '--empty-icon-padding',
+    defaultValue: 'var(--spacing-3)',
+    description: 'Controls the icon container padding.',
+  },
+  {
+    name: '--empty-icon-size',
+    defaultValue: '1.5rem',
+    description: 'Controls nested SVG icon size.',
+  },
+  {
+    name: '--empty-padding',
+    defaultValue: 'var(--spacing-8)',
+    description: 'Controls root padding.',
+  },
+  {
+    name: '--empty-radius',
+    defaultValue: 'var(--radius-xl)',
+    description: 'Controls root border radius.',
+  },
+  { name: '--empty-shadow', defaultValue: 'none', description: 'Controls root shadow.' },
+  {
+    name: '--empty-title-color',
+    defaultValue: 'currentColor',
+    description: 'Controls title color.',
+  },
+  {
+    name: '--empty-title-font-size',
+    defaultValue: 'var(--text-xl)',
+    description: 'Controls title font size.',
+  },
+  {
+    name: '--empty-title-font-weight',
+    defaultValue: 'var(--weight-semibold)',
+    description: 'Controls title font weight.',
+  },
+  {
+    name: '--empty-title-line-height',
+    defaultValue: 'var(--line-height-text-xl)',
+    description: 'Controls title line-height.',
+  },
+] satisfies CssPropertyInput[];
 
 export function EmptyCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={emptyOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function EmptyCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={emptyPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
+  return <CSSPropertiesReferenceTable properties={emptyOverrideCssProperties} />;
 }
 
 export function EmptyExample(props: ComponentProps<typeof Empty>) {
   return (
     <Empty className={styles.empty} {...props}>
-      <EmptyIcon>
+      <Empty.Icon>
         <ComputerIcon />
-      </EmptyIcon>
-      <EmptyContent>
-        <EmptyTitle>No deployments yet</EmptyTitle>
-        <EmptyDescription>
-          Connect a repository to start tracking release status and deployment history.
-        </EmptyDescription>
-      </EmptyContent>
-      <EmptyActions>
-        <Button>Connect repository</Button>
-        <Button variant="outline">Read setup guide</Button>
-      </EmptyActions>
+      </Empty.Icon>
+      <Empty.Content>
+        <Empty.Title>{deploymentEmpty.title}</Empty.Title>
+        <Empty.Description>{deploymentEmpty.description}</Empty.Description>
+      </Empty.Content>
+      <Empty.Actions>
+        <Button>{deploymentEmpty.primaryAction}</Button>
+        <Button variant="outline">{deploymentEmpty.secondaryAction}</Button>
+      </Empty.Actions>
     </Empty>
   );
 }
@@ -112,15 +181,13 @@ export function EmptyExample(props: ComponentProps<typeof Empty>) {
 export function EmptyWithoutActionsExample() {
   return (
     <Empty className={styles.empty}>
-      <EmptyIcon>
+      <Empty.Icon>
         <MapIcon />
-      </EmptyIcon>
-      <EmptyContent>
-        <EmptyTitle>No saved places</EmptyTitle>
-        <EmptyDescription>
-          Save frequently used destinations to keep them close to your workspace.
-        </EmptyDescription>
-      </EmptyContent>
+      </Empty.Icon>
+      <Empty.Content>
+        <Empty.Title>{savedPlacesEmpty.title}</Empty.Title>
+        <Empty.Description>{savedPlacesEmpty.description}</Empty.Description>
+      </Empty.Content>
     </Empty>
   );
 }
@@ -128,34 +195,13 @@ export function EmptyWithoutActionsExample() {
 export function EmptyWithoutIconExample() {
   return (
     <Empty className={styles.empty}>
-      <EmptyContent>
-        <EmptyTitle>No results found</EmptyTitle>
-        <EmptyDescription>
-          Try changing the search query or clearing one of the active filters.
-        </EmptyDescription>
-      </EmptyContent>
-      <EmptyActions>
-        <Button variant="outline">Clear filters</Button>
-      </EmptyActions>
-    </Empty>
-  );
-}
-
-export function EmptyCustomStylesExample() {
-  return (
-    <Empty className={styles.customEmpty}>
-      <EmptyIcon className={styles.customIcon}>
-        <ComputerIcon />
-      </EmptyIcon>
-      <EmptyContent>
-        <EmptyTitle>Invite your team</EmptyTitle>
-        <EmptyDescription>
-          Shared projects, comments, and approvals appear here after the first teammate joins.
-        </EmptyDescription>
-      </EmptyContent>
-      <EmptyActions>
-        <Button>Send invite</Button>
-      </EmptyActions>
+      <Empty.Content>
+        <Empty.Title>{searchResultsEmpty.title}</Empty.Title>
+        <Empty.Description>{searchResultsEmpty.description}</Empty.Description>
+      </Empty.Content>
+      <Empty.Actions>
+        <Button variant="outline">{searchResultsEmpty.action}</Button>
+      </Empty.Actions>
     </Empty>
   );
 }

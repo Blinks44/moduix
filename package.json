@@ -9,11 +9,11 @@
   "scripts": {
     "build": "turbo run build",
     "build:docs": "turbo run build -F moduix-docs",
-    "build:registry": "rm -rf packages/ui/registry/default && npx shadcn@latest build registry.json --output packages/ui/registry/default && oxfmt",
-    "build:ui": "turbo run build -F moduix",
+    "build:react": "turbo run build -F @moduix/react",
+    "build:registry": "shadcn registry validate && rm -rf packages/react/registry/default && shadcn build registry.json --output packages/react/registry/default && oxfmt",
     "changeset": "changeset",
     "changeset:version": "changeset version",
-    "changeset:release": "turbo run build -F moduix && changeset publish",
+    "changeset:release": "npm run build:react && changeset publish",
     "deploy:docs": "turbo run deploy -F moduix-docs",
     "dev": "turbo run dev",
     "fmt:check": "oxfmt --check",
@@ -21,19 +21,28 @@
     "lint:check": "oxlint",
     "lint:fix": "oxlint --fix",
     "prepare": "husky",
-    "publish:ui": "npm publish -w moduix",
+    "publish:react": "npm publish -w @moduix/react",
+    "registry:validate": "shadcn registry validate",
     "tsc:check": "turbo run tsc:check"
   },
-  "dependencies": {},
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
-    "@storybook/react-vite": "^10.4.4",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.7",
-    "oxfmt": "^0.54.0",
-    "oxlint": "^1.69.0",
-    "storybook": "^10.4.4",
-    "turbo": "^2.9.18"
+    "lint-staged": "^17.0.8",
+    "oxfmt": "^0.56.0",
+    "oxlint": "^1.71.0",
+    "shadcn": "^4.12.0",
+    "turbo": "^2.10.0"
   },
-  "packageManager": "npm@11.17.0"
+  "engines": {
+    "node": "24.x",
+    "npm": "11.16.x"
+  },
+  "packageManager": "npm@11.16.0",
+  "allowScripts": {
+    "esbuild": true,
+    "fsevents": true,
+    "sharp": true,
+    "workerd": true
+  }
 }

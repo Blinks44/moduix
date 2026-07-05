@@ -1,0 +1,70 @@
+@layer ui.components {
+  .root,
+  [data-scope='spinner'][data-part='root'] {
+    --_spinner-size: var(--spinner-size, var(--spinner-size-md, 1.25rem));
+
+    display: inline-flex;
+    width: var(--_spinner-size);
+    height: var(--_spinner-size);
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    color: var(--spinner-color, currentColor);
+    vertical-align: middle;
+  }
+
+  .indicator,
+  [data-scope='spinner'][data-part='indicator'] {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    animation: var(--spinner-animation, var(--animation-spin));
+  }
+
+  .ring,
+  [data-scope='spinner'][data-part='ring'] {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: var(--spinner-ring-border-width, var(--border-width-md)) solid
+      var(--spinner-ring-track-color, color-mix(in oklab, currentColor 22%, transparent));
+    border-block-start-color: var(--spinner-color, currentColor);
+    border-radius: var(--spinner-radius, var(--radius-full));
+  }
+
+  .indicator :where(svg),
+  [data-scope='spinner'][data-part='indicator'] :where(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .root[data-size='xs'],
+  [data-scope='spinner'][data-part='root'][data-size='xs'] {
+    --_spinner-size: var(--spinner-size, var(--spinner-size-xs, 0.75rem));
+  }
+
+  .root[data-size='sm'],
+  [data-scope='spinner'][data-part='root'][data-size='sm'] {
+    --_spinner-size: var(--spinner-size, var(--spinner-size-sm, 1rem));
+  }
+
+  .root[data-size='lg'],
+  [data-scope='spinner'][data-part='root'][data-size='lg'] {
+    --_spinner-size: var(--spinner-size, var(--spinner-size-lg, 1.75rem));
+  }
+
+  .root[data-size='xl'],
+  [data-scope='spinner'][data-part='root'][data-size='xl'] {
+    --_spinner-size: var(--spinner-size, var(--spinner-size-xl, 2.25rem));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .indicator,
+    [data-scope='spinner'][data-part='indicator'] {
+      animation: none;
+    }
+  }
+}

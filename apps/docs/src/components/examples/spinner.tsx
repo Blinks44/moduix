@@ -1,13 +1,52 @@
 import type { ComponentProps } from 'react';
-import { Spinner } from 'moduix';
+import { Spinner } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './spinner.module.css';
 
+export const spinnerInlineCss = `
+  .inline {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  .muted {
+    color: var(--color-muted-foreground);
+  }
+`;
+
+export const spinnerRowCss = `
+  .row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+  }
+`;
+
+export const spinnerStylingCss = `
+  .brandSpinner {
+    --spinner-color: var(--color-primary);
+    --spinner-ring-border-width: var(--border-width-lg);
+    --spinner-ring-track-color: color-mix(
+      in oklab,
+      var(--color-primary) 22%,
+      transparent 40%
+    );
+  }
+`;
+
+export const spinnerAsChildCss = `
+  .customSpinnerHost {
+    color: var(--color-primary);
+  }
+`;
+
 export const spinnerOverrideCssProperties: CssPropertyInput[] = [
+  ['--spinner-animation', 'var(--animation-spin)', 'Controls indicator rotation animation.'],
   ['--spinner-color', 'currentColor', 'Controls spinner color.'],
   ['--spinner-radius', 'var(--radius-full)', 'Controls round spinner part radius.'],
-  ['--spinner-ring-border-width', '0.125rem', 'Controls ring stroke width.'],
+  ['--spinner-ring-border-width', 'var(--border-width-md)', 'Controls ring stroke width.'],
   [
     '--spinner-ring-track-color',
     'color-mix(in oklab, currentColor 22%, transparent)',
@@ -21,35 +60,10 @@ export const spinnerOverrideCssProperties: CssPropertyInput[] = [
   ['--spinner-size-xl', '2.25rem', 'Controls xl spinner size.'],
 ];
 
-export const spinnerPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--spinner-color', 'var(--color-primary)', 'Controls spinner color.'],
-  ['--spinner-ring-border-width', '0.125rem', 'Controls ring stroke width.'],
-  [
-    '--spinner-ring-track-color',
-    'color-mix(in oklab, currentColor 22%, transparent)',
-    'Controls inactive ring stroke color.',
-  ],
-];
-
 export function SpinnerCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
       properties={spinnerOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function SpinnerCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={spinnerPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }
@@ -74,13 +88,13 @@ export function SpinnerInlineExample() {
 }
 
 export function SpinnerSizesExample() {
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
   return (
     <div className={styles.row}>
-      <Spinner size="xs" />
-      <Spinner size="sm" />
-      <Spinner size="md" />
-      <Spinner size="lg" />
-      <Spinner size="xl" />
+      {sizes.map((size) => (
+        <Spinner key={size} decorative size={size} />
+      ))}
     </div>
   );
 }
@@ -101,9 +115,17 @@ export function SpinnerCustomIndicatorExample() {
 }
 
 export function SpinnerStylingExample() {
+  return <Spinner decorative size="lg" className={styles.brandSpinner} />;
+}
+
+export function SpinnerAsChildExample() {
   return (
-    <div className={styles.brand}>
-      <Spinner size="lg" />
-    </div>
+    <Spinner asChild size="lg" aria-label="Loading report">
+      <span className={styles.customSpinnerHost}>
+        <span data-scope="spinner" data-part="indicator" data-slot="spinner-indicator">
+          <span data-scope="spinner" data-part="ring" data-slot="spinner-ring" />
+        </span>
+      </span>
+    </Spinner>
   );
 }

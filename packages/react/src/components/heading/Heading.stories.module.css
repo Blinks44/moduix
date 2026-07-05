@@ -1,0 +1,13 @@
+.stack {
+  display: flex;
+  width: min(32rem, calc(100vw - var(--spacing-8)));
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.customHeading {
+  --heading-color: var(--color-primary);
+  --heading-font-size: var(--text-3xl);
+  --heading-line-height: var(--line-height-text-3xl);
+  --heading-font-weight: var(--weight-bold);
+}

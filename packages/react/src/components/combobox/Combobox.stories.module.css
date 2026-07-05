@@ -1,0 +1,30 @@
+.tags {
+  display: flex;
+  min-height: 1.5rem;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+}
+
+.tag,
+.tagPlaceholder {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.tag {
+  background: var(--color-muted);
+}
+
+.tagPlaceholder {
+  color: var(--color-muted-foreground);
+}
+
+.providerLayout {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+}

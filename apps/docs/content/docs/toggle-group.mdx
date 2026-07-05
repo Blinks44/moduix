@@ -1,290 +1,130 @@
 ---
 title: Toggle Group
-description: A set of related toggle buttons that share selection state.
+description: A set of two-state buttons that share selected values.
 icon: Component
 ---
 
-import {
-  ControlledToggleGroupExample,
-  CustomCompositionToggleGroupExample,
-  ToggleGroupCssPlaygroundPanel,
-  ToggleGroupCssPropertiesPanel,
-  ToggleGroupDisabledExample,
-  ToggleGroupExample,
-  ToggleGroupIconExample,
-  ToggleGroupMultipleExample,
-  ToggleGroupVariantsExample,
-  ToggleGroupVerticalExample,
-  toggleGroupPlaygroundCssProperties,
-} from '@/components/examples/toggle-group';
+import * as ToggleGroupDocs from '@/components/examples/toggle-group';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/toggle-group" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/toggle-group" />
 
-## Default Path
+## Choosing the right component
 
-Use `ToggleGroup` for shared selection state and `ToggleGroupItem` for each choice. Set `variant`
-and `size` on the group when the whole set should share the same look.
+Use `ToggleGroup` when several pressed buttons belong to one shared value set.
 
-<Preview cssProperties={toggleGroupPlaygroundCssProperties}>
-  <ToggleGroupExample />
+- Choose **`ToggleGroup`** for segmented controls, compact filter sets, and formatting toolbars.
+- Choose **`Toggle`** for one standalone two-state action.
+- Choose **`Tabs`** when selection also swaps associated panels.
+- Choose **`RadioGroup`** when the choices should read like form options.
 
-  <Preview.Code>
-    {`
-      import { ToggleGroup, ToggleGroupItem } from "moduix";
+## Basic
 
-      export function ToggleGroupDemo() {
-        return (
-          <ToggleGroup defaultValue={["left"]} aria-label="Text alignment">
-            <ToggleGroupItem value="left">Left</ToggleGroupItem>
-            <ToggleGroupItem value="center">Center</ToggleGroupItem>
-            <ToggleGroupItem value="right">Right</ToggleGroupItem>
-          </ToggleGroup>
-        );
+Start with the short root form `<ToggleGroup>` and add Ark-aligned `ToggleGroup.Item` children.
+
+<Preview>
+  <ToggleGroupDocs.ToggleGroupExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/basic.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      [data-slot="toggle-group-root"] {
+        width: max-content;
       }
     `}
+</Preview.CSS>
 
-  </Preview.Code>
-  <Preview.CSSProperties>{(context) => <ToggleGroupCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <ToggleGroupCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Toggle Group` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/toggle-group
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/toggle-group
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/toggle-group
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/toggle-group
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/toggle-group
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Toggle Group` depends on, such
-as styles, icons, and small utilities.
-
-`ToggleGroupItem` renders the library `Toggle`, so the default path stays short while items still
-inherit the same size and variant scale as standalone toggles. Raw `Toggle` composition inside a
-group is still possible, but only `ToggleGroupItem` inherits the group `variant`, `size`, and
-`toggle-group-item` styling hooks automatically.
+<ShadcnInstall packageName="react-toggle-group" />
 
 ## Anatomy
 
 ```text
-ToggleGroup
-└─ ToggleGroupItem[value]
-   └─ label and/or icon content
+ToggleGroup / ToggleGroup.Root
+└─ ToggleGroup.Item[value]
+
+ToggleGroup.RootProvider
+└─ ToggleGroup.Item[value]
 ```
 
-| Part              | Role                                                                                            |
-| ----------------- | ----------------------------------------------------------------------------------------------- |
-| `ToggleGroup`     | Root state machine for selected values, arrow-key navigation, orientation, and disabled state.  |
-| `ToggleGroupItem` | Styled toggle button. Its `value` participates in `defaultValue`, `value`, and `onValueChange`. |
+| Part                               | Role                                                                                |
+| ---------------------------------- | ----------------------------------------------------------------------------------- |
+| `ToggleGroup` / `ToggleGroup.Root` | Root state machine for selected values, roving focus, orientation, and disabled.    |
+| `ToggleGroup.Item`                 | Button item with a required `value` and Ark `data-state` on/off state.              |
+| `ToggleGroup.RootProvider`         | Root driven by a `useToggleGroup()` state instance owned outside the rendered tree. |
 
 ## Composition
 
-`ToggleGroup` stays intentionally thin:
+### Recommended composition
 
-- Base UI owns group state, roving focus, and keyboard behavior
-- `ToggleGroupItem` inherits `variant` and `size` from the group by default
-- `value`, `defaultValue`, and `onValueChange` always work with string arrays, even when `multiple`
-  is not set
-- raw `Toggle` or `render={<Toggle ... />}` items can join the group through `value`, but they must
-  receive their own `variant` / `size` when they should not fall back to the `Toggle` defaults
-- item-level `variant`, `size`, `className`, and `--toggle-*` overrides remain available when one choice needs different styling
+Use `ToggleGroup` for the root and `ToggleGroup.Item` for each button. `value` and
+`defaultValue` are string arrays in both single and multiple-selection modes.
 
-Use these paths:
+moduix adds two visual props on `ToggleGroup`, `ToggleGroup.Root`, `ToggleGroup.RootProvider`, and
+`ToggleGroup.Item`:
 
-| Pattern                                       | Best fit                                               |
-| --------------------------------------------- | ------------------------------------------------------ |
-| text items + `defaultValue`                   | common segmented controls and simple filters           |
-| `multiple`                                    | formatting toolbars and multi-select filters           |
-| `value` + `onValueChange`                     | controlled state coordinated with surrounding UI       |
-| `size="icon-md"` + `aria-label`               | compact icon-only groups                               |
-| `className`, `--toggle-group-*`, `--toggle-*` | custom visuals without replacing the composition model |
+| Prop      | Default   | Values                                                  |
+| --------- | --------- | ------------------------------------------------------- |
+| `variant` | `default` | `default`, `outline`, `ghost`                           |
+| `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
 
-### Defaults
+### When to go custom
 
-| Prop          | Default      | Values                                                  |
-| ------------- | ------------ | ------------------------------------------------------- |
-| `variant`     | `default`    | `default`, `outline`, `ghost`                           |
-| `size`        | `md`         | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
-| `multiple`    | `false`      | `true`, `false`                                         |
-| `orientation` | `horizontal` | `horizontal`, `vertical`                                |
-| `loopFocus`   | `true`       | `true`, `false`                                         |
+Use `asChild` on `ToggleGroup.Item` when another semantic button must own the rendered element.
+Keep the child single and button-like so Ark can merge interaction props and ARIA state.
 
-Set `loopFocus={false}` when arrow-key navigation should stop at the first or last item instead of
-wrapping.
+Use `ToggleGroup.RootProvider` when state must be created outside the rendered root. Import
+`useToggleGroup()` or `useToggleGroupContext()` directly from `@ark-ui/react/toggle-group` for
+that advanced path. Do not render `ToggleGroup.Root` and `ToggleGroup.RootProvider` for the same
+state instance.
+
+### Default props
+
+| Prop           | Default      | Notes                                                            |
+| -------------- | ------------ | ---------------------------------------------------------------- |
+| `deselectable` | `true`       | Allows empty selection when `multiple` is not enabled.           |
+| `loopFocus`    | `true`       | Wraps arrow-key focus from last to first item and back.          |
+| `orientation`  | `horizontal` | Controls layout direction and matching keyboard navigation.      |
+| `rovingFocus`  | `true`       | Uses roving tab index so one item participates in the tab order. |
+| `multiple`     | `false`      | Allows several items to stay pressed at the same time.           |
+| `variant`      | `default`    | moduix visual treatment.                                         |
+| `size`         | `md`         | moduix item sizing.                                              |
+
+### Behavioral notes
+
+- `onValueChange` receives Ark details: use `details.value` for the selected string array.
+- `deselectable` is ignored when `multiple` is enabled.
+- The group needs an accessible name from `aria-label` or `aria-labelledby`.
+- Icon-only items need their own accessible name such as `aria-label="Align left"`.
+- Use `disabled` on the group for the whole set or on one item for a single unavailable choice.
+- Use `ids` to provide stable root and item IDs when composing the group with other accessible UI.
+- Single-selection groups use `radiogroup`/`radio` semantics; multiple groups use `group` and
+  `aria-pressed`.
+- Horizontal groups use Left/Right arrows, vertical groups use Up/Down, and Home/End move to the
+  first/last enabled item. Space/Enter activate the focused button, and `loopFocus` controls
+  whether arrow navigation wraps.
+- Ark writes `data-scope="toggle-group"`, `data-part`, `data-orientation`, `data-disabled`,
+  `data-focus`, and item `data-state="on" | "off"` for styling.
 
 ## Examples
 
-### Variants
-
-Set `variant` on the group when every item should share the same visual treatment.
-
-<Preview>
-  <ToggleGroupVariantsExample />
-
-  <Preview.Code>
-    {`
-      import { ToggleGroup, ToggleGroupItem } from "moduix";
-      import styles from "./toggle-group.module.css";
-
-      export function ToggleGroupVariantsDemo() {
-        return (
-          <div className={styles.stack}>
-            <ToggleGroup defaultValue={["one"]} aria-label="Default variant">
-              <ToggleGroupItem value="one">One</ToggleGroupItem>
-              <ToggleGroupItem value="two">Two</ToggleGroupItem>
-              <ToggleGroupItem value="three">Three</ToggleGroupItem>
-            </ToggleGroup>
-            <ToggleGroup defaultValue={["one"]} aria-label="Outline variant" variant="outline">
-              <ToggleGroupItem value="one">One</ToggleGroupItem>
-              <ToggleGroupItem value="two">Two</ToggleGroupItem>
-              <ToggleGroupItem value="three">Three</ToggleGroupItem>
-            </ToggleGroup>
-            <ToggleGroup defaultValue={["one"]} aria-label="Ghost variant" variant="ghost">
-              <ToggleGroupItem value="one">One</ToggleGroupItem>
-              <ToggleGroupItem value="two">Two</ToggleGroupItem>
-              <ToggleGroupItem value="three">Three</ToggleGroupItem>
-            </ToggleGroup>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-3);
-      }
-    `}
-  </Preview.CSS>
-</Preview>
-
-### Multiple Selection
-
-Use `multiple` when several options can stay pressed at the same time.
-
-<Preview>
-  <ToggleGroupMultipleExample />
-
-  <Preview.Code>
-    {`
-      import { ToggleGroup, ToggleGroupItem } from "moduix";
-      import styles from "./toggle-group.module.css";
-
-      export function MultipleToggleGroupDemo() {
-        return (
-          <ToggleGroup
-            multiple
-            defaultValue={["bold", "italic"]}
-            aria-label="Text formatting"
-            size="icon-md"
-          >
-            <ToggleGroupItem value="bold" aria-label="Bold">
-              <strong>B</strong>
-            </ToggleGroupItem>
-            <ToggleGroupItem value="italic" aria-label="Italic">
-              <em>I</em>
-            </ToggleGroupItem>
-            <ToggleGroupItem value="underline" aria-label="Underline">
-              <span className={styles.underline}>U</span>
-            </ToggleGroupItem>
-          </ToggleGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .underline {
-        text-decoration: underline;
-      }
-    `}
-  </Preview.CSS>
-</Preview>
-
 ### Controlled
 
-Control `value` from React state when the group needs to stay in sync with other UI.
+Control `value` from React state when the group needs to stay in sync with surrounding UI.
 
 <Preview>
-  <ControlledToggleGroupExample />
+  <ToggleGroupDocs.ControlledToggleGroupExample />
 
-  <Preview.Code>
-    {`
-      import { BellIcon, CheckIcon, StarIcon, ToggleGroup, ToggleGroupItem } from "moduix";
-      import { useState } from "react";
-      import styles from "./toggle-group.module.css";
-
-      export function ControlledToggleGroupDemo() {
-        const [value, setValue] = useState(["favorites"] as string[]);
-
-        return (
-          <div className={styles.stack}>
-            <ToggleGroup
-              value={value}
-              onValueChange={setValue}
-              aria-label="Controlled options"
-              multiple
-            >
-              <ToggleGroupItem value="favorites">
-                {value.includes("favorites") ? <CheckIcon /> : <StarIcon />}
-                Favorites
-              </ToggleGroupItem>
-              <ToggleGroupItem value="alerts">
-                <BellIcon />
-                Alerts
-              </ToggleGroupItem>
-            </ToggleGroup>
-            <span className={styles.hint}>Current value: {value.join(", ") || "empty"}</span>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/controlled.tsx#demo</include>
+</Preview.Code>
 
   <Preview.CSS>
     {`
@@ -303,6 +143,85 @@ Control `value` from React state when the group needs to stay in sync with other
     `}
 
   </Preview.CSS>
+
+</Preview>
+
+### Root Provider
+
+Use `ToggleGroup.RootProvider` when the state instance must be shared before the root is rendered.
+
+<Preview>
+  <ToggleGroupDocs.ToggleGroupRootProviderExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/root-provider.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+
+      .hint {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+      }
+    `}
+
+  </Preview.CSS>
+
+</Preview>
+
+### Multiple Selection
+
+Use `multiple` when several options can stay pressed at the same time.
+
+<Preview>
+  <ToggleGroupDocs.ToggleGroupMultipleExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/multiple-selection.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .underline {
+        text-decoration: underline;
+      }
+
+    `}
+
+</Preview.CSS>
+
+</Preview>
+
+### Variants
+
+Set `variant` on the group when every item should share the same visual treatment.
+
+<Preview>
+  <ToggleGroupDocs.ToggleGroupVariantsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/variants.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+    `}
+</Preview.CSS>
+
 </Preview>
 
 ### Icons
@@ -310,61 +229,20 @@ Control `value` from React state when the group needs to stay in sync with other
 Pass icons as regular children. Icon-only items should always include an accessible label.
 
 <Preview>
-  <ToggleGroupIconExample />
+  <ToggleGroupDocs.ToggleGroupIconExample />
 
-  <Preview.Code>
-    {`
-      import { ToggleGroup, ToggleGroupItem } from "moduix";
-      import styles from "./toggle-group.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/icons.tsx#demo</include>
+</Preview.Code>
 
-      export function IconToggleGroupDemo() {
-        return (
-          <ToggleGroup defaultValue={["left"]} aria-label="Text alignment" size="icon-md">
-            <ToggleGroupItem value="left" aria-label="Align left">
-              <svg className={styles.customIcon} viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path
-                  d="M2.5 3.5h11M2.5 8h8M2.5 12.5h11"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </ToggleGroupItem>
-            <ToggleGroupItem value="center" aria-label="Align center">
-              <svg className={styles.customIcon} viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path
-                  d="M2.5 3.5h11M4 8h8M2.5 12.5h11"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </ToggleGroupItem>
-            <ToggleGroupItem value="right" aria-label="Align right">
-              <svg className={styles.customIcon} viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path
-                  d="M2.5 3.5h11M5.5 8h8M2.5 12.5h11"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </ToggleGroupItem>
-          </ToggleGroup>
-        );
+<Preview.CSS>
+  {`
+      .iconGroup {
+        --toggle-icon-size: 1rem;
       }
     `}
+</Preview.CSS>
 
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customIcon {
-        width: 1rem;
-        height: 1rem;
-      }
-    `}
-  </Preview.CSS>
 </Preview>
 
 ### Vertical
@@ -372,29 +250,20 @@ Pass icons as regular children. Icon-only items should always include an accessi
 Set `orientation="vertical"` when the choices should stack in a column.
 
 <Preview>
-  <ToggleGroupVerticalExample />
+  <ToggleGroupDocs.ToggleGroupVerticalExample />
 
-  <Preview.Code>
-    {`
-      import { ToggleGroup, ToggleGroupItem } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/vertical.tsx#demo</include>
+</Preview.Code>
 
-      export function VerticalToggleGroupDemo() {
-        return (
-          <ToggleGroup
-            defaultValue={["list"]}
-            orientation="vertical"
-            aria-label="View mode"
-            variant="outline"
-          >
-            <ToggleGroupItem value="list">List</ToggleGroupItem>
-            <ToggleGroupItem value="grid">Grid</ToggleGroupItem>
-            <ToggleGroupItem value="map">Map</ToggleGroupItem>
-          </ToggleGroup>
-        );
+<Preview.CSS>
+  {`
+      [data-slot="toggle-group-root"][data-orientation="vertical"] {
+        width: 10rem;
       }
     `}
+</Preview.CSS>
 
-  </Preview.Code>
 </Preview>
 
 ### Disabled
@@ -402,35 +271,14 @@ Set `orientation="vertical"` when the choices should stack in a column.
 Use `disabled` on the group or on a specific item to prevent interaction.
 
 <Preview>
-  <ToggleGroupDisabledExample />
+  <ToggleGroupDocs.ToggleGroupDisabledExample />
 
-  <Preview.Code>
-    {`
-      import { ToggleGroup, ToggleGroupItem } from "moduix";
-      import styles from "./toggle-group.module.css";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/disabled.tsx#demo</include>
+</Preview.Code>
 
-      export function DisabledToggleGroupDemo() {
-        return (
-          <div className={styles.row}>
-            <ToggleGroup defaultValue={["one"]} aria-label="Disabled group" disabled>
-              <ToggleGroupItem value="one">One</ToggleGroupItem>
-              <ToggleGroupItem value="two">Two</ToggleGroupItem>
-            </ToggleGroup>
-            <ToggleGroup defaultValue={["one"]} aria-label="Disabled item">
-              <ToggleGroupItem value="one">One</ToggleGroupItem>
-              <ToggleGroupItem value="two" disabled>
-                Two
-              </ToggleGroupItem>
-            </ToggleGroup>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .row {
         display: flex;
         flex-wrap: wrap;
@@ -439,63 +287,31 @@ Use `disabled` on the group or on a specific item to prevent interaction.
         gap: var(--spacing-3);
       }
     `}
-  </Preview.CSS>
+</Preview.CSS>
+
 </Preview>
 
-## Custom Composition
+## Styling
 
-Use `className` on the group and items when the default structure is right but the surface styling
-needs to change. Group variables live under `--toggle-group-*`; item states still use `--toggle-*`.
+`ToggleGroup` exposes stable `data-slot` hooks for Moduix and Ark anatomy/state attributes for
+behavioral styling.
 
-<Preview>
-  <CustomCompositionToggleGroupExample />
+### CSS Properties
 
-  <Preview.Code>
-    {`
-      import { ToggleGroup, ToggleGroupItem } from "moduix";
-      import styles from "./toggle-group.module.css";
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ToggleGroupDocs.ToggleGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
 
-      export function CustomCompositionToggleGroupDemo() {
-        return (
-          <ToggleGroup
-            defaultValue={["day"]}
-            aria-label="Schedule density"
-            className={styles.customGroup}
-          >
-            <ToggleGroupItem value="day" className={styles.customItem}>
-              Day
-            </ToggleGroupItem>
-            <ToggleGroupItem value="week" className={styles.customItem}>
-              Week
-            </ToggleGroupItem>
-            <ToggleGroupItem value="month" className={styles.customItem}>
-              Month
-            </ToggleGroupItem>
-          </ToggleGroup>
-        );
-      }
-    `}
+### Styling hooks
 
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customGroup {
-        --toggle-group-bg: color-mix(in oklab, var(--color-primary) 8%, transparent);
-        --toggle-group-border-color: color-mix(in oklab, var(--color-primary) 38%, var(--color-border));
-        --toggle-group-gap: var(--spacing-1);
-        --toggle-group-padding: var(--spacing-1);
-        --toggle-group-radius: var(--radius-md);
-        --toggle-default-bg-pressed: var(--color-primary);
-        --toggle-default-border-color-pressed: var(--color-primary);
-        --toggle-default-color-pressed: var(--color-primary-foreground);
-      }
-
-      .customItem {
-        --toggle-group-item-radius: var(--radius-sm);
-        --toggle-padding-x-md: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
+- `data-slot="toggle-group-root"` and `data-slot="toggle-group-root-provider"` are stable root selectors.
+- `data-slot="toggle-group-item"` is the stable item selector.
+- `data-scope="toggle-group"` and `data-part="root" | "item"` come from Ark.
+- `data-state="on" | "off"` is written on each item.
+- `data-orientation="horizontal" | "vertical"` is written on root and item parts.
+- `data-disabled` and `data-focus` are Ark state attributes.
+- `data-variant` and `data-size` reflect the Moduix visual props.

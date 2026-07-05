@@ -1,22 +1,103 @@
-import type { ComponentProps } from 'react';
-import {
-  Alert,
-  AlertContent,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  Button,
-  CheckIcon,
-  InfoIcon,
-} from 'moduix';
-import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { Alert, Button, CheckIcon } from '@moduix/react';
+import { Info as InfoIcon } from 'lucide-react';
+import { useState, type ComponentProps } from 'react';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './alert.module.css';
 
-const variants = ['default', 'info', 'success', 'warning', 'destructive'] as const;
+const statuses = ['neutral', 'info', 'success', 'warning', 'error'] as const;
 
-export const alertOverrideCssProperties: CssPropertyInput[] = [
+const basicAlert = {
+  title: 'Update available',
+  description: 'Install the latest version when your workflow allows it.',
+};
+
+const iconAlert = {
+  title: 'Workspace sync is active',
+  description: 'Changes are being synced across all connected devices.',
+};
+
+const errorAlert = {
+  title: 'Payment failed',
+  description: 'Your payment could not be processed. Check the payment method and try again.',
+};
+
+const actionAlert = {
+  title: 'Storage is almost full',
+  description:
+    'You are using 92% of the available storage. Archive old uploads or upgrade the plan.',
+  primaryAction: 'Review uploads',
+  secondaryAction: 'Dismiss',
+};
+
+const headingAlert = {
+  title: 'Billing issue',
+  description: 'Use asChild when the surrounding page needs a different heading level.',
+};
+
+export const alertExampleCss = `
+  .alert-demo {
+    max-width: 32rem;
+  }
+`;
+
+export const alertStatusesCss = `
+  .alert-stack {
+    display: grid;
+    width: min(38rem, 100%);
+    gap: var(--spacing-3);
+  }
+`;
+
+export const alertCustomCompositionCss = `
+  .alert-custom {
+    --alert-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
+    --alert-border-color: color-mix(in oklab, var(--color-primary) 38%, transparent);
+    --alert-indicator-color: var(--color-primary);
+    --alert-radius: var(--radius-md);
+    --alert-shadow: var(--shadow-sm);
+
+    max-width: 32rem;
+  }
+
+  .alert-actions {
+    display: flex;
+    flex-wrap: wrap;
+    margin-block-start: var(--spacing-2);
+    gap: var(--spacing-2);
+  }
+`;
+
+export const alertBasicData = `const alert = {
+  title: 'Update available',
+  description: 'Install the latest version when your workflow allows it.',
+};`;
+
+export const alertIconData = `const alert = {
+  title: 'Workspace sync is active',
+  description: 'Changes are being synced across all connected devices.',
+};`;
+
+export const alertStatusesData = `const statuses = ['neutral', 'info', 'success', 'warning', 'error'] as const;`;
+
+export const alertErrorData = `const alert = {
+  title: 'Payment failed',
+  description: 'Your payment could not be processed. Check the payment method and try again.',
+};`;
+
+export const alertActionsData = `const alert = {
+  title: 'Storage is almost full',
+  description: 'You are using 92% of the available storage. Archive old uploads or upgrade the plan.',
+  primaryAction: 'Review uploads',
+  secondaryAction: 'Dismiss',
+};`;
+
+export const alertHeadingData = `const alert = {
+  title: 'Billing issue',
+  description: 'Use asChild when the surrounding page needs a different heading level.',
+};`;
+
+export const alertCssProperties: CssPropertyInput[] = [
   ['--alert-bg', 'var(--alert-bg-default, var(--color-card))', 'Controls alert background.'],
   [
     '--alert-border-color',
@@ -42,16 +123,25 @@ export const alertOverrideCssProperties: CssPropertyInput[] = [
     'Controls description line-height.',
   ],
   ['--alert-gap', 'var(--spacing-3)', 'Controls root column gap.'],
-  ['--alert-icon-color', 'var(--alert-icon-color-default, currentColor)', 'Controls icon color.'],
-  ['--alert-icon-offset', '0.125rem', 'Controls icon vertical offset.'],
-  ['--alert-icon-size', '1rem', 'Controls icon size.'],
+  [
+    '--alert-indicator-color',
+    'var(--alert-indicator-color-default, currentColor)',
+    'Controls indicator color.',
+  ],
+  ['--alert-indicator-offset', '0.125rem', 'Controls indicator vertical offset.'],
+  ['--alert-indicator-size', '1rem', 'Controls indicator size.'],
   ['--alert-padding', 'var(--spacing-4)', 'Controls alert padding.'],
   ['--alert-radius', 'var(--radius-lg)', 'Controls alert border radius.'],
   ['--alert-shadow', 'none', 'Controls alert shadow.'],
   [
+    '--color-primary',
+    'oklch(0.546 0.215 262.88)',
+    'Shared primary palette token used by the info status.',
+  ],
+  [
     '--color-success',
     'oklch(0.627 0.194 149.214)',
-    'Shared success palette token used by the success variant.',
+    'Shared success palette token used by the success status.',
   ],
   [
     '--alert-title-color',
@@ -64,45 +154,17 @@ export const alertOverrideCssProperties: CssPropertyInput[] = [
   [
     '--color-warning',
     'oklch(0.795 0.184 86.047)',
-    'Shared warning palette token used by the warning variant.',
+    'Shared warning palette token used by the warning status.',
   ],
-];
-
-export const alertPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--alert-bg', 'var(--alert-bg-default, var(--color-card))', 'Controls alert background.'],
   [
-    '--alert-border-color',
-    'var(--alert-border-color-default, var(--color-border))',
-    'Controls alert border color.',
+    '--color-destructive',
+    'theme destructive',
+    'Shared destructive palette token used by the error status.',
   ],
-  ['--alert-border-width', 'var(--border-width-sm)', 'Controls alert border width.'],
-  ['--alert-color', 'var(--alert-color-default)', 'Controls alert text color.'],
-  ['--alert-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
-  ['--alert-gap', 'var(--spacing-3)', 'Controls root column gap.'],
-  ['--alert-icon-color', 'var(--alert-icon-color-default)', 'Controls icon color.'],
-  ['--alert-icon-size', '1rem', 'Controls icon size.'],
-  ['--alert-padding', 'var(--spacing-4)', 'Controls alert padding.'],
-  ['--alert-radius', 'var(--radius-lg)', 'Controls alert border radius.'],
-  ['--alert-shadow', 'none', 'Controls alert shadow.'],
 ];
 
-export function AlertCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={alertOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function AlertCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={alertPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
+export function AlertCssPropertiesPanel() {
+  return <CSSPropertiesReferenceTable properties={alertCssProperties.map(normalizeCssProperty)} />;
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
@@ -111,87 +173,94 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function AlertExample(props: ComponentProps<typeof Alert>) {
+export function AlertExample(props: ComponentProps<typeof Alert.Root>) {
   return (
-    <Alert {...props}>
-      <AlertContent>
-        <AlertTitle>Update available</AlertTitle>
-        <AlertDescription>
-          Install the latest version when your workflow allows it.
-        </AlertDescription>
-      </AlertContent>
-    </Alert>
+    <Alert.Root className={styles.demo} {...props}>
+      <Alert.Content>
+        <Alert.Title>{basicAlert.title}</Alert.Title>
+        <Alert.Description>{basicAlert.description}</Alert.Description>
+      </Alert.Content>
+    </Alert.Root>
   );
 }
 
 export function AlertWithIconExample() {
   return (
-    <Alert variant="info">
-      <AlertIcon>
+    <Alert.Root status="info" className={styles.demo}>
+      <Alert.Indicator>
         <InfoIcon />
-      </AlertIcon>
-      <AlertContent>
-        <AlertTitle>Workspace sync is active</AlertTitle>
-        <AlertDescription>Changes are being synced across all connected devices.</AlertDescription>
-      </AlertContent>
-    </Alert>
+      </Alert.Indicator>
+      <Alert.Content>
+        <Alert.Title>{iconAlert.title}</Alert.Title>
+        <Alert.Description>{iconAlert.description}</Alert.Description>
+      </Alert.Content>
+    </Alert.Root>
   );
 }
 
-export function AlertVariantsExample() {
+export function AlertStatusesExample() {
   return (
     <div className={styles.stack}>
-      {variants.map((variant) => (
-        <Alert key={variant} variant={variant}>
-          <AlertIcon>{variant === 'success' ? <CheckIcon /> : <InfoIcon />}</AlertIcon>
-          <AlertContent>
-            <AlertTitle>{variant}</AlertTitle>
-            <AlertDescription>Use this alert for {variant} feedback.</AlertDescription>
-          </AlertContent>
-        </Alert>
+      {statuses.map((status) => (
+        <Alert.Root key={status} status={status}>
+          <Alert.Indicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</Alert.Indicator>
+          <Alert.Content>
+            <Alert.Title>{status}</Alert.Title>
+            <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
+          </Alert.Content>
+        </Alert.Root>
       ))}
     </div>
   );
 }
 
-export function AlertDestructiveExample() {
+export function AlertErrorExample() {
   return (
-    <Alert variant="destructive">
-      <AlertIcon>
+    <Alert.Root status="error" className={styles.demo}>
+      <Alert.Indicator>
         <InfoIcon />
-      </AlertIcon>
-      <AlertContent>
-        <AlertTitle>Payment failed</AlertTitle>
-        <AlertDescription>
-          Your payment could not be processed. Check the payment method and try again.
-        </AlertDescription>
-      </AlertContent>
-    </Alert>
+      </Alert.Indicator>
+      <Alert.Content>
+        <Alert.Title>{errorAlert.title}</Alert.Title>
+        <Alert.Description>{errorAlert.description}</Alert.Description>
+      </Alert.Content>
+    </Alert.Root>
   );
 }
 
-export function CustomCompositionAlertExample() {
+export function AlertActionsExample() {
   const [visible, setVisible] = useState(true);
 
   if (!visible) return null;
 
   return (
-    <Alert variant="warning" className={styles.customAlert}>
-      <AlertIcon>
+    <Alert.Root status="warning" className={styles.customAlert}>
+      <Alert.Indicator>
         <InfoIcon />
-      </AlertIcon>
-      <AlertContent>
-        <AlertTitle>Storage is almost full</AlertTitle>
-        <AlertDescription>
-          You are using 92% of the available storage. Archive old uploads or upgrade the plan.
-        </AlertDescription>
+      </Alert.Indicator>
+      <Alert.Content>
+        <Alert.Title>{actionAlert.title}</Alert.Title>
+        <Alert.Description>{actionAlert.description}</Alert.Description>
         <div className={styles.actions}>
-          <Button size="sm">Review uploads</Button>
+          <Button size="sm">{actionAlert.primaryAction}</Button>
           <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
-            Dismiss
+            {actionAlert.secondaryAction}
           </Button>
         </div>
-      </AlertContent>
-    </Alert>
+      </Alert.Content>
+    </Alert.Root>
+  );
+}
+
+export function AlertHeadingExample() {
+  return (
+    <Alert.Root status="info" className={styles.demo}>
+      <Alert.Content>
+        <Alert.Title asChild>
+          <h2>{headingAlert.title}</h2>
+        </Alert.Title>
+        <Alert.Description>{headingAlert.description}</Alert.Description>
+      </Alert.Content>
+    </Alert.Root>
   );
 }

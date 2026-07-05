@@ -1,0 +1,13 @@
+@layer ui.storybook {
+  .grid {
+    width: min(48rem, calc(100vw - 4rem));
+  }
+
+  .item {
+    min-width: 0;
+    padding: var(--spacing-4);
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-background);
+  }
+}

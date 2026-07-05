@@ -1,0 +1,170 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--toggle-content-gap, var(--spacing-2));
+    min-height: var(--toggle-size-md, var(--size-lg));
+    margin: 0;
+    border-style: solid;
+    border-width: var(--toggle-border-width, var(--border-width-sm));
+    border-radius: var(--toggle-radius, var(--radius-md));
+    padding-block: var(--toggle-padding-y-md, 0.5rem);
+    padding-inline: var(--toggle-padding-x-md, 1rem);
+    border-color: transparent;
+    background-color: transparent;
+    color: var(--toggle-color, var(--color-foreground));
+    appearance: none;
+    font: inherit;
+    font-size: var(--toggle-font-size, var(--text-sm));
+    font-weight: var(--toggle-font-weight, var(--weight-medium));
+    line-height: var(--toggle-line-height, var(--line-height-text-sm));
+    user-select: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color var(--toggle-transition, var(--transition-default)),
+      border-color var(--toggle-transition, var(--transition-default)),
+      color var(--toggle-transition, var(--transition-default)),
+      opacity var(--toggle-transition, var(--transition-default));
+
+    &:focus-visible {
+      outline: var(--toggle-focus-ring-width, var(--border-width-md)) solid
+        var(--toggle-focus-ring-color, var(--color-ring));
+      outline-offset: var(--toggle-focus-ring-offset, -1px);
+    }
+
+    &[data-disabled] {
+      opacity: var(--toggle-disabled-opacity, var(--opacity-disabled));
+      cursor: default;
+      pointer-events: none;
+    }
+
+    & :where(svg) {
+      display: block;
+      width: var(--toggle-icon-size, 1rem);
+      height: var(--toggle-icon-size, 1rem);
+      flex-shrink: 0;
+    }
+
+    &[data-variant='default'] {
+      border-color: var(--toggle-default-border-color, var(--color-border));
+      background-color: var(--toggle-default-bg, var(--color-background));
+      color: var(--toggle-default-color, var(--toggle-color, var(--color-foreground)));
+
+      @media (hover: hover) {
+        &[data-state='off']:not([data-disabled]):hover {
+          background-color: var(--toggle-default-bg-hover, var(--color-accent));
+        }
+      }
+
+      &[data-state='off']:not([data-disabled]):active {
+        background-color: var(--toggle-default-bg-active, var(--color-accent));
+      }
+
+      &[data-state='on'] {
+        border-color: var(--toggle-default-border-color-pressed, var(--color-primary));
+        background-color: var(--toggle-default-bg-pressed, var(--color-primary));
+        color: var(--toggle-default-color-pressed, var(--color-primary-foreground));
+      }
+    }
+
+    &[data-variant='outline'] {
+      border-color: var(--toggle-outline-border-color, var(--color-border));
+      background-color: var(--toggle-outline-bg, var(--color-background));
+      color: var(--toggle-outline-color, var(--toggle-color, var(--color-foreground)));
+
+      @media (hover: hover) {
+        &[data-state='off']:not([data-disabled]):hover {
+          background-color: var(--toggle-outline-bg-hover, var(--color-accent));
+        }
+      }
+
+      &[data-state='off']:not([data-disabled]):active {
+        background-color: var(--toggle-outline-bg-active, var(--color-accent));
+      }
+
+      &[data-state='on'] {
+        border-color: var(--toggle-outline-border-color-pressed, var(--color-primary));
+        background-color: var(--toggle-outline-bg-pressed, var(--color-primary));
+        color: var(--toggle-outline-color-pressed, var(--color-primary-foreground));
+      }
+    }
+
+    &[data-variant='ghost'] {
+      border-color: var(--toggle-ghost-border-color, transparent);
+      background-color: var(--toggle-ghost-bg, transparent);
+      color: var(--toggle-ghost-color, var(--toggle-color, var(--color-foreground)));
+
+      @media (hover: hover) {
+        &[data-state='off']:not([data-disabled]):hover {
+          background-color: var(--toggle-ghost-bg-hover, var(--color-accent));
+        }
+      }
+
+      &[data-state='off']:not([data-disabled]):active {
+        background-color: var(--toggle-ghost-bg-active, var(--color-accent));
+      }
+
+      &[data-state='on'] {
+        background-color: var(--toggle-ghost-bg-pressed, var(--color-accent));
+        color: var(--toggle-ghost-color-pressed, var(--color-foreground));
+      }
+    }
+
+    &[data-size='xs'] {
+      min-height: var(--toggle-size-xs, var(--size-xs));
+      padding-block: var(--toggle-padding-y-xs, 0.25rem);
+      padding-inline: var(--toggle-padding-x-xs, 0.625rem);
+      font-size: var(--toggle-font-size-xs, var(--text-xs));
+      line-height: var(--toggle-line-height-xs, var(--line-height-text-xs));
+    }
+
+    &[data-size='sm'] {
+      min-height: var(--toggle-size-sm, var(--size-sm));
+      padding-block: var(--toggle-padding-y-sm, 0.375rem);
+      padding-inline: var(--toggle-padding-x-sm, 0.75rem);
+    }
+
+    &[data-size='lg'] {
+      min-height: var(--toggle-size-lg, var(--size-xl));
+      padding-block: var(--toggle-padding-y-lg, 0.625rem);
+      padding-inline: var(--toggle-padding-x-lg, 1.25rem);
+      font-size: var(--toggle-font-size-lg, var(--text-md));
+      line-height: var(--toggle-line-height-lg, var(--line-height-text-md));
+    }
+
+    &[data-size='icon-sm'],
+    &[data-size='icon-md'],
+    &[data-size='icon-lg'] {
+      padding: 0;
+      gap: 0;
+    }
+
+    &[data-size='icon-sm'] {
+      width: var(--toggle-size-icon-sm, var(--size-sm));
+      min-width: var(--toggle-size-icon-sm, var(--size-sm));
+      height: var(--toggle-size-icon-sm, var(--size-sm));
+    }
+
+    &[data-size='icon-md'] {
+      width: var(--toggle-size-icon-md, var(--size-lg));
+      min-width: var(--toggle-size-icon-md, var(--size-lg));
+      height: var(--toggle-size-icon-md, var(--size-lg));
+    }
+
+    &[data-size='icon-lg'] {
+      width: var(--toggle-size-icon-lg, var(--size-xl));
+      min-width: var(--toggle-size-icon-lg, var(--size-xl));
+      height: var(--toggle-size-icon-lg, var(--size-xl));
+    }
+  }
+
+  .indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+  }
+}

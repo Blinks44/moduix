@@ -1,0 +1,76 @@
+.root,
+.verticalRoot,
+.customRoot {
+  --marquee-width: 32rem;
+  max-width: calc(100vw - 2rem);
+}
+
+.verticalRoot {
+  --marquee-width: 14rem;
+  --marquee-vertical-height: 18rem;
+}
+
+.customRoot {
+  --marquee-width: 34rem;
+  --marquee-edge-size: 25%;
+  --marquee-edge-color: var(--color-card);
+  padding-block: var(--spacing-3);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-card);
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  min-width: max-content;
+  padding: var(--spacing-2) var(--spacing-3);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-muted);
+  color: var(--color-foreground);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  line-height: var(--line-height-text-sm);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.customRoot .item {
+  border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-primary) 10%, var(--color-card));
+}
+
+.mark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.stack,
+.providerStack {
+  display: grid;
+  gap: var(--spacing-3);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  justify-content: flex-end;
+}
+
+.status {
+  display: flex;
+  gap: var(--spacing-3);
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+}

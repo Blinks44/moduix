@@ -1,0 +1,105 @@
+@layer ui.storybook {
+  .stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+  }
+
+  .hint {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-text-xs);
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2rem;
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding-inline: var(--spacing-3);
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font: inherit;
+    cursor: pointer;
+    transition:
+      background-color var(--transition-default),
+      border-color var(--transition-default);
+
+    &:hover {
+      background-color: var(--color-accent);
+    }
+
+    &:focus-visible {
+      outline: var(--border-width-sm) solid var(--color-ring);
+      outline-offset: var(--border-width-sm);
+    }
+  }
+
+  .inlineItems {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--radio-group-gap, var(--spacing-2));
+  }
+
+  .customRoot {
+    gap: var(--spacing-3);
+  }
+
+  .customLabel {
+    color: var(--color-primary);
+  }
+
+  .customItem {
+    gap: var(--spacing-3);
+  }
+
+  .customControl {
+    border-color: var(--color-primary);
+
+    &[data-state='checked'] {
+      background-color: var(--color-primary);
+    }
+  }
+
+  .customText {
+    color: var(--color-primary);
+  }
+
+  .cardItem {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    width: 14rem;
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-3);
+    gap: var(--spacing-2);
+
+    &[data-state='checked'] {
+      border-color: var(--color-primary);
+      background-color: var(--color-accent);
+    }
+  }
+
+  .indicatorRoot {
+    padding: var(--spacing-1);
+  }
+
+  .indicatorStack {
+    display: grid;
+    gap: var(--spacing-2);
+  }
+
+  .fieldset {
+    width: fit-content;
+    max-width: min(20rem, 100%);
+    margin-inline: auto;
+  }
+
+  .groupIndicator {
+    border-radius: var(--radius-md);
+  }
+}

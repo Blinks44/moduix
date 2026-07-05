@@ -1,92 +1,56 @@
-import {
-  Button,
-  Popover,
-  PopoverBackdrop,
-  PopoverPopup,
-  PopoverPortal,
-  PopoverPositioner,
-  PopoverTrigger,
-} from 'moduix';
+import { Button, Popover } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './animations.module.css';
 
 export const animationMotionCssProperties: CssPropertyInput[] = [
-  ['--popover-transition', 'var(--transition-default)', 'Controls popup transition timing.'],
+  ['--popover-transition', 'var(--duration-fast)', 'Controls content animation duration.'],
   [
-    '--popover-backdrop-transition',
-    'var(--transition-default)',
-    'Controls backdrop transition timing.',
-  ],
-  [
-    '--popover-popup-starting-opacity',
+    '--popover-content-starting-opacity',
     '0',
-    'Controls popup opacity while the element is entering.',
+    'Controls content opacity while the element is entering.',
   ],
-  ['--popover-popup-ending-opacity', '0', 'Controls popup opacity while the element is leaving.'],
+  ['--popover-content-ending-opacity', '0', 'Controls content exit opacity.'],
   [
-    '--popover-popup-starting-scale',
+    '--popover-content-starting-scale',
     'var(--scale-popup)',
-    'Controls popup scale while the element is entering.',
+    'Controls content scale while the element is entering.',
   ],
   [
-    '--popover-popup-ending-scale',
+    '--popover-content-ending-scale',
     'var(--scale-popup)',
-    'Controls popup scale while the element is leaving.',
+    'Controls content scale while the element is leaving.',
   ],
   [
-    '--popover-popup-starting-translate-x',
+    '--popover-content-starting-translate-x',
     '0',
-    'Controls popup horizontal offset while the element is entering.',
+    'Controls content horizontal offset while the element is entering.',
   ],
   [
-    '--popover-popup-ending-translate-x',
+    '--popover-content-ending-translate-x',
     '0',
-    'Controls popup horizontal offset while the element is leaving.',
+    'Controls content horizontal offset while the element is leaving.',
   ],
   [
-    '--popover-popup-starting-translate-y',
+    '--popover-content-starting-translate-y',
     '0',
-    'Controls popup vertical offset while the element is entering.',
+    'Controls content vertical offset while the element is entering.',
   ],
   [
-    '--popover-popup-ending-translate-y',
+    '--popover-content-ending-translate-y',
     '0',
-    'Controls popup vertical offset while the element is leaving.',
-  ],
-  [
-    '--popover-backdrop-starting-opacity',
-    '0',
-    'Controls backdrop opacity while the element is entering.',
-  ],
-  [
-    '--popover-backdrop-ending-opacity',
-    '0',
-    'Controls backdrop opacity while the element is leaving.',
-  ],
-  [
-    '--popover-backdrop-starting-blur',
-    'none',
-    'Controls backdrop blur while the element is entering.',
-  ],
-  [
-    '--popover-backdrop-ending-blur',
-    'none',
-    'Controls backdrop blur while the element is leaving.',
+    'Controls content vertical offset while the element is leaving.',
   ],
 ];
 
 export const animationMotionPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--popover-transition', '180ms ease', 'Quick way to retune popup timing.'],
-  ['--popover-backdrop-transition', '180ms ease', 'Quick way to retune backdrop timing.'],
-  ['--popover-popup-starting-opacity', '0', 'Popup enter opacity.'],
-  ['--popover-popup-ending-opacity', '0', 'Popup exit opacity.'],
-  ['--popover-popup-starting-scale', '1', 'Popup enter scale.'],
-  ['--popover-popup-ending-scale', '1', 'Popup exit scale.'],
-  ['--popover-popup-starting-translate-y', '0.75rem', 'Popup enter vertical offset.'],
-  ['--popover-popup-ending-translate-y', '0.75rem', 'Popup exit vertical offset.'],
-  ['--popover-backdrop-starting-opacity', '0', 'Backdrop enter opacity.'],
-  ['--popover-backdrop-ending-opacity', '0', 'Backdrop exit opacity.'],
+  ['--popover-transition', '180ms ease', 'Quick way to retune content timing.'],
+  ['--popover-content-starting-opacity', '0', 'Content enter opacity.'],
+  ['--popover-content-ending-opacity', '0', 'Content exit opacity.'],
+  ['--popover-content-starting-scale', '1', 'Content enter scale.'],
+  ['--popover-content-ending-scale', '1', 'Content exit scale.'],
+  ['--popover-content-starting-translate-y', '0.75rem', 'Content enter vertical offset.'],
+  ['--popover-content-ending-translate-y', '0.75rem', 'Content exit vertical offset.'],
 ];
 
 type RecipeCardProps = {
@@ -111,18 +75,18 @@ function RecipeCard({ title, description, popupClassName }: RecipeCardProps) {
         <p className={styles.recipeDescription}>{description}</p>
       </div>
 
-      <Popover>
-        <PopoverTrigger render={<Button variant="outline" />}>Preview</PopoverTrigger>
-        <PopoverPortal>
-          <PopoverPositioner sideOffset={10}>
-            <PopoverPopup className={`${styles.popup} ${popupClassName}`}>
-              <div className={styles.popupHeader}>
-                <p className={styles.label}>{title}</p>
-                <p className={styles.caption}>Same structure, different motion recipe.</p>
-              </div>
-            </PopoverPopup>
-          </PopoverPositioner>
-        </PopoverPortal>
+      <Popover positioning={{ gutter: 10 }}>
+        <Popover.Trigger asChild>
+          <Button variant="outline">Preview</Button>
+        </Popover.Trigger>
+        <Popover.Positioner>
+          <Popover.Content className={`${styles.popup} ${popupClassName}`}>
+            <div className={styles.popupHeader}>
+              <p className={styles.label}>{title}</p>
+              <p className={styles.caption}>Same structure, different motion recipe.</p>
+            </div>
+          </Popover.Content>
+        </Popover.Positioner>
       </Popover>
     </div>
   );
@@ -178,25 +142,24 @@ export function MotionRecipesExample() {
 export function MotionPlaygroundExample() {
   return (
     <div className={styles.stack}>
-      <Popover>
+      <Popover positioning={{ gutter: 12 }}>
         <div className={styles.playgroundTrigger}>
-          <PopoverTrigger render={<Button />}>Open motion playground</PopoverTrigger>
+          <Popover.Trigger asChild>
+            <Button>Open motion playground</Button>
+          </Popover.Trigger>
         </div>
-        <PopoverPortal>
-          <PopoverBackdrop className={styles.playgroundBackdrop} />
-          <PopoverPositioner sideOffset={12}>
-            <PopoverPopup className={styles.playgroundPopup}>
-              <div className={styles.playgroundHeader}>
-                <span className={styles.playgroundKicker}>Animations</span>
-                <p className={styles.playgroundTitle}>Tune motion with variables</p>
-                <p className={styles.playgroundDescription}>
-                  Change the phase-specific popover tokens in the Playground tab to test fade,
-                  slide, zoom, or mixed motion on the live component.
-                </p>
-              </div>
-            </PopoverPopup>
-          </PopoverPositioner>
-        </PopoverPortal>
+        <Popover.Positioner>
+          <Popover.Content className={styles.playgroundPopup}>
+            <div className={styles.playgroundHeader}>
+              <span className={styles.playgroundKicker}>Animations</span>
+              <p className={styles.playgroundTitle}>Tune motion with variables</p>
+              <p className={styles.playgroundDescription}>
+                Change the phase-specific popover tokens in the Playground tab to test fade, slide,
+                zoom, or mixed motion on the live component.
+              </p>
+            </div>
+          </Popover.Content>
+        </Popover.Positioner>
       </Popover>
     </div>
   );

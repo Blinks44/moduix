@@ -1,0 +1,55 @@
+@layer ui.storybook {
+  .scrollBody {
+    display: grid;
+    gap: var(--spacing-4);
+    max-height: 50dvh;
+  }
+
+  .noDragArea {
+    padding: var(--spacing-4);
+    border: var(--border-width-sm) dashed var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-muted);
+  }
+
+  .triggerGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+
+  .providerDemo {
+    display: grid;
+    gap: var(--spacing-4);
+  }
+
+  .field {
+    display: grid;
+    gap: var(--spacing-2);
+
+    & input {
+      min-height: var(--size-lg);
+      padding: 0 var(--spacing-3);
+      border: var(--border-width-sm) solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-background);
+      color: var(--color-foreground);
+      font: inherit;
+    }
+  }
+
+  .indentStage {
+    position: relative;
+    min-height: 360px;
+    overflow: hidden;
+    background: var(--color-foreground);
+  }
+
+  .indentSurface {
+    display: grid;
+    min-height: 360px;
+    place-items: center;
+    padding: var(--spacing-6);
+    background: var(--color-background);
+  }
+}

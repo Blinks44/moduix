@@ -1,0 +1,48 @@
+.demoRoot {
+  --angle-slider-size: 9rem;
+}
+
+.customRoot {
+  --angle-slider-color: var(--color-chart-4);
+  --angle-slider-control-bg: color-mix(in oklab, var(--color-chart-4) 10%, var(--color-card));
+  --angle-slider-indicator-bg: var(--color-chart-4);
+  --angle-slider-label-color: var(--color-foreground);
+  --angle-slider-marker-active-color: color-mix(
+    in oklab,
+    var(--color-chart-4) 65%,
+    var(--color-foreground)
+  );
+  --angle-slider-marker-color: color-mix(in oklab, var(--color-chart-4) 18%, var(--color-border));
+  --angle-slider-ring-thickness: 1rem;
+  --angle-slider-size: 10rem;
+  --angle-slider-thumb-bg: var(--color-chart-4);
+  --angle-slider-thumb-border-color: var(--color-background);
+  --angle-slider-thumb-size: 1.125rem;
+  --angle-slider-track-bg: color-mix(in oklab, var(--color-chart-4) 16%, var(--color-muted));
+}
+
+.providerLayout {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.providerButton {
+  min-height: 2.5rem;
+  padding-inline: 1rem;
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font: inherit;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-muted);
+  }
+
+  &:focus-visible {
+    outline: var(--border-width-md) solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}

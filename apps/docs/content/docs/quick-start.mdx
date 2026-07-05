@@ -1,21 +1,24 @@
 ---
 title: Quick start
-description: Install moduix and use it in your React application.
+description: Install moduix and use it in your application.
 icon: Rocket
 ---
 
 # Quick start
 
-moduix supports two installation paths:
+moduix supports two installation paths today:
 
 - Install the library as a regular npm package when you want package-managed updates.
 - Install components into your own project with `shadcn` when you want direct ownership over the
   source.
 
-| Choose this path            | When it fits best                                                                                                          |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| npm package                 | You want the fastest setup, updates through package management, imports from `moduix`, and styles from `moduix/style.css`. |
-| `shadcn` copy-owned install | You want generated source files inside your app, direct local customization, and imports from `@/components/moduix/*`.     |
+The current package target is `@moduix/react`, but the composition model and styling guidance in
+these docs are written to stay useful as moduix grows beyond one framework package.
+
+| Choose this path            | When it fits best                                                                                                                        |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| npm package                 | You want the fastest setup, updates through package management, imports from `@moduix/react`, and styles from `@moduix/react/style.css`. |
+| `shadcn` copy-owned install | You want generated source files inside your app, direct local customization, and imports from `@/components/moduix/*`.                   |
 
 ## Install As A Package
 
@@ -24,56 +27,54 @@ package management.
 
 ### 1. Install the package
 
-The components, CSS, and design tokens are shipped together, while Base UI stays as a peer
-dependency in your application:
+The components, CSS, and design tokens are shipped together. Ark UI is the primitive peer dependency:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
 
 ```bash
-npm install moduix @base-ui/react
+npm install @moduix/react @ark-ui/react
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm add moduix @base-ui/react
+pnpm add @moduix/react @ark-ui/react
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bun add moduix @base-ui/react
+bun add @moduix/react @ark-ui/react
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno add moduix @base-ui/react
+deno add @moduix/react @ark-ui/react
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aube add moduix @base-ui/react
+aube add @moduix/react @ark-ui/react
 ```
 
   </Tab>
 </Tabs>
 
-`@base-ui/react` stays in your application bundle, so moduix does not ship duplicate Base UI
-runtime.
+`@ark-ui/react` stays in your application bundle, so moduix does not ship a duplicate Ark UI runtime.
 
 ### 2. Add styles
 
 Import the required foundation stylesheet once in your application entry point:
 
 ```tsx
-import 'moduix/style.css';
+import '@moduix/react/style.css';
 ```
 
 This stylesheet is required. It provides the shared design tokens and base layer styles that
@@ -82,8 +83,8 @@ component CSS depends on. Component styles are still loaded alongside the compon
 If you want the optional reset, import it explicitly before the main stylesheet:
 
 ```tsx
-import 'moduix/reset.css';
-import 'moduix/style.css';
+import '@moduix/react/reset.css';
+import '@moduix/react/style.css';
 ```
 
 That keeps `style.css` focused on the global foundation, while unused component CSS can stay out of
@@ -91,19 +92,24 @@ the consuming bundle.
 
 ### 3. Use components
 
-Import the components and parts you need from `moduix`:
+Import the components and parts you need from `@moduix/react`:
 
 ```tsx
-import { Button, Dialog, DialogContent, DialogTitle, DialogTrigger } from 'moduix';
+import { Button, Dialog } from '@moduix/react';
 
 export function Example() {
   return (
-    <Dialog>
-      <DialogTrigger render={<Button />}>Open dialog</DialogTrigger>
-      <DialogContent>
-        <DialogTitle>Project settings</DialogTitle>
-      </DialogContent>
-    </Dialog>
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <Button>Open dialog</Button>
+      </Dialog.Trigger>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Title>Project settings</Dialog.Title>
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog.Root>
   );
 }
 ```
@@ -235,40 +241,40 @@ Install registry items from the moduix GitHub registry:
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/button
-npx shadcn@latest add Blinks44/moduix/accordion
+npx shadcn@latest add Blinks44/moduix/react-button
+npx shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/button
-pnpm dlx shadcn@latest add Blinks44/moduix/accordion
+pnpm dlx shadcn@latest add Blinks44/moduix/react-button
+pnpm dlx shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/button
-bunx shadcn@latest add Blinks44/moduix/accordion
+bunx shadcn@latest add Blinks44/moduix/react-button
+bunx shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/button
-deno x -A npm:shadcn@latest add Blinks44/moduix/accordion
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-button
+deno x -A npm:shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/button
-aubx shadcn@latest add Blinks44/moduix/accordion
+aubx shadcn@latest add Blinks44/moduix/react-button
+aubx shadcn@latest add Blinks44/moduix/react-accordion
 ```
 
   </Tab>
@@ -302,14 +308,7 @@ Import components from the generated files in your own project:
 
 ```tsx
 import { Button } from '@/components/moduix/button';
-import {
-  Accordion,
-  AccordionHeader,
-  AccordionItem,
-  AccordionPanel,
-  AccordionTrigger,
-  AccordionTriggerIcon,
-} from '@/components/moduix/accordion';
+import { Accordion } from '@/components/moduix/accordion';
 ```
 
 Most components are composed from named parts. This keeps behavior accessible while letting you

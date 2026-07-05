@@ -6,9 +6,11 @@ icon: BookOpen
 
 # moduix
 
-Moduix is a React component library for product interfaces. It keeps the interaction layer close to
-[Base UI](https://base-ui.com/), ships ready-made CSS and tokens, and favors explicit React parts
-over large configuration surfaces.
+Moduix is a component system for product interfaces. It keeps the interaction layer close to
+[Ark UI](https://ark-ui.com/), ships ready-made CSS and tokens, and favors explicit named parts
+over large configuration surfaces. The current shipped package is `@moduix/react`, but the broader
+direction is a shared component model that can grow across framework targets. Transitional
+compatibility remains only where the migration is not finished yet.
 
 The library supports two workflows:
 
@@ -29,7 +31,7 @@ delivery paths, the current `shadcn` preparation steps, and the required stylesh
       </h2>
       <p className="mt-3 text-sm leading-6 text-fd-muted-foreground">
         {
-          'I built moduix with the idea that the component layer should stay quiet: one external primitive foundation, plain CSS, and React composition instead of a stack of UI runtime dependencies.'
+          'I built moduix with the idea that the component layer should stay quiet: one external primitive foundation, plain CSS, and explicit composition instead of a stack of UI runtime dependencies.'
         }
       </p>
     </div>
@@ -48,7 +50,7 @@ delivery paths, the current `shadcn` preparation steps, and the required stylesh
       <div className="grid gap-2 sm:grid-cols-3">
         <div className="rounded-md border bg-fd-background p-3">
           <p className="text-xs text-fd-muted-foreground">{'Behavior'}</p>
-          <p className="mt-1 text-sm font-medium text-fd-foreground">{'Base UI'}</p>
+          <p className="mt-1 text-sm font-medium text-fd-foreground">{'Ark UI'}</p>
         </div>
         <div className="rounded-md border bg-fd-background p-3">
           <p className="text-xs text-fd-muted-foreground">{'Styling'}</p>
@@ -56,12 +58,12 @@ delivery paths, the current `shadcn` preparation steps, and the required stylesh
         </div>
         <div className="rounded-md border bg-fd-background p-3">
           <p className="text-xs text-fd-muted-foreground">{'API'}</p>
-          <p className="mt-1 text-sm font-medium text-fd-foreground">{'React parts'}</p>
+          <p className="mt-1 text-sm font-medium text-fd-foreground">{'named parts'}</p>
         </div>
       </div>
       <p className="text-xs leading-5 text-fd-muted-foreground">
         {
-          'Base UI owns the hard accessibility and interaction primitives; moduix keeps the product surface, defaults, tokens, and examples close to your application code.'
+          'Ark UI defines the target primitive model for accessibility and interaction; moduix keeps the product surface, defaults, tokens, and examples close to your application code.'
         }
       </p>
     </div>
@@ -70,25 +72,45 @@ delivery paths, the current `shadcn` preparation steps, and the required stylesh
 
 moduix is not trying to replace [shadcn/ui](https://ui.shadcn.com/). shadcn/ui is a strong
 inspiration for the composition-first API and the idea that components should stay easy to read,
-own, and customize. moduix explores that model with Base UI primitives and a plain CSS styling
+own, and customize. moduix explores that model with Ark UI primitives and a plain CSS styling
 layer.
 
 ## Start Here
 
+Start with setup and the shared design foundation.
+
+| Page                             | Use it for                                                                       |
+| -------------------------------- | -------------------------------------------------------------------------------- |
+| [Quick start](/docs/quick-start) | Pick the install path, set up styles, and render the first components.           |
+| [Tokens](/docs/tokens)           | Learn the shared design token system, global overrides, and component fallbacks. |
+
+## Guides
+
+Use these pages when you are past installation and need composition rules, Ark-side helpers, or
+motion tuning.
+
 | Page                                               | Use it for                                                                         |
 | -------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| [Quick start](/docs/quick-start)                   | Pick the install path, set up styles, and render the first components.             |
-| [Composition Patterns](/docs/composition-patterns) | Understand wrapper-first composition, visible parts, and low-level escape hatches. |
-| [Tokens](/docs/tokens)                             | Learn the shared design token system, global overrides, and component fallbacks.   |
-| [Animations](/docs/animations)                     | Tune motion with global timing tokens and component-local appearance variables.    |
+| [Animations](/docs/animations)                     | Tune motion with shared timing tokens and component-local appearance variables.    |
+| [Composition Patterns](/docs/composition-patterns) | Understand explicit parts, product wrappers, and low-level escape hatches.         |
+| [Utilities](/docs/utilities)                       | Use Ark utilities directly when moduix does not ship a styled wrapper for the job. |
+
+## Workflow References
+
+These sections live alongside the component catalog and are best read when the use case appears.
+
+| Page                             | Use it for                                                                 |
+| -------------------------------- | -------------------------------------------------------------------------- |
+| [Collections](/docs/collections) | Model list, tree, async, and selection data used by collection components. |
+| [Forms](/docs/forms)             | Use native forms or integrate moduix controls with a form-state library.   |
 
 ## What You Get
 
-- React components built on accessible Base UI primitives.
+- Components built on accessible Ark UI primitives.
 - Default styles that work immediately, without owning your application reset.
 - CSS variables for fast theming and focused per-component customization.
 - A composition-first API with named parts instead of one large configuration surface.
-- A dependency-light design centered on Base UI as the primitive foundation.
+- A dependency-light design centered on Ark UI as the primary primitive foundation.
 - A path for both package-managed usage and copy-owned component code.
 - Documentation examples that show practical usage and customization patterns.
 - A CSS playground in component previews, so you can test style changes live.
@@ -97,7 +119,7 @@ layer.
 
 This project could not exist without the work of these teams and communities:
 
-- [Base UI](https://base-ui.com/) for the accessible React primitives that power the components.
+- [Ark UI](https://ark-ui.com/) for the accessible primitives that anchor the library direction.
 - [shadcn/ui](https://ui.shadcn.com/) for the API inspiration and the culture of practical,
   readable component composition.
 - [Tailwind CSS](https://tailwindcss.com/) for the reset.css implementation.

@@ -1,0 +1,89 @@
+---
+title: TanStack Form
+description: Integrate moduix native and compound controls with TanStack Form.
+icon: Braces
+---
+
+import * as FormsDocs from '@/components/examples/forms';
+
+# TanStack Form
+
+TanStack Form fields are controlled. Pass `field.state.value` to the component, then map the
+component callback back to `field.handleChange`.
+
+```bash
+npm install @tanstack/react-form
+```
+
+## Mapping
+
+| Control                                         | TanStack Form wiring                                                   |
+| ----------------------------------------------- | ---------------------------------------------------------------------- |
+| `Field.Input`, `Field.Textarea`, `Field.Select` | Pass `field.state.value` and map the native change event.              |
+| `Select`                                        | Convert the scalar field value to and from Ark's string-array `value`. |
+| `Combobox`                                      | Use the same value mapping and keep filtering in `onInputValueChange`. |
+| `Checkbox`                                      | Map `details.checked === true` to the boolean field value.             |
+
+Define every field in `defaultValues`. Call `field.handleBlur` from the actual interaction
+boundary so touched state and blur validation remain accurate.
+
+For shared or cross-field validation, use a form-level Standard Schema validator. The component
+mapping below stays the same.
+
+## Complete form
+
+This example integrates `Input`, `Select`, `Combobox`, `Textarea`, and `Checkbox`, validates on
+submit, and uses `form.Subscribe` only for the submit state. `noValidate` keeps the demo's error
+flow inside TanStack Form; omit it when native browser validation should run first.
+
+<Preview>
+  <FormsDocs.TanStackFormExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tanstack-form/complete-form.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .form {
+        width: min(24rem, 100%);
+        margin-inline: auto;
+      }
+
+      .fields {
+        display: grid;
+        gap: var(--spacing-4);
+      }
+
+      .fields [data-slot="field-root"],
+      .fields [data-slot="select-root"],
+      .fields [data-slot="combobox-root"] {
+        width: 100%;
+      }
+
+      .fields [data-slot="select-root"] {
+        --select-width: 100%;
+      }
+
+      .fields [data-slot="combobox-root"] {
+        --combobox-width: 100%;
+      }
+
+      .submit {
+        width: 100%;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Important details
+
+- For single selection, pass `field.state.value ? [field.state.value] : []` and read
+  `details.value[0] ?? ""`.
+- Call `field.handleBlur` from `Select.onInteractOutside` or `Combobox.Input.onBlur`.
+- Keep `Select.HiddenSelect` mounted for native semantics and reset synchronization.
+- Keep `Checkbox.HiddenInput` mounted and map its checked state to a boolean field value.
+- TanStack Form intentionally does not manage DOM focus. If you want to focus the first invalid
+  field, implement it in `onSubmitInvalid` using the rendered `aria-invalid` controls.
+- Use `form.Subscribe` for derived form state instead of reading `form.state` during render.

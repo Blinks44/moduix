@@ -1,0 +1,22 @@
+.stack {
+  display: grid;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.hint {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.customButton {
+  --number-input-button-bg: var(--color-muted);
+  --number-input-button-bg-hover: var(--color-accent);
+  --number-input-icon-size: 1rem;
+}
+
+.customInput {
+  --number-input-input-width: 7rem;
+  --number-input-input-font-size: var(--text-lg);
+}

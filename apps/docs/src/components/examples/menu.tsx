@@ -1,66 +1,40 @@
-import type { ComponentProps } from 'react';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  Button,
-  ChevronDownIcon,
-  InfoIcon,
-  MapIcon,
-  Menu,
-  MenuArrow,
-  MenuBackdrop,
-  MenuCheckboxItem,
-  MenuCheckboxItemIndicator,
-  MenuContent,
-  MenuGroup,
-  MenuGroupLabel,
-  MenuItem,
-  MenuItemShortcut,
-  MenuItemText,
-  MenuItemTextContent,
-  MenuItemTextIcon,
-  MenuItemTextLabel,
-  MenuLinkItem,
-  MenuPopup,
-  MenuPortal,
-  MenuPositioner,
-  MenuRadioGroup,
-  MenuRadioItem,
-  MenuRadioItemIndicator,
-  MenuSeparator,
-  MenuSubmenu,
-  MenuSubmenuContent,
-  MenuSubmenuTrigger,
-  MenuSubmenuTriggerIcon,
-  MenuTrigger,
-  MenuTriggerIcon,
-  MenuViewport,
-  createMenuHandle,
-} from 'moduix';
-import { Fragment, useMemo, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { ComponentProps, ReactNode } from 'react';
+import { Menu as ArkMenu, useMenu } from '@ark-ui/react/menu';
+import { Button, Menu } from '@moduix/react';
+import { Info as InfoIcon, Map as MapIcon } from 'lucide-react';
+import { useState } from 'react';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './menu.module.css';
 
+export const menuItemsData = `const fileItems = [
+  { value: 'new-file', label: 'New File' },
+  { value: 'open', label: 'Open...' },
+  { value: 'save', label: 'Save' },
+  { value: 'save-as', label: 'Save As...' },
+];`;
+
+export const menuMessagesData = `const messages = [
+  { id: '1', sender: 'Alice Johnson', preview: 'Hey, can you review the latest PR?' },
+  { id: '2', sender: 'Bob Smith', preview: 'Meeting notes from today are attached.' },
+  { id: '3', sender: 'Carol Davis', preview: 'The deploy finished successfully!' },
+];`;
+
+export const menuExampleCss = `.menu-content {
+  --menu-popup-min-width: 13rem;
+}
+
+.menu-context-trigger {
+  width: 16rem;
+}`;
+
 export const menuOverrideCssProperties: CssPropertyInput[] = [
-  ['--menu-arrow-height', '0.625rem', 'Controls popup arrow height.'],
-  ['--menu-arrow-inline-offset', '0.8125rem', 'Controls popup arrow inline offset.'],
-  ['--menu-arrow-size', '0.5rem', 'Controls popup arrow size.'],
-  ['--menu-arrow-stroke-color', 'var(--menu-popup-border-color)', 'Controls arrow stroke color.'],
-  ['--menu-arrow-width', '1.25rem', 'Controls popup arrow width.'],
+  ['--menu-arrow-size', '0.625rem', 'Controls Ark arrow size.'],
   [
-    '--menu-backdrop-bg',
-    'var(--backdrop-bg, var(--color-overlay))',
-    'Controls backdrop background.',
+    '--menu-arrow-stroke-color',
+    'var(--menu-popup-border-color)',
+    'Controls arrow tip stroke color.',
   ],
-  ['--menu-backdrop-blur', '4px', 'Controls backdrop blur.'],
-  ['--menu-backdrop-transition', 'var(--transition-default)', 'Controls backdrop transition.'],
   ['--menu-check-gap', '0.5rem', 'Controls checkbox/radio indicator gap.'],
   ['--menu-check-indicator-size', '0.75rem', 'Controls checkbox/radio indicator size.'],
   ['--menu-check-padding-x-start', '0.625rem', 'Controls checkbox/radio start padding.'],
@@ -82,6 +56,9 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--menu-checkbox-indicator-border-width', '0', 'Controls checkbox indicator border width.'],
   ['--menu-checkbox-indicator-radius', 'var(--radius-xs)', 'Controls checkbox indicator radius.'],
+  ['--menu-context-trigger-border-style', 'dashed', 'Controls context trigger border style.'],
+  ['--menu-context-trigger-height', '10rem', 'Controls context trigger height.'],
+  ['--menu-context-trigger-width', '15rem', 'Controls context trigger width.'],
   ['--menu-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled trigger opacity.'],
   ['--menu-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   ['--menu-focus-ring-width', 'var(--menu-trigger-border-width)', 'Controls focus ring width.'],
@@ -96,20 +73,37 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--menu-group-label-padding-x-start', '0.625rem', 'Controls group label start padding.'],
   ['--menu-group-label-padding-y', '0.35rem', 'Controls group label vertical padding.'],
   ['--menu-group-padding-y', '0', 'Controls group vertical padding.'],
-  ['--menu-highlight-bg', 'var(--color-foreground)', 'Controls highlighted item background.'],
-  ['--menu-highlight-color', 'var(--color-background)', 'Controls highlighted item color.'],
+  ['--menu-highlight-bg', 'var(--color-accent)', 'Controls highlighted item background.'],
+  ['--menu-highlight-color', 'var(--color-accent-foreground)', 'Controls highlighted item color.'],
   ['--menu-highlight-inset-x', 'var(--spacing-1)', 'Controls highlight inline inset.'],
   ['--menu-highlight-radius', 'var(--radius-sm)', 'Controls highlight radius.'],
   ['--menu-item-bg', 'transparent', 'Controls item background.'],
   ['--menu-item-bg-disabled', 'var(--menu-item-bg)', 'Controls disabled item background.'],
+  [
+    '--menu-item-destructive-color',
+    'var(--color-destructive)',
+    'Controls destructive item text color.',
+  ],
+  [
+    '--menu-item-destructive-highlight-bg',
+    'color-mix(in oklab, var(--color-destructive) 12%, transparent)',
+    'Controls destructive item highlight background.',
+  ],
+  [
+    '--menu-item-destructive-highlight-color',
+    'var(--menu-item-destructive-color)',
+    'Controls destructive item highlight text color.',
+  ],
   ['--menu-item-disabled-color', 'var(--color-muted-foreground)', 'Controls disabled item color.'],
   ['--menu-item-font-size', 'var(--text-sm)', 'Controls item font size.'],
   ['--menu-item-gap', 'var(--spacing-2)', 'Controls item content gap.'],
   ['--menu-item-height', '2rem', 'Controls item minimum height.'],
+  ['--menu-item-indicator-color-checked', 'currentColor', 'Controls checked item indicator color.'],
   ['--menu-item-line-height', 'var(--line-height-text-sm)', 'Controls item line height.'],
   ['--menu-item-padding-x-end', '1rem', 'Controls item end padding.'],
   ['--menu-item-padding-x-start', '1rem', 'Controls item start padding.'],
   ['--menu-item-padding-y', '0.5rem', 'Controls item vertical padding.'],
+  ['--menu-item-radius', 'var(--radius-sm)', 'Controls item border radius.'],
   ['--menu-item-shortcut-color', 'var(--color-muted-foreground)', 'Controls shortcut color.'],
   ['--menu-item-shortcut-font-size', 'var(--text-xs)', 'Controls shortcut font size.'],
   [
@@ -125,23 +119,26 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--menu-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
   ['--menu-popup-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
   ['--menu-popup-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--menu-popup-height', 'auto', 'Controls popup height.'],
+  ['--menu-popup-ending-opacity', '0', 'Controls popup opacity at the end of exit transitions.'],
+  ['--menu-popup-ending-scale', 'var(--scale-popup)', 'Controls popup scale at exit.'],
+  ['--menu-popup-ending-translate-x', '0', 'Controls popup horizontal exit offset.'],
+  ['--menu-popup-ending-translate-y', '0', 'Controls popup vertical exit offset.'],
   ['--menu-popup-max-height', '24rem', 'Controls popup maximum height.'],
   ['--menu-popup-max-width', '20rem', 'Controls popup maximum width.'],
   ['--menu-popup-min-width', '12rem', 'Controls popup minimum width.'],
   ['--menu-popup-padding-y', '0.25rem', 'Controls popup vertical padding.'],
   ['--menu-popup-radius', 'var(--radius-md)', 'Controls popup radius.'],
   ['--menu-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--menu-popup-width', 'auto', 'Controls popup width.'],
+  ['--menu-popup-starting-opacity', '0', 'Controls popup opacity at enter start.'],
+  ['--menu-popup-starting-scale', 'var(--scale-popup)', 'Controls popup scale at enter start.'],
+  ['--menu-popup-starting-translate-x', '0', 'Controls popup horizontal enter offset.'],
+  ['--menu-popup-starting-translate-y', '0', 'Controls popup vertical enter offset.'],
   ['--menu-separator-color', 'var(--color-border)', 'Controls separator color.'],
   ['--menu-separator-height', 'var(--border-width-sm)', 'Controls separator thickness.'],
   ['--menu-separator-margin-x-end', '1rem', 'Controls separator end margin.'],
   ['--menu-separator-margin-x-start', '1rem', 'Controls separator start margin.'],
   ['--menu-separator-margin-y', '0.375rem', 'Controls separator vertical margin.'],
-  ['--menu-submenu-icon-size', '0.875rem', 'Controls submenu icon size.'],
-  ['--menu-submenu-open-bg', 'var(--color-accent)', 'Controls open submenu background.'],
-  ['--menu-submenu-trigger-gap', 'var(--spacing-3)', 'Controls submenu trigger gap.'],
-  ['--menu-submenu-trigger-padding-x-end', '1rem', 'Controls submenu trigger end padding.'],
+  ['--menu-submenu-open-bg', 'var(--color-accent)', 'Controls open nested trigger background.'],
   ['--menu-transition', 'var(--transition-default)', 'Controls menu transition duration/timing.'],
   ['--menu-trigger-bg', 'var(--color-background)', 'Controls trigger background.'],
   [
@@ -149,7 +146,11 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
     'var(--menu-trigger-bg-hover)',
     'Controls active trigger background.',
   ],
-  ['--menu-trigger-bg-hover', 'var(--color-accent)', 'Controls hover trigger background.'],
+  [
+    '--menu-trigger-bg-hover',
+    'no default (set explicitly when needed)',
+    'Controls hover trigger background.',
+  ],
   ['--menu-trigger-border-color', 'var(--color-border)', 'Controls trigger border color.'],
   ['--menu-trigger-border-width', 'var(--border-width-sm)', 'Controls trigger border width.'],
   ['--menu-trigger-color', 'var(--color-foreground)', 'Controls trigger color.'],
@@ -158,47 +159,31 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--menu-trigger-height', 'var(--size-lg)', 'Controls trigger minimum height.'],
   ['--menu-trigger-icon-color', 'currentColor', 'Controls trigger icon color.'],
   ['--menu-trigger-icon-size', '1rem', 'Controls trigger icon size.'],
+  ['--menu-trigger-item-gap', 'var(--spacing-3)', 'Controls nested trigger item gap.'],
+  ['--menu-trigger-item-icon-size', '0.875rem', 'Controls nested trigger icon size.'],
+  ['--menu-trigger-item-padding-x-end', '1rem', 'Controls nested trigger end padding.'],
   ['--menu-trigger-line-height', 'var(--line-height-text-md)', 'Controls trigger line height.'],
   ['--menu-trigger-padding-x', '0.875rem', 'Controls trigger horizontal padding.'],
   ['--menu-trigger-padding-y', '0.5rem', 'Controls trigger vertical padding.'],
   ['--menu-trigger-radius', 'var(--radius-md)', 'Controls trigger radius.'],
 ];
-export const menuPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--menu-arrow-stroke-color', 'var(--menu-popup-border-color)', 'Controls arrow stroke color.'],
-  [
-    '--menu-checkbox-indicator-border-color',
-    'currentColor',
-    'Controls checkbox indicator border color.',
-  ],
-  ['--menu-highlight-bg', 'var(--color-foreground)', 'Controls highlight background.'],
-  ['--menu-highlight-color', 'var(--color-background)', 'Controls highlight text color.'],
-  ['--menu-item-bg', 'transparent', 'Controls item background.'],
-  ['--menu-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
-  ['--menu-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--menu-popup-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
-  ['--menu-popup-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--menu-popup-radius', 'var(--radius-md)', 'Controls popup radius.'],
-  ['--menu-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--menu-trigger-bg', 'var(--color-background)', 'Controls trigger background.'],
-  ['--menu-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
-  ['--menu-trigger-border-width', 'var(--border-width-sm)', 'Controls trigger border width.'],
-  ['--menu-trigger-radius', 'var(--radius-md)', 'Controls trigger radius.'],
+
+const fileItems = [
+  { value: 'new-file', label: 'New File' },
+  { value: 'open', label: 'Open...' },
+  { value: 'save', label: 'Save' },
+  { value: 'save-as', label: 'Save As...' },
 ];
 
-export function MenuCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+const messages = [
+  { id: '1', sender: 'Alice Johnson', preview: 'Hey, can you review the latest PR?' },
+  { id: '2', sender: 'Bob Smith', preview: 'Meeting notes from today are attached.' },
+  { id: '3', sender: 'Carol Davis', preview: 'The deploy finished successfully!' },
+];
+
+export function MenuCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable properties={menuOverrideCssProperties.map(normalizeCssProperty)} />
-  );
-}
-
-export function MenuCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={menuPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
   );
 }
 
@@ -208,122 +193,344 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function MenuButtonTrigger(props: ComponentProps<typeof MenuTrigger>) {
-  return <MenuTrigger render={<Button />} {...props} />;
+function MenuButtonTrigger(props: ComponentProps<typeof Menu.Trigger>) {
+  return (
+    <Menu.Trigger asChild {...props}>
+      <Button>{props.children}</Button>
+    </Menu.Trigger>
+  );
+}
+
+function PositionedContent({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <Menu.Positioner>
+      <Menu.Content className={className}>{children}</Menu.Content>
+    </Menu.Positioner>
+  );
 }
 
 export function MenuExample() {
   return (
     <Menu>
       <MenuButtonTrigger>
-        Song
-        <MenuTriggerIcon />
+        File
+        <Menu.Indicator />
       </MenuButtonTrigger>
-      <MenuContent>
-        <MenuItem closeOnClick>Add to Library</MenuItem>
-        <MenuItem closeOnClick>Add to Playlist</MenuItem>
-        <MenuSeparator />
-        <MenuItem closeOnClick>Play Next</MenuItem>
-        <MenuItem closeOnClick>Play Last</MenuItem>
-        <MenuSeparator />
-        <MenuItem closeOnClick disabled>
-          Share
-        </MenuItem>
-      </MenuContent>
+      <PositionedContent>
+        <Menu.Arrow />
+        {fileItems.map((item) => (
+          <Menu.Item key={item.value} value={item.value}>
+            {item.label}
+          </Menu.Item>
+        ))}
+      </PositionedContent>
     </Menu>
   );
 }
 
-export function WithArrowMenuExample() {
+export function ControlledMenuExample() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Menu open={open} onOpenChange={(details) => setOpen(details.open)}>
+      <Button onClick={() => setOpen((value) => !value)}>Toggle</Button>
+      <MenuButtonTrigger>
+        Actions
+        <Menu.Indicator />
+      </MenuButtonTrigger>
+      <PositionedContent>
+        <Menu.Item value="edit">Edit</Menu.Item>
+        <Menu.Item value="duplicate">Duplicate</Menu.Item>
+        <Menu.Item value="archive">Archive</Menu.Item>
+        <Menu.Item value="delete" tone="destructive">
+          Delete
+        </Menu.Item>
+      </PositionedContent>
+    </Menu>
+  );
+}
+
+export function RootProviderMenuExample() {
+  const menu = useMenu();
+
+  return (
+    <Menu.RootProvider value={menu}>
+      <Button onClick={() => menu.api.setHighlightedValue('copy')}>Highlight Copy</Button>
+      <MenuButtonTrigger>
+        Edit
+        <Menu.Indicator />
+      </MenuButtonTrigger>
+      <PositionedContent>
+        <Menu.Item value="cut">Cut</Menu.Item>
+        <Menu.Item value="copy">Copy</Menu.Item>
+        <Menu.Item value="paste">Paste</Menu.Item>
+        <Menu.Item value="delete" tone="destructive">
+          Delete
+        </Menu.Item>
+      </PositionedContent>
+    </Menu.RootProvider>
+  );
+}
+
+export function GroupMenuExample() {
   return (
     <Menu>
       <MenuButtonTrigger>
-        Song
-        <MenuTriggerIcon />
+        Edit
+        <Menu.Indicator />
       </MenuButtonTrigger>
-      <MenuContent showArrow>
-        <MenuItem closeOnClick>Add to Library</MenuItem>
-        <MenuItem closeOnClick>Add to Playlist</MenuItem>
-        <MenuSeparator />
-        <MenuItem closeOnClick>Play Next</MenuItem>
-      </MenuContent>
+      <PositionedContent>
+        <Menu.ItemGroup>
+          <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
+          <Menu.Item value="cut">Cut</Menu.Item>
+          <Menu.Item value="copy">Copy</Menu.Item>
+          <Menu.Item value="paste">Paste</Menu.Item>
+        </Menu.ItemGroup>
+        <Menu.Separator />
+        <Menu.ItemGroup>
+          <Menu.ItemGroupLabel>Selection</Menu.ItemGroupLabel>
+          <Menu.Item value="select-all">Select All</Menu.Item>
+          <Menu.Item value="deselect">Deselect</Menu.Item>
+        </Menu.ItemGroup>
+      </PositionedContent>
     </Menu>
   );
 }
 
-export function GroupsAndControlsMenuExample() {
-  const [sortBy, setSortBy] = useState('date');
-  const [showMinimap, setShowMinimap] = useState(true);
-  const [showSearch, setShowSearch] = useState(true);
-  const [showSidebar, setShowSidebar] = useState(false);
+export function LinkItemsMenuExample() {
+  return (
+    <Menu>
+      <MenuButtonTrigger>
+        Help
+        <Menu.Indicator />
+      </MenuButtonTrigger>
+      <PositionedContent>
+        <Menu.Item value="docs" asChild>
+          <a href="#menu-docs">Documentation</a>
+        </Menu.Item>
+        <Menu.Item value="github" asChild>
+          <a href="https://github.com/Blinks44/moduix">GitHub</a>
+        </Menu.Item>
+        <Menu.Item value="changelog" asChild>
+          <a href="#menu-changelog">Changelog</a>
+        </Menu.Item>
+      </PositionedContent>
+    </Menu>
+  );
+}
+
+export function CheckboxItemsMenuExample() {
+  const [showToolbar, setShowToolbar] = useState(true);
+  const [showStatusBar, setShowStatusBar] = useState(false);
 
   return (
     <Menu>
       <MenuButtonTrigger>
         View
-        <MenuTriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
-      <MenuContent>
-        <MenuGroup>
-          <MenuGroupLabel>Sort</MenuGroupLabel>
-          <MenuRadioGroup value={sortBy} onValueChange={setSortBy}>
-            <MenuRadioItem value="date">
-              <MenuRadioItemIndicator />
-              <MenuItemText>Date</MenuItemText>
-            </MenuRadioItem>
-            <MenuRadioItem value="name">
-              <MenuRadioItemIndicator />
-              <MenuItemText>Name</MenuItemText>
-            </MenuRadioItem>
-            <MenuRadioItem value="type">
-              <MenuRadioItemIndicator />
-              <MenuItemText>Type</MenuItemText>
-            </MenuRadioItem>
-          </MenuRadioGroup>
-        </MenuGroup>
-        <MenuSeparator />
-        <MenuGroup>
-          <MenuGroupLabel>Workspace</MenuGroupLabel>
-          <MenuCheckboxItem checked={showMinimap} onCheckedChange={setShowMinimap}>
-            <MenuCheckboxItemIndicator />
-            <MenuItemText>Minimap</MenuItemText>
-          </MenuCheckboxItem>
-          <MenuCheckboxItem checked={showSearch} onCheckedChange={setShowSearch}>
-            <MenuCheckboxItemIndicator />
-            <MenuItemText>Search</MenuItemText>
-          </MenuCheckboxItem>
-          <MenuCheckboxItem checked={showSidebar} onCheckedChange={setShowSidebar}>
-            <MenuCheckboxItemIndicator />
-            <MenuItemText>Sidebar</MenuItemText>
-          </MenuCheckboxItem>
-        </MenuGroup>
-      </MenuContent>
+      <PositionedContent>
+        <Menu.CheckboxItem checked={showToolbar} value="toolbar" onCheckedChange={setShowToolbar}>
+          <Menu.ItemIndicator />
+          <Menu.ItemText>Show Toolbar</Menu.ItemText>
+        </Menu.CheckboxItem>
+        <Menu.CheckboxItem
+          checked={showStatusBar}
+          value="statusbar"
+          onCheckedChange={setShowStatusBar}
+        >
+          <Menu.ItemIndicator />
+          <Menu.ItemText>Show Status Bar</Menu.ItemText>
+        </Menu.CheckboxItem>
+      </PositionedContent>
     </Menu>
   );
 }
 
-export function ShortcutsMenuExample() {
+export function RadioItemsMenuExample() {
+  const [sortBy, setSortBy] = useState('date');
+
   return (
     <Menu>
       <MenuButtonTrigger>
-        Edit
-        <MenuTriggerIcon />
+        Sort
+        <Menu.Indicator />
       </MenuButtonTrigger>
-      <MenuContent>
-        <MenuItem closeOnClick>
-          Copy
-          <MenuItemShortcut>Ctrl+C</MenuItemShortcut>
-        </MenuItem>
-        <MenuItem closeOnClick>
-          Paste
-          <MenuItemShortcut>Ctrl+V</MenuItemShortcut>
-        </MenuItem>
-        <MenuSeparator />
-        <MenuItem closeOnClick>
-          Rename
-          <MenuItemShortcut>F2</MenuItemShortcut>
-        </MenuItem>
-      </MenuContent>
+      <PositionedContent>
+        <Menu.ItemGroup>
+          <Menu.ItemGroupLabel>Sort By</Menu.ItemGroupLabel>
+          <Menu.RadioItemGroup value={sortBy} onValueChange={(details) => setSortBy(details.value)}>
+            <Menu.RadioItem value="name">
+              <Menu.ItemIndicator />
+              <Menu.ItemText>Name</Menu.ItemText>
+            </Menu.RadioItem>
+            <Menu.RadioItem value="date">
+              <Menu.ItemIndicator />
+              <Menu.ItemText>Date Modified</Menu.ItemText>
+            </Menu.RadioItem>
+            <Menu.RadioItem value="size">
+              <Menu.ItemIndicator />
+              <Menu.ItemText>Size</Menu.ItemText>
+            </Menu.RadioItem>
+            <Menu.RadioItem value="type">
+              <Menu.ItemIndicator />
+              <Menu.ItemText>Type</Menu.ItemText>
+            </Menu.RadioItem>
+          </Menu.RadioItemGroup>
+        </Menu.ItemGroup>
+      </PositionedContent>
+    </Menu>
+  );
+}
+
+export function ContextMenuExample() {
+  return (
+    <Menu>
+      <Menu.ContextTrigger className={styles.contextTrigger}>Right click here</Menu.ContextTrigger>
+      <PositionedContent>
+        <Menu.Item value="cut">Cut</Menu.Item>
+        <Menu.Item value="copy">Copy</Menu.Item>
+        <Menu.Item value="paste">Paste</Menu.Item>
+        <Menu.Item value="delete" tone="destructive">
+          Delete
+        </Menu.Item>
+      </PositionedContent>
+    </Menu>
+  );
+}
+
+export function ContextLazyMountMenuExample() {
+  return (
+    <Menu lazyMount unmountOnExit>
+      <Menu.ContextTrigger className={styles.contextTrigger}>
+        Right click lazy mounted content
+      </Menu.ContextTrigger>
+      <PositionedContent>
+        <Menu.Item value="cut">Cut</Menu.Item>
+        <Menu.Item value="copy">Copy</Menu.Item>
+        <Menu.Item value="paste">Paste</Menu.Item>
+        <Menu.Item value="delete" tone="destructive">
+          Delete
+        </Menu.Item>
+      </PositionedContent>
+    </Menu>
+  );
+}
+
+export function NestedMenuExample() {
+  return (
+    <Menu>
+      <MenuButtonTrigger>
+        File
+        <Menu.Indicator />
+      </MenuButtonTrigger>
+      <PositionedContent>
+        <Menu.Item value="new-file">New File</Menu.Item>
+        <Menu.Item value="open">Open...</Menu.Item>
+        <Menu>
+          <Menu.TriggerItem>
+            Share
+            <Menu.TriggerItemIcon />
+          </Menu.TriggerItem>
+          <PositionedContent>
+            <Menu.Item value="email">Email</Menu.Item>
+            <Menu.Item value="message">Message</Menu.Item>
+            <Menu.Item value="airdrop">AirDrop</Menu.Item>
+          </PositionedContent>
+        </Menu>
+        <Menu>
+          <Menu.TriggerItem>
+            Export
+            <Menu.TriggerItemIcon />
+          </Menu.TriggerItem>
+          <PositionedContent>
+            <Menu.Item value="pdf">PDF</Menu.Item>
+            <Menu.Item value="png">PNG</Menu.Item>
+            <Menu.Item value="svg">SVG</Menu.Item>
+          </PositionedContent>
+        </Menu>
+        <Menu.Separator />
+        <Menu.Item value="print">Print...</Menu.Item>
+      </PositionedContent>
+    </Menu>
+  );
+}
+
+export function MultipleTriggersMenuExample() {
+  return (
+    <Menu>
+      <div className={styles.messageList}>
+        {messages.map((message) => (
+          <div key={message.id} className={styles.messageItem}>
+            <div className={styles.messageContent}>
+              <div className={styles.messageSender}>{message.sender}</div>
+              <div className={styles.messagePreview}>{message.preview}</div>
+            </div>
+            <Menu.Trigger
+              value={message.id}
+              className={styles.messageAction}
+              aria-label="Open menu"
+            >
+              <MapIcon />
+            </Menu.Trigger>
+          </div>
+        ))}
+      </div>
+      <PositionedContent>
+        <Menu.Item value="reply">Reply</Menu.Item>
+        <Menu.Item value="forward">Forward</Menu.Item>
+        <Menu.Item value="archive">Archive</Menu.Item>
+        <Menu.Item value="delete" tone="destructive">
+          Delete
+        </Menu.Item>
+      </PositionedContent>
+    </Menu>
+  );
+}
+
+export function SelectEventMenuExample() {
+  const [selected, setSelected] = useState('Nothing selected');
+
+  return (
+    <div className={styles.selectEvent}>
+      <Menu onSelect={(details) => setSelected(details.value)}>
+        <MenuButtonTrigger>
+          Actions
+          <Menu.Indicator />
+        </MenuButtonTrigger>
+        <PositionedContent>
+          <Menu.Item value="edit">Edit</Menu.Item>
+          <Menu.Item value="duplicate">Duplicate</Menu.Item>
+          <Menu.Item value="archive">Archive</Menu.Item>
+        </PositionedContent>
+      </Menu>
+      <span>{selected}</span>
+    </div>
+  );
+}
+
+export function ItemContextMenuExample() {
+  return (
+    <Menu>
+      <MenuButtonTrigger>
+        Settings
+        <Menu.Indicator />
+      </MenuButtonTrigger>
+      <PositionedContent>
+        <Menu.Item value="profile">
+          <ArkMenu.ItemContext>
+            {(item) => (
+              <span style={{ fontWeight: item.highlighted ? 'var(--weight-semibold)' : undefined }}>
+                Profile Settings
+              </span>
+            )}
+          </ArkMenu.ItemContext>
+        </Menu.Item>
+        <Menu.Item value="preferences">Preferences</Menu.Item>
+        <Menu.Item value="notifications">Notifications</Menu.Item>
+        <Menu.Separator />
+        <Menu.Item value="logout">Log Out</Menu.Item>
+      </PositionedContent>
     </Menu>
   );
 }
@@ -336,234 +543,42 @@ export function IndicatorRightMenuExample() {
     <Menu>
       <MenuButtonTrigger>
         View
-        <MenuTriggerIcon />
+        <Menu.Indicator />
       </MenuButtonTrigger>
-      <MenuContent>
-        <MenuCheckboxItem checked={showMinimap} onCheckedChange={setShowMinimap} indicator="end">
-          <MenuItemText>
-            <MenuItemTextContent>
-              <MenuItemTextIcon>
+      <PositionedContent>
+        <Menu.CheckboxItem
+          checked={showMinimap}
+          value="minimap"
+          onCheckedChange={setShowMinimap}
+          indicator="end"
+        >
+          <Menu.ItemText>
+            <Menu.ItemTextContent>
+              <Menu.ItemTextIcon>
                 <InfoIcon />
-              </MenuItemTextIcon>
-              <MenuItemTextLabel>Minimap</MenuItemTextLabel>
-            </MenuItemTextContent>
-          </MenuItemText>
-          <MenuCheckboxItemIndicator />
-        </MenuCheckboxItem>
-        <MenuCheckboxItem checked={showSearch} onCheckedChange={setShowSearch} indicator="end">
-          <MenuItemText>
-            <MenuItemTextContent>
-              <MenuItemTextIcon>
+              </Menu.ItemTextIcon>
+              <Menu.ItemTextLabel>Minimap</Menu.ItemTextLabel>
+            </Menu.ItemTextContent>
+          </Menu.ItemText>
+          <Menu.ItemIndicator />
+        </Menu.CheckboxItem>
+        <Menu.CheckboxItem
+          checked={showSearch}
+          value="search"
+          onCheckedChange={setShowSearch}
+          indicator="end"
+        >
+          <Menu.ItemText>
+            <Menu.ItemTextContent>
+              <Menu.ItemTextIcon>
                 <MapIcon />
-              </MenuItemTextIcon>
-              <MenuItemTextLabel>Search</MenuItemTextLabel>
-            </MenuItemTextContent>
-          </MenuItemText>
-          <MenuCheckboxItemIndicator />
-        </MenuCheckboxItem>
-      </MenuContent>
-    </Menu>
-  );
-}
-
-export function NestedMenuExample() {
-  return (
-    <Menu>
-      <MenuButtonTrigger>
-        Song
-        <MenuTriggerIcon />
-      </MenuButtonTrigger>
-      <MenuContent>
-        <MenuItem closeOnClick>Add to Library</MenuItem>
-        <MenuSubmenu>
-          <MenuSubmenuTrigger>
-            Add to Playlist
-            <MenuSubmenuTriggerIcon />
-          </MenuSubmenuTrigger>
-          <MenuSubmenuContent>
-            <MenuItem closeOnClick>Get Up!</MenuItem>
-            <MenuItem closeOnClick>Inside Out</MenuItem>
-            <MenuItem closeOnClick>Night Beats</MenuItem>
-            <MenuSeparator />
-            <MenuItem closeOnClick>New Playlist...</MenuItem>
-          </MenuSubmenuContent>
-        </MenuSubmenu>
-        <MenuSeparator />
-        <MenuItem closeOnClick>Favorite</MenuItem>
-        <MenuItem closeOnClick>Share</MenuItem>
-      </MenuContent>
-    </Menu>
-  );
-}
-
-export function OpenOnHoverMenuExample() {
-  return (
-    <Menu>
-      <MenuButtonTrigger openOnHover delay={120}>
-        Add to playlist
-        <MenuTriggerIcon />
-      </MenuButtonTrigger>
-      <MenuContent>
-        <MenuItem closeOnClick>Get Up!</MenuItem>
-        <MenuItem closeOnClick>Inside Out</MenuItem>
-        <MenuItem closeOnClick>Night Beats</MenuItem>
-        <MenuSeparator />
-        <MenuItem closeOnClick>New Playlist...</MenuItem>
-      </MenuContent>
-    </Menu>
-  );
-}
-
-export function PositionedMenuExample() {
-  return (
-    <Menu>
-      <MenuButtonTrigger>
-        Export
-        <MenuTriggerIcon />
-      </MenuButtonTrigger>
-      <MenuContent showArrow side="right" align="start" sideOffset={12}>
-        <MenuItem closeOnClick>Export PNG</MenuItem>
-        <MenuItem closeOnClick>Export PDF</MenuItem>
-        <MenuSeparator />
-        <MenuItem closeOnClick>Copy share link</MenuItem>
-      </MenuContent>
-    </Menu>
-  );
-}
-
-export function OpenAlertDialogMenuExample() {
-  const [dialogOpen, setDialogOpen] = useState(false);
-
-  return (
-    <Fragment>
-      <Menu>
-        <MenuButtonTrigger>
-          Project
-          <MenuTriggerIcon />
-        </MenuButtonTrigger>
-        <MenuContent>
-          <MenuItem closeOnClick>Rename</MenuItem>
-          <MenuItem closeOnClick>Duplicate</MenuItem>
-          <MenuSeparator />
-          <MenuItem
-            closeOnClick
-            onClick={() => {
-              setDialogOpen(true);
-            }}
-          >
-            Delete...
-          </MenuItem>
-        </MenuContent>
-      </Menu>
-
-      <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete project?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone and will permanently remove all environments.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Delete</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </Fragment>
-  );
-}
-
-export function LinkItemsMenuExample() {
-  return (
-    <Menu>
-      <MenuButtonTrigger>
-        Navigate
-        <MenuTriggerIcon />
-      </MenuButtonTrigger>
-      <MenuContent>
-        <MenuLinkItem href="#projects">Projects</MenuLinkItem>
-        <MenuLinkItem href="#teams">Teams</MenuLinkItem>
-        <MenuLinkItem href="#billing">Billing</MenuLinkItem>
-        <MenuSeparator />
-        <MenuItem closeOnClick>Copy Link</MenuItem>
-      </MenuContent>
-    </Menu>
-  );
-}
-
-export function DetachedTriggerMenuExample() {
-  const menuHandle = useMemo(() => createMenuHandle(), []);
-
-  return (
-    <Fragment>
-      <div className={styles.detachedTrigger}>
-        <MenuButtonTrigger handle={menuHandle}>
-          Actions
-          <MenuTriggerIcon />
-        </MenuButtonTrigger>
-      </div>
-
-      <Menu handle={menuHandle}>
-        <MenuContent>
-          <MenuItem closeOnClick>Edit</MenuItem>
-          <MenuItem closeOnClick>Share</MenuItem>
-          <MenuSeparator />
-          <MenuItem closeOnClick>Archive</MenuItem>
-        </MenuContent>
-      </Menu>
-    </Fragment>
-  );
-}
-
-export function CustomCompositionMenuExample() {
-  return (
-    <Menu>
-      <MenuButtonTrigger className={styles.customTrigger}>
-        Places
-        <MenuTriggerIcon className={styles.customTriggerIcon}>
-          <ChevronDownIcon />
-        </MenuTriggerIcon>
-      </MenuButtonTrigger>
-      <MenuPortal>
-        <MenuBackdrop className={styles.customBackdrop} />
-        <MenuPositioner className={styles.customPositioner} sideOffset={12}>
-          <MenuPopup className={styles.customPopup}>
-            <MenuArrow className={styles.customArrow} />
-            <MenuViewport className={styles.customViewport}>
-              <MenuItem closeOnClick className={styles.customItem}>
-                <MenuItemTextContent>
-                  <MenuItemTextIcon>
-                    <MapIcon />
-                  </MenuItemTextIcon>
-                  <MenuItemTextLabel>Open map</MenuItemTextLabel>
-                </MenuItemTextContent>
-              </MenuItem>
-              <MenuSubmenu>
-                <MenuSubmenuTrigger className={styles.customItem}>
-                  <MenuItemTextContent>
-                    <MenuItemTextIcon>
-                      <InfoIcon />
-                    </MenuItemTextIcon>
-                    <MenuItemTextLabel>More</MenuItemTextLabel>
-                  </MenuItemTextContent>
-                  <MenuSubmenuTriggerIcon>
-                    <ChevronDownIcon />
-                  </MenuSubmenuTriggerIcon>
-                </MenuSubmenuTrigger>
-                <MenuSubmenuContent>
-                  <MenuItem closeOnClick className={styles.customItem}>
-                    Nearby
-                  </MenuItem>
-                  <MenuItem closeOnClick className={styles.customItem}>
-                    Routes
-                  </MenuItem>
-                </MenuSubmenuContent>
-              </MenuSubmenu>
-            </MenuViewport>
-          </MenuPopup>
-        </MenuPositioner>
-      </MenuPortal>
+              </Menu.ItemTextIcon>
+              <Menu.ItemTextLabel>Search</Menu.ItemTextLabel>
+            </Menu.ItemTextContent>
+          </Menu.ItemText>
+          <Menu.ItemIndicator />
+        </Menu.CheckboxItem>
+      </PositionedContent>
     </Menu>
   );
 }

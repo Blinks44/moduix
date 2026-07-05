@@ -19,14 +19,6 @@
   background: var(--color-muted);
 }
 
-.row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: var(--spacing-2);
-}
-
 .stack {
   display: flex;
   flex-direction: column;
@@ -69,22 +61,20 @@
   }
 }
 
-.customPopup {
+.customContent {
   --tooltip-bg: var(--color-primary);
   --tooltip-color: var(--color-primary-foreground);
   --tooltip-border-color: color-mix(in oklab, var(--color-primary), black 18%);
+  --tooltip-arrow-background: var(--tooltip-bg);
   --tooltip-arrow-stroke-color: var(--tooltip-border-color);
   --tooltip-padding-x: var(--spacing-3);
   --tooltip-padding-y: var(--spacing-2);
+  min-width: 10rem;
+  text-align: left;
 }
 
 .customPositioner {
   filter: drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.14));
-}
-
-.customViewport {
-  min-width: 10rem;
-  text-align: left;
 }
 
 .customTrigger {
@@ -96,6 +86,27 @@
 }
 
 .customArrow {
-  --tooltip-arrow-width: 1.5rem;
-  --tooltip-arrow-height: 0.75rem;
+  --tooltip-arrow-size: 0.75rem;
+}
+
+.shortcut {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.output {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+}
+
+.fixedContainer {
+  display: grid;
+  place-items: center;
+  min-width: 16rem;
+  min-height: 8rem;
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-muted);
 }

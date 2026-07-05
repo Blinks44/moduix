@@ -1,0 +1,134 @@
+@layer ui.components {
+  .trigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--tooltip-trigger-height, var(--size-lg));
+    margin: 0;
+    padding: var(--tooltip-trigger-padding-y, 0.5rem) var(--tooltip-trigger-padding-x, 0.875rem);
+    border: var(--tooltip-trigger-border-width, var(--border-width-sm)) solid
+      var(--tooltip-trigger-border-color, var(--color-border));
+    border-radius: var(--tooltip-trigger-radius, var(--radius-md));
+    background-color: var(--tooltip-trigger-bg, var(--color-background));
+    color: var(--tooltip-trigger-color, var(--color-foreground));
+    font: inherit;
+    font-size: var(--tooltip-trigger-font-size, var(--text-sm));
+    line-height: var(--tooltip-trigger-line-height, var(--line-height-text-sm));
+    user-select: none;
+    outline: 0;
+    cursor: pointer;
+    transition:
+      background-color var(--tooltip-transition, var(--duration-fast)) var(--ease-in-out),
+      border-color var(--tooltip-transition, var(--duration-fast)) var(--ease-in-out),
+      color var(--tooltip-transition, var(--duration-fast)) var(--ease-in-out);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--tooltip-trigger-bg-hover, var(--color-accent));
+      }
+    }
+
+    &:active,
+    &[data-state='open'] {
+      background-color: var(
+        --tooltip-trigger-bg-active,
+        var(--tooltip-trigger-bg-hover, var(--color-accent))
+      );
+    }
+
+    &:focus-visible {
+      outline: var(--tooltip-focus-ring-width, var(--border-width-sm)) solid
+        var(--tooltip-focus-ring-color, var(--color-ring));
+      outline-offset: var(--tooltip-focus-ring-offset, -1px);
+    }
+
+    &[data-disabled],
+    &[disabled] {
+      pointer-events: none;
+      opacity: var(--tooltip-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .positioner {
+    z-index: var(--z-index, var(--z-popup));
+    max-width: var(--available-width);
+    max-height: var(--available-height);
+  }
+
+  .content {
+    --arrow-background: var(--tooltip-arrow-background, var(--tooltip-bg, var(--color-popover)));
+    --arrow-size: var(--tooltip-arrow-size, 0.625rem);
+
+    box-sizing: border-box;
+    position: relative;
+    z-index: var(--tooltip-z-index, var(--z-popup));
+    max-width: min(var(--tooltip-max-width, 20rem), var(--available-width));
+    max-height: min(var(--tooltip-max-height, 24rem), var(--available-height, 100dvh));
+    padding: var(--tooltip-padding-y, 0.25rem) var(--tooltip-padding-x, 0.5rem);
+    border: var(--tooltip-border-width, var(--border-width-sm)) solid
+      var(--tooltip-border-color, var(--color-border));
+    border-radius: var(--tooltip-radius, var(--radius-md));
+    background-color: var(--tooltip-bg, var(--color-popover));
+    color: var(--tooltip-color, var(--color-popover-foreground));
+    box-shadow: var(--tooltip-shadow, var(--shadow-lg));
+    font-size: var(--tooltip-font-size, var(--text-sm));
+    line-height: var(--tooltip-line-height, var(--line-height-text-sm));
+    text-align: center;
+    transform-origin: var(--transform-origin);
+
+    &[data-state='open'] {
+      animation: tooltip-content-in var(--tooltip-transition, var(--duration-fast)) ease-out;
+    }
+
+    &[data-state='closed'] {
+      animation: tooltip-content-out var(--tooltip-transition, var(--duration-fast)) ease-in;
+    }
+
+    &[data-instant] {
+      animation-duration: 0s;
+    }
+  }
+
+  .arrow {
+    --arrow-background: var(--tooltip-arrow-background, var(--tooltip-bg, var(--color-popover)));
+    --arrow-size: var(--tooltip-arrow-size, 0.625rem);
+  }
+
+  .arrowTip {
+    border-top: var(--tooltip-border-width, var(--border-width-sm)) solid
+      var(--tooltip-arrow-stroke-color, var(--tooltip-border-color, var(--color-border)));
+    border-left: var(--tooltip-border-width, var(--border-width-sm)) solid
+      var(--tooltip-arrow-stroke-color, var(--tooltip-border-color, var(--color-border)));
+  }
+
+  @keyframes tooltip-content-in {
+    from {
+      opacity: var(--tooltip-popup-starting-opacity, 0);
+      translate: var(--tooltip-popup-starting-translate-x, 0)
+        var(--tooltip-popup-starting-translate-y, 0);
+      transform: scale(var(--tooltip-popup-starting-scale, var(--scale-popup)));
+    }
+
+    to {
+      opacity: 1;
+      translate: 0 0;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes tooltip-content-out {
+    from {
+      opacity: 1;
+      translate: 0 0;
+      transform: scale(1);
+    }
+
+    to {
+      opacity: var(--tooltip-popup-ending-opacity, 0);
+      translate: var(--tooltip-popup-ending-translate-x, 0)
+        var(--tooltip-popup-ending-translate-y, 0);
+      transform: scale(var(--tooltip-popup-ending-scale, var(--scale-popup)));
+    }
+  }
+}

@@ -1,0 +1,52 @@
+@layer storybook {
+  .stack {
+    display: grid;
+    gap: var(--spacing-3);
+    justify-items: center;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    justify-content: center;
+  }
+
+  .action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--size-lg);
+    padding-inline: 1rem;
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font: inherit;
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+    cursor: pointer;
+  }
+
+  .action:focus-visible {
+    outline: var(--border-width-md) solid var(--color-ring);
+    outline-offset: calc(var(--border-width-sm) * -1);
+  }
+
+  .hint {
+    margin: 0;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+
+  .brandFrame {
+    --qr-code-fill: var(--color-primary);
+  }
+
+  .overlay {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    line-height: var(--line-height-text-xs);
+  }
+}

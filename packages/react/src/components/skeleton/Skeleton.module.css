@@ -1,0 +1,32 @@
+@layer ui.components {
+  .root {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--skeleton-border-radius, var(--radius-md));
+
+    &[data-state='loading'] {
+      height: 1rem;
+      animation: var(--skeleton-animation, var(--animation-pulse));
+      background: var(
+        --skeleton-bg,
+        color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))
+      );
+      color: transparent;
+      pointer-events: none;
+      user-select: none;
+
+      & > * {
+        visibility: hidden;
+      }
+
+      &[data-variant='none'] {
+        animation: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
+  }
+}

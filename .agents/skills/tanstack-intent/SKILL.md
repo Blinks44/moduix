@@ -14,7 +14,7 @@ Use this skill when work in `apps/docs` depends on TanStack Start, TanStack Rout
 - server functions, server routes, middleware, SSR, and route generation
 - loading version-matched TanStack skills through `@tanstack/intent`
 
-TanStack Start is used only by `apps/docs`. Do not apply this skill to `packages/ui` unless the task also touches docs integration.
+TanStack Start is used only by `apps/docs`. Do not apply this skill to `packages/react` unless the task also touches docs integration.
 
 ## Relationship to Local Skills
 
@@ -24,11 +24,11 @@ TanStack Start is used only by `apps/docs`. Do not apply this skill to `packages
 
 ## Commands
 
-Run from the repository root. When `rtk-command-proxy` is active, prefix commands with `rtk`.
+Run from the repository root.
 
 ```bash
-rtk npx @tanstack/intent@latest list
-rtk npx @tanstack/intent@latest load <package>#<skill>
+npx @tanstack/intent@latest list
+npx @tanstack/intent@latest load <package>#<skill>
 ```
 
 Use `install` only when intentionally updating agent config guidance. Use maintainer commands only when maintaining shipped skills.
@@ -39,10 +39,5 @@ Use `install` only when intentionally updating agent config guidance. Use mainta
 - Load additional TanStack skills only when the task spans multiple concerns.
 - For server behavior, prefer the relevant `start-core/*` sub-skill.
 - For routes, navigation, params, search, loaders, or guards, prefer the relevant `router-core/*` sub-skill.
+- Prefer the exact installed version or version-matched TanStack skill over generic examples from memory.
 - If Intent has no matching skill, use official TanStack docs or installed package source instead of guessing.
-
-## Done Criteria
-
-1. The relevant version-matched TanStack skill was loaded before TanStack-specific edits.
-2. TanStack-specific code matches the loaded skill and current installed APIs.
-3. Required validation from `AGENTS.md` passed.

@@ -1,27 +1,86 @@
-import {
-  ArrowUpRightIcon,
-  MenuItem,
-  MenuSeparator,
-  PlusIcon,
-  SplitButton,
-  SplitButtonAction,
-  SplitButtonContent,
-  SplitButtonTrigger,
-} from 'moduix';
+import { Menu, PlusIcon, SplitButton } from '@moduix/react';
+import { ArrowUpRight as ArrowUpRightIcon } from 'lucide-react';
 import { useState } from 'react';
 import styles from './split-button.module.css';
+
+const basicItems = [
+  { value: 'save-draft', label: 'Save as Draft' },
+  { value: 'duplicate', label: 'Duplicate' },
+  { value: 'publish', label: 'Publish Now' },
+];
+
+const variants = [
+  { value: 'default', label: 'Default' },
+  { value: 'outline', label: 'Outline' },
+  { value: 'secondary', label: 'Secondary' },
+  { value: 'destructive', label: 'Destructive' },
+  { value: 'destructive-outline', label: 'Destructive Outline' },
+  { value: 'ghost', label: 'Ghost' },
+] as const;
+
+const sizes = [
+  { value: 'xs', label: 'Extra-small' },
+  { value: 'sm', label: 'Small' },
+  { value: 'md', label: 'Medium' },
+  { value: 'lg', label: 'Large' },
+  { value: 'xl', label: 'Extra-large' },
+] as const;
+
+export const splitButtonExampleCss = `
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+}
+`;
+
+export const splitButtonItemsData = `
+const items = [
+  { value: "save-draft", label: "Save as Draft" },
+  { value: "duplicate", label: "Duplicate" },
+  { value: "publish", label: "Publish Now" },
+];
+`;
+
+export const splitButtonVariantsData = `
+const variants = ["default", "outline", "secondary", "destructive", "destructive-outline", "ghost"] as const;
+`;
+
+export const splitButtonSizesData = `
+const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
+`;
+
+export const splitButtonMenuCompositionData = `
+const clipboardItems = ["Copy", "Duplicate"];
+const exportItems = ["Export PDF", "Export CSV"];
+`;
+
+function SplitButtonMenuItems({ includeSeparator = true }: { includeSeparator?: boolean }) {
+  return (
+    <>
+      {basicItems.slice(0, 2).map((item) => (
+        <Menu.Item key={item.value} value={item.value}>
+          {item.label}
+        </Menu.Item>
+      ))}
+      {includeSeparator ? <Menu.Separator /> : null}
+      <Menu.Item value={basicItems[2].value}>{basicItems[2].label}</Menu.Item>
+    </>
+  );
+}
 
 export function SplitButtonExample() {
   return (
     <SplitButton>
-      <SplitButtonAction>Save Changes</SplitButtonAction>
-      <SplitButtonTrigger />
-      <SplitButtonContent>
-        <MenuItem closeOnClick>Save as Draft</MenuItem>
-        <MenuItem closeOnClick>Duplicate</MenuItem>
-        <MenuSeparator />
-        <MenuItem closeOnClick>Publish Now</MenuItem>
-      </SplitButtonContent>
+      <SplitButton.Action>Save Changes</SplitButton.Action>
+      <SplitButton.Trigger />
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <SplitButtonMenuItems />
+        </SplitButton.Content>
+      </SplitButton.Positioner>
     </SplitButton>
   );
 }
@@ -29,41 +88,18 @@ export function SplitButtonExample() {
 export function SplitButtonVariantsExample() {
   return (
     <div className={styles.row}>
-      <SplitButton>
-        <SplitButtonAction>Default</SplitButtonAction>
-        <SplitButtonTrigger />
-        <SplitButtonContent>
-          <MenuItem closeOnClick>Edit</MenuItem>
-        </SplitButtonContent>
-      </SplitButton>
-      <SplitButton variant="outline">
-        <SplitButtonAction>Outline</SplitButtonAction>
-        <SplitButtonTrigger />
-        <SplitButtonContent>
-          <MenuItem closeOnClick>Edit</MenuItem>
-        </SplitButtonContent>
-      </SplitButton>
-      <SplitButton variant="secondary">
-        <SplitButtonAction>Secondary</SplitButtonAction>
-        <SplitButtonTrigger />
-        <SplitButtonContent>
-          <MenuItem closeOnClick>Edit</MenuItem>
-        </SplitButtonContent>
-      </SplitButton>
-      <SplitButton variant="destructive">
-        <SplitButtonAction>Destructive</SplitButtonAction>
-        <SplitButtonTrigger />
-        <SplitButtonContent>
-          <MenuItem closeOnClick>Delete</MenuItem>
-        </SplitButtonContent>
-      </SplitButton>
-      <SplitButton variant="ghost">
-        <SplitButtonAction>Ghost</SplitButtonAction>
-        <SplitButtonTrigger />
-        <SplitButtonContent>
-          <MenuItem closeOnClick>Edit</MenuItem>
-        </SplitButtonContent>
-      </SplitButton>
+      {variants.map((variant) => (
+        <SplitButton key={variant.value} variant={variant.value}>
+          <SplitButton.Action>{variant.label}</SplitButton.Action>
+          <SplitButton.Trigger />
+          <SplitButton.Positioner>
+            <SplitButton.Content>
+              <Menu.Item value={`${variant.value}-edit`}>Edit</Menu.Item>
+              <Menu.Item value={`${variant.value}-duplicate`}>Duplicate</Menu.Item>
+            </SplitButton.Content>
+          </SplitButton.Positioner>
+        </SplitButton>
+      ))}
     </div>
   );
 }
@@ -71,34 +107,18 @@ export function SplitButtonVariantsExample() {
 export function SplitButtonSizesExample() {
   return (
     <div className={styles.row}>
-      <SplitButton size="xs" variant="outline">
-        <SplitButtonAction>Extra-small</SplitButtonAction>
-        <SplitButtonTrigger />
-        <SplitButtonContent>
-          <MenuItem closeOnClick>Create</MenuItem>
-        </SplitButtonContent>
-      </SplitButton>
-      <SplitButton size="sm" variant="outline">
-        <SplitButtonAction>Small</SplitButtonAction>
-        <SplitButtonTrigger />
-        <SplitButtonContent>
-          <MenuItem closeOnClick>Create</MenuItem>
-        </SplitButtonContent>
-      </SplitButton>
-      <SplitButton size="md" variant="outline">
-        <SplitButtonAction>Medium</SplitButtonAction>
-        <SplitButtonTrigger />
-        <SplitButtonContent>
-          <MenuItem closeOnClick>Create</MenuItem>
-        </SplitButtonContent>
-      </SplitButton>
-      <SplitButton size="lg" variant="outline">
-        <SplitButtonAction>Large</SplitButtonAction>
-        <SplitButtonTrigger />
-        <SplitButtonContent>
-          <MenuItem closeOnClick>Create</MenuItem>
-        </SplitButtonContent>
-      </SplitButton>
+      {sizes.map((size) => (
+        <SplitButton key={size.value} size={size.value} variant="outline">
+          <SplitButton.Action>{size.label}</SplitButton.Action>
+          <SplitButton.Trigger />
+          <SplitButton.Positioner>
+            <SplitButton.Content>
+              <Menu.Item value={`${size.value}-create`}>Create</Menu.Item>
+              <Menu.Item value={`${size.value}-create-open`}>Create and Open</Menu.Item>
+            </SplitButton.Content>
+          </SplitButton.Positioner>
+        </SplitButton>
+      ))}
     </div>
   );
 }
@@ -106,17 +126,19 @@ export function SplitButtonSizesExample() {
 export function SplitButtonIconExample() {
   return (
     <SplitButton>
-      <SplitButtonAction>
+      <SplitButton.Action>
         <PlusIcon />
         Create Item
-      </SplitButtonAction>
-      <SplitButtonTrigger aria-label="More create actions" />
-      <SplitButtonContent>
-        <MenuItem closeOnClick>Create Blank</MenuItem>
-        <MenuItem closeOnClick>Create From Template</MenuItem>
-        <MenuSeparator />
-        <MenuItem closeOnClick>Import Existing</MenuItem>
-      </SplitButtonContent>
+      </SplitButton.Action>
+      <SplitButton.Trigger aria-label="More create actions" />
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.Item value="create-blank">Create Blank</Menu.Item>
+          <Menu.Item value="create-template">Create From Template</Menu.Item>
+          <Menu.Separator />
+          <Menu.Item value="import-existing">Import Existing</Menu.Item>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
     </SplitButton>
   );
 }
@@ -125,17 +147,73 @@ export function SplitButtonControlledExample() {
   const [open, setOpen] = useState(false);
 
   return (
-    <SplitButton open={open} onOpenChange={setOpen} variant="outline">
-      <SplitButtonAction>Share</SplitButtonAction>
-      <SplitButtonTrigger aria-label="More share actions" />
-      <SplitButtonContent>
-        <MenuItem closeOnClick>Copy Link</MenuItem>
-        <MenuItem closeOnClick>Invite by Email</MenuItem>
-        <MenuSeparator />
-        <MenuItem closeOnClick onClick={() => setOpen(false)}>
-          Close Menu
-        </MenuItem>
-      </SplitButtonContent>
+    <SplitButton open={open} onOpenChange={(details) => setOpen(details.open)} variant="outline">
+      <SplitButton.Action>Share</SplitButton.Action>
+      <SplitButton.Trigger aria-label="More share actions" />
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.Item value="copy-link">Copy Link</Menu.Item>
+          <Menu.Item value="invite-email">Invite by Email</Menu.Item>
+          <Menu.Separator />
+          <Menu.Item value="close-menu" onSelect={() => setOpen(false)}>
+            Close Menu
+          </Menu.Item>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
+    </SplitButton>
+  );
+}
+
+export function SplitButtonCustomPositioningExample() {
+  return (
+    <SplitButton positioning={{ placement: 'bottom-start', gutter: 8 }} variant="outline">
+      <SplitButton.Action>Export</SplitButton.Action>
+      <SplitButton.Trigger aria-label="More export actions" />
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.Item value="export-pdf">Export PDF</Menu.Item>
+          <Menu.Item value="export-csv">Export CSV</Menu.Item>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
+    </SplitButton>
+  );
+}
+
+export function SplitButtonMenuCompositionExample() {
+  return (
+    <SplitButton variant="outline">
+      <SplitButton.Action>Copy</SplitButton.Action>
+      <SplitButton.Trigger aria-label="More copy actions" />
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.ItemGroup>
+            <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
+            <Menu.Item value="copy">Copy</Menu.Item>
+            <Menu.Item value="duplicate">Duplicate</Menu.Item>
+          </Menu.ItemGroup>
+          <Menu.Separator />
+          <Menu.ItemGroup>
+            <Menu.ItemGroupLabel>Export</Menu.ItemGroupLabel>
+            <Menu.Item value="export-pdf">Export PDF</Menu.Item>
+            <Menu.Item value="export-csv">Export CSV</Menu.Item>
+          </Menu.ItemGroup>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
+    </SplitButton>
+  );
+}
+
+export function SplitButtonStylingExample() {
+  return (
+    <SplitButton className={styles.brandSplitButton} variant="outline">
+      <SplitButton.Action>Review</SplitButton.Action>
+      <SplitButton.Trigger aria-label="More review actions" />
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.Item value="approve">Approve</Menu.Item>
+          <Menu.Item value="request-changes">Request Changes</Menu.Item>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
     </SplitButton>
   );
 }
@@ -143,15 +221,19 @@ export function SplitButtonControlledExample() {
 export function SplitButtonLinkActionExample() {
   return (
     <SplitButton variant="outline">
-      <SplitButtonAction render={<a href="#split-button" />} nativeButton={false}>
-        Open Docs
-        <ArrowUpRightIcon />
-      </SplitButtonAction>
-      <SplitButtonTrigger aria-label="More docs actions" />
-      <SplitButtonContent>
-        <MenuItem closeOnClick>Copy Link</MenuItem>
-        <MenuItem closeOnClick>Open in New Tab</MenuItem>
-      </SplitButtonContent>
+      <SplitButton.Action asChild>
+        <a href="#split-button">
+          Open Docs
+          <ArrowUpRightIcon />
+        </a>
+      </SplitButton.Action>
+      <SplitButton.Trigger aria-label="More docs actions" />
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.Item value="copy-link">Copy Link</Menu.Item>
+          <Menu.Item value="open-new-tab">Open in New Tab</Menu.Item>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
     </SplitButton>
   );
 }

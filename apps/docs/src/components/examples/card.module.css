@@ -1,36 +1,29 @@
-.card {
+.card,
+.customCard {
   width: min(24rem, calc(100vw - var(--spacing-8)));
 }
 
-.releaseSummary {
+.cardGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--spacing-3);
+  gap: var(--spacing-4);
+  width: min(28rem, calc(100vw - var(--spacing-8)));
 }
 
-.metric {
-  display: grid;
-  gap: var(--spacing-1);
+.cardGridItem {
+  width: 100%;
 }
 
-.metricValue {
-  color: var(--color-foreground);
-  font-size: var(--text-2xl);
-  font-weight: var(--weight-semibold);
-  line-height: var(--line-height-text-2xl);
-}
-
-.metricLabel,
-.statLabel {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
-}
-
+.releaseSummary,
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--spacing-3);
+}
+
+.statLabel {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
 }
 
 .statValue {
@@ -48,12 +41,65 @@
   object-fit: cover;
 }
 
+.horizontalCard {
+  display: grid;
+  width: min(40rem, calc(100vw - var(--spacing-8)));
+  grid-template-columns: minmax(10rem, 0.8fr) minmax(0, 1.2fr);
+  overflow: hidden;
+}
+
+.horizontalImage {
+  width: 100%;
+  height: 100%;
+  min-height: 14rem;
+  object-fit: cover;
+}
+
+.horizontalContent {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.formGrid {
+  display: grid;
+  gap: var(--spacing-3);
+
+  & label {
+    display: grid;
+    gap: var(--spacing-1);
+    color: var(--color-foreground);
+    font-weight: var(--weight-medium);
+  }
+
+  & [data-slot='input-root'] {
+    min-width: 0;
+  }
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.avatar {
+  display: inline-grid;
+  width: 3rem;
+  height: 3rem;
+  flex: none;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+  font-weight: var(--weight-semibold);
+}
+
 .customCard {
   --card-bg: color-mix(in oklab, var(--color-card) 94%, var(--color-primary));
   --card-border-color: color-mix(in oklab, var(--color-primary) 35%, var(--color-border));
   --card-radius: var(--radius-md);
   --card-shadow: var(--shadow-md);
-  width: min(24rem, calc(100vw - var(--spacing-8)));
 }
 
 .footerBetween {
@@ -74,15 +120,26 @@
   overflow: hidden;
   border-radius: var(--radius-full);
   background-color: var(--color-muted);
-}
 
-.capacityBar > div {
-  width: 72%;
-  height: 100%;
-  border-radius: inherit;
-  background-color: var(--color-primary);
+  & > div {
+    width: 72%;
+    height: 100%;
+    border-radius: inherit;
+    background-color: var(--color-primary);
+  }
 }
 
 .capacityFill {
   width: 64%;
+}
+
+@media (width < 36rem) {
+  .horizontalCard {
+    grid-template-columns: 1fr;
+  }
+
+  .horizontalImage {
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
 }

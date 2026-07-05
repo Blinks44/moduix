@@ -5,14 +5,3 @@
   justify-content: center;
   gap: var(--spacing-3);
 }
-
-.customButton {
-  border-color: var(--color-primary);
-  background-color: var(--color-primary);
-  color: var(--color-primary-foreground);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
-}
-
-.customSpinner {
-  color: currentColor;
-}

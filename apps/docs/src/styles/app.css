@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
-@import '../../../../packages/ui/src/styles/fonts.css';
-@import 'moduix/style.css';
+@import '../../../../packages/react/src/lib/moduix/styles/fonts.css';
+@import '@moduix/react/style.css';
 @import 'fumadocs-ui/css/preset.css';
 
 @theme {
@@ -51,9 +51,13 @@ body {
   position: relative;
 }
 
-html > body[data-scroll-locked] {
+html > body[data-scroll-lock] {
   margin-right: 0 !important;
   --removed-body-scroll-bar-size: 0px !important;
+
+  #nd-sidebar [data-radix-scroll-area-viewport] {
+    overflow: hidden !important;
+  }
 }
 
 #nd-home-layout {

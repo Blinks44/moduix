@@ -1,0 +1,232 @@
+---
+title: SignaturePad
+description: An Ark UI signature pad for handwritten pointer and touch input.
+icon: Component
+---
+
+import * as SignaturePadDocs from '@/components/examples/signature-pad';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/signature-pad" />
+
+## Basic
+
+Use `SignaturePad` as the Ark root and keep the drawing parts explicit. `Control` is the focusable
+surface, `Segment` renders the SVG paths, `ClearTrigger` clears the paths, and `Guide` draws the
+baseline.
+
+<Preview>
+  <SignaturePadDocs.SignaturePadExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/basic.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Install with shadcn
+
+<ShadcnInstall packageName="react-signature-pad" />
+
+## Anatomy
+
+```text
+SignaturePad / SignaturePad.Root
+├─ SignaturePad.Label
+├─ SignaturePad.Control
+│  ├─ SignaturePad.Segment
+│  ├─ SignaturePad.ClearTrigger
+│  └─ SignaturePad.Guide
+└─ SignaturePad.HiddenInput
+
+SignaturePad.RootProvider
+└─ same part tree connected to useSignaturePad()
+```
+
+| Part                                 | Role                                                           |
+| ------------------------------------ | -------------------------------------------------------------- |
+| `SignaturePad` / `SignaturePad.Root` | Owns paths, drawing options, form name, ids, and callbacks.    |
+| `SignaturePad.RootProvider`          | Renders a tree from state returned by `useSignaturePad()`.     |
+| `SignaturePad.Label`                 | Labels the drawing area and hidden input.                      |
+| `SignaturePad.Control`               | Focusable pointer/touch drawing region.                        |
+| `SignaturePad.Segment`               | SVG layer for saved paths and the current in-progress path.    |
+| `SignaturePad.ClearTrigger`          | Native button that clears paths; Ark hides it while empty.     |
+| `SignaturePad.Guide`                 | Non-interactive baseline inside the control.                   |
+| `SignaturePad.HiddenInput`           | Native form input when the current paths need form submission. |
+
+## Composition
+
+### Recommended composition
+
+Keep `Label`, `Control`, `Segment`, `ClearTrigger`, and `Guide` visible in the tree. That preserves
+Ark's focus target, pointer capture, accessible labels, clear button behavior, and SVG rendering.
+
+### When to go custom
+
+Use controlled `paths` when application state needs to restore, clear, autosave, or validate the
+signature outside the Ark tree. Use `RootProvider` when controls outside the component need direct
+access to `paths`, `clear()`, or `getDataUrl()`.
+
+Use `HiddenInput` when the signature should participate in native form submission. Keep it inside
+the same `SignaturePad` tree and read current paths with `useSignaturePadContext()` from
+`@ark-ui/react/signature-pad` when the hidden value comes from live Ark state. `name` gives that
+hidden input its field name; it does not create a native value by itself.
+
+Use `drawing` for stroke-level customization. `drawing.size` changes stroke width,
+`drawing.simulatePressure` controls pressure simulation, and `drawing.fill` sets the stroke color.
+Use a concrete color string for `drawing.fill`; Zag does not accept CSS variables for that option.
+
+### Default props
+
+| Prop           | Default                               | Notes                                                           |
+| -------------- | ------------------------------------- | --------------------------------------------------------------- |
+| `defaultPaths` | -                                     | Initial uncontrolled SVG path array.                            |
+| `paths`        | -                                     | Controlled SVG path array. Pair with `onDraw(details)`.         |
+| `drawing`      | `{ size: 2, simulatePressure: true }` | Zag stroke options; `fill` must be a concrete CSS color string. |
+| `name`         | -                                     | Native form field name for `HiddenInput`.                       |
+| `disabled`     | -                                     | Disables drawing and clear trigger interaction.                 |
+| `readOnly`     | -                                     | Prevents drawing while preserving display.                      |
+| `required`     | -                                     | Marks label and hidden input as required.                       |
+| `ids`          | -                                     | Stable ids for root, control, hidden input, and label.          |
+| `translations` | Ark defaults                          | Accessible labels for the control and clear trigger.            |
+
+The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px`
+with the default token scale. Override `--signature-pad-width`, `--signature-pad-height`, or the
+more specific `--signature-pad-control-*` variables to resize the signing area.
+
+### Behavioral notes
+
+Use `defaultPaths` for an initial uncontrolled signature. Use `paths` with `onDraw(details)` when
+the signature must stay in application state. `onDrawEnd(details)` fires after a stroke ends or the
+signature is cleared and exposes `details.getDataUrl(type, quality?)`.
+
+Set `name` on the root and render `HiddenInput` from a child that calls
+`useSignaturePadContext()` from `@ark-ui/react/signature-pad` when native form submission is
+needed. Wrap with `Field.Root` when helper text, error text, required state, or disabled state
+should be shared with surrounding form UI. `Field` invalid state controls field messaging and
+descriptions; it does not add `data-invalid` to the signature pad parts.
+
+`Control` is keyboard-focusable and exposes `role="application"` with
+`aria-roledescription="signature pad"`. Drawing uses pointer and touch input rather than arrow-key
+navigation. `ClearTrigger` is a native button, so Enter and Space activation remain standard button
+behavior.
+
+## Examples
+
+### Image Preview
+
+Use `onDrawEnd` to export the signature and show a preview before saving it.
+
+<Preview>
+  <SignaturePadDocs.ImagePreviewSignaturePadExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/image-preview.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {SignaturePadDocs.signaturePadExampleCss + '\n' + SignaturePadDocs.signaturePadPreviewCss}
+  </Preview.CSS>
+  
+</Preview>
+
+### Controlled
+
+Control `paths` when the signature must stay synchronized with surrounding state, reset controls, or
+autosave logic.
+
+<Preview>
+  <SignaturePadDocs.ControlledSignaturePadExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/controlled.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Drawing
+
+Pass `drawing` when stroke width, stroke color, or pressure behavior needs to differ from the
+defaults.
+
+<Preview>
+  <SignaturePadDocs.DrawingSignaturePadExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/drawing.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Field
+
+Use `Field` around the signature pad when helper text, error text, required state, or invalid
+messaging belongs to the same form control.
+
+<Preview>
+  <SignaturePadDocs.FieldSignaturePadExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/field.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Root Provider
+
+Use `useSignaturePad()` with `RootProvider` when controls outside the component tree need direct
+access to paths, `clear()`, or `getDataUrl()`. Pass root options such as `translations`, `ids`, and
+`drawing` to `useSignaturePad(...)`.
+
+<Preview>
+  <SignaturePadDocs.RootProviderSignaturePadExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/root-provider.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <SignaturePadDocs.SignaturePadCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use `className` on any exported part for local styling. moduix also adds stable `data-slot`
+attributes:
+
+| Part                                 | `data-slot`                   |
+| ------------------------------------ | ----------------------------- |
+| `SignaturePad` / `SignaturePad.Root` | `signature-pad-root`          |
+| `SignaturePad.RootProvider`          | `signature-pad-root-provider` |
+| `SignaturePad.Label`                 | `signature-pad-label`         |
+| `SignaturePad.Control`               | `signature-pad-control`       |
+| `SignaturePad.Segment`               | `signature-pad-segment`       |
+| `SignaturePad.Guide`                 | `signature-pad-guide`         |
+| `SignaturePad.ClearTrigger`          | `signature-pad-clear-trigger` |
+| `SignaturePad.HiddenInput`           | `signature-pad-hidden-input`  |
+
+Ark attributes remain available for targeted styles. `Root`, `Label`, `Control`, `Segment`,
+`Guide`, `ClearTrigger`, and the internal segment paths expose `data-scope="signature-pad"` and
+`data-part`; `data-disabled` appears on root, label, control, and guide, and `data-required`
+appears on label.

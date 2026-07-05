@@ -1,99 +1,173 @@
 import type { ComponentProps } from 'react';
-import { Heading } from 'moduix';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { Heading } from '@moduix/react';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './heading.module.css';
 
-export const headingOverrideCssProperties: CssPropertyInput[] = [
-  ['--heading-color', 'var(--color-foreground)', 'Controls heading text color.'],
-  ['--heading-font-family', 'var(--font-sans)', 'Controls heading font family.'],
-  ['--heading-font-size', 'size-dependent', 'Controls heading font size for all sizes.'],
-  ['--heading-font-size-xs', 'var(--text-sm)', 'Controls `xs` heading font size.'],
-  ['--heading-font-size-sm', 'var(--text-md)', 'Controls `sm` heading font size.'],
-  ['--heading-font-size-md', 'var(--text-lg)', 'Controls `md` heading font size.'],
-  ['--heading-font-size-lg', 'var(--text-xl)', 'Controls `lg` heading font size.'],
-  ['--heading-font-size-xl', 'var(--text-2xl)', 'Controls `xl` heading font size.'],
-  ['--heading-font-size-2xl', 'var(--text-3xl)', 'Controls `2xl` heading font size.'],
-  ['--heading-font-weight', 'var(--weight-semibold)', 'Controls heading font weight.'],
-  ['--heading-font-weight-bold', 'var(--weight-bold)', 'Controls `bold` heading font weight.'],
-  [
-    '--heading-font-weight-medium',
-    'var(--weight-medium)',
-    'Controls `medium` heading font weight.',
-  ],
-  [
-    '--heading-font-weight-regular',
-    'var(--weight-regular)',
-    'Controls `regular` heading font weight.',
-  ],
-  [
-    '--heading-font-weight-semibold',
-    'var(--weight-semibold)',
-    'Controls `semibold` heading font weight.',
-  ],
-  ['--heading-letter-spacing', '0', 'Controls heading letter spacing.'],
-  ['--heading-line-height', 'size-dependent', 'Controls heading line height for all sizes.'],
-  ['--heading-line-height-xs', 'var(--line-height-text-sm)', 'Controls `xs` heading line height.'],
-  ['--heading-line-height-sm', 'var(--line-height-text-md)', 'Controls `sm` heading line height.'],
-  ['--heading-line-height-md', 'var(--line-height-text-lg)', 'Controls `md` heading line height.'],
-  ['--heading-line-height-lg', 'var(--line-height-text-xl)', 'Controls `lg` heading line height.'],
-  ['--heading-line-height-xl', 'var(--line-height-text-2xl)', 'Controls `xl` heading line height.'],
-  [
-    '--heading-line-height-2xl',
-    'var(--line-height-text-3xl)',
-    'Controls `2xl` heading line height.',
-  ],
-  ['--heading-text-wrap', 'balance', 'Controls heading text wrapping.'],
-];
-export const headingPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--heading-color', 'var(--color-foreground)', 'Controls heading text color.'],
-  ['--heading-font-family', 'var(--font-sans)', 'Controls heading font family.'],
-  ['--heading-letter-spacing', '0', 'Controls heading letter spacing.'],
-  ['--heading-text-wrap', 'balance', 'Controls heading text wrapping.'],
-];
+export const headingLevels = [
+  { level: 1, label: 'Heading level 1' },
+  { level: 2, label: 'Heading level 2' },
+  { level: 3, label: 'Heading level 3' },
+  { level: 4, label: 'Heading level 4' },
+  { level: 5, label: 'Heading level 5' },
+  { level: 6, label: 'Heading level 6' },
+] as const;
 
-export function HeadingCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={headingOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
+export const headingSizes = [
+  { size: '2xl', label: 'Extra-large heading' },
+  { size: 'xl', label: 'Large heading' },
+  { size: 'lg', label: 'Medium-large heading' },
+  { size: 'md', label: 'Medium heading' },
+  { size: 'sm', label: 'Small heading' },
+  { size: 'xs', label: 'Extra-small heading' },
+] as const;
 
-export function HeadingCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={headingPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
-}
+export const headingWeights = [
+  { weight: 'regular', label: 'Regular weight' },
+  { weight: 'medium', label: 'Medium weight' },
+  { weight: 'semibold', label: 'Semibold weight' },
+  { weight: 'bold', label: 'Bold weight' },
+] as const;
 
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
+export const headingOverrideCssProperties = [
+  {
+    name: '--heading-color',
+    defaultValue: 'var(--color-foreground)',
+    description: 'Controls heading text color.',
+  },
+  {
+    name: '--heading-font-family',
+    defaultValue: 'inherit',
+    description: 'Controls heading font family.',
+  },
+  {
+    name: '--heading-font-size',
+    defaultValue: 'size-dependent',
+    description: 'Controls heading font size for all sizes.',
+  },
+  {
+    name: '--heading-font-size-xs',
+    defaultValue: 'var(--text-sm)',
+    description: 'Controls `xs` heading font size.',
+  },
+  {
+    name: '--heading-font-size-sm',
+    defaultValue: 'var(--text-md)',
+    description: 'Controls `sm` heading font size.',
+  },
+  {
+    name: '--heading-font-size-md',
+    defaultValue: 'var(--text-lg)',
+    description: 'Controls `md` heading font size.',
+  },
+  {
+    name: '--heading-font-size-lg',
+    defaultValue: 'var(--text-xl)',
+    description: 'Controls `lg` heading font size.',
+  },
+  {
+    name: '--heading-font-size-xl',
+    defaultValue: 'var(--text-2xl)',
+    description: 'Controls `xl` heading font size.',
+  },
+  {
+    name: '--heading-font-size-2xl',
+    defaultValue: 'var(--text-3xl)',
+    description: 'Controls `2xl` heading font size.',
+  },
+  {
+    name: '--heading-font-weight',
+    defaultValue: 'var(--weight-semibold)',
+    description: 'Controls heading font weight.',
+  },
+  {
+    name: '--heading-font-weight-bold',
+    defaultValue: 'var(--weight-bold)',
+    description: 'Controls `bold` heading font weight.',
+  },
+  {
+    name: '--heading-font-weight-medium',
+    defaultValue: 'var(--weight-medium)',
+    description: 'Controls `medium` heading font weight.',
+  },
+  {
+    name: '--heading-font-weight-regular',
+    defaultValue: 'var(--weight-regular)',
+    description: 'Controls `regular` heading font weight.',
+  },
+  {
+    name: '--heading-font-weight-semibold',
+    defaultValue: 'var(--weight-semibold)',
+    description: 'Controls `semibold` heading font weight.',
+  },
+  {
+    name: '--heading-letter-spacing',
+    defaultValue: '0',
+    description: 'Controls heading letter spacing.',
+  },
+  {
+    name: '--heading-line-height',
+    defaultValue: 'size-dependent',
+    description: 'Controls heading line height for all sizes.',
+  },
+  {
+    name: '--heading-line-height-xs',
+    defaultValue: 'var(--line-height-text-sm)',
+    description: 'Controls `xs` heading line height.',
+  },
+  {
+    name: '--heading-line-height-sm',
+    defaultValue: 'var(--line-height-text-md)',
+    description: 'Controls `sm` heading line height.',
+  },
+  {
+    name: '--heading-line-height-md',
+    defaultValue: 'var(--line-height-text-lg)',
+    description: 'Controls `md` heading line height.',
+  },
+  {
+    name: '--heading-line-height-lg',
+    defaultValue: 'var(--line-height-text-xl)',
+    description: 'Controls `lg` heading line height.',
+  },
+  {
+    name: '--heading-line-height-xl',
+    defaultValue: 'var(--line-height-text-2xl)',
+    description: 'Controls `xl` heading line height.',
+  },
+  {
+    name: '--heading-line-height-2xl',
+    defaultValue: 'var(--line-height-text-3xl)',
+    description: 'Controls `2xl` heading line height.',
+  },
+  {
+    name: '--heading-text-wrap',
+    defaultValue: 'balance',
+    description: 'Controls heading text wrapping.',
+  },
+] satisfies CssPropertyInput[];
+
+export function HeadingCssPropertiesPanel() {
+  return <CSSPropertiesReferenceTable properties={headingOverrideCssProperties} />;
 }
 
 export function HeadingExample(props: ComponentProps<typeof Heading>) {
-  return <Heading {...props}>Build reliable interfaces</Heading>;
+  return (
+    <Heading className={styles.demo} {...props}>
+      Build reliable interfaces
+    </Heading>
+  );
 }
 
 export function HeadingElementsExample() {
   return (
     <div className={styles.stack}>
-      <Heading as="h1">Heading level 1</Heading>
-      <Heading as="h2">Heading level 2</Heading>
-      <Heading as="h3">Heading level 3</Heading>
-      <Heading as="h4">Heading level 4</Heading>
-      <Heading as="h5">Heading level 5</Heading>
-      <Heading as="h6">Heading level 6</Heading>
+      <Heading>{headingLevels[0].label}</Heading>
+      <Heading as="h2">{headingLevels[1].label}</Heading>
+      <Heading as="h3">{headingLevels[2].label}</Heading>
+      <Heading as="h4">{headingLevels[3].label}</Heading>
+      <Heading as="h5">{headingLevels[4].label}</Heading>
+      <Heading as="h6">{headingLevels[5].label}</Heading>
     </div>
   );
 }
@@ -101,24 +175,11 @@ export function HeadingElementsExample() {
 export function HeadingSizesExample() {
   return (
     <div className={styles.stack}>
-      <Heading as="h2" size="2xl">
-        Extra-large heading
-      </Heading>
-      <Heading as="h2" size="xl">
-        Large heading
-      </Heading>
-      <Heading as="h2" size="lg">
-        Medium-large heading
-      </Heading>
-      <Heading as="h2" size="md">
-        Medium heading
-      </Heading>
-      <Heading as="h2" size="sm">
-        Small heading
-      </Heading>
-      <Heading as="h2" size="xs">
-        Extra-small heading
-      </Heading>
+      {headingSizes.map((item) => (
+        <Heading key={item.size} as="h2" size={item.size}>
+          {item.label}
+        </Heading>
+      ))}
     </div>
   );
 }
@@ -126,34 +187,27 @@ export function HeadingSizesExample() {
 export function HeadingWeightsExample() {
   return (
     <div className={styles.stack}>
-      <Heading as="h2" weight="regular">
-        Regular weight
-      </Heading>
-      <Heading as="h2" weight="medium">
-        Medium weight
-      </Heading>
-      <Heading as="h2" weight="semibold">
-        Semibold weight
-      </Heading>
-      <Heading as="h2" weight="bold">
-        Bold weight
-      </Heading>
+      {headingWeights.map((item) => (
+        <Heading key={item.weight} as="h2" weight={item.weight}>
+          {item.label}
+        </Heading>
+      ))}
     </div>
   );
 }
 
 export function HeadingSemanticLevelExample() {
   return (
-    <Heading as="h2" size="2xl">
+    <Heading as="h2" size="2xl" className={styles.demo}>
       Page title rendered as h2
     </Heading>
   );
 }
 
-export function CustomCompositionHeadingExample() {
+export function HeadingCustomHostExample() {
   return (
-    <Heading as="h2" className={styles.customHeading}>
-      Customized heading
+    <Heading asChild size="xl" className={styles.customHost}>
+      <h2>Factory-composed heading</h2>
     </Heading>
   );
 }

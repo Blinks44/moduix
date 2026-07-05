@@ -385,8 +385,8 @@ const shadowTokens = [
 ];
 
 const transformTokens = [
-  ['--scale-popup', '0.9', 'Dialog, popover, tooltip, menu, preview card, toast, nav menu'],
-  ['--scale-dropdown', '0.95', 'Select, combobox, autocomplete, context menu root'],
+  ['--scale-popup', '0.9', 'Dialog, popover, tooltip, menu, hover card, toast, nav menu'],
+  ['--scale-dropdown', '0.95', 'Select, combobox, autocomplete'],
 ];
 
 const zIndexTokens = [
@@ -405,20 +405,13 @@ const zIndexTokens = [
 const sharedBackdropTokens = [
   ['--backdrop-bg', 'var(--color-overlay)', 'Global backdrop color fallback'],
   ['--backdrop-filter', 'blur(4px)', 'Global backdrop filter fallback'],
-  ['--alert-dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'AlertDialog'],
-  ['--autocomplete-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Autocomplete'],
   ['--combobox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Combobox'],
   ['--command-palette-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'CommandPalette'],
-  ['--context-menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'ContextMenu'],
   ['--dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Dialog'],
   ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Drawer'],
   ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Lightbox'],
   ['--select-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Select'],
   ['--menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Menu'],
-  ['--menubar-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Menubar'],
-  ['--navigation-menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'NavigationMenu'],
-  ['--popover-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Popover'],
-  ['--preview-card-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'PreviewCard'],
 ];
 
 const sharedPopupTokens = [

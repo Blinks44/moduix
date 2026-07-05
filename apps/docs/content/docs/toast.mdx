@@ -4,730 +4,286 @@ description: A notification region for temporary messages, actions, and contextu
 icon: Component
 ---
 
-import {
-  ActionToastExample,
-  AnchoredToastExample,
-  CustomAnchoredToastExample,
-  CustomToastExample,
-  ExpandedToastExample,
-  GlobalManagerToastExample,
-  ManualToastCompositionExample,
-  PlacementToastExample,
-  ToastAndAnchoredToastExample,
-  ToastVariantsExample,
-  ToastCssPlaygroundPanel,
-  ToastCssPropertiesPanel,
-  ToastExample,
-  toastPlaygroundCssProperties,
-} from '@/components/examples/toast';
+import * as ToastDocs from '@/components/examples/toast';
 
-## Overview
+## API Reference
 
-`Toast` in moduix is a two-flow wrapper over Base UI:
+<PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
 
-- `ToastRegion` renders the normal stacked notification queue
-- `ToastAnchoredRegion` renders short, contextual feedback next to an anchor element
+## Basic
 
-The supported moduix API is provider + region composition first. Drop to low-level parts only when
-the default region wiring is no longer enough.
+Create a toaster store with `createToaster()`, enqueue messages through that store, and render the
+store with `Toaster`.
 
-## Default Path
+<Preview>
+  <ToastDocs.ToastExample />
 
-Mount `ToastProvider` once near the app root, then render one or both regions depending on the
-feedback flows the app needs:
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/basic.tsx#demo</include>
+</Preview.Code>
 
-- `ToastRegion` for stacked page-level notifications
-- `ToastAnchoredRegion` for short feedback next to the triggering control
-
-```tsx
-import { ToastAnchoredRegion, ToastProvider, ToastRegion } from 'moduix';
-
-export function App() {
-  return (
-    <ToastProvider>
-      <AppShell />
-      <ToastRegion />
-      <ToastAnchoredRegion />
-    </ToastProvider>
-  );
-}
-```
-
-Use `useToastManager()` to enqueue stacked toasts and `useAnchoredToastManager()` to enqueue
-anchored ones. Most applications never need lower-level setup than this.
-
-<Preview cssProperties={toastPlaygroundCssProperties} cssVariableScope="root">
-  <ToastExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        ToastProvider,
-        ToastRegion,
-        useToastManager,
-      } from "moduix";
-
-      export function App() {
-        return (
-          <ToastProvider>
-            <SaveButton />
-            <ToastRegion />
-          </ToastProvider>
-        );
-      }
-
-      function SaveButton() {
-        const toastManager = useToastManager();
-
-        return (
-          <Button
-            onClick={() =>
-              toastManager.add({
-                title: "Saved",
-                description: "Changes were saved successfully.",
-              })
-            }
-          >
-            Save changes
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSSProperties>
-    {(context) => <ToastCssPropertiesPanel {...context} />}
-  </Preview.CSSProperties>
-  <Preview.CSSPlayground>
-    {(context) => <ToastCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Toast` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/toast
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/toast
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/toast
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/toast
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/toast
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Toast` depends on, such
-as styles, icons, and small utilities.
-
-`ToastRegion` already renders `ToastPortal` and `ToastViewport`, so the default stacked path stays
-short.
+<ShadcnInstall packageName="react-toast" />
 
 ## Anatomy
 
 ```text
-ToastProvider
-├─ app content
-├─ ToastRegion
-│  ├─ ToastPortal
-│  └─ ToastViewport
-│     └─ ToastRoot
-│        └─ ToastContent
-│           ├─ ToastTitle
-│           ├─ ToastDescription
-│           ├─ ToastAction
-│           └─ ToastClose
-└─ ToastAnchoredRegion
-   └─ ToastPositioner
-      └─ ToastRoot
-         ├─ ToastArrow
-         └─ ToastContent
-            └─ ToastDescription
+createToaster()
+└─ Overlay subtree (automatically portalled)
+   └─ Toaster
+      └─ Toast.Root
+         ├─ Toast.Title
+         ├─ Toast.Description
+         ├─ Toast.ActionTrigger
+         └─ Toast.CloseTrigger
 ```
 
-| Part                  | Role                                                                |
-| --------------------- | ------------------------------------------------------------------- |
-| `ToastProvider`       | Provides the stacked toast manager and the anchored toast helper.   |
-| `ToastRegion`         | Default stacked toast renderer with built-in portal and viewport.   |
-| `ToastAnchoredRegion` | Default anchored toast renderer with built-in positioner and arrow. |
-| `ToastPortal`         | Low-level portal wrapper for manual stacked composition.            |
-| `ToastViewport`       | Low-level viewport wrapper for manual stacked composition.          |
-| `ToastPositioner`     | Low-level anchored positioner wrapper.                              |
-| `ToastRoot`           | Visible toast surface.                                              |
-| `ToastContent`        | Content wrapper for the visible toast body.                         |
-| `ToastTitle`          | Renders `toast.title`.                                              |
-| `ToastDescription`    | Renders `toast.description`.                                        |
-| `ToastAction`         | Renders `toast.actionProps` when present.                           |
-| `ToastClose`          | Dismiss button with the default close icon or custom children.      |
-| `ToastArrow`          | Default anchored arrow.                                             |
+| Part                        | Role                                                                                 |
+| --------------------------- | ------------------------------------------------------------------------------------ |
+| `Toast` / `Toast.Root`      | Visible toast surface connected to the current Ark toast context.                    |
+| `Toaster` / `Toast.Toaster` | Renders a toaster store and owns the Ark toast group.                                |
+| `Toast.Title`               | Title part. Defaults to the current toast `title` when no children are passed.       |
+| `Toast.Description`         | Description part. Defaults to the current toast `description`.                       |
+| `Toast.ActionTrigger`       | Action button wired to `toast.action.onClick`. Pass `toast.action.label` as content. |
+| `Toast.CloseTrigger`        | Dismiss button. Renders `CloseButton.Root` by default.                               |
 
 ## Composition
 
-`Toast` keeps the high-level API on the region components:
+`Toaster` portals itself by default. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; no `Portal` wrapper is needed.
 
-| Surface               | Prop            | Default        | Values                                                                                |
-| --------------------- | --------------- | -------------- | ------------------------------------------------------------------------------------- |
-| `ToastRegion`         | `placement`     | `bottom-right` | `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right` |
-| `ToastRegion`         | `stackBehavior` | `stacked`      | `stacked`, `expanded`                                                                 |
-| `ToastRegion`         | `renderToast`   | default markup | `(toast, index) => ReactNode`                                                         |
-| `ToastAnchoredRegion` | `renderToast`   | default markup | `(toast, index) => ReactNode`                                                         |
+### Recommended composition
 
-Composition rules:
+Create a stable toaster store with `createToaster(options)`, then render it once with `Toaster`.
+The store controls placement, overlap, gap, max queue size, duration, remove delay, idle pausing,
+and the `Alt+T` focus hotkey.
 
-- use `ToastRegion` for the normal stacked flow
-- use `ToastAnchoredRegion` for contextual feedback near a control
-- use Base UI `type` for toast variants; moduix styles `info`, `success`, `warning`, and `destructive` out of the box, and custom types can still be targeted through `data-type`
-- the default anchored renderer shows only `description`, so use `renderToast` for richer anchored content
-- use `renderToast` when the region setup stays the same but the visible markup needs to change
-- drop to `ToastPortal` and `ToastViewport` only when the stacked viewport structure itself must be owned by consumer code
+`Toaster` targets `document.body` by default. Set `portalled={false}` for inline rendering or pass
+`portalRef` for another container.
 
-Use `createToastManager()` only when a service outside React needs to enqueue stacked toasts.
+Use `Toast` as the short root form in application code. It is equivalent to `Toast.Root` and keeps
+the Ark namespace available for the child parts.
+
+### When to go custom
+
+Use the `Toaster` render prop when each toast needs custom layout, icons, or conditional controls.
+Keep `Toast.Root` as the outer item so Ark can preserve stacking, height measurement, dismiss
+lifecycle, pausing, keyboard focus, and type/state attributes.
+
+All exported Ark parts support `asChild`; custom children must remain semantic and preserve button
+behavior for `ActionTrigger` and `CloseTrigger`.
+
+If a custom child part needs direct access to Ark toast state, import `useToastContext()` from
+`@ark-ui/react/toast`. moduix keeps the visual parts and toaster wiring public and leaves the
+advanced state hook to Ark.
+
+### Default props
+
+| Prop                            | Default              | Notes                                                                                      |
+| ------------------------------- | -------------------- | ------------------------------------------------------------------------------------------ |
+| `createToaster.gap`             | `16`                 | Gap between toast items.                                                                   |
+| `createToaster.max`             | `24`                 | New toasts are queued after the visible stack reaches this limit.                          |
+| `createToaster.hotkey`          | `["altKey", "KeyT"]` | Moves focus to the toast group.                                                            |
+| `createToaster.offsets`         | `"1rem"`             | Safe-edge offset for the toast group.                                                      |
+| `createToaster.overlap`         | `false`              | Ark stack mode. Use `true` for overlapped stacks.                                          |
+| `createToaster.pauseOnPageIdle` | `true`               | Pauses timers while the page is idle.                                                      |
+| `createToaster.placement`       | `"bottom"`           | Use Ark placements: `top-start`, `top`, `top-end`, `bottom-start`, `bottom`, `bottom-end`. |
+| `createToaster.removeDelay`     | `200`                | Keeps closed toasts mounted long enough for exit transitions.                              |
+
+### Behavioral notes
+
+- Use `toaster.create()`, `success()`, `error()`, `warning()`, `info()`, `loading()`,
+  `promise()`, `update()`, `dismiss()`, `remove()`, and `dismissByPlacement()` directly from the
+  Ark toaster store.
+- `toast.action` uses `{ label, onClick }`, rendered by `Toast.ActionTrigger`.
+- `toast.duration` controls one toast; `createToaster({ duration })` controls the default.
+- `toast.onStatusChange(details)` receives Ark status changes for `visible`, `dismissing`, and
+  `unmounted`.
+- When creating a toast inside an effect, defer the store call with `queueMicrotask()` to avoid
+  React `flushSync` warnings.
+- `Toast.Root` exposes Ark state attributes such as `data-state`, `data-type`, `data-placement`,
+  `data-side`, `data-mounted`, `data-paused`, `data-first`, `data-sibling`, `data-stack`, and
+  `data-overlap`.
 
 ## Examples
 
-### Anchored Toast
-
-<Preview>
-  <AnchoredToastExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        ToastAnchoredRegion,
-        ToastProvider,
-        useAnchoredToastManager,
-      } from "moduix";
-      import { useRef } from "react";
-
-      export function App() {
-        return (
-          <ToastProvider>
-            <CopyButton />
-            <ToastAnchoredRegion />
-          </ToastProvider>
-        );
-      }
-
-      function CopyButton() {
-        const buttonRef = useRef(null as HTMLButtonElement | null);
-        const anchoredToast = useAnchoredToastManager();
-
-        return (
-          <Button
-            ref={buttonRef}
-            onClick={() => {
-              if (!buttonRef.current) {
-                return;
-              }
-
-              anchoredToast.show({
-                anchor: buttonRef.current,
-                description: "Copied",
-                timeout: 1800,
-              });
-            }}
-          >
-            Copy
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
 ### Action
 
+Use `action: { label, onClick }` when the toast should expose one direct follow-up action.
+
 <Preview>
-  <ActionToastExample />
+  <ToastDocs.ActionToastExample />
 
-  <Preview.Code>
-    {`
-      import { Button, ToastProvider, ToastRegion, useToastManager } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/action.tsx#demo</include>
+</Preview.Code>
 
-      export function App() {
-        return (
-          <ToastProvider>
-            <UploadButton />
-            <ToastRegion />
-          </ToastProvider>
-        );
-      }
-
-      function UploadButton() {
-        const toastManager = useToastManager();
-
-        return (
-          <Button
-            onClick={() =>
-              toastManager.add({
-                title: "File uploaded",
-                description: "The file is ready to share.",
-                actionProps: {
-                  children: "Undo",
-                  onClick: () => toastManager.add({ description: "Upload reverted." }),
-                },
-              })
-            }
-          >
-            Create action toast
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
-### Variants
+### Duration
 
-`ToastRegion` stays shared. Pass `type` when creating the toast. moduix styles the same semantic
-variants as `Alert` out of the box: `info`, `success`, `warning`, and `destructive`.
-
-For app-specific toast types, keep using the rendered `data-type` hook and override `--toast-*`
-variables in your own CSS.
+Set `duration` per toast when a notification should dismiss faster, slower, or only after manual
+dismissal.
 
 <Preview>
-  <ToastVariantsExample />
+  <ToastDocs.DurationToastExample />
 
-  <Preview.Code>
-    {`
-      import { Button, ToastProvider, ToastRegion, useToastManager } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/duration.tsx#demo</include>
+</Preview.Code>
 
-      export function App() {
-        return (
-          <ToastProvider>
-            <ToastVariantButtons />
-            <ToastRegion />
-          </ToastProvider>
-        );
-      }
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
+</Preview>
 
-      function ToastVariantButtons() {
-        const toastManager = useToastManager();
+### Max Visible
 
-        return (
-          <>
-            <Button
-              onClick={() =>
-                toastManager.add({
-                  type: "info",
-                  title: "Heads up",
-                  description: "New teammates can see the shared workspace now.",
-                })
-              }
-            >
-              Info toast
-            </Button>
-            <Button
-              onClick={() =>
-                toastManager.add({
-                  type: "success",
-                  title: "Saved",
-                  description: "The document is available to everyone with access.",
-                })
-              }
-            >
-              Success toast
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() =>
-                toastManager.add({
-                  type: "warning",
-                  title: "Storage almost full",
-                  description: "Archive old uploads before the next sync.",
-                })
-              }
-            >
-              Warning toast
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() =>
-                toastManager.add({
-                  type: "destructive",
-                  title: "Publish failed",
-                  description: "Review the required fields and try again.",
-                })
-              }
-            >
-              Destructive toast
-            </Button>
-          </>
-        );
-      }
-    `}
+Set `max` on the toaster store when bursts should queue instead of filling the screen.
 
-  </Preview.Code>
+<Preview>
+  <ToastDocs.MaxToastsToastExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/max-visible.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Placement
 
-Pass `placement` to `ToastRegion` to choose the viewport corner or center edge.
+Choose one of Ark's six placements when the toast group needs to appear on a specific viewport edge.
 
 <Preview>
-  <PlacementToastExample />
+  <ToastDocs.PlacementToastExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/placement.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Promise Toast
+
+Use `toaster.promise()` to transition one toast from loading to success or error.
+
+<Preview>
+  <ToastDocs.PromiseToastExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/promise-toast.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Types
+
+Use the typed toaster helpers for status-specific variants. moduix styles `info`, `success`,
+`warning`, `error`, and `destructive` through `data-type`.
+
+<Preview>
+  <ToastDocs.ToastTypesExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/types.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Update
+
+Keep the created toast id and pass it to `toaster.update()` when an existing notification should
+change in place.
+
+<Preview>
+  <ToastDocs.UpdateToastExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/update.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Always Expanded
 
-Pass `stackBehavior="expanded"` when the stack should always stay readable.
+Set `overlap: false` when every toast should remain fully visible instead of collapsing into an
+overlapping stack. This is an additional Ark store configuration, not a separate component mode.
 
 <Preview>
-  <ExpandedToastExample />
+  <ToastDocs.ExpandedToastExample />
 
-  <Preview.Code>
-    {`
-      import { Button, ToastProvider, ToastRegion, useToastManager } from "moduix";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/always-expanded.tsx#demo</include>
+</Preview.Code>
 
-      export function App() {
-        return (
-          <ToastProvider>
-            <ExpandedToastButton />
-            <ToastRegion placement="bottom-right" stackBehavior="expanded" />
-          </ToastProvider>
-        );
-      }
-
-      function ExpandedToastButton() {
-        const toastManager = useToastManager();
-        const [count, setCount] = useState(0);
-
-        return (
-          <Button
-            onClick={() => {
-              const next = count + 1;
-              setCount(next);
-              toastManager.add({
-                title: \`Stacked toast \${next}\`,
-                description: "Create several notifications to compare the expanded stack behavior.",
-              });
-            }}
-          >
-            Create expanded toast
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
-### Global Manager
+### Custom Composition
+
+Customize the render prop when the toast surface needs icons, a different internal layout, or
+component-specific CSS variables.
 
 <Preview>
-  <GlobalManagerToastExample />
+  <ToastDocs.CustomToastExample />
 
-  <Preview.Code>
-    {`
-      import { Button, ToastProvider, ToastRegion, createToastManager } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/custom-composition.tsx#demo</include>
+</Preview.Code>
 
-      export function App() {
-        return (
-          <ToastProvider toastManager={toastManager}>
-            <Button
-              onClick={() =>
-                toastManager.add({
-                  title: "Global toast",
-                  description: "Created with createToastManager().",
-                })
-              }
-            >
-              Create global toast
-            </Button>
-            <ToastRegion />
-          </ToastProvider>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`      const toastManager = createToastManager();`}
-
-  </Preview.Data>
+  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+  
 </Preview>
 
-### Stacked and Anchored Together
+## Styling
 
-<Preview>
-  <ToastAndAnchoredToastExample />
-</Preview>
+Style `Toast` through Ark part attributes, `data-slot` hooks, and the public `--toast-*` variables
+from `theme.css`.
 
-## Custom Composition
+### CSS Properties
 
-Use `renderToast` when the region setup stays the same but the visible layout needs to change.
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ToastDocs.ToastCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
 
-### Custom Stacked Toast
+### Styling hooks
 
-<Preview>
-  <CustomToastExample />
+Use `Toast.Root` for surface, border, motion, type-based variants, and Ark runtime variables.
+Use `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger`, and `Toast.CloseTrigger` for inner
+typography and controls.
 
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        CloseIcon,
-        InfoIcon,
-        ToastClose,
-        ToastContent,
-        ToastDescription,
-        ToastProvider,
-        ToastRegion,
-        ToastRoot,
-        ToastTitle,
-        useToastManager,
-      } from "moduix";
-      import styles from "./toast.module.css";
+Important Ark hooks:
 
-      export function App() {
-        return (
-          <ToastProvider>
-            <CustomToastButton />
-            <ToastRegion
-              renderToast={(toast) => (
-                <ToastRoot key={toast.id} toast={toast} className={styles.customToast}>
-                  <ToastContent className={styles.customContent}>
-                    <InfoIcon className={styles.customIcon} />
-                    <ToastTitle />
-                    <ToastDescription />
-                    <ToastClose aria-label="Close toast">
-                      <CloseIcon className={styles.closeIcon} />
-                    </ToastClose>
-                  </ToastContent>
-                </ToastRoot>
-              )}
-            />
-          </ToastProvider>
-        );
-      }
+- `[data-scope='toast'][data-part='group']` on `Toaster`
+- `[data-scope='toast'][data-part='root']` on `Toast.Root`
+- `[data-scope='toast'][data-part='title']` on `Toast.Title`
+- `[data-scope='toast'][data-part='description']` on `Toast.Description`
+- `[data-scope='toast'][data-part='action-trigger']` on `Toast.ActionTrigger`
+- `[data-scope='toast'][data-part='close-trigger']` on `Toast.CloseTrigger`
+- `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity`, and `--gap` on `Toast.Root`
 
-      function CustomToastButton() {
-        const toastManager = useToastManager();
+moduix also adds stable hooks: `data-slot="toast-toaster"`, `toast-root`, `toast-title`,
+`toast-description`, `toast-action-trigger`, and `toast-close-trigger`.
 
-        return (
-          <Button
-            onClick={() =>
-              toastManager.add({
-                title: "Custom composition",
-                description: "Every important part stays composable without slot prop APIs.",
-              })
-            }
-          >
-            Create custom toast
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Custom Anchored Toast
-
-<Preview>
-  <CustomAnchoredToastExample />
-
-  <Preview.Code>
-    {`
-      import {
-        type AnchoredToastOptions,
-        Button,
-        InfoIcon,
-        ToastAnchoredRegion,
-        ToastArrow,
-        ToastContent,
-        ToastDescription,
-        ToastProvider,
-        ToastRoot,
-        useAnchoredToastManager,
-      } from "moduix";
-      import { useRef } from "react";
-      import styles from "./toast.module.css";
-
-      export function App() {
-        return (
-          <ToastProvider>
-            <AnchoredToastActions />
-            <ToastAnchoredRegion
-              renderToast={(toast) => (
-                <ToastRoot key={toast.id} toast={toast} className={styles.customToast}>
-                  <ToastArrow />
-                  <ToastContent className={styles.customAnchoredContent}>
-                    <InfoIcon className={styles.customAnchoredIcon} />
-                    <ToastDescription />
-                  </ToastContent>
-                </ToastRoot>
-              )}
-            />
-          </ToastProvider>
-        );
-      }
-
-      function AnchoredToastActions() {
-        const copyRef = useRef<HTMLButtonElement | null>(null);
-        const saveRef = useRef<HTMLButtonElement | null>(null);
-        const shareRef = useRef<HTMLButtonElement | null>(null);
-        const anchoredToast = useAnchoredToastManager();
-
-        const showAnchored = (
-          anchor: HTMLButtonElement | null,
-          description: string,
-          positionerProps?: AnchoredToastOptions["positionerProps"],
-        ) => {
-          if (!anchor) {
-            return;
-          }
-
-          anchoredToast.show({
-            anchor,
-            description,
-            timeout: 1800,
-            positionerProps,
-          });
-        };
-
-        return (
-          <>
-            <Button ref={copyRef} onClick={() => showAnchored(copyRef.current, "Copied")}>
-              Copy
-            </Button>
-            <Button
-              ref={saveRef}
-              variant="outline"
-              onClick={() => showAnchored(saveRef.current, "Saved")}
-            >
-              Save
-            </Button>
-            <Button
-              ref={shareRef}
-              variant="secondary"
-              onClick={() =>
-                showAnchored(shareRef.current, "Shared", {
-                  side: "bottom",
-                })
-              }
-            >
-              Share (bottom)
-            </Button>
-          </>
-        );
-      }
-
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Manual Stacked Region
-
-Most applications should stay on `ToastRegion`, but the stacked viewport can still be composed
-manually when needed.
-
-<Preview>
-  <ManualToastCompositionExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        CloseIcon,
-        InfoIcon,
-        ToastClose,
-        ToastContent,
-        ToastDescription,
-        ToastPortal,
-        ToastProvider,
-        ToastRoot,
-        ToastTitle,
-        ToastViewport,
-        useToastManager,
-      } from "moduix";
-      import styles from "./toast.module.css";
-
-      export function App() {
-        return (
-          <ToastProvider>
-            <ManualToastButton />
-            <ManualToastRegion />
-          </ToastProvider>
-        );
-      }
-
-      function ManualToastButton() {
-        const toastManager = useToastManager();
-
-        return (
-          <Button
-            onClick={() =>
-              toastManager.add({
-                title: "Manual viewport",
-                description: "This stack is assembled from ToastPortal and ToastViewport.",
-              })
-            }
-          >
-            Create manual toast
-          </Button>
-        );
-      }
-
-      function ManualToastRegion() {
-        const { toasts } = useToastManager();
-
-        return (
-          <ToastPortal>
-            <ToastViewport placement="bottom-left">
-              {toasts.map((toast) => (
-                <ToastRoot key={toast.id} toast={toast} className={styles.customToast}>
-                  <ToastContent className={styles.customContent}>
-                    <InfoIcon className={styles.customIcon} />
-                    <ToastTitle />
-                    <ToastDescription />
-                    <ToastClose aria-label="Close toast">
-                      <CloseIcon className={styles.closeIcon} />
-                    </ToastClose>
-                  </ToastContent>
-                </ToastRoot>
-              ))}
-            </ToastViewport>
-          </ToastPortal>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
+At viewport widths up to `40rem`, moduix follows Ark's mobile guidance: the toaster group spans the
+viewport and each root uses `--gap` for safe inline spacing.

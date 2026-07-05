@@ -1,355 +1,238 @@
 ---
 title: Split Button
-description: A grouped primary action and dropdown trigger built from the moduix Button and Menu wrappers.
+description: A grouped primary action and Ark Menu dropdown trigger built from moduix Button and Menu parts.
 icon: Component
 ---
 
-import {
-  SplitButtonControlledExample,
-  SplitButtonExample,
-  SplitButtonIconExample,
-  SplitButtonLinkActionExample,
-  SplitButtonSizesExample,
-  SplitButtonVariantsExample,
-} from '@/components/examples/split-button';
+import * as SplitButtonDocs from '@/components/examples/split-button';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/button" />
-
-<BaseUIReference href="https://base-ui.com/react/components/menu" />
-
-## Overview
-
-`SplitButton` combines one primary `Button` action with one adjacent menu trigger.
-
-Use it when there is a clear default action, but secondary actions should stay nearby in a compact
-menu instead of taking equal visual weight.
+Ark UI does not ship a dedicated split-button primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Basic
 
-The common path is `SplitButton`, `SplitButtonAction`, `SplitButtonTrigger`, and
-`SplitButtonContent`, with shared menu rows inside the content.
+Use `SplitButton` as the short root form, then keep the Ark-style structure visible with
+`SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Positioner`, and
+`SplitButton.Content`.
 
 <Preview>
-  <SplitButtonExample />
+  <SplitButtonDocs.SplitButtonExample />
 
-  <Preview.Code>
-    {`
-      import {
-        MenuItem,
-        MenuSeparator,
-        SplitButton,
-        SplitButtonAction,
-        SplitButtonContent,
-        SplitButtonTrigger,
-      } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/basic.tsx#demo</include>
+</Preview.Code>
 
-      export function SplitButtonDemo() {
-        return (
-          <SplitButton>
-            <SplitButtonAction>Save Changes</SplitButtonAction>
-            <SplitButtonTrigger />
-            <SplitButtonContent>
-              <MenuItem closeOnClick>Save as Draft</MenuItem>
-              <MenuItem closeOnClick>Duplicate</MenuItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick>Publish Now</MenuItem>
-            </SplitButtonContent>
-          </SplitButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Install with shadcn (optional)
+## Install with shadcn
 
-If you want `Split Button` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
-
-<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
-  <Tab value="npm">
-
-```bash
-npx shadcn@latest add Blinks44/moduix/split-button
-```
-
-  </Tab>
-  <Tab value="pnpm">
-
-```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/split-button
-```
-
-  </Tab>
-  <Tab value="bun">
-
-```bash
-bunx shadcn@latest add Blinks44/moduix/split-button
-```
-
-  </Tab>
-  <Tab value="deno">
-
-```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/split-button
-```
-
-  </Tab>
-  <Tab value="aube">
-
-```bash
-aubx shadcn@latest add Blinks44/moduix/split-button
-```
-
-  </Tab>
-</Tabs>
-
-This install path also pulls in the shared moduix foundation files that `Split Button` depends on, such
-as styles, icons, and small utilities.
+<ShadcnInstall packageName="react-split-button" />
 
 ## Anatomy
 
 ```text
-SplitButton
-├─ SplitButtonAction
-├─ SplitButtonTrigger
-└─ SplitButtonContent
-   ├─ MenuItem
-   ├─ MenuSeparator
-   └─ other shared Menu parts
+SplitButton.Root
+├─ SplitButton.Action
+├─ SplitButton.Trigger
+└─ Overlay subtree (automatically portalled)
+   └─ SplitButton.Positioner
+      └─ SplitButton.Content
+         ├─ Menu.Item
+         ├─ Menu.Separator
+         └─ other shared Menu parts
 ```
 
-| Part                 | Role                                                      |
-| -------------------- | --------------------------------------------------------- |
-| `SplitButton`        | Menu root behavior plus grouped visual wrapper.           |
-| `SplitButtonAction`  | Primary visible action.                                   |
-| `SplitButtonTrigger` | Secondary trigger for related actions.                    |
-| `SplitButtonContent` | Default popup wrapper. Use shared `Menu*` rows inside it. |
-
-The grouped parts expose `data-slot="split-button-root"`, `data-slot="split-button-action"`, and
-`data-slot="split-button-trigger"`.
+| Part                               | Role                                                                  |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| `SplitButton` / `SplitButton.Root` | Owns Ark Menu root state and the grouped visual wrapper.              |
+| `SplitButton.Action`               | Primary Button action. Inherits root `variant` and `size` by default. |
+| `SplitButton.Trigger`              | Ark Menu trigger rendered as a moduix Button with a chevron fallback. |
+| `SplitButton.Positioner`           | Ark Menu positioner with placement variables and layer z-index.       |
+| `SplitButton.Content`              | Ark Menu content surface for shared `Menu.*` rows.                    |
 
 ## Composition
 
-`SplitButton` shares `variant` and `size` defaults across the action and trigger.
+`SplitButton.Root` portals its menu `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; `Positioner` and `Content` remain explicit and styleable.
 
-### Defaults
+### Recommended composition
 
-| Prop         | Default   | Values                                                                           |
-| ------------ | --------- | -------------------------------------------------------------------------------- |
-| `variant`    | `default` | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost` |
-| `size`       | `md`      | `xs`, `sm`, `md`, `lg`, `xl`                                                     |
-| `align`      | `end`     | any `MenuContent` align value                                                    |
-| `sideOffset` | `4`       | any `MenuContent` side offset                                                    |
+`SplitButton.Root` forwards Ark `Menu.Root` props such as `open`, `defaultOpen`,
+`onOpenChange(details)`, `onSelect(details)`, `closeOnSelect`, `positioning`, `ids`, `lazyMount`,
+`unmountOnExit`, and `typeahead`.
 
-Keep the alternate actions on shared menu parts like `MenuItem`, `MenuSeparator`, `MenuGroup`, and
-`MenuCheckboxItem` instead of expecting a separate split-button row API.
+Use `SplitButton.Action` for the primary path. Put secondary actions in `SplitButton.Content` with
+the shared `Menu.Item`, `Menu.Separator`, `Menu.ItemGroup`, `Menu.CheckboxItem`, and `Menu.RadioItem`
+parts.
+
+### When to go custom
+
+Use `asChild` on `SplitButton.Action` when the primary action should render as a semantic link or
+another compatible element.
+
+Use `asChild` on `SplitButton.Trigger` only with a single semantic child that can receive button
+props, Ark Menu trigger ARIA, and keyboard behavior.
+
+Use `positioning` on `SplitButton.Root` for popup placement. Keep `SplitButton.Positioner` and
+`SplitButton.Content` explicit so consumers can style or configure the popup structure without
+rewriting the component.
+
+When the menu itself needs advanced state access, compose directly with `Menu.RootProvider` and
+`useMenu()` from the shared `Menu` API rather than adding split-button-specific state wrappers.
+
+### Default props
+
+| Surface               | Prop          | Default                                  | Notes                                                  |
+| --------------------- | ------------- | ---------------------------------------- | ------------------------------------------------------ |
+| `SplitButton.Root`    | `variant`     | `'default'`                              | Shared default for `Action` and `Trigger`.             |
+| `SplitButton.Root`    | `size`        | `'md'`                                   | Shared default for `Action` and `Trigger`.             |
+| `SplitButton.Root`    | `positioning` | `{ placement: 'bottom-end', gutter: 4 }` | Keeps the popup aligned to the trigger edge.           |
+| `SplitButton.Trigger` | `aria-label`  | `'More actions'` when icon-only          | Override for a more specific accessible name.          |
+| `SplitButton.Trigger` | `children`    | `ChevronDownIcon`                        | Replace when the trigger needs custom visible content. |
+
+### Behavioral notes
+
+- `SplitButton` has no legacy render contract and no flat part exports.
+- `SplitButton.Action` follows the shared moduix `Button` `asChild` contract.
+- `SplitButton.Trigger` renders a moduix `Button` as the Ark Menu trigger host. It keeps
+  `data-slot="split-button-trigger"` and receives Ark trigger ARIA/state attributes such as
+  `aria-expanded`, `aria-controls`, and `data-state`.
+- `SplitButton.Positioner` receives Ark Menu CSS variables such as `--reference-width`,
+  `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`.
+- The root `variant` excludes the `link` button variant because grouped link-style split buttons do
+  not form a coherent control.
+- The root `size` excludes icon-only button sizes because the default path expects a visible label on
+  the primary action.
 
 ## Examples
 
 ### Variants
 
+Use the root `variant` when both grouped buttons should share the same visual tone.
+
 <Preview>
-  <SplitButtonVariantsExample />
+  <SplitButtonDocs.SplitButtonVariantsExample />
 
-  <Preview.Code>
-    {`
-      import {
-        MenuItem,
-        SplitButton,
-        SplitButtonAction,
-        SplitButtonContent,
-        SplitButtonTrigger,
-      } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/variants.tsx#demo</include>
+</Preview.Code>
 
-      export function SplitButtonVariantsDemo() {
-        return (
-          <>
-            <SplitButton>
-              <SplitButtonAction>Default</SplitButtonAction>
-              <SplitButtonTrigger />
-              <SplitButtonContent>
-                <MenuItem closeOnClick>Edit</MenuItem>
-              </SplitButtonContent>
-            </SplitButton>
-
-            <SplitButton variant="outline">
-              <SplitButtonAction>Outline</SplitButtonAction>
-              <SplitButtonTrigger />
-              <SplitButtonContent>
-                <MenuItem closeOnClick>Edit</MenuItem>
-              </SplitButtonContent>
-            </SplitButton>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Sizes
 
+Use the root `size` when both sides should scale together.
+
 <Preview>
-  <SplitButtonSizesExample />
+  <SplitButtonDocs.SplitButtonSizesExample />
 
-  <Preview.Code>
-    {`
-      import {
-        MenuItem,
-        SplitButton,
-        SplitButtonAction,
-        SplitButtonContent,
-        SplitButtonTrigger,
-      } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/sizes.tsx#demo</include>
+</Preview.Code>
 
-      export function SplitButtonSizesDemo() {
-        return (
-          <>
-            <SplitButton size="xs" variant="outline">
-              <SplitButtonAction>Extra-small</SplitButtonAction>
-              <SplitButtonTrigger />
-              <SplitButtonContent>
-                <MenuItem closeOnClick>Create</MenuItem>
-              </SplitButtonContent>
-            </SplitButton>
-
-            <SplitButton size="lg" variant="outline">
-              <SplitButtonAction>Large</SplitButtonAction>
-              <SplitButtonTrigger />
-              <SplitButtonContent>
-                <MenuItem closeOnClick>Create</MenuItem>
-              </SplitButtonContent>
-            </SplitButton>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### With Icons
 
+Add an icon to the primary side when it clarifies the default action without replacing the text
+label.
+
 <Preview>
-  <SplitButtonIconExample />
+  <SplitButtonDocs.SplitButtonIconExample />
 
-  <Preview.Code>
-    {`
-      import {
-        MenuItem,
-        MenuSeparator,
-        PlusIcon,
-        SplitButton,
-        SplitButtonAction,
-        SplitButtonContent,
-        SplitButtonTrigger,
-      } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/with-icons.tsx#demo</include>
+</Preview.Code>
 
-      export function SplitButtonIconsDemo() {
-        return (
-          <SplitButton>
-            <SplitButtonAction>
-              <PlusIcon />
-              Create Item
-            </SplitButtonAction>
-            <SplitButtonTrigger aria-label="More create actions" />
-            <SplitButtonContent>
-              <MenuItem closeOnClick>Create Blank</MenuItem>
-              <MenuItem closeOnClick>Create From Template</MenuItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick>Import Existing</MenuItem>
-            </SplitButtonContent>
-          </SplitButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
 
 ### Controlled Menu State
 
-`SplitButton` forwards the same root menu state props as `Menu`.
+Use the same controlled open-state contract as Ark Menu when outside state should own the dropdown.
 
 <Preview>
-  <SplitButtonControlledExample />
+  <SplitButtonDocs.SplitButtonControlledExample />
 
-  <Preview.Code>
-    {`
-      import {
-        MenuItem,
-        MenuSeparator,
-        SplitButton,
-        SplitButtonAction,
-        SplitButtonContent,
-        SplitButtonTrigger,
-      } from "moduix";
-      import { useState } from "react";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/controlled-menu-state.tsx#demo</include>
+</Preview.Code>
 
-      export function ControlledSplitButton() {
-        const [open, setOpen] = useState(false);
-
-        return (
-          <SplitButton open={open} onOpenChange={setOpen} variant="outline">
-            <SplitButtonAction>Share</SplitButtonAction>
-            <SplitButtonTrigger aria-label="More share actions" />
-            <SplitButtonContent>
-              <MenuItem closeOnClick>Copy Link</MenuItem>
-              <MenuItem closeOnClick>Invite by Email</MenuItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick onClick={() => setOpen(false)}>
-                Close Menu
-              </MenuItem>
-            </SplitButtonContent>
-          </SplitButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
 
-## Custom Composition
+### Positioning
 
-### Action Rendered As A Link
-
-The primary action still uses the shared `Button` API, so `render` and `nativeButton={false}` stay
-available on `SplitButtonAction`.
+Configure popup placement with the Ark `positioning` root prop while keeping the structural popup
+parts explicit.
 
 <Preview>
-  <SplitButtonLinkActionExample />
+  <SplitButtonDocs.SplitButtonCustomPositioningExample />
 
-  <Preview.Code>
-    {`
-      import {
-        ArrowUpRightIcon,
-        MenuItem,
-        SplitButton,
-        SplitButtonAction,
-        SplitButtonContent,
-        SplitButtonTrigger,
-      } from "moduix";
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/positioning.tsx#demo</include>
+</Preview.Code>
 
-      export function SplitButtonLinkAction() {
-        return (
-          <SplitButton variant="outline">
-            <SplitButtonAction render={<a href="#split-button" />} nativeButton={false}>
-              Open Docs
-              <ArrowUpRightIcon />
-            </SplitButtonAction>
-            <SplitButtonTrigger aria-label="More docs actions" />
-            <SplitButtonContent>
-              <MenuItem closeOnClick>Copy Link</MenuItem>
-              <MenuItem closeOnClick>Open in New Tab</MenuItem>
-            </SplitButtonContent>
-          </SplitButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
 </Preview>
+
+### Menu Composition
+
+Use shared `Menu.*` parts inside `SplitButton.Content` when secondary actions need groups,
+separators, checkbox items, radio items, or link rows.
+
+<Preview>
+  <SplitButtonDocs.SplitButtonMenuCompositionExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/menu-composition.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Link Action
+
+Use `asChild` on `SplitButton.Action` when the primary action should render as a link.
+
+<Preview>
+  <SplitButtonDocs.SplitButtonLinkActionExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/link-action.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
+</Preview>
+
+## Styling
+
+`SplitButton` uses moduix `Button` and `Menu` styles, plus split-button slots for the grouped
+visual treatment.
+
+### Styling hooks
+
+- `data-scope="split-button"` and `data-part="root"` target the grouped wrapper.
+- `data-slot="split-button-root"` targets the grouped wrapper.
+- `data-slot="split-button-action"` targets the primary action side.
+- `data-slot="split-button-trigger"` targets the dropdown trigger side.
+- `data-slot="split-button-positioner"` targets the Ark Menu positioner wrapper.
+- `data-slot="split-button-content"` targets the Ark Menu content surface.
+- `SplitButton.Trigger` renders through the shared `Button` host and carries Ark Menu trigger ARIA
+  and state attributes including `data-state="open" | "closed"`.
+- `SplitButton.Content` carries Ark Menu content attributes including `data-state`, `data-side`,
+  `data-placement`, `data-nested`, and `data-has-nested`.

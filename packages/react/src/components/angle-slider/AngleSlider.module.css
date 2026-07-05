@@ -1,0 +1,219 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: column;
+    min-width: 0;
+    align-items: center;
+    gap: var(--angle-slider-gap, 0.75rem);
+    color: var(--angle-slider-color, var(--color-foreground));
+
+    &[data-disabled] {
+      opacity: var(--angle-slider-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .label {
+    color: var(--angle-slider-label-color, var(--angle-slider-color, var(--color-foreground)));
+    font-size: var(--angle-slider-label-font-size, var(--text-sm));
+    font-weight: var(--angle-slider-label-font-weight, var(--weight-medium));
+    line-height: var(--angle-slider-label-line-height, var(--line-height-text-sm));
+    text-align: center;
+  }
+
+  .control {
+    --_angle-slider-control-border-color: var(
+      --angle-slider-control-border-color,
+      var(--color-border)
+    );
+    --_angle-slider-track-border-color: var(--angle-slider-track-border-color, var(--color-border));
+
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--angle-slider-size, 8rem);
+    min-width: 0;
+    aspect-ratio: 1;
+    border-radius: var(--angle-slider-radius, var(--radius-full));
+    background: var(--angle-slider-track-bg, var(--color-muted));
+    box-shadow:
+      inset 0 0 0 var(--angle-slider-track-border-width, var(--border-width-sm))
+        var(--_angle-slider-track-border-color),
+      var(--angle-slider-shadow, none);
+    cursor: pointer;
+    outline: 0;
+    user-select: none;
+
+    &::after {
+      position: absolute;
+      z-index: 1;
+      inset: var(--angle-slider-ring-thickness, 0.875rem);
+      border-radius: inherit;
+      background: var(--angle-slider-control-bg, var(--color-background));
+      box-shadow: inset 0 0 0 var(--angle-slider-control-border-width, var(--border-width-sm))
+        var(--_angle-slider-control-border-color);
+      content: '';
+    }
+
+    &::before {
+      position: absolute;
+      z-index: 1;
+      width: var(--angle-slider-center-dot-size, 0.375rem);
+      height: var(--angle-slider-center-dot-size, 0.375rem);
+      border-radius: inherit;
+      background: var(
+        --angle-slider-center-dot-color,
+        var(--angle-slider-color, var(--color-foreground))
+      );
+      content: '';
+    }
+
+    &:has(.thumb:focus-visible) {
+      box-shadow:
+        inset 0 0 0 var(--angle-slider-track-border-width, var(--border-width-sm))
+          var(--_angle-slider-track-border-color),
+        0 0 0 var(--angle-slider-focus-ring-width, 0.1875rem)
+          var(--angle-slider-focus-ring-color, var(--color-ring)),
+        var(--angle-slider-shadow, none);
+    }
+
+    &[data-invalid] {
+      --_angle-slider-control-border-color: var(
+        --angle-slider-invalid-color,
+        var(--color-destructive)
+      );
+      --_angle-slider-track-border-color: var(
+        --angle-slider-invalid-color,
+        var(--color-destructive)
+      );
+    }
+
+    &:is([data-disabled], [data-readonly]) {
+      cursor: default;
+    }
+  }
+
+  .thumb {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(50% - var(--angle-slider-thumb-line-width, 0.1875rem) / 2);
+    z-index: 2;
+    width: var(--angle-slider-thumb-line-width, 0.1875rem);
+    outline: 0;
+
+    &::before {
+      position: absolute;
+      top: var(--angle-slider-ring-thickness, 0.875rem);
+      left: 50%;
+      box-sizing: border-box;
+      width: var(--angle-slider-thumb-size, 1rem);
+      height: var(--angle-slider-thumb-size, 1rem);
+      border: var(--angle-slider-thumb-border-width, var(--border-width-sm)) solid
+        var(--angle-slider-thumb-border-color, var(--color-border));
+      border-radius: var(--angle-slider-thumb-radius, var(--radius-full));
+      background: var(
+        --angle-slider-thumb-bg,
+        var(--angle-slider-indicator-bg, var(--color-primary))
+      );
+      box-shadow: var(--angle-slider-thumb-shadow, var(--shadow-sm));
+      transform: translateX(-50%);
+      transition:
+        border-color var(--angle-slider-transition, var(--transition-default)),
+        box-shadow var(--angle-slider-transition, var(--transition-default)),
+        background-color var(--angle-slider-transition, var(--transition-default)),
+        transform var(--angle-slider-transition, var(--transition-default));
+      content: '';
+    }
+
+    &::after {
+      position: absolute;
+      top: calc(
+        var(--angle-slider-ring-thickness, 0.875rem) + var(--angle-slider-thumb-size, 1rem) +
+          0.25rem
+      );
+      left: 50%;
+      width: var(--angle-slider-thumb-line-width, 0.1875rem);
+      height: calc(
+        50% - var(--angle-slider-ring-thickness, 0.875rem) - var(--angle-slider-thumb-size, 1rem) -
+          0.375rem
+      );
+      border-radius: var(--radius-full);
+      background: linear-gradient(
+        to bottom,
+        var(--angle-slider-indicator-bg, var(--color-primary)),
+        transparent
+      );
+      transform: translateX(-50%);
+      content: '';
+    }
+
+    &:focus-visible::before {
+      border-color: var(--angle-slider-focus-ring-color, var(--color-ring));
+      box-shadow: 0 0 0 var(--border-width-sm)
+        var(--angle-slider-focus-ring-color, var(--color-ring));
+    }
+
+    &:active:not([data-disabled], [data-readonly])::before {
+      transform: translateX(-50%) scale(1.08);
+    }
+
+    &[data-invalid]::before {
+      border-color: var(--angle-slider-invalid-color, var(--color-destructive));
+    }
+
+    &[data-invalid]::after {
+      background: linear-gradient(
+        to bottom,
+        var(--angle-slider-invalid-color, var(--color-destructive)),
+        transparent
+      );
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+    }
+  }
+
+  .markerGroup {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .marker {
+    position: absolute;
+    inset: 0;
+
+    &::before {
+      position: absolute;
+      top: calc(var(--angle-slider-ring-thickness, 0.875rem) + 0.125rem);
+      left: 50%;
+      width: var(--angle-slider-marker-width, 0.125rem);
+      height: var(--angle-slider-marker-height, 0.625rem);
+      border-radius: var(--radius-full);
+      background: var(--angle-slider-marker-color, var(--color-muted-foreground));
+      transform: translate(-50%, -50%);
+      content: '';
+    }
+
+    &[data-state='under-value']::before {
+      background: var(--angle-slider-marker-active-color, var(--color-primary));
+    }
+
+    &[data-state='at-value']::before {
+      background: var(--angle-slider-marker-current-color, var(--color-foreground));
+    }
+  }
+
+  .valueText {
+    color: var(--angle-slider-value-text-color, var(--angle-slider-color, var(--color-foreground)));
+    font-size: var(--angle-slider-value-text-font-size, var(--text-sm));
+    font-weight: var(--angle-slider-value-text-font-weight, var(--weight-medium));
+    line-height: var(--angle-slider-value-text-line-height, var(--line-height-text-sm));
+    text-align: center;
+  }
+}
