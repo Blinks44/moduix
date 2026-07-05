@@ -8,24 +8,32 @@ import * as AnimationDocs from '@/components/examples/animations';
 
 # Animations
 
-moduix appearance transitions expose phase-specific motion tokens for opacity, scale, and translate.
+moduix drives appearance transitions through CSS variables on the visual part that owns the motion.
+Ark state attributes trigger the CSS, and Ark presence behavior keeps exit animations mounted long
+enough to finish.
+
 Shared `--duration-*`, `--ease-*`, `--transition-*`, and `--scale-*` tokens affect multiple
-components; component-local tokens are preferable for isolated changes.
+components. Prefer component-local motion variables when the change should stay isolated to one
+surface family.
 
 When the operating system requests reduced motion, the foundation reduces shared duration tokens
 to `0.01ms` and disables the shared pulse, fade, slide, and spin animations. Components with
 specialized continuous motion, such as marquee and indeterminate progress, keep their own
 `prefers-reduced-motion` fallback.
 
-`*-starting-*` values apply during entry and `*-ending-*` values apply during exit. For the
-Ark-backed `Popover`, the visual part is `Content`, so its token family is
-`--popover-content-*`. Other component families may still use `popup`, `content`, or another
-part-specific name.
+## Motion model
+
+- `*-starting-*` values apply during entry and `*-ending-*` values apply during exit.
+- Put motion variables on the part that visually animates, such as `Popover.Content`,
+  `Dialog.Content`, `Menu.Content`, or a component-specific popup part.
+- Reuse the same recipe across families by changing only the variable prefix, for example
+  `--popover-content-*`, `--dialog-content-*`, `--menu-popup-*`, or `--tooltip-popup-*`.
+- Use `present` only when JavaScript, not CSS, should control the mounted lifecycle.
 
 ## Live Preview
 
-The preview uses Ark-aligned `Popover.Content` composition and CSS animations tied to its
-`data-state` attribute.
+The preview uses `Popover.Content` because it is the smallest popup surface in the library. The
+same pattern applies to other popup and dialog families with their matching token prefixes.
 
 <Preview cssProperties={AnimationDocs.animationMotionCssProperties} cssVariableScope="root">
   <AnimationDocs.MotionPlaygroundExample />
@@ -40,7 +48,8 @@ The preview uses Ark-aligned `Popover.Content` composition and CSS animations ti
 
 ## Ready Recipes
 
-Apply these variables to `Popover.Content` through `className`.
+Apply these variables to `Popover.Content` through `className`, or swap the variable prefix for the
+matching component family.
 
 ### Fade
 
@@ -155,6 +164,7 @@ Apply these variables to `Popover.Content` through `className`.
 - Put motion variables on the visual part that owns the animation.
 - Keep entry and exit values symmetric unless asymmetric motion is intentional.
 - Set scale to `1` for pure fade or slide motion.
+- Prefer component-local overrides before changing shared duration or easing tokens globally.
 - Ark presence keeps closed content mounted while CSS exit animations run. Use `present` only when
   JavaScript must control that lifecycle.
 

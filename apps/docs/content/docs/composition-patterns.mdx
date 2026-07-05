@@ -1,76 +1,123 @@
 ---
 title: Composition Patterns
-description: Common rules for explicit parts, product wrappers, re-exports, and custom styling.
+description: Compose moduix parts without hiding Ark behavior or product override points.
 icon: Blocks
 ---
 
 # Composition Patterns
 
-moduix is built around explicit parts. Instead of hiding behavior behind one large component with a
-dozen styling props, most multi-part components keep their structure visible with APIs such as
-`Dialog.Root`, `Dialog.Trigger`, and `Dialog.Content`.
+moduix keeps Ark composition visible. Instead of folding behavior into one large prop surface, most
+components expose the stateful root and the parts that own semantics, layout, and styling.
 
-That gives you three useful levels of control:
+That gives you a predictable customization ladder:
 
-- use the package directly and style the shipped parts
-- re-export the parts behind product-specific names
-- wrap selected parts with your own classes, layout, or design tokens
+- use the shipped parts directly
+- re-export them behind product-specific names
+- wrap only the parts that need repeated product styling or layout
 
-These patterns are the same whether you consume the package or install source through the registry.
+These patterns stay the same whether you consume `@moduix/react` or install source through the
+registry.
 
 ## Start from the documented part tree
 
-Start with the component's documented part tree. Use `className`, CSS variables, `data-slot`, and
-Ark state attributes for styling. Use `asChild` when one semantic child must own the rendered node.
+Start with the component page's anatomy before creating wrappers. Use `className`, CSS variables,
+`data-slot`, and Ark state attributes on the parts that actually own those responsibilities.
 
-Overlay components keep structural parts explicit:
+Root-only exports such as `Popover`, `Tooltip`, and `Select` are the short form of `*.Root`.
+Popup-like and dialog-like roots portal their overlay subtree automatically, so the structure stays
+visible without adding a separate `Portal` wrapper.
+
+For example:
 
 ```text
-Root
-├─ Trigger
-└─ Portal
-   ├─ Backdrop
-   └─ Positioner
-      └─ Content
+Dialog / Dialog.Root
+├─ Dialog.Trigger
+├─ Overlay subtree (automatically portalled)
+│  ├─ Dialog.Backdrop
+│  └─ Dialog.Positioner
+│     └─ Dialog.Content
+│        ├─ Dialog.Title
+│        ├─ Dialog.Description
+│        └─ Dialog.CloseTrigger
 ```
 
-`Portal`, `Backdrop`, `Positioner`, and `Content` remain visible so applications can independently
-configure mount targets, overlays, scrolling, layout, and surface styling.
+Use `portalled={false}` for inline rendering and `portalRef` for a custom container when the
+component supports those props. Use `Dialog.RootProvider` as the alternative state entry point when
+the state object lives outside the rendered subtree.
 
 ## What the structural parts are for
 
 | Part         | Responsibility                                                                 |
 | ------------ | ------------------------------------------------------------------------------ |
-| `Portal`     | Moves an overlay outside local stacking contexts.                              |
 | `Backdrop`   | Provides modal separation and outside-interaction targeting.                   |
 | `Positioner` | Owns viewport or anchored placement and scrolling behavior.                    |
 | `Content`    | Renders the interactive surface and receives state attributes.                 |
 | `Arrow`      | Connects anchored popup content to its trigger when the primitive supports it. |
 
-Do not hide these nodes inside product wrappers unless the product contract intentionally removes
+Do not hide these nodes inside product wrappers unless your product contract intentionally removes
 their override points.
 
-## Keep state and callbacks close to the primitive
+## Use `asChild` when another element should own the DOM node
 
-Keep Ark callback detail objects intact. For example, dialog open state uses
-`onOpenChange(details)` and reads `details.open`.
+Use `asChild` when a moduix part should attach its behavior to an existing semantic element.
 
-Use component context for state access:
+```tsx
+import { Button, Popover } from '@moduix/react';
 
-- `Component.Context` for an inline render prop.
-- `useComponentContext()` inside reusable descendants.
-- `useComponent()` with `Component.RootProvider` when state is owned outside the rendered tree.
+export function FiltersPopover() {
+  return (
+    <Popover positioning={{ gutter: 8 }}>
+      <Popover.Trigger asChild>
+        <Button variant="outline">Filters</Button>
+      </Popover.Trigger>
+      <Popover.Positioner>
+        <Popover.Content>Choose one or more filters.</Popover.Content>
+      </Popover.Positioner>
+    </Popover>
+  );
+}
+```
 
-Do not render `Root` and `RootProvider` for the same state instance.
+Keep a single semantic child that can receive Ark props. If the child component swallows refs,
+event handlers, or attributes, `asChild` will not behave correctly.
+
+## Share `ids` when composed parts should read as one control
+
+When two primitives must point at the same trigger or description node, share IDs instead of
+hand-writing aria relationships.
+
+```tsx
+import { Avatar, Tooltip } from '@moduix/react';
+import { useId } from 'react';
+
+export function AssigneeTooltip() {
+  const id = useId();
+
+  return (
+    <Tooltip.Root ids={{ trigger: id }}>
+      <Tooltip.Trigger asChild>
+        <Avatar.Root ids={{ root: id }}>
+          <Avatar.Image src="https://bit.ly/sage-adebayo" alt="Segun Adebayo" />
+          <Avatar.Fallback>SA</Avatar.Fallback>
+        </Avatar.Root>
+      </Tooltip.Trigger>
+      <Tooltip.Positioner>
+        <Tooltip.Content>Segun Adebayo is online</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Tooltip.Root>
+  );
+}
+```
+
+This keeps the accessibility wiring in Ark instead of duplicating `aria-*` attributes by hand.
 
 ## Re-export the product API first
 
-If your product wants shorter imports or a more branded surface, start with re-exports before
-writing new abstractions. Re-exporting keeps the original behavior intact while giving your
-application a stable local API.
+If your product wants shorter imports or a branded surface, start with re-exports before writing
+new abstractions. Re-exporting keeps the original behavior intact while giving your application a
+stable local API.
 
 ```tsx
-import type { ComponentProps } from 'react';
 import { Dialog as DialogBase } from '@moduix/react';
 
 export const Dialog = DialogBase.Root;
@@ -81,10 +128,6 @@ export const DialogContent = DialogBase.Content;
 export const DialogTitle = DialogBase.Title;
 export const DialogDescription = DialogBase.Description;
 export const DialogCloseTrigger = DialogBase.CloseTrigger;
-
-export function ProductDialog(props: ComponentProps<typeof DialogBase.Root>) {
-  return <DialogBase.Root {...props} />;
-}
 ```
 
 This is the lowest-risk customization path:
@@ -112,19 +155,15 @@ import styles from './ProductDialog.module.css';
 export const Dialog = DialogBase.Root;
 export const DialogTrigger = DialogBase.Trigger;
 
+export function DialogContent({ className, ...props }: ComponentProps<typeof DialogBase.Content>) {
+  return <DialogBase.Content className={clsx(styles.content, className)} {...props} />;
+}
+
 export function DialogBackdrop({
   className,
   ...props
 }: ComponentProps<typeof DialogBase.Backdrop>) {
   return <DialogBase.Backdrop className={clsx(styles.backdrop, className)} {...props} />;
-}
-
-export function DialogPositioner(props: ComponentProps<typeof DialogBase.Positioner>) {
-  return <DialogBase.Positioner {...props} />;
-}
-
-export function DialogContent({ className, ...props }: ComponentProps<typeof DialogBase.Content>) {
-  return <DialogBase.Content className={clsx(styles.content, className)} {...props} />;
 }
 
 export function ProductDialog({ children }: { children: ReactNode }) {
@@ -161,11 +200,21 @@ export function ProductDialog({ children }: { children: ReactNode }) {
   </Tabs>
 </div>
 
-This is the practical replacement for the old repeated `Custom Styling` examples:
+Keep the structure visible and forward behavior unchanged. If a wrapper only renames the part and
+adds a class, that is usually enough.
 
-- keep one documented structural example
-- show where classes belong
-- leave component-specific visual decisions in the product codebase
+## Move state outside the tree only when ownership changes
+
+Keep Ark detail objects intact. For example, dialog open state still uses
+`onOpenChange(details)` and reads `details.open`.
+
+Use component state helpers only when state needs to live outside the rendered subtree:
+
+- `Component.Context` for one-off inline reads
+- `useComponentContext()` inside descendants that already live under the root
+- `useComponent()` plus `Component.RootProvider` when state is created outside the rendered tree
+
+Do not render `Root` and `RootProvider` for the same state instance.
 
 ## A simple rule for choosing the right level
 
