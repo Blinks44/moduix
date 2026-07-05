@@ -11,18 +11,6 @@
     --splitter-panel-padding: 0;
     --splitter-panel-min-height: 0;
     --splitter-resize-trigger-line-color: var(--sidebar-border-color, var(--color-border));
-    --splitter-resize-trigger-line-color-hover: var(
-      --sidebar-resize-color-hover,
-      color-mix(in oklab, var(--color-border) 72%, var(--color-muted-foreground))
-    );
-    --splitter-resize-trigger-line-color-focus: var(
-      --sidebar-resize-color-focus,
-      color-mix(in oklab, var(--color-border) 72%, var(--color-muted-foreground))
-    );
-    --splitter-resize-trigger-line-color-dragging: var(
-      --sidebar-resize-color-dragging,
-      color-mix(in oklab, var(--color-border) 72%, var(--color-muted-foreground))
-    );
     --splitter-resize-trigger-size: var(--sidebar-resize-hit-area, 0.75rem);
 
     isolation: isolate;

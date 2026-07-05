@@ -434,17 +434,17 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--splitter-resize-trigger-line-color-dragging',
-    'var(--splitter-resize-trigger-line-color, var(--color-border))',
+    'color-mix(in oklab, var(--splitter-resize-trigger-line-color, var(--color-border)) 72%, var(--color-muted-foreground))',
     'Controls the splitter line color while dragging.',
   ],
   [
     '--splitter-resize-trigger-line-color-focus',
     'var(--splitter-resize-trigger-line-color, var(--color-border))',
-    'Controls the splitter line color while focused.',
+    'Controls the splitter line color while keyboard-focused.',
   ],
   [
     '--splitter-resize-trigger-line-color-hover',
-    'var(--splitter-resize-trigger-line-color, var(--color-border))',
+    'color-mix(in oklab, var(--splitter-resize-trigger-line-color, var(--color-border)) 72%, var(--color-muted-foreground))',
     'Controls the splitter line color on hover.',
   ],
   [

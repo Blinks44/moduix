@@ -192,8 +192,10 @@ version visually clamps the configured `3rem` rail to `12rem`. This is tracked b
 [zag#3180](https://github.com/chakra-ui/zag/pull/3180). Sidebar intentionally does not patch the
 upstream layout while that fix is pending.
 
-The resize line keeps the normal Splitter border color. Hover, focus, and drag only shift it toward
-`--color-muted-foreground`; consumers can override the three `--sidebar-resize-color-*` variables.
+The resize line inherits the shared Splitter default: it keeps the normal border color at rest and
+shifts slightly toward `--color-muted-foreground` on hover and drag. Override the
+underlying `--splitter-resize-trigger-line-color-*` variables when the product needs stronger
+feedback.
 
 ## Intentional sugar and differences from upstream
 
@@ -242,3 +244,5 @@ The resize line keeps the normal Splitter border color. Hover, focus, and drag o
   account composition; removed the Sidebar resize indicator.
 - 2026-07-01: Added the Splitter-backed Sidebar layout, semantic navigation anatomy, styling
   contract, stories, registry entry, and public docs.
+- 2026-07-05: Dropped the sidebar-specific resize-line hover/focus/drag color variables and now
+  rely on the shared Splitter defaults, including the pointer-release reset on the divider line.

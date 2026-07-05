@@ -119,12 +119,6 @@ const sidebarCssDefaults = {
   '--sidebar-min-height': '24rem',
   '--sidebar-muted-color': 'var(--color-muted-foreground)',
   '--sidebar-radius': '0',
-  '--sidebar-resize-color-dragging':
-    'color-mix(in oklab, var(--color-border) 72%, var(--color-muted-foreground))',
-  '--sidebar-resize-color-focus':
-    'color-mix(in oklab, var(--color-border) 72%, var(--color-muted-foreground))',
-  '--sidebar-resize-color-hover':
-    'color-mix(in oklab, var(--color-border) 72%, var(--color-muted-foreground))',
   '--sidebar-resize-hit-area': '0.75rem',
   '--sidebar-section-border-width': '0',
   '--sidebar-shadow': 'none',

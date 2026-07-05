@@ -219,9 +219,10 @@ flush inside it.
 
 The resize trigger contributes only a `1px` separator to layout, with a transparent hit area and
 `Splitter.ResizeTriggerIndicator` rendered as the raised rounded handle on top of that line. The
-indicator is centered over the separator for both orientations. The separator line and handle stay
-neutral on hover, focus, and drag by default, while drag-specific CSS variables let consumers opt
-into a different active color.
+indicator is centered over the separator for both orientations. The separator line shifts slightly
+toward `--color-muted-foreground` on hover and drag by default, then returns to its idle or hovered
+color as soon as pointer dragging ends. Keyboard focus keeps the idle line color unless consumers
+override `--splitter-resize-trigger-line-color-focus`.
 
 ### CSS Properties
 

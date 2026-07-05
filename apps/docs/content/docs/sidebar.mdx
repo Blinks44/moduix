@@ -230,9 +230,10 @@ panel ids. Use `Splitter` directly for custom ids or more than two panels. Use t
 `--sidebar-*` variables for internal spacing, item dimensions, colors, and the trigger's vertical
 offset.
 
-The resize UI is intentionally only a line. Its normal color does not change; hover, focus, and drag
-shift slightly toward `--color-muted-foreground`. Override `--sidebar-resize-color-*` only when the
-product needs stronger feedback.
+The resize UI is intentionally only a line. It uses the shared Splitter default: the idle color
+matches the border, while hover and drag shift it slightly toward `--color-muted-foreground`.
+Override the `--splitter-resize-trigger-line-color-*` variables only when the product needs stronger
+feedback.
 
 ### CSS Properties
 
