@@ -105,7 +105,7 @@
       }
     }
 
-    &[data-focus] {
+    &:focus-visible {
       &::before {
         background-color: var(
           --splitter-resize-trigger-line-color-focus,
@@ -118,7 +118,11 @@
       &::before {
         background-color: var(
           --splitter-resize-trigger-line-color-dragging,
-          var(--splitter-resize-trigger-line-color, var(--color-border))
+          color-mix(
+            in oklab,
+            var(--splitter-resize-trigger-line-color, var(--color-border)) 72%,
+            var(--color-muted-foreground)
+          )
         );
       }
     }
@@ -134,7 +138,11 @@
       &::before {
         background-color: var(
           --splitter-resize-trigger-line-color-hover,
-          var(--splitter-resize-trigger-line-color, var(--color-border))
+          color-mix(
+            in oklab,
+            var(--splitter-resize-trigger-line-color, var(--color-border)) 72%,
+            var(--color-muted-foreground)
+          )
         );
       }
     }
@@ -180,7 +188,7 @@
     );
   }
 
-  .resizeTrigger[data-focus]:not([data-dragging]) .resizeTriggerIndicator {
+  .resizeTrigger:focus-visible:not([data-dragging]) .resizeTriggerIndicator {
     box-shadow: var(
       --splitter-resize-trigger-indicator-shadow-focus,
       var(--splitter-resize-trigger-indicator-shadow, var(--shadow-sm))
