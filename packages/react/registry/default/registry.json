@@ -869,6 +869,31 @@
       ]
     },
     {
+      "name": "react-highlight",
+      "type": "registry:item",
+      "title": "Highlight",
+      "description": "moduix React Highlight component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/highlight/Highlight.tsx",
+          "target": "@components/moduix/highlight/Highlight.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/highlight/Highlight.module.css",
+          "target": "@components/moduix/highlight/Highlight.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/highlight/index.ts",
+          "target": "@components/moduix/highlight/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-image-cropper",
       "type": "registry:item",
       "title": "ImageCropper",

@@ -34,7 +34,6 @@ Check the linked Ark page for the exact import and full API.
 | [Format Relative Time](https://ark-ui.com/docs/utilities/format-relative-time) | You need user-facing relative timestamps such as "2 min ago".                                            | Reads locale from `LocaleProvider` when present.                                                  |
 | [Format Time](https://ark-ui.com/docs/utilities/format-time)                   | You need localized time output from a `Date` or `HH:mm[:ss]` string.                                     | Useful for scheduling, timers, and activity feeds.                                                |
 | [Frame](https://ark-ui.com/docs/utilities/frame)                               | React content should render into an iframe with head injection and mount callbacks.                      | Often paired with `EnvironmentProvider` when the iframe subtree renders Ark or moduix components. |
-| [Highlight](https://ark-ui.com/docs/utilities/highlight)                       | Search results or filtered labels should visually mark matching ranges.                                  | Useful with Combobox, Listbox, or command search UIs, but not wrapped directly by moduix.         |
 | [JSON Tree View](https://ark-ui.com/docs/utilities/json-tree-view)             | You need a debug or inspection tree for JSON-like data.                                                  | Independent from moduix styling; use Ark directly.                                                |
 | [Locale](https://ark-ui.com/docs/utilities/locale)                             | Locale and direction should flow through Ark formatters and locale-aware behavior.                       | Pair with `Format` utilities and RTL interfaces.                                                  |
 | [Presence](https://ark-ui.com/docs/utilities/presence)                         | Your app owns visibility and mount lifecycle outside a built-in moduix root.                             | Dialog, Drawer, Popover, Menu, Tooltip, Lightbox, and Tour already expose Ark presence props.     |
@@ -149,6 +148,8 @@ See the [Ark Locale docs](https://ark-ui.com/docs/utilities/locale) and
 
 ## When to stay in moduix
 
+- Use `Highlight` from moduix when matched ranges should share the same styled `<mark>` contract as
+  the rest of the library instead of using the raw Ark utility directly.
 - Use `QrCode.DownloadTrigger` instead of the raw Ark download trigger when the user is saving a QR
   code image from the moduix QR component.
 - Use component-level presence props on Dialog, Drawer, Popover, Menu, Tooltip, Lightbox, Tour,

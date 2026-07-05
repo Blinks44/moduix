@@ -1407,6 +1407,15 @@
   --heading-line-height-2xl: initial; /* var(--line-height-text-3xl) */
   --heading-text-wrap: initial; /* balance */
 
+  /* Highlight */
+  --highlight-bg: initial; /* color-mix(in oklab, var(--color-warning) 40%, var(--color-accent)) */
+  --highlight-color: initial; /* var(--color-foreground) */
+  --highlight-font-weight: initial; /* var(--weight-medium) */
+  --highlight-padding-x: initial; /* 0.25rem */
+  --highlight-padding-y: initial; /* 0.0625rem */
+  --highlight-radius: initial; /* var(--radius-xs) */
+  --highlight-shadow: initial; /* none */
+
   /* ImageCropper */
   --image-cropper-border-color: initial; /* var(--color-border) */
   --image-cropper-border-width: initial; /* var(--border-width-sm) */

@@ -1,0 +1,160 @@
+---
+title: Highlight
+description: Inline text highlighting for matched search terms, keywords, and filtered phrases.
+icon: Component
+---
+
+import * as HighlightDocs from '@/components/examples/highlight';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/highlight" />
+
+## Choosing the right component
+
+Use `Highlight` when one or more query terms should stay inline with surrounding copy but receive a
+shared visual emphasis.
+
+- Choose **`Highlight`** when matched ranges inside an existing sentence or label should stand out.
+- Choose **`Text`** when the whole string only needs typography styling and no query-based matching.
+
+## Basic
+
+Place `Highlight` inside the text container that already owns layout and semantics. `Highlight`
+styles only the matched ranges; it does not render a wrapper element around the whole sentence.
+
+<Preview>
+  <HighlightDocs.HighlightExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/highlight/basic.tsx#demo</include>
+</Preview.Code>
+
+</Preview>
+
+## Install with shadcn
+
+<ShadcnInstall packageName="react-highlight" />
+
+## Anatomy
+
+`Highlight` is root-only, but the root contract applies to every matched native `<mark>` segment.
+Unmatched text stays plain text nodes in the surrounding flow.
+
+```text
+Highlight / Highlight.Root
+└─ repeated <mark> segments for matched ranges inside the provided text
+```
+
+| Part                           | Role                                                                         |
+| ------------------------------ | ---------------------------------------------------------------------------- |
+| `Highlight` / `Highlight.Root` | Applies moduix mark styling to every matched range inside the provided text. |
+
+## Composition
+
+### Recommended composition
+
+Use the short `<Highlight>` root inside `Text`, `Heading`, a list item, or another text-owning
+container. It is equivalent to `<Highlight.Root>`.
+
+### When to go custom
+
+Stay on the moduix component when repeated `<mark>` styling is enough. Drop to Ark's
+`useHighlight` utility directly when you need chunk-by-chunk rendering or a different element per
+match instead of native `<mark>`.
+
+### Default props
+
+| Prop         | Default | Notes                                                   |
+| ------------ | ------- | ------------------------------------------------------- |
+| `query`      | -       | String or string array of terms to highlight.           |
+| `text`       | -       | Required full source string.                            |
+| `ignoreCase` | `false` | Makes matching case-insensitive.                        |
+| `matchAll`   | `false` | Highlights all matches instead of only the first match. |
+| `exactMatch` | `false` | Restricts matching to exact whole words.                |
+
+### Behavioral notes
+
+`className`, `style`, `title`, `id`, and other mark-element props apply to every matched `<mark>`.
+If the query does not match, the component renders only plain text and no mark element at all.
+
+`Highlight` has no ref target, state machine, callbacks, `Field`/`Fieldset` integration,
+`HiddenInput`, `ids`, context hooks, or `RootProvider`.
+
+## Examples
+
+### Dynamic Query
+
+Control the query from React state when users are filtering or searching visible copy.
+
+<Preview>
+  <HighlightDocs.HighlightDynamicQueryExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/highlight/dynamic-query.tsx#demo</include>
+  </Preview.Code>
+</Preview>
+
+### Multiple Queries
+
+Pass a string array when several search terms should be highlighted in one pass.
+
+<Preview>
+  <HighlightDocs.HighlightMultipleQueriesExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/highlight/multiple-queries.tsx#demo</include>
+  </Preview.Code>
+</Preview>
+
+### Ignore Case
+
+Enable `ignoreCase` when the visible text casing should not affect matching.
+
+<Preview>
+  <HighlightDocs.HighlightIgnoreCaseExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/highlight/ignore-case.tsx#demo</include>
+  </Preview.Code>
+</Preview>
+
+### Match All
+
+Use `matchAll` when every occurrence should stay visible instead of highlighting only the first one.
+
+<Preview>
+  <HighlightDocs.HighlightMatchAllExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/highlight/match-all.tsx#demo</include>
+  </Preview.Code>
+</Preview>
+
+### Exact Match
+
+Enable `exactMatch` when partial-word hits are too noisy for the current search flow.
+
+<Preview>
+  <HighlightDocs.HighlightExactMatchExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/highlight/exact-match.tsx#demo</include>
+  </Preview.Code>
+</Preview>
+
+## Styling
+
+Use `className` for local one-off mark styling, and use `--highlight-*` variables when the same
+visual treatment should stay consistent across several highlight instances.
+
+### CSS Properties
+
+<CssPropertiesSection properties={HighlightDocs.highlightCssProperties} />
+
+### Styling hooks
+
+- Every matched `<mark>` writes `data-scope="highlight"` and `data-part="root"`.
+- `data-slot="highlight-root"` is the stable moduix selector on each matched mark.
+- There is no wrapper element, state attribute, or Ark runtime CSS variable because `Highlight`
+  renders plain text nodes plus matched `<mark>` segments only.

@@ -1,0 +1,29 @@
+.stack {
+  display: grid;
+  width: min(34rem, calc(100vw - var(--spacing-8)));
+  gap: var(--spacing-4);
+}
+
+.field {
+  width: min(18rem, 100%);
+}
+
+.comparison {
+  display: grid;
+  gap: var(--spacing-2);
+}
+
+.label {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  line-height: var(--line-height-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.custom {
+  --highlight-bg: color-mix(in oklab, var(--color-primary) 18%, transparent);
+  --highlight-color: var(--color-primary);
+  --highlight-font-weight: var(--weight-semibold);
+}
