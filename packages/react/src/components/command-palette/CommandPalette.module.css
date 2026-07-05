@@ -71,6 +71,19 @@
   }
 
   .content {
+    --command-palette-close-icon-size-effective: var(
+      --command-palette-close-icon-size,
+      var(--command-palette-clear-size, var(--size-sm))
+    );
+    --command-palette-close-offset-effective: var(--command-palette-close-offset, var(--spacing-3));
+    --command-palette-header-padding-inline-end-effective: var(
+      --command-palette-header-padding-inline-end,
+      calc(
+        var(--command-palette-header-padding-x, var(--spacing-4)) +
+          var(--command-palette-close-icon-size-effective) +
+          var(--command-palette-close-offset-effective)
+      )
+    );
     box-sizing: border-box;
     position: relative;
     display: flex;
@@ -104,6 +117,32 @@
         var(--command-palette-transition, var(--transition-default));
       animation-fill-mode: forwards;
     }
+  }
+
+  .header {
+    display: grid;
+    gap: var(--command-palette-header-gap, var(--spacing-1));
+    padding: var(--command-palette-header-padding-y, var(--spacing-4))
+      var(--command-palette-header-padding-x, var(--spacing-4)) 0;
+    padding-inline-end: var(--command-palette-header-padding-inline-end-effective);
+  }
+
+  .title {
+    margin: 0;
+    color: var(
+      --command-palette-title-color,
+      var(--command-palette-color, var(--color-popover-foreground))
+    );
+    font-size: var(--command-palette-title-font-size, var(--text-md));
+    font-weight: var(--command-palette-title-font-weight, var(--weight-semibold));
+    line-height: var(--command-palette-title-line-height, var(--line-height-text-md));
+  }
+
+  .description {
+    margin: 0;
+    color: var(--command-palette-description-color, var(--color-muted-foreground));
+    font-size: var(--command-palette-description-font-size, var(--text-sm));
+    line-height: var(--command-palette-description-line-height, var(--line-height-text-sm));
   }
 
   .closeTrigger,
@@ -142,9 +181,40 @@
 
   .closeTrigger {
     position: absolute;
-    top: var(--command-palette-close-offset, var(--spacing-3));
-    right: var(--command-palette-close-offset, var(--spacing-3));
+    top: var(--command-palette-close-offset-effective);
+    right: var(--command-palette-close-offset-effective);
     z-index: 1;
+  }
+
+  .closeIcon {
+    --close-button-size: var(--command-palette-close-icon-size-effective);
+    --close-button-radius: var(
+      --command-palette-close-icon-radius,
+      var(--command-palette-clear-radius, var(--radius-md))
+    );
+    --close-button-icon-size: var(
+      --command-palette-close-icon-glyph-size,
+      var(--command-palette-icon-size, 1rem)
+    );
+    --close-button-bg: var(--command-palette-close-icon-bg, transparent);
+    --close-button-bg-hover: var(--command-palette-clear-bg-hover, var(--color-accent));
+    --close-button-color: var(
+      --command-palette-close-icon-color,
+      var(--command-palette-muted-color, var(--color-muted-foreground))
+    );
+    --close-button-color-hover: var(--command-palette-color, var(--color-popover-foreground));
+    --close-button-focus-ring-color: var(--command-palette-focus-ring-color, var(--color-ring));
+    position: absolute;
+    top: var(--command-palette-close-offset-effective);
+    right: var(--command-palette-close-offset-effective);
+    z-index: 1;
+  }
+
+  .body {
+    display: flex;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
   }
 
   .iconSvg {
@@ -284,7 +354,7 @@
     position: relative;
     z-index: 0;
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
     align-items: center;
     gap: var(--command-palette-item-gap, var(--spacing-3));
     min-height: var(--command-palette-item-min-height, 3rem);
@@ -344,6 +414,12 @@
   .itemIndicator {
     border-color: transparent;
     background-color: transparent;
+    justify-self: end;
+
+    & > svg {
+      width: var(--command-palette-item-icon-size, 1rem);
+      height: var(--command-palette-item-icon-size, 1rem);
+    }
   }
 
   .itemText {
@@ -374,6 +450,7 @@
     color: var(--command-palette-muted-color, var(--color-muted-foreground));
     font-size: var(--command-palette-item-meta-font-size, var(--text-xs));
     line-height: var(--command-palette-item-meta-line-height, var(--line-height-text-xs));
+    justify-self: end;
     white-space: nowrap;
   }
 

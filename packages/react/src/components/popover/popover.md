@@ -26,6 +26,7 @@ and provider/context APIs without remapping them.
   `Positioner` or `Content`.
 - The popup tree is explicit: `Positioner > Content`; the root owns portalling.
 - `Trigger` and `CloseTrigger` receive moduix control styling only when `asChild` is not used.
+- `CloseIcon` composes `CloseTrigger` with the shared close button and pins it to the content corner.
 - `Arrow` renders the styled `ArrowTip` by default.
 - `Header`, `Body`, and `Footer` are plain layout helpers.
 
@@ -44,9 +45,9 @@ Popover.Root
          ├─ Popover.Header (moduix)
          │  ├─ Popover.Title
          │  └─ Popover.Description
+         ├─ Popover.CloseTrigger or Popover.CloseIcon
          ├─ Popover.Body (moduix)
-         ├─ Popover.Footer (moduix)
-         └─ Popover.CloseTrigger
+         └─ Popover.Footer (moduix)
 ```
 
 Exported Ark-aligned state surfaces are `Popover.RootProvider` and `usePopover`. Every rendered
@@ -65,6 +66,7 @@ DOM element.
 | `Popover.Title`        | `popover-title`         | Accessible content title.                  |
 | `Popover.Description`  | `popover-description`   | Accessible content description.            |
 | `Popover.CloseTrigger` | `popover-close-trigger` | Styled by moduix unless `asChild` is used. |
+| `Popover.CloseIcon`    | `popover-close-icon`    | Shared icon-only close button helper.      |
 | `Popover.Header`       | `popover-header`        | Moduix layout helper.                      |
 | `Popover.Body`         | `popover-body`          | Moduix layout helper.                      |
 | `Popover.Footer`       | `popover-footer`        | Moduix action row helper.                  |
@@ -83,6 +85,7 @@ export function PopoverDemo() {
       <Popover.Positioner>
         <Popover.Content>
           <Popover.Arrow />
+          <Popover.CloseIcon />
           <Popover.Header>
             <Popover.Title>Project status</Popover.Title>
             <Popover.Description>Everything is on schedule.</Popover.Description>
@@ -148,6 +151,7 @@ runtime available-size and reference-size variables rather than duplicate measur
 - The recommended popup composition keeps `Popover.Positioner` and `Popover.Content` explicit so
   overlay structure matches other popup components across the library.
 - `Popover.Arrow` supplies `Popover.ArrowTip` when children are omitted.
+- `Popover.CloseIcon` supplies an icon-only close button without hiding `CloseTrigger`.
 - `Popover.Header`, `Popover.Body`, and `Popover.Footer` provide only moduix layout and slots.
 - Trigger and close-trigger default visuals are omitted with `asChild`, leaving the composed child
   responsible for its own appearance.
@@ -164,6 +168,7 @@ runtime available-size and reference-size variables rather than duplicate measur
 
 ## Local changelog
 
+- 2026-07-05: Added `Popover.CloseIcon` and documented the close-icon plus layout-helper popup composition path.
 - 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider` and
   `usePopover` and removed moduix re-exports for Ark context APIs and duplicate type aliases.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.

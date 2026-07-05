@@ -187,6 +187,27 @@
     }
   }
 
+  .closeIcon {
+    --close-button-size: var(--tour-close-trigger-size, 1.75rem);
+    --close-button-radius: var(--tour-close-trigger-radius, var(--radius-md));
+    --close-button-icon-size: var(--tour-close-trigger-icon-size, 0.875rem);
+    --close-button-bg: var(--tour-close-trigger-bg, transparent);
+    --close-button-bg-hover: var(--tour-close-trigger-bg-hover, var(--color-accent));
+    --close-button-color: var(--tour-close-trigger-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(
+      --tour-close-trigger-color-hover,
+      var(--tour-color, var(--color-popover-foreground))
+    );
+    --close-button-focus-ring-width: var(--tour-focus-ring-width, var(--border-width-sm));
+    --close-button-focus-ring-color: var(--tour-focus-ring-color, var(--color-ring));
+    --close-button-focus-ring-offset: calc(
+      var(--tour-focus-ring-width, var(--border-width-sm)) * -1
+    );
+    position: absolute;
+    inset-block-start: var(--tour-close-trigger-offset, var(--spacing-2));
+    inset-inline-end: var(--tour-close-trigger-offset, var(--spacing-2));
+  }
+
   .control {
     order: 2;
     display: flex;

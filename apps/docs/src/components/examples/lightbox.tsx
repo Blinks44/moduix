@@ -211,7 +211,9 @@ function LightboxSurface({
       <Lightbox.Positioner>
         <Lightbox.CloseIcon />
         <Lightbox.Content aria-label={alt}>
-          <Lightbox.Image src={src} alt={alt} closeOnClick={closeOnImageClick} />
+          <Lightbox.Body>
+            <Lightbox.Image src={src} alt={alt} closeOnClick={closeOnImageClick} />
+          </Lightbox.Body>
         </Lightbox.Content>
       </Lightbox.Positioner>
     </>

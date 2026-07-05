@@ -34,23 +34,32 @@ export function CommandPaletteShortcutDemo() {
       <CommandPalette.Backdrop />
       <CommandPalette.Positioner>
         <CommandPalette.Content>
-          <CommandPalette.Combobox
-            collection={collection}
-            onInputValueChange={(details) => filter(details.inputValue)}
-          >
-            <CommandPalette.Control>
-              <CommandPalette.Input aria-label="Search commands" />
-              <CommandPalette.ClearTrigger aria-label="Clear search" />
-            </CommandPalette.Control>
-            <CommandPalette.List>
-              <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
-              {collection.items.map((item) => (
-                <CommandPalette.Item key={item.id} item={item}>
-                  <CommandPalette.ItemText>{item.label}</CommandPalette.ItemText>
-                </CommandPalette.Item>
-              ))}
-            </CommandPalette.List>
-          </CommandPalette.Combobox>
+          <CommandPalette.CloseIcon />
+          <CommandPalette.Header>
+            <CommandPalette.Title>Command palette</CommandPalette.Title>
+            <CommandPalette.Description>
+              Open this palette from the button or with Alt+K.
+            </CommandPalette.Description>
+          </CommandPalette.Header>
+          <CommandPalette.Body>
+            <CommandPalette.Combobox
+              collection={collection}
+              onInputValueChange={(details) => filter(details.inputValue)}
+            >
+              <CommandPalette.Control>
+                <CommandPalette.Input aria-label="Search commands" />
+                <CommandPalette.ClearTrigger aria-label="Clear search" />
+              </CommandPalette.Control>
+              <CommandPalette.List>
+                <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+                {collection.items.map((item) => (
+                  <CommandPalette.Item key={item.id} item={item}>
+                    <CommandPalette.ItemText>{item.label}</CommandPalette.ItemText>
+                  </CommandPalette.Item>
+                ))}
+              </CommandPalette.List>
+            </CommandPalette.Combobox>
+          </CommandPalette.Body>
         </CommandPalette.Content>
       </CommandPalette.Positioner>
     </CommandPalette>

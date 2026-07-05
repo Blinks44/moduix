@@ -31,8 +31,8 @@ presence lifecycle, and `RootProvider` support without remapping callback detail
   `StageTrigger`, `CloseTrigger`, `Body`, and `ResizeTrigger` map directly to Ark parts.
 - `StageTrigger` supplies default minimize and maximize icons when children are omitted on the
   default Ark button host.
-- `CloseIcon`, `DragIndicator`, and `ResizeTriggerGroup` are moduix helpers layered on top of Ark
-  composition.
+- `CloseIcon`, `DragIndicator`, `Footer`, and `ResizeTriggerGroup` are moduix helpers layered on
+  top of Ark composition.
 - `ResizeTriggerGroup` renders all Ark `resizeTriggerAxes`.
 
 ## Anatomy and exported parts
@@ -52,6 +52,7 @@ FloatingPanel.Root
          │        ├─ FloatingPanel.CloseTrigger
          │        └─ FloatingPanel.CloseIcon (moduix)
          ├─ FloatingPanel.Body
+         ├─ FloatingPanel.Footer (moduix)
          └─ FloatingPanel.ResizeTrigger / ResizeTriggerGroup
 ```
 
@@ -90,6 +91,7 @@ export function FloatingPanelDemo() {
             </FloatingPanel.Header>
           </FloatingPanel.DragTrigger>
           <FloatingPanel.Body>Panel content</FloatingPanel.Body>
+          <FloatingPanel.Footer>Status: synced</FloatingPanel.Footer>
           <FloatingPanel.ResizeTriggerGroup />
         </FloatingPanel.Content>
       </FloatingPanel.Positioner>
@@ -149,6 +151,7 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
 - `FloatingPanel.StageTrigger` renders the shared `MinusIcon` and `MaximizeIcon` by default for the
   `minimized` and `maximized` stages when it renders Ark's default button host.
 - `FloatingPanel.DragIndicator` renders the shared grip icon for title/header composition.
+- `FloatingPanel.Footer` is a plain layout helper for status rows or action groups below the body.
 - `FloatingPanel.ResizeTriggerGroup` renders all Ark resize handles from `resizeTriggerAxes`.
 - moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
   aliases.
@@ -167,6 +170,7 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
 
 ## Local changelog
 
+- 2026-07-05: Added `FloatingPanel.Footer` so panel layouts can expose a consistent bottom action or status row without hiding Ark parts.
 - 2026-07-02: Removed duplicate Ark context, hook, and type exports from the moduix surface. Kept `RootProvider`,
   visual helper parts, and the existing stage/control sugar.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.

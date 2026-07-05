@@ -240,6 +240,12 @@ const FloatingPanelBody = forwardRef<
   );
 });
 
+function FloatingPanelFooter({ className, ...props }: ComponentProps<'div'>) {
+  return (
+    <div data-slot="floating-panel-footer" className={clsx(styles.footer, className)} {...props} />
+  );
+}
+
 const FloatingPanelResizeTrigger = forwardRef<
   ComponentRef<typeof FloatingPanelPrimitive.ResizeTrigger>,
   ComponentProps<typeof FloatingPanelPrimitive.ResizeTrigger>
@@ -294,6 +300,7 @@ const FloatingPanel = Object.assign(FloatingPanelRoot, {
   CloseTrigger: FloatingPanelCloseTrigger,
   CloseIcon: FloatingPanelCloseIcon,
   Body: FloatingPanelBody,
+  Footer: FloatingPanelFooter,
   ResizeTrigger: FloatingPanelResizeTrigger,
   ResizeTriggerGroup: FloatingPanelResizeTriggerGroup,
   DragIndicator: FloatingPanelDragIndicator,

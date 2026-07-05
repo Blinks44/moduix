@@ -39,7 +39,9 @@ export function LightboxDemo() {
       <Lightbox.Positioner>
         <Lightbox.CloseIcon />
         <Lightbox.Content aria-label={images[0].alt}>
-          <Lightbox.Image src={images[0].src} alt={images[0].alt} />
+          <Lightbox.Body>
+            <Lightbox.Image src={images[0].src} alt={images[0].alt} />
+          </Lightbox.Body>
         </Lightbox.Content>
       </Lightbox.Positioner>
     </Lightbox>

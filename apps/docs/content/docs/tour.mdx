@@ -56,7 +56,7 @@ Tour / Tour.Root
       └─ Tour.Content
          ├─ Tour.Arrow
          │  └─ Tour.ArrowTip
-         ├─ Tour.CloseTrigger
+         ├─ Tour.CloseTrigger / Tour.CloseIcon
          ├─ Tour.Title
          ├─ Tour.Description
          ├─ Tour.ProgressText
@@ -73,7 +73,8 @@ Tour / Tour.Root
 | `Tour.Positioner`         | Positions dialog, tooltip, or floating content.                    |
 | `Tour.Content`            | Alert-dialog surface with Ark title and description wiring.        |
 | `Tour.Arrow` / `ArrowTip` | Tooltip arrow using Ark positioning variables.                     |
-| `Tour.CloseTrigger`       | Dismiss trigger.                                                   |
+| `Tour.CloseTrigger`       | Low-level dismiss trigger.                                         |
+| `Tour.CloseIcon`          | Shared icon-only close helper built on the Ark close trigger.      |
 | `Tour.ProgressText`       | Localized progress text from `translations.progressText`.          |
 | `Tour.Title`              | Current step title.                                                |
 | `Tour.Description`        | Current step description.                                          |

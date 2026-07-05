@@ -1,7 +1,6 @@
 import type { TourStepDetails } from '@ark-ui/react/tour';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
 import { Tour, useTour, waitForEvent } from './Tour';
 import storyStyles from './Tour.stories.module.css';
@@ -92,9 +91,7 @@ function TourOverlay({ tour }: { tour: ReturnType<typeof useTour> }) {
       <Tour.Positioner>
         <Tour.Content>
           <Tour.Arrow />
-          <Tour.CloseTrigger>
-            <CloseIcon className={storyStyles.closeIcon} />
-          </Tour.CloseTrigger>
+          <Tour.CloseIcon />
           <Tour.Title />
           <Tour.Description />
           <Tour.ProgressText />
@@ -163,9 +160,7 @@ export const Progress: Story = {
           <Tour.Positioner>
             <Tour.Content>
               <Tour.Arrow />
-              <Tour.CloseTrigger>
-                <CloseIcon className={storyStyles.closeIcon} />
-              </Tour.CloseTrigger>
+              <Tour.CloseIcon />
               <Tour.Title />
               <Tour.Description />
               <div className={storyStyles.progressTrack}>

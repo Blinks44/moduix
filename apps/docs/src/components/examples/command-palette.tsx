@@ -265,20 +265,24 @@ function useCommandCollection<T extends CommandItem>(items: T[]) {
 function CommandPaletteShell<T extends CommandItem>({
   children,
   collection,
+  description,
   filter,
   label,
   onSelect,
   placeholder,
   shortcut = false,
+  title = 'Command palette',
   trigger,
 }: {
   children: React.ReactNode;
   collection: ReturnType<typeof useCommandCollection<T>>['collection'];
+  description?: string;
   filter: ReturnType<typeof useCommandCollection<T>>['filter'];
   label: string;
   onSelect?: (details: { itemValue: string }) => void;
   placeholder: string;
   shortcut?: false | string;
+  title?: string;
   trigger: React.ReactNode;
 }) {
   return (
@@ -297,17 +301,26 @@ function CommandPaletteShell<T extends CommandItem>({
       <CommandPalette.Backdrop />
       <CommandPalette.Positioner>
         <CommandPalette.Content>
-          <CommandPalette.Combobox
-            collection={collection}
-            onInputValueChange={(details) => filter(details.inputValue)}
-            onSelect={onSelect}
-          >
-            <CommandPalette.Control>
-              <CommandPalette.Input aria-label="Search commands" placeholder={placeholder} />
-              <CommandPalette.ClearTrigger aria-label="Clear search" />
-            </CommandPalette.Control>
-            {children}
-          </CommandPalette.Combobox>
+          <CommandPalette.CloseIcon />
+          <CommandPalette.Header>
+            <CommandPalette.Title>{title}</CommandPalette.Title>
+            {description ? (
+              <CommandPalette.Description>{description}</CommandPalette.Description>
+            ) : null}
+          </CommandPalette.Header>
+          <CommandPalette.Body>
+            <CommandPalette.Combobox
+              collection={collection}
+              onInputValueChange={(details) => filter(details.inputValue)}
+              onSelect={onSelect}
+            >
+              <CommandPalette.Control>
+                <CommandPalette.Input aria-label="Search commands" placeholder={placeholder} />
+                <CommandPalette.ClearTrigger aria-label="Clear search" />
+              </CommandPalette.Control>
+              {children}
+            </CommandPalette.Combobox>
+          </CommandPalette.Body>
         </CommandPalette.Content>
       </CommandPalette.Positioner>
     </CommandPalette>
@@ -349,6 +362,7 @@ export function CommandPaletteExample() {
   return (
     <CommandPaletteShell
       collection={collection}
+      description="Search pages, settings, and quick actions."
       filter={filter}
       label="Command palette"
       placeholder="Search commands, pages, and settings..."
@@ -388,6 +402,7 @@ export function CommandPaletteActionsExample() {
   return (
     <CommandPaletteShell
       collection={collection}
+      description="Run commands directly from the result list."
       filter={filter}
       label="Command palette with actions"
       onSelect={(details) => {
@@ -452,19 +467,28 @@ export function ControlledCommandPaletteExample() {
         <CommandPalette.Backdrop />
         <CommandPalette.Positioner>
           <CommandPalette.Content>
-            <CommandPalette.Combobox
-              collection={collection}
-              onInputValueChange={(details) => filter(details.inputValue)}
-            >
-              <CommandPalette.Control>
-                <CommandPalette.Input
-                  aria-label="Search commands"
-                  placeholder="Search controlled commands..."
-                />
-                <CommandPalette.ClearTrigger aria-label="Clear search" />
-              </CommandPalette.Control>
-              <CommandPaletteGroupedItems collection={collection} />
-            </CommandPalette.Combobox>
+            <CommandPalette.CloseIcon />
+            <CommandPalette.Header>
+              <CommandPalette.Title>Controlled command palette</CommandPalette.Title>
+              <CommandPalette.Description>
+                Coordinate the palette open state with surrounding React state.
+              </CommandPalette.Description>
+            </CommandPalette.Header>
+            <CommandPalette.Body>
+              <CommandPalette.Combobox
+                collection={collection}
+                onInputValueChange={(details) => filter(details.inputValue)}
+              >
+                <CommandPalette.Control>
+                  <CommandPalette.Input
+                    aria-label="Search commands"
+                    placeholder="Search controlled commands..."
+                  />
+                  <CommandPalette.ClearTrigger aria-label="Clear search" />
+                </CommandPalette.Control>
+                <CommandPaletteGroupedItems collection={collection} />
+              </CommandPalette.Combobox>
+            </CommandPalette.Body>
           </CommandPalette.Content>
         </CommandPalette.Positioner>
       </CommandPalette>
@@ -490,22 +514,34 @@ export function CommandPaletteShortcutExample() {
       <CommandPalette.Backdrop />
       <CommandPalette.Positioner>
         <CommandPalette.Content>
-          <CommandPalette.Combobox
-            collection={collection}
-            onInputValueChange={(details) => filter(details.inputValue)}
-          >
-            <CommandPalette.Control>
-              <CommandPalette.Input aria-label="Search commands" placeholder="Search commands..." />
-              <CommandPalette.ClearTrigger aria-label="Clear search" />
-            </CommandPalette.Control>
-            <CommandPaletteGroupedItems collection={collection} />
-            <CommandPalette.Footer>
-              <span>
-                <CommandPalette.Kbd>Alt</CommandPalette.Kbd> +{' '}
-                <CommandPalette.Kbd>K</CommandPalette.Kbd>
-              </span>
-            </CommandPalette.Footer>
-          </CommandPalette.Combobox>
+          <CommandPalette.CloseIcon />
+          <CommandPalette.Header>
+            <CommandPalette.Title>Command palette</CommandPalette.Title>
+            <CommandPalette.Description>
+              Open this palette from the button or with Alt+K.
+            </CommandPalette.Description>
+          </CommandPalette.Header>
+          <CommandPalette.Body>
+            <CommandPalette.Combobox
+              collection={collection}
+              onInputValueChange={(details) => filter(details.inputValue)}
+            >
+              <CommandPalette.Control>
+                <CommandPalette.Input
+                  aria-label="Search commands"
+                  placeholder="Search commands..."
+                />
+                <CommandPalette.ClearTrigger aria-label="Clear search" />
+              </CommandPalette.Control>
+              <CommandPaletteGroupedItems collection={collection} />
+              <CommandPalette.Footer>
+                <span>
+                  <CommandPalette.Kbd>Alt</CommandPalette.Kbd> +{' '}
+                  <CommandPalette.Kbd>K</CommandPalette.Kbd>
+                </span>
+              </CommandPalette.Footer>
+            </CommandPalette.Combobox>
+          </CommandPalette.Body>
         </CommandPalette.Content>
       </CommandPalette.Positioner>
     </CommandPalette>

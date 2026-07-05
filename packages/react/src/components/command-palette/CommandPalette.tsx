@@ -10,18 +10,20 @@ import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef, useEffect } from 'react';
-import { CloseIcon } from '@/lib/moduix/icons/ui';
+import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
+import { CloseButton } from '../close-button';
 import { Kbd } from '../kbd';
 import { ScrollArea } from '../scroll-area';
 import styles from './CommandPalette.module.css';
 
 const DEFAULT_CLOSE_TRIGGER_LABEL = 'Close command palette';
+const DEFAULT_CLOSE_ICON_LABEL = 'Close command palette';
 const DEFAULT_CLEAR_TRIGGER_LABEL = 'Clear search';
 
 type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> & {
@@ -228,7 +230,7 @@ const CommandPaletteTitle = forwardRef<
     <DialogPrimitive.Title
       ref={ref}
       data-slot="command-palette-title"
-      className={normalizeClassName(className)}
+      className={clsx(styles.title, normalizeClassName(className))}
       {...props}
     />
   );
@@ -242,7 +244,7 @@ const CommandPaletteDescription = forwardRef<
     <DialogPrimitive.Description
       ref={ref}
       data-slot="command-palette-description"
-      className={normalizeClassName(className)}
+      className={clsx(styles.description, normalizeClassName(className))}
       {...props}
     />
   );
@@ -281,6 +283,53 @@ const CommandPaletteCloseTrigger = forwardRef<
     </DialogPrimitive.CloseTrigger>
   );
 });
+
+const CommandPaletteCloseIcon = forwardRef<
+  ComponentRef<typeof CloseButton.Root>,
+  Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>
+>(function CommandPaletteCloseIcon(
+  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_ICON_LABEL, ...props },
+  ref,
+) {
+  return (
+    <DialogPrimitive.CloseTrigger asChild {...props}>
+      <CloseButton.Root
+        ref={ref}
+        data-slot="command-palette-close-icon"
+        aria-label={ariaLabel}
+        className={clsx(styles.closeIcon, normalizeClassName(className))}
+      >
+        {children}
+      </CloseButton.Root>
+    </DialogPrimitive.CloseTrigger>
+  );
+});
+
+const CommandPaletteHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
+  function CommandPaletteHeader({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="command-palette-header"
+        className={clsx(styles.header, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
+
+const CommandPaletteBody = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
+  function CommandPaletteBody({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="command-palette-body"
+        className={clsx(styles.body, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 const CommandPaletteCombobox = forwardRef(function CommandPaletteCombobox<T extends CollectionItem>(
   {
@@ -487,14 +536,16 @@ const CommandPaletteItemText = forwardRef<
 const CommandPaletteItemIndicator = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.ItemIndicator>,
   ComponentProps<typeof ComboboxPrimitive.ItemIndicator>
->(function CommandPaletteItemIndicator({ className, ...props }, ref) {
+>(function CommandPaletteItemIndicator({ className, children, ...props }, ref) {
   return (
     <ComboboxPrimitive.ItemIndicator
       ref={ref}
       data-slot="command-palette-item-indicator"
       className={clsx(styles.itemIndicator, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {children ?? <CheckIcon />}
+    </ComboboxPrimitive.ItemIndicator>
   );
 });
 
@@ -597,6 +648,9 @@ const CommandPalette = Object.assign(CommandPaletteRoot, {
   Title: CommandPaletteTitle,
   Description: CommandPaletteDescription,
   CloseTrigger: CommandPaletteCloseTrigger,
+  CloseIcon: CommandPaletteCloseIcon,
+  Header: CommandPaletteHeader,
+  Body: CommandPaletteBody,
   Combobox: CommandPaletteCombobox,
   Control: CommandPaletteControl,
   Input: CommandPaletteInput,

@@ -26,6 +26,8 @@ There is no Ark command-palette primitive, so the component is a moduix-owned co
 `CommandPalette` / `CommandPalette.Root` owns Ark Dialog state and an optional global shortcut listener. `shortcut` defaults to `false`; pass `shortcut="alt+k"` or another primary-modifier shortcut to enable it. The supported format is one primary modifier (`mod`, `ctrl`, `control`, `meta`, `cmd`, `command`, `alt`, or `option`) plus one key. `mod` accepts either Meta or Control so the component does not need platform detection. Editable targets are ignored. `shortcutTarget={null}` skips registration.
 
 Consumers render the explicit dialog structure and place `CommandPalette.Combobox` inside `CommandPalette.Content`. The combobox requires an Ark collection and defaults to `open={true}`, `inputBehavior="autohighlight"`, `selectionBehavior="preserve"`, `disableLayer={true}`, and `closeOnSelect={true}`. Selection closes the dialog through Ark dialog context. `CommandPalette.CloseTrigger` and `CommandPalette.ClearTrigger` render default icon-only buttons with accessible labels unless consumers provide children, labels, or `asChild`.
+`CommandPalette.CloseIcon`, `Header`, and `Body` provide the same thin close-button and layout-helper
+pattern used by the other dialog-like wrappers.
 
 When consumers filter an external `useListCollection`, reset that filter when the dialog closes. Ark Combobox can clear its input on remount, but it does not own the external collection state.
 
@@ -37,27 +39,35 @@ When consumers filter an external `useListCollection`, reset that filter when th
   <CommandPalette.Backdrop />
   <CommandPalette.Positioner>
     <CommandPalette.Content>
-      <CommandPalette.Combobox>
-        <CommandPalette.Control>
-          <CommandPalette.Input />
-          <CommandPalette.ClearTrigger />
-        </CommandPalette.Control>
-        <CommandPalette.List>
-          <CommandPalette.Empty />
-          <CommandPalette.ItemGroup>
-            <CommandPalette.ItemGroupLabel />
-            <CommandPalette.Item>
-              <CommandPalette.ItemIcon />
-              <CommandPalette.ItemText>
-                <CommandPalette.ItemLabel />
-                <CommandPalette.ItemDescription />
-              </CommandPalette.ItemText>
-              <CommandPalette.ItemMeta />
-            </CommandPalette.Item>
-          </CommandPalette.ItemGroup>
-        </CommandPalette.List>
-        <CommandPalette.Footer />
-      </CommandPalette.Combobox>
+      <CommandPalette.CloseIcon />
+      <CommandPalette.Header>
+        <CommandPalette.Title />
+        <CommandPalette.Description />
+      </CommandPalette.Header>
+      <CommandPalette.Body>
+        <CommandPalette.Combobox>
+          <CommandPalette.Control>
+            <CommandPalette.Input />
+            <CommandPalette.ClearTrigger />
+          </CommandPalette.Control>
+          <CommandPalette.List>
+            <CommandPalette.Empty />
+            <CommandPalette.ItemGroup>
+              <CommandPalette.ItemGroupLabel />
+              <CommandPalette.Item>
+                <CommandPalette.ItemIcon />
+                <CommandPalette.ItemText>
+                  <CommandPalette.ItemLabel />
+                  <CommandPalette.ItemDescription />
+                </CommandPalette.ItemText>
+                <CommandPalette.ItemMeta />
+                <CommandPalette.ItemIndicator />
+              </CommandPalette.Item>
+            </CommandPalette.ItemGroup>
+          </CommandPalette.List>
+          <CommandPalette.Footer />
+        </CommandPalette.Combobox>
+      </CommandPalette.Body>
     </CommandPalette.Content>
   </CommandPalette.Positioner>
 </CommandPalette>
@@ -71,8 +81,10 @@ When consumers filter an external `useListCollection`, reset that filter when th
 - `CommandPalette.Content`: Ark Dialog content, `data-slot="command-palette-content"`.
 - `CommandPalette.Title` / `CommandPalette.Description`: Ark Dialog accessible title and description.
 - `CommandPalette.CloseTrigger`: Ark Dialog close trigger with a default close icon and label.
+- `CommandPalette.CloseIcon`: icon-only close-button helper built on the shared `CloseButton`.
+- `CommandPalette.Header` / `CommandPalette.Body`: Ark factory-based layout helpers for title/description and the combobox body region.
 - `CommandPalette.Combobox`: Ark Combobox root with command-palette defaults.
-- `CommandPalette.Control`, `Input`, `ClearTrigger`, `List`, `Empty`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`, `ItemIndicator`: Ark Combobox parts styled for command-palette layout. `ClearTrigger` renders a default icon and label. `List` includes the local moduix `ScrollArea`.
+- `CommandPalette.Control`, `Input`, `ClearTrigger`, `List`, `Empty`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`, `ItemIndicator`: Ark Combobox parts styled for command-palette layout. `ClearTrigger` renders a default icon and label, and `ItemIndicator` renders a default check icon. `List` includes the local moduix `ScrollArea`.
 - `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta`, `Separator`, `Footer`: Ark factory-based moduix leaf parts for command metadata and footer affordances.
 - `CommandPalette.Kbd`: command-palette scoped wrapper around the local `Kbd.Root`.
 
@@ -94,28 +106,37 @@ const { collection, filter } = useListCollection({
   <CommandPalette.Backdrop />
   <CommandPalette.Positioner>
     <CommandPalette.Content>
-      <CommandPalette.Combobox
-        collection={collection}
-        onInputValueChange={(details) => filter(details.inputValue)}
-      >
-        <CommandPalette.Control>
-          <CommandPalette.Input aria-label="Search commands" />
-          <CommandPalette.ClearTrigger aria-label="Clear search" />
-        </CommandPalette.Control>
-        <CommandPalette.List>
-          <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
-          {collection.group().map(([section, items]) => (
-            <CommandPalette.ItemGroup key={section}>
-              <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
-              {items.map((item) => (
-                <CommandPalette.Item key={item.id} item={item}>
-                  <CommandPalette.ItemText>{item.label}</CommandPalette.ItemText>
-                </CommandPalette.Item>
-              ))}
-            </CommandPalette.ItemGroup>
-          ))}
-        </CommandPalette.List>
-      </CommandPalette.Combobox>
+      <CommandPalette.CloseIcon />
+      <CommandPalette.Header>
+        <CommandPalette.Title>Quick actions</CommandPalette.Title>
+        <CommandPalette.Description>
+          Search commands, pages, and settings.
+        </CommandPalette.Description>
+      </CommandPalette.Header>
+      <CommandPalette.Body>
+        <CommandPalette.Combobox
+          collection={collection}
+          onInputValueChange={(details) => filter(details.inputValue)}
+        >
+          <CommandPalette.Control>
+            <CommandPalette.Input aria-label="Search commands" />
+            <CommandPalette.ClearTrigger aria-label="Clear search" />
+          </CommandPalette.Control>
+          <CommandPalette.List>
+            <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+            {collection.group().map(([section, items]) => (
+              <CommandPalette.ItemGroup key={section}>
+                <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+                {items.map((item) => (
+                  <CommandPalette.Item key={item.id} item={item}>
+                    <CommandPalette.ItemText>{item.label}</CommandPalette.ItemText>
+                  </CommandPalette.Item>
+                ))}
+              </CommandPalette.ItemGroup>
+            ))}
+          </CommandPalette.List>
+        </CommandPalette.Combobox>
+      </CommandPalette.Body>
     </CommandPalette.Content>
   </CommandPalette.Positioner>
 </CommandPalette>;
@@ -145,7 +166,7 @@ Important CSS variables include `--command-palette-positioner-padding`, `--comma
 
 ## Intentional sugar and differences from upstream
 
-`CommandPalette` can add a global shortcut listener because neither Ark Dialog nor Ark Combobox owns command-launch behavior. The listener is opt-in so pages with multiple palettes do not open every mounted instance from one key press. `CommandPalette.CloseTrigger` and `CommandPalette.ClearTrigger` render a default close icon and label when used as icon-only controls. `CommandPalette.List` wraps its children in the local `ScrollArea` so command results use moduix scrollbars by default. The list is a flex child and does not own a hard-coded height; footer/header space is resolved by the dialog flex layout. `CommandPalette.Kbd` composes the local `Kbd.Root` and maps command-palette CSS variables to the shared Kbd contract. `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta`, `Separator`, and `Footer` are visual Ark factory leaf parts only.
+`CommandPalette` can add a global shortcut listener because neither Ark Dialog nor Ark Combobox owns command-launch behavior. The listener is opt-in so pages with multiple palettes do not open every mounted instance from one key press. `CommandPalette.CloseTrigger` and `CommandPalette.ClearTrigger` render a default close icon and label when used as icon-only controls. `CommandPalette.CloseIcon`, `Header`, and `Body` mirror the dialog-like helper pattern without hiding the dialog or combobox structure. `CommandPalette.List` wraps its children in the local `ScrollArea` so command results use moduix scrollbars by default. The list is a flex child and does not own a hard-coded height; footer/header space is resolved by the dialog flex layout. `CommandPalette.ItemIndicator` renders a default check icon and can share the trailing row layout with `ItemMeta`. `CommandPalette.Kbd` composes the local `Kbd.Root` and maps command-palette CSS variables to the shared Kbd contract. `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta`, `Separator`, and `Footer` are visual Ark factory leaf parts only.
 
 `CommandPalette.Combobox` defaults to an always-open listbox inside the dialog and closes the dialog on selection. Set `closeOnSelect={false}` on `CommandPalette.Combobox` for commands that should keep the palette open.
 
@@ -161,6 +182,7 @@ consumers should compose those Ark helpers directly.
 
 ## Local changelog
 
+- 2026-07-05: Added `CloseIcon`, `Header`, and `Body` helpers and gave `ItemIndicator` the same default check icon contract used by the other selection overlays.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-07-02: Removed `CommandPalette.ComboboxRootProvider`, `CommandPalette.Context`,

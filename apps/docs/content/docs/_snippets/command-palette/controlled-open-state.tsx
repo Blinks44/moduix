@@ -55,36 +55,45 @@ export function ControlledCommandPalette() {
         <CommandPalette.Backdrop />
         <CommandPalette.Positioner>
           <CommandPalette.Content className="commandPalette">
-            <CommandPalette.Combobox
-              collection={collection}
-              onInputValueChange={(details) => filter(details.inputValue)}
-            >
-              <CommandPalette.Control>
-                <CommandPalette.Input
-                  aria-label="Search commands"
-                  placeholder="Search controlled commands..."
-                />
-                <CommandPalette.ClearTrigger aria-label="Clear search" />
-              </CommandPalette.Control>
-              <CommandPalette.List>
-                <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
-                {collection.group().map(([section, items]) => (
-                  <CommandPalette.ItemGroup key={section}>
-                    <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
-                    {items.map((item) => (
-                      <CommandPalette.Item key={item.id} item={item}>
-                        <CommandPalette.ItemText>
-                          <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                          <CommandPalette.ItemDescription>
-                            {item.description}
-                          </CommandPalette.ItemDescription>
-                        </CommandPalette.ItemText>
-                      </CommandPalette.Item>
-                    ))}
-                  </CommandPalette.ItemGroup>
-                ))}
-              </CommandPalette.List>
-            </CommandPalette.Combobox>
+            <CommandPalette.CloseIcon />
+            <CommandPalette.Header>
+              <CommandPalette.Title>Controlled command palette</CommandPalette.Title>
+              <CommandPalette.Description>
+                Coordinate the palette open state with surrounding React state.
+              </CommandPalette.Description>
+            </CommandPalette.Header>
+            <CommandPalette.Body>
+              <CommandPalette.Combobox
+                collection={collection}
+                onInputValueChange={(details) => filter(details.inputValue)}
+              >
+                <CommandPalette.Control>
+                  <CommandPalette.Input
+                    aria-label="Search commands"
+                    placeholder="Search controlled commands..."
+                  />
+                  <CommandPalette.ClearTrigger aria-label="Clear search" />
+                </CommandPalette.Control>
+                <CommandPalette.List>
+                  <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+                  {collection.group().map(([section, items]) => (
+                    <CommandPalette.ItemGroup key={section}>
+                      <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+                      {items.map((item) => (
+                        <CommandPalette.Item key={item.id} item={item}>
+                          <CommandPalette.ItemText>
+                            <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
+                            <CommandPalette.ItemDescription>
+                              {item.description}
+                            </CommandPalette.ItemDescription>
+                          </CommandPalette.ItemText>
+                        </CommandPalette.Item>
+                      ))}
+                    </CommandPalette.ItemGroup>
+                  ))}
+                </CommandPalette.List>
+              </CommandPalette.Combobox>
+            </CommandPalette.Body>
           </CommandPalette.Content>
         </CommandPalette.Positioner>
       </CommandPalette>

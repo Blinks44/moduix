@@ -49,7 +49,7 @@ semantic trigger element.
 ## Anatomy
 
 ```text
-Lightbox.Root
+Lightbox / Lightbox.Root
 ├─ Lightbox.Trigger
 ├─ Lightbox.Bind
 └─ Overlay subtree (automatically portalled)
@@ -57,9 +57,12 @@ Lightbox.Root
    └─ Lightbox.Positioner
       ├─ Lightbox.CloseTrigger or Lightbox.CloseIcon
       └─ Lightbox.Content
-         ├─ Lightbox.Title
-         ├─ Lightbox.Description
-         └─ Lightbox.Image
+         ├─ Lightbox.Header (optional)
+         │  ├─ Lightbox.Title
+         │  └─ Lightbox.Description
+         ├─ Lightbox.Body
+         │  └─ Lightbox.Image
+         └─ Lightbox.Footer (optional)
 
 Lightbox.RootProvider
 └─ the same part tree connected to Ark useDialog()
@@ -77,6 +80,8 @@ Lightbox.RootProvider
 | `Lightbox.Description`       | Optional accessible description.                                               |
 | `Lightbox.CloseTrigger`      | Low-level Ark close trigger.                                                   |
 | `Lightbox.CloseIcon`         | Moduix `CloseButton.Root` sugar over Ark close trigger.                        |
+| `Lightbox.Header` / `Body`   | Optional layout helpers for text and media regions inside the content.         |
+| `Lightbox.Footer`            | Optional layout helper for actions or status below the media.                  |
 | `Lightbox.Image`             | Styled native image with an `HTMLImageElement` ref.                            |
 | `Lightbox.Gallery`           | Layout and styling boundary for a composed `Carousel`.                         |
 | `Lightbox.Bind`              | Zero-render behavior part that binds external image markup to the root.        |
@@ -91,8 +96,8 @@ Keep the overlay structure explicit. `Lightbox.Content` is the real Ark content 
 render a backdrop, positioner, image, gallery, or close button for you.
 
 Use `Lightbox.Image` for a single image. It renders a native `<img>`, accepts native image props,
-and forwards its ref to the `HTMLImageElement`. Place custom media layouts directly inside
-`Lightbox.Content`.
+and forwards its ref to the `HTMLImageElement`. `Lightbox.Header`, `Body`, and `Footer` are optional
+layout helpers when the content needs text, media, and actions to stay visually separated.
 
 Use `Lightbox.Gallery` around `Carousel.Root` for a known image collection. It provides the
 lightbox-specific viewport, arrow alignment, media sizing, and indicator layout while Carousel

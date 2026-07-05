@@ -31,7 +31,9 @@ function LightboxSurface({ src, alt }: { src: string; alt: string }) {
       <Lightbox.Positioner>
         <Lightbox.CloseIcon />
         <Lightbox.Content aria-label={alt}>
-          <Lightbox.Image src={src} alt={alt} />
+          <Lightbox.Body>
+            <Lightbox.Image src={src} alt={alt} />
+          </Lightbox.Body>
         </Lightbox.Content>
       </Lightbox.Positioner>
     </>
@@ -45,7 +47,9 @@ function ClickToCloseLightboxSurface({ src, alt }: { src: string; alt: string })
       <Lightbox.Positioner>
         <Lightbox.CloseIcon />
         <Lightbox.Content aria-label={alt}>
-          <Lightbox.Image src={src} alt={alt} closeOnClick />
+          <Lightbox.Body>
+            <Lightbox.Image src={src} alt={alt} closeOnClick />
+          </Lightbox.Body>
         </Lightbox.Content>
       </Lightbox.Positioner>
     </>
@@ -140,8 +144,16 @@ export const RootProviderAndContext: Story = {
           <Lightbox.Positioner>
             <Lightbox.CloseIcon />
             <Lightbox.Content aria-label={images[2].alt}>
-              <Lightbox.Image src={images[2].src} alt={images[2].alt} />
-              <LightboxStatus />
+              <Lightbox.Header>
+                <Lightbox.Title>{images[2].alt}</Lightbox.Title>
+                <Lightbox.Description>State comes from Ark useDialog.</Lightbox.Description>
+              </Lightbox.Header>
+              <Lightbox.Body>
+                <Lightbox.Image src={images[2].src} alt={images[2].alt} />
+              </Lightbox.Body>
+              <Lightbox.Footer>
+                <LightboxStatus />
+              </Lightbox.Footer>
             </Lightbox.Content>
           </Lightbox.Positioner>
         </Lightbox.RootProvider>
@@ -170,9 +182,11 @@ export const BoundContent: Story = {
           <Lightbox.Positioner>
             <Lightbox.CloseIcon />
             <Lightbox.Content aria-label={activeImage?.alt ?? 'Image preview'}>
-              {activeImage ? (
-                <Lightbox.Image src={activeImage.src} alt={activeImage.alt ?? ''} />
-              ) : null}
+              <Lightbox.Body>
+                {activeImage ? (
+                  <Lightbox.Image src={activeImage.src} alt={activeImage.alt ?? ''} />
+                ) : null}
+              </Lightbox.Body>
             </Lightbox.Content>
           </Lightbox.Positioner>
         </Lightbox>
@@ -258,7 +272,9 @@ export const CustomStyling: Story = {
       <Lightbox.Positioner>
         <Lightbox.CloseIcon className={styles.customCloseIcon} />
         <Lightbox.Content className={styles.customContent} aria-label={images[1].alt}>
-          <Lightbox.Image src={images[1].src} alt={images[1].alt} />
+          <Lightbox.Body>
+            <Lightbox.Image src={images[1].src} alt={images[1].alt} />
+          </Lightbox.Body>
         </Lightbox.Content>
       </Lightbox.Positioner>
     </Lightbox>

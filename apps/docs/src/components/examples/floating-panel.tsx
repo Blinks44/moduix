@@ -113,10 +113,12 @@ function FloatingPanelSurface({
   title,
   children,
   className,
+  footer,
 }: {
   title: string;
   children?: ReactNode;
   className?: string;
+  footer?: ReactNode;
 }) {
   return (
     <FloatingPanel.Positioner>
@@ -135,6 +137,7 @@ function FloatingPanelSurface({
           </FloatingPanel.Header>
         </FloatingPanel.DragTrigger>
         <FloatingPanel.Body>{children}</FloatingPanel.Body>
+        {footer ? <FloatingPanel.Footer>{footer}</FloatingPanel.Footer> : null}
         <FloatingPanel.ResizeTriggerGroup />
       </FloatingPanel.Content>
     </FloatingPanel.Positioner>
@@ -147,7 +150,10 @@ export function FloatingPanelExample() {
       <FloatingPanel.Trigger asChild>
         <Button>Open panel</Button>
       </FloatingPanel.Trigger>
-      <FloatingPanelSurface title="Inspector">
+      <FloatingPanelSurface
+        title="Inspector"
+        footer="Esc closes the panel without hiding the resize handles."
+      >
         <div className={styles.bodyStack}>
           <p>Drag the header to move this panel and resize it from any edge.</p>
           <div className={styles.metricGrid}>

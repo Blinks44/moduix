@@ -34,7 +34,7 @@ const steps = [
 ] satisfies TourStepDetails[];
 
 import type { TourStepDetails } from '@ark-ui/react/tour';
-import { Button, CloseIcon, Tour, useTour } from '@moduix/react';
+import { Button, Tour, useTour } from '@moduix/react';
 
 export function TourDemo() {
   const tour = useTour({ steps });
@@ -52,9 +52,7 @@ export function TourDemo() {
         <Tour.Positioner>
           <Tour.Content>
             <Tour.Arrow />
-            <Tour.CloseTrigger>
-              <CloseIcon />
-            </Tour.CloseTrigger>
+            <Tour.CloseIcon />
             <Tour.Title />
             <Tour.Description />
             <Tour.ProgressText />

@@ -17,7 +17,8 @@ The wrapper follows Ark UI `Tour`. State is created with `useTour()` and passed 
 
 `Tour.Root` portals `Backdrop`, `Spotlight`, and `Positioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. These structural parts remain explicit and independently styleable.
 
-`Tour` is a thin styled wrapper over Ark parts. It exposes `Root`, `Backdrop`, `Spotlight`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `ProgressText`, `CloseTrigger`, `Control`, `Actions`, and `ActionTrigger`. The wrapper adds CSS Modules styling, stable `data-slot` hooks, bottom-aligned progress text, and a default `ArrowTip` when `Tour.Arrow` has no children. It does not add local tour state or convert Ark callbacks.
+`Tour` is a thin styled wrapper over Ark parts. It exposes `Root`, `Backdrop`, `Spotlight`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `ProgressText`, `CloseTrigger`, `CloseIcon`, `Control`, `Actions`, and `ActionTrigger`. The wrapper adds CSS Modules styling, stable `data-slot` hooks, bottom-aligned progress text, and a default `ArrowTip` when `Tour.Arrow` has no children. It does not add local tour state or convert Ark callbacks.
+`Tour.CloseIcon` is a thin helper for the common icon-only dismiss control.
 
 The package keeps `useTour` and the Ark wait helpers because ordinary tour usage needs them. Import advanced context hooks and duplicate Ark types directly from `@ark-ui/react/tour`.
 
@@ -32,7 +33,7 @@ const tour = useTour({ steps });
   <Tour.Positioner>
     <Tour.Content>
       <Tour.Arrow />
-      <Tour.CloseTrigger />
+      <Tour.CloseIcon />
       <Tour.Title />
       <Tour.Description />
       <Tour.ProgressText />
@@ -54,13 +55,14 @@ const tour = useTour({ steps });
 - `Tour.Arrow` / `Tour.ArrowTip`: tooltip arrow. `Tour.Arrow` renders a default `ArrowTip` when empty.
 - `Tour.Title`, `Tour.Description`, `Tour.ProgressText`: current step content from Ark state.
 - `Tour.CloseTrigger`: dismiss button primitive. Consumers provide visible content or use `asChild`.
+- `Tour.CloseIcon`: icon-only close-button helper for the common dismiss affordance.
 - `Tour.Control`, `Tour.Actions`, `Tour.ActionTrigger`: action rendering path from the current step.
 
 ## Composition
 
 ```tsx
 import type { TourStepDetails } from '@ark-ui/react/tour';
-import { CloseIcon, Tour, useTour } from '@moduix/react';
+import { Tour, useTour } from '@moduix/react';
 
 const steps = [
   {
@@ -87,9 +89,7 @@ function Example() {
         <Tour.Positioner>
           <Tour.Content>
             <Tour.Arrow />
-            <Tour.CloseTrigger>
-              <CloseIcon />
-            </Tour.CloseTrigger>
+            <Tour.CloseIcon />
             <Tour.Title />
             <Tour.Description />
             <Tour.ProgressText />
@@ -126,7 +126,7 @@ The CSS module provides visual defaults for backdrop, spotlight, positioner, con
 
 ## Intentional sugar and differences from upstream
 
-Moduix adds only styling, `data-slot` hooks, and the default `ArrowTip` inside `Tour.Arrow`. It does not add bundled content sugar, action mapping helpers, local progress components, or a local state provider. Consumers keep the Ark composition path visible.
+Moduix adds only styling, `data-slot` hooks, the default `ArrowTip` inside `Tour.Arrow`, and the optional `Tour.CloseIcon` helper. It does not add bundled content sugar, action mapping helpers, local progress components, or a local state provider. Consumers keep the Ark composition path visible.
 
 ## Agent notes
 
@@ -136,6 +136,7 @@ update `theme.css`, docs CSS properties, stories, and registry artifacts togethe
 
 ## Local changelog
 
+- 2026-07-05: Added `Tour.CloseIcon` so guided-tour examples can use the same close-button helper pattern as the other overlay families.
 - 2026-07-03: Removed moduix re-exports for `Tour.Context`, `useTourContext`, and duplicate Ark
   types. Keep `useTour` and wait helpers in `moduix`; import advanced Ark state/types directly
   from `@ark-ui/react/tour`.

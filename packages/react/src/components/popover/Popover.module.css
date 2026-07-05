@@ -67,6 +67,12 @@
   }
 
   .content {
+    --popover-close-icon-size-effective: var(--popover-close-icon-size, 1.75rem);
+    --popover-close-icon-offset-effective: var(--popover-close-icon-offset, var(--spacing-3));
+    --popover-header-padding-inline-end-effective: var(
+      --popover-header-padding-inline-end,
+      calc(var(--popover-close-icon-size-effective) + var(--popover-close-icon-offset-effective))
+    );
     position: relative;
     z-index: calc(var(--z-popup) + var(--layer-index, 0));
     box-sizing: border-box;
@@ -122,9 +128,27 @@
     line-height: var(--popover-description-line-height, var(--line-height-text-sm));
   }
 
+  .closeIcon {
+    --close-button-size: var(--popover-close-icon-size-effective);
+    --close-button-radius: var(--popover-close-icon-radius, var(--radius-sm));
+    --close-button-icon-size: var(--popover-close-icon-glyph-size, 0.875rem);
+    --close-button-bg: var(--popover-close-icon-bg, transparent);
+    --close-button-bg-hover: var(--popover-close-icon-bg-hover, var(--color-accent));
+    --close-button-color: var(--popover-close-icon-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(
+      --popover-close-icon-color-hover,
+      var(--popover-color, var(--color-popover-foreground))
+    );
+    --close-button-focus-ring-color: var(--popover-close-icon-focus-ring-color, var(--color-ring));
+    position: absolute;
+    inset-block-start: var(--popover-close-icon-offset-effective);
+    inset-inline-end: var(--popover-close-icon-offset-effective);
+  }
+
   .header {
     display: grid;
     gap: var(--popover-header-gap, var(--spacing-1));
+    padding-inline-end: var(--popover-header-padding-inline-end-effective);
   }
 
   .body {

@@ -674,8 +674,14 @@
   --command-palette-clear-bg-hover: initial; /* var(--color-accent) */
   --command-palette-clear-radius: initial; /* var(--radius-md) */
   --command-palette-clear-size: initial; /* var(--size-sm) */
+  --command-palette-close-icon-bg: initial; /* transparent */
+  --command-palette-close-icon-color: initial; /* var(--command-palette-muted-color, var(--color-muted-foreground)) */
+  --command-palette-close-icon-glyph-size: initial; /* var(--command-palette-icon-size, 1rem) */
+  --command-palette-close-icon-radius: initial; /* var(--command-palette-clear-radius, var(--radius-md)) */
+  --command-palette-close-icon-size: initial; /* var(--command-palette-clear-size, var(--size-sm)) */
   --command-palette-close-offset: initial; /* var(--spacing-3) */
   --command-palette-color: initial; /* var(--color-popover-foreground) */
+  --command-palette-content-gap: initial; /* var(--spacing-3) */
   --command-palette-content-ending-opacity: initial; /* 0 */
   --command-palette-content-ending-scale: initial; /* var(--scale-popup) */
   --command-palette-content-ending-translate-x: initial; /* 0 */
@@ -688,6 +694,9 @@
   --command-palette-control-padding-y: initial; /* var(--spacing-3) */
   --command-palette-divider-color: initial; /* var(--color-border) */
   --command-palette-divider-width: initial; /* var(--border-width-sm) */
+  --command-palette-description-color: initial; /* var(--color-muted-foreground) */
+  --command-palette-description-font-size: initial; /* var(--text-sm) */
+  --command-palette-description-line-height: initial; /* var(--line-height-text-sm) */
   --command-palette-empty-font-size: initial; /* var(--text-sm) */
   --command-palette-empty-line-height: initial; /* var(--line-height-text-sm) */
   --command-palette-empty-padding-x: initial; /* var(--spacing-4) */
@@ -707,6 +716,10 @@
   --command-palette-group-label-padding-x: initial; /* var(--spacing-3) */
   --command-palette-group-label-padding-y: initial; /* var(--spacing-1) */
   --command-palette-group-padding-bottom: initial; /* var(--spacing-2) */
+  --command-palette-header-gap: initial; /* var(--spacing-1) */
+  --command-palette-header-padding-inline-end: initial; /* calc(var(--command-palette-header-padding-x, var(--spacing-4)) + var(--command-palette-close-icon-size, var(--command-palette-clear-size, var(--size-sm))) + var(--spacing-3)) */
+  --command-palette-header-padding-x: initial; /* var(--spacing-4) */
+  --command-palette-header-padding-y: initial; /* var(--spacing-4) */
   --command-palette-highlight-bg: initial; /* var(--color-accent) */
   --command-palette-highlight-color: initial; /* var(--color-foreground) */
   --command-palette-icon-size: initial; /* 1rem */
@@ -764,6 +777,10 @@
   --command-palette-separator-margin-y: initial; /* var(--spacing-2) */
   --command-palette-shadow: initial; /* var(--shadow-lg) */
   --command-palette-top-bg: initial; /* color-mix(in oklab, var(--color-popover) 96%, white 4%) */
+  --command-palette-title-color: initial; /* var(--command-palette-color, var(--color-popover-foreground)) */
+  --command-palette-title-font-size: initial; /* var(--text-md) */
+  --command-palette-title-font-weight: initial; /* var(--weight-semibold) */
+  --command-palette-title-line-height: initial; /* var(--line-height-text-md) */
   --command-palette-transition: initial; /* var(--transition-default) */
   --command-palette-trigger-bg: initial; /* var(--color-background) */
   --command-palette-trigger-bg-hover: initial; /* var(--color-accent) */
@@ -1316,6 +1333,15 @@
   --floating-panel-ending-translate-y: initial; /* 0 */
   --floating-panel-focus-ring-color: initial; /* var(--color-ring) */
   --floating-panel-focus-ring-width: initial; /* var(--border-width-sm) */
+  --floating-panel-footer-border-color: initial; /* var(--floating-panel-border-color, var(--color-border)) */
+  --floating-panel-footer-border-width: initial; /* var(--border-width-sm) */
+  --floating-panel-footer-color: initial; /* var(--color-muted-foreground) */
+  --floating-panel-footer-font-size: initial; /* var(--text-xs) */
+  --floating-panel-footer-gap: initial; /* var(--spacing-2) */
+  --floating-panel-footer-justify: initial; /* flex-end */
+  --floating-panel-footer-line-height: initial; /* var(--line-height-text-xs) */
+  --floating-panel-footer-padding-x: initial; /* var(--spacing-3) */
+  --floating-panel-footer-padding-y: initial; /* var(--spacing-2) */
   --floating-panel-header-bg: initial; /* var(--color-muted) */
   --floating-panel-header-border-color: initial; /* var(--floating-panel-border-color, var(--color-border)) */
   --floating-panel-header-border-width: initial; /* var(--border-width-sm) */
@@ -1564,6 +1590,7 @@
   --lightbox-close-icon-inset-inline-end: initial; /* var(--spacing-4) */
   --lightbox-close-icon-radius: initial; /* var(--radius-sm) */
   --lightbox-close-icon-size: initial; /* 2rem */
+  --lightbox-content-gap: initial; /* var(--spacing-3) */
   --lightbox-content-ending-opacity: initial; /* 0 */
   --lightbox-content-ending-scale: initial; /* 0.82 */
   --lightbox-content-ending-translate-x: initial; /* 0 */
@@ -1574,6 +1601,14 @@
   --lightbox-content-starting-scale: initial; /* 0.82 */
   --lightbox-content-starting-translate-x: initial; /* 0 */
   --lightbox-content-starting-translate-y: initial; /* 0 */
+  --lightbox-description-color: initial; /* var(--color-muted-foreground) */
+  --lightbox-description-font-size: initial; /* var(--text-sm) */
+  --lightbox-description-line-height: initial; /* var(--line-height-text-sm) */
+  --lightbox-footer-color: initial; /* var(--color-muted-foreground) */
+  --lightbox-footer-font-size: initial; /* var(--text-sm) */
+  --lightbox-footer-gap: initial; /* var(--spacing-2) */
+  --lightbox-footer-justify: initial; /* flex-end */
+  --lightbox-footer-line-height: initial; /* var(--line-height-text-sm) */
   --lightbox-gallery-aspect-ratio: initial; /* 16 / 10 */
   --lightbox-gallery-gap: initial; /* var(--spacing-4) */
   --lightbox-gallery-max-width: initial; /* 72rem */
@@ -1585,11 +1620,17 @@
   --lightbox-gallery-thumbnail-width: initial; /* 5rem */
   --lightbox-gallery-track-bg: initial; /* color-mix(in oklab, black 88%, var(--color-background) 12%) */
   --lightbox-gallery-track-max-height: initial; /* 68dvh */
+  --lightbox-header-gap: initial; /* var(--spacing-1) */
+  --lightbox-body-gap: initial; /* var(--spacing-3) */
   --lightbox-media-max-height: initial; /* 80dvh */
   --lightbox-media-max-width: initial; /* 80vw */
   --lightbox-media-radius: initial; /* var(--radius-md) */
   --lightbox-media-shadow: initial; /* var(--shadow-lg) */
   --lightbox-positioner-padding: initial; /* var(--spacing-4) */
+  --lightbox-title-color: initial; /* var(--color-foreground) */
+  --lightbox-title-font-size: initial; /* var(--text-md) */
+  --lightbox-title-font-weight: initial; /* var(--weight-semibold) */
+  --lightbox-title-line-height: initial; /* var(--line-height-text-md) */
   --lightbox-transition: initial; /* 220ms ease */
 
   /* List */
@@ -1964,6 +2005,15 @@
   --popover-control-padding-x: initial; /* 0.875rem */
   --popover-control-padding-y: initial; /* 0.5rem */
   --popover-control-radius: initial; /* var(--radius-md) */
+  --popover-close-icon-bg: initial; /* transparent */
+  --popover-close-icon-bg-hover: initial; /* var(--color-accent) */
+  --popover-close-icon-color: initial; /* var(--color-muted-foreground) */
+  --popover-close-icon-color-hover: initial; /* var(--popover-color, var(--color-popover-foreground)) */
+  --popover-close-icon-focus-ring-color: initial; /* var(--color-ring) */
+  --popover-close-icon-glyph-size: initial; /* 0.875rem */
+  --popover-close-icon-offset: initial; /* var(--spacing-3) */
+  --popover-close-icon-radius: initial; /* var(--radius-sm) */
+  --popover-close-icon-size: initial; /* 1.75rem */
   --popover-description-color: initial; /* var(--color-muted-foreground) */
   --popover-description-font-size: initial; /* var(--text-sm) */
   --popover-description-line-height: initial; /* var(--line-height-text-sm) */
@@ -1975,6 +2025,7 @@
   --popover-footer-justify: initial; /* flex-end */
   --popover-footer-margin: initial; /* var(--spacing-3) 0 0 */
   --popover-header-gap: initial; /* var(--spacing-1) */
+  --popover-header-padding-inline-end: initial; /* calc(var(--popover-close-icon-size, 1.75rem) + var(--popover-close-icon-offset, var(--spacing-3))) */
   --popover-height: initial; /* auto */
   --popover-max-height: initial; /* 24rem */
   --popover-max-width: initial; /* 28rem */

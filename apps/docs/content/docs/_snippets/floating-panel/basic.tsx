@@ -36,6 +36,9 @@ export function FloatingPanelDemo() {
           <FloatingPanel.Body>
             Drag the header to move this panel and resize it from any edge.
           </FloatingPanel.Body>
+          <FloatingPanel.Footer>
+            Esc closes the panel without hiding the resize handles.
+          </FloatingPanel.Footer>
           <FloatingPanel.ResizeTriggerGroup />
         </FloatingPanel.Content>
       </FloatingPanel.Positioner>

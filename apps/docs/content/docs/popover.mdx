@@ -50,7 +50,7 @@ hosts use `asChild`.
 ## Anatomy
 
 ```text
-Popover.Root
+Popover / Popover.Root
 ├─ Popover.Anchor (optional)
 ├─ Popover.Trigger
 │  └─ Popover.Indicator (optional)
@@ -64,7 +64,7 @@ Popover.Root
          │  └─ Popover.Description
          ├─ Popover.Body
          ├─ Popover.Footer
-         └─ Popover.CloseTrigger
+         └─ Popover.CloseTrigger / Popover.CloseIcon
 ```
 
 | Part                         | Role                                                             |
@@ -79,7 +79,8 @@ Popover.Root
 | `Popover.Arrow` / `ArrowTip` | Optional positioned arrow and its visible tip.                   |
 | `Popover.Title`              | Accessible title wired to the content.                           |
 | `Popover.Description`        | Accessible description wired to the content.                     |
-| `Popover.CloseTrigger`       | Button that dismisses the popover.                               |
+| `Popover.CloseTrigger`       | Low-level dismiss trigger.                                       |
+| `Popover.CloseIcon`          | Shared icon-only close helper built on the Ark close trigger.    |
 | `Popover.Header` / `Body`    | Moduix layout wrappers with stable slots.                        |
 | `Popover.Footer`             | Moduix action row wrapper with stable slot.                      |
 

@@ -8,7 +8,10 @@ import {
   OverlayPortalProvider,
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
+import { CloseButton } from '../close-button';
 import styles from './Popover.module.css';
+
+const DEFAULT_CLOSE_BUTTON_LABEL = 'Close popover';
 
 type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPortalProps;
 type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> &
@@ -176,6 +179,27 @@ const PopoverCloseTrigger = forwardRef<
   );
 });
 
+const PopoverCloseIcon = forwardRef<
+  ComponentRef<typeof CloseButton.Root>,
+  Omit<ComponentProps<typeof PopoverPrimitive.CloseTrigger>, 'asChild'>
+>(function PopoverCloseIcon(
+  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
+  ref,
+) {
+  return (
+    <PopoverPrimitive.CloseTrigger asChild {...props}>
+      <CloseButton.Root
+        ref={ref}
+        data-slot="popover-close-icon"
+        aria-label={ariaLabel}
+        className={clsx(styles.closeIcon, normalizeClassName(className))}
+      >
+        {children}
+      </CloseButton.Root>
+    </PopoverPrimitive.CloseTrigger>
+  );
+});
+
 function PopoverHeader({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="popover-header" className={clsx(styles.header, className)} {...props} />;
 }
@@ -201,6 +225,7 @@ const Popover = Object.assign(PopoverRoot, {
   Title: PopoverTitle,
   Description: PopoverDescription,
   CloseTrigger: PopoverCloseTrigger,
+  CloseIcon: PopoverCloseIcon,
   Header: PopoverHeader,
   Body: PopoverBody,
   Footer: PopoverFooter,

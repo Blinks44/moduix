@@ -36,7 +36,8 @@ styled native image for the single-image path and adds the wrapper-specific `clo
 interaction. `Lightbox.Gallery` is a layout and styling boundary for a composed `Carousel`; it does
 not own image data or slide state. `Lightbox.Bind` is a zero-render behavior part for CMS or
 third-party markup that cannot render `Lightbox.Trigger` directly. It uses the surrounding Dialog
-context and leaves all overlay markup consumer-owned.
+context and leaves all overlay markup consumer-owned. `Header`, `Body`, and `Footer` are plain
+layout helpers for captions, metadata, or actions around the media surface.
 
 ## Anatomy and exported parts
 
@@ -49,11 +50,14 @@ Lightbox.Root
    └─ Lightbox.Positioner
       ├─ Lightbox.CloseTrigger or Lightbox.CloseIcon
       └─ Lightbox.Content
-         ├─ Lightbox.Title
-         ├─ Lightbox.Description
-         ├─ Lightbox.Image
-         └─ Lightbox.Gallery
-            └─ Carousel.Root
+         ├─ Lightbox.Header (moduix)
+         │  ├─ Lightbox.Title
+         │  └─ Lightbox.Description
+         ├─ Lightbox.Body (moduix)
+         │  ├─ Lightbox.Image
+         │  └─ Lightbox.Gallery
+         │     └─ Carousel.Root
+         └─ Lightbox.Footer (moduix)
 
 Lightbox.RootProvider
 └─ the same part tree connected to Ark useDialog()
@@ -61,8 +65,9 @@ Lightbox.RootProvider
 
 Stable slots are `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
 `lightbox-content`, `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`,
-`lightbox-close-icon`, `lightbox-image`, and `lightbox-gallery`. `Lightbox.Image` also exposes
-`data-close-on-click` when that behavior is enabled.
+`lightbox-close-icon`, `lightbox-header`, `lightbox-body`, `lightbox-footer`, `lightbox-image`,
+and `lightbox-gallery`. `Lightbox.Image` also exposes `data-close-on-click` when that behavior is
+enabled.
 
 `Lightbox.Gallery` is a moduix layout part. `Lightbox.Bind` is a zero-render behavior helper, not
 an Ark anatomy part.
@@ -84,7 +89,9 @@ export function LightboxDemo() {
       <Lightbox.Positioner>
         <Lightbox.CloseIcon />
         <Lightbox.Content>
-          <Lightbox.Image src={fullSize} alt="Mountain ridge at sunset" />
+          <Lightbox.Body>
+            <Lightbox.Image src={fullSize} alt="Mountain ridge at sunset" />
+          </Lightbox.Body>
         </Lightbox.Content>
       </Lightbox.Positioner>
     </Lightbox>
@@ -167,6 +174,7 @@ ratio, viewport height, gap, track background, and thumbnail sizing/state.
   image registry, render callbacks, or translated Carousel API.
 - `Lightbox.Bind` is narrow zero-render sugar for binding image selection to CMS or external DOM.
   Consumers keep ownership of image state and the complete overlay composition.
+- `Lightbox.Header`, `Lightbox.Body`, and `Lightbox.Footer` provide only layout and stable slots.
 - moduix does not re-export Ark dialog hooks, contexts, or detail-object types from `Lightbox`;
   import advanced state APIs from `@ark-ui/react/dialog` when needed.
 - Structured image data and slide state stay consumer-owned.
@@ -185,6 +193,9 @@ array, prefer explicit `Lightbox.Gallery + Carousel` composition.
 
 ## Local changelog
 
+- 2026-07-05: Changed `Lightbox.Gallery` from a forced width to a centered max-width cap so `Lightbox + Carousel` keeps its natural centered size inside `Lightbox.Content`.
+- 2026-07-05: Kept `Lightbox.Gallery` centered inside the new `Content` grid layout so `Lightbox + Carousel` stays visually centered.
+- 2026-07-05: Added `Lightbox.Header`, `Lightbox.Body`, and `Lightbox.Footer`, and documented the layout-helper composition path around media content.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 - 2026-07-03: Kept `RootProvider` but removed moduix re-exports of Ark dialog hooks, contexts, and
   renamed detail-object types; advanced state access now imports from `@ark-ui/react/dialog`.

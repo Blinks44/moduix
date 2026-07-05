@@ -22,10 +22,12 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 function FloatingPanelSurface({
+  footer,
   title,
   children,
   className,
 }: {
+  footer?: ReactNode;
   title: string;
   children?: ReactNode;
   className?: string;
@@ -47,6 +49,7 @@ function FloatingPanelSurface({
           </FloatingPanel.Header>
         </FloatingPanel.DragTrigger>
         <FloatingPanel.Body>{children}</FloatingPanel.Body>
+        {footer ? <FloatingPanel.Footer>{footer}</FloatingPanel.Footer> : null}
         <FloatingPanel.ResizeTriggerGroup />
       </FloatingPanel.Content>
     </FloatingPanel.Positioner>
@@ -59,7 +62,10 @@ export const Basic: Story = {
       <FloatingPanel.Trigger asChild>
         <Button>Open panel</Button>
       </FloatingPanel.Trigger>
-      <FloatingPanelSurface title="Inspector">
+      <FloatingPanelSurface
+        title="Inspector"
+        footer={<span className={storyStyles.status}>Last synced just now</span>}
+      >
         <div className={storyStyles.bodyStack}>
           <p>Drag the header to move this panel and resize it from any edge.</p>
           <div className={storyStyles.metricGrid}>

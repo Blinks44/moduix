@@ -1,14 +1,6 @@
 import type { TourStepDetails, UseTourReturn } from '@ark-ui/react/tour';
 import type { ReactNode } from 'react';
-import {
-  Button,
-  CloseIcon,
-  Tour,
-  useTour,
-  waitForElement,
-  waitForEvent,
-  waitForPromise,
-} from '@moduix/react';
+import { Button, Tour, useTour, waitForElement, waitForEvent, waitForPromise } from '@moduix/react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -128,9 +120,7 @@ function TourOverlay({ children, tour }: { children?: ReactNode; tour: UseTourRe
       <Tour.Positioner>
         <Tour.Content>
           <Tour.Arrow />
-          <Tour.CloseTrigger>
-            <CloseIcon className={styles.closeIcon} />
-          </Tour.CloseTrigger>
+          <Tour.CloseIcon className={styles.closeIcon} />
           <Tour.Title />
           <Tour.Description />
           {children}

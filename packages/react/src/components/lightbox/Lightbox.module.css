@@ -36,6 +36,8 @@
   .content {
     box-sizing: border-box;
     position: relative;
+    display: grid;
+    gap: var(--lightbox-content-gap, var(--spacing-3));
     width: fit-content;
     max-width: min(var(--lightbox-content-max-width, 80vw), calc(100vw - var(--spacing-8)));
     max-height: min(var(--lightbox-content-max-height, 80dvh), calc(100dvh - var(--spacing-8)));
@@ -50,6 +52,41 @@
     &[data-state='closed'] {
       animation: lightbox-content-out var(--lightbox-transition, 220ms ease);
     }
+  }
+
+  .title {
+    margin: 0;
+    color: var(--lightbox-title-color, var(--color-foreground));
+    font-size: var(--lightbox-title-font-size, var(--text-md));
+    font-weight: var(--lightbox-title-font-weight, var(--weight-semibold));
+    line-height: var(--lightbox-title-line-height, var(--line-height-text-md));
+  }
+
+  .description {
+    margin: 0;
+    color: var(--lightbox-description-color, var(--color-muted-foreground));
+    font-size: var(--lightbox-description-font-size, var(--text-sm));
+    line-height: var(--lightbox-description-line-height, var(--line-height-text-sm));
+  }
+
+  .header {
+    display: grid;
+    gap: var(--lightbox-header-gap, var(--spacing-1));
+  }
+
+  .body {
+    display: grid;
+    gap: var(--lightbox-body-gap, var(--spacing-3));
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: var(--lightbox-footer-justify, flex-end);
+    gap: var(--lightbox-footer-gap, var(--spacing-2));
+    color: var(--lightbox-footer-color, var(--color-muted-foreground));
+    font-size: var(--lightbox-footer-font-size, var(--text-sm));
+    line-height: var(--lightbox-footer-line-height, var(--line-height-text-sm));
   }
 
   .image {
@@ -68,11 +105,12 @@
 
   .gallery {
     --carousel-gap: var(--lightbox-gallery-gap, var(--spacing-4));
-    width: min(
+    justify-self: center;
+    width: auto;
+    max-width: min(
       var(--lightbox-gallery-max-width, 72rem),
       calc(100vw - var(--lightbox-positioner-padding, var(--spacing-4)) * 2)
     );
-    max-width: 100%;
 
     [data-slot='carousel-control'] {
       align-items: center;

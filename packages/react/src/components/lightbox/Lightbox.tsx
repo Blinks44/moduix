@@ -162,7 +162,7 @@ const LightboxTitle = forwardRef<
     <DialogPrimitive.Title
       ref={ref}
       data-slot="lightbox-title"
-      className={normalizeClassName(className)}
+      className={clsx(styles.title, normalizeClassName(className))}
       {...props}
     />
   );
@@ -176,7 +176,7 @@ const LightboxDescription = forwardRef<
     <DialogPrimitive.Description
       ref={ref}
       data-slot="lightbox-description"
-      className={normalizeClassName(className)}
+      className={clsx(styles.description, normalizeClassName(className))}
       {...props}
     />
   );
@@ -260,6 +260,18 @@ const LightboxGallery = forwardRef<HTMLDivElement, ComponentProps<'div'>>(functi
   );
 });
 
+function LightboxHeader({ className, ...props }: ComponentProps<'div'>) {
+  return <div data-slot="lightbox-header" className={clsx(styles.header, className)} {...props} />;
+}
+
+function LightboxBody({ className, ...props }: ComponentProps<'div'>) {
+  return <div data-slot="lightbox-body" className={clsx(styles.body, className)} {...props} />;
+}
+
+function LightboxFooter({ className, ...props }: ComponentProps<'div'>) {
+  return <div data-slot="lightbox-footer" className={clsx(styles.footer, className)} {...props} />;
+}
+
 function LightboxBind({
   onImageSelect,
   selector = 'img',
@@ -327,6 +339,9 @@ const Lightbox = Object.assign(LightboxRoot, {
   Description: LightboxDescription,
   CloseTrigger: LightboxCloseTrigger,
   CloseIcon: LightboxCloseIcon,
+  Header: LightboxHeader,
+  Body: LightboxBody,
+  Footer: LightboxFooter,
   Image: LightboxImage,
   Gallery: LightboxGallery,
   Bind: LightboxBind,

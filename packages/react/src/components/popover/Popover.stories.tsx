@@ -190,6 +190,7 @@ export const Modal: Story = {
       </Popover.Trigger>
       <Popover.Positioner>
         <Popover.Content>
+          <Popover.CloseIcon />
           <Popover.Header>
             <Popover.Title>Invite teammates</Popover.Title>
             <Popover.Description>

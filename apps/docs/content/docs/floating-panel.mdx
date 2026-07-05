@@ -36,7 +36,7 @@ Compose the Ark structure explicitly. `FloatingPanel.Positioner` owns Ark's meas
 ## Anatomy
 
 ```text
-FloatingPanel.Root
+FloatingPanel / FloatingPanel.Root
 ├─ FloatingPanel.Trigger
 └─ Overlay subtree (automatically portalled)
    └─ FloatingPanel.Positioner
@@ -49,6 +49,7 @@ FloatingPanel.Root
          │        ├─ FloatingPanel.StageTrigger
          │        └─ FloatingPanel.CloseTrigger / CloseIcon
          ├─ FloatingPanel.Body
+         ├─ FloatingPanel.Footer
          └─ FloatingPanel.ResizeTrigger / ResizeTriggerGroup
 ```
 
@@ -65,12 +66,13 @@ FloatingPanel.Root
 | `FloatingPanel.StageTrigger`               | Switches to `default`, `minimized`, or `maximized`.            |
 | `FloatingPanel.CloseTrigger` / `CloseIcon` | Closes the panel.                                              |
 | `FloatingPanel.Body`                       | Scrollable content region.                                     |
+| `FloatingPanel.Footer`                     | Optional footer region for secondary actions or status text.   |
 | `FloatingPanel.ResizeTrigger`              | Resize handle for one Ark axis.                                |
 | `FloatingPanel.ResizeTriggerGroup`         | Moduix helper that renders all resize axes.                    |
 | `FloatingPanel.RootProvider`               | Connects parts to state created with Ark `useFloatingPanel()`. |
 
-`FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, and `FloatingPanel.ResizeTriggerGroup`
-are moduix helpers. They do not replace Ark structural parts.
+`FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, `FloatingPanel.Footer`, and
+`FloatingPanel.ResizeTriggerGroup` are moduix helpers. They do not replace Ark structural parts.
 
 ## Composition
 
