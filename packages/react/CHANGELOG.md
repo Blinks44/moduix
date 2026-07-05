@@ -1,5 +1,11 @@
 # moduix
 
+## 1.1.1
+
+### Patch Changes
+
+- 12be976: Update Splitter resize trigger default hover and drag styling.
+
 ## 1.1.0
 
 ### Minor Changes
