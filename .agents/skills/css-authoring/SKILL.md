@@ -41,19 +41,7 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 
 - Use modern CSS nesting so states, nested selectors, and media conditions stay close to the base selector.
 - Prefer nesting for `:hover`, `:focus-visible`, data attributes, child selectors, and `@media`.
-- Do not move related states into distant parts of the file when they can stay next to the base class.
-
-Example:
-
-```css
-.root {
-  padding: 4px;
-
-  &:hover {
-    padding: 8px;
-  }
-}
-```
+- Do not over-nest or move related states far from the base selector.
 
 ## Selector Complexity
 

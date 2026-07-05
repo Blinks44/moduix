@@ -16,83 +16,29 @@ Use this skill for work in `packages/react`.
 ## Read First
 
 1. `AGENTS.md`
-2. `packages/react/src/components/<component-name>/<component-name>.md`
+2. The touched component's TSX, CSS module, story, and local markdown
 3. `.agents/skills/js-react-conventions/SKILL.md`
 4. `.agents/skills/upstream-library-docs/SKILL.md` when Ark, Chakra, or shadcn behavior matters
 5. `.agents/skills/local-component-docs/SKILL.md` when component markdown changes
 6. `.agents/skills/cross-package-sync/SKILL.md` when public changes affect docs
 
-Before editing an existing component, inspect the TSX implementation, CSS module, stories, and local component markdown. Check public docs/examples when the change is user-facing.
+Before editing an existing component, inspect its implementation, styling, stories, and local
+markdown together. Check public docs/examples when the change is user-facing.
 
-## Current Library Contract
+## Workflow Contract
 
-Maintain thin styled wrappers over Ark UI primitives and Ark-style contracts:
-
-- minimal wrapper logic
-- predictable composition
-- small public API
-- explicit structural composition
-- convenience that does not obscure the upstream part tree
-
-Small DX sugar is acceptable only when it removes repeated production boilerplate without hiding the real composition model.
-
-## Ark-First Maintenance
-
-- Treat Ark UI as the source of truth for component anatomy, naming, lifecycle, state, callback details, and accessibility.
-- Use Chakra and shadcn only as secondary references for higher-level composition, recipes, and docs ergonomics.
-- Keep wrappers thin. Do not add compatibility shims, prop translations, flat aliases, hidden structural bundles, or local state layers unless there is a documented product reason.
-- When Ark exposes `RootProvider`, `Context`, `ItemContext`, `useComponent`, `use*Context`, or related types, mirror that public surface through the component and barrel unless intentionally documented otherwise.
-- For components without a dedicated Ark primitive, use Ark factory/composition patterns or native DOM semantics, and document the component as a moduix-owned contract.
-- Keep stories, local markdown, public docs, package barrels, and registry artifacts synchronized with the shipped API.
-
-## Simplification Rules
-
-Use these rules when the task includes API reduction, readability cleanup, or implementation simplification:
-
-- Preserve the callable root assembled with `Object.assign`. Both `<Component>` and `<Component.Root>` remain supported.
-- Preserve `RootProvider` when Ark exposes it. Keep the shared root styling, refs, portal configuration, and `data-slot`
-  behavior for externally owned Ark state.
-- Preserve every meaningful visual or structural part. Do not remove controls, labels, triggers, groups, indicators,
-  positioners, content parts, empty states, or similar styling/composition access points just because their use case is
-  less common.
-- Remove duplicate public type aliases or re-exports that only mirror Ark when the task is explicitly simplifying the
-  public API. Keep only the minimum private types needed for refs and inference.
-- Prefer removing advanced state-machine surface area such as `Context`, `ItemContext`, `useComponent`, and
-  `use*Context` from the moduix public API when ordinary usage does not need them, but only as an intentional
-  contract change with dependent code, docs, and barrels updated in the same task.
-- Preserve narrow sugar that removes repeated boilerplate without hiding structure, such as default icons or shared
-  portal transport.
-- Keep wrappers explicit. Do not replace repeated part wrappers with factories, configuration maps, HOCs, or generic
-  builders just to reduce line count.
-- Simplify implementation shape, not only exports. Prefer direct literals, direct conditionals, small local helpers,
-  and one obvious source of truth for small behaviors.
-- Treat type-heavy plumbing, duplicated state transitions, sparse arrays built by mutation, and normalization branches
-  that only restate the incoming union as simplification targets.
-- When Ark is awkward, isolate that awkwardness in one clear helper or comment instead of spreading it across more
-  aliases, casts, and derived types.
-- Preserve necessary complexity when it protects a real contract such as generic inference, controlled behavior, or a
-  genuine product-specific behavior model.
-
-## Ark Contract Rules
-
-- Use Ark React primitives from `@ark-ui/react/<component>` as the behavior source for Ark-backed components.
-- Keep Ark parts, controlled/uncontrolled props, callback detail objects, and state shapes intact.
-- For form controls, preserve Ark `HiddenInput` when native form submission or reset must work.
-- Let `Field.Root` and `Fieldset.Root` provide `disabled`, `invalid`, `required`, and `readOnly` context instead of
-  duplicating those states in wrapper code.
-- Forward consumer refs to the actual Ark part that renders the intended DOM element. This matters for form-library
-  invalid focus, imperative measurement, and trigger/control integration.
-- Use `Component.Context` for one-off inline state reads, `use*Context` hooks for reusable child parts, and
-  `useComponent` plus `RootProvider` only for state controlled outside the rendered tree.
-- If the Ark namespace exports `RootProvider`, `Context`, `ItemContext`, hooks, or related public types, preserve the
-  current moduix surface unless the task explicitly simplifies that contract. Check docs examples against imports from
-  `moduix`, not only local component imports.
-- When using `RootProvider`, skip the matching `Root` for that same instance.
-- Use `asChild` for custom host components on Ark parts. The child must be a single element and must keep required
-  accessibility and interaction semantics.
-- Use the `ark` factory for local standalone polymorphic elements that should behave like Ark elements.
-- Use Ark `ids` props when separate Ark components must share accessibility or interaction IDs.
-- Do not introduce `render` prop contracts, local state handles, or converted callbacks.
+- Keep wrappers thin, explicit, and Ark-shaped.
+- Treat Ark UI as the behavior source for anatomy, lifecycle, state, callback detail objects, accessibility, and part naming.
+- Prefer direct primitive passthrough and explicit composition over prop translation, hidden structural bundles, feature
+  flags, compatibility shims, or extra local state layers.
+- Preserve the current public contract unless the task explicitly changes it: meaningful parts, controlled/uncontrolled
+  behavior, refs, `asChild`, `HiddenInput`, provider/context hooks, and stable `data-slot` hooks should not disappear
+  silently.
+- When the current moduix API exports `RootProvider`, `Context`, `ItemContext`, `useComponent`, or `use*Context`,
+  keep that surface aligned unless the task intentionally simplifies it everywhere.
+- Preserve the callable `Object.assign` root pattern so both `<Component>` and `<Component.Root>` keep working when
+  that is already part of the contract.
+- Prefer removing duplicated private plumbing before removing meaningful public structure or escape hatches.
 
 ## Typing Rules
 
@@ -100,99 +46,37 @@ Use these rules when the task includes API reduction, readability cleanup, or im
   `ComponentProps<typeof Primitive.Part>` for props.
 - When wrapping `ark.*` factory elements such as `ark.div`, `ark.button`, or `ark.a`, prefer
   `HTMLArkProps<'div'>`, `HTMLArkProps<'button'>`, and the matching intrinsic form for props.
-- Do not rewrite `ark.*` wrappers to `ComponentProps<typeof ark.div>`-style typing only for visual
-  consistency with primitive wrappers.
-
-## Core Rules
-
-- Keep the standard component shape:
-  - `ComponentName.tsx`
-  - `ComponentName.module.css`
-  - `ComponentName.stories.tsx`
-  - `component-name.md`
-  - `index.ts`
-- Use `kebab-case` for component folders and local markdown files.
-- Prefer relative imports for component-to-component dependencies inside `src/components`.
-- Use `@/lib/moduix/*` imports for shared registry-safe utilities, icons, and foundation code.
+- Do not rewrite `ark.*` wrappers to `ComponentProps<typeof ark.div>`-style typing only for visual consistency with
+  primitive wrappers.
+- Keep the standard component shape when it already exists: `ComponentName.tsx`, `ComponentName.module.css`,
+  `ComponentName.stories.tsx`, `component-name.md`, and `index.ts`.
 - Accept `className` on meaningful visual roots.
 - Use stable `data-slot` hooks on exported parts.
-- Prefer direct primitive passthrough over custom wrapper logic.
-- Prefer composition over feature flags, slot bags, render shims, and prop bags.
-- For overlay and floating families, export the real visual structural parts instead of convenience
-  wrappers that render them internally. Portal transport is the exception: roots own it through the
-  shared `portalled` and `portalRef` contract.
-- Keep `Content` reserved for the real upstream content part. Do not overload it to mean `Portal + Positioner + Content`
-  or other hidden structural bundles.
-- Keep controlled/uncontrolled primitive behavior intact unless the wrapper adds clear value.
-- Keep infrastructure slots internal unless they are meaningful consumer building blocks.
 - Do not add business logic, extra state layers, speculative APIs, or god components.
-
-For every custom prop, ask:
-
-1. Is this common in production?
-2. Can composition already express it?
-3. Is it duplicating Ark or Chakra behavior?
-4. Does it clearly improve DX?
-5. Does it keep the component simple?
-
-If the answer is weak, simplify or remove it.
 
 ## Component Family Contracts
 
 ### Popup-like Components
 
 - Prefer the full explicit Ark/Chakra composition path as the public contract.
-- Export structural parts such as `Root`, `Trigger`, `Anchor`, `Positioner`, `Content`, `Arrow`, `ArrowTip`,
-  `CloseTrigger`, `Title`, `Description`, `Header`, `Body`, and `Footer` when the upstream family provides them.
-- Portal `Positioner` automatically for floating families and portal `Backdrop` plus `Positioner`
-  automatically for dialog-like families. Keep `Positioner`, `Backdrop`, `Popup`, `Viewport`,
-  `Arrow`, and equivalent visual structural nodes explicit; never hide them behind `*Content`
-  sugar.
-- Use `portalled={false}` for inline rendering and `portalRef` for a custom portal container. Keep
-  the same prop names and defaults across overlay roots, root providers, and root-like hosts such as
-  `Toaster`.
-- Built-in arrows may be concise only when the upstream family already supports it, for example `Arrow` rendering a
-  default `ArrowTip`.
-- Custom arrows and structural overrides stay in explicit composition.
-- Prefer docs snippets and examples over alternate high-level APIs when the only goal is reducing verbosity.
-- Preserve Ark positioning and lifecycle CSS variables such as reference size, available size, transform origin, and
-  measured height when the upstream part exposes them.
-- Animate popup content with Ark `data-state` attributes. Use `present` for JavaScript-controlled exit animations
-  instead of adding local keep-mounted state.
-- Use Ark `ids` when popup content, trigger, title, or description need explicit cross-part accessibility wiring.
+- Keep structural parts explicit. `Content` means the real upstream content part, not a hidden bundle such as
+  `Portal + Positioner + Content`.
+- Roots own portal transport through the shared `portalled` and `portalRef` contract.
+- Preserve Ark positioning, accessibility wiring, and runtime CSS variables when the primitive exposes them.
 
 ### Dialog-like Components
 
 - Keep the visible content wrapper thin.
 - Export the full explicit Ark/Chakra composition path as the default and documented API.
-- Allow only narrow workflow sugar that matches repeated library usage and does not hide structural parts.
-- If a prop or component describes internal layout or hidden structure, move that behavior back to composition.
-- Preserve Ark focus lifecycle, title/description accessibility wiring, context hooks, and controlled/uncontrolled
-  state shape.
-- Use `asChild` for custom trigger/close hosts and keep examples semantic.
+- Allow only narrow workflow sugar that removes repeated boilerplate without hiding structure.
+- Preserve Ark focus lifecycle, title/description wiring, context hooks, and controlled/uncontrolled state shape.
 
-## Styling and Sync
+## Sync Requirements
 
-- Use tokens from `src/lib/moduix/styles/*`.
-- Add public styling tokens to `src/lib/moduix/styles/theme.css` with `initial` and a nearby default-value comment.
-- Preserve Ark `data-scope`, `data-part`, `data-state`, and component-specific state attributes on styled parts.
-- Keep `data-slot` hooks as moduix-facing stable selectors layered on top of Ark attributes.
-- Use Ark runtime CSS variables such as positioning, sizing, transform-origin, and measured height variables when the
-  primitive exposes them. Do not replace those with duplicated measurements.
-- Prefer CSS animations tied to Ark state attributes. Use Ark `present` only when JavaScript animation libraries need
-  control over exit mounting.
-- Keep selectors flat and readable. Remove dead classes, modifiers, and obsolete CSS variables.
-- Put demo-only layout styles in stories CSS, not library CSS.
-- Stories and local component markdown must match the shipped API.
-- Stories should cover provider/context/state examples when the wrapper exposes those Ark surfaces, not only the basic
-  rendered parts.
+- Keep stories, package barrels, local component markdown, public docs, and registry output aligned with the shipped API.
+- If the wrapper exposes provider/context/state surfaces, stories should cover them, not only the happy path.
 - Remove deleted props, obsolete customization paths, and outdated examples in the same task.
 - If API, behavior, styling hooks, or recommended usage changed, update local component markdown in the same task.
 - If docs become inaccurate, apply `cross-package-sync`.
-- If a registry-shipped component changes public styling, import contract, or registry dependencies, update `registry.json` and run `npm run build:registry`.
-- Simplification must preserve accessibility behavior, keyboard navigation, focus management, screen reader behavior,
-  Ark lifecycle/state/transitions, and meaningful styling hooks.
-
-## Validation
-
-Run the required checks from `AGENTS.md` after changes.
+- If a registry-shipped component changes public styling, import contract, or registry dependencies, update
+  `registry.json` and run `npm run build:registry`.

@@ -91,19 +91,9 @@ Inside `## Styling`, always use:
     immediately under the heading.
 - `Styling`: only when the component has a meaningful styling contract.
 
-## Duplication Rules
-
-- Use `Basic` for the recommended first example.
-- Do not duplicate the `Basic` example in `Anatomy` as a full code block unless the structure would otherwise be
-  unclear.
-- Do not put runnable snippets in `Composition` when the same case is already covered in `Examples`.
-- Use `Custom Composition` only as an example label inside `Examples` when a low-level escape hatch is worth showing.
-- If an example is named `Custom Composition`, it must show the real low-level composition path rather than only
-  styling a high-level sugar wrapper.
-- Do not add styling-only examples whose only purpose is `className`, local CSS overrides, `--component-*` variables,
-  or targeting public slots/state attributes without changing the public behavior or composition.
-- If a component has no meaningful composition escape hatch beyond its normal public path, do not add a placeholder
-  `Custom Composition` example just to fill out the page.
+- `Basic` is the recommended first example. Do not duplicate it elsewhere unless structure would otherwise be unclear.
+- Put low-level escape hatches in `Examples`, not in `Composition`, and only when they teach a real consumer path.
+- Do not add styling-only examples that only restyle the same public behavior.
 
 ## Preview Rules
 
@@ -123,15 +113,8 @@ Inside `## Styling`, always use:
   Do not make readers jump between hidden helper components just to understand the example. Keep helpers in the docs
   source only when needed for maintainability, and inline them in the displayed snippet unless the helper itself is the
   public pattern being taught.
-- For Ark collection primitives, show the collection setup directly in the visible snippet:
-  - Use `create*Collection({ nodeToValue/itemToValue, nodeToString/itemToString, rootNode/items })` inline.
-  - Name the root data `rootNode` only when it is passed directly to `create*Collection`; otherwise put the root object
-    directly inside the collection call.
-  - Render from `collection.rootNode.children?.map(...)` or `collection.items.map(...)` where the consumer sees the
-    root shape and the rendered children together.
-  - Avoid snippet-only factories like `createFilesCollection(rootNode = treeData)`, `buildCollection(data)`, or
-    structural wrappers like `TreeContent` when they hide how Ark's collection and parts fit together.
-  - Keep recursive renderers such as `TreeNode` visible when users must write that composition to use the component.
+- For Ark collection primitives, show `create*Collection(...)` setup and recursive renderers inline when they are part
+  of the consumer contract. Do not hide them behind snippet-only factories or structural wrapper helpers.
 - Do not repeat global setup imports.
 - In runnable examples (`Preview` and `Preview.Code`), use the short root form (`<Component>`) instead of
   `<Component.Root>`, while keeping child parts namespaced (for example `<Component.Item>`).
@@ -187,9 +170,8 @@ Inside `## Styling`, always use:
 Popup-like components:
 
 - Teach the explicit Ark/Chakra part tree as the default contract.
-- Do not render or import `Portal` in examples. Document that roots portal the structural overlay
-  parts automatically, `portalled={false}` renders inline, and `portalRef` selects a custom
-  container.
+- Do not render or import `Portal` in examples. Document that roots portal structural overlay parts automatically,
+  `portalled={false}` renders inline, and `portalRef` selects a custom container.
 - Treat built-in popup arrows as opt-in unless the component contract explicitly says otherwise.
 - Keep structural parts visible in docs examples instead of hiding them behind `*Content` sugar.
 
@@ -205,7 +187,3 @@ Dialog-like components:
 - On component pages, put `Install with shadcn` immediately after `Basic` and show only the `add` commands.
 - Keep `index.mdx`, `quick-start.mdx`, `composition-patterns.mdx`, and `tokens.mdx` aligned when install flow, token entrypoints, or ownership guidance changes.
 - Treat `registry.json` as the source of truth. `npm run build:registry` generates JSON artifacts into `packages/react/registry/default`.
-
-## Validation
-
-Run the required checks from `AGENTS.md` after changes.

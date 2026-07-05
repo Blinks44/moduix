@@ -5,6 +5,12 @@ Local agent skills for maintaining the shipped `moduix` component library and do
 The library is Ark-backed and actively developed. Skills should preserve current public contracts,
 keep package/docs/registry output aligned, and remove stale instructions when behavior changes.
 
+Skills are intentionally composable:
+
+- `AGENTS.md` owns routing, repo-wide rules, and validation.
+- Each skill should stay narrow, task-specific, and free of repeated validation checklists.
+- Prefer linking to adjacent skills over copying their instructions.
+
 ## Skills
 
 - `.agents/skills/engineering-principles/SKILL.md` - baseline engineering behavior for coding tasks

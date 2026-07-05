@@ -28,7 +28,7 @@ Use this skill for JS/TS React work in this repo.
   behavior unless there is a documented, defensible reason to differ.
 - Do not add `memo` by default.
 - Do not add `forwardRef` unless the ref is part of the real consumer API or required by the primitive.
-- When `forwardRef` is needed, use `React.ComponentRef`.
+- When `forwardRef` is needed, type it against the real rendered contract.
 - Do not add `displayName` when React can infer it from the named function.
 - Use arrow functions for local helpers and handlers.
 - Use `handleX` for internal handlers.
@@ -38,8 +38,6 @@ Use this skill for JS/TS React work in this repo.
 ## Ark React Rules
 
 - Prefer Ark `asChild` over `render` props for host-element composition.
-- Use `forwardRef` when wrapping an Ark part that renders a focusable/control DOM element or when form libraries need
-  a ref for invalid-focus behavior.
 - Treat `ark.*` factory elements and Ark primitive parts as different typing categories.
 - Type refs for Ark primitive parts with `React.ComponentRef<typeof ArkPart>`.
 - Type props for Ark primitive parts with `React.ComponentProps<typeof ArkPart>`.
@@ -48,8 +46,5 @@ Use this skill for JS/TS React work in this repo.
 - Do not force `ComponentProps<typeof ark.div>`-style typing onto `ark.*` factory elements just to
   match primitive syntax; keep the type form aligned with the underlying contract.
 - Preserve Ark callback detail objects. Avoid wrapper callbacks that unpack, rename, or reorder Ark callback payloads.
-- Use `Component.Context` sparingly for inline state reads. Prefer `use*Context` hooks inside reusable child
-  components, and use `useComponent` plus `RootProvider` only when state must be owned outside the rendered tree.
-- Do not render both an Ark `Root` and its `RootProvider` for the same state instance.
 - Keep `asChild` children single and semantic. If a custom child replaces a button, input, label, or link, it must
   preserve the required ARIA, keyboard, and focus behavior.

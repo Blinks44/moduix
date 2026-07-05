@@ -39,10 +39,5 @@ Use `install` only when intentionally updating agent config guidance. Use mainta
 - Load additional TanStack skills only when the task spans multiple concerns.
 - For server behavior, prefer the relevant `start-core/*` sub-skill.
 - For routes, navigation, params, search, loaders, or guards, prefer the relevant `router-core/*` sub-skill.
+- Prefer the exact installed version or version-matched TanStack skill over generic examples from memory.
 - If Intent has no matching skill, use official TanStack docs or installed package source instead of guessing.
-
-## Done Criteria
-
-1. The relevant version-matched TanStack skill was loaded before TanStack-specific edits.
-2. TanStack-specific code matches the loaded skill and current installed APIs.
-3. Required validation from `AGENTS.md` passed.

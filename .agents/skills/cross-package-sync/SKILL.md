@@ -25,9 +25,3 @@ Use this skill when work spans `packages/react` and `apps/docs`.
 - Teach the recommended default path first. Keep lower-level composition as the advanced path.
 - Reuse `docs-workflow/SKILL.md` for component-page structure, preview, Ark alignment, and CSS-variable doc rules
   instead of redefining them here.
-
-## Done Criteria
-
-1. No mismatch remains between touched UI files and docs.
-2. Docs no longer teach removed or deprecated behavior.
-3. Required validation from `AGENTS.md` passed.
