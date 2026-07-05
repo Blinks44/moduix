@@ -162,7 +162,8 @@ content, constrained image/video media, state-driven motion, and a fixed close i
 viewport corner.
 
 Public variables use Ark part names: `--lightbox-backdrop-*`, `--lightbox-positioner-padding`,
-`--lightbox-content-*`, `--lightbox-media-*`, `--lightbox-close-icon-*`, and
+`--lightbox-content-*`, `--lightbox-media-*`, `--lightbox-close-icon-*`,
+`--lightbox-trigger-focus-ring-*`, and
 `--lightbox-transition`. Gallery layout uses `--lightbox-gallery-*` variables for width, aspect
 ratio, viewport height, gap, track background, and thumbnail sizing/state.
 
@@ -193,6 +194,8 @@ array, prefer explicit `Lightbox.Gallery + Carousel` composition.
 
 ## Local changelog
 
+- 2026-07-05: Added a library-colored focus-visible outline to `Lightbox.Trigger` after focus
+  restoration and exposed `--lightbox-trigger-focus-ring-*` tokens for trigger ring overrides.
 - 2026-07-05: Changed `Lightbox.Gallery` from a forced width to a centered max-width cap so `Lightbox + Carousel` keeps its natural centered size inside `Lightbox.Content`.
 - 2026-07-05: Kept `Lightbox.Gallery` centered inside the new `Content` grid layout so `Lightbox + Carousel` stays visually centered.
 - 2026-07-05: Added `Lightbox.Header`, `Lightbox.Body`, and `Lightbox.Footer`, and documented the layout-helper composition path around media content.

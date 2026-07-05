@@ -178,6 +178,9 @@ export const lightboxOverrideCssProperties: CssPropertyInput[] = [
   ['--lightbox-close-icon-radius', 'var(--radius-sm)', 'Close control radius.'],
   ['--lightbox-close-icon-bg', 'var(--color-background)', 'Close control background.'],
   ['--lightbox-close-icon-bg-hover', 'var(--color-muted)', 'Close control hover background.'],
+  ['--lightbox-trigger-focus-ring-width', 'var(--border-width-md)', 'Trigger focus ring width.'],
+  ['--lightbox-trigger-focus-ring-color', 'var(--color-ring)', 'Trigger focus ring color.'],
+  ['--lightbox-trigger-focus-ring-offset', '2px', 'Trigger focus ring offset.'],
 ];
 
 export function LightboxCssPropertiesPanel(_context: CSSPropertiesEditorContext) {

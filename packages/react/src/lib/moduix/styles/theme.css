@@ -1640,6 +1640,9 @@
   --lightbox-title-font-size: initial; /* var(--text-md) */
   --lightbox-title-font-weight: initial; /* var(--weight-semibold) */
   --lightbox-title-line-height: initial; /* var(--line-height-text-md) */
+  --lightbox-trigger-focus-ring-color: initial; /* var(--color-ring) */
+  --lightbox-trigger-focus-ring-offset: initial; /* 2px */
+  --lightbox-trigger-focus-ring-width: initial; /* var(--border-width-md) */
   --lightbox-transition: initial; /* 220ms ease */
 
   /* List */

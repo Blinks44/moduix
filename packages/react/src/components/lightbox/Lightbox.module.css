@@ -1,6 +1,12 @@
 @layer ui.components {
   .trigger {
     cursor: zoom-in;
+
+    &:focus-visible {
+      outline: var(--lightbox-trigger-focus-ring-width, var(--border-width-md)) solid
+        var(--lightbox-trigger-focus-ring-color, var(--color-ring));
+      outline-offset: var(--lightbox-trigger-focus-ring-offset, 2px);
+    }
   }
 
   .backdrop {
