@@ -10,28 +10,6 @@
   This release also adds a broad set of new components and refreshes the documentation to reflect
   the new foundation, APIs, and recommended usage patterns.
 
-## Unreleased
-
-### Major Changes
-
-- Simplify `Bleed` by removing its public prop and axis-value type aliases while preserving its
-  callable root, namespace form, and token-based layout API.
-- Simplify `Badge` by removing its public prop and variant type aliases. Derive consumer types from
-  `ComponentProps<typeof Badge>` when needed.
-- Simplify `Breadcrumbs` by removing public prop aliases that duplicate Ark factory types while
-  preserving its callable root and explicit composition parts.
-
-### Minor Changes
-
-- Add `InputGroup.Root` and namespaced `InputGroup` part aliases while preserving the existing
-  named exports.
-- Add `QrCode` as an Ark UI-backed component with frame, pattern, overlay, download trigger,
-  provider/context exports, docs, and registry metadata.
-- Complete the Avatar Ark UI contract with `RootProvider`, `Context`, `useAvatar`,
-  `useAvatarContext`, and their public types.
-- Finalize the Toast Ark UI migration with direct toaster type exports, token-aligned styles,
-  mobile sizing, and explicit `null` title and description content.
-
 ## 1.0.5
 
 ### Patch Changes
