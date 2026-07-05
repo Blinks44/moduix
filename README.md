@@ -7,8 +7,9 @@
 
 # moduix
 
-Composable React components for product interfaces, built on top of
-[Ark UI](https://ark-ui.com/) primitives.
+Ark-backed UI components for product interfaces. The current shipped package is
+[`@moduix/react`](https://www.npmjs.com/package/@moduix/react), with a shared component
+model that can grow across framework targets.
 
 moduix gives you ready-made components with accessible behavior, native CSS styles, and a
 composition-first API. It supports two production workflows: install the package for managed

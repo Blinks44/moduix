@@ -1,5 +1,15 @@
 # moduix
 
+## 1.1.0
+
+### Minor Changes
+
+- Migrate the React library from `moduix` to `@moduix/react`, move its component foundation from
+  Base UI to Ark UI, and align it more closely with the Ark UI / Chakra UI component model.
+
+  This release also adds a broad set of new components and refreshes the documentation to reflect
+  the new foundation, APIs, and recommended usage patterns.
+
 ## Unreleased
 
 ### Major Changes

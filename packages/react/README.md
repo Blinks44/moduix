@@ -6,7 +6,7 @@
 
 # moduix
 
-Composable React components for product interfaces, built on top of
+React implementation of the moduix component system for product interfaces, built on top of
 [Ark UI](https://ark-ui.com/) primitives.
 
 moduix gives you ready-made components with accessible behavior, native CSS styles, and a
