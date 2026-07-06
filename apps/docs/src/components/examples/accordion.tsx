@@ -4,10 +4,10 @@ import { useState, type ComponentProps, type ReactNode } from 'react';
 import type { CssPropertyInput } from '../preview';
 
 export const accordionExampleCss = `
-  .accordion-panel-content {
-    display: grid;
-    gap: var(--spacing-3);
-    padding: var(--spacing-3);
+  [data-slot='accordion-root'],
+  [data-slot='accordion-root-provider'] {
+    width: 100%;
+    max-width: 22rem;
   }
 
   .accordion-provider-stack {
@@ -94,6 +94,12 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'Controls the separator width between accordion items.',
   ],
   [
+    '--accordion-item-body-gap',
+    'var(--spacing-3)',
+    'Controls spacing between elements in item body.',
+  ],
+  ['--accordion-item-body-padding', 'var(--spacing-3)', 'Controls item body padding.'],
+  [
     '--accordion-item-content-closed-opacity',
     '0.01',
     'Controls content opacity at the closed end of the animation.',
@@ -139,7 +145,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--accordion-trigger-padding-x', 'var(--spacing-3)', 'Controls trigger horizontal padding.'],
   ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
-  ['--accordion-width', '22rem', 'Controls the default accordion width.'],
+  ['--accordion-width', '100%', 'Controls the default accordion width.'],
 ];
 
 function AccordionItems({
@@ -158,7 +164,7 @@ function AccordionItems({
         <Accordion.ItemIndicator className={iconClassName}>{icon}</Accordion.ItemIndicator>
       </Accordion.ItemTrigger>
       <Accordion.ItemContent>
-        <div className="accordion-panel-content">{item.description}</div>
+        <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
       </Accordion.ItemContent>
     </Accordion.Item>
   ));
@@ -257,7 +263,7 @@ export function WithSliderAccordionExample() {
               <Accordion.ItemIndicator />
             </Accordion.ItemTrigger>
             <Accordion.ItemContent>
-              <div className="accordion-panel-content">
+              <Accordion.ItemBody>
                 <span>{item.description}</span>
                 <Slider defaultValue={[40]}>
                   <Slider.Label>{item.title} priority</Slider.Label>
@@ -270,7 +276,7 @@ export function WithSliderAccordionExample() {
                     </Slider.Thumb>
                   </Slider.Control>
                 </Slider>
-              </div>
+              </Accordion.ItemBody>
             </Accordion.ItemContent>
           </Accordion.Item>
         ))}

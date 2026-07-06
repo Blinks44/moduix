@@ -50,7 +50,7 @@
   .root {
     box-sizing: border-box;
     display: flex;
-    width: var(--accordion-width, 22rem);
+    width: var(--accordion-width, 100%);
     max-width: var(--accordion-max-width, 100%);
     min-width: 0;
     flex-direction: column;
@@ -187,5 +187,12 @@
     &[data-orientation='horizontal'] > * {
       width: var(--accordion-horizontal-content-width, 16rem);
     }
+  }
+
+  .itemBody {
+    display: grid;
+    gap: var(--accordion-item-body-gap, var(--spacing-3));
+    min-width: 0;
+    padding: var(--accordion-item-body-padding, var(--spacing-3));
   }
 }

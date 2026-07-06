@@ -131,6 +131,8 @@
   --accordion-icon-transition: initial; /* var(--transition-default) */
   --accordion-item-border-color: initial; /* var(--color-border) */
   --accordion-item-border-width: initial; /* var(--border-width-sm) */
+  --accordion-item-body-gap: initial; /* var(--spacing-3) */
+  --accordion-item-body-padding: initial; /* var(--spacing-3) */
   --accordion-item-content-closed-opacity: initial; /* 0.01 */
   --accordion-item-content-color: initial; /* var(--color-muted-foreground) */
   --accordion-item-content-font-size: initial; /* var(--text-md) */
@@ -145,7 +147,7 @@
   --accordion-trigger-line-height: initial; /* var(--line-height-text-md) */
   --accordion-trigger-padding-x: initial; /* var(--spacing-3) */
   --accordion-trigger-padding-y: initial; /* var(--spacing-2) */
-  --accordion-width: initial; /* 22rem */
+  --accordion-width: initial; /* 100% */
   /* AngleSlider */
   --angle-slider-color: initial; /* var(--color-foreground) */
   --angle-slider-center-dot-color: initial; /* var(--angle-slider-color) */

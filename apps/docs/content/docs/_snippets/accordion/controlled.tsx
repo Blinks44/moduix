@@ -33,7 +33,7 @@ export function ControlledAccordionDemo() {
             <Accordion.ItemIndicator />
           </Accordion.ItemTrigger>
           <Accordion.ItemContent>
-            <div className="accordion-panel-content">{item.description}</div>
+            <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
           </Accordion.ItemContent>
         </Accordion.Item>
       ))}

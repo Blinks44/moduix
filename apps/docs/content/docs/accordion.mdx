@@ -13,7 +13,7 @@ import * as AccordionDocs from '@/components/examples/accordion';
 ## Basic
 
 Use Ark-style parts: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`,
-`Accordion.ItemIndicator`, and `Accordion.ItemContent`.
+`Accordion.ItemIndicator`, `Accordion.ItemContent`, and `Accordion.ItemBody`.
 
 <Preview>
   <AccordionDocs.AccordionExample defaultValue={["what-is-ark-ui"]} />
@@ -38,20 +38,22 @@ Accordion.Root
    │  ├─ label
    │  └─ Accordion.ItemIndicator (optional)
    └─ Accordion.ItemContent
-      └─ content
+      └─ Accordion.ItemBody
+         └─ content
 
 Accordion.RootProvider
 └─ same item tree connected to a useAccordion() store
 ```
 
-| Part                           | Role                                                                                      |
-| ------------------------------ | ----------------------------------------------------------------------------------------- |
-| `Accordion` / `Accordion.Root` | Controls accordion state and keyboard behavior.                                           |
-| `Accordion.RootProvider`       | Connects parts to state created with `useAccordion()`.                                    |
-| `Accordion.Item`               | One collapsible item with a required `value`.                                             |
-| `Accordion.ItemTrigger`        | Interactive button that opens or closes the item.                                         |
-| `Accordion.ItemIndicator`      | Visual open/close cue. Defaults to the moduix plus icon when no children are provided.    |
-| `Accordion.ItemContent`        | Collapsible content region. Keep spacing wrappers inside for clean `--height` animations. |
+| Part                           | Role                                                                                   |
+| ------------------------------ | -------------------------------------------------------------------------------------- |
+| `Accordion` / `Accordion.Root` | Controls accordion state and keyboard behavior.                                        |
+| `Accordion.RootProvider`       | Connects parts to state created with `useAccordion()`.                                 |
+| `Accordion.Item`               | One collapsible item with a required `value`.                                          |
+| `Accordion.ItemTrigger`        | Interactive button that opens or closes the item.                                      |
+| `Accordion.ItemIndicator`      | Visual open/close cue. Defaults to the moduix plus icon when no children are provided. |
+| `Accordion.ItemContent`        | Collapsible content region that keeps Ark size animation behavior intact.              |
+| `Accordion.ItemBody`           | Default inner spacing wrapper for panel content.                                       |
 
 ## Composition
 
@@ -62,7 +64,7 @@ Accordion.RootProvider
 `collapsible`, `orientation`, `lazyMount`, `unmountOnExit`, and `ids`.
 
 Stay with `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`, `Accordion.ItemIndicator`,
-and `Accordion.ItemContent` for the standard Ark composition path.
+`Accordion.ItemContent`, and `Accordion.ItemBody` for the standard Ark composition path.
 
 ### When to go custom
 
@@ -97,9 +99,9 @@ instead of hiding it behind convenience wrappers.
 
 ### Behavioral notes
 
-Keep spacing wrappers inside `Accordion.ItemContent` instead of on the content part itself. Ark
-measurement variables drive the open/close animation: `--height` for vertical accordions and
-`--width` for horizontal accordions.
+Put spacing on `Accordion.ItemBody` instead of on `Accordion.ItemContent`. Ark measurement variables
+drive the open/close animation: `--height` for vertical accordions and `--width` for horizontal
+accordions.
 
 All exported parts support `asChild` for cases where another element must own the rendered node.
 
@@ -217,7 +219,8 @@ data attributes (`data-state`, `data-disabled`, `data-orientation`) and moduix `
 ### Styling hooks
 
 - `data-slot="accordion-root"`, `accordion-root-provider`, `accordion-item`,
-  `accordion-item-trigger`, `accordion-item-indicator`, and `accordion-item-content`.
+  `accordion-item-trigger`, `accordion-item-indicator`, `accordion-item-content`, and
+  `accordion-item-body`.
 - Ark anatomy hooks: `data-scope="accordion"` and `data-part="root|item|item-trigger|item-indicator|item-content"`.
 - Ark state hooks: `data-state="open|closed"`, `data-disabled`, `data-focus`,
   `data-controls`, and `data-orientation="horizontal|vertical"`.

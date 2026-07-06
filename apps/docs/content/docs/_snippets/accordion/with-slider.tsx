@@ -30,7 +30,7 @@ export function WithSliderAccordionDemo() {
             <Accordion.ItemIndicator />
           </Accordion.ItemTrigger>
           <Accordion.ItemContent>
-            <div className="accordion-panel-content">
+            <Accordion.ItemBody>
               <span>{item.description}</span>
               <Slider defaultValue={[40]}>
                 <Slider.Label>{item.title} priority</Slider.Label>
@@ -43,7 +43,7 @@ export function WithSliderAccordionDemo() {
                   </Slider.Thumb>
                 </Slider.Control>
               </Slider>
-            </div>
+            </Accordion.ItemBody>
           </Accordion.ItemContent>
         </Accordion.Item>
       ))}

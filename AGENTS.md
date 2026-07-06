@@ -14,6 +14,7 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 - For TanStack Start, TanStack Router, or TanStack Intent work in `apps/docs`, apply `.agents/skills/tanstack-intent/SKILL.md`.
 - For Ark UI or shadcn reference material, apply `.agents/skills/upstream-library-docs/SKILL.md`.
 - For component work in `packages/react`, apply `.agents/skills/ui-component-workflow/SKILL.md`.
+- When the user explicitly asks to create or update a changeset, apply `.agents/skills/changeset-workflow/SKILL.md`.
 - For local component markdown in `packages/react/src/components`, apply `.agents/skills/local-component-docs/SKILL.md`.
 - For docs work in `apps/docs`, apply `.agents/skills/docs-workflow/SKILL.md`.
 - For tasks that touch both `packages/react` and `apps/docs`, also apply `.agents/skills/cross-package-sync/SKILL.md`.

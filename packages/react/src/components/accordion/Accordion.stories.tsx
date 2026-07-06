@@ -54,7 +54,7 @@ function FaqAccordionItems({
         <Accordion.ItemIndicator className={iconClassName}>{icon}</Accordion.ItemIndicator>
       </Accordion.ItemTrigger>
       <Accordion.ItemContent>
-        <div className={styles.panelContent}>{item.description}</div>
+        <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
       </Accordion.ItemContent>
     </Accordion.Item>
   ));
@@ -170,7 +170,7 @@ export const WithSlider: Story = {
               <Accordion.ItemIndicator />
             </Accordion.ItemTrigger>
             <Accordion.ItemContent>
-              <div className={styles.panelContent}>
+              <Accordion.ItemBody>
                 <span>{item.description}</span>
                 <Slider defaultValue={[40]}>
                   <Slider.Label>{item.title} priority</Slider.Label>
@@ -183,7 +183,7 @@ export const WithSlider: Story = {
                     </Slider.Thumb>
                   </Slider.Control>
                 </Slider>
-              </div>
+              </Accordion.ItemBody>
             </Accordion.ItemContent>
           </Accordion.Item>
         ))}
