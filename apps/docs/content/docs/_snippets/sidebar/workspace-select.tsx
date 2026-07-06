@@ -10,6 +10,8 @@ import {
   FileText,
   Gauge,
   LogOut,
+  Pencil,
+  Plus,
   Settings,
   Users,
 } from 'lucide-react';
@@ -78,32 +80,41 @@ export function WorkspaceSidebar() {
         <Sidebar.Content>
           <Sidebar.Group>
             <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.Menu>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton asChild active>
-                  <a href="/overview">
-                    <Gauge />
-                    <Sidebar.Label>Overview</Sidebar.Label>
-                  </a>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton asChild>
-                  <a href="/calendar">
-                    <CalendarDays />
-                    <Sidebar.Label>Calendar</Sidebar.Label>
-                  </a>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton asChild>
-                  <a href="/team">
-                    <Users />
-                    <Sidebar.Label>Team</Sidebar.Label>
-                  </a>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-            </Sidebar.Menu>
+            <Sidebar.GroupAction aria-label="Create workspace item">
+              <Plus />
+            </Sidebar.GroupAction>
+            <Sidebar.GroupContent>
+              <Sidebar.Menu>
+                <Sidebar.MenuItem>
+                  <Sidebar.MenuButton asChild active>
+                    <a href="/overview">
+                      <Gauge />
+                      <Sidebar.Label>Overview</Sidebar.Label>
+                    </a>
+                  </Sidebar.MenuButton>
+                  <Sidebar.MenuBadge>3</Sidebar.MenuBadge>
+                </Sidebar.MenuItem>
+                <Sidebar.MenuItem>
+                  <Sidebar.MenuButton asChild>
+                    <a href="/calendar">
+                      <CalendarDays />
+                      <Sidebar.Label>Calendar</Sidebar.Label>
+                    </a>
+                  </Sidebar.MenuButton>
+                </Sidebar.MenuItem>
+                <Sidebar.MenuItem>
+                  <Sidebar.MenuButton asChild>
+                    <a href="/team">
+                      <Users />
+                      <Sidebar.Label>Team</Sidebar.Label>
+                    </a>
+                  </Sidebar.MenuButton>
+                  <Sidebar.MenuAction aria-label="Rename team section">
+                    <Pencil />
+                  </Sidebar.MenuAction>
+                </Sidebar.MenuItem>
+              </Sidebar.Menu>
+            </Sidebar.GroupContent>
           </Sidebar.Group>
           <Sidebar.Group>
             <Sidebar.GroupLabel>Library</Sidebar.GroupLabel>
@@ -143,7 +154,8 @@ export function WorkspaceSidebar() {
             </Sidebar.Menu>
           </Sidebar.Group>
         </Sidebar.Content>
-        <Sidebar.Footer>
+        <Sidebar.Footer className="app-footer-stack">
+          <Sidebar.Separator />
           <Menu
             positioning={{
               placement: 'right-end',

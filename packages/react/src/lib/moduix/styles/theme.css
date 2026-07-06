@@ -2378,6 +2378,7 @@
   --sidebar-group-label-line-height: initial; /* var(--line-height-text-xs) */
   --sidebar-group-label-padding-x: initial; /* var(--spacing-2) */
   --sidebar-group-label-text-transform: initial; /* none */
+  --sidebar-group-action-size: initial; /* 1.5rem */
   --sidebar-group-padding: initial; /* var(--spacing-3) */
   --sidebar-header-footer-padding: initial; /* var(--spacing-3) */
   --sidebar-height: initial; /* 100dvh */
@@ -2396,6 +2397,9 @@
   --sidebar-menu-button-padding-y: initial; /* var(--spacing-1) */
   --sidebar-menu-button-radius: initial; /* var(--radius-md) */
   --sidebar-menu-gap: initial; /* var(--spacing-1) */
+  --sidebar-menu-action-size: initial; /* 1.5rem */
+  --sidebar-menu-badge-min-width: initial; /* 1.5rem */
+  --sidebar-menu-badge-padding-x: initial; /* var(--spacing-1) */
   --sidebar-menu-sub-border-width: initial; /* var(--border-width-sm) */
   --sidebar-menu-sub-button-font-size: initial; /* var(--text-sm) */
   --sidebar-menu-sub-button-gap: initial; /* var(--spacing-2) */

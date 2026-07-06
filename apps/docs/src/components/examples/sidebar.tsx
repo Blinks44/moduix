@@ -1,13 +1,13 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import {
   Avatar,
+  Button,
   Collapsible,
+  Drawer,
   Menu,
   ScrollArea,
   Select,
   Sidebar,
-  Tooltip,
-  useSidebar,
 } from '@moduix/react';
 import {
   BarChart3 as BarChartIcon,
@@ -24,12 +24,14 @@ import {
   MessageSquare as MessagesIcon,
   PanelRight as PanelRightIcon,
   Pencil as PencilIcon,
+  Plus as PlusIcon,
   RotateCcw as RestartIcon,
   Search as SearchIcon,
   Settings as SettingsIcon,
   SlidersHorizontal as ControlsIcon,
   Users as UsersIcon,
 } from 'lucide-react';
+import { useEffect, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './sidebar.module.css';
@@ -53,6 +55,8 @@ const customPanels = [
   { id: 'content' },
 ];
 
+type SidebarSize = NonNullable<ComponentProps<typeof Sidebar>['size']>;
+
 const scrollAreaProjects = [
   'Website',
   'Mobile app',
@@ -67,6 +71,24 @@ const scrollAreaProjects = [
   'Experiments',
   'Archive',
 ];
+
+const persistedSidebarStorageKey = 'moduix-docs-sidebar-size';
+
+const createDefaultPersistedSidebarSize = (): SidebarSize => ['16rem'];
+
+const readPersistedSidebarSize = (): SidebarSize | null => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  const stored = window.localStorage.getItem(persistedSidebarStorageKey);
+  if (!stored) {
+    return null;
+  }
+
+  const nextSize = stored.split('|').filter(Boolean);
+  return nextSize.length > 0 ? nextSize : null;
+};
 
 const sidebarCssDefaults = {
   '--sidebar-accent-bg': 'var(--color-accent)',
@@ -89,6 +111,7 @@ const sidebarCssDefaults = {
   '--sidebar-group-label-line-height': 'var(--line-height-text-xs)',
   '--sidebar-group-label-padding-x': 'var(--spacing-2)',
   '--sidebar-group-label-text-transform': 'none',
+  '--sidebar-group-action-size': '1.5rem',
   '--sidebar-group-padding': 'var(--spacing-3)',
   '--sidebar-header-footer-padding': 'var(--spacing-3)',
   '--sidebar-height': '100dvh',
@@ -107,6 +130,9 @@ const sidebarCssDefaults = {
   '--sidebar-menu-button-padding-y': 'var(--spacing-1)',
   '--sidebar-menu-button-radius': 'var(--radius-md)',
   '--sidebar-menu-gap': 'var(--spacing-1)',
+  '--sidebar-menu-action-size': '1.5rem',
+  '--sidebar-menu-badge-min-width': '1.5rem',
+  '--sidebar-menu-badge-padding-x': 'var(--spacing-1)',
   '--sidebar-menu-sub-border-width': 'var(--border-width-sm)',
   '--sidebar-menu-sub-button-font-size': 'var(--text-sm)',
   '--sidebar-menu-sub-button-gap': 'var(--spacing-2)',
@@ -156,14 +182,9 @@ import {
   Collapsible,
   Menu,
   Sidebar,
-  Tooltip,
-  useSidebar,
 } from "@moduix/react";
 
 function SidebarNavigation() {
-  const { collapsed, side } = useSidebar();
-  const tooltipPlacement = side === "left" ? "right" : "left";
-
   return (
     <>
       <Sidebar.Header>
@@ -177,52 +198,26 @@ function SidebarNavigation() {
           <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
           <Sidebar.Menu>
             <Sidebar.MenuItem>
-              <Tooltip
-                disabled={!collapsed}
-                openDelay={200}
-                closeDelay={0}
-                positioning={{ placement: tooltipPlacement, gutter: 8 }}
-              >
-                <Tooltip.Trigger asChild>
-                  <Sidebar.MenuButton asChild active>
-                    <a href="/overview">
-                      <Gauge />
-                      <Sidebar.Label>Overview</Sidebar.Label>
-                    </a>
-                  </Sidebar.MenuButton>
-                </Tooltip.Trigger>
-                <Tooltip.Positioner>
-                  <Tooltip.Content>
-                    Overview
-                    <Tooltip.Arrow />
-                  </Tooltip.Content>
-                </Tooltip.Positioner>
-              </Tooltip>
+              <Sidebar.Tooltip content="Overview">
+                <Sidebar.MenuButton asChild active>
+                  <a href="/overview">
+                    <Gauge />
+                    <Sidebar.Label>Overview</Sidebar.Label>
+                  </a>
+                </Sidebar.MenuButton>
+              </Sidebar.Tooltip>
             </Sidebar.MenuItem>
             <Sidebar.MenuItem>
               <Collapsible defaultOpen className="app-collapsible">
-                <Tooltip
-                  disabled={!collapsed}
-                  openDelay={200}
-                  closeDelay={0}
-                  positioning={{ placement: tooltipPlacement, gutter: 8 }}
-                >
-                  <Tooltip.Trigger asChild>
-                    <Collapsible.Trigger asChild>
-                      <Sidebar.MenuButton>
-                        <FolderOpen />
-                        <Sidebar.Label>Projects</Sidebar.Label>
-                        <Collapsible.Indicator />
-                      </Sidebar.MenuButton>
-                    </Collapsible.Trigger>
-                  </Tooltip.Trigger>
-                  <Tooltip.Positioner>
-                    <Tooltip.Content>
-                      Projects
-                      <Tooltip.Arrow />
-                    </Tooltip.Content>
-                  </Tooltip.Positioner>
-                </Tooltip>
+                <Sidebar.Tooltip content="Projects">
+                  <Collapsible.Trigger asChild>
+                    <Sidebar.MenuButton>
+                      <FolderOpen />
+                      <Sidebar.Label>Projects</Sidebar.Label>
+                      <Collapsible.Indicator />
+                    </Sidebar.MenuButton>
+                  </Collapsible.Trigger>
+                </Sidebar.Tooltip>
                 <Collapsible.Content>
                   <Sidebar.MenuSub>
                     <Sidebar.MenuSubItem>
@@ -235,27 +230,14 @@ function SidebarNavigation() {
               </Collapsible>
             </Sidebar.MenuItem>
             <Sidebar.MenuItem>
-              <Tooltip
-                disabled={!collapsed}
-                openDelay={200}
-                closeDelay={0}
-                positioning={{ placement: tooltipPlacement, gutter: 8 }}
-              >
-                <Tooltip.Trigger asChild>
-                  <Sidebar.MenuButton asChild>
-                    <a href="/documents">
-                      <FileText />
-                      <Sidebar.Label>Documents</Sidebar.Label>
-                    </a>
-                  </Sidebar.MenuButton>
-                </Tooltip.Trigger>
-                <Tooltip.Positioner>
-                  <Tooltip.Content>
-                    Documents
-                    <Tooltip.Arrow />
-                  </Tooltip.Content>
-                </Tooltip.Positioner>
-              </Tooltip>
+              <Sidebar.Tooltip content="Documents">
+                <Sidebar.MenuButton asChild>
+                  <a href="/documents">
+                    <FileText />
+                    <Sidebar.Label>Documents</Sidebar.Label>
+                  </a>
+                </Sidebar.MenuButton>
+              </Sidebar.Tooltip>
             </Sidebar.MenuItem>
           </Sidebar.Menu>
         </Sidebar.Group>
@@ -344,6 +326,13 @@ export const sidebarExampleCss = `
   align-items: center;
   gap: var(--spacing-2);
   min-width: 0;
+  font-weight: var(--weight-semibold);
+}
+
+.app-header-stack {
+  display: grid;
+  gap: var(--spacing-3);
+  width: 100%;
 }
 
 .app-brand-mark {
@@ -412,6 +401,11 @@ export const sidebarExampleCss = `
   height: 1rem;
 }
 
+.app-footer-stack {
+  display: grid;
+  width: 100%;
+}
+
 .app-topbar {
   display: flex;
   align-items: center;
@@ -448,6 +442,112 @@ export const sidebarSimpleCss = `
 
 .app-main {
   padding: var(--spacing-6);
+}
+`;
+
+export const sidebarDrawerCss = `
+.mobile-trigger {
+  margin-block-end: var(--spacing-4);
+}
+
+.mobile-drawer {
+  --drawer-padding-x: 0;
+  --drawer-padding-y: var(--spacing-3);
+  --sidebar-section-border-width: var(--border-width-sm);
+  width: min(20rem, calc(100vw - 2rem));
+  max-width: 20rem;
+}
+
+.mobile-drawer-header {
+  padding-inline: var(--spacing-3);
+}
+
+.mobile-drawer-body {
+  display: flex;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.mobile-sidebar-surface {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  background-color: var(--color-card);
+}
+
+.mobile-sidebar-surface [data-slot="sidebar-content"] {
+  scrollbar-color: var(--color-border) transparent;
+  scrollbar-width: thin;
+}
+
+.mobile-sidebar-surface .app-header-stack,
+.mobile-sidebar-surface .app-footer-stack {
+  display: grid;
+  width: 100%;
+}
+
+.mobile-sidebar-surface .app-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  min-width: 0;
+  font-weight: var(--weight-semibold);
+}
+
+.mobile-sidebar-surface .app-brand-mark {
+  display: grid;
+  place-items: center;
+  width: var(--size-sm);
+  height: var(--size-sm);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  font-size: var(--text-xs);
+}
+
+.mobile-sidebar-surface .app-account-button {
+  height: auto;
+}
+
+.mobile-sidebar-surface .app-account-meta {
+  display: grid;
+  flex: 1;
+  text-align: start;
+}
+
+.mobile-sidebar-surface .app-account-meta > strong,
+.mobile-sidebar-surface .app-account-meta > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobile-sidebar-surface .app-account-meta > span {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+}
+
+.mobile-sidebar-surface .app-account-chevron {
+  display: inline-flex;
+  margin-inline-start: auto;
+}
+
+.mobile-sidebar-surface .app-account-chevron > svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.mobile-sidebar-surface .app-account-menu {
+  --menu-popup-min-width: 14rem;
+  --menu-popup-max-width: 18rem;
+}
+
+.mobile-sidebar-surface .app-account-menu [data-part="item"] > svg {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
 }
 `;
 
@@ -543,50 +643,7 @@ export function RightSidebar() {
 
 export const sidebarSimpleCode = `
 import { FileText, Gauge } from "lucide-react";
-import { Sidebar, Tooltip, useSidebar } from "@moduix/react";
-
-function Navigation() {
-  const { collapsed, side } = useSidebar();
-  const placement = side === "left" ? "right" : "left";
-
-  return (
-    <Sidebar.Group>
-      <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-      <Sidebar.Menu>
-        <Sidebar.MenuItem>
-          <Tooltip disabled={!collapsed} positioning={{ placement, gutter: 8 }}>
-            <Tooltip.Trigger asChild>
-              <Sidebar.MenuButton asChild active>
-                <a href="/overview">
-                  <Gauge />
-                  <Sidebar.Label>Overview</Sidebar.Label>
-                </a>
-              </Sidebar.MenuButton>
-            </Tooltip.Trigger>
-            <Tooltip.Positioner>
-              <Tooltip.Content>Overview</Tooltip.Content>
-            </Tooltip.Positioner>
-          </Tooltip>
-        </Sidebar.MenuItem>
-        <Sidebar.MenuItem>
-          <Tooltip disabled={!collapsed} positioning={{ placement, gutter: 8 }}>
-            <Tooltip.Trigger asChild>
-              <Sidebar.MenuButton asChild>
-                <a href="/documents">
-                  <FileText />
-                  <Sidebar.Label>Documents</Sidebar.Label>
-                </a>
-              </Sidebar.MenuButton>
-            </Tooltip.Trigger>
-            <Tooltip.Positioner>
-              <Tooltip.Content>Documents</Tooltip.Content>
-            </Tooltip.Positioner>
-          </Tooltip>
-        </Sidebar.MenuItem>
-      </Sidebar.Menu>
-    </Sidebar.Group>
-  );
-}
+import { Sidebar } from "@moduix/react";
 
 export function AppSidebar() {
   return (
@@ -597,7 +654,31 @@ export function AppSidebar() {
           <Sidebar.Label>Moduix</Sidebar.Label>
         </Sidebar.Header>
         <Sidebar.Content>
-          <Navigation />
+          <Sidebar.Group>
+            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+            <Sidebar.Menu>
+              <Sidebar.MenuItem>
+                <Sidebar.Tooltip content="Overview">
+                  <Sidebar.MenuButton asChild active>
+                    <a href="/overview">
+                      <Gauge />
+                      <Sidebar.Label>Overview</Sidebar.Label>
+                    </a>
+                  </Sidebar.MenuButton>
+                </Sidebar.Tooltip>
+              </Sidebar.MenuItem>
+              <Sidebar.MenuItem>
+                <Sidebar.Tooltip content="Documents">
+                  <Sidebar.MenuButton asChild>
+                    <a href="/documents">
+                      <FileText />
+                      <Sidebar.Label>Documents</Sidebar.Label>
+                    </a>
+                  </Sidebar.MenuButton>
+                </Sidebar.Tooltip>
+              </Sidebar.MenuItem>
+            </Sidebar.Menu>
+          </Sidebar.Group>
         </Sidebar.Content>
       </Sidebar.Panel>
       <Sidebar.ResizeTrigger />
@@ -1061,9 +1142,6 @@ function AccountMenu() {
 }
 
 function SimpleSidebarNavigation() {
-  const { collapsed, side } = useSidebar();
-  const tooltipPlacement = side === 'left' ? 'right' : 'left';
-
   return (
     <>
       <Sidebar.Header>
@@ -1079,40 +1157,24 @@ function SimpleSidebarNavigation() {
           <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
           <Sidebar.Menu>
             <Sidebar.MenuItem>
-              <Tooltip
-                disabled={!collapsed}
-                positioning={{ placement: tooltipPlacement, gutter: 8 }}
-              >
-                <Tooltip.Trigger asChild>
-                  <Sidebar.MenuButton asChild active>
-                    <a href="#overview">
-                      <DashboardIcon />
-                      <Sidebar.Label>Overview</Sidebar.Label>
-                    </a>
-                  </Sidebar.MenuButton>
-                </Tooltip.Trigger>
-                <Tooltip.Positioner>
-                  <Tooltip.Content>Overview</Tooltip.Content>
-                </Tooltip.Positioner>
-              </Tooltip>
+              <Sidebar.Tooltip content="Overview">
+                <Sidebar.MenuButton asChild active>
+                  <a href="#overview">
+                    <DashboardIcon />
+                    <Sidebar.Label>Overview</Sidebar.Label>
+                  </a>
+                </Sidebar.MenuButton>
+              </Sidebar.Tooltip>
             </Sidebar.MenuItem>
             <Sidebar.MenuItem>
-              <Tooltip
-                disabled={!collapsed}
-                positioning={{ placement: tooltipPlacement, gutter: 8 }}
-              >
-                <Tooltip.Trigger asChild>
-                  <Sidebar.MenuButton asChild>
-                    <a href="#documents">
-                      <FileTextIcon />
-                      <Sidebar.Label>Documents</Sidebar.Label>
-                    </a>
-                  </Sidebar.MenuButton>
-                </Tooltip.Trigger>
-                <Tooltip.Positioner>
-                  <Tooltip.Content>Documents</Tooltip.Content>
-                </Tooltip.Positioner>
-              </Tooltip>
+              <Sidebar.Tooltip content="Documents">
+                <Sidebar.MenuButton asChild>
+                  <a href="#documents">
+                    <FileTextIcon />
+                    <Sidebar.Label>Documents</Sidebar.Label>
+                  </a>
+                </Sidebar.MenuButton>
+              </Sidebar.Tooltip>
             </Sidebar.MenuItem>
           </Sidebar.Menu>
         </Sidebar.Group>
@@ -1232,46 +1294,29 @@ function RightSidebarPanel() {
 }
 
 function NavigationContent() {
-  const { collapsed, side } = useSidebar();
-  const tooltipPlacement = side === 'left' ? 'right' : 'left';
-
   return (
     <Sidebar.Content>
       <Sidebar.Group>
         <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-        <Sidebar.Menu>
-          <Sidebar.MenuItem>
-            <Tooltip
-              disabled={!collapsed}
-              openDelay={200}
-              closeDelay={0}
-              positioning={{ placement: tooltipPlacement, gutter: 8 }}
-            >
-              <Tooltip.Trigger asChild>
+        <Sidebar.GroupAction aria-label="Create workspace item" title="Create workspace item">
+          <PlusIcon />
+        </Sidebar.GroupAction>
+        <Sidebar.GroupContent>
+          <Sidebar.Menu>
+            <Sidebar.MenuItem>
+              <Sidebar.Tooltip content="Overview">
                 <Sidebar.MenuButton asChild active>
                   <a href="#overview">
                     <DashboardIcon />
                     <Sidebar.Label>Overview</Sidebar.Label>
                   </a>
                 </Sidebar.MenuButton>
-              </Tooltip.Trigger>
-              <Tooltip.Positioner>
-                <Tooltip.Content>
-                  Overview
-                  <Tooltip.Arrow />
-                </Tooltip.Content>
-              </Tooltip.Positioner>
-            </Tooltip>
-          </Sidebar.MenuItem>
-          <Sidebar.MenuItem>
-            <Collapsible defaultOpen className={styles.collapsible}>
-              <Tooltip
-                disabled={!collapsed}
-                openDelay={200}
-                closeDelay={0}
-                positioning={{ placement: tooltipPlacement, gutter: 8 }}
-              >
-                <Tooltip.Trigger asChild>
+              </Sidebar.Tooltip>
+              <Sidebar.MenuBadge>3</Sidebar.MenuBadge>
+            </Sidebar.MenuItem>
+            <Sidebar.MenuItem>
+              <Collapsible defaultOpen className={styles.collapsible}>
+                <Sidebar.Tooltip content="Projects">
                   <Collapsible.Trigger asChild>
                     <Sidebar.MenuButton>
                       <FolderIcon />
@@ -1279,65 +1324,53 @@ function NavigationContent() {
                       <Collapsible.Indicator />
                     </Sidebar.MenuButton>
                   </Collapsible.Trigger>
-                </Tooltip.Trigger>
-                <Tooltip.Positioner>
-                  <Tooltip.Content>
-                    Projects
-                    <Tooltip.Arrow />
-                  </Tooltip.Content>
-                </Tooltip.Positioner>
-              </Tooltip>
-              <Collapsible.Content>
-                <Sidebar.MenuSub>
-                  <Sidebar.MenuSubItem>
-                    <Sidebar.MenuSubButton href="#website">Website</Sidebar.MenuSubButton>
-                  </Sidebar.MenuSubItem>
-                  <Sidebar.MenuSubItem>
-                    <Sidebar.MenuSubButton href="#mobile">Mobile app</Sidebar.MenuSubButton>
-                  </Sidebar.MenuSubItem>
-                  <Sidebar.MenuSubItem>
-                    <Sidebar.MenuSubButton href="#design-system">
-                      Design system
-                    </Sidebar.MenuSubButton>
-                  </Sidebar.MenuSubItem>
-                  <Sidebar.MenuSubItem>
-                    <Sidebar.MenuSubButton href="#marketing">Marketing</Sidebar.MenuSubButton>
-                  </Sidebar.MenuSubItem>
-                </Sidebar.MenuSub>
-              </Collapsible.Content>
-            </Collapsible>
-          </Sidebar.MenuItem>
-          <Sidebar.MenuItem>
-            <Tooltip disabled={!collapsed} positioning={{ placement: tooltipPlacement, gutter: 8 }}>
-              <Tooltip.Trigger asChild>
+                </Sidebar.Tooltip>
+                <Sidebar.MenuAction aria-label="Rename project group" title="Rename project group">
+                  <PencilIcon />
+                </Sidebar.MenuAction>
+                <Collapsible.Content>
+                  <Sidebar.MenuSub>
+                    <Sidebar.MenuSubItem>
+                      <Sidebar.MenuSubButton href="#website">Website</Sidebar.MenuSubButton>
+                    </Sidebar.MenuSubItem>
+                    <Sidebar.MenuSubItem>
+                      <Sidebar.MenuSubButton href="#mobile">Mobile app</Sidebar.MenuSubButton>
+                    </Sidebar.MenuSubItem>
+                    <Sidebar.MenuSubItem>
+                      <Sidebar.MenuSubButton href="#design-system">
+                        Design system
+                      </Sidebar.MenuSubButton>
+                    </Sidebar.MenuSubItem>
+                    <Sidebar.MenuSubItem>
+                      <Sidebar.MenuSubButton href="#marketing">Marketing</Sidebar.MenuSubButton>
+                    </Sidebar.MenuSubItem>
+                  </Sidebar.MenuSub>
+                </Collapsible.Content>
+              </Collapsible>
+            </Sidebar.MenuItem>
+            <Sidebar.MenuItem>
+              <Sidebar.Tooltip content="Calendar">
                 <Sidebar.MenuButton asChild>
                   <a href="#calendar">
                     <CalendarIcon />
                     <Sidebar.Label>Calendar</Sidebar.Label>
                   </a>
                 </Sidebar.MenuButton>
-              </Tooltip.Trigger>
-              <Tooltip.Positioner>
-                <Tooltip.Content>Calendar</Tooltip.Content>
-              </Tooltip.Positioner>
-            </Tooltip>
-          </Sidebar.MenuItem>
-          <Sidebar.MenuItem>
-            <Tooltip disabled={!collapsed} positioning={{ placement: tooltipPlacement, gutter: 8 }}>
-              <Tooltip.Trigger asChild>
+              </Sidebar.Tooltip>
+            </Sidebar.MenuItem>
+            <Sidebar.MenuItem>
+              <Sidebar.Tooltip content="Team">
                 <Sidebar.MenuButton asChild>
                   <a href="#team">
                     <UsersIcon />
                     <Sidebar.Label>Team</Sidebar.Label>
                   </a>
                 </Sidebar.MenuButton>
-              </Tooltip.Trigger>
-              <Tooltip.Positioner>
-                <Tooltip.Content>Team</Tooltip.Content>
-              </Tooltip.Positioner>
-            </Tooltip>
-          </Sidebar.MenuItem>
-        </Sidebar.Menu>
+              </Sidebar.Tooltip>
+              <Sidebar.MenuBadge>12</Sidebar.MenuBadge>
+            </Sidebar.MenuItem>
+          </Sidebar.Menu>
+        </Sidebar.GroupContent>
       </Sidebar.Group>
       <Sidebar.Group>
         <Sidebar.GroupLabel>Library</Sidebar.GroupLabel>
@@ -1413,15 +1446,19 @@ function SidebarNavigation() {
   return (
     <>
       <Sidebar.Header>
-        <div className={styles.brand}>
-          <span className={styles.brandMark} data-sidebar-icon>
-            M
-          </span>
-          <Sidebar.Label>Moduix</Sidebar.Label>
+        <div className={styles.headerStack}>
+          <div className={styles.brand}>
+            <span className={styles.brandMark} data-sidebar-icon>
+              M
+            </span>
+            <Sidebar.Label>Moduix</Sidebar.Label>
+          </div>
+          <Sidebar.Input aria-label="Search workspace" placeholder="Search" size="sm" />
         </div>
       </Sidebar.Header>
       <NavigationContent />
-      <Sidebar.Footer>
+      <Sidebar.Footer className={styles.footerStack}>
+        <Sidebar.Separator />
         <Sidebar.Menu>
           <Sidebar.MenuItem>
             <AccountMenu />
@@ -1484,6 +1521,25 @@ function ScrollAreaNavigation() {
   );
 }
 
+function PersistedSidebarInset({ size, onReset }: { size: SidebarSize; onReset: () => void }) {
+  return (
+    <>
+      <div className={styles.topbar}>
+        <strong>Dashboard</strong>
+        <Button variant="outline" size="sm" onClick={onReset}>
+          Reset saved width
+        </Button>
+      </div>
+      <main className={styles.main}>
+        <h3>Persisted desktop layout</h3>
+        <p>Resize the sidebar, reload the page, and the last desktop width stays in place.</p>
+        <p>Saved width: {size[0] ?? '16rem'}</p>
+        <div className={styles.canvas} />
+      </main>
+    </>
+  );
+}
+
 export function BasicSidebarExample() {
   return (
     <Sidebar className={styles.demo}>
@@ -1541,7 +1597,8 @@ export function WorkspaceSelectSidebarExample() {
           </Sidebar.Menu>
         </Sidebar.Header>
         <NavigationContent />
-        <Sidebar.Footer>
+        <Sidebar.Footer className={styles.footerStack}>
+          <Sidebar.Separator />
           <Sidebar.Menu>
             <Sidebar.MenuItem>
               <AccountMenu />
@@ -1555,6 +1612,156 @@ export function WorkspaceSelectSidebarExample() {
         <MainContent />
       </Sidebar.Inset>
     </Sidebar>
+  );
+}
+
+export function PersistedSidebarExample() {
+  const [size, setSize] = useState<SidebarSize>(createDefaultPersistedSidebarSize);
+
+  useEffect(() => {
+    const persistedSize = readPersistedSidebarSize();
+    if (persistedSize) {
+      setSize(persistedSize);
+    }
+  }, []);
+
+  const handleReset = () => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem(persistedSidebarStorageKey);
+    }
+
+    setSize(createDefaultPersistedSidebarSize());
+  };
+
+  return (
+    <Sidebar
+      size={size}
+      onResize={(details) => setSize(details.size)}
+      onResizeEnd={(details) => {
+        if (typeof window !== 'undefined') {
+          window.localStorage.setItem(persistedSidebarStorageKey, details.size.join('|'));
+        }
+      }}
+      className={styles.demo}
+    >
+      <Sidebar.Panel>
+        <SimpleSidebarNavigation />
+      </Sidebar.Panel>
+      <Sidebar.ResizeTrigger />
+      <Sidebar.Trigger />
+      <Sidebar.Inset>
+        <PersistedSidebarInset size={size} onReset={handleReset} />
+      </Sidebar.Inset>
+    </Sidebar>
+  );
+}
+
+function MobileDrawerNavigation() {
+  return (
+    <div className={styles.mobileSurface}>
+      <Sidebar.Header>
+        <div className={styles.headerStack}>
+          <div className={styles.brand}>
+            <span className={styles.brandMark} data-sidebar-icon>
+              M
+            </span>
+            <Sidebar.Label>Moduix</Sidebar.Label>
+          </div>
+          <Sidebar.Input aria-label="Search workspace" placeholder="Search" size="sm" />
+        </div>
+      </Sidebar.Header>
+      <Sidebar.Content>
+        <Sidebar.Group>
+          <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+          <Sidebar.GroupAction aria-label="Create workspace item" title="Create workspace item">
+            <PlusIcon />
+          </Sidebar.GroupAction>
+          <Sidebar.GroupContent>
+            <Sidebar.Menu>
+              <Sidebar.MenuItem>
+                <Sidebar.MenuButton active>
+                  <DashboardIcon />
+                  <Sidebar.Label>Overview</Sidebar.Label>
+                </Sidebar.MenuButton>
+                <Sidebar.MenuBadge>3</Sidebar.MenuBadge>
+              </Sidebar.MenuItem>
+              <Sidebar.MenuItem>
+                <Collapsible defaultOpen className={styles.collapsible}>
+                  <Collapsible.Trigger asChild>
+                    <Sidebar.MenuButton>
+                      <FolderIcon />
+                      <Sidebar.Label>Projects</Sidebar.Label>
+                      <Collapsible.Indicator />
+                    </Sidebar.MenuButton>
+                  </Collapsible.Trigger>
+                  <Sidebar.MenuAction
+                    aria-label="Rename project group"
+                    title="Rename project group"
+                  >
+                    <PencilIcon />
+                  </Sidebar.MenuAction>
+                  <Collapsible.Content>
+                    <Sidebar.MenuSub>
+                      <Sidebar.MenuSubItem>
+                        <Sidebar.MenuSubButton href="#website">Website</Sidebar.MenuSubButton>
+                      </Sidebar.MenuSubItem>
+                      <Sidebar.MenuSubItem>
+                        <Sidebar.MenuSubButton href="#mobile">Mobile app</Sidebar.MenuSubButton>
+                      </Sidebar.MenuSubItem>
+                    </Sidebar.MenuSub>
+                  </Collapsible.Content>
+                </Collapsible>
+              </Sidebar.MenuItem>
+              <Sidebar.MenuItem>
+                <Sidebar.MenuButton asChild>
+                  <a href="#calendar">
+                    <CalendarIcon />
+                    <Sidebar.Label>Calendar</Sidebar.Label>
+                  </a>
+                </Sidebar.MenuButton>
+              </Sidebar.MenuItem>
+              <Sidebar.MenuItem>
+                <Sidebar.MenuButton asChild>
+                  <a href="#team">
+                    <UsersIcon />
+                    <Sidebar.Label>Team</Sidebar.Label>
+                  </a>
+                </Sidebar.MenuButton>
+                <Sidebar.MenuBadge>12</Sidebar.MenuBadge>
+              </Sidebar.MenuItem>
+            </Sidebar.Menu>
+          </Sidebar.GroupContent>
+        </Sidebar.Group>
+        <Sidebar.Group>
+          <Sidebar.GroupLabel>Library</Sidebar.GroupLabel>
+          <Sidebar.Menu>
+            <Sidebar.MenuItem>
+              <Sidebar.MenuButton asChild>
+                <a href="#documents">
+                  <FileTextIcon />
+                  <Sidebar.Label>Documents</Sidebar.Label>
+                </a>
+              </Sidebar.MenuButton>
+            </Sidebar.MenuItem>
+            <Sidebar.MenuItem>
+              <Sidebar.MenuButton asChild>
+                <a href="#search">
+                  <SearchIcon />
+                  <Sidebar.Label>Search</Sidebar.Label>
+                </a>
+              </Sidebar.MenuButton>
+            </Sidebar.MenuItem>
+          </Sidebar.Menu>
+        </Sidebar.Group>
+      </Sidebar.Content>
+      <Sidebar.Footer className={styles.footerStack}>
+        <Sidebar.Menu>
+          <Sidebar.MenuItem>
+            <AccountMenu />
+          </Sidebar.MenuItem>
+        </Sidebar.Menu>
+      </Sidebar.Footer>
+    </div>
   );
 }
 
@@ -1604,6 +1811,33 @@ export function ScrollAreaSidebarExample() {
         <MainContent />
       </Sidebar.Inset>
     </Sidebar>
+  );
+}
+
+export function MobileDrawerSidebarExample() {
+  return (
+    <Drawer.Root swipeDirection="start">
+      <Drawer.Trigger asChild>
+        <Button variant="outline" className={styles.mobileTrigger}>
+          Open mobile navigation
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Backdrop />
+      <Drawer.Positioner>
+        <Drawer.Content className={styles.mobileDrawer} draggable={false}>
+          <Drawer.Header className={styles.mobileDrawerHeader}>
+            <Drawer.Title>Navigation</Drawer.Title>
+            <Drawer.CloseIcon />
+            <Drawer.Description>
+              Use Drawer for compact-screen overlay navigation.
+            </Drawer.Description>
+          </Drawer.Header>
+          <Drawer.Body className={styles.mobileDrawerBody}>
+            <MobileDrawerNavigation />
+          </Drawer.Body>
+        </Drawer.Content>
+      </Drawer.Positioner>
+    </Drawer.Root>
   );
 }
 
