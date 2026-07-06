@@ -94,7 +94,7 @@ const AccordionItemContent = forwardRef<
   );
 });
 
-const AccordionItemBody = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
+const AccordionItemBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
   function AccordionItemBody({ className, ...props }, ref) {
     return (
       <ark.div

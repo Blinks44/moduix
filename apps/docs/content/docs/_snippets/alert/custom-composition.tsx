@@ -1,6 +1,5 @@
 //#region demo
 import { Alert, Button } from '@moduix/react';
-import { Info as InfoIcon } from 'lucide-react';
 import { useState } from 'react';
 
 const alert = {

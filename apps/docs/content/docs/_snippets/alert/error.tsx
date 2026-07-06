@@ -13,10 +13,8 @@ export function AlertErrorDemo() {
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
-      <Alert.Content>
-        <Alert.Title>{alert.title}</Alert.Title>
-        <Alert.Description>{alert.description}</Alert.Description>
-      </Alert.Content>
+      <Alert.Title>{alert.title}</Alert.Title>
+      <Alert.Description>{alert.description}</Alert.Description>
     </Alert>
   );
 }

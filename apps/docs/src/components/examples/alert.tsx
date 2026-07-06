@@ -130,7 +130,7 @@ export const alertCssProperties: CssPropertyInput[] = [
   ],
   ['--alert-indicator-offset', '0.125rem', 'Controls indicator vertical offset.'],
   ['--alert-indicator-size', '1rem', 'Controls indicator size.'],
-  ['--alert-padding', 'var(--spacing-4)', 'Controls alert padding.'],
+  ['--alert-padding', 'var(--spacing-3)', 'Controls alert padding.'],
   ['--alert-radius', 'var(--radius-lg)', 'Controls alert border radius.'],
   ['--alert-shadow', 'none', 'Controls alert shadow.'],
   [
@@ -176,10 +176,8 @@ function normalizeCssProperty(property: CssPropertyInput) {
 export function AlertExample(props: ComponentProps<typeof Alert.Root>) {
   return (
     <Alert.Root className={styles.demo} {...props}>
-      <Alert.Content>
-        <Alert.Title>{basicAlert.title}</Alert.Title>
-        <Alert.Description>{basicAlert.description}</Alert.Description>
-      </Alert.Content>
+      <Alert.Title>{basicAlert.title}</Alert.Title>
+      <Alert.Description>{basicAlert.description}</Alert.Description>
     </Alert.Root>
   );
 }
@@ -190,10 +188,8 @@ export function AlertWithIconExample() {
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
-      <Alert.Content>
-        <Alert.Title>{iconAlert.title}</Alert.Title>
-        <Alert.Description>{iconAlert.description}</Alert.Description>
-      </Alert.Content>
+      <Alert.Title>{iconAlert.title}</Alert.Title>
+      <Alert.Description>{iconAlert.description}</Alert.Description>
     </Alert.Root>
   );
 }
@@ -204,10 +200,8 @@ export function AlertStatusesExample() {
       {statuses.map((status) => (
         <Alert.Root key={status} status={status}>
           <Alert.Indicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</Alert.Indicator>
-          <Alert.Content>
-            <Alert.Title>{status}</Alert.Title>
-            <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
-          </Alert.Content>
+          <Alert.Title>{status}</Alert.Title>
+          <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
         </Alert.Root>
       ))}
     </div>
@@ -220,10 +214,8 @@ export function AlertErrorExample() {
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
-      <Alert.Content>
-        <Alert.Title>{errorAlert.title}</Alert.Title>
-        <Alert.Description>{errorAlert.description}</Alert.Description>
-      </Alert.Content>
+      <Alert.Title>{errorAlert.title}</Alert.Title>
+      <Alert.Description>{errorAlert.description}</Alert.Description>
     </Alert.Root>
   );
 }
@@ -255,12 +247,10 @@ export function AlertActionsExample() {
 export function AlertHeadingExample() {
   return (
     <Alert.Root status="info" className={styles.demo}>
-      <Alert.Content>
-        <Alert.Title asChild>
-          <h2>{headingAlert.title}</h2>
-        </Alert.Title>
-        <Alert.Description>{headingAlert.description}</Alert.Description>
-      </Alert.Content>
+      <Alert.Title asChild>
+        <h2>{headingAlert.title}</h2>
+      </Alert.Title>
+      <Alert.Description>{headingAlert.description}</Alert.Description>
     </Alert.Root>
   );
 }

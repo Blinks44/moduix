@@ -50,12 +50,10 @@ function DismissibleCustomAlert() {
 export const Basic: Story = {
   render: () => (
     <Alert.Root>
-      <Alert.Content>
-        <Alert.Title>Update available</Alert.Title>
-        <Alert.Description>
-          Install the latest version when your workflow allows it.
-        </Alert.Description>
-      </Alert.Content>
+      <Alert.Title>Update available</Alert.Title>
+      <Alert.Description>
+        Install the latest version when your workflow allows it.
+      </Alert.Description>
     </Alert.Root>
   ),
 };
@@ -66,12 +64,8 @@ export const WithIcon: Story = {
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
-      <Alert.Content>
-        <Alert.Title>Workspace sync is active</Alert.Title>
-        <Alert.Description>
-          Changes are being synced across all connected devices.
-        </Alert.Description>
-      </Alert.Content>
+      <Alert.Title>Workspace sync is active</Alert.Title>
+      <Alert.Description>Changes are being synced across all connected devices.</Alert.Description>
     </Alert.Root>
   ),
 };
@@ -82,10 +76,8 @@ export const Statuses: Story = {
       {statuses.map((status) => (
         <Alert.Root key={status} status={status}>
           <Alert.Indicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</Alert.Indicator>
-          <Alert.Content>
-            <Alert.Title>{status}</Alert.Title>
-            <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
-          </Alert.Content>
+          <Alert.Title>{status}</Alert.Title>
+          <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
         </Alert.Root>
       ))}
     </div>
@@ -98,12 +90,10 @@ export const Error: Story = {
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
-      <Alert.Content>
-        <Alert.Title>Payment failed</Alert.Title>
-        <Alert.Description>
-          Your payment could not be processed. Check the payment method and try again.
-        </Alert.Description>
-      </Alert.Content>
+      <Alert.Title>Payment failed</Alert.Title>
+      <Alert.Description>
+        Your payment could not be processed. Check the payment method and try again.
+      </Alert.Description>
     </Alert.Root>
   ),
 };
@@ -111,14 +101,12 @@ export const Error: Story = {
 export const CustomHeading: Story = {
   render: () => (
     <Alert.Root status="info">
-      <Alert.Content>
-        <Alert.Title asChild>
-          <h2>Billing issue</h2>
-        </Alert.Title>
-        <Alert.Description>
-          Use asChild when the surrounding page needs a different heading level.
-        </Alert.Description>
-      </Alert.Content>
+      <Alert.Title asChild>
+        <h2>Billing issue</h2>
+      </Alert.Title>
+      <Alert.Description>
+        Use asChild when the surrounding page needs a different heading level.
+      </Alert.Description>
     </Alert.Root>
   ),
 };

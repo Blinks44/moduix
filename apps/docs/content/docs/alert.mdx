@@ -26,8 +26,8 @@ document flow.
 
 ## Basic
 
-Start with `Alert.Root`, `Alert.Content`, `Alert.Title`, and `Alert.Description`. Add
-`Alert.Indicator` only when the message benefits from a leading visual cue.
+Start with `Alert`, `Alert.Title`, and `Alert.Description`. Add `Alert.Indicator` when the
+message benefits from a leading visual cue.
 
 <Preview>
   <AlertDocs.AlertExample />
@@ -48,37 +48,40 @@ as styles, icons, and small utilities.
 ## Anatomy
 
 ```text
-Alert.Root
+Alert / Alert.Root
 ├─ Alert.Indicator (optional)
-└─ Alert.Content
+├─ Alert.Title
+├─ Alert.Description
+└─ Alert.Content (optional)
    ├─ Alert.Title
-   └─ Alert.Description
+   ├─ Alert.Description
+   └─ Extra actions or custom blocks
 ```
 
-| Part                | `data-part`   | Role                                                         |
-| ------------------- | ------------- | ------------------------------------------------------------ |
-| `Alert.Root`        | `root`        | Root slot. Applies status styles and semantics.              |
-| `Alert.Indicator`   | `indicator`   | Optional indicator slot. Sizes child SVG icons consistently. |
-| `Alert.Content`     | `content`     | Text content wrapper for title and description.              |
-| `Alert.Title`       | `title`       | Alert heading slot. Renders `h3` by default.                 |
-| `Alert.Description` | `description` | Supporting message slot.                                     |
+| Part                   | `data-part`   | Role                                                          |
+| ---------------------- | ------------- | ------------------------------------------------------------- |
+| `Alert` / `Alert.Root` | `root`        | Root slot. Applies status styles and semantics.               |
+| `Alert.Indicator`      | `indicator`   | Optional indicator slot. Sizes child SVG icons consistently.  |
+| `Alert.Content`        | `content`     | Optional content-column wrapper for grouped text and actions. |
+| `Alert.Title`          | `title`       | Alert title slot. Renders `p` by default.                     |
+| `Alert.Description`    | `description` | Supporting message slot.                                      |
 
 ## Composition
 
 ### Recommended composition
 
-Stay with `Alert.Root`, `Alert.Content`, `Alert.Title`, and `Alert.Description` for most inline
-feedback messages.
+Use `Alert`, `Alert.Title`, and `Alert.Description` directly for the common inline message path.
 
 Use `status` for intent: `neutral`, `info`, `success`, `warning`, or `error`.
 
-Keep text, links, and extra actions inside `Alert.Content`. The component intentionally avoids
-special-purpose action props or slot bags.
+Add `Alert.Indicator` when the alert needs an explicit visual cue. The component intentionally
+avoids special-purpose action props or slot bags.
 
 ### When to go custom
 
-Switch to custom composition only when the alert needs extra inline controls, local dismiss state,
-or a different rendered element through Ark `asChild`.
+Add `Alert.Content` when the alert text needs to stay in one column with extra inline controls,
+local dismiss state, or additional custom blocks. Use `Alert.Title asChild` when the document
+outline needs a different heading element.
 
 Use `Alert.Title asChild` when the document outline needs a different heading element:
 
@@ -98,9 +101,12 @@ Use `Alert.Title asChild` when the document outline needs a different heading el
 ### Behavioral notes
 
 - `Alert.Root` defaults to `role="status"` and switches to `role="alert"` for `status="error"`.
-- `Alert.Title` renders `h3` by default and uses Ark `asChild` for heading polymorphism.
-- `Alert.Indicator` defaults to `aria-hidden="true"`, so essential meaning should stay in the
-  title or description.
+- `Alert.Indicator` defaults to `aria-hidden="true"`.
+- `Alert.Title` renders `p` by default and uses Ark `asChild` for heading polymorphism.
+- Essential meaning should stay in the title or description, because the indicator stays
+  `aria-hidden`.
+- `Alert.Content` is optional. Use it when title, description, and extra controls should share one
+  content column beside the indicator.
 - The component is intentionally presentational. It does not manage dismiss state, focus, or
   keyboard behavior for embedded actions.
 
@@ -121,7 +127,8 @@ Place a moduix icon or custom SVG inside `Alert.Indicator`.
 
 ### Statuses
 
-Use statuses for neutral, informational, success, warning, and error states.
+Use `Alert.Indicator` with your chosen icon for neutral, informational, success, warning, and
+error states.
 
 <Preview>
   <AlertDocs.AlertStatusesExample />

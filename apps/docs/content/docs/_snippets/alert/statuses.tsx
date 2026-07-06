@@ -10,10 +10,8 @@ export function AlertStatusesDemo() {
       {statuses.map((status) => (
         <Alert key={status} status={status}>
           <Alert.Indicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</Alert.Indicator>
-          <Alert.Content>
-            <Alert.Title>{status}</Alert.Title>
-            <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
-          </Alert.Content>
+          <Alert.Title>{status}</Alert.Title>
+          <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
         </Alert>
       ))}
     </div>
