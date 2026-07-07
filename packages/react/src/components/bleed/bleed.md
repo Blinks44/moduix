@@ -137,11 +137,15 @@ Public CSS variables:
 - Add sugar only if it removes frequent production boilerplate without hiding the simple
   margin-based model. The current `inline`, `block`, and Ark root props are the intended public
   surface.
+- Keep wrapper-owned data hooks and the merged root class after consumer props so they cannot be
+  replaced accidentally.
 - If CSS variables change, update `theme.css`, docs CSS Properties, stories/examples, and this file
   in the same task.
 
 ## Local changelog
 
+- 2026-07-07: Kept `Bleed` root-only and token-based, made wrapper-owned root hooks
+  non-overridable again, and aligned stories/docs around the short `<Bleed>` path.
 - 2026-07-02: Removed the public `BleedInline`, `BleedBlock`, and `BleedRootProps` aliases while
   preserving the callable root, `Bleed.Root`, axis props, Ark factory composition, data attributes,
   and all token-based bleed behavior.

@@ -5,23 +5,26 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Bleed.module.css';
 
+type BleedAmount = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type BleedInline = BleedAmount | 'full';
+
 const BleedRoot = forwardRef<
   HTMLDivElement,
   HTMLArkProps<'div'> & {
-    inline?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-    block?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    inline?: BleedInline;
+    block?: BleedAmount;
   }
 >(function BleedRoot({ inline = 'full', block = 'none', className, ...props }, ref) {
   return (
     <ark.div
       ref={ref}
+      {...props}
       data-scope="bleed"
       data-part="root"
       data-slot="bleed-root"
       data-inline={inline}
       data-block={block}
       className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
     />
   );
 });
