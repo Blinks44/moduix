@@ -44,15 +44,13 @@ export function MultipleTriggersTooltipDemo() {
           </Tooltip.Trigger>
         ))}
       </div>
-      <Tooltip.Positioner>
-        <Tooltip.Content>
-          {activeTool ? (
-            <>
-              {activeTool.label} <span className={styles.shortcut}>{activeTool.shortcut}</span>
-            </>
-          ) : null}
-        </Tooltip.Content>
-      </Tooltip.Positioner>
+      <Tooltip.Body>
+        {activeTool ? (
+          <>
+            {activeTool.label} <span className={styles.shortcut}>{activeTool.shortcut}</span>
+          </>
+        ) : null}
+      </Tooltip.Body>
     </Tooltip>
   );
 }

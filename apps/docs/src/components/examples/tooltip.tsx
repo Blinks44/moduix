@@ -122,9 +122,7 @@ export function TooltipExample() {
           </span>
         </Button>
       </Tooltip.Trigger>
-      <Tooltip.Positioner>
-        <Tooltip.Content>Notifications</Tooltip.Content>
-      </Tooltip.Positioner>
+      <Tooltip.Body>Notifications</Tooltip.Body>
     </Tooltip>
   );
 }
@@ -133,12 +131,10 @@ export function ArrowTooltipExample() {
   return (
     <Tooltip>
       <Tooltip.Trigger>Hover or focus</Tooltip.Trigger>
-      <Tooltip.Positioner>
-        <Tooltip.Content>
-          <Tooltip.Arrow />
-          Tooltip with arrow
-        </Tooltip.Content>
-      </Tooltip.Positioner>
+      <Tooltip.Body>
+        <Tooltip.Arrow />
+        Tooltip with arrow
+      </Tooltip.Body>
     </Tooltip>
   );
 }
@@ -147,9 +143,7 @@ export function DelayTooltipExample() {
   return (
     <Tooltip closeDelay={0} openDelay={0}>
       <Tooltip.Trigger>Immediate tooltip</Tooltip.Trigger>
-      <Tooltip.Positioner>
-        <Tooltip.Content>No open or close delay</Tooltip.Content>
-      </Tooltip.Positioner>
+      <Tooltip.Body>No open or close delay</Tooltip.Body>
     </Tooltip>
   );
 }
@@ -177,9 +171,7 @@ export function PositioningTooltipExample() {
         <Tooltip.Trigger asChild aria-label={`Tooltip placement: ${placement}`}>
           <Button>Hover or focus</Button>
         </Tooltip.Trigger>
-        <Tooltip.Positioner>
-          <Tooltip.Content>Placement: {placement}</Tooltip.Content>
-        </Tooltip.Positioner>
+        <Tooltip.Body>Placement: {placement}</Tooltip.Body>
       </Tooltip>
     </div>
   );
@@ -195,9 +187,7 @@ export function ControlledTooltipExample() {
       </Button>
       <Tooltip open={open} onOpenChange={(details) => setOpen(details.open)}>
         <Tooltip.Trigger>Controlled tooltip</Tooltip.Trigger>
-        <Tooltip.Positioner>
-          <Tooltip.Content>Open: {String(open)}</Tooltip.Content>
-        </Tooltip.Positioner>
+        <Tooltip.Body>Open: {String(open)}</Tooltip.Body>
       </Tooltip>
     </div>
   );
@@ -222,9 +212,7 @@ export function RootProviderTooltipExample() {
       <output className={styles.output}>Open: {String(tooltip.open)}</output>
       <Tooltip.RootProvider value={tooltip}>
         <Tooltip.Trigger>RootProvider tooltip</Tooltip.Trigger>
-        <Tooltip.Positioner>
-          <Tooltip.Content>State is owned outside the tree.</Tooltip.Content>
-        </Tooltip.Positioner>
+        <Tooltip.Body>State is owned outside the tree.</Tooltip.Body>
       </Tooltip.RootProvider>
     </div>
   );
@@ -254,15 +242,13 @@ export function MultipleTriggersTooltipExample() {
           </Tooltip.Trigger>
         ))}
       </div>
-      <Tooltip.Positioner>
-        <Tooltip.Content>
-          {activeTool ? (
-            <>
-              {activeTool.label} <span className={styles.shortcut}>{activeTool.shortcut}</span>
-            </>
-          ) : null}
-        </Tooltip.Content>
-      </Tooltip.Positioner>
+      <Tooltip.Body>
+        {activeTool ? (
+          <>
+            {activeTool.label} <span className={styles.shortcut}>{activeTool.shortcut}</span>
+          </>
+        ) : null}
+      </Tooltip.Body>
     </Tooltip>
   );
 }
@@ -272,9 +258,7 @@ export function WithinFixedTooltipExample() {
     <div className={styles.fixedContainer}>
       <Tooltip positioning={{ strategy: 'fixed' }}>
         <Tooltip.Trigger>Fixed strategy</Tooltip.Trigger>
-        <Tooltip.Positioner>
-          <Tooltip.Content>Positioned from a fixed container.</Tooltip.Content>
-        </Tooltip.Positioner>
+        <Tooltip.Body>Positioned from a fixed container.</Tooltip.Body>
       </Tooltip>
     </div>
   );

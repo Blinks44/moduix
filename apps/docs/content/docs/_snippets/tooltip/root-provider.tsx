@@ -12,9 +12,7 @@ export function RootProviderTooltipDemo() {
       <output className={styles.output}>Open: {String(tooltip.open)}</output>
       <Tooltip.RootProvider value={tooltip}>
         <Tooltip.Trigger>RootProvider tooltip</Tooltip.Trigger>
-        <Tooltip.Positioner>
-          <Tooltip.Content>State is owned outside the tree.</Tooltip.Content>
-        </Tooltip.Positioner>
+        <Tooltip.Body>State is owned outside the tree.</Tooltip.Body>
       </Tooltip.RootProvider>
     </div>
   );

@@ -20,9 +20,9 @@ Use `Tooltip` for short, non-essential labels or hints that appear on hover or f
 
 ## Basic
 
-Start with the Ark part tree: `Tooltip`, `Tooltip.Trigger`,
-`Tooltip.Positioner`, and `Tooltip.Content`. Keep an accessible name on the trigger itself:
-tooltips do not replace `aria-label` or visible text.
+Start with `Tooltip`, `Tooltip.Trigger`, and `Tooltip.Body`. `Tooltip.Body` is the narrow shortcut
+for the common `Tooltip.Positioner + Tooltip.Content` path. Keep an accessible name on the trigger
+itself: tooltips do not replace `aria-label` or visible text.
 
 <Preview>
   <TooltipDocs.TooltipExample />
@@ -81,6 +81,7 @@ Tooltip / Tooltip.Root
 | -------------------------- | ------------------------------------------------------------------------------------------- |
 | `Tooltip` / `Tooltip.Root` | Root state, controlled/uncontrolled open state, delays, positioning options, and lifecycle. |
 | `Tooltip.RootProvider`     | Renders a tooltip from a `useTooltip()` state object owned outside the tree.                |
+| `Tooltip.Body`             | Convenience wrapper that renders `Tooltip.Positioner` and `Tooltip.Content` together.       |
 | `Tooltip.Trigger`          | Interactive anchor element that opens the tooltip on hover or focus.                        |
 | `Tooltip.Positioner`       | Floating layout layer that consumes Ark positioning options and runtime CSS variables.      |
 | `Tooltip.Content`          | Visible tooltip surface.                                                                    |
@@ -93,9 +94,12 @@ The root portals `Positioner` automatically. Use `portalled={false}` for inline 
 
 ### Recommended composition
 
-Use explicit Ark composition for every tooltip. Moduix adds default styling, `data-slot` hooks, and
-a default `ArrowTip`, but it does not hide `Positioner` or `Content` behind a high-level
-content wrapper.
+Use `Tooltip.Trigger` with `Tooltip.Body` for the common path. `Tooltip.Body` keeps the root-level
+positioning API intact and renders `Tooltip.Positioner` with `Tooltip.Content` for you. Moduix also
+keeps the explicit Ark parts available when you need full structural control.
+
+If you're moving from shadcn, `Tooltip.Body` is the closest equivalent to the common
+`TooltipContent` step, while the explicit Ark parts stay available for advanced structure.
 
 ### When to go custom
 
@@ -104,7 +108,9 @@ semantic control. The child must remain a single focusable element that can supp
 interaction.
 
 Use `positioning` on `Tooltip` for placement, strategy, offset, collision behavior, and the rest of
-Ark's floating options. Use `ids` when separate tooltip parts need stable shared IDs.
+Ark's floating options. Use explicit `Tooltip.Positioner` and `Tooltip.Content` when you need
+positioner-specific styling, inline context consumers that should own the content part, or a lower
+level Ark-shaped structure. Use `ids` when separate tooltip parts need stable shared IDs.
 
 ### Default props
 
@@ -132,6 +138,8 @@ Ark's floating options. Use `ids` when separate tooltip parts need stable shared
   from `@ark-ui/react/tooltip` when you need external or inline advanced state access.
 - `Tooltip.Trigger` receives the moduix trigger skin only when `asChild` is not used. With
   `asChild`, styling belongs to the child element.
+- `Tooltip.Body` forwards content props and children to `Tooltip.Content`. It does not introduce a
+  new DOM part or a separate positioning prop surface.
 - `Tooltip.Content` owns the visible surface and z-index. `Tooltip.Positioner` owns floating
   layout and exposes Ark variables such as `--available-width`, `--available-height`, and
   `--transform-origin`.
@@ -386,6 +394,8 @@ Set `positioning.strategy` to `"fixed"` when the tooltip is anchored inside fixe
 
 Use the part that owns the visual concern:
 
+- `Tooltip.Body` does not create its own DOM node; style `Tooltip.Positioner` and
+  `Tooltip.Content` when you switch to the explicit path.
 - `Tooltip.Trigger` for trigger chrome, hover/open feedback, and focus styling.
 - `Tooltip.Positioner` for floating layout constraints.
 - `Tooltip.Content` for popup surface overrides.

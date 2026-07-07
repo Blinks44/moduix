@@ -41,9 +41,7 @@ export const Default: Story = {
             </span>
           </Button>
         </Tooltip.Trigger>
-        <Tooltip.Positioner>
-          <Tooltip.Content>Notifications</Tooltip.Content>
-        </Tooltip.Positioner>
+        <Tooltip.Body>Notifications</Tooltip.Body>
       </Tooltip>
     );
   },
@@ -55,12 +53,10 @@ export const WithArrow: Story = {
     return (
       <Tooltip>
         <Tooltip.Trigger aria-label="Tooltip with arrow">Hover or focus</Tooltip.Trigger>
-        <Tooltip.Positioner>
-          <Tooltip.Content>
-            <Tooltip.Arrow />
-            Tooltip with arrow
-          </Tooltip.Content>
-        </Tooltip.Positioner>
+        <Tooltip.Body>
+          <Tooltip.Arrow />
+          Tooltip with arrow
+        </Tooltip.Body>
       </Tooltip>
     );
   },
@@ -71,9 +67,7 @@ export const Delay: Story = {
     return (
       <Tooltip closeDelay={0} openDelay={0}>
         <Tooltip.Trigger>Immediate tooltip</Tooltip.Trigger>
-        <Tooltip.Positioner>
-          <Tooltip.Content>No open or close delay</Tooltip.Content>
-        </Tooltip.Positioner>
+        <Tooltip.Body>No open or close delay</Tooltip.Body>
       </Tooltip>
     );
   },
@@ -103,9 +97,7 @@ export const Positioning: Story = {
           <Tooltip.Trigger asChild aria-label={`Tooltip placement: ${placement}`}>
             <Button>Hover or focus</Button>
           </Tooltip.Trigger>
-          <Tooltip.Positioner>
-            <Tooltip.Content>Placement: {placement}</Tooltip.Content>
-          </Tooltip.Positioner>
+          <Tooltip.Body>Placement: {placement}</Tooltip.Body>
         </Tooltip>
       </div>
     );
@@ -123,9 +115,7 @@ export const Controlled: Story = {
         </Button>
         <Tooltip open={open} onOpenChange={(details) => setOpen(details.open)}>
           <Tooltip.Trigger>Controlled tooltip</Tooltip.Trigger>
-          <Tooltip.Positioner>
-            <Tooltip.Content>Open: {String(open)}</Tooltip.Content>
-          </Tooltip.Positioner>
+          <Tooltip.Body>Open: {String(open)}</Tooltip.Body>
         </Tooltip>
       </div>
     );
@@ -155,9 +145,7 @@ export const RootProvider: Story = {
         <output className={storyStyles.output}>Open: {String(tooltip.open)}</output>
         <Tooltip.RootProvider value={tooltip}>
           <Tooltip.Trigger>RootProvider tooltip</Tooltip.Trigger>
-          <Tooltip.Positioner>
-            <Tooltip.Content>State is owned outside the tree.</Tooltip.Content>
-          </Tooltip.Positioner>
+          <Tooltip.Body>State is owned outside the tree.</Tooltip.Body>
         </Tooltip.RootProvider>
       </div>
     );
@@ -184,16 +172,13 @@ export const MultipleTriggers: Story = {
             </Tooltip.Trigger>
           ))}
         </div>
-        <Tooltip.Positioner>
-          <Tooltip.Content>
-            {activeTool ? (
-              <>
-                {activeTool.label}{' '}
-                <span className={storyStyles.shortcut}>{activeTool.shortcut}</span>
-              </>
-            ) : null}
-          </Tooltip.Content>
-        </Tooltip.Positioner>
+        <Tooltip.Body>
+          {activeTool ? (
+            <>
+              {activeTool.label} <span className={storyStyles.shortcut}>{activeTool.shortcut}</span>
+            </>
+          ) : null}
+        </Tooltip.Body>
       </Tooltip>
     );
   },
@@ -209,9 +194,7 @@ export const WithinFixedContainer: Story = {
       <div className={storyStyles.fixedContainer}>
         <Tooltip positioning={{ strategy: 'fixed' }}>
           <Tooltip.Trigger>Fixed strategy</Tooltip.Trigger>
-          <Tooltip.Positioner>
-            <Tooltip.Content>Positioned from a fixed container.</Tooltip.Content>
-          </Tooltip.Positioner>
+          <Tooltip.Body>Positioned from a fixed container.</Tooltip.Body>
         </Tooltip>
       </div>
     );

@@ -94,17 +94,15 @@ export function AssigneeTooltip() {
   const id = useId();
 
   return (
-    <Tooltip.Root ids={{ trigger: id }}>
+    <Tooltip ids={{ trigger: id }}>
       <Tooltip.Trigger asChild>
         <Avatar ids={{ root: id }}>
           <Avatar.Image src="https://bit.ly/sage-adebayo" alt="Segun Adebayo" />
           <Avatar.Fallback name="Segun Adebayo" />
         </Avatar>
       </Tooltip.Trigger>
-      <Tooltip.Positioner>
-        <Tooltip.Content>Segun Adebayo is online</Tooltip.Content>
-      </Tooltip.Positioner>
-    </Tooltip.Root>
+      <Tooltip.Body>Segun Adebayo is online</Tooltip.Body>
+    </Tooltip>
   );
 }
 ```

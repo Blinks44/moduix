@@ -75,6 +75,17 @@ const TooltipContent = forwardRef<
   );
 });
 
+const TooltipBody = forwardRef<
+  ComponentRef<typeof TooltipPrimitive.Content>,
+  ComponentProps<typeof TooltipPrimitive.Content>
+>(function TooltipBody(props, ref) {
+  return (
+    <TooltipPositioner>
+      <TooltipContent ref={ref} {...props} />
+    </TooltipPositioner>
+  );
+});
+
 const TooltipArrow = forwardRef<
   ComponentRef<typeof TooltipPrimitive.Arrow>,
   ComponentProps<typeof TooltipPrimitive.Arrow>
@@ -109,6 +120,7 @@ const Tooltip = Object.assign(TooltipRoot, {
   Root: TooltipRoot,
   RootProvider: TooltipRootProvider,
   Trigger: TooltipTrigger,
+  Body: TooltipBody,
   Positioner: TooltipPositioner,
   Content: TooltipContent,
   Arrow: TooltipArrow,
