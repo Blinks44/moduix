@@ -16,8 +16,9 @@ export function RootProviderClipboardDemo() {
         <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
         <Clipboard.Control>
           <Clipboard.Input readOnly />
-          <Clipboard.Trigger aria-label="Copy provider value">
+          <Clipboard.Trigger>
             <Clipboard.Indicator />
+            <Clipboard.CopyText />
           </Clipboard.Trigger>
         </Clipboard.Control>
       </Clipboard.RootProvider>

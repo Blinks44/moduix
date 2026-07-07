@@ -135,6 +135,17 @@ const ClipboardValueText = forwardRef<
   );
 });
 
+const ClipboardCopyText = forwardRef<
+  ComponentRef<typeof ClipboardPrimitive.Indicator>,
+  ComponentProps<typeof ClipboardPrimitive.Indicator>
+>(function ClipboardCopyText({ copied = 'Copied', children = 'Copy', ...props }, ref) {
+  return (
+    <ClipboardIndicator ref={ref} data-slot="clipboard-copy-text" copied={copied} {...props}>
+      {children}
+    </ClipboardIndicator>
+  );
+});
+
 const Clipboard = Object.assign(ClipboardRoot, {
   Root: ClipboardRoot,
   RootProvider: ClipboardRootProvider,
@@ -143,6 +154,7 @@ const Clipboard = Object.assign(ClipboardRoot, {
   Input: ClipboardInput,
   Trigger: ClipboardTrigger,
   Indicator: ClipboardIndicator,
+  CopyText: ClipboardCopyText,
   ValueText: ClipboardValueText,
 });
 
