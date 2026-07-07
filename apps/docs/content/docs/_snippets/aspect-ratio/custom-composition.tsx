@@ -9,13 +9,11 @@ const media = {
 
 export function AspectRatioAsChildDemo() {
   return (
-    <div className="aspect-ratio-demo">
-      <AspectRatio ratio={media.ratio} asChild>
-        <figure>
-          <img src={media.src} alt={media.alt} className="aspect-ratio-demo__image" />
-        </figure>
-      </AspectRatio>
-    </div>
+    <AspectRatio ratio={media.ratio} className="aspect-ratio-demo" asChild>
+      <figure className="aspect-ratio-demo__figure">
+        <img src={media.src} alt={media.alt} className="aspect-ratio-demo__image" />
+      </figure>
+    </AspectRatio>
   );
 }
 //#endregion

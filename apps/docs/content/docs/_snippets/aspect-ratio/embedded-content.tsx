@@ -9,17 +9,15 @@ const embed = {
 
 export function AspectRatioEmbedDemo() {
   return (
-    <div className="aspect-ratio-demo">
-      <AspectRatio ratio={embed.ratio}>
-        <iframe
-          src={embed.src}
-          title={embed.title}
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-          className="aspect-ratio-demo__frame"
-        />
-      </AspectRatio>
-    </div>
+    <AspectRatio ratio={embed.ratio} className="aspect-ratio-demo">
+      <iframe
+        src={embed.src}
+        title={embed.title}
+        allow="autoplay; encrypted-media"
+        allowFullScreen
+        className="aspect-ratio-demo__frame"
+      />
+    </AspectRatio>
   );
 }
 //#endregion

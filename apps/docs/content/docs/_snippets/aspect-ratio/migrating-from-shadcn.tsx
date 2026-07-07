@@ -6,10 +6,11 @@ const image = {
   alt: 'Mountain landscape',
 };
 
-export function AspectRatioDemo() {
+export function AspectRatioMigrationDemo() {
   return (
     <AspectRatio ratio={16 / 9} className="aspect-ratio-demo">
-      <img src={image.src} alt={image.alt} className="aspect-ratio-demo__image" />
+      {/* Swap this <img> for next/image with fill in a Next.js app. */}
+      <img src={image.src} alt={image.alt} className="aspect-ratio-demo__fill-image" />
     </AspectRatio>
   );
 }

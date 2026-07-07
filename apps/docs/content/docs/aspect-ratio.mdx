@@ -15,7 +15,8 @@ Ark UI does not ship a dedicated `aspect-ratio` primitive. Moduix builds this co
 
 ## Basic
 
-Use `AspectRatio` with a numeric `ratio` for responsive images, videos, embeds, and canvas content.
+Start with `AspectRatio`, put width or max-width on the root itself, and pass a numeric `ratio`.
+Direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame automatically.
 
 <Preview>
   <AspectRatioDocs.AspectRatioExample />
@@ -23,7 +24,7 @@ Use `AspectRatio` with a numeric `ratio` for responsive images, videos, embeds, 
   <Preview.Code>
     <include lang="tsx">./_snippets/aspect-ratio/basic.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{AspectRatioDocs.aspectRatioImageCss}</Preview.CSS>
+  <Preview.CSS>{AspectRatioDocs.aspectRatioBasicCss}</Preview.CSS>
 </Preview>
 
 ## Install with shadcn
@@ -33,7 +34,7 @@ Use `AspectRatio` with a numeric `ratio` for responsive images, videos, embeds, 
 ## Anatomy
 
 ```text
-AspectRatio.Root
+AspectRatio / AspectRatio.Root
 └─ media | iframe | canvas | svg | custom content
 ```
 
@@ -45,28 +46,30 @@ AspectRatio.Root
 
 ### Recommended composition
 
-Use `AspectRatio` for most media frames. `AspectRatio.Root` is the same root exposed for namespace consistency.
+Use `AspectRatio` for most media frames. Put sizing, radius, and layout classes on the root itself;
+`AspectRatio.Root` is the same root exposed for namespace consistency.
 
 - `ratio` is required and numeric; pass a finite value greater than zero for valid CSS behavior
 - `asChild` uses Ark factory composition and requires exactly one React element
 - direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame automatically
-- `className` styles the root directly
+- `className` styles and sizes the root directly
 - `--aspect-ratio-radius` controls the default rounded frame
 
 ### When to go custom
 
 Wrap `AspectRatio` when shadows, focus rings, or layout decoration need to escape the clipped
-frame. Keep the clipping on the root itself.
+frame. Keep the clipping on the root itself, and override the root `aspect-ratio` in your own CSS
+when a breakpoint needs a different frame.
 
 ### Default props
 
-| Entry                   | Default            | Values / Notes                    |
-| ----------------------- | ------------------ | --------------------------------- |
-| `ratio`                 | -                  | Required positive finite `number` |
-| `className`             | `undefined`        | `string`                          |
-| `style`                 | `undefined`        | Can override inline `aspectRatio` |
-| `asChild`               | `undefined`        | Ark factory composition           |
-| `--aspect-ratio-radius` | `var(--radius-md)` | CSS length or token value         |
+| Entry                   | Default            | Values / Notes                       |
+| ----------------------- | ------------------ | ------------------------------------ |
+| `ratio`                 | -                  | Required positive finite `number`    |
+| `className`             | `undefined`        | Styles and sizes the root            |
+| `style`                 | `undefined`        | Can override `aspect-ratio` directly |
+| `asChild`               | `undefined`        | Ark factory composition              |
+| `--aspect-ratio-radius` | `var(--radius-md)` | CSS length or token value            |
 
 ### Behavioral notes
 
@@ -79,48 +82,10 @@ frame. Keep the clipping on the root itself.
 
 ## Examples
 
-### Square
+### Card layouts
 
-Use a square ratio for avatars, thumbnails, and other media that should remain visually balanced across layouts.
-
-<Preview>
-  <AspectRatioDocs.AspectRatioSquareExample />
-
-  <Preview.Code>
-    <include lang="tsx">./_snippets/aspect-ratio/square.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{AspectRatioDocs.aspectRatioImageCss}</Preview.CSS>
-</Preview>
-
-### Portrait
-
-Choose a portrait ratio when the frame should favor tall media such as profile photography or editorial art.
-
-<Preview>
-  <AspectRatioDocs.AspectRatioPortraitExample />
-
-  <Preview.Code>
-    <include lang="tsx">./_snippets/aspect-ratio/portrait.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{AspectRatioDocs.aspectRatioNarrowImageCss}</Preview.CSS>
-</Preview>
-
-### Photo
-
-Use a photo-friendly ratio such as `4 / 3` when landscape imagery needs a familiar editorial crop.
-
-<Preview>
-  <AspectRatioDocs.AspectRatioPhotoExample />
-
-  <Preview.Code>
-    <include lang="tsx">./_snippets/aspect-ratio/photo.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{AspectRatioDocs.aspectRatioImageCss}</Preview.CSS>
-</Preview>
-
-### Card Grid
-
-Keep repeated cards visually aligned by wrapping their media in the same aspect ratio even when the source assets differ.
+Keep repeated cards visually aligned by wrapping their media in the same aspect ratio even when the
+source assets differ.
 
 <Preview>
   <AspectRatioDocs.AspectRatioCardGridExample />
@@ -131,22 +96,10 @@ Keep repeated cards visually aligned by wrapping their media in the same aspect 
   <Preview.CSS>{AspectRatioDocs.aspectRatioGridCss}</Preview.CSS>
 </Preview>
 
-### Custom Ratio
+### Embedded content
 
-Pass a custom numeric ratio when the design calls for a format outside the usual square, portrait, or widescreen values.
-
-<Preview>
-  <AspectRatioDocs.AspectRatioCustomRatioExample />
-
-  <Preview.Code>
-    <include lang="tsx">./_snippets/aspect-ratio/custom-ratio.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{AspectRatioDocs.aspectRatioImageCss}</Preview.CSS>
-</Preview>
-
-### Embedded Content
-
-Wrap video or other embeds in `AspectRatio` to keep the frame stable before the external content finishes loading.
+Wrap video or other embeds in `AspectRatio` to keep the frame stable before the external content
+finishes loading.
 
 <Preview>
   <AspectRatioDocs.AspectRatioEmbedExample />
@@ -154,7 +107,21 @@ Wrap video or other embeds in `AspectRatio` to keep the frame stable before the 
   <Preview.Code>
     <include lang="tsx">./_snippets/aspect-ratio/embedded-content.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{AspectRatioDocs.aspectRatioFrameCss}</Preview.CSS>
+  <Preview.CSS>{AspectRatioDocs.aspectRatioEmbedCss}</Preview.CSS>
+</Preview>
+
+### Migrating from shadcn
+
+If you are coming from shadcn, move width and radius classes onto `AspectRatio` itself. The same
+root pattern works with `next/image fill` in Next.js.
+
+<Preview>
+  <AspectRatioDocs.AspectRatioShadcnMigrationExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/aspect-ratio/migrating-from-shadcn.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AspectRatioDocs.aspectRatioMigrationCss}</Preview.CSS>
 </Preview>
 
 ### Custom Composition
@@ -168,7 +135,7 @@ component props into the single child element.
   <Preview.Code>
     <include lang="tsx">./_snippets/aspect-ratio/custom-composition.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{AspectRatioDocs.aspectRatioImageCss}</Preview.CSS>
+  <Preview.CSS>{AspectRatioDocs.aspectRatioBasicCss}</Preview.CSS>
 </Preview>
 
 ## Styling
@@ -181,5 +148,7 @@ component props into the single child element.
 
 - `data-scope="aspect-ratio"` and `data-part="root"` are the Ark-aligned root hooks.
 - `data-slot="aspect-ratio-root"` is the stable moduix root hook.
+- Put width, max-width, and layout styles on the root itself. Override `aspect-ratio` from your own
+  CSS when a breakpoint needs a different ratio.
 - `overflow: hidden` is intentional. If visible decoration must escape the frame, put that
   decoration on an outer wrapper instead of removing root clipping.
