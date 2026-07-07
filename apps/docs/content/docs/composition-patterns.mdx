@@ -96,10 +96,10 @@ export function AssigneeTooltip() {
   return (
     <Tooltip.Root ids={{ trigger: id }}>
       <Tooltip.Trigger asChild>
-        <Avatar.Root ids={{ root: id }}>
+        <Avatar ids={{ root: id }}>
           <Avatar.Image src="https://bit.ly/sage-adebayo" alt="Segun Adebayo" />
-          <Avatar.Fallback>SA</Avatar.Fallback>
-        </Avatar.Root>
+          <Avatar.Fallback name="Segun Adebayo" />
+        </Avatar>
       </Tooltip.Trigger>
       <Tooltip.Positioner>
         <Tooltip.Content>Segun Adebayo is online</Tooltip.Content>

@@ -11,7 +11,7 @@ export function AvatarStatusDemo() {
   return (
     <div className="docs-avatar-status">
       <Avatar onStatusChange={(details) => setStatus(details.status)}>
-        <Avatar.Fallback>LT</Avatar.Fallback>
+        <Avatar.Fallback name="Alex T." />
         <Avatar.Image src={avatarImage} alt="Alex T." />
       </Avatar>
       <output>Status: {status}</output>

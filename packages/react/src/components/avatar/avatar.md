@@ -19,9 +19,11 @@ externally owned state.
 
 ## Current behavior contract
 
-- `Avatar` and `Avatar.Root` are the same styled root component.
+- `Avatar` and `Avatar.Root` are the same styled root component, with `<Avatar>` documented as the
+  default consumer path.
 - `Avatar.RootProvider` applies the same visual contract to externally created Ark state.
 - `size` is the only local behavior-neutral prop. It is available on `Root` and `RootProvider`.
+- `Avatar.Fallback` accepts `name` and derives initials when no children are provided.
 - Context parts, state hooks, and Ark type aliases are imported directly from
   `@ark-ui/react/avatar`.
 - No legacy `render`, delay, loading-state adapter, or callback compatibility API remains.
@@ -34,12 +36,12 @@ Avatar.Root | Avatar.RootProvider
 └─ Avatar.Image
 ```
 
-| Part                  | `data-slot`            | Notes                                        |
-| --------------------- | ---------------------- | -------------------------------------------- |
-| `Avatar.Root`         | `avatar-root`          | Creates Ark state and accepts local `size`.  |
-| `Avatar.RootProvider` | `avatar-root-provider` | Uses `useAvatar` state and accepts `size`.   |
-| `Avatar.Fallback`     | `avatar-fallback`      | Visible while the image is absent or hidden. |
-| `Avatar.Image`        | `avatar-image`         | Native image shown after successful loading. |
+| Part                     | `data-slot`            | Notes                                        |
+| ------------------------ | ---------------------- | -------------------------------------------- |
+| `Avatar` / `Avatar.Root` | `avatar-root`          | Creates Ark state and accepts local `size`.  |
+| `Avatar.RootProvider`    | `avatar-root-provider` | Uses `useAvatar` state and accepts `size`.   |
+| `Avatar.Fallback`        | `avatar-fallback`      | Visible while the image is absent or hidden. |
+| `Avatar.Image`           | `avatar-image`         | Native image shown after successful loading. |
 
 ## Composition
 
@@ -48,10 +50,10 @@ import { Avatar } from '@moduix/react';
 
 export function AvatarExample() {
   return (
-    <Avatar.Root>
-      <Avatar.Fallback>LT</Avatar.Fallback>
+    <Avatar>
+      <Avatar.Fallback name="Alex T." />
       <Avatar.Image src="/avatar.jpg" alt="Alex T." />
-    </Avatar.Root>
+    </Avatar>
   );
 }
 ```
@@ -71,10 +73,14 @@ when another element must own a part's DOM node.
   Ark UI.
 - Context and custom image integrations remain available directly from `@ark-ui/react/avatar`.
 - Stable IDs: Ark `ids` remains available on `Avatar.Root`.
+- Fallback sugar: `Avatar.Fallback name` derives initials locally without changing Ark loading
+  behavior.
 
 ## Accessibility and state
 
 - `Avatar.Image` renders a native `img`; consumers must provide appropriate `alt` text.
+- `Avatar.Fallback` uses explicit children first and derives initials from `name` only when
+  children are absent.
 - Use `alt=""` when an interactive parent already provides the accessible name.
 - Refs target the rendered Ark DOM parts: root/provider `div`, fallback `span`, and image `img`.
 - `asChild` requires one child with the correct semantics for its role.
@@ -117,6 +123,8 @@ or the public CSS variables.
 
 - moduix supplies visual defaults while Ark UI remains headless.
 - `size="xs" | "sm" | "md" | "lg" | "xl"` maps to moduix tokens on both root components.
+- `Avatar.Fallback name="Alex T."` derives initials for the common case without introducing a
+  closed root API.
 - moduix adds stable `data-slot` hooks.
 - moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
   aliases.
@@ -131,6 +139,8 @@ or the public CSS variables.
 
 ## Local changelog
 
+- 2026-07-07: Documented `<Avatar>` as the default happy path and added `Avatar.Fallback name` for
+  initials-first fallback content.
 - 2026-07-02: Removed duplicate Ark type exports, context parts, and state hooks from the moduix
   surface. Kept `RootProvider`, the callable root, all visual parts, and the `size` sugar.
 - 2026-06-24: Audited the Ark UI migration, simplified pass-through wiring and state CSS, and

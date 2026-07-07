@@ -12,8 +12,8 @@ import * as AvatarDocs from '@/components/examples/avatar';
 
 ## Basic
 
-Compose `Avatar.Root`, `Avatar.Fallback`, and `Avatar.Image`. Keep the fallback mounted so Ark UI
-can switch between it and the image as loading state changes.
+Compose `Avatar`, `Avatar.Fallback`, and `Avatar.Image`. Keep the fallback mounted so Ark UI can
+switch between it and the image as loading state changes.
 
 <Preview>
   <AvatarDocs.AvatarExample />
@@ -48,12 +48,16 @@ Avatar.Root | Avatar.RootProvider
 
 ### Recommended composition
 
-Use `Avatar.Root` for the normal path. `onStatusChange(details)` reports the Ark loading state,
-while `ids` provides stable IDs for the root, image, and fallback. All DOM parts forward their refs
-and support Ark `asChild`.
+Use `Avatar` for the normal path. `Avatar.Root` remains available when you want the explicit
+Ark-aligned namespace. `onStatusChange(details)` reports the Ark loading state, while `ids`
+provides stable IDs for the root, image, and fallback. All DOM parts forward their refs and
+support Ark `asChild`.
 
 `Avatar.Image` renders an `img`, so provide meaningful `alt` text when the image conveys identity.
 Use `alt=""` when the surrounding link or button already has the accessible name.
+
+`Avatar.Fallback name="Alex T."` derives initials for the common case. Pass children when you need
+custom fallback content; explicit children take precedence over `name`.
 
 ### When to go custom
 
@@ -69,13 +73,14 @@ DOM node.
 
 ### Default props
 
-| Surface                              | Prop   | Default | Values                       |
-| ------------------------------------ | ------ | ------- | ---------------------------- |
-| `Avatar.Root`, `Avatar.RootProvider` | `size` | `md`    | `xs`, `sm`, `md`, `lg`, `xl` |
+| Surface                                         | Prop   | Default | Values                       |
+| ----------------------------------------------- | ------ | ------- | ---------------------------- |
+| `Avatar` / `Avatar.Root`, `Avatar.RootProvider` | `size` | `md`    | `xs`, `sm`, `md`, `lg`, `xl` |
 
 ### Behavioral notes
 
 - Ark controls `data-state="visible" | "hidden"` on `Avatar.Image` and `Avatar.Fallback`.
+- `Avatar.Fallback` derives initials from `name` only when no children are provided.
 - `onStatusChange` receives a detail object; read the current value from `details.status`.
 - A missing or failed image keeps the fallback visible.
 - `Avatar.RootProvider` requires the `value` returned by `useAvatar`.

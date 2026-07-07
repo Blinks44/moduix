@@ -11,6 +11,17 @@ type AvatarRootProps = ComponentProps<typeof AvatarPrimitive.Root> & {
 type AvatarRootProviderProps = ComponentProps<typeof AvatarPrimitive.RootProvider> & {
   size?: AvatarSize;
 };
+type AvatarFallbackProps = ComponentProps<typeof AvatarPrimitive.Fallback> & {
+  name?: string;
+};
+
+const getInitials = (name: string) => {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  const firstName = parts[0] ?? '';
+  const lastName = parts.length > 1 ? parts[parts.length - 1] : '';
+
+  return firstName && lastName ? `${firstName[0]}${lastName[0]}` : (firstName[0] ?? '');
+};
 
 const AvatarRoot = forwardRef<ComponentRef<typeof AvatarPrimitive.Root>, AvatarRootProps>(
   function AvatarRoot({ className, size, ...props }, ref) {
@@ -57,15 +68,17 @@ const AvatarImage = forwardRef<
 
 const AvatarFallback = forwardRef<
   ComponentRef<typeof AvatarPrimitive.Fallback>,
-  ComponentProps<typeof AvatarPrimitive.Fallback>
->(function AvatarFallback({ className, ...props }, ref) {
+  AvatarFallbackProps
+>(function AvatarFallback({ children, className, name, ...props }, ref) {
   return (
     <AvatarPrimitive.Fallback
       ref={ref}
       data-slot="avatar-fallback"
       className={clsx(styles.fallback, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {children ?? (name ? getInitials(name) : undefined)}
+    </AvatarPrimitive.Fallback>
   );
 });
 

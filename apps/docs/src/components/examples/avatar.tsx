@@ -146,52 +146,52 @@ export function AvatarCssPropertiesPanel() {
 
 export function AvatarExample(props: ComponentProps<typeof Avatar.Root>) {
   return (
-    <Avatar.Root {...props}>
-      <Avatar.Fallback>LT</Avatar.Fallback>
+    <Avatar {...props}>
+      <Avatar.Fallback name="Alex T." />
       <Avatar.Image src={avatarImage} alt="Alex T." />
-    </Avatar.Root>
+    </Avatar>
   );
 }
 
 export function AvatarFallbackOnlyExample() {
   return (
     <div className="docs-avatar-row">
-      <Avatar.Root size="xs">
+      <Avatar size="xs">
         <Avatar.Fallback>XS</Avatar.Fallback>
-      </Avatar.Root>
-      <Avatar.Root size="sm">
+      </Avatar>
+      <Avatar size="sm">
         <Avatar.Fallback>SM</Avatar.Fallback>
-      </Avatar.Root>
-      <Avatar.Root>
+      </Avatar>
+      <Avatar>
         <Avatar.Fallback>MD</Avatar.Fallback>
-      </Avatar.Root>
-      <Avatar.Root size="lg">
+      </Avatar>
+      <Avatar size="lg">
         <Avatar.Fallback>LG</Avatar.Fallback>
-      </Avatar.Root>
-      <Avatar.Root size="xl">
+      </Avatar>
+      <Avatar size="xl">
         <Avatar.Fallback>XL</Avatar.Fallback>
-      </Avatar.Root>
+      </Avatar>
     </div>
   );
 }
 
 export function AvatarCompositionExample() {
   return (
-    <Avatar.Root asChild size="xl" className="docs-avatar-link">
+    <Avatar asChild size="xl" className="docs-avatar-link">
       <a href="mailto:alex@example.com" aria-label="Email Alex T.">
-        <Avatar.Fallback className="docs-avatar-link-fallback">LT</Avatar.Fallback>
+        <Avatar.Fallback className="docs-avatar-link-fallback" name="Alex T." />
         <Avatar.Image className="docs-avatar-link-image" src={avatarImage} alt="" />
       </a>
-    </Avatar.Root>
+    </Avatar>
   );
 }
 
 export function AvatarImageErrorExample() {
   return (
-    <Avatar.Root>
-      <Avatar.Fallback>NA</Avatar.Fallback>
+    <Avatar>
+      <Avatar.Fallback name="No Avatar" />
       <Avatar.Image src="https://example.com/does-not-exist.png" alt="Broken image example" />
-    </Avatar.Root>
+    </Avatar>
   );
 }
 
@@ -200,10 +200,10 @@ export function AvatarStatusExample() {
 
   return (
     <div className="docs-avatar-status">
-      <Avatar.Root onStatusChange={(details) => setStatus(details.status)}>
-        <Avatar.Fallback>LT</Avatar.Fallback>
+      <Avatar onStatusChange={(details) => setStatus(details.status)}>
+        <Avatar.Fallback name="Alex T." />
         <Avatar.Image src={avatarImage} alt="Alex T." />
-      </Avatar.Root>
+      </Avatar>
       <output className="text-sm text-muted-foreground">Status: {status}</output>
     </div>
   );
@@ -223,7 +223,7 @@ export function AvatarRootProviderExample() {
         Change avatar
       </button>
       <Avatar.RootProvider value={avatar}>
-        <Avatar.Fallback>LT</Avatar.Fallback>
+        <Avatar.Fallback name="Alex T." />
         <Avatar.Image src={`${avatarImage}&seed=${count}`} alt="Alex T." />
       </Avatar.RootProvider>
     </div>
@@ -232,19 +232,19 @@ export function AvatarRootProviderExample() {
 
 export function CustomCompositionAvatarExample() {
   return (
-    <Avatar.Root size="lg" className="docs-avatar-ring">
-      <Avatar.Fallback className="docs-avatar-uppercase">LT</Avatar.Fallback>
+    <Avatar size="lg" className="docs-avatar-ring">
+      <Avatar.Fallback className="docs-avatar-uppercase" name="Alex T." />
       <Avatar.Image className="docs-avatar-saturated-image" src={avatarImage} alt="Alex T." />
-    </Avatar.Root>
+    </Avatar>
   );
 }
 
 export function AvatarCustomFallbackExample() {
   return (
-    <Avatar.Root size="lg" className="docs-avatar-icon">
+    <Avatar size="lg" className="docs-avatar-icon">
       <Avatar.Fallback role="img" aria-label="Workstation account">
         <ComputerIcon className="docs-avatar-icon-glyph" />
       </Avatar.Fallback>
-    </Avatar.Root>
+    </Avatar>
   );
 }
