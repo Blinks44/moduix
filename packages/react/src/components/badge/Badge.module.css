@@ -30,6 +30,37 @@
       background-color var(--transition-default),
       border-color var(--transition-default);
 
+    &:is(a, button, [role='button']) {
+      cursor: pointer;
+
+      &:focus-visible {
+        outline: var(--border-width-md) solid var(--color-ring);
+        outline-offset: var(--spacing-1);
+      }
+
+      &[data-variant='default'],
+      &[data-variant='secondary'],
+      &[data-variant='destructive'] {
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+
+      &[data-variant='outline'],
+      &[data-variant='ghost'] {
+        &:hover {
+          border-color: var(--badge-border-color, var(--color-primary));
+          color: var(--badge-color, var(--color-primary));
+        }
+      }
+
+      &[data-variant='link'] {
+        &:hover {
+          text-decoration-color: currentColor;
+        }
+      }
+    }
+
     & > svg {
       width: var(--badge-icon-size, 0.75rem);
       height: var(--badge-icon-size, 0.75rem);
@@ -48,13 +79,30 @@
     }
 
     &[data-variant='outline'],
-    &[data-variant='ghost'] {
+    &[data-variant='ghost'],
+    &[data-variant='link'] {
       background-color: var(--badge-bg, transparent);
+    }
+
+    &[data-variant='outline'],
+    &[data-variant='ghost'] {
       color: var(--badge-color, var(--color-foreground));
     }
 
     &[data-variant='outline'] {
       border-color: var(--badge-border-color, var(--color-border));
+    }
+
+    &[data-variant='link'] {
+      min-height: auto;
+      overflow: visible;
+      padding-inline: 0;
+      border-color: transparent;
+      color: var(--badge-color, var(--color-primary));
+      text-decoration: underline;
+      text-decoration-color: color-mix(in oklab, currentColor 55%, transparent);
+      text-underline-offset: 0.15em;
+      text-decoration-thickness: from-font;
     }
   }
 

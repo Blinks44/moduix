@@ -6,12 +6,10 @@ const link = {
   label: 'Badge styling guidance',
 };
 
-export function BadgeAsChildDemo() {
+export function BadgeLinkDemo() {
   return (
-    <Badge asChild variant="outline">
-      <a className="badge-demo-link" href={link.href}>
-        {link.label}
-      </a>
+    <Badge asChild variant="link">
+      <a href={link.href}>{link.label}</a>
     </Badge>
   );
 }
