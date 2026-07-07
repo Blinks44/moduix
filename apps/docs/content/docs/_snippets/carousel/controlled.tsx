@@ -31,7 +31,7 @@ const slides = [
 ];
 
 export function ControlledCarousel() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   return (
     <Carousel

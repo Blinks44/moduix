@@ -1,5 +1,4 @@
 //#region demo
-import { Carousel as ArkCarousel } from '@ark-ui/react/carousel';
 import { Carousel } from '@moduix/react';
 
 const slides = [
@@ -33,25 +32,24 @@ const slides = [
 export function PauseOnHoverCarousel() {
   return (
     <Carousel autoplay loop slideCount={slides.length}>
-      <ArkCarousel.Context>
-        {({ isPlaying }) => <p>Autoplay: {isPlaying ? 'playing' : 'paused'}</p>}
-      </ArkCarousel.Context>
-
-      <ArkCarousel.Context>
+      <Carousel.Context>
         {(api) => (
-          <Carousel.ItemGroup
-            aria-label="Pause on hover gallery"
-            onPointerOver={() => api.pause()}
-            onPointerLeave={() => api.play()}
-          >
-            {slides.map((slide, index) => (
-              <Carousel.Item key={slide.id} index={index}>
-                <img src={slide.src} alt={slide.alt} />
-              </Carousel.Item>
-            ))}
-          </Carousel.ItemGroup>
+          <>
+            <p>Autoplay: {api.isPlaying ? 'playing' : 'paused'}</p>
+            <Carousel.ItemGroup
+              aria-label="Pause on hover gallery"
+              onPointerOver={() => api.pause()}
+              onPointerLeave={() => api.play()}
+            >
+              {slides.map((slide, index) => (
+                <Carousel.Item key={slide.id} index={index}>
+                  <img src={slide.src} alt={slide.alt} />
+                </Carousel.Item>
+              ))}
+            </Carousel.ItemGroup>
+          </>
         )}
-      </ArkCarousel.Context>
+      </Carousel.Context>
 
       <Carousel.IndicatorGroup>
         {slides.map((_, index) => (

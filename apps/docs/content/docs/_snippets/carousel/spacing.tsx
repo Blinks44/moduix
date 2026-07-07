@@ -1,5 +1,4 @@
 //#region demo
-import { Carousel as ArkCarousel } from '@ark-ui/react/carousel';
 import { Carousel } from '@moduix/react';
 
 const slides = [
@@ -43,7 +42,7 @@ export function SpacingCarousel() {
 
       <Carousel.Control>
         <Carousel.PrevTrigger />
-        <ArkCarousel.Context>
+        <Carousel.Context>
           {(api) => (
             <Carousel.IndicatorGroup>
               {api.pageSnapPoints.map((_, index) => (
@@ -51,7 +50,7 @@ export function SpacingCarousel() {
               ))}
             </Carousel.IndicatorGroup>
           )}
-        </ArkCarousel.Context>
+        </Carousel.Context>
         <Carousel.NextTrigger />
       </Carousel.Control>
     </Carousel>

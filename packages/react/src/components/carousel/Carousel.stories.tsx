@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
-import { Carousel as ArkCarousel, useCarousel } from '@ark-ui/react/carousel';
+import { useCarousel } from '@ark-ui/react/carousel';
 import { useState } from 'react';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
@@ -84,7 +84,7 @@ function SlideIndicators({ slides }: { slides: readonly unknown[] }) {
 
 function PageIndicators() {
   return (
-    <ArkCarousel.Context>
+    <Carousel.Context>
       {(api) => (
         <Carousel.IndicatorGroup>
           {api.pageSnapPoints.map((_, index) => (
@@ -92,7 +92,7 @@ function PageIndicators() {
           ))}
         </Carousel.IndicatorGroup>
       )}
-    </ArkCarousel.Context>
+    </Carousel.Context>
   );
 }
 
@@ -140,7 +140,7 @@ export const Basic: Story = {
 export const Controlled: Story = {
   args: { slideCount: slides.length },
   render: () => {
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
 
     return (
       <Carousel.Root
@@ -214,26 +214,24 @@ export const PauseOnHover: Story = {
   args: { slideCount: slides.length },
   render: () => (
     <Carousel.Root autoplay loop slideCount={slides.length} className={styles.carousel}>
-      <ArkCarousel.Context>
-        {({ isPlaying }) => (
-          <p className={styles.statusText}>Autoplay: {isPlaying ? 'playing' : 'paused'}</p>
-        )}
-      </ArkCarousel.Context>
-      <ArkCarousel.Context>
+      <Carousel.Context>
         {(api) => (
-          <Carousel.ItemGroup
-            aria-label="Pause on hover image carousel"
-            onPointerOver={() => api.pause()}
-            onPointerLeave={() => api.play()}
-          >
-            {slides.map((slide, index) => (
-              <Carousel.Item key={slide.id} index={index}>
-                <ImageSlide src={slide.image} alt={slide.alt} />
-              </Carousel.Item>
-            ))}
-          </Carousel.ItemGroup>
+          <>
+            <p className={styles.statusText}>Autoplay: {api.isPlaying ? 'playing' : 'paused'}</p>
+            <Carousel.ItemGroup
+              aria-label="Pause on hover image carousel"
+              onPointerOver={() => api.pause()}
+              onPointerLeave={() => api.play()}
+            >
+              {slides.map((slide, index) => (
+                <Carousel.Item key={slide.id} index={index}>
+                  <ImageSlide src={slide.image} alt={slide.alt} />
+                </Carousel.Item>
+              ))}
+            </Carousel.ItemGroup>
+          </>
         )}
-      </ArkCarousel.Context>
+      </Carousel.Context>
       <SlideIndicators slides={slides} />
     </Carousel.Root>
   ),
@@ -270,7 +268,7 @@ export const ScrollTo: Story = {
   args: { slideCount: slides.length },
   render: () => (
     <Carousel.Root slideCount={slides.length} className={styles.carousel}>
-      <ArkCarousel.Context>
+      <Carousel.Context>
         {(api) => (
           <div className={styles.toolbar}>
             <Button onClick={() => api.scrollToIndex(3)} variant="outline">
@@ -278,7 +276,7 @@ export const ScrollTo: Story = {
             </Button>
           </div>
         )}
-      </ArkCarousel.Context>
+      </Carousel.Context>
       <Carousel.ItemGroup aria-label="Scroll to image carousel">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>

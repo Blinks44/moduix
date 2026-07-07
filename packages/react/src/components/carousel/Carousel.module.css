@@ -48,6 +48,8 @@
 
   .root[data-orientation='vertical'] > .itemGroup {
     height: 100%;
+    overscroll-behavior-x: auto;
+    overscroll-behavior-y: contain;
   }
 
   .item {

@@ -56,13 +56,14 @@ Carousel.Root
 | `Carousel.Indicator`         | Page indicator trigger for a specific slide/page index.        |
 | `Carousel.ProgressText`      | Current page and total progress text.                          |
 
-Additional Ark parts stay available for advanced flows:
+Additional advanced surfaces stay available for advanced flows:
 
+- `Carousel.Context`
 - `Carousel.AutoplayTrigger`
 - `Carousel.AutoplayIndicator`
 - `Carousel.RootProvider`
 
-Ark context parts and state hooks remain available directly from `@ark-ui/react/carousel`.
+Ark state hooks remain available directly from `@ark-ui/react/carousel`.
 
 ## Composition
 
@@ -72,11 +73,15 @@ Stay with `Carousel.Root`, `Carousel.Control`, `Carousel.ItemGroup`, `Carousel.I
 `Carousel.PrevTrigger`, `Carousel.NextTrigger`, `Carousel.IndicatorGroup`, and
 `Carousel.Indicator` for the standard Ark carousel path.
 
+`Carousel.Control` supports two equally valid layouts:
+
+1. Wrap `Carousel.ItemGroup` with `Carousel.PrevTrigger` and `Carousel.NextTrigger` for the compact default path.
+2. Render `Carousel.ItemGroup` on its own row and use `Carousel.Control` as a companion toolbar for triggers, indicators, or autoplay controls.
+
 ### When to go custom
 
-Use Ark `Carousel.Context` directly from `@ark-ui/react/carousel` when indicator count depends on
-runtime `pageSnapPoints`, especially with `autoSize`, `slidesPerPage > 1`, and programmatic
-scrolling.
+Use `Carousel.Context` when indicator count depends on runtime `pageSnapPoints`, especially with
+`autoSize`, `slidesPerPage > 1`, and programmatic scrolling.
 
 Use moduix `Carousel.RootProvider` with Ark `useCarousel()` when carousel state must be created
 outside the rendered subtree.

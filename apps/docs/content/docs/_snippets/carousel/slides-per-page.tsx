@@ -1,5 +1,4 @@
 //#region demo
-import { Carousel as ArkCarousel } from '@ark-ui/react/carousel';
 import { Carousel } from '@moduix/react';
 
 const slides = [
@@ -46,7 +45,7 @@ export function SlidesPerPageCarousel() {
         ))}
       </Carousel.ItemGroup>
 
-      <ArkCarousel.Context>
+      <Carousel.Context>
         {(api) => (
           <Carousel.IndicatorGroup>
             {api.pageSnapPoints.map((_, index) => (
@@ -54,7 +53,7 @@ export function SlidesPerPageCarousel() {
             ))}
           </Carousel.IndicatorGroup>
         )}
-      </ArkCarousel.Context>
+      </Carousel.Context>
     </Carousel>
   );
 }

@@ -189,6 +189,7 @@ const CarouselProgressText = forwardRef<
 const Carousel = Object.assign(CarouselRoot, {
   Root: CarouselRoot,
   RootProvider: CarouselRootProvider,
+  Context: CarouselPrimitive.Context,
   Control: CarouselControl,
   ItemGroup: CarouselItemGroup,
   Item: CarouselItem,
