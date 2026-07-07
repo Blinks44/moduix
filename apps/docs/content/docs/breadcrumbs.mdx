@@ -1,6 +1,6 @@
 ---
 title: Breadcrumbs
-description: Ark-native semantic path navigation built from small composition parts.
+description: Ark-native semantic path navigation with explicit parts and a narrow path shorthand.
 icon: Component
 ---
 
@@ -15,8 +15,8 @@ Ark UI does not ship a dedicated `breadcrumbs` primitive. Moduix builds this com
 
 ## Basic
 
-Start with explicit semantic parts when the application already knows the visible path. Use links
-for navigable ancestors and `Breadcrumbs.Page` for the current page.
+Start with `Breadcrumbs.Path` when the application already knows the visible path. It renders the
+ordered list, items, links, current page, and default separators from a small `items` array.
 
 <Preview>
   <BreadcrumbsDocs.BreadcrumbsExample />
@@ -61,17 +61,21 @@ Breadcrumbs / Breadcrumbs.Root
 | `Breadcrumbs.Separator`            | Presentational visual delimiter hidden from assistive technology. |
 | `Breadcrumbs.Ellipsis`             | Minimal collapsed marker for menu triggers.                       |
 
+`Breadcrumbs.Path` is a local shorthand that renders `Breadcrumbs.List`, `Breadcrumbs.Item`,
+`Breadcrumbs.Link`, `Breadcrumbs.Page`, and `Breadcrumbs.Separator` from an `items` array.
+
 ## Composition
 
 ### Recommended composition
 
-Render the path explicitly. Breadcrumbs does not calculate path items, insert separators, or own
-collapsed state.
+Use `Breadcrumbs.Path` for plain anchor-based trails. The last item becomes the current page, the
+default separator is a chevron, and `separator` can replace it for every visible gap.
 
 ### When to go custom
 
-Use Ark `asChild` for framework router links. The child must be a single semantic link that keeps
-the expected `href`, focus, and keyboard behavior.
+Use explicit parts when you need framework router links, a collapsed middle section, or different
+markup for specific items. Ark `asChild` still handles router links; the child must be a single
+semantic link that keeps the expected `href`, focus, and keyboard behavior.
 
 Compose with `Menu` when middle segments need to collapse behind an ellipsis trigger. Keep the Menu
 structure explicit: `Menu.Positioner`, `Menu.Content`, and `Menu.Item asChild`; Menu handles the
@@ -82,10 +86,12 @@ portal boundary.
 | Surface                            | Default | Notes                                                  |
 | ---------------------------------- | ------- | ------------------------------------------------------ |
 | `Breadcrumbs` / `Breadcrumbs.Root` | —       | No additional behavioral defaults; Ark defaults apply. |
+| `Breadcrumbs.Path`                 | chevron | Renders chevron separators unless `separator` is set.  |
 
 ### Behavioral notes
 
 - `Breadcrumbs` renders a `nav` landmark and defaults `aria-label` to `"Breadcrumb"`.
+- `Breadcrumbs.Path` renders an ordered list from `items`; the last item is always the current page.
 - `Breadcrumbs.Separator` is presentational and hidden from assistive technology.
 - `Breadcrumbs.Ellipsis` is hidden from assistive technology because the trigger owns the label.
 - The accessible label for a collapsed path belongs on the `Menu.Trigger`.
@@ -97,8 +103,8 @@ portal boundary.
 
 ### Custom Separator
 
-Replace the default slash with an icon or symbol while keeping separators as explicit hidden list
-items.
+Replace the default chevron with an icon or symbol through `Breadcrumbs.Path` when every visible gap
+shares the same separator.
 
 <Preview>
   <BreadcrumbsDocs.BreadcrumbsCustomSeparatorExample />
@@ -117,7 +123,8 @@ items.
 
 ### Collapsed Path
 
-Compose with the migrated Ark `Menu` parts when hidden middle segments need disclosure behavior.
+Compose with the migrated Ark `Menu` parts when hidden middle segments need disclosure behavior. This
+stays on the explicit path because the trigger and menu content own real interaction.
 
 <Preview>
   <BreadcrumbsDocs.BreadcrumbsCollapsedExample />
@@ -134,6 +141,21 @@ Compose with the migrated Ark `Menu` parts when hidden middle segments need disc
         border: none;
         background: transparent;
         color: inherit;
+        cursor: pointer;
+        border-radius: var(--radius-sm);
+        transition: var(--transition-default);
+      }
+
+      @media (hover: hover) {
+        .collapsed-menu-trigger:hover {
+          color: var(--color-foreground);
+          background: color-mix(in srgb, var(--color-muted) 70%, transparent);
+        }
+      }
+
+      .collapsed-menu-trigger:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 var(--border-width-sm) var(--color-ring);
       }
 
       .collapsed-menu-content {
@@ -150,7 +172,8 @@ Compose with the migrated Ark `Menu` parts when hidden middle segments need disc
 
 ### Long Current Label
 
-Wrap the current page content with your own element when you need extra attributes such as `title`.
+Pass a React node as the last `Breadcrumbs.Path` label when the current page needs extra attributes
+such as `title`.
 
 <Preview>
   <BreadcrumbsDocs.BreadcrumbsLongLabelExample />

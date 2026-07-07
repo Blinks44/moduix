@@ -4,6 +4,12 @@ import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 import { Menu } from '../menu';
 import { Breadcrumbs } from './Breadcrumbs';
 
+const defaultItems = [
+  { href: '#', label: 'Home' },
+  { href: '#', label: 'Vacancies' },
+  { label: 'Go Developer' },
+] as const;
+
 const collapsedMenuContentStyle = {
   '--menu-item-font-size': 'var(--text-xs)',
   '--menu-item-padding-x-end': '0.5rem',
@@ -23,19 +29,7 @@ const collapsedMenuTriggerStyle = {
 function DefaultBreadcrumbs() {
   return (
     <Breadcrumbs>
-      <Breadcrumbs.List>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="#">Home</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="#">Vacancies</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-        </Breadcrumbs.Item>
-      </Breadcrumbs.List>
+      <Breadcrumbs.Path items={defaultItems} />
     </Breadcrumbs>
   );
 }
@@ -67,8 +61,14 @@ export const Collapsed: Story = {
         <Breadcrumbs.Separator />
         <Breadcrumbs.Item>
           <Menu positioning={{ placement: 'bottom-start' }}>
-            <Menu.Trigger aria-label="Show hidden path items" style={collapsedMenuTriggerStyle}>
-              <Breadcrumbs.Ellipsis />
+            <Menu.Trigger asChild>
+              <button
+                type="button"
+                aria-label="Show hidden path items"
+                style={collapsedMenuTriggerStyle}
+              >
+                <Breadcrumbs.Ellipsis />
+              </button>
             </Menu.Trigger>
             <Menu.Positioner>
               <Menu.Content style={collapsedMenuContentStyle}>
@@ -101,23 +101,10 @@ export const Collapsed: Story = {
 export const CustomSeparator: Story = {
   render: () => (
     <Breadcrumbs>
-      <Breadcrumbs.List>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="#">Home</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator>
-          <SeparatorMarkIcon style={{ width: '0.75rem', height: '0.25rem' }} />
-        </Breadcrumbs.Separator>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="#">Vacancies</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator>
-          <SeparatorMarkIcon style={{ width: '0.75rem', height: '0.25rem' }} />
-        </Breadcrumbs.Separator>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-        </Breadcrumbs.Item>
-      </Breadcrumbs.List>
+      <Breadcrumbs.Path
+        items={defaultItems}
+        separator={<SeparatorMarkIcon style={{ width: '0.75rem', height: '0.25rem' }} />}
+      />
     </Breadcrumbs>
   ),
 };
@@ -125,22 +112,16 @@ export const CustomSeparator: Story = {
 export const LongCurrentLabel: Story = {
   render: () => (
     <Breadcrumbs>
-      <Breadcrumbs.List>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="#">Home</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="#">Vacancies</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Page>
-            Go lang developer to production team with cross-functional ownership and platform
-            support
-          </Breadcrumbs.Page>
-        </Breadcrumbs.Item>
-      </Breadcrumbs.List>
+      <Breadcrumbs.Path
+        items={[
+          { href: '#', label: 'Home' },
+          { href: '#', label: 'Vacancies' },
+          {
+            label:
+              'Go lang developer to production team with cross-functional ownership and platform support',
+          },
+        ]}
+      />
     </Breadcrumbs>
   ),
 };

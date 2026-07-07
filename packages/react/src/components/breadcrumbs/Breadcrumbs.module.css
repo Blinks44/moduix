@@ -80,6 +80,12 @@
     user-select: none;
   }
 
+  .separatorIcon {
+    width: 1em;
+    height: 1em;
+    flex: none;
+  }
+
   .ellipsis[data-scope='breadcrumbs'][data-part='ellipsis'] {
     display: inline-flex;
     align-items: center;

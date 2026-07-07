@@ -2,6 +2,12 @@ import type { ComponentProps, CSSProperties } from 'react';
 import { Breadcrumbs, Menu, SeparatorMarkIcon } from '@moduix/react';
 import type { CssPropertyInput } from '../preview';
 
+const basicItems = [
+  { href: '/', label: 'Home' },
+  { href: '/docs/breadcrumbs', label: 'Breadcrumbs' },
+  { label: 'Go Developer' },
+] as const;
+
 const collapsedItems = [
   { href: '/docs', label: 'Docs' },
   { href: '/docs/quick-start', label: 'Quick Start' },
@@ -21,15 +27,6 @@ const longLabelStyle: CssVariables = {
 const separatorIconStyle = {
   width: '0.75rem',
   height: '0.25rem',
-};
-
-const collapsedMenuTriggerStyle = {
-  minWidth: 'auto',
-  minHeight: 'auto',
-  padding: 0,
-  border: 'none',
-  background: 'transparent',
-  color: 'inherit',
 };
 
 const collapsedMenuContentStyle: CssVariables = {
@@ -94,19 +91,7 @@ export function BreadcrumbsExample(props: ComponentProps<typeof Breadcrumbs>) {
   return (
     <div style={previewContainerStyle}>
       <Breadcrumbs {...props}>
-        <Breadcrumbs.List>
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Separator />
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Separator />
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-          </Breadcrumbs.Item>
-        </Breadcrumbs.List>
+        <Breadcrumbs.Path items={basicItems} />
       </Breadcrumbs>
     </div>
   );
@@ -123,8 +108,14 @@ export function BreadcrumbsCollapsedExample() {
           <Breadcrumbs.Separator />
           <Breadcrumbs.Item>
             <Menu positioning={{ placement: 'bottom-start' }}>
-              <Menu.Trigger aria-label="Show hidden path items" style={collapsedMenuTriggerStyle}>
-                <Breadcrumbs.Ellipsis />
+              <Menu.Trigger asChild>
+                <button
+                  type="button"
+                  aria-label="Show hidden path items"
+                  className="collapsed-menu-trigger"
+                >
+                  <Breadcrumbs.Ellipsis />
+                </button>
               </Menu.Trigger>
               <Menu.Positioner>
                 <Menu.Content style={collapsedMenuContentStyle}>
@@ -155,23 +146,10 @@ export function BreadcrumbsCustomSeparatorExample() {
   return (
     <div style={previewContainerStyle}>
       <Breadcrumbs>
-        <Breadcrumbs.List>
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Separator>
-            <SeparatorMarkIcon style={separatorIconStyle} />
-          </Breadcrumbs.Separator>
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Separator>
-            <SeparatorMarkIcon style={separatorIconStyle} />
-          </Breadcrumbs.Separator>
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-          </Breadcrumbs.Item>
-        </Breadcrumbs.List>
+        <Breadcrumbs.Path
+          items={basicItems}
+          separator={<SeparatorMarkIcon style={separatorIconStyle} />}
+        />
       </Breadcrumbs>
     </div>
   );
@@ -181,24 +159,20 @@ export function BreadcrumbsLongLabelExample() {
   return (
     <div style={previewContainerStyle}>
       <Breadcrumbs style={longLabelStyle}>
-        <Breadcrumbs.List>
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Separator />
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Separator />
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Page>
-              <span title="Go lang developer to production team with cross-functional ownership and platform support">
-                Go lang developer to production team with cross-functional ownership and platform
-                support
-              </span>
-            </Breadcrumbs.Page>
-          </Breadcrumbs.Item>
-        </Breadcrumbs.List>
+        <Breadcrumbs.Path
+          items={[
+            { href: '/', label: 'Home' },
+            { href: '/docs/breadcrumbs', label: 'Breadcrumbs' },
+            {
+              label: (
+                <span title="Go lang developer to production team with cross-functional ownership and platform support">
+                  Go lang developer to production team with cross-functional ownership and platform
+                  support
+                </span>
+              ),
+            },
+          ]}
+        />
       </Breadcrumbs>
     </div>
   );
