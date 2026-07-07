@@ -36,7 +36,8 @@ actions.
 - `Action` forwards the shared `Button` API except root-provided `size` and `variant` become the
   default values.
 - `Trigger` renders a moduix `Button` as the Ark `Menu.Trigger` host and defaults to a chevron icon
-  with `aria-label="More actions"` when no children are provided.
+  with `aria-label="More actions"` when no children are provided. Custom trigger content is passed
+  through `children`; `Trigger` does not expose its own `asChild` path.
 - `SplitButton.Positioner` and `SplitButton.Content` expose the real popup
   structure. Consumers place shared `Menu.*` rows inside `SplitButton.Content`.
 
@@ -110,8 +111,8 @@ export function SplitButtonExample() {
   child, such as a link.
 - The trigger is a moduix `Button` host wired to Ark `Menu.Trigger`; it receives menu keyboard
   behavior, `aria-expanded`, `aria-controls`, and state attributes from Ark.
-- `SplitButton.Trigger` `asChild` is forwarded to the inner Button. Use it only with one semantic
-  child that can receive button props, Ark Menu trigger ARIA, and keyboard behavior.
+- `SplitButton.Trigger` custom visible content goes through `children` on the built-in Button host
+  so the Ark trigger and moduix Button contracts stay on the same element.
 - Root callbacks keep Ark detail objects, including `onOpenChange(details)`.
 - `SplitButton.Positioner` preserves Ark Menu positioning variables: `--reference-width`,
   `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`, `--z-index`, and
@@ -153,6 +154,8 @@ export function SplitButtonExample() {
 
 ## Local changelog
 
+- 2026-07-07: Removed the trigger-level `asChild` escape hatch so `SplitButton.Trigger` keeps one
+  stable Ark Menu trigger host instead of a nested `asChild` chain.
 - 2026-07-03: Removed `SplitButton` prop/type re-exports from the public moduix surface. Use the
   namespaced parts directly and import upstream helper types from Ark only when needed.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.

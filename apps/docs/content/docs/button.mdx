@@ -65,6 +65,7 @@ set `type="submit"` explicitly for a submit action.
 
 | Prop      | Default   | Values                                                                                   |
 | --------- | --------- | ---------------------------------------------------------------------------------------- |
+| `loading` | `false`   | `boolean`                                                                                |
 | `variant` | `default` | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
 | `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                            |
 | `type`    | `button`  | Native roots only                                                                        |
@@ -81,8 +82,9 @@ code must also prevent navigation or activation.
 
 - Native attributes, events, `className`, and `style` pass through without callback translation.
 - The forwarded ref targets the rendered root.
-- Native `disabled` and `aria-disabled="true"` expose `data-disabled`.
-- Loading UI stays compositional: combine `Spinner`, `disabled`, and `aria-busy`.
+- Native `disabled`, `aria-disabled="true"`, and `loading` expose `data-disabled`.
+- `loading` is narrow sugar: it sets `data-loading`, `aria-busy`, and the disabled styling path
+  while the spinner and label stay fully compositional.
 - Direct child `svg` elements inherit `currentColor` and use `--button-icon-size`.
 - Icon-only buttons require an accessible name.
 - Chakra-only `colorPalette`, responsive recipe props, `ButtonGroup`, and managed loading props are
@@ -186,8 +188,8 @@ activation prevention.
 
 ### Pending State
 
-Compose pending content explicitly so product code controls the label, spinner, and async
-lifecycle.
+Use `loading` for the state wiring while keeping the label, spinner, and async lifecycle explicit
+in product code.
 
 <Preview>
   <ButtonDocs.ButtonLoadingExample />
@@ -198,7 +200,7 @@ lifecycle.
 
 <Preview.CSS>
   {`
-      [data-slot="button-root"][aria-busy="true"] {
+      [data-slot="button-root"][data-loading] {
         cursor: progress;
       }
     `}
@@ -259,5 +261,6 @@ The forwarded ref points at the rendered root and can be used for imperative foc
 - `data-slot="button-root"` is the stable moduix selector.
 - `data-scope="button"` and `data-part="root"` support Ark-style targeting.
 - `data-variant` and `data-size` reflect the active visual recipe.
-- `data-disabled` is present for both native `disabled` and `aria-disabled="true"`.
-- `[data-disabled]` drives disabled visuals for native `disabled` and `aria-disabled="true"`.
+- `data-disabled` is present for native `disabled`, `aria-disabled="true"`, and `loading`.
+- `data-loading` is present when `loading={true}`.
+- `[data-disabled]` drives disabled visuals for native `disabled`, `aria-disabled="true"`, and `loading`.

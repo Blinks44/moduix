@@ -8,6 +8,7 @@ import styles from './Button.module.css';
 const ButtonRoot = forwardRef<
   HTMLButtonElement,
   HTMLArkProps<'button'> & {
+    loading?: boolean;
     variant?:
       | 'default'
       | 'outline'
@@ -24,24 +25,30 @@ const ButtonRoot = forwardRef<
     asChild,
     className,
     disabled,
+    loading = false,
     size = 'md',
     type,
     'data-slot': dataSlot,
     variant = 'default',
+    'aria-busy': ariaBusy,
     'aria-disabled': ariaDisabled,
     ...props
   },
   ref,
 ) {
-  const isDisabled = disabled || ariaDisabled === true || ariaDisabled === 'true';
+  const resolvedAriaBusy = loading ? true : ariaBusy;
+  const resolvedAriaDisabled = loading ? true : ariaDisabled;
+  const isDisabled =
+    disabled || loading || resolvedAriaDisabled === true || resolvedAriaDisabled === 'true';
 
   return (
     <ark.button
       ref={ref}
       asChild={asChild}
       type={asChild ? type : (type ?? 'button')}
-      disabled={disabled}
-      aria-disabled={ariaDisabled}
+      disabled={loading || disabled}
+      aria-busy={resolvedAriaBusy}
+      aria-disabled={resolvedAriaDisabled}
       {...props}
       data-scope="button"
       data-part="root"
@@ -49,6 +56,7 @@ const ButtonRoot = forwardRef<
       data-variant={variant}
       data-size={size}
       data-disabled={isDisabled ? '' : undefined}
+      data-loading={loading ? '' : undefined}
       className={clsx(styles.root, normalizeClassName(className))}
     />
   );

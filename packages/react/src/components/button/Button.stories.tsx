@@ -126,8 +126,7 @@ export const PendingState: Story = {
 
     return (
       <Button
-        disabled={pending}
-        aria-busy={pending || undefined}
+        loading={pending}
         onClick={() => {
           setPending(true);
           setTimeout(() => setPending(false), 1800);

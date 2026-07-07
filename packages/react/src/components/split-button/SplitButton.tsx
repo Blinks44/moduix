@@ -34,7 +34,7 @@ type SplitButtonActionProps = Omit<ButtonProps, 'size' | 'variant'> & {
   variant?: SplitButtonVariant;
 };
 
-type SplitButtonTriggerProps = ComponentProps<typeof Menu.Trigger> & {
+type SplitButtonTriggerProps = Omit<ComponentProps<typeof Menu.Trigger>, 'asChild'> & {
   size?: SplitButtonSize;
   variant?: SplitButtonVariant;
 };
@@ -94,7 +94,7 @@ const SplitButtonAction = forwardRef<ComponentRef<typeof Button>, SplitButtonAct
 
 const SplitButtonTrigger = forwardRef<ComponentRef<typeof Menu.Trigger>, SplitButtonTriggerProps>(
   function SplitButtonTrigger(
-    { asChild, children, className, size, variant, 'aria-label': ariaLabel, ...props },
+    { children, className, size, variant, 'aria-label': ariaLabel, ...props },
     ref,
   ) {
     const context = useSplitButtonContext('SplitButton.Trigger');
@@ -109,7 +109,7 @@ const SplitButtonTrigger = forwardRef<ComponentRef<typeof Menu.Trigger>, SplitBu
         className={clsx(styles.trigger, normalizeClassName(className))}
         {...props}
       >
-        <Button asChild={asChild} size={size ?? context.size} variant={variant ?? context.variant}>
+        <Button size={size ?? context.size} variant={variant ?? context.variant}>
           {children ?? <ChevronDownIcon />}
         </Button>
       </Menu.Trigger>

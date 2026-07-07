@@ -27,11 +27,13 @@ composition.
 - Keeps `Button` as a callable alias of `Button.Root`.
 - Supports Ark factory root props such as `asChild`, `className`, `style`, event handlers, and
   native button attributes.
-- `variant` and `size` are the only local root props. They map to `data-variant` and `data-size`.
+- `variant`, `size`, and `loading` are the local root props. `variant` and `size` map to
+  `data-variant` and `data-size`; `loading` sets `data-loading`, `aria-busy`, and the disabled
+  styling path.
 - The package exports only the `Button` value. Derive its props with
   `React.ComponentProps<typeof Button>` when a wrapper needs them.
 - Native roots default to `type="button"`; pass `type="submit"` explicitly for form submission.
-- `disabled` and `aria-disabled="true"` expose `data-disabled`.
+- `disabled`, `aria-disabled="true"`, and `loading` expose `data-disabled`.
 - The forwarded ref targets the rendered button element.
 - Writes `data-scope="button"`, `data-part="root"`, and `data-slot="button-root"` on the root by
   default. Composed moduix wrappers may pass a narrower `data-slot` while preserving button
@@ -80,10 +82,12 @@ equivalent labeling mechanism.
 - `Composition`: preserved through Ark factory `asChild` behavior.
 - `Ref`: forwarded to the rendered root for focus and measurement.
 - `Disabled`: native `disabled` and composed `aria-disabled` states share `data-disabled`.
-- `Loading`: supported through child composition with `Spinner`, `disabled`, and `aria-busy`.
+- `Loading`: supported through child composition with `Spinner`; the local `loading` prop adds the
+  disabled and busy state wiring without taking over layout or content.
 - `Chakra recipe features`: variants, sizes, icons, disabled state, loading composition, links through
   `asChild`, custom radius through CSS variables, and refs are covered. Chakra-only `colorPalette`,
-  responsive recipe props, `ButtonGroup`, and managed `loading` props are intentionally not exposed.
+  responsive recipe props, `ButtonGroup`, and managed `loadingText` / `spinnerPlacement` props are
+  intentionally not exposed.
 - `Dedicated primitive features`: not applicable because Ark has no dedicated `Button` component
   page for this wrapper to mirror.
 - `Native button semantics`: preserved through the root `button` element and native attributes.
@@ -96,17 +100,20 @@ equivalent labeling mechanism.
   - `data-variant="<variant>"`
   - `data-size="<size>"`
 - Disabled styling is driven by `[data-disabled]`.
-- `data-disabled` is present for native `disabled` and `aria-disabled="true"`.
+- `data-disabled` is present for native `disabled`, `aria-disabled="true"`, and `loading`.
+- `data-loading` is present when `loading={true}`.
 - `Button.Root` forwards native button attributes and event handlers without wrapper translation.
 - `Button.Root` forwards its ref to the rendered root.
 - `aria-disabled` on a non-button `asChild` target does not block activation by itself. Application
   code must prevent navigation or activation.
+- `loading={true}` forces `aria-busy` and keeps the loading indicator content fully compositional.
 - Icon-only buttons still need an accessible name through `aria-label` or equivalent labeling.
 
 ## Defaults and styling
 
 | Entry       | Default   | Values                                                                                   |
 | ----------- | --------- | ---------------------------------------------------------------------------------------- |
+| `loading`   | `false`   | `boolean`                                                                                |
 | `variant`   | `default` | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
 | `size`      | `md`      | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                            |
 | `type`      | `button`  | Native roots only; not injected into `asChild` targets                                   |
@@ -180,8 +187,9 @@ Primary CSS variables:
 
 - Ark UI has no button primitive here; moduix owns the root wrapper.
 - moduix ships pre-styled defaults and the local `variant` / `size` shortcuts.
-- moduix keeps loading UI compositional instead of copying Chakra's managed `loading`,
-  `loadingText`, `spinner`, and `spinnerPlacement` props.
+- moduix keeps loading content compositional but adds a narrow `loading` prop for the busy and
+  disabled state wiring instead of copying Chakra's managed `loadingText`, `spinner`, and
+  `spinnerPlacement` props.
 - The old legacy `render`, `nativeButton`, and `focusableWhenDisabled` surface is removed. Use
   `asChild` for polymorphism and native `disabled` or `aria-disabled` depending on the rendered
   element.
@@ -192,13 +200,17 @@ Primary CSS variables:
 - Keep `variant` and `size` synchronized across `Button.tsx`, CSS, stories, docs, and theme tokens.
 - Preserve the native-root `type="button"` default and do not forward that default through
   `asChild`.
-- Keep `data-disabled` synchronized with both native `disabled` and `aria-disabled`.
+- Keep `data-disabled` synchronized with native `disabled`, `aria-disabled`, and `loading`.
+- Keep `loading` narrow: it owns busy/disabled state only, not spinner structure or loading text.
 - Keep the `data-slot` default as `button-root`, but preserve the narrow override path for composed
   wrappers that need their own stable slot.
 - Do not reintroduce Base button shims or converted prop names.
 
 ## Local changelog
 
+- 2026-07-07: Added narrow `loading` state sugar that sets `data-loading`, `aria-busy`, and the
+  disabled styling path, softened the default hover fallback, and aligned link sizing plus press
+  feedback with the recommended usage contract.
 - 2026-07-02: Removed the public `ButtonRootProps`, `ButtonSize`, and `ButtonVariant` aliases while
   preserving the callable root and all local variant, size, composition, state, and styling sugar.
 - 2026-06-25: Allowed composed wrappers to override only the root `data-slot` while keeping

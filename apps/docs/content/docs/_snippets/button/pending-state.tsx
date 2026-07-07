@@ -13,8 +13,7 @@ export function PendingButton() {
 
   return (
     <Button
-      disabled={pending}
-      aria-busy={pending || undefined}
+      loading={pending}
       onClick={() => {
         setPending(true);
         setTimeout(() => setPending(false), delay);
