@@ -30,6 +30,8 @@ component built with `@ark-ui/react/factory` and Chakra's Card anatomy.
   `Card.Title`, `Card.Description`, `Card.Action`, and `Card.Link`.
 - The callable `Card` export is the recommended root form; `Card.Root` is the equivalent
   namespaced form.
+- The component keeps the Chakra and shadcn card mental model while renaming shadcn's
+  `CardContent` to `Card.Body` and keeping every visual part under the `Card.*` namespace.
 - `Card.Root` defaults `size` to `'md'`.
 - `Card.Root` defaults `variant` to `'outline'`.
 - `Card.Title` renders `h3` by default and uses Ark `asChild` for heading-level changes.
@@ -51,16 +53,16 @@ Card.Root
 
 Every exported part accepts `className` and keeps stable hooks:
 
-| Part               | `data-slot`        | Notes                                            |
-| ------------------ | ------------------ | ------------------------------------------------ |
-| `Card.Root`        | `card-root`        | Root surface with size, variant, and background. |
-| `Card.Header`      | `card-header`      | Header grid for title, description, and action.  |
-| `Card.Body`        | `card-body`        | Main body area with content spacing.             |
-| `Card.Footer`      | `card-footer`      | Wrapping footer row for actions or metadata.     |
-| `Card.Title`       | `card-title`       | Heading part, defaults to `h3`.                  |
-| `Card.Description` | `card-description` | Supporting text under the title.                 |
-| `Card.Action`      | `card-action`      | Optional trailing header slot.                   |
-| `Card.Link`        | `card-link`        | Overlay link for cards with nested actions.      |
+| Part               | `data-slot`        | Notes                                                 |
+| ------------------ | ------------------ | ----------------------------------------------------- |
+| `Card.Root`        | `card-root`        | Root surface with size, variant, and background.      |
+| `Card.Header`      | `card-header`      | Header grid for title, description, and action.       |
+| `Card.Body`        | `card-body`        | Main body area with content spacing.                  |
+| `Card.Footer`      | `card-footer`      | Wrapping footer row for actions or metadata.          |
+| `Card.Title`       | `card-title`       | Heading part, defaults to `h3`.                       |
+| `Card.Description` | `card-description` | Supporting text under the title.                      |
+| `Card.Action`      | `card-action`      | Optional trailing header slot.                        |
+| `Card.Link`        | `card-link`        | Stretched overlay link for cards with nested actions. |
 
 ## Composition
 
@@ -122,6 +124,14 @@ Use `Card.Link` inside `Card.Title` when the card must navigate and still keep n
 </Card.Root>
 ```
 
+Decision guide:
+
+| Situation                                                              | Recommended API                                                                        |
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Whole card is one link and there are no nested controls.               | `Card.Root asChild` with an anchor child.                                              |
+| Card should navigate and also expose separate buttons or menu actions. | `Card.Link` inside `Card.Title`, plus `Card.Action` when a trailing control is needed. |
+| Card is presentational only.                                           | Plain `Card` composition with no link sugar.                                           |
+
 ## Upstream feature coverage
 
 - `Multipart anatomy`: preserved through the exported card parts.
@@ -149,7 +159,8 @@ Use `Card.Link` inside `Card.Title` when the card must navigate and still keep n
 - Every part forwards its ref to the rendered DOM element.
 - `asChild` requires one semantic child that can accept the merged props and ref.
 - `Card.Action` is layout only and does not create ownership or ARIA relationships.
-- `Card.Link` owns the overlay click target and focus ring for the linked-card pattern.
+- `Card.Link` owns the overlay click target and focus ring for the linked-card stretched-link
+  pattern.
 - Card has no managed state, callback details, provider/context API, form context integration,
   `HiddenInput`, or runtime CSS variables because it is not an interactive Ark primitive.
 
@@ -201,8 +212,10 @@ Public CSS variables:
   anatomy as the contract reference.
 - moduix preserves Chakra's `sm`, `md`, and `lg` sizes plus the `elevated`, `outline`, and `subtle`
   variants. Horizontal layout remains composition-driven CSS rather than a root prop.
+- moduix keeps a namespaced compound API instead of shadcn's flat exports and intentionally renames
+  `CardContent` to `Card.Body`.
 - `Card.Action` and `Card.Link` remain narrow moduix extensions for header-side actions and the
-  overlay-link pattern.
+  stretched overlay-link pattern.
 
 ## Agent notes
 
@@ -213,6 +226,9 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-07: Clarified the shadcn migration path, documented the `CardContent` to `Card.Body`
+  rename explicitly, and tightened the linked-card guidance around `Card.Root asChild` versus
+  `Card.Link`.
 - 2026-07-02: Removed duplicate prop and variant type exports while preserving the callable root,
   every visual part, and the moduix size, variant, action, and overlay-link sugar.
 - 2026-06-24: Finalized the Ark factory migration review by aligning public docs with the

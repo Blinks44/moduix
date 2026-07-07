@@ -17,6 +17,9 @@ Ark UI does not ship a dedicated card primitive. Moduix builds this component wi
 
 Use the callable `<Card />` root with namespaced parts for the standard card composition.
 
+If you are moving from shadcn, the mental model stays the same. The main API change is
+`CardContent` becoming `Card.Body`, while the other parts stay namespaced under `Card`.
+
 <Preview>
   <CardDocs.CardExample />
 
@@ -51,16 +54,16 @@ Card.Root
 
 `Card` and `Card.Root` are the same root component.
 
-| Part                 | Role                                                                          |
-| -------------------- | ----------------------------------------------------------------------------- |
-| `Card` / `Card.Root` | Root surface with `size`, `variant`, and `asChild`.                           |
-| `Card.Header`        | Header layout for title, description, and an optional trailing action.        |
-| `Card.Body`          | Main content area.                                                            |
-| `Card.Footer`        | Wrapping action or metadata row.                                              |
-| `Card.Title`         | Heading part. Defaults to `h3`; use `asChild` for another heading level.      |
-| `Card.Description`   | Supporting text.                                                              |
-| `Card.Action`        | moduix header-side layout slot.                                               |
-| `Card.Link`          | moduix overlay link for a navigable card that also contains separate actions. |
+| Part                 | Role                                                                                    |
+| -------------------- | --------------------------------------------------------------------------------------- |
+| `Card` / `Card.Root` | Root surface with `size`, `variant`, and `asChild`.                                     |
+| `Card.Header`        | Header layout for title, description, and an optional trailing action.                  |
+| `Card.Body`          | Main content area.                                                                      |
+| `Card.Footer`        | Wrapping action or metadata row.                                                        |
+| `Card.Title`         | Heading part. Defaults to `h3`; use `asChild` for another heading level.                |
+| `Card.Description`   | Supporting text.                                                                        |
+| `Card.Action`        | moduix header-side layout slot.                                                         |
+| `Card.Link`          | moduix stretched overlay link for a navigable card that also contains separate actions. |
 
 ## Composition
 
@@ -75,7 +78,15 @@ Use `asChild` when one semantic child should own a part's DOM node. Ark composit
 one child. A linked root must not contain nested buttons, inputs, or links.
 
 Use `Card.Link` inside the title when the card needs an overlay navigation target and also contains
-independent controls. `Card.Action` only provides layout and does not create ARIA relationships.
+independent controls. `Card.Link` is the stretched-link pattern for cards: it keeps the visible link
+in the title, then extends the hit area across the card while separate controls stay interactive.
+`Card.Action` only provides layout and does not create ARIA relationships.
+
+| Situation                                                                                 | Recommended API                                                |
+| ----------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| The whole card is one link and there are no nested controls.                              | `Card asChild` with an `<a>` root                              |
+| The card should navigate, but it also contains buttons, menus, or other separate actions. | `Card.Link` inside `Card.Title`, optionally with `Card.Action` |
+| The card is only a grouped surface and does not navigate.                                 | Plain `Card` composition without link sugar                    |
 
 ### Default props
 
