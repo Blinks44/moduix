@@ -103,6 +103,19 @@ const AngleSliderMarker = forwardRef<
   );
 });
 
+function AngleSliderMarks({
+  values,
+  ...props
+}: ComponentProps<typeof AngleSliderPrimitive.MarkerGroup> & { values: readonly number[] }) {
+  return (
+    <AngleSliderMarkerGroup {...props}>
+      {values.map((value) => (
+        <AngleSliderMarker key={value} value={value} />
+      ))}
+    </AngleSliderMarkerGroup>
+  );
+}
+
 const AngleSliderValueText = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.ValueText>,
   ComponentProps<typeof AngleSliderPrimitive.ValueText>
@@ -139,6 +152,7 @@ const AngleSlider = Object.assign(AngleSliderRoot, {
   Thumb: AngleSliderThumb,
   MarkerGroup: AngleSliderMarkerGroup,
   Marker: AngleSliderMarker,
+  Marks: AngleSliderMarks,
   ValueText: AngleSliderValueText,
   HiddenInput: AngleSliderHiddenInput,
 });

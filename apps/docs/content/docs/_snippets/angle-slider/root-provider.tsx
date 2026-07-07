@@ -17,15 +17,10 @@ export function RootProviderAngleSliderDemo() {
       <AngleSlider.RootProvider value={angleSlider} className="docs-angle-slider-provider">
         <AngleSlider.Label>Rotation</AngleSlider.Label>
         <AngleSlider.Control>
-          <AngleSlider.MarkerGroup>
-            {markerValues.map((value) => (
-              <AngleSlider.Marker key={value} value={value} />
-            ))}
-          </AngleSlider.MarkerGroup>
+          <AngleSlider.Marks values={markerValues} />
           <AngleSlider.Thumb />
         </AngleSlider.Control>
         <AngleSlider.ValueText />
-        <AngleSlider.HiddenInput />
       </AngleSlider.RootProvider>
       <button
         type="button"

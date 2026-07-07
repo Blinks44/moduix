@@ -15,15 +15,10 @@ export function SteppedAngleSliderDemo() {
     >
       <AngleSlider.Label>15 Step</AngleSlider.Label>
       <AngleSlider.Control>
-        <AngleSlider.MarkerGroup>
-          {markerValues.map((value) => (
-            <AngleSlider.Marker key={value} value={value} />
-          ))}
-        </AngleSlider.MarkerGroup>
+        <AngleSlider.Marks values={markerValues} />
         <AngleSlider.Thumb />
       </AngleSlider.Control>
       <AngleSlider.ValueText />
-      <AngleSlider.HiddenInput />
     </AngleSlider>
   );
 }

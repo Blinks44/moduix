@@ -17,15 +17,10 @@ export function ControlledAngleSliderDemo() {
     >
       <AngleSlider.Label>Heading</AngleSlider.Label>
       <AngleSlider.Control>
-        <AngleSlider.MarkerGroup>
-          {markerValues.map((markerValue) => (
-            <AngleSlider.Marker key={markerValue} value={markerValue} />
-          ))}
-        </AngleSlider.MarkerGroup>
+        <AngleSlider.Marks values={markerValues} />
         <AngleSlider.Thumb />
       </AngleSlider.Control>
       <AngleSlider.ValueText />
-      <AngleSlider.HiddenInput />
     </AngleSlider>
   );
 }

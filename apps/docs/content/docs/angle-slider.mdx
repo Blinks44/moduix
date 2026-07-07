@@ -20,8 +20,8 @@ Use `AngleSlider` when users should manipulate a direction or rotation directly 
 
 ## Basic
 
-Compose the Ark parts explicitly. Markers provide reference points, `Thumb` owns keyboard focus and
-the active angle indicator, and `HiddenInput` enables native form submission.
+Start with the smallest useful composition: `Control` and `Thumb`. Add a visible `Label` later, or
+keep `aria-label` on the root when the dial can stand alone.
 
 <Preview>
   <AngleSliderDocs.AngleSliderExample />
@@ -57,6 +57,7 @@ AngleSlider.Root
 | `AngleSlider.Control`              | Circular pointer interaction surface.                                 |
 | `AngleSlider.MarkerGroup`          | Contains optional reference markers.                                  |
 | `AngleSlider.Marker`               | Positions a numeric marker and exposes its relation to current value. |
+| `AngleSlider.Marks`                | Convenience wrapper that renders `MarkerGroup` and `Marker` items.    |
 | `AngleSlider.Thumb`                | Focusable slider handle and rotating angle indicator.                 |
 | `AngleSlider.ValueText`            | Renders the current value as degree text.                             |
 | `AngleSlider.HiddenInput`          | Participates in native form submission and reset.                     |
@@ -65,14 +66,20 @@ AngleSlider.Root
 
 ### Recommended composition
 
-Use the full part tree shown above. `MarkerGroup` is optional, but `Label`, `Thumb`, and
-`HiddenInput` should remain when their accessibility and form behavior are needed.
+Start with `Control` and `Thumb`, then add only the parts that match the job:
+
+- add `Label` or keep `aria-label` for accessible naming
+- add `Marks` when users need reference points around the dial
+- add `ValueText` when the numeric angle should stay visible
+- add `HiddenInput` only for native form submission or reset synchronization
 
 ### When to go custom
 
-Use Ark's `useAngleSlider` with `AngleSlider.RootProvider` when state must be controlled outside
-the rendered slider subtree. Import context parts and state hooks directly from
-`@ark-ui/react/angle-slider`. Do not render `Root` and `RootProvider` for the same state instance.
+Use explicit `MarkerGroup` and `Marker` parts when markers need custom children, per-marker props,
+or nonstandard ordering. Use Ark's `useAngleSlider` with `AngleSlider.RootProvider` when state must
+be controlled outside the rendered slider subtree. Import context parts and state hooks directly
+from `@ark-ui/react/angle-slider`. Do not render `Root` and `RootProvider` for the same state
+instance.
 
 Every DOM part supports Ark `asChild`. Supply one semantic child that can preserve the part's
 keyboard, focus, ARIA, and pointer behavior. Use `ids` on `Root` when composed elements need stable
@@ -93,12 +100,42 @@ shared IDs. Refs are forwarded to the DOM element rendered by each wrapped Ark p
 - `value` is a single number; `onValueChange(details)` and `onValueChangeEnd(details)` preserve Ark
   callback objects with `details.value` and `details.valueAsDegree`.
 - The thumb supports Ark slider keyboard behavior and pointer dragging around the circular control.
-- Set `name` and render `HiddenInput` for native form submission and reset synchronization.
+- `AngleSlider.Marks` renders the same marker DOM and styling hooks as explicit `MarkerGroup` /
+  `Marker` composition.
+- Set `name` and render `HiddenInput` only when native form submission and reset synchronization are
+  needed.
 - `ValueText` renders Ark's degree string when no custom children are provided.
 - `data-disabled`, `data-invalid`, `data-readonly`, marker `data-state`, `--value`, `--angle`,
   `--marker-value`, and `--marker-display-value` remain available for styling.
 
 ## Examples
+
+### With Marks
+
+Use `AngleSlider.Marks` when the dial should show common reference angles without repeating
+`MarkerGroup` and `Marker` boilerplate.
+
+<Preview>
+  <AngleSliderDocs.AngleSliderWithMarksExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/angle-slider/with-marks.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AngleSliderDocs.angleSliderWithMarksCss}</Preview.CSS>
+</Preview>
+
+### In a Form
+
+Add `name` and `HiddenInput` when the angle must participate in native form submission or reset.
+
+<Preview>
+  <AngleSliderDocs.FormAngleSliderExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/angle-slider/form.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AngleSliderDocs.angleSliderFormCss}</Preview.CSS>
+</Preview>
 
 ### Controlled
 
@@ -139,6 +176,19 @@ Use `disabled` when the control must be unavailable and excluded from interactio
   <Preview.CSS>{AngleSliderDocs.angleSliderDisabledCss}</Preview.CSS>
 </Preview>
 
+### Read Only
+
+Use `readOnly` when the current value should remain focusable and visible without allowing edits.
+
+<Preview>
+  <AngleSliderDocs.ReadOnlyAngleSliderExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/angle-slider/read-only.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AngleSliderDocs.angleSliderReadOnlyCss}</Preview.CSS>
+</Preview>
+
 ### Root Provider
 
 Use Ark's `useAngleSlider` and the moduix `RootProvider` when another control needs direct access
@@ -151,19 +201,6 @@ to the same state machine.
     <include lang="tsx">./_snippets/angle-slider/root-provider.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AngleSliderDocs.angleSliderRootProviderCss}</Preview.CSS>
-</Preview>
-
-### Read Only
-
-Use `readOnly` when the current value should remain focusable and visible without allowing edits.
-
-<Preview>
-  <AngleSliderDocs.ReadOnlyAngleSliderExample />
-
-  <Preview.Code>
-    <include lang="tsx">./_snippets/angle-slider/read-only.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{AngleSliderDocs.angleSliderReadOnlyCss}</Preview.CSS>
 </Preview>
 
 ## Styling
@@ -185,5 +222,7 @@ variables below.
   `:focus-visible`.
 - `data-slot="angle-slider-marker"` exposes `data-value` and
   `data-state="under-value | at-value | over-value"`.
+- `AngleSlider.Marks` renders the same `data-slot="angle-slider-marker-group"` and
+  `data-slot="angle-slider-marker"` hooks as the explicit marker parts.
 - Ark root variables `--value` and `--angle` and marker variables `--marker-value` and
   `--marker-display-value` are preserved.

@@ -3,6 +3,7 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/angle-slider
+- Chakra UI Slider: https://chakra-ui.com/docs/components/slider
 
 ## Purpose
 
@@ -22,12 +23,14 @@ Upstream docs:
 
 - `AngleSlider` is the styled root and is equivalent to `AngleSlider.Root`.
 - All DOM parts are thin wrappers over the corresponding Ark parts and forward refs.
-- Context parts, state hooks, and Ark type aliases are imported directly from
-  `@ark-ui/react/angle-slider`.
+- `AngleSlider.Marks` is narrow sugar for `MarkerGroup` plus repeated `Marker` children from a
+  `values` array.
 - `value`, `defaultValue`, `step`, `disabled`, `invalid`, `readOnly`, `name`, `ids`,
   `onValueChange(details)`, and `onValueChangeEnd(details)` pass through unchanged.
-- Visible parts and `HiddenInput` are explicitly composed; the wrapper does not generate markers or
-  form controls.
+- The lightest recommended composition is `Control` plus `Thumb`, with `Label`, `Marks`,
+  `ValueText`, and `HiddenInput` added only when that behavior is needed.
+- Context parts, state hooks, and Ark type aliases are imported directly from
+  `@ark-ui/react/angle-slider`.
 
 ## Anatomy and exported parts
 
@@ -56,6 +59,9 @@ Externally owned state replaces `Root` with `RootProvider`.
 | `AngleSlider.ValueText`    | `angle-slider-value-text`    |
 | `AngleSlider.HiddenInput`  | `angle-slider-hidden-input`  |
 
+`AngleSlider.Marks` renders the same `MarkerGroup` and `Marker` slots; it does not add a separate
+DOM part or styling hook.
+
 ## Composition
 
 ```tsx
@@ -65,44 +71,44 @@ const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
 
 export function RotationAngleSlider() {
   return (
-    <AngleSlider.Root defaultValue={135} aria-label="Rotation" name="rotation">
+    <AngleSlider defaultValue={135} aria-label="Rotation" name="rotation">
       <AngleSlider.Label>Rotation</AngleSlider.Label>
       <AngleSlider.Control>
-        <AngleSlider.MarkerGroup>
-          {markerValues.map((value) => (
-            <AngleSlider.Marker key={value} value={value} />
-          ))}
-        </AngleSlider.MarkerGroup>
+        <AngleSlider.Marks values={markerValues} />
         <AngleSlider.Thumb />
       </AngleSlider.Control>
       <AngleSlider.ValueText />
       <AngleSlider.HiddenInput />
-    </AngleSlider.Root>
+    </AngleSlider>
   );
 }
 ```
 
+Use explicit `MarkerGroup` and `Marker` when markers need custom children, per-marker props, or
+custom ordering.
+
 ## Upstream feature coverage
 
-- Official MDX examples `Basic`, `Controlled`, and `Steps` are supported and documented.
+- Official Ark example surfaces `Basic`, `Controlled`, and `Steps` are supported and documented.
 - Ark example surfaces `Disabled` and `Root Provider` are also supported and documented.
 - `readOnly`, `invalid`, `name`, `ids`, `onValueChangeEnd`, `asChild`, and part refs pass through.
 - `RootProvider` accepts the return value of Ark's `useAngleSlider`.
+- Chakra's `Slider.Marks` convenience informed the narrow `AngleSlider.Marks` sugar, but the
+  underlying Ark part tree remains available.
 
 ## Accessibility and state
 
 - `Label` and `aria-label` / `aria-labelledby` preserve Ark slider naming.
 - `Thumb` remains the focusable slider element with Ark keyboard and ARIA behavior.
-- `HiddenInput` is required when native form submission and reset synchronization are needed.
-- `disabled`, `invalid`, and `readOnly` are Ark root props. The primitive does not expose a separate
-  moduix form-state context adapter.
+- `HiddenInput` is only needed when native form submission and reset synchronization are required.
+- `disabled`, `invalid`, and `readOnly` are Ark root props. The wrapper does not add a separate
+  moduix form-state adapter.
 - `asChild` is available on Ark DOM parts and requires one semantic child that can preserve the
   part's interaction contract.
 - `ids` can stabilize the root, thumb, hidden input, control, value text, and label IDs.
 - Ark state hooks remain intact:
   - root, label, control, and thumb: `data-disabled`, `data-invalid`, `data-readonly`
-  - marker: `data-value`, `data-disabled`, and
-    `data-state="under-value | at-value | over-value"`
+  - marker: `data-value`, `data-disabled`, and `data-state="under-value | at-value | over-value"`
 - Ark CSS variables remain intact:
   - root: `--value`, `--angle`
   - marker: `--marker-value`, `--marker-display-value`
@@ -115,25 +121,34 @@ export function RotationAngleSlider() {
 - Public `--angle-slider-*` variables are registered in `src/lib/moduix/styles/theme.css`.
 - Focus styling follows `Thumb:focus-visible`; invalid, disabled, read-only, and marker styling use
   Ark state attributes rather than legacy classes or wrapper state.
+- `AngleSlider.Marks` preserves the same marker styling hooks as explicit `MarkerGroup` /
+  `Marker` composition.
 
 ## Intentional sugar and differences from upstream
 
 - Ark is headless; moduix provides default visuals and stable `data-slot` hooks.
-- Markers remain explicit instead of being generated from a wrapper prop.
-- No legacy aliases, positional callback adapters, custom state context, or `render` prop remain.
+- `AngleSlider.Marks` is the only marker sugar. It reduces repeated docs and app boilerplate without
+  generating thumbs, labels, value text, or form controls.
+- Explicit `MarkerGroup` and `Marker` composition remains supported and is still the escape hatch
+  for custom marker rendering.
 - moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
   aliases. Advanced consumers import those directly from `@ark-ui/react/angle-slider`.
+- No legacy aliases, positional callback adapters, custom state context, or `render` prop remain.
 
 ## Agent notes
 
 - Keep `RootProvider` styled with the same root class as `Root`.
+- Keep `AngleSlider.Marks` as narrow sugar over `MarkerGroup` and `Marker`; do not expand it into a
+  configuration surface for thumb, label, or form behavior.
 - Do not render both `Root` and `RootProvider` for one machine.
 - Preserve the Ark detail object passed to value callbacks.
 - Keep geometry driven by Ark `--angle` / marker variables and state attributes.
-- Keep docs previews synchronized with `Code`, `Styles`, and `Data` tabs.
+- Keep docs previews synchronized with `Code` and `CSS`.
 
 ## Local changelog
 
+- 2026-07-07: Added `AngleSlider.Marks`, shifted docs and stories to a lighter default composition,
+  and made `HiddenInput` form-specific in recommended examples.
 - 2026-07-02: Removed duplicate Ark type exports, the context part, and state hooks from the moduix
   surface. Kept `RootProvider`, the callable root, every styled visual part, and form behavior.
 - 2026-06-24: Removed stale control focus styling, kept read-only thumbs pointer-focusable,
