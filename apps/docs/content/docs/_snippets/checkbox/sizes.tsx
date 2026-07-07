@@ -7,9 +7,7 @@ const _defaultChecked = true;
 export function CheckboxSizesDemo() {
   return (
     <Checkbox size="lg" defaultChecked>
-      <Checkbox.Control>
-        <Checkbox.Indicator />
-      </Checkbox.Control>
+      <Checkbox.Control />
       <Checkbox.Label>Large</Checkbox.Label>
       <Checkbox.HiddenInput />
     </Checkbox>

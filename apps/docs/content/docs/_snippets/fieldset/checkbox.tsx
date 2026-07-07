@@ -19,9 +19,7 @@ export function EmailPreferences() {
       <Fieldset.Legend>Email preferences</Fieldset.Legend>
       {preferences.map((preference) => (
         <Checkbox key={preference.value} value={preference.value}>
-          <Checkbox.Control>
-            <Checkbox.Indicator />
-          </Checkbox.Control>
+          <Checkbox.Control />
           <Checkbox.Label>{preference.label}</Checkbox.Label>
           <Checkbox.HiddenInput />
         </Checkbox>

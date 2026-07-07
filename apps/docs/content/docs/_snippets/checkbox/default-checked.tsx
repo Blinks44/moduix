@@ -10,9 +10,7 @@ const _labels = {
 export function CheckboxDefaultCheckedDemo() {
   return (
     <Checkbox defaultChecked>
-      <Checkbox.Control>
-        <Checkbox.Indicator />
-      </Checkbox.Control>
+      <Checkbox.Control />
       <Checkbox.Label>Enable notifications</Checkbox.Label>
       <Checkbox.HiddenInput />
     </Checkbox>

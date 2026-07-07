@@ -41,20 +41,6 @@ const CheckboxRootProvider = forwardRef<
   );
 });
 
-const CheckboxControl = forwardRef<
-  ComponentRef<typeof CheckboxPrimitive.Control>,
-  ComponentProps<typeof CheckboxPrimitive.Control>
->(function CheckboxControl({ className, ...props }, ref) {
-  return (
-    <CheckboxPrimitive.Control
-      ref={ref}
-      data-slot="checkbox-control"
-      className={clsx(styles.control, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
-
 const CheckboxIndicator = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.Indicator>,
   ComponentProps<typeof CheckboxPrimitive.Indicator>
@@ -77,6 +63,27 @@ const CheckboxIndicator = forwardRef<
         </span>
       )}
     </CheckboxPrimitive.Indicator>
+  );
+});
+
+const CheckboxControl = forwardRef<
+  ComponentRef<typeof CheckboxPrimitive.Control>,
+  ComponentProps<typeof CheckboxPrimitive.Control>
+>(function CheckboxControl({ children, className, ...props }, ref) {
+  return (
+    <CheckboxPrimitive.Control
+      ref={ref}
+      data-slot="checkbox-control"
+      className={clsx(styles.control, normalizeClassName(className))}
+      {...props}
+    >
+      {children ?? (
+        <>
+          <CheckboxIndicator />
+          <CheckboxIndicator indeterminate />
+        </>
+      )}
+    </CheckboxPrimitive.Control>
   );
 });
 

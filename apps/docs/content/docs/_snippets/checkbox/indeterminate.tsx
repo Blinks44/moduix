@@ -6,10 +6,7 @@ const _checked = 'indeterminate';
 export function CheckboxIndeterminateDemo() {
   return (
     <Checkbox checked="indeterminate">
-      <Checkbox.Control>
-        <Checkbox.Indicator />
-        <Checkbox.Indicator indeterminate />
-      </Checkbox.Control>
+      <Checkbox.Control />
       <Checkbox.Label>Select all team members</Checkbox.Label>
       <Checkbox.HiddenInput />
     </Checkbox>

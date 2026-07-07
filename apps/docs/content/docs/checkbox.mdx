@@ -12,7 +12,8 @@ import * as CheckboxDocs from '@/components/examples/checkbox';
 
 ## Basic
 
-Use the Ark part tree directly: `Checkbox.Root`, `Checkbox.Control`, `Checkbox.Indicator`,
+Use the Ark part tree directly. For the common path, `Checkbox.Control` already renders the default
+checked and indeterminate indicators, so most checkboxes only need `Checkbox.Control`,
 `Checkbox.Label`, and `Checkbox.HiddenInput`.
 
 <Preview>
@@ -48,15 +49,15 @@ Checkbox.Group
    └─ Checkbox.HiddenInput
 ```
 
-| Part                         | Role                                                                  |
-| ---------------------------- | --------------------------------------------------------------------- |
-| `Checkbox` / `Checkbox.Root` | Owns one checkbox state and renders the wrapping label element.       |
-| `Checkbox.RootProvider`      | Connects parts to Ark state created outside the rendered subtree.     |
-| `Checkbox.Control`           | Visual control surface. Styles checked, indeterminate, invalid state. |
-| `Checkbox.Indicator`         | Checked or indeterminate icon slot. Use `indeterminate` when needed.  |
-| `Checkbox.Label`             | Visible label text inside the root.                                   |
-| `Checkbox.HiddenInput`       | Native input for forms, validation, form reset, and submission.       |
-| `Checkbox.Group`             | Shares value state across multiple checkbox roots.                    |
+| Part                         | Role                                                                                     |
+| ---------------------------- | ---------------------------------------------------------------------------------------- |
+| `Checkbox` / `Checkbox.Root` | Owns one checkbox state and renders the wrapping label element.                          |
+| `Checkbox.RootProvider`      | Connects parts to Ark state created outside the rendered subtree.                        |
+| `Checkbox.Control`           | Visual control surface. Renders default checked and indeterminate indicators when empty. |
+| `Checkbox.Indicator`         | Optional icon slot for custom icon composition. Use `indeterminate` when needed.         |
+| `Checkbox.Label`             | Visible label text inside the root.                                                      |
+| `Checkbox.HiddenInput`       | Native input for forms, validation, form reset, and submission.                          |
+| `Checkbox.Group`             | Shares value state across multiple checkbox roots.                                       |
 
 ## Composition
 
@@ -69,12 +70,15 @@ Keep the Ark part tree visible. `Checkbox.Root` accepts Ark root props such as `
 `Checkbox.Group` accepts `value`, `defaultValue`, `onValueChange(value)`, `disabled`, `readOnly`,
 `invalid`, `maxSelectedValues`, and `name`.
 
-`size` is the only moduix DX prop. Apply it on `Checkbox.Root` or `Checkbox.RootProvider`.
+`Checkbox.Control` is the default moduix shortcut: leave it empty for the built-in icons, or pass
+children when you want custom indicator composition. `size` is the only additional DX prop on
+`Checkbox.Root` and `Checkbox.RootProvider`.
 
 ### When to go custom
 
 Use `Checkbox.RootProvider` when checkbox state must be owned outside the rendered subtree. moduix
-keeps the provider, but the state hook comes from Ark UI.
+keeps the provider, but the state hook comes from Ark UI. Render `Checkbox.Indicator` explicitly
+only when you need custom icons or a non-default indicator layout.
 
 ### Default props
 
@@ -88,6 +92,9 @@ keeps the provider, but the state hook comes from Ark UI.
 Render `Checkbox.HiddenInput` for native form participation, validation, form reset, and
 submission. For a standalone checkbox, pass `name` and `value` to `Checkbox.Root`. For a group,
 pass `name` to `Checkbox.Group` and `value` to every `Checkbox.Root`.
+
+For shadcn users moving over, `Checkbox.Control` already includes the default icon treatment. The
+main explicit parts that stay in the tree are the control, label, and hidden input.
 
 Ark `Checkbox.Root` renders a `label`. If you use `asChild`, the direct child must also be a
 semantic `label`, otherwise the checkbox no longer has valid form-control labelling.

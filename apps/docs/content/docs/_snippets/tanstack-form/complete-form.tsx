@@ -187,9 +187,7 @@ export function ProjectForm() {
                 checked={field.state.value}
                 onCheckedChange={(details) => field.handleChange(details.checked === true)}
               >
-                <Checkbox.Control>
-                  <Checkbox.Indicator />
-                </Checkbox.Control>
+                <Checkbox.Control />
                 <Checkbox.Label>Send status notifications</Checkbox.Label>
                 <Checkbox.HiddenInput onBlur={field.handleBlur} />
               </Checkbox>

@@ -10,9 +10,7 @@ const _labels = {
 export function CheckboxDisabledDemo() {
   return (
     <Checkbox disabled>
-      <Checkbox.Control>
-        <Checkbox.Indicator />
-      </Checkbox.Control>
+      <Checkbox.Control />
       <Checkbox.Label>Receive weekly summary</Checkbox.Label>
       <Checkbox.HiddenInput />
     </Checkbox>

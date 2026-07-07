@@ -59,7 +59,7 @@ function CheckboxItem({
   customStyled,
   ...props
 }: ComponentProps<typeof Checkbox.Root> & {
-  indicator?: 'default' | 'dual' | 'custom';
+  indicator?: 'default' | 'custom';
   customStyled?: boolean;
 }) {
   return (
@@ -69,12 +69,7 @@ function CheckboxItem({
           <Checkbox.Indicator>
             <CustomPlusIcon className={styles.customIndicatorIcon} />
           </Checkbox.Indicator>
-        ) : (
-          <>
-            <Checkbox.Indicator />
-            {indicator === 'dual' ? <Checkbox.Indicator indeterminate /> : null}
-          </>
-        )}
+        ) : null}
       </Checkbox.Control>
       <Checkbox.Label className={customStyled ? styles.customLabel : undefined}>
         {children}
@@ -113,9 +108,7 @@ export const RootProvider: Story = {
     return (
       <div className={styles.stack}>
         <Checkbox.RootProvider value={checkbox}>
-          <Checkbox.Control>
-            <Checkbox.Indicator />
-          </Checkbox.Control>
+          <Checkbox.Control />
           <Checkbox.Label>Managed outside the tree</Checkbox.Label>
           <Checkbox.HiddenInput />
         </Checkbox.RootProvider>
@@ -132,11 +125,7 @@ export const RootProvider: Story = {
 };
 
 export const Indeterminate: Story = {
-  render: () => (
-    <CheckboxItem checked="indeterminate" indicator="dual">
-      Select all team members
-    </CheckboxItem>
-  ),
+  render: () => <CheckboxItem checked="indeterminate">Select all team members</CheckboxItem>,
 };
 
 export const Sizes: Story = {
@@ -284,7 +273,6 @@ export const GroupWithSelectAll: Story = {
       <div className={styles.wrapper}>
         <CheckboxItem
           checked={indeterminate ? 'indeterminate' : allSelected}
-          indicator="dual"
           onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}
         >
           Select all

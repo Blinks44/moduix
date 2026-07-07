@@ -10,9 +10,7 @@ export function RootProviderCheckboxDemo() {
   return (
     <>
       <Checkbox.RootProvider value={checkbox}>
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
+        <Checkbox.Control />
         <Checkbox.Label>Managed outside the tree</Checkbox.Label>
         <Checkbox.HiddenInput />
       </Checkbox.RootProvider>

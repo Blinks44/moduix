@@ -29,6 +29,8 @@ selection and grouped multi-select state.
 - `Checkbox.RootProvider` accepts Ark provider props plus the same moduix-only `size` prop.
 - `Checkbox.Control`, `Checkbox.HiddenInput`, `Checkbox.Label`, and `Checkbox.Group` are thin
   styled Ark part wrappers.
+- `Checkbox.Control` renders the default checked and indeterminate indicators when `children` is
+  omitted.
 - `Checkbox.Indicator` renders default moduix icons when `children` is omitted.
 - `size` defaults to `md` and writes `data-size` on `Root` and `RootProvider`.
 - `Checkbox` no longer re-exports Ark hooks, context parts, group providers, or Ark duplicate type
@@ -86,9 +88,7 @@ import { Checkbox } from '@moduix/react';
 export function CheckboxDemo() {
   return (
     <Checkbox.Root defaultChecked>
-      <Checkbox.Control>
-        <Checkbox.Indicator />
-      </Checkbox.Control>
+      <Checkbox.Control />
       <Checkbox.Label>Enable notifications</Checkbox.Label>
       <Checkbox.HiddenInput />
     </Checkbox.Root>
@@ -112,9 +112,7 @@ export function CheckboxGroupDemo() {
     <Checkbox.Group defaultValue={['email']} name="notifications">
       {options.map((option) => (
         <Checkbox.Root key={option.value} value={option.value}>
-          <Checkbox.Control>
-            <Checkbox.Indicator />
-          </Checkbox.Control>
+          <Checkbox.Control />
           <Checkbox.Label>{option.label}</Checkbox.Label>
           <Checkbox.HiddenInput />
         </Checkbox.Root>
@@ -135,9 +133,7 @@ export function CheckboxProviderDemo() {
 
   return (
     <Checkbox.RootProvider value={checkbox}>
-      <Checkbox.Control>
-        <Checkbox.Indicator />
-      </Checkbox.Control>
+      <Checkbox.Control />
       <Checkbox.Label>Managed outside the tree</Checkbox.Label>
       <Checkbox.HiddenInput />
     </Checkbox.RootProvider>
@@ -153,8 +149,8 @@ export function CheckboxProviderDemo() {
 - Root provider: supported with Ark `useCheckbox` and `Checkbox.RootProvider`.
 - Disabled/read-only/invalid/required state: passed through to Ark and styled through Ark data
   attributes.
-- Indeterminate state: supported with `checked="indeterminate"` and an explicit
-  `Checkbox.Indicator indeterminate` part.
+- Indeterminate state: supported with `checked="indeterminate"` and the default `Checkbox.Control`
+  sugar. Render `Checkbox.Indicator indeterminate` explicitly only for custom icon composition.
 - Field/form integration: supported with `HiddenInput`; examples use moduix `Field`/`Fieldset`
   wrappers until those wrappers migrate from legacy.
 - Group state: supported with `Checkbox.Group`, controlled `value`, `onValueChange(value)`,
@@ -194,6 +190,8 @@ export function CheckboxProviderDemo() {
 ## Intentional sugar and differences from upstream
 
 - `Checkbox.Root` and `Checkbox.RootProvider` add `size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'`.
+- `Checkbox.Control` renders the default checked and indeterminate indicator pair when it has no
+  children.
 - `Checkbox.Indicator` renders `CheckIcon` or `IndeterminateIcon` when no children are provided.
 - The wrapper adds stable `data-slot` hooks for moduix styling.
 - moduix keeps `RootProvider`, but no longer re-exports Ark hooks, render-prop context, group
@@ -206,13 +204,16 @@ export function CheckboxProviderDemo() {
 ## Agent notes
 
 - Keep `Checkbox` Ark-shaped. Do not reintroduce a second public group component.
-- Keep checked and indeterminate indicators explicit in docs/examples.
+- Keep the common path on `Checkbox.Control` sugar and reserve explicit `Checkbox.Indicator` usage
+  for custom indicator composition.
 - Keep `RootProvider` but do not rebuild a broader moduix-owned advanced state surface around it.
 - If data-slot names, CSS variables, or provider support changes, update stories, docs, local
   markdown, theme tokens, and registry artifacts in the same task.
 
 ## Local changelog
 
+- 2026-07-07: Added `Checkbox.Control` default indicator sugar so common usage no longer needs
+  explicit checked and indeterminate indicator parts; updated recommended docs/examples accordingly.
 - 2026-07-02: Simplified the public checkbox surface to keep visual parts, `Group`,
   `RootProvider`, `size`, and default indicator sugar while removing moduix re-exports for Ark
   hooks, `Context`, `GroupProvider`, and Ark duplicate type aliases.

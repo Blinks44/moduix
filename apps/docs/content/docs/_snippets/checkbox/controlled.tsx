@@ -9,9 +9,7 @@ export function ControlledCheckboxDemo() {
 
   return (
     <Checkbox checked={checked} onCheckedChange={(details) => setChecked(details.checked === true)}>
-      <Checkbox.Control>
-        <Checkbox.Indicator />
-      </Checkbox.Control>
+      <Checkbox.Control />
       <Checkbox.Label>{checked ? 'Enabled' : 'Disabled'}</Checkbox.Label>
       <Checkbox.HiddenInput />
     </Checkbox>

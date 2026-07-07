@@ -9,9 +9,7 @@ export function CheckboxFieldDemo() {
     <Field required>
       <Checkbox.Root>
         <Checkbox.HiddenInput />
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
+        <Checkbox.Control />
         <Checkbox.Label>Accept support access</Checkbox.Label>
       </Checkbox.Root>
       <Field.HelperText>Required before the team can inspect workspace data.</Field.HelperText>

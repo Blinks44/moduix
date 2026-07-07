@@ -172,9 +172,7 @@ export function NativeFormExample() {
           </Field>
 
           <Checkbox name="notifications">
-            <Checkbox.Control>
-              <Checkbox.Indicator />
-            </Checkbox.Control>
+            <Checkbox.Control />
             <Checkbox.Label>Send status notifications</Checkbox.Label>
             <Checkbox.HiddenInput />
           </Checkbox>
@@ -305,9 +303,7 @@ export function ReactHookFormExample() {
                 checked={field.value}
                 onCheckedChange={(details) => field.onChange(details.checked === true)}
               >
-                <Checkbox.Control>
-                  <Checkbox.Indicator />
-                </Checkbox.Control>
+                <Checkbox.Control />
                 <Checkbox.Label>Send status notifications</Checkbox.Label>
                 <Checkbox.HiddenInput ref={field.ref} onBlur={field.onBlur} />
               </Checkbox>
@@ -465,9 +461,7 @@ export function TanStackFormExample() {
                 checked={field.state.value}
                 onCheckedChange={(details) => field.handleChange(details.checked === true)}
               >
-                <Checkbox.Control>
-                  <Checkbox.Indicator />
-                </Checkbox.Control>
+                <Checkbox.Control />
                 <Checkbox.Label>Send status notifications</Checkbox.Label>
                 <Checkbox.HiddenInput onBlur={field.handleBlur} />
               </Checkbox>
