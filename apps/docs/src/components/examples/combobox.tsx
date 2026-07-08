@@ -9,6 +9,8 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './combobox.module.css';
 
+export { TagsInputComboboxExample as ComboboxWithTagsInputExample } from './tags-input';
+
 const fruits = [
   { label: 'Apple', value: 'apple' },
   { label: 'Banana', value: 'banana' },

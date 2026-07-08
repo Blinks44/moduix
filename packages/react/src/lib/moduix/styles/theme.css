@@ -540,7 +540,9 @@
   --combobox-highlight-color: initial; /* var(--color-accent-foreground) */
   --combobox-icon-color: initial; /* var(--color-muted-foreground) */
   --combobox-icon-size: initial; /* 1rem */
-  --combobox-input-padding-x-end: initial; /* 4.25rem */
+  --combobox-input-padding-x-end: initial; /* 0.875rem */
+  --combobox-input-padding-x-end-with-clear: initial; /* 4.375rem */
+  --combobox-input-padding-x-end-with-trigger: initial; /* 2.75rem */
   --combobox-input-padding-x-start: initial; /* 0.875rem */
   --combobox-input-placeholder-color: initial; /* var(--color-muted-foreground) */
   --combobox-invalid-color: initial; /* var(--color-destructive) */

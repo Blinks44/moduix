@@ -104,7 +104,7 @@
     border: 0;
     border-radius: inherit;
     padding-inline: var(--combobox-input-padding-x-start, 0.875rem)
-      var(--combobox-input-padding-x-end, 4.25rem);
+      var(--combobox-input-padding-x-end, 0.875rem);
     background: transparent;
     color: inherit;
     font: inherit;
@@ -113,6 +113,14 @@
     &::placeholder {
       color: var(--combobox-input-placeholder-color, var(--color-muted-foreground));
     }
+  }
+
+  .control:has(.trigger) .input {
+    padding-inline-end: var(--combobox-input-padding-x-end-with-trigger, 2.75rem);
+  }
+
+  .control:has(.clearTrigger) .input {
+    padding-inline-end: var(--combobox-input-padding-x-end-with-clear, 4.375rem);
   }
 
   .trigger,

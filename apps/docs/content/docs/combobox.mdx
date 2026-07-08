@@ -85,6 +85,29 @@ the rendered items. Object collections should define `itemToString` and `itemToV
 Keep `Combobox.Positioner` and `Combobox.Content` visible. `Content` is the actual Ark content part;
 the root only automates the portal boundary.
 
+When that popup structure repeats, prefer a small local helper instead of hiding it behind library
+API sugar:
+
+```tsx
+function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: string }> }) {
+  return (
+    <Combobox.Positioner>
+      <Combobox.Content>
+        <Combobox.Empty>No fruits found.</Combobox.Empty>
+        <Combobox.List>
+          {items.map((item) => (
+            <Combobox.Item key={item.value} item={item}>
+              <Combobox.ItemText>{item.label}</Combobox.ItemText>
+              <Combobox.ItemIndicator />
+            </Combobox.Item>
+          ))}
+        </Combobox.List>
+      </Combobox.Content>
+    </Combobox.Positioner>
+  );
+}
+```
+
 ### When to go custom
 
 Use controlled `value` and Ark detail callbacks when adjacent UI needs selected values. When state
@@ -125,6 +148,18 @@ combobox `Status` part.
 - Ark `Field.Root` state inheritance remains available when composing with `@ark-ui/react/field`.
   The current moduix `Field` component has not migrated to the Ark field contract yet and does not provide Ark field
   context.
+
+### Migrating from shadcn
+
+Keep the moduix API Ark-shaped, then translate the common shadcn conveniences explicitly:
+
+| shadcn pattern          | moduix path                                                          |
+| ----------------------- | -------------------------------------------------------------------- |
+| `items` on the root     | `createListCollection()` or `useListCollection()`, then `collection` |
+| `itemToStringValue`     | `itemToString` and usually `itemToValue` on the collection           |
+| `showClear`             | Render `Combobox.ClearTrigger` when needed                           |
+| Built-in chips surface  | Controlled `value` plus custom tags, or `TagsInput` composition      |
+| `ComboboxContent` sugar | Explicit `Combobox.Positioner` and `Combobox.Content`                |
 
 ## Examples
 
@@ -288,8 +323,8 @@ Map object labels and values on the collection, then render Ark item groups from
 
 ### Multiple
 
-Enable `multiple` and render selected objects from controlled `value`. Tags are consumer composition
-rather than combobox parts.
+Enable `multiple` and render selected objects from controlled `value`. Tags remain consumer
+composition; when they must live inside the same field shell, compose `Combobox` with `TagsInput`.
 
 <Preview>
   <ComboboxDocs.MultipleComboboxExample />
@@ -323,6 +358,19 @@ rather than combobox parts.
     `}
 
   </Preview.CSS>
+</Preview>
+
+### With TagsInput
+
+Compose `Combobox` with `TagsInput` when users still need filtered suggestions, but the selected
+values should live inside one editable chip field.
+
+<Preview>
+  <ComboboxDocs.ComboboxWithTagsInputExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/with-tags-input.tsx#demo</include>
+</Preview.Code>
 </Preview>
 
 ### Async Search
