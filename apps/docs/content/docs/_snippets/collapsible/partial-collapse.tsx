@@ -9,7 +9,7 @@ const paragraphs = [
 
 export function PartialCollapseCollapsibleDemo() {
   return (
-    <Collapsible collapsedHeight="3rem">
+    <Collapsible className="collapsible-root" collapsedHeight="3rem">
       <Collapsible.Trigger>
         Read more
         <Collapsible.Indicator />

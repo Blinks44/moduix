@@ -8,7 +8,11 @@ export function ControlledCollapsibleDemo() {
   const [open, setOpen] = useState(false);
 
   return (
-    <Collapsible open={open} onOpenChange={(details) => setOpen(details.open)}>
+    <Collapsible
+      className="collapsible-root"
+      open={open}
+      onOpenChange={(details) => setOpen(details.open)}
+    >
       <Collapsible.Trigger>
         Recovery keys
         <Collapsible.Indicator />

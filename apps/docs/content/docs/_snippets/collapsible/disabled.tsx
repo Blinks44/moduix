@@ -5,7 +5,7 @@ const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-s
 
 export function DisabledCollapsibleDemo() {
   return (
-    <Collapsible disabled>
+    <Collapsible className="collapsible-root" disabled>
       <Collapsible.Trigger>
         Recovery keys
         <Collapsible.Indicator />

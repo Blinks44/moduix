@@ -3,6 +3,7 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/collapsible
+- Chakra UI: https://chakra-ui.com/docs/components/collapsible
 
 ## Purpose
 
@@ -23,7 +24,7 @@ keys, secondary metadata, or a single disclosure row. Use `Accordion` for coordi
   `disabled`, `collapsedHeight`, `collapsedWidth`, `lazyMount`, `unmountOnExit`, `ids`, and
   `onExitComplete`.
 - `Collapsible.RootProvider` accepts the return value from Ark `useCollapsible()`.
-- `Collapsible.Indicator` renders `ChevronRightIcon` when children are omitted.
+- `Collapsible.Indicator` renders `ChevronDownIcon` when children are omitted.
 - Every DOM part forwards its Ark props, ref, `className`, and `asChild`. `Trigger asChild` supplies
   behavior and state attributes without imposing the default trigger class.
 
@@ -45,7 +46,7 @@ Provider composition replaces `Root` with `RootProvider`.
 | `Collapsible.Root`         | `collapsible-root`          | Styled Ark root.                        |
 | `Collapsible.RootProvider` | `collapsible-root-provider` | Styled root backed by `useCollapsible`. |
 | `Collapsible.Trigger`      | `collapsible-trigger`       | Styled Ark trigger button.              |
-| `Collapsible.Indicator`    | `collapsible-indicator`     | Defaults to `ChevronRightIcon`.         |
+| `Collapsible.Indicator`    | `collapsible-indicator`     | Defaults to `ChevronDownIcon`.          |
 | `Collapsible.Content`      | `collapsible-content`       | Animated Ark content region.            |
 
 ## Composition
@@ -106,10 +107,11 @@ Controlled callbacks keep the Ark details object:
 
 ## Defaults and styling
 
-- `Collapsible`, `Root`, and `RootProvider` are column flex containers with a `14rem` default
-  width.
+- `Collapsible`, `Root`, and `RootProvider` are column flex containers with `width: 100%` and
+  `max-width: 100%` by default so disclosure content does not resize the component while toggling.
+  Constrain width in stories or app-level layout when a compact disclosure block is desired.
 - `Trigger` includes moduix hover, active, focus-visible, and disabled styling.
-- `Indicator` rotates on `data-state="open"`.
+- `Indicator` defaults to `ChevronDownIcon` and rotates upward on `data-state="open"`.
 - `Content` animates between Ark `--height` / `--width` and collapsed-size variables; put padding
   and surfaces on an inner wrapper for clean measurement.
 
@@ -118,7 +120,7 @@ Primary CSS variables:
 | Variable                                 | Default                         |
 | ---------------------------------------- | ------------------------------- |
 | `--collapsible-color`                    | `var(--color-foreground)`       |
-| `--collapsible-width`                    | `14rem`                         |
+| `--collapsible-width`                    | `100%`                          |
 | `--collapsible-max-width`                | `100%`                          |
 | `--collapsible-disabled-opacity`         | `var(--opacity-disabled)`       |
 | `--collapsible-focus-ring-color`         | `var(--color-ring)`             |
@@ -148,7 +150,7 @@ Primary CSS variables:
 ## Intentional sugar and differences from upstream
 
 - moduix adds default styling and public theme variables; Ark is unstyled.
-- `Collapsible.Indicator` supplies `ChevronRightIcon` when children are omitted.
+- `Collapsible.Indicator` supplies `ChevronDownIcon` when children are omitted.
 - moduix keeps `RootProvider` but does not re-export Ark `useCollapsible()`, context hooks, or Ark
   type aliases.
 - No legacy flat exports, aliases, or converted callback signatures are retained.
@@ -164,6 +166,9 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-07-08: Changed the default indicator icon to `ChevronDownIcon`, updated the open-state
+  rotation to point upward, and set the root width default to `100%` to avoid disclosure width
+  jumps while still allowing docs and apps to constrain layout explicitly.
 - 2026-07-02: Simplified the public surface to the visual parts plus `RootProvider`; advanced Ark
   hooks, context access, and duplicate type exports now come from `@ark-ui/react/collapsible`
   directly.

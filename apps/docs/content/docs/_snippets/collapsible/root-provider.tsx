@@ -12,7 +12,7 @@ export function RootProviderCollapsibleDemo() {
       <output>
         open: {String(collapsible.open)}, visible: {String(collapsible.visible)}
       </output>
-      <Collapsible.RootProvider value={collapsible}>
+      <Collapsible.RootProvider value={collapsible} className="collapsible-root">
         <Collapsible.Trigger>
           Recovery keys
           <Collapsible.Indicator />

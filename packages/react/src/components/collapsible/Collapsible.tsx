@@ -2,7 +2,7 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { Collapsible as CollapsiblePrimitive } from '@ark-ui/react/collapsible';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Collapsible.module.css';
 
@@ -60,7 +60,7 @@ const CollapsibleIndicator = forwardRef<
       className={clsx(styles.indicator, normalizeClassName(className))}
       {...props}
     >
-      {children ?? <ChevronRightIcon />}
+      {children ?? <ChevronDownIcon />}
     </CollapsiblePrimitive.Indicator>
   );
 });

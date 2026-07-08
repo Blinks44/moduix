@@ -69,7 +69,7 @@ Use Ark `useCollapsible` with `Collapsible.RootProvider` when state must be crea
 tree. Advanced state hooks and context access come from `@ark-ui/react/collapsible`, not from the
 moduix wrapper.
 
-`Collapsible.Indicator` is optional. It renders the moduix right chevron by default and accepts
+`Collapsible.Indicator` is optional. It renders the moduix down chevron by default and accepts
 custom children.
 
 ### Default props
@@ -78,7 +78,7 @@ custom children.
 | ----------------------- | ---------------- | -------------------------------------------------- |
 | `Collapsible`           | closed           | `defaultOpen={false}`, mounted content             |
 | `Collapsible.Trigger`   | `button`         | Supports Ark `asChild`                             |
-| `Collapsible.Indicator` | right chevron    | Rotates from `data-state="open"`                   |
+| `Collapsible.Indicator` | down chevron     | Rotates upward from `data-state="open"`            |
 | `Collapsible.Content`   | collapsed region | Uses Ark measurement variables and render strategy |
 
 ### Behavioral notes
