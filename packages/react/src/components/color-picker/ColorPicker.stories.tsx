@@ -29,31 +29,17 @@ function ColorPickerField({ swatchList = swatches }: { swatchList?: string[] }) 
       </ColorPicker.Control>
       <ColorPicker.Positioner>
         <ColorPicker.Content>
-          <ColorPicker.Area>
-            <ColorPicker.AreaBackground />
-            <ColorPicker.AreaThumb />
-          </ColorPicker.Area>
+          <ColorPicker.Area />
           <div className={styles.sliderGroup}>
             <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
             <div className={styles.channelSliders}>
-              <ColorPicker.ChannelSlider channel="hue">
-                <ColorPicker.ChannelSliderTrack />
-                <ColorPicker.ChannelSliderThumb />
-              </ColorPicker.ChannelSlider>
-              <ColorPicker.ChannelSlider channel="alpha">
-                <ColorPicker.TransparencyGrid />
-                <ColorPicker.ChannelSliderTrack />
-                <ColorPicker.ChannelSliderThumb />
-              </ColorPicker.ChannelSlider>
+              <ColorPicker.ChannelSlider channel="hue" />
+              <ColorPicker.ChannelSlider channel="alpha" />
             </div>
           </div>
           <ColorPicker.SwatchGroup>
             {swatchList.map((color) => (
-              <ColorPicker.SwatchTrigger key={color} value={color}>
-                <ColorPicker.Swatch value={color}>
-                  <ColorPicker.SwatchIndicator />
-                </ColorPicker.Swatch>
-              </ColorPicker.SwatchTrigger>
+              <ColorPicker.SwatchTrigger key={color} value={color} />
             ))}
           </ColorPicker.SwatchGroup>
         </ColorPicker.Content>
@@ -70,22 +56,12 @@ function InlinePicker() {
         <ColorPicker.Label>Inline color</ColorPicker.Label>
         <ColorPicker.ValueText format="hex" />
       </div>
-      <ColorPicker.Area>
-        <ColorPicker.AreaBackground />
-        <ColorPicker.AreaThumb />
-      </ColorPicker.Area>
+      <ColorPicker.Area />
       <div className={styles.sliderGroup}>
         <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
         <div className={styles.channelSliders}>
-          <ColorPicker.ChannelSlider channel="hue">
-            <ColorPicker.ChannelSliderTrack />
-            <ColorPicker.ChannelSliderThumb />
-          </ColorPicker.ChannelSlider>
-          <ColorPicker.ChannelSlider channel="alpha">
-            <ColorPicker.TransparencyGrid />
-            <ColorPicker.ChannelSliderTrack />
-            <ColorPicker.ChannelSliderThumb />
-          </ColorPicker.ChannelSlider>
+          <ColorPicker.ChannelSlider channel="hue" />
+          <ColorPicker.ChannelSlider channel="alpha" />
         </div>
       </div>
       <ColorPicker.View format="rgba">
@@ -116,22 +92,12 @@ function CompactTriggerPicker() {
       </ColorPicker.Control>
       <ColorPicker.Positioner>
         <ColorPicker.Content>
-          <ColorPicker.Area>
-            <ColorPicker.AreaBackground />
-            <ColorPicker.AreaThumb />
-          </ColorPicker.Area>
+          <ColorPicker.Area />
           <div className={styles.sliderGroup}>
             <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
             <div className={styles.channelSliders}>
-              <ColorPicker.ChannelSlider channel="hue">
-                <ColorPicker.ChannelSliderTrack />
-                <ColorPicker.ChannelSliderThumb />
-              </ColorPicker.ChannelSlider>
-              <ColorPicker.ChannelSlider channel="alpha">
-                <ColorPicker.TransparencyGrid />
-                <ColorPicker.ChannelSliderTrack />
-                <ColorPicker.ChannelSliderThumb />
-              </ColorPicker.ChannelSlider>
+              <ColorPicker.ChannelSlider channel="hue" />
+              <ColorPicker.ChannelSlider channel="alpha" />
             </div>
           </div>
         </ColorPicker.Content>

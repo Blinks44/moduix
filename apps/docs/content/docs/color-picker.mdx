@@ -17,8 +17,8 @@ to paste a known color value and direct color manipulation is not useful.
 
 ## Basic
 
-Start with a compact field: a root, one channel input, the default trigger swatch, explicit popup
-content, and a hidden input for forms.
+Start with a compact field: a root, one channel input, default trigger swatch, explicit popup
+content, default picker internals, and a hidden input for forms.
 
 <Preview>
   <ColorPickerDocs.ColorPickerExample />
@@ -93,7 +93,8 @@ The root portals `Positioner` automatically. Use `portalled={false}` for inline 
 Keep `ColorPicker.Positioner` and `ColorPicker.Content` visible for popup pickers. `Content` is the
 actual Ark part; the root only automates the portal boundary.
 
-Omit `Trigger` children for the default current-color swatch. Add `data-fit-content` when the
+Omit children on `Trigger`, `Area`, `ChannelSlider`, and `SwatchTrigger` for the default visual
+composition. Pass children only when a part needs custom structure. Add `data-fit-content` when the
 trigger should size to custom content such as a swatch plus `ValueText`.
 
 Use `ColorPicker.HiddenInput` when the color should participate in native form submission or form
@@ -121,6 +122,9 @@ must stay a single element and preserve the required focus and interaction behav
 | `ColorPicker.Content` width              | `16rem`                 | Prevents collapse to trigger swatch width.    |
 | `ColorPicker.EyeDropperTrigger`          | moduix pipette icon     | Used when children are omitted.               |
 | `ColorPicker.Trigger` children           | current swatch          | Renders `TransparencyGrid` and `ValueSwatch`. |
+| `ColorPicker.Area` children              | background and thumb    | Used when children are omitted.               |
+| `ColorPicker.ChannelSlider` children     | track and thumb         | Alpha sliders also render `TransparencyGrid`. |
+| `ColorPicker.SwatchTrigger` children     | swatch and indicator    | Uses the trigger `value` for the swatch.      |
 | `ColorPicker.SwatchIndicator`            | moduix check icon       | Used when children are omitted.               |
 | `ColorPicker` / `ColorPicker.Root` width | `16rem` (max `100%`)    | Styled root width defaults.                   |
 

@@ -135,14 +135,27 @@ const ColorPickerContent = forwardRef<
 const ColorPickerArea = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.Area>,
   ComponentProps<typeof ColorPickerPrimitive.Area>
->(function ColorPickerArea({ className, ...props }, ref) {
+>(function ColorPickerArea({ className, children, ...props }, ref) {
   return (
     <ColorPickerPrimitive.Area
       ref={ref}
       data-slot="color-picker-area"
       className={clsx(styles.area, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {children ?? (
+        <>
+          <ColorPickerPrimitive.AreaBackground
+            data-slot="color-picker-area-background"
+            className={styles.areaBackground}
+          />
+          <ColorPickerPrimitive.AreaThumb
+            data-slot="color-picker-area-thumb"
+            className={styles.thumb}
+          />
+        </>
+      )}
+    </ColorPickerPrimitive.Area>
   );
 });
 
@@ -177,14 +190,34 @@ const ColorPickerAreaThumb = forwardRef<
 const ColorPickerChannelSlider = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.ChannelSlider>,
   ComponentProps<typeof ColorPickerPrimitive.ChannelSlider>
->(function ColorPickerChannelSlider({ className, ...props }, ref) {
+>(function ColorPickerChannelSlider({ className, children, channel, ...props }, ref) {
   return (
     <ColorPickerPrimitive.ChannelSlider
       ref={ref}
       data-slot="color-picker-channel-slider"
       className={clsx(styles.channelSlider, normalizeClassName(className))}
+      channel={channel}
       {...props}
-    />
+    >
+      {children ?? (
+        <>
+          {channel === 'alpha' && (
+            <ColorPickerPrimitive.TransparencyGrid
+              data-slot="color-picker-transparency-grid"
+              className={styles.transparencyGrid}
+            />
+          )}
+          <ColorPickerPrimitive.ChannelSliderTrack
+            data-slot="color-picker-channel-slider-track"
+            className={styles.channelSliderTrack}
+          />
+          <ColorPickerPrimitive.ChannelSliderThumb
+            data-slot="color-picker-channel-slider-thumb"
+            className={styles.thumb}
+          />
+        </>
+      )}
+    </ColorPickerPrimitive.ChannelSlider>
   );
 });
 
@@ -319,14 +352,30 @@ const ColorPickerSwatchGroup = forwardRef<
 const ColorPickerSwatchTrigger = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.SwatchTrigger>,
   ComponentProps<typeof ColorPickerPrimitive.SwatchTrigger>
->(function ColorPickerSwatchTrigger({ className, ...props }, ref) {
+>(function ColorPickerSwatchTrigger({ className, children, value, ...props }, ref) {
   return (
     <ColorPickerPrimitive.SwatchTrigger
       ref={ref}
       data-slot="color-picker-swatch-trigger"
       className={clsx(styles.swatchTrigger, normalizeClassName(className))}
+      value={value}
       {...props}
-    />
+    >
+      {children ?? (
+        <ColorPickerPrimitive.Swatch
+          data-slot="color-picker-swatch"
+          className={styles.swatch}
+          value={value}
+        >
+          <ColorPickerPrimitive.SwatchIndicator
+            data-slot="color-picker-swatch-indicator"
+            className={styles.swatchIndicator}
+          >
+            <CheckIcon />
+          </ColorPickerPrimitive.SwatchIndicator>
+        </ColorPickerPrimitive.Swatch>
+      )}
+    </ColorPickerPrimitive.SwatchTrigger>
   );
 });
 

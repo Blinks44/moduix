@@ -21,10 +21,7 @@ export function OpenControlledColorPickerDemo() {
       </ColorPicker.Control>
       <ColorPicker.Positioner>
         <ColorPicker.Content>
-          <ColorPicker.Area>
-            <ColorPicker.AreaBackground />
-            <ColorPicker.AreaThumb />
-          </ColorPicker.Area>
+          <ColorPicker.Area />
         </ColorPicker.Content>
       </ColorPicker.Positioner>
       <button type="button" onClick={() => setOpen((current) => !current)}>

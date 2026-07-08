@@ -2,5 +2,5 @@
 '@moduix/react': patch
 ---
 
-ColorPicker: simplify the default trigger composition and add compact trigger styling.
-Also updates docs and examples around the shorter field recipe.
+ColorPicker: simplify common area, slider, swatch, and trigger composition.
+Adds default visual children for repeated picker parts and updates docs/examples around the shorter recipes.

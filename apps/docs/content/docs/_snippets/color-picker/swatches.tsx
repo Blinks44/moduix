@@ -13,17 +13,10 @@ export function SwatchesColorPickerDemo() {
       </ColorPicker.Control>
       <ColorPicker.Positioner>
         <ColorPicker.Content>
-          <ColorPicker.Area>
-            <ColorPicker.AreaBackground />
-            <ColorPicker.AreaThumb />
-          </ColorPicker.Area>
+          <ColorPicker.Area />
           <ColorPicker.SwatchGroup>
             {swatches.map((color) => (
-              <ColorPicker.SwatchTrigger key={color} value={color}>
-                <ColorPicker.Swatch value={color}>
-                  <ColorPicker.SwatchIndicator />
-                </ColorPicker.Swatch>
-              </ColorPicker.SwatchTrigger>
+              <ColorPicker.SwatchTrigger key={color} value={color} />
             ))}
           </ColorPicker.SwatchGroup>
         </ColorPicker.Content>

@@ -22,10 +22,7 @@ export function FormatColorPickerDemo() {
           <option value="hsla">HSLA</option>
         </ColorPicker.FormatSelect>
       </div>
-      <ColorPicker.Area>
-        <ColorPicker.AreaBackground />
-        <ColorPicker.AreaThumb />
-      </ColorPicker.Area>
+      <ColorPicker.Area />
       <ColorPicker.View format="rgba">
         <div className="color-picker-input-row">
           <ColorPicker.ChannelInput channel="hex" />

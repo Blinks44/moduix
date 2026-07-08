@@ -20,22 +20,12 @@ export function CompactTriggerColorPickerDemo() {
       </ColorPicker.Control>
       <ColorPicker.Positioner>
         <ColorPicker.Content>
-          <ColorPicker.Area>
-            <ColorPicker.AreaBackground />
-            <ColorPicker.AreaThumb />
-          </ColorPicker.Area>
+          <ColorPicker.Area />
           <div className="color-picker-slider-group">
             <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
             <div className="color-picker-channel-sliders">
-              <ColorPicker.ChannelSlider channel="hue">
-                <ColorPicker.ChannelSliderTrack />
-                <ColorPicker.ChannelSliderThumb />
-              </ColorPicker.ChannelSlider>
-              <ColorPicker.ChannelSlider channel="alpha">
-                <ColorPicker.TransparencyGrid />
-                <ColorPicker.ChannelSliderTrack />
-                <ColorPicker.ChannelSliderThumb />
-              </ColorPicker.ChannelSlider>
+              <ColorPicker.ChannelSlider channel="hue" />
+              <ColorPicker.ChannelSlider channel="alpha" />
             </div>
           </div>
         </ColorPicker.Content>

@@ -30,6 +30,8 @@ field input, color area, channel sliders, eyedropper, and swatches.
 - Advanced Ark state hooks, context APIs, and type exports are intentionally not mirrored from
   `moduix`; import them from `@ark-ui/react/color-picker` when needed.
 - `Trigger` renders the current value swatch by default when children are omitted.
+- `Area`, `ChannelSlider`, and `SwatchTrigger` render their common visual children by default when
+  children are omitted.
 - `EyeDropperTrigger` and `SwatchIndicator` provide default moduix icons when children are omitted.
 - `onValueChange`, `onValueChangeEnd`, `onFormatChange`, and `onOpenChange` preserve Ark detail
   objects without remapping.
@@ -81,14 +83,8 @@ export function ColorPickerExample() {
       </ColorPicker.Control>
       <ColorPicker.Positioner>
         <ColorPicker.Content>
-          <ColorPicker.Area>
-            <ColorPicker.AreaBackground />
-            <ColorPicker.AreaThumb />
-          </ColorPicker.Area>
-          <ColorPicker.ChannelSlider channel="hue">
-            <ColorPicker.ChannelSliderTrack />
-            <ColorPicker.ChannelSliderThumb />
-          </ColorPicker.ChannelSlider>
+          <ColorPicker.Area />
+          <ColorPicker.ChannelSlider channel="hue" />
         </ColorPicker.Content>
       </ColorPicker.Positioner>
       <ColorPicker.HiddenInput />
@@ -138,10 +134,14 @@ export function ColorPickerExample() {
 
 - moduix ships default icons for `EyeDropperTrigger` and `SwatchIndicator`.
 - moduix renders `TransparencyGrid` and `ValueSwatch` inside `Trigger` when children are omitted.
+- moduix renders `AreaBackground` and `AreaThumb` inside `Area` when children are omitted.
+- moduix renders `ChannelSliderTrack`, `ChannelSliderThumb`, and an alpha `TransparencyGrid` inside
+  `ChannelSlider` when children are omitted.
+- moduix renders `Swatch` and `SwatchIndicator` inside `SwatchTrigger` when children are omitted.
 - moduix re-exports `parseColor`.
 - Advanced Ark state hooks, renderless context access, and Ark type exports stay upstream-only.
-- The wrapper hides only the portal transport; `Positioner`, `Content`, and the input/slider/view structure
-  behind convenience components.
+- The wrapper hides only portal transport and repetitive visual children; `Positioner`, `Content`,
+  and the input/view structure remain explicit.
 - No local color parsing, value conversion, or callback reshaping is added.
 
 ## Agent notes
@@ -158,6 +158,8 @@ export function ColorPickerExample() {
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 - 2026-07-02: Removed mirrored Ark context hooks and type re-exports from `moduix`; keep `RootProvider`, visual parts, `parseColor`, and portal/icon sugar as the supported wrapper surface.
 - 2026-07-08: Made `Trigger` render the current swatch by default, documented `data-fit-content` for compact button compositions, and simplified the recommended field recipe to one channel input plus trigger.
+- 2026-07-08: Added default children for `Area`, `ChannelSlider`, and `SwatchTrigger` so common
+  examples stay short while custom children still expose the full Ark anatomy.
 
 - 2026-06-18: Added the Ark UI Color Picker wrapper with styled parts, default eyedropper and swatch
   indicator icons, stories, local documentation, and registry/docs integration.
