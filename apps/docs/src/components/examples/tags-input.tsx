@@ -432,10 +432,9 @@ export function TagsInputComboboxExample() {
         <Combobox.Content className={styles.comboboxContent}>
           <Combobox.Empty className={styles.comboboxItem}>No frameworks found.</Combobox.Empty>
           {collection.items.map((item) => (
-            <Combobox.Item key={item} item={item} className={styles.comboboxItem}>
-              <Combobox.ItemText>{item}</Combobox.ItemText>
-              <Combobox.ItemIndicator />
-            </Combobox.Item>
+            <Combobox.Option key={item} item={item} className={styles.comboboxItem}>
+              {item}
+            </Combobox.Option>
           ))}
         </Combobox.Content>
       </Combobox.Positioner>

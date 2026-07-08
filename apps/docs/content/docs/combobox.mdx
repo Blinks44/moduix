@@ -18,6 +18,7 @@ Use `Select` when the same predefined choice does not need an editable input.
 ## Basic
 
 Create an Ark `ListCollection`, pass it to `Combobox.Root`, and keep the popup structure explicit.
+Use `Combobox.Option` for ordinary rows; drop to `Combobox.Item` when a row needs custom structure.
 `onInputValueChange` receives an Ark details object.
 
 <Preview>
@@ -48,6 +49,7 @@ Combobox.Root[collection]
       └─ Combobox.Content
          ├─ Combobox.Empty
          ├─ Combobox.List
+         │  ├─ Combobox.Option[item]
          │  └─ Combobox.Item[item]
          │     ├─ Combobox.ItemText
          │     └─ Combobox.ItemIndicator
@@ -66,6 +68,7 @@ Combobox.Root[collection]
 | `Combobox.Positioner`        | Floating positioner for popup content.                             |
 | `Combobox.Content`           | Popup content container.                                           |
 | `Combobox.List`              | Option list wrapper.                                               |
+| `Combobox.Option`            | Convenience row for simple options with text and an indicator.     |
 | `Combobox.Item`              | Selectable option row.                                             |
 | `Combobox.ItemText`          | Text label slot inside an item.                                    |
 | `Combobox.ItemIndicator`     | Selected/highlight indicator slot for an item.                     |
@@ -85,8 +88,8 @@ the rendered items. Object collections should define `itemToString` and `itemToV
 Keep `Combobox.Positioner` and `Combobox.Content` visible. `Content` is the actual Ark content part;
 the root only automates the portal boundary.
 
-When that popup structure repeats, prefer a small local helper instead of hiding it behind library
-API sugar:
+When that popup structure repeats, prefer a small local helper. Use `Combobox.Option` for simple
+rows and keep `Combobox.Item` for links, rich rows, or custom indicator placement:
 
 ```tsx
 function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: string }> }) {
@@ -96,10 +99,9 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
         <Combobox.Empty>No fruits found.</Combobox.Empty>
         <Combobox.List>
           {items.map((item) => (
-            <Combobox.Item key={item.value} item={item}>
-              <Combobox.ItemText>{item.label}</Combobox.ItemText>
-              <Combobox.ItemIndicator />
-            </Combobox.Item>
+            <Combobox.Option key={item.value} item={item}>
+              {item.label}
+            </Combobox.Option>
           ))}
         </Combobox.List>
       </Combobox.Content>
@@ -128,6 +130,7 @@ combobox `Status` part.
 | `Combobox.Trigger`                 | moduix chevron icon   | Used when children are omitted.                                       |
 | `Combobox.ClearTrigger`            | moduix close icon     | Used when children are omitted.                                       |
 | `Combobox.ItemIndicator`           | moduix check icon     | Used when children are omitted.                                       |
+| `Combobox.Option.indicator`        | check icon            | Pass `false` to hide it or a React node to replace the icon.          |
 | `Combobox` / `Combobox.Root` width | `16rem` (max `100%`)  | Styled root width defaults.                                           |
 | `Combobox.Positioner` variables    | Ark runtime variables | Uses `--reference-width`, `--available-height`, `--transform-origin`. |
 
@@ -158,6 +161,7 @@ Keep the moduix API Ark-shaped, then translate the common shadcn conveniences ex
 | `items` on the root     | `createListCollection()` or `useListCollection()`, then `collection` |
 | `itemToStringValue`     | `itemToString` and usually `itemToValue` on the collection           |
 | `showClear`             | Render `Combobox.ClearTrigger` when needed                           |
+| Plain `ComboboxItem`    | Use `Combobox.Option`; use `Combobox.Item` for custom row structure  |
 | Built-in chips surface  | Controlled `value` plus custom tags, or `TagsInput` composition      |
 | `ComboboxContent` sugar | Explicit `Combobox.Positioner` and `Combobox.Content`                |
 
@@ -415,7 +419,8 @@ configuration.
 - Stable slots include `combobox-root`, `combobox-label`, `combobox-control`, `combobox-input`,
   `combobox-clear-trigger`, `combobox-trigger`, `combobox-positioner`, `combobox-content`,
   `combobox-empty`, `combobox-list`, `combobox-item-group`, `combobox-item-group-label`,
-  `combobox-item`, `combobox-item-text`, and `combobox-item-indicator`.
+  `combobox-item`, `combobox-item-text`, and `combobox-item-indicator`. `Combobox.Option` reuses the
+  item slots instead of adding its own styling hook.
 - Ark state hooks include `data-state="open|closed"`, `data-focus`, `data-invalid`,
   `data-disabled`, `data-highlighted`, `data-empty`, `data-placement`, and `data-side`.
 - Ark positioning variables include `--reference-width`, `--available-width`,

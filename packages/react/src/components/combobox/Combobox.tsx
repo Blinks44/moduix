@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
+import type { ComponentProps, ComponentRef, ForwardedRef, ReactNode } from 'react';
 import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
@@ -259,6 +259,18 @@ const ComboboxItemIndicator = forwardRef<
   );
 });
 
+const ComboboxOption = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Item>,
+  ComponentProps<typeof ComboboxPrimitive.Item> & { indicator?: ReactNode | false }
+>(function ComboboxOption({ children, indicator, ...props }, ref) {
+  return (
+    <ComboboxItem ref={ref} {...props}>
+      <ComboboxItemText>{children}</ComboboxItemText>
+      {indicator !== false ? <ComboboxItemIndicator>{indicator}</ComboboxItemIndicator> : null}
+    </ComboboxItem>
+  );
+});
+
 const Combobox = Object.assign(ComboboxRoot, {
   Root: ComboboxRoot,
   RootProvider: ComboboxRootProvider,
@@ -276,6 +288,7 @@ const Combobox = Object.assign(ComboboxRoot, {
   Item: ComboboxItem,
   ItemText: ComboboxItemText,
   ItemIndicator: ComboboxItemIndicator,
+  Option: ComboboxOption,
 });
 
 export { Combobox };

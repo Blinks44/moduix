@@ -25,8 +25,8 @@ render it inline, or pass `portalRef` to target a custom container. The structur
 explicit and independently styleable.
 
 - Public composition is `Combobox.Root`, `Label`, `Control`, `Input`, `ClearTrigger`, `Trigger`,
-  `Positioner`, `Content`, `Empty`, `List`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`, and
-  `ItemIndicator`.
+  `Positioner`, `Content`, `Empty`, `List`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`,
+  `ItemIndicator`, and `Option`.
 - `Combobox.RootProvider` renders the styled root for state created with Ark `useCombobox`.
 - `Combobox.Root` requires `collection`; use `createListCollection()` or `useListCollection()`.
 - `onValueChange`, `onInputValueChange`, `onOpenChange`, and `onHighlightChange` preserve Ark detail
@@ -36,6 +36,10 @@ explicit and independently styleable.
   `@ark-ui/react/locale`.
 - `Combobox.Trigger`, `Combobox.ClearTrigger`, and `Combobox.ItemIndicator` provide default moduix
   icons when children are omitted.
+- `Combobox.Option` is the recommended row helper for simple list options. It renders
+  `Combobox.Item`, wraps its children in `Combobox.ItemText`, and includes `Combobox.ItemIndicator`.
+  Pass `indicator={false}` to hide the indicator or `indicator={<Icon />}` to replace the default
+  check icon.
 
 ## Anatomy and exported parts
 
@@ -54,13 +58,15 @@ Combobox.Root
          │  └─ Combobox.Item
          │     ├─ Combobox.ItemText
          │     └─ Combobox.ItemIndicator
+         │  └─ Combobox.Option
          └─ Combobox.ItemGroup
             ├─ Combobox.ItemGroupLabel
             └─ Combobox.Item
 ```
 
 All styled parts expose matching kebab-case `data-slot` hooks. `RootProvider` accepts state created
-with Ark `useCombobox` and keeps the same root styling and portal contract.
+with Ark `useCombobox` and keeps the same root styling and portal contract. `Option` is sugar over
+the existing item parts and does not add a new styling hook.
 
 ## Composition
 
@@ -94,10 +100,9 @@ export function ComboboxExample() {
           <Combobox.Empty>No fruits found.</Combobox.Empty>
           <Combobox.List>
             {collection.items.map((item) => (
-              <Combobox.Item key={item.value} item={item}>
-                <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                <Combobox.ItemIndicator />
-              </Combobox.Item>
+              <Combobox.Option key={item.value} item={item}>
+                {item.label}
+              </Combobox.Option>
             ))}
           </Combobox.List>
         </Combobox.Content>
@@ -118,10 +123,9 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
         <Combobox.Empty>No fruits found.</Combobox.Empty>
         <Combobox.List>
           {items.map((item) => (
-            <Combobox.Item key={item.value} item={item}>
-              <Combobox.ItemText>{item.label}</Combobox.ItemText>
-              <Combobox.ItemIndicator />
-            </Combobox.Item>
+            <Combobox.Option key={item.value} item={item}>
+              {item.label}
+            </Combobox.Option>
           ))}
         </Combobox.List>
       </Combobox.Content>
@@ -180,6 +184,9 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 ## Intentional sugar and differences from upstream
 
 - moduix ships default icons for `Trigger`, `ClearTrigger`, and `ItemIndicator`.
+- moduix ships `Option` as row-level sugar for the common `Item`/`ItemText`/`ItemIndicator`
+  composition. It keeps the same item props and ref target as `Item`, and its `indicator` prop only
+  controls the nested `ItemIndicator`.
 - moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
   aliases. Advanced consumers import those directly from `@ark-ui/react/combobox`.
 - moduix does not add a hidden popup bundle such as `ComboboxContent` or a root-level `items` prop.
@@ -199,6 +206,8 @@ Common `shadcn` migration points:
   `collection` to `Combobox.Root`.
 - `itemToStringValue` becomes `itemToString` and usually `itemToValue` on the Ark collection.
 - `showClear` becomes an explicit `Combobox.ClearTrigger`.
+- Plain `ComboboxItem` rows usually become `Combobox.Option`; keep `Combobox.Item` when a row needs
+  `asChild`, nonstandard layout, or custom indicator placement.
 - Built-in chip surfaces become controlled `value` plus consumer-owned tag rendering, or
   `TagsInput` composition when the chips must live in the same field shell.
 - Hidden popup wrappers such as `ComboboxContent` become explicit `Positioner` and `Content`.
@@ -207,6 +216,9 @@ Common `shadcn` migration points:
 
 - Keep `Positioner` and `Content` explicit; only portal transport belongs to the root.
 - Keep `collection` required and callbacks Ark-shaped.
+- Prefer `Option` in simple list examples. Use `indicator={false}` or `indicator={<Icon />}` for
+  indicator-only changes, but keep raw `Item`, `ItemText`, and `ItemIndicator` visible when rows
+  need `asChild`, nonstandard layout, or custom indicator placement.
 - Keep input action spacing dependent on the rendered trigger/clear controls.
 - Do not reintroduce combobox-owned chips; multiple-value rendering belongs in consumer composition
   through controlled state.
@@ -214,9 +226,10 @@ Common `shadcn` migration points:
 
 ## Local changelog
 
-- 2026-07-08: Made input end-padding depend on whether `Trigger` and `ClearTrigger` are rendered,
-  documented the preferred local popup-helper pattern, and added explicit migration notes for
-  users moving from shadcn.
+- 2026-07-08: Added `Combobox.Option` as a narrow row helper for simple options, including
+  indicator replacement/removal, updated the recommended composition to use it, made input
+  end-padding depend on whether `Trigger` and `ClearTrigger` are rendered, documented the preferred
+  local popup-helper pattern, and added explicit migration notes for users moving from shadcn.
 - 2026-07-03: Synchronized field interaction styling with Select: open popups retain the focus ring,
   and clear-action hover no longer highlights the whole field surface.
 - 2026-07-02: Removed duplicate Ark type exports, context parts, and state hooks from the moduix

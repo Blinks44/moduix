@@ -57,10 +57,9 @@ export function AsyncSearchComboboxDemo() {
           {!loading && query && collection.items.length === 0 ? <div>No results found.</div> : null}
           <Combobox.List>
             {collection.items.map((item) => (
-              <Combobox.Item key={item.value} item={item}>
-                <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                <Combobox.ItemIndicator />
-              </Combobox.Item>
+              <Combobox.Option key={item.value} item={item}>
+                {item.label}
+              </Combobox.Option>
             ))}
           </Combobox.List>
         </Combobox.Content>

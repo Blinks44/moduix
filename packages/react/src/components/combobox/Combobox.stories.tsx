@@ -36,10 +36,9 @@ function ComboboxPopup({ items }: { items: Array<{ label: string; value: string 
         <Combobox.Empty>No options found.</Combobox.Empty>
         <Combobox.List>
           {items.map((item) => (
-            <Combobox.Item key={item.value} item={item}>
-              <Combobox.ItemText>{item.label}</Combobox.ItemText>
-              <Combobox.ItemIndicator />
-            </Combobox.Item>
+            <Combobox.Option key={item.value} item={item}>
+              {item.label}
+            </Combobox.Option>
           ))}
         </Combobox.List>
       </Combobox.Content>
@@ -123,10 +122,9 @@ function GroupedStory() {
             <Combobox.ItemGroup key={continent}>
               <Combobox.ItemGroupLabel>{continent}</Combobox.ItemGroupLabel>
               {items.map((item) => (
-                <Combobox.Item key={item.value} item={item}>
-                  <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                  <Combobox.ItemIndicator />
-                </Combobox.Item>
+                <Combobox.Option key={item.value} item={item}>
+                  {item.label}
+                </Combobox.Option>
               ))}
             </Combobox.ItemGroup>
           ))}

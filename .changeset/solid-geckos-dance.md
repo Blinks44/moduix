@@ -2,4 +2,5 @@
 '@moduix/react': patch
 ---
 
-Combobox: Improve input action spacing and document clearer migration patterns.
+Combobox: Add `Option` row helper and improve migration guidance.
+Supports replacing or hiding the option indicator while keeping low-level item composition available.

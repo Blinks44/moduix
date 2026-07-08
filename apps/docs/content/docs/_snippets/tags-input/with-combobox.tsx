@@ -70,10 +70,9 @@ export function ComboboxTagsInput() {
         <Combobox.Content>
           <Combobox.Empty>No frameworks found.</Combobox.Empty>
           {collection.items.map((item) => (
-            <Combobox.Item key={item} item={item}>
-              <Combobox.ItemText>{item}</Combobox.ItemText>
-              <Combobox.ItemIndicator />
-            </Combobox.Item>
+            <Combobox.Option key={item} item={item}>
+              {item}
+            </Combobox.Option>
           ))}
         </Combobox.Content>
       </Combobox.Positioner>
