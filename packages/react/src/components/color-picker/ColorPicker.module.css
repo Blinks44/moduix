@@ -99,6 +99,22 @@
     &:is([disabled], [data-disabled], [data-readonly]) {
       cursor: default;
     }
+
+    &[data-fit-content] {
+      display: inline-flex;
+      width: auto;
+      min-width: var(--color-picker-trigger-size, var(--size-lg));
+      padding-inline: var(--color-picker-trigger-fit-content-padding-x, var(--spacing-3));
+      gap: var(--color-picker-trigger-fit-content-gap, var(--spacing-2));
+    }
+
+    &[data-fit-content] [data-slot='color-picker-transparency-grid'],
+    &[data-fit-content] [data-slot='color-picker-value-swatch'] {
+      grid-area: auto;
+      width: var(--color-picker-trigger-fit-content-swatch-size, 1rem);
+      height: var(--color-picker-trigger-fit-content-swatch-size, 1rem);
+      flex-shrink: 0;
+    }
   }
 
   .positioner {

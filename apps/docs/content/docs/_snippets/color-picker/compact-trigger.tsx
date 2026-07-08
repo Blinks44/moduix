@@ -1,15 +1,22 @@
 //#region demo
 import { ColorPicker, parseColor } from '@moduix/react';
 
-const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316'];
+const _defaultColor = '#eb5e41';
 
-export function ColorPickerDemo() {
+export function CompactTriggerColorPickerDemo() {
   return (
     <ColorPicker defaultValue={parseColor('#eb5e41')}>
       <ColorPicker.Label>Color</ColorPicker.Label>
       <ColorPicker.Control>
-        <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.Trigger aria-label="Open color picker" />
+        <ColorPicker.Trigger aria-label="Open color picker" data-fit-content>
+          <span className="color-picker-trigger-value">
+            <span className="color-picker-trigger-value-swatch">
+              <ColorPicker.TransparencyGrid />
+              <ColorPicker.ValueSwatch />
+            </span>
+            <ColorPicker.ValueText format="hex" />
+          </span>
+        </ColorPicker.Trigger>
       </ColorPicker.Control>
       <ColorPicker.Positioner>
         <ColorPicker.Content>
@@ -31,15 +38,6 @@ export function ColorPickerDemo() {
               </ColorPicker.ChannelSlider>
             </div>
           </div>
-          <ColorPicker.SwatchGroup>
-            {swatches.map((color) => (
-              <ColorPicker.SwatchTrigger key={color} value={color}>
-                <ColorPicker.Swatch value={color}>
-                  <ColorPicker.SwatchIndicator />
-                </ColorPicker.Swatch>
-              </ColorPicker.SwatchTrigger>
-            ))}
-          </ColorPicker.SwatchGroup>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
       <ColorPicker.HiddenInput />

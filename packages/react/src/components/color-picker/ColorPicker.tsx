@@ -78,14 +78,27 @@ const ColorPickerControl = forwardRef<
 const ColorPickerTrigger = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.Trigger>,
   ComponentProps<typeof ColorPickerPrimitive.Trigger>
->(function ColorPickerTrigger({ className, ...props }, ref) {
+>(function ColorPickerTrigger({ className, children, ...props }, ref) {
   return (
     <ColorPickerPrimitive.Trigger
       ref={ref}
       data-slot="color-picker-trigger"
       className={clsx(styles.trigger, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {children ?? (
+        <>
+          <ColorPickerPrimitive.TransparencyGrid
+            data-slot="color-picker-transparency-grid"
+            className={styles.transparencyGrid}
+          />
+          <ColorPickerPrimitive.ValueSwatch
+            data-slot="color-picker-value-swatch"
+            className={styles.valueSwatch}
+          />
+        </>
+      )}
+    </ColorPickerPrimitive.Trigger>
   );
 });
 

@@ -17,9 +17,8 @@ to paste a known color value and direct color manipulation is not useful.
 
 ## Basic
 
-Start with Ark's explicit color picker anatomy: a root, visible control, trigger swatch,
-positioner, content panel, color area, channel sliders, optional swatches, and a hidden input for
-forms.
+Start with a compact field: a root, one channel input, the default trigger swatch, explicit popup
+content, and a hidden input for forms.
 
 <Preview>
   <ColorPickerDocs.ColorPickerExample />
@@ -68,18 +67,18 @@ ColorPicker.Root
 └─ ColorPicker.HiddenInput
 ```
 
-| Part                               | Role                                                               |
-| ---------------------------------- | ------------------------------------------------------------------ |
-| `ColorPicker` / `ColorPicker.Root` | Owns color value, format, popup state, and form integration.       |
-| `ColorPicker.Control`              | Groups visible inputs and trigger.                                 |
-| `ColorPicker.Trigger`              | Button that opens the popup and commonly renders the value swatch. |
-| `ColorPicker.Content`              | Actual Ark popup content part.                                     |
-| `ColorPicker.Area`                 | Two-dimensional color interaction surface.                         |
-| `ColorPicker.ChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels. |
-| `ColorPicker.ChannelInput`         | Text or numeric input for a specific color channel.                |
-| `ColorPicker.SwatchTrigger`        | Selectable preset color button.                                    |
-| `ColorPicker.ValueSwatch`          | Visual swatch for the current value.                               |
-| `ColorPicker.HiddenInput`          | Hidden form field for native submission and reset synchronization. |
+| Part                               | Role                                                                   |
+| ---------------------------------- | ---------------------------------------------------------------------- |
+| `ColorPicker` / `ColorPicker.Root` | Owns color value, format, popup state, and form integration.           |
+| `ColorPicker.Control`              | Groups visible inputs and trigger.                                     |
+| `ColorPicker.Trigger`              | Button that opens the popup and renders the current swatch by default. |
+| `ColorPicker.Content`              | Actual Ark popup content part.                                         |
+| `ColorPicker.Area`                 | Two-dimensional color interaction surface.                             |
+| `ColorPicker.ChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels.     |
+| `ColorPicker.ChannelInput`         | Text or numeric input for a specific color channel.                    |
+| `ColorPicker.SwatchTrigger`        | Selectable preset color button.                                        |
+| `ColorPicker.ValueSwatch`          | Visual swatch for the current value.                                   |
+| `ColorPicker.HiddenInput`          | Hidden form field for native submission and reset synchronization.     |
 
 `ColorPicker.RootProvider` and `parseColor` cover the common wrapper path. Import Ark
 `useColorPicker`, `useColorPickerContext`, and related types directly from
@@ -93,6 +92,9 @@ The root portals `Positioner` automatically. Use `portalled={false}` for inline 
 
 Keep `ColorPicker.Positioner` and `ColorPicker.Content` visible for popup pickers. `Content` is the
 actual Ark part; the root only automates the portal boundary.
+
+Omit `Trigger` children for the default current-color swatch. Add `data-fit-content` when the
+trigger should size to custom content such as a swatch plus `ValueText`.
 
 Use `ColorPicker.HiddenInput` when the color should participate in native form submission or form
 reset behavior. Put it inside the same root, and pass `name` on `ColorPicker.Root` or register the
@@ -112,14 +114,15 @@ must stay a single element and preserve the required focus and interaction behav
 
 ### Default props
 
-| Surface / Prop                           | Default                 | Notes                                      |
-| ---------------------------------------- | ----------------------- | ------------------------------------------ |
-| `defaultValue`                           | `parseColor("#000000")` | Ark default color value.                   |
-| `defaultFormat`                          | `"rgba"`                | Ark default format.                        |
-| `ColorPicker.Content` width              | `16rem`                 | Prevents collapse to trigger swatch width. |
-| `ColorPicker.EyeDropperTrigger`          | moduix pipette icon     | Used when children are omitted.            |
-| `ColorPicker.SwatchIndicator`            | moduix check icon       | Used when children are omitted.            |
-| `ColorPicker` / `ColorPicker.Root` width | `16rem` (max `100%`)    | Styled root width defaults.                |
+| Surface / Prop                           | Default                 | Notes                                         |
+| ---------------------------------------- | ----------------------- | --------------------------------------------- |
+| `defaultValue`                           | `parseColor("#000000")` | Ark default color value.                      |
+| `defaultFormat`                          | `"rgba"`                | Ark default format.                           |
+| `ColorPicker.Content` width              | `16rem`                 | Prevents collapse to trigger swatch width.    |
+| `ColorPicker.EyeDropperTrigger`          | moduix pipette icon     | Used when children are omitted.               |
+| `ColorPicker.Trigger` children           | current swatch          | Renders `TransparencyGrid` and `ValueSwatch`. |
+| `ColorPicker.SwatchIndicator`            | moduix check icon       | Used when children are omitted.               |
+| `ColorPicker` / `ColorPicker.Root` width | `16rem` (max `100%`)    | Styled root width defaults.                   |
 
 ### Behavioral notes
 
@@ -190,14 +193,28 @@ field container and should expose the same state through Ark data attributes.
 
 ### Input Only
 
-Use only channel inputs when typed color entry matters and the visual area or popup would be too
-heavy for the interface.
+Use channel inputs with a passive value swatch when typed color entry matters and the popup would be
+too heavy for the interface.
 
 <Preview>
   <ColorPickerDocs.InputOnlyColorPickerExample />
 
   <Preview.Code>
   <include lang="tsx">./_snippets/color-picker/input-only.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
+</Preview>
+
+### Compact Trigger
+
+Use `data-fit-content` on `ColorPicker.Trigger` when a content-sized button reads better than a
+square swatch, for example during migration from button-based color fields.
+
+<Preview>
+  <ColorPickerDocs.CompactTriggerColorPickerExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/compact-trigger.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
 </Preview>

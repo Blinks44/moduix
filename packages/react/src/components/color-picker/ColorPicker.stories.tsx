@@ -25,11 +25,7 @@ function ColorPickerField({ swatchList = swatches }: { swatchList?: string[] }) 
       <ColorPicker.Label>Color</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.ChannelInput channel="alpha" />
-        <ColorPicker.Trigger aria-label="Open color picker">
-          <ColorPicker.TransparencyGrid />
-          <ColorPicker.ValueSwatch />
-        </ColorPicker.Trigger>
+        <ColorPicker.Trigger aria-label="Open color picker" />
       </ColorPicker.Control>
       <ColorPicker.Positioner>
         <ColorPicker.Content>
@@ -103,6 +99,48 @@ function InlinePicker() {
   );
 }
 
+function CompactTriggerPicker() {
+  return (
+    <ColorPicker.Root className={styles.demoRoot} defaultValue={parseColor('#eb5e41')}>
+      <ColorPicker.Label>Color</ColorPicker.Label>
+      <ColorPicker.Control>
+        <ColorPicker.Trigger aria-label="Open color picker" data-fit-content>
+          <span className={styles.triggerValue}>
+            <span className={styles.triggerValueSwatch}>
+              <ColorPicker.TransparencyGrid />
+              <ColorPicker.ValueSwatch />
+            </span>
+            <ColorPicker.ValueText format="hex" />
+          </span>
+        </ColorPicker.Trigger>
+      </ColorPicker.Control>
+      <ColorPicker.Positioner>
+        <ColorPicker.Content>
+          <ColorPicker.Area>
+            <ColorPicker.AreaBackground />
+            <ColorPicker.AreaThumb />
+          </ColorPicker.Area>
+          <div className={styles.sliderGroup}>
+            <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
+            <div className={styles.channelSliders}>
+              <ColorPicker.ChannelSlider channel="hue">
+                <ColorPicker.ChannelSliderTrack />
+                <ColorPicker.ChannelSliderThumb />
+              </ColorPicker.ChannelSlider>
+              <ColorPicker.ChannelSlider channel="alpha">
+                <ColorPicker.TransparencyGrid />
+                <ColorPicker.ChannelSliderTrack />
+                <ColorPicker.ChannelSliderThumb />
+              </ColorPicker.ChannelSlider>
+            </div>
+          </div>
+        </ColorPicker.Content>
+      </ColorPicker.Positioner>
+      <ColorPicker.HiddenInput />
+    </ColorPicker.Root>
+  );
+}
+
 export const Basic: Story = {
   render: () => (
     <ColorPicker.Root className={styles.demoRoot} defaultValue={parseColor('#eb5e41')}>
@@ -129,6 +167,10 @@ export const Controlled: Story = {
 
 export const Inline: Story = {
   render: () => <InlinePicker />,
+};
+
+export const CompactTrigger: Story = {
+  render: () => <CompactTriggerPicker />,
 };
 
 export const RootProvider: Story = {

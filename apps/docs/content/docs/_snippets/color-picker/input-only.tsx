@@ -9,7 +9,10 @@ export function InputOnlyColorPickerDemo() {
       <ColorPicker.Label>Hex color</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.ChannelInput channel="alpha" />
+        <div className="color-picker-control-swatch">
+          <ColorPicker.TransparencyGrid />
+          <ColorPicker.ValueSwatch />
+        </div>
       </ColorPicker.Control>
       <ColorPicker.HiddenInput />
     </ColorPicker>

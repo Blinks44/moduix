@@ -17,10 +17,7 @@ export function OpenControlledColorPickerDemo() {
       <ColorPicker.Label>Open controlled</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.Trigger aria-label="Open color picker">
-          <ColorPicker.TransparencyGrid />
-          <ColorPicker.ValueSwatch />
-        </ColorPicker.Trigger>
+        <ColorPicker.Trigger aria-label="Open color picker" />
       </ColorPicker.Control>
       <ColorPicker.Positioner>
         <ColorPicker.Content>

@@ -654,6 +654,9 @@
   --color-picker-thumb-shadow: initial; /* var(--shadow-sm) */
   --color-picker-thumb-size: initial; /* 1rem */
   --color-picker-transition: initial; /* var(--transition-default) */
+  --color-picker-trigger-fit-content-gap: initial; /* var(--spacing-2) */
+  --color-picker-trigger-fit-content-padding-x: initial; /* var(--spacing-3) */
+  --color-picker-trigger-fit-content-swatch-size: initial; /* 1rem */
   --color-picker-trigger-padding: initial; /* var(--spacing-1) */
   --color-picker-trigger-size: initial; /* var(--size-lg) */
   --color-picker-value-text-color: initial; /* var(--color-picker-color) */
