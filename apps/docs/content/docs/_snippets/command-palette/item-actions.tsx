@@ -41,63 +41,45 @@ export function CommandPaletteActionsDemo() {
       <CommandPalette.Trigger asChild>
         <Button>Open actions palette</Button>
       </CommandPalette.Trigger>
-      <CommandPalette.Backdrop />
-      <CommandPalette.Positioner>
-        <CommandPalette.Content>
-          <CommandPalette.CloseIcon />
-          <CommandPalette.Header>
-            <CommandPalette.Title>Command palette</CommandPalette.Title>
-            <CommandPalette.Description>
-              Run commands directly from the result list.
-            </CommandPalette.Description>
-          </CommandPalette.Header>
-          <CommandPalette.Body>
-            <CommandPalette.Combobox
-              collection={collection}
-              onInputValueChange={(details) => filter(details.inputValue)}
-              onSelect={(details) => {
-                const selectedItem = collection.items.find((item) => item.id === details.itemValue);
-                selectedItem?.onSelect();
-              }}
-            >
-              <CommandPalette.Control>
-                <CommandPalette.Input
-                  aria-label="Search commands"
-                  placeholder="Search and run commands..."
-                />
-                <CommandPalette.ClearTrigger aria-label="Clear search" />
-              </CommandPalette.Control>
-              <CommandPalette.List>
-                <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
-                {collection.group().map(([section, items]) => (
-                  <CommandPalette.ItemGroup key={section}>
-                    <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
-                    {items.map((item) => (
-                      <CommandPalette.Item key={item.id} item={item}>
-                        <CommandPalette.ItemText>
-                          <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                          <CommandPalette.ItemDescription>
-                            {item.description}
-                          </CommandPalette.ItemDescription>
-                        </CommandPalette.ItemText>
-                        {item.shortcut ? (
-                          <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
-                        ) : null}
-                      </CommandPalette.Item>
-                    ))}
-                  </CommandPalette.ItemGroup>
+      <CommandPalette.Panel>
+        <CommandPalette.Combobox
+          collection={collection}
+          onInputValueChange={(details) => filter(details.inputValue)}
+          onSelect={(details) => {
+            const selectedItem = actionItems.find((item) => item.id === details.itemValue);
+            selectedItem?.onSelect();
+          }}
+        >
+          <CommandPalette.Search placeholder="Search and run commands..." />
+          <CommandPalette.List>
+            <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+            {collection.group().map(([section, items]) => (
+              <CommandPalette.ItemGroup key={section}>
+                <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+                {items.map((item) => (
+                  <CommandPalette.Item key={item.id} item={item}>
+                    <CommandPalette.ItemText>
+                      <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
+                      <CommandPalette.ItemDescription>
+                        {item.description}
+                      </CommandPalette.ItemDescription>
+                    </CommandPalette.ItemText>
+                    {item.shortcut ? (
+                      <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
+                    ) : null}
+                  </CommandPalette.Item>
                 ))}
-              </CommandPalette.List>
-              <CommandPalette.Footer>
-                <span>
-                  <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
-                </span>
-                <span>{lastAction}</span>
-              </CommandPalette.Footer>
-            </CommandPalette.Combobox>
-          </CommandPalette.Body>
-        </CommandPalette.Content>
-      </CommandPalette.Positioner>
+              </CommandPalette.ItemGroup>
+            ))}
+          </CommandPalette.List>
+          <CommandPalette.Footer>
+            <span>
+              <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
+            </span>
+            <span>{lastAction}</span>
+          </CommandPalette.Footer>
+        </CommandPalette.Combobox>
+      </CommandPalette.Panel>
     </CommandPalette>
   );
 }

@@ -237,26 +237,39 @@
     flex: 0 0 auto;
     align-items: center;
     gap: var(--command-palette-input-gap, var(--spacing-2));
-    min-height: var(--command-palette-input-height, 4rem);
-    padding: var(--command-palette-control-padding-y, var(--spacing-3))
-      var(--command-palette-control-padding-x, var(--spacing-4));
-    border-bottom: var(--command-palette-divider-width, var(--border-width-sm)) solid
-      var(--command-palette-divider-color, var(--color-border));
+    min-height: var(--command-palette-input-height, var(--size-md));
+    margin: var(--command-palette-control-margin-y, var(--spacing-2))
+      var(--command-palette-control-margin-x, var(--spacing-4))
+      var(--command-palette-control-margin-bottom, var(--spacing-2));
+    border: var(--command-palette-input-border-width, var(--border-width-sm)) solid
+      var(--command-palette-input-border-color, var(--color-border));
+    border-radius: var(--command-palette-input-radius, var(--radius-md));
+    padding: var(--command-palette-control-padding-y, var(--spacing-1))
+      var(--command-palette-control-padding-x, var(--spacing-3));
+    background-color: var(--command-palette-input-bg, var(--color-background));
+    color: var(--command-palette-input-color, var(--color-foreground));
+    transition:
+      background-color var(--transition-default),
+      border-color var(--transition-default);
+
+    &:has(.input:is([data-invalid], [aria-invalid='true'])) {
+      border-color: var(--command-palette-input-border-color-invalid, var(--color-destructive));
+    }
   }
 
   .input {
     box-sizing: border-box;
     width: 100%;
     min-width: 0;
-    height: var(--command-palette-input-control-height, var(--size-md));
+    height: var(--command-palette-input-control-height, var(--size-sm));
     margin: 0;
     border: 0;
     padding: 0;
     background: transparent;
     color: inherit;
     font: inherit;
-    font-size: var(--command-palette-input-font-size, var(--text-lg));
-    line-height: var(--command-palette-input-line-height, var(--line-height-text-lg));
+    font-size: var(--command-palette-input-font-size, var(--text-sm));
+    line-height: var(--command-palette-input-line-height, var(--line-height-text-sm));
     outline: 0;
 
     &::placeholder {

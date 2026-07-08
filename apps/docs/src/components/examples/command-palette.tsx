@@ -106,8 +106,11 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-content-starting-scale', 'var(--scale-popup)'],
   ['--command-palette-content-starting-translate-x', '0'],
   ['--command-palette-content-starting-translate-y', '-0.75rem'],
-  ['--command-palette-control-padding-x', 'var(--spacing-4)'],
-  ['--command-palette-control-padding-y', 'var(--spacing-3)'],
+  ['--command-palette-control-margin-bottom', 'var(--spacing-2)'],
+  ['--command-palette-control-margin-x', 'var(--spacing-4)'],
+  ['--command-palette-control-margin-y', 'var(--spacing-2)'],
+  ['--command-palette-control-padding-x', 'var(--spacing-3)'],
+  ['--command-palette-control-padding-y', 'var(--spacing-1)'],
   ['--command-palette-divider-color', 'var(--color-border)'],
   ['--command-palette-divider-width', 'var(--border-width-sm)'],
   ['--command-palette-empty-font-size', 'var(--text-sm)'],
@@ -132,12 +135,18 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-highlight-bg', 'var(--color-accent)'],
   ['--command-palette-highlight-color', 'var(--color-foreground)'],
   ['--command-palette-icon-size', '1rem'],
-  ['--command-palette-input-control-height', 'var(--size-md)'],
-  ['--command-palette-input-font-size', 'var(--text-lg)'],
+  ['--command-palette-input-bg', 'var(--color-background)'],
+  ['--command-palette-input-border-color', 'var(--color-border)'],
+  ['--command-palette-input-border-color-invalid', 'var(--color-destructive)'],
+  ['--command-palette-input-border-width', 'var(--border-width-sm)'],
+  ['--command-palette-input-color', 'var(--color-foreground)'],
+  ['--command-palette-input-control-height', 'var(--size-sm)'],
+  ['--command-palette-input-font-size', 'var(--text-sm)'],
   ['--command-palette-input-gap', 'var(--spacing-2)'],
-  ['--command-palette-input-height', '4rem'],
-  ['--command-palette-input-line-height', 'var(--line-height-text-lg)'],
+  ['--command-palette-input-height', 'var(--size-md)'],
+  ['--command-palette-input-line-height', 'var(--line-height-text-sm)'],
   ['--command-palette-input-placeholder-color', 'var(--color-muted-foreground)'],
+  ['--command-palette-input-radius', 'var(--radius-md)'],
   ['--command-palette-item-color', 'var(--command-palette-color)'],
   ['--command-palette-item-description-font-size', 'var(--text-xs)'],
   ['--command-palette-item-description-line-height', 'var(--line-height-text-xs)'],
@@ -265,24 +274,20 @@ function useCommandCollection<T extends CommandItem>(items: T[]) {
 function CommandPaletteShell<T extends CommandItem>({
   children,
   collection,
-  description,
   filter,
   label,
   onSelect,
   placeholder,
   shortcut = false,
-  title = 'Command palette',
   trigger,
 }: {
   children: React.ReactNode;
   collection: ReturnType<typeof useCommandCollection<T>>['collection'];
-  description?: string;
   filter: ReturnType<typeof useCommandCollection<T>>['filter'];
   label: string;
   onSelect?: (details: { itemValue: string }) => void;
   placeholder: string;
   shortcut?: false | string;
-  title?: string;
   trigger: React.ReactNode;
 }) {
   return (
@@ -298,31 +303,16 @@ function CommandPaletteShell<T extends CommandItem>({
       <CommandPalette.Trigger asChild>
         <Button>{trigger}</Button>
       </CommandPalette.Trigger>
-      <CommandPalette.Backdrop />
-      <CommandPalette.Positioner>
-        <CommandPalette.Content>
-          <CommandPalette.CloseIcon />
-          <CommandPalette.Header>
-            <CommandPalette.Title>{title}</CommandPalette.Title>
-            {description ? (
-              <CommandPalette.Description>{description}</CommandPalette.Description>
-            ) : null}
-          </CommandPalette.Header>
-          <CommandPalette.Body>
-            <CommandPalette.Combobox
-              collection={collection}
-              onInputValueChange={(details) => filter(details.inputValue)}
-              onSelect={onSelect}
-            >
-              <CommandPalette.Control>
-                <CommandPalette.Input aria-label="Search commands" placeholder={placeholder} />
-                <CommandPalette.ClearTrigger aria-label="Clear search" />
-              </CommandPalette.Control>
-              {children}
-            </CommandPalette.Combobox>
-          </CommandPalette.Body>
-        </CommandPalette.Content>
-      </CommandPalette.Positioner>
+      <CommandPalette.Panel>
+        <CommandPalette.Combobox
+          collection={collection}
+          onInputValueChange={(details) => filter(details.inputValue)}
+          onSelect={onSelect}
+        >
+          <CommandPalette.Search placeholder={placeholder} />
+          {children}
+        </CommandPalette.Combobox>
+      </CommandPalette.Panel>
     </CommandPalette>
   );
 }
@@ -362,7 +352,6 @@ export function CommandPaletteExample() {
   return (
     <CommandPaletteShell
       collection={collection}
-      description="Search pages, settings, and quick actions."
       filter={filter}
       label="Command palette"
       placeholder="Search commands, pages, and settings..."
@@ -402,11 +391,10 @@ export function CommandPaletteActionsExample() {
   return (
     <CommandPaletteShell
       collection={collection}
-      description="Run commands directly from the result list."
       filter={filter}
       label="Command palette with actions"
       onSelect={(details) => {
-        const selectedItem = collection.items.find((item) => item.id === details.itemValue);
+        const selectedItem = actionItems.find((item) => item.id === details.itemValue);
         selectedItem?.onSelect();
       }}
       placeholder="Search and run commands..."
@@ -449,50 +437,30 @@ export function ControlledCommandPaletteExample() {
   const { collection, filter } = useCommandCollection(commandItems);
 
   return (
-    <>
-      <Button type="button" onClick={() => setOpen(true)}>
-        Search actions
-      </Button>
-      <CommandPalette
-        aria-label="Controlled command palette"
-        open={open}
-        onOpenChange={(details) => {
-          setOpen(details.open);
+    <CommandPalette
+      aria-label="Controlled command palette"
+      open={open}
+      onOpenChange={(details) => {
+        setOpen(details.open);
 
-          if (!details.open) {
-            filter('');
-          }
-        }}
-      >
-        <CommandPalette.Backdrop />
-        <CommandPalette.Positioner>
-          <CommandPalette.Content>
-            <CommandPalette.CloseIcon />
-            <CommandPalette.Header>
-              <CommandPalette.Title>Controlled command palette</CommandPalette.Title>
-              <CommandPalette.Description>
-                Coordinate the palette open state with surrounding React state.
-              </CommandPalette.Description>
-            </CommandPalette.Header>
-            <CommandPalette.Body>
-              <CommandPalette.Combobox
-                collection={collection}
-                onInputValueChange={(details) => filter(details.inputValue)}
-              >
-                <CommandPalette.Control>
-                  <CommandPalette.Input
-                    aria-label="Search commands"
-                    placeholder="Search controlled commands..."
-                  />
-                  <CommandPalette.ClearTrigger aria-label="Clear search" />
-                </CommandPalette.Control>
-                <CommandPaletteGroupedItems collection={collection} />
-              </CommandPalette.Combobox>
-            </CommandPalette.Body>
-          </CommandPalette.Content>
-        </CommandPalette.Positioner>
-      </CommandPalette>
-    </>
+        if (!details.open) {
+          filter('');
+        }
+      }}
+    >
+      <CommandPalette.Trigger asChild>
+        <Button>Search actions</Button>
+      </CommandPalette.Trigger>
+      <CommandPalette.Panel>
+        <CommandPalette.Combobox
+          collection={collection}
+          onInputValueChange={(details) => filter(details.inputValue)}
+        >
+          <CommandPalette.Search placeholder="Search controlled commands..." />
+          <CommandPaletteGroupedItems collection={collection} />
+        </CommandPalette.Combobox>
+      </CommandPalette.Panel>
+    </CommandPalette>
   );
 }
 
@@ -511,39 +479,21 @@ export function CommandPaletteShortcutExample() {
       <CommandPalette.Trigger asChild>
         <Button>Open palette</Button>
       </CommandPalette.Trigger>
-      <CommandPalette.Backdrop />
-      <CommandPalette.Positioner>
-        <CommandPalette.Content>
-          <CommandPalette.CloseIcon />
-          <CommandPalette.Header>
-            <CommandPalette.Title>Command palette</CommandPalette.Title>
-            <CommandPalette.Description>
-              Open this palette from the button or with Alt+K.
-            </CommandPalette.Description>
-          </CommandPalette.Header>
-          <CommandPalette.Body>
-            <CommandPalette.Combobox
-              collection={collection}
-              onInputValueChange={(details) => filter(details.inputValue)}
-            >
-              <CommandPalette.Control>
-                <CommandPalette.Input
-                  aria-label="Search commands"
-                  placeholder="Search commands..."
-                />
-                <CommandPalette.ClearTrigger aria-label="Clear search" />
-              </CommandPalette.Control>
-              <CommandPaletteGroupedItems collection={collection} />
-              <CommandPalette.Footer>
-                <span>
-                  <CommandPalette.Kbd>Alt</CommandPalette.Kbd> +{' '}
-                  <CommandPalette.Kbd>K</CommandPalette.Kbd>
-                </span>
-              </CommandPalette.Footer>
-            </CommandPalette.Combobox>
-          </CommandPalette.Body>
-        </CommandPalette.Content>
-      </CommandPalette.Positioner>
+      <CommandPalette.Panel>
+        <CommandPalette.Combobox
+          collection={collection}
+          onInputValueChange={(details) => filter(details.inputValue)}
+        >
+          <CommandPalette.Search placeholder="Search commands..." />
+          <CommandPaletteGroupedItems collection={collection} />
+          <CommandPalette.Footer>
+            <span>
+              <CommandPalette.Kbd>Alt</CommandPalette.Kbd> +{' '}
+              <CommandPalette.Kbd>K</CommandPalette.Kbd>
+            </span>
+          </CommandPalette.Footer>
+        </CommandPalette.Combobox>
+      </CommandPalette.Panel>
     </CommandPalette>
   );
 }

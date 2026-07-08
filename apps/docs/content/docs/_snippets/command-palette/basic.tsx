@@ -53,62 +53,44 @@ export function CommandPaletteDemo() {
       <CommandPalette.Trigger asChild>
         <Button>Open palette</Button>
       </CommandPalette.Trigger>
-      <CommandPalette.Backdrop />
-      <CommandPalette.Positioner>
-        <CommandPalette.Content className="commandPalette">
-          <CommandPalette.CloseIcon />
-          <CommandPalette.Header>
-            <CommandPalette.Title>Command palette</CommandPalette.Title>
-            <CommandPalette.Description>
-              Search pages, settings, and quick actions.
-            </CommandPalette.Description>
-          </CommandPalette.Header>
-          <CommandPalette.Body>
-            <CommandPalette.Combobox
-              collection={collection}
-              onInputValueChange={(details) => filter(details.inputValue)}
-            >
-              <CommandPalette.Control>
-                <CommandPalette.Input
-                  aria-label="Search commands"
-                  placeholder="Search commands, pages, and settings..."
-                />
-                <CommandPalette.ClearTrigger aria-label="Clear search" />
-              </CommandPalette.Control>
-              <CommandPalette.List>
-                <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
-                {collection.group().map(([section, items]) => (
-                  <CommandPalette.ItemGroup key={section}>
-                    <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
-                    {items.map((item) => (
-                      <CommandPalette.Item key={item.id} item={item}>
-                        <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
-                        <CommandPalette.ItemText>
-                          <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                          <CommandPalette.ItemDescription>
-                            {item.description}
-                          </CommandPalette.ItemDescription>
-                        </CommandPalette.ItemText>
-                        {item.shortcut ? (
-                          <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
-                        ) : null}
-                      </CommandPalette.Item>
-                    ))}
-                  </CommandPalette.ItemGroup>
+      <CommandPalette.Panel className="commandPalette">
+        <CommandPalette.Combobox
+          collection={collection}
+          onInputValueChange={(details) => filter(details.inputValue)}
+        >
+          <CommandPalette.Search placeholder="Search commands, pages, and settings..." />
+          <CommandPalette.List>
+            <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+            {collection.group().map(([section, items]) => (
+              <CommandPalette.ItemGroup key={section}>
+                <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+                {items.map((item) => (
+                  <CommandPalette.Item key={item.id} item={item}>
+                    <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
+                    <CommandPalette.ItemText>
+                      <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
+                      <CommandPalette.ItemDescription>
+                        {item.description}
+                      </CommandPalette.ItemDescription>
+                    </CommandPalette.ItemText>
+                    {item.shortcut ? (
+                      <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
+                    ) : null}
+                  </CommandPalette.Item>
                 ))}
-              </CommandPalette.List>
-              <CommandPalette.Footer>
-                <span>
-                  <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
-                </span>
-                <span>
-                  <CommandPalette.Kbd>Esc</CommandPalette.Kbd> close
-                </span>
-              </CommandPalette.Footer>
-            </CommandPalette.Combobox>
-          </CommandPalette.Body>
-        </CommandPalette.Content>
-      </CommandPalette.Positioner>
+              </CommandPalette.ItemGroup>
+            ))}
+          </CommandPalette.List>
+          <CommandPalette.Footer>
+            <span>
+              <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
+            </span>
+            <span>
+              <CommandPalette.Kbd>Esc</CommandPalette.Kbd> close
+            </span>
+          </CommandPalette.Footer>
+        </CommandPalette.Combobox>
+      </CommandPalette.Panel>
     </CommandPalette>
   );
 }

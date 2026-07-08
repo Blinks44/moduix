@@ -699,8 +699,11 @@
   --command-palette-content-starting-scale: initial; /* var(--scale-popup) */
   --command-palette-content-starting-translate-x: initial; /* 0 */
   --command-palette-content-starting-translate-y: initial; /* -0.75rem */
-  --command-palette-control-padding-x: initial; /* var(--spacing-4) */
-  --command-palette-control-padding-y: initial; /* var(--spacing-3) */
+  --command-palette-control-margin-bottom: initial; /* var(--spacing-2) */
+  --command-palette-control-margin-x: initial; /* var(--spacing-4) */
+  --command-palette-control-margin-y: initial; /* var(--spacing-2) */
+  --command-palette-control-padding-x: initial; /* var(--spacing-3) */
+  --command-palette-control-padding-y: initial; /* var(--spacing-1) */
   --command-palette-divider-color: initial; /* var(--color-border) */
   --command-palette-divider-width: initial; /* var(--border-width-sm) */
   --command-palette-description-color: initial; /* var(--color-muted-foreground) */
@@ -732,12 +735,18 @@
   --command-palette-highlight-bg: initial; /* var(--color-accent) */
   --command-palette-highlight-color: initial; /* var(--color-foreground) */
   --command-palette-icon-size: initial; /* 1rem */
-  --command-palette-input-control-height: initial; /* var(--size-md) */
-  --command-palette-input-font-size: initial; /* var(--text-lg) */
+  --command-palette-input-bg: initial; /* var(--color-background) */
+  --command-palette-input-border-color: initial; /* var(--color-border) */
+  --command-palette-input-border-color-invalid: initial; /* var(--color-destructive) */
+  --command-palette-input-border-width: initial; /* var(--border-width-sm) */
+  --command-palette-input-color: initial; /* var(--color-foreground) */
+  --command-palette-input-control-height: initial; /* var(--size-sm) */
+  --command-palette-input-font-size: initial; /* var(--text-sm) */
   --command-palette-input-gap: initial; /* var(--spacing-2) */
-  --command-palette-input-height: initial; /* 4rem */
-  --command-palette-input-line-height: initial; /* var(--line-height-text-lg) */
+  --command-palette-input-height: initial; /* var(--size-md) */
+  --command-palette-input-line-height: initial; /* var(--line-height-text-sm) */
   --command-palette-input-placeholder-color: initial; /* var(--color-muted-foreground) */
+  --command-palette-input-radius: initial; /* var(--radius-md) */
   --command-palette-item-color: initial; /* var(--command-palette-color) */
   --command-palette-item-description-font-size: initial; /* var(--text-xs) */
   --command-palette-item-description-line-height: initial; /* var(--line-height-text-xs) */

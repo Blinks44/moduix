@@ -128,25 +128,21 @@ function useCommandCollection<T extends CommandItem>(items: T[]) {
 function CommandPaletteShell<T extends CommandItem>({
   children,
   collection,
-  description,
   filter,
   label,
   trigger,
   onSelect,
   placeholder,
   shortcut = false,
-  title = 'Command palette',
 }: {
   children: React.ReactNode;
   collection: ListCollection<T>;
-  description?: string;
   filter: ReturnType<typeof useCommandCollection<T>>['filter'];
   label: string;
   trigger: React.ReactNode;
   onSelect?: (details: { itemValue: string }) => void;
   placeholder: string;
   shortcut?: false | string;
-  title?: string;
 }) {
   return (
     <CommandPalette
@@ -161,31 +157,16 @@ function CommandPaletteShell<T extends CommandItem>({
       <CommandPalette.Trigger asChild>
         <Button>{trigger}</Button>
       </CommandPalette.Trigger>
-      <CommandPalette.Backdrop />
-      <CommandPalette.Positioner>
-        <CommandPalette.Content>
-          <CommandPalette.CloseIcon />
-          <CommandPalette.Header>
-            <CommandPalette.Title>{title}</CommandPalette.Title>
-            {description ? (
-              <CommandPalette.Description>{description}</CommandPalette.Description>
-            ) : null}
-          </CommandPalette.Header>
-          <CommandPalette.Body>
-            <CommandPalette.Combobox
-              collection={collection}
-              onInputValueChange={(details) => filter(details.inputValue)}
-              onSelect={onSelect}
-            >
-              <CommandPalette.Control>
-                <CommandPalette.Input aria-label="Search commands" placeholder={placeholder} />
-                <CommandPalette.ClearTrigger aria-label="Clear search" />
-              </CommandPalette.Control>
-              {children}
-            </CommandPalette.Combobox>
-          </CommandPalette.Body>
-        </CommandPalette.Content>
-      </CommandPalette.Positioner>
+      <CommandPalette.Panel>
+        <CommandPalette.Combobox
+          collection={collection}
+          onInputValueChange={(details) => filter(details.inputValue)}
+          onSelect={onSelect}
+        >
+          <CommandPalette.Search placeholder={placeholder} />
+          {children}
+        </CommandPalette.Combobox>
+      </CommandPalette.Panel>
     </CommandPalette>
   );
 }
@@ -201,7 +182,6 @@ export const Basic: Story = {
         label="Command palette"
         placeholder="Search commands, pages, and settings..."
         shortcut="alt+k"
-        description="Search pages, settings, and quick actions."
         trigger={
           <>
             Open palette <span className={styles.triggerMeta}>Alt+K</span>
@@ -241,7 +221,6 @@ export const Actions: Story = {
           selectedItem?.onSelect();
         }}
         placeholder="Search and run..."
-        description="Run commands directly from the result list."
         trigger={<>Open actions</>}
       >
         <CommandPalette.List>
@@ -287,7 +266,6 @@ export const CustomComposition: Story = {
         filter={filter}
         label="Custom command palette"
         placeholder="Jump to places, pages, and settings..."
-        description="Compose your own result rows and footer content."
         trigger={<>Open custom palette</>}
       >
         <CommandPalette.List>

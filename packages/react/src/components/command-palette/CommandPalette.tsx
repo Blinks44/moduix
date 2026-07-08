@@ -25,6 +25,7 @@ import styles from './CommandPalette.module.css';
 const DEFAULT_CLOSE_TRIGGER_LABEL = 'Close command palette';
 const DEFAULT_CLOSE_ICON_LABEL = 'Close command palette';
 const DEFAULT_CLEAR_TRIGGER_LABEL = 'Clear search';
+const DEFAULT_SEARCH_INPUT_LABEL = 'Search commands';
 
 type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> & {
   shortcut?: false | string;
@@ -33,6 +34,15 @@ type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> & {
 
 type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
   OverlayPortalProps;
+
+type CommandPalettePanelProps = ComponentProps<typeof DialogPrimitive.Content> & {
+  showCloseIcon?: boolean;
+};
+
+type CommandPaletteSearchProps = ComponentProps<typeof ComboboxPrimitive.Input> & {
+  controlProps?: ComponentProps<typeof ComboboxPrimitive.Control>;
+  clearTriggerProps?: ComponentProps<typeof ComboboxPrimitive.ClearTrigger>;
+};
 
 function isShortcutMatch(event: KeyboardEvent, shortcut: string) {
   const parts = shortcut
@@ -111,14 +121,14 @@ function CommandPaletteRoot({
       if (
         event.defaultPrevented ||
         event.isComposing ||
-        isEditableTarget(event.target) ||
-        !isShortcutMatch(event, shortcut)
+        !isShortcutMatch(event, shortcut) ||
+        (!dialog.open && isEditableTarget(event.target))
       ) {
         return;
       }
 
       event.preventDefault();
-      dialog.setOpen(true);
+      dialog.setOpen(!dialog.open);
     };
 
     const eventListener = handleKeyDown as EventListener;
@@ -219,6 +229,23 @@ const CommandPaletteContent = forwardRef<
       className={clsx(styles.content, normalizeClassName(className))}
       {...props}
     />
+  );
+});
+
+const CommandPalettePanel = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Content>,
+  CommandPalettePanelProps
+>(function CommandPalettePanel({ children, showCloseIcon = false, ...props }, ref) {
+  return (
+    <>
+      <CommandPaletteBackdrop />
+      <CommandPalettePositioner>
+        <CommandPaletteContent ref={ref} {...props}>
+          {showCloseIcon ? <CommandPaletteCloseIcon /> : null}
+          <CommandPaletteBody>{children}</CommandPaletteBody>
+        </CommandPaletteContent>
+      </CommandPalettePositioner>
+    </>
   );
 });
 
@@ -394,6 +421,32 @@ const CommandPaletteInput = forwardRef<
       className={clsx(styles.input, normalizeClassName(className))}
       {...props}
     />
+  );
+});
+
+const CommandPaletteSearch = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Input>,
+  CommandPaletteSearchProps
+>(function CommandPaletteSearch(
+  {
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    clearTriggerProps,
+    controlProps,
+    ...props
+  },
+  ref,
+) {
+  return (
+    <CommandPaletteControl {...controlProps}>
+      <CommandPaletteInput
+        ref={ref}
+        aria-label={ariaLabel ?? (ariaLabelledBy == null ? DEFAULT_SEARCH_INPUT_LABEL : undefined)}
+        aria-labelledby={ariaLabelledBy}
+        {...props}
+      />
+      <CommandPaletteClearTrigger {...clearTriggerProps} />
+    </CommandPaletteControl>
   );
 });
 
@@ -645,6 +698,7 @@ const CommandPalette = Object.assign(CommandPaletteRoot, {
   Backdrop: CommandPaletteBackdrop,
   Positioner: CommandPalettePositioner,
   Content: CommandPaletteContent,
+  Panel: CommandPalettePanel,
   Title: CommandPaletteTitle,
   Description: CommandPaletteDescription,
   CloseTrigger: CommandPaletteCloseTrigger,
@@ -654,6 +708,7 @@ const CommandPalette = Object.assign(CommandPaletteRoot, {
   Combobox: CommandPaletteCombobox,
   Control: CommandPaletteControl,
   Input: CommandPaletteInput,
+  Search: CommandPaletteSearch,
   ClearTrigger: CommandPaletteClearTrigger,
   List: CommandPaletteList,
   Empty: CommandPaletteEmpty,
