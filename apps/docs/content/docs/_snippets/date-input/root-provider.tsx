@@ -1,19 +1,10 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { DateInputSegmentContext, useDateInput } from '@ark-ui/react/date-input';
+import { useDateInput } from '@ark-ui/react/date-input';
 import { today } from '@internationalized/date';
 import { DateInput } from '@moduix/react';
 
-function DateInputSegments() {
-  return (
-    <DateInput.SegmentGroup>
-      <DateInputSegmentContext>
-        {(segment) => <DateInput.Segment segment={segment} />}
-      </DateInputSegmentContext>
-    </DateInput.SegmentGroup>
-  );
-}
 export function RootProviderDateInputDemo() {
   const dateInput = useDateInput({
     defaultValue: [today('UTC')],
@@ -23,7 +14,7 @@ export function RootProviderDateInputDemo() {
       <DateInput.RootProvider value={dateInput}>
         <DateInput.Label>Report date</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
         <DateInput.HiddenInput name="report-date" />
       </DateInput.RootProvider>

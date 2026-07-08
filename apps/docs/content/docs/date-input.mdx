@@ -18,8 +18,9 @@ import * as DateInputDocs from '@/components/examples/date-input';
 
 ## Basic
 
-Render date segments through Ark `DateInputSegmentContext`. Ark controls segment order, keyboard
-editing, focus, placeholders, and form synchronization, while moduix keeps the styled visual parts.
+Render locale-aware date segments with `DateInput.Segments`. Ark controls segment order, keyboard
+editing, focus, placeholders, and form synchronization, while moduix keeps the styled visual parts
+and removes repeated segment rendering boilerplate from the common path.
 
 <Preview>
   <DateInputDocs.DateInputExample />
@@ -28,8 +29,8 @@ editing, focus, placeholders, and form synchronization, while moduix keeps the s
   <include lang="tsx">./_snippets/date-input/basic.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
-  
+<Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+
 </Preview>
 
 ## Install with shadcn
@@ -42,10 +43,14 @@ editing, focus, placeholders, and form synchronization, while moduix keeps the s
 DateInput.Root
 ├─ DateInput.Label
 ├─ DateInput.Control
-│  └─ DateInput.SegmentGroup
-│     └─ DateInputSegmentContext (from @ark-ui/react/date-input)
-│        └─ DateInput.Segment
+│  └─ DateInput.Segments
 └─ DateInput.HiddenInput
+
+Advanced custom segment rendering:
+
+DateInput.SegmentGroup
+└─ DateInputSegmentContext (from @ark-ui/react/date-input)
+   └─ DateInput.Segment
 
 DateInput.RootProvider
 └─ same part tree connected to a useDateInput() store
@@ -59,6 +64,7 @@ DateInput.RootProvider
 | `DateInput.Control`            | Visual frame around one or more segment groups.                    |
 | `DateInput.SegmentGroup`       | Groups segments for one date index.                                |
 | `DateInput.Segment`            | Editable or literal date segment returned by Ark.                  |
+| `DateInput.Segments`           | Renders one locale-aware segment group for the common path.        |
 | `DateInput.HiddenInput`        | Native hidden input synchronized with the selected date.           |
 | `DateInput.Separator`          | Presentational text for range layouts.                             |
 | `DateInputSegmentContext`      | Upstream Ark render helper for locale-aware segment rendering.     |
@@ -67,26 +73,30 @@ DateInput.RootProvider
 
 ### Recommended composition
 
-Use `DateInput` as the short root form. Render `DateInput.SegmentGroup`, then use
-Ark `DateInputSegmentContext` to receive each locale-aware segment and pass it to
-`DateInput.Segment`.
+Use `DateInput` as the short root form. Render `DateInput.Segments` inside
+`DateInput.Control` for the standard locale-aware segment group.
 
 Use `DateInput.HiddenInput` when the date should submit with a form or reset with a native form
-reset. For ranges, render indexed segment groups and hidden inputs for each side.
+reset. For ranges, render indexed `DateInput.Segments` and hidden inputs for each side.
 
 ### When to go custom
 
+Pass `segmentClassName` to `DateInput.Segments` when every generated segment needs the same custom
+class. Use `DateInput.SegmentGroup`, Ark `DateInputSegmentContext`, and `DateInput.Segment` directly
+when segment rendering needs to vary per segment.
 Use `asChild` on Ark parts when you need a custom host element. Keep the child semantic and single.
 Use `ids` when an external label, helper text, or another component must share exact IDs.
 
 ### Default props
 
-| Prop                              | Default        | Notes                                                 |
-| --------------------------------- | -------------- | ----------------------------------------------------- |
-| `DateInput` / `DateInput.Root`    | —              | No local behavioral defaults; Ark defaults apply.     |
-| `DateInput.HiddenInput`           | —              | Explicit, so single and range form names stay clear.  |
-| `DateInput.Separator.aria-hidden` | `true`         | Presentational text is hidden from assistive tech.    |
-| `DateInput.Separator.role`        | `presentation` | Keeps range separators out of the accessibility tree. |
+| Prop                                  | Default        | Notes                                                 |
+| ------------------------------------- | -------------- | ----------------------------------------------------- |
+| `DateInput` / `DateInput.Root`        | —              | No local behavioral defaults; Ark defaults apply.     |
+| `DateInput.Segments`                  | —              | Renders the locale-aware segment group for one index. |
+| `DateInput.Segments.segmentClassName` | —              | Adds a class to each generated segment.               |
+| `DateInput.HiddenInput`               | —              | Explicit, so single and range form names stay clear.  |
+| `DateInput.Separator.aria-hidden`     | `true`         | Presentational text is hidden from assistive tech.    |
+| `DateInput.Separator.role`            | `presentation` | Keeps range separators out of the accessibility tree. |
 
 ### Behavioral notes
 
@@ -99,7 +109,7 @@ Use `ids` when an external label, helper text, or another component must share e
 - `locale`, `timeZone`, `hourCycle`, `granularity`, `formatter`, `format`, `translations`, and `createCalendar` pass through to Ark.
 - Import Ark `useDateInput()`, `useDateInputContext()`, `DateInputContext`, and
   `DateInputSegmentContext` directly from `@ark-ui/react/date-input` when you need advanced state
-  access or renderless helpers.
+  access, context, or custom segment rendering.
 
 ## Examples
 
@@ -114,8 +124,8 @@ Control the selected date array and update it from `details.value`.
   <include lang="tsx">./_snippets/date-input/controlled.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
-  
+<Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+
 </Preview>
 
 ### Range
@@ -195,6 +205,22 @@ Set `granularity` when the input should include time segments.
   
 </Preview>
 
+### Custom Segments
+
+Use the full segment composition when segment rendering needs to vary by Ark segment data.
+`DateInput.Segments` remains the default path for standard rendering and shared segment classes.
+
+<Preview>
+  <DateInputDocs.CustomSegmentsDateInputExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/custom-segments.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+
+</Preview>
+
 ### Field State
 
 Use `Field` around date input for surrounding form text. Pass `required`, `disabled`, or `invalid`
@@ -229,6 +255,10 @@ rendered root tree.
 
 ## Styling
 
+Most styling changes start with `--date-input-width`, `--date-input-control-width`,
+`--date-input-border-color`, `--date-input-radius`, `--date-input-focus-ring-color`, and
+`--date-input-segment-bg-focus`. The full public variable contract is listed below.
+
 ### CSS Properties
 
 <div className="not-prose">
@@ -246,6 +276,7 @@ rendered root tree.
 - `data-slot="date-input-control"` on the visual frame.
 - `data-slot="date-input-segment-group"` on each date group.
 - `data-slot="date-input-segment"` on editable and literal segments.
+- `DateInput.Segments` accepts `segmentClassName` for shared segment styling.
 - `data-slot="date-input-hidden-input"` on the hidden native input.
 - `data-slot="date-input-separator"` on moduix range separator sugar.
 - Ark state attributes include `data-disabled`, `data-readonly`, `data-invalid`, `data-focus` on

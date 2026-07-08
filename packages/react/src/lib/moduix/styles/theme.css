@@ -832,6 +832,7 @@
   --date-input-border-width: initial; /* var(--border-width-sm) */
   --date-input-color: initial; /* var(--color-foreground) */
   --date-input-control-height: initial; /* var(--size-lg) */
+  --date-input-control-width: initial; /* 100% */
   --date-input-disabled-opacity: initial; /* var(--opacity-disabled) */
   --date-input-focus-ring-color: initial; /* var(--color-ring) */
   --date-input-focus-ring-offset: initial; /* -1px */
@@ -857,7 +858,7 @@
   --date-input-segment-radius: initial; /* var(--radius-sm) */
   --date-input-separator-color: initial; /* var(--color-muted-foreground) */
   --date-input-transition: initial; /* var(--transition-default) */
-  --date-input-width: initial; /* auto */
+  --date-input-width: initial; /* 100% */
 
   /* DatePicker */
   --date-picker-action-bg: initial; /* transparent */

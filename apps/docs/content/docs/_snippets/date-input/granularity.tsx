@@ -1,19 +1,9 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { DateInputSegmentContext } from '@ark-ui/react/date-input';
 import { CalendarDateTime } from '@internationalized/date';
 import { DateInput } from '@moduix/react';
 
-function DateInputSegments() {
-  return (
-    <DateInput.SegmentGroup>
-      <DateInputSegmentContext>
-        {(segment) => <DateInput.Segment segment={segment} />}
-      </DateInputSegmentContext>
-    </DateInput.SegmentGroup>
-  );
-}
 export function GranularityDateInputDemo() {
   return (
     <DateInput
@@ -23,7 +13,7 @@ export function GranularityDateInputDemo() {
     >
       <DateInput.Label>Date and time</DateInput.Label>
       <DateInput.Control>
-        <DateInputSegments />
+        <DateInput.Segments />
       </DateInput.Control>
       <DateInput.HiddenInput name="scheduled-at" />
     </DateInput>

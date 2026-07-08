@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { DateInput as DateInputPrimitive } from '@ark-ui/react/date-input';
+import { DateInput as DateInputPrimitive, DateInputSegmentContext } from '@ark-ui/react/date-input';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -89,6 +89,21 @@ const DateInputSegment = forwardRef<
   );
 });
 
+const DateInputSegments = forwardRef<
+  ComponentRef<typeof DateInputPrimitive.SegmentGroup>,
+  ComponentProps<typeof DateInputPrimitive.SegmentGroup> & {
+    segmentClassName?: string;
+  }
+>(function DateInputSegments({ segmentClassName, ...props }, ref) {
+  return (
+    <DateInputSegmentGroup ref={ref} {...props}>
+      <DateInputSegmentContext>
+        {(segment) => <DateInputSegment segment={segment} className={segmentClassName} />}
+      </DateInputSegmentContext>
+    </DateInputSegmentGroup>
+  );
+});
+
 const DateInputHiddenInput = forwardRef<
   ComponentRef<typeof DateInputPrimitive.HiddenInput>,
   ComponentProps<typeof DateInputPrimitive.HiddenInput>
@@ -122,6 +137,7 @@ const DateInput = Object.assign(DateInputRoot, {
   Control: DateInputControl,
   SegmentGroup: DateInputSegmentGroup,
   Segment: DateInputSegment,
+  Segments: DateInputSegments,
   HiddenInput: DateInputHiddenInput,
   Separator: DateInputSeparator,
 });

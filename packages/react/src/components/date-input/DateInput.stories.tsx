@@ -1,9 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  DateInputSegmentContext,
-  type DateInputDateValue,
-  useDateInput,
-} from '@ark-ui/react/date-input';
+import { type DateInputDateValue, useDateInput } from '@ark-ui/react/date-input';
 import { CalendarDate, CalendarDateTime, today } from '@internationalized/date';
 import { useState } from 'react';
 import { Field } from '../field';
@@ -23,22 +19,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function DateInputSegments({ index }: { index?: number }) {
-  return (
-    <DateInput.SegmentGroup index={index}>
-      <DateInputSegmentContext>
-        {(segment) => <DateInput.Segment segment={segment} />}
-      </DateInputSegmentContext>
-    </DateInput.SegmentGroup>
-  );
-}
-
 export const Basic: Story = {
   render: () => (
     <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]} name="release-date">
       <DateInput.Label>Release date</DateInput.Label>
       <DateInput.Control>
-        <DateInputSegments />
+        <DateInput.Segments />
       </DateInput.Control>
       <DateInput.HiddenInput />
     </DateInput>
@@ -54,7 +40,7 @@ export const Controlled: Story = {
         <DateInput value={value} onValueChange={(details) => setValue(details.value)}>
           <DateInput.Label>Controlled date</DateInput.Label>
           <DateInput.Control>
-            <DateInputSegments />
+            <DateInput.Segments />
           </DateInput.Control>
           <DateInput.HiddenInput />
         </DateInput>
@@ -72,9 +58,9 @@ export const Range: Story = {
     >
       <DateInput.Label>Travel dates</DateInput.Label>
       <DateInput.Control>
-        <DateInputSegments index={0} />
+        <DateInput.Segments index={0} />
         <DateInput.Separator>to</DateInput.Separator>
-        <DateInputSegments index={1} />
+        <DateInput.Segments index={1} />
       </DateInput.Control>
       <DateInput.HiddenInput index={0} name="check-in" />
       <DateInput.HiddenInput index={1} name="check-out" />
@@ -92,7 +78,7 @@ export const MinMaxAndUnavailable: Story = {
     >
       <DateInput.Label>Booking date</DateInput.Label>
       <DateInput.Control>
-        <DateInputSegments />
+        <DateInput.Segments />
       </DateInput.Control>
       <DateInput.HiddenInput />
     </DateInput>
@@ -105,7 +91,7 @@ export const DisabledAndReadOnly: Story = {
       <DateInput disabled defaultValue={[new CalendarDate(2026, 6, 22)]}>
         <DateInput.Label>Disabled date</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
         <DateInput.HiddenInput name="disabled-date" />
       </DateInput>
@@ -113,7 +99,7 @@ export const DisabledAndReadOnly: Story = {
       <DateInput readOnly defaultValue={[new CalendarDate(2026, 6, 22)]}>
         <DateInput.Label>Read-only date</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
         <DateInput.HiddenInput name="read-only-date" />
       </DateInput>
@@ -130,7 +116,7 @@ export const Granularity: Story = {
     >
       <DateInput.Label>Date and time</DateInput.Label>
       <DateInput.Control>
-        <DateInputSegments />
+        <DateInput.Segments />
       </DateInput.Control>
       <DateInput.HiddenInput name="scheduled-at" />
     </DateInput>
@@ -143,7 +129,7 @@ export const WithFieldValidation: Story = {
       <DateInput required invalid>
         <DateInput.Label>Deadline</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
         <DateInput.HiddenInput name="deadline" />
       </DateInput>
@@ -161,7 +147,7 @@ export const RootProvider: Story = {
         <DateInput.RootProvider value={dateInput}>
           <DateInput.Label>Report date</DateInput.Label>
           <DateInput.Control>
-            <DateInputSegments />
+            <DateInput.Segments />
           </DateInput.Control>
           <DateInput.HiddenInput name="report-date" />
         </DateInput.RootProvider>
@@ -178,13 +164,7 @@ export const CustomStyling: Story = {
     <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]}>
       <DateInput.Label>Styled date</DateInput.Label>
       <DateInput.Control className={storyStyles.customControl}>
-        <DateInput.SegmentGroup>
-          <DateInputSegmentContext>
-            {(segment) => (
-              <DateInput.Segment segment={segment} className={storyStyles.customSegment} />
-            )}
-          </DateInputSegmentContext>
-        </DateInput.SegmentGroup>
+        <DateInput.Segments segmentClassName={storyStyles.customSegment} />
       </DateInput.Control>
       <DateInput.HiddenInput />
     </DateInput>
