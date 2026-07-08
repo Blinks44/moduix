@@ -15,11 +15,11 @@ export function PartialCollapseCollapsibleDemo() {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-content-body">
+        <Collapsible.Body>
           {paragraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   );

@@ -37,7 +37,8 @@ Collapsible.Root
 │  ├─ label
 │  └─ Collapsible.Indicator (optional)
 └─ Collapsible.Content
-   └─ content
+   └─ Collapsible.Body
+      └─ content
 ```
 
 | Part                               | Role                                                   |
@@ -47,18 +48,23 @@ Collapsible.Root
 | `Collapsible.Trigger`              | Accessible button that toggles the content.            |
 | `Collapsible.Indicator`            | Optional state cue with a default moduix chevron.      |
 | `Collapsible.Content`              | Collapsible region measured through Ark CSS variables. |
+| `Collapsible.Body`                 | Moduix inner wrapper for padding and content layout.   |
 
 ## Composition
 
 ### Recommended composition
 
-Use `Collapsible`, `Collapsible.Trigger`, optional `Collapsible.Indicator`, and
-`Collapsible.Content`. Root props include `open`, `defaultOpen`, `onOpenChange(details)`,
-`disabled`, `collapsedHeight`, `collapsedWidth`, `lazyMount`, `unmountOnExit`, `ids`, and
-`onExitComplete`.
+Use `Collapsible`, `Collapsible.Trigger`, optional `Collapsible.Indicator`,
+`Collapsible.Content`, and `Collapsible.Body`. Root props include `open`, `defaultOpen`,
+`onOpenChange(details)`, `disabled`, `collapsedHeight`, `collapsedWidth`, `lazyMount`,
+`unmountOnExit`, `ids`, and `onExitComplete`.
 
-Keep padding and surface styles on an inner element inside `Collapsible.Content`. Ark measures the
-content and exposes `--height`, `--width`, `--collapsed-height`, and `--collapsed-width`.
+Keep padding and surface styles on `Collapsible.Body` instead of `Collapsible.Content`. Ark measures
+the content and exposes `--height`, `--width`, `--collapsed-height`, and `--collapsed-width`.
+
+When migrating from shadcn, map `CollapsibleTrigger` to `Collapsible.Trigger` and
+`CollapsibleContent` to `Collapsible.Content`. moduix keeps Ark's details object, so controlled
+state reads `details.open` instead of receiving the boolean directly.
 
 ### When to go custom
 
@@ -80,6 +86,7 @@ custom children.
 | `Collapsible.Trigger`   | `button`         | Supports Ark `asChild`                             |
 | `Collapsible.Indicator` | down chevron     | Rotates upward from `data-state="open"`            |
 | `Collapsible.Content`   | collapsed region | Uses Ark measurement variables and render strategy |
+| `Collapsible.Body`      | `div`            | Inner layout wrapper with padding and gap          |
 
 ### Behavioral notes
 
@@ -213,7 +220,7 @@ Use `asChild` to compose the trigger behavior onto a consumer-owned button.
 ### Styling hooks
 
 - DOM parts expose `data-slot="collapsible-root"`, `collapsible-root-provider`,
-  `collapsible-trigger`, `collapsible-indicator`, and `collapsible-content`.
+  `collapsible-trigger`, `collapsible-indicator`, `collapsible-content`, and `collapsible-body`.
 - Ark exposes `data-state="open" | "closed"` on root, trigger, indicator, and content.
 - Ark adds `data-collapsible` to the content part.
 - `data-disabled` marks disabled trigger, indicator, and content parts.

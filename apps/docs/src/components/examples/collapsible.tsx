@@ -9,11 +9,6 @@ export const collapsibleExampleCss = `
     width: 14rem;
   }
 
-  .collapsible-content-body {
-    padding-block: var(--spacing-2);
-    padding-inline: var(--spacing-2);
-  }
-
   .collapsible-keys-list {
     display: flex;
     flex-direction: column;
@@ -77,7 +72,8 @@ export const collapsibleCustomCompositionCss = `
 
   .collapsible-custom-content-body {
     margin-top: var(--spacing-1);
-    padding: var(--spacing-2) var(--spacing-3);
+    --collapsible-body-padding: var(--spacing-2) var(--spacing-3);
+
     border-radius: var(--radius-md);
     background-color: var(--color-muted);
     color: var(--color-muted-foreground);
@@ -105,6 +101,8 @@ export const collapsibleLongContentData = `const paragraphs = [
 ];`;
 
 export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
+  ['--collapsible-body-gap', 'var(--spacing-2)', 'Controls body content gap.'],
+  ['--collapsible-body-padding', 'var(--spacing-2)', 'Controls body padding.'],
   ['--collapsible-color', 'var(--color-foreground)', 'Controls root text color.'],
   ['--collapsible-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--collapsible-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
@@ -121,7 +119,7 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ['--collapsible-max-width', '100%', 'Controls root max width.'],
   [
     '--collapsible-indicator-open-transform',
-    'rotate(90deg)',
+    'rotate(180deg)',
     'Controls indicator transform while open.',
   ],
   ['--collapsible-indicator-size', '0.75rem', 'Controls indicator size.'],
@@ -171,7 +169,7 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
     'var(--transition-default)',
     'Controls trigger color and background transition.',
   ],
-  ['--collapsible-width', '14rem', 'Controls root width.'],
+  ['--collapsible-width', '100%', 'Controls root width.'],
 ];
 
 const collapsibleCssProperties = collapsibleOverrideCssProperties.map(normalizeCssProperty);
@@ -218,9 +216,9 @@ export function CollapsibleExample(props: ComponentProps<typeof Collapsible>) {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-content-body">
+        <Collapsible.Body>
           <RecoveryKeys />
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   );
@@ -240,9 +238,9 @@ export function ControlledCollapsibleExample() {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-content-body">
+        <Collapsible.Body>
           <RecoveryKeys />
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
       <span className="collapsible-state">Current state: {open ? 'open' : 'closed'}</span>
     </Collapsible>
@@ -257,9 +255,9 @@ export function DisabledCollapsibleExample() {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-content-body">
+        <Collapsible.Body>
           <RecoveryKeys />
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   );
@@ -273,9 +271,9 @@ export function LazyMountCollapsibleExample() {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-content-body">
+        <Collapsible.Body>
           <RecoveryKeys />
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   );
@@ -289,11 +287,11 @@ export function PartialCollapseCollapsibleExample() {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-content-body">
+        <Collapsible.Body>
           {paragraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   );
@@ -315,9 +313,9 @@ export function NestedCollapsibleExample() {
               <Collapsible.Indicator />
             </Collapsible.Trigger>
             <Collapsible.Content>
-              <div className="collapsible-content-body">
+              <Collapsible.Body>
                 <RecoveryKeys />
-              </div>
+              </Collapsible.Body>
             </Collapsible.Content>
           </Collapsible>
         </div>
@@ -340,9 +338,9 @@ export function RootProviderCollapsibleExample() {
           <Collapsible.Indicator />
         </Collapsible.Trigger>
         <Collapsible.Content>
-          <div className="collapsible-content-body">
+          <Collapsible.Body>
             <RecoveryKeys />
-          </div>
+          </Collapsible.Body>
         </Collapsible.Content>
       </Collapsible.RootProvider>
     </div>
@@ -361,9 +359,9 @@ export function CustomCompositionCollapsibleExample() {
         </button>
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-custom-content-body">
+        <Collapsible.Body className="collapsible-custom-content-body">
           <RecoveryKeys />
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   );

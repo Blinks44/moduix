@@ -16,6 +16,8 @@ keys, secondary metadata, or a single disclosure row. Use `Accordion` for coordi
 - Keeps the Ark anatomy: `Root` or `RootProvider`, `Trigger`, optional `Indicator`, and `Content`.
 - Keeps Ark controlled state, render strategy, partial-collapse measurements, context, and
   `--height` / `--width` CSS variables unchanged.
+- Layers the moduix-only `Body` helper inside `Content` for padding and content layout without
+  changing the measured Ark content part.
 
 ## Current behavior contract
 
@@ -25,6 +27,8 @@ keys, secondary metadata, or a single disclosure row. Use `Accordion` for coordi
   `onExitComplete`.
 - `Collapsible.RootProvider` accepts the return value from Ark `useCollapsible()`.
 - `Collapsible.Indicator` renders `ChevronDownIcon` when children are omitted.
+- `Collapsible.Body` is an optional inner layout wrapper for padding, gap, and surfaces inside
+  `Collapsible.Content`.
 - Every DOM part forwards its Ark props, ref, `className`, and `asChild`. `Trigger asChild` supplies
   behavior and state attributes without imposing the default trigger class.
 
@@ -36,7 +40,8 @@ Collapsible.Root
 │  ├─ label
 │  └─ Collapsible.Indicator (optional)
 └─ Collapsible.Content
-   └─ content wrapper
+   └─ Collapsible.Body
+      └─ content
 ```
 
 Provider composition replaces `Root` with `RootProvider`.
@@ -48,6 +53,7 @@ Provider composition replaces `Root` with `RootProvider`.
 | `Collapsible.Trigger`      | `collapsible-trigger`       | Styled Ark trigger button.              |
 | `Collapsible.Indicator`    | `collapsible-indicator`     | Defaults to `ChevronDownIcon`.          |
 | `Collapsible.Content`      | `collapsible-content`       | Animated Ark content region.            |
+| `Collapsible.Body`         | `collapsible-body`          | Inner layout wrapper for content.       |
 
 ## Composition
 
@@ -62,7 +68,7 @@ export function CollapsibleExample() {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="contentBody">Store these keys somewhere safe.</div>
+        <Collapsible.Body>Store these keys somewhere safe.</Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   );
@@ -88,6 +94,8 @@ Controlled callbacks keep the Ark details object:
   uses Ark `--height`, `--width`, `--collapsed-height`, and `--collapsed-width` measurements.
 - `Root Provider`: `Collapsible.RootProvider` is exported. Import Ark `useCollapsible()` directly
   when state must be created outside the rendered root.
+- `Body`: moduix adds an inner wrapper for padding and content layout; Ark does not expose this as
+  a primitive part.
 
 ## Accessibility and state
 
@@ -103,6 +111,8 @@ Controlled callbacks keep the Ark details object:
 - `data-has-collapsed-size` appears on content for partial-collapse configurations.
 - Content exposes Ark runtime variables `--height`, `--width`, `--collapsed-height`, and
   `--collapsed-width`.
+- `Body` is a moduix-owned wrapper and exposes `data-scope="collapsible"`, `data-part="body"`, and
+  `data-slot="collapsible-body"`.
 - Use `asChild` when another semantic element must own the rendered DOM node.
 
 ## Defaults and styling
@@ -113,12 +123,14 @@ Controlled callbacks keep the Ark details object:
 - `Trigger` includes moduix hover, active, focus-visible, and disabled styling.
 - `Indicator` defaults to `ChevronDownIcon` and rotates upward on `data-state="open"`.
 - `Content` animates between Ark `--height` / `--width` and collapsed-size variables; put padding
-  and surfaces on an inner wrapper for clean measurement.
+  and surfaces on `Collapsible.Body` for clean measurement.
 
 Primary CSS variables:
 
 | Variable                                 | Default                         |
 | ---------------------------------------- | ------------------------------- |
+| `--collapsible-body-gap`                 | `var(--spacing-2)`              |
+| `--collapsible-body-padding`             | `var(--spacing-2)`              |
 | `--collapsible-color`                    | `var(--color-foreground)`       |
 | `--collapsible-width`                    | `100%`                          |
 | `--collapsible-max-width`                | `100%`                          |
@@ -126,7 +138,7 @@ Primary CSS variables:
 | `--collapsible-focus-ring-color`         | `var(--color-ring)`             |
 | `--collapsible-focus-ring-offset`        | `var(--border-width-sm)`        |
 | `--collapsible-focus-ring-width`         | `var(--border-width-sm)`        |
-| `--collapsible-indicator-open-transform` | `rotate(90deg)`                 |
+| `--collapsible-indicator-open-transform` | `rotate(180deg)`                |
 | `--collapsible-indicator-size`           | `0.75rem`                       |
 | `--collapsible-indicator-transition`     | `var(--transition-default)`     |
 | `--collapsible-content-color`            | `var(--color-muted-foreground)` |
@@ -151,6 +163,8 @@ Primary CSS variables:
 
 - moduix adds default styling and public theme variables; Ark is unstyled.
 - `Collapsible.Indicator` supplies `ChevronDownIcon` when children are omitted.
+- `Collapsible.Body` supplies the recommended inner content wrapper so consumers do not need to
+  hand-roll padding wrappers in every disclosure.
 - moduix keeps `RootProvider` but does not re-export Ark `useCollapsible()`, context hooks, or Ark
   type aliases.
 - No legacy flat exports, aliases, or converted callback signatures are retained.
@@ -162,10 +176,13 @@ Primary CSS variables:
 - Keep `RootProvider`, but do not reintroduce moduix-owned re-exports for Ark hooks, contexts, or
   duplicate type aliases.
 - Keep `Content` reserved for the real Ark content part.
-- Keep spacing on an inner content wrapper so `--height` animation remains accurate.
+- Keep spacing on `Collapsible.Body` or another inner content wrapper so `--height` animation
+  remains accurate.
 
 ## Local changelog
 
+- 2026-07-08: Added `Collapsible.Body` as the recommended inner layout wrapper, documented its
+  styling hooks, and synchronized CSS variable defaults for width and indicator rotation.
 - 2026-07-08: Changed the default indicator icon to `ChevronDownIcon`, updated the open-state
   rotation to point upward, and set the root width default to `100%` to avoid disclosure width
   jumps while still allowing docs and apps to constrain layout explicitly.

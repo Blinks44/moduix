@@ -18,13 +18,13 @@ export function ControlledCollapsibleDemo() {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-content-body">
+        <Collapsible.Body>
           <ul className="collapsible-keys-list">
             {recoveryKeys.map((key) => (
               <li key={key}>{key}</li>
             ))}
           </ul>
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
       <span className="collapsible-state">Current state: {open ? 'open' : 'closed'}</span>
     </Collapsible>

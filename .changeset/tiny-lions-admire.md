@@ -2,5 +2,5 @@
 '@moduix/react': patch
 ---
 
-Collapsible: Refine the default disclosure indicator and docs example layout.
-Use a down chevron that rotates upward when open, keep the root width stable by default, and constrain docs examples back to a compact width.
+Collapsible: Add a Body part for measured content layout.
+Use the new inner wrapper in examples and docs, and sync the documented width and indicator rotation defaults with the shipped styles.

@@ -143,4 +143,11 @@
       }
     }
   }
+
+  .body {
+    display: grid;
+    gap: var(--collapsible-body-gap, var(--spacing-2));
+    min-width: 0;
+    padding: var(--collapsible-body-padding, var(--spacing-2));
+  }
 }

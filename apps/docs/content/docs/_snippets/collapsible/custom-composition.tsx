@@ -15,13 +15,13 @@ export function CustomCompositionCollapsibleDemo() {
         </button>
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-custom-content-body">
+        <Collapsible.Body className="collapsible-custom-content-body">
           <ul className="collapsible-keys-list">
             {recoveryKeys.map((key) => (
               <li key={key}>{key}</li>
             ))}
           </ul>
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   );

@@ -475,13 +475,15 @@
   --close-button-transition: initial; /* var(--transition-default) */
 
   /* Collapsible */
+  --collapsible-body-gap: initial; /* var(--spacing-2) */
+  --collapsible-body-padding: initial; /* var(--spacing-2) */
   --collapsible-color: initial; /* var(--color-foreground) */
   --collapsible-disabled-opacity: initial; /* var(--opacity-disabled) */
   --collapsible-focus-ring-color: initial; /* var(--color-ring) */
   --collapsible-focus-ring-offset: initial; /* var(--border-width-sm) */
   --collapsible-focus-ring-width: initial; /* var(--border-width-sm) */
   --collapsible-max-width: initial; /* 100% */
-  --collapsible-indicator-open-transform: initial; /* rotate(90deg) */
+  --collapsible-indicator-open-transform: initial; /* rotate(180deg) */
   --collapsible-indicator-size: initial; /* 0.75rem */
   --collapsible-indicator-transition: initial; /* var(--transition-default) */
   --collapsible-content-closed-opacity: initial; /* 0.01 */
@@ -501,7 +503,7 @@
   --collapsible-trigger-padding-y: initial; /* var(--spacing-1) */
   --collapsible-trigger-radius: initial; /* 0 */
   --collapsible-trigger-transition: initial; /* var(--transition-default) */
-  --collapsible-width: initial; /* 14rem */
+  --collapsible-width: initial; /* 100% */
 
   /* Combobox */
   --combobox-action-bg: initial; /* transparent */
