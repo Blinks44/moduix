@@ -124,16 +124,16 @@ root pattern works with `next/image fill` in Next.js.
   <Preview.CSS>{AspectRatioDocs.aspectRatioMigrationCss}</Preview.CSS>
 </Preview>
 
-### Custom Composition
+### Advanced Customization
 
-Use `asChild` when a semantic element such as `figure` should own the frame. Ark merges the
-component props into the single child element.
+Use `asChild` when you need to bypass the default root host and let a semantic element such as
+`figure` own the frame. Ark merges the component props into the single child element.
 
 <Preview>
   <AspectRatioDocs.AspectRatioAsChildExample />
 
   <Preview.Code>
-    <include lang="tsx">./_snippets/aspect-ratio/custom-composition.tsx#demo</include>
+    <include lang="tsx">./_snippets/aspect-ratio/advanced-customization.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AspectRatioDocs.aspectRatioBasicCss}</Preview.CSS>
 </Preview>
