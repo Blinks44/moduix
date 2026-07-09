@@ -144,6 +144,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-09: Re-aligned stories and public docs around the short `<Bleed>` sweet path and added a
+  nested-shell example for overriding the full-bleed CSS variables.
 - 2026-07-07: Kept `Bleed` root-only and token-based, made wrapper-owned root hooks
   non-overridable again, and aligned stories/docs around the short `<Bleed>` path.
 - 2026-07-02: Removed the public `BleedInline`, `BleedBlock`, and `BleedRootProps` aliases while
