@@ -52,7 +52,7 @@ only when the status needs a grouped indicator.
 `Badge` keeps the public surface small and exposes only the visible parts.
 
 ```text
-Badge.Root
+Badge / Badge.Root
 ├─ content
 ├─ Badge.Dot (optional)
 └─ svg icon (optional)
@@ -95,9 +95,10 @@ different tone.
 
 ### Behavioral notes
 
-- `Badge.Root` is presentational by default and renders a `span`.
+- `Badge` is presentational by default and renders a `span`.
 - `Badge.Dot` is decorative and hidden from assistive technology, so the visible text must carry the status meaning.
-- Semantic links and buttons rendered through `asChild` get default cursor, hover, and focus-visible styling.
+- `Badge` does not add managed interaction or link/button semantics of its own.
+- Semantic links and buttons rendered through `asChild` keep their native semantics and get default cursor, hover, and focus-visible styling.
 - Long labels stay on one line and are truncated by the root; add `title` when the full value should remain discoverable.
 - Direct child `svg` icons inherit `currentColor` and use `--badge-icon-size`.
 - Numeric content uses tabular figures, and badge text is not selectable by default.
@@ -105,6 +106,83 @@ different tone.
   prop.
 
 ## Examples
+
+### Custom Styling
+
+Use `className` and the public `--badge-*` variables when the built-in variants are close but not
+enough.
+
+<Preview>
+  <BadgeDocs.CustomBadgeExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/custom-styling.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .badge-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-2);
+      }
+
+      .badge-demo-small {
+        --badge-height: 1rem;
+        --badge-padding-x: 0.5rem;
+        --badge-font-size: 0.625rem;
+      }
+
+      .badge-demo-large {
+        --badge-height: 1.5rem;
+        --badge-padding-x: 0.75rem;
+        --badge-font-size: 0.8125rem;
+      }
+
+      .badge-demo-priority {
+        --badge-bg: color-mix(in oklab, var(--color-warning) 15%, transparent);
+        --badge-border-color: color-mix(in oklab, var(--color-warning) 45%, transparent);
+        --badge-color: var(--color-warning);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Link
+
+Use `variant="link"` with `asChild` when the badge should read like inline metadata navigation or a
+small action while the child element keeps the real link semantics.
+
+<Preview>
+  <BadgeDocs.BadgeLinkExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/link.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Long Labels
+
+Badges truncate long labels by default. Add `title` when the full text should still be available.
+
+<Preview>
+  <BadgeDocs.BadgeTruncatedExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/badge/long-labels.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .badge-demo-constrained {
+        max-width: 14rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
 
 ### Variants
 
@@ -172,40 +250,6 @@ Place an inline icon next to the label when the metadata needs a second visual c
         flex-wrap: wrap;
         align-items: center;
         gap: var(--spacing-2);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Link
-
-Use `variant="link"` with `asChild` when the badge should read like inline metadata navigation or a
-small action while the child element keeps the real link semantics.
-
-<Preview>
-  <BadgeDocs.BadgeLinkExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/badge/link.tsx#demo</include>
-</Preview.Code>
-</Preview>
-
-### Long Labels
-
-Badges truncate long labels by default. Add `title` when the full text should still be available.
-
-<Preview>
-  <BadgeDocs.BadgeTruncatedExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/badge/long-labels.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .badge-demo-constrained {
-        max-width: 14rem;
       }
     `}
 
