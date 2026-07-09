@@ -13,10 +13,9 @@ export function ReadOnlyAngleSliderDemo() {
       className="docs-angle-slider-readonly"
     >
       <AngleSlider.Label>Locked angle</AngleSlider.Label>
-      <AngleSlider.Control>
+      <AngleSlider.Dial>
         <AngleSlider.Marks values={markerValues} />
-        <AngleSlider.Thumb />
-      </AngleSlider.Control>
+      </AngleSlider.Dial>
       <AngleSlider.ValueText />
     </AngleSlider>
   );

@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-AngleSlider: add `AngleSlider.Marks` sugar and simplify the recommended composition path.
+AngleSlider: add `AngleSlider.Dial`, re-export `useAngleSlider()`, and document invalid state.

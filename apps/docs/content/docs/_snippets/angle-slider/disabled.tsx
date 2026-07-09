@@ -13,10 +13,9 @@ export function DisabledAngleSliderDemo() {
       className="docs-angle-slider-disabled"
     >
       <AngleSlider.Label>Rotation</AngleSlider.Label>
-      <AngleSlider.Control>
+      <AngleSlider.Dial>
         <AngleSlider.Marks values={markerValues} />
-        <AngleSlider.Thumb />
-      </AngleSlider.Control>
+      </AngleSlider.Dial>
       <AngleSlider.ValueText />
     </AngleSlider>
   );

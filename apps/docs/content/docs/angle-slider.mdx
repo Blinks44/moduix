@@ -20,8 +20,8 @@ Use `AngleSlider` when users should manipulate a direction or rotation directly 
 
 ## Basic
 
-Start with the smallest useful composition: `Control` and `Thumb`. Add a visible `Label` later, or
-keep `aria-label` on the root when the dial can stand alone.
+Start with the smallest useful composition: `Dial`. Add a visible `Label` later, or keep
+`aria-label` on the root when the dial can stand alone.
 
 <Preview>
   <AngleSliderDocs.AngleSliderExample />
@@ -55,6 +55,7 @@ AngleSlider.Root
 | `AngleSlider.RootProvider`         | Connects externally owned Ark state.                                  |
 | `AngleSlider.Label`                | Associates a visible label with the slider thumb.                     |
 | `AngleSlider.Control`              | Circular pointer interaction surface.                                 |
+| `AngleSlider.Dial`                 | Convenience wrapper that renders `Control` and `Thumb`.               |
 | `AngleSlider.MarkerGroup`          | Contains optional reference markers.                                  |
 | `AngleSlider.Marker`               | Positions a numeric marker and exposes its relation to current value. |
 | `AngleSlider.Marks`                | Convenience wrapper that renders `MarkerGroup` and `Marker` items.    |
@@ -66,7 +67,7 @@ AngleSlider.Root
 
 ### Recommended composition
 
-Start with `Control` and `Thumb`, then add only the parts that match the job:
+Start with `Dial`, then add only the parts that match the job:
 
 - add `Label` or keep `aria-label` for accessible naming
 - add `Marks` when users need reference points around the dial
@@ -75,11 +76,11 @@ Start with `Control` and `Thumb`, then add only the parts that match the job:
 
 ### When to go custom
 
-Use explicit `MarkerGroup` and `Marker` parts when markers need custom children, per-marker props,
-or nonstandard ordering. Use Ark's `useAngleSlider` with `AngleSlider.RootProvider` when state must
-be controlled outside the rendered slider subtree. Import context parts and state hooks directly
-from `@ark-ui/react/angle-slider`. Do not render `Root` and `RootProvider` for the same state
-instance.
+Use explicit `Control`, `Thumb`, `MarkerGroup`, and `Marker` parts when the dial needs custom
+children, per-marker props, or nonstandard ordering. Use `useAngleSlider()` from `@moduix/react`
+with `AngleSlider.RootProvider` when state must be controlled outside the rendered slider subtree.
+Import context parts and uncommon state hooks directly from `@ark-ui/react/angle-slider` as an
+escape hatch. Do not render `Root` and `RootProvider` for the same state instance.
 
 Every DOM part supports Ark `asChild`. Supply one semantic child that can preserve the part's
 keyboard, focus, ARIA, and pointer behavior. Use `ids` on `Root` when composed elements need stable
@@ -110,18 +111,30 @@ shared IDs. Refs are forwarded to the DOM element rendered by each wrapped Ark p
 
 ## Examples
 
-### With Marks
+### Controlled
 
-Use `AngleSlider.Marks` when the dial should show common reference angles without repeating
-`MarkerGroup` and `Marker` boilerplate.
+Use controlled state when the angle must stay synchronized with application state.
 
 <Preview>
-  <AngleSliderDocs.AngleSliderWithMarksExample />
+  <AngleSliderDocs.ControlledAngleSliderExample />
 
   <Preview.Code>
-    <include lang="tsx">./_snippets/angle-slider/with-marks.tsx#demo</include>
+    <include lang="tsx">./_snippets/angle-slider/controlled.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{AngleSliderDocs.angleSliderWithMarksCss}</Preview.CSS>
+  <Preview.CSS>{AngleSliderDocs.angleSliderControlledCss}</Preview.CSS>
+</Preview>
+
+### Disabled
+
+Use `disabled` when the control must be unavailable and excluded from interaction.
+
+<Preview>
+  <AngleSliderDocs.DisabledAngleSliderExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/angle-slider/disabled.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AngleSliderDocs.angleSliderDisabledCss}</Preview.CSS>
 </Preview>
 
 ### In a Form
@@ -137,43 +150,18 @@ Add `name` and `HiddenInput` when the angle must participate in native form subm
   <Preview.CSS>{AngleSliderDocs.angleSliderFormCss}</Preview.CSS>
 </Preview>
 
-### Controlled
+### Invalid
 
-Use controlled state when the angle must stay synchronized with application state.
-
-<Preview>
-  <AngleSliderDocs.ControlledAngleSliderExample />
-
-  <Preview.Code>
-    <include lang="tsx">./_snippets/angle-slider/controlled.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{AngleSliderDocs.angleSliderControlledCss}</Preview.CSS>
-</Preview>
-
-### Steps
-
-Use `step` to snap pointer and keyboard interaction to a discrete angular increment.
+Use `invalid` when the selected angle fails validation and the dial should expose error styling and
+ARIA state without changing the interaction model.
 
 <Preview>
-  <AngleSliderDocs.SteppedAngleSliderExample />
+  <AngleSliderDocs.InvalidAngleSliderExample />
 
   <Preview.Code>
-    <include lang="tsx">./_snippets/angle-slider/steps.tsx#demo</include>
+    <include lang="tsx">./_snippets/angle-slider/invalid.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{AngleSliderDocs.angleSliderStepCss}</Preview.CSS>
-</Preview>
-
-### Disabled
-
-Use `disabled` when the control must be unavailable and excluded from interaction.
-
-<Preview>
-  <AngleSliderDocs.DisabledAngleSliderExample />
-
-  <Preview.Code>
-    <include lang="tsx">./_snippets/angle-slider/disabled.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{AngleSliderDocs.angleSliderDisabledCss}</Preview.CSS>
+  <Preview.CSS>{AngleSliderDocs.angleSliderInvalidCss}</Preview.CSS>
 </Preview>
 
 ### Read Only
@@ -191,8 +179,8 @@ Use `readOnly` when the current value should remain focusable and visible withou
 
 ### Root Provider
 
-Use Ark's `useAngleSlider` and the moduix `RootProvider` when another control needs direct access
-to the same state machine.
+Use `useAngleSlider()` from `@moduix/react` with `AngleSlider.RootProvider` when another control
+needs direct access to the same state machine.
 
 <Preview>
   <AngleSliderDocs.RootProviderAngleSliderExample />
@@ -201,6 +189,48 @@ to the same state machine.
     <include lang="tsx">./_snippets/angle-slider/root-provider.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AngleSliderDocs.angleSliderRootProviderCss}</Preview.CSS>
+</Preview>
+
+### Steps
+
+Use `step` to snap pointer and keyboard interaction to a discrete angular increment.
+
+<Preview>
+  <AngleSliderDocs.SteppedAngleSliderExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/angle-slider/steps.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AngleSliderDocs.angleSliderStepCss}</Preview.CSS>
+</Preview>
+
+### With Marks
+
+Use `AngleSlider.Marks` when the dial should show common reference angles without repeating
+`MarkerGroup` and `Marker` boilerplate. `AngleSlider.Dial` keeps the `Control` and `Thumb`
+composition in place.
+
+<Preview>
+  <AngleSliderDocs.AngleSliderWithMarksExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/angle-slider/with-marks.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AngleSliderDocs.angleSliderWithMarksCss}</Preview.CSS>
+</Preview>
+
+### Advanced Customization
+
+Bypass `AngleSlider.Dial` and `AngleSlider.Marks` when the dial needs custom marker composition or
+extra children inside the control.
+
+<Preview>
+  <AngleSliderDocs.AdvancedCustomizationAngleSliderExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/angle-slider/advanced-customization.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AngleSliderDocs.angleSliderWithMarksCss}</Preview.CSS>
 </Preview>
 
 ## Styling

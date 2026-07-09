@@ -1,6 +1,5 @@
 //#region demo
-import { useAngleSlider } from '@ark-ui/react/angle-slider';
-import { AngleSlider } from '@moduix/react';
+import { AngleSlider, useAngleSlider } from '@moduix/react';
 
 const initialValue = 45;
 const targetValue = 90;
@@ -16,10 +15,9 @@ export function RootProviderAngleSliderDemo() {
     <div className="docs-angle-slider-provider-layout">
       <AngleSlider.RootProvider value={angleSlider} className="docs-angle-slider-provider">
         <AngleSlider.Label>Rotation</AngleSlider.Label>
-        <AngleSlider.Control>
+        <AngleSlider.Dial>
           <AngleSlider.Marks values={markerValues} />
-          <AngleSlider.Thumb />
-        </AngleSlider.Control>
+        </AngleSlider.Dial>
         <AngleSlider.ValueText />
       </AngleSlider.RootProvider>
       <button

@@ -14,10 +14,9 @@ export function SteppedAngleSliderDemo() {
       className="docs-angle-slider-step"
     >
       <AngleSlider.Label>15 Step</AngleSlider.Label>
-      <AngleSlider.Control>
+      <AngleSlider.Dial>
         <AngleSlider.Marks values={markerValues} />
-        <AngleSlider.Thumb />
-      </AngleSlider.Control>
+      </AngleSlider.Dial>
       <AngleSlider.ValueText />
     </AngleSlider>
   );
