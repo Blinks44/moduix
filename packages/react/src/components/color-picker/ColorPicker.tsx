@@ -1,5 +1,10 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { ColorPicker as ColorPickerPrimitive, parseColor } from '@ark-ui/react/color-picker';
+import {
+  ColorPicker as ColorPickerPrimitive,
+  parseColor,
+  useColorPicker,
+  useColorPickerContext,
+} from '@ark-ui/react/color-picker';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon, PipetteIcon } from '@/lib/moduix/icons/ui';
@@ -220,6 +225,22 @@ const ColorPickerChannelSlider = forwardRef<
     </ColorPickerPrimitive.ChannelSlider>
   );
 });
+
+const ColorPickerSliders = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
+  function ColorPickerSliders({ className, ...props }, ref) {
+    return (
+      <div
+        ref={ref}
+        data-slot="color-picker-sliders"
+        className={clsx(styles.sliders, normalizeClassName(className))}
+        {...props}
+      >
+        <ColorPickerChannelSlider channel="hue" />
+        <ColorPickerChannelSlider channel="alpha" />
+      </div>
+    );
+  },
+);
 
 const ColorPickerChannelSliderTrack = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.ChannelSliderTrack>,
@@ -491,6 +512,7 @@ const ColorPicker = Object.assign(ColorPickerRoot, {
   AreaBackground: ColorPickerAreaBackground,
   AreaThumb: ColorPickerAreaThumb,
   ChannelSlider: ColorPickerChannelSlider,
+  Sliders: ColorPickerSliders,
   ChannelSliderTrack: ColorPickerChannelSliderTrack,
   ChannelSliderThumb: ColorPickerChannelSliderThumb,
   ChannelSliderLabel: ColorPickerChannelSliderLabel,
@@ -510,4 +532,4 @@ const ColorPicker = Object.assign(ColorPickerRoot, {
   HiddenInput: ColorPickerHiddenInput,
 });
 
-export { ColorPicker, parseColor };
+export { ColorPicker, parseColor, useColorPicker, useColorPickerContext };

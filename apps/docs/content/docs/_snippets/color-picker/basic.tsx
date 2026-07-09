@@ -16,10 +16,7 @@ export function ColorPickerDemo() {
           <ColorPicker.Area />
           <div className="color-picker-slider-group">
             <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
-            <div className="color-picker-channel-sliders">
-              <ColorPicker.ChannelSlider channel="hue" />
-              <ColorPicker.ChannelSlider channel="alpha" />
-            </div>
+            <ColorPicker.Sliders />
           </div>
           <ColorPicker.SwatchGroup>
             {swatches.map((color) => (

@@ -19,14 +19,6 @@
   gap: var(--spacing-3);
 }
 
-.channelSliders {
-  display: flex;
-  min-width: 0;
-  flex: 1;
-  flex-direction: column;
-  gap: var(--spacing-2);
-}
-
 .inputRow {
   display: flex;
   min-width: 0;

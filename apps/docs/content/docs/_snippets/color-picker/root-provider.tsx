@@ -1,6 +1,5 @@
 //#region demo
-import { useColorPicker } from '@ark-ui/react/color-picker';
-import { ColorPicker, parseColor } from '@moduix/react';
+import { ColorPicker, parseColor, useColorPicker } from '@moduix/react';
 
 const _defaultColor = '#eb5e41';
 

@@ -225,6 +225,14 @@
     }
   }
 
+  .sliders {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--color-picker-sliders-gap, var(--spacing-2));
+  }
+
   .channelSliderTrack {
     width: 100%;
     height: var(--color-picker-channel-slider-track-size, var(--spacing-3));

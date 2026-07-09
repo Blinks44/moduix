@@ -1,5 +1,4 @@
-import { useColorPicker } from '@ark-ui/react/color-picker';
-import { ColorPicker, Dialog, Field, parseColor } from '@moduix/react';
+import { ColorPicker, Dialog, Field, parseColor, useColorPicker } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -54,13 +53,6 @@ export const colorPickerExampleCss = `
     gap: var(--spacing-3);
   }
 
-  .color-picker-channel-sliders {
-    display: flex;
-    min-width: 0;
-    flex: 1;
-    flex-direction: column;
-    gap: var(--spacing-2);
-  }
 `;
 
 export const colorPickerInlineCss = `
@@ -203,6 +195,11 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
     '--color-picker-channel-slider-height',
     'var(--spacing-3)',
     'Controls horizontal channel slider height.',
+  ],
+  [
+    '--color-picker-sliders-gap',
+    'var(--spacing-2)',
+    'Controls the gap between the default hue and alpha sliders.',
   ],
   [
     '--color-picker-channel-slider-label-color',
@@ -394,17 +391,7 @@ function PickerPopup({ colors = swatches }: { colors?: string[] }) {
         </ColorPicker.Area>
         <div className={styles.sliderGroup}>
           <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
-          <div className={styles.channelSliders}>
-            <ColorPicker.ChannelSlider channel="hue">
-              <ColorPicker.ChannelSliderTrack />
-              <ColorPicker.ChannelSliderThumb />
-            </ColorPicker.ChannelSlider>
-            <ColorPicker.ChannelSlider channel="alpha">
-              <ColorPicker.TransparencyGrid />
-              <ColorPicker.ChannelSliderTrack />
-              <ColorPicker.ChannelSliderThumb />
-            </ColorPicker.ChannelSlider>
-          </div>
+          <ColorPicker.Sliders />
         </div>
         <ColorPicker.SwatchGroup>
           {colors.map((color) => (
@@ -442,6 +429,39 @@ export function ColorPickerExample() {
   return (
     <ColorPicker.Root defaultValue={parseColor('#eb5e41')}>
       <PickerField />
+    </ColorPicker.Root>
+  );
+}
+
+export function AdvancedCustomizationColorPickerExample() {
+  return (
+    <ColorPicker.Root defaultValue={parseColor('#eb5e41')}>
+      <ColorPicker.Label>Color</ColorPicker.Label>
+      <ColorPicker.Control>
+        <ColorPicker.ChannelInput channel="hex" />
+        <ColorPicker.Trigger aria-label="Open color picker">
+          <ColorPicker.TransparencyGrid />
+          <ColorPicker.ValueSwatch />
+        </ColorPicker.Trigger>
+      </ColorPicker.Control>
+      <ColorPicker.Positioner>
+        <ColorPicker.Content>
+          <ColorPicker.Area>
+            <ColorPicker.AreaBackground />
+            <ColorPicker.AreaThumb />
+          </ColorPicker.Area>
+          <ColorPicker.ChannelSlider channel="hue">
+            <ColorPicker.ChannelSliderTrack />
+            <ColorPicker.ChannelSliderThumb />
+          </ColorPicker.ChannelSlider>
+          <ColorPicker.ChannelSlider channel="alpha">
+            <ColorPicker.TransparencyGrid />
+            <ColorPicker.ChannelSliderTrack />
+            <ColorPicker.ChannelSliderThumb />
+          </ColorPicker.ChannelSlider>
+        </ColorPicker.Content>
+      </ColorPicker.Positioner>
+      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }

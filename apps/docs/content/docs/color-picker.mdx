@@ -75,14 +75,14 @@ ColorPicker.Root
 | `ColorPicker.Content`              | Actual Ark popup content part.                                         |
 | `ColorPicker.Area`                 | Two-dimensional color interaction surface.                             |
 | `ColorPicker.ChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels.     |
+| `ColorPicker.Sliders`              | Styled hue and alpha slider pair.                                      |
 | `ColorPicker.ChannelInput`         | Text or numeric input for a specific color channel.                    |
 | `ColorPicker.SwatchTrigger`        | Selectable preset color button.                                        |
 | `ColorPicker.ValueSwatch`          | Visual swatch for the current value.                                   |
 | `ColorPicker.HiddenInput`          | Hidden form field for native submission and reset synchronization.     |
 
-`ColorPicker.RootProvider` and `parseColor` cover the common wrapper path. Import Ark
-`useColorPicker`, `useColorPickerContext`, and related types directly from
-`@ark-ui/react/color-picker` when an advanced state workflow needs them.
+`ColorPicker.RootProvider`, `parseColor`, `useColorPicker`, and `useColorPickerContext` cover the
+normal advanced state path. Import Ark-only type helpers directly when needed as an escape hatch.
 
 ## Composition
 
@@ -94,8 +94,9 @@ Keep `ColorPicker.Positioner` and `ColorPicker.Content` visible for popup picker
 actual Ark part; the root only automates the portal boundary.
 
 Omit children on `Trigger`, `Area`, `ChannelSlider`, and `SwatchTrigger` for the default visual
-composition. Pass children only when a part needs custom structure. Add `data-fit-content` when the
-trigger should size to custom content such as a swatch plus `ValueText`.
+composition. Use `ColorPicker.Sliders` for the usual hue and alpha pair. Style its channels through
+`data-channel` or CSS variables; pass children only when a part needs custom structure. Add
+`data-fit-content` when the trigger should size to custom content such as a swatch plus `ValueText`.
 
 Use `ColorPicker.HiddenInput` when the color should participate in native form submission or form
 reset behavior. Put it inside the same root, and pass `name` on `ColorPicker.Root` or register the
@@ -106,9 +107,8 @@ hidden input with a form library.
 Use `inline` on `ColorPicker.Root` when the area, sliders, inputs, and swatches should render as a
 permanent panel instead of a popup. Use `ColorPicker.View` to show inputs for one format at a time.
 
-Use Ark `useColorPicker` with `ColorPicker.RootProvider` when the state must be owned outside the
-rendered subtree. Read advanced state through Ark hooks directly instead of a moduix re-export. Do
-not render `Root` and `RootProvider` for the same state instance.
+Use `useColorPicker` with `ColorPicker.RootProvider` when the state must be owned outside the
+rendered subtree. Do not render `Root` and `RootProvider` for the same state instance.
 
 Use `asChild` on exported Ark parts when another semantic element must own the DOM node. The child
 must stay a single element and preserve the required focus and interaction behavior.
@@ -124,6 +124,7 @@ must stay a single element and preserve the required focus and interaction behav
 | `ColorPicker.Trigger` children           | current swatch          | Renders `TransparencyGrid` and `ValueSwatch`. |
 | `ColorPicker.Area` children              | background and thumb    | Used when children are omitted.               |
 | `ColorPicker.ChannelSlider` children     | track and thumb         | Alpha sliders also render `TransparencyGrid`. |
+| `ColorPicker.Sliders`                    | hue and alpha pair      | Style with `data-channel` or CSS variables.   |
 | `ColorPicker.SwatchTrigger` children     | swatch and indicator    | Uses the trigger `value` for the swatch.      |
 | `ColorPicker.SwatchIndicator`            | moduix check icon       | Used when children are omitted.               |
 | `ColorPicker` / `ColorPicker.Root` width | `16rem` (max `100%`)    | Styled root width defaults.                   |
@@ -139,6 +140,20 @@ must stay a single element and preserve the required focus and interaction behav
 - All Ark DOM parts preserve `asChild`.
 
 ## Examples
+
+### Compact Trigger
+
+Use `data-fit-content` on `ColorPicker.Trigger` when a content-sized button reads better than a
+square swatch, for example during migration from button-based color fields.
+
+<Preview>
+  <ColorPickerDocs.CompactTriggerColorPickerExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/compact-trigger.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
+</Preview>
 
 ### Controlled
 
@@ -167,20 +182,6 @@ the current color visible.
   <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
 </Preview>
 
-### Form Usage
-
-Use `name` on `ColorPicker.Root` and keep `HiddenInput` mounted when the value should be submitted
-with native form data.
-
-<Preview>
-  <ColorPickerDocs.FormUsageColorPickerExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/color-picker/form-usage.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{ColorPickerDocs.colorPickerFormCss}</Preview.CSS>
-</Preview>
-
 ### Field State
 
 Use root form-state props such as `required` and `invalid` when the picker is rendered inside a
@@ -195,6 +196,45 @@ field container and should expose the same state through Ark data attributes.
   <Preview.CSS>{ColorPickerDocs.colorPickerFieldCss}</Preview.CSS>
 </Preview>
 
+### Form Usage
+
+Use `name` on `ColorPicker.Root` and keep `HiddenInput` mounted when the value should be submitted
+with native form data.
+
+<Preview>
+  <ColorPickerDocs.FormUsageColorPickerExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/color-picker/form-usage.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{ColorPickerDocs.colorPickerFormCss}</Preview.CSS>
+</Preview>
+
+### Format Views
+
+Use `format`, `onFormatChange`, `FormatSelect`, and `View` when users should switch between
+channel input groups without changing the picker structure.
+
+<Preview>
+  <ColorPickerDocs.FormatColorPickerExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/color-picker/format-views.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
+</Preview>
+
+### Inline
+
+Use `inline` for settings panels where the color tools should stay visible without a popup trigger.
+
+<Preview>
+  <ColorPickerDocs.InlineColorPickerExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/color-picker/inline.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
+</Preview>
+
 ### Input Only
 
 Use channel inputs with a passive value swatch when typed color entry matters and the popup would be
@@ -202,25 +242,48 @@ too heavy for the interface.
 
 <Preview>
   <ColorPickerDocs.InputOnlyColorPickerExample />
-
   <Preview.Code>
-  <include lang="tsx">./_snippets/color-picker/input-only.tsx#demo</include>
-</Preview.Code>
+    <include lang="tsx">./_snippets/color-picker/input-only.tsx#demo</include>
+  </Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
 </Preview>
 
-### Compact Trigger
+### Inside Dialog
 
-Use `data-fit-content` on `ColorPicker.Trigger` when a content-sized button reads better than a
-square swatch, for example during migration from button-based color fields.
+When a picker lives inside a dialog, keep the default portalled behavior so its popover can layer
+above the dialog content.
 
 <Preview>
-  <ColorPickerDocs.CompactTriggerColorPickerExample />
-
+  <ColorPickerDocs.InsideDialogColorPickerExample />
   <Preview.Code>
-  <include lang="tsx">./_snippets/color-picker/compact-trigger.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
+    <include lang="tsx">./_snippets/color-picker/inside-dialog.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{ColorPickerDocs.colorPickerDialogCss}</Preview.CSS>
+</Preview>
+
+### Open Controlled
+
+Use controlled `open` state when another control or workflow owns whether the popup is visible.
+
+<Preview>
+  <ColorPickerDocs.OpenControlledColorPickerExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/color-picker/open-controlled.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
+</Preview>
+
+### Root Provider
+
+Use moduix `useColorPicker` with `RootProvider` when the color picker state must be created outside
+the rendered tree and shared with nearby controls.
+
+<Preview>
+  <ColorPickerDocs.RootProviderColorPickerExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/color-picker/root-provider.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
 </Preview>
 
 ### Slider Only
@@ -229,10 +292,9 @@ Use slider-only composition when direct manipulation matters but typed channel i
 
 <Preview>
   <ColorPickerDocs.SliderOnlyColorPickerExample />
-
   <Preview.Code>
-  <include lang="tsx">./_snippets/color-picker/slider-only.tsx#demo</include>
-</Preview.Code>
+    <include lang="tsx">./_snippets/color-picker/slider-only.tsx#demo</include>
+  </Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
 </Preview>
 
@@ -243,10 +305,9 @@ be unnecessary.
 
 <Preview>
   <ColorPickerDocs.SwatchOnlyColorPickerExample />
-
   <Preview.Code>
-  <include lang="tsx">./_snippets/color-picker/swatch-only.tsx#demo</include>
-</Preview.Code>
+    <include lang="tsx">./_snippets/color-picker/swatch-only.tsx#demo</include>
+  </Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
 </Preview>
 
@@ -257,10 +318,9 @@ editing. `closeOnSelect` follows Ark behavior and closes the popup after a swatc
 
 <Preview>
   <ColorPickerDocs.SwatchesColorPickerExample />
-
   <Preview.Code>
-  <include lang="tsx">./_snippets/color-picker/swatches.tsx#demo</include>
-</Preview.Code>
+    <include lang="tsx">./_snippets/color-picker/swatches.tsx#demo</include>
+  </Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
 </Preview>
 
@@ -271,85 +331,22 @@ the full picker.
 
 <Preview>
   <ColorPickerDocs.ValueSwatchColorPickerExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/color-picker/value-swatch.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {ColorPickerDocs.colorPickerValueSwatchCss}
-  </Preview.CSS>
-</Preview>
-
-### Inline
-
-Use `inline` for settings panels where the color tools should stay visible without a popup trigger.
-
-<Preview>
-  <ColorPickerDocs.InlineColorPickerExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/color-picker/inline.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {ColorPickerDocs.colorPickerInlineCss}
-  </Preview.CSS>
-</Preview>
-
-### Open Controlled
-
-Use controlled `open` state when another control or workflow owns whether the popup is visible.
-
-<Preview>
-  <ColorPickerDocs.OpenControlledColorPickerExample />
-
   <Preview.Code>
-  <include lang="tsx">./_snippets/color-picker/open-controlled.tsx#demo</include>
-</Preview.Code>
+    <include lang="tsx">./_snippets/color-picker/value-swatch.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{ColorPickerDocs.colorPickerValueSwatchCss}</Preview.CSS>
+</Preview>
+
+### Advanced Customization
+
+Use explicit parts and children when the default composition needs a different visual structure.
+
+<Preview>
+  <ColorPickerDocs.AdvancedCustomizationColorPickerExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/color-picker/advanced-customization.tsx#demo</include>
+  </Preview.Code>
   <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
-</Preview>
-
-### Root Provider
-
-Use Ark `useColorPicker` with `RootProvider` when the color picker state must be created outside
-the rendered tree and shared with nearby controls.
-
-<Preview>
-  <ColorPickerDocs.RootProviderColorPickerExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/color-picker/root-provider.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{ColorPickerDocs.colorPickerExampleCss}</Preview.CSS>
-</Preview>
-
-### Format Views
-
-Use `format`, `onFormatChange`, `FormatSelect`, and `View` when users should switch between
-channel input groups without changing the picker structure.
-
-<Preview>
-  <ColorPickerDocs.FormatColorPickerExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/color-picker/format-views.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{ColorPickerDocs.colorPickerInlineCss}</Preview.CSS>
-</Preview>
-
-### Inside Dialog
-
-When a picker lives inside a dialog, keep the default portalled behavior so its popover can
-layer above the dialog content.
-
-<Preview>
-  <ColorPickerDocs.InsideDialogColorPickerExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/color-picker/inside-dialog.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{ColorPickerDocs.colorPickerDialogCss}</Preview.CSS>
 </Preview>
 
 ## Styling
@@ -372,8 +369,8 @@ Use the part that owns the visual concern:
 - `ColorPicker.Positioner` and `ColorPicker.Content` for popup layering, width, padding, radius,
   shadow, and state animations
 - `ColorPicker.Area`, `AreaBackground`, and `AreaThumb` for the two-dimensional color surface
-- `ColorPicker.ChannelSlider`, `ChannelSliderTrack`, and `ChannelSliderThumb` for hue, alpha, and
-  other channel sliders
+- `ColorPicker.ChannelSlider`, `ChannelSliderTrack`, `ChannelSliderThumb`, and `Sliders` for hue,
+  alpha, and other channel sliders
 - `ColorPicker.SwatchGroup`, `SwatchTrigger`, `Swatch`, and `SwatchIndicator` for preset color
   grids
 - `ColorPicker.ValueSwatch`, `ValueText`, `View`, and `TransparencyGrid` for value display and

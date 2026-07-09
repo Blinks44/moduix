@@ -17,8 +17,7 @@ export function ControlledColorPickerDemo() {
       <ColorPicker.Positioner>
         <ColorPicker.Content>
           <ColorPicker.Area />
-          <ColorPicker.ChannelSlider channel="hue" />
-          <ColorPicker.ChannelSlider channel="alpha" />
+          <ColorPicker.Sliders />
         </ColorPicker.Content>
       </ColorPicker.Positioner>
       <ColorPicker.HiddenInput />

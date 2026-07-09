@@ -646,6 +646,7 @@
   --color-picker-max-width: initial; /* 100% */
   --color-picker-radius: initial; /* var(--radius-md) */
   --color-picker-root-gap: initial; /* var(--spacing-2) */
+  --color-picker-sliders-gap: initial; /* var(--spacing-2) */
   --color-picker-swatch-border-color: initial; /* color-mix(in oklab, black 14%, transparent) */
   --color-picker-swatch-border-width: initial; /* var(--border-width-sm) */
   --color-picker-swatch-gap: initial; /* var(--spacing-2) */

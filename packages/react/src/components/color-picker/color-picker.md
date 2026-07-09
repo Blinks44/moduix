@@ -24,11 +24,10 @@ field input, color area, channel sliders, eyedropper, and swatches.
 
 - Public composition is `ColorPicker.Root`, `RootProvider`, `Label`, `Control`, `Trigger`,
   `Positioner`, `Content`, `Area`, `AreaBackground`, `AreaThumb`, channel slider parts,
-  `ChannelInput`, `EyeDropperTrigger`, format parts, swatch parts, `TransparencyGrid`,
+  `Sliders`, `ChannelInput`, `EyeDropperTrigger`, format parts, swatch parts, `TransparencyGrid`,
   `ValueSwatch`, `ValueText`, `View`, and `HiddenInput`.
-- `parseColor` is re-exported for the common string-to-`Color` workflow.
-- Advanced Ark state hooks, context APIs, and type exports are intentionally not mirrored from
-  `moduix`; import them from `@ark-ui/react/color-picker` when needed.
+- `parseColor`, `useColorPicker`, and `useColorPickerContext` are re-exported for common
+  string-to-`Color` and advanced state workflows.
 - `Trigger` renders the current value swatch by default when children are omitted.
 - `Area`, `ChannelSlider`, and `SwatchTrigger` render their common visual children by default when
   children are omitted.
@@ -84,7 +83,7 @@ export function ColorPickerExample() {
       <ColorPicker.Positioner>
         <ColorPicker.Content>
           <ColorPicker.Area />
-          <ColorPicker.ChannelSlider channel="hue" />
+          <ColorPicker.Sliders />
         </ColorPicker.Content>
       </ColorPicker.Positioner>
       <ColorPicker.HiddenInput />
@@ -102,7 +101,7 @@ export function ColorPickerExample() {
 - Form usage through `HiddenInput` plus `name` or form-library registration.
 - Field integration through Ark `Field.Root` context for disabled, invalid, required, and read-only
   state.
-- Provider state through Ark `useColorPicker` plus `RootProvider`.
+- Provider state through moduix `useColorPicker` plus `RootProvider`.
 - Swatch-only, popup swatches, slider-only, input-only, value-swatch, eyedropper, inside-dialog,
   and format-view compositions.
 - Public docs intentionally cover all Ark React examples for this primitive plus moduix styling
@@ -137,9 +136,11 @@ export function ColorPickerExample() {
 - moduix renders `AreaBackground` and `AreaThumb` inside `Area` when children are omitted.
 - moduix renders `ChannelSliderTrack`, `ChannelSliderThumb`, and an alpha `TransparencyGrid` inside
   `ChannelSlider` when children are omitted.
+- moduix renders the standard hue and alpha pair in `Sliders`; style each channel through
+  `data-channel` and CSS variables, or use the lower-level parts for custom structure.
 - moduix renders `Swatch` and `SwatchIndicator` inside `SwatchTrigger` when children are omitted.
-- moduix re-exports `parseColor`.
-- Advanced Ark state hooks, renderless context access, and Ark type exports stay upstream-only.
+- moduix re-exports `parseColor`, `useColorPicker`, and `useColorPickerContext`.
+- Ark type exports stay upstream-only as escape hatches.
 - The wrapper hides only portal transport and repetitive visual children; `Positioner`, `Content`,
   and the input/view structure remain explicit.
 - No local color parsing, value conversion, or callback reshaping is added.
@@ -147,13 +148,15 @@ export function ColorPickerExample() {
 ## Agent notes
 
 - Do not render both `Root` and `RootProvider` for the same state instance.
-- Import `useColorPicker`, `useColorPickerContext`, and Ark type helpers directly from
-  `@ark-ui/react/color-picker` when an advanced workflow needs them.
+- Prefer moduix `useColorPicker` and `useColorPickerContext` for normal advanced workflows; import
+  Ark-only type helpers directly only when needed.
 - Do not hide popup structure behind a `Content` convenience wrapper.
 - Preserve Ark `Color` objects and callback detail shapes.
 - Keep `HiddenInput` explicit so consumers decide when the picker participates in forms.
 
 ## Local changelog
+
+- 2026-07-10: Added `Sliders` and moduix state-hook re-exports; recommended them in docs.
 
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 - 2026-07-02: Removed mirrored Ark context hooks and type re-exports from `moduix`; keep `RootProvider`, visual parts, `parseColor`, and portal/icon sugar as the supported wrapper surface.

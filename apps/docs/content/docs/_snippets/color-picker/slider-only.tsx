@@ -8,8 +8,7 @@ export function SliderOnlyColorPickerDemo() {
     <ColorPicker inline defaultValue={parseColor('#2563eb')}>
       <ColorPicker.Label>Channels</ColorPicker.Label>
       <ColorPicker.Area />
-      <ColorPicker.ChannelSlider channel="hue" />
-      <ColorPicker.ChannelSlider channel="alpha" />
+      <ColorPicker.Sliders />
     </ColorPicker>
   );
 }

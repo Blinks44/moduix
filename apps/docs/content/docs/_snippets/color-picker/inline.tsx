@@ -11,8 +11,7 @@ export function InlineColorPickerDemo() {
         <ColorPicker.ValueText format="hex" />
       </div>
       <ColorPicker.Area />
-      <ColorPicker.ChannelSlider channel="hue" />
-      <ColorPicker.ChannelSlider channel="alpha" />
+      <ColorPicker.Sliders />
       <ColorPicker.View format="rgba">
         <div className="color-picker-input-row">
           <ColorPicker.ChannelInput channel="hex" />
