@@ -17,7 +17,7 @@ Use `Select` when the same predefined choice does not need an editable input.
 
 ## Basic
 
-Create an Ark `ListCollection`, pass it to `Combobox.Root`, and keep the popup structure explicit.
+Create an Ark `ListCollection`, pass it to `Combobox`, and keep the popup structure explicit.
 Use `Combobox.Option` for ordinary rows; drop to `Combobox.Item` when a row needs custom structure.
 `onInputValueChange` receives an Ark details object.
 
@@ -167,6 +167,21 @@ Keep the moduix API Ark-shaped, then translate the common shadcn conveniences ex
 
 ## Examples
 
+### Async Search
+
+Replace collection items from an async result and use `details.reason` to distinguish typed input
+from machine-driven input updates.
+
+<Preview>
+  <ComboboxDocs.AsyncSearchComboboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/async-search.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
+</Preview>
+
 ### Auto Highlight
 
 Set `inputBehavior="autohighlight"` to highlight the first matching item while the user types, so
@@ -182,46 +197,15 @@ Enter can select it without an extra arrow-key press.
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 </Preview>
 
-### Inline Autocomplete
+### Controlled
 
-Set `inputBehavior="autocomplete"` and filter with `startsWith` to complete the input from the
-first matching item while preserving Ark keyboard navigation.
-
-<Preview>
-  <ComboboxDocs.InlineAutocompleteComboboxExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/combobox/inline-autocomplete.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-</Preview>
-
-### Links
-
-Use `asChild` on `Combobox.Item` to preserve combobox keyboard behavior while rendering each result
-as a native link. `selectionBehavior="preserve"` keeps the search text visible during navigation.
+Control the selected string array and read the next value from `details.value`.
 
 <Preview>
-  <ComboboxDocs.LinksComboboxExample />
+  <ComboboxDocs.ControlledComboboxExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/combobox/links.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-</Preview>
-
-### Dynamic
-
-Build the collection from the current input when suggestions do not exist until the user starts
-typing. Check `details.reason` to avoid rebuilding it after selection-driven input changes.
-
-<Preview>
-  <ComboboxDocs.DynamicComboboxExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/combobox/dynamic.tsx#demo</include>
+  <include lang="tsx">./_snippets/combobox/controlled.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
@@ -242,74 +226,6 @@ replace that sentinel value with the user-entered value after selection.
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
 </Preview>
 
-### Limit Results
-
-Set `limit` on `useListCollection` when the full matching set is unnecessary or would make the
-popup harder to scan. Filtering still runs against the complete initial collection.
-
-<Preview>
-  <ComboboxDocs.LimitComboboxExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/combobox/limit-results.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-</Preview>
-
-### Virtualized
-
-For large collections, render only visible rows with TanStack Virtual and connect Ark keyboard
-navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on virtual rows.
-
-<Preview>
-  <ComboboxDocs.VirtualizedComboboxExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/combobox/virtualized.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .virtualContent {
-        overflow: hidden;
-      }
-
-      .virtualScroller {
-        height: min(16rem, var(--available-height, 16rem));
-        overflow: auto;
-      }
-
-      .virtualList {
-        position: relative;
-        overflow: visible;
-      }
-
-      .virtualItem {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Controlled
-
-Control the selected string array and read the next value from `details.value`.
-
-<Preview>
-  <ComboboxDocs.ControlledComboboxExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/combobox/controlled.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-</Preview>
-
 ### Custom Objects and Grouping
 
 Map object labels and values on the collection, then render Ark item groups from
@@ -320,6 +236,51 @@ Map object labels and values on the collection, then render Ark item groups from
 
 <Preview.Code>
   <include lang="tsx">./_snippets/combobox/custom-objects-and-grouping.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
+</Preview>
+
+### Dynamic
+
+Build the collection from the current input when suggestions do not exist until the user starts
+typing. Check `details.reason` to avoid rebuilding it after selection-driven input changes.
+
+<Preview>
+  <ComboboxDocs.DynamicComboboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/dynamic.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
+</Preview>
+
+### Inline Autocomplete
+
+Set `inputBehavior="autocomplete"` and filter with `startsWith` to complete the input from the
+first matching item while preserving Ark keyboard navigation.
+
+<Preview>
+  <ComboboxDocs.InlineAutocompleteComboboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/inline-autocomplete.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
+</Preview>
+
+### Limit Results
+
+Set `limit` on `useListCollection` when the full matching set is unnecessary or would make the
+popup harder to scan. Filtering still runs against the complete initial collection.
+
+<Preview>
+  <ComboboxDocs.LimitComboboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/limit-results.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
@@ -364,6 +325,61 @@ composition; when they must live inside the same field shell, compose `Combobox`
   </Preview.CSS>
 </Preview>
 
+### Root Provider
+
+Create the state with Ark `useCombobox` when external controls need imperative methods or shared
+state before the root renders. `Combobox.RootProvider` preserves the moduix root styling and portal
+configuration.
+
+<Preview>
+  <ComboboxDocs.RootProviderComboboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/root-provider.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
+</Preview>
+
+### Virtualized
+
+For large collections, render only visible rows with TanStack Virtual and connect Ark keyboard
+navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on virtual rows.
+
+<Preview>
+  <ComboboxDocs.VirtualizedComboboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/combobox/virtualized.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .virtualContent {
+        overflow: hidden;
+      }
+
+      .virtualScroller {
+        height: min(16rem, var(--available-height, 16rem));
+        overflow: auto;
+      }
+
+      .virtualList {
+        position: relative;
+        overflow: visible;
+      }
+
+      .virtualItem {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
 ### With TagsInput
 
 Compose `Combobox` with `TagsInput` when users still need filtered suggestions, but the selected
@@ -377,32 +393,16 @@ values should live inside one editable chip field.
 </Preview.Code>
 </Preview>
 
-### Async Search
+### Advanced Customization
 
-Replace collection items from an async result and use `details.reason` to distinguish typed input
-from machine-driven input updates.
-
-<Preview>
-  <ComboboxDocs.AsyncSearchComboboxExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/combobox/async-search.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>
-</Preview>
-
-### Root Provider
-
-Create the state with Ark `useCombobox` when external controls need imperative methods or shared
-state before the root renders. `Combobox.RootProvider` preserves the moduix root styling and portal
-configuration.
+Bypass `Combobox.Option` when a row needs a custom semantic element or layout. This example keeps
+the full item anatomy while composing each result as a link with `Combobox.Item asChild`.
 
 <Preview>
-  <ComboboxDocs.RootProviderComboboxExample />
+  <ComboboxDocs.AdvancedCustomizationComboboxExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/combobox/root-provider.tsx#demo</include>
+  <include lang="tsx">./_snippets/combobox/advanced-customization.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>{ComboboxDocs.comboboxExampleCss}</Preview.CSS>

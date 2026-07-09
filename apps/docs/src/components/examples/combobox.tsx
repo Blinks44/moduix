@@ -350,7 +350,7 @@ export function InlineAutocompleteComboboxExample() {
   );
 }
 
-export function LinksComboboxExample() {
+export function AdvancedCustomizationComboboxExample() {
   const { contains } = useFilter({ sensitivity: 'base' });
   const { collection, filter } = useListCollection({
     initialItems: developerResources,

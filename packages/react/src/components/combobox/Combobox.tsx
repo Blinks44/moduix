@@ -259,17 +259,24 @@ const ComboboxItemIndicator = forwardRef<
   );
 });
 
-const ComboboxOption = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Item>,
-  ComponentProps<typeof ComboboxPrimitive.Item> & { indicator?: ReactNode | false }
->(function ComboboxOption({ children, indicator, ...props }, ref) {
-  return (
-    <ComboboxItem ref={ref} {...props}>
-      <ComboboxItemText>{children}</ComboboxItemText>
-      {indicator !== false ? <ComboboxItemIndicator>{indicator}</ComboboxItemIndicator> : null}
-    </ComboboxItem>
-  );
-});
+type ComboboxOptionProps = Omit<
+  ComponentProps<typeof ComboboxPrimitive.Item>,
+  'asChild' | 'children'
+> & {
+  children: ReactNode;
+  indicator?: ReactNode | false;
+};
+
+const ComboboxOption = forwardRef<ComponentRef<typeof ComboboxPrimitive.Item>, ComboboxOptionProps>(
+  function ComboboxOption({ children, indicator, ...props }, ref) {
+    return (
+      <ComboboxItem ref={ref} {...props}>
+        <ComboboxItemText>{children}</ComboboxItemText>
+        {indicator !== false ? <ComboboxItemIndicator>{indicator}</ComboboxItemIndicator> : null}
+      </ComboboxItem>
+    );
+  },
+);
 
 const Combobox = Object.assign(ComboboxRoot, {
   Root: ComboboxRoot,

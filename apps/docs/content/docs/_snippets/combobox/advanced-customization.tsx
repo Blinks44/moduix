@@ -23,7 +23,7 @@ const developerResources = [
   },
 ];
 
-export function LinksComboboxDemo() {
+export function AdvancedCustomizationComboboxDemo() {
   const { contains } = useFilter({ sensitivity: 'base' });
   const { collection, filter } = useListCollection({
     initialItems: developerResources,

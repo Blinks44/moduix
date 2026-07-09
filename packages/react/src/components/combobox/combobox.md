@@ -185,8 +185,9 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 
 - moduix ships default icons for `Trigger`, `ClearTrigger`, and `ItemIndicator`.
 - moduix ships `Option` as row-level sugar for the common `Item`/`ItemText`/`ItemIndicator`
-  composition. It keeps the same item props and ref target as `Item`, and its `indicator` prop only
-  controls the nested `ItemIndicator`.
+  composition. It keeps the same ref target as `Item`, but does not support `asChild` because it
+  always renders the nested text and indicator parts. Its `indicator` prop only controls the nested
+  `ItemIndicator`.
 - moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
   aliases. Advanced consumers import those directly from `@ark-ui/react/combobox`.
 - moduix does not add a hidden popup bundle such as `ComboboxContent` or a root-level `items` prop.
@@ -226,6 +227,9 @@ Common `shadcn` migration points:
 
 ## Local changelog
 
+- 2026-07-10: Restricted `Combobox.Option` to simple rows by excluding `asChild`; use
+  `Combobox.Item` for custom semantic elements and row layouts. Reordered public examples and added
+  an explicit advanced-customization path.
 - 2026-07-08: Added `Combobox.Option` as a narrow row helper for simple options, including
   indicator replacement/removal, updated the recommended composition to use it, made input
   end-padding depend on whether `Trigger` and `ClearTrigger` are rendered, documented the preferred
