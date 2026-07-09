@@ -93,12 +93,28 @@ const AlertDescription = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'
   },
 );
 
+const AlertActions = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function AlertActions({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-scope="alert"
+        data-part="actions"
+        data-slot="alert-actions"
+        className={clsx(styles.actions, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
+
 const Alert = Object.assign(AlertRoot, {
   Root: AlertRoot,
   Indicator: AlertIndicator,
   Content: AlertContent,
   Title: AlertTitle,
   Description: AlertDescription,
+  Actions: AlertActions,
 });
 
 export { Alert };

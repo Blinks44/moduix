@@ -59,13 +59,6 @@ export const alertCustomCompositionCss = `
 
     max-width: 32rem;
   }
-
-  .alert-actions {
-    display: flex;
-    flex-wrap: wrap;
-    margin-block-start: var(--spacing-2);
-    gap: var(--spacing-2);
-  }
 `;
 
 export const alertBasicData = `const alert = {
@@ -98,6 +91,8 @@ export const alertHeadingData = `const alert = {
 };`;
 
 export const alertCssProperties: CssPropertyInput[] = [
+  ['--alert-actions-gap', 'var(--spacing-2)', 'Controls gap between action elements.'],
+  ['--alert-actions-margin-top', 'var(--spacing-2)', 'Controls spacing before the actions row.'],
   ['--alert-bg', 'var(--alert-bg-default, var(--color-card))', 'Controls alert background.'],
   [
     '--alert-border-color',
@@ -175,22 +170,22 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 export function AlertExample(props: ComponentProps<typeof Alert.Root>) {
   return (
-    <Alert.Root className={styles.demo} {...props}>
+    <Alert className={styles.demo} {...props}>
       <Alert.Title>{basicAlert.title}</Alert.Title>
       <Alert.Description>{basicAlert.description}</Alert.Description>
-    </Alert.Root>
+    </Alert>
   );
 }
 
 export function AlertWithIconExample() {
   return (
-    <Alert.Root status="info" className={styles.demo}>
+    <Alert status="info" className={styles.demo}>
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
       <Alert.Title>{iconAlert.title}</Alert.Title>
       <Alert.Description>{iconAlert.description}</Alert.Description>
-    </Alert.Root>
+    </Alert>
   );
 }
 
@@ -198,11 +193,11 @@ export function AlertStatusesExample() {
   return (
     <div className={styles.stack}>
       {statuses.map((status) => (
-        <Alert.Root key={status} status={status}>
+        <Alert key={status} status={status}>
           <Alert.Indicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</Alert.Indicator>
           <Alert.Title>{status}</Alert.Title>
           <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
-        </Alert.Root>
+        </Alert>
       ))}
     </div>
   );
@@ -210,13 +205,13 @@ export function AlertStatusesExample() {
 
 export function AlertErrorExample() {
   return (
-    <Alert.Root status="error" className={styles.demo}>
+    <Alert status="error" className={styles.demo}>
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
       <Alert.Title>{errorAlert.title}</Alert.Title>
       <Alert.Description>{errorAlert.description}</Alert.Description>
-    </Alert.Root>
+    </Alert>
   );
 }
 
@@ -226,31 +221,31 @@ export function AlertActionsExample() {
   if (!visible) return null;
 
   return (
-    <Alert.Root status="warning" className={styles.customAlert}>
+    <Alert status="warning" className={styles.customAlert}>
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
       <Alert.Content>
         <Alert.Title>{actionAlert.title}</Alert.Title>
         <Alert.Description>{actionAlert.description}</Alert.Description>
-        <div className={styles.actions}>
+        <Alert.Actions>
           <Button size="sm">{actionAlert.primaryAction}</Button>
           <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
             {actionAlert.secondaryAction}
           </Button>
-        </div>
+        </Alert.Actions>
       </Alert.Content>
-    </Alert.Root>
+    </Alert>
   );
 }
 
 export function AlertHeadingExample() {
   return (
-    <Alert.Root status="info" className={styles.demo}>
+    <Alert status="info" className={styles.demo}>
       <Alert.Title asChild>
         <h2>{headingAlert.title}</h2>
       </Alert.Title>
       <Alert.Description>{headingAlert.description}</Alert.Description>
-    </Alert.Root>
+    </Alert>
   );
 }

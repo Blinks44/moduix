@@ -195,6 +195,8 @@
   --alert-border-width: initial; /* var(--border-width-sm) */
   --alert-color: initial; /* var(--alert-color-default, var(--color-card-foreground)) */
   --alert-content-gap: initial; /* var(--spacing-1) */
+  --alert-actions-gap: initial; /* var(--spacing-2) */
+  --alert-actions-margin-top: initial; /* var(--spacing-2) */
   --alert-description-color: initial; /* var(--color-muted-foreground) */
   --alert-description-font-size: initial; /* var(--text-sm) */
   --alert-description-line-height: initial; /* var(--line-height-text-sm) */
@@ -202,7 +204,7 @@
   --alert-indicator-color: initial; /* var(--alert-indicator-color-default, currentColor) */
   --alert-indicator-offset: initial; /* 0.125rem */
   --alert-indicator-size: initial; /* 1rem */
-  --alert-padding: initial; /* var(--spacing-4) */
+  --alert-padding: initial; /* var(--spacing-3) */
   --alert-radius: initial; /* var(--radius-lg) */
   --alert-shadow: initial; /* none */
   --alert-title-color: initial; /* var(--alert-color, var(--alert-color-default)) */

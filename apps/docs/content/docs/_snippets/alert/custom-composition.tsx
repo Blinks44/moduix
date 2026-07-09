@@ -1,5 +1,6 @@
 //#region demo
 import { Alert, Button } from '@moduix/react';
+import { Info as InfoIcon } from 'lucide-react';
 import { useState } from 'react';
 
 const alert = {
@@ -23,12 +24,12 @@ export function AlertActionsDemo() {
       <Alert.Content>
         <Alert.Title>{alert.title}</Alert.Title>
         <Alert.Description>{alert.description}</Alert.Description>
-        <div className="alert-actions">
+        <Alert.Actions>
           <Button size="sm">{alert.primaryAction}</Button>
           <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
             {alert.secondaryAction}
           </Button>
-        </div>
+        </Alert.Actions>
       </Alert.Content>
     </Alert>
   );

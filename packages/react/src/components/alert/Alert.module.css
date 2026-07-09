@@ -115,4 +115,11 @@
       margin-bottom: 0;
     }
   }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    margin-block-start: var(--alert-actions-margin-top, var(--spacing-2));
+    gap: var(--alert-actions-gap, var(--spacing-2));
+  }
 }
