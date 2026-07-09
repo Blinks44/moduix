@@ -63,6 +63,10 @@ that ecosystem.
 - Prefer moduix-owned exports for common advanced surfaces. If docs/stories need context, item
   context, or hooks as a normal path, export them through the component namespace/barrel instead of
   teaching users to import `ArkComponent.Context` directly. Direct Ark imports are escape hatches.
+- Keep a component's consumer-facing value exports together in one final export statement in its
+  implementation file. If a moduix component re-exports an Ark hook, import it there and include it
+  in that final export; keep the local `index.ts` as a re-export-only barrel rather than scattering
+  exports across both files.
 - Make recommended usage the first docs path. Put full low-level composition in a separate example
   titled `Advanced Customization`.
 - Check docs example ordering: `Root` or `Basic` first, feature examples alphabetically after that,

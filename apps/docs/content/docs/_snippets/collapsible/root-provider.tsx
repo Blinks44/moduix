@@ -1,6 +1,5 @@
 //#region demo
-import { useCollapsible } from '@ark-ui/react/collapsible';
-import { Collapsible } from '@moduix/react';
+import { Collapsible, useCollapsible } from '@moduix/react';
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
 

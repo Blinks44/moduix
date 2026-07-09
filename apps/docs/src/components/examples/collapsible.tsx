@@ -1,5 +1,4 @@
-import { useCollapsible } from '@ark-ui/react/collapsible';
-import { ChevronDownIcon, Collapsible } from '@moduix/react';
+import { ChevronDownIcon, Collapsible, useCollapsible } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -28,10 +27,6 @@ export const collapsibleExampleCss = `
     display: flex;
     flex-direction: column;
     gap: var(--spacing-2);
-  }
-
-  .collapsible-nested-content {
-    padding: var(--spacing-2);
   }
 
   .collapsible-nested-content > p {
@@ -305,7 +300,7 @@ export function NestedCollapsibleExample() {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-nested-content">
+        <Collapsible.Body className="collapsible-nested-content">
           <p>Security options for this account.</p>
           <Collapsible className="collapsible-nested-root">
             <Collapsible.Trigger>
@@ -318,7 +313,7 @@ export function NestedCollapsibleExample() {
               </Collapsible.Body>
             </Collapsible.Content>
           </Collapsible>
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   );

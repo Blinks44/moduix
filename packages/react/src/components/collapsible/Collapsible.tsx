@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Collapsible as CollapsiblePrimitive } from '@ark-ui/react/collapsible';
+import { Collapsible as CollapsiblePrimitive, useCollapsible } from '@ark-ui/react/collapsible';
 import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
@@ -104,4 +104,4 @@ const Collapsible = Object.assign(CollapsibleRoot, {
   Body: CollapsibleBody,
 });
 
-export { Collapsible };
+export { Collapsible, useCollapsible };

@@ -25,7 +25,7 @@ keys, secondary metadata, or a single disclosure row. Use `Accordion` for coordi
 - `Collapsible.Root` supports Ark props including `open`, `defaultOpen`, `onOpenChange(details)`,
   `disabled`, `collapsedHeight`, `collapsedWidth`, `lazyMount`, `unmountOnExit`, `ids`, and
   `onExitComplete`.
-- `Collapsible.RootProvider` accepts the return value from Ark `useCollapsible()`.
+- `Collapsible.RootProvider` accepts the return value from moduix `useCollapsible()`.
 - `Collapsible.Indicator` renders `ChevronDownIcon` when children are omitted.
 - `Collapsible.Body` is an optional inner layout wrapper for padding, gap, and surfaces inside
   `Collapsible.Content`.
@@ -92,8 +92,8 @@ Controlled callbacks keep the Ark details object:
 - `Nested`: independent `Collapsible.Root` trees can be nested inside content.
 - `Partial Collapse`: `collapsedHeight` and `collapsedWidth` are forwarded; the content animation
   uses Ark `--height`, `--width`, `--collapsed-height`, and `--collapsed-width` measurements.
-- `Root Provider`: `Collapsible.RootProvider` is exported. Import Ark `useCollapsible()` directly
-  when state must be created outside the rendered root.
+- `Root Provider`: `Collapsible.RootProvider` and `useCollapsible()` are exported for state created
+  outside the rendered root.
 - `Body`: moduix adds an inner wrapper for padding and content layout; Ark does not expose this as
   a primitive part.
 
@@ -104,6 +104,9 @@ Controlled callbacks keep the Ark details object:
 - Ark callbacks are not converted. `onOpenChange` receives `{ open }`.
 - Ark state created with `useCollapsible()` exposes `open` for intended state and `visible` for
   mounted visibility during exit animations.
+- `useCollapsible()` is exported from moduix for `RootProvider` composition; context hooks remain
+  direct Ark escape hatches.
+- Interactive elements in a partially collapsed content area become inert until the region opens.
 - Ark `data-scope="collapsible"` and `data-part` identify root, trigger, indicator, and content.
 - `data-state="open" | "closed"` appears on root, trigger, indicator, and content.
 - `data-collapsible` appears on content.
@@ -165,30 +168,31 @@ Primary CSS variables:
 - `Collapsible.Indicator` supplies `ChevronDownIcon` when children are omitted.
 - `Collapsible.Body` supplies the recommended inner content wrapper so consumers do not need to
   hand-roll padding wrappers in every disclosure.
-- moduix keeps `RootProvider` but does not re-export Ark `useCollapsible()`, context hooks, or Ark
-  type aliases.
+- moduix re-exports Ark `useCollapsible()` for the standard `RootProvider` composition path, but
+  leaves context hooks and Ark type aliases as direct Ark escape hatches.
 - No legacy flat exports, aliases, or converted callback signatures are retained.
 
 ## Agent notes
 
 - Preserve Ark callback details, `asChild`, context/provider composition, render strategy, and
   partial-collapse measurements.
-- Keep `RootProvider`, but do not reintroduce moduix-owned re-exports for Ark hooks, contexts, or
-  duplicate type aliases.
+- Keep `RootProvider` and its paired `useCollapsible()` export aligned with Ark. Context hooks and
+  duplicate type aliases remain direct Ark escape hatches.
 - Keep `Content` reserved for the real Ark content part.
 - Keep spacing on `Collapsible.Body` or another inner content wrapper so `--height` animation
   remains accurate.
 
 ## Local changelog
 
+- 2026-07-09: Re-exported `useCollapsible()` from moduix for the standard `RootProvider` path.
+
 - 2026-07-08: Added `Collapsible.Body` as the recommended inner layout wrapper, documented its
   styling hooks, and synchronized CSS variable defaults for width and indicator rotation.
 - 2026-07-08: Changed the default indicator icon to `ChevronDownIcon`, updated the open-state
   rotation to point upward, and set the root width default to `100%` to avoid disclosure width
   jumps while still allowing docs and apps to constrain layout explicitly.
-- 2026-07-02: Simplified the public surface to the visual parts plus `RootProvider`; advanced Ark
-  hooks, context access, and duplicate type exports now come from `@ark-ui/react/collapsible`
-  directly.
+- 2026-07-02: Simplified the public surface to the visual parts plus `RootProvider`; advanced
+  context access and duplicate type exports now come from `@ark-ui/react/collapsible` directly.
 - 2026-07-01: Made `Trigger asChild` behavior-only so a composed button keeps its own visual
   contract without inheriting Collapsible trigger layout.
 - 2026-06-24: Audited the Ark UI migration, fixed the docs `RootProvider` example, removed an

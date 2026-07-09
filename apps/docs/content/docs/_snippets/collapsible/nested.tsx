@@ -11,7 +11,7 @@ export function NestedCollapsibleDemo() {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-nested-content">
+        <Collapsible.Body className="collapsible-nested-content">
           <p>Security options for this account.</p>
           <Collapsible className="collapsible-nested-root">
             <Collapsible.Trigger>
@@ -28,7 +28,7 @@ export function NestedCollapsibleDemo() {
               </Collapsible.Body>
             </Collapsible.Content>
           </Collapsible>
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   );
