@@ -24,8 +24,8 @@ externally owned state.
 - `Avatar.RootProvider` applies the same visual contract to externally created Ark state.
 - `size` is the only local behavior-neutral prop. It is available on `Root` and `RootProvider`.
 - `Avatar.Fallback` accepts `name` and derives initials when no children are provided.
-- Context parts, state hooks, and Ark type aliases are imported directly from
-  `@ark-ui/react/avatar`.
+- `useAvatar` and `useAvatarContext` are re-exported from `@moduix/react` for the normal advanced
+  path; other Ark type aliases and context surfaces stay on `@ark-ui/react/avatar`.
 - No legacy `render`, delay, loading-state adapter, or callback compatibility API remains.
 
 ## Anatomy and exported parts
@@ -58,20 +58,22 @@ export function AvatarExample() {
 }
 ```
 
-For externally owned state, import `useAvatar` from `@ark-ui/react/avatar` and render
+For externally owned state, import `useAvatar` from `@moduix/react` and render
 `Avatar.RootProvider value={avatar}`. Do not wrap that provider with `Avatar.Root` for the same
 state instance.
 
-Import Ark context APIs directly from `@ark-ui/react/avatar`. Use `asChild` with one semantic child
-when another element must own a part's DOM node.
+Import `useAvatarContext` from `@moduix/react` for custom image rendering that still preserves Ark
+loading state. Keep rarer Ark context APIs and type aliases on `@ark-ui/react/avatar`. Use
+`asChild` with one semantic child when another element must own a part's DOM node.
 
 ## Upstream feature coverage
 
 - Anatomy and Basic: all Ark parts use the upstream composition model.
 - Events: `onStatusChange(details)` is passed through without remapping.
-- Provider and Root Provider: styled `Avatar.RootProvider` is public; `useAvatar` is imported from
-  Ark UI.
-- Context and custom image integrations remain available directly from `@ark-ui/react/avatar`.
+- Provider and Root Provider: styled `Avatar.RootProvider` is public; `useAvatar` is re-exported
+  from moduix.
+- Context and custom image integrations use `useAvatarContext` from moduix; rarer Ark context
+  surfaces remain available directly from Ark UI.
 - Stable IDs: Ark `ids` remains available on `Avatar.Root`.
 - Fallback sugar: `Avatar.Fallback name` derives initials locally without changing Ark loading
   behavior.
@@ -126,8 +128,8 @@ or the public CSS variables.
 - `Avatar.Fallback name="Alex T."` derives initials for the common case without introducing a
   closed root API.
 - moduix adds stable `data-slot` hooks.
-- moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
-  aliases.
+- moduix keeps `RootProvider` and re-exports `useAvatar` and `useAvatarContext`, but does not
+  re-export broader Ark context parts or Ark type aliases.
 - No Chakra-only fallback `name`, variant, shape, color palette, group, badge, or icon API is added.
   Those patterns remain explicit composition and styling.
 
@@ -139,6 +141,8 @@ or the public CSS variables.
 
 ## Local changelog
 
+- 2026-07-09: Re-exported `useAvatar` and `useAvatarContext` from moduix and aligned docs/stories
+  so the normal advanced path no longer requires direct Ark imports.
 - 2026-07-07: Documented `<Avatar>` as the default happy path and added `Avatar.Fallback name` for
   initials-first fallback content.
 - 2026-07-02: Removed duplicate Ark type exports, context parts, and state hooks from the moduix

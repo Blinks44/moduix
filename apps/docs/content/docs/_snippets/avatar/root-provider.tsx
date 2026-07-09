@@ -1,6 +1,5 @@
 //#region demo
-import { useAvatar } from '@ark-ui/react/avatar';
-import { Avatar } from '@moduix/react';
+import { Avatar, useAvatar } from '@moduix/react';
 import { useState } from 'react';
 
 const avatarImage =

@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useAvatar } from '@ark-ui/react/avatar';
-import { useState } from 'react';
+import { type ImgHTMLAttributes, useState } from 'react';
 import { ComputerIcon } from '@/icons/demo';
-import { Avatar } from './Avatar';
 import styles from './Avatar.stories.module.css';
+import { Avatar, useAvatar, useAvatarContext } from './index';
 
 const meta = {
   title: 'Components/Avatar',
@@ -18,6 +17,20 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const imageUrl = 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80';
+
+function AvatarCustomImage(props: ImgHTMLAttributes<HTMLImageElement>) {
+  const avatar = useAvatarContext();
+  const { hidden, ...imageProps } = avatar.getImageProps();
+
+  return (
+    <img
+      {...imageProps}
+      {...props}
+      className={styles.customImage}
+      style={{ visibility: hidden ? 'hidden' : 'visible' }}
+    />
+  );
+}
 
 function StatusChangeAvatar() {
   const [status, setStatus] = useState('idle');
@@ -104,6 +117,17 @@ export const StatusChange: Story = {
 
 export const RootProvider: Story = {
   render: () => <RootProviderAvatar />,
+};
+
+export const CustomImage: Story = {
+  render: () => {
+    return (
+      <Avatar>
+        <Avatar.Fallback name="Alex T." />
+        <AvatarCustomImage src={imageUrl} alt="Alex T." />
+      </Avatar>
+    );
+  },
 };
 
 export const ImageError: Story = {

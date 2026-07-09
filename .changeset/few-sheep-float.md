@@ -2,4 +2,5 @@
 '@moduix/react': patch
 ---
 
-Avatar: add initials fallback sugar and document the short root composition path.
+Avatar: re-export common state hooks and align docs around the default and advanced composition paths.
+Also documents custom image rendering through moduix `useAvatarContext`.

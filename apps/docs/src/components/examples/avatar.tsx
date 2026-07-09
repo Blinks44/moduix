@@ -1,8 +1,7 @@
 import type { ComponentProps } from 'react';
-import { useAvatar } from '@ark-ui/react/avatar';
-import { Avatar } from '@moduix/react';
+import { Avatar, useAvatar, useAvatarContext } from '@moduix/react';
 import { Computer as ComputerIcon } from 'lucide-react';
-import { useState } from 'react';
+import { type ImgHTMLAttributes, useState } from 'react';
 import type { CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 
@@ -69,6 +68,16 @@ export const avatarFallbackCss = `
   .docs-avatar-icon-glyph {
     width: 55%;
     height: 55%;
+  }
+`;
+
+export const avatarCustomImageCss = `
+  .docs-avatar-custom-image {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+    object-position: center;
   }
 `;
 
@@ -186,6 +195,20 @@ export function AvatarCompositionExample() {
   );
 }
 
+function AvatarCustomImage(props: ImgHTMLAttributes<HTMLImageElement>) {
+  const avatar = useAvatarContext();
+  const { hidden, ...imageProps } = avatar.getImageProps();
+
+  return (
+    <img
+      {...imageProps}
+      {...props}
+      className="docs-avatar-custom-image"
+      style={{ visibility: hidden ? 'hidden' : 'visible' }}
+    />
+  );
+}
+
 export function AvatarImageErrorExample() {
   return (
     <Avatar>
@@ -227,6 +250,15 @@ export function AvatarRootProviderExample() {
         <Avatar.Image src={`${avatarImage}&seed=${count}`} alt="Alex T." />
       </Avatar.RootProvider>
     </div>
+  );
+}
+
+export function AvatarCustomImageExample() {
+  return (
+    <Avatar>
+      <Avatar.Fallback name="Alex T." />
+      <AvatarCustomImage src={avatarImage} alt="Alex T." />
+    </Avatar>
   );
 }
 
