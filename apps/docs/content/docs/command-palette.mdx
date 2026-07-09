@@ -111,29 +111,9 @@ Render `Backdrop`, `Positioner`, `Content`, `Header`, `Body`, `Control`, `Input`
 
 ### Behavioral notes
 
-The shortcut listener is opt-in because documentation pages and complex applications can mount multiple command palettes at once. When enabled, it ignores `input`, `textarea`, `select`, and `contenteditable` targets while the palette is closed, and closes the palette when the same shortcut is pressed while it is open. `alt+k` is the recommended docs shortcut because Fumadocs reserves `Cmd+K`. `mod` accepts either Meta or Control, which keeps the component platform-agnostic. `CommandPalette` preserves Ark `onOpenChange(details)`, and `CommandPalette.Combobox` preserves Ark Combobox callback detail objects such as `onInputValueChange(details)`, `onSelect(details)`, and `onValueChange(details)`.
+The shortcut listener is opt-in because documentation pages and complex applications can mount multiple command palettes at once. It accepts one modifier and one key, for example `mod+k`, `ctrl+1`, `meta+k`, or `alt+k`; supported modifier aliases are `mod`, `ctrl` / `control`, `meta` / `cmd` / `command`, and `alt` / `option`. When enabled, it ignores `input`, `textarea`, `select`, and `contenteditable` targets while the palette is closed, and closes the palette when the same shortcut is pressed while it is open. `alt+k` is the recommended docs shortcut because Fumadocs reserves `Cmd+K`. `mod` accepts either Meta or Control, which keeps the component platform-agnostic. `CommandPalette` preserves Ark `onOpenChange(details)`, and `CommandPalette.Combobox` preserves Ark Combobox callback detail objects such as `onInputValueChange(details)`, `onSelect(details)`, and `onValueChange(details)`.
 
 ## Examples
-
-### Item Actions
-
-Attach execution behavior to items and let `CommandPalette.Combobox` close the dialog on selection.
-
-<Preview>
-  <CommandPaletteDocs.CommandPaletteActionsExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/command-palette/item-actions.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .commandPalette {
-        --command-palette-highlight-bg: var(--color-accent);
-      }
-    `}
-</Preview.CSS>
-</Preview>
 
 ### Controlled Open State
 
@@ -161,6 +141,40 @@ Enable the listener when a palette should open from a global command key. The li
 </Preview.Code>
 
   <Preview.CSS>{`[data-slot="command-palette-trigger"] { min-width: 9rem; }`}</Preview.CSS>
+</Preview>
+
+### Item Actions
+
+Attach execution behavior to items and let `CommandPalette.Combobox` close the dialog on selection.
+
+<Preview>
+  <CommandPaletteDocs.CommandPaletteActionsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/command-palette/item-actions.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .commandPalette {
+        --command-palette-highlight-bg: var(--color-accent);
+      }
+    `}
+</Preview.CSS>
+</Preview>
+
+### Advanced Customization
+
+Bypass `Panel` and `Search` when the palette needs custom dialog chrome or search controls. The explicit parts retain the same Dialog and Combobox behavior.
+
+<Preview>
+  <CommandPaletteDocs.AdvancedCommandPaletteExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/command-palette/advanced-customization.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{`.commandPalette { --command-palette-width: 34rem; }`}</Preview.CSS>
 </Preview>
 
 ## Styling

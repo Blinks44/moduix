@@ -371,6 +371,46 @@ export function CommandPaletteExample() {
   );
 }
 
+export function AdvancedCommandPaletteExample() {
+  const { collection, filter } = useCommandCollection(commandItems);
+
+  return (
+    <CommandPalette
+      aria-label="Custom command palette"
+      onOpenChange={(details) => {
+        if (!details.open) {
+          filter('');
+        }
+      }}
+    >
+      <CommandPalette.Trigger asChild>
+        <Button>Open custom palette</Button>
+      </CommandPalette.Trigger>
+      <CommandPalette.Backdrop />
+      <CommandPalette.Positioner>
+        <CommandPalette.Content className="commandPalette">
+          <CommandPalette.Header>
+            <CommandPalette.Title>Commands</CommandPalette.Title>
+            <CommandPalette.CloseIcon />
+          </CommandPalette.Header>
+          <CommandPalette.Body>
+            <CommandPalette.Combobox
+              collection={collection}
+              onInputValueChange={(details) => filter(details.inputValue)}
+            >
+              <CommandPalette.Control>
+                <CommandPalette.Input placeholder="Search commands..." />
+                <CommandPalette.ClearTrigger />
+              </CommandPalette.Control>
+              <CommandPaletteGroupedItems collection={collection} />
+            </CommandPalette.Combobox>
+          </CommandPalette.Body>
+        </CommandPalette.Content>
+      </CommandPalette.Positioner>
+    </CommandPalette>
+  );
+}
+
 export function CommandPaletteActionsExample() {
   const [lastAction, setLastAction] = React.useState('No command executed yet.');
 
