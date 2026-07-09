@@ -54,6 +54,14 @@
       flex-shrink: 0;
     }
 
+    & [data-icon='inline-start'],
+    & [data-icon='inline-end'] {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
     &[data-variant='default'] {
       border-color: var(--button-default-border-color, var(--color-primary));
       background-color: var(--button-default-bg, var(--color-primary));

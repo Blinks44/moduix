@@ -77,7 +77,7 @@ export const WithIcons: Story = {
   render: () => (
     <div className={styles.row}>
       <Button>
-        <PlusIcon />
+        <PlusIcon data-icon="inline-start" />
         Create Item
       </Button>
       <Button size="icon-sm" variant="outline" aria-label="Small favorite">
@@ -91,7 +91,7 @@ export const WithIcons: Story = {
       </Button>
       <Button variant="link">
         Open Docs
-        <ArrowUpRightIcon />
+        <ArrowUpRightIcon data-icon="inline-end" />
       </Button>
     </div>
   ),
@@ -134,7 +134,7 @@ export const PendingState: Story = {
       >
         {pending ? (
           <>
-            <Spinner decorative size="sm" />
+            <Spinner decorative size="sm" data-icon="inline-start" />
             Saving
           </>
         ) : (

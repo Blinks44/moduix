@@ -38,6 +38,8 @@ composition.
 - Writes `data-scope="button"`, `data-part="root"`, and `data-slot="button-root"` on the root by
   default. Composed moduix wrappers may pass a narrower `data-slot` while preserving button
   behavior.
+- When `asChild` is enabled, the wrapper keeps `aria-disabled`, `aria-busy`, and `data-disabled`
+  for state and styling, but it does not force a native `disabled` attribute onto the custom host.
 - Does not keep legacy `render`, `nativeButton`, or `focusableWhenDisabled`.
 
 ## Anatomy and exported parts
@@ -107,6 +109,8 @@ equivalent labeling mechanism.
 - `aria-disabled` on a non-button `asChild` target does not block activation by itself. Application
   code must prevent navigation or activation.
 - `loading={true}` forces `aria-busy` and keeps the loading indicator content fully compositional.
+- On an `asChild` host, `loading` does not inject native disabling. Keep navigation or activation
+  suppression in application code.
 - Icon-only buttons still need an accessible name through `aria-label` or equivalent labeling.
 
 ## Defaults and styling
@@ -122,66 +126,66 @@ equivalent labeling mechanism.
 
 Primary CSS variables:
 
-| Variable                                            | Default/fallback                                |
-| --------------------------------------------------- | ----------------------------------------------- |
-| `--button-border-width`                             | `var(--border-width-sm)`                        |
-| `--button-color`                                    | `var(--color-foreground)`                       |
-| `--button-content-gap`                              | `var(--spacing-2)`                              |
-| `--button-default-bg`                               | `var(--color-primary)`                          |
-| `--button-default-bg-hover`                         | `var(--color-foreground)`                       |
-| `--button-default-border-color`                     | `var(--color-primary)`                          |
-| `--button-default-color`                            | `var(--color-primary-foreground)`               |
-| `--button-destructive-bg`                           | `var(--color-destructive)`                      |
-| `--button-destructive-border-color`                 | `var(--color-destructive)`                      |
-| `--button-destructive-color`                        | `var(--color-primary-foreground)`               |
-| `--button-destructive-hover-brightness`             | `0.96`                                          |
-| `--button-destructive-outline-bg`                   | `var(--color-background)`                       |
-| `--button-destructive-outline-bg-hover`             | `var(--color-destructive)`                      |
-| `--button-destructive-outline-border-color`         | `var(--color-destructive)`                      |
-| `--button-destructive-outline-color`                | `var(--color-destructive)`                      |
-| `--button-destructive-outline-color-hover`          | `var(--button-destructive-color)`               |
-| `--button-disabled-opacity`                         | `var(--opacity-disabled)`                       |
-| `--button-focus-ring-color`                         | `var(--color-ring)`                             |
-| `--button-focus-ring-offset`                        | `var(--button-border-width)`                    |
-| `--button-focus-ring-width`                         | `var(--border-width-md)`                        |
-| `--button-font-size`                                | `var(--text-sm)`                                |
-| `--button-font-size-xs` / `--button-line-height-xs` | `var(--text-xs)` / `var(--line-height-text-xs)` |
-| `--button-font-size-lg` / `--button-line-height-lg` | `var(--text-md)` / `var(--line-height-text-md)` |
-| `--button-font-size-xl` / `--button-line-height-xl` | `var(--text-lg)` / `var(--line-height-text-lg)` |
-| `--button-font-weight`                              | `var(--weight-medium)`                          |
-| `--button-ghost-bg`                                 | `transparent`                                   |
-| `--button-ghost-bg-hover`                           | `var(--color-accent)`                           |
-| `--button-ghost-border-color`                       | `transparent`                                   |
-| `--button-ghost-color`                              | `var(--color-foreground)`                       |
-| `--button-icon-size`                                | `1rem`                                          |
-| `--button-line-height`                              | `var(--line-height-text-sm)`                    |
-| `--button-link-color`                               | `var(--color-primary)`                          |
-| `--button-link-color-hover`                         | `var(--color-foreground)`                       |
-| `--button-link-text-decoration`                     | `underline`                                     |
-| `--button-link-underline-offset`                    | `0.25em`                                        |
-| `--button-outline-bg`                               | `var(--color-background)`                       |
-| `--button-outline-bg-hover`                         | `var(--color-accent)`                           |
-| `--button-outline-border-color`                     | `var(--color-border)`                           |
-| `--button-outline-color`                            | `var(--color-foreground)`                       |
-| `--button-padding-x-xs` / `--button-padding-y-xs`   | `0.625rem` / `0.25rem`                          |
-| `--button-padding-x-sm` / `--button-padding-y-sm`   | `0.75rem` / `0.375rem`                          |
-| `--button-padding-x-md` / `--button-padding-y-md`   | `1rem` / `0.5rem`                               |
-| `--button-padding-x-lg` / `--button-padding-y-lg`   | `1.25rem` / `0.625rem`                          |
-| `--button-padding-x-xl` / `--button-padding-y-xl`   | `1.5rem` / `0.75rem`                            |
-| `--button-radius`                                   | `var(--radius-md)`                              |
-| `--button-secondary-bg`                             | `var(--color-secondary)`                        |
-| `--button-secondary-bg-hover`                       | `var(--color-accent)`                           |
-| `--button-secondary-border-color`                   | `var(--color-secondary)`                        |
-| `--button-secondary-color`                          | `var(--color-secondary-foreground)`             |
-| `--button-size-icon-sm`                             | `var(--size-sm)`                                |
-| `--button-size-icon-md`                             | `var(--size-lg)`                                |
-| `--button-size-icon-lg`                             | `var(--size-xl)`                                |
-| `--button-size-xs`                                  | `var(--size-xs)`                                |
-| `--button-size-sm`                                  | `var(--size-sm)`                                |
-| `--button-size-md`                                  | `var(--size-lg)`                                |
-| `--button-size-lg`                                  | `var(--size-xl)`                                |
-| `--button-size-xl`                                  | `3.5rem`                                        |
-| `--button-transition`                               | `var(--transition-default)`                     |
+| Variable                                            | Default/fallback                                                                |
+| --------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `--button-border-width`                             | `var(--border-width-sm)`                                                        |
+| `--button-color`                                    | `var(--color-foreground)`                                                       |
+| `--button-content-gap`                              | `var(--spacing-2)`                                                              |
+| `--button-default-bg`                               | `var(--color-primary)`                                                          |
+| `--button-default-bg-hover`                         | `color-mix(in srgb, var(--button-default-bg, var(--color-primary)) 88%, black)` |
+| `--button-default-border-color`                     | `var(--color-primary)`                                                          |
+| `--button-default-color`                            | `var(--color-primary-foreground)`                                               |
+| `--button-destructive-bg`                           | `var(--color-destructive)`                                                      |
+| `--button-destructive-border-color`                 | `var(--color-destructive)`                                                      |
+| `--button-destructive-color`                        | `var(--color-primary-foreground)`                                               |
+| `--button-destructive-hover-brightness`             | `0.96`                                                                          |
+| `--button-destructive-outline-bg`                   | `var(--color-background)`                                                       |
+| `--button-destructive-outline-bg-hover`             | `var(--color-destructive)`                                                      |
+| `--button-destructive-outline-border-color`         | `var(--color-destructive)`                                                      |
+| `--button-destructive-outline-color`                | `var(--color-destructive)`                                                      |
+| `--button-destructive-outline-color-hover`          | `var(--button-destructive-color)`                                               |
+| `--button-disabled-opacity`                         | `var(--opacity-disabled)`                                                       |
+| `--button-focus-ring-color`                         | `var(--color-ring)`                                                             |
+| `--button-focus-ring-offset`                        | `var(--button-border-width)`                                                    |
+| `--button-focus-ring-width`                         | `var(--border-width-md)`                                                        |
+| `--button-font-size`                                | `var(--text-sm)`                                                                |
+| `--button-font-size-xs` / `--button-line-height-xs` | `var(--text-xs)` / `var(--line-height-text-xs)`                                 |
+| `--button-font-size-lg` / `--button-line-height-lg` | `var(--text-md)` / `var(--line-height-text-md)`                                 |
+| `--button-font-size-xl` / `--button-line-height-xl` | `var(--text-lg)` / `var(--line-height-text-lg)`                                 |
+| `--button-font-weight`                              | `var(--weight-medium)`                                                          |
+| `--button-ghost-bg`                                 | `transparent`                                                                   |
+| `--button-ghost-bg-hover`                           | `var(--color-accent)`                                                           |
+| `--button-ghost-border-color`                       | `transparent`                                                                   |
+| `--button-ghost-color`                              | `var(--color-foreground)`                                                       |
+| `--button-icon-size`                                | `1rem`                                                                          |
+| `--button-line-height`                              | `var(--line-height-text-sm)`                                                    |
+| `--button-link-color`                               | `var(--color-primary)`                                                          |
+| `--button-link-color-hover`                         | `var(--color-foreground)`                                                       |
+| `--button-link-text-decoration`                     | `underline`                                                                     |
+| `--button-link-underline-offset`                    | `0.25em`                                                                        |
+| `--button-outline-bg`                               | `var(--color-background)`                                                       |
+| `--button-outline-bg-hover`                         | `var(--color-accent)`                                                           |
+| `--button-outline-border-color`                     | `var(--color-border)`                                                           |
+| `--button-outline-color`                            | `var(--color-foreground)`                                                       |
+| `--button-padding-x-xs` / `--button-padding-y-xs`   | `0.625rem` / `0.25rem`                                                          |
+| `--button-padding-x-sm` / `--button-padding-y-sm`   | `0.75rem` / `0.375rem`                                                          |
+| `--button-padding-x-md` / `--button-padding-y-md`   | `1rem` / `0.5rem`                                                               |
+| `--button-padding-x-lg` / `--button-padding-y-lg`   | `1.25rem` / `0.625rem`                                                          |
+| `--button-padding-x-xl` / `--button-padding-y-xl`   | `1.5rem` / `0.75rem`                                                            |
+| `--button-radius`                                   | `var(--radius-md)`                                                              |
+| `--button-secondary-bg`                             | `var(--color-secondary)`                                                        |
+| `--button-secondary-bg-hover`                       | `var(--color-accent)`                                                           |
+| `--button-secondary-border-color`                   | `var(--color-secondary)`                                                        |
+| `--button-secondary-color`                          | `var(--color-secondary-foreground)`                                             |
+| `--button-size-icon-sm`                             | `var(--size-sm)`                                                                |
+| `--button-size-icon-md`                             | `var(--size-lg)`                                                                |
+| `--button-size-icon-lg`                             | `var(--size-xl)`                                                                |
+| `--button-size-xs`                                  | `var(--size-xs)`                                                                |
+| `--button-size-sm`                                  | `var(--size-sm)`                                                                |
+| `--button-size-md`                                  | `var(--size-lg)`                                                                |
+| `--button-size-lg`                                  | `var(--size-xl)`                                                                |
+| `--button-size-xl`                                  | `3.5rem`                                                                        |
+| `--button-transition`                               | `var(--transition-default)`                                                     |
 
 ## Intentional sugar and differences from upstream
 
@@ -190,6 +194,8 @@ Primary CSS variables:
 - moduix keeps loading content compositional but adds a narrow `loading` prop for the busy and
   disabled state wiring instead of copying Chakra's managed `loadingText`, `spinner`, and
   `spinnerPlacement` props.
+- moduix accepts optional `data-icon="inline-start|inline-end"` hooks on child icon or spinner
+  elements for explicit inline icon styling without introducing icon props.
 - The old legacy `render`, `nativeButton`, and `focusableWhenDisabled` surface is removed. Use
   `asChild` for polymorphism and native `disabled` or `aria-disabled` depending on the rendered
   element.
@@ -201,6 +207,8 @@ Primary CSS variables:
 - Preserve the native-root `type="button"` default and do not forward that default through
   `asChild`.
 - Keep `data-disabled` synchronized with native `disabled`, `aria-disabled`, and `loading`.
+- Keep native `disabled` off `asChild` hosts; preserve `aria-disabled`, `aria-busy`, and
+  `data-disabled` there instead.
 - Keep `loading` narrow: it owns busy/disabled state only, not spinner structure or loading text.
 - Keep the `data-slot` default as `button-root`, but preserve the narrow override path for composed
   wrappers that need their own stable slot.
@@ -208,6 +216,9 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-07-09: Stopped forcing native `disabled` onto `asChild` hosts, documented the `loading`
+  contract for custom hosts, and added optional `data-icon` styling hooks for inline icons and
+  spinners.
 - 2026-07-07: Added narrow `loading` state sugar that sets `data-loading`, `aria-busy`, and the
   disabled styling path, softened the default hover fallback, and aligned link sizing plus press
   feedback with the recommended usage contract.

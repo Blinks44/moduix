@@ -76,7 +76,9 @@ Use `asChild` when one semantic child should own the DOM node. Ark composition r
 child. The default `type="button"` is not injected into an `asChild` target.
 
 Use a real anchor for navigation. `aria-disabled="true"` is presentational on links, so application
-code must also prevent navigation or activation.
+code must also prevent navigation or activation. The same applies to `loading` on `asChild` hosts:
+moduix keeps `aria-busy`, `aria-disabled`, and `data-disabled` for state and styling, but it does
+not force a native `disabled` attribute onto a custom host.
 
 ### Behavioral notes
 
@@ -85,6 +87,8 @@ code must also prevent navigation or activation.
 - Native `disabled`, `aria-disabled="true"`, and `loading` expose `data-disabled`.
 - `loading` is narrow sugar: it sets `data-loading`, `aria-busy`, and the disabled styling path
   while the spinner and label stay fully compositional.
+- Optional `data-icon="inline-start|inline-end"` hooks can be applied to child icons or spinners
+  when a consumer wants explicit inline icon styling hooks.
 - Direct child `svg` elements inherit `currentColor` and use `--button-icon-size`.
 - Icon-only buttons require an accessible name.
 - Chakra-only `colorPalette`, responsive recipe props, `ButtonGroup`, and managed loading props are
@@ -92,15 +96,105 @@ code must also prevent navigation or activation.
 
 ## Examples
 
-### Variants
+### AsChild Link
 
-Use variants to communicate action priority and intent.
+Use `asChild` for navigation so the anchor retains link semantics while receiving button styling.
 
 <Preview>
-  <ButtonDocs.ButtonVariantsExample />
+  <ButtonDocs.ButtonLinkCompositionExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/button/variants.tsx#demo</include>
+  <include lang="tsx">./_snippets/button/as-child-link.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      [data-slot="button-root"] {
+        text-decoration: none;
+      }
+    `}
+</Preview.CSS>
+</Preview>
+
+### Disabled
+
+Use native `disabled` for buttons. Composed links need both `aria-disabled` and application-level
+activation prevention.
+
+<Preview>
+  <ButtonDocs.ButtonDisabledExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/button/disabled.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .button-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+</Preview.CSS>
+</Preview>
+
+### Icons
+
+Icons can appear before or after text. Optional `data-icon` hooks help consumers target inline
+start and end icons without adding button-level icon props.
+
+<Preview>
+  <ButtonDocs.ButtonIconExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/button/icons.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .button-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+</Preview.CSS>
+</Preview>
+
+### Pending State
+
+Use `loading` for the state wiring while keeping the label, spinner, and async lifecycle explicit
+in product code. On `asChild` hosts, treat it as a busy plus visually-disabled state and still
+block activation in application code.
+
+<Preview>
+  <ButtonDocs.ButtonLoadingExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/button/pending-state.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      [data-slot="button-root"][data-loading] {
+        cursor: progress;
+      }
+    `}
+</Preview.CSS>
+</Preview>
+
+### Ref
+
+The forwarded ref points at the rendered root and can be used for imperative focus or measurement.
+
+<Preview>
+  <ButtonDocs.ButtonRefExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/button/ref.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>
@@ -138,104 +232,15 @@ Text and icon-only sizes share the same root API.
 </Preview.CSS>
 </Preview>
 
-### Icons
+### Variants
 
-Icons can appear before or after text. Icon-only controls use an `icon-*` size and an accessible
-name.
-
-<Preview>
-  <ButtonDocs.ButtonIconExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/button/icons.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .button-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--spacing-3);
-      }
-    `}
-</Preview.CSS>
-</Preview>
-
-### Disabled
-
-Use native `disabled` for buttons. Composed links need both `aria-disabled` and application-level
-activation prevention.
+Use variants to communicate action priority and intent.
 
 <Preview>
-  <ButtonDocs.ButtonDisabledExample />
+  <ButtonDocs.ButtonVariantsExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/button/disabled.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .button-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--spacing-3);
-      }
-    `}
-</Preview.CSS>
-</Preview>
-
-### Pending State
-
-Use `loading` for the state wiring while keeping the label, spinner, and async lifecycle explicit
-in product code.
-
-<Preview>
-  <ButtonDocs.ButtonLoadingExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/button/pending-state.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      [data-slot="button-root"][data-loading] {
-        cursor: progress;
-      }
-    `}
-</Preview.CSS>
-</Preview>
-
-### AsChild Link
-
-Use `asChild` for navigation so the anchor retains link semantics while receiving button styling.
-
-<Preview>
-  <ButtonDocs.ButtonLinkCompositionExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/button/as-child-link.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      [data-slot="button-root"] {
-        text-decoration: none;
-      }
-    `}
-</Preview.CSS>
-</Preview>
-
-### Ref
-
-The forwarded ref points at the rendered root and can be used for imperative focus or measurement.
-
-<Preview>
-  <ButtonDocs.ButtonRefExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/button/ref.tsx#demo</include>
+  <include lang="tsx">./_snippets/button/variants.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>
@@ -263,4 +268,6 @@ The forwarded ref points at the rendered root and can be used for imperative foc
 - `data-variant` and `data-size` reflect the active visual recipe.
 - `data-disabled` is present for native `disabled`, `aria-disabled="true"`, and `loading`.
 - `data-loading` is present when `loading={true}`.
+- Child icons and spinners may opt into `data-icon="inline-start"` or `data-icon="inline-end"` for
+  explicit inline icon targeting.
 - `[data-disabled]` drives disabled visuals for native `disabled`, `aria-disabled="true"`, and `loading`.

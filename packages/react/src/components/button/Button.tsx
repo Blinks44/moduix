@@ -36,6 +36,7 @@ const ButtonRoot = forwardRef<
   },
   ref,
 ) {
+  const nativeDisabled = asChild ? undefined : loading || disabled;
   const resolvedAriaBusy = loading ? true : ariaBusy;
   const resolvedAriaDisabled = loading ? true : ariaDisabled;
   const isDisabled =
@@ -46,7 +47,7 @@ const ButtonRoot = forwardRef<
       ref={ref}
       asChild={asChild}
       type={asChild ? type : (type ?? 'button')}
-      disabled={loading || disabled}
+      disabled={nativeDisabled}
       aria-busy={resolvedAriaBusy}
       aria-disabled={resolvedAriaDisabled}
       {...props}

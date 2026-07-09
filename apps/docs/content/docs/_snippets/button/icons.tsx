@@ -12,7 +12,7 @@ export function ButtonIconsDemo() {
   return (
     <div className="button-demo-row">
       <Button>
-        <PlusIcon />
+        <PlusIcon data-icon="inline-start" />
         {labels.create}
       </Button>
       <Button size="icon-md" variant="outline" aria-label={labels.favorite}>
@@ -20,7 +20,7 @@ export function ButtonIconsDemo() {
       </Button>
       <Button variant="link">
         {labels.docs}
-        <ArrowUpRightIcon />
+        <ArrowUpRightIcon data-icon="inline-end" />
       </Button>
     </div>
   );
