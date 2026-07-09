@@ -39,6 +39,7 @@ const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonR
       <ark.button
         ref={ref}
         asChild={asChild}
+        {...props}
         type={asChild ? type : (type ?? 'button')}
         disabled={disabled}
         data-scope="close-button"
@@ -50,7 +51,6 @@ const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonR
         aria-label={ariaLabel ?? (children == null && ariaLabelledBy == null ? 'Close' : undefined)}
         aria-labelledby={ariaLabelledBy}
         onClick={handleClick}
-        {...props}
       >
         {children ?? <CloseIcon />}
       </ark.button>

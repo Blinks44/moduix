@@ -123,28 +123,6 @@ dismissal state and focus lifecycle.
 
 ## Examples
 
-### Custom Children
-
-Replace the default glyph through `children` while keeping the root button and styling contract.
-
-<Preview>
-  <CloseButtonDocs.CloseButtonCustomChildrenExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/close-button/custom-children.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customChildrenButton {
-        --close-button-size: 2.5rem;
-        --close-button-icon-size: 1.25rem;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ### As Child
 
 Use `asChild` when an existing button component must own the rendered element while receiving the
@@ -160,6 +138,28 @@ Close Button styling and data hooks.
   <Preview.CSS>
     {`
       .asChildButton {
+        --close-button-size: 2.5rem;
+        --close-button-icon-size: 1.25rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Custom Children
+
+Replace the default glyph through `children` while keeping the root button and styling contract.
+
+<Preview>
+  <CloseButtonDocs.CloseButtonCustomChildrenExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/close-button/custom-children.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customChildrenButton {
         --close-button-size: 2.5rem;
         --close-button-icon-size: 1.25rem;
       }

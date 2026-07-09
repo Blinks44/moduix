@@ -122,12 +122,16 @@ Public CSS variables:
 ## Agent notes
 
 - Keep this as a thin Ark factory wrapper with one part.
+- Keep the internal `data-scope`, `data-part`, `data-slot`, and `data-disabled` hooks authoritative;
+  consumer props must not replace them.
 - Preserve the shared `--close-button-*` contract because Dialog, Drawer, and Lightbox map their
   close-control tokens into it.
 - Do not reintroduce legacy render props.
 
 ## Local changelog
 
+- 2026-07-09: Made the stable data hooks authoritative so consumer props cannot replace the
+  component's styling contract.
 - 2026-06-24: Restored the short root `CloseButton` API and kept `CloseButton.Root` as the
   equivalent namespace form.
 - 2026-06-24: Simplified close-button CSS to style the normalized `data-disabled`
