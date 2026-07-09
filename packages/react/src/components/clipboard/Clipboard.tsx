@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Clipboard as ClipboardPrimitive } from '@ark-ui/react/clipboard';
+import { Clipboard as ClipboardPrimitive, useClipboard } from '@ark-ui/react/clipboard';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui';
@@ -156,6 +156,7 @@ const Clipboard = Object.assign(ClipboardRoot, {
   Indicator: ClipboardIndicator,
   CopyText: ClipboardCopyText,
   ValueText: ClipboardValueText,
+  useClipboard,
 });
 
 export { Clipboard };

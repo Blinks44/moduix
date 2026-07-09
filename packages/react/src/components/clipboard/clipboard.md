@@ -24,8 +24,8 @@ shapes intact: `Root`, `RootProvider`, `Label`, `Control`, `Input`, `Trigger`, `
 - `Clipboard.Indicator` adds leaf-level icon sugar: default idle and copied icons when no custom content is provided.
 - `Clipboard.CopyText` adds matching text sugar: `Copy` while idle and `Copied` while copied unless the consumer overrides them.
 - `Clipboard.ValueText` exposes the current value as text when an input field is not the right surface.
-- `Clipboard.RootProvider` keeps the styled root for clipboard state created with Ark `useClipboard()`.
-- Ark context hooks and Ark type aliases are not re-exported from moduix. Import those directly from `@ark-ui/react/clipboard` when an advanced workflow needs them.
+- `Clipboard.RootProvider` keeps the styled root for clipboard state created with `Clipboard.useClipboard()`.
+- `Clipboard.useClipboard()` re-exports the Ark hook without changing its arguments or return value. Ark context hooks and type aliases remain direct imports from `@ark-ui/react/clipboard`.
 - `Clipboard` remains the callable short root form, equivalent to `Clipboard.Root`.
 - The root no longer caps width by default; consumers opt into a cap with `--clipboard-max-width`.
 - The old `CopyButton` API, prop names, live-region wrapper, and button-only mental model were removed in favor of the Ark family.
@@ -90,8 +90,8 @@ consumer wants another semantic input or button element to own the rendered node
 - Copy status: supported via `onStatusChange(details)` and Ark `data-copied` attributes.
 - Timeout: supported via Ark `timeout`.
 - Value text pattern: supported with `Clipboard.ValueText`.
-- Root provider pattern: supported with Ark `useClipboard()` and `Clipboard.RootProvider`.
-- Context access remains available directly from `@ark-ui/react/clipboard`.
+- Root provider pattern: supported with `Clipboard.useClipboard()` and `Clipboard.RootProvider`.
+- `Clipboard.useClipboard()` is available from the moduix namespace; context access remains available directly from `@ark-ui/react/clipboard`.
 
 ## Accessibility and state
 
@@ -105,7 +105,7 @@ consumer wants another semantic input or button element to own the rendered node
 - `Clipboard.Trigger` keeps Ark keyboard and focus behavior. Do not replace it with a custom click handler layer.
 - `Clipboard.CopyText` inherits Ark indicator semantics through `Clipboard.Indicator`, so copied-state text still follows the same copied timing and `data-copied` state as the trigger.
 - The wrapper no longer adds a separate live region. Accessibility follows the Ark clipboard contract directly.
-- `Clipboard.RootProvider` is the only advanced state surface re-exported by moduix. Ark `useClipboardContext()` stays available directly from `@ark-ui/react/clipboard`.
+- `Clipboard.useClipboard()` and `Clipboard.RootProvider` are the moduix-owned advanced state path. Ark `useClipboardContext()` stays available directly from `@ark-ui/react/clipboard`.
 
 ## Defaults and styling
 
@@ -123,7 +123,7 @@ consumer wants another semantic input or button element to own the rendered node
 - moduix adds styling defaults for all exported parts.
 - moduix adds default indicator icons and default copy-status text only; that is the only behavior sugar beyond styling.
 - Default copied-state styling is intentionally neutral for `Input` and `Trigger`, matching the Ark examples more closely.
-- moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type aliases.
+- moduix keeps `RootProvider` and re-exports `useClipboard` on the `Clipboard` namespace, but does not re-export Ark context parts or type aliases.
 - `CopyButton` was removed as a breaking change. Consumers must switch to `Clipboard` parts and Ark callback names.
 - No legacy prop aliases remain. `copiedDuration`, `copyLabels`, `onCopy`, and `onCopyError` do not exist on the new surface.
 
@@ -135,6 +135,7 @@ consumer wants another semantic input or button element to own the rendered node
 
 ## Local changelog
 
+- 2026-07-09: Added `Clipboard.useClipboard()` for the public `RootProvider` path, documented `asChild` as advanced customization, and covered the copied state in Storybook.
 - 2026-07-07: Added `Clipboard.CopyText`, switched the recommended consumer path to the short `<Clipboard>` root form in examples, and removed the default max-width cap.
 - 2026-07-02: Removed duplicate Ark type exports, `Clipboard.Context`, and clipboard state hook re-exports from the moduix surface. Kept `RootProvider`, the callable root, and all styled visual parts.
 - 2026-06-24: Synced RootProvider docs with the shipped `Clipboard.RootProvider` API and removed stale copied-state styling tokens from examples.

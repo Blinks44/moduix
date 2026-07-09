@@ -1,11 +1,10 @@
 //#region demo
-import { useClipboard } from '@ark-ui/react/clipboard';
 import { Clipboard } from '@moduix/react';
 
 const _clipboardValue = 'https://moduix.dev/docs/clipboard';
 
 export function RootProviderClipboardDemo() {
-  const clipboard = useClipboard({
+  const clipboard = Clipboard.useClipboard({
     defaultValue: 'https://moduix.dev/docs/clipboard',
   });
 

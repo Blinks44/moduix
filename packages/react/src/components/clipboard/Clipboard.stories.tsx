@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useClipboard } from '@ark-ui/react/clipboard';
 import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
 import { Button } from '../button';
 import { Input } from '../input';
 import { Clipboard } from './Clipboard';
@@ -36,6 +36,15 @@ export const Basic: Story = {
         </Clipboard.Control>
       </Clipboard>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('button', { name: 'Copy' });
+
+    await userEvent.click(trigger);
+
+    await expect(trigger).toHaveAttribute('data-copied');
+    await expect(trigger).toHaveTextContent('Copied');
   },
 };
 
@@ -128,7 +137,7 @@ export const Timeout: Story = {
 
 export const RootProvider: Story = {
   render: () => {
-    const clipboard = useClipboard({ defaultValue: 'https://moduix.dev/docs/clipboard' });
+    const clipboard = Clipboard.useClipboard({ defaultValue: 'https://moduix.dev/docs/clipboard' });
 
     return (
       <Clipboard.RootProvider className={styles.demo} value={clipboard}>

@@ -45,17 +45,17 @@ Clipboard.Root | Clipboard.RootProvider
 │     └─ Clipboard.CopyText (optional)
 ```
 
-| Part                           | Role                                                            |
-| ------------------------------ | --------------------------------------------------------------- |
-| `Clipboard` / `Clipboard.Root` | Owns clipboard state, copied lifecycle, and controlled value.   |
-| `Clipboard.RootProvider`       | Injects Ark `useClipboard()` state created outside the subtree. |
-| `Clipboard.Label`              | Accessible label for the clipboard value.                       |
-| `Clipboard.Control`            | Layout row for value surface and trigger.                       |
-| `Clipboard.Input`              | Editable or read-only text field for the current value.         |
-| `Clipboard.Trigger`            | Button that copies the current value.                           |
-| `Clipboard.Indicator`          | Copy-state icon slot. moduix defaults to copy and check icons.  |
-| `Clipboard.CopyText`           | Copy-state text slot. moduix defaults to `Copy` and `Copied`.   |
-| `Clipboard.ValueText`          | Text-only value surface when an input is not the right control. |
+| Part                           | Role                                                                  |
+| ------------------------------ | --------------------------------------------------------------------- |
+| `Clipboard` / `Clipboard.Root` | Owns clipboard state, copied lifecycle, and controlled value.         |
+| `Clipboard.RootProvider`       | Injects `Clipboard.useClipboard()` state created outside the subtree. |
+| `Clipboard.Label`              | Accessible label for the clipboard value.                             |
+| `Clipboard.Control`            | Layout row for value surface and trigger.                             |
+| `Clipboard.Input`              | Editable or read-only text field for the current value.               |
+| `Clipboard.Trigger`            | Button that copies the current value.                                 |
+| `Clipboard.Indicator`          | Copy-state icon slot. moduix defaults to copy and check icons.        |
+| `Clipboard.CopyText`           | Copy-state text slot. moduix defaults to `Copy` and `Copied`.         |
+| `Clipboard.ValueText`          | Text-only value surface when an input is not the right control.       |
 
 ## Composition
 
@@ -78,8 +78,8 @@ explicit.
 
 Use `Clipboard.ValueText` when the value should be displayed as text instead of inside an input.
 
-Use Ark `useClipboard()` with `Clipboard.RootProvider` when clipboard state must be created outside
-the rendered subtree. Ark context and state hooks remain available directly from
+Use `Clipboard.useClipboard()` with `Clipboard.RootProvider` when clipboard state must be created
+outside the rendered subtree. Ark context hooks remain available directly from
 `@ark-ui/react/clipboard`.
 
 Use `asChild` on `Clipboard.Input` and `Clipboard.Trigger` when another element must own the
@@ -125,16 +125,16 @@ Control the value when the text field should stay in sync with surrounding UI or
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
 </Preview>
 
-### Using moduix Input and Button
+### Copy Status
 
-Use `asChild` when you want to keep a familiar input-plus-button layout while moving the copy state
-and callbacks onto `Clipboard`.
+Use `onStatusChange(details)` when surrounding UI should react to successful copies without
+introducing a separate clipboard abstraction.
 
 <Preview>
-  <ClipboardDocs.AsChildClipboardExample />
+  <ClipboardDocs.CopyStatusClipboardExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/clipboard/as-child.tsx#demo</include>
+  <include lang="tsx">./_snippets/clipboard/copy-status.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
@@ -154,16 +154,16 @@ Override `Clipboard.CopyText` when the trigger should use product-specific idle 
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
 </Preview>
 
-### Copy Status
+### Root Provider
 
-Use `onStatusChange(details)` when surrounding UI should react to successful copies without
-introducing a separate clipboard abstraction.
+Use `Clipboard.useClipboard()` with `Clipboard.RootProvider` when clipboard state belongs outside
+the rendered tree but the visible parts should stay Ark-shaped.
 
 <Preview>
-  <ClipboardDocs.CopyStatusClipboardExample />
+  <ClipboardDocs.RootProviderClipboardExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/clipboard/copy-status.tsx#demo</include>
+  <include lang="tsx">./_snippets/clipboard/root-provider.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
@@ -197,16 +197,16 @@ Use `Clipboard.ValueText` when the copied value should read like inline content 
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
 </Preview>
 
-### Root Provider
+### Advanced Customization
 
-Use Ark `useClipboard()` with `Clipboard.RootProvider` when clipboard state belongs outside the
-rendered tree but the visible parts should stay Ark-shaped.
+Use `asChild` to replace the default input and trigger elements while retaining the explicit Ark
+composition and moduix copy-state parts.
 
 <Preview>
-  <ClipboardDocs.RootProviderClipboardExample />
+  <ClipboardDocs.AsChildClipboardExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/clipboard/root-provider.tsx#demo</include>
+  <include lang="tsx">./_snippets/clipboard/as-child.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
