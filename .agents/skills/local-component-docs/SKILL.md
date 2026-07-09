@@ -49,6 +49,9 @@ When the wrapper exposes the relevant behavior, document these Ark guide concept
 - `Component.Context`, `use*Context`, and `RootProvider` support when the wrapper exposes those Ark state patterns.
 - If upstream exposes those provider/context/hook patterns, also document whether they are exported from the package
   barrel and available to consumers importing from `moduix`.
+- If public docs or examples rely on an upstream context, item context, state hook, or context hook for normal advanced
+  usage, document the moduix-owned export path and avoid presenting `ArkComponent.Context` imports as the primary
+  consumer API. Direct Ark imports are acceptable only for rare escape hatches intentionally left outside the wrapper.
 - `present`, lazy mounting, and CSS exit-animation behavior when the component mounts and unmounts content.
 - `data-scope`, `data-part`, `data-state`, other Ark state attributes, Ark CSS variables, and moduix `data-slot`
   hooks that consumers can target.

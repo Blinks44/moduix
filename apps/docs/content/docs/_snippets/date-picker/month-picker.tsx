@@ -14,11 +14,7 @@ export function MonthPickerDemo() {
   return (
     <DatePicker defaultView="month" minView="month" format={format} parse={parse}>
       <DatePicker.Label>Month</DatePicker.Label>
-      <DatePicker.Control>
-        <DatePicker.Input placeholder="mm/yyyy" />
-        <DatePicker.ClearTrigger aria-label="Clear month" />
-        <DatePicker.Trigger aria-label="Open calendar" />
-      </DatePicker.Control>
+      <DatePicker.Field placeholder="mm/yyyy" clearLabel="Clear month" />
       <DatePicker.Positioner>
         <DatePicker.Content>
           <DatePicker.View view="month">

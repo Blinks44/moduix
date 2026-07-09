@@ -384,7 +384,7 @@ export function GranularityDateInputExample() {
   );
 }
 
-export function CustomSegmentsDateInputExample() {
+export function AdvancedCustomizationDateInputExample() {
   return (
     <div style={centeredExampleStyle}>
       <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]}>

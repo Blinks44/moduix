@@ -18,9 +18,9 @@ import * as DatePickerDocs from '@/components/examples/date-picker';
 
 ## Basic
 
-`DatePicker` keeps Ark's explicit composition: render the input field, then render the calendar
-views with `ArkDatePicker.Context` from `@ark-ui/react/date-picker`. The wrapper adds styling,
-`data-slot` attributes, and default icons for trigger buttons.
+`DatePicker` keeps Ark's date state and calendar behavior while adding small convenience parts for
+the common path. Use `DatePicker.Field` for the input actions and `DatePicker.DayTable` for the
+standard day grid.
 
 <Preview>
   <DatePickerDocs.DatePickerExample />
@@ -46,6 +46,7 @@ DatePicker / DatePicker.Root
 │  ├─ DatePicker.Input
 │  ├─ DatePicker.ClearTrigger
 │  └─ DatePicker.Trigger
+├─ DatePicker.Field / DatePicker.RangeField (convenience control)
 ├─ Overlay subtree (automatically portalled)
 │  └─ DatePicker.Positioner
 │     └─ DatePicker.Content
@@ -54,6 +55,7 @@ DatePicker / DatePicker.Root
 │        │  │  ├─ DatePicker.PrevTrigger
 │        │  │  ├─ DatePicker.ViewTrigger / DatePicker.RangeText
 │        │  │  └─ DatePicker.NextTrigger
+│        │  ├─ DatePicker.DayTable (convenience day grid)
 │        │  └─ DatePicker.Table
 │        │     ├─ DatePicker.TableHead / TableBody / TableRow
 │        │     ├─ DatePicker.TableHeader
@@ -64,26 +66,55 @@ DatePicker / DatePicker.Root
 └─ ArkDatePicker.Context (import from @ark-ui/react/date-picker when you need calendar state)
 ```
 
-| Part                             | Role                                                            |
-| -------------------------------- | --------------------------------------------------------------- |
-| `DatePicker` / `DatePicker.Root` | Root value, view, open state, locale, validation, form context. |
-| `DatePicker.RootProvider`        | Renders parts from state returned by `useDatePicker()`.         |
-| `DatePicker.Label`               | Accessible label.                                               |
-| `DatePicker.Control`             | Input field wrapper that receives Ark state attributes.         |
-| `DatePicker.Input`               | Editable date text and native form input.                       |
-| `DatePicker.Trigger`             | Opens the calendar, defaults to a calendar icon.                |
-| `DatePicker.ClearTrigger`        | Clears the current value, defaults to a close icon.             |
-| `DatePicker.Positioner`          | Floating layer using Ark positioning CSS variables.             |
-| `DatePicker.Content`             | Calendar surface for popup or inline mode.                      |
-| `DatePicker.View`                | Day, month, or year panel.                                      |
-| `DatePicker.Table*`              | Calendar table composition.                                     |
-| `DatePicker.MonthSelect`         | Native month select connected to focused date.                  |
-| `DatePicker.YearSelect`          | Native year select connected to focused date.                   |
-| `DatePicker.PresetTrigger`       | Preset range button.                                            |
+| Part                             | Role                                                             |
+| -------------------------------- | ---------------------------------------------------------------- |
+| `DatePicker` / `DatePicker.Root` | Root value, view, open state, locale, validation, form context.  |
+| `DatePicker.RootProvider`        | Renders parts from state returned by `useDatePicker()`.          |
+| `DatePicker.Label`               | Accessible label.                                                |
+| `DatePicker.Control`             | Input field wrapper that receives Ark state attributes.          |
+| `DatePicker.Field`               | Convenience control with input, clear trigger, and open trigger. |
+| `DatePicker.RangeField`          | Convenience range control with indexed start and end inputs.     |
+| `DatePicker.Input`               | Editable date text and native form input.                        |
+| `DatePicker.Trigger`             | Opens the calendar, defaults to a calendar icon.                 |
+| `DatePicker.ClearTrigger`        | Clears the current value, defaults to a close icon.              |
+| `DatePicker.Positioner`          | Floating layer using Ark positioning CSS variables.              |
+| `DatePicker.Content`             | Calendar surface for popup or inline mode.                       |
+| `DatePicker.View`                | Day, month, or year panel.                                       |
+| `DatePicker.DayTable`            | Standard day-view table rendered from Ark context.               |
+| `DatePicker.Table*`              | Low-level calendar table composition for custom layouts.         |
+| `DatePicker.MonthSelect`         | Native month select connected to focused date.                   |
+| `DatePicker.YearSelect`          | Native year select connected to focused date.                    |
+| `DatePicker.PresetTrigger`       | Preset range button.                                             |
 
 ## Composition
 
-The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+### Recommended composition
+
+Use `DatePicker.Field` for the standard single-date field, `DatePicker.RangeField` for range
+fields, and `DatePicker.DayTable` inside the day view. The root portals `Positioner`
+automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container;
+structural popup parts remain explicit and styleable.
+
+### When to go custom
+
+Use `DatePicker.Control`, `DatePicker.Input`, `DatePicker.Trigger`, `DatePicker.ClearTrigger`, and
+the low-level `Table*` parts directly when the field or calendar grid needs custom structure. Import
+`DatePicker.Context` from `@ark-ui/react/date-picker` when custom rendering needs Ark state such as
+`weekDays`, `weeks`, `getMonthsGrid()`, `getYearsGrid()`, `getOffset()`, or action helpers.
+
+### Default props
+
+| Prop                                     | Default         | Notes                                              |
+| ---------------------------------------- | --------------- | -------------------------------------------------- |
+| `DatePicker.Field.placeholder`           | `Select date`   | Passed to the generated single `DatePicker.Input`. |
+| `DatePicker.Field.clearLabel`            | `Clear date`    | Used as the generated clear trigger label.         |
+| `DatePicker.Field.triggerLabel`          | `Open calendar` | Used as the generated trigger label.               |
+| `DatePicker.RangeField.startPlaceholder` | `Start date`    | Passed to the generated start input.               |
+| `DatePicker.RangeField.endPlaceholder`   | `End date`      | Passed to the generated end input.                 |
+| `DatePicker.DayTable.showHeader`         | `true`          | Renders prev/view/next controls before the table.  |
+| `DatePicker.DayTable.showWeekNumbers`    | `false`         | Renders week-number header and cells.              |
+
+### Behavioral notes
 
 `value`, `defaultValue`, and `onValueChange(details)` use Ark `DateValue[]`. Import `parseDate`,
 `DatePicker.Context`, `useDatePicker`, and event/detail types directly from
@@ -358,6 +389,22 @@ field separately from Ark's date grid.
   
 </Preview>
 
+### Advanced Customization
+
+Use the full Ark composition when the calendar grid itself needs custom rendering. This bypasses
+`DatePicker.Field` and `DatePicker.DayTable` while keeping the same Ark state and styled parts.
+
+<Preview>
+  <DatePickerDocs.AdvancedCustomizationDatePickerExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/advanced-customization.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
+</Preview>
+
 ## Styling
 
 ### CSS Properties
@@ -376,6 +423,8 @@ field separately from Ark's date grid.
 - `data-slot="date-picker-root-provider"` on the provider root.
 - `data-slot="date-picker-label"` on the label.
 - `data-slot="date-picker-control"` on the input wrapper.
+- `data-slot="date-picker-control"` on `DatePicker.Field` and `DatePicker.RangeField`, because
+  both render `DatePicker.Control`.
 - `data-slot="date-picker-input"` on the editable input.
 - `data-slot="date-picker-trigger"` and `date-picker-clear-trigger` on input actions.
 - `data-slot="date-picker-positioner"` and `date-picker-content` on the floating layer.

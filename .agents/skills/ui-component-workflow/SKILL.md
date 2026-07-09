@@ -34,6 +34,10 @@ markdown together. Check public docs/examples when the change is user-facing.
 - Preserve the current public contract unless the task explicitly changes it: meaningful parts, controlled/uncontrolled
   behavior, refs, `asChild`, `HiddenInput`, provider/context hooks, and stable `data-slot` hooks should not disappear
   silently.
+- If consumer-facing stories or docs need an Ark context, item context, state hook, or context hook as part of the
+  normal advanced path, expose that state surface through the moduix component namespace or package barrel instead of
+  teaching consumers to import `ArkComponent.Context` from `@ark-ui/react/*`. Keep direct Ark imports only for rare
+  escape hatches that are intentionally outside the moduix API.
 - When the current moduix API exports `RootProvider`, `Context`, `ItemContext`, `useComponent`, or `use*Context`,
   keep that surface aligned unless the task intentionally simplifies it everywhere.
 - Preserve the callable `Object.assign` root pattern so both `<Component>` and `<Component.Root>` keep working when

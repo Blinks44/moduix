@@ -25,9 +25,14 @@ and accessible labels. Do not translate dates to strings or local callback shape
 
 - `DatePicker` is the short root form and maps to `DatePicker.Root`.
 - Values use Ark's `DateValue[]` shape from `@ark-ui/react/date-picker`.
+- `DatePicker.Field` renders the standard single input control with `Input`, `ClearTrigger`, and
+  `Trigger`.
+- `DatePicker.RangeField` renders the standard range control with two indexed inputs plus clear and
+  open triggers.
 - `DatePicker.Input` is the native input that participates in forms through Ark.
 - Range selection renders two indexed inputs: `DatePicker.Input index={0}` and
   `DatePicker.Input index={1}`.
+- `DatePicker.DayTable` renders the standard day-view header and table from Ark context.
 - Multiple selection should render selected values through `ArkDatePicker.Context` from
   `@ark-ui/react/date-picker` instead of trying to display every date in one text input.
 - Popup calendars are explicit: render `DatePicker.Positioner` and
@@ -44,6 +49,7 @@ DatePicker.Root
 │  ├─ DatePicker.Input
 │  ├─ DatePicker.ClearTrigger
 │  └─ DatePicker.Trigger
+├─ DatePicker.Field / DatePicker.RangeField (convenience control)
 ├─ Overlay subtree (automatically portalled)
 │  └─ DatePicker.Positioner
 │     └─ DatePicker.Content
@@ -52,6 +58,7 @@ DatePicker.Root
 │        │  │  ├─ DatePicker.PrevTrigger
 │        │  │  ├─ DatePicker.ViewTrigger / DatePicker.RangeText
 │        │  │  └─ DatePicker.NextTrigger
+│        │  ├─ DatePicker.DayTable (convenience day grid)
 │        │  └─ DatePicker.Table
 │        │     ├─ DatePicker.TableHead
 │        │     ├─ DatePicker.TableBody
@@ -73,6 +80,8 @@ DatePicker.RootProvider
 | `DatePicker.RootProvider`         | `date-picker-root-provider`           | Connects to a store created by `useDatePicker()`. |
 | `DatePicker.Label`                | `date-picker-label`                   | Accessible label for input and calendar.          |
 | `DatePicker.Control`              | `date-picker-control`                 | Visual input wrapper.                             |
+| `DatePicker.Field`                | `date-picker-control`                 | Standard single-date control sugar.               |
+| `DatePicker.RangeField`           | `date-picker-control`                 | Standard range control sugar.                     |
 | `DatePicker.Input`                | `date-picker-input`                   | Editable date input and form value.               |
 | `DatePicker.Trigger`              | `date-picker-trigger`                 | Opens the calendar. Defaults to `CalendarIcon`.   |
 | `DatePicker.ClearTrigger`         | `date-picker-clear-trigger`           | Clears the value. Defaults to `CloseIcon`.        |
@@ -85,6 +94,7 @@ DatePicker.RootProvider
 | `DatePicker.ViewTrigger`          | `date-picker-view-trigger`            | Switches the active view.                         |
 | `DatePicker.RangeText`            | `date-picker-range-text`              | Visible range label.                              |
 | `DatePicker.ValueText`            | `date-picker-value-text`              | Render-prop value text.                           |
+| `DatePicker.DayTable`             | `date-picker-table`                   | Standard day-view table sugar.                    |
 | `DatePicker.Table*`               | `date-picker-table-*`                 | Calendar table composition.                       |
 | `DatePicker.WeekNumberHeaderCell` | `date-picker-week-number-header-cell` | Week-number header cell.                          |
 | `DatePicker.WeekNumberCell`       | `date-picker-week-number-cell`        | Week-number body cell.                            |
@@ -103,28 +113,28 @@ Advanced Ark utilities such as `parseDate`, `useDatePicker`, `DatePicker.Context
 
 ```tsx
 import { DatePicker } from '@moduix/react';
-import { DatePicker as ArkDatePicker, parseDate } from '@ark-ui/react/date-picker';
+import { parseDate } from '@ark-ui/react/date-picker';
 
 export function ReleaseDatePicker() {
   return (
     <DatePicker defaultValue={[parseDate('2026-06-22')]} name="release-date">
       <DatePicker.Label>Release date</DatePicker.Label>
-      <DatePicker.Control>
-        <DatePicker.Input />
-        <DatePicker.ClearTrigger aria-label="Clear date" />
-        <DatePicker.Trigger aria-label="Open calendar" />
-      </DatePicker.Control>
+      <DatePicker.Field />
       <DatePicker.Positioner>
-        <DatePicker.Content>{/* render DatePicker.View tables here */}</DatePicker.Content>
+        <DatePicker.Content>
+          <DatePicker.View view="day">
+            <DatePicker.DayTable />
+          </DatePicker.View>
+        </DatePicker.Content>
       </DatePicker.Positioner>
     </DatePicker>
   );
 }
 ```
 
-Use `ArkDatePicker.Context` to render week days, weeks, month grids, and year grids from Ark's
-API. Use `DatePicker.RootProvider` only with state created by Ark `useDatePicker()`; do not also
-render `DatePicker.Root` for the same state instance.
+Use `ArkDatePicker.Context` to render week days, weeks, month grids, and year grids from Ark's API
+when `DatePicker.DayTable` is not enough. Use `DatePicker.RootProvider` only with state created by
+Ark `useDatePicker()`; do not also render `DatePicker.Root` for the same state instance.
 
 The default root and popup width is `18.75rem` (300px). Override `--date-picker-width` for the
 field and `--date-picker-content-width` for wider popup compositions such as two visible months.
@@ -135,8 +145,9 @@ Each input has `--date-picker-input-min-width: 7.5rem`; range inputs use
 
 ## Upstream feature coverage
 
-- Basic popup picker: supported through `Label`, `Control`, `Input`, `Trigger`, `Positioner`,
-  `Content`, `View`, `Context`, and table parts.
+- Basic popup picker: supported through `Label`, `Field`, `Positioner`, `Content`, `View`, and
+  `DayTable`. The low-level `Control`, `Input`, `Trigger`, `Context`, and table parts remain
+  available for custom composition.
 - Controlled and uncontrolled state: supported with `value`, `defaultValue`, and
   `onValueChange(details)`.
 - Open state: supported with `open`, `defaultOpen`, `onOpenChange(details)`, `openOnClick`, and
@@ -189,6 +200,13 @@ are selected.
 
 Intentional moduix sugar:
 
+- `DatePicker.Field` renders `Control`, one `Input`, `ClearTrigger`, and `Trigger` for the standard
+  single-date field.
+- `DatePicker.RangeField` renders `Control`, two indexed `Input` parts, `ClearTrigger`, and
+  `Trigger` for range fields.
+- `DatePicker.DayTable` renders the standard day-view header and table from Ark context. Pass
+  `showHeader={false}` when an external header is composed, `showWeekNumbers` for week-number
+  cells, and `offset` for additional visible months.
 - `DatePicker.Trigger` renders `CalendarIcon` when children are omitted.
 - `DatePicker.ClearTrigger` renders `CloseIcon` when children are omitted.
 - `DatePicker.PrevTrigger` and `DatePicker.NextTrigger` render chevron icons when children are
@@ -202,14 +220,18 @@ Intentional moduix sugar:
 
 - Keep callback details untouched: read `details.value`, `details.valueAsString`, and
   `details.view`.
-- Keep table rendering explicit through Ark `DatePicker.Context`; do not add an automatic calendar
-  renderer to the component API.
+- Keep `DatePicker.DayTable` narrow: it renders the standard day table only. Keep custom month/year,
+  multiple-month, and non-table layouts on Ark `DatePicker.Context` plus the low-level table parts.
 - Keep popup structure explicit through `Positioner` and `Content`.
 - Keep inline examples free of `Positioner`.
 - Keep `@internationalized/date` / Ark `parseDate()` examples because Ark values are `DateValue`
   objects.
 
 ## Local changelog
+
+- 2026-07-09: Added `DatePicker.Field`, `DatePicker.RangeField`, and `DatePicker.DayTable` as
+  recommended-path sugar, while keeping full Ark table composition as the advanced customization
+  path.
 
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 

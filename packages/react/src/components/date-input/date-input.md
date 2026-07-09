@@ -29,8 +29,8 @@ strings or local callback shapes in the wrapper.
   `@ark-ui/react/date-input`.
 - `DateInput.Segments` is the recommended convenience part for rendering locale-aware segments
   inside a `DateInput.Control`; pass `segmentClassName` to style each generated segment.
-- `DateInputSegmentContext` from `@ark-ui/react/date-input` remains the low-level Ark path for
-  custom segment rendering inside a `DateInput.SegmentGroup`.
+- `DateInputSegmentContext` from `@ark-ui/react/date-input` remains the advanced customization path
+  for custom segment rendering inside a `DateInput.SegmentGroup`.
 - `DateInput.HiddenInput` is explicit so consumers choose form names for single or range inputs.
 - `DateInput.Separator` is moduix sugar for non-interactive text between segment groups.
 - No local calendar popup, string parser, automatic segment renderer, or date-picker bundle is added.
@@ -45,7 +45,7 @@ DateInput.Root
 │  └─ DateInput.Separator (optional, range layouts)
 └─ DateInput.HiddenInput
 
-Advanced custom segment rendering:
+Advanced customization:
 
 DateInput.SegmentGroup
 └─ DateInputSegmentContext (from @ark-ui/react/date-input)
@@ -171,8 +171,9 @@ shortcuts, or local event aliases.
 
 ## Agent notes
 
-- Keep default examples on `DateInput.Segments`; use `segmentClassName` for shared segment styling
-  and Ark `DateInputSegmentContext` only for per-segment custom rendering examples.
+- Keep default examples on `DateInput.Segments`; title full low-level segment rendering examples
+  `Advanced Customization`, and use Ark `DateInputSegmentContext` only when per-segment rendering is
+  the point of the example.
 - Keep callback details untouched: `onValueChange(details)` reports `details.value` and
   `details.valueAsString`.
 - Do not hide `HiddenInput`; form behavior depends on explicit names, especially for ranges.
@@ -180,6 +181,8 @@ shortcuts, or local event aliases.
 
 ## Local changelog
 
+- 2026-07-09: Renamed the full low-level segment rendering docs example to Advanced Customization
+  to match the repo-wide docs convention for examples that bypass recommended sugar.
 - 2026-07-08: Added `DateInput.Segments` as the default segment rendering sugar with
   `segmentClassName`, updated the recommended composition, and made the root/control width default
   to `100%`.

@@ -5,7 +5,6 @@ import {
   useDatePicker,
   type DatePickerValueChangeDetails,
   type DateValue,
-  type UseDatePickerReturn,
 } from '@ark-ui/react/date-picker';
 import {
   CalendarDate,
@@ -567,29 +566,6 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function DatePickerField({
-  placeholder = 'Select date',
-  indexes,
-}: {
-  placeholder?: string;
-  indexes?: [number, number];
-}) {
-  return (
-    <DatePicker.Control>
-      {indexes ? (
-        <>
-          <DatePicker.Input index={indexes[0]} placeholder="Start date" />
-          <DatePicker.Input index={indexes[1]} placeholder="End date" />
-        </>
-      ) : (
-        <DatePicker.Input placeholder={placeholder} />
-      )}
-      <DatePicker.ClearTrigger aria-label="Clear date" />
-      <DatePicker.Trigger aria-label="Open calendar" />
-    </DatePicker.Control>
-  );
-}
-
 function formatSelectedDate(date: DateValue) {
   return date.toDate('UTC').toLocaleDateString('en-US', {
     weekday: 'short',
@@ -634,30 +610,19 @@ function MultipleDatePickerField() {
   );
 }
 
-function DatePickerDayTable({
-  showHeader = true,
-  showWeekNumbers = false,
-  offset,
-}: {
-  showHeader?: boolean;
-  showWeekNumbers?: boolean;
-  offset?: ReturnType<UseDatePickerReturn['getOffset']>;
-}) {
+function AdvancedDatePickerDayTable() {
   return (
     <DatePickerContext>
       {(datePicker) => (
         <>
-          {showHeader ? (
-            <DatePicker.ViewControl>
-              <DatePicker.PrevTrigger />
-              <DatePicker.ViewTrigger />
-              <DatePicker.NextTrigger />
-            </DatePicker.ViewControl>
-          ) : null}
+          <DatePicker.ViewControl>
+            <DatePicker.PrevTrigger />
+            <DatePicker.ViewTrigger />
+            <DatePicker.NextTrigger />
+          </DatePicker.ViewControl>
           <DatePicker.Table>
             <DatePicker.TableHead>
               <DatePicker.TableRow>
-                {showWeekNumbers ? <DatePicker.WeekNumberHeaderCell /> : null}
                 {datePicker.weekDays.map((weekDay) => (
                   <DatePicker.TableHeader key={weekDay.value.toString()}>
                     {weekDay.short}
@@ -666,19 +631,10 @@ function DatePickerDayTable({
               </DatePicker.TableRow>
             </DatePicker.TableHead>
             <DatePicker.TableBody>
-              {(offset?.weeks ?? datePicker.weeks).map((week, weekIndex) => (
+              {datePicker.weeks.map((week) => (
                 <DatePicker.TableRow key={week[0]?.toString()}>
-                  {showWeekNumbers ? (
-                    <DatePicker.WeekNumberCell week={week} weekIndex={weekIndex}>
-                      {datePicker.getWeekNumber(week)}
-                    </DatePicker.WeekNumberCell>
-                  ) : null}
                   {week.map((day) => (
-                    <DatePicker.TableCell
-                      key={day.toString()}
-                      value={day}
-                      visibleRange={offset?.visibleRange}
-                    >
+                    <DatePicker.TableCell key={day.toString()} value={day}>
                       <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>
                     </DatePicker.TableCell>
                   ))}
@@ -701,63 +657,17 @@ function MultipleMonthsDatePickerContent() {
         <DatePicker.NextTrigger />
       </DatePicker.ViewControl>
       <div className="date-picker-multiple-months">
-        <DatePickerContext>
-          {(datePicker) => (
-            <DatePicker.Table className="date-picker-multiple-months-table">
-              <DatePicker.TableHead>
-                <DatePicker.TableRow>
-                  {datePicker.weekDays.map((weekDay) => (
-                    <DatePicker.TableHeader key={weekDay.value.toString()}>
-                      {weekDay.short}
-                    </DatePicker.TableHeader>
-                  ))}
-                </DatePicker.TableRow>
-              </DatePicker.TableHead>
-              <DatePicker.TableBody>
-                {datePicker.weeks.map((week) => (
-                  <DatePicker.TableRow key={week[0]?.toString()}>
-                    {week.map((day) => (
-                      <DatePicker.TableCell key={day.toString()} value={day}>
-                        <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>
-                      </DatePicker.TableCell>
-                    ))}
-                  </DatePicker.TableRow>
-                ))}
-              </DatePicker.TableBody>
-            </DatePicker.Table>
-          )}
-        </DatePickerContext>
+        <DatePicker.DayTable className="date-picker-multiple-months-table" showHeader={false} />
         <DatePickerContext>
           {(datePicker) => {
             const offset = datePicker.getOffset({ months: 1 });
 
             return (
-              <DatePicker.Table className="date-picker-multiple-months-table">
-                <DatePicker.TableHead>
-                  <DatePicker.TableRow>
-                    {datePicker.weekDays.map((weekDay) => (
-                      <DatePicker.TableHeader key={weekDay.value.toString()}>
-                        {weekDay.short}
-                      </DatePicker.TableHeader>
-                    ))}
-                  </DatePicker.TableRow>
-                </DatePicker.TableHead>
-                <DatePicker.TableBody>
-                  {offset.weeks.map((week) => (
-                    <DatePicker.TableRow key={week[0]?.toString()}>
-                      {week.map((day) => (
-                        <DatePicker.TableCell
-                          key={day.toString()}
-                          value={day}
-                          visibleRange={offset.visibleRange}
-                        >
-                          <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>
-                        </DatePicker.TableCell>
-                      ))}
-                    </DatePicker.TableRow>
-                  ))}
-                </DatePicker.TableBody>
-              </DatePicker.Table>
+              <DatePicker.DayTable
+                className="date-picker-multiple-months-table"
+                offset={offset}
+                showHeader={false}
+              />
             );
           }}
         </DatePickerContext>
@@ -906,7 +816,7 @@ function DatePickerViews({ showWeekNumbers = false }: { showWeekNumbers?: boolea
   return (
     <>
       <DatePicker.View view="day">
-        <DatePickerDayTable showWeekNumbers={showWeekNumbers} />
+        <DatePicker.DayTable showWeekNumbers={showWeekNumbers} />
       </DatePicker.View>
       <DatePicker.View view="month">
         <DatePickerMonthTable />
@@ -940,7 +850,7 @@ export function DatePickerExample() {
   return (
     <DatePicker defaultValue={[parseDate('2026-06-22')]} name="release-date">
       <DatePicker.Label>Release date</DatePicker.Label>
-      <DatePickerField />
+      <DatePicker.Field />
       <DatePickerPopup />
     </DatePicker>
   );
@@ -953,7 +863,7 @@ export function ControlledDatePickerExample() {
     <div>
       <DatePicker value={value} onValueChange={(details) => setValue(details.value)}>
         <DatePicker.Label>Controlled date</DatePicker.Label>
-        <DatePickerField />
+        <DatePicker.Field />
         <DatePickerPopup />
       </DatePicker>
       <div className="date-picker-state">Current value: {value[0]?.toString() ?? 'empty'}</div>
@@ -965,7 +875,7 @@ export function DefaultViewDatePickerExample() {
   return (
     <DatePicker defaultValue={[parseDate('2026-06-22')]} defaultView="month" fixedWeeks>
       <DatePicker.Label>Billing month</DatePicker.Label>
-      <DatePickerField />
+      <DatePicker.Field />
       <DatePickerPopup />
     </DatePicker>
   );
@@ -978,7 +888,7 @@ export function RangeDatePickerExample() {
       defaultValue={[parseDate('2026-06-22'), parseDate('2026-06-26')]}
     >
       <DatePicker.Label>Travel dates</DatePicker.Label>
-      <DatePickerField indexes={[0, 1]} />
+      <DatePicker.RangeField />
       <DatePickerPopup />
     </DatePicker>
   );
@@ -1003,7 +913,7 @@ export function MultipleMonthsDatePickerExample() {
   return (
     <DatePicker defaultValue={[parseDate('2026-06-22')]} numOfMonths={2}>
       <DatePicker.Label>Planning window</DatePicker.Label>
-      <DatePickerField />
+      <DatePicker.Field />
       <DatePicker.Positioner>
         <MultipleMonthsDatePickerContent />
       </DatePicker.Positioner>
@@ -1015,7 +925,7 @@ export function MonthYearSelectDatePickerExample() {
   return (
     <DatePicker defaultValue={[parseDate('2026-06-22')]}>
       <DatePicker.Label>Report date</DatePicker.Label>
-      <DatePickerField />
+      <DatePicker.Field />
       <DatePicker.Positioner>
         <DatePicker.Content>
           <DatePicker.ViewControl className="date-picker-month-year-control">
@@ -1026,7 +936,7 @@ export function MonthYearSelectDatePickerExample() {
             </div>
           </DatePicker.ViewControl>
           <DatePicker.View view="day">
-            <DatePickerDayTable showHeader={false} />
+            <DatePicker.DayTable showHeader={false} />
           </DatePicker.View>
         </DatePicker.Content>
       </DatePicker.Positioner>
@@ -1043,7 +953,7 @@ export function MinMaxDatePickerExample() {
       isDateUnavailable={(date) => date.day === 25}
     >
       <DatePicker.Label>Booking date</DatePicker.Label>
-      <DatePickerField />
+      <DatePicker.Field />
       <DatePickerPopup />
     </DatePicker>
   );
@@ -1053,7 +963,7 @@ export function PresetDatePickerExample() {
   return (
     <DatePicker selectionMode="range">
       <DatePicker.Label>Preset range</DatePicker.Label>
-      <DatePickerField indexes={[0, 1]} />
+      <DatePicker.RangeField />
       <DatePicker.Positioner>
         <DatePicker.Content>
           <div className="date-picker-presets">
@@ -1081,7 +991,7 @@ export function LocaleDatePickerExample() {
       }
     >
       <DatePicker.Label>German locale</DatePicker.Label>
-      <DatePickerField />
+      <DatePicker.Field />
       <DatePickerPopup />
     </DatePicker>
   );
@@ -1091,7 +1001,7 @@ export function MonthPickerExample() {
   return (
     <DatePicker defaultView="month" minView="month" format={formatMonthYear} parse={parseMonthYear}>
       <DatePicker.Label>Month</DatePicker.Label>
-      <DatePickerField placeholder="mm/yyyy" />
+      <DatePicker.Field placeholder="mm/yyyy" clearLabel="Clear month" />
       <DatePicker.Positioner>
         <DatePicker.Content>
           <DatePicker.View view="month">
@@ -1107,7 +1017,7 @@ export function YearPickerExample() {
   return (
     <DatePicker defaultView="year" minView="year" format={formatYear} parse={parseYear}>
       <DatePicker.Label>Year</DatePicker.Label>
-      <DatePickerField placeholder="yyyy" />
+      <DatePicker.Field placeholder="yyyy" clearLabel="Clear year" />
       <DatePicker.Positioner>
         <DatePicker.Content>
           <DatePicker.View view="year">
@@ -1142,7 +1052,7 @@ export function FieldDatePickerExample() {
       <Field invalid>
         <DatePicker required invalid>
           <DatePicker.Label>Deadline</DatePicker.Label>
-          <DatePickerField />
+          <DatePicker.Field />
           <DatePickerPopup />
         </DatePicker>
         <Field.ErrorText>Choose a valid deadline.</Field.ErrorText>
@@ -1158,7 +1068,7 @@ export function RootProviderDatePickerExample() {
     <div>
       <DatePicker.RootProvider value={datePicker}>
         <DatePicker.Label>Report date</DatePicker.Label>
-        <DatePickerField />
+        <DatePicker.Field />
         <DatePickerPopup />
       </DatePicker.RootProvider>
       <div className="date-picker-state">
@@ -1174,14 +1084,14 @@ export function SelectTodayDatePickerExample() {
   return (
     <DatePicker>
       <DatePicker.Label>Today shortcut</DatePicker.Label>
-      <DatePickerField />
+      <DatePicker.Field />
       <DatePicker.Positioner>
         <DatePicker.Content>
           <DatePicker.View view="day">
             <DatePickerContext>
               {(datePicker) => (
                 <>
-                  <DatePickerDayTable />
+                  <DatePicker.DayTable />
                   <div className="date-picker-today-row">
                     <Button size="sm" variant="secondary" onClick={() => datePicker.selectToday()}>
                       Today
@@ -1190,6 +1100,26 @@ export function SelectTodayDatePickerExample() {
                 </>
               )}
             </DatePickerContext>
+          </DatePicker.View>
+        </DatePicker.Content>
+      </DatePicker.Positioner>
+    </DatePicker>
+  );
+}
+
+export function AdvancedCustomizationDatePickerExample() {
+  return (
+    <DatePicker defaultValue={[parseDate('2026-06-22')]}>
+      <DatePicker.Label>Advanced date</DatePicker.Label>
+      <DatePicker.Control>
+        <DatePicker.Input placeholder="Select date" />
+        <DatePicker.ClearTrigger aria-label="Clear date" />
+        <DatePicker.Trigger aria-label="Open calendar" />
+      </DatePicker.Control>
+      <DatePicker.Positioner>
+        <DatePicker.Content>
+          <DatePicker.View view="day">
+            <AdvancedDatePickerDayTable />
           </DatePicker.View>
         </DatePicker.Content>
       </DatePicker.Positioner>
@@ -1238,7 +1168,7 @@ export function DatePickerWithTimeExample() {
     <div>
       <DatePicker value={value} onValueChange={handleDateChange}>
         <DatePicker.Label>Appointment</DatePicker.Label>
-        <DatePickerField />
+        <DatePicker.Field />
         <DatePickerPopup />
       </DatePicker>
       <label className="date-picker-time-field">

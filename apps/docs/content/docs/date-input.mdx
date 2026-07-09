@@ -46,7 +46,7 @@ DateInput.Root
 │  └─ DateInput.Segments
 └─ DateInput.HiddenInput
 
-Advanced custom segment rendering:
+Advanced customization:
 
 DateInput.SegmentGroup
 └─ DateInputSegmentContext (from @ark-ui/react/date-input)
@@ -205,16 +205,16 @@ Set `granularity` when the input should include time segments.
   
 </Preview>
 
-### Custom Segments
+### Advanced Customization
 
 Use the full segment composition when segment rendering needs to vary by Ark segment data.
 `DateInput.Segments` remains the default path for standard rendering and shared segment classes.
 
 <Preview>
-  <DateInputDocs.CustomSegmentsDateInputExample />
+  <DateInputDocs.AdvancedCustomizationDateInputExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/date-input/custom-segments.tsx#demo</include>
+  <include lang="tsx">./_snippets/date-input/advanced-customization.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>

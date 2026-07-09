@@ -14,11 +14,7 @@ export function YearPickerDemo() {
   return (
     <DatePicker defaultView="year" minView="year" format={format} parse={parse}>
       <DatePicker.Label>Year</DatePicker.Label>
-      <DatePicker.Control>
-        <DatePicker.Input placeholder="yyyy" />
-        <DatePicker.ClearTrigger aria-label="Clear year" />
-        <DatePicker.Trigger aria-label="Open calendar" />
-      </DatePicker.Control>
+      <DatePicker.Field placeholder="yyyy" clearLabel="Clear year" />
       <DatePicker.Positioner>
         <DatePicker.Content>
           <DatePicker.View view="year">
