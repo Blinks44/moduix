@@ -46,7 +46,11 @@ export const breadcrumbsCssProperties: CssPropertyInput[] = [
   ['--breadcrumbs-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
   ['--breadcrumbs-font-size', 'var(--text-sm)', 'Controls breadcrumbs font size.'],
   ['--breadcrumbs-gap', 'var(--spacing-1)', 'Controls spacing between breadcrumb parts.'],
-  ['--breadcrumbs-item-max-width', '16rem', 'Controls max width of each breadcrumb item.'],
+  [
+    '--breadcrumbs-item-max-width',
+    '16rem',
+    'Controls the primary truncation width of the current page breadcrumb item.',
+  ],
   [
     '--breadcrumbs-item-padding-x',
     '0.25rem',
@@ -209,6 +213,43 @@ export function BreadcrumbsFrameworkLinkExample() {
           <Breadcrumbs.Separator />
           <Breadcrumbs.Item>
             <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
+          </Breadcrumbs.Item>
+        </Breadcrumbs.List>
+      </Breadcrumbs>
+    </div>
+  );
+}
+
+export function BreadcrumbsAdvancedCustomizationExample() {
+  return (
+    <div style={previewContainerStyle}>
+      <Breadcrumbs style={longLabelStyle}>
+        <Breadcrumbs.List>
+          <Breadcrumbs.Item>
+            <Breadcrumbs.Link asChild>
+              <a href="/" data-framework-link>
+                Home
+              </a>
+            </Breadcrumbs.Link>
+          </Breadcrumbs.Item>
+          <Breadcrumbs.Separator />
+          <Breadcrumbs.Item>
+            <Breadcrumbs.Link asChild>
+              <a href="/docs" data-framework-link>
+                Docs
+              </a>
+            </Breadcrumbs.Link>
+          </Breadcrumbs.Item>
+          <Breadcrumbs.Separator>
+            <SeparatorMarkIcon style={separatorIconStyle} />
+          </Breadcrumbs.Separator>
+          <Breadcrumbs.Item>
+            <Breadcrumbs.Page>
+              <span title="Go lang developer to production team with cross-functional ownership and platform support">
+                Go lang developer to production team with cross-functional ownership and platform
+                support
+              </span>
+            </Breadcrumbs.Page>
           </Breadcrumbs.Item>
         </Breadcrumbs.List>
       </Breadcrumbs>

@@ -109,23 +109,6 @@ export const CustomSeparator: Story = {
   ),
 };
 
-export const LongCurrentLabel: Story = {
-  render: () => (
-    <Breadcrumbs>
-      <Breadcrumbs.Path
-        items={[
-          { href: '#', label: 'Home' },
-          { href: '#', label: 'Vacancies' },
-          {
-            label:
-              'Go lang developer to production team with cross-functional ownership and platform support',
-          },
-        ]}
-      />
-    </Breadcrumbs>
-  ),
-};
-
 export const FrameworkLink: Story = {
   render: () => (
     <Breadcrumbs>
@@ -148,6 +131,58 @@ export const FrameworkLink: Story = {
         <Breadcrumbs.Separator />
         <Breadcrumbs.Item>
           <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
+        </Breadcrumbs.Item>
+      </Breadcrumbs.List>
+    </Breadcrumbs>
+  ),
+};
+
+export const LongCurrentLabel: Story = {
+  render: () => (
+    <Breadcrumbs>
+      <Breadcrumbs.Path
+        items={[
+          { href: '#', label: 'Home' },
+          { href: '#', label: 'Vacancies' },
+          {
+            label:
+              'Go lang developer to production team with cross-functional ownership and platform support',
+          },
+        ]}
+      />
+    </Breadcrumbs>
+  ),
+};
+
+export const AdvancedCustomization: Story = {
+  render: () => (
+    <Breadcrumbs>
+      <Breadcrumbs.List>
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link asChild>
+            <a href="#home" data-framework-link>
+              Home
+            </a>
+          </Breadcrumbs.Link>
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Separator />
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link asChild>
+            <a href="#engineering" data-framework-link>
+              Engineering
+            </a>
+          </Breadcrumbs.Link>
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Separator>
+          <SeparatorMarkIcon style={{ width: '0.75rem', height: '0.25rem' }} />
+        </Breadcrumbs.Separator>
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Page>
+            <span title="Go lang developer to production team with cross-functional ownership and platform support">
+              Go lang developer to production team with cross-functional ownership and platform
+              support
+            </span>
+          </Breadcrumbs.Page>
         </Breadcrumbs.Item>
       </Breadcrumbs.List>
     </Breadcrumbs>

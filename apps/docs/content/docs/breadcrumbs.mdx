@@ -95,31 +95,12 @@ portal boundary.
 - `Breadcrumbs.Separator` is presentational and hidden from assistive technology.
 - `Breadcrumbs.Ellipsis` is hidden from assistive technology because the trigger owns the label.
 - The accessible label for a collapsed path belongs on the `Menu.Trigger`.
-- The last visible item can shrink and truncates with `--breadcrumbs-item-max-width`.
+- Any visible breadcrumb item can shrink when space gets tight; the current page remains the primary
+  truncation target through `--breadcrumbs-item-max-width`.
 - There are no controlled props, callbacks, context hooks, `RootProvider`, ids, `HiddenInput`, or
   form-state integrations because Breadcrumbs owns no interactive or form state.
 
 ## Examples
-
-### Custom Separator
-
-Replace the default chevron with an icon or symbol through `Breadcrumbs.Path` when every visible gap
-shares the same separator.
-
-<Preview>
-  <BreadcrumbsDocs.BreadcrumbsCustomSeparatorExample />
-
-  <Preview.Code>
-    <include lang="tsx">./_snippets/breadcrumbs/custom-separator.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>
-    {`
-      .separator-icon {
-        color: currentColor;
-      }
-    `}
-  </Preview.CSS>
-</Preview>
 
 ### Collapsed Path
 
@@ -170,21 +151,21 @@ stays on the explicit path because the trigger and menu content own real interac
   </Preview.CSS>
 </Preview>
 
-### Long Current Label
+### Custom Separator
 
-Pass a React node as the last `Breadcrumbs.Path` label when the current page needs extra attributes
-such as `title`.
+Replace the default chevron with an icon or symbol through `Breadcrumbs.Path` when every visible gap
+shares the same separator.
 
 <Preview>
-  <BreadcrumbsDocs.BreadcrumbsLongLabelExample />
+  <BreadcrumbsDocs.BreadcrumbsCustomSeparatorExample />
 
   <Preview.Code>
-    <include lang="tsx">./_snippets/breadcrumbs/long-current-label.tsx#demo</include>
+    <include lang="tsx">./_snippets/breadcrumbs/custom-separator.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>
     {`
-      .breadcrumbs-long-label {
-        --breadcrumbs-item-max-width: 12rem;
+      .separator-icon {
+        color: currentColor;
       }
     `}
   </Preview.CSS>
@@ -209,6 +190,56 @@ Use Ark `asChild` when the app standardizes on framework links.
   </Preview.CSS>
 </Preview>
 
+### Long Current Label
+
+Pass a React node as the last `Breadcrumbs.Path` label when the current page needs extra attributes
+such as `title`. Ancestor items can also shrink now, so long middle labels no longer force the trail
+to overflow as aggressively.
+
+<Preview>
+  <BreadcrumbsDocs.BreadcrumbsLongLabelExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/breadcrumbs/long-current-label.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .breadcrumbs-long-label {
+        --breadcrumbs-item-max-width: 12rem;
+      }
+    `}
+  </Preview.CSS>
+</Preview>
+
+### Advanced Customization
+
+Bypass `Breadcrumbs.Path` when one trail needs a mix of framework links, a custom separator, and a
+manually annotated current page label.
+
+<Preview>
+  <BreadcrumbsDocs.BreadcrumbsAdvancedCustomizationExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/breadcrumbs/advanced-customization.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      [data-framework-link] {
+        text-decoration: none;
+      }
+
+      .separator-icon {
+        color: currentColor;
+      }
+
+      .breadcrumbs-long-label {
+        --breadcrumbs-item-max-width: 12rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
 ## Styling
 
 Each exported part has Ark-style `data-scope="breadcrumbs"` and `data-part` attributes plus stable
@@ -229,5 +260,5 @@ ring, separators, and ellipsis sizing.
   selectors.
 - `Breadcrumbs.Link`, `Breadcrumbs.Page`, and `Breadcrumbs.Ellipsis` share the inline padding from
   `--breadcrumbs-item-padding-x`.
-- The last visible `Breadcrumbs.Item` is the truncation target and uses
-  `--breadcrumbs-item-max-width`.
+- Visible `Breadcrumbs.Item` parts can shrink to preserve the trail; the last visible item remains
+  the primary truncation target and uses `--breadcrumbs-item-max-width`.

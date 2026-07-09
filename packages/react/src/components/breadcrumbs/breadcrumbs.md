@@ -108,6 +108,10 @@ Refs forward to the rendered Ark factory element for each part. `Breadcrumbs.Lin
 `Breadcrumbs.Path` does not add interaction state; it only renders the same list semantics as explicit parts. The last
 item is always the current page, so give that item the current label instead of an `href`.
 
+Visible breadcrumb items can now shrink when horizontal space is limited. The last item remains the primary truncation
+target through `--breadcrumbs-item-max-width`, while ancestor links can compress instead of forcing the whole trail to
+overflow immediately.
+
 `Breadcrumbs.Page` sets `aria-current="page"`. `Breadcrumbs.Separator` is a presentational list item and
 `Breadcrumbs.Ellipsis` is hidden from assistive technology. When ellipsis opens a menu, the accessible label belongs on `Menu.Trigger`, for example
 `aria-label="Show hidden path items"`.
@@ -147,8 +151,8 @@ Public CSS variables:
 | `--breadcrumbs-separator-color`            | `var(--color-muted-foreground)` |
 | `--breadcrumbs-separator-font-size`        | `0.875em`                       |
 
-The last item can shrink and is capped by `--breadcrumbs-item-max-width`; link, page, and ellipsis text uses
-`text-overflow: ellipsis`.
+Visible items can shrink when necessary, and the last item is capped by `--breadcrumbs-item-max-width`; link, page, and
+ellipsis text uses `text-overflow: ellipsis`.
 
 ## Intentional sugar and differences from upstream
 
@@ -159,6 +163,8 @@ The last item can shrink and is capped by `--breadcrumbs-item-max-width`; link, 
 - `Breadcrumbs.Path` generates separators automatically, while low-level composition keeps separators explicit.
 - Collapsing is not built in; compose `Menu` explicitly for hidden path items.
 - `Breadcrumbs.Ellipsis` stays non-interactive; compose it inside an accessible trigger for collapsed menus.
+- Recommended docs now teach `Breadcrumbs.Path` first and keep one explicit `Advanced Customization` example for the
+  full part-by-part composition path.
 
 ## Agent notes
 
@@ -171,6 +177,8 @@ The last item can shrink and is capped by `--breadcrumbs-item-max-width`; link, 
 
 ## Local changelog
 
+- 2026-07-09: Allowed ancestor breadcrumb items to shrink in tight layouts and added a dedicated advanced-composition
+  docs path alongside the shorthand-first examples.
 - 2026-07-07: Added `Breadcrumbs.Path` for common anchor-based trails, switched the default separator to a chevron icon,
   and updated the recommended docs/examples path to teach the shorthand first while keeping advanced composition explicit.
 - 2026-07-02: Removed public prop aliases that only duplicated Ark factory types while preserving
