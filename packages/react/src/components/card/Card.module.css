@@ -1,6 +1,10 @@
 @layer ui.components {
   .root {
-    --card-padding-default: var(--card-padding, var(--spacing-6));
+    --card-padding-default: var(--card-spacing, var(--card-padding, var(--spacing-6)));
+    --card-section-spacing-default: var(
+      --card-spacing,
+      var(--card-body-padding-top, var(--spacing-4))
+    );
     --card-title-font-size-default: var(--card-title-font-size, var(--text-lg));
     --card-title-line-height-default: var(--card-title-line-height, var(--line-height-text-lg));
 
@@ -22,7 +26,14 @@
     }
 
     &[data-size='sm'] {
-      --card-padding-default: var(--card-padding-sm, var(--spacing-4));
+      --card-padding-default: var(
+        --card-spacing-sm,
+        var(--card-spacing, var(--card-padding-sm, var(--spacing-4)))
+      );
+      --card-section-spacing-default: var(
+        --card-spacing-sm,
+        var(--card-spacing, var(--card-body-padding-top, var(--spacing-4)))
+      );
       --card-title-font-size-default: var(--card-title-font-size-sm, var(--text-md));
       --card-title-line-height-default: var(
         --card-title-line-height-sm,
@@ -31,7 +42,14 @@
     }
 
     &[data-size='lg'] {
-      --card-padding-default: var(--card-padding-lg, var(--spacing-8));
+      --card-padding-default: var(
+        --card-spacing-lg,
+        var(--card-spacing, var(--card-padding-lg, var(--spacing-8)))
+      );
+      --card-section-spacing-default: var(
+        --card-spacing-lg,
+        var(--card-spacing, var(--card-body-padding-top, var(--spacing-4)))
+      );
       --card-title-font-size-default: var(--card-title-font-size-lg, var(--text-xl));
       --card-title-line-height-default: var(
         --card-title-line-height-lg,
@@ -83,8 +101,21 @@
     padding-block: var(--card-padding-default) 0;
   }
 
+  .media {
+    min-width: 0;
+    overflow: hidden;
+    border-start-start-radius: inherit;
+    border-start-end-radius: inherit;
+
+    & > :where(img, picture, video, canvas, svg, iframe) {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
   .body {
-    padding-block: var(--card-body-padding-top, var(--spacing-4)) var(--card-padding-default);
+    padding-block: var(--card-section-spacing-default) var(--card-padding-default);
     color: var(--card-body-color, var(--color-muted-foreground));
     font-size: var(--card-body-font-size, var(--text-sm));
     line-height: var(--card-body-line-height, var(--line-height-text-sm));

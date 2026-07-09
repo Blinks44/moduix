@@ -365,6 +365,9 @@
   --card-padding: initial; /* var(--spacing-6) */
   --card-padding-lg: initial; /* var(--spacing-8) */
   --card-padding-sm: initial; /* var(--spacing-4) */
+  --card-spacing: initial; /* var(--card-padding, var(--spacing-6)) */
+  --card-spacing-lg: initial; /* var(--card-spacing, var(--card-padding-lg, var(--spacing-8))) */
+  --card-spacing-sm: initial; /* var(--card-spacing, var(--card-padding-sm, var(--spacing-4))) */
   --card-radius: initial; /* var(--radius-lg) */
   --card-shadow: initial; /* none */
   --card-title-color: initial; /* currentColor */

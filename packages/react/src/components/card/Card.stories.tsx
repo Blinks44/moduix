@@ -173,11 +173,13 @@ export const WithImage: Story = {
   render: () => {
     return (
       <Card className={styles.card}>
-        <img
-          alt="A warehouse with neatly stacked delivery boxes."
-          className={styles.image}
-          src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=960&q=80"
-        />
+        <Card.Media>
+          <img
+            alt="A warehouse with neatly stacked delivery boxes."
+            className={styles.image}
+            src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=960&q=80"
+          />
+        </Card.Media>
         <Card.Header>
           <Card.Title>Warehouse capacity</Card.Title>
           <Card.Description>North region allocation for the next planning cycle.</Card.Description>
@@ -331,6 +333,29 @@ export const CustomComposition: Story = {
             </div>
           </div>
         </Card.Body>
+      </Card>
+    );
+  },
+};
+
+export const CustomSpacing: Story = {
+  render: () => {
+    return (
+      <Card className={styles.customSpacingCard}>
+        <Card.Header>
+          <Card.Title>Scheduled reports</Card.Title>
+          <Card.Description>Weekly snapshots with denser card spacing.</Card.Description>
+        </Card.Header>
+        <Card.Body>
+          <div className={styles.metric}>
+            <span className={styles.metricValue}>24</span>
+            <span className={styles.metricLabel}>active report schedules</span>
+          </div>
+        </Card.Body>
+        <Card.Footer>
+          <Button variant="outline">See details</Button>
+          <Button>Set up report</Button>
+        </Card.Footer>
       </Card>
     );
   },

@@ -119,6 +119,11 @@
   width: min(24rem, calc(100vw - var(--spacing-8)));
 }
 
+.customSpacingCard {
+  --card-spacing: var(--spacing-4);
+  width: min(24rem, calc(100vw - var(--spacing-8)));
+}
+
 .footerBetween {
   justify-content: space-between;
 }
