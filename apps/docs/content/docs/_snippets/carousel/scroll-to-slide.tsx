@@ -52,6 +52,8 @@ export function ScrollToCarousel() {
         <Carousel.PrevTrigger />
         <Carousel.NextTrigger />
       </Carousel.Control>
+
+      <Carousel.Indicators />
     </Carousel>
   );
 }

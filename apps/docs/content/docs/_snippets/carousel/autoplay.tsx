@@ -47,6 +47,8 @@ export function AutoplayCarousel() {
         </Carousel.AutoplayTrigger>
         <Carousel.NextTrigger />
       </Carousel.Control>
+
+      <Carousel.Indicators />
     </Carousel>
   );
 }

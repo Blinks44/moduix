@@ -51,11 +51,7 @@ export function PauseOnHoverCarousel() {
         )}
       </Carousel.Context>
 
-      <Carousel.IndicatorGroup>
-        {slides.map((_, index) => (
-          <Carousel.Indicator key={index} index={index} />
-        ))}
-      </Carousel.IndicatorGroup>
+      <Carousel.Indicators />
     </Carousel>
   );
 }

@@ -42,15 +42,7 @@ export function SpacingCarousel() {
 
       <Carousel.Control>
         <Carousel.PrevTrigger />
-        <Carousel.Context>
-          {(api) => (
-            <Carousel.IndicatorGroup>
-              {api.pageSnapPoints.map((_, index) => (
-                <Carousel.Indicator key={index} index={index} />
-              ))}
-            </Carousel.IndicatorGroup>
-          )}
-        </Carousel.Context>
+        <Carousel.Indicators />
         <Carousel.NextTrigger />
       </Carousel.Control>
     </Carousel>

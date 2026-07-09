@@ -42,11 +42,7 @@ export function VerticalCarousel() {
 
       <Carousel.Control>
         <Carousel.PrevTrigger />
-        <Carousel.IndicatorGroup>
-          {slides.map((_, index) => (
-            <Carousel.Indicator key={index} index={index} />
-          ))}
-        </Carousel.IndicatorGroup>
+        <Carousel.Indicators />
         <Carousel.NextTrigger />
       </Carousel.Control>
     </Carousel>

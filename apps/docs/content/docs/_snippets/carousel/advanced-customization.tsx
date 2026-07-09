@@ -1,5 +1,5 @@
 //#region demo
-import { Carousel } from '@moduix/react';
+import { Button, Carousel } from '@moduix/react';
 
 const slides = [
   {
@@ -29,29 +29,41 @@ const slides = [
   },
 ];
 
-export function ThumbnailIndicatorCarousel() {
+export function AdvancedCustomizationCarousel() {
   return (
-    <Carousel slideCount={slides.length}>
-      <Carousel.ItemGroup aria-label="Gallery with thumbnails">
+    <Carousel slideCount={slides.length} slidesPerPage={2} spacing="var(--spacing-3)">
+      <Carousel.Context>
+        {(api) => (
+          <>
+            <Button
+              variant="outline"
+              onClick={() => {
+                api.scrollTo(1);
+              }}
+            >
+              Go to slide 4
+            </Button>
+
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.IndicatorGroup>
+                {api.pageSnapPoints.map((_, index) => (
+                  <Carousel.Indicator key={index} index={index} />
+                ))}
+              </Carousel.IndicatorGroup>
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+          </>
+        )}
+      </Carousel.Context>
+
+      <Carousel.ItemGroup aria-label="Advanced customization gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
             <img src={slide.src} alt={slide.alt} />
           </Carousel.Item>
         ))}
       </Carousel.ItemGroup>
-
-      <Carousel.Control>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-
-      <Carousel.IndicatorGroup>
-        {slides.map((slide, index) => (
-          <Carousel.Indicator key={slide.id} index={index}>
-            <img src={slide.src} alt={slide.alt} />
-          </Carousel.Indicator>
-        ))}
-      </Carousel.IndicatorGroup>
     </Carousel>
   );
 }

@@ -45,15 +45,7 @@ export function SlidesPerPageCarousel() {
         ))}
       </Carousel.ItemGroup>
 
-      <Carousel.Context>
-        {(api) => (
-          <Carousel.IndicatorGroup>
-            {api.pageSnapPoints.map((_, index) => (
-              <Carousel.Indicator key={index} index={index} />
-            ))}
-          </Carousel.IndicatorGroup>
-        )}
-      </Carousel.Context>
+      <Carousel.Indicators />
     </Carousel>
   );
 }
