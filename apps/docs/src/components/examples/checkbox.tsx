@@ -1,5 +1,4 @@
-import { useCheckbox } from '@ark-ui/react/checkbox';
-import { Checkbox, Field, Fieldset } from '@moduix/react';
+import { Checkbox, Field, Fieldset, useCheckbox } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

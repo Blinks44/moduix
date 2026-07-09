@@ -1,6 +1,5 @@
 //#region demo
-import { useCheckbox } from '@ark-ui/react/checkbox';
-import { Checkbox } from '@moduix/react';
+import { Checkbox, useCheckbox } from '@moduix/react';
 
 const _initialChecked = true;
 

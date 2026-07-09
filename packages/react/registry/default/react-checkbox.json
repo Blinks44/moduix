@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/checkbox/index.ts",
-      "content": "export * from './Checkbox';",
+      "content": "export { useCheckbox, useCheckboxGroup } from '@ark-ui/react/checkbox';\nexport * from './Checkbox';",
       "type": "registry:component",
       "target": "@components/moduix/checkbox/index.ts"
     }

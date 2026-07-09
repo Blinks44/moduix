@@ -33,8 +33,10 @@ selection and grouped multi-select state.
   omitted.
 - `Checkbox.Indicator` renders default moduix icons when `children` is omitted.
 - `size` defaults to `md` and writes `data-size` on `Root` and `RootProvider`.
-- `Checkbox` no longer re-exports Ark hooks, context parts, group providers, or Ark duplicate type
-  aliases. Advanced state ownership stays available through Ark imports.
+- `Checkbox` re-exports `useCheckbox()` and `useCheckboxGroup()` through the moduix barrel for
+  state ownership flows that pair naturally with `RootProvider` and `Group`.
+- Ark context parts, provider helpers beyond `RootProvider`, and Ark duplicate type aliases are not
+  re-exported from moduix.
 
 ## Anatomy and exported parts
 
@@ -125,8 +127,7 @@ export function CheckboxGroupDemo() {
 Provider state:
 
 ```tsx
-import { useCheckbox } from '@ark-ui/react/checkbox';
-import { Checkbox } from '@moduix/react';
+import { Checkbox, useCheckbox } from '@moduix/react';
 
 export function CheckboxProviderDemo() {
   const checkbox = useCheckbox({ defaultChecked: true });
@@ -166,8 +167,9 @@ export function CheckboxProviderDemo() {
 - `Checkbox.Root` and `Checkbox.RootProvider` render a `label` by default.
 - `Checkbox.HiddenInput` renders the input that participates in native forms. Keep it in examples
   and production usage when form behavior matters.
-- `Checkbox.RootProvider` remains the only moduix-exported advanced state surface. Import Ark
-  `useCheckbox` directly when external state ownership is needed.
+- `Checkbox.RootProvider` pairs with moduix `useCheckbox()` for external state ownership.
+- `Checkbox.Group` also pairs with moduix `useCheckboxGroup()` when group state needs to live
+  outside the rendered subtree.
 - State attributes exposed by Ark include `data-active`, `data-focus`, `data-focus-visible`,
   `data-hover`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, and
   `data-state="checked" | "indeterminate" | "unchecked"` on the relevant root/control/indicator/label
@@ -194,9 +196,10 @@ export function CheckboxProviderDemo() {
   children.
 - `Checkbox.Indicator` renders `CheckIcon` or `IndeterminateIcon` when no children are provided.
 - The wrapper adds stable `data-slot` hooks for moduix styling.
-- moduix keeps `RootProvider`, but no longer re-exports Ark hooks, render-prop context, group
-  provider state helpers, or Ark duplicate type aliases. Import those directly from Ark UI when
-  needed.
+- moduix keeps `RootProvider` and re-exports `useCheckbox()` plus `useCheckboxGroup()` for the
+  common external-state path.
+- Ark render-prop context, group provider helpers, and Ark duplicate type aliases still stay on the
+  Ark package when needed.
 - Removed legacy API and compatibility props: flat `CheckboxIndicator`, `CheckboxField`,
   `CheckboxLabel`, separate `CheckboxGroup`, `render`, `nativeButton`, `uncheckedValue`, `inputRef`,
   `allValues`, and `parent`.
@@ -206,12 +209,16 @@ export function CheckboxProviderDemo() {
 - Keep `Checkbox` Ark-shaped. Do not reintroduce a second public group component.
 - Keep the common path on `Checkbox.Control` sugar and reserve explicit `Checkbox.Indicator` usage
   for custom indicator composition.
-- Keep `RootProvider` but do not rebuild a broader moduix-owned advanced state surface around it.
+- Keep the moduix-owned advanced surface narrow: `RootProvider`, `useCheckbox()`, and
+  `useCheckboxGroup()` are enough.
 - If data-slot names, CSS variables, or provider support changes, update stories, docs, local
   markdown, theme tokens, and registry artifacts in the same task.
 
 ## Local changelog
 
+- 2026-07-09: Re-exported `useCheckbox()` and `useCheckboxGroup()` from the moduix checkbox barrel
+  so documented provider flows stay on `@moduix/react`; reordered public docs examples for easier
+  scanning.
 - 2026-07-07: Added `Checkbox.Control` default indicator sugar so common usage no longer needs
   explicit checked and indeterminate indicator parts; updated recommended docs/examples accordingly.
 - 2026-07-02: Simplified the public checkbox surface to keep visual parts, `Group`,

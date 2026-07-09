@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useCheckbox } from '@ark-ui/react/checkbox';
 import { useState, type ComponentProps } from 'react';
 import { Fieldset } from '../fieldset';
-import { Checkbox } from './Checkbox';
 import styles from './Checkbox.stories.module.css';
+import { Checkbox, useCheckbox } from './index';
 
 const meta = {
   title: 'Components/Checkbox',
