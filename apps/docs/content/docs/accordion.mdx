@@ -71,11 +71,11 @@ Stay with `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`, `Accordio
 `value` and `defaultValue` are always arrays, including single-open mode. `onValueChange` follows
 the Ark callback shape and exposes the current item values as `details.value`.
 
-Use the Ark `RootProvider` and `useAccordion()` pattern when accordion state must be created
+Use `Accordion.RootProvider` together with `useAccordion()` from `@moduix/react` when accordion state must be created
 outside the rendered subtree.
 
-Import Ark context parts and hooks directly from `@ark-ui/react/accordion` when surrounding UI
-needs to read root or item state.
+Import Ark context parts and remaining hooks directly from `@ark-ui/react/accordion` only for
+lower-level escape hatches when surrounding UI needs to read root or item state.
 
 `Accordion.Item` requires a stable `value`. Use `disabled` on the item when one section should stay
 present but unavailable.
@@ -107,14 +107,14 @@ All exported parts support `asChild` for cases where another element must own th
 
 ## Examples
 
-### Multiple
+### Collapsible
 
-Use `multiple` when several sections should stay open at the same time instead of collapsing to a single active item.
+Add `collapsible` when the currently open item should be allowed to close without selecting another item first.
 
 <Preview>
-  <AccordionDocs.MultipleAccordionExample />
+  <AccordionDocs.CollapsibleAccordionExample />
   <Preview.Code>
-    <include lang="tsx">./_snippets/accordion/multiple.tsx#demo</include>
+    <include lang="tsx">./_snippets/accordion/collapsible.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
 </Preview>
@@ -131,27 +131,14 @@ Control `value` from React state when the open items need to stay in sync with r
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
 </Preview>
 
-### Root Provider
+### Disabled Item
 
-Use `useAccordion()` with `Accordion.RootProvider` when the state store must be created outside
-the rendered accordion tree. Do not render `Accordion.Root` for the same store.
-
-<Preview>
-  <AccordionDocs.RootProviderAccordionExample />
-  <Preview.Code>
-    <include lang="tsx">./_snippets/accordion/root-provider.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
-</Preview>
-
-### Collapsible
-
-Add `collapsible` when the currently open item should be allowed to close without selecting another item first.
+Set `disabled` on an item when it should stay visible in the list but remain unavailable for interaction.
 
 <Preview>
-  <AccordionDocs.CollapsibleAccordionExample />
+  <AccordionDocs.DisabledItemAccordionExample />
   <Preview.Code>
-    <include lang="tsx">./_snippets/accordion/collapsible.tsx#demo</include>
+    <include lang="tsx">./_snippets/accordion/disabled-item.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
 </Preview>
@@ -180,25 +167,38 @@ Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and s
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
 </Preview>
 
-### Disabled Item
+### Multiple
 
-Set `disabled` on an item when it should stay visible in the list but remain unavailable for interaction.
+Use `multiple` when several sections should stay open at the same time instead of collapsing to a single active item.
 
 <Preview>
-  <AccordionDocs.DisabledItemAccordionExample />
+  <AccordionDocs.MultipleAccordionExample />
   <Preview.Code>
-    <include lang="tsx">./_snippets/accordion/disabled-item.tsx#demo</include>
+    <include lang="tsx">./_snippets/accordion/multiple.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
 </Preview>
 
-### With Slider
+### Root Provider
+
+Use `useAccordion()` from `@moduix/react` with `Accordion.RootProvider` when the state store must be created outside
+the rendered accordion tree. Do not render `Accordion.Root` for the same store.
+
+<Preview>
+  <AccordionDocs.RootProviderAccordionExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/accordion/root-provider.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AccordionDocs.accordionExampleCss}</Preview.CSS>
+</Preview>
+
+### Advanced Customization
 
 Accordion content can host another Ark-based composite widget. Keep each primitive's part tree
 explicit so keyboard handling and hidden form inputs stay owned by the correct component.
 
 <Preview>
-  <AccordionDocs.WithSliderAccordionExample />
+  <AccordionDocs.AdvancedCustomizationAccordionExample />
 
 <Preview.Code>
   <include lang="tsx">./_snippets/accordion/with-slider.tsx#demo</include>
@@ -222,6 +222,7 @@ data attributes (`data-state`, `data-disabled`, `data-orientation`) and moduix `
   `accordion-item-trigger`, `accordion-item-indicator`, `accordion-item-content`, and
   `accordion-item-body`.
 - Ark anatomy hooks: `data-scope="accordion"` and `data-part="root|item|item-trigger|item-indicator|item-content"`.
+- moduix sugar hook: `data-part="item-body"` on `Accordion.ItemBody`.
 - Ark state hooks: `data-state="open|closed"`, `data-disabled`, `data-focus`,
   `data-controls`, and `data-orientation="horizontal|vertical"`.
 - Ark content variables: `--height` for vertical animation and `--width` for horizontal animation.

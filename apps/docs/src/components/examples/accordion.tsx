@@ -1,5 +1,4 @@
-import { useAccordion } from '@ark-ui/react/accordion';
-import { Accordion, Slider } from '@moduix/react';
+import { Accordion, Slider, useAccordion } from '@moduix/react';
 import { useState, type ComponentProps, type ReactNode } from 'react';
 import type { CssPropertyInput } from '../preview';
 
@@ -181,10 +180,6 @@ export function AccordionExample({ className, ...props }: ComponentProps<typeof 
   );
 }
 
-export function MultipleAccordionExample() {
-  return <AccordionExample multiple defaultValue={['what-is-ark-ui', 'can-i-use-it']} />;
-}
-
 export function ControlledAccordionExample() {
   const [value, setValue] = useState(['getting-started']);
 
@@ -235,6 +230,10 @@ export function LazyMountAccordionExample() {
   );
 }
 
+export function MultipleAccordionExample() {
+  return <AccordionExample multiple defaultValue={['what-is-ark-ui', 'can-i-use-it']} />;
+}
+
 export function RootProviderAccordionExample() {
   const accordion = useAccordion({ defaultValue: ['what-is-ark-ui'] });
 
@@ -251,7 +250,7 @@ export function RootProviderAccordionExample() {
   );
 }
 
-export function WithSliderAccordionExample() {
+export function AdvancedCustomizationAccordionExample() {
   return (
     <>
       <style>{accordionExampleCss}</style>

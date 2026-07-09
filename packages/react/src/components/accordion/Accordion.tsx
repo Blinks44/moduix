@@ -1,6 +1,6 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import type { ComponentProps, ComponentRef } from 'react';
-import { Accordion as AccordionPrimitive } from '@ark-ui/react/accordion';
+import { Accordion as AccordionPrimitive, useAccordion } from '@ark-ui/react/accordion';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
@@ -119,4 +119,4 @@ const Accordion = Object.assign(AccordionRoot, {
   ItemBody: AccordionItemBody,
 });
 
-export { Accordion };
+export { Accordion, useAccordion };

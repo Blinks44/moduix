@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
-import { useAccordion } from '@ark-ui/react/accordion';
 import { useState } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { Slider } from '../slider';
-import { Accordion } from './Accordion';
+import { Accordion, useAccordion } from './Accordion';
 import styles from './Accordion.stories.module.css';
 
 const meta = {
@@ -70,35 +69,11 @@ export const Basic: Story = {
   },
 };
 
-export const Multiple: Story = {
-  render: () => {
-    return (
-      <Accordion.Root
-        multiple
-        defaultValue={['what-is-ark-ui', 'can-i-use-it']}
-        className={styles.demoRoot}
-      >
-        <FaqAccordionItems />
-      </Accordion.Root>
-    );
-  },
-};
-
 export const Collapsible: Story = {
   render: () => {
     return (
       <Accordion.Root defaultValue={['what-is-ark-ui']} collapsible className={styles.demoRoot}>
         <FaqAccordionItems />
-      </Accordion.Root>
-    );
-  },
-};
-
-export const DisabledItem: Story = {
-  render: () => {
-    return (
-      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
-        <FaqAccordionItems disabledValue="getting-started" />
       </Accordion.Root>
     );
   },
@@ -120,11 +95,11 @@ export const Controlled: Story = {
   },
 };
 
-export const LazyMount: Story = {
+export const DisabledItem: Story = {
   render: () => {
     return (
-      <Accordion.Root lazyMount unmountOnExit className={styles.demoRoot}>
-        <FaqAccordionItems />
+      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
+        <FaqAccordionItems disabledValue="getting-started" />
       </Accordion.Root>
     );
   },
@@ -136,6 +111,30 @@ export const Horizontal: Story = {
       <Accordion.Root
         orientation="horizontal"
         defaultValue={['what-is-ark-ui']}
+        className={styles.demoRoot}
+      >
+        <FaqAccordionItems />
+      </Accordion.Root>
+    );
+  },
+};
+
+export const LazyMount: Story = {
+  render: () => {
+    return (
+      <Accordion.Root lazyMount unmountOnExit className={styles.demoRoot}>
+        <FaqAccordionItems />
+      </Accordion.Root>
+    );
+  },
+};
+
+export const Multiple: Story = {
+  render: () => {
+    return (
+      <Accordion.Root
+        multiple
+        defaultValue={['what-is-ark-ui', 'can-i-use-it']}
         className={styles.demoRoot}
       >
         <FaqAccordionItems />
@@ -159,7 +158,7 @@ export const RootProvider: Story = {
   },
 };
 
-export const WithSlider: Story = {
+export const AdvancedCustomization: Story = {
   render: () => {
     return (
       <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>

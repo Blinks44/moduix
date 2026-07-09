@@ -1,18 +1,19 @@
 ---
 name: component-ux-audit
-description: Audit and, when requested, update moduix React components against current Ark UI, Chakra UI, and shadcn references. Use for component UX/API reviews, migration ergonomics from shadcn, sugar/composition decisions, docs examples, local component docs, and registry-shipped package changes.
+description: Audit and, when requested, update moduix React components as Ark-first, Chakra-leaning wrappers with narrow shadcn-informed migration guidance. Use for component UX/API reviews, sugar/composition decisions, docs examples, local component docs, and registry-shipped package changes.
 ---
 
 # Component UX Audit
 
-Use this skill to check whether a moduix component feels like an Ark-backed primitive with
-Chakra-level ergonomics and shadcn-level copy-paste clarity, without copying either API wholesale.
+Use this skill to check whether a moduix component stays Ark-first, gains Chakra-like ergonomics,
+and borrows from shadcn only where that helps docs flow or migration clarity without copying shadcn
+composition or API shape.
 
 ## Task Mode
 
 - If the user asks for an audit, review only and return findings ordered by user impact.
 - If the user asks to fix, improve, update, or apply findings, implement narrowly scoped changes and update package/docs/registry surfaces.
-- If upstream behavior matters, use `upstream-library-docs` and current online Ark UI, Chakra UI, and shadcn references. Treat Ark as the behavior source, Chakra as an ergonomics reference, and shadcn as a migration/example reference.
+- If upstream behavior matters, use `upstream-library-docs` and current online Ark UI, Chakra UI, and shadcn references. Treat Ark as the behavior source, Chakra as the primary ergonomics reference, and shadcn as a secondary migration/examples reference only.
 
 ## Audit Prompt Template
 
@@ -34,12 +35,21 @@ When the user names a component, instantiate this template:
 Replace `component` in URLs with the shadcn base component slug. If no matching shadcn base exists,
 say so and continue from Ark/Chakra/local patterns.
 
+Interpret the template conservatively: the goal is not to land "between Chakra and shadcn" as equal
+forces. Bias toward Ark fidelity and Chakra-like ergonomics. Use shadcn only to inspect migration
+friction, example readability, and whether a small convenience helper would help users coming from
+that ecosystem.
+
 ## Review Checklist
 
 - Preserve Ark contracts: anatomy, controlled/uncontrolled state, callback detail objects, refs,
   `asChild`, provider/context hooks, `HiddenInput`, data attributes, and accessibility behavior.
+- Prefer Ark/Chakra composition when choosing the recommended moduix path. Only deviate when there is
+  a clear local DX win that still feels like a thin Ark wrapper.
 - Do not add shadcn-compatible aliases, renamed event props, date/string translators, or hidden state
   machines only to mimic shadcn. Users can learn moduix naming.
+- Do not recreate shadcn wrapper structure just because it looks familiar. If Ark or Chakra already
+  provides a cleaner mental model, keep that model and add only narrow sugar on top.
 - Look for small sugar that removes repeated boilerplate while keeping low-level composition intact.
   Good examples from this session: `DateInput.Segments`, `DatePicker.Field`,
   `DatePicker.RangeField`, and `DatePicker.DayTable`.
@@ -65,7 +75,8 @@ say so and continue from Ark/Chakra/local patterns.
 
 1. Read the local component implementation, styles, stories, local markdown, docs page, examples, and
    registry entry if present.
-2. Compare against current upstream Ark, Chakra, and shadcn references. Record differences as:
+2. Compare against current upstream Ark, Chakra, and shadcn references in that order of priority.
+   Record differences as:
    keep, simplify, add sugar, document, or reject.
 3. Implement only the changes that improve user comprehension, migration ergonomics, or styling
    without weakening Ark contracts.

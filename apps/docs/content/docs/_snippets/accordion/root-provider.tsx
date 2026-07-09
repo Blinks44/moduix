@@ -1,6 +1,5 @@
 //#region demo
-import { useAccordion } from '@ark-ui/react/accordion';
-import { Accordion } from '@moduix/react';
+import { Accordion, useAccordion } from '@moduix/react';
 
 const items = [
   {
