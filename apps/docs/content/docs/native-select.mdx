@@ -79,7 +79,8 @@ must be controlled by the application. Keep `NativeSelect` for browser-owned sel
 | `multiple`     | `false`         | Enables native multiple selection                   |
 | `size`         | browser default | Native visible row count, not a visual size variant |
 | `disabled`     | `false`         | Native disabled state                               |
-| `asChild`      | `false`         | Ark composition; normally leave disabled for select |
+| `controlProps` | -               | Props for the outer layout span                     |
+| `asChild`      | `false`         | Ark composition; usually leave this off             |
 
 ### Behavioral notes
 
@@ -147,7 +148,9 @@ transitions. Its default padding and indicator geometry follow the shared 4px sp
 
 ### Styling hooks
 
-- `className` styles the real select element.
+- `className` styles the real select element. Use `controlProps.className` for the outer layout span.
+- Put `--select-*` variables that affect the indicator in `controlProps.style` so both the select
+  and indicator inherit them.
 - `data-scope="field"` and `data-part="select"` preserve the Ark Field styling contract.
 - `data-slot="native-select-root"` is the stable moduix selector for the control.
 - `data-slot="native-select-control"` and `data-slot="native-select-indicator"` target the internal

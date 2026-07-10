@@ -20,6 +20,8 @@ single-component public API.
 ## Current behavior contract
 
 - `NativeSelect` and `NativeSelect.Root` reference the same native select component.
+- `controlProps` target the outer layout span; use its `className` or `style` for styling that must
+  reach both the select and indicator.
 - Native `value`, `defaultValue`, `onChange(event)`, `name`, `required`, `disabled`, `multiple`, and
   `size` props pass through unchanged.
 - `multiple` and native `size` values greater than one switch the fixed control height to an
@@ -89,7 +91,8 @@ shared invalid/disabled/required state.
 - The default control width, height, border, radius, colors, focus ring, disabled opacity, and hover
   background use the same `--select-*` variables as `Select`.
 - Default control padding and indicator geometry use the shared 4px spacing scale.
-- `className` is merged onto the native select.
+- `className` is merged onto the native select. `controlProps.className` and `controlProps.style`
+  target the outer layout span, so CSS variables there also reach the indicator.
 - Stable hooks are `data-slot="native-select-control"`, `data-slot="native-select-root"`, and
   `data-slot="native-select-indicator"`.
 - Native `size` is not repurposed as a visual size prop.
@@ -100,6 +103,8 @@ shared invalid/disabled/required state.
 ## Intentional sugar and differences from upstream
 
 - moduix exports the direct `<NativeSelect>` form and an equivalent `NativeSelect.Root` alias.
+- `controlProps` is narrow styling sugar for the outer layout span; it does not alter native select
+  behavior.
 - The indicator is visual only and does not alter native select behavior.
 - Unlike custom `Select`, values and changes use native strings and `ChangeEvent`.
 
@@ -115,3 +120,5 @@ shared invalid/disabled/required state.
 
 - 2026-06-30: Added the native select wrapper with Field integration, shared Select control styles,
   the shared `ChevronDownIcon`, and token-based indicator spacing.
+- 2026-07-10: Added `controlProps` for styling the shared select-and-indicator layout and documented
+  accessible basic usage.
