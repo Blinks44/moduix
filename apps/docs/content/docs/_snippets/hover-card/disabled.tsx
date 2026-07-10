@@ -1,22 +1,21 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { HoverCard, useHoverCard } from '@moduix/react';
+import { HoverCard } from '@moduix/react';
 
-export function RootProviderHoverCard() {
-  const hoverCard = useHoverCard();
+export function DisabledHoverCard() {
   return (
-    <HoverCard.RootProvider value={hoverCard}>
+    <HoverCard disabled>
       <HoverCard.Trigger asChild>
         <a href="#profile">@sarah_chen</a>
       </HoverCard.Trigger>
       <HoverCard.Positioner>
         <HoverCard.Content>
           <HoverCard.Arrow />
-          <ProfileCard profile={profiles[0]} />
+          Profile details
         </HoverCard.Content>
       </HoverCard.Positioner>
-    </HoverCard.RootProvider>
+    </HoverCard>
   );
 }
 
