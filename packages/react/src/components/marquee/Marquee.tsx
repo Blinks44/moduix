@@ -1,5 +1,8 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Marquee as MarqueePrimitive } from '@ark-ui/react/marquee';
+import {
+  Marquee as MarqueePrimitive,
+  useMarquee as useMarqueePrimitive,
+} from '@ark-ui/react/marquee';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -98,4 +101,6 @@ const Marquee = Object.assign(MarqueeRoot, {
   Edge: MarqueeEdge,
 });
 
-export { Marquee };
+const useMarquee = useMarqueePrimitive;
+
+export { Marquee, useMarquee };

@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useMarquee } from '@ark-ui/react/marquee';
-import { Button, Marquee } from '@moduix/react';
+import { Button, Marquee, useMarquee } from '@moduix/react';
 
 const partners = [
   {
