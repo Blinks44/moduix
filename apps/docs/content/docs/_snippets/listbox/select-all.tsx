@@ -2,8 +2,7 @@
 //#region demo
 
 import { createListCollection } from '@ark-ui/react/collection';
-import { useListboxContext } from '@ark-ui/react/listbox';
-import { Button, Listbox } from '@moduix/react';
+import { Button, Listbox, useListboxContext } from '@moduix/react';
 
 const days = createListCollection({
   items: [

@@ -5,9 +5,8 @@ import {
   createListCollection,
   useListCollection,
 } from '@ark-ui/react/collection';
-import { useListbox as useArkListbox } from '@ark-ui/react/listbox';
 import { useState } from 'react';
-import { Listbox } from './Listbox';
+import { Listbox, useListbox } from './Listbox';
 import styles from './Listbox.stories.module.css';
 
 interface OptionItem {
@@ -171,7 +170,7 @@ export const Controlled: Story = {
 
 export const RootProvider: Story = {
   render: () => {
-    const listbox = useArkListbox({ collection: countries, defaultValue: ['ca'] });
+    const listbox = useListbox({ collection: countries, defaultValue: ['ca'] });
 
     return (
       <div className={styles.stack}>

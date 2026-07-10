@@ -31,7 +31,8 @@ rendering, value arrays, highlighted value control, selection modes, callback de
 - Pointer hover and keyboard highlight share the same accent affordance by default.
 - `Listbox.ItemTextContent`, `Listbox.ItemTextIcon`, and `Listbox.ItemTextLabel` are moduix span
   helpers for richer item text layout.
-- Advanced state hooks and context parts are imported directly from `@ark-ui/react/listbox`.
+- `useListbox`, `useListboxContext`, `useListboxItemContext`, `Listbox.Context`, and
+  `Listbox.ItemContext` are available from moduix for advanced state and context composition.
 
 ## Anatomy and exported parts
 
@@ -153,8 +154,8 @@ export function ListboxDemo() {
 
 ## Local changelog
 
-- 2026-07-03: Removed Ark hook, context, and duplicate type re-exports from the moduix surface.
-  Kept `RootProvider`, the callable root, and the visible listbox parts.
+- 2026-07-10: Re-exported Listbox state and context surfaces from moduix so `RootProvider`, select-all,
+  and item-level customization do not require direct Ark Listbox imports. Collection helpers remain Ark imports.
 - 2026-06-26: Simplified listbox spacing defaults to existing spacing tokens, changed content max
   height to `14rem`, removed the docs-only filter input focus override, and aligned the public
   docs composition section with the current Ark-backed contract.

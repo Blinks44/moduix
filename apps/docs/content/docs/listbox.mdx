@@ -82,7 +82,7 @@ Use `Listbox.ItemIndicator` when rows should reserve selected-state space.
 ### When to go custom
 
 Use `asChild` only when a custom element can keep the required listbox semantics and receive Ark's
-props. Use `ids` when listbox parts need stable IDs for composition with surrounding UI. Use Ark
+props. Use `ids` when listbox parts need stable IDs for composition with surrounding UI. Use moduix
 `useListbox` with `Listbox.RootProvider` when state must be controlled outside the rendered tree;
 do not render `Listbox.Root` for the same state instance.
 
@@ -133,21 +133,6 @@ Control the selected string array from React state and update it from `details.v
   
 </Preview>
 
-### Root Provider
-
-Use Ark `useListbox` with `Listbox.RootProvider` when external controls need direct access to the
-listbox API.
-
-<Preview>
-  <ListboxDocs.RootProviderListboxExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/listbox/root-provider.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{`[data-slot="listbox-root"] { gap: var(--listbox-root-gap); }`}</Preview.CSS>
-  
-</Preview>
-
 ### Disabled Item
 
 Disable individual items through the collection item `disabled` field or `isItemDisabled`.
@@ -162,17 +147,49 @@ Disable individual items through the collection item `disabled` field or `isItem
   
 </Preview>
 
-### Multiple
+### Extended Selection
 
-Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
+Use `selectionMode="extended"` when users should select multiple items with platform modifier keys.
 
 <Preview>
-  <ListboxDocs.MultipleListboxExample />
+  <ListboxDocs.ExtendedSelectListboxExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/listbox/multiple.tsx#demo</include>
+  <include lang="tsx">./_snippets/listbox/extended-selection.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{`[data-slot="listbox-value-text"] { color: var(--listbox-value-text-color); }`}</Preview.CSS>
+  <Preview.CSS>{`[data-slot="listbox-item"][data-highlighted] { background: var(--listbox-highlight-bg); }`}</Preview.CSS>
+  
+</Preview>
+
+### Filtering
+
+Use `Listbox.Input` with `useListCollection`. Turn off typeahead when text input owns search.
+
+<Preview>
+  <ListboxDocs.FilteringListboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/listbox/filtering.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{`[data-slot="listbox-root"] { gap: var(--listbox-root-gap); }`}</Preview.CSS>
+  
+</Preview>
+
+### Grid
+
+Pass a grid collection to get grid keyboard navigation. Ark exposes `data-layout="grid"` and the
+`--column-count` CSS variable on `Content`. Grid examples use selected background instead of an
+inline check indicator to keep cells compact.
+
+<Preview>
+  <ListboxDocs.GridListboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/listbox/grid.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{`[data-slot="listbox-content"][data-layout="grid"] { grid-template-columns: repeat(var(--column-count), minmax(0, 1fr)); }
+[data-slot="listbox-content"][data-layout="grid"] [data-slot="listbox-item"] { justify-items: center; text-align: center; }
+[data-slot="listbox-content"][data-layout="grid"] [data-selected] { background: var(--listbox-grid-selected-bg); }`}</Preview.CSS>
   
 </Preview>
 
@@ -187,20 +204,6 @@ Use `groupBy` on the collection and render `ItemGroup` plus `ItemGroupLabel`.
   <include lang="tsx">./_snippets/listbox/grouping.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-item-group-label"] { color: var(--listbox-item-group-label-color); }`}</Preview.CSS>
-  
-</Preview>
-
-### Extended Selection
-
-Use `selectionMode="extended"` when users should select multiple items with platform modifier keys.
-
-<Preview>
-  <ListboxDocs.ExtendedSelectListboxExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/listbox/extended-selection.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{`[data-slot="listbox-item"][data-highlighted] { background: var(--listbox-highlight-bg); }`}</Preview.CSS>
   
 </Preview>
 
@@ -233,33 +236,30 @@ Set `orientation="horizontal"` for horizontal layout and left/right keyboard nav
   
 </Preview>
 
-### Grid
+### Multiple
 
-Pass a grid collection to get grid keyboard navigation. Ark exposes `data-layout="grid"` and the
-`--column-count` CSS variable on `Content`. Grid examples use selected background instead of an
-inline check indicator to keep cells compact.
+Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
 
 <Preview>
-  <ListboxDocs.GridListboxExample />
+  <ListboxDocs.MultipleListboxExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/listbox/grid.tsx#demo</include>
+  <include lang="tsx">./_snippets/listbox/multiple.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{`[data-slot="listbox-content"][data-layout="grid"] { grid-template-columns: repeat(var(--column-count), minmax(0, 1fr)); }
-[data-slot="listbox-content"][data-layout="grid"] [data-slot="listbox-item"] { justify-items: center; text-align: center; }
-[data-slot="listbox-content"][data-layout="grid"] [data-selected] { background: var(--listbox-grid-selected-bg); }`}</Preview.CSS>
+  <Preview.CSS>{`[data-slot="listbox-value-text"] { color: var(--listbox-value-text-color); }`}</Preview.CSS>
   
 </Preview>
 
-### Filtering
+### Root Provider
 
-Use `Listbox.Input` with `useListCollection`. Turn off typeahead when text input owns search.
+Use moduix `useListbox` with `Listbox.RootProvider` when external controls need direct access to the
+listbox API.
 
 <Preview>
-  <ListboxDocs.FilteringListboxExample />
+  <ListboxDocs.RootProviderListboxExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/listbox/filtering.tsx#demo</include>
+  <include lang="tsx">./_snippets/listbox/root-provider.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-root"] { gap: var(--listbox-root-gap); }`}</Preview.CSS>
   
@@ -267,7 +267,7 @@ Use `Listbox.Input` with `useListCollection`. Turn off typeahead when text input
 
 ### Select All
 
-Use Ark `useListboxContext` inside a child component to implement select-all controls.
+Use moduix `useListboxContext` inside a child component to implement select-all controls.
 
 <Preview>
   <ListboxDocs.SelectAllListboxExample />

@@ -6,6 +6,9 @@ import {
   type ListboxRootProps,
   type ListboxRootProviderComponent,
   type ListboxRootProviderProps,
+  useListbox,
+  useListboxContext,
+  useListboxItemContext,
 } from '@ark-ui/react/listbox';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
@@ -226,9 +229,14 @@ const Listbox = Object.assign(ListboxRoot, {
   ItemText: ListboxItemText,
   ItemIndicator: ListboxItemIndicator,
   ValueText: ListboxValueText,
+  Context: ListboxPrimitive.Context,
+  ItemContext: ListboxPrimitive.ItemContext,
   ItemTextContent: ListboxItemTextContent,
   ItemTextIcon: ListboxItemTextIcon,
   ItemTextLabel: ListboxItemTextLabel,
+  useListbox,
+  useListboxContext,
+  useListboxItemContext,
 });
 
-export { Listbox };
+export { Listbox, useListbox, useListboxContext, useListboxItemContext };

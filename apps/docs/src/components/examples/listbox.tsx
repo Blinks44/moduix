@@ -4,8 +4,7 @@ import {
   createListCollection,
   useListCollection,
 } from '@ark-ui/react/collection';
-import { useListbox, useListboxContext } from '@ark-ui/react/listbox';
-import { Button, Listbox } from '@moduix/react';
+import { Button, Listbox, useListbox, useListboxContext } from '@moduix/react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
