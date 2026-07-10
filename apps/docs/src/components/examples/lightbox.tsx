@@ -1,6 +1,5 @@
 import type { LightboxImageSelectDetails } from '@moduix/react';
-import { useDialog, useDialogContext } from '@ark-ui/react/dialog';
-import { Carousel, Lightbox } from '@moduix/react';
+import { Carousel, Lightbox, useLightbox, useLightboxContext } from '@moduix/react';
 import { useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -29,19 +28,15 @@ const images = [
   },
 ];
 
-export const lightboxExampleCss = `
-  .lightbox-trigger,
-  .lightbox-gallery-trigger {
+const lightboxTriggerCss = `
+  .lightbox-trigger {
     display: block;
     margin: 0;
     border: 0;
+    border-radius: var(--radius-md);
     padding: 0;
     background: transparent;
     cursor: zoom-in;
-  }
-
-  .lightbox-trigger {
-    border-radius: var(--radius-md);
   }
 
   .lightbox-trigger img {
@@ -52,13 +47,17 @@ export const lightboxExampleCss = `
     border-radius: inherit;
     object-fit: cover;
   }
+`;
 
+const lightboxStackCss = `
   .lightbox-stack {
     display: grid;
     justify-items: center;
     gap: var(--spacing-3);
   }
+`;
 
+const lightboxButtonCss = `
   .lightbox-button {
     border: 0;
     border-radius: var(--radius-md);
@@ -67,7 +66,9 @@ export const lightboxExampleCss = `
     color: var(--color-foreground);
     font: inherit;
   }
+`;
 
+const lightboxGalleryCss = `
   .lightbox-gallery {
     display: grid;
     width: min(36rem, calc(100vw - var(--spacing-10)));
@@ -76,8 +77,14 @@ export const lightboxExampleCss = `
   }
 
   .lightbox-gallery-trigger {
+    display: block;
+    margin: 0;
     width: 100%;
+    border: 0;
     border-radius: var(--radius-sm);
+    padding: 0;
+    background: transparent;
+    cursor: zoom-in;
   }
 
   .lightbox-gallery-trigger img {
@@ -87,7 +94,9 @@ export const lightboxExampleCss = `
     border-radius: inherit;
     object-fit: cover;
   }
+`;
 
+const lightboxStatusCss = `
   .lightbox-status {
     position: absolute;
     inset-block-end: var(--spacing-3);
@@ -99,7 +108,9 @@ export const lightboxExampleCss = `
     color: white;
     font-size: var(--text-sm);
   }
+`;
 
+const lightboxCustomizationCss = `
   .lightbox-custom-backdrop {
     --lightbox-backdrop-bg: rgb(15 23 42 / 0.72);
   }
@@ -116,6 +127,18 @@ export const lightboxExampleCss = `
     --lightbox-close-icon-radius: var(--radius-md);
   }
 `;
+
+export const lightboxBasicCss = lightboxTriggerCss;
+export const lightboxBindCmsContentCss = lightboxGalleryCss;
+export const lightboxClickToCloseImageCss = lightboxButtonCss;
+export const lightboxControlledCss = `${lightboxStackCss}${lightboxButtonCss}`;
+export const lightboxFocusAndIdsCss = `${lightboxStackCss}${lightboxButtonCss}${lightboxStatusCss}`;
+export const lightboxGalleryExampleCss = lightboxGalleryCss;
+export const lightboxLazyMountCss = lightboxButtonCss;
+export const lightboxMultipleTriggersCss = lightboxGalleryCss;
+export const lightboxNonModalCss = `${lightboxStackCss}${lightboxButtonCss}`;
+export const lightboxRootProviderCss = `${lightboxStackCss}${lightboxButtonCss}${lightboxStatusCss}`;
+export const lightboxAdvancedCustomizationCss = `${lightboxButtonCss}${lightboxCustomizationCss}`;
 
 export const lightboxImagesData = `
   const images = [
@@ -226,7 +249,7 @@ function LightboxSurface({
 export function LightboxExample() {
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxBasicCss}</style>
       <Lightbox>
         <Lightbox.Trigger asChild>
           <button type="button" className="lightbox-trigger">
@@ -244,7 +267,7 @@ export function ControlledLightboxExample() {
 
   return (
     <div className="lightbox-stack">
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxControlledCss}</style>
       <span>{open ? 'Open' : 'Closed'}</span>
       <Lightbox open={open} onOpenChange={(details) => setOpen(details.open)}>
         <Lightbox.Trigger className="lightbox-button">Open controlled lightbox</Lightbox.Trigger>
@@ -257,7 +280,7 @@ export function ControlledLightboxExample() {
 export function ClickToCloseLightboxExample() {
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxClickToCloseImageCss}</style>
       <Lightbox>
         <Lightbox.Trigger className="lightbox-button">
           Open click-to-close lightbox
@@ -273,7 +296,7 @@ export function MultipleTriggersLightboxExample() {
 
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxMultipleTriggersCss}</style>
       <Lightbox
         onTriggerValueChange={(details) => {
           setActiveImage(images.find((image) => image.id === details.value) ?? images[0]);
@@ -300,7 +323,7 @@ export function GalleryLightboxExample() {
 
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxGalleryExampleCss}</style>
       <Lightbox
         onTriggerValueChange={(details) => {
           const nextIndex = images.findIndex((image) => image.id === details.value);
@@ -359,7 +382,7 @@ export function BoundLightboxExample() {
 
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxBindCmsContentCss}</style>
       <div ref={rootRef} className="lightbox-gallery">
         {images.map((image) => (
           <button key={image.id} type="button" className="lightbox-gallery-trigger">
@@ -389,7 +412,7 @@ export function FocusLightboxExample() {
 
   return (
     <div className="lightbox-stack">
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxFocusAndIdsCss}</style>
       <button ref={triggerRef} type="button" className="lightbox-button">
         Focus returns here
       </button>
@@ -418,8 +441,8 @@ export function FocusLightboxExample() {
 export function NonModalLightboxExample() {
   return (
     <div className="lightbox-stack">
-      <style>{lightboxExampleCss}</style>
-      <Lightbox modal={false} trapFocus={false} preventScroll={false}>
+      <style>{lightboxNonModalCss}</style>
+      <Lightbox modal={false}>
         <Lightbox.Trigger className="lightbox-button">Open non-modal lightbox</Lightbox.Trigger>
         <LightboxSurface src={images[2].src} alt={images[2].alt} />
       </Lightbox>
@@ -431,11 +454,11 @@ export function NonModalLightboxExample() {
 }
 
 export function RootProviderLightboxExample() {
-  const lightbox = useDialog();
+  const lightbox = useLightbox();
 
   return (
     <div className="lightbox-stack">
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxRootProviderCss}</style>
       <button type="button" className="lightbox-button" onClick={() => lightbox.setOpen(true)}>
         Lightbox is {lightbox.open ? 'open' : 'closed'}
       </button>
@@ -454,7 +477,7 @@ export function RootProviderLightboxExample() {
 }
 
 function LightboxStatus() {
-  const dialog = useDialogContext();
+  const dialog = useLightboxContext();
 
   return <span className="lightbox-status">Preview is {dialog.open ? 'open' : 'closed'}</span>;
 }
@@ -462,7 +485,7 @@ function LightboxStatus() {
 export function LazyMountLightboxExample() {
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxLazyMountCss}</style>
       <Lightbox lazyMount unmountOnExit>
         <Lightbox.Trigger className="lightbox-button">Open lazy lightbox</Lightbox.Trigger>
         <LightboxSurface src={images[0].src} alt={images[0].alt} />
@@ -474,7 +497,7 @@ export function LazyMountLightboxExample() {
 export function CustomizedLightboxExample() {
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxAdvancedCustomizationCss}</style>
       <Lightbox>
         <Lightbox.Trigger className="lightbox-button">Open styled lightbox</Lightbox.Trigger>
         <Lightbox.Backdrop className="lightbox-custom-backdrop" />

@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useDialog, useDialogContext } from '@ark-ui/react/dialog';
-import { Lightbox } from '@moduix/react';
+import { Lightbox, useLightbox, useLightboxContext } from '@moduix/react';
 
 const images = [
   {
@@ -29,12 +28,12 @@ const images = [
 ];
 
 function LightboxStatus() {
-  const dialog = useDialogContext();
+  const dialog = useLightboxContext();
   return <>Preview is {dialog.open ? 'open' : 'closed'}</>;
 }
 
 export function LightboxStateDemo() {
-  const lightbox = useDialog();
+  const lightbox = useLightbox();
   return (
     <>
       <button type="button" onClick={() => lightbox.setOpen(true)}>

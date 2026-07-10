@@ -30,7 +30,7 @@ const images = [
 export function NonModalLightboxDemo() {
   return (
     <>
-      <Lightbox modal={false} trapFocus={false} preventScroll={false}>
+      <Lightbox modal={false}>
         <Lightbox.Trigger className="lightbox-button">Open non-modal lightbox</Lightbox.Trigger>
         <Lightbox.Backdrop />
         <Lightbox.Positioner>

@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef, RefObject } from 'react';
-import { Dialog as DialogPrimitive, useDialogContext } from '@ark-ui/react/dialog';
+import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
 import { clsx } from 'clsx';
 import { forwardRef, useEffect } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -345,7 +345,16 @@ const Lightbox = Object.assign(LightboxRoot, {
   Image: LightboxImage,
   Gallery: LightboxGallery,
   Bind: LightboxBind,
+  useLightbox: useDialog,
+  useLightboxContext: useDialogContext,
 });
 
-export { Lightbox, LightboxBind, LightboxGallery, LightboxImage };
+export {
+  Lightbox,
+  LightboxBind,
+  LightboxGallery,
+  LightboxImage,
+  useDialog as useLightbox,
+  useDialogContext as useLightboxContext,
+};
 export type { LightboxBindProps, LightboxImageSelectDetails };
