@@ -148,6 +148,29 @@ The visual slot is optional, so plain text-only empty states stay simple.
 
 </Preview>
 
+### Advanced Customization
+
+Use `Empty.Title asChild` when the surrounding page needs a different heading level. The description
+accepts normal block markup, so richer copy remains semantic without a separate configuration API.
+
+<Preview>
+  <EmptyDocs.EmptyAdvancedCustomizationExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/empty/advanced-customization.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .empty {
+        width: min(28rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
+
+</Preview>
+
 ## Styling
 
 Style `Empty` through `className`, Ark `data-scope="empty"` / `data-part` selectors, stable
