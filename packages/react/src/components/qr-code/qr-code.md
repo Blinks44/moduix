@@ -27,8 +27,8 @@ render path that hides `Frame` or `Pattern`.
   `boostEcc`.
 - `id`, `pixelSize`, and `ids` are forwarded to Ark.
 - `QrCode.DownloadTrigger` requires `fileName` and `mimeType`; it preserves Ark's `quality` option.
-- `QrCode.RootProvider` is preserved for externally owned Ark QR state. Import `useQrCode()` and
-  related advanced state APIs directly from `@ark-ui/react/qr-code` when you need them.
+- `QrCode.RootProvider` is preserved for externally owned Ark QR state. Import `useQrCode()` from
+  `@moduix/react`; keep other advanced state APIs on `@ark-ui/react/qr-code` as escape hatches.
 
 ## Anatomy and exported parts
 
@@ -40,7 +40,7 @@ QrCode / QrCode.Root
 └─ QrCode.DownloadTrigger
 
 QrCode.RootProvider
-└─ same part tree connected to useQrCode() from @ark-ui/react/qr-code
+└─ same part tree connected to useQrCode() from @moduix/react
 ```
 
 | Export                   | `data-slot`                | Notes                                      |
@@ -91,7 +91,7 @@ Use `QrCode.Overlay` with high error correction when central content covers part
 - Fill customization: supported through `className`, SVG `style`, and `--qr-code-fill`.
 - Overlay: supported through `Overlay`; consumers should use stronger error correction when the
   overlay is large.
-- Root provider: supported through `useQrCode()` from Ark and `QrCode.RootProvider`.
+- Root provider: supported through moduix `useQrCode()` and `QrCode.RootProvider`.
 - `asChild`: preserved on every Ark part.
 - `id` and `ids`: preserved for stable machine, root, and frame ids.
 
@@ -126,7 +126,7 @@ Primary CSS variables:
 | `--qr-code-fill`               | `currentColor`                                            |
 | `--qr-code-gap`                | `var(--spacing-3)`                                        |
 | `--qr-code-max-width`          | `100%`                                                    |
-| `--qr-code-size`               | `8rem`                                                    |
+| `--qr-code-size`               | `8rem` preferred frame width                              |
 | `--qr-code-overlay-size`       | `2.5rem`                                                  |
 | `--qr-code-overlay-padding`    | `var(--spacing-1)`                                        |
 | `--qr-code-overlay-radius`     | `var(--radius-sm)`                                        |
@@ -139,7 +139,8 @@ Primary CSS variables:
 ## Intentional sugar and differences from upstream
 
 - Moduix adds CSS Modules, token-backed defaults, and stable `data-slot` hooks.
-- Moduix keeps `QrCode` as the short root import with attached Ark parts.
+- Moduix keeps `QrCode` as the short root import with attached Ark parts and re-exports
+  `useQrCode()` for the normal `RootProvider` path.
 - Moduix does not add form integration, hidden inputs, value text, or local state around Ark.
 - Moduix does not force a default overlay or download button; consumers opt into those parts.
 
@@ -149,11 +150,13 @@ Primary CSS variables:
 - Keep `Frame` and `Pattern` explicit in examples and docs.
 - When changing visual defaults, keep `--qr-code-*` tokens, docs examples, and registry output in
   sync.
-- Keep advanced Ark state APIs out of the moduix surface; consumers can import them from Ark
-  directly when needed.
+- Keep advanced Ark state APIs other than `useQrCode()` out of the moduix surface; consumers can
+  import them from Ark directly when needed.
 
 ## Local changelog
 
+- 2026-07-10: Re-exported `useQrCode()` through moduix for `RootProvider` usage and constrained
+  the frame to its container width while retaining the `--qr-code-size` preferred width.
 - 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider`, removed
   moduix re-exports of Ark hooks, context, and duplicate types, and updated docs to point advanced
   state usage to direct Ark imports.

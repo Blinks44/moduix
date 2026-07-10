@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useQrCode } from '@ark-ui/react/qr-code';
 import { useState } from 'react';
-import { QrCode } from './QrCode';
+import { QrCode, useQrCode } from './QrCode';
 import styles from './QrCode.stories.module.css';
 
 const meta = {

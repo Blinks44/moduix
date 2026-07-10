@@ -1,5 +1,4 @@
-import { useQrCode } from '@ark-ui/react/qr-code';
-import { Button, QrCode } from '@moduix/react';
+import { Button, QrCode, useQrCode } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -183,7 +182,7 @@ export const qrCodeCssProperties: CssPropertyInput[] = [
   ['--qr-code-overlay-padding', 'var(--spacing-1)', 'Controls overlay padding.'],
   ['--qr-code-overlay-radius', 'var(--radius-sm)', 'Controls overlay radius.'],
   ['--qr-code-overlay-size', '2.5rem', 'Controls overlay width and height.'],
-  ['--qr-code-size', '8rem', 'Controls frame width and height.'],
+  ['--qr-code-size', '8rem', 'Controls the preferred frame width.'],
   ['--qr-code-transition', 'var(--transition-default)', 'Controls trigger transitions.'],
 ];
 

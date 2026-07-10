@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useQrCode } from '@ark-ui/react/qr-code';
-import { QrCode } from '@moduix/react';
+import { QrCode, useQrCode } from '@moduix/react';
 
 export function RootProviderQrCodeDemo() {
   const qrCode = useQrCode({
