@@ -31,8 +31,7 @@ Preserve these upstream behaviors:
 - If the query does not match, the component renders only plain text with no `<mark>` output.
 - `className` and other mark props are applied to every matched `<mark>` segment.
 - moduix adds stable `data-scope`, `data-part`, and `data-slot` hooks plus default highlight styles.
-- The package does not export dedicated `HighlightProps` or `useHighlight` aliases. Advanced chunk
-  rendering can use Ark directly.
+- The package exports the styled root only; there is no chunk-rendering API.
 
 ## Anatomy and exported parts
 
@@ -76,8 +75,9 @@ For multiple search terms:
 />
 ```
 
-When you need chunk-level rendering instead of styled `<mark>` tags, stay on Ark's `useHighlight`
-utility directly.
+`Highlight` intentionally renders native `<mark>` elements for matched ranges and does not expose a
+chunk renderer. Compose custom markup directly when a different element or per-match rendering is
+required.
 
 ## Upstream feature coverage
 
@@ -87,8 +87,6 @@ utility directly.
 - Ark case sensitivity: covered by `ignoreCase`.
 - Ark first-match versus all-matches behavior: covered by `matchAll`.
 - Ark whole-word matching: covered by `exactMatch`.
-- Ark hook-level custom chunk rendering: intentionally not re-exported from moduix; use Ark directly
-  for that lower-level path.
 
 ## Accessibility and state
 
@@ -124,8 +122,7 @@ Public CSS variables:
 
 - moduix adds default highlight styling and stable `data-slot` hooks on every matched `<mark>`.
 - moduix exposes `Highlight.Root` for consistency with other root-only components in the package.
-- moduix keeps the public API narrow and does not re-export Ark's `HighlightProps` or `useHighlight`
-  helper.
+- moduix keeps the public API narrow and does not add a chunk-rendering API.
 
 ## Agent notes
 
@@ -139,3 +136,5 @@ Public CSS variables:
 
 - 2026-07-05: Added the moduix `Highlight` wrapper around Ark Highlight with shared mark styling,
   stable data hooks, Storybook coverage, local component documentation, and public docs.
+- 2026-07-10: Clarified that custom chunk rendering is outside the Highlight contract and aligned the
+  public examples with the documented ordering.
