@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { DatePicker as ArkDatePicker, parseDate } from '@ark-ui/react/date-picker';
+import { parseDate } from '@ark-ui/react/date-picker';
 import { DatePicker } from '@moduix/react';
 
 const defaultView = 'month';
@@ -17,7 +17,7 @@ export function DefaultViewDatePickerDemo() {
             <DatePicker.DayTable />
           </DatePicker.View>
           <DatePicker.View view="month">
-            <ArkDatePicker.Context>
+            <DatePicker.Context>
               {(datePicker) => (
                 <DatePicker.Table columns={4}>
                   <DatePicker.TableBody>
@@ -40,7 +40,7 @@ export function DefaultViewDatePickerDemo() {
                   </DatePicker.TableBody>
                 </DatePicker.Table>
               )}
-            </ArkDatePicker.Context>
+            </DatePicker.Context>
           </DatePicker.View>
         </DatePicker.Content>
       </DatePicker.Positioner>

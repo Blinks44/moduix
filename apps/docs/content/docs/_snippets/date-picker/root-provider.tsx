@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useDatePicker } from '@ark-ui/react/date-picker';
 import { today } from '@internationalized/date';
-import { Button, DatePicker } from '@moduix/react';
+import { Button, DatePicker, useDatePicker } from '@moduix/react';
 
 const datePicker = useDatePicker({
   defaultValue: [today('UTC')],

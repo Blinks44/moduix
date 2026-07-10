@@ -105,9 +105,9 @@ DatePicker.RootProvider
 
 Exported values: `DatePicker`.
 
-Advanced Ark utilities such as `parseDate`, `useDatePicker`, `DatePicker.Context`,
-`useDatePickerContext`, and Ark event/detail types are imported directly from
-`@ark-ui/react/date-picker`.
+`useDatePicker`, `useDatePickerContext`, and `DatePicker.Context` are exported from moduix for
+the documented provider and custom-grid compositions. Ark utilities such as `parseDate` and Ark
+event/detail types remain direct imports from `@ark-ui/react/date-picker`.
 
 ## Composition
 
@@ -132,9 +132,9 @@ export function ReleaseDatePicker() {
 }
 ```
 
-Use `ArkDatePicker.Context` to render week days, weeks, month grids, and year grids from Ark's API
-when `DatePicker.DayTable` is not enough. Use `DatePicker.RootProvider` only with state created by
-Ark `useDatePicker()`; do not also render `DatePicker.Root` for the same state instance.
+Use `DatePicker.Context` to render week days, weeks, month grids, and year grids when
+`DatePicker.DayTable` is not enough. Use `DatePicker.RootProvider` only with state created by
+moduix `useDatePicker()`; do not also render `DatePicker.Root` for the same state instance.
 
 The default root and popup width is `18.75rem` (300px). Override `--date-picker-width` for the
 field and `--date-picker-content-width` for wider popup compositions such as two visible months.
@@ -165,8 +165,8 @@ Each input has `--date-picker-input-min-width: 7.5rem`; range inputs use
 - Locale and parsing: supported with `locale`, `timeZone`, `format`, `parse`, `translations`,
   and `createCalendar`.
 - Inline calendar: supported with `inline` and direct `DatePicker.Content` composition.
-- Provider/state hooks: supported by `DatePicker.RootProvider`; import Ark `useDatePicker()`,
-  `DatePicker.Context`, and `useDatePickerContext()` directly when needed.
+- Provider/state hooks: `useDatePicker()`, `DatePicker.Context`, and `useDatePickerContext()` are
+  exported by moduix for use with `DatePicker.RootProvider`.
 - `asChild`, `ids`, `dir`, and `positioning`: preserved on Ark parts and root props.
 
 ## Accessibility and state
@@ -233,11 +233,10 @@ Intentional moduix sugar:
   recommended-path sugar, while keeping full Ark table composition as the advanced customization
   path.
 
-- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
+- 2026-07-10: Re-exported `useDatePicker`, `useDatePickerContext`, and `DatePicker.Context` for
+  provider and custom-grid composition; corrected week-number row indexing in `DayTable` offsets.
 
-- 2026-07-02: Removed Ark context, hooks, utility re-exports, and event/detail type re-exports
-  from the moduix surface. `RootProvider` and visual parts stay on `DatePicker`; advanced Ark APIs
-  now import directly from `@ark-ui/react/date-picker`.
+- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-25: Audited the Ark UI migration against the official Date Picker MDX, removed stale
   non-Ark focus styling, avoided double disabled/read-only opacity, expanded docs examples, and

@@ -2,7 +2,7 @@
 //#region demo
 
 import { createListCollection } from '@ark-ui/react/collection';
-import { DatePicker as ArkDatePicker, parseDate } from '@ark-ui/react/date-picker';
+import { parseDate } from '@ark-ui/react/date-picker';
 import { DatePicker } from '@moduix/react';
 
 const monthItems = [
@@ -66,7 +66,7 @@ export function MonthYearSelectDatePickerDemo() {
       <DatePicker.Positioner>
         <DatePicker.Content>
           <DatePicker.ViewControl className="date-picker-month-year-control">
-            <ArkDatePicker.Context>
+            <DatePicker.Context>
               {(datePicker) => {
                 const focusedYear = datePicker.focusedValue.year;
                 const years = createListCollection({
@@ -160,7 +160,7 @@ export function MonthYearSelectDatePickerDemo() {
                   </div>
                 );
               }}
-            </ArkDatePicker.Context>
+            </DatePicker.Context>
             <div className="date-picker-month-year-nav">
               <DatePicker.PrevTrigger />
               <DatePicker.NextTrigger />

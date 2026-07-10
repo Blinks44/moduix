@@ -1,5 +1,9 @@
-import type { UseDatePickerReturn } from '@ark-ui/react/date-picker';
 import type { ComponentProps, ComponentRef } from 'react';
+import {
+  useDatePicker,
+  useDatePickerContext,
+  type UseDatePickerReturn,
+} from '@ark-ui/react/date-picker';
 import { DatePicker as DatePickerPrimitive } from '@ark-ui/react/date-picker';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
@@ -493,13 +497,10 @@ const DatePickerDayTable = forwardRef<
               </DatePickerTableRow>
             </DatePickerTableHead>
             <DatePickerTableBody>
-              {(offset?.weeks ?? datePicker.weeks).map((week) => (
+              {(offset?.weeks ?? datePicker.weeks).map((week, weekIndex) => (
                 <DatePickerTableRow key={week[0]?.toString()}>
                   {showWeekNumbers ? (
-                    <DatePickerWeekNumberCell
-                      week={week}
-                      weekIndex={datePicker.weeks.indexOf(week)}
-                    >
+                    <DatePickerWeekNumberCell week={week} weekIndex={weekIndex}>
                       {datePicker.getWeekNumber(week)}
                     </DatePickerWeekNumberCell>
                   ) : null}
@@ -582,6 +583,7 @@ const DatePickerValueText = forwardRef<
 const DatePicker = Object.assign(DatePickerRoot, {
   Root: DatePickerRoot,
   RootProvider: DatePickerRootProvider,
+  Context: DatePickerPrimitive.Context,
   Label: DatePickerLabel,
   Control: DatePickerControl,
   Field: DatePickerField,
@@ -613,7 +615,7 @@ const DatePicker = Object.assign(DatePickerRoot, {
   PresetTrigger: DatePickerPresetTrigger,
 });
 
-export { DatePicker };
+export { DatePicker, useDatePicker, useDatePickerContext };
 export type {
   DatePickerDayTableProps,
   DatePickerFieldProps,

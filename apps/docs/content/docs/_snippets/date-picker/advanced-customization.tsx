@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { DatePicker as ArkDatePicker, parseDate } from '@ark-ui/react/date-picker';
+import { parseDate } from '@ark-ui/react/date-picker';
 import { DatePicker } from '@moduix/react';
 
 export function AdvancedCustomizationDatePickerDemo() {
@@ -21,7 +21,7 @@ export function AdvancedCustomizationDatePickerDemo() {
               <DatePicker.ViewTrigger />
               <DatePicker.NextTrigger />
             </DatePicker.ViewControl>
-            <ArkDatePicker.Context>
+            <DatePicker.Context>
               {(datePicker) => (
                 <DatePicker.Table>
                   <DatePicker.TableHead>
@@ -46,7 +46,7 @@ export function AdvancedCustomizationDatePickerDemo() {
                   </DatePicker.TableBody>
                 </DatePicker.Table>
               )}
-            </ArkDatePicker.Context>
+            </DatePicker.Context>
           </DatePicker.View>
         </DatePicker.Content>
       </DatePicker.Positioner>

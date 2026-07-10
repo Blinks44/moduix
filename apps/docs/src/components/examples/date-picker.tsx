@@ -1,8 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import {
-  DatePicker as ArkDatePicker,
   parseDate,
-  useDatePicker,
   type DatePickerValueChangeDetails,
   type DateValue,
 } from '@ark-ui/react/date-picker';
@@ -13,7 +11,7 @@ import {
   getLocalTimeZone,
   today,
 } from '@internationalized/date';
-import { Button, DatePicker, Field, Select } from '@moduix/react';
+import { Button, DatePicker, Field, Select, useDatePicker } from '@moduix/react';
 import { useState, type ChangeEvent } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -42,7 +40,7 @@ const monthSelectCollection = createListCollection<DatePickerSelectItem>({
   items: monthSelectItems,
 });
 
-const DatePickerContext = ArkDatePicker.Context;
+const DatePickerContext = DatePicker.Context;
 
 const dateTimeFormatter = new DateFormatter('en-US', {
   dateStyle: 'medium',

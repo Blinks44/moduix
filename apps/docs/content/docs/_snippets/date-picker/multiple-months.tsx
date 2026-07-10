@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { DatePicker as ArkDatePicker, parseDate } from '@ark-ui/react/date-picker';
+import { parseDate } from '@ark-ui/react/date-picker';
 import { DatePicker } from '@moduix/react';
 
 export function MultipleMonthsDatePickerDemo() {
@@ -18,7 +18,7 @@ export function MultipleMonthsDatePickerDemo() {
           </DatePicker.ViewControl>
           <div className="date-picker-multiple-months">
             <DatePicker.DayTable className="date-picker-multiple-months-table" showHeader={false} />
-            <ArkDatePicker.Context>
+            <DatePicker.Context>
               {(datePicker) => {
                 const offset = datePicker.getOffset({
                   months: 1,
@@ -31,7 +31,7 @@ export function MultipleMonthsDatePickerDemo() {
                   />
                 );
               }}
-            </ArkDatePicker.Context>
+            </DatePicker.Context>
           </div>
         </DatePicker.Content>
       </DatePicker.Positioner>

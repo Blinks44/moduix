@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { DatePicker as ArkDatePicker, parseDate } from '@ark-ui/react/date-picker';
+import { parseDate } from '@ark-ui/react/date-picker';
 import { DatePicker } from '@moduix/react';
 
 const maxSelectedDates = 3;
@@ -15,7 +15,7 @@ export function MultipleDatePickerDemo() {
     >
       <DatePicker.Label>Meeting days</DatePicker.Label>
       <DatePicker.Control>
-        <ArkDatePicker.Context>
+        <DatePicker.Context>
           {(datePicker) => (
             <div className="date-picker-selected-dates">
               {datePicker.value.length > 0 ? (
@@ -40,7 +40,7 @@ export function MultipleDatePickerDemo() {
               )}
             </div>
           )}
-        </ArkDatePicker.Context>
+        </DatePicker.Context>
         <DatePicker.ClearTrigger aria-label="Clear dates" />
         <DatePicker.Trigger aria-label="Open calendar" />
       </DatePicker.Control>

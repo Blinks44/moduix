@@ -1,10 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import {
-  DatePicker as ArkDatePicker,
-  type DatePickerValueChangeDetails,
-} from '@ark-ui/react/date-picker';
+import { type DatePickerValueChangeDetails } from '@ark-ui/react/date-picker';
 import { CalendarDateTime, DateFormatter, getLocalTimeZone } from '@internationalized/date';
 import { DatePicker } from '@moduix/react';
 import { useState } from 'react';

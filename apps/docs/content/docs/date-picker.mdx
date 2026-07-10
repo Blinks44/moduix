@@ -166,17 +166,96 @@ stable six-row height while users navigate between months.
   
 </Preview>
 
-### Range
+### Field State
 
-Use `selectionMode="range"` with two values. Ark owns range hover, first/last-in-range state, and
-input formatting. Ark renders ranges through two indexed inputs, one for the start date and one for
-the end date.
+`DatePicker` consumes Ark field state. Use `invalid`, `disabled`, `readOnly`, and `required` on the
+root when you are not composing through `Field`.
 
 <Preview>
-  <DatePickerDocs.RangeDatePickerExample />
+  <DatePickerDocs.FieldDatePickerExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/date-picker/range.tsx#demo</include>
+  <include lang="tsx">./_snippets/date-picker/field-state.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Inline And Week Numbers
+
+Set `inline` when the calendar should stay in the layout. Inline calendars render `Content`
+directly without `Positioner`.
+
+<Preview>
+  <DatePickerDocs.InlineDatePickerExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/inline-and-week-numbers.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Locale And Format
+
+`locale`, `startOfWeek`, `format`, and `parse` pass through to Ark.
+
+<Preview>
+  <DatePickerDocs.LocaleDatePickerExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/locale-and-format.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Min, Max, And Unavailable
+
+Use `min`, `max`, and `isDateUnavailable` for validation rules that should affect both input and
+calendar cells.
+
+<Preview>
+  <DatePickerDocs.MinMaxDatePickerExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/min-max-and-unavailable.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Month And Year Select
+
+Ark ships native `DatePicker.MonthSelect` and `DatePicker.YearSelect` parts. This example uses
+moduix `Select` with `DatePicker.Context` instead, so the header matches the rest of the library
+while still updating Ark's focused date.
+
+<Preview>
+  <DatePickerDocs.MonthYearSelectDatePickerExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/month-and-year-select.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Month Picker
+
+Set `defaultView="month"` and `minView="month"` for month-only selection. Use `format` and `parse`
+when the input should accept a month/year string.
+
+<Preview>
+  <DatePickerDocs.MonthPickerExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/month-picker.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
@@ -186,7 +265,7 @@ the end date.
 ### Multiple
 
 Use `selectionMode="multiple"` and optionally cap selections with `maxSelectedDates`. Ark does not
-try to squeeze multiple values into one text input; use `ArkDatePicker.Context` to render
+try to squeeze multiple values into one text input; use `DatePicker.Context` to render
 selected-date chips and call `datePicker.setValue()` when a chip is removed.
 
 <Preview>
@@ -215,23 +294,6 @@ Set `numOfMonths` when users need more context while choosing dates.
   
 </Preview>
 
-### Month And Year Select
-
-Ark ships native `DatePicker.MonthSelect` and `DatePicker.YearSelect` parts. This example uses
-moduix `Select` with `ArkDatePicker.Context` instead, so the header matches the rest of the library
-while still updating Ark's focused date.
-
-<Preview>
-  <DatePickerDocs.MonthYearSelectDatePickerExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/date-picker/month-and-year-select.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
-  
-</Preview>
-
 ### Presets
 
 `DatePicker.PresetTrigger` accepts Zag range preset names such as `last7Days` or a custom
@@ -248,95 +310,17 @@ while still updating Ark's focused date.
   
 </Preview>
 
-### Min, Max, And Unavailable
+### Range
 
-Use `min`, `max`, and `isDateUnavailable` for validation rules that should affect both input and
-calendar cells.
-
-<Preview>
-  <DatePickerDocs.MinMaxDatePickerExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/date-picker/min-max-and-unavailable.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Locale And Format
-
-`locale`, `startOfWeek`, `format`, and `parse` pass through to Ark.
+Use `selectionMode="range"` with two values. Ark owns range hover, first/last-in-range state, and
+input formatting. Ark renders ranges through two indexed inputs, one for the start date and one for
+the end date.
 
 <Preview>
-  <DatePickerDocs.LocaleDatePickerExample />
+  <DatePickerDocs.RangeDatePickerExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/date-picker/locale-and-format.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Month Picker
-
-Set `defaultView="month"` and `minView="month"` for month-only selection. Use `format` and `parse`
-when the input should accept a month/year string.
-
-<Preview>
-  <DatePickerDocs.MonthPickerExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/date-picker/month-picker.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Year Picker
-
-Set `defaultView="year"` and `minView="year"` for year-only selection. The same `format` / `parse`
-contract keeps keyboard input aligned with the calendar view.
-
-<Preview>
-  <DatePickerDocs.YearPickerExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/date-picker/year-picker.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Inline And Week Numbers
-
-Set `inline` when the calendar should stay in the layout. Inline calendars render `Content`
-directly without `Positioner`.
-
-<Preview>
-  <DatePickerDocs.InlineDatePickerExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/date-picker/inline-and-week-numbers.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Field State
-
-`DatePicker` consumes Ark field state. Use `invalid`, `disabled`, `readOnly`, and `required` on the
-root when you are not composing through `Field`.
-
-<Preview>
-  <DatePickerDocs.FieldDatePickerExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/date-picker/field-state.tsx#demo</include>
+  <include lang="tsx">./_snippets/date-picker/range.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
@@ -345,7 +329,7 @@ root when you are not composing through `Field`.
 
 ### Root Provider
 
-Use Ark `useDatePicker()` when the calendar state must be shared with external controls.
+Use moduix `useDatePicker()` when the calendar state must be shared with external controls.
 
 <Preview>
   <DatePickerDocs.RootProviderDatePickerExample />
@@ -360,7 +344,7 @@ Use Ark `useDatePicker()` when the calendar state must be shared with external c
 
 ### Select Today
 
-Use `ArkDatePicker.Context` when a nearby control needs to call Ark helpers such as `selectToday()`.
+Use `DatePicker.Context` when a nearby control needs to call Ark helpers such as `selectToday()`.
 
 <Preview>
   <DatePickerDocs.SelectTodayDatePickerExample />
@@ -383,6 +367,22 @@ field separately from Ark's date grid.
 
 <Preview.Code>
   <include lang="tsx">./_snippets/date-picker/with-time.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Year Picker
+
+Set `defaultView="year"` and `minView="year"` for year-only selection. The same `format` / `parse`
+contract keeps keyboard input aligned with the calendar view.
+
+<Preview>
+  <DatePickerDocs.YearPickerExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-picker/year-picker.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{DatePickerDocs.datePickerExampleCss}</Preview.CSS>

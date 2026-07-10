@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { DatePicker as ArkDatePicker } from '@ark-ui/react/date-picker';
 import { Button, DatePicker } from '@moduix/react';
 
 export function SelectTodayDatePickerDemo() {
@@ -13,7 +12,7 @@ export function SelectTodayDatePickerDemo() {
         <DatePicker.Content>
           <DatePicker.View view="day">
             <DatePicker.DayTable />
-            <ArkDatePicker.Context>
+            <DatePicker.Context>
               {(datePicker) => (
                 <div className="date-picker-today-row">
                   <Button size="sm" variant="secondary" onClick={() => datePicker.selectToday()}>
@@ -21,7 +20,7 @@ export function SelectTodayDatePickerDemo() {
                   </Button>
                 </div>
               )}
-            </ArkDatePicker.Context>
+            </DatePicker.Context>
           </DatePicker.View>
         </DatePicker.Content>
       </DatePicker.Positioner>

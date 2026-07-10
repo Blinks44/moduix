@@ -1,17 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { createListCollection } from '@ark-ui/react/collection';
-import {
-  DatePicker as ArkDatePicker,
-  parseDate,
-  useDatePicker,
-  type DateValue,
-} from '@ark-ui/react/date-picker';
+import { parseDate, type DateValue } from '@ark-ui/react/date-picker';
 import { today } from '@internationalized/date';
 import { useState } from 'react';
 import { Button } from '../button';
 import { Field } from '../field';
 import { Select } from '../select';
-import { DatePicker } from './DatePicker';
+import { DatePicker, useDatePicker } from './DatePicker';
 import storyStyles from './DatePicker.stories.module.css';
 
 type DatePickerSelectItem = {
@@ -51,7 +46,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const DatePickerContext = ArkDatePicker.Context;
+const DatePickerContext = DatePicker.Context;
 
 function formatSelectedDate(date: DateValue) {
   return date.toDate('UTC').toLocaleDateString('en-US', {
