@@ -1,5 +1,5 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { RadioGroup as RadioGroupPrimitive } from '@ark-ui/react/radio-group';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import { RadioGroup as RadioGroupPrimitive, useRadioGroup } from '@ark-ui/react/radio-group';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -7,6 +7,13 @@ import styles from './RadioGroup.module.css';
 
 type RadioGroupItemControlSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type RadioGroupItemControlProps = ComponentProps<typeof RadioGroupPrimitive.ItemControl> & {
+  size?: RadioGroupItemControlSize;
+};
+type RadioGroupOptionProps = Omit<
+  ComponentProps<typeof RadioGroupPrimitive.Item>,
+  'asChild' | 'children'
+> & {
+  children: ReactNode;
   size?: RadioGroupItemControlSize;
 };
 
@@ -63,6 +70,19 @@ const RadioGroupItem = forwardRef<
       className={clsx(styles.item, normalizeClassName(className))}
       {...props}
     />
+  );
+});
+
+const RadioGroupOption = forwardRef<
+  ComponentRef<typeof RadioGroupPrimitive.Item>,
+  RadioGroupOptionProps
+>(function RadioGroupOption({ children, size, ...props }, ref) {
+  return (
+    <RadioGroupItem ref={ref} {...props}>
+      <RadioGroupItemControl size={size} />
+      <RadioGroupItemText>{children}</RadioGroupItemText>
+      <RadioGroupItemHiddenInput />
+    </RadioGroupItem>
   );
 });
 
@@ -127,11 +147,12 @@ const RadioGroup = Object.assign(RadioGroupRoot, {
   RootProvider: RadioGroupRootProvider,
   Label: RadioGroupLabel,
   Item: RadioGroupItem,
+  Option: RadioGroupOption,
   ItemControl: RadioGroupItemControl,
   ItemText: RadioGroupItemText,
   ItemHiddenInput: RadioGroupItemHiddenInput,
   Indicator: RadioGroupIndicator,
 });
 
-export { RadioGroup };
-export type { RadioGroupItemControlProps, RadioGroupItemControlSize };
+export { RadioGroup, useRadioGroup };
+export type { RadioGroupItemControlProps, RadioGroupItemControlSize, RadioGroupOptionProps };

@@ -1,2 +1,6 @@
-export { RadioGroup } from './RadioGroup';
-export type { RadioGroupItemControlProps, RadioGroupItemControlSize } from './RadioGroup';
+export { RadioGroup, useRadioGroup } from './RadioGroup';
+export type {
+  RadioGroupItemControlProps,
+  RadioGroupItemControlSize,
+  RadioGroupOptionProps,
+} from './RadioGroup';

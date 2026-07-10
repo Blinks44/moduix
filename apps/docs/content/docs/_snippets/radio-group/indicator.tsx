@@ -12,11 +12,9 @@ export function RadioGroupIndicatorDemo() {
       <RadioGroup aria-label="Framework" defaultValue="React" className="radio-indicator-root">
         <RadioGroup.Indicator className="radio-group-indicator" />
         {frameworks.map((framework) => (
-          <RadioGroup.Item key={framework} value={framework}>
-            <RadioGroup.ItemControl />
-            <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-            <RadioGroup.ItemHiddenInput />
-          </RadioGroup.Item>
+          <RadioGroup.Option key={framework} value={framework}>
+            {framework}
+          </RadioGroup.Option>
         ))}
       </RadioGroup>
     </div>
