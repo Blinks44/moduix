@@ -2,6 +2,7 @@ import type { ComponentProps, ComponentRef } from 'react';
 import {
   PinInput as PinInputPrimitive,
   usePinInput as usePinInputPrimitive,
+  usePinInputContext,
   type UsePinInputProps,
 } from '@ark-ui/react/pin-input';
 import { clsx } from 'clsx';
@@ -84,6 +85,12 @@ const PinInputInput = forwardRef<
   );
 });
 
+function PinInputInputs({ className }: { className?: string }) {
+  const { items } = usePinInputContext();
+
+  return items.map((index) => <PinInputInput key={index} index={index} className={className} />);
+}
+
 const PinInputHiddenInput = forwardRef<
   ComponentRef<typeof PinInputPrimitive.HiddenInput>,
   ComponentProps<typeof PinInputPrimitive.HiddenInput>
@@ -121,6 +128,7 @@ const PinInput = Object.assign(PinInputRoot, {
   Label: PinInputLabel,
   Control: PinInputControl,
   Input: PinInputInput,
+  Inputs: PinInputInputs,
   HiddenInput: PinInputHiddenInput,
   Separator: PinInputSeparator,
 });

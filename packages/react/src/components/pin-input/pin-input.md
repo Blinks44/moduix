@@ -12,7 +12,8 @@ Upstream docs:
 ## Upstream model to preserve
 
 The wrapper follows Ark UI `PinInput`: `Root`, `Label`, `Control`, indexed `Input`,
-`HiddenInput`, `RootProvider`, and `usePinInput`.
+`HiddenInput`, `RootProvider`, and `usePinInput`. `PinInput.Inputs` is moduix sugar for the
+standard sequence of indexed inputs.
 
 The official MDX content was reviewed from the task attachment `component-documentation.mdx` and
 checked against the installed Ark UI 5.37.2 props and examples.
@@ -33,8 +34,7 @@ consumer passes `placeholder` explicitly.
 <PinInput count={6}>
   <PinInput.Label />
   <PinInput.Control>
-    <PinInput.Input index={0} />
-    <PinInput.Input index={1} />
+    <PinInput.Inputs />
   </PinInput.Control>
   <PinInput.HiddenInput />
 </PinInput>
@@ -47,6 +47,7 @@ consumer passes `placeholder` explicitly.
 | `PinInput.Label`        | `data-slot="pin-input-label"`; Ark label part.            |
 | `PinInput.Control`      | `data-slot="pin-input-control"`; wraps visible inputs.    |
 | `PinInput.Input`        | `data-slot="pin-input-input"`; requires `index`.          |
+| `PinInput.Inputs`       | Renders one indexed `Input` per Ark context item.         |
 | `PinInput.HiddenInput`  | `data-slot="pin-input-hidden-input"`; native form input.  |
 | `PinInput.Separator`    | `data-slot="pin-input-separator"`; decorative moduix aid. |
 | `usePinInput`           | Ark state hook for `RootProvider`.                        |
@@ -61,9 +62,7 @@ export function VerificationCodeField() {
     <PinInput count={6} name="verificationCode" otp>
       <PinInput.Label>Verification code</PinInput.Label>
       <PinInput.Control>
-        {Array.from({ length: 6 }, (_, index) => (
-          <PinInput.Input key={index} index={index} />
-        ))}
+        <PinInput.Inputs />
       </PinInput.Control>
       <PinInput.HiddenInput />
     </PinInput>
@@ -74,6 +73,7 @@ export function VerificationCodeField() {
 ## Upstream feature coverage
 
 - Basic composition maps directly to Ark `Root` / `Label` / `Control` / `Input` / `HiddenInput`.
+  `PinInput.Inputs` removes only the repeated indexed-input loop.
 - Placeholder, blur-on-complete, OTP mode, masking, controlled values, field integration, and
   RootProvider examples are represented in Storybook and docs.
 - Controlled and uncontrolled values use Ark string arrays.
@@ -109,6 +109,8 @@ Important hooks:
 ## Intentional sugar and differences from upstream
 
 - `PinInput.Separator` provides a decorative grouping helper with the default separator icon.
+- `PinInput.Inputs` renders the standard indexed input sequence from Ark context. Its `className`
+  is applied to each generated input; use explicit `Input` parts for grouping or per-input props.
 - The default placeholder is `''` instead of Ark's `○`. Use `placeholder` when visible placeholders
   are desired.
 - No legacy compatibility remains: `OTPField`, `OTPFieldInput`, `OTPFieldSeparator`, `length`,
@@ -119,11 +121,15 @@ Important hooks:
 
 - Preserve namespace-first exports. Do not add flat `PinInputInput` or old `OTPField*` aliases.
 - Keep callbacks and value state Ark-shaped; do not adapt arrays back to strings.
+- Keep `Inputs` as fixed convenience sugar; do not turn it into a prop bag or replace explicit
+  `Input` composition for grouped layouts.
 - Keep `HiddenInput` in examples that submit forms or need reset/autofill behavior.
 - When adding grouped layouts, input indexes must stay continuous across separators.
 
 ## Local changelog
 
+- 2026-07-10: Added `PinInput.Inputs` as the recommended fixed renderer for the standard indexed
+  input sequence; explicit `Input` composition remains the advanced path.
 - 2026-07-03: Simplified the public surface to match `Combobox`: removed moduix re-exports for Ark
   context APIs and duplicate type aliases, and stopped auto-rendering hidden `Control`/`Input`/
   `HiddenInput` structure inside `PinInput.Root`.

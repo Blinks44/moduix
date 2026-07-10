@@ -66,7 +66,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function PinInputSlots({ indexes = pinInputIndexes }: { indexes?: number[] }) {
+function PinInputSlots({ indexes }: { indexes: number[] }) {
   return indexes.map((index) => <PinInput.Input key={index} index={index} />);
 }
 
@@ -75,7 +75,7 @@ export function PinInputExample() {
     <PinInput count={pinInputCount}>
       <PinInput.Label>Verification code</PinInput.Label>
       <PinInput.Control>
-        <PinInputSlots />
+        <PinInput.Inputs />
       </PinInput.Control>
       <PinInput.HiddenInput />
     </PinInput>
@@ -87,7 +87,7 @@ export function PinInputPlaceholderExample() {
     <PinInput count={pinInputCount} placeholder="*">
       <PinInput.Label>Verification code</PinInput.Label>
       <PinInput.Control>
-        <PinInputSlots />
+        <PinInput.Inputs />
       </PinInput.Control>
       <PinInput.HiddenInput />
     </PinInput>
@@ -108,7 +108,7 @@ export function PinInputBlurOnCompleteExample() {
       >
         <PinInput.Label>Verification code</PinInput.Label>
         <PinInput.Control>
-          <PinInputSlots />
+          <PinInput.Inputs />
         </PinInput.Control>
         <PinInput.HiddenInput />
       </PinInput>
@@ -122,7 +122,7 @@ export function PinInputOtpModeExample() {
     <PinInput count={pinInputCount} otp name="verificationCode">
       <PinInput.Label>One-time code</PinInput.Label>
       <PinInput.Control>
-        <PinInputSlots />
+        <PinInput.Inputs />
       </PinInput.Control>
       <PinInput.HiddenInput />
     </PinInput>
@@ -134,7 +134,7 @@ export function PinInputMaskedExample() {
     <PinInput count={4} mask>
       <PinInput.Label>PIN</PinInput.Label>
       <PinInput.Control>
-        <PinInputSlots indexes={shortPinInputIndexes} />
+        <PinInput.Inputs />
       </PinInput.Control>
       <PinInput.HiddenInput />
     </PinInput>
@@ -156,7 +156,7 @@ export function PinInputChangeEventsExample() {
       >
         <PinInput.Label>Invite code</PinInput.Label>
         <PinInput.Control>
-          <PinInputSlots />
+          <PinInput.Inputs />
         </PinInput.Control>
         <PinInput.HiddenInput />
       </PinInput>
@@ -185,7 +185,7 @@ export function PinInputFieldExample() {
       <PinInput count={pinInputCount}>
         <PinInput.Label>Verification code</PinInput.Label>
         <PinInput.Control>
-          <PinInputSlots />
+          <PinInput.Inputs />
         </PinInput.Control>
         <PinInput.HiddenInput />
       </PinInput>
@@ -212,7 +212,7 @@ export function PinInputRootProviderExample() {
       <PinInput.RootProvider value={pinInput}>
         <PinInput.Label>Verification code</PinInput.Label>
         <PinInput.Control>
-          <PinInputSlots />
+          <PinInputSlots indexes={pinInputIndexes} />
         </PinInput.Control>
         <PinInput.HiddenInput />
       </PinInput.RootProvider>

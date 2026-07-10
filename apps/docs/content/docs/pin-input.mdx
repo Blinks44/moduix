@@ -21,8 +21,8 @@ inputs.
 
 ## Basic
 
-Start with the Ark part tree: root state, label, control, indexed inputs, and `HiddenInput` for
-form submission and reset synchronization.
+Start with the Ark part tree: root state, label, control, `Inputs`, and `HiddenInput` for form
+submission and reset synchronization.
 
 <Preview>
   <PinInputDocs.PinInputExample />
@@ -69,6 +69,7 @@ PinInput / PinInput.Root
 | `PinInput.Label`               | Accessible label for the pin input group.                             |
 | `PinInput.Control`             | Wrapper around the visible indexed inputs.                            |
 | `PinInput.Input`               | One visible character input. Pass a zero-based `index`.               |
+| `PinInput.Inputs`              | Renders the standard indexed inputs from the Ark context.             |
 | `PinInput.HiddenInput`         | Hidden native input for forms, autofill, validation, and reset.       |
 | `PinInput.Separator`           | Moduix decorative grouping helper. Not an Ark primitive part.         |
 | `usePinInput` / `RootProvider` | External state ownership and imperative methods.                      |
@@ -77,15 +78,15 @@ PinInput / PinInput.Root
 
 ### Recommended composition
 
-Use the short `<PinInput>` root form, render a visible `Label`, keep `Control` around the indexed
-`Input` parts, and mount `HiddenInput` whenever form submission, reset synchronization, or OTP
-autofill should keep working through the native input.
+Use the short `<PinInput>` root form, render a visible `Label`, keep `Control` around `Inputs`, and
+mount `HiddenInput` whenever form submission, reset synchronization, or OTP autofill should keep
+working through the native input.
 
 ### When to go custom
 
-Reach for `PinInput.RootProvider` and `usePinInput` when state ownership needs to move outside the
-rendered tree. Use `PinInput.Separator` only as a visual grouping aid and keep the Ark input
-indexes continuous across the full code.
+Use explicit indexed `Input` parts for grouped layouts or per-input props. Reach for
+`PinInput.RootProvider` and `usePinInput` when state ownership needs to move outside the rendered
+tree. Keep Ark input indexes continuous across the full code.
 
 ### Default props
 
@@ -109,32 +110,10 @@ indexes continuous across the full code.
 `onValueInvalid(details)` exposes the rejected `details.value` and `details.index`.
 
 Use `type` and `pattern` for value validation. `Field.Root` and `Fieldset.Root` can provide
-disabled, invalid, required, and read-only state through Ark context. All exported parts support
-`asChild`, and `ids` can be used when external labels or descriptions need stable element IDs.
+disabled, invalid, required, and read-only state through Ark context. Ark parts support `asChild`,
+and `ids` can be used when external labels or descriptions need stable element IDs.
 
 ## Examples
-
-### Placeholder
-
-Use `placeholder` to opt into visible placeholder characters for each input. moduix keeps the
-default placeholder empty.
-
-<Preview>
-  <PinInputDocs.PinInputPlaceholderExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/pin-input/placeholder.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      [data-slot="pin-input-input"]::placeholder {
-        color: var(--pin-input-placeholder-color);
-      }
-    `}
-</Preview.CSS>
-
-</Preview>
 
 ### Blur On Complete
 
@@ -148,36 +127,6 @@ Set `blurOnComplete` when focus should leave the final input after all slots are
 </Preview.Code>
 
   <Preview.CSS>{`.hint { color: var(--color-muted-foreground); }`}</Preview.CSS>
-  
-</Preview>
-
-### OTP Mode
-
-Set `otp` to let Ark apply one-time-code autocomplete behavior for mobile OTP suggestions.
-
-<Preview>
-  <PinInputDocs.PinInputOtpModeExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/pin-input/otp-mode.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{`[data-slot="pin-input-control"] { display: inline-flex; }`}</Preview.CSS>
-  
-</Preview>
-
-### Masking
-
-Use `mask` when the entered value is sensitive and should be visually obscured.
-
-<Preview>
-  <PinInputDocs.PinInputMaskedExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/pin-input/masking.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{`[data-slot="pin-input-input"] { font-variant-numeric: tabular-nums; }`}</Preview.CSS>
   
 </Preview>
 
@@ -212,25 +161,9 @@ form accessibility wiring.
   
 </Preview>
 
-### Root Provider
-
-Use `usePinInput` with `RootProvider` when state and imperative methods need to live outside the
-rendered pin input tree.
-
-<Preview>
-  <PinInputDocs.PinInputRootProviderExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/pin-input/root-provider.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{`.actions { display: inline-flex; gap: var(--spacing-2); }`}</Preview.CSS>
-  
-</Preview>
-
 ### Grouped Layout
 
-Use the Moduix `Separator` helper for grouped codes while keeping Ark `Input` indexes continuous.
+Bypass `Inputs` when a grouped code needs a separator; keep Ark `Input` indexes continuous.
 
 <Preview>
   <PinInputDocs.PinInputGroupedLayoutExample />
@@ -247,6 +180,74 @@ Use the Moduix `Separator` helper for grouped codes while keeping Ark `Input` in
       }
     `}
 </Preview.CSS>
+
+</Preview>
+
+### Masking
+
+Use `mask` when the entered value is sensitive and should be visually obscured.
+
+<Preview>
+  <PinInputDocs.PinInputMaskedExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/pin-input/masking.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{`[data-slot="pin-input-input"] { font-variant-numeric: tabular-nums; }`}</Preview.CSS>
+  
+</Preview>
+
+### OTP Mode
+
+Set `otp` to let Ark apply one-time-code autocomplete behavior for mobile OTP suggestions.
+
+<Preview>
+  <PinInputDocs.PinInputOtpModeExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/pin-input/otp-mode.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{`[data-slot="pin-input-control"] { display: inline-flex; }`}</Preview.CSS>
+  
+</Preview>
+
+### Placeholder
+
+Use `placeholder` to opt into visible placeholder characters for each input. moduix keeps the
+default placeholder empty.
+
+<Preview>
+  <PinInputDocs.PinInputPlaceholderExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/pin-input/placeholder.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      [data-slot="pin-input-input"]::placeholder {
+        color: var(--pin-input-placeholder-color);
+      }
+    `}
+</Preview.CSS>
+
+</Preview>
+
+### Advanced Customization
+
+Use `usePinInput` with `RootProvider` when state and imperative methods need to live outside the
+rendered tree. This example bypasses `Inputs` to show the full indexed Ark composition.
+
+<Preview>
+  <PinInputDocs.PinInputRootProviderExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/pin-input/root-provider.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{`.actions { display: inline-flex; gap: var(--spacing-2); }`}</Preview.CSS>
 
 </Preview>
 
