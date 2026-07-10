@@ -1,5 +1,4 @@
-import { Editable as EditablePrimitive, useEditable } from '@ark-ui/react/editable';
-import { Editable, Field } from '@moduix/react';
+import { Editable, Field, useEditable } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -150,20 +149,7 @@ export function EditableExample(props: ComponentProps<typeof Editable>) {
           <Editable.Input />
           <Editable.Preview />
         </Editable.Area>
-        <Editable.Control>
-          <EditablePrimitive.Context>
-            {(editable) =>
-              editable.editing ? (
-                <>
-                  <Editable.SubmitTrigger />
-                  <Editable.CancelTrigger />
-                </>
-              ) : (
-                <Editable.EditTrigger />
-              )
-            }
-          </EditablePrimitive.Context>
-        </Editable.Control>
+        <Editable.Controls />
       </Editable>
     </div>
   );
@@ -180,16 +166,14 @@ export function ControlledEditableExample() {
           <Editable.Input />
           <Editable.Preview />
         </Editable.Area>
-        <Editable.Control>
-          <Editable.EditTrigger />
-        </Editable.Control>
+        <Editable.Controls />
       </Editable>
       <div className="editable-state">Current value: {value || 'empty'}</div>
     </div>
   );
 }
 
-export function ContextEditableExample() {
+export function AdvancedEditableCustomizationExample() {
   return (
     <div style={centeredExampleStyle}>
       <Editable defaultValue="Service area">
@@ -198,7 +182,7 @@ export function ContextEditableExample() {
           <Editable.Input />
           <Editable.Preview />
         </Editable.Area>
-        <EditablePrimitive.Context>
+        <Editable.Context>
           {(editable) =>
             editable.editing ? (
               <div className="editable-state">Enter to save, Esc to cancel.</div>
@@ -208,35 +192,7 @@ export function ContextEditableExample() {
               </Editable.Control>
             )
           }
-        </EditablePrimitive.Context>
-      </Editable>
-    </div>
-  );
-}
-
-export function EditableControlsExample() {
-  return (
-    <div style={centeredExampleStyle}>
-      <Editable defaultValue="Transit corridor" submitMode="none">
-        <Editable.Label>Project title</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Control>
-          <EditablePrimitive.Context>
-            {(editable) =>
-              editable.editing ? (
-                <>
-                  <Editable.SubmitTrigger />
-                  <Editable.CancelTrigger />
-                </>
-              ) : (
-                <Editable.EditTrigger />
-              )
-            }
-          </EditablePrimitive.Context>
-        </Editable.Control>
+        </Editable.Context>
       </Editable>
     </div>
   );
@@ -257,20 +213,7 @@ export function TextareaEditableExample() {
         </Editable.Input>
         <Editable.Preview className="editable-textarea-preview" />
       </Editable.Area>
-      <Editable.Control>
-        <EditablePrimitive.Context>
-          {(editable) =>
-            editable.editing ? (
-              <>
-                <Editable.SubmitTrigger />
-                <Editable.CancelTrigger />
-              </>
-            ) : (
-              <Editable.EditTrigger />
-            )
-          }
-        </EditablePrimitive.Context>
-      </Editable.Control>
+      <Editable.Controls />
       <div className="editable-state">Double-click to edit. Press Cmd/Ctrl + Enter to save.</div>
     </Editable>
   );
@@ -286,9 +229,7 @@ export function FieldEditableExample() {
             <Editable.Input />
             <Editable.Preview />
           </Editable.Area>
-          <Editable.Control>
-            <Editable.EditTrigger />
-          </Editable.Control>
+          <Editable.Controls />
         </Editable>
         <Field.ErrorText>Bio is required.</Field.ErrorText>
       </Field>
@@ -307,20 +248,7 @@ export function RootProviderEditableExample() {
           <Editable.Input />
           <Editable.Preview />
         </Editable.Area>
-        <Editable.Control>
-          <EditablePrimitive.Context>
-            {(editable) =>
-              editable.editing ? (
-                <>
-                  <Editable.SubmitTrigger />
-                  <Editable.CancelTrigger />
-                </>
-              ) : (
-                <Editable.EditTrigger />
-              )
-            }
-          </EditablePrimitive.Context>
-        </Editable.Control>
+        <Editable.Controls />
       </Editable.RootProvider>
       <div className="editable-root-provider-actions">
         <button type="button" onClick={() => editable.edit()}>
@@ -354,9 +282,7 @@ export function EditableGuidesExample() {
         <Editable.Input />
         <Editable.Preview />
       </Editable.Area>
-      <Editable.Control>
-        <Editable.EditTrigger />
-      </Editable.Control>
+      <Editable.Controls />
     </Editable>
   );
 }

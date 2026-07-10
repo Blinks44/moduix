@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { Editable as EditablePrimitive } from '@ark-ui/react/editable';
 import { Editable } from '@moduix/react';
 
-export function ContextEditableDemo() {
+export function AdvancedEditableCustomizationDemo() {
   return (
     <Editable defaultValue="Service area">
       <Editable.Label>Name</Editable.Label>
@@ -12,7 +11,7 @@ export function ContextEditableDemo() {
         <Editable.Input />
         <Editable.Preview />
       </Editable.Area>
-      <EditablePrimitive.Context>
+      <Editable.Context>
         {(editable) =>
           editable.editing ? (
             <span>Enter to save, Esc to cancel.</span>
@@ -22,7 +21,7 @@ export function ContextEditableDemo() {
             </Editable.Control>
           )
         }
-      </EditablePrimitive.Context>
+      </Editable.Context>
     </Editable>
   );
 }

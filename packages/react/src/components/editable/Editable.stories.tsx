@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Editable as EditablePrimitive, useEditable } from '@ark-ui/react/editable';
 import { useState } from 'react';
 import { Field } from '../field';
-import { Editable } from './Editable';
+import { Editable, useEditable } from './Editable';
 import storyStyles from './Editable.stories.module.css';
 
 const meta = {
@@ -26,20 +25,7 @@ export const Basic: Story = {
         <Editable.Input />
         <Editable.Preview />
       </Editable.Area>
-      <Editable.Control>
-        <EditablePrimitive.Context>
-          {(editable) =>
-            editable.editing ? (
-              <>
-                <Editable.SubmitTrigger />
-                <Editable.CancelTrigger />
-              </>
-            ) : (
-              <Editable.EditTrigger />
-            )
-          }
-        </EditablePrimitive.Context>
-      </Editable.Control>
+      <Editable.Controls />
     </Editable>
   ),
 };
@@ -66,7 +52,7 @@ export const Controlled: Story = {
   },
 };
 
-export const Context: Story = {
+export const AdvancedCustomization: Story = {
   render: () => (
     <Editable defaultValue="Service area">
       <Editable.Label>Name</Editable.Label>
@@ -74,7 +60,7 @@ export const Context: Story = {
         <Editable.Input />
         <Editable.Preview />
       </Editable.Area>
-      <EditablePrimitive.Context>
+      <Editable.Context>
         {(editable) =>
           editable.editing ? (
             <p className={storyStyles.hint}>Enter to save, Esc to cancel.</p>
@@ -84,7 +70,7 @@ export const Context: Story = {
             </Editable.Control>
           )
         }
-      </EditablePrimitive.Context>
+      </Editable.Context>
     </Editable>
   ),
 };
@@ -97,20 +83,7 @@ export const Controls: Story = {
         <Editable.Input />
         <Editable.Preview />
       </Editable.Area>
-      <Editable.Control>
-        <EditablePrimitive.Context>
-          {(editable) =>
-            editable.editing ? (
-              <>
-                <Editable.SubmitTrigger />
-                <Editable.CancelTrigger />
-              </>
-            ) : (
-              <Editable.EditTrigger />
-            )
-          }
-        </EditablePrimitive.Context>
-      </Editable.Control>
+      <Editable.Controls />
     </Editable>
   ),
 };
@@ -130,20 +103,7 @@ export const Textarea: Story = {
         </Editable.Input>
         <Editable.Preview className={storyStyles.textareaPreview} />
       </Editable.Area>
-      <Editable.Control>
-        <EditablePrimitive.Context>
-          {(editable) =>
-            editable.editing ? (
-              <>
-                <Editable.SubmitTrigger />
-                <Editable.CancelTrigger />
-              </>
-            ) : (
-              <Editable.EditTrigger />
-            )
-          }
-        </EditablePrimitive.Context>
-      </Editable.Control>
+      <Editable.Controls />
       <p className={storyStyles.hint}>Double-click to edit. Press Cmd/Ctrl + Enter to save.</p>
     </Editable>
   ),
@@ -182,20 +142,7 @@ export const RootProvider: Story = {
             <Editable.Input />
             <Editable.Preview />
           </Editable.Area>
-          <Editable.Control>
-            <EditablePrimitive.Context>
-              {(editable) =>
-                editable.editing ? (
-                  <>
-                    <Editable.SubmitTrigger />
-                    <Editable.CancelTrigger />
-                  </>
-                ) : (
-                  <Editable.EditTrigger />
-                )
-              }
-            </EditablePrimitive.Context>
-          </Editable.Control>
+          <Editable.Controls />
         </Editable.RootProvider>
         <div className={storyStyles.actions}>
           <button type="button" onClick={() => editable.edit()}>
