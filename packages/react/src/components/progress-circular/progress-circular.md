@@ -22,7 +22,9 @@ CSS variables generated on the circle parts.
 ## Current behavior contract
 
 `ProgressCircular` is the same part as `ProgressCircular.Root`. It does not auto-render label,
-circle, track, range, or value text. Consumers compose the Ark-shaped part tree explicitly.
+circle, or value text. `ProgressCircular.Ring` is the recommended convenience part for the fixed
+circle, track, and range subtree; `Circle`, `CircleTrack`, and `CircleRange` remain available for
+low-level composition.
 
 `defaultValue` sets uncontrolled progress. `value` plus `onValueChange(details)` controls progress.
 `defaultValue={null}` or `value={null}` renders indeterminate progress. `min`, `max`,
@@ -40,6 +42,8 @@ ProgressCircular / ProgressCircular.Root
 ├─ ProgressCircular.Circle
 │  ├─ ProgressCircular.CircleTrack
 │  └─ ProgressCircular.CircleRange
+├─ ProgressCircular.Ring
+│  └─ fixed Circle, CircleTrack, and CircleRange subtree
 ├─ ProgressCircular.ValueText
 └─ ProgressCircular.View
 
@@ -57,6 +61,8 @@ ProgressCircular.RootProvider
 - `ProgressCircular.CircleTrack`: `data-slot="progress-circular-circle-track"`; background circle.
 - `ProgressCircular.CircleRange`: `data-slot="progress-circular-circle-range"`; foreground circle
   using Ark stroke variables and `data-state`.
+- `ProgressCircular.Ring`: a convenience circle with the default track and range. Its `className`,
+  ref, CSS variables, and `data-slot="progress-circular-circle"` target the underlying `Circle`.
 - `ProgressCircular.ValueText`: `data-slot="progress-circular-value-text"`; formatted value text
   with Ark live-region behavior.
 - `ProgressCircular.View`: `data-slot="progress-circular-view"`; conditional content for Ark
@@ -71,10 +77,7 @@ export function ExportProgress() {
   return (
     <ProgressCircular defaultValue={42}>
       <ProgressCircular.Label>Export data</ProgressCircular.Label>
-      <ProgressCircular.Circle>
-        <ProgressCircular.CircleTrack />
-        <ProgressCircular.CircleRange />
-      </ProgressCircular.Circle>
+      <ProgressCircular.Ring />
       <ProgressCircular.ValueText />
     </ProgressCircular>
   );
@@ -114,7 +117,7 @@ theme variables use the `--progress-circular-*` prefix for root color/gap/width,
 value text, circle size, circle thickness, track color, range color, range linecap, range
 transition, and indeterminate animation.
 
-`ProgressCircular.Circle` maps `--progress-circular-size` to Ark `--size` and
+`ProgressCircular.Circle` and `ProgressCircular.Ring` map `--progress-circular-size` to Ark `--size` and
 `--progress-circular-thickness` to Ark `--thickness`. Ark continues to own `--radius`,
 `--circumference`, `--percent`, and stroke offset variables.
 
@@ -123,6 +126,10 @@ transition, and indeterminate animation.
 The component splits circular progress into its own public wrapper instead of exposing a single
 `Progress` component with both linear and circular anatomy. This keeps registry items and docs
 focused while preserving Ark's underlying `Progress` API.
+
+`ProgressCircular.Ring` removes the repeated fixed circle/track/range markup but does not center or
+render `ValueText`; keep that layout explicit. Use the individual circle parts when their children
+or Ark `asChild` composition need customization.
 
 The old Base UI names and props are not preserved: `Progress`, `ProgressRoot`, `ProgressLabel`,
 `ProgressValue`, `ProgressTrack`, `ProgressIndicator`, `format`, and `getAriaValueText` were
@@ -138,6 +145,8 @@ file, `theme.css`, and the registry output.
 
 ## Local changelog
 
+- 2026-07-10: Added `ProgressCircular.Ring` as the recommended, stylable fixed circle/track/range
+  composition; retained the individual Ark parts for advanced customization.
 - 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider`, removed
   moduix re-exports of Ark hooks, context, and duplicate types, and updated docs to point advanced
   state usage to direct Ark imports.

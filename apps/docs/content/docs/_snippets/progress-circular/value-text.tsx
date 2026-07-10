@@ -15,10 +15,7 @@ export function ValueTextProgressCircularDemo() {
     >
       <ProgressCircular.Label>Migration</ProgressCircular.Label>
       <div className="progress-circular-circle-container">
-        <ProgressCircular.Circle>
-          <ProgressCircular.CircleTrack />
-          <ProgressCircular.CircleRange />
-        </ProgressCircular.Circle>
+        <ProgressCircular.Ring />
         <ProgressCircular.ValueText />
       </div>
     </ProgressCircular>

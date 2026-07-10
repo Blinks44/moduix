@@ -103,6 +103,23 @@ const ProgressCircularCircleRange = forwardRef<
   );
 });
 
+type ProgressCircularRingProps = Omit<
+  ComponentProps<typeof ProgressPrimitive.Circle>,
+  'asChild' | 'children'
+>;
+
+const ProgressCircularRing = forwardRef<
+  ComponentRef<typeof ProgressPrimitive.Circle>,
+  ProgressCircularRingProps
+>(function ProgressCircularRing(props, ref) {
+  return (
+    <ProgressCircularCircle ref={ref} {...props}>
+      <ProgressCircularCircleTrack />
+      <ProgressCircularCircleRange />
+    </ProgressCircularCircle>
+  );
+});
+
 const ProgressCircularView = forwardRef<
   ComponentRef<typeof ProgressPrimitive.View>,
   ComponentProps<typeof ProgressPrimitive.View>
@@ -125,6 +142,7 @@ const ProgressCircular = Object.assign(ProgressCircularRoot, {
   Circle: ProgressCircularCircle,
   CircleTrack: ProgressCircularCircleTrack,
   CircleRange: ProgressCircularCircleRange,
+  Ring: ProgressCircularRing,
   View: ProgressCircularView,
 });
 

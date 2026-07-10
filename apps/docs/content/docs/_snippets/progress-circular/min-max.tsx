@@ -14,10 +14,7 @@ export function MinMaxProgressCircularDemo() {
     <ProgressCircular defaultValue={420} min={200} max={800}>
       <ProgressCircular.Label>Requests per minute</ProgressCircular.Label>
       <div className="progress-circular-circle-container">
-        <ProgressCircular.Circle>
-          <ProgressCircular.CircleTrack />
-          <ProgressCircular.CircleRange />
-        </ProgressCircular.Circle>
+        <ProgressCircular.Ring />
         <ProgressCircular.ValueText />
       </div>
     </ProgressCircular>

@@ -123,6 +123,21 @@ Keep `value` in React state when progress mirrors another control or external ta
   
 </Preview>
 
+### Indeterminate
+
+Pass `defaultValue={null}` or `value={null}` when progress is running but completion is unknown.
+
+<Preview>
+  <ProgressLinearDocs.IndeterminateProgressLinearExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/indeterminate.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
+</Preview>
+
 ### Initial Value
 
 Use `defaultValue` to set the initial uncontrolled progress value.
@@ -153,15 +168,40 @@ Use `min` and `max` when the value does not use the default `0` to `100` range.
   
 </Preview>
 
-### Indeterminate
+### State Views
 
-Pass `defaultValue={null}` or `value={null}` when progress is running but completion is unknown.
+Use `ProgressLinear.View` when supporting text or UI should switch with the Ark progress state
+instead of duplicating state checks outside the component.
 
 <Preview>
-  <ProgressLinearDocs.IndeterminateProgressLinearExample />
+  <ProgressLinear defaultValue={null}>
+    <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
+    <ProgressLinear.ValueText />
+    <ProgressLinear.Track>
+      <ProgressLinear.Range />
+    </ProgressLinear.Track>
+    <ProgressLinear.View state="indeterminate">Waiting for source data</ProgressLinear.View>
+    <ProgressLinear.View state="loading">Transfer in progress</ProgressLinear.View>
+    <ProgressLinear.View state="complete">Export complete</ProgressLinear.View>
+  </ProgressLinear>
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/progress-linear/indeterminate.tsx#demo</include>
+  <include lang="tsx">./_snippets/progress-linear/state-views.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Value Text
+
+Use `translations.value(details)` when the formatted percent is not the wording users need.
+
+<Preview>
+  <ProgressLinearDocs.ValueTextProgressLinearExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-linear/value-text.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
@@ -183,55 +223,16 @@ Set `orientation="vertical"` when the track should fill upward instead of from l
   
 </Preview>
 
-### Value Text
-
-Use `translations.value(details)` when the formatted percent is not the wording users need.
-
-<Preview>
-  <ProgressLinearDocs.ValueTextProgressLinearExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/progress-linear/value-text.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Root Provider
+### Advanced Customization
 
 Create the Ark progress store outside the rendered tree when another component needs to own state.
+This bypasses the regular root state setup while preserving the same moduix part tree.
 
 <Preview>
   <ProgressLinearDocs.RootProviderProgressLinearExample />
 
 <Preview.Code>
   <include lang="tsx">./_snippets/progress-linear/root-provider.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### State Views
-
-Use `ProgressLinear.View` when supporting text or UI should switch with the Ark progress state
-instead of duplicating state checks outside the component.
-
-<Preview>
-  <ProgressLinear defaultValue={null}>
-    <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
-    <ProgressLinear.ValueText />
-    <ProgressLinear.Track>
-      <ProgressLinear.Range />
-    </ProgressLinear.Track>
-    <ProgressLinear.View state="indeterminate">Waiting for source data</ProgressLinear.View>
-    <ProgressLinear.View state="loading">Transfer in progress</ProgressLinear.View>
-    <ProgressLinear.View state="complete">Export complete</ProgressLinear.View>
-  </ProgressLinear>
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/progress-linear/state-views.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{ProgressLinearDocs.progressLinearExampleCss}</Preview.CSS>

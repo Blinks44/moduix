@@ -11,10 +11,7 @@ export function ControlledProgressCircularDemo() {
       <ProgressCircular value={value} onValueChange={(details) => setValue(details.value)}>
         <ProgressCircular.Label>Upload status</ProgressCircular.Label>
         <div className="progress-circular-circle-container">
-          <ProgressCircular.Circle>
-            <ProgressCircular.CircleTrack />
-            <ProgressCircular.CircleRange />
-          </ProgressCircular.Circle>
+          <ProgressCircular.Ring />
           <ProgressCircular.ValueText />
         </div>
       </ProgressCircular>

@@ -10,10 +10,7 @@ export function InitialValueProgressCircularDemo() {
     <ProgressCircular defaultValue={70}>
       <ProgressCircular.Label>Import data</ProgressCircular.Label>
       <div className="progress-circular-circle-container">
-        <ProgressCircular.Circle>
-          <ProgressCircular.CircleTrack />
-          <ProgressCircular.CircleRange />
-        </ProgressCircular.Circle>
+        <ProgressCircular.Ring />
         <ProgressCircular.ValueText />
       </div>
     </ProgressCircular>

@@ -17,8 +17,8 @@ Choose `ProgressLinear` when horizontal comparison against a full track matters.
 
 ## Basic
 
-Use Ark-style parts: `ProgressCircular.Root`, `ProgressCircular.Circle`,
-`ProgressCircular.CircleTrack`, `ProgressCircular.CircleRange`, and `ProgressCircular.ValueText`.
+Use `ProgressCircular.Ring` for the standard SVG circle subtree and
+`ProgressCircular.ValueText` for visible progress.
 
 <Preview>
   <ProgressCircularDocs.ProgressCircularExample />
@@ -27,7 +27,7 @@ Use Ark-style parts: `ProgressCircular.Root`, `ProgressCircular.Circle`,
   <include lang="tsx">./_snippets/progress-circular/basic.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularBasicExampleCss}</Preview.CSS>
   
 </Preview>
 
@@ -40,6 +40,8 @@ Use Ark-style parts: `ProgressCircular.Root`, `ProgressCircular.Circle`,
 ```text
 ProgressCircular.Root
 ├─ ProgressCircular.Label
+├─ ProgressCircular.Ring
+│  └─ fixed Circle, CircleTrack, and CircleRange subtree
 ├─ ProgressCircular.Circle
 │  ├─ ProgressCircular.CircleTrack
 │  └─ ProgressCircular.CircleRange
@@ -54,6 +56,7 @@ ProgressCircular.RootProvider
 | `ProgressCircular` / `ProgressCircular.Root` | Owns progress state, formatting, and ids.                       |
 | `ProgressCircular.RootProvider`              | Connects parts to state created with Ark `useProgress()`.       |
 | `ProgressCircular.Label`                     | Accessible label for the progressbar.                           |
+| `ProgressCircular.Ring`                      | Default circle, track, and range convenience subtree.           |
 | `ProgressCircular.Circle`                    | SVG progressbar surface with ARIA value.                        |
 | `ProgressCircular.CircleTrack`               | Background circle.                                              |
 | `ProgressCircular.CircleRange`               | Foreground circle that reflects the current percent/state.      |
@@ -64,24 +67,22 @@ ProgressCircular.RootProvider
 
 ### Recommended composition
 
-`ProgressCircular` is the short root form. It is equivalent to `ProgressCircular.Root`, and the SVG
-circle parts stay explicit so the rendered anatomy matches Ark UI.
+`ProgressCircular` is the short root form. It is equivalent to `ProgressCircular.Root`.
+`ProgressCircular.Ring` is the recommended fixed SVG circle, track, and range subtree; it accepts
+`className` and the same CSS variables as `ProgressCircular.Circle`.
 
 Use `defaultValue` for uncontrolled progress, `value` with `onValueChange(details)` for controlled
 progress, and `defaultValue={null}` or `value={null}` for indeterminate progress.
 
 ### When to go custom
 
-Use `ProgressCircular.RootProvider` with `useProgress()` from `@ark-ui/react/progress` when
-progress state must be created outside the rendered subtree.
-
 Use `translations.value(details)` for custom visible and accessible value text. Wrap the circle and
 value text in your own layout element when the number should sit in the center.
 
-Use `ids` when the label, circle, or surrounding layout need stable explicit IDs across a more
-custom tree. Use `ProgressCircular.View` when supporting UI should switch with the Ark progress
-state instead of duplicating state checks outside the component. If you need Ark context APIs or
-hooks, import them directly from `@ark-ui/react/progress`.
+Use `Circle`, `CircleTrack`, and `CircleRange` when their structure or Ark `asChild` composition
+needs customization. Use `ids` when the label, circle, or surrounding layout need stable explicit
+IDs across a custom tree. Import `useProgress()` and other advanced Ark state APIs directly from
+`@ark-ui/react/progress` only when `RootProvider` state must exist outside the rendered tree.
 
 ### Default props
 
@@ -98,8 +99,8 @@ hooks, import them directly from `@ark-ui/react/progress`.
 `ProgressCircular.Circle` receives the progressbar role and ARIA value attributes from Ark. Ark
 also owns the SVG variables for radius, circumference, percent, and stroke offset.
 
-All exported parts support `asChild` through Ark polymorphic composition. Keep replacement children
-semantic and preserve the progressbar semantics on the circle.
+All Ark-backed parts except the fixed `Ring` support `asChild` through polymorphic composition.
+Keep replacement children semantic and preserve the progressbar semantics on the circle.
 
 `ProgressCircular.ValueText` announces changes with `aria-live="polite"`. Keep the visible label in
 the tree, or provide `aria-label`/`aria-labelledby` when composing without `ProgressCircular.Label`.
@@ -117,37 +118,7 @@ Keep `value` in React state when circular progress mirrors another control or ex
   <include lang="tsx">./_snippets/progress-circular/controlled.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Initial Value
-
-Use `defaultValue` to set the initial uncontrolled progress value.
-
-<Preview>
-  <ProgressCircularDocs.InitialValueProgressCircularExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/progress-circular/initial-value.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Min Max
-
-Use `min` and `max` when the value does not use the default `0` to `100` range.
-
-<Preview>
-  <ProgressCircularDocs.MinMaxProgressCircularExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/progress-circular/min-max.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularControlledExampleCss}</Preview.CSS>
   
 </Preview>
 
@@ -162,7 +133,37 @@ Pass `defaultValue={null}` or `value={null}` when progress is running but comple
   <include lang="tsx">./_snippets/progress-circular/indeterminate.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularBasicExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Initial Value
+
+Use `defaultValue` to set the initial uncontrolled progress value.
+
+<Preview>
+  <ProgressCircularDocs.InitialValueProgressCircularExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/initial-value.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressCircularDocs.progressCircularBasicExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Min Max
+
+Use `min` and `max` when the value does not use the default `0` to `100` range.
+
+<Preview>
+  <ProgressCircularDocs.MinMaxProgressCircularExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/progress-circular/min-max.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ProgressCircularDocs.progressCircularBasicExampleCss}</Preview.CSS>
   
 </Preview>
 
@@ -177,11 +178,16 @@ Use `translations.value(details)` when the formatted percent is not the wording 
   <include lang="tsx">./_snippets/progress-circular/value-text.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularBasicExampleCss}</Preview.CSS>
   
 </Preview>
 
-### Root Provider
+### Advanced Customization
+
+Bypass `ProgressCircular.Ring` when you need to alter the Ark circle tree or create the progress
+store outside the rendered subtree.
+
+#### Root Provider
 
 Create the Ark progress store outside the rendered tree when another component needs to own state.
 
@@ -192,11 +198,11 @@ Create the Ark progress store outside the rendered tree when another component n
   <include lang="tsx">./_snippets/progress-circular/root-provider.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularBasicExampleCss}</Preview.CSS>
   
 </Preview>
 
-### State Views
+#### State Views
 
 Use `ProgressCircular.View` when supporting text or UI should switch with the Ark progress state
 instead of duplicating state checks outside the component.
@@ -208,7 +214,7 @@ instead of duplicating state checks outside the component.
   <include lang="tsx">./_snippets/progress-circular/state-views.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{ProgressCircularDocs.progressCircularExampleCss}</Preview.CSS>
+  <Preview.CSS>{ProgressCircularDocs.progressCircularStateViewsExampleCss}</Preview.CSS>
   
 </Preview>
 
@@ -232,6 +238,8 @@ data attributes, Ark SVG variables, and moduix `data-slot` hooks.
 - `data-slot="progress-circular-root"`, `progress-circular-root-provider`,
   `progress-circular-label`, `progress-circular-circle`, `progress-circular-circle-track`,
   `progress-circular-circle-range`, `progress-circular-value-text`, and `progress-circular-view`.
+- `ProgressCircular.Ring` shares `ProgressCircular.Circle`'s `data-slot`, `className`, ref, and
+  `--progress-circular-*` size and thickness variables.
 - Ark hooks: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation`, `data-value`, and `data-max`.
 - Ark circle variables: `--size`, `--thickness`, `--radius`, `--circumference`, `--percent`, and

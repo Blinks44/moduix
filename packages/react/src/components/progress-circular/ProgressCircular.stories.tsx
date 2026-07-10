@@ -24,10 +24,7 @@ type Story = StoryObj<typeof meta>;
 function CircularParts() {
   return (
     <div className={styles.circleContainer}>
-      <ProgressCircular.Circle>
-        <ProgressCircular.CircleTrack />
-        <ProgressCircular.CircleRange />
-      </ProgressCircular.Circle>
+      <ProgressCircular.Ring />
       <ProgressCircular.ValueText />
     </div>
   );
