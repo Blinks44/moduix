@@ -1,5 +1,4 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { usePagination } from '@ark-ui/react/pagination';
 import { Pagination, Select } from '@moduix/react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
@@ -29,31 +28,39 @@ const pageSizes = createListCollection({
   ],
 });
 
-export const paginationExampleCss = `
+const paginationDemoCss = `
   .pagination-demo {
     display: flex;
     width: fit-content;
   }
+`;
 
+const paginationStackCss = `
   .pagination-stack {
     display: grid;
     gap: var(--spacing-3);
     justify-items: start;
   }
+`;
 
+const paginationRowCss = `
   .pagination-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--spacing-3);
   }
+`;
 
+const paginationMutedCss = `
   .pagination-muted {
     color: var(--color-muted-foreground);
     font-size: var(--text-sm);
     line-height: var(--line-height-text-sm);
   }
+`;
 
+const paginationDataSlicingLayoutCss = `
   .pagination-users {
     display: grid;
     gap: var(--spacing-2);
@@ -70,11 +77,35 @@ export const paginationExampleCss = `
     padding: var(--spacing-3);
     background: var(--color-muted);
   }
+`;
 
+const paginationPageSizeControlCss = `
   .pagination-page-size-select {
     --select-width: 5.5rem;
   }
 `;
+
+export const paginationBasicCss = paginationDemoCss;
+
+export const paginationAdvancedCustomizationCss = paginationDemoCss;
+
+export const paginationControlledCss = `${paginationDemoCss}${paginationStackCss}${paginationMutedCss}`;
+
+export const paginationContextCss = `${paginationRowCss}${paginationMutedCss}`;
+
+export const paginationDataSlicingCss = `${paginationStackCss}${paginationRowCss}${paginationMutedCss}${paginationDataSlicingLayoutCss}`;
+
+export const paginationLinkCss = paginationDemoCss;
+
+export const paginationPageRangeCss = `${paginationStackCss}${paginationRowCss}${paginationMutedCss}`;
+
+export const paginationPageSizeControlExampleCss = `${paginationStackCss}${paginationRowCss}${paginationMutedCss}${paginationPageSizeControlCss}`;
+
+export const paginationRootProviderCss = `${paginationDemoCss}${paginationStackCss}`;
+
+export const paginationTranslationsCss = paginationDemoCss;
+
+export const paginationWithEdgesCss = paginationDemoCss;
 
 export const paginationUsersData = `const users = [
   { id: 1, name: 'Emma Wilson', email: 'emma@example.com' },
@@ -146,24 +177,6 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function PaginationItems() {
-  return (
-    <Pagination.Context>
-      {(pagination) =>
-        pagination.pages.map((page, index) =>
-          page.type === 'page' ? (
-            <Pagination.Item key={index} {...page}>
-              {page.value}
-            </Pagination.Item>
-          ) : (
-            <Pagination.Ellipsis key={index} index={index} />
-          ),
-        )
-      }
-    </Pagination.Context>
-  );
-}
-
 function PaginationPageSizeSelect({
   pageSize,
   setPageSize,
@@ -216,7 +229,29 @@ export function PaginationExample() {
   return (
     <Pagination className="pagination-demo" count={200} pageSize={10} siblingCount={2}>
       <Pagination.PrevTrigger />
-      <PaginationItems />
+      <Pagination.Items />
+      <Pagination.NextTrigger />
+    </Pagination>
+  );
+}
+
+export function PaginationAdvancedCustomizationExample() {
+  return (
+    <Pagination className="pagination-demo" count={200} pageSize={10} siblingCount={2}>
+      <Pagination.PrevTrigger />
+      <Pagination.Context>
+        {(pagination) =>
+          pagination.pages.map((page, index) =>
+            page.type === 'page' ? (
+              <Pagination.Item key={index} {...page}>
+                Page {page.value}
+              </Pagination.Item>
+            ) : (
+              <Pagination.Ellipsis key={index} index={index} />
+            ),
+          )
+        }
+      </Pagination.Context>
       <Pagination.NextTrigger />
     </Pagination>
   );
@@ -236,7 +271,7 @@ export function PaginationControlledExample() {
         onPageChange={(details) => setPage(details.page)}
       >
         <Pagination.PrevTrigger />
-        <PaginationItems />
+        <Pagination.Items />
         <Pagination.NextTrigger />
       </Pagination>
       <p className="pagination-muted">Current page: {page}</p>
@@ -286,7 +321,7 @@ export function PaginationCustomizedExample() {
       }}
     >
       <Pagination.PrevTrigger />
-      <PaginationItems />
+      <Pagination.Items />
       <Pagination.NextTrigger />
     </Pagination>
   );
@@ -308,15 +343,7 @@ export function PaginationDataSlicingExample() {
             </div>
             <div className="pagination-row">
               <Pagination.PrevTrigger />
-              {pagination.pages.map((page, index) =>
-                page.type === 'page' ? (
-                  <Pagination.Item key={index} {...page}>
-                    {page.value}
-                  </Pagination.Item>
-                ) : (
-                  <Pagination.Ellipsis key={index} index={index} />
-                ),
-              )}
+              <Pagination.Items />
               <Pagination.NextTrigger />
             </div>
           </div>
@@ -337,7 +364,7 @@ export function PaginationLinkExample() {
       getPageUrl={(details) => `?page=${details.page}`}
     >
       <Pagination.PrevTrigger />
-      <PaginationItems />
+      <Pagination.Items />
       <Pagination.NextTrigger />
     </Pagination>
   );
@@ -351,15 +378,7 @@ export function PaginationPageRangeExample() {
           <div className="pagination-stack">
             <div className="pagination-row">
               <Pagination.PrevTrigger />
-              {pagination.pages.map((page, index) =>
-                page.type === 'page' ? (
-                  <Pagination.Item key={index} {...page}>
-                    {page.value}
-                  </Pagination.Item>
-                ) : (
-                  <Pagination.Ellipsis key={index} index={index} />
-                ),
-              )}
+              <Pagination.Items />
               <Pagination.NextTrigger />
             </div>
             <p className="pagination-muted">
@@ -387,15 +406,7 @@ export function PaginationPageSizeControlExample() {
             </div>
             <div className="pagination-row">
               <Pagination.PrevTrigger />
-              {pagination.pages.map((page, index) =>
-                page.type === 'page' ? (
-                  <Pagination.Item key={index} {...page}>
-                    {page.value}
-                  </Pagination.Item>
-                ) : (
-                  <Pagination.Ellipsis key={index} index={index} />
-                ),
-              )}
+              <Pagination.Items />
               <Pagination.NextTrigger />
             </div>
             <p className="pagination-muted">
@@ -409,7 +420,7 @@ export function PaginationPageSizeControlExample() {
 }
 
 export function PaginationRootProviderExample() {
-  const pagination = usePagination({ count: 200, pageSize: 10, siblingCount: 2 });
+  const pagination = Pagination.usePagination({ count: 200, pageSize: 10, siblingCount: 2 });
 
   return (
     <div className="pagination-stack">
@@ -418,7 +429,7 @@ export function PaginationRootProviderExample() {
       </button>
       <Pagination.RootProvider className="pagination-demo" value={pagination}>
         <Pagination.PrevTrigger />
-        <PaginationItems />
+        <Pagination.Items />
         <Pagination.NextTrigger />
       </Pagination.RootProvider>
     </div>
@@ -430,7 +441,7 @@ export function PaginationWithEdgesExample() {
     <Pagination className="pagination-demo" count={400} pageSize={20} siblingCount={2}>
       <Pagination.FirstTrigger />
       <Pagination.PrevTrigger />
-      <PaginationItems />
+      <Pagination.Items />
       <Pagination.NextTrigger />
       <Pagination.LastTrigger />
     </Pagination>

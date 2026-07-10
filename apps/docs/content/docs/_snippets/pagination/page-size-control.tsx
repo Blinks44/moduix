@@ -68,15 +68,7 @@ export function PaginationPageSizeControlDemo() {
             </div>
             <div className="pagination-row">
               <Pagination.PrevTrigger />
-              {pagination.pages.map((page, index) =>
-                page.type === 'page' ? (
-                  <Pagination.Item key={index} {...page}>
-                    {page.value}
-                  </Pagination.Item>
-                ) : (
-                  <Pagination.Ellipsis key={index} index={index} />
-                ),
-              )}
+              <Pagination.Items />
               <Pagination.NextTrigger />
             </div>
             <p className="pagination-muted">

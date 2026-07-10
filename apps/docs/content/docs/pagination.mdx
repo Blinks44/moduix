@@ -12,17 +12,17 @@ import * as PaginationDocs from '@/components/examples/pagination';
 
 ## Basic
 
-Use `Pagination` as the short root form for Ark `Pagination.Root`. Render page buttons from
-`Pagination.Context`, which exposes Ark's computed `pages` array.
+Use `Pagination` as the short root form for Ark `Pagination.Root`. `Pagination.Items` renders the
+computed page buttons and ellipses.
 
 <Preview>
   <PaginationDocs.PaginationExample />
 
-  <Preview.Code>
+<Preview.Code>
   <include lang="tsx">./_snippets/pagination/basic.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
-  
+<Preview.CSS>{PaginationDocs.paginationBasicCss}</Preview.CSS>
+
 </Preview>
 
 ## Install with shadcn
@@ -35,7 +35,8 @@ Use `Pagination` as the short root form for Ark `Pagination.Root`. Render page b
 Pagination.Root
 ├─ Pagination.FirstTrigger (optional)
 ├─ Pagination.PrevTrigger
-├─ Pagination.Context (optional render-prop access)
+├─ Pagination.Items (recommended)
+├─ Pagination.Context (advanced render-prop access)
 │  ├─ Pagination.Item
 │  └─ Pagination.Ellipsis
 ├─ Pagination.NextTrigger
@@ -45,17 +46,20 @@ Pagination.RootProvider
 └─ same trigger, item, ellipsis, and context tree connected to usePagination()
 ```
 
-| Part                             | Role                                                            |
-| -------------------------------- | --------------------------------------------------------------- |
-| `Pagination` / `Pagination.Root` | Navigation root that owns page and page-size state.             |
-| `Pagination.RootProvider`        | Connects parts to state created with `usePagination()`.         |
-| `Pagination.Context`             | Reads root state and helpers through an Ark render prop.        |
-| `Pagination.Item`                | Interactive page item. Receives `{ type: 'page', value }`.      |
-| `Pagination.Ellipsis`            | Non-interactive collapsed-range marker with a required `index`. |
-| `Pagination.PrevTrigger`         | Moves to the previous page and disables itself at the start.    |
-| `Pagination.NextTrigger`         | Moves to the next page and disables itself at the end.          |
-| `Pagination.FirstTrigger`        | Moves to the first page and disables itself at the start.       |
-| `Pagination.LastTrigger`         | Moves to the last page and disables itself at the end.          |
+| Part                              | Role                                                               |
+| --------------------------------- | ------------------------------------------------------------------ |
+| `Pagination` / `Pagination.Root`  | Navigation root that owns page and page-size state.                |
+| `Pagination.RootProvider`         | Connects parts to state created with `Pagination.usePagination()`. |
+| `Pagination.Items`                | Renders the standard computed page items and ellipses.             |
+| `Pagination.Context`              | Reads root state and helpers through an Ark render prop.           |
+| `Pagination.usePagination`        | Creates Ark pagination state outside the rendered root.            |
+| `Pagination.usePaginationContext` | Reads Ark pagination state from a descendant.                      |
+| `Pagination.Item`                 | Interactive page item. Receives `{ type: 'page', value }`.         |
+| `Pagination.Ellipsis`             | Non-interactive collapsed-range marker with a required `index`.    |
+| `Pagination.PrevTrigger`          | Moves to the previous page and disables itself at the start.       |
+| `Pagination.NextTrigger`          | Moves to the next page and disables itself at the end.             |
+| `Pagination.FirstTrigger`         | Moves to the first page and disables itself at the start.          |
+| `Pagination.LastTrigger`          | Moves to the last page and disables itself at the end.             |
 
 ## Composition
 
@@ -65,15 +69,16 @@ Pagination.RootProvider
 calculation, and accessible labels. Use `count` for the total number of data items, not the number
 of pages. Pair it with `pageSize` or `defaultPageSize` so Ark can calculate `totalPages`.
 
-`Pagination.Item` expects the page object returned by `pagination.pages`. Pass the object through
-with `{...page}` so Ark can set the correct selected state, labels, and event handlers.
+Use `Pagination.Items` for the standard page list. It renders the current Ark `pages` array with
+`Pagination.Item` and `Pagination.Ellipsis`, preserving their selected state, labels, and handlers.
 
 ### When to go custom
 
-Use `Pagination.Context` for inline reads. When state must be created outside the rendered
-pagination tree, import Ark `usePagination()` or `usePaginationContext()` directly and pair that
-state with `Pagination.RootProvider`. Set `type="link"` and provide `getPageUrl(details)` when
-pagination should render navigational links.
+Use `Pagination.Context` when page items or adjacent controls need custom rendering. When state
+must be created outside the rendered pagination tree, use `Pagination.usePagination()` with
+`Pagination.RootProvider`; use `Pagination.usePaginationContext()` from a descendant that needs the
+same state. Set `type="link"` and provide `getPageUrl(details)` when pagination should render
+navigational links.
 
 ### Default props
 
@@ -103,11 +108,11 @@ Control the active page with Ark's `page` and `onPageChange(details)` props.
 <Preview>
   <PaginationDocs.PaginationControlledExample />
 
-  <Preview.Code>
+<Preview.Code>
   <include lang="tsx">./_snippets/pagination/controlled.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
-  
+<Preview.CSS>{PaginationDocs.paginationControlledCss}</Preview.CSS>
+
 </Preview>
 
 ### Context
@@ -121,22 +126,7 @@ Use `Pagination.Context` when custom controls need access to page helpers such a
   <Preview.Code>
   <include lang="tsx">./_snippets/pagination/context.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Customized
-
-Use `translations` for accessible labels and adjust the computed window with `siblingCount`,
-`boundaryCount`, and page-size props.
-
-<Preview>
-  <PaginationDocs.PaginationCustomizedExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/pagination/customized.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  <Preview.CSS>{PaginationDocs.paginationContextCss}</Preview.CSS>
   
 </Preview>
 
@@ -151,7 +141,7 @@ of an array.
   <Preview.Code>
   <include lang="tsx">./_snippets/pagination/data-slicing.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  <Preview.CSS>{PaginationDocs.paginationDataSlicingCss}</Preview.CSS>
   
 </Preview>
 
@@ -165,7 +155,7 @@ Use `type="link"` with `getPageUrl(details)` when page changes should be real na
   <Preview.Code>
   <include lang="tsx">./_snippets/pagination/link.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  <Preview.CSS>{PaginationDocs.paginationLinkCss}</Preview.CSS>
   
 </Preview>
 
@@ -179,7 +169,7 @@ Use `pagination.pageRange` when nearby UI should describe the visible item range
   <Preview.Code>
   <include lang="tsx">./_snippets/pagination/page-range.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  <Preview.CSS>{PaginationDocs.paginationPageRangeCss}</Preview.CSS>
   
 </Preview>
 
@@ -193,14 +183,14 @@ Call `pagination.setPageSize(nextSize)` from context to let a separate control u
   <Preview.Code>
   <include lang="tsx">./_snippets/pagination/page-size-control.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  <Preview.CSS>{PaginationDocs.paginationPageSizeControlExampleCss}</Preview.CSS>
   
 </Preview>
 
 ### Root Provider
 
-Use Ark `usePagination()` with `Pagination.RootProvider` when state needs to be owned outside the
-rendered root.
+Use `Pagination.usePagination()` with `Pagination.RootProvider` when state needs to be owned
+outside the rendered root.
 
 <Preview>
   <PaginationDocs.PaginationRootProviderExample />
@@ -208,8 +198,23 @@ rendered root.
   <Preview.Code>
   <include lang="tsx">./_snippets/pagination/root-provider.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
+  <Preview.CSS>{PaginationDocs.paginationRootProviderCss}</Preview.CSS>
   
+</Preview>
+
+### Translations
+
+Use `translations` for accessible labels and adjust the computed window with `siblingCount`,
+`boundaryCount`, and page-size props.
+
+<Preview>
+  <PaginationDocs.PaginationCustomizedExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/pagination/customized.tsx#demo</include>
+</Preview.Code>
+<Preview.CSS>{PaginationDocs.paginationTranslationsCss}</Preview.CSS>
+
 </Preview>
 
 ### With Edges
@@ -219,11 +224,26 @@ Add `FirstTrigger` and `LastTrigger` when users need explicit jumps to the first
 <Preview>
   <PaginationDocs.PaginationWithEdgesExample />
 
-  <Preview.Code>
+<Preview.Code>
   <include lang="tsx">./_snippets/pagination/with-edges.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{PaginationDocs.paginationExampleCss}</Preview.CSS>
-  
+<Preview.CSS>{PaginationDocs.paginationWithEdgesCss}</Preview.CSS>
+
+</Preview>
+
+### Advanced Customization
+
+Bypass `Pagination.Items` when page buttons or ellipses need custom content; pass each page object
+to `Pagination.Item` unchanged so Ark retains its state and accessibility behavior.
+
+<Preview>
+  <PaginationDocs.PaginationAdvancedCustomizationExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/pagination/advanced-customization.tsx#demo</include>
+</Preview.Code>
+<Preview.CSS>{PaginationDocs.paginationAdvancedCustomizationCss}</Preview.CSS>
+
 </Preview>
 
 ## Styling

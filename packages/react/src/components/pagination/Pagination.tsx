@@ -1,5 +1,9 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Pagination as PaginationPrimitive } from '@ark-ui/react/pagination';
+import {
+  Pagination as PaginationPrimitive,
+  usePagination,
+  usePaginationContext,
+} from '@ark-ui/react/pagination';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
@@ -162,6 +166,24 @@ const PaginationLastTrigger = forwardRef<
 
 const PaginationContext = PaginationPrimitive.Context;
 
+function PaginationItems() {
+  return (
+    <PaginationContext>
+      {(pagination) =>
+        pagination.pages.map((page, index) =>
+          page.type === 'page' ? (
+            <PaginationItem key={index} {...page}>
+              {page.value}
+            </PaginationItem>
+          ) : (
+            <PaginationEllipsis key={index} index={index} />
+          ),
+        )
+      }
+    </PaginationContext>
+  );
+}
+
 const Pagination = Object.assign(PaginationRoot, {
   Root: PaginationRoot,
   RootProvider: PaginationRootProvider,
@@ -172,6 +194,9 @@ const Pagination = Object.assign(PaginationRoot, {
   FirstTrigger: PaginationFirstTrigger,
   LastTrigger: PaginationLastTrigger,
   Context: PaginationContext,
+  Items: PaginationItems,
+  usePagination,
+  usePaginationContext,
 });
 
 export { Pagination };

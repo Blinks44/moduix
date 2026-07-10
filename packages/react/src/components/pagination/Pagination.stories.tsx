@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { usePagination } from '@ark-ui/react/pagination';
 import { useState, type CSSProperties } from 'react';
 import { Pagination } from './Pagination';
 
@@ -9,24 +8,6 @@ type PaginationStoryArgs = {
   pageSize?: number;
   siblingCount?: number;
 };
-
-function PaginationItems() {
-  return (
-    <Pagination.Context>
-      {(pagination) =>
-        pagination.pages.map((page, index) =>
-          page.type === 'page' ? (
-            <Pagination.Item key={index} {...page}>
-              {page.value}
-            </Pagination.Item>
-          ) : (
-            <Pagination.Ellipsis key={index} index={index} />
-          ),
-        )
-      }
-    </Pagination.Context>
-  );
-}
 
 function PaginationPreview({
   count = 200,
@@ -42,7 +23,7 @@ function PaginationPreview({
       siblingCount={siblingCount}
     >
       <Pagination.PrevTrigger />
-      <PaginationItems />
+      <Pagination.Items />
       <Pagination.NextTrigger />
     </Pagination>
   );
@@ -97,7 +78,7 @@ export const Controlled: Story = {
         onPageChange={(details) => setPage(details.page)}
       >
         <Pagination.PrevTrigger />
-        <PaginationItems />
+        <Pagination.Items />
         <Pagination.NextTrigger />
       </Pagination>
     );
@@ -109,7 +90,7 @@ export const WithEdges: Story = {
     <Pagination count={400} pageSize={20} siblingCount={2}>
       <Pagination.FirstTrigger />
       <Pagination.PrevTrigger />
-      <PaginationItems />
+      <Pagination.Items />
       <Pagination.NextTrigger />
       <Pagination.LastTrigger />
     </Pagination>
@@ -118,7 +99,7 @@ export const WithEdges: Story = {
 
 export const RootProvider: Story = {
   render: () => {
-    const pagination = usePagination({ count: 200, pageSize: 10, siblingCount: 2 });
+    const pagination = Pagination.usePagination({ count: 200, pageSize: 10, siblingCount: 2 });
 
     return (
       <div style={{ display: 'grid', gap: 'var(--spacing-3)', justifyItems: 'center' }}>
@@ -127,7 +108,7 @@ export const RootProvider: Story = {
         </button>
         <Pagination.RootProvider value={pagination}>
           <Pagination.PrevTrigger />
-          <PaginationItems />
+          <Pagination.Items />
           <Pagination.NextTrigger />
         </Pagination.RootProvider>
       </div>
@@ -151,7 +132,7 @@ export const CustomStyles: Story = {
       }
     >
       <Pagination.PrevTrigger />
-      <PaginationItems />
+      <Pagination.Items />
       <Pagination.NextTrigger />
     </Pagination>
   ),
