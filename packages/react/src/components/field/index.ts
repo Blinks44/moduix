@@ -1,1 +1,1 @@
-export { Field } from './Field';
+export { Field, useField } from './Field';

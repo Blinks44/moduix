@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useField } from '@ark-ui/react/field';
 import { useState } from 'react';
 import { Checkbox } from '../checkbox';
 import { RadioGroup } from '../radio-group';
-import { Field } from './Field';
+import { Field, useField } from './Field';
 
 const meta = {
   title: 'Components/Field',

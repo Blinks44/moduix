@@ -94,10 +94,6 @@
     resize: vertical;
   }
 
-  .select {
-    appearance: none;
-  }
-
   .errorText {
     margin: 0;
     color: var(--field-error-color, var(--color-destructive));
