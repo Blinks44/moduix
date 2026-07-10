@@ -28,7 +28,8 @@ and provider/context APIs without remapping them.
 - `Trigger` and `CloseTrigger` receive moduix control styling only when `asChild` is not used.
 - `CloseIcon` composes `CloseTrigger` with the shared close button and pins it to the content corner.
 - `Arrow` renders the styled `ArrowTip` by default.
-- `Header`, `Body`, and `Footer` are plain layout helpers.
+- `Header`, `Body`, and `Footer` are plain layout helpers. `Header` reserves space for `CloseIcon`
+  only when that helper is present.
 
 ## Anatomy and exported parts
 
@@ -107,7 +108,8 @@ the Ark part.
 
 - Basic explicit composition, `asChild`, controlled state, context reads, arrow, placement, close
   behavior, lazy mounting, modal mode, initial focus, custom anchor, same-width positioning, dialog
-  layering, nested popovers, and multiple trigger values are supported.
+  layering, nested popovers, and multiple trigger values are supported. Nested popovers render inline
+  with `portalled={false}` to stay within their parent overlay.
 - External state uses `usePopover` with `Popover.RootProvider`; do not render `Root` for that same
   state instance.
 - `lazyMount`, `unmountOnExit`, `present`, `skipAnimationOnMount`, `ids`, `portalled`,
@@ -168,6 +170,8 @@ runtime available-size and reference-size variables rather than duplicate measur
 
 ## Local changelog
 
+- 2026-07-10: Nested examples now render inline, `Header` reserves close-icon space only when needed,
+  and the public CSS-variable reference includes the `CloseIcon` styling contract.
 - 2026-07-05: Added `Popover.CloseIcon` and documented the close-icon plus layout-helper popup composition path.
 - 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider` and
   `usePopover` and removed moduix re-exports for Ark context APIs and duplicate type aliases.

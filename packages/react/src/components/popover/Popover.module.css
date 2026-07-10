@@ -99,6 +99,12 @@
     &[data-state='closed'] {
       animation: popover-exit var(--popover-transition, var(--duration-fast)) both;
     }
+
+    &:has(.closeIcon) {
+      .header {
+        padding-inline-end: var(--popover-header-padding-inline-end-effective);
+      }
+    }
   }
 
   .arrow {
@@ -148,7 +154,6 @@
   .header {
     display: grid;
     gap: var(--popover-header-gap, var(--spacing-1));
-    padding-inline-end: var(--popover-header-padding-inline-end-effective);
   }
 
   .body {

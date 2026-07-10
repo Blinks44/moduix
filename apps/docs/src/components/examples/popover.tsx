@@ -29,6 +29,19 @@ export const popoverOverrideCssProperties: CssPropertyInput[] = [
   ['--popover-control-padding-x', '0.875rem', 'Controls horizontal control padding.'],
   ['--popover-control-padding-y', '0.5rem', 'Controls vertical control padding.'],
   ['--popover-control-radius', 'var(--radius-md)', 'Controls control radius.'],
+  ['--popover-close-icon-bg', 'transparent', 'Controls close icon background.'],
+  ['--popover-close-icon-bg-hover', 'var(--color-accent)', 'Controls close icon hover background.'],
+  ['--popover-close-icon-color', 'var(--color-muted-foreground)', 'Controls close icon color.'],
+  [
+    '--popover-close-icon-color-hover',
+    'var(--popover-color, var(--color-popover-foreground))',
+    'Controls close icon hover color.',
+  ],
+  ['--popover-close-icon-focus-ring-color', 'var(--color-ring)', 'Controls close icon focus ring.'],
+  ['--popover-close-icon-glyph-size', '0.875rem', 'Controls close icon glyph size.'],
+  ['--popover-close-icon-offset', 'var(--spacing-3)', 'Controls close icon offset.'],
+  ['--popover-close-icon-radius', 'var(--radius-sm)', 'Controls close icon radius.'],
+  ['--popover-close-icon-size', '1.75rem', 'Controls close icon size.'],
   ['--popover-content-ending-opacity', '0', 'Controls exit opacity.'],
   ['--popover-content-ending-scale', 'var(--scale-popup)', 'Controls exit scale.'],
   ['--popover-content-ending-translate-x', '0', 'Controls exit horizontal offset.'],
@@ -48,6 +61,11 @@ export const popoverOverrideCssProperties: CssPropertyInput[] = [
   ['--popover-footer-justify', 'flex-end', 'Controls footer alignment.'],
   ['--popover-footer-margin', 'var(--spacing-3) 0 0', 'Controls footer margin.'],
   ['--popover-header-gap', 'var(--spacing-1)', 'Controls header spacing.'],
+  [
+    '--popover-header-padding-inline-end',
+    'calc(var(--popover-close-icon-size) + var(--popover-close-icon-offset))',
+    'Controls header space reserved when CloseIcon is present.',
+  ],
   ['--popover-height', 'auto', 'Controls content height.'],
   ['--popover-max-height', '24rem', 'Controls content max height.'],
   ['--popover-max-width', '28rem', 'Controls content max width.'],
@@ -315,7 +333,7 @@ export function NestedPopoverExample() {
             <Popover.Description>Nested popovers keep independent state.</Popover.Description>
           </Popover.Header>
           <Popover.Body className={styles.nestedBody}>
-            <Popover positioning={{ placement: 'right', gutter: 8 }}>
+            <Popover portalled={false} positioning={{ placement: 'right', gutter: 8 }}>
               <Popover.Trigger asChild>
                 <Button variant="outline">Advanced</Button>
               </Popover.Trigger>
@@ -325,6 +343,30 @@ export function NestedPopoverExample() {
               />
             </Popover>
           </Popover.Body>
+        </Popover.Content>
+      </Popover.Positioner>
+    </Popover>
+  );
+}
+
+export function AdvancedCustomizationPopoverExample() {
+  return (
+    <Popover positioning={{ gutter: 8 }}>
+      <Popover.Trigger asChild>
+        <Button>Open custom popover</Button>
+      </Popover.Trigger>
+      <Popover.Positioner>
+        <Popover.Content>
+          <Popover.Arrow className={styles.customArrow}>
+            <Popover.ArrowTip />
+          </Popover.Arrow>
+          <div className={styles.customHeader}>
+            <Popover.Title>Custom layout</Popover.Title>
+            <Popover.CloseIcon />
+          </div>
+          <Popover.Description>
+            Compose Ark parts directly when the layout helpers do not fit your content.
+          </Popover.Description>
         </Popover.Content>
       </Popover.Positioner>
     </Popover>

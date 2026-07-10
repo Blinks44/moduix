@@ -58,6 +58,17 @@
   margin-top: var(--spacing-3);
 }
 
+.customArrow {
+  --arrow-background: var(--color-accent);
+}
+
+.customHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+}
+
 .customContent {
   --popover-bg: var(--color-primary);
   --popover-color: var(--color-primary-foreground);
