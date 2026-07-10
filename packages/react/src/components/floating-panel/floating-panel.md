@@ -29,8 +29,8 @@ presence lifecycle, and `RootProvider` support without remapping callback detail
   `onSizeChangeEnd`, and `onStageChange` receive Ark detail objects unchanged.
 - `Trigger`, `Positioner`, `Content`, `DragTrigger`, `Header`, `Title`, `Control`,
   `StageTrigger`, `CloseTrigger`, `Body`, and `ResizeTrigger` map directly to Ark parts.
-- `StageTrigger` supplies default minimize and maximize icons when children are omitted on the
-  default Ark button host.
+- `StageTrigger` supplies default minimize, maximize, and restore icons when children are omitted
+  on the default Ark button host. Ark only shows restore while the panel is minimized or maximized.
 - `CloseIcon`, `DragIndicator`, `Footer`, and `ResizeTriggerGroup` are moduix helpers layered on
   top of Ark composition.
 - `ResizeTriggerGroup` renders all Ark `resizeTriggerAxes` by default or a caller-provided subset.
@@ -149,7 +149,8 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
 
 - `FloatingPanel.CloseIcon` composes Ark `CloseTrigger` with the shared `CloseButton`.
 - `FloatingPanel.StageTrigger` renders the shared `MinusIcon` and `MaximizeIcon` by default for the
-  `minimized` and `maximized` stages when it renders Ark's default button host.
+  `minimized` and `maximized` stages, and `RestoreIcon` for the `default` stage, when it renders
+  Ark's default button host.
 - `FloatingPanel.DragIndicator` renders the shared grip icon for title/header composition.
 - `FloatingPanel.Footer` is a plain layout helper for status rows or action groups below the body.
 - `FloatingPanel.ResizeTriggerGroup` renders all Ark resize handles from `resizeTriggerAxes` by
@@ -175,7 +176,8 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
 ## Local changelog
 
 - 2026-07-10: Re-exported Ark state surfaces through `FloatingPanel`, added `ResizeTriggerGroup.axes`,
-  defaulted `closeOnEscape` on `Root`, and made the docs use the moduix state API as the recommended path.
+  defaulted `closeOnEscape` on `Root`, added the default restore control, and made the docs use the
+  moduix state API as the recommended path.
 - 2026-07-05: Added `FloatingPanel.Footer` so panel layouts can expose a consistent bottom action or status row without hiding Ark parts.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 

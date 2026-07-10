@@ -83,10 +83,10 @@ The root portals `Positioner` automatically. Use `portalled={false}` for inline 
 Use `FloatingPanel.Root` for state and behavior. Render `Positioner` and `Content` explicitly, then
 place `DragTrigger` around the header so pointer movement starts from a predictable region.
 
-Use `StageTrigger` with `stage="minimized"` and `stage="maximized"` for the built-in icon buttons.
-Render your own child for `stage="default"` when you need an explicit restore control. When
-`asChild` is set on a trigger or control, provide a single semantic child; default Moduix icons are
-only added for the default Ark button host.
+Use `StageTrigger` with `stage="minimized"`, `stage="maximized"`, and `stage="default"` for the
+built-in minimize, maximize, and restore icon buttons. Ark hides the restore control until the panel
+is minimized or maximized. When `asChild` is set on a trigger or control, provide a single semantic
+child; default Moduix icons are only added for the default Ark button host.
 
 ### When to go custom
 

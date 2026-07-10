@@ -25,6 +25,7 @@ export function ControlledSizeDemo() {
               <FloatingPanel.Control>
                 <FloatingPanel.StageTrigger stage="minimized" />
                 <FloatingPanel.StageTrigger stage="maximized" />
+                <FloatingPanel.StageTrigger stage="default" />
                 <FloatingPanel.CloseIcon />
               </FloatingPanel.Control>
             </FloatingPanel.Header>

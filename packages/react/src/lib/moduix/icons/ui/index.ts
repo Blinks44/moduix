@@ -17,6 +17,7 @@ export {
   GripIcon,
   IndeterminateIcon,
   RestartIcon,
+  RestoreIcon,
   MaximizeIcon,
   MinusIcon,
   PauseIcon,
