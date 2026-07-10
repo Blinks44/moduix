@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useDialog, useDialogContext } from '@ark-ui/react/dialog';
-import { Button, Dialog } from '@moduix/react';
+import { Button, Dialog, useDialog, useDialogContext } from '@moduix/react';
 
 function DialogStatusText() {
   const dialog = useDialogContext();

@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useDialog } from '@ark-ui/react/dialog';
-import { Button, Dialog } from '@moduix/react';
+import { Button, Dialog, useDialog } from '@moduix/react';
 import { useState } from 'react';
 
 export function ConfirmationDialogDemo() {

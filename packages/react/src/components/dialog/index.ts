@@ -1,2 +1,2 @@
-export { Dialog } from './Dialog';
+export { Dialog, useDialog, useDialogContext } from './Dialog';
 export type { DialogRootProps, DialogRootProviderProps } from './Dialog';

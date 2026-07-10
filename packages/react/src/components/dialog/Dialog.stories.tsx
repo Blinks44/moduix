@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useDialog, useDialogContext } from '@ark-ui/react/dialog';
 import { useRef, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import { Button } from '../button';
 import { ScrollArea } from '../scroll-area';
-import { Dialog } from './Dialog';
+import { Dialog, useDialog, useDialogContext } from './Dialog';
 import storyStyles from './Dialog.stories.module.css';
 
 const meta = {
