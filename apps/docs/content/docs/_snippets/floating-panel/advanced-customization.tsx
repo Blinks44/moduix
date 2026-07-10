@@ -3,11 +3,7 @@
 
 import { Button, FloatingPanel } from '@moduix/react';
 
-const defaultSize = {
-  width: 360,
-  height: 260,
-};
-export function ContextFloatingPanelDemo() {
+export function AdvancedCustomizationFloatingPanelDemo() {
   return (
     <FloatingPanel
       defaultSize={{
@@ -16,34 +12,24 @@ export function ContextFloatingPanelDemo() {
       }}
     >
       <FloatingPanel.Trigger asChild>
-        <Button>Open context panel</Button>
+        <Button>Open custom panel</Button>
       </FloatingPanel.Trigger>
-      <FloatingPanel.Context>
-        {(panel) => (
-          <span>
-            open: {String(panel.open)}, dragging: {String(panel.dragging)}
-          </span>
-        )}
-      </FloatingPanel.Context>
       <FloatingPanel.Positioner>
         <FloatingPanel.Content>
           <FloatingPanel.DragTrigger>
             <FloatingPanel.Header>
-              <FloatingPanel.Title>
-                <FloatingPanel.DragIndicator />
-                Context state
-              </FloatingPanel.Title>
+              <FloatingPanel.Title>Custom resize handles</FloatingPanel.Title>
               <FloatingPanel.Control>
-                <FloatingPanel.StageTrigger stage="minimized" />
-                <FloatingPanel.StageTrigger stage="maximized" />
                 <FloatingPanel.CloseIcon />
               </FloatingPanel.Control>
             </FloatingPanel.Header>
           </FloatingPanel.DragTrigger>
           <FloatingPanel.Body>
-            FloatingPanel.Context exposes the panel API to descendants.
+            Only the right, bottom, and bottom-right handles are rendered in this composition.
           </FloatingPanel.Body>
-          <FloatingPanel.ResizeTriggerGroup />
+          <FloatingPanel.ResizeTrigger axis="e" />
+          <FloatingPanel.ResizeTrigger axis="s" />
+          <FloatingPanel.ResizeTrigger axis="se" />
         </FloatingPanel.Content>
       </FloatingPanel.Positioner>
     </FloatingPanel>

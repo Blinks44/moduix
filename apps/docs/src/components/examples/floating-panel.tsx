@@ -1,4 +1,3 @@
-import { FloatingPanel as ArkFloatingPanel, useFloatingPanel } from '@ark-ui/react/floating-panel';
 import { Button, FloatingPanel } from '@moduix/react';
 import { useState, type ReactNode } from 'react';
 import type { CssPropertyInput } from '../preview';
@@ -110,11 +109,13 @@ export function FloatingPanelCssPropertiesPanel() {
 }
 
 function FloatingPanelSurface({
+  autoFocus,
   title,
   children,
   className,
   footer,
 }: {
+  autoFocus?: boolean;
   title: string;
   children?: ReactNode;
   className?: string;
@@ -122,7 +123,7 @@ function FloatingPanelSurface({
 }) {
   return (
     <FloatingPanel.Positioner>
-      <FloatingPanel.Content className={className}>
+      <FloatingPanel.Content autoFocus={autoFocus} className={className}>
         <FloatingPanel.DragTrigger>
           <FloatingPanel.Header>
             <FloatingPanel.Title>
@@ -150,10 +151,7 @@ export function FloatingPanelExample() {
       <FloatingPanel.Trigger asChild>
         <Button>Open panel</Button>
       </FloatingPanel.Trigger>
-      <FloatingPanelSurface
-        title="Inspector"
-        footer="Esc closes the panel without hiding the resize handles."
-      >
+      <FloatingPanelSurface title="Inspector" footer="Resize from any edge.">
         <div className={styles.bodyStack}>
           <p>Drag the header to move this panel and resize it from any edge.</p>
           <div className={styles.metricGrid}>
@@ -238,6 +236,23 @@ export function ControlledSizeFloatingPanelExample() {
   );
 }
 
+export function EscapeDismissFloatingPanelExample() {
+  return (
+    <FloatingPanel defaultSize={DEFAULT_SIZE}>
+      <FloatingPanel.Trigger asChild>
+        <Button>Open panel</Button>
+      </FloatingPanel.Trigger>
+      <FloatingPanelSurface
+        autoFocus
+        title="Escape dismiss"
+        footer="Esc closes the focused topmost panel."
+      >
+        <p>The content receives focus on open so Escape dismisses the panel immediately.</p>
+      </FloatingPanelSurface>
+    </FloatingPanel>
+  );
+}
+
 export function AnchorPositionFloatingPanelExample() {
   return (
     <FloatingPanel
@@ -260,6 +275,34 @@ export function AnchorPositionFloatingPanelExample() {
   );
 }
 
+export function AdvancedCustomizationFloatingPanelExample() {
+  return (
+    <FloatingPanel defaultSize={DEFAULT_SIZE}>
+      <FloatingPanel.Trigger asChild>
+        <Button>Open custom panel</Button>
+      </FloatingPanel.Trigger>
+      <FloatingPanel.Positioner>
+        <FloatingPanel.Content>
+          <FloatingPanel.DragTrigger>
+            <FloatingPanel.Header>
+              <FloatingPanel.Title>Custom resize handles</FloatingPanel.Title>
+              <FloatingPanel.Control>
+                <FloatingPanel.CloseIcon />
+              </FloatingPanel.Control>
+            </FloatingPanel.Header>
+          </FloatingPanel.DragTrigger>
+          <FloatingPanel.Body>
+            Only the right, bottom, and bottom-right handles are rendered in this composition.
+          </FloatingPanel.Body>
+          <FloatingPanel.ResizeTrigger axis="e" />
+          <FloatingPanel.ResizeTrigger axis="s" />
+          <FloatingPanel.ResizeTrigger axis="se" />
+        </FloatingPanel.Content>
+      </FloatingPanel.Positioner>
+    </FloatingPanel>
+  );
+}
+
 export function ContextFloatingPanelExample() {
   return (
     <FloatingPanel defaultSize={DEFAULT_SIZE}>
@@ -267,13 +310,13 @@ export function ContextFloatingPanelExample() {
         <FloatingPanel.Trigger asChild>
           <Button>Open context panel</Button>
         </FloatingPanel.Trigger>
-        <ArkFloatingPanel.Context>
+        <FloatingPanel.Context>
           {(panel) => (
             <span className={styles.status}>
               open: {String(panel.open)}, dragging: {String(panel.dragging)}
             </span>
           )}
-        </ArkFloatingPanel.Context>
+        </FloatingPanel.Context>
       </div>
       <FloatingPanelSurface title="Context state">
         <p>Ark FloatingPanel.Context exposes the panel API to descendants.</p>
@@ -283,7 +326,7 @@ export function ContextFloatingPanelExample() {
 }
 
 export function RootProviderFloatingPanelExample() {
-  const panel = useFloatingPanel({ defaultSize: DEFAULT_SIZE, persistRect: true });
+  const panel = FloatingPanel.useFloatingPanel({ defaultSize: DEFAULT_SIZE, persistRect: true });
 
   return (
     <div className={styles.stack}>

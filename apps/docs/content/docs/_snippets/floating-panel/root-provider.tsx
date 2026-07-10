@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useFloatingPanel } from '@ark-ui/react/floating-panel';
 import { Button, FloatingPanel } from '@moduix/react';
 
 const defaultSize = {
@@ -9,7 +8,7 @@ const defaultSize = {
   height: 260,
 };
 export function RootProviderFloatingPanelDemo() {
-  const panel = useFloatingPanel({
+  const panel = FloatingPanel.useFloatingPanel({
     defaultSize: {
       width: 360,
       height: 260,

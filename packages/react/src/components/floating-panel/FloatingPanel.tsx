@@ -1,6 +1,10 @@
-import type { FloatingPanelResizeTriggerAxis } from '@ark-ui/react/floating-panel';
 import type { ComponentProps, ComponentRef } from 'react';
-import { FloatingPanel as FloatingPanelPrimitive } from '@ark-ui/react/floating-panel';
+import {
+  FloatingPanel as FloatingPanelPrimitive,
+  useFloatingPanel,
+  useFloatingPanelContext,
+  type FloatingPanelResizeTriggerAxis,
+} from '@ark-ui/react/floating-panel';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { GripIcon, MaximizeIcon, MinusIcon } from '@/lib/moduix/icons/ui';
@@ -33,6 +37,7 @@ type FloatingPanelRootProviderProps = ComponentProps<typeof FloatingPanelPrimiti
   OverlayPortalProps;
 
 function FloatingPanelRoot({
+  closeOnEscape = true,
   persistRect = true,
   portalled,
   portalRef,
@@ -40,7 +45,11 @@ function FloatingPanelRoot({
 }: FloatingPanelRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <FloatingPanelPrimitive.Root persistRect={persistRect} {...props} />
+      <FloatingPanelPrimitive.Root
+        closeOnEscape={closeOnEscape}
+        persistRect={persistRect}
+        {...props}
+      />
     </OverlayPortalProvider>
   );
 }
@@ -260,10 +269,14 @@ const FloatingPanelResizeTrigger = forwardRef<
   );
 });
 
-function FloatingPanelResizeTriggerGroup() {
+function FloatingPanelResizeTriggerGroup({
+  axes = resizeTriggerAxes,
+}: {
+  axes?: readonly FloatingPanelResizeTriggerAxis[];
+}) {
   return (
     <>
-      {resizeTriggerAxes.map((axis) => (
+      {axes.map((axis) => (
         <FloatingPanelResizeTrigger key={axis} axis={axis} />
       ))}
     </>
@@ -287,6 +300,7 @@ const FloatingPanelDragIndicator = forwardRef<HTMLSpanElement, ComponentProps<'s
 );
 
 const FloatingPanel = Object.assign(FloatingPanelRoot, {
+  Context: FloatingPanelPrimitive.Context,
   Root: FloatingPanelRoot,
   RootProvider: FloatingPanelRootProvider,
   Trigger: FloatingPanelTrigger,
@@ -304,6 +318,8 @@ const FloatingPanel = Object.assign(FloatingPanelRoot, {
   ResizeTrigger: FloatingPanelResizeTrigger,
   ResizeTriggerGroup: FloatingPanelResizeTriggerGroup,
   DragIndicator: FloatingPanelDragIndicator,
+  useFloatingPanel,
+  useFloatingPanelContext,
 });
 
 export { FloatingPanel, resizeTriggerAxes };

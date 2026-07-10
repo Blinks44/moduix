@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { FloatingPanel as ArkFloatingPanel, useFloatingPanel } from '@ark-ui/react/floating-panel';
 import { useState, type ReactNode } from 'react';
 import { Button } from '../button';
 import { FloatingPanel } from './FloatingPanel';
@@ -22,11 +21,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 function FloatingPanelSurface({
+  autoFocus,
   footer,
   title,
   children,
   className,
 }: {
+  autoFocus?: boolean;
   footer?: ReactNode;
   title: string;
   children?: ReactNode;
@@ -34,7 +35,7 @@ function FloatingPanelSurface({
 }) {
   return (
     <FloatingPanel.Positioner>
-      <FloatingPanel.Content className={className}>
+      <FloatingPanel.Content autoFocus={autoFocus} className={className}>
         <FloatingPanel.DragTrigger>
           <FloatingPanel.Header>
             <FloatingPanel.Title>
@@ -159,6 +160,24 @@ export const ControlledSize: Story = {
   },
 };
 
+export const EscapeDismiss: Story = {
+  name: 'Escape Dismiss',
+  render: () => (
+    <FloatingPanel defaultSize={DEFAULT_SIZE}>
+      <FloatingPanel.Trigger asChild>
+        <Button>Open panel</Button>
+      </FloatingPanel.Trigger>
+      <FloatingPanelSurface
+        autoFocus
+        title="Escape dismiss"
+        footer="Esc closes the focused topmost panel."
+      >
+        <p>The content receives focus on open so Escape dismisses the panel immediately.</p>
+      </FloatingPanelSurface>
+    </FloatingPanel>
+  ),
+};
+
 export const AnchorPosition: Story = {
   name: 'Anchor Position',
   render: () => (
@@ -189,16 +208,16 @@ export const Context: Story = {
         <FloatingPanel.Trigger asChild>
           <Button>Open context panel</Button>
         </FloatingPanel.Trigger>
-        <ArkFloatingPanel.Context>
+        <FloatingPanel.Context>
           {(panel) => (
             <span className={storyStyles.status}>
               open: {String(panel.open)}, dragging: {String(panel.dragging)}
             </span>
           )}
-        </ArkFloatingPanel.Context>
+        </FloatingPanel.Context>
       </div>
       <FloatingPanelSurface title="Context state">
-        <p>Ark FloatingPanel.Context exposes the panel API to descendants.</p>
+        <p>FloatingPanel.Context exposes the panel API to descendants.</p>
       </FloatingPanelSurface>
     </FloatingPanel>
   ),
@@ -207,7 +226,7 @@ export const Context: Story = {
 export const RootProvider: Story = {
   name: 'Root Provider',
   render: () => {
-    const panel = useFloatingPanel({ defaultSize: DEFAULT_SIZE, persistRect: true });
+    const panel = FloatingPanel.useFloatingPanel({ defaultSize: DEFAULT_SIZE, persistRect: true });
 
     return (
       <div className={storyStyles.stack}>
@@ -222,7 +241,7 @@ export const RootProvider: Story = {
         </div>
         <FloatingPanel.RootProvider value={panel}>
           <FloatingPanelSurface title="Root provider">
-            <p>Ark useFloatingPanel owns the panel state outside the rendered part tree.</p>
+            <p>FloatingPanel.useFloatingPanel owns state outside the rendered panel tree.</p>
           </FloatingPanelSurface>
         </FloatingPanel.RootProvider>
       </div>

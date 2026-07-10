@@ -23,8 +23,8 @@ presence lifecycle, and `RootProvider` support without remapping callback detail
 
 - `FloatingPanel` and `FloatingPanel.Root` are the same root component.
 - `Root` owns `open`, `position`, `size`, and stage transitions unless a controlled prop is passed.
-- `Root` defaults `persistRect` to `true` so close animations keep the last size and position
-  during Ark presence teardown.
+- `Root` defaults `closeOnEscape` and `persistRect` to `true`. Escape closes the focused topmost
+  panel, while `persistRect` keeps the last size and position during Ark presence teardown.
 - `onOpenChange`, `onPositionChange`, `onPositionChangeEnd`, `onSizeChange`,
   `onSizeChangeEnd`, and `onStageChange` receive Ark detail objects unchanged.
 - `Trigger`, `Positioner`, `Content`, `DragTrigger`, `Header`, `Title`, `Control`,
@@ -33,7 +33,7 @@ presence lifecycle, and `RootProvider` support without remapping callback detail
   default Ark button host.
 - `CloseIcon`, `DragIndicator`, `Footer`, and `ResizeTriggerGroup` are moduix helpers layered on
   top of Ark composition.
-- `ResizeTriggerGroup` renders all Ark `resizeTriggerAxes`.
+- `ResizeTriggerGroup` renders all Ark `resizeTriggerAxes` by default or a caller-provided subset.
 
 ## Anatomy and exported parts
 
@@ -60,9 +60,9 @@ Every rendered wrapper adds a stable kebab-case `data-slot`, for example
 `floating-panel-content`, `floating-panel-stage-trigger`, and
 `floating-panel-resize-trigger`. The internal portal transport does not render a DOM element.
 
-`FloatingPanel.RootProvider` stays public for externally owned Ark state. Import Ark
-`FloatingPanel.Context`, `useFloatingPanel`, and `useFloatingPanelContext` directly from
-`@ark-ui/react/floating-panel` when advanced workflows need them.
+`FloatingPanel.RootProvider` stays public for externally owned state. `FloatingPanel.Context`,
+`FloatingPanel.useFloatingPanel`, and `FloatingPanel.useFloatingPanelContext` provide the Ark state
+surfaces through the moduix namespace.
 
 ## Composition
 
@@ -107,14 +107,14 @@ and accessible name.
 ## Upstream feature coverage
 
 - Basic detached panel composition, controlled open state, controlled position, controlled size,
-  anchor-derived initial position, Ark context render-prop access, Ark `useFloatingPanel`,
+  anchor-derived initial position, context render-prop access, `FloatingPanel.useFloatingPanel`,
   `RootProvider`, lazy mounting, and exit lifecycle props are supported.
 - Dragging, resizing, `minSize`, `maxSize`, `lockAspectRatio`, `gridSize`, `allowOverflow`,
-  `getBoundaryEl`, `draggable`, `resizable`, `disabled`, `persistRect`, `strategy`, `ids`,
+  `getBoundaryEl`, `draggable`, `resizable`, `disabled`, `closeOnEscape`, `persistRect`, `strategy`, `ids`,
   `translations`, `present`, `lazyMount`, and `unmountOnExit` pass through Ark unchanged.
 - Stage transitions use Ark stage values: `default`, `minimized`, and `maximized`.
-- `ResizeTrigger` requires an Ark axis. `ResizeTriggerGroup` is only a convenience for rendering all
-  axes.
+- `ResizeTrigger` requires an Ark axis. `ResizeTriggerGroup` renders all axes by default or a subset
+  through `axes`.
 
 ## Accessibility and state
 
@@ -152,11 +152,15 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
   `minimized` and `maximized` stages when it renders Ark's default button host.
 - `FloatingPanel.DragIndicator` renders the shared grip icon for title/header composition.
 - `FloatingPanel.Footer` is a plain layout helper for status rows or action groups below the body.
-- `FloatingPanel.ResizeTriggerGroup` renders all Ark resize handles from `resizeTriggerAxes`.
-- moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
-  aliases.
-- Consumers using Ark `useFloatingPanel` directly should pass `persistRect: true` when they want
-  the same close-animation behavior as the moduix root default.
+- `FloatingPanel.ResizeTriggerGroup` renders all Ark resize handles from `resizeTriggerAxes` by
+  default; pass `axes` to render a subset.
+- `FloatingPanel.Context`, `FloatingPanel.useFloatingPanel`, and
+  `FloatingPanel.useFloatingPanelContext` expose Ark state surfaces through the moduix namespace.
+- `FloatingPanel.useFloatingPanel` callers should pass `persistRect: true` when they want the same
+  close-animation behavior as the moduix root default.
+- `FloatingPanel.useFloatingPanel` callers should also pass `closeOnEscape: true` when they want the
+  root default. Escape is handled by the focused topmost `Content`; use `autoFocus` when it should
+  receive focus on open.
 - No custom state adapters, modal behavior, backdrop, synthetic restore icon, or renamed Ark
   callbacks are added.
 
@@ -170,9 +174,9 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
 
 ## Local changelog
 
+- 2026-07-10: Re-exported Ark state surfaces through `FloatingPanel`, added `ResizeTriggerGroup.axes`,
+  defaulted `closeOnEscape` on `Root`, and made the docs use the moduix state API as the recommended path.
 - 2026-07-05: Added `FloatingPanel.Footer` so panel layouts can expose a consistent bottom action or status row without hiding Ark parts.
-- 2026-07-02: Removed duplicate Ark context, hook, and type exports from the moduix surface. Kept `RootProvider`,
-  visual helper parts, and the existing stage/control sugar.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-25: Preserved `StageTrigger asChild` semantics by limiting default icons to the default
