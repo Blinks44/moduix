@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Drawer as DrawerPrimitive } from '@ark-ui/react/drawer';
+import { Drawer as DrawerPrimitive, useDrawer } from '@ark-ui/react/drawer';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -280,4 +280,4 @@ const Drawer = Object.assign(DrawerRoot, {
   Footer: DrawerFooter,
 });
 
-export { Drawer };
+export { Drawer, useDrawer };

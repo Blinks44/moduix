@@ -95,10 +95,10 @@ Callbacks preserve Ark detail objects:
 
 ### When to go custom
 
-Apply `className` directly to any exported part. For externally owned state or advanced context
-access, import `useDrawer`, `useDrawerContext`, and related Ark helpers directly from
-`@ark-ui/react/drawer`, then pair that state with moduix `Drawer.RootProvider`. Do not combine
-`Drawer.Root` and `Drawer.RootProvider` for the same instance.
+Apply `className` directly to any exported part. For externally owned state, import `useDrawer`
+from `@moduix/react` and pair that state with `Drawer.RootProvider`. Do not combine `Drawer.Root`
+and `Drawer.RootProvider` for the same instance. Other Ark context helpers remain direct-import
+escape hatches when needed.
 
 Wrap coordinated indent surfaces in `Drawer.Stack`, then render `Drawer.IndentBackground` and
 `Drawer.Indent`.
@@ -142,20 +142,37 @@ Wrap coordinated indent surfaces in `Drawer.Stack`, then render `Drawer.IndentBa
 
 ## Examples
 
-### Swipe Direction
+### Controlled
 
-Use logical `start` and `end` values for side drawers so the same code works in LTR and RTL.
+Read `details.open` from the Ark callback instead of expecting a boolean callback argument.
 
 <Preview>
-  <DrawerDocs.SwipeDirectionDrawerExample />
+  <DrawerDocs.ControlledDrawerExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/drawer/controlled.tsx#demo</include>
+</Preview.Code>
+<Preview.CSS>{`.controlled-drawer { --drawer-width: min(100%, 48rem); }`}</Preview.CSS>
+
+</Preview>
+
+### Drag Controls
+
+Combine `draggable={false}` and `data-no-drag` when only the grabber should move the drawer and
+specific interactive regions must never start a drag.
+
+<Preview>
+  <DrawerDocs.DragControlsDrawerExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/drawer/swipe-direction.tsx#demo</include>
+  <include lang="tsx">./_snippets/drawer/drag-controls.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>
     {`
-      .side-drawer {
-        --drawer-side-width: 26rem;
+      .no-drag-area {
+        padding: 1rem;
+        border: 1px dashed var(--color-border);
+        border-radius: var(--radius-md);
       }
     `}
 
@@ -163,17 +180,81 @@ Use logical `start` and `end` values for side drawers so the same code works in 
   
 </Preview>
 
-### Snap Points
+### Indent Background
 
-Define intermediate positions on the root and choose the initial position with `defaultSnapPoint`.
+`Drawer.Stack` coordinates `IndentBackground` and `Indent` using Ark stack state and swipe
+progress.
 
 <Preview>
-  <DrawerDocs.SnapPointsDrawerExample />
+  <DrawerDocs.IndentDrawerExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/drawer/snap-points.tsx#demo</include>
+  <include lang="tsx">./_snippets/drawer/indent-background.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{`.snap-drawer { --drawer-max-height: 100dvh; }`}</Preview.CSS>
+  <Preview.CSS>
+    {`
+      .indent-stage {
+        position: relative;
+        min-height: 22rem;
+        overflow: hidden;
+        background: var(--color-foreground);
+      }
+
+      .indent-surface {
+        display: grid;
+        min-height: 22rem;
+        place-items: center;
+        background: var(--color-background);
+      }
+    `}
+
+  </Preview.CSS>
+  
+</Preview>
+
+### Multiple Triggers
+
+Assign each trigger a `value` to share one drawer across a list. The callback identifies which
+trigger is current.
+
+<Preview>
+  <DrawerDocs.MultipleTriggersDrawerExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/drawer/multiple-triggers.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{`.trigger-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }`}</Preview.CSS>
+  
+</Preview>
+
+### Nested
+
+Render nested drawers with separate Ark `useDrawer` instances and moduix `Drawer.RootProvider`
+trees so each surface keeps its own open state and focus lifecycle. The parent surface recedes
+behind the active drawer while leaving a visible edge.
+
+<Preview>
+  <DrawerDocs.NestedDrawerExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/drawer/nested.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>
+    {`
+      .nested-demo {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .nested-list {
+        display: grid;
+        gap: 0.5rem;
+        margin: 0;
+        padding-inline-start: 1rem;
+      }
+    `}
+
+  </Preview.CSS>
   
 </Preview>
 
@@ -191,17 +272,31 @@ Set `modal={false}` when the page must remain interactive while the drawer is op
   
 </Preview>
 
-### Controlled
+### Root Provider
 
-Read `details.open` from the Ark callback instead of expecting a boolean callback argument.
+Use the moduix `useDrawer` export when buttons outside the component tree must open the drawer or
+change snap points.
 
 <Preview>
-  <DrawerDocs.ControlledDrawerExample />
+  <DrawerDocs.RootProviderDrawerExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/drawer/controlled.tsx#demo</include>
+  <include lang="tsx">./_snippets/drawer/root-provider.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{`.controlled-drawer { --drawer-width: min(100%, 48rem); }`}</Preview.CSS>
+  <Preview.CSS>
+    {`
+      .provider-demo {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .provider-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+    `}
+
+  </Preview.CSS>
   
 </Preview>
 
@@ -244,23 +339,34 @@ scroll container while the grabber and header stay fixed.
   
 </Preview>
 
-### Drag Controls
+### Snap Points
 
-Combine `draggable={false}` and `data-no-drag` when only the grabber should move the drawer and
-specific interactive regions must never start a drag.
+Define intermediate positions on the root and choose the initial position with `defaultSnapPoint`.
 
 <Preview>
-  <DrawerDocs.DragControlsDrawerExample />
+  <DrawerDocs.SnapPointsDrawerExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/drawer/snap-points.tsx#demo</include>
+</Preview.Code>
+<Preview.CSS>{`.snap-drawer { --drawer-max-height: 100dvh; }`}</Preview.CSS>
+
+</Preview>
+
+### Swipe Direction
+
+Use logical `start` and `end` values for side drawers so the same code works in LTR and RTL.
+
+<Preview>
+  <DrawerDocs.SwipeDirectionDrawerExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/drawer/drag-controls.tsx#demo</include>
+  <include lang="tsx">./_snippets/drawer/swipe-direction.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>
     {`
-      .no-drag-area {
-        padding: 1rem;
-        border: 1px dashed var(--color-border);
-        border-radius: var(--radius-md);
+      .side-drawer {
+        --drawer-side-width: 26rem;
       }
     `}
 
@@ -268,110 +374,17 @@ specific interactive regions must never start a drag.
   
 </Preview>
 
-### Multiple Triggers
+### Advanced Customization
 
-Assign each trigger a `value` to share one drawer across a list. The callback identifies which
-trigger is current.
-
-<Preview>
-  <DrawerDocs.MultipleTriggersDrawerExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/drawer/multiple-triggers.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{`.trigger-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }`}</Preview.CSS>
-  
-</Preview>
-
-### Root Provider
-
-Use `useDrawer` when buttons outside the component tree must open the drawer or change snap
-points.
+Bypass the optional `Header`, `Body`, `Footer`, and `CloseIcon` helpers when a custom layout needs
+the full low-level Drawer anatomy.
 
 <Preview>
-  <DrawerDocs.RootProviderDrawerExample />
+  <DrawerDocs.AdvancedCustomizationDrawerExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/drawer/root-provider.tsx#demo</include>
+  <include lang="tsx">./_snippets/drawer/advanced-customization.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>
-    {`
-      .provider-demo {
-        display: grid;
-        gap: 1rem;
-      }
-
-      .provider-actions {
-        display: flex;
-        gap: 0.5rem;
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
-### Nested
-
-Render nested drawers with separate Ark `useDrawer` instances and moduix `Drawer.RootProvider`
-trees so each surface keeps its own open state and focus lifecycle. The parent surface recedes
-behind the active drawer while leaving a visible edge.
-
-<Preview>
-  <DrawerDocs.NestedDrawerExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/drawer/nested.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      .nested-demo {
-        display: grid;
-        gap: 1rem;
-      }
-
-      .nested-list {
-        display: grid;
-        gap: 0.5rem;
-        margin: 0;
-        padding-inline-start: 1rem;
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
-### Indent Background
-
-`Drawer.Stack` coordinates `IndentBackground` and `Indent` using Ark stack state and swipe
-progress.
-
-<Preview>
-  <DrawerDocs.IndentDrawerExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/drawer/indent-background.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      .indent-stage {
-        position: relative;
-        min-height: 22rem;
-        overflow: hidden;
-        background: var(--color-foreground);
-      }
-
-      .indent-surface {
-        display: grid;
-        min-height: 22rem;
-        place-items: center;
-        background: var(--color-background);
-      }
-    `}
-
-  </Preview.CSS>
-  
 </Preview>
 
 ## Styling
