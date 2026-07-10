@@ -101,15 +101,38 @@ an accessible name only when the standalone composition itself needs grouped sem
 
 ## Examples
 
-### With Action
+### Disabled
 
-Use a grouped button for an action tied to the native input value.
+Disabled state remains on the native input. Disable related actions explicitly when they should
+also become unavailable.
 
 <Preview>
-  <InputGroupDocs.InputGroupWithActionExample />
+  <InputGroupDocs.DisabledInputGroupExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/input-group/with-action.tsx#demo</include>
+  <include lang="tsx">./_snippets/input-group/disabled.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      [data-slot="input-group-root"] {
+        width: min(16rem, 100%);
+      }
+    `}
+</Preview.CSS>
+
+</Preview>
+
+### Field State
+
+Set invalid state on `Field`; Ark applies the state and ARIA contract to `InputGroup.Input`, and the
+shell reacts to that input state.
+
+<Preview>
+  <InputGroupDocs.InputGroupFieldValidationExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/input-group/field-state.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>
@@ -143,50 +166,6 @@ Mix a filled addon with plain text when the two sides have different visual weig
 
 </Preview>
 
-### Field State
-
-Set invalid state on `Field`; Ark applies the state and ARIA contract to `InputGroup.Input`, and the
-shell reacts to that input state.
-
-<Preview>
-  <InputGroupDocs.InputGroupFieldValidationExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/input-group/field-state.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .input-group-demo-field {
-        width: min(16rem, 100%);
-      }
-    `}
-</Preview.CSS>
-
-</Preview>
-
-### Disabled
-
-Disabled state remains on the native input. Disable related actions explicitly when they should
-also become unavailable.
-
-<Preview>
-  <InputGroupDocs.DisabledInputGroupExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/input-group/disabled.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      [data-slot="input-group-root"] {
-        width: min(16rem, 100%);
-      }
-    `}
-</Preview.CSS>
-
-</Preview>
-
 ### Sizes
 
 Set size once on the root so the input, addon, text, and button stay aligned.
@@ -210,10 +189,31 @@ Set size once on the root so the input, addon, text, and button stay aligned.
 
 </Preview>
 
-### As Child
+### With Action
+
+Use a grouped button for an action tied to the native input value.
+
+<Preview>
+  <InputGroupDocs.InputGroupWithActionExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/input-group/with-action.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .input-group-demo-field {
+        width: min(16rem, 100%);
+      }
+    `}
+</Preview.CSS>
+
+</Preview>
+
+### Advanced Customization
 
 Use `asChild` when the root must render a custom container while keeping the grouped styling and
-size context.
+size context. This bypasses the default `div`, so the child must remain a semantic layout container.
 
 <Preview>
   <InputGroupDocs.InputGroupAsChildExample />

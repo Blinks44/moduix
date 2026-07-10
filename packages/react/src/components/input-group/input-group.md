@@ -101,7 +101,8 @@ should stay focused on ordinary input composition with addons, text, and actions
 - The nested input keeps Ark Field input state attributes and the grouped `input-group-input` slot.
 - The grouped button keeps Button behavior while exposing the grouped `input-group-button` slot.
 - Root visuals derive invalid, disabled, and read-only state from the nested input with `:has(...)`.
-- Buttons retain native keyboard behavior and default to `type="button"`.
+- Buttons retain native keyboard behavior and default to `type="button"`. They do not inherit the
+  disabled state from `Field`; disable each action explicitly when it should be unavailable.
 
 ## Defaults and styling
 
@@ -127,6 +128,8 @@ should stay focused on ordinary input composition with addons, text, and actions
 
 ## Local changelog
 
+- 2026-07-10: Clarified that actions remain independently enabled in disabled fields and added
+  disabled/read-only story coverage for the shared shell states.
 - 2026-07-03: Simplified the public surface to the `InputGroup.*` namespace API and removed
   duplicate standalone part exports and prop aliases.
 - 2026-06-25: Added `InputGroup.Root` and namespace part aliases, aligned factory data attributes,

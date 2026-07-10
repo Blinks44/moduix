@@ -115,11 +115,29 @@ export const Sizes: Story = {
 export const Disabled: Story = {
   render: () => {
     return (
-      <InputGroup className={storyStyles.group} role="group" aria-label="Workspace handle">
-        <InputGroup.Addon>@</InputGroup.Addon>
-        <InputGroup.Input disabled value="maps" />
-        <InputGroup.Button disabled>Copy</InputGroup.Button>
-      </InputGroup>
+      <Field className={storyStyles.field} disabled>
+        <Field.Label>Workspace handle</Field.Label>
+        <InputGroup>
+          <InputGroup.Addon>@</InputGroup.Addon>
+          <InputGroup.Input value="maps" />
+          <InputGroup.Button disabled>Copy</InputGroup.Button>
+        </InputGroup>
+      </Field>
+    );
+  },
+};
+
+export const ReadOnly: Story = {
+  render: () => {
+    return (
+      <Field className={storyStyles.field} readOnly>
+        <Field.Label>Workspace handle</Field.Label>
+        <InputGroup>
+          <InputGroup.Addon>@</InputGroup.Addon>
+          <InputGroup.Input value="maps" />
+          <InputGroup.Button>Copy</InputGroup.Button>
+        </InputGroup>
+      </Field>
     );
   },
 };
