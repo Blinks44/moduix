@@ -81,22 +81,20 @@ reset. For ranges, render indexed `DateInput.Segments` and hidden inputs for eac
 
 ### When to go custom
 
-Pass `segmentClassName` to `DateInput.Segments` when every generated segment needs the same custom
-class. Use `DateInput.SegmentGroup`, Ark `DateInputSegmentContext`, and `DateInput.Segment` directly
-when segment rendering needs to vary per segment.
+Use `DateInput.SegmentGroup`, Ark `DateInputSegmentContext`, and `DateInput.Segment` directly when
+segment classes or rendering need to vary per segment.
 Use `asChild` on Ark parts when you need a custom host element. Keep the child semantic and single.
 Use `ids` when an external label, helper text, or another component must share exact IDs.
 
 ### Default props
 
-| Prop                                  | Default        | Notes                                                 |
-| ------------------------------------- | -------------- | ----------------------------------------------------- |
-| `DateInput` / `DateInput.Root`        | —              | No local behavioral defaults; Ark defaults apply.     |
-| `DateInput.Segments`                  | —              | Renders the locale-aware segment group for one index. |
-| `DateInput.Segments.segmentClassName` | —              | Adds a class to each generated segment.               |
-| `DateInput.HiddenInput`               | —              | Explicit, so single and range form names stay clear.  |
-| `DateInput.Separator.aria-hidden`     | `true`         | Presentational text is hidden from assistive tech.    |
-| `DateInput.Separator.role`            | `presentation` | Keeps range separators out of the accessibility tree. |
+| Prop                              | Default        | Notes                                                 |
+| --------------------------------- | -------------- | ----------------------------------------------------- |
+| `DateInput` / `DateInput.Root`    | —              | No local behavioral defaults; Ark defaults apply.     |
+| `DateInput.Segments`              | —              | Renders the locale-aware segment group for one index. |
+| `DateInput.HiddenInput`           | —              | Explicit, so single and range form names stay clear.  |
+| `DateInput.Separator.aria-hidden` | `true`         | Presentational text is hidden from assistive tech.    |
+| `DateInput.Separator.role`        | `presentation` | Keeps range separators out of the accessibility tree. |
 
 ### Behavioral notes
 
@@ -240,7 +238,7 @@ rendered root tree.
 ### Advanced Customization
 
 Use the full segment composition when segment rendering needs to vary by Ark segment data.
-`DateInput.Segments` remains the default path for standard rendering and shared segment classes.
+`DateInput.Segments` remains the default path for standard rendering.
 
 <Preview>
   <DateInputDocs.AdvancedCustomizationDateInputExample />
@@ -276,7 +274,6 @@ Most styling changes start with `--date-input-width`, `--date-input-control-widt
 - `data-slot="date-input-control"` on the visual frame.
 - `data-slot="date-input-segment-group"` on each date group.
 - `data-slot="date-input-segment"` on editable and literal segments.
-- `DateInput.Segments` accepts `segmentClassName` for shared segment styling.
 - `data-slot="date-input-hidden-input"` on the hidden native input.
 - `data-slot="date-input-separator"` on moduix range separator sugar.
 - Ark state attributes include `data-disabled`, `data-readonly`, `data-invalid`, `data-focus` on

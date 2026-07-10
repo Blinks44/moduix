@@ -110,11 +110,31 @@ const PasswordInputIndicator = forwardRef<
   );
 });
 
+type PasswordInputFieldProps = Omit<
+  ComponentProps<typeof PasswordInputControl>,
+  'asChild' | 'children'
+>;
+
+const PasswordInputField = forwardRef<
+  ComponentRef<typeof PasswordInputPrimitive.Control>,
+  PasswordInputFieldProps
+>(function PasswordInputField(props, ref) {
+  return (
+    <PasswordInputControl ref={ref} {...props}>
+      <PasswordInputInput />
+      <PasswordInputVisibilityTrigger>
+        <PasswordInputIndicator />
+      </PasswordInputVisibilityTrigger>
+    </PasswordInputControl>
+  );
+});
+
 const PasswordInput = Object.assign(PasswordInputRoot, {
   Root: PasswordInputRoot,
   RootProvider: PasswordInputRootProvider,
   Label: PasswordInputLabel,
   Control: PasswordInputControl,
+  Field: PasswordInputField,
   Input: PasswordInputInput,
   VisibilityTrigger: PasswordInputVisibilityTrigger,
   Indicator: PasswordInputIndicator,

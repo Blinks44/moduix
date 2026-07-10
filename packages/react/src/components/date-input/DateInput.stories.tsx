@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { type DateInputDateValue, useDateInput } from '@ark-ui/react/date-input';
+import {
+  type DateInputDateValue,
+  DateInputSegmentContext,
+  useDateInput,
+} from '@ark-ui/react/date-input';
 import { CalendarDate, CalendarDateTime, today } from '@internationalized/date';
 import { useState } from 'react';
 import { Field } from '../field';
@@ -164,7 +168,13 @@ export const CustomStyling: Story = {
     <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]}>
       <DateInput.Label>Styled date</DateInput.Label>
       <DateInput.Control className={storyStyles.customControl}>
-        <DateInput.Segments segmentClassName={storyStyles.customSegment} />
+        <DateInput.SegmentGroup>
+          <DateInputSegmentContext>
+            {(segment) => (
+              <DateInput.Segment segment={segment} className={storyStyles.customSegment} />
+            )}
+          </DateInputSegmentContext>
+        </DateInput.SegmentGroup>
       </DateInput.Control>
       <DateInput.HiddenInput />
     </DateInput>

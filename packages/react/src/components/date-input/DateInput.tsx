@@ -91,14 +91,12 @@ const DateInputSegment = forwardRef<
 
 const DateInputSegments = forwardRef<
   ComponentRef<typeof DateInputPrimitive.SegmentGroup>,
-  ComponentProps<typeof DateInputPrimitive.SegmentGroup> & {
-    segmentClassName?: string;
-  }
->(function DateInputSegments({ segmentClassName, ...props }, ref) {
+  Omit<ComponentProps<typeof DateInputPrimitive.SegmentGroup>, 'asChild' | 'children'>
+>(function DateInputSegments(props, ref) {
   return (
     <DateInputSegmentGroup ref={ref} {...props}>
       <DateInputSegmentContext>
-        {(segment) => <DateInputSegment segment={segment} className={segmentClassName} />}
+        {(segment) => <DateInputSegment segment={segment} />}
       </DateInputSegmentContext>
     </DateInputSegmentGroup>
   );

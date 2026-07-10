@@ -53,11 +53,15 @@ that ecosystem.
 - Look for small sugar that removes repeated boilerplate while keeping low-level composition intact.
   Good examples from this session: `DateInput.Segments`, `DatePicker.Field`,
   `DatePicker.RangeField`, and `DatePicker.DayTable`.
-- Keep sugar stylable for npm consumers: accept `className` where useful, expose targeted slot props
-  when sugar renders nested parts, preserve data attributes, CSS variables, and predictable class hooks.
+- Keep sugar stylable for npm consumers: accept `className` where useful and preserve data
+  attributes, CSS variables, and predictable class hooks.
+- Avoid nested prop bags such as `inputProps` or `triggerProps` by default. Add one only when the
+  structure is truly fixed, consumers repeatedly need a small static subset of nested props, and
+  explicit composition would not be clearer. Otherwise make the convenience part fixed and direct
+  consumers to the exported lower-level parts for advanced composition.
 - Model sugar styling after `DateInput`: convenience parts may assemble lower-level anatomy, but each
-  meaningful nested part still needs an intentional styling path through `className`, slot props,
-  data attributes, CSS variables, or exported lower-level composition.
+  meaningful nested part still needs an intentional styling path through `className`, data
+  attributes, CSS variables, or exported lower-level composition.
 - Avoid god components and opaque bundles such as a single prop-heavy component that hides portal,
   positioning, content, parsing, focus, or date math behind configuration.
 - Prefer moduix-owned exports for common advanced surfaces. If docs/stories need context, item

@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-DateInput: add `DateInput.Segments` sugar and document the advanced segment composition path.
+Add fixed `DateInput.Segments` and `PasswordInput.Field` helpers with explicit advanced composition paths.

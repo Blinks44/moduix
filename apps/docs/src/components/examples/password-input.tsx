@@ -182,12 +182,7 @@ export function PasswordInputExample(props: ComponentProps<typeof PasswordInput>
   return (
     <PasswordInput autoComplete="current-password" {...props}>
       <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Control>
-        <PasswordInput.Input placeholder="Enter your password" />
-        <PasswordInput.VisibilityTrigger>
-          <PasswordInput.Indicator />
-        </PasswordInput.VisibilityTrigger>
-      </PasswordInput.Control>
+      <PasswordInput.Field />
     </PasswordInput>
   );
 }
@@ -325,6 +320,20 @@ export function PasswordInputValidationExample() {
           {isValid ? 'Password is valid.' : 'Password must be at least 8 characters.'}
         </p>
       ) : null}
+    </PasswordInput>
+  );
+}
+
+export function PasswordInputAdvancedCustomizationExample() {
+  return (
+    <PasswordInput>
+      <PasswordInput.Label>Password</PasswordInput.Label>
+      <PasswordInput.Control>
+        <PasswordInput.Input placeholder="Enter your password" />
+        <PasswordInput.VisibilityTrigger>
+          <PasswordInput.Indicator />
+        </PasswordInput.VisibilityTrigger>
+      </PasswordInput.Control>
     </PasswordInput>
   );
 }

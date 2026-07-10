@@ -27,8 +27,8 @@ strings or local callback shapes in the wrapper.
 - `DateInput` is the short root form and maps to `DateInput.Root`.
 - Advanced hooks, renderless context helpers, and Ark type aliases are imported directly from
   `@ark-ui/react/date-input`.
-- `DateInput.Segments` is the recommended convenience part for rendering locale-aware segments
-  inside a `DateInput.Control`; pass `segmentClassName` to style each generated segment.
+- `DateInput.Segments` is the recommended fixed convenience part for rendering locale-aware segments
+  inside a `DateInput.Control`.
 - `DateInputSegmentContext` from `@ark-ui/react/date-input` remains the advanced customization path
   for custom segment rendering inside a `DateInput.SegmentGroup`.
 - `DateInput.HiddenInput` is explicit so consumers choose form names for single or range inputs.
@@ -92,9 +92,8 @@ For ranges, set `selectionMode="range"` and render indexed `DateInput.Segments` 
 `DateInput.HiddenInput` pairs. Use `DateInput.RootProvider` only with state created by Ark
 `useDateInput()`; do not also render `DateInput.Root` for the same state instance.
 
-Pass `segmentClassName` to `DateInput.Segments` when every generated segment needs the same custom
-class. Use `DateInput.SegmentGroup`, Ark `DateInputSegmentContext`, and `DateInput.Segment` directly
-when segment rendering needs to vary per segment.
+Use `DateInput.SegmentGroup`, Ark `DateInputSegmentContext`, and `DateInput.Segment` directly when
+segment classes or rendering need to vary per segment.
 
 ## Upstream feature coverage
 
@@ -162,8 +161,8 @@ Public styling hooks:
 
 `DateInput.Segments` is local sugar for the standard locale-aware segment group. It keeps the Ark
 segment order and state while removing repeated `DateInputSegmentContext` boilerplate from the
-common path. Its `className` styles the generated segment group, and `segmentClassName` styles each
-generated segment. `DateInput.Separator` renders a presentational span for text such as `to` between
+common path. Its `className` styles the generated segment group; use explicit parts when segment
+styling differs. `DateInput.Separator` renders a presentational span for text such as `to` between
 range segment groups. The wrapper keeps `RootProvider`, but does not re-export Ark hooks, renderless
 context helpers, or Ark type aliases. Import those directly from `@ark-ui/react/date-input` when
 needed. The wrapper does not add date-picker popovers, calendar buttons, string parsing, segment
@@ -181,11 +180,12 @@ shortcuts, or local event aliases.
 
 ## Local changelog
 
+- 2026-07-10: Made `DateInput.Segments` a fixed convenience part; use explicit Ark segments for
+  per-segment styling.
 - 2026-07-09: Renamed the full low-level segment rendering docs example to Advanced Customization
   to match the repo-wide docs convention for examples that bypass recommended sugar.
-- 2026-07-08: Added `DateInput.Segments` as the default segment rendering sugar with
-  `segmentClassName`, updated the recommended composition, and made the root/control width default
-  to `100%`.
+- 2026-07-08: Added `DateInput.Segments` as the default segment rendering sugar and made the
+  root/control width default to `100%`.
 - 2026-07-02: Simplified the public surface to match other Ark wrappers by keeping `RootProvider`
   and all visual parts, preserving `Separator`, and moving Ark hooks, renderless context helpers,
   and type aliases back to direct upstream imports.
