@@ -1,5 +1,4 @@
-import { useNumberInput } from '@ark-ui/react/number-input';
-import { ChevronDownIcon, ChevronUpIcon, Field, NumberInput } from '@moduix/react';
+import { ChevronDownIcon, ChevronUpIcon, Field, NumberInput, useNumberInput } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -8,14 +7,16 @@ const centeredExampleStyle = {
   width: 'fit-content',
 } as const;
 
-export const numberInputExampleCss = `
+export const numberInputControlledCss = `
   .number-input-state {
     margin-top: var(--spacing-3);
     color: var(--color-muted-foreground);
     font-size: var(--text-sm);
     line-height: var(--line-height-text-sm);
   }
+`;
 
+export const numberInputRootProviderCss = `
   .number-input-root-provider-actions {
     display: flex;
     gap: var(--spacing-2);
@@ -29,7 +30,9 @@ export const numberInputExampleCss = `
     background: var(--color-background);
     color: var(--color-foreground);
   }
+`;
 
+export const numberInputAdvancedCustomizationCss = `
   .number-input-custom-button {
     --number-input-button-bg: var(--color-muted);
     --number-input-button-bg-hover: var(--color-accent);
@@ -221,11 +224,7 @@ export function NumberInputExample(props: ComponentProps<typeof NumberInput>) {
     <div style={centeredExampleStyle}>
       <NumberInput defaultValue="100" {...props}>
         <NumberInput.Label>Amount</NumberInput.Label>
-        <NumberInput.Control>
-          <NumberInput.DecrementTrigger />
-          <NumberInput.Input />
-          <NumberInput.IncrementTrigger />
-        </NumberInput.Control>
+        <NumberInput.Field />
       </NumberInput>
     </div>
   );
@@ -238,11 +237,7 @@ export function ControlledNumberInputExample() {
     <div>
       <NumberInput value={value} onValueChange={(details) => setValue(details.value)}>
         <NumberInput.Label>Controlled value</NumberInput.Label>
-        <NumberInput.Control>
-          <NumberInput.DecrementTrigger />
-          <NumberInput.Input />
-          <NumberInput.IncrementTrigger />
-        </NumberInput.Control>
+        <NumberInput.Field />
       </NumberInput>
       <div className="number-input-state">Current value: {value || 'empty'}</div>
     </div>
@@ -254,11 +249,7 @@ export function MinMaxNumberInputExample() {
     <div style={centeredExampleStyle}>
       <NumberInput defaultValue="10" min={0} max={20} step={2}>
         <NumberInput.Label>Quantity (0-20, step 2)</NumberInput.Label>
-        <NumberInput.Control>
-          <NumberInput.DecrementTrigger />
-          <NumberInput.Input />
-          <NumberInput.IncrementTrigger />
-        </NumberInput.Control>
+        <NumberInput.Field />
       </NumberInput>
     </div>
   );
@@ -273,11 +264,7 @@ export function FractionDigitsNumberInputExample() {
         formatOptions={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }}
       >
         <NumberInput.Label>Hours</NumberInput.Label>
-        <NumberInput.Control>
-          <NumberInput.DecrementTrigger />
-          <NumberInput.Input />
-          <NumberInput.IncrementTrigger />
-        </NumberInput.Control>
+        <NumberInput.Field />
       </NumberInput>
     </div>
   );
@@ -288,12 +275,8 @@ export function NumberInputScrubberExample() {
     <div style={centeredExampleStyle}>
       <NumberInput defaultValue="250">
         <NumberInput.Label>Drag to scrub</NumberInput.Label>
-        <NumberInput.Control>
-          <NumberInput.Scrubber>Drag</NumberInput.Scrubber>
-          <NumberInput.DecrementTrigger />
-          <NumberInput.Input />
-          <NumberInput.IncrementTrigger />
-        </NumberInput.Control>
+        <NumberInput.Scrubber>Drag</NumberInput.Scrubber>
+        <NumberInput.Field />
       </NumberInput>
     </div>
   );
@@ -304,11 +287,7 @@ export function MouseWheelNumberInputExample() {
     <div style={centeredExampleStyle}>
       <NumberInput defaultValue="5" allowMouseWheel>
         <NumberInput.Label>Mouse wheel enabled</NumberInput.Label>
-        <NumberInput.Control>
-          <NumberInput.DecrementTrigger />
-          <NumberInput.Input />
-          <NumberInput.IncrementTrigger />
-        </NumberInput.Control>
+        <NumberInput.Field />
       </NumberInput>
     </div>
   );
@@ -324,11 +303,7 @@ export function FormattedNumberInputExample() {
         formatOptions={{ style: 'currency', currency: 'USD', maximumFractionDigits: 0 }}
       >
         <NumberInput.Label>Price</NumberInput.Label>
-        <NumberInput.Control>
-          <NumberInput.DecrementTrigger />
-          <NumberInput.Input />
-          <NumberInput.IncrementTrigger />
-        </NumberInput.Control>
+        <NumberInput.Field />
       </NumberInput>
     </div>
   );
@@ -340,11 +315,7 @@ export function NumberInputFieldExample() {
       <Field invalid>
         <NumberInput min={1} max={10} required>
           <NumberInput.Label>Items</NumberInput.Label>
-          <NumberInput.Control>
-            <NumberInput.DecrementTrigger />
-            <NumberInput.Input />
-            <NumberInput.IncrementTrigger />
-          </NumberInput.Control>
+          <NumberInput.Field />
         </NumberInput>
         <Field.ErrorText>Value should be between 1 and 10.</Field.ErrorText>
       </Field>
@@ -357,11 +328,7 @@ export function ValueTextNumberInputExample() {
     <div style={centeredExampleStyle}>
       <NumberInput defaultValue="42">
         <NumberInput.Label>Value preview</NumberInput.Label>
-        <NumberInput.Control>
-          <NumberInput.DecrementTrigger />
-          <NumberInput.Input />
-          <NumberInput.IncrementTrigger />
-        </NumberInput.Control>
+        <NumberInput.Field />
         <NumberInput.ValueText />
       </NumberInput>
     </div>
@@ -375,11 +342,7 @@ export function RootProviderNumberInputExample() {
     <div style={centeredExampleStyle}>
       <NumberInput.RootProvider value={numberInput}>
         <NumberInput.Label>Guests</NumberInput.Label>
-        <NumberInput.Control>
-          <NumberInput.DecrementTrigger />
-          <NumberInput.Input />
-          <NumberInput.IncrementTrigger />
-        </NumberInput.Control>
+        <NumberInput.Field />
       </NumberInput.RootProvider>
       <div className="number-input-root-provider-actions">
         <button type="button" onClick={() => numberInput.setToMin()}>

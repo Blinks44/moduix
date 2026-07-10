@@ -16,11 +16,7 @@ export function FormattedNumberInputDemo() {
       }}
     >
       <NumberInput.Label>Price</NumberInput.Label>
-      <NumberInput.Control>
-        <NumberInput.DecrementTrigger />
-        <NumberInput.Input />
-        <NumberInput.IncrementTrigger />
-      </NumberInput.Control>
+      <NumberInput.Field />
     </NumberInput>
   );
 }

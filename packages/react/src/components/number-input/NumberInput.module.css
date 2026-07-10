@@ -29,7 +29,6 @@
 
     &[data-disabled] {
       cursor: default;
-      opacity: var(--number-input-disabled-opacity, var(--opacity-disabled));
     }
   }
 
@@ -89,7 +88,6 @@
     }
 
     &:is([data-disabled], :disabled) {
-      opacity: var(--number-input-disabled-opacity, var(--opacity-disabled));
       pointer-events: none;
     }
 
@@ -165,10 +163,6 @@
       &[data-focus] {
         outline-color: var(--number-input-border-color-invalid, var(--color-destructive));
       }
-    }
-
-    &:is([data-disabled], :disabled) {
-      opacity: var(--number-input-disabled-opacity, var(--opacity-disabled));
     }
   }
 

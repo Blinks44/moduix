@@ -1,5 +1,9 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { NumberInput as NumberInputPrimitive } from '@ark-ui/react/number-input';
+import {
+  NumberInput as NumberInputPrimitive,
+  useNumberInput,
+  useNumberInputContext,
+} from '@ark-ui/react/number-input';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui';
@@ -136,16 +140,36 @@ const NumberInputValueText = forwardRef<
   );
 });
 
+type NumberInputFieldProps = Omit<
+  ComponentProps<typeof NumberInputControl>,
+  'asChild' | 'children'
+>;
+
+const NumberInputField = forwardRef<
+  ComponentRef<typeof NumberInputPrimitive.Control>,
+  NumberInputFieldProps
+>(function NumberInputField(props, ref) {
+  return (
+    <NumberInputControl ref={ref} {...props}>
+      <NumberInputDecrementTrigger />
+      <NumberInputInput />
+      <NumberInputIncrementTrigger />
+    </NumberInputControl>
+  );
+});
+
 const NumberInput = Object.assign(NumberInputRoot, {
   Root: NumberInputRoot,
   RootProvider: NumberInputRootProvider,
+  Context: NumberInputPrimitive.Context,
   Label: NumberInputLabel,
   Scrubber: NumberInputScrubber,
   Control: NumberInputControl,
+  Field: NumberInputField,
   DecrementTrigger: NumberInputDecrementTrigger,
   Input: NumberInputInput,
   IncrementTrigger: NumberInputIncrementTrigger,
   ValueText: NumberInputValueText,
 });
 
-export { NumberInput };
+export { NumberInput, useNumberInput, useNumberInputContext };

@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useNumberInput } from '@ark-ui/react/number-input';
 import { useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
 import { Field } from '../field';
-import { NumberInput } from './NumberInput';
+import { NumberInput, useNumberInput } from './NumberInput';
 import storyStyles from './NumberInput.stories.module.css';
 
 const meta = {
@@ -23,11 +22,7 @@ export const Basic: Story = {
   render: () => (
     <NumberInput defaultValue="100">
       <NumberInput.Label>Amount</NumberInput.Label>
-      <NumberInput.Control>
-        <NumberInput.DecrementTrigger />
-        <NumberInput.Input />
-        <NumberInput.IncrementTrigger />
-      </NumberInput.Control>
+      <NumberInput.Field />
     </NumberInput>
   ),
 };
@@ -40,11 +35,7 @@ export const Controlled: Story = {
       <div className={storyStyles.stack}>
         <NumberInput value={value} onValueChange={(details) => setValue(details.value)}>
           <NumberInput.Label>Controlled value</NumberInput.Label>
-          <NumberInput.Control>
-            <NumberInput.DecrementTrigger />
-            <NumberInput.Input />
-            <NumberInput.IncrementTrigger />
-          </NumberInput.Control>
+          <NumberInput.Field />
         </NumberInput>
         <span className={storyStyles.hint}>Current value: {value || 'empty'}</span>
       </div>
@@ -56,11 +47,7 @@ export const MinMaxAndStep: Story = {
   render: () => (
     <NumberInput defaultValue="10" min={0} max={20} step={2}>
       <NumberInput.Label>Quantity (0-20, step 2)</NumberInput.Label>
-      <NumberInput.Control>
-        <NumberInput.DecrementTrigger />
-        <NumberInput.Input />
-        <NumberInput.IncrementTrigger />
-      </NumberInput.Control>
+      <NumberInput.Field />
     </NumberInput>
   ),
 };
@@ -73,11 +60,7 @@ export const FractionDigits: Story = {
       formatOptions={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }}
     >
       <NumberInput.Label>Hours</NumberInput.Label>
-      <NumberInput.Control>
-        <NumberInput.DecrementTrigger />
-        <NumberInput.Input />
-        <NumberInput.IncrementTrigger />
-      </NumberInput.Control>
+      <NumberInput.Field />
     </NumberInput>
   ),
 };
@@ -86,12 +69,8 @@ export const Scrubber: Story = {
   render: () => (
     <NumberInput defaultValue="250">
       <NumberInput.Label>Drag to scrub</NumberInput.Label>
-      <NumberInput.Control>
-        <NumberInput.Scrubber>Drag</NumberInput.Scrubber>
-        <NumberInput.DecrementTrigger />
-        <NumberInput.Input />
-        <NumberInput.IncrementTrigger />
-      </NumberInput.Control>
+      <NumberInput.Scrubber>Drag</NumberInput.Scrubber>
+      <NumberInput.Field />
     </NumberInput>
   ),
 };
@@ -100,11 +79,7 @@ export const MouseWheel: Story = {
   render: () => (
     <NumberInput defaultValue="5" allowMouseWheel>
       <NumberInput.Label>Mouse wheel enabled</NumberInput.Label>
-      <NumberInput.Control>
-        <NumberInput.DecrementTrigger />
-        <NumberInput.Input />
-        <NumberInput.IncrementTrigger />
-      </NumberInput.Control>
+      <NumberInput.Field />
     </NumberInput>
   ),
 };
@@ -118,11 +93,7 @@ export const Formatted: Story = {
       formatOptions={{ style: 'currency', currency: 'USD', maximumFractionDigits: 0 }}
     >
       <NumberInput.Label>Price</NumberInput.Label>
-      <NumberInput.Control>
-        <NumberInput.DecrementTrigger />
-        <NumberInput.Input />
-        <NumberInput.IncrementTrigger />
-      </NumberInput.Control>
+      <NumberInput.Field />
     </NumberInput>
   ),
 };
@@ -132,11 +103,7 @@ export const WithFieldValidation: Story = {
     <Field invalid>
       <NumberInput min={1} max={10} required>
         <NumberInput.Label>Items</NumberInput.Label>
-        <NumberInput.Control>
-          <NumberInput.DecrementTrigger />
-          <NumberInput.Input />
-          <NumberInput.IncrementTrigger />
-        </NumberInput.Control>
+        <NumberInput.Field />
       </NumberInput>
       <Field.ErrorText>Value should be between 1 and 10.</Field.ErrorText>
     </Field>
@@ -147,11 +114,7 @@ export const ValueText: Story = {
   render: () => (
     <NumberInput defaultValue="42">
       <NumberInput.Label>Value preview</NumberInput.Label>
-      <NumberInput.Control>
-        <NumberInput.DecrementTrigger />
-        <NumberInput.Input />
-        <NumberInput.IncrementTrigger />
-      </NumberInput.Control>
+      <NumberInput.Field />
       <NumberInput.ValueText />
     </NumberInput>
   ),
@@ -165,11 +128,7 @@ export const RootProvider: Story = {
       <div className={storyStyles.stack}>
         <NumberInput.RootProvider value={numberInput}>
           <NumberInput.Label>Guests</NumberInput.Label>
-          <NumberInput.Control>
-            <NumberInput.DecrementTrigger />
-            <NumberInput.Input />
-            <NumberInput.IncrementTrigger />
-          </NumberInput.Control>
+          <NumberInput.Field />
         </NumberInput.RootProvider>
         <button type="button" onClick={() => numberInput.setToMax()}>
           Set to max
@@ -192,6 +151,18 @@ export const CustomIcons: Story = {
           <ChevronUpIcon />
         </NumberInput.IncrementTrigger>
       </NumberInput.Control>
+    </NumberInput>
+  ),
+};
+
+export const Context: Story = {
+  render: () => (
+    <NumberInput defaultValue="42">
+      <NumberInput.Label>Amount</NumberInput.Label>
+      <NumberInput.Field />
+      <NumberInput.Context>
+        {(context) => <output>Numeric value: {context.valueAsNumber}</output>}
+      </NumberInput.Context>
     </NumberInput>
   ),
 };
