@@ -128,36 +128,6 @@ Control the selected date array and update it from `details.value`.
 
 </Preview>
 
-### Range
-
-Use `selectionMode="range"` and pass `index` to the segment group and hidden input for each date.
-
-<Preview>
-  <DateInputDocs.RangeDateInputExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/date-input/range.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Min, Max, and Unavailable Dates
-
-Use `min`, `max`, and `isDateUnavailable` to mark committed dates outside business rules invalid.
-
-<Preview>
-  <DateInputDocs.MinMaxDateInputExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/date-input/min-max-and-unavailable-dates.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
-  
-</Preview>
-
 ### Disabled and Read Only
 
 Use `disabled` to prevent interaction. Use `readOnly` when the value should remain focusable but not
@@ -168,53 +138,6 @@ editable.
 
 <Preview.Code>
   <include lang="tsx">./_snippets/date-input/disabled-and-read-only.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Locale
-
-Set `locale`, `timeZone`, `hourCycle`, or `granularity` on the root when segment order and labels
-need to match regional expectations.
-
-<Preview>
-  <DateInputDocs.LocaleDateInputExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/date-input/locale.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Granularity
-
-Set `granularity` when the input should include time segments.
-
-<Preview>
-  <DateInputDocs.GranularityDateInputExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/date-input/granularity.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Advanced Customization
-
-Use the full segment composition when segment rendering needs to vary by Ark segment data.
-`DateInput.Segments` remains the default path for standard rendering and shared segment classes.
-
-<Preview>
-  <DateInputDocs.AdvancedCustomizationDateInputExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/date-input/advanced-customization.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
@@ -237,6 +160,67 @@ to `DateInput` when Ark state attributes should appear on the date input itself.
   
 </Preview>
 
+### Granularity
+
+Set `granularity` when the input should include time segments.
+
+<Preview>
+  <DateInputDocs.GranularityDateInputExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/granularity.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Locale
+
+Set `locale`, `timeZone`, `hourCycle`, or `granularity` on the root when segment order and labels
+need to match regional expectations.
+
+<Preview>
+  <DateInputDocs.LocaleDateInputExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/locale.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Min, Max, and Unavailable Dates
+
+Use `min`, `max`, and `isDateUnavailable` to mark committed dates outside business rules invalid.
+
+<Preview>
+  <DateInputDocs.MinMaxDateInputExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/min-max-and-unavailable-dates.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Range
+
+Use `selectionMode="range"` and pass `index` to the segment group and hidden input for each date.
+
+<Preview>
+  <DateInputDocs.RangeDateInputExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/range.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+
+</Preview>
+
 ### Root Provider
 
 Use Ark `useDateInput()` with `DateInput.RootProvider` when state actions need to live outside the
@@ -251,6 +235,22 @@ rendered root tree.
 
   <Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
   
+</Preview>
+
+### Advanced Customization
+
+Use the full segment composition when segment rendering needs to vary by Ark segment data.
+`DateInput.Segments` remains the default path for standard rendering and shared segment classes.
+
+<Preview>
+  <DateInputDocs.AdvancedCustomizationDateInputExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/date-input/advanced-customization.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{DateInputDocs.dateInputExampleCss}</Preview.CSS>
+
 </Preview>
 
 ## Styling
