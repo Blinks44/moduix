@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Fieldset as FieldsetPrimitive } from '@ark-ui/react/fieldset';
+import { Fieldset as FieldsetPrimitive, useFieldset } from '@ark-ui/react/fieldset';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -83,4 +83,4 @@ const Fieldset = Object.assign(FieldsetRoot, {
   ErrorText: FieldsetErrorText,
 });
 
-export { Fieldset };
+export { Fieldset, useFieldset };

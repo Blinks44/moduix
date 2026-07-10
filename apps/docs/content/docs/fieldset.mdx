@@ -64,8 +64,8 @@ Use `asChild` with one semantic child when a custom host must own a part.
 
 ### When to go custom
 
-Use `useFieldset` from `@ark-ui/react/fieldset` with `Fieldset.RootProvider` when state is owned
-outside the rendered tree. Do not wrap a provider in `Fieldset.Root` for the same state instance.
+Use `useFieldset` from `@moduix/react` with `Fieldset.RootProvider` when state is owned outside the
+rendered tree. Do not wrap a provider in `Fieldset.Root` for the same state instance.
 
 ### Default props
 
@@ -87,15 +87,16 @@ outside the rendered tree. Do not wrap a provider in `Fieldset.Root` for the sam
 
 ## Examples
 
-### Field
+### Checkbox
 
-Nest `Field` components when each control also needs an individual label or description.
+Use the fieldset legend as the shared name for a related set of Ark checkbox controls. Keep each
+`Checkbox.HiddenInput` for native form submission and reset behavior.
 
 <Preview>
-  <FieldsetDocs.FieldsetWithFieldExample />
+  <FieldsetDocs.FieldsetCheckboxExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/fieldset/field.tsx#demo</include>
+  <include lang="tsx">./_snippets/fieldset/checkbox.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
   
@@ -116,46 +117,15 @@ controls that consume fieldset context.
   
 </Preview>
 
-### Invalid
+### Field
 
-Set `invalid` on the fieldset for group-level validation. Set `invalid` on nested `Field`
-components when individual controls also need invalid styling and ARIA state.
-
-<Preview>
-  <FieldsetDocs.FieldsetInvalidExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/fieldset/invalid.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Checkbox
-
-Use the fieldset legend as the shared name for a related set of Ark checkbox controls. Keep each
-`Checkbox.HiddenInput` for native form submission and reset behavior.
+Nest `Field` components when each control also needs an individual label or description.
 
 <Preview>
-  <FieldsetDocs.FieldsetCheckboxExample />
+  <FieldsetDocs.FieldsetWithFieldExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/fieldset/checkbox.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Root Provider
-
-Create fieldset state outside the rendered tree when sibling controls or reusable descendants need
-to coordinate with it.
-
-<Preview>
-  <FieldsetDocs.FieldsetRootProviderExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/fieldset/root-provider.tsx#demo</include>
+  <include lang="tsx">./_snippets/fieldset/field.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
   
@@ -173,6 +143,36 @@ logical value.
   <include lang="tsx">./_snippets/fieldset/input-with-select.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{FieldsetDocs.fieldsetPhoneInputCss}</Preview.CSS>
+  
+</Preview>
+
+### Invalid
+
+Set `invalid` on the fieldset for group-level validation. Set `invalid` on nested `Field`
+components when individual controls also need invalid styling and ARIA state.
+
+<Preview>
+  <FieldsetDocs.FieldsetInvalidExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/fieldset/invalid.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Advanced Customization
+
+Create fieldset state outside the rendered tree with moduix `useFieldset` when sibling controls or
+reusable descendants need to coordinate with it.
+
+<Preview>
+  <FieldsetDocs.FieldsetRootProviderExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/fieldset/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FieldsetDocs.fieldsetExampleCss}</Preview.CSS>
   
 </Preview>
 

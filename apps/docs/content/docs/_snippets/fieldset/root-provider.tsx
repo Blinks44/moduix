@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useFieldset } from '@ark-ui/react/fieldset';
-import { Field, Fieldset } from '@moduix/react';
+import { Field, Fieldset, useFieldset } from '@moduix/react';
 
 export function ExternalFieldsetState() {
   const fieldset = useFieldset({
@@ -11,7 +10,7 @@ export function ExternalFieldsetState() {
   return (
     <Fieldset.RootProvider value={fieldset} className="fieldset">
       <Fieldset.Legend>Contact details</Fieldset.Legend>
-      <Field>
+      <Field invalid>
         <Field.Label>Email</Field.Label>
         <Field.Input type="email" defaultValue="invalid-address" />
       </Field>
