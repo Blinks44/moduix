@@ -2,7 +2,6 @@
 //#region demo
 
 import {
-  ImageCropper as ArkImageCropper,
   FlipHorizontalIcon,
   ImageCropper,
   RestartIcon,
@@ -30,7 +29,7 @@ export function TransformImageCropperDemo() {
         onRotationChange={(details) => setRotation(details.rotation)}
         onFlipChange={(details) => setFlip(details.flip)}
       >
-        <ArkImageCropper.Context>
+        <ImageCropper.Context>
           {(context) => (
             <div className="cropper-toolbar">
               <button
@@ -83,16 +82,10 @@ export function TransformImageCropperDemo() {
               </button>
             </div>
           )}
-        </ArkImageCropper.Context>
+        </ImageCropper.Context>
         <ImageCropper.Viewport>
           <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-          <ImageCropper.Selection>
-            <ImageCropper.Grid axis="horizontal" />
-            <ImageCropper.Grid axis="vertical" />
-            {ImageCropper.handles.map((position) => (
-              <ImageCropper.Handle key={position} position={position} />
-            ))}
-          </ImageCropper.Selection>
+          <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper>
       <output className="cropper-output">

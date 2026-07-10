@@ -20,7 +20,7 @@ Ark owns pointer interactions, wheel and pinch zoom, keyboard nudging, transform
 
 `ImageCropper` is the styled root component and is equivalent to `ImageCropper.Root`. The wrapper passes through Ark props including `initialCrop`, `aspectRatio`, `cropShape`, `fixedCropArea`, controlled `zoom`, `rotation`, `flip`, default transform props, size limits, nudge steps, zoom limits, `ids`, `translations`, and Ark callbacks.
 
-The package exports `ImageCropper` and keeps `ImageCropper.handles` for rendering all resize handles. Advanced state APIs such as `useImageCropper`, context helpers, and Ark duplicate types stay upstream and should be imported from `@ark-ui/react/image-cropper` when needed.
+The package exports `ImageCropper`, `useImageCropper`, `ImageCropper.Context`, and `ImageCropper.handles`. `ImageCropper.CropArea` is the recommended selection: it renders the selection, both grids, and every resize handle. Pass `className`, `gridClassName`, or `handleClassName` to style those levels; use the explicit parts when their structure needs to differ.
 
 ## Anatomy and exported parts
 
@@ -28,13 +28,7 @@ The package exports `ImageCropper` and keeps `ImageCropper.handles` for renderin
 <ImageCropper>
   <ImageCropper.Viewport>
     <ImageCropper.Image />
-    <ImageCropper.Selection>
-      <ImageCropper.Grid axis="horizontal" />
-      <ImageCropper.Grid axis="vertical" />
-      {ImageCropper.handles.map((position) => (
-        <ImageCropper.Handle key={position} position={position} />
-      ))}
-    </ImageCropper.Selection>
+    <ImageCropper.CropArea />
   </ImageCropper.Viewport>
 </ImageCropper>
 ```
@@ -46,6 +40,7 @@ The package exports `ImageCropper` and keeps `ImageCropper.handles` for renderin
 - `ImageCropper.Selection`: `data-slot="image-cropper-selection"`; focusable crop rectangle unless `fixedCropArea` disables resizing.
 - `ImageCropper.Grid`: `data-slot="image-cropper-grid"`; requires `axis`.
 - `ImageCropper.Handle`: `data-slot="image-cropper-handle"`; requires `position`.
+- `ImageCropper.CropArea`: recommended styled selection with both grids and all handles.
 
 ## Composition
 
@@ -57,24 +52,18 @@ export function AvatarCropper() {
     <ImageCropper cropShape="circle" aspectRatio={1}>
       <ImageCropper.Viewport>
         <ImageCropper.Image src="/avatar-source.jpg" />
-        <ImageCropper.Selection>
-          <ImageCropper.Grid axis="horizontal" />
-          <ImageCropper.Grid axis="vertical" />
-          {ImageCropper.handles.map((position) => (
-            <ImageCropper.Handle key={position} position={position} />
-          ))}
-        </ImageCropper.Selection>
+        <ImageCropper.CropArea />
       </ImageCropper.Viewport>
     </ImageCropper>
   );
 }
 ```
 
-Use `ArkImageCropper.Context` from `@ark-ui/react/image-cropper` for nearby toolbar controls. Use Ark `useImageCropper` with `ImageCropper.RootProvider` when toolbar state or crop output needs to live outside the rendered root. Do not render `Root` and `RootProvider` for the same `useImageCropper` instance.
+Use `ImageCropper.Context` for nearby toolbar controls. Use `useImageCropper` with `ImageCropper.RootProvider` when toolbar state or crop output needs to live outside the rendered root. Do not render `Root` and `RootProvider` for the same `useImageCropper` instance.
 
 ## Upstream feature coverage
 
-The wrapper exposes the Ark examples and guides for basic cropping, aspect-ratio locking, circle crops, `initialCrop`, controlled zoom, zoom limits, rotation, flip, min/max crop sizes, fixed crop areas, crop preview, reset, and `RootProvider`. Advanced context and hook access still follow Ark, but they are imported from Ark directly.
+The wrapper exposes the Ark examples and guides for basic cropping, aspect-ratio locking, circle crops, `initialCrop`, controlled zoom, zoom limits, rotation, flip, min/max crop sizes, fixed crop areas, crop preview, reset, and `RootProvider`. `useImageCropper` and `ImageCropper.Context` retain their Ark behavior through moduix exports.
 
 Controlled state follows Ark exactly: pass `zoom`, `rotation`, or `flip` with `onZoomChange`, `onRotationChange`, or `onFlipChange`. Crop updates arrive through `onCropChange(details)` with `details.crop`.
 
@@ -94,16 +83,18 @@ Public override variables use the `--image-cropper-*` prefix and are documented 
 
 ## Intentional sugar and differences from upstream
 
-The only sugar over Ark is styling, stable `data-slot` hooks, and `ImageCropper.handles` on the moduix namespace. No Ark parts are hidden, renamed, or bundled into convenience containers.
+The sugar over Ark is styling, stable `data-slot` hooks, `ImageCropper.handles`, and `ImageCropper.CropArea`. `CropArea` only assembles the existing selection, grids, and handles; it does not change crop state or hide the explicit Ark composition path.
 
 ## Agent notes
 
-- Keep `ImageCropper.handles` available; docs and stories use it as the canonical way to render handles.
+- Keep `ImageCropper.CropArea` as the canonical composition; preserve the explicit parts and `ImageCropper.handles` for customization.
 - Preserve Ark callback detail objects and context methods.
 - Keep `RootProvider` examples separate from `Root`; never nest both for the same cropper instance.
-- Keep advanced state APIs on the Ark import path unless there is a strong moduix-specific reason to expose them.
+- Keep `useImageCropper` and `ImageCropper.Context` aligned with Ark's signatures.
 
 ## Local changelog
+
+- 2026-07-10: Added `CropArea`, `ImageCropper.Context`, and `useImageCropper` as moduix-owned advanced surfaces.
 
 - 2026-07-03: Removed duplicate moduix exports for Ark image cropper hooks, context, and types;
   `RootProvider` remains the supported advanced entry point.

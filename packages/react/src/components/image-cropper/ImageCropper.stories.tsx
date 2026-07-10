@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
-import { ImageCropper as ArkImageCropper, useImageCropper } from '@ark-ui/react/image-cropper';
 import { useState } from 'react';
 import {
   FlipHorizontalIcon,
@@ -11,7 +10,7 @@ import {
   ZoomOutIcon,
 } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
-import { ImageCropper } from './ImageCropper';
+import { ImageCropper, useImageCropper } from './ImageCropper';
 import styles from './ImageCropper.stories.module.css';
 
 const sampleImage =
@@ -35,13 +34,7 @@ function CropperCanvas(props: Omit<ImageCropperRootProps, 'children'>) {
     <ImageCropper {...props}>
       <ImageCropper.Viewport>
         <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-        <ImageCropper.Selection>
-          <ImageCropper.Grid axis="horizontal" />
-          <ImageCropper.Grid axis="vertical" />
-          {ImageCropper.handles.map((position) => (
-            <ImageCropper.Handle key={position} position={position} />
-          ))}
-        </ImageCropper.Selection>
+        <ImageCropper.CropArea />
       </ImageCropper.Viewport>
     </ImageCropper>
   );
@@ -97,7 +90,7 @@ export const TransformControls: Story = {
   render: () => (
     <div className={styles.stack}>
       <ImageCropper>
-        <ArkImageCropper.Context>
+        <ImageCropper.Context>
           {(context) => (
             <div className={styles.toolbar}>
               <button
@@ -150,16 +143,10 @@ export const TransformControls: Story = {
               </button>
             </div>
           )}
-        </ArkImageCropper.Context>
+        </ImageCropper.Context>
         <ImageCropper.Viewport>
           <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-          <ImageCropper.Selection>
-            <ImageCropper.Grid axis="horizontal" />
-            <ImageCropper.Grid axis="vertical" />
-            {ImageCropper.handles.map((position) => (
-              <ImageCropper.Handle key={position} position={position} />
-            ))}
-          </ImageCropper.Selection>
+          <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper>
     </div>
@@ -175,13 +162,7 @@ export const RootProvider: Story = {
         <ImageCropper.RootProvider value={imageCropper}>
           <ImageCropper.Viewport>
             <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-            <ImageCropper.Selection>
-              <ImageCropper.Grid axis="horizontal" />
-              <ImageCropper.Grid axis="vertical" />
-              {ImageCropper.handles.map((position) => (
-                <ImageCropper.Handle key={position} position={position} />
-              ))}
-            </ImageCropper.Selection>
+            <ImageCropper.CropArea />
           </ImageCropper.Viewport>
         </ImageCropper.RootProvider>
         <button
@@ -212,13 +193,7 @@ export const CropPreview: Story = {
         <ImageCropper.RootProvider value={imageCropper}>
           <ImageCropper.Viewport>
             <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-            <ImageCropper.Selection>
-              <ImageCropper.Grid axis="horizontal" />
-              <ImageCropper.Grid axis="vertical" />
-              {ImageCropper.handles.map((position) => (
-                <ImageCropper.Handle key={position} position={position} />
-              ))}
-            </ImageCropper.Selection>
+            <ImageCropper.CropArea />
           </ImageCropper.Viewport>
         </ImageCropper.RootProvider>
         <Button type="button" onClick={handleCrop}>
