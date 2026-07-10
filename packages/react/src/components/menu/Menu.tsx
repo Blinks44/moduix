@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Menu as MenuPrimitive } from '@ark-ui/react/menu';
+import { Menu as MenuPrimitive, useMenu } from '@ark-ui/react/menu';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
@@ -377,6 +377,7 @@ const Menu = Object.assign(MenuRoot, {
   ItemTextIcon: MenuItemTextIcon,
   ItemTextLabel: MenuItemTextLabel,
   ItemShortcut: MenuItemShortcut,
+  ItemContext: MenuPrimitive.ItemContext,
 });
 
-export { Menu };
+export { Menu, useMenu };

@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps, ReactNode } from 'react';
-import { useMenu } from '@ark-ui/react/menu';
 import { useState } from 'react';
 import { InfoIcon, MapIcon } from '@/icons/demo';
 import { Button } from '../button';
-import { Menu } from './Menu';
+import { Menu, useMenu } from './Menu';
 import storyStyles from './Menu.stories.module.css';
 
 const meta = {

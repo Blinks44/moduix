@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useMenu } from '@ark-ui/react/menu';
-import { Button, Menu } from '@moduix/react';
+import { Button, Menu, useMenu } from '@moduix/react';
 
 export function RootProviderMenuDemo() {
   const menu = useMenu();

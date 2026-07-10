@@ -1,6 +1,5 @@
 import type { ComponentProps, ReactNode } from 'react';
-import { Menu as ArkMenu, useMenu } from '@ark-ui/react/menu';
-import { Button, Menu } from '@moduix/react';
+import { Button, Dialog, Menu, useMenu } from '@moduix/react';
 import { Info as InfoIcon, Map as MapIcon } from 'lucide-react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
@@ -518,19 +517,88 @@ export function ItemContextMenuExample() {
       </MenuButtonTrigger>
       <PositionedContent>
         <Menu.Item value="profile">
-          <ArkMenu.ItemContext>
+          <Menu.ItemContext>
             {(item) => (
               <span style={{ fontWeight: item.highlighted ? 'var(--weight-semibold)' : undefined }}>
                 Profile Settings
               </span>
             )}
-          </ArkMenu.ItemContext>
+          </Menu.ItemContext>
         </Menu.Item>
         <Menu.Item value="preferences">Preferences</Menu.Item>
         <Menu.Item value="notifications">Notifications</Menu.Item>
         <Menu.Separator />
         <Menu.Item value="logout">Log Out</Menu.Item>
       </PositionedContent>
+    </Menu>
+  );
+}
+
+export function MenuInDialogExample() {
+  return (
+    <Dialog>
+      <Dialog.Trigger asChild>
+        <Button>Open dialog</Button>
+      </Dialog.Trigger>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title>Project settings</Dialog.Title>
+            <Dialog.CloseIcon />
+            <Dialog.Description>Choose an action without leaving the dialog.</Dialog.Description>
+          </Dialog.Header>
+          <Menu portalled={false} positioning={{ strategy: 'fixed', hideWhenDetached: true }}>
+            <Menu.Trigger asChild>
+              <Button variant="outline">
+                Actions
+                <Menu.Indicator />
+              </Button>
+            </Menu.Trigger>
+            <Menu.Positioner>
+              <Menu.Content>
+                <Menu.Item value="rename">Rename project</Menu.Item>
+                <Menu.Item value="duplicate">Duplicate project</Menu.Item>
+                <Menu.Separator />
+                <Menu.Item value="archive" tone="destructive">
+                  Archive project
+                </Menu.Item>
+              </Menu.Content>
+            </Menu.Positioner>
+          </Menu>
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog>
+  );
+}
+
+export function AdvancedCustomizationMenuExample() {
+  return (
+    <Menu positioning={{ placement: 'bottom-end', gutter: 12 }}>
+      <Menu.Trigger asChild>
+        <Button variant="outline">Project</Button>
+      </Menu.Trigger>
+      <Menu.Positioner>
+        <Menu.Content>
+          <Menu.Arrow>
+            <Menu.ArrowTip />
+          </Menu.Arrow>
+          <Menu.ItemGroup>
+            <Menu.ItemGroupLabel>Project</Menu.ItemGroupLabel>
+            <Menu.Item asChild value="overview">
+              <a href="#overview">Open overview</a>
+            </Menu.Item>
+            <Menu.Item value="duplicate">
+              <span>Duplicate project</span>
+              <span aria-hidden="true">⌘D</span>
+            </Menu.Item>
+          </Menu.ItemGroup>
+          <Menu.Separator />
+          <Menu.Item value="archive" tone="destructive">
+            Archive project
+          </Menu.Item>
+        </Menu.Content>
+      </Menu.Positioner>
     </Menu>
   );
 }
