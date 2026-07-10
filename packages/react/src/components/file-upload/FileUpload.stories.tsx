@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
-import { FileUpload as ArkFileUpload, useFileUpload } from '@ark-ui/react/file-upload';
 import { useState } from 'react';
 import { Field } from '../field';
-import { FileUpload } from './FileUpload';
+import { FileUpload, useFileUpload } from './FileUpload';
 import styles from './FileUpload.stories.module.css';
 
 const meta = {
@@ -40,7 +39,7 @@ function FileIcon(props: ComponentProps<'svg'>) {
 
 function FileUploadItems() {
   return (
-    <ArkFileUpload.Context>
+    <FileUpload.Context>
       {({ acceptedFiles }) =>
         acceptedFiles.map((file) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -56,22 +55,7 @@ function FileUploadItems() {
           </FileUpload.Item>
         ))
       }
-    </ArkFileUpload.Context>
-  );
-}
-
-function CompactFileUploadItems() {
-  return (
-    <ArkFileUpload.Context>
-      {({ acceptedFiles }) =>
-        acceptedFiles.map((file) => (
-          <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
-            <FileUpload.ItemName />
-            <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-          </FileUpload.Item>
-        ))
-      }
-    </ArkFileUpload.Context>
+    </FileUpload.Context>
   );
 }
 
@@ -81,7 +65,7 @@ function FileUploadDemo(props: ComponentProps<typeof FileUpload.Root>) {
       <FileUpload.Label>Attachments</FileUpload.Label>
       <FileUpload.Trigger>Choose files</FileUpload.Trigger>
       <FileUpload.ItemGroup>
-        <CompactFileUploadItems />
+        <FileUpload.Items />
       </FileUpload.ItemGroup>
       <FileUpload.HiddenInput />
     </FileUpload.Root>
@@ -152,7 +136,7 @@ export const RejectedFiles: Story = {
         <FileUploadItems />
       </FileUpload.ItemGroup>
       <FileUpload.ItemGroup type="rejected">
-        <ArkFileUpload.Context>
+        <FileUpload.Context>
           {({ rejectedFiles }) =>
             rejectedFiles.map(({ file, errors }) => (
               <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -167,7 +151,7 @@ export const RejectedFiles: Story = {
               </FileUpload.Item>
             ))
           }
-        </ArkFileUpload.Context>
+        </FileUpload.Context>
       </FileUpload.ItemGroup>
       <FileUpload.HiddenInput />
     </FileUpload.Root>

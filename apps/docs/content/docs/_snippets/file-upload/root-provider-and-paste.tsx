@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { FileUpload as ArkFileUpload, useFileUpload } from '@ark-ui/react/file-upload';
-import { FileUpload, Textarea } from '@moduix/react';
+import { FileUpload, Textarea, useFileUpload } from '@moduix/react';
 
 const maxFiles = 3;
 const accept = 'image/*';
@@ -22,7 +21,7 @@ export function RootProviderPasteUploadDemo() {
         onPaste={(event) => fileUpload.setClipboardFiles(event.clipboardData)}
       />
       <FileUpload.ItemGroup>
-        <ArkFileUpload.Context>
+        <FileUpload.Context>
           {({ acceptedFiles }) =>
             acceptedFiles.map((file) => (
               <FileUpload.Item key={file.name} file={file}>
@@ -31,7 +30,7 @@ export function RootProviderPasteUploadDemo() {
               </FileUpload.Item>
             ))
           }
-        </ArkFileUpload.Context>
+        </FileUpload.Context>
       </FileUpload.ItemGroup>
       <FileUpload.HiddenInput />
     </FileUpload.RootProvider>

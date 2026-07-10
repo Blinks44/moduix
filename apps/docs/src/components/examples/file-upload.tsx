@@ -1,5 +1,4 @@
-import { FileUpload as ArkFileUpload, useFileUpload } from '@ark-ui/react/file-upload';
-import { Field, FileUpload, Textarea } from '@moduix/react';
+import { Field, FileUpload, Textarea, useFileUpload } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -379,7 +378,7 @@ function getInitialFiles() {
 
 function AcceptedFileItems() {
   return (
-    <ArkFileUpload.Context>
+    <FileUpload.Context>
       {({ acceptedFiles }) =>
         acceptedFiles.map((file) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -389,28 +388,13 @@ function AcceptedFileItems() {
           </FileUpload.Item>
         ))
       }
-    </ArkFileUpload.Context>
-  );
-}
-
-function CompactAcceptedFileItems() {
-  return (
-    <ArkFileUpload.Context>
-      {({ acceptedFiles }) =>
-        acceptedFiles.map((file) => (
-          <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
-            <FileUpload.ItemName />
-            <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-          </FileUpload.Item>
-        ))
-      }
-    </ArkFileUpload.Context>
+    </FileUpload.Context>
   );
 }
 
 function RejectedFileItems() {
   return (
-    <ArkFileUpload.Context>
+    <FileUpload.Context>
       {({ rejectedFiles }) =>
         rejectedFiles.map(({ file, errors }) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -420,7 +404,7 @@ function RejectedFileItems() {
           </FileUpload.Item>
         ))
       }
-    </ArkFileUpload.Context>
+    </FileUpload.Context>
   );
 }
 
@@ -430,7 +414,7 @@ function FileUploadTriggerExample(props: ComponentProps<typeof FileUpload.Root>)
       <FileUpload.Label>Attachments</FileUpload.Label>
       <FileUpload.Trigger>Choose files</FileUpload.Trigger>
       <FileUpload.ItemGroup>
-        <CompactAcceptedFileItems />
+        <FileUpload.Items />
       </FileUpload.ItemGroup>
       <FileUpload.HiddenInput />
     </FileUpload.Root>
@@ -440,6 +424,26 @@ function FileUploadTriggerExample(props: ComponentProps<typeof FileUpload.Root>)
 function FileUploadDropzoneExample(props: ComponentProps<typeof FileUpload.Root>) {
   return (
     <FileUpload.Root className={styles.demo} maxFiles={5} {...props}>
+      <FileUpload.Label>Project files</FileUpload.Label>
+      <FileUpload.Dropzone disableClick>
+        <FileUpload.DropzoneIcon />
+        <div className={styles.dropzoneContent}>
+          <span className={styles.dropzoneTitle}>Drag and drop files here</span>
+          <span className={styles.dropzoneDescription}>or browse from your device</span>
+          <FileUpload.Trigger>Browse files</FileUpload.Trigger>
+        </div>
+      </FileUpload.Dropzone>
+      <FileUpload.ItemGroup>
+        <FileUpload.Items />
+      </FileUpload.ItemGroup>
+      <FileUpload.HiddenInput />
+    </FileUpload.Root>
+  );
+}
+
+export function FileUploadAdvancedCustomizationExample() {
+  return (
+    <FileUpload.Root className={styles.demo} maxFiles={5}>
       <FileUpload.Label>Project files</FileUpload.Label>
       <FileUpload.Dropzone disableClick>
         <FileUpload.DropzoneIcon />
@@ -524,7 +528,7 @@ export function FileUploadErrorHandlingExample() {
         <FileUpload.Label>Images</FileUpload.Label>
         <FileUpload.Trigger>Select images</FileUpload.Trigger>
         <FileUpload.ItemGroup>
-          <CompactAcceptedFileItems />
+          <FileUpload.Items />
         </FileUpload.ItemGroup>
         <FileUpload.ItemGroup type="rejected">
           <RejectedFileItems />
@@ -563,7 +567,7 @@ export function FileUploadClearTriggerExample() {
         <FileUpload.ClearTrigger>Clear files</FileUpload.ClearTrigger>
       </div>
       <FileUpload.ItemGroup>
-        <CompactAcceptedFileItems />
+        <FileUpload.Items />
       </FileUpload.ItemGroup>
       <FileUpload.HiddenInput />
     </FileUpload.Root>
@@ -577,7 +581,7 @@ export function FileUploadWithFieldExample() {
         <FileUpload.Label>Required attachments</FileUpload.Label>
         <FileUpload.Trigger>Choose files</FileUpload.Trigger>
         <FileUpload.ItemGroup>
-          <CompactAcceptedFileItems />
+          <FileUpload.Items />
         </FileUpload.ItemGroup>
         <FileUpload.HiddenInput />
       </FileUpload.Root>
@@ -598,7 +602,7 @@ export function FileUploadFormExample() {
         <FileUpload.Label>Project assets</FileUpload.Label>
         <FileUpload.Trigger>Choose files</FileUpload.Trigger>
         <FileUpload.ItemGroup>
-          <CompactAcceptedFileItems />
+          <FileUpload.Items />
         </FileUpload.ItemGroup>
         <FileUpload.HiddenInput />
       </FileUpload.Root>
@@ -620,7 +624,7 @@ export function FileUploadRootProviderExample() {
         onPaste={(event) => fileUpload.setClipboardFiles(event.clipboardData)}
       />
       <FileUpload.ItemGroup>
-        <CompactAcceptedFileItems />
+        <FileUpload.Items />
       </FileUpload.ItemGroup>
       <FileUpload.HiddenInput />
     </FileUpload.RootProvider>
@@ -633,7 +637,7 @@ export function FileUploadDirectoryExample() {
       <FileUpload.Label>Folder</FileUpload.Label>
       <FileUpload.Trigger>Choose folder</FileUpload.Trigger>
       <FileUpload.ItemGroup>
-        <ArkFileUpload.Context>
+        <FileUpload.Context>
           {({ acceptedFiles }) =>
             acceptedFiles.map((file) => (
               <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -643,7 +647,7 @@ export function FileUploadDirectoryExample() {
               </FileUpload.Item>
             ))
           }
-        </ArkFileUpload.Context>
+        </FileUpload.Context>
       </FileUpload.ItemGroup>
       <FileUpload.HiddenInput />
     </FileUpload.Root>
@@ -682,7 +686,7 @@ export function FileUploadTransformFilesExample() {
       <FileUpload.Label>Images</FileUpload.Label>
       <FileUpload.Trigger>Choose images</FileUpload.Trigger>
       <FileUpload.ItemGroup>
-        <CompactAcceptedFileItems />
+        <FileUpload.Items />
       </FileUpload.ItemGroup>
       <FileUpload.HiddenInput />
     </FileUpload.Root>

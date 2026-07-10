@@ -12,8 +12,8 @@ import * as FileUploadDocs from '@/components/examples/file-upload';
 
 ## Basic
 
-Use `FileUpload` as the root, render a `Label`, add either a `Trigger` or `Dropzone`, list files
-through Ark `FileUpload.Context`, and keep `HiddenInput` in the tree for native form behavior.
+Use `FileUpload` as the root, render a `Label`, add either a `Trigger` or `Dropzone`, list accepted files with
+`Items`, and keep `HiddenInput` in the tree for native form behavior.
 
 <Preview>
   <FileUploadDocs.FileUploadExample />
@@ -38,7 +38,8 @@ FileUpload / FileUpload.Root
 │  ├─ FileUpload.DropzoneIcon
 │  └─ FileUpload.Trigger
 ├─ FileUpload.ItemGroup[type]
-│  └─ ArkFileUpload.Context
+│  ├─ FileUpload.Items
+│  └─ FileUpload.Context
 │     └─ FileUpload.Item[file]
 │        ├─ FileUpload.ItemPreview[type]
 │        │  └─ FileUpload.ItemPreviewImage
@@ -59,6 +60,8 @@ FileUpload / FileUpload.Root
 | `FileUpload.Trigger`             | Button that opens the native file picker.                              |
 | `FileUpload.HiddenInput`         | Native file input for forms, validation, reset, and submission.        |
 | `FileUpload.ItemGroup`           | List wrapper for accepted or rejected file items.                      |
+| `FileUpload.Items`               | Compact accepted-file rows with a name and delete control.             |
+| `FileUpload.Context`             | Ark-compatible render-prop context for custom file rows.               |
 | `FileUpload.Item`                | File row. Pass the current `file` object.                              |
 | `FileUpload.ItemPreview`         | Conditional preview slot matched by MIME type.                         |
 | `FileUpload.ItemPreviewImage`    | Image preview rendered inside `ItemPreview type="image/*"`.            |
@@ -75,17 +78,17 @@ Keep the Ark part tree visible. Use `Trigger` for compact upload controls and `D
 drag-and-drop surfaces. If `Trigger` is nested inside `Dropzone`, pass `disableClick` to `Dropzone`
 so the native file picker is not opened twice.
 
-Render `HiddenInput` whenever the upload participates in a form. Read accepted files from Ark
-`FileUpload.Context.acceptedFiles` and rejected files from Ark `FileUpload.Context.rejectedFiles`.
+Render `HiddenInput` whenever the upload participates in a form. Use `Items` for compact accepted-file rows. Read
+accepted files from `FileUpload.Context.acceptedFiles` and rejected files from `FileUpload.Context.rejectedFiles`
+when custom rows are needed.
 
-Import Ark `FileUpload.Context`, `useFileUpload()`, and `useFileUploadContext()` directly from
-`@ark-ui/react/file-upload` when advanced state access is needed. moduix keeps `RootProvider`, but
-does not re-export those Ark state APIs.
+Import `FileUpload.Context`, `useFileUpload()`, and `useFileUploadContext()` from `@moduix/react` when advanced
+state access is needed. These are direct Ark re-exports, so callback details and state contracts stay unchanged.
 
 ### When to go custom
 
-Use the compact item shape for simple attachment lists. Add `ItemPreview type="image/*"` and a
-fallback `ItemPreview type=".*"` when a dropzone or media flow benefits from richer rows. Use
+Use `Items` for simple attachment lists. Add `ItemPreview type="image/*"` and a fallback
+`ItemPreview type=".*"` when a dropzone or media flow benefits from richer rows. Use
 `asChild` only when the child is a single semantic element that can preserve the required button,
 label, or input behavior.
 
@@ -237,7 +240,7 @@ Pass `name` to the root and render `HiddenInput` so native form submission and r
 
 ### Root Provider And Paste
 
-Use Ark `useFileUpload` with `RootProvider` when state or methods need to be owned outside the
+Use moduix `useFileUpload` with `RootProvider` when state or methods need to be owned outside the
 rendered upload tree.
 
 <Preview>
@@ -290,6 +293,20 @@ Use `transformFiles(files)` for async processing before files enter accepted sta
 </Preview.Code>
   <Preview.CSS>{FileUploadDocs.fileUploadExampleCss}</Preview.CSS>
   
+</Preview>
+
+### Advanced Customization
+
+Bypass `Items` when custom rows need file metadata, previews, or a different layout. The explicit
+`FileUpload.Context` composition keeps Ark state visible and uses the same styled parts.
+
+<Preview>
+  <FileUploadDocs.FileUploadAdvancedCustomizationExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/file-upload/advanced-customization.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{FileUploadDocs.fileUploadExampleCss}</Preview.CSS>
 </Preview>
 
 ## Styling

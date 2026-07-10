@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { FileUpload as ArkFileUpload } from '@ark-ui/react/file-upload';
 import { FileUpload } from '@moduix/react';
 import { useState } from 'react';
 
@@ -22,7 +21,7 @@ export function ControlledFileUploadDemo() {
         <FileUpload.Label>Attachments</FileUpload.Label>
         <FileUpload.Trigger>Choose files</FileUpload.Trigger>
         <FileUpload.ItemGroup>
-          <ArkFileUpload.Context>
+          <FileUpload.Context>
             {({ acceptedFiles }) =>
               acceptedFiles.map((file) => (
                 <FileUpload.Item key={file.name} file={file}>
@@ -31,7 +30,7 @@ export function ControlledFileUploadDemo() {
                 </FileUpload.Item>
               ))
             }
-          </ArkFileUpload.Context>
+          </FileUpload.Context>
         </FileUpload.ItemGroup>
         <FileUpload.HiddenInput />
       </FileUpload>

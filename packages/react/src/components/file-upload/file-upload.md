@@ -12,8 +12,7 @@ Upstream docs:
 ## Upstream model to preserve
 
 The wrapper follows Ark UI React `@ark-ui/react/file-upload`. Keep the Ark part tree, accepted/rejected file state,
-callback detail objects, `HiddenInput`, and `RootProvider` intact. Advanced Ark state access stays available directly
-from `@ark-ui/react/file-upload`.
+callback detail objects, `HiddenInput`, `RootProvider`, context, and state hooks intact.
 
 ## Current behavior contract
 
@@ -35,7 +34,8 @@ FileUpload.Root | FileUpload.RootProvider
 │  └─ FileUpload.Trigger
 ├─ FileUpload.Trigger (when no dropzone is used)
 ├─ FileUpload.ItemGroup[type]
-│  └─ ArkFileUpload.Context
+│  ├─ FileUpload.Items (compact accepted-file sugar)
+│  └─ FileUpload.Context
 │     └─ FileUpload.Item[file]
 │        ├─ FileUpload.ItemPreview[type]
 │        │  └─ FileUpload.ItemPreviewImage
@@ -43,12 +43,12 @@ FileUpload.Root | FileUpload.RootProvider
 │        ├─ FileUpload.ItemSizeText
 │        └─ FileUpload.ItemDeleteTrigger
 ├─ FileUpload.ClearTrigger
-├─ FileUpload.HiddenInput
-└─ ArkFileUpload.Context
+└─ FileUpload.HiddenInput
 ```
 
 - `FileUpload.Root` -> `data-slot="file-upload-root"`
 - `FileUpload.RootProvider` -> `data-slot="file-upload-root-provider"`
+- `FileUpload.Context` -> Ark context render-prop export
 - `FileUpload.Label` -> `data-slot="file-upload-label"`
 - `FileUpload.Dropzone` -> `data-slot="file-upload-dropzone"`
 - `FileUpload.DropzoneIcon` -> `data-slot="file-upload-dropzone-icon"`
@@ -56,6 +56,7 @@ FileUpload.Root | FileUpload.RootProvider
 - `FileUpload.HiddenInput` -> `data-slot="file-upload-hidden-input"`
 - `FileUpload.ItemGroup` -> `data-slot="file-upload-item-group"`
 - `FileUpload.Item` -> `data-slot="file-upload-item"`
+- `FileUpload.Items` -> renders compact accepted-file rows with existing item slots
 - `FileUpload.ItemPreview` -> `data-slot="file-upload-item-preview"`
 - `FileUpload.ItemPreviewImage` -> `data-slot="file-upload-item-preview-image"`
 - `FileUpload.ItemName` -> `data-slot="file-upload-item-name"`
@@ -68,7 +69,6 @@ FileUpload.Root | FileUpload.RootProvider
 Canonical composition:
 
 ```tsx
-import { FileUpload as ArkFileUpload } from '@ark-ui/react/file-upload';
 import { FileUpload } from '@moduix/react';
 
 export function FileUploadDemo() {
@@ -77,16 +77,7 @@ export function FileUploadDemo() {
       <FileUpload.Label>Attachments</FileUpload.Label>
       <FileUpload.Trigger>Choose files</FileUpload.Trigger>
       <FileUpload.ItemGroup>
-        <ArkFileUpload.Context>
-          {({ acceptedFiles }) =>
-            acceptedFiles.map((file) => (
-              <FileUpload.Item key={file.name} file={file}>
-                <FileUpload.ItemName />
-                <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-              </FileUpload.Item>
-            ))
-          }
-        </ArkFileUpload.Context>
+        <FileUpload.Items />
       </FileUpload.ItemGroup>
       <FileUpload.HiddenInput />
     </FileUpload>
@@ -100,7 +91,7 @@ export function FileUploadDemo() {
 - Clear trigger: supported with `ClearTrigger`; omit children to use the default close icon.
 - Dropzone: supported with `Dropzone`; use `disableClick` when a nested `Trigger` is rendered.
 - Accepted file types: supported through `accept`.
-- Rejected files and errors: supported through Ark `FileUpload.Context.rejectedFiles`,
+- Rejected files and errors: supported through `FileUpload.Context.rejectedFiles`,
   `ItemGroup type="rejected"`, and validation props.
 - Error handling: supported through `onFileReject(details)`, `validate`, `maxFiles`, `maxFileSize`, `minFileSize`,
   and `accept`.
@@ -110,11 +101,10 @@ export function FileUploadDemo() {
   Ark `Field.Root` / `Fieldset.Root` context.
 - Directory upload: supported through `directory`; consumers can read `file.webkitRelativePath`.
 - Media capture: supported through `capture`.
-- Pasting files: supported through Ark `useFileUpload()` with `RootProvider` and `setClipboardFiles()`.
+- Pasting files: supported through `useFileUpload()` with `RootProvider` and `setClipboardFiles()`.
 - File transforms: supported through `transformFiles(files)`.
-- Root provider is preserved through `FileUpload.RootProvider`. Import Ark `useFileUpload()`,
-  `FileUpload.Context`, and `useFileUploadContext()` directly from `@ark-ui/react/file-upload` when
-  advanced workflows need them.
+- Root provider is preserved through `FileUpload.RootProvider`. `FileUpload.Context`, `useFileUpload()`, and
+  `useFileUploadContext()` are re-exported from moduix without changing Ark contracts.
 
 ## Accessibility and state
 
@@ -128,7 +118,8 @@ export function FileUploadDemo() {
 
 ## Defaults and styling
 
-- `className` is supported on every visual part.
+- `className` is supported on every visual part. `Items` intentionally has no configuration surface: its rows retain
+  the existing `data-slot` hooks and CSS variables, while custom rows use the explicit context composition.
 - `DropzoneIcon` defaults to the moduix `UploadIcon` when children are omitted.
 - `ItemDeleteTrigger` defaults to the moduix `TrashIcon` when children are omitted.
 - `ClearTrigger` defaults to the moduix `CloseIcon` when children are omitted.
@@ -146,7 +137,9 @@ export function FileUploadDemo() {
 - The wrapper does not render `HiddenInput`, `ItemGroup`, or `Item` internally. Consumers keep the Ark composition
   visible and choose how to show accepted and rejected files.
 - Callback details and validation errors are not renamed.
-- moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type aliases.
+- moduix re-exports Ark context and state hooks through its package barrel, and exposes `Context` on the namespace.
+- `Items` is a compact accepted-file list for common attachment flows; it renders `Item`, `ItemName`, and the default
+  icon-only `ItemDeleteTrigger`. Use the explicit `Context` composition for previews, rejected files, or custom rows.
 
 ## Agent notes
 
@@ -158,6 +151,8 @@ export function FileUploadDemo() {
 
 ## Local changelog
 
+- 2026-07-10: Added moduix-owned context and state-hook exports plus `Items` for compact accepted-file lists. The
+  recommended composition now uses `Items`; explicit context composition remains available for custom file rows.
 - 2026-07-02: Removed duplicate Ark context, hook, and type exports from the moduix surface. Kept `RootProvider`,
   explicit visual parts, and the existing icon sugar.
 - 2026-06-25: Added public docs coverage for `ClearTrigger`, completed the CSS variables reference, switched item

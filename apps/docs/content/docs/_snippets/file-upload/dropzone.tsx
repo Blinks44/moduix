@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { FileUpload as ArkFileUpload } from '@ark-ui/react/file-upload';
 import { FileUpload } from '@moduix/react';
 
 const maxFiles = 5;
@@ -18,17 +17,7 @@ export function FileUploadDropzoneDemo() {
         </div>
       </FileUpload.Dropzone>
       <FileUpload.ItemGroup>
-        <ArkFileUpload.Context>
-          {({ acceptedFiles }) =>
-            acceptedFiles.map((file) => (
-              <FileUpload.Item key={file.name} file={file}>
-                <FileUpload.ItemName />
-                <FileUpload.ItemSizeText />
-                <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-              </FileUpload.Item>
-            ))
-          }
-        </ArkFileUpload.Context>
+        <FileUpload.Items />
       </FileUpload.ItemGroup>
       <FileUpload.HiddenInput />
     </FileUpload>

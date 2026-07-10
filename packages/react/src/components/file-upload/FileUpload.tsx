@@ -1,5 +1,9 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { FileUpload as FileUploadPrimitive } from '@ark-ui/react/file-upload';
+import {
+  FileUpload as FileUploadPrimitive,
+  useFileUpload,
+  useFileUploadContext,
+} from '@ark-ui/react/file-upload';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CloseIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
@@ -198,6 +202,17 @@ const FileUploadItemDeleteTrigger = forwardRef<
   );
 });
 
+function FileUploadItems() {
+  const { acceptedFiles } = useFileUploadContext();
+
+  return acceptedFiles.map((file) => (
+    <FileUploadItem key={`${file.name}-${file.size}`} file={file}>
+      <FileUploadItemName />
+      <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+    </FileUploadItem>
+  ));
+}
+
 const FileUploadClearTrigger = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.ClearTrigger>,
   ComponentProps<typeof FileUploadPrimitive.ClearTrigger>
@@ -217,6 +232,7 @@ const FileUploadClearTrigger = forwardRef<
 const FileUpload = Object.assign(FileUploadRoot, {
   Root: FileUploadRoot,
   RootProvider: FileUploadRootProvider,
+  Context: FileUploadPrimitive.Context,
   Label: FileUploadLabel,
   Dropzone: FileUploadDropzone,
   DropzoneIcon: FileUploadDropzoneIcon,
@@ -224,6 +240,7 @@ const FileUpload = Object.assign(FileUploadRoot, {
   HiddenInput: FileUploadHiddenInput,
   ItemGroup: FileUploadItemGroup,
   Item: FileUploadItem,
+  Items: FileUploadItems,
   ItemPreview: FileUploadItemPreview,
   ItemPreviewImage: FileUploadItemPreviewImage,
   ItemName: FileUploadItemName,
@@ -232,4 +249,4 @@ const FileUpload = Object.assign(FileUploadRoot, {
   ClearTrigger: FileUploadClearTrigger,
 });
 
-export { FileUpload };
+export { FileUpload, useFileUpload, useFileUploadContext };
