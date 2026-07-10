@@ -1,25 +1,34 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
+import type { ComponentProps } from 'react';
 import { List } from '@moduix/react';
+import { forwardRef } from 'react';
+
+const AccentListItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(function AccentListItem(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <li
+      ref={ref}
+      {...props}
+      className={className ? `list-demo-accent-item ${className}` : 'list-demo-accent-item'}
+    />
+  );
+});
 
 export function CustomCompositionListDemo() {
   return (
     <List className="list-demo-accent">
       <List.Item asChild>
-        <li className="list-demo-accent-item">
-          Native markers stay available for per-item styling.
-        </li>
+        <AccentListItem>Native markers stay available for per-item styling.</AccentListItem>
       </List.Item>
       <List.Item asChild>
-        <li className="list-demo-accent-item">
-          Root CSS variables still control spacing and indentation.
-        </li>
+        <AccentListItem>Root CSS variables still control spacing and indentation.</AccentListItem>
       </List.Item>
       <List.Item asChild>
-        <li className="list-demo-accent-item">
-          asChild keeps the slot contract while handing markup to the caller.
-        </li>
+        <AccentListItem>asChild keeps the semantic li contract for a custom item.</AccentListItem>
       </List.Item>
     </List>
   );

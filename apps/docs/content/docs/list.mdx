@@ -50,11 +50,11 @@ List / List.Root
 
 ### Recommended composition
 
-Stay with `<List>` for unordered content and use `as="ol"` when you need ordered semantics. Use `asChild` only when the caller needs to own a custom semantic host.
+Stay with `<List>` for unordered content and use `as="ol"` when you need ordered semantics. Use `asChild` only when you need to replace `List` with one semantic `<ul>` or `<ol>`, or `List.Item` with one semantic `<li>`.
 
 ### When to go custom
 
-`List` does not expose an internal state machine, nested structure helpers, or a marker render API. When you need a custom host element or per-item markup, use `asChild`, plain `li` children, and native CSS such as `li::marker`.
+`List` does not expose an internal state machine, nested structure helpers, or a marker render API. Use `className` and native CSS such as `li::marker` for ordinary item styling. Reserve `asChild` for a caller-owned component that forwards its ref and renders the required semantic host.
 
 Keep items as direct `li` descendants. The built-in spacing and marker styling apply only to direct list items.
 
@@ -76,21 +76,6 @@ Keep items as direct `li` descendants. The built-in spacing and marker styling a
 - `List.Item` is optional. Use plain `li` elements when the exported item slot adds no value.
 
 ## Examples
-
-### Ordered
-
-Use `as="ol"` to render an ordered list while keeping the moduix root styling contract.
-
-<Preview>
-  <ListDocs.OrderedListExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/list/ordered.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{ListDocs.listNoopCss}</Preview.CSS>
-  
-</Preview>
 
 ### Markerless
 
@@ -122,6 +107,21 @@ Use native `li` elements when you do not need the exported `List.Item` slot.
   
 </Preview>
 
+### Ordered
+
+Use `as="ol"` to render an ordered list while keeping the moduix root styling contract.
+
+<Preview>
+  <ListDocs.OrderedListExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/list/ordered.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ListDocs.listNoopCss}</Preview.CSS>
+  
+</Preview>
+
 ### Tone
 
 Use `tone` when the list should inherit a semantic text color.
@@ -137,9 +137,9 @@ Use `tone` when the list should inherit a semantic text color.
   
 </Preview>
 
-### Custom Composition
+### Advanced Customization
 
-Use `List.Item asChild` when the item slot should stay public but the caller needs to own the rendered `li`.
+Use `List.Item asChild` only when a custom component must own the rendered `<li>`. That component must forward its ref and preserve the `<li>` host; otherwise, use `List.Item className` directly.
 
 <Preview>
   <ListDocs.CustomCompositionListExample />

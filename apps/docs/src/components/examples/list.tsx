@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react';
 import { List } from '@moduix/react';
+import { forwardRef } from 'react';
 import { CSSPropertiesReferenceTable } from '../preview';
 
 const basicItems = [
@@ -29,7 +30,7 @@ const nativeItems = [
 const customStyleItems = [
   'Native markers stay available for per-item styling.',
   'Root CSS variables still control spacing and indentation.',
-  'asChild keeps the slot contract while handing markup to the caller.',
+  'asChild keeps the semantic li contract for a custom item.',
 ];
 
 const toneItems = [
@@ -101,6 +102,19 @@ export const listCustomCompositionCss = `
     font-weight: var(--weight-semibold);
   }
 `;
+
+const AccentListItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(function AccentListItem(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <li
+      ref={ref}
+      {...props}
+      className={className ? `list-demo-accent-item ${className}` : 'list-demo-accent-item'}
+    />
+  );
+});
 
 export const listOverrideCssProperties = [
   {
@@ -313,7 +327,7 @@ export function CustomCompositionListExample() {
     <List className="list-demo-accent">
       {customStyleItems.map((item) => (
         <List.Item key={item} asChild>
-          <li className="list-demo-accent-item">{item}</li>
+          <AccentListItem>{item}</AccentListItem>
         </List.Item>
       ))}
     </List>
