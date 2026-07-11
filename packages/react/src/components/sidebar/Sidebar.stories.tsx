@@ -600,6 +600,31 @@ export const CustomSizes: Story = {
   },
 };
 
+export const CustomPanelId: Story = {
+  render: () => (
+    <Sidebar panelId="navigation" className={styles.demo}>
+      <Sidebar.Panel>
+        <SidebarNavigation />
+      </Sidebar.Panel>
+      <Sidebar.ResizeTrigger />
+      <Sidebar.Trigger />
+      <Sidebar.Inset>
+        <SidebarMain />
+      </Sidebar.Inset>
+    </Sidebar>
+  ),
+  play: async ({ canvasElement }) => {
+    const sidebarPanel = canvasElement.querySelector('[data-slot="sidebar-panel"]');
+    const resizeTrigger = canvasElement.querySelector('[data-slot="sidebar-resize-trigger"]');
+    if (!sidebarPanel || !resizeTrigger) {
+      throw new Error('Sidebar custom panel anatomy was not rendered');
+    }
+
+    await expect(sidebarPanel).toHaveAttribute('data-id', 'navigation');
+    await expect(resizeTrigger).toHaveAttribute('data-id', 'navigation:content');
+  },
+};
+
 export const WithScrollArea: Story = {
   render: () => (
     <Sidebar className={styles.demo}>

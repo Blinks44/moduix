@@ -122,8 +122,9 @@ CSS-length layout does not fit. Use `useSidebar()` for `collapsed`, `state`, `si
 `toggleSidebar`. Use `Splitter` directly when an application needs the lower-level provider,
 registry, multiple-panel, or complete context APIs.
 
-Keep the default `"sidebar"` and `"content"` ids when overriding panel constraints. Use `Splitter`
-directly when a layout needs custom ids or more than two panels.
+`panelId` changes the default navigation id together with the matching resize handle; the inset id
+remains `"content"`. Use `Splitter` directly when a layout needs a custom inset id or more than
+two panels.
 
 Use `asChild` on menu buttons and sub-buttons to compose router links. Keep one semantic child that
 accepts the merged props and ref.
@@ -148,8 +149,10 @@ collapsible rail.
 
 ### Behavioral notes
 
-Ark accepts percentage and CSS length panel sizes. `Trigger` reports `aria-expanded`, calls the
-consumer `onClick` first, and skips its default toggle when that handler calls `preventDefault()`.
+Ark accepts percentage and CSS length panel sizes. CSS lengths are measured on the client, so
+server-rendered layouts can shift after hydration; use percentages when stable SSR layout matters.
+`Trigger` reports `aria-expanded`, calls the consumer `onClick` first, and skips its default toggle
+when that handler calls `preventDefault()`.
 
 Ark preserves pointer dragging, arrow-key resizing, focus state, and callback detail objects:
 `onResize(details)`, `onResizeEnd(details)`, `onCollapse(details)`, and `onExpand(details)`.
@@ -165,25 +168,19 @@ temporary layout override while the fix is pending.
 
 ## Examples
 
-Treat the first three examples as the recommended migration path from shadcn: collapsed rail
-tooltips in the basic recipe, a full desktop app shell, and a mobile overlay path that reuses the
-same visual navigation parts.
+### Custom Scroll Area
 
-### Recommended App Shell
-
-Compose `Input`, `GroupAction`, `MenuAction`, `MenuBadge`, `Collapsible`, and `Menu` directly inside
-the semantic Sidebar parts. Their state, focus, popup positioning, and animation remain owned by
-the corresponding moduix primitives. The expanded project list and additional navigation groups also
-demonstrate scrolling inside `Sidebar.Content`. `Sidebar.Tooltip` keeps the collapsed icon-rail path
-compact without introducing a sidebar-owned tooltip manager.
+Keep native scrolling as the default, or compose `ScrollArea` inside `Sidebar.Content` when the
+application needs a styled thumb and optional edge fade. Disable the outer overflow so the
+`ScrollArea.Viewport` remains the only scroll container.
 
 <Preview>
-  <SidebarDocs.InteractiveSidebarExample />
+  <SidebarDocs.ScrollAreaSidebarExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/sidebar/nested-navigation-and-account-menu.tsx#demo</include>
+  <include lang="tsx">./_snippets/sidebar/custom-scroll-area.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{SidebarDocs.sidebarExampleCss}</Preview.CSS>
+  <Preview.CSS>{SidebarDocs.sidebarScrollAreaCss}</Preview.CSS>
 </Preview>
 
 ### Mobile Drawer Navigation
@@ -216,50 +213,21 @@ Splitter as the source of layout truth while making sidebar migration feel as st
   <Preview.CSS>{SidebarDocs.sidebarSimpleCss}</Preview.CSS>
 </Preview>
 
-### Workspace Select
+### Recommended App Shell
 
-Use `Select.Trigger asChild` with `Sidebar.MenuButton`. Wrap text and indicators in `Sidebar.Label`
-and mark the compact visual anchor with `data-sidebar-icon` so collapse needs no custom JavaScript.
-The example combines the workspace switcher with regular navigation, a scrollable content region,
-and an account menu.
+Compose `Input`, `GroupAction`, `MenuAction`, `MenuBadge`, `Collapsible`, and `Menu` directly inside
+the semantic Sidebar parts. Their state, focus, popup positioning, and animation remain owned by the
+corresponding moduix primitives. The expanded project list and additional navigation groups also
+demonstrate scrolling inside `Sidebar.Content`. `Sidebar.Tooltip` keeps the collapsed icon-rail path
+compact without introducing a sidebar-owned tooltip manager.
 
 <Preview>
-  <SidebarDocs.WorkspaceSelectSidebarExample />
+  <SidebarDocs.InteractiveSidebarExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/sidebar/workspace-select.tsx#demo</include>
+  <include lang="tsx">./_snippets/sidebar/nested-navigation-and-account-menu.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{SidebarDocs.sidebarExampleCss}</Preview.CSS>
-</Preview>
-
-### Custom Sizes
-
-Keep the standard `"sidebar"` and `"content"` ids and pass normal Ark panel data to customize
-constraints while preserving controlled size and resize callbacks. The complete navigation remains
-usable while dragging between the custom minimum and maximum widths.
-
-<Preview>
-  <SidebarDocs.CustomSizesSidebarExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/sidebar/custom-sizes.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{SidebarDocs.sidebarSimpleCss}</Preview.CSS>
-</Preview>
-
-### Custom Scroll Area
-
-Keep native scrolling as the default, or compose `ScrollArea` inside `Sidebar.Content` when the
-application needs a styled thumb and optional edge fade. Disable the outer overflow so the
-`ScrollArea.Viewport` remains the only scroll container.
-
-<Preview>
-  <SidebarDocs.ScrollAreaSidebarExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/sidebar/custom-scroll-area.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{SidebarDocs.sidebarScrollAreaCss}</Preview.CSS>
 </Preview>
 
 ### Right Sidebar
@@ -277,6 +245,37 @@ Inspector example includes grouped tools, activity links, internal scrolling, an
   <Preview.CSS>{SidebarDocs.sidebarSimpleCss}</Preview.CSS>
 </Preview>
 
+### Workspace Select
+
+Use `Select.Trigger asChild` with `Sidebar.MenuButton`. Wrap text and indicators in `Sidebar.Label`
+and mark the compact visual anchor with `data-sidebar-icon` so collapse needs no custom JavaScript.
+The example combines the workspace switcher with regular navigation, a scrollable content region,
+and an account menu.
+
+<Preview>
+  <SidebarDocs.WorkspaceSelectSidebarExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/sidebar/workspace-select.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SidebarDocs.sidebarExampleCss}</Preview.CSS>
+</Preview>
+
+### Advanced Customization
+
+Bypass Sidebar's default panel constraints by passing Ark `panels` directly while keeping the
+explicit Sidebar composition. Use `Splitter` instead when the layout also needs custom inset ids,
+more than two panels, or provider and registry APIs.
+
+<Preview>
+  <SidebarDocs.CustomSizesSidebarExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/sidebar/custom-sizes.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SidebarDocs.sidebarSimpleCss}</Preview.CSS>
+</Preview>
+
 ## Styling
 
 The navigation panel uses card tokens; the inset uses the application background. The default panel
@@ -289,10 +288,10 @@ when they should leave the visual layout in the collapsed rail. Trailing group a
 hide automatically in the collapsed icon-only state.
 
 Panel widths are Ark state rather than visual CSS. Override `panels`, `defaultSize`, and controlled
-`size` to customize the expanded, minimum, maximum, and collapsed widths while keeping the standard
-panel ids. Use `Splitter` directly for custom ids or more than two panels. Use the public
-`--sidebar-*` variables for internal spacing, item dimensions, colors, and the trigger's vertical
-offset.
+`size` to customize the expanded, minimum, maximum, and collapsed widths. `panelId` changes the
+default navigation id; use `Splitter` directly for a custom inset id or more than two panels. Use
+the public `--sidebar-*` variables for internal spacing, item dimensions, colors, and the trigger's
+vertical offset.
 
 The resize UI is intentionally only a line. It uses the shared Splitter default: the idle color
 matches the border, while hover and drag shift it slightly toward `--color-muted-foreground`.

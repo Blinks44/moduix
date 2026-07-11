@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-Sidebar: add more internal components (badge, icons, etc.) for better DX
+Sidebar: Improve navigation composition defaults and migration guidance.

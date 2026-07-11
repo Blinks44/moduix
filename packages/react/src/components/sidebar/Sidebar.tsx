@@ -61,6 +61,11 @@ function getDefaultSidebarSize(side: SidebarSide): SidebarDefaultSize {
   return defaultSize;
 }
 
+function getDefaultPanels(side: SidebarSide, panelId: string) {
+  const panels = defaultPanelsBySide[side];
+  return panels.map((panel) => (panel.id === 'sidebar' ? { ...panel, id: panelId } : panel));
+}
+
 function toggleSidebarPanel(splitter: ReturnType<typeof useSplitterContext>, panelId: string) {
   if (splitter.isPanelCollapsed(panelId)) {
     splitter.expandPanel(panelId);
@@ -80,7 +85,7 @@ const SidebarRoot = forwardRef<ComponentRef<typeof Splitter.Root>, SidebarRootPr
         <Splitter.Root
           {...props}
           ref={ref}
-          panels={panels ?? defaultPanelsBySide[side]}
+          panels={panels ?? getDefaultPanels(side, panelId)}
           defaultSize={defaultSize ?? getDefaultSidebarSize(side)}
           orientation="horizontal"
           data-side={side}
@@ -150,8 +155,8 @@ const SidebarResizeTrigger = forwardRef<
   { className, id, 'aria-label': ariaLabel = 'Resize sidebar', ...props },
   ref,
 ) {
-  const { side } = useContext(SidebarConfigContext);
-  const resolvedId = id ?? (side === 'left' ? 'sidebar:content' : 'content:sidebar');
+  const { panelId, side } = useContext(SidebarConfigContext);
+  const resolvedId = id ?? (side === 'left' ? `${panelId}:content` : `content:${panelId}`);
 
   return (
     <Splitter.ResizeTrigger

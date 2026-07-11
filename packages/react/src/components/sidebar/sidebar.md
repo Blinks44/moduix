@@ -39,9 +39,9 @@ or storage through normal Splitter callbacks, not in a sidebar-owned provider.
   position, and icon direction. Render sibling parts in matching visual order.
 - `Sidebar.Panel`, `Sidebar.Inset`, and `Sidebar.ResizeTrigger` default to the correct ids for the
   selected side.
-- Panel constraints can be replaced with normal Ark `panels`, `defaultSize`, and controlled `size`
-  while retaining the standard `sidebar` and `content` ids. Use `Splitter` directly for custom ids
-  or more than two panels.
+- `panelId` changes the default navigation panel id and its adjacent resize trigger while the inset
+  remains `content`. Pass normal Ark `panels`, `defaultSize`, and controlled `size` to replace the
+  constraints; use `Splitter` directly for a custom inset id or more than two panels.
 - `Sidebar.Trigger` is a root-level zero-width flex item centered above the resize line. It calls
   `collapsePanel()` or `expandPanel()` and reads the current Ark state at click time. A consumer
   `onClick` runs first and may cancel the toggle with `event.preventDefault()`.
@@ -235,7 +235,9 @@ compact.
 
 Panel constraints are Ark state, not visual CSS. Override `panels`, `defaultSize`, controlled
 `size`, and callbacks for application-specific expanded, minimum, maximum, or collapsed widths.
-Keep the standard `sidebar` and `content` ids; use `Splitter` directly when custom ids are required.
+`panelId` changes the default navigation id; use `Splitter` directly when a layout also needs a
+custom inset id. CSS-length sizes are measured on the client, so server-rendered layouts can shift
+after hydration; use percentages when stable SSR layout matters.
 Use the public `--sidebar-*` variables and stable slots for internal spacing, colors, item sizes,
 group-action sizing, menu-action sizing, menu-badge spacing, and the floating trigger's vertical
 offset.
@@ -271,13 +273,15 @@ feedback.
 ## Agent notes
 
 - Keep layout state in Splitter and nested interaction state in the corresponding moduix primitive.
-- Keep default ids synchronized across root panel data, `Panel`, `Inset`, and `ResizeTrigger`.
+- Keep `panelId` synchronized across root panel data, `Panel`, `Trigger`, and `ResizeTrigger`.
 - Preserve the explicit `Panel → ResizeTrigger → Trigger → Inset` order for left sidebars and
   `Inset → Trigger → ResizeTrigger → Panel` for right sidebars.
 - Do not restore a Sidebar resize indicator or hide structural parts inside `Root`.
 
 ## Local changelog
 
+- 2026-07-11: Made `panelId` update the default panel data and resize trigger id, documented
+  CSS-length hydration behavior, and kept custom inset ids on the lower-level `Splitter` path.
 - 2026-07-06: Added `Sidebar.Tooltip` as the blessed collapsed-label helper and migrated sidebar
   examples away from repeated manual Tooltip anatomy.
 - 2026-07-06: Documented the blessed migration recipes explicitly: collapsed-rail tooltip
