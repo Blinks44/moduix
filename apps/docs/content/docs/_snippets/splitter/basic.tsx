@@ -20,9 +20,7 @@ export function SplitterDemo() {
       <Splitter.Panel id="a" className="splitter-panel">
         A
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
       <Splitter.Panel id="b" className="splitter-panel">
         B
       </Splitter.Panel>

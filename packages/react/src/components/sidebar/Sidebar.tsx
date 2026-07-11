@@ -1,15 +1,13 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
-import type { SplitterPanelData } from '@ark-ui/react/splitter';
 import type { ComponentProps, ComponentRef, MouseEvent } from 'react';
 import { ark } from '@ark-ui/react/factory';
-import { useSplitterContext } from '@ark-ui/react/splitter';
 import { clsx } from 'clsx';
 import { createContext, forwardRef, useContext } from 'react';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { Input } from '../input';
 import { Separator } from '../separator';
-import { Splitter } from '../splitter';
+import { Splitter, type SplitterPanelData, useSplitterContext } from '../splitter';
 import { Tooltip } from '../tooltip';
 import styles from './Sidebar.module.css';
 
@@ -152,7 +150,7 @@ const SidebarResizeTrigger = forwardRef<
   ComponentRef<typeof Splitter.ResizeTrigger>,
   SidebarResizeTriggerProps
 >(function SidebarResizeTrigger(
-  { className, id, 'aria-label': ariaLabel = 'Resize sidebar', ...props },
+  { children, className, id, 'aria-label': ariaLabel = 'Resize sidebar', ...props },
   ref,
 ) {
   const { panelId, side } = useContext(SidebarConfigContext);
@@ -167,7 +165,9 @@ const SidebarResizeTrigger = forwardRef<
       data-side={side}
       data-slot="sidebar-resize-trigger"
       className={clsx(styles.resizeTrigger, normalizeClassName(className))}
-    />
+    >
+      {children === undefined ? null : children}
+    </Splitter.ResizeTrigger>
   );
 });
 

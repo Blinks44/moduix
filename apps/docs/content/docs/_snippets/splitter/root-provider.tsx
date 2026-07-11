@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useSplitter } from '@ark-ui/react/splitter';
-import { Button, Splitter } from '@moduix/react';
+import { Button, Splitter, useSplitter } from '@moduix/react';
 
 const panels = [
   {
@@ -30,9 +29,7 @@ export function RootProviderSplitterDemo() {
         <Splitter.Panel id="a" className="splitter-panel">
           A
         </Splitter.Panel>
-        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-          <Splitter.ResizeTriggerIndicator />
-        </Splitter.ResizeTrigger>
+        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
         <Splitter.Panel id="b" className="splitter-panel">
           B
         </Splitter.Panel>

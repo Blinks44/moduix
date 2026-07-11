@@ -69,7 +69,7 @@
 
     &::before {
       position: absolute;
-      width: var(--splitter-resize-trigger-line-size, 1px);
+      width: var(--splitter-resize-trigger-line-thickness, 0.5px);
       height: var(--splitter-resize-trigger-line-length, 100%);
       border-radius: var(--splitter-resize-trigger-line-radius, var(--radius-full));
       background-color: var(--splitter-resize-trigger-line-color, var(--color-border));
@@ -96,21 +96,12 @@
 
       &::before {
         width: var(--splitter-resize-trigger-line-length, 100%);
-        height: var(--splitter-resize-trigger-line-size, 1px);
+        height: var(--splitter-resize-trigger-line-thickness, 0.5px);
       }
 
       &::after {
         width: 100%;
         height: var(--splitter-resize-trigger-size, 0.625rem);
-      }
-    }
-
-    &:focus-visible {
-      &::before {
-        background-color: var(
-          --splitter-resize-trigger-line-color-focus,
-          var(--splitter-resize-trigger-line-color, var(--color-border))
-        );
       }
     }
 
@@ -165,7 +156,8 @@
     transform: translate(-50%, -50%);
     transition:
       border-color var(--splitter-transition, var(--transition-default)),
-      box-shadow var(--splitter-transition, var(--transition-default));
+      box-shadow var(--splitter-transition, var(--transition-default)),
+      transform var(--splitter-transition, var(--transition-default));
 
     &[data-orientation='vertical'] {
       width: var(--splitter-resize-trigger-indicator-height, 1.5rem);
@@ -182,17 +174,22 @@
       --splitter-resize-trigger-indicator-bg-dragging,
       var(--splitter-resize-trigger-indicator-bg, var(--color-background))
     );
-    box-shadow: var(
-      --splitter-resize-trigger-indicator-shadow-dragging,
-      var(--splitter-resize-trigger-indicator-shadow, var(--shadow-sm))
-    );
+    box-shadow: var(--splitter-resize-trigger-indicator-shadow-dragging, var(--shadow-md));
+    transform: translate(-50%, -50%) scale(1.08);
   }
 
-  .resizeTrigger:focus-visible:not([data-dragging]) .resizeTriggerIndicator {
-    box-shadow: var(
-      --splitter-resize-trigger-indicator-shadow-focus,
-      var(--splitter-resize-trigger-indicator-shadow, var(--shadow-sm))
-    );
+  @media (hover: hover) {
+    .resizeTrigger:hover:not(:disabled, [data-disabled]) .resizeTriggerIndicator {
+      border-color: var(
+        --splitter-resize-trigger-indicator-border-color-hover,
+        color-mix(
+          in oklab,
+          var(--splitter-resize-trigger-indicator-border-color, var(--color-border)) 72%,
+          var(--color-muted-foreground)
+        )
+      );
+      box-shadow: var(--splitter-resize-trigger-indicator-shadow-hover, var(--shadow-md));
+    }
   }
 
   .resizeTrigger[data-disabled] .resizeTriggerIndicator {

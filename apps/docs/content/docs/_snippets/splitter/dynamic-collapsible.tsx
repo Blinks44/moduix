@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useSplitter } from '@ark-ui/react/splitter';
-import { Splitter } from '@moduix/react';
+import { Splitter, useSplitter } from '@moduix/react';
 import { useEffect, useRef, useState } from 'react';
 
 export function DynamicCollapsibleSplitterDemo() {
@@ -41,9 +40,7 @@ export function DynamicCollapsibleSplitterDemo() {
       <Splitter.Panel id="sidebar" className="splitter-panel">
         Sidebar
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels" />
       <Splitter.Panel id="content" className="splitter-panel">
         Content
       </Splitter.Panel>

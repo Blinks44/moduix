@@ -12,9 +12,9 @@ import * as SplitterDocs from '@/components/examples/splitter';
 
 ## Basic
 
-Use Ark-style parts: `Splitter.Root`, `Splitter.Panel`, `Splitter.ResizeTrigger`, and
-`Splitter.ResizeTriggerIndicator`. `panels` defines ids and constraints; rendered panel ids must
-match that array.
+Use Ark-style parts: `Splitter.Root`, `Splitter.Panel`, and `Splitter.ResizeTrigger`. The trigger
+shows the moduix resize indicator by default. `panels` defines ids and constraints; rendered panel
+ids must match that array.
 
 <Preview>
   <SplitterDocs.BasicSplitterExample />
@@ -23,7 +23,6 @@ match that array.
   <include lang="tsx">./_snippets/splitter/basic.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{SplitterDocs.splitterExampleCss}</Preview.CSS>
-  
 </Preview>
 
 ## Install with shadcn
@@ -36,7 +35,7 @@ match that array.
 Splitter.Root
 ├─ Splitter.Panel[id]
 ├─ Splitter.ResizeTrigger[id="panel-a:panel-b"]
-│  └─ Splitter.ResizeTriggerIndicator (optional)
+│  └─ Splitter.ResizeTriggerIndicator (default, customizable)
 └─ Splitter.Panel[id]
 ```
 
@@ -45,7 +44,7 @@ Splitter.Root
 | `Splitter` / `Splitter.Root`      | Owns panel constraints, sizes, orientation, callbacks, and the splitter state machine. |
 | `Splitter.Panel`                  | Resizable region. Its `id` must match one item in the `panels` prop.                   |
 | `Splitter.ResizeTrigger`          | Accessible handle button between adjacent panels.                                      |
-| `Splitter.ResizeTriggerIndicator` | Optional visual indicator inside a resize trigger.                                     |
+| `Splitter.ResizeTriggerIndicator` | Default visual indicator; pass custom trigger children to replace it.                  |
 | `Splitter.RootProvider`           | Renders the same part tree from state created with `useSplitter()`.                    |
 
 ## Composition
@@ -53,34 +52,34 @@ Splitter.Root
 ### Recommended composition
 
 Render panels and handles explicitly in the same order they appear visually. Use trigger ids in the
-`"left:right"` form so Ark can connect the two adjacent panel ids.
+`"left:right"` form so Ark can connect the two adjacent panel ids. Omit trigger children for the
+default resize indicator; pass children only when its content needs customization.
 
 ### When to go custom
 
 Use controlled `size` with `onResize(details)` when panel sizes must be mirrored into app state.
-For advanced imperative access, import `Splitter as ArkSplitter`, `useSplitter()`,
-`useSplitterContext()`, or `createSplitterRegistry()` directly from `@ark-ui/react/splitter` and
-pair them with the moduix visual parts. `Splitter.RootProvider` stays available for externally owned
-Ark state.
+Import `useSplitter`, `useSplitterContext`, and `createSplitterRegistry` from `@moduix/react` for
+imperative controls, externally-owned state, and nested multi-drag layouts. Pair `useSplitter()`
+with `Splitter.RootProvider` when state must be created outside the rendered part tree.
 
 Use `asChild` only when another element must own the rendered node. Custom resize triggers must keep
 button semantics, focus behavior, and keyboard interaction intact.
 
 ### Default props
 
-| Prop               | Default        | Notes                                                                 |
-| ------------------ | -------------- | --------------------------------------------------------------------- |
-| `orientation`      | `"horizontal"` | Use `"vertical"` for stacked panels.                                  |
-| `defaultSize`      | Ark-calculated | Pass percentage values totaling `100` for predictable initial sizing. |
-| `keyboardResizeBy` | Ark default    | Controls arrow-key resize distance.                                   |
-| `size`             | uncontrolled   | Pass with `onResize(details)` for controlled panel sizes.             |
-| `disabled`         | `false`        | Set on `ResizeTrigger` to disable a handle.                           |
+| Prop               | Default        | Notes                                                     |
+| ------------------ | -------------- | --------------------------------------------------------- |
+| `orientation`      | `"horizontal"` | Use `"vertical"` for stacked panels.                      |
+| `defaultSize`      | Ark-calculated | Use percentages for stable server-rendered sizing.        |
+| `keyboardResizeBy` | Ark default    | Controls arrow-key resize distance.                       |
+| `size`             | uncontrolled   | Pass with `onResize(details)` for controlled panel sizes. |
+| `disabled`         | `false`        | Set on `ResizeTrigger` to disable a handle.               |
 
 ### Behavioral notes
 
 `panels` is required and defines constraints such as `minSize`, `maxSize`, `collapsible`, and
-`collapsedSize`. `defaultSize` and controlled `size` are percentage arrays. Ark preserves the WAI-ARIA
-Window Splitter pattern, keyboard resizing, focus state, and pointer dragging.
+`collapsedSize`. Numeric size values are percentages; Ark also accepts CSS lengths for initial and
+constraint sizes, which are measured on the client and can shift after hydration.
 
 Zag 1.41.2 currently renders a collapsed panel at `minSize` when `collapsedSize` is smaller. The
 upstream [issue](https://github.com/chakra-ui/zag/issues/3179) and
@@ -92,34 +91,6 @@ and `onExpand(details)`. `onResizeStart` is called when a resize begins.
 
 ## Examples
 
-### Controlled
-
-Control panel sizes from React state and update that state from `details.size`.
-
-<Preview>
-  <SplitterDocs.ControlledSplitterExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/splitter/controlled.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{SplitterDocs.splitterStackCss}</Preview.CSS>
-  
-</Preview>
-
-### Vertical
-
-Set `orientation="vertical"` and give the root a stable height so stacked panels have room to resize.
-
-<Preview>
-  <SplitterDocs.VerticalSplitterExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/splitter/vertical.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{SplitterDocs.splitterVerticalCss}</Preview.CSS>
-  
-</Preview>
-
 ### Collapsible Panels
 
 Set `collapsible` and `collapsedSize` on a panel definition when a panel can shrink to a collapsed
@@ -127,56 +98,22 @@ rail.
 
 <Preview>
   <SplitterDocs.CollapsibleSplitterExample />
-
   <Preview.Code>
-  <include lang="tsx">./_snippets/splitter/collapsible-panels.tsx#demo</include>
-</Preview.Code>
+    <include lang="tsx">./_snippets/splitter/collapsible-panels.tsx#demo</include>
+  </Preview.Code>
   <Preview.CSS>{SplitterDocs.splitterExampleCss}</Preview.CSS>
-  
 </Preview>
 
-### Multiple Panels
+### Controlled
 
-Add another `Panel` and another adjacent `ResizeTrigger` for three-panel layouts.
-
-<Preview>
-  <SplitterDocs.MultiplePanelsSplitterExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/splitter/multiple-panels.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{SplitterDocs.splitterExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Root Provider
-
-Use `useSplitter()` from Ark with `Splitter.RootProvider` when controls outside the root need access
-to the same splitter API.
+Control panel sizes from React state and update that state from `details.size`.
 
 <Preview>
-  <SplitterDocs.RootProviderSplitterExample />
-
+  <SplitterDocs.ControlledSplitterExample />
   <Preview.Code>
-  <include lang="tsx">./_snippets/splitter/root-provider.tsx#demo</include>
-</Preview.Code>
+    <include lang="tsx">./_snippets/splitter/controlled.tsx#demo</include>
+  </Preview.Code>
   <Preview.CSS>{SplitterDocs.splitterStackCss}</Preview.CSS>
-  
-</Preview>
-
-### Resize Indicator
-
-Place `Splitter.ResizeTriggerIndicator` inside the trigger when the handle needs a stronger visual
-affordance.
-
-<Preview>
-  <SplitterDocs.ResizeIndicatorSplitterExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/splitter/resize-indicator.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{SplitterDocs.splitterExampleCss}</Preview.CSS>
-  
 </Preview>
 
 ### Dynamic Collapsible
@@ -186,12 +123,22 @@ available width.
 
 <Preview>
   <SplitterDocs.DynamicCollapsibleSplitterExample />
-
   <Preview.Code>
-  <include lang="tsx">./_snippets/splitter/dynamic-collapsible.tsx#demo</include>
-</Preview.Code>
+    <include lang="tsx">./_snippets/splitter/dynamic-collapsible.tsx#demo</include>
+  </Preview.Code>
   <Preview.CSS>{SplitterDocs.splitterExampleCss}</Preview.CSS>
-  
+</Preview>
+
+### Multiple Panels
+
+Add another `Panel` and another adjacent `ResizeTrigger` for three-panel layouts.
+
+<Preview>
+  <SplitterDocs.MultiplePanelsSplitterExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/splitter/multiple-panels.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{SplitterDocs.splitterExampleCss}</Preview.CSS>
 </Preview>
 
 ### Nested
@@ -201,12 +148,35 @@ handle intersections.
 
 <Preview>
   <SplitterDocs.NestedSplitterExample />
-
   <Preview.Code>
-  <include lang="tsx">./_snippets/splitter/nested.tsx#demo</include>
-</Preview.Code>
+    <include lang="tsx">./_snippets/splitter/nested.tsx#demo</include>
+  </Preview.Code>
   <Preview.CSS>{SplitterDocs.splitterNestedCss}</Preview.CSS>
-  
+</Preview>
+
+### Root Provider
+
+Use `useSplitter()` with `Splitter.RootProvider` when controls outside the root need access to the
+same splitter API.
+
+<Preview>
+  <SplitterDocs.RootProviderSplitterExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/splitter/root-provider.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{SplitterDocs.splitterStackCss}</Preview.CSS>
+</Preview>
+
+### Vertical
+
+Set `orientation="vertical"` and give the root a stable height so stacked panels have room to resize.
+
+<Preview>
+  <SplitterDocs.VerticalSplitterExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/splitter/vertical.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{SplitterDocs.splitterVerticalCss}</Preview.CSS>
 </Preview>
 
 ## Styling
@@ -217,12 +187,12 @@ public Moduix CSS variables below. `Splitter.Root` and `Splitter.RootProvider` a
 override Ark's root layout style. The default surface lives on the root, while panels stay flat and
 flush inside it.
 
-The resize trigger contributes only a `1px` separator to layout, with a transparent hit area and
-`Splitter.ResizeTriggerIndicator` rendered as the raised rounded handle on top of that line. The
-indicator is centered over the separator for both orientations. The separator line shifts slightly
-toward `--color-muted-foreground` on hover and drag by default, then returns to its idle or hovered
-color as soon as pointer dragging ends. Keyboard focus keeps the idle line color unless consumers
-override `--splitter-resize-trigger-line-color-focus`.
+The resize trigger contributes a `1px` separator to layout with a visually thinner `0.5px` line, a
+transparent hit area, and a raised rounded indicator on top. The indicator is centered over the
+separator for both orientations. Hover strengthens its border and shadow, while dragging adds a
+slight scale and stronger shadow. Releasing the pointer returns the trigger to its idle appearance.
+Override the corresponding `--splitter-resize-trigger-*` variables when the surrounding theme needs
+a different treatment.
 
 ### CSS Properties
 
@@ -240,5 +210,5 @@ Ark writes `data-scope="splitter"` and `data-part` to rendered parts. Moduix als
 `data-slot` values: `splitter-root`, `splitter-root-provider`, `splitter-panel`,
 `splitter-resize-trigger`, and `splitter-resize-trigger-indicator`.
 
-Important Ark state hooks include `data-orientation`, `data-dragging`, trigger `data-focus`,
-trigger `data-disabled`, panel `data-id`, and panel `data-index`.
+Important Ark state hooks include `data-orientation`, `data-dragging`, trigger `data-focus`, trigger
+`data-disabled`, panel `data-id`, and panel `data-index`.
