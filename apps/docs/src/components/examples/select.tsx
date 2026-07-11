@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select as ArkSelect, useSelect } from '@ark-ui/react/select';
 import { Field, Select } from '@moduix/react';
 import { useMemo, useState } from 'react';
 import type { CssPropertyInput } from '../preview';
@@ -178,17 +177,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
 }
 
 function SelectControl({ placeholder = 'Select an option' }: { placeholder?: string }) {
-  return (
-    <Select.Control>
-      <Select.Trigger>
-        <Select.ValueText placeholder={placeholder} />
-      </Select.Trigger>
-      <Select.Indicators>
-        <Select.ClearTrigger aria-label="Clear selection" />
-        <Select.Indicator />
-      </Select.Indicators>
-    </Select.Control>
-  );
+  return <Select.Field placeholder={placeholder} clearLabel="Clear selection" />;
 }
 
 function SelectPopupContent({ children }: { children: ReactNode }) {
@@ -224,6 +213,32 @@ export function SelectExample() {
   );
 }
 
+export function AdvancedCustomizationSelectExample() {
+  return (
+    <Select collection={fruits}>
+      <Select.Label>Choose fruit</Select.Label>
+      <Select.Control>
+        <Select.Trigger>
+          <Select.ValueText placeholder="Select an option" />
+        </Select.Trigger>
+        <Select.Indicators>
+          <Select.ClearTrigger aria-label="Clear selection" />
+          <Select.Indicator />
+        </Select.Indicators>
+      </Select.Control>
+      <Select.Positioner>
+        <Select.Content>
+          <Select.ItemGroup>
+            <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+            <FruitItems />
+          </Select.ItemGroup>
+        </Select.Content>
+      </Select.Positioner>
+      <Select.HiddenSelect />
+    </Select>
+  );
+}
+
 export function ControlledSelectExample() {
   const [value, setValue] = useState<string[]>(['light']);
 
@@ -252,7 +267,7 @@ export function ControlledSelectExample() {
 }
 
 export function RootProviderSelectExample() {
-  const select = useSelect({ collection: fruits, defaultValue: ['banana'] });
+  const select = Select.useSelect({ collection: fruits, defaultValue: ['banana'] });
 
   return (
     <div>
@@ -375,7 +390,7 @@ export function LazyMountSelectExample() {
 }
 
 export function SelectOnHighlightExample() {
-  const select = useSelect({
+  const select = Select.useSelect({
     collection: fruits,
     onHighlightChange({ highlightedValue }) {
       if (highlightedValue) {
@@ -439,7 +454,7 @@ export function SelectAllExample() {
       <Select.Label>Languages</Select.Label>
       <SelectControl placeholder="Select languages" />
       <SelectPopupContent>
-        <ArkSelect.Context>
+        <Select.Context>
           {(select) => (
             <button
               className="select-bulk-action"
@@ -452,7 +467,7 @@ export function SelectAllExample() {
               Select all
             </button>
           )}
-        </ArkSelect.Context>
+        </Select.Context>
         {languages.items.map((item) => (
           <Select.Item key={item.value} item={item}>
             <Select.ItemText>{item.label}</Select.ItemText>

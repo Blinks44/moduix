@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
+import type { ComponentProps, ComponentRef, ForwardedRef, ReactNode } from 'react';
 import {
   Select as SelectPrimitive,
   type CollectionItem,
@@ -6,6 +6,9 @@ import {
   type SelectRootProps as ArkSelectRootProps,
   type SelectRootProviderComponent as ArkSelectRootProviderComponent,
   type SelectRootProviderProps as ArkSelectRootProviderProps,
+  useSelect,
+  useSelectContext,
+  useSelectItemContext,
 } from '@ark-ui/react/select';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
@@ -23,6 +26,14 @@ type SelectRootProviderProps<T extends CollectionItem> = ArkSelectRootProviderPr
   OverlayPortalProps;
 type SelectRootComponent = ArkSelectRootComponent<OverlayPortalProps>;
 type SelectRootProviderComponent = ArkSelectRootProviderComponent<OverlayPortalProps>;
+type SelectFieldProps = Omit<
+  ComponentProps<typeof SelectPrimitive.Control>,
+  'asChild' | 'children'
+> & {
+  clearLabel?: string;
+  indicator?: ReactNode;
+  placeholder?: ComponentProps<typeof SelectPrimitive.ValueText>['placeholder'];
+};
 
 const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
   { className, portalled, portalRef, ...props }: SelectRootProps<T>,
@@ -154,6 +165,22 @@ function SelectIndicators({ className, ...props }: ComponentProps<'div'>) {
     />
   );
 }
+
+const SelectField = forwardRef<ComponentRef<typeof SelectPrimitive.Control>, SelectFieldProps>(
+  function SelectField({ clearLabel, indicator, placeholder, ...props }, ref) {
+    return (
+      <SelectControl ref={ref} {...props}>
+        <SelectTrigger>
+          <SelectValueText placeholder={placeholder} />
+        </SelectTrigger>
+        <SelectIndicators>
+          {clearLabel && <SelectClearTrigger aria-label={clearLabel} />}
+          <SelectIndicator>{indicator}</SelectIndicator>
+        </SelectIndicators>
+      </SelectControl>
+    );
+  },
+);
 
 const SelectPositioner = forwardRef<
   ComponentRef<typeof SelectPrimitive.Positioner>,
@@ -318,8 +345,14 @@ function SelectItemTextLabel({ className, ...props }: ComponentProps<'span'>) {
 const Select = Object.assign(SelectRoot, {
   Root: SelectRoot,
   RootProvider: SelectRootProvider,
+  Context: SelectPrimitive.Context,
+  ItemContext: SelectPrimitive.ItemContext,
+  useSelect,
+  useSelectContext,
+  useSelectItemContext,
   Label: SelectLabel,
   Control: SelectControl,
+  Field: SelectField,
   Trigger: SelectTrigger,
   ValueText: SelectValueText,
   ClearTrigger: SelectClearTrigger,

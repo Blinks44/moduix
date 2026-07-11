@@ -21,11 +21,19 @@ const fruits = createListCollection({
   ],
 });
 
-export function SelectDemo() {
+export function AdvancedCustomizationSelectDemo() {
   return (
     <Select collection={fruits}>
       <Select.Label>Choose fruit</Select.Label>
-      <Select.Field placeholder="Select an option" clearLabel="Clear selection" />
+      <Select.Control>
+        <Select.Trigger>
+          <Select.ValueText placeholder="Select an option" />
+        </Select.Trigger>
+        <Select.Indicators>
+          <Select.ClearTrigger aria-label="Clear selection" />
+          <Select.Indicator />
+        </Select.Indicators>
+      </Select.Control>
       <Select.Positioner>
         <Select.Content>
           <Select.ItemGroup>

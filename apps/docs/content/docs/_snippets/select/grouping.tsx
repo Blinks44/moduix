@@ -42,19 +42,26 @@ const produce = createListCollection({
 
 export function SelectGroupingDemo() {
   return (
-    <>
-      {produce.group().map(([type, group]) => (
-        <Select.ItemGroup key={type}>
-          <Select.ItemGroupLabel>{type}</Select.ItemGroupLabel>
-          {group.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
+    <Select collection={produce}>
+      <Select.Label>Choose produce</Select.Label>
+      <Select.Field placeholder="Select item" clearLabel="Clear selection" />
+      <Select.Positioner>
+        <Select.Content>
+          {produce.group().map(([type, group]) => (
+            <Select.ItemGroup key={type}>
+              <Select.ItemGroupLabel>{type}</Select.ItemGroupLabel>
+              {group.map((item) => (
+                <Select.Item key={item.value} item={item}>
+                  <Select.ItemText>{item.label}</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.ItemGroup>
           ))}
-        </Select.ItemGroup>
-      ))}
-    </>
+        </Select.Content>
+      </Select.Positioner>
+      <Select.HiddenSelect />
+    </Select>
   );
 }
 

@@ -21,6 +21,7 @@ explicit popup composition, `HiddenSelect`, and `RootProvider` / context hooks.
 
 - `Select` is the short root form and is equivalent to `Select.Root`.
 - The root renders a DOM element with `data-slot="select-root"` and moduix root styling.
+- `Select.Field` renders the standard control, value text, and indicators; pass `clearLabel` to add a labeled clear action or `indicator` to replace the default chevron.
 - Consumers must pass a `collection`; items render with `Select.Item item={item}`.
 - `value` and `defaultValue` are string arrays, including single selection.
 - `onValueChange(details)` exposes Ark `details.value` and `details.items`.
@@ -30,9 +31,11 @@ explicit popup composition, `HiddenSelect`, and `RootProvider` / context hooks.
   around `ClearTrigger` and `Indicator`.
 - When `Select.ClearTrigger` is omitted or hidden, the trigger automatically reduces its end
   padding so it only reserves space for the indicator.
-- Import Ark state helpers such as `useSelect`, `Select.Context`, and `useSelectContext` directly
-  from `@ark-ui/react/select`. Import collection helpers directly from
+- Use `Select.Context`, `Select.ItemContext`, `Select.useSelectContext`, and
+  `Select.useSelectItemContext` for advanced state reads. Import collection helpers directly from
   `@ark-ui/react/collection`.
+- Use `Select.useSelect` with `Select.RootProvider`; do not render `Select.Root` for the same state
+  instance.
 - `Select.ItemTextContent`, `Select.ItemTextIcon`, and `Select.ItemTextLabel` are moduix span
   helpers for richer item text layout.
 - legacy flat aliases and compatibility APIs are intentionally removed.
@@ -44,7 +47,7 @@ explicit popup composition, `HiddenSelect`, and `RootProvider` / context hooks.
 ```text
 Select / Select.Root
 ├─ Select.Label
-├─ Select.Control
+├─ Select.Control / Select.Field
 │  ├─ Select.Trigger
 │  │  └─ Select.ValueText
 │  └─ Select.Indicators
@@ -68,6 +71,7 @@ Select / Select.Root
 | `Select.RootProvider`    | `select-root-provider`     | RootProvider styled like root.      |
 | `Select.Label`           | `select-label`             | Ark label.                          |
 | `Select.Control`         | `select-control`           | Ark control state wrapper.          |
+| `Select.Field`           | `select-control`           | Moduix standard-control helper.     |
 | `Select.Trigger`         | `select-trigger`           | Ark trigger button.                 |
 | `Select.ValueText`       | `select-value-text`        | Placeholder or selected label text. |
 | `Select.ClearTrigger`    | `select-clear-trigger`     | Default `CloseIcon`.                |
@@ -103,15 +107,7 @@ export function SelectDemo() {
   return (
     <Select collection={fruits} name="fruit">
       <Select.Label>Choose fruit</Select.Label>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Select an option" />
-        </Select.Trigger>
-        <Select.Indicators>
-          <Select.ClearTrigger aria-label="Clear selection" />
-          <Select.Indicator />
-        </Select.Indicators>
-      </Select.Control>
+      <Select.Field placeholder="Select an option" clearLabel="Clear selection" />
       <Select.Positioner>
         <Select.Content>
           {fruits.items.map((item) => (
@@ -150,9 +146,9 @@ export function SelectDemo() {
   `data-state="checked" | "unchecked"`.
 - Use Ark `Field.Root` / `Fieldset.Root` context for disabled, invalid, required, and read-only
   state.
-- Import Ark `Select.Context`, `Select.ItemContext`, `useSelectContext`, and
-  `useSelectItemContext` directly from `@ark-ui/react/select` for advanced state reads.
-- Use Ark `useSelect` with `Select.RootProvider`; do not render `Select.Root` for the same state
+- Use `Select.Context`, `Select.ItemContext`, `Select.useSelectContext`, and
+  `Select.useSelectItemContext` for advanced state reads.
+- Use `Select.useSelect` with `Select.RootProvider`; do not render `Select.Root` for the same state
   instance.
 - Use `asChild` only with a single semantic child that can receive the required Ark props.
 
@@ -172,10 +168,10 @@ export function SelectDemo() {
 ## Intentional sugar and differences from upstream
 
 - Default icons are added for clear trigger, indicator, and item indicator.
+- `Field` is a narrow standard-control helper; `indicator` replaces only the default chevron, while popup positioning, content, items, and form submission stay explicit.
 - `ItemTextContent`, `ItemTextIcon`, and `ItemTextLabel` are local leaf helpers only; they do not
   replace Ark item composition.
-- moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
-  aliases. Advanced consumers import those directly from `@ark-ui/react/select`.
+- moduix exposes Ark context parts and state hooks through the `Select` namespace without adding compatibility aliases or translating callback details.
 - legacy aliases were removed: `SelectField`, `SelectValue`, `SelectIcon`, `SelectPopup`,
   `SelectArrow`, `SelectContent` as hidden portal wrapper, scroll arrows, separator, `items`,
   `itemToStringLabel`, `itemToStringValue`, null item clearing, and flat part exports.
@@ -191,6 +187,7 @@ export function SelectDemo() {
 
 ## Local changelog
 
+- 2026-07-11: Added `Select.Field` for the standard control, including `indicator` customization, and restored moduix namespace access to Ark state hooks and contexts.
 - 2026-07-03: Kept the trigger focus ring visible while the popup is open and documented the shared
   field/clear-action hover contract with Combobox.
 - 2026-07-03: Removed Ark context parts, state hooks, and duplicate Ark type exports from the

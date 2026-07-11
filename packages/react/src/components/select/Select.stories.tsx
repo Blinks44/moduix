@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select as ArkSelect, useSelect } from '@ark-ui/react/select';
 import { useState } from 'react';
 import { InfoIcon } from '@/icons/demo';
 import { Select } from './Select';
@@ -64,19 +63,7 @@ const languages = createListCollection<OptionItem>({
 });
 
 function SelectFieldView({ placeholder = 'Select an option' }: { placeholder?: string }) {
-  return (
-    <>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder={placeholder} />
-        </Select.Trigger>
-        <Select.Indicators>
-          <Select.ClearTrigger aria-label="Clear selection" />
-          <Select.Indicator />
-        </Select.Indicators>
-      </Select.Control>
-    </>
-  );
+  return <Select.Field placeholder={placeholder} clearLabel="Clear selection" />;
 }
 
 function FruitItems() {
@@ -113,6 +100,22 @@ export const Basic: Story = {
     <Select collection={fruits}>
       <Select.Label>Choose fruit</Select.Label>
       <SelectFieldView />
+      <SelectPopupContent>
+        <Select.ItemGroup>
+          <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+          <FruitItems />
+        </Select.ItemGroup>
+      </SelectPopupContent>
+      <Select.HiddenSelect />
+    </Select>
+  ),
+};
+
+export const CustomFieldIndicator: Story = {
+  render: () => (
+    <Select collection={fruits}>
+      <Select.Label>Choose fruit</Select.Label>
+      <Select.Field placeholder="Select an option" indicator={<span aria-hidden>⌄</span>} />
       <SelectPopupContent>
         <Select.ItemGroup>
           <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
@@ -239,9 +242,9 @@ export const Context: Story = {
     <Select collection={fruits} defaultValue={['apple']}>
       <Select.Label>Choose fruit</Select.Label>
       <SelectFieldView />
-      <ArkSelect.Context>
+      <Select.Context>
         {(select) => <span className={styles.state}>Selected: {select.valueAsString}</span>}
-      </ArkSelect.Context>
+      </Select.Context>
       <SelectPopupContent>
         <Select.ItemGroup>
           <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
@@ -255,7 +258,7 @@ export const Context: Story = {
 
 export const RootProvider: Story = {
   render: () => {
-    const select = useSelect({ collection: fruits, defaultValue: ['banana'] });
+    const select = Select.useSelect({ collection: fruits, defaultValue: ['banana'] });
 
     return (
       <div className={styles.stack}>
