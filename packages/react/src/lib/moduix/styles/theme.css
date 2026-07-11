@@ -2289,6 +2289,7 @@
   --scroll-area-scrollbar-visible-opacity: initial; /* 1 */
   --scroll-area-thumb-bg: initial; /* var(--color-border) */
   --scroll-area-thumb-hover-increase: initial; /* 2px */
+  --scroll-area-thumb-hover-transition: initial; /* var(--transition-fast) */
   --scroll-area-thumb-min-size: initial; /* 1.5rem */
   --scroll-area-thumb-radius: initial; /* var(--radius-full) */
   --scroll-area-transition: initial; /* var(--transition-default) */

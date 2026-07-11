@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { ScrollArea as ScrollAreaPrimitive } from '@ark-ui/react/scroll-area';
+import { ScrollArea as ScrollAreaPrimitive, useScrollArea } from '@ark-ui/react/scroll-area';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -7,20 +7,23 @@ import styles from './ScrollArea.module.css';
 
 type ModuixScrollAreaRootProps = ComponentProps<typeof ScrollAreaPrimitive.Root> & {
   fade?: boolean;
+  variant?: 'hover' | 'always';
 };
 type ModuixScrollAreaRootProviderProps = ComponentProps<typeof ScrollAreaPrimitive.RootProvider> & {
   fade?: boolean;
+  variant?: 'hover' | 'always';
 };
 
 const ScrollAreaRoot = forwardRef<
   ComponentRef<typeof ScrollAreaPrimitive.Root>,
   ModuixScrollAreaRootProps
->(function ScrollAreaRoot({ className, fade, ...props }, ref) {
+>(function ScrollAreaRoot({ className, fade, variant = 'hover', ...props }, ref) {
   return (
     <ScrollAreaPrimitive.Root
       ref={ref}
       data-slot="scroll-area-root"
       data-fade={fade ? '' : undefined}
+      data-variant={variant}
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
@@ -30,12 +33,13 @@ const ScrollAreaRoot = forwardRef<
 const ScrollAreaRootProvider = forwardRef<
   ComponentRef<typeof ScrollAreaPrimitive.RootProvider>,
   ModuixScrollAreaRootProviderProps
->(function ScrollAreaRootProvider({ className, fade, ...props }, ref) {
+>(function ScrollAreaRootProvider({ className, fade, variant = 'hover', ...props }, ref) {
   return (
     <ScrollAreaPrimitive.RootProvider
       ref={ref}
       data-slot="scroll-area-root-provider"
       data-fade={fade ? '' : undefined}
+      data-variant={variant}
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
@@ -120,7 +124,8 @@ const ScrollArea = Object.assign(ScrollAreaRoot, {
   Scrollbar: ScrollAreaScrollbar,
   Thumb: ScrollAreaThumb,
   Corner: ScrollAreaCorner,
+  useScrollArea,
 });
 
-export { ScrollArea };
+export { ScrollArea, useScrollArea };
 export type { ModuixScrollAreaRootProps, ModuixScrollAreaRootProviderProps };

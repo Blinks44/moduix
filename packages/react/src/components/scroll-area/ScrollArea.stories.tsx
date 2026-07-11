@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useScrollArea } from '@ark-ui/react/scroll-area';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import { Button } from '../button';
 import { ScrollArea } from './ScrollArea';
@@ -48,7 +47,7 @@ function VerticalScrollArea() {
 }
 
 function RootProviderStory() {
-  const scrollArea = useScrollArea();
+  const scrollArea = ScrollArea.useScrollArea();
 
   return (
     <div className={styles.providerStack}>
@@ -85,6 +84,23 @@ function RootProviderStory() {
 
 export const Basic: Story = {
   render: () => <VerticalScrollArea />,
+};
+
+export const AlwaysVisible: Story = {
+  name: 'Always Visible',
+  render: () => (
+    <ScrollArea className={styles.root} variant="always">
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>
+          <TextContent />
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
+    </ScrollArea>
+  ),
 };
 
 export const Fade: Story = {
