@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useSlider, useSliderContext } from '@ark-ui/react/slider';
 import { useState } from 'react';
 import { Button } from '../button';
-import { Slider } from './Slider';
+import { Slider, useSlider, useSliderContext } from './Slider';
 import styles from './Slider.stories.module.css';
 
 const meta = {
@@ -30,9 +29,7 @@ export const Basic: Story = {
           <Slider.Track>
             <Slider.Range />
           </Slider.Track>
-          <Slider.Thumb index={0} aria-label="Volume">
-            <Slider.HiddenInput />
-          </Slider.Thumb>
+          <Slider.Thumbs />
         </Slider.Control>
       </Slider>
     );

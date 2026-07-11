@@ -17,7 +17,7 @@ Ark UI does not ship a dedicated split-button primitive. Moduix builds this comp
 
 Use `SplitButton` as the short root form, then keep the Ark-style structure visible with
 `SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Positioner`, and
-`SplitButton.Content`.
+`SplitButton.Content`. The primary action uses the same `onClick` contract as `Button`.
 
 <Preview>
   <SplitButtonDocs.SplitButtonExample />
@@ -112,52 +112,6 @@ When the menu itself needs advanced state access, compose directly with `Menu.Ro
 
 ## Examples
 
-### Variants
-
-Use the root `variant` when both grouped buttons should share the same visual tone.
-
-<Preview>
-  <SplitButtonDocs.SplitButtonVariantsExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/split-button/variants.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Sizes
-
-Use the root `size` when both sides should scale together.
-
-<Preview>
-  <SplitButtonDocs.SplitButtonSizesExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/split-button/sizes.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### With Icons
-
-Add an icon to the primary side when it clarifies the default action without replacing the text
-label.
-
-<Preview>
-  <SplitButtonDocs.SplitButtonIconExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/split-button/with-icons.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
-  
-</Preview>
-
 ### Controlled Menu State
 
 Use the same controlled open-state contract as Ark Menu when outside state should own the dropdown.
@@ -167,6 +121,21 @@ Use the same controlled open-state contract as Ark Menu when outside state shoul
 
 <Preview.Code>
   <include lang="tsx">./_snippets/split-button/controlled-menu-state.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Link Action
+
+Use `asChild` on `SplitButton.Action` when the primary action should render as a link.
+
+<Preview>
+  <SplitButtonDocs.SplitButtonLinkActionExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/link-action.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
@@ -189,7 +158,53 @@ parts explicit.
   
 </Preview>
 
-### Menu Composition
+### Sizes
+
+Use the root `size` when both sides should scale together.
+
+<Preview>
+  <SplitButtonDocs.SplitButtonSizesExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/sizes.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Variants
+
+Use the root `variant` when both grouped buttons should share the same visual tone.
+
+<Preview>
+  <SplitButtonDocs.SplitButtonVariantsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/variants.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### With Icons
+
+Add an icon to the primary side when it clarifies the default action without replacing the text
+label.
+
+<Preview>
+  <SplitButtonDocs.SplitButtonIconExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/split-button/with-icons.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Advanced Customization
 
 Use shared `Menu.*` parts inside `SplitButton.Content` when secondary actions need groups,
 separators, checkbox items, radio items, or link rows.
@@ -199,21 +214,6 @@ separators, checkbox items, radio items, or link rows.
 
 <Preview.Code>
   <include lang="tsx">./_snippets/split-button/menu-composition.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Link Action
-
-Use `asChild` on `SplitButton.Action` when the primary action should render as a link.
-
-<Preview>
-  <SplitButtonDocs.SplitButtonLinkActionExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/split-button/link-action.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{SplitButtonDocs.splitButtonExampleCss}</Preview.CSS>

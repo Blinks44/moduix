@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Slider as SliderPrimitive } from '@ark-ui/react/slider';
+import { Slider as SliderPrimitive, useSlider, useSliderContext } from '@ark-ui/react/slider';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -131,6 +131,16 @@ const SliderHiddenInput = forwardRef<
   );
 });
 
+function SliderThumbs({ className }: { className?: string }) {
+  const slider = useSliderContext();
+
+  return slider.value.map((_, index) => (
+    <SliderThumb key={index} index={index} className={className}>
+      <SliderHiddenInput />
+    </SliderThumb>
+  ));
+}
+
 const SliderMarkerGroup = forwardRef<
   ComponentRef<typeof SliderPrimitive.MarkerGroup>,
   ComponentProps<typeof SliderPrimitive.MarkerGroup>
@@ -176,16 +186,20 @@ const SliderDraggingIndicator = forwardRef<
 const Slider = Object.assign(SliderRoot, {
   Root: SliderRoot,
   RootProvider: SliderRootProvider,
+  Context: SliderPrimitive.Context,
+  useSlider,
+  useSliderContext,
   Label: SliderLabel,
   ValueText: SliderValueText,
   Control: SliderControl,
   Track: SliderTrack,
   Range: SliderRange,
   Thumb: SliderThumb,
+  Thumbs: SliderThumbs,
   HiddenInput: SliderHiddenInput,
   MarkerGroup: SliderMarkerGroup,
   Marker: SliderMarker,
   DraggingIndicator: SliderDraggingIndicator,
 });
 
-export { Slider };
+export { Slider, useSlider, useSliderContext };

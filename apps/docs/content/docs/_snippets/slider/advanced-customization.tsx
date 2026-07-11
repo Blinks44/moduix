@@ -3,7 +3,7 @@
 
 import { Slider } from '@moduix/react';
 
-export function SliderDemo() {
+export function AdvancedCustomizationSliderDemo() {
   return (
     <Slider defaultValue={[40]}>
       <div className="slider-header">
@@ -14,7 +14,9 @@ export function SliderDemo() {
         <Slider.Track>
           <Slider.Range />
         </Slider.Track>
-        <Slider.Thumbs />
+        <Slider.Thumb index={0} aria-label="Volume">
+          <Slider.HiddenInput />
+        </Slider.Thumb>
       </Slider.Control>
     </Slider>
   );

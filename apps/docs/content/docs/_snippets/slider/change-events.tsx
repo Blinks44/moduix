@@ -22,9 +22,7 @@ export function EventsSliderDemo() {
           <Slider.Track>
             <Slider.Range />
           </Slider.Track>
-          <Slider.Thumb index={0} aria-label="Gain">
-            <Slider.HiddenInput />
-          </Slider.Thumb>
+          <Slider.Thumbs />
         </Slider.Control>
       </Slider>
       <div className="slider-status">

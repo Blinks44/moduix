@@ -14,9 +14,7 @@ export function StepSliderDemo() {
         <Slider.Track>
           <Slider.Range />
         </Slider.Track>
-        <Slider.Thumb index={0} aria-label="Precision">
-          <Slider.HiddenInput />
-        </Slider.Thumb>
+        <Slider.Thumbs />
       </Slider.Control>
     </Slider>
   );

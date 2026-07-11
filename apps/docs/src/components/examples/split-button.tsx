@@ -72,16 +72,23 @@ function SplitButtonMenuItems({ includeSeparator = true }: { includeSeparator?: 
 }
 
 export function SplitButtonExample() {
+  const [status, setStatus] = useState('Ready to save.');
+
   return (
-    <SplitButton>
-      <SplitButton.Action>Save Changes</SplitButton.Action>
-      <SplitButton.Trigger />
-      <SplitButton.Positioner>
-        <SplitButton.Content>
-          <SplitButtonMenuItems />
-        </SplitButton.Content>
-      </SplitButton.Positioner>
-    </SplitButton>
+    <div>
+      <SplitButton>
+        <SplitButton.Action onClick={() => setStatus('Changes saved.')}>
+          Save Changes
+        </SplitButton.Action>
+        <SplitButton.Trigger />
+        <SplitButton.Positioner>
+          <SplitButton.Content>
+            <SplitButtonMenuItems />
+          </SplitButton.Content>
+        </SplitButton.Positioner>
+      </SplitButton>
+      <p aria-live="polite">{status}</p>
+    </div>
   );
 }
 

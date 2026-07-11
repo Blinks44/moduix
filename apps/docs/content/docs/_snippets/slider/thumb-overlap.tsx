@@ -14,12 +14,7 @@ export function ThumbOverlapSliderDemo() {
         <Slider.Track>
           <Slider.Range />
         </Slider.Track>
-        <Slider.Thumb index={0} aria-label="Minimum gap start">
-          <Slider.HiddenInput />
-        </Slider.Thumb>
-        <Slider.Thumb index={1} aria-label="Minimum gap end">
-          <Slider.HiddenInput />
-        </Slider.Thumb>
+        <Slider.Thumbs />
       </Slider.Control>
     </Slider>
   );

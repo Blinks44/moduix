@@ -1,5 +1,4 @@
-import { useSlider, useSliderContext } from '@ark-ui/react/slider';
-import { Button, Slider } from '@moduix/react';
+import { Button, Slider, useSlider, useSliderContext } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -508,8 +507,7 @@ export function DisabledSliderDemo() {
 `;
 
 export const sliderContextCode = `
-import { useSliderContext } from "@ark-ui/react/slider";
-import { Slider } from "@moduix/react";
+import { Slider, useSliderContext } from "@moduix/react";
 
 function SliderStatus() {
   const slider = useSliderContext();
@@ -540,8 +538,7 @@ export function ContextSliderDemo() {
 `;
 
 export const sliderRootProviderCode = `
-import { useSlider } from "@ark-ui/react/slider";
-import { Button, Slider } from "@moduix/react";
+import { Button, Slider, useSlider } from "@moduix/react";
 
 export function RootProviderSliderDemo() {
   const slider = useSlider({ defaultValue: [40] });
@@ -604,17 +601,13 @@ function SliderHeader({ label }: { label: string }) {
   );
 }
 
-function SliderControlExample({ thumbs = 1 }: { thumbs?: number }) {
+function SliderControlExample() {
   return (
     <Slider.Control>
       <Slider.Track>
         <Slider.Range />
       </Slider.Track>
-      {Array.from({ length: thumbs }, (_, index) => (
-        <Slider.Thumb key={index} index={index} aria-label={`Value ${index + 1}`}>
-          <Slider.HiddenInput />
-        </Slider.Thumb>
-      ))}
+      <Slider.Thumbs />
     </Slider.Control>
   );
 }
@@ -632,7 +625,7 @@ export function RangeSliderExample() {
   return (
     <Slider defaultValue={[30, 60]}>
       <Slider.Label>Price range</Slider.Label>
-      <SliderControlExample thumbs={2} />
+      <SliderControlExample />
       <Slider.ValueText />
     </Slider>
   );
@@ -755,7 +748,7 @@ export function ThumbCollisionSliderExample() {
   return (
     <Slider defaultValue={[25, 60]} thumbCollisionBehavior="push">
       <SliderHeader label="Linked range" />
-      <SliderControlExample thumbs={2} />
+      <SliderControlExample />
     </Slider>
   );
 }
@@ -764,7 +757,7 @@ export function ThumbOverlapSliderExample() {
   return (
     <Slider defaultValue={[25, 60]} minStepsBetweenThumbs={5}>
       <SliderHeader label="Minimum gap" />
-      <SliderControlExample thumbs={2} />
+      <SliderControlExample />
     </Slider>
   );
 }
@@ -799,6 +792,22 @@ export function RootProviderSliderExample() {
         <SliderControlExample />
       </Slider.RootProvider>
     </div>
+  );
+}
+
+export function AdvancedCustomizationSliderExample() {
+  return (
+    <Slider defaultValue={[40]}>
+      <SliderHeader label="Volume" />
+      <Slider.Control>
+        <Slider.Track>
+          <Slider.Range />
+        </Slider.Track>
+        <Slider.Thumb index={0} aria-label="Volume">
+          <Slider.HiddenInput />
+        </Slider.Thumb>
+      </Slider.Control>
+    </Slider>
   );
 }
 

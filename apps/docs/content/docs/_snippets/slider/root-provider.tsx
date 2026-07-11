@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useSlider } from '@ark-ui/react/slider';
-import { Button, Slider } from '@moduix/react';
+import { Button, Slider, useSlider } from '@moduix/react';
 
 export function RootProviderSliderDemo() {
   const slider = useSlider({
@@ -18,9 +17,7 @@ export function RootProviderSliderDemo() {
           <Slider.Track>
             <Slider.Range />
           </Slider.Track>
-          <Slider.Thumb index={0} aria-label="Volume">
-            <Slider.HiddenInput />
-          </Slider.Thumb>
+          <Slider.Thumbs />
         </Slider.Control>
       </Slider.RootProvider>
     </div>
