@@ -81,14 +81,14 @@
       var(--table-border-color, var(--color-border));
   }
 
-  .root[data-striped] .body .row:nth-child(even):not(.emptyRow) {
+  .root[data-striped] .body .row:nth-child(even):not([data-empty]) {
     background-color: var(
       --table-row-bg-striped,
       color-mix(in oklab, var(--color-muted) 35%, transparent)
     );
   }
 
-  .root[data-interactive] .body .row:not(.emptyRow):hover {
+  .root[data-interactive] .body .row:not([data-empty]):hover {
     background-color: var(--table-row-bg-hover, var(--color-muted));
   }
 
@@ -164,7 +164,7 @@
   }
 
   .numeric {
-    text-align: right;
+    text-align: end;
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
   }

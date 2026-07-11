@@ -128,6 +128,7 @@ Cell state hooks:
 
 - `data-numeric` on `Table.ColumnHeader` and `Table.Cell`
 - `data-sticky="start" | "end"` on sticky column header/data cells
+- `data-empty` on the row created by `Table.Empty`
 
 ## Defaults and styling
 
@@ -149,7 +150,7 @@ a border around the table root; `Table.ScrollArea` owns the common outer surface
 ## Intentional sugar and differences from upstream
 
 - `Table.Empty` is moduix sugar for the common empty-state row. Chakra does not define this part.
-- `numeric` is the local name for right-aligned tabular numerals on headers and cells.
+- `numeric` is the local name for inline-end-aligned tabular numerals on headers and cells.
 - `htmlWidth` on `Table.Column` maps to the native `width` attribute to match Chakra's guidance.
 - Moduix keeps the component native and does not wrap TanStack Table or own row selection/action
   state.
@@ -165,6 +166,7 @@ a border around the table root; `Table.ScrollArea` owns the common outer surface
 
 ## Local changelog
 
+- 2026-07-11: Added the `data-empty` row hook so empty states exclude hover and striped styling, and made numeric alignment direction-aware.
 - 2026-07-03: Simplified the public surface by keeping table part prop aliases private while
   preserving namespace composition, `Table.Empty`, and scroll-area styling affordances.
 - 2026-06-27: Audited the owned Ark factory migration, simplified striped/interactive row styling,
