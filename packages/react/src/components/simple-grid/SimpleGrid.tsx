@@ -31,7 +31,6 @@ const SimpleGridRoot = forwardRef<HTMLDivElement, SimpleGridRootProps>(function 
   const rootStyle: CSSProperties = {
     display: 'grid',
     gridTemplateColumns,
-    ...style,
   };
 
   if (gap != null) {
@@ -45,6 +44,8 @@ const SimpleGridRoot = forwardRef<HTMLDivElement, SimpleGridRootProps>(function 
   if (columnGap != null) {
     rootStyle.columnGap = columnGap;
   }
+
+  Object.assign(rootStyle, style);
 
   return (
     <ark.div

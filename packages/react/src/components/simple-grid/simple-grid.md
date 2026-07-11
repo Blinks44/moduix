@@ -119,6 +119,8 @@ last and remains the final per-instance override.
 
 ## Local changelog
 
+- 2026-07-11: Made the `style` prop the final override for generated gaps, and documented that
+  `minChildWidth` takes priority when both layout props are supplied.
 - 2026-07-04: Moved the base `display: grid` and one-column fallback from the CSS module into inline
   root styles so layout and gaps do not depend on a separate component CSS chunk.
 - 2026-07-04: Simplified the props and layout resolution so `minChildWidth` wins over `columns`
