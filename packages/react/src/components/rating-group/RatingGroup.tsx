@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import {
   RatingGroup as RatingGroupPrimitive,
   useRatingGroupItemContext,
@@ -126,6 +126,23 @@ const RatingGroupHiddenInput = forwardRef<
   );
 });
 
+function RatingGroupItems({ children }: { children?: ReactNode }) {
+  return (
+    <>
+      <RatingGroupPrimitive.Context>
+        {({ items }) =>
+          items.map((item) => (
+            <RatingGroupItem key={item} index={item}>
+              {children ?? <RatingGroupItemIndicator />}
+            </RatingGroupItem>
+          ))
+        }
+      </RatingGroupPrimitive.Context>
+      <RatingGroupHiddenInput />
+    </>
+  );
+}
+
 const RatingGroup = Object.assign(RatingGroupRoot, {
   Root: RatingGroupRoot,
   RootProvider: RatingGroupRootProvider,
@@ -133,6 +150,7 @@ const RatingGroup = Object.assign(RatingGroupRoot, {
   Control: RatingGroupControl,
   Item: RatingGroupItem,
   ItemIndicator: RatingGroupItemIndicator,
+  Items: RatingGroupItems,
   HiddenInput: RatingGroupHiddenInput,
 });
 
