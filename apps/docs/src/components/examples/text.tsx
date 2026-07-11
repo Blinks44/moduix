@@ -131,7 +131,3 @@ export function TextTruncationExample() {
     </div>
   );
 }
-
-export function TextClassNameExample() {
-  return <Text className={styles.customText}>Customized body copy with local CSS variables.</Text>;
-}

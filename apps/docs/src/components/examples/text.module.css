@@ -6,13 +6,6 @@
   gap: var(--spacing-3);
 }
 
-.customText {
-  --text-default-color: var(--color-primary);
-  --text-font-size-md: var(--text-lg);
-  --text-line-height-md: var(--line-height-text-lg);
-  --text-font-weight-regular: var(--weight-medium);
-}
-
 .link {
   text-decoration: none;
 

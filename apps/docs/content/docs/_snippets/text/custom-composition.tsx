@@ -4,8 +4,6 @@
 import { Text } from '@moduix/react';
 import styles from '@/components/examples/text.module.css';
 
-const href = '/docs';
-
 export function TextCustomElementDemo() {
   return (
     <Text asChild tone="primary" weight="medium">

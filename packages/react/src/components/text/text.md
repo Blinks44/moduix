@@ -128,8 +128,9 @@ Root attributes:
 ## Defaults and styling
 
 The root accepts `className`, `style`, native paragraph props from `HTMLArkProps<'p'>`, and `asChild`.
-Base styles reset margin to `0`, use logical `text-align: start`, and wrap long words with
-`overflow-wrap: break-word`.
+Its ref is typed as `HTMLElement` because every supported `as` value and an `asChild` host can render
+a different native element. Base styles reset margin to `0`, use logical `text-align: start`, and
+wrap long words with `overflow-wrap: break-word`.
 
 Public CSS variables:
 
@@ -178,6 +179,8 @@ directly when they need upstream typing helpers.
 
 ## Local changelog
 
+- 2026-07-11: Widened the root ref type to `HTMLElement` so it remains accurate for every supported
+  semantic root and `asChild` host.
 - 2026-06-27: Re-audited the local Ark factory contract, simplified default variant resolution,
   preserved root data hooks after passthrough props, aligned docs API text with local-only
   components, and fixed `lineClamp` when `truncate` is also present.

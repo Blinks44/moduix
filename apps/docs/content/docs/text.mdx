@@ -70,7 +70,7 @@ Text / Text.Root
 ### Recommended composition
 
 Use the short `<Text>` root for body copy and supporting text. It is equivalent to `<Text.Root>`,
-renders a `p` by default, and forwards the ref to the rendered Ark factory element.
+renders a `p` by default, and forwards the ref to the rendered `HTMLElement`.
 
 ### When to go custom
 
@@ -100,6 +100,31 @@ constraints; the surrounding layout owns any disclosure behavior.
 
 ## Examples
 
+### Alignment
+
+Use `align` when alignment belongs to the text itself instead of the surrounding layout container.
+
+<Preview>
+  <TextDocs.TextAlignExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/text/alignment.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .aligned {
+        display: flex;
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-4);
+      }
+    `}
+</Preview.CSS>
+
+</Preview>
+
 ### Semantics
 
 Use `as` for common semantic tags without leaving the typography scale.
@@ -109,31 +134,6 @@ Use `as` for common semantic tags without leaving the typography scale.
 
 <Preview.Code>
   <include lang="tsx">./_snippets/text/semantics.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .stack {
-        display: flex;
-        width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--spacing-8)));
-        flex-direction: column;
-        gap: var(--spacing-3);
-      }
-    `}
-</Preview.CSS>
-
-</Preview>
-
-### Tone
-
-Use `tone` to match the role of the copy without local color classes.
-
-<Preview>
-  <TextDocs.TextTonesExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/text/tone.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>
@@ -176,15 +176,15 @@ component.
 
 </Preview>
 
-### Weight
+### Tone
 
-Use `weight` when the emphasis should stay within the same semantic element.
+Use `tone` to match the role of the copy without local color classes.
 
 <Preview>
-  <TextDocs.TextWeightsExample />
+  <TextDocs.TextTonesExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/text/weight.tsx#demo</include>
+  <include lang="tsx">./_snippets/text/tone.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>
@@ -195,31 +195,6 @@ Use `weight` when the emphasis should stay within the same semantic element.
         max-width: min(34rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-3);
-      }
-    `}
-</Preview.CSS>
-
-</Preview>
-
-### Alignment
-
-Use `align` when alignment belongs to the text itself instead of the surrounding layout container.
-
-<Preview>
-  <TextDocs.TextAlignExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/text/alignment.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .aligned {
-        display: flex;
-        width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--spacing-8)));
-        flex-direction: column;
-        gap: var(--spacing-4);
       }
     `}
 </Preview.CSS>
@@ -251,10 +226,36 @@ surrounding layout owns expansion or disclosure.
 
 </Preview>
 
-### Custom Composition
+### Weight
 
-Use `asChild` when the root should be a custom host element instead of one of the intrinsic `as`
-values. The child must be a single element that can accept the forwarded props and ref.
+Use `weight` when the emphasis should stay within the same semantic element.
+
+<Preview>
+  <TextDocs.TextWeightsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/text/weight.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .stack {
+        display: flex;
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}
+</Preview.CSS>
+
+</Preview>
+
+### Advanced Customization
+
+Use `asChild` when the root should be a custom host element instead of one of the supported
+intrinsic `as` values. The child must be a single element that can accept the forwarded props and
+ref.
 
 <Preview>
   <TextDocs.TextCustomElementExample />
