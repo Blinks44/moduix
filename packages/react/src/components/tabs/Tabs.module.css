@@ -119,6 +119,7 @@
     position: absolute;
     z-index: 0;
     top: 50%;
+    left: var(--left, 0);
     width: var(--width, 0);
     height: var(--tabs-indicator-size, 2rem);
     border-radius: var(--tabs-indicator-radius, var(--radius-md));
@@ -150,6 +151,7 @@
     }
 
     &[data-orientation='vertical'] {
+      top: var(--top, 0);
       left: 50%;
       width: calc(100% - (var(--tabs-list-padding-x, var(--tabs-list-padding, 0.25rem)) * 2));
       height: var(--height, 0);

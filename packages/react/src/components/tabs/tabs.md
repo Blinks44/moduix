@@ -21,7 +21,7 @@ State and callbacks must remain Ark-shaped. `onValueChange(details)` exposes the
 ## Current behavior contract
 
 - `Tabs` is the short root form and equals `Tabs.Root`.
-- `Tabs.RootProvider` connects parts to state created with Ark `useTabs()`.
+- `Tabs.RootProvider` connects parts to state created with moduix `useTabs()` or `Tabs.useTabs()`.
 - `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator`, and `Tabs.Content` are thin styled Ark wrappers.
 - `variant?: 'default' | 'line'` is the only moduix visual sugar on `Tabs.Root` and
   `Tabs.RootProvider`.
@@ -43,14 +43,15 @@ State and callbacks must remain Ark-shaped. `onValueChange(details)` exposes the
 </Tabs.RootProvider>
 ```
 
-| Export               | `data-slot`          | Notes                                            |
-| -------------------- | -------------------- | ------------------------------------------------ |
-| `Tabs` / `Tabs.Root` | `tabs-root`          | Root div, selected value, focus and orientation. |
-| `Tabs.RootProvider`  | `tabs-root-provider` | Root provider div for `useTabs()` state.         |
-| `Tabs.List`          | `tabs-list`          | Trigger list.                                    |
-| `Tabs.Trigger`       | `tabs-trigger`       | Button by default; supports Ark `asChild`.       |
-| `Tabs.Indicator`     | `tabs-indicator`     | Optional active-trigger indicator.               |
-| `Tabs.Content`       | `tabs-content`       | Content region for a matching trigger value.     |
+| Export               | `data-slot`          | Notes                                              |
+| -------------------- | -------------------- | -------------------------------------------------- |
+| `Tabs` / `Tabs.Root` | `tabs-root`          | Root div, selected value, focus and orientation.   |
+| `Tabs.RootProvider`  | `tabs-root-provider` | Root provider div for `useTabs()` state.           |
+| `Tabs.List`          | `tabs-list`          | Trigger list.                                      |
+| `Tabs.Trigger`       | `tabs-trigger`       | Button by default; supports Ark `asChild`.         |
+| `Tabs.Indicator`     | `tabs-indicator`     | Optional active-trigger indicator.                 |
+| `Tabs.Content`       | `tabs-content`       | Content region for a matching trigger value.       |
+| `useTabs`            | —                    | Ark-compatible state hook for `Tabs.RootProvider`. |
 
 ## Composition
 
@@ -90,7 +91,7 @@ Use `asChild` on `Tabs.Trigger` for links or router components:
 - Links use `asChild` on `Tabs.Trigger`.
 - Manual activation uses `activationMode="manual"`.
 - Vertical tabs use `orientation="vertical"`.
-- External state uses Ark `useTabs()` plus `Tabs.RootProvider`.
+- External state uses moduix `useTabs()` or `Tabs.useTabs()` plus `Tabs.RootProvider`.
 
 ## Accessibility and state
 
@@ -130,13 +131,15 @@ The root defaults to a column layout and switches to row layout for `orientation
   decision explicitly reverses this migration rule.
 - Preserve Ark callback detail objects and do not add compatibility shims for old legacy signatures.
 - Keep custom styling examples on Ark variables `--left`, `--top`, `--width`, and `--height`.
-- `RootProvider` stays for Ark-owned external state, but advanced Ark hooks and renderless state
-  readers should be imported directly from `@ark-ui/react/tabs` when needed.
+- `RootProvider` and `useTabs` are the moduix-owned path for external Tabs state. Direct Ark imports
+  remain escape hatches for surfaces moduix does not export.
 
 ## Local changelog
 
 - 2026-07-03: Removed moduix re-exports for Ark tabs hooks, context readers, and type aliases.
   `Tabs.RootProvider` stays, but advanced external state now comes from direct Ark imports.
+- 2026-07-11: Restored `useTabs` as a moduix package and namespace export for the documented
+  `Tabs.RootProvider` external-state path. Indicator CSS now applies Ark positioning variables.
 - 2026-06-27: Included moduix `variant` in the public root prop types and simplified custom styling
   examples to use Ark indicator positioning without duplicate trigger styles.
 - 2026-06-21: Migrated Tabs to Ark UI React. Replaced flat part exports with

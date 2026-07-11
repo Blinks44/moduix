@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Tabs as TabsPrimitive } from '@ark-ui/react/tabs';
+import { Tabs as TabsPrimitive, useTabs } from '@ark-ui/react/tabs';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -100,6 +100,7 @@ const Tabs = Object.assign(TabsRoot, {
   Trigger: TabsTrigger,
   Indicator: TabsIndicator,
   Content: TabsContent,
+  useTabs,
 });
 
-export { Tabs };
+export { Tabs, useTabs };
