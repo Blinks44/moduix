@@ -23,8 +23,8 @@ Use `SegmentGroup` when the user chooses one value from a small visible set.
 
 ## Basic
 
-Use Ark-style parts: `SegmentGroup`, `SegmentGroup.Indicator`, `SegmentGroup.Item`,
-`SegmentGroup.ItemText`, `SegmentGroup.ItemControl`, and `SegmentGroup.ItemHiddenInput`.
+Use `SegmentGroup.Items` for a compact list of standard text segments. It renders the Ark item,
+text, control, and hidden input parts for every entry.
 
 <Preview>
   <SegmentGroupDocs.SegmentGroupExample />
@@ -53,34 +53,35 @@ SegmentGroup / SegmentGroup.Root
    └─ SegmentGroup.ItemHiddenInput
 
 SegmentGroup.RootProvider
-└─ same item tree connected to an Ark useSegmentGroup() store
+└─ same item tree connected to a moduix useSegmentGroup() store
 ```
 
-| Part                                 | Role                                                          |
-| ------------------------------------ | ------------------------------------------------------------- |
-| `SegmentGroup` / `SegmentGroup.Root` | Owns single-value state, keyboard navigation, and forms.      |
-| `SegmentGroup.RootProvider`          | Connects parts to state created with Ark `useSegmentGroup()`. |
-| `SegmentGroup.Label`                 | Optional accessible label for the group.                      |
-| `SegmentGroup.Indicator`             | Measured active-item highlight using Ark CSS variables.       |
-| `SegmentGroup.Item`                  | One selectable segment; renders a `label` by default.         |
-| `SegmentGroup.ItemText`              | Visible segment text.                                         |
-| `SegmentGroup.ItemControl`           | Ark control part; visually hidden by moduix default styles.   |
-| `SegmentGroup.ItemHiddenInput`       | Native input for form submission, validation, and reset.      |
+| Part                                 | Role                                                             |
+| ------------------------------------ | ---------------------------------------------------------------- |
+| `SegmentGroup` / `SegmentGroup.Root` | Owns single-value state, keyboard navigation, and forms.         |
+| `SegmentGroup.RootProvider`          | Connects parts to state created with moduix `useSegmentGroup()`. |
+| `SegmentGroup.Label`                 | Optional accessible label for the group.                         |
+| `SegmentGroup.Indicator`             | Measured active-item highlight using Ark CSS variables.          |
+| `SegmentGroup.Items`                 | Recommended renderer for standard text segments.                 |
+| `SegmentGroup.Item`                  | One selectable segment; renders a `label` by default.            |
+| `SegmentGroup.ItemText`              | Visible segment text.                                            |
+| `SegmentGroup.ItemControl`           | Ark control part; visually hidden by moduix default styles.      |
+| `SegmentGroup.ItemHiddenInput`       | Native input for form submission, validation, and reset.         |
 
 ## Composition
 
 ### Recommended composition
 
-Use the short root form `<SegmentGroup>` for normal usage. Render `Indicator` before items so the
-measured highlight sits behind the checked segment, and keep `ItemHiddenInput` inside each item
-when the control participates in native forms or reset behavior.
+Use the short root form `<SegmentGroup>` with `SegmentGroup.Items` for normal usage. Render
+`Indicator` before items so the measured highlight sits behind the checked segment. `Items` keeps
+Ark's `ItemHiddenInput` in every generated item for native forms and reset behavior.
 
 ### When to go custom
 
-Use `SegmentGroup.Item asChild` when a custom item node should own the label element. The child
-must still be a single semantic `label`. Use `SegmentGroup.RootProvider` with Ark
-`useSegmentGroup()` when surrounding controls need to call methods such as `setValue`,
-`clearValue`, or `focus`.
+Use `SegmentGroup.Item` when segments need custom content, per-item classes, or `asChild`. An
+`asChild` child must still be a single semantic `label`. Use `SegmentGroup.RootProvider` with
+`useSegmentGroup()` from `@moduix/react` when surrounding controls need to call methods such as
+`setValue`, `clearValue`, or `focus`.
 
 ### Default props
 
@@ -102,6 +103,22 @@ state, ids, form submission, and form reset synchronization.
 
 ## Examples
 
+### Conditional Mount
+
+Segment groups can mount conditionally; Ark recalculates item geometry for the indicator after the
+group appears.
+
+<Preview>
+  <SegmentGroupDocs.ConditionalSegmentGroupExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/segment-group/conditional-mount.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SegmentGroupDocs.segmentGroupExampleCss}</Preview.CSS>
+  
+</Preview>
+
 ### Controlled
 
 Control the selected value from React state and update it from `details.value`.
@@ -111,22 +128,6 @@ Control the selected value from React state and update it from `details.value`.
 
 <Preview.Code>
   <include lang="tsx">./_snippets/segment-group/controlled.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{SegmentGroupDocs.segmentGroupExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Root Provider
-
-Use `RootProvider` when state from Ark `useSegmentGroup()` needs to be shared with controls
-outside the segment tree.
-
-<Preview>
-  <SegmentGroupDocs.SegmentGroupRootProviderExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/segment-group/root-provider.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{SegmentGroupDocs.segmentGroupExampleCss}</Preview.CSS>
@@ -148,41 +149,10 @@ Set `disabled` on an item when only one segment should be unavailable.
   
 </Preview>
 
-### Conditional Mount
-
-Segment groups can mount conditionally; Ark recalculates item geometry for the indicator after the
-group appears.
-
-<Preview>
-  <SegmentGroupDocs.ConditionalSegmentGroupExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/segment-group/conditional-mount.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{SegmentGroupDocs.segmentGroupExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Vertical Orientation
-
-Set `orientation="vertical"` when arrow-key behavior and layout should follow a vertical list.
-
-<Preview>
-  <SegmentGroupDocs.VerticalSegmentGroupExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/segment-group/vertical-orientation.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{SegmentGroupDocs.segmentGroupVerticalCss}</Preview.CSS>
-  
-</Preview>
-
 ### Form Submission
 
-Pass `name` to the root and keep `ItemHiddenInput` in every item to submit the selected value with
-native form data.
+Pass `name` to the root to submit the selected value with native form data. `SegmentGroup.Items`
+adds `ItemHiddenInput` to every generated item.
 
 <Preview>
   <SegmentGroupDocs.FormSegmentGroupExample />
@@ -211,9 +181,41 @@ participates in native form validation.
   
 </Preview>
 
-### asChild
+### Root Provider
 
-Use `SegmentGroup.Item asChild` when a custom label layout should own the item DOM node.
+Use `useSegmentGroup()` with `RootProvider` when state needs to be shared with controls outside the
+segment tree.
+
+<Preview>
+  <SegmentGroupDocs.SegmentGroupRootProviderExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/segment-group/root-provider.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SegmentGroupDocs.segmentGroupExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Vertical Orientation
+
+Set `orientation="vertical"` when arrow-key behavior and layout should follow a vertical list.
+
+<Preview>
+  <SegmentGroupDocs.VerticalSegmentGroupExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/segment-group/vertical-orientation.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SegmentGroupDocs.segmentGroupVerticalCss}</Preview.CSS>
+  
+</Preview>
+
+### Advanced Customization
+
+Bypass `SegmentGroup.Items` and use `SegmentGroup.Item asChild` when a custom label layout should
+own the item DOM node.
 
 <Preview>
   <SegmentGroupDocs.SegmentGroupAsChildExample />

@@ -1,5 +1,8 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { SegmentGroup as SegmentGroupPrimitive } from '@ark-ui/react/segment-group';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import {
+  SegmentGroup as SegmentGroupPrimitive,
+  useSegmentGroup,
+} from '@ark-ui/react/segment-group';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -117,6 +120,20 @@ const SegmentGroupIndicator = forwardRef<
   );
 });
 
+function SegmentGroupItems({
+  items,
+}: {
+  items: readonly { value: string; label: ReactNode; disabled?: boolean }[];
+}) {
+  return items.map(({ value, label, disabled }) => (
+    <SegmentGroupItem key={value} value={value} disabled={disabled}>
+      <SegmentGroupItemText>{label}</SegmentGroupItemText>
+      <SegmentGroupItemControl />
+      <SegmentGroupItemHiddenInput />
+    </SegmentGroupItem>
+  ));
+}
+
 const SegmentGroup = Object.assign(SegmentGroupRoot, {
   Root: SegmentGroupRoot,
   RootProvider: SegmentGroupRootProvider,
@@ -126,6 +143,7 @@ const SegmentGroup = Object.assign(SegmentGroupRoot, {
   ItemText: SegmentGroupItemText,
   ItemHiddenInput: SegmentGroupItemHiddenInput,
   Indicator: SegmentGroupIndicator,
+  Items: SegmentGroupItems,
 });
 
-export { SegmentGroup };
+export { SegmentGroup, useSegmentGroup };

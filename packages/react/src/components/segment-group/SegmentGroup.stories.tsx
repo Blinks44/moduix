@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useSegmentGroup } from '@ark-ui/react/segment-group';
 import { useState } from 'react';
-import { SegmentGroup } from './SegmentGroup';
+import { SegmentGroup, useSegmentGroup } from './SegmentGroup';
 import styles from './SegmentGroup.stories.module.css';
 
 const meta = {
@@ -18,26 +17,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const frameworks = ['React', 'Solid', 'Svelte', 'Vue'] as const;
-
-function SegmentItems({ items = frameworks }: { items?: readonly string[] }) {
-  return (
-    <>
-      {items.map((item) => (
-        <SegmentGroup.Item key={item} value={item}>
-          <SegmentGroup.ItemText>{item}</SegmentGroup.ItemText>
-          <SegmentGroup.ItemControl />
-          <SegmentGroup.ItemHiddenInput />
-        </SegmentGroup.Item>
-      ))}
-    </>
-  );
-}
+const frameworkItems = frameworks.map((value) => ({ value, label: value }));
+const viewItems = ['List', 'Board', 'Calendar'].map((value) => ({ value, label: value }));
 
 export const Basic: Story = {
   render: () => (
     <SegmentGroup aria-label="Framework" defaultValue="React">
       <SegmentGroup.Indicator />
-      <SegmentItems />
+      <SegmentGroup.Items items={frameworkItems} />
     </SegmentGroup>
   ),
 };
@@ -54,7 +41,7 @@ export const Controlled: Story = {
           onValueChange={(details) => setValue(details.value)}
         >
           <SegmentGroup.Indicator />
-          <SegmentItems />
+          <SegmentGroup.Items items={frameworkItems} />
         </SegmentGroup>
         <span className={styles.hint}>Current value: {value ?? 'none'}</span>
       </div>
@@ -70,7 +57,7 @@ export const RootProvider: Story = {
       <div className={styles.stack}>
         <SegmentGroup.RootProvider aria-label="Framework" value={segmentGroup}>
           <SegmentGroup.Indicator />
-          <SegmentItems />
+          <SegmentGroup.Items items={frameworkItems} />
         </SegmentGroup.RootProvider>
         <button
           className={styles.button}
@@ -88,13 +75,9 @@ export const Disabled: Story = {
   render: () => (
     <SegmentGroup aria-label="Framework" defaultValue="React">
       <SegmentGroup.Indicator />
-      {frameworks.map((item) => (
-        <SegmentGroup.Item key={item} value={item} disabled={item === 'Svelte'}>
-          <SegmentGroup.ItemText>{item}</SegmentGroup.ItemText>
-          <SegmentGroup.ItemControl />
-          <SegmentGroup.ItemHiddenInput />
-        </SegmentGroup.Item>
-      ))}
+      <SegmentGroup.Items
+        items={frameworkItems.map((item) => ({ ...item, disabled: item.value === 'Svelte' }))}
+      />
     </SegmentGroup>
   ),
 };
@@ -103,7 +86,7 @@ export const Invalid: Story = {
   render: () => (
     <SegmentGroup aria-label="Framework" name="framework" defaultValue="React" invalid required>
       <SegmentGroup.Indicator />
-      <SegmentItems />
+      <SegmentGroup.Items items={frameworkItems} />
     </SegmentGroup>
   ),
 };
@@ -117,7 +100,7 @@ export const Vertical: Story = {
       className={styles.vertical}
     >
       <SegmentGroup.Indicator />
-      <SegmentItems items={['List', 'Board', 'Calendar']} />
+      <SegmentGroup.Items items={viewItems} />
     </SegmentGroup>
   ),
 };

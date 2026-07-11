@@ -3,7 +3,11 @@
 
 import { SegmentGroup } from '@moduix/react';
 
-const views = ['List', 'Board', 'Calendar'];
+const views = [
+  { value: 'List', label: 'List' },
+  { value: 'Board', label: 'Board' },
+  { value: 'Calendar', label: 'Calendar' },
+];
 
 export function VerticalSegmentGroupDemo() {
   return (
@@ -14,13 +18,7 @@ export function VerticalSegmentGroupDemo() {
       className="segment-vertical"
     >
       <SegmentGroup.Indicator />
-      {views.map((view) => (
-        <SegmentGroup.Item key={view} value={view}>
-          <SegmentGroup.ItemText>{view}</SegmentGroup.ItemText>
-          <SegmentGroup.ItemControl />
-          <SegmentGroup.ItemHiddenInput />
-        </SegmentGroup.Item>
-      ))}
+      <SegmentGroup.Items items={views} />
     </SegmentGroup>
   );
 }
