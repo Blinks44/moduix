@@ -46,7 +46,6 @@ Use `Separator` when the line itself communicates structure between related cont
     `}
 
   </Preview.CSS>
-  
 </Preview>
 
 ## Install with shadcn
@@ -78,8 +77,9 @@ components.
 
 ### When to go custom
 
-Use `asChild` when the host must be a semantic element such as `hr`. The child must be one element
-that can receive the merged role, ARIA, data attributes, class name, and ref.
+Use `asChild` only when another host must own the rendered DOM node. `Separator` already renders a
+semantic divider; the child must be one element that can receive the merged role, ARIA, data
+attributes, class name, and ref.
 
 ### Default props
 
@@ -94,6 +94,8 @@ that can receive the merged role, ARIA, data attributes, class name, and ref.
 ### Behavioral notes
 
 - `Separator` writes `aria-orientation` when its role is `separator`.
+- Use `role="presentation"` when a line is decorative only. This differs from shadcn's decorative
+  default: moduix keeps meaningful content dividers in the accessibility tree by default.
 - Horizontal separators fill the available width by default.
 - Vertical separators default to `1em` height so they align naturally with inline text and compact
   action rows.
@@ -103,30 +105,71 @@ that can receive the merged role, ARIA, data attributes, class name, and ref.
 
 ## Examples
 
-### Vertical
+### Decorative
 
-Use `orientation="vertical"` for inline groups such as navigation actions.
+Use `role="presentation"` for a line that only balances the layout and does not communicate
+structure to assistive technology.
 
 <Preview>
-  <SeparatorDocs.VerticalSeparatorExample />
+  <SeparatorDocs.DecorativeSeparatorExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/separator/vertical.tsx#demo</include>
+  <include lang="tsx">./_snippets/separator/decorative.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>
     {`
-      .nav {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--spacing-3);
-        text-wrap: nowrap;
+      .card {
+        width: min(18rem, 100%);
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-md);
+        background-color: var(--color-background);
       }
 
-      .link {
+      .stack {
+        display: grid;
+        gap: var(--spacing-4);
+      }
+
+      .text {
         color: var(--color-foreground);
         font-size: var(--text-sm);
         line-height: var(--line-height-text-sm);
-        text-decoration: none;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Sizes
+
+Use `size` to select the recipe thickness before applying any custom CSS variable overrides.
+
+<Preview>
+  <SeparatorDocs.SeparatorSizesExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/separator/sizes.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>
+    {`
+      .section {
+        display: grid;
+        gap: var(--spacing-2);
+      }
+
+      .exampleRow {
+        display: grid;
+        width: min(16rem, 100%);
+        grid-template-columns: 4rem minmax(6rem, 1fr);
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+
+      .text {
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
       }
     `}
 
@@ -170,45 +213,40 @@ Use `variant` when the separator needs a solid, dashed, or dotted stroke.
   
 </Preview>
 
-### Sizes
+### Vertical
 
-Use `size` to select the recipe thickness before applying any custom CSS variable overrides.
+Use `orientation="vertical"` for inline groups such as navigation actions.
 
 <Preview>
-  <SeparatorDocs.SeparatorSizesExample />
+  <SeparatorDocs.VerticalSeparatorExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/separator/sizes.tsx#demo</include>
+  <include lang="tsx">./_snippets/separator/vertical.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>
     {`
-      .section {
-        display: grid;
-        gap: var(--spacing-2);
-      }
-
-      .exampleRow {
-        display: grid;
-        width: min(16rem, 100%);
-        grid-template-columns: 4rem minmax(6rem, 1fr);
+      .nav {
+        display: inline-flex;
         align-items: center;
         gap: var(--spacing-3);
+        text-wrap: nowrap;
       }
 
-      .text {
+      .link {
         color: var(--color-foreground);
         font-size: var(--text-sm);
         line-height: var(--line-height-text-sm);
+        text-decoration: none;
       }
     `}
 
   </Preview.CSS>
-  
 </Preview>
 
-### As Child
+### Advanced Customization
 
-Use `asChild` to render a native host while keeping the moduix separator styling hooks.
+Use `asChild` when a custom host must receive the separator role, styling hooks, and forwarded ref.
+Otherwise, use `<Separator />` directly.
 
 <Preview>
   <SeparatorDocs.SeparatorAsChildExample />
