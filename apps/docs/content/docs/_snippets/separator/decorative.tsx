@@ -2,17 +2,16 @@
 //#region demo
 
 import { Separator } from '@moduix/react';
-import styles from './separator-demo.module.css';
 
 const sections = ['Personal details', 'Notifications'];
 
 export function DecorativeSeparatorDemo() {
   return (
-    <div className={styles.card}>
-      <div className={styles.stack}>
-        <span className={styles.text}>{sections[0]}</span>
+    <div className="card">
+      <div className="stack">
+        <span className="text">{sections[0]}</span>
         <Separator role="presentation" />
-        <span className={styles.text}>{sections[1]}</span>
+        <span className="text">{sections[1]}</span>
       </div>
     </div>
   );

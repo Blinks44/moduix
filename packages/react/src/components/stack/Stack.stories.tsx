@@ -52,15 +52,11 @@ export const Wrap: Story = {
 
 export const Separator: Story = {
   render: () => (
-    <Stack
-      direction="row"
-      align="center"
-      gap={10}
-      separator={<SeparatorComponent orientation="vertical" aria-hidden="true" />}
-      className={styles.row}
-    >
+    <Stack direction="row" align="center" gap={10} className={styles.row}>
       <Text weight="semibold">Design</Text>
+      <SeparatorComponent orientation="vertical" aria-hidden="true" />
       <Text tone="muted">Engineering</Text>
+      <SeparatorComponent orientation="vertical" aria-hidden="true" />
       <Text tone="muted">Docs</Text>
     </Stack>
   ),

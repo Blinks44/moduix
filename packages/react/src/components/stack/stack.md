@@ -8,7 +8,7 @@ Upstream docs:
 ## Purpose
 
 `Stack` lays out children in one vertical or horizontal flex container with common spacing,
-alignment, wrapping, grow behavior, and optional separators.
+alignment, wrapping, and grow behavior.
 
 ## Upstream model to preserve
 
@@ -17,8 +17,7 @@ factory wrapper with `@ark-ui/react/factory`.
 
 Preserve the Ark composition model: one root part, DOM ownership through `asChild`, forwarded refs
 to the root element, Ark-style `data-scope` / `data-part` attributes, and no legacy `render` or
-legacy `as` contract. Chakra's Stack recipe informs the public layout props and the optional
-`separator` composition pattern.
+legacy `as` contract. Chakra's Stack recipe informs the public layout props.
 
 ## Current behavior contract
 
@@ -36,8 +35,7 @@ legacy `as` contract. Chakra's Stack recipe informs the public layout props and 
   prop is provided. When omitted, normal browser flex defaults apply.
 - Responsive `direction={{ mobile, desktop }}` switches at `640px` and cross-falls back when only
   one side is provided.
-- `separator` renders the provided React node between children. It does not add extra spacing,
-  roles, or ARIA behavior.
+- Use the moduix `Separator` as an ordinary child when the layout needs a visual divider.
 - The component does not add item wrappers, keyboard handling, focus management, disabled states, or
   read-only states.
 
@@ -89,7 +87,7 @@ a single element that accepts `className`, `style`, and DOM attributes.
 - Ark composition: preserved through factory `asChild` behavior.
 - Ark ref guide: the forwarded ref targets the root DOM element or the single `asChild` child.
 - Ark styling: the root exposes `data-scope`, `data-part`, and `data-slot` hooks.
-- Chakra Stack direction, gap, align, justify, wrap, and separator patterns are supported.
+- Chakra Stack direction, gap, align, justify, and wrap patterns are supported.
 - Chakra `HStack` and `VStack` shortcut components are intentionally not exported. Use
   `direction="row"` or the default column direction.
 - Dedicated Ark state, provider/context, callbacks, `ids`, form integration, and keyboard patterns
@@ -101,8 +99,8 @@ a single element that accepts `className`, `style`, and DOM attributes.
 - Use `asChild` with semantic HTML or ARIA attributes when the wrapper itself should be meaningful to
   assistive technology.
 - Reading order and focus order follow the JSX child order.
-- `separator` is rendered as provided. Mark decorative separators with `aria-hidden="true"` or use
-  semantic markup when the separator should be announced.
+- When composing a `Separator` child, mark it `aria-hidden="true"` when decorative or use semantic
+  markup when it should be announced.
 - There is no `Field` / `Fieldset` context integration, `HiddenInput`, `RootProvider`, or context
   hook surface.
 
@@ -116,7 +114,6 @@ a single element that accepts `className`, `style`, and DOM attributes.
 | `justify`   | browser default | Any valid `justify-content` value                        |
 | `wrap`      | browser default | Any valid `flex-wrap` value                              |
 | `fill`      | theme default   | `true` sets `flex: 1 1 0`; `false` sets `flex: initial`  |
-| `separator` | -               | React node rendered between children                     |
 | `asChild`   | `false`         | Ark factory composition                                  |
 | `className` | -               | Applied to the root                                      |
 | `style`     | -               | Applied last and can override computed inline properties |
@@ -140,8 +137,8 @@ per-instance override escape hatch.
   `Stack`.
 - `Stack` does not re-export a separate prop type surface from moduix; consumers use the component
   directly and can derive prop types locally if they need them.
-- `separator` is Chakra-informed sugar. Prefer the moduix `Separator` component for visual dividers,
-  but moduix does not add `HStack`, `VStack`, item wrappers, or built-in divider styling.
+- `Stack` does not add `HStack`, `VStack`, item wrappers, built-in divider styling, or a `separator`
+  prop. Compose the moduix `Separator` directly when needed.
 - `fill` is moduix sugar for making the stack itself grow as a flex item.
 
 ## Agent notes
@@ -151,8 +148,8 @@ per-instance override escape hatch.
   hooks.
 - Preserve the current responsive direction behavior, including the mobile/desktop cross-fallback
   when only one side is provided.
-- Keep `separator` structural and unstyled; use `Separator` for the standard moduix divider or
-  consumer CSS for custom separators.
+- Keep `Stack` free of structural child processing. Use `Separator` for the standard moduix divider
+  or consumer CSS for custom separators.
 - Do not document `align`, `justify`, or `wrap` as component-enforced defaults; they rely on browser
   flex defaults when omitted.
 - Keep the styling contract clear: `--stack-direction-*` and `--stack-flex` are public theme
@@ -161,12 +158,13 @@ per-instance override escape hatch.
 
 ## Local changelog
 
+- 2026-07-11: Removed the `separator` prop to keep Stack a thin flex wrapper; compose the moduix
+  `Separator` directly as a child.
 - 2026-07-03: Removed the extra `StackRootProps` re-export so the public surface stays root-only.
 - 2026-06-27: Stopped writing default `--stack-*` inline variables when `direction` or `fill` are
   omitted, so the public theme variables in `theme.css` can act as defaults.
 - 2026-06-21: Migrated `Stack` to `@ark-ui/react/factory`, added `Stack.Root`, `asChild`,
-  `data-scope="stack"`, `data-part="root"`, forwarded root refs, and Chakra-informed `separator`
-  composition.
+  `data-scope="stack"`, `data-part="root"`, and forwarded root refs.
 - 2026-06-21: Removed the legacy `as` contract in favor of Ark factory `asChild`.
 - 2026-06-03: Rewrote the local documentation around the real shipped `Stack` contract, including
   the root-only composition model, responsive-direction fallback behavior, styling hooks,

@@ -2,16 +2,15 @@
 //#region demo
 
 import { Separator } from '@moduix/react';
-import styles from './separator-demo.module.css';
 
 const sizes = ['xs', 'sm', 'md', 'lg'] as const;
 
 export function SeparatorSizesDemo() {
   return (
-    <div className={styles.section}>
+    <div className="section">
       {sizes.map((size) => (
-        <div key={size} className={styles.exampleRow}>
-          <span className={styles.text}>{size}</span>
+        <div key={size} className="exampleRow">
+          <span className="text">{size}</span>
           <Separator size={size} />
         </div>
       ))}
