@@ -1,5 +1,4 @@
-import { useSwitch, useSwitchContext } from '@ark-ui/react/switch';
-import { Button, Field, Switch } from '@moduix/react';
+import { Button, Field, Switch, useSwitch, useSwitchContext } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

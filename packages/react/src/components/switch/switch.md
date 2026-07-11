@@ -28,14 +28,16 @@ checked state, keyboard activation, ARIA wiring, ids, field context, data attrib
 controlled/uncontrolled behavior.
 
 Expose ordinary usage through the visible switch parts and keep `Switch.RootProvider` for state
-created outside with Ark `useSwitch()`. Do not render `Switch.Root` and `Switch.RootProvider` for
-the same state instance.
+created outside with moduix `useSwitch()`. Do not render `Switch.Root` and `Switch.RootProvider`
+for the same state instance.
 
 ## Current behavior contract
 
 - `Switch` is the short callable root and is also available as `Switch.Root`.
 - `Switch.Root`, `Switch.RootProvider`, `Switch.Control`, `Switch.Thumb`, `Switch.Label`, and
   `Switch.HiddenInput` are thin styled wrappers over the matching Ark parts.
+- `Switch.Context`, `useSwitchContext`, and `useSwitch` preserve Ark state access through moduix
+  exports.
 - `Switch.Control` renders a default `Switch.Thumb` when its children are omitted.
 - `Switch` / `Switch.Root` and `Switch.RootProvider` do not render structural children for
   consumers. Compose the Ark parts explicitly so labels and form inputs stay visible in code.
@@ -56,9 +58,11 @@ the same state instance.
 | `Switch.Thumb`           | `SwitchPrimitive.Thumb`        | `switch-thumb`         | Movable thumb; supports custom children.                |
 | `Switch.Label`           | `SwitchPrimitive.Label`        | `switch-label`         | Ark-connected label text.                               |
 | `Switch.HiddenInput`     | `SwitchPrimitive.HiddenInput`  | `switch-hidden-input`  | Native input for forms and reset.                       |
+| `Switch.Context`         | `SwitchContext`                | —                      | Render-prop access to the current Ark switch state.     |
+| `useSwitchContext`       | `useSwitchContext`             | —                      | Hook access to the current Ark switch state.            |
+| `useSwitch`              | `useSwitch`                    | —                      | Creates state for `Switch.RootProvider`.                |
 
-Advanced Ark state helpers such as `Switch.Context`, `useSwitchContext`, and `useSwitch` are
-imported directly from `@ark-ui/react/switch` when needed.
+State helpers are imported from `@moduix/react` with `Switch`.
 
 ## Composition
 
@@ -100,8 +104,7 @@ export function ControlledSwitchDemo() {
 External state owner:
 
 ```tsx
-import { useSwitch } from '@ark-ui/react/switch';
-import { Switch } from '@moduix/react';
+import { Switch, useSwitch } from '@moduix/react';
 
 export function RootProviderSwitchDemo() {
   const switchApi = useSwitch({ defaultChecked: true });
@@ -124,9 +127,8 @@ export function RootProviderSwitchDemo() {
 - Controlled state: supported with Ark `checked` and `onCheckedChange(details)`.
 - Disabled and read-only states: supported with Ark `disabled` and `readOnly` and styled through Ark
   state attributes.
-- Context access: import `Switch.Context` or `useSwitchContext` from `@ark-ui/react/switch`.
-- Root provider: import `useSwitch` from `@ark-ui/react/switch` and pair it with
-  `Switch.RootProvider`.
+- Context access: use `Switch.Context` or import `useSwitchContext` from `@moduix/react`.
+- Root provider: import `useSwitch` from `@moduix/react` and pair it with `Switch.RootProvider`.
 - Field integration: supported by composing with `Field` and including `Switch.HiddenInput`.
 - ids and `asChild`: inherited from Ark root and part props.
 
@@ -197,14 +199,16 @@ Public CSS variables:
 | `--switch-width-lg`              | `3.25rem`                                                 | Control width for `size="lg"`.       |
 | `--switch-width-xl`              | `3.75rem`                                                 | Control width for `size="xl"`.       |
 
+Hover colors apply only when a switch is neither disabled nor read-only.
+
 ## Intentional sugar and differences from upstream
 
 - `size` is moduix-only and scales `Switch.Control` plus the default thumb.
 - `Switch.Control` auto-renders `Switch.Thumb` when no children are provided.
 - `Switch.Root` and `Switch.RootProvider` require explicit children; this keeps accessible labels,
   hidden inputs, and custom composition visible in consumer code.
-- moduix keeps `RootProvider`, but no longer re-exports Ark context parts, hooks, or Ark type
-  aliases.
+- moduix re-exports Ark state helpers through `Switch.Context`, `useSwitchContext`, and `useSwitch`
+  without wrapping or translating their contracts.
 - Styling is not unstyled: CSS Modules, `data-slot`, `data-size`, and `--switch-*` variables are
   part of the public wrapper contract.
 - Flat legacy exports (`SwitchThumb`, `SwitchField`, `SwitchLabel`) and legacy host props
@@ -216,11 +220,12 @@ Public CSS variables:
   explicit hidden input parts.
 - Do not restore legacy compatibility aliases or raw boolean callback adapters.
 - Keep hover and focus styling on Ark attributes, not custom modifier classes.
-- Keep advanced Ark state APIs as direct Ark imports unless there is a documented reason to expose
-  them from moduix again.
+- Keep advanced Ark state APIs available through moduix without wrapping or translating them.
 
 ## Local changelog
 
+- 2026-07-11: Re-exported Ark context and state hooks through moduix, and disabled hover styling
+  now excludes disabled controls.
 - 2026-07-03: Simplified the moduix surface to match `combobox`: kept `RootProvider`, size sugar,
   and default-thumb sugar, while moving Ark context/hooks/types back to direct imports from
   `@ark-ui/react/switch`.

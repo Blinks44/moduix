@@ -65,8 +65,8 @@ Switch / Switch.Root
 | `Switch.HiddenInput`     | Native input for form submission, reset, validation, and name/value. |
 | `Switch.RootProvider`    | Root label driven by an external Ark `useSwitch()` state instance.   |
 
-Advanced Ark state helpers such as `Switch.Context`, `useSwitchContext`, and `useSwitch` are
-imported directly from `@ark-ui/react/switch` when needed.
+`Switch.Context`, `useSwitchContext`, and `useSwitch` are exported from `@moduix/react` alongside
+the component.
 
 ## Composition
 
@@ -84,8 +84,8 @@ Use `asChild` only when the root must render a custom host element. Ark renders 
 `label`; the direct `asChild` element must stay label-compatible so the switch keeps a valid
 accessible name.
 
-Import `Switch.Context`, `useSwitchContext`, or `useSwitch` from `@ark-ui/react/switch` when
-surrounding UI needs to read or own the Ark switch state.
+Use `Switch.Context`, `useSwitchContext`, or `useSwitch` from `@moduix/react` when surrounding UI
+needs to read or own the Ark switch state.
 
 ### Default props
 
@@ -102,207 +102,12 @@ surrounding UI needs to read or own the Ark switch state.
   `onCheckedChange(details)` for controlled mode.
 - `details.checked` is the next boolean state. The old raw boolean callback is removed.
 - Include `Switch.HiddenInput` when the switch participates in native forms or form reset.
-- Import `Switch.Context`, `useSwitchContext`, or `useSwitch` from `@ark-ui/react/switch` for
-  advanced state reads instead of wrapper-level callback adapters.
+- Use `Switch.Context`, `useSwitchContext`, or `useSwitch` from `@moduix/react` for advanced state
+  reads instead of wrapper-level callback adapters.
 - Use `asChild` for a custom root host. The child must remain a single semantic label-compatible
   element.
 
 ## Examples
-
-### Initial Checked
-
-Use `defaultChecked` when the first render should start enabled but the switch can manage itself
-afterward.
-
-<Preview>
-  <SwitchDocs.SwitchInitialCheckedExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/switch/initial-checked.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      [data-slot="switch-root"] {
-        width: fit-content;
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
-### Controlled
-
-Use controlled mode when the switch needs to coordinate with surrounding UI.
-
-<Preview>
-  <SwitchDocs.ControlledSwitchExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/switch/controlled.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-3);
-      }
-
-      .hint {
-        color: var(--color-muted-foreground);
-        font-size: var(--text-xs);
-        line-height: var(--line-height-text-xs);
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
-### Disabled
-
-Use `disabled` to prevent interaction while preserving the current visual state.
-
-<Preview>
-  <SwitchDocs.SwitchDisabledExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/switch/disabled.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
-### Read Only
-
-Use `readOnly` when the current state should stay visible but should not be changed by the user.
-
-<Preview>
-  <SwitchDocs.SwitchReadOnlyExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/switch/read-only.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
-### Context
-
-Import `useSwitchContext` from `@ark-ui/react/switch` when a nearby label or supporting element
-should read the live switch state.
-
-<Preview>
-  <SwitchDocs.SwitchContextExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/switch/context.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      .label {
-        color: var(--switch-label-color, var(--color-foreground));
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
-### Root Provider
-
-Import `useSwitch` from `@ark-ui/react/switch` and pair it with `Switch.RootProvider` when state
-must be owned outside the rendered switch tree.
-
-<Preview>
-  <SwitchDocs.SwitchRootProviderExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/switch/root-provider.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
-### Form Integration
-
-Use `Field` with `Switch.HiddenInput` when the switch participates in form labeling, validation, or
-submission.
-
-<Preview>
-  <SwitchDocs.SwitchFormIntegrationExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/switch/form-integration.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      .formField {
-        width: fit-content;
-        max-width: min(20rem, 100%);
-        align-self: center;
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
-### Sizes
-
-Use moduix `size` to match different form densities without changing the Ark part tree.
-
-<Preview>
-  <SwitchDocs.SwitchSizesExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/switch/sizes.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
 
 ### As Child
 
@@ -333,6 +138,118 @@ behavior.
 
   </Preview.CSS>
   
+</Preview>
+
+### Context
+
+Import `useSwitchContext` from `@moduix/react` when a nearby label or supporting element should
+read the live switch state.
+
+<Preview>
+  <SwitchDocs.SwitchContextExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/switch/context.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Controlled
+
+Use controlled mode when the switch needs to coordinate with surrounding UI.
+
+<Preview>
+  <SwitchDocs.ControlledSwitchExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/switch/controlled.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Disabled
+
+Use `disabled` to prevent interaction while preserving the current visual state.
+
+<Preview>
+  <SwitchDocs.SwitchDisabledExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/switch/disabled.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Form Integration
+
+Use `Field` with `Switch.HiddenInput` when the switch participates in form labeling, validation, or
+submission.
+
+<Preview>
+  <SwitchDocs.SwitchFormIntegrationExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/switch/form-integration.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Initial Checked
+
+Use `defaultChecked` when the first render should start enabled but the switch can manage itself
+afterward.
+
+<Preview>
+  <SwitchDocs.SwitchInitialCheckedExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/switch/initial-checked.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Read Only
+
+Use `readOnly` when the current state should stay visible but should not be changed by the user.
+
+<Preview>
+  <SwitchDocs.SwitchReadOnlyExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/switch/read-only.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Root Provider
+
+Import `useSwitch` from `@moduix/react` and pair it with `Switch.RootProvider` when state must be
+owned outside the rendered switch tree.
+
+<Preview>
+  <SwitchDocs.SwitchRootProviderExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/switch/root-provider.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Sizes
+
+Use moduix `size` to match different form densities without changing the Ark part tree.
+
+<Preview>
+  <SwitchDocs.SwitchSizesExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/switch/sizes.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Advanced Customization
+
+Bypass `Switch.Control`'s default thumb when the thumb needs custom content or styling.
+
+<Preview>
+  <SwitchDocs.CustomIconSwitchExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/switch/advanced-customization.tsx#demo</include>
+</Preview.Code>
 </Preview>
 
 ## Styling

@@ -4,8 +4,7 @@
 const defaultChecked = true;
 const externalCommand = 'Toggle externally';
 
-import { useSwitch } from '@ark-ui/react/switch';
-import { Button, Switch } from '@moduix/react';
+import { Button, Switch, useSwitch } from '@moduix/react';
 import styles from './switch-demo.module.css';
 
 export function SwitchRootProviderDemo() {

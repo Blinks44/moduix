@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useSwitch, useSwitchContext } from '@ark-ui/react/switch';
 import { useState, type ComponentProps } from 'react';
 import { Button } from '../button';
 import { Field } from '../field';
-import { Switch } from './Switch';
+import { Switch, useSwitch, useSwitchContext } from './Switch';
 import styles from './Switch.stories.module.css';
 
 const meta = {
