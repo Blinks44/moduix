@@ -97,54 +97,6 @@ semantic element, and it owns the interaction behavior.
 
 ## Examples
 
-### Variants
-
-Use the built-in variants for common moduix tones while keeping the same part structure.
-
-<Preview>
-  <TagDocs.TagVariantsExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/tag/variants.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Sizes
-
-Use `size="sm"` for dense token rows and keep the default `md` size for standalone tokens.
-
-<Preview>
-  <TagDocs.TagSizesExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/tag/sizes.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ### Closable
 
 Use `Tag.EndElement` with `Tag.CloseTrigger` for removable values. The parent widget owns removal
@@ -217,10 +169,58 @@ remain discoverable.
   </Preview.CSS>
 </Preview>
 
-### Render as Button
+### Sizes
 
-Use `asChild` when the whole token is an action. Keep the child as the semantic element that owns
-keyboard and click behavior.
+Use `size="sm"` for dense token rows and keep the default `md` size for standalone tokens.
+
+<Preview>
+  <TagDocs.TagSizesExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tag/sizes.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Variants
+
+Use the built-in variants for common moduix tones while keeping the same part structure.
+
+<Preview>
+  <TagDocs.TagVariantsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tag/variants.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Advanced Customization
+
+Use `asChild` when the whole token is an action. This replaces the default `span` host; keep the
+single child semantic element responsible for keyboard and click behavior.
 
 <Preview>
   <TagDocs.TagAsChildExample />

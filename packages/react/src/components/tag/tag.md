@@ -146,6 +146,8 @@ or `aria-disabled` states.
 
 ## Local changelog
 
+- 2026-07-11: Updated removable-tag examples to model parent-owned removal state and use specific
+  close-trigger labels; documented `asChild` as the final advanced customization path.
 - 2026-07-03: Removed public `Tag*Props`, `TagVariant`, and `TagSize` type exports to keep the
   Tag surface component-first.
 - 2026-06-21: Migrated from legacy button composition to Ark factory parts, added namespace API
