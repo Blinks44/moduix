@@ -1,1 +1,1 @@
-export { SignaturePad, useSignaturePad } from './SignaturePad';
+export { SignaturePad, useSignaturePad, useSignaturePadContext } from './SignaturePad';

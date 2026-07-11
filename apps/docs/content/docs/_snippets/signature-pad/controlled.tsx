@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { Button, RotateCcwIcon, SignaturePad } from '@moduix/react';
+import { Button, SignaturePad } from '@moduix/react';
 import { useState } from 'react';
 
 const initialSignaturePaths = [
@@ -14,13 +14,7 @@ export function ControlledSignaturePadDemo() {
     <div className="signature-pad-stack">
       <SignaturePad paths={paths} onDraw={(details) => setPaths(details.paths)}>
         <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Control>
-          <SignaturePad.Segment />
-          <SignaturePad.ClearTrigger>
-            <RotateCcwIcon aria-hidden="true" />
-          </SignaturePad.ClearTrigger>
-          <SignaturePad.Guide />
-        </SignaturePad.Control>
+        <SignaturePad.Canvas />
       </SignaturePad>
       <div className="signature-pad-actions">
         <Button size="sm" variant="outline" onClick={() => setPaths(initialSignaturePaths)}>

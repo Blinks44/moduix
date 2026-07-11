@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useSignaturePadContext } from '@ark-ui/react/signature-pad';
-import { Field, RotateCcwIcon, SignaturePad } from '@moduix/react';
+import { Field, SignaturePad, useSignaturePadContext } from '@moduix/react';
 
 const signatureName = 'signature';
 
@@ -16,13 +15,7 @@ export function FieldSignaturePadDemo() {
     <Field className="signature-pad-field" invalid required>
       <SignaturePad name={signatureName}>
         <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Control>
-          <SignaturePad.Segment />
-          <SignaturePad.ClearTrigger>
-            <RotateCcwIcon aria-hidden="true" />
-          </SignaturePad.ClearTrigger>
-          <SignaturePad.Guide />
-        </SignaturePad.Control>
+        <SignaturePad.Canvas />
         <SignaturePadHiddenValue />
       </SignaturePad>
       <Field.HelperText>Use pointer or touch input to add a signature.</Field.HelperText>

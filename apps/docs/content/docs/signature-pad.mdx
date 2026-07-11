@@ -12,9 +12,8 @@ import * as SignaturePadDocs from '@/components/examples/signature-pad';
 
 ## Basic
 
-Use `SignaturePad` as the Ark root and keep the drawing parts explicit. `Control` is the focusable
-surface, `Segment` renders the SVG paths, `ClearTrigger` clears the paths, and `Guide` draws the
-baseline.
+Use `SignaturePad.Canvas` for the standard drawing surface. It keeps the Ark `Control`, `Segment`,
+`ClearTrigger`, and `Guide` composition intact with moduix's default clear icon.
 
 <Preview>
   <SignaturePadDocs.SignaturePadExample />
@@ -36,10 +35,11 @@ baseline.
 ```text
 SignaturePad / SignaturePad.Root
 ├─ SignaturePad.Label
-├─ SignaturePad.Control
-│  ├─ SignaturePad.Segment
-│  ├─ SignaturePad.ClearTrigger
-│  └─ SignaturePad.Guide
+├─ SignaturePad.Canvas (moduix sugar)
+│  └─ SignaturePad.Control
+│     ├─ SignaturePad.Segment
+│     ├─ SignaturePad.ClearTrigger
+│     └─ SignaturePad.Guide
 └─ SignaturePad.HiddenInput
 
 SignaturePad.RootProvider
@@ -51,6 +51,7 @@ SignaturePad.RootProvider
 | `SignaturePad` / `SignaturePad.Root` | Owns paths, drawing options, form name, ids, and callbacks.    |
 | `SignaturePad.RootProvider`          | Renders a tree from state returned by `useSignaturePad()`.     |
 | `SignaturePad.Label`                 | Labels the drawing area and hidden input.                      |
+| `SignaturePad.Canvas`                | Standard drawing surface composed from the four Ark parts.     |
 | `SignaturePad.Control`               | Focusable pointer/touch drawing region.                        |
 | `SignaturePad.Segment`               | SVG layer for saved paths and the current in-progress path.    |
 | `SignaturePad.ClearTrigger`          | Native button that clears paths; Ark hides it while empty.     |
@@ -61,19 +62,20 @@ SignaturePad.RootProvider
 
 ### Recommended composition
 
-Keep `Label`, `Control`, `Segment`, `ClearTrigger`, and `Guide` visible in the tree. That preserves
-Ark's focus target, pointer capture, accessible labels, clear button behavior, and SVG rendering.
+Use `Label` and `Canvas` for the normal path. `Canvas` keeps Ark's focus target, pointer capture,
+accessible clear button behavior, and SVG rendering while removing repeated drawing-surface markup.
 
 ### When to go custom
 
-Use controlled `paths` when application state needs to restore, clear, autosave, or validate the
-signature outside the Ark tree. Use `RootProvider` when controls outside the component need direct
-access to `paths`, `clear()`, or `getDataUrl()`.
+Use explicit `Control`, `Segment`, `ClearTrigger`, and `Guide` when their structure, icon, or
+`asChild` composition needs customization. Use controlled `paths` when application state needs to
+restore, clear, autosave, or validate the signature outside the Ark tree. Use `RootProvider` when
+controls outside the component need direct access to `paths`, `clear()`, or `getDataUrl()`.
 
 Use `HiddenInput` when the signature should participate in native form submission. Keep it inside
 the same `SignaturePad` tree and read current paths with `useSignaturePadContext()` from
-`@ark-ui/react/signature-pad` when the hidden value comes from live Ark state. `name` gives that
-hidden input its field name; it does not create a native value by itself.
+`@moduix/react` when the hidden value comes from live Ark state. `name` gives that hidden input its
+field name; it does not create a native value by itself.
 
 Use `drawing` for stroke-level customization. `drawing.size` changes stroke width,
 `drawing.simulatePressure` controls pressure simulation, and `drawing.fill` sets the stroke color.
@@ -104,8 +106,8 @@ the signature must stay in application state. `onDrawEnd(details)` fires after a
 signature is cleared and exposes `details.getDataUrl(type, quality?)`.
 
 Set `name` on the root and render `HiddenInput` from a child that calls
-`useSignaturePadContext()` from `@ark-ui/react/signature-pad` when native form submission is
-needed. Wrap with `Field.Root` when helper text, error text, required state, or disabled state
+`useSignaturePadContext()` from `@moduix/react` when native form submission is needed. Wrap with
+`Field.Root` when helper text, error text, required state, or disabled state
 should be shared with surrounding form UI. `Field` invalid state controls field messaging and
 descriptions; it does not add `data-invalid` to the signature pad parts.
 
@@ -115,23 +117,6 @@ navigation. `ClearTrigger` is a native button, so Enter and Space activation rem
 behavior.
 
 ## Examples
-
-### Image Preview
-
-Use `onDrawEnd` to export the signature and show a preview before saving it.
-
-<Preview>
-  <SignaturePadDocs.ImagePreviewSignaturePadExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/signature-pad/image-preview.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {SignaturePadDocs.signaturePadExampleCss + '\n' + SignaturePadDocs.signaturePadPreviewCss}
-  </Preview.CSS>
-  
-</Preview>
 
 ### Controlled
 
@@ -181,6 +166,23 @@ messaging belongs to the same form control.
   
 </Preview>
 
+### Image Preview
+
+Use `onDrawEnd` to export the signature and show a preview before saving it.
+
+<Preview>
+  <SignaturePadDocs.ImagePreviewSignaturePadExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/image-preview.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {SignaturePadDocs.signaturePadExampleCss + '\n' + SignaturePadDocs.signaturePadPreviewCss}
+</Preview.CSS>
+
+</Preview>
+
 ### Root Provider
 
 Use `useSignaturePad()` with `RootProvider` when controls outside the component tree need direct
@@ -192,6 +194,21 @@ access to paths, `clear()`, or `getDataUrl()`. Pass root options such as `transl
 
 <Preview.Code>
   <include lang="tsx">./_snippets/signature-pad/root-provider.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>
+
+</Preview>
+
+### Advanced Customization
+
+Bypass `Canvas` when you need to control the drawing-part tree or provide a custom clear trigger.
+
+<Preview>
+  <SignaturePadDocs.AdvancedCustomizationSignaturePadExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/advanced-customization.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>

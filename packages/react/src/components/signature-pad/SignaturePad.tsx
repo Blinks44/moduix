@@ -2,9 +2,11 @@ import type { ComponentProps, ComponentRef } from 'react';
 import {
   SignaturePad as SignaturePadPrimitive,
   useSignaturePad,
+  useSignaturePadContext,
 } from '@ark-ui/react/signature-pad';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
+import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './SignaturePad.module.css';
 
@@ -119,15 +121,28 @@ const SignaturePadHiddenInput = forwardRef<
   );
 });
 
+function SignaturePadCanvas({ className }: { className?: string }) {
+  return (
+    <SignaturePadControl className={className}>
+      <SignaturePadSegment />
+      <SignaturePadClearTrigger>
+        <RotateCcwIcon aria-hidden="true" />
+      </SignaturePadClearTrigger>
+      <SignaturePadGuide />
+    </SignaturePadControl>
+  );
+}
+
 const SignaturePad = Object.assign(SignaturePadRoot, {
   Root: SignaturePadRoot,
   RootProvider: SignaturePadRootProvider,
   Label: SignaturePadLabel,
   Control: SignaturePadControl,
+  Canvas: SignaturePadCanvas,
   Segment: SignaturePadSegment,
   Guide: SignaturePadGuide,
   ClearTrigger: SignaturePadClearTrigger,
   HiddenInput: SignaturePadHiddenInput,
 });
 
-export { SignaturePad, useSignaturePad };
+export { SignaturePad, useSignaturePad, useSignaturePadContext };

@@ -19,7 +19,7 @@ Preserve Ark callback detail objects for `onDraw(details)` and `onDrawEnd(detail
 
 `SignaturePad` is the styled alias for `SignaturePad.Root`. It supports all Ark root props, including `defaultPaths`, controlled `paths`, `drawing`, `name`, `disabled`, `readOnly`, `required`, `ids`, `translations`, `onDraw`, and `onDrawEnd`.
 
-`useSignaturePad()` with `SignaturePad.RootProvider` is exported for state that must be created outside the rendered tree. For advanced in-tree state reads, import `useSignaturePadContext()` directly from `@ark-ui/react/signature-pad`.
+`useSignaturePad()` with `SignaturePad.RootProvider` is exported for state that must be created outside the rendered tree. `useSignaturePadContext()` is exported for advanced in-tree state reads, including `HiddenInput` values derived from live paths.
 
 For native form submission, render `SignaturePad.HiddenInput value={...}` inside the same tree. `name` only gives the hidden input its form field name; it does not create a native value without `HiddenInput`.
 
@@ -28,10 +28,11 @@ For native form submission, render `SignaturePad.HiddenInput value={...}` inside
 ```tsx
 SignaturePad / SignaturePad.Root
 ├─ SignaturePad.Label
-├─ SignaturePad.Control
-│  ├─ SignaturePad.Segment
-│  ├─ SignaturePad.ClearTrigger
-│  └─ SignaturePad.Guide
+├─ SignaturePad.Canvas (moduix sugar)
+│  └─ SignaturePad.Control
+│     ├─ SignaturePad.Segment
+│     ├─ SignaturePad.ClearTrigger
+│     └─ SignaturePad.Guide
 └─ SignaturePad.HiddenInput
 
 SignaturePad.RootProvider
@@ -43,6 +44,7 @@ SignaturePad.RootProvider
 | `SignaturePad` / `SignaturePad.Root` | `data-slot="signature-pad-root"`          | Root state, ids, form name, drawing options, and callbacks. |
 | `SignaturePad.RootProvider`          | `data-slot="signature-pad-root-provider"` | Renders from `useSignaturePad()` state.                     |
 | `SignaturePad.Label`                 | `data-slot="signature-pad-label"`         | Ark label linked to the hidden input and drawing control.   |
+| `SignaturePad.Canvas`                | -                                         | Fixed `Control`, `Segment`, `ClearTrigger`, and `Guide`.    |
 | `SignaturePad.Control`               | `data-slot="signature-pad-control"`       | Focusable drawing region with `role="application"`.         |
 | `SignaturePad.Segment`               | `data-slot="signature-pad-segment"`       | SVG paths for saved and current strokes.                    |
 | `SignaturePad.Guide`                 | `data-slot="signature-pad-guide"`         | Non-interactive baseline.                                   |
@@ -52,19 +54,13 @@ SignaturePad.RootProvider
 ## Composition
 
 ```tsx
-import { RotateCcwIcon, SignaturePad } from '@moduix/react';
+import { SignaturePad } from '@moduix/react';
 
 export function SignaturePadDemo() {
   return (
     <SignaturePad>
       <SignaturePad.Label>Sign below</SignaturePad.Label>
-      <SignaturePad.Control>
-        <SignaturePad.Segment />
-        <SignaturePad.ClearTrigger>
-          <RotateCcwIcon aria-hidden="true" />
-        </SignaturePad.ClearTrigger>
-        <SignaturePad.Guide />
-      </SignaturePad.Control>
+      <SignaturePad.Canvas />
     </SignaturePad>
   );
 }
@@ -79,7 +75,7 @@ export function SignaturePadDemo() {
 - Form usage uses `name`, `required`, and `HiddenInput`; render `HiddenInput value={...}` when the form needs a native value.
 - `Field.Root` context carries `disabled`, `required`, `readOnly`, and shared ids into `SignaturePad`. `Field` invalid state controls helper/error messaging and `HiddenInput` descriptions, but Ark does not add `data-invalid` to signature pad parts.
 - `Fieldset.Root` disabled state reaches `SignaturePad` through nested `Field.Root`, matching Ark's field/fieldset model. Set required, read-only, and invalid messaging state on `Field.Root` when those states belong to one signature field.
-- `RootProvider` and `useSignaturePad()` are exported. Import advanced context helpers directly from Ark when needed.
+- `RootProvider`, `useSignaturePad()`, and `useSignaturePadContext()` are exported from moduix.
 
 ## Accessibility and state
 
@@ -105,7 +101,7 @@ All `--signature-pad-*` variables used by `SignaturePad.module.css` are declared
 
 ## Intentional sugar and differences from upstream
 
-moduix adds styled defaults and stable `data-slot` hooks. It does not rename Ark props, convert callback signatures, add local state, or hide the Ark composition model.
+moduix adds styled defaults, stable `data-slot` hooks, and `Canvas` for the fixed default drawing surface. `Canvas` accepts `className`; use the exported Ark-shaped parts for custom structure, icons, or `asChild` composition. It does not rename Ark props, convert callback signatures, or add local state.
 
 The CSS default stroke color applies only when `drawing.fill` is not provided; explicit Ark `drawing.fill` remains the source of truth.
 
@@ -115,6 +111,6 @@ Keep `HiddenInput` available even when examples omit it. Do not replace `paths`/
 
 ## Local changelog
 
-- 2026-07-03: Kept `RootProvider` and `useSignaturePad()`, removed moduix re-exports of Ark context APIs and Ark type aliases, and documented direct Ark imports for advanced state reads.
+- 2026-07-11: Added `Canvas` as the recommended fixed drawing surface and re-exported `useSignaturePadContext()` for form and in-tree state usage.
 - 2026-06-27: Tightened the Field/HiddenInput contract, documented `segmentPath` data attributes, and aligned the default shadow token.
 - 2026-06-22: Added the initial Ark-backed `SignaturePad` wrapper, CSS Module defaults, exports, stories, docs, and registry metadata.
