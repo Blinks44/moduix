@@ -4,21 +4,17 @@
 import { TagsInput } from '@moduix/react';
 import { useState } from 'react';
 
-export function ControlledInputValueTagsInput() {
-  const [inputValue, setInputValue] = useState('');
-  function handleInputValueChange(details) {
-    setInputValue(details.inputValue);
+export function FormTagsInput() {
+  const [submittedValue, setSubmittedValue] = useState('');
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    setSubmittedValue(new FormData(event.currentTarget).get('frameworks')?.toString() ?? '');
   }
+
   return (
-    <>
-      <button type="button" onClick={() => setInputValue('React')}>
-        Set React
-      </button>
-      <TagsInput
-        defaultValue={['Solid']}
-        inputValue={inputValue}
-        onInputValueChange={handleInputValueChange}
-      >
+    <form onSubmit={handleSubmit}>
+      <TagsInput defaultValue={['React', 'TypeScript']} name="frameworks">
         <TagsInput.Label>Frameworks</TagsInput.Label>
         <TagsInput.Control>
           <TagsInput.Items />
@@ -27,7 +23,9 @@ export function ControlledInputValueTagsInput() {
         </TagsInput.Control>
         <TagsInput.HiddenInput />
       </TagsInput>
-    </>
+      <button type="submit">Submit</button>
+      <output>Submitted value: {submittedValue || 'none'}</output>
+    </form>
   );
 }
 

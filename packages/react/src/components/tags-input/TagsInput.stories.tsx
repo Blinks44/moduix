@@ -20,26 +20,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function TagsInputItems({ value }: { value: string[] }) {
-  return value.map((item, index) => (
-    <TagsInput.Item key={`${item}-${index}`} index={index} value={item}>
-      <TagsInput.ItemPreview>
-        <TagsInput.ItemText>{item}</TagsInput.ItemText>
-        <TagsInput.ItemDeleteTrigger aria-label={`Remove ${item}`} />
-      </TagsInput.ItemPreview>
-      <TagsInput.ItemInput />
-    </TagsInput.Item>
-  ));
-}
-
 export const Basic: Story = {
   render: () => (
     <TagsInput defaultValue={initialTags} name="frameworks">
       <TagsInput.Label>Frameworks</TagsInput.Label>
       <TagsInput.Control>
-        <TagsInput.Context>
-          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-        </TagsInput.Context>
+        <TagsInput.Items />
         <TagsInput.Input placeholder="Add framework" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
@@ -61,7 +47,7 @@ export const Controlled: Story = {
         <TagsInput value={value} onValueChange={handleValueChange}>
           <TagsInput.Label>Skills</TagsInput.Label>
           <TagsInput.Control>
-            <TagsInputItems value={value} />
+            <TagsInput.Items />
             <TagsInput.Input placeholder="Add skill" />
             <TagsInput.ClearTrigger aria-label="Clear skills" />
           </TagsInput.Control>
@@ -78,9 +64,7 @@ export const DelimiterPaste: Story = {
     <TagsInput defaultValue={['React', 'Solid', 'Vue']} delimiter={/[,;\s]/} addOnPaste>
       <TagsInput.Label>Frameworks</TagsInput.Label>
       <TagsInput.Control>
-        <TagsInput.Context>
-          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-        </TagsInput.Context>
+        <TagsInput.Items />
         <TagsInput.Input placeholder="Comma, semicolon, or space" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
@@ -108,9 +92,7 @@ export const Validation: Story = {
         >
           <TagsInput.Label>Labels</TagsInput.Label>
           <TagsInput.Control>
-            <TagsInput.Context>
-              {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-            </TagsInput.Context>
+            <TagsInput.Items />
             <TagsInput.Input placeholder="Add unique label" />
             <TagsInput.ClearTrigger aria-label="Clear labels" />
           </TagsInput.Control>
@@ -127,9 +109,7 @@ export const AllowDuplicates: Story = {
     <TagsInput allowDuplicates defaultValue={['React', 'React']}>
       <TagsInput.Label>Frameworks</TagsInput.Label>
       <TagsInput.Control>
-        <TagsInput.Context>
-          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-        </TagsInput.Context>
+        <TagsInput.Items />
         <TagsInput.Input placeholder="Add framework" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
@@ -143,9 +123,7 @@ export const MaxWithOverflow: Story = {
     <TagsInput max={2} allowOverflow defaultValue={['React', 'Solid']}>
       <TagsInput.Label>Frameworks</TagsInput.Label>
       <TagsInput.Control>
-        <TagsInput.Context>
-          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-        </TagsInput.Context>
+        <TagsInput.Items />
         <TagsInput.Input placeholder="Add framework" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
@@ -160,9 +138,7 @@ export const WithFieldValidation: Story = {
       <TagsInput defaultValue={['api']} name="topics">
         <TagsInput.Label>Topics</TagsInput.Label>
         <TagsInput.Control>
-          <TagsInput.Context>
-            {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-          </TagsInput.Context>
+          <TagsInput.Items />
           <TagsInput.Input placeholder="Add topic" />
           <TagsInput.ClearTrigger aria-label="Clear topics" />
         </TagsInput.Control>
@@ -180,9 +156,7 @@ export const ClearButtonBelow: Story = {
       <TagsInput defaultValue={initialTags}>
         <TagsInput.Label>Frameworks</TagsInput.Label>
         <TagsInput.Control>
-          <TagsInput.Context>
-            {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-          </TagsInput.Context>
+          <TagsInput.Items />
           <TagsInput.Input placeholder="Add framework" />
         </TagsInput.Control>
         <TagsInput.ClearTrigger asChild>
@@ -217,7 +191,7 @@ export const RootProvider: Story = {
         <TagsInput.RootProvider value={tagsInput}>
           <TagsInput.Label>Frameworks</TagsInput.Label>
           <TagsInput.Control>
-            <TagsInputItems value={tagsInput.value} />
+            <TagsInput.Items />
             <TagsInput.Input placeholder="Add framework" />
             <TagsInput.ClearTrigger aria-label="Clear frameworks" />
           </TagsInput.Control>
@@ -233,9 +207,7 @@ export const CustomStyling: Story = {
     <TagsInput className={storyStyles.customRoot} defaultValue={['Design', 'API']}>
       <TagsInput.Label>Workstreams</TagsInput.Label>
       <TagsInput.Control>
-        <TagsInput.Context>
-          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-        </TagsInput.Context>
+        <TagsInput.Items />
         <TagsInput.Input placeholder="Add workstream" />
         <TagsInput.ClearTrigger aria-label="Clear workstreams" />
       </TagsInput.Control>

@@ -20,8 +20,9 @@ Use `TagsInput` when users need to build a list of editable string values inside
 
 ## Basic
 
-Start with the Ark part tree: root state, label, control, rendered items, entry input, clear trigger,
-and `HiddenInput` for native form submission and reset synchronization.
+Start with the root, label, control, `Items`, entry input, clear trigger, and `HiddenInput` for
+native form submission and reset synchronization. `Items` renders the standard editable tag anatomy;
+use explicit parts only when individual tags need customization.
 
 <Preview>
   <TagsInputDocs.TagsInputExample />
@@ -51,11 +52,12 @@ and `HiddenInput` for native form submission and reset synchronization.
 TagsInput / TagsInput.Root
 ├─ TagsInput.Label
 ├─ TagsInput.Control
-│  ├─ TagsInput.Item[index, value]
-│  │  ├─ TagsInput.ItemPreview
-│  │  │  ├─ TagsInput.ItemText
-│  │  │  └─ TagsInput.ItemDeleteTrigger
-│  │  └─ TagsInput.ItemInput
+│  ├─ TagsInput.Items
+│  └─ TagsInput.Item[index, value]
+│     ├─ TagsInput.ItemPreview
+│     │  ├─ TagsInput.ItemText
+│     │  └─ TagsInput.ItemDeleteTrigger
+│     └─ TagsInput.ItemInput
 │  ├─ TagsInput.Input
 │  └─ TagsInput.ClearTrigger
 └─ TagsInput.HiddenInput
@@ -67,6 +69,7 @@ TagsInput / TagsInput.Root
 | `TagsInput.RootProvider`            | Renders tags input from state returned by Ark `useTagsInput`.        |
 | `TagsInput.Label`                   | Accessible label for the tags input.                                 |
 | `TagsInput.Control`                 | Visible input shell containing tags, entry input, and clear trigger. |
+| `TagsInput.Items`                   | Default editable tag renderer for `TagsInput.Context` values.        |
 | `TagsInput.Item`                    | One tag item. Pass `index` and `value`.                              |
 | `TagsInput.ItemPreview`             | Visible tag surface outside edit mode.                               |
 | `TagsInput.ItemText`                | Visible tag text.                                                    |
@@ -82,15 +85,15 @@ TagsInput / TagsInput.Root
 
 ### Recommended composition
 
-Use the short `<TagsInput>` root form. Render `TagsInput.Context` inside `Control`, map
-`tagsInput.value`, pass `index` and `value` to each `TagsInput.Item`, and keep `ItemInput` mounted
-inside each item so Ark can enter edit mode. Keep `HiddenInput` mounted when `name`, form
-submission, browser validation, or form reset synchronization matters.
+Use the short `<TagsInput>` root form. Render `TagsInput.Items` inside `Control` for the standard
+editable tag tree. Keep `HiddenInput` mounted when `name`, form submission, browser validation, or
+form reset synchronization matters.
 
 ### When to go custom
 
-Use `TagsInput.RootProvider` with Ark `useTagsInput` when surrounding UI needs imperative methods
-such as `addValue`, `setValue`, `clearValue`, `setInputValue`, or `focus`. Use `ids` when
+Use explicit `TagsInput.Context` / `TagsInput.Item` composition when tags need custom content or
+actions. Use `TagsInput.RootProvider` with Ark `useTagsInput` when surrounding UI needs imperative
+methods such as `addValue`, `setValue`, `clearValue`, `setInputValue`, or `focus`. Use `ids` when
 composing `TagsInput` with another Ark primitive, such as a `Combobox`, and both primitives must
 share an input or control ID.
 
@@ -124,6 +127,20 @@ through Ark context. All exported Ark parts support `asChild`. The default clear
 
 ## Examples
 
+### Allow Duplicates
+
+Set `allowDuplicates` when repeated values are meaningful, such as recipients or weighted labels.
+
+<Preview>
+  <TagsInputDocs.TagsInputAllowDuplicatesExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tags-input/allow-duplicates.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{`[data-slot="tags-input-item-preview"] { max-width: 12rem; }`}</Preview.CSS>
+</Preview>
+
 ### Controlled
 
 Control the tag array when selected tags must drive surrounding UI or be reset from React state.
@@ -136,7 +153,6 @@ Control the tag array when selected tags must drive surrounding UI or be reset f
 </Preview.Code>
 
   <Preview.CSS>{`.hint { color: var(--color-muted-foreground); }`}</Preview.CSS>
-  
 </Preview>
 
 ### Controlled Input Value
@@ -151,10 +167,9 @@ Control `inputValue` separately when another control should prefill or clear the
 </Preview.Code>
 
   <Preview.CSS>{`.actions { display: inline-flex; gap: var(--spacing-2); }`}</Preview.CSS>
-  
 </Preview>
 
-### Delimiter And Paste
+### Delimiter and Paste
 
 Use `delimiter` with `addOnPaste` when pasted text should create multiple tags.
 
@@ -166,70 +181,35 @@ Use `delimiter` with `addOnPaste` when pasted text should create multiple tags.
 </Preview.Code>
 
   <Preview.CSS>{`[data-slot="tags-input-input"] { min-width: 10rem; }`}</Preview.CSS>
-  
 </Preview>
 
-### Validation And Max
+### Disable Editing
 
-Use `validate`, `max`, and `onValueInvalid` to reject invalid values and surface validation state.
-Add `maxLength` when the entry input should stop accepting long tag values before validation runs.
+Set `editable={false}` when existing tags should be removable but not editable in place.
 
 <Preview>
-  <TagsInputDocs.TagsInputValidationExample />
+  <TagsInputDocs.TagsInputDisableEditingExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/tags-input/validation-and-max.tsx#demo</include>
+  <include lang="tsx">./_snippets/tags-input/disable-editing.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{`.hint { color: var(--color-muted-foreground); }`}</Preview.CSS>
-  
+  <Preview.CSS>{`[data-slot="tags-input-item-preview"] { user-select: none; }`}</Preview.CSS>
 </Preview>
 
-### Allow Duplicates
+### Disabled and Read-only
 
-Set `allowDuplicates` when repeated values are meaningful, such as recipients or weighted labels.
-
-<Preview>
-  <TagsInputDocs.TagsInputAllowDuplicatesExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/tags-input/allow-duplicates.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{`[data-slot="tags-input-item-preview"] { max-width: 12rem; }`}</Preview.CSS>
-  
-</Preview>
-
-### Max With Overflow
-
-Use `allowOverflow` with `max` when users may exceed the limit while the control reports invalid
-state.
+Use `disabled` for a non-interactive control and `readOnly` when values remain visible but should
+not be edited.
 
 <Preview>
-  <TagsInputDocs.TagsInputMaxOverflowExample />
+  <TagsInputDocs.TagsInputStateExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/tags-input/max-with-overflow.tsx#demo</include>
+  <include lang="tsx">./_snippets/tags-input/disabled-and-read-only.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{`[data-slot="tags-input-control"][data-invalid] { border-color: var(--color-destructive); }`}</Preview.CSS>
-  
-</Preview>
-
-### Sanitize And Blur
-
-Use `sanitizeValue` to normalize incoming tags and `blurBehavior="add"` to commit the current input
-when focus leaves the control.
-
-<Preview>
-  <TagsInputDocs.TagsInputSanitizeBlurExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/tags-input/sanitize-and-blur.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{`[data-slot="tags-input-item-text"] { text-transform: lowercase; }`}</Preview.CSS>
-  
+  <Preview.CSS>{`.stack { display: grid; gap: var(--spacing-3); }`}</Preview.CSS>
 </Preview>
 
 ### Field
@@ -245,41 +225,82 @@ form accessibility wiring.
 </Preview.Code>
 
   <Preview.CSS>{`[data-slot="tags-input-control"][data-invalid] { border-color: var(--color-destructive); }`}</Preview.CSS>
-  
 </Preview>
 
-### Disabled And Read-only
+### Form
 
-Use `disabled` for a non-interactive control and `readOnly` when values remain visible but should
-not be edited.
+Use `HiddenInput` with `name` to include the tag list in `FormData`; it also keeps form reset in sync.
 
 <Preview>
-  <TagsInputDocs.TagsInputStateExample />
+  <TagsInputDocs.TagsInputFormExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/tags-input/disabled-and-read-only.tsx#demo</include>
+  <include lang="tsx">./_snippets/tags-input/form.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{`.stack { display: grid; gap: var(--spacing-3); }`}</Preview.CSS>
-  
 </Preview>
 
-### Disable Editing
+### Max With Overflow
 
-Set `editable={false}` when existing tags should be removable but not editable in place.
+Use `allowOverflow` with `max` when users may exceed the limit while the control reports invalid
+state.
 
 <Preview>
-  <TagsInputDocs.TagsInputDisableEditingExample />
+  <TagsInputDocs.TagsInputMaxOverflowExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/tags-input/disable-editing.tsx#demo</include>
+  <include lang="tsx">./_snippets/tags-input/max-with-overflow.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{`[data-slot="tags-input-item-preview"] { user-select: none; }`}</Preview.CSS>
-  
+  <Preview.CSS>{`[data-slot="tags-input-control"][data-invalid] { border-color: var(--color-destructive); }`}</Preview.CSS>
 </Preview>
 
-### Root Provider
+### Sanitize and Blur
+
+Use `sanitizeValue` to normalize incoming tags and `blurBehavior="add"` to commit the current input
+when focus leaves the control.
+
+<Preview>
+  <TagsInputDocs.TagsInputSanitizeBlurExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tags-input/sanitize-and-blur.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{`[data-slot="tags-input-item-text"] { text-transform: lowercase; }`}</Preview.CSS>
+</Preview>
+
+### Validation and Max
+
+Use `validate`, `max`, and `onValueInvalid` to reject invalid values and surface validation state.
+Add `maxLength` when the entry input should stop accepting long tag values before validation runs.
+
+<Preview>
+  <TagsInputDocs.TagsInputValidationExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tags-input/validation-and-max.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{`.hint { color: var(--color-muted-foreground); }`}</Preview.CSS>
+</Preview>
+
+### Advanced Customization
+
+Bypass `Items` when each tag needs custom content or actions. The full Ark-shaped item tree stays
+available; the provider and combobox examples below are advanced integrations that intentionally use
+Ark hooks.
+
+<Preview>
+  <TagsInputDocs.TagsInputExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tags-input/advanced-customization.tsx#demo</include>
+</Preview.Code>
+
+</Preview>
+
+#### Root Provider
 
 Use Ark `useTagsInput` with `RootProvider` when state and imperative methods need to live outside
 the rendered tags input tree.
@@ -292,10 +313,9 @@ the rendered tags input tree.
 </Preview.Code>
 
   <Preview.CSS>{`.actions { display: inline-flex; gap: var(--spacing-2); }`}</Preview.CSS>
-  
 </Preview>
 
-### With Combobox
+#### With Combobox
 
 Compose `TagsInput` with `Combobox` when typed input should offer known options while still
 allowing custom tags.

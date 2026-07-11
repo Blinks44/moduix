@@ -207,6 +207,25 @@ const TagsInputHiddenInput = forwardRef<
 });
 
 const TagsInputContext = TagsInputPrimitive.Context;
+
+function TagsInputItems() {
+  return (
+    <TagsInputContext>
+      {(tagsInput) =>
+        tagsInput.value.map((value, index) => (
+          <TagsInputItem key={`${value}-${index}`} index={index} value={value}>
+            <TagsInputItemPreview>
+              <TagsInputItemText>{value}</TagsInputItemText>
+              <TagsInputItemDeleteTrigger aria-label={`Remove ${value}`} />
+            </TagsInputItemPreview>
+            <TagsInputItemInput />
+          </TagsInputItem>
+        ))
+      }
+    </TagsInputContext>
+  );
+}
+
 const TagsInput = Object.assign(TagsInputRoot, {
   Root: TagsInputRoot,
   RootProvider: TagsInputRootProvider,
@@ -221,6 +240,7 @@ const TagsInput = Object.assign(TagsInputRoot, {
   ClearTrigger: TagsInputClearTrigger,
   HiddenInput: TagsInputHiddenInput,
   Context: TagsInputContext,
+  Items: TagsInputItems,
 });
 
 export { TagsInput };

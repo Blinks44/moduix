@@ -25,7 +25,9 @@ controlled and uncontrolled `value` / `inputValue`, `validate`, `delimiter`,
 ## Current behavior contract
 
 `TagsInput` is the default root and `TagsInput.Root` is the same component. It renders only the Ark
-root; consumers compose the label, control, items, input, clear trigger, and hidden input explicitly.
+root; consumers compose the label, control, input, clear trigger, and hidden input explicitly.
+`TagsInput.Items` renders the standard editable item tree from root context, while explicit item
+parts remain available for custom tags.
 `TagsInput.ItemDeleteTrigger` provides the compact tag-level `CloseIcon` when no children are
 passed. `TagsInput.ClearTrigger` uses the shared `CloseButton.Root` by default through Ark
 `asChild`, so clearing all tags has the larger library close affordance without nesting buttons.
@@ -37,19 +39,7 @@ passed. `TagsInput.ClearTrigger` uses the shared `CloseButton.Root` by default t
 <TagsInput>
   <TagsInput.Label />
   <TagsInput.Control>
-    <TagsInput.Context>
-      {(tagsInput) =>
-        tagsInput.value.map((value, index) => (
-          <TagsInput.Item key={value} index={index} value={value}>
-            <TagsInput.ItemPreview>
-              <TagsInput.ItemText />
-              <TagsInput.ItemDeleteTrigger />
-            </TagsInput.ItemPreview>
-            <TagsInput.ItemInput />
-          </TagsInput.Item>
-        ))
-      }
-    </TagsInput.Context>
+    <TagsInput.Items />
     <TagsInput.Input />
     <TagsInput.ClearTrigger />
   </TagsInput.Control>
@@ -63,6 +53,7 @@ passed. `TagsInput.ClearTrigger` uses the shared `CloseButton.Root` by default t
 | `TagsInput.RootProvider`      | `data-slot="tags-input-root-provider"`; external Ark state.     |
 | `TagsInput.Label`             | `data-slot="tags-input-label"`; accessible label.               |
 | `TagsInput.Control`           | `data-slot="tags-input-control"`; input shell and tag wrapper.  |
+| `TagsInput.Items`             | Default editable item tree rendered from `TagsInput.Context`.   |
 | `TagsInput.Item`              | `data-slot="tags-input-item"`; requires `index` and `value`.    |
 | `TagsInput.ItemPreview`       | `data-slot="tags-input-item-preview"`; visible tag surface.     |
 | `TagsInput.ItemText`          | `data-slot="tags-input-item-text"`; rendered tag text.          |
@@ -75,10 +66,10 @@ passed. `TagsInput.ClearTrigger` uses the shared `CloseButton.Root` by default t
 
 ## Composition
 
-Use explicit Ark composition by default. Map `tagsInput.value` from `TagsInput.Context`, pass
-`index` and `value` to each `TagsInput.Item`, render `ItemPreview`, `ItemText`,
-`ItemDeleteTrigger`, and keep `ItemInput` inside the item so edit mode works. Keep `TagsInput.Input`
-inside `Control` for entry and render `HiddenInput` for forms.
+Use `TagsInput.Items` inside `Control` for the standard editable tag tree. Keep
+`TagsInput.Input` inside `Control` for entry and render `HiddenInput` for forms. For custom tag
+content or actions, map `tagsInput.value` from `TagsInput.Context`, pass `index` and `value` to each
+`TagsInput.Item`, and keep `ItemInput` inside the item so edit mode works.
 
 Use `RootProvider` plus Ark `useTagsInput` only when state or imperative methods like `addValue`,
 `setValue`, `clearValue`, or `focus` must be controlled outside the component tree. Use `ids` to
@@ -121,9 +112,10 @@ Important hooks:
 
 ## Intentional sugar and differences from upstream
 
-The wrapper adds moduix classes, `data-slot` hooks, a default compact close icon for item deletion,
-the shared `CloseButton.Root` for clearing all tags, and default input/tag styling. It does not add
-a high-level tag renderer or prop aliases; consumers keep the Ark part tree visible.
+The wrapper adds moduix classes, `data-slot` hooks, `TagsInput.Items` as a fixed standard item
+renderer, a default compact close icon for item deletion, the shared `CloseButton.Root` for clearing
+all tags, and default input/tag styling. `Items` has no prop bags; use lower-level parts when item
+structure needs customization.
 
 ## Agent notes
 
@@ -135,6 +127,8 @@ needed.
 
 ## Local changelog
 
+- 2026-07-11: Added `TagsInput.Items` as the recommended standard item renderer; explicit item
+  composition remains the advanced customization path.
 - 2026-07-03: Removed moduix re-exports for Ark tags-input hooks, item context, and type aliases.
   `TagsInput.Context` stays for ordinary uncontrolled composition, and `RootProvider` still accepts
   state created with direct Ark imports.
