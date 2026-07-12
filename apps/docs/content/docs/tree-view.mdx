@@ -77,17 +77,17 @@ Start with `TreeView`, pass a `createTreeCollection` result, and render each rec
 
 ## Composition
 
-### Recommended Composition
+### Recommended composition
 
 Keep the recursive `NodeProvider` visible. It is how Ark connects each node to the collection,
 keyboard focus, selection, expansion, loading, checking, and rename state.
 
-### When To Go Custom
+### When to go custom
 
 Use `asChild` on `TreeView.Item` when a leaf should be a link or another semantic element. The child
 must be a single element that can receive Ark props and preserve the tree interaction semantics.
 
-### Default Props
+### Default props
 
 | Prop            | Default    | Notes                                               |
 | --------------- | ---------- | --------------------------------------------------- |
@@ -97,7 +97,7 @@ must be a single element that can receive Ark props and preserve the tree intera
 | `lazyMount`     | `false`    | Passed through to Ark render strategy.              |
 | `unmountOnExit` | `false`    | Passed through to Ark render strategy.              |
 
-### Behavioral Notes
+### Behavioral notes
 
 `expandedValue`, `selectedValue`, `checkedValue`, and `focusedValue` are controlled arrays or strings
 using Ark detail callbacks. `loadChildren` returns child nodes asynchronously and
@@ -303,7 +303,7 @@ data attributes and moduix `data-slot` hooks.
   </Tabs>
 </div>
 
-### Styling Hooks
+### Styling hooks
 
 - `data-slot="tree-view-root"`, `tree-view-root-provider`, `tree-view-label`,
   `tree-view-tree`, `tree-view-branch`, `tree-view-branch-control`,

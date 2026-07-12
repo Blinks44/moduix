@@ -81,6 +81,18 @@ ScrollArea
 
 ## Composition
 
+### Recommended composition
+
+`ScrollArea` is the styled root. It does not render viewport, content, or scrollbar parts for you;
+compose the Ark parts explicitly so each structural node remains configurable.
+
+### When to go custom
+
+Use `ScrollArea.useScrollArea()` with `ScrollArea.RootProvider` when controls outside the root need
+to call the scroll area API. Advanced Ark context reads stay available directly from
+`@ark-ui/react/scroll-area`. Do not render `ScrollArea` and `ScrollArea.RootProvider` for the same
+state object.
+
 ### Default props
 
 | Prop                                                    | Default    | Notes                                                                                  |
@@ -91,17 +103,7 @@ ScrollArea
 | `asChild`                                               | `false`    | Available on each Ark part for single-child host composition.                          |
 | `ids` on `ScrollArea`                                   | generated  | Use when separate code needs stable root, viewport, content, scrollbar, or thumb IDs.  |
 
-`ScrollArea` is the styled root. It does not render viewport, content, or scrollbar parts for you;
-compose the Ark parts explicitly so each structural node remains configurable.
-
-### State access
-
-Use `ScrollArea.useScrollArea()` with `ScrollArea.RootProvider` when controls outside the root need
-to call the scroll area API. Advanced Ark context reads stay available directly from
-`@ark-ui/react/scroll-area`. Do not render `ScrollArea` and `ScrollArea.RootProvider` for the same
-state object.
-
-### Behavior notes
+### Behavioral notes
 
 - Render one `ScrollArea.Scrollbar` per axis you want to expose.
 - Ark adds `data-overflow-x` and `data-overflow-y`; moduix hides scrollbar tracks until the matching

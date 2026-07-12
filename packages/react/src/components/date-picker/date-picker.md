@@ -198,7 +198,7 @@ Preset triggers use a muted surface by default through `--date-picker-preset-tri
 `--date-picker-preset-trigger-bg-hover`, so quick range actions read as buttons even before they
 are selected.
 
-Intentional moduix sugar:
+## Intentional sugar and differences from upstream
 
 - `DatePicker.Field` renders `Control`, one `Input`, `ClearTrigger`, and `Trigger` for the standard
   single-date field.

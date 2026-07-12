@@ -4,7 +4,7 @@
   "title": "Tour",
   "description": "moduix React Tour component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["Blinks44/moduix/react-core"],
+  "registryDependencies": ["Blinks44/moduix/react-close-button", "Blinks44/moduix/react-core"],
   "files": [
     {
       "path": "packages/react/src/components/tour/Tour.tsx",

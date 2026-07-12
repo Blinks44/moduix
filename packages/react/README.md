@@ -176,7 +176,7 @@ attributes for targeted styling. Theme values are regular CSS custom properties:
 Library CSS is organized with cascade layers:
 
 ```css
-@layer ui.reset, ui.tokens, ui.components;
+@layer ui.reset, ui.tokens, ui.base, ui.components;
 ```
 
 This keeps defaults predictable while still letting application styles override tokens,

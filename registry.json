@@ -521,6 +521,7 @@
       "description": "moduix React CommandPalette component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
+        "Blinks44/moduix/react-close-button",
         "Blinks44/moduix/react-core",
         "Blinks44/moduix/react-kbd",
         "Blinks44/moduix/react-scroll-area"
@@ -1278,7 +1279,7 @@
       "title": "Popover",
       "description": "moduix React Popover component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "registryDependencies": ["Blinks44/moduix/react-close-button", "Blinks44/moduix/react-core"],
       "files": [
         {
           "path": "packages/react/src/components/popover/Popover.tsx",
@@ -1673,7 +1674,12 @@
       "title": "Sidebar",
       "description": "moduix React Sidebar component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/react-splitter"],
+      "registryDependencies": [
+        "Blinks44/moduix/react-input",
+        "Blinks44/moduix/react-separator",
+        "Blinks44/moduix/react-splitter",
+        "Blinks44/moduix/react-tooltip"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/sidebar/Sidebar.tsx",
@@ -2127,7 +2133,7 @@
       "title": "Tour",
       "description": "moduix React Tour component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "registryDependencies": ["Blinks44/moduix/react-close-button", "Blinks44/moduix/react-core"],
       "files": [
         {
           "path": "packages/react/src/components/tour/Tour.tsx",

@@ -63,7 +63,7 @@ Tabs.RootProvider
 
 ## Composition
 
-### Recommended Composition
+### Recommended composition
 
 `Tabs.Root` owns keyboard navigation, focus movement, and selected value. Use it for `value`,
 `defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `activationMode`,
@@ -72,7 +72,7 @@ Tabs.RootProvider
 Keep the Ark part tree visible. `Tabs.Indicator` is optional and should be rendered explicitly when
 you want the active-trigger indicator.
 
-### When To Go Custom
+### When to go custom
 
 Use `asChild` on `Tabs.Trigger` when a trigger should render a link or router component. The child
 must be a single semantic element that can preserve Ark's keyboard, focus, and ARIA behavior.
@@ -80,7 +80,7 @@ must be a single semantic element that can preserve Ark's keyboard, focus, and A
 Use moduix `useTabs()` with `Tabs.RootProvider` when tab state must be created outside the rendered
 tree. Do not render `Tabs.Root` around the same state instance.
 
-### Default Props
+### Default props
 
 | Prop                       | Default      | Notes                                                        |
 | -------------------------- | ------------ | ------------------------------------------------------------ |
@@ -91,7 +91,7 @@ tree. Do not render `Tabs.Root` around the same state instance.
 | `Tabs.Root.lazyMount`      | `false`      | Defers content mounting until selected.                      |
 | `Tabs.Root.unmountOnExit`  | `false`      | Removes inactive content when combined with lazy paths.      |
 
-### Behavioral Notes
+### Behavioral notes
 
 - `onValueChange` follows Ark and receives `details`; read the selected value from `details.value`.
 - `Tabs.Trigger` and `Tabs.Content` connect through matching string `value` props.
@@ -268,7 +268,7 @@ Style `Tabs` through `className`, stable `data-slot="tabs-*"` hooks, Ark `data-s
   </Tabs>
 </div>
 
-### Styling Hooks
+### Styling hooks
 
 Use the part that owns the visual concern:
 

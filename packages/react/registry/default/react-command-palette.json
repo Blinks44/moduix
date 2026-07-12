@@ -5,6 +5,7 @@
   "description": "moduix React CommandPalette component.",
   "dependencies": ["@ark-ui/react", "clsx"],
   "registryDependencies": [
+    "Blinks44/moduix/react-close-button",
     "Blinks44/moduix/react-core",
     "Blinks44/moduix/react-kbd",
     "Blinks44/moduix/react-scroll-area"
