@@ -96,11 +96,7 @@ function TourOverlay({ tour }: { tour: ReturnType<typeof useTour> }) {
           <Tour.Description />
           <Tour.ProgressText />
           <Tour.Control>
-            <Tour.Actions>
-              {(actions) =>
-                actions.map((action) => <Tour.ActionTrigger key={action.label} action={action} />)
-              }
-            </Tour.Actions>
+            <Tour.ActionList />
           </Tour.Control>
         </Tour.Content>
       </Tour.Positioner>
@@ -170,13 +166,7 @@ export const Progress: Story = {
                 />
               </div>
               <Tour.Control>
-                <Tour.Actions>
-                  {(actions) =>
-                    actions.map((action) => (
-                      <Tour.ActionTrigger key={action.label} action={action} />
-                    ))
-                  }
-                </Tour.Actions>
+                <Tour.ActionList />
               </Tour.Control>
             </Tour.Content>
           </Tour.Positioner>

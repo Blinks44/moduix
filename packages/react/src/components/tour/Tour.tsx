@@ -231,6 +231,18 @@ const TourActionTrigger = forwardRef<
 
 const TourActions = TourPrimitive.Actions;
 
+function TourActionList({ className }: { className?: string }) {
+  return (
+    <TourPrimitive.Actions>
+      {(actions) =>
+        actions.map((action) => (
+          <TourActionTrigger key={action.label} action={action} className={className} />
+        ))
+      }
+    </TourPrimitive.Actions>
+  );
+}
+
 const Tour = Object.assign(TourRoot, {
   Root: TourRoot,
   Backdrop: TourBackdrop,
@@ -246,6 +258,7 @@ const Tour = Object.assign(TourRoot, {
   CloseIcon: TourCloseIcon,
   Control: TourControl,
   Actions: TourActions,
+  ActionList: TourActionList,
   ActionTrigger: TourActionTrigger,
 });
 

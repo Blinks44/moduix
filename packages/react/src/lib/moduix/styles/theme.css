@@ -3233,8 +3233,8 @@
   --tour-close-trigger-bg-hover: initial; /* var(--color-accent) */
   --tour-close-trigger-color: initial; /* var(--color-muted-foreground) */
   --tour-close-trigger-color-hover: initial; /* var(--tour-color, var(--color-popover-foreground)) */
-  --tour-close-trigger-icon-size: initial; /* 0.875rem */
-  --tour-close-trigger-offset: initial; /* var(--spacing-2) */
+  --tour-close-trigger-icon-size: initial; /* 0.75rem */
+  --tour-close-trigger-offset: initial; /* var(--spacing-4) */
   --tour-close-trigger-radius: initial; /* var(--radius-md) */
   --tour-close-trigger-size: initial; /* 1.75rem */
   --tour-color: initial; /* var(--color-popover-foreground) */

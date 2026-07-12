@@ -149,8 +149,8 @@
   .closeTrigger {
     box-sizing: border-box;
     position: absolute;
-    inset-block-start: var(--tour-close-trigger-offset, var(--spacing-2));
-    inset-inline-end: var(--tour-close-trigger-offset, var(--spacing-2));
+    inset-block-start: var(--tour-close-trigger-offset, var(--spacing-4));
+    inset-inline-end: var(--tour-close-trigger-offset, var(--spacing-4));
     display: inline-flex;
     width: var(--tour-close-trigger-size, 1.75rem);
     height: var(--tour-close-trigger-size, 1.75rem);
@@ -166,8 +166,8 @@
     cursor: pointer;
 
     :where(svg) {
-      width: var(--tour-close-trigger-icon-size, 0.875rem);
-      height: var(--tour-close-trigger-icon-size, 0.875rem);
+      width: var(--tour-close-trigger-icon-size, 0.75rem);
+      height: var(--tour-close-trigger-icon-size, 0.75rem);
     }
 
     @media (hover: hover) {
@@ -190,7 +190,7 @@
   .closeIcon {
     --close-button-size: var(--tour-close-trigger-size, 1.75rem);
     --close-button-radius: var(--tour-close-trigger-radius, var(--radius-md));
-    --close-button-icon-size: var(--tour-close-trigger-icon-size, 0.875rem);
+    --close-button-icon-size: var(--tour-close-trigger-icon-size, 0.75rem);
     --close-button-bg: var(--tour-close-trigger-bg, transparent);
     --close-button-bg-hover: var(--tour-close-trigger-bg-hover, var(--color-accent));
     --close-button-color: var(--tour-close-trigger-color, var(--color-muted-foreground));
@@ -198,14 +198,10 @@
       --tour-close-trigger-color-hover,
       var(--tour-color, var(--color-popover-foreground))
     );
-    --close-button-focus-ring-width: var(--tour-focus-ring-width, var(--border-width-sm));
     --close-button-focus-ring-color: var(--tour-focus-ring-color, var(--color-ring));
-    --close-button-focus-ring-offset: calc(
-      var(--tour-focus-ring-width, var(--border-width-sm)) * -1
-    );
     position: absolute;
-    inset-block-start: var(--tour-close-trigger-offset, var(--spacing-2));
-    inset-inline-end: var(--tour-close-trigger-offset, var(--spacing-2));
+    inset-block-start: var(--tour-close-trigger-offset, var(--spacing-4));
+    inset-inline-end: var(--tour-close-trigger-offset, var(--spacing-4));
   }
 
   .control {
