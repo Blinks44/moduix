@@ -3285,13 +3285,13 @@
   --toggle-border-width: initial; /* var(--border-width-sm) */
   --toggle-color: initial; /* var(--color-foreground) */
   --toggle-content-gap: initial; /* var(--spacing-2) */
-  --toggle-default-bg: initial; /* var(--color-background) */
+  --toggle-default-bg: initial; /* var(--color-secondary) */
   --toggle-default-bg-active: initial; /* var(--color-accent) */
   --toggle-default-bg-hover: initial; /* var(--color-accent) */
   --toggle-default-bg-pressed: initial; /* var(--color-primary) */
-  --toggle-default-border-color: initial; /* var(--color-border) */
+  --toggle-default-border-color: initial; /* var(--color-secondary) */
   --toggle-default-border-color-pressed: initial; /* var(--color-primary) */
-  --toggle-default-color: initial; /* var(--color-foreground) */
+  --toggle-default-color: initial; /* var(--color-secondary-foreground) */
   --toggle-default-color-pressed: initial; /* var(--color-primary-foreground) */
   --toggle-disabled-opacity: initial; /* var(--opacity-disabled) */
   --toggle-focus-ring-color: initial; /* var(--color-ring) */

@@ -66,19 +66,18 @@ whether the toggle is pressed.
 Use `asChild` when another semantic button must own the rendered element. Keep the child a single
 button-like element so Ark can merge the required props and behavior onto it.
 
-If a custom child part needs direct access to Ark toggle state, import `useToggleContext()` or
-`useToggle()` from `@ark-ui/react/toggle`. moduix keeps the visual parts public and leaves the
-advanced state helpers to Ark.
+For a custom descendant that reads state, use `Toggle.Context` or `useToggleContext()` from
+`@moduix/react`. Both read the nearest toggle state without a direct Ark import.
 
 Use `ToggleGroup` instead of manually coordinating several standalone toggles when multiple pressed
 buttons belong to one shared choice set.
 
 ### Default props
 
-| Prop      | Default   | Notes                                                   |
-| --------- | --------- | ------------------------------------------------------- |
-| `variant` | `default` | moduix visual treatment: `default`, `outline`, `ghost`. |
-| `size`    | `md`      | moduix spacing or icon-only geometry.                   |
+| Prop      | Default   | Notes                                                                                     |
+| --------- | --------- | ----------------------------------------------------------------------------------------- |
+| `variant` | `default` | moduix visual treatment: secondary `default`, bordered `outline`, or transparent `ghost`. |
+| `size`    | `md`      | moduix spacing or icon-only geometry.                                                     |
 
 ### Behavioral notes
 
@@ -86,9 +85,24 @@ buttons belong to one shared choice set.
 - `disabled` keeps the current visual state but prevents interaction.
 - Ark writes `data-state="on" | "off"`, `data-pressed`, and `data-disabled` for styling.
 - Ark Toggle does not expose `RootProvider` or a hidden form input.
+- `Toggle.Context` and `useToggleContext()` are available from `@moduix/react`.
 - legacy `render` and `nativeButton` are not part of the Ark-backed API; use `asChild`.
 
 ## Examples
+
+### asChild
+
+Use `asChild` when a semantic button must own the rendered element. The child remains a single
+button so it can receive Ark's pressed-state and keyboard props without competing component styles.
+
+<Preview>
+  <ToggleDocs.ToggleAsChildExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle/aschild.tsx#demo</include>
+</Preview.Code>
+
+</Preview>
 
 ### Controlled
 
@@ -120,6 +134,21 @@ Use `disabled` to freeze interaction while preserving the current pressed state.
   
 </Preview>
 
+### Icons
+
+Pass icons as regular children. Use icon-only sizes for compact actions.
+
+<Preview>
+  <ToggleDocs.ToggleIconExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle/icons.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ToggleDocs.toggleRowCss}</Preview.CSS>
+  
+</Preview>
+
 ### Indicator
 
 Use `Toggle.Indicator` when pressed and unpressed states need different inline content.
@@ -132,21 +161,6 @@ Use `Toggle.Indicator` when pressed and unpressed states need different inline c
 </Preview.Code>
 
   <Preview.CSS>{ToggleDocs.toggleBasicCss}</Preview.CSS>
-  
-</Preview>
-
-### Variants
-
-Use `variant` to match surrounding UI density and emphasis.
-
-<Preview>
-  <ToggleDocs.ToggleVariantsExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/toggle/variants.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{ToggleDocs.toggleRowCss}</Preview.CSS>
   
 </Preview>
 
@@ -165,33 +179,35 @@ Use text sizes for labeled toggles and icon sizes for denser action rows.
   
 </Preview>
 
-### Icons
+### Variants
 
-Pass icons as regular children. Use icon-only sizes for compact actions.
+Use `default` for a secondary action, `outline` for a bordered surface, and `ghost` for compact
+toolbar actions. All variants use the primary color when pressed.
 
 <Preview>
-  <ToggleDocs.ToggleIconExample />
+  <ToggleDocs.ToggleVariantsExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/toggle/icons.tsx#demo</include>
+  <include lang="tsx">./_snippets/toggle/variants.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{ToggleDocs.toggleRowCss}</Preview.CSS>
   
 </Preview>
 
-### asChild
+### Advanced Customization
 
-Use `asChild` when another semantic button should receive the Ark toggle behavior.
+For custom descendants that need pressed state, bypass `Toggle.Indicator` and read the nearest
+toggle state through the moduix context hook.
 
 <Preview>
-  <ToggleDocs.ToggleAsChildExample />
+  <ToggleDocs.ToggleAdvancedCustomizationExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/toggle/aschild.tsx#demo</include>
+  <include lang="tsx">./_snippets/toggle/advanced-customization.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{ToggleDocs.toggleAsChildCss}</Preview.CSS>
+  <Preview.CSS>{ToggleDocs.toggleBasicCss}</Preview.CSS>
   
 </Preview>
 

@@ -30,12 +30,14 @@ state reader rather than a DOM part. Ark exposes `pressed`, `defaultPressed`,
 - `Toggle` is the short root form and is equivalent to `Toggle.Root`.
 - `Toggle.Root` is a thin styled wrapper over `ArkToggle.Root`.
 - `Toggle.Indicator` is a thin styled wrapper over `ArkToggle.Indicator`.
+- `Toggle.Context` and `useToggleContext` preserve Ark's custom-descendant state access through
+  moduix exports.
 - moduix adds two visual props to the root:
   - `variant?: 'default' | 'outline' | 'ghost'`
   - `size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg'`
 - `variant` defaults to `default`. `size` defaults to `md`.
-- The default variant uses `var(--color-background)` and `var(--color-border)` while off, so a
-  standalone toggle keeps a visible button outline before it is pressed.
+- The default variant uses `var(--color-secondary)` while off; `outline` uses
+  `var(--color-background)` plus `var(--color-border)` when a standalone button outline is needed.
 - The root writes `data-slot="toggle-root"`, `data-variant`, and `data-size`.
 - The indicator writes `data-slot="toggle-indicator"`.
 - legacy `render`, `nativeButton`, state callback `className`, and state callback `style` are removed. Use Ark
@@ -46,12 +48,15 @@ state reader rather than a DOM part. Ark exposes `pressed`, `defaultPressed`,
 ```text
 Toggle / Toggle.Root
 └─ Toggle.Indicator (optional)
+
+Toggle.Context (state reader, not a DOM part)
 ```
 
 | Part                     | data-slot          | Purpose                                                          |
 | ------------------------ | ------------------ | ---------------------------------------------------------------- |
 | `Toggle` / `Toggle.Root` | `toggle-root`      | Ark button root with pressed, disabled, focus, and size styling. |
 | `Toggle.Indicator`       | `toggle-indicator` | Pressed content with optional `fallback` for the off state.      |
+| `Toggle.Context`         | -                  | Ark state reader for custom descendants.                         |
 
 ## Composition
 
@@ -124,8 +129,8 @@ export function AsChildToggleDemo() {
 - Controlled: supported with Ark `pressed` and `onPressedChange(pressed)`.
 - Disabled: supported through Ark `disabled` and native button disabled behavior.
 - Indicator: supported through `Toggle.Indicator` and its `fallback` prop.
-- Advanced Ark state access remains available by importing `useToggleContext()` or `useToggle()`
-  directly from `@ark-ui/react/toggle`.
+- Advanced Ark state access remains available by importing `useToggleContext()` from `@moduix/react`;
+  `Toggle.Context` is also available through the component namespace.
 - RootProvider: not applicable; Ark Toggle does not expose a public `RootProvider`.
 - Form state: not applicable; Ark Toggle is a button primitive and does not expose `HiddenInput`.
 
@@ -166,12 +171,12 @@ root at a non-shrinking square size.
 
 - The short `Toggle` export is the default consumer path and is also available as `Toggle.Root`.
 - `variant` and `size` are moduix visual sugar layered on top of Ark behavior.
-- The default variant is intentionally outlined while off; use `variant="ghost"` for a transparent
-  no-border toggle.
+- The default variant is intentionally secondary while off; use `variant="outline"` for a bordered
+  surface or `variant="ghost"` for a transparent no-border toggle.
 - `Toggle.Indicator` does not add default icons; consumers pass the pressed content and optional
   `fallback`.
-- moduix does not re-export Ark context hooks or render-prop helpers for `Toggle`; import them
-  directly from Ark when a custom descendant needs raw toggle state.
+- moduix re-exports Ark's context surfaces as `Toggle.Context` and `useToggleContext` so custom
+  descendants do not need direct Ark imports.
 - legacy compatibility APIs are intentionally removed. There is no `render`, `nativeButton`,
   legacy event details object, or legacy state callback styling contract.
 - Use Ark `asChild` for custom host composition.
@@ -195,3 +200,5 @@ root at a non-shrinking square size.
 - 2026-06-21: Migrated `Toggle` to Ark UI. Added `Toggle.Root` and `Toggle.Indicator`, removed
   legacy `render` / `nativeButton` compatibility, and updated styling hooks to Ark data
   attributes.
+- 2026-07-12: Made `default` visually distinct from `outline`, restored moduix context exports,
+  and documented the advanced custom-descendant path.

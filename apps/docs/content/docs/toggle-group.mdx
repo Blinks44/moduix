@@ -146,34 +146,49 @@ Control `value` from React state when the group needs to stay in sync with surro
 
 </Preview>
 
-### Root Provider
+### Disabled
 
-Use `ToggleGroup.RootProvider` when the state instance must be shared before the root is rendered.
+Use `disabled` on the group or on a specific item to prevent interaction.
 
 <Preview>
-  <ToggleGroupDocs.ToggleGroupRootProviderExample />
+  <ToggleGroupDocs.ToggleGroupDisabledExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/toggle-group/root-provider.tsx#demo</include>
+  <include lang="tsx">./_snippets/toggle-group/disabled.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>
-    {`
-      .stack {
+<Preview.CSS>
+  {`
+      .row {
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
         gap: var(--spacing-3);
       }
+    `}
+</Preview.CSS>
 
-      .hint {
-        color: var(--color-muted-foreground);
-        font-size: var(--text-xs);
-        line-height: var(--line-height-text-xs);
+</Preview>
+
+### Icons
+
+Pass icons as regular children. Icon-only items should always include an accessible label.
+
+<Preview>
+  <ToggleGroupDocs.ToggleGroupIconExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toggle-group/icons.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .iconGroup {
+        --toggle-icon-size: 1rem;
       }
     `}
-
-  </Preview.CSS>
+</Preview.CSS>
 
 </Preview>
 
@@ -224,27 +239,6 @@ Set `variant` on the group when every item should share the same visual treatmen
 
 </Preview>
 
-### Icons
-
-Pass icons as regular children. Icon-only items should always include an accessible label.
-
-<Preview>
-  <ToggleGroupDocs.ToggleGroupIconExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/toggle-group/icons.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .iconGroup {
-        --toggle-icon-size: 1rem;
-      }
-    `}
-</Preview.CSS>
-
-</Preview>
-
 ### Vertical
 
 Set `orientation="vertical"` when the choices should stack in a column.
@@ -266,28 +260,35 @@ Set `orientation="vertical"` when the choices should stack in a column.
 
 </Preview>
 
-### Disabled
+### Advanced Customization
 
-Use `disabled` on the group or on a specific item to prevent interaction.
+Use `ToggleGroup.RootProvider` with Ark `useToggleGroup` when the state instance must be shared or
+controlled before the root is rendered.
 
 <Preview>
-  <ToggleGroupDocs.ToggleGroupDisabledExample />
+  <ToggleGroupDocs.ToggleGroupRootProviderExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/toggle-group/disabled.tsx#demo</include>
+  <include lang="tsx">./_snippets/toggle-group/root-provider.tsx#demo</include>
 </Preview.Code>
 
-<Preview.CSS>
-  {`
-      .row {
+  <Preview.CSS>
+    {`
+      .stack {
         display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
+        flex-direction: column;
+        align-items: flex-start;
         gap: var(--spacing-3);
       }
+
+      .hint {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+      }
     `}
-</Preview.CSS>
+
+  </Preview.CSS>
 
 </Preview>
 

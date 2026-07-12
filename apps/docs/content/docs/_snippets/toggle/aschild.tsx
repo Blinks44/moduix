@@ -2,14 +2,13 @@
 //#region demo
 
 import { CheckIcon, Toggle } from '@moduix/react';
-import styles from './toggle.module.css';
 
 export function AsChildToggleDemo() {
   return (
     <Toggle asChild variant="outline" defaultPressed>
-      <button type="button" className={styles.customButton}>
+      <button type="button">
         <CheckIcon />
-        Custom button
+        Save to favorites
       </button>
     </Toggle>
   );
