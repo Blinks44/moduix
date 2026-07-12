@@ -71,17 +71,20 @@
   }
 
   .content {
-    --command-palette-close-icon-size-effective: var(
+    --_command-palette-close-icon-size-effective: var(
       --command-palette-close-icon-size,
       var(--command-palette-clear-size, var(--size-sm))
     );
-    --command-palette-close-offset-effective: var(--command-palette-close-offset, var(--spacing-3));
-    --command-palette-header-padding-inline-end-effective: var(
+    --_command-palette-close-offset-effective: var(
+      --command-palette-close-offset,
+      var(--spacing-3)
+    );
+    --_command-palette-header-padding-inline-end-effective: var(
       --command-palette-header-padding-inline-end,
       calc(
         var(--command-palette-header-padding-x, var(--spacing-4)) +
-          var(--command-palette-close-icon-size-effective) +
-          var(--command-palette-close-offset-effective)
+          var(--_command-palette-close-icon-size-effective) +
+          var(--_command-palette-close-offset-effective)
       )
     );
     box-sizing: border-box;
@@ -124,7 +127,7 @@
     gap: var(--command-palette-header-gap, var(--spacing-1));
     padding: var(--command-palette-header-padding-y, var(--spacing-4))
       var(--command-palette-header-padding-x, var(--spacing-4)) 0;
-    padding-inline-end: var(--command-palette-header-padding-inline-end-effective);
+    padding-inline-end: var(--_command-palette-header-padding-inline-end-effective);
   }
 
   .title {
@@ -181,13 +184,13 @@
 
   .closeTrigger {
     position: absolute;
-    top: var(--command-palette-close-offset-effective);
-    right: var(--command-palette-close-offset-effective);
+    top: var(--_command-palette-close-offset-effective);
+    right: var(--_command-palette-close-offset-effective);
     z-index: 1;
   }
 
   .closeIcon {
-    --close-button-size: var(--command-palette-close-icon-size-effective);
+    --close-button-size: var(--_command-palette-close-icon-size-effective);
     --close-button-radius: var(
       --command-palette-close-icon-radius,
       var(--command-palette-clear-radius, var(--radius-md))
@@ -205,8 +208,8 @@
     --close-button-color-hover: var(--command-palette-color, var(--color-popover-foreground));
     --close-button-focus-ring-color: var(--command-palette-focus-ring-color, var(--color-ring));
     position: absolute;
-    top: var(--command-palette-close-offset-effective);
-    right: var(--command-palette-close-offset-effective);
+    top: var(--_command-palette-close-offset-effective);
+    right: var(--_command-palette-close-offset-effective);
     z-index: 1;
   }
 

@@ -10,7 +10,11 @@ const DEFAULT_POSITION = { x: 160, y: 140 };
 export const floatingPanelOverrideCssProperties: CssPropertyInput[] = [
   ['--floating-panel-behind-opacity', '0.55', 'Opacity when another panel is topmost.'],
   ['--floating-panel-bg', 'var(--color-popover)', 'Panel surface background.'],
-  ['--floating-panel-body-color', 'var(--floating-panel-color)', 'Body text color.'],
+  [
+    '--floating-panel-body-color',
+    'var(--floating-panel-color, var(--color-popover-foreground))',
+    'Body text color.',
+  ],
   ['--floating-panel-body-font-size', 'var(--text-sm)', 'Body text size.'],
   ['--floating-panel-body-line-height', 'var(--line-height-text-sm)', 'Body line height.'],
   ['--floating-panel-body-padding', 'var(--spacing-4)', 'Body padding.'],
@@ -35,10 +39,47 @@ export const floatingPanelOverrideCssProperties: CssPropertyInput[] = [
   ['--floating-panel-ending-translate-y', '0', 'Exit vertical offset.'],
   ['--floating-panel-focus-ring-color', 'var(--color-ring)', 'Focus ring color.'],
   ['--floating-panel-focus-ring-width', 'var(--border-width-sm)', 'Focus ring width.'],
+  [
+    '--floating-panel-footer-border-color',
+    'var(--floating-panel-border-color, var(--color-border))',
+    'Customizes floating panel footer border color.',
+  ],
+  [
+    '--floating-panel-footer-border-width',
+    'var(--border-width-sm)',
+    'Customizes floating panel footer border width.',
+  ],
+  [
+    '--floating-panel-footer-color',
+    'var(--color-muted-foreground)',
+    'Customizes floating panel footer color.',
+  ],
+  [
+    '--floating-panel-footer-font-size',
+    'var(--text-xs)',
+    'Customizes floating panel footer font size.',
+  ],
+  ['--floating-panel-footer-gap', 'var(--spacing-2)', 'Customizes floating panel footer gap.'],
+  ['--floating-panel-footer-justify', 'flex-end', 'Customizes floating panel footer justify.'],
+  [
+    '--floating-panel-footer-line-height',
+    'var(--line-height-text-xs)',
+    'Customizes floating panel footer line height.',
+  ],
+  [
+    '--floating-panel-footer-padding-x',
+    'var(--spacing-3)',
+    'Customizes floating panel footer padding x.',
+  ],
+  [
+    '--floating-panel-footer-padding-y',
+    'var(--spacing-2)',
+    'Customizes floating panel footer padding y.',
+  ],
   ['--floating-panel-header-bg', 'var(--color-muted)', 'Header background.'],
   [
     '--floating-panel-header-border-color',
-    'var(--floating-panel-border-color)',
+    'var(--floating-panel-border-color, var(--color-border))',
     'Header border color.',
   ],
   ['--floating-panel-header-border-width', 'var(--border-width-sm)', 'Header border width.'],
@@ -58,7 +99,11 @@ export const floatingPanelOverrideCssProperties: CssPropertyInput[] = [
   ['--floating-panel-starting-scale', 'var(--scale-popup)', 'Enter animation scale.'],
   ['--floating-panel-starting-translate-x', '0', 'Enter horizontal offset.'],
   ['--floating-panel-starting-translate-y', '0', 'Enter vertical offset.'],
-  ['--floating-panel-title-color', 'var(--floating-panel-color)', 'Title color.'],
+  [
+    '--floating-panel-title-color',
+    'var(--floating-panel-color, var(--color-popover-foreground))',
+    'Title color.',
+  ],
   ['--floating-panel-title-font-size', 'var(--text-sm)', 'Title text size.'],
   ['--floating-panel-title-font-weight', 'var(--weight-semibold)', 'Title weight.'],
   ['--floating-panel-title-gap', 'var(--spacing-2)', 'Title inline gap.'],
@@ -67,7 +112,7 @@ export const floatingPanelOverrideCssProperties: CssPropertyInput[] = [
   ['--floating-panel-trigger-bg', 'var(--color-background)', 'Default trigger background.'],
   [
     '--floating-panel-trigger-bg-active',
-    'var(--floating-panel-trigger-bg-hover)',
+    'var(--floating-panel-trigger-bg-hover, var(--color-accent))',
     'Open trigger background.',
   ],
   ['--floating-panel-trigger-bg-hover', 'var(--color-accent)', 'Default trigger hover background.'],

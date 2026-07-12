@@ -22,7 +22,7 @@ import * as DatePickerDocs from '@/components/examples/date-picker';
 the common path. Use `DatePicker.Field` for the input actions and `DatePicker.DayTable` for the
 standard day grid.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.DatePickerExample />
 
 <Preview.Code>
@@ -139,7 +139,7 @@ Use `min`, `max`, and `isDateUnavailable(date, locale)` for unavailable dates. U
 
 Control the selected `DateValue[]` and update it from `details.value`.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.ControlledDatePickerExample />
 
 <Preview.Code>
@@ -155,7 +155,7 @@ Control the selected `DateValue[]` and update it from `details.value`.
 Use `defaultView` to open on a different panel. Add `fixedWeeks` when the day view should keep a
 stable six-row height while users navigate between months.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.DefaultViewDatePickerExample />
 
 <Preview.Code>
@@ -171,7 +171,7 @@ stable six-row height while users navigate between months.
 `DatePicker` consumes Ark field state. Use `invalid`, `disabled`, `readOnly`, and `required` on the
 root when you are not composing through `Field`.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.FieldDatePickerExample />
 
 <Preview.Code>
@@ -187,7 +187,7 @@ root when you are not composing through `Field`.
 Set `inline` when the calendar should stay in the layout. Inline calendars render `Content`
 directly without `Positioner`.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.InlineDatePickerExample />
 
 <Preview.Code>
@@ -202,7 +202,7 @@ directly without `Positioner`.
 
 `locale`, `startOfWeek`, `format`, and `parse` pass through to Ark.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.LocaleDatePickerExample />
 
 <Preview.Code>
@@ -218,7 +218,7 @@ directly without `Positioner`.
 Use `min`, `max`, and `isDateUnavailable` for validation rules that should affect both input and
 calendar cells.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.MinMaxDatePickerExample />
 
 <Preview.Code>
@@ -235,7 +235,7 @@ Ark ships native `DatePicker.MonthSelect` and `DatePicker.YearSelect` parts. Thi
 moduix `Select` with `DatePicker.Context` instead, so the header matches the rest of the library
 while still updating Ark's focused date.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.MonthYearSelectDatePickerExample />
 
 <Preview.Code>
@@ -251,7 +251,7 @@ while still updating Ark's focused date.
 Set `defaultView="month"` and `minView="month"` for month-only selection. Use `format` and `parse`
 when the input should accept a month/year string.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.MonthPickerExample />
 
 <Preview.Code>
@@ -268,7 +268,7 @@ Use `selectionMode="multiple"` and optionally cap selections with `maxSelectedDa
 try to squeeze multiple values into one text input; use `DatePicker.Context` to render
 selected-date chips and call `datePicker.setValue()` when a chip is removed.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.MultipleDatePickerExample />
 
 <Preview.Code>
@@ -283,7 +283,7 @@ selected-date chips and call `datePicker.setValue()` when a chip is removed.
 
 Set `numOfMonths` when users need more context while choosing dates.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.MultipleMonthsDatePickerExample />
 
 <Preview.Code>
@@ -299,7 +299,7 @@ Set `numOfMonths` when users need more context while choosing dates.
 `DatePicker.PresetTrigger` accepts Zag range preset names such as `last7Days` or a custom
 `DateValue[]`. Use range mode with two indexed inputs so the selected preset displays both dates.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.PresetDatePickerExample />
 
 <Preview.Code>
@@ -316,7 +316,7 @@ Use `selectionMode="range"` with two values. Ark owns range hover, first/last-in
 input formatting. Ark renders ranges through two indexed inputs, one for the start date and one for
 the end date.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.RangeDatePickerExample />
 
 <Preview.Code>
@@ -331,7 +331,7 @@ the end date.
 
 Use moduix `useDatePicker()` when the calendar state must be shared with external controls.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.RootProviderDatePickerExample />
 
 <Preview.Code>
@@ -346,7 +346,7 @@ Use moduix `useDatePicker()` when the calendar state must be shared with externa
 
 Use `DatePicker.Context` when a nearby control needs to call Ark helpers such as `selectToday()`.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.SelectTodayDatePickerExample />
 
 <Preview.Code>
@@ -362,7 +362,7 @@ Use `DatePicker.Context` when a nearby control needs to call Ark helpers such as
 Keep time in the selected `DateValue` by storing `CalendarDateTime` values and updating the time
 field separately from Ark's date grid.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.DatePickerWithTimeExample />
 
 <Preview.Code>
@@ -378,7 +378,7 @@ field separately from Ark's date grid.
 Set `defaultView="year"` and `minView="year"` for year-only selection. The same `format` / `parse`
 contract keeps keyboard input aligned with the calendar view.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.YearPickerExample />
 
 <Preview.Code>
@@ -394,7 +394,7 @@ contract keeps keyboard input aligned with the calendar view.
 Use the full Ark composition when the calendar grid itself needs custom rendering. This bypasses
 `DatePicker.Field` and `DatePicker.DayTable` while keeping the same Ark state and styled parts.
 
-<Preview>
+<Preview clientOnly>
   <DatePickerDocs.AdvancedCustomizationDatePickerExample />
 
 <Preview.Code>

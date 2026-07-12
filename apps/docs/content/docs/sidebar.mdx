@@ -31,7 +31,7 @@ panel ids and constraints make the common left-sidebar layout work without confi
 example also shows the blessed collapsed-rail pattern: compose `Sidebar.Tooltip` around icon menu
 buttons instead of repeating raw Tooltip anatomy or teaching Sidebar to own popup state.
 
-<Preview>
+<Preview clientOnly>
   <SidebarDocs.BasicSidebarExample />
 
   <Preview.Code>
@@ -174,7 +174,7 @@ Keep native scrolling as the default, or compose `ScrollArea` inside `Sidebar.Co
 application needs a styled thumb and optional edge fade. Disable the outer overflow so the
 `ScrollArea.Viewport` remains the only scroll container.
 
-<Preview>
+<Preview clientOnly>
   <SidebarDocs.ScrollAreaSidebarExample />
 
   <Preview.Code>
@@ -189,7 +189,7 @@ Use `Drawer` for compact-screen overlay navigation and reuse the Sidebar visual 
 drawer body. Keep `Panel`, `Inset`, `ResizeTrigger`, `Trigger`, and `useSidebar()` on the desktop
 path only. This is the recommended mobile half of the responsive sidebar recipe.
 
-<Preview>
+<Preview clientOnly>
   <SidebarDocs.MobileDrawerSidebarExample />
 
   <Preview.Code>
@@ -204,7 +204,7 @@ Keep desktop width outside the component by controlling `size`, mirroring live d
 `onResize(details)`, and persisting the last settled width from `onResizeEnd(details)`. This keeps
 Splitter as the source of layout truth while making sidebar migration feel as sticky as shadcn.
 
-<Preview>
+<Preview clientOnly>
   <SidebarDocs.PersistedSidebarExample />
 
   <Preview.Code>
@@ -221,7 +221,7 @@ corresponding moduix primitives. The expanded project list and additional naviga
 demonstrate scrolling inside `Sidebar.Content`. `Sidebar.Tooltip` keeps the collapsed icon-rail path
 compact without introducing a sidebar-owned tooltip manager.
 
-<Preview>
+<Preview clientOnly>
   <SidebarDocs.InteractiveSidebarExample />
 
   <Preview.Code>
@@ -236,7 +236,7 @@ Pass `side="right"` and render `Inset`, `Trigger`, `ResizeTrigger`, and `Panel` 
 Sidebar chooses the matching panel model, trigger id, floating position, and chevron direction. The
 Inspector example includes grouped tools, activity links, internal scrolling, and a footer menu.
 
-<Preview>
+<Preview clientOnly>
   <SidebarDocs.RightSidebarExample />
 
   <Preview.Code>
@@ -252,7 +252,7 @@ and mark the compact visual anchor with `data-sidebar-icon` so collapse needs no
 The example combines the workspace switcher with regular navigation, a scrollable content region,
 and an account menu.
 
-<Preview>
+<Preview clientOnly>
   <SidebarDocs.WorkspaceSelectSidebarExample />
 
   <Preview.Code>
@@ -267,7 +267,7 @@ Bypass Sidebar's default panel constraints by passing Ark `panels` directly whil
 explicit Sidebar composition. Use `Splitter` instead when the layout also needs custom inset ids,
 more than two panels, or provider and registry APIs.
 
-<Preview>
+<Preview clientOnly>
   <SidebarDocs.CustomSizesSidebarExample />
 
   <Preview.Code>

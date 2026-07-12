@@ -106,6 +106,7 @@ export const selectOverrideCssProperties: CssPropertyInput[] = [
   ['--select-icon-color', 'var(--color-muted-foreground)', 'Controls trigger action icon color.'],
   ['--select-icon-size', '1rem', 'Controls trigger action icon size.'],
   ['--select-invalid-color', 'var(--color-destructive)', 'Controls invalid border and ring color.'],
+  ['--select-item-bg', 'transparent', 'Customizes select item bg.'],
   ['--select-item-border-color', 'transparent', 'Controls item border color.'],
   ['--select-item-border-width', '0', 'Controls item border width.'],
   ['--select-item-checked-color', 'var(--select-item-color)', 'Controls selected item color.'],

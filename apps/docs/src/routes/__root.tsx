@@ -17,6 +17,10 @@ export const Route = createRootRoute({
         title: 'Moduix component library',
       },
       {
+        name: 'description',
+        content: 'Accessible React components built on Ark UI and distributed with native CSS.',
+      },
+      {
         name: 'apple-mobile-web-app-title',
         content: 'moduix',
       },
@@ -35,7 +39,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <html suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>

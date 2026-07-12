@@ -145,6 +145,11 @@ The visual contract uses `data-slot="command-palette-*"` hooks on each exported 
 
 Important CSS variables include `--command-palette-positioner-padding`, `--command-palette-width`, `--command-palette-max-height`, `--command-palette-bg`, `--command-palette-border-color`, `--command-palette-control-*`, `--command-palette-input-*`, `--command-palette-highlight-*`, `--command-palette-scrollbar-*`, and the item/footer/kbd variables. Size and spacing defaults should prefer shared tokens such as `--size-sm`, `--size-md`, and `--spacing-*` over one-off fractional rem values.
 
+Variables prefixed with `--_command-palette-*` are private computed values used to coordinate the
+header and close affordance. They are not public customization hooks; customize the corresponding
+`--command-palette-close-*`, `--command-palette-close-icon-*`, and
+`--command-palette-header-padding-*` variables instead.
+
 ## Intentional sugar and differences from upstream
 
 `CommandPalette` can add a global shortcut listener because neither Ark Dialog nor Ark Combobox owns command-launch behavior. The listener is opt-in so pages with multiple palettes do not open every mounted instance from one key press. Shortcuts accept one modifier and one key: `mod`, `ctrl` / `control`, `meta` / `cmd` / `command`, or `alt` / `option`, followed by `+` and the key. The shortcut toggles an open palette and ignores editable targets while the palette is closed. `CommandPalette.Panel` is narrow workflow sugar for the standard command-palette chrome; use the explicit parts for custom overlay layout. `Panel` defaults `showCloseIcon` to `false` so the search row keeps the only visible x control for clearing input. `CommandPalette.Search` is narrow workflow sugar for the standard input-like search row and includes the clear trigger by default. `CommandPalette.CloseTrigger` and `CommandPalette.ClearTrigger` render a default close icon and label when used as icon-only controls. `CommandPalette.CloseIcon`, `Header`, and `Body` mirror the dialog-like helper pattern without hiding the dialog or combobox structure. `CommandPalette.List` wraps its children in the local `ScrollArea` so command results use moduix scrollbars by default. The list is a flex child and does not own a hard-coded height; footer/header space is resolved by the dialog flex layout. `CommandPalette.ItemIndicator` renders a default check icon and can share the trailing row layout with `ItemMeta`. `CommandPalette.Kbd` composes the local `Kbd.Root` and maps command-palette CSS variables to the shared Kbd contract. `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta`, `Separator`, and `Footer` are visual Ark factory leaf parts only.
@@ -163,6 +168,9 @@ consumers should compose those Ark helpers directly.
 
 ## Local changelog
 
+- 2026-07-12: Classified close/header effective values as private `--_command-palette-*`
+  implementation variables; public customization continues through the documented non-underscored
+  close and header variables.
 - 2026-07-10: Documented the accepted global-shortcut grammar and added the explicit custom-composition path to the public docs.
 - 2026-07-08: Added `Panel` and `Search` helpers for the standard palette shell and input-like
   search row, updated the global shortcut to toggle an open palette, and kept the explicit part

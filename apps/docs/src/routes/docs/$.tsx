@@ -15,7 +15,7 @@ import { ExternalLinkIcon } from 'lucide-react';
 import { Suspense } from 'react';
 import { useMDXComponents } from '@/components/mdx';
 import { baseOptions } from '@/lib/layout.shared';
-import { gitConfig } from '@/lib/shared';
+import { gitConfig, siteUrl } from '@/lib/shared';
 import { slugsToMarkdownPath, source } from '@/lib/source';
 
 export const Route = createFileRoute('/docs/$')({
@@ -26,6 +26,16 @@ export const Route = createFileRoute('/docs/$')({
     await clientLoader.preload(data.path);
     return data;
   },
+  head: ({ loaderData }) =>
+    loaderData
+      ? {
+          meta: [
+            { title: `${loaderData.title} — moduix` },
+            { name: 'description', content: loaderData.description },
+          ],
+          links: [{ rel: 'canonical', href: `${siteUrl}${loaderData.url}` }],
+        }
+      : {},
 });
 
 const serverLoader = createServerFn({
@@ -37,6 +47,9 @@ const serverLoader = createServerFn({
     if (!page) throw notFound();
 
     return {
+      title: page.data.title,
+      description: page.data.description,
+      url: page.url,
       path: page.path,
       markdownUrl: slugsToMarkdownPath(page.slugs).url,
       pageTree: await source.serializePageTree(source.getPageTree()),

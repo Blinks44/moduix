@@ -1,3 +1,4 @@
+import { ClientOnly } from '@tanstack/react-router';
 import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock.core';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import * as React from 'react';
@@ -5,6 +6,7 @@ import { cn } from '@/lib/cn';
 import { docsShikiOptions, getDocsShikiHighlighter } from '@/lib/shiki';
 
 type PreviewProps = React.ComponentProps<'div'> & {
+  clientOnly?: boolean;
   code?: string;
   cssProperties?: CssPropertyInput[];
   codeLanguage?: string;
@@ -63,6 +65,7 @@ function PreviewData(_props: PreviewSlotProps) {
 
 function PreviewRoot({
   children,
+  clientOnly = false,
   className,
   code,
   cssProperties,
@@ -140,7 +143,7 @@ function PreviewRoot({
         {resolvedExampleCss ? <style>{resolvedExampleCss}</style> : null}
         <div className="flex w-full min-w-0 justify-center-safe">
           <div className="flex w-full min-w-0 flex-wrap items-center justify-center gap-3 [&>*]:max-w-full [&>*]:min-w-0">
-            {previewChildren}
+            {clientOnly ? <ClientOnly>{previewChildren}</ClientOnly> : previewChildren}
           </div>
         </div>
       </div>

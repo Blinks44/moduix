@@ -136,7 +136,7 @@ import '@moduix/react/style.css';
 Then import and compose the components you need:
 
 ```tsx
-import { Button, Dialog, Portal } from '@moduix/react';
+import { Button, Dialog } from '@moduix/react';
 
 export function Example() {
   return (
@@ -144,14 +144,12 @@ export function Example() {
       <Dialog.Trigger asChild>
         <Button>Open dialog</Button>
       </Dialog.Trigger>
-      <Portal>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Project settings</Dialog.Title>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Portal>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Title>Project settings</Dialog.Title>
+        </Dialog.Content>
+      </Dialog.Positioner>
     </Dialog.Root>
   );
 }
@@ -189,7 +187,7 @@ QrCode, Select, Tabs, Toast, Tooltip, TreeView, and supporting layout and displa
 
 ## Documentation
 
-- Documentation: https://moduix.blinks44.workers.dev/
+- Documentation: https://moduix.dev/
 - npm package: https://www.npmjs.com/package/@moduix/react
 - React package README: `packages/react/README.md`
 - Docs app README: `apps/docs/README.md`

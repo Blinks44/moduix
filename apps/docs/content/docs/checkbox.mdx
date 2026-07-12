@@ -16,7 +16,7 @@ Use the Ark part tree directly. For the common path, `Checkbox.Control` already 
 checked and indeterminate indicators, so most checkboxes only need `Checkbox.Control`,
 `Checkbox.Label`, and `Checkbox.HiddenInput`.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxExample />
 
   <Preview.Code>
@@ -105,7 +105,7 @@ semantic `label`, otherwise the checkbox no longer has valid form-control labell
 
 Control `checked` from React state when the checkbox should coordinate with other UI or derived logic.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.ControlledCheckboxExample />
 
   <Preview.Code>
@@ -118,7 +118,7 @@ Control `checked` from React state when the checkbox should coordinate with othe
 
 Control the group value from React state when selected options need to drive filters, summaries, or actions.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.ControlledCheckboxGroupExample />
 
   <Preview.Code>
@@ -131,7 +131,7 @@ Control the group value from React state when selected options need to drive fil
 
 Replace the default checkmark when the product needs a different icon treatment while keeping Ark checkbox behavior.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CustomIndicatorCheckboxExample />
 
   <Preview.Code>
@@ -144,7 +144,7 @@ Replace the default checkmark when the product needs a different icon treatment 
 
 Use `defaultChecked` when the checkbox should start checked and then manage its own state.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxDefaultCheckedExample />
 
   <Preview.Code>
@@ -157,7 +157,7 @@ Use `defaultChecked` when the checkbox should start checked and then manage its 
 
 Use `disabled` when the option is unavailable and should not accept focus or input.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxDisabledExample />
 
   <Preview.Code>
@@ -170,7 +170,7 @@ Use `disabled` when the option is unavailable and should not accept focus or inp
 
 Use `Checkbox.Group` when several options belong to one shared array of selected values.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxGroupExample />
 
   <Preview.Code>
@@ -183,7 +183,7 @@ Use `Checkbox.Group` when several options belong to one shared array of selected
 
 Wrap the group in `Fieldset` when the checkbox set is one semantic form field with a shared legend.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxGroupFieldsetExample />
 
   <Preview.Code>
@@ -196,7 +196,7 @@ Wrap the group in `Fieldset` when the checkbox set is one semantic form field wi
 
 Use `Checkbox.Group` inside a form and read selected values with `FormData.getAll(name)`.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxGroupWithFormExample />
 
   <Preview.Code>
@@ -209,7 +209,7 @@ Use `Checkbox.Group` inside a form and read selected values with `FormData.getAl
 
 Use the indeterminate state when one checkbox reflects a partial selection instead of a simple on or off value.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxIndeterminateExample />
 
   <Preview.Code>
@@ -222,7 +222,7 @@ Use the indeterminate state when one checkbox reflects a partial selection inste
 
 Mark the group invalid when the whole set participates in validation and requires a valid selection state.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxGroupInvalidExample />
 
   <Preview.Code>
@@ -235,7 +235,7 @@ Mark the group invalid when the whole set participates in validation and require
 
 Use `maxSelectedValues` when only a fixed number of options can be selected.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxGroupMaxSelectedExample />
 
   <Preview.Code>
@@ -248,7 +248,7 @@ Use `maxSelectedValues` when only a fixed number of options can be selected.
 
 Use `readOnly` when the value should remain visible but user interaction should not change it.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxReadOnlyExample />
 
   <Preview.Code>
@@ -262,7 +262,7 @@ Use `readOnly` when the value should remain visible but user interaction should 
 Use `Checkbox.RootProvider` when checkbox state needs to live outside the rendered subtree. Import
 the state hook from `@moduix/react`.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxRootProviderExample />
 
   <Preview.Code>
@@ -275,7 +275,7 @@ the state hook from `@moduix/react`.
 
 Compose a parent checkbox and a controlled group when one control should toggle the entire selection set.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxGroupSelectAllExample />
 
   <Preview.Code>
@@ -288,7 +288,7 @@ Compose a parent checkbox and a controlled group when one control should toggle 
 
 Apply moduix `size` to match checkbox density to the surrounding form or settings surface.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxSizesExample />
 
   <Preview.Code>
@@ -301,7 +301,7 @@ Apply moduix `size` to match checkbox density to the surrounding form or setting
 
 Use `Field` around one checkbox when it needs helper text, validation text, or shared field state.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxWithFieldExample />
 
   <Preview.Code>
@@ -314,7 +314,7 @@ Use `Field` around one checkbox when it needs helper text, validation text, or s
 
 Pass `name` and `value` to `Checkbox.Root` so the hidden input submits with native `FormData`.
 
-<Preview>
+<Preview clientOnly>
   <CheckboxDocs.CheckboxWithFormExample />
 
   <Preview.Code>

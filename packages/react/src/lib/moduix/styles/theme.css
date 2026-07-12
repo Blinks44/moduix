@@ -696,7 +696,6 @@
   --command-palette-close-icon-size: initial; /* var(--command-palette-clear-size, var(--size-sm)) */
   --command-palette-close-offset: initial; /* var(--spacing-3) */
   --command-palette-color: initial; /* var(--color-popover-foreground) */
-  --command-palette-content-gap: initial; /* var(--spacing-3) */
   --command-palette-content-ending-opacity: initial; /* 0 */
   --command-palette-content-ending-scale: initial; /* var(--scale-popup) */
   --command-palette-content-ending-translate-x: initial; /* 0 */

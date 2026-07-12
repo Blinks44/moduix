@@ -1,4 +1,5 @@
 export const appName = 'moduix';
+export const siteUrl = 'https://moduix.dev';
 export const docsRoute = '/docs';
 export const docsImageRoute = '/og/docs';
 export const docsContentRoute = '/llms.mdx/docs';

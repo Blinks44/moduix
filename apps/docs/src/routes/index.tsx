@@ -6,10 +6,14 @@ import { ArrowRight, Code2, Component, Layers3, PackageCheck, Sparkles } from 'l
 import { useState } from 'react';
 import { FrameworkSupport } from '@/components/framework-support';
 import { baseOptions } from '@/lib/layout.shared';
+import { siteUrl } from '@/lib/shared';
 import styles from './index.module.css';
 
 export const Route = createFileRoute('/')({
   component: Home,
+  head: () => ({
+    links: [{ rel: 'canonical', href: siteUrl }],
+  }),
 });
 
 const highlights = [
