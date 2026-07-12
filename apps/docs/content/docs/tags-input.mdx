@@ -63,23 +63,24 @@ TagsInput / TagsInput.Root
 └─ TagsInput.HiddenInput
 ```
 
-| Part                                | Role                                                                 |
-| ----------------------------------- | -------------------------------------------------------------------- |
-| `TagsInput` / `TagsInput.Root`      | Root state machine, value array, input value, validation, and forms. |
-| `TagsInput.RootProvider`            | Renders tags input from state returned by Ark `useTagsInput`.        |
-| `TagsInput.Label`                   | Accessible label for the tags input.                                 |
-| `TagsInput.Control`                 | Visible input shell containing tags, entry input, and clear trigger. |
-| `TagsInput.Items`                   | Default editable tag renderer for `TagsInput.Context` values.        |
-| `TagsInput.Item`                    | One tag item. Pass `index` and `value`.                              |
-| `TagsInput.ItemPreview`             | Visible tag surface outside edit mode.                               |
-| `TagsInput.ItemText`                | Visible tag text.                                                    |
-| `TagsInput.ItemDeleteTrigger`       | Removes one tag; moduix supplies a compact default close icon.       |
-| `TagsInput.ItemInput`               | Inline edit input for the tag.                                       |
-| `TagsInput.Input`                   | Entry input for new tags.                                            |
-| `TagsInput.ClearTrigger`            | Clears all tags; moduix uses the shared `CloseButton.Root` default.  |
-| `TagsInput.HiddenInput`             | Hidden native input for forms and reset behavior.                    |
-| `TagsInput.Context`                 | Inline access to Ark root state.                                     |
-| Ark `useTagsInput` + `RootProvider` | External state ownership and imperative methods.                     |
+| Part                                   | Role                                                                 |
+| -------------------------------------- | -------------------------------------------------------------------- |
+| `TagsInput` / `TagsInput.Root`         | Root state machine, value array, input value, validation, and forms. |
+| `TagsInput.RootProvider`               | Renders tags input from state returned by Ark `useTagsInput`.        |
+| `TagsInput.Label`                      | Accessible label for the tags input.                                 |
+| `TagsInput.Control`                    | Visible input shell containing tags, entry input, and clear trigger. |
+| `TagsInput.Items`                      | Default editable tag renderer for `TagsInput.Context` values.        |
+| `TagsInput.Item`                       | One tag item. Pass `index` and `value`.                              |
+| `TagsInput.ItemContext`                | Render-prop access to current item state.                            |
+| `TagsInput.ItemPreview`                | Visible tag surface outside edit mode.                               |
+| `TagsInput.ItemText`                   | Visible tag text.                                                    |
+| `TagsInput.ItemDeleteTrigger`          | Removes one tag; moduix supplies a compact default close icon.       |
+| `TagsInput.ItemInput`                  | Inline edit input for the tag.                                       |
+| `TagsInput.Input`                      | Entry input for new tags.                                            |
+| `TagsInput.ClearTrigger`               | Clears all tags; moduix uses the shared `CloseButton.Root` default.  |
+| `TagsInput.HiddenInput`                | Hidden native input for forms and reset behavior.                    |
+| `TagsInput.Context`                    | Inline access to Ark root state.                                     |
+| moduix `useTagsInput` + `RootProvider` | External state ownership and imperative methods.                     |
 
 ## Composition
 
@@ -92,7 +93,7 @@ form reset synchronization matters.
 ### When to go custom
 
 Use explicit `TagsInput.Context` / `TagsInput.Item` composition when tags need custom content or
-actions. Use `TagsInput.RootProvider` with Ark `useTagsInput` when surrounding UI needs imperative
+actions. Use `TagsInput.RootProvider` with moduix `useTagsInput` when surrounding UI needs imperative
 methods such as `addValue`, `setValue`, `clearValue`, `setInputValue`, or `focus`. Use `ids` when
 composing `TagsInput` with another Ark primitive, such as a `Combobox`, and both primitives must
 share an input or control ID.
@@ -302,7 +303,7 @@ Ark hooks.
 
 #### Root Provider
 
-Use Ark `useTagsInput` with `RootProvider` when state and imperative methods need to live outside
+Use moduix `useTagsInput` with `RootProvider` when state and imperative methods need to live outside
 the rendered tags input tree.
 
 <Preview>

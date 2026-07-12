@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { type DateInputDateValue } from '@ark-ui/react/date-input';
 import { CalendarDate } from '@internationalized/date';
-import { DateInput } from '@moduix/react';
+import { DateInput, type DateInputDateValue } from '@moduix/react';
 import { useState } from 'react';
 
 export function ControlledDateInputDemo() {

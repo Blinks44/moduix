@@ -55,6 +55,7 @@ Field
 | ------------------------- | --------------------------------------------------------------- |
 | `Field` / `Field.Root`    | Root context and default `<div role="group">`.                  |
 | `Field.RootProvider`      | Root powered by a `useField()` instance owned outside the tree. |
+| `Field.Context`           | Renderless access to the current field state.                   |
 | `Field.Label`             | Label linked to the current control id.                         |
 | `Field.Input`             | Native input wired with field ARIA and state props.             |
 | `Field.Textarea`          | Native textarea; supports Ark `autoresize`.                     |
@@ -88,6 +89,8 @@ rendered node.
 - `Field.ErrorText` is absent from the DOM until the root is `invalid`.
 - `Field.RootProvider` must receive state from `useField()` imported from `@moduix/react`
   and should not be nested inside `Field.Root` for the same field instance.
+- Use `Field.Context` or `useFieldContext` from `@moduix/react` when a custom control needs the
+  current field state. Direct Ark imports are only for lower-level APIs not exported by moduix.
 - `Field` does not render a hidden input; composed controls such as `Checkbox` and `RadioGroup` own
   their own native form parts.
 

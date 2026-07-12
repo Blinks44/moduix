@@ -13,8 +13,8 @@ Upstream docs:
 
 The wrapper follows Ark UI `@ark-ui/react/rating-group`. Preserve Ark parts, `count`,
 `allowHalf`, controlled `value`, uncontrolled `defaultValue`, `onValueChange(details)`,
-`onHoverChange(details)`, `RootProvider`, and `HiddenInput`. Advanced Ark provider/context hooks
-stay available directly from `@ark-ui/react/rating-group`.
+`onHoverChange(details)`, `RootProvider`, and `HiddenInput`. Normal provider/context composition
+uses moduix `useRatingGroup`, `useRatingGroupContext`, and `useRatingGroupItemContext` exports.
 
 Ark owns keyboard behavior, pointer hover preview, half-step selection, readonly and disabled
 states, ids, localized translations, and form integration through `HiddenInput`.
@@ -29,8 +29,8 @@ root props plus moduix `size`, which writes `data-size` and controls the default
 `HiddenInput`. Pass a custom indicator as its child to replace the repeated visual without changing
 Ark item behavior. `ItemIndicator` reads Ark item state internally; custom children should style
 themselves through its `data-highlighted` and `data-half` attributes. For a custom item tree or
-low-level item state access, import Ark `RatingGroup.Context`, `RatingGroup.ItemContext`, or hooks
-directly from `@ark-ui/react/rating-group` and render `HiddenInput` explicitly for form use.
+low-level item state access, use moduix `RatingGroup.Context`, `RatingGroup.ItemContext`, or the
+corresponding hooks and render `HiddenInput` explicitly for form use.
 
 The old `Rating` API was removed. Use `count` instead of `max`, and use
 `onValueChange={(details) => ...}` instead of receiving a raw number.
@@ -44,9 +44,9 @@ RatingGroup.Root
    ├─ RatingGroup.Items (recommended)
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator (moduix visual sugar)
-   ├─ ArkRatingGroup.Context (advanced, optional, from @ark-ui/react/rating-group)
+   ├─ RatingGroup.Context (advanced, optional)
    │  └─ RatingGroup.Item[index]
-   │     ├─ ArkRatingGroup.ItemContext (optional, from @ark-ui/react/rating-group)
+   │     ├─ RatingGroup.ItemContext (optional)
    │     └─ RatingGroup.ItemIndicator (moduix visual sugar)
    └─ RatingGroup.HiddenInput (advanced custom item tree)
 
@@ -62,6 +62,8 @@ RatingGroup.RootProvider
 | `.Control`              | `data-slot="rating-group-control"`        | Ark item container.                         |
 | `.Items`                | —                                         | Renders Ark items, stars, and hidden input. |
 | `.Item`                 | `data-slot="rating-group-item"`           | Ark item; requires numeric `index`.         |
+| `.ItemContext`          | —                                         | Render-prop access to current item state.   |
+| `.Context`              | —                                         | Render-prop access to current root state.   |
 | `.ItemIndicator`        | `data-slot="rating-group-item-indicator"` | Default moduix star visual.                 |
 | `.HiddenInput`          | `data-slot="rating-group-hidden-input"`   | Required for native form submission/reset.  |
 
@@ -86,8 +88,8 @@ export function ReviewRating() {
 
 - Basic: supported through root, label, control, and `Items` (including the hidden input).
 - Controlled: use Ark `value` and `onValueChange(details)` with `details.value`.
-- Root Provider: `RatingGroup.RootProvider` is exported from `moduix`; import Ark `useRatingGroup()`
-  directly when state must be created outside the rendered tree.
+- Root Provider: `RatingGroup.RootProvider` and `useRatingGroup()` are exported from moduix for
+  state created outside the rendered tree.
 - Field: compose with moduix `Field`; Ark propagates field state to the rating group.
 - Half Rating: pass `allowHalf`; `ItemIndicator` clips the foreground star when Ark reports
   `half`.
@@ -155,14 +157,16 @@ Public CSS variables:
 
 - Keep the wrapper thin. `Items` is the only generated-item shortcut; do not add item arrays,
   `max`, raw callback adapters, or old `Rating` aliases.
-- Keep `RootProvider` and `ItemIndicator`, but do not re-export Ark contexts, hooks, or duplicate
-  Ark type aliases from the moduix barrel.
+- Keep `RootProvider`, contexts, state hooks, and `ItemIndicator`; do not re-export duplicate Ark
+  type aliases from the moduix barrel.
 - Keep `HiddenInput` inside `Items`; render it explicitly only for custom item trees.
 - If styling tokens change, update `theme.css`, docs CSS reference data, and registry output in the
   same task.
 
 ## Local changelog
 
+- 2026-07-12: Exposed `Context`, `ItemContext`, `useRatingGroup()`, `useRatingGroupContext()`, and
+  `useRatingGroupItemContext()` through moduix so normal advanced composition no longer imports Ark.
 - 2026-07-11: Added `RatingGroup.Items` as the recommended generated-item path. It accepts an
   optional repeated indicator child and renders the hidden input; direct Ark contexts remain the
   advanced escape hatch.

@@ -1,10 +1,5 @@
-import {
-  DateInputSegmentContext,
-  type DateInputDateValue,
-  useDateInput,
-} from '@ark-ui/react/date-input';
 import { CalendarDate, CalendarDateTime, today } from '@internationalized/date';
-import { DateInput, Field } from '@moduix/react';
+import { DateInput, type DateInputDateValue, Field, useDateInput } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -391,7 +386,7 @@ export function AdvancedCustomizationDateInputExample() {
         <DateInput.Label>Custom segments</DateInput.Label>
         <DateInput.Control className="date-input-custom-control">
           <DateInput.SegmentGroup>
-            <DateInputSegmentContext>
+            <DateInput.SegmentContext>
               {(segment) => (
                 <DateInput.Segment
                   segment={segment}
@@ -400,7 +395,7 @@ export function AdvancedCustomizationDateInputExample() {
                   }
                 />
               )}
-            </DateInputSegmentContext>
+            </DateInput.SegmentContext>
           </DateInput.SegmentGroup>
         </DateInput.Control>
         <DateInput.HiddenInput name="custom-date" />

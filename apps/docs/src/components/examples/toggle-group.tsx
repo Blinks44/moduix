@@ -1,5 +1,4 @@
-import { useToggleGroup } from '@ark-ui/react/toggle-group';
-import { ToggleGroup } from '@moduix/react';
+import { ToggleGroup, useToggleGroup } from '@moduix/react';
 import { AlignCenterIcon, AlignLeftIcon, AlignRightIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';

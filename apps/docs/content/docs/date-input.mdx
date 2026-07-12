@@ -49,7 +49,7 @@ DateInput.Root
 Advanced customization:
 
 DateInput.SegmentGroup
-└─ DateInputSegmentContext (from @ark-ui/react/date-input)
+└─ DateInput.SegmentContext
    └─ DateInput.Segment
 
 DateInput.RootProvider
@@ -67,7 +67,8 @@ DateInput.RootProvider
 | `DateInput.Segments`           | Renders one locale-aware segment group for the common path.        |
 | `DateInput.HiddenInput`        | Native hidden input synchronized with the selected date.           |
 | `DateInput.Separator`          | Presentational text for range layouts.                             |
-| `DateInputSegmentContext`      | Upstream Ark render helper for locale-aware segment rendering.     |
+| `DateInput.Context`            | Renderless access to the current date input state.                 |
+| `DateInput.SegmentContext`     | Ark render helper for locale-aware segment rendering.              |
 
 ## Composition
 
@@ -81,7 +82,7 @@ reset. For ranges, render indexed `DateInput.Segments` and hidden inputs for eac
 
 ### When to go custom
 
-Use `DateInput.SegmentGroup`, Ark `DateInputSegmentContext`, and `DateInput.Segment` directly when
+Use `DateInput.SegmentGroup`, `DateInput.SegmentContext`, and `DateInput.Segment` directly when
 segment classes or rendering need to vary per segment.
 Use `asChild` on Ark parts when you need a custom host element. Keep the child semantic and single.
 Use `ids` when an external label, helper text, or another component must share exact IDs.
@@ -105,9 +106,9 @@ Use `ids` when an external label, helper text, or another component must share e
 - `selectionMode="range"` enables indexed segment groups and hidden inputs.
 - `min`, `max`, and `isDateUnavailable` validate committed dates.
 - `locale`, `timeZone`, `hourCycle`, `granularity`, `formatter`, `format`, `translations`, and `createCalendar` pass through to Ark.
-- Import Ark `useDateInput()`, `useDateInputContext()`, `DateInputContext`, and
-  `DateInputSegmentContext` directly from `@ark-ui/react/date-input` when you need advanced state
-  access, context, or custom segment rendering.
+- Import `useDateInput()`, `useDateInputContext()`, and `DateInputDateValue` from `@moduix/react`.
+  Use `DateInput.Context` and `DateInput.SegmentContext` for render-function access. Direct Ark
+  imports are reserved for lower-level types and helpers that moduix does not export.
 
 ## Examples
 
@@ -221,8 +222,8 @@ Use `selectionMode="range"` and pass `index` to the segment group and hidden inp
 
 ### Root Provider
 
-Use Ark `useDateInput()` with `DateInput.RootProvider` when state actions need to live outside the
-rendered root tree.
+Use `useDateInput()` from `@moduix/react` with `DateInput.RootProvider` when state actions need to
+live outside the rendered root tree.
 
 <Preview>
   <DateInputDocs.RootProviderDateInputExample />

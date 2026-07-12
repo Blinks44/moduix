@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useProgress } from '@ark-ui/react/progress';
 import { useState } from 'react';
 import { ProgressLinear } from './ProgressLinear';
 import styles from './ProgressLinear.stories.module.css';
@@ -141,7 +140,7 @@ export const ValueText: Story = {
 
 export const RootProvider: Story = {
   render: () => {
-    const progress = useProgress({ defaultValue: 58 });
+    const progress = ProgressLinear.useProgress({ defaultValue: 58 });
 
     return (
       <ProgressLinear.RootProvider value={progress}>

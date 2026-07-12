@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useRatingGroup } from '@ark-ui/react/rating-group';
-import { RatingGroup } from '@moduix/react';
+import { RatingGroup, useRatingGroup } from '@moduix/react';
 
 export function AdvancedCustomizationRatingGroupDemo() {
   const ratingGroup = useRatingGroup({

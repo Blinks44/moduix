@@ -46,18 +46,19 @@ ProgressLinear.Root
    └─ ProgressLinear.Range
 
 ProgressLinear.RootProvider
-└─ same part tree connected to useProgress() from @ark-ui/react/progress
+└─ same part tree connected to ProgressLinear.useProgress()
 ```
 
-| Part                                     | Role                                                            |
-| ---------------------------------------- | --------------------------------------------------------------- |
-| `ProgressLinear` / `ProgressLinear.Root` | Owns progress state, formatting, and ids.                       |
-| `ProgressLinear.RootProvider`            | Connects parts to state created with Ark `useProgress()`.       |
-| `ProgressLinear.Label`                   | Visible label for the progressbar.                              |
-| `ProgressLinear.ValueText`               | Visible value text generated from Ark translations.             |
-| `ProgressLinear.Track`                   | Linear rail with progressbar role and ARIA value attributes.    |
-| `ProgressLinear.Range`                   | Filled range that reflects the current percent.                 |
-| `ProgressLinear.View`                    | Conditional view for `indeterminate`, `loading`, or `complete`. |
+| Part                                     | Role                                                                 |
+| ---------------------------------------- | -------------------------------------------------------------------- |
+| `ProgressLinear` / `ProgressLinear.Root` | Owns progress state, formatting, and ids.                            |
+| `ProgressLinear.RootProvider`            | Connects parts to state created with `ProgressLinear.useProgress()`. |
+| `ProgressLinear.Context`                 | Render-prop access to the current progress state.                    |
+| `ProgressLinear.Label`                   | Visible label for the progressbar.                                   |
+| `ProgressLinear.ValueText`               | Visible value text generated from Ark translations.                  |
+| `ProgressLinear.Track`                   | Linear rail with progressbar role and ARIA value attributes.         |
+| `ProgressLinear.Range`                   | Filled range that reflects the current percent.                      |
+| `ProgressLinear.View`                    | Conditional view for `indeterminate`, `loading`, or `complete`.      |
 
 ## Composition
 
@@ -71,16 +72,17 @@ progress, and `defaultValue={null}` or `value={null}` for indeterminate progress
 
 ### When to go custom
 
-Use `ProgressLinear.RootProvider` with `useProgress()` from `@ark-ui/react/progress` when
-progress state must be created outside the rendered subtree.
+Use `ProgressLinear.RootProvider` with `ProgressLinear.useProgress()` when progress state must be
+created outside the rendered subtree.
 
 Use `translations.value(details)` for custom visible and accessible value text. This replaces the
 old legacy `getAriaValueText` and child render function pattern.
 
 Use `ids` when the label, track, or surrounding layout need stable explicit IDs across a more
 custom tree. Use `ProgressLinear.View` when supporting UI should switch with the Ark progress state
-instead of duplicating state checks outside the component. If you need Ark context APIs or hooks,
-import them directly from `@ark-ui/react/progress`.
+instead of duplicating state checks outside the component. Use `ProgressLinear.Context` or
+`ProgressLinear.useProgressContext()` for state access below a root/provider. Direct Ark imports
+remain an escape hatch for surfaces intentionally outside the moduix API.
 
 ### Default props
 
@@ -225,7 +227,8 @@ Set `orientation="vertical"` when the track should fill upward instead of from l
 
 ### Advanced Customization
 
-Create the Ark progress store outside the rendered tree when another component needs to own state.
+Create the progress store with `ProgressLinear.useProgress()` outside the rendered tree when
+another component needs to own state.
 This bypasses the regular root state setup while preserving the same moduix part tree.
 
 <Preview>

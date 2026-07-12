@@ -48,11 +48,6 @@ export const Basic: Story = {
           <Dialog.CloseIcon />
           <Dialog.Description>You are all caught up. Good job!</Dialog.Description>
         </Dialog.Header>
-        <Dialog.Footer>
-          <Dialog.CloseTrigger asChild>
-            <Button variant="outline">Close</Button>
-          </Dialog.CloseTrigger>
-        </Dialog.Footer>
       </DialogSurface>
     </Dialog.Root>
   ),

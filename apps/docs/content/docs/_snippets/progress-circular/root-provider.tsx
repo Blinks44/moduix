@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useProgress } from '@ark-ui/react/progress';
 import { ProgressCircular } from '@moduix/react';
 
 const defaultValue = 58;
 
 export function RootProviderProgressCircularDemo() {
-  const progress = useProgress({
+  const progress = ProgressCircular.useProgress({
     defaultValue: 58,
   });
   return (

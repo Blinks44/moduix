@@ -1,5 +1,9 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { ToggleGroup as ToggleGroupPrimitive } from '@ark-ui/react/toggle-group';
+import {
+  ToggleGroup as ToggleGroupPrimitive,
+  useToggleGroup,
+  useToggleGroupContext,
+} from '@ark-ui/react/toggle-group';
 import { clsx } from 'clsx';
 import { createContext, forwardRef, useContext } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -91,7 +95,8 @@ const ToggleGroupItem = forwardRef<
 const ToggleGroup = Object.assign(ToggleGroupRoot, {
   Root: ToggleGroupRoot,
   RootProvider: ToggleGroupRootProvider,
+  Context: ToggleGroupPrimitive.Context,
   Item: ToggleGroupItem,
 });
 
-export { ToggleGroup };
+export { ToggleGroup, useToggleGroup, useToggleGroupContext };

@@ -1,4 +1,3 @@
-import { useProgress } from '@ark-ui/react/progress';
 import { ProgressCircular, Slider } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -244,7 +243,7 @@ export function ValueTextProgressCircularExample() {
 }
 
 export function RootProviderProgressCircularExample() {
-  const progress = useProgress({ defaultValue: 58 });
+  const progress = ProgressCircular.useProgress({ defaultValue: 58 });
 
   return (
     <ProgressCircular.RootProvider value={progress}>

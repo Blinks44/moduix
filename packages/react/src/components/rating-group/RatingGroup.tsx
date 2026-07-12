@@ -1,6 +1,8 @@
 import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import {
   RatingGroup as RatingGroupPrimitive,
+  useRatingGroup,
+  useRatingGroupContext,
   useRatingGroupItemContext,
 } from '@ark-ui/react/rating-group';
 import { clsx } from 'clsx';
@@ -146,15 +148,17 @@ function RatingGroupItems({ children }: { children?: ReactNode }) {
 const RatingGroup = Object.assign(RatingGroupRoot, {
   Root: RatingGroupRoot,
   RootProvider: RatingGroupRootProvider,
+  Context: RatingGroupPrimitive.Context,
   Label: RatingGroupLabel,
   Control: RatingGroupControl,
   Item: RatingGroupItem,
+  ItemContext: RatingGroupPrimitive.ItemContext,
   ItemIndicator: RatingGroupItemIndicator,
   Items: RatingGroupItems,
   HiddenInput: RatingGroupHiddenInput,
 });
 
-export { RatingGroup };
+export { RatingGroup, useRatingGroup, useRatingGroupContext, useRatingGroupItemContext };
 export type {
   RatingGroupItemIndicatorProps,
   RatingGroupRootProps,

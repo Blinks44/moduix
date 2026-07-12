@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { DateInputSegmentContext } from '@ark-ui/react/date-input';
 import { CalendarDate } from '@internationalized/date';
 import { DateInput } from '@moduix/react';
 
@@ -11,7 +10,7 @@ export function CustomSegmentsDateInputDemo() {
       <DateInput.Label>Custom segments</DateInput.Label>
       <DateInput.Control className="date-input-custom-control">
         <DateInput.SegmentGroup>
-          <DateInputSegmentContext>
+          <DateInput.SegmentContext>
             {(segment) => (
               <DateInput.Segment
                 segment={segment}
@@ -20,7 +19,7 @@ export function CustomSegmentsDateInputDemo() {
                 }
               />
             )}
-          </DateInputSegmentContext>
+          </DateInput.SegmentContext>
         </DateInput.SegmentGroup>
       </DateInput.Control>
       <DateInput.HiddenInput name="custom-date" />

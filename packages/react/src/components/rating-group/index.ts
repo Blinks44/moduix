@@ -1,4 +1,9 @@
-export { RatingGroup } from './RatingGroup';
+export {
+  RatingGroup,
+  useRatingGroup,
+  useRatingGroupContext,
+  useRatingGroupItemContext,
+} from './RatingGroup';
 export type {
   RatingGroupItemIndicatorProps,
   RatingGroupRootProps,

@@ -27,13 +27,13 @@ explicit and independently styleable.
 - Public composition is `Combobox.Root`, `Label`, `Control`, `Input`, `ClearTrigger`, `Trigger`,
   `Positioner`, `Content`, `Empty`, `List`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`,
   `ItemIndicator`, and `Option`.
-- `Combobox.RootProvider` renders the styled root for state created with Ark `useCombobox`.
+- `Combobox.RootProvider` renders the styled root for state created with moduix `useCombobox`.
 - `Combobox.Root` requires `collection`; use `createListCollection()` or `useListCollection()`.
 - `onValueChange`, `onInputValueChange`, `onOpenChange`, and `onHighlightChange` preserve Ark detail
   objects without remapping.
-- Context parts, hooks, and types are imported directly from `@ark-ui/react/combobox`. Import
-  collection helpers from `@ark-ui/react/collection` and `useFilter` from
-  `@ark-ui/react/locale`.
+- `Combobox.Context`, `useCombobox`, and `useComboboxContext` are exported by moduix. Import
+  collection helpers from `@ark-ui/react/collection` and `useFilter` from `@ark-ui/react/locale`;
+  Ark-only item hooks and type aliases remain advanced escape hatches.
 - `Combobox.Trigger`, `Combobox.ClearTrigger`, and `Combobox.ItemIndicator` provide default moduix
   icons when children are omitted.
 - `Combobox.Option` is the recommended row helper for simple list options. It renders
@@ -65,7 +65,7 @@ Combobox.Root
 ```
 
 All styled parts expose matching kebab-case `data-slot` hooks. `RootProvider` accepts state created
-with Ark `useCombobox` and keeps the same root styling and portal contract. `Option` is sugar over
+with moduix `useCombobox` and keeps the same root styling and portal contract. `Option` is sugar over
 the existing item parts and does not add a new styling hook.
 
 ## Composition
@@ -144,8 +144,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 - Async search: replace collection items and handle `details.reason` from
   `onInputValueChange`.
 - Creatable values: preserved through `allowCustomValue`.
-- Provider state: Ark `useCombobox` plus moduix `RootProvider`.
-- Context state remains available directly from `@ark-ui/react/combobox`.
+- Provider state: moduix `useCombobox` plus `Combobox.RootProvider`.
+- Context state: moduix `Combobox.Context` or `useComboboxContext`.
 - Virtualization: preserved through `scrollToIndexFn` and collection-driven item rendering.
 - Form integration: preserved through Ark root props such as `name` and `form`. The current
   `@ark-ui/react` Combobox package does not expose a `HiddenInput` part.
@@ -186,8 +186,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
   composition. It keeps the same ref target as `Item`, but does not support `asChild` because it
   always renders the nested text and indicator parts. Its `indicator` prop only controls the nested
   `ItemIndicator`.
-- moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
-  aliases. Advanced consumers import those directly from `@ark-ui/react/combobox`.
+- moduix exports `RootProvider`, `Context`, `useCombobox`, and `useComboboxContext` for the normal
+  state path. Ark-only item-context hooks and type aliases remain direct advanced imports.
 - moduix does not add a hidden popup bundle such as `ComboboxContent` or a root-level `items` prop.
   Keep state collection-first and hide repeated popup structure in local helpers when needed.
 - moduix does not ship combobox-owned chip parts. For richer multi-value controls, compose
@@ -225,6 +225,8 @@ Common `shadcn` migration points:
 
 ## Local changelog
 
+- 2026-07-12: Exported `Combobox.Context`, `useCombobox`, and `useComboboxContext` from the moduix
+  implementation so normal provider and context paths no longer require direct Ark imports.
 - 2026-07-10: Restricted `Combobox.Option` to simple rows by excluding `asChild`; use
   `Combobox.Item` for custom semantic elements and row layouts. Reordered public examples and added
   an explicit advanced-customization path.

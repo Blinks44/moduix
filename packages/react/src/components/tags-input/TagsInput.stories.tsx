@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useTagsInput } from '@ark-ui/react/tags-input';
 import { useId, useState } from 'react';
 import { Field } from '../field';
-import { TagsInput } from './TagsInput';
+import { TagsInput, useTagsInput } from './TagsInput';
 import storyStyles from './TagsInput.stories.module.css';
 
 const initialTags = ['React', 'TypeScript'];

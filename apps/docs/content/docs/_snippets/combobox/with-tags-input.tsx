@@ -2,10 +2,8 @@
 //#region demo
 
 import { useListCollection } from '@ark-ui/react/collection';
-import { useCombobox } from '@ark-ui/react/combobox';
 import { useFilter } from '@ark-ui/react/locale';
-import { useTagsInput } from '@ark-ui/react/tags-input';
-import { Combobox, TagsInput } from '@moduix/react';
+import { Combobox, TagsInput, useCombobox, useTagsInput } from '@moduix/react';
 import { useId } from 'react';
 
 const frameworkOptions = ['React', 'Solid', 'Vue', 'Svelte', 'Angular', 'Preact', 'Next.js'];

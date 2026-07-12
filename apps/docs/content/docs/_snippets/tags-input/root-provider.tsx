@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useTagsInput } from '@ark-ui/react/tags-input';
-import { TagsInput } from '@moduix/react';
+import { TagsInput, useTagsInput } from '@moduix/react';
 import { useId } from 'react';
 
 export function RootProviderTagsInput() {

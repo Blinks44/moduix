@@ -1,7 +1,6 @@
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
-import { useCombobox } from '@ark-ui/react/combobox';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox } from '@moduix/react';
+import { Combobox, useCombobox } from '@moduix/react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';

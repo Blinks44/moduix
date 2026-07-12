@@ -37,19 +37,21 @@ RatingGroup.Root
    ├─ RatingGroup.Items (recommended)
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator
-   ├─ ArkRatingGroup.Context (advanced, optional)
+   ├─ RatingGroup.Context (advanced, optional)
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator
    └─ RatingGroup.HiddenInput (advanced custom item tree)
 
 RatingGroup.RootProvider
-└─ same part tree connected to an Ark useRatingGroup() store
+└─ same part tree connected to a moduix useRatingGroup() store
 ```
 
 | Part                               | Role                                                         |
 | ---------------------------------- | ------------------------------------------------------------ |
 | `RatingGroup` / `RatingGroup.Root` | Controls rating value, keyboard behavior, and form state.    |
-| `RatingGroup.RootProvider`         | Connects parts to state created with Ark `useRatingGroup()`. |
+| `RatingGroup.RootProvider`         | Connects parts to state created with `useRatingGroup()`.     |
+| `RatingGroup.Context`              | Render-prop access to current root state.                    |
+| `RatingGroup.ItemContext`          | Render-prop access to current item state.                    |
 | `RatingGroup.Label`                | Accessible label for the rating group.                       |
 | `RatingGroup.Control`              | Groups the interactive rating items.                         |
 | `RatingGroup.Items`                | Renders Ark items, default stars, and the hidden form input. |
@@ -68,10 +70,10 @@ child to change the icon while retaining the same item behavior.
 
 ### When to go custom
 
-Use Ark `RatingGroup.Context`, `RatingGroup.ItemContext`, or `useRatingGroupItemContext()` when a
+Use moduix `RatingGroup.Context`, `RatingGroup.ItemContext`, or `useRatingGroupItemContext()` when a
 custom item tree needs `highlighted`, `checked`, or `half` state. Render `RatingGroup.HiddenInput`
 explicitly with that tree when it needs native form submission or reset. Use
-`RatingGroup.RootProvider` with Ark `useRatingGroup()` when rating state must be created outside
+`RatingGroup.RootProvider` with moduix `useRatingGroup()` when rating state must be created outside
 the rendered subtree.
 
 All Ark parts support `asChild`. Keep the child a single semantic element that can preserve the
@@ -202,7 +204,7 @@ Use the moduix `size` prop when the same Ark rating behavior needs to fit a diff
 
 ### Advanced Customization
 
-Use `RatingGroup.RootProvider` with Ark `useRatingGroup()` when state must be created outside the
+Use `RatingGroup.RootProvider` with moduix `useRatingGroup()` when state must be created outside the
 rendered subtree. This bypasses the normal root state setup while keeping the convenient
 `RatingGroup.Items` renderer.
 

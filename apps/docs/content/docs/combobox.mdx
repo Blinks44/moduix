@@ -72,9 +72,10 @@ Combobox.Root[collection]
 | `Combobox.Item`              | Selectable option row.                                             |
 | `Combobox.ItemText`          | Text label slot inside an item.                                    |
 | `Combobox.ItemIndicator`     | Selected/highlight indicator slot for an item.                     |
+| `Combobox.Context`           | Renderless access to the current combobox state.                   |
 
-`Combobox.RootProvider` renders the same styled root around state created with Ark `useCombobox`.
-Context parts and hooks remain direct Ark imports.
+`Combobox.RootProvider` renders the same styled root around state created with moduix
+`useCombobox`. Read in-tree state with `Combobox.Context` or moduix `useComboboxContext`.
 
 ## Composition
 
@@ -113,9 +114,9 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 ### When to go custom
 
 Use controlled `value` and Ark detail callbacks when adjacent UI needs selected values. When state
-must be created outside the rendered subtree, create it with Ark `useCombobox` and render
-`Combobox.RootProvider`. Context and state hooks remain available directly from
-`@ark-ui/react/combobox`.
+must be created outside the rendered subtree, create it with `useCombobox` from `@moduix/react` and
+render `Combobox.RootProvider`. Direct Ark imports are reserved for low-level item-context hooks and
+types that moduix does not expose.
 
 Multiple selection does not add a combobox-specific chip API. Render tags or another value summary
 from controlled state, then keep selection behavior on `Combobox.Root multiple`.
@@ -146,8 +147,8 @@ combobox `Status` part.
 - The current Ark Combobox package does not expose a `HiddenInput` part. Use the root `name` and
   `form` props for Ark's built-in form submission behavior.
 - `Combobox.RootProvider` preserves moduix root styling and portal configuration for externally
-  created Ark state. Hooks, context parts, and Ark types are imported directly from
-  `@ark-ui/react/combobox`.
+  created Ark state. Use moduix `useCombobox`, `Combobox.Context`, and `useComboboxContext` for the
+  normal provider and context paths.
 - Ark `Field.Root` state inheritance remains available through the Ark-backed moduix `Field.Root`.
 
 ### Migrating from shadcn

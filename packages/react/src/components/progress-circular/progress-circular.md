@@ -30,9 +30,10 @@ low-level composition.
 `defaultValue={null}` or `value={null}` renders indeterminate progress. `min`, `max`,
 `formatOptions`, `locale`, `translations`, `ids`, and `orientation` pass through to Ark.
 
-`ProgressCircular.RootProvider` is preserved for externally owned Ark progress state. Import
-`useProgress()` and related advanced state APIs directly from `@ark-ui/react/progress` when you
-need them.
+`ProgressCircular.RootProvider` is preserved for externally owned Ark progress state. Create that
+state with `ProgressCircular.useProgress()`. `ProgressCircular.Context` and
+`ProgressCircular.useProgressContext()` expose state below a root/provider without a direct Ark
+import.
 
 ## Anatomy and exported parts
 
@@ -48,13 +49,15 @@ ProgressCircular / ProgressCircular.Root
 └─ ProgressCircular.View
 
 ProgressCircular.RootProvider
-└─ same part tree connected to useProgress() from @ark-ui/react/progress
+└─ same part tree connected to ProgressCircular.useProgress()
 ```
 
 - `ProgressCircular` / `ProgressCircular.Root`: `data-slot="progress-circular-root"`; owns Ark
   state, ids, formatting, `data-value`, `data-max`, `data-state`, and `data-orientation`.
 - `ProgressCircular.RootProvider`: `data-slot="progress-circular-root-provider"`; connects parts
-  to an external `useProgress()` store.
+  to an external `ProgressCircular.useProgress()` store.
+- `ProgressCircular.Context`: render-prop access to the current progress state.
+- `ProgressCircular.useProgressContext()`: hook access to state below a root/provider.
 - `ProgressCircular.Label`: `data-slot="progress-circular-label"`; accessible label.
 - `ProgressCircular.Circle`: `data-slot="progress-circular-circle"`; SVG progressbar surface with
   role and ARIA value attributes from Ark.
@@ -139,12 +142,15 @@ replaced by Ark parts, `formatOptions`, and `translations.value(details)`.
 
 Do not add hidden structural wrappers to center `ValueText`; keep that as consumer or docs layout.
 Do not remap Ark callback detail objects or replace `RootProvider` with a local state layer.
-Keep advanced Ark state APIs out of the moduix surface; consumers can import them from Ark
-directly when needed. When changing styling hooks or CSS variables, update docs examples, this
-file, `theme.css`, and the registry output.
+Keep normal state/provider examples on the `ProgressCircular` namespace; direct Ark imports are
+only an advanced escape hatch. When changing styling hooks or CSS variables, update docs examples,
+this file, `theme.css`, and the registry output.
 
 ## Local changelog
 
+- 2026-07-12: Exposed `Context`, `useProgress()`, and `useProgressContext()` on the
+  `ProgressCircular` namespace so normal provider/state composition stays on moduix without a
+  duplicate named hook export.
 - 2026-07-10: Added `ProgressCircular.Ring` as the recommended, stylable fixed circle/track/range
   composition; retained the individual Ark parts for advanced customization.
 - 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider`, removed

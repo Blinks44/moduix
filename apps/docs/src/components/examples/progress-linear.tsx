@@ -1,4 +1,3 @@
-import { useProgress } from '@ark-ui/react/progress';
 import { ProgressLinear, Slider } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -226,7 +225,7 @@ export function ValueTextProgressLinearExample() {
 }
 
 export function RootProviderProgressLinearExample() {
-  const progress = useProgress({ defaultValue: 58 });
+  const progress = ProgressLinear.useProgress({ defaultValue: 58 });
 
   return (
     <ProgressLinear.RootProvider value={progress}>

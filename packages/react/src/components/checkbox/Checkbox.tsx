@@ -1,5 +1,9 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Checkbox as CheckboxPrimitive } from '@ark-ui/react/checkbox';
+import {
+  Checkbox as CheckboxPrimitive,
+  useCheckbox,
+  useCheckboxGroup,
+} from '@ark-ui/react/checkbox';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
@@ -132,4 +136,4 @@ const Checkbox = Object.assign(CheckboxRoot, {
   Group: CheckboxGroup,
 });
 
-export { Checkbox };
+export { Checkbox, useCheckbox, useCheckboxGroup };

@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useDateInput } from '@ark-ui/react/date-input';
 import { today } from '@internationalized/date';
-import { DateInput } from '@moduix/react';
+import { DateInput, useDateInput } from '@moduix/react';
 
 export function RootProviderDateInputDemo() {
   const dateInput = useDateInput({

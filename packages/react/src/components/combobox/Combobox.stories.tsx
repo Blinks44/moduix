@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
-import { useCombobox } from '@ark-ui/react/combobox';
 import { useFilter } from '@ark-ui/react/locale';
 import { useMemo, useState } from 'react';
-import { Combobox } from './Combobox';
+import { Combobox, useCombobox } from './Combobox';
 import styles from './Combobox.stories.module.css';
 
 const meta = {

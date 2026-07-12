@@ -110,6 +110,9 @@ when JavaScript-driven exit animation needs to control mounted state.
 - `closeOnEscape`, `closeOnInteractOutside`, `trapFocus`, `preventScroll`, `restoreFocus`,
   `persistentElements`, and the outside-interaction callbacks pass through to Ark UI.
 - `Dialog.Title` or root `aria-label` is required for an accessible name.
+- Keep every rendered close part id unique. The canonical Basic composition uses one
+  `Dialog.CloseIcon`; if a dialog needs multiple close controls, give the additional parts explicit
+  unique `id` values.
 - Nested content receives `data-has-nested` and `--nested-layer-count`. Moduix uses those hooks to
   scale the parent down and offset it downward so the active nested dialog still reads as layered.
 - Open-from-menu and rapid state changes use the controlled `open` contract. Unsaved-change

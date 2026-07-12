@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useRatingGroup } from '@ark-ui/react/rating-group';
 import { useState } from 'react';
 import { HeartIcon } from '@/icons/demo';
 import { Button } from '../button';
 import { Field } from '../field';
-import { RatingGroup } from './RatingGroup';
+import { RatingGroup, useRatingGroup } from './RatingGroup';
 import storyStyles from './RatingGroup.stories.module.css';
 
 const meta = {

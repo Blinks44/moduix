@@ -48,20 +48,21 @@ ProgressCircular.Root
 └─ ProgressCircular.ValueText
 
 ProgressCircular.RootProvider
-└─ same part tree connected to useProgress() from @ark-ui/react/progress
+└─ same part tree connected to ProgressCircular.useProgress()
 ```
 
-| Part                                         | Role                                                            |
-| -------------------------------------------- | --------------------------------------------------------------- |
-| `ProgressCircular` / `ProgressCircular.Root` | Owns progress state, formatting, and ids.                       |
-| `ProgressCircular.RootProvider`              | Connects parts to state created with Ark `useProgress()`.       |
-| `ProgressCircular.Label`                     | Accessible label for the progressbar.                           |
-| `ProgressCircular.Ring`                      | Default circle, track, and range convenience subtree.           |
-| `ProgressCircular.Circle`                    | SVG progressbar surface with ARIA value.                        |
-| `ProgressCircular.CircleTrack`               | Background circle.                                              |
-| `ProgressCircular.CircleRange`               | Foreground circle that reflects the current percent/state.      |
-| `ProgressCircular.ValueText`                 | Visible value text generated from Ark translations.             |
-| `ProgressCircular.View`                      | Conditional view for `indeterminate`, `loading`, or `complete`. |
+| Part                                         | Role                                                                   |
+| -------------------------------------------- | ---------------------------------------------------------------------- |
+| `ProgressCircular` / `ProgressCircular.Root` | Owns progress state, formatting, and ids.                              |
+| `ProgressCircular.RootProvider`              | Connects parts to state created with `ProgressCircular.useProgress()`. |
+| `ProgressCircular.Context`                   | Render-prop access to the current progress state.                      |
+| `ProgressCircular.Label`                     | Accessible label for the progressbar.                                  |
+| `ProgressCircular.Ring`                      | Default circle, track, and range convenience subtree.                  |
+| `ProgressCircular.Circle`                    | SVG progressbar surface with ARIA value.                               |
+| `ProgressCircular.CircleTrack`               | Background circle.                                                     |
+| `ProgressCircular.CircleRange`               | Foreground circle that reflects the current percent/state.             |
+| `ProgressCircular.ValueText`                 | Visible value text generated from Ark translations.                    |
+| `ProgressCircular.View`                      | Conditional view for `indeterminate`, `loading`, or `complete`.        |
 
 ## Composition
 
@@ -81,8 +82,10 @@ value text in your own layout element when the number should sit in the center.
 
 Use `Circle`, `CircleTrack`, and `CircleRange` when their structure or Ark `asChild` composition
 needs customization. Use `ids` when the label, circle, or surrounding layout need stable explicit
-IDs across a custom tree. Import `useProgress()` and other advanced Ark state APIs directly from
-`@ark-ui/react/progress` only when `RootProvider` state must exist outside the rendered tree.
+IDs across a custom tree. Use `ProgressCircular.useProgress()` with `RootProvider` when state must
+exist outside the rendered tree, and `ProgressCircular.useProgressContext()` below a root/provider
+when a custom component needs the current state. Direct Ark imports remain an escape hatch for
+surfaces intentionally outside the moduix API.
 
 ### Default props
 
@@ -189,7 +192,8 @@ store outside the rendered subtree.
 
 #### Root Provider
 
-Create the Ark progress store outside the rendered tree when another component needs to own state.
+Create the progress store with `ProgressCircular.useProgress()` outside the rendered tree when
+another component needs to own state.
 
 <Preview>
   <ProgressCircularDocs.RootProviderProgressCircularExample />

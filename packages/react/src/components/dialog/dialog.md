@@ -146,6 +146,8 @@ Ark callback detail objects, `RootProvider`, `useDialog`, and `useDialogContext`
 
 ## Local changelog
 
+- 2026-07-12: Kept one close part in the canonical Basic composition so Ark's generated
+  close-trigger id is not duplicated within the dialog.
 - 2026-07-10: Re-exported `useDialog` and `useDialogContext` so provider and context workflows use
   the moduix package surface.
 - 2026-07-02: Removed `Dialog.Context`, Ark dialog hooks, and duplicate Ark type exports from the

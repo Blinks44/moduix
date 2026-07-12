@@ -1,7 +1,6 @@
 //#region demo
 import { createListCollection } from '@ark-ui/react/collection';
-import { useCombobox } from '@ark-ui/react/combobox';
-import { Combobox } from '@moduix/react';
+import { Combobox, useCombobox } from '@moduix/react';
 
 const jobTitles = [
   { label: 'Designer', value: 'designer' },

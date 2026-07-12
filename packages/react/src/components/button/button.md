@@ -35,9 +35,10 @@ composition.
 - Native roots default to `type="button"`; pass `type="submit"` explicitly for form submission.
 - `disabled`, `aria-disabled="true"`, and `loading` expose `data-disabled`.
 - The forwarded ref targets the rendered button element.
-- Writes `data-scope="button"`, `data-part="root"`, and `data-slot="button-root"` on the root by
-  default. Composed moduix wrappers may pass a narrower `data-slot` while preserving button
-  behavior.
+- Writes `data-scope="button"`, `data-part="root"`, and `data-slot="button-root"` on a standalone
+  root by default. When an Ark parent composes Button as its `asChild` trigger, incoming
+  `data-scope` and `data-part` take precedence so the parent anatomy survives; `data-slot` remains
+  the stable moduix styling hook and can still be narrowed by composed wrappers.
 - When `asChild` is enabled, the wrapper keeps `aria-disabled`, `aria-busy`, and `data-disabled`
   for state and styling, but it does not force a native `disabled` attribute onto the custom host.
 - Does not keep legacy `render`, `nativeButton`, or `focusableWhenDisabled`.
@@ -76,6 +77,10 @@ Use `asChild` when another element should own the DOM node:
 </Button>
 ```
 
+When an Ark part such as `Dialog.Trigger` or `Menu.Trigger` composes Button as its child, Button
+preserves the parent part's `data-scope`, `data-part`, handlers, and merged ref on the shared DOM
+node while retaining its recipe classes and `data-slot`.
+
 For icon-only buttons, use an `icon-*` size and provide an accessible name with `aria-label` or an
 equivalent labeling mechanism.
 
@@ -96,11 +101,13 @@ equivalent labeling mechanism.
 
 ## Accessibility and state
 
-- The root exposes:
+- A standalone root exposes:
   - `data-scope="button"`
   - `data-part="root"`
   - `data-variant="<variant>"`
   - `data-size="<size>"`
+- An Ark parent part may replace `data-scope` and `data-part` during `asChild` composition. Button
+  does not overwrite those incoming anatomy attributes.
 - Disabled styling is driven by `[data-disabled]`.
 - `data-disabled` is present for native `disabled`, `aria-disabled="true"`, and `loading`.
 - `data-loading` is present when `loading={true}`.
@@ -212,10 +219,15 @@ Primary CSS variables:
 - Keep `loading` narrow: it owns busy/disabled state only, not spinner structure or loading text.
 - Keep the `data-slot` default as `button-root`, but preserve the narrow override path for composed
   wrappers that need their own stable slot.
+- Preserve incoming `data-scope` and `data-part` so Ark trigger composition keeps parent anatomy;
+  do not move styling dependencies from `data-slot` onto those parent-owned attributes.
 - Do not reintroduce Base button shims or converted prop names.
 
 ## Local changelog
 
+- 2026-07-12: Preserved parent Ark `data-scope` and `data-part` values when Button is composed as a
+  trigger child, while retaining passthrough handlers, merged refs, recipe styling, and the stable
+  `data-slot` hook.
 - 2026-07-09: Stopped forcing native `disabled` onto `asChild` hosts, documented the `loading`
   contract for custom hosts, and added optional `data-icon` styling hooks for inline icons and
   spinners.

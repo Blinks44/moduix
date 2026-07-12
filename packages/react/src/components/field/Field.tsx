@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Field as FieldPrimitive, useField } from '@ark-ui/react/field';
+import { Field as FieldPrimitive, useField, useFieldContext } from '@ark-ui/react/field';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -158,6 +158,7 @@ const Field = Object.assign(FieldRoot, {
   HelperText: FieldHelperText,
   ErrorText: FieldErrorText,
   RequiredIndicator: FieldRequiredIndicator,
+  Context: FieldPrimitive.Context,
 });
 
-export { Field, useField };
+export { Field, useField, useFieldContext };

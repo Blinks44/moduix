@@ -1,5 +1,10 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { TagsInput as TagsInputPrimitive } from '@ark-ui/react/tags-input';
+import {
+  TagsInput as TagsInputPrimitive,
+  useTagsInput,
+  useTagsInputContext,
+  useTagsInputItemContext,
+} from '@ark-ui/react/tags-input';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
@@ -232,6 +237,7 @@ const TagsInput = Object.assign(TagsInputRoot, {
   Label: TagsInputLabel,
   Control: TagsInputControl,
   Item: TagsInputItem,
+  ItemContext: TagsInputPrimitive.ItemContext,
   ItemPreview: TagsInputItemPreview,
   ItemText: TagsInputItemText,
   ItemDeleteTrigger: TagsInputItemDeleteTrigger,
@@ -243,4 +249,4 @@ const TagsInput = Object.assign(TagsInputRoot, {
   Items: TagsInputItems,
 });
 
-export { TagsInput };
+export { TagsInput, useTagsInput, useTagsInputContext, useTagsInputItemContext };

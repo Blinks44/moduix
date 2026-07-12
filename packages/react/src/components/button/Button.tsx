@@ -18,6 +18,8 @@ const ButtonRoot = forwardRef<
       | 'ghost'
       | 'link';
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'icon-lg';
+    'data-scope'?: string;
+    'data-part'?: string;
     'data-slot'?: string;
   }
 >(function ButtonRoot(
@@ -28,6 +30,8 @@ const ButtonRoot = forwardRef<
     loading = false,
     size = 'md',
     type,
+    'data-scope': dataScope = 'button',
+    'data-part': dataPart = 'root',
     'data-slot': dataSlot,
     variant = 'default',
     'aria-busy': ariaBusy,
@@ -51,8 +55,8 @@ const ButtonRoot = forwardRef<
       aria-busy={resolvedAriaBusy}
       aria-disabled={resolvedAriaDisabled}
       {...props}
-      data-scope="button"
-      data-part="root"
+      data-scope={dataScope}
+      data-part={dataPart}
       data-slot={dataSlot ?? 'button-root'}
       data-variant={variant}
       data-size={size}

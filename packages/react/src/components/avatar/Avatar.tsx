@@ -1,4 +1,4 @@
-import { Avatar as AvatarPrimitive } from '@ark-ui/react/avatar';
+import { Avatar as AvatarPrimitive, useAvatar, useAvatarContext } from '@ark-ui/react/avatar';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentProps, type ComponentRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -89,4 +89,4 @@ const Avatar = Object.assign(AvatarRoot, {
   Fallback: AvatarFallback,
 });
 
-export { Avatar };
+export { Avatar, useAvatar, useAvatarContext };
