@@ -43,7 +43,7 @@ createTreeViewCode({
     ],
   },
 });`,
-  demo: `export function LinksTreeDemo() {
+  demo: `export function AdvancedCustomizationTreeDemo() {
   return (
     <TreeView collection={linksCollection} defaultExpandedValue={["docs"]}>
       <TreeView.Label>Documentation</TreeView.Label>

@@ -1,20 +1,16 @@
 import type { ReactNode } from 'react';
 import {
-  type TreeViewLoadChildrenDetails,
-  type TreeViewNodeProviderProps,
-  useTreeView,
-  useTreeViewNodeContext,
-} from '@ark-ui/react/tree-view';
-import {
-  CheckIcon,
   Button,
   FileIcon,
   FolderIcon,
   FolderOpenIcon,
-  IndeterminateIcon,
   RestartIcon,
   TreeView,
+  type TreeViewLoadChildrenDetails,
+  type TreeViewNodeProviderProps,
   createTreeCollection,
+  useTreeView,
+  useTreeViewNodeContext,
 } from '@moduix/react';
 import { useMemo, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -127,9 +123,7 @@ const disabledCollection = createFilesCollection({
 function Checkbox() {
   return (
     <TreeView.NodeCheckbox>
-      <TreeView.NodeCheckboxIndicator indeterminate={<IndeterminateIcon />}>
-        <CheckIcon />
-      </TreeView.NodeCheckboxIndicator>
+      <TreeView.NodeCheckboxIndicator />
     </TreeView.NodeCheckbox>
   );
 }
@@ -356,8 +350,7 @@ export const treeViewExampleCss = `
   }
 `;
 
-const treeViewCoreImportsCode = `import { useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
-import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`;
+const treeViewCoreImportsCode = `import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";`;
 
 const treeViewDataSetupCode = `interface FileNode {
   id: string;
@@ -445,17 +438,14 @@ const treeViewCoreSetupCode = `${treeViewDataSetupCode}
 
 ${treeViewBaseNodeSetupCode}`;
 
-const treeViewCheckboxImportsCode = `import { useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
-import { CheckIcon, FileIcon, FolderIcon, FolderOpenIcon, IndeterminateIcon, TreeView, createTreeCollection } from "@moduix/react";`;
+const treeViewCheckboxImportsCode = `import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";`;
 
 const treeViewCheckboxSetupCode = `${treeViewDataSetupCode}
 
 function NodeCheckbox() {
   return (
     <TreeView.NodeCheckbox>
-      <TreeView.NodeCheckboxIndicator indeterminate={<IndeterminateIcon />}>
-        <CheckIcon />
-      </TreeView.NodeCheckboxIndicator>
+      <TreeView.NodeCheckboxIndicator />
     </TreeView.NodeCheckbox>
   );
 }
@@ -748,8 +738,7 @@ export const treeViewDisabledCode = createTreeViewCode({
 });
 
 export const treeViewExpandCollapseCode = createTreeViewCode({
-  imports: `import { useTreeView, useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
-import { Button, FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`,
+  imports: `import { Button, FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from "@moduix/react";`,
   extraSetup: `function ExpandCollapseControls({
   expanded,
   onToggle,
@@ -810,9 +799,8 @@ ${treeViewCoreImportsCode}`,
 });
 
 export const treeViewAsyncCode = createTreeViewCode({
-  imports: `import { type TreeViewLoadChildrenDetails, useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
-import { useState } from "react";
-import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`,
+  imports: `import { useState } from "react";
+import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewLoadChildrenDetails, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";`,
   extraSetup: `const asyncCollection = createTreeCollection<FileNode>({
   nodeToValue: (node) => node.id,
   nodeToString: (node) => node.name,
@@ -905,8 +893,7 @@ ${treeViewCoreImportsCode}`,
 });
 
 export const treeViewRootProviderCode = createTreeViewCode({
-  imports: `import { useTreeView, useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
-import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`,
+  imports: `import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from "@moduix/react";`,
   demo: `export function RootProviderTreeDemo() {
   const treeView = useTreeView({ collection, defaultSelectedValue: ["README.md"] });
 
@@ -921,7 +908,7 @@ import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } 
 }`,
 });
 
-export const treeViewLinksCode = createTreeViewCode({
+export const treeViewAdvancedCustomizationCode = createTreeViewCode({
   imports: treeViewCoreImportsCode,
   setup: treeViewLinksSetupCode,
   extraSetup: `const linksCollection = createTreeCollection<FileNode>({
@@ -943,7 +930,7 @@ export const treeViewLinksCode = createTreeViewCode({
     ],
   },
 });`,
-  demo: `export function LinksTreeDemo() {
+  demo: `export function AdvancedCustomizationTreeDemo() {
   return (
     <TreeView collection={linksCollection} defaultExpandedValue={["docs"]}>
       <TreeView.Label>Documentation</TreeView.Label>
@@ -992,7 +979,7 @@ export const treeViewAsyncData = `const asyncResponse = {
   ],
 };`;
 
-export const treeViewLinksData = `const linksCollection = createTreeCollection({
+export const treeViewAdvancedCustomizationData = `const linksCollection = createTreeCollection({
   nodeToValue: (node) => node.id,
   nodeToString: (node) => node.name,
   rootNode: {
@@ -1268,7 +1255,7 @@ export function RootProviderTreeViewExample() {
   );
 }
 
-export function LinksTreeViewExample() {
+export function AdvancedCustomizationTreeViewExample() {
   return (
     <TreeView collection={linksCollection} defaultExpandedValue={['docs']} className={styles.root}>
       <TreeView.Label>Documentation</TreeView.Label>

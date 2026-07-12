@@ -14,9 +14,8 @@ const asyncResponse = {
 };
 
 createTreeViewCode({
-  imports: `import { type TreeViewLoadChildrenDetails, useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
-import { useState } from "react";
-import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`,
+  imports: `import { useState } from "react";
+import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewLoadChildrenDetails, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";`,
   extraSetup: `const asyncCollection = createTreeCollection<FileNode>({
   nodeToValue: (node) => node.id,
   nodeToString: (node) => node.name,

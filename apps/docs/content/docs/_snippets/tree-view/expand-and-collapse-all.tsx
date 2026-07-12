@@ -15,8 +15,7 @@ const collection = createTreeCollection({
 });
 
 createTreeViewCode({
-  imports: `import { useTreeView, useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
-import { Button, FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`,
+  imports: `import { Button, FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from "@moduix/react";`,
   extraSetup: `function ExpandCollapseControls({
   expanded,
   onToggle,
