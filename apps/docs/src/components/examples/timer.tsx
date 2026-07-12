@@ -1,5 +1,4 @@
-import { Timer as TimerPrimitive, useTimer } from '@ark-ui/react/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon, Timer } from '@moduix/react';
+import { PauseIcon, PlayIcon, RotateCcwIcon, Timer, useTimer } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -322,17 +321,16 @@ export const timerPomodoroCode = `
 `;
 
 export const timerRootProviderCode = `
-  import { Timer as TimerPrimitive, useTimer } from "@ark-ui/react/timer";
-  import { PauseIcon, PlayIcon, RotateCcwIcon, Timer } from "@moduix/react";
+  import { PauseIcon, PlayIcon, RotateCcwIcon, Timer, useTimer } from "@moduix/react";
 
   export function RootProviderTimerDemo() {
     const timer = useTimer({ targetMs: 60 * 60 * 1000 });
 
     return (
       <Timer.RootProvider value={timer}>
-        <TimerPrimitive.Context>
+        <Timer.Context>
           {(api) => <p className="timer-note">Progress: {api.progressPercent.toFixed(0)}%</p>}
-        </TimerPrimitive.Context>
+        </Timer.Context>
         <Timer.Area>
           <span className="timer-item-group">
             <Timer.Item type="hours" />
@@ -377,20 +375,6 @@ function TimerItemGroup({
       <Timer.Item type={type} />
       <span className="timer-item-label">{label}</span>
     </span>
-  );
-}
-
-function FullTimerValue() {
-  return (
-    <Timer.Area>
-      <TimerItemGroup type="days" label="days" />
-      <Timer.Separator>:</Timer.Separator>
-      <TimerItemGroup type="hours" label="hours" />
-      <Timer.Separator>:</Timer.Separator>
-      <TimerItemGroup type="minutes" label="minutes" />
-      <Timer.Separator>:</Timer.Separator>
-      <TimerItemGroup type="seconds" label="seconds" />
-    </Timer.Area>
   );
 }
 
@@ -439,7 +423,7 @@ function TimerStartResetControls() {
 export function TimerExample() {
   return (
     <Timer targetMs={60 * 60 * 1000} startMs={40 * 60 * 1000}>
-      <FullTimerValue />
+      <Timer.Segments types={['days', 'hours', 'minutes', 'seconds']} />
       <TimerControls />
     </Timer>
   );
@@ -511,9 +495,9 @@ export function RootProviderTimerExample() {
 
   return (
     <Timer.RootProvider value={timer}>
-      <TimerPrimitive.Context>
+      <Timer.Context>
         {(api) => <p className="timer-note">Progress: {api.progressPercent.toFixed(0)}%</p>}
-      </TimerPrimitive.Context>
+      </Timer.Context>
       <Timer.Area>
         <TimerItemGroup type="hours" label="hours" />
         <Timer.Separator>:</Timer.Separator>

@@ -1,1 +1,1 @@
-export { Timer } from './Timer';
+export { Timer, useTimer, useTimerContext } from './Timer';
