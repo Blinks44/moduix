@@ -1,5 +1,4 @@
-import { useTooltip, useTooltipContext } from '@ark-ui/react/tooltip';
-import { Button, PlusIcon, Tooltip } from '@moduix/react';
+import { Button, PlusIcon, Tooltip, useTooltip, useTooltipContext } from '@moduix/react';
 import { Bell as BellIcon, Info as InfoIcon, Share as ShareIcon } from 'lucide-react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
@@ -261,5 +260,23 @@ export function WithinFixedTooltipExample() {
         <Tooltip.Body>Positioned from a fixed container.</Tooltip.Body>
       </Tooltip>
     </div>
+  );
+}
+
+export function AdvancedCustomizationTooltipExample() {
+  return (
+    <Tooltip positioning={{ placement: 'right', offset: { mainAxis: 12 } }}>
+      <Tooltip.Trigger asChild>
+        <Button>Hover or focus</Button>
+      </Tooltip.Trigger>
+      <Tooltip.Positioner>
+        <Tooltip.Content>
+          <Tooltip.Arrow>
+            <Tooltip.ArrowTip />
+          </Tooltip.Arrow>
+          Explicit positioner and content.
+        </Tooltip.Content>
+      </Tooltip.Positioner>
+    </Tooltip>
   );
 }

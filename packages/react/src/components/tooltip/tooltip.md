@@ -45,8 +45,8 @@ presence props, `RootProvider`, and the advanced state hooks available directly 
 - `Tooltip.Arrow`
 - `Tooltip.ArrowTip`
 
-For externally owned state, keep `Tooltip.RootProvider` and import `useTooltip` or
-`useTooltipContext` directly from `@ark-ui/react/tooltip`.
+For externally owned state, use the moduix exports `useTooltip` and `useTooltipContext` with
+`Tooltip.RootProvider`.
 
 The wrapper adds default Moduix styling, stable `data-slot` hooks, and two narrow sugars:
 `Tooltip.Body` renders `Tooltip.Positioner` and `Tooltip.Content` together, and `Tooltip.Arrow`
@@ -97,7 +97,7 @@ Supported Ark examples and patterns:
 
 - basic explicit composition with `Positioner` and `Content`
 - controlled `open` with `onOpenChange(details)`
-- `RootProvider` with Ark `useTooltip`
+- `RootProvider` with moduix `useTooltip`
 - `Body` as a shortcut over `Positioner + Content`
 - `Arrow` and `ArrowTip`
 - `openDelay` and `closeDelay`
@@ -158,18 +158,17 @@ need a custom arrow shape.
 Do not reintroduce legacy compatibility aliases. Tooltip is now an Ark-first popup family member,
 matching the explicit composition rules used by migrated popup-like components.
 
-Keep docs and stories on explicit `Positioner` and `Content` composition. Advanced state access
-should come from Ark imports instead of new moduix re-exports unless there is a documented reason
-to keep them local.
+Keep docs and stories on explicit `Positioner` and `Content` composition. Normal advanced state
+access uses the moduix `useTooltip` and `useTooltipContext` exports; direct Ark imports remain
+escape hatches only.
 
 ## Local changelog
 
 - 2026-07-07: Added `Tooltip.Body` as the default shortcut for `Tooltip.Positioner +
 Tooltip.Content`, updated docs/examples, and kept the explicit Ark parts available for advanced
   composition.
-- 2026-07-03: Removed moduix re-exports for `Tooltip.Context`, `useTooltip`,
-  `useTooltipContext`, and duplicate Ark types. Keep `RootProvider`; import advanced Ark state
-  helpers directly from `@ark-ui/react/tooltip`.
+- 2026-07-12: Restored moduix exports for `useTooltip` and `useTooltipContext` so normal advanced
+  composition does not require direct Ark imports.
 
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 

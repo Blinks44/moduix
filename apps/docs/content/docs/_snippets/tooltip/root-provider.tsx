@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useTooltip } from '@ark-ui/react/tooltip';
-import { Tooltip } from '@moduix/react';
+import { Tooltip, useTooltip } from '@moduix/react';
 import styles from './tooltip-demo.module.css';
 
 export function RootProviderTooltipDemo() {

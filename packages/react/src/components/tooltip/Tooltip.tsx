@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Tooltip as TooltipPrimitive } from '@ark-ui/react/tooltip';
+import { Tooltip as TooltipPrimitive, useTooltip, useTooltipContext } from '@ark-ui/react/tooltip';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -127,4 +127,4 @@ const Tooltip = Object.assign(TooltipRoot, {
   ArrowTip: TooltipArrowTip,
 });
 
-export { Tooltip };
+export { Tooltip, useTooltip, useTooltipContext };

@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useTooltip, useTooltipContext } from '@ark-ui/react/tooltip';
 import { useState } from 'react';
 import { BellIcon, InfoIcon, ShareIcon } from '@/icons/demo';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
-import { Tooltip } from './Tooltip';
+import { Tooltip, useTooltip, useTooltipContext } from './Tooltip';
 import storyStyles from './Tooltip.stories.module.css';
 
 const meta = {
