@@ -14,11 +14,10 @@ Upstream docs:
 
 ## Upstream model to preserve
 
-Ark UI does not ship a dedicated `textarea` primitive. Moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance, and delegates field behavior to Ark
-`Field.Textarea`.
+Ark UI does not ship a dedicated `textarea` primitive. Moduix directly wraps Ark `Field.Textarea`
+with styling, while preserving Ark's [composition](https://ark-ui.com/docs/guides/composition),
+[styling](https://ark-ui.com/docs/guides/styling), and [ref](https://ark-ui.com/docs/guides/ref)
+contracts.
 
 Preserve the `Field.Textarea` contract: native textarea props, `autoresize`, ref forwarding to `HTMLTextAreaElement`, `asChild` from Ark polymorphic props, and inherited `Field.Root` / `Fieldset.Root` state.
 
@@ -127,6 +126,8 @@ Public CSS variables from `theme.css`:
 
 ## Local changelog
 
+- 2026-07-11: Corrected the Ark implementation description and synchronized the controlled docs
+  snippet and example ordering with the public component page.
 - 2026-06-27: Protected Ark/moduix data hooks from rest-prop overrides, aligned the validation example with Ark `Field invalid`, and refreshed docs wording for the no-dedicated-primitive contract.
 - 2026-07-03: Removed duplicate `TextareaProps` exports to keep the public surface aligned with the
   simplified root-only component pattern.

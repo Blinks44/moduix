@@ -8,11 +8,9 @@ import * as TextareaDocs from '@/components/examples/textarea';
 
 ## API Reference
 
-Ark UI does not ship a dedicated textarea primitive. Moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance, and delegates field behavior to
-[Ark Field.Textarea](https://ark-ui.com/docs/components/field).
+Ark UI does not ship a dedicated textarea component. Moduix styles and re-exports
+[Ark Field.Textarea](https://ark-ui.com/docs/components/field), preserving its native textarea API,
+`autoresize`, ref forwarding, `asChild`, and Field state inheritance.
 
 ## Choosing the right component
 
@@ -104,6 +102,28 @@ Use `Editable` instead of composing custom read-only/editing controls around `Te
 
 ## Examples
 
+### Auto Resize
+
+Use Ark `autoresize` when the textarea should grow with its content.
+
+<Preview>
+  <TextareaDocs.AutoResizeTextareaExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/textarea/auto-resize.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+
+</Preview>
+
 ### Controlled
 
 Use `value` and native `onChange` when content should stay in React state.
@@ -126,42 +146,22 @@ Use `value` and native `onChange` when content should stay in React state.
 
 </Preview>
 
-### Native Attributes
+### Disabled and Readonly
 
-Use native textarea props for sizing, browser behavior, and form submission.
+Set `disabled` or `readOnly` based on interaction requirements.
 
 <Preview>
-  <TextareaDocs.NativeAttributesTextareaExample />
+  <TextareaDocs.DisabledAndReadOnlyTextareaExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/textarea/native-attributes.tsx#demo</include>
+  <include lang="tsx">./_snippets/textarea/disabled-and-readonly.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>
     {`
-      .field {
-        width: min(28rem, calc(100vw - var(--spacing-8)));
-      }
-    `}
-
-  </Preview.CSS>
-
-</Preview>
-
-### Auto Resize
-
-Use Ark `autoresize` when the textarea should grow with its content.
-
-<Preview>
-  <TextareaDocs.AutoResizeTextareaExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/textarea/auto-resize.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .field {
+      .stack {
+        display: grid;
+        gap: var(--spacing-3);
         width: min(28rem, calc(100vw - var(--spacing-8)));
       }
     `}
@@ -193,22 +193,20 @@ connects the error text.
 
 </Preview>
 
-### Disabled and Readonly
+### Native Attributes
 
-Set `disabled` or `readOnly` based on interaction requirements.
+Use native textarea props for sizing, browser behavior, and form submission.
 
 <Preview>
-  <TextareaDocs.DisabledAndReadOnlyTextareaExample />
+  <TextareaDocs.NativeAttributesTextareaExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/textarea/disabled-and-readonly.tsx#demo</include>
+  <include lang="tsx">./_snippets/textarea/native-attributes.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>
     {`
-      .stack {
-        display: grid;
-        gap: var(--spacing-3);
+      .field {
         width: min(28rem, calc(100vw - var(--spacing-8)));
       }
     `}
