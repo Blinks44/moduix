@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { Button, Toast, Toaster, createToaster } from '@moduix/react';
+import { Button, Toaster, createToaster } from '@moduix/react';
 
 const toaster = createToaster({
   placement: 'bottom-end',
@@ -23,15 +23,7 @@ export function App() {
       >
         Schedule meeting
       </Button>
-      <Toaster toaster={toaster}>
-        {(toast) => (
-          <Toast key={toast.id}>
-            <Toast.Title />
-            <Toast.Description />
-            {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-          </Toast>
-        )}
-      </Toaster>
+      <Toaster toaster={toaster} />
     </>
   );
 }

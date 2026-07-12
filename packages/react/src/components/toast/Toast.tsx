@@ -1,3 +1,4 @@
+import type { ToastOptions } from '@ark-ui/react/toast';
 import type { ComponentProps, ComponentRef } from 'react';
 import { Portal } from '@ark-ui/react/portal';
 import {
@@ -15,7 +16,10 @@ import styles from './Toast.module.css';
 
 const DEFAULT_CLOSE_TRIGGER_LABEL = 'Close toast';
 
-type ToasterProps = ComponentProps<typeof ToasterPrimitive> & OverlayPortalProps;
+type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children'> &
+  OverlayPortalProps & {
+    children?: ComponentProps<typeof ToasterPrimitive>['children'];
+  };
 
 const Toaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(function Toaster(
   { className, portalled = true, portalRef, ...props },
@@ -28,10 +32,23 @@ const Toaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(
         data-slot="toast-toaster"
         className={clsx(styles.toaster, normalizeClassName(className))}
         {...props}
-      />
+      >
+        {props.children ?? ((toast) => <DefaultToast toast={toast} />)}
+      </ToasterPrimitive>
     </Portal>
   );
 });
+
+function DefaultToast({ toast }: { toast: ToastOptions }) {
+  return (
+    <ToastRoot key={toast.id}>
+      {toast.title != null ? <ToastTitle /> : null}
+      {toast.description != null ? <ToastDescription /> : null}
+      {toast.action ? <ToastActionTrigger>{toast.action.label}</ToastActionTrigger> : null}
+      {toast.closable !== false ? <ToastCloseTrigger /> : null}
+    </ToastRoot>
+  );
+}
 
 const ToastRoot = forwardRef<
   ComponentRef<typeof ToastPrimitive.Root>,

@@ -436,7 +436,7 @@ export function UpdateToastExample() {
   );
 }
 
-export function CustomToastExample() {
+export function AdvancedToastExample() {
   return (
     <>
       <Button
@@ -468,18 +468,7 @@ export function CustomToastExample() {
 }
 
 function ToastRenderer({ toaster }: { toaster: ToastToaster }) {
-  return (
-    <Toaster toaster={toaster}>
-      {(toast) => (
-        <Toast.Root key={toast.id}>
-          <Toast.Title />
-          <Toast.Description />
-          {toast.action ? <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger> : null}
-          {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-        </Toast.Root>
-      )}
-    </Toaster>
-  );
+  return <Toaster toaster={toaster} />;
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {

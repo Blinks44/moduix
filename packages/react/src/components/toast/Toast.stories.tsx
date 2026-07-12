@@ -216,8 +216,8 @@ export const VaryingHeight: Story = {
   render: () => <VaryingHeightStory />,
 };
 
-export const CustomComposition: Story = {
-  name: 'Custom Composition',
+export const AdvancedCustomization: Story = {
+  name: 'Advanced Customization',
   render: () => (
     <>
       <Button
@@ -249,18 +249,7 @@ export const CustomComposition: Story = {
 };
 
 function ToastRenderer({ toaster }: { toaster: ToastToaster }) {
-  return (
-    <Toaster toaster={toaster}>
-      {(toast) => (
-        <Toast.Root key={toast.id}>
-          <Toast.Title />
-          <Toast.Description />
-          {toast.action ? <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger> : null}
-          {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-        </Toast.Root>
-      )}
-    </Toaster>
-  );
+  return <Toaster toaster={toaster} />;
 }
 
 function PlacementStory() {
