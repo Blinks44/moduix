@@ -109,6 +109,8 @@ but do not omit them.
 - `Accessibility and state`: capture refs, callback shapes, form context, `HiddenInput`, state hooks, data attributes, and CSS variables when exposed.
 - `Defaults and styling`: document theme tokens, Ark CSS variables, animation/state hooks, and styling hooks.
 - `Intentional sugar and differences from upstream`: isolate everything moduix adds, renames, removes, or constrains.
+- For each convenience part, explain the boilerplate it removes, the lower-level composition it preserves, and the
+  available styling path (`className`, data attributes, CSS variables, `data-slot`, or exported parts).
 - `Agent notes`: keep only preservation notes that matter for future implementation work.
 - `Local changelog`: keep a short dated changelog at the end of the file.
 

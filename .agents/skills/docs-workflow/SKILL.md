@@ -85,10 +85,9 @@ Inside `## Styling`, always use:
   - Document preserved Ark callback shapes, `ref` targets, form context, `HiddenInput`, provider/context patterns,
     `asChild`, `ids`, and moduix sugar here when relevant.
 - `Examples`: start where `Basic` stops. Move into narrower, more specific, or more advanced cases.
-  - For Ark-backed components, order examples to follow the relevant Ark docs topics first, then add moduix-only sugar
-    or styling examples.
+  - Order feature examples alphabetically by heading so pages remain predictable.
   - When an example intentionally shows the full low-level Ark composition behind recommended moduix sugar, title it
-    `Advanced Customization` and make the lead-in say which convenience part it bypasses.
+    `Advanced Customization`, place it last, and make the lead-in say which convenience part it bypasses.
   - Every example heading must be followed by a short explanatory lead-in before the preview. Do not render a preview
     immediately under the heading.
 - `Styling`: only when the component has a meaningful styling contract.

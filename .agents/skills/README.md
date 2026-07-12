@@ -19,7 +19,6 @@ Skills are intentionally composable:
 - `.agents/skills/changeset-workflow/SKILL.md` - opt-in workflow for creating or updating `.changeset/*.md` release notes
 - `.agents/skills/tanstack-intent/SKILL.md` - workflow for loading version-matched TanStack skills in `apps/docs`
 - `.agents/skills/upstream-library-docs/SKILL.md` - routing for online Ark UI, Chakra UI, and shadcn references
-- `.agents/skills/component-ux-audit/SKILL.md` - temporary workflow for auditing and improving component ergonomics between Ark, Chakra, and shadcn
 - `.agents/skills/ui-component-workflow/SKILL.md` - workflow for `packages/react` component implementation and API changes
 - `.agents/skills/local-component-docs/SKILL.md` - rules for component-local markdown and changelog upkeep
 - `.agents/skills/docs-workflow/SKILL.md` - workflow for docs pages, examples, and CSS variable docs in `apps/docs`

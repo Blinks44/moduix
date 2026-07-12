@@ -1,6 +1,6 @@
 ---
 name: ui-component-workflow
-description: Use for work in packages/react, including component implementation, API changes, stories, exports, and local component docs.
+description: Use for implementation, UX/API review, behavior, composition, stories, exports, and local docs of components in packages/react.
 ---
 
 # Skill: ui-component-workflow
@@ -43,6 +43,24 @@ markdown together. Check public docs/examples when the change is user-facing.
 - Preserve the callable `Object.assign` root pattern so both `<Component>` and `<Component.Root>` keep working when
   that is already part of the contract.
 - Prefer removing duplicated private plumbing before removing meaningful public structure or escape hatches.
+
+## UX and API Decisions
+
+- For review-only requests, report findings ordered by consumer impact and do not edit files.
+- For implementation requests, make the smallest changes that improve comprehension, composition, styling, or migration
+  ergonomics without weakening Ark contracts.
+- Evaluate upstream references in this order: Ark for behavior, Chakra for Ark-aligned ergonomics, then shadcn for
+  migration friction and example readability. Classify differences as `keep`, `simplify`, `add sugar`, `document`, or
+  `reject` before changing the API.
+- Prefer narrow convenience parts that remove repeated boilerplate while leaving lower-level composition available.
+- Do not add compatibility aliases, renamed event props, value translators, hidden state machines, or shadcn-shaped
+  wrapper trees only to reduce migration effort.
+- Avoid nested prop bags such as `inputProps` or `triggerProps` by default. Use one only for a fixed structure and a
+  small recurring prop subset when explicit composition would be less clear.
+- Reject prop-heavy convenience components that hide portal, positioning, parsing, focus, or other behavior already
+  owned by Ark or Zag.
+- Keep every convenience part stylable: accept `className` on meaningful visual roots and retain useful Ark data
+  attributes, CSS variables, stable `data-slot` hooks, or exported lower-level parts for deeper customization.
 
 ## Typing Rules
 
