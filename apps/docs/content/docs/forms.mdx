@@ -30,19 +30,35 @@ submission workflows.
 
 Native form behavior:
 
-| Component      | Behavior                                                                              |
-| -------------- | ------------------------------------------------------------------------------------- |
-| `Checkbox`     | `Root` renders its native input automatically.                                        |
-| `RadioGroup`   | Each `Item` renders its native input automatically.                                   |
-| `Select`       | `Root` renders its native select automatically.                                       |
-| `DateInput`    | `Root` renders native inputs automatically; use `names` for range fields.             |
-| `SignaturePad` | `Root` renders its native input automatically; use `getFormValue` to serialize paths. |
-| `PinInput`     | `Root` renders its native input automatically.                                        |
-| `TagsInput`    | `Root` renders its native input automatically.                                        |
-| `FileUpload`   | `Root` renders its native input automatically.                                        |
-| `Combobox`     | Set `name` on the root; no extra part is required.                                    |
+| Component      | Behavior                                                            |
+| -------------- | ------------------------------------------------------------------- |
+| `AngleSlider`  | `Root` renders its native input automatically.                      |
+| `Checkbox`     | `Root` renders its native input automatically.                      |
+| `ColorPicker`  | `Root` renders its native input automatically.                      |
+| `DateInput`    | `Root` renders native inputs automatically.                         |
+| `FileUpload`   | `Root` renders its native input automatically.                      |
+| `PinInput`     | `Root` renders its native input automatically.                      |
+| `RadioGroup`   | Each `Item` renders its native input automatically.                 |
+| `RatingGroup`  | `Root` renders its native input automatically.                      |
+| `SegmentGroup` | Each `Item` renders its native input automatically.                 |
+| `Select`       | `Root` renders its native select automatically.                     |
+| `SignaturePad` | `Root` serializes paths and renders its native input automatically. |
+| `Slider`       | Each `Thumb` renders its native input automatically.                |
+| `Switch`       | `Root` renders its native input automatically.                      |
+| `TagsInput`    | `Root` renders its native input automatically.                      |
+| `Combobox`     | Set `name` on the root; no extra part is required.                  |
 
 Do not add a second hidden input. It can submit a competing value and break reset behavior.
+
+For the controls with form-specific options, keep the configuration on the semantic root:
+
+- `DateInput`: a range with `name="date"` submits two values under `date`; use
+  `names={['start-date', 'end-date']}` when the values need distinct keys.
+- `Select`: the default native select preserves browser autofill and progressive enhancement. Use
+  `nativeFormControl="input"` for a very large virtualized collection; it submits lightweight
+  hidden inputs and intentionally does not provide those native-select features.
+- `SignaturePad`: the default form value is the SVG paths joined with spaces. Use
+  `getFormValue={(paths) => JSON.stringify(paths)}` when the server expects a JSON array.
 
 ## Native form
 

@@ -9,7 +9,8 @@ import * as FormsDocs from '@/components/examples/forms';
 # React Hook Form
 
 Use `register` for parts that render a native input. Use `Controller` when an Ark component exposes
-controlled values and detail callbacks.
+controlled values and detail callbacks. Ark compound controls render their own native form control
+when they need one, so never add or register a separate hidden input.
 
 ```bash
 npm install react-hook-form
@@ -23,6 +24,7 @@ npm install react-hook-form
 | `Select`                                        | Use `Controller`; map a scalar string to Ark's string-array `value`.      |
 | `Combobox`                                      | Use `Controller`; map `value` and keep filtering in `onInputValueChange`. |
 | `Checkbox`                                      | Use `Controller`; map `details.checked === true` to a boolean.            |
+| Automatic native controls                       | Pass semantic root props such as `name` or `form`; moduix owns the input. |
 
 Always provide `defaultValues` for controlled fields. React Hook Form uses them for initial state,
 dirty checks, and `reset()`.
@@ -88,3 +90,8 @@ you intentionally want the browser's native validation UI.
   first invalid field.
 - `Select.Root` renders its native select automatically for native semantics, autofill, and reset synchronization.
 - Map `Checkbox` checked state to a boolean field value; its root renders the native input automatically.
+- `name={field.name}` enables native `FormData` semantics but does not replace `Controller` as the
+  source of the field value. Keep the controlled value and callback mapping shown above.
+- For the other automatic controls, keep exceptional form configuration on their roots: `DateInput`
+  uses `names` for distinct range keys, `Select` uses `nativeFormControl="input"` for virtualized
+  collections, and `SignaturePad` uses `getFormValue` for custom serialization.
