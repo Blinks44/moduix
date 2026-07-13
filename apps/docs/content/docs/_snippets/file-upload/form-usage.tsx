@@ -27,7 +27,6 @@ export function FileUploadFormDemo() {
             }
           </FileUpload.Context>
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload>
       <button className="file-upload-submit" type="submit">
         Submit

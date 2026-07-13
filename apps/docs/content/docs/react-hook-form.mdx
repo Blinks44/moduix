@@ -86,5 +86,5 @@ you intentionally want the browser's native validation UI.
 - Call `field.onBlur` from `Select.onInteractOutside` or `Combobox.Input.onBlur`.
 - Forward `field.ref` to `Select.Trigger` or `Combobox.Input`. This lets React Hook Form focus the
   first invalid field.
-- Keep `Select.HiddenSelect` mounted for native semantics, autofill, and reset synchronization.
-- Keep `Checkbox.HiddenInput` mounted and map its checked state to a boolean field value.
+- `Select.Root` renders its native select automatically for native semantics, autofill, and reset synchronization.
+- Map `Checkbox` checked state to a boolean field value; its root renders the native input automatically.

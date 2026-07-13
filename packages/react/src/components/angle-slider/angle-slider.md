@@ -13,7 +13,7 @@ Upstream docs:
 ## Upstream model to preserve
 
 - Preserve Ark visual parts: `Root`, `RootProvider`, `Label`, `Control`, `MarkerGroup`, `Marker`,
-  `Thumb`, `ValueText`, and `HiddenInput`.
+  `Thumb`, and `ValueText`. moduix renders Ark's native hidden input internally.
 - Preserve controlled/uncontrolled state, callback detail objects, keyboard behavior, pointer
   dragging, form behavior, IDs, refs, and `asChild`.
 - `RootProvider` owns an externally created `useAngleSlider` instance and must not be nested with a
@@ -30,8 +30,8 @@ Upstream docs:
 - `useAngleSlider()` is re-exported from moduix for the normal `RootProvider` path.
 - `value`, `defaultValue`, `step`, `disabled`, `invalid`, `readOnly`, `name`, `ids`,
   `onValueChange(details)`, and `onValueChangeEnd(details)` pass through unchanged.
-- The lightest recommended composition is `Dial`, with `Label`, `Marks`,
-  `ValueText`, and `HiddenInput` added only when that behavior is needed.
+- The lightest recommended composition is `Dial`, with `Label`, `Marks`, and `ValueText` added only
+  when that behavior is needed. `Root` and `RootProvider` always render the native form input.
 - Context parts, state hooks, and Ark type aliases are imported directly from
   `@ark-ui/react/angle-slider`.
 
@@ -44,8 +44,7 @@ AngleSlider.Root
 │  ├─ AngleSlider.MarkerGroup
 │  │  └─ AngleSlider.Marker[value]
 │  └─ AngleSlider.Thumb
-├─ AngleSlider.ValueText
-└─ AngleSlider.HiddenInput
+└─ AngleSlider.ValueText
 ```
 
 Externally owned state replaces `Root` with `RootProvider`.
@@ -61,7 +60,6 @@ Externally owned state replaces `Root` with `RootProvider`.
 | `AngleSlider.Marker`       | `angle-slider-marker`        |
 | `AngleSlider.Thumb`        | `angle-slider-thumb`         |
 | `AngleSlider.ValueText`    | `angle-slider-value-text`    |
-| `AngleSlider.HiddenInput`  | `angle-slider-hidden-input`  |
 
 `AngleSlider.Dial` renders the same `Control` and `Thumb` slots; `AngleSlider.Marks` renders the
 same `MarkerGroup` and `Marker` slots. Neither adds a separate DOM part or styling hook.
@@ -81,7 +79,6 @@ export function RotationAngleSlider() {
         <AngleSlider.Marks values={markerValues} />
       </AngleSlider.Dial>
       <AngleSlider.ValueText />
-      <AngleSlider.HiddenInput />
     </AngleSlider>
   );
 }
@@ -105,7 +102,8 @@ per-marker props, or custom ordering.
 
 - `Label` and `aria-label` / `aria-labelledby` preserve Ark slider naming.
 - `Thumb` remains the focusable slider element with Ark keyboard and ARIA behavior.
-- `HiddenInput` is only needed when native form submission and reset synchronization are required.
+- `Root` and `RootProvider` always render Ark's hidden native input. With `name`, it participates in
+  native form submission; it also keeps Ark state synchronized with native form reset.
 - `disabled`, `invalid`, and `readOnly` are Ark root props. The wrapper does not add a separate
   moduix form-state adapter.
 - `RootProvider` is the moduix-owned advanced state path; `useAngleSlider()` is re-exported for the
@@ -134,6 +132,8 @@ per-marker props, or custom ordering.
 ## Intentional sugar and differences from upstream
 
 - Ark is headless; moduix provides default visuals and stable `data-slot` hooks.
+- moduix owns the Ark hidden native input. Consumers never render `HiddenInput`, including with
+  `RootProvider` or custom visible part composition.
 - `AngleSlider.Dial` is narrow sugar for the most common `Control` + `Thumb` composition and keeps
   children inline for marker or overlay customization.
 - `AngleSlider.Marks` is the only marker sugar. It reduces repeated docs and app boilerplate without
@@ -152,6 +152,8 @@ per-marker props, or custom ordering.
   configuration surface for labels, value text, or form behavior.
 - Keep `AngleSlider.Marks` as narrow sugar over `MarkerGroup` and `Marker`; do not expand it into a
   configuration surface for thumb, label, or form behavior.
+- Keep the hidden native input internal to `Root` and `RootProvider`; do not restore it as a public
+  part or ask consumers to render it in advanced examples.
 - Do not render both `Root` and `RootProvider` for one machine.
 - Preserve the Ark detail object passed to value callbacks.
 - Keep geometry driven by Ark `--angle` / marker variables and state attributes.
@@ -159,6 +161,8 @@ per-marker props, or custom ordering.
 
 ## Local changelog
 
+- 2026-07-13: Internalized Ark `HiddenInput` in `Root` and `RootProvider`; native submission and
+  reset no longer require consumer composition.
 - 2026-07-09: Added `AngleSlider.Dial`, re-exported `useAngleSlider()` for the normal
   `RootProvider` path, documented `invalid`, and moved the full explicit dial composition into
   advanced examples.

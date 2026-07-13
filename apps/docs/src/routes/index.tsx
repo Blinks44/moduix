@@ -177,7 +177,6 @@ function HomeShowcase() {
               >
                 <Switch.Control />
                 <Switch.Label>Auto-review before release</Switch.Label>
-                <Switch.HiddenInput />
               </Switch>
               <ProgressLinear value={progressValue} className={styles.heroProgress}>
                 <ProgressLinear.Label>Release readiness</ProgressLinear.Label>
@@ -282,7 +281,6 @@ function HomeShowcase() {
                   ))}
                 </Select.Content>
               </Select.Positioner>
-              <Select.HiddenSelect />
             </Select>
           </div>
           <div className={styles.miniStats}>

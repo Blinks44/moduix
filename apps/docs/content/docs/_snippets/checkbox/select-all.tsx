@@ -21,7 +21,6 @@ export function CheckboxSelectAllDemo() {
     >
       <Checkbox.Control />
       <Checkbox.Label>Select all</Checkbox.Label>
-      <Checkbox.HiddenInput />
     </Checkbox>
   );
 }

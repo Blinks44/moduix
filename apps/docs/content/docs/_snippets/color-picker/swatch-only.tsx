@@ -12,7 +12,6 @@ export function SwatchOnlyColorPickerDemo() {
           <ColorPicker.SwatchTrigger key={color} value={color} />
         ))}
       </ColorPicker.SwatchGroup>
-      <ColorPicker.HiddenInput />
     </ColorPicker>
   );
 }

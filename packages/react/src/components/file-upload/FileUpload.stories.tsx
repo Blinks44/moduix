@@ -67,7 +67,6 @@ function FileUploadDemo(props: ComponentProps<typeof FileUpload.Root>) {
       <FileUpload.ItemGroup>
         <FileUpload.Items />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -91,7 +90,6 @@ export const Dropzone: Story = {
       <FileUpload.ItemGroup>
         <FileUploadItems />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   ),
 };
@@ -153,7 +151,6 @@ export const RejectedFiles: Story = {
           }
         </FileUpload.Context>
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   ),
 };
@@ -167,7 +164,6 @@ export const WithField: Story = {
         <FileUpload.ItemGroup>
           <FileUploadItems />
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload.Root>
       <Field.HelperText>Upload up to three files.</Field.HelperText>
       <Field.ErrorText>Upload at least one file.</Field.ErrorText>
@@ -193,7 +189,6 @@ export const RootProvider: Story = {
         <FileUpload.ItemGroup>
           <FileUploadItems />
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload.RootProvider>
     );
   },
@@ -214,7 +209,6 @@ export const CustomStyling: Story = {
       <FileUpload.ItemGroup>
         <FileUploadItems />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   ),
 };

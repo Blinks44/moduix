@@ -43,7 +43,9 @@ When the wrapper exposes the relevant behavior, document these Ark guide concept
 
 - `ref` behavior for the root, trigger, input, or control parts that consumers or form libraries should target.
 - `Field.Root` / `Fieldset.Root` context integration for `disabled`, `invalid`, `required`, and `readOnly`.
-- `HiddenInput` requirements for native form submission and form reset synchronization.
+- Native form-control ownership for submission and reset synchronization: state whether the consumer composes the
+  Ark hidden part or moduix renders it automatically. For automatic controls, document their placement, `name`/
+  `form` behavior, and any semantic replacement props; do not list removed hidden parts as public anatomy.
 - `asChild` and `ark` factory composition paths, including the single-child and semantic-element constraints.
 - `ids` usage when the component composes with another Ark component and shared accessibility IDs are required.
 - `Component.Context`, `use*Context`, and `RootProvider` support when the wrapper exposes those Ark state patterns.
@@ -112,6 +114,8 @@ but do not omit them.
 - For each convenience part, explain the boilerplate it removes, the lower-level composition it preserves, and the
   available styling path (`className`, data attributes, CSS variables, `data-slot`, or exported parts).
 - `Agent notes`: keep only preservation notes that matter for future implementation work.
+- When moduix internalizes an Ark native control, record the preserved form behavior and the intentional API difference
+  from Ark in `Current behavior contract`, `Composition`, and `Intentional sugar and differences from upstream`.
 - `Local changelog`: keep a short dated changelog at the end of the file.
 
 ## Changelog

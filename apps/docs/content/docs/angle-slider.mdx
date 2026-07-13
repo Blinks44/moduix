@@ -45,8 +45,7 @@ AngleSlider.Root
 │  ├─ AngleSlider.MarkerGroup
 │  │  └─ AngleSlider.Marker[value]
 │  └─ AngleSlider.Thumb
-├─ AngleSlider.ValueText
-└─ AngleSlider.HiddenInput
+└─ AngleSlider.ValueText
 ```
 
 | Part                               | Role                                                                  |
@@ -61,7 +60,6 @@ AngleSlider.Root
 | `AngleSlider.Marks`                | Convenience wrapper that renders `MarkerGroup` and `Marker` items.    |
 | `AngleSlider.Thumb`                | Focusable slider handle and rotating angle indicator.                 |
 | `AngleSlider.ValueText`            | Renders the current value as degree text.                             |
-| `AngleSlider.HiddenInput`          | Participates in native form submission and reset.                     |
 
 ## Composition
 
@@ -72,7 +70,7 @@ Start with `Dial`, then add only the parts that match the job:
 - add `Label` or keep `aria-label` for accessible naming
 - add `Marks` when users need reference points around the dial
 - add `ValueText` when the numeric angle should stay visible
-- add `HiddenInput` only for native form submission or reset synchronization
+- set `name` when the angle should participate in native form submission
 
 ### When to go custom
 
@@ -103,8 +101,8 @@ shared IDs. Refs are forwarded to the DOM element rendered by each wrapped Ark p
 - The thumb supports Ark slider keyboard behavior and pointer dragging around the circular control.
 - `AngleSlider.Marks` renders the same marker DOM and styling hooks as explicit `MarkerGroup` /
   `Marker` composition.
-- Set `name` and render `HiddenInput` only when native form submission and reset synchronization are
-  needed.
+- `Root` and `RootProvider` render the native form input automatically. Set `name` for form
+  submission; reset synchronization remains active without adding another component part.
 - `ValueText` renders Ark's degree string when no custom children are provided.
 - `data-disabled`, `data-invalid`, `data-readonly`, marker `data-state`, `--value`, `--angle`,
   `--marker-value`, and `--marker-display-value` remain available for styling.
@@ -139,7 +137,8 @@ Use `disabled` when the control must be unavailable and excluded from interactio
 
 ### In a Form
 
-Add `name` and `HiddenInput` when the angle must participate in native form submission or reset.
+Add `name` when the angle must participate in native form submission or reset. moduix renders the
+native form input automatically.
 
 <Preview>
   <AngleSliderDocs.FormAngleSliderExample />

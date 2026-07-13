@@ -40,24 +40,23 @@ RatingGroup.Root
    ├─ RatingGroup.Context (advanced, optional)
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator
-   └─ RatingGroup.HiddenInput (advanced custom item tree)
+   └─ the native form input (advanced custom item tree)
 
 RatingGroup.RootProvider
 └─ same part tree connected to a moduix useRatingGroup() store
 ```
 
-| Part                               | Role                                                         |
-| ---------------------------------- | ------------------------------------------------------------ |
-| `RatingGroup` / `RatingGroup.Root` | Controls rating value, keyboard behavior, and form state.    |
-| `RatingGroup.RootProvider`         | Connects parts to state created with `useRatingGroup()`.     |
-| `RatingGroup.Context`              | Render-prop access to current root state.                    |
-| `RatingGroup.ItemContext`          | Render-prop access to current item state.                    |
-| `RatingGroup.Label`                | Accessible label for the rating group.                       |
-| `RatingGroup.Control`              | Groups the interactive rating items.                         |
-| `RatingGroup.Items`                | Renders Ark items, default stars, and the hidden form input. |
-| `RatingGroup.Item`                 | One selectable rating item; requires an `index`.             |
-| `RatingGroup.ItemIndicator`        | Moduix star visual that follows Ark item context.            |
-| `RatingGroup.HiddenInput`          | Ark hidden input synchronized with the rating value.         |
+| Part                               | Role                                                      |
+| ---------------------------------- | --------------------------------------------------------- |
+| `RatingGroup` / `RatingGroup.Root` | Controls rating value, keyboard behavior, and form state. |
+| `RatingGroup.RootProvider`         | Connects parts to state created with `useRatingGroup()`.  |
+| `RatingGroup.Context`              | Render-prop access to current root state.                 |
+| `RatingGroup.ItemContext`          | Render-prop access to current item state.                 |
+| `RatingGroup.Label`                | Accessible label for the rating group.                    |
+| `RatingGroup.Control`              | Groups the interactive rating items.                      |
+| `RatingGroup.Items`                | Renders Ark items and default stars.                      |
+| `RatingGroup.Item`                 | One selectable rating item; requires an `index`.          |
+| `RatingGroup.ItemIndicator`        | Moduix star visual that follows Ark item context.         |
 
 ## Composition
 
@@ -65,14 +64,13 @@ RatingGroup.RootProvider
 
 `RatingGroup` is the short root form. It owns Ark value state, hover state, focus movement, labels,
 form integration, and keyboard behavior. Use `RatingGroup.Items` for standard generated star
-items and the synchronized hidden form input. Pass a custom `RatingGroup.ItemIndicator` as its
-child to change the icon while retaining the same item behavior.
+items. The root renders the synchronized native form input automatically. Pass a custom
+`RatingGroup.ItemIndicator` as its child to change the icon while retaining the same item behavior.
 
 ### When to go custom
 
 Use moduix `RatingGroup.Context`, `RatingGroup.ItemContext`, or `useRatingGroupItemContext()` when a
-custom item tree needs `highlighted`, `checked`, or `half` state. Render `RatingGroup.HiddenInput`
-explicitly with that tree when it needs native form submission or reset. Use
+custom item tree needs `highlighted`, `checked`, or `half` state. The root renders its native form input automatically. Use
 `RatingGroup.RootProvider` with moduix `useRatingGroup()` when rating state must be created outside
 the rendered subtree.
 
@@ -85,7 +83,7 @@ part's focus and interaction behavior.
 | --------------------------- | ------- | ----------------------------------------------------- |
 | `count`                     | `5`     | Ark item count.                                       |
 | `size`                      | `md`    | Moduix styling size: `xs`, `sm`, `md`, `lg`, or `xl`. |
-| `RatingGroup.Items`         | —       | Renders default items and the hidden form input.      |
+| `RatingGroup.Items`         | —       | Renders default items.                                |
 | `RatingGroup.ItemIndicator` | star    | Renders moduix star foreground/background by default. |
 
 ### Behavioral notes
@@ -94,7 +92,7 @@ part's focus and interaction behavior.
 - `onValueChange` receives Ark details; read the value from `details.value`.
 - `onHoverChange` receives Ark hover details.
 - `allowHalf` enables half-step pointer selection and half-star rendering.
-- `name`, `form`, and `required` work with the `HiddenInput` rendered by `RatingGroup.Items`.
+- `name`, `form`, and `required` work with the native form input rendered automatically by the root.
 - `disabled` and `readOnly` are handled by Ark and reflected through data attributes.
 
 ## Examples

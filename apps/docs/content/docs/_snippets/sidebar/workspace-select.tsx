@@ -72,7 +72,6 @@ export function WorkspaceSidebar() {
                     ))}
                   </Select.Content>
                 </Select.Positioner>
-                <Select.HiddenSelect />
               </Select>
             </Sidebar.MenuItem>
           </Sidebar.Menu>

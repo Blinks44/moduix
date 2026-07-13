@@ -16,7 +16,6 @@ export function SegmentGroupAsChildDemo() {
             <SegmentGroup.ItemText className="segment-card-title">{item}</SegmentGroup.ItemText>
             <span className="segment-card-description">{description}</span>
             <SegmentGroup.ItemControl />
-            <SegmentGroup.ItemHiddenInput />
           </label>
         </SegmentGroup.Item>
       ))}

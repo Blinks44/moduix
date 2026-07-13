@@ -39,26 +39,25 @@ RadioGroup.Root
 └─ RadioGroup.Item[value]
    ├─ RadioGroup.ItemControl
    ├─ RadioGroup.ItemText
-   └─ RadioGroup.ItemHiddenInput
+   └─ the native form input
 
 RadioGroup.RootProvider
 └─ same item tree connected to a useRadioGroup() store
 
 RadioGroup.Option
-└─ RadioGroup.Item + ItemControl + ItemText + ItemHiddenInput
+└─ RadioGroup.Item + ItemControl + ItemText + native input (automatic)
 ```
 
-| Part                         | Role                                                        |
-| ---------------------------- | ----------------------------------------------------------- |
-| `RadioGroup` / `.Root`       | Owns value state, keyboard navigation, orientation, forms.  |
-| `RadioGroup.RootProvider`    | Connects parts to state created with Ark `useRadioGroup()`. |
-| `RadioGroup.Label`           | Accessible label for the group.                             |
-| `RadioGroup.Item`            | One selectable option; renders a `label` by default.        |
-| `RadioGroup.Option`          | Convenience item with control, text, and hidden input.      |
-| `RadioGroup.ItemControl`     | Visual radio control; supports the moduix `size` prop.      |
-| `RadioGroup.ItemText`        | Visible option text.                                        |
-| `RadioGroup.ItemHiddenInput` | Native input for form submission, validation, and reset.    |
-| `RadioGroup.Indicator`       | Optional active-item indicator using Ark measurement vars.  |
+| Part                      | Role                                                        |
+| ------------------------- | ----------------------------------------------------------- |
+| `RadioGroup` / `.Root`    | Owns value state, keyboard navigation, orientation, forms.  |
+| `RadioGroup.RootProvider` | Connects parts to state created with Ark `useRadioGroup()`. |
+| `RadioGroup.Label`        | Accessible label for the group.                             |
+| `RadioGroup.Item`         | One selectable option; renders a `label` by default.        |
+| `RadioGroup.Option`       | Convenience item with control, text, and hidden input.      |
+| `RadioGroup.ItemControl`  | Visual radio control; supports the moduix `size` prop.      |
+| `RadioGroup.ItemText`     | Visible option text.                                        |
+| `RadioGroup.Indicator`    | Optional active-item indicator using Ark measurement vars.  |
 
 ## Composition
 
@@ -88,13 +87,13 @@ created outside the rendered group tree. Use the explicit `Item` tree when a cus
 `onValueChange(details)`, `name`, `form`, `orientation`, `disabled`, `invalid`, `readOnly`,
 `required`, `ids`, and `asChild`.
 
-`RadioGroup.ItemHiddenInput` should stay in each item that participates in native form submission,
-validation, or reset. Ark owns the controlled and uncontrolled value state, roving focus, keyboard
+Each `RadioGroup.Item` renders its native form input automatically for native form submission,
+validation, and reset. Ark owns the controlled and uncontrolled value state, roving focus, keyboard
 navigation, and `onValueChange(details)` callback shape.
 
 `Field.Root` and `Fieldset.Root` state flows through to the group. Use `Field.Label`,
-`Field.HelperText`, and `Field.ErrorText` for visible form context; use `ItemHiddenInput` or
-`Option` for native form submission and reset.
+`Field.HelperText`, and `Field.ErrorText` for visible form context; `Item` and `Option` retain
+native form submission and reset behavior automatically.
 
 ## Examples
 

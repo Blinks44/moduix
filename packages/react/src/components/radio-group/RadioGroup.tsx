@@ -1,7 +1,7 @@
-import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { RadioGroup as RadioGroupPrimitive, useRadioGroup } from '@ark-ui/react/radio-group';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './RadioGroup.module.css';
 
@@ -62,14 +62,17 @@ const RadioGroupLabel = forwardRef<
 const RadioGroupItem = forwardRef<
   ComponentRef<typeof RadioGroupPrimitive.Item>,
   ComponentProps<typeof RadioGroupPrimitive.Item>
->(function RadioGroupItem({ className, ...props }, ref) {
+>(function RadioGroupItem({ asChild, children, className, ...props }, ref) {
   return (
     <RadioGroupPrimitive.Item
       ref={ref}
+      asChild={asChild}
       data-slot="radio-group-item"
       className={clsx(styles.item, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withItemHiddenInput(children, asChild)}
+    </RadioGroupPrimitive.Item>
   );
 });
 
@@ -81,7 +84,6 @@ const RadioGroupOption = forwardRef<
     <RadioGroupItem ref={ref} {...props}>
       <RadioGroupItemControl size={size} />
       <RadioGroupItemText>{children}</RadioGroupItemText>
-      <RadioGroupItemHiddenInput />
     </RadioGroupItem>
   );
 });
@@ -115,18 +117,24 @@ const RadioGroupItemText = forwardRef<
   );
 });
 
-const RadioGroupItemHiddenInput = forwardRef<
-  ComponentRef<typeof RadioGroupPrimitive.ItemHiddenInput>,
-  ComponentProps<typeof RadioGroupPrimitive.ItemHiddenInput>
->(function RadioGroupItemHiddenInput(props, ref) {
-  return (
-    <RadioGroupPrimitive.ItemHiddenInput
-      ref={ref}
-      data-slot="radio-group-item-hidden-input"
-      {...props}
-    />
+function withItemHiddenInput(children: ReactNode, asChild?: boolean) {
+  const hiddenInput = (
+    <RadioGroupPrimitive.ItemHiddenInput data-slot="radio-group-item-hidden-input" />
   );
-});
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {hiddenInput}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, hiddenInput);
+}
 
 const RadioGroupIndicator = forwardRef<
   ComponentRef<typeof RadioGroupPrimitive.Indicator>,
@@ -150,7 +158,6 @@ const RadioGroup = Object.assign(RadioGroupRoot, {
   Option: RadioGroupOption,
   ItemControl: RadioGroupItemControl,
   ItemText: RadioGroupItemText,
-  ItemHiddenInput: RadioGroupItemHiddenInput,
   Indicator: RadioGroupIndicator,
 });
 

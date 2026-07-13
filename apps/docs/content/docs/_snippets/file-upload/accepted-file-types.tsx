@@ -32,7 +32,6 @@ export function AcceptedTypesFileUploadDemo() {
           }
         </FileUpload.Context>
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }

@@ -56,7 +56,6 @@ export function SelectMultipleDemo() {
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

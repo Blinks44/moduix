@@ -27,7 +27,6 @@ function RadioItems({ items = frameworks }: { items?: readonly string[] }) {
         <RadioGroup.Item key={item} value={item}>
           <RadioGroup.ItemControl />
           <RadioGroup.ItemText>{item}</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
         </RadioGroup.Item>
       ))}
     </>
@@ -121,7 +120,6 @@ export const Sizes: Story = {
         <RadioGroup.Item key={size} value={size}>
           <RadioGroup.ItemControl size={size} />
           <RadioGroup.ItemText>{size.toUpperCase()}</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
         </RadioGroup.Item>
       ))}
     </RadioGroup>
@@ -154,7 +152,6 @@ export const CustomStyling: Story = {
         <RadioGroup.Item key={item} value={item} className={styles.customItem}>
           <RadioGroup.ItemControl className={styles.customControl} />
           <RadioGroup.ItemText className={styles.customText}>{item}</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
         </RadioGroup.Item>
       ))}
     </RadioGroup>
@@ -170,7 +167,6 @@ export const AsChild: Story = {
           <label className={styles.cardItem}>
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>{item}</RadioGroup.ItemText>
-            <RadioGroup.ItemHiddenInput />
           </label>
         </RadioGroup.Item>
       ))}

@@ -43,7 +43,6 @@ export const Basic: Story = {
       <Switch defaultChecked>
         <Switch.Control />
         <Switch.Label>Enable notifications</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
     );
   },
@@ -56,27 +55,22 @@ export const Sizes: Story = {
         <Switch size="xs" defaultChecked>
           <Switch.Control />
           <Switch.Label>Extra-small</Switch.Label>
-          <Switch.HiddenInput />
         </Switch>
         <Switch size="sm" defaultChecked>
           <Switch.Control />
           <Switch.Label>Small</Switch.Label>
-          <Switch.HiddenInput />
         </Switch>
         <Switch size="md" defaultChecked>
           <Switch.Control />
           <Switch.Label>Medium</Switch.Label>
-          <Switch.HiddenInput />
         </Switch>
         <Switch size="lg" defaultChecked>
           <Switch.Control />
           <Switch.Label>Large</Switch.Label>
-          <Switch.HiddenInput />
         </Switch>
         <Switch size="xl" defaultChecked>
           <Switch.Control />
           <Switch.Label>Extra-large</Switch.Label>
-          <Switch.HiddenInput />
         </Switch>
       </div>
     );
@@ -90,12 +84,10 @@ export const Disabled: Story = {
         <Switch disabled>
           <Switch.Control />
           <Switch.Label>Enable dark mode</Switch.Label>
-          <Switch.HiddenInput />
         </Switch>
         <Switch defaultChecked disabled>
           <Switch.Control />
           <Switch.Label>Keep me signed in</Switch.Label>
-          <Switch.HiddenInput />
         </Switch>
       </div>
     );
@@ -111,7 +103,6 @@ export const Controlled: Story = {
         <Switch checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
           <Switch.Control />
           <Switch.Label>{checked ? 'On' : 'Off'}</Switch.Label>
-          <Switch.HiddenInput />
         </Switch>
         <span className={styles.hint}>Current value: {String(checked)}</span>
       </div>
@@ -126,12 +117,10 @@ export const ReadOnly: Story = {
         <Switch readOnly>
           <Switch.Control />
           <Switch.Label>Managed by policy</Switch.Label>
-          <Switch.HiddenInput />
         </Switch>
         <Switch defaultChecked readOnly>
           <Switch.Control />
           <Switch.Label>Always on</Switch.Label>
-          <Switch.HiddenInput />
         </Switch>
       </div>
     );
@@ -148,7 +137,6 @@ export const CustomIcon: Story = {
           </Switch.Thumb>
         </Switch.Control>
         <Switch.Label>Use custom thumb icon</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
     );
   },
@@ -160,7 +148,6 @@ export const Context: Story = {
       <Switch defaultChecked>
         <Switch.Control />
         <SwitchContextLabel />
-        <Switch.HiddenInput />
       </Switch>
     );
   },
@@ -178,7 +165,6 @@ export const RootProvider: Story = {
         <Switch.RootProvider value={switchApi}>
           <Switch.Control />
           <Switch.Label>External state owner</Switch.Label>
-          <Switch.HiddenInput />
         </Switch.RootProvider>
       </div>
     );
@@ -192,7 +178,6 @@ export const AsChild: Story = {
         <label className={styles.siblingRow}>
           <Switch.Control />
           <span className={styles.label}>Enable reminders</span>
-          <Switch.HiddenInput />
         </label>
       </Switch>
     );
@@ -206,7 +191,6 @@ export const FormIntegration: Story = {
         <Switch defaultChecked name="notifications" required>
           <Switch.Control />
           <Switch.Label>Notifications</Switch.Label>
-          <Switch.HiddenInput />
         </Switch>
         <Field.HelperText>Used for product and account updates.</Field.HelperText>
         <Field.ErrorText>Notification preference is required.</Field.ErrorText>

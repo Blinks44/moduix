@@ -13,7 +13,6 @@ export function AsChildSwitchDemo() {
       <label className={styles.siblingRow}>
         <Switch.Control />
         <span className={styles.label}>Enable reminders</span>
-        <Switch.HiddenInput />
       </label>
     </Switch>
   );

@@ -63,7 +63,6 @@ export function PaginationPageSizeControlDemo() {
                     ))}
                   </Select.Content>
                 </Select.Positioner>
-                <Select.HiddenSelect />
               </Select>
             </div>
             <div className="pagination-row">

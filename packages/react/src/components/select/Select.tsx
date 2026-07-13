@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentRef, ForwardedRef, ReactNode } from 'react';
+import type { ComponentProps, ComponentRef, ForwardedRef, ReactElement, ReactNode } from 'react';
 import {
   Select as SelectPrimitive,
   type CollectionItem,
@@ -11,7 +11,7 @@ import {
   useSelectItemContext,
 } from '@ark-ui/react/select';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
 import { CheckIcon, ChevronUpDownIcon, CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
@@ -21,11 +21,15 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import styles from './Select.module.css';
 
-type SelectRootProps<T extends CollectionItem> = ArkSelectRootProps<T> & OverlayPortalProps;
+type SelectNativeFormControl = 'select' | 'input';
+type SelectRootOwnProps = OverlayPortalProps & {
+  nativeFormControl?: SelectNativeFormControl;
+};
+type SelectRootProps<T extends CollectionItem> = ArkSelectRootProps<T> & SelectRootOwnProps;
 type SelectRootProviderProps<T extends CollectionItem> = ArkSelectRootProviderProps<T> &
-  OverlayPortalProps;
-type SelectRootComponent = ArkSelectRootComponent<OverlayPortalProps>;
-type SelectRootProviderComponent = ArkSelectRootProviderComponent<OverlayPortalProps>;
+  SelectRootOwnProps;
+type SelectRootComponent = ArkSelectRootComponent<SelectRootOwnProps>;
+type SelectRootProviderComponent = ArkSelectRootProviderComponent<SelectRootOwnProps>;
 type SelectFieldProps = Omit<
   ComponentProps<typeof SelectPrimitive.Control>,
   'asChild' | 'children'
@@ -36,7 +40,15 @@ type SelectFieldProps = Omit<
 };
 
 const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
-  { className, portalled, portalRef, ...props }: SelectRootProps<T>,
+  {
+    asChild,
+    children,
+    className,
+    nativeFormControl = 'select',
+    portalled,
+    portalRef,
+    ...props
+  }: SelectRootProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
@@ -45,14 +57,25 @@ const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
         ref={ref}
         data-slot="select-root"
         className={clsx(styles.root, normalizeClassName(className))}
+        asChild={asChild}
         {...props}
-      />
+      >
+        {withNativeFormControl(children, asChild, nativeFormControl)}
+      </SelectPrimitive.Root>
     </OverlayPortalProvider>
   );
 }) as SelectRootComponent;
 
 const SelectRootProvider = forwardRef(function SelectRootProvider<T extends CollectionItem>(
-  { className, portalled, portalRef, ...props }: SelectRootProviderProps<T>,
+  {
+    asChild,
+    children,
+    className,
+    nativeFormControl = 'select',
+    portalled,
+    portalRef,
+    ...props
+  }: SelectRootProviderProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
@@ -61,8 +84,11 @@ const SelectRootProvider = forwardRef(function SelectRootProvider<T extends Coll
         ref={ref}
         data-slot="select-root-provider"
         className={clsx(styles.root, normalizeClassName(className))}
+        asChild={asChild}
         {...props}
-      />
+      >
+        {withNativeFormControl(children, asChild, nativeFormControl)}
+      </SelectPrimitive.RootProvider>
     </OverlayPortalProvider>
   );
 }) as SelectRootProviderComponent;
@@ -298,19 +324,53 @@ const SelectItemIndicator = forwardRef<
   );
 });
 
-const SelectHiddenSelect = forwardRef<
-  ComponentRef<typeof SelectPrimitive.HiddenSelect>,
-  ComponentProps<typeof SelectPrimitive.HiddenSelect>
->(function SelectHiddenSelect({ className, ...props }, ref) {
+function withNativeFormControl(
+  children: ReactNode,
+  asChild: boolean | undefined,
+  nativeFormControl: SelectNativeFormControl,
+) {
+  const formControl = <SelectFormControl nativeFormControl={nativeFormControl} />;
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {formControl}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, formControl);
+}
+
+function SelectFormControl({ nativeFormControl }: { nativeFormControl: SelectNativeFormControl }) {
+  const select = useSelectContext();
+
+  if (nativeFormControl === 'select') {
+    return <SelectPrimitive.HiddenSelect data-slot="select-hidden-select" />;
+  }
+
+  const hiddenSelectProps = select.getHiddenSelectProps();
+
   return (
-    <SelectPrimitive.HiddenSelect
-      ref={ref}
-      data-slot="select-hidden-select"
-      className={normalizeClassName(className)}
-      {...props}
-    />
+    <>
+      {select.value.map((value) => (
+        <input
+          key={value}
+          type="hidden"
+          data-slot="select-hidden-input"
+          name={hiddenSelectProps.name}
+          form={hiddenSelectProps.form}
+          autoComplete={hiddenSelectProps.autoComplete}
+          disabled={hiddenSelectProps.disabled}
+          value={value}
+        />
+      ))}
+    </>
   );
-});
+}
 
 function SelectItemTextContent({ className, ...props }: ComponentProps<'span'>) {
   return (
@@ -366,7 +426,6 @@ const Select = Object.assign(SelectRoot, {
   Item: SelectItem,
   ItemText: SelectItemText,
   ItemIndicator: SelectItemIndicator,
-  HiddenSelect: SelectHiddenSelect,
   ItemTextContent: SelectItemTextContent,
   ItemTextIcon: SelectItemTextIcon,
   ItemTextLabel: SelectItemTextLabel,

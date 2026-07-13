@@ -14,7 +14,7 @@ import * as CheckboxDocs from '@/components/examples/checkbox';
 
 Use the Ark part tree directly. For the common path, `Checkbox.Control` already renders the default
 checked and indeterminate indicators, so most checkboxes only need `Checkbox.Control`,
-`Checkbox.Label`, and `Checkbox.HiddenInput`.
+`Checkbox.Label`, and the native form input.
 
 <Preview clientOnly>
   <CheckboxDocs.CheckboxExample />
@@ -37,7 +37,7 @@ Checkbox.Root
 │  ├─ Checkbox.Indicator
 │  └─ Checkbox.Indicator[indeterminate] (optional)
 ├─ Checkbox.Label
-└─ Checkbox.HiddenInput
+└─ native input (automatic)
 
 Checkbox.RootProvider
 └─ same part tree connected to useCheckbox()
@@ -46,7 +46,7 @@ Checkbox.Group
 └─ Checkbox.Root[value]
    ├─ Checkbox.Control
    ├─ Checkbox.Label
-   └─ Checkbox.HiddenInput
+   └─ the native form input
 ```
 
 | Part                         | Role                                                                                     |
@@ -56,7 +56,6 @@ Checkbox.Group
 | `Checkbox.Control`           | Visual control surface. Renders default checked and indeterminate indicators when empty. |
 | `Checkbox.Indicator`         | Optional icon slot for custom icon composition. Use `indeterminate` when needed.         |
 | `Checkbox.Label`             | Visible label text inside the root.                                                      |
-| `Checkbox.HiddenInput`       | Native input for forms, validation, form reset, and submission.                          |
 | `Checkbox.Group`             | Shares value state across multiple checkbox roots.                                       |
 
 ## Composition
@@ -89,7 +88,7 @@ custom icons or a non-default indicator layout.
 
 ### Behavioral notes
 
-Render `Checkbox.HiddenInput` for native form participation, validation, form reset, and
+The root renders the native form input for native form participation, validation, form reset, and
 submission. For a standalone checkbox, pass `name` and `value` to `Checkbox.Root`. For a group,
 pass `name` to `Checkbox.Group` and `value` to every `Checkbox.Root`.
 
@@ -336,5 +335,5 @@ Pass `name` and `value` to `Checkbox.Root` so the hidden input submits with nati
 - `Checkbox.Control` exposes `data-slot="checkbox-control"` and Ark state attributes including `data-state="checked" | "indeterminate" | "unchecked"`.
 - `Checkbox.Indicator` exposes `data-slot="checkbox-indicator"` and inherits Ark checkbox state attributes.
 - `Checkbox.Label` exposes `data-slot="checkbox-label"` and Ark checkbox state attributes.
-- `Checkbox.HiddenInput` exposes `data-slot="checkbox-hidden-input"`.
+- the native form input exposes `data-slot="checkbox-hidden-input"`.
 - `Checkbox.Group` exposes `data-slot="checkbox-group"`.

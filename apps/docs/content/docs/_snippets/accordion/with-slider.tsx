@@ -38,9 +38,7 @@ export function WithSliderAccordionDemo() {
                   <Slider.Track>
                     <Slider.Range />
                   </Slider.Track>
-                  <Slider.Thumb index={0}>
-                    <Slider.HiddenInput />
-                  </Slider.Thumb>
+                  <Slider.Thumb index={0}></Slider.Thumb>
                 </Slider.Control>
               </Slider>
             </Accordion.ItemBody>

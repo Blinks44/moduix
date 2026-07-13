@@ -44,7 +44,7 @@ DateInput.Root
 ├─ DateInput.Label
 ├─ DateInput.Control
 │  └─ DateInput.Segments
-└─ DateInput.HiddenInput
+└─ native input(s) (automatic)
 
 Advanced customization:
 
@@ -65,7 +65,6 @@ DateInput.RootProvider
 | `DateInput.SegmentGroup`       | Groups segments for one date index.                                |
 | `DateInput.Segment`            | Editable or literal date segment returned by Ark.                  |
 | `DateInput.Segments`           | Renders one locale-aware segment group for the common path.        |
-| `DateInput.HiddenInput`        | Native hidden input synchronized with the selected date.           |
 | `DateInput.Separator`          | Presentational text for range layouts.                             |
 | `DateInput.Context`            | Renderless access to the current date input state.                 |
 | `DateInput.SegmentContext`     | Ark render helper for locale-aware segment rendering.              |
@@ -77,8 +76,8 @@ DateInput.RootProvider
 Use `DateInput` as the short root form. Render `DateInput.Segments` inside
 `DateInput.Control` for the standard locale-aware segment group.
 
-Use `DateInput.HiddenInput` when the date should submit with a form or reset with a native form
-reset. For ranges, render indexed `DateInput.Segments` and hidden inputs for each side.
+The root renders native inputs automatically for form submission and reset. For ranges, render
+indexed `DateInput.Segments`; pass `names` only when each side needs a distinct form field name.
 
 ### When to go custom
 
@@ -93,7 +92,7 @@ Use `ids` when an external label, helper text, or another component must share e
 | --------------------------------- | -------------- | ----------------------------------------------------- |
 | `DateInput` / `DateInput.Root`    | —              | No local behavioral defaults; Ark defaults apply.     |
 | `DateInput.Segments`              | —              | Renders the locale-aware segment group for one index. |
-| `DateInput.HiddenInput`           | —              | Explicit, so single and range form names stay clear.  |
+| `DateInput.names`                 | —              | Optional form names for individual range fields.      |
 | `DateInput.Separator.aria-hidden` | `true`         | Presentational text is hidden from assistive tech.    |
 | `DateInput.Separator.role`        | `presentation` | Keeps range separators out of the accessibility tree. |
 
@@ -103,7 +102,7 @@ Use `ids` when an external label, helper text, or another component must share e
 - `onValueChange(details)` preserves Ark's details object with `details.value` and `details.valueAsString`.
 - `focused`, `defaultFocused`, and `onFocusChange(details)` control root focus state.
 - `placeholderValue`, `defaultPlaceholderValue`, and `onPlaceholderChange(details)` control the placeholder date.
-- `selectionMode="range"` enables indexed segment groups and hidden inputs.
+- `selectionMode="range"` enables indexed segment groups and automatic native inputs.
 - `min`, `max`, and `isDateUnavailable` validate committed dates.
 - `locale`, `timeZone`, `hourCycle`, `granularity`, `formatter`, `format`, `translations`, and `createCalendar` pass through to Ark.
 - Import `useDateInput()`, `useDateInputContext()`, and `DateInputDateValue` from `@moduix/react`.

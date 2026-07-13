@@ -79,7 +79,6 @@ export function SelectSelectOnHighlightDemo() {
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select.RootProvider>
   );
 }

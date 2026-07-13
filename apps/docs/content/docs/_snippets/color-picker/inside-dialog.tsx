@@ -28,7 +28,6 @@ export function InsideDialogColorPickerDemo() {
                   <ColorPicker.Area />
                 </ColorPicker.Content>
               </ColorPicker.Positioner>
-              <ColorPicker.HiddenInput />
             </ColorPicker>
           </div>
         </Dialog.Content>

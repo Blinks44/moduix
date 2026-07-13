@@ -39,6 +39,18 @@ export const Basic: Story = {
   },
 };
 
+export const AsChild: Story = {
+  render: () => {
+    return (
+      <AngleSlider asChild defaultValue={135} aria-label="Rotation">
+        <div className={styles.demoRoot}>
+          <AngleSlider.Dial />
+        </div>
+      </AngleSlider>
+    );
+  },
+};
+
 export const Controlled: Story = {
   render: () => {
     const [value, setValue] = useState(210);
@@ -84,7 +96,6 @@ export const Form: Story = {
       >
         <AngleSlider.Label>Rotation</AngleSlider.Label>
         <AngleSliderMarkedParts />
-        <AngleSlider.HiddenInput />
       </AngleSlider>
     );
   },

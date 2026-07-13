@@ -6,7 +6,6 @@ export function CheckboxDemo() {
     <Checkbox>
       <Checkbox.Control />
       <Checkbox.Label>Enable notifications</Checkbox.Label>
-      <Checkbox.HiddenInput />
     </Checkbox>
   );
 }

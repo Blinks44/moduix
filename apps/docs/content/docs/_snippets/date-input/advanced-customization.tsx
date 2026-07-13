@@ -6,7 +6,7 @@ import { DateInput } from '@moduix/react';
 
 export function CustomSegmentsDateInputDemo() {
   return (
-    <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]}>
+    <DateInput name="custom-date" defaultValue={[new CalendarDate(2026, 6, 22)]}>
       <DateInput.Label>Custom segments</DateInput.Label>
       <DateInput.Control className="date-input-custom-control">
         <DateInput.SegmentGroup>
@@ -22,7 +22,6 @@ export function CustomSegmentsDateInputDemo() {
           </DateInput.SegmentContext>
         </DateInput.SegmentGroup>
       </DateInput.Control>
-      <DateInput.HiddenInput name="custom-date" />
     </DateInput>
   );
 }

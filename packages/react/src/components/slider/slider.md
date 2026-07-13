@@ -12,9 +12,10 @@ Upstream docs:
 ## Upstream model to preserve
 
 - Preserve Ark parts: `Root`, `RootProvider`, `Label`, `ValueText`, `Control`, `Track`, `Range`,
-  `Thumb`, `HiddenInput`, `MarkerGroup`, `Marker`, and `DraggingIndicator`.
+  `Thumb`, `MarkerGroup`, `Marker`, and `DraggingIndicator`. Each `Thumb` owns its internal native
+  form input.
 - Preserve Ark `number[]` value state, controlled/uncontrolled props, callback detail objects,
-  keyboard behavior, pointer dragging, `HiddenInput`, IDs, refs, `asChild`, and orientation state.
+  keyboard behavior, pointer dragging, the native form input, IDs, refs, `asChild`, and orientation state.
 - `RootProvider` owns an externally created `useSlider` instance and must not be nested with a
   `Root` for that same instance.
 
@@ -27,7 +28,8 @@ Upstream docs:
   `readOnly`, `name`, `form`, `ids`, `thumbSize`, `onValueChange(details)`,
   `onValueChangeEnd(details)`, and `onFocusChange(details)` pass through unchanged.
 - Values are arrays. Single-thumb sliders use `[value]`, not a bare number.
-- `Slider.Thumbs` renders one styled `Thumb` and `HiddenInput` per value from slider context.
+- `Slider.Thumbs` renders one styled `Thumb` per value from slider context. Each `Thumb` appends
+  its native form input automatically.
 - `Slider.Context`, `Slider.useSlider`, `Slider.useSliderContext`, `useSlider`, and
   `useSliderContext` are moduix-owned advanced state paths for `RootProvider` and inline state
   reads.
@@ -44,7 +46,7 @@ Slider.Root
 │  └─ Slider.Thumbs
 │     └─ Slider.Thumb[index]
 │        ├─ Slider.DraggingIndicator
-│        └─ Slider.HiddenInput
+│        └─ native input (automatic)
 └─ Slider.MarkerGroup
    └─ Slider.Marker[value]
 ```
@@ -62,7 +64,6 @@ Externally owned state replaces `Root` with `RootProvider`.
 | `Slider.Range`             | `slider-range`               |
 | `Slider.Thumb`             | `slider-thumb`               |
 | `Slider.Thumbs`            | Uses `slider-thumb` children |
-| `Slider.HiddenInput`       | `slider-hidden-input`        |
 | `Slider.MarkerGroup`       | `slider-marker-group`        |
 | `Slider.Marker`            | `slider-marker`              |
 | `Slider.DraggingIndicator` | `slider-dragging-indicator`  |
@@ -103,8 +104,8 @@ export function VolumeSlider() {
 - Ark provides the WAI-ARIA slider pattern, keyboard navigation, pointer dragging, ARIA value
   attributes, and multi-thumb behavior.
 - Every thumb needs an accessible name through `Slider.Label`, `aria-label`, or `aria-labelledby`.
-- `Slider.Thumbs` includes a `HiddenInput` for every thumb. For explicit thumb composition, keep a
-  `HiddenInput` inside each thumb when native form submission and reset synchronization are needed.
+- Every `Slider.Thumb`, including explicit thumb composition, appends its native form input
+  automatically for form submission and reset synchronization.
 - `Field.Root` / `Fieldset.Root` context can provide shared form state through Ark where
   supported by the primitive.
 - `asChild` is available on Ark DOM parts and requires one semantic child that preserves the part's
@@ -133,8 +134,8 @@ export function VolumeSlider() {
 ## Intentional sugar and differences from upstream
 
 - Ark is headless; moduix provides default visuals and stable `data-slot` hooks.
-- `Slider.Thumbs` is narrow sugar for the repeated `Thumb` and `HiddenInput` pair. It accepts
-  `className` for the generated thumbs; use explicit parts for per-thumb props or custom children.
+- `Slider.Thumbs` is narrow sugar for repeated `Thumb` parts. It accepts `className` for the
+  generated thumbs; use explicit parts for per-thumb props or custom children.
 - The public API is namespace-first: `Slider` with attached parts. Flat aliases such as
   `SliderRoot`, `SliderValue`, `SliderIndicator`, and `SliderThumb` are intentionally not exported.
 - `RootProvider`, `Context`, `useSlider`, and `useSliderContext` stay on the moduix surface for
@@ -150,10 +151,12 @@ export function VolumeSlider() {
 - Keep `RootProvider` styled with the same root class as `Root`.
 - Do not render both `Root` and `RootProvider` for one machine.
 - Preserve Ark detail objects passed to callbacks.
-- Keep `Slider.Thumbs` as the recommended path and explicit `HiddenInput` in custom-thumb examples.
+- Keep `Slider.Thumbs` as the recommended path and document that every `Slider.Thumb` renders it automatically.
 - Keep docs previews synchronized with `Code`, `CSS`, and `Data` tabs.
 
 ## Local changelog
+
+- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 
 - 2026-07-11: Added `Slider.Thumbs` and restored moduix exports for `Context`, `useSlider`, and
   `useSliderContext`; recommend the helper for standard thumb and form-input composition.

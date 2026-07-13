@@ -17,7 +17,6 @@ export function ControlledTagsInput() {
         <TagsInput.Input placeholder="Add skill" />
         <TagsInput.ClearTrigger aria-label="Clear skills" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }

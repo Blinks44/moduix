@@ -211,7 +211,6 @@ function AngleSliderFormParts() {
   return (
     <>
       <AngleSliderMarkedParts />
-      <AngleSlider.HiddenInput />
     </>
   );
 }

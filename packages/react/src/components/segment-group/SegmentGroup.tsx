@@ -1,10 +1,10 @@
-import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   SegmentGroup as SegmentGroupPrimitive,
   useSegmentGroup,
 } from '@ark-ui/react/segment-group';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './SegmentGroup.module.css';
 
@@ -54,14 +54,17 @@ const SegmentGroupLabel = forwardRef<
 const SegmentGroupItem = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.Item>,
   ComponentProps<typeof SegmentGroupPrimitive.Item>
->(function SegmentGroupItem({ className, ...props }, ref) {
+>(function SegmentGroupItem({ asChild, children, className, ...props }, ref) {
   return (
     <SegmentGroupPrimitive.Item
       ref={ref}
+      asChild={asChild}
       data-slot="segment-group-item"
       className={clsx(styles.item, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withItemHiddenInput(children, asChild)}
+    </SegmentGroupPrimitive.Item>
   );
 });
 
@@ -93,18 +96,24 @@ const SegmentGroupItemText = forwardRef<
   );
 });
 
-const SegmentGroupItemHiddenInput = forwardRef<
-  ComponentRef<typeof SegmentGroupPrimitive.ItemHiddenInput>,
-  ComponentProps<typeof SegmentGroupPrimitive.ItemHiddenInput>
->(function SegmentGroupItemHiddenInput(props, ref) {
-  return (
-    <SegmentGroupPrimitive.ItemHiddenInput
-      ref={ref}
-      data-slot="segment-group-item-hidden-input"
-      {...props}
-    />
+function withItemHiddenInput(children: ReactNode, asChild?: boolean) {
+  const hiddenInput = (
+    <SegmentGroupPrimitive.ItemHiddenInput data-slot="segment-group-item-hidden-input" />
   );
-});
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {hiddenInput}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, hiddenInput);
+}
 
 const SegmentGroupIndicator = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.Indicator>,
@@ -129,7 +138,6 @@ function SegmentGroupItems({
     <SegmentGroupItem key={value} value={value} disabled={disabled}>
       <SegmentGroupItemText>{label}</SegmentGroupItemText>
       <SegmentGroupItemControl />
-      <SegmentGroupItemHiddenInput />
     </SegmentGroupItem>
   ));
 }
@@ -141,7 +149,6 @@ const SegmentGroup = Object.assign(SegmentGroupRoot, {
   Item: SegmentGroupItem,
   ItemControl: SegmentGroupItemControl,
   ItemText: SegmentGroupItemText,
-  ItemHiddenInput: SegmentGroupItemHiddenInput,
   Indicator: SegmentGroupIndicator,
   Items: SegmentGroupItems,
 });

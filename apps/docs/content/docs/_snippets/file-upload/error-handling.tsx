@@ -46,7 +46,6 @@ export function ErrorHandlingFileUploadDemo() {
             }
           </FileUpload.Context>
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload>
       <p className="file-upload-state">{message || 'No files selected'}</p>
     </div>

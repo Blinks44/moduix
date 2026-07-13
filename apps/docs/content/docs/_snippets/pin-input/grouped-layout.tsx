@@ -16,7 +16,6 @@ export function GroupedPinInput() {
           <PinInput.Input key={index} index={index} />
         ))}
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }

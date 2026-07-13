@@ -13,7 +13,6 @@ export function FieldPinInput() {
         <PinInput.Control>
           <PinInput.Inputs />
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput>
       <Field.HelperText>Additional info</Field.HelperText>
       <Field.ErrorText>Please enter the verification code.</Field.ErrorText>

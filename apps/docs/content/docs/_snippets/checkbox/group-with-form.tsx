@@ -20,7 +20,6 @@ export function CheckboxGroupWithFormDemo() {
           <Checkbox key={option.value} value={option.value}>
             <Checkbox.Control />
             <Checkbox.Label>{option.label}</Checkbox.Label>
-            <Checkbox.HiddenInput />
           </Checkbox>
         ))}
       </Checkbox.Group>

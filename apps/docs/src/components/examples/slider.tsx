@@ -175,7 +175,6 @@ export function SliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Volume">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -195,10 +194,8 @@ export function RangeSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Minimum price">
-          <Slider.HiddenInput />
         </Slider.Thumb>
         <Slider.Thumb index={1} aria-label="Maximum price">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
       <Slider.ValueText />
@@ -220,7 +217,6 @@ export function MinMaxSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Offset">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -243,7 +239,6 @@ export function StepSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Precision">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -269,7 +264,6 @@ export function ControlledSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Brightness">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -301,7 +295,6 @@ export function EventsSliderDemo() {
             <Slider.Range />
           </Slider.Track>
           <Slider.Thumb index={0} aria-label="Gain">
-            <Slider.HiddenInput />
           </Slider.Thumb>
         </Slider.Control>
       </Slider>
@@ -326,7 +319,6 @@ export function VerticalSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Output">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -349,7 +341,6 @@ export function CenterOriginSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Balance">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -372,7 +363,6 @@ export function MarksSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Progress">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
       <Slider.MarkerGroup>
@@ -400,7 +390,6 @@ export function DraggingIndicatorSliderDemo() {
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Gain">
           <Slider.DraggingIndicator />
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -423,7 +412,6 @@ export function ThumbAlignmentSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Centered thumb">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -446,10 +434,8 @@ export function ThumbCollisionSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Minimum linked value">
-          <Slider.HiddenInput />
         </Slider.Thumb>
         <Slider.Thumb index={1} aria-label="Maximum linked value">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -472,10 +458,8 @@ export function ThumbOverlapSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Minimum gap start">
-          <Slider.HiddenInput />
         </Slider.Thumb>
         <Slider.Thumb index={1} aria-label="Minimum gap end">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -498,7 +482,6 @@ export function DisabledSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Notifications">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -529,7 +512,6 @@ export function ContextSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Context value">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -554,7 +536,6 @@ export function RootProviderSliderDemo() {
             <Slider.Range />
           </Slider.Track>
           <Slider.Thumb index={0} aria-label="Volume">
-            <Slider.HiddenInput />
           </Slider.Thumb>
         </Slider.Control>
       </Slider.RootProvider>
@@ -728,7 +709,6 @@ export function DraggingIndicatorSliderExample() {
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Gain">
           <Slider.DraggingIndicator />
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -803,9 +783,7 @@ export function AdvancedCustomizationSliderExample() {
         <Slider.Track>
           <Slider.Range />
         </Slider.Track>
-        <Slider.Thumb index={0} aria-label="Volume">
-          <Slider.HiddenInput />
-        </Slider.Thumb>
+        <Slider.Thumb index={0} aria-label="Volume"></Slider.Thumb>
       </Slider.Control>
     </Slider>
   );

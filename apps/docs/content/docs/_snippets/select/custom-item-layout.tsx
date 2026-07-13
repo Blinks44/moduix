@@ -32,7 +32,6 @@ export function SelectCustomItemLayoutDemo() {
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

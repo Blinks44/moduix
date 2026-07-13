@@ -29,7 +29,6 @@ export function AdvancedFileUploadDemo() {
           }
         </FileUpload.Context>
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }

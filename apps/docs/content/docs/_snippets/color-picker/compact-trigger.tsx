@@ -27,7 +27,6 @@ export function CompactTriggerColorPickerDemo() {
           </div>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </ColorPicker>
   );
 }

@@ -7,6 +7,7 @@ import { DateInput, useDateInput } from '@moduix/react';
 export function RootProviderDateInputDemo() {
   const dateInput = useDateInput({
     defaultValue: [today('UTC')],
+    name: 'report-date',
   });
   return (
     <div>
@@ -15,7 +16,6 @@ export function RootProviderDateInputDemo() {
         <DateInput.Control>
           <DateInput.Segments />
         </DateInput.Control>
-        <DateInput.HiddenInput name="report-date" />
       </DateInput.RootProvider>
       <div className="date-input-root-provider-actions">
         <button type="button" onClick={() => dateInput.clearValue()}>

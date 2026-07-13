@@ -416,7 +416,6 @@ function FileUploadTriggerExample(props: ComponentProps<typeof FileUpload.Root>)
       <FileUpload.ItemGroup>
         <FileUpload.Items />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -436,7 +435,6 @@ function FileUploadDropzoneExample(props: ComponentProps<typeof FileUpload.Root>
       <FileUpload.ItemGroup>
         <FileUpload.Items />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -456,7 +454,6 @@ export function FileUploadAdvancedCustomizationExample() {
       <FileUpload.ItemGroup>
         <AcceptedFileItems />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -484,7 +481,6 @@ export function FileUploadAcceptedTypesExample() {
       <FileUpload.ItemGroup>
         <AcceptedFileItems />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -507,7 +503,6 @@ export function FileUploadRejectedFilesExample() {
       <FileUpload.ItemGroup type="rejected">
         <RejectedFileItems />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -533,7 +528,6 @@ export function FileUploadErrorHandlingExample() {
         <FileUpload.ItemGroup type="rejected">
           <RejectedFileItems />
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload.Root>
       <p className={styles.state}>{message || 'No files selected'}</p>
     </div>
@@ -569,7 +563,6 @@ export function FileUploadClearTriggerExample() {
       <FileUpload.ItemGroup>
         <FileUpload.Items />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -583,7 +576,6 @@ export function FileUploadWithFieldExample() {
         <FileUpload.ItemGroup>
           <FileUpload.Items />
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload.Root>
       <Field.HelperText>Upload up to three files.</Field.HelperText>
       <Field.ErrorText>Upload at least one file.</Field.ErrorText>
@@ -604,7 +596,6 @@ export function FileUploadFormExample() {
         <FileUpload.ItemGroup>
           <FileUpload.Items />
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload.Root>
       <button className={styles.submit} type="submit">
         Submit
@@ -626,7 +617,6 @@ export function FileUploadRootProviderExample() {
       <FileUpload.ItemGroup>
         <FileUpload.Items />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.RootProvider>
   );
 }
@@ -649,7 +639,6 @@ export function FileUploadDirectoryExample() {
           }
         </FileUpload.Context>
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -669,7 +658,6 @@ export function FileUploadMediaCaptureExample() {
       <FileUpload.ItemGroup>
         <AcceptedFileItems />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -688,7 +676,6 @@ export function FileUploadTransformFilesExample() {
       <FileUpload.ItemGroup>
         <FileUpload.Items />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }

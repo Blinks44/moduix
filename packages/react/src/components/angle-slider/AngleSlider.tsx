@@ -1,24 +1,27 @@
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   AngleSlider as AngleSliderPrimitive,
   useAngleSlider as useAngleSliderPrimitive,
 } from '@ark-ui/react/angle-slider';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './AngleSlider.module.css';
 
 const AngleSliderRoot = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.Root>,
   ComponentProps<typeof AngleSliderPrimitive.Root>
->(function AngleSliderRoot({ className, ...props }, ref) {
+>(function AngleSliderRoot({ asChild, children, className, ...props }, ref) {
   return (
     <AngleSliderPrimitive.Root
       ref={ref}
       data-slot="angle-slider-root"
       className={clsx(styles.root, normalizeClassName(className))}
+      asChild={asChild}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </AngleSliderPrimitive.Root>
   );
 });
 
@@ -39,16 +42,36 @@ const AngleSliderLabel = forwardRef<
 const AngleSliderRootProvider = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.RootProvider>,
   ComponentProps<typeof AngleSliderPrimitive.RootProvider>
->(function AngleSliderRootProvider({ className, ...props }, ref) {
+>(function AngleSliderRootProvider({ asChild, children, className, ...props }, ref) {
   return (
     <AngleSliderPrimitive.RootProvider
       ref={ref}
       data-slot="angle-slider-root-provider"
       className={clsx(styles.root, normalizeClassName(className))}
+      asChild={asChild}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </AngleSliderPrimitive.RootProvider>
   );
 });
+
+function withHiddenInput(children: ReactNode, asChild?: boolean) {
+  const hiddenInput = <AngleSliderPrimitive.HiddenInput data-slot="angle-slider-hidden-input" />;
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {hiddenInput}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, hiddenInput);
+}
 
 const AngleSliderControl = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.Control>,
@@ -148,20 +171,6 @@ const AngleSliderValueText = forwardRef<
   );
 });
 
-const AngleSliderHiddenInput = forwardRef<
-  ComponentRef<typeof AngleSliderPrimitive.HiddenInput>,
-  ComponentProps<typeof AngleSliderPrimitive.HiddenInput>
->(function AngleSliderHiddenInput({ className, ...props }, ref) {
-  return (
-    <AngleSliderPrimitive.HiddenInput
-      ref={ref}
-      data-slot="angle-slider-hidden-input"
-      className={normalizeClassName(className)}
-      {...props}
-    />
-  );
-});
-
 const AngleSlider = Object.assign(AngleSliderRoot, {
   Root: AngleSliderRoot,
   RootProvider: AngleSliderRootProvider,
@@ -173,7 +182,6 @@ const AngleSlider = Object.assign(AngleSliderRoot, {
   Marker: AngleSliderMarker,
   Marks: AngleSliderMarks,
   ValueText: AngleSliderValueText,
-  HiddenInput: AngleSliderHiddenInput,
 });
 
 const useAngleSlider = useAngleSliderPrimitive;

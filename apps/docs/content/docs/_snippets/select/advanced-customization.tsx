@@ -47,7 +47,6 @@ export function AdvancedCustomizationSelectDemo() {
           </Select.ItemGroup>
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

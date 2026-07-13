@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   PinInput as PinInputPrimitive,
   usePinInput as usePinInputPrimitive,
@@ -6,7 +6,7 @@ import {
   type UsePinInputProps,
 } from '@ark-ui/react/pin-input';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './PinInput.module.css';
@@ -14,17 +14,18 @@ import styles from './PinInput.module.css';
 const PinInputRoot = forwardRef<
   ComponentRef<typeof PinInputPrimitive.Root>,
   ComponentProps<typeof PinInputPrimitive.Root>
->(function PinInputRoot({ children, className, count, placeholder = '', ...props }, ref) {
+>(function PinInputRoot({ asChild, children, className, count, placeholder = '', ...props }, ref) {
   return (
     <PinInputPrimitive.Root
       ref={ref}
+      asChild={asChild}
       data-slot="pin-input-root"
       className={clsx(styles.root, normalizeClassName(className))}
       count={count}
       placeholder={placeholder}
       {...props}
     >
-      {children}
+      {withHiddenInput(children, asChild)}
     </PinInputPrimitive.Root>
   );
 });
@@ -32,14 +33,17 @@ const PinInputRoot = forwardRef<
 const PinInputRootProvider = forwardRef<
   ComponentRef<typeof PinInputPrimitive.RootProvider>,
   ComponentProps<typeof PinInputPrimitive.RootProvider>
->(function PinInputRootProvider({ className, ...props }, ref) {
+>(function PinInputRootProvider({ asChild, children, className, ...props }, ref) {
   return (
     <PinInputPrimitive.RootProvider
       ref={ref}
+      asChild={asChild}
       data-slot="pin-input-root-provider"
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </PinInputPrimitive.RootProvider>
   );
 });
 
@@ -91,12 +95,22 @@ function PinInputInputs({ className }: { className?: string }) {
   return items.map((index) => <PinInputInput key={index} index={index} className={className} />);
 }
 
-const PinInputHiddenInput = forwardRef<
-  ComponentRef<typeof PinInputPrimitive.HiddenInput>,
-  ComponentProps<typeof PinInputPrimitive.HiddenInput>
->(function PinInputHiddenInput(props, ref) {
-  return <PinInputPrimitive.HiddenInput ref={ref} data-slot="pin-input-hidden-input" {...props} />;
-});
+function withHiddenInput(children: ReactNode, asChild?: boolean) {
+  const hiddenInput = <PinInputPrimitive.HiddenInput data-slot="pin-input-hidden-input" />;
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {hiddenInput}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, hiddenInput);
+}
 
 function PinInputSeparator({
   className,
@@ -129,7 +143,6 @@ const PinInput = Object.assign(PinInputRoot, {
   Control: PinInputControl,
   Input: PinInputInput,
   Inputs: PinInputInputs,
-  HiddenInput: PinInputHiddenInput,
   Separator: PinInputSeparator,
 });
 

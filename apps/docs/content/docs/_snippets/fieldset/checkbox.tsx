@@ -21,7 +21,6 @@ export function EmailPreferences() {
         <Checkbox key={preference.value} value={preference.value}>
           <Checkbox.Control />
           <Checkbox.Label>{preference.label}</Checkbox.Label>
-          <Checkbox.HiddenInput />
         </Checkbox>
       ))}
     </Fieldset>

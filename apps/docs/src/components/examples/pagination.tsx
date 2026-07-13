@@ -216,7 +216,6 @@ function PaginationPageSizeSelect({
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

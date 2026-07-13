@@ -29,7 +29,6 @@ export function RootProviderTagsInput() {
           <TagsInput.Input placeholder="Add framework" />
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput.RootProvider>
     </div>
   );

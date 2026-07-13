@@ -33,7 +33,6 @@ export function RootProviderPinInput() {
             ),
           )}
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput.RootProvider>
     </div>
   );

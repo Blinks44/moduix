@@ -15,7 +15,6 @@ export function FieldTagsInput() {
           <TagsInput.Input placeholder="Add topic" />
           <TagsInput.ClearTrigger aria-label="Clear topics" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
       <Field.HelperText>Add at least one topic.</Field.HelperText>
       <Field.ErrorText>Topics are required.</Field.ErrorText>

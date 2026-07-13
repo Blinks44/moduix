@@ -44,6 +44,22 @@ markdown together. Check public docs/examples when the change is user-facing.
   that is already part of the contract.
 - Prefer removing duplicated private plumbing before removing meaningful public structure or escape hatches.
 
+### Native Form-Control Ownership
+
+When moduix intentionally makes Ark's native form-control part an implementation detail:
+
+- Render the required native control on every public composition path: `Root`, `RootProvider`, or each `Item` when
+  submission is item-based. Choose placement before editing; do not rely on consumers to add a hidden child.
+- Preserve controlled and uncontrolled state, `name`, `form`, validity, native reset synchronization, refs, `ids`,
+  provider/context hooks, `asChild`, and useful `data-slot` hooks. Verify that automatic insertion still gives
+  `asChild` one valid semantic child.
+- Keep the implementation component-local and Ark-shaped. Do not scan consumer children for a hidden part or add a
+  shared compatibility registry.
+- Move configuration that cannot be inferred into semantic public props: for example, distinct names for range fields,
+  a lightweight form-control mode for virtualized collections, or a serializer for structured values.
+- Remove a public `HiddenInput`, `HiddenSelect`, or `ItemHiddenInput` part only as an intentional documented API
+  change, including its namespace export and obsolete styling when nothing else needs them.
+
 ## UX and API Decisions
 
 - For review-only requests, report findings ordered by consumer impact and do not edit files.

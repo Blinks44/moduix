@@ -416,7 +416,6 @@ function PickerField() {
         <ColorPicker.Trigger aria-label="Open color picker" />
       </ColorPicker.Control>
       <PickerPopup />
-      <ColorPicker.HiddenInput />
     </>
   );
 }
@@ -461,7 +460,6 @@ export function AdvancedCustomizationColorPickerExample() {
           </ColorPicker.ChannelSlider>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -493,7 +491,6 @@ export function ControlledColorPickerExample() {
           </ColorPicker.ChannelSlider>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -506,7 +503,6 @@ export function DisabledColorPickerExample() {
         <ColorPicker.ChannelInput channel="hex" />
         <ColorPicker.Trigger aria-label="Open color picker" />
       </ColorPicker.Control>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -528,7 +524,6 @@ export function FormUsageColorPickerExample() {
           <ColorPicker.ChannelInput channel="hex" />
           <ColorPicker.Trigger aria-label="Open color picker" />
         </ColorPicker.Control>
-        <ColorPicker.HiddenInput />
       </ColorPicker.Root>
       <button className={styles.submitButton} type="submit">
         Submit
@@ -549,7 +544,6 @@ export function InputOnlyColorPickerExample() {
           <ColorPicker.ValueSwatch />
         </div>
       </ColorPicker.Control>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -570,7 +564,6 @@ export function CompactTriggerColorPickerExample() {
         </ColorPicker.Trigger>
       </ColorPicker.Control>
       <PickerPopup />
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -621,7 +614,6 @@ export function SwatchesColorPickerExample() {
           </ColorPicker.SwatchGroup>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -639,7 +631,6 @@ export function SwatchOnlyColorPickerExample() {
           </ColorPicker.SwatchTrigger>
         ))}
       </ColorPicker.SwatchGroup>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -683,7 +674,6 @@ export function InlineColorPickerExample() {
           <ColorPicker.ChannelInput channel="alpha" />
         </div>
       </ColorPicker.View>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -738,7 +728,6 @@ export function RootProviderColorPickerExample() {
           </ColorPicker.Area>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </ColorPicker.RootProvider>
   );
 }
@@ -777,7 +766,6 @@ export function FormatColorPickerExample() {
           <ColorPicker.ChannelInput channel="lightness" />
         </div>
       </ColorPicker.View>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -791,7 +779,6 @@ export function FieldStateColorPickerExample() {
           <ColorPicker.ChannelInput channel="hex" />
           <ColorPicker.Trigger aria-label="Open color picker" />
         </ColorPicker.Control>
-        <ColorPicker.HiddenInput />
       </ColorPicker.Root>
       <Field.HelperText>Used for generated charts and callouts.</Field.HelperText>
       <Field.ErrorText>Choose an accent color.</Field.ErrorText>
@@ -826,7 +813,6 @@ export function InsideDialogColorPickerExample() {
                   </ColorPicker.Area>
                 </ColorPicker.Content>
               </ColorPicker.Positioner>
-              <ColorPicker.HiddenInput />
             </ColorPicker.Root>
           </div>
         </Dialog.Content>

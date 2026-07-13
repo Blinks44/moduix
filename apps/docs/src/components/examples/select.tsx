@@ -209,7 +209,6 @@ export function SelectExample() {
           <FruitItems />
         </Select.ItemGroup>
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   );
 }
@@ -235,7 +234,6 @@ export function AdvancedCustomizationSelectExample() {
           </Select.ItemGroup>
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }
@@ -260,7 +258,6 @@ export function ControlledSelectExample() {
             </Select.Item>
           ))}
         </SelectPopupContent>
-        <Select.HiddenSelect />
       </Select>
       <p>Current value: {value[0] ?? 'none'}</p>
     </div>
@@ -279,7 +276,6 @@ export function RootProviderSelectExample() {
         <SelectPopupContent>
           <FruitItems />
         </SelectPopupContent>
-        <Select.HiddenSelect />
       </Select.RootProvider>
     </div>
   );
@@ -298,7 +294,6 @@ export function MultipleSelectExample() {
           </Select.Item>
         ))}
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   );
 }
@@ -321,7 +316,6 @@ export function GroupedSelectExample() {
           </Select.ItemGroup>
         ))}
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   );
 }
@@ -340,7 +334,6 @@ export function FieldSelectExample() {
             </Select.Item>
           ))}
         </SelectPopupContent>
-        <Select.HiddenSelect />
       </Select>
       <Field.HelperText>Pick the framework used by this project.</Field.HelperText>
     </Field.Root>
@@ -369,7 +362,35 @@ export function FormSelectExample() {
             </Select.Item>
           ))}
         </SelectPopupContent>
-        <Select.HiddenSelect />
+      </Select>
+      <button type="submit">Submit</button>
+      <output>{submitted}</output>
+    </form>
+  );
+}
+
+export function NativeFormControlSelectExample() {
+  const [submitted, setSubmitted] = useState('Nothing submitted');
+
+  return (
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        setSubmitted(String(data.get('theme') ?? ''));
+      }}
+    >
+      <Select collection={themes} name="theme" nativeFormControl="input" required>
+        <Select.Label>Theme</Select.Label>
+        <SelectControl placeholder="Select theme" />
+        <SelectPopupContent>
+          {themes.items.map((item) => (
+            <Select.Item key={item.value} item={item}>
+              <Select.ItemText>{item.label}</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
+          ))}
+        </SelectPopupContent>
       </Select>
       <button type="submit">Submit</button>
       <output>{submitted}</output>
@@ -385,7 +406,6 @@ export function LazyMountSelectExample() {
       <SelectPopupContent>
         <FruitItems />
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   );
 }
@@ -407,7 +427,6 @@ export function SelectOnHighlightExample() {
       <SelectPopupContent>
         <FruitItems />
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select.RootProvider>
   );
 }
@@ -444,7 +463,6 @@ export function MaxSelectionSelectExample() {
           </Select.Item>
         ))}
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   );
 }
@@ -476,7 +494,6 @@ export function SelectAllExample() {
           </Select.Item>
         ))}
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   );
 }
@@ -492,7 +509,6 @@ export function OverflowSelectExample() {
       <SelectPopupContent>
         <FruitItems />
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   );
 }
@@ -527,7 +543,6 @@ export function DynamicItemsSelectExample() {
             </Select.Item>
           ))}
         </SelectPopupContent>
-        <Select.HiddenSelect />
       </Select>
     </div>
   );
@@ -551,7 +566,6 @@ export function CustomItemSelectExample() {
           </Select.Item>
         ))}
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   );
 }

@@ -14,11 +14,11 @@ selection and grouped multi-select state.
 
 - Use Ark React primitives from `@ark-ui/react/checkbox`.
 - Preserve Ark namespace parts needed for ordinary composition: `Root`, `RootProvider`, `Control`,
-  `Indicator`, `HiddenInput`, `Label`, and `Group`.
+  `Indicator`, `Label`, and `Group`. The native form input is internal to `Root` and `RootProvider`.
 - Preserve Ark callback shapes:
   - `Checkbox.Root` uses `onCheckedChange(details)` and `details.checked`
   - `Checkbox.Group` uses `onValueChange(value)`
-- Preserve Ark `HiddenInput` for form submission, native validation, and form reset.
+- Preserve Ark native input for form submission, native validation, and form reset.
 - Preserve Ark `asChild` behavior. `Checkbox.Root` renders a `label`; an `asChild` replacement must
   also be a direct semantic `label`.
 
@@ -27,8 +27,9 @@ selection and grouped multi-select state.
 - `Checkbox` is `Checkbox.Root` with namespace parts attached.
 - `Checkbox.Root` accepts Ark root props plus the moduix-only `size` prop.
 - `Checkbox.RootProvider` accepts Ark provider props plus the same moduix-only `size` prop.
-- `Checkbox.Control`, `Checkbox.HiddenInput`, `Checkbox.Label`, and `Checkbox.Group` are thin
-  styled Ark part wrappers.
+- `Checkbox.Control`, `Checkbox.Label`, and `Checkbox.Group` are thin styled Ark part wrappers.
+- `Checkbox.Root` and `Checkbox.RootProvider` append Ark's native form input automatically. It is
+  not a public moduix part.
 - `Checkbox.Control` renders the default checked and indeterminate indicators when `children` is
   omitted.
 - `Checkbox.Indicator` renders default moduix icons when `children` is omitted.
@@ -48,7 +49,7 @@ Checkbox.Root
 │  ├─ Checkbox.Indicator
 │  └─ Checkbox.Indicator[indeterminate] (optional)
 ├─ Checkbox.Label
-└─ Checkbox.HiddenInput
+└─ native input (automatic)
 ```
 
 External checkbox state:
@@ -65,7 +66,7 @@ Checkbox.Group
 └─ Checkbox.Root[value]
    ├─ Checkbox.Control
    ├─ Checkbox.Label
-   └─ Checkbox.HiddenInput
+   └─ native input (automatic)
 ```
 
 | Part                    | `data-slot`                             | Notes                                                |
@@ -77,7 +78,6 @@ Checkbox.Group
 | checked icon            | `checkbox-indicator-checked-icon`       | Default check icon wrapper.                          |
 | indeterminate icon      | `checkbox-indicator-indeterminate-icon` | Default indeterminate icon wrapper.                  |
 | `Checkbox.Label`        | `checkbox-label`                        | Styled Ark label.                                    |
-| `Checkbox.HiddenInput`  | `checkbox-hidden-input`                 | Ark hidden input for forms.                          |
 | `Checkbox.Group`        | `checkbox-group`                        | Styled Ark group root for shared value state.        |
 
 ## Composition
@@ -92,7 +92,6 @@ export function CheckboxDemo() {
     <Checkbox.Root defaultChecked>
       <Checkbox.Control />
       <Checkbox.Label>Enable notifications</Checkbox.Label>
-      <Checkbox.HiddenInput />
     </Checkbox.Root>
   );
 }
@@ -116,7 +115,6 @@ export function CheckboxGroupDemo() {
         <Checkbox.Root key={option.value} value={option.value}>
           <Checkbox.Control />
           <Checkbox.Label>{option.label}</Checkbox.Label>
-          <Checkbox.HiddenInput />
         </Checkbox.Root>
       ))}
     </Checkbox.Group>
@@ -136,7 +134,6 @@ export function CheckboxProviderDemo() {
     <Checkbox.RootProvider value={checkbox}>
       <Checkbox.Control />
       <Checkbox.Label>Managed outside the tree</Checkbox.Label>
-      <Checkbox.HiddenInput />
     </Checkbox.RootProvider>
   );
 }
@@ -144,16 +141,15 @@ export function CheckboxProviderDemo() {
 
 ## Upstream feature coverage
 
-- Basic/default checked: supported through Ark `Root`, `Control`, `Indicator`, `Label`, and
-  `HiddenInput`.
+- Basic/default checked: supported through Ark `Root`, `Control`, `Indicator`, and `Label`.
 - Controlled standalone state: supported with `checked` and `onCheckedChange(details)`.
 - Root provider: supported with Ark `useCheckbox` and `Checkbox.RootProvider`.
 - Disabled/read-only/invalid/required state: passed through to Ark and styled through Ark data
   attributes.
 - Indeterminate state: supported with `checked="indeterminate"` and the default `Checkbox.Control`
   sugar. Render `Checkbox.Indicator indeterminate` explicitly only for custom icon composition.
-- Field/form integration: supported with `HiddenInput`; examples use moduix `Field`/`Fieldset`
-  wrappers until those wrappers migrate from legacy.
+- Field/form integration: pass `name`, `form`, and validation props to `Root` or `RootProvider`;
+  the native form input is rendered automatically.
 - Group state: supported with `Checkbox.Group`, controlled `value`, `onValueChange(value)`,
   `maxSelectedValues`, invalid state, native form submission, and `Fieldset` composition.
 - Select-all composition: regular controlled composition; no custom local select-all prop remains.
@@ -165,8 +161,8 @@ export function CheckboxProviderDemo() {
   submission, and state data attributes.
 - Forwarded refs target the underlying Ark DOM part for every wrapped part.
 - `Checkbox.Root` and `Checkbox.RootProvider` render a `label` by default.
-- `Checkbox.HiddenInput` renders the input that participates in native forms. Keep it in examples
-  and production usage when form behavior matters.
+- `Checkbox.Root` and `Checkbox.RootProvider` always render the native form input. `name` and
+  related root props opt it into native form participation.
 - `Checkbox.RootProvider` pairs with moduix `useCheckbox()` for external state ownership.
 - `Checkbox.Group` also pairs with moduix `useCheckboxGroup()` when group state needs to live
   outside the rendered subtree.
@@ -216,6 +212,8 @@ export function CheckboxProviderDemo() {
 
 ## Local changelog
 
+- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
+
 - 2026-07-09: Re-exported `useCheckbox()` and `useCheckboxGroup()` from the moduix checkbox barrel
   so documented provider flows stay on `@moduix/react`; reordered public docs examples for easier
   scanning.
@@ -234,4 +232,4 @@ export function CheckboxProviderDemo() {
   group, group provider, max-selected, select-all, invalid, and fieldset patterns.
 - 2026-06-18: Migrated `Checkbox` to Ark UI, adopted the Ark namespace API
   (`Checkbox.Root`, `Checkbox.Control`, `Checkbox.Indicator`, `Checkbox.Label`,
-  `Checkbox.HiddenInput`, `Checkbox.Group`), and removed the standalone `CheckboxGroup` component.
+  the native form input, `Checkbox.Group`), and removed the standalone `CheckboxGroup` component.

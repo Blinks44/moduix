@@ -125,7 +125,6 @@ export const WithCheckbox: Story = {
     return (
       <Field required>
         <Checkbox.Root>
-          <Checkbox.HiddenInput />
           <Checkbox.Control>
             <Checkbox.Indicator />
           </Checkbox.Control>
@@ -145,12 +144,10 @@ export const WithRadioGroup: Story = {
         <Field.Label>Account type</Field.Label>
         <RadioGroup defaultValue="team" aria-label="Account type">
           <RadioGroup.Item value="personal">
-            <RadioGroup.ItemHiddenInput />
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>Personal account</RadioGroup.ItemText>
           </RadioGroup.Item>
           <RadioGroup.Item value="team">
-            <RadioGroup.ItemHiddenInput />
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>Team account</RadioGroup.ItemText>
           </RadioGroup.Item>

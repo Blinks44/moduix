@@ -12,7 +12,6 @@ export function MaskedPinInput() {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }

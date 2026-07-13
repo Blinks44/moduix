@@ -16,7 +16,6 @@ export function FieldStateColorPickerDemo() {
           <ColorPicker.ChannelInput channel="hex" />
           <ColorPicker.Trigger aria-label="Open color picker" />
         </ColorPicker.Control>
-        <ColorPicker.HiddenInput />
       </ColorPicker>
       <Field.HelperText>Used for generated charts and callouts.</Field.HelperText>
       <Field.ErrorText>Choose an accent color.</Field.ErrorText>

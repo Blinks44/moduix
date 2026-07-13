@@ -11,7 +11,6 @@ export function RootProviderCheckboxDemo() {
       <Checkbox.RootProvider value={checkbox}>
         <Checkbox.Control />
         <Checkbox.Label>Managed outside the tree</Checkbox.Label>
-        <Checkbox.HiddenInput />
       </Checkbox.RootProvider>
       <button type="button" onClick={() => checkbox.setChecked(!checkbox.checked)}>
         {checkbox.checked ? 'Uncheck' : 'Check'}

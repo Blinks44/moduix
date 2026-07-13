@@ -73,14 +73,12 @@ export const WithCheckbox: Story = {
           <Checkbox.Indicator />
         </Checkbox.Control>
         <Checkbox.Label>Product updates</Checkbox.Label>
-        <Checkbox.HiddenInput />
       </Checkbox.Root>
       <Checkbox.Root>
         <Checkbox.Control>
           <Checkbox.Indicator />
         </Checkbox.Control>
         <Checkbox.Label>Marketing emails</Checkbox.Label>
-        <Checkbox.HiddenInput />
       </Checkbox.Root>
     </Fieldset>
   ),
@@ -95,7 +93,6 @@ export const WithRadioGroup: Story = {
           <RadioGroup.Item key={value} value={value}>
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>{value.toUpperCase()}</RadioGroup.ItemText>
-            <RadioGroup.ItemHiddenInput />
           </RadioGroup.Item>
         ))}
       </RadioGroup>

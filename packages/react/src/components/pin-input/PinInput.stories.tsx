@@ -29,7 +29,6 @@ export const Basic: Story = {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   ),
 };
@@ -52,7 +51,6 @@ export const Alphanumeric: Story = {
           <PinInput.Control>
             <PinInput.Inputs />
           </PinInput.Control>
-          <PinInput.HiddenInput />
         </PinInput>
         <p className={storyStyles.hint}>Current value: {value.join('') || 'empty'}</p>
       </div>
@@ -73,7 +71,6 @@ export const GroupedLayout: Story = {
           <PinInput.Input key={index} index={index} />
         ))}
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   ),
 };
@@ -85,7 +82,6 @@ export const Placeholder: Story = {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   ),
 };
@@ -97,7 +93,6 @@ export const Masked: Story = {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   ),
 };
@@ -109,7 +104,6 @@ export const OtpMode: Story = {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   ),
 };
@@ -121,7 +115,6 @@ export const BlurOnComplete: Story = {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   ),
 };
@@ -134,7 +127,6 @@ export const WithFieldValidation: Story = {
         <PinInput.Control>
           <PinInput.Inputs />
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput>
       <Field.ErrorText>Please enter the verification code.</Field.ErrorText>
     </Field>
@@ -158,7 +150,6 @@ export const InvalidValue: Story = {
           <PinInput.Control>
             <PinInput.Inputs />
           </PinInput.Control>
-          <PinInput.HiddenInput />
         </PinInput>
         <p className={storyStyles.hint}>Last rejected character: {invalidValue || 'none'}</p>
       </div>
@@ -178,7 +169,6 @@ export const RootProvider: Story = {
           <PinInput.Control>
             <PinInput.Inputs />
           </PinInput.Control>
-          <PinInput.HiddenInput />
         </PinInput.RootProvider>
         <button type="button" onClick={pinInput.clearValue}>
           Clear value
@@ -201,7 +191,6 @@ export const CustomStyling: Story = {
           <PinInput.Input key={index} index={index} className={storyStyles.customInput} />
         ))}
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   ),
 };

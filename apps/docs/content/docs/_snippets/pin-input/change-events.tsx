@@ -20,7 +20,6 @@ export function ChangeEventsPinInput() {
         <PinInput.Control>
           <PinInput.Inputs />
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput>
       <span className="hint">Current value: {value.join('') || 'empty'}</span>
     </div>

@@ -29,7 +29,6 @@ export function AdvancedCustomizationColorPickerDemo() {
           </ColorPicker.ChannelSlider>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </ColorPicker>
   );
 }

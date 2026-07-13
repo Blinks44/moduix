@@ -1,11 +1,11 @@
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   Checkbox as CheckboxPrimitive,
   useCheckbox,
   useCheckboxGroup,
 } from '@ark-ui/react/checkbox';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Checkbox.module.css';
@@ -17,15 +17,18 @@ type RootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootProvider> &
 };
 
 const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, RootProps>(
-  function CheckboxRoot({ className, size = 'md', ...props }, ref) {
+  function CheckboxRoot({ asChild, children, className, size = 'md', ...props }, ref) {
     return (
       <CheckboxPrimitive.Root
         ref={ref}
+        asChild={asChild}
         data-slot="checkbox-root"
         data-size={size}
         className={clsx(styles.root, normalizeClassName(className))}
         {...props}
-      />
+      >
+        {withHiddenInput(children, asChild)}
+      </CheckboxPrimitive.Root>
     );
   },
 );
@@ -33,15 +36,18 @@ const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Roo
 const CheckboxRootProvider = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.RootProvider>,
   RootProviderProps
->(function CheckboxRootProvider({ className, size = 'md', ...props }, ref) {
+>(function CheckboxRootProvider({ asChild, children, className, size = 'md', ...props }, ref) {
   return (
     <CheckboxPrimitive.RootProvider
       ref={ref}
+      asChild={asChild}
       data-slot="checkbox-root-provider"
       data-size={size}
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </CheckboxPrimitive.RootProvider>
   );
 });
 
@@ -91,12 +97,22 @@ const CheckboxControl = forwardRef<
   );
 });
 
-const CheckboxHiddenInput = forwardRef<
-  ComponentRef<typeof CheckboxPrimitive.HiddenInput>,
-  ComponentProps<typeof CheckboxPrimitive.HiddenInput>
->(function CheckboxHiddenInput(props, ref) {
-  return <CheckboxPrimitive.HiddenInput ref={ref} data-slot="checkbox-hidden-input" {...props} />;
-});
+function withHiddenInput(children: ReactNode, asChild?: boolean) {
+  const hiddenInput = <CheckboxPrimitive.HiddenInput data-slot="checkbox-hidden-input" />;
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {hiddenInput}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, hiddenInput);
+}
 
 const CheckboxLabel = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.Label>,
@@ -131,7 +147,6 @@ const Checkbox = Object.assign(CheckboxRoot, {
   RootProvider: CheckboxRootProvider,
   Control: CheckboxControl,
   Indicator: CheckboxIndicator,
-  HiddenInput: CheckboxHiddenInput,
   Label: CheckboxLabel,
   Group: CheckboxGroup,
 });

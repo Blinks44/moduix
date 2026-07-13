@@ -234,7 +234,6 @@ export function FieldSelectExample() {
             ))}
           </Select.Content>
         </Select.Positioner>
-        <Select.HiddenSelect />
       </Select>
       <Field.HelperText>Used for triage queues.</Field.HelperText>
     </Field>
@@ -245,7 +244,6 @@ export function FieldCheckboxExample() {
   return (
     <Field required className={styles.field}>
       <Checkbox.Root>
-        <Checkbox.HiddenInput />
         <Checkbox.Control />
         <Checkbox.Label>Accept support access</Checkbox.Label>
       </Checkbox.Root>
@@ -261,12 +259,10 @@ export function FieldRadioGroupExample() {
       <Field.Label>Account type</Field.Label>
       <RadioGroup defaultValue="team" aria-label="Account type">
         <RadioGroup.Item value="personal">
-          <RadioGroup.ItemHiddenInput />
           <RadioGroup.ItemControl />
           <RadioGroup.ItemText>Personal account</RadioGroup.ItemText>
         </RadioGroup.Item>
         <RadioGroup.Item value="team">
-          <RadioGroup.ItemHiddenInput />
           <RadioGroup.ItemControl />
           <RadioGroup.ItemText>Team account</RadioGroup.ItemText>
         </RadioGroup.Item>

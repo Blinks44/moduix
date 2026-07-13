@@ -210,7 +210,6 @@ export function TagsInputExample() {
         <TagsInput.Input placeholder="Add framework" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }
@@ -231,7 +230,6 @@ export function TagsInputControlledExample() {
           <TagsInput.Input placeholder="Add skill" />
           <TagsInput.ClearTrigger aria-label="Clear skills" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
       <span className={styles.hint}>Current value: {value.join(', ') || 'empty'}</span>
     </div>
@@ -266,7 +264,6 @@ export function TagsInputControlledInputExample() {
           <TagsInput.Input placeholder="Add framework" />
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
       <span className={styles.hint}>Input value: {inputValue || 'empty'}</span>
     </div>
@@ -282,7 +279,6 @@ export function TagsInputDelimiterPasteExample() {
         <TagsInput.Input placeholder="Comma, semicolon, or space" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }
@@ -309,7 +305,6 @@ export function TagsInputValidationExample() {
           <TagsInput.Input placeholder="Add unique label" />
           <TagsInput.ClearTrigger aria-label="Clear labels" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
       <span className={styles.hint}>Last invalid reason: {invalidReason}</span>
     </div>
@@ -325,7 +320,6 @@ export function TagsInputAllowDuplicatesExample() {
         <TagsInput.Input placeholder="Add framework" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }
@@ -339,7 +333,6 @@ export function TagsInputMaxOverflowExample() {
         <TagsInput.Input placeholder="Add framework" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }
@@ -357,7 +350,6 @@ export function TagsInputSanitizeBlurExample() {
         <TagsInput.Input placeholder="Blur to add" />
         <TagsInput.ClearTrigger aria-label="Clear topics" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }
@@ -398,7 +390,6 @@ export function TagsInputComboboxExample() {
           </Combobox.Input>
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput.RootProvider>
       <Combobox.Positioner>
         <Combobox.Content className={styles.comboboxContent}>
@@ -424,7 +415,6 @@ export function TagsInputFieldExample() {
           <TagsInput.Input placeholder="Add topic" />
           <TagsInput.ClearTrigger aria-label="Clear topics" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
       <Field.HelperText>Add at least one topic.</Field.HelperText>
       <Field.ErrorText>Topics are required.</Field.ErrorText>
@@ -449,7 +439,6 @@ export function TagsInputFormExample() {
           <TagsInput.Input placeholder="Add framework" />
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
       <button type="submit">Submit</button>
       <output className={styles.hint}>Submitted value: {submittedValue || 'none'}</output>
@@ -466,7 +455,6 @@ export function TagsInputStateExample() {
           <TagsInput.Items />
           <TagsInput.Input placeholder="Unavailable" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
       <TagsInput readOnly defaultValue={['read-only']}>
         <TagsInput.Label>Read-only</TagsInput.Label>
@@ -475,7 +463,6 @@ export function TagsInputStateExample() {
           <TagsInput.Input placeholder="Read-only" />
           <TagsInput.ClearTrigger aria-label="Clear read-only tags" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
     </div>
   );
@@ -490,7 +477,6 @@ export function TagsInputDisableEditingExample() {
         <TagsInput.Input placeholder="Add framework" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }
@@ -519,7 +505,6 @@ export function TagsInputRootProviderExample() {
           <TagsInput.Input placeholder="Add framework" />
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput.RootProvider>
     </div>
   );

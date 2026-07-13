@@ -12,7 +12,6 @@ export function PlaceholderPinInput() {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }

@@ -19,7 +19,6 @@ export function FileUploadDropzoneDemo() {
       <FileUpload.ItemGroup>
         <FileUpload.Items />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }

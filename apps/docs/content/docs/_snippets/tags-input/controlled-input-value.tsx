@@ -25,7 +25,6 @@ export function ControlledInputValueTagsInput() {
           <TagsInput.Input placeholder="Add framework" />
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
     </>
   );

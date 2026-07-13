@@ -1,12 +1,5 @@
 import type { ComponentProps } from 'react';
-import {
-  Button,
-  Field,
-  RotateCcwIcon,
-  SignaturePad,
-  useSignaturePad,
-  useSignaturePadContext,
-} from '@moduix/react';
+import { Button, Field, RotateCcwIcon, SignaturePad, useSignaturePad } from '@moduix/react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
@@ -269,12 +262,6 @@ export function DrawingSignaturePadExample() {
   return <SignaturePadParts drawing={{ fill: '#2563eb', size: 4, simulatePressure: false }} />;
 }
 
-function SignaturePadHiddenValue() {
-  const signaturePad = useSignaturePadContext();
-
-  return <SignaturePad.HiddenInput value={signaturePad.paths.join(' ')} />;
-}
-
 export function FieldSignaturePadExample() {
   return (
     <Field className={styles.field} invalid required>
@@ -287,11 +274,39 @@ export function FieldSignaturePadExample() {
       >
         <SignaturePad.Label>Sign below</SignaturePad.Label>
         <SignaturePad.Canvas />
-        <SignaturePadHiddenValue />
       </SignaturePad>
       <Field.HelperText>Use pointer or touch input to add a signature.</Field.HelperText>
       <Field.ErrorText>Signature is required.</Field.ErrorText>
     </Field>
+  );
+}
+
+export function FormSerializationSignaturePadExample() {
+  const [submitted, setSubmitted] = useState('Nothing submitted');
+
+  return (
+    <form
+      className={styles.stack}
+      onSubmit={(event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        setSubmitted(String(data.get('signature') ?? ''));
+      }}
+    >
+      <SignaturePad
+        name="signature"
+        getFormValue={(paths) => JSON.stringify(paths)}
+        translations={{
+          control: 'Signature drawing area',
+          clearTrigger: 'Clear signature',
+        }}
+      >
+        <SignaturePad.Label>Sign below</SignaturePad.Label>
+        <SignaturePad.Canvas />
+      </SignaturePad>
+      <button type="submit">Submit</button>
+      <output className={styles.status}>{submitted}</output>
+    </form>
   );
 }
 

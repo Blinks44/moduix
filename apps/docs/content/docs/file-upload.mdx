@@ -12,8 +12,8 @@ import * as FileUploadDocs from '@/components/examples/file-upload';
 
 ## Basic
 
-Use `FileUpload` as the root, render a `Label`, add either a `Trigger` or `Dropzone`, list accepted files with
-`Items`, and keep `HiddenInput` in the tree for native form behavior.
+Use `FileUpload` as the root, render a `Label`, add either a `Trigger` or `Dropzone`, and list
+accepted files with `Items`. The root renders its native form input automatically.
 
 <Preview>
   <FileUploadDocs.FileUploadExample />
@@ -47,7 +47,7 @@ FileUpload / FileUpload.Root
 │        ├─ FileUpload.ItemSizeText
 │        └─ FileUpload.ItemDeleteTrigger
 ├─ FileUpload.ClearTrigger
-└─ FileUpload.HiddenInput
+└─ native input (automatic)
 ```
 
 | Part                             | Role                                                                   |
@@ -58,7 +58,6 @@ FileUpload / FileUpload.Root
 | `FileUpload.Dropzone`            | Drag/drop target. Use `disableClick` with a nested trigger.            |
 | `FileUpload.DropzoneIcon`        | Decorative upload icon helper for dropzone surfaces.                   |
 | `FileUpload.Trigger`             | Button that opens the native file picker.                              |
-| `FileUpload.HiddenInput`         | Native file input for forms, validation, reset, and submission.        |
 | `FileUpload.ItemGroup`           | List wrapper for accepted or rejected file items.                      |
 | `FileUpload.Items`               | Compact accepted-file rows with a name and delete control.             |
 | `FileUpload.Context`             | Ark-compatible render-prop context for custom file rows.               |
@@ -78,7 +77,7 @@ Keep the Ark part tree visible. Use `Trigger` for compact upload controls and `D
 drag-and-drop surfaces. If `Trigger` is nested inside `Dropzone`, pass `disableClick` to `Dropzone`
 so the native file picker is not opened twice.
 
-Render `HiddenInput` whenever the upload participates in a form. Use `Items` for compact accepted-file rows. Read
+The root renders the native form input whenever the upload participates in a form. Use `Items` for compact accepted-file rows. Read
 accepted files from `FileUpload.Context.acceptedFiles` and rejected files from `FileUpload.Context.rejectedFiles`
 when custom rows are needed.
 
@@ -226,7 +225,8 @@ Wrap the upload in `Field.Root` when helper text, error text, required state, or
 
 ### Form Usage
 
-Pass `name` to the root and render `HiddenInput` so native form submission and reset can include the file input.
+Pass `name` to the root. It renders the native form input automatically, so native form submission
+and reset include the file input.
 
 <Preview>
   <FileUploadDocs.FileUploadFormExample />

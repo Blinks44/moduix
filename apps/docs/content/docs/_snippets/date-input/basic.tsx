@@ -11,7 +11,6 @@ export function DateInputDemo() {
       <DateInput.Control>
         <DateInput.Segments />
       </DateInput.Control>
-      <DateInput.HiddenInput />
     </DateInput>
   );
 }

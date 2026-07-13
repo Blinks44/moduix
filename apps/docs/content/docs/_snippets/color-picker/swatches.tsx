@@ -21,7 +21,6 @@ export function SwatchesColorPickerDemo() {
           </ColorPicker.SwatchGroup>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </ColorPicker>
   );
 }

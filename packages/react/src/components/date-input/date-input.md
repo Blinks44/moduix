@@ -19,7 +19,7 @@ helper for the common path, but `DateInput.SegmentGroup` and `DateInput.Segment`
 available for custom segment rendering.
 
 Ark owns keyboard editing, segment focus, parsing, min/max validation, unavailable-date validation,
-locale formatting, `HiddenInput` synchronization, and form reset behavior. Do not translate dates to
+locale formatting, internal native-input synchronization, and form reset behavior. Do not translate dates to
 strings or local callback shapes in the wrapper.
 
 ## Current behavior contract
@@ -31,7 +31,8 @@ strings or local callback shapes in the wrapper.
   inside a `DateInput.Control`.
 - `DateInput.SegmentContext` remains the advanced customization path
   for custom segment rendering inside a `DateInput.SegmentGroup`.
-- `DateInput.HiddenInput` is explicit so consumers choose form names for single or range inputs.
+- `Root` and `RootProvider` render one native input per date automatically. Pass `name` for a
+  shared field name, or `names` for separate range-field names.
 - `DateInput.Separator` is moduix sugar for non-interactive text between segment groups.
 - No local calendar popup, string parser, automatic segment renderer, or date-picker bundle is added.
 
@@ -43,7 +44,7 @@ DateInput.Root
 ├─ DateInput.Control
 │  ├─ DateInput.Segments
 │  └─ DateInput.Separator (optional, range layouts)
-└─ DateInput.HiddenInput
+└─ native input(s) (automatic)
 
 Advanced customization:
 
@@ -55,19 +56,18 @@ DateInput.RootProvider
 └─ same part tree connected to a useDateInput() store
 ```
 
-| Exported part                  | `data-slot`                | Notes                                              |
-| ------------------------------ | -------------------------- | -------------------------------------------------- |
-| `DateInput` / `DateInput.Root` | `date-input-root`          | Root state, locale, validation, and form context.  |
-| `DateInput.RootProvider`       | `date-input-root-provider` | Connects to a store created by `useDateInput()`.   |
-| `DateInput.Label`              | `date-input-label`         | Accessible label.                                  |
-| `DateInput.Control`            | `date-input-control`       | Visual input frame and focus ring.                 |
-| `DateInput.SegmentGroup`       | `date-input-segment-group` | Groups segments for one date index.                |
-| `DateInput.Segment`            | `date-input-segment`       | Editable or literal date segment from Ark.         |
-| `DateInput.Segments`           | `date-input-segment-group` | Convenience renderer for one locale-aware group.   |
-| `DateInput.HiddenInput`        | `date-input-hidden-input`  | Native hidden input for form submission and reset. |
-| `DateInput.Separator`          | `date-input-separator`     | Presentational text between segment groups.        |
-| `DateInput.Context`            | renderless                 | Reads root state with a render function.           |
-| `DateInput.SegmentContext`     | renderless                 | Iterates locale-aware segments.                    |
+| Exported part                  | `data-slot`                | Notes                                             |
+| ------------------------------ | -------------------------- | ------------------------------------------------- |
+| `DateInput` / `DateInput.Root` | `date-input-root`          | Root state, locale, validation, and form context. |
+| `DateInput.RootProvider`       | `date-input-root-provider` | Connects to a store created by `useDateInput()`.  |
+| `DateInput.Label`              | `date-input-label`         | Accessible label.                                 |
+| `DateInput.Control`            | `date-input-control`       | Visual input frame and focus ring.                |
+| `DateInput.SegmentGroup`       | `date-input-segment-group` | Groups segments for one date index.               |
+| `DateInput.Segment`            | `date-input-segment`       | Editable or literal date segment from Ark.        |
+| `DateInput.Segments`           | `date-input-segment-group` | Convenience renderer for one locale-aware group.  |
+| `DateInput.Separator`          | `date-input-separator`     | Presentational text between segment groups.       |
+| `DateInput.Context`            | renderless                 | Reads root state with a render function.          |
+| `DateInput.SegmentContext`     | renderless                 | Iterates locale-aware segments.                   |
 
 Exported values: `DateInput`, `useDateInput`, and `useDateInputContext`. Exported type:
 `DateInputDateValue`.
@@ -85,14 +85,13 @@ export function ReleaseDateInput() {
       <DateInput.Control>
         <DateInput.Segments />
       </DateInput.Control>
-      <DateInput.HiddenInput />
     </DateInput>
   );
 }
 ```
 
-For ranges, set `selectionMode="range"` and render indexed `DateInput.Segments` /
-`DateInput.HiddenInput` pairs. Use `DateInput.RootProvider` only with Ark state created through
+For ranges, set `selectionMode="range"`, render indexed `DateInput.Segments`, and pass
+`names={['check-in', 'check-out']}` only when the submitted values need different field names. Use `DateInput.RootProvider` only with Ark state created through
 moduix `useDateInput()`; do not also render `DateInput.Root` for the same state instance.
 
 Use `DateInput.SegmentGroup`, `DateInput.SegmentContext`, and `DateInput.Segment` directly when
@@ -100,8 +99,8 @@ segment classes or rendering need to vary per segment.
 
 ## Upstream feature coverage
 
-- Basic segmented date input: supported through `Label`, `Control`, `SegmentGroup`, `Segment`, and
-  `HiddenInput`. Render the standard locale-aware group with `DateInput.Segments`, or render custom
+- Basic segmented date input: supported through `Label`, `Control`, `SegmentGroup`, and `Segment`.
+  Render the standard locale-aware group with `DateInput.Segments`, or render custom
   segments with `DateInput.SegmentContext`.
 - Controlled and uncontrolled state: supported with `value`, `defaultValue`, and
   `onValueChange(details)`.
@@ -112,7 +111,7 @@ segment classes or rendering need to vary per segment.
 - Locale and formatting: supported with `locale`, `timeZone`, `hourCycle`, `granularity`,
   `formatter`, `format`, `translations`, and `createCalendar`.
 - Validation: supported with `min`, `max`, `isDateUnavailable`, and `invalid`.
-- Forms: supported by explicit `DateInput.HiddenInput`, `name`, `form`, and `required`.
+- Forms: supported by automatic native inputs plus `name`, `names`, `form`, and `required`.
 - Provider/state hooks: use moduix `useDateInput()` with `DateInput.RootProvider`, and read in-tree
   state through `DateInput.Context` or moduix `useDateInputContext()`.
 - `asChild` and `ids`: preserved on Ark parts and root props.
@@ -125,9 +124,9 @@ text, and label association. `Field` can provide surrounding helper and error te
 `required`, `disabled`, or `invalid` to `DateInput` when those state attributes must be present on
 the date input itself.
 
-`DateInput.HiddenInput` keeps native form submission and form reset synchronized with the Ark state.
-For range inputs, render indexed hidden inputs and pass names explicitly when the submitted start/end
-fields need separate keys.
+The automatic native inputs keep native form submission and form reset synchronized with Ark state.
+For range inputs, pass `names` only when submitted start/end fields need separate keys; one `name`
+submits both values under the same key.
 
 Ark emits `data-scope="date-input"` and `data-part` attributes for `root`, `label`, `control`,
 `segment-group`, `segment`, and `hidden-input`. State attributes include `data-disabled`,
@@ -177,10 +176,14 @@ segment shortcuts, or local event aliases.
   the point of the example.
 - Keep callback details untouched: `onValueChange(details)` reports `details.value` and
   `details.valueAsString`.
-- Do not hide `HiddenInput`; form behavior depends on explicit names, especially for ranges.
+- Keep form field names semantic: use `name` for one shared field name and `names` only when range
+  values require distinct field names.
 - Keep `@internationalized/date` examples in docs because Ark values are `DateValue` objects.
 
 ## Local changelog
+
+- 2026-07-13: Rendered native date inputs automatically and added `names` for range fields that
+  require distinct form keys.
 
 - 2026-07-12: Exported `DateInput.Context`, `DateInput.SegmentContext`, `useDateInput`,
   `useDateInputContext`, and `DateInputDateValue` through the moduix implementation and normal-path

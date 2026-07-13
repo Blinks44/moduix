@@ -40,23 +40,22 @@ SignaturePad / SignaturePad.Root
 │     ├─ SignaturePad.Segment
 │     ├─ SignaturePad.ClearTrigger
 │     └─ SignaturePad.Guide
-└─ SignaturePad.HiddenInput
+└─ native input (automatic)
 
 SignaturePad.RootProvider
 └─ same part tree connected to useSignaturePad()
 ```
 
-| Part                                 | Role                                                           |
-| ------------------------------------ | -------------------------------------------------------------- |
-| `SignaturePad` / `SignaturePad.Root` | Owns paths, drawing options, form name, ids, and callbacks.    |
-| `SignaturePad.RootProvider`          | Renders a tree from state returned by `useSignaturePad()`.     |
-| `SignaturePad.Label`                 | Labels the drawing area and hidden input.                      |
-| `SignaturePad.Canvas`                | Standard drawing surface composed from the four Ark parts.     |
-| `SignaturePad.Control`               | Focusable pointer/touch drawing region.                        |
-| `SignaturePad.Segment`               | SVG layer for saved paths and the current in-progress path.    |
-| `SignaturePad.ClearTrigger`          | Native button that clears paths; Ark hides it while empty.     |
-| `SignaturePad.Guide`                 | Non-interactive baseline inside the control.                   |
-| `SignaturePad.HiddenInput`           | Native form input when the current paths need form submission. |
+| Part                                 | Role                                                        |
+| ------------------------------------ | ----------------------------------------------------------- |
+| `SignaturePad` / `SignaturePad.Root` | Owns paths, drawing options, form name, ids, and callbacks. |
+| `SignaturePad.RootProvider`          | Renders a tree from state returned by `useSignaturePad()`.  |
+| `SignaturePad.Label`                 | Labels the drawing area and native input.                   |
+| `SignaturePad.Canvas`                | Standard drawing surface composed from the four Ark parts.  |
+| `SignaturePad.Control`               | Focusable pointer/touch drawing region.                     |
+| `SignaturePad.Segment`               | SVG layer for saved paths and the current in-progress path. |
+| `SignaturePad.ClearTrigger`          | Native button that clears paths; Ark hides it while empty.  |
+| `SignaturePad.Guide`                 | Non-interactive baseline inside the control.                |
 
 ## Composition
 
@@ -72,10 +71,9 @@ Use explicit `Control`, `Segment`, `ClearTrigger`, and `Guide` when their struct
 restore, clear, autosave, or validate the signature outside the Ark tree. Use `RootProvider` when
 controls outside the component need direct access to `paths`, `clear()`, or `getDataUrl()`.
 
-Use `HiddenInput` when the signature should participate in native form submission. Keep it inside
-the same `SignaturePad` tree and read current paths with `useSignaturePadContext()` from
-`@moduix/react` when the hidden value comes from live Ark state. `name` gives that hidden input its
-field name; it does not create a native value by itself.
+Pass `name` when the signature should participate in native form submission. The root serializes
+the current paths and renders the native input automatically. Pass `getFormValue(paths)` when the
+form needs a custom serialization.
 
 Use `drawing` for stroke-level customization. `drawing.size` changes stroke width,
 `drawing.simulatePressure` controls pressure simulation, and `drawing.fill` sets the stroke color.
@@ -88,10 +86,11 @@ Use a concrete color string for `drawing.fill`; Zag does not accept CSS variable
 | `defaultPaths` | -                                     | Initial uncontrolled SVG path array.                            |
 | `paths`        | -                                     | Controlled SVG path array. Pair with `onDraw(details)`.         |
 | `drawing`      | `{ size: 2, simulatePressure: true }` | Zag stroke options; `fill` must be a concrete CSS color string. |
-| `name`         | -                                     | Native form field name for `HiddenInput`.                       |
+| `name`         | -                                     | Native form field name.                                         |
+| `getFormValue` | `paths.join(' ')`                     | Custom serialization for the native form value.                 |
 | `disabled`     | -                                     | Disables drawing and clear trigger interaction.                 |
 | `readOnly`     | -                                     | Prevents drawing while preserving display.                      |
-| `required`     | -                                     | Marks label and hidden input as required.                       |
+| `required`     | -                                     | Marks the label and native input as required.                   |
 | `ids`          | -                                     | Stable ids for root, control, hidden input, and label.          |
 | `translations` | Ark defaults                          | Accessible labels for the control and clear trigger.            |
 
@@ -105,8 +104,8 @@ Use `defaultPaths` for an initial uncontrolled signature. Use `paths` with `onDr
 the signature must stay in application state. `onDrawEnd(details)` fires after a stroke ends or the
 signature is cleared and exposes `details.getDataUrl(type, quality?)`.
 
-Set `name` on the root and render `HiddenInput` from a child that calls
-`useSignaturePadContext()` from `@moduix/react` when native form submission is needed. Wrap with
+Set `name` on the root when native form submission is needed; it renders the native input
+automatically. Pass `getFormValue(paths)` when the form needs a custom serialization. Wrap with
 `Field.Root` when helper text, error text, required state, or disabled state
 should be shared with surrounding form UI. `Field` invalid state controls field messaging and
 descriptions; it does not add `data-invalid` to the signature pad parts.
@@ -164,6 +163,22 @@ messaging belongs to the same form control.
 
   <Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>
   
+</Preview>
+
+### Form Serialization
+
+Use `getFormValue` when the server should receive another representation of the drawn paths. This
+example sends a JSON array instead of the default space-separated SVG path string.
+
+<Preview>
+  <SignaturePadDocs.FormSerializationSignaturePadExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/signature-pad/form-serialization.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{SignaturePadDocs.signaturePadExampleCss}</Preview.CSS>
+
 </Preview>
 
 ### Image Preview
@@ -241,7 +256,6 @@ attributes:
 | `SignaturePad.Segment`               | `signature-pad-segment`       |
 | `SignaturePad.Guide`                 | `signature-pad-guide`         |
 | `SignaturePad.ClearTrigger`          | `signature-pad-clear-trigger` |
-| `SignaturePad.HiddenInput`           | `signature-pad-hidden-input`  |
 
 Ark attributes remain available for targeted styles. `Root`, `Label`, `Control`, `Segment`,
 `Guide`, `ClearTrigger`, and the internal segment paths expose `data-scope="signature-pad"` and

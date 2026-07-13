@@ -14,7 +14,6 @@ export function InputOnlyColorPickerDemo() {
           <ColorPicker.ValueSwatch />
         </div>
       </ColorPicker.Control>
-      <ColorPicker.HiddenInput />
     </ColorPicker>
   );
 }

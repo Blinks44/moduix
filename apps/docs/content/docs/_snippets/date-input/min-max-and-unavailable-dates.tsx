@@ -19,7 +19,6 @@ export function MinMaxDateInputDemo() {
       <DateInput.Control>
         <DateInput.Segments />
       </DateInput.Control>
-      <DateInput.HiddenInput />
     </DateInput>
   );
 }

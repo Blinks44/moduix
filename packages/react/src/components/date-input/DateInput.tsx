@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   DateInput as DateInputPrimitive,
   type DateInputDateValue,
@@ -6,35 +6,41 @@ import {
   useDateInputContext,
 } from '@ark-ui/react/date-input';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './DateInput.module.css';
 
 const DateInputRoot = forwardRef<
   ComponentRef<typeof DateInputPrimitive.Root>,
-  ComponentProps<typeof DateInputPrimitive.Root>
->(function DateInputRoot({ className, ...props }, ref) {
+  ComponentProps<typeof DateInputPrimitive.Root> & DateInputFormProps
+>(function DateInputRoot({ asChild, children, className, names, ...props }, ref) {
   return (
     <DateInputPrimitive.Root
       ref={ref}
       data-slot="date-input-root"
       className={clsx(styles.root, normalizeClassName(className))}
+      asChild={asChild}
       {...props}
-    />
+    >
+      {withHiddenInputs(children, asChild, names)}
+    </DateInputPrimitive.Root>
   );
 });
 
 const DateInputRootProvider = forwardRef<
   ComponentRef<typeof DateInputPrimitive.RootProvider>,
-  ComponentProps<typeof DateInputPrimitive.RootProvider>
->(function DateInputRootProvider({ className, ...props }, ref) {
+  ComponentProps<typeof DateInputPrimitive.RootProvider> & DateInputFormProps
+>(function DateInputRootProvider({ asChild, children, className, names, ...props }, ref) {
   return (
     <DateInputPrimitive.RootProvider
       ref={ref}
       data-slot="date-input-root-provider"
       className={clsx(styles.root, normalizeClassName(className))}
+      asChild={asChild}
       {...props}
-    />
+    >
+      {withHiddenInputs(children, asChild, names)}
+    </DateInputPrimitive.RootProvider>
   );
 });
 
@@ -107,14 +113,48 @@ const DateInputSegments = forwardRef<
   );
 });
 
-const DateInputHiddenInput = forwardRef<
-  ComponentRef<typeof DateInputPrimitive.HiddenInput>,
-  ComponentProps<typeof DateInputPrimitive.HiddenInput>
->(function DateInputHiddenInput(props, ref) {
+type DateInputFormProps = {
+  names?: readonly string[];
+};
+
+function withHiddenInputs(
+  children: ReactNode,
+  asChild: boolean | undefined,
+  names: readonly string[] | undefined,
+) {
+  const hiddenInputs = <DateInputFormInputs names={names} />;
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {hiddenInputs}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, hiddenInputs);
+}
+
+function DateInputFormInputs({ names }: DateInputFormProps) {
+  const dateInput = useDateInputContext();
+  const inputCount = Math.max(dateInput.displayValues.length, names?.length ?? 0, 1);
+
   return (
-    <DateInputPrimitive.HiddenInput ref={ref} data-slot="date-input-hidden-input" {...props} />
+    <>
+      {Array.from({ length: inputCount }, (_, index) => (
+        <DateInputPrimitive.HiddenInput
+          key={index}
+          index={index}
+          name={names?.[index]}
+          data-slot="date-input-hidden-input"
+        />
+      ))}
+    </>
   );
-});
+}
 
 function DateInputSeparator({
   className,
@@ -141,7 +181,6 @@ const DateInput = Object.assign(DateInputRoot, {
   SegmentGroup: DateInputSegmentGroup,
   Segment: DateInputSegment,
   Segments: DateInputSegments,
-  HiddenInput: DateInputHiddenInput,
   Separator: DateInputSeparator,
   Context: DateInputPrimitive.Context,
   SegmentContext: DateInputPrimitive.SegmentContext,

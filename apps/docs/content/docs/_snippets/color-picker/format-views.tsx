@@ -36,7 +36,6 @@ export function FormatColorPickerDemo() {
           <ColorPicker.ChannelInput channel="lightness" />
         </div>
       </ColorPicker.View>
-      <ColorPicker.HiddenInput />
     </ColorPicker>
   );
 }

@@ -14,7 +14,6 @@ export function ControlledDateInputDemo() {
         <DateInput.Control>
           <DateInput.Segments />
         </DateInput.Control>
-        <DateInput.HiddenInput />
       </DateInput>
       <div className="date-input-state">Current value: {value[0]?.toString() ?? 'empty'}</div>
     </div>

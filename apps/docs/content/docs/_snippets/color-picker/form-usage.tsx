@@ -12,7 +12,6 @@ export function FormUsageColorPickerDemo() {
           <ColorPicker.ChannelInput channel="hex" />
           <ColorPicker.Trigger aria-label="Open color picker" />
         </ColorPicker.Control>
-        <ColorPicker.HiddenInput />
       </ColorPicker>
       <button className="color-picker-submit" type="submit">
         Submit

@@ -47,7 +47,6 @@ export function SelectControlledDemo() {
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

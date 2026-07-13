@@ -16,7 +16,6 @@ export function SanitizeBlurTagsInput() {
         <TagsInput.Input placeholder="Blur to add" />
         <TagsInput.ClearTrigger aria-label="Clear topics" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }

@@ -25,20 +25,22 @@ submission workflows.
 2. Use `Fieldset` when several related controls share one legend.
 3. Keep labels visible. A placeholder is an example, not a replacement for a label.
 4. Give submitted controls a `name`.
-5. Keep Ark's native form part mounted. It handles submission, browser validation, autofill, and
-   reset synchronization.
+5. Configure form participation through the component's root props such as `name`, `form`, and
+   validation state. Moduix renders the required native form input for the components below.
 
-Common native form parts:
+Native form behavior:
 
-| Component    | Keep mounted                                       |
-| ------------ | -------------------------------------------------- |
-| `Checkbox`   | `Checkbox.HiddenInput`                             |
-| `RadioGroup` | `RadioGroup.ItemHiddenInput`                       |
-| `Select`     | `Select.HiddenSelect`                              |
-| `PinInput`   | `PinInput.HiddenInput`                             |
-| `TagsInput`  | `TagsInput.HiddenInput`                            |
-| `FileUpload` | `FileUpload.HiddenInput`                           |
-| `Combobox`   | Set `name` on the root; no extra part is required. |
+| Component      | Behavior                                                                              |
+| -------------- | ------------------------------------------------------------------------------------- |
+| `Checkbox`     | `Root` renders its native input automatically.                                        |
+| `RadioGroup`   | Each `Item` renders its native input automatically.                                   |
+| `Select`       | `Root` renders its native select automatically.                                       |
+| `DateInput`    | `Root` renders native inputs automatically; use `names` for range fields.             |
+| `SignaturePad` | `Root` renders its native input automatically; use `getFormValue` to serialize paths. |
+| `PinInput`     | `Root` renders its native input automatically.                                        |
+| `TagsInput`    | `Root` renders its native input automatically.                                        |
+| `FileUpload`   | `Root` renders its native input automatically.                                        |
+| `Combobox`     | Set `name` on the root; no extra part is required.                                    |
 
 Do not add a second hidden input. It can submit a competing value and break reset behavior.
 

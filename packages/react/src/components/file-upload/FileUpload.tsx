@@ -1,11 +1,11 @@
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   FileUpload as FileUploadPrimitive,
   useFileUpload,
   useFileUploadContext,
 } from '@ark-ui/react/file-upload';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
 import { CloseIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './FileUpload.module.css';
@@ -13,28 +13,34 @@ import styles from './FileUpload.module.css';
 const FileUploadRoot = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.Root>,
   ComponentProps<typeof FileUploadPrimitive.Root>
->(function FileUploadRoot({ className, ...props }, ref) {
+>(function FileUploadRoot({ asChild, children, className, ...props }, ref) {
   return (
     <FileUploadPrimitive.Root
       ref={ref}
+      asChild={asChild}
       data-slot="file-upload-root"
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </FileUploadPrimitive.Root>
   );
 });
 
 const FileUploadRootProvider = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.RootProvider>,
   ComponentProps<typeof FileUploadPrimitive.RootProvider>
->(function FileUploadRootProvider({ className, ...props }, ref) {
+>(function FileUploadRootProvider({ asChild, children, className, ...props }, ref) {
   return (
     <FileUploadPrimitive.RootProvider
       ref={ref}
+      asChild={asChild}
       data-slot="file-upload-root-provider"
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </FileUploadPrimitive.RootProvider>
   );
 });
 
@@ -93,14 +99,22 @@ const FileUploadTrigger = forwardRef<
   );
 });
 
-const FileUploadHiddenInput = forwardRef<
-  ComponentRef<typeof FileUploadPrimitive.HiddenInput>,
-  ComponentProps<typeof FileUploadPrimitive.HiddenInput>
->(function FileUploadHiddenInput(props, ref) {
-  return (
-    <FileUploadPrimitive.HiddenInput ref={ref} data-slot="file-upload-hidden-input" {...props} />
-  );
-});
+function withHiddenInput(children: ReactNode, asChild?: boolean) {
+  const hiddenInput = <FileUploadPrimitive.HiddenInput data-slot="file-upload-hidden-input" />;
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {hiddenInput}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, hiddenInput);
+}
 
 const FileUploadItemGroup = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.ItemGroup>,
@@ -237,7 +251,6 @@ const FileUpload = Object.assign(FileUploadRoot, {
   Dropzone: FileUploadDropzone,
   DropzoneIcon: FileUploadDropzoneIcon,
   Trigger: FileUploadTrigger,
-  HiddenInput: FileUploadHiddenInput,
   ItemGroup: FileUploadItemGroup,
   Item: FileUploadItem,
   Items: FileUploadItems,

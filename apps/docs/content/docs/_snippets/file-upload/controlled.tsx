@@ -32,7 +32,6 @@ export function ControlledFileUploadDemo() {
             }
           </FileUpload.Context>
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload>
       <p className="file-upload-state">Selected files: {files.length}</p>
     </div>

@@ -22,7 +22,6 @@ export function DirectoryUploadDemo() {
           }
         </FileUpload.Context>
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }

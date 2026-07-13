@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   ColorPicker as ColorPickerPrimitive,
   parseColor,
@@ -6,7 +6,7 @@ import {
   useColorPickerContext,
 } from '@ark-ui/react/color-picker';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
 import { CheckIcon, PipetteIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
@@ -23,15 +23,18 @@ type ColorPickerRootProviderProps = ComponentProps<typeof ColorPickerPrimitive.R
 const ColorPickerRoot = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.Root>,
   ColorPickerRootProps
->(function ColorPickerRoot({ className, portalled, portalRef, ...props }, ref) {
+>(function ColorPickerRoot({ asChild, children, className, portalled, portalRef, ...props }, ref) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <ColorPickerPrimitive.Root
         ref={ref}
+        asChild={asChild}
         data-slot="color-picker-root"
         className={clsx(styles.root, normalizeClassName(className))}
         {...props}
-      />
+      >
+        {withHiddenInput(children, asChild)}
+      </ColorPickerPrimitive.Root>
     </OverlayPortalProvider>
   );
 });
@@ -39,15 +42,21 @@ const ColorPickerRoot = forwardRef<
 const ColorPickerRootProvider = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.RootProvider>,
   ColorPickerRootProviderProps
->(function ColorPickerRootProvider({ className, portalled, portalRef, ...props }, ref) {
+>(function ColorPickerRootProvider(
+  { asChild, children, className, portalled, portalRef, ...props },
+  ref,
+) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <ColorPickerPrimitive.RootProvider
         ref={ref}
+        asChild={asChild}
         data-slot="color-picker-root-provider"
         className={clsx(styles.root, normalizeClassName(className))}
         {...props}
-      />
+      >
+        {withHiddenInput(children, asChild)}
+      </ColorPickerPrimitive.RootProvider>
     </OverlayPortalProvider>
   );
 });
@@ -486,19 +495,22 @@ const ColorPickerView = forwardRef<
   );
 });
 
-const ColorPickerHiddenInput = forwardRef<
-  ComponentRef<typeof ColorPickerPrimitive.HiddenInput>,
-  ComponentProps<typeof ColorPickerPrimitive.HiddenInput>
->(function ColorPickerHiddenInput({ className, ...props }, ref) {
-  return (
-    <ColorPickerPrimitive.HiddenInput
-      ref={ref}
-      data-slot="color-picker-hidden-input"
-      className={normalizeClassName(className)}
-      {...props}
-    />
-  );
-});
+function withHiddenInput(children: ReactNode, asChild?: boolean) {
+  const hiddenInput = <ColorPickerPrimitive.HiddenInput data-slot="color-picker-hidden-input" />;
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {hiddenInput}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, hiddenInput);
+}
 
 const ColorPicker = Object.assign(ColorPickerRoot, {
   Root: ColorPickerRoot,
@@ -529,7 +541,6 @@ const ColorPicker = Object.assign(ColorPickerRoot, {
   ValueSwatch: ColorPickerValueSwatch,
   ValueText: ColorPickerValueText,
   View: ColorPickerView,
-  HiddenInput: ColorPickerHiddenInput,
 });
 
 export { ColorPicker, parseColor, useColorPicker, useColorPickerContext };

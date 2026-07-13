@@ -33,7 +33,6 @@ export function TransformFilesUploadDemo() {
           }
         </FileUpload.Context>
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }

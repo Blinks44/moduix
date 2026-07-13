@@ -142,7 +142,6 @@ export function NativeFormExample() {
                 </Select.Indicators>
               </Select.Control>
               <SelectPopup />
-              <Select.HiddenSelect />
             </Select>
           </Field>
 
@@ -173,7 +172,6 @@ export function NativeFormExample() {
           <Checkbox name="notifications">
             <Checkbox.Control />
             <Checkbox.Label>Send status notifications</Checkbox.Label>
-            <Checkbox.HiddenInput />
           </Checkbox>
         </Card.Body>
 
@@ -244,7 +242,6 @@ export function ReactHookFormExample() {
                     </Select.Indicators>
                   </Select.Control>
                   <SelectPopup />
-                  <Select.HiddenSelect />
                 </Select>
                 <Field.ErrorText>{fieldState.error?.message}</Field.ErrorText>
               </Field>
@@ -301,10 +298,11 @@ export function ReactHookFormExample() {
                 name={field.name}
                 checked={field.value}
                 onCheckedChange={(details) => field.onChange(details.checked === true)}
+                ref={field.ref}
+                onBlur={field.onBlur}
               >
                 <Checkbox.Control />
                 <Checkbox.Label>Send status notifications</Checkbox.Label>
-                <Checkbox.HiddenInput ref={field.ref} onBlur={field.onBlur} />
               </Checkbox>
             )}
           />
@@ -399,7 +397,6 @@ export function TanStackFormExample() {
                     </Select.Indicators>
                   </Select.Control>
                   <SelectPopup />
-                  <Select.HiddenSelect />
                 </Select>
                 <Field.ErrorText>{field.state.meta.errors.join(', ')}</Field.ErrorText>
               </Field>
@@ -459,10 +456,10 @@ export function TanStackFormExample() {
                 name={field.name}
                 checked={field.state.value}
                 onCheckedChange={(details) => field.handleChange(details.checked === true)}
+                onBlur={field.handleBlur}
               >
                 <Checkbox.Control />
                 <Checkbox.Label>Send status notifications</Checkbox.Label>
-                <Checkbox.HiddenInput onBlur={field.handleBlur} />
               </Checkbox>
             )}
           </form.Field>

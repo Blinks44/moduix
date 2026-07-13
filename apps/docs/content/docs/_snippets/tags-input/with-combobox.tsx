@@ -54,7 +54,6 @@ export function ComboboxTagsInput() {
           </Combobox.Input>
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput.RootProvider>
       <Combobox.Positioner>
         <Combobox.Content>

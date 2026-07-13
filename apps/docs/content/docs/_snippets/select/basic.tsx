@@ -39,7 +39,6 @@ export function SelectDemo() {
           </Select.ItemGroup>
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

@@ -192,7 +192,6 @@ export function FieldsetCheckboxExample() {
         <Checkbox key={preference.value} value={preference.value}>
           <Checkbox.Control />
           <Checkbox.Label>{preference.label}</Checkbox.Label>
-          <Checkbox.HiddenInput />
         </Checkbox>
       ))}
     </Fieldset>
@@ -219,7 +218,12 @@ export function FieldsetPhoneInputExample() {
     <Fieldset className={styles.fieldset}>
       <Fieldset.Legend>Mobile number</Fieldset.Legend>
       <div className={styles.phoneInput}>
-        <Select className={styles.countryCode} collection={countryCodes} defaultValue={['+1']}>
+        <Select
+          className={styles.countryCode}
+          collection={countryCodes}
+          defaultValue={['+1']}
+          name="countryCode"
+        >
           <Select.Label>Code</Select.Label>
           <Select.Control>
             <Select.Trigger>
@@ -239,7 +243,6 @@ export function FieldsetPhoneInputExample() {
               ))}
             </Select.Content>
           </Select.Positioner>
-          <Select.HiddenSelect name="countryCode" />
         </Select>
         <Field>
           <Field.Label>Phone</Field.Label>

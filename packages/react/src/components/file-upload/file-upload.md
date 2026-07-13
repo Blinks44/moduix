@@ -12,7 +12,7 @@ Upstream docs:
 ## Upstream model to preserve
 
 The wrapper follows Ark UI React `@ark-ui/react/file-upload`. Keep the Ark part tree, accepted/rejected file state,
-callback detail objects, `HiddenInput`, `RootProvider`, context, and state hooks intact.
+callback detail objects, the internally rendered native form input, `RootProvider`, context, and state hooks intact.
 
 ## Current behavior contract
 
@@ -21,7 +21,8 @@ callback detail objects, `HiddenInput`, `RootProvider`, context, and state hooks
 - `onFileChange(details)`, `onFileAccept(details)`, and `onFileReject(details)` keep Ark detail objects unchanged.
 - Validation uses Ark props such as `accept`, `maxFiles`, `minFileSize`, `maxFileSize`, `validate`, and
   `transformFiles`.
-- `HiddenInput` is explicit and required when native form submission, validation, and reset behavior matter.
+- `Root` and `RootProvider` append the native form input automatically. Configure native form behavior
+  with their Ark props such as `name`, `form`, and `required`.
 - `Dropzone.disableClick` should be used when a nested `Trigger` opens the file picker.
 
 ## Anatomy and exported parts
@@ -43,7 +44,7 @@ FileUpload.Root | FileUpload.RootProvider
 │        ├─ FileUpload.ItemSizeText
 │        └─ FileUpload.ItemDeleteTrigger
 ├─ FileUpload.ClearTrigger
-└─ FileUpload.HiddenInput
+└─ native input (automatic)
 ```
 
 - `FileUpload.Root` -> `data-slot="file-upload-root"`
@@ -53,7 +54,6 @@ FileUpload.Root | FileUpload.RootProvider
 - `FileUpload.Dropzone` -> `data-slot="file-upload-dropzone"`
 - `FileUpload.DropzoneIcon` -> `data-slot="file-upload-dropzone-icon"`
 - `FileUpload.Trigger` -> `data-slot="file-upload-trigger"`
-- `FileUpload.HiddenInput` -> `data-slot="file-upload-hidden-input"`
 - `FileUpload.ItemGroup` -> `data-slot="file-upload-item-group"`
 - `FileUpload.Item` -> `data-slot="file-upload-item"`
 - `FileUpload.Items` -> renders compact accepted-file rows with existing item slots
@@ -79,7 +79,6 @@ export function FileUploadDemo() {
       <FileUpload.ItemGroup>
         <FileUpload.Items />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }
@@ -87,7 +86,7 @@ export function FileUploadDemo() {
 
 ## Upstream feature coverage
 
-- Basic upload: supported with `Root`, `Label`, `Trigger`, `ItemGroup`, `Item`, and `HiddenInput`.
+- Basic upload: supported with `Root`, `Label`, `Trigger`, `ItemGroup`, and `Item`.
 - Clear trigger: supported with `ClearTrigger`; omit children to use the default close icon.
 - Dropzone: supported with `Dropzone`; use `disableClick` when a nested `Trigger` is rendered.
 - Accepted file types: supported through `accept`.
@@ -97,8 +96,8 @@ export function FileUploadDemo() {
   and `accept`.
 - Initial files: supported through `defaultAcceptedFiles`.
 - Controlled files: supported through `acceptedFiles` and `onFileChange(details)`.
-- Forms and fields: supported through `name`, `required`, `invalid`, `disabled`, `readOnly`, `HiddenInput`, and
-  Ark `Field.Root` / `Fieldset.Root` context.
+- Forms and fields: supported through root `name`, `required`, `invalid`, `disabled`, and `readOnly`
+  props plus Ark `Field.Root` / `Fieldset.Root` context.
 - Directory upload: supported through `directory`; consumers can read `file.webkitRelativePath`.
 - Media capture: supported through `capture`.
 - Pasting files: supported through `useFileUpload()` with `RootProvider` and `setClipboardFiles()`.
@@ -110,7 +109,8 @@ export function FileUploadDemo() {
 
 - Ark owns keyboard, pointer, focus, drag/drop, file input, and form behavior.
 - `Label` labels the hidden file input and trigger through Ark-generated IDs.
-- Refs forward to the underlying Ark DOM part. Forward form-library invalid-focus refs to `HiddenInput`.
+- Refs forward to the underlying public Ark DOM part. The internal native input is not exposed as a
+  separate ref target.
 - `Field.Root` and `Fieldset.Root` can provide disabled, invalid, required, and read-only context.
 - Ark applies `data-scope="file-upload"`, part-specific `data-part`, and state attributes including
   `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-dragging`, and `data-type`.
@@ -134,8 +134,8 @@ export function FileUploadDemo() {
 - moduix adds styling defaults and stable `data-slot` attributes.
 - moduix adds a decorative `DropzoneIcon` helper for upload surfaces.
 - moduix adds default icons for dropzone, delete, and clear triggers only.
-- The wrapper does not render `HiddenInput`, `ItemGroup`, or `Item` internally. Consumers keep the Ark composition
-  visible and choose how to show accepted and rejected files.
+- The wrapper renders the native form input internally. `ItemGroup` and `Item` remain explicit so
+  consumers choose how to show accepted and rejected files.
 - Callback details and validation errors are not renamed.
 - moduix re-exports Ark context and state hooks through its package barrel, and exposes `Context` on the namespace.
 - `Items` is a compact accepted-file list for common attachment flows; it renders `Item`, `ItemName`, and the default
@@ -143,13 +143,15 @@ export function FileUploadDemo() {
 
 ## Agent notes
 
-- Preserve explicit `HiddenInput` in docs and examples where form behavior matters.
+- Document form behavior through root props; the root renders the native form input automatically.
 - Keep `Dropzone.disableClick` in examples that nest `Trigger` inside `Dropzone`.
 - Do not add local file-state adapters; Ark already supports controlled and uncontrolled modes.
 - Keep docs, stories, registry, local markdown, and `--file-upload-*` variables synchronized when the part tree or
   styling contract changes.
 
 ## Local changelog
+
+- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 
 - 2026-07-10: Added moduix-owned context and state-hook exports plus `Items` for compact accepted-file lists. The
   recommended composition now uses `Items`; explicit context composition remains available for custom file rows.

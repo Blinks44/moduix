@@ -60,7 +60,6 @@ export function SelectGroupingDemo() {
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

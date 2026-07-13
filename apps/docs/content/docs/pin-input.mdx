@@ -21,7 +21,7 @@ inputs.
 
 ## Basic
 
-Start with the Ark part tree: root state, label, control, `Inputs`, and `HiddenInput` for form
+Start with the Ark part tree: root state, label, control, `Inputs`, and the native form input for form
 submission and reset synchronization.
 
 <Preview>
@@ -59,7 +59,7 @@ PinInput / PinInput.Root
 │  ├─ PinInput.Input[index=0]
 │  ├─ PinInput.Input[index=1]
 │  └─ PinInput.Input[index=2]
-└─ PinInput.HiddenInput
+└─ native input (automatic)
 ```
 
 | Part                           | Role                                                                  |
@@ -70,7 +70,6 @@ PinInput / PinInput.Root
 | `PinInput.Control`             | Wrapper around the visible indexed inputs.                            |
 | `PinInput.Input`               | One visible character input. Pass a zero-based `index`.               |
 | `PinInput.Inputs`              | Renders the standard indexed inputs from the Ark context.             |
-| `PinInput.HiddenInput`         | Hidden native input for forms, autofill, validation, and reset.       |
 | `PinInput.Separator`           | Moduix decorative grouping helper. Not an Ark primitive part.         |
 | `usePinInput` / `RootProvider` | External state ownership and imperative methods.                      |
 
@@ -79,7 +78,7 @@ PinInput / PinInput.Root
 ### Recommended composition
 
 Use the short `<PinInput>` root form, render a visible `Label`, keep `Control` around `Inputs`, and
-mount `HiddenInput` whenever form submission, reset synchronization, or OTP autofill should keep
+The root renders the native form input whenever form submission, reset synchronization, or OTP autofill should keep
 working through the native input.
 
 ### When to go custom
@@ -275,5 +274,4 @@ rendered tree. This example bypasses `Inputs` to show the full indexed Ark compo
 ## Accessibility
 
 Ark owns focus transfer, paste distribution, keyboard editing, hidden-input form data, and
-autocomplete behavior. Keep `HiddenInput` mounted for native forms and reset behavior, and keep
-input indexes continuous when inserting visual separators.
+autocomplete behavior. The root renders its native form input automatically; configure form participation with root props such as `name` and `form`.

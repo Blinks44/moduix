@@ -18,7 +18,6 @@ export function InlineColorPickerDemo() {
           <ColorPicker.ChannelInput channel="alpha" />
         </div>
       </ColorPicker.View>
-      <ColorPicker.HiddenInput />
     </ColorPicker>
   );
 }

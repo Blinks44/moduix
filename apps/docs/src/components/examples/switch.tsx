@@ -132,7 +132,6 @@ export function SwitchExample(props: ComponentProps<typeof Switch>) {
     <Switch defaultChecked {...props}>
       <Switch.Control />
       <Switch.Label>Enable notifications</Switch.Label>
-      <Switch.HiddenInput />
     </Switch>
   );
 }
@@ -142,7 +141,6 @@ export function SwitchInitialCheckedExample() {
     <Switch defaultChecked>
       <Switch.Control />
       <Switch.Label>Start enabled</Switch.Label>
-      <Switch.HiddenInput />
     </Switch>
   );
 }
@@ -154,7 +152,6 @@ export function SwitchSizesExample() {
         <Switch key={item.value} size={item.value} defaultChecked>
           <Switch.Control />
           <Switch.Label>{item.label}</Switch.Label>
-          <Switch.HiddenInput />
         </Switch>
       ))}
     </div>
@@ -167,12 +164,10 @@ export function SwitchDisabledExample() {
       <Switch disabled>
         <Switch.Control />
         <Switch.Label>Enable dark mode</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
       <Switch defaultChecked disabled>
         <Switch.Control />
         <Switch.Label>Keep me signed in</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
     </div>
   );
@@ -186,7 +181,6 @@ export function ControlledSwitchExample() {
       <Switch checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
         <Switch.Control />
         <Switch.Label>{checked ? 'On' : 'Off'}</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
       <span className={styles.hint}>Current value: {String(checked)}</span>
     </div>
@@ -199,12 +193,10 @@ export function SwitchReadOnlyExample() {
       <Switch readOnly>
         <Switch.Control />
         <Switch.Label>Managed by policy</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
       <Switch defaultChecked readOnly>
         <Switch.Control />
         <Switch.Label>Always on</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
     </div>
   );
@@ -215,7 +207,6 @@ export function SwitchContextExample() {
     <Switch defaultChecked>
       <Switch.Control />
       <SwitchContextLabel />
-      <Switch.HiddenInput />
     </Switch>
   );
 }
@@ -231,7 +222,6 @@ export function SwitchRootProviderExample() {
       <Switch.RootProvider value={switchApi}>
         <Switch.Control />
         <Switch.Label>External state owner</Switch.Label>
-        <Switch.HiddenInput />
       </Switch.RootProvider>
     </div>
   );
@@ -243,7 +233,6 @@ export function SwitchAsChildExample() {
       <label className={styles.siblingRow}>
         <Switch.Control />
         <span className={styles.label}>Enable reminders</span>
-        <Switch.HiddenInput />
       </label>
     </Switch>
   );
@@ -258,7 +247,6 @@ export function CustomIconSwitchExample() {
         </Switch.Thumb>
       </Switch.Control>
       <Switch.Label>Use custom thumb icon</Switch.Label>
-      <Switch.HiddenInput />
     </Switch>
   );
 }
@@ -269,7 +257,6 @@ export function SwitchFormIntegrationExample() {
       <Switch defaultChecked name="notifications" required>
         <Switch.Control />
         <Switch.Label>Notifications</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
       <Field.HelperText>Used for product and account updates.</Field.HelperText>
       <Field.ErrorText>Notification preference is required.</Field.ErrorText>

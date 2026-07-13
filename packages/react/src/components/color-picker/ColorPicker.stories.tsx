@@ -40,7 +40,6 @@ function ColorPickerField({ swatchList = swatches }: { swatchList?: string[] }) 
           </ColorPicker.SwatchGroup>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </>
   );
 }
@@ -63,7 +62,6 @@ function InlinePicker() {
           <ColorPicker.ChannelInput channel="alpha" />
         </div>
       </ColorPicker.View>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -92,7 +90,6 @@ function CompactTriggerPicker() {
           </div>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }

@@ -16,7 +16,6 @@ export function StateTagsInput() {
           <TagsInput.Items />
           <TagsInput.Input placeholder="Unavailable" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
 
       <TagsInput readOnly defaultValue={['read-only']}>
@@ -26,7 +25,6 @@ export function StateTagsInput() {
           <TagsInput.Input placeholder="Read-only" />
           <TagsInput.ClearTrigger aria-label="Clear read-only tags" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
     </>
   );

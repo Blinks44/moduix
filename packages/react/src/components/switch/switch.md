@@ -19,11 +19,11 @@ Switch / Switch.Root
 ├─ Switch.Control
 │  └─ Switch.Thumb
 ├─ Switch.Label
-└─ Switch.HiddenInput
+└─ native input (automatic)
 ```
 
-`Root` and `RootProvider` render label elements, `Control`, `Thumb`, and `Label` render spans, and
-`HiddenInput` renders the native input used for form submission, reset, and validation. Ark owns
+`Root` and `RootProvider` render label elements, `Control`, `Thumb`, and `Label` render spans. `Root`
+and `RootProvider` append the native form input used for form submission, reset, and validation. Ark owns
 checked state, keyboard activation, ARIA wiring, ids, field context, data attributes, and
 controlled/uncontrolled behavior.
 
@@ -34,13 +34,13 @@ for the same state instance.
 ## Current behavior contract
 
 - `Switch` is the short callable root and is also available as `Switch.Root`.
-- `Switch.Root`, `Switch.RootProvider`, `Switch.Control`, `Switch.Thumb`, `Switch.Label`, and
-  `Switch.HiddenInput` are thin styled wrappers over the matching Ark parts.
+- `Switch.Root`, `Switch.RootProvider`, `Switch.Control`, `Switch.Thumb`, and `Switch.Label` are
+  thin styled wrappers over the matching Ark parts. The native form input is internal to the roots.
 - `Switch.Context`, `useSwitchContext`, and `useSwitch` preserve Ark state access through moduix
   exports.
 - `Switch.Control` renders a default `Switch.Thumb` when its children are omitted.
-- `Switch` / `Switch.Root` and `Switch.RootProvider` do not render structural children for
-  consumers. Compose the Ark parts explicitly so labels and form inputs stay visible in code.
+- `Switch` / `Switch.Root` and `Switch.RootProvider` do not render visible structural children for
+  consumers. Compose the visible Ark parts explicitly; the native form input is automatic.
 - `size` is the only moduix root sugar. It defaults to `md` and writes `data-size` on the root.
   Supported values are `xs`, `sm`, `md`, `lg`, and `xl`.
 - `className` is accepted on all visible Ark parts and merged with CSS Module classes.
@@ -57,7 +57,6 @@ for the same state instance.
 | `Switch.Control`         | `SwitchPrimitive.Control`      | `switch-control`       | Visual track, focus ring target.                        |
 | `Switch.Thumb`           | `SwitchPrimitive.Thumb`        | `switch-thumb`         | Movable thumb; supports custom children.                |
 | `Switch.Label`           | `SwitchPrimitive.Label`        | `switch-label`         | Ark-connected label text.                               |
-| `Switch.HiddenInput`     | `SwitchPrimitive.HiddenInput`  | `switch-hidden-input`  | Native input for forms and reset.                       |
 | `Switch.Context`         | `SwitchContext`                | —                      | Render-prop access to the current Ark switch state.     |
 | `useSwitchContext`       | `useSwitchContext`             | —                      | Hook access to the current Ark switch state.            |
 | `useSwitch`              | `useSwitch`                    | —                      | Creates state for `Switch.RootProvider`.                |
@@ -76,7 +75,6 @@ export function SwitchDemo() {
     <Switch defaultChecked>
       <Switch.Control />
       <Switch.Label>Enable notifications</Switch.Label>
-      <Switch.HiddenInput />
     </Switch>
   );
 }
@@ -95,7 +93,6 @@ export function ControlledSwitchDemo() {
     <Switch checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
       <Switch.Control />
       <Switch.Label>{checked ? 'On' : 'Off'}</Switch.Label>
-      <Switch.HiddenInput />
     </Switch>
   );
 }
@@ -113,7 +110,6 @@ export function RootProviderSwitchDemo() {
     <Switch.RootProvider value={switchApi}>
       <Switch.Control />
       <Switch.Label>External state owner</Switch.Label>
-      <Switch.HiddenInput />
     </Switch.RootProvider>
   );
 }
@@ -121,22 +117,21 @@ export function RootProviderSwitchDemo() {
 
 ## Upstream feature coverage
 
-- Basic anatomy: supported through explicit `Root` / `Control` / `Thumb` / `Label` / `HiddenInput`
-  parts.
+- Basic anatomy: supported through `Root`, `Control`, `Thumb`, and `Label`.
 - Initial checked state: supported with Ark `defaultChecked`.
 - Controlled state: supported with Ark `checked` and `onCheckedChange(details)`.
 - Disabled and read-only states: supported with Ark `disabled` and `readOnly` and styled through Ark
   state attributes.
 - Context access: use `Switch.Context` or import `useSwitchContext` from `@moduix/react`.
 - Root provider: import `useSwitch` from `@moduix/react` and pair it with `Switch.RootProvider`.
-- Field integration: supported by composing with `Field` and including `Switch.HiddenInput`.
+- Field integration: supported by composing with `Field`; configure native form behavior on the root.
 - ids and `asChild`: inherited from Ark root and part props.
 
 ## Accessibility and state
 
 - Every switch needs an accessible name. The recommended path is `Switch.Label` inside `Switch`.
-- Include `Switch.HiddenInput` when native form submission, reset, `name`, `value`, `required`, or
-  validation matters.
+- The root always renders the native form input. `name`, `form`, and validation props configure its
+  native form participation.
 - Ark `onCheckedChange` receives `{ checked }`. Do not reintroduce a raw boolean adapter.
 - `Field.Root` / `Fieldset.Root` context can provide disabled, invalid, required, and read-only
   state through Ark.
@@ -224,6 +219,8 @@ Hover colors apply only when a switch is neither disabled nor read-only.
 
 ## Local changelog
 
+- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
+
 - 2026-07-11: Re-exported Ark context and state hooks through moduix, and disabled hover styling
   now excludes disabled controls.
 - 2026-07-03: Simplified the moduix surface to match `combobox`: kept `RootProvider`, size sugar,
@@ -234,7 +231,7 @@ Hover colors apply only when a switch is neither disabled nor read-only.
 - 2026-06-27: Shortened default switch track widths by `0.25rem` across all sizes while keeping
   the existing heights and thumb sizes.
 - 2026-06-21: Migrated `Switch` to Ark UI React, adopted namespace parts,
-  `HiddenInput`, Ark `onCheckedChange(details)`, `Context`, `useSwitch`, `RootProvider`, `asChild`,
+  the native form input, Ark `onCheckedChange(details)`, `Context`, `useSwitch`, `RootProvider`, `asChild`,
   and Ark state attributes; removed legacy compatibility exports and props.
 - 2026-06-03: Rewrote the local documentation to describe the previous moduix `Switch` wrapper,
   exported parts, styling contract, accessibility guidance, and `size`/thumb behavior.

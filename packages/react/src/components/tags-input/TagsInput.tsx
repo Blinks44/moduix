@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   TagsInput as TagsInputPrimitive,
   useTagsInput,
@@ -6,7 +6,7 @@ import {
   useTagsInputItemContext,
 } from '@ark-ui/react/tags-input';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
@@ -15,28 +15,34 @@ import styles from './TagsInput.module.css';
 const TagsInputRoot = forwardRef<
   ComponentRef<typeof TagsInputPrimitive.Root>,
   ComponentProps<typeof TagsInputPrimitive.Root>
->(function TagsInputRoot({ className, ...props }, ref) {
+>(function TagsInputRoot({ asChild, children, className, ...props }, ref) {
   return (
     <TagsInputPrimitive.Root
       ref={ref}
+      asChild={asChild}
       data-slot="tags-input-root"
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </TagsInputPrimitive.Root>
   );
 });
 
 const TagsInputRootProvider = forwardRef<
   ComponentRef<typeof TagsInputPrimitive.RootProvider>,
   ComponentProps<typeof TagsInputPrimitive.RootProvider>
->(function TagsInputRootProvider({ className, ...props }, ref) {
+>(function TagsInputRootProvider({ asChild, children, className, ...props }, ref) {
   return (
     <TagsInputPrimitive.RootProvider
       ref={ref}
+      asChild={asChild}
       data-slot="tags-input-root-provider"
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </TagsInputPrimitive.RootProvider>
   );
 });
 
@@ -202,14 +208,22 @@ const TagsInputClearTrigger = forwardRef<
   );
 });
 
-const TagsInputHiddenInput = forwardRef<
-  ComponentRef<typeof TagsInputPrimitive.HiddenInput>,
-  ComponentProps<typeof TagsInputPrimitive.HiddenInput>
->(function TagsInputHiddenInput(props, ref) {
-  return (
-    <TagsInputPrimitive.HiddenInput ref={ref} data-slot="tags-input-hidden-input" {...props} />
-  );
-});
+function withHiddenInput(children: ReactNode, asChild?: boolean) {
+  const hiddenInput = <TagsInputPrimitive.HiddenInput data-slot="tags-input-hidden-input" />;
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {hiddenInput}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, hiddenInput);
+}
 
 const TagsInputContext = TagsInputPrimitive.Context;
 
@@ -244,7 +258,6 @@ const TagsInput = Object.assign(TagsInputRoot, {
   ItemInput: TagsInputItemInput,
   Input: TagsInputInput,
   ClearTrigger: TagsInputClearTrigger,
-  HiddenInput: TagsInputHiddenInput,
   Context: TagsInputContext,
   Items: TagsInputItems,
 });

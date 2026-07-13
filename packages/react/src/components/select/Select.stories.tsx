@@ -106,7 +106,6 @@ export const Basic: Story = {
           <FruitItems />
         </Select.ItemGroup>
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   ),
 };
@@ -122,7 +121,6 @@ export const CustomFieldIndicator: Story = {
           <FruitItems />
         </Select.ItemGroup>
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   ),
 };
@@ -145,7 +143,6 @@ export const Grouped: Story = {
           </Select.ItemGroup>
         ))}
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   ),
 };
@@ -166,7 +163,6 @@ export const Multiple: Story = {
           ))}
         </Select.ItemGroup>
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   ),
 };
@@ -195,7 +191,6 @@ export const Controlled: Story = {
               ))}
             </Select.ItemGroup>
           </SelectPopupContent>
-          <Select.HiddenSelect />
         </Select>
         <span className={styles.state}>Current value: {value[0] ?? 'none'}</span>
       </div>
@@ -216,7 +211,6 @@ export const ClearTrigger: Story = {
           </Select.Item>
         ))}
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   ),
 };
@@ -232,7 +226,6 @@ export const LazyMount: Story = {
           <FruitItems />
         </Select.ItemGroup>
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   ),
 };
@@ -251,7 +244,6 @@ export const Context: Story = {
           <FruitItems />
         </Select.ItemGroup>
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   ),
 };
@@ -272,11 +264,25 @@ export const RootProvider: Story = {
               <FruitItems />
             </Select.ItemGroup>
           </SelectPopupContent>
-          <Select.HiddenSelect />
         </Select.RootProvider>
       </div>
     );
   },
+};
+
+export const LightweightFormControl: Story = {
+  render: () => (
+    <Select collection={fruits} defaultValue={['apple']} name="fruit" nativeFormControl="input">
+      <Select.Label>Choose fruit</Select.Label>
+      <SelectFieldView />
+      <SelectPopupContent>
+        <Select.ItemGroup>
+          <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+          <FruitItems />
+        </Select.ItemGroup>
+      </SelectPopupContent>
+    </Select>
+  ),
 };
 
 export const CustomItemLayout: Story = {
@@ -299,7 +305,6 @@ export const CustomItemLayout: Story = {
           </Select.Item>
         ))}
       </SelectPopupContent>
-      <Select.HiddenSelect />
     </Select>
   ),
 };

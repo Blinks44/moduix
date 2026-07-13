@@ -14,8 +14,8 @@ visual.
 
 The component follows Ark UI React `@ark-ui/react/segment-group`, which is backed by Zag
 `radio-group` behavior for segmented controls. Keep the Ark anatomy, single-value state, callback
-detail objects, `RootProvider`, `asChild` behavior, measured `Indicator`, and
-`ItemHiddenInput` form integration intact.
+detail objects, `RootProvider`, `asChild` behavior, measured `Indicator`, and native form input
+integration intact. Each item renders its input internally.
 
 ## Current behavior contract
 
@@ -39,22 +39,20 @@ moduix defaults `orientation` to `horizontal` on `SegmentGroup.Root`. Explicit
   <SegmentGroup.Item>
     <SegmentGroup.ItemText />
     <SegmentGroup.ItemControl />
-    <SegmentGroup.ItemHiddenInput />
   </SegmentGroup.Item>
 </SegmentGroup.Root>
 ```
 
-| Part                           | `data-slot`                       | Notes                                      |
-| ------------------------------ | --------------------------------- | ------------------------------------------ |
-| `SegmentGroup` / `Root`        | `segment-group-root`              | Ark root, value state, orientation, forms. |
-| `SegmentGroup.RootProvider`    | `segment-group-root-provider`     | Uses state from `useSegmentGroup`.         |
-| `SegmentGroup.Label`           | `segment-group-label`             | Optional Ark group label.                  |
-| `SegmentGroup.Items`           | —                                 | Renders standard text items and inputs.    |
-| `SegmentGroup.Item`            | `segment-group-item`              | Ark item, renders a `label` by default.    |
-| `SegmentGroup.ItemControl`     | `segment-group-item-control`      | Hidden visual control part for Ark state.  |
-| `SegmentGroup.ItemText`        | `segment-group-item-text`         | Visible item text.                         |
-| `SegmentGroup.ItemHiddenInput` | `segment-group-item-hidden-input` | Required for native forms and reset.       |
-| `SegmentGroup.Indicator`       | `segment-group-indicator`         | Measured active-item highlight.            |
+| Part                        | `data-slot`                   | Notes                                      |
+| --------------------------- | ----------------------------- | ------------------------------------------ |
+| `SegmentGroup` / `Root`     | `segment-group-root`          | Ark root, value state, orientation, forms. |
+| `SegmentGroup.RootProvider` | `segment-group-root-provider` | Uses state from `useSegmentGroup`.         |
+| `SegmentGroup.Label`        | `segment-group-label`         | Optional Ark group label.                  |
+| `SegmentGroup.Items`        | —                             | Renders standard text items.               |
+| `SegmentGroup.Item`         | `segment-group-item`          | Ark item, renders a `label` by default.    |
+| `SegmentGroup.ItemControl`  | `segment-group-item-control`  | Hidden visual control part for Ark state.  |
+| `SegmentGroup.ItemText`     | `segment-group-item-text`     | Visible item text.                         |
+| `SegmentGroup.Indicator`    | `segment-group-indicator`     | Measured active-item highlight.            |
 
 Import `useSegmentGroup` from `@moduix/react` when an advanced state workflow needs
 `RootProvider`. `SegmentGroup.Context` and `useSegmentGroupContext` remain Ark escape hatches from
@@ -93,8 +91,7 @@ outside the rendered tree. Do not render `Root` and `RootProvider` for the same 
   value control, form usage, and focus control are supported through the same Ark parts and props.
 - `asChild` is supported on Ark parts. `SegmentGroup.Item` renders a `label` by default; when
   `asChild` is used, the direct child must still be a semantic `label`.
-- `Items` renders `ItemHiddenInput` in every generated item. For explicit `Item` composition,
-  render `ItemHiddenInput` when the item participates in form submission, validation, or reset.
+- Both `Items` and explicit `Item` composition render a native form input automatically for every item.
 - `ids` is forwarded from `Root`/`RootProvider` for explicit accessibility composition.
 - `Indicator` preserves Ark CSS variables: `--left`, `--top`, `--width`, and `--height`.
 
@@ -106,8 +103,8 @@ Preserve Ark data attributes such as `data-scope="segment-group"`, `data-part`, 
 `data-orientation`, `data-disabled`, `data-invalid`, `data-required`, `data-active`, and
 `data-focus-visible`.
 
-`ItemHiddenInput` forwards its ref to the real input. `Root`, `RootProvider`, `Label`, `Item`,
-`ItemControl`, `ItemText`, and `Indicator` forward refs to their Ark DOM parts.
+`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText`, and `Indicator` forward refs
+to their public Ark DOM parts. The native input is not a separate public ref target.
 
 ## Defaults and styling
 
@@ -133,8 +130,7 @@ rendered but visually hidden because the segmented-control affordance comes from
 
 - The short root export `<SegmentGroup>` is equivalent to `<SegmentGroup.Root>`.
 - The wrapper adds only moduix styling defaults and `data-slot` hooks.
-- `SegmentGroup.Items` renders the fixed standard item tree: `Item`, `ItemText`, `ItemControl`, and
-  `ItemHiddenInput`. Use `Item` directly for custom markup or per-item styling.
+- `SegmentGroup.Items` renders the fixed standard item tree: `Item`, `ItemText`, and `ItemControl`; each `Item` renders its native form input automatically. Use `Item` directly for custom markup or per-item styling.
 - `useSegmentGroup` is re-exported from moduix for the documented `RootProvider` workflow.
 - Horizontal orientation is a moduix default because this component is visually a segmented
   control. Ark/Zag behavior remains available through explicit `orientation`.
@@ -150,6 +146,8 @@ rendered but visually hidden because the segmented-control affordance comes from
   and generated registry output in the same task.
 
 ## Local changelog
+
+- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 
 - 2026-07-11: Added `SegmentGroup.Items` for standard segment lists and re-exported
   `useSegmentGroup` for the documented `RootProvider` workflow.

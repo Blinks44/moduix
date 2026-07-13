@@ -12,7 +12,7 @@ Upstream docs:
 ## Upstream model to preserve
 
 The component follows Ark UI's `@ark-ui/react/radio-group` primitive. Keep the Ark anatomy, state
-shape, callback detail objects, `RootProvider`, `asChild` behavior, and `ItemHiddenInput` form
+shape, callback detail objects, `RootProvider`, `asChild` behavior, and the native form input form
 integration intact. `useRadioGroup` is re-exported from moduix for the normal `RootProvider` path;
 direct Ark imports remain escape hatches.
 
@@ -21,7 +21,7 @@ direct Ark imports remain escape hatches.
 `RadioGroup` is the root component and also exposes `RadioGroup.Root` for namespace consistency.
 The public parts are thin Ark wrappers that add moduix CSS Modules, stable `data-slot` values, and
 two small conveniences: `RadioGroup.ItemControl size="xs" | "sm" | "md" | "lg" | "xl"` and
-`RadioGroup.Option`, which combines one item, control, text, and hidden input.
+`RadioGroup.Option`, which combines one item, control, and text. The item renders the native form input automatically.
 
 `RadioGroup.Root` forwards Ark props such as `value`, `defaultValue`, `onValueChange(details)`,
 `name`, `form`, `orientation`, `disabled`, `invalid`, `readOnly`, `required`, `ids`, and `asChild`.
@@ -36,23 +36,21 @@ Do not unpack or remap `onValueChange`; consumers should read `details.value`.
   <RadioGroup.Item>
     <RadioGroup.ItemControl />
     <RadioGroup.ItemText />
-    <RadioGroup.ItemHiddenInput />
   </RadioGroup.Item>
   <RadioGroup.Indicator />
 </RadioGroup.Root>
 ```
 
-| Part                         | `data-slot`                     | Notes                                     |
-| ---------------------------- | ------------------------------- | ----------------------------------------- |
-| `RadioGroup` / `Root`        | `radio-group-root`              | Ark root, value state, orientation, form. |
-| `RadioGroup.RootProvider`    | `radio-group-root-provider`     | Uses state from Ark `useRadioGroup()`.    |
-| `RadioGroup.Label`           | `radio-group-label`             | Ark group label.                          |
-| `RadioGroup.Item`            | `radio-group-item`              | Ark item, renders a `label` by default.   |
-| `RadioGroup.Option`          | `radio-group-item`              | Styled convenience item; no new DOM part. |
-| `RadioGroup.ItemControl`     | `radio-group-item-control`      | Visual control; accepts moduix `size`.    |
-| `RadioGroup.ItemText`        | `radio-group-item-text`         | Ark item label text.                      |
-| `RadioGroup.ItemHiddenInput` | `radio-group-item-hidden-input` | Required for native forms and reset.      |
-| `RadioGroup.Indicator`       | `radio-group-indicator`         | Optional Ark active-item indicator.       |
+| Part                      | `data-slot`                 | Notes                                     |
+| ------------------------- | --------------------------- | ----------------------------------------- |
+| `RadioGroup` / `Root`     | `radio-group-root`          | Ark root, value state, orientation, form. |
+| `RadioGroup.RootProvider` | `radio-group-root-provider` | Uses state from Ark `useRadioGroup()`.    |
+| `RadioGroup.Label`        | `radio-group-label`         | Ark group label.                          |
+| `RadioGroup.Item`         | `radio-group-item`          | Ark item, renders a `label` by default.   |
+| `RadioGroup.Option`       | `radio-group-item`          | Styled convenience item; no new DOM part. |
+| `RadioGroup.ItemControl`  | `radio-group-item-control`  | Visual control; accepts moduix `size`.    |
+| `RadioGroup.ItemText`     | `radio-group-item-text`     | Ark item label text.                      |
+| `RadioGroup.Indicator`    | `radio-group-indicator`     | Optional Ark active-item indicator.       |
 
 ## Composition
 
@@ -83,12 +81,11 @@ placement or class names.
 - Basic, initial value, controlled, disabled, orientation, root provider, field, and fieldset
   examples are supported through the same Ark parts and props.
 - `Field.Root` and `Fieldset.Root` propagate form state to the group. Keep the visible field label,
-  helper text, and error text adjacent to the group; `Option` preserves the hidden inputs needed for
-  native form submission and reset.
+  helper text, and error text adjacent to the group; every `Item` renders its native form input
+  automatically.
 - `asChild` is supported on Ark parts. `RadioGroup.Item` renders a `label` by default; when
   `asChild` is used, the direct child must still be a semantic `label`.
-- `ItemHiddenInput` is exposed and should be rendered in each item that participates in form
-  submission, validation, or native reset.
+- Each `RadioGroup.Item` renders its native form input automatically for submission, validation, and reset.
 - `ids` is forwarded from `Root`/`RootProvider` for explicit accessibility composition.
 - Item, item-control, and item-text expose Ark item state attributes, including
   `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`,
@@ -104,8 +101,8 @@ Preserve Ark data attributes such as `data-scope="radio-group"`, `data-part`, `d
 `data-orientation`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`,
 `data-focus`, `data-focus-visible`, `data-hover`, and `data-active`.
 
-`ItemHiddenInput` forwards its ref to the real input. `Root`, `RootProvider`, `Label`, `Item`,
-`ItemControl`, `ItemText`, and `Indicator` forward refs to their Ark DOM parts.
+`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText`, and `Indicator` forward refs
+to their public Ark DOM parts. The internal native input is not a separate ref target.
 
 ## Defaults and styling
 
@@ -130,8 +127,7 @@ and provide an inline item wrapper when you need custom row wrapping. `ItemContr
 
 ## Agent notes
 
-- Keep `ItemHiddenInput` in examples unless the item is explicitly non-form-only and that exception
-  is documented.
+- Every `RadioGroup.Item`, including the item used by `RadioGroup.Option`, renders its native form input automatically.
 - Keep `RootProvider` and its `useRadioGroup` companion available from the moduix barrel. Ark
   contexts and less common hooks remain direct-import escape hatches.
 - When changing the public namespace, sync stories, docs examples, registry paths, and generated
@@ -139,6 +135,8 @@ and provide an inline item wrapper when you need custom row wrapping. `ItemContr
 - Do not reintroduce flat aliases just for backwards compatibility.
 
 ## Local changelog
+
+- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 
 - 2026-07-11: Added `Option` for the common labelled-item path, re-exported `useRadioGroup` for
   `RootProvider`, and documented `Field.Root` integration plus the explicit advanced composition.

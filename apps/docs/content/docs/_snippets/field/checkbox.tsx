@@ -8,7 +8,6 @@ export function CheckboxFieldDemo() {
   return (
     <Field required>
       <Checkbox.Root>
-        <Checkbox.HiddenInput />
         <Checkbox.Control />
         <Checkbox.Label>Accept support access</Checkbox.Label>
       </Checkbox.Root>

@@ -20,7 +20,6 @@ export function ControlledColorPickerDemo() {
           <ColorPicker.Sliders />
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </ColorPicker>
   );
 }

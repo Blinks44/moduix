@@ -15,12 +15,10 @@ export function DisabledSwitchDemo() {
       <Switch disabled>
         <Switch.Control />
         <Switch.Label>Enable dark mode</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
       <Switch defaultChecked disabled>
         <Switch.Control />
         <Switch.Label>Keep me signed in</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
     </div>
   );

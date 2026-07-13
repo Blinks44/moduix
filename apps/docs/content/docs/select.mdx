@@ -21,7 +21,8 @@ Use `Select` when users choose from a fixed collection and the trigger should st
 
 Start with `Select`, pass a `collection`, render the visible field through `Label` and
 `Select.Field`, then render the popup structure explicitly. Pass `clearLabel` when the clear action
-is needed. Keep `HiddenSelect` in the tree for native form submission and browser autofill.
+is needed. The root renders its native select automatically for native form submission and browser
+autofill.
 
 <Preview clientOnly>
   <SelectDocs.SelectExample />
@@ -65,14 +66,14 @@ Select / Select.Root
 │           └─ Select.Item[item]
 │              ├─ Select.ItemText
 │              └─ Select.ItemIndicator
-└─ Select.HiddenSelect
+└─ native select (automatic)
 ```
 
 | Part                     | Role                                                                      |
 | ------------------------ | ------------------------------------------------------------------------- |
 | `Select` / `Select.Root` | Root state, collection, selection, popup lifecycle, and form data.        |
 | `Select.RootProvider`    | Renders a select tree from state returned by `useSelect`.                 |
-| `Select.Label`           | Accessible label inherited by the trigger and hidden select.              |
+| `Select.Label`           | Accessible label inherited by the trigger and native select.              |
 | `Select.Control`         | Visual field wrapper that receives focus, invalid, and open state.        |
 | `Select.Field`           | Moduix helper that renders the standard control, trigger, and indicators. |
 | `Select.Trigger`         | Button that opens the popup and owns keyboard entry.                      |
@@ -88,7 +89,6 @@ Select / Select.Root
 | `Select.Item`            | Selectable row. Pass the collection item through `item`.                  |
 | `Select.ItemText`        | Text used for display and accessibility.                                  |
 | `Select.ItemIndicator`   | Selected-state indicator with the moduix default check icon.              |
-| `Select.HiddenSelect`    | Native hidden `<select>` for forms, autofill, and reset behavior.         |
 
 ## Composition
 
@@ -101,7 +101,8 @@ and the indicator; pass `clearLabel` to include a labeled clear action or `indic
 to replace the default chevron. Keep the popup structure explicit with `Positioner` and `Content`.
 
 Use the explicit Ark part tree: root, label, control, trigger, value text, optional clear and
-indicator buttons, automatically portalled positioner/content, items, and `HiddenSelect`.
+indicator buttons, automatically portalled positioner/content, and items. The root renders its
+native select automatically.
 
 `Select` is the short root form and is equivalent to `Select.Root`.
 
@@ -137,9 +138,10 @@ For external state and context reads, use `Select.useSelect`, `Select.Context`,
 object signatures. `Field.Root` and `Fieldset.Root` can provide disabled, invalid, required, and
 read-only state through Ark context.
 
-Keep `HiddenSelect` in normal form usage for native submission, autofill, and reset behavior. For
-very large virtualized collections, compose a lightweight hidden input with Ark
-`useSelectContext` instead of rendering one native option per item.
+The root renders its native select automatically for native submission, autofill, and reset behavior.
+For very large virtualized collections, set `nativeFormControl="input"` to submit lightweight
+hidden inputs instead of rendering one native option per item. This mode deliberately omits native
+select autofill and progressive enhancement.
 
 ## Examples
 
@@ -203,7 +205,8 @@ to a form field.
 
 ### Form Usage
 
-`HiddenSelect` keeps native submission working. Read submitted values from `FormData`.
+The root's automatic native select keeps native submission working. Read submitted values from
+`FormData`.
 
 <Preview clientOnly>
   <SelectDocs.FormSelectExample />
@@ -255,6 +258,21 @@ Limit multiple selection by rejecting oversized value arrays and marking remaini
   <include lang="tsx">./_snippets/select/max-selection.tsx#demo</include>
 </Preview.Code>
 <Preview.CSS>{`[data-slot="select-item"][data-disabled] { opacity: var(--opacity-disabled); }`}</Preview.CSS>
+
+</Preview>
+
+### Native Form Control
+
+Use `nativeFormControl="input"` when rendering a very large collection with virtualization. The
+selected values still submit through `FormData`, without creating native options for every item.
+
+<Preview clientOnly>
+  <SelectDocs.NativeFormControlSelectExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/select/native-form-control.tsx#demo</include>
+</Preview.Code>
+<Preview.CSS>{`form [data-slot="select-root"] { --select-width: 16rem; }`}</Preview.CSS>
 
 </Preview>
 

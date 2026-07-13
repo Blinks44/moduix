@@ -14,7 +14,6 @@ export function DelimiterPasteTagsInput() {
         <TagsInput.Input placeholder="Comma, semicolon, or space" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }

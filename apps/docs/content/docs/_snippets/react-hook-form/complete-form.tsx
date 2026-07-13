@@ -106,7 +106,6 @@ export function ProjectForm() {
                       ))}
                     </Select.Content>
                   </Select.Positioner>
-                  <Select.HiddenSelect />
                 </Select>
                 <Field.ErrorText>{fieldState.error?.message}</Field.ErrorText>
               </Field>
@@ -174,10 +173,11 @@ export function ProjectForm() {
                 name={field.name}
                 checked={field.value}
                 onCheckedChange={(details) => field.onChange(details.checked === true)}
+                ref={field.ref}
+                onBlur={field.onBlur}
               >
                 <Checkbox.Control />
                 <Checkbox.Label>Send status notifications</Checkbox.Label>
-                <Checkbox.HiddenInput ref={field.ref} onBlur={field.onBlur} />
               </Checkbox>
             )}
           />

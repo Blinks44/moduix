@@ -228,7 +228,6 @@ function CheckboxItem({
       <Checkbox.Label className={customStyled ? styles.customLabel : undefined}>
         {children}
       </Checkbox.Label>
-      <Checkbox.HiddenInput />
     </Checkbox.Root>
   );
 }
@@ -315,7 +314,6 @@ export function CheckboxRootProviderExample() {
       <Checkbox.RootProvider value={checkbox}>
         <Checkbox.Control />
         <Checkbox.Label>Managed outside the tree</Checkbox.Label>
-        <Checkbox.HiddenInput />
       </Checkbox.RootProvider>
       <button
         type="button"
@@ -334,7 +332,6 @@ export function CheckboxWithFieldExample() {
       <Checkbox.Root required name="terms" value="accepted">
         <Checkbox.Control />
         <Checkbox.Label>Accept terms</Checkbox.Label>
-        <Checkbox.HiddenInput />
       </Checkbox.Root>
       <Field.HelperText>Required to continue.</Field.HelperText>
       <Field.ErrorText>Please accept the terms.</Field.ErrorText>

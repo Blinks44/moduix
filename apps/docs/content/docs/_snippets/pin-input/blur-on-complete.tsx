@@ -18,7 +18,6 @@ export function BlurOnCompletePinInput() {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }

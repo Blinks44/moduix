@@ -260,7 +260,6 @@ export function RadioGroupAsChildExample() {
           <label className="radio-card-item">
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-            <RadioGroup.ItemHiddenInput />
           </label>
         </RadioGroup.Item>
       ))}
@@ -288,7 +287,6 @@ export function RadioGroupAdvancedCustomizationExample() {
         <RadioGroup.Item key={framework} value={framework}>
           <RadioGroup.ItemControl />
           <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
         </RadioGroup.Item>
       ))}
     </RadioGroup>

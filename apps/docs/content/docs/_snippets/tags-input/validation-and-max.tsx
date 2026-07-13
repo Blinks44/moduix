@@ -28,7 +28,6 @@ export function ValidationTagsInput() {
         <TagsInput.Input placeholder="Add unique label" />
         <TagsInput.ClearTrigger aria-label="Clear labels" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
 import { Field } from '../field';
-import { SignaturePad, useSignaturePad, useSignaturePadContext } from './SignaturePad';
+import { SignaturePad, useSignaturePad } from './SignaturePad';
 import styles from './SignaturePad.stories.module.css';
 
 const meta = {
@@ -16,12 +16,6 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-
-function SignaturePadHiddenValue() {
-  const signaturePad = useSignaturePadContext();
-
-  return <SignaturePad.HiddenInput value={signaturePad.paths.join(' ')} />;
-}
 
 function SignaturePadParts(props: ComponentProps<typeof SignaturePad.Root>) {
   return (
@@ -56,10 +50,9 @@ export const ImagePreview: Story = {
 export const WithField: Story = {
   render: () => (
     <Field className={styles.field} invalid required>
-      <SignaturePad name="signature">
+      <SignaturePad name="signature" getFormValue={(paths) => paths.join(' ')}>
         <SignaturePad.Label>Sign below</SignaturePad.Label>
         <SignaturePad.Canvas />
-        <SignaturePadHiddenValue />
       </SignaturePad>
       <Field.HelperText>Use a pointer or touch input to sign.</Field.HelperText>
       <Field.ErrorText>Signature is required.</Field.ErrorText>

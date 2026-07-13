@@ -20,7 +20,7 @@ Use `TagsInput` when users need to build a list of editable string values inside
 
 ## Basic
 
-Start with the root, label, control, `Items`, entry input, clear trigger, and `HiddenInput` for
+Start with the root, label, control, `Items`, entry input, clear trigger, and the native form input for
 native form submission and reset synchronization. `Items` renders the standard editable tag anatomy;
 use explicit parts only when individual tags need customization.
 
@@ -60,7 +60,7 @@ TagsInput / TagsInput.Root
 │     └─ TagsInput.ItemInput
 │  ├─ TagsInput.Input
 │  └─ TagsInput.ClearTrigger
-└─ TagsInput.HiddenInput
+└─ native input (automatic)
 ```
 
 | Part                                   | Role                                                                 |
@@ -78,7 +78,6 @@ TagsInput / TagsInput.Root
 | `TagsInput.ItemInput`                  | Inline edit input for the tag.                                       |
 | `TagsInput.Input`                      | Entry input for new tags.                                            |
 | `TagsInput.ClearTrigger`               | Clears all tags; moduix uses the shared `CloseButton.Root` default.  |
-| `TagsInput.HiddenInput`                | Hidden native input for forms and reset behavior.                    |
 | `TagsInput.Context`                    | Inline access to Ark root state.                                     |
 | moduix `useTagsInput` + `RootProvider` | External state ownership and imperative methods.                     |
 
@@ -87,8 +86,7 @@ TagsInput / TagsInput.Root
 ### Recommended composition
 
 Use the short `<TagsInput>` root form. Render `TagsInput.Items` inside `Control` for the standard
-editable tag tree. Keep `HiddenInput` mounted when `name`, form submission, browser validation, or
-form reset synchronization matters.
+editable tag tree. The root renders its native form input automatically; configure form participation with root props such as `name` and `form`.
 
 ### When to go custom
 
@@ -230,7 +228,8 @@ form accessibility wiring.
 
 ### Form
 
-Use `HiddenInput` with `name` to include the tag list in `FormData`; it also keeps form reset in sync.
+Pass `name` to the root to include the tag list in `FormData`; it renders the native form input
+automatically and keeps form reset in sync.
 
 <Preview>
   <TagsInputDocs.TagsInputFormExample />
@@ -366,5 +365,4 @@ allowing custom tags.
 
 Ark owns label wiring, tag highlighting, inline edit mode, Backspace/Delete removal, ArrowLeft and
 ArrowRight tag navigation, Enter-to-add and Enter-to-edit behavior, paste splitting, and hidden
-input form integration. Keep `HiddenInput` mounted for native forms, and give delete and clear
-triggers specific accessible names when multiple actions are visible.
+input form integration. The root renders its native form input automatically; configure form participation with root props such as `name` and `form`.

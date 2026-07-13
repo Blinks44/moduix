@@ -79,7 +79,6 @@ export function SelectOverflowDemo() {
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

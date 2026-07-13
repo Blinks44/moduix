@@ -11,9 +11,9 @@ Upstream docs:
 
 ## Upstream model to preserve
 
-The wrapper follows Ark UI `PinInput`: `Root`, `Label`, `Control`, indexed `Input`,
-`HiddenInput`, `RootProvider`, and `usePinInput`. `PinInput.Inputs` is moduix sugar for the
-standard sequence of indexed inputs.
+The wrapper follows Ark UI `PinInput`: `Root`, `Label`, `Control`, indexed `Input`, `RootProvider`,
+and `usePinInput`. `Root` and `RootProvider` render the native form input internally. `PinInput.Inputs`
+is moduix sugar for the standard sequence of indexed inputs.
 
 The official MDX content was reviewed from the task attachment `component-documentation.mdx` and
 checked against the installed Ark UI 5.37.2 props and examples.
@@ -36,7 +36,6 @@ consumer passes `placeholder` explicitly.
   <PinInput.Control>
     <PinInput.Inputs />
   </PinInput.Control>
-  <PinInput.HiddenInput />
 </PinInput>
 ```
 
@@ -48,7 +47,6 @@ consumer passes `placeholder` explicitly.
 | `PinInput.Control`      | `data-slot="pin-input-control"`; wraps visible inputs.    |
 | `PinInput.Input`        | `data-slot="pin-input-input"`; requires `index`.          |
 | `PinInput.Inputs`       | Renders one indexed `Input` per Ark context item.         |
-| `PinInput.HiddenInput`  | `data-slot="pin-input-hidden-input"`; native form input.  |
 | `PinInput.Separator`    | `data-slot="pin-input-separator"`; decorative moduix aid. |
 | `usePinInput`           | Ark state hook for `RootProvider`.                        |
 
@@ -64,7 +62,6 @@ export function VerificationCodeField() {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }
@@ -72,8 +69,8 @@ export function VerificationCodeField() {
 
 ## Upstream feature coverage
 
-- Basic composition maps directly to Ark `Root` / `Label` / `Control` / `Input` / `HiddenInput`.
-  `PinInput.Inputs` removes only the repeated indexed-input loop.
+- Basic composition maps directly to Ark `Root` / `Label` / `Control` / `Input`. `PinInput.Inputs`
+  removes only the repeated indexed-input loop.
 - Placeholder, blur-on-complete, OTP mode, masking, controlled values, field integration, and
   RootProvider examples are represented in Storybook and docs.
 - Controlled and uncontrolled values use Ark string arrays.
@@ -83,10 +80,10 @@ export function VerificationCodeField() {
 ## Accessibility and state
 
 Ark owns input labels, focus transfer, paste distribution, keyboard editing, invalid events, and
-hidden input form data. Keep `HiddenInput` mounted for native forms, autofill, and reset behavior.
+hidden input form data. The root renders its native form input automatically; configure form participation with root props such as `name` and `form`.
 
 `Field.Root` and `Fieldset.Root` context can provide disabled, invalid, required, and read-only
-state. `HiddenInput` reads Ark field context for described-by wiring.
+state. The internal native form input reads Ark field context for described-by wiring.
 
 State callbacks keep Ark detail shapes:
 
@@ -123,16 +120,19 @@ Important hooks:
 - Keep callbacks and value state Ark-shaped; do not adapt arrays back to strings.
 - Keep `Inputs` as fixed convenience sugar; do not turn it into a prop bag or replace explicit
   `Input` composition for grouped layouts.
-- Keep `HiddenInput` in examples that submit forms or need reset/autofill behavior.
+- `Root` and `RootProvider` render the native form input automatically for form submission, reset,
+  and autofill behavior.
 - When adding grouped layouts, input indexes must stay continuous across separators.
 
 ## Local changelog
+
+- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 
 - 2026-07-10: Added `PinInput.Inputs` as the recommended fixed renderer for the standard indexed
   input sequence; explicit `Input` composition remains the advanced path.
 - 2026-07-03: Simplified the public surface to match `Combobox`: removed moduix re-exports for Ark
   context APIs and duplicate type aliases, and stopped auto-rendering hidden `Control`/`Input`/
-  `HiddenInput` structure inside `PinInput.Root`.
+  the native form input structure inside `PinInput.Root`.
 - 2026-06-20: Renamed `otp-field` to `pin-input`, replaced legacy OTPField with Ark UI
   `PinInput`, adopted Ark parts/callbacks/value arrays, exposed RootProvider/context hooks, updated
   styling hooks and tokens, and removed legacy API compatibility.

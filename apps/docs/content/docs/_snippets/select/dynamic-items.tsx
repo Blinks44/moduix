@@ -78,7 +78,6 @@ export function SelectDynamicItemsDemo() {
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

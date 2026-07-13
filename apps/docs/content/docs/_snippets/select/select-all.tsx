@@ -70,7 +70,6 @@ export function SelectSelectAllDemo() {
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

@@ -78,7 +78,6 @@ export function SelectRootProviderDemo() {
             ))}
           </Select.Content>
         </Select.Positioner>
-        <Select.HiddenSelect />
       </Select.RootProvider>
     </>
   );

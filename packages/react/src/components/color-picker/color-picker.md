@@ -16,7 +16,7 @@ field input, color area, channel sliders, eyedropper, and swatches.
 - Keeps Ark parts, value objects from `parseColor`, format state, controlled/open state, provider
   state, and callback detail objects unchanged.
 - Keeps popup structure explicit through `Positioner` and `Content`; the root owns portalling.
-- Keeps `HiddenInput` as the native form integration point.
+- `Root` and `RootProvider` render the native form input internally for native form integration.
 
 ## Current behavior contract
 
@@ -25,7 +25,9 @@ field input, color area, channel sliders, eyedropper, and swatches.
 - Public composition is `ColorPicker.Root`, `RootProvider`, `Label`, `Control`, `Trigger`,
   `Positioner`, `Content`, `Area`, `AreaBackground`, `AreaThumb`, channel slider parts,
   `Sliders`, `ChannelInput`, `EyeDropperTrigger`, format parts, swatch parts, `TransparencyGrid`,
-  `ValueSwatch`, `ValueText`, `View`, and `HiddenInput`.
+  `ValueSwatch`, `ValueText`, and `View`.
+- `Root` and `RootProvider` append the native form input automatically; it is not a public moduix
+  part.
 - `parseColor`, `useColorPicker`, and `useColorPickerContext` are re-exported for common
   string-to-`Color` and advanced state workflows.
 - `Trigger` renders the current value swatch by default when children are omitted.
@@ -61,7 +63,7 @@ ColorPicker.Root
 │        │        └─ ColorPicker.SwatchIndicator
 │        └─ ColorPicker.View[format]
 │           └─ ColorPicker.ChannelInput[channel]
-└─ ColorPicker.HiddenInput
+└─ native input (automatic)
 ```
 
 All styled DOM parts expose matching kebab-case `data-slot` hooks. `RootProvider` accepts a state
@@ -86,7 +88,6 @@ export function ColorPickerExample() {
           <ColorPicker.Sliders />
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -98,7 +99,8 @@ export function ColorPickerExample() {
 - Controlled state through `value`, `format`, `open`, and Ark detail callbacks.
 - Inline mode through `inline` on `Root`, where `Area`, sliders, inputs, and swatches can render
   directly inside the root.
-- Form usage through `HiddenInput` plus `name` or form-library registration.
+- Form usage through `name` or form-library registration on the root; the native form input is
+  automatic.
 - Field integration through Ark `Field.Root` context for disabled, invalid, required, and read-only
   state.
 - Provider state through moduix `useColorPicker` plus `RootProvider`.
@@ -111,7 +113,8 @@ export function ColorPickerExample() {
 
 - Ark owns color area, slider, input, popover, focus, keyboard, outside interaction, and ARIA
   behavior.
-- Keep `HiddenInput` when native form submission or reset synchronization is required.
+- The root always renders the native form input. `name` and related root props configure form
+  submission and reset synchronization.
 - Important hooks include `data-state`, `data-focus`, `data-invalid`, `data-disabled`,
   `data-readonly`, `data-required`, `data-channel`, `data-orientation`, `data-value`,
   `data-placement`, and `data-side`.
@@ -152,9 +155,12 @@ export function ColorPickerExample() {
   Ark-only type helpers directly only when needed.
 - Do not hide popup structure behind a `Content` convenience wrapper.
 - Preserve Ark `Color` objects and callback detail shapes.
-- Keep `HiddenInput` explicit so consumers decide when the picker participates in forms.
+- Form participation is controlled through root props; the root renders the native form input
+  automatically.
 
 ## Local changelog
+
+- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 
 - 2026-07-10: Added `Sliders` and moduix state-hook re-exports; recommended them in docs.
 

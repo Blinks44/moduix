@@ -77,7 +77,6 @@ export function PinInputExample() {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }
@@ -89,7 +88,6 @@ export function PinInputPlaceholderExample() {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }
@@ -110,7 +108,6 @@ export function PinInputBlurOnCompleteExample() {
         <PinInput.Control>
           <PinInput.Inputs />
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput>
       <span className={styles.hint}>Completed value: {completedValue || 'empty'}</span>
     </div>
@@ -124,7 +121,6 @@ export function PinInputOtpModeExample() {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }
@@ -136,7 +132,6 @@ export function PinInputMaskedExample() {
       <PinInput.Control>
         <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }
@@ -158,7 +153,6 @@ export function PinInputChangeEventsExample() {
         <PinInput.Control>
           <PinInput.Inputs />
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput>
       <span className={styles.hint}>Current value: {value.join('') || 'empty'}</span>
     </div>
@@ -174,7 +168,6 @@ export function PinInputGroupedLayoutExample() {
         <PinInput.Separator />
         <PinInputSlots indexes={[3, 4, 5]} />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }
@@ -187,7 +180,6 @@ export function PinInputFieldExample() {
         <PinInput.Control>
           <PinInput.Inputs />
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput>
       <Field.HelperText>Additional info</Field.HelperText>
       <Field.ErrorText>Please enter the verification code.</Field.ErrorText>
@@ -214,7 +206,6 @@ export function PinInputRootProviderExample() {
         <PinInput.Control>
           <PinInputSlots indexes={pinInputIndexes} />
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput.RootProvider>
     </div>
   );

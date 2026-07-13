@@ -103,7 +103,6 @@ function WorkspaceSelect() {
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

@@ -11,7 +11,6 @@ export function LocaleDateInputDemo() {
       <DateInput.Control>
         <DateInput.Segments />
       </DateInput.Control>
-      <DateInput.HiddenInput />
     </DateInput>
   );
 }

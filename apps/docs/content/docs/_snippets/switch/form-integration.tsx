@@ -16,7 +16,6 @@ export function SwitchFormDemo() {
       <Switch defaultChecked name="notifications" required>
         <Switch.Control />
         <Switch.Label>Notifications</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
       <Field.HelperText>Used for product and account updates.</Field.HelperText>
       <Field.ErrorText>Notification preference is required.</Field.ErrorText>

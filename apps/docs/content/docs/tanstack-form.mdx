@@ -82,8 +82,8 @@ flow inside TanStack Form; omit it when native browser validation should run fir
 - For single selection, pass `field.state.value ? [field.state.value] : []` and read
   `details.value[0] ?? ""`.
 - Call `field.handleBlur` from `Select.onInteractOutside` or `Combobox.Input.onBlur`.
-- Keep `Select.HiddenSelect` mounted for native semantics and reset synchronization.
-- Keep `Checkbox.HiddenInput` mounted and map its checked state to a boolean field value.
+- `Select.Root` renders its native select automatically for native semantics and reset synchronization.
+- Map `Checkbox` checked state to a boolean field value; its root renders the native input automatically.
 - TanStack Form intentionally does not manage DOM focus. If you want to focus the first invalid
   field, implement it in `onSubmitInvalid` using the rendered `aria-invalid` controls.
 - Use `form.Subscribe` for derived form state instead of reading `form.state` during render.

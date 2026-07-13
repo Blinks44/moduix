@@ -6,25 +6,16 @@ import { Select } from '@moduix/react';
 
 const themes = createListCollection({
   items: [
-    {
-      label: 'System',
-      value: 'system',
-    },
-    {
-      label: 'Light',
-      value: 'light',
-    },
-    {
-      label: 'Dark',
-      value: 'dark',
-    },
+    { label: 'System', value: 'system' },
+    { label: 'Light', value: 'light' },
+    { label: 'Dark', value: 'dark' },
   ],
 });
 
-export function SelectFormUsageDemo() {
+export function NativeFormControlSelectDemo() {
   return (
     <form onSubmit={handleSubmit}>
-      <Select collection={themes} name="theme" required>
+      <Select collection={themes} name="theme" nativeFormControl="input" required>
         <Select.Label>Theme</Select.Label>
         <Select.Control>
           <Select.Trigger>

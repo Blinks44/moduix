@@ -50,7 +50,7 @@ SegmentGroup / SegmentGroup.Root
 └─ SegmentGroup.Item[value]
    ├─ SegmentGroup.ItemText
    ├─ SegmentGroup.ItemControl
-   └─ SegmentGroup.ItemHiddenInput
+   └─ the native form input
 
 SegmentGroup.RootProvider
 └─ same item tree connected to a moduix useSegmentGroup() store
@@ -66,7 +66,6 @@ SegmentGroup.RootProvider
 | `SegmentGroup.Item`                  | One selectable segment; renders a `label` by default.            |
 | `SegmentGroup.ItemText`              | Visible segment text.                                            |
 | `SegmentGroup.ItemControl`           | Ark control part; visually hidden by moduix default styles.      |
-| `SegmentGroup.ItemHiddenInput`       | Native input for form submission, validation, and reset.         |
 
 ## Composition
 
@@ -74,7 +73,7 @@ SegmentGroup.RootProvider
 
 Use the short root form `<SegmentGroup>` with `SegmentGroup.Items` for normal usage. Render
 `Indicator` before items so the measured highlight sits behind the checked segment. `Items` keeps
-Ark's `ItemHiddenInput` in every generated item for native forms and reset behavior.
+Ark's the native form input in every generated item for native forms and reset behavior.
 
 ### When to go custom
 
@@ -152,7 +151,7 @@ Set `disabled` on an item when only one segment should be unavailable.
 ### Form Submission
 
 Pass `name` to the root to submit the selected value with native form data. `SegmentGroup.Items`
-adds `ItemHiddenInput` to every generated item.
+adds the native form input to every generated item.
 
 <Preview>
   <SegmentGroupDocs.FormSegmentGroupExample />

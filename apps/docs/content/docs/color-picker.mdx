@@ -64,7 +64,7 @@ ColorPicker.Root
 │        │        └─ ColorPicker.SwatchIndicator
 │        └─ ColorPicker.View[format]
 │           └─ ColorPicker.ChannelInput[channel]
-└─ ColorPicker.HiddenInput
+└─ native input (automatic)
 ```
 
 | Part                               | Role                                                                   |
@@ -79,7 +79,6 @@ ColorPicker.Root
 | `ColorPicker.ChannelInput`         | Text or numeric input for a specific color channel.                    |
 | `ColorPicker.SwatchTrigger`        | Selectable preset color button.                                        |
 | `ColorPicker.ValueSwatch`          | Visual swatch for the current value.                                   |
-| `ColorPicker.HiddenInput`          | Hidden form field for native submission and reset synchronization.     |
 
 `ColorPicker.RootProvider`, `parseColor`, `useColorPicker`, and `useColorPickerContext` cover the
 normal advanced state path. Import Ark-only type helpers directly when needed as an escape hatch.
@@ -98,7 +97,7 @@ composition. Use `ColorPicker.Sliders` for the usual hue and alpha pair. Style i
 `data-channel` or CSS variables; pass children only when a part needs custom structure. Add
 `data-fit-content` when the trigger should size to custom content such as a swatch plus `ValueText`.
 
-Use `ColorPicker.HiddenInput` when the color should participate in native form submission or form
+Use the native form input when the color should participate in native form submission or form
 reset behavior. Put it inside the same root, and pass `name` on `ColorPicker.Root` or register the
 hidden input with a form library.
 
@@ -198,8 +197,7 @@ field container and should expose the same state through Ark data attributes.
 
 ### Form Usage
 
-Use `name` on `ColorPicker.Root` and keep `HiddenInput` mounted when the value should be submitted
-with native form data.
+Use `name` on `ColorPicker.Root` and the root renders its native form input automatically.
 
 <Preview>
   <ColorPickerDocs.FormUsageColorPickerExample />

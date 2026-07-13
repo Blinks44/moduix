@@ -50,7 +50,6 @@ export function SelectFieldDemo() {
             ))}
           </Select.Content>
         </Select.Positioner>
-        <Select.HiddenSelect />
       </Select>
       <Field.HelperText>Pick the framework used by this project.</Field.HelperText>
     </Field.Root>

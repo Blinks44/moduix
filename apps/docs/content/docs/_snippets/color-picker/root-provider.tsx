@@ -21,7 +21,6 @@ export function RootProviderColorPickerDemo() {
           <ColorPicker.Area />
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </ColorPicker.RootProvider>
   );
 }
