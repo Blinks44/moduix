@@ -1,0 +1,45 @@
+@layer ui.components {
+  .root {
+    display: inline-grid;
+    grid-template-areas: 'swap';
+    place-items: center;
+    vertical-align: middle;
+  }
+
+  .indicator {
+    display: inline-flex;
+    grid-area: swap;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+
+    &[data-state='open'] {
+      animation: swap-enter var(--swap-transition, var(--transition-default));
+    }
+
+    &[data-state='closed'] {
+      animation: swap-exit var(--swap-transition, var(--transition-default));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .indicator[data-state] {
+      animation-duration: 1ms;
+      animation-delay: 0ms;
+    }
+  }
+
+  @keyframes swap-enter {
+    from {
+      opacity: var(--swap-enter-starting-opacity, 0);
+      transform: scale(var(--swap-enter-starting-scale, 0.92));
+    }
+  }
+
+  @keyframes swap-exit {
+    to {
+      opacity: var(--swap-exit-ending-opacity, 0);
+      transform: scale(var(--swap-exit-ending-scale, 0.92));
+    }
+  }
+}

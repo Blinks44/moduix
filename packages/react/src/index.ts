@@ -68,6 +68,7 @@ export * from './components/spinner';
 export * from './components/split-button';
 export * from './components/stack';
 export * from './components/steps';
+export * from './components/swap';
 export * from './components/switch';
 export * from './components/tag';
 export * from './components/tags-input';

@@ -1853,6 +1853,31 @@
       ]
     },
     {
+      "name": "react-swap",
+      "type": "registry:item",
+      "title": "Swap",
+      "description": "moduix React Swap component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/swap/Swap.tsx",
+          "target": "@components/moduix/swap/Swap.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/swap/Swap.module.css",
+          "target": "@components/moduix/swap/Swap.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/swap/index.ts",
+          "target": "@components/moduix/swap/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-switch",
       "type": "registry:item",
       "title": "Switch",

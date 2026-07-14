@@ -1,0 +1,127 @@
+.feedbackButton {
+  --swap-button-width: 7rem;
+
+  width: var(--swap-button-width);
+  min-width: var(--swap-button-width);
+  overflow: hidden;
+  transition:
+    width var(--transition-default),
+    min-width var(--transition-default);
+}
+
+.feedbackButton[data-playing] {
+  --swap-button-width: 7.5rem;
+}
+
+.feedbackSwap {
+  width: 100%;
+}
+
+.compactButton[data-size='icon-md'] {
+  --compact-content-gap: 0;
+  --compact-label-width: 0;
+
+  width: var(--button-size-icon-md, var(--size-lg));
+  min-width: var(--button-size-icon-md, var(--size-lg));
+  overflow: hidden;
+  transition:
+    width var(--transition-default),
+    min-width var(--transition-default);
+}
+
+.compactButton[data-size='icon-md'][data-expanded] {
+  --compact-content-gap: var(--button-content-gap, var(--spacing-2));
+  --compact-label-width: 4.25rem;
+
+  width: 8.25rem;
+  min-width: 8.25rem;
+}
+
+.compactContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--compact-content-gap);
+  transition: gap var(--transition-default);
+}
+
+.compactLabel {
+  width: var(--compact-label-width);
+  min-width: 0;
+  overflow: hidden;
+  transition: width var(--transition-default);
+}
+
+.compactIndicator {
+  gap: var(--button-content-gap, var(--spacing-2));
+}
+
+.rotateSwap {
+  & [data-slot='swap-indicator'] {
+    backface-visibility: hidden;
+  }
+
+  & [data-slot='swap-indicator'][data-state='open'] {
+    animation: swap-rotate-in var(--swap-transition, var(--transition-default));
+  }
+
+  & [data-slot='swap-indicator'][data-state='closed'] {
+    animation: swap-rotate-out var(--swap-transition, var(--transition-default));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    & [data-slot='swap-indicator'][data-state] {
+      animation-duration: 1ms;
+    }
+  }
+}
+
+.flipSwap {
+  perspective: 24rem;
+
+  & [data-slot='swap-indicator'] {
+    backface-visibility: hidden;
+  }
+
+  & [data-slot='swap-indicator'][data-state='open'] {
+    animation: swap-flip-in var(--swap-transition, var(--transition-default));
+  }
+
+  & [data-slot='swap-indicator'][data-state='closed'] {
+    animation: swap-flip-out var(--swap-transition, var(--transition-default));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    & [data-slot='swap-indicator'][data-state] {
+      animation-duration: 1ms;
+    }
+  }
+}
+
+@keyframes swap-rotate-in {
+  from {
+    opacity: 0;
+    transform: rotate(-180deg);
+  }
+}
+
+@keyframes swap-rotate-out {
+  to {
+    opacity: 0;
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes swap-flip-in {
+  from {
+    opacity: 0;
+    transform: rotateY(-180deg);
+  }
+}
+
+@keyframes swap-flip-out {
+  to {
+    opacity: 0;
+    transform: rotateY(180deg);
+  }
+}

@@ -2781,6 +2781,13 @@
   --switch-width-lg: initial; /* 3.25rem */
   --switch-width-xl: initial; /* 3.75rem */
 
+  /* Swap */
+  --swap-enter-starting-opacity: initial; /* 0 */
+  --swap-enter-starting-scale: initial; /* 0.92 */
+  --swap-exit-ending-opacity: initial; /* 0 */
+  --swap-exit-ending-scale: initial; /* 0.92 */
+  --swap-transition: initial; /* var(--transition-default) */
+
   /* Tag */
   --tag-bg: initial; /* var(--color-primary) */
   --tag-border-color: initial; /* transparent */
