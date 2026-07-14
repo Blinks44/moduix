@@ -895,6 +895,31 @@
       ]
     },
     {
+      "name": "react-image",
+      "type": "registry:item",
+      "title": "Image",
+      "description": "moduix React Image component.",
+      "dependencies": ["@unpic/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "files": [
+        {
+          "path": "packages/react/src/components/image/Image.tsx",
+          "target": "@components/moduix/image/Image.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/image/Image.module.css",
+          "target": "@components/moduix/image/Image.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/image/index.ts",
+          "target": "@components/moduix/image/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "react-image-cropper",
       "type": "registry:item",
       "title": "ImageCropper",

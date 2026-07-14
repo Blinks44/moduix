@@ -1,0 +1,12 @@
+.container {
+  width: min(32rem, calc(100vw - var(--spacing-8)));
+}
+
+.fullWidth {
+  width: min(46rem, calc(100vw - var(--spacing-8)));
+}
+
+.picture {
+  display: block;
+  width: min(32rem, calc(100vw - var(--spacing-8)));
+}

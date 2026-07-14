@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "react-image",
+  "title": "Image",
+  "description": "moduix React Image component.",
+  "dependencies": ["@unpic/react", "clsx"],
+  "registryDependencies": ["Blinks44/moduix/react-core"],
+  "files": [
+    {
+      "path": "packages/react/src/components/image/Image.tsx",
+      "content": "import type { ImageProps as UnpicImageProps, SourceProps as UnpicSourceProps } from '@unpic/react';\nimport { Image as ImagePrimitive, Source as ImageSourcePrimitive } from '@unpic/react';\nimport { clsx } from 'clsx';\nimport { forwardRef } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './Image.module.css';\n\ntype ImageSourceProps = UnpicSourceProps & {\n  'data-slot'?: string;\n};\n\nconst ImageRoot = forwardRef<HTMLImageElement, UnpicImageProps>(function ImageRoot(\n  { className, ...props },\n  ref,\n) {\n  return (\n    <ImagePrimitive\n      ref={ref}\n      data-slot=\"image-root\"\n      className={clsx(styles.root, normalizeClassName(className))}\n      {...props}\n    />\n  );\n});\n\nconst ImageSource = forwardRef<HTMLSourceElement, ImageSourceProps>(\n  function ImageSource(props, ref) {\n    return <ImageSourcePrimitive ref={ref} data-slot=\"image-source\" {...props} />;\n  },\n);\n\nconst Image = Object.assign(ImageRoot, {\n  Root: ImageRoot,\n  Source: ImageSource,\n});\n\nexport { Image };",
+      "type": "registry:component",
+      "target": "@components/moduix/image/Image.tsx"
+    },
+    {
+      "path": "packages/react/src/components/image/Image.module.css",
+      "content": "@layer ui.components {\n  .root {\n    box-sizing: border-box;\n    display: block;\n    border-radius: var(--image-radius, var(--radius-md));\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/moduix/image/Image.module.css"
+    },
+    {
+      "path": "packages/react/src/components/image/index.ts",
+      "content": "export * from './Image';",
+      "type": "registry:component",
+      "target": "@components/moduix/image/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

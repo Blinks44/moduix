@@ -1,0 +1,7 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: block;
+    border-radius: var(--image-radius, var(--radius-md));
+  }
+}

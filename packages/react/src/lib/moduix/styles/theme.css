@@ -1440,6 +1440,9 @@
   --highlight-radius: initial; /* var(--radius-xs) */
   --highlight-shadow: initial; /* none */
 
+  /* Image */
+  --image-radius: initial; /* var(--radius-md) */
+
   /* ImageCropper */
   --image-cropper-border-color: initial; /* var(--color-border) */
   --image-cropper-border-width: initial; /* var(--border-width-sm) */
