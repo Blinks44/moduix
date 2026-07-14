@@ -1,0 +1,114 @@
+.example {
+  --styling-accent: color-mix(in oklab, #2563eb 80%, var(--color-foreground));
+  --styling-accent-strong: color-mix(in oklab, #1d4ed8 80%, var(--color-foreground));
+  --styling-surface: color-mix(in oklab, var(--styling-accent) 8%, var(--color-card));
+
+  max-inline-size: 42rem;
+  margin-block: var(--spacing-6) var(--spacing-8);
+  padding: var(--spacing-3);
+  border: var(--border-width-sm) solid
+    color-mix(in oklab, var(--styling-accent) 18%, var(--color-border));
+  border-radius: var(--radius-xl);
+  background: var(--styling-surface);
+}
+
+.accordion {
+  gap: var(--spacing-3);
+}
+
+.item {
+  overflow: hidden;
+  border: var(--border-width-sm) solid
+    color-mix(in oklab, var(--styling-accent) 20%, var(--color-border));
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+  transition:
+    border-color var(--transition-default),
+    box-shadow var(--transition-default);
+
+  &[data-orientation='vertical']:not(:last-child) {
+    border-bottom: var(--border-width-sm) solid
+      color-mix(in oklab, var(--styling-accent) 20%, var(--color-border));
+  }
+
+  &[data-state='open'] {
+    border-color: color-mix(in oklab, var(--styling-accent) 46%, var(--color-border));
+    box-shadow: 0 1.25rem 2.5rem -2rem color-mix(in oklab, var(--styling-accent) 58%, transparent);
+  }
+}
+
+.trigger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--spacing-3);
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-4);
+  background-color: color-mix(in oklab, var(--styling-accent) 7%, var(--color-card));
+  color: var(--color-foreground);
+  font-weight: var(--weight-semibold);
+  text-align: left;
+  transition:
+    background-color var(--transition-default),
+    color var(--transition-default);
+
+  &:hover {
+    background-color: color-mix(in oklab, var(--styling-accent) 13%, var(--color-card));
+  }
+
+  &:focus-visible {
+    outline: var(--border-width-md) solid var(--color-ring);
+    outline-offset: calc(var(--border-width-sm) * -1);
+  }
+
+  &[data-state='open'] {
+    background-color: color-mix(in oklab, var(--styling-accent) 17%, var(--color-card));
+    color: var(--styling-accent-strong);
+  }
+}
+
+.triggerCopy {
+  display: flex;
+  gap: var(--spacing-3);
+  align-items: center;
+  min-width: 0;
+}
+
+.step {
+  display: grid;
+  flex: none;
+  place-items: center;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  border: var(--border-width-sm) solid color-mix(in oklab, var(--styling-accent) 32%, transparent);
+  border-radius: var(--radius-xl);
+  background: color-mix(in oklab, var(--styling-accent) 15%, var(--color-card));
+  color: var(--styling-accent-strong);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+
+.title {
+  min-width: 0;
+}
+
+.indicator {
+  flex: none;
+  color: var(--styling-accent-strong);
+}
+
+.content {
+  border-block-start: var(--border-width-sm) solid
+    color-mix(in oklab, var(--styling-accent) 18%, var(--color-border));
+  background: color-mix(in oklab, var(--styling-accent) 5%, var(--color-card));
+  color: var(--color-foreground);
+}
+
+.body {
+  padding: var(--spacing-4);
+
+  & > p {
+    margin: 0;
+    color: color-mix(in oklab, var(--color-foreground) 92%, var(--styling-accent));
+  }
+}
