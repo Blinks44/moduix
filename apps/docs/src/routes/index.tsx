@@ -5,6 +5,7 @@ import { HomeLayout } from 'fumadocs-ui/layouts/home';
 import { ArrowRight, Code2, Component, Layers3, PackageCheck, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { FrameworkSupport } from '@/components/framework-support';
+import { HomeDataTable } from '@/components/home-data-table';
 import { baseOptions } from '@/lib/layout.shared';
 import { siteUrl } from '@/lib/shared';
 import styles from './index.module.css';
@@ -104,6 +105,30 @@ function Home() {
               <div className={styles.menuLine} />
             </div>
           </div>
+        </section>
+
+        <section className={styles.dataTableSection} aria-labelledby="component-table-title">
+          <div className={styles.dataTableIntro}>
+            <div>
+              <span className={styles.sectionEyebrow}>Composition in practice</span>
+              <h2 id="component-table-title">A few components, working together.</h2>
+              <p>
+                Search, selection, menus, and a wide table stay small and composable—ready for a
+                product screen rather than a marketing mockup.
+              </p>
+            </div>
+            <Link
+              to="/docs/$"
+              params={{
+                _splat: 'data-table',
+              }}
+              className={styles.tableLink}
+            >
+              Explore the table pattern
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+          <HomeDataTable />
         </section>
       </div>
     </HomeLayout>
