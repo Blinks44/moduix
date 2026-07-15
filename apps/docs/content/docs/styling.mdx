@@ -20,7 +20,8 @@ import '@moduix/react/style.css';
 ```
 
 Panda CSS and Tailwind CSS are not dependencies of moduix or this documentation site. The examples
-below show how to use either one in an application where it is already configured.
+below style the same `ProjectChecklist` in each tool, so only the authoring syntax changes. They
+are consumer snippets for applications where the respective tool is already configured.
 
 ## Style the parts you render
 
@@ -83,7 +84,7 @@ The panel below uses CSS Modules and styles each exported Accordion part directl
 
 ## CSS Modules
 
-CSS Modules are the dependency-free baseline. This project checklist keeps its styles attached
+CSS Modules are the dependency-free baseline. This `ProjectChecklist` keeps its styles attached
 directly to the parts it renders.
 
 <div className="not-prose">
@@ -267,63 +268,134 @@ as `Dialog.Content` or `Tooltip.Content`, put `className` on the portalled part 
 
 ## Panda CSS
 
-In an application that already has Panda configured, pass the generated classes to the same parts.
-The token names below belong to your Panda theme, not to moduix.
+In an application that already has Panda configured, generate classes for the same
+`ProjectChecklist` parts. The token names below belong to your Panda theme, not to moduix.
 
 ```tsx
 import { Accordion } from '@moduix/react';
 import { css } from '../styled-system/css';
 
-const item = css({ borderBottomWidth: '1px', borderColor: 'gray.200' });
+const root = css({
+  maxW: '2xl',
+  p: '3',
+  borderWidth: '1px',
+  borderColor: 'blue.200',
+  borderRadius: 'xl',
+  bg: 'blue.50',
+});
+const accordion = css({ display: 'flex', flexDirection: 'column', gap: '3' });
+const item = css({
+  overflow: 'hidden',
+  borderWidth: '1px',
+  borderColor: 'blue.200',
+  borderRadius: 'lg',
+  bg: 'white',
+  transition: 'colors',
+  '&[data-state=open]': { borderColor: 'blue.500', boxShadow: 'lg' },
+});
 const trigger = css({
+  display: 'grid',
+  gridTemplateColumns: 'minmax(0, 1fr) auto',
+  gap: '3',
+  alignItems: 'center',
+  w: 'full',
   px: '4',
   py: '4',
+  bg: 'blue.50',
+  color: 'gray.950',
   fontWeight: 'semibold',
-  _hover: { bg: 'gray.50' },
-  '&[data-state=open]': { color: 'indigo.600' },
+  textAlign: 'left',
+  transition: 'colors',
+  _hover: { bg: 'blue.100' },
+  _focusVisible: { outlineWidth: '2px', outlineColor: 'blue.500', outlineOffset: '-1px' },
+  '&[data-state=open]': { bg: 'blue.100', color: 'blue.700' },
 });
-const body = css({ px: '4', pb: '4', color: 'gray.600', lineHeight: '6' });
+const triggerCopy = css({ display: 'flex', gap: '3', alignItems: 'center', minW: '0' });
+const step = css({
+  display: 'grid',
+  flexShrink: '0',
+  placeItems: 'center',
+  w: '7',
+  h: '7',
+  borderWidth: '1px',
+  borderColor: 'blue.300',
+  borderRadius: 'xl',
+  bg: 'blue.100',
+  color: 'blue.700',
+  fontSize: 'xs',
+  fontWeight: 'semibold',
+});
+const title = css({ minW: '0' });
+const indicator = css({ flexShrink: '0', color: 'blue.700' });
+const content = css({
+  borderTopWidth: '1px',
+  borderColor: 'blue.200',
+  bg: 'blue.50',
+  color: 'gray.950',
+});
+const body = css({ px: '4', py: '4', color: 'gray.700', lineHeight: '6' });
 
-export function ProductFaq() {
+export function ProjectChecklist() {
   return (
-    <Accordion collapsible>
-      <Accordion.Item className={item} value="shipping">
-        <Accordion.ItemTrigger className={trigger}>
-          How long does shipping take?
-        </Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody className={body}>
-            Most orders arrive within three to five business days.
-          </Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
+    <section className={root}>
+      <Accordion className={accordion} collapsible defaultValue={['outcome']}>
+        <Accordion.Item className={item} value="outcome">
+          <Accordion.ItemTrigger className={trigger}>
+            <span className={triggerCopy}>
+              <span className={step}>01</span>
+              <span className={title}>Define the project outcome</span>
+            </span>
+            <Accordion.ItemIndicator className={indicator} />
+          </Accordion.ItemTrigger>
+          <Accordion.ItemContent className={content}>
+            <Accordion.ItemBody className={body}>
+              <p>
+                Write one sentence that makes the next decision obvious to everyone on the project.
+              </p>
+            </Accordion.ItemBody>
+          </Accordion.ItemContent>
+        </Accordion.Item>
+      </Accordion>
+    </section>
   );
 }
 ```
 
 ## Tailwind CSS
 
-In an application that already uses Tailwind, apply utilities and state variants to those same
-exported parts. No moduix-specific Tailwind plugin or configuration is required.
+In an application that already uses Tailwind, apply utilities and state variants to the same
+`ProjectChecklist` parts. No moduix-specific Tailwind plugin or configuration is required.
 
 ```tsx
 import { Accordion } from '@moduix/react';
 
-export function ProductFaq() {
+export function ProjectChecklist() {
   return (
-    <Accordion collapsible>
-      <Accordion.Item className="border-b border-slate-200" value="shipping">
-        <Accordion.ItemTrigger className="px-4 py-4 font-semibold hover:bg-slate-50 data-[state=open]:text-indigo-600">
-          How long does shipping take?
-        </Accordion.ItemTrigger>
-        <Accordion.ItemContent className="text-slate-600">
-          <Accordion.ItemBody className="px-4 pb-4 leading-6">
-            Most orders arrive within three to five business days.
-          </Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion>
+    <section className="max-w-2xl rounded-xl border border-blue-200 bg-blue-50 p-3">
+      <Accordion className="flex flex-col gap-3" collapsible defaultValue={['outcome']}>
+        <Accordion.Item
+          className="overflow-hidden rounded-lg border border-blue-200 bg-white transition-[border-color,box-shadow] data-[state=open]:border-blue-500 data-[state=open]:shadow-lg"
+          value="outcome"
+        >
+          <Accordion.ItemTrigger className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 bg-blue-50 p-4 text-left font-semibold text-slate-950 transition-colors hover:bg-blue-100 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-1px] data-[state=open]:bg-blue-100 data-[state=open]:text-blue-700">
+            <span className="flex min-w-0 items-center gap-3">
+              <span className="grid size-7 shrink-0 place-items-center rounded-xl border border-blue-300 bg-blue-100 text-xs font-semibold text-blue-700">
+                01
+              </span>
+              <span className="min-w-0">Define the project outcome</span>
+            </span>
+            <Accordion.ItemIndicator className="shrink-0 text-blue-700" />
+          </Accordion.ItemTrigger>
+          <Accordion.ItemContent className="border-t border-blue-200 bg-blue-50 text-slate-950">
+            <Accordion.ItemBody className="p-4 leading-6 text-slate-700">
+              <p>
+                Write one sentence that makes the next decision obvious to everyone on the project.
+              </p>
+            </Accordion.ItemBody>
+          </Accordion.ItemContent>
+        </Accordion.Item>
+      </Accordion>
+    </section>
   );
 }
 ```

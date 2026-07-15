@@ -2,7 +2,7 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { Button, Dialog, ProgressLinear, Select, Switch, Tabs } from '@moduix/react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { HomeLayout } from 'fumadocs-ui/layouts/home';
-import { ArrowRight, Code2, Component, Layers3, PackageCheck, Sparkles } from 'lucide-react';
+import { ArrowRight, Component, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { FrameworkSupport } from '@/components/framework-support';
 import { HomeDataTable } from '@/components/home-data-table';
@@ -16,21 +16,6 @@ export const Route = createFileRoute('/')({
     links: [{ rel: 'canonical', href: siteUrl }],
   }),
 });
-
-const highlights = [
-  {
-    icon: Layers3,
-    label: 'Composable primitives',
-  },
-  {
-    icon: Code2,
-    label: 'Typed parts API',
-  },
-  {
-    icon: PackageCheck,
-    label: 'Shadcn-like composition',
-  },
-];
 
 const workspaceOptions = [
   { label: 'Design system', value: 'design-system' },
@@ -78,14 +63,6 @@ function Home() {
                 Components
                 <Component size={18} aria-hidden="true" />
               </Link>
-            </div>
-            <div className={styles.highlights} aria-label="Library highlights">
-              {highlights.map(({ icon: Icon, label }) => (
-                <div className={styles.highlight} key={label}>
-                  <Icon size={16} aria-hidden="true" />
-                  <span>{label}</span>
-                </div>
-              ))}
             </div>
           </div>
 
