@@ -93,7 +93,7 @@ flow inside TanStack Form; omit it when native browser validation should run fir
 Use an array-mode field as the owner of add and remove operations, and render a nested field for
 each value. A user-created item should also have its own persistent `id`; use it as the React key
 while the index remains part of the nested field name. Wrap the list in `Fieldset` when it has a
-shared label.
+shared label. This fragment is rendered in the component where `form` was created.
 
 ```tsx
 const newEmail = () => ({ id: crypto.randomUUID(), address: '' });

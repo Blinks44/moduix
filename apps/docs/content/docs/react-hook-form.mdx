@@ -91,7 +91,8 @@ you intentionally want the browser's native validation UI.
 
 Use `useFieldArray` for a list the user can edit. It supplies a stable `id` for every row; use it
 as the React key, never the current index. The index is only for the registered field path. Keep
-the group's label in `Fieldset` when the list has a shared purpose.
+the group's label in `Fieldset` when the list has a shared purpose. This is a fragment for the
+component that owns `useForm`; render the rows and buttons inside its form.
 
 ```tsx
 import { Button, Field } from '@moduix/react';

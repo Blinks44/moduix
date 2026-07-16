@@ -481,9 +481,9 @@ export function TanStackFormExample() {
 
         <Card.Footer>
           <form.Subscribe
-            selector={(state) => [state.canSubmit, state.isSubmitting] as const}
-            children={([canSubmit, isSubmitting]) => (
-              <Button className={styles.submit} type="submit" disabled={!canSubmit}>
+            selector={(state) => [state.isSubmitting] as const}
+            children={([isSubmitting]) => (
+              <Button className={styles.submit} type="submit" disabled={isSubmitting}>
                 {isSubmitting ? 'Creating…' : 'Create project'}
               </Button>
             )}

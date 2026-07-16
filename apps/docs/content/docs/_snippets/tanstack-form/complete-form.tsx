@@ -194,9 +194,9 @@ export function ProjectForm() {
         </Card.Body>
 
         <Card.Footer>
-          <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting] as const}>
-            {([canSubmit, isSubmitting]) => (
-              <Button className="submit" type="submit" disabled={!canSubmit}>
+          <form.Subscribe selector={(state) => [state.isSubmitting] as const}>
+            {([isSubmitting]) => (
+              <Button className="submit" type="submit" disabled={isSubmitting}>
                 {isSubmitting ? 'Creating…' : 'Create project'}
               </Button>
             )}

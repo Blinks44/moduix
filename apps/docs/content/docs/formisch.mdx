@@ -38,8 +38,9 @@ the user corrects the field.
 
 `field.errors` is either `null` or an array of messages. Use that result for `Field invalid` and
 render it with `Field.ErrorText`; the same field context supplies the invalid state to Ark-aware
-controls. To restore `initialInput`, call Formisch's `reset(form)` instead of only resetting the
-native DOM form, so its controlled field state resets too.
+controls. Formisch's `Form` prevents the browser's default submission and adds `noValidate`, so
+Formisch owns the validation flow. To restore `initialInput`, call Formisch's `reset(form)` instead
+of only resetting the native DOM form, so its controlled field state resets too.
 
 ## Complete form
 
@@ -85,13 +86,15 @@ This form uses Formisch validation on submit and revalidates edited values on in
 Use `FieldArray` to render an editable list and Formisch's `insert` and `remove` helpers to change
 it. `fieldArray.items` provides stable IDs for React keys; the index belongs only in the path to
 the current item's field. Use a `Fieldset` when the list needs a shared label or group-level error.
+The fragment belongs inside a `Form` that uses the `form` created here.
 
 ```tsx
 import { Field as FormischField, FieldArray, insert, remove, useForm } from '@formisch/react';
 import { Button, Field } from '@moduix/react';
 import * as v from 'valibot';
 
-const emailsSchema = v.object({
+const formSchema = v.object({
+  name: v.pipe(v.string(), v.minLength(1, 'Enter a project name.')),
   emails: v.array(
     v.object({
       address: v.pipe(v.string(), v.email('Enter a valid email address.')),
@@ -100,8 +103,8 @@ const emailsSchema = v.object({
 });
 
 const form = useForm({
-  schema: emailsSchema,
-  initialInput: { emails: [{ address: '' }] },
+  schema: formSchema,
+  initialInput: { name: '', emails: [{ address: '' }] },
 });
 
 <FieldArray of={form} path={['emails']}>
@@ -139,9 +142,10 @@ distinct from moduix `Field`, as in the complete example above.
 ## Errors returned by the server
 
 Call `setErrors` after the request: use a `path` for a field-specific message and omit it for a
-form-level message. Clear errors from the preceding request before submitting again, then render
-field errors with the same `field.errors` mapping used for Valibot errors. For an item in an array,
-the path follows the same structure, for example `['emails', index, 'address']`.
+form-level message. The form below uses the same schema as the array fragment, so `name` is a valid
+field path. Clear errors from the preceding request before submitting again, then render field
+errors with the same `field.errors` mapping used for Valibot errors. For an item in an array, the
+path follows the same structure, for example `['emails', index, 'address']`.
 
 ```tsx
 import { Form, setErrors } from '@formisch/react';
