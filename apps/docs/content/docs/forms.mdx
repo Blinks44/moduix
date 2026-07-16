@@ -17,6 +17,24 @@ submission workflows.
 | Native `<form>`                          | Simple forms that can use browser validation, submission, and reset.       |
 | [React Hook Form](/docs/react-hook-form) | Mostly uncontrolled inputs with controlled adapters for compound controls. |
 | [TanStack Form](/docs/tanstack-form)     | Explicit controlled fields, reactive form state, and typed validation.     |
+| [Formisch](/docs/formisch)               | Schema-first Valibot validation with headless field state.                 |
+
+## How form libraries fit in
+
+moduix owns accessible form structure: labels, descriptions, error-message wiring, semantic
+control parts, and the native form control needed for submission and reset. A form library owns
+application state: field values, validation timing, dirty and touched state, and submission
+workflow. Keep those responsibilities separate.
+
+| Concern              | moduix and the browser                                                    | Form library                                                           |
+| -------------------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Form semantics       | Renders the visible control, `name`, label, description, and native peer. | Does not add another input for the same value.                         |
+| Value and validation | Applies native constraints and exposes `Field` state to the control tree. | Stores values, chooses validators, and exposes validation results.     |
+| Reset and focus      | Native reset synchronizes Ark-backed controls through their form control. | Resets controlled state and, when supported, focuses invalid controls. |
+
+This means a library augments a real `<form>`; it does not replace one. Pass a library's current
+validation result to `Field invalid` and render the message with `Field.ErrorText`, while keeping
+the component's semantic props on its moduix root.
 
 ## Core rules
 
@@ -59,6 +77,10 @@ For the controls with form-specific options, keep the configuration on the seman
   hidden inputs and intentionally does not provide those native-select features.
 - `SignaturePad`: the default form value is the SVG paths joined with spaces. Use
   `getFormValue={(paths) => JSON.stringify(paths)}` when the server expects a JSON array.
+
+For groups such as a set of checkboxes, radio options, or several related inputs, use `Fieldset`
+with a visible `Fieldset.Legend`. It provides the group-level label, helper text, error text, and
+shared state; see the dedicated [Fieldset guide](/docs/fieldset) for its composition patterns.
 
 ## Native form
 
@@ -106,14 +128,22 @@ presentation; the native form still owns submission, validation, and reset behav
   </Preview.CSS>
 </Preview>
 
-## Validation and focus
+## Validation, reset, and focus
 
-Set `invalid` on `Field` from the current validation result and render a clear
-`Field.ErrorText`. Ark-aware controls inherit the invalid state through field context.
+There are two valid validation modes. For a simple native form, keep constraints such as
+`required`, `minLength`, `pattern`, `min`, and `max`, and let the browser present its validation
+UI. When a library should control the visible error messages, add `noValidate` to the form and
+pass its result to `Field invalid` with a clear `Field.ErrorText`. Keep `Field required` in both
+cases: Ark-aware controls inherit the semantic required state through field context.
 
-For native controls, use constraints such as `required`, `minLength`, `pattern`, `min`, and `max`.
-`Field required` forwards required state to Ark-aware controls. If you compose a non-Ark custom
-control, apply its native constraint yourself.
+If you compose a non-Ark custom control, apply its native constraint and `aria-invalid` state to
+the actual focusable element yourself. Do not show an error merely because a field is required;
+show it after the chosen validation lifecycle has found a problem.
+
+For a native-only form, `type="reset"` or `form.reset()` restores the controls' default values.
+Ark-backed components synchronize their internal state through the native form control moduix
+renders. For controlled library fields, call the library's reset API instead of relying on a DOM
+reset alone, otherwise the next render can restore the old application value.
 
 Form libraries need the ref of the element a user can focus:
 
@@ -121,4 +151,26 @@ Form libraries need the ref of the element a user can focus:
 - `Select.Trigger` for `Select`
 - `Combobox.Input` for `Combobox`
 
-The dedicated integration guides show the corresponding value and blur mappings.
+React Hook Form uses that ref for its built-in invalid-field focus. TanStack Form intentionally
+leaves focus management to the application, so focus the first rendered `aria-invalid` control in
+an invalid-submit handler when that behaviour is needed. The dedicated integration guides show
+the corresponding value, blur, reset, and focus mappings.
+
+## Repeated fields and server errors
+
+For an editable list such as contact emails, team members, or order lines, let the chosen form
+library add, remove, and validate items. Use a `Fieldset` and its visible legend for the group;
+each item still needs its own `Field`, label, and error message. Keys must identify the item rather
+than its current position so that an item keeps its value, focus, and error when a neighbour is
+removed or reordered.
+
+Treat errors returned after a request separately from client validation. Map an error about a
+specific value, such as an already-used email, to that field's `Field.ErrorText`; render a request
+or permission failure that has no field as a form-level `role="alert"`. Keep the user's values in
+place so they can correct and resubmit. The integration guides include compact recipes for
+[React Hook Form](/docs/react-hook-form#repeated-fields),
+[TanStack Form](/docs/tanstack-form#repeated-fields), and
+[Formisch](/docs/formisch#repeated-fields).
+
+For the underlying primitive behavior, including `Field` context and native reset synchronization,
+see the [Ark UI forms guide](https://ark-ui.com/docs/guides/forms).

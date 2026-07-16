@@ -96,7 +96,7 @@
 
   @media (min-width: 901px) {
     grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.78fr);
-    width: min(1180px, calc(100% - 40px));
+    width: min(1200px, calc(100% - 40px));
     padding: clamp(2.75rem, 5vw, 4.5rem) 0;
   }
 }

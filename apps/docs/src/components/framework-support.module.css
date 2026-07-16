@@ -8,7 +8,7 @@
 .available,
 .upcoming {
   display: grid;
-  place-items: center;
+  place-content: center;
   width: 3rem;
   height: 3rem;
   padding: 0.6rem;

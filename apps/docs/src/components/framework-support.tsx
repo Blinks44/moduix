@@ -9,7 +9,7 @@ const upcomingFrameworks = [
 
 export function FrameworkSupport() {
   return (
-    <div className={styles.root} aria-label="Framework support">
+    <div className={styles.root} role="group" aria-label="Framework support">
       <div className={styles.available} role="img" aria-label="React is available">
         <ReactIcon />
       </div>

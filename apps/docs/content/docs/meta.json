@@ -20,6 +20,7 @@
     "forms",
     "react-hook-form",
     "tanstack-form",
+    "formisch",
     "---Components---",
     "..."
   ]
