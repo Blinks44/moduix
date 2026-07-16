@@ -113,11 +113,21 @@
     z-index: calc(var(--z-popup) + var(--layer-index, 0));
 
     &[data-state='open'] {
-      animation: menuContentIn var(--menu-transition, var(--transition-default));
+      animation: menuContentIn
+        var(
+          --menu-transition,
+          var(--popup-motion-duration, var(--duration-normal))
+            var(--popup-motion-easing, var(--ease-in-out))
+        );
     }
 
     &[data-state='closed'] {
-      animation: menuContentOut var(--menu-transition, var(--transition-default));
+      animation: menuContentOut
+        var(
+          --menu-transition,
+          var(--popup-motion-duration, var(--duration-normal))
+            var(--popup-motion-easing, var(--ease-in-out))
+        );
     }
   }
 
@@ -401,9 +411,12 @@
 
   @keyframes menuContentIn {
     from {
-      opacity: var(--menu-popup-starting-opacity, 0);
-      translate: var(--menu-popup-starting-translate-x, 0) var(--menu-popup-starting-translate-y, 0);
-      transform: scale(var(--menu-popup-starting-scale, var(--scale-popup)));
+      opacity: var(--menu-popup-starting-opacity, var(--popup-motion-starting-opacity, 0));
+      translate: var(--menu-popup-starting-translate-x, var(--popup-motion-starting-translate-x, 0))
+        var(--menu-popup-starting-translate-y, var(--popup-motion-starting-translate-y, 0));
+      transform: scale(
+        var(--menu-popup-starting-scale, var(--popup-motion-starting-scale, var(--scale-popup)))
+      );
     }
 
     to {
@@ -421,9 +434,12 @@
     }
 
     to {
-      opacity: var(--menu-popup-ending-opacity, 0);
-      translate: var(--menu-popup-ending-translate-x, 0) var(--menu-popup-ending-translate-y, 0);
-      transform: scale(var(--menu-popup-ending-scale, var(--scale-popup)));
+      opacity: var(--menu-popup-ending-opacity, var(--popup-motion-ending-opacity, 0));
+      translate: var(--menu-popup-ending-translate-x, var(--popup-motion-ending-translate-x, 0))
+        var(--menu-popup-ending-translate-y, var(--popup-motion-ending-translate-y, 0));
+      transform: scale(
+        var(--menu-popup-ending-scale, var(--popup-motion-ending-scale, var(--scale-popup)))
+      );
     }
   }
 }

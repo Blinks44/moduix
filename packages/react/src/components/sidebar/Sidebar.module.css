@@ -401,10 +401,7 @@
   .menuAction {
     position: absolute;
     inset-block-start: calc(
-      (
-          var(--sidebar-menu-button-height, var(--size-md)) -
-            var(--sidebar-menu-action-size, 1.5rem)
-        ) /
+      (var(--sidebar-menu-button-height, var(--size-md)) - var(--sidebar-menu-action-size, 1.5rem)) /
         2
     );
     inset-inline-end: var(--sidebar-menu-button-padding-x, var(--spacing-2));
@@ -447,10 +444,8 @@
   .menuBadge {
     position: absolute;
     inset-block-start: calc(
-      (
-          var(--sidebar-menu-button-height, var(--size-md)) -
-            var(--sidebar-menu-badge-min-width, 1.5rem)
-        ) /
+      (var(--sidebar-menu-button-height, var(--size-md)) -
+          var(--sidebar-menu-badge-min-width, 1.5rem)) /
         2
     );
     inset-inline-end: var(--sidebar-menu-button-padding-x, var(--spacing-2));

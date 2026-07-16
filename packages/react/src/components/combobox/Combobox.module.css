@@ -1,12 +1,17 @@
 @layer ui.components {
   @keyframes combobox-content-open {
     from {
-      opacity: var(--combobox-content-closed-opacity, 0);
-      transform: scale(var(--combobox-content-closed-scale, var(--scale-popup)));
+      opacity: var(--combobox-content-closed-opacity, var(--popup-motion-starting-opacity, 0));
+      translate: var(--popup-motion-starting-translate-x, 0)
+        var(--popup-motion-starting-translate-y, 0);
+      transform: scale(
+        var(--combobox-content-closed-scale, var(--popup-motion-starting-scale, var(--scale-popup)))
+      );
     }
 
     to {
       opacity: 1;
+      translate: 0 0;
       transform: scale(1);
     }
   }
@@ -14,12 +19,16 @@
   @keyframes combobox-content-closed {
     from {
       opacity: 1;
+      translate: 0 0;
       transform: scale(1);
     }
 
     to {
-      opacity: var(--combobox-content-closed-opacity, 0);
-      transform: scale(var(--combobox-content-closed-scale, var(--scale-popup)));
+      opacity: var(--combobox-content-closed-opacity, var(--popup-motion-ending-opacity, 0));
+      translate: var(--popup-motion-ending-translate-x, 0) var(--popup-motion-ending-translate-y, 0);
+      transform: scale(
+        var(--combobox-content-closed-scale, var(--popup-motion-ending-scale, var(--scale-popup)))
+      );
     }
   }
 
@@ -212,11 +221,21 @@
     scroll-padding-block: var(--combobox-content-padding-y, var(--spacing-1));
 
     &[data-state='open'] {
-      animation: combobox-content-open var(--combobox-transition, var(--transition-default));
+      animation: combobox-content-open
+        var(
+          --combobox-transition,
+          var(--popup-motion-duration, var(--duration-normal))
+            var(--popup-motion-easing, var(--ease-in-out))
+        );
     }
 
     &[data-state='closed'] {
-      animation: combobox-content-closed var(--combobox-transition, var(--transition-default));
+      animation: combobox-content-closed
+        var(
+          --combobox-transition,
+          var(--popup-motion-duration, var(--duration-normal))
+            var(--popup-motion-easing, var(--ease-in-out))
+        );
     }
   }
 

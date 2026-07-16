@@ -114,6 +114,9 @@ rendered `CloseButton.Root`.
 
 ## Defaults and styling
 
+Content motion falls back to the shared `--popup-motion-*` tokens; `--dialog-*` content-motion
+variables remain the more specific override. Backdrop motion remains separate.
+
 Moduix supplies visual defaults for native trigger/close buttons, backdrop, centered positioner,
 content surface, typography, layout helpers, motion, and close icon.
 
@@ -146,6 +149,7 @@ Ark callback detail objects, `RootProvider`, `useDialog`, and `useDialogContext`
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
 - 2026-07-12: Kept one close part in the canonical Basic composition so Ark's generated
   close-trigger id is not duplicated within the dialog.
 - 2026-07-10: Re-exported `useDialog` and `useDialogContext` so provider and context workflows use

@@ -156,6 +156,8 @@ export function SelectDemo() {
 
 ## Defaults and styling
 
+- Content motion falls back to the shared `--popup-motion-*` tokens. `--select-transition` and
+  closed-state variables remain the more specific override.
 - Moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
 - `Select.Control` owns Ark state attributes; `Select.Trigger` renders the visible field chrome.
 - The trigger keeps its focus ring while the popup is open. Hovering the trigger highlights the
@@ -189,6 +191,7 @@ export function SelectDemo() {
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-13: Rendered native select form controls automatically and added
   `nativeFormControl="input"` for virtualized collections.
 

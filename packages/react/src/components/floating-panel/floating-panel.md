@@ -134,6 +134,9 @@ and accessible name.
 
 ## Defaults and styling
 
+Content motion falls back to the shared `--popup-motion-*` tokens; `--floating-panel-*` motion
+variables remain the more specific override.
+
 The wrappers preserve Ark `data-scope` and `data-part` attributes and add stable `data-slot` hooks.
 Styling uses moduix color, radius, shadow, spacing, typography, z-index, and motion tokens.
 
@@ -175,6 +178,7 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-10: Re-exported Ark state surfaces through `FloatingPanel`, added `ResizeTriggerGroup.axes`,
   defaulted `closeOnEscape` on `Root`, added the default restore control, and made the docs use the
   moduix state API as the recommended path.

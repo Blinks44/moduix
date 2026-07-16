@@ -141,6 +141,9 @@ Refs forward to the underlying Ark DOM parts. `CommandPalette.Input` is the inpu
 
 ## Defaults and styling
 
+Content motion falls back to the shared `--popup-motion-*` tokens; `--command-palette-*` content
+motion variables remain the more specific override. Backdrop motion remains separate.
+
 The visual contract uses `data-slot="command-palette-*"` hooks on each exported part and on the internal scroll area. `lazyMount` and `unmountOnExit` default to `true` so Ark Presence can run enter and exit animations while still removing the palette after close. Motion is tied to Ark `data-state` on `Backdrop` and `Content`, not legacy starting/ending style attributes.
 
 Important CSS variables include `--command-palette-positioner-padding`, `--command-palette-width`, `--command-palette-max-height`, `--command-palette-bg`, `--command-palette-border-color`, `--command-palette-control-*`, `--command-palette-input-*`, `--command-palette-highlight-*`, `--command-palette-scrollbar-*`, and the item/footer/kbd variables. Size and spacing defaults should prefer shared tokens such as `--size-sm`, `--size-md`, and `--spacing-*` over one-off fractional rem values.
@@ -168,6 +171,7 @@ consumers should compose those Ark helpers directly.
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
 - 2026-07-12: Classified close/header effective values as private `--_command-palette-*`
   implementation variables; public customization continues through the documented non-underscored
   close and header variables.

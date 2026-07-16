@@ -112,6 +112,18 @@
   --popup-separator-margin-x-start: initial; /* 1rem */
   --popup-separator-margin-y: initial; /* 0.375rem */
 
+  /* Shared Popup Motion */
+  --popup-motion-duration: initial; /* component default */
+  --popup-motion-easing: initial; /* component default */
+  --popup-motion-starting-opacity: initial; /* component default */
+  --popup-motion-starting-scale: initial; /* component default */
+  --popup-motion-starting-translate-x: initial; /* component default */
+  --popup-motion-starting-translate-y: initial; /* component default */
+  --popup-motion-ending-opacity: initial; /* component default */
+  --popup-motion-ending-scale: initial; /* component default */
+  --popup-motion-ending-translate-x: initial; /* component default */
+  --popup-motion-ending-translate-y: initial; /* component default */
+
   /* AspectRatio */
   --aspect-ratio-radius: initial; /* var(--radius-md) */
 

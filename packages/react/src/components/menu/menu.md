@@ -136,6 +136,9 @@ Refs forward to the corresponding Ark DOM part. `Menu.Trigger` targets the trigg
 
 ## Defaults and styling
 
+Content motion falls back to the shared `--popup-motion-*` tokens; `--menu-*` motion variables
+remain the more specific override.
+
 Visual defaults preserve moduix tokens for trigger density, popup radius, shadow, item highlight,
 destructive tone, indicators, and shortcuts.
 
@@ -175,6 +178,7 @@ examples use them. Other Ark state surfaces remain escape hatches until moduix d
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-10: Exported `useMenu` and `Menu.ItemContext` through moduix so normal provider and
   item-state examples do not require direct Ark imports.
 

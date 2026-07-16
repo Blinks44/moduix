@@ -4,53 +4,57 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './animations.module.css';
 
 export const animationMotionCssProperties: CssPropertyInput[] = [
-  ['--popover-transition', 'var(--duration-fast)', 'Controls content animation duration.'],
+  ['--popup-motion-duration', 'component default', 'Controls popup content animation duration.'],
+  ['--popup-motion-easing', 'component default', 'Controls popup content animation easing.'],
   [
-    '--popover-content-starting-opacity',
-    '0',
-    'Controls content opacity while the element is entering.',
+    '--popup-motion-starting-opacity',
+    'component default',
+    'Controls content opacity while a popup is entering.',
   ],
-  ['--popover-content-ending-opacity', '0', 'Controls content exit opacity.'],
+  ['--popup-motion-ending-opacity', 'component default', 'Controls popup content exit opacity.'],
   [
-    '--popover-content-starting-scale',
-    'var(--scale-popup)',
-    'Controls content scale while the element is entering.',
-  ],
-  [
-    '--popover-content-ending-scale',
-    'var(--scale-popup)',
-    'Controls content scale while the element is leaving.',
+    '--popup-motion-starting-scale',
+    'component default',
+    'Controls popup content scale while it is entering.',
   ],
   [
-    '--popover-content-starting-translate-x',
-    '0',
-    'Controls content horizontal offset while the element is entering.',
+    '--popup-motion-ending-scale',
+    'component default',
+    'Controls popup content scale while it is leaving.',
   ],
   [
-    '--popover-content-ending-translate-x',
-    '0',
-    'Controls content horizontal offset while the element is leaving.',
+    '--popup-motion-starting-translate-x',
+    'component default',
+    'Controls popup content horizontal offset while it is entering.',
   ],
   [
-    '--popover-content-starting-translate-y',
-    '0',
-    'Controls content vertical offset while the element is entering.',
+    '--popup-motion-ending-translate-x',
+    'component default',
+    'Controls popup content horizontal offset while it is leaving.',
   ],
   [
-    '--popover-content-ending-translate-y',
-    '0',
-    'Controls content vertical offset while the element is leaving.',
+    '--popup-motion-starting-translate-y',
+    'component default',
+    'Controls popup content vertical offset while it is entering.',
+  ],
+  [
+    '--popup-motion-ending-translate-y',
+    'component default',
+    'Controls popup content vertical offset while it is leaving.',
   ],
 ];
 
 export const animationMotionPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--popover-transition', '180ms ease', 'Quick way to retune content timing.'],
-  ['--popover-content-starting-opacity', '0', 'Content enter opacity.'],
-  ['--popover-content-ending-opacity', '0', 'Content exit opacity.'],
-  ['--popover-content-starting-scale', '1', 'Content enter scale.'],
-  ['--popover-content-ending-scale', '1', 'Content exit scale.'],
-  ['--popover-content-starting-translate-y', '0.75rem', 'Content enter vertical offset.'],
-  ['--popover-content-ending-translate-y', '0.75rem', 'Content exit vertical offset.'],
+  ['--popup-motion-duration', 'var(--duration-fast)', 'Shared popup content duration.'],
+  ['--popup-motion-easing', 'ease', 'Shared popup content easing.'],
+  ['--popup-motion-starting-opacity', '0', 'Popup content enter opacity.'],
+  ['--popup-motion-ending-opacity', '0', 'Popup content exit opacity.'],
+  ['--popup-motion-starting-scale', 'var(--scale-popup)', 'Popup content enter scale.'],
+  ['--popup-motion-ending-scale', 'var(--scale-popup)', 'Popup content exit scale.'],
+  ['--popup-motion-starting-translate-x', '0', 'Popup content enter horizontal offset.'],
+  ['--popup-motion-ending-translate-x', '0', 'Popup content exit horizontal offset.'],
+  ['--popup-motion-starting-translate-y', '0', 'Popup content enter vertical offset.'],
+  ['--popup-motion-ending-translate-y', '0', 'Popup content exit vertical offset.'],
 ];
 
 type RecipeCardProps = {
@@ -135,6 +139,11 @@ export function MotionRecipesExample() {
         description="Small downward slide plus scale for heavier overlays."
         popupClassName={styles.dropInPopup}
       />
+      <RecipeCard
+        title="Soft Pop"
+        description="A slower, more expressive scale-in for short confirmation surfaces."
+        popupClassName={styles.softPopPopup}
+      />
     </div>
   );
 }
@@ -152,10 +161,10 @@ export function MotionPlaygroundExample() {
           <Popover.Content className={styles.playgroundPopup}>
             <div className={styles.playgroundHeader}>
               <span className={styles.playgroundKicker}>Animations</span>
-              <p className={styles.playgroundTitle}>Tune motion with variables</p>
+              <p className={styles.playgroundTitle}>Tune shared popup motion</p>
               <p className={styles.playgroundDescription}>
-                Change the phase-specific popover tokens in the Playground tab to test fade, slide,
-                zoom, or mixed motion on the live component.
+                Change the shared popup tokens in the Playground tab to test the motion contract
+                used by every supported popup surface.
               </p>
             </div>
           </Popover.Content>
@@ -178,11 +187,42 @@ export function AnimationMotionPlaygroundPanel({
   onChange,
   onReset,
 }: CSSPropertiesEditorContext) {
+  const properties = animationMotionPlaygroundCssProperties.map(normalizeCssProperty);
+  const playgroundValues = { ...values };
+
+  for (const property of properties) {
+    if (playgroundValues[property.name] === 'component default') {
+      playgroundValues[property.name] = property.defaultValue;
+    }
+  }
+
   return (
     <CSSPropertiesEditor
-      properties={animationMotionPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
+      properties={properties}
+      values={playgroundValues}
+      onChange={(update) => {
+        onChange((current) => {
+          const normalizedCurrent = { ...current };
+
+          for (const property of properties) {
+            if (normalizedCurrent[property.name] === 'component default') {
+              normalizedCurrent[property.name] = property.defaultValue;
+            }
+          }
+
+          const normalizedNext = typeof update === 'function' ? update(normalizedCurrent) : update;
+          const next = { ...current };
+
+          for (const property of properties) {
+            next[property.name] =
+              normalizedNext[property.name] === property.defaultValue
+                ? 'component default'
+                : normalizedNext[property.name];
+          }
+
+          return next;
+        });
+      }}
       onReset={onReset}
     />
   );

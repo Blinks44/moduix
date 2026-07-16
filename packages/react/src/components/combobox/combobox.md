@@ -168,6 +168,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 
 ## Defaults and styling
 
+- Content motion falls back to the shared `--popup-motion-*` tokens. `--combobox-transition` and
+  closed-state variables remain the more specific override.
 - moduix applies its tokens, radius, focus ring, popup shadow, item highlight, and motion defaults.
 - The field keeps its focus ring while the popup is open. Hovering the input or trigger highlights
   the field surface; hovering `ClearTrigger` highlights only that action.
@@ -225,6 +227,7 @@ Common `shadcn` migration points:
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-12: Exported `Combobox.Context`, `useCombobox`, and `useComboboxContext` from the moduix
   implementation so normal provider and context paths no longer require direct Ark imports.
 - 2026-07-10: Restricted `Combobox.Option` to simple rows by excluding `asChild`; use

@@ -78,11 +78,15 @@
     transform-origin: var(--transform-origin);
 
     &[data-state='open'] {
-      animation: tooltip-content-in var(--tooltip-transition, var(--duration-fast)) ease-out;
+      animation: tooltip-content-in
+        var(--tooltip-transition, var(--popup-motion-duration, var(--duration-fast)))
+        var(--popup-motion-easing, ease-out);
     }
 
     &[data-state='closed'] {
-      animation: tooltip-content-out var(--tooltip-transition, var(--duration-fast)) ease-in;
+      animation: tooltip-content-out
+        var(--tooltip-transition, var(--popup-motion-duration, var(--duration-fast)))
+        var(--popup-motion-easing, ease-in);
     }
 
     &[data-instant] {
@@ -104,10 +108,15 @@
 
   @keyframes tooltip-content-in {
     from {
-      opacity: var(--tooltip-popup-starting-opacity, 0);
-      translate: var(--tooltip-popup-starting-translate-x, 0)
-        var(--tooltip-popup-starting-translate-y, 0);
-      transform: scale(var(--tooltip-popup-starting-scale, var(--scale-popup)));
+      opacity: var(--tooltip-popup-starting-opacity, var(--popup-motion-starting-opacity, 0));
+      translate: var(
+          --tooltip-popup-starting-translate-x,
+          var(--popup-motion-starting-translate-x, 0)
+        )
+        var(--tooltip-popup-starting-translate-y, var(--popup-motion-starting-translate-y, 0));
+      transform: scale(
+        var(--tooltip-popup-starting-scale, var(--popup-motion-starting-scale, var(--scale-popup)))
+      );
     }
 
     to {
@@ -125,10 +134,12 @@
     }
 
     to {
-      opacity: var(--tooltip-popup-ending-opacity, 0);
-      translate: var(--tooltip-popup-ending-translate-x, 0)
-        var(--tooltip-popup-ending-translate-y, 0);
-      transform: scale(var(--tooltip-popup-ending-scale, var(--scale-popup)));
+      opacity: var(--tooltip-popup-ending-opacity, var(--popup-motion-ending-opacity, 0));
+      translate: var(--tooltip-popup-ending-translate-x, var(--popup-motion-ending-translate-x, 0))
+        var(--tooltip-popup-ending-translate-y, var(--popup-motion-ending-translate-y, 0));
+      transform: scale(
+        var(--tooltip-popup-ending-scale, var(--popup-motion-ending-scale, var(--scale-popup)))
+      );
     }
   }
 }

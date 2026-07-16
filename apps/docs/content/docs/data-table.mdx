@@ -9,9 +9,10 @@ import * as DataTableDocs from '@/components/examples/data-table';
 # Data Table
 
 `Data Table` is a composition pattern, not a component exported by moduix. Use the semantic and
-styled `Table` parts for markup, then let TanStack Table own the data-grid state. Each product has
-different columns, filters, row actions, and server contracts, so keep that behavior close to the
-feature that needs it.
+styled `Table` parts for markup, then use TanStack Table to model the data-grid state. The product
+feature owns its records and controls table state when that state drives a route or server query.
+Each product has different columns, filters, row actions, and server contracts, so keep that
+behavior close to the feature that needs it.
 
 ## Installation
 
@@ -54,6 +55,15 @@ cells: column definitions may contain plain values or React render functions.
 
 Keep the columns alongside the feature's data type. This is the natural place for formatting,
 numeric alignment, row actions, and business-specific filter definitions.
+
+## Keep data and columns stable
+
+The examples define `payments` and `columns` outside their components, so TanStack Table receives
+the same references between renders. When data or columns depend on props or state, use `useMemo`
+for the resulting array instead of creating it inline in the component or passing `data.filter(...)`
+directly to `useReactTable`. New references make TanStack Table recalculate and can cause React
+render loops. See the TanStack [FAQ](https://tanstack.com/table/latest/docs/faq) for the full
+explanation.
 
 ## Stable column widths
 
@@ -127,18 +137,49 @@ icons with a consistent size and sets `aria-sort="none" | "ascending" | "descend
 column headers. The selection column uses moduix `Checkbox` with the built-in indeterminate state
 for the current page.
 
+## Server data
+
+When the API filters, sorts, or paginates records, keep those values in the feature's query state.
+Pass the returned page to TanStack Table and turn off the corresponding client-side transforms.
+This configuration replaces the client-side row models from the interactive example:
+
+```tsx
+const table = useReactTable({
+  data: response.rows,
+  columns,
+  getCoreRowModel: getCoreRowModel(),
+  manualFiltering: true,
+  manualPagination: true,
+  manualSorting: true,
+  rowCount: response.rowCount,
+  onColumnFiltersChange: setColumnFilters,
+  onPaginationChange: setPagination,
+  onSortingChange: setSorting,
+  state: { columnFilters, pagination, sorting },
+});
+```
+
+Do not add `getFilteredRowModel`, `getSortedRowModel`, or `getPaginationRowModel` for the matching
+server-owned behavior: TanStack assumes that `response.rows` already reflects the query. Pass
+`pageCount` instead of `rowCount` when that is what the API provides. `manualPagination` also turns
+off the usual page reset, so reset `pagination.pageIndex` to `0` whenever a remote filter or sort
+changes; otherwise the API can return an empty page. See TanStack's
+[filtering](https://tanstack.com/table/latest/docs/guide/global-filtering),
+[sorting](https://tanstack.com/table/latest/docs/guide/sorting), and
+[pagination](https://tanstack.com/table/latest/docs/guide/pagination) guides for the query layer.
+
 ## Add features deliberately
 
 TanStack Table is headless. Choose the state and row models for the behavior that belongs to this
 specific data view instead of turning every grid feature on by default.
 
-| Need                           | Add to this table                                                                                                                            |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Row actions                    | Render a `Menu` in an actions column; action handlers stay with the product feature.                                                         |
-| Row selection                  | Control `rowSelection`, configure `getRowId` with a durable record ID, and render moduix `Checkbox` controls in a selection column.          |
-| Column visibility              | Control `columnVisibility` and expose `column.toggleVisibility()` through a `Menu`.                                                          |
-| Server filtering or pagination | Keep query state in the route or data layer, use TanStack's `manual*` options, and pass the response rows and page count to the table.       |
-| Large datasets                 | Add virtualization to the table body only after measuring; keep the native `table`, `thead`, `tbody`, `tr`, `th`, and `td` semantics intact. |
+| Need              | Add to this table                                                                                                                                                                                             |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Row actions       | Render a `Menu` in an actions column; action handlers stay with the product feature.                                                                                                                          |
+| Row selection     | Control `rowSelection`, configure `getRowId` with a durable record ID, and render moduix `Checkbox` controls in a selection column.                                                                           |
+| Column visibility | Control `columnVisibility` and expose `column.toggleVisibility()` through a `Menu`.                                                                                                                           |
+| Server data       | Keep query state in the route or data layer. Use `manualFiltering`, `manualSorting`, and `manualPagination` only for the transforms owned by the API, then pass response rows with `rowCount` or `pageCount`. |
+| Large datasets    | Add virtualization to the table body only after measuring; keep the native `table`, `thead`, `tbody`, `tr`, `th`, and `td` semantics intact.                                                                  |
 
 The TanStack Table [row models guide](https://tanstack.com/table/latest/docs/guide/row-models) lists
 the available client-side transforms. Their [row selection guide](https://tanstack.com/table/latest/docs/guide/row-selection)

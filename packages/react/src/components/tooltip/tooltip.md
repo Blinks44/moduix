@@ -133,6 +133,9 @@ Relevant Ark attributes and variables:
 
 ## Defaults and styling
 
+Content motion falls back to the shared `--popup-motion-*` tokens; `--tooltip-*` motion variables
+remain the more specific override.
+
 Default trigger styling is applied only when `Tooltip.Trigger` does not use `asChild`. With
 `asChild`, the child component owns visual styling.
 
@@ -164,6 +167,7 @@ escape hatches only.
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-07: Added `Tooltip.Body` as the default shortcut for `Tooltip.Positioner +
 Tooltip.Content`, updated docs/examples, and kept the explicit Ark parts available for advanced
   composition.

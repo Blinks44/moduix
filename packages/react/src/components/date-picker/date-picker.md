@@ -183,6 +183,9 @@ include `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-fo
 
 ## Defaults and styling
 
+Content motion falls back to the shared `--popup-motion-*` tokens. `--date-picker-transition` and
+closed-state variables remain the more specific override.
+
 All visual parts accept `className`. The CSS module defines defaults for root spacing, label text,
 input frame, icon triggers, popup surface, view controls, calendar cells, month/year selects,
 week-number cells, and preset buttons.
@@ -229,6 +232,7 @@ are selected.
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-09: Added `DatePicker.Field`, `DatePicker.RangeField`, and `DatePicker.DayTable` as
   recommended-path sugar, while keeping full Ark table composition as the advanced customization
   path.

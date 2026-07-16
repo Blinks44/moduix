@@ -52,11 +52,19 @@
     outline: 0;
 
     &[data-state='open'] {
-      animation: lightbox-content-in var(--lightbox-transition, 220ms ease);
+      animation: lightbox-content-in
+        var(
+          --lightbox-transition,
+          var(--popup-motion-duration, 220ms) var(--popup-motion-easing, ease)
+        );
     }
 
     &[data-state='closed'] {
-      animation: lightbox-content-out var(--lightbox-transition, 220ms ease);
+      animation: lightbox-content-out
+        var(
+          --lightbox-transition,
+          var(--popup-motion-duration, 220ms) var(--popup-motion-easing, ease)
+        );
     }
   }
 
@@ -233,19 +241,25 @@
 
   @keyframes lightbox-content-in {
     from {
-      opacity: var(--lightbox-content-starting-opacity, 0);
-      translate: var(--lightbox-content-starting-translate-x, 0)
-        var(--lightbox-content-starting-translate-y, 0);
-      scale: var(--lightbox-content-starting-scale, 0.82);
+      opacity: var(--lightbox-content-starting-opacity, var(--popup-motion-starting-opacity, 0));
+      translate: var(
+          --lightbox-content-starting-translate-x,
+          var(--popup-motion-starting-translate-x, 0)
+        )
+        var(--lightbox-content-starting-translate-y, var(--popup-motion-starting-translate-y, 0));
+      scale: var(--lightbox-content-starting-scale, var(--popup-motion-starting-scale, 0.82));
     }
   }
 
   @keyframes lightbox-content-out {
     to {
-      opacity: var(--lightbox-content-ending-opacity, 0);
-      translate: var(--lightbox-content-ending-translate-x, 0)
-        var(--lightbox-content-ending-translate-y, 0);
-      scale: var(--lightbox-content-ending-scale, 0.82);
+      opacity: var(--lightbox-content-ending-opacity, var(--popup-motion-ending-opacity, 0));
+      translate: var(
+          --lightbox-content-ending-translate-x,
+          var(--popup-motion-ending-translate-x, 0)
+        )
+        var(--lightbox-content-ending-translate-y, var(--popup-motion-ending-translate-y, 0));
+      scale: var(--lightbox-content-ending-scale, var(--popup-motion-ending-scale, 0.82));
     }
   }
 }

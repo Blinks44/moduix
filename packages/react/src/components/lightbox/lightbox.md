@@ -160,6 +160,9 @@ Ark parts expose `data-scope="dialog"`, `data-part`, and `data-state="open|close
 
 ## Defaults and styling
 
+Content motion falls back to the shared `--popup-motion-*` tokens; `--lightbox-*` content-motion
+variables remain the more specific override. Backdrop motion remains separate.
+
 Moduix styles a zoom cursor on the trigger, a blurred backdrop, a centered positioner, transparent
 content, constrained image/video media, state-driven motion, and a fixed close icon anchored to the
 viewport corner.
@@ -197,6 +200,7 @@ array, prefer explicit `Lightbox.Gallery + Carousel` composition.
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
 - 2026-07-10: Re-exported `useLightbox` and `useLightboxContext` through moduix and the Lightbox
   namespace so `RootProvider` and context examples no longer require direct Ark imports.
 - 2026-07-05: Added a library-colored focus-visible outline to `Lightbox.Trigger` after focus

@@ -405,13 +405,11 @@ const zIndexTokens = [
 const sharedBackdropTokens = [
   ['--backdrop-bg', 'var(--color-overlay)', 'Global backdrop color fallback'],
   ['--backdrop-filter', 'blur(4px)', 'Global backdrop filter fallback'],
-  ['--combobox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Combobox'],
   ['--command-palette-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'CommandPalette'],
   ['--dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Dialog'],
   ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Drawer'],
   ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Lightbox'],
-  ['--select-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Select'],
-  ['--menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Menu'],
+  ['--tour-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Tour'],
 ];
 
 const sharedPopupTokens = [
@@ -435,6 +433,19 @@ const sharedPopupTokens = [
   ['--popup-separator-margin-x-start', '1rem'],
   ['--popup-separator-margin-x-end', '1rem'],
   ['--popup-separator-margin-y', '0.375rem'],
+];
+
+const sharedPopupMotionTokens = [
+  ['--popup-motion-duration', 'component default', 'Content enter and exit duration'],
+  ['--popup-motion-easing', 'component default', 'Content enter and exit easing'],
+  ['--popup-motion-starting-opacity', 'component default', 'Entry opacity'],
+  ['--popup-motion-starting-scale', 'component default', 'Entry scale'],
+  ['--popup-motion-starting-translate-x', 'component default', 'Entry horizontal offset'],
+  ['--popup-motion-starting-translate-y', 'component default', 'Entry vertical offset'],
+  ['--popup-motion-ending-opacity', 'component default', 'Exit opacity'],
+  ['--popup-motion-ending-scale', 'component default', 'Exit scale'],
+  ['--popup-motion-ending-translate-x', 'component default', 'Exit horizontal offset'],
+  ['--popup-motion-ending-translate-y', 'component default', 'Exit vertical offset'],
 ];
 
 export function TokensOverview() {
@@ -473,7 +484,11 @@ export function TokensOverview() {
               spacing steps
             </span>
             <span>
-              <strong>{sharedBackdropTokens.length + sharedPopupTokens.length}</strong>
+              <strong>
+                {sharedBackdropTokens.length +
+                  sharedPopupTokens.length +
+                  sharedPopupMotionTokens.length}
+              </strong>
               shared defaults
             </span>
           </div>
@@ -634,7 +649,7 @@ export function TokensOverview() {
 
       <Section
         title="Shared Component Defaults"
-        note="Backdrop and popup defaults reused across overlay families, with local component tokens layered on top."
+        note="Backdrop, popup, and popup-motion defaults are reused across overlay families, with local component tokens layered on top."
       >
         <div className={styles.backdropPreview}>
           <div className={styles.backdropStage}>
@@ -646,6 +661,7 @@ export function TokensOverview() {
           </div>
           <TokenList title="Backdrop defaults and fallbacks" tokens={sharedBackdropTokens} />
         </div>
+        <TokenList title="Shared popup content motion" tokens={sharedPopupMotionTokens} />
         <TokenList title="Shared popup menu defaults" tokens={sharedPopupTokens} />
       </Section>
     </div>

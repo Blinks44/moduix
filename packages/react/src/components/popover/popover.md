@@ -138,6 +138,9 @@ the Ark part.
 
 ## Defaults and styling
 
+Content motion falls back to the shared `--popup-motion-*` tokens; `--popover-*` motion variables
+remain the more specific override.
+
 The wrappers preserve Ark `data-scope` and `data-part` attributes and add stable `data-slot` hooks.
 The content uses moduix colors, spacing, radii, shadow, typography, and motion tokens.
 
@@ -170,6 +173,7 @@ runtime available-size and reference-size variables rather than duplicate measur
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-10: Nested examples now render inline, `Header` reserves close-icon space only when needed,
   and the public CSS-variable reference includes the `CloseIcon` styling contract.
 - 2026-07-05: Added `Popover.CloseIcon` and documented the close-icon plus layout-helper popup composition path.

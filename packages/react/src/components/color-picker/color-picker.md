@@ -124,6 +124,8 @@ export function ColorPickerExample() {
 
 ## Defaults and styling
 
+- Content motion falls back to the shared `--popup-motion-*` tokens. `--color-picker-transition`
+  and closed-state variables remain the more specific override.
 - moduix applies field, popup, color area, slider, swatch, focus ring, shadow, and motion defaults.
 - `className` is accepted on every visual part.
 - `Content` defaults to `16rem` wide and uses Ark `--available-height` and `--transform-origin`;
@@ -160,6 +162,7 @@ export function ColorPickerExample() {
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 
 - 2026-07-10: Added `Sliders` and moduix state-hook re-exports; recommended them in docs.

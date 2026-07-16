@@ -166,7 +166,7 @@ styling. Keep the structure visible, and forward the rest of the props unchanged
     <Tab value="Code">
 
 ```tsx
-import type { ComponentProps } from 'react';
+import type { DialogBackdropProps, DialogContentProps } from '@ark-ui/react/dialog';
 import { clsx } from 'clsx';
 import { Dialog as DialogBase } from '@moduix/react';
 // shadcn copy-owned: import { Dialog as DialogBase } from '@/components/moduix/dialog';
@@ -176,14 +176,11 @@ export const Dialog = DialogBase.Root;
 export const DialogTrigger = DialogBase.Trigger;
 export const DialogPositioner = DialogBase.Positioner;
 
-export function DialogContent({ className, ...props }: ComponentProps<typeof DialogBase.Content>) {
+export function DialogContent({ className, ...props }: DialogContentProps) {
   return <DialogBase.Content className={clsx(styles.content, className)} {...props} />;
 }
 
-export function DialogBackdrop({
-  className,
-  ...props
-}: ComponentProps<typeof DialogBase.Backdrop>) {
+export function DialogBackdrop({ className, ...props }: DialogBackdropProps) {
   return <DialogBase.Backdrop className={clsx(styles.backdrop, className)} {...props} />;
 }
 

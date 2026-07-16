@@ -92,6 +92,9 @@ advanced state reads or external state ownership, use `HoverCard.Context`, `useH
 
 ## Defaults and styling
 
+Content motion falls back to the shared `--popup-motion-*` tokens; `--hover-card-*` motion
+variables remain the more specific override.
+
 Moduix adds default visual styling to `Trigger`, `Positioner`, `Content`, `Arrow`, and `ArrowTip`.
 Content animation uses Ark `data-state='open' | 'closed'` and `--transform-origin`. Positioning and
 sizing use Ark runtime variables such as `--available-width`, `--available-height`,
@@ -117,6 +120,7 @@ Ark utility types remain direct-import escape hatches.
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-10: Exposed `HoverCard.Context`, `useHoverCard`, and `useHoverCardContext` through
   moduix; documented disabled state, overlay nesting, and the supplementary-content constraint.
 - 2026-07-10: Documented how Dialog initial focus can intentionally open a nested hover card or

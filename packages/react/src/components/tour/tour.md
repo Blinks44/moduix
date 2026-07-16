@@ -117,6 +117,9 @@ Relevant attributes include `data-scope="tour"`, `data-part`, `data-state="open|
 
 ## Defaults and styling
 
+Content motion falls back to the shared `--popup-motion-*` tokens; `--tour-*` content-motion
+variables remain the more specific override. Backdrop motion remains separate.
+
 The CSS module provides visual defaults for backdrop, spotlight, positioner, content, arrow, title, description, progress text, close trigger, control, and action triggers. Progress text is visually ordered below the title and description so it does not compete with the absolute close trigger. It styles dialog and floating positioners via `data-type`, and tooltip content through Ark popper positioning. Content animations use the shared `--transition-default` fallback, matching the dialog-like overlay family. Public theme variables are declared in `theme.css` with `--tour-*` names, while Ark runtime variables are initialized to avoid unresolved custom property diagnostics.
 
 ## Intentional sugar and differences from upstream
@@ -131,6 +134,7 @@ update `theme.css`, docs CSS properties, stories, and registry artifacts togethe
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
 - 2026-07-05: Added `Tour.CloseIcon` so guided-tour examples can use the same close-button helper pattern as the other overlay families.
 - 2026-07-12: Aligned `Tour.CloseIcon` fallback geometry and focus ring with `CloseButton` and the dialog overlay family.
 - 2026-07-12: Added `Tour.ActionList` as the recommended, stylable mapping for ordinary step actions; `Tour.Actions` and `Tour.ActionTrigger` remain available for custom action UI.
