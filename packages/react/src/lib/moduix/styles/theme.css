@@ -1730,6 +1730,16 @@
   --listbox-empty-line-height: initial; /* var(--line-height-text-sm) */
   --listbox-empty-padding-x: initial; /* var(--spacing-3) */
   --listbox-empty-padding-y: initial; /* var(--spacing-3) */
+  --listbox-filter-action-bg: initial; /* transparent */
+  --listbox-filter-action-bg-hover: initial; /* var(--color-muted) */
+  --listbox-filter-action-color-hover: initial; /* var(--color-foreground) */
+  --listbox-filter-action-radius: initial; /* var(--radius-sm) */
+  --listbox-filter-action-size: initial; /* 1.5rem */
+  --listbox-filter-height: initial; /* var(--listbox-input-height, var(--size-lg)) */
+  --listbox-filter-icon-color: initial; /* var(--color-muted-foreground) */
+  --listbox-filter-icon-size: initial; /* 1rem */
+  --listbox-filter-input-padding-x: initial; /* var(--spacing-2) */
+  --listbox-filter-padding-x: initial; /* var(--spacing-3) */
   --listbox-focus-ring-color: initial; /* var(--color-ring) */
   --listbox-focus-ring-width: initial; /* var(--border-width-sm) */
   --listbox-grid-gap: initial; /* var(--spacing-1) */

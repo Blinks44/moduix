@@ -12,7 +12,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef } from 'react';
-import { CheckIcon } from '@/lib/moduix/icons/ui';
+import { CheckIcon, CloseIcon, SearchIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Listbox.module.css';
 
@@ -71,6 +71,39 @@ const ListboxInput = forwardRef<
     />
   );
 });
+
+function ListboxFilter({ className, children, ...props }: ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="listbox-filter"
+      className={clsx(styles.filter, normalizeClassName(className))}
+      {...props}
+    >
+      <SearchIcon data-slot="listbox-filter-icon" className={styles.filterIcon} />
+      {children}
+    </div>
+  );
+}
+
+const ListboxClearTrigger = forwardRef<HTMLButtonElement, ComponentProps<'button'>>(
+  function ListboxClearTrigger(
+    { 'aria-label': ariaLabel = 'Clear search', className, children, type = 'button', ...props },
+    ref,
+  ) {
+    return (
+      <button
+        ref={ref}
+        data-slot="listbox-clear-trigger"
+        type={type}
+        aria-label={ariaLabel}
+        className={clsx(styles.clearTrigger, normalizeClassName(className))}
+        {...props}
+      >
+        {children ?? <CloseIcon />}
+      </button>
+    );
+  },
+);
 
 const ListboxContent = forwardRef<
   ComponentRef<typeof ListboxPrimitive.Content>,
@@ -221,6 +254,8 @@ const Listbox = Object.assign(ListboxRoot, {
   RootProvider: ListboxRootProvider,
   Label: ListboxLabel,
   Input: ListboxInput,
+  Filter: ListboxFilter,
+  ClearTrigger: ListboxClearTrigger,
   Content: ListboxContent,
   Empty: ListboxEmpty,
   ItemGroup: ListboxItemGroup,

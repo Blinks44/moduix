@@ -18,6 +18,7 @@ export {
   IndeterminateIcon,
   RestartIcon,
   RestoreIcon,
+  SearchIcon,
   MaximizeIcon,
   MinusIcon,
   PauseIcon,

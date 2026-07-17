@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "packages/react/src/components/highlight/Highlight.tsx",
-      "content": "import type { ComponentProps } from 'react';\nimport { Highlight as HighlightPrimitive } from '@ark-ui/react/highlight';\nimport { clsx } from 'clsx';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './Highlight.module.css';\n\nfunction HighlightRoot({ className, ...props }: ComponentProps<typeof HighlightPrimitive>) {\n  return (\n    <HighlightPrimitive\n      className={clsx(styles.root, normalizeClassName(className))}\n      data-scope=\"highlight\"\n      data-part=\"root\"\n      data-slot=\"highlight-root\"\n      {...props}\n    />\n  );\n}\n\nconst Highlight = Object.assign(HighlightRoot, {\n  Root: HighlightRoot,\n});\n\nexport { Highlight };",
+      "content": "import { Highlight as HighlightPrimitive } from '@ark-ui/react/highlight';\nimport { clsx } from 'clsx';\nimport type { ComponentProps } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './Highlight.module.css';\n\nfunction HighlightRoot({ className, ...props }: ComponentProps<typeof HighlightPrimitive>) {\n  return (\n    <HighlightPrimitive\n      className={clsx(styles.root, normalizeClassName(className))}\n      data-scope=\"highlight\"\n      data-part=\"root\"\n      data-slot=\"highlight-root\"\n      {...props}\n    />\n  );\n}\n\nconst Highlight = Object.assign(HighlightRoot, {\n  Root: HighlightRoot,\n});\n\nexport { Highlight };",
       "type": "registry:component",
       "target": "@components/moduix/highlight/Highlight.tsx"
     },

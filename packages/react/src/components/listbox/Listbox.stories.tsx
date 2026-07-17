@@ -234,6 +234,44 @@ export const Grouped: Story = {
 
 export const Filtering: Story = {
   render: () => {
+    const [filterText, setFilterText] = useState('');
+    const { collection, filter } = useListCollection<OptionItem>({
+      initialItems: frameworkItems,
+      filter: (itemText, filterText) => itemText.toLowerCase().includes(filterText.toLowerCase()),
+    });
+
+    return (
+      <Listbox collection={collection} typeahead={false}>
+        <Listbox.Label>Select framework</Listbox.Label>
+        <Listbox.Filter>
+          <Listbox.Input
+            placeholder="Search frameworks..."
+            value={filterText}
+            onChange={(event) => {
+              setFilterText(event.target.value);
+              filter(event.target.value);
+            }}
+          />
+          {filterText ? (
+            <Listbox.ClearTrigger
+              onClick={() => {
+                setFilterText('');
+                filter('');
+              }}
+            />
+          ) : null}
+        </Listbox.Filter>
+        <Listbox.Content>
+          <OptionItems collection={collection} />
+          <Listbox.Empty>No frameworks found</Listbox.Empty>
+        </Listbox.Content>
+      </Listbox>
+    );
+  },
+};
+
+export const StandaloneInput: Story = {
+  render: () => {
     const { collection, filter } = useListCollection<OptionItem>({
       initialItems: frameworkItems,
       filter: (itemText, filterText) => itemText.toLowerCase().includes(filterText.toLowerCase()),
