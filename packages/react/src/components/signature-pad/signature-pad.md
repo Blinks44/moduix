@@ -1,4 +1,4 @@
-# SignaturePad
+# Signature Pad
 
 ## Upstream docs
 
@@ -96,11 +96,14 @@ Every styled part accepts `className`, merged with moduix defaults through `clsx
 
 The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px` with the default token scale. The default shadow is `var(--shadow-xs)`.
 
+`ClearTrigger` composes the shared `CloseButton` by default and uses the reset `RotateCcwIcon`.
+Ark remains the source of its translated accessible label and its disabled/hidden state.
+
 All `--signature-pad-*` variables used by `SignaturePad.module.css` are declared in `src/lib/moduix/styles/theme.css` so IDEs can resolve the public styling surface. The most common overrides are `--signature-pad-width`, `--signature-pad-height`, `--signature-pad-control-width`, `--signature-pad-control-height`, `--signature-pad-stroke-color`, `--signature-pad-bg`, `--signature-pad-border-color`, `--signature-pad-radius`, `--signature-pad-guide-color`, and `--signature-pad-clear-trigger-*`.
 
 ## Intentional sugar and differences from upstream
 
-moduix adds styled defaults, stable `data-slot` hooks, and `Canvas` for the fixed default drawing surface. `Canvas` accepts `className`; use the exported Ark-shaped parts for custom structure, icons, or `asChild` composition. It does not rename Ark props, convert callback signatures, or add local state.
+moduix adds styled defaults, stable `data-slot` hooks, and `Canvas` for the fixed default drawing surface. The default clear control uses the shared `CloseButton`; use the exported Ark-shaped parts for custom structure, icons, or `asChild` composition. It does not rename Ark props, convert callback signatures, or add local state.
 
 The CSS default stroke color applies only when `drawing.fill` is not provided; explicit Ark `drawing.fill` remains the source of truth.
 
@@ -109,6 +112,9 @@ The CSS default stroke color applies only when `drawing.fill` is not provided; e
 Keep `getFormValue(paths)` as the semantic serialization escape hatch. Do not replace `paths`/`onDraw` with a local `value` abstraction. Do not use CSS variables inside `drawing.fill`; Zag requires a concrete CSS color string there.
 
 ## Local changelog
+
+- 2026-07-17: Composed the default clear control with `CloseButton`, preserving Ark translations,
+  states, and custom composition while mapping signature-pad tokens to the shared styles.
 
 - 2026-07-13: Rendered the native form input automatically and added `getFormValue(paths)` for
   custom signature serialization.

@@ -1,4 +1,4 @@
-# NativeSelect
+# Native Select
 
 ## Upstream docs
 

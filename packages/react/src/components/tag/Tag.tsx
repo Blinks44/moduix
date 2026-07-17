@@ -1,9 +1,9 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
-import { CloseIcon } from '@/lib/moduix/icons/ui';
+import { forwardRef, type ComponentRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { CloseButton } from '../close-button';
 import styles from './Tag.module.css';
 
 type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
@@ -85,54 +85,35 @@ const TagEndElement = forwardRef<HTMLSpanElement, TagEndElementProps>(function T
   );
 });
 
-const TagCloseTrigger = forwardRef<HTMLButtonElement, TagCloseTriggerProps>(
+const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton.Root>, TagCloseTriggerProps>(
   function TagCloseTrigger(
     {
       asChild,
       className,
       children,
-      disabled,
-      onClick,
-      type,
-      'aria-disabled': ariaDisabled,
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledBy,
       ...props
     },
     ref,
   ) {
-    const isDisabled = disabled || ariaDisabled === true || ariaDisabled === 'true';
-
     return (
-      <ark.button
+      <CloseButton.Root
         ref={ref}
         asChild={asChild}
-        type={asChild ? type : (type ?? 'button')}
-        disabled={disabled}
-        aria-disabled={ariaDisabled}
+        {...props}
+        data-scope="tag"
+        data-part="close-trigger"
+        data-slot="tag-close-trigger"
         aria-label={
           ariaLabel ??
           (!asChild && children == null && ariaLabelledBy == null ? DEFAULT_CLOSE_LABEL : undefined)
         }
         aria-labelledby={ariaLabelledBy}
-        {...props}
-        data-scope="tag"
-        data-part="close-trigger"
-        data-slot="tag-close-trigger"
-        data-disabled={isDisabled ? '' : undefined}
         className={clsx(styles.closeTrigger, normalizeClassName(className))}
-        onClick={(event) => {
-          if (isDisabled) {
-            event.preventDefault();
-            event.stopPropagation();
-            return;
-          }
-
-          onClick?.(event);
-        }}
       >
-        {children ?? (!asChild ? <CloseIcon /> : undefined)}
-      </ark.button>
+        {children}
+      </CloseButton.Root>
     );
   },
 );

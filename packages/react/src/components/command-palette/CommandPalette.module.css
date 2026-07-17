@@ -71,24 +71,7 @@
   }
 
   .content {
-    --_command-palette-close-icon-size-effective: var(
-      --command-palette-close-icon-size,
-      var(--command-palette-clear-size, var(--size-sm))
-    );
-    --_command-palette-close-offset-effective: var(
-      --command-palette-close-offset,
-      var(--spacing-3)
-    );
-    --_command-palette-header-padding-inline-end-effective: var(
-      --command-palette-header-padding-inline-end,
-      calc(
-        var(--command-palette-header-padding-x, var(--spacing-4)) +
-          var(--_command-palette-close-icon-size-effective) +
-          var(--_command-palette-close-offset-effective)
-      )
-    );
     box-sizing: border-box;
-    position: relative;
     display: flex;
     width: min(
       var(--command-palette-width, 37.5rem),
@@ -135,7 +118,6 @@
     gap: var(--command-palette-header-gap, var(--spacing-1));
     padding: var(--command-palette-header-padding-y, var(--spacing-4))
       var(--command-palette-header-padding-x, var(--spacing-4)) 0;
-    padding-inline-end: var(--_command-palette-header-padding-inline-end-effective);
   }
 
   .title {
@@ -156,69 +138,23 @@
     line-height: var(--command-palette-description-line-height, var(--line-height-text-sm));
   }
 
-  .closeTrigger,
   .clearTrigger {
-    box-sizing: border-box;
-    display: inline-flex;
-    width: var(--command-palette-clear-size, var(--size-sm));
-    height: var(--command-palette-clear-size, var(--size-sm));
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    border: 0;
-    border-radius: var(--command-palette-clear-radius, var(--radius-md));
-    padding: 0;
-    background: transparent;
-    color: var(--command-palette-muted-color, var(--color-muted-foreground));
-    cursor: pointer;
-    transition:
-      background-color var(--transition-default),
-      color var(--transition-default);
-
-    @media (hover: hover) {
-      &:hover {
-        background-color: var(--command-palette-clear-bg-hover, var(--color-accent));
-        color: var(--command-palette-color, var(--color-popover-foreground));
-      }
-    }
-
-    &:focus-visible {
-      outline: var(--command-palette-focus-ring-width, var(--border-width-sm)) solid
-        var(--command-palette-focus-ring-color, var(--color-ring));
-      outline-offset: var(--command-palette-focus-ring-offset, var(--border-width-sm));
-    }
-  }
-
-  .closeTrigger {
-    position: absolute;
-    top: var(--_command-palette-close-offset-effective);
-    right: var(--_command-palette-close-offset-effective);
-    z-index: 1;
-  }
-
-  .closeIcon {
-    --close-button-size: var(--_command-palette-close-icon-size-effective);
-    --close-button-radius: var(
-      --command-palette-close-icon-radius,
-      var(--command-palette-clear-radius, var(--radius-md))
-    );
-    --close-button-icon-size: var(
-      --command-palette-close-icon-glyph-size,
-      var(--command-palette-icon-size, 1rem)
-    );
-    --close-button-bg: var(--command-palette-close-icon-bg, transparent);
+    --close-button-size: var(--command-palette-clear-size, var(--size-sm));
+    --close-button-radius: var(--command-palette-clear-radius, var(--radius-md));
+    --close-button-icon-size: var(--command-palette-icon-size, 1rem);
+    --close-button-bg: transparent;
     --close-button-bg-hover: var(--command-palette-clear-bg-hover, var(--color-accent));
-    --close-button-color: var(
-      --command-palette-close-icon-color,
-      var(--command-palette-muted-color, var(--color-muted-foreground))
-    );
+    --close-button-color: var(--command-palette-muted-color, var(--color-muted-foreground));
     --close-button-color-hover: var(--command-palette-color, var(--color-popover-foreground));
+    --close-button-focus-ring-width: var(
+      --command-palette-focus-ring-width,
+      var(--border-width-sm)
+    );
     --close-button-focus-ring-color: var(--command-palette-focus-ring-color, var(--color-ring));
-    position: absolute;
-    top: var(--_command-palette-close-offset-effective);
-    right: var(--_command-palette-close-offset-effective);
-    z-index: 1;
+    --close-button-focus-ring-offset: var(
+      --command-palette-focus-ring-offset,
+      var(--border-width-sm)
+    );
   }
 
   .body {

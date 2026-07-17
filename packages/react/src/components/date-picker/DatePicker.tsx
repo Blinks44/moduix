@@ -12,7 +12,6 @@ import {
   ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  CloseIcon,
 } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
@@ -20,6 +19,7 @@ import {
   OverlayPortalProvider,
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
+import { CloseButton } from '../close-button';
 import styles from './DatePicker.module.css';
 
 type DatePickerRootProps = ComponentProps<typeof DatePickerPrimitive.Root> & OverlayPortalProps;
@@ -195,20 +195,49 @@ const DatePickerTrigger = forwardRef<
 const DatePickerClearTrigger = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.ClearTrigger>,
   ComponentProps<typeof DatePickerPrimitive.ClearTrigger>
->(function DatePickerClearTrigger({ asChild, className, children, ...props }, ref) {
+>(function DatePickerClearTrigger(
+  {
+    asChild,
+    className,
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
+  const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
+
+  if (asChild) {
+    return (
+      <DatePickerPrimitive.ClearTrigger
+        ref={ref}
+        asChild
+        data-slot="date-picker-clear-trigger"
+        className={triggerClassName}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        {...props}
+      >
+        {children}
+      </DatePickerPrimitive.ClearTrigger>
+    );
+  }
+
   return (
     <DatePickerPrimitive.ClearTrigger
       ref={ref}
+      asChild
       data-slot="date-picker-clear-trigger"
-      asChild={asChild}
-      className={clsx(
-        !asChild && styles.trigger,
-        styles.clearTrigger,
-        normalizeClassName(className),
-      )}
+      className={triggerClassName}
       {...props}
     >
-      {children ?? <CloseIcon />}
+      <CloseButton.Root
+        aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear date' : undefined)}
+        aria-labelledby={ariaLabelledBy}
+      >
+        {children}
+      </CloseButton.Root>
     </DatePickerPrimitive.ClearTrigger>
   );
 });

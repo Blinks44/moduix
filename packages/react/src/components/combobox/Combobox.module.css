@@ -132,8 +132,7 @@
     padding-inline-end: var(--combobox-input-padding-x-end-with-clear, 4.375rem);
   }
 
-  .trigger,
-  .clearTrigger {
+  .trigger {
     position: absolute;
     top: 50%;
     box-sizing: border-box;
@@ -188,10 +187,25 @@
   }
 
   .clearTrigger {
+    --close-button-size: var(--combobox-action-size, 1.5rem);
+    --close-button-icon-size: var(--combobox-icon-size, 1rem);
+    --close-button-radius: var(--combobox-action-radius, var(--radius-sm));
+    --close-button-bg: var(--combobox-action-bg, transparent);
+    --close-button-bg-hover: var(--combobox-action-bg-hover, var(--color-muted));
+    --close-button-color: var(--combobox-icon-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(--combobox-action-color-hover, var(--color-foreground));
+    --close-button-focus-ring-width: var(--combobox-focus-ring-width, var(--border-width-sm));
+    --close-button-focus-ring-color: var(--combobox-focus-ring-color, var(--color-ring));
+    --close-button-focus-ring-offset: var(--combobox-focus-ring-offset, var(--border-width-sm));
+    --close-button-transition: var(--combobox-transition, var(--transition-default));
+
+    position: absolute;
+    top: 50%;
     right: calc(
       var(--combobox-action-offset-right, 0.5rem) + var(--combobox-action-size, 1.5rem) +
         var(--combobox-action-gap, 0.125rem)
     );
+    transform: translateY(-50%);
   }
 
   .positioner {

@@ -30,6 +30,9 @@ model through `@ark-ui/react/factory`:
 - Omitting `children` renders the moduix `CloseIcon`.
 - Omitting an accessible name on the default-icon path adds `aria-label="Close"`.
 - `disabled` and `aria-disabled="true"` expose `data-disabled`.
+- When a parent Ark part composes `CloseButton` through `asChild`, the parent's `data-scope`,
+  `data-part`, `data-slot`, and `data-disabled` hooks remain on the DOM node. `CloseButton`
+  contributes its button styling and disabled click protection without replacing that anatomy.
 - legacy `render`, `nativeButton`, and `focusableWhenDisabled` are not supported.
 
 ## Anatomy and exported parts
@@ -80,7 +83,8 @@ icon content because the single child is the composed root:
 - The default icon path receives `aria-label="Close"` only when neither `aria-label` nor
   `aria-labelledby` is provided.
 - Custom icon content should be decorative and requires an accessible name on the root.
-- Native `disabled` and `aria-disabled="true"` map to `data-disabled` for styling.
+- Native `disabled` and `aria-disabled="true"` map to `data-disabled` for styling. An inherited
+  parent `data-disabled` state is preserved and prevents activation as well.
 - `aria-disabled="true"` suppresses the root click handler and prevents default activation.
 - The component does not manage overlay state, escape handling, focus return, or dismissal
   callbacks.
@@ -122,13 +126,16 @@ Public CSS variables:
 ## Agent notes
 
 - Keep this as a thin Ark factory wrapper with one part.
-- Keep the internal `data-scope`, `data-part`, `data-slot`, and `data-disabled` hooks authoritative;
-  consumer props must not replace them.
+- Keep standalone `CloseButton` data hooks stable. When it is composed by an Ark parent, preserve
+  the parent's anatomy hooks so the parent remains the DOM contract owner.
 - Preserve the shared `--close-button-*` contract because Dialog, Drawer, and Lightbox map their
   close-control tokens into it.
 - Do not reintroduce legacy render props.
 
 ## Local changelog
+
+- 2026-07-17: Preserved an Ark parent's data hooks when it composes `CloseButton`, so clear
+  triggers can share the button styling without losing their own anatomy or disabled state.
 
 - 2026-07-09: Made the stable data hooks authoritative so consumer props cannot replace the
   component's styling contract.

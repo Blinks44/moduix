@@ -1,4 +1,4 @@
-# SimpleGrid
+# Simple Grid
 
 ## Upstream docs
 

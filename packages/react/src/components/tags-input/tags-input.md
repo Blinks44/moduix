@@ -30,8 +30,9 @@ internally.
 `TagsInput.Items` renders the standard editable item tree from root context, while explicit item
 parts remain available for custom tags.
 `TagsInput.ItemDeleteTrigger` provides the compact tag-level `CloseIcon` when no children are
-passed. `TagsInput.ClearTrigger` uses the shared `CloseButton.Root` by default through Ark
-`asChild`, so clearing all tags has the larger library close affordance without nesting buttons.
+passed. `TagsInput.ClearTrigger` composes the shared `CloseButton.Root` by default through Ark
+`asChild`, including when custom icon children are passed, so clearing all tags has the library
+close affordance without nesting buttons.
 Use root props such as `name` and `form` to configure native form participation.
 
 ## Anatomy and exported parts
@@ -114,8 +115,9 @@ Important hooks:
 
 The wrapper adds moduix classes, `data-slot` hooks, `TagsInput.Items` as a fixed standard item
 renderer, a default compact close icon for item deletion, the shared `CloseButton.Root` for clearing
-all tags, and default input/tag styling. `Items` has no prop bags; use lower-level parts when item
-structure needs customization.
+all tags, and default input/tag styling. `ClearTrigger asChild` leaves the child in control of its
+own host and visual treatment. `Items` has no prop bags; use lower-level parts when item structure
+needs customization.
 
 ## Agent notes
 
@@ -127,6 +129,8 @@ for normal provider and state access.
 
 ## Local changelog
 
+- 2026-07-17: Routed custom default clear-trigger children through `CloseButton.Root` so every
+  non-`asChild` clear action uses the shared visual contract.
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 
 - 2026-07-12: Exposed `ItemContext`, `useTagsInput()`, `useTagsInputContext()`, and

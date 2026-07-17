@@ -94,6 +94,8 @@ semantic element, and it owns the interaction behavior.
 - Give each close trigger a specific accessible name when several removable tags appear together.
 - `asChild` follows Ark factory composition and requires one child element.
 - `Tag.CloseTrigger asChild` requires an explicit semantic child; the default close icon is rendered only by the default button host.
+- The default close trigger composes the shared `CloseButton`; existing `--tag-close-trigger-*`
+  variables and the `tag-close-trigger` data slot remain the styling API.
 
 ## Examples
 

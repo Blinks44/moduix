@@ -87,7 +87,8 @@ export function FileUploadDemo() {
 ## Upstream feature coverage
 
 - Basic upload: supported with `Root`, `Label`, `Trigger`, `ItemGroup`, and `Item`.
-- Clear trigger: supported with `ClearTrigger`; omit children to use the default close icon.
+- Clear trigger: supported with `ClearTrigger`; its default path composes Ark behavior with
+  `CloseButton` and uses the standard close icon.
 - Dropzone: supported with `Dropzone`; use `disableClick` when a nested `Trigger` is rendered.
 - Accepted file types: supported through `accept`.
 - Rejected files and errors: supported through `FileUpload.Context.rejectedFiles`,
@@ -122,7 +123,8 @@ export function FileUploadDemo() {
   the existing `data-slot` hooks and CSS variables, while custom rows use the explicit context composition.
 - `DropzoneIcon` defaults to the moduix `UploadIcon` when children are omitted.
 - `ItemDeleteTrigger` defaults to the moduix `TrashIcon` when children are omitted.
-- `ClearTrigger` defaults to the moduix `CloseIcon` when children are omitted.
+- `ClearTrigger` composes the shared `CloseButton` by default. It uses the moduix `CloseIcon` when
+  children are omitted; text children retain the expanded action layout.
 - Public styling hooks are Ark `data-scope` / `data-part`, Ark state attributes, and moduix `data-slot`.
 - Public component tokens live under `--file-upload-*` in `packages/react/src/lib/moduix/styles/theme.css`.
 - Item layout selectors use the public `data-slot` hooks for previews and size text.
@@ -133,7 +135,8 @@ export function FileUploadDemo() {
 
 - moduix adds styling defaults and stable `data-slot` attributes.
 - moduix adds a decorative `DropzoneIcon` helper for upload surfaces.
-- moduix adds default icons for dropzone, delete, and clear triggers only.
+- moduix adds default icons for dropzone and delete triggers, and composes the shared `CloseButton`
+  for the clear trigger.
 - The wrapper renders the native form input internally. `ItemGroup` and `Item` remain explicit so
   consumers choose how to show accepted and rejected files.
 - Callback details and validation errors are not renamed.
@@ -150,6 +153,9 @@ export function FileUploadDemo() {
   styling contract changes.
 
 ## Local changelog
+
+- 2026-07-17: Composed the default clear trigger with `CloseButton`, preserving Ark state,
+  translations, and `asChild` composition while mapping clear-action tokens to the shared styles.
 
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 

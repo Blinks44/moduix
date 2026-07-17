@@ -84,7 +84,7 @@ DatePicker.RootProvider
 | `DatePicker.RangeField`           | `date-picker-control`                 | Standard range control sugar.                     |
 | `DatePicker.Input`                | `date-picker-input`                   | Editable date input and form value.               |
 | `DatePicker.Trigger`              | `date-picker-trigger`                 | Opens the calendar. Defaults to `CalendarIcon`.   |
-| `DatePicker.ClearTrigger`         | `date-picker-clear-trigger`           | Clears the value. Defaults to `CloseIcon`.        |
+| `DatePicker.ClearTrigger`         | `date-picker-clear-trigger`           | Ark clearing behavior + `CloseButton`.            |
 | `DatePicker.Positioner`           | `date-picker-positioner`              | Floating layer positioner.                        |
 | `DatePicker.Content`              | `date-picker-content`                 | Calendar surface.                                 |
 | `DatePicker.View`                 | `date-picker-view`                    | Day, month, or year panel.                        |
@@ -201,6 +201,9 @@ Preset triggers use a muted surface by default through `--date-picker-preset-tri
 `--date-picker-preset-trigger-bg-hover`, so quick range actions read as buttons even before they
 are selected.
 
+`DatePicker.ClearTrigger` maps date-picker action tokens to `CloseButton.Root`; use `asChild` with
+one semantic child when the clear control needs a custom host or visual treatment.
+
 ## Intentional sugar and differences from upstream
 
 - `DatePicker.Field` renders `Control`, one `Input`, `ClearTrigger`, and `Trigger` for the standard
@@ -211,7 +214,8 @@ are selected.
   `showHeader={false}` when an external header is composed, `showWeekNumbers` for week-number
   cells, and `offset` for additional visible months.
 - `DatePicker.Trigger` renders `CalendarIcon` when children are omitted.
-- `DatePicker.ClearTrigger` renders `CloseIcon` when children are omitted.
+- `DatePicker.ClearTrigger` composes Ark clearing behavior with `CloseButton.Root` when `asChild`
+  is not used, without nesting buttons.
 - `DatePicker.PrevTrigger` and `DatePicker.NextTrigger` render chevron icons when children are
   omitted.
 - `DatePicker.ViewTrigger` renders `DatePicker.RangeText` plus a chevron when children are omitted.
@@ -232,6 +236,8 @@ are selected.
 
 ## Local changelog
 
+- 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped date-picker
+  action tokens to the shared close-button visual contract.
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-09: Added `DatePicker.Field`, `DatePicker.RangeField`, and `DatePicker.DayTable` as
   recommended-path sugar, while keeping full Ark table composition as the advanced customization

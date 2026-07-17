@@ -8,6 +8,7 @@ import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'reac
 import { Children, cloneElement, forwardRef } from 'react';
 import { CloseIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { CloseButton } from '../close-button';
 import styles from './FileUpload.module.css';
 
 const FileUploadRoot = forwardRef<
@@ -230,15 +231,50 @@ function FileUploadItems() {
 const FileUploadClearTrigger = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.ClearTrigger>,
   ComponentProps<typeof FileUploadPrimitive.ClearTrigger>
->(function FileUploadClearTrigger({ className, children, ...props }, ref) {
+>(function FileUploadClearTrigger(
+  {
+    asChild,
+    className,
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
+  const triggerClassName = clsx(
+    styles.clearTrigger,
+    children != null && styles.clearTriggerWithContent,
+    normalizeClassName(className),
+  );
+
+  if (asChild) {
+    return (
+      <FileUploadPrimitive.ClearTrigger
+        ref={ref}
+        asChild
+        data-slot="file-upload-clear-trigger"
+        className={triggerClassName}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        {...props}
+      >
+        {children}
+      </FileUploadPrimitive.ClearTrigger>
+    );
+  }
+
   return (
     <FileUploadPrimitive.ClearTrigger
       ref={ref}
+      asChild
       data-slot="file-upload-clear-trigger"
-      className={clsx(styles.clearTrigger, normalizeClassName(className))}
+      className={triggerClassName}
       {...props}
     >
-      {children ?? <CloseIcon />}
+      <CloseButton.Root aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
+        {children ?? <CloseIcon />}
+      </CloseButton.Root>
     </FileUploadPrimitive.ClearTrigger>
   );
 });

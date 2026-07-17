@@ -121,50 +121,19 @@
   }
 
   .clearTrigger {
-    box-sizing: border-box;
-    display: inline-flex;
     position: absolute;
     z-index: 1;
     top: 50%;
     inset-inline-end: var(--listbox-filter-padding-x, var(--spacing-3));
-    width: var(--listbox-filter-action-size, 1.5rem);
-    height: var(--listbox-filter-action-size, 1.5rem);
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    border: 0;
-    border-radius: var(--listbox-filter-action-radius, var(--radius-sm));
-    padding: 0;
-    background: var(--listbox-filter-action-bg, transparent);
-    color: var(--listbox-filter-icon-color, var(--color-muted-foreground));
-    line-height: 0;
-    cursor: pointer;
     transform: translateY(-50%);
-    transition:
-      background-color var(--listbox-transition, var(--transition-default)),
-      color var(--listbox-transition, var(--transition-default));
-
-    & > svg {
-      width: var(--listbox-filter-icon-size, 1rem);
-      height: var(--listbox-filter-icon-size, 1rem);
-    }
-
-    @media (hover: hover) {
-      &:not(:disabled):hover {
-        background-color: var(--listbox-filter-action-bg-hover, var(--color-muted));
-        color: var(--listbox-filter-action-color-hover, var(--color-foreground));
-      }
-    }
-
-    &:focus-visible {
-      background-color: var(--listbox-filter-action-bg-hover, var(--color-muted));
-      color: var(--listbox-filter-action-color-hover, var(--color-foreground));
-      outline: 0;
-    }
-
-    &:disabled {
-      cursor: default;
-    }
+    --close-button-size: var(--listbox-filter-action-size, 1.5rem);
+    --close-button-radius: var(--listbox-filter-action-radius, var(--radius-sm));
+    --close-button-bg: var(--listbox-filter-action-bg, transparent);
+    --close-button-bg-hover: var(--listbox-filter-action-bg-hover, var(--color-muted));
+    --close-button-color: var(--listbox-filter-icon-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(--listbox-filter-action-color-hover, var(--color-foreground));
+    --close-button-icon-size: var(--listbox-filter-icon-size, 1rem);
+    --close-button-transition: var(--listbox-transition, var(--transition-default));
   }
 
   .content {

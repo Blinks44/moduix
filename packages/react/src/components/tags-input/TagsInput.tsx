@@ -176,11 +176,11 @@ const TagsInputClearTrigger = forwardRef<
 ) {
   const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
 
-  if (asChild || children != null) {
+  if (asChild) {
     return (
       <TagsInputPrimitive.ClearTrigger
         ref={ref}
-        asChild={asChild}
+        asChild
         data-slot="tags-input-clear-trigger"
         className={triggerClassName}
         aria-label={ariaLabel}
@@ -203,7 +203,9 @@ const TagsInputClearTrigger = forwardRef<
       <CloseButton.Root
         aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear tags' : undefined)}
         aria-labelledby={ariaLabelledBy}
-      />
+      >
+        {children}
+      </CloseButton.Root>
     </TagsInputPrimitive.ClearTrigger>
   );
 });

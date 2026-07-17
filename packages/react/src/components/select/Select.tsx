@@ -12,13 +12,14 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
-import { CheckIcon, ChevronUpDownIcon, CloseIcon } from '@/lib/moduix/icons/ui';
+import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
+import { CloseButton } from '../close-button';
 import styles from './Select.module.css';
 
 type SelectNativeFormControl = 'select' | 'input';
@@ -153,15 +154,49 @@ const SelectValueText = forwardRef<
 const SelectClearTrigger = forwardRef<
   ComponentRef<typeof SelectPrimitive.ClearTrigger>,
   ComponentProps<typeof SelectPrimitive.ClearTrigger>
->(function SelectClearTrigger({ className, children, ...props }, ref) {
+>(function SelectClearTrigger(
+  {
+    asChild,
+    className,
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
+  const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
+
+  if (asChild) {
+    return (
+      <SelectPrimitive.ClearTrigger
+        ref={ref}
+        asChild
+        data-slot="select-clear-trigger"
+        className={triggerClassName}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        {...props}
+      >
+        {children}
+      </SelectPrimitive.ClearTrigger>
+    );
+  }
+
   return (
     <SelectPrimitive.ClearTrigger
       ref={ref}
+      asChild
       data-slot="select-clear-trigger"
-      className={clsx(styles.clearTrigger, normalizeClassName(className))}
+      className={triggerClassName}
       {...props}
     >
-      {children ?? <CloseIcon />}
+      <CloseButton.Root
+        aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear selection' : undefined)}
+        aria-labelledby={ariaLabelledBy}
+      >
+        {children}
+      </CloseButton.Root>
     </SelectPrimitive.ClearTrigger>
   );
 });

@@ -1,3 +1,4 @@
+import { ark } from '@ark-ui/react/factory';
 import {
   Listbox as ListboxPrimitive,
   type CollectionItem,
@@ -12,8 +13,9 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef } from 'react';
-import { CheckIcon, CloseIcon, SearchIcon } from '@/lib/moduix/icons/ui';
+import { CheckIcon, SearchIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { CloseButton } from '../close-button';
 import styles from './Listbox.module.css';
 
 const ListboxRoot = forwardRef(function ListboxRoot<T extends CollectionItem>(
@@ -91,16 +93,19 @@ const ListboxClearTrigger = forwardRef<HTMLButtonElement, ComponentProps<'button
     ref,
   ) {
     return (
-      <button
+      <ark.button
         ref={ref}
+        asChild
         data-slot="listbox-clear-trigger"
         type={type}
         aria-label={ariaLabel}
         className={clsx(styles.clearTrigger, normalizeClassName(className))}
         {...props}
       >
-        {children ?? <CloseIcon />}
-      </button>
+        <CloseButton.Root aria-label={ariaLabel} type={type}>
+          {children}
+        </CloseButton.Root>
+      </ark.button>
     );
   },
 );

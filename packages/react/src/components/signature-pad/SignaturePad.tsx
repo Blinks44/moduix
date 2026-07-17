@@ -8,6 +8,7 @@ import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'reac
 import { Children, cloneElement, forwardRef } from 'react';
 import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { CloseButton } from '../close-button';
 import styles from './SignaturePad.module.css';
 
 const SignaturePadRoot = forwardRef<
@@ -103,14 +104,47 @@ const SignaturePadGuide = forwardRef<
 const SignaturePadClearTrigger = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.ClearTrigger>,
   ComponentProps<typeof SignaturePadPrimitive.ClearTrigger>
->(function SignaturePadClearTrigger({ className, ...props }, ref) {
+>(function SignaturePadClearTrigger(
+  {
+    asChild,
+    className,
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
+  const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
+
+  if (asChild) {
+    return (
+      <SignaturePadPrimitive.ClearTrigger
+        ref={ref}
+        asChild
+        data-slot="signature-pad-clear-trigger"
+        className={triggerClassName}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        {...props}
+      >
+        {children}
+      </SignaturePadPrimitive.ClearTrigger>
+    );
+  }
+
   return (
     <SignaturePadPrimitive.ClearTrigger
       ref={ref}
+      asChild
       data-slot="signature-pad-clear-trigger"
-      className={clsx(styles.clearTrigger, normalizeClassName(className))}
+      className={triggerClassName}
       {...props}
-    />
+    >
+      <CloseButton.Root aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
+        {children ?? <RotateCcwIcon aria-hidden="true" />}
+      </CloseButton.Root>
+    </SignaturePadPrimitive.ClearTrigger>
   );
 });
 

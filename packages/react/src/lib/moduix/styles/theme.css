@@ -701,12 +701,6 @@
   --command-palette-clear-bg-hover: initial; /* var(--color-accent) */
   --command-palette-clear-radius: initial; /* var(--radius-md) */
   --command-palette-clear-size: initial; /* var(--size-sm) */
-  --command-palette-close-icon-bg: initial; /* transparent */
-  --command-palette-close-icon-color: initial; /* var(--command-palette-muted-color, var(--color-muted-foreground)) */
-  --command-palette-close-icon-glyph-size: initial; /* var(--command-palette-icon-size, 1rem) */
-  --command-palette-close-icon-radius: initial; /* var(--command-palette-clear-radius, var(--radius-md)) */
-  --command-palette-close-icon-size: initial; /* var(--command-palette-clear-size, var(--size-sm)) */
-  --command-palette-close-offset: initial; /* var(--spacing-3) */
   --command-palette-color: initial; /* var(--color-popover-foreground) */
   --command-palette-content-ending-opacity: initial; /* 0 */
   --command-palette-content-ending-scale: initial; /* var(--scale-popup) */
@@ -746,7 +740,6 @@
   --command-palette-group-label-padding-y: initial; /* var(--spacing-1) */
   --command-palette-group-padding-bottom: initial; /* var(--spacing-2) */
   --command-palette-header-gap: initial; /* var(--spacing-1) */
-  --command-palette-header-padding-inline-end: initial; /* calc(var(--command-palette-header-padding-x, var(--spacing-4)) + var(--command-palette-close-icon-size, var(--command-palette-clear-size, var(--size-sm))) + var(--spacing-3)) */
   --command-palette-header-padding-x: initial; /* var(--spacing-4) */
   --command-palette-header-padding-y: initial; /* var(--spacing-4) */
   --command-palette-highlight-bg: initial; /* var(--color-accent) */
@@ -2833,7 +2826,6 @@
   --tag-close-trigger-bg-hover: initial; /* color-mix(in oklab, currentColor 12%, transparent) */
   --tag-close-trigger-focus-ring-color: initial; /* var(--color-ring) */
   --tag-close-trigger-focus-ring-offset: initial; /* 0 */
-  --tag-close-trigger-focus-ring-offset-color: initial; /* transparent */
   --tag-close-trigger-focus-ring-width: initial; /* var(--border-width-sm) */
   --tag-close-trigger-icon-size: initial; /* 0.625rem */
   --tag-close-trigger-radius: initial; /* var(--radius-full) */

@@ -28,8 +28,8 @@ keyboard model, or callback details object to mirror.
 - `Tag` is the short root form and is equivalent to `Tag.Root`.
 - `Tag` accepts Ark factory `span` props plus `variant` and `size`.
 - `Tag.Label`, `Tag.StartElement`, and `Tag.EndElement` are Ark factory `span` parts.
-- `Tag.CloseTrigger` is an Ark factory `button` part with default `type="button"` and a default
-  close icon when not using `asChild`.
+- `Tag.CloseTrigger` composes the shared `CloseButton` while retaining the Tag data hooks, default
+  `type="button"`, and close icon when not using `asChild`.
 - The component owns no selected or removed state. Parent widgets own list mutation and event
   handling.
 
@@ -123,8 +123,9 @@ colors intentionally match `Badge` so shared variant names carry the same visual
 compact token components. Close-trigger variables use the `--tag-close-trigger-*` prefix. Consumers
 can style parts through `className`, `data-scope`, `data-part`, and `data-slot`.
 
-`Tag` writes `data-size` and `data-variant`. `Tag.CloseTrigger` writes `data-disabled` for disabled
-or `aria-disabled` states.
+`Tag` writes `data-size` and `data-variant`. `Tag.CloseTrigger` uses the shared `CloseButton` CSS
+contract behind the existing `--tag-close-trigger-*` variables and retains `data-disabled` for
+disabled or `aria-disabled` states.
 
 ## Intentional sugar and differences from upstream
 
@@ -132,7 +133,7 @@ or `aria-disabled` states.
   variants so the component matches the existing moduix token language.
 - moduix exposes explicit namespaced parts only. Flat `TagLabel` and `TagRemove` exports were removed.
 - `TagRemove` was renamed to `Tag.CloseTrigger` to match Chakra/Ark part naming.
-- `Tag.CloseTrigger` supplies the default close icon and fallback accessible name.
+- `Tag.CloseTrigger` supplies the shared `CloseButton` default close icon and fallback accessible name.
 - moduix no longer re-exports helper prop/type aliases; consumers rely on the component surface
   directly.
 
@@ -146,6 +147,8 @@ or `aria-disabled` states.
 
 ## Local changelog
 
+- 2026-07-17: Composed `Tag.CloseTrigger` with the shared `CloseButton` and mapped the existing
+  `--tag-close-trigger-*` styling contract to CloseButton variables without changing Tag anatomy.
 - 2026-07-11: Updated removable-tag examples to model parent-owned removal state and use specific
   close-trigger labels; documented `asChild` as the final advanced customization path.
 - 2026-07-03: Removed public `Tag*Props`, `TagVariant`, and `TagSize` type exports to keep the

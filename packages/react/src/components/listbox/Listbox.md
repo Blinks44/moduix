@@ -133,8 +133,8 @@ results should remain visually separate or need a custom wrapper.
   orientation-specific arrow keys.
 - `Listbox.Filter` is a visual wrapper only. It does not own input state or filtering, so its
   optional `Listbox.ClearTrigger` must reset the external query and call the collection filter.
-- `Listbox.ClearTrigger` is semantic button content and receives an accessible `Clear search` label
-  by default.
+- `Listbox.ClearTrigger` is semantic button content with an accessible `Clear search` label by
+  default. Its standard rendering uses `CloseButton`, while custom content remains supported.
 - Preserve Ark state attributes: `data-orientation`, `data-disabled`, `data-empty`,
   `data-activedescendant`, `data-layout`, item `data-value`, `data-selected`,
   `data-state="checked" | "unchecked"`, and `data-highlighted`.
@@ -150,7 +150,8 @@ results should remain visually separate or need a custom wrapper.
 - `Listbox.Filter` has a default search icon. When placed immediately before `Listbox.Content`, the
   content provides the visible boundary and divider between the input and results.
 - `Listbox.Filter` deliberately has no focus treatment. Its input keeps the base border but leaves
-  its outline transparent on `:focus-visible`; the clear button uses its focused background state.
+  its outline transparent on `:focus-visible`; the clear button uses the shared `CloseButton`
+  focus ring.
 - `Listbox.Content` has a `14rem` default max height and scrolls long lists without blocking page scroll
   chaining.
 - `Listbox.Input` is optional and only needed for filtering scenarios. Its default border matches
@@ -168,6 +169,8 @@ results should remain visually separate or need a custom wrapper.
 - `Listbox.Filter` and `Listbox.ClearTrigger` add search-field visuals only. `Listbox.Input` also
   remains available without `Filter` for custom layouts; both paths keep filtering state and
   collection updates explicit through the existing Ark input and collection APIs.
+- `Listbox.ClearTrigger` composes the shared `CloseButton` for its default icon, interaction, and
+  focus styling without taking ownership of the consumer-managed filter reset.
 - `ItemTextContent`, `ItemTextIcon`, and `ItemTextLabel` are local leaf helpers only; they do not
   replace Ark item composition.
 - No convenience wrapper hides Ark parts; consumers compose the content and items directly.
@@ -179,6 +182,9 @@ results should remain visually separate or need a custom wrapper.
 - When registry-shipped listbox source changes, run `npm run build:registry`.
 
 ## Local changelog
+
+- 2026-07-17: Composed the standard filter clear action with `CloseButton` and mapped existing
+  Listbox tokens to the shared button styling.
 
 - 2026-07-17: Added the unified `Listbox.Filter` and `Listbox.ClearTrigger` defaults, including
   search and clear icons, a filter/content divider, and styling tokens. Documented the direct

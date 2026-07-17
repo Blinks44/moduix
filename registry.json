@@ -470,7 +470,7 @@
       "title": "Combobox",
       "description": "moduix React Combobox component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "registryDependencies": ["Blinks44/moduix/react-core", "Blinks44/moduix/react-close-button"],
       "files": [
         {
           "path": "packages/react/src/components/combobox/Combobox.tsx",
@@ -600,7 +600,7 @@
       "title": "DatePicker",
       "description": "moduix React DatePicker component.",
       "dependencies": ["@ark-ui/react", "@internationalized/date", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "registryDependencies": ["Blinks44/moduix/react-core", "Blinks44/moduix/react-close-button"],
       "files": [
         {
           "path": "packages/react/src/components/date-picker/DatePicker.tsx",
@@ -775,7 +775,7 @@
       "title": "FileUpload",
       "description": "moduix React FileUpload component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "registryDependencies": ["Blinks44/moduix/react-core", "Blinks44/moduix/react-close-button"],
       "files": [
         {
           "path": "packages/react/src/components/file-upload/FileUpload.tsx",
@@ -1079,7 +1079,7 @@
       "title": "Listbox",
       "description": "moduix React Listbox component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "registryDependencies": ["Blinks44/moduix/react-core", "Blinks44/moduix/react-close-button"],
       "files": [
         {
           "path": "packages/react/src/components/listbox/Listbox.tsx",
@@ -1176,8 +1176,8 @@
     {
       "name": "react-native-select",
       "type": "registry:item",
-      "title": "NativeSelect",
-      "description": "moduix React NativeSelect component.",
+      "title": "Native Select",
+      "description": "moduix React Native Select component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/react-core"],
       "files": [
@@ -1401,8 +1401,8 @@
     {
       "name": "react-qr-code",
       "type": "registry:item",
-      "title": "QrCode",
-      "description": "moduix React QrCode component.",
+      "title": "QR Code",
+      "description": "moduix React QR Code component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/react-core"],
       "files": [
@@ -1526,10 +1526,10 @@
     {
       "name": "react-signature-pad",
       "type": "registry:item",
-      "title": "SignaturePad",
-      "description": "moduix React SignaturePad component.",
+      "title": "Signature Pad",
+      "description": "moduix React Signature Pad component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "registryDependencies": ["Blinks44/moduix/react-core", "Blinks44/moduix/react-close-button"],
       "files": [
         {
           "path": "packages/react/src/components/signature-pad/SignaturePad.tsx",
@@ -1554,7 +1554,7 @@
       "title": "Select",
       "description": "moduix React Select component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "registryDependencies": ["Blinks44/moduix/react-core", "Blinks44/moduix/react-close-button"],
       "files": [
         {
           "path": "packages/react/src/components/select/Select.tsx",
@@ -1601,8 +1601,8 @@
     {
       "name": "react-simple-grid",
       "type": "registry:item",
-      "title": "SimpleGrid",
-      "description": "moduix React SimpleGrid component.",
+      "title": "Simple Grid",
+      "description": "moduix React Simple Grid component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/react-core"],
       "files": [
@@ -1908,7 +1908,7 @@
       "title": "Tag",
       "description": "moduix React Tag component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/react-core"],
+      "registryDependencies": ["Blinks44/moduix/react-core", "Blinks44/moduix/react-close-button"],
       "files": [
         {
           "path": "packages/react/src/components/tag/Tag.tsx",

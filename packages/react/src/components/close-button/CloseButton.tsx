@@ -6,7 +6,12 @@ import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './CloseButton.module.css';
 
-type CloseButtonRootProps = HTMLArkProps<'button'>;
+type CloseButtonRootProps = HTMLArkProps<'button'> & {
+  'data-disabled'?: string;
+  'data-part'?: string;
+  'data-scope'?: string;
+  'data-slot'?: string;
+};
 
 const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonRootProps>(
   function CloseButtonRoot(
@@ -20,11 +25,16 @@ const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonR
       'aria-disabled': ariaDisabled,
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledBy,
+      'data-disabled': dataDisabled,
+      'data-part': dataPart,
+      'data-scope': dataScope,
+      'data-slot': dataSlot,
       ...props
     },
     ref,
   ) {
-    const isDisabled = disabled || ariaDisabled === true || ariaDisabled === 'true';
+    const isDisabled =
+      disabled || ariaDisabled === true || ariaDisabled === 'true' || dataDisabled !== undefined;
     const handleClick: CloseButtonRootProps['onClick'] = (event) => {
       if (isDisabled) {
         event.preventDefault();
@@ -42,10 +52,10 @@ const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonR
         {...props}
         type={asChild ? type : (type ?? 'button')}
         disabled={disabled}
-        data-scope="close-button"
-        data-part="root"
-        data-slot="close-button-root"
-        data-disabled={isDisabled ? '' : undefined}
+        data-scope={dataScope ?? 'close-button'}
+        data-part={dataPart ?? 'root'}
+        data-slot={dataSlot ?? 'close-button-root'}
+        data-disabled={dataDisabled ?? (isDisabled ? '' : undefined)}
         className={clsx(styles.root, normalizeClassName(className))}
         aria-disabled={ariaDisabled}
         aria-label={ariaLabel ?? (children == null && ariaLabelledBy == null ? 'Close' : undefined)}

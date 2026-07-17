@@ -77,50 +77,31 @@
     position: absolute;
     top: var(--signature-pad-clear-trigger-offset, var(--spacing-2));
     right: var(--signature-pad-clear-trigger-offset, var(--spacing-2));
-    box-sizing: border-box;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--signature-pad-clear-trigger-size, var(--size-md));
-    height: var(--signature-pad-clear-trigger-size, var(--size-md));
     border: var(--signature-pad-clear-trigger-border-width, 0) solid
       var(--signature-pad-clear-trigger-border-color, transparent);
-    border-radius: var(--signature-pad-clear-trigger-radius, var(--radius-sm));
-    background-color: var(--signature-pad-clear-trigger-bg, transparent);
-    color: var(--signature-pad-clear-trigger-color, var(--color-muted-foreground));
-    appearance: none;
-    font: inherit;
-    line-height: 0;
-    cursor: pointer;
-    transition:
-      background-color var(--signature-pad-transition, var(--transition-default)),
-      color var(--signature-pad-transition, var(--transition-default)),
-      opacity var(--signature-pad-transition, var(--transition-default)),
-      box-shadow var(--signature-pad-transition, var(--transition-default));
-  }
-
-  .clearTrigger :where(svg) {
-    width: var(--signature-pad-clear-trigger-icon-size, 1rem);
-    height: var(--signature-pad-clear-trigger-icon-size, 1rem);
-    flex-shrink: 0;
-  }
-
-  @media (hover: hover) {
-    .clearTrigger:hover:not(:disabled, [data-disabled]) {
-      background-color: var(--signature-pad-clear-trigger-bg-hover, var(--color-accent));
-      color: var(--signature-pad-clear-trigger-color-hover, var(--color-foreground));
-    }
-  }
-
-  .clearTrigger:focus-visible {
-    outline: var(--signature-pad-clear-trigger-focus-ring-width, var(--border-width-md)) solid
-      var(--signature-pad-clear-trigger-focus-ring-color, var(--color-ring));
-    outline-offset: var(--signature-pad-clear-trigger-focus-ring-offset, var(--spacing-1));
-  }
-
-  .clearTrigger:disabled,
-  .clearTrigger[data-disabled] {
-    pointer-events: none;
-    opacity: var(--signature-pad-disabled-opacity, var(--opacity-disabled));
+    --close-button-size: var(--signature-pad-clear-trigger-size, var(--size-md));
+    --close-button-radius: var(--signature-pad-clear-trigger-radius, var(--radius-sm));
+    --close-button-bg: var(--signature-pad-clear-trigger-bg, transparent);
+    --close-button-bg-hover: var(--signature-pad-clear-trigger-bg-hover, var(--color-accent));
+    --close-button-color: var(--signature-pad-clear-trigger-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(
+      --signature-pad-clear-trigger-color-hover,
+      var(--color-foreground)
+    );
+    --close-button-icon-size: var(--signature-pad-clear-trigger-icon-size, 1rem);
+    --close-button-transition: var(--signature-pad-transition, var(--transition-default));
+    --close-button-focus-ring-width: var(
+      --signature-pad-clear-trigger-focus-ring-width,
+      var(--border-width-md)
+    );
+    --close-button-focus-ring-color: var(
+      --signature-pad-clear-trigger-focus-ring-color,
+      var(--color-ring)
+    );
+    --close-button-focus-ring-offset: var(
+      --signature-pad-clear-trigger-focus-ring-offset,
+      var(--spacing-1)
+    );
+    --close-button-disabled-opacity: var(--signature-pad-disabled-opacity, var(--opacity-disabled));
   }
 }

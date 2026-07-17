@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "react-qr-code",
-  "title": "QrCode",
-  "description": "moduix React QrCode component.",
+  "title": "QR Code",
+  "description": "moduix React QR Code component.",
   "dependencies": ["@ark-ui/react", "clsx"],
   "registryDependencies": ["Blinks44/moduix/react-core"],
   "files": [

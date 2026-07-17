@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "react-native-select",
-  "title": "NativeSelect",
-  "description": "moduix React NativeSelect component.",
+  "title": "Native Select",
+  "description": "moduix React Native Select component.",
   "dependencies": ["@ark-ui/react", "clsx"],
   "registryDependencies": ["Blinks44/moduix/react-core"],
   "files": [

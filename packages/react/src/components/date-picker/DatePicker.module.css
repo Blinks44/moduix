@@ -142,7 +142,6 @@
   .trigger,
   .navTrigger,
   .viewTrigger,
-  .clearTrigger,
   .presetTrigger {
     box-sizing: border-box;
     display: inline-flex;
@@ -195,8 +194,7 @@
     }
   }
 
-  .trigger,
-  .clearTrigger {
+  .trigger {
     position: absolute;
     top: 50%;
     width: var(--date-picker-action-size, 1.5rem);
@@ -209,10 +207,38 @@
   }
 
   .clearTrigger {
+    --close-button-size: var(--date-picker-action-size, 1.5rem);
+    --close-button-icon-size: var(--date-picker-icon-size, 1rem);
+    --close-button-radius: var(--date-picker-action-radius, var(--radius-sm));
+    --close-button-bg: var(--date-picker-action-bg, transparent);
+    --close-button-bg-hover: var(--date-picker-action-bg-hover, var(--color-muted));
+    --close-button-color: var(--date-picker-icon-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(--date-picker-action-color-hover, var(--color-foreground));
+    --close-button-disabled-opacity: var(--date-picker-disabled-opacity, var(--opacity-disabled));
+    --close-button-focus-ring-width: var(
+      --date-picker-action-focus-ring-width,
+      var(--border-width-sm)
+    );
+    --close-button-focus-ring-color: var(--date-picker-focus-ring-color, var(--color-ring));
+    --close-button-focus-ring-offset: var(--date-picker-action-focus-ring-offset, 0);
+    --close-button-transition: var(--date-picker-transition, var(--transition-default));
+
+    position: absolute;
+    top: 50%;
     right: calc(
       var(--date-picker-trigger-offset-right, 0.5rem) + var(--date-picker-action-size, 1.5rem) +
         var(--date-picker-action-gap, 0.125rem)
     );
+    transform: translateY(-50%);
+
+    &[data-focus] {
+      outline: var(--close-button-focus-ring-width) solid var(--close-button-focus-ring-color);
+      outline-offset: var(--close-button-focus-ring-offset);
+    }
+
+    &[hidden] {
+      display: none;
+    }
   }
 
   .positioner {

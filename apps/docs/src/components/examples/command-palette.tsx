@@ -136,32 +136,6 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
     'Customizes command palette clear radius.',
   ],
   ['--command-palette-clear-size', 'var(--size-sm)', 'Customizes command palette clear size.'],
-  ['--command-palette-close-icon-bg', 'transparent', 'Customizes command palette close icon bg.'],
-  [
-    '--command-palette-close-icon-color',
-    'var(--command-palette-muted-color, var(--color-muted-foreground))',
-    'Customizes command palette close icon color.',
-  ],
-  [
-    '--command-palette-close-icon-glyph-size',
-    'var(--command-palette-icon-size, 1rem)',
-    'Customizes command palette close icon glyph size.',
-  ],
-  [
-    '--command-palette-close-icon-radius',
-    'var(--command-palette-clear-radius, var(--radius-md))',
-    'Customizes command palette close icon radius.',
-  ],
-  [
-    '--command-palette-close-icon-size',
-    'var(--command-palette-clear-size, var(--size-sm))',
-    'Customizes command palette close icon size.',
-  ],
-  [
-    '--command-palette-close-offset',
-    'var(--spacing-3)',
-    'Customizes command palette close offset.',
-  ],
   [
     '--command-palette-color',
     'var(--color-popover-foreground)',
@@ -341,11 +315,6 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
     'Customizes command palette group padding bottom.',
   ],
   ['--command-palette-header-gap', 'var(--spacing-1)', 'Customizes command palette header gap.'],
-  [
-    '--command-palette-header-padding-inline-end',
-    'calc(var(--command-palette-header-padding-x, var(--spacing-4)) + var(--command-palette-close-icon-size, var(--command-palette-clear-size, var(--size-sm))) + var(--spacing-3))',
-    'Customizes command palette header padding inline end.',
-  ],
   [
     '--command-palette-header-padding-x',
     'var(--spacing-4)',
@@ -867,7 +836,6 @@ export function AdvancedCommandPaletteExample() {
         <CommandPalette.Content className="commandPalette">
           <CommandPalette.Header>
             <CommandPalette.Title>Commands</CommandPalette.Title>
-            <CommandPalette.CloseIcon />
           </CommandPalette.Header>
           <CommandPalette.Body>
             <CommandPalette.Combobox

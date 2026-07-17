@@ -51,7 +51,6 @@ export function AdvancedCommandPalette() {
         <CommandPalette.Content className="commandPalette">
           <CommandPalette.Header>
             <CommandPalette.Title>Commands</CommandPalette.Title>
-            <CommandPalette.CloseIcon />
           </CommandPalette.Header>
           <CommandPalette.Body>
             <CommandPalette.Combobox

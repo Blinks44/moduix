@@ -1,4 +1,4 @@
-# QrCode
+# QR Code
 
 ## Upstream docs
 

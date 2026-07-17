@@ -34,8 +34,9 @@ explicit and independently styleable.
 - `Combobox.Context`, `useCombobox`, and `useComboboxContext` are exported by moduix. Import
   collection helpers from `@ark-ui/react/collection` and `useFilter` from `@ark-ui/react/locale`;
   Ark-only item hooks and type aliases remain advanced escape hatches.
-- `Combobox.Trigger`, `Combobox.ClearTrigger`, and `Combobox.ItemIndicator` provide default moduix
-  icons when children are omitted.
+- `Combobox.Trigger` and `Combobox.ItemIndicator` provide default moduix icons when children are
+  omitted. `Combobox.ClearTrigger` composes Ark clearing behavior with the shared
+  `CloseButton.Root` by default.
 - `Combobox.Option` is the recommended row helper for simple list options. It renders
   `Combobox.Item`, wraps its children in `Combobox.ItemText`, and includes `Combobox.ItemIndicator`.
   Pass `indicator={false}` to hide the indicator or `indicator={<Icon />}` to replace the default
@@ -174,6 +175,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 - The field keeps its focus ring while the popup is open. Hovering the input or trigger highlights
   the field surface; hovering `ClearTrigger` highlights only that action.
 - `className` is accepted on every visual part.
+- `Combobox.ClearTrigger` maps its component tokens to `CloseButton.Root`; use `asChild` with one
+  semantic child when the clear control needs a custom host or visual treatment.
 - `Combobox.Input asChild` preserves Ark input behavior without applying the default combobox input
   visual class to the child element.
 - Public component variables are declared in `packages/react/src/lib/moduix/styles/theme.css`.
@@ -183,7 +186,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 
 ## Intentional sugar and differences from upstream
 
-- moduix ships default icons for `Trigger`, `ClearTrigger`, and `ItemIndicator`.
+- moduix ships default icons for `Trigger` and `ItemIndicator`, and composes `ClearTrigger` with the
+  shared `CloseButton.Root` without nesting buttons.
 - moduix ships `Option` as row-level sugar for the common `Item`/`ItemText`/`ItemIndicator`
   composition. It keeps the same ref target as `Item`, but does not support `asChild` because it
   always renders the nested text and indicator parts. Its `indicator` prop only controls the nested
@@ -227,6 +231,8 @@ Common `shadcn` migration points:
 
 ## Local changelog
 
+- 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped combobox action
+  tokens to the shared close-button visual contract.
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-12: Exported `Combobox.Context`, `useCombobox`, and `useComboboxContext` from the moduix
   implementation so normal provider and context paths no longer require direct Ark imports.

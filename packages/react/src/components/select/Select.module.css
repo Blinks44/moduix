@@ -158,8 +158,7 @@
     transform: translateY(-50%);
   }
 
-  .indicator,
-  .clearTrigger {
+  .indicator {
     box-sizing: border-box;
     display: inline-flex;
     width: var(--select-action-size, 1.5rem);
@@ -200,16 +199,19 @@
   }
 
   .clearTrigger {
-    cursor: pointer;
+    --close-button-size: var(--select-action-size, 1.5rem);
+    --close-button-icon-size: var(--select-icon-size, 1rem);
+    --close-button-radius: var(--select-action-radius, var(--radius-sm));
+    --close-button-bg: var(--select-action-bg, transparent);
+    --close-button-bg-hover: var(--select-action-bg-hover, var(--color-muted));
+    --close-button-color: var(--select-icon-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(--select-action-color-hover, var(--color-foreground));
+    --close-button-transition: var(--select-transition, var(--transition-default));
+
     pointer-events: auto;
 
-    &:not(:is([disabled], [data-disabled])) {
-      @media (hover: hover) {
-        &:hover {
-          background-color: var(--select-action-bg-hover, var(--color-muted));
-          color: var(--select-action-color-hover, var(--color-foreground));
-        }
-      }
+    &[hidden] {
+      display: none;
     }
   }
 

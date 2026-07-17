@@ -10,7 +10,7 @@ import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef, useEffect } from 'react';
-import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
@@ -22,8 +22,6 @@ import { Kbd } from '../kbd';
 import { ScrollArea } from '../scroll-area';
 import styles from './CommandPalette.module.css';
 
-const DEFAULT_CLOSE_TRIGGER_LABEL = 'Close command palette';
-const DEFAULT_CLOSE_ICON_LABEL = 'Close command palette';
 const DEFAULT_CLEAR_TRIGGER_LABEL = 'Clear search';
 const DEFAULT_SEARCH_INPUT_LABEL = 'Search commands';
 
@@ -35,13 +33,9 @@ type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> & {
 type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
   OverlayPortalProps;
 
-type CommandPalettePanelProps = ComponentProps<typeof DialogPrimitive.Content> & {
-  showCloseIcon?: boolean;
-};
-
 type CommandPaletteSearchProps = ComponentProps<typeof ComboboxPrimitive.Input> & {
   controlProps?: ComponentProps<typeof ComboboxPrimitive.Control>;
-  clearTriggerProps?: ComponentProps<typeof ComboboxPrimitive.ClearTrigger>;
+  clearTriggerProps?: ComponentProps<typeof CloseButton.Root>;
 };
 
 function isShortcutMatch(event: KeyboardEvent, shortcut: string) {
@@ -234,14 +228,13 @@ const CommandPaletteContent = forwardRef<
 
 const CommandPalettePanel = forwardRef<
   ComponentRef<typeof DialogPrimitive.Content>,
-  CommandPalettePanelProps
->(function CommandPalettePanel({ children, showCloseIcon = false, ...props }, ref) {
+  ComponentProps<typeof DialogPrimitive.Content>
+>(function CommandPalettePanel({ children, ...props }, ref) {
   return (
     <>
       <CommandPaletteBackdrop />
       <CommandPalettePositioner>
         <CommandPaletteContent ref={ref} {...props}>
-          {showCloseIcon ? <CommandPaletteCloseIcon /> : null}
           <CommandPaletteBody>{children}</CommandPaletteBody>
         </CommandPaletteContent>
       </CommandPalettePositioner>
@@ -274,61 +267,6 @@ const CommandPaletteDescription = forwardRef<
       className={clsx(styles.description, normalizeClassName(className))}
       {...props}
     />
-  );
-});
-
-const CommandPaletteCloseTrigger = forwardRef<
-  ComponentRef<typeof DialogPrimitive.CloseTrigger>,
-  ComponentProps<typeof DialogPrimitive.CloseTrigger>
->(function CommandPaletteCloseTrigger(
-  {
-    asChild,
-    className,
-    children,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
-    ...props
-  },
-  ref,
-) {
-  return (
-    <DialogPrimitive.CloseTrigger
-      ref={ref}
-      asChild={asChild}
-      data-slot="command-palette-close-trigger"
-      aria-label={
-        ariaLabel ??
-        (!asChild && children == null && ariaLabelledBy == null
-          ? DEFAULT_CLOSE_TRIGGER_LABEL
-          : undefined)
-      }
-      aria-labelledby={ariaLabelledBy}
-      className={clsx(!asChild && styles.closeTrigger, normalizeClassName(className))}
-      {...props}
-    >
-      {children ?? (!asChild ? <CloseIcon className={styles.iconSvg} /> : undefined)}
-    </DialogPrimitive.CloseTrigger>
-  );
-});
-
-const CommandPaletteCloseIcon = forwardRef<
-  ComponentRef<typeof CloseButton.Root>,
-  Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>
->(function CommandPaletteCloseIcon(
-  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_ICON_LABEL, ...props },
-  ref,
-) {
-  return (
-    <DialogPrimitive.CloseTrigger asChild {...props}>
-      <CloseButton.Root
-        ref={ref}
-        data-slot="command-palette-close-icon"
-        aria-label={ariaLabel}
-        className={clsx(styles.closeIcon, normalizeClassName(className))}
-      >
-        {children}
-      </CloseButton.Root>
-    </DialogPrimitive.CloseTrigger>
   );
 });
 
@@ -451,13 +389,18 @@ const CommandPaletteSearch = forwardRef<
 });
 
 const CommandPaletteClearTrigger = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.ClearTrigger>,
-  ComponentProps<typeof ComboboxPrimitive.ClearTrigger>
+  ComponentRef<typeof CloseButton.Root>,
+  ComponentProps<typeof CloseButton.Root>
 >(function CommandPaletteClearTrigger(
   {
     asChild,
     className,
     children,
+    disabled,
+    onClick,
+    onPointerDown,
+    tabIndex,
+    'aria-controls': ariaControls,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledBy,
     ...props
@@ -465,22 +408,53 @@ const CommandPaletteClearTrigger = forwardRef<
   ref,
 ) {
   return (
-    <ComboboxPrimitive.ClearTrigger
-      ref={ref}
-      asChild={asChild}
-      data-slot="command-palette-clear-trigger"
-      aria-label={
-        ariaLabel ??
-        (!asChild && children == null && ariaLabelledBy == null
-          ? DEFAULT_CLEAR_TRIGGER_LABEL
-          : undefined)
-      }
-      aria-labelledby={ariaLabelledBy}
-      className={clsx(!asChild && styles.clearTrigger, normalizeClassName(className))}
-      {...props}
-    >
-      {children ?? (!asChild ? <CloseIcon className={styles.iconSvg} /> : undefined)}
-    </ComboboxPrimitive.ClearTrigger>
+    <ComboboxPrimitive.Context>
+      {(combobox) => {
+        const inputProps = combobox.getInputProps();
+        const isInvalid =
+          inputProps['aria-invalid'] === true || inputProps['aria-invalid'] === 'true';
+
+        return (
+          <CloseButton.Root
+            ref={ref}
+            asChild={asChild}
+            {...props}
+            disabled={disabled ?? combobox.disabled}
+            data-scope="combobox"
+            data-part="clear-trigger"
+            data-slot="command-palette-clear-trigger"
+            data-invalid={isInvalid ? '' : undefined}
+            hidden={combobox.inputValue.length === 0}
+            tabIndex={tabIndex ?? -1}
+            aria-controls={ariaControls ?? inputProps.id}
+            aria-label={
+              ariaLabel ??
+              (!asChild && children == null && ariaLabelledBy == null
+                ? DEFAULT_CLEAR_TRIGGER_LABEL
+                : undefined)
+            }
+            aria-labelledby={ariaLabelledBy}
+            className={clsx(styles.clearTrigger, normalizeClassName(className))}
+            onPointerDown={(event) => {
+              onPointerDown?.(event);
+
+              if (event.button === 0) {
+                event.preventDefault();
+              }
+            }}
+            onClick={(event) => {
+              onClick?.(event);
+
+              if (!event.defaultPrevented) {
+                combobox.setInputValue('');
+              }
+            }}
+          >
+            {children}
+          </CloseButton.Root>
+        );
+      }}
+    </ComboboxPrimitive.Context>
   );
 });
 
@@ -701,8 +675,6 @@ const CommandPalette = Object.assign(CommandPaletteRoot, {
   Panel: CommandPalettePanel,
   Title: CommandPaletteTitle,
   Description: CommandPaletteDescription,
-  CloseTrigger: CommandPaletteCloseTrigger,
-  CloseIcon: CommandPaletteCloseIcon,
   Header: CommandPaletteHeader,
   Body: CommandPaletteBody,
   Combobox: CommandPaletteCombobox,

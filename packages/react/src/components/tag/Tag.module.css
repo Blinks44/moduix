@@ -85,55 +85,23 @@
   }
 
   .closeTrigger {
-    display: inline-flex;
-    width: var(--tag-close-trigger-size, 1rem);
-    height: var(--tag-close-trigger-size, 1rem);
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    border: 0;
-    border-radius: var(--tag-close-trigger-radius, var(--radius-full));
-    padding: 0;
-    background-color: var(--tag-close-trigger-bg, transparent);
-    color: inherit;
-    cursor: pointer;
-    transition:
-      color var(--tag-transition, var(--transition-default)),
-      background-color var(--tag-transition, var(--transition-default)),
-      box-shadow var(--tag-transition, var(--transition-default));
-
-    > svg {
-      width: var(--tag-close-trigger-icon-size, 0.625rem);
-      height: var(--tag-close-trigger-icon-size, 0.625rem);
-      flex-shrink: 0;
-      pointer-events: none;
-    }
-
-    &:hover {
-      background-color: var(
-        --tag-close-trigger-bg-hover,
-        color-mix(in oklab, currentColor 12%, transparent)
-      );
-    }
-
-    &:focus-visible {
-      outline: none;
-      box-shadow:
-        0 0 0 var(--tag-close-trigger-focus-ring-offset, 0)
-          var(--tag-close-trigger-focus-ring-offset-color, transparent),
-        0 0 0
-          calc(
-            var(--tag-close-trigger-focus-ring-width, var(--border-width-sm)) +
-              var(--tag-close-trigger-focus-ring-offset, 0)
-          )
-          var(--tag-close-trigger-focus-ring-color, var(--color-ring));
-    }
-
-    &[disabled],
-    &[data-disabled] {
-      cursor: default;
-      opacity: var(--tag-disabled-opacity, var(--opacity-disabled));
-      pointer-events: none;
-    }
+    --close-button-size: var(--tag-close-trigger-size, 1rem);
+    --close-button-radius: var(--tag-close-trigger-radius, var(--radius-full));
+    --close-button-icon-size: var(--tag-close-trigger-icon-size, 0.625rem);
+    --close-button-bg: var(--tag-close-trigger-bg, transparent);
+    --close-button-bg-hover: var(
+      --tag-close-trigger-bg-hover,
+      color-mix(in oklab, currentColor 12%, transparent)
+    );
+    --close-button-color: inherit;
+    --close-button-color-hover: inherit;
+    --close-button-disabled-opacity: var(--tag-disabled-opacity, var(--opacity-disabled));
+    --close-button-focus-ring-width: var(
+      --tag-close-trigger-focus-ring-width,
+      var(--border-width-sm)
+    );
+    --close-button-focus-ring-color: var(--tag-close-trigger-focus-ring-color, var(--color-ring));
+    --close-button-focus-ring-offset: var(--tag-close-trigger-focus-ring-offset, 0);
+    --close-button-transition: var(--tag-transition, var(--transition-default));
   }
 }

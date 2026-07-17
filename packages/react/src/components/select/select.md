@@ -28,8 +28,9 @@ explicit popup composition, native form behavior, and `RootProvider` / context h
 - Consumers must pass a `collection`; items render with `Select.Item item={item}`.
 - `value` and `defaultValue` are string arrays, including single selection.
 - `onValueChange(details)` exposes Ark `details.value` and `details.items`.
-- `Select.ClearTrigger`, `Select.Indicator`, and `Select.ItemIndicator` render moduix default icons
-  when children are omitted.
+- `Select.Indicator` and `Select.ItemIndicator` render moduix default icons when children are
+  omitted. `Select.ClearTrigger` composes Ark clearing behavior with the shared
+  `CloseButton.Root` by default.
 - `Select.Indicators` is a moduix layout helper that matches Ark's recommended plain wrapper
   around `ClearTrigger` and `Indicator`.
 - When `Select.ClearTrigger` is omitted or hidden, the trigger automatically reduces its end
@@ -77,7 +78,7 @@ Select / Select.Root
 | `Select.Field`           | `select-control`           | Moduix standard-control helper.     |
 | `Select.Trigger`         | `select-trigger`           | Ark trigger button.                 |
 | `Select.ValueText`       | `select-value-text`        | Placeholder or selected label text. |
-| `Select.ClearTrigger`    | `select-clear-trigger`     | Default `CloseIcon`.                |
+| `Select.ClearTrigger`    | `select-clear-trigger`     | Ark clear behavior + `CloseButton`. |
 | `Select.Indicator`       | `select-indicator`         | Default chevron icon.               |
 | `Select.Indicators`      | `select-indicators`        | Moduix icon layout helper.          |
 | `Select.Positioner`      | `select-positioner`        | Floating layer and CSS variables.   |
@@ -162,6 +163,8 @@ export function SelectDemo() {
 - `Select.Control` owns Ark state attributes; `Select.Trigger` renders the visible field chrome.
 - The trigger keeps its focus ring while the popup is open. Hovering the trigger highlights the
   field surface; hovering `ClearTrigger` highlights only that action.
+- `Select.ClearTrigger` maps select action tokens to `CloseButton.Root`; use `asChild` with one
+  semantic child when the clear control needs a custom host or visual treatment.
 - `Select.Content` uses Ark `--reference-width`, `--available-width`, `--available-height`, and
   `--transform-origin`.
 - Open/closed animation is tied to Ark `data-state` attributes.
@@ -171,7 +174,8 @@ export function SelectDemo() {
 
 ## Intentional sugar and differences from upstream
 
-- Default icons are added for clear trigger, indicator, and item indicator.
+- Default icons are added for indicator and item indicator. `ClearTrigger` uses the shared
+  `CloseButton.Root` without nesting buttons.
 - `Field` is a narrow standard-control helper; `indicator` replaces only the default chevron, while popup positioning, content, and items stay explicit.
 - `ItemTextContent`, `ItemTextIcon`, and `ItemTextLabel` are local leaf helpers only; they do not
   replace Ark item composition.
@@ -191,6 +195,8 @@ export function SelectDemo() {
 
 ## Local changelog
 
+- 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped select action
+  tokens to the shared close-button visual contract.
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-13: Rendered native select form controls automatically and added
   `nativeFormControl="input"` for virtualized collections.
