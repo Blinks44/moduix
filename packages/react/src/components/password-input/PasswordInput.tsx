@@ -1,9 +1,9 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   PasswordInput as PasswordInputPrimitive,
   usePasswordInput,
 } from '@ark-ui/react/password-input';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

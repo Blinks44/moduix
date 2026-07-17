@@ -1,5 +1,5 @@
-import type { ComponentProps } from 'react';
 import { List } from '@moduix/react';
+import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
 import { CSSPropertiesReferenceTable } from '../preview';
 

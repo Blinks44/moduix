@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import { Swap as SwapPrimitive, useSwap, useSwapContext } from '@ark-ui/react/swap';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Swap.module.css';

@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import { Popover as PopoverPrimitive, usePopover } from '@ark-ui/react/popover';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {

@@ -1,7 +1,7 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
-import type { ComponentRef, CSSProperties, Ref } from 'react';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
+import type { ComponentRef, CSSProperties, Ref } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Text.module.css';

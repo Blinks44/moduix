@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef, RefObject } from 'react';
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, RefObject } from 'react';
 import { forwardRef, useEffect } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {

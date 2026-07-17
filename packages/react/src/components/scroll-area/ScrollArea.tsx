@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import { ScrollArea as ScrollAreaPrimitive, useScrollArea } from '@ark-ui/react/scroll-area';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './ScrollArea.module.css';

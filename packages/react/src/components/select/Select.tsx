@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef, ForwardedRef, ReactElement, ReactNode } from 'react';
 import {
   Select as SelectPrimitive,
   type CollectionItem,
@@ -11,6 +10,7 @@ import {
   useSelectItemContext,
 } from '@ark-ui/react/select';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ForwardedRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { CheckIcon, ChevronUpDownIcon, CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

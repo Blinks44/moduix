@@ -1,9 +1,9 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   Marquee as MarqueePrimitive,
   useMarquee as useMarqueePrimitive,
 } from '@ark-ui/react/marquee';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Marquee.module.css';

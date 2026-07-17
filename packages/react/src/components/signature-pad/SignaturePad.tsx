@@ -1,10 +1,10 @@
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   SignaturePad as SignaturePadPrimitive,
   useSignaturePad,
   useSignaturePadContext,
 } from '@ark-ui/react/signature-pad';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

@@ -1,6 +1,6 @@
+import { createListCollection } from '@ark-ui/react/collection';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
-import { createListCollection } from '@ark-ui/react/collection';
 import { useState } from 'react';
 import { InfoIcon } from '@/icons/demo';
 import { Select } from './Select';

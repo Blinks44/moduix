@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   useDatePicker,
   useDatePickerContext,
@@ -6,6 +5,7 @@ import {
 } from '@ark-ui/react/date-picker';
 import { DatePicker as DatePickerPrimitive } from '@ark-ui/react/date-picker';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import {
   CalendarIcon,

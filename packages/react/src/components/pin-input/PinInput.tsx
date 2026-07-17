@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   PinInput as PinInputPrimitive,
   usePinInput as usePinInputPrimitive,
@@ -6,6 +5,7 @@ import {
   type UsePinInputProps,
 } from '@ark-ui/react/pin-input';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

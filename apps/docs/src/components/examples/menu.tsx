@@ -1,6 +1,6 @@
-import type { ComponentProps, ReactNode } from 'react';
 import { Button, Dialog, Menu, useMenu } from '@moduix/react';
 import { Info as InfoIcon, Map as MapIcon } from 'lucide-react';
+import type { ComponentProps, ReactNode } from 'react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

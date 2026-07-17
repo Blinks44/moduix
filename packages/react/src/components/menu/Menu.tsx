@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import { Menu as MenuPrimitive, useMenu } from '@ark-ui/react/menu';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

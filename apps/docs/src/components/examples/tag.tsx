@@ -1,5 +1,5 @@
-import type { ComponentProps } from 'react';
 import { CheckIcon, Tag } from '@moduix/react';
+import type { ComponentProps } from 'react';
 import { useState } from 'react';
 import type { CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

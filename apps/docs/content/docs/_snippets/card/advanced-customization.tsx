@@ -1,6 +1,6 @@
+import { Card } from '@moduix/react';
 //#region demo
 import type { CSSProperties } from 'react';
-import { Card } from '@moduix/react';
 
 export function CardAdvancedCustomizationDemo() {
   return (

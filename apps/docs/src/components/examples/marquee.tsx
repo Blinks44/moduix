@@ -1,5 +1,5 @@
-import type { ComponentProps } from 'react';
 import { Button, Marquee, useMarquee } from '@moduix/react';
+import type { ComponentProps } from 'react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useRef, useState } from 'react';
-import type { LightboxImageSelectDetails } from './Lightbox';
 import { Carousel } from '../carousel';
+import type { LightboxImageSelectDetails } from './Lightbox';
 import { Lightbox, useLightbox, useLightboxContext } from './Lightbox';
 import styles from './Lightbox.stories.module.css';
 

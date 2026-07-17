@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import { CalendarDate, CalendarDateTime, today } from '@internationalized/date';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Field } from '../field';
 import { DateInput, type DateInputDateValue, useDateInput } from './DateInput';

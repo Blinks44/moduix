@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import { Tabs as TabsPrimitive, useTabs } from '@ark-ui/react/tabs';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Tabs.module.css';

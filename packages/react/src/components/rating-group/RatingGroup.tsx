@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   RatingGroup as RatingGroupPrimitive,
   useRatingGroup,
@@ -6,6 +5,7 @@ import {
   useRatingGroupItemContext,
 } from '@ark-ui/react/rating-group';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { RatingStarIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

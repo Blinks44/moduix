@@ -1,6 +1,6 @@
-import type { ComponentProps } from 'react';
 //#region demo
 import { Breadcrumbs, SeparatorMarkIcon } from '@moduix/react';
+import type { ComponentProps } from 'react';
 
 const separatorIconStyle = {
   width: '0.75rem',

@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import { Fieldset as FieldsetPrimitive, useFieldset } from '@ark-ui/react/fieldset';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Fieldset.module.css';

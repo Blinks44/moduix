@@ -1,6 +1,5 @@
-import type { ToastOptions } from '@ark-ui/react/toast';
-import type { ComponentProps, ComponentRef } from 'react';
 import { Portal } from '@ark-ui/react/portal';
+import type { ToastOptions } from '@ark-ui/react/toast';
 import {
   Toast as ToastPrimitive,
   Toaster as ToasterPrimitive,
@@ -8,9 +7,10 @@ import {
   useToastContext,
 } from '@ark-ui/react/toast';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import type { OverlayPortalProps } from '@/lib/moduix/overlayPortal';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import type { OverlayPortalProps } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Toast.module.css';
 

@@ -1,5 +1,5 @@
-import type { ComponentProps } from 'react';
 import { Button, ScrollArea } from '@moduix/react';
+import type { ComponentProps } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

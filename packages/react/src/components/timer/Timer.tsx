@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { Timer as TimerPrimitive, useTimer, useTimerContext } from '@ark-ui/react/timer';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { Fragment, forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Timer.module.css';

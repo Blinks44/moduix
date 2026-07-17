@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import {
   TreeView as TreeViewPrimitive,
   createFileTreeCollection,
@@ -14,6 +13,7 @@ import {
   useTreeViewNodeContext,
 } from '@ark-ui/react/tree-view';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon, ChevronRightIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

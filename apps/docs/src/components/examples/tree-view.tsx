@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import {
   Button,
   FileIcon,
@@ -12,6 +11,7 @@ import {
   useTreeView,
   useTreeViewNodeContext,
 } from '@moduix/react';
+import type { ReactNode } from 'react';
 import { useMemo, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

@@ -1,9 +1,9 @@
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   SegmentGroup as SegmentGroupPrimitive,
   useSegmentGroup,
 } from '@ark-ui/react/segment-group';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './SegmentGroup.module.css';

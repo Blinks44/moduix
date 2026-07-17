@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef, ForwardedRef, ReactNode } from 'react';
 import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
@@ -10,6 +9,7 @@ import {
   useComboboxContext,
 } from '@ark-ui/react/combobox';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ForwardedRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon, ChevronUpDownIcon, CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

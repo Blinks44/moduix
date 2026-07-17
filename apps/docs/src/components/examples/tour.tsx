@@ -1,6 +1,6 @@
 import type { TourStepDetails, UseTourReturn } from '@ark-ui/react/tour';
-import type { ReactNode } from 'react';
 import { Button, Tour, useTour, waitForElement, waitForEvent, waitForPromise } from '@moduix/react';
+import type { ReactNode } from 'react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

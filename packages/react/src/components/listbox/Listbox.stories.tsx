@@ -1,10 +1,10 @@
 import type { ListCollection } from '@ark-ui/react/collection';
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   createGridCollection,
   createListCollection,
   useListCollection,
 } from '@ark-ui/react/collection';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Listbox, useListbox } from './Listbox';
 import styles from './Listbox.stories.module.css';

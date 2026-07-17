@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import type { ComponentProps } from 'react';
 import { List } from '@moduix/react';
+import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
 
 const AccentListItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(function AccentListItem(

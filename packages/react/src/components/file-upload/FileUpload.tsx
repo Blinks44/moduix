@@ -1,10 +1,10 @@
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   FileUpload as FileUploadPrimitive,
   useFileUpload,
   useFileUploadContext,
 } from '@ark-ui/react/file-upload';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { CloseIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

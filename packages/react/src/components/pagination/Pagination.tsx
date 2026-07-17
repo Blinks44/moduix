@@ -1,10 +1,10 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   Pagination as PaginationPrimitive,
   usePagination,
   usePaginationContext,
 } from '@ark-ui/react/pagination';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

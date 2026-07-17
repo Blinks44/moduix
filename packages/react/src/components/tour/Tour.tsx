@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   Tour as TourPrimitive,
   useTour,
@@ -8,6 +7,7 @@ import {
   waitForPromise,
 } from '@ark-ui/react/tour';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {

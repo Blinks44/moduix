@@ -1,8 +1,8 @@
-import type { HTMLArkProps } from '@ark-ui/react/factory';
-import type { ComponentProps, ComponentRef } from 'react';
 import { Accordion as AccordionPrimitive, useAccordion } from '@ark-ui/react/accordion';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

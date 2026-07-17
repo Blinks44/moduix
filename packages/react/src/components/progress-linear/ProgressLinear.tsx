@@ -1,10 +1,10 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   Progress as ProgressPrimitive,
   useProgress,
   useProgressContext,
 } from '@ark-ui/react/progress';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './ProgressLinear.module.css';

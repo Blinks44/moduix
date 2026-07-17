@@ -1,5 +1,5 @@
-import type { ComponentProps } from 'react';
 import { Badge, Button, Card, Input } from '@moduix/react';
+import type { ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './card.module.css';

@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   FloatingPanel as FloatingPanelPrimitive,
   useFloatingPanel,
@@ -6,6 +5,7 @@ import {
   type FloatingPanelResizeTriggerAxis,
 } from '@ark-ui/react/floating-panel';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { GripIcon, MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

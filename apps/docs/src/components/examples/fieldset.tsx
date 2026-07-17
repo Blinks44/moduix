@@ -1,6 +1,6 @@
-import type { ComponentProps } from 'react';
 import { createListCollection } from '@ark-ui/react/collection';
 import { Checkbox, Field, Fieldset, Select, useFieldset } from '@moduix/react';
+import type { ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './fieldset.module.css';

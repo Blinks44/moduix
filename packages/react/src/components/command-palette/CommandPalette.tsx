@@ -1,5 +1,3 @@
-import type { HTMLArkProps } from '@ark-ui/react/factory';
-import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
@@ -7,8 +5,10 @@ import {
   type ComboboxRootProps,
 } from '@ark-ui/react/combobox';
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef, useEffect } from 'react';
 import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

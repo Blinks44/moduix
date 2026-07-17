@@ -1,5 +1,5 @@
-import type { ComponentProps } from 'react';
 import { Field, PasswordInput, usePasswordInput } from '@moduix/react';
+import type { ComponentProps } from 'react';
 import { useState } from 'react';
 import { CSSPropertiesReferenceTable, type CssProperty } from '../preview';
 

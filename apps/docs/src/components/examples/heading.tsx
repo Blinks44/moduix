@@ -1,5 +1,5 @@
-import type { ComponentProps } from 'react';
 import { Heading } from '@moduix/react';
+import type { ComponentProps } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './heading.module.css';

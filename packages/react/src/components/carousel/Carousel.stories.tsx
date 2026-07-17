@@ -1,6 +1,6 @@
+import { useCarousel } from '@ark-ui/react/carousel';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
-import { useCarousel } from '@ark-ui/react/carousel';
 import { useState } from 'react';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';

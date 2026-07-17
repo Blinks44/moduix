@@ -1,5 +1,4 @@
 import type { SplitterPanelData } from '@ark-ui/react/splitter';
-import type { ComponentProps, ComponentRef, CSSProperties } from 'react';
 import {
   createSplitterRegistry,
   Splitter as SplitterPrimitive,
@@ -7,6 +6,7 @@ import {
   useSplitterContext,
 } from '@ark-ui/react/splitter';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, CSSProperties } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Splitter.module.css';

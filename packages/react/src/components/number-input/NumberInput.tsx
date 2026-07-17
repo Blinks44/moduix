@@ -1,10 +1,10 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   NumberInput as NumberInputPrimitive,
   useNumberInput,
   useNumberInputContext,
 } from '@ark-ui/react/number-input';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

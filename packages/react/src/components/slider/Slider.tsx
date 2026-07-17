@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Slider as SliderPrimitive, useSlider, useSliderContext } from '@ark-ui/react/slider';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Slider.module.css';

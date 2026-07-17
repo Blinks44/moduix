@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   ColorPicker as ColorPickerPrimitive,
   parseColor,
@@ -6,6 +5,7 @@ import {
   useColorPickerContext,
 } from '@ark-ui/react/color-picker';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { CheckIcon, PipetteIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

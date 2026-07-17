@@ -1,10 +1,10 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   ToggleGroup as ToggleGroupPrimitive,
   useToggleGroup,
   useToggleGroupContext,
 } from '@ark-ui/react/toggle-group';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { createContext, forwardRef, useContext } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import toggleStyles from '../toggle/Toggle.module.css';

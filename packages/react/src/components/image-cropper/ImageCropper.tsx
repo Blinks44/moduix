@@ -1,9 +1,9 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   ImageCropper as ImageCropperPrimitive,
   useImageCropper,
 } from '@ark-ui/react/image-cropper';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './ImageCropper.module.css';

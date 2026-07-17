@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import {
   Listbox as ListboxPrimitive,
   type CollectionItem,
@@ -11,6 +10,7 @@ import {
   useListboxItemContext,
 } from '@ark-ui/react/listbox';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

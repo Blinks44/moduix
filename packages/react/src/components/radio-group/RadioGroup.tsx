@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { RadioGroup as RadioGroupPrimitive, useRadioGroup } from '@ark-ui/react/radio-group';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './RadioGroup.module.css';

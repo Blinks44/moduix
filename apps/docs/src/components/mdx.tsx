@@ -1,7 +1,7 @@
-import type { MDXComponents } from 'mdx/types';
 import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock.core';
 import * as TabsComponents from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
+import type { MDXComponents } from 'mdx/types';
 import * as React from 'react';
 import { docsShikiOptions, getDocsShikiHighlighter } from '@/lib/shiki';
 import {

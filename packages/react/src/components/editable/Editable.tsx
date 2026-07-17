@@ -1,10 +1,10 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   Editable as EditablePrimitive,
   useEditable,
   useEditableContext,
 } from '@ark-ui/react/editable';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon, CloseIcon, PencilIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

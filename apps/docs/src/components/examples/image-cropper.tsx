@@ -1,4 +1,3 @@
-import type { ComponentProps } from 'react';
 import {
   Button,
   FlipHorizontalIcon,
@@ -10,6 +9,7 @@ import {
   ZoomOutIcon,
   useImageCropper,
 } from '@moduix/react';
+import type { ComponentProps } from 'react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';

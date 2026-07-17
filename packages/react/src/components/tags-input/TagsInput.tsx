@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   TagsInput as TagsInputPrimitive,
   useTagsInput,
@@ -6,6 +5,7 @@ import {
   useTagsInputItemContext,
 } from '@ark-ui/react/tags-input';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';

@@ -1,9 +1,9 @@
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import {
   AngleSlider as AngleSliderPrimitive,
   useAngleSlider as useAngleSliderPrimitive,
 } from '@ark-ui/react/angle-slider';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './AngleSlider.module.css';

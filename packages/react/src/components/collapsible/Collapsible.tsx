@@ -1,7 +1,7 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import { Collapsible as CollapsiblePrimitive, useCollapsible } from '@ark-ui/react/collapsible';
 import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
