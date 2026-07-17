@@ -35,10 +35,10 @@
     "turbo": "^2.10.0"
   },
   "engines": {
-    "node": "24.x",
-    "npm": "11.16.x"
+    "node": ">=24",
+    "npm": ">=11"
   },
-  "packageManager": "npm@11.16.0",
+  "packageManager": "npm@11.0.0",
   "allowScripts": {
     "esbuild": true,
     "fsevents": true,
