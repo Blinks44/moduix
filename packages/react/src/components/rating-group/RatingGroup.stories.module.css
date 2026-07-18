@@ -18,6 +18,7 @@
     --rating-group-active-color: #f59e0b;
     --rating-group-color: color-mix(in srgb, #f59e0b 35%, var(--color-muted-foreground));
     --rating-group-focus-ring-color: #f59e0b;
+    --rating-group-focus-ring-width: var(--border-width-sm);
     --rating-group-gap: var(--spacing-2);
   }
 
