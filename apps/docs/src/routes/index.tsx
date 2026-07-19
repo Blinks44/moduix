@@ -53,13 +53,7 @@ function Home() {
                 Open documentation
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
-              <Link
-                to="/docs/$"
-                params={{
-                  _splat: 'accordion',
-                }}
-                className={styles.secondary}
-              >
+              <Link to="/docs/components" className={styles.secondary}>
                 Components
                 <Component size={18} aria-hidden="true" />
               </Link>

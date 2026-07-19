@@ -2,6 +2,7 @@
   "pages": [
     "---Overview---",
     "index",
+    "components",
     "external:[Sparkles][llms.txt](/llms.txt)",
     "quick-start",
     "tokens",
